@@ -1,0 +1,86 @@
+﻿//
+//  RTInfo.cs
+//
+//  This file is part of MCART
+//
+//  Author:
+//       César Andrés Morgan <xds_xps_ivx@hotmail.com>
+//
+//  Copyright (c) 2011 - 2017 César Andrés Morgan
+//
+//  MCART is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  MCART is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+using System;
+using System.Reflection;
+using St = MCART.Resources.Strings;
+using MCART.Attributes;
+namespace MCART.Resources
+{
+    /// <summary>
+    /// Contiene métodos con funciones de identificación en información del 
+    /// ensamblado de MCART.
+    /// </summary>
+    public static class RTInfo
+    {
+        private static bool? RTS(object obj)
+        {
+            var minv = obj.GetAttr<MinMCARTVersionAttribute>();
+            var tgtv = obj.GetAttr<TargetMCARTVersionAttribute>();
+            if (minv.IsNull() || tgtv.IsNull()) return null;
+            Version vr = RTAssembly.GetName().Version;
+            return vr >= minv.Value && vr <= tgtv.Value;
+        }
+        /// <summary>
+        /// Obtiene la versión del ensamblado de MCART.
+        /// </summary>
+        /// <returns></returns>
+        public static Version RTVersion => RTAssembly.GetName().Version;
+        /// <summary>
+        /// Obtiene la referencia del ensamblado de MCART
+        /// </summary>
+        /// <returns>The ssembly.</returns>
+        public static Assembly RTAssembly => Assembly.GetExecutingAssembly();
+        /// <summary>
+        /// Comprueba si el ensamblado es compatible con esta versión de MCART
+        /// </summary>
+        /// <returns>
+        /// <c>true</c> si el ensamblado es compatible con esta versión de
+        /// MCART, <c>false</c> si no lo es, y <c>null</c> si no se ha podido
+        /// determinar la compatibilidad.
+        /// </returns>
+        /// <param name="asmbly">Ensamblado a comprobar.</param>
+        public static bool? RTSupport(Assembly asmbly) => RTS(asmbly);
+        /// <summary>
+        /// Comprueba si el plugin es compatible con esta versión de MCART
+        /// </summary>
+        /// <returns>
+        /// <c>true</c> si el plugin es compatible con esta versión de MCART,
+        /// <c>false</c> si no lo es, y <c>null</c> si no se ha podido
+        /// determinar la compatibilidad.
+        /// </returns>
+        /// <typeparam name="T">
+        /// Clase del <see cref="PluginSupport.IPlugin"/> a comprobar.
+        /// </typeparam>
+        public static bool? RTSupport<T>() where T : PluginSupport.IPlugin => RTS(typeof(T));
+        /// <summary>
+        /// Obtiene la ruta de los archivos de ayuda.
+        /// </summary>
+        /// <value>La ruta de los archivos de ayuda.</value>
+        public static string HelpPath => RTAssembly.Location + St.HelpDir;
+        /// <summary>
+        /// Obtiene la versión de MCART como una cadena.
+        /// </summary>
+        /// <value>La versión de MCART como una cadena.</value>
+        public static string VersionString => string.Format(St.Version, RTAssembly.GetName().Version);
+    }
+}

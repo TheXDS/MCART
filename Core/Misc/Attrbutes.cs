@@ -1,0 +1,350 @@
+﻿//
+//  Attrbutes.cs
+//
+//  This file is part of MCART
+//
+//  Author:
+//       César Andrés Morgan <xds_xps_ivx@hotmail.com>
+//
+//  Copyright (c) 2011 - 2017 César Andrés Morgan
+//
+//  MCART is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  MCART is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
+namespace MCART.Attributes
+{
+    #region Tipos base
+    /// <summary>
+    /// Clase base para los atributos basados en texto.
+    /// </summary>
+    public abstract class TextAttributeBase : Attribute
+    {
+        /// <summary>
+        /// Obtiene el valor asociado a este atributo.
+        /// </summary>
+        /// <value>El valor de este atributo</value>
+        public readonly string Value;
+        /// <summary>
+        /// Crea una nueva instancia de la clase <see cref="T:global.MCART.Attributes.TextAttributeBase"/>.
+        /// </summary>
+        /// <param name="attrValue">Valor de este atributo.</param>
+        protected TextAttributeBase(string attrValue)
+        {
+            Value = attrValue;
+        }
+    }
+
+    /// <summary>
+    /// Clase base para los atributos basados en números.
+    /// </summary>
+    public abstract class IntAttributeBase : Attribute
+    {
+        /// <summary>
+        /// Obtiene el valor asociado a este atributo.
+        /// </summary>
+        public readonly int Value;
+        /// <summary>
+        /// Crea una nueva isntancia de la clase <see cref="T:global.MCART.Attributes.NumberAttributeBase"/>.
+        /// </summary>
+        /// <param name="attrValue">Valor de este atributo.</param>
+        protected IntAttributeBase(int attrValue)
+        {
+            Value = attrValue;
+        }
+    }
+
+    /// <summary>
+    /// Clase base para los atributos basados en números.
+    /// </summary>
+    public abstract class FloatAttributeBase : Attribute
+    {
+        /// <summary>
+        /// Obtiene el valor asociado a este atributo.
+        /// </summary>
+        public readonly float Value;
+        /// <summary>
+        /// Crea una nueva isntancia de la clase <see cref="T:global.MCART.Attributes.NumberAttributeBase"/>.
+        /// </summary>
+        /// <param name="attrValue">Valor de este atributo.</param>
+        protected FloatAttributeBase(float attrValue)
+        {
+            Value = attrValue;
+        }
+    }
+    /// <summary>
+    /// Clase base para los atributos basados en valores booleanos.
+    /// </summary>
+    public abstract class BoolAttributeBase : Attribute
+    {
+        /// <summary>
+        /// Obtiene el valor asociado a este atributo.
+        /// </summary>
+        /// <value>El valor de este atributo</value>
+        public readonly bool Value;
+        /// <summary>
+        /// Crea una nueva isntancia de la clase <see cref="T:global.MCART.Attributes.BooleanAttributeBase"/>.
+        /// </summary>
+        /// <param name="attrValue">Valor de este atributo.</param>
+        protected BoolAttributeBase(bool attrValue)
+        {
+            Value = attrValue;
+        }
+    }
+
+    /// <summary>
+    /// Clase base para los atributos basados en valores booleanos.
+    /// </summary>
+    public abstract class VersionAttributeBase : Attribute
+    {
+        /// <summary>
+        /// Obtiene el valor asociado a este atributo.
+        /// </summary>
+        /// <value>El valor de este atributo</value>
+        public readonly Version Value;
+        /// <summary>
+        /// Crea una nueva isntancia de la clase <see cref="T:global.MCART.Attributes.VersionAttributeBase"/>.
+        /// </summary>
+        /// <param name="attrValue">Valor de este atributo.</param>
+        protected VersionAttributeBase(Version attrValue)
+        {
+            Value = attrValue;
+        }
+    }
+    #endregion
+
+    /// <summary>
+    /// Marca un elemento como método de Thunking (facilita la llamada de
+    /// otros métodos).
+    /// </summary>
+    [AttributeUsage((AttributeTargets)71)]
+    public sealed class ThunkAttribute : Attribute { }
+
+    /// <summary>
+    /// Marca una clase para no ser cargada como
+    /// <see cref="T:global.MCART.PluginSupport.Plugin"/>, a pesar de
+    /// implementar <see cref="T:global.MCART.PluginSupport.IPlugin"/>.
+    /// </summary>
+    [AttributeUsage((AttributeTargets)1028)]
+    public sealed class NotPluginAttribute : Attribute { }
+
+    /// <summary>
+    /// Especifica la versión de un elemento
+    /// </summary>
+    [AttributeUsage((AttributeTargets)71)]
+    public sealed class VersionAttribute : VersionAttributeBase
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:global.MCART.Attributes.VersionAttribute"/> class.
+        /// </summary>
+        /// <param name="attrValue">Valor del atributo.</param>
+        public VersionAttribute(Version attrValue) : base(attrValue) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:global.MCART.Attributes.VersionAttribute"/> class.
+        /// </summary>
+        /// <param name="major">Número de versión mayor.</param>
+        /// <param name="minor">Número de versión menor.</param>
+        /// <param name="build">Número de compilación.</param>
+        /// <param name="rev">Número de revisión.</param>
+        public VersionAttribute(int major, int minor, int build = 0, int rev = 0)
+            : base(new Version(major, minor, build, rev)) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:global.MCART.Attributes.VersionAttribute"/> class.
+        /// </summary>
+        /// <param name="majorMinor">Número de versión mayor/menor.</param>
+        public VersionAttribute(float majorMinor = 1.0f)
+            : base(new Version(majorMinor.ToString() + ".0.0")) { }
+    }
+
+    /// <summary>
+    /// Especifica la versión mínima de MCART requerida por el elemento
+    /// </summary>
+    [AttributeUsage((AttributeTargets)71)]
+    public sealed class MinMCARTVersionAttribute : VersionAttributeBase
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:global.MCART.Attributes.VersionAttribute"/> class.
+        /// </summary>
+        /// <param name="attrValue">Valor del atributo.</param>
+        public MinMCARTVersionAttribute(Version attrValue) : base(attrValue) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:global.MCART.Attributes.VersionAttribute"/> class.
+        /// </summary>
+        /// <param name="major">Número de versión mayor.</param>
+        /// <param name="minor">Número de versión menor.</param>
+        /// <param name="build">Número de compilación.</param>
+        /// <param name="rev">Número de revisión.</param>
+        public MinMCARTVersionAttribute(int major, int minor, int build = 0, int rev = 0)
+            : base(new Version(major, minor, build, rev)) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:global.MCART.Attributes.VersionAttribute"/> class.
+        /// </summary>
+        /// <param name="majorMinor">Número de versión mayor/menor.</param>
+        public MinMCARTVersionAttribute(float majorMinor = 1.0f)
+            : base(new Version(majorMinor.ToString() + ".0.0")) { }
+    }
+
+    /// <summary>
+    /// Especifica la versión de MCART recomendada para el elemento
+    /// </summary>
+    [AttributeUsage((AttributeTargets)71)]
+    public sealed class TargetMCARTVersionAttribute : VersionAttributeBase
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:global.MCART.Attributes.VersionAttribute"/> class.
+        /// </summary>
+        /// <param name="attrValue">Valor del atributo.</param>
+        public TargetMCARTVersionAttribute(Version attrValue) : base(attrValue) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:global.MCART.Attributes.VersionAttribute"/> class.
+        /// </summary>
+        /// <param name="major">Número de versión mayor.</param>
+        /// <param name="minor">Número de versión menor.</param>
+        /// <param name="build">Número de compilación.</param>
+        /// <param name="rev">Número de revisión.</param>
+        public TargetMCARTVersionAttribute(int major, int minor, int build = 0, int rev = 0)
+            : base(new Version(major, minor, build, rev)) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:global.MCART.Attributes.VersionAttribute"/> class.
+        /// </summary>
+        /// <param name="majorMinor">Número de versión mayor/menor.</param>
+        public TargetMCARTVersionAttribute(float majorMinor = 1.0f)
+            : base(new Version(majorMinor.ToString() + ".0.0")) { }
+    }
+
+    /// <summary>
+    /// Marca un elemento como versión Beta.
+    /// </summary>
+    [AttributeUsage((AttributeTargets)71)]
+    public sealed class BetaAttribute : Attribute { }
+
+    /// <summary>
+    /// Marca un elemento como inseguro.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.All)]
+    public sealed class UnsafeAttribute : Attribute { }
+
+    /// <summary>
+    /// Marca un elemento como inestable.
+    /// </summary>
+    [AttributeUsage(
+        AttributeTargets.Method | 
+        AttributeTargets.Class | 
+        AttributeTargets.Module | 
+        AttributeTargets.Assembly)]
+    public sealed class UnstableAttribute : Attribute { }
+
+    /// <summary>
+    /// Establece un nombre personalizado para mostrar del elemento.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.All)]
+    public sealed class NameAttribute : TextAttributeBase
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NameAttribute"/> class.
+        /// </summary>
+        /// <param name="attrValue">Valor del atributo.</param>
+        public NameAttribute(string attrValue) : base(attrValue) { }
+    }
+
+    /// <summary>
+    /// Establece una descripción para el elemento.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.All)]
+    public sealed class DescriptionAttribute : TextAttributeBase
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DescriptionAttribute"/> class.
+        /// </summary>
+        /// <param name="attrValue">Valor del atributo.</param>
+        public DescriptionAttribute(string attrValue) : base(attrValue) { }
+    }
+
+    /// <summary>
+    /// Establece el autor del elemento.
+    /// </summary>
+    [AttributeUsage((AttributeTargets)71)]
+    public sealed class AuthorAttribute : TextAttributeBase
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DescriptionAttribute"/> class.
+        /// </summary>
+        /// <param name="attrValue">Valor del atributo.</param>
+        public AuthorAttribute(string attrValue) : base(attrValue) { }
+    }
+
+    /// <summary>
+    /// Establece el autor del elemento.
+    /// </summary>
+    [AttributeUsage((AttributeTargets)71)]
+    public sealed class CopyrightAttribute : TextAttributeBase
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DescriptionAttribute"/> class.
+        /// </summary>
+        /// <param name="attrValue">Valor del atributo.</param>
+        public CopyrightAttribute(string attrValue) : base(attrValue) { }
+    }
+
+    /// <summary>
+    /// Establece el texto de licencia a asociar con el elemento.
+    /// </summary>
+    [AttributeUsage(
+        AttributeTargets.Class |
+        AttributeTargets.Module |
+        AttributeTargets.Assembly)]
+    public sealed class LicenseTextAttribute : TextAttributeBase
+    {
+        /// <summary>
+        /// Crea una nueva instancia de esta clase.
+        /// </summary>
+        /// <param name="attrValue">Texto de la licencia.</param>
+        public LicenseTextAttribute(string attrValue) : base(attrValue) { }
+    }
+
+    /// <summary>
+    /// Establece un archivo de licencia a asociar con el elemento.
+    /// </summary>
+    [AttributeUsage(
+        AttributeTargets.Class |
+        AttributeTargets.Module |
+        AttributeTargets.Assembly)]
+    public sealed class LicenseFileAttribute : TextAttributeBase
+    {
+        /// <summary>
+        /// Crea una nueva instancia de esta clase.
+        /// </summary>
+        /// <param name="attrValue">Ruta del archivo de licencia adjunto.</param>
+        public LicenseFileAttribute(string attrValue) : base(attrValue) { }
+    }
+
+    /// <summary>
+    /// Marca un elemento como no utilizable.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.All)]
+    public sealed class UnusableAttribute : Attribute { }
+
+    /// <summary>
+    /// Indica que un elemento podría tardar en ejecutarse, y por lo tanto,
+    /// es capaz de reportar su progreso.
+    /// </summary>
+    [AttributeUsage((AttributeTargets)71)]
+    public sealed class LenghtyAttribute : Attribute { }
+
+    /// <summary>
+    /// Indica que un elemento no está completo, y que no posee la
+    /// funcionalidad necesaria.
+    /// </summary>
+    [AttributeUsage((AttributeTargets)71)]
+    public sealed class StubAttribute : Attribute { }
+}

@@ -1,0 +1,319 @@
+﻿//
+//  Plugin.cs
+//
+//  This file is part of MCART
+//
+//  Author:
+//       César Andrés Morgan <xds_xps_ivx@hotmail.com>
+//
+//  Copyright (c) 2011 - 2017 César Andrés Morgan
+//
+//  MCART is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  MCART is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
+using System.Collections.ObjectModel;
+using System.Reflection;
+using MCART.Types.Extensions;
+using MCART.Types.TaskReporter;
+using MCART.Attributes;
+using MCART.Exceptions;
+using St = MCART.Resources.Strings;
+namespace MCART.PluginSupport
+{
+    /// <summary>
+    /// Clase base para todos los plugins que puedan ser contruídos y
+    /// administrador por MCART.
+    /// </summary>
+    public abstract partial class Plugin : IPlugin
+    {
+        /// <summary>
+        /// Provee a este <see cref="Plugin"/> de un menú de interacciones.
+        /// </summary>
+        protected readonly List<InteractionItem> MyMenu = new List<InteractionItem>();
+        /// <summary>
+        /// Valor privado para la propiedad <see cref="AutoUpdateMyMenu"/>.
+        /// </summary>
+        bool auMyMenu;
+        /// <summary>
+        /// Determina si <see cref="MyMenu"/> solicitará automáticamente la
+        /// actualización de la interfaz gráfica a la aplicación.
+        /// </summary>
+        protected bool AutoUpdateMyMenu
+        {
+            get => auMyMenu;
+            set
+            {
+                if (value)
+                {
+                    MyMenu.AddedItem += AutoUpdateEvtHandler;
+                    MyMenu.ModifiedItem += AutoUpdateEvtHandler;
+                    MyMenu.RemovedItem += AutoUpdateEvtHandler;
+                    MyMenu.ListCleared += AutoUpdateEvtHandler;
+                    MyMenu.ListUpdated += AutoUpdateEvtHandler;
+                }
+                else
+                {
+                    MyMenu.AddedItem -= AutoUpdateEvtHandler;
+                    MyMenu.ModifiedItem -= AutoUpdateEvtHandler;
+                    MyMenu.RemovedItem -= AutoUpdateEvtHandler;
+                    MyMenu.ListCleared -= AutoUpdateEvtHandler;
+                    MyMenu.ListUpdated -= AutoUpdateEvtHandler;
+                }
+                auMyMenu = value;
+            }
+        }
+        /// <summary>
+        /// Maneja las llamadas de actualizacióón automática de la
+        /// interfaz gráfica de este <see cref="Plugin"/>.
+        /// </summary>
+        /// <param name="sender">Objeto que generóel evento.</param>
+        /// <param name="e">Argumentos del evento.</param>
+        private void AutoUpdateEvtHandler(object sender, EventArgs e) { RequestUIChange(); }
+        /// <summary>
+        /// Obtiene el nombre de este <see cref="Plugin"/>.
+        /// </summary>
+        public virtual string Name => this.GetAttr<NameAttribute>()?.Value ?? GetType().Name;
+        /// <summary>
+        /// Obtiene la versión de este <see cref="Plugin"/>.
+        /// </summary>
+        public virtual Version Version => this.GetAttr<VersionAttribute>()?.Value ?? MyAssembly.GetName().Version;
+        /// <summary>
+        /// Obtiene la descripción de este <see cref="Plugin"/>.
+        /// </summary>
+        public virtual string Description => this.GetAttr<DescriptionAttribute>()?.Value ?? MyAssembly.GetAttr<AssemblyDescriptionAttribute>().Description;
+        /// <summary>
+        /// Obtiene el autor de este <see cref="Plugin"/>.
+        /// </summary>
+        public virtual string Author => this.GetAttr<AuthorAttribute>()?.Value ?? MyAssembly.GetAttr<AssemblyCompanyAttribute>().Company;
+        /// <summary>
+        /// Obtiene la cadena de Copyright de este <see cref="Plugin"/>.
+        /// </summary>
+        public virtual string Copyright => this.GetAttr<CopyrightAttribute>()?.Value ?? MyAssembly.GetAttr<AssemblyCopyrightAttribute>().Copyright;
+        /// <summary>
+        /// Obtiene el texto de la licencia de este <see cref="Plugin"/>.
+        /// </summary>
+        public virtual string License
+        {
+            get
+            {
+                try
+                {
+                    string outp = this.GetAttr<LicenseFileAttribute>()?.Value;
+                    if (!string.IsNullOrEmpty(outp) && System.IO.File.Exists(outp))
+                        outp = MyAssembly.GetAttr<LicenseFileAttribute>()?.Value;
+                    if (!string.IsNullOrEmpty(outp) && System.IO.File.Exists(outp))
+                    {
+                        System.IO.StreamReader inp = new System.IO.StreamReader(outp);
+                        return inp.ReadToEnd();
+                    }
+                    outp = this.GetAttr<LicenseTextAttribute>()?.Value;
+                    if (!string.IsNullOrEmpty(outp))
+                        outp = MyAssembly.GetAttr<LicenseTextAttribute>()?.Value;
+                    if (!string.IsNullOrEmpty(outp)) return outp;
+                    return St.Warn(St.UnspecLicense);
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message + "\n-------------------------\n" + ex.StackTrace;
+                }
+            }
+        }
+        /// <summary>
+        /// Determina la versión mínima de MCART necesaria para este 
+        /// <see cref="Plugin"/>.
+        /// </summary>
+        /// <remarks>
+        /// Si no se encuentra el atributo 
+        /// <see cref="MinMCARTVersionAttribute"/> en la clase o en el 
+        /// ensamblado, se devolverá <see cref="TargetMCARTVersion"/>.
+        /// </remarks>
+        public virtual Version MinMCARTVersion => this.GetAttr<MinMCARTVersionAttribute>()?.Value ?? MyAssembly.GetAttr<MinMCARTVersionAttribute>().Value ?? TargetMCARTVersion;
+        /// <summary>
+        /// Determina la versión mínima de MCART necesaria para este 
+        /// <see cref="Plugin"/>.
+        /// </summary>
+        /// <param name="minVersion">Versión mínima de MCART.</param>
+        /// <returns>
+        /// <c>True</c> si fue posible obtener información sobre la versión 
+        /// mínima de MCART; de lo contrario, <c>false</c>.
+        /// </returns>
+        public bool MinRTVersion(out Version minVersion)
+        {
+            minVersion = MinMCARTVersion;
+            return !minVersion.IsNull();
+        }
+        /// <summary>
+        /// Determina la versión objetivo de MCART para este 
+        /// <see cref="Plugin"/>.
+        /// </summary>
+        public virtual Version TargetMCARTVersion => this.GetAttr<TargetMCARTVersionAttribute>()?.Value ?? MyAssembly.GetAttr<TargetMCARTVersionAttribute>().Value;
+        /// <summary>
+        /// Determina la versión objetivo de MCART necesaria para este 
+        /// <see cref="Plugin"/>.
+        /// </summary>
+        /// <param name="tgtVersion">Versión objetivo de MCART.</param>
+        /// <returns>
+        /// <c>True</c> si fue posible obtener información sobre la versión 
+        /// objetivo de MCART; de lo contrario, <c>false</c>.
+        /// </returns>
+        public bool TargetRTVersion(out Version tgtVersion)
+        {
+            tgtVersion = TargetMCARTVersion;
+            return !tgtVersion.IsNull();
+        }
+        /// <summary>
+        /// Determina si este <see cref="Plugin"/> es una versión Beta.
+        /// </summary>
+        public bool IsBeta => !this.GetAttr<BetaAttribute>().IsNull();
+        /// <summary>
+        /// Determina si este <see cref="Plugin"/> es considerado como 
+        /// inseguro.
+        /// </summary>
+        public bool IsUnsafe => !this.GetAttr<UnsafeAttribute>().IsNull();
+        /// <summary>
+        /// Determina si este <see cref="Plugin"/> es considerado como 
+        /// inestable.
+        /// </summary>
+        public bool IsUnstable => !this.GetAttr<UnstableAttribute>().IsNull();
+        /// <summary>
+        /// Obtiene una lista con los nombres de las interfaces implementadas
+        /// por este <see cref="Plugin"/>.
+        /// </summary>
+        public ReadOnlyCollection<string> InterfaceNames
+        {
+            get
+            {
+                List<string> outp = new List<string>();
+                foreach (Type j in Interfaces) outp.Add(j.FullName);
+                return outp.AsReadOnly();
+            }
+        }
+        /// <summary>
+        /// Obtiene una colección de las interfaces implementadas por este
+        /// <see cref="Plugin"/>.
+        /// </summary>
+        public ReadOnlyCollection<Type> Interfaces
+        {
+            get
+            {
+                List<Type> outp = new List<Type>();
+                try
+                {
+                    foreach (Type j in GetType().GetInterfaces())
+                        if (j.IsNeither(typeof(IPlugin), typeof(IDisposable)))
+                            outp.Add(j);
+                    return outp.AsReadOnly();
+                }
+                catch { throw; }
+            }
+        }
+        /// <summary>
+        /// Obtiene la referencia al emsamblado que contiene a este <see cref="Plugin"/> 
+        /// </summary>
+        /// <value>Ensamblado en el cual se declara este <see cref="Plugin"/>.</value>
+        public Assembly MyAssembly => GetType().Assembly;
+        /// <summary>
+        /// Contiene una lista de interacciones que este <see cref="Plugin"/>
+        /// provee para incluir en una interfaz gráfica.
+        /// </summary>
+        public ReadOnlyCollection<InteractionItem> PluginInteractions
+        {
+            get
+            {
+                if (!HasInteractions) throw new FeatureNotAvailableException();
+                return MyMenu.AsReadOnly();
+            }
+        }
+        /// <summary>
+        /// Indica si este <see cref="Plugin"/> contiene o no interacciones.
+        /// </summary>        
+        public bool HasInteractions => MyMenu.Count > 0;
+        /// <summary>
+        /// Objeto privado de la propiedad <see cref="Reporter"/>.
+        /// </summary>
+        ITaskReporter rptr = new DummyTaskReporter();
+        /// <summary>
+        /// Referencia al objeto <see cref="ITaskReporter"/> a utilizar por las
+        /// funciones de este <see cref="Plugin"/>.
+        /// </summary>
+        public ITaskReporter Reporter { get => rptr; set => rptr = value ?? throw new ArgumentNullException(nameof(value)); }
+        /// <summary>
+        /// Objeto privado de la propiedad <see cref="Tag"/>.
+        /// </summary>
+        object tg;
+        /// <summary>
+        /// Contiene un objeto de libre uso para almacenamiento de cualquier
+        /// inatancia que el usuario desee asociar a este <see cref="Plugin"/>.
+        /// </summary>
+        public object Tag { get => tg; set => tg = value; }
+        /// <summary>
+        /// Se genera cuando un <see cref="Plugin"/> solicita que se actualice
+        /// su interfaz gráfica, en caso de contenerla.
+        /// </summary>
+        public event UIChangeRequestedEventHandler UIChangeRequested;
+        /// <summary>
+        /// Se genera cuando un <see cref="Plugin"/> va a ser finalizado.
+        /// </summary>
+        public event PluginFinalizingEventHandler PluginFinalizing;
+        /// <summary>
+        /// Se genera cuando un <see cref="Plugin"/> ha sido finalizado.
+        /// </summary>
+        public event PluginFinalizedEventHandler PluginFinalized;
+        /// <summary>
+        /// Se genera cuando un <see cref="Plugin"/> ha sido cargado.
+        /// </summary>
+        public event PluginLoadedEventHandler PluginLoaded;
+        /// <summary>
+        /// Se genera cuando un <see cref="Plugin"/> no pudo ser cargado.
+        /// </summary>
+        public event PluginLoadFailedEventHandler PluginLoadFailed;
+        /// <summary>
+        /// Convierte el <see cref="Plugin"/> en un objeto del tipo
+        /// especificado, realizando pruebas sobre la validez del mismo.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        [Thunk] public T CType<T>() where T : class
+        {
+            Type x = typeof(T);
+            if (!x.IsInterface) throw new InterfaceExpectedException(x);
+            if (!x.IsAssignableFrom(GetType())) throw new InterfaceNotImplementedException(x);
+            // Lamentablemente, es necesario usar Heavy Boxing.            
+            return (T)(object)this;
+        }
+        /// <summary>
+        /// Genera el evento <see cref="UIChangeRequested"/>.
+        /// </summary>
+        public void RequestUIChange()
+        {
+            UIChangeRequested(this, new UIChangeEventArgs(MyMenu.AsReadOnly()));
+        }
+        /// <summary>
+        /// Ayuda a generar el evento <see cref="PluginLoaded"/>
+        /// </summary>
+        /// <param name="tme"></param>
+        internal void RaisePlgLoad(DateTime tme)
+        {
+            PluginLoaded(this, new PluginLoadedEventArgs((DateTime.Now - tme).Ticks));
+        }
+        /// <summary>
+        /// Releases unmanaged resources and performs other cleanup operations before the
+        /// <see cref="T:MCART.PluginSupport.Plugin"/> is reclaimed by garbage collection.
+        /// </summary>
+        ~Plugin()
+        {
+            PluginFinalized(null, new PluginFinalizedEventArgs());
+        }
+    }
+}
