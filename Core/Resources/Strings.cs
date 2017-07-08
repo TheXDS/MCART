@@ -26,50 +26,80 @@ namespace MCART.Resources
     public static class Strings
     {
         #region Composición de texto
-        private const string about = "Acerca de...";
-        private const string AboutX = "Acerca de {0}";
-        private const string IncludesX = "Incluye {0}";
-        private const string IncludeX = "Incluya {0}";
-        private const string OkX = "✓ {0}";
-        private const string WarnX = @"/!\ {0}";
-        private const string xCannotBeY = "{0} no puede ser {1}";
-
         /// <summary>
-        /// Muestra una cadena con el texto "Acerca de {0}"
+        /// Devuelve una cadena con el texto "Acerca de
+        /// {<paramref name="text"/>}".
         /// </summary>
         /// <param name="text">Texto a formatear.</param>
-        /// <returns>Un texto con el formato "Acerca de {0}"</returns>
-        public static string About(string text) => string.Format(AboutX, text);
+        /// <returns>
+        /// Una cadena con el formato "Acerca de {<paramref name="text"/>}".
+        /// </returns>
+        public static string About(string text) => $"Acerca de {text}";
         /// <summary>
-        /// Muestra una cadena con el texto "Acerca de..."
-        /// </summary>
-        /// <returns>El texto "Acerca de..."</returns>
-        public static string About() => about;
-        /// <summary>
-        /// Muestra una cadena indicando que algo ocurrió correctamente.
+        /// Devuelve una cadena con el texto "✓ {<paramref name="text"/>}".
         /// </summary>
         /// <param name="text">Texto a formatear.</param>
-        /// <returns>Un texto con el formato "✓ {0}"</returns>
-        /// <remarks>El texto generado por esta función podría no verse correctamente en un programa, consola o terminal que no sea Unicode.</remarks>
-        public static string Ok(string text) => string.Format(OkX, text);
+        /// <returns>
+        /// Una cadena con el formato "✓ {<paramref name="text"/>}".
+        /// </returns>
+        /// <remarks>
+        /// El texto generado por esta función podría no verse correctamente en
+        /// un programa, consola o terminal que no sea Unicode.
+        /// </remarks>
+        public static string Ok(string text) => $"✓ {text}";
         /// <summary>
-        /// Muestra una cadena con el formato de advertencia.
+        /// Devuelve una cadena con el texto "/!\ {<paramref name="text"/>}".
         /// </summary>
         /// <param name="text">Texto a formatear.</param>
-        /// <returns>Un texto con el formato "/!\ {0}"</returns>
-        public static string Warn(string text) => string.Format(WarnX, text);
-        public static string Includes(string text) => string.Format(IncludesX, text);
-        public static string Include(string text) => string.Format(IncludeX, text);
+        /// <returns>
+        /// Una cadena con el formato "/!\ {<paramref name="text"/>}".
+        /// </returns>
+        public static string Warn(string text) => $"/!\\ {text}";
         /// <summary>
-        /// Muestra una cadena con el texto "{0} no puede ser {1}".
+        /// Devuelve una cadena con el texto "Incluye {<paramref name="text"/>}".
         /// </summary>
-        /// <param name="x">Elemento {0}</param>
-        /// <param name="y">Elemento {1}</param>
-        /// <returns>Un texto con el formato "{0} no puede ser {1}".</returns>
-        public static string XCannotBeY(string x, string y) => string.Format(xCannotBeY, x, y);
+        /// <param name="text">Texto a formatear.</param>
+        /// <returns>
+        /// Una cadena con el formato "Incluye {<paramref name="text"/>}".
+        /// </returns>
+        public static string Includes(string text) => $"Incluye {text}";
+        /// <summary>
+        /// Devuelve una cadena con el texto "Incluya {<paramref name="text"/>}".
+        /// </summary>
+        /// <param name="text">Texto a formatear.</param>
+        /// <returns>
+        /// Una cadena con el formato "Incluya {<paramref name="text"/>}".
+        /// </returns>
+        public static string Include(string text) => $"Incluya {text}";
+        /// <summary>
+        /// Devuelve una cadena con el texto "{<paramref name="x"/>} no puede 
+        /// ser {<paramref name="y"/>}".
+        /// </summary>
+        /// <param name="x">Elemento x.</param>
+        /// <param name="y">Elemento y.</param>
+        /// <returns>
+        /// Una cadena con el texto "{<paramref name="x"/>} no puede ser
+        /// {<paramref name="y"/>}".
+        /// </returns>
+        public static string XCannotBeY(string x, string y) => $"{x} no puede ser {y}";
+        /// <summary>
+        /// Devuelve una cadena con el texto "{<paramref name="unquoted"/>}
+        /// '{<paramref name="quoted"/>}'".
+        /// </summary>
+        /// <param name="unquoted">Elemento x.</param>
+        /// <param name="quoted">Elemento y.</param>
+        /// <returns>
+        /// Una cadena con el formato "{<paramref name="unquoted"/>}
+        /// '{<paramref name="quoted"/>}'".
+        /// </returns>
+        public static string XYQuotes(string unquoted, string quoted) => $"{unquoted} '{quoted}'";
         #endregion
 
         public const string Abort = "Abortar";
+        /// <summary>
+        /// Una cadena con el texto "Acerca de..."
+        /// </summary>
+        public const string about = "Acerca de...";
         public const string AllFiles = "Todos los archivos";
         public const string Alpha = "abcdefghijklmnopqrstuvwxyz";
         public const string Assmblies = "Ensamblados";
@@ -144,7 +174,7 @@ namespace MCART.Resources
         public const string PwTooLong = "La contraseña es excesivamente larga.";
         public const string PwTooShort = "La contraseña es muy corta.";
         public const string Rdy = "Listo";
-        public const string search = "Buscar...";
+        public const string Search = "Buscar...";
         public const string Security = "Seguridad";
         public const string SetX = "Establecer {0}";
         public const string Specified = "especificado";
@@ -194,6 +224,5 @@ namespace MCART.Resources
         public const string XNotInit = "{0} no se ha inicializado aún.";
         public const string XNotSelected = "No se ha seleccionado {0}.";
         public const string XReturnedInvalid = "{0} ha devuelto valores inválidos.";
-        public const string XYQuotes = "{0} '{1}'";
     }
 }

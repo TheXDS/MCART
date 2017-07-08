@@ -40,7 +40,7 @@ namespace MCART.Security.Encryption
         byte[] p;
         byte[] i;
         /// <summary>
-        /// Crea una nueva instancia de la clase <see cref="EasyCrypto"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="EasyCrypto"/>.
         /// </summary>
         /// <param name="algorithm">
         /// <see cref="SymmetricAlgorithm"/> a utilizar.

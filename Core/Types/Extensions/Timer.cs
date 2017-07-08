@@ -86,11 +86,11 @@ namespace MCART.Types.Extensions
         /// </summary>
         public void Reset() { Stop(); Start(); }
         /// <summary>
-        /// Crea una nueva instancia de la clase <see cref="Timer"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="Timer"/>.
         /// </summary>
         public Timer() { Elapsed += Tmr_Elapsed; }
         /// <summary>
-        /// Crea una nueva instancia de la clase <see cref="Timer"/> y 
+        /// Inicializa una nueva instancia de la clase <see cref="Timer"/> y 
         /// establece la propiedad <see cref="System.Timers.Timer.Interval"/>
         /// en el número de milisegundos especificado.
         /// </summary>

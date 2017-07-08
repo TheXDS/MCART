@@ -37,7 +37,7 @@ namespace MCART.Types.Extensions
         /// </summary>
         public readonly T NewItem;
         /// <summary>
-        /// Crea una nueva instancia de la clase 
+        /// Inicializa una nueva instancia de la clase 
         /// <see cref="AddingItemEventArgs{T}"/>.
         /// </summary>
         /// <param name="newItem">
@@ -61,7 +61,7 @@ namespace MCART.Types.Extensions
         /// </summary>
         public readonly int Index;
         /// <summary>
-        /// Crea una nueva instancia de la clase 
+        /// Inicializa una nueva instancia de la clase 
         /// <see cref="InsertingItemEventArgs{T}"/>.
         /// </summary>
         /// <param name="Index">
@@ -97,7 +97,7 @@ namespace MCART.Types.Extensions
         /// </summary>
         public readonly int Index;
         /// <summary>
-        /// Crea una nueva instancia de la clase 
+        /// Inicializa una nueva instancia de la clase 
         /// <see cref="ModifyingItemEventArgs{T}"/>.
         /// </summary>
         /// <param name="index">
@@ -129,7 +129,7 @@ namespace MCART.Types.Extensions
         /// </summary>
         public readonly int Index;
         /// <summary>
-        /// Crea una nueva instancia de la clase
+        /// Inicializa una nueva instancia de la clase
         /// <see cref="RemovingItemEventArgs{T}"/>.
         /// </summary>
         /// <param name="RemItm">

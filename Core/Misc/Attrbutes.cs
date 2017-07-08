@@ -20,7 +20,6 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 using System;
 namespace MCART.Attributes
 {
@@ -36,7 +35,7 @@ namespace MCART.Attributes
         /// <value>El valor de este atributo</value>
         public readonly string Value;
         /// <summary>
-        /// Crea una nueva instancia de la clase <see cref="T:global.MCART.Attributes.TextAttributeBase"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="TextAttributeBase"/>.
         /// </summary>
         /// <param name="attrValue">Valor de este atributo.</param>
         protected TextAttributeBase(string attrValue)
@@ -55,7 +54,7 @@ namespace MCART.Attributes
         /// </summary>
         public readonly int Value;
         /// <summary>
-        /// Crea una nueva isntancia de la clase <see cref="T:global.MCART.Attributes.NumberAttributeBase"/>.
+        /// Crea una nueva isntancia de la clase <see cref="NumberAttributeBase"/>.
         /// </summary>
         /// <param name="attrValue">Valor de este atributo.</param>
         protected IntAttributeBase(int attrValue)
@@ -74,7 +73,7 @@ namespace MCART.Attributes
         /// </summary>
         public readonly float Value;
         /// <summary>
-        /// Crea una nueva isntancia de la clase <see cref="T:global.MCART.Attributes.NumberAttributeBase"/>.
+        /// Crea una nueva isntancia de la clase <see cref="NumberAttributeBase"/>.
         /// </summary>
         /// <param name="attrValue">Valor de este atributo.</param>
         protected FloatAttributeBase(float attrValue)
@@ -93,7 +92,7 @@ namespace MCART.Attributes
         /// <value>El valor de este atributo</value>
         public readonly bool Value;
         /// <summary>
-        /// Crea una nueva isntancia de la clase <see cref="T:global.MCART.Attributes.BooleanAttributeBase"/>.
+        /// Crea una nueva isntancia de la clase <see cref="BooleanAttributeBase"/>.
         /// </summary>
         /// <param name="attrValue">Valor de este atributo.</param>
         protected BoolAttributeBase(bool attrValue)
@@ -113,7 +112,7 @@ namespace MCART.Attributes
         /// <value>El valor de este atributo</value>
         public readonly Version Value;
         /// <summary>
-        /// Crea una nueva isntancia de la clase <see cref="T:global.MCART.Attributes.VersionAttributeBase"/>.
+        /// Crea una nueva isntancia de la clase <see cref="VersionAttributeBase"/>.
         /// </summary>
         /// <param name="attrValue">Valor de este atributo.</param>
         protected VersionAttributeBase(Version attrValue)
@@ -145,12 +144,12 @@ namespace MCART.Attributes
     public sealed class VersionAttribute : VersionAttributeBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:global.MCART.Attributes.VersionAttribute"/> class.
+        /// Initializes a new instance of the <see cref="VersionAttribute"/> class.
         /// </summary>
         /// <param name="attrValue">Valor del atributo.</param>
         public VersionAttribute(Version attrValue) : base(attrValue) { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:global.MCART.Attributes.VersionAttribute"/> class.
+        /// Initializes a new instance of the <see cref="VersionAttribute"/> class.
         /// </summary>
         /// <param name="major">Número de versión mayor.</param>
         /// <param name="minor">Número de versión menor.</param>
@@ -159,7 +158,7 @@ namespace MCART.Attributes
         public VersionAttribute(int major, int minor, int build = 0, int rev = 0)
             : base(new Version(major, minor, build, rev)) { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:global.MCART.Attributes.VersionAttribute"/> class.
+        /// Initializes a new instance of the <see cref="VersionAttribute"/> class.
         /// </summary>
         /// <param name="majorMinor">Número de versión mayor/menor.</param>
         public VersionAttribute(float majorMinor = 1.0f)
@@ -173,12 +172,12 @@ namespace MCART.Attributes
     public sealed class MinMCARTVersionAttribute : VersionAttributeBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:global.MCART.Attributes.VersionAttribute"/> class.
+        /// Initializes a new instance of the <see cref="VersionAttribute"/> class.
         /// </summary>
         /// <param name="attrValue">Valor del atributo.</param>
         public MinMCARTVersionAttribute(Version attrValue) : base(attrValue) { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:global.MCART.Attributes.VersionAttribute"/> class.
+        /// Initializes a new instance of the <see cref="VersionAttribute"/> class.
         /// </summary>
         /// <param name="major">Número de versión mayor.</param>
         /// <param name="minor">Número de versión menor.</param>
@@ -187,7 +186,7 @@ namespace MCART.Attributes
         public MinMCARTVersionAttribute(int major, int minor, int build = 0, int rev = 0)
             : base(new Version(major, minor, build, rev)) { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:global.MCART.Attributes.VersionAttribute"/> class.
+        /// Initializes a new instance of the <see cref="VersionAttribute"/> class.
         /// </summary>
         /// <param name="majorMinor">Número de versión mayor/menor.</param>
         public MinMCARTVersionAttribute(float majorMinor = 1.0f)
@@ -201,12 +200,12 @@ namespace MCART.Attributes
     public sealed class TargetMCARTVersionAttribute : VersionAttributeBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:global.MCART.Attributes.VersionAttribute"/> class.
+        /// Initializes a new instance of the <see cref="VersionAttribute"/> class.
         /// </summary>
         /// <param name="attrValue">Valor del atributo.</param>
         public TargetMCARTVersionAttribute(Version attrValue) : base(attrValue) { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:global.MCART.Attributes.VersionAttribute"/> class.
+        /// Initializes a new instance of the <see cref="VersionAttribute"/> class.
         /// </summary>
         /// <param name="major">Número de versión mayor.</param>
         /// <param name="minor">Número de versión menor.</param>
@@ -215,7 +214,7 @@ namespace MCART.Attributes
         public TargetMCARTVersionAttribute(int major, int minor, int build = 0, int rev = 0)
             : base(new Version(major, minor, build, rev)) { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:global.MCART.Attributes.VersionAttribute"/> class.
+        /// Initializes a new instance of the <see cref="VersionAttribute"/> class.
         /// </summary>
         /// <param name="majorMinor">Número de versión mayor/menor.</param>
         public TargetMCARTVersionAttribute(float majorMinor = 1.0f)
@@ -306,7 +305,7 @@ namespace MCART.Attributes
     public sealed class LicenseTextAttribute : TextAttributeBase
     {
         /// <summary>
-        /// Crea una nueva instancia de esta clase.
+        /// Inicializa una nueva instancia de esta clase.
         /// </summary>
         /// <param name="attrValue">Texto de la licencia.</param>
         public LicenseTextAttribute(string attrValue) : base(attrValue) { }
@@ -322,7 +321,7 @@ namespace MCART.Attributes
     public sealed class LicenseFileAttribute : TextAttributeBase
     {
         /// <summary>
-        /// Crea una nueva instancia de esta clase.
+        /// Inicializa una nueva instancia de esta clase.
         /// </summary>
         /// <param name="attrValue">Ruta del archivo de licencia adjunto.</param>
         public LicenseFileAttribute(string attrValue) : base(attrValue) { }

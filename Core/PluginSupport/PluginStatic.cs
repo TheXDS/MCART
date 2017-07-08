@@ -60,7 +60,7 @@ namespace MCART.PluginSupport
         /// <typeparam name="T">The 1st type parameter.</typeparam>
         [Thunk] public static bool Has<T>(Assembly asmbly) => asmbly.GetTypes().Any((arg) => new Type[] { typeof(IPlugin), typeof(T) }.AreAssignableFrom(arg));
         /// <summary>
-        /// Crea una nueva instancia del plugin.
+        /// Inicializa una nueva instancia del plugin.
         /// </summary>
         /// <returns>El plugin cargado.</returns>
         /// <param name="j">
@@ -226,14 +226,14 @@ namespace MCART.PluginSupport
         public static List<T> LoadEverything<T>(string pluginsPath = ".", SearchOption search = SearchOption.TopDirectoryOnly, bool ignoreVersion = false)
         {
             List<T> outp = new List<T>();
-            foreach (FileInfo f in (new DirectoryInfo(pluginsPath)).GetFiles(PluginExtension, search))
+			foreach (FileInfo f in (new DirectoryInfo(pluginsPath)).GetFiles(PluginExtension, search))
             {
-                try
-                {
-                    Assembly a = Assembly.LoadFrom(f.FullName);                    
-                    if (IsVaild(a)) outp.AddRange(LoadAll<T>(a, ignoreVersion));
-                }
-                finally { }
+				try
+				{
+					Assembly a = Assembly.LoadFrom(f.FullName);
+					if (a.IsNot(Resources.RTInfo.RTAssembly) && IsVaild(a)) outp.AddRange(LoadAll<T>(a, ignoreVersion));
+				}
+				catch { System.Diagnostics.Debug.Print(St.Warn(string.Format(St.XInvalid, St.XYQuotes(St.TheAssembly, f.Name))));}
             }
             return outp;
         }

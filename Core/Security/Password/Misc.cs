@@ -43,7 +43,7 @@ namespace MCART.Security.Password
         /// </summary>
         public string Details;
         /// <summary>
-        /// Crea una nueva instancia de la estructura
+        /// Inicializa una nueva instancia de la estructura
         /// <see cref="PwEvalResult"/>.
         /// </summary>
         /// <param name="r">Resultado de la evaluación.</param>

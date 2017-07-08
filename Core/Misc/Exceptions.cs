@@ -252,38 +252,38 @@ namespace MCART.Exceptions
         /// <returns></returns>
         public readonly Type MissingInterface;
         /// <summary>
-        /// Crea una nueva instancia de este objeto con los valores predeterminados, sin establecer la instancia solicitada que generó el error
+        /// Inicializa una nueva instancia de este objeto con los valores predeterminados, sin establecer la instancia solicitada que generó el error
         /// </summary>
         public InterfaceNotImplementedException() : base(string.Format(St.XDoesntContainY, St.ThePlugin, St.TheInterface)) { }
         /// <summary>
-        /// Crea una nueva instancia de este objeto con la excepción interna que causó esta excepción
+        /// Inicializa una nueva instancia de este objeto con la excepción interna que causó esta excepción
         /// </summary>
         /// <param name="inner"><see cref="Exception"/>que produjo esta excepción</param>
         public InterfaceNotImplementedException(Exception inner) : base(string.Format(St.XDoesntContainY, St.ThePlugin, St.TheInterface, inner)) { }
         /// <summary>
-        /// Crea una nueva instancia de este objeto especificando el tipo que causó la excepción
+        /// Inicializa una nueva instancia de este objeto especificando el tipo que causó la excepción
         /// </summary>
         /// <param name="T">Tipo que generó la excepción</param>
-        public InterfaceNotImplementedException(Type T) : base(string.Format(St.XDoesntContainY, St.ThePlugin, string.Format(St.XYQuotes, St.TheInterface, T.Name)))
+        public InterfaceNotImplementedException(Type T) : base(string.Format(St.XDoesntContainY, St.ThePlugin, St.XYQuotes(St.TheInterface, T.Name)))
         {
             MissingInterface = T;
         }
         /// <summary>
-        /// Crea una nueva instancia de este objeto especificando el tipo que causó la excepción, además de la <see cref="Exception"/> que generó esta.
+        /// Inicializa una nueva instancia de este objeto especificando el tipo que causó la excepción, además de la <see cref="Exception"/> que generó esta.
         /// </summary>
         /// <param name="T">Tipo que generó la excepción</param>
         /// <param name="inner"><see cref="Exception"/>que produjo esta excepción</param>
-        public InterfaceNotImplementedException(Type T, Exception inner) : base(string.Format(St.XDoesntContainY, St.ThePlugin, string.Format(St.XYQuotes, St.TheInterface, T.Name)), inner)
+        public InterfaceNotImplementedException(Type T, Exception inner) : base(string.Format(St.XDoesntContainY, St.ThePlugin, St.XYQuotes(St.TheInterface, T.Name)), inner)
         {
             MissingInterface = T;
         }
         /// <summary>
-        /// Crea una nueva instancia de este objeto con el mensaje especificado
+        /// Inicializa una nueva instancia de este objeto con el mensaje especificado
         /// </summary>
         /// <param name="message">Mensaje sobre la excepción</param>
         public InterfaceNotImplementedException(string message) : base(message) { }
         /// <summary>
-        /// Crea una nueva instancia de este objeto especificando el mensaje, la <see cref="Exception"/> y el tipo que generó esta excepción.
+        /// Inicializa una nueva instancia de este objeto especificando el mensaje, la <see cref="Exception"/> y el tipo que generó esta excepción.
         /// </summary>
         /// <param name="message">Mensaje sobre la excepción</param>
         /// <param name="inner"><see cref="Exception"/>que produjo esta excepción</param>
@@ -396,58 +396,58 @@ namespace MCART.Exceptions
     public class InvalidReturnValueException : Exception
     {
         /// <summary>
-        /// Crea una nueva instancia de este objeto.
+        /// Inicializa una nueva instancia de este objeto.
         /// </summary>
         public InvalidReturnValueException() : base(string.Format(St.XReturnedInvalid, St.TheFunc)) { }
         /// <summary>
-        /// Crea una nueva instancia de la excepción con el delegado
+        /// Inicializa una nueva instancia de la excepción con el delegado
         /// especificado.
         /// </summary>
         /// <param name="Function"><see cref="Delegate"/> cuyo resultado causó
         /// la excepción.</param>
-        public InvalidReturnValueException(Delegate Function) : base(string.Format(St.XReturnedInvalid, string.Format(St.XYQuotes, St.TheFunc, Function.Method.Name)))
+        public InvalidReturnValueException(Delegate Function) : base(string.Format(St.XReturnedInvalid, St.XYQuotes(St.TheFunc, Function.Method.Name)))
         {
             OffendingFunction = Function;
             OffendingFunctionName = OffendingFunction.Method.Name;
         }
         /// <summary>
-        /// Crea una nueva instancia de la excepción especificando el nombre de
+        /// Inicializa una nueva instancia de la excepción especificando el nombre de
         /// la función.
         /// </summary>
         /// <param name="FunctionName">Nombre de la función cuyo resultado ha causado la excepción</param>
-        public InvalidReturnValueException(string FunctionName) : base(string.Format(St.XReturnedInvalid, string.Format(St.XYQuotes, St.TheFunc, FunctionName)))
+        public InvalidReturnValueException(string FunctionName) : base(string.Format(St.XReturnedInvalid, St.XYQuotes(St.TheFunc, FunctionName)))
         {
             OffendingFunctionName = FunctionName;
         }
         /// <summary>
-        /// Crea una nueva instancia de este objeto con la función y el valor
+        /// Inicializa una nueva instancia de este objeto con la función y el valor
         /// devuelto especificados.
         /// </summary>
         /// <param name="Function"><see cref="Delegate"/> cuyo resultado causó
         /// la excepción.</param>
         /// <param name="ReturnValue">Valor inválido que ha causado esta
         /// excepción.</param>
-        public InvalidReturnValueException(Delegate Function, object ReturnValue) : base(string.Format(St.XReturnedInvalid, string.Format(St.XYQuotes, St.TheFunc, Function.Method.Name)))
+        public InvalidReturnValueException(Delegate Function, object ReturnValue) : base(string.Format(St.XReturnedInvalid, St.XYQuotes(St.TheFunc, Function.Method.Name)))
         {
             OffendingFunction = Function;
             OffendingFunctionName = OffendingFunction.Method.Name;
             OffendingReturnValue = ReturnValue;
         }
         /// <summary>
-        /// Crea una nueva instancia de este objeto con la función y el valor
+        /// Inicializa una nueva instancia de este objeto con la función y el valor
         /// devuelto especificados.
         /// </summary>
         /// <param name="FunctionName">Nombre de la función cuyo resultado ha
         /// causado la excepción.</param>
         /// <param name="ReturnValue">Valor inválido que ha causado esta
         /// excepción.</param>
-        public InvalidReturnValueException(string FunctionName, object ReturnValue) : base(string.Format(St.XReturnedInvalid, string.Format(St.XYQuotes, St.TheFunc, FunctionName)))
+        public InvalidReturnValueException(string FunctionName, object ReturnValue) : base(string.Format(St.XReturnedInvalid, St.XYQuotes(St.TheFunc, FunctionName)))
         {
             OffendingFunctionName = FunctionName;
             OffendingReturnValue = ReturnValue;
         }
         /// <summary>
-        /// Crea una nueva instancia de esta excepción con el mensaje y la
+        /// Inicializa una nueva instancia de esta excepción con el mensaje y la
         /// excepción interna especificadas.
         /// </summary>
         /// <param name="message">Mensaje informativo acerca de esta excepción.</param>
@@ -456,7 +456,7 @@ namespace MCART.Exceptions
         {
         }
         /// <summary>
-        /// Crea una nueva instancia de este objeto con la función y el valor
+        /// Inicializa una nueva instancia de este objeto con la función y el valor
         /// devuelto especificados.
         /// </summary>
         /// <param name="Function"><see cref="[Delegate]"/> cuyo resultado causó
@@ -464,14 +464,14 @@ namespace MCART.Exceptions
         /// <param name="ReturnValue">Valor inválido que ha causado esta
         /// excepción.</param>
         /// <param name="inner">Excepción interna que causó esta excepción.</param>
-        public InvalidReturnValueException(Delegate Function, object ReturnValue, Exception inner) : base(string.Format(St.XReturnedInvalid, string.Format(St.XYQuotes, St.TheFunc, Function.Method.Name)), inner)
+        public InvalidReturnValueException(Delegate Function, object ReturnValue, Exception inner) : base(string.Format(St.XReturnedInvalid, St.XYQuotes(St.TheFunc, Function.Method.Name)), inner)
         {
             OffendingFunction = Function;
             OffendingFunctionName = OffendingFunction.Method.Name;
             OffendingReturnValue = ReturnValue;
         }
         /// <summary>
-        /// Crea una nueva instancia de este objeto con la función y el valor
+        /// Inicializa una nueva instancia de este objeto con la función y el valor
         /// devuelto especificados.
         /// </summary>
         /// <param name="FunctionName">Nombre de la función cuyo resultado ha
@@ -479,7 +479,7 @@ namespace MCART.Exceptions
         /// <param name="ReturnValue">Valor inválido que ha causado esta
         /// excepción.</param>
         /// <param name="inner">Excepción interna que causó esta excepción.</param>
-        public InvalidReturnValueException(string FunctionName, object ReturnValue, Exception inner) : base(string.Format(St.XReturnedInvalid, string.Format(St.XYQuotes, St.TheFunc, FunctionName)), inner)
+        public InvalidReturnValueException(string FunctionName, object ReturnValue, Exception inner) : base(string.Format(St.XReturnedInvalid, St.XYQuotes(St.TheFunc, FunctionName)), inner)
         {
             OffendingFunctionName = FunctionName;
             OffendingReturnValue = ReturnValue;
@@ -511,7 +511,7 @@ namespace MCART.Exceptions
         public PluginException(string message) : base(message) { }
         public PluginException(Exception inner) : base(string.Format(St.XFoundError, St.ThePlugin, inner)) { }
         public PluginException(string message, Exception inner) : base(message, inner) { }
-        public PluginException(PluginSupport.IPlugin Plugin) : base(string.Format(St.XFoundError, string.Format(St.XYQuotes, St.ThePlugin, Plugin.Name)))
+        public PluginException(PluginSupport.IPlugin Plugin) : base(string.Format(St.XFoundError, St.XYQuotes(St.ThePlugin, Plugin.Name)))
         {
             OffendingPlugin = Plugin;
         }
@@ -519,7 +519,7 @@ namespace MCART.Exceptions
         {
             OffendingPlugin = Plugin;
         }
-        public PluginException(PluginSupport.IPlugin Plugin, Exception inner) : base(string.Format(St.XFoundError, string.Format(St.XYQuotes, St.ThePlugin, Plugin.Name)), inner)
+        public PluginException(PluginSupport.IPlugin Plugin, Exception inner) : base(string.Format(St.XFoundError, St.XYQuotes(St.ThePlugin, Plugin.Name)), inner)
         {
             OffendingPlugin = Plugin;
         }
@@ -558,11 +558,11 @@ namespace MCART.Exceptions
     public class InvalidPluginClassException : Exception
     {
         public InvalidPluginClassException() : base(string.Format(St.InvalidPluginClass, St.TheClass)) { }
-        public InvalidPluginClassException(Type ClassType) : base(string.Format(St.InvalidPluginClass, string.Format(St.XYQuotes, St.TheClass, ClassType.Name)))
+        public InvalidPluginClassException(Type ClassType) : base(string.Format(St.InvalidPluginClass, St.XYQuotes(St.TheClass, ClassType.Name)))
         {
             RequiredClassType = ClassType;
         }
-        public InvalidPluginClassException(string ClassName) : base(string.Format(St.InvalidPluginClass, string.Format(St.XYQuotes, St.TheClass, ClassName))) { }
+        public InvalidPluginClassException(string ClassName) : base(string.Format(St.InvalidPluginClass, St.XYQuotes(St.TheClass, ClassName))) { }
         public InvalidPluginClassException(string message, Exception inner) : base(message, inner) { }
         public readonly Type RequiredClassType;
     }
@@ -572,11 +572,11 @@ namespace MCART.Exceptions
     public class PluginClassNotFoundException : Exception
     {
         public PluginClassNotFoundException() : base(string.Format(St.XDoesntContainY, St.ThePlugin, St.TheClass.ToLower())) { }
-        public PluginClassNotFoundException(Type ClassType) : base(string.Format(St.XDoesntContainY, St.ThePlugin, string.Format(St.XYQuotes, St.TheClass.ToLower(), ClassType.Name)))
+        public PluginClassNotFoundException(Type ClassType) : base(string.Format(St.XDoesntContainY, St.ThePlugin, St.XYQuotes(St.TheClass.ToLower(), ClassType.Name)))
         {
             RequiredClassType = ClassType;
         }
-        public PluginClassNotFoundException(string ClassName) : base(string.Format(St.XDoesntContainY, St.ThePlugin, string.Format(St.XYQuotes, St.TheClass.ToLower(), ClassName))) { }
+        public PluginClassNotFoundException(string ClassName) : base(string.Format(St.XDoesntContainY, St.ThePlugin, St.XYQuotes(St.TheClass.ToLower(), ClassName))) { }
         public PluginClassNotFoundException(string message, Exception inner) : base(message, inner) { }
         public readonly Type RequiredClassType;
     }
@@ -672,8 +672,8 @@ namespace MCART.Exceptions
     public class DataAlreadyExistsException : Exception
     {
         public DataAlreadyExistsException() : base(string.Format(St.XAlreadyExists, St.TheUid)) { }
-        public DataAlreadyExistsException(string Uid) : base(string.Format(St.XAlreadyExists, string.Format(St.XYQuotes, St.TheUid, Uid))) { }
-        public DataAlreadyExistsException(string Uid, Exception inner) : base(string.Format(St.XAlreadyExists, string.Format(St.XYQuotes, St.TheUid, Uid)), inner) { }
+        public DataAlreadyExistsException(string Uid) : base(string.Format(St.XAlreadyExists, St.XYQuotes(St.TheUid, Uid))) { }
+        public DataAlreadyExistsException(string Uid, Exception inner) : base(string.Format(St.XAlreadyExists, St.XYQuotes(St.TheUid, Uid)), inner) { }
     }
 
     ///// <summary>
@@ -770,7 +770,7 @@ namespace MCART.Exceptions
         public OperationException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         public OperationException(string message, Exception inner) : base(message, inner) { }
         public OperationException(Exception inner) : base(string.Format(St.ExcDoingX, St.TheTask.ToLower()), inner) { }
-        public OperationException(Delegate Task) : base(string.Format(St.ExcDoingX, string.Format(St.XYQuotes, St.TheTask.ToLower(), Task.Method.Name)))
+        public OperationException(Delegate Task) : base(string.Format(St.ExcDoingX, St.XYQuotes(St.TheTask.ToLower(), Task.Method.Name)))
         {
             OffendingTask = Task;
         }
@@ -786,7 +786,7 @@ namespace MCART.Exceptions
         {
             OffendingTask = Task;
         }
-        public OperationException(Delegate Task, Exception inner) : base(string.Format(St.ExcDoingX, string.Format(St.XYQuotes, St.TheTask.ToLower(), Task.Method.Name)), inner)
+        public OperationException(Delegate Task, Exception inner) : base(string.Format(St.ExcDoingX, St.XYQuotes(St.TheTask.ToLower(), Task.Method.Name)), inner)
         {
             OffendingTask = Task;
         }

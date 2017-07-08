@@ -52,10 +52,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\BusyIndicator.cs" />
+    <Compile Include="Controls\NavigationBar.cs" />
     <Compile Include="Controls\ProgressRing.cs" />
     <Compile Include="Forms\PluginBrowser.xaml.cs">
       <DependentUpon>PluginBrowser.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Misc\Events.cs" />
+    <Compile Include="Modules\ValueConverters.cs" />
     <Compile Include="PluginSupport\InteractionItem.cs" />
     <Compile Include="PluginSupport\Plugin.cs" />
     <Compile Include="Resources\Icons.cs" />

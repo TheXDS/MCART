@@ -38,7 +38,7 @@ namespace MCART.Types.TaskReporter
         /// </summary>
         public readonly String HelpText;
         /// <summary>
-        /// Crea una nueva instancia de la clase 
+        /// Inicializa una nueva instancia de la clase 
         /// <see cref="ProgressEventArgs"/>.
         /// </summary>
         /// <param name="progress">
@@ -66,7 +66,7 @@ namespace MCART.Types.TaskReporter
         /// </summary>
         public readonly T Obj;
         /// <summary>
-        /// Crea una nueva instancia de la clase 
+        /// Inicializa una nueva instancia de la clase 
         /// <see cref="ProgressEventArgs{T}"/>.
         /// </summary>
         /// <param name="progress">
@@ -100,7 +100,7 @@ namespace MCART.Types.TaskReporter
         /// </summary>
         public readonly DateTime StartTime;
         /// <summary>
-        /// Crea una nueva instancia de la clase <see cref="BegunEventArgs"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="BegunEventArgs"/>.
         /// </summary>
         /// <param name="stoppable">
         /// Indica si la tarea podrá ser detenida.

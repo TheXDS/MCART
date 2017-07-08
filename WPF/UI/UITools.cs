@@ -266,6 +266,57 @@ namespace MCART.UI
             foreach (UIElement j in ctrls) j.IsEnabled = !j.IsEnabled;
         }
         /// <summary>
+        /// Establece la propiedad <see cref="UIElement.Visibility"/> a
+        /// <see cref="Visibility.Collapsed"/> a una lista de controles.
+        /// </summary>
+        /// <param name="ctrls">Arreglo de controles a deshabilitar.</param>
+        public static void CollapseControls(this IEnumerable<UIElement> ctrls)
+        {
+            foreach (UIElement j in ctrls) j.Visibility = Visibility.Collapsed;
+        }
+        /// <summary>
+        /// Establece la propiedad <see cref="UIElement.Visibility"/> a
+        /// <see cref="Visibility.Hidden"/> a una lista de controles.
+        /// </summary>
+        /// <param name="ctrls">Arreglo de controles a deshabilitar.</param>
+        public static void HideControls(this IEnumerable<UIElement> ctrls)
+        {
+            foreach (UIElement j in ctrls) j.Visibility = Visibility.Hidden;
+        }
+        /// <summary>
+        /// Establece la propiedad <see cref="UIElement.Visibility"/> a
+        /// <see cref="Visibility.Visible"/> a una lista de controles.
+        /// </summary>
+        /// <param name="ctrls">Arreglo de controles a deshabilitar.</param>
+        public static void ShowControls(this IEnumerable<UIElement> ctrls)
+        {
+            foreach (UIElement j in ctrls) j.Visibility = Visibility.Visible;
+        }
+        /// <summary>
+        /// Deshabilita una lista de controles.
+        /// </summary>
+        /// <param name="ctrls">Arreglo de controles a deshabilitar.</param>
+        public static void DisableControls(this IEnumerable<UIElement> ctrls)
+        {
+            foreach (UIElement j in ctrls) j.IsEnabled = false;
+        }
+        /// <summary>
+        /// Habilita una lista de controles.
+        /// </summary>
+        /// <param name="ctrls">Arreglo de controles a habilitar.</param>
+        public static void EnableControls(this IEnumerable<UIElement> ctrls)
+        {
+            foreach (UIElement j in ctrls) j.IsEnabled = true;
+        }
+        /// <summary>
+        /// Habilita o deshabilita una lista de controles según su estado previo.
+        /// </summary>
+        /// <param name="ctrls">Arreglo de controles a habilitar/deshabilitar.</param>
+        public static void ToggleControls(this IEnumerable<UIElement> ctrls)
+        {
+            foreach (UIElement j in ctrls) j.IsEnabled = !j.IsEnabled;
+        }
+        /// <summary>
         /// Inicia una consola para la aplicación.
         /// </summary>
         /// <returns><c>true</c> si la llamada obtuvo correctamente una consola; de lo contrario, <c>false</c>.</returns>

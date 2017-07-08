@@ -137,7 +137,7 @@ namespace MCART.Forms
             ShowDialog();            
         }
         /// <summary>
-        /// Crea una nueva instancia de la clase <see cref="PluginBrowser"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="PluginBrowser"/>.
         /// </summary>
         public PluginBrowser()
         {

@@ -179,7 +179,7 @@ namespace MCART
             return l;
         }
         /// <summary>
-        /// Crea una nueva instancia del tipo dinámico especificado
+        /// Inicializa una nueva instancia del tipo dinámico especificado
         /// </summary>
         /// <returns>La nueva instancia del tipo especificado.</returns>
         /// <typeparam name="T">Tipo de instancia a crear.</typeparam>
@@ -190,7 +190,7 @@ namespace MCART
             catch { throw; }
         }
         /// <summary>
-        /// Crea una nueva instancia del tipo dinámico especificado,
+        /// Inicializa una nueva instancia del tipo dinámico especificado,
         /// devolviéndola como un <typeparamref name="T"/>.
         /// </summary>
         /// <returns>La nueva instancia del tipo especificado.</returns>
@@ -204,7 +204,7 @@ namespace MCART
             catch { throw; }
         }
         /// <summary>
-        /// Crea una nueva instancia del tipo dinámico especificado.
+        /// Inicializa una nueva instancia del tipo dinámico especificado.
         /// </summary>
         /// <returns>La nueva instancia del tipo especificado.</returns>
         /// <param name="j">Tipo a instanciar.</param>
@@ -251,7 +251,7 @@ namespace MCART
             }
         }
         /// <summary>
-        /// Crea una nueva instancia del tipo dinámico especificado.
+        /// Inicializa una nueva instancia del tipo dinámico especificado.
         /// </summary>
         /// <returns>La nueva instancia del tipo especificado.</returns>
         /// <param name="j">Tipo a instanciar.</param>
