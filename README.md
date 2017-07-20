@@ -1,6 +1,6 @@
 # MCART
 ### Librería de funciones varias para aplicaciones .Net/Mono
-MCART es un conjunto de funciones, extensiones y módulos quehe encontrado útiles a lo largo de mis años de experiencia con lenguajes .Net, particularmente con Visual Basic. Trata de añadir características que no se encuentran fácilmente disponibles en .Net Framework, y además añade controles, ventanas, recursos y otros objetos de utilidad.
+MCART es un conjunto de funciones, extensiones y módulos que he encontrado útiles a lo largo de mis años de experiencia con lenguajes .Net, particularmente con Visual Basic. Trata de añadir características que no se encuentran fácilmente disponibles en .Net Framework, y además añade controles, ventanas, recursos y otros objetos de utilidad.
 
 Actualmente, se encuentra en una muy temprana fase Alpha, por lo que podría tener bugs o problemas serios de rendimiento. He puesto mucho esfuerzo en mantener un código funcional y, espero, libre de errores obvios. Sin embargo, no puedo asegurar que MCART pueda ser utilizado en un paquete de software en su estado actual.
 
@@ -11,18 +11,17 @@ Los demás proyectos apuntan a crear ensamblados para diferentes plataformas. Ac
 ## Compilación
 La siguiente tabla indica los entornos de desarrollo y las plataformas en las cuales MCART puede ser compilado:
 
-| Entorno de desarollo | WPF | Gtk | Win32* | UWP* |
+| Entorno de desarollo | WPF | Gtk | Win32 (TODO) | UWP (TODO) |
 | --- | :---: | :---: | :---: | :---: |
-| Visual Studio 2015+ (Windows) | X | X** | X | X |
-| Visual Studio 2013 (Windows) | ~ | ~** | ~ | |
+| Visual Studio 2015+ (Windows) | X | X* | X | X |
+| Visual Studio 2013 (Windows)** | X | X* | X | |
 | Visual Studio 2010- (Windows) | | | | |
 | Visual Studio 2010- (Linux via Wine) | | | | |
 | Xamarin Studio 4+ (Windows) | | X | X | |
 | MonoDevelop 5+ (Linux) | | X | X | |
 | SharpDevelop (Windows) | | | | |
 
- *: El proyecto aún no existe, pero se planea el soporte.  
-**: Requiere de componentes adicionales instalados en el sistema.  
- ~: Es necesario instalar un compilador para C# 6.0 (`PM> Install-Package Microsoft.Net.Compilers`)  
+ *: Requiere de componentes adicionales (Gtk#) instalados en el sistema.  
+**: Es necesario instalar un compilador para C# 6.0 (`PM> Install-Package Microsoft.Net.Compilers`)  
  +: Versiones posteriores.  
  -: Versiones anteriores.
