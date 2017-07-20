@@ -266,84 +266,84 @@ namespace MCART.Types.Extensions
         }
     }
     /// <summary>
-    /// Se genera cuando se agregará un elemento a la lista.
+    /// Se produce cuando se agregará un elemento a la lista.
     /// </summary>
     /// <typeparam name="T">Tipo de elemento.</typeparam>
     /// <param name="sender">Objeto que ha generado el evento.</param>
     /// <param name="e">Argumentos del evento.</param>
     public delegate void AddingItemEventHandler<T>(List<T> sender, AddingItemEventArgs<T> e);
     /// <summary>
-    /// Se genera cuando se insertará un elemento en la lista.
+    /// Se produce cuando se insertará un elemento en la lista.
     /// </summary>
     /// <typeparam name="T">Tipo de elemento.</typeparam>
     /// <param name="sender">Objeto que ha generado el evento.</param>
     /// <param name="e">Argumentos del evento.</param>
     public delegate void InsertingItemEventHandler<T>(List<T> sender, InsertingItemEventArgs<T> e);
     /// <summary>
-    /// Se genera cuando se eliminará un elemento de la lista
+    /// Se produce cuando se eliminará un elemento de la lista
     /// </summary>
     /// <typeparam name="T">Tipo de elemento.</typeparam>
     /// <param name="sender">Objeto que ha generado el evento.</param>
     /// <param name="e">Argumentos del evento.</param>
     public delegate void RemovingItemEventHandler<T>(List<T> sender, RemovingItemEventArgs<T> e);
     /// <summary>
-    /// Se genera cuando se modificará un elemento de la lista
+    /// Se produce cuando se modificará un elemento de la lista
     /// </summary>
     /// <typeparam name="T">Tipo de elemento.</typeparam>
     /// <param name="sender">Objeto que ha generado el evento.</param>
     /// <param name="e">Argumentos del evento.</param>
     public delegate void ModifyingItemEventHandler<T>(List<T> sender, ModifyingItemEventArgs<T> e);
     /// <summary>
-    /// Se genera cuando la lista será vaciada por <see cref="List{T}.Clear"/>
+    /// Se produce cuando la lista será vaciada por <see cref="List{T}.Clear"/>
     /// </summary>
     /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
     /// <param name="sender">Objeto que ha generado el evento.</param>
     /// <param name="e">Argumentos del evento.</param>
     public delegate void ClearingListEventHandler<T>(List<T> sender, ListUpdatingEventArgs<T> e);
     /// <summary>
-    /// Se genera cuando se ha agregado un elemento a la lista
+    /// Se produce cuando se ha agregado un elemento a la lista
     /// </summary>
     /// <typeparam name="T">Tipo de elemento.</typeparam>
     /// <param name="sender">Objeto que ha generado el evento.</param>
     /// <param name="e">Argumentos del evento.</param>
     public delegate void ItemAddedEventHandler<T>(List<T> sender, AddedItemEventArgs<T> e);
     /// <summary>
-    /// Se genera cuando se ha insertado un elemento en la lista.
+    /// Se produce cuando se ha insertado un elemento en la lista.
     /// </summary>
     /// <typeparam name="T">Tipo de elemento.</typeparam>
     /// <param name="sender">Objeto que ha generado el evento.</param>
     /// <param name="e">Argumentos del evento.</param>
     public delegate void ItemInsertedEventHandler<T>(List<T> sender, InsertedItemEventArgs<T> e);
     /// <summary>
-    /// Se genera cuando se ha modificado un elemento de la lista
+    /// Se produce cuando se ha modificado un elemento de la lista
     /// </summary>
     /// <typeparam name="T">Tipo de elemento.</typeparam>
     /// <param name="sender">Objeto que ha generado el evento.</param>
     /// <param name="e">Argumentos del evento.</param>
     public delegate void ItemModifiedEventHandler<T>(List<T> sender, ItemModifiedEventArgs<T> e);
     /// <summary>
-    /// Se genera cuando se ha quitado un elemento de la lista
+    /// Se produce cuando se ha quitado un elemento de la lista
     /// </summary>
     /// <typeparam name="T">Tipo de elemento.</typeparam>
     /// <param name="sender">Objeto que ha generado el evento.</param>
     /// <param name="e">Argumentos del evento.</param>
     public delegate void ItemRemovedEventHandler<T>(List<T> sender, RemovedItemEventArgs<T> e);
     /// <summary>
-    /// Se genera cuando la lista ha sido vaciada por medio de <see cref="List{T}.Clear()"/>
+    /// Se produce cuando la lista ha sido vaciada por medio de <see cref="List{T}.Clear()"/>
     /// </summary>
     /// <typeparam name="T">Tipo de elemento.</typeparam>
     /// <param name="sender">Objeto que ha generado el evento.</param>
     /// <param name="e">Argumentos del evento.</param>
     public delegate void ListClearedEventHandler<T>(List<T> sender, EventArgs e);
     /// <summary>
-    /// Se genera cuando la lista ha sido actualizada
+    /// Se produce cuando la lista ha sido actualizada
     /// </summary>
     /// <typeparam name="T">Tipo de elemento.</typeparam>
     /// <param name="sender">Objeto que ha generado el evento.</param>
     /// <param name="e">Argumentos del evento.</param>
     public delegate void ListUpdatedEventHandler<T>(List<T> sender, ListUpdatedEventArgs<T> e);
     /// <summary>
-    /// Se genera cuando la lista será actualizada
+    /// Se produce cuando la lista será actualizada
     /// </summary>
     /// <typeparam name="T">Tipo de elemento.</typeparam>
     /// <param name="sender">Objeto que ha generado el evento.</param>

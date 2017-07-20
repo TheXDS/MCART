@@ -43,53 +43,53 @@ namespace MCART.Types.Extensions
         /// </summary>
         public static bool GlobalTriggerEvents;
         /// <summary>
-        /// Se genera cuando se agregará un elemento a la lista.
+        /// Se produce cuando se agregará un elemento a la lista.
         /// </summary>
         public event AddingItemEventHandler<T> AddingItem;
         /// <summary>
-        /// Se genera cuando se insertará un elemento en la lista.
+        /// Se produce cuando se insertará un elemento en la lista.
         /// </summary>
         public event InsertingItemEventHandler<T> InsertingItem;
         /// <summary>
-        /// Se genera cuando se modificará un elemento de la lista
+        /// Se produce cuando se modificará un elemento de la lista
         /// </summary>
         public event ModifyingItemEventHandler<T> ModifyingItem;
         /// <summary>
-        /// Se genera cuando se eliminará un elemento de la lista.
+        /// Se produce cuando se eliminará un elemento de la lista.
         /// </summary>
         public event RemovingItemEventHandler<T> RemovingItem;
         /// <summary>
-        /// Se genera cuando la lista será actualizada.
+        /// Se produce cuando la lista será actualizada.
         /// </summary>
         public event ListUpdatingEventHandler<T> ListUpdating;
         /// <summary>
-        /// Se genera cuando la lista será vaciada por medio de 
+        /// Se produce cuando la lista será vaciada por medio de 
         /// <see cref="Clear"/>.
         /// </summary>
         public event ClearingListEventHandler<T> ClearingList;
         /// <summary>
-        /// Se genera cuando se ha agregado un elemento a la lista.
+        /// Se produce cuando se ha agregado un elemento a la lista.
         /// </summary>
         public event ItemAddedEventHandler<T> AddedItem;
         /// <summary>
-        /// Se genera cuando se ha insertado un elemento en la lista.
+        /// Se produce cuando se ha insertado un elemento en la lista.
         /// </summary>
         public event ItemInsertedEventHandler<T> InsertedItem;
         /// <summary>
-        /// Se genera cuando se ha modificado un elemento de la lista.
+        /// Se produce cuando se ha modificado un elemento de la lista.
         /// </summary>
         public event ItemModifiedEventHandler<T> ModifiedItem;
         /// <summary>
-        /// Se genera cuando se ha quitado un elemento de la lista.
+        /// Se produce cuando se ha quitado un elemento de la lista.
         /// </summary>
         public event ItemRemovedEventHandler<T> RemovedItem;
         /// <summary>
-        /// Se genera cuando la lista ha sido vaciada por medio de 
+        /// Se produce cuando la lista ha sido vaciada por medio de 
         /// <see cref="Clear"/>.
         /// </summary>
         public event ListClearedEventHandler<T> ListCleared;
         /// <summary>
-        /// Se genera cuando la lista ha sido actualizada.
+        /// Se produce cuando la lista ha sido actualizada.
         /// </summary>
         public event ListUpdatedEventHandler<T> ListUpdated;
         /// <summary>

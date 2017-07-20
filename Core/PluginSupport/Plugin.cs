@@ -258,24 +258,24 @@ namespace MCART.PluginSupport
         /// </summary>
         public object Tag { get => tg; set => tg = value; }
         /// <summary>
-        /// Se genera cuando un <see cref="Plugin"/> solicita que se actualice
+        /// Se produce cuando un <see cref="Plugin"/> solicita que se actualice
         /// su interfaz gráfica, en caso de contenerla.
         /// </summary>
         public event UIChangeRequestedEventHandler UIChangeRequested;
         /// <summary>
-        /// Se genera cuando un <see cref="Plugin"/> va a ser finalizado.
+        /// Se produce cuando un <see cref="Plugin"/> va a ser finalizado.
         /// </summary>
         public event PluginFinalizingEventHandler PluginFinalizing;
         /// <summary>
-        /// Se genera cuando un <see cref="Plugin"/> ha sido finalizado.
+        /// Se produce cuando un <see cref="Plugin"/> ha sido finalizado.
         /// </summary>
         public event PluginFinalizedEventHandler PluginFinalized;
         /// <summary>
-        /// Se genera cuando un <see cref="Plugin"/> ha sido cargado.
+        /// Se produce cuando un <see cref="Plugin"/> ha sido cargado.
         /// </summary>
         public event PluginLoadedEventHandler PluginLoaded;
         /// <summary>
-        /// Se genera cuando un <see cref="Plugin"/> no pudo ser cargado.
+        /// Se produce cuando un <see cref="Plugin"/> no pudo ser cargado.
         /// </summary>
         public event PluginLoadFailedEventHandler PluginLoadFailed;
         /// <summary>

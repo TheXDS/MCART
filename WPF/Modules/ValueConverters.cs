@@ -82,7 +82,87 @@ namespace System.Windows.Converters
             return (value is T && ((T)value).Equals(True));
         }
     }
-
+    /// <summary>
+    /// Clase base para crear convertidores de valores booleanos que pueden ser <c>null</c>.
+    /// </summary>
+    /// <typeparam name="T">Tipo de valores a convertir.</typeparam>
+    public class NullBoolConverter<T> : IValueConverter
+    {
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="NullBoolConverter{T}"/>, configurando los valores que
+        /// corresponderán a <c>true</c> y <c>false</c>.
+        /// </summary>
+        /// <param name="TrueValue">Valor equivalente a <c>true</c>.</param>
+        /// <param name="FalseValue">Valor equivalente a <c>false</c>.</param>
+        public NullBoolConverter(T TrueValue, T FalseValue = default(T))
+        {
+            True = TrueValue;
+            False = FalseValue;
+            Null = False;
+        }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="NullBoolConverter{T}"/>, configurando los valores que
+        /// corresponderán a <c>true</c> y <c>false</c>.
+        /// </summary>
+        /// <param name="TrueValue">Valor equivalente a <c>true</c>.</param>
+        /// <param name="FalseValue">Valor equivalente a <c>false</c>.</param>
+        /// <param name="NullValue">Valor equivalente a <c>null</c>.</param>
+        public NullBoolConverter(T TrueValue, T FalseValue, T NullValue)
+        {
+            True = TrueValue;
+            False = FalseValue;
+            Null = NullValue;
+        }
+        /// <summary>
+        /// Obtiene o establece el valor que equivale a <c>true</c> en este
+        /// <see cref="NullBoolConverter{T}"/>.
+        /// </summary>
+        public T True { get; set; }
+        /// <summary>
+        /// Obtiene o establece el valor que equivale a <c>false</c> en este
+        /// <see cref="NullBoolConverter{T}"/>.
+        /// </summary>
+        public T False { get; set; }
+        /// <summary>
+        /// Obtiene o establece el valor que equivale a <c>null</c> en este
+        /// <see cref="NullBoolConverter{T}"/>.
+        /// </summary>
+        public T Null { get; set; }
+        /// <summary>
+        /// Convierte un valor a <see cref="Nullable{T}"/>.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns></returns>
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is bool) return (bool)value ? True : False;
+            if (value is bool?)
+            {
+                if (value.IsNull()) return Null;
+                return (bool)value ? True : False;
+            }
+            return null;
+        }
+        /// <summary>
+        /// Convierte un <see cref="bool"/> al tipo establecido para este
+        /// <see cref="BooleanConverter{T}"/>.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns></returns>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value.Equals(Null) && !ReferenceEquals(Null,False)) return null;
+            return (((T)value).Equals(True));
+        }
+    }
     /// <summary>
     /// Inverso de <see cref="BooleanToVisibilityConverter"/> 
     /// </summary>
@@ -98,13 +178,14 @@ namespace System.Windows.Converters
             if (trueState == Visibility.Visible) throw new ArgumentException(nameof(trueState));
         }
     }
-
+    /// <summary>
+    /// Convierte un valor a su representación como un <see cref="string"/>.
+    /// </summary>
     public class ToStringConverter: IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            try { return value?.ToString(); }
-            catch { return string.Empty; }
+            return value?.ToString();
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -156,7 +237,9 @@ namespace System.Windows.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (int)(value) > 0 ? x : y;        
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)=> (Visibility)value == x ? 1 : 0;
     }
-
+    /// <summary>
+    /// Convierte un valor <see cref="double"/> a <see cref="Visibility"/>.
+    /// </summary>
     public class DoubleVisibilityConverter : IValueConverter
     {
         private Visibility x;
@@ -168,6 +251,21 @@ namespace System.Windows.Converters
         }
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (double)(value) > 0.0 ? x : y;
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (Visibility)value == x ? 1.0 : 0.0;
+    }
+    /// <summary>
+    /// Convierte un valor <see cref="double"/> a <see cref="Visibility"/>.
+    /// </summary>
+    public class FloatVisibilityConverter : IValueConverter
+    {
+        private Visibility x;
+        private Visibility y;
+        public FloatVisibilityConverter(Visibility ForPositive = Visibility.Visible, Visibility ZeroOrNegative = Visibility.Collapsed)
+        {
+            x = ForPositive;
+            y = ZeroOrNegative;
+        }
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (float)(value) > 0.0 ? x : y;
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (Visibility)value == x ? 1.0f : 0.0f;
     }
     /// <summary>
     /// Permite compartir un recurso de <see cref="Brush"/> entre controles,
@@ -194,7 +292,9 @@ namespace System.Windows.Converters
             return b;
         }
     }
-
+    /// <summary>
+    /// Convierte un <see cref="string"/> a un <see cref="Visibility"/>.
+    /// </summary>
     public class StringVisibilityConverter : IValueConverter
     {
         private Visibility h;
@@ -229,7 +329,7 @@ namespace System.Windows.Converters
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (bool)value ? -1 : 0;        
     }
 
-    #region "Inversores"
+    #region Inversores
     /// <summary>
     /// Invierte un valor booleano
     /// </summary>

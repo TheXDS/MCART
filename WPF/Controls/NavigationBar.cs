@@ -245,7 +245,7 @@ namespace MCART.Controls
         /// </summary>
         protected static DependencyPropertyKey HasItemsPropertyKey = DependencyProperty.RegisterReadOnly(nameof(HasItems), typeof(bool), T, new PropertyMetadata(true));
         /// <summary>
-        /// Referencia a la propiedad de dependencia de sólo lectura <see cref="HasItems"/>.
+        /// Identifica a la propiedad de dependencia de sólo lectura <see cref="HasItems"/>.
         /// </summary>
         public static DependencyProperty HasItemsProperty = HasItemsPropertyKey.DependencyProperty;
         /// <summary>
@@ -253,35 +253,35 @@ namespace MCART.Controls
         /// </summary>
         public static DependencyPropertyKey IsEditingPropertyKey = DependencyProperty.RegisterReadOnly(nameof(IsEditing), typeof(bool), T, new PropertyMetadata(false));
         /// <summary>
-        /// Referencia a la propiedad de dependencia de sólo lectura <see cref="IsEditing"/>.
+        /// Identifica a la propiedad de dependencia de sólo lectura <see cref="IsEditing"/>.
         /// </summary>
         public static DependencyProperty IsEditingProperty = IsEditingPropertyKey.DependencyProperty;
         /// <summary>
-        /// Referencia a la propiedad de dependencia <see cref="ButtonWidth"/>.
+        /// Identifica a la propiedad de dependencia <see cref="ButtonWidth"/>.
         /// </summary>
         public static DependencyProperty ButtonWidthProperty = DependencyProperty.Register(nameof(ButtonWidth), typeof(double), T, new PropertyMetadata(Convert.ToDouble(80)));
         /// <summary>
-        /// Referencia a la propiedad de dependencia <see cref="Mode"/>.
+        /// Identifica a la propiedad de dependencia <see cref="Mode"/>.
         /// </summary>
         public static DependencyProperty ModeProperty = DependencyProperty.Register(nameof(Mode), typeof(EditMode), T, new PropertyMetadata(EditMode.ReadOnly), (a) => typeof(EditMode).IsEnumDefined(a));
         /// <summary>
-        /// Referencia a la propiedad de dependencia <see cref="HasSearch"/>.
+        /// Identifica a la propiedad de dependencia <see cref="HasSearch"/>.
         /// </summary>
         public static DependencyProperty HasSearchProperty = DependencyProperty.Register(nameof(HasSearch), typeof(bool), T, new PropertyMetadata(true));
         /// <summary>
-        /// Referencia a la propiedad de dependencia <see cref="Search"/>.
+        /// Identifica a la propiedad de dependencia <see cref="Search"/>.
         /// </summary>
         public static DependencyProperty SearchProperty = DependencyProperty.Register(nameof(Search), typeof(string), T, new PropertyMetadata(string.Empty));
         /// <summary>
-        /// Referencia a la propiedad de dependencia <see cref="SearchWatermark"/>.
+        /// Identifica a la propiedad de dependencia <see cref="SearchWatermark"/>.
         /// </summary>
         public static DependencyProperty SearchWatermarkProperty = DependencyProperty.Register(nameof(SearchWatermark), typeof(string), T, new PropertyMetadata(St.Search));
         /// <summary>
-        /// Referencia a la propiedad de dependencia <see cref="Max"/>.
+        /// Identifica a la propiedad de dependencia <see cref="Max"/>.
         /// </summary>
         public static DependencyProperty MaxProperty = DependencyProperty.Register(nameof(Max), typeof(int), T, new PropertyMetadata(0, UpdtLayout), a => (int)a >= 0);
         /// <summary>
-        /// Referencia a la propiedad de dependencia <see cref="Position"/>.
+        /// Identifica a la propiedad de dependencia <see cref="Position"/>.
         /// </summary>
         public static DependencyProperty PositionProperty = DependencyProperty.Register(nameof(Position), typeof(int), T, new PropertyMetadata(1, UpdtLayout), a => (int)a >= 1);
         #endregion
@@ -375,7 +375,7 @@ namespace MCART.Controls
 
         #region Eventos
         /// <summary>
-        /// Se genera cuando se ha conectado a un <see cref="CollectionView"/>.
+        /// Se produce cuando se ha conectado a un <see cref="CollectionView"/>.
         /// </summary>
         public event AttachedToViewEventHandler AttachedToView;
         /// <summary>
@@ -385,7 +385,7 @@ namespace MCART.Controls
         /// <param name="e">argumentos del evento.</param>
         public delegate void AttachedToViewEventHandler(object sender, ValueEventArgs<CollectionView> e);
         /// <summary>
-        /// Se genera cuando se ha solicitado la navegación al primer elemento.
+        /// Se produce cuando se ha solicitado la navegación al primer elemento.
         /// </summary>
         public event MovingToFirstEventHandler MovingToFirst;
         /// <summary>
@@ -395,7 +395,7 @@ namespace MCART.Controls
         /// <param name="e">argumentos del evento.</param>
         public delegate void MovingToFirstEventHandler(object sender, DependencyPropertyChangingEventArgs e);
         /// <summary>
-        /// Se genera cuando se ha solicitado la navegación al elemento anterior.
+        /// Se produce cuando se ha solicitado la navegación al elemento anterior.
         /// </summary>
         public event MovingToPrevEventHandler MovingToPrev;
         /// <summary>
@@ -405,7 +405,7 @@ namespace MCART.Controls
         /// <param name="e">argumentos del evento.</param>
         public delegate void MovingToPrevEventHandler(object sender, DependencyPropertyChangingEventArgs e);
         /// <summary>
-        /// Se genera cuando se ha solicitado la navegación al elemento siguiente.
+        /// Se produce cuando se ha solicitado la navegación al elemento siguiente.
         /// </summary>
         public event MovingToNextEventHandler MovingToNext;
         /// <summary>
@@ -415,7 +415,7 @@ namespace MCART.Controls
         /// <param name="e">argumentos del evento.</param>
         public delegate void MovingToNextEventHandler(object sender, DependencyPropertyChangingEventArgs e);
         /// <summary>
-        /// Se genera cuando se ha solicitado la navegación al último elemento.
+        /// Se produce cuando se ha solicitado la navegación al último elemento.
         /// </summary>
         public event MovingToLastEventHandler MovingToLast;
         /// <summary>
@@ -425,7 +425,7 @@ namespace MCART.Controls
         /// <param name="e">argumentos del evento.</param>
         public delegate void MovingToLastEventHandler(object sender, DependencyPropertyChangingEventArgs e);
         /// <summary>
-        /// Se genera cuando se ha solicitado la navegación a un elemento en particular.
+        /// Se produce cuando se ha solicitado la navegación a un elemento en particular.
         /// </summary>
         public event MovingToPositionEventHandler MovingToPosition;
         /// <summary>
@@ -435,7 +435,7 @@ namespace MCART.Controls
         /// <param name="e">argumentos del evento.</param>
         public delegate void MovingToPositionEventHandler(object sender, DependencyPropertyChangingEventArgs e);
         /// <summary>
-        /// Se genera cuando se ha solicitado la navegación al primer elemento.
+        /// Se produce cuando se ha solicitado la navegación al primer elemento.
         /// </summary>
         public event MovedToFirstEventHandler MovedToFirst;
         /// <summary>
@@ -445,7 +445,7 @@ namespace MCART.Controls
         /// <param name="e">argumentos del evento.</param>
         public delegate void MovedToFirstEventHandler(object sender, DependencyPropertyChangedEventArgs e);
         /// <summary>
-        /// Se genera cuando se ha solicitado la navegación al elemento anterior.
+        /// Se produce cuando se ha solicitado la navegación al elemento anterior.
         /// </summary>
         public event MovedToPrevEventHandler MovedToPrev;
         /// <summary>
@@ -455,7 +455,7 @@ namespace MCART.Controls
         /// <param name="e">argumentos del evento.</param>
         public delegate void MovedToPrevEventHandler(object sender, DependencyPropertyChangedEventArgs e);
         /// <summary>
-        /// Se genera cuando se ha solicitado la navegación al elemento siguiente.
+        /// Se produce cuando se ha solicitado la navegación al elemento siguiente.
         /// </summary>
         public event MovedToNextEventHandler MovedToNext;
         /// <summary>
@@ -465,7 +465,7 @@ namespace MCART.Controls
         /// <param name="e">argumentos del evento.</param>
         public delegate void MovedToNextEventHandler(object sender, DependencyPropertyChangedEventArgs e);
         /// <summary>
-        /// Se genera cuando se ha solicitado la navegación al último elemento.
+        /// Se produce cuando se ha solicitado la navegación al último elemento.
         /// </summary>
         public event MovedToLastEventHandler MovedToLast;
         /// <summary>
@@ -475,7 +475,7 @@ namespace MCART.Controls
         /// <param name="e">argumentos del evento.</param>
         public delegate void MovedToLastEventHandler(object sender, DependencyPropertyChangedEventArgs e);
         /// <summary>
-        /// Se genera cuando se ha solicitado la navegación a un elemento en particular.
+        /// Se produce cuando se ha solicitado la navegación a un elemento en particular.
         /// </summary>
         public event MovedToPositionEventHandler MovedToPosition;
         /// <summary>
@@ -485,7 +485,7 @@ namespace MCART.Controls
         /// <param name="e">argumentos del evento.</param>
         public delegate void MovedToPositionEventHandler(object sender, DependencyPropertyChangedEventArgs e);
         /// <summary>
-        /// Se genera cuando se ha introducido texto en el cuadro de búsqueda.
+        /// Se produce cuando se ha introducido texto en el cuadro de búsqueda.
         /// </summary>
         public event SearchEnteredEventHandler SearchEntered;
         /// <summary>
@@ -495,7 +495,7 @@ namespace MCART.Controls
         /// <param name="e">argumentos del evento.</param>
         public delegate void SearchEnteredEventHandler(object sender, ValueEventArgs<string> e);
         /// <summary>
-        /// Se genera cuando se ha cerrado la búsqueda.
+        /// Se produce cuando se ha cerrado la búsqueda.
         /// </summary>
         public event SearchClosedEventHandler SearchClosed;
         /// <summary>
@@ -505,7 +505,7 @@ namespace MCART.Controls
         /// <param name="e">argumentos del evento.</param>
         public delegate void SearchClosedEventHandler(object sender, EventArgs e);
         /// <summary>
-        /// Se genera cuando se ha solicitado la creación de un elemento nuevo.
+        /// Se produce cuando se ha solicitado la creación de un elemento nuevo.
         /// </summary>
         public event CreatingNewEventHandler CreatingNew;
         /// <summary>
@@ -515,7 +515,7 @@ namespace MCART.Controls
         /// <param name="e">argumentos del evento.</param>
         public delegate void CreatingNewEventHandler(object sender, CancelEventArgs e);
         /// <summary>
-        /// Se genera cuando se ha solicitado la edición del elemento actual.
+        /// Se produce cuando se ha solicitado la edición del elemento actual.
         /// </summary>
         public event EditingEventHandler Editing;
         /// <summary>
@@ -525,7 +525,7 @@ namespace MCART.Controls
         /// <param name="e">argumentos del evento.</param>
         public delegate void EditingEventHandler(object sender, CancelEventArgs e);
         /// <summary>
-        /// Se genera cuando se ha solicitado la eliminación del elemento actual.
+        /// Se produce cuando se ha solicitado la eliminación del elemento actual.
         /// </summary>
         public event DeletingEventHandler Deleting;
         /// <summary>
@@ -535,7 +535,7 @@ namespace MCART.Controls
         /// <param name="e">argumentos del evento.</param>
         public delegate void DeletingEventHandler(object sender, CancelEventArgs e);
         /// <summary>
-        /// Se genera cuando se ha presionado el botón Guardar al editar o crear un nuevo elemento.
+        /// Se produce cuando se ha presionado el botón Guardar al editar o crear un nuevo elemento.
         /// </summary>
         public event SavingEventHandler Saving;
         /// <summary>
@@ -545,7 +545,7 @@ namespace MCART.Controls
         /// <param name="e">argumentos del evento.</param>
         public delegate void SavingEventHandler(object sender, ItemSavingEventArgs e);
         /// <summary>
-        /// Se genera cuando se ha presionado el botón Cancelar al editar o crear un nuevo elemento.
+        /// Se produce cuando se ha presionado el botón Cancelar al editar o crear un nuevo elemento.
         /// </summary>
         public event CancellingEventHandler Cancelling;
         /// <summary>
@@ -555,7 +555,7 @@ namespace MCART.Controls
         /// <param name="e">argumentos del evento.</param>
         public delegate void CancellingEventHandler(object sender, CancelEventArgs e);
         /// <summary>
-        /// Se genera cuando se ha creado un elemento nuevo.
+        /// Se produce cuando se ha creado un elemento nuevo.
         /// </summary>
         public event NewCreatedEventHandler NewCreated;
         /// <summary>
@@ -565,7 +565,7 @@ namespace MCART.Controls
         /// <param name="e">argumentos del evento.</param>
         public delegate void NewCreatedEventHandler(object sender, EventArgs e);
         /// <summary>
-        /// Se genera cuando se ha entrado en modo de edición.
+        /// Se produce cuando se ha entrado en modo de edición.
         /// </summary>
         public event EditEnteredEventHandler EditEntered;
         /// <summary>
@@ -575,7 +575,7 @@ namespace MCART.Controls
         /// <param name="e">argumentos del evento.</param>
         public delegate void EditEnteredEventHandler(object sender, EventArgs e);
         /// <summary>
-        /// Se genera cuando se ha eliminado un elemento.
+        /// Se produce cuando se ha eliminado un elemento.
         /// </summary>
         public event ItemDeletedEventHandler ItemDeleted;
         /// <summary>
@@ -585,7 +585,7 @@ namespace MCART.Controls
         /// <param name="e">argumentos del evento.</param>
         public delegate void ItemDeletedEventHandler(object sender, EventArgs e);
         /// <summary>
-        /// Se genera cuando se ha guardado un elemento
+        /// Se produce cuando se ha guardado un elemento
         /// </summary>
         public event ItemSavedEventHandler ItemSaved;
         /// <summary>
@@ -595,7 +595,7 @@ namespace MCART.Controls
         /// <param name="e">argumentos del evento.</param>
         public delegate void ItemSavedEventHandler(object sender, ItemSavedEventArgs e);
         /// <summary>
-        /// Se genera cuando se ha cancelado la creación/edición de un elemento
+        /// Se produce cuando se ha cancelado la creación/edición de un elemento
         /// </summary>
         public event CancelledEventHandler Cancelled;
         /// <summary>

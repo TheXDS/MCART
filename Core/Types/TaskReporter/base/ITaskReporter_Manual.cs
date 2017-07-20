@@ -20,6 +20,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 namespace MCART.Types.TaskReporter
 {
@@ -29,6 +30,10 @@ namespace MCART.Types.TaskReporter
     /// </summary>
     public partial interface ITaskReporter
     {
+        /// <summary>
+        /// Indica el progreso actual de la tarea.
+        /// </summary>
+        float? CurrentProgress { get; }
         /// <summary>
         /// Indica si hay una cancelación de tarea pendiente.
         /// </summary>
@@ -75,7 +80,7 @@ namespace MCART.Types.TaskReporter
         /// <param name="helpText">
         /// Texto descriptivo del estado actual de esta tarea.
         /// </param>
-        void Report(double? progress = null, string helpText = null);
+        void Report(float? progress = null, string helpText = null);
         /// <summary>
         /// Indica que una tarea ha dado inicio.
         /// </summary>
@@ -129,7 +134,7 @@ namespace MCART.Types.TaskReporter
         /// <param name="helpText">
         /// Texto descriptivo del estado actual de esta tarea.
         /// </param>
-        void Stop(double? progress = null, string helpText = null);
+        void Stop(float? progress = null, string helpText = null);
         /// <summary>
         /// Indica que esta tarea ha sido detenida antes de finalizar.
         /// </summary>

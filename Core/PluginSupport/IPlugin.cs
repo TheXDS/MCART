@@ -31,24 +31,24 @@ namespace MCART.PluginSupport
 	public partial interface IPlugin
     {
         /// <summary>
-        /// Se genera cuando un <see cref="IPlugin"/> solicita la actualización
+        /// Se produce cuando un <see cref="IPlugin"/> solicita la actualización
         /// de su interfaz gráfica.
         /// </summary>
         event UIChangeRequestedEventHandler UIChangeRequested;
         /// <summary>
-        /// Se genera cuando un <see cref="IPlugin"/> está por ser deshechado.
+        /// Se produce cuando un <see cref="IPlugin"/> está por ser deshechado.
         /// </summary>
         event PluginFinalizingEventHandler PluginFinalizing;
         /// <summary>
-        /// Se genera cuando un <see cref="IPlugin"/> ha sido desechado.
+        /// Se produce cuando un <see cref="IPlugin"/> ha sido desechado.
         /// </summary>
         event PluginFinalizedEventHandler PluginFinalized;
         /// <summary>
-        /// Se genera cuando un <see cref="IPlugin"/> ha sido cargado.
+        /// Se produce cuando un <see cref="IPlugin"/> ha sido cargado.
         /// </summary>
         event PluginLoadedEventHandler PluginLoaded;
         /// <summary>
-        /// Se genera cuando la carga de un <see cref="IPlugin"/> ha fallado.
+        /// Se produce cuando la carga de un <see cref="IPlugin"/> ha fallado.
         /// </summary>
         event PluginLoadFailedEventHandler PluginLoadFailed;
         /// <summary>

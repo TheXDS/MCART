@@ -33,37 +33,37 @@ namespace MCART.Types.TaskReporter
     /// <remarks>Este evento debe ser implementado por la clase que contiene a la tarea</remarks>
     public delegate void CancelRequestedEventHandler(object sender, CancelEventArgs e);
     /// <summary>
-    /// Se genera cuando una tarea se ha iniciado
+    /// Se produce cuando una tarea se ha iniciado
     /// </summary>
     /// <param name="sender">Objeto que ha iniciado el evento</param>
     /// <param name="e">Parámetros del evento</param>
     public delegate void BegunEventHandler(object sender, BegunEventArgs e);
     /// <summary>
-    /// Se genera cuando la tarea desea reportar su estado
+    /// Se produce cuando la tarea desea reportar su estado
     /// </summary>
     /// <param name="sender">Objeto que ha iniciado el evento</param>
     /// <param name="e">Parámetros del evento</param>
     public delegate void ReportingEventHandler(object sender, ProgressEventArgs e);
     /// <summary>
-    /// Se genera cuando se ha agotado el tiempo de espera para una tarea
+    /// Se produce cuando se ha agotado el tiempo de espera para una tarea
     /// </summary>
     /// <param name="sender">Objeto que ha iniciado el evento</param>
     /// <param name="e">Parámetros del evento</param>
     public delegate void TaskTimeoutEventHandler(object sender, ProgressEventArgs e);
     /// <summary>
-    /// Se genera cuando una tarea es cancelada
+    /// Se produce cuando una tarea es cancelada
     /// </summary>
     /// <param name="sender">Objeto que ha iniciado el evento</param>
     /// <param name="e">Parámetros del evento</param>
     public delegate void StoppedEventHandler(object sender, ProgressEventArgs e);
     /// <summary>
-    /// Se genera cuando una tarea finalizó correctamente
+    /// Se produce cuando una tarea finalizó correctamente
     /// </summary>
     /// <param name="sender">Objeto que ha iniciado el evento</param>
     /// <param name="e">Parámetros del evento</param>
     public delegate void EndedEventHandler(object sender, EventArgs e);
     /// <summary>
-    /// Se genera cuando una tarea indica que finalizó con error
+    /// Se produce cuando una tarea indica que finalizó con error
     /// </summary>
     /// <param name="sender">Objeto que ha iniciado el evento</param>
     /// <param name="e">Parámetros del evento</param>
@@ -79,27 +79,27 @@ namespace MCART.Types.TaskReporter
         /// </summary>
         event CancelRequestedEventHandler CancelRequested;
         /// <summary>
-        /// Se genera cuando una tarea se ha iniciado
+        /// Se produce cuando una tarea se ha iniciado
         /// </summary>
         event BegunEventHandler Begun;
         /// <summary>
-        /// Se genera cuando la tarea desea reportar su estado
+        /// Se produce cuando la tarea desea reportar su estado
         /// </summary>
         event ReportingEventHandler Reporting;
         /// <summary>
-        /// Se genera cuando una tarea finalizó correctamente
+        /// Se produce cuando una tarea finalizó correctamente
         /// </summary>
         event EndedEventHandler Ended;
         /// <summary>
-        /// Se genera cuando una tarea es cancelada
+        /// Se produce cuando una tarea es cancelada
         /// </summary>
         event StoppedEventHandler Stopped;
         /// <summary>
-        /// Se genera cuando una tarea indica que finalizó con error
+        /// Se produce cuando una tarea indica que finalizó con error
         /// </summary>
         event ErrorEventHandler Error;
         /// <summary>
-        /// Se genera cuando se ha agotado el tiempo de espera para una tarea
+        /// Se produce cuando se ha agotado el tiempo de espera para una tarea
         /// </summary>
         event TaskTimeoutEventHandler TaskTimeout;
     }
