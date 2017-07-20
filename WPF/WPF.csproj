@@ -51,9 +51,11 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\BarStepper.cs" />
     <Compile Include="Controls\BusyIndicator.cs" />
     <Compile Include="Controls\NavigationBar.cs" />
     <Compile Include="Controls\ProgressRing.cs" />
+    <Compile Include="Forms\PasswordDialog.cs" />
     <Compile Include="Forms\PluginBrowser.xaml.cs">
       <DependentUpon>PluginBrowser.xaml</DependentUpon>
     </Compile>
@@ -63,6 +65,7 @@
     <Compile Include="PluginSupport\Plugin.cs" />
     <Compile Include="Resources\Icons.cs" />
     <Compile Include="Types\Point.cs" />
+    <Compile Include="Types\TaskReporter\TaskReporterControl.cs" />
     <Compile Include="UI\MoreColors.cs" />
     <Compile Include="UI\UITools.cs" />
     <Compile Include="PluginSupport\IPlugin.cs" />

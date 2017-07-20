@@ -32,7 +32,7 @@ namespace MCART.Types.TaskReporter
         /// <summary>
         /// Porcentaje de progreso actual de la tarea.
         /// </summary>
-        public readonly float? Progress;
+        public readonly double? Progress;
         /// <summary>
         /// Texto descriptivo del estado actual de la tarea.
         /// </summary>
@@ -48,7 +48,7 @@ namespace MCART.Types.TaskReporter
         /// Texto descriptivo del estado actual de la tarea.
         /// </param>
         public ProgressEventArgs(
-            float? progress = null,
+            double? progress = null,
             string helpText = null)
         {
             Progress = progress;

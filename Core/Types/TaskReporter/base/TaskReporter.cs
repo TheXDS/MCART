@@ -52,7 +52,7 @@ namespace MCART.Types.TaskReporter
 
         public TimeSpan? TimeLeft => Tmr?.TimeLeft;
 
-        public TimeSpan? TimeOut
+        public TimeSpan? Timeout
         {
             get => Tmr.IsNull() ? null : (TimeSpan?)TimeSpan.FromMilliseconds(Tmr.Interval);
             set

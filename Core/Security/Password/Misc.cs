@@ -58,6 +58,11 @@ namespace MCART.Security.Password
             Critical = c;
             Details = d;
         }
+        /// <summary>
+        /// Obtiene un <see cref="PwEvalResult"/> nulo. Este campo es de sólo 
+        /// lectura.
+        /// </summary>
+        public static readonly PwEvalResult Null = new PwEvalResult();
     }
     /// <summary>
     /// Determina el nivel de ponderación a aplicar a un objeto <see cref="PwEvalRule"/>

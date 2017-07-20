@@ -52,7 +52,7 @@ namespace MCART.Types.TaskReporter
         /// <summary>
         /// Indica la cantidad de tiempo concedida a la tarea.
         /// </summary>
-        TimeSpan? TimeOut { get; set; }
+        TimeSpan? Timeout { get; set; }
         /// <summary>
         /// Reporta el estado actual de esta tarea.
         /// </summary>
@@ -75,7 +75,7 @@ namespace MCART.Types.TaskReporter
         /// <param name="helpText">
         /// Texto descriptivo del estado actual de esta tarea.
         /// </param>
-        void Report(float? progress = null, string helpText = null);
+        void Report(double? progress = null, string helpText = null);
         /// <summary>
         /// Indica que una tarea ha dado inicio.
         /// </summary>
@@ -129,7 +129,7 @@ namespace MCART.Types.TaskReporter
         /// <param name="helpText">
         /// Texto descriptivo del estado actual de esta tarea.
         /// </param>
-        void Stop(float? progress = null, string helpText = null);
+        void Stop(double? progress = null, string helpText = null);
         /// <summary>
         /// Indica que esta tarea ha sido detenida antes de finalizar.
         /// </summary>
