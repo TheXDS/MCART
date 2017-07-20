@@ -71,29 +71,29 @@ namespace MCART.Types.TaskReporter
             typeof(TaskReporterControl),
             new PropertyMetadata(null));
         /// <summary>
-        /// Identifica a la propiedad de dependencia 
+        /// Identifica la propiedad de dependencia 
         /// <see cref="CancelPending"/>.
         /// </summary>
         public static DependencyProperty CancelPendingProperty = CancelPendingPropertyKey.DependencyProperty;
         /// <summary>
-        /// Identifica a la propiedad de dependencia 
+        /// Identifica la propiedad de dependencia 
         /// <see cref="CurrentProgress"/>.
         /// </summary>
         public static DependencyProperty CurrentProgressProperty = CurrentProgressPropertyKey.DependencyProperty;
         /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="OnDuty"/>.
+        /// Identifica la propiedad de dependencia <see cref="OnDuty"/>.
         /// </summary>
         public static DependencyProperty OnDutyProperty = OnDutyPropertyKey.DependencyProperty;
         /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="Stoppable"/>.
+        /// Identifica la propiedad de dependencia <see cref="Stoppable"/>.
         /// </summary>
         public static DependencyProperty StoppableProperty = StoppablePropertyKey.DependencyProperty;
         /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="TStart"/>.
+        /// Identifica la propiedad de dependencia <see cref="TStart"/>.
         /// </summary>
         public static DependencyProperty TStartProperty = TStartPropertyKey.DependencyProperty;
         /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="TimedOut"/>.
+        /// Identifica la propiedad de dependencia <see cref="TimedOut"/>.
         /// </summary>
         public static DependencyProperty TimedOutProperty = TimedOutPropertyKey.DependencyProperty;
         #endregion

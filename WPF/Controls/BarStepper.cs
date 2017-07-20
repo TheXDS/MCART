@@ -1,5 +1,4 @@
-﻿
-//
+﻿//
 //  BarStepper.cs
 //
 //  This file is part of MCART
@@ -47,7 +46,7 @@ namespace Controls
     {
         private static Type T = typeof(BarStepper);
         /// <summary>
-        /// Identifica a la propiedad de dependencia 
+        /// Identifica la propiedad de dependencia 
         /// <see cref="StatusForReady"/>.
         /// </summary>
         public static DependencyProperty StatusForReadyProperty = DependencyProperty.Register(nameof(StatusForReady), typeof(Visibility), T, new PropertyMetadata(Visibility.Hidden), (a) => (Visibility)a != Visibility.Visible);

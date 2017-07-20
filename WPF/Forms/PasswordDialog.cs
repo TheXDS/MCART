@@ -154,7 +154,7 @@ namespace MCART.Forms
             /// <summary>
             /// Obtiene la contraseña que el usuario ha introducido
             /// </summary>
-            /// <returns>Una <see cref="String"/> con la contraseña que el usuario ha introducido</returns>
+            /// <returns>Una <see cref="string"/> con la contraseña que el usuario ha introducido</returns>
             public string Pwd
             {
                 get { return p; }
@@ -162,9 +162,9 @@ namespace MCART.Forms
             /// <summary>
             /// Obtiene el indicio de contraseña introducido por el usuario
             /// </summary>
-            /// <returns><see cref="string.Empty"/> si el cuadro se inicia con <see cref="GetPassword(String, String, Boolean)"/>.
+            /// <returns><see cref="string.Empty"/> si el cuadro se inicia con <see cref="GetPassword(string, string, Boolean)"/>.
             /// Si se inicia con <see cref="ChoosePassword(PwMode, PwEvaluator)"/>, se devuelve un
-            /// <see cref="String"/> con el indicio de contraseña que el usuario ha introducido</returns>
+            /// <see cref="string"/> con el indicio de contraseña que el usuario ha introducido</returns>
             public string Hint
             {
                 get { return h; }

@@ -36,7 +36,7 @@ namespace MCART.Types.TaskReporter
         /// <summary>
         /// Texto descriptivo del estado actual de la tarea.
         /// </summary>
-        public readonly String HelpText;
+        public readonly string HelpText;
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="ProgressEventArgs"/>.

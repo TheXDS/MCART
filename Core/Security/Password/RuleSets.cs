@@ -123,7 +123,7 @@ namespace MCART.Security.Password
                     1, p.Length > excessiveLength ? St.Warn(St.PwTooLong) : null);
                 return new PwEvalResult(
                         baseScore + ((p.Length - minLength) / (idealLength - minLength) * scoringTo1));
-            }, St2.PwLenghtEvalRule, PonderationLevel.Normal, String.Format(St2.PwLenghtEvalRule2, minLength, idealLength));
+            }, St2.PwLenghtEvalRule, PonderationLevel.Normal, string.Format(St2.PwLenghtEvalRule2, minLength, idealLength));
         }
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene mayúsculas.

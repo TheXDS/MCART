@@ -109,7 +109,7 @@ namespace MCART
         /// </summary>
         /// <param name="x">Colección  de <see cref="double"/> a comprobar</param>
         /// <returns>un valor booleano que indica si todos los elementos de <paramref name="x"/> son números operables, en otras palabras, si no son NaN o Infinito</returns>
-        public static bool AreValiddoubles(params double[] x)
+        public static bool AreValidDoubles(params double[] x)
         {
             foreach (double j in x) if (!IsValid(j)) return false;
             return true;

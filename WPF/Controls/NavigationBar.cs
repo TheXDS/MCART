@@ -245,7 +245,7 @@ namespace MCART.Controls
         /// </summary>
         protected static DependencyPropertyKey HasItemsPropertyKey = DependencyProperty.RegisterReadOnly(nameof(HasItems), typeof(bool), T, new PropertyMetadata(true));
         /// <summary>
-        /// Identifica a la propiedad de dependencia de sólo lectura <see cref="HasItems"/>.
+        /// Identifica la propiedad de dependencia de sólo lectura <see cref="HasItems"/>.
         /// </summary>
         public static DependencyProperty HasItemsProperty = HasItemsPropertyKey.DependencyProperty;
         /// <summary>
@@ -253,35 +253,35 @@ namespace MCART.Controls
         /// </summary>
         public static DependencyPropertyKey IsEditingPropertyKey = DependencyProperty.RegisterReadOnly(nameof(IsEditing), typeof(bool), T, new PropertyMetadata(false));
         /// <summary>
-        /// Identifica a la propiedad de dependencia de sólo lectura <see cref="IsEditing"/>.
+        /// Identifica la propiedad de dependencia de sólo lectura <see cref="IsEditing"/>.
         /// </summary>
         public static DependencyProperty IsEditingProperty = IsEditingPropertyKey.DependencyProperty;
         /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="ButtonWidth"/>.
+        /// Identifica la propiedad de dependencia <see cref="ButtonWidth"/>.
         /// </summary>
         public static DependencyProperty ButtonWidthProperty = DependencyProperty.Register(nameof(ButtonWidth), typeof(double), T, new PropertyMetadata(Convert.ToDouble(80)));
         /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="Mode"/>.
+        /// Identifica la propiedad de dependencia <see cref="Mode"/>.
         /// </summary>
         public static DependencyProperty ModeProperty = DependencyProperty.Register(nameof(Mode), typeof(EditMode), T, new PropertyMetadata(EditMode.ReadOnly), (a) => typeof(EditMode).IsEnumDefined(a));
         /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="HasSearch"/>.
+        /// Identifica la propiedad de dependencia <see cref="HasSearch"/>.
         /// </summary>
         public static DependencyProperty HasSearchProperty = DependencyProperty.Register(nameof(HasSearch), typeof(bool), T, new PropertyMetadata(true));
         /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="Search"/>.
+        /// Identifica la propiedad de dependencia <see cref="Search"/>.
         /// </summary>
         public static DependencyProperty SearchProperty = DependencyProperty.Register(nameof(Search), typeof(string), T, new PropertyMetadata(string.Empty));
         /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="SearchWatermark"/>.
+        /// Identifica la propiedad de dependencia <see cref="SearchWatermark"/>.
         /// </summary>
         public static DependencyProperty SearchWatermarkProperty = DependencyProperty.Register(nameof(SearchWatermark), typeof(string), T, new PropertyMetadata(St.Search));
         /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="Max"/>.
+        /// Identifica la propiedad de dependencia <see cref="Max"/>.
         /// </summary>
         public static DependencyProperty MaxProperty = DependencyProperty.Register(nameof(Max), typeof(int), T, new PropertyMetadata(0, UpdtLayout), a => (int)a >= 0);
         /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="Position"/>.
+        /// Identifica la propiedad de dependencia <see cref="Position"/>.
         /// </summary>
         public static DependencyProperty PositionProperty = DependencyProperty.Register(nameof(Position), typeof(int), T, new PropertyMetadata(1, UpdtLayout), a => (int)a >= 1);
         #endregion

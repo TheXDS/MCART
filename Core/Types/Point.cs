@@ -243,14 +243,14 @@ namespace MCART.Types
         /// <returns></returns>
         public string ToString(string format, IFormatProvider formatProvider)
         {
-            if (String.IsNullOrEmpty(format)) format = "C";
+            if (string.IsNullOrEmpty(format)) format = "C";
             if (formatProvider.IsNull()) formatProvider = CI.CurrentCulture;
             switch (format.ToUpperInvariant()[0])
             {
                 case 'C': return $"{X},{Y}";
                 case 'B': return $"[{X}, {Y}]";
                 case 'V': return $"X: {X}, Y: {Y}";
-                default: throw new FormatException(String.Format(St.FormatNotSupported, format));
+                default: throw new FormatException(string.Format(St.FormatNotSupported, format));
             }
         }
     }

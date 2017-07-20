@@ -30,7 +30,9 @@ namespace System.Windows.Converters
     /// <summary>
     /// Clase base para crear convertidores de valores booleanos
     /// </summary>
-    /// <typeparam name="T">Tipo de valores a convertir. Deben ser estructuras o enumeraciones.</typeparam>
+    /// <typeparam name="T">
+    /// Tipo de valores a convertir. Deben ser estructuras o enumeraciones.
+    /// </typeparam>
     public class BooleanConverter<T> : IValueConverter where T : struct
     {
         /// <summary>
@@ -80,6 +82,66 @@ namespace System.Windows.Converters
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return (value is T && ((T)value).Equals(True));
+        }
+    }
+    /// <summary>
+    /// Clase base para crear convertidores de valores booleanos que analizan
+    /// banderas de una enumeración.
+    /// </summary>
+    /// <typeparam name="T">
+    /// Tipo de valores a convertir. Deben ser enumeraciones.
+    /// </typeparam>
+    public class BoolFlagConverter<T> : IValueConverter
+    {
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="BoolFlagConverter{T}"/>.
+        /// </summary>
+        public BoolFlagConverter()
+        {
+            if (!typeof(T).IsEnum) throw new InvalidOperationException();
+            True = default(T);
+        }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="BoolFlagConverter{T}"/>, configurando el valor que
+        /// corresponderá a <c>true</c>.
+        /// </summary>
+        /// <param name="TrueValue">Valor equivalente a <c>true</c>.</param>
+        public BoolFlagConverter(T TrueValue)
+        {
+            if (!typeof(T).IsEnum) throw new InvalidOperationException();
+            True = TrueValue;
+        }
+        /// <summary>
+        /// Obtiene o establece el valor que equivale a <c>true</c> en este
+        /// <see cref="BoolFlagConverter{T}"/>.
+        /// </summary>
+        public T True { get; set; }
+        /// <summary>
+        /// Convierte un valor a <see cref="bool"/>.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns></returns>
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return True.Equals(default(T)) ? !value.Equals(True) : value.Equals(True);
+        }
+        /// <summary>
+        /// Convierte un <see cref="bool"/> al tipo establecido para este
+        /// <see cref="BoolFlagConverter{T}"/>.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns></returns>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value.Equals(true) ? True : default(T);
         }
     }
     /// <summary>

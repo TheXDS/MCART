@@ -66,7 +66,7 @@ namespace MCART
         /// <c>true</c> si la cadena está vacía o es <c>null</c>; de lo
         /// contrario, <c>false</c>.
         /// </returns>
-        /// <param name="str">String.</param>
+        /// <param name="str">string.</param>
         public static bool IsEmpty(this string str) => str.IsNull() || str == string.Empty;
         /// <summary>
         /// Cuenta los caracteres que contiene una cadena.
@@ -222,7 +222,7 @@ namespace MCART
             ofString = ofString.ToUpper().PadLeft(toString.Length + tolerance);
             foreach (char c in toString.ToUpper())
             {
-                if (ofString.Substring(steps, tolerance).Contains(c)) likes++;
+                if (ofString.SubString(steps, tolerance).Contains(c)) likes++;
                 steps++;
             }
             return likes / (double)steps;
