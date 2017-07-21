@@ -27,11 +27,11 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using St = MCART.Resources.Strings;
-
 namespace MCART.Forms
 {
     /// <summary>
-    /// Lógica de interacción para PluginBrowser.xaml
+    /// Diálogo que permite mostrar información acerca de los 
+    /// <see cref="Plugin"/> cargables por MCART.
     /// </summary>
     public partial class PluginBrowser : Window
     {
@@ -59,8 +59,8 @@ namespace MCART.Forms
             chkBeta.IsChecked = P.IsBeta;
             chkUnstable.IsChecked = P.IsUnstable;
             txtDesc.Text = P.Description;
-            txtCopyrgt.Text=P.Copyright;
-            txtLicense.Text=P.License;
+            txtCopyrgt.Text = P.Copyright;
+            txtLicense.Text = P.License;
             lstInterf.Items.Clear();
             foreach (Type T in P.Interfaces)
                 lstInterf.Items.Add(new ListViewItem() { Content = T.Name });
@@ -72,9 +72,9 @@ namespace MCART.Forms
                 if (mv > MCART.Resources.RTInfo.RTVersion)
                     txtMinVer.Warn(St.UnsupportedVer);
             }
-            else txtMinVer.Warn(St.NoData);            
+            else txtMinVer.Warn(St.NoData);
 
-            if (P.MinRTVersion(out Version tv))
+            if (P.TargetRTVersion(out Version tv))
             {
                 txtTgtVer.Text = tv.ToString();
                 if (tv < MCART.Resources.RTInfo.RTVersion)
@@ -86,8 +86,8 @@ namespace MCART.Forms
                 MenuItem roth = new MenuItem()
                 {
                     Header = P.Name,
-                    VerticalAlignment=VerticalAlignment.Center,
-                    HorizontalAlignment=HorizontalAlignment.Center
+                    VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Center
                 };
                 foreach (InteractionItem j in P.PluginInteractions)
                 {
@@ -134,7 +134,7 @@ namespace MCART.Forms
         {
             trvAsm.Visibility = Visibility.Collapsed;
             ShwDetails(p);
-            ShowDialog();            
+            ShowDialog();
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="PluginBrowser"/>.

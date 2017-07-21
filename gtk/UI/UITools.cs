@@ -22,7 +22,8 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using Gdk;
 using Gtk;
-using System.Collections.Generic;
+using System.Linq;
+using MCART.Types.Extensions;
 namespace MCART.UI
 {
     public static class UITools
@@ -65,6 +66,12 @@ namespace MCART.UI
             byte g = (byte)(510 * x).Clamp(255, 0);
             byte r = (byte)(510 - (510 * x)).Clamp(255, 0);
             return new Color(r, g, 0);
+        }
+        public static void ClearContents(this Gtk.Container c)
+        {
+            Widget[] x = c.Children;
+            foreach (Widget j in x) c.Remove(j);
+            x = null;
         }
     }
 }

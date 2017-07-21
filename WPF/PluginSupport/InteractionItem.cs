@@ -28,6 +28,9 @@ using System.Windows.Media.Imaging;
 
 namespace MCART.PluginSupport
 {
+    /// <summary>
+    /// Esta clase define a un elemento de interacción.
+    /// </summary>
     public partial class InteractionItem
     {
         /// <summary>
@@ -103,7 +106,7 @@ namespace MCART.PluginSupport
         /// <see cref="RoutedEventHandler"/> compatible con Windows
         /// Presentation Framework.
         /// </summary>
-        public RoutedEventHandler RoutedAction=> new RoutedEventHandler((s, e) => Action(s, e));
+        public RoutedEventHandler RoutedAction => new RoutedEventHandler((s, e) => Action(s, e));
         /// <summary>
         /// Devuelve este <see cref="InteractionItem"/> como un
         /// <see cref="MenuItem"/>.
@@ -124,7 +127,7 @@ namespace MCART.PluginSupport
         /// <see cref="MenuItem"/>.
         /// </summary>
         /// <param name="j"><see cref="InteractionItem"/> a convertir.</param>
-        public static implicit operator MenuItem(InteractionItem j)=> j.AsMenuItem();
+        public static implicit operator MenuItem(InteractionItem j) => j.AsMenuItem();
         /// <summary>
         /// Devuelve este <see cref="InteractionItem"/> como un 
         /// <see cref="ButtonBase"/> de tipo <typeparamref name="T"/>.

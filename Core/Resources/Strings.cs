@@ -161,6 +161,10 @@ namespace MCART.Resources
         public const string OK = "Aceptar";
         public const string PluginDetails = "Detalles de plugins";
         public const string PluginDidntInit = "El plugin no se inicializó";
+        public const string PluginInfo1 = "Seleccione un plugin para comprobar la compatibilidad.";
+        public const string PluginInfo2 = "El plugin es commpatible con esta versión de MCART.";
+        public const string PluginInfo3 = "El plugin NO es commpatible con esta versión de MCART.";
+        public const string PluginInfo4 = "No se pudo determinar la compatibilidad del plugin.";
         public const string PluginNeeded = "Se necesita un Plugin";
         public const string PluginsInfo = "Información de plugins";
         public const string Plugins = "Plugins";
