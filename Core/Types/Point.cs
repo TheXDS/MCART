@@ -50,8 +50,8 @@ namespace MCART.Types
         /// <param name="y">The y coordinate.</param>
         public Point(double x, double y) { X = x; Y = y; }
         /// <summary>
-        /// Determina si el punto se encuentra dentro del rectángulo formado
-        /// por los puntos especificados.
+        /// Determina si el punto se encuentra dentro del rectángulo formado por
+        /// los puntos especificados.
         /// </summary>
         /// <returns>
         /// <c>true</c> si el punto se encuentra dentro del rectángulo
@@ -64,8 +64,8 @@ namespace MCART.Types
             return X.IsBetween(p1.X, p2.X) && Y.IsBetween(p1.Y, p2.Y);
         }
         /// <summary>
-        /// Determina si el punto se encuentra dentro del rectángulo formado
-        /// por las coordenadas especificadas.
+        /// Determina si el punto se encuentra dentro del rectángulo formado por
+        /// las coordenadas especificadas.
         /// </summary>
         /// <returns>
         /// <c>true</c> si el punto se encuentra dentro del rectángulo
@@ -92,16 +92,28 @@ namespace MCART.Types
         /// especificado.
         /// </summary>
         /// <returns>The magnitude.</returns>
-        /// <param name="From">Punto de referencia para calcular la
+        /// <param name="fromPoint">Punto de referencia para calcular la
         /// magnitud.</param>
-        public double Magnitude(Point From)
+        public double Magnitude(Point fromPoint)
         {
-            double x = X - From.X, y = Y - From.Y;
+            double x = X - fromPoint.X, y = Y - fromPoint.Y;
             return System.Math.Sqrt((x * x) + (y * y));
         }
         /// <summary>
-        /// Calcula el ángulo formado por la línea que intersecta el orígen
-        /// y este <see cref="Point"/> contra el eje horizontal X.
+        /// Calcula la magnitud de las coordenadas desde el punto
+        /// especificado.
+        /// </summary>
+        /// <returns>The magnitude.</returns>
+        /// <param name="fromX">Coordenada X de orígen.</param>
+        /// <param name="fromY">Coordenada Y de orígen.</param>
+        public double Magnitude(double fromX, double fromY)
+        {
+            double x = X - fromX, y = Y - fromY;
+            return System.Math.Sqrt((x * x) + (y * y));
+        }
+        /// <summary>
+        /// Calcula el ángulo formado por la línea que intersecta el orígen y
+        /// este <see cref="Point"/> contra el eje horizontal X.
         /// </summary>
         /// <returns>El ángulo calculado.</returns>
         public double Angle()
@@ -250,6 +262,7 @@ namespace MCART.Types
                 case 'C': return $"{X},{Y}";
                 case 'B': return $"[{X}, {Y}]";
                 case 'V': return $"X: {X}, Y: {Y}";
+                case 'N': return $"X: {X}\nY: {Y}";
                 default: throw new FormatException(string.Format(St.FormatNotSupported, format));
             }
         }

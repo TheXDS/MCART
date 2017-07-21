@@ -22,62 +22,264 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
-using System.Text;
-
+using CI = System.Globalization.CultureInfo;
+using St = MCART.Resources.Strings;
 namespace MCART.Types
 {
     /// <summary>
     /// Tipo universal para un conjunto de coordenadas tridimensionales.
     /// </summary>
-    public partial struct Point3D
+    /// <remarks>
+    /// Esta estructura se declara como parcial, para permitir a cada
+    /// implementación de MCART definir métodos para convertir a la clase
+    /// correspondiente para los diferentes tipos de UI disponibles.
+    /// </remarks>
+    public partial struct Point3D : IFormattable
     {
+        /// <summary>
+        /// Coordenada X.
+        /// </summary>
         public double X;
+        /// <summary>
+        /// Coordenada Y.
+        /// </summary>
         public double Y;
+        /// <summary>
+        /// Coordenada Z.
+        /// </summary>
         public double Z;
+        /// <summary>
+        /// Inicializa una nueva instancia de la estructura
+        /// <see cref="Point3D"/>.
+        /// </summary>
         public Point3D(double x, double y, double z) { X = x; Y = y; Z = z; }
+        /// <summary>
+        /// Determina si el punto se encuentra dentro del cubo formado por los
+        /// puntos tridimensionales especificados.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c> si el punto se encuentra dentro del cubo formado,
+        /// <c>false</c> en caso contrario.
+        /// </returns>
+        /// <param name="p1">Punto 1.</param>
+        /// <param name="p2">Punto 2.</param>
+        public bool FitsInCube(Point3D p1, Point3D p2)
+        {
+            return X.IsBetween(p1.X, p2.X)
+            && Y.IsBetween(p1.Y, p2.Y)
+            && Z.IsBetween(p1.Z, p2.Z);
+        }
+        /// <summary>
+        /// Determina si el punto se encuentra dentro del cubo formado por los
+        /// puntos tridimensionales especificados.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c> si el punto se encuentra dentro del cubo formado,
+        /// <c>false</c> en caso contrario.
+        /// </returns>
+        /// <param name="x1">The first x value.</param>
+        /// <param name="y1">The first y value.</param>
+        /// <param name="z1">The first z value.</param>
+        /// <param name="x2">The second x value.</param>
+        /// <param name="y2">The second y value.</param>
+        /// <param name="z2">The second z value.</param>
+        public bool FitsInCube(double x1, double y1, double z1, double x2, double y2, double z2)
+        {
+            return X.IsBetween(x1, x2)
+            && Y.IsBetween(y1, y2)
+            && Z.IsBetween(z1, z2);
+        }
+        /// <summary>
+        /// Calcula la magnitud de las coordenadas.
+        /// </summary>
+        /// <returns>The magnitude.</returns>
+        public double Magnitude()
+        {
+            return System.Math.Sqrt((X * X) + (Y * Y) + (Z * Z));
+        }
+        /// <summary>
+        /// Calcula la magnitud de las coordenadas desde el punto
+        /// especificado.
+        /// </summary>
+        /// <returns>The magnitude.</returns>
+        /// <param name="fromPoint">Punto de referencia para calcular la
+        /// magnitud.</param>
+        public double Magnitude(Point3D fromPoint)
+        {
+            double x = X - fromPoint.X, y = Y - fromPoint.Y, z = Z - fromPoint.Z;
+            return System.Math.Sqrt((x * x) + (y * y) + (z * z));
+        }
+        /// <summary>
+        /// Calcula la magnitud de las coordenadas desde el punto
+        /// especificado.
+        /// </summary>
+        /// <returns>The magnitude.</returns>
+        /// <param name="fromX">Coordenada X de orígen.</param>
+        /// <param name="fromY">Coordenada Y de orígen.</param>
+        public double Magnitude(double fromX, double fromY, double fromZ)
+        {
+            double x = X - fromX, y = Y - fromY, z = Z - fromZ;
+            return System.Math.Sqrt((x * x) + (y * y) + (z * z));
+        }
+        // <summary>
+        /// Obtiene un punto en el orígen. Este campo es de solo lectura.
+        /// </summary>
+        /// <value>
+        /// Un <see cref="Point3D"/> con sus coordenadas en el orígen.
+        /// </value>
+        public static Point3D Origin => new Point3D(0, 0, 0);
+        /// <summary>
+        /// Realiza una operación de suma sobre los puntos.
+        /// </summary>
+        /// <param name="l">Punto 1.</param>
+        /// <param name="r">Punto 2.</param>
+        /// <returns>La suma de los vectores de los puntos.</returns>
         public static Point3D operator +(Point3D l, Point3D r)
         {
             return new Point3D(l.X + r.X, l.Y + r.Y, l.Z + r.Z);
         }
+        /// <summary>
+        /// Realiza una operación de resta sobre los puntos.
+        /// </summary>
+        /// <param name="l">Punto 1.</param>
+        /// <param name="r">Punto 2.</param>
+        /// <returns>La resta de los vectores de los puntos.</returns>
         public static Point3D operator -(Point3D l, Point3D r)
         {
             return new Point3D(l.X - r.X, l.Y - r.Y, l.Z - r.Z);
         }
+        /// <summary>
+        /// Realiza una operación de multiplicación sobre los puntos.
+        /// </summary>
+        /// <param name="l">Punto 1.</param>
+        /// <param name="r">Punto 2.</param>
+        /// <returns>La multiplicación de los vectores de los puntos.</returns>
         public static Point3D operator *(Point3D l, Point3D r)
         {
             return new Point3D(l.X * r.X, l.Y * r.Y, l.Z * r.Z);
         }
+        /// <summary>
+        /// Realiza una operación de división sobre los puntos.
+        /// </summary>
+        /// <param name="l">Punto 1.</param>
+        /// <param name="r">Punto 2.</param>
+        /// <returns>La división de los vectores de los puntos.</returns>
         public static Point3D operator /(Point3D l, Point3D r)
         {
             return new Point3D(l.X / r.X, l.Y / r.Y, l.Z / r.Z);
         }
+        /// <summary>
+        /// Realiza una operación de resíduo sobre los puntos.
+        /// </summary>
+        /// <param name="l">Punto 1.</param>
+        /// <param name="r">Punto 2.</param>
+        /// <returns>El resíduo de los vectores de los puntos.</returns>
         public static Point3D operator %(Point3D l, Point3D r)
         {
             return new Point3D(l.X % r.X, l.Y % r.Y, l.Z % r.Z);
         }
+        /// <summary>
+        /// Incrementa en 1 los vectores del punto.
+        /// </summary>
+        /// <param name="p">Punto a incrementar.</param>
+        /// <returns>Un punto con sus vectores incrementados en 1.</returns>
+        public static Point3D operator ++(Point3D p)
+        {
+            p.X++; p.Y++; p.Z++;
+            return p;
+        }
+        /// <summary>
+        /// Decrementa en 1 los vectores del punto.
+        /// </summary>
+        /// <param name="p">Punto a decrementar.</param>
+        /// <returns>Un punto con sus vectores decrementados en 1.</returns>
+        public static Point3D operator --(Point3D p)
+        {
+            p.X--; p.Y--; p.Z--;
+            return p;
+        }
+        /// <summary>
+        /// Convierte a positivos los vectores del punto.
+        /// </summary>
+        /// <param name="p">Punto a operar.</param>
+        /// <returns>Un punto con sus vectores positivos.</returns>
+        public static Point3D operator +(Point3D p) => new Point3D(+p.X, +p.Y, +p.Z);
+        /// <summary>
+        /// Invierte el signo de los vectores del punto.
+        /// </summary>
+        /// <param name="p">Punto a operar.</param>
+        /// <returns>Un punto con el signo de sus vectores invertido.</returns>
+        public static Point3D operator -(Point3D p) => new Point3D(-p.X, -p.Y, -p.Z);
 
 #pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
+        /// <summary>
+        /// Compara la igualdad de los vectores de los puntos.
+        /// </summary>
+        /// <param name="l">Punto 1.</param>
+        /// <param name="r">Punto 2.</param>
+        /// <returns>
+        /// <c>true</c> si todos los vectores de ambos puntos son iguales;
+        /// de lo contrario, <c>false</c>.</returns>
         public static bool operator ==(Point3D l, Point3D r)
         {
             return (l.X == r.X && l.Y == r.Y && l.Z == r.Z);
         }
+        /// <summary>
+        /// Compara la diferencia de los vectores de los puntos.
+        /// </summary>
+        /// <param name="l">Punto 1.</param>
+        /// <param name="r">Punto 2.</param>
+        /// <returns>
+        /// <c>true</c> si los vectores de ambos puntos son diferentes;  de lo
+        /// contrario, <c>false</c>.</returns>
         public static bool operator !=(Point3D l, Point3D r)
         {
             return (l.X != r.X && l.Y != r.Y && l.Z != r.Z);
         }
 #pragma warning restore RECS0018
-        public override bool Equals(object obj)
+        /// <summary>
+        /// Indica si esta instancia y un objeto especificado son iguales.
+        /// </summary>
+        /// <param name="obj">
+        /// Objeto que se va a compara con la instancia actual.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> si esta instancia y <paramref name="obj"/> son iguales;
+        /// de lo contrario, <c>false</c>.
+        /// </returns>
+        public override bool Equals(object obj) => base.Equals(obj);
+        /// <summary>
+        /// Devuelve el código Hash de esta instancia.
+        /// </summary>
+        /// <returns>El código Hash de esta instancia.</returns>
+        public override int GetHashCode() => base.GetHashCode();
+        /// <summary>
+        /// Convierte este objeto en su representación como una cadena.
+        /// </summary>
+        /// <returns>Una representación en cadena de este objeto.</returns>
+        public override string ToString() => ToString(null, CI.CurrentCulture);
+        /// <summary>
+        /// Convierte este objeto en su representación como una cadena.
+        /// </summary>
+        /// <param name="format">Formato a utilizar.</param>
+        /// <param name="formatProvider">Parámetro opcional.
+        /// Proveedor de formato de la cultura a utilizar para dar formato a
+        /// la representación como una cadena de este objeto. Si se omite,
+        /// se utilizará <see cref="CI.CurrentCulture"/>.
+        /// </param>
+        /// <returns></returns>
+        public string ToString(string format, IFormatProvider formatProvider)
         {
-            return base.Equals(obj);
-        }
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-        public override string ToString()
-        {
-            return string.Format($"[{X}, {Y}, {Z}]");
+            if (string.IsNullOrEmpty(format)) format = "C";
+            if (formatProvider.IsNull()) formatProvider = CI.CurrentCulture;
+            switch (format.ToUpperInvariant()[0])
+            {
+                case 'C': return $"{X},{Y},{Z}";
+                case 'B': return $"[{X}, {Y}, {Z}]";
+                case 'V': return $"X: {X}, Y: {Y}, Z: {Z}";
+                case 'N': return $"X: {X}\nY: {Y}\nZ: {Z}";
+                default: throw new FormatException(string.Format(St.FormatNotSupported, format));
+            }
         }
     }
 }
