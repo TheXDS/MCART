@@ -20,14 +20,15 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using Gdk;
-namespace MCART.UI
+
+#pragma warning disable CS1591 // TODO: agregar comentarios XML para los colores.
+using MCART.Types;
+namespace MCART.Resources
 {
     /// <summary>
-    /// Incluye una colección de colores adicionales para utilizar en controles
-    /// de GTK.
+    /// Incluye una colección de colores adicionales.
     /// </summary>
-    public static class MoreColors
+    public static class Colors
     {
         public static Color AliceBlue => new Color(240, 248, 255);
         public static Color AntiqueWhite1 => new Color(255, 239, 219);

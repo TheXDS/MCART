@@ -27,16 +27,36 @@ using System.Threading.Tasks;
 using System.Linq;
 namespace MCART.Types.TaskReporter
 {
+    /// <summary>
+    /// Clase base para objetos que puedan utilizarse para reportar el progreso
+    /// de una operación o tarea.
+    /// </summary>
     public abstract class TaskReporter : ITaskReporter
     {
         #region Campos privados
         DateTime? ts;
         bool cp, od, ge;
+        float? curp;
         Extensions.Timer Tmr;
         #endregion
         #region Propiedades públicas
+        /// <summary>
+        /// Obtiene un valor que indica si existe una solicitud para deterner la
+        /// tarea actualmente en ejecución.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> si existe una solicitud de cancelación pendiente; de lo
+        /// contrario, <c>false</c>.
+        /// </value>
         public virtual bool CancelPending => cp;
-
+        /// <summary>
+        /// Obtiene un valor que indica si la operación debe detenerse debido a
+        /// que se ha agotado el tiempo de espera de la misma.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> si se ha agotado el tiempo de espera para finalizar la
+        /// operación; de lo contrario, <c>false</c>.
+        /// </value>
         public bool TimedOut
         {
             get
@@ -45,13 +65,28 @@ namespace MCART.Types.TaskReporter
                 return false;
             }
         }
-
+        /// <summary>
+        /// Obtiene un valor que indica si se está ejecutando una tarea 
+        /// actualmente.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> si hay una tarea en ejecución; de lo contrario, 
+        /// <c>false</c>.
+        /// </value>
         public virtual bool OnDuty => od;
-
+        /// <summary>
+        /// Obtiene el instante en el que dio inicio la tarea en ejecución.
+        /// </summary>
         public DateTime TStart => ts ?? throw new InvalidOperationException();
-
+        /// <summary>
+        /// Obtiene la cantidad de tiempo disponible para finalizar la tarea.
+        /// </summary>
+        /// <value>El tiempo disponible para finalizar la tarea, o <c>null</c>
+        /// en caso que no exista una restricción de tiempo.</value>
         public TimeSpan? TimeLeft => Tmr?.TimeLeft;
-
+        /// <summary>
+        /// Obtiene la cantidad de tiempo asignado para ejecutar la tarea.
+        /// </summary>
         public TimeSpan? Timeout
         {
             get => Tmr.IsNull() ? null : (TimeSpan?)TimeSpan.FromMilliseconds(Tmr.Interval);
@@ -65,6 +100,13 @@ namespace MCART.Types.TaskReporter
                 else { Tmr = null; }
             }
         }
+        /// <summary>
+        /// Obtiene un valor que indica el progreso actual reportardo por la
+        /// tarea.
+        /// </summary>
+        /// <value>Un <see cref="float"/> que indica el progreso de la tarea, o
+        /// <c>null</c> en caso que el progreso sea indeterminado.</value>
+        public float? CurrentProgress => OnDuty ? curp : throw new InvalidOperationException();
         #endregion
         #region Eventos
         public event CancelRequestedEventHandler CancelRequested;
@@ -223,64 +265,97 @@ namespace MCART.Types.TaskReporter
         #endregion
         #region Métodos para clases derivadas
         /// <summary>
-        /// Establece el valor de la propiedad de sólo lectura <see cref="CancelPending"/> desde una clase derivada
+        /// Establece el valor de la propiedad de sólo lectura
+        /// <see cref="CancelPending"/> desde una clase derivada.
         /// </summary>
-        /// <param name="Value">Valor que se desea establecer en <see cref="CancelPending"/></param>
+        /// <param name="Value">
+        /// Valor a establecer en la propiedad <see cref="CancelPending"/>.
+        /// </param>
         protected void SetCancelPending(bool Value) { cp = Value; }
-        protected void SetOnDuty(bool Value) { od = Value; }
-        protected void SetTimeStart(DateTime? t) { ts = t; }
-        protected void RaiseBegun(object sender, BegunEventArgs e)
-        {
-            Begun(sender, e);
-        }
         /// <summary>
-        /// Genera el evento <see cref="CancelRequested"/> desde una clase derivada.
+        /// Establece el valor de la propiedad de sólo lectura
+        /// <see cref="OnDuty"/> desde una clase derivada.
         /// </summary>
-        /// <param name="sender">Instancia del objeto que generará el evento</param>
-        /// <param name="e">Parámetros del evento</param>
-        protected void RaiseCancelRequested(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            CancelRequested(sender, e);
-        }
+        /// <param name="Value">
+        /// Valor a establecer en la propiedad <see cref="OnDuty"/>.
+        /// </param>
+        protected void SetOnDuty(bool Value) { od = Value; }
+        /// <summary>
+        /// Establece el valor de la propiedad de sólo lectura
+        /// <see cref="CurrentProgress"/> desde una clase derivada.
+        /// </summary>
+        /// <param name="Value">
+        /// Valor a establecer en la propiedad <see cref="CurrentProgress"/>.
+        /// </param>
+        protected void SetCurrentProgress(float? Value) { curp = Value; }
+        /// <summary>
+        /// Establece el valor de la propiedad de sólo lectura
+        /// <see cref="TStart"/> desde una clase derivada.
+        /// </summary>
+        /// <param name="Value">
+        /// Valor a establecer en la propiedad <see cref="TStart"/>.
+        /// </param>
+        protected void SetTimeStart(DateTime? Value) { ts = Value; }
+        /// <summary>
+        /// Genera el evento <see cref="Begun"/> desde una clase derivada.
+        /// </summary>
+        /// <param name="sender">
+        /// Instancia del objeto que generará el evento.
+        /// </param>
+        /// <param name="e">Parámetros del evento.</param>
+        protected void RaiseBegun(object sender, BegunEventArgs e) => Begun(sender, e);
+        /// <summary>
+        /// Genera el evento <see cref="CancelRequested"/> desde una clase 
+        /// derivada.
+        /// </summary>
+        /// <param name="sender">
+        /// Instancia del objeto que generará el evento.
+        /// </param>
+        /// <param name="e">Parámetros del evento.</param>
+        protected void RaiseCancelRequested(object sender, System.ComponentModel.CancelEventArgs e) => CancelRequested(sender, e);
         /// <summary>
         /// Genera el evento <see cref="Ended"/> desde una clase derivada.
         /// </summary>
-        /// <param name="sender">Instancia del objeto que generará el evento</param>
-        protected void RaiseEnded(object sender)
-        {
-            Ended(sender, EventArgs.Empty);
-        }
+        /// <param name="sender">
+        /// Instancia del objeto que generará el evento.
+        /// </param>
+        protected void RaiseEnded(object sender) => Ended(sender, EventArgs.Empty);
         /// <summary>
-		/// Genera el evento <see cref="Error"/> desde una clase derivada.
-		/// </summary>
-		/// <param name="sender">Instancia del objeto que generará el evento</param>
-		/// <param name="e">Parámetros del evento</param>
-		protected void RaiseError(object sender, Events.ExceptionEventArgs e)
-        {
-            Error(sender, e);
-        }
+        /// Genera el evento <see cref="Error"/> desde una clase derivada.
+        /// </summary>
+        /// <param name="sender">
+        /// Instancia del objeto que generará el evento.
+        /// </param>
+        /// <param name="e">Parámetros del evento.</param>
+        protected void RaiseError(object sender, Events.ExceptionEventArgs e) => Error(sender, e);
         /// <summary>
         /// Genera el evento <see cref="Reporting"/> desde una clase derivada.
         /// </summary>
-        /// <param name="sender">Instancia del objeto que generará el evento</param>
+        /// <param name="sender">
+        /// Instancia del objeto que generará el evento.
+        /// </param>
         /// <param name="e">Parámetros del evento</param>
-        protected void RaiseReporting(object sender, ProgressEventArgs e)
-        {
-            Reporting(sender, e);
-        }
+        protected void RaiseReporting(object sender, ProgressEventArgs e) => Reporting(sender, e);
         /// <summary>
         /// Genera el evento <see cref="Stopped"/> desde una clase derivada.
         /// </summary>
-        /// <param name="sender">Instancia del objeto que generará el evento</param>
-        /// <param name="e">Parámetros del evento</param>
-        protected void RaiseStopped(object sender, ProgressEventArgs e)
-        {
-            Stopped(sender, e);
-        }
-        protected void RaiseTimeout(object sender, ProgressEventArgs e)
-        {
-            TaskTimeout(sender, e);
-        }
+        /// <param name="sender">
+        /// Instancia del objeto que generará el evento.
+        /// </param>
+        /// <param name="e">Parámetros del evento.</param>
+        protected void RaiseStopped(object sender, ProgressEventArgs e) => Stopped(sender, e);
+        /// <summary>
+        /// Genera el evento <see cref="TaskTimeout"/> desde una clase derivada.
+        /// </summary>
+        /// <param name="sender">
+        /// Instancia del objeto que generará el evento.
+        /// </param>
+        /// <param name="e">Parámetros del evento.</param>
+        protected void RaiseTimeout(object sender, ProgressEventArgs e) => TaskTimeout(sender, e);
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="TaskReporter"/>.
+        /// </summary>
         protected TaskReporter() { Tmr.Elapsed += TmrElapsed; }
         #endregion
     }

@@ -34,30 +34,46 @@ namespace MCART.PluginSupport
         /// </summary>
         public readonly string Text;
 
-		/// <summary>Obtiene una descripción larga de este <see cref="InteractionItem"/>.</summary>
-		/// <returns>Un <see cref="string"/> con el texto asociado a este <see cref="InteractionItem"/>.</returns>
-		/// <remarks>Esta propiedad puede ser utilizada mostrándose en un tooltip, o un menú descriptivo.</remarks>
-		public readonly string Description;
+        /// <summary>
+        /// Obtiene una descripción larga de este <see cref="InteractionItem"/>.
+        /// </summary>
+        /// <returns>
+        /// Un <see cref="string"/> con el texto asociado a este 
+        /// <see cref="InteractionItem"/>.
+        /// </returns>
+        /// <remarks>
+        /// Esta propiedad puede ser utilizada mostrándose en un Tooltip, o un 
+        /// menú descriptivo.
+        /// </remarks>
+        public readonly string Description;
 
         /// <summary>
-        /// Obtiene un delegado con la acción a realizar por este <see cref="InteractionItem"/>.
+        /// Obtiene un delegado con la acción a realizar por este 
+        /// <see cref="InteractionItem"/>.
         /// </summary>
         /// <remarks>
-		/// Es posible utilizar un delegado <see cref="EventHandler"/>, una expresión Lambda, la referencia directa a
-		/// un método (C#) o un método con la palabra clave <c>AddressOf</c> (VB).
-		/// Además, diferentes implementaciones de MCART podrían requerir de encapsulamiento para esta acción, como es
-		/// el caso en los proyectos de Windows Presentation Framework, en cuyo caso se incluirá dicha implementación.
+		/// Es posible utilizar un delegado <see cref="EventHandler"/>, una 
+        /// expresión Lambda, la referencia directa a un método (C#) o un método
+        /// con la palabra clave <c>AddressOf</c> (VB).
+        /// Además, diferentes implementaciones de MCART podrían requerir de
+        /// encapsulamiento para esta acción, como es el caso en los proyectos 
+        /// de Windows Presentation Framework, para el cual se incluye una
+        /// función de conversión entre <see cref="EventHandler"/> y 
+        /// RoutedEventHandler.
 		/// </remarks>
         public readonly EventHandler Action;
 
         /// <summary>
-        /// Crea una nueva entrada de interacción con el delegado <see cref="EventHandler"/> especificado.
+        /// Crea una nueva entrada de interacción con el delegado 
+        /// <see cref="EventHandler"/> especificado.
         /// </summary>
-        /// <param name="Text">Nombre del comando</param>
-        /// <param name="Description">Descripción larga del comando. útil para aplicar a Tooltips.</param>
+        /// <param name="Text">Nombre del comando.</param>
+        /// <param name="Description">
+        /// Descripción larga del comando. Útil para aplicar a Tooltips.
+        /// </param>
         /// <param name="Action">
-		/// <see cref="EventHandler"/> que se utilizará para controlar la activación de este 
-		/// <see cref="InteractionItem"/>.
+		/// <see cref="EventHandler"/> que se utilizará para controlar la 
+        /// activación de este <see cref="InteractionItem"/>.
 		/// </param>
         public InteractionItem(EventHandler Action, string Text, string Description)
         {
@@ -67,12 +83,13 @@ namespace MCART.PluginSupport
         }
 
         /// <summary>
-        /// Crea una nueva entrada de interacción con el delegado <see cref="EventHandler"/> especificado.
+        /// Crea una nueva entrada de interacción con el delegado 
+        /// <see cref="EventHandler"/> especificado.
         /// </summary>
-        /// <param name="Text">Nombre del comando</param>
+        /// <param name="Text">Nombre del comando.</param>
         /// <param name="Action">
-		/// <see cref="EventHandler"/> que se utilizará para controlar la activación de este 
-		/// <see cref="InteractionItem"/>.
+		/// <see cref="EventHandler"/> que se utilizará para controlar la
+        /// activación de este <see cref="InteractionItem"/>.
 		/// </param>
         public InteractionItem(EventHandler Action, string Text)
         {
@@ -81,11 +98,12 @@ namespace MCART.PluginSupport
         }
 
         /// <summary>
-        /// Crea una nueva entrada de interacción con el delegado <see cref="EventHandler"/> especificado.
+        /// Crea una nueva entrada de interacción con el delegado 
+        /// <see cref="EventHandler"/> especificado.
         /// </summary>
         /// <param name="Action">
-		/// <see cref="EventHandler"/> que se utilizará para controlar la activación de este 
-		/// <see cref="InteractionItem"/>.
+		/// <see cref="EventHandler"/> que se utilizará para controlar la 
+        /// activación de este <see cref="InteractionItem"/>.
 		/// </param>
         public InteractionItem(EventHandler Action)
         {

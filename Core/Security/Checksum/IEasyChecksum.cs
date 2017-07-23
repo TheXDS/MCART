@@ -66,7 +66,7 @@ namespace MCART.Security.Checksum
         /// </summary>
         /// <param name="X"><see cref="TextReader"/> de entrada.</param>
         /// <returns>
-        /// Un <see cref="Task{byte[]}"/> correspondiente al resultado de
+        /// Un <see cref="Task{T}"/> correspondiente al resultado de
         /// ejecutar el algoritmo con la información provista.
         /// </returns>
         Task<byte[]> ComputeAsync(TextReader X);
@@ -87,7 +87,7 @@ namespace MCART.Security.Checksum
         /// </summary>
         /// <param name="X">Arreglo de <see cref="byte"/> de entrada.</param>
         /// <returns>
-        /// Un <see cref="Task{byte[]}"/> correspondiente al resultado de
+        /// Un <see cref="Task{T}"/> correspondiente al resultado de
         /// ejecutar el algoritmo con la información provista.
         /// </returns>
         Task<byte[]> ComputeAsync(byte[] X);
@@ -97,7 +97,7 @@ namespace MCART.Security.Checksum
         /// </summary>
         /// <param name="X"><see cref="Stream"/> de entrada.</param>
         /// <returns>
-        /// Un <see cref="Task{byte[]}"/> correspondiente al resultado de
+        /// Un <see cref="Task{T}"/> correspondiente al resultado de
         /// ejecutar el algoritmo con la información provista.
         /// </returns>
         byte[] Compute(Stream X);
@@ -108,7 +108,7 @@ namespace MCART.Security.Checksum
         /// </summary>
         /// <param name="X"><see cref="Stream"/> de entrada.</param>
         /// <returns>
-        /// Un <see cref="Task{byte[]}"/> correspondiente al resultado de
+        /// Un <see cref="Task{T}"/> correspondiente al resultado de
         /// ejecutar el algoritmo con la información provista.
         /// </returns>
         Task<byte[]> ComputeAsync(Stream X);

@@ -623,15 +623,15 @@ namespace MCART.Controls
                 // Si la posición se intenta establecer en un valor superior al máximo...
                 if ((int)e.NewValue > max) throw new ArgumentOutOfRangeException(nameof(Position));
             }
-            UITools.DisableControls(d.btnFirst, d.btnPrev, d.btnNext, d.btnLast, d.txtPos);
+            UI.UI.DisableControls(d.btnFirst, d.btnPrev, d.btnNext, d.btnLast, d.txtPos);
             d.btnEdit.Visibility = max > 0 ? Visibility.Visible : Visibility.Collapsed;
             if (max > 1) d.txtPos.IsEnabled = true;
-            if (pos > 1) UITools.EnableControls(d.btnFirst, d.btnPrev);
-            if (pos < max) UITools.EnableControls(d.btnNext, d.btnLast);
+            if (pos > 1) UI.UI.EnableControls(d.btnFirst, d.btnPrev);
+            if (pos < max) UI.UI.EnableControls(d.btnNext, d.btnLast);
         }
         private void GotoNormalMode()
         {
-            UITools.ShowControls(lblTot, txtPos);
+            UI.UI.ShowControls(lblTot, txtPos);
             if (Max > 0) btnEdit.Visibility = Visibility.Visible;
             SetValue(IsEditingProperty, false);
             lblInfo.Text = St.of_;
@@ -773,7 +773,7 @@ namespace MCART.Controls
             {
                 wasNewPressed = true;
                 view?.AddNew();
-                UITools.CollapseControls(txtPos, lblTot);
+                UI.UI.CollapseControls(txtPos, lblTot);
                 lblInfo.Text = St.NewReg;
                 GotoEditMode();
                 NewCreated?.Invoke(this, EventArgs.Empty);

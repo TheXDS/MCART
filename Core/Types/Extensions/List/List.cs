@@ -28,70 +28,20 @@ using MCART.Exceptions;
 namespace MCART.Types.Extensions
 {
     /// <summary>
-    /// Estensión de la clase <see cref="List{T}"/>. Provee de toda la
+    /// Extensión de la clase <see cref="List{T}"/>. Provee de toda la
     /// funcionalidad previamente disponible, e incluye algunas extensiones
     /// útiles.
     /// </summary>
     /// <typeparam name="T">
     /// Tipo de los elementos que contendrá esta lista.
     /// </typeparam> 
-    public class List<T> : System.Collections.Generic.List<T>, ICloneable
+    public partial class List<T> : System.Collections.Generic.List<T>, ICloneable
     {
         /// <summary>
         /// Activa o desactiva la generación global de eventos de todos los
         /// <see cref="List{T}"/>.
         /// </summary>
         public static bool GlobalTriggerEvents;
-        /// <summary>
-        /// Se produce cuando se agregará un elemento a la lista.
-        /// </summary>
-        public event AddingItemEventHandler<T> AddingItem;
-        /// <summary>
-        /// Se produce cuando se insertará un elemento en la lista.
-        /// </summary>
-        public event InsertingItemEventHandler<T> InsertingItem;
-        /// <summary>
-        /// Se produce cuando se modificará un elemento de la lista
-        /// </summary>
-        public event ModifyingItemEventHandler<T> ModifyingItem;
-        /// <summary>
-        /// Se produce cuando se eliminará un elemento de la lista.
-        /// </summary>
-        public event RemovingItemEventHandler<T> RemovingItem;
-        /// <summary>
-        /// Se produce cuando la lista será actualizada.
-        /// </summary>
-        public event ListUpdatingEventHandler<T> ListUpdating;
-        /// <summary>
-        /// Se produce cuando la lista será vaciada por medio de 
-        /// <see cref="Clear"/>.
-        /// </summary>
-        public event ClearingListEventHandler<T> ClearingList;
-        /// <summary>
-        /// Se produce cuando se ha agregado un elemento a la lista.
-        /// </summary>
-        public event ItemAddedEventHandler<T> AddedItem;
-        /// <summary>
-        /// Se produce cuando se ha insertado un elemento en la lista.
-        /// </summary>
-        public event ItemInsertedEventHandler<T> InsertedItem;
-        /// <summary>
-        /// Se produce cuando se ha modificado un elemento de la lista.
-        /// </summary>
-        public event ItemModifiedEventHandler<T> ModifiedItem;
-        /// <summary>
-        /// Se produce cuando se ha quitado un elemento de la lista.
-        /// </summary>
-        public event ItemRemovedEventHandler<T> RemovedItem;
-        /// <summary>
-        /// Se produce cuando la lista ha sido vaciada por medio de 
-        /// <see cref="Clear"/>.
-        /// </summary>
-        public event ListClearedEventHandler<T> ListCleared;
-        /// <summary>
-        /// Se produce cuando la lista ha sido actualizada.
-        /// </summary>
-        public event ListUpdatedEventHandler<T> ListUpdated;
         /// <summary>
         /// Activa o desactiva la generación de eventos.
         /// </summary>
@@ -200,7 +150,7 @@ namespace MCART.Types.Extensions
                     ListUpdated?.Invoke(this, new ListUpdatedEventArgs<T>(ListUpdateType.ItemsInserted, collection));
                 }
             }
-            else { base.InsertRange(index,collection); }
+            else { base.InsertRange(index, collection); }
         }
         /// <summary>
         /// Quita la primera aparición de un objeto específico del 
@@ -328,7 +278,7 @@ namespace MCART.Types.Extensions
         public List<T> Reversed()
         {
             List<T> tmp = (List<T>)this.Copy();
-            tmp.Reverse();            
+            tmp.Reverse();
             return tmp;
         }
         /// <summary>
@@ -476,7 +426,7 @@ namespace MCART.Types.Extensions
                     ListUpdated?.Invoke(this, new ListUpdatedEventArgs<T>(ListUpdateType.ItemsMoved, this));
                 }
             }
-            else { base.Sort(index,count,comparer); }
+            else { base.Sort(index, count, comparer); }
         }
         /// <summary>
         /// Implementa la interfaz <see cref="ICloneable"/>

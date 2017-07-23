@@ -121,7 +121,7 @@ namespace MCART.PluginSupport
         /// <see cref="IPlugin"/>.
         /// </summary>
         /// <returns>
-        /// Un <see cref="ReadOnlyCollection{string}"/> con los nombre de las
+        /// Un <see cref="ReadOnlyCollection{T}"/> con los nombre de las
         /// interfaces implementadas dentro de este <see cref="IPlugin"/>.
         /// </returns>
         ReadOnlyCollection<string> InterfaceNames { get; }

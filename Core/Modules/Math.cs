@@ -72,18 +72,18 @@ namespace MCART
                 return a;
             }
         }
-		/// <summary>
-		/// Comprueba si el número NO es primo.
-		/// </summary>
-		/// <param name="x"><see cref="int"/> a comprobar.</param>
-		/// <returns>
-		/// Un valor <see cref="bool"/> que es <code>true</code> si el número NO es primo. Si es primo, o si es un 
-		/// compuesto que pasa la prueba de Lucas, <code>false</code>.</returns>
-		/// <remarks>
-		/// Se utiliza la prueba de la serie de Lucas para la comprobación, lo que no garantiza que un número sea 
-		/// efectivamente primo.
-		/// </remarks>
-		public static bool IsNotPrime(this int x)
+        /// <summary>
+        /// Comprueba si el número NO es primo.
+        /// </summary>
+        /// <param name="x"><see cref="int"/> a comprobar.</param>
+        /// <returns>
+        /// Un valor <see cref="bool"/> que es <code>true</code> si el número NO es primo. Si es primo, o si es un 
+        /// compuesto que pasa la prueba de Lucas, <code>false</code>.</returns>
+        /// <remarks>
+        /// Se utiliza la prueba de la serie de Lucas para la comprobación, lo que no garantiza que un número sea 
+        /// efectivamente primo.
+        /// </remarks>
+        public static bool IsNotPrime(this int x)
         {
             return (Series.LucasNumber(x) - 1) % x == 0;
         }
@@ -91,16 +91,16 @@ namespace MCART
 		/// Representa la proporción de 1 grado DEG sobre PI
 		/// </summary>
 		public const double Deg_Rad = System.Math.PI / 180;
-		/// <summary>
-		/// Determina si un <see cref="double"/> es un número real operable
-		/// </summary>
-		/// <param name="x"><see cref="double"/> a comprobar</param>
-		/// <returns>
-		/// un valor booleano que indica si <paramref name="x"/> es un número operable, en otras palabras, si no es 
-		/// igual a <see cref="double.NaN"/>, <see cref="double.PositiveInfinity"/> o
-		/// <see cref="double.NegativeInfinity"/>.
-		/// </returns>
-		public static bool IsValid(this double x)
+        /// <summary>
+        /// Determina si un <see cref="double"/> es un número real operable
+        /// </summary>
+        /// <param name="x"><see cref="double"/> a comprobar</param>
+        /// <returns>
+        /// un valor booleano que indica si <paramref name="x"/> es un número operable, en otras palabras, si no es 
+        /// igual a <see cref="double.NaN"/>, <see cref="double.PositiveInfinity"/> o
+        /// <see cref="double.NegativeInfinity"/>.
+        /// </returns>
+        public static bool IsValid(this double x)
         {
             return !(double.IsNaN(x) || double.IsInfinity(x));
         }
@@ -201,12 +201,15 @@ namespace MCART
             return true;
         }
         /// <summary>
-        /// Establece límites de sobreflujo para evaluar una expresión
+        /// Establece límites de sobreflujo para evaluar una expresión.
         /// </summary>
         /// <param name="expression">Expresión a evaluar.</param>
-        /// <param name="max">Límite superior de salida</param>
-        /// <param name="min">Límite inferior de salida</param>
-        /// <returns></returns>
+        /// <param name="max">Límite superior de salida, inclusive.</param>
+        /// <param name="min">Límite inferior de salida, inclusive.</param>
+        /// <returns>
+        /// El valor evaluado que se encuentra dentro del rango especificado.
+        /// </returns>
+        [Obsolete]
         public static double Clamp(this double expression, double max = double.NaN, double min = double.NaN)
         {
             if (IsValid(expression))
@@ -218,9 +221,31 @@ namespace MCART
             return double.NaN;
         }
         /// <summary>
-        /// Determina si un <see cref="double"/> es un número entero 
+        /// Establece límites de sobreflujo para evaluar una expresión.
         /// </summary>
-        /// <param name="x">Valor a comprobar</param>
+        /// <param name="expression">Expresión a evaluar.</param>
+        /// <param name="max">Límite superior de salida, inclusive.</param>
+        /// <param name="min">Límite inferior de salida, inclusive.</param>
+        /// <returns>
+        /// El valor evaluado que se encuentra dentro del rango especificado.
+        /// </returns>
+        public static T Clamp<T>(this T expression, T min, T max) where T :
+            IComparable,
+            IComparable<T>,
+            IConvertible,
+            IEquatable<T>,
+            IFormattable
+        {
+
+            if (expression.CompareTo(max) > 0) return max;
+            if (expression.CompareTo(min) < 0) return min;
+            return expression;
+        }
+
+        /// <summary>
+        /// Determina si un <see cref="double"/> es un número entero.
+        /// </summary>
+        /// <param name="x">Valor a comprobar.</param>
         /// <returns><c>True</c> si el valor es entero; de lo contrario, <c>False</c></returns>
         public static bool IsWhole(this double x) { return !x.ToString().Contains("."); }
         /// <summary>

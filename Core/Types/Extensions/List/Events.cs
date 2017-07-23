@@ -20,6 +20,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -349,4 +350,58 @@ namespace MCART.Types.Extensions
     /// <param name="sender">Objeto que ha generado el evento.</param>
     /// <param name="e">Argumentos del evento.</param>
     public delegate void ListUpdatingEventHandler<T>(List<T> sender, ListUpdatingEventArgs<T> e);
+
+    public partial class List<T>
+    {
+        /// <summary>
+        /// Se produce cuando se agregará un elemento a la lista.
+        /// </summary>
+        public event AddingItemEventHandler<T> AddingItem;
+        /// <summary>
+        /// Se produce cuando se insertará un elemento en la lista.
+        /// </summary>
+        public event InsertingItemEventHandler<T> InsertingItem;
+        /// <summary>
+        /// Se produce cuando se modificará un elemento de la lista
+        /// </summary>
+        public event ModifyingItemEventHandler<T> ModifyingItem;
+        /// <summary>
+        /// Se produce cuando se eliminará un elemento de la lista.
+        /// </summary>
+        public event RemovingItemEventHandler<T> RemovingItem;
+        /// <summary>
+        /// Se produce cuando la lista será actualizada.
+        /// </summary>
+        public event ListUpdatingEventHandler<T> ListUpdating;
+        /// <summary>
+        /// Se produce cuando la lista será vaciada por medio de 
+        /// <see cref="Clear"/>.
+        /// </summary>
+        public event ClearingListEventHandler<T> ClearingList;
+        /// <summary>
+        /// Se produce cuando se ha agregado un elemento a la lista.
+        /// </summary>
+        public event ItemAddedEventHandler<T> AddedItem;
+        /// <summary>
+        /// Se produce cuando se ha insertado un elemento en la lista.
+        /// </summary>
+        public event ItemInsertedEventHandler<T> InsertedItem;
+        /// <summary>
+        /// Se produce cuando se ha modificado un elemento de la lista.
+        /// </summary>
+        public event ItemModifiedEventHandler<T> ModifiedItem;
+        /// <summary>
+        /// Se produce cuando se ha quitado un elemento de la lista.
+        /// </summary>
+        public event ItemRemovedEventHandler<T> RemovedItem;
+        /// <summary>
+        /// Se produce cuando la lista ha sido vaciada por medio de 
+        /// <see cref="Clear"/>.
+        /// </summary>
+        public event ListClearedEventHandler<T> ListCleared;
+        /// <summary>
+        /// Se produce cuando la lista ha sido actualizada.
+        /// </summary>
+        public event ListUpdatedEventHandler<T> ListUpdated;
+    }
 }

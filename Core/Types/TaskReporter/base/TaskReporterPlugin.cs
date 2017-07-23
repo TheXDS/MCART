@@ -32,6 +32,7 @@ namespace MCART.Types.TaskReporter
         #region Campos privados
         DateTime? ts;
         bool cp, od, ge;
+        float? curp;
         Extensions.Timer Tmr;
         #endregion
         #region Propiedades públicas
@@ -65,6 +66,8 @@ namespace MCART.Types.TaskReporter
                 else { Tmr = null; }
             }
         }
+
+        public float? CurrentProgress => OnDuty ? curp : throw new InvalidOperationException();
         #endregion
         #region Eventos
         public event CancelRequestedEventHandler CancelRequested;
@@ -229,6 +232,7 @@ namespace MCART.Types.TaskReporter
         protected void SetCancelPending(bool Value) { cp = Value; }
         protected void SetOnDuty(bool Value) { od = Value; }
         protected void SetTimeStart(DateTime? t) { ts = t; }
+        protected void SetCurrentProgress(float? Value) { curp = Value; }
         protected void RaiseBegun(object sender, BegunEventArgs e)
         {
             Begun(sender, e);
