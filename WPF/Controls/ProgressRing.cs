@@ -20,7 +20,6 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using MCART.UI;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,8 +27,12 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using static MCART.UI;
 namespace MCART.Controls
 {
+    /// <summary>
+    /// Permite representar un valor porcentual en la forma de un anillo.
+    /// </summary>
     public class ProgressRing : UserControl
     {
         private static Type T = typeof(ProgressRing);
@@ -80,13 +83,13 @@ namespace MCART.Controls
             if (!IsIndeterminate)
             {
                 amIAnimated = false;
-                x.BeginAnimation(RotateTransform.AngleProperty, null);
-                pth.Data = UI.UI.GetCircleArc(Radius, (((Value - Min) / (Max - Min)) * 360).Clamp(359.999, 0), Thickness);
+                x.BeginAnimation(RotateTransform.AngleProperty, null);                
+                pth.Data = GetCircleArc(Radius, (((Value - Min) / (Max - Min)) * 360).Clamp(0, 359.999), Thickness);
                 TxtPercent.Text = string.Format(TextFormat, Value);
             }
             else if (!amIAnimated)
             {
-                pth.Data = UI.UI.GetCircleArc(Radius, 90, Thickness);
+                pth.Data = GetCircleArc(Radius, 90, Thickness);
                 amIAnimated = true;
                 x.BeginAnimation(RotateTransform.AngleProperty, spin);
                 TxtPercent.Text = "...";
@@ -96,78 +99,146 @@ namespace MCART.Controls
         {
             Width = (double)GetValue(RadiusProperty) * 2 + (double)GetValue(ThicknessProperty);
         }
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="TextFormat"/>.
+        /// </summary>
         public static DependencyProperty TextFormatProperty = DependencyProperty.Register(
             nameof(TextFormat), typeof(string), T,
             new PropertyMetadata("{0:0.0}%", TxtFmt));
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="Thickness"/>.
+        /// </summary>
         public static DependencyProperty ThicknessProperty = DependencyProperty.Register(
             nameof(Thickness), typeof(double), T,
             new PropertyMetadata(4.0, Redraw));
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="Radius"/>.
+        /// </summary>
         public static DependencyProperty RadiusProperty = DependencyProperty.Register(
             nameof(Radius), typeof(double), T,
             new PropertyMetadata(24.0, Redraw));
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="Value"/>.
+        /// </summary>
         public static DependencyProperty ValueProperty = DependencyProperty.Register(
             nameof(Value), typeof(double), T,
             new PropertyMetadata(0.0, Updt2));
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="Min"/>.
+        /// </summary>
         public static DependencyProperty MinProperty = DependencyProperty.Register(
             nameof(Min), typeof(double), T,
             new PropertyMetadata(0.0, Updt2));
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="Max"/>.
+        /// </summary>
         public static DependencyProperty MaxProperty = DependencyProperty.Register(
             nameof(Max), typeof(double), T,
             new PropertyMetadata(100.0, Updt2));
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="RingStroke"/>.
+        /// </summary>
         public static DependencyProperty RingStrokeProperty = DependencyProperty.Register(
             nameof(RingStroke), typeof(Brush), T,
             new PropertyMetadata(SystemColors.ControlDarkBrush));
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="Fill"/>.
+        /// </summary>
         public static DependencyProperty FillProperty = DependencyProperty.Register(
             nameof(Fill), typeof(Brush), T,
             new PropertyMetadata(SystemColors.HighlightBrush));
+        /// <summary>
+        /// Identifica a la propiedad de dependencia 
+        /// <see cref="IsIndeterminate"/>.
+        /// </summary>
         public static DependencyProperty IsIndeterminateProperty = DependencyProperty.Register(
             nameof(IsIndeterminate), typeof(bool), T,
             new PropertyMetadata(false, Updt));
+        /// <summary>
+        /// Obtiene o establece el <see cref="Brush"/> a utilizar para dibujar
+        /// el fondo del anillo de este <see cref="ProgressRing"/>.
+        /// </summary>
         public Brush RingStroke
         {
             get => (Brush)GetValue(RingStrokeProperty);
             set => SetValue(RingStrokeProperty, value);
         }
+        /// <summary>
+        /// Obtiene o establece el <see cref="Brush"/> a utilizar para dibujar
+        /// el primer plano del anillo de este <see cref="ProgressRing"/>.
+        /// </summary>
         public Brush Fill
         {
             get => (Brush)GetValue(FillProperty);
             set => SetValue(FillProperty, value);
         }
+        /// <summary>
+        /// Obtiene o establece el formato de texto a aplicar al centro de este
+        /// <see cref="ProgressRing"/>.
+        /// </summary>
         public string TextFormat
         {
             get => (string)GetValue(TextFormatProperty);
             set => SetValue(TextFormatProperty, value);
         }
+        /// <summary>
+        /// Obtiene o establece el grosor del anillo de este
+        /// <see cref="ProgressRing"/>.
+        /// </summary>
         public double Thickness
         {
             get => (double)GetValue(ThicknessProperty);
             set => SetValue(ThicknessProperty, value);
         }
+        /// <summary>
+        /// Obtiene o establece el radio del anillo de este
+        /// <see cref="ProgressRing"/>.
+        /// </summary>
         public double Radius
         {
             get => (double)GetValue(RadiusProperty);
             set => SetValue(RadiusProperty, value);
         }
+        /// <summary>
+        /// Obtiene o establece el valor a representar en este
+        /// <see cref="ProgressRing"/>.
+        /// </summary>
         public double Value
         {
             get => (double)GetValue(ValueProperty);
             set => SetValue(ValueProperty, value);
         }
+        /// <summary>
+        /// Obtiene o establece el valor mínimo de este
+        /// <see cref="ProgressRing"/>.
+        /// </summary>
         public double Min
         {
             get => (double)GetValue(MinProperty);
             set => SetValue(MinProperty, value);
         }
+        /// <summary>
+        /// Obtiene o establece el valor máximo de este
+        /// <see cref="ProgressRing"/>.
+        /// </summary>
         public double Max
         {
             get => (double)GetValue(MaxProperty);
             set => SetValue(MaxProperty, value);
         }
+        /// <summary>
+        /// Obtiene o establece un valor que indica si se mostrará un estado
+        /// indeterminado en este <see cref="ProgressRing"/>.
+        /// </summary>
         public bool IsIndeterminate
         {
             get => (bool)GetValue(IsIndeterminateProperty);
             set => SetValue(IsIndeterminateProperty, value);
         }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="ProgressRing"/>.
+        /// </summary>
         public ProgressRing()
         {
             SetBinding(HeightProperty, new Binding(nameof(Width)) { Source = this });

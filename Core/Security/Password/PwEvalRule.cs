@@ -77,9 +77,9 @@ namespace MCART.Security.Password
             if (!Enable) throw new InvalidOperationException(
                 string.Format(St.XDisabled, St.TheObj));
             PwEvalResult k = func(pwToEval);
-            if (!k.Result.IsBetween(0.0, 1.0)) throw new
+            if (!k.Result.IsBetween(0.0f, 1.0f)) throw new
                  Exceptions.InvalidReturnValueException(func, k.Result);
-            k.Result *= (double)pond;
+            k.Result *= (float)pond;
             return k;
         }
         /// <summary>

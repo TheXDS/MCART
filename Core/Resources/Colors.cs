@@ -1,5 +1,5 @@
 ﻿//
-//  MoreColors.cs
+//  Colors.cs
 //
 //  This file is part of MCART
 //
@@ -28,7 +28,7 @@ namespace MCART.Resources
     /// <summary>
     /// Incluye una colección de colores adicionales.
     /// </summary>
-    public static class Colors
+    public static partial class Colors
     {
         public static Color AliceBlue => new Color(240, 248, 255);
         public static Color AntiqueWhite1 => new Color(255, 239, 219);

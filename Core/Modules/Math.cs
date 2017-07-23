@@ -20,6 +20,12 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+#region Opciones de compilación
+//Incluir implementaciones especiales de Math.Clamp para double y float
+#define IncludeSpecialClamp
+#endregion
+
 using System;
 using MCART.Types;
 namespace MCART
@@ -35,10 +41,13 @@ namespace MCART
         public static class Series
         {
             /// <summary>
-            /// Calcula el n-ésimo elemento de la serie de Lucas
+            /// Calcula el n-ésimo elemento de la serie de Lucas.
             /// </summary>
-            /// <param name="Item">Número de elemento a calcular</param>
-            /// <returns>Un <see cref="long"/> que es el resultado del cálculo del n-ésimo elemento de la serie</returns>
+            /// <param name="Item">Número de elemento a calcular.</param>
+            /// <returns>
+            /// Un <see cref="long"/> que es el resultado del cálculo del 
+            /// n-ésimo elemento de la serie.
+            /// </returns>
             public static long LucasNumber(int Item)
             {
                 long a = 1;
@@ -147,9 +156,9 @@ namespace MCART
             return a;
         }
         /// <summary>
-        /// Devuelve <c>True</c> si todos los números son positivos
+        /// Devuelve <c>True</c> si todos los números son positivos.
         /// </summary>
-        /// <param name="x">números a comprobar</param>
+        /// <param name="x">números a comprobar.</param>
         public static bool ArePositives(params double[] x)
         {
             foreach (double j in x)
@@ -160,9 +169,9 @@ namespace MCART
             return true;
         }
         /// <summary>
-        /// Devuelve <c>True</c> si todos los números son negativos
+        /// Devuelve <c>True</c> si todos los números son negativos.
         /// </summary>
-        /// <param name="x">números a comprobar</param>
+        /// <param name="x">números a comprobar.</param>
         public static bool AreNegatives(params double[] x)
         {
             foreach (double j in x)
@@ -173,9 +182,9 @@ namespace MCART
             return true;
         }
         /// <summary>
-        /// Devuelve <c>True</c> si todos los números son iguales a cero
+        /// Devuelve <c>True</c> si todos los números son iguales a cero.
         /// </summary>
-        /// <param name="x">números a comprobar</param>
+        /// <param name="x">números a comprobar.</param>
         public static bool AreZero<T>(params T[] x) where T : struct,
             IComparable,
             IComparable<T>,
@@ -187,9 +196,9 @@ namespace MCART
             return true;
         }
         /// <summary>
-        /// Devuelve <c>True</c> si todos los números son distintos de cero
+        /// Devuelve <c>True</c> si todos los números son distintos de cero.
         /// </summary>
-        /// <param name="x">números a comprobar</param>
+        /// <param name="x">números a comprobar.</param>
         public static bool AreNotZero<T>(params T[] x) where T :
             IComparable,
             IComparable<T>,
@@ -200,26 +209,56 @@ namespace MCART
             foreach (T j in x) if (j.CompareTo(0) == 0) return false;
             return true;
         }
+#if IncludeSpecialClamp
         /// <summary>
         /// Establece límites de sobreflujo para evaluar una expresión.
         /// </summary>
         /// <param name="expression">Expresión a evaluar.</param>
-        /// <param name="max">Límite superior de salida, inclusive.</param>
         /// <param name="min">Límite inferior de salida, inclusive.</param>
+        /// <param name="max">Límite superior de salida, inclusive.</param>
         /// <returns>
         /// El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
-        [Obsolete]
-        public static double Clamp(this double expression, double max = double.NaN, double min = double.NaN)
+        /// <remarks>
+        /// Esta implementación se incluye para permitir parámetros de tipo
+        /// <see cref="double.NaN"/>, <see cref="double.NegativeInfinity"/> y
+        /// <see cref="double.PositiveInfinity"/>.
+        /// </remarks>
+        public static double Clamp(this double expression, double min = double.NegativeInfinity, double max = double.PositiveInfinity)
         {
-            if (IsValid(expression))
+            if (!double.IsNaN(expression))
             {
-                if (!double.IsNaN(max) && expression > max) return max;
-                if (!double.IsNaN(min) && expression < min) return min;
+                if (expression > max) return max;
+                if (expression < min) return min;
                 return expression;
             }
             return double.NaN;
         }
+        /// <summary>
+        /// Establece límites de sobreflujo para evaluar una expresión.
+        /// </summary>
+        /// <param name="expression">Expresión a evaluar.</param>
+        /// <param name="min">Límite inferior de salida, inclusive.</param>
+        /// <param name="max">Límite superior de salida, inclusive.</param>
+        /// <returns>
+        /// El valor evaluado que se encuentra dentro del rango especificado.
+        /// </returns>
+        /// <remarks>
+        /// Esta implementación se incluye para permitir parámetros de tipo
+        /// <see cref="float.NaN"/>, <see cref="float.NegativeInfinity"/> y
+        /// <see cref="float.PositiveInfinity"/>.
+        /// </remarks>
+        public static float Clamp(this float expression, float min = float.NegativeInfinity, float max = float.PositiveInfinity)
+        {
+            if (!float.IsNaN(expression))
+            {
+                if (expression > max) return max;
+                if (expression < min) return min;
+                return expression;
+            }
+            return float.NaN;
+        }
+#endif
         /// <summary>
         /// Establece límites de sobreflujo para evaluar una expresión.
         /// </summary>
@@ -240,6 +279,26 @@ namespace MCART
             if (expression.CompareTo(max) > 0) return max;
             if (expression.CompareTo(min) < 0) return min;
             return expression;
+        }
+        /// <summary>
+        /// Establece límites de sobreflujo para evaluar una expresión.
+        /// </summary>
+        /// <param name="expression">Expresión a evaluar.</param>
+        /// <param name="max">Límite superior de salida, inclusive.</param>
+        /// <returns>
+        /// El valor evaluado que se encuentra entre 0 y 
+        /// <paramref name="max"/>.
+        /// </returns>
+        public static T Clamp<T>(this T expression, T max) where T :
+            IComparable,
+            IComparable<T>,
+            IConvertible,
+            IEquatable<T>,
+            IFormattable
+        {
+            if (expression.CompareTo(max) > 0) return max;
+            if (expression.CompareTo(0) < 0) return default(T);
+            return expression;            
         }
 
         /// <summary>

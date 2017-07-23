@@ -32,6 +32,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+
 namespace MCART
 {
     /// <summary>
@@ -67,12 +68,12 @@ namespace MCART
         /// Lista privada de estados de los controles modificados por la función
         /// 
         /// </summary>
-        static List<OrigControlColor> origctrls = new List<OrigControlColor>();
+        private static List<OrigControlColor> origctrls = new List<OrigControlColor>();
         /// <summary>
         /// Lista privada de <see cref="BitmapEncoder"/> cargados en el
         /// <see cref="AppDomain"/> actual.
         /// </summary>
-        static List<BitmapEncoder> bEncLst;
+        private static List<BitmapEncoder> bEncLst;
         /// <summary>
         /// Devuelve una colección de los códecs de mapas de bits disponibles.
         /// Soporta cargar códecs desde cualquier ensamblado cargado.
@@ -219,106 +220,120 @@ namespace MCART
         /// Establece la propiedad <see cref="UIElement.Visibility"/> a
         /// <see cref="Visibility.Collapsed"/> a una lista de controles.
         /// </summary>
-        /// <param name="ctrls">Arreglo de controles a deshabilitar.</param>
+        /// <param name="ctrls">
+        /// Arreglo de <see cref="UIElement"/> a colapsar.
+        /// </param>
         public static void CollapseControls(params UIElement[] ctrls)
         {
             foreach (UIElement j in ctrls) j.Visibility = Visibility.Collapsed;
         }
         /// <summary>
         /// Establece la propiedad <see cref="UIElement.Visibility"/> a
+        /// <see cref="Visibility.Collapsed"/> a una lista de controles.
+        /// </summary>
+        /// <param name="ctrls">
+        /// Arreglo de <see cref="UIElement"/> a colapsar.
+        /// </param>
+        [Thunk]
+        public static void CollapseControls(this IEnumerable<UIElement> ctrls)
+            => CollapseControls(ctrls.ToArray());
+        /// <summary>
+        /// Establece la propiedad <see cref="UIElement.Visibility"/> a
         /// <see cref="Visibility.Hidden"/> a una lista de controles.
         /// </summary>
-        /// <param name="ctrls">Arreglo de controles a deshabilitar.</param>
+        /// <param name="ctrls">
+        /// Arreglo de <see cref="UIElement"/> a ocultar.
+        /// </param>
         public static void HideControls(params UIElement[] ctrls)
         {
             foreach (UIElement j in ctrls) j.Visibility = Visibility.Hidden;
         }
         /// <summary>
         /// Establece la propiedad <see cref="UIElement.Visibility"/> a
+        /// <see cref="Visibility.Hidden"/> a una lista de controles.
+        /// </summary>
+        /// <param name="ctrls"
+        /// >Arreglo de <see cref="UIElement"/> a ocultar.
+        /// </param>
+        [Thunk]
+        public static void HideControls(this IEnumerable<UIElement> ctrls)
+            => HideControls(ctrls.ToArray());
+        /// <summary>
+        /// Establece la propiedad <see cref="UIElement.Visibility"/> a
         /// <see cref="Visibility.Visible"/> a una lista de controles.
         /// </summary>
-        /// <param name="ctrls">Arreglo de controles a deshabilitar.</param>
+        /// <param name="ctrls">
+        /// Arreglo de <see cref="UIElement"/> a mostrar.
+        /// </param>
         public static void ShowControls(params UIElement[] ctrls)
         {
             foreach (UIElement j in ctrls) j.Visibility = Visibility.Visible;
         }
         /// <summary>
+        /// Establece la propiedad <see cref="UIElement.Visibility"/> a
+        /// <see cref="Visibility.Visible"/> a una lista de controles.
+        /// </summary>
+        /// <param name="ctrls">
+        /// Arreglo de <see cref="UIElement"/> a mostrar.
+        /// </param>
+        [Thunk]
+        public static void ShowControls(this IEnumerable<UIElement> ctrls)
+            => ShowControls(ctrls.ToArray());
+        /// <summary>
         /// Deshabilita una lista de controles.
         /// </summary>
-        /// <param name="ctrls">Arreglo de controles a deshabilitar.</param>
+        /// <param name="ctrls">
+        /// Arreglo de <see cref="UIElement"/> a deshabilitar.
+        /// </param>
         public static void DisableControls(params UIElement[] ctrls)
         {
             foreach (UIElement j in ctrls) j.IsEnabled = false;
         }
         /// <summary>
+        /// Deshabilita una lista de controles.
+        /// </summary>
+        /// <param name="ctrls">
+        /// Arreglo de <see cref="UIElement"/> a deshabilitar.
+        /// </param>
+        [Thunk]
+        public static void DisableControls(this IEnumerable<UIElement> ctrls)
+            => DisableControls(ctrls.ToArray());
+        /// <summary>
         /// Habilita una lista de controles.
         /// </summary>
-        /// <param name="ctrls">Arreglo de controles a habilitar.</param>
+        /// <param name="ctrls">
+        /// Arreglo de <see cref="UIElement"/> a habilitar.
+        /// </param>
         public static void EnableControls(params UIElement[] ctrls)
         {
             foreach (UIElement j in ctrls) j.IsEnabled = true;
         }
         /// <summary>
+        /// Habilita una lista de controles.
+        /// </summary>
+        /// <param name="ctrls">
+        /// Arreglo de <see cref="UIElement"/> a habilitar.
+        /// </param>
+        [Thunk]
+        public static void EnableControls(this IEnumerable<UIElement> ctrls)
+            => EnableControls(ctrls.ToArray());
+        /// <summary>
         /// Habilita o deshabilita una lista de controles según su estado previo.
         /// </summary>
-        /// <param name="ctrls">Arreglo de controles a habilitar/deshabilitar.</param>
+        /// <param name="ctrls">Arreglo de <see cref="UIElement"/> a habilitar/deshabilitar.</param>
         public static void ToggleControls(params UIElement[] ctrls)
         {
             foreach (UIElement j in ctrls) j.IsEnabled = !j.IsEnabled;
         }
         /// <summary>
-        /// Establece la propiedad <see cref="UIElement.Visibility"/> a
-        /// <see cref="Visibility.Collapsed"/> a una lista de controles.
-        /// </summary>
-        /// <param name="ctrls">Arreglo de controles a deshabilitar.</param>
-        public static void CollapseControls(this IEnumerable<UIElement> ctrls)
-        {
-            foreach (UIElement j in ctrls) j.Visibility = Visibility.Collapsed;
-        }
-        /// <summary>
-        /// Establece la propiedad <see cref="UIElement.Visibility"/> a
-        /// <see cref="Visibility.Hidden"/> a una lista de controles.
-        /// </summary>
-        /// <param name="ctrls">Arreglo de controles a deshabilitar.</param>
-        public static void HideControls(this IEnumerable<UIElement> ctrls)
-        {
-            foreach (UIElement j in ctrls) j.Visibility = Visibility.Hidden;
-        }
-        /// <summary>
-        /// Establece la propiedad <see cref="UIElement.Visibility"/> a
-        /// <see cref="Visibility.Visible"/> a una lista de controles.
-        /// </summary>
-        /// <param name="ctrls">Arreglo de controles a deshabilitar.</param>
-        public static void ShowControls(this IEnumerable<UIElement> ctrls)
-        {
-            foreach (UIElement j in ctrls) j.Visibility = Visibility.Visible;
-        }
-        /// <summary>
-        /// Deshabilita una lista de controles.
-        /// </summary>
-        /// <param name="ctrls">Arreglo de controles a deshabilitar.</param>
-        public static void DisableControls(this IEnumerable<UIElement> ctrls)
-        {
-            foreach (UIElement j in ctrls) j.IsEnabled = false;
-        }
-        /// <summary>
-        /// Habilita una lista de controles.
-        /// </summary>
-        /// <param name="ctrls">Arreglo de controles a habilitar.</param>
-        public static void EnableControls(this IEnumerable<UIElement> ctrls)
-        {
-            foreach (UIElement j in ctrls) j.IsEnabled = true;
-        }
-        /// <summary>
         /// Habilita o deshabilita una lista de controles según su estado previo.
         /// </summary>
-        /// <param name="ctrls">Arreglo de controles a habilitar/deshabilitar.</param>
+        /// <param name="ctrls">Arreglo de <see cref="UIElement"/> a habilitar/deshabilitar.</param>
+        [Thunk]
         public static void ToggleControls(this IEnumerable<UIElement> ctrls)
-        {
-            foreach (UIElement j in ctrls) j.IsEnabled = !j.IsEnabled;
-        }
+            => ToggleControls(ctrls.ToArray());
         /// <summary>
-        /// Inicia una consola para la aplicación.
+        /// Abre una consola para la aplicación.
         /// </summary>
         /// <returns><c>true</c> si la llamada obtuvo correctamente una consola; de lo contrario, <c>false</c>.</returns>
         /// <remarks>
@@ -359,7 +374,7 @@ namespace MCART
         [Thunk] public static float GetScalingFactor() => GetScalingFactor(IntPtr.Zero);
         /// <summary>
         /// Obtiene el factor de escala de la ventana especificada por
-        /// <paramref name="Hwnd"/>.
+        /// el <see cref="IntPtr"/> <paramref name="Hwnd"/>.
         /// </summary>
         /// <param name="Hwnd">Identificador de ventana a verificar.</param>
         /// <returns>
@@ -432,23 +447,5 @@ namespace MCART
         /// </summary>
         /// <returns>El color qaue representa la temperatura del porcentaje.</returns>
         /// <param name="x">Valor porcentual utilizado para calcular la temperatura.</param>
-        public static System.Windows.Media.Color BlendHeatColor(double x)
-        {
-            byte r = (byte)(1020 * (x + 0.5) - 1020).Clamp(255, 0);
-            byte g = (byte)((-System.Math.Abs(2040 * (x - 0.5)) + 1020) / 2).Clamp(255, 0);
-            byte b = (byte)(-1020 * (x + 0.5) + 1020).Clamp(255, 0);
-            return System.Windows.Media.Color.FromRgb(r, g, b);
-        }
-        /// <summary>
-        /// Mezcla un color de salud basado en el porcentaje.
-        /// </summary>
-        /// <returns>El color qaue representa la salud del porcentaje.</returns>
-        /// <param name="x">The x coordinate.</param>
-        public static System.Windows.Media.Color BlendHealthColor(double x)
-        {
-            byte g = (byte)(510 * x).Clamp(255, 0);
-            byte r = (byte)(510 - (510 * x)).Clamp(255, 0);
-            return System.Windows.Media.Color.FromRgb(r, g, 0);
-        }
     }
 }

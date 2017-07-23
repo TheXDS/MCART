@@ -22,8 +22,8 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Reflection;
-[assembly: AssemblyTitle("MCART-WPF")]
-[assembly: AssemblyDescription("MCART for Windows Presentation Framework")]
+[assembly: AssemblyTitle("MCART-Win32")]
+[assembly: AssemblyDescription("MCART for Win32")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("TheXDS! non-Corp.")]
 [assembly: AssemblyProduct("MCA Runtime")]

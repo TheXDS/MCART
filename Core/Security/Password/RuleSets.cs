@@ -78,7 +78,7 @@ namespace MCART.Security.Password
                 if (d == 0) return new PwEvalResult(0, ie ? 
                     St.Ok(St.Include(b.ToLower())) : 
                     St.Warn(St.Include(b.ToLower())));
-                return new PwEvalResult((CFactoryFactor + ((double)d / p.Length).Clamp(1, 0)));
+                return new PwEvalResult((CFactoryFactor + ((float)d / p.Length).Clamp(0, 1)));
             }, b, pn, c ?? string.Format(St2.xBuilder, b.ToLower()), de, ie);
         }
         /// <summary>

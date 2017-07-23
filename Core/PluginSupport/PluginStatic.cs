@@ -297,7 +297,7 @@ namespace MCART.PluginSupport
         /// Un <see cref="Dictionary{TKey, TValue}"/> con los ensamblados y 
         /// sus correspondientes plugins.
         /// </returns>
-        public static Dictionary<string,List<T>> Tree<T>(string pluginsPath = ".", string searchPattern="*", SearchOption search = SearchOption.TopDirectoryOnly, bool ignoreVersion = false)
+        public static Dictionary<string,List<T>> PluginTree<T>(string pluginsPath = ".", string searchPattern="*", SearchOption search = SearchOption.TopDirectoryOnly, bool ignoreVersion = false)
         {
             if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
             Dictionary<string, List<T>> outp = new Dictionary<string, List<T>>();
@@ -312,6 +312,19 @@ namespace MCART.PluginSupport
             }
             return outp;
         }
+        /// <summary>
+        /// Carga todos los plugins de todos los ensamblados en el directorio
+        /// actual como una estructura de árbol.
+        /// </summary>
+        /// <typeparam name="T">Tipos a cargar.</typeparam>
+        /// <param name="ignoreVersion">
+        /// Ignorar la comprobación de versión de MCART.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="Dictionary{TKey, TValue}"/> con los ensamblados y 
+        /// sus correspondientes plugins.
+        /// </returns>
+        public static Dictionary<string, List<T>> PluginTree<T>(bool ignoreVersion) => PluginTree<T>(".", "*", SearchOption.TopDirectoryOnly, ignoreVersion);
         /// <summary>
         /// Obtiene una lista de ensamblados que contienen plugins.
         /// </summary>

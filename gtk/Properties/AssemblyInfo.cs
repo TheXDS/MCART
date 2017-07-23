@@ -27,11 +27,7 @@ using System.Reflection;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("TheXDS! non-Corp.")]
 [assembly: AssemblyProduct("MCA Runtime")]
-[assembly: AssemblyCopyright("César Andrés Morgan")]
+[assembly: AssemblyCopyright("Copyright © 2011-2017 César Andrés Morgan")]
 [assembly: AssemblyTrademark("MCA Corporation")]
 [assembly: AssemblyCulture("")]
-
-// The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".
-// The form "{Major}.{Minor}.*" will automatically update the build and revision,
-// and "{Major}.{Minor}.{Build}.*" will update just the revision.
 [assembly: AssemblyVersion("0.6.*")]

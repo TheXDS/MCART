@@ -27,19 +27,24 @@ namespace MCART.Types
     {
         /// <summary>
         /// Convierte implícitamente una estructura <see cref="Color"/> en un
-        /// <see cref="Gdk.Color"/>.
+        /// <see cref="System.Windows.Media.Color"/>.
         /// </summary>
         /// <param name="c"><see cref="Color"/> a convertir.</param>
-        public static implicit operator Gdk.Color(Color c) => new Gdk.Color(c.R, c.G, c.B);
+        public static implicit operator System.Windows.Media.Color(Color c)=>System.Windows.Media.Color.FromScRgb(c.ScA,c.ScR,c.ScG,c.ScB);
         /// <summary>
-        /// Convierte implícitamente una estructura <see cref="Gdk.Color"/> en un
-        /// <see cref="Color"/>.
+        /// Convierte implícitamente una estructura
+        /// <see cref="System.Windows.Media.Color"/> en un <see cref="Color"/>.
         /// </summary>
-        /// <param name="c"><see cref="Gdk.Color"/> a convertir.</param>
-        public static implicit operator Color(Gdk.Color c) => 
-            new Color(
-                (byte)c.Red.Clamp<ushort>(0,255),
-                (byte)c.Green.Clamp<ushort>(0, 255),
-                (byte)c.Blue.Clamp<ushort>(0, 255));
+        /// <param name="c">
+        /// <see cref="System.Windows.Media.Color"/> a convertir.
+        /// </param>
+        public static implicit operator Color(System.Windows.Media.Color c)
+        {            
+            return new Color(
+                c.ScA.Clamp(0.0f,1.0f),
+                c.ScR.Clamp(0.0f, 1.0f),
+                c.ScG.Clamp(0.0f, 1.0f),
+                c.ScB.Clamp(0.0f, 1.0f));
+        }
     }
 }

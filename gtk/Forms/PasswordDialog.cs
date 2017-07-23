@@ -1,5 +1,5 @@
 ﻿//
-//  AssemblyInfo.cs
+//  PasswordDialog.cs
 //
 //  This file is part of MCART
 //
@@ -21,13 +21,14 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Reflection;
-[assembly: AssemblyTitle("MCART-WPF")]
-[assembly: AssemblyDescription("MCART for Windows Presentation Framework")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("TheXDS! non-Corp.")]
-[assembly: AssemblyProduct("MCA Runtime")]
-[assembly: AssemblyCopyright("Copyright © 2011-2017 César Andrés Morgan")]
-[assembly: AssemblyTrademark("MCA Corporation")]
-[assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("0.6.*")]
+using System;
+namespace MCART
+{
+	public partial class PasswordDialog : Gtk.Dialog
+	{
+		public PasswordDialog()
+		{
+			this.Build();
+		}
+	}
+}

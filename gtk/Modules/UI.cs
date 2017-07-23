@@ -20,10 +20,12 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using Gdk;
+
 using Gtk;
+using MCART.Attributes;
+using System.Collections.Generic;
 using System.Linq;
-using MCART.Types.Extensions;
+
 namespace MCART
 {
     /// <summary>
@@ -36,11 +38,103 @@ namespace MCART
         /// <see cref="Container"/>.
         /// </summary>
         /// <param name="c"><see cref="Container"/> a limpiar.</param>
-        public static void ClearContents(this Gtk.Container c)
+        public static void ClearContents(this Container c)
         {
             Widget[] x = c.Children;
             foreach (Widget j in x) c.Remove(j);
             x = null;
         }
+        /// <summary>
+        /// Oculta los <see cref="Widget"/> especificados.
+        /// </summary>
+        /// <param name="wdgts">
+        /// Colección de <see cref="Widget"/> a procesar.
+        /// </param>
+        public static void HideWidgets(params Widget[] wdgts)
+        {
+            foreach (Widget j in wdgts) j.Visible = false;
+        }
+        /// <summary>
+        /// Oculta los <see cref="Widget"/> especificados.
+        /// </summary>
+        /// <param name="wdgts">
+        /// Colección de <see cref="Widget"/> a procesar.
+        /// </param>
+        [Thunk] public static void HideWidgets(this IEnumerable<Widget> wdgts)
+            => HideWidgets(wdgts.ToArray());
+        /// <summary>
+        /// Muestra los <see cref="Widget"/> especificados.
+        /// </summary>
+        /// <param name="wdgts">
+        /// Colección de <see cref="Widget"/> a procesar.
+        /// </param>
+        public static void ShowWidgets(params Widget[] wdgts)
+        {
+            foreach (Widget j in wdgts) j.Visible = true;
+        }
+        /// <summary>
+        /// Muestra los <see cref="Widget"/> especificados.
+        /// </summary>
+        /// <param name="wdgts">
+        /// Colección de <see cref="Widget"/> a procesar.
+        /// </param>
+        [Thunk] public static void ShowWidgets(this IEnumerable<Widget> wdgts)
+            => ShowWidgets(wdgts.ToArray());
+        /// <summary>
+        /// Habilita  los <see cref="Widget"/> especificados.
+        /// </summary>
+        /// <param name="wdgts">
+        /// Colección de <see cref="Widget"/> a procesar.
+        /// </param>
+        public static void EnableWidgets(params Widget[] wdgts)
+        {
+            foreach (Widget j in wdgts) j.Sensitive = true;
+        }
+        /// <summary>
+        /// Habilita  los <see cref="Widget"/> especificados.
+        /// </summary>
+        /// <param name="wdgts">
+        /// Colección de <see cref="Widget"/> a procesar.
+        /// </param>
+        [Thunk] public static void EnableWidgets(this IEnumerable<Widget> wdgts)
+            => EnableWidgets(wdgts.ToArray());
+        /// <summary>
+        /// Deshabilita  los <see cref="Widget"/> especificados.
+        /// </summary>
+        /// <param name="wdgts">
+        /// Colección de <see cref="Widget"/> a procesar.
+        /// </param>
+        public static void DisableWidgets(params Widget[] wdgts)
+        {
+            foreach (Widget j in wdgts) j.Sensitive = false;
+        }
+        /// <summary>
+        /// Deshabilita  los <see cref="Widget"/> especificados.
+        /// </summary>
+        /// <param name="wdgts">
+        /// Colección de <see cref="Widget"/> a procesar.
+        /// </param>
+        [Thunk] public static void DisableWidgets(this IEnumerable<Widget> wdgts)
+            => DisableWidgets(wdgts.ToArray());
+        /// <summary>
+        /// Habilita o deshabilita los <see cref="Widget"/> según su estado
+        /// previo.
+        /// </summary>
+        /// <param name="wdgts">
+        /// Colección de <see cref="Widget"/> a procesar.
+        /// </param>
+        public static void ToggleWidgets(params Widget[] wdgts)
+        {
+            foreach (Widget j in wdgts) j.Sensitive = !j.Sensitive;
+        }
+        /// <summary>
+        /// Habilita o deshabilita los <see cref="Widget"/> según su estado
+        /// previo.
+        /// </summary>
+        /// <param name="wdgts">
+        /// Colección de <see cref="Widget"/> a procesar.
+        /// </param>
+        [Thunk] public static void ToggleWidgets(this IEnumerable<Widget> wdgts)
+            => ToggleWidgets(wdgts.ToArray());
     }
 }

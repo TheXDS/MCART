@@ -20,21 +20,22 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using MCART.Controls;
 using MCART.Security.Password;
-using MCART.UI;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 using St = MCART.Resources.Strings;
+using static MCART.Types.Color;
 namespace MCART.Forms
 {
     /// <summary>
-    /// Esta clase contiene una ventana de Windows Presentation Framework
-    /// que permite al usuario validar contraseñas, así como también
-    /// establecerlas y medir el nivel de seguridad de la contraseña escogida.
+    /// Esta clase contiene una ventana de Windows Presentation Framework que
+    /// permite al usuario validar contraseñas, así como también establecerlas
+    /// y medir el nivel de seguridad de la contraseña escogida.
     /// </summary>
     public class PasswordDialog : Window
     {
@@ -87,123 +88,11 @@ namespace MCART.Forms
             Margin = new Thickness(10)
         };
         #endregion
-
         #region Miembros privados
         private PwDialogResult r;
         private PwEvaluator pwe;
         private PwEvalResult Pwr;
         #endregion
-
-        #region Miembros públicos
-        /// <summary>
-        /// Configura el cuadro de contraseña al utilizar <see cref="ChoosePassword(PwMode, PwEvaluator)"/>
-        /// </summary>
-        public enum PwMode : byte
-        {
-            /// <summary>
-            /// Únicamente confirmar
-            /// </summary>
-            JustConfirm,
-            /// <summary>
-            /// Mostrar cuadro de indicio
-            /// </summary>
-            Hint,
-            /// <summary>
-            /// Mostrar indicador de seguridad
-            /// </summary>
-            Secur,
-            /// <summary>
-            /// Mostrar cuadro de indicio e indicador de seguridad
-            /// </summary>
-            Both,
-            /// <summary>
-            /// Mostrar cuadro de usuario
-            /// </summary>
-            Usr,
-            /// <summary>
-            /// Mostrar cuadro de usuario y cuadro de indicio
-            /// </summary>
-            UsrHint,
-            /// <summary>
-            /// Mostrar cuadro de usuario e indicador de seguridad
-            /// </summary>
-            UsrSecur,
-            /// <summary>
-            /// Mostrar cuadro de usuario, cuadro de indicio e indicador de seguridad
-            /// </summary>
-            UsrBoth
-        }
-        /// <summary>
-        /// Representa el resultado de un cuadro de diálogo <see cref="PasswordDialog"/>
-        /// </summary>
-        public class PwDialogResult
-        {
-            private string u;
-            private string p;
-            private MessageBoxResult r;
-            private string h;
-            private PwEvalResult e;
-            /// <summary>
-            /// Obtiene el usuario introducido en el <see cref="PasswordDialog"/> 
-            /// </summary>
-            /// <returns>Si se muestra este diálogo con <see cref="PwMode.Usr"/>, se devuelve el usuario introducido en el <see cref="PasswordDialog"/>; de lo contrario se devuelve <see cref="string.Empty"/></returns>
-            public string Usr
-            {
-                get { return u; }
-            }
-            /// <summary>
-            /// Obtiene la contraseña que el usuario ha introducido
-            /// </summary>
-            /// <returns>Una <see cref="string"/> con la contraseña que el usuario ha introducido</returns>
-            public string Pwd
-            {
-                get { return p; }
-            }
-            /// <summary>
-            /// Obtiene el indicio de contraseña introducido por el usuario
-            /// </summary>
-            /// <returns><see cref="string.Empty"/> si el cuadro se inicia con <see cref="GetPassword(string, string, Boolean)"/>.
-            /// Si se inicia con <see cref="ChoosePassword(PwMode, PwEvaluator)"/>, se devuelve un
-            /// <see cref="string"/> con el indicio de contraseña que el usuario ha introducido</returns>
-            public string Hint
-            {
-                get { return h; }
-            }
-            /// <summary>
-            /// Obtiene el resultado del cuadro de diálogo
-            /// </summary>
-            /// <returns>un <see cref="MessageBoxResult"/> que indica la acción realizada por el usuario</returns>
-            public MessageBoxResult Result
-            {
-                get { return r; }
-            }
-            /// <summary>
-            /// Obtiene el resultado de la evaluación de la contraseña
-            /// </summary>
-            /// <returns>Si se muestra este diálogo con <see cref="PwMode.Secur"/>, se devuelve el resultado de la evaluación de las reglas especificadas; de lo contrario se devuelve <c>Nothing</c></returns>
-            public PwEvalResult Evaluation
-            {
-                get { return e; }
-            }
-            /// <summary>
-            /// Crea una nueva instancia de la clase <see cref="PwDialogResult"/>
-            /// </summary>
-            /// <param name="us">Usuario del cuadro de diálogo</param>
-            /// <param name="pw">Contraseña introducida por el usuario</param>
-            /// <param name="hn">Indicio de contraseña introducida por el usuario</param>
-            /// <param name="re">Resultado del cuadro de diálogo</param>
-            /// <param name="ev">Resultado de la evaluación</param>
-            internal PwDialogResult(string us, string pw, string hn, MessageBoxResult re, PwEvalResult ev)
-            {
-                u = us;
-                p = pw;
-                h = hn;
-                r = re;
-                e = ev;
-            }
-        }
-        #endregion
-
         #region Eventos de controles
         private void Btngo_Click(object sender, RoutedEventArgs e)
         {
@@ -256,7 +145,7 @@ namespace MCART.Forms
                 Ringsec.Value = Pwr.Result * 100;
                 if (!Pwr.Critical)
                 {
-                    Ringsec.Fill = new SolidColorBrush(UI.UI.BlendHealthColor(Pwr.Result));
+                    Ringsec.Fill = new SolidColorBrush(BlendHealthColor(Pwr.Result));
                 }
                 else
                 {
@@ -274,7 +163,6 @@ namespace MCART.Forms
                 Txtcnf.Warn(St.PwNotMatch);
         }
         #endregion
-
         #region Métodos públicos
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
@@ -369,7 +257,7 @@ namespace MCART.Forms
             Btngo.Visibility = Visibility.Visible;
             MoreCtrls.Visibility = Visibility.Collapsed;
             ShowDialog();
-            return r ?? new PwDialogResult(null, null, null, MessageBoxResult.Cancel, PwEvalResult.Null);
+            return r ?? PwDialogResult.Null;
         }
         /// <summary>
         /// Permite al usuario escoger una contraseña.
@@ -409,7 +297,7 @@ namespace MCART.Forms
             }
             else SecurIndicator.Visibility = Visibility.Collapsed;
             ShowDialog();
-            return r ?? new PwDialogResult(null, null, null, MessageBoxResult.Cancel, PwEvalResult.Null);
+            return r ?? PwDialogResult.Null;
         } 
         #endregion
     }

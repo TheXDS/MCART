@@ -60,7 +60,7 @@ namespace MCART.Security.Password
                 if (!j.IsExtraPoints) t += System.Math.Abs((sbyte)j.Ponderation);
             }
             if (t == 0) return new PwEvalResult(0, St.Warn(St.NoRules), true);
-            return new PwEvalResult(Math.Clamp(c / t, 1, 0), o.ToString());
+            return new PwEvalResult((float)(c / t).Clamp(0, 1), o.ToString());
         }
         /// <summary>
         /// Initializes a new instance of the <see cref="T:MCART.Security.Password.PwEvaluator"/> class.

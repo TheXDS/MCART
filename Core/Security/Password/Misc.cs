@@ -31,7 +31,7 @@ namespace MCART.Security.Password
         /// <summary>
         /// Resultado de la evaluación de la contraseña
         /// </summary>
-        public double Result;
+        public float Result;
         /// <summary>
         /// Si es <c>true</c>, la contraseña no continuará siendo evaluada, ya
         /// que es inválida.
@@ -52,7 +52,7 @@ namespace MCART.Security.Password
         /// Criticalidad de la evaluación. Si se establece en <c>true</c>, la
         /// contraseña no seguirá siendo evaluada, ya que es inválida.
         /// </param>
-        public PwEvalResult(double r, string d = null, bool c = false)
+        public PwEvalResult(float r, string d = null, bool c = false)
         {
             Result = r;
             Critical = c;

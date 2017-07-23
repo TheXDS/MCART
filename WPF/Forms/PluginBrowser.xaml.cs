@@ -22,10 +22,10 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using MCART.PluginSupport;
-using MCART.UI;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using static MCART.Resources.RTInfo;
 using St = MCART.Resources.Strings;
 namespace MCART.Forms
 {
@@ -49,6 +49,7 @@ namespace MCART.Forms
             txtMinVer.ClearWarn();
             txtTgtVer.Clear();
             txtTgtVer.ClearWarn();
+            lblVeredict.Text = St.PluginInfo1;
             tabInteractions.IsEnabled = false;
             tabInteractions.Content = null;
         }
@@ -61,26 +62,36 @@ namespace MCART.Forms
             txtDesc.Text = P.Description;
             txtCopyrgt.Text = P.Copyright;
             txtLicense.Text = P.License;
-            lstInterf.Items.Clear();
             foreach (Type T in P.Interfaces)
                 lstInterf.Items.Add(new ListViewItem() { Content = T.Name });
-            txtMinVer.ClearWarn();
-            txtTgtVer.ClearWarn();
+            bool? mvf = null, tvf = null;
             if (P.MinRTVersion(out Version mv))
             {
                 txtMinVer.Text = mv.ToString();
-                if (mv > MCART.Resources.RTInfo.RTVersion)
+                if (mv > RTVersion)
+                {
+                    mvf = false;
                     txtMinVer.Warn(St.UnsupportedVer);
+                }
+                else mvf = true;
             }
             else txtMinVer.Warn(St.NoData);
-
             if (P.TargetRTVersion(out Version tv))
             {
                 txtTgtVer.Text = tv.ToString();
-                if (tv < MCART.Resources.RTInfo.RTVersion)
+                if (tv < RTVersion)
+                {
+                    tvf = false;
                     txtTgtVer.Warn(St.UnsupportedVer);
+                }
+                else tvf = true;
             }
             else txtTgtVer.Warn(St.NoData);
+            if (mvf == true && tvf == true)
+                lblVeredict.Text = St.PluginInfo2;
+            else if (!mvf.HasValue || !tvf.HasValue)
+                lblVeredict.Text = St.PluginInfo4;
+            else lblVeredict.Text = St.PluginInfo3;
             if (P.HasInteractions)
             {
                 MenuItem roth = new MenuItem()
@@ -91,7 +102,7 @@ namespace MCART.Forms
                 };
                 foreach (InteractionItem j in P.PluginInteractions)
                 {
-                    MenuItem k = (MenuItem)j;
+                    MenuItem k = j;
                     k.Click += j.RoutedAction;
                     roth.Items.Add(k);
                 }
@@ -103,11 +114,11 @@ namespace MCART.Forms
                 tabInteractions.Content = St.FeatNotAvailable;
             }
         }
-        private void BtnClose_Click(object sender, RoutedEventArgs e) { Close(); }
+        private void BtnClose_Click(object sender, RoutedEventArgs e) => Close(); 
         private void TrvAsm_Loaded(object sender, RoutedEventArgs e)
         {
             if (trvAsm.Visibility == Visibility.Collapsed) return;
-            foreach (var j in Plugin.Tree<IPlugin>())
+            foreach (var j in Plugin.PluginTree<IPlugin>(true))
             {
                 TreeViewItem roth = new TreeViewItem() { Header = j.Key };
                 foreach (var k in j.Value)
@@ -121,6 +132,7 @@ namespace MCART.Forms
         }
         private void Itm_Selected(object sender, RoutedEventArgs e)
         {
+            ClrDetails();
             ShwDetails((IPlugin)((TreeViewItem)sender).Tag);
         }
 
@@ -139,9 +151,6 @@ namespace MCART.Forms
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="PluginBrowser"/>.
         /// </summary>
-        public PluginBrowser()
-        {
-            InitializeComponent();
-        }
+        public PluginBrowser() => InitializeComponent();        
     }
 }

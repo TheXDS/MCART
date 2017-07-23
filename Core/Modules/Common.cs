@@ -200,7 +200,7 @@ namespace MCART
             foreach (double j in lst)
             {
                 if (j.IsValid())
-                    outp.Add((j - min) / (max - min).Clamp(double.NaN, 1));
+                    outp.Add((j - min) / (max - min).Clamp(1, double.NaN));
                 else outp.Add(double.NaN);
             }
             return (T)outp.AsEnumerable();

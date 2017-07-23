@@ -21,7 +21,6 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using MCART.UI;
 using System;
 using System.Linq;
 using System.Text;
@@ -32,7 +31,7 @@ using System.Windows.Converters;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Shapes;
-
+using MoreColors = MCART.Resources.Colors;
 namespace MCART.Controls
 {
     ///<summary>

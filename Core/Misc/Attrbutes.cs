@@ -136,8 +136,9 @@ namespace MCART.Attributes
     public sealed class ThunkAttribute : Attribute { }
 
     /// <summary>
-    /// Marca una clase para no ser cargada como <see cref="IPlugin"/>, a pesar
-    /// de implementar <see cref="IPlugin"/>.
+    /// Marca una clase para no ser cargada como 
+    /// <see cref="PluginSupport.IPlugin"/>, a pesar de implementar
+    /// <see cref="PluginSupport.IPlugin"/>.
     /// </summary>
     [AttributeUsage((AttributeTargets)1028)]
     public sealed class NotPluginAttribute : Attribute { }

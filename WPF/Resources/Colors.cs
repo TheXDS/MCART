@@ -1,5 +1,5 @@
 ﻿//
-//  AssemblyInfo.cs
+//  Colors.cs
 //
 //  This file is part of MCART
 //
@@ -8,7 +8,7 @@
 //
 //  Copyright (c) 2011 - 2017 César Andrés Morgan
 //
-//  MCART is free software: you can redistribute it and/or modify
+//  MCART is free software: you can Redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation, either version 3 of the License, or
 //  (at your option) any later version.
@@ -20,14 +20,16 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+using MCART.Types;
 
-using System.Reflection;
-[assembly: AssemblyTitle("MCART-WPF")]
-[assembly: AssemblyDescription("MCART for Windows Presentation Framework")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("TheXDS! non-Corp.")]
-[assembly: AssemblyProduct("MCA Runtime")]
-[assembly: AssemblyCopyright("Copyright © 2011-2017 César Andrés Morgan")]
-[assembly: AssemblyTrademark("MCA Corporation")]
-[assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("0.6.*")]
+namespace MCART.Resources
+{
+    public static partial class Colors
+    {
+        /// <summary>
+        /// Obtiene un <see cref="Color"/> correspondiente a las barras de
+        /// progreso de Microsoft® Windows®.
+        /// </summary>
+        public static Color ProgressBar => new Color(0x1, 0xd3, 0x28);
+    }
+}

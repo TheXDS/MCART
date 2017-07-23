@@ -20,8 +20,8 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using MCART.Events;
-using MCART.UI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -35,6 +35,7 @@ using System.Windows.Converters;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Shapes;
+using static MCART.UI;
 using St = MCART.Resources.Strings;
 
 namespace MCART.Controls
@@ -623,15 +624,15 @@ namespace MCART.Controls
                 // Si la posición se intenta establecer en un valor superior al máximo...
                 if ((int)e.NewValue > max) throw new ArgumentOutOfRangeException(nameof(Position));
             }
-            UI.UI.DisableControls(d.btnFirst, d.btnPrev, d.btnNext, d.btnLast, d.txtPos);
+            DisableControls(d.btnFirst, d.btnPrev, d.btnNext, d.btnLast, d.txtPos);
             d.btnEdit.Visibility = max > 0 ? Visibility.Visible : Visibility.Collapsed;
             if (max > 1) d.txtPos.IsEnabled = true;
-            if (pos > 1) UI.UI.EnableControls(d.btnFirst, d.btnPrev);
-            if (pos < max) UI.UI.EnableControls(d.btnNext, d.btnLast);
+            if (pos > 1) EnableControls(d.btnFirst, d.btnPrev);
+            if (pos < max) EnableControls(d.btnNext, d.btnLast);
         }
         private void GotoNormalMode()
         {
-            UI.UI.ShowControls(lblTot, txtPos);
+            ShowControls(lblTot, txtPos);
             if (Max > 0) btnEdit.Visibility = Visibility.Visible;
             SetValue(IsEditingProperty, false);
             lblInfo.Text = St.of_;
@@ -773,7 +774,7 @@ namespace MCART.Controls
             {
                 wasNewPressed = true;
                 view?.AddNew();
-                UI.UI.CollapseControls(txtPos, lblTot);
+                CollapseControls(txtPos, lblTot);
                 lblInfo.Text = St.NewReg;
                 GotoEditMode();
                 NewCreated?.Invoke(this, EventArgs.Empty);

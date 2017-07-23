@@ -31,7 +31,8 @@ using CI = System.Globalization.CultureInfo;
 namespace MCART.Types
 {
     /// <summary>
-    /// Estructura universal que describe un color.
+    /// Estructura universal que describe un color en sus componentes alfa,
+    /// rojo, verde y azul.
     /// </summary>
     public partial struct Color : IEquatable<Color>, IFormattable
     {

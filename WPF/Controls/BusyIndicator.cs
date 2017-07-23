@@ -20,7 +20,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using MCART.UI;
+
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,6 +28,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using static MCART.UI;
 namespace MCART.Controls
 {
     class BusyIndicator : UserControl
@@ -72,7 +73,7 @@ namespace MCART.Controls
         };
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            pth.Data = UI.UI.GetCircleArc(Radius, 270, Thickness);
+            pth.Data = GetCircleArc(Radius, 270, Thickness);
         }
         public Brush Fill
         {
