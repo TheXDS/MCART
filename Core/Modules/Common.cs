@@ -222,7 +222,7 @@ namespace MCART
             ofString = ofString.ToUpper().PadLeft(toString.Length + tolerance);
             foreach (char c in toString.ToUpper())
             {
-                if (ofString.SubString(steps, tolerance).Contains(c)) likes++;
+                if (ofString.Substring(steps, tolerance).Contains(c)) likes++;
                 steps++;
             }
             return likes / (double)steps;
@@ -268,12 +268,15 @@ namespace MCART
             }
             return n / m;
         }
-		/// <summary>
-		/// <see cref="ThunkAttribute"/> de <see cref="BitConverter.ToString(byte[])"/> que no incluye guiones.
-		/// </summary>
-		/// <returns>La representación hexadecimal del arreglo de <see cref="byte[]"/>.</returns>
-		/// <param name="arr">Arreglo de bytes a convertir.</param>
-		[Thunk] public static string ToHex(this byte[] arr) => BitConverter.ToString(arr).Replace("-", "");
+        /// <summary>
+        /// <see cref="ThunkAttribute"/> de 
+        /// <see cref="BitConverter.ToString(byte[])"/> que no incluye guiones.
+        /// </summary>
+        /// <returns>
+        /// La representación hexadecimal del arreglo de <see cref="byte"/>.
+        /// </returns>
+        /// <param name="arr">Arreglo de bytes a convertir.</param>
+        [Thunk] public static string ToHex(this byte[] arr) => BitConverter.ToString(arr).Replace("-", "");
         /// <summary>
         /// Verifica si la cadena contiene letras.
         /// </summary>
@@ -314,5 +317,13 @@ namespace MCART
             return CountChars(s, "0123456789".ToCharArray()) > 0;
 #endif
         }
+        /// <summary>
+        /// Convierte un <see cref="byte"/> en su representación hexadecimal.
+        /// </summary>
+        /// <returns>
+        /// La representación hexadecimal de <paramref name="b"/>.
+        /// </returns>
+        /// <param name="b">El <see cref="byte"/> a convertir.</param>
+        public static string ToHex(this byte b) => (new byte[] { b }).ToHex();
     }
 }

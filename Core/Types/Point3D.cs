@@ -116,12 +116,13 @@ namespace MCART.Types
         /// <returns>The magnitude.</returns>
         /// <param name="fromX">Coordenada X de orígen.</param>
         /// <param name="fromY">Coordenada Y de orígen.</param>
+        /// <param name="fromZ">Coordenada Z de orígen.</param>
         public double Magnitude(double fromX, double fromY, double fromZ)
         {
             double x = X - fromX, y = Y - fromY, z = Z - fromZ;
             return System.Math.Sqrt((x * x) + (y * y) + (z * z));
         }
-        // <summary>
+        /// <summary>
         /// Obtiene un punto en el orígen. Este campo es de solo lectura.
         /// </summary>
         /// <value>

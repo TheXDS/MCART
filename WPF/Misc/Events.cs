@@ -20,6 +20,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System.ComponentModel;
 using System.Windows;
 namespace MCART.Events
@@ -59,7 +60,7 @@ namespace MCART.Events
         {
             Property = property;
             OldValue = oldValue;
-            NewValue = newValue;            
+            NewValue = newValue;
         }
         /// <summary>
         /// Convierte implícitamente este
@@ -67,10 +68,11 @@ namespace MCART.Events
         /// <see cref="DependencyPropertyChangedEventArgs"/>.
         /// </summary>
         /// <param name="x">Objeto a convertir.</param>
-        public static implicit operator DependencyPropertyChangedEventArgs(DependencyPropertyChangingEventArgs x) => new DependencyPropertyChangedEventArgs(x.Property,x.OldValue,x.NewValue);
+        public static implicit operator DependencyPropertyChangedEventArgs(DependencyPropertyChangingEventArgs x) => new DependencyPropertyChangedEventArgs(x.Property, x.OldValue, x.NewValue);
     }
     /// <summary>
-    /// Delegado que controla un evento cancelable de cambio en el valor de una propiedad de dependencia.
+    /// Delegado que controla un evento cancelable de cambio en el valor de una 
+    /// propiedad de dependencia.
     /// </summary>
     /// <param name="sender">Objeto que generó el evento.</param>
     /// <param name="e">Argumentos del evento.</param>

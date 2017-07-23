@@ -62,11 +62,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Forms\PluginBrowser.cs" />
     <Compile Include="gtk-gui\MCART.Forms.PluginBrowser.cs" />
-    <Compile Include="UI\UITools.cs" />
-    <Compile Include="UI\MoreColors.cs" />
+    <Compile Include="Modules\UI.cs" />
     <Compile Include="PluginSupport\InteractionItem.cs" />
+    <Compile Include="Types\Color.cs" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Types\" />
+  </ItemGroup>
   <Import Project="..\Core\Core.projitems" Label="Shared" Condition="Exists('..\Core\Core.projitems')" />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

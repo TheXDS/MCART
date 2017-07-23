@@ -81,12 +81,12 @@ namespace MCART.Controls
             {
                 amIAnimated = false;
                 x.BeginAnimation(RotateTransform.AngleProperty, null);
-                pth.Data = UITools.GetCircleArc(Radius, (((Value - Min) / (Max - Min)) * 360).Clamp(359.999, 0), Thickness);
+                pth.Data = UI.UI.GetCircleArc(Radius, (((Value - Min) / (Max - Min)) * 360).Clamp(359.999, 0), Thickness);
                 TxtPercent.Text = string.Format(TextFormat, Value);
             }
             else if (!amIAnimated)
             {
-                pth.Data = UITools.GetCircleArc(Radius, 90, Thickness);
+                pth.Data = UI.UI.GetCircleArc(Radius, 90, Thickness);
                 amIAnimated = true;
                 x.BeginAnimation(RotateTransform.AngleProperty, spin);
                 TxtPercent.Text = "...";

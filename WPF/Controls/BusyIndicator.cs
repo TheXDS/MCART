@@ -72,7 +72,7 @@ namespace MCART.Controls
         };
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            pth.Data = UITools.GetCircleArc(Radius, 270, Thickness);
+            pth.Data = UI.UI.GetCircleArc(Radius, 270, Thickness);
         }
         public Brush Fill
         {

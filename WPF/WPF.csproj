@@ -67,8 +67,6 @@
     <Compile Include="Resources\Icons.cs" />
     <Compile Include="Types\Point.cs" />
     <Compile Include="Types\TaskReporter\TaskReporterControl.cs" />
-    <Compile Include="UI\MoreColors.cs" />
-    <Compile Include="UI\UITools.cs" />
     <Compile Include="PluginSupport\IPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -82,6 +80,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Modules\UI.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Forms\PluginBrowser.xaml">

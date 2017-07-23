@@ -26,6 +26,7 @@ namespace MCART.Types.TaskReporter
     public class DummyTaskReporter : TaskReporter
     {
         public override bool CancelPending => false;
+
         public override void Begin()
         {
             BeginNonStop();
@@ -35,6 +36,7 @@ namespace MCART.Types.TaskReporter
             if (OnDuty) throw new InvalidOperationException();
             SetTimeStart(DateTime.Now);
             SetOnDuty(true);
+
             RaiseBegun(this, new BegunEventArgs(false, TStart));
         }
         public override void End()

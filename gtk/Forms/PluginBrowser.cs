@@ -22,11 +22,11 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
 using Gtk;
+using MCART.Attributes;
 using MCART.PluginSupport;
-using System.Linq;
 using St = MCART.Resources.Strings;
-using MCART.UI;
 namespace MCART.Forms
 {
     /// <summary>
@@ -36,8 +36,8 @@ namespace MCART.Forms
     public partial class PluginBrowser : Dialog
     {
         ListStore lstIfaces = new ListStore(typeof(string), typeof(string));
-        TreeStore trPlugins;
-        ListStore lstPlgins;
+        TreeStore trPlugins = new TreeStore(typeof(string));
+        List<List<IPlugin>> lstPlugins = new List<List<IPlugin>>();
         void ClearDetails()
         {
             txtName.Text.Clear();
@@ -68,8 +68,8 @@ namespace MCART.Forms
             txtDesc.Text = P.Description;
             txtCopyright.Text = P.Copyright;
             txtLicense.Buffer.Text = P.License;
-            foreach (Type T in P.Interfaces) ;
-            //lstIfaces.Items.Add(new ListViewItem() { Content = T.Name });
+            foreach (Type T in P.Interfaces)
+                lstIfaces.AppendValues(T.Name, T.GetAttr<DescriptionAttribute>()?.Value);
 
             if (P.MinRTVersion(out Version mv))
             {
@@ -97,48 +97,59 @@ namespace MCART.Forms
 
             if (P.HasInteractions)
             {
+                MenuItem r = new MenuItem(P.Name);
+                Menu roth = new Menu();
+                r.Submenu = roth;
                 foreach (InteractionItem j in P.PluginInteractions)
                 {
-                    MenuItem k = (MenuItem)j;
-                    k.Click += j.RoutedAction;
-                    roth.Items.Add(k);
+                    ImageMenuItem k = j;
+                    k.Activated += j.Action;
+                    roth.Append(k);
                 }
-                tabInteractions.Content = roth;
-            }
-            else
-            {
-                tabInteractions.IsEnabled = false;
-                tabInteractions.Content = St.FeatNotAvailable;
+                mnuInteractions.Append(r);
             }
         }
-
-        public PluginBrowser()
+        private void BtnClose_Click(object sender, EventArgs e) => Destroy();
+        private void TrvPlugins_Shown(object sender, EventArgs e)
+        {
+            if (!trvPlugins.Visible) return;
+            foreach (var j in Plugin.Tree<IPlugin>())
+            {
+                TreeIter plg = trPlugins.AppendValues(j.Key);
+                foreach (var k in j.Value) trPlugins.AppendValues(plg);
+                lstPlugins.Add(j.Value);
+            }
+        }
+        private void OnTrvPluginsCursorChanged(object sender, EventArgs e)
+        {
+            trvPlugins.GetCursor(out TreePath tp, out TreeViewColumn tvc);
+            ClearDetails();
+            if (tp.Indices.Length == 2)
+            {
+                ShwDetails(lstPlugins[tp.Indices[0]][tp.Indices[1]]);
+            }
+        }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PluginBrowser"/> class.
+        /// </summary>
+		public PluginBrowser()
         {
             Build();
             trvInterfaces.AppendColumn(
-                new TreeViewColumn(
-                    "Interfaz",
-                    new CellRendererText(),
-                    "text", 0));
+                "Interfaz",
+                new CellRendererText(),
+                "text", 0);
             trvInterfaces.AppendColumn(
-                new TreeViewColumn(
-                    "Descripción",
-                    new CellRendererText(),
-                    "text", 1));
+                "Descripción",
+                new CellRendererText(),
+                "text", 1);
             trvInterfaces.Model = lstIfaces;
+            trvPlugins.AppendColumn(
+                "Plugin",
+                new CellRendererText(),
+                "text", 0);
+            trvPlugins.Model = trPlugins;
         }
-        public new void Show()
-        {
-            trPlugins = new TreeStore(typeof(string));
-            lstPlgins = new ListStore(typeof(string));
-
-
-
-            base.Show();
-        }
-
-
-
 
         /// <summary>
         /// Muestra información acerca de un <see cref="IPlugin"/>.
@@ -150,12 +161,8 @@ namespace MCART.Forms
         {
             trvPlugins.Visible = false;
             trvPlugins.Sensitive = false;
-            //TODO: Showdetails
+            ShwDetails(p);
+            this.Show();
         }
-
-
-
-        protected void BtnClose_Click(object sender, EventArgs e) => Destroy();
-
     }
 }

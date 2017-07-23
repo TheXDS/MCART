@@ -56,6 +56,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Security\Checksum\Plugins.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\RTInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\PluginStatic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\Color.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\ColorExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\Colors.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Types\TaskReporter\" />

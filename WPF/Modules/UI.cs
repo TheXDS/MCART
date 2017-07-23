@@ -20,6 +20,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using MCART.Attributes;
 using System;
 using System.Collections.Generic;
@@ -31,13 +32,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-namespace MCART.UI
+namespace MCART
 {
     /// <summary>
     /// Contiene varias herramientas de UI para utilizar en proyectos de
     /// Windows Presentation Framework.
     /// </summary>
-    public static class UITools
+    public static class UI
     {
         /// <summary>
         /// Contiene información de los controles modificados por la función
@@ -180,7 +181,7 @@ namespace MCART.UI
             });
             c.Background = new SolidColorBrush(Colors.Pink);
             c.Foreground = new SolidColorBrush(Colors.DarkRed);
-            if (!string.IsNullOrEmpty(ttip)) c.ToolTip = new ToolTip() { Content = ttip };            
+            if (!string.IsNullOrEmpty(ttip)) c.ToolTip = new ToolTip() { Content = ttip };
         }
         /// <summary>
         /// Quita el estado de error de un control.
