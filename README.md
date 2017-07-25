@@ -17,7 +17,7 @@ La siguiente tabla indica los entornos de desarrollo y las plataformas en las cu
 | Visual Studio 2013 (Windows)** | X | X* | X | |
 | Visual Studio 2010- (Windows) | | | | |
 | Visual Studio 2010- (Linux via Wine) | | | | |
-| Xamarin Studio 4+ (Windows) | | X | X | |
+| Xamarin Studio 4+ (Windows) | | X | | |
 | MonoDevelop 5+ (Linux) | | X | X | |
 | SharpDevelop (Windows) | | | | |
 
