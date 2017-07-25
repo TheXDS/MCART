@@ -64,7 +64,6 @@
     <Compile Include="Modules\ValueConverters.cs" />
     <Compile Include="PluginSupport\InteractionItem.cs" />
     <Compile Include="PluginSupport\Plugin.cs" />
-    <Compile Include="Resources\Colors.cs" />
     <Compile Include="Resources\Icons.cs" />
     <Compile Include="Security\Password\PwDialogResult.cs" />
     <Compile Include="Types\Color.cs" />
@@ -92,5 +91,6 @@
     </Page>
   </ItemGroup>
   <Import Project="..\Core\Core.projitems" Label="Shared" />
+  <Import Project="..\Core-Windows\Core-Windows.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

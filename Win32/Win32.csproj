@@ -50,7 +50,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\PluginBrowser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PluginBrowser.Designer.cs">
+      <DependentUpon>PluginBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\UI.cs" />
+    <Compile Include="PluginSupport\InteractionItem.cs" />
+    <Compile Include="PluginSupport\IPlugin.cs" />
+    <Compile Include="PluginSupport\Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Icons.cs" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -61,6 +72,16 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\PluginBrowser.resx">
+      <DependentUpon>PluginBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\IconResources.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="..\Core\Core.projitems" Label="Shared" />
+  <Import Project="..\Core-Windows\Core-Windows.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

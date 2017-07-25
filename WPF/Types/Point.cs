@@ -24,9 +24,10 @@
 namespace MCART.Types
 {
     /// <summary>
-    /// Tipo universal para un conjunto de coordenadas bidimensionales.
+    /// Implementación de la estructura <see cref="Point"/> para Windows
+    /// Presentation Framework.
     /// </summary>
-    public partial struct Point : System.IFormattable
+    public partial struct Point
     {
         /// <summary>
         /// Convierte implícitamente un <see cref="Point"/> en un
@@ -35,22 +36,10 @@ namespace MCART.Types
         /// <param name="x"><see cref="Point"/> a convertir.</param>
         public static implicit operator System.Windows.Point(Point x) => new System.Windows.Point(x.X,x.Y);
         /// <summary>
-        /// Convierte implícitamente un <see cref="Point"/> en un
-        /// <see cref="System.Drawing.Point"/>.
-        /// </summary>
-        /// <param name="x"><see cref="Point"/> a convertir.</param>
-        public static implicit operator System.Drawing.Point(Point x) => new System.Drawing.Point((int)x.X, (int)x.Y);
-        /// <summary>
         /// Convierte implícitamente un <see cref="System.Windows.Point"/> en 
         /// un <see cref="Point"/>.
         /// </summary>
         /// <param name="x"><see cref="System.Windows.Point"/> a convertir.</param>
         public static implicit operator Point(System.Windows.Point x) => new Point(x.X, x.Y);
-        /// <summary>
-        /// Convierte implícitamente un <see cref="System.Drawing.Point"/> en
-        /// un <see cref="Point"/>.
-        /// </summary>
-        /// <param name="x"><see cref="System.Drawing.Point"/> a convertir.</param>
-        public static implicit operator Point(System.Drawing.Point x) => new Point(x.X, x.Y);
     }
 }

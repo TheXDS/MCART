@@ -233,7 +233,7 @@ namespace MCART.PluginSupport
 					Assembly a = Assembly.LoadFrom(f.FullName);
 					if (a.IsNot(Resources.RTInfo.RTAssembly) && IsVaild(a)) outp.AddRange(LoadAll<T>(a, ignoreVersion));
 				}
-				catch { System.Diagnostics.Debug.Print(St.Warn(string.Format(St.XInvalid, St.XYQuotes(St.TheAssembly, f.Name))));}
+				catch { System.Diagnostics.Debug.Print(St.Warn(string.Format(St.XIsInvalid, St.XYQuotes(St.TheAssembly, f.Name))));}
             }
             return outp;
         }

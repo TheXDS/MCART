@@ -133,7 +133,9 @@ namespace MCART.Resources
         public const string ImplInterfaces = "Interfaces implementadas";
         public const string IncorrectPWD = "La contraseña es incorrecta";
         public const string InterfaceExpected = "Se esperaba una interfaz";
+        public const string InvalidData = "Los datos proporcionados no son válidos.";
         public const string InvalidDB = "El arhivo no contiene una base de datos válida";
+        public const string InvalidInfo = "La información no es válida.";
         public const string InvalidPluginClass = "{0} no es una clase de Plugin válida ";
         public const string IsBeta = "Versión Beta";
         public const string IsUnsafe = "Inseguro (NO UTILIZAR)";
@@ -221,7 +223,7 @@ namespace MCART.Resources
         public const string XDisabled = "{0} se ha deshabilitado";
         public const string XDoesntContainY = "{0} no contiene {1}";
         public const string XFoundError = "{0} ha encontrado un error";
-        public const string XInvalid = "{0} no es válido";
+        public const string XIsInvalid = "{0} no es válido";
         public const string XMissing = "Falta {0}";
         public const string XNotCancellable = "{0} no es cancelable.";
         public const string XNotFound = "{0} no ha sido encontrado.";

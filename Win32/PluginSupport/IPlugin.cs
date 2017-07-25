@@ -21,8 +21,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
+using System.Windows.Forms;
 
 namespace MCART.PluginSupport
 {
@@ -30,28 +29,25 @@ namespace MCART.PluginSupport
     {
         /// <summary>
         /// Convierte el <see cref="PluginInteractions"/> en un 
-        /// <see cref="MenuItem"/>.
+        /// <see cref="ToolStripMenuItem"/>.
         /// </summary>
         /// <returns>
-        /// Un <see cref="MenuItem"/> que se puede agregar a la interfaz
+        /// Un <see cref="ToolStripMenuItem"/> que se puede agregar a la interfaz
         /// gráfica de la aplicación durante la ejecución.
         /// </returns>
-        MenuItem UIMenu { get; }
+        ToolStripMenuItem UIMenu { get; }
         /// <summary>
         /// Convierte el <see cref="PluginInteractions"/> en un 
-        /// <see cref="Panel"/>.
+        /// <see cref="FlowLayoutPanel"/>.
         /// </summary>
         /// <returns>
-        /// Un <see cref="Panel"/> que se puede agregar a la interfaz gráfica
-        /// de la aplicación durante la ejecución.
+        /// Un <see cref="FlowLayoutPanel"/> que se puede agregar a la interfaz
+        /// gráfica de la aplicación durante la ejecución.
         /// </returns>
         /// <typeparam name="T">
         /// Tipo de controles a incluir dentro del panel. Debe heredar
-        /// <see cref="ButtonBase"/>.</typeparam>
-        /// <typeparam name="PanelT">
-        /// Tipo de panel a generar. Debe heredar <see cref="Panel"/>.
+        /// <see cref="ButtonBase"/>.
         /// </typeparam>
-        PanelT UIPanel<T, PanelT>()
-            where T : ButtonBase, new() where PanelT : Panel, new();
+        FlowLayoutPanel UIPanel<T>() where T : ButtonBase, new();
     }
 }

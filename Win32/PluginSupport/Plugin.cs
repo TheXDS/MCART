@@ -22,83 +22,71 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using MCART.Exceptions;
-using System;
-using System.Diagnostics;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
+using System.Windows.Forms;
 
 namespace MCART.PluginSupport
 {
     public abstract partial class Plugin : IPlugin
     {
         /// <summary>
-        /// Genera un <see cref="MenuItem"/> a partir de las interacciones del
-        /// <see cref="IPlugin"/>.
+        /// Genera un <see cref="ToolStripMenuItem"/> a partir de las 
+        /// interacciones del <see cref="IPlugin"/>.
         /// </summary>
         /// <returns>
-        /// Un <see cref="MenuItem"/> que contiene las interacciones contenidas
-        /// por el <see cref="IPlugin"/>, en la propiedad
+        /// Un <see cref="ToolStripMenuItem"/> que contiene las interacciones
+        /// contenidas por el <see cref="IPlugin"/>, en la propiedad
         /// <see cref="IPlugin.PluginInteractions"/>.
         /// </returns>
         /// <param name="plugin">
         /// <see cref="IPlugin"/> a partir del cual se generará el
-        /// <see cref="MenuItem"/>.
+        /// <see cref="ToolStripMenuItem"/>.
         /// </param>
-        public static MenuItem GetUIMenu(IPlugin plugin)
+        public static ToolStripMenuItem GetUIMenu(IPlugin plugin)
         {
             if (!plugin.HasInteractions) throw new FeatureNotAvailableException();
-            MenuItem mnu = new MenuItem() { Header = plugin.Name };
-            if (!string.IsNullOrEmpty(plugin.Description))
-                mnu.ToolTip = new ToolTip() { Content = plugin.Description };
+            ToolStripMenuItem mnu = new ToolStripMenuItem(plugin.Name) { ToolTipText = plugin.Description };
             foreach (InteractionItem j in plugin.PluginInteractions)
-            {
-                MenuItem a = j.AsMenuItem();
-                try { a.Click += j.RoutedAction; }
-                catch (Exception ex) { Debug.Print(ex.Message); }
-                finally { mnu.Items.Add(a); }
-            }
+                mnu.DropDownItems.Add(j.AsToolStripMenuItem());
             return mnu;
         }
         /// <summary>
         /// Obtiene la Interfaz de interacción de un <see cref="IPlugin"/> como
-        /// un <typeparamref name="PanelT"/> cuyas acciones son controles de
+        /// un <see cref="FlowLayoutPanel"/> cuyas acciones son controles de
         /// tipo <typeparamref name="T"/>.
         /// </summary>
         /// <typeparam name="T">
         /// Tipo de controles a generar. Se deben utilizar controles que se
         /// deriven de <see cref="ButtonBase"/>.
         /// </typeparam>
-        /// <typeparam name="PanelT">Tipo de panel a devolver.</typeparam>
         /// <param name="plugin">
         /// <see cref="IPlugin"/> a partir del cual se generará el panel.
         /// </param>
         /// <returns>
-        /// Un <typeparamref name="PanelT"/> que contiene las interacciones
+        /// Un <see cref="FlowLayoutPanel"/> que contiene las interacciones
         /// contenidas por el <see cref="IPlugin"/>, en la propiedad
         /// <see cref="IPlugin.PluginInteractions"/>.
         /// </returns>
-        public static PanelT GetUIPanel<T,PanelT>(IPlugin plugin)
-            where T : ButtonBase, new() where PanelT : Panel, new()
+        public static FlowLayoutPanel GetUIPanel<T>(IPlugin plugin) where T : ButtonBase, new()
         {
-            PanelT pnl = new PanelT();
+            FlowLayoutPanel pnl = new FlowLayoutPanel();
             foreach(InteractionItem j in plugin.PluginInteractions)
             {
                 T a = j.AsButton<T>();                
-                try { a.Click += j.RoutedAction; }
-                catch (Exception ex) { Debug.Print(ex.Message); }
-                finally { pnl.Children.Add(a); }                
+                try { a.Click += j.Action; }
+                catch { throw; }
+                finally { pnl.Controls.Add(a); }                
             }
             return pnl;
         }
         /// <summary>
         /// Convierte el <see cref="IPlugin.PluginInteractions"/> en un
-        /// <see cref="MenuItem"/>.
+        /// <see cref="ToolStripMenuItem"/>.
         /// </summary>
         /// <value>
-        /// Un <see cref="MenuItem"/> que puede agregarse a un
+        /// Un <see cref="ToolStripMenuItem"/> que puede agregarse a un
         /// <see cref="Menu"/> de Windows Presentation Framework.
         /// </value>
-        public MenuItem UIMenu => GetUIMenu(this);
+        public ToolStripMenuItem UIMenu => GetUIMenu(this);
         /// <summary>
         /// Convierte el <see cref="IPlugin.PluginInteractions"/> en un
         /// <see cref="Panel"/>, especificando el tipo de controles a
@@ -108,8 +96,7 @@ namespace MCART.PluginSupport
         /// Un <see cref="Panel"/> que puede agregarse a un
         /// <see cref="Menu"/> de Windows Presentation Framework.
         /// </value>
-        public PanelT UIPanel<T, PanelT>()
-            where T : ButtonBase, new() where PanelT : Panel, new()
-            => GetUIPanel<T, PanelT>(this);
+        public FlowLayoutPanel UIPanel<T>() where T : ButtonBase, new()
+            => GetUIPanel<T>(this);
     }
 }

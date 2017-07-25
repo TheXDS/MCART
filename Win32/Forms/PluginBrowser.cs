@@ -23,8 +23,7 @@
 
 using MCART.PluginSupport;
 using System;
-using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Forms;
 using static MCART.Resources.RTInfo;
 using St = MCART.Resources.Strings;
 
@@ -34,37 +33,36 @@ namespace MCART.Forms
     /// Diálogo que permite mostrar información acerca de los 
     /// <see cref="Plugin"/> cargables por MCART.
     /// </summary>
-    public partial class PluginBrowser : Window
+    public partial class PluginBrowser : Form
     {
         private void ClrDetails()
         {
             txtName.Clear();
             txtVersion.Clear();
-            chkBeta.IsChecked = false;
-            chkUnstable.IsChecked = false;
+            chkIsBeta.Checked = false;
+            chkUnstable.Checked = false;
             txtDesc.Clear();
-            txtCopyrgt.Clear();
+            txtCopyright.Clear();
             txtLicense.Clear();
-            lstInterf.Items.Clear();
+            lstInterfaces.Items.Clear();
             txtMinVer.Clear();
-            txtMinVer.ClearWarn();
+            errProvider.SetError(txtMinVer, string.Empty);
             txtTgtVer.Clear();
-            txtTgtVer.ClearWarn();
+            errProvider.SetError(txtTgtVer, string.Empty);
             lblVeredict.Text = St.PluginInfo1;
-            tabInteractions.IsEnabled = false;
-            tabInteractions.Content = null;
+            mnuInteractions.Items.Clear();
         }
         private void ShwDetails(IPlugin P)
         {
             txtName.Text = P.Name;
             txtVersion.Text = P.Version.ToString();
-            chkBeta.IsChecked = P.IsBeta;
-            chkUnstable.IsChecked = P.IsUnstable;
+            chkIsBeta.Checked = P.IsBeta;
+            chkUnstable.Checked = P.IsUnstable;
             txtDesc.Text = P.Description;
-            txtCopyrgt.Text = P.Copyright;
+            txtCopyright.Text = P.Copyright;
             txtLicense.Text = P.License;
             foreach (Type T in P.Interfaces)
-                lstInterf.Items.Add(new ListViewItem() { Content = T.Name });
+                lstInterfaces.Items.Add(T.Name);
             bool? mvf = null, tvf = null;
             if (P.MinRTVersion(out Version mv))
             {
@@ -72,22 +70,22 @@ namespace MCART.Forms
                 if (mv > RTVersion)
                 {
                     mvf = false;
-                    txtMinVer.Warn(St.UnsupportedVer);
+                    errProvider.SetError(txtMinVer, St.UnsupportedVer);
                 }
                 else mvf = true;
             }
-            else txtMinVer.Warn(St.NoData);
+            else errProvider.SetError(txtMinVer, St.NoData);
             if (P.TargetRTVersion(out Version tv))
             {
                 txtTgtVer.Text = tv.ToString();
                 if (tv < RTVersion)
                 {
                     tvf = false;
-                    txtTgtVer.Warn(St.UnsupportedVer);
+                    errProvider.SetError(txtTgtVer, St.UnsupportedVer);
                 }
                 else tvf = true;
             }
-            else txtTgtVer.Warn(St.NoData);
+            else errProvider.SetError(txtTgtVer, St.NoData);
             if (mvf == true && tvf == true)
                 lblVeredict.Text = St.PluginInfo2;
             else if (!mvf.HasValue || !tvf.HasValue)
@@ -95,47 +93,39 @@ namespace MCART.Forms
             else lblVeredict.Text = St.PluginInfo3;
             if (P.HasInteractions)
             {
-                MenuItem roth = new MenuItem()
-                {
-                    Header = P.Name,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    HorizontalAlignment = HorizontalAlignment.Center
-                };
-                foreach (InteractionItem j in P.PluginInteractions)
-                {
-                    MenuItem k = j;
-                    k.Click += j.RoutedAction;
-                    roth.Items.Add(k);
-                }
-                tabInteractions.Content = roth;
+                //TODO: Fix Interactions...
+                //MenuItem roth = new MenuItem(P.Name);
+                //foreach (InteractionItem j in P.PluginInteractions)
+                //{
+                //    MenuItem k = j;
+                //    k.Click += j.RoutedAction;
+                //    roth.MenuItems.Add(k);
+                //}
+                
             }
-            else
-            {
-                tabInteractions.IsEnabled = false;
-                tabInteractions.Content = St.FeatNotAvailable;
-            }
+            else mnuInteractions.Items.Add(St.FeatNotAvailable);
         }
-        private void BtnClose_Click(object sender, RoutedEventArgs e) => Close(); 
-        private void TrvAsm_Loaded(object sender, RoutedEventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e) => Close();
+        private void TrvAsm_Layout(object sender, LayoutEventArgs e)
         {
-            if (trvAsm.Visibility == Visibility.Collapsed) return;
+            if (!trvAsm.Visible) return;
             foreach (var j in Plugin.PluginTree<IPlugin>(true))
             {
-                TreeViewItem roth = new TreeViewItem() { Header = j.Key };
-                foreach (var k in j.Value)
-                {
-                    TreeViewItem itm = new TreeViewItem() { Header = k.Name, Tag = k };
-                    itm.Selected += Itm_Selected;
-                    roth.Items.Add(itm);
-                }
-                trvAsm.Items.Add(roth);
+                TreeNode plg = trvAsm.Nodes.Add(j.Key);
+                foreach (var k in j.Value) (plg.Nodes.Add(k.Name)).Tag = k;                
             }
         }
-        private void Itm_Selected(object sender, RoutedEventArgs e)
+        private void TrvAsm_Click(object sender, EventArgs e)
         {
             ClrDetails();
-            ShwDetails((IPlugin)((TreeViewItem)sender).Tag);
+            if (trvAsm.SelectedNode.Tag is IPlugin)
+                ShwDetails((IPlugin)trvAsm.SelectedNode.Tag);
         }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="PluginBrowser"/>.
+        /// </summary>
+        public PluginBrowser() => InitializeComponent();
         /// <summary>
         /// Muestra información acerca de un <see cref="IPlugin"/>.
         /// </summary>
@@ -144,14 +134,9 @@ namespace MCART.Forms
         /// </param>
         public void DetailsOf(IPlugin p)
         {
-            trvAsm.Visibility = Visibility.Collapsed;
+            trvAsm.Visible = false;
             ShwDetails(p);
             ShowDialog();
         }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="PluginBrowser"/>.
-        /// </summary>
-        public PluginBrowser() => InitializeComponent();        
     }
 }

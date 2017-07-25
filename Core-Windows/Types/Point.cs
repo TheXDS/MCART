@@ -1,5 +1,5 @@
 ﻿//
-//  Icons.cs
+//  Point.cs
 //
 //  This file is part of MCART
 //
@@ -21,24 +21,27 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-
-namespace MCART.Resources
+namespace MCART.Types
 {
     /// <summary>
-    /// Contiene íconos y otras imágenes para utilizar en aplicaciones de
-    /// Windows Presentation Framework.
+    /// Implementación de la estructura <see cref="Point"/> para todos los
+    /// objetivos de .Net Framework en Microsoft® Windows®.
     /// </summary>
-    public static partial class Icons
+    public partial struct Point
     {
-        private const string u = "pack://application:,,,/MCART;component/Resources/Icons/{0}.png";
         /// <summary>
-        /// Obtiene un ícono de los recursos incrustados.
+        /// Convierte implícitamente un <see cref="Point"/> en un
+        /// <see cref="System.Drawing.Point"/>.
         /// </summary>
-        /// <param name="icon">Ícono que se desea obtener.</param>
-        /// <returns>El ícono de recurso incrustado solicitado.</returns>
-        public static ImageSource GetIcon(IconID icon) => new BitmapImage(new Uri(string.Format(u, icon.ToString())));
+        /// <param name="x"><see cref="Point"/> a convertir.</param>
+        public static implicit operator System.Drawing.Point(Point x) => new System.Drawing.Point((int)x.X, (int)x.Y);
+        /// <summary>
+        /// Convierte implícitamente un <see cref="System.Drawing.Point"/> en
+        /// un <see cref="Point"/>.
+        /// </summary>
+        /// <param name="x">
+        /// <see cref="System.Drawing.Point"/> a convertir.
+        /// </param>
+        public static implicit operator Point(System.Drawing.Point x) => new Point(x.X, x.Y);
     }
 }

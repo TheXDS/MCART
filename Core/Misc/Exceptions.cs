@@ -142,7 +142,7 @@ namespace MCART.Exceptions
         /// </summary>
         /// <param name="offendingAssembly">Offending assembly.</param>
         public NotPluginException(System.Reflection.Assembly offendingAssembly = null)
-            : base(string.Format(St.XInvalid, St.TheAssembly)) { OffendingAssembly = offendingAssembly; }
+            : base(string.Format(St.XIsInvalid, St.TheAssembly)) { OffendingAssembly = offendingAssembly; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="NotPluginException"/>.
         /// </summary>
@@ -156,7 +156,7 @@ namespace MCART.Exceptions
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
         /// <param name="offendingAssembly">Offending assembly.</param>
         public NotPluginException(Exception inner, System.Reflection.Assembly offendingAssembly = null)
-            : base(string.Format(St.XInvalid, St.TheAssembly), inner) { OffendingAssembly = offendingAssembly; }
+            : base(string.Format(St.XIsInvalid, St.TheAssembly), inner) { OffendingAssembly = offendingAssembly; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="NotPluginException"/>.
         /// </summary>
@@ -1125,12 +1125,12 @@ namespace MCART.Exceptions
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException"/>.
         /// </summary>
-        public InvalidTypeException() : base(string.Format(St.XInvalid, St.TheType)) { }
+        public InvalidTypeException() : base(string.Format(St.XIsInvalid, St.TheType)) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException"/>.
         /// </summary>
         /// <param name="Type">Tipo que ha causado la excepción.</param>
-        public InvalidTypeException(Type Type) : base(string.Format(St.XInvalid, St.TheType))
+        public InvalidTypeException(Type Type) : base(string.Format(St.XIsInvalid, St.TheType))
         {
             OffendingType = Type;
         }
@@ -1152,7 +1152,7 @@ namespace MCART.Exceptions
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException"/>.
         /// </summary>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public InvalidTypeException(Exception inner) : base(string.Format(St.XInvalid, St.TheType), inner) { }
+        public InvalidTypeException(Exception inner) : base(string.Format(St.XIsInvalid, St.TheType), inner) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException"/>.
         /// </summary>
@@ -1164,7 +1164,7 @@ namespace MCART.Exceptions
         /// </summary>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
         /// <param name="Type">Tipo que ha causado la excepción.</param>
-        public InvalidTypeException(Exception inner, Type Type) : base(string.Format(St.XInvalid, St.TheType), inner)
+        public InvalidTypeException(Exception inner, Type Type) : base(string.Format(St.XIsInvalid, St.TheType), inner)
         {
             OffendingType = Type;
         }
