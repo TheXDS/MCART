@@ -21,9 +21,10 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using MCART.Attributes;
 using System;
 using St = MCART.Resources.Strings;
-using MCART.Attributes;
+
 namespace MCART.Security.Password
 {
     /// <summary>

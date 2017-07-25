@@ -28,6 +28,7 @@
 
 using System;
 using CI = System.Globalization.CultureInfo;
+using static System.Math;
 namespace MCART.Types
 {
     /// <summary>
@@ -35,7 +36,11 @@ namespace MCART.Types
     /// rojo, verde y azul.
     /// </summary>
     public partial struct Color : IEquatable<Color>, IFormattable
-    {
+    {        
+        private float r;
+        private float g;
+        private float b;
+        private float a;
         /// <summary>
         /// Mezcla un color de temperatura basado en el porcentaje.
         /// </summary>
@@ -45,7 +50,7 @@ namespace MCART.Types
         /// <param name="x">
         /// Valor porcentual utilizado para calcular la temperatura.
         /// </param>
-        public static Color BlendHeatColor(float x)
+        public static Color BlendHeat(float x)
         {
             byte r = (byte)(1020 * (float)(x + 0.5) - 1020).Clamp(0, 255);
             byte g = (byte)((float)(-System.Math.Abs(2040 * (x - 0.5)) + 1020) / 2).Clamp(0, 255);
@@ -57,7 +62,7 @@ namespace MCART.Types
         /// </summary>
         /// <returns>El color qaue representa la salud del porcentaje.</returns>
         /// <param name="x">The x coordinate.</param>
-        public static Color BlendHealthColor(float x)
+        public static Color BlendHealth(float x)
         {
             byte g = (byte)(510 * x).Clamp(0, 255);
             byte r = (byte)(510 - (510 * x)).Clamp(0, 255);
@@ -74,12 +79,13 @@ namespace MCART.Types
         public static Color operator +(Color left, Color right)
         {
             return new Color(
-#if UseClamping
-                // La verificación del clamping se realiza en el costructor.
-                left.a + right.a,
                 left.r + right.r,
                 left.g + right.g,
                 left.b + right.b
+,
+#if UseClamping
+                // La verificación del clamping se realiza en el costructor.
+                left.a + right.a
 #else
                 // La verificación del clamping se realiza aquí.
                 (left.a + right.a).Clamp(0.0f, 1.0f),
@@ -106,12 +112,13 @@ namespace MCART.Types
         public static Color operator -(Color left, Color right)
         {
             return new Color(
-#if UseClamping
-                // La verificación del clamping se realiza en el costructor.
-                left.a - right.a,
                 left.r - right.r,
                 left.g - right.g,
                 left.b - right.b
+,
+#if UseClamping
+                // La verificación del clamping se realiza en el costructor.
+                left.a - right.a
 #else
                 // La verificación del clamping se realiza aquí.
                 (left.a - right.a).Clamp(0.0f, 1.0f),
@@ -134,12 +141,13 @@ namespace MCART.Types
         public static Color operator *(Color left, float right)
         {
             return new Color(
-#if UseClamping
-                // La verificación del clamping se realiza en el costructor.
-                left.a * right,
                 left.r * right,
                 left.g * right,
                 left.b * right
+,
+#if UseClamping
+                // La verificación del clamping se realiza en el costructor.
+                left.a * right
 #else
                 // La verificación del clamping se realiza aquí.
                 (left.a * right).Clamp(0.0f, 1.0f),
@@ -161,12 +169,13 @@ namespace MCART.Types
 		public static Color operator /(Color left, Color right)
         {
             return new Color(
-#if UseClamping
-                // La verificación del clamping se realiza en el costructor.
-                (left.a + right.a) / 2,
                 (left.r + right.r) / 2,
                 (left.g + right.g) / 2,
                 (left.b + right.b) / 2
+,
+#if UseClamping
+                // La verificación del clamping se realiza en el costructor.
+                (left.a + right.a) / 2
 #else
                 // La verificación del clamping se realiza aquí.
                 ((left.a + right.a) / 2).Clamp(0.0f, 1.0f),
@@ -176,64 +185,34 @@ namespace MCART.Types
 #endif
             );
         }
-        private float a;
-        private float r;
-        private float g;
-        private float b;
         /// <summary>
         /// Initializes a new instance of the <see cref="Color"/> struct.
         /// </summary>
-        /// <param name="R">R.</param>
-        /// <param name="G">G.</param>
-        /// <param name="B">B.</param>
-        public Color(byte R, byte G, byte B)
+        /// <param name="R">Canal rojo.</param>
+        /// <param name="G">Canal verde.</param>
+        /// <param name="B">Canal azul.</param>
+        /// <param name="A">
+        /// Parámetro opcional. Canal alfa. Si se omite, el color tendrá una 
+        /// opacidad de 100%.
+        /// </param>
+        public Color(byte R, byte G, byte B, byte A=255)
         {
-            a = 1.0f;
             r = (float)R / 255;
             g = (float)G / 255;
             b = (float)B / 255;
-        }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Color"/> struct.
-        /// </summary>
-        /// <param name="A">A.</param>
-        /// <param name="R">R.</param>
-        /// <param name="G">G.</param>
-        /// <param name="B">B.</param>
-		public Color(byte A, byte R, byte G, byte B)
-        {
             a = (float)A / 255;
-            r = (float)R / 255;
-            g = (float)G / 255;
-            b = (float)B / 255;
         }
         /// <summary>
         /// Initializes a new instance of the <see cref="Color"/> struct.
         /// </summary>
-        /// <param name="R">R.</param>
-        /// <param name="G">G.</param>
-        /// <param name="B">B.</param>
-		public Color(float R, float G, float B)
-        {
-            a = 1.0f;
-#if UseClamping
-            r = R.Clamp(0.0f, 1.0f);
-            g = G.Clamp(0.0f, 1.0f);
-            b = B.Clamp(0.0f, 1.0f);
-#else
-            r = R.IsBetween(0.0f, 1.0f) ? R : throw new ArgumentOutOfRangeException(nameof(R));
-            g = G.IsBetween(0.0f, 1.0f) ? G : throw new ArgumentOutOfRangeException(nameof(G));
-            b = B.IsBetween(0.0f, 1.0f) ? B : throw new ArgumentOutOfRangeException(nameof(B));
-#endif
-        }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Color"/> struct.
-        /// </summary>
-        /// <param name="A">A.</param>
-        /// <param name="R">R.</param>
-        /// <param name="G">G.</param>
-        /// <param name="B">B.</param>
-		public Color(float A, float R, float G, float B)
+        /// <param name="R">Canal rojo.</param>
+        /// <param name="G">Canal verde.</param>
+        /// <param name="B">Canal azul.</param>
+        /// <param name="A">
+        /// Parámetro opcional. Canal alfa. Si se omite, el color tendrá una 
+        /// opacidad de 100%.
+        /// </param>
+		public Color(float R, float G, float B, float A=1.0f)
         {
 #if UseClamping
             a = A.Clamp(0.0f, 1.0f);
@@ -246,15 +225,6 @@ namespace MCART.Types
             g = G.IsBetween(0.0f, 1.0f) ? G : throw new ArgumentOutOfRangeException(nameof(G));
             b = B.IsBetween(0.0f, 1.0f) ? B : throw new ArgumentOutOfRangeException(nameof(B));
 #endif
-        }
-
-        /// <summary>
-        /// Obtiene o establece el valor RGB del canal alfa del color.
-        /// </summary>
-        public byte A
-        {
-            get => (byte)(a * 255);
-            set => a = (float)value / 255;
         }
         /// <summary>
         /// Obtiene o establece el valor RGB del canal rojo del color.
@@ -281,16 +251,12 @@ namespace MCART.Types
             set => b = (float)value / 255;
         }
         /// <summary>
-        /// Obtiene o establece el valor ScRGB del canal alfa del color.
+        /// Obtiene o establece el valor RGB del canal alfa del color.
         /// </summary>
-        public float ScA
+        public byte A
         {
-            get => a;
-#if UseClamping
-            set => a = value.Clamp(0.0f, 1.0f);
-#else
-            set => a = value.IsBetween(0.0f, 1.0f) ? value : throw new ArgumentOutOfRangeException(nameof(value));
-#endif
+            get => (byte)(a * 255);
+            set => a = (float)value / 255;
         }
         /// <summary>
         /// Obtiene o establece el valor ScRGB del canal rojo del color.
@@ -326,6 +292,18 @@ namespace MCART.Types
             set => b = value.Clamp(0.0f, 1.0f);
 #else
             set => b = value.IsBetween(0.0f, 1.0f) ? value : throw new ArgumentOutOfRangeException(nameof(value));
+#endif
+        }
+        /// <summary>
+        /// Obtiene o establece el valor ScRGB del canal alfa del color.
+        /// </summary>
+        public float ScA
+        {
+            get => a;
+#if UseClamping
+            set => a = value.Clamp(0.0f, 1.0f);
+#else
+            set => a = value.IsBetween(0.0f, 1.0f) ? value : throw new ArgumentOutOfRangeException(nameof(value));
 #endif
         }
         /// <summary>
@@ -389,6 +367,81 @@ namespace MCART.Types
                     format = format.Replace("bb", B.ToHex().ToLower((CI)formatProvider));
                     return format;
             }
+        }
+        /// <summary>
+        /// Convierte este <see cref="Color"/> en su representación como un
+        /// <see cref="int"/>, sin el canal alfa.
+        /// </summary>
+        /// <returns>
+        /// Un <see cref="int"/> con la representación binaria de este
+        /// <see cref="Color"/>, en formato RGB de 24 bits.
+        /// </returns>
+        public int ToInt24()=> R | G << 8 | B << 16;
+        /// <summary>
+        /// Convierte este <see cref="Color"/> en su representación como un
+        /// <see cref="int"/>.
+        /// </summary>
+        /// <returns>
+        /// Un <see cref="int"/> con la representación binaria de este
+        /// <see cref="Color"/>, en formato RGBA de 32 bits.
+        /// </returns>
+        public int ToInt32() => ToInt24() | A << 24;
+        /// <summary>
+        /// constante auxiliar de redondeo para las funciones de conversión.
+        /// </summary>
+        private const float ep = 0.499f;
+        /// <summary>
+        /// Convierte este <see cref="Color"/> en su representación como un
+        /// <see cref="short"/>.
+        /// </summary>
+        /// <returns>
+        /// Un <see cref="short"/> con la representación binaria de este
+        /// <see cref="Color"/>, en formato RGBA de 16 bits.
+        /// </returns>
+        public short ToShort() => unchecked((short)(
+            (int)((r + ep) * 31) |
+            (int)((g + ep) * 31) << 5 |
+            (int)((b + ep) * 31) << 10 |
+            (int)((a + ep)) << 15));
+        /// <summary>
+        /// Convierte este <see cref="Color"/> en su representación como un
+        /// <see cref="short"/>.
+        /// </summary>
+        /// <returns>
+        /// Un <see cref="short"/> con la representación binaria de este
+        /// <see cref="Color"/>, en formato RGB 5-6-5 de 16 bits.
+        /// </returns>
+        public short ToShort565() => unchecked((short)(
+            (int)((r + ep) * 31) |
+            (int)((g + ep) * 63) << 5 |
+            (int)((b + ep) * 31) << 11));
+        /// <summary>
+        /// Convierte este <see cref="Color"/> en su representación como un
+        /// <see cref="byte"/>.
+        /// </summary>
+        /// <returns>
+        /// Un <see cref="byte"/> con la representación binaria de este
+        /// <see cref="Color"/>, en formato RGBA de 8 bits.
+        /// </returns>
+        public byte ToByte() => unchecked((byte)(
+            (int)((r + ep) * 3) |
+            (int)((g + ep) * 3) << 2 |
+            (int)((b + ep) * 3) << 4 | 
+            (int)((a + ep) * 3) << 6));
+        /// <summary>
+        /// Convierte este <see cref="Color"/> en su representación como un
+        /// <see cref="byte"/> de atributo VGA.
+        /// </summary>
+        /// <returns>
+        /// Un <see cref="byte"/> con la representación binaria de este
+        /// <see cref="Color"/>, en formato RGB de 4 bits.
+        /// </returns>
+        public byte ToVGAByte()
+        {
+            byte R = (byte)((r + ep) * 2);
+            byte G = (byte)((g + ep) * 2);
+            byte A = (byte)((b + ep) * 2);
+            return unchecked((byte)(R | (G << 1) | (B << 2) | ((R == 2 || G == 2 || B == 2) ? 4 : 0)));
         }
     }
 }

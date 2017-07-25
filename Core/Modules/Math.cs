@@ -28,6 +28,7 @@
 
 using System;
 using MCART.Types;
+
 namespace MCART
 {
     /// <summary>

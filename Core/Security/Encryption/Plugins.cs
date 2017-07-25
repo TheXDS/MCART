@@ -20,16 +20,17 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System.Security.Cryptography;
 using MCART.PluginSupport;
+
 namespace MCART.Security.Encryption
 {
     /// <summary>
     /// Relaciona las interfaces de <see cref="IEasyCrypto"/> y 
     /// <see cref="IPlugin"/> para crear un plugin compatible con MCART.
     /// </summary>
-    [Attributes.Unsafe]
-    public interface IEasyCryptoPlugin : IEasyCrypto, IPlugin { }
+    [Attributes.Unsafe] public interface IEasyCryptoPlugin : IEasyCrypto, IPlugin { }
     /// <summary>
     /// Relaciona las interfaces de <see cref="ICryptoTransform"/> y 
     /// <see cref="IPlugin"/> para crear un plugin compatible con MCART.

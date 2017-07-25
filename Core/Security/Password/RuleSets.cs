@@ -1,5 +1,5 @@
 ﻿//
-//  Evaluators.cs
+//  RuleSets.cs
 //
 //  This file is part of MCART
 //
@@ -22,14 +22,15 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #region Opciones de compilación
-// determina si se utilizarán los números nativos
-// de la región configurada en el sistema.
+// determina si se utilizarán los números nativos de la región configurada en 
+// el sistema.
 #define NativeDigits
 #endregion
 
-using System;
-using St2 = MCART.Resources.SpecificStrings;
+using MCART.Attributes;
 using St = MCART.Resources.Strings;
+using St2 = MCART.Resources.SpecificStrings;
+
 namespace MCART.Security.Password
 {
     /// <summary>
@@ -61,10 +62,7 @@ namespace MCART.Security.Password
         /// Opcional. Si se establece en <c>true</c>, la regla se marcará como
         /// puntos adicionales.
         /// </param>
-        static PwEvalRule ContentionRuleFactory(
-            string a, string b, string c = null,
-            PonderationLevel pn = PonderationLevel.Normal,
-            bool de = true, bool ie = false)
+        private static PwEvalRule ContentionRuleFactory(string a, string b, string c = null, PonderationLevel pn = PonderationLevel.Normal, bool de = true, bool ie = false)
         {
             // Factor base de contención de caracteres.
             // En teoría:
@@ -75,8 +73,8 @@ namespace MCART.Security.Password
             {
                 int d = 0;
                 foreach (char j in a) if (p.Contains(j.ToString())) d++;
-                if (d == 0) return new PwEvalResult(0, ie ? 
-                    St.Ok(St.Include(b.ToLower())) : 
+                if (d == 0) return new PwEvalResult(0, ie ?
+                    St.Ok(St.Include(b.ToLower())) :
                     St.Warn(St.Include(b.ToLower())));
                 return new PwEvalResult((CFactoryFactor + ((float)d / p.Length).Clamp(0, 1)));
             }, b, pn, c ?? string.Format(St2.xBuilder, b.ToLower()), de, ie);
@@ -129,19 +127,17 @@ namespace MCART.Security.Password
         /// Crea una nueva regla que comprueba si la contraseña contiene mayúsculas.
         /// </summary>
         /// <returns>The ucase eval rule.</returns>
-        [Attributes.Thunk]
-        public static PwEvalRule PwUcaseEvalRule() => ContentionRuleFactory(St.Alpha.ToUpper(), St2.PwUcaseEvalRule);
+        [Thunk] public static PwEvalRule PwUcaseEvalRule() => ContentionRuleFactory(St.Alpha.ToUpper(), St2.PwUcaseEvalRule);
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene minúsculas.
         /// </summary>
         /// <returns>The ucase eval rule.</returns>
-        [Attributes.Thunk]
-        public static PwEvalRule PwLcaseEvalRule() => ContentionRuleFactory(St.Alpha.ToLower(), St2.PwLcaseEvalRule);
+        [Thunk] public static PwEvalRule PwLcaseEvalRule() => ContentionRuleFactory(St.Alpha.ToLower(), St2.PwLcaseEvalRule);
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene números.
         /// </summary>
         /// <returns>The ucase eval rule.</returns>
-        [Attributes.Thunk]
+        [Thunk]
         public static PwEvalRule PwNumbersEvalRule()
         {
             return ContentionRuleFactory(
@@ -156,20 +152,17 @@ namespace MCART.Security.Password
         /// Crea una nueva regla que comprueba si la contraseña contiene símbolos.
         /// </summary>
         /// <returns>The ucase eval rule.</returns>
-        [Attributes.Thunk]
-        public static PwEvalRule PwSymbolsEvalRule() => ContentionRuleFactory(St.Symbols, St2.PwSymbolsEvalRule);
+        [Thunk] public static PwEvalRule PwSymbolsEvalRule() => ContentionRuleFactory(St.Symbols, St2.PwSymbolsEvalRule);
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene caracteres latinos.
         /// </summary>
         /// <returns>The ucase eval rule.</returns>
-        [Attributes.Thunk]
-        public static PwEvalRule PwLatinEvalRule() => ContentionRuleFactory(St.LatinChars, St2.PwLatinEvalRule, null, PonderationLevel.Low, true, true);
+        [Thunk] public static PwEvalRule PwLatinEvalRule() => ContentionRuleFactory(St.LatinChars, St2.PwLatinEvalRule, null, PonderationLevel.Low, true, true);
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene caracteres latinos.
         /// </summary>
         /// <returns>The ucase eval rule.</returns>
-        [Attributes.Thunk]
-        public static PwEvalRule PwOtherSymbsEvalRule() => ContentionRuleFactory(St.MoreSymbs, St2.PwLatinEvalRule, null, PonderationLevel.Normal, true, true);
+        [Thunk] public static PwEvalRule PwOtherSymbsEvalRule() => ContentionRuleFactory(St.MoreSymbs, St2.PwLatinEvalRule, null, PonderationLevel.Normal, true, true);
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene otros
         /// caracteres Unicode que no están disponibles en el teclado Inglés

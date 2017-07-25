@@ -41,10 +41,10 @@ namespace MCART.Types
         public static implicit operator Color(System.Windows.Media.Color c)
         {            
             return new Color(
-                c.ScA.Clamp(0.0f,1.0f),
                 c.ScR.Clamp(0.0f, 1.0f),
                 c.ScG.Clamp(0.0f, 1.0f),
-                c.ScB.Clamp(0.0f, 1.0f));
+                c.ScB.Clamp(0.0f, 1.0f),
+                c.ScA.Clamp(0.0f, 1.0f));
         }
     }
 }

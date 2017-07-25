@@ -20,23 +20,24 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
+
 namespace MCART.Types.TaskReporter
 {
+    /// <summary>
+    /// <see cref="TaskReporter"/> que no implementa ningún medio de 
+    /// interacción con el usuario.
+    /// </summary>
     public class DummyTaskReporter : TaskReporter
     {
         public override bool CancelPending => false;
-
-        public override void Begin()
-        {
-            BeginNonStop();
-        }
+        public override void Begin()=>BeginNonStop();        
         public override void BeginNonStop()
         {
             if (OnDuty) throw new InvalidOperationException();
             SetTimeStart(DateTime.Now);
             SetOnDuty(true);
-
             RaiseBegun(this, new BegunEventArgs(false, TStart));
         }
         public override void End()

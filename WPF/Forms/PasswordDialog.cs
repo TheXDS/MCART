@@ -145,7 +145,7 @@ namespace MCART.Forms
                 Ringsec.Value = Pwr.Result * 100;
                 if (!Pwr.Critical)
                 {
-                    Ringsec.Fill = new SolidColorBrush(BlendHealthColor(Pwr.Result));
+                    Ringsec.Fill = new SolidColorBrush(BlendHealth(Pwr.Result));
                 }
                 else
                 {

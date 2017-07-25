@@ -93,15 +93,10 @@ namespace MCART.Forms
             else lblVeredict.Text = St.PluginInfo3;
             if (P.HasInteractions)
             {
-                //TODO: Fix Interactions...
-                //MenuItem roth = new MenuItem(P.Name);
-                //foreach (InteractionItem j in P.PluginInteractions)
-                //{
-                //    MenuItem k = j;
-                //    k.Click += j.RoutedAction;
-                //    roth.MenuItems.Add(k);
-                //}
-                
+                ToolStripMenuItem roth = new ToolStripMenuItem(P.Name);
+                mnuInteractions.Items.Add(roth);
+                foreach (InteractionItem j in P.PluginInteractions)
+                    roth.DropDownItems.Add(j);
             }
             else mnuInteractions.Items.Add(St.FeatNotAvailable);
         }

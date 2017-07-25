@@ -29,7 +29,7 @@ namespace MCART.Types.TaskReporter
     {
         short sze = 20;
         bool ap;
-        MCART.Types.Point p;
+        Point p;
         public short ProgressSize
         {
             get { return sze; }
@@ -39,7 +39,7 @@ namespace MCART.Types.TaskReporter
                 else throw new ArgumentOutOfRangeException(nameof(value));
             }
         }
-        public MCART.Types.Point? PBarLocation
+        public Point? PBarLocation
         {
             get { return p; }
             set
@@ -60,7 +60,7 @@ namespace MCART.Types.TaskReporter
             if (p.IsNull())
             {
                 ap = true;
-                p = new MCART.Types.Point(Console.CursorLeft, Console.CursorTop);
+                p = new Point(Console.CursorLeft, Console.CursorTop);
             }
             else ap = false;
             for (short j = 1; j <= sze; j++) Console.Write("░");
@@ -68,7 +68,7 @@ namespace MCART.Types.TaskReporter
         void DoEnd(string msg = null, ConsoleColor c = ConsoleColor.Gray)
         {
             SetOnDuty(false);
-            if (ap) p = default(MCART.Types.Point);
+            if (ap) p = default(Point);
             Console.WriteLine();
             if (Verbose && !msg.IsNull())
             {

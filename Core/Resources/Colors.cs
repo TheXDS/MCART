@@ -23,6 +23,7 @@
 
 #pragma warning disable CS1591 // TODO: agregar comentarios XML para los colores.
 using MCART.Types;
+
 namespace MCART.Resources
 {
     /// <summary>

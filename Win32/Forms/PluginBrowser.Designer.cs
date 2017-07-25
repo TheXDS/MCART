@@ -41,32 +41,32 @@
             this.txtDesc = new System.Windows.Forms.TextBox();
             this.txtCopyright = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.txtLicense = new System.Windows.Forms.TextBox();
-            this.trvAsm = new System.Windows.Forms.TreeView();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabInteractions = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.lstInterfaces = new System.Windows.Forms.ListBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.txtMinVer = new System.Windows.Forms.TextBox();
-            this.txtTgtVer = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.lblVeredict = new System.Windows.Forms.Label();
+            this.txtTgtVer = new System.Windows.Forms.TextBox();
+            this.tabInteractions = new System.Windows.Forms.TabPage();
             this.mnuInteractions = new System.Windows.Forms.MenuStrip();
+            this.trvAsm = new System.Windows.Forms.TreeView();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.errProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.tabControl1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.tabInteractions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.tabInteractions.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -196,17 +196,6 @@
             this.tabControl1.Size = new System.Drawing.Size(349, 184);
             this.tabControl1.TabIndex = 10;
             // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.lstInterfaces);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(341, 158);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Interfaces";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.txtLicense);
@@ -227,6 +216,127 @@
             this.txtLicense.ReadOnly = true;
             this.txtLicense.Size = new System.Drawing.Size(335, 152);
             this.txtLicense.TabIndex = 0;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.lstInterfaces);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(341, 158);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Interfaces";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // lstInterfaces
+            // 
+            this.lstInterfaces.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstInterfaces.FormattingEnabled = true;
+            this.lstInterfaces.Location = new System.Drawing.Point(3, 3);
+            this.lstInterfaces.Name = "lstInterfaces";
+            this.lstInterfaces.Size = new System.Drawing.Size(335, 152);
+            this.lstInterfaces.TabIndex = 0;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.tableLayoutPanel1);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(341, 158);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Compatibilidad";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.txtMinVer, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lblVeredict, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.txtTgtVer, 1, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(335, 152);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // txtMinVer
+            // 
+            this.txtMinVer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtMinVer.Location = new System.Drawing.Point(170, 15);
+            this.txtMinVer.Name = "txtMinVer";
+            this.txtMinVer.ReadOnly = true;
+            this.txtMinVer.Size = new System.Drawing.Size(162, 20);
+            this.txtMinVer.TabIndex = 0;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label5.Location = new System.Drawing.Point(3, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(161, 50);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Versión mínima de MCART";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label6.Location = new System.Drawing.Point(3, 50);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(161, 50);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "Versión objetivo de MCART";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblVeredict
+            // 
+            this.lblVeredict.AutoSize = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.lblVeredict, 2);
+            this.lblVeredict.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblVeredict.Location = new System.Drawing.Point(3, 100);
+            this.lblVeredict.Name = "lblVeredict";
+            this.lblVeredict.Size = new System.Drawing.Size(329, 52);
+            this.lblVeredict.TabIndex = 4;
+            this.lblVeredict.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // txtTgtVer
+            // 
+            this.txtTgtVer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTgtVer.Location = new System.Drawing.Point(170, 65);
+            this.txtTgtVer.Name = "txtTgtVer";
+            this.txtTgtVer.ReadOnly = true;
+            this.txtTgtVer.Size = new System.Drawing.Size(162, 20);
+            this.txtTgtVer.TabIndex = 1;
+            // 
+            // tabInteractions
+            // 
+            this.tabInteractions.BackColor = System.Drawing.SystemColors.Control;
+            this.tabInteractions.Controls.Add(this.mnuInteractions);
+            this.tabInteractions.Location = new System.Drawing.Point(4, 22);
+            this.tabInteractions.Name = "tabInteractions";
+            this.tabInteractions.Padding = new System.Windows.Forms.Padding(3);
+            this.tabInteractions.Size = new System.Drawing.Size(341, 158);
+            this.tabInteractions.TabIndex = 3;
+            this.tabInteractions.Text = "Interacciones";
+            // 
+            // mnuInteractions
+            // 
+            this.mnuInteractions.Location = new System.Drawing.Point(3, 3);
+            this.mnuInteractions.Name = "mnuInteractions";
+            this.mnuInteractions.Size = new System.Drawing.Size(335, 24);
+            this.mnuInteractions.TabIndex = 0;
+            this.mnuInteractions.Text = "menuStrip1";
             // 
             // trvAsm
             // 
@@ -268,116 +378,6 @@
             this.splitContainer1.SplitterDistance = 204;
             this.splitContainer1.TabIndex = 0;
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.tableLayoutPanel1);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(341, 158);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Compatibilidad";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // tabInteractions
-            // 
-            this.tabInteractions.BackColor = System.Drawing.SystemColors.Control;
-            this.tabInteractions.Controls.Add(this.mnuInteractions);
-            this.tabInteractions.Location = new System.Drawing.Point(4, 22);
-            this.tabInteractions.Name = "tabInteractions";
-            this.tabInteractions.Padding = new System.Windows.Forms.Padding(3);
-            this.tabInteractions.Size = new System.Drawing.Size(341, 158);
-            this.tabInteractions.TabIndex = 3;
-            this.tabInteractions.Text = "Interacciones";
-            // 
-            // lstInterfaces
-            // 
-            this.lstInterfaces.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstInterfaces.FormattingEnabled = true;
-            this.lstInterfaces.Location = new System.Drawing.Point(3, 3);
-            this.lstInterfaces.Name = "lstInterfaces";
-            this.lstInterfaces.Size = new System.Drawing.Size(335, 152);
-            this.lstInterfaces.TabIndex = 0;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.txtMinVer, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.lblVeredict, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.txtTgtVer, 1, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(335, 152);
-            this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // txtMinVer
-            // 
-            this.txtMinVer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMinVer.Location = new System.Drawing.Point(170, 15);
-            this.txtMinVer.Name = "txtMinVer";
-            this.txtMinVer.ReadOnly = true;
-            this.txtMinVer.Size = new System.Drawing.Size(162, 20);
-            this.txtMinVer.TabIndex = 0;
-            // 
-            // txtTgtVer
-            // 
-            this.txtTgtVer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTgtVer.Location = new System.Drawing.Point(170, 65);
-            this.txtTgtVer.Name = "txtTgtVer";
-            this.txtTgtVer.ReadOnly = true;
-            this.txtTgtVer.Size = new System.Drawing.Size(162, 20);
-            this.txtTgtVer.TabIndex = 1;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label5.Location = new System.Drawing.Point(3, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(161, 50);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "Versión mínima de MCART";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.Location = new System.Drawing.Point(3, 50);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(161, 50);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "Versión objetivo de MCART";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblVeredict
-            // 
-            this.lblVeredict.AutoSize = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.lblVeredict, 2);
-            this.lblVeredict.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblVeredict.Location = new System.Drawing.Point(3, 100);
-            this.lblVeredict.Name = "lblVeredict";
-            this.lblVeredict.Size = new System.Drawing.Size(329, 52);
-            this.lblVeredict.TabIndex = 4;
-            this.lblVeredict.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // mnuInteractions
-            // 
-            this.mnuInteractions.Location = new System.Drawing.Point(3, 3);
-            this.mnuInteractions.Name = "mnuInteractions";
-            this.mnuInteractions.Size = new System.Drawing.Size(335, 24);
-            this.mnuInteractions.TabIndex = 0;
-            this.mnuInteractions.Text = "menuStrip1";
-            // 
             // errProvider
             // 
             this.errProvider.ContainerControl = this;
@@ -393,19 +393,19 @@
             this.Name = "PluginBrowser";
             this.Text = "PluginBrowser";
             this.tabControl1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            this.tabInteractions.ResumeLayout(false);
+            this.tabInteractions.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            this.tabInteractions.ResumeLayout(false);
-            this.tabInteractions.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProvider)).EndInit();
             this.ResumeLayout(false);
 

@@ -20,10 +20,12 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using MCART.Attributes;
 using System.Security.Cryptography;
 using System.IO;
+
 namespace MCART.Security.Encryption
 {
     /// <summary>
@@ -32,7 +34,6 @@ namespace MCART.Security.Encryption
     /// </summary>
     [Beta]
     [Unsafe]
-    [Obsolete]
     public class EasyCrypto : IEasyCrypto
     {
         bool init;
@@ -75,10 +76,7 @@ namespace MCART.Security.Encryption
                         using (StreamReader srDecrypt = new StreamReader(csDecrypt))
                         {
                             try { return srDecrypt.ReadToEnd(); }
-                            catch (Exception ex)
-                            {
-                                throw new Exceptions.InvalidPasswordException(ex);
-                            }
+                            catch { throw new Exceptions.InvalidPasswordException(); }
                         }
                     }
                 }

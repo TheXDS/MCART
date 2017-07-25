@@ -22,10 +22,8 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #region Opciones de compilación
-
 //Activa comprobaciones más estrictas de versión de MCART.
 #define StrictMCARTVersioning
-
 #endregion
 
 using System;
@@ -36,6 +34,7 @@ using System.IO;
 using MCART.Attributes;
 using MCART.Exceptions;
 using St = MCART.Resources.Strings;
+
 namespace MCART.PluginSupport
 {
     public abstract partial class Plugin : IPlugin

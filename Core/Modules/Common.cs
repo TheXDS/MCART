@@ -20,15 +20,18 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 #region Opciones de compilación
 // Utilizar números nativos en las funciones que así lo permitan.
 #define UseNativeNumbers
 #endregion
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using St = MCART.Resources.Strings;
+
 using MCART.Attributes;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using St = MCART.Resources.Strings;
+
 namespace MCART
 {
     /// <summary>

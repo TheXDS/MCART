@@ -20,9 +20,11 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 namespace MCART.Types.TaskReporter
 {
     /// <summary>
@@ -51,13 +53,7 @@ namespace MCART.Types.TaskReporter
         /// Un <see cref="Task"/>que puede ser esperado por la palabra clave
         /// <c>await</c>.
         /// </returns>
-        Task For(
-            int cEnd,
-            ForAction forAct,
-            string message = null,
-            bool nonStop = false,
-            Action onCancel = null,
-            Action onError = null);
+        Task For(int cEnd, ForAction forAct, string message = null, bool nonStop = false, Action onCancel = null, Action onError = null);
         /// <summary>
         /// Controla automáticamente una tarea en una estructura similar a un
         /// ciclo <c>For</c> de Visual Basic.
@@ -79,14 +75,7 @@ namespace MCART.Types.TaskReporter
         /// Un <see cref="Task"/>que puede ser esperado por la palabra clave
         /// <c>await</c>.
         /// </returns>
-        Task For(
-            int cStart,
-            int cEnd,
-            ForAction forAct,
-            string message = null,
-            bool nonStop = false,
-            Action onCancel = null,
-            Action onError = null);
+        Task For(int cStart, int cEnd, ForAction forAct, string message = null, bool nonStop = false, Action onCancel = null, Action onError = null);
         /// <summary>
         /// Controla automáticamente una tarea en una estructura similar a un
         /// ciclo <c>For</c> de Visual Basic.
@@ -109,15 +98,7 @@ namespace MCART.Types.TaskReporter
         /// Un <see cref="Task"/>que puede ser esperado por la palabra clave
         /// <c>await</c>.
         /// </returns>
-        Task For(
-            int cStart,
-            int cEnd,
-            int cStep,
-            ForAction forAct,
-            string message = null,
-            bool nonStop = false,
-            Action onCancel = null,
-            Action onError = null);
+        Task For(int cStart, int cEnd, int cStep, ForAction forAct, string message = null, bool nonStop = false, Action onCancel = null, Action onError = null);
         /// <summary>
         /// Controla automáticamente una tarea en una estructura similar a un
         /// ciclo <c>foreach</c>.
@@ -141,12 +122,6 @@ namespace MCART.Types.TaskReporter
         /// Un <see cref="Task"/>que puede ser esperado por la palabra clave
         /// <c>await</c>.
         /// </returns>
-        Task ForEach<T>(
-            IEnumerable<T> coll,
-            ForEachAction<T> FEachAct,
-            string message = null,
-            bool nonStop = false,
-            Action onCancel = null,
-            Action onError = null);
+        Task ForEach<T>(IEnumerable<T> coll, ForEachAction<T> FEachAct, string message = null, bool nonStop = false, Action onCancel = null, Action onError = null);
     }
 }

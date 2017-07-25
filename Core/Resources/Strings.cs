@@ -20,7 +20,9 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 #pragma warning disable CS1591 // TODO: agregar comentarios XML para las cadenas.
+
 namespace MCART.Resources
 {
     public static class Strings
@@ -126,7 +128,7 @@ namespace MCART.Resources
         public const string ExcDoingX = "Se produjo una excepción realizando {0}";
         public const string FeatNotAvailable = "Característica no disponible";
         public const string FormatNotSupported = "El formato {0} no está soportado.";
-        public const string FrmIncorreclyOpened = "Este formulario fue abierto de la manera incorrecta. Refiérase a la documentación de MCART para resolver este problema. Si ve este mensaje de error, póngase en contacto con el desarrollador de la aplicación.";
+        public const string FrmIncorreclyOpened = "Este diálogo fue abierto de forma incorrecta. Refiérase a la documentación de MCART para resolver este problema. Si ve este mensaje de error, póngase en contacto con el desarrollador de la aplicación.";
         public const string GUITest = "Prueba de interfaz gráfica";
         public const string HasUI = "Incluye UI";
         public const string HelpDir = @"\Help";
@@ -144,6 +146,7 @@ namespace MCART.Resources
         public const string LstEmpty = "La lista está vacía";
         public const string MandatoryField = "Este campo es obligatorio";
         public const string MCADBObjNotFound = "El objeto de tipo {0} con Uid '{1}' no existe en la base de datos";
+        public const string MCARTVersion = "MCART {0}";
         public const string Menu = "Menú";
         public const string MinMCARTV = "Versión mínima de MCART";
         public const string MissingArgument = "No se ha encontrado el argumento {0}";
@@ -216,7 +219,6 @@ namespace MCART.Resources
         public const string Updt = "Actualizar";
         public const string UsrCncl = "Operación cancelada por el usuario.";
         public const string Usr = "Usuario";
-        public const string Version = "MCART {0}";
         public const string Ver = "Versión";
         public const string XAlreadyExists = "{0} ya existe.";
         public const string XCncl = "Operación cancelada por {0}";

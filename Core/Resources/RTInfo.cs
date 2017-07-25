@@ -81,6 +81,6 @@ namespace MCART.Resources
         /// Obtiene la versión de MCART como una cadena.
         /// </summary>
         /// <value>La versión de MCART como una cadena.</value>
-        public static string VersionString => string.Format(St.Version, RTAssembly.GetName().Version);
+        public static string VersionString => string.Format(St.MCARTVersion, RTAssembly.GetName().Version);
     }
 }

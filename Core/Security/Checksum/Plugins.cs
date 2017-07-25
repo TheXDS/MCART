@@ -20,10 +20,12 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using MCART.PluginSupport;
 using System.Threading.Tasks;
 using System.IO;
 using System.Text;
+
 namespace MCART.Security.Checksum
 {
     /// <summary>

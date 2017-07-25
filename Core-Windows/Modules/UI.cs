@@ -21,16 +21,11 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-#region Opciones de compilación
-// Evita que las rutas importadas permitan la simplificación de nombres.
-#pragma warning disable IDE0001
-#endregion
-
 using MCART.Attributes;
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
+
 namespace MCART
 {
     /// <summary>
@@ -136,7 +131,7 @@ namespace MCART
         /// Un <see cref="System.Drawing.Point"/> que indica la resolución de
         /// la ventana en Puntos Por Pulgada (DPI).
         /// </returns>
-        public static System.Drawing.Point GetDpi(IntPtr Hwnd)
+        public static Point GetDpi(IntPtr Hwnd)
         {
             IntPtr h = Graphics.FromHwnd(Hwnd).GetHdc();
             return new System.Drawing.Point(GetDeviceCaps(h, 88), GetDeviceCaps(h, 90));
@@ -148,6 +143,6 @@ namespace MCART
         /// Un <see cref="System.Drawing.Point"/> que indica la resolución de
         /// la pantalla en Puntos Por Pulgada (DPI).
         /// </returns>
-        [Thunk] public static System.Drawing.Point GetDpi() => GetDpi(IntPtr.Zero);
+        [Thunk] public static Point GetDpi() => GetDpi(IntPtr.Zero);
     }
 }

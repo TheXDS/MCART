@@ -25,6 +25,7 @@ using System;
 using System.Linq;
 using MCART.Types.Extensions;
 using St = MCART.Resources.Strings;
+
 namespace MCART.Security.Password
 {
     /// <summary>
@@ -38,7 +39,7 @@ namespace MCART.Security.Password
         /// <returns>La contraseña.</returns>
         /// <param name="chars">Caracteres a utilizar.</param>
         /// <param name="l">Longitud de la contraseña.</param>
-        static string GenPw(string chars, int l)
+        private static string GenPw(string chars, int l)
         {
             char[] x = chars.Shuffled().ToArray();
             string outp = string.Empty;

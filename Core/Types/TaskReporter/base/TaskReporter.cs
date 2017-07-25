@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+
 namespace MCART.Types.TaskReporter
 {
     /// <summary>
@@ -109,12 +110,36 @@ namespace MCART.Types.TaskReporter
         public float? CurrentProgress => OnDuty ? curp : throw new InvalidOperationException();
         #endregion
         #region Eventos
+        /// <summary>
+        /// Se genera cuando este <see cref="TaskReporter"/> ha solicifado la
+        /// detención de la tarea en ejecucion.
+        /// </summary>
         public event CancelRequestedEventHandler CancelRequested;
+        /// <summary>
+        /// Se genera cuando se ha iniciado una tarea.
+        /// </summary>
         public event BegunEventHandler Begun;
+        /// <summary>
+        /// Se genera cuando una tarea desea reportar su estado.
+        /// </summary>
         public event ReportingEventHandler Reporting;
+        /// <summary>
+        /// Se genera cuando una tarea ha finalizado.
+        /// </summary>
         public event EndedEventHandler Ended;
+        /// <summary>
+        /// Se genera cuando una tarea ha sido cancelada.
+        /// </summary>
         public event StoppedEventHandler Stopped;
+        /// <summary>
+        /// Se genera cuando ocurre una excepción durante la ejecución de la
+        /// tarea.
+        /// </summary>
         public event ErrorEventHandler Error;
+        /// <summary>
+        /// Se genera cuando se ha agotado el tiempo de espera establecido para
+        /// ejecutar la tarea.
+        /// </summary>
         public event TaskTimeoutEventHandler TaskTimeout;
         #endregion
         #region Métodos invalidables

@@ -24,6 +24,7 @@
 using System;
 using MCART.Attributes;
 using St = MCART.Resources.Strings;
+
 namespace MCART.Security.Password
 {
     /// <summary>

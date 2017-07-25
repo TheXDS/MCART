@@ -25,8 +25,14 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+
 namespace MCART.Types.TaskReporter
 {
+    /// <summary>
+    /// Implementa la interfaz <see cref="ITaskReporter"/> para crear plugins
+    /// compatibles con MCART que permitan reportar el progreso de una
+    /// operación o tarea.
+    /// </summary>
     public abstract class TaskReporterPlugin : PluginSupport.Plugin, ITaskReporter
     {
         #region Campos privados
@@ -36,23 +42,38 @@ namespace MCART.Types.TaskReporter
         Extensions.Timer Tmr;
         #endregion
         #region Propiedades públicas
+        /// <summary>
+        /// Obtiene un valor que indica si hay pendiente una solicitud para 
+        /// cancelar la tarea en ejecución.
+        /// </summary>
         public bool CancelPending => cp;
-
-        public bool TimedOut
-        {
-            get
-            {
-                if (ts.HasValue) return Tmr?.TimeLeft.Value.TotalMilliseconds <= 0;
-                return false;
-            }
-        }
-
+        /// <summary>
+        /// Obtiene un valor que indica si se ha agotado el tiempo de espera
+        /// para ejecutar la tarea.
+        /// </summary>
+        public bool TimedOut => ts.HasValue ? Tmr?.TimeLeft.Value.TotalMilliseconds <= 0 : false;
+        /// <summary>
+        /// Obtiene un valor que indica si actualmente hay una tarea en
+        /// ejecución supervisada por este <see cref="TaskReporterPlugin"/>.
+        /// </summary>
         public bool OnDuty => od;
-
+        /// <summary>
+        /// Obtiene el instante en el cual se inició la tarea actualmente en
+        /// ejecución.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce si actualmenteno hay una tarea en ejecución.
+        /// </exception>
         public DateTime TStart => ts ?? throw new InvalidOperationException();
-
+        /// <summary>
+        /// Obtiene la cantidad de tiempo restante antes de que se agote el
+        /// tiempo de espera.
+        /// </summary>
         public TimeSpan? TimeLeft => Tmr?.TimeLeft;
-
+        /// <summary>
+        /// Obtiene o establece el tiempo de espera de este 
+        /// <see cref="TaskReporterPlugin"/>.
+        /// </summary>
         public TimeSpan? Timeout
         {
             get => Tmr.IsNull() ? null : (TimeSpan?)TimeSpan.FromMilliseconds(Tmr.Interval);
@@ -66,16 +87,46 @@ namespace MCART.Types.TaskReporter
                 else { Tmr = null; }
             }
         }
-
+        /// <summary>
+        /// Obtiene un valor que indica el progreso actual de la tarea
+        /// actualmente en ejecución.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce si actualmenteno hay una tarea en ejecución.
+        /// </exception>
         public float? CurrentProgress => OnDuty ? curp : throw new InvalidOperationException();
         #endregion
         #region Eventos
+        /// <summary>
+        /// Se genera cuando este <see cref="TaskReporter"/> ha solicifado la
+        /// detención de la tarea en ejecucion.
+        /// </summary>
         public event CancelRequestedEventHandler CancelRequested;
+        /// <summary>
+        /// Se genera cuando se ha iniciado una tarea.
+        /// </summary>
         public event BegunEventHandler Begun;
+        /// <summary>
+        /// Se genera cuando una tarea desea reportar su estado.
+        /// </summary>
         public event ReportingEventHandler Reporting;
+        /// <summary>
+        /// Se genera cuando una tarea ha finalizado.
+        /// </summary>
         public event EndedEventHandler Ended;
+        /// <summary>
+        /// Se genera cuando una tarea ha sido cancelada.
+        /// </summary>
         public event StoppedEventHandler Stopped;
+        /// <summary>
+        /// Se genera cuando ocurre una excepción durante la ejecución de la
+        /// tarea.
+        /// </summary>
         public event ErrorEventHandler Error;
+        /// <summary>
+        /// Se genera cuando se ha agotado el tiempo de espera establecido para
+        /// ejecutar la tarea.
+        /// </summary>
         public event TaskTimeoutEventHandler TaskTimeout;
         #endregion
         #region Métodos invalidables

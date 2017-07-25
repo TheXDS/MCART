@@ -22,6 +22,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+
 namespace MCART.PluginSupport
 {
     /// <summary>
@@ -33,7 +34,6 @@ namespace MCART.PluginSupport
         /// Obtiene un texto asociado a este <see cref="InteractionItem"/>.
         /// </summary>
         public readonly string Text;
-
         /// <summary>
         /// Obtiene una descripción larga de este <see cref="InteractionItem"/>.
         /// </summary>
@@ -46,7 +46,6 @@ namespace MCART.PluginSupport
         /// menú descriptivo.
         /// </remarks>
         public readonly string Description;
-
         /// <summary>
         /// Obtiene un delegado con la acción a realizar por este 
         /// <see cref="InteractionItem"/>.
@@ -62,7 +61,6 @@ namespace MCART.PluginSupport
         /// RoutedEventHandler.
 		/// </remarks>
         public readonly EventHandler Action;
-
         /// <summary>
         /// Crea una nueva entrada de interacción con el delegado 
         /// <see cref="EventHandler"/> especificado.
@@ -81,7 +79,6 @@ namespace MCART.PluginSupport
             this.Text = Text ?? Action.Method.Name;
             this.Description = Description;
         }
-
         /// <summary>
         /// Crea una nueva entrada de interacción con el delegado 
         /// <see cref="EventHandler"/> especificado.
@@ -96,7 +93,6 @@ namespace MCART.PluginSupport
             this.Action = Action ?? throw new ArgumentNullException(nameof(Action));
             this.Text = Text ?? Action.Method.Name;
         }
-
         /// <summary>
         /// Crea una nueva entrada de interacción con el delegado 
         /// <see cref="EventHandler"/> especificado.

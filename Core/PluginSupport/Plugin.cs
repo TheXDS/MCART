@@ -29,6 +29,7 @@ using MCART.Types.TaskReporter;
 using MCART.Attributes;
 using MCART.Exceptions;
 using St = MCART.Resources.Strings;
+
 namespace MCART.PluginSupport
 {
     /// <summary>
@@ -283,8 +284,12 @@ namespace MCART.PluginSupport
         /// especificado, realizando pruebas sobre la validez del mismo.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        [Thunk] public T CType<T>() where T : class
+        /// <returns>
+        /// Un objeto de tipo <typeparamref name="T"/> que cumple con todas las
+        /// restricciones de tipo aplicables a este <see cref="Plugin"/>.
+        /// </returns>
+        [Thunk]
+        public T CType<T>() where T : class
         {
             Type x = typeof(T);
             if (!x.IsInterface) throw new InterfaceExpectedException(x);
@@ -295,21 +300,33 @@ namespace MCART.PluginSupport
         /// <summary>
         /// Genera el evento <see cref="UIChangeRequested"/>.
         /// </summary>
-        public void RequestUIChange()
-        {
-            UIChangeRequested(this, new UIChangeEventArgs(MyMenu.AsReadOnly()));
-        }
+        public void RequestUIChange() => UIChangeRequested(this, new UIChangeEventArgs(MyMenu.AsReadOnly()));
         /// <summary>
-        /// Ayuda a generar el evento <see cref="PluginLoaded"/>
+        /// Genera el evento <see cref="PluginLoadFailed"/>.
         /// </summary>
-        /// <param name="tme"></param>
-        internal void RaisePlgLoad(DateTime tme)
-        {
-            PluginLoaded(this, new PluginLoadedEventArgs((DateTime.Now - tme).Ticks));
-        }
+        /// <param name="ex">
+        /// Parámetro opcional. <see cref="Exception"/> que ha causado que el
+        /// <see cref="Plugin"/> no pueda inicializarse.
+        /// </param>
+        protected void RaiseFailed(Exception ex = null) => PluginLoadFailed(this, new PluginFinalizedEventArgs(ex));
+        /// <summary>
+        /// Genera el evento <see cref="PluginFinalizing"/>.
+        /// </summary>
+        /// <param name="reason">
+        /// Parámetro opcional. Razón por la que el plugin va a finalizar.
+        /// </param>
+        protected void RaiseFinalizing(PluginFinalizingEventArgs.FinalizingReason reason = PluginFinalizingEventArgs.FinalizingReason.Shutdown) => PluginFinalizing(this,new PluginFinalizingEventArgs(reason));
+
+        /// <summary>
+        /// Genera el evento <see cref="PluginLoaded"/>.
+        /// </summary>
+        /// <param name="tme">
+        /// Instante de carga del <see cref="Plugin"/>.
+        /// </param>
+        internal void RaisePlgLoad(DateTime tme) => PluginLoaded(this, new PluginLoadedEventArgs((DateTime.Now - tme).Ticks));
         /// <summary>
         /// Releases unmanaged resources and performs other cleanup operations before the
-        /// <see cref="T:MCART.PluginSupport.Plugin"/> is reclaimed by garbage collection.
+        /// <see cref="Plugin"/> is reclaimed by garbage collection.
         /// </summary>
         ~Plugin()
         {

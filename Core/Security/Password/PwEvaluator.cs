@@ -23,9 +23,10 @@
 
 using System;
 using System.Collections.Generic;
-using St = MCART.Resources.Strings;
-using System.Text;
 using System.Linq;
+using System.Text;
+using St = MCART.Resources.Strings;
+
 namespace MCART.Security.Password
 {
     /// <summary>
