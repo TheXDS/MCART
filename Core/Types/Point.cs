@@ -59,7 +59,7 @@ namespace MCART.Types
         /// </returns>
         /// <param name="p1">Punto 1.</param>
         /// <param name="p2">Punto 2.</param>
-        public bool FitsInBox(Point p1, Point p2)=> X.IsBetween(p1.X, p2.X) && Y.IsBetween(p1.Y, p2.Y);
+        public bool FitsInBox(Point p1, Point p2) => X.IsBetween(p1.X, p2.X) && Y.IsBetween(p1.Y, p2.Y);
         /// <summary>
         /// Determina si el punto se encuentra dentro del rectángulo formado por
         /// las coordenadas especificadas.
@@ -79,7 +79,7 @@ namespace MCART.Types
         /// <returns>
         /// La magnitud resultante entre el punto y el orígen.
         /// </returns>
-        public double Magnitude()=> System.Math.Sqrt((X * X) + (Y * Y));        
+        public double Magnitude() => System.Math.Sqrt((X * X) + (Y * Y));
         /// <summary>
         /// Calcula la magnitud de las coordenadas desde el punto
         /// especificado.
@@ -305,5 +305,19 @@ namespace MCART.Types
                 default: throw new FormatException(string.Format(St.FormatNotSupported, format));
             }
         }
+        /// <summary>
+        /// Convierte implícitamente un <see cref="Point"/> en un
+        /// <see cref="System.Drawing.Point"/>.
+        /// </summary>
+        /// <param name="x"><see cref="Point"/> a convertir.</param>
+        public static implicit operator System.Drawing.Point(Point x) => new System.Drawing.Point((int)x.X, (int)x.Y);
+        /// <summary>
+        /// Convierte implícitamente un <see cref="System.Drawing.Point"/> en
+        /// un <see cref="Point"/>.
+        /// </summary>
+        /// <param name="x">
+        /// <see cref="System.Drawing.Point"/> a convertir.
+        /// </param>
+        public static implicit operator Point(System.Drawing.Point x) => new Point(x.X, x.Y);
     }
 }

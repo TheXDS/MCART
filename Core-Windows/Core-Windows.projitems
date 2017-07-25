@@ -11,6 +11,5 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Modules\UI.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Colors.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Types\Point.cs" />
   </ItemGroup>
 </Project>
