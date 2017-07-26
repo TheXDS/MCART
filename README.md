@@ -11,13 +11,13 @@ Los demás proyectos apuntan a crear ensamblados para diferentes plataformas. Ac
 ## Compilación
 La siguiente tabla indica los entornos de desarrollo y las plataformas en las cuales MCART puede ser compilado:
 
-| Entorno de desarollo | WPF | Gtk | Win32 (TODO) | UWP (TODO) |
+| Entorno de desarollo | WPF | Gtk | Win32 | UWP (TODO) |
 | --- | :---: | :---: | :---: | :---: |
 | Visual Studio 2015+ (Windows) | X | X* | X | X |
 | Visual Studio 2013 (Windows)** | X | X* | X | |
 | Visual Studio 2010- (Windows) | | | | |
 | Visual Studio 2010- (Linux via Wine) | | | | |
-| Xamarin Studio 4+ (Windows) | | X | X | |
+| Xamarin Studio 4+ (Windows) | | X | | |
 | MonoDevelop 5+ (Linux) | | X | X | |
 | SharpDevelop (Windows) | | | | |
 
