@@ -30,10 +30,10 @@ namespace MCART.Security.Password
     public sealed partial class PwDialogResult
     {
         //TODO: considerar cambiar los campos de string a SecureString.
-        private string u;       
-        private string p;
-        private string h;
-        private PwEvalResult e;
+        string u;       
+        string p;
+        string h;
+        PwEvalResult e;
         /// <summary>
         /// Obtiene el usuario introducido en el 
         /// <see cref="Forms.PasswordDialog"/>.

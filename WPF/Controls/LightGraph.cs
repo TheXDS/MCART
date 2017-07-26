@@ -91,18 +91,18 @@ namespace MCART.Controls
         }
 
         #region Miembros privados
-        private static Type T = typeof(LightGraph);
-        private Types.Extensions.List<double> graph = new Types.Extensions.List<double>();
-        private Types.Extensions.List<double> graph2 = new Types.Extensions.List<double>();
-        private Types.Extensions.List<string> xLabels = new Types.Extensions.List<string>();
-        private TextBlock LblTitle = new TextBlock
+        static Type T = typeof(LightGraph);
+        Types.Extensions.List<double> graph = new Types.Extensions.List<double>();
+        Types.Extensions.List<double> graph2 = new Types.Extensions.List<double>();
+        Types.Extensions.List<string> xLabels = new Types.Extensions.List<string>();
+        TextBlock LblTitle = new TextBlock
         {
             FontSize = 16,
             HorizontalAlignment = HorizontalAlignment.Center
         };
-        private Grid GrdXLbls = new Grid();
-        private TextBlock XLbl = new TextBlock { HorizontalAlignment = HorizontalAlignment.Center };
-        private CheckBox YLbl = new CheckBox
+        Grid GrdXLbls = new Grid();
+        TextBlock XLbl = new TextBlock { HorizontalAlignment = HorizontalAlignment.Center };
+        CheckBox YLbl = new CheckBox
         {
             Visibility = Visibility.Collapsed,
             VerticalAlignment = VerticalAlignment.Center,
@@ -110,17 +110,17 @@ namespace MCART.Controls
             IsThreeState = true,
             IsChecked = true
         };
-        private TextBlock YMx = new TextBlock
+        TextBlock YMx = new TextBlock
         {
             VerticalAlignment = VerticalAlignment.Bottom,
             HorizontalAlignment = HorizontalAlignment.Right
         };
-        private TextBlock YMn = new TextBlock
+        TextBlock YMn = new TextBlock
         {
             VerticalAlignment = VerticalAlignment.Bottom,
             HorizontalAlignment = HorizontalAlignment.Left
         };
-        private CheckBox Y2Lbl = new CheckBox
+        CheckBox Y2Lbl = new CheckBox
         {
             Visibility = Visibility.Collapsed,
             VerticalAlignment = VerticalAlignment.Center,
@@ -128,15 +128,15 @@ namespace MCART.Controls
             IsThreeState = true,
             IsChecked = true
         };
-        private TextBlock Y2Mx = new TextBlock { HorizontalAlignment = HorizontalAlignment.Right };
-        private TextBlock Y2Mn = new TextBlock { HorizontalAlignment = HorizontalAlignment.Left };
-        private Grid GrdGraphBG = new Grid();
-        private Grid GrdGraph = new Grid();
-        private Polyline Grp1 = new Polyline { Stroke = SystemColors.HighlightBrush };
-        private Polyline Grp2 = new Polyline { Stroke = new SolidColorBrush(MoreColors.ProgressBar) };
-        private Grid GrdGraphFG = new Grid();
-        private Grid GrdGraphFG2 = new Grid();
-        private sbyte _padding = 1;
+        TextBlock Y2Mx = new TextBlock { HorizontalAlignment = HorizontalAlignment.Right };
+        TextBlock Y2Mn = new TextBlock { HorizontalAlignment = HorizontalAlignment.Left };
+        Grid GrdGraphBG = new Grid();
+        Grid GrdGraph = new Grid();
+        Polyline Grp1 = new Polyline { Stroke = SystemColors.HighlightBrush };
+        Polyline Grp2 = new Polyline { Stroke = new SolidColorBrush(MoreColors.ProgressBar) };
+        Grid GrdGraphFG = new Grid();
+        Grid GrdGraphFG2 = new Grid();
+        sbyte _padding = 1;
         #endregion
 
         #region Propiedades de dependencia
@@ -435,8 +435,8 @@ namespace MCART.Controls
         #endregion
 
         #region Métodos internos
-        private bool AmIValid() => Math.ArePositives(ActualHeight, ActualWidth);        
-        private void ClearGrp(Polyline grp, TextBlock mx, TextBlock mn)
+        bool AmIValid() => Math.ArePositives(ActualHeight, ActualWidth);        
+        void ClearGrp(Polyline grp, TextBlock mx, TextBlock mn)
         {
             if (!AmIValid()) return;
             grp.Points.Clear();
@@ -444,12 +444,12 @@ namespace MCART.Controls
             mx.Text = string.Empty;
             mn.Text = string.Empty;
         }
-        private void ClearLabels(Grid g)
+        void ClearLabels(Grid g)
         {
             if (!AmIValid()) return;
             g.Children.Clear();
         }
-        private void PlotAxis()
+        void PlotAxis()
         {
             if (!AmIValid()) return;
             double l = GrdGraphBG.ActualWidth / ((XLabels.Count - 1) + _padding);
@@ -472,7 +472,7 @@ namespace MCART.Controls
                 }
             }
         }
-        private void PlotLabels()
+        void PlotLabels()
         {
             if (!AmIValid()) return;
             double l = GrdGraphBG.ActualWidth / ((XLabels.Count - 1) + _padding);
@@ -494,7 +494,7 @@ namespace MCART.Controls
                 }
             }
         }
-        private void PlotGrp(Polyline grp, Types.Extensions.List<double> lst, TextBlock mx, TextBlock mn, double max, double min, CheckBox chk)
+        void PlotGrp(Polyline grp, Types.Extensions.List<double> lst, TextBlock mx, TextBlock mn, double max, double min, CheckBox chk)
         {
             if (!AmIValid()) return;
             ClearGrp(grp, mx, mn);
@@ -530,7 +530,7 @@ namespace MCART.Controls
                 grp.Fill = new SolidColorBrush(x);
             }
         }
-        private void PlotSpotLabels(Polyline Ps, Types.Extensions.List<double> grp, Grid g)
+        void PlotSpotLabels(Polyline Ps, Types.Extensions.List<double> grp, Grid g)
         {
             if (!AmIValid()) return;
             g.Children.Clear();
@@ -573,13 +573,13 @@ namespace MCART.Controls
                 }
             }
         }
-        private void RefreshBase()
+        void RefreshBase()
         {
             if (Frozen) return;
             PlotAxis();
             PlotLabels();
         }
-        private void RefreshGraph1()
+        void RefreshGraph1()
         {
             if (Frozen) return;
             switch (YLbl.IsChecked)
@@ -598,7 +598,7 @@ namespace MCART.Controls
                     break;
             }
         }
-        private void RefreshGraph2()
+        void RefreshGraph2()
         {
             if (Frozen) return;
             switch (Y2Lbl.IsChecked)
@@ -617,7 +617,7 @@ namespace MCART.Controls
                     break;
             }
         }
-        private void RefreshBothSpots()
+        void RefreshBothSpots()
         {
             if (Frozen) return;
             switch (YLbl.IsChecked)
@@ -644,13 +644,13 @@ namespace MCART.Controls
         #endregion
 
         #region Control de eventos
-        private void Rfrsh(object sender, EventArgs e)
+        void Rfrsh(object sender, EventArgs e)
         {
             if (sender.Is(graph) || sender.Is(YLbl)) RefreshGraph1();
             else if (sender.Is(graph2) || sender.Is(Y2Lbl)) RefreshGraph2();
             else if (sender.Is(xLabels)) RefreshBase();
         }
-        private void Root_Change(object sender, EventArgs e)
+        void Root_Change(object sender, EventArgs e)
         {
             RefreshBase();
             RefreshGraph1();

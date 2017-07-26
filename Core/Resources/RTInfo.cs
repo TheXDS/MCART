@@ -32,7 +32,7 @@ namespace MCART.Resources
     /// </summary>
     public static class RTInfo
     {
-        private static bool? RTS(object obj)
+        static bool? RTS(object obj)
         {
             var minv = obj.GetAttr<MinMCARTVersionAttribute>();
             var tgtv = obj.GetAttr<TargetMCARTVersionAttribute>();

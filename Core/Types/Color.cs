@@ -37,10 +37,10 @@ namespace MCART.Types
     /// </summary>
     public partial struct Color : IEquatable<Color>, IFormattable
     {        
-        private float r;
-        private float g;
-        private float b;
-        private float a;
+        float r;
+        float g;
+        float b;
+        float a;
         /// <summary>
         /// Mezcla un color de temperatura basado en el porcentaje.
         /// </summary>
@@ -389,7 +389,7 @@ namespace MCART.Types
         /// <summary>
         /// constante auxiliar de redondeo para las funciones de conversión.
         /// </summary>
-        private const float ep = 0.499f;
+        const float ep = 0.499f;
         /// <summary>
         /// Convierte este <see cref="Color"/> en su representación como un
         /// <see cref="short"/>.

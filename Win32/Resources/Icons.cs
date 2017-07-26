@@ -29,8 +29,8 @@ namespace MCART.Resources
 {
     public static partial class Icons
     {
-        private static ResourceManager resourceMan = new ResourceManager("MCART.Resources.IconResources", RTInfo.RTAssembly);
-        private static CultureInfo resourceCulture = CultureInfo.CurrentCulture;
+        static ResourceManager resourceMan = new ResourceManager("MCART.Resources.IconResources", RTInfo.RTAssembly);
+        static CultureInfo resourceCulture = CultureInfo.CurrentCulture;
         /// <summary>
         /// Obtiene un ícono de los recursos incrustados.
         /// </summary>

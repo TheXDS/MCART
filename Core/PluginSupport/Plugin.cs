@@ -80,7 +80,7 @@ namespace MCART.PluginSupport
         /// </summary>
         /// <param name="sender">Objeto que generóel evento.</param>
         /// <param name="e">Argumentos del evento.</param>
-        private void AutoUpdateEvtHandler(object sender, EventArgs e) { RequestUIChange(); }
+        void AutoUpdateEvtHandler(object sender, EventArgs e) { RequestUIChange(); }
         /// <summary>
         /// Obtiene el nombre de este <see cref="Plugin"/>.
         /// </summary>

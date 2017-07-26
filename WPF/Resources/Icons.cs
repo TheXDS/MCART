@@ -33,7 +33,7 @@ namespace MCART.Resources
     /// </summary>
     public static partial class Icons
     {
-        private const string u = "pack://application:,,,/MCART;component/Resources/Icons/{0}.png";
+        const string u = "pack://application:,,,/MCART;component/Resources/Icons/{0}.png";
         /// <summary>
         /// Obtiene un ícono de los recursos incrustados.
         /// </summary>

@@ -40,48 +40,48 @@ namespace MCART.Forms
     public class PasswordDialog : Window
     {
         #region Controles
-        private Button Btngo = new Button
+        Button Btngo = new Button
         {
             Width = 23,
             IsDefault = true,
             Content = "➜"
         };
-        private TextBox TxtUsr = new TextBox
+        TextBox TxtUsr = new TextBox
         {
             Height = 23,
             Margin = new Thickness(10, 10, 10, 0)
         };
-        private PasswordBox Txtpw = new PasswordBox
+        PasswordBox Txtpw = new PasswordBox
         {
             Height = 23,
             PasswordChar = '●'
         };
-        private StackPanel MoreCtrls = new StackPanel();
-        private PasswordBox Txtcnf = new PasswordBox
+        StackPanel MoreCtrls = new StackPanel();
+        PasswordBox Txtcnf = new PasswordBox
         {
             Margin = new Thickness(10, 0, 10, 0),
             Height = 23,
             PasswordChar = '●'
         };
-        private StackPanel HintBlock = new StackPanel();
-        private TextBox Txthint = new TextBox
+        StackPanel HintBlock = new StackPanel();
+        TextBox Txthint = new TextBox
         {
             Height = 23,
             Margin = new Thickness(10, 0, 10, 0)
         };
-        private StackPanel SecurIndicator = new StackPanel();
-        private ProgressRing Ringsec = new ProgressRing
+        StackPanel SecurIndicator = new StackPanel();
+        ProgressRing Ringsec = new ProgressRing
         {
             Margin = new Thickness(10),
             TextFormat = "{0:f0}%"
         };
-        private TextBlock Securdetails = new TextBlock
+        TextBlock Securdetails = new TextBlock
         {
             Margin = new Thickness(0, 10, 10, 10),
             VerticalAlignment = VerticalAlignment.Center,
             TextWrapping = TextWrapping.Wrap
         };
-        private Button BtnConfirm = new Button
+        Button BtnConfirm = new Button
         {
             Width = 75,
             Content = St.OK,
@@ -89,12 +89,12 @@ namespace MCART.Forms
         };
         #endregion
         #region Miembros privados
-        private PwDialogResult r;
-        private PwEvaluator pwe;
-        private PwEvalResult Pwr;
+        PwDialogResult r;
+        PwEvaluator pwe;
+        PwEvalResult Pwr;
         #endregion
         #region Eventos de controles
-        private void Btngo_Click(object sender, RoutedEventArgs e)
+        void Btngo_Click(object sender, RoutedEventArgs e)
         {
             if (TxtUsr.IsVisible && TxtUsr.Text == string.Empty)
             {
@@ -106,7 +106,7 @@ namespace MCART.Forms
             r = new PwDialogResult(TxtUsr.Text, Txtpw.Password, null, MessageBoxResult.OK, PwEvalResult.Null);
             Close();
         }
-        private void BtnConfirm_Click(object sender, RoutedEventArgs e)
+        void BtnConfirm_Click(object sender, RoutedEventArgs e)
         {
             if (TxtUsr.IsVisible && TxtUsr.Text == string.Empty)
             {
@@ -134,7 +134,7 @@ namespace MCART.Forms
             r = new PwDialogResult(TxtUsr.Text, Txtpw.Password, Txthint.Text, MessageBoxResult.OK, Pwr);
             Close();
         }
-        private void Txtpw_PasswordChanged(object sender, RoutedEventArgs e)
+        void Txtpw_PasswordChanged(object sender, RoutedEventArgs e)
         {
             if (SecurIndicator.IsVisible)
             {
@@ -153,11 +153,11 @@ namespace MCART.Forms
                 }
             }
         }
-        private void Txtcnf_PasswordChanged(object sender, RoutedEventArgs e)
+        void Txtcnf_PasswordChanged(object sender, RoutedEventArgs e)
         {
             if (((Control)sender).IsWarned()) ((Control)sender).ClearWarn();
         }
-        private void Txtcnf_check(object sender, RoutedEventArgs e)
+        void Txtcnf_check(object sender, RoutedEventArgs e)
         {
             if (Txtcnf.Password != string.Empty && Txtcnf.Password != Txtpw.Password)
                 Txtcnf.Warn(St.PwNotMatch);

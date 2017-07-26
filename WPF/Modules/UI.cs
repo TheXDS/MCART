@@ -43,7 +43,7 @@ namespace MCART
         /// Contiene información de los controles modificados por la función
         /// <see cref="Warn(Control, string)"/>.
         /// </summary>
-        private struct OrigControlColor
+        struct OrigControlColor
         {
             /// <summary>
             /// Color primario original.
@@ -66,12 +66,12 @@ namespace MCART
         /// Lista privada de estados de los controles modificados por la función
         /// 
         /// </summary>
-        private static List<OrigControlColor> origctrls = new List<OrigControlColor>();
+        static List<OrigControlColor> origctrls = new List<OrigControlColor>();
         /// <summary>
         /// Lista privada de <see cref="BitmapEncoder"/> cargados en el
         /// <see cref="AppDomain"/> actual.
         /// </summary>
-        private static List<BitmapEncoder> bEncLst;
+        static List<BitmapEncoder> bEncLst;
         /// <summary>
         /// Devuelve una colección de los códecs de mapas de bits disponibles.
         /// Soporta cargar códecs desde cualquier ensamblado cargado.

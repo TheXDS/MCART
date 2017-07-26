@@ -22,99 +22,45 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using MCART.Events;
-using MCART.Types.Extensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Forms;
 using St = MCART.Resources.Strings;
 
 namespace MCART.Types.TaskReporter
 {
     /// <summary>
-    /// Clase base para los controles de Windows Presentation Framework
-    /// que pueden utilizarse para mostrar el progreso de una tarea por medio
-    /// de la interfaz <see cref="ITaskReporter"/>.
+    /// Clase base para los controles de Win32 que pueden utilizarse para
+    /// mostrar el progreso de una tarea por medio de la interfaz 
+    /// <see cref="ITaskReporter"/>.
     /// </summary>
-    public abstract class TaskReporterControl : UserControl, ITaskReporter
+    public class TaskReporterControl : UserControl, ITaskReporter
     {
-        #region Declaración de propiedades de dependencia
-        protected static DependencyPropertyKey CancelPendingPropertyKey = DependencyProperty.RegisterReadOnly(
-            nameof(CancelPending),
-            typeof(bool),
-            typeof(TaskReporterControl),
-            new PropertyMetadata(false));
-        protected static DependencyPropertyKey OnDutyPropertyKey = DependencyProperty.RegisterReadOnly(
-            nameof(OnDuty),
-            typeof(bool),
-            typeof(TaskReporterControl),
-            new PropertyMetadata(false));
-        protected static DependencyPropertyKey StoppablePropertyKey = DependencyProperty.RegisterReadOnly(
-            nameof(Stoppable),
-            typeof(bool?),
-            typeof(TaskReporterControl),
-            new PropertyMetadata(null));
-        protected static DependencyPropertyKey TStartPropertyKey = DependencyProperty.RegisterReadOnly(
-            nameof(TStart),
-            typeof(DateTime),
-            typeof(TaskReporterControl),
-            new PropertyMetadata(default(DateTime)));
-        protected static DependencyPropertyKey TimedOutPropertyKey = DependencyProperty.RegisterReadOnly(
-            nameof(TimedOut),
-            typeof(bool),
-            typeof(TaskReporterControl),
-            new PropertyMetadata(false));
-        protected static DependencyPropertyKey CurrentProgressPropertyKey = DependencyProperty.RegisterReadOnly(
-            nameof(CurrentProgress),
-            typeof(float?),
-            typeof(TaskReporterControl),
-            new PropertyMetadata(null));
-        /// <summary>
-        /// Identifica la propiedad de dependencia 
-        /// <see cref="CancelPending"/>.
-        /// </summary>
-        public static DependencyProperty CancelPendingProperty = CancelPendingPropertyKey.DependencyProperty;
-        /// <summary>
-        /// Identifica la propiedad de dependencia 
-        /// <see cref="CurrentProgress"/>.
-        /// </summary>
-        public static DependencyProperty CurrentProgressProperty = CurrentProgressPropertyKey.DependencyProperty;
-        /// <summary>
-        /// Identifica la propiedad de dependencia <see cref="OnDuty"/>.
-        /// </summary>
-        public static DependencyProperty OnDutyProperty = OnDutyPropertyKey.DependencyProperty;
-        /// <summary>
-        /// Identifica la propiedad de dependencia <see cref="Stoppable"/>.
-        /// </summary>
-        public static DependencyProperty StoppableProperty = StoppablePropertyKey.DependencyProperty;
-        /// <summary>
-        /// Identifica la propiedad de dependencia <see cref="TStart"/>.
-        /// </summary>
-        public static DependencyProperty TStartProperty = TStartPropertyKey.DependencyProperty;
-        /// <summary>
-        /// Identifica la propiedad de dependencia <see cref="TimedOut"/>.
-        /// </summary>
-        public static DependencyProperty TimedOutProperty = TimedOutPropertyKey.DependencyProperty;
-        #endregion
         #region Campos privados
+        bool CancelPendingProperty = false;
+        bool OnDutyProperty = false;
+        bool? StoppableProperty = null;
+        DateTime TStartProperty = default(DateTime);
+        bool TimedOutProperty = false;
+        float? CurrentProgressProperty = null;
         bool genEx = false;
-        Timer Tmr;
+        Extensions.Timer Tmr;
         #endregion
         #region Propiedades
         /// <summary>
         /// Indica si hay pendiente una solicitud para cancelar la tarea.
         /// </summary>
-        public bool CancelPending => (bool)GetValue(CancelPendingProperty);
+        public bool CancelPending => CancelPendingProperty;
         /// <summary>
         /// Indica el progreso actual de una tarea.
         /// </summary>
-        public float? CurrentProgress => (float?)GetValue(CurrentProgressProperty);
+        public float? CurrentProgress => CurrentProgressProperty;
         /// <summary>
         /// Indica si se está ejecutando una tarea actualmente.
         /// </summary>
-        public bool OnDuty => (bool)GetValue(OnDutyProperty);
+        public bool OnDuty => OnDutyProperty;
         /// <summary>
         /// Indica si la tarea puede ser detenida.
         /// </summary>
@@ -122,7 +68,7 @@ namespace MCART.Types.TaskReporter
         /// <c>true</c> si la tarea puede ser detenida, <c>false</c> en caso
         /// contrario.
         /// </returns>
-        public bool? Stoppable => (bool?)GetValue(StoppableProperty);        
+        public bool? Stoppable => StoppableProperty;
         /// <summary>
         /// Indica si ya se ha agotado el tiempo de espera de la tarea.
         /// </summary>
@@ -130,11 +76,11 @@ namespace MCART.Types.TaskReporter
         /// <c>true</c> si ya se ha agotado el tiempo de espera, <c>false</c>
         /// en caso contrario.
         /// </returns>
-        public bool TimedOut => (bool)GetValue(TimedOutProperty);
+        public bool TimedOut => TimedOutProperty;
         /// <summary>
         /// Obtiene el momento de inicio de la tarea.
         /// </summary>
-        public DateTime TStart => (DateTime)GetValue(TStartProperty);
+        public DateTime TStart => TStartProperty;
         /// <summary>
         /// Indica el tiempo de espera disponible.
         /// </summary>
@@ -158,16 +104,15 @@ namespace MCART.Types.TaskReporter
             set
             {
                 if (!OnDuty) throw new InvalidOperationException();
-                Tmr = new Timer()
+                Tmr = new Extensions.Timer()
                 {
                     AutoReset = false,
                     Enabled = true
                 };
                 Tmr.Interval = value?.TotalMilliseconds ?? throw new ArgumentNullException(nameof(value));
-                Tmr.Elapsed += Tmr_Elapsed;                
+                Tmr.Elapsed += Tmr_Elapsed;
             }
         }
-
         #endregion
         #region Eventos
         /// <summary>
@@ -204,20 +149,19 @@ namespace MCART.Types.TaskReporter
         void Bgn(bool ns)
         {
             if (OnDuty) throw new InvalidOperationException();
-            SetValue(CancelPendingProperty, false);
-            SetValue(TimedOutProperty, false);
-            SetValue(OnDutyPropertyKey, true);
-            SetValue(TStartPropertyKey, DateTime.Now);
-            SetValue(StoppablePropertyKey, ns);
-            if (Dispatcher.CheckAccess()) OnBegin(true);
-            else Dispatcher.Invoke(new Action<bool>(OnBegin), true);
+            CancelPendingProperty = false;
+            TimedOutProperty = false;
+            OnDutyProperty = true;
+            TStartProperty = DateTime.Now;
+            StoppableProperty = ns;
+            Invoke(new Action<bool>(OnBegin), true);
             Begun?.Invoke(this, new BegunEventArgs(ns, TStart));
         }
         void Bgn(TimeSpan timeout, bool genTOutEx, bool ns)
         {
             if (OnDuty) throw new InvalidOperationException();
             genEx = genTOutEx;
-            Tmr = new Timer(timeout.TotalMilliseconds) { AutoReset = false };
+            Tmr = new Extensions.Timer(timeout.TotalMilliseconds) { AutoReset = false };
             Bgn(ns);
             Tmr.Elapsed += Tmr_Elapsed;
             Tmr.Start();
@@ -225,22 +169,17 @@ namespace MCART.Types.TaskReporter
         void Bsy(ProgressEventArgs e)
         {
             if (!OnDuty) throw new InvalidOperationException();
-            if (Dispatcher.CheckAccess()) OnBusy(e);
-            else Dispatcher.Invoke(new Action<ProgressEventArgs>(OnBusy), e);
+            Invoke(new Action<ProgressEventArgs>(OnBusy), e);
             Reporting?.Invoke(this, e);
         }
-        void Rdy(string msg)
-        {
-            if (Dispatcher.CheckAccess()) OnReady(msg);
-            else Dispatcher.Invoke(new Action<string>(OnReady), St.Rdy);
-        }
+        void Rdy(string msg) => Invoke(new Action<string>(OnReady), St.Rdy);
         void Tmr_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             Tmr.Stop();
             Tmr.Elapsed -= Tmr_Elapsed;
             Tmr = null;
             RaiseCancelPending();
-            SetValue(TimedOutPropertyKey, true);
+            TimedOutProperty = true;
             if (OnDuty)
             {
                 TaskTimeout?.Invoke(this, null);
@@ -259,22 +198,22 @@ namespace MCART.Types.TaskReporter
             if (!(bool)Stoppable) throw new InvalidOperationException();
             CancelEventArgs ev = new CancelEventArgs();
             CancelRequested?.Invoke(this, ev);
-            SetValue(CancelPendingPropertyKey, true);
-        } 
+            CancelPendingProperty = true;
+        }
         /// <summary>
         /// Modifica al control para pasar a un estado de 'Ocupado'
         /// </summary>
         /// <param name="stoppable">
         /// Indica si la tarea es detenible.
         /// </param>
-        protected abstract void OnBegin(bool stoppable);
+        protected virtual void OnBegin(bool stoppable) { }
         /// <summary>
         /// Actualiza el estado del control basado en el estado de una tarea.
         /// </summary>
         /// <param name="e">
         /// Estado reportado por la tarea.
         /// </param>
-        protected abstract void OnBusy(ProgressEventArgs e);
+        protected virtual void OnBusy(ProgressEventArgs e) { }
         /// <summary>
         /// Modifica al control para pasar a un estado de 'Listo'
         /// </summary>
@@ -283,7 +222,7 @@ namespace MCART.Types.TaskReporter
         /// algunos controles no implementen estados textuales, en cuyo caso el
         /// argumento será ignorado.
         /// </param>
-        protected abstract void OnReady(string msg = null);
+        protected virtual void OnReady(string msg = null) { }
         #endregion
         #region Métodos públicos
         /// <summary>

@@ -4,7 +4,7 @@ namespace Stetic
 {
 	internal class Gui
 	{
-		private static bool initialized;
+		static bool initialized;
 
 		internal static void Initialize(Gtk.Widget iconRenderer)
 		{

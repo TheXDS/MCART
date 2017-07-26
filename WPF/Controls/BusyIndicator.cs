@@ -33,7 +33,7 @@ namespace MCART.Controls
 {
     class BusyIndicator : UserControl
     { 
-        private static Type T = typeof(BusyIndicator);
+        static Type T = typeof(BusyIndicator);
         public static DependencyProperty ThicknessProperty = DependencyProperty.Register(
             nameof(Thickness), typeof(double), T,
             new PropertyMetadata(4.0, SetControlSize));
@@ -49,29 +49,29 @@ namespace MCART.Controls
         public static DependencyProperty StartingProperty = DependencyProperty.Register(
             nameof(Starting), typeof(bool), T,
             new PropertyMetadata(false, Colorize));
-        private static void Colorize(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        static void Colorize(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             BusyIndicator b = (BusyIndicator)d;
             b.pth.Stroke = b.Starting ? b.Fill2 : b.Fill2;
         }
-        private static void SetControlSize(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        static void SetControlSize(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ((BusyIndicator)d).Width = (double)d.GetValue(RadiusProperty) * 2 + (double)d.GetValue(ThicknessProperty);
         }
-        private Path pth = new Path()
+        Path pth = new Path()
         {
             RenderTransform = new RotateTransform(),
             RenderTransformOrigin = new Point(0.5, 0.5)
         };
-        private DoubleAnimationUsingKeyFrames spin = new DoubleAnimationUsingKeyFrames()
+        DoubleAnimationUsingKeyFrames spin = new DoubleAnimationUsingKeyFrames()
         {
             RepeatBehavior = RepeatBehavior.Forever
         };
-        private DoubleAnimationUsingKeyFrames spin2 = new DoubleAnimationUsingKeyFrames()
+        DoubleAnimationUsingKeyFrames spin2 = new DoubleAnimationUsingKeyFrames()
         {
             RepeatBehavior = RepeatBehavior.Forever
         };
-        private void OnLoaded(object sender, RoutedEventArgs e)
+        void OnLoaded(object sender, RoutedEventArgs e)
         {
             pth.Data = GetCircleArc(Radius, 270, Thickness);
         }

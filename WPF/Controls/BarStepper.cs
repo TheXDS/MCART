@@ -28,6 +28,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using St = MCART.Resources.Strings;
+
 namespace Controls
 {
     /// <summary>
@@ -44,7 +45,7 @@ namespace Controls
     /// </example>
     public class BarStepper : TaskReporterControl
     {
-        private static Type T = typeof(BarStepper);
+        static Type T = typeof(BarStepper);
         /// <summary>
         /// Identifica la propiedad de dependencia 
         /// <see cref="StatusForReady"/>.
@@ -63,9 +64,9 @@ namespace Controls
             get => (Visibility)GetValue(StatusForReadyProperty);
             set => SetValue(StatusForReadyProperty, value);
         }
-        private ProgressBar PB = new ProgressBar { Margin = new Thickness(8) };
-        private Button Bt = new Button();
-        private Label LB = new Label();
+        ProgressBar PB = new ProgressBar { Margin = new Thickness(8) };
+        Button Bt = new Button();
+        Label LB = new Label();
         /// <summary>
         /// Modifica el control para mostrar el progreso de una tarea.
         /// </summary>
@@ -75,9 +76,9 @@ namespace Controls
         protected override void OnBegin(bool stoppable)
         {
             PB.Visibility = Visibility.Visible;
-            Bt.Content = St.Cncl;
-            Bt.IsEnabled = (bool)Stoppable;
-            if ((bool)Stoppable) Bt.Visibility = Visibility.Visible;
+            Bt.Content = St.Cncl;            
+            Bt.IsEnabled = stoppable;
+            if (stoppable) Bt.Visibility = Visibility.Visible;
             PB.Value = PB.Minimum;
             PB.IsIndeterminate = false;
         }

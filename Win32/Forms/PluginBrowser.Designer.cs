@@ -5,7 +5,7 @@
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -26,7 +26,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
             this.btnClose = new System.Windows.Forms.Button();
@@ -413,33 +413,33 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.CheckBox chkIsBeta;
-        private System.Windows.Forms.CheckBox chkUnstable;
-        private System.Windows.Forms.TextBox txtName;
-        private System.Windows.Forms.TextBox txtVersion;
-        private System.Windows.Forms.TextBox txtDesc;
-        private System.Windows.Forms.TextBox txtCopyright;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TextBox txtLicense;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TreeView trvAsm;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.ListBox lstInterfaces;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TabPage tabInteractions;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.TextBox txtMinVer;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label lblVeredict;
-        private System.Windows.Forms.TextBox txtTgtVer;
-        private System.Windows.Forms.MenuStrip mnuInteractions;
-        private System.Windows.Forms.ErrorProvider errProvider;
+        System.Windows.Forms.Button btnClose;
+        System.Windows.Forms.Label label1;
+        System.Windows.Forms.Label label2;
+        System.Windows.Forms.Label label3;
+        System.Windows.Forms.Label label4;
+        System.Windows.Forms.CheckBox chkIsBeta;
+        System.Windows.Forms.CheckBox chkUnstable;
+        System.Windows.Forms.TextBox txtName;
+        System.Windows.Forms.TextBox txtVersion;
+        System.Windows.Forms.TextBox txtDesc;
+        System.Windows.Forms.TextBox txtCopyright;
+        System.Windows.Forms.TabControl tabControl1;
+        System.Windows.Forms.TabPage tabPage1;
+        System.Windows.Forms.TextBox txtLicense;
+        System.Windows.Forms.TabPage tabPage2;
+        System.Windows.Forms.TreeView trvAsm;
+        System.Windows.Forms.SplitContainer splitContainer1;
+        System.Windows.Forms.ListBox lstInterfaces;
+        System.Windows.Forms.TabPage tabPage3;
+        System.Windows.Forms.TabPage tabInteractions;
+        System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        System.Windows.Forms.TextBox txtMinVer;
+        System.Windows.Forms.Label label5;
+        System.Windows.Forms.Label label6;
+        System.Windows.Forms.Label lblVeredict;
+        System.Windows.Forms.TextBox txtTgtVer;
+        System.Windows.Forms.MenuStrip mnuInteractions;
+        System.Windows.Forms.ErrorProvider errProvider;
     }
 }

@@ -26,7 +26,7 @@ namespace MCART.Security.Password
 {
     public sealed partial class PwDialogResult
     {
-        private MessageBoxResult r;
+        MessageBoxResult r;
         /// <summary>
         /// Obtiene el resultado del cuadro de diálogo.
         /// </summary>

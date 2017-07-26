@@ -35,7 +35,7 @@ namespace MCART.Forms
     /// </summary>
     public partial class PluginBrowser : Form
     {
-        private void ClrDetails()
+        void ClrDetails()
         {
             txtName.Clear();
             txtVersion.Clear();
@@ -52,7 +52,7 @@ namespace MCART.Forms
             lblVeredict.Text = St.PluginInfo1;
             mnuInteractions.Items.Clear();
         }
-        private void ShwDetails(IPlugin P)
+        void ShwDetails(IPlugin P)
         {
             txtName.Text = P.Name;
             txtVersion.Text = P.Version.ToString();
@@ -100,8 +100,8 @@ namespace MCART.Forms
             }
             else mnuInteractions.Items.Add(St.FeatNotAvailable);
         }
-        private void BtnClose_Click(object sender, EventArgs e) => Close();
-        private void TrvAsm_Layout(object sender, LayoutEventArgs e)
+        void BtnClose_Click(object sender, EventArgs e) => Close();
+        void TrvAsm_Layout(object sender, LayoutEventArgs e)
         {
             if (!trvAsm.Visible) return;
             foreach (var j in Plugin.PluginTree<IPlugin>(true))
@@ -110,7 +110,7 @@ namespace MCART.Forms
                 foreach (var k in j.Value) (plg.Nodes.Add(k.Name)).Tag = k;                
             }
         }
-        private void TrvAsm_Click(object sender, EventArgs e)
+        void TrvAsm_Click(object sender, EventArgs e)
         {
             ClrDetails();
             if (trvAsm.SelectedNode.Tag is IPlugin)

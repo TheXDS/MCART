@@ -260,7 +260,7 @@ namespace System.Windows.Converters
     /// <typeparam name="T">Tipo de valores. Puede ser cualquier tipo de valor numérico.</typeparam>
     public class AddConverter<T> : IValueConverter where T : struct
     {
-        private dynamic x;
+        dynamic x;
         public AddConverter(T Operand)
         {
             if (!typeof(T).IsPrimitive) throw new InvalidCastException();
@@ -275,7 +275,7 @@ namespace System.Windows.Converters
     /// <typeparam name="T">Tipo de valores. Puede ser cualquier tipo de valor numérico.</typeparam>
     public class MultiplyConverter<T> : IValueConverter where T : struct
     {
-        private dynamic x;
+        dynamic x;
         public MultiplyConverter(T Operand)
         {
             if (!typeof(T).IsPrimitive) throw new InvalidCastException();
@@ -289,8 +289,8 @@ namespace System.Windows.Converters
     /// </summary>
     public class CountVisibilityConverter : IValueConverter
     {
-        private Visibility x;
-        private Visibility y;
+        Visibility x;
+        Visibility y;
         public CountVisibilityConverter(Visibility HasItems = Visibility.Visible, Visibility NoItems = Visibility.Collapsed)
         {
             x = HasItems;
@@ -304,8 +304,8 @@ namespace System.Windows.Converters
     /// </summary>
     public class DoubleVisibilityConverter : IValueConverter
     {
-        private Visibility x;
-        private Visibility y;
+        Visibility x;
+        Visibility y;
         public DoubleVisibilityConverter(Visibility ForPositive = Visibility.Visible, Visibility ZeroOrNegative = Visibility.Collapsed)
         {
             x = ForPositive;
@@ -319,8 +319,8 @@ namespace System.Windows.Converters
     /// </summary>
     public class FloatVisibilityConverter : IValueConverter
     {
-        private Visibility x;
-        private Visibility y;
+        Visibility x;
+        Visibility y;
         public FloatVisibilityConverter(Visibility ForPositive = Visibility.Visible, Visibility ZeroOrNegative = Visibility.Collapsed)
         {
             x = ForPositive;
@@ -335,7 +335,7 @@ namespace System.Windows.Converters
     /// </summary>
     public class BrushOpacityAdjust : IValueConverter
     {
-        private double f;
+        double f;
         public BrushOpacityAdjust(double Factor)
         {
             if (!Factor.IsBetween(0, 1)) throw new ArgumentOutOfRangeException(nameof(Factor));
@@ -359,8 +359,8 @@ namespace System.Windows.Converters
     /// </summary>
     public class StringVisibilityConverter : IValueConverter
     {
-        private Visibility h;
-        private Visibility v;
+        Visibility h;
+        Visibility v;
         public StringVisibilityConverter(Visibility Empty, Visibility NotEmpty=Visibility.Visible)
         {
             v = NotEmpty;
@@ -405,7 +405,7 @@ namespace System.Windows.Converters
     /// </summary>
     public class VisibilityInverter : IValueConverter
     {
-        private Visibility h;
+        Visibility h;
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="VisibilityInverter"/>.

@@ -62,7 +62,7 @@ namespace MCART.Security.Password
         /// Opcional. Si se establece en <c>true</c>, la regla se marcará como
         /// puntos adicionales.
         /// </param>
-        private static PwEvalRule ContentionRuleFactory(string a, string b, string c = null, PonderationLevel pn = PonderationLevel.Normal, bool de = true, bool ie = false)
+        static PwEvalRule ContentionRuleFactory(string a, string b, string c = null, PonderationLevel pn = PonderationLevel.Normal, bool de = true, bool ie = false)
         {
             // Factor base de contención de caracteres.
             // En teoría:

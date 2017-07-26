@@ -35,7 +35,7 @@ namespace MCART
     /// </summary>
     public static partial class UI
     {
-        private static ErrorProvider errP = new ErrorProvider();
+        static ErrorProvider errP = new ErrorProvider();
         /// <summary>
         /// Establece un estado de error para un control.
         /// </summary>

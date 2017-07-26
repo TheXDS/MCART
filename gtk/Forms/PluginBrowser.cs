@@ -27,6 +27,7 @@ using System;
 using System.Collections.Generic;
 using static MCART.Resources.RTInfo;
 using St = MCART.Resources.Strings;
+
 namespace MCART.Forms
 {
     /// <summary>
@@ -59,7 +60,7 @@ namespace MCART.Forms
             lblVeredict.Text = St.PluginInfo1;
             mnuInteractions.ClearContents();
         }
-        private void ShwDetails(IPlugin P)
+        void ShwDetails(IPlugin P)
         {
             txtName.Text = P.Name;
             txtVer.Text = P.Version.ToString();
@@ -110,8 +111,8 @@ namespace MCART.Forms
                 mnuInteractions.Append(r);
             }
         }
-        private void BtnClose_Click(object sender, EventArgs e) => Destroy();
-        private void TrvPlugins_Shown(object sender, EventArgs e)
+        void BtnClose_Click(object sender, EventArgs e) => Destroy();
+        void TrvPlugins_Shown(object sender, EventArgs e)
         {
             if (!trvPlugins.Visible) return;
             foreach (var j in Plugin.PluginTree<IPlugin>(true))
@@ -121,7 +122,7 @@ namespace MCART.Forms
                 lstPlugins.Add(j.Value);                
             }
         }
-        private void OnTrvPluginsCursorChanged(object sender, EventArgs e)
+        void OnTrvPluginsCursorChanged(object sender, EventArgs e)
         {
             trvPlugins.GetCursor(out TreePath tp, out TreeViewColumn tvc);
             ClearDetails();

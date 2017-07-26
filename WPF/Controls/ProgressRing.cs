@@ -35,48 +35,48 @@ namespace MCART.Controls
     /// </summary>
     public class ProgressRing : UserControl
     {
-        private static Type T = typeof(ProgressRing);
-        private static void Redraw(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        static Type T = typeof(ProgressRing);
+        static void Redraw(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ProgressRing p = (ProgressRing)d;
             p.SetControlSize();
             p.Draw();
         }
-        private static void Updt(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        static void Updt(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ((ProgressRing)d).Draw();
         }
-        private static void Updt2(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        static void Updt2(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ProgressRing p = (ProgressRing)d;
             p.SetValue(IsIndeterminateProperty, !p.Value.IsBetween(p.Min, p.Max));
         }
-        private static void TxtFmt(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        static void TxtFmt(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ProgressRing p = (ProgressRing)d;
             p.TxtPercent.Text = string.Format(p.TextFormat, p.Value);
         }
-        private TextBlock TxtPercent = new TextBlock()
+        TextBlock TxtPercent = new TextBlock()
         {
             HorizontalAlignment=HorizontalAlignment.Center,
             VerticalAlignment=VerticalAlignment.Center
         };
-        private Ellipse ellBg = new Ellipse();
-        private Path pth = new Path()
+        Ellipse ellBg = new Ellipse();
+        Path pth = new Path()
         {
             RenderTransform = new RotateTransform(),
             RenderTransformOrigin = new Point(0.5, 0.5)
         };
-        private DoubleAnimationUsingKeyFrames spin = new DoubleAnimationUsingKeyFrames()
+        DoubleAnimationUsingKeyFrames spin = new DoubleAnimationUsingKeyFrames()
         {
             RepeatBehavior = RepeatBehavior.Forever
         };
-        private bool amIAnimated = false;
-        private void OnLoaded(object sender, RoutedEventArgs e)
+        bool amIAnimated = false;
+        void OnLoaded(object sender, RoutedEventArgs e)
         {
             Redraw(this, new DependencyPropertyChangedEventArgs());
         }
-        private void Draw()
+        void Draw()
         {
             if (!pth.IsLoaded) return;
             RotateTransform x = (RotateTransform)pth.RenderTransform;
@@ -95,7 +95,7 @@ namespace MCART.Controls
                 TxtPercent.Text = "...";
             }
         }
-        private void SetControlSize()
+        void SetControlSize()
         {
             Width = (double)GetValue(RadiusProperty) * 2 + (double)GetValue(ThicknessProperty);
         }

@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\BarStepper.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\BarStepper.Designer.cs">
+      <DependentUpon>BarStepper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\PluginBrowser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,6 +68,9 @@
     <Compile Include="PluginSupport\Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Icons.cs" />
+    <Compile Include="Types\TaskReporter\TaskReporterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -73,6 +82,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controls\BarStepper.resx">
+      <DependentUpon>BarStepper.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\PluginBrowser.resx">
       <DependentUpon>PluginBrowser.cs</DependentUpon>
     </EmbeddedResource>

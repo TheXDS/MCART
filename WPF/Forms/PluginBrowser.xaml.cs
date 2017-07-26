@@ -36,7 +36,7 @@ namespace MCART.Forms
     /// </summary>
     public partial class PluginBrowser : Window
     {
-        private void ClrDetails()
+        void ClrDetails()
         {
             txtName.Clear();
             txtVersion.Clear();
@@ -54,7 +54,7 @@ namespace MCART.Forms
             tabInteractions.IsEnabled = false;
             tabInteractions.Content = null;
         }
-        private void ShwDetails(IPlugin P)
+        void ShwDetails(IPlugin P)
         {
             txtName.Text = P.Name;
             txtVersion.Text = P.Version.ToString();
@@ -115,8 +115,8 @@ namespace MCART.Forms
                 tabInteractions.Content = St.FeatNotAvailable;
             }
         }
-        private void BtnClose_Click(object sender, RoutedEventArgs e) => Close(); 
-        private void TrvAsm_Loaded(object sender, RoutedEventArgs e)
+        void BtnClose_Click(object sender, RoutedEventArgs e) => Close(); 
+        void TrvAsm_Loaded(object sender, RoutedEventArgs e)
         {
             if (trvAsm.Visibility == Visibility.Collapsed) return;
             foreach (var j in Plugin.PluginTree<IPlugin>(true))
@@ -131,7 +131,7 @@ namespace MCART.Forms
                 trvAsm.Items.Add(roth);
             }
         }
-        private void Itm_Selected(object sender, RoutedEventArgs e)
+        void Itm_Selected(object sender, RoutedEventArgs e)
         {
             ClrDetails();
             ShwDetails((IPlugin)((TreeViewItem)sender).Tag);

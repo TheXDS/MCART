@@ -91,9 +91,9 @@ namespace MCART.Controls
         }
 
         #region ValueConverters privados para controles.
-        private class Editvalconv : IValueConverter
+        class Editvalconv : IValueConverter
         {
-            private EditMode f;
+            EditMode f;
             internal Editvalconv(EditMode flg) { f = flg; }
             object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
             {
@@ -104,9 +104,9 @@ namespace MCART.Controls
                 return (Visibility)value == Visibility.Visible ? EditMode.All : EditMode.ReadOnly;
             }
         }
-        private class Editvalconv2 : IValueConverter
+        class Editvalconv2 : IValueConverter
         {
-            private EditMode f;
+            EditMode f;
             internal Editvalconv2(EditMode flg) { f = flg; }
             object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
             {
@@ -123,48 +123,48 @@ namespace MCART.Controls
         /// <summary>
         /// Anchura predeterminada de los botones.
         /// </summary>
-        private const double btnW = 24;
+        const double btnW = 24;
         /// <summary>
         /// Altura predeterminada de los botones.
         /// </summary>
-        private const double btnH = 20;
+        const double btnH = 20;
         /// <summary>
         /// <see cref="Thickness"/> predeterminado para algunos controles.
         /// </summary>
-        private static Thickness thk1 = new Thickness(5, 5, 5, 0);
+        static Thickness thk1 = new Thickness(5, 5, 5, 0);
 
-        private DockPanel pnlNav = new DockPanel()
+        DockPanel pnlNav = new DockPanel()
         {
             VerticalAlignment = VerticalAlignment.Center
         };
-        private TextBlock lblInfo = new TextBlock()
+        TextBlock lblInfo = new TextBlock()
         {
             Text = St.of_,
             Margin = new Thickness(5, 0, 5, 0)
         };
-        private Button btnFirst = new Button()
+        Button btnFirst = new Button()
         {
             Width=btnW,
             Content="⏮"
         };
-        private Button btnPrev = new Button()
+        Button btnPrev = new Button()
         {
             Width = btnW,
             Content = "◀"
         };
-        private Button btnNext = new Button()
+        Button btnNext = new Button()
         {
             Width = btnW,
             Content = "▶"
         };
-        private Button btnLast = new Button()
+        Button btnLast = new Button()
         {
             Width = btnW,
             Content = "⏭"
         };
 
         // TODO: Reemplazar por un posible nuevo control compatible con marca de agua.
-        private TextBox txtSearch = new TextBox()
+        TextBox txtSearch = new TextBox()
         {
             Width=100,
 
@@ -174,33 +174,33 @@ namespace MCART.Controls
             Background = null 
         };
 
-        private Button btnClseSearch = new Button()
+        Button btnClseSearch = new Button()
         {
             Width = btnW,
             Content = "X"
         };
-        private Button btnNew = new Button()
+        Button btnNew = new Button()
         {
             Height=20,
             Content=St.BtnNew,
             HorizontalAlignment = HorizontalAlignment.Center,
             Margin=thk1
         };
-        private Button btnEdit = new Button()
+        Button btnEdit = new Button()
         {
             Height = 20,
             Content = St.BtnEdit,
             HorizontalAlignment = HorizontalAlignment.Center,
             Margin = thk1
         };
-        private Button btnDel = new Button()
+        Button btnDel = new Button()
         {
             Height = 20,
             Content = St.BtnDel,
             HorizontalAlignment = HorizontalAlignment.Center,
             Margin = thk1
         };
-        private Button btnSave = new Button()
+        Button btnSave = new Button()
         {
             Height = 20,
             Content = St.BtnSave,
@@ -208,7 +208,7 @@ namespace MCART.Controls
             Margin = thk1,
             Visibility = Visibility.Collapsed
         };
-        private Button btnCncl = new Button()
+        Button btnCncl = new Button()
         {
             Height = 20,
             Content = St.Cncl,
@@ -216,31 +216,31 @@ namespace MCART.Controls
             Margin = thk1,
             Visibility = Visibility.Collapsed
         };
-        private TextBox txtPos = new TextBox()
+        TextBox txtPos = new TextBox()
         {
             Width = 40
         };
-        private TextBlock lblTot = new TextBlock();
+        TextBlock lblTot = new TextBlock();
         #endregion
 
         #region Miembros privados
         /// <summary>
         /// Lista a ser controlada de manera opcional.
         /// </summary>
-        private BindingListCollectionView view=null;
+        BindingListCollectionView view=null;
         /// <summary>
         /// Lista de filtros de búsqueda.
         /// </summary>
-        private List<string> flts = new List<string>();
+        List<string> flts = new List<string>();
         /// <summary>
         /// Lista de controles con Binding de datos a controlar.
         /// </summary>
-        private List<UIElement> ctrls = new List<UIElement>();
-        private bool wasNewPressed;
+        List<UIElement> ctrls = new List<UIElement>();
+        bool wasNewPressed;
         #endregion
 
         #region Propiedades de dependencia
-        private static Type T = typeof(NavigationBar);
+        static Type T = typeof(NavigationBar);
         /// <summary>
         /// Clave de propiedad de dependencia <see cref="HasItemsProperty"/>.
         /// </summary>
@@ -608,7 +608,7 @@ namespace MCART.Controls
         #endregion
 
         #region Métodos privados
-        private static void UpdtLayout(DependencyObject dd, DependencyPropertyChangedEventArgs e)
+        static void UpdtLayout(DependencyObject dd, DependencyPropertyChangedEventArgs e)
         {
             NavigationBar d = (NavigationBar)dd;
             int max = d.Max;
@@ -630,7 +630,7 @@ namespace MCART.Controls
             if (pos > 1) EnableControls(d.btnFirst, d.btnPrev);
             if (pos < max) EnableControls(d.btnNext, d.btnLast);
         }
-        private void GotoNormalMode()
+        void GotoNormalMode()
         {
             ShowControls(lblTot, txtPos);
             if (Max > 0) btnEdit.Visibility = Visibility.Visible;
@@ -639,14 +639,14 @@ namespace MCART.Controls
             ctrls.DisableControls();
             wasNewPressed = false;
         }
-        private void GotoEditMode()
+        void GotoEditMode()
         {
             btnEdit.Visibility = Visibility.Collapsed;
             SetValue(IsEditingProperty, true);
             lblInfo.Text = St.of_;
             ctrls.EnableControls();
         }
-        private string GenFilters(string s)
+        string GenFilters(string s)
         {
             StringBuilder x = new StringBuilder();
             foreach (string j in flts)
@@ -659,11 +659,11 @@ namespace MCART.Controls
         #endregion
 
         #region Botones
-        private void CnclSrch(object sender, RoutedEventArgs e)
+        void CnclSrch(object sender, RoutedEventArgs e)
         {
             txtSearch.Clear();
         }
-        private void BtnCncl_Click(object sender, RoutedEventArgs e)
+        void BtnCncl_Click(object sender, RoutedEventArgs e)
         {
             CancelEventArgs ev = new CancelEventArgs();
             Cancelling?.Invoke(this, ev);
@@ -675,7 +675,7 @@ namespace MCART.Controls
                 Cancelled?.Invoke(this, EventArgs.Empty);
             }
         }
-        private void First(object sender, RoutedEventArgs e)
+        void First(object sender, RoutedEventArgs e)
         {
             DependencyPropertyChangingEventArgs ev = new DependencyPropertyChangingEventArgs(PositionProperty, Position, 1);
             MovingToFirst?.Invoke(this, ev);
@@ -686,7 +686,7 @@ namespace MCART.Controls
                 MovedToFirst?.Invoke(this, ev);
             }
         }
-        private void Prev(object sender, RoutedEventArgs e)
+        void Prev(object sender, RoutedEventArgs e)
         {
             int cp = Position;
             DependencyPropertyChangingEventArgs ev = new DependencyPropertyChangingEventArgs(PositionProperty,cp, cp - 1);
@@ -698,7 +698,7 @@ namespace MCART.Controls
                 MovedToPrev?.Invoke(this, ev);
             }
         }
-        private void Nxt(object sender, RoutedEventArgs e)
+        void Nxt(object sender, RoutedEventArgs e)
         {
             int cp = Position;
             DependencyPropertyChangingEventArgs ev = new DependencyPropertyChangingEventArgs(PositionProperty,cp, cp + 1);
@@ -710,7 +710,7 @@ namespace MCART.Controls
                 MovedToNext?.Invoke(this, ev);
             }
         }
-        private void Last(object sender, RoutedEventArgs e)
+        void Last(object sender, RoutedEventArgs e)
         {
             int cp = Max;
             DependencyPropertyChangingEventArgs ev = new DependencyPropertyChangingEventArgs(PositionProperty,Position, cp);
@@ -722,7 +722,7 @@ namespace MCART.Controls
                 MovedToLast?.Invoke(this, ev);
             }
         }
-        private void TxtPos_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        void TxtPos_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!int.TryParse(e.Text, out int v)) return;
             e.Handled = true;
@@ -739,7 +739,7 @@ namespace MCART.Controls
                 txtPos.SelectAll();
             }
         }
-        private void TxtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        void TxtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (string.IsNullOrEmpty(txtSearch.Text))
             {
@@ -766,7 +766,7 @@ namespace MCART.Controls
                 SearchEntered?.Invoke(this, new ValueEventArgs<string>(txtSearch.Text));
             }
         }
-        private void BtnNew_Click(object sender, RoutedEventArgs e)
+        void BtnNew_Click(object sender, RoutedEventArgs e)
         {
             CancelEventArgs ev = new CancelEventArgs();
             CreatingNew?.Invoke(this, ev);
@@ -780,7 +780,7 @@ namespace MCART.Controls
                 NewCreated?.Invoke(this, EventArgs.Empty);
             }
         }
-        private void BtnEdit_Click(object sender, RoutedEventArgs e)
+        void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
             CancelEventArgs ev = new CancelEventArgs();
             Editing?.Invoke(this, ev);
@@ -791,7 +791,7 @@ namespace MCART.Controls
                 EditEntered?.Invoke(this, EventArgs.Empty);
             }
         }
-        private void BtnDel_Click(object sender, RoutedEventArgs e)
+        void BtnDel_Click(object sender, RoutedEventArgs e)
         {
             CancelEventArgs ev = new CancelEventArgs();
             Deleting?.Invoke(this, ev);
@@ -809,7 +809,7 @@ namespace MCART.Controls
             }
             ItemDeleted?.Invoke(this, EventArgs.Empty);
         }
-        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             ItemSavingEventArgs ev = new ItemSavingEventArgs(view.CurrentAddItem, wasNewPressed);
             Saving?.Invoke(this, ev);
