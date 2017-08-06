@@ -74,6 +74,14 @@ namespace MCART.Resources
         /// </returns>
         public static string Include(string text) => $"Incluya {text}";
         /// <summary>
+        /// Devuelve una cadena con el texto "{<paramref name="text"/>} ya se ha iniciado.".
+        /// </summary>
+        /// <param name="text">Texto a formatear.</param>
+        /// <returns>
+        /// Una cadena con el formato "{<paramref name="text"/>} ya se ha iniciado.".
+        /// </returns>
+        public static string SrvAlreadyStarted(string text) => $"{text} ya se ha iniciado.";
+        /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="x"/>} no puede 
         /// ser {<paramref name="y"/>}".
         /// </summary>
@@ -186,7 +194,7 @@ namespace MCART.Resources
         public const string Search = "Buscar...";
         public const string Security = "Seguridad";
         public const string SetX = "Establecer {0}";
-        public const string Specified = "especificado";
+        public const string Specified = "especificado";        
         public const string StackUnderflow = "Subflujo de pila";
         public const string Symbols = "`~!@#$%^&*()-_=+\\|]}[{'\";:/?.>,<";
         public const string TargetMCARTV = "Versión destino de MCART";

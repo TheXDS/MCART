@@ -26,9 +26,6 @@
 //Preferir excepciones en lugar de continuar con código alternativo
 //#define PreferExceptions
 
-//Incluir implementaciones predeterminadas de interfaces / clases abstractas
-#define IncludeDefaultImplementations
-
 #endregion
 
 using System.Collections.Generic;

@@ -1,5 +1,5 @@
 ﻿//
-//  FileStreamExtensions.cs
+//  StreamExtensions.cs
 //
 //  This file is part of MCART
 //
@@ -26,37 +26,38 @@ using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 using MCART.Attributes;
+
 namespace MCART.Types.Extensions
 {
     /// <summary>
-    /// Extensiones de la clase <see cref="FileStream"/>.
+    /// Extensiones de la clase <see cref="Stream"/>.
     /// </summary>
-    public static class FileStreamExtensions
+    public static class StreamExtensions
     {
         /// <summary>
-        /// Destruye el contenido del <see cref="FileStream"/>.
+        /// Destruye el contenido del <see cref="Stream"/>.
         /// </summary>
-        /// <param name="fs"><see cref="FileStream"/> del cual este método es
+        /// <param name="fs"><see cref="Stream"/> del cual este método es
         /// una extensión.</param>
         [Unsecure]
-        public static void Destroy(this FileStream fs)
+        public static void Destroy(this Stream fs)
         {
             try { fs.SetLength(0); }
             catch { throw; }
         }
         /// <summary>
-        /// Salta la cantidad especificada de bytes en el archivo desde la
+        /// Salta la cantidad especificada de bytes en la secuencia desde la
         /// posición actual.
         /// </summary>
-        /// <param name="fs"><see cref="FileStream"/> del cual este método es
+        /// <param name="fs"><see cref="Stream"/> del cual este método es
         /// una extensión.</param>
         /// <param name="bytesToSkip">Bytes a saltar.</param>
         /// <exception cref="T:System.ArgumentOutOfRangeException">
         /// Se produce si <paramref name="bytesToSkip"/> es menor a cero, o si
-        /// se extiende fuera del archivo.
+        /// se extiende fuera de la secuencia.
         /// </exception>
         [Thunk]
-        public static void Skip(this FileStream fs, int bytesToSkip)
+        public static void Skip(this Stream fs, int bytesToSkip)
         {
             if (bytesToSkip < 0 || (fs.Position + bytesToSkip) > fs.Length)
                 throw new ArgumentOutOfRangeException(nameof(bytesToSkip));
@@ -64,15 +65,15 @@ namespace MCART.Types.Extensions
             catch { throw; }
         }
         /// <summary>
-        /// Lee una cadena desde el archivo y avanza la posición de lectura
+        /// Lee una cadena desde la secuencia y avanza la posición de lectura
         /// hasta después del último carácter leído.
         /// </summary>
         /// <returns>La cadena que ha sido leída.</returns>
-        /// <param name="fs"><see cref="FileStream"/> del cual este método es
+        /// <param name="fs"><see cref="Stream"/> del cual este método es
         /// una extensión.</param>
         /// <param name="count">Cantidad de caracteres a leer.</param>
         /// <param name="encoding"><see cref="Encoding"/> a utilizar.</param>
-        public static string ReadString(this FileStream fs, int count, Encoding encoding)
+        public static string ReadString(this Stream fs, int count, Encoding encoding)
         {
             string outp = string.Empty;
             BinaryReader br = new BinaryReader(fs, encoding);
@@ -83,60 +84,71 @@ namespace MCART.Types.Extensions
             }
             catch { throw; }
         }
+        
         /// <summary>
-        /// Lee una cadena desde el archivo y avanza la posición de lectura
+        /// Obtiene la cantidad de bytes restantes desde la posición actual.
+        /// </summary>
+        /// <param name="fs"><see cref="Stream"/> del cual este método es
+        /// una extensión.</param>
+        /// <returns>
+        /// La cantidad de bytes restantes desde la posición actual.
+        /// </returns>
+        public static long RemainingBytes(this Stream fs) => fs.Length - fs.Position;
+
+        /// <summary>
+        /// Lee una cadena desde la secuencia y avanza la posición de lectura
         /// hasta después del último carácter Unicode leído.
         /// </summary>
         /// <returns>La cadena que ha sido leída.</returns>
-        /// <param name="fs"><see cref="FileStream"/> del cual este método es
+        /// <param name="fs"><see cref="Stream"/> del cual este método es
         /// una extensión.</param>
         /// <param name="count">Cantidad de caracteres a leer.</param>
         [Thunk]
-        public static string ReadString(this FileStream fs, int count)
+        public static string ReadString(this Stream fs, int count)
         {
             try { return ReadString(fs, count, Encoding.Unicode); }
             catch { throw; }
         }
         /// <summary>
-        /// Lee asíncronamente una cadena desde el archivo y avanza la posición
+        /// Lee asíncronamente una cadena desde la secuencia y avanza la posición
         /// de lectura hasta después del último carácter Unicode leído.
         /// </summary>
         /// <returns>La cadena que ha sido leída.</returns>
-        /// <param name="fs"><see cref="FileStream"/> del cual este método es
+        /// <param name="fs"><see cref="Stream"/> del cual este método es
         /// una extensión.</param>
         /// <param name="count">Cantidad de caracteres a leer.</param>
         [Thunk]
-        public static async Task<string> ReadStringAsync(this FileStream fs, int count)
+        public static async Task<string> ReadStringAsync(this Stream fs, int count)
         {
             try { return await Task.Run(() => ReadString(fs, count)); }
             catch { throw; }
         }
         /// <summary>
-        /// Lee asíncronamente una cadena desde el archivo y avanza la posición
+        /// Lee asíncronamente una cadena desde la secuencia y avanza la posición
         /// de lectura hasta después del último carácter leído.
         /// </summary>
         /// <returns>La cadena que ha sido leída.</returns>
         /// <param name="fs">
-        /// <see cref="FileStream"/> del cual este método es una extensión.
+        /// <see cref="Stream"/> del cual este método es una extensión.
         /// </param>
         /// <param name="count">Cantidad de caracteres a leer.</param>
         /// <param name="encoding"><see cref="Encoding"/> a utilizar.</param>
         [Thunk]
-        public static async Task<string> ReadStringAsync(this FileStream fs, int count, Encoding encoding)
+        public static async Task<string> ReadStringAsync(this Stream fs, int count, Encoding encoding)
         {
             try { return await Task.Run(() => ReadString(fs, count, encoding)); }
             catch { throw; }
         }
         /// <summary>
         /// Lee asíncronamente una cadena desde la posición actual hasta el
-        /// final del archivo.
+        /// final de la secuencia.
         /// </summary>
         /// <param name="fs">
-        /// <see cref="FileStream"/> del cual este método es una extensión.
+        /// <see cref="Stream"/> del cual este método es una extensión.
         /// </param>
         /// <returns>La cadena que ha sido leída.</returns>
         [Thunk]
-        public static async Task<string> ReadStringToEndAsync(this FileStream fs)
+        public static async Task<string> ReadStringToEndAsync(this Stream fs)
         {
             try { return await ReadStringToAsync(fs, fs.Length); }
             catch { throw; }
@@ -146,13 +158,13 @@ namespace MCART.Types.Extensions
         /// alcanzar la posición especificada.
         /// </summary>
         /// <param name="fs">
-        /// <see cref="FileStream"/> del cual este método es una extensión.
+        /// <see cref="Stream"/> del cual este método es una extensión.
         /// </param>
         /// <param name="pos">
         /// Posición hasta la cual se leerá la cadena.
         /// </param>
         /// <returns>La cadena que ha sido leída.</returns>
-        public static async Task<string> ReadStringToAsync(this FileStream fs, long pos)
+        public static async Task<string> ReadStringToAsync(this Stream fs, long pos)
         {
             try
             {
@@ -170,30 +182,30 @@ namespace MCART.Types.Extensions
         }
         /// <summary>
         /// Escribe un conjunto de objetos <see cref="byte"/> en el 
-        /// <see cref="FileStream"/>.
+        /// <see cref="Stream"/>.
         /// </summary>
         /// <param name="fs">
-        /// <see cref="FileStream"/> del cual este método es una extensión.
+        /// <see cref="Stream"/> del cual este método es una extensión.
         /// </param>
         /// <param name="bytes">Colección de objetos <see cref="byte"/> a
-        /// escribir en el <see cref="FileStream"/>.</param>
+        /// escribir en el <see cref="Stream"/>.</param>
         [Thunk]
-        public static void WriteBytes(this FileStream fs, params byte[] bytes)
+        public static void WriteBytes(this Stream fs, params byte[] bytes)
         {
             try { fs.Write(bytes, 0, bytes.Length); }
             catch { throw; }
         }
         /// <summary>
         /// Escribe un conjunto de colecciones <see cref="byte"/> en el 
-        /// <see cref="FileStream"/>.
+        /// <see cref="Stream"/>.
         /// </summary>
         /// <param name="fs">
-        /// <see cref="FileStream"/> del cual este método es una extensión.
+        /// <see cref="Stream"/> del cual este método es una extensión.
         /// </param>
         /// <param name="bytes">Colecciones de <see cref="byte"/> a escribir en
-        /// el <see cref="FileStream"/>.</param>
+        /// el <see cref="Stream"/>.</param>
         [Thunk]
-        public static void WriteSeveralBytes(this FileStream fs, params byte[][] bytes)
+        public static void WriteSeveralBytes(this Stream fs, params byte[][] bytes)
         {
             try { foreach (byte[] x in bytes) { fs.Write(x, 0, x.Length); } }
             catch { throw; }
