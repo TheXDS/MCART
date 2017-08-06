@@ -74,13 +74,21 @@ namespace MCART.Resources
         /// </returns>
         public static string Include(string text) => $"Incluya {text}";
         /// <summary>
+        /// Devuelve una cadena con el texto "{<paramref name="text"/>} ha sido aceptado.".
+        /// </summary>
+        /// <param name="text">Texto a formatear.</param>
+        /// <returns>
+        /// Una cadena con el formato "{<paramref name="text"/>} ha sido aceptado.".
+        /// </returns>
+        public static string XAccepted(string text) => $"{text} ha sido aceptado.";
+        /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} ya se ha iniciado.".
         /// </summary>
         /// <param name="text">Texto a formatear.</param>
         /// <returns>
         /// Una cadena con el formato "{<paramref name="text"/>} ya se ha iniciado.".
         /// </returns>
-        public static string SrvAlreadyStarted(string text) => $"{text} ya se ha iniciado.";
+        public static string XAlreadyStarted(string text) => $"{text} ya se ha iniciado.";
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="x"/>} no puede 
         /// ser {<paramref name="y"/>}".
@@ -92,6 +100,46 @@ namespace MCART.Resources
         /// {<paramref name="y"/>}".
         /// </returns>
         public static string XCannotBeY(string x, string y) => $"{x} no puede ser {y}";
+        /// <summary>
+        /// Devuelve una cadena con el texto "{<paramref name="text"/>} se ha desconectado.".
+        /// </summary>
+        /// <param name="text">Texto a formatear.</param>
+        /// <returns>
+        /// Una cadena con el formato "{<paramref name="text"/>} se ha desconectado.".
+        /// </returns>
+        public static string XDisconnected(string text) => $"{text} se ha desconectado.";
+        /// <summary>
+        /// Devuelve una cadena con el texto "{<paramref name="text"/>} se encuentra en fase beta.".
+        /// </summary>
+        /// <param name="text">Texto a formatear.</param>
+        /// <returns>
+        /// Una cadena con el formato "{<paramref name="text"/>} se encuentra en fase beta.".
+        /// </returns>
+        public static string XIsBeta(string text) => $"{text} se encuentra en fase beta.";
+        /// <summary>
+        /// Devuelve una cadena con el texto "{<paramref name="text"/>} ha sido rechazado.".
+        /// </summary>
+        /// <param name="text">Texto a formatear.</param>
+        /// <returns>
+        /// Una cadena con el formato "{<paramref name="text"/>} ha sido rechazado.".
+        /// </returns>
+        public static string XRejected(string text) => $"{text} ha sido rechazado.";
+        /// <summary>
+        /// Devuelve una cadena con el texto "{<paramref name="text"/>} se ha iniciado.".
+        /// </summary>
+        /// <param name="text">Texto a formatear.</param>
+        /// <returns>
+        /// Una cadena con el formato "{<paramref name="text"/>} se ha iniciado.".
+        /// </returns>
+        public static string XStarted(string text) => $"{text} se ha iniciado.";
+        /// <summary>
+        /// Devuelve una cadena con el texto "{<paramref name="text"/>} se ha detenido.".
+        /// </summary>
+        /// <param name="text">Texto a formatear.</param>
+        /// <returns>
+        /// Una cadena con el formato "{<paramref name="text"/>} se ha detenido.".
+        /// </returns>
+        public static string XStopped(string text) => $"{text} se ha detenido.";
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="unquoted"/>}
         /// '{<paramref name="quoted"/>}'".
@@ -203,14 +251,17 @@ namespace MCART.Resources
         public const string TheAssembly = "El ensamblado";
         public const string TheClass = "La clase";
         public const string TheClient = "El cliente";
+        public const string TheConn = "La conexión";
         public const string TheEvent = "El evento";
         public const string TheFile = "El archivo";
         public const string TheFunc = "La función";
         public const string TheGraphView = "El controlador de gráficas";
         public const string TheInterface = "La interfaz";
         public const string TheLicense = "La licencia";
+        public const string TheListener = "El escucha";
         public const string TheObj = "El objeto";
         public const string ThePlugin = "El Plugin";
+        public const string TheProtocol = "El protocolo";
         public const string TheSrv = "El servidor";
         public const string TheTask = "La tarea";
         public const string TheType = "El tipo";
@@ -229,11 +280,11 @@ namespace MCART.Resources
         public const string Usr = "Usuario";
         public const string Ver = "Versión";
         public const string XAlreadyExists = "{0} ya existe.";
-        public const string XCncl = "Operación cancelada por {0}";
-        public const string XDisabled = "{0} se ha deshabilitado";
+        public const string XCncl = "Operación cancelada por {0}.";
+        public const string XDisabled = "{0} se ha deshabilitado.";
         public const string XDoesntContainY = "{0} no contiene {1}";
-        public const string XFoundError = "{0} ha encontrado un error";
-        public const string XIsInvalid = "{0} no es válido";
+        public const string XFoundError = "{0} ha encontrado un error.";
+        public const string XIsInvalid = "{0} no es válido.";
         public const string XMissing = "Falta {0}";
         public const string XNotCancellable = "{0} no es cancelable.";
         public const string XNotFound = "{0} no ha sido encontrado.";

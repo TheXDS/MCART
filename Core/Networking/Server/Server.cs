@@ -26,6 +26,9 @@
 //Preferir excepciones en lugar de continuar con código alternativo
 //#define PreferExceptions
 
+//Activar funciones adicionales de logging.
+#define EnableLogging
+
 #endregion
 
 using System;
@@ -33,7 +36,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
-
+using St = MCART.Resources.Strings;
 namespace MCART.Networking.Server
 {
     /// <summary>
@@ -42,8 +45,8 @@ namespace MCART.Networking.Server
     public class Server<TClient> where TClient : Client
     {
         /// <summary>
-        /// Tiempo de espera antes de realizar una desconexión forzada al
-        /// cerrar el servidor.
+        /// Tiempo de espera en milisegundos antes de realizar una desconexión
+        /// forzada al cerrar el servidor.
         /// </summary>
         const int disconnectionTimeout = 15000;
 
@@ -53,7 +56,7 @@ namespace MCART.Networking.Server
         public const int defaultPort = 51220;
 
         /// <summary>
-        /// Lista de objetos <see cref="Client"/>conectados a este servidor.
+        /// Lista de objetos <see cref="Client"/> conectados a este servidor.
         /// </summary>
         internal List<TClient> clients = new List<TClient>();
 
@@ -73,6 +76,21 @@ namespace MCART.Networking.Server
         /// sirviendo a clientes (vivo)
         /// </summary>
         bool _isAlive;
+
+#if EnableLogging
+        /// <summary>
+        /// Controla el evento <see cref="Logging"/>.
+        /// </summary>
+        /// <param name="sender">Objeto que ha generado el evento.</param>
+        /// <param name="e">Argumentos del evento.</param>
+        public delegate void LogEventHandler(object sender, Events.LoggingEventArgs e);
+
+        /// <summary>
+        /// Ocurre cuando el servidor desea reportar un cambio de estado, o 
+        /// enviar un mensaje a la interfaz del servidor.
+        /// </summary>
+        public event LogEventHandler Logging;
+#endif
 
         /// <summary>
         /// Encapsula <see cref="TcpListener.AcceptTcpClientAsync"/> para permitir cancelar la tarea cuando el servidor 
@@ -99,6 +117,9 @@ namespace MCART.Networking.Server
                 catch { throw; }
 #endif
             finally { bewaiting = false; } //detener el lambda de espera...
+#if EnableLogging
+            Logging(this, new Events.LoggingEventArgs(St.XStopped(St.TheListener)));
+#endif
             //Devolver null. Serve() se encarga de manejar correctamente esto
             return null;
         }
@@ -113,6 +134,11 @@ namespace MCART.Networking.Server
             clients.Add(client);
             if (prot.ClientWelcome(client, this))
             {
+#if EnableLogging
+                Logging(this, new Events.LoggingEventArgs(
+                    St.XAccepted(St.TheClient)));
+#endif
+
                 /*
 				 * ClientBye será llamado por una función
 				 * dentro de la clase Client, que será
@@ -124,9 +150,16 @@ namespace MCART.Networking.Server
 				 */
                 while (client.IsAlive)
                     prot.ClientAttendant(client, this, await client.RecieveAsync());
+#if EnableLogging
+                Logging(this, new Events.LoggingEventArgs(St.XDisconnected(St.TheClient)));
+#endif
             }
             else
             {
+#if EnableLogging
+                Logging(this, new Events.LoggingEventArgs(St.XRejected(St.TheClient)));
+#endif
+
                 if ((bool)client?.IsAlive) client.TcpClient.Close();
             }
             if ((bool)clients?.Contains(client)) clients.Remove(client);
@@ -148,8 +181,12 @@ namespace MCART.Networking.Server
         /// </exception>
         public Server(Protocol<TClient> protocol, IPEndPoint ep = null)
         {
-            if (ReferenceEquals(protocol, null)) throw new ArgumentNullException(nameof(protocol));
+            if (protocol.IsNull()) throw new ArgumentNullException(nameof(protocol));
             prot = protocol;
+#if EnableLogging
+            if (!prot.GetAttr<Attributes.BetaAttribute>().IsNull())
+                Logging(this, new Events.LoggingEventArgs(St.Warn(St.XIsBeta(St.TheProtocol))));
+#endif
             conns = new TcpListener(ep ?? new IPEndPoint(IPAddress.Any, defaultPort));
             Serve().Start();
         }
@@ -160,10 +197,19 @@ namespace MCART.Networking.Server
         public async Task Serve()
         {
             if (_isAlive)
+            {
+#if EnableLogging
+                Logging(this, new Events.LoggingEventArgs(St.XAlreadyStarted(St.TheSrv)));
+#endif
 #if PreferExceptions
-                throw new InvalidOperationException(St.SrvAlreadyStarted(St.TheSrv));
+                throw new InvalidOperationException(St.XAlreadyStarted(St.TheSrv));
 #else
                 return;
+#endif
+            }
+
+#if EnableLogging
+            Logging(this, new Events.LoggingEventArgs(St.XStarted(St.TheSrv)));
 #endif
             _isAlive = true;
             List<Task> clwaiter = new List<Task>();
@@ -171,7 +217,7 @@ namespace MCART.Networking.Server
             while (_isAlive)
             {
                 TcpClient c = await GetClient();
-                if (c != null)
+                if (!c.IsNull())
                 {
                     Task t = AttendClient(Objects.New<TClient>(new object[] { c, this }));
                     clwaiter.Add(t);

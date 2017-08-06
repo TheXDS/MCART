@@ -25,6 +25,31 @@ using System.ComponentModel;
 namespace MCART.Events
 {
     /// <summary>
+    /// Incluye información de evento para cualquier clase con eventos de
+    /// logging (bitácora).
+    /// </summary>
+    public class LoggingEventArgs : ValueEventArgs<string>
+    {
+        /// <summary>
+        /// Objeto relacionado a esta entrada de log.
+        /// </summary>
+        public readonly object Obj;
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="LoggingEventArgs"/>, sin definir un objeto relacionado.
+        /// </summary>
+        /// <param name="x">Mensaje de esta entrada de log.</param>
+        public LoggingEventArgs(string x) : base(x) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="LoggingEventArgs"/>, definiendo un objeto relacionado.
+        /// </summary>
+        /// <param name="obj">Objeto relacionado a esta entrada de log.</param>
+        /// <param name="x">Mensaje de esta entrada de log.</param>
+        public LoggingEventArgs(object obj, string x) : base(x) { Obj = obj; }
+    }
+
+    /// <summary>
     /// Incluye información de evento para cualquier clase con eventos de recepción de datos.
     /// </summary>
     public class IncommingDataEventArgs : EventArgs
@@ -34,10 +59,10 @@ namespace MCART.Events
         /// </summary>
         /// <param name="data">Colección de <see cref="byte"/> con los datos recibidos.</param>
         public IncommingDataEventArgs(byte[] data) { Data = data; }
-		/// <summary>
-		/// Obtiene un arreglo de <see cref="byte"/> con los datos recibidos.
-		/// </summary>
-		public readonly byte[] Data;
+        /// <summary>
+        /// Obtiene un arreglo de <see cref="byte"/> con los datos recibidos.
+        /// </summary>
+        public readonly byte[] Data;
     }
 
     /// <summary>
@@ -125,7 +150,7 @@ namespace MCART.Events
         /// <see cref="ValueEventArgs{T}"/>.
         /// </summary>
         /// <param name="x">Objeto a convertir.</param>
-        public static implicit operator ValueEventArgs<T>(ValueChangingEventArgs<T> x) =>new ValueEventArgs<T>(x.NewValue);
+        public static implicit operator ValueEventArgs<T>(ValueChangingEventArgs<T> x) => new ValueEventArgs<T>(x.NewValue);
     }
 
     /// <summary>
@@ -191,7 +216,7 @@ namespace MCART.Events
         /// <see cref="ItemSavedEventArgs"/>.
         /// </summary>
         /// <param name="x">Objeto a convertir.</param>
-        public static implicit operator ItemSavedEventArgs(ItemSavingEventArgs x)=> new ItemSavedEventArgs(x.Item,x.IsItemNew);
+        public static implicit operator ItemSavedEventArgs(ItemSavingEventArgs x) => new ItemSavedEventArgs(x.Item, x.IsItemNew);
     }
     /// <summary>
     /// Contiene información de evento para cualquier clase con eventos donde 

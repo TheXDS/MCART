@@ -24,6 +24,7 @@
 #if IncludeExampleImplementations
 
 using System.Collections.Generic;
+using System.IO;
 using static System.Text.Encoding;
 
 namespace MCART.Networking.Server.Protocols
@@ -31,6 +32,8 @@ namespace MCART.Networking.Server.Protocols
     /// <summary>
     /// Protocolo simple de chat.
     /// </summary>
+    [Attributes.Beta]
+    [Attributes.Unsecure]
     public class LightChat : Protocol<Client<string>>
     {
         /// <summary>
@@ -162,7 +165,7 @@ namespace MCART.Networking.Server.Protocols
         /// <param name="data">Datos recibidos desde el cliente.</param>
         public override void ClientAttendant(Client<string> client, Server<Client<string>> server, byte[] data)
         {
-            using (var br = new System.IO.BinaryReader(new System.IO.MemoryStream(data)))
+            using (var br = new BinaryReader(new MemoryStream(data)))
             {
                 switch ((Command)br.ReadByte())
                 {
@@ -176,7 +179,9 @@ namespace MCART.Networking.Server.Protocols
                                 if (!Users[usr].Banned)
                                 {
                                     client.userObj = usr;
+                                    server.Broadcast(NewMsg($"{client.userObj} ha iniciado sesión."), client);
                                     client.Send(OkMsg());
+                                    client.Send(NewMsg("Has iniciado sesión."));
                                 }
                                 else client.Send(NewErr(ErrCodes.Banned));
                             }
@@ -187,9 +192,55 @@ namespace MCART.Networking.Server.Protocols
                         if (client.userObj.IsEmpty()) client.Send(NewErr(ErrCodes.NoLogin));
                         else
                         {
-                            server.Broadcast(NewMsg($"{client.userObj} ha cerrado sesión."));
+                            server.Broadcast(NewMsg($"{client.userObj} ha cerrado sesión."), client);
+                            client.Send(OkMsg());
+                            client.Send(NewMsg("Has cerrado sesión."));
                             client.userObj = null;
                             client.Disconnect();
+                        }
+                        break;
+                    case Command.List:
+                        using (var os = new MemoryStream())
+                        {
+                            using (var bw = new BinaryWriter(os))
+                            {
+                                bw.Write((byte)RetVal.Ok);
+                                bw.Write(server.clients.Count);
+                                foreach (var j in server.clients)
+                                    if (!j.userObj.IsEmpty() && j.IsNot(client))
+                                        bw.Write(j.userObj);
+                                client.Send(os.ToArray());
+                            }
+                        }
+                        break;
+                    case Command.Say:
+                        if (client.userObj.IsEmpty()) client.Send(NewErr(ErrCodes.NoLogin));
+                        else
+                        {
+                            string msg = br.ReadString();
+                            server.Broadcast(NewMsg($"{client.userObj} dice al grupo: {msg}"),client);
+                            client.Send(OkMsg());
+                            client.Send(NewMsg($"Dijiste: {msg}"));
+                        }
+                        break;
+                    case Command.SayTo:
+                        if (client.userObj.IsEmpty()) client.Send(NewErr(ErrCodes.NoLogin));
+                        else
+                        {
+                            string dest = br.ReadString();
+                            string msg = br.ReadString();
+
+                            foreach (var j in server.clients)
+                            {
+                                if (j.userObj == dest)
+                                {
+                                    j.Send(NewMsg($"{client.userObj} te dice: {msg}"));
+                                    client.Send(OkMsg());
+                                    client.Send(NewMsg($"Dijiste a {dest}: {msg}"));
+                                    break;
+                                }
+                                else client.Send(NewErr(ErrCodes.InvalidInfo));
+                            }
                         }
                         break;
                     default:
@@ -228,9 +279,9 @@ namespace MCART.Networking.Server.Protocols
         /// </returns>
         private byte[] OkMsg(byte[] data)
         {
-            using (var os = new System.IO.MemoryStream())
+            using (var os = new MemoryStream())
             {
-                using (var bw = new System.IO.BinaryWriter(os))
+                using (var bw = new BinaryWriter(os))
                 {
                     bw.Write((byte)RetVal.Ok);
                     bw.Write(data);
