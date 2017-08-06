@@ -32,14 +32,6 @@ namespace MCART.Resources
     /// </summary>
     public static class RTInfo
     {
-        static bool? RTS(object obj)
-        {
-            var minv = obj.GetAttr<MinMCARTVersionAttribute>();
-            var tgtv = obj.GetAttr<TargetMCARTVersionAttribute>();
-            if (minv.IsNull() || tgtv.IsNull()) return null;
-            Version vr = RTAssembly.GetName().Version;
-            return vr >= minv.Value && vr <= tgtv.Value;
-        }
         /// <summary>
         /// Obtiene la versión del ensamblado de MCART.
         /// </summary>
@@ -59,7 +51,14 @@ namespace MCART.Resources
         /// determinar la compatibilidad.
         /// </returns>
         /// <param name="asmbly">Ensamblado a comprobar.</param>
-        public static bool? RTSupport(Assembly asmbly) => RTS(asmbly);
+        public static bool? RTSupport(Assembly asmbly)
+        {
+            var minv = asmbly.GetAttr<MinMCARTVersionAttribute>();
+            var tgtv = asmbly.GetAttr<TargetMCARTVersionAttribute>();
+            if (minv.IsNull() || tgtv.IsNull()) return null;
+            Version vr = RTAssembly.GetName().Version;
+            return vr >= minv.Value && vr <= tgtv.Value;
+        }
         /// <summary>
         /// Comprueba si el plugin es compatible con esta versión de MCART
         /// </summary>
@@ -71,7 +70,14 @@ namespace MCART.Resources
         /// <typeparam name="T">
         /// Clase del <see cref="PluginSupport.IPlugin"/> a comprobar.
         /// </typeparam>
-        public static bool? RTSupport<T>() where T : PluginSupport.IPlugin => RTS(typeof(T));
+        public static bool? RTSupport<T>() where T : PluginSupport.IPlugin
+        {
+            var minv = typeof(T).GetAttr<MinMCARTVersionAttribute>();
+            var tgtv = typeof(T).GetAttr<TargetMCARTVersionAttribute>();
+            if (minv.IsNull() || tgtv.IsNull()) return null;
+            Version vr = RTAssembly.GetName().Version;
+            return vr >= minv.Value && vr <= tgtv.Value;
+        }
         /// <summary>
         /// Obtiene la ruta de los archivos de ayuda.
         /// </summary>

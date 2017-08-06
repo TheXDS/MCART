@@ -7,7 +7,7 @@
     <ProjectGuid>{EAFF4297-E338-4093-BB51-38C16B325B40}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>MCART</RootNamespace>
-    <AssemblyName>MCART-Win32</AssemblyName>
+    <AssemblyName>MCART</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -17,11 +17,11 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\Build\Debug\</OutputPath>
+    <OutputPath>..\Build\Debug\Win32\</OutputPath>
     <DefineConstants>TRACE;DEBUG;IncludeExampleImplementations</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\Build\Debug\MCART-Win32.xml</DocumentationFile>
+    <DocumentationFile>..\Build\Debug\Win32\MCART.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>

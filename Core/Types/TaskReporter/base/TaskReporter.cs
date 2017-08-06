@@ -38,7 +38,7 @@ namespace MCART.Types.TaskReporter
         DateTime? ts;
         bool cp, od, ge;
         float? curp;
-        Extensions.Timer Tmr;
+        Extensions.Timer Tmr = new Extensions.Timer();
         #endregion
         #region Propiedades públicas
         /// <summary>
@@ -379,7 +379,7 @@ namespace MCART.Types.TaskReporter
         /// Instancia del objeto que generará el evento.
         /// </param>
         /// <param name="e">Parámetros del evento.</param>
-        protected void RaiseBegun(object sender, BegunEventArgs e) => Begun(sender, e);
+        protected void RaiseBegun(object sender, BegunEventArgs e) => Begun?.Invoke(sender, e);
         /// <summary>
         /// Genera el evento <see cref="CancelRequested"/> desde una clase 
         /// derivada.
@@ -388,14 +388,14 @@ namespace MCART.Types.TaskReporter
         /// Instancia del objeto que generará el evento.
         /// </param>
         /// <param name="e">Parámetros del evento.</param>
-        protected void RaiseCancelRequested(object sender, System.ComponentModel.CancelEventArgs e) => CancelRequested(sender, e);
+        protected void RaiseCancelRequested(object sender, System.ComponentModel.CancelEventArgs e) => CancelRequested?.Invoke(sender, e);
         /// <summary>
         /// Genera el evento <see cref="Ended"/> desde una clase derivada.
         /// </summary>
         /// <param name="sender">
         /// Instancia del objeto que generará el evento.
         /// </param>
-        protected void RaiseEnded(object sender) => Ended(sender, EventArgs.Empty);
+        protected void RaiseEnded(object sender) => Ended?.Invoke(sender, EventArgs.Empty);
         /// <summary>
         /// Genera el evento <see cref="Error"/> desde una clase derivada.
         /// </summary>
@@ -403,7 +403,7 @@ namespace MCART.Types.TaskReporter
         /// Instancia del objeto que generará el evento.
         /// </param>
         /// <param name="e">Parámetros del evento.</param>
-        protected void RaiseError(object sender, Events.ExceptionEventArgs e) => Error(sender, e);
+        protected void RaiseError(object sender, Events.ExceptionEventArgs e) => Error?.Invoke(sender, e);
         /// <summary>
         /// Genera el evento <see cref="Reporting"/> desde una clase derivada.
         /// </summary>
@@ -411,7 +411,7 @@ namespace MCART.Types.TaskReporter
         /// Instancia del objeto que generará el evento.
         /// </param>
         /// <param name="e">Parámetros del evento</param>
-        protected void RaiseReporting(object sender, ProgressEventArgs e) => Reporting(sender, e);
+        protected void RaiseReporting(object sender, ProgressEventArgs e) => Reporting?.Invoke(sender, e);
         /// <summary>
         /// Genera el evento <see cref="Stopped"/> desde una clase derivada.
         /// </summary>
@@ -419,7 +419,7 @@ namespace MCART.Types.TaskReporter
         /// Instancia del objeto que generará el evento.
         /// </param>
         /// <param name="e">Parámetros del evento.</param>
-        protected void RaiseStopped(object sender, ProgressEventArgs e) => Stopped(sender, e);
+        protected void RaiseStopped(object sender, ProgressEventArgs e) => Stopped?.Invoke(sender, e);
         /// <summary>
         /// Genera el evento <see cref="TaskTimeout"/> desde una clase derivada.
         /// </summary>
@@ -427,7 +427,7 @@ namespace MCART.Types.TaskReporter
         /// Instancia del objeto que generará el evento.
         /// </param>
         /// <param name="e">Parámetros del evento.</param>
-        protected void RaiseTimeout(object sender, ProgressEventArgs e) => TaskTimeout(sender, e);
+        protected void RaiseTimeout(object sender, ProgressEventArgs e) => TaskTimeout?.Invoke(sender, e);
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="TaskReporter"/>.

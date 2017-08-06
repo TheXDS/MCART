@@ -22,8 +22,10 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #region Opciones de compilación
+
 //Activa comprobaciones más estrictas de versión de MCART.
 #define StrictMCARTVersioning
+
 #endregion
 
 using System;
@@ -50,7 +52,8 @@ namespace MCART.PluginSupport
         /// <returns><c>true</c> si el ensamblado contiene clases cargables como
         /// <see cref="IPlugin"/>; de no contrario, <c>false</c>.</returns>
         /// <param name="asmbly"><see cref="Assembly"/> a comprobar.</param>
-        [Thunk] public static bool IsVaild(Assembly asmbly) => asmbly.GetTypes().Any((arg) => typeof(IPlugin).IsAssignableFrom(arg));
+        [Thunk]
+        public static bool IsVaild(Assembly asmbly)=> asmbly.GetTypes().Any((arg) => typeof(IPlugin).IsAssignableFrom(arg));
         /// <summary>
         /// Comprueba si un ensamblado contiene un plugin del tipo especificado.
         /// </summary>
@@ -225,14 +228,14 @@ namespace MCART.PluginSupport
         public static List<T> LoadEverything<T>(string pluginsPath = ".", SearchOption search = SearchOption.TopDirectoryOnly, bool ignoreVersion = false)
         {
             List<T> outp = new List<T>();
-			foreach (FileInfo f in (new DirectoryInfo(pluginsPath)).GetFiles(PluginExtension, search))
+            foreach (FileInfo f in (new DirectoryInfo(pluginsPath)).GetFiles("*" + PluginExtension, search))
             {
-				try
-				{
-					Assembly a = Assembly.LoadFrom(f.FullName);
-					if (a.IsNot(Resources.RTInfo.RTAssembly) && IsVaild(a)) outp.AddRange(LoadAll<T>(a, ignoreVersion));
-				}
-				catch { System.Diagnostics.Debug.Print(St.Warn(string.Format(St.XIsInvalid, St.XYQuotes(St.TheAssembly, f.Name))));}
+                try
+                {
+                    Assembly a = Assembly.LoadFrom(f.FullName);
+                    if (a.IsNot(Resources.RTInfo.RTAssembly) && IsVaild(a)) outp.AddRange(LoadAll<T>(a, ignoreVersion));
+                }
+                catch { System.Diagnostics.Debug.Print(St.Warn(string.Format(St.XIsInvalid, St.XYQuotes(St.TheAssembly, f.Name)))); }
             }
             return outp;
         }
@@ -248,7 +251,7 @@ namespace MCART.PluginSupport
         {
             try
             {
-                foreach (FileInfo f in (new DirectoryInfo(pluginsPath)).GetFiles(PluginExtension, search))
+                foreach (FileInfo f in (new DirectoryInfo(pluginsPath)).GetFiles("*" + PluginExtension, search))
                 {
                     Assembly a = Assembly.LoadFrom(f.FullName);
                     if (Has<T>(a)) return Load<T>(a, ignoreVersion);
@@ -266,7 +269,7 @@ namespace MCART.PluginSupport
         /// <typeparam name="T">The 1st type parameter.</typeparam>
         public static FileInfo[] Dir<T>(string pluginsPath = ".", SearchOption search = SearchOption.TopDirectoryOnly)
         {
-            return (new DirectoryInfo(pluginsPath)).GetFiles(PluginExtension, search).Where((j)=>
+            return (new DirectoryInfo(pluginsPath)).GetFiles("*" + PluginExtension, search).Where((j) =>
             {
                 try
                 {
@@ -296,18 +299,18 @@ namespace MCART.PluginSupport
         /// Un <see cref="Dictionary{TKey, TValue}"/> con los ensamblados y 
         /// sus correspondientes plugins.
         /// </returns>
-        public static Dictionary<string,List<T>> PluginTree<T>(string pluginsPath = ".", string searchPattern="*", SearchOption search = SearchOption.TopDirectoryOnly, bool ignoreVersion = false)
+        public static Dictionary<string, List<T>> PluginTree<T>(string pluginsPath = ".", string searchPattern = "*", SearchOption search = SearchOption.TopDirectoryOnly, bool ignoreVersion = false)
         {
             if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
             Dictionary<string, List<T>> outp = new Dictionary<string, List<T>>();
             foreach (FileInfo f in (new DirectoryInfo(pluginsPath)).GetFiles(searchPattern + PluginExtension, search))
             {
-				try
-				{
-					Assembly a = Assembly.LoadFrom(f.FullName);
-					if (IsVaild(a)) outp.Add(f.Name, LoadAll<T>(a, ignoreVersion));
-				}
-				catch (Exception ex) { System.Diagnostics.Debug.Print(ex.Message);}
+                try
+                {
+                    Assembly a = Assembly.LoadFrom(f.FullName);
+                    if (IsVaild(a)) outp.Add(f.Name, LoadAll<T>(a, ignoreVersion));
+                }
+                catch (Exception ex) { System.Diagnostics.Debug.Print(ex.Message); }
             }
             return outp;
         }

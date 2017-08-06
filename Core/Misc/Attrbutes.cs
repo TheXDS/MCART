@@ -225,7 +225,7 @@ namespace MCART.Attributes
         /// <param name="minor">Número de versión menor.</param>
         /// <param name="build">Número de compilación.</param>
         /// <param name="rev">Número de revisión.</param>
-        public TargetMCARTVersionAttribute(int major, int minor, int build = 0, int rev = 0)
+        public TargetMCARTVersionAttribute(int major, int minor, int build = int.MaxValue, int rev = int.MaxValue)
             : base(new Version(major, minor, build, rev)) { }
         /// <summary>
         /// Inicializa unanueva instancia de la clase 

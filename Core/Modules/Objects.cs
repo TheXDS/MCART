@@ -282,18 +282,30 @@ namespace MCART
         /// <summary>
         /// Devuelve el atributo asociado a la declaración del objeto especificado
         /// </summary>
-        /// <typeparam name="T">Tipo de atributo a devolver. Debe heredar <see cref="Attribute"/></typeparam>
-        /// <param name="it">Objeto del cual se extraerá el atributo</param>
-        /// <returns>Un atributo del tipo <typeparamref name="T"/> con los datos asociados en la declaración del objeto</returns>
+        /// <typeparam name="T">Tipo de atributo a devolver. Debe heredar <see cref="Attribute"/>.</typeparam>
+        /// <param name="it"><see cref="System.Reflection.Assembly"/> del cual se extraerá el atributo.</param>
+        /// <returns>Un atributo del tipo <typeparamref name="T"/> con los datos asociados en la declaración del objeto.</returns>
+        [Thunk] public static T GetAttr<T>(this System.Reflection.Assembly it) where T : Attribute => (T)Attribute.GetCustomAttribute(it, typeof(T));
+        /// <summary>
+        /// Devuelve el atributo asociado a la declaración del objeto especificado.
+        /// </summary>
+        /// <typeparam name="T">Tipo de atributo a devolver. Debe heredar <see cref="Attribute"/>.</typeparam>
+        /// <param name="it">Objeto del cual se extraerá el atributo.</param>
+        /// <returns>Un atributo del tipo <typeparamref name="T"/> con los datos asociados en la declaración del objeto.</returns>
         [Thunk] public static T GetAttr<T>(this object it) where T : Attribute => (T)Attribute.GetCustomAttribute(it.GetType(), typeof(T));
         /// <summary>
-        /// Devuelve el atributo asociado a la declaración del tipo especificado
+        /// Devuelve el atributo asociado a la declaración del tipo
+        /// especificado.
         /// </summary>
         /// <typeparam name="T">Tipo de atributo a devolver. Debe heredar 
         /// <see cref="Attribute"/>.</typeparam>
-        /// <typeparam name="it">Tipo del cual se extraerá el atributo</typeparam>
-        /// <returns>Un atributo del tipo <typeparamref name="T"/> con los datos
-        ///  asociados en la declaración del tipo.</returns>
+        /// <typeparam name="it">
+        /// Tipo del cual se extraerá el atributo.
+        /// </typeparam>
+        /// <returns>
+        /// Un atributo del tipo <typeparamref name="T"/> con los datos 
+        /// asociados en la declaración del tipo.
+        /// </returns>
         [Thunk] public static T GetAttr<T, it>() where T : Attribute => (T)Attribute.GetCustomAttribute(typeof(it), typeof(T));
         /// <summary>
         /// Devuelve el atributo asociado a la declaración del tipo especificado

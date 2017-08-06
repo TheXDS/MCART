@@ -379,7 +379,7 @@ namespace System.Windows.Converters
                 h = Visibility.Visible;
             }
         }
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (string)value.IsEmpty() ? h : v;
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => ((string)value).IsEmpty() ? h : v;
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (Visibility)value == v ? value.ToString() : string.Empty;
     }
     /// <summary>

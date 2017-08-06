@@ -6,19 +6,19 @@
     <ProjectGuid>{99E6BBF2-0911-4A07-85C4-8A1BFC479F34}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>MCART</RootNamespace>
-    <AssemblyName>MCART-Gtk</AssemblyName>
+    <AssemblyName>MCART</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\Build\Debug\</OutputPath>
+    <OutputPath>..\Build\Debug\Gtk\</OutputPath>
     <DefineConstants>TRACE;DEBUG;IncludeExampleImplementations</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DocumentationFile>..\Build\Debug\MCART-Gtk.xml</DocumentationFile>
+    <DocumentationFile>..\Build\Debug\Gtk\MCART.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <Optimize>true</Optimize>

@@ -300,7 +300,7 @@ namespace MCART.PluginSupport
         /// <summary>
         /// Genera el evento <see cref="UIChangeRequested"/>.
         /// </summary>
-        public void RequestUIChange() => UIChangeRequested(this, new UIChangeEventArgs(MyMenu.AsReadOnly()));
+        public void RequestUIChange() => UIChangeRequested?.Invoke(this, new UIChangeEventArgs(MyMenu.AsReadOnly()));
         /// <summary>
         /// Genera el evento <see cref="PluginLoadFailed"/>.
         /// </summary>
@@ -308,29 +308,28 @@ namespace MCART.PluginSupport
         /// Parámetro opcional. <see cref="Exception"/> que ha causado que el
         /// <see cref="Plugin"/> no pueda inicializarse.
         /// </param>
-        protected void RaiseFailed(Exception ex = null) => PluginLoadFailed(this, new PluginFinalizedEventArgs(ex));
+        protected void RaiseFailed(Exception ex = null) => PluginLoadFailed?.Invoke(this, new PluginFinalizedEventArgs(ex));
         /// <summary>
         /// Genera el evento <see cref="PluginFinalizing"/>.
         /// </summary>
         /// <param name="reason">
         /// Parámetro opcional. Razón por la que el plugin va a finalizar.
         /// </param>
-        protected void RaiseFinalizing(PluginFinalizingEventArgs.FinalizingReason reason = PluginFinalizingEventArgs.FinalizingReason.Shutdown) => PluginFinalizing(this, new PluginFinalizingEventArgs(reason));
-
+        protected void RaiseFinalizing(PluginFinalizingEventArgs.FinalizingReason reason = PluginFinalizingEventArgs.FinalizingReason.Shutdown) => PluginFinalizing?.Invoke(this, new PluginFinalizingEventArgs(reason));
         /// <summary>
         /// Genera el evento <see cref="PluginLoaded"/>.
         /// </summary>
         /// <param name="tme">
         /// Instante de carga del <see cref="Plugin"/>.
         /// </param>
-        internal void RaisePlgLoad(DateTime tme) => PluginLoaded(this, new PluginLoadedEventArgs((DateTime.Now - tme).Ticks));
+        internal void RaisePlgLoad(DateTime tme) => PluginLoaded?.Invoke(this, new PluginLoadedEventArgs((DateTime.Now - tme).Ticks));        
         /// <summary>
         /// Releases unmanaged resources and performs other cleanup operations before the
         /// <see cref="Plugin"/> is reclaimed by garbage collection.
         /// </summary>
         ~Plugin()
         {
-            PluginFinalized(null, new PluginFinalizedEventArgs());
+            PluginFinalized?.Invoke(null, new PluginFinalizedEventArgs());
         }
     }
 }
