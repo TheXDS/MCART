@@ -143,15 +143,66 @@ namespace MCART.Types.TaskReporter
         public event TaskTimeoutEventHandler TaskTimeout;
         #endregion
         #region Métodos invalidables
+        /// <summary>
+        /// Genera el evento <see cref="Begun"/>. 
+        /// </summary>
         public abstract void Begin();
+        /// <summary>
+        /// Genera el evento <see cref="Begun"/> para una tarea que no puede
+        /// detenerse.
+        /// </summary>
         public abstract void BeginNonStop();
+        /// <summary>
+        /// Genera el evento <see cref="Ended"/> 
+        /// </summary>
         public abstract void End();
+        /// <summary>
+        /// Genera el evento <see cref="Error"/> 
+        /// </summary>
+        /// <param name="ex">
+        /// Parámetro opcional. <see cref="Exception"/> que ha causado la 
+        /// finalización de la tarea.
+        /// </param>
         public abstract void EndWithError(Exception ex = null);
+        /// <summary>
+        /// Genera el evento <see cref="Reporting"/> desde una tarea. 
+        /// </summary>
+        /// <param name="e">Argumentos del evento.</param>
         public abstract void Report(ProgressEventArgs e);
+        /// <summary>
+        /// Genera el evento <see cref="Reporting"/> desde una tarea. 
+        /// </summary>
+        /// <param name="helpText">
+        /// Texto de ayuda sobre el progreso de la tarea.
+        /// </param>
         public abstract void Report(string helpText);
+        /// <summary>
+        /// Genera el evento <see cref="Reporting"/> desde una tarea. 
+        /// </summary>
+        /// <param name="progress">Porcentaje de progreso de la tarea.</param>
+        /// <param name="helpText">
+        /// Texto de ayuda sobre el progreso de la tarea.
+        /// </param>
         public abstract void Report(float? progress = default(float?), string helpText = null);
+        /// <summary>
+        /// Genera el evento <see cref="Stopped"/> al interrumpir una tarea.
+        /// </summary>
+        /// <param name="e">Argumentos del evento.</param>
         public abstract void Stop(ProgressEventArgs e);
+        /// <summary>
+        /// Genera el evento <see cref="Stopped"/> al interrumpir una tarea.
+        /// </summary>
+        /// <param name="progress">Porcentaje de progreso de la tarea.</param>
+        /// <param name="helpText">
+        /// Texto de ayuda sobre el progreso de la tarea.
+        /// </param>
         public abstract void Stop(float? progress = default(float?), string helpText = null);
+        /// <summary>
+        /// Genera el evento <see cref="Stopped"/> al interrumpir una tarea.
+        /// </summary>
+        /// <param name="helpText">
+        /// Texto de ayuda sobre el progreso de la tarea.
+        /// </param>
         public abstract void Stop(string helpText);
         #endregion
         #region Métodos privados
