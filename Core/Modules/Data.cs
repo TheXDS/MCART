@@ -26,32 +26,68 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using System.Reflection;
+using System.CodeDom;
+using System.Text;
 
-namespace MCART
+namespace MCART.Data
 {
     /// <summary>
     /// Funciones especiales para bases de datos.
     /// </summary>
     public static partial class Data
     {
-        public SqlDbType AsSqlType(Type t)
+        public static SqlDbType AsSqlType(this Type t)
         {
-            if (t is )
+            if (t == typeof(int)) return SqlDbType.Int;
+            if (t == typeof(string)) return SqlDbType.VarChar;
+            if (t == typeof(bool)) return SqlDbType.Bit;
+            if (t == typeof(float)) return SqlDbType.Real;
+            if (t == typeof(double)) return SqlDbType.Float;
+            if (t == typeof(Int64)) return SqlDbType.BigInt;
+            if (t == typeof(DateTime)) return SqlDbType.DateTime;
+            if (t == typeof(Decimal)) return SqlDbType.Decimal;
+
+            // TODO: Incorporar más tipos...
+
+            throw new Exceptions.InvalidTypeException(t);
         }
+        /// <summary>
+        /// Crea un arreglo de <see cref="SqlParameter"/> a partir de los campos
+        /// públicos disponibles en la instancia provista de tipo 
+        /// <typeparamref name="T"/>. 
+        /// </summary>
+        /// <returns>The parameters.</returns>
+        /// <param name="data">Data.</param>
+        /// <typeparam name="T">The 1st type parameter.</typeparam>
         public static SqlParameter[] ToParams<T>(T data)
         {
             List<SqlParameter> outp = new List<SqlParameter>();
             foreach (FieldInfo j in typeof(T).GetFields())
-                outp.Add(new SqlParameter(j.Name, SqlDbType.Binary));
-
+                outp.Add(new SqlParameter(j.Name, j.FieldType.AsSqlType()) { Value = j.GetValue(data) });
             return outp.ToArray();
         }
-        public static SqlCommand InsertCommand<T>(T data)
+        /// <summary>
+        /// Genera un comando de inserción para la tabla especificada.
+        /// </summary>
+        /// <returns>
+        /// Un <see cref="SqlCommand"/> compuesto de una transacción de 
+        /// inserción de los datos provistos en la tabla especificada.
+        /// </returns>
+        /// <param name="table">Tabla a la cual insertar.</param>
+        /// <param name="data">Datos a insertar.</param>
+        /// <typeparam name="T">Tipo de los datos a ser insertados.</typeparam>
+        public static SqlCommand InsertCommand<T>(string table, T data)
         {
+            // TODO: verificar la validez del parámetro table.
+            if (table.IsEmpty()) throw new ArgumentNullException(nameof(table));
 
-            return new SqlCommand(
-            "Insert Into"
+            StringBuilder fields = new StringBuilder();
+            StringBuilder values = new StringBuilder();
+            SqlCommand cmd = new SqlCommand(
+                $"Insert Into {table} ({fields.ToString()}) values ({values.ToString()})"
             );
+            cmd.Parameters.AddRange(ToParams(data));
+            return cmd;
         }
     }
 }

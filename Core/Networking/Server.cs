@@ -1,8 +1,6 @@
 ﻿//
 //  Server.cs
-//  =========
-//  Funciones y clases para crear e implementar un servidor.
-//
+// 
 //  This file is part of MCART
 //
 //  Author:
@@ -43,11 +41,11 @@ using System.Threading.Tasks;
 
 namespace MCART.Networking.Server
 {
-	/// <summary>
-	/// Esta clase abstracta determina una serie de funciones a heredar por
-	/// una clase que provea de protocolos a un servidor.
-	/// </summary>
-	public abstract class Protocol<TClient> where TClient : Client
+    /// <summary>
+    /// Esta clase abstracta determina una serie de funciones a heredar por
+    /// una clase que provea de protocolos a un servidor.
+    /// </summary>
+    public abstract class Protocol<TClient> where TClient : Client
     {
         /// <summary>
         /// Atiende al cliente
@@ -216,7 +214,7 @@ namespace MCART.Networking.Server
 				 * llamar a la función de desconexión.
 				 */
                 while (client.IsAlive)
-                    prot.ClientAttendant(client, this, await client.ReceiveAsync());
+                    prot.ClientAttendant(client, this, await client.RecieveAsync());
             }
             else
             {
@@ -392,7 +390,7 @@ namespace MCART.Networking.Server
         /// <summary>
         /// Devuelve los datos que el cliente envía.
         /// </summary>
-        public byte[] Receive()
+        public byte[] Recieve()
         {
             List<byte> outp = new List<byte>();
             do
@@ -407,7 +405,7 @@ namespace MCART.Networking.Server
         /// <summary>
         /// Devuelve los datos recibidos una vez que el cliente los envía.
         /// </summary>
-        public async Task<byte[]> ReceiveAsync()
+        public async Task<byte[]> RecieveAsync()
         {
             List<byte> outp = new List<byte>();
             do
@@ -423,7 +421,7 @@ namespace MCART.Networking.Server
         /// Devuelve los datos recibidos una vez que el cliente los envía.
         /// </summary>
         /// <param name="cancellationToken">Token de cancelación de tarea.</param>
-        public async Task<byte[]> ReceiveAsync(CancellationToken cancellationToken)
+        public async Task<byte[]> RecieveAsync(CancellationToken cancellationToken)
         {
             List<byte> outp = new List<byte>();
             do
@@ -464,11 +462,12 @@ namespace MCART.Networking.Server
 
 #if IncludeDefaultImplementations
     namespace Protocols
-	{
-		/// <summary>
-		/// Protocolo simple de eco.
-		/// </summary>
-		public class EchoProtocol : Protocol<Client>
+    {
+        /// <summary>
+        /// Protocolo simple de eco.
+        /// </summary>
+        /// <remarks>Este protocolo utiliza TCP/IP, no IGMP.</remarks>
+        public class EchoProtocol : Protocol<Client>
         {
             /// <summary>
             /// Protocolo de atención normal.
@@ -500,6 +499,10 @@ namespace MCART.Networking.Server
                 /// Cerrar sesión.
                 /// </summary>
                 Logout,
+                /// <summary>
+                /// Devolver una lista de los usuarios conectados.
+                /// </summary>
+                List,
                 /// <summary>
                 /// Enviar un mensaje.
                 /// </summary>
@@ -542,13 +545,37 @@ namespace MCART.Networking.Server
             /// <param name="data">Datos recibidos desde el cliente.</param>
             public override void ClientAttendant(Client<string> client, Server<Client<string>> server, byte[] data)
             {
-                switch ((Command)data[0])
+                using (var ms = new System.IO.MemoryStream(data))
                 {
-                    case Command.Login:
-                        break;
-                    default:
-                        client.Send(new byte[] { (byte)RetVals.Err });
-                        break;
+                    switch ((Command)ms.ReadByte())
+                    {
+                        case Command.Login:
+                            /*
+                             * Descripción de estructura de comando:
+                             * Offset | Tamaño | Descripción
+                             * -------+--------+------------
+                             * 0x0001 | 1 byte | Longitud de campo de nombre de usuario.
+                             * 0x0002 | 0x0001 | Bytes Unicode que representan  el nombre de usuario.
+                             * 0x00nn | ->EOS  | Hash de contraseña.
+                            */
+                            byte usrlngth = (byte)ms.ReadByte();
+                            byte[] dt = new byte[usrlngth];
+                            ms.Read(dt, 1, usrlngth);
+                            string usr = System.Text.Encoding.Unicode.GetString(dt);
+
+                            if (Users.ContainsKey(usr))
+                            {
+
+                            }
+                            else client.Send(new byte[] { (byte)RetVals.Err });
+
+
+                            break;
+                        default:
+                            // Comando desconocido. Devolver error.
+                            client.Send(new byte[] { (byte)RetVals.Err });
+                            break;
+                    }
                 }
             }
             /// <summary>

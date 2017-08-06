@@ -48,7 +48,7 @@ namespace MCART.PluginSupport
         {
             if (!plugin.HasInteractions) throw new FeatureNotAvailableException();
             MenuItem mnu = new MenuItem() { Header = plugin.Name };
-            if (!string.IsNullOrEmpty(plugin.Description))
+            if (!plugin.Description.IsEmpty())
                 mnu.ToolTip = new ToolTip() { Content = plugin.Description };
             foreach (InteractionItem j in plugin.PluginInteractions)
             {
@@ -77,16 +77,16 @@ namespace MCART.PluginSupport
         /// contenidas por el <see cref="IPlugin"/>, en la propiedad
         /// <see cref="IPlugin.PluginInteractions"/>.
         /// </returns>
-        public static PanelT GetUIPanel<T,PanelT>(IPlugin plugin)
+        public static PanelT GetUIPanel<T, PanelT>(IPlugin plugin)
             where T : ButtonBase, new() where PanelT : Panel, new()
         {
             PanelT pnl = new PanelT();
-            foreach(InteractionItem j in plugin.PluginInteractions)
+            foreach (InteractionItem j in plugin.PluginInteractions)
             {
-                T a = j.AsButton<T>();                
+                T a = j.AsButton<T>();
                 try { a.Click += j.RoutedAction; }
                 catch (Exception ex) { Debug.Print(ex.Message); }
-                finally { pnl.Children.Add(a); }                
+                finally { pnl.Children.Add(a); }
             }
             return pnl;
         }

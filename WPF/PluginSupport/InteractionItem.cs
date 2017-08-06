@@ -117,7 +117,7 @@ namespace MCART.PluginSupport
         public MenuItem AsMenuItem()
         {
             MenuItem k = new MenuItem() { Header = Text };
-            if (!string.IsNullOrEmpty(Description))
+            if (!Description.IsEmpty())
                 k.ToolTip = new ToolTip() { Content = Description };
             if (!Icon.IsNull())
                 k.Icon = new Image() { Source = Icon };
@@ -139,7 +139,7 @@ namespace MCART.PluginSupport
         public T AsButton<T>() where T : ButtonBase, new()
         {
             ButtonBase k = new T();
-            if (!string.IsNullOrEmpty(Description))
+            if (!Description.IsEmpty())
                 k.ToolTip = new ToolTip() { Content = Description };
             if (!Icon.IsNull())
             {

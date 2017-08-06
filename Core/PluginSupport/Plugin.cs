@@ -111,17 +111,17 @@ namespace MCART.PluginSupport
                 try
                 {
                     string outp = this.GetAttr<LicenseFileAttribute>()?.Value;
-                    if (!string.IsNullOrEmpty(outp) && System.IO.File.Exists(outp))
+                    if (!outp.IsEmpty() && System.IO.File.Exists(outp))
                         outp = MyAssembly.GetAttr<LicenseFileAttribute>()?.Value;
-                    if (!string.IsNullOrEmpty(outp) && System.IO.File.Exists(outp))
+                    if (!outp.IsEmpty() && System.IO.File.Exists(outp))
                     {
                         System.IO.StreamReader inp = new System.IO.StreamReader(outp);
                         return inp.ReadToEnd();
                     }
                     outp = this.GetAttr<LicenseTextAttribute>()?.Value;
-                    if (!string.IsNullOrEmpty(outp))
+                    if (!outp.IsEmpty())
                         outp = MyAssembly.GetAttr<LicenseTextAttribute>()?.Value;
-                    if (!string.IsNullOrEmpty(outp)) return outp;
+                    if (!outp.IsEmpty()) return outp;
                     return St.Warn(St.UnspecLicense);
                 }
                 catch (Exception ex)
@@ -181,7 +181,7 @@ namespace MCART.PluginSupport
         /// Determina si este <see cref="Plugin"/> es considerado como 
         /// inseguro.
         /// </summary>
-        public bool IsUnsafe => !this.GetAttr<UnsafeAttribute>().IsNull();
+        public bool IsUnsafe => !this.GetAttr<UnsecureAttribute>().IsNull();
         /// <summary>
         /// Determina si este <see cref="Plugin"/> es considerado como 
         /// inestable.
@@ -315,7 +315,7 @@ namespace MCART.PluginSupport
         /// <param name="reason">
         /// Parámetro opcional. Razón por la que el plugin va a finalizar.
         /// </param>
-        protected void RaiseFinalizing(PluginFinalizingEventArgs.FinalizingReason reason = PluginFinalizingEventArgs.FinalizingReason.Shutdown) => PluginFinalizing(this,new PluginFinalizingEventArgs(reason));
+        protected void RaiseFinalizing(PluginFinalizingEventArgs.FinalizingReason reason = PluginFinalizingEventArgs.FinalizingReason.Shutdown) => PluginFinalizing(this, new PluginFinalizingEventArgs(reason));
 
         /// <summary>
         /// Genera el evento <see cref="PluginLoaded"/>.

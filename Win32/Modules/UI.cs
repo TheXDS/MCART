@@ -43,22 +43,19 @@ namespace MCART
         /// <param name="ttip">
         /// <see cref="ToolTip"/> con un mensaje de error para mostrar.
         /// </param>
-        public static void Warn(this Control c, string ttip = null)        
-            => errP.SetError(c, ttip ?? St.InvalidData);        
+        public static void Warn(this Control c, string ttip = null) => errP.SetError(c, ttip ?? St.InvalidData);
         /// <summary>
         /// Quita el estado de error de un control.
         /// </summary>
         /// <param name="c">Control a limpiar.</param>
-        public static void ClearWarn(this Control c)
-            => errP.SetError(c, string.Empty);
+        public static void ClearWarn(this Control c) => errP.SetError(c, string.Empty);
         /// <summary>
         /// Obtiene un valor que determina si el control está advertido.
         /// </summary>
         /// <param name="c">Control a comprobar.</param>
         /// <returns><c>true</c> si el control está mostrando una advertencia;
         /// de lo contrario, <c>false</c>.</returns>
-        public static bool IsWarned(this Control c)
-            => !string.IsNullOrEmpty(errP.GetError(c));
+        public static bool IsWarned(this Control c) => !errP.GetError(c).IsEmpty();
         /// <summary>
         /// Oculta una lista de controles.
         /// </summary>
@@ -72,8 +69,8 @@ namespace MCART
         /// <summary>
         /// Oculta una lista de controles.
         /// </summary>
-        /// <param name="ctrls"
-        /// >Arreglo de <see cref="Control"/> a ocultar.
+        /// <param name="ctrls">
+        /// Arreglo de <see cref="Control"/> a ocultar.
         /// </param>
         [Thunk]
         public static void HideControls(this IEnumerable<Control> ctrls)
@@ -94,9 +91,7 @@ namespace MCART
         /// <param name="ctrls">
         /// Arreglo de <see cref="Control"/> a mostrar.
         /// </param>
-        [Thunk]
-        public static void ShowControls(this IEnumerable<Control> ctrls)
-            => ShowControls(ctrls.ToArray());
+        [Thunk] public static void ShowControls(this IEnumerable<Control> ctrls) => ShowControls(ctrls.ToArray());
         /// <summary>
         /// Deshabilita una lista de controles.
         /// </summary>
@@ -113,9 +108,7 @@ namespace MCART
         /// <param name="ctrls">
         /// Arreglo de <see cref="Control"/> a deshabilitar.
         /// </param>
-        [Thunk]
-        public static void DisableControls(this IEnumerable<Control> ctrls)
-            => DisableControls(ctrls.ToArray());
+        [Thunk] public static void DisableControls(this IEnumerable<Control> ctrls) => DisableControls(ctrls.ToArray());
         /// <summary>
         /// Habilita una lista de controles.
         /// </summary>
@@ -132,9 +125,7 @@ namespace MCART
         /// <param name="ctrls">
         /// Arreglo de <see cref="Control"/> a habilitar.
         /// </param>
-        [Thunk]
-        public static void EnableControls(this IEnumerable<Control> ctrls)
-            => EnableControls(ctrls.ToArray());
+        [Thunk] public static void EnableControls(this IEnumerable<Control> ctrls) => EnableControls(ctrls.ToArray());
         /// <summary>
         /// Habilita o deshabilita una lista de controles según su estado
         /// previo.

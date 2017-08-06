@@ -246,7 +246,7 @@ namespace MCART.Attributes
     /// Marca un elemento como inseguro.
     /// </summary>
     [AttributeUsage(AttributeTargets.All)]
-    public sealed class UnsafeAttribute : Attribute { }
+    public sealed class UnsecureAttribute : Attribute { }
 
     /// <summary>
     /// Marca un elemento como inestable.

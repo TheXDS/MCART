@@ -36,7 +36,7 @@ namespace MCART.Types
     /// rojo, verde y azul.
     /// </summary>
     public partial struct Color : IEquatable<Color>, IFormattable
-    {        
+    {
         float r;
         float g;
         float b;
@@ -195,7 +195,7 @@ namespace MCART.Types
         /// Parámetro opcional. Canal alfa. Si se omite, el color tendrá una 
         /// opacidad de 100%.
         /// </param>
-        public Color(byte R, byte G, byte B, byte A=255)
+        public Color(byte R, byte G, byte B, byte A = 255)
         {
             r = (float)R / 255;
             g = (float)G / 255;
@@ -212,7 +212,7 @@ namespace MCART.Types
         /// Parámetro opcional. Canal alfa. Si se omite, el color tendrá una 
         /// opacidad de 100%.
         /// </param>
-		public Color(float R, float G, float B, float A=1.0f)
+		public Color(float R, float G, float B, float A = 1.0f)
         {
 #if UseClamping
             a = A.Clamp(0.0f, 1.0f);
@@ -346,7 +346,7 @@ namespace MCART.Types
         /// <param name="formatProvider">Format provider.</param>
         public string ToString(string format, IFormatProvider formatProvider)
         {
-            if (string.IsNullOrEmpty(format)) format = "#AARRGGBB";
+            if (format.IsEmpty()) format = "#AARRGGBB";
             if (formatProvider.IsNull()) formatProvider = CI.CurrentCulture;
             switch (format)
             {
@@ -376,7 +376,7 @@ namespace MCART.Types
         /// Un <see cref="int"/> con la representación binaria de este
         /// <see cref="Color"/>, en formato RGB de 24 bits.
         /// </returns>
-        public int ToInt24()=> R | G << 8 | B << 16;
+        public int ToInt24() => R | G << 8 | B << 16;
         /// <summary>
         /// Convierte este <see cref="Color"/> en su representación como un
         /// <see cref="int"/>.
@@ -426,7 +426,7 @@ namespace MCART.Types
         public byte ToByte() => unchecked((byte)(
             (int)((r + ep) * 3) |
             (int)((g + ep) * 3) << 2 |
-            (int)((b + ep) * 3) << 4 | 
+            (int)((b + ep) * 3) << 4 |
             (int)((a + ep) * 3) << 6));
         /// <summary>
         /// Convierte este <see cref="Color"/> en su representación como un

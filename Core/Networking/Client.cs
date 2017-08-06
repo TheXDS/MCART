@@ -1,7 +1,5 @@
 ﻿//
 //  Client.cs
-//  =========
-//  Funciones y clases para crear e implementar un cliente de redes.
 //
 //  This file is part of MCART
 //
@@ -163,7 +161,7 @@ namespace MCART.Networking.Client
                 byte[] buff = new byte[bufferSize];
                 await connection?.GetStream().ReadAsync(buff, 0, bufferSize);
                 outp.AddRange(buff);
-			} while ((bool)connection?.GetStream()?.DataAvailable);
+            } while ((bool)connection?.GetStream()?.DataAvailable);
             return outp.ToArray();
         }
 
@@ -205,23 +203,25 @@ namespace MCART.Networking.Client
     }
 
 #if IncludeDefaultImplementations
-	/// <summary>
-	/// Implementación predeterminada de la clase <see cref="Client"/> que envía una solicitud de eco.
-	/// </summary>
+    /// <summary>
+    /// Implementación predeterminada de la clase <see cref="Client"/> que envía
+    /// una solicitud de eco.
+    /// </summary>
+    /// <remarks>Este protocolo utiliza TCP/IP, no IGMP.</remarks>
     public class EchoClient : Client
     {
-		/// <summary>
-		/// Ejecuta una prueba de eco con los bytes de datos especificados.
-		/// </summary>
-		/// <returns>
+        /// <summary>
+        /// Ejecuta una prueba de eco con los bytes de datos especificados.
+        /// </summary>
+        /// <returns>
         /// La respuesta del servidor. Debe ser un arreglo de
         /// <see cref="byte"/> compuesto de ceros.
         /// </returns>
-		/// <param name="size">
+        /// <param name="size">
         /// Tamaño del paquete de eco. Si se omite, se utiliza un tamaño de 32
         /// bytes.
         /// </param>
-		/// <remarks>Este protocolo utiliza TCP/IP, no IGMP.</remarks>
+        /// <remarks>Este protocolo utiliza TCP/IP, no IGMP.</remarks>
         public byte[] TestEcho(ushort size = 32)
         {
             byte[] test = new byte[size];

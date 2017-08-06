@@ -180,7 +180,7 @@ namespace MCART
             });
             c.Background = new SolidColorBrush(Colors.Pink);
             c.Foreground = new SolidColorBrush(Colors.DarkRed);
-            if (!string.IsNullOrEmpty(ttip)) c.ToolTip = new ToolTip() { Content = ttip };
+            if (!ttip.IsEmpty()) c.ToolTip = new ToolTip() { Content = ttip };
         }
         /// <summary>
         /// Quita el estado de error de un control.

@@ -38,7 +38,7 @@ namespace MCART.Types.Extensions
         /// </summary>
         /// <param name="fs"><see cref="FileStream"/> del cual este método es
         /// una extensión.</param>
-        [Unsafe]
+        [Unsecure]
         public static void Destroy(this FileStream fs)
         {
             try { fs.SetLength(0); }

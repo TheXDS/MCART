@@ -27,6 +27,7 @@
 #endregion
 
 using System;
+using MCART.Attributes;
 using MCART.Types;
 
 namespace MCART
@@ -299,7 +300,7 @@ namespace MCART
         {
             if (expression.CompareTo(max) > 0) return max;
             if (expression.CompareTo(0) < 0) return default(T);
-            return expression;            
+            return expression;
         }
 
         /// <summary>
@@ -348,6 +349,6 @@ namespace MCART
         /// <returns>
         /// Un conjunto de coordenadas con la posición del punto solicitado.
         /// </returns>
-        [Attributes.Thunk] public static Point GetCirclePoint(double radius, double place) => GetArcPoint(radius, 0, 360, place);
+        [Thunk] public static Point GetCirclePoint(double radius, double place) => GetArcPoint(radius, 0, 360, place);
     }
 }

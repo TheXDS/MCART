@@ -294,7 +294,7 @@ namespace MCART.Types
         /// </returns>
         public string ToString(string format, IFormatProvider formatProvider)
         {
-            if (string.IsNullOrEmpty(format)) format = "C";
+            if (format.IsEmpty()) format = "C";
             if (formatProvider.IsNull()) formatProvider = CI.CurrentCulture;
             switch (format.ToUpperInvariant()[0])
             {

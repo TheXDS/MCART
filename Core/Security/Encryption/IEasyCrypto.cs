@@ -27,7 +27,7 @@ namespace MCART.Security.Encryption
     /// Describe lso métodos básicos para implementar un mecanismo simple de
     /// encriptado.
     /// </summary>
-    [Attributes.Unsafe]
+    [Attributes.Unsecure]
     public interface IEasyCrypto
     {
         /// <summary>

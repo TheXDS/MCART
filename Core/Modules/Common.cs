@@ -69,8 +69,8 @@ namespace MCART
         /// <c>true</c> si la cadena está vacía o es <c>null</c>; de lo
         /// contrario, <c>false</c>.
         /// </returns>
-        /// <param name="str">string.</param>
-        public static bool IsEmpty(this string str) => str.IsNull() || str == string.Empty;
+        /// <param name="str">Cadena a comprobar.</param>
+        [Thunk] public static bool IsEmpty(this string str) => string.IsNullOrWhiteSpace(str); // || str.IsNull() || str == string.Empty;
         /// <summary>
         /// Cuenta los caracteres que contiene una cadena.
         /// </summary>

@@ -116,7 +116,7 @@ namespace MCART.Controls
             {
                 return (bool)value ? EditMode.All : EditMode.ReadOnly;
             }
-        } 
+        }
         #endregion
 
         #region Controles
@@ -144,8 +144,8 @@ namespace MCART.Controls
         };
         Button btnFirst = new Button()
         {
-            Width=btnW,
-            Content="⏮"
+            Width = btnW,
+            Content = "⏮"
         };
         Button btnPrev = new Button()
         {
@@ -166,12 +166,12 @@ namespace MCART.Controls
         // TODO: Reemplazar por un posible nuevo control compatible con marca de agua.
         TextBox txtSearch = new TextBox()
         {
-            Width=100,
+            Width = 100,
 
             // Este control es transparente
             // para poder mostrar el texto en
             // marca de agua.            
-            Background = null 
+            Background = null
         };
 
         Button btnClseSearch = new Button()
@@ -181,10 +181,10 @@ namespace MCART.Controls
         };
         Button btnNew = new Button()
         {
-            Height=20,
-            Content=St.BtnNew,
+            Height = 20,
+            Content = St.BtnNew,
             HorizontalAlignment = HorizontalAlignment.Center,
-            Margin=thk1
+            Margin = thk1
         };
         Button btnEdit = new Button()
         {
@@ -227,7 +227,7 @@ namespace MCART.Controls
         /// <summary>
         /// Lista a ser controlada de manera opcional.
         /// </summary>
-        BindingListCollectionView view=null;
+        BindingListCollectionView view = null;
         /// <summary>
         /// Lista de filtros de búsqueda.
         /// </summary>
@@ -651,11 +651,11 @@ namespace MCART.Controls
             StringBuilder x = new StringBuilder();
             foreach (string j in flts)
             {
-                if (!string.IsNullOrEmpty(x.ToString())) x.Append(" OR ");
+                if (!x.ToString().IsEmpty()) x.Append(" OR ");
                 x.Append($"{j} LIKE '%{s}%'");
             }
             return x.ToString();
-        } 
+        }
         #endregion
 
         #region Botones
@@ -689,7 +689,7 @@ namespace MCART.Controls
         void Prev(object sender, RoutedEventArgs e)
         {
             int cp = Position;
-            DependencyPropertyChangingEventArgs ev = new DependencyPropertyChangingEventArgs(PositionProperty,cp, cp - 1);
+            DependencyPropertyChangingEventArgs ev = new DependencyPropertyChangingEventArgs(PositionProperty, cp, cp - 1);
             MovingToPrev?.Invoke(this, ev);
             if (!ev.Cancel)
             {
@@ -701,7 +701,7 @@ namespace MCART.Controls
         void Nxt(object sender, RoutedEventArgs e)
         {
             int cp = Position;
-            DependencyPropertyChangingEventArgs ev = new DependencyPropertyChangingEventArgs(PositionProperty,cp, cp + 1);
+            DependencyPropertyChangingEventArgs ev = new DependencyPropertyChangingEventArgs(PositionProperty, cp, cp + 1);
             MovingToNext?.Invoke(this, ev);
             if (!ev.Cancel)
             {
@@ -713,7 +713,7 @@ namespace MCART.Controls
         void Last(object sender, RoutedEventArgs e)
         {
             int cp = Max;
-            DependencyPropertyChangingEventArgs ev = new DependencyPropertyChangingEventArgs(PositionProperty,Position, cp);
+            DependencyPropertyChangingEventArgs ev = new DependencyPropertyChangingEventArgs(PositionProperty, Position, cp);
             MovingToLast?.Invoke(this, ev);
             if (!ev.Cancel)
             {
@@ -741,7 +741,7 @@ namespace MCART.Controls
         }
         void TxtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (string.IsNullOrEmpty(txtSearch.Text))
+            if (txtSearch.Text.IsEmpty())
             {
                 if (view != null)
                 {
@@ -803,8 +803,8 @@ namespace MCART.Controls
                     Position = Max - 1;
                     view.MoveCurrentToLast();
                 }
-                else if (Position < view.Count)                
-                    view.MoveCurrentToPosition(Position);                
+                else if (Position < view.Count)
+                    view.MoveCurrentToPosition(Position);
                 Max -= 1;
             }
             ItemDeleted?.Invoke(this, EventArgs.Empty);

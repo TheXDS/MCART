@@ -67,7 +67,7 @@ namespace System.Windows.Converters
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is bool) return (bool)value ? True : False;            
+            if (value is bool) return (bool)value ? True : False;
             return null;
         }
         /// <summary>
@@ -221,7 +221,7 @@ namespace System.Windows.Converters
         /// <returns></returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value.Equals(Null) && !ReferenceEquals(Null,False)) return null;
+            if (value.Equals(Null) && !ReferenceEquals(Null, False)) return null;
             return (((T)value).Equals(True));
         }
     }
@@ -234,7 +234,7 @@ namespace System.Windows.Converters
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="BooleanToInvVisibilityConverter"/>.
         /// </summary>
-        public BooleanToInvVisibilityConverter(Visibility trueState=Visibility.Collapsed) 
+        public BooleanToInvVisibilityConverter(Visibility trueState = Visibility.Collapsed)
             : base(trueState, Visibility.Visible)
         {
             if (trueState == Visibility.Visible) throw new ArgumentException(nameof(trueState));
@@ -243,7 +243,7 @@ namespace System.Windows.Converters
     /// <summary>
     /// Convierte un valor a su representación como un <see cref="string"/>.
     /// </summary>
-    public class ToStringConverter: IValueConverter
+    public class ToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -296,8 +296,8 @@ namespace System.Windows.Converters
             x = HasItems;
             y = NoItems;
         }
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (int)(value) > 0 ? x : y;        
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)=> (Visibility)value == x ? 1 : 0;
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (int)(value) > 0 ? x : y;
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (Visibility)value == x ? 1 : 0;
     }
     /// <summary>
     /// Convierte un valor <see cref="double"/> a <see cref="Visibility"/>.
@@ -361,7 +361,7 @@ namespace System.Windows.Converters
     {
         Visibility h;
         Visibility v;
-        public StringVisibilityConverter(Visibility Empty, Visibility NotEmpty=Visibility.Visible)
+        public StringVisibilityConverter(Visibility Empty, Visibility NotEmpty = Visibility.Visible)
         {
             v = NotEmpty;
             h = Empty;
@@ -379,8 +379,8 @@ namespace System.Windows.Converters
                 h = Visibility.Visible;
             }
         }
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => string.IsNullOrEmpty((string)value) ? h : v;
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)=> (Visibility)value == v ? value.ToString() : string.Empty;        
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (string)value.IsEmpty() ? h : v;
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (Visibility)value == v ? value.ToString() : string.Empty;
     }
     /// <summary>
     /// Convierte directamente un número a <see cref="bool"/> 
@@ -388,7 +388,7 @@ namespace System.Windows.Converters
     public class NumberBoolConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (int)value != 0;
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (bool)value ? -1 : 0;        
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (bool)value ? -1 : 0;
     }
 
     #region Inversores
@@ -397,7 +397,7 @@ namespace System.Windows.Converters
     /// </summary>
     public class BooleanInverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)=> !(bool)value;        
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => !(bool)value;
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => !(bool)value;
     }
     /// <summary>
@@ -416,7 +416,7 @@ namespace System.Windows.Converters
         /// <see cref="Visibility.Collapsed"/>.
         /// </param>
         public VisibilityInverter(Visibility notVisible = Visibility.Collapsed) { h = notVisible; }
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (Visibility)value == Visibility.Visible ? h : Visibility.Visible;        
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (Visibility)value == Visibility.Visible ? h : Visibility.Visible;
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (Visibility)value == Visibility.Visible ? h : Visibility.Visible;
     }
     #endregion

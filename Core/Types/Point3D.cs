@@ -86,7 +86,7 @@ namespace MCART.Types
         /// <returns>
         /// La magnitud resultante entre el punto y el orígen.
         /// </returns>
-        public double Magnitude()=> System.Math.Sqrt((X * X) + (Y * Y) + (Z * Z));        
+        public double Magnitude() => System.Math.Sqrt((X * X) + (Y * Y) + (Z * Z));
         /// <summary>
         /// Calcula la magnitud de las coordenadas desde el punto
         /// especificado.
@@ -291,7 +291,7 @@ namespace MCART.Types
         /// </returns>
         public string ToString(string format, IFormatProvider formatProvider)
         {
-            if (string.IsNullOrEmpty(format)) format = "C";
+            if (format.IsEmpty()) format = "C";
             if (formatProvider.IsNull()) formatProvider = CI.CurrentCulture;
             switch (format.ToUpperInvariant()[0])
             {

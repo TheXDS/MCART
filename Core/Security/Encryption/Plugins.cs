@@ -30,7 +30,7 @@ namespace MCART.Security.Encryption
     /// Relaciona las interfaces de <see cref="IEasyCrypto"/> y 
     /// <see cref="IPlugin"/> para crear un plugin compatible con MCART.
     /// </summary>
-    [Attributes.Unsafe] public interface IEasyCryptoPlugin : IEasyCrypto, IPlugin { }
+    [Attributes.Unsecure] public interface IEasyCryptoPlugin : IEasyCrypto, IPlugin { }
     /// <summary>
     /// Relaciona las interfaces de <see cref="ICryptoTransform"/> y 
     /// <see cref="IPlugin"/> para crear un plugin compatible con MCART.

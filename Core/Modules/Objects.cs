@@ -349,6 +349,15 @@ namespace MCART
         /// <returns><c>True</c> si <typeparamref name="T"/> es un tipo numérico; de lo contrario, <c>False</c>.</returns>
         [Thunk] public static bool IsNumericType<T>() => IsNumericType(typeof(T));
 
+        /*
+		 * Oops! Alguas API de Mono parecen no estar completas, esta directiva
+		 * deshabilita la advertencia al compilar desde MonoDevelop.
+		 * 
+		 * SecureString no provee de funcionalidad de encriptado en Mono, lo que
+		 * podría ser inseguro.
+         */
+#pragma warning disable XS0001
+
         /// <summary>
         /// Convierte un <see cref="System.Security.SecureString"/> en un
         /// <see cref="string"/>.
@@ -365,8 +374,7 @@ namespace MCART
         /// que la confidencialidad de una cadena en particular se deba
         /// mantener durante la ejecución.
         /// </remarks>
-        [Unsafe]
-        [Obsolete]
+        [Unsecure]
         public static string ReadString(this System.Security.SecureString value)
         {
             IntPtr valuePtr = IntPtr.Zero;
@@ -397,5 +405,8 @@ namespace MCART
             }
             finally { Marshal.ZeroFreeGlobalAllocUnicode(valuePtr); }
         }
+
+#pragma warning restore XS0001
+
     }
 }

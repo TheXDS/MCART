@@ -33,7 +33,7 @@ namespace MCART.Security.Encryption
     /// <see cref="SymmetricAlgorithm"/> evitando algunas capas de abstracción.
     /// </summary>
     [Beta]
-    [Unsafe]
+    [Unsecure]
     public class EasyCrypto : IEasyCrypto
     {
         bool init;

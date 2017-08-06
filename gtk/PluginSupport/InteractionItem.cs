@@ -130,7 +130,7 @@ namespace MCART.PluginSupport
         {
             Button k = new Button();
             k.Label = Text;
-            if (!string.IsNullOrEmpty(Description)) k.TooltipText = Description;
+            if (!Description.IsEmpty()) k.TooltipText = Description;
             if (!Icon.IsNull()) k.Image = Icon;
             return k;
         }
@@ -143,7 +143,7 @@ namespace MCART.PluginSupport
         public ImageMenuItem AsMenuItem()
         {
             ImageMenuItem k = new ImageMenuItem(Text);
-            if (!string.IsNullOrEmpty(Description))
+            if (!Description.IsEmpty())
                 k.TooltipMarkup = Description;
             if (!Icon.IsNull()) k.Image = Icon;
             return k;
@@ -157,7 +157,7 @@ namespace MCART.PluginSupport
         public ToggleButton AsToggleButton()
         {
             ToggleButton k = new ToggleButton(Text);
-            if (!string.IsNullOrEmpty(Description)) k.TooltipText = Description;
+            if (!Description.IsEmpty()) k.TooltipText = Description;
             if (!Icon.IsNull()) k.Image = Icon;
             return k;
         }
