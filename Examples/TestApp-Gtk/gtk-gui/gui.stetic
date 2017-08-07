@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<stetic-interface>
+  <configuration>
+    <images-root-path>..</images-root-path>
+  </configuration>
+  <import>
+    <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <widget-library name="../../../Build/Debug/Gtk/MCART.dll" />
+    <widget-library name="../bin/Debug/TestApp-Gtk.exe" internal="true" />
+  </import>
+  <widget class="Gtk.Window" id="MainWindow" design-size="466 300">
+    <action-group name="Default">
+      <action id="ArchivoAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Archivo</property>
+        <property name="ShortLabel" translatable="yes">Archivo</property>
+      </action>
+      <action id="PruebasAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Pruebas</property>
+        <property name="ShortLabel" translatable="yes">Pruebas</property>
+      </action>
+      <action id="CapturaDePantallaAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Captura de pantalla</property>
+        <property name="ShortLabel" translatable="yes">Captura de pantalla</property>
+      </action>
+      <action id="Action">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">-</property>
+        <property name="ShortLabel" translatable="yes">-</property>
+      </action>
+      <action id="SalirAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Salir</property>
+        <property name="ShortLabel" translatable="yes">Salir</property>
+        <signal name="Activated" handler="OnSalirActionActivated" />
+      </action>
+      <action id="ContraseasAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Contraseñas</property>
+        <property name="ShortLabel" translatable="yes">Contraseñas</property>
+      </action>
+      <action id="ProbarContraseaAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Probar contraseña...</property>
+        <property name="ShortLabel" translatable="yes">Probar contraseña...</property>
+      </action>
+      <action id="EstablecerContraseaAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Establecer contraseña...</property>
+        <property name="ShortLabel" translatable="yes">Establecer contraseña...</property>
+      </action>
+      <action id="GenerarContraseaAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Generar contraseña</property>
+        <property name="ShortLabel" translatable="yes">Generar contraseña</property>
+      </action>
+      <action id="PinAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Pin...</property>
+        <property name="ShortLabel" translatable="yes">Pin...</property>
+      </action>
+      <action id="ContraseaSencillaAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Contraseña sencilla</property>
+        <property name="ShortLabel" translatable="yes">Contraseña sencilla</property>
+      </action>
+      <action id="ContraseaComplejaAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Contraseña compleja</property>
+        <property name="ShortLabel" translatable="yes">Contraseña compleja</property>
+      </action>
+      <action id="PluginsAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Plugins</property>
+        <property name="ShortLabel" translatable="yes">Plugins</property>
+      </action>
+      <action id="AyudaAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Ayuda</property>
+        <property name="ShortLabel" translatable="yes">Ayuda</property>
+      </action>
+      <action id="InfoDePluginsAction1">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Info de plugins...</property>
+        <property name="ShortLabel" translatable="yes">Info de plugins...</property>
+        <signal name="Activated" handler="OnInfoDePluginsAction1Activated" />
+      </action>
+      <action id="AcercaDeMCARTAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Acerca de MCART...</property>
+        <property name="ShortLabel" translatable="yes">Acerca de MCART...</property>
+      </action>
+    </action-group>
+    <property name="MemberName" />
+    <property name="Title" translatable="yes">MainWindow</property>
+    <property name="WindowPosition">CenterOnParent</property>
+    <signal name="DeleteEvent" handler="OnDeleteEvent" />
+    <child>
+      <widget class="Gtk.VBox" id="vbox1">
+        <property name="MemberName" />
+        <property name="Spacing">6</property>
+        <child>
+          <widget class="Gtk.MenuBar" id="mnuMain">
+            <property name="MemberName" />
+            <node name="mnuMain" type="Menubar">
+              <node type="Menu" action="ArchivoAction">
+                <node type="Menuitem" action="CapturaDePantallaAction" />
+                <node type="Separator" />
+                <node type="Menuitem" action="SalirAction" />
+              </node>
+              <node type="Menu" action="PruebasAction">
+                <node type="Menu" action="ContraseasAction">
+                  <node type="Menuitem" action="ProbarContraseaAction" />
+                  <node type="Menuitem" action="EstablecerContraseaAction" />
+                  <node type="Menu" action="GenerarContraseaAction">
+                    <node type="Menuitem" action="PinAction" />
+                    <node type="Menuitem" action="ContraseaSencillaAction" />
+                    <node type="Menuitem" action="ContraseaComplejaAction" />
+                  </node>
+                </node>
+              </node>
+              <node type="Menu" action="PluginsAction" />
+              <node type="Menu" action="AyudaAction">
+                <node type="Menuitem" action="InfoDePluginsAction1" />
+                <node type="Menuitem" action="AcercaDeMCARTAction" />
+              </node>
+            </node>
+          </widget>
+          <packing>
+            <property name="Position">0</property>
+            <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Image" id="image1">
+            <property name="MemberName" />
+          </widget>
+          <packing>
+            <property name="Position">1</property>
+            <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+</stetic-interface>

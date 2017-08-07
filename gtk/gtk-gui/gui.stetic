@@ -5,7 +5,7 @@
   </configuration>
   <import>
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <widget-library name="../../Build/Debug/MCART-Gtk.dll" internal="true" />
+    <widget-library name="../../Build/Debug/Gtk/MCART.dll" internal="true" />
   </import>
   <widget class="Gtk.Dialog" id="MCART.Forms.PluginBrowser" design-size="653 418">
     <action-group name="Default" />
@@ -31,7 +31,6 @@
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
                     <property name="ShowScrollbars">True</property>
-                    <signal name="Shown" handler="TrvPlugins_Shown" />
                     <signal name="CursorChanged" handler="OnTrvPluginsCursorChanged" />
                   </widget>
                 </child>

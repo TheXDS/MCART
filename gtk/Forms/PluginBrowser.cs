@@ -112,22 +112,23 @@ namespace MCART.Forms
             }
         }
         void BtnClose_Click(object sender, EventArgs e) => Destroy();
-        void TrvPlugins_Shown(object sender, EventArgs e)
+        void TrvPlugins_Shown()
         {
             if (!trvPlugins.Visible) return;
+            trPlugins.Clear();
             foreach (var j in Plugin.PluginTree<IPlugin>(true))
             {
                 TreeIter plg = trPlugins.AppendValues(j.Key);
-                foreach (var k in j.Value) trPlugins.AppendValues(plg);
-                lstPlugins.Add(j.Value);                
+                foreach (var k in j.Value) trPlugins.AppendValues(plg, k.Name);
+                lstPlugins.Add(j.Value);
             }
         }
         void OnTrvPluginsCursorChanged(object sender, EventArgs e)
         {
             trvPlugins.GetCursor(out TreePath tp, out TreeViewColumn tvc);
             ClearDetails();
-            if (tp.Indices.Length == 2)            
-                ShwDetails(lstPlugins[tp.Indices[0]][tp.Indices[1]]);            
+            if (tp.Indices.Length == 2)
+                ShwDetails(lstPlugins[tp.Indices[0]][tp.Indices[1]]);
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="PluginBrowser"/>.
@@ -139,6 +140,14 @@ namespace MCART.Forms
             trvInterfaces.Model = lstIfaces;
             trvPlugins.AppendColumn("Plugin", new CellRendererText(), "text", 0);
             trvPlugins.Model = trPlugins;
+        }
+        /// <summary>
+        /// Marca un <see cref="Widget"/> para ser mostrado. 
+        /// </summary>
+        public new void Show()
+        {
+            TrvPlugins_Shown();
+            base.Show();
         }
         /// <summary>
         /// Muestra información acerca de un <see cref="IPlugin"/>.

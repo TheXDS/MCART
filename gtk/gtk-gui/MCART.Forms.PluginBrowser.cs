@@ -4,77 +4,77 @@ namespace MCART.Forms
 {
 	public partial class PluginBrowser
 	{
-		global::Gtk.UIManager UIManager;
+		private global::Gtk.UIManager UIManager;
 
-		global::Gtk.HPaned hpaned1;
+		private global::Gtk.HPaned hpaned1;
 
-		global::Gtk.ScrolledWindow GtkScrolledWindow;
+		private global::Gtk.ScrolledWindow GtkScrolledWindow;
 
-		global::Gtk.TreeView trvPlugins;
+		private global::Gtk.TreeView trvPlugins;
 
-		global::Gtk.Table table3;
+		private global::Gtk.Table table3;
 
-		global::Gtk.HBox hbox2;
+		private global::Gtk.HBox hbox2;
 
-		global::Gtk.Entry txtVer;
+		private global::Gtk.Entry txtVer;
 
-		global::Gtk.CheckButton chkIsBeta;
+		private global::Gtk.CheckButton chkIsBeta;
 
-		global::Gtk.CheckButton chkIsUnafe;
+		private global::Gtk.CheckButton chkIsUnafe;
 
-		global::Gtk.Label label6;
+		private global::Gtk.Label label6;
 
-		global::Gtk.Label label7;
+		private global::Gtk.Label label7;
 
-		global::Gtk.Label label9;
+		private global::Gtk.Label label9;
 
-		global::Gtk.Notebook notebook1;
+		private global::Gtk.Notebook notebook1;
 
-		global::Gtk.ScrolledWindow GtkScrolledWindow1;
+		private global::Gtk.ScrolledWindow GtkScrolledWindow1;
 
-		global::Gtk.TextView txtLicense;
+		private global::Gtk.TextView txtLicense;
 
-		global::Gtk.Label label1;
+		private global::Gtk.Label label1;
 
-		global::Gtk.ScrolledWindow GtkScrolledWindow2;
+		private global::Gtk.ScrolledWindow GtkScrolledWindow2;
 
-		global::Gtk.TreeView trvInterfaces;
+		private global::Gtk.TreeView trvInterfaces;
 
-		global::Gtk.Label label2;
+		private global::Gtk.Label label2;
 
-		global::Gtk.Table table1;
+		private global::Gtk.Table table1;
 
-		global::Gtk.CheckButton chkMinVer;
+		private global::Gtk.CheckButton chkMinVer;
 
-		global::Gtk.Entry txtMinVer;
+		private global::Gtk.Entry txtMinVer;
 
-		global::Gtk.CheckButton chkTgtVer;
+		private global::Gtk.CheckButton chkTgtVer;
 
-		global::Gtk.Entry txtTgtVer;
+		private global::Gtk.Entry txtTgtVer;
 
-		global::Gtk.Label label10;
+		private global::Gtk.Label label10;
 
-		global::Gtk.Label label5;
+		private global::Gtk.Label label5;
 
-		global::Gtk.Label lblVeredict;
+		private global::Gtk.Label lblVeredict;
 
-		global::Gtk.Label label3;
+		private global::Gtk.Label label3;
 
-		global::Gtk.MenuBar mnuInteractions;
+		private global::Gtk.MenuBar mnuInteractions;
 
-		global::Gtk.Label label4;
+		private global::Gtk.Label label4;
 
-		global::Gtk.Entry txtCopyright;
+		private global::Gtk.Entry txtCopyright;
 
-		global::Gtk.Entry txtName;
+		private global::Gtk.Entry txtName;
 
-		global::Gtk.VBox vbox4;
+		private global::Gtk.VBox vbox4;
 
-		global::Gtk.Label label8;
+		private global::Gtk.Label label8;
 
-		global::Gtk.Entry txtDesc;
+		private global::Gtk.Entry txtDesc;
 
-		global::Gtk.Button btnClose;
+		private global::Gtk.Button btnClose;
 
 		protected virtual void Build()
 		{
@@ -416,7 +416,6 @@ namespace MCART.Forms
 			this.DefaultWidth = 653;
 			this.DefaultHeight = 418;
 			this.Show();
-			this.trvPlugins.Shown += new global::System.EventHandler(this.TrvPlugins_Shown);
 			this.trvPlugins.CursorChanged += new global::System.EventHandler(this.OnTrvPluginsCursorChanged);
 			this.btnClose.Clicked += new global::System.EventHandler(this.BtnClose_Click);
 		}
