@@ -1,7 +1,9 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginExample", "PluginExample\PluginExample.csproj", "{B0EB061B-80E0-4F14-B1EE-7388A3315198}"
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginExample", "PluginExample.csproj", "{B0EB061B-80E0-4F14-B1EE-7388A3315198}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,5 +15,8 @@ Global
 		{B0EB061B-80E0-4F14-B1EE-7388A3315198}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0EB061B-80E0-4F14-B1EE-7388A3315198}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0EB061B-80E0-4F14-B1EE-7388A3315198}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

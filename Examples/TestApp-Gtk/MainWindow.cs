@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Gtk;
 using MCART.Forms;
 using MCART.PluginSupport;
+using MCART;
 
 public partial class MainWindow : Window
 {
@@ -31,19 +32,20 @@ public partial class MainWindow : Window
     /// <summary>
     /// Initializes a new instance of the <see cref="MainWindow"/> class.
     /// </summary>
-    public MainWindow() : base(Gtk.WindowType.Toplevel)
+    public MainWindow() : base(WindowType.Toplevel)
     {
         Build();
         if (pl.Count > 0)
         {
-            Menu mnuplugins = new Menu();
-            ((MenuItem)PluginsAction.Proxies[0]).Submenu = mnuplugins;
+            Menu mnuplugins = (Menu)((ImageMenuItem)mnuMain.Children[2]).Submenu;
+            //((MenuItem)PluginsAction.Proxies[0]).Submenu = mnuplugins;
+            mnuplugins.ClearContents();
             foreach (IPlugin j in pl)
             {
                 if (j.HasInteractions)
                 {
-                    MenuItem thisPlg = new MenuItem(j.Name);
-                    Menu thsplg = new Menu();
+                    MenuItem thisPlg = new MenuItem(j.Name) { Visible = true };
+                    Menu thsplg = new Menu() { Visible = true };
                     thisPlg.Submenu = thsplg;
                     foreach (var k in j.PluginInteractions)
                         thsplg.Append(k.AsMenuItem());

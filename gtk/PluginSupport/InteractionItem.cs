@@ -128,10 +128,14 @@ namespace MCART.PluginSupport
         /// <see cref="InteractionItem"/>.</returns>
         public Button AsButton()
         {
-            Button k = new Button();
-            k.Label = Text;
+            Button k = new Button()
+            {
+                Label = Text,
+                Visible = true
+            };
             if (!Description.IsEmpty()) k.TooltipText = Description;
             if (!Icon.IsNull()) k.Image = Icon;
+            k.Clicked += Action;
             return k;
         }
         /// <summary>
@@ -142,10 +146,14 @@ namespace MCART.PluginSupport
         /// <see cref="InteractionItem"/>.</returns>
         public ImageMenuItem AsMenuItem()
         {
-            ImageMenuItem k = new ImageMenuItem(Text);
+            ImageMenuItem k = new ImageMenuItem(Text)
+            {
+                Visible = true
+            };
             if (!Description.IsEmpty())
                 k.TooltipMarkup = Description;
             if (!Icon.IsNull()) k.Image = Icon;
+            k.Activated += Action;
             return k;
         }
         /// <summary>
@@ -156,9 +164,13 @@ namespace MCART.PluginSupport
         /// <see cref="InteractionItem"/>.</returns>
         public ToggleButton AsToggleButton()
         {
-            ToggleButton k = new ToggleButton(Text);
+            ToggleButton k = new ToggleButton(Text)
+            {
+                Visible = true
+            };
             if (!Description.IsEmpty()) k.TooltipText = Description;
             if (!Icon.IsNull()) k.Image = Icon;
+            k.Clicked += Action;
             return k;
         }
         /// <summary>

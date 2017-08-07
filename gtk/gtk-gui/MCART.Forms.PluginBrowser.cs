@@ -313,7 +313,7 @@ namespace MCART.Forms
 			this.notebook1.SetTabLabel(this.table1, this.label3);
 			this.label3.ShowAll();
 			// Container child notebook1.Gtk.Notebook+NotebookChild
-			this.UIManager.AddUiFromString("<ui><menubar name='mnuInteractions'/></ui>");
+			this.UIManager.AddUiFromString("<ui><menubar name=\'mnuInteractions\'/></ui>");
 			this.mnuInteractions = ((global::Gtk.MenuBar)(this.UIManager.GetWidget("/mnuInteractions")));
 			this.mnuInteractions.Name = "mnuInteractions";
 			this.notebook1.Add(this.mnuInteractions);

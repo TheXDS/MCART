@@ -23,14 +23,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If Not, see <http://www.gnu.org/licenses/>.
 
-using System.IO;
 using MCART;
-using static MCART.Common;
 using MCART.Attributes;
 using MCART.PluginSupport;
 using MCART.Security.Checksum;
-using System;
 using MCART.Types.TaskReporter;
+using System;
+using System.IO;
+using static MCART.Common;
 using static Microsoft.VisualBasic.Interaction;
 
 [Description("CRC32 Calculator")]
@@ -50,7 +50,7 @@ public class CRC32 : ChecksumPlugin, IDisposable
         {
             Reporter.Begin();
             uint CRC = uint.MaxValue;
-            System.DateTime tm = System.DateTime.Now;
+            DateTime tm = DateTime.Now;
             float pr = 0;
             int progrss = 1;
             foreach (byte BT in X)
@@ -63,10 +63,10 @@ public class CRC32 : ChecksumPlugin, IDisposable
                 }
                 CRC = (CRC >> 8) ^ CRC32_Tab[(CRC & 0xff) ^ BT];
                 progrss += 1;
-                if (System.DateTime.Now - tm > re)
+                if (DateTime.Now - tm > re)
                 {
                     Reporter.Report(new ProgressEventArgs(pr));
-                    tm = System.DateTime.Now;
+                    tm = DateTime.Now;
                 }
             }
             Reporter.End();

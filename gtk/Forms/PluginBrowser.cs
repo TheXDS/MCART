@@ -73,8 +73,8 @@ namespace MCART.Forms
             if (P.MinRTVersion(out Version mv))
             {
                 txtMinVer.Text = mv.ToString();
-                chkMinVer.Active = mv > RTVersion;
-                if (chkMinVer.Active) txtMinVer.TooltipText = St.UnsupportedVer;
+                chkMinVer.Active = mv <= RTVersion;
+                if (!chkMinVer.Active) txtMinVer.TooltipText = St.UnsupportedVer;
             }
             else
             {
@@ -83,9 +83,9 @@ namespace MCART.Forms
             }
             if (P.TargetRTVersion(out Version tv))
             {
-                txtTgtVer.Text = mv.ToString();
-                chkTgtVer.Active = tv < RTVersion;
-                if (chkTgtVer.Active) txtTgtVer.TooltipText = St.UnsupportedVer;
+                txtTgtVer.Text = tv.ToString();
+                chkTgtVer.Active = tv >= RTVersion;
+                if (!chkTgtVer.Active) txtTgtVer.TooltipText = St.UnsupportedVer;
             }
             else
             {
