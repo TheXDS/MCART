@@ -22,6 +22,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+
 namespace MCART.Attributes
 {
     #region Tipos base
@@ -150,7 +151,7 @@ namespace MCART.Attributes
     public sealed class VersionAttribute : VersionAttributeBase
     {
         /// <summary>
-        /// Inicializa unanueva instancia de la clase 
+        /// Inicializa una nueva instancia de la clase 
         /// <see cref="VersionAttribute"/>.
         /// </summary>
         /// <param name="attrValue">Valor del atributo.</param>

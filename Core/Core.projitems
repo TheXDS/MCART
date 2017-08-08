@@ -67,12 +67,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\ColorExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Colors.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\Data.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\ProgressRing.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Types\TaskReporter\" />
     <Folder Include="$(MSBuildThisFileDirectory)Types\TaskReporter\base\" />
     <Folder Include="$(MSBuildThisFileDirectory)Security\Encryption\" />
     <Folder Include="$(MSBuildThisFileDirectory)Security\Checksum\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Controls\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Icons\MCART.png" />

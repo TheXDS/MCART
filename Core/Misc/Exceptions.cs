@@ -40,12 +40,14 @@ namespace MCART.Exceptions
         /// </summary>
         public readonly Type OffendingType;
         /// <summary>
-        /// Initializes a new instance of the <see cref="InterfaceExpectedException"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InterfaceExpectedException"/>.
         /// </summary>
         public InterfaceExpectedException() : base(St.InterfaceExpected) { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InterfaceExpectedException"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InterfaceExpectedException"/>.
         /// </summary>
         /// <param name="T">Tipo que generó la excepción.</param>
         public InterfaceExpectedException(Type T) : base(St.InterfaceExpected)
@@ -54,14 +56,16 @@ namespace MCART.Exceptions
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InterfaceExpectedException"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InterfaceExpectedException"/>.
         /// </summary>
         /// <param name="message">A <see cref="string"/> that describes
         /// the exception.</param>
         public InterfaceExpectedException(string message) : base(message) { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InterfaceExpectedException"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InterfaceExpectedException"/>.
         /// </summary>
         /// <param name="message">A <see cref="string"/> that describes
         /// the exception.</param>
@@ -70,7 +74,8 @@ namespace MCART.Exceptions
             : base(message) { OffendingType = T; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InterfaceExpectedException"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InterfaceExpectedException"/>.
         /// </summary>
         /// <param name="inner">The exception that is the cause of the current
         /// exception.</param>
@@ -78,7 +83,8 @@ namespace MCART.Exceptions
             : base(St.InterfaceExpected, inner) { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InterfaceExpectedException"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InterfaceExpectedException"/>.
         /// </summary>
         /// <param name="inner">The exception that is the cause of the current
         /// exception.</param>
@@ -87,7 +93,8 @@ namespace MCART.Exceptions
             : base(St.InterfaceExpected, inner) { OffendingType = T; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InterfaceExpectedException"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InterfaceExpectedException"/>.
         /// </summary>
         /// <param name="message">A <see cref="string"/> that describes
         /// the exception.</param>
@@ -97,7 +104,8 @@ namespace MCART.Exceptions
             : base(message, inner) { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InterfaceExpectedException"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InterfaceExpectedException"/>.
         /// </summary>
         /// <param name="message">A <see cref="string"/> that describes
         /// the exception.</param>
@@ -108,20 +116,26 @@ namespace MCART.Exceptions
             : base(message, inner) { OffendingType = T; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InterfaceExpectedException"/> class
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InterfaceExpectedException"/>.
         /// </summary>
         /// <param name="context">The contextual information about the source or
         /// destination.</param>
-        /// <param name="info">El objeto que contiene la información serializada del objeto.</param>
+        /// <param name="info">
+        /// El objeto que contiene la información serializada del objeto.
+        /// </param>
         protected InterfaceExpectedException(SerializationInfo info, StreamingContext context)
             : base(info, context) { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InterfaceExpectedException"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InterfaceExpectedException"/>.
         /// </summary>
         /// <param name="context">The contextual information about the source or
         /// destination.</param>
-        /// <param name="info">El objeto que contiene la información serializada del objeto.</param>
+        /// <param name="info">
+        /// El objeto que contiene la información serializada del objeto.
+        /// </param>
         /// <param name="T">Tipo que generó la excepción.</param>
         protected InterfaceExpectedException(SerializationInfo info, StreamingContext context, Type T)
             : base(info, context) { OffendingType = T; }
@@ -138,45 +152,60 @@ namespace MCART.Exceptions
         /// </summary>
         public readonly System.Reflection.Assembly OffendingAssembly;
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="NotPluginException"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="NotPluginException"/>.
         /// </summary>
         /// <param name="offendingAssembly">Offending assembly.</param>
         public NotPluginException(System.Reflection.Assembly offendingAssembly = null)
             : base(string.Format(St.XIsInvalid, St.TheAssembly)) { OffendingAssembly = offendingAssembly; }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="NotPluginException"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="NotPluginException"/>.
         /// </summary>
-        /// <param name="message">A <see cref="string"/> that describes the exception.</param>
+        /// <param name="message">
+        /// A <see cref="string"/> that describes the exception.</param>
         /// <param name="offendingAssembly">Offending assembly.</param>
         public NotPluginException(string message, System.Reflection.Assembly offendingAssembly = null)
             : base(message) { OffendingAssembly = offendingAssembly; }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="NotPluginException"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="NotPluginException"/>.
         /// </summary>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.</param>
         /// <param name="offendingAssembly">Offending assembly.</param>
         public NotPluginException(Exception inner, System.Reflection.Assembly offendingAssembly = null)
             : base(string.Format(St.XIsInvalid, St.TheAssembly), inner) { OffendingAssembly = offendingAssembly; }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="NotPluginException"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="NotPluginException"/>.
         /// </summary>
-        /// <param name="message">A <see cref="string"/> that describes the exception.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
         /// <param name="offendingAssembly">Offending assembly.</param>
         public NotPluginException(string message, Exception inner, System.Reflection.Assembly offendingAssembly = null)
             : base(message, inner) { OffendingAssembly = offendingAssembly; }
         /// <summary>
-        /// Initializes a new instance of the <see cref="InterfaceExpectedException"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InterfaceExpectedException"/>.
         /// </summary>
-        /// <param name="context">The contextual information about the source or
-        /// destination.</param>
-        /// <param name="info">El objeto que contiene la información serializada del objeto.</param>
+        /// <param name="context">
+        /// The contextual information about the source or destination.
+        /// </param>
+        /// <param name="info">
+        /// El objeto que contiene la información serializada del objeto.
+        /// </param>
         /// <param name="offendingAssembly">Offending assembly.</param>
         protected NotPluginException(SerializationInfo info, StreamingContext context, System.Reflection.Assembly offendingAssembly = null)
             : base(info, context) { OffendingAssembly = offendingAssembly; }
     }
     /// <summary>
-    /// Excepción que se produce cuando un <see cref="IEnumerable{T}"/> está vacío.
+    /// Excepción que se produce cuando un <see cref="IEnumerable{T}"/> está 
+    /// vacío.
     /// </summary>
     [Serializable]
     public class EmptyCollectionException<T> : Exception
@@ -186,57 +215,57 @@ namespace MCART.Exceptions
         /// </summary>
         public readonly IEnumerable<T> OffendingCollection;
         /// <summary>
-        /// Initializes a new instance of the <see cref="EmptyCollectionException{T}"/> class
+        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException{T}"/> class
         /// </summary>
         public EmptyCollectionException(IEnumerable<T> offendingList) : base(St.LstEmpty) { OffendingCollection = offendingList; }
         /// <summary>
-        /// Initializes a new instance of the <see cref="EmptyCollectionException{T}"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException{T}"/>.
         /// </summary>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
         /// <param name="offendingList">Offending list.</param>
         public EmptyCollectionException(Exception inner, IEnumerable<T> offendingList) : base(St.LstEmpty, inner) { OffendingCollection = offendingList; }
         /// <summary>
-        /// Initializes a new instance of the <see cref="EmptyCollectionException{T}"/> class
+        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException{T}"/> class
         /// </summary>
-        /// <param name="message">A <see cref="string"/> that describes the exception.</param>
+        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
         /// <param name="offendingCollection">Colección a la que se intentó acceder.</param>
         public EmptyCollectionException(string message, IEnumerable<T> offendingCollection) : base(message) { OffendingCollection = offendingCollection; }
         /// <summary>
-        /// Initializes a new instance of the <see cref="EmptyCollectionException{T}"/> class
+        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException{T}"/> class
         /// </summary>
-        /// <param name="message">A <see cref="string"/> that describes the exception.</param>
+        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
         /// <param name="offendingCollection">Colección a la que se intentó acceder.</param>
         public EmptyCollectionException(string message, Exception inner, IEnumerable<T> offendingCollection) : base(message, inner) { OffendingCollection = offendingCollection; }
         /// <summary>
-        /// Initializes a new instance of the <see cref="EmptyCollectionException{T}"/> class
+        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException{T}"/> class
         /// </summary>
         /// <param name="context">La información contextual acerca del orígen o el destino.</param>
         /// <param name="info">El objeto que contiene la información serializada del objeto.</param>
         /// <param name="offendingCollection">Colección a la que se intentó acceder.</param>
         protected EmptyCollectionException(SerializationInfo info, StreamingContext context, IEnumerable<T> offendingCollection) : base(info, context) { OffendingCollection = offendingCollection; }
         /// <summary>
-        /// Initializes a new instance of the <see cref="EmptyCollectionException{T}"/> class
+        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException{T}"/> class
         /// </summary>
         public EmptyCollectionException() : base(St.LstEmpty) { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="EmptyCollectionException{T}"/> class
+        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException{T}"/> class
         /// </summary>
         /// <param name="message">A <see cref="string"/> that describes the exception. </param>
         public EmptyCollectionException(string message) : base(message) { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="EmptyCollectionException{T}"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException{T}"/>.
         /// </summary>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
         public EmptyCollectionException(Exception inner) : base(St.LstEmpty, inner) { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="EmptyCollectionException{T}"/> class
+        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException{T}"/> class
         /// </summary>
         /// <param name="message">A <see cref="string"/> that describes the exception. </param>
         /// <param name="inner">The exception that is the cause of the current exception. </param>
         public EmptyCollectionException(string message, Exception inner) : base(message, inner) { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="EmptyCollectionException{T}"/> class
+        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException{T}"/> class
         /// </summary>
         /// <param name="context">La información contextual acerca del orígen o el destino.</param>
         /// <param name="info">El objeto que contiene la información serializada del objeto.</param>
@@ -654,11 +683,11 @@ namespace MCART.Exceptions
         /// </summary>
         public readonly PluginSupport.IPlugin OffendingPlugin;
         /// <summary>
-        /// Initializes a new instance of the <see cref="PluginException"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="PluginException"/>.
         /// </summary>
         public PluginException() : base(string.Format(St.XFoundError, St.ThePlugin)) { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="PluginException"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="PluginException"/>.
         /// </summary>
         /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
         public PluginException(string message) : base(message) { }

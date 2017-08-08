@@ -20,6 +20,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,12 +29,10 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using static MCART.UI;
+
 namespace MCART.Controls
 {
-    /// <summary>
-    /// Permite representar un valor porcentual en la forma de un anillo.
-    /// </summary>
-    public class ProgressRing : UserControl
+    public partial class ProgressRing : UserControl
     {
         static Type T = typeof(ProgressRing);
         static void Redraw(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -58,8 +57,8 @@ namespace MCART.Controls
         }
         TextBlock TxtPercent = new TextBlock()
         {
-            HorizontalAlignment=HorizontalAlignment.Center,
-            VerticalAlignment=VerticalAlignment.Center
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
         };
         Ellipse ellBg = new Ellipse();
         Path pth = new Path()
@@ -83,7 +82,7 @@ namespace MCART.Controls
             if (!IsIndeterminate)
             {
                 amIAnimated = false;
-                x.BeginAnimation(RotateTransform.AngleProperty, null);                
+                x.BeginAnimation(RotateTransform.AngleProperty, null);
                 pth.Data = GetCircleArc(Radius, (((Value - Min) / (Max - Min)) * 360).Clamp(0, 359.999), Thickness);
                 TxtPercent.Text = string.Format(TextFormat, Value);
             }
@@ -99,6 +98,19 @@ namespace MCART.Controls
         {
             Width = (double)GetValue(RadiusProperty) * 2 + (double)GetValue(ThicknessProperty);
         }
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="Angle"/>.
+        /// </summary>
+        public static DependencyProperty AngleProperty = new DependencyProperty.Register(
+            nameof(Angle), typeof(float), T,
+            new PropertyMetadata(0.0f), (float a) => a.IsBetween(0.0f, 360.0f));
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="Sweep"/>.
+        /// </summary>
+        public static DependencyProperty SweepProperty = new DependencyProperty.Register(
+            nameof(Sweep), typeof(SweepDirection), T,
+            new PropertyMetadata(Sweep.Clockwise, Updt2),
+            (a) => typeof(SweepDirection).IsEnumDefined(a));
         /// <summary>
         /// Identifica a la propiedad de dependencia <see cref="TextFormat"/>.
         /// </summary>
@@ -155,6 +167,24 @@ namespace MCART.Controls
             nameof(IsIndeterminate), typeof(bool), T,
             new PropertyMetadata(false, Updt));
         /// <summary>
+        /// Obtiene o establece el ángulo desde el que se empezará a dibujar el
+        /// relleno de este <see cref="ProgressRing"/>. 
+        /// </summary>
+        public float Angle
+        {
+            get => (float)GetValue(AngleProperty);
+            set => SetValue(AngleProperty, value);
+        }
+        /// <summary>
+        /// Obtiene o establece la dirección en la cual se rellenará este
+        /// <see cref="ProgressRing"/>. 
+        /// </summary>
+        public SweepDirection Sweep
+        {
+            get => (SweepDirection)GetValue(SweepProperty);
+            set => SetValue(SweepProperty, value);
+        }
+        /// <summary>
         /// Obtiene o establece el <see cref="Brush"/> a utilizar para dibujar
         /// el fondo del anillo de este <see cref="ProgressRing"/>.
         /// </summary>
@@ -165,7 +195,7 @@ namespace MCART.Controls
         }
         /// <summary>
         /// Obtiene o establece el <see cref="Brush"/> a utilizar para dibujar
-        /// el primer plano del anillo de este <see cref="ProgressRing"/>.
+        /// el relleno del anillo de este <see cref="ProgressRing"/>.
         /// </summary>
         public Brush Fill
         {
@@ -254,8 +284,8 @@ namespace MCART.Controls
             });
             spin.KeyFrames.Add(new EasingDoubleKeyFrame()
             {
-                KeyTime=KeyTime.FromTimeSpan(new TimeSpan(0,0,1)),
-                Value=360.0
+                KeyTime = KeyTime.FromTimeSpan(new TimeSpan(0, 0, 1)),
+                Value = 360.0
             });
             Grid a = new Grid();
             a.Children.Add(ellBg);

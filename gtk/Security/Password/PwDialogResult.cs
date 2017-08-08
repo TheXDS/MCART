@@ -22,6 +22,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using Gtk;
+
 namespace MCART.Security.Password
 {
     public sealed partial class PwDialogResult

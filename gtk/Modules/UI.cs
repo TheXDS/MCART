@@ -41,9 +41,14 @@ namespace MCART
         public static void ClearContents(this Container c)
         {
             Widget[] x = c.Children;
-            foreach (Widget j in x) c.Remove(j);
+            foreach (Widget j in x)
+            {
+                c.Remove(j);
+                j.Dispose();
+            }
             x = null;
         }
+
         /// <summary>
         /// Oculta los <see cref="Widget"/> especificados.
         /// </summary>
@@ -54,14 +59,17 @@ namespace MCART
         {
             foreach (Widget j in wdgts) j.Visible = false;
         }
+
         /// <summary>
         /// Oculta los <see cref="Widget"/> especificados.
         /// </summary>
         /// <param name="wdgts">
         /// Colección de <see cref="Widget"/> a procesar.
         /// </param>
-        [Thunk] public static void HideWidgets(this IEnumerable<Widget> wdgts)
+        [Thunk]
+        public static void HideWidgets(this IEnumerable<Widget> wdgts)
             => HideWidgets(wdgts.ToArray());
+
         /// <summary>
         /// Muestra los <see cref="Widget"/> especificados.
         /// </summary>
@@ -72,14 +80,17 @@ namespace MCART
         {
             foreach (Widget j in wdgts) j.Visible = true;
         }
+
         /// <summary>
         /// Muestra los <see cref="Widget"/> especificados.
         /// </summary>
         /// <param name="wdgts">
         /// Colección de <see cref="Widget"/> a procesar.
         /// </param>
-        [Thunk] public static void ShowWidgets(this IEnumerable<Widget> wdgts)
+        [Thunk]
+        public static void ShowWidgets(this IEnumerable<Widget> wdgts)
             => ShowWidgets(wdgts.ToArray());
+
         /// <summary>
         /// Habilita  los <see cref="Widget"/> especificados.
         /// </summary>
@@ -90,14 +101,17 @@ namespace MCART
         {
             foreach (Widget j in wdgts) j.Sensitive = true;
         }
+
         /// <summary>
         /// Habilita  los <see cref="Widget"/> especificados.
         /// </summary>
         /// <param name="wdgts">
         /// Colección de <see cref="Widget"/> a procesar.
         /// </param>
-        [Thunk] public static void EnableWidgets(this IEnumerable<Widget> wdgts)
+        [Thunk]
+        public static void EnableWidgets(this IEnumerable<Widget> wdgts)
             => EnableWidgets(wdgts.ToArray());
+
         /// <summary>
         /// Deshabilita  los <see cref="Widget"/> especificados.
         /// </summary>
@@ -108,14 +122,17 @@ namespace MCART
         {
             foreach (Widget j in wdgts) j.Sensitive = false;
         }
+
         /// <summary>
         /// Deshabilita  los <see cref="Widget"/> especificados.
         /// </summary>
         /// <param name="wdgts">
         /// Colección de <see cref="Widget"/> a procesar.
         /// </param>
-        [Thunk] public static void DisableWidgets(this IEnumerable<Widget> wdgts)
+        [Thunk]
+        public static void DisableWidgets(this IEnumerable<Widget> wdgts)
             => DisableWidgets(wdgts.ToArray());
+
         /// <summary>
         /// Habilita o deshabilita los <see cref="Widget"/> según su estado
         /// previo.
@@ -127,6 +144,7 @@ namespace MCART
         {
             foreach (Widget j in wdgts) j.Sensitive = !j.Sensitive;
         }
+
         /// <summary>
         /// Habilita o deshabilita los <see cref="Widget"/> según su estado
         /// previo.
@@ -134,7 +152,8 @@ namespace MCART
         /// <param name="wdgts">
         /// Colección de <see cref="Widget"/> a procesar.
         /// </param>
-        [Thunk] public static void ToggleWidgets(this IEnumerable<Widget> wdgts)
+        [Thunk]
+        public static void ToggleWidgets(this IEnumerable<Widget> wdgts)
             => ToggleWidgets(wdgts.ToArray());
     }
 }

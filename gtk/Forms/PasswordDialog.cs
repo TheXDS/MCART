@@ -24,11 +24,11 @@
 using System;
 namespace MCART
 {
-	public partial class PasswordDialog : Gtk.Dialog
-	{
-		public PasswordDialog()
-		{
-			this.Build();
-		}
-	}
+    public partial class PasswordDialog : Gtk.Dialog
+    {
+        public PasswordDialog()
+        {
+            this.Build();
+        }
+    }
 }

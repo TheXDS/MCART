@@ -36,10 +36,25 @@ namespace MCART.Types
         /// <see cref="Color"/>.
         /// </summary>
         /// <param name="c"><see cref="Gdk.Color"/> a convertir.</param>
-        public static implicit operator Color(Gdk.Color c) => 
+        public static implicit operator Color(Gdk.Color c) =>
             new Color(
-                (byte)c.Red.Clamp<ushort>(0,255),
+                (byte)c.Red.Clamp<ushort>(0, 255),
                 (byte)c.Green.Clamp<ushort>(0, 255),
                 (byte)c.Blue.Clamp<ushort>(0, 255));
+        /// <summary>
+        /// Convierte implícitamente una estructura <see cref="Color"/> en un
+        /// un <see cref="cairo.Color"/>.
+        /// </summary>
+        /// <param name="c"><see cref="Color"/> a convertir.</param>
+        public static implicit operator Cairo.Color(Color c) =>
+            new Cairo.Color(c.ScR, c.ScG, c.ScB, c.ScA);
+        /// <summary>
+        /// Convierte implícitamente una estructura <see cref="Cairo.Color"/> en
+        /// un <see cref="Color"/>.
+        /// </summary>
+        /// <param name="c"><see cref="Cairo.Color"/> a convertir.</param>
+        public static implicit operator Color(Cairo.Color c) =>
+            new Color((float)c.R, (float)c.G, (float)c.B, (float)c.A);
+
     }
 }

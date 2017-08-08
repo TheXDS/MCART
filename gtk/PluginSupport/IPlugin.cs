@@ -20,15 +20,21 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using Gtk;
+
 namespace MCART.PluginSupport
 {
     public partial interface IPlugin
     {
         /// <summary>
-        /// Convierte el <see cref="PluginInteractions"/> en un <see cref="Menu"/>
+        /// Convierte el <see cref="PluginInteractions"/> en un 
+        /// <see cref="Menu"/>.
         /// </summary>
-        /// <returns>Un <see cref="Menu"/> que se puede agregar a la interfaz gráfica de la aplicación durante la ejecución</returns>
+        /// <returns>
+        /// Un <see cref="Menu"/> que se puede agregar a la interfaz gráfica de
+        /// la aplicación durante la ejecución.
+        /// </returns>
         MenuItem UIMenu { get; }
     }
 }

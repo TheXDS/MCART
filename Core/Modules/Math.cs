@@ -94,27 +94,35 @@ namespace MCART
         /// Se utiliza la prueba de la serie de Lucas para la comprobación, lo que no garantiza que un número sea 
         /// efectivamente primo.
         /// </remarks>
-        public static bool IsNotPrime(this int x)
-        {
-            return (Series.LucasNumber(x) - 1) % x == 0;
-        }
+        public static bool IsNotPrime(this int x) => (Series.LucasNumber(x) - 1) % x == 0;
         /// <summary>
 		/// Representa la proporción de 1 grado DEG sobre PI
 		/// </summary>
 		public const double Deg_Rad = System.Math.PI / 180;
         /// <summary>
-        /// Determina si un <see cref="double"/> es un número real operable
+        /// Determina si un <see cref="double"/> es un número real operable.
         /// </summary>
-        /// <param name="x"><see cref="double"/> a comprobar</param>
+        /// <param name="x"><see cref="double"/> a comprobar.</param>
         /// <returns>
-        /// un valor booleano que indica si <paramref name="x"/> es un número operable, en otras palabras, si no es 
-        /// igual a <see cref="double.NaN"/>, <see cref="double.PositiveInfinity"/> o
-        /// <see cref="double.NegativeInfinity"/>.
+        /// <c>true</c> si <paramref name="x"/> es un número real
+        /// <see cref="double"/> operable, en otras palabras, si no es igual a 
+        /// <see cref="double.NaN"/>, <see cref="double.PositiveInfinity"/> o
+        /// <see cref="double.NegativeInfinity"/>; en cuyo caso se devuelve 
+        /// <c>false</c>.
         /// </returns>
-        public static bool IsValid(this double x)
-        {
-            return !(double.IsNaN(x) || double.IsInfinity(x));
-        }
+        public static bool IsValid(this double x) => !(double.IsNaN(x) || double.IsInfinity(x));
+        /// <summary>
+		/// Determina si un <see cref="float"/> es un número real operable.
+		/// </summary>
+		/// <param name="x"><see cref="float"/> a comprobar.</param>
+		/// <returns>
+		/// <c>true</c> si <paramref name="x"/> es un número real
+		/// <see cref="float"/> operable, en otras palabras, si no es igual a 
+		/// <see cref="float.NaN"/>, <see cref="float.PositiveInfinity"/> o
+		/// <see cref="float.NegativeInfinity"/>; en cuyo caso se devuelve 
+		/// <c>false</c>.
+		/// </returns>
+		public static bool IsValid(this float x) => !(float.IsNaN(x) || float.IsInfinity(x));
         /// <summary>
         /// Determina si una colección de <see cref="double"/> son números reales operables
         /// </summary>
