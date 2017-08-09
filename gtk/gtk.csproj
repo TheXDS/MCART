@@ -68,9 +68,8 @@
     <Compile Include="PluginSupport\InteractionItem.cs" />
     <Compile Include="Security\Password\PwDialogResult.cs" />
     <Compile Include="Types\Color.cs" />
-    <Compile Include="Forms\PasswordDialog.cs" />
-    <Compile Include="gtk-gui\MCART.PasswordDialog.cs" />
     <Compile Include="Controls\ProgressRing.cs" />
+    <Compile Include="Types\Point.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

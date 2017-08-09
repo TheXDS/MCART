@@ -23,10 +23,6 @@
 
 namespace MCART.Types
 {
-    /// <summary>
-    /// Implementación de la estructura <see cref="Point"/> para Windows
-    /// Presentation Framework.
-    /// </summary>
     public partial struct Point
     {
         /// <summary>
@@ -34,7 +30,7 @@ namespace MCART.Types
         /// <see cref="System.Windows.Point"/>.
         /// </summary>
         /// <param name="x"><see cref="Point"/> a convertir.</param>
-        public static implicit operator System.Windows.Point(Point x) => new System.Windows.Point(x.X,x.Y);
+        public static implicit operator System.Windows.Point(Point x) => new System.Windows.Point(x.X, x.Y);
         /// <summary>
         /// Convierte implícitamente un <see cref="System.Windows.Point"/> en 
         /// un <see cref="Point"/>.

@@ -1,5 +1,5 @@
 ﻿//
-//  DrawingArea.cs
+//  ProgressRing.cs
 //
 //  This file is part of MCART
 //
@@ -26,6 +26,7 @@ using Gtk;
 using Gdk;
 using Cairo;
 using static MCART.Math;
+using static System.Math;
 
 namespace MCART.Controls
 {
@@ -33,15 +34,16 @@ namespace MCART.Controls
     public partial class ProgressRing : DrawingArea
     {
         #region Campos privados
-        float _thickness = 4.0f;
-        float _radius = 24.0f;
-        float _value = 0.33f;
+        float _thickness = 8.0f;
+        float _radius = 48.0f;
+        float _value;
         float _min;
         float _max = 100.0f;
         float _angle;
-        float _fontFactor = 0.85f;
-        Types.Color _ringColor;
-        Types.Color _fill;
+        float _fontFactor = 0.4f;
+        Types.Color _ringColor = Resources.Colors.Gray;
+        Types.Color _fill = Resources.Colors.SkyBlue;
+        Types.Color _textColor = Resources.Colors.Gray;
         SweepDirection _sweep = SweepDirection.Clockwise;
         string textFormat = "{0:0.0}%";
         #endregion
@@ -55,8 +57,8 @@ namespace MCART.Controls
             get => _thickness;
             set
             {
-                if (!value.IsBetween(0, _radius))
-                    throw new ArgumentOutOfRangeException(nameof(value));
+                if (!value.IsValid()) throw new ArgumentException(nameof(value));
+                if (!value.IsBetween(0, _radius)) throw new ArgumentOutOfRangeException(nameof(value));
                 _thickness = value;
                 QueueDraw();
             }
@@ -71,10 +73,9 @@ namespace MCART.Controls
             get => _fontFactor;
             set
             {
-                if (!value.IsBetween(0.0f, 1.0f))
-                    throw new ArgumentOutOfRangeException(nameof(value));
+                if (!value.IsValid()) throw new ArgumentException(nameof(value));
+                if (!value.IsBetween(0.0f, 1.0f)) throw new ArgumentOutOfRangeException(nameof(value));
                 _fontFactor = value;
-
                 QueueDraw();
             }
         }
@@ -87,11 +88,9 @@ namespace MCART.Controls
             get => _radius;
             set
             {
-
-                if (value < 0)
-                    throw new ArgumentOutOfRangeException(nameof(value));
+                if (!value.IsValid()) throw new ArgumentException(nameof(value));
+                if (value < 0) throw new ArgumentOutOfRangeException(nameof(value));
                 _radius = value;
-
                 QueueDraw();
             }
         }
@@ -99,16 +98,20 @@ namespace MCART.Controls
         /// Obtiene o establece el valor a representar en este
         /// <see cref="ProgressRing"/>.
         /// </summary>
+        /// <value>
+        /// Cualquier valor comprendido entre <see cref="Minimum"/> y
+        /// <see cref="Maximum"/>, o <see cref="float.NaN"/>. Si se establece en
+        /// <see cref="float.NaN"/>, se mostrará una animación de progreso
+        /// indeterminado.
+        /// </value>
         public float Value
         {
             get => _value;
             set
             {
-                // Si value es NaN, el anillo mostrará progreso indeterminado.
-                if (!value.IsBetween(_min, _max) || !float.IsNaN(value))
+                if (!value.IsBetween(_min, _max) && !float.IsNaN(value))
                     throw new ArgumentOutOfRangeException(nameof(value));
                 _value = value;
-
                 QueueDraw();
             }
         }
@@ -124,7 +127,6 @@ namespace MCART.Controls
                 if (!value.IsValid()) throw new ArgumentException(nameof(value));
                 if (value >= _max) throw new ArgumentOutOfRangeException(nameof(value));
                 _min = value;
-
                 QueueDraw();
             }
         }
@@ -140,7 +142,6 @@ namespace MCART.Controls
                 if (!value.IsValid()) throw new ArgumentException(nameof(value));
                 if (value <= _min) throw new ArgumentOutOfRangeException(nameof(value));
                 _max = value;
-
                 QueueDraw();
             }
         }
@@ -148,13 +149,17 @@ namespace MCART.Controls
         /// Obtiene o establece un valor que indica si se mostrará un estado
         /// indeterminado en este <see cref="ProgressRing"/>.
         /// </summary>
+        /// <value>
+        /// <c>true</c> indica progreso indeterminado, causando que la propiedad
+        /// <see cref="Value"/> sea <see cref="float.NaN"/>; <c>false</c> indica
+        /// un progreso normal, y causará que <see cref="Value"/> sea igual a 0. 
+        /// </value>
         public bool IsIndeterminate
         {
             get => float.IsNaN(_value);
             set
             {
                 _value = value ? float.NaN : 0.0f;
-
                 QueueDraw();
             }
         }
@@ -165,12 +170,7 @@ namespace MCART.Controls
         public Types.Color RingColor
         {
             get => _ringColor;
-            set
-            {
-                _ringColor = value;
-
-                QueueDraw();
-            }
+            set { _ringColor = value; QueueDraw(); }
         }
         /// <summary>
         /// Obtiene o establece el <see cref="Types.Color"/> a utilizar para dibujar
@@ -179,12 +179,16 @@ namespace MCART.Controls
         public Types.Color Fill
         {
             get => _fill;
-            set
-            {
-                _fill = value;
-
-                QueueDraw();
-            }
+            set { _fill = value; QueueDraw(); }
+        }
+        /// <summary>
+        /// Obtiene o establece el <see cref="Types.Color"/> a utilizar para dibujar
+        /// el relleno del anillo de este <see cref="ProgressRing"/>.
+        /// </summary>
+        public Types.Color TextColor
+        {
+            get => _textColor;
+            set { _textColor = value; QueueDraw(); }
         }
         /// <summary>
         /// Obtiene o establece el ángulo desde el que se empezará a dibujar el
@@ -197,9 +201,7 @@ namespace MCART.Controls
             {
                 if (!value.IsBetween(0.0f, 360.0f)) throw new ArgumentOutOfRangeException(nameof(value));
                 _angle = value;
-
                 QueueDraw();
-
             }
         }
         /// <summary>
@@ -214,7 +216,6 @@ namespace MCART.Controls
                 if (!typeof(SweepDirection).IsEnumDefined(value))
                     throw new ArgumentException(nameof(value));
                 _sweep = value;
-
                 QueueDraw();
             }
         }
@@ -224,7 +225,6 @@ namespace MCART.Controls
         /// </summary>
         public string TextFormat { get => textFormat; set => textFormat = value; }
         #endregion
-
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ProgressRing"/>.
@@ -241,49 +241,56 @@ namespace MCART.Controls
         /// <param name="evnt">Argumentos del evento.</param>
         protected override bool OnExposeEvent(EventExpose evnt)
         {
-            //base.OnExposeEvent(evnt);
+            base.OnExposeEvent(evnt);
 
             // Este objeto dibuja el control.
             using (Context cr = CairoHelper.Create(evnt.Window))
             {
-                // Grosor de las líneas.
-                cr.LineWidth = _thickness;
+                // Radio interno del anillo.
+                float rd = _radius - (Thickness / 2);
 
-                // Preparar propiedades de texto...
-                cr.SelectFontFace(
-                    "Courier 10 Pitch",
-                    FontSlant.Normal,
-                    FontWeight.Normal);
-                cr.SetFontSize(_radius * _fontFactor);
+                // Preparar propiedades de dibujo...
+                cr.LineWidth = _thickness;
 
                 // Dibujar el Fondo...
                 cr.SetSourceColor(_ringColor);
-                cr.Arc(_radius, _radius, _radius, 0.0, 360.0);
+                cr.Arc(_radius, _radius, rd, 0.0, 360.0);
+                cr.Stroke();
 
                 // Dibujar el relleno...
+                double strt = (_angle - 90) * Deg_Rad;
+                double nd = (PI * 2.0 * (_value * (sbyte)Sweep / (_max - _min))) - (PI / 2);
                 cr.SetSourceColor(_fill);
-                cr.Arc(
-                    _radius,
-                    _radius,
-                    _radius,
-                    _angle * Deg_Rad,
-                    System.Math.PI * (_value / (_max - _min))
-                );
-                //TODO: dibujar texto...
+                if (!IsIndeterminate)
+                {
+                    if (Sweep == SweepDirection.Clockwise)
+                        cr.Arc(_radius, _radius, rd, strt, nd);
+                    else
+                        cr.Arc(_radius, _radius, rd, nd, strt);
+                    cr.Stroke();
+                }
+                else
+                {
+                    //TODO: Animación de movimiento
+                }
+
+                // dibujar texto... 
+                cr.LineWidth = 1.0;
+                cr.SetFontSize(_radius * _fontFactor);
+                cr.SetSourceColor(_textColor);
+                TextExtents centertxt = cr.TextExtents(string.Format(textFormat, _value));
+                cr.MoveTo(_radius - centertxt.Width / 2, _radius + _radius * (_fontFactor / 3));
+                cr.TextPath(string.Format(textFormat, _value));
+                cr.Fill();
                 return true;
             }
         }
-
-        //protected override void OnSizeAllocated(Gdk.Rectangle allocation)
-        //{
-        //    base.OnSizeAllocated(allocation);
-        //    // Insert layout code here.
-        //}
-
         /// <summary>
         /// Informa a Gtk del tamaño requerido por este control.
         /// </summary>
-        /// <param name="requisition">Requisition.</param>
+        /// <param name="requisition">
+        /// Variable de referencia a utilizar para devolver la información.
+        /// </param>
         protected override void OnSizeRequested(ref Requisition requisition)
         {
             requisition.Height = (int)_radius * 2;

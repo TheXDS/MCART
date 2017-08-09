@@ -74,6 +74,14 @@ namespace MCART.Resources
         /// </returns>
         public static string Include(string text) => $"Incluya {text}";
         /// <summary>
+        /// Devuelve una cadena con el texto "El plugin {<paramref name="plg"/>} no contiene interacciones.".
+        /// </summary>
+        /// <param name="plg">Nombre del plugin.</param>
+        /// <returns>
+        /// Una cadena con el formato "El plugin {<paramref name="plg"/>} no contiene interacciones.".
+        /// </returns>
+        public static string PluginHasNoInters(string plg) => $"El plugin {plg} no contiene interacciones.";
+        /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} ha sido aceptado.".
         /// </summary>
         /// <param name="text">Texto a formatear.</param>

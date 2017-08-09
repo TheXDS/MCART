@@ -1,9 +1,13 @@
 ﻿//
-// MCAChecksum.vb
+// PluginExample.cs
 //
 // Este archivo es un ejemplo sobre creación de plugins para MCART.
-// MCAChecksum requiere MCART 0.6 (cualquier plataforma), pero ha sido compilado
-// para Win32.
+// Este plugin requiere MCART 0.6 (cualquier plataforma), pero ha sido compilado
+// para Win32. En teoría, debería poder funcionar perfectamente en Windows,
+// tanto Win32 como WPF, y en Linux, tanto en Gtk como en el port de Win32 en
+// Mono, e incluso Wine si se cuenta con algún framework compatible.
+//
+//  This file is part of MCART
 //
 // Author:
 //      César Andrés Morgan <xds_xps_ivx@hotmail.com>

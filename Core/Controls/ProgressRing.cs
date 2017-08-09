@@ -40,18 +40,18 @@ namespace MCART.Controls
         /// Determina la dirección en la que este <see cref="ProgressRing"/>
         /// será rellenado.
         /// </summary>
-        public enum SweepDirection : byte
+        public enum SweepDirection : sbyte
         {
             /// <summary>
             /// El <see cref="ProgressRing"/> se rellenará en el sentido de las
             /// agujas del reloj.
             /// </summary>
-            Clockwise,
+            Clockwise = 1,
             /// <summary>
             /// El <see cref="ProgressRing"/> se rellenará en el sentido
             /// contrario a las agujas del reloj. 
             /// </summary>
-            CounterClockwise
+            CounterClockwise = -1
         }
     }
 }

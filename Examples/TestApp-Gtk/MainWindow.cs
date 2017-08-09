@@ -22,51 +22,41 @@
 using System;
 using System.Collections.Generic;
 using Gtk;
+using MCART;
 using MCART.Forms;
 using MCART.PluginSupport;
-using MCART;
 
 public partial class MainWindow : Window
 {
     List<IPlugin> pl = Plugin.LoadEverything<IPlugin>();
     /// <summary>
-    /// Initializes a new instance of the <see cref="MainWindow"/> class.
+    /// Inicializa una nueva instancia de la clase <see cref="MainWindow"/>.
     /// </summary>
     public MainWindow() : base(WindowType.Toplevel)
     {
         Build();
         if (pl.Count > 0)
         {
+            //HACK: Ubicación dura del submenú de plugins.
             Menu mnuplugins = (Menu)((ImageMenuItem)mnuMain.Children[2]).Submenu;
-            //((MenuItem)PluginsAction.Proxies[0]).Submenu = mnuplugins;
             mnuplugins.ClearContents();
-            foreach (IPlugin j in pl)
-            {
-                if (j.HasInteractions)
-                {
-                    MenuItem thisPlg = new MenuItem(j.Name) { Visible = true };
-                    Menu thsplg = new Menu() { Visible = true };
-                    thisPlg.Submenu = thsplg;
-                    foreach (var k in j.PluginInteractions)
-                        thsplg.Append(k.AsMenuItem());
-                    mnuplugins.Append(thisPlg);
-                }
-            }
+            mnuplugins.AddPlugins(pl);
         }
+        ShowAll();
     }
-
-    protected void OnDeleteEvent(object sender, DeleteEventArgs a)
+    /// <summary>
+    /// Finaliza la aplicación al cerrar esta ventana.
+    /// </summary>
+    /// <param name="sender">Objeto que ha generado el evento.</param>
+    /// <param name="e">Argumentos del evento.</param>
+    protected void OnDeleteEvent(object sender, DeleteEventArgs e)
     {
         Application.Quit();
-        a.RetVal = true;
+        e.RetVal = true;
     }
 
-    protected void OnSalirActionActivated(object sender, EventArgs e)
-    {
-        Destroy();
-    }
-
-    protected void OnInfoDePluginsAction1Activated(object sender, EventArgs e)
+    void OnSalirActionActivated(object sender, EventArgs e) => Destroy();
+    void OnInfoDePluginsAction1Activated(object sender, EventArgs e)
     {
         (new PluginBrowser()).Show();
     }

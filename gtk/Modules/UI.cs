@@ -21,10 +21,12 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using Gtk;
-using MCART.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Gtk;
+using MCART.Attributes;
+using St = MCART.Resources.Strings;
 
 namespace MCART
 {
@@ -33,6 +35,37 @@ namespace MCART
     /// </summary>
     public static class UI
     {
+        /// <summary>
+        /// Agrega los <see cref="PluginSupport.InteractionItem"/> de cada
+        /// <see cref="PluginSupport.IPlugin"/> de una colección a un 
+        /// <see cref="Menu"/>.   
+        /// </summary>
+        /// <param name="pl">
+        /// Colección de <see cref="PluginSupport.IPlugin"/> a procesar.
+        /// </param>
+        /// <param name="menu">Menú de destino para los
+        /// <see cref="PluginSupport.InteractionItem"/> de cada
+        /// <see cref="PluginSupport.IPlugin"/>.</param>
+        public static void AddPlugins(this Menu menu, IEnumerable<PluginSupport.IPlugin> pl)
+        {
+            foreach (PluginSupport.IPlugin j in pl)
+            {
+                if (j.HasInteractions)
+                {
+                    MenuItem thisPlg = new MenuItem(j.Name) { Visible = true };
+                    Menu thsplg = new Menu { Visible = true };
+                    thisPlg.Submenu = thsplg;
+                    foreach (var k in j.PluginInteractions)
+                        thsplg.Append(k.AsMenuItem());
+                    menu.Append(thisPlg);
+                }
+                else
+                {
+                    Console.WriteLine(St.Warn(St.PluginHasNoInters(j.Name)));
+                }
+            }
+        }
+
         /// <summary>
         /// Elimina a todos los <see cref="Widget"/> hijos de este
         /// <see cref="Container"/>.

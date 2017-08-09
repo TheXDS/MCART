@@ -50,6 +50,7 @@
     <Reference Include="MCART">
       <HintPath>..\..\Build\Debug\Gtk\MCART.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Cairo" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
