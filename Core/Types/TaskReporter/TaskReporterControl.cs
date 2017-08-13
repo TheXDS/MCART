@@ -21,66 +21,27 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using MCART.Events;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using MCART.Events;
 using St = MCART.Resources.Strings;
 
 namespace MCART.Types.TaskReporter
 {
     /// <summary>
-    /// Clase base para los controles de Win32 que pueden utilizarse para
-    /// mostrar el progreso de una tarea por medio de la interfaz 
-    /// <see cref="ITaskReporter"/>.
+    /// Definición parcial de una clase base que permite crear controles,
+    /// Widgets o componentes para las distintas plataformas de MCART, que
+    /// permite reportar visualmente el progreso de una tarea.
     /// </summary>
-    public class TaskReporterControl : UserControl, ITaskReporter
+    public abstract partial class TaskReporterControl : ITaskReporter
     {
         #region Campos privados
-        bool CancelPendingProperty;
-        bool OnDutyProperty;
-        bool? StoppableProperty;
-        DateTime TStartProperty;
-        bool TimedOutProperty;
-        float? CurrentProgressProperty;
         bool genEx;
         Extensions.Timer Tmr;
         #endregion
         #region Propiedades
-        /// <summary>
-        /// Indica si hay pendiente una solicitud para cancelar la tarea.
-        /// </summary>
-        public bool CancelPending => CancelPendingProperty;
-        /// <summary>
-        /// Indica el progreso actual de una tarea.
-        /// </summary>
-        public float? CurrentProgress => CurrentProgressProperty;
-        /// <summary>
-        /// Indica si se está ejecutando una tarea actualmente.
-        /// </summary>
-        public bool OnDuty => OnDutyProperty;
-        /// <summary>
-        /// Indica si la tarea puede ser detenida.
-        /// </summary>
-        /// <returns>
-        /// <c>true</c> si la tarea puede ser detenida, <c>false</c> en caso
-        /// contrario.
-        /// </returns>
-        public bool? Stoppable => StoppableProperty;
-        /// <summary>
-        /// Indica si ya se ha agotado el tiempo de espera de la tarea.
-        /// </summary>
-        /// <returns>
-        /// <c>true</c> si ya se ha agotado el tiempo de espera, <c>false</c>
-        /// en caso contrario.
-        /// </returns>
-        public bool TimedOut => TimedOutProperty;
-        /// <summary>
-        /// Obtiene el momento de inicio de la tarea.
-        /// </summary>
-        public DateTime TStart => TStartProperty;
         /// <summary>
         /// Indica el tiempo de espera disponible.
         /// </summary>
@@ -154,7 +115,7 @@ namespace MCART.Types.TaskReporter
             OnDutyProperty = true;
             TStartProperty = DateTime.Now;
             StoppableProperty = ns;
-            Invoke(new Action<bool>(OnBegin), true);
+            OnBegin(true);
             Begun?.Invoke(this, new BegunEventArgs(ns, TStart));
         }
         void Bgn(TimeSpan timeout, bool genTOutEx, bool ns)
@@ -169,10 +130,10 @@ namespace MCART.Types.TaskReporter
         void Bsy(ProgressEventArgs e)
         {
             if (!OnDuty) throw new InvalidOperationException();
-            Invoke(new Action<ProgressEventArgs>(OnBusy), e);
+            OnBusy(e);
             Reporting?.Invoke(this, e);
         }
-        void Rdy(string msg) => Invoke(new Action<string>(OnReady), msg ?? St.Rdy);
+        void Rdy(string msg) => OnReady(msg ?? St.Rdy);
         void Tmr_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             Tmr.Stop();

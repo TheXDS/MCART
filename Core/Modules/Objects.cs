@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using St = MCART.Resources.Strings;
+using Gtk;
 
 namespace MCART
 {
@@ -36,23 +37,45 @@ namespace MCART
     public static class Objects
     {
         /// <summary>
-        /// Comprueba cual de los tipos es asignable a partir del tipo
-        /// <paramref name="source"/>.
+        /// Comprueba si alguno de los tipos especificados es asignable a partir
+        /// del tipo <paramref name="source"/>.
         /// </summary>
         /// <param name="types">Lista de tipos a comprobar.</param>
         /// <param name="source">Tipo que desea asignarse.</param>
-        /// <returns>El índice del primer tipo que puede asignarse a partir de
-        /// <paramref name="source"/>, o <c>null</c> si no existe un tipo que
-        /// pueda asignarse a partir de <paramref name="source"/>.</returns>
-        public static int? IsAnyAssignableFrom(this Type[] types, Type source)
+        /// <param name="index">
+        /// Argumento de salida. Indica el índice del primer tipo que puede ser
+        /// asignado a partir de <paramref name="source"/>.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> si el tipo <paramref name="source"/> puede ser asignado 
+        /// a uno de los tipos especificados, <c>false</c> en caso contrario.
+        /// </returns>
+        public static bool AnyAssignableFrom(this IEnumerable<Type> types, Type source, out int? index)
         {
-            int a = 0;
+            index = 0;
             foreach (Type j in types)
             {
-                if (j.IsAssignableFrom(source)) return a;
-                a++;
+                if (j.IsAssignableFrom(source)) return true;
+                index++;
             }
-            return null;
+            index = null;
+            return false;
+        }
+        /// <summary>
+        /// Comprueba si alguno de los tipos especificados es asignable a partir
+        /// del tipo <paramref name="source"/>.
+        /// </summary>
+        /// <param name="types">Lista de tipos a comprobar.</param>
+        /// <param name="source">Tipo que desea asignarse.</param>
+        /// <returns>
+        /// <c>true</c> si el tipo <paramref name="source"/> puede ser asignado 
+        /// a uno de los tipos especificados, <c>false</c> en caso contrario.
+        /// </returns>
+
+        [Thunk]
+        public static bool AnyAssignableFrom(this IEnumerable<Type> types, Type source)
+        {
+            return AnyAssignableFrom(types, source, out int? ignore);
         }
         /// <summary>
         /// Comprueba si todos los tipos son asignables a partir del tipo
@@ -113,7 +136,7 @@ namespace MCART
         /// <remarks>
         /// Esta función únicamente es útil al utilizar Visual Basic en conjunto
         /// con la estructura <c lang="VB">With</c></remarks>
-        public static T Itself<T>(this T obj) => obj;
+        [Thunk] public static T Itself<T>(this T obj) => obj;
         /// <summary>
         /// Determina si <paramref name="obj1"/> es la misma instancia en
         /// <paramref name="obj2"/>.
@@ -157,35 +180,51 @@ namespace MCART
             return true;
         }
         /// <summary>
-        /// Obtiene una lista de tipos asignables a partir de la interfaz especificada
+        /// Obtiene una lista de tipos asignables a partir de la interfaz 
+        /// especificada.
         /// </summary>
-        /// <typeparam name="T">Interfaz a buscar</typeparam>
-        /// <returns>Una lista de tipos de las clases que implementan <typeparamref name="T"/> dentro de <see cref="AppDomain.CurrentDomain"/></returns>
+        /// <typeparam name="T">Interfaz a buscar.</typeparam>
+        /// <returns>
+        /// Una lista de tipos de las clases que implementan a la interfaz
+        /// <typeparamref name="T"/> dentro del 
+        /// <see cref="AppDomain.CurrentDomain"/>.
+        /// </returns>
         [Thunk] public static IEnumerable<Type> GetTypes<T>() => GetTypes<T>(AppDomain.CurrentDomain);
         /// <summary>
-        /// Obtiene una lista de tipos asignables a partir de la interfaz especificada dentro del <see cref="AppDomain"/> especificado
+        /// Obtiene una lista de tipos asignables a partir de la interfaz 
+        /// especificada dentro del <see cref="AppDomain"/> especificado.
         /// </summary>
-        /// <typeparam name="T">Interfaz a buscar</typeparam>
-        /// <param name="Domain"><see cref="AppDomain"/> en el cual realizar la búsqueda</param>
-        /// <returns>Una lista de tipos de las clases que implementan <typeparamref name="T"/> dentro de <paramref name="Domain"/></returns>
-        public static IEnumerable<Type> GetTypes<T>(this AppDomain Domain) => Domain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(p => typeof(T).IsAssignableFrom(p)).ToList();
-        /// <summary>
-        /// Obtiene una lista de los tipos de los objetos especificados
-        /// </summary>
-        /// <param name="objects">Objetos de orígen de tipos</param>
-        /// <returns>Una lista compuesta por los tipos de los objetos provistos</returns>
-        public static IEnumerable<Type> ToTypes(this object[] objects)
+        /// <typeparam name="T">Interfaz a buscar.</typeparam>
+        /// <param name="Domain">
+        /// <see cref="AppDomain"/> en el cual realizar la búsqueda.
+        /// </param>
+        /// <returns>
+        /// Una lista de tipos de las clases que implementan a la interfaz 
+        /// <typeparamref name="T"/> dentro del <paramref name="Domain"/>.
+        /// </returns>
+        public static IEnumerable<Type> GetTypes<T>(this AppDomain Domain)
         {
-            List<Type> l = new List<Type>();
-            foreach (object j in objects) l.Add(j.GetType());
-            return l;
+            return Domain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(
+                p => typeof(T).IsAssignableFrom(p)).ToList();
         }
         /// <summary>
-        /// Inicializa una nueva instancia del tipo dinámico especificado
+        /// Obtiene una lista de los tipos de los objetos especificados.
+        /// </summary>
+        /// <param name="objects">
+        /// Objetos a partir de los cuales generar la colección de tipos.
+        /// </param>
+        /// <returns>
+        /// Una lista compuesta por los tipos de los objetos provistos.
+        /// </returns>
+        public static IEnumerable<Type> ToTypes(this object[] objects)
+        {
+            foreach (object j in objects) yield return j.GetType();
+        }
+        /// <summary>
+        /// Inicializa una nueva instancia del tipo dinámico especificado.
         /// </summary>
         /// <returns>La nueva instancia del tipo especificado.</returns>
         /// <typeparam name="T">Tipo de instancia a crear.</typeparam>
-        [Thunk]
         public static T New<T>()
         {
             try { return typeof(T).New<T>(new object[] { }); }
@@ -199,9 +238,9 @@ namespace MCART
         /// <param name="j">Tipo a instanciar. Debe ser, heredar o implementar 
         /// el tipo especificado en <typeparamref name="T"/></param>
         /// <typeparam name="T">Tipo de instancia a devolver.</typeparam>
-        [Thunk]
         public static T New<T>(this Type j)
         {
+            if (j.IsAbstract || j.IsInterface) throw new TypeLoadException();
             try { return j.New<T>(new object[] { }); }
             catch { throw; }
         }
@@ -210,9 +249,9 @@ namespace MCART
         /// </summary>
         /// <returns>La nueva instancia del tipo especificado.</returns>
         /// <param name="j">Tipo a instanciar.</param>
-        [Thunk]
         public static object New(this Type j)
         {
+            if (j.IsAbstract || j.IsInterface) throw new TypeLoadException();
             try { return j.New<object>(new object[] { }); }
             catch { throw; }
         }
@@ -224,7 +263,6 @@ namespace MCART
 		/// <param name="Params">Parámetros a pasar al constructor. Se buscará 
 		/// un constructor compatible para poder crear la instancia.</param>
 		/// <returns>Una nueva instancia del tipo especificado.</returns>
-        [Thunk]
         public static T New<T>(object[] Params)
         {
             try { return New<T>(typeof(T), Params); }
@@ -243,14 +281,8 @@ namespace MCART
         public static T New<T>(this Type j, params object[] Params)
         {
             if (j.IsAbstract || j.IsInterface) throw new TypeLoadException();
-            try
-            {
-                return (T)j.GetConstructor(Params.ToTypes().ToArray()).Invoke(Params);
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidCastException(string.Format(St.CantCreateInstance, j.Name), ex);
-            }
+            try { return (T)j.GetConstructor(Params.ToTypes().ToArray()).Invoke(Params); }
+            catch { throw; }
         }
         /// <summary>
         /// Inicializa una nueva instancia del tipo dinámico especificado.
@@ -262,6 +294,7 @@ namespace MCART
         [Thunk]
         public static object New(this Type j, params object[] Params)
         {
+            if (j.IsAbstract || j.IsInterface) throw new TypeLoadException();
             try { return j.New<object>(Params); }
             catch { throw; }
         }
@@ -271,13 +304,12 @@ namespace MCART
         /// <param name="obj">Objeto COM a liberar.</param>
         public static void ReleaseCOMObject(object obj)
         {
-            try
+            try { Marshal.ReleaseComObject(obj); }
+            finally
             {
-                Marshal.ReleaseComObject(obj);
                 obj = null;
+                GC.Collect();
             }
-            catch { obj = null; }
-            finally { GC.Collect(); }
         }
         /// <summary>
         /// Devuelve el atributo asociado a la declaración del objeto especificado

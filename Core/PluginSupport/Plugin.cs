@@ -78,7 +78,7 @@ namespace MCART.PluginSupport
         /// Maneja las llamadas de actualizacióón automática de la
         /// interfaz gráfica de este <see cref="Plugin"/>.
         /// </summary>
-        /// <param name="sender">Objeto que generóel evento.</param>
+        /// <param name="sender">Objeto que generó el evento.</param>
         /// <param name="e">Argumentos del evento.</param>
         void AutoUpdateEvtHandler(object sender, EventArgs e) { RequestUIChange(); }
         /// <summary>
@@ -191,41 +191,33 @@ namespace MCART.PluginSupport
         /// Obtiene una lista con los nombres de las interfaces implementadas
         /// por este <see cref="Plugin"/>.
         /// </summary>
-        public ReadOnlyCollection<string> InterfaceNames
+        public System.Collections.Generic.IEnumerable<string> InterfaceNames
         {
-            get
-            {
-                List<string> outp = new List<string>();
-                foreach (Type j in Interfaces) outp.Add(j.FullName);
-                return outp.AsReadOnly();
-            }
+            get { foreach (Type j in Interfaces) yield return j.FullName; }
         }
         /// <summary>
         /// Obtiene una colección de las interfaces implementadas por este
         /// <see cref="Plugin"/>.
         /// </summary>
-        public ReadOnlyCollection<Type> Interfaces
+        public System.Collections.Generic.IEnumerable<Type> Interfaces
         {
             get
             {
-                List<Type> outp = new List<Type>();
-                try
-                {
-                    foreach (Type j in GetType().GetInterfaces())
-                        if (j.IsNeither(typeof(IPlugin), typeof(IDisposable)))
-                            outp.Add(j);
-                    return outp.AsReadOnly();
-                }
-                catch { throw; }
+                foreach (Type j in GetType().GetInterfaces())
+                    if (j.IsNeither(typeof(IPlugin), typeof(IDisposable)))
+                        yield return j;
             }
         }
         /// <summary>
-        /// Obtiene la referencia al emsamblado que contiene a este <see cref="Plugin"/> 
+        /// Obtiene la referencia al emsamblado que contiene a este 
+        /// <see cref="Plugin"/>.
         /// </summary>
-        /// <value>Ensamblado en el cual se declara este <see cref="Plugin"/>.</value>
+        /// <value>
+        /// Ensamblado en el cual se declara este <see cref="Plugin"/>.
+        /// </value>
         public Assembly MyAssembly => GetType().Assembly;
         /// <summary>
-        /// Contiene una lista de interacciones que este <see cref="Plugin"/>
+        /// Contiene una lista de interacciones que este <see cref="Plugin"/>.
         /// provee para incluir en una interfaz gráfica.
         /// </summary>
         public ReadOnlyCollection<InteractionItem> PluginInteractions
@@ -294,8 +286,7 @@ namespace MCART.PluginSupport
             Type x = typeof(T);
             if (!x.IsInterface) throw new InterfaceExpectedException(x);
             if (!x.IsAssignableFrom(GetType())) throw new InterfaceNotImplementedException(x);
-            // Lamentablemente, es necesario usar Heavy Boxing.            
-            return (T)(object)this;
+            return this as T;
         }
         /// <summary>
         /// Genera el evento <see cref="UIChangeRequested"/>.
@@ -322,13 +313,16 @@ namespace MCART.PluginSupport
         /// <param name="tme">
         /// Instante de carga del <see cref="Plugin"/>.
         /// </param>
-        internal void RaisePlgLoad(DateTime tme) => PluginLoaded?.Invoke(this, new PluginLoadedEventArgs((DateTime.Now - tme).Ticks));        
+        internal void RaisePlgLoad(DateTime tme) => PluginLoaded?.Invoke(this, new PluginLoadedEventArgs((DateTime.Now - tme).Ticks));
         /// <summary>
-        /// Releases unmanaged resources and performs other cleanup operations before the
-        /// <see cref="Plugin"/> is reclaimed by garbage collection.
+        /// Releases unmanaged resources and performs other cleanup operations 
+        /// before the <see cref="Plugin"/> is reclaimed by garbage collection.
         /// </summary>
         ~Plugin()
         {
+            AutoUpdateMyMenu = false;
+            MyMenu.TriggerEvents = false;
+            MyMenu.Clear();
             PluginFinalized?.Invoke(null, new PluginFinalizedEventArgs());
         }
     }

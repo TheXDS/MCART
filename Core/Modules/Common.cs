@@ -149,7 +149,7 @@ namespace MCART
             return (a.CompareTo(min) >= 0 && a.CompareTo(max) <= 0);
         }
         /// <summary>
-        /// Genera una secuencia de números en el rango especificad.
+        /// Genera una secuencia de números en el rango especificado.
         /// </summary>
         /// <returns>
         /// Una lista de enteros con la secuencia generada.
@@ -157,7 +157,7 @@ namespace MCART
         /// <param name="top">Valor más alto.</param>
         /// <param name="floor">Valor más bajo.</param>
         /// <param name="stepping">Saltos del secuenciador.</param>
-        public static List<int> Sequencer(int top, int floor = 0, int stepping = 1)
+        public static IEnumerable<int> Sequencer(int top, int floor = 0, int stepping = 1)
         {
             if (floor > top)
             {
@@ -166,9 +166,7 @@ namespace MCART
             }
             if (stepping == 0 || System.Math.Abs(stepping) > System.Math.Abs(top - floor))
                 throw new ArgumentOutOfRangeException(nameof(stepping));
-            List<int> a = new List<int>();
-            for (int b = floor; b <= top; b += stepping) a.Add(b);
-            return a;
+            for (int b = floor; b <= top; b += stepping) yield return b;
         }
         /// <summary>
         /// Convierte los valores de una colección de elementos 
@@ -180,8 +178,8 @@ namespace MCART
         /// <param name="baseZero">Opcional. si es <c>true</c>, la base de
         /// porcentaje es cero; de lo contrario, se utilizará el valor mínimo
         /// dentro de la colección.</param>
-        public static T ToPercent<T>(
-            this T lst, bool baseZero = false) where T : IEnumerable<double>
+        [Thunk]
+        public static IEnumerable<double> ToPercent(this IEnumerable<double> lst, bool baseZero = false)
         {
             return ToPercent(lst, baseZero ? 0 : lst.Min(), lst.Max());
         }
@@ -194,19 +192,15 @@ namespace MCART
         /// <param name="lst">Colección a procesar.</param>
         /// <param name="min">Valor que representará 0%.</param>
         /// <param name="max">Valor que representará 100%.</param>
-        public static T ToPercent<T>(
-            this T lst, double min, double max) where T : IEnumerable<double>
+        public static IEnumerable<double> ToPercent(this IEnumerable<double> lst, double min, double max)
         {
             if (!min.IsValid()) throw new ArgumentException(string.Empty, nameof(min));
             if (!max.IsValid()) throw new ArgumentException(string.Empty, nameof(max));
-            List<double> outp = new List<double>();
             foreach (double j in lst)
             {
-                if (j.IsValid())
-                    outp.Add((j - min) / (max - min).Clamp(1, double.NaN));
-                else outp.Add(double.NaN);
+                if (j.IsValid()) yield return (j - min) / (max - min).Clamp(1, double.NaN);
+                else yield return double.NaN;
             }
-            return (T)outp.AsEnumerable();
         }
         /// <summary>
         /// Calcula el porcentaje de similitud entre dos <see cref="string"/>.

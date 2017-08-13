@@ -29,6 +29,8 @@
 using System;
 using MCART.Attributes;
 using MCART.Types;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MCART
 {
@@ -42,6 +44,19 @@ namespace MCART
         /// </summary>
         public static class Series
         {
+            public static IEnumerable<int> Fibonacci()
+            {
+                int a = 0;
+                int b = 1;
+                while (true)
+                {
+                    yield return a;
+                    yield return b;
+                    a += b;
+                    b += a;
+                }
+            }
+
             /// <summary>
             /// Calcula el n-ésimo elemento de la serie de Lucas.
             /// </summary>

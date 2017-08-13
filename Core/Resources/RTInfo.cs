@@ -20,10 +20,12 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Reflection;
 using St = MCART.Resources.Strings;
 using MCART.Attributes;
+
 namespace MCART.Resources
 {
     /// <summary>
@@ -55,9 +57,9 @@ namespace MCART.Resources
         {
             var minv = asmbly.GetAttr<MinMCARTVersionAttribute>();
             var tgtv = asmbly.GetAttr<TargetMCARTVersionAttribute>();
-            if (minv.IsNull() || tgtv.IsNull()) return null;
+            if (Objects.AreAnyNull(minv, tgtv)) return null;
             Version vr = RTAssembly.GetName().Version;
-            return vr >= minv.Value && vr <= tgtv.Value;
+            return vr.IsBetween(minv.Value, tgtv.Value);
         }
         /// <summary>
         /// Comprueba si el plugin es compatible con esta versión de MCART
@@ -74,9 +76,9 @@ namespace MCART.Resources
         {
             var minv = typeof(T).GetAttr<MinMCARTVersionAttribute>();
             var tgtv = typeof(T).GetAttr<TargetMCARTVersionAttribute>();
-            if (minv.IsNull() || tgtv.IsNull()) return null;
+            if (Objects.AreAnyNull(minv, tgtv)) return null;
             Version vr = RTAssembly.GetName().Version;
-            return vr >= minv.Value && vr <= tgtv.Value;
+            return vr.IsBetween(minv.Value, tgtv.Value);
         }
         /// <summary>
         /// Obtiene la ruta de los archivos de ayuda.

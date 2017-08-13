@@ -63,7 +63,8 @@ namespace MCART.PluginSupport
     public delegate void UIChangeRequestedEventHandler(IPlugin sender, UIChangeEventArgs e);
     #endregion
     /// <summary>
-    /// Incluye información adicional del evento <see cref="IPlugin.PluginFinalizing"/>.
+    /// Incluye información adicional del evento 
+    /// <see cref="IPlugin.PluginFinalizing"/>.
     /// </summary>
     [Serializable]
     public sealed class PluginFinalizingEventArgs : CancelEventArgs
@@ -92,13 +93,14 @@ namespace MCART.PluginSupport
         }
 
         /// <summary>
-        /// Indica la razón por la cual se está finalizando el <see cref="Plugin"/>
+        /// Indica la razón por la cual se está finalizando el 
+        /// <see cref="IPlugin"/>.
         /// </summary>
         public readonly FinalizingReason Reason;
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase
-        /// <see cref="T:MCART.PluginSupport.PluginFinalizingEventArgs"/>.
+        /// <see cref="PluginFinalizingEventArgs"/>.
         /// </summary>
         /// <param name="reason">Parámetro opcional. Permite establecer una
         /// razón por la cual se está finalizando este plugin.</param>
@@ -115,7 +117,7 @@ namespace MCART.PluginSupport
     public sealed class PluginFinalizedEventArgs : EventArgs
     {
         /// <summary>
-        /// Obtiene la excepción que causó la finalización del Plugin
+        /// Obtiene la excepción que causó la finalización del Plugin.
         /// </summary>
         /// <remarks>Se devolverá <c>null</c> si el <see cref="Plugin"/> ha
         /// finalizado correctamente, en caso contrario se devuelve la excepción
@@ -155,7 +157,7 @@ namespace MCART.PluginSupport
         public readonly TimeSpan LoadTime;
         /// <summary>
         /// Inicializa una nueva instancia de la clase
-        /// <see cref="T:MCART.PluginSupport.PluginLoadedEventArgs"/>.
+        /// <see cref="PluginLoadedEventArgs"/>.
         /// </summary>
         /// <param name="t"><see cref="TimeSpan"/> que le ha tomado al
         /// <see cref="Plugin"/> ser cargado.</param>
@@ -165,7 +167,7 @@ namespace MCART.PluginSupport
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase
-        /// <see cref="T:MCART.PluginSupport.PluginLoadedEventArgs"/>.
+        /// <see cref="PluginLoadedEventArgs"/>.
         /// </summary>
         /// <param name="ticks">Tiempo en ticks que le ha tomado al
         /// <see cref="Plugin"/> ser cargado.</param>
@@ -175,7 +177,7 @@ namespace MCART.PluginSupport
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase
-        /// <see cref="T:MCART.PluginSupport.PluginLoadedEventArgs"/>.
+        /// <see cref="PluginLoadedEventArgs"/>.
         /// </summary>
         /// <param name="milliseconds">Milisegundos que le ha tomado al
         /// <see cref="Plugin"/> ser cargado.</param>
@@ -197,6 +199,11 @@ namespace MCART.PluginSupport
         /// solicitado.
         /// </summary>
         public readonly ReadOnlyCollection<InteractionItem> NewUI;
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="UIChangeEventArgs"/>.
+        /// </summary>
+        /// <param name="NewUI">Nueva interfaz de usuario solicitada.</param>
         internal UIChangeEventArgs(IList<InteractionItem> NewUI)
         {
             this.NewUI = new ReadOnlyCollection<InteractionItem>(NewUI);

@@ -37,11 +37,13 @@ namespace MCART.Types.Extensions
     /// </typeparam> 
     public partial class List<T> : System.Collections.Generic.List<T>, ICloneable
     {
+#pragma warning disable RECS0108 // Warns about static fields in generic types
         /// <summary>
         /// Activa o desactiva la generación global de eventos de todos los
         /// <see cref="List{T}"/>.
         /// </summary>
         public static bool GlobalTriggerEvents;
+#pragma warning restore RECS0108
         /// <summary>
         /// Activa o desactiva la generación de eventos.
         /// </summary>

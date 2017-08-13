@@ -70,10 +70,16 @@
     <Compile Include="Types\Color.cs" />
     <Compile Include="Controls\ProgressRing.cs" />
     <Compile Include="Types\Point.cs" />
+    <Compile Include="Types\TaskReporter\TaskReporterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\BarStepper.cs" />
+    <Compile Include="gtk-gui\MCART.Controls.BarStepper.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <Folder Include="Controls\" />
+    <Folder Include="Types\TaskReporter\" />
   </ItemGroup>
   <Import Project="..\Core\Core.projitems" Label="Shared" Condition="Exists('..\Core\Core.projitems')" />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

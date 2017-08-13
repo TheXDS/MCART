@@ -79,7 +79,7 @@ namespace MCART.Networking.Client
 #if PreferExceptions
             catch { throw; }
 #else
-            catch { ConnChk(); }
+            catch { ConnChk(); AtFail(); }
 #endif
         }
 
@@ -161,7 +161,6 @@ namespace MCART.Networking.Client
             } while ((bool)connection?.GetStream()?.DataAvailable);
             return outp.ToArray();
         }
-
         /// <summary>
         /// Método invalidable que indica una serie de acciones a realizar al
         /// conectarse exitosamente con el servidor.
@@ -170,7 +169,6 @@ namespace MCART.Networking.Client
         /// De forma predeterminada, no se realiza ninguna acción.
         /// </remarks>
         public virtual void AtConnect() { }
-
         /// <summary>
         /// Método invalidable que indica una serie de acciones a realizar al
         /// desconectarse del servidor.
@@ -179,7 +177,6 @@ namespace MCART.Networking.Client
         /// De forma predeterminada, no se realiza ninguna acción.
         /// </remarks>
         public virtual void AtDisconnect() { }
-
         /// <summary>
         /// Método invalidable que indica una serie de acciones a realizar al no
         /// poder establecerse una conexión con el servidor.
@@ -194,7 +191,7 @@ namespace MCART.Networking.Client
         void ConnChk() { if ((bool)connection?.Connected) connection.Close(); }
         /// <summary>
         /// Realiza alguans tareas de limpieza antes de finalizar esta
-        /// instalcia de la clase <see cref="Client"/>.
+        /// instancia de la clase <see cref="Client"/>.
         /// </summary>
         ~Client() { ConnChk(); }
     }

@@ -38,7 +38,7 @@ namespace MCART.Types.TaskReporter
     /// que pueden utilizarse para mostrar el progreso de una tarea por medio
     /// de la interfaz <see cref="ITaskReporter"/>.
     /// </summary>
-    public abstract class TaskReporterControl : UserControl, ITaskReporter
+    public abstract class TaskReporterControl : UserControl
     {
         #region Declaración de propiedades de dependencia
         protected static DependencyPropertyKey CancelPendingPropertyKey = DependencyProperty.RegisterReadOnly(
@@ -98,10 +98,6 @@ namespace MCART.Types.TaskReporter
         /// </summary>
         public static DependencyProperty TimedOutProperty = TimedOutPropertyKey.DependencyProperty;
         #endregion
-        #region Campos privados
-        bool genEx = false;
-        Timer Tmr;
-        #endregion
         #region Propiedades
         /// <summary>
         /// Indica si hay pendiente una solicitud para cancelar la tarea.
@@ -122,7 +118,7 @@ namespace MCART.Types.TaskReporter
         /// <c>true</c> si la tarea puede ser detenida, <c>false</c> en caso
         /// contrario.
         /// </returns>
-        public bool? Stoppable => (bool?)GetValue(StoppableProperty);        
+        public bool? Stoppable => (bool?)GetValue(StoppableProperty);
         /// <summary>
         /// Indica si ya se ha agotado el tiempo de espera de la tarea.
         /// </summary>
@@ -135,39 +131,6 @@ namespace MCART.Types.TaskReporter
         /// Obtiene el momento de inicio de la tarea.
         /// </summary>
         public DateTime TStart => (DateTime)GetValue(TStartProperty);
-        /// <summary>
-        /// Indica el tiempo de espera disponible.
-        /// </summary>
-        /// <returns>
-        /// El tiempo de espera disponible.
-        /// </returns>
-        public TimeSpan? TimeLeft => Tmr?.TimeLeft;
-        /// <summary>
-        /// Obtiene o establece el tiempo de espera total para la tarea actual.
-        /// </summary>
-        /// <returns>
-        /// El tiempo de espera total establecido para la tarea actual.
-        /// </returns>
-        public TimeSpan? Timeout
-        {
-            get
-            {
-                if (Tmr.IsNull()) return null;
-                return TimeSpan.FromMilliseconds(Tmr.Interval);
-            }
-            set
-            {
-                if (!OnDuty) throw new InvalidOperationException();
-                Tmr = new Timer()
-                {
-                    AutoReset = false,
-                    Enabled = true
-                };
-                Tmr.Interval = value?.TotalMilliseconds ?? throw new ArgumentNullException(nameof(value));
-                Tmr.Elapsed += Tmr_Elapsed;                
-            }
-        }
-
         #endregion
         #region Eventos
         /// <summary>
@@ -260,278 +223,6 @@ namespace MCART.Types.TaskReporter
             CancelEventArgs ev = new CancelEventArgs();
             CancelRequested?.Invoke(this, ev);
             SetValue(CancelPendingPropertyKey, true);
-        } 
-        /// <summary>
-        /// Modifica al control para pasar a un estado de 'Ocupado'
-        /// </summary>
-        /// <param name="stoppable">
-        /// Indica si la tarea es detenible.
-        /// </param>
-        protected abstract void OnBegin(bool stoppable);
-        /// <summary>
-        /// Actualiza el estado del control basado en el estado de una tarea.
-        /// </summary>
-        /// <param name="e">
-        /// Estado reportado por la tarea.
-        /// </param>
-        protected abstract void OnBusy(ProgressEventArgs e);
-        /// <summary>
-        /// Modifica al control para pasar a un estado de 'Listo'
-        /// </summary>
-        /// <param name="msg">
-        /// Parámetro opcional. Mensaje a mostrar en el control. Es posible que
-        /// algunos controles no implementen estados textuales, en cuyo caso el
-        /// argumento será ignorado.
-        /// </param>
-        protected abstract void OnReady(string msg = null);
-        #endregion
-        #region Métodos públicos
-        /// <summary>
-        /// Indica que una tarea se ha iniciado. Genera el evento 
-        /// <see cref="Begun"/>.
-        /// </summary>
-        public void Begin() => Bgn(true);
-        /// <summary>
-        /// Indica que una tarea se ha iniciado. Genera el evento 
-        /// <see cref="Begun"/>.
-        /// </summary>
-        /// <param name="timeout">
-        /// Indica el tiempo total de espera antes de generar el evento
-        /// <see cref="TaskTimeout"/>.
-        /// </param>
-        /// <param name="genTOutEx">
-        /// Parámetro opcional. Si es <c>true</c>, se generará un 
-        /// <see cref="TimeoutException"/> al agotarse el tiempo de espera 
-        /// especificado durante una tarea. Si se omite, o se establece en
-        /// <c>false</c>, no se generará la excepción. El evento
-        /// <see cref="TaskTimeout"/> se genera indistintamente de este valor.
-        /// </param>
-        /// <remarks>
-        /// Para que una tarea pueda detenerse, ésta debe monitorear el valor
-        /// de <see cref="CancelPending"/> por cada vuelta del ciclo, y tomar
-        /// las acciones necesarias para finalizar. Opcionalmente puede
-        /// manejarse la detención de la tarea por medio del evento
-        /// <see cref="CancelRequested"/>.
-        /// </remarks>
-        public void Begin(TimeSpan timeout, bool genTOutEx = false) => Bgn(timeout, genTOutEx, true);
-        /// <summary>
-        /// Indica que una tarea que no se puede detener ha iniciado. Genera el
-        /// evento <see cref="Begun"/>.
-        /// </summary>
-        public void BeginNonStop() => Bgn(false);
-        /// <summary>
-        /// Marca el inicio de una tarea que no se puede detener. Genera el
-        /// evento <see cref="Begun"/>.
-        /// </summary>
-        /// <param name="timeout">
-        /// Indica el tiempo total de espera antes de generar el evento 
-        /// <see cref="TaskTimeout"/>.
-        /// </param>
-        /// <param name="genTOutEx">Parámetro opcional. un valor <c>true</c> provocará una excepción
-        /// <see cref="TimeoutException"/> además del evento <see cref="TaskTimeout"/>. Si se omite, o se establece en
-        /// <c>false</c>, no se generará la excepción.</param>
-        /// <remarks>
-        /// Al iniciar una tarea con este método, la tarea no se podrá
-        /// detener ni se mostrará la interfaz para detenerla.
-        /// </remarks>
-        public void BeginNonStop(TimeSpan timeout, bool genTOutEx = false) => Bgn(timeout, genTOutEx, false);
-        /// <summary>
-        /// Marca el final de una tarea. Genera el evento <see cref="Ended"/>.
-        /// </summary>
-        public void End()
-        {
-            Rdy(St.Rdy);
-            Ended?.Invoke(this, EventArgs.Empty);
-        }
-        /// <summary>
-        /// Indica que la tarea finalizó con un error. Genera el evento 
-        /// <see cref="Error"/>.
-        /// </summary>
-        /// <param name="ex">
-        /// <see cref="Exception"/> que causó la finalización de esta tarea.
-        /// </param>
-        public void EndWithError(Exception ex = null)
-        {
-            Rdy(ex.Message);
-            Error?.Invoke(this, new ExceptionEventArgs(ex));
-        }
-        /// <summary>
-        /// Ejecuta un ciclo determinado por el delegado
-        /// <paramref name="ForAct"/>.
-        /// </summary>
-        /// <param name="CEnd">Valor final del contador.</param>
-        /// <param name="ForAct">Acción a ejecutar.</param>
-        /// <param name="Message">
-        /// Parámetro opcional. Mensaje a mostrar.
-        /// </param>
-        /// <param name="NonStop">
-        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
-        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
-        /// </param>
-        /// <param name="OnCancel">
-        /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
-        /// </param>
-        /// <param name="OnError">
-        /// Parámetro opcional. Acción a ejecutar en caso de generarse un error
-        /// durante la ejecución del ciclo.
-        /// </param>
-        /// <remarks>
-        /// De forma predeterminada, el ciclo iniciará el contador en 0, y
-        /// realizará incrementos de 1 por cada paso.
-        /// </remarks>
-        public async Task For(int CEnd, ForAction ForAct, string Message = null, bool NonStop = false, Action OnCancel = null, Action OnError = null)
-        {
-            await TaskReporter.For(0, CEnd, 1, ForAct, Message, NonStop, this, OnCancel, OnError);
-        }
-        /// <summary>
-        /// Ejecuta un ciclo determinado por el delegado
-        /// <paramref name="ForAct"/>.
-        /// </summary>
-        /// <param name="Cstart">Valor inicial del contador.</param>
-        /// <param name="CEnd">Valor final del contador.</param>
-        /// <param name="ForAct">Acción a ejecutar.</param>
-        /// <param name="Message">
-        /// Parámetro opcional. Mensaje a mostrar.
-        /// </param>
-        /// <param name="NonStop">
-        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
-        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
-        /// </param>
-        /// <param name="OnCancel">
-        /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
-        /// </param>
-        /// <param name="OnError">
-        /// Parámetro opcional. Acción a ejecutar en caso de generarse un error
-        /// durante la ejecución del ciclo.
-        /// </param>
-        /// <remarks>De forma predeterminada, el ciclo realizará incrementos de 1 por cada paso.</remarks>
-        public async Task For(int Cstart, int CEnd, ForAction ForAct, string Message = null, bool NonStop = false, Action OnCancel = null, Action OnError = null)
-        {
-            await TaskReporter.For(Cstart, CEnd, 1, ForAct, Message, NonStop, this, OnCancel, OnError);
-        }
-        /// <summary>
-        /// Ejecuta un ciclo determinado por el delegado 
-        /// <paramref name="ForAct"/>.
-        /// </summary>
-        /// <param name="CStart">Valor inicial del contador.</param>
-        /// <param name="CEnd">Valor final del contador.</param>
-        /// <param name="CStep">Incrmento del contador por cada paso.</param>
-        /// <param name="ForAct">Acción a ejecutar.</param>
-        /// <param name="Message">
-        /// Parámetro opcional. Mensaje a mostrar.
-        /// </param>
-        /// <param name="NonStop">
-        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
-        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
-        /// </param>
-        /// <param name="OnCancel">
-        /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
-        /// </param>
-        /// <param name="OnError">
-        /// Parámetro opcional. Acción a ejecutar en caso de generarse un error
-        /// durante la ejecución del ciclo.
-        /// </param>
-        public async Task For(int CStart, int CEnd, int CStep, ForAction ForAct, string Message = null, bool NonStop = false, Action OnCancel = null, Action OnError = null)
-        {
-            await TaskReporter.For(CStart, CEnd, CStep, ForAct, Message, NonStop, this, OnCancel, OnError);
-        }
-        /// <summary>
-        /// Ejecuta un ciclo <c>For Each</c> determinado por el delegado
-        /// <paramref name="ForEachAct"/>.
-        /// </summary>
-        /// <typeparam name="t">Tipo de la colección del ciclo.</typeparam>
-        /// <param name="Coll">Colección del ciclo.</param>
-        /// <param name="ForEachAct">Acción a ejecutar.</param>
-        /// <param name="NonStop">
-        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
-        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
-        /// </param>
-        /// <param name="OnCancel">
-        /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
-        /// </param>
-        /// <param name="OnError">
-        /// Parámetro opcional. Acción a ejecutar en caso de generarse un error
-        /// durante la ejecución del ciclo.
-        /// </param>
-        /// <param name="Message">
-        /// Parámetro opcional. Mensaje a mostrar.
-        /// </param>
-        public async Task ForEach<t>(IEnumerable<t> Coll, ForEachAction<t> ForEachAct, string Message = null, bool NonStop = false, Action OnCancel = null, Action OnError = null)
-        {
-            await TaskReporter.ForEach(Coll, ForEachAct, Message, NonStop, this, OnCancel, OnError);
-        }
-        /// <summary>
-        /// Reporta el estado de la tarea actual. Genera el evento
-        /// <see cref="Reporting"/> con la información provista sobre el
-        /// progreso de la tarea.
-        /// </summary>
-        /// <param name="e">Información adicional del evento.</param>
-        public void Report(ProgressEventArgs e) => Bsy(e);
-        /// <summary>
-        /// Reporta el estado de la tarea actual. Genera el evento 
-        /// <see cref="Reporting"/> con la información provista sobre el
-        /// progreso de la tarea.
-        /// </summary>
-        /// <param name="HelpText">Texto de ayuda sobre la tarea.</param>
-        public void Report(string HelpText) => Bsy(new ProgressEventArgs(null, HelpText));
-        /// <summary>
-        /// Reporta el estado de la tarea actual. Genera el evento 
-        /// <see cref="Reporting"/> con la información provista sobre el
-        /// progreso de la tarea.
-        /// </summary>
-        /// <param name="Progress">
-        /// <see cref="Nullable{T}"/> que representa el progreso actual de la
-        /// tarea.
-        /// </param>
-        /// <param name="HelpText">Texto de ayuda sobre la tarea.</param>
-        public void Report(float? Progress = null, string HelpText = null) => Bsy(new ProgressEventArgs(Progress, HelpText));
-        /// <summary>
-        /// Reinicia el contador de tiempo de espera durante una tarea.
-        /// </summary>
-        /// <exception cref="InvalidOperationException">
-        /// Se produce cuando no se está ejecutando una tarea (el valor de
-        /// <see cref="OnDuty"/> es <c>false</c>).</exception>
-        public void ResetTimeout()
-        {
-            if (!OnDuty) throw new InvalidOperationException();
-            Tmr.Reset();
-        }
-        /// <summary>
-        /// Indica que la tarea actual ha sido detenida antes de finalizar.
-        /// Genera el evento <see cref="Stopped"/>.
-        /// </summary>
-        /// <param name="e">
-        /// <see cref="ProgressEventArgs"/> con información del progreso de la
-        /// tarea al momento de la detención.
-        /// </param>
-        public void Stop(ProgressEventArgs e)
-        {
-            Rdy(St.UsrCncl);
-            Stopped?.Invoke(this, e);
-        }
-        /// <summary>
-        /// Indica que la tarea actual ha sido detenida antes de finalizar.
-        /// Genera el evento <see cref="Stopped"/>.
-        /// </summary>
-        /// <param name="Progress">
-        /// <see cref="Nullable{T}"/> que representa el progreso actual de la
-        /// tarea.
-        /// </param>
-        /// <param name="HelpText">Texto de ayuda sobre la tarea.</param>
-        public void Stop(float? Progress = null, string HelpText = null)
-        {
-            Rdy(St.UsrCncl);
-            Stopped?.Invoke(this, new ProgressEventArgs(Progress, HelpText));
-        }
-        /// <summary>
-        /// Indica que la tarea actual ha sido detenida antes de finalizar.
-        /// Genera el evento <see cref="Stopped"/>.
-        /// </summary>
-        /// <param name="HelpText">Texto de ayuda sobre la tarea.</param>
-        public void Stop(string HelpText)
-        {
-            Rdy(St.UsrCncl);
-            Stopped?.Invoke(this, new ProgressEventArgs(null, HelpText));
         }
         #endregion
     }

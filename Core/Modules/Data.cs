@@ -26,8 +26,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using System.Reflection;
-using System.CodeDom;
 using System.Text;
+using System.Linq;
 
 namespace MCART.Data
 {
@@ -59,12 +59,10 @@ namespace MCART.Data
         /// <returns>The parameters.</returns>
         /// <param name="data">Data.</param>
         /// <typeparam name="T">The 1st type parameter.</typeparam>
-        public static SqlParameter[] ToParams<T>(T data)
+        public static IEnumerable<SqlParameter> ToParams<T>(T data)
         {
-            List<SqlParameter> outp = new List<SqlParameter>();
             foreach (FieldInfo j in typeof(T).GetFields())
-                outp.Add(new SqlParameter(j.Name, j.FieldType.AsSqlType()) { Value = j.GetValue(data) });
-            return outp.ToArray();
+                yield return (new SqlParameter(j.Name, j.FieldType.AsSqlType()) { Value = j.GetValue(data) });
         }
         /// <summary>
         /// Genera un comando de inserción para la tabla especificada.
@@ -86,7 +84,7 @@ namespace MCART.Data
             SqlCommand cmd = new SqlCommand(
                 $"Insert Into {table} ({fields.ToString()}) values ({values.ToString()})"
             );
-            cmd.Parameters.AddRange(ToParams(data));
+            cmd.Parameters.AddRange(ToParams(data).ToArray());
             return cmd;
         }
     }

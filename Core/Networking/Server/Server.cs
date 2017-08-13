@@ -27,7 +27,7 @@
 //#define PreferExceptions
 
 //Activar funciones adicionales de logging.
-#define EnableLogging
+//#define EnableLogging
 
 #endregion
 
@@ -37,6 +37,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using St = MCART.Resources.Strings;
+
 namespace MCART.Networking.Server
 {
     /// <summary>

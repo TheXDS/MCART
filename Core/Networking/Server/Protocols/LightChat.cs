@@ -25,6 +25,7 @@
 
 using System.Collections.Generic;
 using System.IO;
+using MCART.Attributes;
 using static System.Text.Encoding;
 
 namespace MCART.Networking.Server.Protocols
@@ -32,8 +33,8 @@ namespace MCART.Networking.Server.Protocols
     /// <summary>
     /// Protocolo simple de chat.
     /// </summary>
-    [Attributes.Beta]
-    [Attributes.Unsecure]
+    [Beta]
+    [Unsecure]
     public class LightChat : Protocol<Client<string>>
     {
         /// <summary>
@@ -42,7 +43,7 @@ namespace MCART.Networking.Server.Protocols
         /// </summary>
         public class UserRegistry
         {
-            private byte[] pwd;
+            byte[] pwd;
             /// <summary>
             /// Establece el hash de contraseña del usuario.
             /// </summary>
@@ -218,7 +219,7 @@ namespace MCART.Networking.Server.Protocols
                         else
                         {
                             string msg = br.ReadString();
-                            server.Broadcast(NewMsg($"{client.userObj} dice al grupo: {msg}"),client);
+                            server.Broadcast(NewMsg($"{client.userObj} dice al grupo: {msg}"), client);
                             client.Send(OkMsg());
                             client.Send(NewMsg($"Dijiste: {msg}"));
                         }
@@ -259,7 +260,7 @@ namespace MCART.Networking.Server.Protocols
         /// <returns>
         /// Un mensaje compuesto por un arreglo de <see cref="byte"/>.
         /// </returns>
-        private byte[] NewErr(ErrCodes errNum, string msg = null)
+        byte[] NewErr(ErrCodes errNum, string msg = null)
         {
             List<byte> outp = new List<byte>
                 {
@@ -277,7 +278,7 @@ namespace MCART.Networking.Server.Protocols
         /// <returns>
         /// Un mensaje compuesto por un arreglo de <see cref="byte"/>.
         /// </returns>
-        private byte[] OkMsg(byte[] data)
+        byte[] OkMsg(byte[] data)
         {
             using (var os = new MemoryStream())
             {
@@ -297,7 +298,7 @@ namespace MCART.Networking.Server.Protocols
         /// <returns>
         /// Un mensaje compuesto por un arreglo de <see cref="byte"/>.
         /// </returns>
-        private byte[] OkMsg() => new byte[] { (byte)RetVal.Ok };
+        byte[] OkMsg() => new byte[] { (byte)RetVal.Ok };
 
         /// <summary>
         /// Crea un nuevo mensaje para el cliente.
@@ -306,11 +307,11 @@ namespace MCART.Networking.Server.Protocols
         /// <returns>
         /// Un mensaje compuesto por un arreglo de <see cref="byte"/>.
         /// </returns>
-        private byte[] NewMsg(string msg)
+        byte[] NewMsg(string msg)
         {
-            using (var os = new System.IO.MemoryStream())
+            using (var os = new MemoryStream())
             {
-                using (var bw = new System.IO.BinaryWriter(os))
+                using (var bw = new BinaryWriter(os))
                 {
                     bw.Write((byte)RetVal.Msg);
                     bw.Write(msg);
