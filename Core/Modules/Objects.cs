@@ -26,8 +26,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using St = MCART.Resources.Strings;
-using Gtk;
 
 namespace MCART
 {
