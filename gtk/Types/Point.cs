@@ -29,25 +29,25 @@ namespace MCART.Types
         /// Convierte implícitamente un <see cref="Point"/> en un
         /// <see cref="Cairo.Point"/>.
         /// </summary>
-        /// <param name="x"><see cref="Point"/> a convertir.</param>
+        /// <param name="p"><see cref="Point"/> a convertir.</param>
         public static implicit operator Cairo.Point(Point p) => new Cairo.Point((int)p.X, (int)p.Y);
         /// <summary>
         /// Convierte implícitamente un <see cref="Point"/> en un
         /// <see cref="Cairo.PointD"/>.
         /// </summary>
-        /// <param name="x"><see cref="Point"/> a convertir.</param>
+        /// <param name="p"><see cref="Point"/> a convertir.</param>
         public static implicit operator Cairo.PointD(Point p) => new Cairo.PointD(p.X, p.Y);
         /// <summary>
         /// Convierte implícitamente un <see cref="Cairo.Point"/> en un
         /// <see cref="Point"/>.
         /// </summary>
-        /// <param name="x"><see cref="Cairo.Point"/> a convertir.</param>
+        /// <param name="p"><see cref="Cairo.Point"/> a convertir.</param>
         public static implicit operator Point(Cairo.Point p) => new Point(p.X, p.Y);
         /// <summary>
         /// Convierte implícitamente un <see cref="Cairo.PointD"/> en un
         /// <see cref="Point"/>.
         /// </summary>
-        /// <param name="x"><see cref="Cairo.PointD"/> a convertir.</param>
+        /// <param name="p"><see cref="Cairo.PointD"/> a convertir.</param>
         public static implicit operator Point(Cairo.PointD p) => new Point(p.X, p.Y);
     }
 }

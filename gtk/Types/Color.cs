@@ -43,7 +43,7 @@ namespace MCART.Types
                 (byte)c.Blue.Clamp<ushort>(0, 255));
         /// <summary>
         /// Convierte implícitamente una estructura <see cref="Color"/> en un
-        /// un <see cref="cairo.Color"/>.
+        /// un <see cref="Cairo.Color"/>.
         /// </summary>
         /// <param name="c"><see cref="Color"/> a convertir.</param>
         public static implicit operator Cairo.Color(Color c) =>
@@ -55,6 +55,5 @@ namespace MCART.Types
         /// <param name="c"><see cref="Cairo.Color"/> a convertir.</param>
         public static implicit operator Color(Cairo.Color c) =>
             new Color((float)c.R, (float)c.G, (float)c.B, (float)c.A);
-
     }
 }

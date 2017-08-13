@@ -20,15 +20,23 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
+
 namespace MCART.Controls
 {
+    /// <summary>
+    /// Barra de estado que muestra el progreso de una tarea por medio de la
+    /// interfaz <see cref="Types.TaskReporter.ITaskReporter"/>
+    /// </summary>
     [System.ComponentModel.ToolboxItem(true)]
     public partial class BarStepper : Gtk.Bin
     {
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="BarStepper"/>.
+        /// </summary>
         public BarStepper()
         {
-            this.Build();
+            Build();
         }
     }
 }
