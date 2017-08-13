@@ -21,10 +21,13 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+#pragma warning disable CS0282 // No hay un orden específico entre los campos en declaraciones múltiples de la estructura parcial
+
 using System.Windows;
+
 namespace MCART.Security.Password
 {
-    public sealed partial class PwDialogResult
+    public partial struct PwDialogResult
     {
         MessageBoxResult r;
         /// <summary>

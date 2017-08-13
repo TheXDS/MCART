@@ -21,13 +21,15 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+#pragma warning disable CS0282 // No hay un orden específico entre los campos en declaraciones múltiples de la estructura parcial
+
 namespace MCART.Security.Password
 {
     /// <summary>
     /// Representa el resultado de un cuadro de diálogo
     /// <see cref="Forms.PasswordDialog"/>.
     /// </summary>
-    public sealed partial class PwDialogResult
+    public partial struct PwDialogResult
     {
         //TODO: considerar cambiar los campos de string a SecureString.
         string u;       

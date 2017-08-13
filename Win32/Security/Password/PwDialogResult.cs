@@ -23,25 +23,25 @@
 
 #pragma warning disable CS0282 // No hay un orden específico entre los campos en declaraciones múltiples de la estructura parcial
 
-using Gtk;
+using System.Windows.Forms;
 
 namespace MCART.Security.Password
 {
     public partial struct PwDialogResult
     {
-        ResponseType r;
+        DialogResult r;
         /// <summary>
         /// Obtiene el resultado del cuadro de diálogo.
         /// </summary>
         /// <returns>
-        /// Un <see cref="ResponseType"/> que indica la acción realizada
+        /// Un <see cref="DialogResult"/> que indica la acción realizada
         /// por el usuario.
         /// </returns>
-        public ResponseType Result => r;
+        public DialogResult Result => r;
         /// <summary>
         /// Constante. Resultado de evaluación nulo.
         /// </summary>
-        public static PwDialogResult Null => new PwDialogResult(null, null, null, ResponseType.Cancel, PwEvalResult.Null);
+        public static PwDialogResult Null => new PwDialogResult(null, null, null, DialogResult.Cancel, PwEvalResult.Null);
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="PwDialogResult"/>.
@@ -61,7 +61,7 @@ namespace MCART.Security.Password
         /// <param name="ev">
         /// Resultado de la evaluación.
         /// </param>
-        internal PwDialogResult(string us, string pw, string hn, ResponseType re, PwEvalResult ev)
+        internal PwDialogResult(string us, string pw, string hn, DialogResult re, PwEvalResult ev)
         {
             u = us;
             p = pw;

@@ -67,6 +67,7 @@
     <Compile Include="PluginSupport\Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Icons.cs" />
+    <Compile Include="Security\Password\PwDialogResult.cs" />
     <Compile Include="Types\TaskReporter\TaskReporterControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -94,5 +95,6 @@
   <ItemGroup />
   <Import Project="..\Core\Core.projitems" Label="Shared" />
   <Import Project="..\Core-Windows\Core-Windows.projitems" Label="Shared" />
+  <Import Project="..\Core-NoWPF\Core-NoWPF.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -21,6 +21,13 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+#region Opciones de compilación
+
+//Incluir implementación de SetSourceColor para un objeto Cairo.Context (preferiblemente desactivar en Linux)
+#define ImplementSetSourceColor
+
+#endregion
+
 using System;
 using Gtk;
 using Gdk;
@@ -30,10 +37,32 @@ using static System.Math;
 
 namespace MCART.Controls
 {
+#if ImplementSetSourceColor
+    /* BUG
+     * ===
+     * Al compilar desde Microsoft Windows, el ensamblado Mono.Cairo no 
+     * implementa el método Cairo.Context.SetSourceColor, por lo que es 
+     * necesario incluir un método de Thunking para implementar dicha función.
+     */
+    internal static class ContextExtensions
+    {
+        /// <summary>
+        /// Implementa el método faltante Cairo.Context.SetSourceColor al
+        /// compilar desde Visual Studio/Microsoft Windows.
+        /// </summary>
+        /// <param name="c"><see cref="Context"/> a modificar.</param>
+        /// <param name="color">Color a establecer para el dibujado.</param>
+        [Attributes.Thunk] internal static void SetSourceColor(this Context c, Types.Color color)
+        {
+            c.SetSourceRGBA(color.ScR, color.ScG, color.ScB, color.ScA);
+        }
+    }
+#endif
+
     [System.ComponentModel.ToolboxItem(true)]
     public partial class ProgressRing : DrawingArea
     {
-        #region Campos privados
+#region Campos privados
         float _thickness = 8.0f;
         float _radius = 48.0f;
         float _value;
@@ -46,8 +75,8 @@ namespace MCART.Controls
         Types.Color _textColor = Resources.Colors.Gray;
         SweepDirection _sweep = SweepDirection.Clockwise;
         string textFormat = "{0:0.0}%";
-        #endregion
-        #region Propiedades
+#endregion
+#region Propiedades
         /// <summary>
         /// Obtiene o establece el grosor del anillo de este
         /// <see cref="ProgressRing"/>.
@@ -224,7 +253,7 @@ namespace MCART.Controls
         /// <see cref="ProgressRing"/>.
         /// </summary>
         public string TextFormat { get => textFormat; set => textFormat = value; }
-        #endregion
+#endregion
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ProgressRing"/>.
@@ -252,7 +281,7 @@ namespace MCART.Controls
                 // Preparar propiedades de dibujo...
                 cr.LineWidth = _thickness;
 
-                // Dibujar el Fondo...
+                // Dibujar el Fondo...                
                 cr.SetSourceColor(_ringColor);
                 cr.Arc(_radius, _radius, rd, 0.0, 360.0);
                 cr.Stroke();

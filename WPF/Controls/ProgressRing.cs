@@ -101,15 +101,15 @@ namespace MCART.Controls
         /// <summary>
         /// Identifica a la propiedad de dependencia <see cref="Angle"/>.
         /// </summary>
-        public static DependencyProperty AngleProperty = new DependencyProperty.Register(
+        public static DependencyProperty AngleProperty = DependencyProperty.Register(
             nameof(Angle), typeof(float), T,
-            new PropertyMetadata(0.0f), (float a) => a.IsBetween(0.0f, 360.0f));
+            new PropertyMetadata(0.0f), (a) => ((float)a).IsBetween(0.0f, 360.0f));
         /// <summary>
         /// Identifica a la propiedad de dependencia <see cref="Sweep"/>.
         /// </summary>
-        public static DependencyProperty SweepProperty = new DependencyProperty.Register(
+        public static DependencyProperty SweepProperty = DependencyProperty.Register(
             nameof(Sweep), typeof(SweepDirection), T,
-            new PropertyMetadata(Sweep.Clockwise, Updt2),
+            new PropertyMetadata(SweepDirection.Clockwise, Updt2),
             (a) => typeof(SweepDirection).IsEnumDefined(a));
         /// <summary>
         /// Identifica a la propiedad de dependencia <see cref="TextFormat"/>.

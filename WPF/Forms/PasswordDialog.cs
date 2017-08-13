@@ -23,13 +23,13 @@
 
 using MCART.Controls;
 using MCART.Security.Password;
-using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
-using St = MCART.Resources.Strings;
 using static MCART.Types.Color;
+using St = MCART.Resources.Strings;
+
 namespace MCART.Forms
 {
     /// <summary>
@@ -89,7 +89,7 @@ namespace MCART.Forms
         };
         #endregion
         #region Miembros privados
-        PwDialogResult r;
+        PwDialogResult r = PwDialogResult.Null;
         PwEvaluator pwe;
         PwEvalResult Pwr;
         #endregion
@@ -257,7 +257,7 @@ namespace MCART.Forms
             Btngo.Visibility = Visibility.Visible;
             MoreCtrls.Visibility = Visibility.Collapsed;
             ShowDialog();
-            return r ?? PwDialogResult.Null;
+            return r;
         }
         /// <summary>
         /// Permite al usuario escoger una contraseña.
@@ -297,7 +297,7 @@ namespace MCART.Forms
             }
             else SecurIndicator.Visibility = Visibility.Collapsed;
             ShowDialog();
-            return r ?? PwDialogResult.Null;
+            return r;
         } 
         #endregion
     }

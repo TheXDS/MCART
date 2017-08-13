@@ -12,12 +12,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Win32", "Win32\Win32.csproj
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core-Windows", "Core-Windows\Core-Windows.shproj", "{F1D4FE86-BB72-4D8D-901E-525F697991FE}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core-NoWPF", "Core-NoWPF\Core-NoWPF.shproj", "{5B5C0EA8-E8C3-4442-94FB-03B7AC6BE9E8}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Core-Windows\Core-Windows.projitems*{214a1e64-25a4-4d98-97da-7ca0e7ab2eef}*SharedItemsImports = 4
 		Core\Core.projitems*{214a1e64-25a4-4d98-97da-7ca0e7ab2eef}*SharedItemsImports = 4
+		Core-NoWPF\Core-NoWPF.projitems*{5b5c0ea8-e8c3-4442-94fb-03b7ac6be9e8}*SharedItemsImports = 13
+		Core-NoWPF\Core-NoWPF.projitems*{99e6bbf2-0911-4a07-85c4-8a1bfc479f34}*SharedItemsImports = 4
 		Core\Core.projitems*{99e6bbf2-0911-4a07-85c4-8a1bfc479f34}*SharedItemsImports = 4
 		Core\Core.projitems*{e5f6a0e5-b532-480c-b72e-516908c07944}*SharedItemsImports = 13
+		Core-NoWPF\Core-NoWPF.projitems*{eaff4297-e338-4093-bb51-38c16b325b40}*SharedItemsImports = 4
 		Core-Windows\Core-Windows.projitems*{eaff4297-e338-4093-bb51-38c16b325b40}*SharedItemsImports = 4
 		Core\Core.projitems*{eaff4297-e338-4093-bb51-38c16b325b40}*SharedItemsImports = 4
 		Core-Windows\Core-Windows.projitems*{f1d4fe86-bb72-4d8d-901e-525f697991fe}*SharedItemsImports = 13
