@@ -21,10 +21,6 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.ComponentModel;
-using Gtk;
-
 namespace MCART.Types.TaskReporter
 {
     /// <summary>
@@ -32,50 +28,20 @@ namespace MCART.Types.TaskReporter
     /// mostrar el progreso de una tarea por medio de la interfaz 
     /// <see cref="ITaskReporter"/>.
     /// </summary>
-    [ToolboxItem(true)]
-    public abstract partial class TaskReporterControl : Widget
+    [System.ComponentModel.ToolboxItem(true)]
+    public abstract partial class TaskReporterControl : Gtk.Widget
     {
-        #region Campos privados
-        bool CancelPendingProperty;
-        bool OnDutyProperty;
-        bool? StoppableProperty;
-        DateTime TStartProperty;
-        bool TimedOutProperty;
-        float? CurrentProgressProperty;
-        #endregion
-        #region Propiedades
         /// <summary>
-        /// Indica si hay pendiente una solicitud para cancelar la tarea.
+        /// Encapsula y simula al método Invoke que se encuentra disponible en
+        /// controles de Win32 con la finalidad de compartir código.
         /// </summary>
-        public bool CancelPending => CancelPendingProperty;
-        /// <summary>
-        /// Indica el progreso actual de una tarea.
-        /// </summary>
-        public float? CurrentProgress => CurrentProgressProperty;
-        /// <summary>
-        /// Indica si se está ejecutando una tarea actualmente.
-        /// </summary>
-        public bool OnDuty => OnDutyProperty;
-        /// <summary>
-        /// Indica si la tarea puede ser detenida.
-        /// </summary>
-        /// <returns>
-        /// <c>true</c> si la tarea puede ser detenida, <c>false</c> en caso
-        /// contrario.
-        /// </returns>
-        public bool? Stoppable => StoppableProperty;
-        /// <summary>
-        /// Indica si ya se ha agotado el tiempo de espera de la tarea.
-        /// </summary>
-        /// <returns>
-        /// <c>true</c> si ya se ha agotado el tiempo de espera, <c>false</c>
-        /// en caso contrario.
-        /// </returns>
-        public bool TimedOut => TimedOutProperty;
-        /// <summary>
-        /// Obtiene el momento de inicio de la tarea.
-        /// </summary>
-        public DateTime TStart => TStartProperty;
-        #endregion
+        /// <param name="method">
+        /// Método a ejecutar en el hilo que controla a Gtk.
+        /// </param>
+        /// <param name="args">Argumentos del método.</param>
+        void Invoke(System.Delegate method, params object[] args)
+        {
+            Gtk.Application.Invoke(delegate { method.DynamicInvoke(args); });
+        }
     }
 }

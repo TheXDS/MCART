@@ -21,11 +21,10 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using MCART.Events;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Threading.Tasks;
-using MCART.Events;
 using St = MCART.Resources.Strings;
 
 namespace MCART.Types.TaskReporter
@@ -107,17 +106,6 @@ namespace MCART.Types.TaskReporter
         public event TaskTimeoutEventHandler TaskTimeout;
         #endregion
         #region Métodos privados
-        void Bgn(bool ns)
-        {
-            if (OnDuty) throw new InvalidOperationException();
-            CancelPendingProperty = false;
-            TimedOutProperty = false;
-            OnDutyProperty = true;
-            TStartProperty = DateTime.Now;
-            StoppableProperty = ns;
-            OnBegin(true);
-            Begun?.Invoke(this, new BegunEventArgs(ns, TStart));
-        }
         void Bgn(TimeSpan timeout, bool genTOutEx, bool ns)
         {
             if (OnDuty) throw new InvalidOperationException();
@@ -127,40 +115,8 @@ namespace MCART.Types.TaskReporter
             Tmr.Elapsed += Tmr_Elapsed;
             Tmr.Start();
         }
-        void Bsy(ProgressEventArgs e)
-        {
-            if (!OnDuty) throw new InvalidOperationException();
-            OnBusy(e);
-            Reporting?.Invoke(this, e);
-        }
-        void Rdy(string msg) => OnReady(msg ?? St.Rdy);
-        void Tmr_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-        {
-            Tmr.Stop();
-            Tmr.Elapsed -= Tmr_Elapsed;
-            Tmr = null;
-            RaiseCancelPending();
-            TimedOutProperty = true;
-            if (OnDuty)
-            {
-                TaskTimeout?.Invoke(this, null);
-                try { OnReady(St.Timeout); }
-                catch { throw; }
-                if (genEx) throw new TimeoutException();
-            }
-        }
         #endregion
         #region Métodos protegidos
-        /// <summary>
-        /// Registra una solicitud para cancelar la tarea actual.
-        /// </summary>
-        protected void RaiseCancelPending()
-        {
-            if (!(bool)Stoppable) throw new InvalidOperationException();
-            CancelEventArgs ev = new CancelEventArgs();
-            CancelRequested?.Invoke(this, ev);
-            CancelPendingProperty = true;
-        }
         /// <summary>
         /// Modifica al control para pasar a un estado de 'Ocupado'
         /// </summary>
@@ -257,21 +213,21 @@ namespace MCART.Types.TaskReporter
         }
         /// <summary>
         /// Ejecuta un ciclo determinado por el delegado
-        /// <paramref name="ForAct"/>.
+        /// <paramref name="forAct"/>.
         /// </summary>
-        /// <param name="CEnd">Valor final del contador.</param>
-        /// <param name="ForAct">Acción a ejecutar.</param>
-        /// <param name="Message">
+        /// <param name="cEnd">Valor final del contador.</param>
+        /// <param name="forAct">Acción a ejecutar.</param>
+        /// <param name="message">
         /// Parámetro opcional. Mensaje a mostrar.
         /// </param>
-        /// <param name="NonStop">
+        /// <param name="nonStop">
         /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
         /// interrumpido. De forma predeterminada, se asume <c>false</c>.
         /// </param>
-        /// <param name="OnCancel">
+        /// <param name="onCancel">
         /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
         /// </param>
-        /// <param name="OnError">
+        /// <param name="onError">
         /// Parámetro opcional. Acción a ejecutar en caso de generarse un error
         /// durante la ejecución del ciclo.
         /// </param>
@@ -279,86 +235,89 @@ namespace MCART.Types.TaskReporter
         /// De forma predeterminada, el ciclo iniciará el contador en 0, y
         /// realizará incrementos de 1 por cada paso.
         /// </remarks>
-        public async Task For(int CEnd, ForAction ForAct, string Message = null, bool NonStop = false, Action OnCancel = null, Action OnError = null)
+        public async Task For(int cEnd, ForAction forAct, string message = null, bool nonStop = false, Action onCancel = null, Action onError = null)
         {
-            await TaskReporter.For(0, CEnd, 1, ForAct, Message, NonStop, this, OnCancel, OnError);
+            await TaskReporter.For(0, cEnd, 1, forAct, message, nonStop, onCancel, onError, this);
         }
         /// <summary>
         /// Ejecuta un ciclo determinado por el delegado
-        /// <paramref name="ForAct"/>.
+        /// <paramref name="forAct"/>.
         /// </summary>
-        /// <param name="Cstart">Valor inicial del contador.</param>
-        /// <param name="CEnd">Valor final del contador.</param>
-        /// <param name="ForAct">Acción a ejecutar.</param>
-        /// <param name="Message">
+        /// <param name="cStart">Valor inicial del contador.</param>
+        /// <param name="cEnd">Valor final del contador.</param>
+        /// <param name="forAct">Acción a ejecutar.</param>
+        /// <param name="message">
         /// Parámetro opcional. Mensaje a mostrar.
         /// </param>
-        /// <param name="NonStop">
+        /// <param name="nonStop">
         /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
         /// interrumpido. De forma predeterminada, se asume <c>false</c>.
         /// </param>
-        /// <param name="OnCancel">
+        /// <param name="onCancel">
         /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
         /// </param>
-        /// <param name="OnError">
+        /// <param name="onError">
         /// Parámetro opcional. Acción a ejecutar en caso de generarse un error
         /// durante la ejecución del ciclo.
         /// </param>
-        /// <remarks>De forma predeterminada, el ciclo realizará incrementos de 1 por cada paso.</remarks>
-        public async Task For(int Cstart, int CEnd, ForAction ForAct, string Message = null, bool NonStop = false, Action OnCancel = null, Action OnError = null)
+        /// <remarks>
+        /// De forma predeterminada, el ciclo realizará incrementos de 1 por
+        /// cada paso.
+        /// </remarks>
+        public async Task For(int cStart, int cEnd, ForAction forAct, string message = null, bool nonStop = false, Action onCancel = null, Action onError = null)
         {
-            await TaskReporter.For(Cstart, CEnd, 1, ForAct, Message, NonStop, this, OnCancel, OnError);
+            await TaskReporter.For(cStart, cEnd, 1, forAct, message, nonStop, onCancel, onError, this);
         }
         /// <summary>
         /// Ejecuta un ciclo determinado por el delegado 
-        /// <paramref name="ForAct"/>.
+        /// <paramref name="forAct"/>.
         /// </summary>
-        /// <param name="CStart">Valor inicial del contador.</param>
-        /// <param name="CEnd">Valor final del contador.</param>
-        /// <param name="CStep">Incrmento del contador por cada paso.</param>
-        /// <param name="ForAct">Acción a ejecutar.</param>
-        /// <param name="Message">
+        /// <param name="cStart">Valor inicial del contador.</param>
+        /// <param name="cEnd">Valor final del contador.</param>
+        /// <param name="cStep">Incrmento del contador por cada paso.</param>
+        /// <param name="forAct">Acción a ejecutar.</param>
+        /// <param name="message">
         /// Parámetro opcional. Mensaje a mostrar.
         /// </param>
-        /// <param name="NonStop">
+        /// <param name="nonStop">
         /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
         /// interrumpido. De forma predeterminada, se asume <c>false</c>.
         /// </param>
-        /// <param name="OnCancel">
+        /// <param name="onCancel">
         /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
         /// </param>
-        /// <param name="OnError">
+        /// <param name="onError">
         /// Parámetro opcional. Acción a ejecutar en caso de generarse un error
         /// durante la ejecución del ciclo.
         /// </param>
-        public async Task For(int CStart, int CEnd, int CStep, ForAction ForAct, string Message = null, bool NonStop = false, Action OnCancel = null, Action OnError = null)
+        public async Task For(int cStart, int cEnd, int cStep, ForAction forAct, string message = null, bool nonStop = false, Action onCancel = null, Action onError = null)
         {
-            await TaskReporter.For(CStart, CEnd, CStep, ForAct, Message, NonStop, this, OnCancel, OnError);
+            await TaskReporter.For(cStart, cEnd, cStep, forAct, message, nonStop, onCancel, onError, this);
         }
         /// <summary>
         /// Ejecuta un ciclo <c>For Each</c> determinado por el delegado
-        /// <paramref name="ForEachAct"/>.
+        /// <paramref name="forEachAct"/>.
         /// </summary>
-        /// <typeparam name="t">Tipo de la colección del ciclo.</typeparam>
-        /// <param name="Coll">Colección del ciclo.</param>
-        /// <param name="ForEachAct">Acción a ejecutar.</param>
-        /// <param name="NonStop">
+        /// <typeparam name="T">Tipo de la colección del ciclo.</typeparam>
+        /// <param name="collection">Colección del ciclo.</param>
+        /// <param name="forEachAct">Acción a ejecutar.</param>
+        /// <param name="nonStop">
         /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
         /// interrumpido. De forma predeterminada, se asume <c>false</c>.
         /// </param>
-        /// <param name="OnCancel">
+        /// <param name="onCancel">
         /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
         /// </param>
-        /// <param name="OnError">
+        /// <param name="onError">
         /// Parámetro opcional. Acción a ejecutar en caso de generarse un error
         /// durante la ejecución del ciclo.
         /// </param>
-        /// <param name="Message">
+        /// <param name="message">
         /// Parámetro opcional. Mensaje a mostrar.
         /// </param>
-        public async Task ForEach<t>(IEnumerable<t> Coll, ForEachAction<t> ForEachAct, string Message = null, bool NonStop = false, Action OnCancel = null, Action OnError = null)
+        public async Task ForEach<T>(IEnumerable<T> collection, ForEachAction<T> forEachAct, string message = null, bool nonStop = false, Action onCancel = null, Action onError = null)
         {
-            await TaskReporter.ForEach(Coll, ForEachAct, Message, NonStop, this, OnCancel, OnError);
+            await TaskReporter.ForEach(collection, forEachAct, message, nonStop, onCancel, onError, this);
         }
         /// <summary>
         /// Reporta el estado de la tarea actual. Genera el evento
@@ -366,25 +325,25 @@ namespace MCART.Types.TaskReporter
         /// progreso de la tarea.
         /// </summary>
         /// <param name="e">Información adicional del evento.</param>
-        public void Report(ProgressEventArgs e) => Bsy(e);
+        public void Report(ProgressEventArgs e)=> Bsy(e);
         /// <summary>
         /// Reporta el estado de la tarea actual. Genera el evento 
         /// <see cref="Reporting"/> con la información provista sobre el
         /// progreso de la tarea.
         /// </summary>
-        /// <param name="HelpText">Texto de ayuda sobre la tarea.</param>
-        public void Report(string HelpText) => Bsy(new ProgressEventArgs(null, HelpText));
+        /// <param name="helpText">Texto de ayuda sobre la tarea.</param>
+        public void Report(string helpText) => Bsy(new ProgressEventArgs(null, helpText));
         /// <summary>
         /// Reporta el estado de la tarea actual. Genera el evento 
         /// <see cref="Reporting"/> con la información provista sobre el
         /// progreso de la tarea.
         /// </summary>
-        /// <param name="Progress">
+        /// <param name="progress">
         /// <see cref="Nullable{T}"/> que representa el progreso actual de la
         /// tarea.
         /// </param>
-        /// <param name="HelpText">Texto de ayuda sobre la tarea.</param>
-        public void Report(float? Progress = null, string HelpText = null) => Bsy(new ProgressEventArgs(Progress, HelpText));
+        /// <param name="helpText">Texto de ayuda sobre la tarea.</param>
+        public void Report(float? progress = null, string helpText = null) => Bsy(new ProgressEventArgs(progress, helpText));
         /// <summary>
         /// Reinicia el contador de tiempo de espera durante una tarea.
         /// </summary>
@@ -413,25 +372,25 @@ namespace MCART.Types.TaskReporter
         /// Indica que la tarea actual ha sido detenida antes de finalizar.
         /// Genera el evento <see cref="Stopped"/>.
         /// </summary>
-        /// <param name="Progress">
+        /// <param name="progress">
         /// <see cref="Nullable{T}"/> que representa el progreso actual de la
         /// tarea.
         /// </param>
-        /// <param name="HelpText">Texto de ayuda sobre la tarea.</param>
-        public void Stop(float? Progress = null, string HelpText = null)
+        /// <param name="helpText">Texto de ayuda sobre la tarea.</param>
+        public void Stop(float? progress = null, string helpText = null)
         {
             Rdy(St.UsrCncl);
-            Stopped?.Invoke(this, new ProgressEventArgs(Progress, HelpText));
+            Stopped?.Invoke(this, new ProgressEventArgs(progress, helpText));
         }
         /// <summary>
         /// Indica que la tarea actual ha sido detenida antes de finalizar.
         /// Genera el evento <see cref="Stopped"/>.
         /// </summary>
-        /// <param name="HelpText">Texto de ayuda sobre la tarea.</param>
-        public void Stop(string HelpText)
+        /// <param name="helpText">Texto de ayuda sobre la tarea.</param>
+        public void Stop(string helpText)
         {
             Rdy(St.UsrCncl);
-            Stopped?.Invoke(this, new ProgressEventArgs(null, HelpText));
+            Stopped?.Invoke(this, new ProgressEventArgs(null, helpText));
         }
         #endregion
     }

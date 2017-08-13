@@ -24,7 +24,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace MCART.Types.TaskReporter
 {
@@ -130,15 +129,66 @@ namespace MCART.Types.TaskReporter
         public event TaskTimeoutEventHandler TaskTimeout;
         #endregion
         #region Métodos invalidables
+        /// <summary>
+        /// Genera el evento <see cref="Begun"/>. 
+        /// </summary>
         public abstract void Begin();
+        /// <summary>
+        /// Genera el evento <see cref="Begun"/> para una tarea que no puede
+        /// detenerse.
+        /// </summary>
         public abstract void BeginNonStop();
+        /// <summary>
+        /// Genera el evento <see cref="Ended"/> 
+        /// </summary>
         public abstract void End();
+        /// <summary>
+        /// Genera el evento <see cref="Error"/> 
+        /// </summary>
+        /// <param name="ex">
+        /// Parámetro opcional. <see cref="Exception"/> que ha causado la 
+        /// finalización de la tarea.
+        /// </param>
         public abstract void EndWithError(Exception ex = null);
+        /// <summary>
+        /// Genera el evento <see cref="Reporting"/> desde una tarea. 
+        /// </summary>
+        /// <param name="e">Argumentos del evento.</param>
         public abstract void Report(ProgressEventArgs e);
+        /// <summary>
+        /// Genera el evento <see cref="Reporting"/> desde una tarea. 
+        /// </summary>
+        /// <param name="helpText">
+        /// Texto de ayuda sobre el progreso de la tarea.
+        /// </param>
         public abstract void Report(string helpText);
-        public abstract void Report(float? progress = default(float?), string helptext = null);
+        /// <summary>
+        /// Genera el evento <see cref="Reporting"/> desde una tarea. 
+        /// </summary>
+        /// <param name="progress">Porcentaje de progreso de la tarea.</param>
+        /// <param name="helpText">
+        /// Texto de ayuda sobre el progreso de la tarea.
+        /// </param>
+        public abstract void Report(float? progress = default(float?), string helpText = null);
+        /// <summary>
+        /// Genera el evento <see cref="Stopped"/> al interrumpir una tarea.
+        /// </summary>
+        /// <param name="e">Argumentos del evento.</param>
         public abstract void Stop(ProgressEventArgs e);
-        public abstract void Stop(float? Progress = default(float?), string helpText = null);
+        /// <summary>
+        /// Genera el evento <see cref="Stopped"/> al interrumpir una tarea.
+        /// </summary>
+        /// <param name="progress">Porcentaje de progreso de la tarea.</param>
+        /// <param name="helpText">
+        /// Texto de ayuda sobre el progreso de la tarea.
+        /// </param>
+        public abstract void Stop(float? progress = default(float?), string helpText = null);
+        /// <summary>
+        /// Genera el evento <see cref="Stopped"/> al interrumpir una tarea.
+        /// </summary>
+        /// <param name="helpText">
+        /// Texto de ayuda sobre el progreso de la tarea.
+        /// </param>
         public abstract void Stop(string helpText);
         #endregion
         #region Métodos privados
@@ -163,35 +213,167 @@ namespace MCART.Types.TaskReporter
         }
         #endregion
         #region Métodos públicos
+        /// <summary>
+        /// Indica que una tarea se ha iniciado. Genera el evento 
+        /// <see cref="Begun"/>.
+        /// </summary>
         public void Begin(TimeSpan timeout, bool genTOutEx = false)
         {
             BeginSub(timeout, genTOutEx);
             Begin();
         }
+        /// <summary>
+        /// Indica que una tarea que no se puede detener ha iniciado. Genera el
+        /// evento <see cref="Begun"/>.
+        /// </summary>
         public void BeginNonStop(TimeSpan timeout, bool genTOutEx = false)
         {
             BeginSub(timeout, genTOutEx);
             BeginNonStop();
         }
+        /// <summary>
+        /// Ejecuta un ciclo determinado por el delegado
+        /// <paramref name="forAct"/>.
+        /// </summary>
+        /// <param name="cEnd">Valor final del contador.</param>
+        /// <param name="forAct">Acción a ejecutar.</param>
+        /// <param name="message">
+        /// Parámetro opcional. Mensaje a mostrar.
+        /// </param>
+        /// <param name="nonStop">
+        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
+        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
+        /// </param>
+        /// <param name="onCancel">
+        /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
+        /// </param>
+        /// <param name="onError">
+        /// Parámetro opcional. Acción a ejecutar en caso de generarse un error
+        /// durante la ejecución del ciclo.
+        /// </param>
+        /// <remarks>
+        /// De forma predeterminada, el ciclo iniciará el contador en 0, y
+        /// realizará incrementos de 1 por cada paso.
+        /// </remarks>
         public async Task For(int cEnd, ForAction forAct, string message = null, bool nonStop = false, Action onCancel = null, Action onError = null)
         {
-            await For(0, cEnd, 1, forAct, message, nonStop, this, onCancel, onError);
+            await For(0, cEnd, 1, forAct, message, nonStop, onCancel, onError, this);
         }
+        /// <summary>
+        /// Ejecuta un ciclo determinado por el delegado
+        /// <paramref name="forAct"/>.
+        /// </summary>
+        /// <param name="cStart">Valor inicial del contador.</param>
+        /// <param name="cEnd">Valor final del contador.</param>
+        /// <param name="forAct">Acción a ejecutar.</param>
+        /// <param name="message">
+        /// Parámetro opcional. Mensaje a mostrar.
+        /// </param>
+        /// <param name="nonStop">
+        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
+        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
+        /// </param>
+        /// <param name="onCancel">
+        /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
+        /// </param>
+        /// <param name="onError">
+        /// Parámetro opcional. Acción a ejecutar en caso de generarse un error
+        /// durante la ejecución del ciclo.
+        /// </param>
+        /// <remarks>
+        /// De forma predeterminada, el ciclo realizará incrementos de 1 por 
+        /// cada paso.
+        /// </remarks>
         public async Task For(int cStart, int cEnd, ForAction forAct, string message = null, bool nonStop = false, Action onCancel = null, Action onError = null)
         {
-            await For(cStart, cEnd, 1, forAct, message, nonStop, this, onCancel, onError);
+            await For(cStart, cEnd, 1, forAct, message, nonStop, onCancel, onError, this);
         }
+        /// <summary>
+        /// Ejecuta un ciclo determinado por el delegado 
+        /// <paramref name="forAct"/>.
+        /// </summary>
+        /// <param name="cStart">Valor inicial del contador.</param>
+        /// <param name="cEnd">Valor final del contador.</param>
+        /// <param name="cStep">Incrmento del contador por cada paso.</param>
+        /// <param name="forAct">Acción a ejecutar.</param>
+        /// <param name="message">
+        /// Parámetro opcional. Mensaje a mostrar.
+        /// </param>
+        /// <param name="nonStop">
+        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
+        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
+        /// </param>
+        /// <param name="onCancel">
+        /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
+        /// </param>
+        /// <param name="onError">
+        /// Parámetro opcional. Acción a ejecutar en caso de generarse un error
+        /// durante la ejecución del ciclo.
+        /// </param>
         public async Task For(int cStart, int cEnd, int cStep, ForAction forAct, string message = null, bool nonStop = false, Action onCancel = null, Action onError = null)
         {
-            await For(cStart, cEnd, cStep, forAct, message, nonStop, this, onCancel, onError);
+            await For(cStart, cEnd, cStep, forAct, message, nonStop, onCancel, onError, this);
         }
-        public async Task ForEach<T>(IEnumerable<T> coll, ForEachAction<T> fEachAct, string message = null, bool nonStop = false, Action onCancel = null, Action onError = null)
+        /// <summary>
+        /// Ejecuta un ciclo <c>For Each</c> determinado por el delegado
+        /// <paramref name="forEachAct"/>.
+        /// </summary>
+        /// <typeparam name="T">Tipo de la colección del ciclo.</typeparam>
+        /// <param name="collection">Colección del ciclo.</param>
+        /// <param name="forEachAct">Acción a ejecutar.</param>
+        /// <param name="nonStop">
+        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
+        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
+        /// </param>
+        /// <param name="onCancel">
+        /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
+        /// </param>
+        /// <param name="onError">
+        /// Parámetro opcional. Acción a ejecutar en caso de generarse un error
+        /// durante la ejecución del ciclo.
+        /// </param>
+        /// <param name="message">
+        /// Parámetro opcional. Mensaje a mostrar.
+        /// </param>
+        public async Task ForEach<T>(IEnumerable<T> collection, ForEachAction<T> forEachAct, string message = null, bool nonStop = false, Action onCancel = null, Action onError = null)
         {
-            await ForEach<T>(coll, fEachAct, message, nonStop, this, onCancel, onError);
+            await ForEach<T>(collection, forEachAct, message, nonStop, onCancel, onError, this);
         }
+        /// <summary>
+        /// Reinicia el contador de tiempo de espera durante una tarea.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce cuando no se está ejecutando una tarea (el valor de
+        /// <see cref="OnDuty"/> es <c>false</c>).</exception>
         public void ResetTimeout() { Tmr.Reset(); }
         #endregion
         #region Métodos estáticos públicos
+        /// <summary>
+        /// Ejecuta un ciclo determinado por el delegado 
+        /// <paramref name="forAct"/>.
+        /// </summary>
+        /// <param name="cStart">Valor inicial del contador.</param>
+        /// <param name="cEnd">Valor final del contador.</param>
+        /// <param name="cStep">Incrmento del contador por cada paso.</param>
+        /// <param name="forAct">Acción a ejecutar.</param>
+        /// <param name="message">
+        /// Parámetro opcional. Mensaje a mostrar.
+        /// </param>
+        /// <param name="nonStop">
+        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
+        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
+        /// </param>
+        /// <param name="onCancel">
+        /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
+        /// </param>
+        /// <param name="onError">
+        /// Parámetro opcional. Acción a ejecutar en caso de generarse un error
+        /// durante la ejecución del ciclo.
+        /// </param>
+        /// <param name="instance">
+        /// Instancia de <see cref="ITaskReporter"/> a utilizar para reportar
+        /// el estado de la tarea.
+        /// </param>
         public static async Task For(
             int cStart,
             int cEnd,
@@ -199,145 +381,164 @@ namespace MCART.Types.TaskReporter
             ForAction forAct,
             string message,
             bool nonStop,
-            ITaskReporter instance,
             Action onCancel,
-            Action onError)
+            Action onError,
+            ITaskReporter instance)
         {
-            await Task.Run(() =>
-            {
-                try
-                {
-                    if (nonStop) instance.BeginNonStop();
-                    else instance.Begin();
-                }
-                catch { throw; }
-                try
-                {
-                    for (int j = cStart; j <= cEnd; j += cStep)
-                    {
-                        if (!nonStop && instance.CancelPending)
-                        {
-                            instance.Stop();
-                            if (!onCancel.IsNull()) onCancel.Invoke();
-                            return;
-                        }
-                        instance.Report((j - cStart) / (cEnd - cStart), message);
-                        forAct(j, instance);
-                    }
-                    instance.End();
-                }
-                catch (Exception ex)
-                {
-                    if (!onError.IsNull()) onError.Invoke();
-                    instance.EndWithError(ex);
-                }
-            });
+            await TaskReporter.For(cStart, cEnd, cStep, forAct, message, nonStop, onCancel, onError, instance);
         }
+        /// <summary>
+        /// Ejecuta un ciclo <c>For Each</c> determinado por el delegado
+        /// <paramref name="forEachAct"/>.
+        /// </summary>
+        /// <typeparam name="T">Tipo de la colección del ciclo.</typeparam>
+        /// <param name="collection">Colección del ciclo.</param>
+        /// <param name="forEachAct">Acción a ejecutar.</param>
+        /// <param name="nonStop">
+        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
+        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
+        /// </param>
+        /// <param name="onCancel">
+        /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
+        /// </param>
+        /// <param name="onError">
+        /// Parámetro opcional. Acción a ejecutar en caso de generarse un error
+        /// durante la ejecución del ciclo.
+        /// </param>
+        /// <param name="message">
+        /// Parámetro opcional. Mensaje a mostrar.
+        /// </param>
+        /// <param name="instance">
+        /// Instancia de <see cref="ITaskReporter"/> a utilizar para reportar
+        /// el estado de la tarea.
+        /// </param>
         public static async Task ForEach<T>(
-            IEnumerable<T> coll,
-            ForEachAction<T> fEachAct,
+            IEnumerable<T> collection,
+            ForEachAction<T> forEachAct,
             string message,
             bool nonStop,
-            ITaskReporter instance,
             Action onCancel,
-            Action onError)
+            Action onError,
+            ITaskReporter instance)
         {
-            await Task.Run(() =>
-            {
-                try
-                {
-                    if (nonStop) instance.BeginNonStop();
-                    else instance.Begin();
-                }
-                catch { throw; }
-                try
-                {
-                    int k = 0;
-                    foreach (T j in coll)
-                    {
-                        if (!nonStop && instance.CancelPending)
-                        {
-                            instance.Stop();
-                            if (!onCancel.IsNull()) onCancel.Invoke();
-                            return;
-                        }
-                        instance.Report(k / coll.Count(), message);
-                        fEachAct(j, instance);
-                        k++;
-                    }
-                    instance.End();
-                }
-                catch (Exception ex)
-                {
-                    if (!onError.IsNull()) onError.Invoke();
-                    instance.EndWithError(ex);
-                }
-            });
+            await TaskReporter.ForEach<T>(collection, forEachAct, message, nonStop, onCancel, onError, instance);
         }
         #endregion
         #region Métodos para clases derivadas
         /// <summary>
-        /// Establece el valor de la propiedad de sólo lectura <see cref="CancelPending"/> desde una clase derivada
+        /// Establece el valor de la propiedad de sólo lectura 
+        /// <see cref="CancelPending"/> desde una clase derivada.
         /// </summary>
-        /// <param name="Value">Valor que se desea establecer en <see cref="CancelPending"/></param>
+        /// <param name="Value">
+        /// Valor que se desea establecer en <see cref="CancelPending"/>.
+        /// </param>
         protected void SetCancelPending(bool Value) { cp = Value; }
+        /// <summary>
+        /// Establece el valor de la propiedad de sólo lectura 
+        /// <see cref="OnDuty"/> desde una clase derivada.
+        /// </summary>
+        /// <param name="Value">
+        /// Valor que se desea establecer en <see cref="OnDuty"/>.
+        /// </param>
         protected void SetOnDuty(bool Value) { od = Value; }
+        /// <summary>
+        /// Establece el valor de la propiedad de sólo lectura 
+        /// <see cref="TStart"/> desde una clase derivada.
+        /// </summary>
+        /// <param name="t">
+        /// Valor que se desea establecer en <see cref="TStart"/>.
+        /// </param>
         protected void SetTimeStart(DateTime? t) { ts = t; }
+        /// <summary>
+        /// Establece el valor de la propiedad de sólo lectura 
+        /// <see cref="CurrentProgress"/> desde una clase derivada.
+        /// </summary>
+        /// <param name="Value">
+        /// Valor que se desea establecer en <see cref="CurrentProgress"/>.
+        /// </param>
         protected void SetCurrentProgress(float? Value) { curp = Value; }
+        /// <summary>
+        /// Genera el evento <see cref="Begun"/> desde una clase
+        /// derivada.
+        /// </summary>
+        /// <param name="sender">
+        /// Instancia del objeto que generará el evento.
+        /// </param>
+        /// <param name="e">Parámetros del evento.</param>
         protected void RaiseBegun(object sender, BegunEventArgs e)
         {
-            Begun(sender, e);
+            Begun?.Invoke(sender, e);
         }
         /// <summary>
-        /// Genera el evento <see cref="CancelRequested"/> desde una clase derivada.
+        /// Genera el evento <see cref="CancelRequested"/> desde una clase
+        /// derivada.
         /// </summary>
-        /// <param name="sender">Instancia del objeto que generará el evento</param>
-        /// <param name="e">Parámetros del evento</param>
+        /// <param name="sender">
+        /// Instancia del objeto que generará el evento.
+        /// </param>
+        /// <param name="e">Parámetros del evento.</param>
         protected void RaiseCancelRequested(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            CancelRequested(sender, e);
+            CancelRequested?.Invoke(sender, e);
         }
         /// <summary>
         /// Genera el evento <see cref="Ended"/> desde una clase derivada.
         /// </summary>
-        /// <param name="sender">Instancia del objeto que generará el evento</param>
+        /// <param name="sender">
+        /// Instancia del objeto que generará el evento.
+        /// </param>
         protected void RaiseEnded(object sender)
         {
-            Ended(sender, EventArgs.Empty);
+            Ended?.Invoke(sender, EventArgs.Empty);
         }
         /// <summary>
         /// Genera el evento <see cref="Error"/> desde una clase derivada.
         /// </summary>
-        /// <param name="sender">Instancia del objeto que generará el evento</param>
-        /// <param name="e">Parámetros del evento</param>
+        /// <param name="sender">
+        /// Instancia del objeto que generará el evento.
+        /// </param>
+        /// <param name="e">Parámetros del evento.</param>
         protected void RaiseError(object sender, Events.ExceptionEventArgs e)
         {
-            Error(sender, e);
+            Error?.Invoke(sender, e);
         }
         /// <summary>
         /// Genera el evento <see cref="Reporting"/> desde una clase derivada.
         /// </summary>
-        /// <param name="sender">Instancia del objeto que generará el evento</param>
-        /// <param name="e">Parámetros del evento</param>
+        /// <param name="sender">Instancia del objeto que generará el evento.
+        /// </param>
+        /// <param name="e">Parámetros del evento.</param>
         protected void RaiseReporting(object sender, ProgressEventArgs e)
         {
-            Reporting(sender, e);
+            Reporting?.Invoke(sender, e);
         }
         /// <summary>
         /// Genera el evento <see cref="Stopped"/> desde una clase derivada.
         /// </summary>
-        /// <param name="sender">Instancia del objeto que generará el evento</param>
-        /// <param name="e">Parámetros del evento</param>
+        /// <param name="sender">
+        /// Instancia del objeto que generará el evento.
+        /// </param>
+        /// <param name="e">Parámetros del evento.</param>
         protected void RaiseStopped(object sender, ProgressEventArgs e)
         {
-            Stopped(sender, e);
+            Stopped?.Invoke(sender, e);
         }
+        /// <summary>
+        /// Genera el evento <see cref="TaskTimeout"/> desde una clase derivada.
+        /// </summary>
+        /// <param name="sender">
+        /// Instancia del objeto que generará el evento.
+        /// </param>
+        /// <param name="e">Parámetros del evento.</param>
         protected void RaiseTimeout(object sender, ProgressEventArgs e)
         {
-            TaskTimeout(sender, e);
+            TaskTimeout?.Invoke(sender, e);
         }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="TaskReporterPlugin"/>.
+        /// </summary>
         protected TaskReporterPlugin() { Tmr.Elapsed += TmrElapsed; }
-
         #endregion
     }
 }

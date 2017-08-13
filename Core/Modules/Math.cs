@@ -26,11 +26,10 @@
 #define IncludeSpecialClamp
 #endregion
 
-using System;
 using MCART.Attributes;
 using MCART.Types;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MCART
 {
@@ -44,6 +43,14 @@ namespace MCART
         /// </summary>
         public static class Series
         {
+            /// <summary>
+            /// Expone un enumerador que contiene la secuencia completa de
+            /// Fibonacci.
+            /// </summary>
+            /// <returns>
+            /// Un <see cref="IEnumerable{T}"/> conla secuencia infinita de
+            /// Fibonacci.
+            /// </returns>
             public static IEnumerable<int> Fibonacci()
             {
                 int a = 0;

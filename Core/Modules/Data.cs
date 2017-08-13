@@ -36,6 +36,14 @@ namespace MCART.Data
     /// </summary>
     public static partial class Data
     {
+        /// <summary>
+        /// Infiere uin tipo de CLR como un tipo de SQL.
+        /// </summary>
+        /// <param name="t">Tipo a inferir.</param>
+        /// <returns>
+        /// Un <see cref="SqlDbType"/> que ha sido inferido a partir del tipo
+        /// especificado.
+        /// </returns>
         public static SqlDbType AsSqlType(this Type t)
         {
             if (t == typeof(int)) return SqlDbType.Int;

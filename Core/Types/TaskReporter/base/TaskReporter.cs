@@ -227,35 +227,167 @@ namespace MCART.Types.TaskReporter
         }
         #endregion
         #region Métodos públicos
+        /// <summary>
+        /// Indica que una tarea se ha iniciado. Genera el evento 
+        /// <see cref="Begun"/>.
+        /// </summary>
         public void Begin(TimeSpan timeout, bool genTOutEx = false)
         {
             BeginSub(timeout, genTOutEx);
             Begin();
         }
+        /// <summary>
+        /// Indica que una tarea que no se puede detener ha iniciado. Genera el
+        /// evento <see cref="Begun"/>.
+        /// </summary>
         public void BeginNonStop(TimeSpan timeout, bool genTOutEx = false)
         {
             BeginSub(timeout, genTOutEx);
             BeginNonStop();
         }
+        /// <summary>
+        /// Ejecuta un ciclo determinado por el delegado
+        /// <paramref name="forAct"/>.
+        /// </summary>
+        /// <param name="cEnd">Valor final del contador.</param>
+        /// <param name="forAct">Acción a ejecutar.</param>
+        /// <param name="message">
+        /// Parámetro opcional. Mensaje a mostrar.
+        /// </param>
+        /// <param name="nonStop">
+        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
+        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
+        /// </param>
+        /// <param name="onCancel">
+        /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
+        /// </param>
+        /// <param name="onError">
+        /// Parámetro opcional. Acción a ejecutar en caso de generarse un error
+        /// durante la ejecución del ciclo.
+        /// </param>
+        /// <remarks>
+        /// De forma predeterminada, el ciclo iniciará el contador en 0, y
+        /// realizará incrementos de 1 por cada paso.
+        /// </remarks>
         public async Task For(int cEnd, ForAction forAct, string message = null, bool nonStop = false, Action onCancel = null, Action onError = null)
         {
-            await For(0, cEnd, 1, forAct, message, nonStop, this, onCancel, onError);
+            await For(0, cEnd, 1, forAct, message, nonStop, onCancel, onError, this);
         }
+        /// <summary>
+        /// Ejecuta un ciclo determinado por el delegado
+        /// <paramref name="forAct"/>.
+        /// </summary>
+        /// <param name="cStart">Valor inicial del contador.</param>
+        /// <param name="cEnd">Valor final del contador.</param>
+        /// <param name="forAct">Acción a ejecutar.</param>
+        /// <param name="message">
+        /// Parámetro opcional. Mensaje a mostrar.
+        /// </param>
+        /// <param name="nonStop">
+        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
+        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
+        /// </param>
+        /// <param name="onCancel">
+        /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
+        /// </param>
+        /// <param name="onError">
+        /// Parámetro opcional. Acción a ejecutar en caso de generarse un error
+        /// durante la ejecución del ciclo.
+        /// </param>
+        /// <remarks>
+        /// De forma predeterminada, el ciclo realizará incrementos de 1 por 
+        /// cada paso.
+        /// </remarks>
         public async Task For(int cStart, int cEnd, ForAction forAct, string message = null, bool nonStop = false, Action onCancel = null, Action onError = null)
         {
-            await For(cStart, cEnd, 1, forAct, message, nonStop, this, onCancel, onError);
+            await For(cStart, cEnd, 1, forAct, message, nonStop, onCancel, onError, this);
         }
+        /// <summary>
+        /// Ejecuta un ciclo determinado por el delegado 
+        /// <paramref name="forAct"/>.
+        /// </summary>
+        /// <param name="cStart">Valor inicial del contador.</param>
+        /// <param name="cEnd">Valor final del contador.</param>
+        /// <param name="cStep">Incrmento del contador por cada paso.</param>
+        /// <param name="forAct">Acción a ejecutar.</param>
+        /// <param name="message">
+        /// Parámetro opcional. Mensaje a mostrar.
+        /// </param>
+        /// <param name="nonStop">
+        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
+        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
+        /// </param>
+        /// <param name="onCancel">
+        /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
+        /// </param>
+        /// <param name="onError">
+        /// Parámetro opcional. Acción a ejecutar en caso de generarse un error
+        /// durante la ejecución del ciclo.
+        /// </param>
         public async Task For(int cStart, int cEnd, int cStep, ForAction forAct, string message = null, bool nonStop = false, Action onCancel = null, Action onError = null)
         {
-            await For(cStart, cEnd, cStep, forAct, message, nonStop, this, onCancel, onError);
+            await For(cStart, cEnd, cStep, forAct, message, nonStop, onCancel, onError, this);
         }
-        public async Task ForEach<T>(IEnumerable<T> coll, ForEachAction<T> fEachAct, string message = null, bool nonStop = false, Action onCancel = null, Action onError = null)
+        /// <summary>
+        /// Ejecuta un ciclo <c>For Each</c> determinado por el delegado
+        /// <paramref name="forEachAct"/>.
+        /// </summary>
+        /// <typeparam name="T">Tipo de la colección del ciclo.</typeparam>
+        /// <param name="collection">Colección del ciclo.</param>
+        /// <param name="forEachAct">Acción a ejecutar.</param>
+        /// <param name="nonStop">
+        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
+        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
+        /// </param>
+        /// <param name="onCancel">
+        /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
+        /// </param>
+        /// <param name="onError">
+        /// Parámetro opcional. Acción a ejecutar en caso de generarse un error
+        /// durante la ejecución del ciclo.
+        /// </param>
+        /// <param name="message">
+        /// Parámetro opcional. Mensaje a mostrar.
+        /// </param>
+        public async Task ForEach<T>(IEnumerable<T> collection, ForEachAction<T> forEachAct, string message = null, bool nonStop = false, Action onCancel = null, Action onError = null)
         {
-            await ForEach<T>(coll, fEachAct, message, nonStop, this, onCancel, onError);
+            await ForEach<T>(collection, forEachAct, message, nonStop, onCancel, onError, this);
         }
+        /// <summary>
+        /// Reinicia el contador de tiempo de espera durante una tarea.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce cuando no se está ejecutando una tarea (el valor de
+        /// <see cref="OnDuty"/> es <c>false</c>).</exception>
         public void ResetTimeout() { Tmr.Reset(); }
         #endregion
         #region Métodos estáticos públicos
+        /// <summary>
+        /// Ejecuta un ciclo determinado por el delegado 
+        /// <paramref name="forAct"/>.
+        /// </summary>
+        /// <param name="cStart">Valor inicial del contador.</param>
+        /// <param name="cEnd">Valor final del contador.</param>
+        /// <param name="cStep">Incrmento del contador por cada paso.</param>
+        /// <param name="forAct">Acción a ejecutar.</param>
+        /// <param name="message">
+        /// Parámetro opcional. Mensaje a mostrar.
+        /// </param>
+        /// <param name="nonStop">
+        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
+        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
+        /// </param>
+        /// <param name="onCancel">
+        /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
+        /// </param>
+        /// <param name="onError">
+        /// Parámetro opcional. Acción a ejecutar en caso de generarse un error
+        /// durante la ejecución del ciclo.
+        /// </param>
+        /// <param name="instance">
+        /// Instancia de <see cref="ITaskReporter"/> a utilizar para reportar
+        /// el estado de la tarea.
+        /// </param>
         public static async Task For(
             int cStart,
             int cEnd,
@@ -263,9 +395,9 @@ namespace MCART.Types.TaskReporter
             ForAction forAct,
             string message,
             bool nonStop,
-            ITaskReporter instance,
             Action onCancel,
-            Action onError)
+            Action onError,
+            ITaskReporter instance)
         {
             await Task.Run(() =>
             {
@@ -297,14 +429,39 @@ namespace MCART.Types.TaskReporter
                 }
             });
         }
+        /// <summary>
+        /// Ejecuta un ciclo <c>For Each</c> determinado por el delegado
+        /// <paramref name="forEachAct"/>.
+        /// </summary>
+        /// <typeparam name="T">Tipo de la colección del ciclo.</typeparam>
+        /// <param name="collection">Colección del ciclo.</param>
+        /// <param name="forEachAct">Acción a ejecutar.</param>
+        /// <param name="nonStop">
+        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
+        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
+        /// </param>
+        /// <param name="onCancel">
+        /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
+        /// </param>
+        /// <param name="onError">
+        /// Parámetro opcional. Acción a ejecutar en caso de generarse un error
+        /// durante la ejecución del ciclo.
+        /// </param>
+        /// <param name="message">
+        /// Parámetro opcional. Mensaje a mostrar.
+        /// </param>
+        /// <param name="instance">
+        /// Instancia de <see cref="ITaskReporter"/> a utilizar para reportar
+        /// el estado de la tarea.
+        /// </param>
         public static async Task ForEach<T>(
-            IEnumerable<T> coll,
-            ForEachAction<T> fEachAct,
+            IEnumerable<T> collection,
+            ForEachAction<T> forEachAct,
             string message,
             bool nonStop,
-            ITaskReporter instance,
             Action onCancel,
-            Action onError)
+            Action onError,
+            ITaskReporter instance)
         {
             await Task.Run(() =>
             {
@@ -317,7 +474,7 @@ namespace MCART.Types.TaskReporter
                 try
                 {
                     int k = 0;
-                    foreach (T j in coll)
+                    foreach (T j in collection)
                     {
                         if (!nonStop && instance.CancelPending)
                         {
@@ -325,8 +482,8 @@ namespace MCART.Types.TaskReporter
                             if (!onCancel.IsNull()) onCancel.Invoke();
                             return;
                         }
-                        instance.Report(k / coll.Count(), message);
-                        fEachAct(j, instance);
+                        instance.Report(k / collection.Count(), message);
+                        forEachAct(j, instance);
                         k++;
                     }
                     instance.End();

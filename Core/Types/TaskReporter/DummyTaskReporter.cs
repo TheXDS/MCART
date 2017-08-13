@@ -31,8 +31,17 @@ namespace MCART.Types.TaskReporter
     /// </summary>
     public class DummyTaskReporter : TaskReporter
     {
+        /// <summary>
+        /// Esta propiedad siempre devolverá <c>false</c>.
+        /// </summary>
         public override bool CancelPending => false;
-        public override void Begin()=>BeginNonStop();        
+        /// <summary>
+        /// Indica que una tarea que no se puede detener ha iniciado.
+        /// </summary>
+        public override void Begin()=>BeginNonStop();
+        /// <summary>
+        /// Indica que una tarea que no se puede detener ha iniciado.
+        /// </summary>
         public override void BeginNonStop()
         {
             if (OnDuty) throw new InvalidOperationException();
@@ -40,6 +49,9 @@ namespace MCART.Types.TaskReporter
             SetOnDuty(true);
             RaiseBegun(this, new BegunEventArgs(false, TStart));
         }
+        /// <summary>
+        /// Marca el final de una tarea.
+        /// </summary>
         public override void End()
         {
             if (!OnDuty) throw new InvalidOperationException();
@@ -47,6 +59,12 @@ namespace MCART.Types.TaskReporter
             SetTimeStart(null);
             RaiseEnded(this);
         }
+        /// <summary>
+        /// Indica que la tarea finalizó con un error.
+        /// </summary>
+        /// <param name="ex">
+        /// <see cref="Exception"/> que causó la finalización de esta tarea.
+        /// </param>
         public override void EndWithError(Exception ex = null)
         {
             if (!OnDuty) throw new InvalidOperationException();
@@ -54,21 +72,44 @@ namespace MCART.Types.TaskReporter
             SetTimeStart(null);
             RaiseError(this, new Events.ExceptionEventArgs(ex));
         }
+        /// <summary>
+        /// Reporta el estado de la tarea actual.
+        /// </summary>
+        /// <param name="e">Información adicional del evento.</param>
         public override void Report(ProgressEventArgs e)
         {
             if (!OnDuty) throw new InvalidOperationException();
             RaiseReporting(this, e);
         }
+        /// <summary>
+        /// Reporta el estado de la tarea actual.
+        /// </summary>
+        /// <param name="helpText">Texto de ayuda sobre la tarea.</param>
         public override void Report(string helpText)
         {
             if (!OnDuty) throw new InvalidOperationException();
             RaiseReporting(this, new ProgressEventArgs(null, helpText));
         }
+        /// <summary>
+        /// Reporta el estado de la tarea actual.
+        /// </summary>
+        /// <param name="progress">
+        /// <see cref="Nullable{T}"/> que representa el progreso actual de la
+        /// tarea.
+        /// </param>
+        /// <param name="helpText">Texto de ayuda sobre la tarea.</param>
         public override void Report(float? progress = default(float?), string helpText = null)
         {
             if (!OnDuty) throw new InvalidOperationException();
             RaiseReporting(this, new ProgressEventArgs(progress, helpText));
         }
+        /// <summary>
+        /// Indica que la tarea actual ha sido detenida antes de finalizar.
+        /// </summary>
+        /// <param name="e">
+        /// <see cref="ProgressEventArgs"/> con información del progreso de la
+        /// tarea al momento de la detención.
+        /// </param>
         public override void Stop(ProgressEventArgs e)
         {
             if (!OnDuty) throw new InvalidOperationException();
@@ -76,6 +117,14 @@ namespace MCART.Types.TaskReporter
             SetTimeStart(null);
             RaiseStopped(this, e);
         }
+        /// <summary>
+        /// Indica que la tarea actual ha sido detenida antes de finalizar.
+        /// </summary>
+        /// <param name="progress">
+        /// <see cref="Nullable{T}"/> que representa el progreso actual de la
+        /// tarea.
+        /// </param>
+        /// <param name="helpText">Texto de ayuda sobre la tarea.</param>
         public override void Stop(float? progress = default(float?), string helpText = null)
         {
             if (!OnDuty) throw new InvalidOperationException();
@@ -83,6 +132,10 @@ namespace MCART.Types.TaskReporter
             SetTimeStart(null);
             RaiseStopped(this, new ProgressEventArgs(progress, helpText));
         }
+        /// <summary>
+        /// Indica que la tarea actual ha sido detenida antes de finalizar.
+        /// </summary>
+        /// <param name="helpText">Texto de ayuda sobre la tarea.</param>
         public override void Stop(string helpText)
         {
             if (!OnDuty) throw new InvalidOperationException();

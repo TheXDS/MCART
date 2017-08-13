@@ -23,35 +23,18 @@
 
 using System;
 using St = MCART.Resources.Strings;
+
 namespace MCART.Types.TaskReporter
 {
+    /// <summary>
+    /// Implementación de <see cref="TaskReporter"/> que muestra el progreso de
+    /// una tarea en la consola del sistema.
+    /// </summary>
     public class ConsoleTaskReporter : TaskReporter
     {
         short sze = 20;
         bool ap;
         Point p;
-        public short ProgressSize
-        {
-            get { return sze; }
-            set
-            {
-                if (value.IsBetween((short)1, (short)Console.BufferWidth)) sze = value;
-                else throw new ArgumentOutOfRangeException(nameof(value));
-            }
-        }
-        public Point? PBarLocation
-        {
-            get { return p; }
-            set
-            {
-                if (!(bool)value?.FitsInBox(1, 1, Console.BufferWidth, Console.BufferHeight))
-                    throw new ArgumentOutOfRangeException(nameof(value));
-                if (OnDuty) throw new InvalidOperationException();
-                p = value.Value;
-            }
-        }
-        public bool Verbose;
-
         void DoBegin()
         {
             SetOnDuty(true);
@@ -99,42 +82,128 @@ namespace MCART.Types.TaskReporter
             while (Console.CursorLeft < Console.BufferWidth) Console.Write(' ');
 
         }
+        /// <summary>
+        /// Obtiene o establece el tamaño a utilizar para la barra de progreso.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Se produce si se intenta establecer un tamaño mayor al ancho del
+        /// búffer de la consola/terminal.
+        /// </exception>
+        public short ProgressSize
+        {
+            get { return sze; }
+            set
+            {
+                if (value.IsBetween((short)1, (short)Console.BufferWidth)) sze = value;
+                else throw new ArgumentOutOfRangeException(nameof(value));
+            }
+        }
+        /// <summary>
+        /// Obtiene o establece la ubicación de la barra de progreso en la
+        /// ventana de la consola/terminal.
+        /// </summary>
+        public Point? PBarLocation
+        {
+            get { return p; }
+            set
+            {
+                if (!(bool)value?.FitsInBox(1, 1, Console.BufferWidth, Console.BufferHeight))
+                    throw new ArgumentOutOfRangeException(nameof(value));
+                if (OnDuty) throw new InvalidOperationException();
+                p = value.Value;
+            }
+        }
+        /// <summary>
+        /// Obtiene o establece un valor que indica si se mostrará información
+        /// detallada sobre la tarea al mostrar el progreso.
+        /// </summary>
+        public bool Verbose;
+        /// <summary>
+        /// Indica que una tarea se ha iniciado.
+        /// </summary>
         public override void Begin()
         {
             if (OnDuty) throw new InvalidOperationException();
             DoBegin();
         }
+        /// <summary>
+        /// Indica que una tarea que no se puede detener ha iniciado.
+        /// </summary>
         public override void BeginNonStop()
         {
             if (OnDuty) throw new InvalidOperationException();
             DoBegin();
         }
+        /// <summary>
+        /// Marca el final de una tarea.
+        /// </summary>
         public override void End() { DoEnd(); }
+        /// <summary>
+        /// Indica que la tarea finalizó con un error.
+        /// </summary>
+        /// <param name="ex">
+        /// <see cref="Exception"/> que causó la finalización de esta tarea.
+        /// </param>
         public override void EndWithError(Exception ex = null)
         {
             if (ex.IsNull()) ex = new Exception();
             DoEnd(ex.StackTrace + "\n" + ex.Message, ConsoleColor.DarkRed);
         }
+        /// <summary>
+        /// Reporta el estado de la tarea actual.
+        /// </summary>
+        /// <param name="e">Información adicional del evento.</param>
         public override void Report(ProgressEventArgs e)
         {
             DoRprt(e.HelpText, e.Progress);
         }
+        /// <summary>
+        /// Reporta el estado de la tarea actual.
+        /// </summary>
+        /// <param name="helpText">Texto de ayuda sobre la tarea.</param>
         public override void Report(string helpText)
         {
             DoRprt(helpText, null);
         }
+        /// <summary>
+        /// Reporta el estado de la tarea actual.
+        /// </summary>
+        /// <param name="progress">
+        /// <see cref="Nullable{T}"/> que representa el progreso actual de la
+        /// tarea.
+        /// </param>
+        /// <param name="helpText">Texto de ayuda sobre la tarea.</param>
         public override void Report(float? progress = default(float?), string helpText = null)
         {
             DoRprt(helpText, progress);
         }
+        /// <summary>
+        /// Indica que la tarea actual ha sido detenida antes de finalizar.
+        /// </summary>
+        /// <param name="e">
+        /// <see cref="ProgressEventArgs"/> con información del progreso de la
+        /// tarea al momento de la detención.
+        /// </param>
         public override void Stop(ProgressEventArgs e)
         {
             DoEnd(e?.HelpText ?? St.UsrCncl);
         }
+        /// <summary>
+        /// Indica que la tarea actual ha sido detenida antes de finalizar.
+        /// </summary>
+        /// <param name="progress">
+        /// <see cref="Nullable{T}"/> que representa el progreso actual de la
+        /// tarea.
+        /// </param>
+        /// <param name="helpText">Texto de ayuda sobre la tarea.</param>
         public override void Stop(float? progress = default(float?), string helpText = null)
         {
             DoEnd(helpText ?? St.UsrCncl);
         }
+        /// <summary>
+        /// Indica que la tarea actual ha sido detenida antes de finalizar.
+        /// </summary>
+        /// <param name="helpText">Texto de ayuda sobre la tarea.</param>
         public override void Stop(string helpText)
         {
             DoEnd(helpText);

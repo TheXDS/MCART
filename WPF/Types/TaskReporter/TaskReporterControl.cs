@@ -21,12 +21,9 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using MCART.Events;
 using MCART.Types.Extensions;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using St = MCART.Resources.Strings;
@@ -38,63 +35,91 @@ namespace MCART.Types.TaskReporter
     /// que pueden utilizarse para mostrar el progreso de una tarea por medio
     /// de la interfaz <see cref="ITaskReporter"/>.
     /// </summary>
-    public abstract class TaskReporterControl : UserControl
+    public abstract partial class TaskReporterControl : UserControl
     {
         #region Declaración de propiedades de dependencia
+        /// <summary>
+        /// Llave de lectura/escritura para la propiedad de dependencia de sólo
+        /// lectura <see cref="CancelPending"/>.
+        /// </summary>
         protected static DependencyPropertyKey CancelPendingPropertyKey = DependencyProperty.RegisterReadOnly(
             nameof(CancelPending),
             typeof(bool),
             typeof(TaskReporterControl),
             new PropertyMetadata(false));
+        /// <summary>
+        /// Llave de lectura/escritura para la propiedad de dependencia de sólo
+        /// lectura <see cref="OnDuty"/>.
+        /// </summary>
         protected static DependencyPropertyKey OnDutyPropertyKey = DependencyProperty.RegisterReadOnly(
             nameof(OnDuty),
             typeof(bool),
             typeof(TaskReporterControl),
             new PropertyMetadata(false));
+        /// <summary>
+        /// Llave de lectura/escritura para la propiedad de dependencia de sólo
+        /// lectura <see cref="Stoppable"/>.
+        /// </summary>
         protected static DependencyPropertyKey StoppablePropertyKey = DependencyProperty.RegisterReadOnly(
             nameof(Stoppable),
             typeof(bool?),
             typeof(TaskReporterControl),
             new PropertyMetadata(null));
+        /// <summary>
+        /// Llave de lectura/escritura para la propiedad de dependencia de sólo
+        /// lectura <see cref="TStart"/>.
+        /// </summary>
         protected static DependencyPropertyKey TStartPropertyKey = DependencyProperty.RegisterReadOnly(
             nameof(TStart),
             typeof(DateTime),
             typeof(TaskReporterControl),
             new PropertyMetadata(default(DateTime)));
+        /// <summary>
+        /// Llave de lectura/escritura para la propiedad de dependencia de sólo
+        /// lectura <see cref="TimedOut"/>.
+        /// </summary>
         protected static DependencyPropertyKey TimedOutPropertyKey = DependencyProperty.RegisterReadOnly(
             nameof(TimedOut),
             typeof(bool),
             typeof(TaskReporterControl),
             new PropertyMetadata(false));
+        /// <summary>
+        /// Llave de lectura/escritura para la propiedad de dependencia de sólo
+        /// lectura <see cref="CurrentProgress"/>.
+        /// </summary>
         protected static DependencyPropertyKey CurrentProgressPropertyKey = DependencyProperty.RegisterReadOnly(
             nameof(CurrentProgress),
             typeof(float?),
             typeof(TaskReporterControl),
             new PropertyMetadata(null));
         /// <summary>
-        /// Identifica la propiedad de dependencia 
+        /// Identifica a la propiedad de dependencia de sólo lectura
         /// <see cref="CancelPending"/>.
         /// </summary>
         public static DependencyProperty CancelPendingProperty = CancelPendingPropertyKey.DependencyProperty;
         /// <summary>
-        /// Identifica la propiedad de dependencia 
+        /// Identifica a la propiedad de dependencia de sólo lectura
         /// <see cref="CurrentProgress"/>.
         /// </summary>
         public static DependencyProperty CurrentProgressProperty = CurrentProgressPropertyKey.DependencyProperty;
         /// <summary>
-        /// Identifica la propiedad de dependencia <see cref="OnDuty"/>.
+        /// Identifica la propiedad de dependencia de sólo lectura
+        /// <see cref="OnDuty"/>.
         /// </summary>
         public static DependencyProperty OnDutyProperty = OnDutyPropertyKey.DependencyProperty;
         /// <summary>
-        /// Identifica la propiedad de dependencia <see cref="Stoppable"/>.
+        /// Identifica la propiedad de dependencia de sólo lectura
+        /// <see cref="Stoppable"/>.
         /// </summary>
         public static DependencyProperty StoppableProperty = StoppablePropertyKey.DependencyProperty;
         /// <summary>
-        /// Identifica la propiedad de dependencia <see cref="TStart"/>.
+        /// Identifica la propiedad de dependencia de sólo lectura 
+        /// <see cref="TStart"/>.
         /// </summary>
         public static DependencyProperty TStartProperty = TStartPropertyKey.DependencyProperty;
         /// <summary>
-        /// Identifica la propiedad de dependencia <see cref="TimedOut"/>.
+        /// Identifica la propiedad de dependencia de sólo lectura
+        /// <see cref="TimedOut"/>.
         /// </summary>
         public static DependencyProperty TimedOutProperty = TimedOutPropertyKey.DependencyProperty;
         #endregion
@@ -132,40 +157,9 @@ namespace MCART.Types.TaskReporter
         /// </summary>
         public DateTime TStart => (DateTime)GetValue(TStartProperty);
         #endregion
-        #region Eventos
-        /// <summary>
-        /// Se produce cuando se ha solicitado la detención de la tarea.
-        /// </summary>
-        public event CancelRequestedEventHandler CancelRequested;
-        /// <summary>
-        /// Se produce cuando una tarea se ha iniciado.
-        /// </summary>
-        public event BegunEventHandler Begun;
-        /// <summary>
-        /// Se produce cuando la tarea desea reportar su estado.
-        /// </summary>
-        public event ReportingEventHandler Reporting;
-        /// <summary>
-        /// Se produce cuando una tarea finalizó correctamente.
-        /// </summary>
-        public event EndedEventHandler Ended;
-        /// <summary>
-        /// Se produce cuando una tarea es cancelada.
-        /// </summary>
-        public event StoppedEventHandler Stopped;
-        /// <summary>
-        /// Se produce cuando una tarea indica que finalizó con error.
-        /// </summary>
-        public event ErrorEventHandler Error;
-        /// <summary>
-        /// Se produce cuando una tarea ha alcanzado el límite del tiempo de
-        /// espera establecido.
-        /// </summary>
-        public event TaskTimeoutEventHandler TaskTimeout;
-        #endregion
         #region Métodos privados
         void Bgn(bool ns)
-        {
+        {            
             if (OnDuty) throw new InvalidOperationException();
             SetValue(CancelPendingProperty, false);
             SetValue(TimedOutProperty, false);
@@ -176,18 +170,10 @@ namespace MCART.Types.TaskReporter
             else Dispatcher.Invoke(new Action<bool>(OnBegin), true);
             Begun?.Invoke(this, new BegunEventArgs(ns, TStart));
         }
-        void Bgn(TimeSpan timeout, bool genTOutEx, bool ns)
-        {
-            if (OnDuty) throw new InvalidOperationException();
-            genEx = genTOutEx;
-            Tmr = new Timer(timeout.TotalMilliseconds) { AutoReset = false };
-            Bgn(ns);
-            Tmr.Elapsed += Tmr_Elapsed;
-            Tmr.Start();
-        }
         void Bsy(ProgressEventArgs e)
         {
             if (!OnDuty) throw new InvalidOperationException();
+            SetValue(CurrentProgressPropertyKey, e.Progress);
             if (Dispatcher.CheckAccess()) OnBusy(e);
             else Dispatcher.Invoke(new Action<ProgressEventArgs>(OnBusy), e);
             Reporting?.Invoke(this, e);
