@@ -22,6 +22,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
 
@@ -126,7 +127,7 @@ namespace MCART.PluginSupport
         /// Un <see cref="ReadOnlyCollection{T}"/> con los nombre de las
         /// interfaces implementadas dentro de este <see cref="IPlugin"/>.
         /// </returns>
-        ReadOnlyCollection<string> InterfaceNames { get; }
+        IEnumerable<string> InterfaceNames { get; }
         /// <summary>
         /// Devuelve la lista de interfaces que este <see cref="IPlugin"/>
         /// implementa.
@@ -139,7 +140,7 @@ namespace MCART.PluginSupport
         /// <see cref="Plugin"/>. Además, se ignoran las interfaces
         /// <see cref="IPlugin"/> y <see cref="IDisposable"/>.
         /// </remarks>
-        ReadOnlyCollection<Type> Interfaces { get; }
+        IEnumerable<Type> Interfaces { get; }
         ///<summary>
         ///Devuelve la referencia al ensamblado que contiene a este <see cref="IPlugin"/>.
         ///</summary>
