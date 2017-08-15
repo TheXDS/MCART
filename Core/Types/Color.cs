@@ -28,7 +28,7 @@
 
 using System;
 using CI = System.Globalization.CultureInfo;
-using static System.Math;
+
 namespace MCART.Types
 {
     /// <summary>
@@ -443,5 +443,19 @@ namespace MCART.Types
             byte A = (byte)((b + ep) * 2);
             return unchecked((byte)(R | (G << 1) | (B << 2) | ((R == 2 || G == 2 || B == 2) ? 4 : 0)));
         }
+        /// <summary>
+        /// Convierte implícitamente una estructura <see cref="Color"/> en un
+        /// un <see cref="System.Drawing.Color"/>.
+        /// </summary>
+        /// <param name="c"><see cref="Color"/> a convertir.</param>
+        public static implicit operator System.Drawing.Color(Color c) => System.Drawing.Color.FromArgb(c.A, c.R, c.G, c.B);
+        /// <summary>
+        /// Convierte implícitamente una estructura
+        /// <see cref="System.Drawing.Color"/> en un <see cref="Color"/>.
+        /// </summary>
+        /// <param name="c">
+        /// <see cref="System.Drawing.Color"/> a convertir.
+        /// </param>
+        public static implicit operator Color(System.Drawing.Color c) => new Color(c.R, c.G, c.B,c.A);
     }
 }

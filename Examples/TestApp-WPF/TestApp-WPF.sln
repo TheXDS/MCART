@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TestApp", "TestApp.vbproj", "{D92E5DCA-64C6-4B41-B88D-59B0001814B2}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TestApp-WPF", "TestApp-WPF.vbproj", "{D92E5DCA-64C6-4B41-B88D-59B0001814B2}"
 	ProjectSection(ProjectDependencies) = postProject
 		{214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF} = {214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF}
 	EndProjectSection

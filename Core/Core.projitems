@@ -9,6 +9,8 @@
     <Import_RootNamespace>MCART</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\LightGraph.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\NavigationBar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Attrbutes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Events.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Exceptions.cs" />
@@ -77,7 +79,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Types\TaskReporter\base\" />
     <Folder Include="$(MSBuildThisFileDirectory)Security\Encryption\" />
     <Folder Include="$(MSBuildThisFileDirectory)Security\Checksum\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Controls\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Icons\MCART.png" />

@@ -55,6 +55,12 @@
     <Compile Include="Controls\BarStepper.Designer.cs">
       <DependentUpon>BarStepper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ProgressRing.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ProgressRing.Designer.cs">
+      <DependentUpon>ProgressRing.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\PluginBrowser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +90,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Controls\BarStepper.resx">
       <DependentUpon>BarStepper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ProgressRing.resx">
+      <DependentUpon>ProgressRing.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PluginBrowser.resx">
       <DependentUpon>PluginBrowser.cs</DependentUpon>

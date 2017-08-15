@@ -21,47 +21,13 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#region Opciones de compilación
-
-//Incluir implementación de SetSourceColor para un objeto Cairo.Context (preferiblemente desactivar en Linux)
-#define ImplementSetSourceColor
-
-#endregion
-
 using System;
-using Gtk;
-using Gdk;
-using Cairo;
-using static MCART.Math;
-using static System.Math;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace MCART.Controls
 {
-#if ImplementSetSourceColor
-    /* BUG
-     * ===
-     * Al compilar desde Microsoft Windows, el ensamblado Mono.Cairo no 
-     * implementa el método Cairo.Context.SetSourceColor, por lo que es 
-     * necesario incluir un método de Thunking para implementar dicha función.
-     */
-    internal static class ContextExtensions
-    {
-        /// <summary>
-        /// Implementa el método faltante Cairo.Context.SetSourceColor al
-        /// compilar desde Visual Studio/Microsoft Windows.
-        /// </summary>
-        /// <param name="c"><see cref="Context"/> a modificar.</param>
-        /// <param name="color">Color a establecer para el dibujado.</param>
-        [Attributes.Thunk]
-        internal static void SetSourceColor(this Context c, Types.Color color)
-        {
-            c.SetSourceRGBA(color.ScR, color.ScG, color.ScB, color.ScA);
-        }
-    }
-#endif
-
-    [System.ComponentModel.ToolboxItem(true)]
-    public partial class ProgressRing : DrawingArea
+    public partial class ProgressRing : Control
     {
         #region Campos privados
         float _thickness = 8.0f;
@@ -70,12 +36,10 @@ namespace MCART.Controls
         float _min;
         float _max = 100.0f;
         float _angle;
-        float _fontFactor = 0.4f;
-        Types.Color _ringColor = Resources.Colors.Gray;
-        Types.Color _fill = Resources.Colors.SkyBlue;
-        Types.Color _textColor = Resources.Colors.Gray;
+        string _textFormat = "{0:0.0}%";
+        Color _ringColor = SystemColors.ControlDark;
+        Color _fill = SystemColors.Highlight;
         SweepDirection _sweep = SweepDirection.Clockwise;
-        string textFormat = "{0:0.0}%";
         #endregion
         #region Propiedades
         /// <summary>
@@ -90,28 +54,13 @@ namespace MCART.Controls
                 if (!value.IsValid()) throw new ArgumentException(nameof(value));
                 if (!value.IsBetween(0, _radius)) throw new ArgumentOutOfRangeException(nameof(value));
                 _thickness = value;
-                QueueDraw();
+                Invalidate();
             }
         }
         /// <summary>
         /// Obtiene o establece la proporción con respecto al radio a utilizar
         /// como tamaño de la fuente para la etiqueta central de este
         /// <see cref="ProgressRing"/>. 
-        /// </summary>
-        public float FontFactor
-        {
-            get => _fontFactor;
-            set
-            {
-                if (!value.IsValid()) throw new ArgumentException(nameof(value));
-                if (!value.IsBetween(0.0f, 1.0f)) throw new ArgumentOutOfRangeException(nameof(value));
-                _fontFactor = value;
-                QueueDraw();
-            }
-        }
-        /// <summary>
-        /// Obtiene o establece el radio del anillo de este
-        /// <see cref="ProgressRing"/>.
         /// </summary>
         public float Radius
         {
@@ -121,7 +70,8 @@ namespace MCART.Controls
                 if (!value.IsValid()) throw new ArgumentException(nameof(value));
                 if (value < 0) throw new ArgumentOutOfRangeException(nameof(value));
                 _radius = value;
-                QueueDraw();
+                OnResize(this, EventArgs.Empty);
+                Invalidate();
             }
         }
         /// <summary>
@@ -142,7 +92,7 @@ namespace MCART.Controls
                 if (!value.IsBetween(_min, _max) && !float.IsNaN(value))
                     throw new ArgumentOutOfRangeException(nameof(value));
                 _value = value;
-                QueueDraw();
+                Invalidate();
             }
         }
         /// <summary>
@@ -157,7 +107,7 @@ namespace MCART.Controls
                 if (!value.IsValid()) throw new ArgumentException(nameof(value));
                 if (value >= _max) throw new ArgumentOutOfRangeException(nameof(value));
                 _min = value;
-                QueueDraw();
+                Invalidate();
             }
         }
         /// <summary>
@@ -172,7 +122,7 @@ namespace MCART.Controls
                 if (!value.IsValid()) throw new ArgumentException(nameof(value));
                 if (value <= _min) throw new ArgumentOutOfRangeException(nameof(value));
                 _max = value;
-                QueueDraw();
+                Invalidate();
             }
         }
         /// <summary>
@@ -190,35 +140,26 @@ namespace MCART.Controls
             set
             {
                 _value = value ? float.NaN : 0.0f;
-                QueueDraw();
+                Invalidate();
             }
         }
         /// <summary>
         /// Obtiene o establece el <see cref="Types.Color"/> a utilizar para dibujar
         /// el fondo del anillo de este <see cref="ProgressRing"/>.
         /// </summary>
-        public Types.Color RingColor
+        public Color RingColor
         {
             get => _ringColor;
-            set { _ringColor = value; QueueDraw(); }
+            set { _ringColor = value; Invalidate(); }
         }
         /// <summary>
         /// Obtiene o establece el <see cref="Types.Color"/> a utilizar para dibujar
         /// el relleno del anillo de este <see cref="ProgressRing"/>.
         /// </summary>
-        public Types.Color Fill
+        public Color Fill
         {
             get => _fill;
-            set { _fill = value; QueueDraw(); }
-        }
-        /// <summary>
-        /// Obtiene o establece el <see cref="Types.Color"/> a utilizar para dibujar
-        /// el relleno del anillo de este <see cref="ProgressRing"/>.
-        /// </summary>
-        public Types.Color TextColor
-        {
-            get => _textColor;
-            set { _textColor = value; QueueDraw(); }
+            set { _fill = value; Invalidate(); }
         }
         /// <summary>
         /// Obtiene o establece el ángulo desde el que se empezará a dibujar el
@@ -231,7 +172,7 @@ namespace MCART.Controls
             {
                 if (!value.IsBetween(0.0f, 360.0f)) throw new ArgumentOutOfRangeException(nameof(value));
                 _angle = value;
-                QueueDraw();
+                Invalidate();
             }
         }
         /// <summary>
@@ -246,19 +187,27 @@ namespace MCART.Controls
                 if (!typeof(SweepDirection).IsEnumDefined(value))
                     throw new ArgumentException(nameof(value));
                 _sweep = value;
-                QueueDraw();
+                Invalidate();
             }
         }
         /// <summary>
-        /// Obtiene o establece el formato de texto a aplicar al centro de este
-        /// <see cref="ProgressRing"/>.
+        /// Obtiene o establece un formato de texto a aplicar al control.
         /// </summary>
         public string TextFormat
         {
-            get => textFormat; set
+            get => _textFormat;
+            set => _textFormat = value;
+        }
+        /// <summary>
+        /// Obtiene o establece la fuente del texto que muestra el control.
+        /// </summary>
+        public new Font Font
+        {
+            get => base.Font;
+            set
             {
-                textFormat = value;
-                QueueDraw();
+                base.Font = value;
+                Invalidate();
             }
         }
         #endregion
@@ -268,43 +217,38 @@ namespace MCART.Controls
         /// </summary>
         public ProgressRing()
         {
-            SetSizeRequest((int)_radius, (int)_radius);
+            InitializeComponent();
+            Height = (int)_radius * 2;
+            Width = Height;
         }
         /// <summary>
         /// Controla el dibujado del control al generarse el evento
-        /// <see cref="EventExpose"/> 
+        /// <see cref="Control.Paint"/> 
         /// </summary>
-        /// <returns>Esta función siempre devuelve <c>true</c>.</returns>
-        /// <param name="evnt">Argumentos del evento.</param>
-        protected override bool OnExposeEvent(EventExpose evnt)
+        /// <param name="pe">Argumentos del evento.</param>
+        protected override void OnPaint(PaintEventArgs pe)
         {
-            base.OnExposeEvent(evnt);
-
-            // Este objeto dibuja el control.
-            using (Context cr = CairoHelper.Create(evnt.Window))
+            base.OnPaint(pe);
+            using (Graphics cr = pe.Graphics)
             {
-                // Radio interno del anillo.
-                float rd = _radius - (Thickness / 2);
+                cr.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                float th = Thickness / 2; // Grosor del anillo.
+                float rd = _radius - th;  // Radio interno del anillo.
+                float dm = rd * 2;        // Diámetro del anillo.               
+                float nd = 360 * ((_value - _min) / (_max - _min)); //Ángulo final.
 
-                // Preparar propiedades de dibujo...
-                cr.LineWidth = _thickness;
-
-                // Dibujar el Fondo...                
-                cr.SetSourceColor(_ringColor);
-                cr.Arc(_radius, _radius, rd, 0.0, 360.0);
-                cr.Stroke();
+                // Dibujar el Fondo...
+                cr.DrawEllipse(
+                    new Pen(_ringColor, _thickness),
+                    th, th, dm, dm);
 
                 // Dibujar el relleno...
-                double strt = (_angle - 90) * Deg_Rad;
-                double nd = (PI * 2.0 * ((_value-_min) * (sbyte)Sweep / (_max - _min))) - (PI / 2);
-                cr.SetSourceColor(_fill);
                 if (!IsIndeterminate)
                 {
                     if (Sweep == SweepDirection.Clockwise)
-                        cr.Arc(_radius, _radius, rd, strt, nd);
+                        cr.DrawArc(new Pen(_fill, _thickness), th, th, dm, dm, _angle - 90, nd);
                     else
-                        cr.Arc(_radius, _radius, rd, nd, strt);
-                    cr.Stroke();
+                        cr.DrawArc(new Pen(_fill, _thickness), th, th, dm, dm, 270 - nd, nd - _angle);
                 }
                 else
                 {
@@ -312,26 +256,15 @@ namespace MCART.Controls
                 }
 
                 // dibujar texto... 
-                cr.LineWidth = 1.0;
-                cr.SetFontSize(_radius * _fontFactor);
-                cr.SetSourceColor(_textColor);
-                TextExtents centertxt = cr.TextExtents(string.Format(textFormat, _value));
-                cr.MoveTo(_radius - centertxt.Width / 2, _radius + _radius * (_fontFactor / 3));
-                cr.TextPath(string.Format(textFormat, _value));
-                cr.Fill();
-                return true;
+                string m = string.Format(_textFormat, _value);
+                SizeF s = cr.MeasureString(m, Font);
+                cr.DrawString(m, Font, new SolidBrush(ForeColor), rd + th - s.Width / 2, rd + th - s.Height / 2);
             }
         }
-        /// <summary>
-        /// Informa a Gtk del tamaño requerido por este control.
-        /// </summary>
-        /// <param name="requisition">
-        /// Variable de referencia a utilizar para devolver la información.
-        /// </param>
-        protected override void OnSizeRequested(ref Requisition requisition)
+        private void OnResize(object sender, EventArgs e)
         {
-            requisition.Height = (int)_radius * 2;
-            requisition.Width = (int)_radius * 2;
+            Height = (int)_radius * 2;
+            Width = Height;
         }
     }
 }

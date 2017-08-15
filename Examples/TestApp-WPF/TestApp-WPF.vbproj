@@ -60,10 +60,6 @@
     <ApplicationIcon>MCART.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MCART, Version=0.6.6427.29214, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Build\Debug\WPF\MCART.dll</HintPath>
-    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -149,6 +145,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="MCART.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\WPF\WPF.csproj">
+      <Project>{214a1e64-25a4-4d98-97da-7ca0e7ab2eef}</Project>
+      <Name>WPF</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>

@@ -29,7 +29,7 @@ namespace MCART.Types.TaskReporter
     /// <see cref="ITaskReporter"/>.
     /// </summary>
     [System.ComponentModel.ToolboxItem(true)]
-    public abstract partial class TaskReporterControl : Gtk.Widget
+    public abstract partial class TaskReporterControl : Gtk.Box
     {
         /// <summary>
         /// Encapsula y simula al método Invoke que se encuentra disponible en

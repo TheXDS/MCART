@@ -1,5 +1,5 @@
 ﻿//
-//  AssemblyInfo.cs
+//  Window.cs
 //
 //  This file is part of MCART
 //
@@ -20,12 +20,15 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-using System.Reflection;
-[assembly: AssemblyTitle("MCART-WPF")]
-[assembly: AssemblyDescription("MCART for Windows Presentation Framework")]
-[assembly: AssemblyCompany("TheXDS! non-Corp.")]
-[assembly: AssemblyProduct("MCA Runtime")]
-[assembly: AssemblyCopyright("Copyright © 2011-2017 César Andrés Morgan")]
-[assembly: AssemblyTrademark("MCA Corporation")]
-[assembly: AssemblyVersion("0.6.*")]
+using System;
+namespace MCART
+{
+	public partial class Window : Gtk.Window
+	{
+		public Window() :
+				base(Gtk.WindowType.Toplevel)
+		{
+			this.Build();
+		}
+	}
+}
