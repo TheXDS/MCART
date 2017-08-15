@@ -1,5 +1,5 @@
 ﻿//
-//  BarStepper.cs
+//  LightGraph.cs
 //
 //  This file is part of MCART
 //
@@ -31,65 +31,12 @@ using System.Windows.Converters;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using MoreColors = MCART.Resources.Colors;
+using MC = MCART.Resources.Colors;
+
 namespace MCART.Controls
 {
-    ///<summary>
-    /// Control de gráficos ligero. Para más características, utilice <see cref="GraphView"/> 
-    ///</summary>
-    public class LightGraph : UserControl
+    public partial class LightGraph : UserControl
     {
-        /// <summary>
-        /// Determina el modo de dibujo de las etiquetas puntuales de las 
-        /// gráficas.
-        /// </summary>
-        public enum SpotLabelsDrawMode : byte
-        {
-            /// <summary>
-            /// No dibujar etiquetas.
-            /// </summary>
-            None = 0,
-            /// <summary>
-            /// Dibujar el valor del punto.
-            /// </summary>
-            YValues = 1,
-            /// <summary>
-            /// Dibujar el valor porcentual del punto.
-            /// </summary>
-            Percent = 2,
-            /// <summary>
-            /// Dibujar una etiqueta del eje X.
-            /// </summary>
-            XValues = 4,
-            /// <summary>
-            /// Dibujar en el mismo color del gráfico en lugar del color de
-            /// texto.
-            /// </summary>
-            GraphColor = 8,
-            /// <summary>
-            /// Hace que el fondo de las etiquetas sea obscuro.
-            /// </summary>
-            DarkBG = 16
-        }
-        /// <summary>
-        /// Determina el modo de dibujo del gráfico.
-        /// </summary>
-        public enum EnumGraphDrawMode : byte
-        {
-            /// <summary>
-            /// Dibujar histograma
-            /// </summary>
-            Histogram,
-            /// <summary>
-            /// Rellenar el área del gráfico
-            /// </summary>
-            Filled,
-            /// <summary>
-            /// Dibujar barras
-            /// </summary>
-            Bars
-        }
-
         #region Miembros privados
         static Type T = typeof(LightGraph);
         Types.Extensions.List<double> graph = new Types.Extensions.List<double>();
@@ -133,7 +80,7 @@ namespace MCART.Controls
         Grid GrdGraphBG = new Grid();
         Grid GrdGraph = new Grid();
         Polyline Grp1 = new Polyline { Stroke = SystemColors.HighlightBrush };
-        Polyline Grp2 = new Polyline { Stroke = new SolidColorBrush(MoreColors.ProgressBar) };
+        Polyline Grp2 = new Polyline { Stroke = new SolidColorBrush(MC.ProgressBar) };
         Grid GrdGraphFG = new Grid();
         Grid GrdGraphFG2 = new Grid();
         sbyte _padding = 1;
@@ -156,7 +103,7 @@ namespace MCART.Controls
         /// Identifica la propiedad de dependencia 
         /// <see cref="Graph2Stroke"/>.
         /// </summary>
-        public static DependencyProperty Graph2StrokeProperty = DependencyProperty.Register(nameof(Graph2Stroke), typeof(Brush), T, new PropertyMetadata(new SolidColorBrush(MoreColors.ProgressBar)));
+        public static DependencyProperty Graph2StrokeProperty = DependencyProperty.Register(nameof(Graph2Stroke), typeof(Brush), T, new PropertyMetadata(new SolidColorBrush(MC.ProgressBar)));
         /// <summary>
         /// Identifica la propiedad de dependencia 
         /// <see cref="GraphThickness"/>.

@@ -23,14 +23,6 @@
 
 namespace MCART.Controls
 {
-    /*
-     * Esta definición de clase permite compartir cierto código que no depende
-     * de la plataforma para la cual se compila MCART. Los ensamblados de MCART
-     * para cada una de las plataformas de destino definirán la correspondiente
-     * herencia de clases e interfaces para crear el respectivo control, por lo
-     * que esta clase parcial no incluye ninguna definición de herencia que no
-     * pueda ser compartida entre todas las plataformas.
-     */
     /// <summary>
     /// Permite representar un valor porcentual en un anillo de progreso.
     /// </summary>

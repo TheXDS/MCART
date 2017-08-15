@@ -48,7 +48,7 @@ namespace MCART.Controls
         static void Updt2(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ProgressRing p = (ProgressRing)d;
-            p.SetValue(IsIndeterminateProperty, !p.Value.IsBetween(p.Min, p.Max));
+            p.SetValue(IsIndeterminateProperty, !p.Value.IsBetween(p.Minimum, p.Maximum));
         }
         static void TxtFmt(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -83,7 +83,7 @@ namespace MCART.Controls
             {
                 amIAnimated = false;
                 x.BeginAnimation(RotateTransform.AngleProperty, null);
-                pth.Data = GetCircleArc(Radius, (((Value - Min) / (Max - Min)) * 360).Clamp(0, 359.999), Thickness);
+                pth.Data = GetCircleArc(Radius, (((Value - Minimum) / (Maximum - Minimum)) * 360).Clamp(0, 359.999), Thickness);
                 TxtPercent.Text = string.Format(TextFormat, Value);
             }
             else if (!amIAnimated)
@@ -136,16 +136,16 @@ namespace MCART.Controls
             nameof(Value), typeof(double), T,
             new PropertyMetadata(0.0, Updt2));
         /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="Min"/>.
+        /// Identifica a la propiedad de dependencia <see cref="Minimum"/>.
         /// </summary>
         public static DependencyProperty MinProperty = DependencyProperty.Register(
-            nameof(Min), typeof(double), T,
+            nameof(Minimum), typeof(double), T,
             new PropertyMetadata(0.0, Updt2));
         /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="Max"/>.
+        /// Identifica a la propiedad de dependencia <see cref="Maximum"/>.
         /// </summary>
         public static DependencyProperty MaxProperty = DependencyProperty.Register(
-            nameof(Max), typeof(double), T,
+            nameof(Maximum), typeof(double), T,
             new PropertyMetadata(100.0, Updt2));
         /// <summary>
         /// Identifica a la propiedad de dependencia <see cref="RingStroke"/>.
@@ -242,7 +242,7 @@ namespace MCART.Controls
         /// Obtiene o establece el valor mínimo de este
         /// <see cref="ProgressRing"/>.
         /// </summary>
-        public double Min
+        public double Minimum
         {
             get => (double)GetValue(MinProperty);
             set => SetValue(MinProperty, value);
@@ -251,7 +251,7 @@ namespace MCART.Controls
         /// Obtiene o establece el valor máximo de este
         /// <see cref="ProgressRing"/>.
         /// </summary>
-        public double Max
+        public double Maximum
         {
             get => (double)GetValue(MaxProperty);
             set => SetValue(MaxProperty, value);

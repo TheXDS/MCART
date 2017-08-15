@@ -1,5 +1,5 @@
 ﻿//
-//  BusyIndicator.cs
+//  NavigationBar.cs
 //
 //  This file is part of MCART
 //
@@ -40,56 +40,14 @@ using St = MCART.Resources.Strings;
 
 namespace MCART.Controls
 {
-    /// <summary>
-    /// Permite la navegación y búsqueda entre una lista de elementos por medio
-    /// de la GUI.
-    /// </summary>
     /// <remarks>
     /// Este control es especialmente útil para controlar un objeto 
     /// <see cref="CollectionView"/> provisto por las conexiones de bases de 
     /// datos, en efecto, cumpliendo las funciones de un controlador en el
-    /// paradigma Model-View-Controller (MVC).</remarks>
-    public class NavigationBar : UserControl
+    /// paradigma Model-View-Controller (MVC).
+    /// </remarks>
+    public partial class NavigationBar : UserControl
     {
-        /// <summary>
-        /// Determina las capacidades de edición disponibles en este control.
-        /// </summary>
-        public enum EditMode : byte
-        {
-            /// <summary>
-            /// Control de sólo lectura. El usuario podrá navegar, pero no podrá editar.
-            /// </summary>
-            ReadOnly,
-            /// <summary>
-            /// Otorga al usuario la facultad de crear nuevos elementos.
-            /// </summary>
-            Newable,
-            /// <summary>
-            /// Otorga al usuario la facultad de editar elementos.
-            /// </summary>
-            Editable,
-            /// <summary>
-            /// Otorga al usuario la facultad de crear y editar elementos.
-            /// </summary>
-            NewEdit,
-            /// <summary>
-            /// Otorga al usuario la facultad de eliminar elementos.
-            /// </summary>
-            Deletable,
-            /// <summary>
-            /// Otorga al usuario la facultad de crear y eliminar elementos.
-            /// </summary>
-            NewDelete,
-            /// <summary>
-            /// Otorga al usuario la facultad de editar y eliminar elementos.
-            /// </summary>
-            EditDelete,
-            /// <summary>
-            /// Otorga al usuario todas las facultades de edición
-            /// </summary>
-            All
-        }
-
         #region ValueConverters privados para controles.
         class Editvalconv : IValueConverter
         {
