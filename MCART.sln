@@ -1,31 +1,49 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gtk", "gtk\gtk.csproj", "{99E6BBF2-0911-4A07-85C4-8A1BFC479F34}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core", "CoreComponents\Core\Core.shproj", "{E5F6A0E5-B532-480C-B72E-516908C07944}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core", "Core\Core.shproj", "{E5F6A0E5-B532-480C-B72E-516908C07944}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core-GUI", "CoreComponents\Core-GUI\Core-GUI.shproj", "{4963BA2E-AA9F-43DF-9674-D7257A201AA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF", "WPF\WPF.csproj", "{214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core-NoWPF", "CoreComponents\Core-NoWPF\Core-NoWPF.shproj", "{5B5C0EA8-E8C3-4442-94FB-03B7AC6BE9E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Win32", "Win32\Win32.csproj", "{EAFF4297-E338-4093-BB51-38C16B325B40}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core-Windows", "CoreComponents\Core-Windows\Core-Windows.shproj", "{F1D4FE86-BB72-4D8D-901E-525F697991FE}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core-Windows", "Core-Windows\Core-Windows.shproj", "{F1D4FE86-BB72-4D8D-901E-525F697991FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gtk", "MCART\Gtk\Gtk.csproj", "{99E6BBF2-0911-4A07-85C4-8A1BFC479F34}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core-NoWPF", "Core-NoWPF\Core-NoWPF.shproj", "{5B5C0EA8-E8C3-4442-94FB-03B7AC6BE9E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Win32", "MCART\Win32\Win32.csproj", "{EAFF4297-E338-4093-BB51-38C16B325B40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF", "MCART\WPF\WPF.csproj", "{214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreComponents", "CoreComponents", "{9FDABDB6-9BC6-4DB6-9B3C-C43492893ED4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MCART", "MCART", "{D1A6B294-5A43-479F-9BA5-431BEFA203FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreEdition", "MCART\CoreEdition\CoreEdition.csproj", "{FFCB72D8-1CB3-47A2-876B-630076307D78}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{AE0A84D6-D40C-4D36-ADE6-BB3CF90A1DCA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreTests", "Tests\CoreTests\CoreTests.csproj", "{47957C7D-8D06-4566-A58D-A284465C911A}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Core-Windows\Core-Windows.projitems*{214a1e64-25a4-4d98-97da-7ca0e7ab2eef}*SharedItemsImports = 4
-		Core\Core.projitems*{214a1e64-25a4-4d98-97da-7ca0e7ab2eef}*SharedItemsImports = 4
-		Core-NoWPF\Core-NoWPF.projitems*{5b5c0ea8-e8c3-4442-94fb-03b7ac6be9e8}*SharedItemsImports = 13
-		Core-NoWPF\Core-NoWPF.projitems*{99e6bbf2-0911-4a07-85c4-8a1bfc479f34}*SharedItemsImports = 4
-		Core\Core.projitems*{99e6bbf2-0911-4a07-85c4-8a1bfc479f34}*SharedItemsImports = 4
-		Core\Core.projitems*{e5f6a0e5-b532-480c-b72e-516908c07944}*SharedItemsImports = 13
-		Core-NoWPF\Core-NoWPF.projitems*{eaff4297-e338-4093-bb51-38c16b325b40}*SharedItemsImports = 4
-		Core-Windows\Core-Windows.projitems*{eaff4297-e338-4093-bb51-38c16b325b40}*SharedItemsImports = 4
-		Core\Core.projitems*{eaff4297-e338-4093-bb51-38c16b325b40}*SharedItemsImports = 4
-		Core-Windows\Core-Windows.projitems*{f1d4fe86-bb72-4d8d-901e-525f697991fe}*SharedItemsImports = 13
+		CoreComponents\Core-GUI\Core-GUI.projitems*{214a1e64-25a4-4d98-97da-7ca0e7ab2eef}*SharedItemsImports = 4
+		CoreComponents\Core-Windows\Core-Windows.projitems*{214a1e64-25a4-4d98-97da-7ca0e7ab2eef}*SharedItemsImports = 4
+		CoreComponents\Core\Core.projitems*{214a1e64-25a4-4d98-97da-7ca0e7ab2eef}*SharedItemsImports = 4
+		CoreComponents\Core-GUI\Core-GUI.projitems*{4963ba2e-aa9f-43df-9674-d7257a201aa3}*SharedItemsImports = 13
+		CoreComponents\Core-NoWPF\Core-NoWPF.projitems*{5b5c0ea8-e8c3-4442-94fb-03b7ac6be9e8}*SharedItemsImports = 13
+		CoreComponents\Core-GUI\Core-GUI.projitems*{99e6bbf2-0911-4a07-85c4-8a1bfc479f34}*SharedItemsImports = 4
+		CoreComponents\Core-NoWPF\Core-NoWPF.projitems*{99e6bbf2-0911-4a07-85c4-8a1bfc479f34}*SharedItemsImports = 4
+		CoreComponents\Core\Core.projitems*{99e6bbf2-0911-4a07-85c4-8a1bfc479f34}*SharedItemsImports = 4
+		CoreComponents\Core\Core.projitems*{e5f6a0e5-b532-480c-b72e-516908c07944}*SharedItemsImports = 13
+		CoreComponents\Core-GUI\Core-GUI.projitems*{eaff4297-e338-4093-bb51-38c16b325b40}*SharedItemsImports = 4
+		CoreComponents\Core-NoWPF\Core-NoWPF.projitems*{eaff4297-e338-4093-bb51-38c16b325b40}*SharedItemsImports = 4
+		CoreComponents\Core-Windows\Core-Windows.projitems*{eaff4297-e338-4093-bb51-38c16b325b40}*SharedItemsImports = 4
+		CoreComponents\Core\Core.projitems*{eaff4297-e338-4093-bb51-38c16b325b40}*SharedItemsImports = 4
+		CoreComponents\Core-Windows\Core-Windows.projitems*{f1d4fe86-bb72-4d8d-901e-525f697991fe}*SharedItemsImports = 13
+		CoreComponents\Core\Core.projitems*{ffcb72d8-1cb3-47a2-876b-630076307d78}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,21 +53,11 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{99E6BBF2-0911-4A07-85C4-8A1BFC479F34}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{99E6BBF2-0911-4A07-85C4-8A1BFC479F34}.Debug|Any CPU.Build.0 = Debug|x86
 		{99E6BBF2-0911-4A07-85C4-8A1BFC479F34}.Debug|x86.ActiveCfg = Debug|x86
 		{99E6BBF2-0911-4A07-85C4-8A1BFC479F34}.Debug|x86.Build.0 = Debug|x86
 		{99E6BBF2-0911-4A07-85C4-8A1BFC479F34}.Release|Any CPU.ActiveCfg = Release|x86
-		{99E6BBF2-0911-4A07-85C4-8A1BFC479F34}.Release|Any CPU.Build.0 = Release|x86
 		{99E6BBF2-0911-4A07-85C4-8A1BFC479F34}.Release|x86.ActiveCfg = Release|x86
 		{99E6BBF2-0911-4A07-85C4-8A1BFC479F34}.Release|x86.Build.0 = Release|x86
-		{214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF}.Debug|x86.Build.0 = Debug|Any CPU
-		{214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF}.Release|x86.ActiveCfg = Release|Any CPU
-		{214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF}.Release|x86.Build.0 = Release|Any CPU
 		{EAFF4297-E338-4093-BB51-38C16B325B40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EAFF4297-E338-4093-BB51-38C16B325B40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAFF4297-E338-4093-BB51-38C16B325B40}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -58,8 +66,43 @@ Global
 		{EAFF4297-E338-4093-BB51-38C16B325B40}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EAFF4297-E338-4093-BB51-38C16B325B40}.Release|x86.ActiveCfg = Release|Any CPU
 		{EAFF4297-E338-4093-BB51-38C16B325B40}.Release|x86.Build.0 = Release|Any CPU
+		{214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF}.Debug|x86.Build.0 = Debug|Any CPU
+		{214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF}.Release|x86.ActiveCfg = Release|Any CPU
+		{214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF}.Release|x86.Build.0 = Release|Any CPU
+		{FFCB72D8-1CB3-47A2-876B-630076307D78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFCB72D8-1CB3-47A2-876B-630076307D78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFCB72D8-1CB3-47A2-876B-630076307D78}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FFCB72D8-1CB3-47A2-876B-630076307D78}.Debug|x86.Build.0 = Debug|Any CPU
+		{FFCB72D8-1CB3-47A2-876B-630076307D78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFCB72D8-1CB3-47A2-876B-630076307D78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFCB72D8-1CB3-47A2-876B-630076307D78}.Release|x86.ActiveCfg = Release|Any CPU
+		{FFCB72D8-1CB3-47A2-876B-630076307D78}.Release|x86.Build.0 = Release|Any CPU
+		{47957C7D-8D06-4566-A58D-A284465C911A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47957C7D-8D06-4566-A58D-A284465C911A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47957C7D-8D06-4566-A58D-A284465C911A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{47957C7D-8D06-4566-A58D-A284465C911A}.Debug|x86.Build.0 = Debug|Any CPU
+		{47957C7D-8D06-4566-A58D-A284465C911A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47957C7D-8D06-4566-A58D-A284465C911A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47957C7D-8D06-4566-A58D-A284465C911A}.Release|x86.ActiveCfg = Release|Any CPU
+		{47957C7D-8D06-4566-A58D-A284465C911A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E5F6A0E5-B532-480C-B72E-516908C07944} = {9FDABDB6-9BC6-4DB6-9B3C-C43492893ED4}
+		{4963BA2E-AA9F-43DF-9674-D7257A201AA3} = {9FDABDB6-9BC6-4DB6-9B3C-C43492893ED4}
+		{5B5C0EA8-E8C3-4442-94FB-03B7AC6BE9E8} = {9FDABDB6-9BC6-4DB6-9B3C-C43492893ED4}
+		{F1D4FE86-BB72-4D8D-901E-525F697991FE} = {9FDABDB6-9BC6-4DB6-9B3C-C43492893ED4}
+		{99E6BBF2-0911-4A07-85C4-8A1BFC479F34} = {D1A6B294-5A43-479F-9BA5-431BEFA203FA}
+		{EAFF4297-E338-4093-BB51-38C16B325B40} = {D1A6B294-5A43-479F-9BA5-431BEFA203FA}
+		{214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF} = {D1A6B294-5A43-479F-9BA5-431BEFA203FA}
+		{FFCB72D8-1CB3-47A2-876B-630076307D78} = {D1A6B294-5A43-479F-9BA5-431BEFA203FA}
+		{47957C7D-8D06-4566-A58D-A284465C911A} = {AE0A84D6-D40C-4D36-ADE6-BB3CF90A1DCA}
 	EndGlobalSection
 EndGlobal
