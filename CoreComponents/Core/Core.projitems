@@ -64,11 +64,20 @@
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\ColorExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Colors.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\Data.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Triton\ClassAttributes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Triton\FieldAttributes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Triton\Enums.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Triton\DbClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Types\TaskReporter\" />
     <Folder Include="$(MSBuildThisFileDirectory)Types\TaskReporter\base\" />
     <Folder Include="$(MSBuildThisFileDirectory)Security\Encryption\" />
     <Folder Include="$(MSBuildThisFileDirectory)Security\Checksum\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Data\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Data\Triton\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Data\Triton\Documentation.txt" />
   </ItemGroup>
 </Project>

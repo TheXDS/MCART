@@ -370,4 +370,61 @@ namespace MCART.Attributes
     /// </summary>
     [AttributeUsage((AttributeTargets)71)]
     public sealed class StubAttribute : Attribute { }
+
+    /// <summary>
+    /// Attributo que define a un servidor.
+    /// </summary>
+    /// <remarks>
+    /// Es posible establecer este atributo más de una vez en un mismo elemento.
+    /// Los servidores adicionales definidos se utilizarán como redundancias, en
+    /// caso que alguno de los servidores falle o no se encuentre accesible.
+    /// </remarks>
+    [AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = true)]
+    public sealed class ServerAttribute : Attribute
+    {
+        string srv;
+        ushort prt;
+        public string Server
+        {
+            get => srv;
+            set
+            {
+                if (value.Contains(":"))
+                {
+                    // Probablemente, se incluye el puerto.
+                    if (ushort.TryParse(value.Split(':')[1], out ushort prt))
+                    {
+                        Port = prt;
+                    }
+                    else throw new ArgumentException(nameof(Port));
+                    srv = value.Split(':')[0];
+                }
+                else srv = value;
+            }
+        }
+        public ushort Port
+        {
+            get => prt;
+            set
+            {
+                if (value == 0) throw new ArgumentOutOfRangeException(nameof(value));
+                prt = value;
+            }
+        }
+        public ServerAttribute(string server, ushort port)
+        {
+            Server = server;
+            if (Port != 0 && Port != port) throw new ArgumentException(nameof(port));
+            Port = port;
+        }
+        public ServerAttribute(string server)
+        {
+            Server = server;
+
+            //Esta comprobación parece ser redundante...
+            //if (Port == 0) throw new ArgumentException($"{nameof(server)} debe incluir el número de puerto.", nameof(server));
+        }
+    }
+
+
 }
