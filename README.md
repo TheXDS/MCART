@@ -18,10 +18,11 @@ La siguiente tabla indica los entornos de desarrollo y las plataformas en las cu
 | Visual Studio 2010- (Windows) | | | | | |
 | Visual Studio 2010- (Linux via Wine) | | | | | |
 | Xamarin Studio 4+ (Windows) | X | | X | | |
-| MonoDevelop 5+ (Linux) | X | | X | X | |
-| SharpDevelop (Windows) | | | | |
+| MonoDevelop 7+ (Linux) | X | | X | X | |
+| MonoDevelop 5- (Linux) | | | | | |
+| SharpDevelop (Windows) | | | | | |
 
  *: Requiere de componentes adicionales (Gtk#) instalados en el sistema.  
-**: Es necesario instalar un compilador para C# 6.0 (`PM> Install-Package Microsoft.Net.Compilers`)  
+**: Es necesario instalar un compilador para C# 6.0 o posterior (`PM> Install-Package Microsoft.Net.Compilers`)  
  +: Versiones posteriores.  
  -: Versiones anteriores.
