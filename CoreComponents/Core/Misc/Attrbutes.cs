@@ -384,6 +384,9 @@ namespace MCART.Attributes
     {
         string srv;
         ushort prt;
+        /// <summary>
+        /// Obtiene o establece el servidor.
+        /// </summary>
         public string Server
         {
             get => srv;
@@ -402,6 +405,9 @@ namespace MCART.Attributes
                 else srv = value;
             }
         }
+        /// <summary>
+        /// Obtiene o establece el puerto de conexión del servidor.
+        /// </summary>
         public ushort Port
         {
             get => prt;
@@ -411,12 +417,28 @@ namespace MCART.Attributes
                 prt = value;
             }
         }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ServerAttribute"/> estableciendo el servidor y el puerto
+        /// al cual este atributo hará referencia.
+        /// </summary>
+        /// <param name="server">Nombre del servidor / Dirección IP.</param>
+        /// <param name="port">Número de puerto del servidor.</param>
         public ServerAttribute(string server, ushort port)
         {
             Server = server;
             if (Port != 0 && Port != port) throw new ArgumentException(nameof(port));
             Port = port;
         }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ServerAttribute"/> estableciendo el servidor y el puerto
+        /// al cual este atributo hará referencia.
+        /// </summary>
+        /// <param name="server">
+        /// Nombre del servidor / Dirección IP. También incluye el número de 
+        /// puerto en el formato <c>"servidor:puerto"</c>.
+        /// </param>
         public ServerAttribute(string server)
         {
             Server = server;
@@ -424,7 +446,18 @@ namespace MCART.Attributes
             //Esta comprobación parece ser redundante...
             //if (Port == 0) throw new ArgumentException($"{nameof(server)} debe incluir el número de puerto.", nameof(server));
         }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ServerAttribute"/> a partir de un objeto
+        /// <see cref="System.Net.IPEndPoint"/>.
+        /// </summary>
+        /// <param name="endPoint">
+        /// <see cref="System.Net.IPEndPoint"/> que apunta al servidor.
+        /// </param>
+        public ServerAttribute(System.Net.IPEndPoint endPoint)
+        {
+            Server = endPoint.Address.ToString();
+            Port = (ushort)endPoint.Port;
+        }
     }
-
-
 }

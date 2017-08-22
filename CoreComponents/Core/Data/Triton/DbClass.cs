@@ -26,6 +26,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using MCART.Attributes;
+using MCART.Exceptions;
+using static MCART.Objects;
 
 namespace MCART.Data.Triton
 {
@@ -36,7 +38,9 @@ namespace MCART.Data.Triton
             // Es necesario comprobar que esta instancia contenga los atributos
             // de Server y Database.
             IEnumerable<ServerAttribute> srvrs = GetType().GetCustomAttributes()?.OfType<ServerAttribute>();
-            DatabaseAttribute dba = GetType().GetCustomAttribute(typeof(DatabaseAttribute)) as DatabaseAttribute;
+            ConnectionStringAttribute dba = GetType().GetCustomAttribute(typeof(ConnectionStringAttribute)) as ConnectionStringAttribute;
+            if (AreAnyNull(srvrs, dba)) throw new InvalidDatabaseException();
+            
         }
     }
 

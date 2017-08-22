@@ -956,7 +956,7 @@ namespace MCART.Exceptions
         public StackUnderflowException(string message, Exception inner) : base(message, inner) { }
     }
     /// <summary>
-    /// Excepción que se produce cuando se intenta cargar un archivo que no es comprensible por la clase Database
+    /// Excepción que se produce cuando una base de datos no es válida.
     /// </summary>
     [Serializable]
     public class InvalidDatabaseException : Exception
@@ -973,23 +973,33 @@ namespace MCART.Exceptions
         /// </param>
         protected InvalidDatabaseException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidDatabaseException"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidDatabaseException"/>.
         /// </summary>
         public InvalidDatabaseException() : base(St.InvalidDB) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidDatabaseException"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidDatabaseException"/>.
         /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
         public InvalidDatabaseException(string message) : base(message) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidDatabaseException"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidDatabaseException"/>.
         /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
         public InvalidDatabaseException(string message, Exception inner) : base(message, inner) { }
     }
     /// <summary>
-    /// Excepción que se produce cuando un objeto Database no está etiquetado para su uso en este ensamblado
+    /// Excepción que se produce cuando una base de datos no corresponde a la
+    /// aplicación.
     /// </summary>
     [Serializable]
     public class NotMyDatabaseException : Exception
@@ -1006,23 +1016,30 @@ namespace MCART.Exceptions
         /// </param>
         protected NotMyDatabaseException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="NotMyDatabaseException"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="NotMyDatabaseException"/>.
         /// </summary>
         public NotMyDatabaseException() : base(St.DBDoesntBelong) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="NotMyDatabaseException"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="NotMyDatabaseException"/>.
         /// </summary>
         /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
         public NotMyDatabaseException(string message) : base(message) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="NotMyDatabaseException"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="NotMyDatabaseException"/>.
         /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
         public NotMyDatabaseException(string message, Exception inner) : base(message, inner) { }
     }
     /// <summary>
-    /// Excepción  que se produce al no encontrar los datos solicitados
+    /// Excepción  que se produce al no encontrar los datos solicitados.
     /// </summary>
     [Serializable]
     public class DataNotFoundException : Exception

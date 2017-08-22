@@ -23,12 +23,10 @@
 
 using System.Reflection;
 
-[assembly: AssemblyTitle("MCART-Win32")]
-[assembly: AssemblyDescription("MCART for Win32")]
-[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyTitle("MCART for Win32")]
+[assembly: AssemblyDescription("MCART for Classic Windows Forms")]
 [assembly: AssemblyCompany("TheXDS! non-Corp.")]
 [assembly: AssemblyProduct("MCA Runtime")]
 [assembly: AssemblyCopyright("Copyright © 2011-2017 César Andrés Morgan")]
 [assembly: AssemblyTrademark("MCA Corporation")]
-[assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("0.6.*")]

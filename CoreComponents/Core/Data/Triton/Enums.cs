@@ -20,29 +20,46 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 namespace MCART.Data.Triton
 {
-    public enum Dialect : byte
+    /// <summary>
+    /// Para los motores de base de datos que lo soporten, brinda información
+    /// sobre la acción a tomar al actualizar/eliminar información que ha sido
+    /// enlazada por un campo llave.
+    /// </summary>
+    /// <remarks>
+    /// Esto funciona a nivel de los lenguajes SQL, no de MCART Triton.
+    /// </remarks>
+    public enum FKOption:byte
     {
         /// <summary>
-        /// Sintáxis estándar de SQL.
+        /// No realizar ninguna acción
         /// </summary>
-        SQL97,
+        None,
         /// <summary>
-        /// Sintáxis de Microsoft® Sql Server®.
+        /// Restringir la actualización/eliminación.
         /// </summary>
-        MsSql,
+        Restrict,
         /// <summary>
-        /// Sintáxis de MySql®.
+        /// Realizar la actualización/eliminación en cascada.
         /// </summary>
-        MySql,
+        Cascade,
         /// <summary>
-        /// Sintáxis de PostgreSql®.
+        /// Establecer al campo en <c>null</c>
         /// </summary>
-        PostgreSql,
-        /// <summary>
-        /// Sintáxis de Oracle® SQL.
-        /// </summary>
-        Oracle
+        SetNull
+    }
+    
+    public enum Compare
+    {
+        Equals,
+        Greater,
+        Less,
+        NotEqual,
+        NotNull,
+        GreaterOrEqual,
+        LessOrEqual,
+        Null
     }
 }

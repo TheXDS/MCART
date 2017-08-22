@@ -46,16 +46,36 @@ namespace MCART.Data.Triton
     [AttributeUsage(AttributeTargets.Field, Inherited = false, AllowMultiple = false)]
     public sealed class FKeyAttribute : Attribute
     {
+        /// <summary>
+        /// Campo al cual se hace referencia.
+        /// </summary>
         public readonly FieldInfo Field;
+        /// <summary>
+        /// "Tabla" a la cual se hace referencia. En realidad, es un tipo
+        /// <c>struct</c> de .Net Framework que tiene al campo descrito por
+        /// <see cref="Field"/> como miembro público.
+        /// </summary>
         public readonly Type LinkStruct;
-
+        /// <summary>
+        /// Opciones de actualización/eliminación para los motores de base de
+        /// datos que lo soporten.
+        /// </summary>
+        public readonly FKOption FKOption;
+        /// <summary>
+        /// Marca un campo público como un campo llave secundario,
+        /// estableciendo la referencia a otro campo llave.
+        /// </summary>
+        /// <param name="fieldName">Nombre del campo.</param>
+        /// <param name="linkStruct">
+        /// <c>struct</c> que contiene al campo.
+        /// </param>
         public FKeyAttribute(string fieldName, Type linkStruct)
         {
-            if (string.IsNullOrWhiteSpace(fieldName)) throw new ArgumentNullException(nameof(fieldName));
-            if (ReferenceEquals(linkStruct, null)) throw new ArgumentNullException(nameof(linkStruct));
+            if (fieldName.IsEmpty()) throw new ArgumentNullException(nameof(fieldName));
+            if (linkStruct.IsNull()) throw new ArgumentNullException(nameof(linkStruct));
             // TODO: verificar que linkStruct solo acepte estructuras.
             LinkStruct = linkStruct;
-            Field = LinkStruct.GetField(fieldName) ?? throw new MissingMemberException(linkStruct.Name, fieldName);
+            Field = linkStruct.GetField(fieldName) ?? throw new MissingMemberException(linkStruct.Name, fieldName);
         }
     }
 
@@ -78,5 +98,32 @@ namespace MCART.Data.Triton
             Value = value;
         }
     }
+
+    /// <summary>
+    /// Atributo que indica que un campo no debe repetirse en una tabla.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Field, Inherited = false, AllowMultiple = false)]
+    sealed class UniqueAttribute : Attribute { }
+
+    /// <summary>
+    /// Atributo que indica un campo que, si el motor de base de datos lo
+    /// permite, será rellenado con ceros para ocupar todo su espacio asignado.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Field, Inherited = false, AllowMultiple = false)]
+    sealed class ZeroFillAttribute : Attribute { }
+    
+    /// <summary>
+    /// Atributo que indica un campo que, si el motor de base de datos lo
+    /// permite, será almacenado en un formato binario alternativo.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Field, Inherited = false, AllowMultiple = false)]
+    sealed class BinaryAttribute : Attribute { }
+
+    /// <summary>
+    /// Atributo que indica un campo numérico que, si el motor de base de datos
+    /// lo permite, será almacenado sin signo en la base de datos.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Field, Inherited = false, AllowMultiple = false)]
+    sealed class UnsignedAttribute : Attribute { }
 
 }

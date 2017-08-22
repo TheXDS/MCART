@@ -23,8 +23,8 @@
 
 using System.Reflection;
 
-[assembly: AssemblyTitle("MCART-Core")]
-[assembly: AssemblyDescription("MCART Core Edition")]
+[assembly: AssemblyTitle("MCART Core")]
+[assembly: AssemblyDescription("MCART Universal Core Edition")]
 [assembly: AssemblyCompany("TheXDS! non-Corp.")]
 [assembly: AssemblyProduct("MCA Runtime")]
 [assembly: AssemblyCopyright("Copyright © 2011-2017 César Andrés Morgan")]

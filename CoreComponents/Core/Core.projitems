@@ -9,6 +9,9 @@
     <Import_RootNamespace>MCART</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Triton\Comparsion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Triton\IDialect.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Triton\Triggers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Attrbutes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Events.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Exceptions.cs" />
@@ -74,8 +77,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Types\TaskReporter\base\" />
     <Folder Include="$(MSBuildThisFileDirectory)Security\Encryption\" />
     <Folder Include="$(MSBuildThisFileDirectory)Security\Checksum\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Data\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Data\Triton\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Data\Triton\Documentation.txt" />

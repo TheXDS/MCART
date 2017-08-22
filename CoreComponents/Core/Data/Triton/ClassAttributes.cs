@@ -25,16 +25,18 @@ using System;
 
 namespace MCART.Data.Triton
 {
+    /// <summary>
+    /// Atributo que permite definir una cadena de conexión a utilizar para
+    /// establecer una conexión con un servidor de bases de datos.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-    public sealed class DatabaseAttribute : Attribute
+    public sealed class ConnectionStringAttribute : Attributes.TextAttributeBase
     {
-        public readonly Dialect Dialect;
-        public DatabaseAttribute(Dialect dialect = Dialect.SQL97)
-        {
-            if (!typeof(Dialect).IsEnumDefined(dialect))
-                throw new ArgumentOutOfRangeException(nameof(dialect));
-
-            Dialect = dialect;
-        }
+        /// <summary>
+        /// Definie un nuevo atrubito <see cref="ConnectionStringAttribute"/>
+        /// con la cadena de conexión especificada.
+        /// </summary>
+        /// <param name="attrValue">Cadena de conexión a utilizar.</param>
+        public ConnectionStringAttribute(string attrValue) : base(attrValue) { }
     }
 }
