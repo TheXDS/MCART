@@ -158,7 +158,7 @@ namespace MCART.Events
         /// <param name="newValue">
         /// Nuevo valor asociado al evento generado.
         /// </param>
-        public ValueChangingEventArgs(T oldValue, T newValue) { NewValue = newValue; }
+        public ValueChangingEventArgs(T oldValue, T newValue) { OldValue = oldValue; NewValue = newValue; }
 
         /// <summary>
         /// Convierte implícitamente este 

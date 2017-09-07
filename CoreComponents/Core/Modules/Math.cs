@@ -26,10 +26,10 @@
 #define IncludeSpecialClamp
 #endregion
 
-using MCART.Attributes;
-using MCART.Types;
 using System;
 using System.Collections.Generic;
+using MCART.Attributes;
+using MCART.Types;
 
 namespace MCART
 {
@@ -38,23 +38,40 @@ namespace MCART
     /// </summary>
     public static class Math
     {
+        #region Constantes
+        /// <summary>
+        /// Representa la proporción de 1 grado DEG sobre PI
+        /// </summary>
+        public const double Deg_Rad = System.Math.PI / 180;
+        #endregion
+
         /// <summary>
         /// Series matemáticas
         /// </summary>
         public static class Series
         {
+            /*
+            Las series utilizan enumeradores para exponer las series completas
+            de una manera infinita. Es necesario silenciar la advertencia en
+            MonoDevelop que indica que estas funciones nunca finalizan.
+
+            Es necesario recalcar que, si se utilizan estas funciones de manera
+            incorrecta, el programa fallará con un error de sobreflujo de
+            enteros o incluso de pila.
+            */
+#pragma warning disable RECS0135
             /// <summary>
             /// Expone un enumerador que contiene la secuencia completa de
             /// Fibonacci.
             /// </summary>
             /// <returns>
-            /// Un <see cref="IEnumerable{T}"/> conla secuencia infinita de
+            /// Un <see cref="IEnumerable{T}"/> con la secuencia infinita de
             /// Fibonacci.
             /// </returns>
-            public static IEnumerable<int> Fibonacci()
+            public static IEnumerable<long> Fibonacci()
             {
-                int a = 0;
-                int b = 1;
+                long a = 0;
+                long b = 1;
                 while (true)
                 {
                     yield return a;
@@ -63,64 +80,92 @@ namespace MCART
                     b += a;
                 }
             }
-
             /// <summary>
-            /// Calcula el n-ésimo elemento de la serie de Lucas.
+            /// Expone un enumerador que contiene la secuencia completa de
+            /// Lucas.
             /// </summary>
-            /// <param name="Item">Número de elemento a calcular.</param>
             /// <returns>
-            /// Un <see cref="long"/> que es el resultado del cálculo del 
-            /// n-ésimo elemento de la serie.
+            /// Un <see cref="IEnumerable{T}"/> con la secuencia infinita de
+            /// Lucas.
             /// </returns>
-            public static long LucasNumber(int Item)
+            public static IEnumerable<long> Lucas()
             {
-                long a = 1;
-                long b = 3;
-                long c = 0;
-                if (Item == 1)
-                    return 1;
-                if (Item == 2)
-                    return 3;
-                for (short j = 3; j <= Item; j++)
+                long a = 2;
+                long b = 1;
+                while (true)
                 {
-                    c = a + b;
-                    a = b;
-                    b = c;
+                    yield return a;
+                    yield return b;
+                    a += b;
+                    b += a;
                 }
-                return c;
             }
-            /// <summary>
-            /// Devuelve el resíduo de la n-ésima posición de la serie Lucas-Lehmer
-            /// </summary>
-            /// <param name="Item">Número de elemento</param>
-            /// <param name="x">Factor de división</param>
-            /// <returns></returns>
-            public static long LucasLehmerRemainder(long Item, long x)
-            {
-                long a = 4;
-                //Punto inicial de la serie
-                if (x == 0)
-                    return 0;
-                for (long j = 2; j <= Item; j++) a = (long)((System.Math.Pow(a, 2)) - 2) % x;
-                return a;
-            }
+#pragma warning restore RECS0135
+        }
+
+        /// <summary>
+        /// Comprueba si un número es primo.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c>si el número es primo, <c>false</c> en caso contrario.
+        /// </returns>
+        /// <param name="i">Número a comprobar.</param>
+        public static bool IsPrime(this long i)
+        {
+            long s = i / 2;
+            for (long j = 1; j < s; j++)
+                if (i % j == 0) return false;
+            return true;
         }
         /// <summary>
-        /// Comprueba si el número NO es primo.
+        /// Comprueba si un número es primo.
         /// </summary>
-        /// <param name="x"><see cref="int"/> a comprobar.</param>
         /// <returns>
-        /// Un valor <see cref="bool"/> que es <code>true</code> si el número NO es primo. Si es primo, o si es un 
-        /// compuesto que pasa la prueba de Lucas, <code>false</code>.</returns>
-        /// <remarks>
-        /// Se utiliza la prueba de la serie de Lucas para la comprobación, lo que no garantiza que un número sea 
-        /// efectivamente primo.
-        /// </remarks>
-        public static bool IsNotPrime(this int x) => (Series.LucasNumber(x) - 1) % x == 0;
+        /// <c>true</c>si el número es primo, <c>false</c> en caso contrario.
+        /// </returns>
+        /// <param name="i">Número a comprobar.</param>
+        [Thunk] public static bool IsPrime(this int i) => ((long)i).IsPrime();
         /// <summary>
-		/// Representa la proporción de 1 grado DEG sobre PI
-		/// </summary>
-		public const double Deg_Rad = System.Math.PI / 180;
+        /// Comprueba si un número es primo.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c>si el número es primo, <c>false</c> en caso contrario.
+        /// </returns>
+        /// <param name="i">Número a comprobar.</param>
+        [Thunk] public static bool IsPrime(this uint i) => ((long)i).IsPrime();
+        /// <summary>
+        /// Comprueba si un número es primo.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c>si el número es primo, <c>false</c> en caso contrario.
+        /// </returns>
+        /// <param name="i">Número a comprobar.</param>
+        [Thunk] public static bool IsPrime(this short i) => ((long)i).IsPrime();
+        /// <summary>
+        /// Comprueba si un número es primo.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c>si el número es primo, <c>false</c> en caso contrario.
+        /// </returns>
+        /// <param name="i">Número a comprobar.</param>
+        [Thunk] public static bool IsPrime(this ushort i) => ((long)i).IsPrime();
+        /// <summary>
+        /// Comprueba si un número es primo.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c>si el número es primo, <c>false</c> en caso contrario.
+        /// </returns>
+        /// <param name="i">Número a comprobar.</param>
+        [Thunk] public static bool IsPrime(this sbyte i) => ((long)i).IsPrime();
+        /// <summary>
+        /// Comprueba si un número es primo.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c>si el número es primo, <c>false</c> en caso contrario.
+        /// </returns>
+        /// <param name="i">Número a comprobar.</param>
+        [Thunk] public static bool IsPrime(this byte i) => ((long)i).IsPrime();
+
         /// <summary>
         /// Determina si un <see cref="double"/> es un número real operable.
         /// </summary>
@@ -146,15 +191,40 @@ namespace MCART
 		/// </returns>
 		public static bool IsValid(this float x) => !(float.IsNaN(x) || float.IsInfinity(x));
         /// <summary>
-        /// Determina si una colección de <see cref="double"/> son números reales operables
+        /// Determina si una colección de <see cref="double"/> son números 
+        /// reales operables.
         /// </summary>
-        /// <param name="x">Colección  de <see cref="double"/> a comprobar</param>
-        /// <returns>un valor booleano que indica si todos los elementos de <paramref name="x"/> son números operables, en otras palabras, si no son NaN o Infinito</returns>
-        public static bool AreValidDoubles(params double[] x)
+        /// <param name="x">
+        /// Colección  de <see cref="double"/> a comprobar.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> si todos los elementos de <paramref name="x"/> son 
+        /// números operables, en otras palabras, si no son NaN o Infinito; en 
+        /// caso contrario, se devuelve <c>false</c>.
+        /// </returns>
+        public static bool AreValid(params double[] x)
         {
             foreach (double j in x) if (!IsValid(j)) return false;
             return true;
         }
+        /// <summary>
+        /// Determina si una colección de <see cref="float"/> son números 
+        /// reales operables.
+        /// </summary>
+        /// <param name="x">
+        /// Colección  de <see cref="float"/> a comprobar.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> si todos los elementos de <paramref name="x"/> son 
+        /// números operables, en otras palabras, si no son NaN o Infinito; en 
+        /// caso contrario, se devuelve <c>false</c>.
+        /// </returns>
+        public static bool AreValid(params float[] x)
+        {
+            foreach (float j in x) if (!IsValid(j)) return false;
+            return true;
+        }
+
         /// <summary>
         /// Calcula la potencia de dos más cercana mayor o igual al número
         /// </summary>
@@ -193,11 +263,7 @@ namespace MCART
         /// <param name="x">números a comprobar.</param>
         public static bool ArePositives(params double[] x)
         {
-            foreach (double j in x)
-            {
-                if (j <= 0)
-                    return false;
-            }
+            foreach (double j in x) if (j <= 0) return false;
             return true;
         }
         /// <summary>
@@ -206,11 +272,7 @@ namespace MCART
         /// <param name="x">números a comprobar.</param>
         public static bool AreNegatives(params double[] x)
         {
-            foreach (double j in x)
-            {
-                if (j >= 0)
-                    return false;
-            }
+            foreach (double j in x) if (j >= 0) return false;
             return true;
         }
         /// <summary>
@@ -228,7 +290,7 @@ namespace MCART
             return true;
         }
         /// <summary>
-        /// Devuelve <c>True</c> si todos los números son distintos de cero.
+        /// Devuelve <c>true</c> si todos los números son distintos de cero.
         /// </summary>
         /// <param name="x">números a comprobar.</param>
         public static bool AreNotZero<T>(params T[] x) where T :
@@ -241,6 +303,7 @@ namespace MCART
             foreach (T j in x) if (j.CompareTo(0) == 0) return false;
             return true;
         }
+
 #if IncludeSpecialClamp
         /// <summary>
         /// Establece límites de sobreflujo para evaluar una expresión.
@@ -302,10 +365,7 @@ namespace MCART
         /// </returns>
         public static T Clamp<T>(this T expression, T min, T max) where T :
             IComparable,
-            IComparable<T>,
-            IConvertible,
-            IEquatable<T>,
-            IFormattable
+            IComparable<T>
         {
 
             if (expression.CompareTo(max) > 0) return max;
@@ -323,10 +383,7 @@ namespace MCART
         /// </returns>
         public static T Clamp<T>(this T expression, T max) where T :
             IComparable,
-            IComparable<T>,
-            IConvertible,
-            IEquatable<T>,
-            IFormattable
+            IComparable<T>
         {
             if (expression.CompareTo(max) > 0) return max;
             if (expression.CompareTo(0) < 0) return default(T);
@@ -340,13 +397,25 @@ namespace MCART
         /// <returns><c>True</c> si el valor es entero; de lo contrario, <c>False</c></returns>
         public static bool IsWhole(this double x) { return !x.ToString().Contains("."); }
         /// <summary>
-        /// Obtiene las cooerdenadas X,Y de una posición específica dentro de un bézier cuadrático
+        /// Obtiene las cooerdenadas X,Y de una posición específica dentro de un
+        /// bézier cuadrático
         /// </summary>
-        /// <param name="Position">Posición a obtener. Debe ser un <see cref="double"/> entre 0.0 y 1.0</param>
-        /// <param name="StartPoint">Punto inicial del bézier cuadrático</param>
-        /// <param name="ControlPoint">Punto de control del bézier cuadrático</param>
-        /// <param name="EndPoint">Punto final del bézier cuadrático</param>
-        /// <returns>Un <see cref="Point"/> con las coordenadas correspondientes a la posición dentro del bézier cuadrático dado por <paramref name="Position"/></returns>
+        /// <param name="Position">
+        /// Posición a obtener. Debe ser un <see cref="double"/> entre 0.0 y 
+        /// 1.0.
+        /// </param>
+        /// <param name="StartPoint">
+        /// Punto inicial del bézier cuadrático.
+        /// </param>
+        /// <param name="ControlPoint">
+        /// Punto de control del bézier cuadrático.
+        /// </param>
+        /// <param name="EndPoint">Punto final del bézier cuadrático.</param>
+        /// <returns>
+        /// Un <see cref="Point"/> con las coordenadas correspondientes a la
+        /// posición dentro del bézier cuadrático dado por
+        /// <paramref name="Position"/>.
+        /// </returns>
         public static Point GetQuadBezierPoint(double Position, Point StartPoint, Point ControlPoint, Point EndPoint)
         {
             if (!Position.IsBetween(0, 1)) throw new ArgumentOutOfRangeException(nameof(Position));

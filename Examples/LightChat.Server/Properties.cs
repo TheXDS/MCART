@@ -1,10 +1,10 @@
 ﻿//
-//  AssemblyInfo.cs
+//  Properties.cs
 //
 //  Author:
-//       César Andrés Morgan <xds_xps_ivx@hotmail.com>
+//       César Morgan <xds_xps_ivx@hotmail.com>
 //
-//  Copyright (c) 2017 César Andrés Morgan
+//  Copyright (c) 2017 César Morgan
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -20,11 +20,26 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Reflection;
+using MCART.Attributes;
+using MCART.PluginSupport;
 
-[assembly: AssemblyTitle("MySQL dialect for Triton")]
-[assembly: AssemblyDescription("MySQL dialect for Triton")]
+[assembly: AssemblyTitle("Servidor de LightChat para MCART")]
+[assembly: AssemblyDescription("Servidor de LightChat para MCART")]
 [assembly: AssemblyCompany("TheXDS! non-Corp.")]
 [assembly: AssemblyProduct("MCA Runtime")]
 [assembly: AssemblyCopyright("Copyright © 2017 César Andrés Morgan")]
 [assembly: AssemblyTrademark("MCA Corporation")]
 [assembly: AssemblyVersion("1.0.*")]
+
+namespace LightChat
+{
+    /// <summary>
+    /// Protocolo simple de chat.
+    /// </summary>
+    [Description("Protocolo de chat ligero LightChat, ensamblado de servidor.")]
+    [Beta]
+    [MinMCARTVersion(0, 6)]
+    [TargetMCARTVersion(0, 6)]
+    [Unsecure]
+    public partial class LightChat : Plugin { }
+}

@@ -1,12 +1,12 @@
 ﻿//
-//  Protocol.cs
-// 
+//  IProtocol.cs
+//
 //  This file is part of MCART
 //
 //  Author:
-//       César Andrés Morgan <xds_xps_ivx@hotmail.com>
+//       César Morgan <xds_xps_ivx@hotmail.com>
 //
-//  Copyright (c) 2011 - 2017 César Andrés Morgan
+//  Copyright (c) 2011 - 2017 César Morgan
 //
 //  MCART is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -24,10 +24,10 @@
 namespace MCART.Networking.Server
 {
     /// <summary>
-    /// Esta clase abstracta determina una serie de funciones a heredar por
-    /// una clase que provea de protocolos a un servidor.
+    /// Determina una serie de funciones a implementar por una clase que provea
+    /// de protocolos a un servidor.
     /// </summary>
-    public abstract class Protocol<TClient> : IProtocol<TClient> where TClient : Client
+    public interface IProtocol<TClient> where TClient : Client
     {
         /// <summary>
         /// Atiende al cliente
@@ -35,25 +35,25 @@ namespace MCART.Networking.Server
         /// <param name="client">Cliente que será atendido.</param>
         /// <param name="server">Servidor que atiende al cliente.</param>
         /// <param name="data">Datos recibidos desde el cliente.</param>
-        public abstract void ClientAttendant(TClient client, Server<TClient> server, byte[] data);
+        void ClientAttendant(TClient client, Server<TClient> server, byte[] data);
         /// <summary>
         /// Protocolo de bienvenida del cliente.
         /// </summary>
         /// <returns><c>true</c> si el cliente fue aceptado por el protocolo; de lo contrario, <c>false</c>.</returns>
         /// <param name="client">Cliente que será atendido.</param>
         /// <param name="server">Servidor que atiende al cliente.</param>
-        public virtual bool ClientWelcome(TClient client, Server<TClient> server) { return true; }
+        bool ClientWelcome(TClient client, Server<TClient> server);
         /// <summary>
         /// Protocolo de desconexión del cliente.
         /// </summary>
         /// <param name="client">Cliente que será atendido.</param>
         /// <param name="server">Servidor que atiende al cliente.</param>
-        public virtual void ClientBye(TClient client, Server<TClient> server) { }
+        void ClientBye(TClient client, Server<TClient> server);
         /// <summary>
         /// Protocolo de desconexión inesperada del cliente.
         /// </summary>
         /// <param name="client">Cliente que se ha desconectado.</param>
         /// <param name="server">Servidor que atiendía al cliente.</param>
-        public virtual void ClientDisconnect(TClient client, Server<TClient> server) { }
+        void ClientDisconnect(TClient client, Server<TClient> server);
     }
 }

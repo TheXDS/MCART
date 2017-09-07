@@ -3,6 +3,7 @@
   <PropertyGroup>
     <ProjectGuid>{E5F6A0E5-B532-480C-B72E-516908C07944}</ProjectGuid>
     <Description>MCART core files</Description>
+    <ReleaseVersion>0.6</ReleaseVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.Common.Default.props" />

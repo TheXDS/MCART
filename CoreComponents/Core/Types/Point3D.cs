@@ -123,6 +123,12 @@ namespace MCART.Types
         /// </value>
         public static Point3D Origin => new Point3D(0, 0, 0);
         /// <summary>
+        /// Obtiene un punto que no representa ninguna posición. Este campo es
+        /// de solo lectura.
+        /// </summary>
+        /// <value>The nowhere.</value>
+        public static Point3D Nowhere => new Point3D(double.NaN, double.NaN, double.NaN);
+        /// <summary>
         /// Realiza una operación de suma sobre los puntos.
         /// </summary>
         /// <param name="l">Punto 1.</param>

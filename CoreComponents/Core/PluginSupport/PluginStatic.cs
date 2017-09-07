@@ -36,6 +36,7 @@ using System.IO;
 using MCART.Attributes;
 using MCART.Exceptions;
 using St = MCART.Resources.Strings;
+using MCART.Resources;
 
 namespace MCART.PluginSupport
 {
@@ -53,7 +54,7 @@ namespace MCART.PluginSupport
         /// <see cref="IPlugin"/>; de no contrario, <c>false</c>.</returns>
         /// <param name="asmbly"><see cref="Assembly"/> a comprobar.</param>
         [Thunk]
-        public static bool IsVaild(Assembly asmbly) => asmbly.GetTypes().Any((arg) => typeof(IPlugin).IsAssignableFrom(arg));
+        public static bool IsVaild(Assembly asmbly) => asmbly.IsNot(RTInfo.RTAssembly) && asmbly.GetTypes().Any((arg) => typeof(IPlugin).IsAssignableFrom(arg));
         /// <summary>
         /// Comprueba si un ensamblado contiene un plugin del tipo especificado.
         /// </summary>

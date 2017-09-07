@@ -9,9 +9,6 @@
     <Import_RootNamespace>MCART</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Data\Triton\Comparsion.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\Triton\IDialect.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\Triton\Triggers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Attrbutes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Events.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Exceptions.cs" />
@@ -20,7 +17,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\Client.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\Protocols.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\Protocols\Echo.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\Protocols\LightChat.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\Server.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\Client.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\Protocol.cs" />
@@ -66,19 +62,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Types\Color.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\ColorExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Colors.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Modules\Data.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\Triton\ClassAttributes.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\Triton\FieldAttributes.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\Triton\Enums.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Data\Triton\DbClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\IProtocol.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Types\TaskReporter\" />
     <Folder Include="$(MSBuildThisFileDirectory)Types\TaskReporter\base\" />
     <Folder Include="$(MSBuildThisFileDirectory)Security\Encryption\" />
     <Folder Include="$(MSBuildThisFileDirectory)Security\Checksum\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)Data\Triton\Documentation.txt" />
   </ItemGroup>
 </Project>

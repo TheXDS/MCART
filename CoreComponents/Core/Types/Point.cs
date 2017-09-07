@@ -128,6 +128,12 @@ namespace MCART.Types
         /// </value>
         public static Point Origin => new Point(0, 0);
         /// <summary>
+        /// Obtiene un punto que no representa ninguna posición. Este campo es
+        /// de solo lectura.
+        /// </summary>
+        /// <value>The nowhere.</value>
+        public static Point Nowhere => new Point(double.NaN, double.NaN);
+        /// <summary>
         /// Realiza una operación de suma sobre los puntos.
         /// </summary>
         /// <param name="l">Punto 1.</param>

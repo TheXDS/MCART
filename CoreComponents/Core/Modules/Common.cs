@@ -31,6 +31,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using St = MCART.Resources.Strings;
+using System.Text;
 
 namespace MCART
 {
@@ -58,10 +59,13 @@ namespace MCART
         /// </param>
         public static string Condense(this IEnumerable<string> str, string separation = null)
         {
-            string outp = string.Empty;
-            foreach (string j in str)            
-                outp += j + separation;            
-            return outp.Substring(0, outp.Length - separation.Length);
+            StringBuilder outp = new StringBuilder();
+            foreach (string j in str)
+            {
+                outp.Append(j);
+                if (j.IsNot(str.Last())) outp.Append(separation);
+            }
+            return outp.ToString();
         }
         /// <summary>
         /// Obtiene una cadena que contenga la cantidad de caracteres 
@@ -187,6 +191,36 @@ namespace MCART
         /// <param name="check">Cadena a comprobar.</param>
         /// <param name="chars">Caracteres a contar.</param>
         [Thunk] public static int CountChars(this string check, string chars) => CountChars(check, chars.ToCharArray());
+        /// <summary>
+        /// Determina si la cadena contiene a cualquiera de los caracteres
+        /// especificados.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c> si la cadena contiene a cualquiera de los caracteres,
+        /// <c>false</c> en caso contrario.
+        /// </returns>
+        /// <param name="str">Cadena a verificar.</param>
+        /// <param name="chars">Caracteres a buscar.</param>
+        public static bool ContainsAny(this string str, params char[] chars)
+        {
+            foreach (char j in chars) if (str.Contains(j)) return true;
+            return false;
+        }
+        /// <summary>
+        /// Determina si la cadena contiene a cualquiera de las cadenas
+        /// especificadas.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c> si la cadena contiene a cualquiera de las cadenas,
+        /// <c>false</c> en caso contrario.
+        /// </returns>
+        /// <param name="str">Cadena a verificar.</param>
+        /// <param name="strings">Cadenas a buscar.</param>
+        public static bool ContainsAny(this string str, params string[] strings)
+        {
+            foreach (string j in strings) if (str.Contains(j)) return true;
+            return false;
+        }
         /// <summary>
         /// Condensa una lista en una <see cref="string"/>
         /// </summary>

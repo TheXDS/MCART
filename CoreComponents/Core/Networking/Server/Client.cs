@@ -158,7 +158,7 @@ namespace MCART.Networking.Server
         /// </summary>
         public void Disconnect()
         {
-            Server.prot.ClientBye(this, Server);
+            Server.Protocol.ClientBye(this, Server);
             TcpClient.Close();
         }
     }

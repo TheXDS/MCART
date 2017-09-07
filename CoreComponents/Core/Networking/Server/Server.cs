@@ -26,9 +26,6 @@
 //Preferir excepciones en lugar de continuar con código alternativo
 //#define PreferExceptions
 
-//Activar funciones adicionales de logging.
-//#define EnableLogging
-
 #endregion
 
 using System;
@@ -37,6 +34,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using St = MCART.Resources.Strings;
+using System.Diagnostics;
 
 namespace MCART.Networking.Server
 {
@@ -59,13 +57,13 @@ namespace MCART.Networking.Server
         /// <summary>
         /// Lista de objetos <see cref="Client"/> conectados a este servidor.
         /// </summary>
-        internal List<TClient> clients = new List<TClient>();
+        public List<TClient> Clients = new List<TClient>();
 
         /// <summary>
         /// Instancia de protocolos a utilizar para dar servicio a los
         /// clientes que se conecten a este servidor.
         /// </summary>
-        internal Protocol<TClient> prot;
+        public Protocol<TClient> Protocol;
 
         /// <summary>
         /// Escucha de conexiones entrantes.
@@ -78,7 +76,7 @@ namespace MCART.Networking.Server
         /// </summary>
         bool _isAlive;
 
-#if EnableLogging
+#if TRACE
         /// <summary>
         /// Controla el evento <see cref="Logging"/>.
         /// </summary>
@@ -118,7 +116,7 @@ namespace MCART.Networking.Server
                 catch { throw; }
 #endif
             finally { bewaiting = false; } //detener el lambda de espera...
-#if EnableLogging
+#if TRACE
             Logging(this, new Events.LoggingEventArgs(St.XStopped(St.TheListener)));
 #endif
             //Devolver null. Serve() se encarga de manejar correctamente esto
@@ -132,10 +130,10 @@ namespace MCART.Networking.Server
         /// <param name="client">Cliente a atender.</param>
         async Task AttendClient(TClient client)
         {
-            clients.Add(client);
-            if (prot.ClientWelcome(client, this))
+            Clients.Add(client);
+            if (Protocol.ClientWelcome(client, this))
             {
-#if EnableLogging
+#if TRACE
                 Logging(this, new Events.LoggingEventArgs(
                     St.XAccepted(St.TheClient)));
 #endif
@@ -150,20 +148,20 @@ namespace MCART.Networking.Server
 				 * llamar a la función de desconexión.
 				 */
                 while (client.IsAlive)
-                    prot.ClientAttendant(client, this, await client.RecieveAsync());
-#if EnableLogging
+                    Protocol.ClientAttendant(client, this, await client.RecieveAsync());
+#if TRACE
                 Logging(this, new Events.LoggingEventArgs(St.XDisconnected(St.TheClient)));
 #endif
             }
             else
             {
-#if EnableLogging
+#if TRACE
                 Logging(this, new Events.LoggingEventArgs(St.XRejected(St.TheClient)));
 #endif
 
                 if ((bool)client?.IsAlive) client.TcpClient.Close();
             }
-            if ((bool)clients?.Contains(client)) clients.Remove(client);
+            if ((bool)Clients?.Contains(client)) Clients.Remove(client);
         }
 
         /// <summary>
@@ -183,10 +181,10 @@ namespace MCART.Networking.Server
         public Server(Protocol<TClient> protocol, IPEndPoint ep = null)
         {
             if (protocol.IsNull()) throw new ArgumentNullException(nameof(protocol));
-            prot = protocol;
-#if EnableLogging
-            if (!prot.GetAttr<Attributes.BetaAttribute>().IsNull())
-                Logging(this, new Events.LoggingEventArgs(St.Warn(St.XIsBeta(St.TheProtocol))));
+            Protocol = protocol;
+#if TRACE
+            if (!Protocol.GetAttr<Attributes.BetaAttribute>().IsNull())
+                Debug.Print(St.Warn(St.XIsBeta(St.TheProtocol)));
 #endif
             conns = new TcpListener(ep ?? new IPEndPoint(IPAddress.Any, defaultPort));
             Serve().Start();
@@ -199,7 +197,7 @@ namespace MCART.Networking.Server
         {
             if (_isAlive)
             {
-#if EnableLogging
+#if TRACE
                 Logging(this, new Events.LoggingEventArgs(St.XAlreadyStarted(St.TheSrv)));
 #endif
 #if PreferExceptions
@@ -209,7 +207,7 @@ namespace MCART.Networking.Server
 #endif
             }
 
-#if EnableLogging
+#if TRACE
             Logging(this, new Events.LoggingEventArgs(St.XStarted(St.TheSrv)));
 #endif
             _isAlive = true;
@@ -226,7 +224,7 @@ namespace MCART.Networking.Server
                 }
             }
             Task.WaitAll(clwaiter.ToArray(), disconnectionTimeout);
-            foreach (TClient j in clients) j.TcpClient.Close();
+            foreach (TClient j in Clients) j.TcpClient.Close();
             conns.Stop();
         }
 
@@ -270,7 +268,7 @@ namespace MCART.Networking.Server
         /// </param>
         public void Multicast(byte[] data, Predicate<Client> condition)
         {
-            foreach (Client j in clients) if (condition(j)) j.Send(data);
+            foreach (Client j in Clients) if (condition(j)) j.Send(data);
         }
 
         /// <summary>
@@ -303,7 +301,7 @@ namespace MCART.Networking.Server
         public async Task MulticastAsync(byte[] data, Predicate<Client> condition)
         {
             List<Task> w = new List<Task>();
-            foreach (Client j in clients)
+            foreach (Client j in Clients)
             {
                 if (condition(j))
                 {

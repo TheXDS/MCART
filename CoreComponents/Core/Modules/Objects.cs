@@ -69,12 +69,7 @@ namespace MCART
         /// <c>true</c> si el tipo <paramref name="source"/> puede ser asignado 
         /// a uno de los tipos especificados, <c>false</c> en caso contrario.
         /// </returns>
-
-        [Thunk]
-        public static bool AnyAssignableFrom(this IEnumerable<Type> types, Type source)
-        {
-            return AnyAssignableFrom(types, source, out int? ignore);
-        }
+        [Thunk] public static bool AnyAssignableFrom(this IEnumerable<Type> types, Type source) => AnyAssignableFrom(types, source, out int? ignore);
         /// <summary>
         /// Comprueba si todos los tipos son asignables a partir del tipo
         /// <paramref name="source"/>.
@@ -100,6 +95,30 @@ namespace MCART
         public static bool AreAnyNull(params object[] x)
         {
             foreach (object j in x) if (j.IsNull()) return true;
+            return false;
+        }
+        /// <summary>
+        /// Determina si cualquiera de los objetos es <c>null</c>.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c>, si cualquiera de los objetos es <c>null</c>; de lo
+        /// contrario, <c>false</c>.
+        /// </returns>
+        /// <param name="index">
+        /// Parámetro de salida. Si se encuentra un objeto que es <c>null</c>,
+        /// este valor será igual al índice de dicho objeto, en caso contrario, 
+        /// se devolverá <c>-1</c>.
+        /// </param>
+        /// <param name="x">Objetos a comprobar.</param>
+        public static bool AreAnyNull(out int index, params object[] x)
+        {
+            index = 0;
+            foreach (object j in x)
+            {
+                if (j.IsNull()) return true;
+                index++;
+            }
+            index = -1;
             return false;
         }
         /// <summary>
@@ -214,7 +233,7 @@ namespace MCART
         /// <returns>
         /// Una lista compuesta por los tipos de los objetos provistos.
         /// </returns>
-        public static IEnumerable<Type> ToTypes(this object[] objects)
+        public static IEnumerable<Type> ToTypes(this IEnumerable<object> objects)
         {
             foreach (object j in objects) yield return j.GetType();
         }
@@ -223,11 +242,7 @@ namespace MCART
         /// </summary>
         /// <returns>La nueva instancia del tipo especificado.</returns>
         /// <typeparam name="T">Tipo de instancia a crear.</typeparam>
-        public static T New<T>()
-        {
-            try { return typeof(T).New<T>(new object[] { }); }
-            catch { throw; }
-        }
+        [Thunk] public static T New<T>() => typeof(T).New<T>(new object[] { });
         /// <summary>
         /// Inicializa una nueva instancia del tipo dinámico especificado,
         /// devolviéndola como un <typeparamref name="T"/>.
@@ -236,23 +251,13 @@ namespace MCART
         /// <param name="j">Tipo a instanciar. Debe ser, heredar o implementar 
         /// el tipo especificado en <typeparamref name="T"/></param>
         /// <typeparam name="T">Tipo de instancia a devolver.</typeparam>
-        public static T New<T>(this Type j)
-        {
-            if (j.IsAbstract || j.IsInterface) throw new TypeLoadException();
-            try { return j.New<T>(new object[] { }); }
-            catch { throw; }
-        }
+        [Thunk] public static T New<T>(this Type j) => j.New<T>(new object[] { });
         /// <summary>
         /// Inicializa una nueva instancia del tipo dinámico especificado.
         /// </summary>
         /// <returns>La nueva instancia del tipo especificado.</returns>
         /// <param name="j">Tipo a instanciar.</param>
-        public static object New(this Type j)
-        {
-            if (j.IsAbstract || j.IsInterface) throw new TypeLoadException();
-            try { return j.New<object>(new object[] { }); }
-            catch { throw; }
-        }
+        [Thunk] public static object New(this Type j) => j.New<object>(new object[] { });
         /// <summary>
 		/// Crea uns instancia de un objeto con un constructor que acepte los 
 		/// argumentos provistos.
@@ -261,14 +266,10 @@ namespace MCART
 		/// <param name="Params">Parámetros a pasar al constructor. Se buscará 
 		/// un constructor compatible para poder crear la instancia.</param>
 		/// <returns>Una nueva instancia del tipo especificado.</returns>
-        public static T New<T>(object[] Params)
-        {
-            try { return New<T>(typeof(T), Params); }
-            catch { throw; }
-        }
+        [Thunk] public static T New<T>(object[] Params) => New<T>(typeof(T), Params);
         /// <summary>
-        /// Crea uns instancia de un objeto con un constructor que acepte los 
-        /// argumentos provistos.
+        /// Inicializa una nueva instancia de un objeto con un constructor que
+        /// acepte los argumentos provistos.
         /// </summary>
         /// <typeparam name="T">Tipo de instancia a devolver.</typeparam>
         /// <param name="j">Tipo a instanciar. Debe ser, heredar o implementar 
@@ -279,8 +280,7 @@ namespace MCART
         public static T New<T>(this Type j, params object[] Params)
         {
             if (j.IsAbstract || j.IsInterface) throw new TypeLoadException();
-            try { return (T)j.GetConstructor(Params.ToTypes().ToArray()).Invoke(Params); }
-            catch { throw; }
+            return (T)j.GetConstructor(Params.ToTypes().ToArray()).Invoke(Params);
         }
         /// <summary>
         /// Inicializa una nueva instancia del tipo dinámico especificado.
@@ -289,13 +289,7 @@ namespace MCART
         /// <param name="j">Tipo a instanciar.</param>
         /// <param name="Params">Parámetros a pasar al constructor. Se buscará 
         /// un constructor compatible para poder crear la instancia.</param>
-        [Thunk]
-        public static object New(this Type j, params object[] Params)
-        {
-            if (j.IsAbstract || j.IsInterface) throw new TypeLoadException();
-            try { return j.New<object>(Params); }
-            catch { throw; }
-        }
+        [Thunk] public static object New(this Type j, params object[] Params) => j.New<object>(Params);
         /// <summary>
         /// Libera un objeto COM.
         /// </summary>
@@ -392,11 +386,11 @@ namespace MCART
         [Thunk] public static bool IsNumericType<T>() => IsNumericType(typeof(T));
 
         /*
-		 * Oops! Alguas API de Mono parecen no estar completas, esta directiva
-		 * deshabilita la advertencia al compilar desde MonoDevelop.
-		 * 
-		 * SecureString no provee de funcionalidad de encriptado en Mono, lo que
-		 * podría ser inseguro.
+		Oops! Algunas API de Mono parecen no estar completas, esta directiva
+		deshabilita la advertencia al compilar desde MonoDevelop.
+		
+		SecureString no provee de funcionalidad de encriptado en Mono, lo que
+		podría ser inseguro.
          */
 #pragma warning disable XS0001
 
@@ -434,8 +428,10 @@ namespace MCART
         /// <param name="value">
         /// <see cref="System.Security.SecureString"/> a convertir.
         /// </param>
-        /// <returns>Un <see cref="string"/> de código administrado.</returns>
-        public static short[] Read(this System.Security.SecureString value)
+        /// <returns>
+        /// Un arreglo de <see cref="short"/> de código administrado.
+        /// </returns>
+        public static short[] Read16(this System.Security.SecureString value)
         {
             List<short> outp = new List<short>();
             IntPtr valuePtr = IntPtr.Zero;
@@ -443,6 +439,28 @@ namespace MCART
             {
                 valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
                 for (int i = 0; i < value.Length; i++) outp.Add(Marshal.ReadInt16(valuePtr, i * 2));
+                return outp.ToArray();
+            }
+            finally { Marshal.ZeroFreeGlobalAllocUnicode(valuePtr); }
+        }
+        /// <summary>
+        /// Convierte un <see cref="System.Security.SecureString"/> en un
+        /// arreglo de <see cref="byte"/>.
+        /// </summary>
+        /// <param name="value">
+        /// <see cref="System.Security.SecureString"/> a convertir.
+        /// </param>
+        /// <returns>
+        /// Un arreglo de <see cref="byte"/> de código administrado.
+        /// </returns>
+        public static byte[] Read8(this System.Security.SecureString value)
+        {
+            List<byte> outp = new List<byte>();
+            IntPtr valuePtr = IntPtr.Zero;
+            try
+            {
+                valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
+                for (int i = 0; i < value.Length * 2; i++) outp.Add(Marshal.ReadByte(valuePtr, i));
                 return outp.ToArray();
             }
             finally { Marshal.ZeroFreeGlobalAllocUnicode(valuePtr); }

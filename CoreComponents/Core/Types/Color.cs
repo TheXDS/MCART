@@ -438,10 +438,10 @@ namespace MCART.Types
         /// </returns>
         public byte ToVGAByte()
         {
-            byte R = (byte)((r + ep) * 2);
-            byte G = (byte)((g + ep) * 2);
-            byte A = (byte)((b + ep) * 2);
-            return unchecked((byte)(R | (G << 1) | (B << 2) | ((R == 2 || G == 2 || B == 2) ? 4 : 0)));
+            byte q = (byte)((r + ep) * 2);
+            byte w = (byte)((g + ep) * 2);
+            byte e = (byte)((b + ep) * 2);
+            return unchecked((byte)(q | (w << 1) | (B << 2) | ((q == 2 || w == 2 || B == 2) ? 4 : 0)));
         }
     }
 }
