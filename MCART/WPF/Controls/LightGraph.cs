@@ -493,7 +493,7 @@ namespace MCART.Controls
                 mi = double.IsNaN(YMin) ? grp.Min() : YMin;
                 foreach (Point p in Ps.Points)
                 {
-                    if (Math.AreValidDoubles(p.X, p.Y) && drop == 0)
+                    if (Math.AreValid(p.X, p.Y) && drop == 0)
                     {
                         TextBlock lb = new TextBlock()
                         {
