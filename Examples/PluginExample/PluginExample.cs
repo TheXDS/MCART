@@ -45,7 +45,6 @@ public class CRC32 : ChecksumPlugin, IDisposable
 {
     bool disposedValue;
     uint[] CRC32_Tab = new uint[256];
-    uint CRCCheck;
     const uint Seed = 3988292384U;
     TimeSpan re = new TimeSpan(0, 0, 0, 0, 250);
     public override byte[] Compute(byte[] X)
