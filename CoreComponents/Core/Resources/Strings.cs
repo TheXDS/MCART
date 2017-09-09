@@ -186,6 +186,7 @@ namespace MCART.Resources
         public const string Chars = @"qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM,./;'][\=-1234567890~!@#$%^&*()_+|}{"":?><";
         public const string CINotSupported = "Las implementaciones personalizadas de {0} no están soportadas.";
         public const string CldntConnect = "No fue posible conectarse a {0}";
+        public const string ClientConnected = "Se ha conectado un nuevo cliente.";
         public const string ClosdConn = "La conexión está cerrada";
         public const string Clse = "Cerrar";
         public const string Cncl = "Cancelar";

@@ -36,6 +36,7 @@ namespace MCART.Networking.Server
         /// <param name="server">Servidor que atiende al cliente.</param>
         /// <param name="data">Datos recibidos desde el cliente.</param>
         public abstract void ClientAttendant(TClient client, Server<TClient> server, byte[] data);
+        
         /// <summary>
         /// Protocolo de bienvenida del cliente.
         /// </summary>
@@ -43,12 +44,14 @@ namespace MCART.Networking.Server
         /// <param name="client">Cliente que será atendido.</param>
         /// <param name="server">Servidor que atiende al cliente.</param>
         public virtual bool ClientWelcome(TClient client, Server<TClient> server) { return true; }
+        
         /// <summary>
         /// Protocolo de desconexión del cliente.
         /// </summary>
         /// <param name="client">Cliente que será atendido.</param>
         /// <param name="server">Servidor que atiende al cliente.</param>
         public virtual void ClientBye(TClient client, Server<TClient> server) { }
+
         /// <summary>
         /// Protocolo de desconexión inesperada del cliente.
         /// </summary>
@@ -56,4 +59,10 @@ namespace MCART.Networking.Server
         /// <param name="server">Servidor que atiendía al cliente.</param>
         public virtual void ClientDisconnect(TClient client, Server<TClient> server) { }
     }
+
+    /// <summary>
+    /// Esta clase abstracta determina una serie de funciones a heredar por
+    /// una clase que provea de protocolos a un servidor.
+    /// </summary>
+    public abstract class Protocol : Protocol<Client> { }
 }

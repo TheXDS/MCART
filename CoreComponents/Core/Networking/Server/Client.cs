@@ -73,7 +73,7 @@ namespace MCART.Networking.Server
         /// <param name="server">
         /// <see cref="Server"/> que atenderá a este cliente.
         /// </param>
-        internal Client(TcpClient tcpClient, Server<Client> server)
+        public Client(TcpClient tcpClient, Server<Client> server)
         {
             TcpClient = tcpClient;
             Server = server;
