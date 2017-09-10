@@ -1,3 +1,4 @@
+
 # Autosave files
 *~
 
@@ -28,6 +29,7 @@ autom4te.cache/
 tarballs/
 test-results/
 [Tt]humbs.db
+[Dd]esktop.ini
 .vs/
 
 # Mac bundle stuff
