@@ -22,7 +22,9 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma warning disable CS1591 // TODO: agregar comentarios XML para los colores.
+
 using MCART.Types;
+using MCART.Types.Extensions;
 
 namespace MCART.Resources
 {
@@ -31,6 +33,17 @@ namespace MCART.Resources
     /// </summary>
     public static partial class Colors
     {
+        /// <summary>
+        /// Devuelve un color aleatorio.
+        /// </summary>
+        /// <returns>
+        /// Un <see cref="Color"/> seleccionado aleatoriamente.
+        /// </returns>
+        public static Color Pick()
+        {
+            return (Color)typeof(Colors).GetProperties().Pick().GetValue(null);
+        }
+
         public static Color AliceBlue => new Color(240, 248, 255);
         public static Color AntiqueWhite1 => new Color(255, 239, 219);
         public static Color AntiqueWhite2 => new Color(238, 223, 204);
