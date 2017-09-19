@@ -6,7 +6,7 @@
     <SharedGUID>5b5c0ea8-e8c3-4442-94fb-03b7ac6be9e8</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Core_NoWPF</Import_RootNamespace>
+    <Import_RootNamespace>MCART</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Types\TaskReporter\TaskReporterControl.cs">

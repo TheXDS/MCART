@@ -33,7 +33,7 @@ namespace MCART
     /// <summary>
     /// Extensiones de UI para Gtk.
     /// </summary>
-    public static class UI
+    public static partial class UI
     {
         /// <summary>
         /// Agrega los <see cref="PluginSupport.InteractionItem"/> de cada

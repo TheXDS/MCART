@@ -111,7 +111,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Controls\Graph\" />
+  </ItemGroup>
   <Import Project="..\..\CoreComponents\Core\Core.projitems" Label="Shared" />
   <Import Project="..\..\CoreComponents\Core-Windows\Core-Windows.projitems" Label="Shared" />
   <Import Project="..\..\CoreComponents\Core-NoWPF\Core-NoWPF.projitems" Label="Shared" />

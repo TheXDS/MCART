@@ -21,7 +21,6 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using MCART;
 using MCART.Types.TaskReporter;
 using System;
 using System.Windows;
@@ -29,7 +28,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using St = MCART.Resources.Strings;
 
-namespace Controls
+namespace MCART.Controls
 {
     /// <summary>
     /// Este control permite reportar visualmente el progreso de una tarea en 

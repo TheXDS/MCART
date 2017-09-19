@@ -32,21 +32,39 @@ using static MCART.UI;
 
 namespace MCART.Controls
 {
-    class BusyIndicator : UserControl
+    /// <summary>
+    /// Control simple que indica al usuario que la aplicación está ocupada.
+    /// </summary>
+    public class BusyIndicator : UserControl
     { 
         static Type T = typeof(BusyIndicator);
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="Thickness"/>.
+        /// </summary>
         public static DependencyProperty ThicknessProperty = DependencyProperty.Register(
             nameof(Thickness), typeof(double), T,
             new PropertyMetadata(4.0, SetControlSize));
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="Radius"/>.
+        /// </summary>
         public static DependencyProperty RadiusProperty = DependencyProperty.Register(
             nameof(Radius), typeof(double), T,
             new PropertyMetadata(24.0, SetControlSize));
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="Fill"/>.
+        /// </summary>
         public static DependencyProperty FillProperty = DependencyProperty.Register(
             nameof(Fill), typeof(Brush), T,
             new PropertyMetadata(SystemColors.HighlightBrush, Colorize));
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="Fill2"/>.
+        /// </summary>
         public static DependencyProperty Fill2Property = DependencyProperty.Register(
             nameof(Fill2), typeof(Brush), T,
             new PropertyMetadata(SystemColors.GrayTextBrush, Colorize));
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="Starting"/>.
+        /// </summary>
         public static DependencyProperty StartingProperty = DependencyProperty.Register(
             nameof(Starting), typeof(bool), T,
             new PropertyMetadata(false, Colorize));
@@ -76,31 +94,51 @@ namespace MCART.Controls
         {
             pth.Data = GetCircleArc(Radius, 270, Thickness);
         }
+        /// <summary>
+        /// Obtiene o establece el <see cref="Brush"/> a aplicar al control.
+        /// </summary>
         public Brush Fill
         {
             get => (Brush)GetValue(FillProperty);
             set => SetValue(FillProperty, value);
         }
+        /// <summary>
+        /// Obtiene o establece el <see cref="Brush"/> a aplicar al estado
+        /// secundario de el control.
+        /// </summary>
         public Brush Fill2
         {
             get => (Brush)GetValue(Fill2Property);
             set => SetValue(Fill2Property, value);
         }
+        /// <summary>
+        /// Obtiene o establece el grosor de los elementos de este control.
+        /// </summary>
         public double Thickness
         {
             get => (double)GetValue(ThicknessProperty);
             set => SetValue(ThicknessProperty, value);
         }
+        /// <summary>
+        /// Obtiene o establece el radio de este control.
+        /// </summary>
         public double Radius
         {
             get => (double)GetValue(RadiusProperty);
             set => SetValue(RadiusProperty, value);
         }
+        /// <summary>
+        /// Obtiene o establece un valor que indica si el control se dibujará
+        /// en su estado secundario.
+        /// </summary>
         public bool Starting
         {
             get => (bool)GetValue(StartingProperty);
             set => SetValue(StartingProperty, value);
         }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="BusyIndicator"/>.
+        /// </summary>
         public BusyIndicator()
         {
             SetBinding(HeightProperty, new Binding(nameof(Width)) { Source = this });

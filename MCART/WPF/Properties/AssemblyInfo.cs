@@ -22,6 +22,8 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Reflection;
+
+[assembly: System.Windows.ThemeInfo(System.Windows.ResourceDictionaryLocation.None, System.Windows.ResourceDictionaryLocation.SourceAssembly)]
 [assembly: AssemblyTitle("MCART for WPF")]
 [assembly: AssemblyDescription("MCART for Windows Presentation Framework")]
 [assembly: AssemblyCompany("TheXDS! non-Corp.")]
