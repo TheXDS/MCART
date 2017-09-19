@@ -23,8 +23,11 @@
 
 #region Opciones de compilación
 
-//Preferir excepciones en lugar de continuar con código alternativo
+// Preferir excepciones en lugar de continuar con código alternativo
 //#define PreferExceptions
+
+// Utilizar lecturas con búffer.
+#define Buffered
 
 #endregion
 
@@ -34,165 +37,210 @@ using System.Threading.Tasks;
 
 namespace MCART.Networking.Client
 {
-    /// <summary>
-    /// Clase base para los controladores de protocolo del cliente.
-    /// </summary>
-	public abstract class Client
-    {
-        /// <summary>
-        /// Puerto predeterminado para las conexiones entrantes.
-        /// </summary>
-        public const ushort defaultPort = 51220;
+	/// <summary>
+	/// Permite enviar y recibir información desde y hacia un servidor. Además,
+	/// es una clase base para los controladores de protocolo del cliente.
+	/// </summary>
+	public class Client
+	{
+		/// <summary>
+		/// Puerto predeterminado para las conexiones entrantes.
+		/// </summary>
+		public const ushort defaultPort = 51220;
 
-        /// <summary>
-        /// Búfer predeterminado para recepción.
-        /// </summary>
-        public const ushort bufferSize = 1024;
+#if Buffered
 
-        /// <summary>
-        /// Conexión al servidor
-        /// </summary>
-        protected readonly TcpClient connection = new TcpClient();
-
-        /// <summary>
-        /// Gets a value indicating whether this <see cref="Client"/> is alive.
-        /// </summary>
-        /// <value><c>true</c> if is alive; otherwise, <c>false</c>.</value>
-        public bool IsAlive => (bool)connection?.Connected;
-
-        /// <summary>
-        /// Establece una conexión con el servidor de forma asíncrona.
-        /// </summary>
-        /// <returns>Un <see cref="Task"/> que representa la tarea.</returns>
-        /// <param name="server">Servidor al cual conectarse.</param>
-        /// <param name="port">
-        /// Opcional. Puerto del servidor. Si se omite, se conectará al puerto
-        /// predeterminado.
-        /// </param>
-        public async Task ConnectAsync(string server, ushort port = defaultPort)
-        {
-            try
-            {
-                await connection.ConnectAsync(server, port);
-                AtConnect();
-            }
-#if PreferExceptions
-            catch { throw; }
-#else
-            catch { ConnChk(); AtFail(); }
+		/// <summary>
+		/// Búfer predeterminado para recepción.
+		/// </summary>
+		public const ushort bufferSize = 256;
 #endif
-        }
 
-        /// <summary>
-        /// Establece una conexión con el servidor.
-        /// </summary>
-        /// <param name="server">Servidor al cual conectarse.</param>
-        /// <param name="port">
-        /// Opcional. Puerto del servidor. Si se omite, se conectará al puerto
-        /// predeterminado.
-        /// </param>
-        public void Connect(string server, ushort port = defaultPort)
-        {
-            try
-            {
-                connection.Connect(server, port);
-                AtConnect();
-            }
+		/// <summary>
+		/// Conexión al servidor
+		/// </summary>
+		protected readonly TcpClient connection = new TcpClient();
+
+		/// <summary>
+		/// Gets a value indicating whether this <see cref="Client"/> is alive.
+		/// </summary>
+		/// <value><c>true</c> if is alive; otherwise, <c>false</c>.</value>
+		public bool IsAlive => (bool)connection?.Connected;
+
+		/// <summary>
+		/// Establece una conexión con el servidor de forma asíncrona.
+		/// </summary>
+		/// <returns>Un <see cref="Task"/> que representa la tarea.</returns>
+		/// <param name="server">Servidor al cual conectarse.</param>
+		/// <param name="port">
+		/// Opcional. Puerto del servidor. Si se omite, se conectará al puerto
+		/// predeterminado.
+		/// </param>
+		public async Task ConnectAsync(string server, ushort port = defaultPort)
+		{
+			try
+			{
+				await connection.ConnectAsync(server, port);
+				AtConnect();
+			}
 #if PreferExceptions
-            catch { throw; }
+			catch { throw; }
 #else
-            catch { ConnChk(); AtFail(); }
+			catch { ConnChk(); AtFail(); }
 #endif
-        }
+		}
 
-        /// <summary>
-        /// Desconecta correctamente a este cliente del servidor.
-        /// </summary>
-        public void Disconnect()
-        {
-            try { AtDisconnect(); }
-            finally { ConnChk(); }
-        }
-
-        /// <summary>
-        /// Envía un mensaje, y espera a que el servidor responda.
-        /// </summary>
-        /// <returns>Un mensaje enviado por el servidor.</returns>
-        /// <param name="data">Mensaje a enviar al servidor.</param>
-        public byte[] TalkToServer(byte[] data)
-        {
-            if (!(data?.Length > 0))
+		/// <summary>
+		/// Establece una conexión con el servidor.
+		/// </summary>
+		/// <param name="server">Servidor al cual conectarse.</param>
+		/// <param name="port">
+		/// Opcional. Puerto del servidor. Si se omite, se conectará al puerto
+		/// predeterminado.
+		/// </param>
+		public void Connect(string server, ushort port = defaultPort)
+		{
+			try
+			{
+				connection.Connect(server, port);
+				AtConnect();
+			}
 #if PreferExceptions
-                throw new ArgumentNullException();
+			catch { throw; }
 #else
-                return new byte[] { };
+			catch { ConnChk(); AtFail(); }
 #endif
-            connection?.GetStream().Write(data, 0, data.Length);
-            List<byte> outp = new List<byte>();
-            do
-            {
-                byte[] buff = new byte[bufferSize];
-                connection?.GetStream().Read(buff, 0, bufferSize);
-                outp.AddRange(buff);
-            } while ((bool)connection?.GetStream()?.DataAvailable);
-            return outp.ToArray();
-        }
+		}
 
-        /// <summary>
-        /// Envía un mensaje, y espera a que el servidor responda de forma asíncrona.
-        /// </summary>
-        /// <returns>Un mensaje enviado por el servidor.</returns>
-        /// <param name="data">Mensaje a enviar al servidor.</param>
-        public async Task<byte[]> TalkToServerAsync(byte[] data)
-        {
-            if (!(data?.Length > 0))
+		/// <summary>
+		/// Desconecta correctamente a este cliente del servidor.
+		/// </summary>
+		public void Disconnect()
+		{
+			try { AtDisconnect(); }
+			finally { ConnChk(); }
+		}
+
+		/// <summary>
+		/// Envía un mensaje, y espera a que el servidor responda.
+		/// </summary>
+		/// <returns>Un mensaje enviado por el servidor.</returns>
+		/// <param name="data">Mensaje a enviar al servidor.</param>
+		public byte[] TalkToServer(byte[] data)
+		{
+			if (!(data?.Length > 0))
 #if PreferExceptions
-                throw new ArgumentNullException();
+				throw new ArgumentNullException();
 #else
-                return new byte[] { };
+				return new byte[] { };
 #endif
-            await connection?.GetStream().WriteAsync(data, 0, data.Length);
-            List<byte> outp = new List<byte>();
-            do
-            {
-                byte[] buff = new byte[bufferSize];
-                await connection?.GetStream().ReadAsync(buff, 0, bufferSize);
-                outp.AddRange(buff);
-            } while ((bool)connection?.GetStream()?.DataAvailable);
-            return outp.ToArray();
-        }
-        /// <summary>
-        /// Método invalidable que indica una serie de acciones a realizar al
-        /// conectarse exitosamente con el servidor.
-        /// </summary>
-        /// <remarks>
-        /// De forma predeterminada, no se realiza ninguna acción.
-        /// </remarks>
-        public virtual void AtConnect() { }
-        /// <summary>
-        /// Método invalidable que indica una serie de acciones a realizar al
-        /// desconectarse del servidor.
-        /// </summary>
-        /// <remarks>
-        /// De forma predeterminada, no se realiza ninguna acción.
-        /// </remarks>
-        public virtual void AtDisconnect() { }
-        /// <summary>
-        /// Método invalidable que indica una serie de acciones a realizar al no
-        /// poder establecerse una conexión con el servidor.
-        /// </summary>
-        /// <remarks>
-        /// De forma predeterminada, no se realiza ninguna acción.
-        /// </remarks>
-        public virtual void AtFail() { }
-        /// <summary>
-        /// Se asegura de cerrar la conexión.
-        /// </summary>
-        void ConnChk() { if ((bool)connection?.Connected) connection.Close(); }
-        /// <summary>
-        /// Realiza alguans tareas de limpieza antes de finalizar esta
-        /// instancia de la clase <see cref="Client"/>.
-        /// </summary>
-        ~Client() { ConnChk(); }
-    }
+			NetworkStream ns = connection?.GetStream();
+			if (ns.IsNull())
+#if PreferExceptions
+				throw new ArgumentNullException();
+#else
+				return new byte[] { };
+#endif
+#if Buffered
+			int sze = data.Length;
+			while (sze > 0)
+			{
+				ns.Write(data, data.Length - sze, (bufferSize < sze ? bufferSize : sze));
+				sze -= bufferSize;
+			}
+			List<byte> outp = new List<byte>();            
+			do
+			{
+				byte[] buff = new byte[bufferSize];
+				sze=ns.Read(buff, 0, buff.Length);
+				if (sze < bufferSize) System.Array.Resize(ref buff, sze);
+				outp.AddRange(buff);
+			} while (ns.DataAvailable);
+			return outp.ToArray();
+#else
+			ns.Write(data, 0, data.Length);
+			byte[] buff = new byte[(int)connection?.Available];
+			ns.Read(buff,0, connection.Available);
+			return buff;
+#endif
+		}
+
+		/// <summary>
+		/// Envía un mensaje, y espera a que el servidor responda de forma asíncrona.
+		/// </summary>
+		/// <returns>Un mensaje enviado por el servidor.</returns>
+		/// <param name="data">Mensaje a enviar al servidor.</param>
+		public async Task<byte[]> TalkToServerAsync(byte[] data)
+		{
+			if (!(data?.Length > 0))
+#if PreferExceptions
+				throw new ArgumentNullException();
+#else
+				return new byte[] { };
+#endif
+			NetworkStream ns = connection?.GetStream();
+			if (ns.IsNull())
+#if PreferExceptions
+				throw new ArgumentNullException();
+#else
+				return new byte[] { };
+#endif
+#if Buffered
+			await ns.WriteAsync(data, 0, data.Length);
+			int sze = data.Length;
+			while (sze > 0)
+			{
+				ns.Write(data, data.Length - sze, (bufferSize < sze ? bufferSize : sze));
+				sze -= bufferSize;
+			}
+			List<byte> outp = new List<byte>();
+			do
+			{
+				byte[] buff = new byte[bufferSize];
+				sze = await ns.ReadAsync(buff, 0, buff.Length);
+				if (sze < bufferSize) System.Array.Resize(ref buff, sze);
+				outp.AddRange(buff);
+			} while (ns.DataAvailable);
+			return outp.ToArray();
+#else
+			await ns.WriteAsync(data, 0, data.Length);
+			byte[] buff = new byte[(int)connection?.Available];
+			await ns.ReadAsync(buff,0, connection.Available);
+			return buff;
+#endif
+		}
+		/// <summary>
+		/// Método invalidable que indica una serie de acciones a realizar al
+		/// conectarse exitosamente con el servidor.
+		/// </summary>
+		/// <remarks>
+		/// De forma predeterminada, no se realiza ninguna acción.
+		/// </remarks>
+		public virtual void AtConnect() { }
+		/// <summary>
+		/// Método invalidable que indica una serie de acciones a realizar al
+		/// desconectarse del servidor.
+		/// </summary>
+		/// <remarks>
+		/// De forma predeterminada, no se realiza ninguna acción.
+		/// </remarks>
+		public virtual void AtDisconnect() { }
+		/// <summary>
+		/// Método invalidable que indica una serie de acciones a realizar al no
+		/// poder establecerse una conexión con el servidor.
+		/// </summary>
+		/// <remarks>
+		/// De forma predeterminada, no se realiza ninguna acción.
+		/// </remarks>
+		public virtual void AtFail() { }
+		/// <summary>
+		/// Se asegura de cerrar la conexión.
+		/// </summary>
+		void ConnChk() { if ((bool)connection?.Connected) connection.Close(); }
+		/// <summary>
+		/// Realiza alguans tareas de limpieza antes de finalizar esta
+		/// instancia de la clase <see cref="Client"/>.
+		/// </summary>
+		~Client() { ConnChk(); }
+	}
 }
