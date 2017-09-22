@@ -8,7 +8,6 @@ La solución incluye proyectos de prueba compatibles con UnitTesting de
 Microsoft Visual Studio. Debido a problemas de estabilidad y compatibilidad,
 los proyectos de prueba no se crearon utilizando NUnit Framework (lo que
 hubiese permitido que las pruebas funcionaran en MonoDevelop).
-
 ### Reportar errores
 Al enviar un nuevo reporte de error, el reporte debe incluir:
 * Versión y Branch de MCART utilizada.
@@ -31,7 +30,6 @@ servicio de hosting externo para las imágenes.
 
 **Los errores generados por Unity Testing no son errores necesariamente, sino
 que se deben considerar como diseños de implementación.**
-
 ### Nuevas características / funciones
 Para brindar sugerencias sobre nuevas funciones, únicamente es necesario:
 * Describir lo que la nueva característica debería hacer.
@@ -48,7 +46,6 @@ externos para algunos proyectos, como es el caso de Gtk# en Windows, la
 dependencia en componentes externos debe minimizarse, aunque será posible
 iniciar una discusión al respecto, basado en los motivos por los cuales MCART
 debe depender de un tercer componente en particular.
-
 ### Soporte para nuevas plataformas
 ¡Si eres un programador experimentado en alguna plataforma de .Net/Mono (por ejemplo, Cocoa en macOs), tu aporte de un nuevo proyecto de MCART para soportarla es totalmente bienvenido! La idea de MCART es soportar todas las plataformas posibles en las cuales se encuentre disponible CIL. Se recomienda crear una nueva plataforma si:
 * Se trata de un aporte especial para una plataforma.
@@ -57,12 +54,11 @@ debe depender de un tercer componente en particular.
 Personalmente, debo admitir que probablemente MCART para WPF sea la versión con
 más avances, ya que es mi campo de mayor experiencia. Sin embargo, pretendo que
 los otros proyectos no se queden atrás.
-
 ### Notas adicionales
 #### Gtk:
 En Microsoft Windows, El proyecto Gtk requiere instalar Gtk# 2.12 o posterior,
 el cual se incluye en Xamarin Studio, y además está disponible como componente
-independiente. En Linux, Gtk# se incluye al instalar MonoDevelop.
+independiente. En Linux, Gtk# se incluye al instalar Mono/MonoDevelop.
 
 [Gtk# para .Net Framework](http://www.mono-project.com/docs/gui/gtksharp/installer-for-net-framework/)  
 [Gtk# en NuGet](https://www.nuget.org/packages/GtkSharp)  
@@ -94,4 +90,8 @@ prácticas que puedan parecer inusuales. Reitero, estos son proyectos de ejemplo
 o de prueba, y están pensados únicamente para demostrar la API y realizar
 pruebas de la UI.
 ## Para finalizar...
-Este documento, junto con el resto de la documentación de MCART está sujeta a grandes cambios. es posible que aún tengas dudas respecto al proyecto. Recomiendo verificar con frecuencia si esta documentación ha cambiado. Para cualquier otra duda, pueden contactarme via [e-mail](mailto:xds_xps_ivx@hotmail.com).
+Este documento, junto con el resto de la documentación de MCART está sujeta a 
+grandes cambios. es posible que aún tengas dudas respecto al proyecto. 
+Recomiendo verificar con frecuencia si esta documentación ha cambiado. Para 
+cualquier otra duda, pueden contactarme via 
+[e-mail](mailto:xds_xps_ivx@hotmail.com).

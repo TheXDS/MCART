@@ -44,11 +44,6 @@ namespace MCART
     public static class Common
     {
         /// <summary>
-        /// Limpia la cadena especificada.
-        /// </summary>
-        /// <param name="str">Cadena a limpiar.</param>
-        [Thunk] public static void Clear(ref string str) => str = string.Empty;
-        /// <summary>
         /// Condensa un arreglo de <see cref="string"/>  en una sola cadena.
         /// </summary>
         /// <returns>La cadena condensada.</returns>
@@ -120,12 +115,7 @@ namespace MCART
         /// contrario, <c>false</c>.
         /// </returns>
         /// <param name="str">Cadenas a comprobar.</param>
-        public static bool AreAllEmpty(params string[] str)
-        {
-            foreach (var j in str)
-                if (!j.IsEmpty()) return false;
-            return true;
-        }
+        [Thunk] public static bool AreAllEmpty(params string[] str)=> str.All(j => j.IsEmpty());
         /// <summary>
         /// Determina si alguna cadena está vacía.
         /// </summary>
@@ -134,11 +124,7 @@ namespace MCART
         /// contrario, <c>false</c>.
         /// </returns>
         /// <param name="str">Cadenas a comprobar.</param>
-        public static bool IsAnyEmpty(params string[] str)
-        {
-            foreach (var j in str) if (j.IsEmpty()) return true;
-            return false;
-        }
+        [Thunk] public static bool IsAnyEmpty(params string[] str) => str.Any(j => j.IsEmpty());
         /// <summary>
         /// Determina si alguna cadena está vacía.
         /// </summary>
@@ -201,9 +187,32 @@ namespace MCART
         /// </returns>
         /// <param name="str">Cadena a verificar.</param>
         /// <param name="chars">Caracteres a buscar.</param>
-        public static bool ContainsAny(this string str, params char[] chars)
+        [Thunk] public static bool ContainsAny(this string str, params char[] chars) => ContainsAny(str, out _, chars);
+        /// <summary>
+        /// Determina si la cadena contiene a cualquiera de los caracteres
+        /// especificados.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c> si la cadena contiene a cualquiera de los caracteres,
+        /// <c>false</c> en caso contrario.
+        /// </returns>
+        /// <param name="str">Cadena a verificar.</param>
+        /// <param name="argNum">
+        /// Parámetro de salida. Si <paramref name="str"/> contiene cualquier
+        /// caracter especificado en <paramref name="chars"/>, se devolverá el
+        /// índice del argumento contenido; en caso contrario, se devuelve 
+        /// <c>-1</c>.
+        /// </param>
+        /// <param name="chars">Caracteres a buscar.</param>
+        public static bool ContainsAny(this string str, out int argNum, params char[] chars)
         {
-            foreach (char j in chars) if (str.Contains(j)) return true;
+            argNum = 0;
+            foreach (char j in chars)
+            {
+                if (str.Contains(j)) return true;
+                argNum++;
+            }
+            argNum = -1;
             return false;
         }
         /// <summary>
@@ -211,14 +220,37 @@ namespace MCART
         /// especificadas.
         /// </summary>
         /// <returns>
-        /// <c>true</c> si la cadena contiene a cualquiera de las cadenas,
+        /// <c>true</c> si la cadena contiene a cualquiera de los caracteres,
         /// <c>false</c> en caso contrario.
         /// </returns>
         /// <param name="str">Cadena a verificar.</param>
         /// <param name="strings">Cadenas a buscar.</param>
-        public static bool ContainsAny(this string str, params string[] strings)
+        [Thunk] public static bool ContainsAny(this string str, params string[] strings) => ContainsAny(str, out _, strings);
+        /// <summary>
+        /// Determina si la cadena contiene a cualquiera de las cadenas
+        /// especificadas.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c> si la cadena contiene a cualquiera de los caracteres,
+        /// <c>false</c> en caso contrario.
+        /// </returns>
+        /// <param name="str">Cadena a verificar.</param>
+        /// <param name="argNum">
+        /// Parámetro de salida. Si <paramref name="str"/> contiene cualquier
+        /// caracter especificado en <paramref name="strings"/>, se devolverá
+        /// el índice del argumento contenido; en caso contrario, se devuelve 
+        /// <c>-1</c>.
+        /// </param>
+        /// <param name="strings">Cadenas a buscar.</param>
+        public static bool ContainsAny(this string str, out int argNum, params string[] strings)
         {
-            foreach (string j in strings) if (str.Contains(j)) return true;
+            argNum = 0;
+            foreach (string j in strings)
+            {
+                if (str.Contains(j)) return true;
+                argNum++;
+            }
+            argNum = -1;
             return false;
         }
         /// <summary>
@@ -229,7 +261,7 @@ namespace MCART
         /// tipo <see cref="string"/>.</param>
         public static string CollectionListed(this IEnumerable<string> lst)
         {
-            System.Text.StringBuilder a = new System.Text.StringBuilder();
+            StringBuilder a = new StringBuilder();
             foreach (string j in lst) a.AppendLine(j);
             return a.ToString();
         }
@@ -247,7 +279,6 @@ namespace MCART
                 T c = a;
                 a = b;
                 b = c;
-                c = default(T);
             }
             catch (Exception ex)
             {
@@ -443,6 +474,6 @@ namespace MCART
         /// La representación hexadecimal de <paramref name="b"/>.
         /// </returns>
         /// <param name="b">El <see cref="byte"/> a convertir.</param>
-        public static string ToHex(this byte b) => b.ToString("X");
+        [Thunk] public static string ToHex(this byte b) => b.ToString("X");
     }
 }

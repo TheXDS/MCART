@@ -6,12 +6,16 @@
     <SharedGUID>4963ba2e-aa9f-43df-9674-d7257a201aa3</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Core_GUI</Import_RootNamespace>
+    <Import_RootNamespace>MCART</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\IGraph.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\ISliceGraph.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\LightGraph.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\NavigationBar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ProgressRing.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\Slice.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Modules\UI.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\PluginStatic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Icons.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\PwDialogResult.cs" />

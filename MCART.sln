@@ -39,7 +39,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp-Win32", "Examples\T
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TestApp-WPF", "Examples\TestApp-WPF\TestApp-WPF.vbproj", "{D92E5DCA-64C6-4B41-B88D-59B0001814B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetStandard", "MCART\NetStandard\NetStandard.csproj", "{BDC6D2BE-54B0-47B3-83CC-046BE00268C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetStandard", "MCART\NetStandard\NetStandard.csproj", "{BDC6D2BE-54B0-47B3-83CC-046BE00268C3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{D34D6209-75E9-495C-A672-3C3D04EC7A26}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\AUTHORS = Documentation\AUTHORS
+		Documentation\CHANGELOG = Documentation\CHANGELOG
+		CONTRIBUTING.md = CONTRIBUTING.md
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

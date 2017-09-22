@@ -26,6 +26,9 @@ using MCART;
 using MCART.Forms;
 using MCART.PluginSupport;
 
+/// <summary>
+/// Ventana principal de la aplicación.
+/// </summary>
 public partial class MainWindow : Window
 {
     List<IPlugin> pl = Plugin.LoadEverything<IPlugin>();
@@ -37,7 +40,7 @@ public partial class MainWindow : Window
         Build();
         if (pl.Count > 0)
         {
-            //HACK: Ubicación dura del submenú de plugins.
+            // HACK: Ubicación dura del submenú de plugins.
             Menu mnuplugins = (Menu)((ImageMenuItem)mnuMain.Children[2]).Submenu;
             mnuplugins.ClearContents();
             mnuplugins.AddPlugins(pl);
@@ -54,7 +57,6 @@ public partial class MainWindow : Window
         Application.Quit();
         e.RetVal = true;
     }
-
     void OnSalirActionActivated(object sender, EventArgs e) => Destroy();
     void OnInfoDePluginsAction1Activated(object sender, EventArgs e)
     {

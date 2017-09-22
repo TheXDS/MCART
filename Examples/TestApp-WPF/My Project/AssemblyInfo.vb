@@ -1,59 +1,34 @@
-﻿Imports System
+﻿'
+'  AssemblyInfo.vb
+'
+'  This file Is part of MCART
+'
+'  Author:
+'       César Andrés Morgan <xds_xps_ivx@hotmail.com>
+'
+'  Copyright (c) 2011 - 2017 César Andrés Morgan
+'
+'  MCART Is free software: you can redistribute it And/Or modify
+'  it under the terms of the GNU General Public License as published by
+'  the Free Software Foundation, either version 3 of the License, Or
+'  (at your option) any later version.
+'
+'  MCART Is distributed in the hope that it will be useful,
+'  but WITHOUT ANY WARRANTY; without even the implied warranty of
+'  MERCHANTABILITY Or FITNESS FOR A PARTICULAR PURPOSE.  See the
+'  GNU General Public License for more details.
+'
+'  You should have received a copy of the GNU General Public License
+'  along with this program.  If Not, see <http:'www.gnu.org/licenses/>.
+
 Imports System.Reflection
 Imports System.Runtime.InteropServices
-Imports System.Globalization
-Imports System.Resources
-Imports System.Windows
-
-' General Information about an assembly is controlled through the following 
-' set of attributes. Change these attribute values to modify the information
-' associated with an assembly.
-
-' Review the values of the assembly attributes
-
 <Assembly: AssemblyTitle("TestApp")>
 <Assembly: AssemblyDescription("Aplicación de pruebas de MCART")>
 <Assembly: AssemblyCompany("TheXDS! non-Corp.")>
 <Assembly: AssemblyProduct("MCA Runtime")>
 <Assembly: AssemblyCopyright("Copyright © 2017 TheXDS! non-Corp.")>
 <Assembly: AssemblyTrademark("MCA Corporation")>
-<Assembly: ComVisible(false)>
-
-'In order to begin building localizable applications, set 
-'<UICulture>CultureYouAreCodingWith</UICulture> in your .vbproj file
-'inside a <PropertyGroup>.  For example, if you are using US english 
-'in your source files, set the <UICulture> to "en-US".  Then uncomment the
-'NeutralResourceLanguage attribute below.  Update the "en-US" in the line
-'below to match the UICulture setting in the project file.
-
-'<Assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.Satellite)> 
-
-
-'The ThemeInfo attribute describes where any theme specific and generic resource dictionaries can be found.
-'1st parameter: where theme specific resource dictionaries are located
-'(used if a resource is not found in the page, 
-' or application resource dictionaries)
-
-'2nd parameter: where the generic resource dictionary is located
-'(used if a resource is not found in the page, 
-'app, and any theme specific resource dictionaries)
+<Assembly: ComVisible(False)>
 <Assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)>
-
-
-
-'The following GUID is for the ID of the typelib if this project is exposed to COM
-<Assembly: Guid("99736aaf-4278-43e0-a587-c2f3d6b1fe17")>
-
-' Version information for an assembly consists of the following four values:
-'
-'      Major Version
-'      Minor Version 
-'      Build Number
-'      Revision
-'
-' You can specify all the values or you can default the Build and Revision Numbers 
-' by using the '*' as shown below:
-' <Assembly: AssemblyVersion("1.0.*")> 
-
-<Assembly: AssemblyVersion("1.0.0.0")>
-<Assembly: AssemblyFileVersion("1.0.0.0")>
+<Assembly: AssemblyVersion("0.6.*")>

@@ -48,11 +48,11 @@ namespace MCART
             /// <summary>
             /// Color primario original.
             /// </summary>
-            internal System.Windows.Media.Brush fore;
+            internal Brush fore;
             /// <summary>
             /// Color de fondo original.
             /// </summary>
-            internal System.Windows.Media.Brush bacg;
+            internal Brush bacg;
             /// <summary>
             /// Referencia del control al cual se aplica.
             /// </summary>
@@ -64,7 +64,7 @@ namespace MCART
         }
         /// <summary>
         /// Lista privada de estados de los controles modificados por la función
-        /// 
+        /// <see cref="Warn(Control, string)"/>
         /// </summary>
         static List<OrigControlColor> origctrls = new List<OrigControlColor>();
         /// <summary>
@@ -134,7 +134,7 @@ namespace MCART
         /// <param name="angle">Ángulo, o tamaño del arco.</param>
         /// <param name="thickness">
         /// Grosor del trazo del arco. Ayuda a balancear el grosor del trazo y
-        /// el radio para lograr un tamaño más uniforme.
+        /// el radio para lograr un tamaño más consistente.
         /// </param>
         /// <returns>
         /// Un <see cref="PathGeometry"/> que contiene el arco generado por
@@ -142,19 +142,19 @@ namespace MCART
         /// </returns>
         public static PathGeometry GetCircleArc(double radius, double angle, double thickness = 0)
         {
-            System.Windows.Point cp = new System.Windows.Point(radius + (thickness / 2), radius + (thickness / 2));
+            Point cp = new Point(radius + (thickness / 2), radius + (thickness / 2));
             ArcSegment arc = new ArcSegment()
             {
                 IsLargeArc = angle > 180.0,
-                Point = new System.Windows.Point(
+                Point = new Point(
                     cp.X + System.Math.Sin(Math.Deg_Rad * angle) * radius,
                     cp.Y - System.Math.Cos(Math.Deg_Rad * angle) * radius),
-                Size = new System.Windows.Size(radius, radius),
+                Size = new Size(radius, radius),
                 SweepDirection = SweepDirection.Clockwise
             };
             PathFigure pth = new PathFigure()
             {
-                StartPoint = new System.Windows.Point(radius + (thickness / 2), thickness / 2),
+                StartPoint = new Point(cp.X, cp.Y - radius),
                 IsClosed = false
             };
             pth.Segments.Add(arc);
@@ -162,6 +162,46 @@ namespace MCART
             outp.Figures.Add(pth);
             return outp;
         }
+        /// <summary>
+        /// Genera un arco de círculo que puede usarse en Windows Presentation
+        /// Framework.
+        /// </summary>
+        /// <param name="radius">Radio del arco a generar.</param>
+        /// <param name="startAngle">Ángulo inicial del arco.</param>
+        /// <param name="endAngle">Ángulo final del arco.</param>
+        /// <param name="thickness">
+        /// Grosor del trazo del arco. Ayuda a balancear el grosor del trazo y
+        /// el radio para lograr un tamaño más consistente.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="PathGeometry"/> que contiene el arco generado por
+        /// esta función.
+        /// </returns>
+        public static PathGeometry GetCircleArc(double radius, double startAngle, double endAngle, double thickness)
+        {
+            Point cp = new Point(radius + (thickness / 2), radius + (thickness / 2));
+            ArcSegment arc = new ArcSegment()
+            {
+                IsLargeArc = endAngle > 180.0,
+                Point = new Point(
+                    cp.X + System.Math.Sin(Math.Deg_Rad * endAngle) * radius,
+                    cp.Y - System.Math.Cos(Math.Deg_Rad * endAngle) * radius),
+                Size = new Size(radius, radius),
+                SweepDirection = SweepDirection.Clockwise
+            };
+            PathFigure pth = new PathFigure()
+            {
+                StartPoint = new Point(
+                    cp.X + System.Math.Sin(Math.Deg_Rad * startAngle) * radius,
+                    cp.Y - System.Math.Cos(Math.Deg_Rad * startAngle) * radius),
+                IsClosed = false
+            };
+            pth.Segments.Add(arc);
+            PathGeometry outp = new PathGeometry();
+            outp.Figures.Add(pth);
+            return outp;
+        }
+
         /// <summary>
         /// Establece un estado de error para un control.
         /// </summary>

@@ -1,5 +1,5 @@
 ﻿//
-//  PwDialogResult.cs
+//  PwEvalResult.cs
 //
 //  This file is part of MCART
 //
@@ -21,61 +21,54 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#pragma warning disable CS0282 // No hay un orden específico entre los campos en declaraciones múltiples de la estructura parcial
-
 namespace MCART.Security.Password
 {
     /// <summary>
-    /// Representa el resultado de un cuadro de diálogo
-    /// <see cref="Forms.PasswordDialog"/>.
+    /// Contiene información sobre el resultado de la evaluación de una
+    /// contraseña.
     /// </summary>
-    public partial struct PwDialogResult
+    public struct PwEvalResult
     {
-        //TODO: considerar cambiar los campos de string a SecureString.
-        string u;       
-        string p;
-        string h;
-        PwEvalResult e;
         /// <summary>
-        /// Obtiene el usuario introducido en el 
-        /// <see cref="Forms.PasswordDialog"/>.
+        /// Resultado de la evaluación de la contraseña
         /// </summary>
-        /// <returns>
-        /// Si se muestra este diálogo con <see cref="PwMode.Usr"/>, se 
-        /// devuelve el usuario introducido en el 
-        /// <see cref="Forms.PasswordDialog"/>; de lo contrario se devuelve
-        /// <see cref="string.Empty"/>.
-        /// </returns>
-        public string Usr => u;
+        public float Result;
         /// <summary>
-        /// Obtiene la contraseña que el usuario ha introducido.
+        /// Si es <c>true</c>, la contraseña no continuará siendo evaluada, ya
+        /// que es inválida.
         /// </summary>
-        /// <returns>
-        /// Un <see cref="string"/> con la contraseña que el usuario ha 
-        /// introducido.
-        /// </returns>
-        public string Pwd => p;
+        public bool Critical;
         /// <summary>
-        /// Obtiene el indicio de contraseña introducido por el usuario.
+        /// Detalles que el <see cref="PwEvaluator"/> ha colocado sobre la
+        /// evaluación de la contraseña.
         /// </summary>
-        /// <returns>
-        /// <see cref="string.Empty"/> si el cuadro se inicia con 
-        /// <see cref="Forms.PasswordDialog.GetPassword(string, string, bool)"/>.
-        /// Si se inicia con 
-        /// <see cref="Forms.PasswordDialog.ChoosePassword(PwMode, PwEvaluator)"/>,
-        /// se devuelve un <see cref="string"/> con el indicio de contraseña 
-        /// que el usuario ha introducido.
-        /// </returns>
-        public string Hint => h;
+        public string Details;
         /// <summary>
-        /// Obtiene el resultado de la evaluación de la contraseña.
+        /// Inicializa una nueva instancia de la estructura
+        /// <see cref="PwEvalResult"/>.
         /// </summary>
-        /// <returns>
-        /// Si se muestra este diálogo con <see cref="PwMode.Secur"/>, se
-        /// devuelve el resultado de la evaluación de las reglas especificadas;
-        /// de lo contrario se devuelve <see cref="PwEvalResult.Null"/>.
-        /// </returns>
-        public PwEvalResult Evaluation => e;
+        /// <param name="r">Resultado de la evaluación.</param>
+        /// <param name="d">Detalles de la evaluación.</param>
+        /// <param name="c">
+        /// Criticalidad de la evaluación. Si se establece en <c>true</c>, la
+        /// contraseña no seguirá siendo evaluada, ya que es inválida.
+        /// </param>
+        public PwEvalResult(float r, string d = null, bool c = false)
+        {
+            Result = r;
+            Critical = c;
+            Details = d;
+        }
+        /// <summary>
+        /// Obtiene un <see cref="PwEvalResult"/> nulo. Este campo es de sólo 
+        /// lectura.
+        /// </summary>
+        public static PwEvalResult Null => new PwEvalResult();
+        /// <summary>
+        /// Obtiene un <see cref="PwEvalResult"/> fallido. Este campo es de
+        /// sólo lectura.
+        /// </summary>
+        public static PwEvalResult Fail => new PwEvalResult(0, null, true);
         /// <summary>
         /// Evalúa si esta instancia y <paramref name="obj"/> son 
         /// iguales.
@@ -85,10 +78,9 @@ namespace MCART.Security.Password
         /// <c>true</c> si ambos objetos son iguales, <c>false</c> en caso
         /// contrario.
         /// </returns>
-
         public override bool Equals(object obj) => base.Equals(obj);
         /// <summary>
-        /// Obtiene el código hash de esta instancia.
+        /// Devuelve el código Hash para esta instancia.
         /// </summary>
         /// <returns>El código Hash que representa a esta instancia.</returns>
         public override int GetHashCode() => base.GetHashCode();
@@ -102,9 +94,9 @@ namespace MCART.Security.Password
         /// <c>true</c> si ambos objetos son iguales, <c>false</c> en caso
         /// contrario.
         /// </returns>
-        public static bool operator ==(PwDialogResult left, PwDialogResult right)
+        public static bool operator ==(PwEvalResult left, PwEvalResult right)
         {
-            return left.e == right.e && left.u== right.u & left.p==right.p;
+            return (left.Result == right.Result) && left.Critical == right.Critical;
         }
         /// <summary>
         /// Evalúa si <paramref name="left"/> y <paramref name="right"/> son 
@@ -116,6 +108,6 @@ namespace MCART.Security.Password
         /// <c>true</c> si los objetos son diferentes, <c>false</c> en caso
         /// contrario.
         /// </returns>
-        public static bool operator !=(PwDialogResult left, PwDialogResult right)=> !(left == right);        
+        public static bool operator !=(PwEvalResult left, PwEvalResult right) => !(left == right);
     }
 }

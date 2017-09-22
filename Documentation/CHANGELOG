@@ -141,11 +141,12 @@ Otras mejoras y correcciones varias.
 MCART 0.6.0.0 (actualmente un TODO list)
 - Todo el código se ha mudado a C# desde VB
 - Se ha adoptado la licencia GNU GPL3
+- Todos los módulos han sido reorganizados
 Nuevo: El proyecto ahora es multiplataforma
-Nuevo: Soporte para Mono Runtime 5.0.1
+Nuevo: Soporte para Mono Runtime
+Nuevo: Soporte para .Net Standard (Core 2.0)
 Nuevo: Soporte para Linux/macOs por medio de Mono Runtime
-Nuevo: Librería de UI en gtk3 (incluye widgets y ventanas)
+Nuevo: Librería de UI en gtk (incluye widgets y ventanas)
 Nuevo: Librería de UI en Windows Forms (incluye controles y formularios)
 Nuevo: Librería de UI en WPF (incluye controles y ventanas)
-Nuevo: Librería de UI en UWP (incluye controles y pantallas)
 Mejorado: Reescritura total del espacio de nombres MCART.Networking

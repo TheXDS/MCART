@@ -30,7 +30,7 @@ namespace MCART.Types
         /// <see cref="System.Windows.Media.Color"/>.
         /// </summary>
         /// <param name="c"><see cref="Color"/> a convertir.</param>
-        public static implicit operator System.Windows.Media.Color(Color c)=>System.Windows.Media.Color.FromScRgb(c.ScA,c.ScR,c.ScG,c.ScB);
+        public static implicit operator System.Windows.Media.Color(Color c) => System.Windows.Media.Color.FromScRgb(c.ScA, c.ScR, c.ScG, c.ScB);
         /// <summary>
         /// Convierte implícitamente una estructura
         /// <see cref="System.Windows.Media.Color"/> en un <see cref="Color"/>.
@@ -39,12 +39,18 @@ namespace MCART.Types
         /// <see cref="System.Windows.Media.Color"/> a convertir.
         /// </param>
         public static implicit operator Color(System.Windows.Media.Color c)
-        {            
+        {
             return new Color(
                 c.ScR.Clamp(0.0f, 1.0f),
                 c.ScG.Clamp(0.0f, 1.0f),
                 c.ScB.Clamp(0.0f, 1.0f),
                 c.ScA.Clamp(0.0f, 1.0f));
         }
+        /// <summary>
+        /// Convierte implícitamente una estructura <see cref="Color"/> en un
+        /// <see cref="System.Windows.Media.Brush"/>.
+        /// </summary>
+        /// <param name="c"><see cref="Color"/> a convertir.</param>
+        public static implicit operator System.Windows.Media.Brush(Color c) => new System.Windows.Media.SolidColorBrush(c);
     }
 }

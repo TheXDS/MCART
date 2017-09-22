@@ -14,16 +14,17 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Build\Debug\Gtk\</OutputPath>
+    <OutputPath>..\..\Build\Gtk\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;IncludeExampleImplementations</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DocumentationFile>..\..\Build\Debug\Gtk\MCART.xml</DocumentationFile>
+    <DocumentationFile>..\..\Build\Gtk\Debug\MCART.xml</DocumentationFile>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <Optimize>true</Optimize>
-    <OutputPath>..\..\Build\Release\</OutputPath>
+    <OutputPath>..\..\Build\Gtk\Release\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
@@ -65,7 +66,6 @@
     <Compile Include="PluginSupport\Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Forms\PluginBrowser.cs" />
-    <Compile Include="gtk-gui\MCART.Forms.PluginBrowser.cs" />
     <Compile Include="Modules\UI.cs" />
     <Compile Include="PluginSupport\InteractionItem.cs" />
     <Compile Include="Security\Password\PwDialogResult.cs" />
@@ -74,6 +74,7 @@
     <Compile Include="Types\Point.cs" />
     <Compile Include="Types\TaskReporter\TaskReporterControl.cs" />
     <Compile Include="Controls\BarStepper.cs" />
+    <Compile Include="gtk-gui\MCART.Forms.PluginBrowser.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />

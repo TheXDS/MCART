@@ -721,7 +721,7 @@ namespace System.Windows.Converters
         /// <param name="notEmpty">
         /// <see cref="Visibility"/> a devolver cuando la cadena no esté vacía.
         /// </param>
-        public StringVisibilityConverter(Visibility empty = Visibility.Collapsed, Visibility notEmpty = Visibility.Visible)
+        public StringVisibilityConverter(Visibility empty, Visibility notEmpty = Visibility.Visible)
         {
             NotEmpty = notEmpty;
             Empty = empty;
@@ -745,6 +745,15 @@ namespace System.Windows.Converters
                 NotEmpty = Visibility.Collapsed;
                 Empty = Visibility.Visible;
             }
+        }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="StringVisibilityConverter"/>.
+        /// </summary>
+        public StringVisibilityConverter()
+        {
+            NotEmpty = Visibility.Visible;
+            Empty = Visibility.Collapsed;
         }
         /// <summary>
         /// Obtiene un <see cref="Visibility"/> a partir del valor.

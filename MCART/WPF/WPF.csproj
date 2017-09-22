@@ -19,20 +19,24 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Build\Debug\WPF\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;IncludeExampleImplementations</DefineConstants>
+    <OutputPath>..\..\Build\WPF\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\Build\Debug\WPF\MCART.xml</DocumentationFile>
+    <DocumentationFile>..\..\Build\WPF\Debug\MCART.xml</DocumentationFile>
+    <LangVersion>7</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\Build\Release\</OutputPath>
+    <OutputPath>..\..\Build\WPF\Release\</OutputPath>
     <DefineConstants>
     </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -54,9 +58,14 @@
   <ItemGroup>
     <Compile Include="Controls\BarStepper.cs" />
     <Compile Include="Controls\BusyIndicator.cs" />
+    <Compile Include="Controls\Graph\Slice.cs" />
     <Compile Include="Controls\LightGraph.cs" />
     <Compile Include="Controls\NavigationBar.cs" />
     <Compile Include="Controls\ProgressRing.cs" />
+    <Compile Include="Controls\Graph\RingGraph.xaml.cs">
+      <DependentUpon>RingGraph.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SearchBox.cs" />
     <Compile Include="Forms\PasswordDialog.cs" />
     <Compile Include="Forms\PluginBrowser.xaml.cs">
       <DependentUpon>PluginBrowser.xaml</DependentUpon>
@@ -86,11 +95,16 @@
     <Compile Include="Modules\UI.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\Graph\RingGraph.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\PluginBrowser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="..\..\CoreComponents\Core\Core.projitems" Label="Shared" />
   <Import Project="..\..\CoreComponents\Core-Windows\Core-Windows.projitems" Label="Shared" />
   <Import Project="..\..\CoreComponents\Core-GUI\Core-GUI.projitems" Label="Shared" />

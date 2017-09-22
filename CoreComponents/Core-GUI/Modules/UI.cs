@@ -1,5 +1,5 @@
 ﻿//
-//  Window.cs
+//  UI.cs
 //
 //  This file is part of MCART
 //
@@ -20,15 +20,26 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
+
+using MCART.Types.Extensions;
+using System.Drawing;
+
 namespace MCART
 {
-	public partial class Window : Gtk.Window
-	{
-		public Window() :
-				base(Gtk.WindowType.Toplevel)
-		{
-			this.Build();
-		}
-	}
+    /// <summary>
+    /// Módulo de funciones universales de UI.
+    /// </summary>
+    public static partial class UI
+    {
+        /// <summary>
+        /// Devuelve un <see cref="Brush"/> aleatorio.
+        /// </summary>
+        /// <returns>
+        /// Un <see cref="Brush"/> seleccionado aleatoriamente.
+        /// </returns>
+        public static Brush PickBrush()
+        {
+            return (Brush)typeof(Brushes).GetProperties().Pick().GetValue(null);
+        }
+    }
 }
