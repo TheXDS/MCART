@@ -69,7 +69,7 @@ namespace MCART
         /// <c>true</c> si el tipo <paramref name="source"/> puede ser asignado 
         /// a uno de los tipos especificados, <c>false</c> en caso contrario.
         /// </returns>
-        [Thunk] public static bool AnyAssignableFrom(this IEnumerable<Type> types, Type source) => AnyAssignableFrom(types, source, out int? ignore);
+        [Thunk] public static bool AnyAssignableFrom(this IEnumerable<Type> types, Type source) => AnyAssignableFrom(types, source, out _);
         /// <summary>
         /// Comprueba si todos los tipos son asignables a partir del tipo
         /// <paramref name="source"/>.
@@ -78,12 +78,7 @@ namespace MCART
         /// <param name="source">Tipo que desea asignarse.</param>
         /// <returns><c>true</c> si todos los tipos son asignables a partir de
         /// <paramref name="source"/>; de lo contrario, <c>false</c>.</returns>
-        public static bool AreAssignableFrom(this Type[] types, Type source)
-        {
-            foreach (Type j in types)
-                if (!j.IsAssignableFrom(source)) return false;
-            return true;
-        }
+        [Thunk] public static bool AreAssignableFrom(this Type[] types, Type source) => types.All(p => p.IsAssignableFrom(source));
         /// <summary>
         /// Determina si cualquiera de los objetos es <c>null</c>.
         /// </summary>
@@ -92,11 +87,7 @@ namespace MCART
         /// contrario, <c>false</c>.
         /// </returns>
         /// <param name="x">Objetos a comprobar.</param>
-        public static bool AreAnyNull(params object[] x)
-        {
-            foreach (object j in x) if (j.IsNull()) return true;
-            return false;
-        }
+        [Thunk] public static bool IsAnyNull(params object[] x) => x.Any(p => p.IsNull());
         /// <summary>
         /// Determina si cualquiera de los objetos es <c>null</c>.
         /// </summary>
@@ -110,7 +101,7 @@ namespace MCART
         /// se devolverá <c>-1</c>.
         /// </param>
         /// <param name="x">Objetos a comprobar.</param>
-        public static bool AreAnyNull(out int index, params object[] x)
+        public static bool IsAnyNull(out int index, params object[] x)
         {
             index = 0;
             foreach (object j in x)
@@ -129,11 +120,7 @@ namespace MCART
         /// <c>false</c>.
         /// </returns>
         /// <param name="x">Objetos a comprobar.</param>
-        public static bool AreAllNull(params object[] x)
-        {
-            foreach (object j in x) if (!j.IsNull()) return false;
-            return true;
-        }
+        [Thunk] public static bool AreAllNull(params object[] x) => x.All(p => p.IsNull());
         /// <summary>
         /// Obtiene un valor que determina si el objeto es <c>null</c>.
         /// </summary>
@@ -179,11 +166,7 @@ namespace MCART
 		/// objetos especificados; de lo contrario, <c>false</c>.</returns>
 		/// <param name="obj">Objeto a comprobar.</param>
 		/// <param name="objs">Lista de objetos a comparar.</param>
-		public static bool IsEither(this object obj, params object[] objs)
-        {
-            foreach (object o in objs) if (ReferenceEquals(obj, o)) return true;
-            return false;
-        }
+		[Thunk] public static bool IsEither(this object obj, params object[] objs) => objs.Any(p => p.Is(obj));
         /// <summary>
         /// Determina si un objeto no es ninguno de los indicados.
         /// </summary>
@@ -191,11 +174,7 @@ namespace MCART
         /// objetos especificados; de lo contrario, <c>false</c>.</returns>
         /// <param name="obj">Objeto a comprobar.</param>
         /// <param name="objs">Lista de objetos a comparar.</param>
-        public static bool IsNeither(this object obj, params object[] objs)
-        {
-            foreach (object o in objs) if (ReferenceEquals(obj, o)) return false;
-            return true;
-        }
+        [Thunk] public static bool IsNeither(this object obj, params object[] objs) => objs.All(p => !p.Is(obj));
         /// <summary>
         /// Obtiene una lista de tipos asignables a partir de la interfaz 
         /// especificada.
@@ -238,7 +217,7 @@ namespace MCART
             foreach (object j in objects) yield return j.GetType();
         }
         /// <summary>
-        /// Inicializa una nueva instancia del tipo dinámico especificado.
+        /// Inicializa una nueva instancia del tipo en runtime especificado.
         /// </summary>
         /// <returns>La nueva instancia del tipo especificado.</returns>
         /// <typeparam name="T">Tipo de instancia a crear.</typeparam>
@@ -253,7 +232,7 @@ namespace MCART
         /// <typeparam name="T">Tipo de instancia a devolver.</typeparam>
         [Thunk] public static T New<T>(this Type j) => j.New<T>(new object[] { });
         /// <summary>
-        /// Inicializa una nueva instancia del tipo dinámico especificado.
+        /// Inicializa una nueva instancia del tipo en runtime especificado.
         /// </summary>
         /// <returns>La nueva instancia del tipo especificado.</returns>
         /// <param name="j">Tipo a instanciar.</param>
@@ -283,7 +262,7 @@ namespace MCART
             return (T)j.GetConstructor(Params.ToTypes().ToArray()).Invoke(Params);
         }
         /// <summary>
-        /// Inicializa una nueva instancia del tipo dinámico especificado.
+        /// Inicializa una nueva instancia del tipo en runtime especificado.
         /// </summary>
         /// <returns>La nueva instancia del tipo especificado.</returns>
         /// <param name="j">Tipo a instanciar.</param>
@@ -310,6 +289,13 @@ namespace MCART
         /// <param name="it"><see cref="System.Reflection.Assembly"/> del cual se extraerá el atributo.</param>
         /// <returns>Un atributo del tipo <typeparamref name="T"/> con los datos asociados en la declaración del objeto.</returns>
         [Thunk] public static T GetAttr<T>(this System.Reflection.Assembly it) where T : Attribute => (T)Attribute.GetCustomAttribute(it, typeof(T));
+        /// <summary>
+        /// Devuelve el atributo asociado a la declaración del objeto especificado.
+        /// </summary>
+        /// <typeparam name="T">Tipo de atributo a devolver. Debe heredar <see cref="Attribute"/>.</typeparam>
+        /// <param name="it">Objeto del cual se extraerá el atributo.</param>
+        /// <returns>Un atributo del tipo <typeparamref name="T"/> con los datos asociados en la declaración del objeto.</returns>
+        [Thunk] public static T GetAttr<T>(this System.Reflection.MemberInfo it) where T : Attribute => (T)Attribute.GetCustomAttribute(it, typeof(T));
         /// <summary>
         /// Devuelve el atributo asociado a la declaración del objeto especificado.
         /// </summary>
@@ -364,7 +350,7 @@ namespace MCART
         [Thunk]
         public static bool IsNumericType(Type T)
         {
-            return new Type[]{
+            return new []{
                 typeof(byte),
                 typeof(sbyte),
                 typeof(short),

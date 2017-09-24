@@ -98,7 +98,7 @@ namespace MCART.PluginSupport
             if (chkVersion) return !m.IsInterface && !m.IsAbstract;
             var mt = m.GetAttr<MinMCARTVersionAttribute>()?.Value;
             var tt = m.GetAttr<TargetMCARTVersionAttribute>()?.Value;
-            if (Objects.AreAnyNull(mt, tt)) return false;
+            if (Objects.IsAnyNull(mt, tt)) return false;
             var mv = Resources.RTInfo.RTAssembly.GetName().Version;
             return !m.IsInterface && !m.IsAbstract && mv.IsBetween(mt, tt);
 #else

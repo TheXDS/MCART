@@ -57,7 +57,7 @@ namespace MCART.Resources
         {
             var minv = asmbly.GetAttr<MinMCARTVersionAttribute>();
             var tgtv = asmbly.GetAttr<TargetMCARTVersionAttribute>();
-            if (Objects.AreAnyNull(minv, tgtv)) return null;
+            if (Objects.IsAnyNull(minv, tgtv)) return null;
             Version vr = RTAssembly.GetName().Version;
             return vr.IsBetween(minv.Value, tgtv.Value);
         }
@@ -76,7 +76,7 @@ namespace MCART.Resources
         {
             var minv = typeof(T).GetAttr<MinMCARTVersionAttribute>();
             var tgtv = typeof(T).GetAttr<TargetMCARTVersionAttribute>();
-            if (Objects.AreAnyNull(minv, tgtv)) return null;
+            if (Objects.IsAnyNull(minv, tgtv)) return null;
             Version vr = RTAssembly.GetName().Version;
             return vr.IsBetween(minv.Value, tgtv.Value);
         }
