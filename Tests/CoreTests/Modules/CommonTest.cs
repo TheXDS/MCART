@@ -36,16 +36,6 @@ namespace MCARTTest
     public class CommonTest
     {
         /// <summary>
-        /// Prueba del método <see cref="Common.Clear(ref string)"/>
-        /// </summary>
-        [TestMethod]
-        public void ClearTest()
-        {
-            string clearThis = "Clear this.";
-            Clear(ref clearThis);
-            Assert.AreEqual(String.Empty, clearThis);
-        }
-        /// <summary>
         /// Prueba del método <see cref="Common.Condense(System.Collections.Generic.IEnumerable{string}, string)"/>
         /// </summary>
         [TestMethod]
@@ -60,7 +50,7 @@ namespace MCARTTest
         public void LeftTest()
         {
             //Pruebas de sanidad de argumentos...
-            Assert.ThrowsException<ArgumentOutOfRangeException>(()=>
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
             {
                 string tst1 = "Test".Left(5);
             });
@@ -70,7 +60,7 @@ namespace MCARTTest
             });
 
             //Prueba de valores devueltos...
-            Assert.AreEqual("Te","Test".Left(2));
+            Assert.AreEqual("Te", "Test".Left(2));
         }
         /// <summary>
         /// Prueba del método <see cref="Common.Right(string, int)"/>
@@ -99,9 +89,10 @@ namespace MCARTTest
         {
             Assert.IsTrue(String.Empty.IsEmpty());
             Assert.IsFalse("Test".IsEmpty());
+            Assert.IsTrue((null as string).IsEmpty());
         }
         /// <summary>
-        /// Prueba del método <see cref="Common.AreAllEmpty(string[])"/>
+        /// Prueba del método <see cref="AreAllEmpty(string[])"/>
         /// </summary>
         [TestMethod]
         public void AreAllEmptyTest()
@@ -110,21 +101,15 @@ namespace MCARTTest
             Assert.IsFalse(AreAllEmpty(null, "Test", string.Empty));
         }
         /// <summary>
-        /// Prueba del método <see cref="Common.IsAnyEmpty(out int[], string[])"/>
+        /// Prueba del método <see cref="IsAnyEmpty(out int[], string[])"/>
         /// </summary>
         [TestMethod]
-        public void IsAnyEmptyTest1()
+        public void IsAnyEmptyTest()
         {
             Assert.IsTrue(IsAnyEmpty("Test", String.Empty, ""));
-        }
-        /// <summary>
-        /// Prueba del método <see cref="Common.IsAnyEmpty(out int[], string[])"/>
-        /// </summary>
-        [TestMethod]
-        public void IsAnyEmptyTest2()
-        {
             Assert.IsTrue(IsAnyEmpty(out int[] idxs, "Test", String.Empty, ""));
-            Assert.IsTrue(idxs.Length == 2 && idxs[0] == 1 && idxs[1]==2);
+            Assert.IsTrue(idxs.Length == 2 && idxs[0] == 1 && idxs[1] == 2);
+            Assert.IsFalse(IsAnyEmpty("T", "e", "s", "t"));
         }
         /// <summary>
         /// Prueba del método <see cref="Common.CountChars(string, char[])"/>
@@ -136,6 +121,19 @@ namespace MCARTTest
             Assert.AreEqual(5, "This is a test".CountChars("i "));
         }
         /// <summary>
+        /// Prueba del método <see cref="Common.ContainsAny(string, char[])"/>.
+        /// </summary>
+        [TestMethod]
+        public void ContainsAnyTest()
+        {
+            Assert.IsTrue("Test".ContainsAny(out int idx, 'q', 't', 'a'));
+            Assert.AreEqual(idx, 1);
+            Assert.IsTrue("Test".ContainsAny(out int idx2,"t", "a"));
+            Assert.AreEqual(idx2, 0);
+            Assert.IsFalse("Test".ContainsAny(out int idx3, 'a', 'd'));
+            Assert.AreEqual(idx3, -1);
+        }
+        /// <summary>
         /// Prueba del método <see cref="Common.CollectionListed(System.Collections.Generic.IEnumerable{string})"/>
         /// </summary>
         [TestMethod]
@@ -145,9 +143,34 @@ namespace MCARTTest
             {
                 "This" ,"is", "a", "test"
             }).CollectionListed();
-            Assert.AreEqual($"This{Environment.NewLine}is{Environment.NewLine}a{Environment.NewLine}test{Environment.NewLine}",outp);
-            
+            Assert.AreEqual($"This{Environment.NewLine}is{Environment.NewLine}a{Environment.NewLine}test{Environment.NewLine}", outp);
+
         }
+        /// <summary>
+        /// Prueba del método <see cref="Swap{T}(ref T, ref T)"/>.
+        /// </summary>
+        [TestMethod]
+        public void SwapTest()
+        {
+            int a = 1, b = 2;
+            Swap(ref a, ref b);
+            Assert.AreEqual(a, 2);
+            Assert.AreEqual(b, 1);
+        }
+        /// <summary>
+        /// Prueba del método <see cref="Common.IsBetween{T}(T, T, T)"/>.
+        /// </summary>
+        [TestMethod]
+        public void IsBetweenTest()
+        {
+            Assert.IsTrue((0.5).IsBetween(0.0, 1.0));
+            Assert.IsTrue((0).IsBetween(0, 1));
+            Assert.IsTrue((1.0f).IsBetween(0.0f, 1.0f));
+            Assert.IsFalse(((byte)2).IsBetween((byte)0, (byte)1));
+            Assert.IsFalse(((sbyte)-50).IsBetween((sbyte)0, (sbyte)1));
+        }
+
+
 
         /// <summary>
         /// Prueba del método <see cref="Common.ToHex(byte[])"/>

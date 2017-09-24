@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Modules\CommonTest.cs" />
+    <Compile Include="Modules\ObjectsTest.cs" />
     <Compile Include="Networking\NetworkingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
