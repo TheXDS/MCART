@@ -182,7 +182,7 @@ namespace MCART
             Point cp = new Point(radius + (thickness / 2), radius + (thickness / 2));
             ArcSegment arc = new ArcSegment()
             {
-                IsLargeArc = endAngle > 180.0,
+                IsLargeArc = startAngle - endAngle > 180.0,
                 Point = new Point(
                     cp.X + System.Math.Sin(Math.Deg_Rad * endAngle) * radius,
                     cp.Y - System.Math.Cos(Math.Deg_Rad * endAngle) * radius),

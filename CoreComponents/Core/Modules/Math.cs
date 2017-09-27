@@ -276,7 +276,7 @@ namespace MCART
 			IEquatable<T>,
 			IFormattable
 		{
-			foreach (T j in x) if (j.CompareTo(0) != 0) return false;
+			foreach (T j in x) if (j.CompareTo(default(T)) != 0) return false;
 			return true;
 		}
 		/// <summary>
@@ -290,7 +290,7 @@ namespace MCART
 			IEquatable<T>,
 			IFormattable
 		{
-			foreach (T j in x) if (j.CompareTo(0) == 0) return false;
+			foreach (T j in x) if (j.CompareTo(default(T)) == 0) return false;
 			return true;
 		}
 
@@ -376,7 +376,7 @@ namespace MCART
 			IComparable<T>
 		{
 			if (expression.CompareTo(max) > 0) return max;
-			if (expression.CompareTo(0) < 0) return default(T);
+			if (expression.CompareTo(default(T)) < 0) return default(T);
 			return expression;
 		}
 

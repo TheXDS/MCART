@@ -1,9 +1,12 @@
 #
 # Manifiesto maestro de autores de MCART
 #
-# Cualquier archivo de MCART no listado aquí fue creado por una herramienta
-# automatizada, y podría no incluir la información de la licencia. Sin
-# embargo, la licencia seleccionada para el proyecto siempre se aplica.
+# Cualquier archivo de MCART no listado aquí deberá tener a su autor descrito
+# en el encabezado del archivo. En caso que el archivo no contenga información
+# sobre su autor, se considerará que el mismo fue creado por una herramienta
+# automatizada. Los archivos autogenerados podrían no incluir un encabezado, y
+# por lo tanto, podrían no incluir la información de la licencia. Sin embargo,
+# la licencia seleccionada para el proyecto siempre se aplica.
 #
 # Archivo															autores (el autor original primero)
 #
@@ -70,8 +73,7 @@ CoreComponents/Core/Types/Taskreporter/base/ITaskReporterPlugin.cs	César André
 CoreComponents/Core-GUI/Controls/LightGraph.cs						César Andrés Morgan
 CoreComponents/Core-GUI/Controls/NavigationBar.cs					César Andrés Morgan
 CoreComponents/Core-GUI/Controls/ProgressRing.cs					César Andrés Morgan
-# TODO: Graph/*
-CoreComponents/Core-GUI/Controls/Graph/.cs	César Andrés Morgan
+CoreComponents/Core-GUI/Controls/Graph/.cs							César Andrés Morgan
 CoreComponents/Core-GUI/Modules/UI.cs								César Andrés Morgan
 CoreComponents/Core-GUI/PluginSupport/PluginStatic.cs				César Andrés Morgan
 CoreComponents/Core-GUI/Resources/Icons.cs							César Andrés Morgan

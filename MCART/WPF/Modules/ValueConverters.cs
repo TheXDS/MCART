@@ -337,7 +337,7 @@ namespace System.Windows.Converters
             {
                 return targetType?.GetMethod(
                     "Parse", new Type[] { typeof(string) })?
-                    .Invoke(null, new object[] { value });                
+                    .Invoke(null, new object[] { value });
             }
             catch { return null; }
         }
@@ -378,7 +378,7 @@ namespace System.Windows.Converters
         /// <param name="culture">
         /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
         /// <returns>La suma de <paramref name="value"/> y el operando especificado.</returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (T)(value + Operand);
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (T)((T)value + Operand);
         /// <summary>
         /// Revierte la operación de suma aplicada a <paramref name="value"/>.
         /// </summary>
@@ -392,7 +392,7 @@ namespace System.Windows.Converters
         /// <returns>
         /// El valor de <paramref name="value"/> antes de la suma.
         /// </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (T)(value - Operand);
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (T)((T)value - Operand);
     }
     /// <summary>
     /// Permite la multiplicación de propiedades numéricas
@@ -432,7 +432,7 @@ namespace System.Windows.Converters
         /// <param name="culture">
         /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
         /// <returns>La suma de <paramref name="value"/> y el operando especificado.</returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (T)(Operand * value);
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (T)(Operand * (T)value);
         /// <summary>
         /// Revierte la operación de multiplicación aplicada a
         /// <paramref name="value"/>.
@@ -447,7 +447,7 @@ namespace System.Windows.Converters
         /// <returns>
         /// El valor de <paramref name="value"/> antes de la multiplicación.
         /// </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (T)(Operand / value);
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (T)(Operand / (T)value);
     }
     /// <summary>
     /// Convierte un valor <see cref="int"/>  a <see cref="Visibility"/> 
@@ -495,7 +495,7 @@ namespace System.Windows.Converters
         /// <see cref="WithItems"/> si <paramref name="value"/> es mayor a
         /// cero, <see cref="WithoutItems"/> en caso contrario.
         /// </returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (int)(value) > 0 ? WithItems : WithoutItems;
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (int)value > 0 ? WithItems : WithoutItems;
         /// <summary>
         /// Infiere una cuenta de elementos basado en el <see cref="Visibility"/> provisto.
         /// </summary>
@@ -556,7 +556,7 @@ namespace System.Windows.Converters
         /// <see cref="Positives"/> si <paramref name="value"/> es mayor a
         /// cero, <see cref="ZeroOrNegatives"/> en caso contrario.
         /// </returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (double)(value) > 0.0 ? Positives : ZeroOrNegatives;
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (double)value > 0.0 ? Positives : ZeroOrNegatives;
         /// <summary>
         /// Infiere un valor basado en el <see cref="Visibility"/> provisto.
         /// </summary>
@@ -617,7 +617,7 @@ namespace System.Windows.Converters
         /// <see cref="Positives"/> si <paramref name="value"/> es mayor a
         /// cero, <see cref="ZeroOrNegatives"/> en caso contrario.
         /// </returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (float)(value) > 0.0 ? Positives : ZeroOrNegatives;
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (float)value > 0.0 ? Positives : ZeroOrNegatives;
         /// <summary>
         /// Infiere un valor basado en el <see cref="Visibility"/> provisto.
         /// </summary>
@@ -851,6 +851,110 @@ namespace System.Windows.Converters
         /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
         /// <returns>El inverso del valor.</returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => !(bool)value;
+    }
+    /// <summary>
+    /// Convierte un <see cref="double"/> en un <see cref="Thickness"/>.
+    /// </summary>
+    public class DoubleMarginConverter : IValueConverter
+    {
+        /// <summary>
+        /// Convierte un <see cref="double"/> en un <see cref="Thickness"/>.
+        /// </summary>
+        /// <param name="value">Objeto a convertir.</param>
+        /// <param name="targetType">Tipo del destino.</param>
+        /// <param name="parameter">
+        /// Función opcional de transformación de valor. Dene ser de tipo
+        /// <see cref="Func{T1, TResult}"/> donde el tipo de argumento y el
+        /// tipo devuelto sean ambos <see cref="double"/>.
+        /// </param>
+        /// <param name="culture">
+        /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
+        /// <returns>
+        /// Un <see cref="Thickness"/> uniforme cuyos valores de grosor son
+        /// iguales al valor especificado.
+        /// </returns>
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            Func<double, double> f = parameter as Func<double, double>;
+            double v = (double)value;
+            return new Thickness(f?.Invoke(v) ?? v);
+        }
+
+        /// <summary>
+        /// Revierte la conversión realizada por este objeto.
+        /// </summary>
+        /// <param name="value">Objeto a convertir.</param>
+        /// <param name="targetType">Tipo del destino.</param>
+        /// <param name="parameter">
+        /// Función opcional de transformación de valor.
+        /// </param>
+        /// <param name="culture">
+        /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
+        /// <returns>
+        /// Un <see cref="double"/> cuyo valor es el promedio del grosor
+        /// establecido en el <see cref="Thickness"/> especificado.
+        /// </returns>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            Thickness v = (Thickness)value;
+            return (v.Top + v.Bottom + v.Left + v.Right) / 4.0;
+        }
+    }
+    /// <summary>
+    /// Convierte un <see cref="double"/> en un <see cref="string"/>,
+    /// opcionalmente mostrando una etiqueta si el valor es inferior a cero.
+    /// </summary>
+    public class LabeledDoubleConverter : IValueConverter
+    {
+        /// <summary>
+        /// Convierte un <see cref="double"/> en un <see cref="string"/>,
+        /// opcionalmente mostrando una etiqueta si el valor es inferior a cero.
+        /// </summary>
+        /// <param name="value">Objeto a convertir.</param>
+        /// <param name="targetType">Tipo del destino.</param>
+        /// <param name="parameter">
+        /// Etiqueta a mostrar en caso que el valor sea inferior a cero.
+        /// </param>
+        /// <param name="culture">
+        /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
+        /// <returns>
+        /// Un <see cref="Thickness"/> uniforme cuyos valores de grosor son
+        /// iguales al valor especificado.
+        /// </returns>
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is double v)
+            {
+                if (parameter is null) parameter = v.ToString();
+                if (parameter is string label)
+                    return v > 0 ? v.ToString() : label;
+            }
+            throw new InvalidCastException();
+        }
+        /// <summary>
+        /// Revierte la conversión realizada por este objeto.
+        /// </summary>
+        /// <param name="value">Objeto a convertir.</param>
+        /// <param name="targetType">Tipo del destino.</param>
+        /// <param name="parameter">
+        /// Función opcional de transformación de valor.
+        /// </param>
+        /// <param name="culture">
+        /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
+        /// <returns>
+        /// Un <see cref="double"/> cuyo valor es el promedio del grosor
+        /// establecido en el <see cref="Thickness"/> especificado.
+        /// </returns>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is double) return value;
+            if (value is string s)
+            {
+                bool ok = double.TryParse(s, out double r);
+                return ok ? r : 0.0;
+            }
+            throw new InvalidCastException();
+        }
     }
     /// <summary>
     /// Invierte los valores de <see cref="Visibility"/> 
