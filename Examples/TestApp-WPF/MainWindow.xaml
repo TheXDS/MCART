@@ -24,6 +24,9 @@
                     <MenuItem x:Name="mnuitskrconsole" Header="Tarea de consola" />
                     <MenuItem x:Name="mnuitskrwndw" Header="Tarea de ventana" />
                 </MenuItem>
+                <MenuItem Header="Gráficos">
+                    <MenuItem x:Name="mnuGrphRing" Header="Gráfico de anillo..."/>
+                </MenuItem>
             </MenuItem>
             <MenuItem x:Name="mnuPlugins" Header="Plugins" IsEnabled="{Binding Items.IsEmpty, Converter={StaticResource BooleanInverter}, Mode=OneWay, RelativeSource={RelativeSource Self}}" />
             <MenuItem Header="Ayuda">

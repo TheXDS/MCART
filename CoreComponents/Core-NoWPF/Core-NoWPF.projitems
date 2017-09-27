@@ -9,6 +9,8 @@
     <Import_RootNamespace>MCART</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\ISliceGraph.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\Slice.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\TaskReporter\TaskReporterControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
