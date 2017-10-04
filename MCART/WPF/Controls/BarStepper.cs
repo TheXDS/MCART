@@ -26,6 +26,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media;
 using St = MCART.Resources.Strings;
 
 namespace MCART.Controls
@@ -44,12 +45,28 @@ namespace MCART.Controls
     /// </example>
     public class BarStepper : TaskReporterControl
     {
-        static Type T = typeof(BarStepper);
         /// <summary>
         /// Identifica la propiedad de dependencia 
         /// <see cref="StatusForReady"/>.
         /// </summary>
-        public static DependencyProperty StatusForReadyProperty = DependencyProperty.Register(nameof(StatusForReady), typeof(Visibility), T, new PropertyMetadata(Visibility.Hidden), (a) => (Visibility)a != Visibility.Visible);
+        public static DependencyProperty StatusForReadyProperty = DependencyProperty.Register(
+                nameof(StatusForReady), typeof(Visibility), typeof(BarStepper),
+                new PropertyMetadata(Visibility.Hidden), (a) => (Visibility)a != Visibility.Visible);
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="ButtonBrush"/>.
+        /// </summary>
+        public static DependencyProperty ButtonBrushProperty = DependencyProperty.Register(
+                nameof(ButtonBrush), typeof(Brush), typeof(BarStepper),
+                new PropertyMetadata(SystemColors.ControlBrush));
+        /// <summary>
+        /// Obtiene o establece El <see cref="Brush"/> a utilizar para dibujar 
+        /// el botón de cancelar de este control.
+        /// </summary>
+        public Brush ButtonBrush
+        {
+            get => (Brush)GetValue(ButtonBrushProperty);
+            set => SetValue(ButtonBrushProperty, value);
+        }
         /// <summary>
         /// Determina si al finalizar una tarea, los controles se ocultarán o 
         /// si serán colapsados.
@@ -63,9 +80,11 @@ namespace MCART.Controls
             get => (Visibility)GetValue(StatusForReadyProperty);
             set => SetValue(StatusForReadyProperty, value);
         }
+
+
         ProgressBar PB = new ProgressBar { Margin = new Thickness(8), Width = 100 };
         Button Bt = new Button();
-        Label LB = new Label();
+        TextBlock LB = new TextBlock();
         /// <summary>
         /// Modifica el control para mostrar el progreso de una tarea.
         /// </summary>
@@ -87,7 +106,7 @@ namespace MCART.Controls
         /// <param name="e">Progreso actual de la tarea.</param>
         protected override void OnBusy(ProgressEventArgs e)
         {
-            LB.Content = e.HelpText;
+            LB.Text = e.HelpText;
             if (e.Progress == null || !((double)e.Progress).IsBetween(PB.Minimum, PB.Maximum))
                 PB.IsIndeterminate = true;
             else
@@ -105,7 +124,7 @@ namespace MCART.Controls
         {
             PB.SetBinding(VisibilityProperty, new Binding(nameof(StatusForReady)) { Source = this });
             Bt.SetBinding(VisibilityProperty, new Binding(nameof(StatusForReady)) { Source = this });
-            LB.Content = msg;
+            LB.Text = msg;
             PB.IsIndeterminate = false;
             PB.Value = 0;
         }
@@ -119,6 +138,9 @@ namespace MCART.Controls
             MinHeight = 24;
             MaxHeight = 32;
             DockPanel a = new DockPanel();
+            LB.SetBinding(TextBlock.ForegroundProperty, new Binding(nameof(Foreground)) { Source = this });
+            Bt.SetBinding(ForegroundProperty, new Binding(nameof(Foreground)) { Source = this });
+            Bt.SetBinding(BackgroundProperty, new Binding(nameof(ButtonBrushProperty)) { Source = this });
             a.Children.Add(PB);
             a.Children.Add(Bt);
             a.Children.Add(LB);
