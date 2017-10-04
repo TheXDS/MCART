@@ -84,7 +84,7 @@ namespace MCART.Controls
 
         ProgressBar PB = new ProgressBar { Margin = new Thickness(8), Width = 100 };
         Button Bt = new Button();
-        TextBlock LB = new TextBlock();
+        TextBlock LB = new TextBlock { VerticalAlignment=VerticalAlignment.Center };
         /// <summary>
         /// Modifica el control para mostrar el progreso de una tarea.
         /// </summary>
@@ -135,7 +135,7 @@ namespace MCART.Controls
         public BarStepper()
         {
             MinWidth = 124;
-            MinHeight = 24;
+            MinHeight = 20;
             MaxHeight = 32;
             DockPanel a = new DockPanel();
             LB.SetBinding(TextBlock.ForegroundProperty, new Binding(nameof(Foreground)) { Source = this });
