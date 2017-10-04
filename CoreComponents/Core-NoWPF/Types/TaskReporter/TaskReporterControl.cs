@@ -52,7 +52,7 @@ namespace MCART.Types.TaskReporter
             OnDutyProperty = true;
             TStartProperty = DateTime.Now;
             StoppableProperty = ns;
-            Invoke(new Action<bool>(OnBegin), true);
+            Invoke(new Action<bool>(OnBegin), ns);
             Begun?.Invoke(this, new BegunEventArgs(ns, TStart));
         }
         void Bsy(ProgressEventArgs e)

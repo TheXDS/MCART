@@ -160,13 +160,13 @@ namespace MCART.Types.TaskReporter
         void Bgn(bool ns)
         {            
             if (OnDuty) throw new InvalidOperationException();
-            SetValue(CancelPendingProperty, false);
-            SetValue(TimedOutProperty, false);
+            SetValue(CancelPendingPropertyKey, false);
+            SetValue(TimedOutPropertyKey, false);
             SetValue(OnDutyPropertyKey, true);
             SetValue(TStartPropertyKey, DateTime.Now);
             SetValue(StoppablePropertyKey, ns);
-            if (Dispatcher.CheckAccess()) OnBegin(true);
-            else Dispatcher.Invoke(new Action<bool>(OnBegin), true);
+            if (Dispatcher.CheckAccess()) OnBegin(ns);
+            else Dispatcher.Invoke(new Action<bool>(OnBegin), ns);
             Begun?.Invoke(this, new BegunEventArgs(ns, TStart));
         }
         void Bsy(ProgressEventArgs e)

@@ -63,7 +63,7 @@ namespace MCART.Controls
             get => (Visibility)GetValue(StatusForReadyProperty);
             set => SetValue(StatusForReadyProperty, value);
         }
-        ProgressBar PB = new ProgressBar { Margin = new Thickness(8) };
+        ProgressBar PB = new ProgressBar { Margin = new Thickness(8), Width = 100 };
         Button Bt = new Button();
         Label LB = new Label();
         /// <summary>
@@ -75,9 +75,9 @@ namespace MCART.Controls
         protected override void OnBegin(bool stoppable)
         {
             PB.Visibility = Visibility.Visible;
-            Bt.Content = St.Cncl;            
+            Bt.Content = $"  {St.Cncl}  ";
             Bt.IsEnabled = stoppable;
-            if (stoppable) Bt.Visibility = Visibility.Visible;
+            Bt.Visibility = stoppable ? Visibility.Visible : Visibility.Collapsed;
             PB.Value = PB.Minimum;
             PB.IsIndeterminate = false;
         }
@@ -88,8 +88,8 @@ namespace MCART.Controls
         protected override void OnBusy(ProgressEventArgs e)
         {
             LB.Content = e.HelpText;
-            if (e.Progress == null || !((double)e.Progress).IsBetween(PB.Minimum, PB.Maximum))            
-                PB.IsIndeterminate = true;            
+            if (e.Progress == null || !((double)e.Progress).IsBetween(PB.Minimum, PB.Maximum))
+                PB.IsIndeterminate = true;
             else
             {
                 PB.IsIndeterminate = false;
@@ -117,17 +117,13 @@ namespace MCART.Controls
         {
             MinWidth = 124;
             MinHeight = 24;
-            MaxHeight = 24;
-            Grid.SetColumn(Bt, 1);
-            Grid.SetColumn(LB, 2);
-            Grid a = new Grid();
-            a.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(100) });
-            a.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(24) });
-            a.ColumnDefinitions.Add(new ColumnDefinition());
+            MaxHeight = 32;
+            DockPanel a = new DockPanel();
             a.Children.Add(PB);
             a.Children.Add(Bt);
             a.Children.Add(LB);
-            Bt.Click += (sender,e)=>RaiseCancelPending();
+            Content = a;
+            Bt.Click += (sender, e) => RaiseCancelPending();
             OnReady(St.Rdy);
         }
     }
