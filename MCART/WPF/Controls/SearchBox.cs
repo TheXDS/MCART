@@ -158,10 +158,10 @@ namespace MCART.Controls
                 Source = this,
                 Converter = new StringVisibilityConverter(Visibility.Hidden, Visibility.Visible)
             });
-            SetBinding(SearchProperty, new Binding(nameof(txtSearch.Text)) { Source = txtSearch, Mode= BindingMode.TwoWay });
+            SetBinding(SearchProperty, new Binding(nameof(txtSearch.Text)) { Source = txtSearch, Mode = BindingMode.TwoWay });
             DockPanel roth = new DockPanel();
             DockPanel.SetDock(btnClseSearch, Dock.Right);
-            Grid box = new Grid();
+            Grid box = new Grid { Background = SystemColors.WindowBrush };
             box.Children.Add(d);
             box.Children.Add(txtSearch);
             roth.Children.Add(btnClseSearch);
