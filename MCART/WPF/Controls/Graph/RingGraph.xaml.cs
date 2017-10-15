@@ -21,7 +21,6 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using MCART.Types.Extensions;
 using System;
 using System.Linq;
 using System.Windows;
@@ -29,15 +28,12 @@ using System.Windows.Controls;
 using System.Windows.Converters;
 using System.Windows.Data;
 using System.Windows.Shapes;
+using static MCART.Controls.Misc;
 
 namespace MCART.Controls
 {
-    /// <summary>
-    /// Control que permite mostrar gráficas en anillos.
-    /// </summary>
-    public partial class RingGraph : UserControl, ISliceGraph, IGraph
+    public partial class RingGraph : UserControl
     {
-        private List<Slice> slices = new List<Slice>();
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="RingGraph"/>.
         /// </summary>
@@ -159,16 +155,6 @@ namespace MCART.Controls
             get => (bool)GetValue(TotalVisibleProperty);
             set => SetValue(TotalVisibleProperty, value);
         }
-        /// <summary>
-        /// Obtiene un listado de los <see cref="Slice"/> que conforman el
-        /// set de datos de este <see cref="ISliceGraph"/>.
-        /// </summary>
-        /// <remarks>
-        /// Esta no puede ser una propiedad de dependencia debido a que la
-        /// observación de la lista de <see cref="Slice"/> se implementa
-        /// mediante eventos.
-        /// </remarks>
-        public System.Collections.Generic.IList<Slice> Slices => slices;
 
         /// <summary>
         /// Vuelve a dibujar todo el control.
@@ -189,17 +175,6 @@ namespace MCART.Controls
             txtTotal.Text = tot.ToString();
         }
         /// <summary>
-        /// Vuelve a dibujar todo el control.
-        /// </summary>
-        /// <param name="r">
-        /// <see cref="Slice"/> que ha realizado la solicitud.
-        /// </param>
-        public void DrawMe(Slice r)
-        {
-            // Si un Slice cambia, cambia todo el gráfico.
-            Redraw();
-        }
-        /// <summary>
         /// Vuelve a dibujar únicamente a los hijos del <see cref="Slice"/>.
         /// </summary>
         /// <param name="r">
@@ -211,12 +186,6 @@ namespace MCART.Controls
         }
 
         private void RingGraph_Loaded(object sender, RoutedEventArgs e) => Redraw();
-        private double GetTotal(System.Collections.Generic.IEnumerable<Slice> c)
-        {
-            double tot = 0.0;
-            foreach (var k in c) tot += k.Value;
-            return tot;
-        }
         private bool SrchSeries(Slice j, out double angle, out double sze)
         {
             throw new NotImplementedException();
