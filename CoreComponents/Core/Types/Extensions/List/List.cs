@@ -25,16 +25,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MCART.Exceptions;
+using MCART.Attributes;
+
 namespace MCART.Types.Extensions
 {
     /// <summary>
-    /// Extensión de la clase <see cref="List{T}"/>. Provee de toda la
+    /// Extensión observable de la clase 
+    /// <see cref="System.Collections.Generic.List{T}"/>. Provee de toda la
     /// funcionalidad previamente disponible, e incluye algunas extensiones
     /// útiles.
     /// </summary>
     /// <typeparam name="T">
     /// Tipo de los elementos que contendrá esta lista.
-    /// </typeparam> 
+    /// </typeparam>
+    /// <remarks>
+    /// Esta clase puede considerarse como una alternativa más completa a 
+    /// <see cref="System.Collections.ObjectModel.ObservableCollection{T}"/>
+    /// con numerosos eventos adicionales y otras extensiones.
+    /// </remarks>
     public partial class List<T> : System.Collections.Generic.List<T>, ICloneable
     {
 #pragma warning disable RECS0108 // Warns about static fields in generic types
@@ -42,12 +50,12 @@ namespace MCART.Types.Extensions
         /// Activa o desactiva la generación global de eventos de todos los
         /// <see cref="List{T}"/>.
         /// </summary>
-        public static bool GlobalTriggerEvents;
+        public static bool GlobalTriggerEvents = true;
 #pragma warning restore RECS0108
         /// <summary>
         /// Activa o desactiva la generación de eventos.
         /// </summary>
-        public bool TriggerEvents;
+        public bool TriggerEvents = true;
         /// <summary>
         /// Obtiene o establece el elemento ubicado en el íncide especificado.
         /// </summary>
@@ -55,24 +63,16 @@ namespace MCART.Types.Extensions
         /// <returns>El elemento en la posición especificada.</returns>
         public new T this[int index]
         {
-            get
-            {
-                try { return base[index]; }
-                catch { throw; }
-            }
+            get => base[index];
             set
             {
-                try
+                ModifyingItemEventArgs<T> a = new ModifyingItemEventArgs<T>(index, base[index], value);
+                ModifyingItem?.Invoke(this, a);
+                if (!a.Cancel)
                 {
-                    ModifyingItemEventArgs<T> a = new ModifyingItemEventArgs<T>(index, base[index], value);
-                    ModifyingItem?.Invoke(this, a);
-                    if (!a.Cancel)
-                    {
-                        base[index] = value;
-                        ModifiedItem?.Invoke(this, new ItemModifiedEventArgs<T>(base[index], index));
-                    }
+                    base[index] = value;
+                    ModifiedItem?.Invoke(this, new ItemModifiedEventArgs<T>(base[index], index));
                 }
-                catch { throw; }
             }
         }
         /// <summary>
@@ -114,7 +114,6 @@ namespace MCART.Types.Extensions
                 }
             }
             else { base.AddRange(collection); }
-
         }
         /// <summary>
         /// Inserta un elemento en el índice especificado
@@ -178,7 +177,6 @@ namespace MCART.Types.Extensions
                 }
             }
             else { base.Remove(item); }
-
         }
         /// <summary>
         /// Quita el elemento situado en el índice especificado del <see cref="List{T}"/>
@@ -306,7 +304,7 @@ namespace MCART.Types.Extensions
         /// <summary>
         /// Quita el último elemento de la <see cref="List{T}"/>
         /// </summary>
-        [Attributes.Thunk]
+        [Thunk]
         public void RemoveLast()
         {
             try { Remove(this.Last()); }
@@ -315,7 +313,7 @@ namespace MCART.Types.Extensions
         /// <summary>
         /// Quita el primer elemento de la <see cref="List{T}"/>
         /// </summary>
-        [Attributes.Thunk]
+        [Thunk]
         public void RemoveFirst()
         {
             try { Remove(this.First()); }
@@ -434,14 +432,11 @@ namespace MCART.Types.Extensions
         /// Implementa la interfaz <see cref="ICloneable"/>
         /// </summary>
         /// <returns>Una copia de esta instancia.</returns>
-        [Attributes.Thunk] public object Clone() => this.Copy();
+        [Thunk] public object Clone() => this.Copy();
         /// <summary>
         /// Devuelve el tipo de elementos de <see cref="List{T}"/>
         /// </summary>
         /// <returns></returns>
-        public Type GetListType
-        {
-            get { return typeof(T); }
-        }
+        public Type GetListType => typeof(T);
     }
 }

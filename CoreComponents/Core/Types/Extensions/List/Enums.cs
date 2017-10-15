@@ -29,6 +29,10 @@ namespace MCART.Types.Extensions
     public enum ListUpdateType
     {
         /// <summary>
+        /// La lista ha sido vaciada.
+        /// </summary>
+        ListCleared,
+        /// <summary>
         /// Se añadieron los elementos.
         /// </summary>
         ItemsAdded,
@@ -37,20 +41,16 @@ namespace MCART.Types.Extensions
         /// </summary>
         ItemsInserted,
         /// <summary>
+        /// Se modificaron los elementos.
+        /// </summary>
+        ItemsModified,
+        /// <summary>
         /// Se removieron los elementos.
         /// </summary>
         ItemsRemoved,
         /// <summary>
         /// Se movieron los elementos.
         /// </summary>
-        ItemsMoved,
-        /// <summary>
-        /// Se modificaron los elementos.
-        /// </summary>
-        ItemsModified,
-        /// <summary>
-        /// La lista ha sido limpiada.
-        /// </summary>
-        ListCleared
+        ItemsMoved
     }
 }

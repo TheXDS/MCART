@@ -20,8 +20,10 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Timers;
+
 namespace MCART.Types.Extensions
 {
     /// <summary>
@@ -59,7 +61,7 @@ namespace MCART.Types.Extensions
         /// </summary>
         public new bool Enabled
         {
-            get { return base.Enabled; }
+            get=> base.Enabled;
             set
             {
                 st = value ? (DateTime?)DateTime.Now : null;
