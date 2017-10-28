@@ -105,8 +105,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup />
-  <Import Project="..\..\CoreComponents\Core\Core.projitems" Label="Shared" />
-  <Import Project="..\..\CoreComponents\Core-Windows\Core-Windows.projitems" Label="Shared" />
   <Import Project="..\..\CoreComponents\Core-GUI\Core-GUI.projitems" Label="Shared" />
+  <Import Project="..\..\CoreComponents\Core-Windows\Core-Windows.projitems" Label="Shared" />
+  <Import Project="..\..\CoreComponents\Core\Core.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

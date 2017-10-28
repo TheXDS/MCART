@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\IGraph.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\ISeriesGraph.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\ISliceGraph.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\RingGraph.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Misc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\Series.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\LightGraph.cs" />

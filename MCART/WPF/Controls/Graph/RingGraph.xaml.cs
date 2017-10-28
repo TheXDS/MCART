@@ -189,17 +189,17 @@ namespace MCART.Controls
         private bool SrchSeries(Slice j, out double angle, out double sze)
         {
             throw new NotImplementedException();
-            angle = 0.0;
-            double tot = GetTotal(Slices);
-            foreach (var k in Slices)
-            {
-                sze = 360 * (j.Value / tot);
-                if (k.Is(j)) return true;
-                angle += sze;
-            }
-            angle = 0.0;
-            sze = 0.0;
-            return false;
+            //angle = 0.0;
+            //double tot = GetTotal(Slices);
+            //foreach (var k in Slices)
+            //{
+            //    sze = 360 * (j.Value / tot);
+            //    if (k.Is(j)) return true;
+            //    angle += sze;
+            //}
+            //angle = 0.0;
+            //sze = 0.0;
+            //return false;
         }
         private void RdrwSeries(Slice j, double tot, double angle, double sze, Grid g, ItemCollection i, out TreeViewItem t)
         {
