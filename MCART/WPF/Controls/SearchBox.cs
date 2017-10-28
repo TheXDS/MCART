@@ -135,6 +135,14 @@ namespace MCART.Controls
         };
 
         /// <summary>
+        /// Inicializa la clase <see cref="SearchBox"/>.
+        /// </summary>
+        static SearchBox()
+        {
+            BackgroundProperty.OverrideMetadata(typeof(SearchBox), new FrameworkPropertyMetadata(SystemColors.WindowBrush));            
+        }
+
+        /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="SearchBox"/>.
         /// </summary>
         public SearchBox()
@@ -161,7 +169,8 @@ namespace MCART.Controls
             SetBinding(SearchProperty, new Binding(nameof(txtSearch.Text)) { Source = txtSearch, Mode = BindingMode.TwoWay });
             DockPanel roth = new DockPanel();
             DockPanel.SetDock(btnClseSearch, Dock.Right);
-            Grid box = new Grid { Background = SystemColors.WindowBrush };
+            Grid box = new Grid();
+            box.SetBinding(BackgroundProperty, new Binding(nameof(Background)) { Source = this });
             box.Children.Add(d);
             box.Children.Add(txtSearch);
             roth.Children.Add(btnClseSearch);
