@@ -156,7 +156,7 @@ namespace MCART.Controls
             btnClseSearch.SetBinding(VisibilityProperty, new Binding(nameof(Search))
             {
                 Source = this,
-                Converter = new StringVisibilityConverter(Visibility.Hidden, Visibility.Visible)
+                Converter = new StringVisibilityConverter(Visibility.Collapsed, Visibility.Visible)
             });
             SetBinding(SearchProperty, new Binding(nameof(txtSearch.Text)) { Source = txtSearch, Mode = BindingMode.TwoWay });
             DockPanel roth = new DockPanel();
