@@ -21,26 +21,14 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#region Opciones de compilación
-
-// Preferir excepciones en lugar de continuar con código alternativo
-//#define PreferExceptions
-
-// Desactiva explícitamente la contante TRACE
-//#undef TRACE
-
-#endregion
-
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
-#if TRACE
 using System.Diagnostics;
 using St = MCART.Resources.Strings;
-#endif
 
 namespace MCART.Networking.Server
 {
@@ -139,27 +127,6 @@ namespace MCART.Networking.Server
 		/// </summary>
 		bool _isAlive;
 
-#if TRACE
-		/// <summary>
-		/// Controla el evento <see cref="Logging"/>.
-		/// </summary>
-		/// <param name="sender">Objeto que ha generado el evento.</param>
-		/// <param name="e">Argumentos del evento.</param>
-		public delegate void LogEventHandler(object sender, Events.LoggingEventArgs e);
-
-		/// <summary>
-		/// Ocurre cuando el servidor desea reportar un cambio de estado, o 
-		/// enviar un mensaje a la interfaz del servidor.
-		/// </summary>
-		public event LogEventHandler Logging;
-
-		/// <summary>
-		/// Escribe un mensaje de Log en la salida del servidor.
-		/// </summary>
-		/// <param name="msg">Mensaje a escribir en el Log.</param>
-		public void Log(string msg) => Logging?.Invoke(this, new Events.LoggingEventArgs(msg));
-#endif
-
 		/// <summary>
 		/// Encapsula <see cref="TcpListener.AcceptTcpClientAsync"/> para
 		/// permitir cancelar la tarea cuando el servidor se detenga.
@@ -188,10 +155,8 @@ namespace MCART.Networking.Server
 				catch { throw; }
 #endif
 			finally { bewaiting = false; } //detener el lambda de espera...
-#if TRACE
-			Log(St.XStopped(St.TheListener));
-#endif
-			//Devolver null. BeAlive() se encarga de manejar correctamente esto
+
+			// Devolver null. BeAlive() se encarga de manejar correctamente esto
 			return null;
 		}
 
@@ -203,15 +168,8 @@ namespace MCART.Networking.Server
 		private async Task AttendClient(TClient client)
 		{
 			Clients.Add(client);
-#if TRACE
-			Log(St.ClientConnected);
-#endif
 			if (Protocol.ClientWelcome(client, this))
 			{
-#if TRACE
-				Log(St.XAccepted(St.TheClient));
-#endif
-
 				/*
 				ClientBye será llamado por una función dentro de la clase
 				Client, que será accesible por el código del usuario o la
@@ -233,15 +191,9 @@ namespace MCART.Networking.Server
 						Protocol.ClientAttendant(client, this, await ts);
 					wdat = false;
 				}
-#if TRACE
-				Log(St.XDisconnected(St.TheClient));
-#endif
 			}
 			else
 			{
-#if TRACE
-				Log(St.XRejected(St.TheClient));
-#endif
 				if ((bool)client?.IsAlive) client.TcpClient.Close();
 			}
 			if ((bool)Clients?.Contains(client)) Clients.Remove(client);
@@ -278,7 +230,7 @@ namespace MCART.Networking.Server
 		{
 			if (protocol.IsNull()) throw new ArgumentNullException(nameof(protocol));
 			Protocol = protocol;
-#if TRACE
+#if DEBUG
 			if (!Protocol.GetAttr<Attributes.BetaAttribute>().IsNull())
 				Debug.Print(St.Warn(St.XIsBeta(Protocol.GetType().Name)));
 #endif
@@ -294,18 +246,12 @@ namespace MCART.Networking.Server
 		{
 			if (_isAlive)
 			{
-#if TRACE
-				Logging?.Invoke(this, new Events.LoggingEventArgs(St.XAlreadyStarted(St.TheSrv)));
-#endif
 #if PreferExceptions
 				throw new InvalidOperationException(St.XAlreadyStarted(St.TheSrv));
 #else
 				return;
 #endif
 			}
-#if TRACE
-			Logging?.Invoke(this, new Events.LoggingEventArgs($"{St.XStarted(St.TheSrv)} {conns.LocalEndpoint.ToString()}"));
-#endif
 			_isAlive = true;
 			conns.Start();
 			BeAlive();
@@ -343,8 +289,8 @@ namespace MCART.Networking.Server
 				_isAlive = value;
 			}
 		}
-		#region Helpers
 
+		#region Helpers
 		/// <summary>
 		/// Envía un mensaje a todos los clientes, excepto el especificado.
 		/// </summary>

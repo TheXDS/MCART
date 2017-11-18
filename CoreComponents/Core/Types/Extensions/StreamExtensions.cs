@@ -37,8 +37,9 @@ namespace MCART.Types.Extensions
         /// <summary>
         /// Destruye el contenido del <see cref="Stream"/>.
         /// </summary>
-        /// <param name="fs"><see cref="Stream"/> del cual este método es
-        /// una extensión.</param>
+        /// <param name="fs">
+        /// <see cref="Stream"/> del cual este método es una extensión.
+        /// </param>
         [Unsecure]
         public static void Destroy(this Stream fs)
         {
@@ -52,7 +53,7 @@ namespace MCART.Types.Extensions
         /// <param name="fs"><see cref="Stream"/> del cual este método es
         /// una extensión.</param>
         /// <param name="bytesToSkip">Bytes a saltar.</param>
-        /// <exception cref="T:System.ArgumentOutOfRangeException">
+        /// <exception cref="ArgumentOutOfRangeException">
         /// Se produce si <paramref name="bytesToSkip"/> es menor a cero, o si
         /// se extiende fuera de la secuencia.
         /// </exception>

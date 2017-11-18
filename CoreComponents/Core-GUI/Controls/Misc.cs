@@ -41,7 +41,7 @@ namespace MCART.Controls
         /// Un <see cref="double"/> con la suma de los valores de una colección
         /// de <see cref="Slice"/>.
         /// </returns>
-        public static double GetTotal(IEnumerable<Slice> c)
+        public static double GetTotal(this IEnumerable<Slice> c)
         {
             double tot = 0.0;
             foreach (var k in c) tot += k.Value;

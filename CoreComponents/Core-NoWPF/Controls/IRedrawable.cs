@@ -1,12 +1,12 @@
 ﻿//
-//  UITools.cs
+//  IRedrawable.cs
 //
 //  This file is part of MCART
 //
 //  Author:
-//       César Andrés Morgan <xds_xps_ivx@hotmail.com>
+//       César Morgan <xds_xps_ivx@hotmail.com>
 //
-//  Copyright (c) 2011 - 2017 César Andrés Morgan
+//  Copyright (c) 2011 - 2017 César Morgan
 //
 //  MCART is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -20,13 +20,14 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-namespace MCART.Modules
+
+namespace MCART.Controls
 {
-    public class UITools
+    interface IRedrawable
     {
-        public UITools()
-        {
-        }
+        /// <summary>
+        /// Solicita al sistema operativo que este control se vuelva a dibujar.
+        /// </summary>
+        void RequestRedraw();
     }
 }

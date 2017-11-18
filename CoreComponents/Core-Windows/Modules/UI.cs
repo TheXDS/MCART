@@ -128,19 +128,19 @@ namespace MCART
         /// </summary>
         /// <param name="Hwnd">Identificador de ventana a verificar.</param>
         /// <returns>
-        /// Un <see cref="System.Drawing.Point"/> que indica la resolución de
+        /// Un <see cref="Point"/> que indica la resolución de
         /// la ventana en Puntos Por Pulgada (DPI).
         /// </returns>
         public static Point GetDpi(IntPtr Hwnd)
         {
             IntPtr h = Graphics.FromHwnd(Hwnd).GetHdc();
-            return new System.Drawing.Point(GetDeviceCaps(h, 88), GetDeviceCaps(h, 90));
+            return new Point(GetDeviceCaps(h, 88), GetDeviceCaps(h, 90));
         }
         /// <summary>
         /// Obtiene las resolución horizontal y vertical de la pantalla en DPI.
         /// </summary>
         /// <returns>
-        /// Un <see cref="System.Drawing.Point"/> que indica la resolución de
+        /// Un <see cref="Point"/> que indica la resolución de
         /// la pantalla en Puntos Por Pulgada (DPI).
         /// </returns>
         [Thunk] public static Point GetDpi() => GetDpi(IntPtr.Zero);

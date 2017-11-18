@@ -45,6 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dialogs\GrphTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\GrphTest.Designer.cs">
+      <DependentUpon>GrphTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,4 +95,8 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup Condition="'$(SolutionDir)' == '' or '$(SolutionDir)' == '*undefined*'">
+    <SolutionDir>..\..\</SolutionDir>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)CommonSettings.targets" />
 </Project>

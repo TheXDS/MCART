@@ -169,7 +169,10 @@ namespace MCART.Types.Extensions
         /// Convierte una colección a <see cref="List{T}"/>
         /// </summary>
         /// <param name="c">Colección a convertir</param>
-        /// <returns>Un <see cref="List{T}"/> extendido del espacio de nombres <c>MCART.TypeExtensions</c></returns>
+        /// <returns>
+        /// Un <see cref="List{T}"/> extendido del espacio de nombres 
+        /// <c>MCART.TypeExtensions</c>.
+        /// </returns>
         public static List<T> ToExtendedList<T>(this IEnumerable<T> c) => (List<T>)c.ToList();
         /// <summary>Rota los elementos de un arreglo, lista o colección.</summary>
         /// <param name="a">Arreglo a rotar</param>

@@ -21,13 +21,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#region Opciones de compilación
-
-// Utilizar lecturas con búffer.
-#define Buffered
-
-#endregion
-
+using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading;
@@ -126,7 +120,7 @@ namespace MCART.Networking.Server
 #else
 				return new byte[] { };
 #endif
-#if Buffered
+#if BufferedIO
 			int sze;
 			List<byte> outp = new List<byte>();
 			do
@@ -138,9 +132,8 @@ namespace MCART.Networking.Server
 			} while (ns.DataAvailable);
 			return outp.ToArray();
 #else
-			ns.Write(data, 0, data.Length);
-			byte[] buff = new byte[(int)connection?.Available];
-			ns.Read(buff,0, connection.Available);
+			byte[] buff = new byte[TcpClient.Available];
+			ns.Read(buff,0, TcpClient.Available);
 			return buff;
 #endif
 		}
@@ -157,7 +150,7 @@ namespace MCART.Networking.Server
 #else
 				return new byte[] { };
 #endif
-#if Buffered
+#if BufferedIO
 			int sze;
 			List<byte> outp = new List<byte>();
 			do
@@ -169,9 +162,8 @@ namespace MCART.Networking.Server
 			} while (ns.DataAvailable);
 			return outp.ToArray();
 #else
-			await ns.WriteAsync(data, 0, data.Length);
-			byte[] buff = new byte[(int)connection?.Available];
-			await ns.ReadAsync(buff,0, connection.Available);
+			byte[] buff = new byte[TcpClient.Available];
+			await ns.ReadAsync(buff,0, TcpClient.Available);
 			return buff;
 #endif
 		}
@@ -188,7 +180,7 @@ namespace MCART.Networking.Server
 				byte[] buff = new byte[bufferSize];
 				await TcpClient?.GetStream().ReadAsync(buff, 0, bufferSize, cancellationToken);
 				outp.AddRange(buff);
-			} while ((bool)TcpClient?.GetStream()?.DataAvailable);
+			} while (TcpClient?.GetStream()?.DataAvailable ?? false);
 			return outp.ToArray();
 		}
 

@@ -24,6 +24,7 @@
 using MCART.Attributes;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
@@ -117,11 +118,80 @@ namespace MCART
         /// </returns>
         public static RenderTargetBitmap Render(this FrameworkElement f)
         {
-            System.Drawing.Point dpi = GetDpi();
+            return Render(f, new Size((int)f.ActualWidth, (int)f.ActualHeight), GetDpi().X);
+        }
+        /// <summary>
+        /// Crea un mapa de bits de un <see cref="FrameworkElement"/>.
+        /// </summary>
+        /// <param name="f">
+        /// <see cref="FrameworkElement"/> a renderizar.
+        /// </param>
+        /// <param name="dpi">
+        /// Valor de puntos por pulgada a utilizar para crear el mapa de bits.
+        /// </param>
+        /// <returns>
+        /// Un objeto <see cref="RenderTargetBitmap"/> que contiene una imagen
+        /// renderizada de <paramref name="f"/>.
+        /// </returns>
+        public static RenderTargetBitmap Render(this FrameworkElement f, int dpi)
+        {
+            return Render(f, new Size((int)f.ActualWidth, (int)f.ActualHeight), dpi);
+        }
+        /// <summary>
+        /// Crea un mapa de bits de un <see cref="FrameworkElement"/>.
+        /// </summary>
+        /// <param name="f">
+        /// <see cref="FrameworkElement"/> a renderizar.
+        /// </param>
+        /// <param name="size">
+        /// Tamaño del canvas en donde se renderizará el control.
+        /// </param>
+        /// <param name="dpi">
+        /// Valor de puntos por pulgada a utilizar para crear el mapa de bits.
+        /// </param>
+        /// <returns>
+        /// Un objeto <see cref="RenderTargetBitmap"/> que contiene una imagen
+        /// renderizada de <paramref name="f"/>.
+        /// </returns>
+        public static RenderTargetBitmap Render(this FrameworkElement f, Size size, int dpi)
+        {
             RenderTargetBitmap bmp = new RenderTargetBitmap(
-                (int)f.ActualWidth,
-                (int)f.ActualHeight,
-                dpi.X, dpi.Y,
+                (int)size.Width,
+                (int)size.Height,
+                dpi, dpi,
+                PixelFormats.Pbgra32);
+            bmp.Render(f);
+            return bmp;
+        }
+        /// <summary>
+        /// Crea un mapa de bits de un <see cref="FrameworkElement"/>
+        /// estableciendo el tamaño en el cual se dibujará el control, por lo
+        /// que no necesita haberse mostrado en la interfaz de usuario.
+        /// </summary>
+        /// <param name="f">
+        /// <see cref="FrameworkElement"/> a renderizar.
+        /// </param>
+        /// <param name="inSize">
+        /// Tamaño del control a renderizar.
+        /// </param>
+        /// <param name="outSize">
+        /// Tamaño del canvas en donde se renderizará el control.
+        /// </param>
+        /// <param name="dpi">
+        /// Valor de puntos por pulgada a utilizar para crear el mapa de bits.
+        /// </param>
+        /// <returns>
+        /// Un objeto <see cref="RenderTargetBitmap"/> que contiene una imagen
+        /// renderizada de <paramref name="f"/>.
+        /// </returns>
+        public static RenderTargetBitmap Render(this FrameworkElement f, Size inSize, Size outSize, int dpi)
+        {
+            f.Measure(inSize);
+            f.Arrange(new Rect(inSize));
+            RenderTargetBitmap bmp = new RenderTargetBitmap(
+                (int)outSize.Width,
+                (int)outSize.Height,
+                dpi, dpi,
                 PixelFormats.Pbgra32);
             bmp.Render(f);
             return bmp;
@@ -182,7 +252,7 @@ namespace MCART
             Point cp = new Point(radius + (thickness / 2), radius + (thickness / 2));
             ArcSegment arc = new ArcSegment()
             {
-                IsLargeArc = startAngle - endAngle > 180.0,
+                IsLargeArc = endAngle - startAngle > 180.0,
                 Point = new Point(
                     cp.X + System.Math.Sin(Math.Deg_Rad * endAngle) * radius,
                     cp.Y - System.Math.Cos(Math.Deg_Rad * endAngle) * radius),
@@ -383,6 +453,31 @@ namespace MCART
         public static void Clear(this TextBox control)
         {
             control.Text = string.Empty;
+        }
+        /// <summary>
+        /// Convierte un <see cref="BitmapSource"/> en un 
+        /// <see cref="BitmapImage"/>.
+        /// </summary>
+        /// <param name="bs"><see cref="BitmapSource"/> a convertir.</param>
+        /// <returns>
+        /// Un <see cref="BitmapImage"/> que contiene la imagen obtenida desde
+        /// un <see cref="BitmapSource"/>.
+        /// </returns>
+        public static BitmapImage ToImage(this BitmapSource bs)
+        {
+            PngBitmapEncoder ec = new PngBitmapEncoder();
+            using (var ms = new MemoryStream())
+            {
+                BitmapImage bi = new BitmapImage();
+                ec.Frames.Add(BitmapFrame.Create(bs));
+                ec.Save(ms);
+                ms.Position = 0;
+                bi.BeginInit();
+                bi.StreamSource = ms;
+                bi.EndInit();
+                ms.Close();
+                return bi;
+            }
         }
     }
 }

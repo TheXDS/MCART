@@ -305,7 +305,7 @@ namespace MCART.Types
                 case 'B': return $"[{X}, {Y}, {Z}]";
                 case 'V': return $"X: {X}, Y: {Y}, Z: {Z}";
                 case 'N': return $"X: {X}\nY: {Y}\nZ: {Z}";
-                default: throw new FormatException(string.Format(St.FormatNotSupported, format));
+                default: throw new FormatException(St.FormatNotSupported(format));
             }
         }
     }

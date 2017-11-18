@@ -56,4 +56,8 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
+  <PropertyGroup Condition="'$(SolutionDir)' == '' or '$(SolutionDir)' == '*undefined*'">
+    <SolutionDir>..\..\</SolutionDir>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)CommonSettings.targets" />
 </Project>

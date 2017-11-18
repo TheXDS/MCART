@@ -60,6 +60,7 @@ namespace CoreTests.Modules
         {
             ApplicationException ex = new ApplicationException();
             Assert.AreSame(ex, ex.Itself());
+            Assert.AreNotSame(ex, new ApplicationException());
             Assert.AreNotSame(ex, null);
         }
         [TestMethod]

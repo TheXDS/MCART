@@ -1,5 +1,5 @@
 ﻿//
-//  CommonTests.cs
+//  CommonTest.cs
 //
 //  This file is part of MCART
 //
@@ -26,7 +26,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MCART;
 using static MCART.Common;
 
-namespace MCARTTest
+namespace CoreTests.Modules
 {
     /// <summary>
     /// Contiene pruebas para la clase estática

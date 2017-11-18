@@ -109,4 +109,8 @@
   <Import Project="..\..\CoreComponents\Core-Windows\Core-Windows.projitems" Label="Shared" />
   <Import Project="..\..\CoreComponents\Core\Core.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup Condition="'$(SolutionDir)' == '' or '$(SolutionDir)' == '*undefined*'">
+    <SolutionDir>..\..\</SolutionDir>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)CommonSettings.targets" />
 </Project>

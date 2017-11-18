@@ -21,13 +21,15 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+#if ExtrasBuiltIn
 namespace MCART.Networking.Server.Protocols
 {
     /// <summary>
     /// Protocolo simple de eco.
     /// </summary>
     /// <remarks>Este protocolo utiliza TCP/IP, no IGMP.</remarks>
-    [Port(7)] public class Echo : Protocol
+    [Port(7)]
+    public class Echo : Protocol
     {
         /// <summary>
         /// Protocolo de atención normal.
@@ -38,3 +40,4 @@ namespace MCART.Networking.Server.Protocols
         }
     }
 }
+#endif

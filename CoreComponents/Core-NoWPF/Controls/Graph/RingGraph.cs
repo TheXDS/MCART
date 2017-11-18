@@ -22,8 +22,6 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MCART.Controls
 {
@@ -31,8 +29,8 @@ namespace MCART.Controls
     {
         private double ringThickness = 30.0;
         private int subLevelsShown = 1;
-
-
+        private double total = 0;
+        private bool totalVisible = true;
 
         /// <summary>
         /// Obtiene o establece el porcentaje de espacio ocupado por los datos
@@ -62,7 +60,10 @@ namespace MCART.Controls
                 Redraw();
             }
         }
-
-
+        /// <summary>
+        /// Obtiene el total general de los datos de este
+        /// <see cref="ISliceGraph"/>.
+        /// </summary>
+        public double Total => total;
     }
 }

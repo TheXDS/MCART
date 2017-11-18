@@ -21,13 +21,6 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#region Opciones de compilación
-
-//Activa comprobaciones más estrictas de versión de MCART.
-#define StrictMCARTVersioning
-
-#endregion
-
 using System;
 using System.Reflection;
 using System.Collections.Generic;
@@ -103,7 +96,7 @@ namespace MCART.PluginSupport
             return !m.IsInterface && !m.IsAbstract && mv.IsBetween(mt, tt);
 #else
 			var mt = chkVersion ? m.GetAttr<MinMCARTVersionAttribute>() : null;
-			var mv = Resources.RTInfo.RTAssembly().GetName().Version;
+			var mv = RTInfo.RTAssembly.GetName().Version;
 			return !m.IsInterface && !m.IsAbstract && ((mt?.Value ?? mv) <= mv) && (m.GetAttr<UnusableAttribute>().IsNull());
 #endif
         }
@@ -130,7 +123,7 @@ namespace MCART.PluginSupport
         {
             if (!File.Exists(asmPath))
                 throw new FileNotFoundException(
-                    string.Format(St.XNotFound, St.TheAssembly), asmPath);
+                    St.XNotFound(St.TheAssembly), asmPath);
             return LoadAll<T>(Assembly.LoadFrom(asmPath), ignoreVersion);
         }
         /// <summary>
@@ -180,7 +173,7 @@ namespace MCART.PluginSupport
         {
             if (!File.Exists(asmPath))
                 throw new FileNotFoundException(
-                    string.Format(St.XNotFound, St.TheAssembly), asmPath);
+                    St.XNotFound(St.TheAssembly), asmPath);
             return Load<T>(Assembly.LoadFrom(asmPath), ignoreVersion);
         }
         /// <summary>
@@ -221,7 +214,7 @@ namespace MCART.PluginSupport
                     Assembly a = Assembly.LoadFrom(f.FullName);
                     if (a.IsNot(Resources.RTInfo.RTAssembly) && IsVaild(a)) outp.AddRange(LoadAll<T>(a, ignoreVersion));
                 }
-                catch { System.Diagnostics.Debug.Print(St.Warn(string.Format(St.XIsInvalid, St.XYQuotes(St.TheAssembly, f.Name)))); }
+                catch { System.Diagnostics.Debug.Print(St.Warn(St.XIsInvalid(St.XYQuotes(St.TheAssembly, f.Name)))); }
             }
             return outp;
         }

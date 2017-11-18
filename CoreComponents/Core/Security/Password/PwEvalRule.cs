@@ -76,7 +76,7 @@ namespace MCART.Security.Password
         public PwEvalResult Eval(string pwToEval)
         {
             if (!Enable) throw new InvalidOperationException(
-                string.Format(St.XDisabled, St.TheObj));
+                St.XDisabled(St.TheObj));
             PwEvalResult k = func(pwToEval);
             if (!k.Result.IsBetween(0.0f, 1.0f)) throw new
                  Exceptions.InvalidReturnValueException(func, k.Result);
@@ -84,14 +84,21 @@ namespace MCART.Security.Password
             return k;
         }
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:MCART.Security.Password.PwEvalRule"/> class.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="PwEvalRule"/>.
         /// </summary>
-        /// <param name="evalFunc">Eval func.</param>
-        /// <param name="name">Name.</param>
-        /// <param name="ponderation">Ponderation.</param>
-        /// <param name="description">Description.</param>
-        /// <param name="defaultEnable">If set to <c>true</c> default enable.</param>
-        /// <param name="isExtra">If set to <c>true</c> is extra.</param>
+        /// <param name="evalFunc">Función de evaluación.</param>
+        /// <param name="name">Nombre de la regla.</param>
+        /// <param name="ponderation">Ponderación a aplicar.</param>
+        /// <param name="description">Descripción de la regla.</param>
+        /// <param name="defaultEnable">
+        /// Si se establece en <c>true</c>, la regla estará activa de forma
+        /// predeterminada.
+        /// </param>
+        /// <param name="isExtra">
+        /// Si se establece en <c>true</c>, el resultado de esta regla se
+        /// tomará en cuenta como puntos extra.
+        /// </param>
         public PwEvalRule(
             PwEvalFunc evalFunc,
             string name,
@@ -113,14 +120,21 @@ namespace MCART.Security.Password
             IsExtraPoints = isExtra;
         }
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:MCART.Security.Password.PwEvalRule"/> class.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="PwEvalRule"/>.
         /// </summary>
-        /// <param name="evalFunc">Eval func.</param>
-        /// <param name="name">Name.</param>
-        /// <param name="ponderation">Ponderation.</param>
-        /// <param name="description">Description.</param>
-        /// <param name="defaultEnable">Default enable.</param>
-        /// <param name="isExtra">Is extra.</param>
+        /// <param name="evalFunc">Función de evaluación.</param>
+        /// <param name="name">Nombre de la regla.</param>
+        /// <param name="ponderation">Ponderación a aplicar.</param>
+        /// <param name="description">Descripción de la regla.</param>
+        /// <param name="defaultEnable">
+        /// Si se establece en <c>true</c>, la regla estará activa de forma
+        /// predeterminada.
+        /// </param>
+        /// <param name="isExtra">
+        /// Si se establece en <c>true</c>, el resultado de esta regla se
+        /// tomará en cuenta como puntos extra.
+        /// </param>
         public PwEvalRule(
             PwEvalFunc evalFunc,
             NameAttribute name,
@@ -142,9 +156,13 @@ namespace MCART.Security.Password
             IsExtraPoints = !isExtra.IsNull();
         }
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:MCART.Security.Password.PwEvalRule"/> class.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="PwEvalRule"/>.
         /// </summary>
-        /// <param name="evalFunc">Eval func.</param>
+        /// <param name="evalFunc">
+        /// Función de evaluación. Debería contener todas sus propiedades
+        /// indicadas como atributos.
+        /// </param>
         public PwEvalRule(PwEvalFunc evalFunc)
         {
             if (evalFunc.IsNull()) throw new ArgumentNullException(nameof(evalFunc));

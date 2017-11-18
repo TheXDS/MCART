@@ -138,8 +138,8 @@ Arreglado: Error de XML de compilación de documentación
 Misc.: Uso de características de VB15
 Otras mejoras y correcciones varias.
 
-MCART 0.6.0.0 (actualmente un TODO list)
-- Todo el código se ha mudado a C# desde VB
+MCART 0.6 Series
+- Todo el código se ha mudado a C# 7.1 desde VB15
 - Se ha adoptado la licencia GNU GPL3
 - Todos los módulos han sido reorganizados
 Nuevo: El proyecto ahora es multiplataforma
@@ -149,4 +149,6 @@ Nuevo: Soporte para Linux/macOs por medio de Mono Runtime
 Nuevo: Librería de UI en gtk (incluye widgets y ventanas)
 Nuevo: Librería de UI en Windows Forms (incluye controles y formularios)
 Nuevo: Librería de UI en WPF (incluye controles y ventanas)
-Mejorado: Reescritura total del espacio de nombres MCART.Networking
+Nuevo: Proyectos de Unit Testing compatibles con Visual Studio
+Mejorado: Reescritura total de MCART
+Quitado: MCADB

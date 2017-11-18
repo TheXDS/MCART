@@ -21,12 +21,6 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#region Opciones de compilación
-// determina si se utilizarán los números nativos de la región configurada en 
-// el sistema.
-#define NativeDigits
-#endregion
-
 using MCART.Attributes;
 using St = MCART.Resources.Strings;
 using St2 = MCART.Resources.SpecificStrings;
@@ -141,7 +135,7 @@ namespace MCART.Security.Password
         public static PwEvalRule PwNumbersEvalRule()
         {
             return ContentionRuleFactory(
-#if NativeDigits
+#if NativeNumbers
             System.Globalization.NumberFormatInfo.CurrentInfo.NativeDigits.Condense()
 #else
             St.Numbers

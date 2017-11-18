@@ -32,7 +32,7 @@
             // 
             // ProgressRing
             // 
-            this.SizeChanged += new System.EventHandler(this.OnResize);
+            this.SizeChanged += (sender, e) => this.RequestRedraw();
             this.ResumeLayout(false);
 
         }

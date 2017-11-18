@@ -68,15 +68,23 @@ Public Class MainWindow
         MsgBox(Security.Password.Generators.Pin)
     End Sub
     Private Sub MnuGrphRing_Click(sender As Object, e As RoutedEventArgs) Handles mnuGrphRing.Click
-        Dim r As New RingGraph() With {.SubLevelsShown = 2, .Title = "Test"}
+        Dim r As New RingGraph() With {.SubLevelsShown = 3, .Title = "Test"}
         r.Slices.Add(New Slice() With {.SliceColor = Colors.Red})
         Dim a As New Slice() With {.SliceColor = Colors.Purple}
         a.SubSlices.Add(New Slice() With {.SliceColor = Colors.Blue})
-        a.SubSlices.Add(New Slice() With {.SliceColor = Colors.Green})
+        Dim b As New Slice() With {.SliceColor = Colors.Purple}
+        Dim c As New Slice() With {.SliceColor = Colors.Green}
+        b.SubSlices.Add(c)
+        a.SubSlices.Add(b)
         r.Slices.Add(a)
         r.Slices.Add(New Slice() With {.SliceColor = Colors.Yellow})
         With New GrphTest
             .ShowGraph(r)
+        End With
+    End Sub
+    Private Sub MnuProgressRing_Click(sender As Object, e As RoutedEventArgs) Handles mnuProgressRing.Click
+        With New ProgressTest()
+            .ShowDialog()
         End With
     End Sub
 End Class

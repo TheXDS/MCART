@@ -36,16 +36,47 @@ namespace MCART.Controls
 {
     public partial class RingGraph : UserControl
     {
-
-
-
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="RingGraph"/>.
+        /// </summary>
         public RingGraph()
         {
             InitializeComponent();
+            Load += RingGraph_Loaded;
         }
+
+        /// <summary>
+        /// Obtiene o establece el título a mostrar de este
+        /// <see cref="IGraph"/>.
+        /// </summary>
+        public bool TotalVisible { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+
+        public string Title { get => txtTitle.Text; set => txtTitle.Text = value; }
+
+        public double TitleFontSize { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public void DrawMyChildren(Slice r)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DrawMylabel(Slice r)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DrawOnlyMe(Slice r)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Redraw()
         {
-
+            
         }
+        private void RingGraph_Loaded(object sender, EventArgs e) => Redraw();
+                        
+
     }
 }

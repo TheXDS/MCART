@@ -18,37 +18,4 @@
             </Grid>
         </Viewbox>
     </DockPanel>
-<!-- Control de prueba -->      
-    <!--<DockPanel>
-        <TextBlock x:Name="txtTitle" Margin="10" DockPanel.Dock="Top" HorizontalAlignment="Center" Text="Test"/>
-        <TreeView VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" x:Name="pnlLabels">
-            <TreeViewItem>
-                <TreeViewItem.Header>
-                    <CheckBox Content="Series 1" Background="Red"/>
-                </TreeViewItem.Header>
-                <TreeViewItem>
-                    <TreeViewItem.Header>
-                        <CheckBox Content="Series 2" Background="Yellow"/>
-                    </TreeViewItem.Header>
-                </TreeViewItem>
-            </TreeViewItem>
-        </TreeView>
-        <Viewbox  Margin="10" 
-            Width="{Binding ActualWidth, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"
-            Height="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}">
-            <Grid Height="{Binding ActualWidth, Mode=OneWay, RelativeSource={RelativeSource Self}}">
-                <Grid x:Name="grdRoot" Margin="30">
-                    <Grid Margin="-30">
-                        <Ellipse Stroke="Yellow" StrokeThickness="30"/>
-                    </Grid>
-                    <Grid>
-                        <Ellipse Stroke="Red" StrokeThickness="30"/>
-                    </Grid>
-                </Grid>
-                <Viewbox x:Name="vbxTotal" Margin="100">
-                    <TextBlock x:Name="txtTotal" Text="100" FontSize="100"/>
-                </Viewbox>
-            </Grid>
-        </Viewbox>
-    </DockPanel>-->    
 </UserControl>

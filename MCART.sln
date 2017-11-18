@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core", "CoreComponents\Core\Core.shproj", "{E5F6A0E5-B532-480C-B72E-516908C07944}"
 EndProject
@@ -18,6 +18,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF", "MCART\WPF\WPF.csproj", "{214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreComponents", "CoreComponents", "{9FDABDB6-9BC6-4DB6-9B3C-C43492893ED4}"
+	ProjectSection(SolutionItems) = preProject
+		CommonSettings.targets = CommonSettings.targets
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MCART", "MCART", "{D1A6B294-5A43-479F-9BA5-431BEFA203FA}"
 EndProject
@@ -48,6 +51,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		CONTRIBUTING.md = CONTRIBUTING.md
 		LICENSE = LICENSE
 		README.md = README.md
+		TECHINFO.md = TECHINFO.md
 	EndProjectSection
 EndProject
 Global
@@ -57,14 +61,7 @@ Global
 		CoreComponents\Core\Core.projitems*{214a1e64-25a4-4d98-97da-7ca0e7ab2eef}*SharedItemsImports = 4
 		CoreComponents\Core-GUI\Core-GUI.projitems*{4963ba2e-aa9f-43df-9674-d7257a201aa3}*SharedItemsImports = 13
 		CoreComponents\Core-NoWPF\Core-NoWPF.projitems*{5b5c0ea8-e8c3-4442-94fb-03b7ac6be9e8}*SharedItemsImports = 13
-		CoreComponents\Core-GUI\Core-GUI.projitems*{99e6bbf2-0911-4a07-85c4-8a1bfc479f34}*SharedItemsImports = 4
-		CoreComponents\Core-NoWPF\Core-NoWPF.projitems*{99e6bbf2-0911-4a07-85c4-8a1bfc479f34}*SharedItemsImports = 4
-		CoreComponents\Core\Core.projitems*{99e6bbf2-0911-4a07-85c4-8a1bfc479f34}*SharedItemsImports = 4
 		CoreComponents\Core\Core.projitems*{e5f6a0e5-b532-480c-b72e-516908c07944}*SharedItemsImports = 13
-		CoreComponents\Core-GUI\Core-GUI.projitems*{eaff4297-e338-4093-bb51-38c16b325b40}*SharedItemsImports = 4
-		CoreComponents\Core-NoWPF\Core-NoWPF.projitems*{eaff4297-e338-4093-bb51-38c16b325b40}*SharedItemsImports = 4
-		CoreComponents\Core-Windows\Core-Windows.projitems*{eaff4297-e338-4093-bb51-38c16b325b40}*SharedItemsImports = 4
-		CoreComponents\Core\Core.projitems*{eaff4297-e338-4093-bb51-38c16b325b40}*SharedItemsImports = 4
 		CoreComponents\Core-Windows\Core-Windows.projitems*{f1d4fe86-bb72-4d8d-901e-525f697991fe}*SharedItemsImports = 13
 		CoreComponents\Core\Core.projitems*{ffcb72d8-1cb3-47a2-876b-630076307d78}*SharedItemsImports = 4
 	EndGlobalSection

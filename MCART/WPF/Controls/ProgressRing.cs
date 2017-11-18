@@ -34,13 +34,7 @@ namespace MCART.Controls
 {
     public partial class ProgressRing : UserControl
     {
-        static Type T = typeof(ProgressRing);
-        static void Redraw(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ProgressRing p = (ProgressRing)d;
-            p.SetControlSize();
-            p.Draw();
-        }
+        #region Miembros estáticos
         static void Updt(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ((ProgressRing)d).Draw();
@@ -49,18 +43,94 @@ namespace MCART.Controls
         {
             ProgressRing p = (ProgressRing)d;
             p.SetValue(IsIndeterminateProperty, !p.Value.IsBetween(p.Minimum, p.Maximum));
+            p.BgDraw();
+            p.Draw();
+        }
+        static void Updt3(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ProgressRing p = (ProgressRing)d;
+            p.BgDraw();
+            p.Draw();
         }
         static void TxtFmt(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ProgressRing p = (ProgressRing)d;
             p.TxtPercent.Text = string.Format(p.TextFormat, p.Value);
         }
-        TextBlock TxtPercent = new TextBlock()
-        {
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center
-        };
-        Ellipse ellBg = new Ellipse();
+        #endregion
+        #region Propiedades de dependencia
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="Angle"/>.
+        /// </summary>
+        public static DependencyProperty AngleProperty = DependencyProperty.Register(
+            nameof(Angle), typeof(float), typeof(ProgressRing),
+            new PropertyMetadata(0f, Updt3), a => ((float)a).IsBetween(0f, 360f));
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="Fill"/>.
+        /// </summary>
+        public static DependencyProperty FillProperty = DependencyProperty.Register(
+            nameof(Fill), typeof(Brush), typeof(ProgressRing),
+            new PropertyMetadata(SystemColors.HighlightBrush));
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="FullAngle"/>.
+        /// </summary>
+        public static DependencyProperty FullAngleProperty = DependencyProperty.Register(
+                nameof(FullAngle), typeof(float), typeof(ProgressRing),
+                new PropertyMetadata(360f, Updt3), a => ((float)a).IsBetween(0f, 360f));
+        /// <summary>
+        /// Identifica a la propiedad de dependencia 
+        /// <see cref="IsIndeterminate"/>.
+        /// </summary>
+        public static DependencyProperty IsIndeterminateProperty = DependencyProperty.Register(
+            nameof(IsIndeterminate), typeof(bool), typeof(ProgressRing),
+            new PropertyMetadata(false, Updt));
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="Maximum"/>.
+        /// </summary>
+        public static DependencyProperty MaxProperty = DependencyProperty.Register(
+            nameof(Maximum), typeof(double), typeof(ProgressRing),
+            new PropertyMetadata(100.0, Updt2));
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="Minimum"/>.
+        /// </summary>
+        public static DependencyProperty MinProperty = DependencyProperty.Register(
+            nameof(Minimum), typeof(double), typeof(ProgressRing),
+            new PropertyMetadata(0.0, Updt2));
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="RingStroke"/>.
+        /// </summary>
+        public static DependencyProperty RingStrokeProperty = DependencyProperty.Register(
+            nameof(RingStroke), typeof(Brush), typeof(ProgressRing),
+            new PropertyMetadata(SystemColors.ControlDarkBrush));
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="Sweep"/>.
+        /// </summary>
+        public static DependencyProperty SweepProperty = DependencyProperty.Register(
+            nameof(Sweep), typeof(SweepDirection), typeof(ProgressRing),
+            new PropertyMetadata(SweepDirection.Clockwise, Updt),
+            (a) => typeof(SweepDirection).IsEnumDefined(a));
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="TextFormat"/>.
+        /// </summary>
+        public static DependencyProperty TextFormatProperty = DependencyProperty.Register(
+            nameof(TextFormat), typeof(string), typeof(ProgressRing),
+            new PropertyMetadata("{0:0.0}%", TxtFmt));
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="Thickness"/>.
+        /// </summary>
+        public static DependencyProperty ThicknessProperty = DependencyProperty.Register(
+            nameof(Thickness), typeof(double), typeof(ProgressRing),
+            new PropertyMetadata(4.0, Updt));
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="Value"/>.
+        /// </summary>
+        public static DependencyProperty ValueProperty = DependencyProperty.Register(
+            nameof(Value), typeof(double), typeof(ProgressRing),
+            new PropertyMetadata(0.0, Updt2));
+        #endregion
+        #region Campos privados
+        bool amIAnimated = false;
+        Path ellBg = new Path();
         Path pth = new Path()
         {
             RenderTransform = new RotateTransform(),
@@ -70,102 +140,47 @@ namespace MCART.Controls
         {
             RepeatBehavior = RepeatBehavior.Forever
         };
-        bool amIAnimated = false;
-        void OnLoaded(object sender, RoutedEventArgs e)
+        TextBlock TxtPercent = new TextBlock()
         {
-            Redraw(this, new DependencyPropertyChangedEventArgs());
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+        #endregion
+        #region Métodos privados
+        void BgDraw()
+        {
+            double radius = 50 - Thickness / 2;
+            if (!IsIndeterminate)
+                ellBg.Data = GetCircleArc(radius, Angle, Angle + FullAngle.Clamp(0f, 359.999f), Thickness);
+            else
+                ellBg.Data = GetCircleArc(radius, 0, 359.999, Thickness);
         }
         void Draw()
         {
+            double radius = 50 - Thickness / 2;
             if (!pth.IsLoaded) return;
             RotateTransform x = (RotateTransform)pth.RenderTransform;
             if (!IsIndeterminate)
             {
                 amIAnimated = false;
                 x.BeginAnimation(RotateTransform.AngleProperty, null);
-                pth.Data = GetCircleArc(Radius, (((Value - Minimum) / (Maximum - Minimum)) * 360).Clamp(0, 359.999), Thickness);
+                pth.Data = GetCircleArc(radius, Angle, Angle + (((Value - Minimum) / (Maximum - Minimum)) * FullAngle).Clamp(0, 359.999), Thickness);
                 TxtPercent.Text = string.Format(TextFormat, Value);
             }
             else if (!amIAnimated)
             {
-                pth.Data = GetCircleArc(Radius, 90, Thickness);
+                pth.Data = GetCircleArc(radius, 90, Thickness);
                 amIAnimated = true;
                 x.BeginAnimation(RotateTransform.AngleProperty, spin);
                 TxtPercent.Text = "...";
             }
         }
-        void SetControlSize()
+        void OnLoaded(object sender, RoutedEventArgs e)
         {
-            Width = (double)GetValue(RadiusProperty) * 2 + (double)GetValue(ThicknessProperty);
+            Draw();
         }
-        /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="Angle"/>.
-        /// </summary>
-        public static DependencyProperty AngleProperty = DependencyProperty.Register(
-            nameof(Angle), typeof(float), T,
-            new PropertyMetadata(0.0f), (a) => ((float)a).IsBetween(0.0f, 360.0f));
-        /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="Sweep"/>.
-        /// </summary>
-        public static DependencyProperty SweepProperty = DependencyProperty.Register(
-            nameof(Sweep), typeof(SweepDirection), T,
-            new PropertyMetadata(SweepDirection.Clockwise, Updt2),
-            (a) => typeof(SweepDirection).IsEnumDefined(a));
-        /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="TextFormat"/>.
-        /// </summary>
-        public static DependencyProperty TextFormatProperty = DependencyProperty.Register(
-            nameof(TextFormat), typeof(string), T,
-            new PropertyMetadata("{0:0.0}%", TxtFmt));
-        /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="Thickness"/>.
-        /// </summary>
-        public static DependencyProperty ThicknessProperty = DependencyProperty.Register(
-            nameof(Thickness), typeof(double), T,
-            new PropertyMetadata(4.0, Redraw));
-        /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="Radius"/>.
-        /// </summary>
-        public static DependencyProperty RadiusProperty = DependencyProperty.Register(
-            nameof(Radius), typeof(double), T,
-            new PropertyMetadata(24.0, Redraw));
-        /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="Value"/>.
-        /// </summary>
-        public static DependencyProperty ValueProperty = DependencyProperty.Register(
-            nameof(Value), typeof(double), T,
-            new PropertyMetadata(0.0, Updt2));
-        /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="Minimum"/>.
-        /// </summary>
-        public static DependencyProperty MinProperty = DependencyProperty.Register(
-            nameof(Minimum), typeof(double), T,
-            new PropertyMetadata(0.0, Updt2));
-        /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="Maximum"/>.
-        /// </summary>
-        public static DependencyProperty MaxProperty = DependencyProperty.Register(
-            nameof(Maximum), typeof(double), T,
-            new PropertyMetadata(100.0, Updt2));
-        /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="RingStroke"/>.
-        /// </summary>
-        public static DependencyProperty RingStrokeProperty = DependencyProperty.Register(
-            nameof(RingStroke), typeof(Brush), T,
-            new PropertyMetadata(SystemColors.ControlDarkBrush));
-        /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="Fill"/>.
-        /// </summary>
-        public static DependencyProperty FillProperty = DependencyProperty.Register(
-            nameof(Fill), typeof(Brush), T,
-            new PropertyMetadata(SystemColors.HighlightBrush));
-        /// <summary>
-        /// Identifica a la propiedad de dependencia 
-        /// <see cref="IsIndeterminate"/>.
-        /// </summary>
-        public static DependencyProperty IsIndeterminateProperty = DependencyProperty.Register(
-            nameof(IsIndeterminate), typeof(bool), T,
-            new PropertyMetadata(false, Updt));
+        #endregion
+        #region Propiedades
         /// <summary>
         /// Obtiene o establece el ángulo desde el que se empezará a dibujar el
         /// relleno de este <see cref="ProgressRing"/>. 
@@ -176,13 +191,49 @@ namespace MCART.Controls
             set => SetValue(AngleProperty, value);
         }
         /// <summary>
-        /// Obtiene o establece la dirección en la cual se rellenará este
-        /// <see cref="ProgressRing"/>. 
+        /// Obtiene o establece el <see cref="Brush"/> a utilizar para dibujar
+        /// el relleno del anillo de este <see cref="ProgressRing"/>.
         /// </summary>
-        public SweepDirection Sweep
+        public Brush Fill
         {
-            get => (SweepDirection)GetValue(SweepProperty);
-            set => SetValue(SweepProperty, value);
+            get => (Brush)GetValue(FillProperty);
+            set => SetValue(FillProperty, value);
+        }
+        /// <summary>
+        /// Obtiene o establece el ángulo que indica un valor completo del
+        /// <see cref="ProgressRing"/>.
+        /// </summary>
+        public float FullAngle
+        {
+            get => (float)GetValue(FullAngleProperty);
+            set => SetValue(FullAngleProperty, value);
+        }
+        /// <summary>
+        /// Obtiene o establece un valor que indica si se mostrará un estado
+        /// indeterminado en este <see cref="ProgressRing"/>.
+        /// </summary>
+        public bool IsIndeterminate
+        {
+            get => (bool)GetValue(IsIndeterminateProperty);
+            set => SetValue(IsIndeterminateProperty, value);
+        }
+        /// <summary>
+        /// Obtiene o establece el valor máximo de este
+        /// <see cref="ProgressRing"/>.
+        /// </summary>
+        public double Maximum
+        {
+            get => (double)GetValue(MaxProperty);
+            set => SetValue(MaxProperty, value);
+        }
+        /// <summary>
+        /// Obtiene o establece el valor mínimo de este
+        /// <see cref="ProgressRing"/>.
+        /// </summary>
+        public double Minimum
+        {
+            get => (double)GetValue(MinProperty);
+            set => SetValue(MinProperty, value);
         }
         /// <summary>
         /// Obtiene o establece el <see cref="Brush"/> a utilizar para dibujar
@@ -194,13 +245,13 @@ namespace MCART.Controls
             set => SetValue(RingStrokeProperty, value);
         }
         /// <summary>
-        /// Obtiene o establece el <see cref="Brush"/> a utilizar para dibujar
-        /// el relleno del anillo de este <see cref="ProgressRing"/>.
+        /// Obtiene o establece la dirección en la cual se rellenará este
+        /// <see cref="ProgressRing"/>. 
         /// </summary>
-        public Brush Fill
+        public SweepDirection Sweep
         {
-            get => (Brush)GetValue(FillProperty);
-            set => SetValue(FillProperty, value);
+            get => (SweepDirection)GetValue(SweepProperty);
+            set => SetValue(SweepProperty, value);
         }
         /// <summary>
         /// Obtiene o establece el formato de texto a aplicar al centro de este
@@ -221,15 +272,6 @@ namespace MCART.Controls
             set => SetValue(ThicknessProperty, value);
         }
         /// <summary>
-        /// Obtiene o establece el radio del anillo de este
-        /// <see cref="ProgressRing"/>.
-        /// </summary>
-        public double Radius
-        {
-            get => (double)GetValue(RadiusProperty);
-            set => SetValue(RadiusProperty, value);
-        }
-        /// <summary>
         /// Obtiene o establece el valor a representar en este
         /// <see cref="ProgressRing"/>.
         /// </summary>
@@ -238,62 +280,29 @@ namespace MCART.Controls
             get => (double)GetValue(ValueProperty);
             set => SetValue(ValueProperty, value);
         }
-        /// <summary>
-        /// Obtiene o establece el valor mínimo de este
-        /// <see cref="ProgressRing"/>.
-        /// </summary>
-        public double Minimum
-        {
-            get => (double)GetValue(MinProperty);
-            set => SetValue(MinProperty, value);
-        }
-        /// <summary>
-        /// Obtiene o establece el valor máximo de este
-        /// <see cref="ProgressRing"/>.
-        /// </summary>
-        public double Maximum
-        {
-            get => (double)GetValue(MaxProperty);
-            set => SetValue(MaxProperty, value);
-        }
-        /// <summary>
-        /// Obtiene o establece un valor que indica si se mostrará un estado
-        /// indeterminado en este <see cref="ProgressRing"/>.
-        /// </summary>
-        public bool IsIndeterminate
-        {
-            get => (bool)GetValue(IsIndeterminateProperty);
-            set => SetValue(IsIndeterminateProperty, value);
-        }
+        #endregion
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="ProgressRing"/>.
         /// </summary>
         public ProgressRing()
         {
-            SetBinding(HeightProperty, new Binding(nameof(Width)) { Source = this });
             ellBg.SetBinding(Shape.StrokeThicknessProperty, new Binding(nameof(Thickness)) { Source = this });
-            ellBg.SetBinding(Shape.StrokeProperty, new Binding(nameof(RingStroke))
-            {
-                Source = this
-            });
+            ellBg.SetBinding(Shape.StrokeProperty, new Binding(nameof(RingStroke)) { Source = this });
             pth.SetBinding(Shape.StrokeThicknessProperty, new Binding(nameof(Thickness)) { Source = this });
-            pth.SetBinding(Shape.StrokeProperty, new Binding(nameof(Fill))
-            {
-                Source = this
-            });
+            pth.SetBinding(Shape.StrokeProperty, new Binding(nameof(Fill)) { Source = this });
             spin.KeyFrames.Add(new EasingDoubleKeyFrame()
             {
                 KeyTime = KeyTime.FromTimeSpan(new TimeSpan(0, 0, 1)),
                 Value = 360.0
             });
-            Grid a = new Grid();
+            Grid a = new Grid { Width = 100 };
+            a.SetBinding(HeightProperty, new Binding(nameof(Width)) { Source = a, Mode = BindingMode.TwoWay });
             a.Children.Add(ellBg);
             a.Children.Add(pth);
             a.Children.Add(TxtPercent);
-            Content = a;
+            Content = new Viewbox() { Child = a };
             Loaded += OnLoaded;
-            SizeChanged += OnLoaded;
         }
     }
 }

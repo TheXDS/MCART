@@ -1,5 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>MCART</AssemblyName>
@@ -17,19 +16,19 @@
     <PackageLicenseUrl>http://www.gnu.org/licenses/gpl-3.0.html</PackageLicenseUrl>
     <Description>MCART .Net Standard Edition</Description>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\..\Build\netstandard2.0\Debug\</OutputPath>
     <DocumentationFile>..\..\Build\netstandard2.0\Debug\MCART.xml</DocumentationFile>
     <LangVersion>default</LangVersion>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DefineConstants>RELEASE;NETSTANDARD2_0</DefineConstants>
     <OutputPath>..\..\Build\netstandard2.0\Release\</OutputPath>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
   </PropertyGroup>
-
   <Import Project="..\..\CoreComponents\Core\Core.projitems" Label="Shared" />
-
+  <PropertyGroup Condition="'$(SolutionDir)' == '' or '$(SolutionDir)' == '*undefined*'">
+    <SolutionDir>..\..\</SolutionDir>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)CommonSettings.targets" />
 </Project>

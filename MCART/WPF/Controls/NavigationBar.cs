@@ -97,7 +97,7 @@ namespace MCART.Controls
         };
         TextBlock lblInfo = new TextBlock()
         {
-            Text = St.of_,
+            Text = St.Of,
             Margin = new Thickness(5, 0, 5, 0)
         };
         Button btnFirst = new Button()
@@ -593,7 +593,7 @@ namespace MCART.Controls
             ShowControls(lblTot, txtPos);
             if (Max > 0) btnEdit.Visibility = Visibility.Visible;
             SetValue(IsEditingProperty, false);
-            lblInfo.Text = St.of_;
+            lblInfo.Text = St.Of;
             ctrls.DisableControls();
             wasNewPressed = false;
         }
@@ -601,7 +601,7 @@ namespace MCART.Controls
         {
             btnEdit.Visibility = Visibility.Collapsed;
             SetValue(IsEditingProperty, true);
-            lblInfo.Text = St.of_;
+            lblInfo.Text = St.Of;
             ctrls.EnableControls();
         }
         string GenFilters(string s)

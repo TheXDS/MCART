@@ -1,0 +1,14 @@
+﻿<Window x:Class="ProgressTest"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestApp"
+        xmlns:mcart="clr-namespace:MCART.Controls;assembly=MCART"
+        mc:Ignorable="d"
+        Title="ProgressTest" Height="300" Width="300">
+    <DockPanel>
+        <Slider x:Name="sldValue" Value="50" Orientation="Vertical" Margin="5" Maximum="100" SmallChange="1" LargeChange="10" TickFrequency="10" TickPlacement="BottomRight"/>
+        <mcart:ProgressRing Value="{Binding Value, ElementName=sldValue}" FullAngle="270" Angle="225"/>
+    </DockPanel>
+</Window>

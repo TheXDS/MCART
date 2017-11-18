@@ -310,7 +310,7 @@ namespace MCART.Types
                 case 'B': return $"[{X}, {Y}]";
                 case 'V': return $"X: {X}, Y: {Y}";
                 case 'N': return $"X: {X}\nY: {Y}";
-                default: throw new FormatException(string.Format(St.FormatNotSupported, format));
+                default: throw new FormatException(St.FormatNotSupported(format));
             }
         }
     }

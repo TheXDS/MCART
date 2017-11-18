@@ -28,7 +28,6 @@ using System.Windows.Controls;
 using System.Windows.Converters;
 using System.Windows.Data;
 using System.Windows.Shapes;
-using static MCART.Controls.Misc;
 
 namespace MCART.Controls
 {
@@ -50,13 +49,6 @@ namespace MCART.Controls
                 new Binding(nameof(Title)) { Source = this });
             txtTitle.SetBinding(TextBlock.FontSizeProperty,
                 new Binding(nameof(TitleFontSize)) { Source = this });
-            //txtTotal.SetBinding(TextBlock.TextProperty,
-            //    new Binding(nameof(TotalProperty))
-            //    {
-            //        Source = this,
-            //        Converter = new LabeledDoubleConverter(),
-            //        ConverterParameter = MCART.Resources.Strings.NoData
-            //    });
             Loaded += RingGraph_Loaded;
         }
 
@@ -214,13 +206,12 @@ namespace MCART.Controls
             j.shape = p;
             j.label = c;
             j.parent = g;
-            System.Diagnostics.Debug.WriteLine(p.Data.ToString());
             g.Children.Add(p);
         }
         private void RdrwChild(System.Collections.Generic.IList<Slice> slices, Grid g, double startAngle, double totalSize, ItemCollection labels, out double total, int sublevel = 0)
         {
             labels.Clear();
-            total = GetTotal(slices);
+            total = slices.GetTotal();
             double ang = startAngle;
             if (!grdRoot.Children.Contains(g))
             {
@@ -229,7 +220,7 @@ namespace MCART.Controls
                 g.UpdateLayout();
             }
             Grid subg = null;
-            if (SubLevelsShown - 1 > (sublevel * -1))
+            if (SubLevelsShown - 1 > sublevel)
             {
                 double sz = RingThickness * (sublevel + 1);
                 subg = new Grid { Margin = new Thickness(-sz) };
@@ -239,7 +230,7 @@ namespace MCART.Controls
                 if (g.Children.Contains(k.shape)) g.Children.Remove(k.shape);
                 double sz = totalSize * (k.Value / total);
                 RdrwSeries(k, total, ang, sz, g, labels, out TreeViewItem t);
-                if (SubLevelsShown - 1 > (sublevel * -1))
+                if (SubLevelsShown - 1 > sublevel)
                 {
                     RdrwChild(
                         k.SubSlices,
@@ -248,7 +239,7 @@ namespace MCART.Controls
                         sz,
                         t.Items,
                         out _,
-                        sublevel - 1);
+                        sublevel + 1);
                     // TODO: en vez de _, dibujar una etiqueta con el total.
                 }
                 ang += sz;

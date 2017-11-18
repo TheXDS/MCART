@@ -21,11 +21,6 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#region Opciones de compilación
-// Usar Clamping en lugar de excepciones
-#define UseClamping
-#endregion
-
 using System;
 using CI = System.Globalization.CultureInfo;
 
@@ -79,19 +74,16 @@ namespace MCART.Types
 		public static Color operator +(Color left, Color right)
 		{
 			return new Color(
-				left.r + right.r,
-				left.g + right.g,
-				left.b + right.b
-,
-#if UseClamping
-				// La verificación del clamping se realiza en el costructor.
-				left.a + right.a
-#else
-				// La verificación del clamping se realiza aquí.
-				(left.a + right.a).Clamp(0.0f, 1.0f),
+#if PreferExceptions
 				(left.r + right.r).Clamp(0.0f, 1.0f),
 				(left.g + right.g).Clamp(0.0f, 1.0f),
-				(left.b + right.b).Clamp(0.0f, 1.0f)
+				(left.b + right.b).Clamp(0.0f, 1.0f),
+				(left.a + right.a).Clamp(0.0f, 1.0f)
+#else
+				left.r + right.r,
+				left.g + right.g,
+				left.b + right.b,
+				left.a + right.a
 #endif
 			);
 		}
@@ -112,19 +104,16 @@ namespace MCART.Types
 		public static Color operator -(Color left, Color right)
 		{
 			return new Color(
-				left.r - right.r,
-				left.g - right.g,
-				left.b - right.b
-,
-#if UseClamping
-				// La verificación del clamping se realiza en el costructor.
-				left.a - right.a
-#else
-				// La verificación del clamping se realiza aquí.
-				(left.a - right.a).Clamp(0.0f, 1.0f),
+#if PreferExceptions
 				(left.r - right.r).Clamp(0.0f, 1.0f),
 				(left.g - right.g).Clamp(0.0f, 1.0f),
-				(left.b - right.b).Clamp(0.0f, 1.0f)
+				(left.b - right.b).Clamp(0.0f, 1.0f),
+				(left.a - right.a).Clamp(0.0f, 1.0f)
+#else
+				left.r - right.r,
+				left.g - right.g,
+				left.b - right.b,
+				left.a - right.a
 #endif
 			);
 		}
@@ -141,19 +130,16 @@ namespace MCART.Types
 		public static Color operator *(Color left, float right)
 		{
 			return new Color(
-				left.r * right,
-				left.g * right,
-				left.b * right
-,
-#if UseClamping
-				// La verificación del clamping se realiza en el costructor.
-				left.a * right
-#else
-				// La verificación del clamping se realiza aquí.
-				(left.a * right).Clamp(0.0f, 1.0f),
+#if PreferExceptions
 				(left.r * right).Clamp(0.0f, 1.0f),
 				(left.g * right).Clamp(0.0f, 1.0f),
-				(left.b * right).Clamp(0.0f, 1.0f)
+				(left.b * right).Clamp(0.0f, 1.0f),
+				(left.a * right).Clamp(0.0f, 1.0f)
+#else
+				left.r * right,
+				left.g * right,
+				left.b * right,
+				left.a * right
 #endif
 			);
 		}
@@ -169,19 +155,16 @@ namespace MCART.Types
 		public static Color operator /(Color left, Color right)
 		{
 			return new Color(
-				(left.r + right.r) / 2,
-				(left.g + right.g) / 2,
-				(left.b + right.b) / 2
-,
-#if UseClamping
-				// La verificación del clamping se realiza en el costructor.
-				(left.a + right.a) / 2
-#else
-				// La verificación del clamping se realiza aquí.
-				((left.a + right.a) / 2).Clamp(0.0f, 1.0f),
+#if PreferExceptions
 				((left.r + right.r) / 2).Clamp(0.0f, 1.0f),
 				((left.g + right.g) / 2).Clamp(0.0f, 1.0f),
-				((left.b + right.b) / 2).Clamp(0.0f, 1.0f)
+				((left.b + right.b) / 2).Clamp(0.0f, 1.0f),
+				((left.a + right.a) / 2).Clamp(0.0f, 1.0f)
+#else
+				(left.r + right.r) / 2,
+				(left.g + right.g) / 2,
+				(left.b + right.b) / 2,
+				(left.a + right.a) / 2
 #endif
 			);
 		}
@@ -216,16 +199,16 @@ namespace MCART.Types
 		/// </param>
 		public Color(float R, float G, float B, float A = 1.0f)
 		{
-#if UseClamping
-			a = A.Clamp(0.0f, 1.0f);
-			r = R.Clamp(0.0f, 1.0f);
-			g = G.Clamp(0.0f, 1.0f);
-			b = B.Clamp(0.0f, 1.0f);
-#else
+#if PreferExceptions
 			a = A.IsBetween(0.0f, 1.0f) ? A : throw new ArgumentOutOfRangeException(nameof(A));
 			r = R.IsBetween(0.0f, 1.0f) ? R : throw new ArgumentOutOfRangeException(nameof(R));
 			g = G.IsBetween(0.0f, 1.0f) ? G : throw new ArgumentOutOfRangeException(nameof(G));
 			b = B.IsBetween(0.0f, 1.0f) ? B : throw new ArgumentOutOfRangeException(nameof(B));
+#else
+			a = A.Clamp(0.0f, 1.0f);
+			r = R.Clamp(0.0f, 1.0f);
+			g = G.Clamp(0.0f, 1.0f);
+			b = B.Clamp(0.0f, 1.0f);
 #endif
 		}
 		/// <summary>
@@ -266,10 +249,10 @@ namespace MCART.Types
 		public float ScR
 		{
 			get => r;
-#if UseClamping
-			set => r = value.Clamp(0.0f, 1.0f);
-#else
+#if PreferExceptions
 			set => r = value.IsBetween(0.0f, 1.0f) ? value : throw new ArgumentOutOfRangeException(nameof(value));
+#else
+			set => r = value.Clamp(0.0f, 1.0f);
 #endif
 		}
 		/// <summary>
@@ -278,10 +261,10 @@ namespace MCART.Types
 		public float ScG
 		{
 			get => g;
-#if UseClamping
-			set => g = value.Clamp(0.0f, 1.0f);
-#else
+#if PreferExceptions
 			set => g = value.IsBetween(0.0f, 1.0f) ? value : throw new ArgumentOutOfRangeException(nameof(value));
+#else
+			set => g = value.Clamp(0.0f, 1.0f);
 #endif
 		}
 		/// <summary>
@@ -290,10 +273,10 @@ namespace MCART.Types
 		public float ScB
 		{
 			get => b;
-#if UseClamping
-			set => b = value.Clamp(0.0f, 1.0f);
-#else
+#if PreferExceptions
 			set => b = value.IsBetween(0.0f, 1.0f) ? value : throw new ArgumentOutOfRangeException(nameof(value));
+#else
+			set => b = value.Clamp(0.0f, 1.0f);
 #endif
 		}
 		/// <summary>
@@ -302,10 +285,10 @@ namespace MCART.Types
 		public float ScA
 		{
 			get => a;
-#if UseClamping
-			set => a = value.Clamp(0.0f, 1.0f);
-#else
+#if PreferExceptions
 			set => a = value.IsBetween(0.0f, 1.0f) ? value : throw new ArgumentOutOfRangeException(nameof(value));
+#else
+			set => a = value.Clamp(0.0f, 1.0f);
 #endif
 		}
 		/// <summary>

@@ -21,11 +21,6 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#region Opciones de compilación
-// Utilizar números nativos en las funciones que así lo permitan.
-#define UseNativeNumbers
-#endregion
-
 using MCART.Attributes;
 using System;
 using System.Collections.Generic;
@@ -461,7 +456,7 @@ namespace MCART
         /// <param name="s">Cadena a comprobar.</param>
         public static bool ContainsNumbers(this string s)
         {
-#if UseNativeNumbers
+#if NativeNumbers
             return CountChars(s, System.Threading.Thread.CurrentThread.CurrentCulture.NumberFormat.NativeDigits.Condense().ToCharArray()) > 0;
 #else
             return CountChars(s, "0123456789".ToCharArray()) > 0;

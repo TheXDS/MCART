@@ -62,6 +62,7 @@ namespace MCART.PluginSupport
     /// <param name="e">Argumentos del evento.</param>
     public delegate void UIChangeRequestedEventHandler(IPlugin sender, UIChangeEventArgs e);
     #endregion
+    #region Argumentos de eventos
     /// <summary>
     /// Incluye información adicional del evento 
     /// <see cref="IPlugin.PluginFinalizing"/>.
@@ -209,4 +210,5 @@ namespace MCART.PluginSupport
             this.NewUI = new ReadOnlyCollection<InteractionItem>(NewUI);
         }
     }
+    #endregion
 }

@@ -21,10 +21,18 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+#region Opciones de compilación
+
+//Incluir implementación de métodos y funciones faltantes en Microsoft Windows (preferiblemente desactivar en Linux)
+#define ImplementMissing4Win
+
+#endregion
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Gtk;
+using Cairo;
 using MCART.Attributes;
 using St = MCART.Resources.Strings;
 
@@ -35,6 +43,26 @@ namespace MCART
     /// </summary>
     public static partial class UI
     {
+
+#if ImplementMissing4Win
+        /** <summary>
+        Implementa el método faltante Cairo.Context.SetSourceColor al compilar
+        desde Visual Studio/Microsoft Windows.
+        </summary>
+        <param name="c"><see cref="Context"/> a modificar.</param>
+        <param name="color">Color a establecer para el dibujado.</param>
+        <remarks>
+        Al compilar desde Microsoft Windows, el ensamblado Mono.Cairo no 
+        implementa el método Cairo.Context.SetSourceColor, por lo que es 
+        necesario incluir un método de Thunking para implementar dicha función.
+        </remarks>*/
+        [Thunk]
+        internal static void SetSourceColor(this Context c, Types.Color color)
+        {
+            c.SetSourceRGBA(color.ScR, color.ScG, color.ScB, color.ScA);
+        }
+#endif
+
         /// <summary>
         /// Agrega los <see cref="PluginSupport.InteractionItem"/> de cada
         /// <see cref="PluginSupport.IPlugin"/> de una colección a un 
@@ -197,6 +225,7 @@ namespace MCART
         {
             control.Text = string.Empty;
         }
+
         /// <summary>
         /// Limpia el Tooltip del control.
         /// </summary>
@@ -205,6 +234,5 @@ namespace MCART
         {
             control.TooltipText = string.Empty;
         }
-
     }
 }

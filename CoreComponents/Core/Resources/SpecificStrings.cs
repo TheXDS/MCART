@@ -20,7 +20,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#pragma warning disable CS1591 // TODO: agregar comentarios XML para las cadenas.
+
 namespace MCART.Resources
 {
     /// <summary>
@@ -28,6 +28,9 @@ namespace MCART.Resources
     /// </summary>
     internal static class SpecificStrings
     {
+
+#pragma warning disable CS1591 // Las cadenas generalmente no requieren de descripción.
+
         public static readonly string GpVNoData =
             " (Sin datos)";
         public static readonly string NullPwEvalRule =
@@ -57,5 +60,8 @@ namespace MCART.Resources
             "Mayúsculas";
         public static readonly string xBuilder =
             "Esta regla evalúa que la contraseña contenga {0}";
+
+#pragma warning restore CS1591
+
     }
 }

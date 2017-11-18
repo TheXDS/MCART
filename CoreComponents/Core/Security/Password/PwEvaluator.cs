@@ -64,14 +64,14 @@ namespace MCART.Security.Password
             return new PwEvalResult((float)(c / t).Clamp(0, 1), o.ToString());
         }
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:MCART.Security.Password.PwEvaluator"/> class.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="PwEvaluator"/>.
         /// </summary>
-        /// <param name="evalFuncs">Eval funcs.</param>
-        public PwEvaluator(params PwEvalRule[] evalFuncs)
+        /// <param name="evalRules">Reglas de evaluacióna incluir.</param>
+        public PwEvaluator(params PwEvalRule[] evalRules)
         {
-            if (evalFuncs.IsNull()) throw new ArgumentNullException(nameof(evalFuncs));
-            Rules = new List<PwEvalRule>();
-            if (evalFuncs.Any()) Rules.AddRange(evalFuncs);
+            if (evalRules.IsNull()) throw new ArgumentNullException(nameof(evalRules));
+            Rules = new List<PwEvalRule>(evalRules);            
         }
     }
 }

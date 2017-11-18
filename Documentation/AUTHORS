@@ -1,12 +1,12 @@
 #
 # Manifiesto maestro de autores de MCART
 #
-# Cualquier archivo de MCART no listado aquí deberá tener a su autor descrito
+# Cualquier archivo de MCART no listado aquí debería tener a su autor descrito
 # en el encabezado del archivo. En caso que el archivo no contenga información
 # sobre su autor, se considerará que el mismo fue creado por una herramienta
 # automatizada. Los archivos autogenerados podrían no incluir un encabezado, y
 # por lo tanto, podrían no incluir la información de la licencia. Sin embargo,
-# la licencia seleccionada para el proyecto siempre se aplica.
+# en estos casos, la licencia predeterminada para el proyecto se aplicará.
 #
 # Archivo															autores (el autor original primero)
 #
@@ -19,7 +19,6 @@ CoreComponents/Core/Misc/Exceptions.cs								César Andrés Morgan
 CoreComponents/Core/Modules/Common.cs								César Andrés Morgan
 CoreComponents/Core/Modules/Math.cs									César Andrés Morgan
 CoreComponents/Core/Modules/Objects.cs								César Andrés Morgan
-CoreComponents/Core/Modules/UITools.cs								César Andrés Morgan
 CoreComponents/Core/Networking/Common.cs							César Andrés Morgan
 CoreComponents/Core/Networking/Client/Client.cs						César Andrés Morgan
 CoreComponents/Core/Networking/Server/Client.cs						César Andrés Morgan

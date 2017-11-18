@@ -20,10 +20,13 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using MCART.Networking.Server;
-using MCART.Networking.Server.Protocols;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net;
 using Cl = MCART.Networking.Client;
+
+#if ExtrasBuiltIn
+using MCART.Networking.Server.Protocols;
+#endif
 
 namespace CoreTests.Networking
 {
@@ -33,7 +36,7 @@ namespace CoreTests.Networking
         [TestMethod]
         public void TalkTest()
         {
-            Server srv = new Server(new Echo(), new IPEndPoint(IPAddress.Any, 51220));
+            Server srv = new Server(new Echo(), new IPEndPoint(IPAddress.Loopback, 51220));
             srv.Start();
             Assert.IsTrue(srv.IsAlive);
             Cl.Client cl = new Cl.Client();
@@ -50,5 +53,24 @@ namespace CoreTests.Networking
             for (byte j = 0; j < 5; j++)
                 Assert.IsTrue(test[j] == resp[j]);
         }
+
+#if !ExtrasBuiltIn
+        /// <summary>
+        /// Protocolo simple de eco.
+        /// </summary>
+        /// <remarks>Este protocolo utiliza TCP/IP, no IGMP.</remarks>
+        [MCART.Networking.Port(7)]
+        public class Echo : Protocol
+        {
+            /// <summary>
+            /// Protocolo de atención normal.
+            /// </summary>
+            public override void ClientAttendant(Client client, Server<Client> server, byte[] data)
+            {
+                client.Send(data);
+            }
+        }
+#endif
+
     }
 }
