@@ -97,7 +97,6 @@ namespace MCART
             }
 #pragma warning restore RECS0135
         }
-
         /// <summary>
         /// Fórmulas de suavizado.
         /// </summary>
