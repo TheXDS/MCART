@@ -3,6 +3,14 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <!-- /!\ IMPORTANTE: no quitar el "$(DefineConstants)" de la línea de abajo! -->
-    <DefineConstants>$(DefineConstants);NativeNumbers;FloatDoubleSpecial;BufferedIO;ExtrasBuiltIn;StrictMCARTVersioning</DefineConstants>
+    <DefineConstants>
+      $(DefineConstants);
+      NativeNumbers;
+      FloatDoubleSpecial;
+      BufferedIO;
+      ExtrasBuiltIn;
+      StrictMCARTVersioning;
+      RatherDRY
+    </DefineConstants>
   </PropertyGroup>
 </Project>
