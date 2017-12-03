@@ -411,7 +411,7 @@ namespace MCART.Resources
         public const string IsBeta = "Versión Beta";
         public const string IsUnsafe = "Inseguro (NO UTILIZAR)";
         public const string ItsLong = "Es muy larga";
-        public const string LatinChars = "áéíóúüñäåöàèìòù";
+        public const string LatinChars = "áéíóúüñäåöàèìòùç";
         public const string LstEmpty = "La lista está vacía";
         public const string MandatoryField = "Este campo es obligatorio";        
         public const string Menu = "Menú";
