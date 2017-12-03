@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2008
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core", "CoreComponents\Core\Core.shproj", "{E5F6A0E5-B532-480C-B72E-516908C07944}"
 EndProject
@@ -62,6 +62,10 @@ Global
 		CoreComponents\Core-GUI\Core-GUI.projitems*{4963ba2e-aa9f-43df-9674-d7257a201aa3}*SharedItemsImports = 13
 		CoreComponents\Core-NoWPF\Core-NoWPF.projitems*{5b5c0ea8-e8c3-4442-94fb-03b7ac6be9e8}*SharedItemsImports = 13
 		CoreComponents\Core\Core.projitems*{e5f6a0e5-b532-480c-b72e-516908c07944}*SharedItemsImports = 13
+		CoreComponents\Core-GUI\Core-GUI.projitems*{eaff4297-e338-4093-bb51-38c16b325b40}*SharedItemsImports = 4
+		CoreComponents\Core-NoWPF\Core-NoWPF.projitems*{eaff4297-e338-4093-bb51-38c16b325b40}*SharedItemsImports = 4
+		CoreComponents\Core-Windows\Core-Windows.projitems*{eaff4297-e338-4093-bb51-38c16b325b40}*SharedItemsImports = 4
+		CoreComponents\Core\Core.projitems*{eaff4297-e338-4093-bb51-38c16b325b40}*SharedItemsImports = 4
 		CoreComponents\Core-Windows\Core-Windows.projitems*{f1d4fe86-bb72-4d8d-901e-525f697991fe}*SharedItemsImports = 13
 		CoreComponents\Core\Core.projitems*{ffcb72d8-1cb3-47a2-876b-630076307d78}*SharedItemsImports = 4
 	EndGlobalSection
