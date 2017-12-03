@@ -116,6 +116,12 @@ namespace MCART.Controls
             nameof(TextFormat), typeof(string), typeof(ProgressRing),
             new PropertyMetadata("{0:0.0}%", TxtFmt));
         /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="TextSize"/>.
+        /// </summary>
+        public static DependencyProperty TextSizeProperty = DependencyProperty.Register(
+                nameof(TextSize), typeof(double), typeof(ProgressRing),
+                new PropertyMetadata(16.0));
+        /// <summary>
         /// Identifica a la propiedad de dependencia <see cref="Thickness"/>.
         /// </summary>
         public static DependencyProperty ThicknessProperty = DependencyProperty.Register(
@@ -177,6 +183,7 @@ namespace MCART.Controls
         }
         void OnLoaded(object sender, RoutedEventArgs e)
         {
+            BgDraw();
             Draw();
         }
         #endregion
@@ -263,6 +270,15 @@ namespace MCART.Controls
             set => SetValue(TextFormatProperty, value);
         }
         /// <summary>
+        /// Obtiene o establece el tamaño del texto de etiqueta del
+        /// <see cref="ProgressRing"/>.
+        /// </summary>
+        public double TextSize
+        {
+            get => (double)GetValue(TextSizeProperty);
+            set => SetValue(TextSizeProperty, value);
+        }
+        /// <summary>
         /// Obtiene o establece el grosor del anillo de este
         /// <see cref="ProgressRing"/>.
         /// </summary>
@@ -300,6 +316,7 @@ namespace MCART.Controls
             a.SetBinding(HeightProperty, new Binding(nameof(Width)) { Source = a, Mode = BindingMode.TwoWay });
             a.Children.Add(ellBg);
             a.Children.Add(pth);
+            TxtPercent.SetBinding(TextBlock.FontSizeProperty, new Binding(nameof(TextSize)) { Source = this });
             a.Children.Add(TxtPercent);
             Content = new Viewbox() { Child = a };
             Loaded += OnLoaded;
