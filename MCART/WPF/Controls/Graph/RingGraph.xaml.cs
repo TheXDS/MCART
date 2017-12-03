@@ -174,25 +174,11 @@ namespace MCART.Controls
         /// </param>
         public void DrawMyChildren(Slice r)
         {
-            throw new NotImplementedException();
+            //HACK: Aún no es posible redibujar selectivamente los hijos de r.
+            Redraw();
         }
 
         private void RingGraph_Loaded(object sender, RoutedEventArgs e) => Redraw();
-        private bool SrchSeries(Slice j, out double angle, out double sze)
-        {
-            throw new NotImplementedException();
-            //angle = 0.0;
-            //double tot = GetTotal(Slices);
-            //foreach (var k in Slices)
-            //{
-            //    sze = 360 * (j.Value / tot);
-            //    if (k.Is(j)) return true;
-            //    angle += sze;
-            //}
-            //angle = 0.0;
-            //sze = 0.0;
-            //return false;
-        }
         private void RdrwSeries(Slice j, double tot, double angle, double sze, Grid g, ItemCollection i, out TreeViewItem t)
         {
             Path p = new Path { Data = UI.GetCircleArc(((new[] { g.ActualWidth, g.Width }).Max() - RingThickness) / 2, angle, angle + sze, RingThickness) };
@@ -217,7 +203,7 @@ namespace MCART.Controls
             {
                 grdRoot.Children.Add(g);
                 grdRoot.UpdateLayout();
-                g.UpdateLayout();
+                g.UpdateLayout(); 
             }
             Grid subg = null;
             if (SubLevelsShown - 1 > sublevel)
