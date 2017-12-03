@@ -37,7 +37,7 @@ namespace MCART.Forms
     /// permite al usuario validar contraseñas, así como también establecerlas
     /// y medir el nivel de seguridad de la contraseña escogida.
     /// </summary>
-    public class PasswordDialog : Window
+    public partial class PasswordDialog : Window
     {
         #region Controles
         Button Btngo = new Button
@@ -73,6 +73,9 @@ namespace MCART.Forms
         ProgressRing Ringsec = new ProgressRing
         {
             Margin = new Thickness(10),
+            Height = 64,
+            TextSize = 24,
+            Thickness = 8,
             TextFormat = "{0:f0}%"
         };
         TextBlock Securdetails = new TextBlock
@@ -88,11 +91,6 @@ namespace MCART.Forms
             Margin = new Thickness(10)
         };
         #endregion
-        #region Miembros privados
-        PwDialogResult r = PwDialogResult.Null;
-        PwEvaluator pwe;
-        PwEvalResult Pwr;
-        #endregion
         #region Eventos de controles
         void Btngo_Click(object sender, RoutedEventArgs e)
         {
@@ -103,7 +101,7 @@ namespace MCART.Forms
                 TxtUsr.Focus();
                 return;
             }
-            r = new PwDialogResult(TxtUsr.Text, Txtpw.Password, null, MessageBoxResult.OK, PwEvalResult.Null);
+            retVal = new PwDialogResult(TxtUsr.Text, Txtpw.Password, null, MessageBoxResult.OK, PwEvalResult.Null);
             Close();
         }
         void BtnConfirm_Click(object sender, RoutedEventArgs e)
@@ -131,26 +129,21 @@ namespace MCART.Forms
                 Txtpw.SelectAll();
                 return;
             }
-            r = new PwDialogResult(TxtUsr.Text, Txtpw.Password, Txthint.Text, MessageBoxResult.OK, Pwr);
+            retVal = new PwDialogResult(TxtUsr.Text, Txtpw.Password, Txthint.Text, MessageBoxResult.OK, pwEvalResult);
             Close();
         }
         void Txtpw_PasswordChanged(object sender, RoutedEventArgs e)
         {
             if (SecurIndicator.IsVisible)
             {
-                if (Txtcnf.IsWarned())
-                    Txtcnf.ClearWarn();
-                Pwr = pwe.Evaluate(Txtpw.Password);
-                Securdetails.Text = Pwr.Details;
-                Ringsec.Value = Pwr.Result * 100;
-                if (!Pwr.Critical)
-                {
-                    Ringsec.Fill = new SolidColorBrush(BlendHealth(Pwr.Result));
-                }
-                else
-                {
-                    Ringsec.Fill = SystemColors.HighlightBrush;
-                }
+                if (Txtcnf.IsWarned()) Txtcnf.ClearWarn();
+                pwEvalResult = pwEvaluator.Evaluate(Txtpw.Password);
+                Securdetails.Text = pwEvalResult.Details;
+                Ringsec.Value = pwEvalResult.Result * 100;
+                if (!pwEvalResult.Critical)                
+                    Ringsec.Fill = new SolidColorBrush(BlendHealth(pwEvalResult.Result));                
+                else                
+                    Ringsec.Fill = SystemColors.HighlightBrush;                
             }
         }
         void Txtcnf_PasswordChanged(object sender, RoutedEventArgs e)
@@ -170,9 +163,11 @@ namespace MCART.Forms
         /// </summary>
         public PasswordDialog()
         {
-            TextBlock a = default(TextBlock);
+            Thickness tck = new Thickness(10);
+            Thickness tck2 = new Thickness(10, 10, 10, 0);
+            TextBlock a;
             StackPanel StckRoot = new StackPanel();
-            DockPanel c = new DockPanel { Margin = new Thickness(10) };
+            DockPanel c = new DockPanel { Margin = tck };
             SizeToContent = SizeToContent.Height;
             ResizeMode = ResizeMode.NoResize;
             Width = 250;
@@ -180,7 +175,7 @@ namespace MCART.Forms
             a = new TextBlock
             {
                 Text = St.Usr,
-                Margin = new Thickness(10, 10, 10, 0)
+                Margin = tck2
             };
             a.SetBinding(VisibilityProperty, new Binding(nameof(TxtUsr.Visibility)) { Source = TxtUsr });
             StckRoot.Children.Add(a);
@@ -188,7 +183,7 @@ namespace MCART.Forms
             a = new TextBlock
             {
                 Text = St.Pwd,
-                Margin = new Thickness(10, 10, 10, 0)
+                Margin = tck2
             };
             a.SetBinding(VisibilityProperty, new Binding(nameof(MoreCtrls.Visibility)) { Source = MoreCtrls });
             StckRoot.Children.Add(a);
@@ -199,20 +194,20 @@ namespace MCART.Forms
             MoreCtrls.Children.Add(new TextBlock
             {
                 Text = St.PwdConfirm,
-                Margin = new Thickness(10)
+                Margin = tck
             });
             MoreCtrls.Children.Add(Txtcnf);
             HintBlock.Children.Add(new TextBlock
             {
                 Text = St.PwdHint,
-                Margin = new Thickness(10)
+                Margin = tck
             });
             HintBlock.Children.Add(Txthint);
             MoreCtrls.Children.Add(HintBlock);
             SecurIndicator.Children.Add(new TextBlock
             {
                 Text = St.Security,
-                Margin = new Thickness(10, 10, 10, 0)
+                Margin = tck2
             });
             c = new DockPanel();
             c.Children.Add(Ringsec);
@@ -257,7 +252,7 @@ namespace MCART.Forms
             Btngo.Visibility = Visibility.Visible;
             MoreCtrls.Visibility = Visibility.Collapsed;
             ShowDialog();
-            return r;
+            return retVal;
         }
         /// <summary>
         /// Permite al usuario escoger una contraseña.
@@ -288,17 +283,17 @@ namespace MCART.Forms
                 SecurIndicator.Visibility = Visibility.Visible;
                 if (PwEvaluatorObj == null)
                 {
-                    pwe = new PwEvaluator(RuleSets.CommonComplexityRuleSet());
-                    pwe.Rules.Add(RuleSets.PwLatinEvalRule());
-                    pwe.Rules.Add(RuleSets.PwOtherSymbsEvalRule());
-                    pwe.Rules.Add(RuleSets.PwOtherUTFEvalRule());
+                    pwEvaluator = new PwEvaluator(RuleSets.CommonComplexityRuleSet());
+                    pwEvaluator.Rules.Add(RuleSets.PwLatinEvalRule());
+                    pwEvaluator.Rules.Add(RuleSets.PwOtherSymbsEvalRule());
+                    pwEvaluator.Rules.Add(RuleSets.PwOtherUTFEvalRule());
                 }
-                else pwe = PwEvaluatorObj;
+                else pwEvaluator = PwEvaluatorObj;
             }
             else SecurIndicator.Visibility = Visibility.Collapsed;
             ShowDialog();
-            return r;
-        } 
+            return retVal;
+        }
         #endregion
     }
 }

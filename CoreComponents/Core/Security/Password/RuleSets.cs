@@ -70,7 +70,7 @@ namespace MCART.Security.Password
                 if (d == 0) return new PwEvalResult(0, ie ?
                     St.Ok(St.Include(b.ToLower())) :
                     St.Warn(St.Include(b.ToLower())));
-                return new PwEvalResult((CFactoryFactor + ((float)d / p.Length).Clamp(0, 1)));
+                return new PwEvalResult(((CFactoryFactor + (float)d / p.Length).Clamp(0, 1)));
             }, b, pn, c ?? string.Format(St2.xBuilder, b.ToLower()), de, ie);
         }
         /// <summary>
@@ -140,7 +140,7 @@ namespace MCART.Security.Password
 #else
             St.Numbers
 #endif
-            , St2.PwLcaseEvalRule);
+            , St2.PwNumbersEvalRule);
         }
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene símbolos.
@@ -156,7 +156,7 @@ namespace MCART.Security.Password
         /// Crea una nueva regla que comprueba si la contraseña contiene caracteres latinos.
         /// </summary>
         /// <returns>The ucase eval rule.</returns>
-        [Thunk] public static PwEvalRule PwOtherSymbsEvalRule() => ContentionRuleFactory(St.MoreSymbs, St2.PwLatinEvalRule, null, PonderationLevel.Normal, true, true);
+        [Thunk] public static PwEvalRule PwOtherSymbsEvalRule() => ContentionRuleFactory(St.MoreSymbs, St2.PwOtherSymbsEvalRule, null, PonderationLevel.High, true, true);
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene otros
         /// caracteres Unicode que no están disponibles en el teclado Inglés
@@ -170,7 +170,7 @@ namespace MCART.Security.Password
                 if (p.CountChars(St.MoreChars.ToCharArray()) == 0)
                     return new PwEvalResult(1, St.Ok(St.Includes(St2.PwOtherUTFEvalRule.ToLower())));
                 return new PwEvalResult(0);
-            }, St2.PwOtherUTFEvalRule, PonderationLevel.High, null, true, true);
+            }, St2.PwOtherUTFEvalRule, PonderationLevel.Highest, null, true, true);
         }
     }
 }

@@ -37,11 +37,6 @@ namespace MCART.Forms
     /// </summary>
     public partial class PasswordDialog : Form
     {
-        #region Campos privados
-        PwDialogResult r = PwDialogResult.Null;
-        PwEvaluator pwe;
-        PwEvalResult Pwr;
-        #endregion
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="PasswordDialog"/>.
@@ -81,7 +76,7 @@ namespace MCART.Forms
             btnGo.Visible=true;
             //MoreCtrls.Visibility = Visibility.Collapsed;
             ShowDialog();
-            return r;
+            return retVal;
         }
         /// <summary>
         /// Permite al usuario escoger una contraseña.
@@ -113,16 +108,16 @@ namespace MCART.Forms
                 prScore.Visible = true;
                 if (PwEvaluatorObj.IsNull())
                 {
-                    pwe = new PwEvaluator(RuleSets.CommonComplexityRuleSet());
-                    pwe.Rules.Add(RuleSets.PwLatinEvalRule());
-                    pwe.Rules.Add(RuleSets.PwOtherSymbsEvalRule());
-                    pwe.Rules.Add(RuleSets.PwOtherUTFEvalRule());
+                    pwEvaluator = new PwEvaluator(RuleSets.CommonComplexityRuleSet());
+                    pwEvaluator.Rules.Add(RuleSets.PwLatinEvalRule());
+                    pwEvaluator.Rules.Add(RuleSets.PwOtherSymbsEvalRule());
+                    pwEvaluator.Rules.Add(RuleSets.PwOtherUTFEvalRule());
                 }
-                else pwe = PwEvaluatorObj;
+                else pwEvaluator = PwEvaluatorObj;
             }
             else prScore.Visible = false;
             ShowDialog();
-            return r;
+            return retVal;
         }
 
 
@@ -142,7 +137,7 @@ namespace MCART.Forms
                 txtUser.Focus();
                 return;
             }
-            r = new PwDialogResult(txtUser.Text, txtPw.Text, null, DialogResult.OK, PwEvalResult.Null);
+            retVal = new PwDialogResult(txtUser.Text, txtPw.Text, null, DialogResult.OK, PwEvalResult.Null);
             Close();
         }
         private void BtnOk_Click(object sender, EventArgs e)
@@ -169,7 +164,7 @@ namespace MCART.Forms
                 txtPw.SelectAll();
                 return;
             }
-            r = new PwDialogResult(txtUser.Text, txtPw.Text, txtHint.Text, DialogResult.OK, Pwr);
+            retVal = new PwDialogResult(txtUser.Text, txtPw.Text, txtHint.Text, DialogResult.OK, pwEvalResult);
             Close();
 
         }
@@ -179,11 +174,11 @@ namespace MCART.Forms
             {
                 if (txtConfirm.IsWarned())
                     txtConfirm.ClearWarn();
-                Pwr = pwe.Evaluate(txtPw.Text);
-                lblMorInfo.Text = Pwr.Details;
-                prScore.Value = Pwr.Result * 100;
-                if (!Pwr.Critical)
-                    prScore.Fill = BlendHealth(Pwr.Result);
+                pwEvalResult = pwEvaluator.Evaluate(txtPw.Text);
+                lblMorInfo.Text = pwEvalResult.Details;
+                prScore.Value = pwEvalResult.Result * 100;
+                if (!pwEvalResult.Critical)
+                    prScore.Fill = BlendHealth(pwEvalResult.Result);
                 else
                     prScore.Fill = SystemColors.Highlight;
             }
