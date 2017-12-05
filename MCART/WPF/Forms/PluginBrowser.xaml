@@ -18,28 +18,37 @@
         <DockPanel Grid.Column="1" Margin="{DynamicResource Mrg}">
             <Grid DockPanel.Dock="top">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="Nombre" Margin="{DynamicResource Mrg}" />
-                <TextBox x:Name="txtName" Grid.Column="1" Margin="{DynamicResource Mrg}" />
-                <TextBlock Text="Versión" Grid.Row="1" Margin="{DynamicResource Mrg}" />
+                <Grid.Resources>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Margin" Value="{DynamicResource Mrg}"/>
+                        <Setter Property="IsReadOnly" Value="True"/>
+                    </Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Margin" Value="{DynamicResource Mrg}"/>
+                    </Style>
+                </Grid.Resources>
+                <TextBlock Text="Nombre"/>
+                <TextBox x:Name="txtName" Grid.Column="1"/>
+                <TextBlock Text="Versión" Grid.Row="1"/>
                 <DockPanel Grid.Row="1" Grid.Column="1" Margin="{DynamicResource Mrg}">
                     <CheckBox x:Name="chkUnstable" Content="Inestable" VerticalAlignment="Center" DockPanel.Dock="Right" IsEnabled="False" />
                     <CheckBox x:Name="chkBeta" Content="Beta" Margin="5,0" VerticalAlignment="Center" DockPanel.Dock="Right" IsEnabled="False" />
-                    <TextBox x:Name="txtVersion" Grid.Column="1" />
+                    <TextBox x:Name="txtVersion" Grid.Column="1" Margin="0"/>
                 </DockPanel>
-                <TextBlock Text="Descripción" Grid.Row="2" Margin="{DynamicResource Mrg}" />
-                <TextBox x:Name="txtDesc" Grid.Row="3" Grid.ColumnSpan="2" Margin="{DynamicResource Mrg}" />
-                <TextBlock Text="Copyright" Grid.Row="4" Margin="{DynamicResource Mrg}" />
-                <TextBox x:Name="txtCopyrgt" Grid.Row="4" Grid.Column="1" Margin="{DynamicResource Mrg}" />
+                <TextBlock Text="Descripción" Grid.Row="2"/>
+                <TextBox x:Name="txtDesc" Grid.Row="3" Grid.ColumnSpan="2"/>
+                <TextBlock Text="Copyright" Grid.Row="4"/>
+                <TextBox x:Name="txtCopyrgt" Grid.Row="4" Grid.Column="1"/>
             </Grid>
             <TabControl>
                 <TabItem Header="Licencia">

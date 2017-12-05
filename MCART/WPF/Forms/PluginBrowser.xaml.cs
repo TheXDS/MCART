@@ -25,6 +25,7 @@ using MCART.PluginSupport;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Linq;
 using static MCART.Resources.RTInfo;
 using St = MCART.Resources.Strings;
 
@@ -95,7 +96,11 @@ namespace MCART.Forms
             else lblVeredict.Text = St.PluginInfo3;
             if (P.HasInteractions)
             {
-                tabInteractions.Content = P.UIPanel<Button,WrapPanel>();
+                var pnl= P.UIPanel<Button, WrapPanel>();
+                var thk = new Thickness(5);
+                foreach (var j in pnl.Children.OfType<FrameworkElement>()) j.Margin = thk;
+                pnl.Orientation = Orientation.Vertical;
+                tabInteractions.Content = pnl;
             }
             else
             {
