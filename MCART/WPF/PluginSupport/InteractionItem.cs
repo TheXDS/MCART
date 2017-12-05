@@ -121,6 +121,8 @@ namespace MCART.PluginSupport
                 k.ToolTip = new ToolTip() { Content = Description };
             if (!Icon.IsNull())
                 k.Icon = new Image() { Source = Icon };
+            try { k.Click += RoutedAction; }
+            catch (Exception ex) { System.Diagnostics.Debug.Print(ex.Message); }
             return k;
         }
         /// <summary>
@@ -149,6 +151,8 @@ namespace MCART.PluginSupport
                 k.Content = cnt;
             }
             else k.Content = Text;
+            try { k.Click += RoutedAction; }
+            catch (Exception ex) { System.Diagnostics.Debug.Print(ex.Message); }
             return (T)k;
         }
         /// <summary>

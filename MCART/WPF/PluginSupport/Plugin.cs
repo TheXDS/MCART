@@ -22,8 +22,6 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using MCART.Exceptions;
-using System;
-using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
@@ -51,12 +49,7 @@ namespace MCART.PluginSupport
             if (!plugin.Description.IsEmpty())
                 mnu.ToolTip = new ToolTip() { Content = plugin.Description };
             foreach (InteractionItem j in plugin.PluginInteractions)
-            {
-                MenuItem a = j.AsMenuItem();
-                try { a.Click += j.RoutedAction; }
-                catch (Exception ex) { Debug.Print(ex.Message); }
-                finally { mnu.Items.Add(a); }
-            }
+                mnu.Items.Add(j.AsMenuItem());
             return mnu;
         }
         /// <summary>
@@ -82,12 +75,7 @@ namespace MCART.PluginSupport
         {
             PanelT pnl = new PanelT();
             foreach (InteractionItem j in plugin.PluginInteractions)
-            {
-                T a = j.AsButton<T>();
-                try { a.Click += j.RoutedAction; }
-                catch (Exception ex) { Debug.Print(ex.Message); }
-                finally { pnl.Children.Add(a); }
-            }
+                pnl.Children.Add(j.AsButton<T>());
             return pnl;
         }
         /// <summary>
