@@ -95,19 +95,7 @@ namespace MCART.Forms
             else lblVeredict.Text = St.PluginInfo3;
             if (P.HasInteractions)
             {
-                MenuItem roth = new MenuItem()
-                {
-                    Header = P.Name,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    HorizontalAlignment = HorizontalAlignment.Center
-                };
-                foreach (InteractionItem j in P.PluginInteractions)
-                {
-                    MenuItem k = j;
-                    k.Click += j.RoutedAction;
-                    roth.Items.Add(k);
-                }
-                tabInteractions.Content = roth;
+                tabInteractions.Content = P.UIPanel<Button,WrapPanel>();
             }
             else
             {

@@ -139,7 +139,7 @@ namespace MCART.PluginSupport
         /// <see cref="MinMCARTVersionAttribute"/> en la clase o en el 
         /// ensamblado, se devolverá <see cref="TargetMCARTVersion"/>.
         /// </remarks>
-        public virtual Version MinMCARTVersion => this.GetAttr<MinMCARTVersionAttribute>()?.Value ?? MyAssembly.GetAttr<MinMCARTVersionAttribute>().Value ?? TargetMCARTVersion;
+        public virtual Version MinMCARTVersion => this.GetAttr<MinMCARTVersionAttribute>()?.Value ?? MyAssembly.GetAttr<MinMCARTVersionAttribute>()?.Value ?? TargetMCARTVersion;
         /// <summary>
         /// Determina la versión mínima de MCART necesaria para este 
         /// <see cref="Plugin"/>.
@@ -158,7 +158,7 @@ namespace MCART.PluginSupport
         /// Determina la versión objetivo de MCART para este 
         /// <see cref="Plugin"/>.
         /// </summary>
-        public virtual Version TargetMCARTVersion => this.GetAttr<TargetMCARTVersionAttribute>()?.Value ?? MyAssembly.GetAttr<TargetMCARTVersionAttribute>().Value;
+        public virtual Version TargetMCARTVersion => this.GetAttr<TargetMCARTVersionAttribute>()?.Value ?? MyAssembly.GetAttr<TargetMCARTVersionAttribute>()?.Value ?? default(Version);
         /// <summary>
         /// Determina la versión objetivo de MCART necesaria para este 
         /// <see cref="Plugin"/>.
