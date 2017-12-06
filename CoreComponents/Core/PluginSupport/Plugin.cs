@@ -129,7 +129,7 @@ namespace MCART.PluginSupport
                         StreamReader r = null;
                         try
                         {
-                            s = Resources.RTInfo.RTAssembly.GetManifestResourceStream(outp);
+                            s = MyAssembly.GetManifestResourceStream(outp);
                             r = new StreamReader(s);
                             return r.ReadToEnd();
                         }
