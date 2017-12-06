@@ -69,7 +69,7 @@ namespace MCART.Forms
             bool? mvf = null, tvf = null;
             if (P.MinRTVersion(out Version mv))
             {
-                txtMinVer.Text = mv.ToString() ?? St.Unk;
+                txtMinVer.Text = mv.ToString();
                 if (mv > RTVersion)
                 {
                     mvf = false;
@@ -77,10 +77,14 @@ namespace MCART.Forms
                 }
                 else mvf = true;
             }
-            else txtMinVer.Warn(St.NoData);
+            else
+            {
+                txtMinVer.Text = St.Unk;
+                txtMinVer.Warn(St.NoData);
+            }
             if (P.TargetRTVersion(out Version tv))
             {
-                txtTgtVer.Text = tv.ToString() ?? St.Unk;
+                txtTgtVer.Text = tv.ToString();
                 if (tv < RTVersion)
                 {
                     tvf = false;
@@ -88,7 +92,11 @@ namespace MCART.Forms
                 }
                 else tvf = true;
             }
-            else txtTgtVer.Warn(St.NoData);
+            else
+            {
+                txtTgtVer.Text = St.Unk;
+                txtTgtVer.Warn(St.NoData);
+            }
             if (mvf == true && tvf == true)
                 lblVeredict.Text = St.PluginInfo2;
             else if (!mvf.HasValue || !tvf.HasValue)
@@ -96,7 +104,7 @@ namespace MCART.Forms
             else lblVeredict.Text = St.PluginInfo3;
             if (P.HasInteractions)
             {
-                var pnl= P.UIPanel<Button, WrapPanel>();
+                var pnl = P.UIPanel<Button, WrapPanel>();
                 var thk = new Thickness(5);
                 foreach (var j in pnl.Children.OfType<FrameworkElement>()) j.Margin = thk;
                 pnl.Orientation = Orientation.Vertical;
@@ -108,7 +116,7 @@ namespace MCART.Forms
                 tabInteractions.Content = St.FeatNotAvailable;
             }
         }
-        void BtnClose_Click(object sender, RoutedEventArgs e) => Close(); 
+        void BtnClose_Click(object sender, RoutedEventArgs e) => Close();
         void TrvAsm_Loaded(object sender, RoutedEventArgs e)
         {
             if (trvAsm.Visibility == Visibility.Collapsed) return;
@@ -145,6 +153,6 @@ namespace MCART.Forms
         /// Inicializa una nueva instancia de la clase
         /// <see cref="PluginBrowser"/>.
         /// </summary>
-        public PluginBrowser() => InitializeComponent();        
+        public PluginBrowser() => InitializeComponent();
     }
 }
