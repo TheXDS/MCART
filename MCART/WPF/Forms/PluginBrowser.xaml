@@ -51,8 +51,13 @@
                 <TextBox x:Name="txtCopyrgt" Grid.Row="4" Grid.Column="1"/>
             </Grid>
             <TabControl>
+                <TabControl.Resources>
+                    <Style TargetType="TextBox">
+                        <Setter Property="IsReadOnly" Value="True"/>
+                    </Style>
+                </TabControl.Resources>
                 <TabItem Header="Licencia">
-                    <TextBox x:Name="txtLicense" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" />
+                    <TextBox x:Name="txtLicense" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" FontFamily="Courier New"/>
                 </TabItem>
                 <TabItem Header="Interfaces">
                     <ListView x:Name="lstInterf" />

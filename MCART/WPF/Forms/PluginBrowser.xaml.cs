@@ -69,7 +69,7 @@ namespace MCART.Forms
             bool? mvf = null, tvf = null;
             if (P.MinRTVersion(out Version mv))
             {
-                txtMinVer.Text = mv.ToString();
+                txtMinVer.Text = mv.ToString() ?? St.Unk;
                 if (mv > RTVersion)
                 {
                     mvf = false;
@@ -80,7 +80,7 @@ namespace MCART.Forms
             else txtMinVer.Warn(St.NoData);
             if (P.TargetRTVersion(out Version tv))
             {
-                txtTgtVer.Text = tv.ToString();
+                txtTgtVer.Text = tv.ToString() ?? St.Unk;
                 if (tv < RTVersion)
                 {
                     tvf = false;
