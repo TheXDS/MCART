@@ -333,6 +333,23 @@ namespace MCART.Attributes
     }
 
     /// <summary>
+    /// Establece un archivo embebido de licencia a asociar con el elemento.
+    /// </summary>
+    [AttributeUsage(
+        AttributeTargets.Class |
+        AttributeTargets.Module |
+        AttributeTargets.Assembly)]
+    public sealed class EmbeededLicenseAttribute : TextAttributeBase
+    {
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="EmbeededLicenseAttribute"/>.
+        /// </summary>
+        /// <param name="attrValue">Archivo embebido de la licencia.</param>
+        public EmbeededLicenseAttribute(string attrValue) : base(attrValue) { }
+    }
+
+    /// <summary>
     /// Establece un archivo de licencia a asociar con el elemento.
     /// </summary>
     [AttributeUsage(

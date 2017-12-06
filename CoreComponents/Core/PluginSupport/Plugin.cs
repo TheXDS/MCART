@@ -29,6 +29,7 @@ using MCART.Types.TaskReporter;
 using MCART.Attributes;
 using MCART.Exceptions;
 using St = MCART.Resources.Strings;
+using System.IO;
 
 namespace MCART.PluginSupport
 {
@@ -110,18 +111,42 @@ namespace MCART.PluginSupport
             {
                 try
                 {
+                    // Intentar buscar archivo...
                     string outp = this.GetAttr<LicenseFileAttribute>()?.Value;
-                    if (!outp.IsEmpty() && System.IO.File.Exists(outp))
+                    if (!outp.IsEmpty() && File.Exists(outp))
                         outp = MyAssembly.GetAttr<LicenseFileAttribute>()?.Value;
-                    if (!outp.IsEmpty() && System.IO.File.Exists(outp))
+                    if (!outp.IsEmpty() && File.Exists(outp))
                     {
-                        System.IO.StreamReader inp = new System.IO.StreamReader(outp);
+                        StreamReader inp = new StreamReader(outp);
                         return inp.ReadToEnd();
                     }
+
+                    // Intentar buscar archivo embebido...
+                    outp = this.GetAttr<EmbeededLicenseAttribute>()?.Value;
+                    if (!outp.IsEmpty())
+                    {
+                        Stream s = null;
+                        StreamReader r = null;
+                        try
+                        {
+                            s = Resources.RTInfo.RTAssembly.GetManifestResourceStream(outp);
+                            r = new StreamReader(s);
+                            return r.ReadToEnd();
+                        }
+                        finally
+                        {
+                            r?.Dispose();
+                            s?.Dispose();
+                        }
+                    }
+
+                    // Buscar texto de licencia...
                     outp = this.GetAttr<LicenseTextAttribute>()?.Value;
                     if (!outp.IsEmpty())
                         outp = MyAssembly.GetAttr<LicenseTextAttribute>()?.Value;
                     if (!outp.IsEmpty()) return outp;
+
+                    // Todo ha fallado.
                     return St.Warn(St.UnspecLicense);
                 }
                 catch (Exception ex)
