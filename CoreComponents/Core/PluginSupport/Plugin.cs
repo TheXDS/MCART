@@ -245,14 +245,7 @@ namespace MCART.PluginSupport
         /// Contiene una lista de interacciones que este <see cref="Plugin"/>.
         /// provee para incluir en una interfaz gráfica.
         /// </summary>
-        public ReadOnlyCollection<InteractionItem> PluginInteractions
-        {
-            get
-            {
-                if (!HasInteractions) throw new FeatureNotAvailableException();
-                return MyMenu.AsReadOnly();
-            }
-        }
+        public ReadOnlyCollection<InteractionItem> PluginInteractions => MyMenu.AsReadOnly();
         /// <summary>
         /// Indica si este <see cref="Plugin"/> contiene o no interacciones.
         /// </summary>        
