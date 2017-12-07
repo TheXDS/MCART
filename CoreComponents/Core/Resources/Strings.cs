@@ -475,6 +475,7 @@ namespace MCART.Resources
         public const string TheType = "El tipo";
         public const string TheUid = "El Uid";
         public const string TheUsr = "El usuario";
+        public const string TheValue = "El valor";
         public const string Timeout = "Se ha agotado el tiempo de espera.";
         public const string TooFewArguments = "Muy pocos argumentos";
         public const string TooManyArguments = "Demasiados argumentos";

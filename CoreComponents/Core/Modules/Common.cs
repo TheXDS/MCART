@@ -110,7 +110,7 @@ namespace MCART
         /// contrario, <c>false</c>.
         /// </returns>
         /// <param name="str">Cadenas a comprobar.</param>
-        [Thunk] public static bool AreAllEmpty(params string[] str)=> str.All(j => j.IsEmpty());
+        [Thunk] public static bool AreAllEmpty(params string[] str) => str.All(j => j.IsEmpty());
         /// <summary>
         /// Determina si alguna cadena está vacía.
         /// </summary>
@@ -326,11 +326,7 @@ namespace MCART
         /// <param name="baseZero">Opcional. si es <c>true</c>, la base de
         /// porcentaje es cero; de lo contrario, se utilizará el valor mínimo
         /// dentro de la colección.</param>
-        [Thunk]
-        public static IEnumerable<double> ToPercent(this IEnumerable<double> lst, bool baseZero = false)
-        {
-            return ToPercent(lst, baseZero ? 0 : lst.Min(), lst.Max());
-        }
+        [Thunk] public static IEnumerable<double> ToPercent(this IEnumerable<double> lst, bool baseZero = false) => ToPercent(lst, baseZero ? 0 : lst.Min(), lst.Max());
         /// <summary>
         /// Convierte los valores de una colección de elementos 
         /// <see cref="double"/> a porcentajes.
@@ -342,14 +338,48 @@ namespace MCART
         /// <param name="max">Valor que representará 100%.</param>
         public static IEnumerable<double> ToPercent(this IEnumerable<double> lst, double min, double max)
         {
-            if (!min.IsValid()) throw new ArgumentException(string.Empty, nameof(min));
-            if (!max.IsValid()) throw new ArgumentException(string.Empty, nameof(max));
+            if (!min.IsValid()) throw new ArgumentException(St.XIsInvalid(St.XYQuotes(St.TheValue, min.ToString())), nameof(min));
+            if (!max.IsValid()) throw new ArgumentException(St.XIsInvalid(St.XYQuotes(St.TheValue, max.ToString())), nameof(max));
             foreach (double j in lst)
             {
                 if (j.IsValid()) yield return (j - min) / (max - min).Clamp(1, double.NaN);
                 else yield return double.NaN;
             }
         }
+        /// <summary>
+        /// Convierte los valores de una colección de elementos 
+        /// <see cref="int"/> a porcentajes.
+        /// </summary>
+        /// <returns>Una colección de <see cref="double"/> con sus valores
+        /// expresados en porcentaje.</returns>
+        /// <param name="lst">Colección a procesar.</param>
+        /// <param name="min">Valor que representará 0%.</param>
+        /// <param name="max">Valor que representará 100%.</param>
+        public static IEnumerable<double> ToPercent(this IEnumerable<int> lst, int min, int max)
+        {
+            if (min == max) throw new InvalidOperationException();
+            foreach (int j in lst) yield return (j - min) / (double)(max - min);
+        }
+        /// <summary>
+        /// Convierte los valores de una colección de elementos 
+        /// <see cref="int"/> a porcentajes.
+        /// </summary>
+        /// <returns>Una colección de <see cref="double"/> con sus valores
+        /// expresados en porcentaje.</returns>
+        /// <param name="lst">Colección a procesar.</param>
+        /// <param name="max">Valor que representará 100%.</param>
+        [Thunk] public static IEnumerable<double> ToPercent(this IEnumerable<int> lst, int max) => ToPercent(lst, 0, max);
+        /// <summary>
+        /// Convierte los valores de una colección de elementos 
+        /// <see cref="int"/> a porcentajes.
+        /// </summary>
+        /// <returns>Una colección de <see cref="double"/> con sus valores
+        /// expresados en porcentaje.</returns>
+        /// <param name="lst">Colección a procesar.</param>
+        /// <param name="baseZero">Opcional. si es <c>true</c>, la base de
+        /// porcentaje es cero; de lo contrario, se utilizará el valor mínimo
+        /// dentro de la colección.</param>
+        [Thunk] public static IEnumerable<double> ToPercent(this IEnumerable<int> lst, bool baseZero = false) => ToPercent(lst, baseZero ? 0 : lst.Min(), lst.Max());
         /// <summary>
         /// Calcula el porcentaje de similitud entre dos <see cref="string"/>.
         /// </summary>
