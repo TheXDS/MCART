@@ -112,9 +112,8 @@ namespace MCART.PluginSupport
                 try
                 {
                     // Intentar buscar archivo...
-                    string outp = this.GetAttr<LicenseFileAttribute>()?.Value;
-                    if (!outp.IsEmpty() && File.Exists(outp))
-                        outp = MyAssembly.GetAttr<LicenseFileAttribute>()?.Value;
+                    string outp = this.GetAttr<LicenseFileAttribute>()?.Value
+                        ?? MyAssembly.GetAttr<LicenseFileAttribute>()?.Value;
                     if (!outp.IsEmpty() && File.Exists(outp))
                     {
                         StreamReader inp = new StreamReader(outp);
@@ -141,13 +140,11 @@ namespace MCART.PluginSupport
                     }
 
                     // Buscar texto de licencia...
-                    outp = this.GetAttr<LicenseTextAttribute>()?.Value;
-                    if (!outp.IsEmpty())
-                        outp = MyAssembly.GetAttr<LicenseTextAttribute>()?.Value;
-                    if (!outp.IsEmpty()) return outp;
+                    return this.GetAttr<LicenseTextAttribute>()?.Value
+                        ?? MyAssembly.GetAttr<LicenseTextAttribute>()?.Value
 
-                    // Todo ha fallado.
-                    return St.Warn(St.UnspecLicense);
+                        // Todo ha fallado.
+                        ?? St.Warn(St.UnspecLicense);
                 }
                 catch (Exception ex)
                 {
