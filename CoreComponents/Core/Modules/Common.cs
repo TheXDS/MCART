@@ -381,6 +381,40 @@ namespace MCART
         /// dentro de la colección.</param>
         [Thunk] public static IEnumerable<double> ToPercent(this IEnumerable<int> lst, bool baseZero = false) => ToPercent(lst, baseZero ? 0 : lst.Min(), lst.Max());
         /// <summary>
+        /// Convierte los valores de una colección de elementos 
+        /// <see cref="int"/> a porcentajes de precisión simple.
+        /// </summary>
+        /// <returns>Una colección de <see cref="float"/> con sus valores
+        /// expresados en porcentaje.</returns>
+        /// <param name="lst">Colección a procesar.</param>
+        /// <param name="min">Valor que representará 0%.</param>
+        /// <param name="max">Valor que representará 100%.</param>
+        public static IEnumerable<float> ToPercentF(this IEnumerable<int> lst, int min, int max)
+        {
+            if (min == max) throw new InvalidOperationException();
+            foreach (int j in lst) yield return (j - min) / (float)(max - min);
+        }
+        /// <summary>
+        /// Convierte los valores de una colección de elementos 
+        /// <see cref="int"/> a porcentajes de precisión simple.
+        /// </summary>
+        /// <returns>Una colección de <see cref="float"/> con sus valores
+        /// expresados en porcentaje.</returns>
+        /// <param name="lst">Colección a procesar.</param>
+        /// <param name="max">Valor que representará 100%.</param>
+        [Thunk] public static IEnumerable<float> ToPercentF(this IEnumerable<int> lst, int max) => ToPercentF(lst, 0, max);
+        /// <summary>
+        /// Convierte los valores de una colección de elementos 
+        /// <see cref="int"/> a porcentajes de precisión simple.
+        /// </summary>
+        /// <returns>Una colección de <see cref="float"/> con sus valores
+        /// expresados en porcentaje.</returns>
+        /// <param name="lst">Colección a procesar.</param>
+        /// <param name="baseZero">Opcional. si es <c>true</c>, la base de
+        /// porcentaje es cero; de lo contrario, se utilizará el valor mínimo
+        /// dentro de la colección.</param>
+        [Thunk] public static IEnumerable<float> ToPercentF(this IEnumerable<int> lst, bool baseZero = false) => ToPercentF(lst, baseZero ? 0 : lst.Min(), lst.Max());
+        /// <summary>
         /// Calcula el porcentaje de similitud entre dos <see cref="string"/>.
         /// </summary>
         /// <returns>El porcentaje de similitud entre las dos cadenas.</returns>
