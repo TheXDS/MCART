@@ -90,7 +90,7 @@ namespace MCART.PluginSupport
 #if StrictMCARTVersioning
             if (chkVersion) return !m.IsInterface && !m.IsAbstract;
             var mt = m.GetAttr<MinMCARTVersionAttribute>()?.Value ?? m.Assembly.GetAttr<MinMCARTVersionAttribute>()?.Value;
-            var tt = m.GetAttr<TargetMCARTVersionAttribute>()?.Value ?? m.Assembly.GetAttr<MinMCARTVersionAttribute>()?.Value;
+            var tt = m.GetAttr<TargetMCARTVersionAttribute>()?.Value ?? m.Assembly.GetAttr<TargetMCARTVersionAttribute>()?.Value;
             if (Objects.IsAnyNull(mt, tt)) return false;
             var mv = RTInfo.RTAssembly.GetName().Version;
             return !m.IsInterface && !m.IsAbstract && mv.IsBetween(mt, tt);
