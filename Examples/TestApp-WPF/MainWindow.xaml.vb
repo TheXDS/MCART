@@ -68,7 +68,7 @@ Public Class MainWindow
         MsgBox(Security.Password.Generators.Pin)
     End Sub
     Private Sub MnuGrphRing_Click(sender As Object, e As RoutedEventArgs) Handles mnuGrphRing.Click
-        Dim r As New RingGraph() With {.SubLevelsShown = 3, .Title = "Test"}
+        Dim r As New RingGraph() With {.SubLevelsShown = 3, .Title = "Test", .ToolTipFormat = "{0}: {1}"}
         r.Slices.Add(New Slice() With {.SliceColor = Colors.Red})
         Dim a As New Slice() With {.SliceColor = Colors.Purple}
         a.SubSlices.Add(New Slice() With {.SliceColor = Colors.Blue})

@@ -87,6 +87,12 @@ namespace MCART.Controls
             nameof(IGraph.TitleFontSize), typeof(double), typeof(RingGraph),
             new PropertyMetadata(16.0));
         /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="ToolTipFormat"/>.
+        /// </summary>
+        public static DependencyProperty ToolTipFormatProperty = DependencyProperty.Register(
+                nameof(ToolTipFormat), typeof(string), typeof(RingGraph),
+                new PropertyMetadata(string.Empty));
+        /// <summary>
         /// Identifica a la propiedad de dependencia <see cref="Total"/>.
         /// </summary>
         public static DependencyProperty TotalProperty = TotalPropertyKey.DependencyProperty;
@@ -132,6 +138,15 @@ namespace MCART.Controls
         {
             get => (double)GetValue(TitleFontSizeProperty);
             set => SetValue(TitleFontSizeProperty, value);
+        }
+        /// <summary>
+        /// Obtiene o establece el formato opcional a aplicar a etiquetas
+        /// flotantes para los <see cref="Slice"/> dibujados en este control.
+        /// </summary>
+        public string ToolTipFormat
+        {
+            get => (string)GetValue(ToolTipFormatProperty);
+            set => SetValue(ToolTipFormatProperty, value);
         }
         /// <summary>
         /// Obtiene el total general de los datos de este
@@ -184,6 +199,7 @@ namespace MCART.Controls
             Path p = new Path { Data = UI.GetCircleArc(((new[] { g.ActualWidth, g.Width }).Max() - RingThickness) / 2, angle, angle + sze, RingThickness) };
             p.SetBinding(Shape.StrokeProperty, new Binding(nameof(j.SliceBrush)) { Source = j });
             p.SetBinding(Shape.StrokeThicknessProperty, new Binding(nameof(RingThickness)) { Source = this });
+            if (!ToolTipFormat.IsEmpty()) p.ToolTip = new ToolTip { Content = string.Format(ToolTipFormat, j.Name, j.Value) };
             CheckBox c = new CheckBox();
             c.SetBinding(ContentProperty, new Binding(nameof(j.Name)) { Source = j });
             c.SetBinding(BackgroundProperty, new Binding(nameof(j.SliceBrush)) { Source = j });
@@ -203,7 +219,7 @@ namespace MCART.Controls
             {
                 grdRoot.Children.Add(g);
                 grdRoot.UpdateLayout();
-                g.UpdateLayout(); 
+                g.UpdateLayout();
             }
             Grid subg = null;
             if (SubLevelsShown - 1 > sublevel)
@@ -224,7 +240,7 @@ namespace MCART.Controls
                         ang,
                         sz,
                         t.Items,
-                        out _,
+                        out double tot,
                         sublevel + 1);
                     // TODO: en vez de _, dibujar una etiqueta con el total.
                 }

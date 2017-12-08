@@ -39,7 +39,11 @@ namespace MCART.Controls
         /// Figura que representa a este valor al ser dibujado.
         /// </summary>
         internal UIElement shape;
+        /// <summary>
+        /// Padre visual de este <see cref="Slice"/>.
+        /// </summary>
         internal Panel parent;
+
         /// <summary>
         /// Identifica a la propiedad de dependencia <see cref="Name"/>.
         /// </summary>
@@ -52,7 +56,6 @@ namespace MCART.Controls
         public static DependencyProperty SliceColorProperty = DependencyProperty.Register(
                 nameof(SliceColor), typeof(Color), typeof(Slice),
                 new PropertyMetadata(Colors.Pick()));
-
         /// <summary>
         /// Identifica a la propiedad de dependencia <see cref="Value"/>.
         /// </summary>
@@ -62,12 +65,10 @@ namespace MCART.Controls
         static DependencyPropertyKey SliceBrushPropertyKey = DependencyProperty.RegisterReadOnly(
                     nameof(SliceBrush), typeof(System.Windows.Media.Brush), typeof(Slice),
                     new PropertyMetadata(null));
-
         /// <summary>
         /// Identifica a la propiedad de dependencia <see cref="SliceBrush"/>.
         /// </summary>
         public static DependencyProperty SliceBrushProperty = SliceBrushPropertyKey.DependencyProperty;
-
         /// <summary>
         /// Obtiene un <see cref="System.Windows.Media.Brush"/> que puede
         /// utilizarse para colorear este <see cref="Slice"/>.
