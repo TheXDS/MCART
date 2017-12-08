@@ -6,7 +6,7 @@
 //  Author:
 //       César Morgan <xds_xps_ivx@hotmail.com>
 //
-//  Copyright (c) 2011 - 2017 César Morgan
+//  Copyright (c) 2011 - 2018 César Morgan
 //
 //  MCART is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by

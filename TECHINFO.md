@@ -13,9 +13,32 @@ a la definición de cada proyecto:
   </PropertyGroup>
   <Import Project="$(SolutionDir)CommonSettings.targets" />
 ```
-Al agregar este bloque de código a los proyectos, es posible editar las
+Al agregar este bloque de código a los proyectos, es posible cambiar las
 constantes de compilación globales editando el archivo
 `CommonSettings.targets`.
+### Números de versión
+La información genérica de los ensamblados de MCART se encuentra en el proyecto
+compartido *AssemblyInfo*, el cual contiene únicamente un archivo con las
+respectivas definiciones de atributos de versión, copyright, compañía,
+trademark y nombre del producto. Al crear nuevos proyectos, es necesario
+incluir una referencia a este proyecto para evitar mantener copias innecesarias
+de los atributos, y centralizar la información de versiones y de
+identificación.
+
+Durante la fase Pre-release de MCART, la versión mayor tendrá un valor de cero,
+siendo necesario referirse al componente menor para evaluar el estado de avance
+del proyecto. Eventualmente, al existir un Release, el comportamiento de los
+distintos números que componen la versión pasará a representar el estado de
+manera normal.
+
+Luego de ocurrir un Release final, los últimos componentes pasarán a ser la
+fecha codificada de compilación de los ensamblados.
+
+**Notas adicionales para NetStandard:**
+Debido a la forma en la que dichos atributos se encuentran almacenados en un
+proyecto de este tipo, será necesario actualizar manualmente la información de
+ensamblado de *NetStandard* al compilar. Por favor, no olvides realizar estos
+cambios y recompilar *NetStandard* por separado.
 ### Constantes globales de compilación
 El archivo `CommonSettings.targets` contiene un conjunto de constantes de
 compilación definidas para toda la solución. Esto, con el propósito de evitar

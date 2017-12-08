@@ -83,15 +83,6 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <Compile Include="Modules\UI.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +99,7 @@
   <Import Project="..\..\CoreComponents\Core-GUI\Core-GUI.projitems" Label="Shared" />
   <Import Project="..\..\CoreComponents\Core-Windows\Core-Windows.projitems" Label="Shared" />
   <Import Project="..\..\CoreComponents\Core\Core.projitems" Label="Shared" />
+  <Import Project="..\..\CoreComponents\AssemblyInfo\AssemblyInfo.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup Condition="'$(SolutionDir)' == '' or '$(SolutionDir)' == '*undefined*'">
     <SolutionDir>..\..\</SolutionDir>

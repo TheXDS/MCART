@@ -6,7 +6,7 @@
 //  Author:
 //       César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
-//  Copyright (c) 2011 - 2017 César Andrés Morgan
+//  Copyright (c) 2011 - 2018 César Andrés Morgan
 //
 //  MCART is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -25,8 +25,3 @@ using System.Reflection;
 
 [assembly: AssemblyTitle("MCART Core")]
 [assembly: AssemblyDescription("MCART Universal Core Edition")]
-[assembly: AssemblyCompany("TheXDS! non-Corp.")]
-[assembly: AssemblyProduct("MCA Runtime")]
-[assembly: AssemblyCopyright("Copyright © 2011-2017 César Andrés Morgan")]
-[assembly: AssemblyTrademark("MCA Corporation")]
-[assembly: AssemblyVersion("0.6.*")]

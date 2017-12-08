@@ -3,14 +3,14 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>MCART</AssemblyName>
     <RootNamespace>MCART</RootNamespace>
-    <Version>0.6.0</Version>
+    <Version>0.6.1</Version>
     <Authors>César Andrés Morgan</Authors>
     <Product>MCA Runtime</Product>
     <Company>TheXDS! non-Corp.</Company>
     <RepositoryUrl>https://github.com/TheXDS/MCART</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <AssemblyVersion>0.6.0.0</AssemblyVersion>
-    <FileVersion>0.6.0.0</FileVersion>
+    <AssemblyVersion>0.6.1.0</AssemblyVersion>
+    <FileVersion>0.6.1.0</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Copyright>Copyright © 2011-2017 César Andrés Morgan</Copyright>
     <PackageLicenseUrl>http://www.gnu.org/licenses/gpl-3.0.html</PackageLicenseUrl>
@@ -20,6 +20,8 @@
     <OutputPath>..\..\Build\netstandard2.0\Debug\</OutputPath>
     <DocumentationFile>..\..\Build\netstandard2.0\Debug\MCART.xml</DocumentationFile>
     <LangVersion>default</LangVersion>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DefineConstants>RELEASE;NETSTANDARD2_0</DefineConstants>

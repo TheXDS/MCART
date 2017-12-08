@@ -22,10 +22,6 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Reflection;
+
 [assembly: AssemblyTitle("MCART for Gtk#")]
-[assembly: AssemblyDescription("MCART for Gtksharp")]
-[assembly: AssemblyCompany("TheXDS! non-Corp.")]
-[assembly: AssemblyProduct("MCA Runtime")]
-[assembly: AssemblyCopyright("Copyright © 2011-2017 César Andrés Morgan")]
-[assembly: AssemblyTrademark("MCA Corporation")]
-[assembly: AssemblyVersion("0.6.*")]
+[assembly: AssemblyDescription("MCART for Gtk-sharp")]
