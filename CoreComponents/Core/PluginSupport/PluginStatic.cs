@@ -88,7 +88,7 @@ namespace MCART.PluginSupport
         static bool IsValidType(Type m, bool chkVersion = true)
         {
 #if StrictMCARTVersioning
-            if (chkVersion) return !m.IsInterface && !m.IsAbstract;
+            if (!chkVersion) return !(m.IsInterface || m.IsAbstract);
             var mt = m.GetAttr<MinMCARTVersionAttribute>()?.Value ?? m.Assembly.GetAttr<MinMCARTVersionAttribute>()?.Value;
             var tt = m.GetAttr<TargetMCARTVersionAttribute>()?.Value ?? m.Assembly.GetAttr<TargetMCARTVersionAttribute>()?.Value;
             if (Objects.IsAnyNull(mt, tt)) return false;
