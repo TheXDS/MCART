@@ -49,11 +49,13 @@ namespace MCART.Forms
         TextBox TxtUsr = new TextBox
         {
             Height = 23,
+            TabIndex=1,
             Margin = new Thickness(10, 10, 10, 0)
         };
         PasswordBox Txtpw = new PasswordBox
         {
             Height = 23,
+            TabIndex=2,
             PasswordChar = '●'
         };
         StackPanel MoreCtrls = new StackPanel();
