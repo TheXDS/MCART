@@ -57,3 +57,4 @@ NativeNumbers | Permite utilizar implementaciones conscientes de la cultura nati
 PreferExceptions | Cuando ciertas funciones deban manejar información inválida, activar esta constante causa que se arrojen excepciones en lugar de continuar con código alternativo (activar esta bandera puede ser un dolor de cabeza, pero resulta en código más seguro).
 RatherDRY | Indica que, a pesar de disminuir la optimización del código, se debe respetar el principio DRY (Don't Repeat Yourself) al implementar sobrecargas cuyo cuerpo sea exactamente igual.
 StrictMCARTVersioning | Cuando se realicen comprobaciones de compatibilidad con MCART, activar esta constante causa que dichas comprobaciones sean más estrictas. Se recomienda mantener esta constante habilitada.
+SaferPasswords | Permite que algunas funciones de seguridad requieran, comprueben o generen contraseñas más seguras, a expensas de compatibilidad con los métodos de entrada disponibles o con el equipo.

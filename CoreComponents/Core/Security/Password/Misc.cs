@@ -21,6 +21,8 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System.Security;
+
 namespace MCART.Security.Password
 {
 	/// <summary>
@@ -92,9 +94,9 @@ namespace MCART.Security.Password
 	/// <summary>
 	/// Delegado que define una función que genera contraseñas.
 	/// </summary>
-	public delegate string PwGenerator(int length);
+	public delegate SecureString PwGenerator(int length);
 	/// <summary>
 	/// Delegado que define una función que evalúa contraseñas.
 	/// </summary>
-	public delegate PwEvalResult PwEvalFunc(string pwToEval);
+	public delegate PwEvalResult PwEvalFunc(SecureString pwToEval);
 }

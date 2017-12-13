@@ -49,13 +49,13 @@ namespace MCART.Forms
         TextBox TxtUsr = new TextBox
         {
             Height = 23,
-            TabIndex=1,
+            TabIndex = 1,
             Margin = new Thickness(10, 10, 10, 0)
         };
         PasswordBox Txtpw = new PasswordBox
         {
             Height = 23,
-            TabIndex=2,
+            TabIndex = 2,
             PasswordChar = '●'
         };
         StackPanel MoreCtrls = new StackPanel();
@@ -103,7 +103,7 @@ namespace MCART.Forms
                 TxtUsr.Focus();
                 return;
             }
-            retVal = new PwDialogResult(TxtUsr.Text, Txtpw.Password, null, MessageBoxResult.OK, PwEvalResult.Null);
+            retVal = new PwDialogResult(TxtUsr.Text, Txtpw.SecurePassword, null, MessageBoxResult.OK, PwEvalResult.Null);
             Close();
         }
         void BtnConfirm_Click(object sender, RoutedEventArgs e)
@@ -131,7 +131,7 @@ namespace MCART.Forms
                 Txtpw.SelectAll();
                 return;
             }
-            retVal = new PwDialogResult(TxtUsr.Text, Txtpw.Password, Txthint.Text, MessageBoxResult.OK, pwEvalResult);
+            retVal = new PwDialogResult(TxtUsr.Text, Txtpw.SecurePassword, Txthint.Text, MessageBoxResult.OK, pwEvalResult);
             Close();
         }
         void Txtpw_PasswordChanged(object sender, RoutedEventArgs e)
@@ -139,13 +139,13 @@ namespace MCART.Forms
             if (SecurIndicator.IsVisible)
             {
                 if (Txtcnf.IsWarned()) Txtcnf.ClearWarn();
-                pwEvalResult = pwEvaluator.Evaluate(Txtpw.Password);
+                pwEvalResult = pwEvaluator.Evaluate(Txtpw.SecurePassword);
                 Securdetails.Text = pwEvalResult.Details;
                 Ringsec.Value = pwEvalResult.Result * 100;
-                if (!pwEvalResult.Critical)                
-                    Ringsec.Fill = new SolidColorBrush(BlendHealth(pwEvalResult.Result));                
-                else                
-                    Ringsec.Fill = SystemColors.HighlightBrush;                
+                if (!pwEvalResult.Critical)
+                    Ringsec.Fill = new SolidColorBrush(BlendHealth(pwEvalResult.Result));
+                else
+                    Ringsec.Fill = SystemColors.HighlightBrush;
             }
         }
         void Txtcnf_PasswordChanged(object sender, RoutedEventArgs e)
@@ -156,6 +156,11 @@ namespace MCART.Forms
         {
             if (Txtcnf.Password != string.Empty && Txtcnf.Password != Txtpw.Password)
                 Txtcnf.Warn(St.PwNotMatch);
+        }
+        void TxtFocus(object sender, RoutedEventArgs e)
+        {
+            (sender as TextBox)?.SelectAll();
+            (sender as PasswordBox)?.SelectAll();
         }
         #endregion
         #region Métodos públicos
@@ -221,38 +226,42 @@ namespace MCART.Forms
             Content = StckRoot;
             Btngo.Click += Btngo_Click;
             TxtUsr.TextChanged += Txtcnf_PasswordChanged;
+            TxtUsr.GotFocus += TxtFocus;
             Txtpw.PasswordChanged += Txtpw_PasswordChanged;
+            Txtpw.GotFocus += TxtFocus;
             Txtpw.LostFocus += Txtcnf_check;
             Txtcnf.PasswordChanged += Txtcnf_PasswordChanged;
+            Txtcnf.GotFocus += TxtFocus;
             Txtcnf.LostFocus += Txtcnf_check;
             BtnConfirm.Click += BtnConfirm_Click;
         }
         /// <summary>
         /// Obtiene una contraseña.
         /// </summary>
-        /// <param name="StoredPw">
+        /// <param name="storedPw">
         /// Parámetro opcional. Proporciona una contraseña predeterminada para
         /// esta ventana.
         /// </param>
-        /// <param name="DefaultUsr">
+        /// <param name="defaultUsr">
         /// Parámetro opcional. Nombre de usuario a mostrar de manera 
         /// predeterminada en el cuadro.
         /// </param>
-        /// <param name="ShowUsrBox">
+        /// <param name="showUsrBox">
         /// Parámetro opcional. Indica si se mostrará o no el cuadro de 
         /// usuario.
         /// </param>
         /// <returns>
         /// Un <see cref="PwDialogResult"/> con el resultado de esta función.
         /// </returns>
-        public PwDialogResult GetPassword(string DefaultUsr = null, string StoredPw = null, bool ShowUsrBox = false)
+        public PwDialogResult GetPassword(string defaultUsr = null, string storedPw = null, bool showUsrBox = false)
         {
             Title = St.Pwd;
-            TxtUsr.Visibility = ShowUsrBox ? Visibility.Visible : Visibility.Collapsed;
-            TxtUsr.Text = DefaultUsr;
-            Txtpw.Password = StoredPw;
+            TxtUsr.Visibility = showUsrBox ? Visibility.Visible : Visibility.Collapsed;
+            TxtUsr.Text = defaultUsr;
+            Txtpw.Password = storedPw;
             Btngo.Visibility = Visibility.Visible;
             MoreCtrls.Visibility = Visibility.Collapsed;
+            if (showUsrBox) TxtUsr.Focus(); else Txtpw.Focus();
             ShowDialog();
             return retVal;
         }
@@ -270,10 +279,15 @@ namespace MCART.Forms
         /// predeterminado. Se ignora si <paramref name="Mode"/> no incluye la 
         /// bandera <see cref="PwMode.Secur"/>.
         /// </param>
+        /// <param name="passValue">
+        /// Parámetro opcional. Determina la puntuación mínima requerida para 
+        /// aceptar una contraseña. De forma predeterminada, se establece en
+        /// un puntaje de al menos 50%.
+        /// </param>
         /// <returns>
         /// Un <see cref="PwDialogResult"/> con el resultado de este diálogo.
         /// </returns>
-        public PwDialogResult ChoosePassword(PwMode Mode = PwMode.JustConfirm, PwEvaluator PwEvaluatorObj = null)
+        public PwDialogResult ChoosePassword(PwMode Mode = PwMode.JustConfirm, PwEvaluator PwEvaluatorObj = null, int passValue = 50)
         {
             Title = St.SetX(St.Pwd.ToLower());
             TxtUsr.Visibility = (Mode & PwMode.Usr) == PwMode.Usr ? Visibility.Visible : Visibility.Collapsed;
@@ -286,9 +300,12 @@ namespace MCART.Forms
                 if (PwEvaluatorObj == null)
                 {
                     pwEvaluator = new PwEvaluator(RuleSets.CommonComplexityRuleSet());
-                    pwEvaluator.Rules.Add(RuleSets.PwLatinEvalRule());
+
+#if SaferPasswords
+		            pwEvaluator.Rules.Add(RuleSets.PwLatinEvalRule());
                     pwEvaluator.Rules.Add(RuleSets.PwOtherSymbsEvalRule());
                     pwEvaluator.Rules.Add(RuleSets.PwOtherUTFEvalRule());
+#endif
                 }
                 else pwEvaluator = PwEvaluatorObj;
             }

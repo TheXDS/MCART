@@ -22,6 +22,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using MCART.Attributes;
+using System.Linq;
 using St = MCART.Resources.Strings;
 using St2 = MCART.Resources.SpecificStrings;
 
@@ -63,10 +64,11 @@ namespace MCART.Security.Password
             // Al aplicar esta regla, ya se gana un 30% de puntaje.
             const float CFactoryFactor = 0.3f;
 
-            return new PwEvalRule(p =>
+            return new PwEvalRule(ps =>
             {
+                short[] p = ps.Read16();
                 int d = 0;
-                foreach (char j in a) if (p.Contains(j.ToString())) d++;
+                foreach (char j in a) if (p.Contains((short)j)) d++;
                 if (d == 0) return new PwEvalResult(0, ie ?
                     St.Ok(St.Include(b.ToLower())) :
                     St.Warn(St.Include(b.ToLower())));
@@ -167,8 +169,10 @@ namespace MCART.Security.Password
         {
             return new PwEvalRule((p) =>
             {
-                if (p.CountChars(St.MoreChars.ToCharArray()) == 0)
-                    return new PwEvalResult(1, St.Ok(St.Includes(St2.PwOtherUTFEvalRule.ToLower())));
+                var charArr = St.MoreChars.ToCharArray();
+                foreach (var j in p.Read16())
+                    if (!charArr.Contains((char)j))
+                        return new PwEvalResult(1, St.Ok(St.Includes(St2.PwOtherUTFEvalRule.ToLower())));
                 return new PwEvalResult(0);
             }, St2.PwOtherUTFEvalRule, PonderationLevel.Highest, null, true, true);
         }

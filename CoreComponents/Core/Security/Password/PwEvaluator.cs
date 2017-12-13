@@ -24,6 +24,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using St = MCART.Resources.Strings;
 
@@ -45,9 +46,9 @@ namespace MCART.Security.Password
         /// </summary>
         /// <returns>La evaluación de la contraseña.</returns>
         /// <param name="Pwd">Contraseña a evaluar.</param>
-        public PwEvalResult Evaluate(string Pwd)
+        public PwEvalResult Evaluate(SecureString Pwd)
         {
-            if (Pwd.IsEmpty()) return new PwEvalResult(0, St.Warn(St.PwNeeded), true);
+            if (Pwd.Length == 0) return new PwEvalResult(0, St.Warn(St.PwNeeded), true);
             double c = 0;
             int t = 0;
             PwEvalResult k;
@@ -71,7 +72,7 @@ namespace MCART.Security.Password
         public PwEvaluator(params PwEvalRule[] evalRules)
         {
             if (evalRules.IsNull()) throw new ArgumentNullException(nameof(evalRules));
-            Rules = new List<PwEvalRule>(evalRules);            
+            Rules = new List<PwEvalRule>(evalRules);
         }
     }
 }

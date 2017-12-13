@@ -43,12 +43,12 @@ Public Class MainWindow
     End Sub
     Private Sub MnuPwd_Click(sender As Object, e As RoutedEventArgs) Handles mnuPwd.Click
         With (New PasswordDialog).GetPassword("Usuario", "Test@1234", True)
-            If .Result = MessageBoxResult.OK Then MessageBox.Show(.Usr & vbCrLf & .Pwd)
+            If .Result = MessageBoxResult.OK Then MessageBox.Show(.Usr & vbCrLf & .Pwd.ReadString())
         End With
     End Sub
     Private Sub MnuSetPw_Click(sender As Object, e As RoutedEventArgs) Handles mnuSetPw.Click
         With (New PasswordDialog).ChoosePassword(Security.Password.PwMode.UsrBoth)
-            If .Result = MessageBoxResult.OK Then MessageBox.Show(.Usr & vbCrLf & .Pwd)
+            If .Result = MessageBoxResult.OK Then MessageBox.Show(.Usr & vbCrLf & .Pwd.ReadString())
         End With
     End Sub
     Private Sub MnuImgfilter_Click(sender As Object, e As RoutedEventArgs) Handles mnuImgfilter.Click

@@ -26,6 +26,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Security;
 
 namespace MCART
 {
@@ -381,23 +382,23 @@ namespace MCART
 #pragma warning disable XS0001
 
         /// <summary>
-        /// Convierte un <see cref="System.Security.SecureString"/> en un
+        /// Convierte un <see cref="SecureString"/> en un
         /// <see cref="string"/>.
         /// </summary>
         /// <param name="value">
-        /// <see cref="System.Security.SecureString"/> a convertir.
+        /// <see cref="SecureString"/> a convertir.
         /// </param>
         /// <returns>Un <see cref="string"/> de código administrado.</returns>
         /// <remarks>
         /// El uso de este método NO ESTÁ RECOMENDADO, ya que la conversión al
         /// tipo <see cref="string"/> vence el propósito original de
-        /// <see cref="System.Security.SecureString"/>, y se provee como una
+        /// <see cref="SecureString"/>, y se provee como una
         /// alternativa sencilla, en casos en los que el programa no dependa de
         /// que la confidencialidad de una cadena en particular se deba
         /// mantener durante la ejecución.
         /// </remarks>
         [Unsecure]
-        public static string ReadString(this System.Security.SecureString value)
+        public static string ReadString(this SecureString value)
         {
             IntPtr valuePtr = IntPtr.Zero;
             try
@@ -408,16 +409,16 @@ namespace MCART
             finally { Marshal.ZeroFreeGlobalAllocUnicode(valuePtr); }
         }
         /// <summary>
-        /// Convierte un <see cref="System.Security.SecureString"/> en un
+        /// Convierte un <see cref="SecureString"/> en un
         /// arreglo de <see cref="short"/>.
         /// </summary>
         /// <param name="value">
-        /// <see cref="System.Security.SecureString"/> a convertir.
+        /// <see cref="SecureString"/> a convertir.
         /// </param>
         /// <returns>
         /// Un arreglo de <see cref="short"/> de código administrado.
         /// </returns>
-        public static short[] Read16(this System.Security.SecureString value)
+        public static short[] Read16(this SecureString value)
         {
             List<short> outp = new List<short>();
             IntPtr valuePtr = IntPtr.Zero;
@@ -430,16 +431,16 @@ namespace MCART
             finally { Marshal.ZeroFreeGlobalAllocUnicode(valuePtr); }
         }
         /// <summary>
-        /// Convierte un <see cref="System.Security.SecureString"/> en un
+        /// Convierte un <see cref="SecureString"/> en un
         /// arreglo de <see cref="byte"/>.
         /// </summary>
         /// <param name="value">
-        /// <see cref="System.Security.SecureString"/> a convertir.
+        /// <see cref="SecureString"/> a convertir.
         /// </param>
         /// <returns>
         /// Un arreglo de <see cref="byte"/> de código administrado.
         /// </returns>
-        public static byte[] Read8(this System.Security.SecureString value)
+        public static byte[] Read8(this SecureString value)
         {
             List<byte> outp = new List<byte>();
             IntPtr valuePtr = IntPtr.Zero;
@@ -451,8 +452,20 @@ namespace MCART
             }
             finally { Marshal.ZeroFreeGlobalAllocUnicode(valuePtr); }
         }
-
+        /// <summary>
+        /// Convierte un <see cref="string"/> en un <see cref="SecureString"/>.
+        /// </summary>
+        /// <param name="s"><see cref="string"/> a convertir.</param>
+        /// <returns>
+        /// Un <see cref="SecureString"/> que contiene todos los caracteres 
+        /// originales de la cadena provista.
+        /// </returns>
+        public static SecureString ToSecureString(this string s)
+        {
+            var retVal = new SecureString();
+            foreach (var j in s.ToCharArray()) retVal.AppendChar(j);
+            return retVal;
+        }
 #pragma warning restore XS0001
-
     }
 }

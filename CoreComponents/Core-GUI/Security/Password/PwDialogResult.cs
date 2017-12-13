@@ -23,6 +23,8 @@
 
 #pragma warning disable CS0282 // No hay un orden específico entre los campos en declaraciones múltiples de la estructura parcial
 
+using System.Security;
+
 namespace MCART.Security.Password
 {
     /// <summary>
@@ -31,9 +33,8 @@ namespace MCART.Security.Password
     /// </summary>
     public partial struct PwDialogResult
     {
-        //TODO: considerar cambiar los campos de string a SecureString.
-        string u;       
-        string p;
+        string u;
+        SecureString p;
         string h;
         PwEvalResult e;
         /// <summary>
@@ -54,7 +55,7 @@ namespace MCART.Security.Password
         /// Un <see cref="string"/> con la contraseña que el usuario ha 
         /// introducido.
         /// </returns>
-        public string Pwd => p;
+        public SecureString Pwd => p;
         /// <summary>
         /// Obtiene el indicio de contraseña introducido por el usuario.
         /// </summary>
@@ -85,7 +86,6 @@ namespace MCART.Security.Password
         /// <c>true</c> si ambos objetos son iguales, <c>false</c> en caso
         /// contrario.
         /// </returns>
-
         public override bool Equals(object obj) => base.Equals(obj);
         /// <summary>
         /// Obtiene el código hash de esta instancia.
@@ -104,7 +104,7 @@ namespace MCART.Security.Password
         /// </returns>
         public static bool operator ==(PwDialogResult left, PwDialogResult right)
         {
-            return left.e == right.e && left.u== right.u & left.p==right.p;
+            return left.e == right.e && left.u == right.u;
         }
         /// <summary>
         /// Evalúa si <paramref name="left"/> y <paramref name="right"/> son 
@@ -116,6 +116,6 @@ namespace MCART.Security.Password
         /// <c>true</c> si los objetos son diferentes, <c>false</c> en caso
         /// contrario.
         /// </returns>
-        public static bool operator !=(PwDialogResult left, PwDialogResult right)=> !(left == right);        
+        public static bool operator !=(PwDialogResult left, PwDialogResult right) => !(left == right);
     }
 }

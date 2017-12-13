@@ -21,6 +21,8 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System.Security;
+
 namespace MCART.Security.Password
 {
     /// <summary>
@@ -43,6 +45,6 @@ namespace MCART.Security.Password
         /// en <see cref="Rules"/>.
         /// </returns>
         /// <param name="Pwd">Contraseña a evaluar.</param>
-        PwEvalResult Evaluate(string Pwd);
+        PwEvalResult Evaluate(SecureString Pwd);
     }
 }

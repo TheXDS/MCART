@@ -137,7 +137,7 @@ namespace MCART.Forms
                 txtUser.Focus();
                 return;
             }
-            retVal = new PwDialogResult(txtUser.Text, txtPw.Text, null, DialogResult.OK, PwEvalResult.Null);
+            retVal = new PwDialogResult(txtUser.Text, txtPw.Text.ToSecureString(), null, DialogResult.OK, PwEvalResult.Null);
             Close();
         }
         private void BtnOk_Click(object sender, EventArgs e)
@@ -164,7 +164,7 @@ namespace MCART.Forms
                 txtPw.SelectAll();
                 return;
             }
-            retVal = new PwDialogResult(txtUser.Text, txtPw.Text, txtHint.Text, DialogResult.OK, pwEvalResult);
+            retVal = new PwDialogResult(txtUser.Text, txtPw.Text.ToSecureString(), txtHint.Text, DialogResult.OK, pwEvalResult);
             Close();
 
         }
@@ -174,7 +174,7 @@ namespace MCART.Forms
             {
                 if (txtConfirm.IsWarned())
                     txtConfirm.ClearWarn();
-                pwEvalResult = pwEvaluator.Evaluate(txtPw.Text);
+                pwEvalResult = pwEvaluator.Evaluate(txtPw.Text.ToSecureString());
                 lblMorInfo.Text = pwEvalResult.Details;
                 prScore.Value = pwEvalResult.Result * 100;
                 if (!pwEvalResult.Critical)

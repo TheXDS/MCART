@@ -23,6 +23,7 @@
 
 using MCART.Attributes;
 using System;
+using System.Security;
 using St = MCART.Resources.Strings;
 
 namespace MCART.Security.Password
@@ -73,7 +74,7 @@ namespace MCART.Security.Password
         /// </summary>
         /// <param name="pwToEval">Contraseña a evaluar.</param>
         /// <returns></returns>
-        public PwEvalResult Eval(string pwToEval)
+        public PwEvalResult Eval(SecureString pwToEval)
         {
             if (!Enable) throw new InvalidOperationException(
                 St.XDisabled(St.TheObj));

@@ -25,6 +25,7 @@ using System;
 using System.Linq;
 using MCART.Types.Extensions;
 using St = MCART.Resources.Strings;
+using System.Security;
 
 namespace MCART.Security.Password
 {
@@ -36,16 +37,19 @@ namespace MCART.Security.Password
         /// <summary>
         /// Genera una contraseña.
         /// </summary>
-        /// <returns>La contraseña.</returns>
         /// <param name="chars">Caracteres a utilizar.</param>
         /// <param name="l">Longitud de la contraseña.</param>
-        static string GenPw(string chars, int l)
+        /// <returns>
+        /// Un <see cref="SecureString"/> con la contraseña generada.
+        /// </returns>
+        static SecureString GenPw(string chars, int l)
         {
             char[] x = chars.Shuffled().ToArray();
-            string outp = string.Empty;
-            Random r = new Random();
-            while (outp.Length < l) outp += x[r.Next(0, x.Count())];
-            return outp;
+            var rnd = new Random();
+            var retval = new SecureString();
+            for (int j = 0; j < l; j++) retval.AppendChar(x[rnd.Next(0, x.Count())]);
+            retval.MakeReadOnly();
+            return retval;
         }
         /// <summary>
         /// Genera una contraseña segura.
@@ -58,7 +62,7 @@ namespace MCART.Security.Password
         /// Opcional. Longitud de la contraseña a generar. Si se omite, se
         /// generará una contraseña de 16 caracteres.
         /// </param>
-        public static string Safe(int length = 16) => GenPw(St.Chars, length);
+        public static SecureString Safe(int length = 16) => GenPw(St.Chars, length);
         /// <summary>
         /// Genera una contraseña muy compleja.
         /// </summary>
@@ -70,7 +74,7 @@ namespace MCART.Security.Password
         /// Opcional. Longitud de la contraseña a generar. Si se omite, se
         /// generará una contraseña de 128 caracteres.
         /// </param>
-        public static string VeryComplex(int length = 128) => GenPw(St.MoreChars, length);
+        public static SecureString VeryComplex(int length = 128) => GenPw(St.MoreChars, length);
         /// <summary>
         /// Genera un número de pin.
         /// </summary>
@@ -79,6 +83,23 @@ namespace MCART.Security.Password
         /// Opcional. Longitud del número de pin a generar. Si se omite, se
         /// generará un número de pin de 4 dígitos.
         /// </param>
-        public static string Pin(int length = 4) => GenPw(St.Numbers, length);
+        public static SecureString Pin(int length = 4) => GenPw(St.Numbers, length);
+        /// <summary>
+        /// Genera una contraseña extremadamente segura, utilizando UTF-16
+        /// </summary>
+        /// <param name="length">
+        /// Opcional. Longitud de la contraseña a generar. Si se omite, se
+        /// generará una contraseña de 512 caracteres UTF-16.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="SecureString"/> con la contraseña generada.
+        /// </returns>
+        public static SecureString ExtremelyComplex(int length = 512)
+        {
+            var rnd = new Random();
+            var retval = new SecureString();
+            for (int j = 0; j < length; j++) retval.AppendChar((char)rnd.Next(0, 0x10000));
+            return retval;
+        }
     }
 }

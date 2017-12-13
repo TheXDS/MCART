@@ -23,6 +23,7 @@
 
 #pragma warning disable CS0282 // No hay un orden específico entre los campos en declaraciones múltiples de la estructura parcial
 
+using System.Security;
 using System.Windows.Forms;
 
 namespace MCART.Security.Password
@@ -61,10 +62,11 @@ namespace MCART.Security.Password
         /// <param name="ev">
         /// Resultado de la evaluación.
         /// </param>
-        internal PwDialogResult(string us, string pw, string hn, DialogResult re, PwEvalResult ev)
+        internal PwDialogResult(string us, SecureString pw, string hn, DialogResult re, PwEvalResult ev)
         {
             u = us;
             p = pw;
+            if (!(p?.IsReadOnly() ?? true)) p.MakeReadOnly();
             h = hn;
             r = re;
             e = ev;
