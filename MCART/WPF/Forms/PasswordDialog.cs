@@ -179,6 +179,7 @@ namespace MCART.Forms
             ResizeMode = ResizeMode.NoResize;
             Width = 250;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            WindowStyle = WindowStyle.ToolWindow;
             a = new TextBlock
             {
                 Text = St.Usr,
@@ -255,7 +256,6 @@ namespace MCART.Forms
         /// </returns>
         public PwDialogResult GetPassword(string defaultUsr = null, string storedPw = null, bool showUsrBox = false)
         {
-            Title = St.Pwd;
             TxtUsr.Visibility = showUsrBox ? Visibility.Visible : Visibility.Collapsed;
             TxtUsr.Text = defaultUsr;
             Txtpw.Password = storedPw;

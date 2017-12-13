@@ -27,7 +27,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -108,113 +107,23 @@ namespace MCART
             GC.Collect();
         }
         /// <summary>
-        /// Obtiene una imagen a partir de una ruta web.
+        /// Obtiene una imagen a partir de un <see cref="Stream"/>.
         /// </summary>
-        /// <param name="uri">
-        /// Ruta de la imagen. Debe ser una ruta HTTP.
+        /// <param name="stream">
+        /// <see cref="Stream"/> con el contenido de la imagen.
         /// </param>
         /// <returns>
-        /// Una tares que permite monitorear la operación de descarga de una
-        /// imagen desde la Uri especificada.
+        /// La imagen que ha sido leída desde el <see cref="Stream"/>.
         /// </returns>
-        public static async Task<BitmapImage> GetImageHttpAsync(Uri uri)
+        public static BitmapImage GetBitmap(Stream stream)
         {
             var retVal = new BitmapImage();
-            var wr = System.Net.WebRequest.Create(uri);
-            wr.Timeout = -1;
-            var r = await wr.GetResponseAsync();
-            var rs = r.GetResponseStream();
-            var br = new BinaryReader(rs);
-            var ms = new MemoryStream();
-
-#if BufferedIO
-            var b = new byte[1024];
-            var rd = br.Read(b, 0, 1024);
-
-            while (rd > 0)
-            {
-                ms.Write(b, 0, rd);
-                rd = br.Read(b, 0, 1024);
-            }
-#else
-            var b = new byte[r.ContentLength];
-            br.Read(b, 0, b.Length);
-            ms.Write(b, 0, b.Length);
-#endif
             retVal.BeginInit();
-            ms.Seek(0, SeekOrigin.Begin);
-            retVal.StreamSource = ms;
+            stream.Seek(0, SeekOrigin.Begin);
+            retVal.StreamSource = stream;
             retVal.EndInit();
             return retVal;
         }
-        /// <summary>
-        /// Obtiene una imagen a partir de una ruta web.
-        /// </summary>
-        /// <param name="url">
-        /// Ruta de la imagen. Debe ser una ruta HTTP.
-        /// </param>
-        /// <returns>
-        /// Una tares que permite monitorear la operación de descarga de una
-        /// imagen desde la Uri especificada.
-        /// </returns>
-        public static async Task<BitmapImage> GetImageHttpAsync(string url)
-            => await GetImageHttpAsync(new Uri(url, UriKind.Absolute));
-        /// <summary>
-        /// Obtiene una imagen a partir de una ruta web.
-        /// </summary>
-        /// <param name="uri">
-        /// Ruta de la imagen. Debe ser una ruta HTTP.
-        /// </param>
-        /// <returns>
-        /// La imagen que ha sido descargada desde la Uri.
-        /// </returns>
-        public static BitmapImage GetImageHttp(Uri uri)
-        {
-#if RatherDRY
-            var t = GetImageHttpAsync(uri);
-            Task.WaitAll(t);
-            return t.Result;
-#else        
-            var retVal = new BitmapImage();
-            var wr = System.Net.WebRequest.Create(uri);
-            wr.Timeout = -1;
-            var r = wr.GetResponse();
-            var rs = r.GetResponseStream();
-            var br = new BinaryReader(rs);
-            var ms = new MemoryStream();
-
-#if BufferedIO
-            var b = new byte[1024];
-            var rd = br.Read(b, 0, 1024);
-
-            while (rd > 0)
-            {
-                ms.Write(b, 0, rd);
-                rd = br.Read(b, 0, 1024);
-            }
-#else
-            var b = new byte[r.ContentLength];
-            br.Read(b, 0, b.Length);
-            ms.Write(b, 0, b.Length);
-#endif
-            retVal.BeginInit();
-            ms.Seek(0, SeekOrigin.Begin);
-            retVal.StreamSource = ms;
-            retVal.EndInit();
-            return retVal;
-#endif
-        }
-        /// <summary>
-        /// Obtiene una imagen a partir de una ruta web.
-        /// </summary>
-        /// <param name="url">
-        /// Ruta de la imagen. Debe ser una ruta HTTP.
-        /// </param>
-        /// <returns>
-        /// La imagen que ha sido descargada desde la Uri.
-        /// </returns>
-        public static BitmapImage GetImageHttp(string url)
-            => GetImageHttp(new Uri(url, UriKind.Absolute));
         /// <summary>
         /// Crea un mapa de bits de un <see cref="FrameworkElement"/>.
         /// </summary>
