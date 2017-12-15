@@ -21,9 +21,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using MCART.Resources;
 using MCART.Types;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -51,11 +49,10 @@ namespace MCART.Controls
                 nameof(Name), typeof(string), typeof(Slice),
                 new PropertyMetadata("Series"));
         /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="SliceColor"/>.
+        /// Identifica a la propiedad de dependencia <see cref="Color"/>.
         /// </summary>
         public static DependencyProperty SliceColorProperty = DependencyProperty.Register(
-                nameof(SliceColor), typeof(Color), typeof(Slice),
-                new PropertyMetadata(Colors.Pick()));
+                nameof(Color), typeof(Color), typeof(Slice));
         /// <summary>
         /// Identifica a la propiedad de dependencia <see cref="Value"/>.
         /// </summary>
@@ -74,7 +71,6 @@ namespace MCART.Controls
         /// utilizarse para colorear este <see cref="Slice"/>.
         /// </summary>
         public System.Windows.Media.Brush SliceBrush => (System.Windows.Media.Brush)GetValue(SliceBrushProperty);
-
         /// <summary>
         /// Obtiene o establece el nombre de este <see cref="Slice"/>.
         /// </summary>
@@ -84,17 +80,12 @@ namespace MCART.Controls
             set => SetValue(NameProperty, value);
         }
         /// <summary>
-        /// Obtiene o establece <see cref="Color"/> a utilizar para dibujar
+        /// Obtiene o establece <see cref="Types.Color"/> a utilizar para dibujar
         /// este <see cref="Slice"/>.
         /// </summary>
-        public Color SliceColor
+        public Color Color
         {
-            get
-            {
-                Color c = (Color)GetValue(SliceColorProperty);
-                if (SliceBrush.IsNull()) SetValue(SliceBrushPropertyKey, (System.Windows.Media.Brush)c);
-                return c;
-            }
+            get => (Color)GetValue(SliceColorProperty);
             set
             {
                 SetValue(SliceBrushPropertyKey, (System.Windows.Media.Brush)value);

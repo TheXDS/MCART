@@ -22,12 +22,23 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
 namespace MCART.Controls
 {
     public partial class RingGraph : ISliceGraph, IGraph
     {
-        private List<Slice> slices = new List<Slice>();
+        IGraphColorizer colorizer;
+        ObservableCollection<Slice> slices = new ObservableCollection<Slice>();
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="RingGraph"/>.
+        /// </summary>
+        public RingGraph()
+        {
+            slices.CollectionChanged += Slices_CollectionChanged;
+            Init();
+        }
         /// <summary>
         /// Obtiene un listado de los <see cref="Slice"/> que conforman el
         /// set de datos de este <see cref="ISliceGraph"/>.
@@ -39,6 +50,19 @@ namespace MCART.Controls
         /// </remarks>
         public IList<Slice> Slices => slices;
         /// <summary>
+        /// Obtiene o establece un <see cref="IGraphColorizer"/> opcional a
+        /// utilizar para establecer los colores de las series.
+        /// </summary>
+        public IGraphColorizer Colorizer
+        {
+            get => colorizer;
+            set
+            {
+                colorizer = value;
+                Redraw();
+            }
+        }
+        /// <summary>
         /// Vuelve a dibujar todo el control.
         /// </summary>
         /// <param name="r">
@@ -47,6 +71,24 @@ namespace MCART.Controls
         public void DrawMe(Slice r)
         {
             // Si un Slice cambia, cambia todo el gráfico.
+            Redraw();
+        }
+        private void Slices_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach (Slice j in e.NewItems) j.DrawingParent = this;
+                    break;
+                case NotifyCollectionChangedAction.Replace:
+                    foreach (Slice j in e.OldItems) j.DrawingParent = null;
+                    goto case NotifyCollectionChangedAction.Add;
+                case NotifyCollectionChangedAction.Remove:
+                    foreach (Slice j in e.OldItems) j.DrawingParent = null;
+                    break;
+                case NotifyCollectionChangedAction.Reset: return;
+                default: break;
+            }
             Redraw();
         }
     }

@@ -9,7 +9,9 @@
     <Import_RootNamespace>MCART</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\Colorizer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\IGraph.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\IGraphData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\ISeriesGraph.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\ISliceGraph.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\RingGraph.cs" />

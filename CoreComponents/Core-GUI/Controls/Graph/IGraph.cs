@@ -30,6 +30,14 @@ namespace MCART.Controls
     public interface IGraph
     {
         /// <summary>
+        /// Realiza tareas finales de inicialización del control.
+        /// </summary>
+        /// <remarks>
+        /// En esta función deben colocarse llamadas como 
+        /// <c>InitializeComponent()</c> (Win32 y WPF) o <c>Build()</c> (Gtk#)
+        /// </remarks>
+        void Init();
+        /// <summary>
         /// Obtiene o establece el título de este <see cref="IGraph"/>.
         /// </summary>
         string Title { get; set; }
@@ -37,6 +45,11 @@ namespace MCART.Controls
         /// Obtiene o establece el tamaño de fuente a aplicar al título.
         /// </summary>
         double TitleFontSize { get; set; }
+        /// <summary>
+        /// Obtiene o establece un <see cref="IGraphColorizer"/> opcional a
+        /// utilizar para establecer los colores de las series.
+        /// </summary>
+        IGraphColorizer Colorizer { get; set; }
         /// <summary>
         /// Solicita al control volver a dibujarse en su totalidad.
         /// </summary>

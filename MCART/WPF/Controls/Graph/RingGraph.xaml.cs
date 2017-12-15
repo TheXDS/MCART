@@ -21,7 +21,6 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -33,29 +32,9 @@ namespace MCART.Controls
 {
     public partial class RingGraph : UserControl
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="RingGraph"/>.
-        /// </summary>
-        public RingGraph()
-        {
-            InitializeComponent();
-            txtTitle.SetBinding(VisibilityProperty,
-                new Binding(nameof(txtTitle.Text))
-                {
-                    Source = txtTitle,
-                    Converter = new StringVisibilityConverter()
-                });
-            txtTitle.SetBinding(TextBlock.TextProperty,
-                new Binding(nameof(Title)) { Source = this });
-            txtTitle.SetBinding(TextBlock.FontSizeProperty,
-                new Binding(nameof(TitleFontSize)) { Source = this });
-            Loaded += RingGraph_Loaded;
-        }
-
         static DependencyPropertyKey TotalPropertyKey = DependencyProperty.RegisterReadOnly(
             nameof(Total), typeof(double), typeof(RingGraph),
             new PropertyMetadata(0.0));
-
         /**
         Internamente, las propiedades de FontSize de txtTotal y el Margin
         del ViewBox que lo contiene, causan que la propiedad StrokeThickness
@@ -162,7 +141,24 @@ namespace MCART.Controls
             get => (bool)GetValue(TotalVisibleProperty);
             set => SetValue(TotalVisibleProperty, value);
         }
-
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="RingGraph"/>.
+        /// </summary>
+        public void Init()
+        {
+            InitializeComponent();
+            txtTitle.SetBinding(VisibilityProperty,
+                new Binding(nameof(txtTitle.Text))
+                {
+                    Source = txtTitle,
+                    Converter = new StringVisibilityConverter()
+                });
+            txtTitle.SetBinding(TextBlock.TextProperty,
+                new Binding(nameof(Title)) { Source = this });
+            txtTitle.SetBinding(TextBlock.FontSizeProperty,
+                new Binding(nameof(TitleFontSize)) { Source = this });
+            Loaded += (sender, e) => Redraw();
+        }
         /// <summary>
         /// Vuelve a dibujar todo el control.
         /// </summary>
@@ -192,8 +188,6 @@ namespace MCART.Controls
             //HACK: Aún no es posible redibujar selectivamente los hijos de r.
             Redraw();
         }
-
-        private void RingGraph_Loaded(object sender, RoutedEventArgs e) => Redraw();
         private void RdrwSeries(Slice j, double tot, double angle, double sze, Grid g, ItemCollection i, out TreeViewItem t)
         {
             Path p = new Path { Data = UI.GetCircleArc(((new[] { g.ActualWidth, g.Width }).Max() - RingThickness) / 2, angle, angle + sze, RingThickness) };
@@ -213,6 +207,7 @@ namespace MCART.Controls
         private void RdrwChild(System.Collections.Generic.IList<Slice> slices, Grid g, double startAngle, double totalSize, ItemCollection labels, out double total, int sublevel = 0)
         {
             labels.Clear();
+            colorizer?.Apply(slices);
             total = slices.GetTotal();
             double ang = startAngle;
             if (!grdRoot.Children.Contains(g))

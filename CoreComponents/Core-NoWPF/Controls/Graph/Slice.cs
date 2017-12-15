@@ -49,10 +49,10 @@ namespace MCART.Controls
             }
         }
         /// <summary>
-        /// Obtiene o establece el <see cref="Color"/> a utilizar para dibujar
-        /// este <see cref="Slice"/>.
+        /// Obtiene o establece el <see cref="Types.Color"/> a utilizar para
+        /// dibujar este <see cref="Slice"/>.
         /// </summary>
-        public Color SliceColor
+        public Color Color
         {
             get => sliceColor;
             set

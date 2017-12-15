@@ -21,31 +21,33 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using MCART.Types.Extensions;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
 namespace MCART.Controls
 {
     /// <summary>
     /// Representa una sección de un <see cref="ISliceGraph"/>.
     /// </summary>
-    public partial class Slice
+    public partial class Slice : IGraphData
     {
+        private ISliceGraph drawingParent;
         /// <summary>
         /// Objeto sobre el cual este <see cref="Slice"/> se dibuja.
         /// </summary>
-        internal ISliceGraph drawingParent;
-
-        private void SubSlices_RemovedItem(List<Slice> sender, RemovedItemEventArgs<Slice> e)
+        internal ISliceGraph DrawingParent
         {
-            e.RemovedItem.drawingParent = null;
-            drawingParent?.DrawMyChildren(this);
+            get => drawingParent; set
+            {
+                drawingParent = value;
+                foreach (var j in SubSlices) j.DrawingParent = value;
+            }
         }
-        private void SubSlices_AddedItem(List<Slice> sender, AddedItemEventArgs<Slice> e)
-        {
-            e.NewItem.drawingParent = drawingParent;
-            drawingParent?.DrawMyChildren(this);
-        }
-
+        /// <summary>
+        /// Obtiene un listado de <see cref="Slice"/> que pertenecen a este
+        /// <see cref="Slice"/>.
+        /// </summary>
+        public readonly ObservableCollection<Slice> SubSlices = new ObservableCollection<Slice>();
         /// <summary>
         /// Convierte un arreglo de datos en una colección de
         /// <see cref="Slice"/>.
@@ -62,25 +64,37 @@ namespace MCART.Controls
             foreach (double j in values) yield return new Slice { Value = j };
         }
         /// <summary>
-        /// Obtiene un listado de <see cref="Slice"/> que pertenecen a este
-        /// <see cref="Slice"/>.
-        /// </summary>
-        public readonly List<Slice> SubSlices = new List<Slice>();
-        /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="Slice"/>.
         /// </summary>
         public Slice()
         {
-            SubSlices.AddedItem += SubSlices_AddedItem;
-            SubSlices.RemovedItem += SubSlices_RemovedItem;
+            SubSlices.CollectionChanged += SubSlices_CollectionChanged;
+            Color = Resources.Colors.Pick();
         }
         /// <summary>
         /// Realiza algunas tareas de limpieza antes de destruir a este objeto.
         /// </summary>
         ~Slice()
         {
-            SubSlices.AddedItem -= SubSlices_AddedItem;
             SubSlices.Clear();
+        }
+        private void SubSlices_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach (Slice j in e.NewItems) j.DrawingParent = DrawingParent;
+                    break;
+                case NotifyCollectionChangedAction.Replace:
+                    foreach (Slice j in e.OldItems) j.DrawingParent = null;
+                    goto case NotifyCollectionChangedAction.Add;
+                case NotifyCollectionChangedAction.Remove:
+                    foreach (Slice j in e.OldItems) j.DrawingParent = null;
+                    break;
+                case NotifyCollectionChangedAction.Reset: return;
+                default: break;
+            }
+            DrawingParent?.DrawMyChildren(this);
         }
     }
 }
