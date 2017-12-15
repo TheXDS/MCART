@@ -56,6 +56,17 @@ namespace MCART.Networking
         }
         /// <summary>
         /// Descarga un archivo por medio de http y lo almacena en el
+        /// <see cref="Stream"/> provisto.
+        /// </summary>
+        /// <param name="url">
+        /// Url del archivo. Debe ser una ruta http válida.
+        /// </param>
+        /// <param name="stream">
+        /// <see cref="Stream"/> en el cual se almacenará el archivo.
+        /// </param>
+        public static void DownloadHttp(string url, Stream stream) => DownloadHttp(new Uri(url), stream);
+        /// <summary>
+        /// Descarga un archivo por medio de http y lo almacena en el
         /// <see cref="Stream"/> provisto de forma asíncrona.
         /// </summary>
         /// <param name="uri">
@@ -64,6 +75,9 @@ namespace MCART.Networking
         /// <param name="stream">
         /// <see cref="Stream"/> en el cual se almacenará el archivo.
         /// </param>
+        /// <returns>
+        /// Un <see cref="Task"/> que representa a la tarea en ejecución.
+        /// </returns>
         public static async Task DownloadHttpAsync(Uri uri, Stream stream)
         {
             var wr = WebRequest.Create(uri);
@@ -71,6 +85,20 @@ namespace MCART.Networking
             var r = await wr.GetResponseAsync();
             WriteToStream(r.GetResponseStream(), stream);
         }
+        /// <summary>
+        /// Descarga un archivo por medio de http y lo almacena en el
+        /// <see cref="Stream"/> provisto de forma asíncrona.
+        /// </summary>
+        /// <param name="url">
+        /// Url del archivo. Debe ser una ruta http válida.
+        /// </param>
+        /// <param name="stream">
+        /// <see cref="Stream"/> en el cual se almacenará el archivo.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="Task"/> que representa a la tarea en ejecución.
+        /// </returns>
+        public static async Task DownloadHttpAsync(string url, Stream stream) => await DownloadHttpAsync(new Uri(url), stream);
 
         private static void WriteToStream(Stream @in, Stream @out)
         {
