@@ -163,7 +163,7 @@ namespace MCART.Types.Extensions
         public static T Pick<T>(this IEnumerable<T> a)
         {
             if (!a.Any()) throw new EmptyCollectionException<T>(a);
-            return a.ElementAt((new Random()).Next(0, a.Count()));
+            return a.ElementAt(RandomExtensions.Rnd.Next(0, a.Count()));
         }
         /// <summary>
         /// Convierte una colección a <see cref="List{T}"/>

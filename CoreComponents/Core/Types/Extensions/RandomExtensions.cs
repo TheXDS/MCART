@@ -31,6 +31,13 @@ namespace MCART.Types.Extensions
         const string text = "0123456789" +
             "abcdefghijklmnopqrstuvwxyz" +
             "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        /// <summary>
+        /// Necesario para evitar que las funciones que requieren de números
+        /// aleatorios generen objetos <see cref="Random"/> con el mismo
+        /// número de semilla basada en tiempo.
+        /// </summary>
+        public static readonly Random Rnd = new Random();
         /// <summary>
         /// Obtiene una cadena de texto aleatorio.
         /// </summary>
@@ -64,8 +71,8 @@ namespace MCART.Types.Extensions
         /// a el máximo admitido por el sistema operativo.
         /// </exception>
         public static string RndFileName(this Random r, byte length = 8)
-        {            
-            if (Environment.OSVersion.Platform==PlatformID.Win32NT && (length == 0 || length > 255))
+        {
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT && (length == 0 || length > 255))
                 throw new ArgumentOutOfRangeException(nameof(length));
             int ac = 0;
             string x = string.Empty;
