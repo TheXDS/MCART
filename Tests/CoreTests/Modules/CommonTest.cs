@@ -25,6 +25,7 @@ using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MCART;
 using static MCART.Common;
+using System.Security;
 
 namespace CoreTests.Modules
 {
@@ -127,11 +128,11 @@ namespace CoreTests.Modules
         public void ContainsAnyTest()
         {
             Assert.IsTrue("Test".ContainsAny(out int idx, 'q', 't', 'a'));
-            Assert.AreEqual(idx, 1);
-            Assert.IsTrue("Test".ContainsAny(out int idx2,"t", "a"));
-            Assert.AreEqual(idx2, 0);
+            Assert.AreEqual(1, idx);
+            Assert.IsTrue("Test".ContainsAny(out int idx2, "t", "a"));
+            Assert.AreEqual(0, idx2);
             Assert.IsFalse("Test".ContainsAny(out int idx3, 'a', 'd'));
-            Assert.AreEqual(idx3, -1);
+            Assert.AreEqual(-1, idx3);
         }
         /// <summary>
         /// Prueba del método <see cref="Common.CollectionListed(System.Collections.Generic.IEnumerable{string})"/>
@@ -154,8 +155,8 @@ namespace CoreTests.Modules
         {
             int a = 1, b = 2;
             Swap(ref a, ref b);
-            Assert.AreEqual(a, 2);
-            Assert.AreEqual(b, 1);
+            Assert.AreEqual(2, a);
+            Assert.AreEqual(1, b);
         }
         /// <summary>
         /// Prueba del método <see cref="Common.IsBetween{T}(T, T, T)"/>.
@@ -169,9 +170,6 @@ namespace CoreTests.Modules
             Assert.IsFalse(((byte)2).IsBetween((byte)0, (byte)1));
             Assert.IsFalse(((sbyte)-50).IsBetween((sbyte)0, (sbyte)1));
         }
-
-
-
         /// <summary>
         /// Prueba del método <see cref="Common.ToHex(byte[])"/>
         /// </summary>
@@ -187,6 +185,35 @@ namespace CoreTests.Modules
         public void ToHexTest2()
         {
             Assert.AreEqual("0A0B0C", (new byte[] { 10, 11, 12 }).ToHex());
+        }
+
+        [TestMethod]
+        public void ReadStringTest()
+        {
+            var s = new SecureString();
+            s.AppendChar('T');
+            s.AppendChar('e');
+            s.AppendChar('s');
+            s.AppendChar('t');
+            s.MakeReadOnly();
+            Assert.AreEqual("Test", s.ReadString());
+        }
+        [TestMethod]
+        public void Read16Test()
+        {
+            var s = new SecureString();
+            s.AppendChar('@');
+            s.MakeReadOnly();
+            Assert.AreEqual((short)64, s.Read16()[0]);
+        }
+        [TestMethod]
+        public void Read8Test()
+        {
+            var s = new SecureString();
+            s.AppendChar('@');
+            s.MakeReadOnly();
+            var r = s.Read8();
+            Assert.IsTrue(64==r[0] && 0==r[1]);
         }
     }
 }

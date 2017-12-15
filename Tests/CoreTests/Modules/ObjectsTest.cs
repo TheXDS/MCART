@@ -123,16 +123,5 @@ namespace CoreTests.Modules
             Assert.IsNotNull(GetAttr<TestClassAttribute, ObjectsTest>());
             Assert.IsNotNull(typeof(ObjectsTest).GetAttr<TestClassAttribute>());
         }
-        [TestMethod]
-        public void ReadStringTest()
-        {
-            SecureString s = new SecureString();
-            s.AppendChar('T');
-            s.AppendChar('e');
-            s.AppendChar('s');
-            s.AppendChar('t');
-            s.MakeReadOnly();
-            Assert.AreEqual(s.ReadString(), "Test");
-        }
     }
 }

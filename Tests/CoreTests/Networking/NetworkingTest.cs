@@ -53,6 +53,13 @@ namespace CoreTests.Networking
             for (byte j = 0; j < 5; j++)
                 Assert.IsTrue(test[j] == resp[j]);
         }
+        [TestMethod]
+        public void DownloadTest()
+        {
+            var ms = new System.IO.MemoryStream();
+            MCART.Networking.Misc.DownloadHttp("http://ipv4.download.thinkbroadband.com/5MB.zip", ms);
+            Assert.AreEqual(5242880, ms.Length);
+        }
 
 #if !ExtrasBuiltIn
         /// <summary>
@@ -60,7 +67,7 @@ namespace CoreTests.Networking
         /// </summary>
         /// <remarks>Este protocolo utiliza TCP/IP, no IGMP.</remarks>
         [MCART.Networking.Port(7)]
-        public class Echo : Protocol
+        private class Echo : Protocol
         {
             /// <summary>
             /// Protocolo de atención normal.
@@ -71,6 +78,5 @@ namespace CoreTests.Networking
             }
         }
 #endif
-
     }
 }
