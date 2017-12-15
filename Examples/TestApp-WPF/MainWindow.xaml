@@ -15,7 +15,12 @@
                 <MenuItem Header="Contraseñas">
                     <MenuItem x:Name="mnuPwd" Header="Probar contraseña" />
                     <MenuItem x:Name="mnuSetPw" Header="Probar Establecer Pw" />
-                    <MenuItem x:Name="mnuGenPw" Header="Generar contraseña" />
+                    <MenuItem Header="Generar contraseña">
+                        <MenuItem x:Name="mnuPwGenPin" Header="Pin..."/>
+                        <MenuItem x:Name="mnuPwGenSafe" Header="Contraseña..."/>
+                        <MenuItem x:Name="mnuPwGenComplex" Header="Contraseña compleja..."/>
+                        <MenuItem x:Name="mnuPwGenExtreme" Header="Contraseña extrema..."/>
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="Constantes">
                     <MenuItem x:Name="mnuImgfilter" Header="Constante de formatos de imagen" />

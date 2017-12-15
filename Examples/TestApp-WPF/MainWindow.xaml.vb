@@ -23,6 +23,7 @@ Imports MCART.PluginSupport
 Imports MCART.Forms
 Imports MCART
 Imports MCART.Controls
+
 Public Class MainWindow
     Private pl As New List(Of IPlugin)
     Private Sub Wndtest_Initialized(sender As Object, e As EventArgs) Handles Me.Initialized
@@ -64,20 +65,37 @@ Public Class MainWindow
         '    .For(1000, Sub(a, b) Threading.Thread.Sleep(50))
         'End With
     End Sub
-    Private Sub MnuGenPw_Click(sender As Object, e As RoutedEventArgs) Handles mnuGenPw.Click
-        MsgBox(Security.Password.Generators.Pin)
+    Private Sub MnuPwGenPin_Click(sender As Object, e As RoutedEventArgs) Handles mnuPwGenPin.Click
+        MsgBox(Security.Password.Generators.Pin.ReadString())
+    End Sub
+    Private Sub MnuPwGenSafe_Click(sender As Object, e As RoutedEventArgs) Handles mnuPwGenSafe.Click
+        MsgBox(Security.Password.Generators.Safe.ReadString())
+    End Sub
+    Private Sub MnuPwGenComplex_Click(sender As Object, e As RoutedEventArgs) Handles mnuPwGenComplex.Click
+        MsgBox(Security.Password.Generators.VeryComplex.ReadString())
+    End Sub
+    Private Sub MnuPwGenExtreme_Click(sender As Object, e As RoutedEventArgs) Handles mnuPwGenExtreme.Click
+        MsgBox(Security.Password.Generators.ExtremelyComplex.ReadString())
     End Sub
     Private Sub MnuGrphRing_Click(sender As Object, e As RoutedEventArgs) Handles mnuGrphRing.Click
-        Dim r As New RingGraph() With {.SubLevelsShown = 3, .Title = "Test", .ToolTipFormat = "{0}: {1}"}
-        r.Slices.Add(New Slice() With {.SliceColor = Colors.Red})
-        Dim a As New Slice() With {.SliceColor = Colors.Purple}
-        a.SubSlices.Add(New Slice() With {.SliceColor = Colors.Blue})
-        Dim b As New Slice() With {.SliceColor = Colors.Purple}
-        Dim c As New Slice() With {.SliceColor = Colors.Green}
+        Dim r As New RingGraph() With {
+            .SubLevelsShown = 3,
+            .Title = "Test",
+            .Colorizer = New HeatColorizer(),
+            .ToolTipFormat = "{0}: {1}"}
+        r.Slices.Add(New Slice())
+        r.Slices.Add(New Slice())
+        r.Slices.Add(New Slice())
+        r.Slices.Add(New Slice())
+        r.Slices.Add(New Slice())
+        Dim a As New Slice()
+        a.SubSlices.Add(New Slice())
+        Dim b As New Slice()
+        Dim c As New Slice()
         b.SubSlices.Add(c)
         a.SubSlices.Add(b)
         r.Slices.Add(a)
-        r.Slices.Add(New Slice() With {.SliceColor = Colors.Yellow})
+        r.Slices.Add(New Slice())
         With New GrphTest
             .ShowGraph(r)
         End With

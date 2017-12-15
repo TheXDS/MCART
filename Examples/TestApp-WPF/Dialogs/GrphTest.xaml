@@ -6,9 +6,5 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Title="Prueba de gráficos" Height="300" Width="300">
-    <DockPanel x:Name="pnlRoot">
-        <WrapPanel DockPanel.Dock="Top">
-            <Button x:Name="btnRefresh" Content="Refrescar"/>
-        </WrapPanel>        
-    </DockPanel>
+    <DockPanel x:Name="pnlRoot"/>
 </Window>
