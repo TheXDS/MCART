@@ -54,7 +54,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AssemblyInfo", "CoreComponents\AssemblyInfo\AssemblyInfo.shproj", "{967AFAA3-DED3-4EC0-9401-7193B318FCE8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSTest", "Tests\MSTest\MSTest.csproj", "{3B7D6090-1BD1-406B-B0A6-CADA4D3B6DB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreTest", "Tests\CoreTest\CoreTest.csproj", "{3B7D6090-1BD1-406B-B0A6-CADA4D3B6DB8}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
