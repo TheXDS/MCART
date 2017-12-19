@@ -4,10 +4,12 @@ está pensado como un "repositorio" de funciones que puedan resultar útiles par
 otras personas. ¡Cualquier contribución que facilite el uso de C#/VB es
 bienvenida!
 ### Ejecutando pruebas en MCART
-La solución incluye proyectos de prueba compatibles con UnitTesting de
-Microsoft Visual Studio. Debido a problemas de estabilidad y compatibilidad,
-los proyectos de prueba no se crearon utilizando NUnit Framework (lo que
-hubiese permitido que las pruebas funcionaran en MonoDevelop).
+La solución incluye proyectos de prueba compatibles con xUnit. Esto permite que
+las pruebas puedan ser ejecutadas en cualquier IDE compatible. Cabe destacar que
+actualmente, solo es posible realizar pruebas sobre las funciones de MCART, y no
+directamente sobre elementos de UI. Con este fin, también se incluyen algunas
+aplicaciones de ejemplo denominadas TestApp, que permiten realizar pruebas sobre
+los elementos de UI de MCART.
 ### Reportar errores
 Al enviar un nuevo reporte de error, el reporte debe incluir:
 * Versión y Branch de MCART utilizada.
@@ -80,9 +82,9 @@ compilar código de C#7.0 (e incluso C# 7.1) en cualquier plataforma soportada.
 #### Proyectos de ejemplos
 Se incluyen algunas aplicaciones sencillas de prueba en la solución, su
 propósito es el de probar ciertas características que requieren de una UI, y
-que no podrían ser probadas directamente con Unity Testing. En caso de
-contribuir a MCART, se debe tomar en cuenta esta distinción antes de crear
-pruebas o un proyecto de ejemplo.
+que no podrían ser probadas directamente con xUnit. En caso de contribuir a 
+MCART, se debe tomar en cuenta esta distinción antes de crear pruebas o un
+proyecto de ejemplo.
 
 Estos proyectos también pueden utilizarse con una implementación de referencia,
 sin embargo, no deben considerarse como seguras y efectivas ninguna de las
