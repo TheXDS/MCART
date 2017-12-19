@@ -23,7 +23,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\Slice.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Forms\PasswordDialog.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\UI.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\PluginStatic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Icons.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\PwDialogResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\PwMode.cs" />
