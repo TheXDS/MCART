@@ -54,5 +54,11 @@ namespace MCART.Controls
         /// Solicita al control volver a dibujarse en su totalidad.
         /// </summary>
         void Redraw();
+        /// <summary>
+        /// Obtiene o establece un formato opcional de etiquetado flotante para
+        /// aplicar a los puntos de datos o series dibujadas en este
+        /// <see cref="IGraph"/>.
+        /// </summary>
+        string ToolTipFormat { get; set; }
     }
 }

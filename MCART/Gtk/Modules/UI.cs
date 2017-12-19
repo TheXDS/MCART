@@ -24,7 +24,7 @@
 #region Opciones de compilación
 
 //Incluir implementación de métodos y funciones faltantes en Microsoft Windows (preferiblemente desactivar en Linux)
-#define ImplementMissing4Win
+//#define ImplementMissing4Win
 
 #endregion
 

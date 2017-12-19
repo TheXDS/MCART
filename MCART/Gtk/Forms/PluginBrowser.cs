@@ -34,17 +34,76 @@ namespace MCART.Forms
     /// Diálogo que permite mostrar información acerca de los 
     /// <see cref="Plugin"/> cargables por MCART.
     /// </summary>
-    public partial class PluginBrowser : Dialog
+    public class PluginBrowser : Dialog
     {
+        #region Construcción de ventana
+        /// <summary>
+        /// Crea una nueva instancia de la clase <see cref="PluginBrowser"/>.
+        /// </summary>
+        /// <returns>
+        /// Una nueva instancia de la clase <see cref="PluginBrowser"/>.
+        /// </returns>
+        public static PluginBrowser Create()
+        {
+            var t = typeof(PluginBrowser);
+            Builder builder = new Builder(RTAssembly, $"{t.FullName}.glade", null);
+            return new PluginBrowser(builder, builder.GetObject(t.Name).Handle);
+        }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="PluginBrowser"/>.
+        /// </summary>
+        /// <param name="builder">
+        /// <see cref="Builder"/> utilizado para construir la interfaz.
+        /// </param>
+        /// <param name="handle">
+        /// Handle obtenido de la ventana creada por <paramref name="builder"/>.
+        /// </param>
+        public PluginBrowser(Builder builder, IntPtr handle) : base(handle)
+        {
+            builder.Autoconnect(this);
+            trvInterfaces.AppendColumn("Interfaz", new CellRendererText(), "text", 0);
+            trvInterfaces.Model = lstIfaces;
+            trvPlugins.AppendColumn("Ensamblado", new CellRendererText(), "text", 0);
+            trvPlugins.Model = trPlugins;
+        }
+        #endregion
+
+        #region Widgets
+#pragma warning disable CS0649
+#pragma warning disable CS0169
+        [Builder.Object] Entry txtName;
+        [Builder.Object] Entry txtVer;
+        [Builder.Object] CheckButton chkBeta;
+        [Builder.Object] CheckButton chkUnstable;
+        [Builder.Object] Entry txtDesc;
+        [Builder.Object] Entry txtCopyright;
+        [Builder.Object] TextView txtLicense;
+        [Builder.Object] CheckButton chkMinVer;
+        [Builder.Object] CheckButton chkTgtVer;
+        [Builder.Object] Entry txtMinVer;
+        [Builder.Object] Entry txtTgtVer;
+        [Builder.Object] Label lblVeredict;
+        [Builder.Object] MenuBar mnuInteractions;
+        [Builder.Object] TreeView trvInterfaces;
+        [Builder.Object] TreeView trvPlugins;
+#pragma warning restore CS0649
+#pragma warning restore CS0169
+        #endregion
+
+        #region Campos privados
         ListStore lstIfaces = new ListStore(typeof(string));
         TreeStore trPlugins = new TreeStore(typeof(string));
         List<List<IPlugin>> lstPlugins = new List<List<IPlugin>>();
+        #endregion
+
+        #region Métodos privados
         void ClearDetails()
         {
             txtName.Clear();
             txtVer.Clear();
-            chkIsBeta.Active = false;
-            chkIsUnafe.Active = false;
+            chkBeta.Active = false;
+            chkUnstable.Active = false;
             txtDesc.Clear();
             txtCopyright.Clear();
             txtLicense.Buffer.Clear();
@@ -64,8 +123,8 @@ namespace MCART.Forms
         {
             txtName.Text = P.Name;
             txtVer.Text = P.Version.ToString();
-            chkIsBeta.Active = P.IsBeta;
-            chkIsUnafe.Active = P.IsUnstable;
+            chkBeta.Active = P.IsBeta;
+            chkUnstable.Active = P.IsUnstable;
             txtDesc.Text = P.Description;
             txtCopyright.Text = P.Copyright;
             txtLicense.Buffer.Text = P.License;
@@ -98,21 +157,18 @@ namespace MCART.Forms
                 lblVeredict.Text = St.PluginInfo4;
             else lblVeredict.Text = St.PluginInfo3;
             if (P.HasInteractions)
-            {
-                MenuItem r = new MenuItem(P.Name);
-                Menu roth = new Menu();
-                r.Submenu = roth;
-                foreach (InteractionItem j in P.PluginInteractions)
-                {
-                    ImageMenuItem k = j;
-                    k.Activated += j.Action;
-                    roth.Append(k);
-                }
-                mnuInteractions.Append(r);
-            }
+                mnuInteractions.Append(P.UIMenu);
         }
+        #endregion
+
+        #region Controladores de eventos
+        /// <summary>
+        /// Cierra este <see cref="PluginBrowser"/> 
+        /// </summary>
+        /// <param name="sender">Objeto que generó el evento.</param>
+        /// <param name="e">Argumentos del evento.</param>
         void BtnClose_Click(object sender, EventArgs e) => Destroy();
-        void TrvPlugins_Shown()
+        void TrvPlugins_Shown(object sender, EventArgs e)
         {
             if (!trvPlugins.Visible) return;
             trPlugins.Clear();
@@ -127,26 +183,18 @@ namespace MCART.Forms
         {
             trvPlugins.GetCursor(out TreePath tp, out TreeViewColumn tvc);
             ClearDetails();
-            if (tp.Indices.Length == 2)
+            if (tp?.Indices.Length == 2)
                 ShwDetails(lstPlugins[tp.Indices[0]][tp.Indices[1]]);
         }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="PluginBrowser"/>.
-        /// </summary>
-		public PluginBrowser()
-        {
-            Build();
-            trvInterfaces.AppendColumn("Interfaz", new CellRendererText(), "text", 0);
-            trvInterfaces.Model = lstIfaces;
-            trvPlugins.AppendColumn("Plugin", new CellRendererText(), "text", 0);
-            trvPlugins.Model = trPlugins;
-        }
+        #endregion
+
+        #region Métodos públicos
         /// <summary>
         /// Marca un <see cref="Widget"/> para ser mostrado. 
         /// </summary>
         public new void Show()
         {
-            TrvPlugins_Shown();
+            TrvPlugins_Shown(this, EventArgs.Empty);
             base.Show();
         }
         /// <summary>
@@ -162,5 +210,6 @@ namespace MCART.Forms
             ShwDetails(p);
             Show();
         }
+        #endregion
     }
 }

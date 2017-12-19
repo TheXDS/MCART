@@ -153,7 +153,7 @@ namespace MCART.PluginSupport
             };
             if (!Description.IsEmpty())
                 k.TooltipMarkup = Description;
-            if (!Icon.IsNull()) k.Image = Icon;
+            if (!Icon.IsNull()) k.Child = Icon;
             k.Activated += Action;
             return k;
         }

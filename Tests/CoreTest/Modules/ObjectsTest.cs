@@ -11,6 +11,11 @@ namespace CoreTests.Modules
     [AttrTest]
     public class ObjectsTest
     {
+        /// <summary>
+        /// Atributo de prueba.
+        /// </summary>
+        [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
+        sealed class AttrTestAttribute : Attribute { }
         [Fact]
         public void AnyAssignableFromTest()
         {
@@ -120,13 +125,7 @@ namespace CoreTests.Modules
             Assert.NotNull(RTAssembly.GetAttr<AssemblyTitleAttribute>());
             Assert.NotNull(MethodBase.GetCurrentMethod().GetAttr<FactAttribute>());
             Assert.NotNull(GetAttr<AttrTestAttribute, ObjectsTest>());
-            Assert.NotNull(typeof(ObjectsTest).GetAttr<FactAttribute>());
+            Assert.NotNull(typeof(ObjectsTest).GetAttr<AttrTestAttribute>());
         }
-
-        /// <summary>
-        /// Atributo de prueba
-        /// </summary>
-        [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-        sealed class AttrTestAttribute : Attribute { }
     }
 }

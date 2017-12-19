@@ -27,10 +27,13 @@ namespace MCART.Controls
 {
     public partial class RingGraph
     {
-        private double ringThickness = 30.0;
-        private int subLevelsShown = 1;
-        private double total = 0;
-        private bool totalVisible = true;
+        double ringThickness = 30.0;
+        int subLevelsShown = 1;
+        double total = 0;
+        bool totalVisible = true;
+        string title = string.Empty;
+        double titleFontSize = 16.0;
+        string toolTipFormat = string.Empty;
 
         /// <summary>
         /// Obtiene o establece el porcentaje de espacio ocupado por los datos
@@ -51,7 +54,8 @@ namespace MCART.Controls
         /// Obtiene o establece la cantidad de sub-niveles a mostrar en este
         /// <see cref="ISliceGraph"/>.
         /// </summary>
-        public int SubLevelsShown {
+        public int SubLevelsShown
+        {
             get => subLevelsShown;
             set
             {
@@ -65,5 +69,40 @@ namespace MCART.Controls
         /// <see cref="ISliceGraph"/>.
         /// </summary>
         public double Total => total;
+
+        public string Title
+        {
+            get => title;
+            set
+            {
+
+            }
+        }
+
+        public bool TotalVisible
+        {
+            get => totalVisible;
+            set
+            {
+
+            }
+        }
+
+        public double TitleFontSize
+        {
+            get => titleFontSize;
+            set
+            {
+
+            }
+        }
+        public string ToolTipFormat
+        {
+            get => toolTipFormat;
+            set
+            {
+
+            }
+        }
     }
 }

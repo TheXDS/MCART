@@ -45,7 +45,7 @@ namespace MCART.Controls
             set
             {
                 name = value;
-                drawingParent?.DrawMylabel(this);
+                drawingParent?.DrawMyLabel(this);
             }
         }
         /// <summary>
@@ -59,7 +59,7 @@ namespace MCART.Controls
             {
                 sliceColor = value;
                 drawingParent?.DrawOnlyMe(this);
-                drawingParent?.DrawMylabel(this);
+                drawingParent?.DrawMyLabel(this);
             }
         }
         /// <summary>

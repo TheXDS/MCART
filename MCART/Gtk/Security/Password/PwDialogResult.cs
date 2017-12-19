@@ -61,7 +61,7 @@ namespace MCART.Security.Password
         /// <param name="ev">
         /// Resultado de la evaluación.
         /// </param>
-        internal PwDialogResult(string us, string pw, string hn, ResponseType re, PwEvalResult ev)
+        internal PwDialogResult(string us, System.Security.SecureString pw, string hn, ResponseType re, PwEvalResult ev)
         {
             u = us;
             p = pw;

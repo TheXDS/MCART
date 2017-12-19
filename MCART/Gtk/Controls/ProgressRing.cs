@@ -23,7 +23,6 @@
 
 using System;
 using Gtk;
-using Gdk;
 using Cairo;
 using static MCART.Math;
 using static System.Math;
@@ -52,7 +51,7 @@ namespace MCART.Controls
                 QueueDraw();
             }
         }
-        
+
         /// <summary>
         /// Obtiene o establece el <see cref="Types.Color"/> a utilizar para dibujar
         /// el relleno del anillo de este <see cref="ProgressRing"/>.
@@ -76,70 +75,65 @@ namespace MCART.Controls
         {
             SetSizeRequest((int)_radius, (int)_radius);
         }
-        
+
         /// <summary>
         /// Controla el dibujado del control al generarse el evento
-        /// <see cref="EventExpose"/> 
+        /// <see cref="OnDrawn"/> 
         /// </summary>
         /// <returns>Esta función siempre devuelve <c>true</c>.</returns>
-        /// <param name="evnt">Argumentos del evento.</param>
-        protected override bool OnExposeEvent(EventExpose evnt)
+        /// <param name="cr">Contexto gráfico a utilizar.</param>
+        protected override bool OnDrawn(Context cr)
         {
-            base.OnExposeEvent(evnt);
+            // Radio interno del anillo.
+            float rd = _radius - (Thickness / 2);
 
-            // Este objeto dibuja el control.
-            using (Context cr = CairoHelper.Create(evnt.Window))
+            // Preparar propiedades de dibujo...
+            cr.LineWidth = _thickness;
+
+            // Dibujar el Fondo...                
+            cr.SetSourceColor(_ringColor);
+            cr.Arc(_radius, _radius, rd, 0.0, 360.0);
+            cr.Stroke();
+
+            // Dibujar el relleno...
+            double strt = (_angle - 90) * Deg_Rad;
+            double nd = (PI * 2.0 * ((_value - _min) * (sbyte)Sweep / (_max - _min))) - (PI / 2);
+            cr.SetSourceColor(_fill);
+            if (!IsIndeterminate)
             {
-                // Radio interno del anillo.
-                float rd = _radius - (Thickness / 2);
-
-                // Preparar propiedades de dibujo...
-                cr.LineWidth = _thickness;
-
-                // Dibujar el Fondo...                
-                cr.SetSourceColor(_ringColor);
-                cr.Arc(_radius, _radius, rd, 0.0, 360.0);
-                cr.Stroke();
-
-                // Dibujar el relleno...
-                double strt = (_angle - 90) * Deg_Rad;
-                double nd = (PI * 2.0 * ((_value-_min) * (sbyte)Sweep / (_max - _min))) - (PI / 2);
-                cr.SetSourceColor(_fill);
-                if (!IsIndeterminate)
-                {
-                    if (Sweep == SweepDirection.Clockwise)
-                        cr.Arc(_radius, _radius, rd, strt, nd);
-                    else
-                        cr.Arc(_radius, _radius, rd, nd, strt);
-                    cr.Stroke();
-                }
+                if (Sweep == SweepDirection.Clockwise)
+                    cr.Arc(_radius, _radius, rd, strt, nd);
                 else
-                {
-                    //TODO: Animación de movimiento
-                }
-
-                // dibujar texto... 
-                cr.LineWidth = 1.0;
-                cr.SetFontSize(_radius * _fontFactor);
-                cr.SetSourceColor(_textColor);
-                TextExtents centertxt = cr.TextExtents(string.Format(textFormat, _value));
-                cr.MoveTo(_radius - centertxt.Width / 2, _radius + _radius * (_fontFactor / 3));
-                cr.TextPath(string.Format(textFormat, _value));
-                cr.Fill();
-                return true;
+                    cr.Arc(_radius, _radius, rd, nd, strt);
+                cr.Stroke();
             }
+            else
+            {
+                //TODO: Animación de movimiento
+            }
+
+            // dibujar texto... 
+            cr.LineWidth = 1.0;
+            cr.SetFontSize(_radius * _fontFactor);
+            cr.SetSourceColor(_textColor);
+            TextExtents centertxt = cr.TextExtents(string.Format(textFormat, _value));
+            cr.MoveTo(_radius - centertxt.Width / 2, _radius + _radius * (_fontFactor / 3));
+            cr.TextPath(string.Format(textFormat, _value));
+            cr.Fill();
+            return true;
         }
-        
+
         /// <summary>
         /// Informa a Gtk del tamaño requerido por este control.
         /// </summary>
-        /// <param name="requisition">
+        /// <param name="allocation">
         /// Variable de referencia a utilizar para devolver la información.
         /// </param>
-        protected override void OnSizeRequested(ref Requisition requisition)
+        protected override void OnSizeAllocated(Gdk.Rectangle allocation)
         {
-            requisition.Height = (int)_radius * 2;
-            requisition.Width = (int)_radius * 2;
+            //base.OnSizeAllocated(allocation);
+            allocation.Height = (int)_radius * 2;
+            allocation.Width = allocation.Height;
         }
     }
 }

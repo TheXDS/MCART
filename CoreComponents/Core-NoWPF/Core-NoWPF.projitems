@@ -17,5 +17,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Types\TaskReporter\TaskReporterControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\IGraph.cs" />
   </ItemGroup>
 </Project>

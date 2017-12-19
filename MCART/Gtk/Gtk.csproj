@@ -31,51 +31,40 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="gtk-sharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Mono\lib\gtk\gtk-sharp.dll</HintPath>
-    </Reference>
-    <Reference Include="gdk-sharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Mono\lib\gdk\gdk-sharp.dll</HintPath>
-    </Reference>
-    <Reference Include="glib-sharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Mono\lib\glib\glib-sharp.dll</HintPath>
-    </Reference>
-    <Reference Include="glade-sharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Mono\lib\glade\glade-sharp.dll</HintPath>
-    </Reference>
-    <Reference Include="pango-sharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Mono\lib\pango\pango-sharp.dll</HintPath>
-    </Reference>
-    <Reference Include="atk-sharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Mono\lib\atk\atk-sharp.dll</HintPath>
-    </Reference>
     <Reference Include="Mono.Posix">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Mono\lib\Mono.Posix\Mono.Posix.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Data" />
-    <Reference Include="Mono.Cairo">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Mono\lib\Mono.Cairo.dll</HintPath>
+    <Reference Include="CairoSharp">
+      <HintPath>..\..\packages\CairoSharp.3.22.24.16\lib\netstandard2.0\CairoSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="GLibSharp">
+      <HintPath>..\..\packages\GLibSharp.3.22.24.16\lib\netstandard2.0\GLibSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="AtkSharp">
+      <HintPath>..\..\packages\AtkSharp.3.22.24.16\lib\netstandard2.0\AtkSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="GioSharp">
+      <HintPath>..\..\packages\GioSharp.3.22.24.16\lib\netstandard2.0\GioSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PangoSharp">
+      <HintPath>..\..\packages\PangoSharp.3.22.24.16\lib\netstandard2.0\PangoSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="GdkSharp">
+      <HintPath>..\..\packages\GdkSharp.3.22.24.16\lib\netstandard2.0\GdkSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="GtkSharp">
+      <HintPath>..\..\packages\GtkSharp.3.22.24.16\lib\netstandard2.0\GtkSharp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="gtk-gui\gui.stetic">
-      <LogicalName>gui.stetic</LogicalName>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="gtk-gui\generated.cs" />
     <Compile Include="PluginSupport\IPlugin.cs" />
     <Compile Include="PluginSupport\Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Forms\PluginBrowser.cs" />
+    <Compile Include="Forms\PluginBrowser.cs">
+      <DependentUpon>PluginBrowser.glade</DependentUpon>
+    </Compile>
     <Compile Include="Modules\UI.cs" />
     <Compile Include="PluginSupport\InteractionItem.cs" />
     <Compile Include="Security\Password\PwDialogResult.cs" />
@@ -84,10 +73,17 @@
     <Compile Include="Types\Point.cs" />
     <Compile Include="Types\TaskReporter\TaskReporterControl.cs" />
     <Compile Include="Controls\BarStepper.cs" />
-    <Compile Include="gtk-gui\MCART.Forms.PluginBrowser.cs" />
+    <Compile Include="Controls\RingGraph.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\PluginBrowser.glade" />
+  </ItemGroup>
+  <Import Project="..\..\CoreComponents\AssemblyInfo\AssemblyInfo.projitems" Label="Shared" Condition="Exists('..\..\CoreComponents\AssemblyInfo\AssemblyInfo.projitems')" />
   <Import Project="..\..\CoreComponents\Core\Core.projitems" Label="Shared" Condition="Exists('..\Core\Core.projitems')" />
   <Import Project="..\..\CoreComponents\Core-NoWPF\Core-NoWPF.projitems" Label="Shared" />
   <Import Project="..\..\CoreComponents\Core\Core.projitems" Label="Shared" />

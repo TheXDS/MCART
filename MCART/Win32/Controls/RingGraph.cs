@@ -61,7 +61,7 @@ namespace MCART.Controls
             throw new NotImplementedException();
         }
 
-        public void DrawMylabel(Slice r)
+        public void DrawMyLabel(Slice r)
         {
             throw new NotImplementedException();
         }

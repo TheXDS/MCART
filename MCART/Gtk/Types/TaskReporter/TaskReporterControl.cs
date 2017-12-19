@@ -32,6 +32,11 @@ namespace MCART.Types.TaskReporter
     public abstract partial class TaskReporterControl : Gtk.Box
     {
         /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="TaskReporterControl"/>.
+        /// </summary>
+        protected TaskReporterControl() : base(Gtk.Orientation.Horizontal, 1) { }
+        /// <summary>
         /// Encapsula y simula al método Invoke que se encuentra disponible en
         /// controles de Win32 con la finalidad de compartir código.
         /// </summary>

@@ -26,40 +26,105 @@ using MCART;
 using MCART.Forms;
 using MCART.PluginSupport;
 
-/// <summary>
-/// Ventana principal de la aplicación.
-/// </summary>
-public partial class MainWindow : Window
+namespace TestAppGtk
 {
-    List<IPlugin> pl = Plugin.LoadEverything<IPlugin>();
+
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="MainWindow"/>.
+    /// Ventana principal de la aplicación.
     /// </summary>
-    public MainWindow() : base(WindowType.Toplevel)
+    public partial class MainWindow : Window
     {
-        Build();
-        if (pl.Count > 0)
+        #region Construcción de ventana
+        /// <summary>
+        /// Crea una nueva instancia de la clase <see cref="MainWindow"/>.
+        /// </summary>
+        /// <returns>
+        /// Una nueva instancia de la clase <see cref="MainWindow"/>.
+        /// </returns>
+        public static MainWindow Create()
         {
-            // HACK: Ubicación dura del submenú de plugins.
-            Menu mnuplugins = (Menu)((ImageMenuItem)mnuMain.Children[2]).Submenu;
-            mnuplugins.ClearContents();
-            mnuplugins.AddPlugins(pl);
+            var t = typeof(MainWindow);
+            Builder builder = new Builder(null, $"{t.FullName}.glade", null);
+            return new MainWindow(builder, builder.GetObject(t.Name).Handle);
         }
-        ShowAll();
-    }
-    /// <summary>
-    /// Finaliza la aplicación al cerrar esta ventana.
-    /// </summary>
-    /// <param name="sender">Objeto que ha generado el evento.</param>
-    /// <param name="e">Argumentos del evento.</param>
-    protected void OnDeleteEvent(object sender, DeleteEventArgs e)
-    {
-        Application.Quit();
-        e.RetVal = true;
-    }
-    void OnSalirActionActivated(object sender, EventArgs e) => Destroy();
-    void OnInfoDePluginsAction1Activated(object sender, EventArgs e)
-    {
-        (new PluginBrowser()).Show();
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="MainWindow"/>.
+        /// </summary>
+        /// <param name="builder">Builder.</param>
+        /// <param name="handle">Handle.</param>
+        public MainWindow(Builder builder, IntPtr handle) : base(handle)
+        {
+            builder.Autoconnect(this);
+
+            // Cablear eventos...
+            DeleteEvent += OnDeleteEvent;
+            mnuScreenshot.Activated += MnuScreenshot_Activated;
+            mnuExit.Activated += MnuExit_Activated;
+            mnuProgressRing.Activated += MnuProgressRing_Activated;
+
+            mnuAboutMCART.Activated += MnuAboutMCART_Activated;
+
+            // Cargar plugins...
+            if (pl.Count > 0)
+            {
+                Menu mnuPlg = new Menu();
+                mnuPlugins.Submenu = mnuPlg;
+                //mnuPlg.ClearContents();
+                mnuPlg.AddPlugins(pl);
+            }
+            ShowAll();
+        }
+        #endregion
+
+        #region Widgets
+#pragma warning disable CS0649
+        [Builder.Object] ImageMenuItem mnuScreenshot;
+        [Builder.Object] ImageMenuItem mnuExit;
+        [Builder.Object] MenuItem mnuProgressRing;
+        [Builder.Object] MenuItem mnuPwd;
+        [Builder.Object] MenuItem mnuSetPwd;
+        [Builder.Object] MenuItem mnuPwGenPin;
+        [Builder.Object] MenuItem mnuPwGenSafe;
+        [Builder.Object] MenuItem mnuPwGenComplex;
+        [Builder.Object] MenuItem mnuPwGenExtreme;
+        [Builder.Object] MenuItem mnuGrphRing;
+        [Builder.Object] MenuItem mnuPlugins;
+        [Builder.Object] ImageMenuItem mnuAboutMCART;
+#pragma warning restore CS0649
+        #endregion
+
+
+
+
+        List<IPlugin> pl = Plugin.LoadEverything<IPlugin>();
+
+        /// <summary>
+        /// Finaliza la aplicación al cerrar esta ventana.
+        /// </summary>
+        /// <param name="sender">Objeto que ha generado el evento.</param>
+        /// <param name="e">Argumentos del evento.</param>
+        protected void OnDeleteEvent(object sender, DeleteEventArgs e)
+        {
+            Application.Quit();
+            e.RetVal = true;
+        }
+
+        void MnuScreenshot_Activated(object sender, EventArgs e)
+        {
+
+        }
+
+        void MnuExit_Activated(object sender, EventArgs e) => Destroy();
+
+        void MnuProgressRing_Activated(object sender, EventArgs e)
+        {
+
+        }
+
+        void MnuAboutMCART_Activated(object sender, EventArgs e)
+        {
+            PluginBrowser.Create().Show();
+        }
     }
 }

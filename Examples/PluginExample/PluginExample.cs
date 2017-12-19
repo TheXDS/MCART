@@ -37,118 +37,120 @@ using System.IO;
 using static MCART.Common;
 using static Microsoft.VisualBasic.Interaction;
 
-[Description("CRC32 Calculator")]
-[Beta]
-[MinMCARTVersion(0, 6)]
-[TargetMCARTVersion(0, 6)]
-public class CRC32 : ChecksumPlugin, IDisposable
+namespace PluginExample
 {
-    bool disposedValue;
-    uint[] CRC32_Tab = new uint[256];
-    const uint Seed = 3988292384U;
-    TimeSpan re = new TimeSpan(0, 0, 0, 0, 250);
-    public override byte[] Compute(byte[] X)
+    [Description("CRC32 Calculator")]
+    [Beta]
+    [MinMCARTVersion(0, 6)]
+    [TargetMCARTVersion(0, 6, 1)]
+    public class CRC32 : ChecksumPlugin, IDisposable
     {
-        try
+        bool disposedValue;
+        uint[] CRC32_Tab = new uint[256];
+        const uint Seed = 3988292384U;
+        TimeSpan re = new TimeSpan(0, 0, 0, 0, 250);
+        public override byte[] Compute(byte[] X)
         {
-            Reporter.Begin();
-            uint CRC = uint.MaxValue;
-            DateTime tm = DateTime.Now;
-            float pr = 0;
-            int progrss = 1;
-            foreach (byte BT in X)
+            try
             {
-                pr = (progrss / X.Length) * 100;
-                if (Reporter.CancelPending)
+                Reporter.Begin();
+                uint CRC = uint.MaxValue;
+                DateTime tm = DateTime.Now;
+                float pr = 0;
+                int progrss = 1;
+                foreach (byte BT in X)
                 {
-                    Reporter.Stop(new ProgressEventArgs(pr));
-                    return new byte[] { };
+                    pr = (progrss / X.Length) * 100;
+                    if (Reporter.CancelPending)
+                    {
+                        Reporter.Stop(new ProgressEventArgs(pr));
+                        return new byte[] { };
+                    }
+                    CRC = (CRC >> 8) ^ CRC32_Tab[(CRC & 0xff) ^ BT];
+                    progrss += 1;
+                    if (DateTime.Now - tm > re)
+                    {
+                        Reporter.Report(new ProgressEventArgs(pr));
+                        tm = DateTime.Now;
+                    }
                 }
-                CRC = (CRC >> 8) ^ CRC32_Tab[(CRC & 0xff) ^ BT];
-                progrss += 1;
-                if (DateTime.Now - tm > re)
-                {
-                    Reporter.Report(new ProgressEventArgs(pr));
-                    tm = DateTime.Now;
-                }
+                Reporter.End();
+                return BitConverter.GetBytes(~CRC);
             }
-            Reporter.End();
-            return BitConverter.GetBytes(~CRC);
-        }
-        catch (Exception ex)
-        {
-            if (Reporter.OnDuty)
-                Reporter.EndWithError(ex);
-            return new byte[] { };
-        }
-    }
-    public override byte[] Compute(Stream X)
-    {
-        try
-        {
-            Reporter.Begin();
-            uint CRC = uint.MaxValue;
-            int bt = X.ReadByte();
-            DateTime tm = DateTime.Now;
-            float pr = 0;
-            while (!(bt == -1))
+            catch (Exception ex)
             {
-                pr = (X.Position / X.Length) * 100;
-                if (Reporter.CancelPending)
-                {
-                    Reporter.Stop(new ProgressEventArgs(pr));
-                    return new byte[] { };
-                }
-                CRC = (CRC >> 8) ^ CRC32_Tab[(CRC & 0xff) ^ bt];
-                bt = X.ReadByte();
-                if (DateTime.Now - tm > re)
-                {
-                    Reporter.Report(new ProgressEventArgs(pr));
-                    tm = DateTime.Now;
-                }
+                if (Reporter.OnDuty)
+                    Reporter.EndWithError(ex);
+                return new byte[] { };
             }
-            Reporter.End();
-            return BitConverter.GetBytes(~CRC);
         }
-        catch (Exception ex)
+        public override byte[] Compute(Stream X)
         {
-            if (Reporter.OnDuty)
-                Reporter.EndWithError(ex);
-            return new byte[] { };
-        }
-    }
-    protected virtual void Dispose(bool disposing)
-    {
-        if (!disposedValue)
-        {
-            CRC32_Tab = null;
-        }
-        disposedValue = true;
-    }
-    public void Dispose()
-    {
-        Dispose(true);
-    }
-    public CRC32()
-    {
-        uint seed = Seed;
-        uint CRC = 0;
-        for (short i = 0; i <= 255; i++)
-        {
-            CRC = (uint)i;
-            for (byte j = 0; j <= 7; j++)
+            try
             {
-                if ((CRC & 0x1) == 0x1)
+                Reporter.Begin();
+                uint CRC = uint.MaxValue;
+                int bt = X.ReadByte();
+                DateTime tm = DateTime.Now;
+                float pr = 0;
+                while (!(bt == -1))
                 {
-                    CRC = (CRC >> 1) ^ seed;
+                    pr = (X.Position / X.Length) * 100;
+                    if (Reporter.CancelPending)
+                    {
+                        Reporter.Stop(new ProgressEventArgs(pr));
+                        return new byte[] { };
+                    }
+                    CRC = (CRC >> 8) ^ CRC32_Tab[(CRC & 0xff) ^ bt];
+                    bt = X.ReadByte();
+                    if (DateTime.Now - tm > re)
+                    {
+                        Reporter.Report(new ProgressEventArgs(pr));
+                        tm = DateTime.Now;
+                    }
                 }
-                else
-                {
-                    CRC = CRC >> 1;
-                }
+                Reporter.End();
+                return BitConverter.GetBytes(~CRC);
             }
-            CRC32_Tab[i] = CRC;
+            catch (Exception ex)
+            {
+                if (Reporter.OnDuty)
+                    Reporter.EndWithError(ex);
+                return new byte[] { };
+            }
         }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                CRC32_Tab = null;
+            }
+            disposedValue = true;
+        }
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+        public CRC32()
+        {
+            uint seed = Seed;
+            uint CRC = 0;
+            for (short i = 0; i <= 255; i++)
+            {
+                CRC = (uint)i;
+                for (byte j = 0; j <= 7; j++)
+                {
+                    if ((CRC & 0x1) == 0x1)
+                    {
+                        CRC = (CRC >> 1) ^ seed;
+                    }
+                    else
+                    {
+                        CRC = CRC >> 1;
+                    }
+                }
+                CRC32_Tab[i] = CRC;
+            }
 #if DumpTable
         StreamWriter x = new StreamWriter("CRCTab.txt");
         foreach (uint j in CRC32_Tab) {
@@ -159,11 +161,29 @@ public class CRC32 : ChecksumPlugin, IDisposable
         x.Dispose();
         x = null;
 #endif
-        MyMenu.Add(new InteractionItem(SampleCompute, "Calcular CRC...", "Permite calcular la CRC32 de una cadena de texto"));
-        MyMenu.Add(new InteractionItem((a, b) => About(this), "Acerca de " + Name));
+            MyMenu.Add(new InteractionItem(SampleCompute, "Calcular CRC...", "Permite calcular la CRC32 de una cadena de texto"));
+            MyMenu.Add(new InteractionItem((a, b) => About(this), "Acerca de " + Name));
+        }
+        void SampleCompute(object a, EventArgs b)
+        {
+            MsgBox(Compute(InputBox("Introduzca una cadena")).ToHex());
+        }
     }
-    void SampleCompute(object a, EventArgs b)
+
+    public class TestPlugin : Plugin
     {
-        MsgBox(Compute(InputBox("Introduzca una cadena")).ToHex());
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="TestPlugin"/>.
+        /// </summary>
+        public TestPlugin()
+        {
+            MyMenu.Add(new InteractionItem(
+                (sender, e) =>
+            {
+                Console.Write("Prueba de plugin.");
+            }
+                , "Test", "Plugin de prueba"));
+        }
     }
 }

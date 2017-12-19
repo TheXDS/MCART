@@ -1,12 +1,12 @@
 ﻿//
-//  ISliceGraph.cs
+//  RingGraph.cs
 //
 //  This file is part of MCART
 //
 //  Author:
 //       César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
-//  Copyright (c) 2011 - 2018 César Andrés Morgan
+//  Copyright (c) 2011 - 2017 César Andrés Morgan
 //
 //  MCART is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -20,24 +20,48 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+using System;
 namespace MCART.Controls
 {
-    public partial interface ISliceGraph
+    public partial class RingGraph
     {
         /// <summary>
-        /// Dibuja únicamente al <see cref="Slice"/>.
+        /// Realiza tareas adicionales de inicialización.
         /// </summary>
-        /// <param name="r">
-        /// <see cref="Slice"/> que ha realizado la solicitud de redibujo.
-        /// </param>
-        void DrawOnlyMe(Slice r);
+        public void Init()
+        {
+
+        }
+
+
+
+        public void Redraw()
+        {
+
+        }
+
+
         /// <summary>
-        /// Dibuja la etiqueta de este <see cref="Slice"/>.
+        /// Vuelve a dibujar únicamente a los hijos del <see cref="Slice"/>.
         /// </summary>
         /// <param name="r">
-        /// <see cref="Slice"/> que ha realizado la solicitud de redibujo.
+        /// <see cref="Slice"/> que ha realizado la solicitud.
         /// </param>
-        void DrawMyLabel(Slice r);
+        public void DrawMyChildren(Slice r)
+        {
+            //HACK: Aún no es posible redibujar selectivamente los hijos de r.
+            Redraw();
+        }
+
+        public void DrawOnlyMe(Slice r)
+        {
+            //HACK: Aún no es posible redibujar selectivamente los hijos de r.
+            Redraw();
+        }
+        public void DrawMyLabel(Slice r)
+        {
+            //HACK: Aún no es posible redibujar selectivamente los hijos de r.
+            Redraw();
+        }
     }
 }

@@ -1,47 +1,47 @@
-# Información técnica de desarrollo
-En este archivo, se detallan algunas consideraciones técnicas al trabajar en
+# Informaciï¿½n tï¿½cnica de desarrollo
+En este archivo, se detallan algunas consideraciones tï¿½cnicas al trabajar en
 MCART. Para un eficiente flujo de trabajo, por favor, lee todo este documento.
 ### Creando nuevos proyectos
-Los proyectos comparten un conjunto de constantes de compilación. Debido a
+Los proyectos comparten un conjunto de constantes de compilaciï¿½n. Debido a
 algunas limitaciones presentadas por Visual Studio, no existe un editor visual
 de estas configuraciones, y no existe un mecanismo elegante para administrar
 las configuraciones globales. Por ende, es necesario agregar el siguiente nodo
-a la definición de cada proyecto:
+a la definiciï¿½n de cada proyecto:
 ```xml
   <PropertyGroup Condition="'$(SolutionDir)' == '' or '$(SolutionDir)' == '*undefined*'">
     <SolutionDir>..\..\</SolutionDir>
   </PropertyGroup>
   <Import Project="$(SolutionDir)CommonSettings.targets" />
 ```
-Al agregar este bloque de código a los proyectos, es posible cambiar las
-constantes de compilación globales editando el archivo
+Al agregar este bloque de cï¿½digo a los proyectos, es posible cambiar las
+constantes de compilaciï¿½n globales editando el archivo
 `CommonSettings.targets`.
-### Números de versión
-La información genérica de los ensamblados de MCART se encuentra en el proyecto
-compartido *AssemblyInfo*, el cual contiene únicamente un archivo con las
-respectivas definiciones de atributos de versión, copyright, compañía,
+### Nï¿½meros de versiï¿½n
+La informaciï¿½n genï¿½rica de los ensamblados de MCART se encuentra en el proyecto
+compartido *AssemblyInfo*, el cual contiene ï¿½nicamente un archivo con las
+respectivas definiciones de atributos de versiï¿½n, copyright, compaï¿½ï¿½a,
 trademark y nombre del producto. Al crear nuevos proyectos, es necesario
 incluir una referencia a este proyecto para evitar mantener copias innecesarias
-de los atributos, y centralizar la información de versiones y de
-identificación.
+de los atributos, y centralizar la informaciï¿½n de versiones y de
+identificaciï¿½n.
 
-Durante la fase Pre-release de MCART, la versión mayor tendrá un valor de cero,
+Durante la fase Pre-release de MCART, la versiï¿½n mayor tendrï¿½ un valor de cero,
 siendo necesario referirse al componente menor para evaluar el estado de avance
 del proyecto. Eventualmente, al existir un Release, el comportamiento de los
-distintos números que componen la versión pasará a representar el estado de
+distintos nï¿½meros que componen la versiï¿½n pasarï¿½ a representar el estado de
 manera normal.
 
-Luego de ocurrir un Release final, los últimos componentes pasarán a ser la
-fecha codificada de compilación de los ensamblados.
+Luego de ocurrir un Release final, los ï¿½ltimos componentes pasarï¿½n a ser la
+fecha codificada de compilaciï¿½n de los ensamblados.
 
 **Notas adicionales para NetStandard:**
 Debido a la forma en la que dichos atributos se encuentran almacenados en un
-proyecto de este tipo, será necesario actualizar manualmente la información de
+proyecto de este tipo, serï¿½ necesario actualizar manualmente la informaciï¿½n de
 ensamblado de *NetStandard* al compilar. Por favor, no olvides realizar estos
 cambios y recompilar *NetStandard* por separado.
-### Constantes globales de compilación
+### Constantes globales de compilaciï¿½n
 El archivo `CommonSettings.targets` contiene un conjunto de constantes de
-compilación definidas para toda la solución. Esto, con el propósito de evitar
+compilaciï¿½n definidas para toda la soluciï¿½n. Esto, con el propï¿½sito de evitar
 los problemas que pueden surgir al configurar individualmente cada proyecto, y
 permitir compartir eficientemente dichas constantes.
 
@@ -50,11 +50,70 @@ al activarse:
 
 Constante | Efecto
 --- | ---
-BufferedIO | Algunas funciones de entrada/salida incluyen una implementación opcional con búffer. Activar esta opción habilita las lecturas y escrituras con búffer.
-ExtrasBuiltIn | Incluir en el ensamblado de MCART ejemplos e implementaciones estándar básicas de las interfaces o clases abstractas para las cuales se pueda proveer.
-FloatDoubleSpecial | `float` y `double` son tipos numéricos que pueden contener valores especiales, como ser NaN o infinito. Al activar esta constante, se habilitan métodos especiales que pueden trabajar con estos valores.
-NativeNumbers | Permite utilizar implementaciones conscientes de la cultura nativa para algunas funciones que trabajan con símbolos numéricos, utilizando los dígitos numéricos locales.
-PreferExceptions | Cuando ciertas funciones deban manejar información inválida, activar esta constante causa que se arrojen excepciones en lugar de continuar con código alternativo (activar esta bandera puede ser un dolor de cabeza, pero resulta en código más seguro).
-RatherDRY | Indica que, a pesar de disminuir la optimización del código, se debe respetar el principio DRY (Don't Repeat Yourself) al implementar sobrecargas cuyo cuerpo sea exactamente igual.
-StrictMCARTVersioning | Cuando se realicen comprobaciones de compatibilidad con MCART, activar esta constante causa que dichas comprobaciones sean más estrictas. Se recomienda mantener esta constante habilitada.
-SaferPasswords | Permite que algunas funciones de seguridad requieran, comprueben o generen contraseñas más seguras, a expensas de compatibilidad con los métodos de entrada disponibles o con el equipo.
+BufferedIO | Algunas funciones de entrada/salida incluyen una implementaciï¿½n opcional con bï¿½ffer. Activar esta opciï¿½n habilita las lecturas y escrituras con bï¿½ffer.
+ExtrasBuiltIn | Incluir en el ensamblado de MCART ejemplos e implementaciones estï¿½ndar bï¿½sicas de las interfaces o clases abstractas para las cuales se pueda proveer.
+FloatDoubleSpecial | `float` y `double` son tipos numï¿½ricos que pueden contener valores especiales, como ser NaN o infinito. Al activar esta constante, se habilitan mï¿½todos especiales que pueden trabajar con estos valores.
+NativeNumbers | Permite utilizar implementaciones conscientes de la cultura nativa para algunas funciones que trabajan con sï¿½mbolos numï¿½ricos, utilizando los dï¿½gitos numï¿½ricos locales.
+PreferExceptions | Cuando ciertas funciones deban manejar informaciï¿½n invï¿½lida, activar esta constante causa que se arrojen excepciones en lugar de continuar con cï¿½digo alternativo (activar esta bandera puede ser un dolor de cabeza, pero resulta en cï¿½digo mï¿½s seguro).
+RatherDRY | Indica que, a pesar de disminuir la optimizaciï¿½n del cï¿½digo, se debe respetar el principio DRY (Don't Repeat Yourself) al implementar sobrecargas cuyo cuerpo sea exactamente igual.
+StrictMCARTVersioning | Cuando se realicen comprobaciones de compatibilidad con MCART, activar esta constante causa que dichas comprobaciones sean mï¿½s estrictas. Se recomienda mantener esta constante habilitada.
+SaferPasswords | Permite que algunas funciones de seguridad requieran, comprueben o generen contraseï¿½as mï¿½s seguras, a expensas de compatibilidad con los mï¿½todos de entrada disponibles o con el equipo.
+### Consideraciones especiales para Gtk
+Debido a las limitadas herramientas disponibles para trabajar con proyectos
+basados en Gtk, algunas tareas deben ser realizadas manualmente, indistintamente
+del entorno de desarrollo o el IDE utilizado.
+
+Anteriormente, Gtk fue basado en Gtk# 2, por lo que era posible editar la
+interfaz grï¿½fica utilizando el editor integrado en MonoDevelop y Xamarin Studio,
+Stetic. Ahora, Gtk se basa en Gtk# 3, por lo que este editor no se encuentra
+disponible. Para diseï¿½ar la interfaz grï¿½fica, se utiliza Glade, y los archivos
+resultantes son almacenados junto a su archivo de cï¿½digo. Algunas convenciones
+son muy importantes para lograr que todo funcione bien:
+
+* La ruta del archivo .glade debe coincidir con el nombre completo del tipo del Widget/ventana asociado (es decir, debe coincidir con la ruta de espacios de nombre).
+* El nivel superior del Widget/ventana en el archivo .glade debe tener como Id el nombre del tipo del Widget/ventana asociado.
+* La opciï¿½n de compilaciï¿½n del archivo .glade debe establecerse en EmbeddedResource.
+* El cï¿½digo asociado al Widget/ventana debe contener una plantilla como la siguente:
+```csharp
+        #region Construcciï¿½n de ventana
+        /// <summary>
+        /// Crea una nueva instancia de la clase <see cref="Ventana"/>.
+        /// </summary>
+        /// <returns>
+        /// Una nueva instancia de la clase <see cref="Ventana"/>.
+        /// </returns>
+        public static Ventana Create()
+        {
+            var t = typeof(Ventana);
+            Builder builder = new Builder(t.Assembly, $"{t.FullName}.glade", null);
+            return new Ventana(builder, builder.GetObject(t.Name).Handle);
+        }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="Ventana"/>.
+        /// </summary>
+        /// <param name="builder">Builder.</param>
+        /// <param name="handle">Handle.</param>
+        public Ventana(Builder builder, IntPtr handle) : base(handle)
+        {
+            builder.Autoconnect(this);
+
+            /*
+             * Otras inicializaciones de la clase aquï¿½...
+             */
+        }
+        #endregion
+
+        #region Widgets        
+#pragma warning disable CS0649
+#pragma warning disable CS0169
+        [Builder.Object] Label lblHola;
+        [Builder.Object] Entry txtNombre;
+        [Builder.Object] Button btnAceptar;
+        /*
+         * Widgets utilizados aquï¿½, con el atributo [Builder.Object].
+         * No es necesario incluir aquellos que no poseen interacciï¿½n alguna.
+         */
+#pragma warning restore CS0649
+#pragma warning restore CS0169
+        #endregion
+```

@@ -62,7 +62,7 @@ namespace TestAppGtk
 #else
             }
             Application.Init();
-            MainWindow win = new MainWindow();
+            MainWindow win = MainWindow.Create();
             win.Show();
             Application.Run();
 #endif

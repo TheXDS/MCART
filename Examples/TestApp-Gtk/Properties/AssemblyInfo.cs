@@ -32,4 +32,4 @@ using MCART.Attributes;
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("1.0.*")]
 [assembly: MinMCARTVersion(0, 6)]
-[assembly: TargetMCARTVersion(0, 6)]
+[assembly: TargetMCARTVersion(0, 6, 1)]
