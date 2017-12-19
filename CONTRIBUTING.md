@@ -58,12 +58,17 @@ más avances, ya que es mi campo de mayor experiencia. Sin embargo, pretendo que
 los otros proyectos no se queden atrás.
 ### Notas adicionales
 #### Gtk:
-En Microsoft Windows, El proyecto Gtk requiere instalar Gtk# 2.12 o posterior,
-el cual se incluye en Xamarin Studio, y además está disponible como componente
-independiente. En Linux, Gtk# se incluye al instalar Mono/MonoDevelop.
+El proyecto incluye paquetes de NuGet de Gtk# 3.22, por lo que en Microsoft
+Windows podría ser importante comprobar que se cuente con una instalación de
+GTK+ 3. Las distintas distribuciones de Linux generalmente ya incluyen GTK+ 3,
+por lo que únicamente es necesario comprobar que los paquetes correspondientes
+hayan sido instalados y se encuentren actualizados.
 
-[Gtk# para .Net Framework](http://www.mono-project.com/docs/gui/gtksharp/installer-for-net-framework/)  
 [Gtk# en NuGet](https://www.nuget.org/packages/GtkSharp)  
+[Información para descargar e instalar Gtk+3](https://www.gtk.org/download/windows.php)
+
+**versiones anteriores**  
+[Gtk# para .Net Framework](http://www.mono-project.com/docs/gui/gtksharp/installer-for-net-framework/)  
 [Código fuente de Gtk#](https://download.mono-project.com/sources/gtk-sharp212/)
 #### C# 7.0
 Respecto a la decisión de utilizar una versión tan nueva del lenguaje, C# 7.0
