@@ -103,8 +103,18 @@ namespace MCART.Forms
                 TxtUsr.Focus();
                 return;
             }
-            retVal = new PwDialogResult(TxtUsr.Text, Txtpw.SecurePassword, null, MessageBoxResult.OK, PwEvalResult.Null);
-            Close();
+            if (loginVal?.Invoke(TxtUsr.Text, Txtpw.SecurePassword) ?? true)
+            {
+                retVal = new PwDialogResult(TxtUsr.Text, Txtpw.SecurePassword, null, MessageBoxResult.OK, PwEvalResult.Null);
+                Close();
+            }
+            else
+            {
+                if (Txtpw.IsWarned())Txtpw.ClearWarn();
+                Txtpw.Warn(St.IncorrectPWD);
+                Txtpw.SelectAll();
+                Txtpw.Focus();
+            }
         }
         void BtnConfirm_Click(object sender, RoutedEventArgs e)
         {
@@ -148,7 +158,7 @@ namespace MCART.Forms
                     Ringsec.Fill = SystemColors.HighlightBrush;
             }
         }
-        void Txtcnf_PasswordChanged(object sender, RoutedEventArgs e)
+        void WarnClearing(object sender, RoutedEventArgs e)
         {
             if (((Control)sender).IsWarned()) ((Control)sender).ClearWarn();
         }
@@ -226,15 +236,45 @@ namespace MCART.Forms
             StckRoot.Children.Add(MoreCtrls);
             Content = StckRoot;
             Btngo.Click += Btngo_Click;
-            TxtUsr.TextChanged += Txtcnf_PasswordChanged;
+            TxtUsr.TextChanged += WarnClearing;
             TxtUsr.GotFocus += TxtFocus;
             Txtpw.PasswordChanged += Txtpw_PasswordChanged;
+            Txtpw.PasswordChanged += WarnClearing;
             Txtpw.GotFocus += TxtFocus;
             Txtpw.LostFocus += Txtcnf_check;
-            Txtcnf.PasswordChanged += Txtcnf_PasswordChanged;
+            Txtcnf.PasswordChanged += WarnClearing;
             Txtcnf.GotFocus += TxtFocus;
             Txtcnf.LostFocus += Txtcnf_check;
             BtnConfirm.Click += BtnConfirm_Click;
+        }
+        /// <summary>
+        /// Obtiene la información de inicio de sesión.
+        /// </summary>
+        /// <param name="defaultUsr">
+        /// Parámetro opcional. Nombre de usuario a mostrar de manera 
+        /// predeterminada en el cuadro.
+        /// </param>
+        /// <param name="storedPw">
+        /// Parámetro opcional. Proporciona una contraseña predeterminada para
+        /// esta ventana.
+        /// </param>
+        /// <param name="loginValidator">
+        /// Parámetro opcional. Delegado de validación de la contraseña.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="PwDialogResult"/> con el resultado de esta función.
+        /// </returns>
+        public PwDialogResult Login(string defaultUsr, string storedPw, LoginValidator loginValidator = null)
+        {
+            loginVal = loginValidator;
+            TxtUsr.Visibility = Visibility.Visible;
+            TxtUsr.Text = defaultUsr;
+            Txtpw.Password = storedPw;
+            Btngo.Visibility = Visibility.Visible;
+            MoreCtrls.Visibility = Visibility.Collapsed;
+            if (defaultUsr.IsEmpty()) TxtUsr.Focus(); else Txtpw.Focus();
+            ShowDialog();
+            return retVal;
         }
         /// <summary>
         /// Obtiene una contraseña.
@@ -243,25 +283,20 @@ namespace MCART.Forms
         /// Parámetro opcional. Proporciona una contraseña predeterminada para
         /// esta ventana.
         /// </param>
-        /// <param name="defaultUsr">
-        /// Parámetro opcional. Nombre de usuario a mostrar de manera 
-        /// predeterminada en el cuadro.
-        /// </param>
-        /// <param name="showUsrBox">
-        /// Parámetro opcional. Indica si se mostrará o no el cuadro de 
-        /// usuario.
+        /// <param name="loginValidator">
+        /// Parámetro opcional. Delegado de validación de la contraseña.
         /// </param>
         /// <returns>
         /// Un <see cref="PwDialogResult"/> con el resultado de esta función.
         /// </returns>
-        public PwDialogResult GetPassword(string defaultUsr = null, string storedPw = null, bool showUsrBox = false)
+        public PwDialogResult GetPassword(string storedPw, LoginValidator loginValidator = null)
         {
-            TxtUsr.Visibility = showUsrBox ? Visibility.Visible : Visibility.Collapsed;
-            TxtUsr.Text = defaultUsr;
+            TxtUsr.Visibility = Visibility.Collapsed;
+            TxtUsr.Text = string.Empty;
             Txtpw.Password = storedPw;
             Btngo.Visibility = Visibility.Visible;
             MoreCtrls.Visibility = Visibility.Collapsed;
-            if (showUsrBox) TxtUsr.Focus(); else Txtpw.Focus();
+            Txtpw.Focus();
             ShowDialog();
             return retVal;
         }
@@ -300,9 +335,8 @@ namespace MCART.Forms
                 if (PwEvaluatorObj == null)
                 {
                     pwEvaluator = new PwEvaluator(RuleSets.CommonComplexityRuleSet());
-
 #if SaferPasswords
-		            pwEvaluator.Rules.Add(RuleSets.PwLatinEvalRule());
+                    pwEvaluator.Rules.Add(RuleSets.PwLatinEvalRule());
                     pwEvaluator.Rules.Add(RuleSets.PwOtherSymbsEvalRule());
                     pwEvaluator.Rules.Add(RuleSets.PwOtherUTFEvalRule());
 #endif

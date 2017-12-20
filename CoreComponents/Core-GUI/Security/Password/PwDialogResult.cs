@@ -60,10 +60,13 @@ namespace MCART.Security.Password
         /// Obtiene el indicio de contraseña introducido por el usuario.
         /// </summary>
         /// <returns>
-        /// <see cref="string.Empty"/> si el cuadro se inicia con 
-        /// <see cref="Forms.PasswordDialog.GetPassword(string, string, bool)"/>.
+        /// <see cref="string.Empty"/> si el cuadro se inicia con cualquier
+        /// sobrecarga de los métodos
+        /// <see cref="Forms.PasswordDialog.GetPassword(string, Forms.PasswordDialog.LoginValidator)"/>
+        /// o con 
+        /// <see cref="Forms.PasswordDialog.Login(string, string, Forms.PasswordDialog.LoginValidator)"/>.
         /// Si se inicia con 
-        /// <see cref="Forms.PasswordDialog.ChoosePassword(PwMode, PwEvaluator)"/>,
+        /// <see cref="Forms.PasswordDialog.ChoosePassword(PwMode, PwEvaluator, int)"/>,
         /// se devuelve un <see cref="string"/> con el indicio de contraseña 
         /// que el usuario ha introducido.
         /// </returns>

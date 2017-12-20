@@ -43,7 +43,7 @@ Public Class MainWindow
         Close()
     End Sub
     Private Sub MnuPwd_Click(sender As Object, e As RoutedEventArgs) Handles mnuPwd.Click
-        With (New PasswordDialog).GetPassword("Usuario", "Test@1234", True)
+        With (New PasswordDialog).Login("Usuario", "Test@1234")
             If .Result = MessageBoxResult.OK Then MessageBox.Show(.Usr & vbCrLf & .Pwd.ReadString())
         End With
     End Sub
