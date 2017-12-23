@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="a43a94b2-1336-49d7-b56e-160b8ed4dd09" revisionNumber="1">
+	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<introduction>
+			<para>Los temas en esta sección describen los distintos cambios que ha sufrido MCART durante su desarrollo.</para>
+		</introduction>
+		<section>
+			<title>Historial de versiones</title>
+			<content>
+				<para>Seleccione una versión para ver más detalles.</para>
+				<list class="bullet">
+					<listItem>
+						<para><link xlink:href="abd75eaf-ae61-45b9-b102-44038f014ca1" /></para>
+					</listItem>
+				</list>
+        <para>Para una información más completa, refiérase al arhcivo CHANGELOG, en la carpeta de documentación de MCART.</para>
+			</content>
+		</section>
+		<relatedTopics>
+			<link xlink:href="acf56513-1ec9-4330-9ee9-5cbe6f288196" />
+		</relatedTopics>
+	</developerConceptualDocument>
+</topic>

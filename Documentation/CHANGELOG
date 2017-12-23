@@ -139,7 +139,7 @@ Misc.: Uso de características de VB15
 Otras mejoras y correcciones varias.
 
 MCART 0.6 Series
-- Todo el código se ha mudado a C# 7.1 desde VB15
+- Todo el código se ha mudado a C# 7.0 desde VB15
 - Se ha adoptado la licencia GNU GPL3
 - Todos los módulos han sido reorganizados
 Nuevo: El proyecto ahora es multiplataforma
