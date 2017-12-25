@@ -152,3 +152,7 @@ Nuevo: Librería de UI en WPF (incluye controles y ventanas)
 Nuevo: Proyectos de Unit Testing compatibles con Visual Studio
 Mejorado: Reescritura total de MCART
 Quitado: MCADB
+
+MCART 0.7 Series
+- MCART ha cambiado sus implementaciones para respetar los principios de SOLID.
+Mejorado: Soporte de plugins parcialmente rescrito.
