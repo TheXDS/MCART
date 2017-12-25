@@ -21,6 +21,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using MCART.Attributes;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -62,7 +63,7 @@ namespace MCART.PluginSupport
         {
             this.Action = Action ?? throw new ArgumentNullException(nameof(Action));
             this.Text = Text ?? Action.Method.Name;
-            this.Description = Description;
+            this.Description = Action.GetAttr<DescriptionAttribute>()?.Value ?? Description;
             this.Icon = Icon;
         }
         /// <summary>
@@ -82,6 +83,7 @@ namespace MCART.PluginSupport
         {
             this.Action = Action ?? throw new ArgumentNullException(nameof(Action));
             this.Text = Text ?? Action.Method.Name;
+            Description = Action.GetAttr<DescriptionAttribute>()?.Value;
             this.Icon = Icon;
         }
         /// <summary>
@@ -100,6 +102,7 @@ namespace MCART.PluginSupport
         {
             this.Action = Action ?? throw new ArgumentNullException(nameof(Action));
             Text = Action.Method.Name;
+            Description = Action.GetAttr<DescriptionAttribute>()?.Value;
             this.Icon = Icon;
         }
         /// <summary>

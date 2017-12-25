@@ -94,7 +94,7 @@ namespace MCART.Controls
         /// <summary>
         /// Obtiene o establece si se mostrará el cuadro de búsqueda
         /// </summary>
-        /// <returns><c>True</c> si el cuadro de búsqueda es visible; de lo contrario, <c>False</c></returns>
+        /// <returns><c>true</c> si el cuadro de búsqueda es visible; de lo contrario, <c>False</c></returns>
         public bool HasSearch
         {
             get => (bool)GetValue(HasSearchProperty); set => SetValue(HasSearchProperty, value);

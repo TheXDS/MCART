@@ -119,8 +119,10 @@ namespace MCART.Forms
         void BtnClose_Click(object sender, RoutedEventArgs e) => Close();
         void TrvAsm_Loaded(object sender, RoutedEventArgs e)
         {
+            var pl = new PluginLoader(new RelaxedPluginChecker());
+
             if (trvAsm.Visibility == Visibility.Collapsed) return;
-            foreach (var j in Plugin.PluginTree<IPlugin>(true))
+            foreach (var j in pl.PluginTree())
             {
                 TreeViewItem roth = new TreeViewItem() { Header = j.Key };
                 foreach (var k in j.Value)
@@ -145,6 +147,7 @@ namespace MCART.Forms
         /// </param>
         public void DetailsOf(IPlugin p)
         {
+            Title = St.About(p.Name);
             trvAsm.Visibility = Visibility.Collapsed;
             ShwDetails(p);
             ShowDialog();

@@ -129,7 +129,7 @@ namespace MCART.PluginSupport
         /// correctamente.
         /// </summary>
         /// <value><c>true</c> si el <see cref="Plugin"/> finalizó
-        /// correctamente; de lo contrario, <c>false</c>.</value>
+        /// correctamente, <c>false</c> en caso contrario.</value>
         public bool OK => ReferenceEquals(Exception, null);
         /// <summary>
         /// Inicializa una nueva instancia de la clase 

@@ -1,4 +1,14 @@
-﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:Converters="clr-namespace:System.Windows.Converters;assembly=MCART" x:Class="MainWindow" mc:Ignorable="d" Title="MCART Test Application" Height="350" Width="525">
+﻿<Window 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Converters="clr-namespace:System.Windows.Converters;assembly=MCART"
+    x:Class="MainWindow"
+    mc:Ignorable="d"
+    Title="MCART Test Application"
+    Height="350"
+    Width="525">
     <Window.Resources>
         <Converters:BooleanInverter x:Key="BooleanInverter" />
     </Window.Resources>
@@ -38,6 +48,8 @@
             </MenuItem>
             <MenuItem x:Name="mnuPlugins" Header="Plugins" IsEnabled="{Binding Items.IsEmpty, Converter={StaticResource BooleanInverter}, Mode=OneWay, RelativeSource={RelativeSource Self}}" />
             <MenuItem Header="Ayuda">
+                <MenuItem x:Name="mnuPlgBrowser" Header="Explorador de plugins..." />
+                <Separator/>
                 <MenuItem x:Name="mnuAboutMCART" Header="Acerca de MCART..." />
             </MenuItem>
         </Menu>

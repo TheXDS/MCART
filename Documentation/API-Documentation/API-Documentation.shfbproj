@@ -87,6 +87,26 @@
       <DocumentationSource sourceFile="..\..\MCART\CoreEdition\CoreEdition.csproj" />
       <DocumentationSource sourceFile="..\..\MCART\WPF\WPF.csproj" />
     </DocumentationSources>
+    <NamespaceSummaries>
+      <NamespaceSummaryItem name="MCART" isDocumented="True" xmlns="">Este es el espacio de nombres raíz de MCART. Al importar este espacio de hombres en un proyecto, numerosas extensiones comunes se encontrarán disponibles.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="MCART.Attributes" isDocumented="True" xmlns="">El espacio de nombres MCART.Attributes contiene múltiples clases que pueden ser utilizadas como atributos para diversos fines.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="MCART.Controls" isDocumented="True" xmlns="">El espacio de nombres MCART.Controls contiene una librería de controles/widgets disponibles para aplicaciones de GUI.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="MCART.Events" isDocumented="True" xmlns="">El espacio de nombres MCART.Attributes contiene múltiples clases que pueden ser utilizadas como argumentos de eventos acompañados de sus respectivos delegados para diversos fines.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="MCART.Exceptions" isDocumented="True" xmlns="">El espacio de nombres MCART.Attributes contiene múltiples clases que pueden ser utilizadas como excepciones para diversos fines.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="MCART.Forms" isDocumented="True" xmlns="">El espacio de nombres MCART.Controls contiene una librería de ventanas y diálogos disponibles para aplicaciones de GUI.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="MCART.Networking" isDocumented="True" xmlns="">El espacio de nombres MCART.Networking contiene diversas herramientas y clases auxiliares para crear aplicaciones con conectividad de red (capa TCP) y/o web (capa de aplicación).</NamespaceSummaryItem>
+<NamespaceSummaryItem name="MCART.Networking.Client" isDocumented="True" xmlns="">Este espacio de nombres contiene herramientas específicas para crear aplicaciones cliente que requieran acceso de red.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="MCART.Networking.Server" isDocumented="True" xmlns="">Este espacio de nombres contiene herramientas específicas para crear aplicaciones servidor que provean servicios de red.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="MCART.Networking.Server.Protocols" isDocumented="True" xmlns="">Este espacio de nombres contiene protocolos predeterminados para implementar fácilmente aplicaciones de servidor que provean servicios de red.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="MCART.PluginSupport" isDocumented="True" xmlns="">Este espacio de nombres contiene la funcionalidad completa de administración y soporte de plugins por medio de la implementación de MCART.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="MCART.Resources" isDocumented="True" xmlns="">Este espacio de nombres contiene numerosos recursos misceláneos disponibles para MCART y otras aplicaciones.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="MCART.Security.Checksum" isDocumented="True" xmlns="">Este espacio de nombres contiene herramientas de seguridad específicas para el cálculo de sumas de verificación.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="MCART.Security.Encryption" isDocumented="True" xmlns="">Este espacio de nombres contiene herramientas de seguridad específicas para el encriptado de información.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="MCART.Security.Password" isDocumented="True" xmlns="">Este espacio de nombres contiene herramientas de seguridad específicas para trabajar con contraseñas.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="MCART.Types" isDocumented="True" xmlns="">El espacio de nombres MCART.Types contiene nuevos tipos con funcionalidad adicional y/o universal.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="MCART.Types.Extensions" isDocumented="True" xmlns="">El espacio de nombres MCART.Types contiene métodos de extensión genéricos para tipos integrados de .Net Framework.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="MCART.Types.TaskReporter" isDocumented="True" xmlns="">Este espacio de nombres es temporal, y contiene el tipo TaskReporter y otras clases relacionadas.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="System.Windows.Converters" isDocumented="True" xmlns="">Este espacio de nombres contiene clases de conversión de valores utilizadas en propiedades de dependencia en Windows Presentation Framework.</NamespaceSummaryItem></NamespaceSummaries>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->

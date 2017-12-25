@@ -4,6 +4,7 @@
 
 # build
 [Bb]uild/
+[Bb]uild
 [Oo]bj/
 [Bb]in/
 packages/

@@ -42,7 +42,7 @@ namespace PluginExample
     [Description("CRC32 Calculator")]
     [Beta]
     [MinMCARTVersion(0, 6)]
-    [TargetMCARTVersion(0, 6, 1)]
+    [TargetMCARTVersion(0, 7, 0)]
     public class CRC32 : ChecksumPlugin, IDisposable
     {
         bool disposedValue;
@@ -161,29 +161,27 @@ namespace PluginExample
         x.Dispose();
         x = null;
 #endif
-            MyMenu.Add(new InteractionItem(SampleCompute, "Calcular CRC...", "Permite calcular la CRC32 de una cadena de texto"));
-            MyMenu.Add(new InteractionItem((a, b) => About(this), "Acerca de " + Name));
+            uiMenu.Add(new InteractionItem((a, b) => About(this), "Acerca de " + Name));
         }
-        void SampleCompute(object a, EventArgs b)
+
+        [Name("Calcular CRC...")]
+        [Description("Permite calcular la CRC32 de una cadena de texto")]
+        [InteractionItem]
+        public void SampleCompute(object a, EventArgs b)
         {
             MsgBox(Compute(InputBox("Introduzca una cadena")).ToHex());
         }
     }
 
+    /// <summary>
+    /// Prueba mínima de plugin.
+    /// </summary>
     public class TestPlugin : Plugin
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="TestPlugin"/>.
-        /// </summary>
-        public TestPlugin()
+        [InteractionItem]
+        public void Test(object sender, EventArgs e)
         {
-            MyMenu.Add(new InteractionItem(
-                (sender, e) =>
-            {
-                Console.Write("Prueba de plugin.");
-            }
-                , "Test", "Plugin de prueba"));
+            System.Diagnostics.Debug.Print("Prueba de plugin.");
         }
     }
 }

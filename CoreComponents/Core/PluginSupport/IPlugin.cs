@@ -87,8 +87,8 @@ namespace MCART.PluginSupport
         /// </summary>
         /// <param name="minVersion">Versión mínima de MCART.</param>
         /// <returns>
-        /// <c>True</c> si fue posible obtener información sobre la versión 
-        /// mínima de MCART; de lo contrario, <c>false</c>.
+        /// <c>true</c> si fue posible obtener información sobre la versión 
+        /// mínima de MCART, <c>false</c> en caso contrario.
         /// </returns>
         bool MinRTVersion(out Version minVersion);
         /// <summary>
@@ -100,34 +100,25 @@ namespace MCART.PluginSupport
         /// </summary>
         /// <param name="tgtVersion">Versión objetivo de MCART.</param>
         /// <returns>
-        /// <c>True</c> si fue posible obtener información sobre la versión 
-        /// objetivo de MCART; de lo contrario, <c>false</c>.
+        /// <c>true</c> si fue posible obtener información sobre la versión 
+        /// objetivo de MCART, <c>false</c> en caso contrario.
         /// </returns>
         bool TargetRTVersion(out Version tgtVersion);
         /// <summary>
-        /// Devuelve <c>True</c> si el plugin es Beta
+        /// Devuelve <c>true</c> si el plugin es Beta
         /// </summary>
-        /// <returns><c>True</c> si el plugin ha sido marcado como versión Beta; de lo contrario, <c>False</c></returns>
+        /// <returns><c>true</c> si el plugin ha sido marcado como versión Beta; de lo contrario, <c>False</c></returns>
         bool IsBeta { get; }
         /// <summary>
         /// Determina si el plugin es inseguro
         /// </summary>
-        /// <returns><c>True</c> si el plugin ha sido marcado como inseguro; de lo contrario, <c>False</c></returns>
+        /// <returns><c>true</c> si el plugin ha sido marcado como inseguro; de lo contrario, <c>False</c></returns>
         bool IsUnsafe { get; }
         /// <summary>
         /// Determina si el plugin es inseguro
         /// </summary>
-        /// <returns><c>True</c> si el plugin ha sido marcado como inseguro; de lo contrario, <c>False</c></returns>
+        /// <returns><c>true</c> si el plugin ha sido marcado como inseguro; de lo contrario, <c>False</c></returns>
         bool IsUnstable { get; }
-        /// <summary>
-        /// Devuelve el nombre de las interfaces implementadas por este
-        /// <see cref="IPlugin"/>.
-        /// </summary>
-        /// <returns>
-        /// Un <see cref="ReadOnlyCollection{T}"/> con los nombre de las
-        /// interfaces implementadas dentro de este <see cref="IPlugin"/>.
-        /// </returns>
-        IEnumerable<string> InterfaceNames { get; }
         /// <summary>
         /// Devuelve la lista de interfaces que este <see cref="IPlugin"/>
         /// implementa.
@@ -156,7 +147,7 @@ namespace MCART.PluginSupport
         /// Si utiliza la implementación predeterminada de la interfaz 
         /// <see cref="IPlugin"/> incluída en MCART (<see cref="Plugin"/>),
         /// puede agregar nuevos elementos <see cref="InteractionItem"/> a la
-        /// colección <see cref="Plugin.MyMenu"/>.
+        /// colección <see cref="Plugin.myMenu"/>.
         /// </remarks>
         ReadOnlyCollection<InteractionItem> PluginInteractions { get; }
         /// <summary>
@@ -178,31 +169,6 @@ namespace MCART.PluginSupport
         /// </summary>
         /// <returns>Información determinada por el usuario relacionada a este plugin</returns>
         object Tag { get; set; }
-        /// <summary>
-        /// Devuelve la instancia de este <see cref="IPlugin"/> como un objeto de tipo <typeparamref name="T"/>.
-        /// </summary>
-        /// <typeparam name="T">
-		/// Interfaz a la cual se debe convertir esta instancia. El <see cref="IPlugin"/> debe implementar dicha 
-		/// interfaz.
-		/// </typeparam>
-        /// <returns>Un objeto de tipo <typeparamref name="T"/>.</returns>
-        /// <remarks>
-        /// En Visual Basic, esta función puede considerarse como una variante más segura de <c>CType</c>, ya que 
-		/// realiza múltiples comprobaciones de tipo antes de intentar la conversión.
-        /// <list type="bullet">
-        /// <item><description>
-		/// Es conveniente utilizar esta función en conjunto con la propiedad <see cref="Interfaces"/>.
-		/// </description></item>
-        /// <item><description>
-		/// Si necesita una referencia de tipo <see cref="IPlugin"/>, no haga <c>Plugin.CType(Of IPlugin)</c>, en su 
-		/// lugar utilice <c>Itself</c>.</description></item>
-        /// </list>
-        /// </remarks>
-        /// <exception cref="Exceptions.InterfaceExpectedException">
-		/// Se produce si <typeparamref name="T"/> no es una interfaz.</exception>
-        /// <exception cref="Exceptions.InterfaceNotImplementedException">
-		/// Se produce si el <see cref="IPlugin"/> no implementa la interfaz especificada.</exception>
-        T CType<T>() where T : class;
         /// <summary>
         /// Solicita a la aplicación que se actualize la interfaz de interacción del <see cref="IPlugin"/>
         /// </summary>

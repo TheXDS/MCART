@@ -46,7 +46,6 @@ namespace MCART.Attributes
             Value = attrValue;
         }
     }
-
     /// <summary>
     /// Clase base para los atributos basados en números.
     /// </summary>
@@ -66,7 +65,6 @@ namespace MCART.Attributes
             Value = attrValue;
         }
     }
-
     /// <summary>
     /// Clase base para los atributos basados en números.
     /// </summary>
@@ -106,7 +104,6 @@ namespace MCART.Attributes
             Value = attrValue;
         }
     }
-
     /// <summary>
     /// Clase base para los atributos basados en valores booleanos.
     /// </summary>
@@ -133,7 +130,7 @@ namespace MCART.Attributes
     /// Marca un elemento como método de Thunking (facilita la llamada de otros
     /// métodos).
     /// </summary>
-    [AttributeUsage((AttributeTargets)71)]
+    [AttributeUsage((AttributeTargets)71 | AttributeTargets.Property)]
     public sealed class ThunkAttribute : Attribute { }
 
     /// <summary>

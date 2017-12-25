@@ -22,6 +22,8 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Reflection;
+using MCART.Attributes;
 
 namespace MCART.PluginSupport
 {
@@ -65,46 +67,56 @@ namespace MCART.PluginSupport
         /// Crea una nueva entrada de interacción con el delegado 
         /// <see cref="EventHandler"/> especificado.
         /// </summary>
-        /// <param name="Text">Nombre del comando.</param>
-        /// <param name="Description">
+        /// <param name="text">Nombre del comando.</param>
+        /// <param name="description">
         /// Descripción larga del comando. Útil para aplicar a Tooltips.
         /// </param>
-        /// <param name="Action">
+        /// <param name="action">
 		/// <see cref="EventHandler"/> que se utilizará para controlar la 
         /// activación de este <see cref="InteractionItem"/>.
 		/// </param>
-        public InteractionItem(EventHandler Action, string Text, string Description)
+        public InteractionItem(EventHandler action, string text, string description)
         {
-            this.Action = Action ?? throw new ArgumentNullException(nameof(Action));
-            this.Text = Text ?? Action.Method.Name;
-            this.Description = Description;
+            Action = action ?? throw new ArgumentNullException(nameof(action));
+            Text = text ?? action.Method.Name;
+            Description = description;
         }
         /// <summary>
         /// Crea una nueva entrada de interacción con el delegado 
         /// <see cref="EventHandler"/> especificado.
         /// </summary>
-        /// <param name="Text">Nombre del comando.</param>
-        /// <param name="Action">
+        /// <param name="text">Nombre del comando.</param>
+        /// <param name="action">
 		/// <see cref="EventHandler"/> que se utilizará para controlar la
         /// activación de este <see cref="InteractionItem"/>.
 		/// </param>
-        public InteractionItem(EventHandler Action, string Text)
+        public InteractionItem(EventHandler action, string text)
         {
-            this.Action = Action ?? throw new ArgumentNullException(nameof(Action));
-            this.Text = Text ?? Action.Method.Name;
+            Action = action ?? throw new ArgumentNullException(nameof(action));
+            Text = text ?? action.Method.Name;
+            Description = action.GetAttr<DescriptionAttribute>()?.Value ?? null;
         }
         /// <summary>
         /// Crea una nueva entrada de interacción con el delegado 
         /// <see cref="EventHandler"/> especificado.
         /// </summary>
-        /// <param name="Action">
+        /// <param name="action">
 		/// <see cref="EventHandler"/> que se utilizará para controlar la 
         /// activación de este <see cref="InteractionItem"/>.
 		/// </param>
-        public InteractionItem(EventHandler Action)
+        public InteractionItem(EventHandler action)
         {
-            this.Action = Action ?? throw new ArgumentNullException(nameof(Action));
-            Text = Action.Method.Name;
+            Action = action ?? throw new ArgumentNullException(nameof(action));
+            Text = action.GetAttr<NameAttribute>()?.Value ?? action.Method.Name;
+            Description = action.GetAttr<DescriptionAttribute>()?.Value;
+        }
+
+        internal InteractionItem(MethodInfo method, IPlugin parentInstance)
+        {
+            Action = (Delegate.CreateDelegate(typeof(EventHandler), parentInstance, method) as EventHandler) 
+                ?? throw new Exceptions.InvalidMethodSignatureException(method);
+            Text = method.GetAttr<NameAttribute>()?.Value ?? method.Name;
+            Description = method.GetAttr<DescriptionAttribute>()?.Value;
         }
     }
 }

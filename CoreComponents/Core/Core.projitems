@@ -22,8 +22,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\Client.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\Protocol.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\Events.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\Attributes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\IPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\InteractionItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\IPluginChecker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\IPluginLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\PluginChecker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\PluginCheckers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\PluginLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Strings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\SpecificStrings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\PwEvalResult.cs" />
@@ -60,7 +66,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Security\Checksum\IEasyChecksum.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Checksum\Plugins.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\RTInfo.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\PluginStatic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Color.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\ColorExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Colors.cs" />

@@ -154,7 +154,7 @@ namespace System.Windows.Converters
         /// Si no se ha establecido un valor para <see cref="True"/>, se
         /// devolverá <c>true</c> si hay alguna bandera activa, o <c>false</c> 
         /// en caso contrario. Si se estableció un valor para 
-        /// <see cref="True"/>, se devolverá <c>True</c> solo si dicha(s) 
+        /// <see cref="True"/>, se devolverá <c>true</c> solo si dicha(s) 
         /// bandera(s) se encuentra(n) activa(s), <c>false</c> en caso
         /// contrario.
         /// </returns>

@@ -27,4 +27,4 @@ using System.Reflection;
 [assembly: AssemblyProduct("MCA Runtime")]
 [assembly: AssemblyCopyright("Copyright © 2011-2018 César Andrés Morgan")]
 [assembly: AssemblyTrademark("MCA Corporation")]
-[assembly: AssemblyVersion("0.6.1.0")]
+[assembly: AssemblyVersion("0.7.0.0")]

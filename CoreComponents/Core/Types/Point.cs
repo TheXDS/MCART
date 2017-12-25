@@ -57,7 +57,7 @@ namespace MCART.Types
         /// </summary>
         /// <returns>
         /// <c>true</c> si el punto se encuentra dentro del rectángulo
-        /// formado; de lo contrario, <c>false</c>.
+        /// formado, <c>false</c> en caso contrario.
         /// </returns>
         /// <param name="p1">Punto 1.</param>
         /// <param name="p2">Punto 2.</param>
@@ -68,7 +68,7 @@ namespace MCART.Types
         /// </summary>
         /// <returns>
         /// <c>true</c> si el punto se encuentra dentro del rectángulo
-        /// formado; de lo contrario, <c>false</c>.
+        /// formado, <c>false</c> en caso contrario.
         /// </returns>
         /// <param name="x1">La primer coordenada x.</param>
         /// <param name="y1">La primer coordenada y.</param>

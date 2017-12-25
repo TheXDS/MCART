@@ -30,9 +30,6 @@
 ' entorno de producción, sino más bien como una referencia a partir de la cual
 ' el desarrollador podrá aprender a utilizar la librería y crear su propio
 ' código.
-' 
-' Antes de compilar MCART, la propiedad "Acción de compilación" para este
-' archivo debe establecerse en "Ninguna".
 
 Imports MCART.Attributes
 Imports MCART.MCADatabase

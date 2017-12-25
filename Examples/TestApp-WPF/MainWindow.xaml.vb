@@ -25,14 +25,19 @@ Imports MCART
 Imports MCART.Controls
 
 Public Class MainWindow
-    Private pl As New List(Of IPlugin)
+    Private pl As IEnumerable(Of IPlugin)
     Private Sub Wndtest_Initialized(sender As Object, e As EventArgs) Handles Me.Initialized
-        pl = Plugin.LoadEverything(Of IPlugin)()
+        pl = (New PluginLoader()).LoadEverything()
         For Each j As IPlugin In pl
             If j.HasInteractions Then
                 mnuPlugins.Items.Add(j.UIMenu)
             End If
         Next
+    End Sub
+    Private Sub MnuPlgBrowser_Click(sender As Object, e As EventArgs) Handles mnuPlgBrowser.Click
+        With New PluginBrowser
+            .ShowDialog()
+        End With
     End Sub
     Private Sub MnuAboutMCART_Click(sender As Object, e As RoutedEventArgs) Handles mnuAboutMCART.Click
         'With New MCART.Forms.

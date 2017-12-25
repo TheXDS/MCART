@@ -115,6 +115,16 @@ namespace MCART.Resources
         /// </returns>
         public static string InvalidPluginClass(string text) => $"{text} no es una clase de Plugin válida.";
         /// <summary>
+        /// Devuelve una cadena con el texto "{<paramref name="text"/>} no
+        /// tiene una firma válida.".
+        /// </summary>
+        /// <param name="text">Texto a formatear.</param>
+        /// <returns>
+        /// Una cadena con el texto "{<paramref name="text"/>} no tiene una
+        /// firma válida.".
+        /// </returns>
+        public static string InvalidSignature(string text) => $"{text} no tiene una firma válida.";
+        /// <summary>
         /// Devuelve una cadena con el texto "Falta el argumento
         /// {<paramref name="text"/>}".
         /// </summary>
@@ -323,6 +333,14 @@ namespace MCART.Resources
         /// </returns>
         public static string XNotSelected(string text) => $"No se ha seleccionado {text}.";
         /// <summary>
+        /// Devuelve una cadena con el texto "{<paramref name="text"/>}, o".
+        /// </summary>
+        /// <param name="text">Texto a formatear.</param>
+        /// <returns>
+        /// Una cadena con el texto "{<paramref name="text"/>}, o".
+        /// </returns>
+        public static string XOr(string text) => $"{text}, o";
+        /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} ha sido
         /// rechazado.".
         /// </summary>
@@ -413,7 +431,7 @@ namespace MCART.Resources
         public const string ItsLong = "Es muy larga";
         public const string LatinChars = "áéíóúüñäåöàèìòùç";
         public const string LstEmpty = "La lista está vacía";
-        public const string MandatoryField = "Este campo es obligatorio";        
+        public const string MandatoryField = "Este campo es obligatorio";
         public const string Menu = "Menú";
         public const string MinMCARTV = "Versión mínima de MCART";
         public const string MoreChars = @"ẁèỳùìòàǜǹẀÈỲÙÌÒÀǛǸẽẼỹỸũŨĩĨõÕãÃṽṼñÑ`~1!¡¹2@²űŰőŐ˝3#ĒǕŌĀ¯4$¤£5%€şḑģḩķļçņȩŗţ¸6ŵêŷûîôâŝĝĥĵẑĉŴÊŶÛÎÔÂŜĜĤĴẐĈ¼^7&ươƯƠ̛8*¾ęųįǫąĘŲĮǪĄ˛9(‘ĕŭĭŏăĔŬĬŎĂ˘0)’ẘẙůŮåÅ-_¥ẉẹṛṭỵụịọạṣḍḥḳḷṿḅṇṃ̣=+×÷qQwWeErR®tTþÞyYuUiIoOpP[{«“]}»”\|¬¦aAsSß§dDðÐfFgGhHjJkKœŒlLøØ;:¶°ẃéŕýúíóṕáśǵḱĺźćǘńḿ'ẅëẗÿüïöäḧẍẄËŸÜÏÖÄḦẌ""zZæÆxXcC©¢vVbBnNmMµ,<çÇ.>ˇěřťǔǐǒǎšďǧȟǰǩǩľžčǚň/?¿ʠⱳẻƭỷủỈỏƥảʂɗƒɠɦƙȥƈʋɓɲɱ̉";
@@ -467,6 +485,7 @@ namespace MCART.Resources
         public const string TheInterface = "La interfaz";
         public const string TheLicense = "La licencia";
         public const string TheListener = "El escucha";
+        public const string TheMethod = "El método";
         public const string TheObj = "El objeto";
         public const string ThePlugin = "El Plugin";
         public const string TheProtocol = "El protocolo";

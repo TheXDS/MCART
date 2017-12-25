@@ -296,7 +296,7 @@ namespace MCART
             return a;
         }
         /// <summary>
-        /// Devuelve <c>True</c> si todos los números son positivos.
+        /// Devuelve <c>true</c> si todos los números son positivos.
         /// </summary>
         /// <param name="x">números a comprobar.</param>
         public static bool ArePositives(params double[] x)
@@ -305,7 +305,7 @@ namespace MCART
             return true;
         }
         /// <summary>
-        /// Devuelve <c>True</c> si todos los números son negativos.
+        /// Devuelve <c>true</c> si todos los números son negativos.
         /// </summary>
         /// <param name="x">números a comprobar.</param>
         public static bool AreNegatives(params double[] x)
@@ -314,7 +314,7 @@ namespace MCART
             return true;
         }
         /// <summary>
-        /// Devuelve <c>True</c> si todos los números son iguales a cero.
+        /// Devuelve <c>true</c> si todos los números son iguales a cero.
         /// </summary>
         /// <param name="x">números a comprobar.</param>
         public static bool AreZero<T>(params T[] x) where T : IComparable<T>
@@ -588,7 +588,7 @@ namespace MCART
         /// Determina si un <see cref="double"/> es un número entero.
         /// </summary>
         /// <param name="x">Valor a comprobar.</param>
-        /// <returns><c>True</c> si el valor es entero; de lo contrario, <c>False</c></returns>
+        /// <returns><c>true</c> si el valor es entero; de lo contrario, <c>False</c></returns>
         public static bool IsWhole(this double x) => !x.ToString().Contains(".");
         /// <summary>
         /// Obtiene las cooerdenadas X,Y de una posición específica dentro de un

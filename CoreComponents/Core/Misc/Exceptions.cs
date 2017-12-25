@@ -24,6 +24,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Runtime.Serialization;
 using St = MCART.Resources.Strings;
 
@@ -123,7 +124,7 @@ namespace MCART.Exceptions
         /// <param name="context">The contextual information about the source or
         /// destination.</param>
         /// <param name="info">
-        /// El objeto que contiene la información serializada del objeto.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         protected InterfaceExpectedException(SerializationInfo info, StreamingContext context)
             : base(info, context) { }
@@ -135,7 +136,7 @@ namespace MCART.Exceptions
         /// <param name="context">The contextual information about the source or
         /// destination.</param>
         /// <param name="info">
-        /// El objeto que contiene la información serializada del objeto.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="T">Tipo que generó la excepción.</param>
         protected InterfaceExpectedException(SerializationInfo info, StreamingContext context, Type T)
@@ -198,7 +199,7 @@ namespace MCART.Exceptions
         /// The contextual information about the source or destination.
         /// </param>
         /// <param name="info">
-        /// El objeto que contiene la información serializada del objeto.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="offendingAssembly">Offending assembly.</param>
         protected NotPluginException(SerializationInfo info, StreamingContext context, System.Reflection.Assembly offendingAssembly = null)
@@ -242,7 +243,7 @@ namespace MCART.Exceptions
         /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException{T}"/> class
         /// </summary>
         /// <param name="context">La información contextual acerca del orígen o el destino.</param>
-        /// <param name="info">El objeto que contiene la información serializada del objeto.</param>
+        /// <param name="info">El objeto que contiene la información de serialización.</param>
         /// <param name="offendingCollection">Colección a la que se intentó acceder.</param>
         protected EmptyCollectionException(SerializationInfo info, StreamingContext context, IEnumerable<T> offendingCollection) : base(info, context) { OffendingCollection = offendingCollection; }
         /// <summary>
@@ -269,7 +270,7 @@ namespace MCART.Exceptions
         /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException{T}"/> class
         /// </summary>
         /// <param name="context">La información contextual acerca del orígen o el destino.</param>
-        /// <param name="info">El objeto que contiene la información serializada del objeto.</param>
+        /// <param name="info">El objeto que contiene la información de serialización.</param>
         protected EmptyCollectionException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
     /// <summary>
@@ -281,7 +282,7 @@ namespace MCART.Exceptions
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InterfaceNotImplementedException"/>.
         /// </summary>
-        /// <param name="info">El objeto que contiene la información serializada del objeto.</param>
+        /// <param name="info">El objeto que contiene la información de serialización.</param>
         /// <param name="context">La información contextual acerca del orígen o el destino.</param>
         protected InterfaceNotImplementedException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
@@ -344,7 +345,7 @@ namespace MCART.Exceptions
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="DirectoryIsFullException"/>.
         /// </summary>
-        /// <param name="info">El objeto que contiene la información serializada del objeto.</param>
+        /// <param name="info">El objeto que contiene la información de serialización.</param>
         /// <param name="context">La información contextual acerca del orígen o el destino.</param>
         protected DirectoryIsFullException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
@@ -393,7 +394,7 @@ namespace MCART.Exceptions
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidPasswordException"/>.
         /// </summary>
-        /// <param name="info">El objeto que contiene la información serializada del objeto.</param>
+        /// <param name="info">El objeto que contiene la información de serialización.</param>
         /// <param name="context">La información contextual acerca del orígen o el destino.</param>
         protected InvalidPasswordException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
@@ -426,7 +427,7 @@ namespace MCART.Exceptions
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="FeatureNotAvailableException"/>.
         /// </summary>
-        /// <param name="info">El objeto que contiene la información serializada del objeto.</param>
+        /// <param name="info">El objeto que contiene la información de serialización.</param>
         /// <param name="context">La información contextual acerca del orígen o el destino.</param>
         protected FeatureNotAvailableException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
@@ -459,7 +460,7 @@ namespace MCART.Exceptions
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="TooManyArgumentsException"/>.
         /// </summary>
-        /// <param name="info">El objeto que contiene la información serializada del objeto.</param>
+        /// <param name="info">El objeto que contiene la información de serialización.</param>
         /// <param name="context">La información contextual acerca del orígen o el destino.</param>
         protected TooManyArgumentsException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
@@ -492,7 +493,7 @@ namespace MCART.Exceptions
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="TooFewArgumentsException"/>.
         /// </summary>
-        /// <param name="info">El objeto que contiene la información serializada del objeto.</param>
+        /// <param name="info">El objeto que contiene la información de serialización.</param>
         /// <param name="context">La información contextual acerca del orígen o el destino.</param>
         protected TooFewArgumentsException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
@@ -525,7 +526,7 @@ namespace MCART.Exceptions
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="MissingArgumentException"/>.
         /// </summary>
-        /// <param name="info">El objeto que contiene la información serializada del objeto.</param>
+        /// <param name="info">El objeto que contiene la información de serialización.</param>
         /// <param name="context">La información contextual acerca del orígen o el destino.</param>
         protected MissingArgumentException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
@@ -561,7 +562,7 @@ namespace MCART.Exceptions
         /// <see cref="InvalidReturnValueException"/>.
         /// </summary>
         /// <param name="info">
-        /// El objeto que contiene la información serializada del objeto.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
         /// La información contextual acerca del orígen o el destino.
@@ -744,7 +745,7 @@ namespace MCART.Exceptions
         /// <see cref="PluginException"/>.
         /// </summary>
         /// <param name="info">
-        /// El objeto que contiene la información serializada del objeto.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
         /// La información contextual acerca del orígen o el destino.
@@ -762,7 +763,7 @@ namespace MCART.Exceptions
         /// <see cref="PluginNeededException"/>.
         /// </summary>
         /// <param name="info">
-        /// El objeto que contiene la información serializada del objeto.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
         /// La información contextual acerca del orígen o el destino.
@@ -808,7 +809,7 @@ namespace MCART.Exceptions
         /// <see cref="PluginInitializationException"/>.
         /// </summary>
         /// <param name="info">
-        /// El objeto que contiene la información serializada del objeto.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
         /// La información contextual acerca del orígen o el destino.
@@ -842,7 +843,7 @@ namespace MCART.Exceptions
         /// <see cref="InvalidPluginClassException"/>.
         /// </summary>
         /// <param name="info">
-        /// El objeto que contiene la información serializada del objeto.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
         /// La información contextual acerca del orígen o el destino.
@@ -889,7 +890,7 @@ namespace MCART.Exceptions
         /// <see cref="PluginClassNotFoundException"/>.
         /// </summary>
         /// <param name="info">
-        /// El objeto que contiene la información serializada del objeto.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
         /// La información contextual acerca del orígen o el destino.
@@ -934,7 +935,7 @@ namespace MCART.Exceptions
         /// <see cref="StackUnderflowException"/>.
         /// </summary>
         /// <param name="info">
-        /// El objeto que contiene la información serializada del objeto.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
         /// La información contextual acerca del orígen o el destino.
@@ -967,7 +968,7 @@ namespace MCART.Exceptions
         /// <see cref="InvalidDatabaseException"/>.
         /// </summary>
         /// <param name="info">
-        /// El objeto que contiene la información serializada del objeto.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
         /// La información contextual acerca del orígen o el destino.
@@ -1010,7 +1011,7 @@ namespace MCART.Exceptions
         /// <see cref="NotMyDatabaseException"/>.
         /// </summary>
         /// <param name="info">
-        /// El objeto que contiene la información serializada del objeto.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
         /// La información contextual acerca del orígen o el destino.
@@ -1050,7 +1051,7 @@ namespace MCART.Exceptions
         /// <see cref="DataNotFoundException"/>.
         /// </summary>
         /// <param name="info">
-        /// El objeto que contiene la información serializada del objeto.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
         /// La información contextual acerca del orígen o el destino.
@@ -1083,7 +1084,7 @@ namespace MCART.Exceptions
         /// <see cref="InsufficientDataException"/>.
         /// </summary>
         /// <param name="info">
-        /// El objeto que contiene la información serializada del objeto.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
         /// La información contextual acerca del orígen o el destino.
@@ -1121,7 +1122,7 @@ namespace MCART.Exceptions
         /// <see cref="UnknownTypeException"/>.
         /// </summary>
         /// <param name="info">
-        /// El objeto que contiene la información serializada del objeto.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
         /// La información contextual acerca del orígen o el destino.
@@ -1159,7 +1160,7 @@ namespace MCART.Exceptions
         /// <see cref="InvalidTypeException"/>.
         /// </summary>
         /// <param name="info">
-        /// El objeto que contiene la información serializada del objeto.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
         /// La información contextual acerca del orígen o el destino.
@@ -1237,7 +1238,7 @@ namespace MCART.Exceptions
         /// <see cref="DataAlreadyExistsException"/>.
         /// </summary>
         /// <param name="info">
-        /// El objeto que contiene la información serializada del objeto.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
         /// La información contextual acerca del orígen o el destino.
@@ -1271,7 +1272,7 @@ namespace MCART.Exceptions
         /// <see cref="PluginNotInitializedException"/>.
         /// </summary>
         /// <param name="info">
-        /// El objeto que contiene la información serializada del objeto.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
         /// La información contextual acerca del orígen o el destino.
@@ -1304,7 +1305,7 @@ namespace MCART.Exceptions
         /// <see cref="ServerNotFoundException"/>.
         /// </summary>
         /// <param name="info">
-        /// El objeto que contiene la información serializada del objeto.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
         /// La información contextual acerca del orígen o el destino.
@@ -1313,7 +1314,7 @@ namespace MCART.Exceptions
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="ServerNotFoundException"/>.
         /// </summary>
-        public ServerNotFoundException() : base(St.XNotFound( St.TheSrv)) { }
+        public ServerNotFoundException() : base(St.XNotFound(St.TheSrv)) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="ServerNotFoundException"/>.
         /// </summary>
@@ -1342,7 +1343,7 @@ namespace MCART.Exceptions
         /// <see cref="CorruptDataException"/>.
         /// </summary>
         /// <param name="info">
-        /// El objeto que contiene la información serializada del objeto.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
         /// La información contextual acerca del orígen o el destino.
@@ -1380,7 +1381,7 @@ namespace MCART.Exceptions
         /// <see cref="CouldntConnectException"/>.
         /// </summary>
         /// <param name="info">
-        /// El objeto que contiene la información serializada del objeto.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
         /// La información contextual acerca del orígen o el destino.
@@ -1453,7 +1454,7 @@ namespace MCART.Exceptions
         /// <see cref="ConnectionClosedException"/>.
         /// </summary>
         /// <param name="info">
-        /// El objeto que contiene la información serializada del objeto.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
         /// La información contextual acerca del orígen o el destino.
@@ -1486,7 +1487,7 @@ namespace MCART.Exceptions
         /// <see cref="OperationException"/>.
         /// </summary>
         /// <param name="info">
-        /// El objeto que contiene la información serializada del objeto.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
         /// La información contextual acerca del orígen o el destino.
@@ -1537,7 +1538,7 @@ namespace MCART.Exceptions
         /// Inicializa una nueva instancia de la clase <see cref="OperationException"/>.
         /// </summary>
         /// <param name="Task">Task.</param>
-        /// <param name="info">El objeto que contiene la información serializada del objeto.</param>
+        /// <param name="info">El objeto que contiene la información de serialización.</param>
         /// <param name="context">La información contextual acerca del orígen o el destino.</param>
         public OperationException(Delegate Task, SerializationInfo info, StreamingContext context) : base(info, context)
         {
@@ -1562,5 +1563,68 @@ namespace MCART.Exceptions
         {
             OffendingTask = Task;
         }
+    }
+    /// <summary>
+    /// Excepción que se produce cuando la firma de un método representado en
+    /// un <see cref="MethodInfo"/> no es válida.
+    /// </summary>
+    [Serializable]
+    public class InvalidMethodSignatureException : Exception
+    {
+        /// <summary>
+        /// Referencia al método que ha causado la excepción.
+        /// </summary>
+        public readonly MethodInfo OffendingMethod;
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        public InvalidMethodSignatureException() : base(St.InvalidSignature(St.TheMethod)) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="method">Método que ha causado la excepción.</param>
+        public InvalidMethodSignatureException(MethodInfo method) : base(St.InvalidSignature(St.XYQuotes(St.TheMethod, method.Name))) { OffendingMethod = method; }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
+        /// <param name="method">Método que ha causado la excepción.</param>
+        public InvalidMethodSignatureException(string message, MethodInfo method = null) : base(message) { OffendingMethod = method; }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        public InvalidMethodSignatureException(Exception inner) : base(St.InvalidSignature(St.TheMethod), inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        /// <param name="method">Método que ha causado la excepción.</param>
+        public InvalidMethodSignatureException(Exception inner, MethodInfo method) : base(St.InvalidSignature(St.XYQuotes(St.TheMethod, method.Name)), inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
+        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        /// <param name="method">Método que ha causado la excepción.</param>
+        public InvalidMethodSignatureException(string message, Exception inner, MethodInfo method = null) : base(message, inner) { OffendingMethod = method; }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="info">
+        /// El objeto que contiene la información de serialización.
+        /// </param>
+        /// <param name="context">
+        /// La información contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="method">Método que ha causado la excepción.</param>
+        protected InvalidMethodSignatureException(SerializationInfo info, StreamingContext context, MethodInfo method = null) : base(info, context) { OffendingMethod = method; }
     }
 }

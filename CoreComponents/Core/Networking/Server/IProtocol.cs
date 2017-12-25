@@ -39,7 +39,7 @@ namespace MCART.Networking.Server
         /// <summary>
         /// Protocolo de bienvenida del cliente.
         /// </summary>
-        /// <returns><c>true</c> si el cliente fue aceptado por el protocolo; de lo contrario, <c>false</c>.</returns>
+        /// <returns><c>true</c> si el cliente fue aceptado por el protocolo, <c>false</c> en caso contrario.</returns>
         /// <param name="client">Cliente que será atendido.</param>
         /// <param name="server">Servidor que atiende al cliente.</param>
         bool ClientWelcome(TClient client, Server<TClient> server);

@@ -271,7 +271,7 @@ namespace MCART.Controls
         /// <summary>
         /// Obtiene o establece si se mostrará el cuadro de búsqueda
         /// </summary>
-        /// <returns><c>True</c> si el cuadro de búsqueda es visible; de lo contrario, <c>False</c></returns>
+        /// <returns><c>true</c> si el cuadro de búsqueda es visible; de lo contrario, <c>False</c></returns>
         public bool HasSearch
         {
             get => (bool)GetValue(HasSearchProperty); set => SetValue(HasSearchProperty, value);
@@ -313,7 +313,7 @@ namespace MCART.Controls
         /// <summary>
         /// Determina si este control administra un <see cref="CollectionView"/>
         /// </summary>
-        /// <returns><c>True</c> si este control actualmente administra un <see cref="CollectionView"/>; de lo contrario, <c>False</c>.</returns>
+        /// <returns><c>true</c> si este control actualmente administra un <see cref="CollectionView"/>, <c>false</c> en caso contrario.</returns>
         public bool HasViewAttached => view != null;
         /// <summary>
         /// Devuelve el <see cref="CollectionView"/> actualmente administrado por este control
@@ -323,7 +323,7 @@ namespace MCART.Controls
         /// <summary>
         /// Determina si este control administra el estado de otros controles
         /// </summary>
-        /// <returns><c>True</c> si este control administra el estado de otros controles; de lo contario, <c>False</c>.</returns>
+        /// <returns><c>true</c> si este control administra el estado de otros controles; de lo contario, <c>False</c>.</returns>
         public bool HasAttachedControls => ctrls.Any();
         /// <summary>
         /// Devuelve un <see cref="ReadOnlyCollection{T}"/> de los controles administrados por este control

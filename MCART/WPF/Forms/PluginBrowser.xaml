@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"    
-    Title="PluginBrowser" Height="400" Width="600"
+    Title="Explorador de plugins" Height="400" Width="600"
     Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
     <Window.Resources>
         <Thickness x:Key="Mrg">5</Thickness>

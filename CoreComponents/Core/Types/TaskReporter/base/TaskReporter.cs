@@ -56,7 +56,7 @@ namespace MCART.Types.TaskReporter
         /// </summary>
         /// <value>
         /// <c>true</c> si se ha agotado el tiempo de espera para finalizar la
-        /// operación; de lo contrario, <c>false</c>.
+        /// operación, <c>false</c> en caso contrario.
         /// </value>
         public bool TimedOut
         {

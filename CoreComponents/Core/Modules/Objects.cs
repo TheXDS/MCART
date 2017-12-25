@@ -26,6 +26,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Reflection;
 
 namespace MCART
 {
@@ -77,7 +78,7 @@ namespace MCART
         /// <param name="types">Lista de tipos a comprobar.</param>
         /// <param name="source">Tipo que desea asignarse.</param>
         /// <returns><c>true</c> si todos los tipos son asignables a partir de
-        /// <paramref name="source"/>; de lo contrario, <c>false</c>.</returns>
+        /// <paramref name="source"/>, <c>false</c> en caso contrario.</returns>
         [Thunk] public static bool AreAssignableFrom(this Type[] types, Type source) => types.All(p => p.IsAssignableFrom(source));
         /// <summary>
         /// Determina si cualquiera de los objetos es <c>null</c>.
@@ -157,13 +158,13 @@ namespace MCART
         /// <param name="obj2">Objeto contra el cual comparar.</param>
         /// <returns>
         /// <c>true</c> si la instancia de <paramref name="obj1"/> es
-        /// <paramref name="obj2"/>; de lo contrario, <c>false</c>.</returns>
+        /// <paramref name="obj2"/>, <c>false</c> en caso contrario.</returns>
         [Thunk] public static bool IsNot(this object obj1, object obj2) => !ReferenceEquals(obj1, obj2);
         /// <summary>
 		/// Determina si un objeto es cualquiera de los indicados.
 		/// </summary>
 		/// <returns><c>true</c>si <paramref name="obj"/> es cualquiera de los
-		/// objetos especificados; de lo contrario, <c>false</c>.</returns>
+		/// objetos especificados, <c>false</c> en caso contrario.</returns>
 		/// <param name="obj">Objeto a comprobar.</param>
 		/// <param name="objs">Lista de objetos a comparar.</param>
 		[Thunk] public static bool IsEither(this object obj, params object[] objs) => objs.Any(p => p.Is(obj));
@@ -171,7 +172,7 @@ namespace MCART
         /// Determina si un objeto no es ninguno de los indicados.
         /// </summary>
         /// <returns><c>true</c>si <paramref name="obj"/> no es ninguno de los
-        /// objetos especificados; de lo contrario, <c>false</c>.</returns>
+        /// objetos especificados, <c>false</c> en caso contrario.</returns>
         /// <param name="obj">Objeto a comprobar.</param>
         /// <param name="objs">Lista de objetos a comparar.</param>
         [Thunk] public static bool IsNeither(this object obj, params object[] objs) => objs.All(p => !p.Is(obj));
@@ -256,6 +257,10 @@ namespace MCART
         /// <param name="Params">Parámetros a pasar al constructor. Se buscará 
         /// un constructor compatible para poder crear la instancia.</param>
         /// <returns>Una nueva instancia del tipo especificado.</returns>
+        /// <exception cref="TypeLoadException">
+        /// Se produce si no es posible instanciar una clase del tipo
+        /// solicitado.
+        /// </exception>
         public static T New<T>(this Type j, params object[] Params)
         {
             if (j.IsAbstract || j.IsInterface) throw new TypeLoadException();
@@ -283,62 +288,325 @@ namespace MCART
             }
         }
         /// <summary>
-        /// Devuelve el atributo asociado a la declaración del objeto especificado
+        /// Devuelve el atributo asociado al ensamblado especificado.
         /// </summary>
-        /// <typeparam name="T">Tipo de atributo a devolver. Debe heredar <see cref="Attribute"/>.</typeparam>
-        /// <param name="it"><see cref="System.Reflection.Assembly"/> del cual se extraerá el atributo.</param>
-        /// <returns>Un atributo del tipo <typeparamref name="T"/> con los datos asociados en la declaración del objeto.</returns>
-        [Thunk] public static T GetAttr<T>(this System.Reflection.Assembly it) where T : Attribute => (T)Attribute.GetCustomAttribute(it, typeof(T));
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute"/>.
+        /// </typeparam>
+        /// <param name="assembly">
+        /// <see cref="Assembly"/> del cual se extraerá el
+        /// atributo.
+        /// </param>
+        /// <returns>
+        /// Un atributo del tipo <typeparamref name="T"/> con los datos
+        /// asociados en la declaración del ensamblado; o <c>null</c> en caso
+        /// de no encontrarse el atributo especificado.
+        /// </returns>
+        [Thunk]
+        [Obsolete]
+        public static T GetAttr<T>(this Assembly assembly) where T : Attribute
+        {
+            HasAttr(assembly, out T attr);
+            return attr;
+        }
+        /// <summary>
+        /// Determina si un miembro posee un atributo definido.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute"/>.
+        /// </typeparam>
+        /// <param name="assembly">
+        /// Miembro del cual se extraerá el atributo.
+        /// </param>
+        /// <param name="attribute">
+        /// Parámetro de salida. Si un atributo de tipo
+        /// <typeparamref name="T"/> ha sido encontrado, el mismo es devuelto.
+        /// Se devolverá <c>null</c> si el miembro no posee el atributo
+        /// especificado.
+        /// </param>
+        /// <returns><c>true</c> si el miembro posee el atributo, <c>false</c>
+        /// en caso contrario.
+        /// </returns>
+        public static bool HasAttr<T>(this Assembly assembly, out T attribute) where T : Attribute
+        {
+            attribute = Attribute.GetCustomAttribute(assembly, typeof(T)) as T;
+            return !attribute.IsNull();
+        }
+        /// <summary>
+        /// Determina si un miembro posee un atributo definido.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute"/>.
+        /// </typeparam>
+        /// <param name="assembly">
+        /// Miembro del cual se extraerá el atributo.
+        /// </param>
+        /// <returns><c>true</c> si el miembro posee el atributo, <c>false</c>
+        /// en caso contrario.
+        /// </returns>
+        public static bool HasAttr<T>(this Assembly assembly) where T : Attribute => HasAttr<T>(assembly, out _);
+        /// <summary>
+        /// Devuelve el atributo asociado a la declaración del objeto
+        /// especificado.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute"/>.
+        /// </typeparam>
+        /// <param name="member">
+        /// Miembro del cual se extraerá el atributo.
+        /// </param>
+        /// <returns>
+        /// Un atributo del tipo <typeparamref name="T"/> con los datos
+        /// asociados en la declaración del miembro; o <c>null</c> en caso de
+        /// no encontrarse el atributo especificado.
+        /// </returns>
+        [Thunk]
+        [Obsolete]
+        public static T GetAttr<T>(this MemberInfo member) where T : Attribute
+        {
+            HasAttr(member, out T attr);
+            return attr;
+        }
+        /// <summary>
+        /// Determina si un miembro posee un atributo definido.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute"/>.
+        /// </typeparam>
+        /// <param name="member">
+        /// Miembro del cual se extraerá el atributo.
+        /// </param>
+        /// <param name="attribute">
+        /// Parámetro de salida. Si un atributo de tipo
+        /// <typeparamref name="T"/> ha sido encontrado, el mismo es devuelto.
+        /// Se devolverá <c>null</c> si el miembro no posee el atributo
+        /// especificado.
+        /// </param>
+        /// <returns><c>true</c> si el miembro posee el atributo, <c>false</c>
+        /// en caso contrario.
+        /// </returns>
+        public static bool HasAttr<T>(this MemberInfo member, out T attribute) where T : Attribute
+        {
+            attribute = Attribute.GetCustomAttribute(member, typeof(T)) as T;
+            return !attribute.IsNull();
+        }
+        /// <summary>
+        /// Determina si un miembro posee un atributo definido.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute"/>.
+        /// </typeparam>
+        /// <param name="member">
+        /// Miembro del cual se extraerá el atributo.
+        /// </param>
+        /// <returns><c>true</c> si el miembro posee el atributo, <c>false</c>
+        /// en caso contrario.
+        /// </returns>
+        public static bool HasAttr<T>(this MemberInfo member) where T : Attribute => HasAttr<T>(member, out _);
         /// <summary>
         /// Devuelve el atributo asociado a la declaración del objeto especificado.
         /// </summary>
-        /// <typeparam name="T">Tipo de atributo a devolver. Debe heredar <see cref="Attribute"/>.</typeparam>
-        /// <param name="it">Objeto del cual se extraerá el atributo.</param>
-        /// <returns>Un atributo del tipo <typeparamref name="T"/> con los datos asociados en la declaración del objeto.</returns>
-        [Thunk] public static T GetAttr<T>(this System.Reflection.MemberInfo it) where T : Attribute => (T)Attribute.GetCustomAttribute(it, typeof(T));
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute"/>.
+        /// </typeparam>
+        /// <param name="type">Objeto del cual se extraerá el atributo.</param>
+        /// <returns>
+        /// Un atributo del tipo <typeparamref name="T"/> con los datos
+        /// asociados en la declaración del objeto; o <c>null</c> en caso de no
+        /// encontrarse el atributo especificado.
+        /// </returns>
+        [Thunk]
+        [Obsolete]
+        public static T GetAttr<T>(this Type type) where T : Attribute
+        {
+            HasAttr(type, out T attr);
+            return attr;
+        }
+        /// <summary>
+        /// Determina si un miembro posee un atributo definido.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute"/>.
+        /// </typeparam>
+        /// <param name="type">
+        /// Miembro del cual se extraerá el atributo.
+        /// </param>
+        /// <param name="attribute">
+        /// Parámetro de salida. Si un atributo de tipo
+        /// <typeparamref name="T"/> ha sido encontrado, el mismo es devuelto.
+        /// Se devolverá <c>null</c> si el miembro no posee el atributo
+        /// especificado.
+        /// </param>
+        /// <returns><c>true</c> si el miembro posee el atributo, <c>false</c>
+        /// en caso contrario.
+        /// </returns>
+        public static bool HasAttr<T>(this Type type, out T attribute) where T : Attribute
+        {
+            attribute = Attribute.GetCustomAttribute(type, typeof(T)) as T;
+            return !attribute.IsNull();
+        }
+        /// <summary>
+        /// Determina si un miembro posee un atributo definido.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute"/>.
+        /// </typeparam>
+        /// <param name="type">
+        /// Miembro del cual se extraerá el atributo.
+        /// </param>
+        /// <returns><c>true</c> si el miembro posee el atributo, <c>false</c>
+        /// en caso contrario.
+        /// </returns>
+        public static bool HasAttr<T>(this Type type) where T : Attribute => HasAttr<T>(type, out _);
         /// <summary>
         /// Devuelve el atributo asociado a la declaración del objeto especificado.
         /// </summary>
-        /// <typeparam name="T">Tipo de atributo a devolver. Debe heredar <see cref="Attribute"/>.</typeparam>
-        /// <param name="it">Objeto del cual se extraerá el atributo.</param>
-        /// <returns>Un atributo del tipo <typeparamref name="T"/> con los datos asociados en la declaración del objeto.</returns>
-        [Thunk] public static T GetAttr<T>(this object it) where T : Attribute => (T)Attribute.GetCustomAttribute(it.GetType(), typeof(T));
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute"/>.
+        /// </typeparam>
+        /// <param name="obj">Objeto del cual se extraerá el atributo.</param>
+        /// <returns>
+        /// Un atributo del tipo <typeparamref name="T"/> con los datos
+        /// asociados en la declaración del objeto; o <c>null</c> en caso de no
+        /// encontrarse el atributo especificado.
+        /// </returns>
+        [Thunk]
+        [Obsolete]
+        public static T GetAttr<T>(this object obj) where T : Attribute
+        {
+            HasAttr(obj, out T attr);
+            return attr;
+        }
+        /// <summary>
+        /// Determina si un miembro posee un atributo definido.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute"/>.
+        /// </typeparam>
+        /// <param name="obj">
+        /// Miembro del cual se extraerá el atributo.
+        /// </param>
+        /// <param name="attribute">
+        /// Parámetro de salida. Si un atributo de tipo
+        /// <typeparamref name="T"/> ha sido encontrado, el mismo es devuelto.
+        /// Se devolverá <c>null</c> si el miembro no posee el atributo
+        /// especificado.
+        /// </param>
+        /// <returns><c>true</c> si el miembro posee el atributo, <c>false</c>
+        /// en caso contrario.
+        /// </returns>
+        public static bool HasAttr<T>(this object obj, out T attribute) where T : Attribute
+        {
+            attribute = Attribute.GetCustomAttribute(obj.GetType(), typeof(T)) as T;
+            return !attribute.IsNull();
+        }
+        /// <summary>
+        /// Determina si un miembro posee un atributo definido.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute"/>.
+        /// </typeparam>
+        /// <param name="obj">
+        /// Miembro del cual se extraerá el atributo.
+        /// </param>
+        /// <param name="attribute">
+        /// Parámetro de salida. Si un atributo de tipo
+        /// <typeparamref name="T"/> ha sido encontrado, el mismo es devuelto.
+        /// Se devolverá <c>null</c> si el miembro no posee el atributo
+        /// especificado.
+        /// </param>
+        /// <returns><c>true</c> si el miembro posee el atributo, <c>false</c>
+        /// en caso contrario.
+        /// </returns>
+        public static bool HasAttr<T>(this object obj) where T : Attribute => HasAttr<T>(obj, out _);
         /// <summary>
         /// Devuelve el atributo asociado a la declaración del tipo
         /// especificado.
         /// </summary>
         /// <typeparam name="T">Tipo de atributo a devolver. Debe heredar 
         /// <see cref="Attribute"/>.</typeparam>
-        /// <typeparam name="it">
+        /// <typeparam name="It">
         /// Tipo del cual se extraerá el atributo.
         /// </typeparam>
         /// <returns>
         /// Un atributo del tipo <typeparamref name="T"/> con los datos 
         /// asociados en la declaración del tipo.
         /// </returns>
-        [Thunk] public static T GetAttr<T, it>() where T : Attribute => (T)Attribute.GetCustomAttribute(typeof(it), typeof(T));
+        [Thunk]
+        [Obsolete]
+        public static T GetAttr<T, It>() where T : Attribute
+        {
+            HasAttr(typeof(It), out T attr);
+            return attr;
+        }
         /// <summary>
-        /// Devuelve el atributo asociado a la declaración del tipo especificado
+        /// Devuelve el atributo asociado a la declaración del tipo
+        /// especificado, o en su defecto, del ensamblado que lo contiene.
         /// </summary>
-        /// <typeparam name="T">Tipo de atributo a devolver. Debe heredar 
-        /// <see cref="Attribute"/>.</typeparam>
-        /// <param name="it">Tipo del cual se extraerá el atributo</param>
-        /// <returns>Un atributo del tipo <typeparamref name="T"/> con los datos
-        ///  asociados en la declaración del tipo.</returns>
-        [Thunk] public static T GetAttr<T>(this Type it) where T : Attribute => (T)Attribute.GetCustomAttribute(it, typeof(T));
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute"/>.
+        /// </typeparam>
+        /// <param name="type">Objeto del cual se extraerá el atributo.</param>
+        /// <returns>
+        /// Un atributo del tipo <typeparamref name="T"/> con los datos
+        /// asociados en la declaración del tipo; o <c>null</c> en caso de no
+        /// encontrarse el atributo especificado.
+        /// </returns>
+        public static T GetAttrAlt<T>(this Type type) where T : Attribute
+        {
+            return (Attribute.GetCustomAttribute(type, typeof(T))
+                ?? Attribute.GetCustomAttribute(type.Assembly, typeof(T))) as T;
+        }
         /// <summary>
-        /// Devuelve <c>True</c> si el tipo <typeparamref name="T"/> es alguno de los tipos especificados
+        /// Determina si un miembro posee un atributo definido.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute"/>.
+        /// </typeparam>
+        /// <param name="type">
+        /// Miembro del cual se extraerá el atributo.
+        /// </param>
+        /// <param name="attribute">
+        /// Parámetro de salida. Si un atributo de tipo
+        /// <typeparamref name="T"/> ha sido encontrado, el mismo es devuelto.
+        /// Se devolverá <c>null</c> si el miembro no posee el atributo
+        /// especificado.
+        /// </param>
+        /// <returns><c>true</c> si el miembro posee el atributo, <c>false</c>
+        /// en caso contrario.
+        /// </returns>
+        public static bool HasAttrAlt<T>(this Type type, out T attribute) where T : Attribute
+        {
+            attribute = (Attribute.GetCustomAttribute(type, typeof(T))
+                ?? Attribute.GetCustomAttribute(type.Assembly, typeof(T))) as T;
+            return !attribute.IsNull();
+        }
+        /// <summary>
+        /// Determina si un miembro posee un atributo definido.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute"/>.
+        /// </typeparam>
+        /// <param name="type">
+        /// Miembro del cual se extraerá el atributo.
+        /// </param>
+        /// <returns><c>true</c> si el miembro posee el atributo, <c>false</c>
+        /// en caso contrario.
+        /// </returns>
+        public static bool HasAttrAlt<T>(this Type type) where T : Attribute => HasAttrAlt<T>(type, out _);
+        /// <summary>
+        /// Devuelve <c>true</c> si el tipo <typeparamref name="T"/> es alguno de los tipos especificados
         /// </summary>
         /// <typeparam name="T">Tipo a comprobar</typeparam>
         /// <param name="Types">Lista de tipos aceptados</param>
-        /// <returns><c>True</c> si <typeparamref name="T"/> es alguno de los tipos especificados en <paramref name="Types"/>; de lo contrario, <c>False</c>.</returns>
+        /// <returns><c>true</c> si <typeparamref name="T"/> es alguno de los tipos especificados en <paramref name="Types"/>, <c>false</c> en caso contrario.</returns>
         [Thunk] public static bool IsTypeAnyOf<T>(params Type[] Types) => Types.Contains(typeof(T));
         /// <summary>
-        /// Devuelve <c>True</c> si el tipo <paramref name="T"/> es alguno de los tipos especificados
+        /// Devuelve <c>true</c> si el tipo <paramref name="T"/> es alguno de los tipos especificados
         /// </summary>
         /// <param name="T">Tipo a comprobar</param>
         /// <param name="Types">Lista de tipos aceptados</param>
-        /// <returns><c>True</c> si <paramref name="T"/> es alguno de los tipos especificados en <paramref name="Types"/>; de lo contrario, <c>False</c>.</returns>
+        /// <returns><c>true</c> si <paramref name="T"/> es alguno de los tipos especificados en <paramref name="Types"/>, <c>false</c> en caso contrario.</returns>
         [Thunk] public static bool IsTypeAnyOf(Type T, params Type[] Types) => Types.Contains(T);
         /// <summary>
         /// Determina si el tipo <paramref name="T"/> es de un tipo numérico
@@ -350,7 +618,7 @@ namespace MCART
         [Thunk]
         public static bool IsNumericType(Type T)
         {
-            return new []{
+            return new[]{
                 typeof(byte),
                 typeof(sbyte),
                 typeof(short),
@@ -368,7 +636,7 @@ namespace MCART
         /// Determina si el tipo <typeparamref name="T"/> es de un tipo numérico
         /// </summary>
         /// <typeparam name="T">Tipo a comprobar</typeparam>
-        /// <returns><c>True</c> si <typeparamref name="T"/> es un tipo numérico; de lo contrario, <c>False</c>.</returns>
+        /// <returns><c>true</c> si <typeparamref name="T"/> es un tipo numérico, <c>false</c> en caso contrario.</returns>
         [Thunk] public static bool IsNumericType<T>() => IsNumericType(typeof(T));
     }
 }
