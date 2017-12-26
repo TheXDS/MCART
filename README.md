@@ -1,5 +1,4 @@
 # MCART
-###### Librería de funciones varias para aplicaciones .Net/Mono
 ## Introducción
 MCART es un conjunto de funciones, extensiones y módulos que he encontrado
 útiles a lo largo de mis años de experiencia con lenguajes .Net,
