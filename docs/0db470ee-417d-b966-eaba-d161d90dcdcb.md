@@ -1,0 +1,51 @@
+# Color Methods
+ _**\[This is preliminary documentation and is subject to change.\]**_
+
+The <a href="b2f59482-b5b7-a7aa-b3e0-1a7c0ef43382">Color</a> type exposes the following members.
+
+
+## Methods
+&nbsp;<table><tr><th></th><th>Name</th><th>Description</th></tr><tr><td>![Public method](media/pubmethod.gif "Public method")![Static member](media/static.gif "Static member")</td><td><a href="b6317f31-a382-ea00-d336-678facb7f76d">BlendHealth</a></td><td>
+Mezcla un color de salud basado en el porcentaje.</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")![Static member](media/static.gif "Static member")</td><td><a href="9d3a2805-c005-56f8-7f35-18bbdcaaf73a">BlendHeat</a></td><td>
+Mezcla un color de temperatura basado en el porcentaje.</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="http://msdn2.microsoft.com/es-es/library/2dts52z7" target="_blank">Equals(Object)</a></td><td> (Inherited from <a href="http://msdn2.microsoft.com/es-es/library/aey3s293" target="_blank">ValueType</a>.)</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="fb5ae895-c264-7dcf-d179-6f969d6e225a">Equals(Color)</a></td><td>
+Determines whether the specified <a href="b2f59482-b5b7-a7aa-b3e0-1a7c0ef43382">Color</a> is equal to the current <a href="b2f59482-b5b7-a7aa-b3e0-1a7c0ef43382">Color</a>.</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="http://msdn2.microsoft.com/es-es/library/y3509fc2" target="_blank">GetHashCode</a></td><td> (Inherited from <a href="http://msdn2.microsoft.com/es-es/library/aey3s293" target="_blank">ValueType</a>.)</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="http://msdn2.microsoft.com/es-es/library/dfwy45w9" target="_blank">GetType</a></td><td> (Inherited from <a href="http://msdn2.microsoft.com/es-es/library/e5kfa45b" target="_blank">Object</a>.)</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="74e1c942-5323-9f9b-1ad0-5a3b7b7f47d7">ToByte</a></td><td>
+Convierte este <a href="b2f59482-b5b7-a7aa-b3e0-1a7c0ef43382">Color</a> en su representación como un <a href="http://msdn2.microsoft.com/es-es/library/yyb1w04y" target="_blank">Byte</a>.</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="5c310854-9ce6-655b-c1f6-03c8146842fe">ToInt24</a></td><td>
+Convierte este <a href="b2f59482-b5b7-a7aa-b3e0-1a7c0ef43382">Color</a> en su representación como un <a href="http://msdn2.microsoft.com/es-es/library/td2s409d" target="_blank">Int32</a>, sin el canal alfa.</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="b0920056-5565-ea7c-b947-bad4998dd5ed">ToInt32</a></td><td>
+Convierte este <a href="b2f59482-b5b7-a7aa-b3e0-1a7c0ef43382">Color</a> en su representación como un <a href="http://msdn2.microsoft.com/es-es/library/td2s409d" target="_blank">Int32</a>.</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="698cf540-2a5a-1836-d1ea-a232ad0dc7c1">ToShort</a></td><td>
+Convierte este <a href="b2f59482-b5b7-a7aa-b3e0-1a7c0ef43382">Color</a> en su representación como un <a href="http://msdn2.microsoft.com/es-es/library/e07e6fds" target="_blank">Int16</a>.</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="b4d5d495-4742-bcc9-6caf-17b5f7b96b81">ToShort565</a></td><td>
+Convierte este <a href="b2f59482-b5b7-a7aa-b3e0-1a7c0ef43382">Color</a> en su representación como un <a href="http://msdn2.microsoft.com/es-es/library/e07e6fds" target="_blank">Int16</a>.</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="c5a0bc9e-3e94-80b2-7da5-b743d86a3665">ToString()</a></td><td>
+Returns a <a href="http://msdn2.microsoft.com/es-es/library/s1wwdcbf" target="_blank">String</a> that represents the current <a href="b2f59482-b5b7-a7aa-b3e0-1a7c0ef43382">Color</a>.
+ (Overrides <a href="http://msdn2.microsoft.com/es-es/library/wb77sz3h" target="_blank">ValueType.ToString()</a>.)</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="c9b99bb8-a326-dc21-46a0-c3c43610d9c3">ToString(String, IFormatProvider)</a></td><td>
+Returns a <a href="http://msdn2.microsoft.com/es-es/library/s1wwdcbf" target="_blank">String</a> that represents the current <a href="b2f59482-b5b7-a7aa-b3e0-1a7c0ef43382">Color</a>.</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="c527146a-3308-f811-9f33-a156830647d3">ToVGAByte</a></td><td>
+Convierte este <a href="b2f59482-b5b7-a7aa-b3e0-1a7c0ef43382">Color</a> en su representación como un <a href="http://msdn2.microsoft.com/es-es/library/yyb1w04y" target="_blank">Byte</a> de atributo VGA.</td></tr></table>&nbsp;
+<a href="#color-methods">Back to Top</a>
+
+## Extension Methods
+&nbsp;<table><tr><th></th><th>Name</th><th>Description</th></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="20a5cafd-114e-2b5b-d8c1-70d6deb2a71c">AreClose</a></td><td>
+Determina si los colores son lo suficientemente similares.
+ (Defined by <a href="ebf78282-5833-6274-ae32-03fc6aa2555a">ColorExtensions</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="fa91ecc8-8748-e548-721f-979be9ab9dc7">Blend</a></td><td>
+Realiza una mezcla entre los colores especificados.
+ (Defined by <a href="ebf78282-5833-6274-ae32-03fc6aa2555a">ColorExtensions</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="266d0619-24e8-4bb1-eeac-82fa7c767fb6">GetAttr(T)()</a></td><td>Overloaded.  
+Devuelve el atributo asociado a la declaración del objeto especificado.
+ (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="266d0619-24e8-4bb1-eeac-82fa7c767fb6">GetAttr(T)()</a></td><td>Overloaded.   (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="23d8a4fc-d7b8-c950-fd60-5488d38ae883">HasAttr(T)()</a></td><td>Overloaded.  
+Determina si un miembro posee un atributo definido.
+ (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="23d8a4fc-d7b8-c950-fd60-5488d38ae883">HasAttr(T)()</a></td><td>Overloaded.   (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="203375c6-370f-f64c-5432-7536a7b7ebcc">HasAttr(T)(T)</a></td><td>Overloaded.  
+Determina si un miembro posee un atributo definido.
+ (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="203375c6-370f-f64c-5432-7536a7b7ebcc">HasAttr(T)(T)</a></td><td>Overloaded.   (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="196f8475-b677-a34d-59bf-35344814f977">Is(Object)</a></td><td>Overloaded.  
+Determina si *obj1* es la misma instancia en *obj2*.
+ (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="196f8475-b677-a34d-59bf-35344814f977">Is(Object)</a></td><td>Overloaded.   (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="df46cf0b-190b-ec6a-69df-c78f6a5797bf">IsEither(Object[])</a></td><td>Overloaded.  
+Determina si un objeto es cualquiera de los indicados.
+ (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="df46cf0b-190b-ec6a-69df-c78f6a5797bf">IsEither(Object[])</a></td><td>Overloaded.   (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="eefea649-60a0-7eb1-917a-075b273494b9">IsNeither(Object[])</a></td><td>Overloaded.  
+Determina si un objeto no es ninguno de los indicados.
+ (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="eefea649-60a0-7eb1-917a-075b273494b9">IsNeither(Object[])</a></td><td>Overloaded.   (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="544e32e7-8440-b023-8a1b-4e3542ae24f5">IsNot(Object)</a></td><td>Overloaded.  
+Determina si *obj1* es una instancia diferente a *obj2*.
+ (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="544e32e7-8440-b023-8a1b-4e3542ae24f5">IsNot(Object)</a></td><td>Overloaded.   (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="f698db4a-e3bd-b641-24d9-9e26d1a23f62">Similarity</a></td><td>
+Determina el porcentaje de similitud entre dos colores.
+ (Defined by <a href="ebf78282-5833-6274-ae32-03fc6aa2555a">ColorExtensions</a>.)</td></tr></table>&nbsp;
+<a href="#color-methods">Back to Top</a>
+
+## See Also
+
+
+#### Reference
+<a href="b2f59482-b5b7-a7aa-b3e0-1a7c0ef43382">Color Structure</a><br /><a href="c5168ca1-3831-8d0b-91b8-6ec8e54f9c51">MCART.Types Namespace</a><br />

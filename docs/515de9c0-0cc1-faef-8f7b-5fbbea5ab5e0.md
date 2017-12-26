@@ -1,0 +1,40 @@
+# Server(*TClient*) Methods
+ _**\[This is preliminary documentation and is subject to change.\]**_
+
+The <a href="6fa3083a-c860-4cc8-7bad-c8d06352c50b">Server(TClient)</a> generic type exposes the following members.
+
+
+## Methods
+&nbsp;<table><tr><th></th><th>Name</th><th>Description</th></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="9a5f77bd-3740-c91b-c6c1-08dab1232bba">Broadcast</a></td><td>
+Envía un mensaje a todos los clientes, excepto el especificado.</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="ac07ed51-fb54-f61a-1d02-60859764dd67">BroadcastAsync</a></td><td>
+Envía un mensaje a todos los clientes, excepto el especificado.</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="http://msdn2.microsoft.com/es-es/library/bsc2ak47" target="_blank">Equals</a></td><td> (Inherited from <a href="http://msdn2.microsoft.com/es-es/library/e5kfa45b" target="_blank">Object</a>.)</td></tr><tr><td>![Protected method](media/protmethod.gif "Protected method")</td><td><a href="http://msdn2.microsoft.com/es-es/library/4k87zsw7" target="_blank">Finalize</a></td><td> (Inherited from <a href="http://msdn2.microsoft.com/es-es/library/e5kfa45b" target="_blank">Object</a>.)</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="http://msdn2.microsoft.com/es-es/library/zdee4b3y" target="_blank">GetHashCode</a></td><td> (Inherited from <a href="http://msdn2.microsoft.com/es-es/library/e5kfa45b" target="_blank">Object</a>.)</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="http://msdn2.microsoft.com/es-es/library/dfwy45w9" target="_blank">GetType</a></td><td> (Inherited from <a href="http://msdn2.microsoft.com/es-es/library/e5kfa45b" target="_blank">Object</a>.)</td></tr><tr><td>![Protected method](media/protmethod.gif "Protected method")</td><td><a href="http://msdn2.microsoft.com/es-es/library/57ctke0a" target="_blank">MemberwiseClone</a></td><td> (Inherited from <a href="http://msdn2.microsoft.com/es-es/library/e5kfa45b" target="_blank">Object</a>.)</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="a36ccc05-733b-f8e0-0026-006c0905ec7d">Multicast</a></td><td>
+Envía un mensaje a todos los clientes que satisfacen la condición especificada por *condition*.</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="978b736c-acbc-b7a6-2b6b-443121bc125b">MulticastAsync</a></td><td>
+Envía un mensaje a todos los clientes que satisfacen la condición especificada por *condition*.</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="46e865e0-bd5b-620f-69bc-6e848f35dc70">Start</a></td><td>
+Crea un hilo de ejecución que da servicio a los clientes</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="3f6dfb0f-2c8f-a386-4a9c-571d23d6951b">Stop</a></td><td>
+Detiene al servidor.</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="0d71384d-d246-3d37-72fb-334729eba0a9">StopAsync</a></td><td>
+Detiene al servidor de forma asíncrona.</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="http://msdn2.microsoft.com/es-es/library/7bxwbwt2" target="_blank">ToString</a></td><td> (Inherited from <a href="http://msdn2.microsoft.com/es-es/library/e5kfa45b" target="_blank">Object</a>.)</td></tr></table>&nbsp;
+<a href="#server(*tclient*)-methods">Back to Top</a>
+
+## Extension Methods
+&nbsp;<table><tr><th></th><th>Name</th><th>Description</th></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="266d0619-24e8-4bb1-eeac-82fa7c767fb6">GetAttr(T)()</a></td><td>Overloaded.  
+Devuelve el atributo asociado a la declaración del objeto especificado.
+ (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="266d0619-24e8-4bb1-eeac-82fa7c767fb6">GetAttr(T)()</a></td><td>Overloaded.   (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="23d8a4fc-d7b8-c950-fd60-5488d38ae883">HasAttr(T)()</a></td><td>Overloaded.  
+Determina si un miembro posee un atributo definido.
+ (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="23d8a4fc-d7b8-c950-fd60-5488d38ae883">HasAttr(T)()</a></td><td>Overloaded.   (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="203375c6-370f-f64c-5432-7536a7b7ebcc">HasAttr(T)(T)</a></td><td>Overloaded.  
+Determina si un miembro posee un atributo definido.
+ (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="203375c6-370f-f64c-5432-7536a7b7ebcc">HasAttr(T)(T)</a></td><td>Overloaded.   (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="196f8475-b677-a34d-59bf-35344814f977">Is(Object)</a></td><td>Overloaded.  
+Determina si *obj1* es la misma instancia en *obj2*.
+ (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="196f8475-b677-a34d-59bf-35344814f977">Is(Object)</a></td><td>Overloaded.   (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="df46cf0b-190b-ec6a-69df-c78f6a5797bf">IsEither(Object[])</a></td><td>Overloaded.  
+Determina si un objeto es cualquiera de los indicados.
+ (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="df46cf0b-190b-ec6a-69df-c78f6a5797bf">IsEither(Object[])</a></td><td>Overloaded.   (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="eefea649-60a0-7eb1-917a-075b273494b9">IsNeither(Object[])</a></td><td>Overloaded.  
+Determina si un objeto no es ninguno de los indicados.
+ (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="eefea649-60a0-7eb1-917a-075b273494b9">IsNeither(Object[])</a></td><td>Overloaded.   (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="544e32e7-8440-b023-8a1b-4e3542ae24f5">IsNot(Object)</a></td><td>Overloaded.  
+Determina si *obj1* es una instancia diferente a *obj2*.
+ (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="544e32e7-8440-b023-8a1b-4e3542ae24f5">IsNot(Object)</a></td><td>Overloaded.   (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr></table>&nbsp;
+<a href="#server(*tclient*)-methods">Back to Top</a>
+
+## See Also
+
+
+#### Reference
+<a href="6fa3083a-c860-4cc8-7bad-c8d06352c50b">Server(TClient) Class</a><br /><a href="720af18e-2a17-584a-1ca8-e0e39906cbff">MCART.Networking.Server Namespace</a><br />

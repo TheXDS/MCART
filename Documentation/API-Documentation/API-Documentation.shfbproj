@@ -14,7 +14,7 @@
     <Name>API_Documentation</Name>
     <!-- SHFB properties -->
     <FrameworkVersion>.NET Framework 4.6.1</FrameworkVersion>
-    <OutputPath>..\..\Build\Help\</OutputPath>
+    <OutputPath>..\..\docs\</OutputPath>
     <HtmlHelpName>API_Documentation</HtmlHelpName>
     <Language>es-ES</Language>
     <TransformComponentArguments>

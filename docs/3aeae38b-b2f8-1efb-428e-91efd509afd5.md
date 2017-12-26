@@ -1,0 +1,62 @@
+# ThunkAttribute Class
+ _**\[This is preliminary documentation and is subject to change.\]**_
+
+Marca un elemento como método de Thunking (facilita la llamada de otros métodos).
+
+
+## Inheritance Hierarchy
+<a href="http://msdn2.microsoft.com/es-es/library/e5kfa45b" target="_blank">System.Object</a><br />&nbsp;&nbsp;<a href="http://msdn2.microsoft.com/es-es/library/e8kc3626" target="_blank">System.Attribute</a><br />&nbsp;&nbsp;&nbsp;&nbsp;MCART.Attributes.ThunkAttribute<br />
+**Namespace:**&nbsp;<a href="149c1cbf-2082-5e41-e423-c506e9b98202">MCART.Attributes</a><br />**Assemblies:**&nbsp;&nbsp;MCART (in MCART.dll) Version: 0.7.0.0<br />&nbsp;&nbsp;MCART (in MCART.dll) Version: 0.7.0.0<br />
+
+## Syntax
+
+**C#**<br />
+``` C#
+public sealed class ThunkAttribute : Attribute
+```
+
+**VB**<br />
+``` VB
+Public NotInheritable Class ThunkAttribute
+	Inherits Attribute
+```
+
+The ThunkAttribute type exposes the following members.
+
+
+## Constructors
+&nbsp;<table><tr><th></th><th>Name</th><th>Description</th></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="dd844f30-7c50-0a53-42ae-38646a946956">ThunkAttribute</a></td><td>
+Initializes a new instance of the ThunkAttribute class</td></tr></table>&nbsp;
+<a href="#thunkattribute-class">Back to Top</a>
+
+## Properties
+&nbsp;<table><tr><th></th><th>Name</th><th>Description</th></tr><tr><td>![Public property](media/pubproperty.gif "Public property")</td><td><a href="http://msdn2.microsoft.com/es-es/library/sa1bf03e" target="_blank">TypeId</a></td><td> (Inherited from <a href="http://msdn2.microsoft.com/es-es/library/e8kc3626" target="_blank">Attribute</a>.)</td></tr></table>&nbsp;
+<a href="#thunkattribute-class">Back to Top</a>
+
+## Methods
+&nbsp;<table><tr><th></th><th>Name</th><th>Description</th></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="http://msdn2.microsoft.com/es-es/library/09ds241w" target="_blank">Equals</a></td><td> (Inherited from <a href="http://msdn2.microsoft.com/es-es/library/e8kc3626" target="_blank">Attribute</a>.)</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="http://msdn2.microsoft.com/es-es/library/365e1bxs" target="_blank">GetHashCode</a></td><td> (Inherited from <a href="http://msdn2.microsoft.com/es-es/library/e8kc3626" target="_blank">Attribute</a>.)</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="http://msdn2.microsoft.com/es-es/library/dfwy45w9" target="_blank">GetType</a></td><td> (Inherited from <a href="http://msdn2.microsoft.com/es-es/library/e5kfa45b" target="_blank">Object</a>.)</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="http://msdn2.microsoft.com/es-es/library/tbkb5x6t" target="_blank">IsDefaultAttribute</a></td><td> (Inherited from <a href="http://msdn2.microsoft.com/es-es/library/e8kc3626" target="_blank">Attribute</a>.)</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="http://msdn2.microsoft.com/es-es/library/wy7chz44" target="_blank">Match</a></td><td> (Inherited from <a href="http://msdn2.microsoft.com/es-es/library/e8kc3626" target="_blank">Attribute</a>.)</td></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="http://msdn2.microsoft.com/es-es/library/7bxwbwt2" target="_blank">ToString</a></td><td> (Inherited from <a href="http://msdn2.microsoft.com/es-es/library/e5kfa45b" target="_blank">Object</a>.)</td></tr></table>&nbsp;
+<a href="#thunkattribute-class">Back to Top</a>
+
+## Extension Methods
+&nbsp;<table><tr><th></th><th>Name</th><th>Description</th></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="266d0619-24e8-4bb1-eeac-82fa7c767fb6">GetAttr(T)()</a></td><td>Overloaded.  
+Devuelve el atributo asociado a la declaración del objeto especificado.
+ (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="266d0619-24e8-4bb1-eeac-82fa7c767fb6">GetAttr(T)()</a></td><td>Overloaded.   (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="23d8a4fc-d7b8-c950-fd60-5488d38ae883">HasAttr(T)()</a></td><td>Overloaded.  
+Determina si un miembro posee un atributo definido.
+ (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="23d8a4fc-d7b8-c950-fd60-5488d38ae883">HasAttr(T)()</a></td><td>Overloaded.   (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="203375c6-370f-f64c-5432-7536a7b7ebcc">HasAttr(T)(T)</a></td><td>Overloaded.  
+Determina si un miembro posee un atributo definido.
+ (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="203375c6-370f-f64c-5432-7536a7b7ebcc">HasAttr(T)(T)</a></td><td>Overloaded.   (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="196f8475-b677-a34d-59bf-35344814f977">Is(Object)</a></td><td>Overloaded.  
+Determina si *obj1* es la misma instancia en *obj2*.
+ (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="196f8475-b677-a34d-59bf-35344814f977">Is(Object)</a></td><td>Overloaded.   (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="df46cf0b-190b-ec6a-69df-c78f6a5797bf">IsEither(Object[])</a></td><td>Overloaded.  
+Determina si un objeto es cualquiera de los indicados.
+ (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="df46cf0b-190b-ec6a-69df-c78f6a5797bf">IsEither(Object[])</a></td><td>Overloaded.   (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="eefea649-60a0-7eb1-917a-075b273494b9">IsNeither(Object[])</a></td><td>Overloaded.  
+Determina si un objeto no es ninguno de los indicados.
+ (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="eefea649-60a0-7eb1-917a-075b273494b9">IsNeither(Object[])</a></td><td>Overloaded.   (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="544e32e7-8440-b023-8a1b-4e3542ae24f5">IsNot(Object)</a></td><td>Overloaded.  
+Determina si *obj1* es una instancia diferente a *obj2*.
+ (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr><tr><td>![Public Extension Method](media/pubextension.gif "Public Extension Method")</td><td><a href="544e32e7-8440-b023-8a1b-4e3542ae24f5">IsNot(Object)</a></td><td>Overloaded.   (Defined by <a href="bed01b44-1ba8-b02e-7f19-0855e84b8dbd">Objects</a>.)</td></tr></table>&nbsp;
+<a href="#thunkattribute-class">Back to Top</a>
+
+## See Also
+
+
+#### Reference
+<a href="149c1cbf-2082-5e41-e423-c506e9b98202">MCART.Attributes Namespace</a><br />
