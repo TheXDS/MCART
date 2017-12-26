@@ -28,7 +28,7 @@
     </TransformComponentArguments>
     <SaveComponentCacheCapacity>100</SaveComponentCacheCapacity>
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
-    <HelpFileFormat>Website</HelpFileFormat>
+    <HelpFileFormat>Markdown</HelpFileFormat>
     <IndentHtml>False</IndentHtml>
     <KeepLogFile>True</KeepLogFile>
     <DisableCodeBlockComponent>False</DisableCodeBlockComponent>
@@ -39,8 +39,8 @@
     <SyntaxFilters>C#, Visual Basic</SyntaxFilters>
     <SdkLinkTarget>Blank</SdkLinkTarget>
     <RootNamespaceContainer>False</RootNamespaceContainer>
-    <PresentationStyle>VS2013</PresentationStyle>
-    <Preliminary>False</Preliminary>
+    <PresentationStyle>Markdown</PresentationStyle>
+    <Preliminary>True</Preliminary>
     <NamingMethod>Guid</NamingMethod>
     <HelpTitle>Documentaci&amp;#243%3bn de API de MCART</HelpTitle>
     <CopyrightHref>Copyright &amp;#169%3b 2011-2018 C&amp;#233%3bsar Andr&amp;#233%3bs Morgan</CopyrightHref>
@@ -134,11 +134,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Content" />
+    <Folder Include="Content\Snippets" />
+    <Folder Include="Content\Topics" />
     <Folder Include="Content\VersionHistory" />
     <Folder Include="icons" />
     <Folder Include="media" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\Topics\TechInfo.aml" />
     <None Include="Content\VersionHistory\0.6.aml" />
     <None Include="Content\VersionHistory\0.7.aml" />
     <None Include="Content\VersionHistory\VersionHistory.aml" />
@@ -149,6 +152,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons\Help.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeSnippets Include="Content\Snippets\TechInfo.snippets" />
   </ItemGroup>
   <!-- Import the SHFB build targets -->
   <Import Project="$(SHFBROOT)\SandcastleHelpFileBuilder.targets" />

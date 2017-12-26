@@ -59,17 +59,15 @@ los otros proyectos no se queden atrás.
 ### Notas adicionales
 #### Gtk:
 El proyecto incluye paquetes de NuGet de Gtk# 3.22, por lo que en Microsoft
-Windows podría ser importante comprobar que se cuente con una instalación de
-GTK+ 3. Las distintas distribuciones de Linux generalmente ya incluyen GTK+ 3,
-por lo que únicamente es necesario comprobar que los paquetes correspondientes
-hayan sido instalados y se encuentren actualizados.
+Windows® es necesario comprobar que se cuente con una copia de los respectivos
+archivos DLL de GTK+ 3 en el directorio principal de la aplicación, junto al
+ensamblado de MCART para Gtk#. Las distintas distribuciones de Linux
+generalmente ya incluyen GTK+ 3, por lo que únicamente es necesario comprobar
+que los paquetes correspondientes hayan sido instalados y se encuentren 
+actualizados.
 
 [Gtk# en NuGet](https://www.nuget.org/packages/GtkSharp)  
-[Información para descargar e instalar Gtk+3](https://www.gtk.org/download/windows.php)
-
-**versiones anteriores**  
-[Gtk# para .Net Framework](http://www.mono-project.com/docs/gui/gtksharp/installer-for-net-framework/)  
-[Código fuente de Gtk#](https://download.mono-project.com/sources/gtk-sharp212/)
+[Información para descargar e instalar Gtk+3 en Micrisift Windows®](https://www.gtk.org/download/windows.php)
 #### C# 7.0
 Respecto a la decisión de utilizar una versión tan nueva del lenguaje, C# 7.0
 ofrece ciertas características de lenguaje sobre las cuales MCART depende.

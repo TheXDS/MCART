@@ -88,9 +88,24 @@ namespace MCART.Controls
         }
     }
 
-
+    /// <summary>
+    /// Extensiones especiales para <see cref="Slice"/>.
+    /// </summary>
     public static class Extensions
     {
+        /// <summary>
+        /// Obtiene los límites mínimo y máximo de una colección de
+        /// <see cref="Slice"/>.
+        /// </summary>
+        /// <param name="data">
+        /// Colección de <see cref="Slice"/> a analizar.
+        /// </param>
+        /// <param name="min">
+        /// Parámetro de salida. Valor mínimo de la colección.
+        /// </param>
+        /// <param name="max">
+        /// Parámetro de salida. Valor máximo de la colección.
+        /// </param>
         public static void GetBounds(this IEnumerable<Slice> data, out double min, out double max)
         {
             if (!data.Any()) throw new Exceptions.EmptyCollectionException<Slice>(data);
