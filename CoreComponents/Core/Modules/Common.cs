@@ -47,9 +47,9 @@ namespace MCART
         /// <param name="str">Arreglo a condensar.</param>
         /// <param name="separation">
         /// Establece una cadena de separación entre los elementos de la
-        /// cadena. Si de omite, se utilizará <c>null</c>.
+        /// cadena. Si de omite, se utilizará un espacio en blanco.
         /// </param>
-        public static string Condense(this IEnumerable<string> str, string separation = null)
+        public static string Condense(this IEnumerable<string> str, string separation = " ")
         {
             StringBuilder outp = new StringBuilder();
             foreach (string j in str)

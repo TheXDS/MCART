@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<examples>
+  <item id="TechInfo#PrjDef">
+    <sampleCode language="xml">
+      <![CDATA[
+      <PropertyGroup Condition="'$(SolutionDir)' == '' or '$(SolutionDir)' == '*undefined*'">
+          <SolutionDir>..\..\</SolutionDir>
+      </PropertyGroup>
+      <Import Project="$(SolutionDir)CommonSettings.targets" />
+      ]]>
+    </sampleCode>
+  </item>
+  <item id="TechInfo#GtkNewWidgets">
+    <sampleCode language="CSharp">
+      #region Construcción de ventana
+      /// &lt;summary&gt;
+      /// Crea una nueva instancia de la clase &lt;see cref="Ventana"/&gt;.
+      /// &lt;/summary&gt;
+      /// &lt;returns&gt;
+      /// Una nueva instancia de la clase &lt;see cref="Ventana"/&gt;.
+      /// &lt;/returns&gt;
+      public static Ventana Create()
+      {
+          var t = typeof(Ventana);
+          Builder builder = new Builder(t.Assembly, $"{t.FullName}.glade", null);
+          return new Ventana(builder, builder.GetObject(t.Name).Handle);
+      }
+
+      /// &lt;summary&gt;
+      /// Inicializa una nueva instancia de la clase &lt;see cref="Ventana"/&gt;.
+      /// &lt;/summary&gt;
+      /// &lt;param name="builder"&gt;Builder.&lt;/param&gt;
+      /// &lt;param name="handle"&gt;Handle.&lt;/param&gt;
+      public Ventana(Builder builder, IntPtr handle) : base(handle)
+      {
+      builder.Autoconnect(this);
+
+          /*
+           * TODO: Otras inicializaciones de la clase aquí...
+           */
+      }
+      #endregion
+
+      #region Widgets
+
+      #pragma warning disable CS0649
+      #pragma warning disable CS0169
+
+      [Builder.Object] Label lblHola;
+      [Builder.Object] Entry txtNombre;
+      [Builder.Object] Button btnAceptar;
+
+      /*
+       * TODO: Widgets utilizados aquí, con el atributo [Builder.Object].
+       * No es necesario incluir aquellos que no poseen interacción alguna.
+       */
+
+      #pragma warning restore CS0649
+      #pragma warning restore CS0169
+
+      #endregion
+    </sampleCode>
+    <sampleCode language="VisualBasic">
+      #Region "Construcción de ventana"
+      ''' &lt;summary&gt;
+      ''' Crea una nueva instancia de la clase &lt;see cref="Ventana"/&gt;.
+      ''' &lt;/summary&gt;
+      ''' &lt;returns&gt;
+      ''' Una nueva instancia de la clase &lt;see cref="Ventana"/&gt;.
+      ''' &lt;/returns&gt;
+      Public Shared Function Create() As Ventana
+          Dim t As Type = GetType(Ventana)
+          Dim buildr As New Builder(t.Assembly, $"{t.FullName}.glade", Nothing)
+          Return New Ventana(buildr, buildr.GetObject(t.Name).Handle)
+      End Function
+
+      ''' &lt;summary&gt;
+      ''' Inicializa una nueva instancia de la clase &lt;see cref="Ventana"/&gt;.
+      ''' &lt;/summary&gt;
+      ''' &lt;param name="builder"&gt;Builder.&lt;/param&gt;
+      ''' &lt;param name="handle"&gt;Handle.&lt;/param&gt;
+      Public Sub New(buildr As Builder, handle as IntPtr)
+          MyBase.New(handle)
+      buildr.Autoconnect(Me)
+
+      '
+      ' TODO: Otras inicializaciones de la clase aquí...
+      '
+
+      End Sub
+      #End Region
+
+      #Region "Widgets"
+
+      #Disable Warning VB0649
+      #Disable Warning VB0169
+
+      &lt;Builder.Object&gt; Dim lblHola As Label
+      &lt;Builder.Object&gt; Dim txtNombre As Entry
+      &lt;Builder.Object&gt; Dim btnAceptar As Button
+
+      '
+      ' TODO: Widgets utilizados aquí, con el atributo &lt;Builder.Object&gt;.
+      ' No es necesario incluir aquellos que no poseen interacción alguna.
+      '
+
+      #Enable Warning VB0649
+      #Enable Warning VB0169
+
+      #End Region
+    </sampleCode>
+  </item>
+</examples>

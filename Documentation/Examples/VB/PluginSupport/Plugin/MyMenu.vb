@@ -1,5 +1,5 @@
 ﻿'
-' MyPlugin.vb
+' MyMenu.vb
 '
 '  This file is part of MCART
 '

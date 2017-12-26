@@ -130,7 +130,7 @@ namespace MCART.Attributes
     /// Marca un elemento como método de Thunking (facilita la llamada de otros
     /// métodos).
     /// </summary>
-    [AttributeUsage((AttributeTargets)71 | AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Module | AttributeTargets.Assembly | AttributeTargets.Property)]
     public sealed class ThunkAttribute : Attribute { }
 
     /// <summary>
@@ -144,7 +144,7 @@ namespace MCART.Attributes
     /// <summary>
     /// Especifica la versión de un elemento
     /// </summary>
-    [AttributeUsage((AttributeTargets)71)]
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     public sealed class VersionAttribute : VersionAttributeBase
     {
         /// <summary>
@@ -175,7 +175,7 @@ namespace MCART.Attributes
     /// <summary>
     /// Especifica la versión mínima de MCART requerida por el elemento.
     /// </summary>
-    [AttributeUsage((AttributeTargets)71)]
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     public sealed class MinMCARTVersionAttribute : VersionAttributeBase
     {
         /// <summary>
@@ -206,7 +206,7 @@ namespace MCART.Attributes
     /// <summary>
     /// Especifica la versión de MCART recomendada para el elemento.
     /// </summary>
-    [AttributeUsage((AttributeTargets)71)]
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     public sealed class TargetMCARTVersionAttribute : VersionAttributeBase
     {
         /// <summary>
@@ -237,7 +237,7 @@ namespace MCART.Attributes
     /// <summary>
     /// Marca un elemento como versión Beta.
     /// </summary>
-    [AttributeUsage((AttributeTargets)71)]
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     public sealed class BetaAttribute : Attribute { }
 
     /// <summary>
@@ -249,11 +249,7 @@ namespace MCART.Attributes
     /// <summary>
     /// Marca un elemento como inestable.
     /// </summary>
-    [AttributeUsage(
-        AttributeTargets.Method |
-        AttributeTargets.Class |
-        AttributeTargets.Module |
-        AttributeTargets.Assembly)]
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     public sealed class UnstableAttribute : Attribute { }
 
     /// <summary>
@@ -287,7 +283,7 @@ namespace MCART.Attributes
     /// <summary>
     /// Establece el autor del elemento.
     /// </summary>
-    [AttributeUsage((AttributeTargets)71)]
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     public sealed class AuthorAttribute : TextAttributeBase
     {
         /// <summary>
@@ -301,7 +297,7 @@ namespace MCART.Attributes
     /// <summary>
     /// Establece el autor del elemento.
     /// </summary>
-    [AttributeUsage((AttributeTargets)71)]
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     public sealed class CopyrightAttribute : TextAttributeBase
     {
         /// <summary>
@@ -315,10 +311,7 @@ namespace MCART.Attributes
     /// <summary>
     /// Establece el texto de licencia a asociar con el elemento.
     /// </summary>
-    [AttributeUsage(
-        AttributeTargets.Class |
-        AttributeTargets.Module |
-        AttributeTargets.Assembly)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     public sealed class LicenseTextAttribute : TextAttributeBase
     {
         /// <summary>
@@ -332,10 +325,7 @@ namespace MCART.Attributes
     /// <summary>
     /// Establece un archivo embebido de licencia a asociar con el elemento.
     /// </summary>
-    [AttributeUsage(
-        AttributeTargets.Class |
-        AttributeTargets.Module |
-        AttributeTargets.Assembly)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     public sealed class EmbeededLicenseAttribute : TextAttributeBase
     {
         /// <summary>
@@ -349,10 +339,7 @@ namespace MCART.Attributes
     /// <summary>
     /// Establece un archivo de licencia a asociar con el elemento.
     /// </summary>
-    [AttributeUsage(
-        AttributeTargets.Class |
-        AttributeTargets.Module |
-        AttributeTargets.Assembly)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     public sealed class LicenseFileAttribute : TextAttributeBase
     {
         /// <summary>
@@ -375,14 +362,14 @@ namespace MCART.Attributes
     /// Indica que un elemento podría tardar en ejecutarse, y por lo tanto,
     /// es capaz de reportar su progreso.
     /// </summary>
-    [AttributeUsage((AttributeTargets)71)]
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     public sealed class LenghtyAttribute : Attribute { }
 
     /// <summary>
     /// Indica que un elemento no está completo, y que no posee la
     /// funcionalidad necesaria.
     /// </summary>
-    [AttributeUsage((AttributeTargets)71)]
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     public sealed class StubAttribute : Attribute { }
 
     /// <summary>
@@ -441,7 +428,6 @@ namespace MCART.Attributes
         public ServerAttribute(string server, ushort port)
         {
             Server = server;
-            if (Port != 0 && Port != port) throw new ArgumentException(nameof(port));
             Port = port;
         }
         /// <summary>
@@ -456,9 +442,6 @@ namespace MCART.Attributes
         public ServerAttribute(string server)
         {
             Server = server;
-
-            //Esta comprobación parece ser redundante...
-            //if (Port == 0) throw new ArgumentException($"{nameof(server)} debe incluir el número de puerto.", nameof(server));
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase

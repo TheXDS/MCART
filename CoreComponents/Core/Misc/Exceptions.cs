@@ -46,7 +46,6 @@ namespace MCART.Exceptions
         /// <see cref="InterfaceExpectedException"/>.
         /// </summary>
         public InterfaceExpectedException() : base(St.InterfaceExpected) { }
-
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InterfaceExpectedException"/>.
@@ -56,7 +55,6 @@ namespace MCART.Exceptions
         {
             OffendingType = T;
         }
-
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InterfaceExpectedException"/>.
@@ -64,7 +62,6 @@ namespace MCART.Exceptions
         /// <param name="message">A <see cref="string"/> that describes
         /// the exception.</param>
         public InterfaceExpectedException(string message) : base(message) { }
-
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InterfaceExpectedException"/>.
@@ -74,7 +71,6 @@ namespace MCART.Exceptions
         /// <param name="T">Tipo que generó la excepción.</param>
         public InterfaceExpectedException(string message, Type T)
             : base(message) { OffendingType = T; }
-
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InterfaceExpectedException"/>.
@@ -83,7 +79,6 @@ namespace MCART.Exceptions
         /// exception.</param>
         public InterfaceExpectedException(Exception inner)
             : base(St.InterfaceExpected, inner) { }
-
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InterfaceExpectedException"/>.
@@ -93,7 +88,6 @@ namespace MCART.Exceptions
         /// <param name="T">Tipo que generó la excepción.</param>
         public InterfaceExpectedException(Exception inner, Type T)
             : base(St.InterfaceExpected, inner) { OffendingType = T; }
-
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InterfaceExpectedException"/>.
@@ -104,7 +98,6 @@ namespace MCART.Exceptions
         /// exception. </param>
         public InterfaceExpectedException(string message, Exception inner)
             : base(message, inner) { }
-
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InterfaceExpectedException"/>.
@@ -116,7 +109,6 @@ namespace MCART.Exceptions
         /// <param name="T">Tipo que generó la excepción.</param>
         public InterfaceExpectedException(string message, Exception inner, Type T)
             : base(message, inner) { OffendingType = T; }
-
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InterfaceExpectedException"/>.
@@ -128,7 +120,6 @@ namespace MCART.Exceptions
         /// </param>
         protected InterfaceExpectedException(SerializationInfo info, StreamingContext context)
             : base(info, context) { }
-
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InterfaceExpectedException"/>.
@@ -769,7 +760,6 @@ namespace MCART.Exceptions
         /// La información contextual acerca del orígen o el destino.
         /// </param>
         protected PluginNeededException(SerializationInfo info, StreamingContext context) : base(info, context) { }
-
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="PluginNeededException"/>.
         /// </summary>
@@ -815,7 +805,6 @@ namespace MCART.Exceptions
         /// La información contextual acerca del orígen o el destino.
         /// </param>
         protected PluginInitializationException(SerializationInfo info, StreamingContext context) : base(info, context) { }
-
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="PluginInitializationException"/>.
         /// </summary>
@@ -1260,7 +1249,6 @@ namespace MCART.Exceptions
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
         public DataAlreadyExistsException(string Uid, Exception inner) : base(St.XAlreadyExists(St.XYQuotes(St.TheUid, Uid)), inner) { }
     }
-
     /// <summary>
     /// Excepción que se produce cuando se llama a un método de un <see cref="PluginSupport.Plugin"/> sin inicializar
     /// </summary>

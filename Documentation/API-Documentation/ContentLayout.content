@@ -5,11 +5,12 @@
       <HelpKeyword index="K" term="Welcome" />
     </HelpKeywords>
   </Topic>
+  <Topic id="8e4ca775-621e-4350-ba47-40c623732add" visible="True" isSelected="true" title="Información técnica" />
   <Topic id="a43a94b2-1336-49d7-b56e-160b8ed4dd09" visible="True" isExpanded="true" title="Historial de versiones">
     <HelpKeywords>
       <HelpKeyword index="K" term="version, history" />
     </HelpKeywords>
-    <Topic id="abd75eaf-ae61-45b9-b102-44038f014ca1" visible="True" isSelected="true" title="MCART 0.6.1.0">
+    <Topic id="abd75eaf-ae61-45b9-b102-44038f014ca1" visible="True" title="MCART 0.6.1.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 1.0.0.0" />
       </HelpKeywords>
