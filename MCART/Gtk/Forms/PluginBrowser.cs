@@ -25,6 +25,7 @@ using Gtk;
 using MCART.PluginSupport;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using static MCART.Resources.RTInfo;
 using St = MCART.Resources.Strings;
 
@@ -94,7 +95,7 @@ namespace MCART.Forms
         #region Campos privados
         ListStore lstIfaces = new ListStore(typeof(string));
         TreeStore trPlugins = new TreeStore(typeof(string));
-        List<List<IPlugin>> lstPlugins = new List<List<IPlugin>>();
+        List<IEnumerable<IPlugin>> lstPlugins = new List<IEnumerable<IPlugin>>();
         #endregion
 
         #region Métodos privados
@@ -172,7 +173,7 @@ namespace MCART.Forms
         {
             if (!trvPlugins.Visible) return;
             trPlugins.Clear();
-            foreach (var j in Plugin.PluginTree<IPlugin>(true))
+            foreach (var j in (new PluginLoader(new RelaxedPluginChecker())).PluginTree())
             {
                 TreeIter plg = trPlugins.AppendValues(j.Key);
                 foreach (var k in j.Value) trPlugins.AppendValues(plg, k.Name);
@@ -184,7 +185,7 @@ namespace MCART.Forms
             trvPlugins.GetCursor(out TreePath tp, out TreeViewColumn tvc);
             ClearDetails();
             if (tp?.Indices.Length == 2)
-                ShwDetails(lstPlugins[tp.Indices[0]][tp.Indices[1]]);
+                ShwDetails(lstPlugins[tp.Indices[0]].ElementAt(tp.Indices[1]));
         }
         #endregion
 

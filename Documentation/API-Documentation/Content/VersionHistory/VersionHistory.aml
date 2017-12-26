@@ -10,8 +10,13 @@
 				<para>Seleccione una versión para ver más detalles.</para>
 				<list class="bullet">
 					<listItem>
-						<para><link xlink:href="abd75eaf-ae61-45b9-b102-44038f014ca1" /></para>
-					</listItem>
+            <para>
+              <link xlink:href="abd75eaf-ae61-45b9-b102-44038f014ca1" />
+            </para>
+            <para>
+              <link xlink:href="1d355a2c-6ff6-4108-9310-510c361b6304" />
+            </para>            
+          </listItem>
 				</list>
         <para>Para una información más completa, refiérase al arhcivo CHANGELOG, en la carpeta de documentación de MCART.</para>
 			</content>
