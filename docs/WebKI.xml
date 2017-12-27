@@ -417,14 +417,14 @@
   <HelpKINode Title="Client class">
     <HelpKINode Title="Client (Clase)" Url="html/6e39bcde-7d6c-b14a-e433-55aaa84607c4.htm" />
     <HelpKINode Title="Client (Clase)" Url="html/192fdf1f-b8af-3ec9-0055-92ff0e690de3.htm" />
-    <HelpKINode Title="about Client class" Url="html/6e39bcde-7d6c-b14a-e433-55aaa84607c4.htm" />
     <HelpKINode Title="about Client class" Url="html/192fdf1f-b8af-3ec9-0055-92ff0e690de3.htm" />
-    <HelpKINode Title="constructor" Url="html/a41f3706-7d84-a529-fe2e-ca5d479ddd47.htm" />
+    <HelpKINode Title="about Client class" Url="html/6e39bcde-7d6c-b14a-e433-55aaa84607c4.htm" />
     <HelpKINode Title="constructor" Url="html/d5557efa-9454-aa32-73bf-05d9ae33b443.htm" />
+    <HelpKINode Title="constructor" Url="html/a41f3706-7d84-a529-fe2e-ca5d479ddd47.htm" />
     <HelpKINode Title="fields" Url="html/7be742e3-141f-3671-42bd-4d4a1497c893.htm" />
     <HelpKINode Title="fields" Url="html/443f2a63-8a9a-436d-ab4b-fa2f80be7790.htm" />
-    <HelpKINode Title="methods" Url="html/72ca22a0-9bb9-79d6-7365-c8cdc61b4d73.htm" />
     <HelpKINode Title="methods" Url="html/271d75df-2ac1-42e7-be68-ab981e71e39f.htm" />
+    <HelpKINode Title="methods" Url="html/72ca22a0-9bb9-79d6-7365-c8cdc61b4d73.htm" />
     <HelpKINode Title="properties" Url="html/398ac049-763b-c5a1-b3dc-35e7d1af2115.htm" />
     <HelpKINode Title="properties" Url="html/3d5056e6-d113-055d-0aa7-53dbe1c4b4e5.htm" />
   </HelpKINode>
@@ -446,8 +446,8 @@
     <HelpKINode Title="Client.bufferSize (Campo)" Url="html/504a4716-3c75-6aab-0547-d8f62bb0d329.htm" />
   </HelpKINode>
   <HelpKINode Title="Client.Client constructor">
-    <HelpKINode Title="Client (Constructor )" Url="html/d5557efa-9454-aa32-73bf-05d9ae33b443.htm" />
     <HelpKINode Title="Client (Constructor )" Url="html/a41f3706-7d84-a529-fe2e-ca5d479ddd47.htm" />
+    <HelpKINode Title="Client (Constructor )" Url="html/d5557efa-9454-aa32-73bf-05d9ae33b443.htm" />
   </HelpKINode>
   <HelpKINode Title="Client.Connect method" Url="html/410fb533-8fc9-0005-6e9b-bf37b93356c7.htm" />
   <HelpKINode Title="Client.ConnectAsync method" Url="html/c8b66c9e-0407-9ede-56c7-7c6387516b0f.htm" />
@@ -460,8 +460,8 @@
   </HelpKINode>
   <HelpKINode Title="Client.Finalize method" Url="html/290dcdc8-9e7a-d1ae-00e2-e4aa50e40931.htm" />
   <HelpKINode Title="Client.IsAlive property">
-    <HelpKINode Title="Client.IsAlive (Propiedad )" Url="html/67fe8580-1e4c-c2ee-dd4a-cfb9821a3811.htm" />
     <HelpKINode Title="Client.IsAlive (Propiedad )" Url="html/f5cd32bc-4713-3b91-1459-49498cfeb280.htm" />
+    <HelpKINode Title="Client.IsAlive (Propiedad )" Url="html/67fe8580-1e4c-c2ee-dd4a-cfb9821a3811.htm" />
   </HelpKINode>
   <HelpKINode Title="Client.Recieve method" Url="html/a8481d72-27b9-2a3f-7f93-293f691acb4b.htm" />
   <HelpKINode Title="Client.RecieveAsync method" Url="html/f600a542-9b0e-0d30-926e-9c0feb3e88ea.htm" />
@@ -524,8 +524,8 @@
   <HelpKINode Title="Color to Brush conversion" Url="html/b95bb4a7-0f85-2c34-c557-9ce83768ebe2.htm" />
   <HelpKINode Title="Color to Color conversion">
     <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/8527f134-4104-4065-edc2-bd2053d5d326.htm" />
-    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/0cb8161e-12a6-81c5-5702-c79e76d821c4.htm" />
     <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/ffec6dce-537f-3fa4-ad34-c3e8ebb91843.htm" />
+    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/0cb8161e-12a6-81c5-5702-c79e76d821c4.htm" />
     <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/73fb1a55-5fcb-1544-43d3-757edc3f4172.htm" />
   </HelpKINode>
   <HelpKINode Title="Color.A property" Url="html/1033d9fa-de8c-e61d-312f-afb71595a21b.htm" />
@@ -1368,8 +1368,8 @@
   <HelpKINode Title="DirectoryIsFullException.OffendingDirectory field" Url="html/338c25c4-045d-3171-bd57-bc824f678690.htm" />
   <HelpKINode Title="DisableControls method" Url="html/19c9c21f-2d54-87e0-c870-c60e70d19aa5.htm" />
   <HelpKINode Title="Disconnect method">
-    <HelpKINode Title="Client.Disconnect (M&#233;todo )" Url="html/2a30b103-d358-04cb-3f7e-3af266d27998.htm" />
     <HelpKINode Title="Client.Disconnect (M&#233;todo )" Url="html/335bd0b4-82b5-30c6-6c07-722310bb4ea9.htm" />
+    <HelpKINode Title="Client.Disconnect (M&#233;todo )" Url="html/2a30b103-d358-04cb-3f7e-3af266d27998.htm" />
   </HelpKINode>
   <HelpKINode Title="Disposal enumeration member" Url="html/efc40d57-94cc-0351-a8d4-b21df210f913.htm" />
   <HelpKINode Title="Dispose method" Url="html/4a78fe48-2b51-807f-2342-5cb4d3ff775d.htm" />
@@ -1605,7 +1605,6 @@
     <HelpKINode Title="Plugin.Finalize (M&#233;todo )" Url="html/a1ca209f-cbd2-c523-0ba4-019611649a26.htm" />
     <HelpKINode Title="Slice.Finalize (M&#233;todo )" Url="html/41bb9983-1398-8f6b-6ef6-420a5da4e735.htm" />
   </HelpKINode>
-  <HelpKINode Title="FinalizingReason enumeration" Url="html/efc40d57-94cc-0351-a8d4-b21df210f913.htm" />
   <HelpKINode Title="FireBrick property" Url="html/b90fbf7c-9315-1f5e-12ec-34cbd0b0696d.htm" />
   <HelpKINode Title="FireBrick1 property" Url="html/da14abd9-d4d7-656b-df38-d0b66106b0e0.htm" />
   <HelpKINode Title="FireBrick2 property" Url="html/f672e06f-964a-bc8d-dbcd-3515d204b06e.htm" />
@@ -2209,8 +2208,8 @@
   <HelpKINode Title="IronOxideGlass property" Url="html/9ee9ff9d-486b-32dd-59a5-12e103412701.htm" />
   <HelpKINode Title="Is method" Url="html/196f8475-b677-a34d-59bf-35344814f977.htm" />
   <HelpKINode Title="IsAlive property">
-    <HelpKINode Title="Client.IsAlive (Propiedad )" Url="html/f5cd32bc-4713-3b91-1459-49498cfeb280.htm" />
     <HelpKINode Title="Client.IsAlive (Propiedad )" Url="html/67fe8580-1e4c-c2ee-dd4a-cfb9821a3811.htm" />
+    <HelpKINode Title="Client.IsAlive (Propiedad )" Url="html/f5cd32bc-4713-3b91-1459-49498cfeb280.htm" />
     <HelpKINode Title="Server(TClient).IsAlive (Propiedad )" Url="html/82314302-6d07-a3f3-1416-7f90381e7928.htm" />
   </HelpKINode>
   <HelpKINode Title="IsAnyEmpty method" Url="html/4dca986c-f8c8-113f-2dc1-a8ebf5b04ff6.htm" />
@@ -2723,8 +2722,16 @@
   <HelpKINode Title="Math.IsWhole method" Url="html/b41d88f2-e0f4-7db8-f037-c3a397d4c586.htm" />
   <HelpKINode Title="Math.Nearest2Pow method" Url="html/2f6d9140-cad0-9133-414f-48eb1c21d1b3.htm" />
   <HelpKINode Title="Math.NearestMultiplyUp method" Url="html/9d32c761-2134-74d7-849c-820d46cb9877.htm" />
+  <HelpKINode Title="Math.Series class">
+    <HelpKINode Title="Math.Series (Clase)" Url="html/894f4701-858a-bd59-a41e-600c29c47018.htm" />
+    <HelpKINode Title="about Math.Series class" Url="html/894f4701-858a-bd59-a41e-600c29c47018.htm" />
+  </HelpKINode>
   <HelpKINode Title="Math.Series.Fibonacci method" Url="html/22d9ecc0-0437-5039-c2b6-d648783d0204.htm" />
   <HelpKINode Title="Math.Series.Lucas method" Url="html/84d5808a-3a6e-7df0-d206-25e7ab27d9b7.htm" />
+  <HelpKINode Title="Math.Tween class">
+    <HelpKINode Title="Math.Tween (Clase)" Url="html/94c2e88e-29de-ca89-a8c1-23c8c6341947.htm" />
+    <HelpKINode Title="about Math.Tween class" Url="html/94c2e88e-29de-ca89-a8c1-23c8c6341947.htm" />
+  </HelpKINode>
   <HelpKINode Title="Math.Tween.Cubic method" Url="html/6f4a6197-1d8f-ab0a-5913-fb1922e615c0.htm" />
   <HelpKINode Title="Math.Tween.Linear method" Url="html/3ba890ad-00e1-8dfc-a002-e054cb27ee98.htm" />
   <HelpKINode Title="Math.Tween.Quadratic method" Url="html/de7bd260-9ca9-6535-83f8-cb37cf5e3bbe.htm" />
@@ -2864,6 +2871,8 @@
   <HelpKINode Title="MCART.Forms.PasswordDialog.LoginValidator delegate" Url="html/82f923a1-6335-fcab-4999-6c5ebc7cd306.htm" />
   <HelpKINode Title="MCART.Forms.PluginBrowser class" Url="html/2ce1a893-d399-4e22-5e11-d0e46e42b0a4.htm" />
   <HelpKINode Title="MCART.Math class" Url="html/f110ea19-9a5d-de5d-39e7-a5ebffb3bc2c.htm" />
+  <HelpKINode Title="MCART.Math.Series class" Url="html/894f4701-858a-bd59-a41e-600c29c47018.htm" />
+  <HelpKINode Title="MCART.Math.Tween class" Url="html/94c2e88e-29de-ca89-a8c1-23c8c6341947.htm" />
   <HelpKINode Title="MCART.Networking namespace" Url="html/c6445fcc-8709-dc3e-4d6b-f87f79cbd982.htm" />
   <HelpKINode Title="MCART.Networking.Client namespace" Url="html/96f683aa-c63b-7648-3da2-4f7c7ee6fa34.htm" />
   <HelpKINode Title="MCART.Networking.Client.Client class" Url="html/6e39bcde-7d6c-b14a-e433-55aaa84607c4.htm" />
@@ -2885,7 +2894,6 @@
   <HelpKINode Title="MCART.Networking.Server.Server&lt;TClient&gt; class" Url="html/6fa3083a-c860-4cc8-7bad-c8d06352c50b.htm" />
   <HelpKINode Title="MCART.Objects class" Url="html/bed01b44-1ba8-b02e-7f19-0855e84b8dbd.htm" />
   <HelpKINode Title="MCART.PluginSupport namespace" Url="html/4abc7841-aae2-1ecc-94fa-a3d251746bda.htm" />
-  <HelpKINode Title="MCART.PluginSupport.FinalizingReason enumeration" Url="html/efc40d57-94cc-0351-a8d4-b21df210f913.htm" />
   <HelpKINode Title="MCART.PluginSupport.InteractionItem class" Url="html/ed917822-10d2-6d76-5a74-d2ab1af39554.htm" />
   <HelpKINode Title="MCART.PluginSupport.InteractionItemAttribute class" Url="html/fd992397-9a34-c117-0292-777b7e894826.htm" />
   <HelpKINode Title="MCART.PluginSupport.IPlugin interface" Url="html/4ee0e2a7-cfcb-eb2f-49cb-5ac7500b7e3d.htm" />
@@ -2896,6 +2904,7 @@
   <HelpKINode Title="MCART.PluginSupport.PluginFinalizedEventArgs class" Url="html/57058763-a3c1-9c4e-2841-716d8d1a07ad.htm" />
   <HelpKINode Title="MCART.PluginSupport.PluginFinalizedEventHandler delegate" Url="html/9ba605d4-26ef-40e6-83a1-165648bd331a.htm" />
   <HelpKINode Title="MCART.PluginSupport.PluginFinalizingEventArgs class" Url="html/ef3e2d81-44e4-5b0f-f0f5-59e6567e8060.htm" />
+  <HelpKINode Title="MCART.PluginSupport.PluginFinalizingEventArgs.FinalizingReason enumeration" Url="html/efc40d57-94cc-0351-a8d4-b21df210f913.htm" />
   <HelpKINode Title="MCART.PluginSupport.PluginFinalizingEventHandler delegate" Url="html/5b3d6768-ae9e-c4a0-8506-a2732bf73d8b.htm" />
   <HelpKINode Title="MCART.PluginSupport.PluginLoadedEventArgs class" Url="html/5834b889-ebb4-0d75-ec77-81f43eb2822d.htm" />
   <HelpKINode Title="MCART.PluginSupport.PluginLoadedEventHandler delegate" Url="html/122e4251-ef41-ad12-5d2d-de8ef9941d45.htm" />
@@ -2935,8 +2944,6 @@
   <HelpKINode Title="MCART.Security.Password.PwGenerator delegate" Url="html/b4d6ab07-f7e4-3356-78e7-566375753338.htm" />
   <HelpKINode Title="MCART.Security.Password.PwMode enumeration" Url="html/895a02cb-e994-9736-df1c-e787a76bfad0.htm" />
   <HelpKINode Title="MCART.Security.Password.RuleSets class" Url="html/12d592b5-8142-9905-8192-00037f77a515.htm" />
-  <HelpKINode Title="MCART.Series class" Url="html/894f4701-858a-bd59-a41e-600c29c47018.htm" />
-  <HelpKINode Title="MCART.Tween class" Url="html/94c2e88e-29de-ca89-a8c1-23c8c6341947.htm" />
   <HelpKINode Title="MCART.Types namespace" Url="html/c5168ca1-3831-8d0b-91b8-6ec8e54f9c51.htm" />
   <HelpKINode Title="MCART.Types.Color structure" Url="html/b2f59482-b5b7-a7aa-b3e0-1a7c0ef43382.htm" />
   <HelpKINode Title="MCART.Types.Extensions namespace" Url="html/a8e71047-44e0-7000-43f0-67a6f5b9758c.htm" />
@@ -3061,8 +3068,8 @@
   <HelpKINode Title="Mint property" Url="html/dc57f617-a4f6-1313-366d-2f86c449df02.htm" />
   <HelpKINode Title="MintCream property" Url="html/0e4383f0-ac6c-5e43-e1d5-779bfeaf9e20.htm" />
   <HelpKINode Title="Misc class">
-    <HelpKINode Title="Misc (Clase)" Url="html/01881faa-5da8-f3c1-6dac-3498a8eed917.htm" />
     <HelpKINode Title="Misc (Clase)" Url="html/06206d7c-2869-8a3a-1882-23c69403b55a.htm" />
+    <HelpKINode Title="Misc (Clase)" Url="html/01881faa-5da8-f3c1-6dac-3498a8eed917.htm" />
     <HelpKINode Title="about Misc class" Url="html/01881faa-5da8-f3c1-6dac-3498a8eed917.htm" />
     <HelpKINode Title="about Misc class" Url="html/06206d7c-2869-8a3a-1882-23c69403b55a.htm" />
     <HelpKINode Title="methods" Url="html/e450fd39-f4bf-b26c-9e4c-2dcd4c3ac52e.htm" />
@@ -3655,6 +3662,7 @@
     <HelpKINode Title="methods" Url="html/039f7d6d-f008-fc43-f189-6b96a0b9744f.htm" />
     <HelpKINode Title="properties" Url="html/bdfdeabd-8d20-559d-3b6b-dfc99f92224e.htm" />
   </HelpKINode>
+  <HelpKINode Title="PluginFinalizingEventArgs.FinalizingReason enumeration" Url="html/efc40d57-94cc-0351-a8d4-b21df210f913.htm" />
   <HelpKINode Title="PluginFinalizingEventArgs.Reason field" Url="html/4cdf5cf3-38b3-64ad-7c16-ebcd89f78061.htm" />
   <HelpKINode Title="PluginFinalizingEventHandler delegate" Url="html/5b3d6768-ae9e-c4a0-8506-a2732bf73d8b.htm" />
   <HelpKINode Title="PluginHasNoInters method" Url="html/119e4593-a88d-8705-b6b3-a73718611705.htm" />
@@ -3747,10 +3755,10 @@
     <HelpKINode Title="properties" Url="html/b25ee3c9-3fcf-7b1d-71c8-1330dfe0ad21.htm" />
   </HelpKINode>
   <HelpKINode Title="Point to Point conversion">
-    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/d597125f-824c-6c5b-73e9-f5f0928f55ce.htm" />
     <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/af439fb7-ad17-922e-2bf3-7a6c30fd0b91.htm" />
     <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/a3edd71c-1c0e-23f1-0035-2394369ea126.htm" />
     <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/be50bc81-daba-dab0-0b0b-cbf89da005f7.htm" />
+    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/d597125f-824c-6c5b-73e9-f5f0928f55ce.htm" />
   </HelpKINode>
   <HelpKINode Title="Point.Addition operator" Url="html/32e4191a-5282-09de-2591-0ed8778fc109.htm" />
   <HelpKINode Title="Point.Angle method" Url="html/c8ae0249-2279-b5e3-66b7-6cdee5f9b9a6.htm" />
@@ -4371,13 +4379,11 @@
   <HelpKINode Title="Sepia property" Url="html/f9079927-6c80-08e4-8bb6-d2d8d9df7fc7.htm" />
   <HelpKINode Title="Sequencer method" Url="html/d1f11aff-758d-44d0-eb7f-a330547f2656.htm" />
   <HelpKINode Title="Series class">
-    <HelpKINode Title="Series (Clase)" Url="html/894f4701-858a-bd59-a41e-600c29c47018.htm" />
     <HelpKINode Title="Series (Clase)" Url="html/97e54d19-9f80-2a2a-c831-d472621c69de.htm" />
     <HelpKINode Title="about Series class" Url="html/97e54d19-9f80-2a2a-c831-d472621c69de.htm" />
-    <HelpKINode Title="about Series class" Url="html/894f4701-858a-bd59-a41e-600c29c47018.htm" />
     <HelpKINode Title="constructor" Url="html/4b6a826f-e91c-c924-d1fa-8813557ed5bf.htm" />
-    <HelpKINode Title="methods" Url="html/291efc81-607a-bb3c-c4e9-6b89cdfc219c.htm" />
     <HelpKINode Title="methods" Url="html/0b0d0788-da40-1498-ff55-d9542c64b97e.htm" />
+    <HelpKINode Title="methods" Url="html/291efc81-607a-bb3c-c4e9-6b89cdfc219c.htm" />
   </HelpKINode>
   <HelpKINode Title="Series.Series constructor" Url="html/4b6a826f-e91c-c924-d1fa-8813557ed5bf.htm" />
   <HelpKINode Title="Server class">
@@ -5224,8 +5230,6 @@
   <HelpKINode Title="Turquoise4 property" Url="html/5e335501-7a91-e431-922c-323d35cebe99.htm" />
   <HelpKINode Title="TurquoiseBlue property" Url="html/4a789e9c-cfb1-edf3-1fb7-fb9edb48b90b.htm" />
   <HelpKINode Title="Tween class">
-    <HelpKINode Title="Tween (Clase)" Url="html/94c2e88e-29de-ca89-a8c1-23c8c6341947.htm" />
-    <HelpKINode Title="about Tween class" Url="html/94c2e88e-29de-ca89-a8c1-23c8c6341947.htm" />
     <HelpKINode Title="methods" Url="html/99f82982-d967-0624-df69-f1e77bf37fad.htm" />
   </HelpKINode>
   <HelpKINode Title="UI class">
@@ -5403,7 +5407,8 @@
   <HelpKINode Title="Ver field" Url="html/3c5d038b-dd0b-ce77-68d8-329275a44a2a.htm" />
   <HelpKINode Title="Verbose field" Url="html/a45b7a44-11e8-5d72-60c1-9f373174e70a.htm" />
   <HelpKINode Title="version">
-    <HelpKINode Title="1.0.0.0" Url="html/abd75eaf-ae61-45b9-b102-44038f014ca1.htm" />
+    <HelpKINode Title="0.6" Url="html/abd75eaf-ae61-45b9-b102-44038f014ca1.htm" />
+    <HelpKINode Title="0.7" Url="html/1d355a2c-6ff6-4108-9310-510c361b6304.htm" />
     <HelpKINode Title="history" Url="html/a43a94b2-1336-49d7-b56e-160b8ed4dd09.htm" />
   </HelpKINode>
   <HelpKINode Title="Version property">

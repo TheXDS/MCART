@@ -5,15 +5,26 @@
       <HelpKeyword index="K" term="Welcome" />
     </HelpKeywords>
   </Topic>
-  <Topic id="8e4ca775-621e-4350-ba47-40c623732add" visible="True" isSelected="true" title="Información técnica" />
   <Topic id="a43a94b2-1336-49d7-b56e-160b8ed4dd09" visible="True" isExpanded="true" title="Historial de versiones">
     <HelpKeywords>
       <HelpKeyword index="K" term="version, history" />
     </HelpKeywords>
-    <Topic id="abd75eaf-ae61-45b9-b102-44038f014ca1" visible="True" title="MCART 0.6.1.0">
+    <Topic id="abd75eaf-ae61-45b9-b102-44038f014ca1" visible="True" title="MCART 0.6 Series">
       <HelpKeywords>
-        <HelpKeyword index="K" term="version, 1.0.0.0" />
+        <HelpKeyword index="K" term="version, 0.6" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="1d355a2c-6ff6-4108-9310-510c361b6304" visible="True" title="MCART 0.7 Series">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 0.7" />
       </HelpKeywords>
     </Topic>
   </Topic>
+  <Topic id="6f14a13b-f5ea-420a-b2ac-85555f17e888" visible="True" noFile="true" isExpanded="true" title="Guías">
+    <HelpKeywords>
+      <HelpKeyword index="K" term="guide, tutorial, guia, walkthrough" />
+    </HelpKeywords>
+    <Topic id="d34b79c8-ff06-45c4-8a02-02312345f028" visible="True" isSelected="true" />
+  </Topic>
+  <Topic id="8e4ca775-621e-4350-ba47-40c623732add" visible="True" title="Información técnica" />
 </Topics>

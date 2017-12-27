@@ -116,7 +116,7 @@ namespace MCART.PluginSupport
                     }
 
                     // Buscar texto de licencia...
-                    if (this.HasAttr<EmbeededLicenseAttribute>(out var txtLic) || MyAssembly.HasAttr(out txtLic) && !txtLic.Value.IsEmpty())
+                    if (this.HasAttr<LicenseTextAttribute>(out var txtLic) || MyAssembly.HasAttr(out txtLic) && !txtLic.Value.IsEmpty())
                         return txtLic?.Value;
                     else
                         return St.Warn(St.UnspecLicense);
@@ -136,7 +136,7 @@ namespace MCART.PluginSupport
         /// <see cref="MinMCARTVersionAttribute"/> en la clase o en el 
         /// ensamblado, se devolverá <see cref="TargetMCARTVersion"/>.
         /// </remarks>
-        public virtual Version MinMCARTVersion => GetType().GetAttrAlt<MinMCARTVersionAttribute>()?.Value;
+        public virtual Version MinMCARTVersion => GetType().GetAttrAlt<MinMCARTVersionAttribute>()?.Value ?? TargetMCARTVersion;
         /// <summary>
         /// Determina la versión objetivo de MCART para este 
         /// <see cref="Plugin"/>.

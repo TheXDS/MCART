@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- This is an example code snippets file -->
+<examples>
+  <item id="Plugins#Definition">
+    <sampleCode language="CSharp">
+      <![CDATA[
+      /// <summary>
+      /// Esqueleto básico mínimo de un Plugin.
+      /// </summary>
+      [TargetMCARTVersion(0, 7, 0, 0)] // En este caso, el plugin se compilará para MCART 0.7.0.0
+      public class PluginExample : MCART.PluginSupport.Plugin
+      {
+      
+      }
+      ]]>
+    </sampleCode>
+    <sampleCode language="VisualBasic">
+      <![CDATA[
+      ''' <summary>
+      ''' Esqueleto básico mínimo de un Plugin.
+      ''' </summary>
+      <TargetMCARTVersion(0, 7)> ' En este caso, el plugin se compilará para MCART 0.7.0.0
+      Public Class TestPlugin
+          Inherits Plugin
+
+      End Class
+      ]]>
+    </sampleCode>
+  </item>
+  <item id="Plugins#InteractionItem">
+    <sampleCode language="CSharp">
+      <![CDATA[
+      /// <summary>
+      /// <see cref="InteractionItem"/> de prueba.
+      /// </summary>
+      /// <param name="sender">Objeto que ha generado el evento.</param>
+      /// <param name="e">Argumentos del evento.</param>
+      [InteractionItem]
+      public void Test(object sender, EventArgs e)
+      {
+          System.Diagnostics.Debug.Print("Prueba de plugin.");
+      }
+      ]]>
+    </sampleCode>
+    <sampleCode language="VisualBasic">
+      <![CDATA[
+      ''' <summary>
+      ''' <see cref="InteractionItem"/> de prueba.
+      ''' </summary>
+      ''' <param name="sender">Objeto que ha generado el evento.</param>
+      ''' <param name="e">Argumentos del evento.</param>
+      <InteractionItem>
+      Public Sub Test(ByVal sender As Object, ByVal e As EventArgs)
+          System.Diagnostics.Debug.Print("Prueba de plugin.")
+      End Sub
+      ]]>
+    </sampleCode>
+  </item>
+  <item id="Plugins#NewInteractionItem">
+    <sampleCode language="CSharp">
+      uiMenu.Add(new InteractionItem((a, b) => About(this), $"Acerca de {Name}"));
+    </sampleCode>
+    <sampleCode language="VisualBasic">
+      <![CDATA[
+      uiMenu.Add(New InteractionItem(
+          Sub(a, b)
+              About(this)
+          End Sub, $"Acerca de {Name}"))
+      ]]>
+    </sampleCode>
+  </item>
+
+</examples>

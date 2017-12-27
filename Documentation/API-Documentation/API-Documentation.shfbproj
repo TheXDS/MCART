@@ -89,7 +89,6 @@
       </ComponentConfig>
     </ComponentConfigurations>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\..\MCART\CoreEdition\CoreEdition.csproj" />
       <DocumentationSource sourceFile="..\..\MCART\WPF\WPF.csproj" />
     </DocumentationSources>
     <NamespaceSummaries>
@@ -134,6 +133,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Content" />
+    <Folder Include="Content\Walkthrough" />
     <Folder Include="Content\Snippets" />
     <Folder Include="Content\Topics" />
     <Folder Include="Content\VersionHistory" />
@@ -145,6 +145,7 @@
     <None Include="Content\VersionHistory\0.6.aml" />
     <None Include="Content\VersionHistory\0.7.aml" />
     <None Include="Content\VersionHistory\VersionHistory.aml" />
+    <None Include="Content\Walkthrough\Plugins.aml" />
     <None Include="Content\Welcome.aml" />
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <CodeSnippets Include="Content\Snippets\TechInfo.snippets" />
+    <CodeSnippets Include="Content\Snippets\Walkthough_Plugins.snippets" />
   </ItemGroup>
   <!-- Import the SHFB build targets -->
   <Import Project="$(SHFBROOT)\SandcastleHelpFileBuilder.targets" />

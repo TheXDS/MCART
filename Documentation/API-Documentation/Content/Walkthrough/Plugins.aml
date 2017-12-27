@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="d34b79c8-ff06-45c4-8a02-02312345f028" revisionNumber="1">
+  <developerWalkthroughDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <!-- Uncomment this to generate an outline of the section and sub-section
+           titles.  Specify a numeric value as the inner text to limit it to
+           a specific number of sub-topics when creating the outline.  Specify
+           zero (0) to limit it to top-level sections only.  -->
+      <autoOutline />
+
+      <para>
+        Esta guía detalla los procedimientos necesarios para la creación de
+        plugins administrados por MCART.
+      </para>
+    </introduction>
+
+    <prerequisites>
+      <content>
+        <para>
+          Esta guía supone que el usuario tiene los conocimientos suficientes
+          de programación para comprender cómo funciona la herencia de
+          interfaces y clases en .Net, además del uso de atributos.
+        </para>
+      </content>
+    </prerequisites>
+
+    <!-- One or more procedure or section with procedure -->
+    <procedure address="BasicPlugin">
+      <title>Creación básica de plugins</title>
+      <steps class="ordered">
+        <step>
+          <content>
+            <para>
+              Cree un nuevo proyecto en la solución, o cree una solución nueva.
+              El proyecto debe (idealmente, pero no necesariamente) ser de tipo
+              <legacyBold>Biblioteca de clases</legacyBold>.
+            </para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>
+              Agregue las referencias necesarias para la aplicación de la cual
+              este proyecto será un plugin, además de una referencia a MCART.
+            </para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>
+              Cree una nueva clase, la cual <legacyBold>debe</legacyBold>
+              heredar el tipo
+              <codeEntityReference>T:MCART.PluginSupport.Plugin</codeEntityReference>.
+            </para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Agregue los atributos de identificación a la clase.</para>
+            <para>
+              La siguiente lista muestra una serie de atributos que pueden
+              añadirse a la definición de la clase. Todos los atributos son
+              opcionales, a excepción de
+              <codeEntityReference>T:MCART.Attributes.TargetMCARTVersionAttribute</codeEntityReference>.
+            </para>
+            <list class="bullet">
+              <listItem>
+                <para>
+                  <codeEntityReference>T:MCART.Attributes.NameAttribute</codeEntityReference>
+                </para>
+              </listItem>
+              <listItem>
+                <para>
+                  <codeEntityReference>T:MCART.Attributes.DescriptionAttribute</codeEntityReference>
+                </para>
+              </listItem>
+              <listItem>
+                <para>
+                  <codeEntityReference>T:MCART.Attributes.VersionAttribute</codeEntityReference>
+                </para>
+                <para>Si se omite, se utilizará la versión del ensamblado.</para>
+              </listItem>
+              <listItem>
+                <para>
+                  <codeEntityReference>T:MCART.Attributes.BetaAttribute</codeEntityReference>
+                </para>
+                <para>Agregue este atributo si el plugin es una versión beta.</para>
+              </listItem>
+              <listItem>
+                <para>
+                  <codeEntityReference>T:MCART.Attributes.AuthorAttribute</codeEntityReference>
+                </para>
+              </listItem>
+              <listItem>
+                <para>
+                  <codeEntityReference>T:MCART.Attributes.CopyrightAttribute</codeEntityReference>
+                </para>
+              </listItem>
+              <listItem>
+                <para>
+                  <codeEntityReference>T:MCART.Attributes.AuthorAttribute</codeEntityReference>
+                </para>
+              </listItem>
+              <listItem>
+                <para>
+                  <codeEntityReference>T:MCART.Attributes.LicenseFileAttribute</codeEntityReference>,
+                  <codeEntityReference>T:MCART.Attributes.EmbeededLicenseAttribute</codeEntityReference> o
+                  <codeEntityReference>T:MCART.Attributes.LicenseTextAttribute</codeEntityReference>.
+                </para>
+              </listItem>
+              <listItem>
+                <para>
+                  <codeEntityReference>T:MCART.Attributes.MinMCARTVersionAttribute</codeEntityReference>
+                </para>
+                <para>Establece la versión mínima de MCART con la que este plugin es compatible.</para>
+              </listItem>
+              <listItem>
+                <para>
+                  <codeEntityReference>T:MCART.Attributes.TargetMCARTVersionAttribute</codeEntityReference>
+                </para>
+                <para>
+                  Establece la versión de MCART para la cual este plugin está
+                  diseñado. Si se omite, el plugin no será cargado por la
+                  aplicación.
+                </para>
+              </listItem>
+              <listItem>
+                <para>
+                  <codeEntityReference>T:MCART.Attributes.UnsecureAttribute</codeEntityReference>
+                </para>
+                <para>Agregue este atributo si el plugin utiliza código no administrado (inseguro).</para>
+              </listItem>
+              <listItem>
+                <para>
+                  <codeEntityReference>T:MCART.Attributes.UnstableAttribute</codeEntityReference>
+                </para>
+                <para>
+                  Agregue este atributo si el plugin contiene código inestable,
+                  por ejemplo durante sus fases iniciales de desarrollo.
+                </para>
+              </listItem>
+            </list>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>
+              Defina el comportamiento de su plugin. (vea más detalles en la
+              sección a continuación)
+            </para>
+          </content>
+        </step>
+      </steps>
+      <conclusion>
+        <content>
+          <para>
+            Luego del siguiente procedimiento, ya cuenta con la estructura
+            básica de un plugin de MCART. El siguiente ejemplo muestra el
+            esqueleto vacío de un nuevo plugin:
+          </para>
+          <codeReference>Plugins#Definition</codeReference>
+        </content>
+      </conclusion>
+    </procedure>
+
+    <!-- Optional additional procedure or section with procedure -->
+    <section address="GenericPlugins">
+      <title>Plugins genéricos</title>
+      <content>
+        <para>
+          Un plugin genérico es un plugin que únicamente contiene código de
+          interacción, por ejemplo, botones o menús que realicen funciones.
+        </para>
+        <procedure>
+          <title>Agregando una interacción a un plugin</title>
+          <steps class="ordered">
+            <step>
+              <content>
+                <para>
+                  Agregue un nuevo método a su clase. El método debe tener una
+                  firma compatible con
+                  <codeEntityReference>T:System.EventHandler</codeEntityReference>,
+                  aún si utiliza Windows Presentation Framework.
+                </para>
+              </content>
+            </step>
+            <step>
+              <content>
+                <para>
+                  Agregue el atributo
+                  <codeEntityReference>T:MCART.PluginSupport.InteractionItemAttribute</codeEntityReference>
+                  a la definición del método.
+                </para>
+              </content>
+            </step>
+            <step>
+              <content>
+                <para>
+                  (Recomendado, opcional) agregue los atributos
+                  <codeEntityReference>T:MCART.Attributes.NameAttribute</codeEntityReference> y
+                  <codeEntityReference>T:MCART.Attributes.DescriptionAttribute</codeEntityReference>
+                  a la definición del método.
+                </para>
+              </content>
+            </step>
+            <step>
+              <content>
+                <para>Implemente su funcionalidad.</para>
+              </content>
+            </step>
+          </steps>
+          <conclusion>
+            <content>
+              <para>
+                El plugin ahora contendrá un elemento de interacción, el cual
+                se agregará a la lista de interacciones provista por
+                <codeEntityReference>P:MCART.PluginSupport.Plugin.PluginInteractions</codeEntityReference>.
+              </para>
+              <codeReference>Plugins#InteractionItem</codeReference>
+            </content>
+          </conclusion> 
+        </procedure>
+        <para>
+          Si el plugin necesita actualizar la lista de elementos de
+          interacción, la clase base
+          <codeEntityReference>T:MCART.PluginSupport.Plugin</codeEntityReference>
+          provee del campo protegido <codeInline>uiMenu</codeInline>, el cual 
+          es una lista observable de elementos de interacción.
+        </para>
+        <procedure>
+          <title>Agregando/quitando interacciones durante la ejecución del programa</title>
+          <steps class="bullet">
+            <step>
+              <content>
+                <para>Para agregar elementos:</para>
+                <para>
+                  Cree una nueva instancia de la clase
+                  <codeEntityReference>T:MCART.PluginSupport.InteractionItem</codeEntityReference>,
+                  y agréguela a la colección <codeInline>uiMenu</codeInline>:                  
+                </para>
+                <codeReference>Plugins#NewInteractionItem</codeReference>
+              </content>
+            </step>
+          </steps>
+        </procedure>
+      </content>
+    </section>
+
+    <!-- Optional next steps info
+    <nextSteps>
+      <content><para>Next steps info goes here</para></content>
+    </nextSteps>
+    -->
+
+    <relatedTopics>
+      <!-- One or more of the following:
+           - A local link
+           - An external link
+           - A code entity reference
+
+      <link xlink:href="Other Topic's ID">Link text</link>
+      <externalLink>
+          <linkText>Link text</linkText>
+          <linkAlternateText>Optional alternate link text</linkAlternateText>
+          <linkUri>URI</linkUri>
+      </externalLink>
+      <codeEntityReference>API member ID</codeEntityReference>
+
+      Examples:
+
+      <link xlink:href="00e97994-e9e6-46e0-b420-5be86b2f8278">Some other topic</link>
+
+      <externalLink>
+          <linkText>SHFB on GitHub</linkText>
+          <linkAlternateText>Go to GitHub</linkAlternateText>
+          <linkUri>https://GitHub.com/EWSoftware/SHFB</linkUri>
+      </externalLink>
+
+      <codeEntityReference>T:TestDoc.TestClass</codeEntityReference>
+      <codeEntityReference>P:TestDoc.TestClass.SomeProperty</codeEntityReference>
+      <codeEntityReference>M:TestDoc.TestClass.#ctor</codeEntityReference>
+      <codeEntityReference>M:TestDoc.TestClass.#ctor(System.String,System.Int32)</codeEntityReference>
+      <codeEntityReference>M:TestDoc.TestClass.ToString</codeEntityReference>
+      <codeEntityReference>M:TestDoc.TestClass.FirstMethod</codeEntityReference>
+      <codeEntityReference>M:TestDoc.TestClass.SecondMethod(System.Int32,System.String)</codeEntityReference>
+      -->
+      <codeEntityReference>T:MCART.PluginSupport.Plugin</codeEntityReference>
+      <codeEntityReference>T:MCART.PluginSupport.InteractionItem</codeEntityReference>
+      <codeEntityReference>T:MCART.PluginSupport.InteractionItemAttribute</codeEntityReference>
+      <codeEntityReference>T:System.EventHandler</codeEntityReference>
+
+    </relatedTopics>
+  </developerWalkthroughDocument>
+</topic>

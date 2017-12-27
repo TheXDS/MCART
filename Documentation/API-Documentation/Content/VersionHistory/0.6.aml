@@ -58,9 +58,6 @@
             </para>
           </listItem>
           <listItem>
-            <para></para>
-          </listItem>
-          <listItem>
             <para>
               Nuevo: Librería de UI en gtk (incluye widgets y ventanas)
             </para>

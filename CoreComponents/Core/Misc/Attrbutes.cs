@@ -168,8 +168,13 @@ namespace MCART.Attributes
         /// <see cref="VersionAttribute"/>.
         /// </summary>
         /// <param name="majorMinor">Número de versión mayor/menor.</param>
-        public VersionAttribute(float majorMinor = 1.0f)
-            : base(new Version(majorMinor.ToString() + ".0.0")) { }
+        public VersionAttribute(float majorMinor = 1.0f) : base(new Version(majorMinor.ToString() + ".0.0")) { }
+        /// <summary>
+        /// Inicializa unanueva instancia de la clase 
+        /// <see cref="VersionAttribute"/>.
+        /// </summary>
+        /// <param name="majorMinor">Número de versión mayor/menor.</param>
+        public VersionAttribute(double majorMinor = 1.0) : base(new Version(majorMinor.ToString() + ".0.0")) { }
     }
 
     /// <summary>
@@ -199,8 +204,13 @@ namespace MCART.Attributes
         /// <see cref="VersionAttribute"/>.
         /// </summary>
         /// <param name="majorMinor">Número de versión mayor/menor.</param>
-        public MinMCARTVersionAttribute(float majorMinor = 1.0f)
-            : base(new Version(majorMinor.ToString() + ".0.0")) { }
+        public MinMCARTVersionAttribute(float majorMinor = 1.0f) : base(new Version(majorMinor.ToString() + ".0.0")) { }
+        /// <summary>
+        /// Inicializa unanueva instancia de la clase 
+        /// <see cref="VersionAttribute"/>.
+        /// </summary>
+        /// <param name="majorMinor">Número de versión mayor/menor.</param>
+        public MinMCARTVersionAttribute(double majorMinor = 1.0) : base(new Version(majorMinor.ToString() + ".0.0")) { }
     }
 
     /// <summary>
@@ -230,8 +240,13 @@ namespace MCART.Attributes
         /// <see cref="VersionAttribute"/>.
         /// </summary>
         /// <param name="majorMinor">Número de versión mayor/menor.</param>
-        public TargetMCARTVersionAttribute(float majorMinor = 1.0f)
-            : base(new Version(majorMinor.ToString() + ".0.0")) { }
+        public TargetMCARTVersionAttribute(float majorMinor = 1.0f) : base(new Version(majorMinor.ToString() + ".0.0")) { }
+        /// <summary>
+        /// Inicializa unanueva instancia de la clase 
+        /// <see cref="VersionAttribute"/>.
+        /// </summary>
+        /// <param name="majorMinor">Número de versión mayor/menor.</param>
+        public TargetMCARTVersionAttribute(double majorMinor = 1.0) : base(new Version(majorMinor.ToString() + ".0.0")) { }
     }
 
     /// <summary>

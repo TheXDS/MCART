@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <topic id="acf56513-1ec9-4330-9ee9-5cbe6f288196" revisionNumber="1">
-	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
-		<introduction>
-			<para>
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>
         Bienvenido. Aquí encontrará una guía sobre toda la API disponible en MCART, una
         librería avanzada y biblioteca de controles/ventanas/widgets/helpers para
         aplicaciones de la plataforma .Net, como ser WinForms, WPF, Gtk#, .Net Core 2.0
         y .Net Standard.
       </para>
-		</introduction>
-		<section>
-			<title>Introducción</title>
-			<content>
-				<para>
+    </introduction>
+    <section>
+      <title>Introducción</title>
+      <content>
+        <para>
           MCART es un conjunto de funciones, extensiones y módulos que he encontrado
           útiles a lo largo de mis años de experiencia con lenguajes .Net,
           particularmente con Visual Basic. Trata de añadir características que no se
@@ -26,8 +26,8 @@
           no puedo asegurar que MCART pueda ser utilizado en un paquete de software en su
           estado actual.
         </para>
-			</content>
-		</section>
+      </content>
+    </section>
     <section>
       <title>Composición del proyecto</title>
       <content>
@@ -51,8 +51,291 @@
         </para>
       </content>
     </section>
+    <section>
+      <title>Compilación</title>
+      <content>
+        <para>
+          MCART requiere de un compilador compatible con C# 7.0, debido a
+          ciertas características especiales de contratos para argumentos.
+          Eventualmente, es posible que el desarrollo se mueva a versiones más
+          recientes del lenguaje, por ejemplo, cuando el soporte de C#7.1 sea
+          mayor en diferentes entornos de desarrollo.
+        </para>
+        <para>
+          MCART también requiere que
+          <externalLink>
+            <linkText>.Net Core SDK 2.0</linkText>
+            <linkAlternateText>.Net Core SDK 2.0</linkAlternateText>
+            <linkUri>https://www.microsoft.com/net/core</linkUri>
+          </externalLink> esté instalado en el sistema. .Net SDK está
+          disponible para Microsoft Windows, Linux y macOs, e incluye el
+          compilador necesario para construir los proyectos.
+        </para>
+        <para>
+          La siguiente tabla indica los entornos de desarrollo en las cuales se ha
+          comprobado la compatibilidad para compilar MCART:
+        </para>
+        <table>
+          <tableHeader>
+            <row>
+              <entry>
+                <para>Entorno</para>
+              </entry>
+              <entry>
+                <para>Core</para>
+              </entry>
+              <entry>
+                <para>WPF</para>
+              </entry>
+              <entry>
+                <para>Gtk</para>
+              </entry>
+              <entry>
+                <para>Win32</para>
+              </entry>
+              <entry>
+                <para>.Net Std</para>
+              </entry>
+              <entry>
+                <para>Tests</para>
+              </entry>
+            </row>
+          </tableHeader>
+          <row>
+            <entry>
+              <para>Visual Studio 2017</para>
+            </entry>
+            <entry>
+              <para>X</para>
+            </entry>
+            <entry>
+              <para>X</para>
+            </entry>
+            <entry>
+              <para>X*</para>
+            </entry>
+            <entry>
+              <para>X</para>
+            </entry>
+            <entry>
+              <para>X</para>
+            </entry>
+            <entry>
+              <para>X</para>
+            </entry>
+          </row>
+          <row>
+            <entry>
+              <para>Visual Studio 2015**</para>
+            </entry>
+            <entry>
+              <para>X</para>
+            </entry>
+            <entry>
+              <para>X</para>
+            </entry>
+            <entry>
+              <para>X*</para>
+            </entry>
+            <entry>
+              <para>X</para>
+            </entry>
+            <entry>
+              <para>X</para>
+            </entry>
+            <entry>
+              <para>X</para>
+            </entry>
+          </row>
+          <row>
+            <entry>
+              <para>Visual Studio 2013**</para>
+            </entry>
+            <entry>
+              <para>X</para>
+            </entry>
+            <entry>
+              <para>X</para>
+            </entry>
+            <entry>
+              <para>X*</para>
+            </entry>
+            <entry>
+              <para>X</para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+            <entry>
+              <para>X</para>
+            </entry>
+          </row>
+          <row>
+            <entry>
+              <para>Visual Studio 2010-</para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+          </row>
+          <row>
+            <entry>
+              <para>Xamarin Studio 4 (Windows)</para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+          </row>
+          <row>
+            <entry>
+              <para>MonoDevelop 7+</para>
+            </entry>
+            <entry>
+              <para>X</para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+            <entry>
+              <para>X</para>
+            </entry>
+            <entry>
+              <para>X</para>
+            </entry>
+            <entry>
+              <para>X</para>
+            </entry>
+            <entry>
+              <para>X</para>
+            </entry>
+          </row>
+          <row>
+            <entry>
+              <para>MonoDevelop 5-</para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+          </row>
+          <row>
+            <entry>
+              <para>SharpDevelop</para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+            <entry>
+              <para></para>
+            </entry>
+          </row>
+          <row>
+            <entry>
+              <para>JetBrains Rider 2017.1.2+</para>
+            </entry>
+            <entry>
+              <para>X</para>
+            </entry>
+            <entry>
+              <para>X</para>
+            </entry>
+            <entry>
+              <para>X*</para>
+            </entry>
+            <entry>
+              <para>X</para>
+            </entry>
+            <entry>
+              <para>~</para>
+            </entry>
+            <entry>
+              <para>X</para>
+            </entry>
+          </row>
+        </table>
+        <para>
+          Una marca indica que el IDE soporta el proyecto. Los IDE que no están
+          listados no han sido probados.          
+        </para>
+        <list class="nobullet">
+          <listItem>
+            <para> ~ Soporte parcial.</para>
+          </listItem>
+          <listItem>
+            <para> *  Requiere de componentes adicionales (Gtk#) instalados en el sistema.</para>
+          </listItem>
+          <listItem>
+            <para>** Es necesario instalar un compilador para C# 7.0 o posterior
+            (<codeInline>PM> Install-Package Microsoft.Net.Compilers</codeInline>)
+            </para>
+          </listItem>
+          <listItem>
+            <para> + Versiones posteriores</para>
+          </listItem>
+          <listItem>
+            <para> - Versiones anteriores</para>
+          </listItem>
+        </list>
+      </content>
+    </section>
     <relatedTopics>
-			<link xlink:href="a43a94b2-1336-49d7-b56e-160b8ed4dd09" />
-		</relatedTopics>
-	</developerConceptualDocument>
+      <link xlink:href="a43a94b2-1336-49d7-b56e-160b8ed4dd09" />
+    </relatedTopics>
+  </developerConceptualDocument>
 </topic>

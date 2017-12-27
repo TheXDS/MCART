@@ -46,10 +46,10 @@ comprobado la compatibilidad para compilar MCART:
 |-|:-:|:-:|:-:|:-:|:-:|:-:
 |Visual Studio 2017|X|X|X*|X|X|X
 |Visual Studio 2015**|X|X|X*|X|X|X
-|Visual Studio 2013**|X|X|X*|X
+|Visual Studio 2013**|X|X|X*|X||X
 |Visual Studio 2010-
 |Xamarin Studio 4 (Windows)
-|MonoDevelop 7+|X||X|X|X
+|MonoDevelop 7+|X||X|X|X|X
 |MonoDevelop 5-
 |SharpDevelop
 |Rider 2017.1.2|X|X|X*|X|~|X
