@@ -1593,7 +1593,7 @@ namespace MCART.Exceptions
         /// </summary>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
         /// <param name="method">Método que ha causado la excepción.</param>
-        public InvalidMethodSignatureException(Exception inner, MethodInfo method) : base(St.InvalidSignature(St.XYQuotes(St.TheMethod, method.Name)), inner) { }
+        public InvalidMethodSignatureException(Exception inner, MethodInfo method) : base(St.InvalidSignature(St.XYQuotes(St.TheMethod, method.Name)), inner) { OffendingMethod = method; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InvalidMethodSignatureException"/>.
@@ -1614,5 +1614,129 @@ namespace MCART.Exceptions
         /// </param>
         /// <param name="method">Método que ha causado la excepción.</param>
         protected InvalidMethodSignatureException(SerializationInfo info, StreamingContext context, MethodInfo method = null) : base(info, context) { OffendingMethod = method; }
+    }
+    /// <summary>
+    /// Excepción que se produce cuando la llamada a un método es peligrosa.
+    /// </summary>
+    [Serializable]
+    public class DangerousCallException : Exception
+    {
+        /// <summary>
+        /// Referencia al método que ha causado la excepción.
+        /// </summary>
+        public readonly MethodInfo OffendingMethod;
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        public DangerousCallException() : base(St.MethodIsDangerous(St.Unk)) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="method">Método que ha causado la excepción.</param>
+        public DangerousCallException(MethodInfo method) : base(St.MethodIsDangerous(method.Name)) { OffendingMethod = method; }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
+        /// <param name="method">Método que ha causado la excepción.</param>
+        public DangerousCallException(string message, MethodInfo method = null) : base(message) { OffendingMethod = method; }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        public DangerousCallException(Exception inner) : base(St.MethodIsDangerous(St.Unk), inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        /// <param name="method">Método que ha causado la excepción.</param>
+        public DangerousCallException(Exception inner, MethodInfo method) : base(St.MethodIsDangerous(method.Name), inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
+        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        /// <param name="method">Método que ha causado la excepción.</param>
+        public DangerousCallException(string message, Exception inner, MethodInfo method = null) : base(message, inner) { OffendingMethod = method; }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="info">
+        /// El objeto que contiene la información de serialización.
+        /// </param>
+        /// <param name="context">
+        /// La información contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="method">Método que ha causado la excepción.</param>
+        protected DangerousCallException(SerializationInfo info, StreamingContext context, MethodInfo method = null) : base(info, context) { OffendingMethod = method; }
+    }
+    /// <summary>
+    /// Excepción que se produce cuando una clase es peligrosa.
+    /// </summary>
+    [Serializable]
+    public class DangerousClassException : Exception
+    {
+        /// <summary>
+        /// Referencia al método que ha causado la excepción.
+        /// </summary>
+        public readonly Type OffendingClass;
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        public DangerousClassException() : base(St.MethodIsDangerous(St.Unk)) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="class">Método que ha causado la excepción.</param>
+        public DangerousClassException(Type @class) : base(St.MethodIsDangerous(@class.Name)) { OffendingClass = @class; }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
+        /// <param name="class">Método que ha causado la excepción.</param>
+        public DangerousClassException(string message, Type @class = null) : base(message) { OffendingClass = @class; }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        public DangerousClassException(Exception inner) : base(St.MethodIsDangerous(St.Unk), inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        /// <param name="class">Método que ha causado la excepción.</param>
+        public DangerousClassException(Exception inner, Type @class) : base(St.MethodIsDangerous(@class.Name), inner) { OffendingClass = @class; }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
+        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        /// <param name="class">Método que ha causado la excepción.</param>
+        public DangerousClassException(string message, Exception inner, Type @class = null) : base(message, inner) { OffendingClass = @class; }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="info">
+        /// El objeto que contiene la información de serialización.
+        /// </param>
+        /// <param name="context">
+        /// La información contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="class">Método que ha causado la excepción.</param>
+        protected DangerousClassException(SerializationInfo info, StreamingContext context, Type @class = null) : base(info, context) { OffendingClass = @class; }
     }
 }

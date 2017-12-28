@@ -75,12 +75,12 @@ namespace MCART.Types.TaskReporter
         /// </summary>
         public TimeSpan? Timeout
         {
-            get => Tmr.IsNull() ? null : (TimeSpan?)TimeSpan.FromMilliseconds(Tmr.Interval);
+            get => Tmr is null ? null : (TimeSpan?)TimeSpan.FromMilliseconds(Tmr.Interval);
             set
             {
                 if (value.HasValue)
                 {
-                    if (Tmr.IsNull()) Tmr = new Extensions.Timer();
+                    if (Tmr is null) Tmr = new Extensions.Timer();
                     Tmr.Interval = value.Value.TotalMilliseconds;
                 }
                 else { Tmr = null; }

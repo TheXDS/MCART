@@ -58,7 +58,7 @@ namespace MCART.Types.Extensions
         /// <param name="deepness">Profundidad del desorden. 1 es el más alto.</param>
         public static void Shuffle<T>(this IEnumerable<T> c, int deepness = 1)
         {
-            if (c.IsNull()) throw new ArgumentNullException(nameof(c));
+            if (c is null) throw new ArgumentNullException(nameof(c));
             if (!c.Any()) throw new EmptyCollectionException<T>(c);
             if (!deepness.IsBetween(1, c.Count())) throw new ArgumentOutOfRangeException(nameof(deepness));
             try
@@ -85,7 +85,7 @@ namespace MCART.Types.Extensions
         /// <param name="lastIdx">Índice inicial del intervalo.</param>
         public static void Shuffle<T>(this IEnumerable<T> c, int firstIdx, int lastIdx, int deepness = 1)
         {
-            if (c.IsNull()) throw new ArgumentNullException(nameof(c));
+            if (c is null) throw new ArgumentNullException(nameof(c));
             if (!c.Any()) throw new EmptyCollectionException<T>(c);
             if (!firstIdx.IsBetween(0, c.Count())) throw new IndexOutOfRangeException();
             if (!lastIdx.IsBetween(0, c.Count())) throw new IndexOutOfRangeException();

@@ -114,7 +114,7 @@ namespace MCART.Networking.Server
 		public byte[] Recieve()
 		{
 			NetworkStream ns = TcpClient?.GetStream();
-			if (ns.IsNull())
+			if (ns is null)
 #if PreferExceptions
 				throw new ArgumentNullException();
 #else
@@ -144,7 +144,7 @@ namespace MCART.Networking.Server
 		public async Task<byte[]> RecieveAsync()
 		{
 			NetworkStream ns = TcpClient?.GetStream();
-			if (ns.IsNull())
+			if (ns is null)
 #if PreferExceptions
 				throw new ArgumentNullException();
 #else

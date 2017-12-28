@@ -88,7 +88,7 @@ namespace MCART
         /// contrario, <c>false</c>.
         /// </returns>
         /// <param name="x">Objetos a comprobar.</param>
-        [Thunk] public static bool IsAnyNull(params object[] x) => x.Any(p => p.IsNull());
+        [Thunk] public static bool IsAnyNull(params object[] x) => x.Any(p => p is null);
         /// <summary>
         /// Determina si cualquiera de los objetos es <c>null</c>.
         /// </summary>
@@ -107,7 +107,7 @@ namespace MCART
             index = 0;
             foreach (object j in x)
             {
-                if (j.IsNull()) return true;
+                if (j is null) return true;
                 index++;
             }
             index = -1;
@@ -121,17 +121,7 @@ namespace MCART
         /// <c>false</c>.
         /// </returns>
         /// <param name="x">Objetos a comprobar.</param>
-        [Thunk] public static bool AreAllNull(params object[] x) => x.All(p => p.IsNull());
-        /// <summary>
-        /// Obtiene un valor que determina si el objeto es <c>null</c>.
-        /// </summary>
-        /// <returns>
-        /// <c>true</c> si el objeto es <c>null</c>; de lo contrario,
-        /// <c>false</c>.
-        /// </returns>
-        /// <param name="obj">Objeto a comprobar.</param>
-        /// <typeparam name="T">Tipo del objeto.</typeparam>
-        [Thunk] public static bool IsNull<T>(this T obj) => ReferenceEquals(obj, null);
+        [Thunk] public static bool AreAllNull(params object[] x) => x.All(p => p is null);
         /// <summary>
         /// Devuelve una referencia circular a este mismo objeto.
         /// </summary>
@@ -263,6 +253,9 @@ namespace MCART
         /// </exception>
         public static T New<T>(this Type j, params object[] Params)
         {
+#if NoDanger
+            if (j.HasAttr<DangerousAttribute>()) throw new Exceptions.DangerousClassException(j);
+#endif
             if (j.IsAbstract || j.IsInterface) throw new TypeLoadException();
             return (T)j.GetConstructor(Params.ToTypes().ToArray()).Invoke(Params);
         }
@@ -303,7 +296,6 @@ namespace MCART
         /// de no encontrarse el atributo especificado.
         /// </returns>
         [Thunk]
-        [Obsolete]
         public static T GetAttr<T>(this Assembly assembly) where T : Attribute
         {
             HasAttr(assembly, out T attr);
@@ -330,7 +322,7 @@ namespace MCART
         public static bool HasAttr<T>(this Assembly assembly, out T attribute) where T : Attribute
         {
             attribute = Attribute.GetCustomAttribute(assembly, typeof(T)) as T;
-            return !attribute.IsNull();
+            return !(attribute is null);
         }
         /// <summary>
         /// Determina si un miembro posee un atributo definido.
@@ -361,7 +353,6 @@ namespace MCART
         /// no encontrarse el atributo especificado.
         /// </returns>
         [Thunk]
-        [Obsolete]
         public static T GetAttr<T>(this MemberInfo member) where T : Attribute
         {
             HasAttr(member, out T attr);
@@ -388,7 +379,7 @@ namespace MCART
         public static bool HasAttr<T>(this MemberInfo member, out T attribute) where T : Attribute
         {
             attribute = Attribute.GetCustomAttribute(member, typeof(T)) as T;
-            return !attribute.IsNull();
+            return !(attribute is null);
         }
         /// <summary>
         /// Determina si un miembro posee un atributo definido.
@@ -416,7 +407,6 @@ namespace MCART
         /// encontrarse el atributo especificado.
         /// </returns>
         [Thunk]
-        [Obsolete]
         public static T GetAttr<T>(this Type type) where T : Attribute
         {
             HasAttr(type, out T attr);
@@ -443,7 +433,7 @@ namespace MCART
         public static bool HasAttr<T>(this Type type, out T attribute) where T : Attribute
         {
             attribute = Attribute.GetCustomAttribute(type, typeof(T)) as T;
-            return !attribute.IsNull();
+            return !(attribute is null);
         }
         /// <summary>
         /// Determina si un miembro posee un atributo definido.
@@ -471,7 +461,6 @@ namespace MCART
         /// encontrarse el atributo especificado.
         /// </returns>
         [Thunk]
-        [Obsolete]
         public static T GetAttr<T>(this object obj) where T : Attribute
         {
             HasAttr(obj, out T attr);
@@ -498,7 +487,7 @@ namespace MCART
         public static bool HasAttr<T>(this object obj, out T attribute) where T : Attribute
         {
             attribute = Attribute.GetCustomAttribute(obj.GetType(), typeof(T)) as T;
-            return !attribute.IsNull();
+            return !(attribute is null);
         }
         /// <summary>
         /// Determina si un miembro posee un atributo definido.
@@ -508,12 +497,6 @@ namespace MCART
         /// </typeparam>
         /// <param name="obj">
         /// Miembro del cual se extraerá el atributo.
-        /// </param>
-        /// <param name="attribute">
-        /// Parámetro de salida. Si un atributo de tipo
-        /// <typeparamref name="T"/> ha sido encontrado, el mismo es devuelto.
-        /// Se devolverá <c>null</c> si el miembro no posee el atributo
-        /// especificado.
         /// </param>
         /// <returns><c>true</c> si el miembro posee el atributo, <c>false</c>
         /// en caso contrario.
@@ -533,7 +516,6 @@ namespace MCART
         /// asociados en la declaración del tipo.
         /// </returns>
         [Thunk]
-        [Obsolete]
         public static T GetAttr<T, It>() where T : Attribute
         {
             HasAttr(typeof(It), out T attr);
@@ -579,7 +561,7 @@ namespace MCART
         {
             attribute = (Attribute.GetCustomAttribute(type, typeof(T))
                 ?? Attribute.GetCustomAttribute(type.Assembly, typeof(T))) as T;
-            return !attribute.IsNull();
+            return !(attribute is null);
         }
         /// <summary>
         /// Determina si un miembro posee un atributo definido.

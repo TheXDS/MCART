@@ -9,13 +9,11 @@
            a specific number of sub-topics when creating the outline.  Specify
            zero (0) to limit it to top-level sections only.  -->
       <autoOutline />
-
       <para>
         Esta guía detalla los procedimientos necesarios para la creación de
         plugins administrados por MCART.
       </para>
     </introduction>
-
     <prerequisites>
       <content>
         <para>
@@ -25,145 +23,151 @@
         </para>
       </content>
     </prerequisites>
+    <section address="pluginSkeleton">
+      <title>Esqueleto básico de un plugin</title>
+      <content>
+        <para></para>
+        <procedure address="BasicPlugin">
+          <title>Creación básica de plugins</title>
+          <steps class="ordered">
+            <step>
+              <content>
+                <para>
+                  Cree un nuevo proyecto en la solución, o cree una solución nueva.
+                  El proyecto debe (idealmente, pero no necesariamente) ser de tipo
+                  <legacyBold>Biblioteca de clases</legacyBold>.
+                </para>
+              </content>
+            </step>
+            <step>
+              <content>
+                <para>
+                  Agregue las referencias necesarias para la aplicación de la cual
+                  este proyecto será un plugin, además de una referencia a MCART.
+                </para>
+              </content>
+            </step>
+            <step>
+              <content>
+                <para>
+                  Cree una nueva clase, la cual <legacyBold>debe</legacyBold>
+                  heredar el tipo
+                  <codeEntityReference>T:MCART.PluginSupport.Plugin</codeEntityReference>.
+                </para>
+              </content>
+            </step>
+            <step>
+              <content>
+                <para>Agregue los atributos de identificación a la clase.</para>
+                <para>
+                  La siguiente lista muestra una serie de atributos que pueden
+                  añadirse a la definición de la clase. Todos los atributos son
+                  opcionales, a excepción de
+                  <codeEntityReference>T:MCART.Attributes.TargetMCARTVersionAttribute</codeEntityReference>.
+                </para>
+                <list class="bullet">
+                  <listItem>
+                    <para>
+                      <codeEntityReference>T:MCART.Attributes.NameAttribute</codeEntityReference>
+                    </para>
+                  </listItem>
+                  <listItem>
+                    <para>
+                      <codeEntityReference>T:MCART.Attributes.DescriptionAttribute</codeEntityReference>
+                    </para>
+                  </listItem>
+                  <listItem>
+                    <para>
+                      <codeEntityReference>T:MCART.Attributes.VersionAttribute</codeEntityReference>
+                    </para>
+                    <para>Si se omite, se utilizará la versión del ensamblado.</para>
+                  </listItem>
+                  <listItem>
+                    <para>
+                      <codeEntityReference>T:MCART.Attributes.BetaAttribute</codeEntityReference>
+                    </para>
+                    <para>Agregue este atributo si el plugin es una versión beta.</para>
+                  </listItem>
+                  <listItem>
+                    <para>
+                      <codeEntityReference>T:MCART.Attributes.AuthorAttribute</codeEntityReference>
+                    </para>
+                  </listItem>
+                  <listItem>
+                    <para>
+                      <codeEntityReference>T:MCART.Attributes.CopyrightAttribute</codeEntityReference>
+                    </para>
+                  </listItem>
+                  <listItem>
+                    <para>
+                      <codeEntityReference>T:MCART.Attributes.AuthorAttribute</codeEntityReference>
+                    </para>
+                  </listItem>
+                  <listItem>
+                    <para>
+                      <codeEntityReference>T:MCART.Attributes.LicenseFileAttribute</codeEntityReference>,
+                      <codeEntityReference>T:MCART.Attributes.EmbeededLicenseAttribute</codeEntityReference> o
+                      <codeEntityReference>T:MCART.Attributes.LicenseTextAttribute</codeEntityReference>.
+                    </para>
+                  </listItem>
+                  <listItem>
+                    <para>
+                      <codeEntityReference>T:MCART.Attributes.MinMCARTVersionAttribute</codeEntityReference>
+                    </para>
+                    <para>Establece la versión mínima de MCART con la que este plugin es compatible.</para>
+                  </listItem>
+                  <listItem>
+                    <para>
+                      <codeEntityReference>T:MCART.Attributes.TargetMCARTVersionAttribute</codeEntityReference>
+                    </para>
+                    <para>
+                      Establece la versión de MCART para la cual este plugin está
+                      diseñado. Si se omite, el plugin no será cargado por la
+                      aplicación.
+                    </para>
+                  </listItem>
+                  <listItem>
+                    <para>
+                      <codeEntityReference>T:MCART.Attributes.UnsecureAttribute</codeEntityReference>
+                    </para>
+                    <para>Agregue este atributo si el plugin utiliza código no administrado (inseguro).</para>
+                  </listItem>
+                  <listItem>
+                    <para>
+                      <codeEntityReference>T:MCART.Attributes.UnstableAttribute</codeEntityReference>
+                    </para>
+                    <para>
+                      Agregue este atributo si el plugin contiene código inestable,
+                      por ejemplo durante sus fases iniciales de desarrollo.
+                    </para>
+                  </listItem>
+                </list>
+              </content>
+            </step>
+            <step>
+              <content>
+                <para>
+                  Defina el comportamiento de su plugin. (vea más detalles en las
+                  secciones a continuación)
+                </para>
+              </content>
+            </step>
+          </steps>
+          <conclusion>
+            <content>
+              <para>
+                Luego del siguiente procedimiento, ya cuenta con la estructura
+                básica de un plugin de MCART. El siguiente ejemplo muestra el
+                esqueleto vacío de un nuevo plugin:
+              </para>
+              <codeReference>Plugins#Definition</codeReference>
+            </content>
+          </conclusion>
+        </procedure>
+      </content>
+    </section>
 
     <!-- One or more procedure or section with procedure -->
-    <procedure address="BasicPlugin">
-      <title>Creación básica de plugins</title>
-      <steps class="ordered">
-        <step>
-          <content>
-            <para>
-              Cree un nuevo proyecto en la solución, o cree una solución nueva.
-              El proyecto debe (idealmente, pero no necesariamente) ser de tipo
-              <legacyBold>Biblioteca de clases</legacyBold>.
-            </para>
-          </content>
-        </step>
-        <step>
-          <content>
-            <para>
-              Agregue las referencias necesarias para la aplicación de la cual
-              este proyecto será un plugin, además de una referencia a MCART.
-            </para>
-          </content>
-        </step>
-        <step>
-          <content>
-            <para>
-              Cree una nueva clase, la cual <legacyBold>debe</legacyBold>
-              heredar el tipo
-              <codeEntityReference>T:MCART.PluginSupport.Plugin</codeEntityReference>.
-            </para>
-          </content>
-        </step>
-        <step>
-          <content>
-            <para>Agregue los atributos de identificación a la clase.</para>
-            <para>
-              La siguiente lista muestra una serie de atributos que pueden
-              añadirse a la definición de la clase. Todos los atributos son
-              opcionales, a excepción de
-              <codeEntityReference>T:MCART.Attributes.TargetMCARTVersionAttribute</codeEntityReference>.
-            </para>
-            <list class="bullet">
-              <listItem>
-                <para>
-                  <codeEntityReference>T:MCART.Attributes.NameAttribute</codeEntityReference>
-                </para>
-              </listItem>
-              <listItem>
-                <para>
-                  <codeEntityReference>T:MCART.Attributes.DescriptionAttribute</codeEntityReference>
-                </para>
-              </listItem>
-              <listItem>
-                <para>
-                  <codeEntityReference>T:MCART.Attributes.VersionAttribute</codeEntityReference>
-                </para>
-                <para>Si se omite, se utilizará la versión del ensamblado.</para>
-              </listItem>
-              <listItem>
-                <para>
-                  <codeEntityReference>T:MCART.Attributes.BetaAttribute</codeEntityReference>
-                </para>
-                <para>Agregue este atributo si el plugin es una versión beta.</para>
-              </listItem>
-              <listItem>
-                <para>
-                  <codeEntityReference>T:MCART.Attributes.AuthorAttribute</codeEntityReference>
-                </para>
-              </listItem>
-              <listItem>
-                <para>
-                  <codeEntityReference>T:MCART.Attributes.CopyrightAttribute</codeEntityReference>
-                </para>
-              </listItem>
-              <listItem>
-                <para>
-                  <codeEntityReference>T:MCART.Attributes.AuthorAttribute</codeEntityReference>
-                </para>
-              </listItem>
-              <listItem>
-                <para>
-                  <codeEntityReference>T:MCART.Attributes.LicenseFileAttribute</codeEntityReference>,
-                  <codeEntityReference>T:MCART.Attributes.EmbeededLicenseAttribute</codeEntityReference> o
-                  <codeEntityReference>T:MCART.Attributes.LicenseTextAttribute</codeEntityReference>.
-                </para>
-              </listItem>
-              <listItem>
-                <para>
-                  <codeEntityReference>T:MCART.Attributes.MinMCARTVersionAttribute</codeEntityReference>
-                </para>
-                <para>Establece la versión mínima de MCART con la que este plugin es compatible.</para>
-              </listItem>
-              <listItem>
-                <para>
-                  <codeEntityReference>T:MCART.Attributes.TargetMCARTVersionAttribute</codeEntityReference>
-                </para>
-                <para>
-                  Establece la versión de MCART para la cual este plugin está
-                  diseñado. Si se omite, el plugin no será cargado por la
-                  aplicación.
-                </para>
-              </listItem>
-              <listItem>
-                <para>
-                  <codeEntityReference>T:MCART.Attributes.UnsecureAttribute</codeEntityReference>
-                </para>
-                <para>Agregue este atributo si el plugin utiliza código no administrado (inseguro).</para>
-              </listItem>
-              <listItem>
-                <para>
-                  <codeEntityReference>T:MCART.Attributes.UnstableAttribute</codeEntityReference>
-                </para>
-                <para>
-                  Agregue este atributo si el plugin contiene código inestable,
-                  por ejemplo durante sus fases iniciales de desarrollo.
-                </para>
-              </listItem>
-            </list>
-          </content>
-        </step>
-        <step>
-          <content>
-            <para>
-              Defina el comportamiento de su plugin. (vea más detalles en la
-              sección a continuación)
-            </para>
-          </content>
-        </step>
-      </steps>
-      <conclusion>
-        <content>
-          <para>
-            Luego del siguiente procedimiento, ya cuenta con la estructura
-            básica de un plugin de MCART. El siguiente ejemplo muestra el
-            esqueleto vacío de un nuevo plugin:
-          </para>
-          <codeReference>Plugins#Definition</codeReference>
-        </content>
-      </conclusion>
-    </procedure>
 
     <!-- Optional additional procedure or section with procedure -->
     <section address="GenericPlugins">
@@ -220,25 +224,25 @@
               </para>
               <codeReference>Plugins#InteractionItem</codeReference>
             </content>
-          </conclusion> 
+          </conclusion>
         </procedure>
         <para>
           Si el plugin necesita actualizar la lista de elementos de
           interacción, la clase base
           <codeEntityReference>T:MCART.PluginSupport.Plugin</codeEntityReference>
-          provee del campo protegido <codeInline>uiMenu</codeInline>, el cual 
-          es una lista observable de elementos de interacción.
+          provee del campo protegido
+          <codeEntityReference>F:MCART.PluginSupport.Plugin.uiMenu</codeEntityReference>
+          el cual es una lista observable de elementos de interacción.
         </para>
         <procedure>
-          <title>Agregando/quitando interacciones durante la ejecución del programa</title>
-          <steps class="bullet">
+          <title>Agregando interacciones durante la ejecución del programa</title>
+          <steps class="ordered">
             <step>
               <content>
-                <para>Para agregar elementos:</para>
                 <para>
                   Cree una nueva instancia de la clase
                   <codeEntityReference>T:MCART.PluginSupport.InteractionItem</codeEntityReference>,
-                  y agréguela a la colección <codeInline>uiMenu</codeInline>:                  
+                  y agréguela a la colección <codeInline>uiMenu</codeInline>:
                 </para>
                 <codeReference>Plugins#NewInteractionItem</codeReference>
               </content>

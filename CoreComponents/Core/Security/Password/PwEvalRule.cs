@@ -108,7 +108,7 @@ namespace MCART.Security.Password
             bool defaultEnable = true,
             bool isExtra = false)
         {
-            if (evalFunc.IsNull()) throw new ArgumentNullException(nameof(evalFunc));
+            if (evalFunc is null) throw new ArgumentNullException(nameof(evalFunc));
             if (!typeof(PonderationLevel).IsEnumDefined(ponderation))
                 throw new ArgumentOutOfRangeException(
                     nameof(ponderation),
@@ -144,7 +144,7 @@ namespace MCART.Security.Password
             DefaultEnableAttribute defaultEnable = null,
             ExtraPointsAttribute isExtra = null)
         {
-            if (evalFunc.IsNull()) throw new ArgumentNullException(nameof(evalFunc));
+            if (evalFunc is null) throw new ArgumentNullException(nameof(evalFunc));
             if (!typeof(PonderationLevel).IsEnumDefined(ponderation.Value))
                 throw new ArgumentOutOfRangeException(
                     nameof(ponderation),
@@ -154,7 +154,7 @@ namespace MCART.Security.Password
             pond = (PonderationLevel)(ponderation?.Value ?? (int?)PonderationLevel.Normal);
             Description = description?.Value ?? string.Empty;
             Enable = defaultEnable?.Value ?? true;
-            IsExtraPoints = !isExtra.IsNull();
+            IsExtraPoints = !(isExtra is null);
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
@@ -166,17 +166,17 @@ namespace MCART.Security.Password
         /// </param>
         public PwEvalRule(PwEvalFunc evalFunc)
         {
-            if (evalFunc.IsNull()) throw new ArgumentNullException(nameof(evalFunc));
+            if (evalFunc is null) throw new ArgumentNullException(nameof(evalFunc));
             func = evalFunc;
-            Name = Objects.GetAttr<NameAttribute>(func)?.Value ?? func.Method.Name;
-            pond = (PonderationLevel)(Objects.GetAttr<PonderationAttribute>(func)?.Value ?? (int?)PonderationLevel.Normal);
+            Name = func.GetAttr<NameAttribute>()?.Value ?? func.Method.Name;
+            pond = (PonderationLevel)(func.GetAttr<PonderationAttribute>()?.Value ?? (int?)PonderationLevel.Normal);
             if (!typeof(PonderationLevel).IsEnumDefined(pond))
                 throw new ArgumentOutOfRangeException(
                     nameof(PonderationAttribute),
                     St.XCannotBeY(nameof(PonderationAttribute), pond.ToString()));
-            Description = Objects.GetAttr<DescriptionAttribute>(func)?.Value ?? string.Empty;
-            Enable = Objects.GetAttr<DefaultEnableAttribute>(func)?.Value ?? true;
-            IsExtraPoints = !Objects.GetAttr<ExtraPointsAttribute>(func).IsNull();
+            Description = func.GetAttr<DescriptionAttribute>()?.Value ?? string.Empty;
+            Enable = func.GetAttr<DefaultEnableAttribute>()?.Value ?? true;
+            IsExtraPoints = func.HasAttr<ExtraPointsAttribute>();
         }
     }
 }

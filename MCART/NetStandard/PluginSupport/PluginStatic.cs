@@ -35,7 +35,7 @@ namespace MCART.PluginSupport
         /// </param>
         public static void About(IPlugin p)
         {
-            if (p.IsNull()) return;
+            if (p is null) return;
             try
             {
                 WriteLine(p.Name);

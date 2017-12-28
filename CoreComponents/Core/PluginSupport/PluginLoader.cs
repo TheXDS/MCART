@@ -39,6 +39,30 @@ namespace MCART.PluginSupport
         readonly string extension;
         readonly IPluginChecker checker;
 
+#if CheckDanger
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="PluginLoader"/> utilizando el
+        /// <see cref="IPluginChecker"/> y la extensión de plugins
+        /// especificada.
+        /// </summary>
+        /// <param name="pluginChecker">
+        /// <see cref="IPluginChecker"/> a utilizar para compropbar la
+        /// compatilibilidad de los plugins.
+        /// </param>
+        /// <param name="ignoreDanger"></param>
+        /// <param name="pluginExtension">
+        /// Parámetro opcional. Extensión de los archivos que contienen
+        /// plugins.
+        /// </param>
+        [Attributes.Dangerous] public PluginLoader(IPluginChecker pluginChecker, bool ignoreDanger, string pluginExtension = ".dll")
+        {
+            if (!ignoreDanger && pluginChecker.HasAttr<Attributes.DangerousAttribute>()) throw new DangerousClassException(pluginChecker.GetType());
+
+            extension = pluginExtension;
+            checker = pluginChecker ?? throw new ArgumentNullException(nameof(pluginChecker));
+        }
+#endif
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="PluginLoader"/> utilizando el
@@ -55,6 +79,9 @@ namespace MCART.PluginSupport
         /// </param>
         public PluginLoader(IPluginChecker pluginChecker, string pluginExtension = ".dll")
         {
+#if NoDanger
+            if (pluginChecker.HasAttr<Attributes.DangerousAttribute>()) throw new DangerousClassException(pluginChecker.GetType());
+#endif
             extension = pluginExtension;
             checker = pluginChecker ?? throw new ArgumentNullException(nameof(pluginChecker));
         }
@@ -192,8 +219,8 @@ namespace MCART.PluginSupport
             {
                 foreach (var j in assembly.GetTypes().Where(p =>
                 checker.IsVaild(p)
-                && (checker.IsCompatible(p) ?? false)))                
-                    yield return j.New() as IPlugin;                
+                && (checker.IsCompatible(p) ?? false)))
+                    yield return j.New() as IPlugin;
             }
         }
         /// <summary>
@@ -357,7 +384,6 @@ namespace MCART.PluginSupport
         /// Carga todos los plugins de todos los ensamblados que coincidan con 
         /// el patrón como una estructura de árbol.
         /// </summary>
-        /// <typeparam name="T">Tipos a cargar.</typeparam>
         /// <param name="pluginsPath">
         /// Ruta de búsqueda. Debe ser un directorio.
         /// </param>

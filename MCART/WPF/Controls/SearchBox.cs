@@ -197,7 +197,7 @@ namespace MCART.Controls
         {
             if (txtSearch.Text.IsEmpty())
             {
-                if (!view.IsNull())
+                if (!(view is null))
                 {
                     if (view.CanCustomFilter) view.CustomFilter = string.Empty;
                     view.Refresh();
@@ -207,7 +207,7 @@ namespace MCART.Controls
             }
             else
             {
-                if (!view.IsNull() && flts.Count > 0)
+                if (!(view is null) && flts.Count > 0)
                 {
                     if (view.CanCustomFilter) view.CustomFilter = GenFilters(txtSearch.Text);
                     view.Refresh();
@@ -230,8 +230,8 @@ namespace MCART.Controls
         /// </param>
         public void AttachView(BindingListCollectionView cv, string[] searchFields = null)
         {
-            if (!view.IsNull()) flts.Clear();
-            if (HasSearch && !searchFields.IsNull()) flts.AddRange(searchFields);
+            if (!(view is null)) flts.Clear();
+            if (HasSearch && !(searchFields is null)) flts.AddRange(searchFields);
             view = cv ?? throw new ArgumentNullException(nameof(cv));
             view.MoveCurrentToFirst();
             txtSearch.Text = string.Empty;

@@ -62,6 +62,7 @@ PreferExceptions | Cuando ciertas funciones deban manejar información inválida
 RatherDRY | Indica que, a pesar de disminuir la optimización del código, se debe respetar el principio DRY (Don't Repeat Yourself) al implementar sobrecargas cuyo cuerpo sea exactamente igual.
 StrictMCARTVersioning | Cuando se realicen comprobaciones de compatibilidad con MCART, activar esta constante causa que dichas comprobaciones sean más estrictas. Se recomienda mantener esta constante habilitada.
 SaferPasswords | Permite que algunas funciones de seguridad requieran, comprueben o generen contraseñas más seguras, a expensas de compatibilidad con los métodos de entrada disponibles o con el equipo.
+CheckDanger | Obliga a las funciones que lo permitan a limitar el uso de clases o funciones peligrosas (marcadas con el atributo `DangerousAttribute`)
 ### Consideraciones especiales para Gtk
 Debido a las limitadas herramientas disponibles para trabajar con proyectos
 basados en Gtk, algunas tareas deben ser realizadas manualmente, indistintamente

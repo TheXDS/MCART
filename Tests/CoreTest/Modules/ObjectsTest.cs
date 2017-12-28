@@ -26,7 +26,7 @@ namespace CoreTests.Modules
                     typeof(EventArgs),
                     typeof(ResolveEventArgs)
                 }, typeof(ResolveEventArgs), out int? index));
-            Assert.Equal(index, 1);
+            Assert.Equal(1, index);
         }
         [Fact]
         public void AreAssignableFromTest()
@@ -44,20 +44,13 @@ namespace CoreTests.Modules
             Assert.True(IsAnyNull(0, 1, null));
             Assert.False(IsAnyNull(0, 1, 2, 3));
             Assert.True(IsAnyNull(out int index, 0, 1, null));
-            Assert.Equal(index, 2);
+            Assert.Equal(2, index);
         }
         [Fact]
         public void AreAllNullTest()
         {
             Assert.True(AreAllNull(null, null, null));
             Assert.False(AreAllNull(0, null));
-        }
-        [Fact]
-        public void IsNullTest()
-        {
-            Array x = null;
-            Assert.True(x.IsNull());
-            Assert.False((15).IsNull());
         }
         [Fact]
         public void ItselfTest()

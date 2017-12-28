@@ -1,5 +1,5 @@
 ﻿/*
-MyMenu.cs
+uiMenu.cs
 
 This file is part of MCART
 
@@ -31,56 +31,60 @@ de producción, sino más bien como una referencia a partir de la cual el
 el desarrollador podrá aprender a utilizar la librería y crear su propio
 código.
  */
+#region uiMenu1
 public class MyPlugin
 {
-    #region Example1
-    /// <summary>
-    /// Constructor del Plugin.
-    /// </summary>
-    public MyPlugin()
-    {
-        // Crear la interacción...
-        var Interac1 = new InteractionItem(Interaccion1, "Interacción 1", "Muestra un mensaje en la salida de la depuración.");
-
-        // Agregar la interacción al menú de este plugin...
-        MyMenu.Add(Interac1);
-
-
-        // Alternativamente, pueden establecerse atributos a la acción de
-        // interacción, lo que resulta en un mayor orden del código.
-        MyMenu.Add(new InteractionItem(Interaccion2));
-
-
-        // También es posible utilizar delegados o lambdas con firma compatible
-        // con System.EventHandler
-        MyMenu.Add(
-            new InteractionItem((sender, e) =>
-            {
-                System.Diagnostics.Debug.Print("Interacción 3 ejecutada.");
-            },
-            "Interacción 3", "Muestra otro mensaje en la salida de la depuración."));
-    }
-
-    /// <summary>
-    /// Lógica del primer elemento de interacción del plugin.
-    /// </summary>
-    /// <param name="sender">Objeto que generó el evento.</param>
-    /// <param name="e">Argumentos del evento.</param>
+    // Este es un elemento de interacción que MCART cableará automáticamente.
+    [Name("Interacción 1")]
+    [Description("Muestra un mensaje de interacción.")]
+    [InteractionItem]
     public void Interaccion1(object sender, System.EventArgs e)
     {
         System.Diagnostics.Debug.Print("Interacción 1 ejecutada.");
     }
 
     /// <summary>
-    /// Lógica del segundo elemento de interacción del plugin.
+    /// Constructor del Plugin.
     /// </summary>
-    /// <param name="sender">Objeto que generó el evento.</param>
-    /// <param name="e">Argumentos del evento.</param>
+    public MyPlugin()
+    {
+        // Crear una segunda interacción...
+        var Interac2 = new InteractionItem(Interaccion2,
+            "Interacción 2", 
+            "Muestra un segundo mensaje en la salida de la depuración.");
 
-    public void Interaccion1(object sender, System.EventArgs e)
+        // Agregar la interacción al menú de este plugin...
+        uiMenu.Add(Interac2);
+
+
+        // Alternativamente, pueden establecerse atributos a la acción de
+        // interacción, lo que resulta en un mayor orden del código.
+        uiMenu.Add(new InteractionItem(Interaccion3));
+
+
+        // También es posible utilizar delegados o lambdas con firma compatible
+        // con System.EventHandler
+        uiMenu.Add(
+            new InteractionItem((sender, e) =>
+            {
+                System.Diagnostics.Debug.Print("Interacción 4 ejecutada.");
+            },
+            "Interacción 4", "Muestra otro mensaje en la salida de la depuración."));
+    }
+
+    // Este es un elemento de interacción cableado manualmente.
+    public void Interaccion2(object sender, System.EventArgs e)
     {
         System.Diagnostics.Debug.Print("Interacción 2 ejecutada.");
     }
 
-    #endregion
+    // Este es un elemento de interacción cableado manualmente, 
+    // con atributos que especifican el nombre y la descripción.
+    [Name("Interacción 3")]
+    [Description("Muestra un tercer mensaje de interacción.")]
+    public void Interaccion3(object sender, System.EventArgs e)
+    {
+        System.Diagnostics.Debug.Print("Interacción 3 ejecutada.");
+    }
 }
+#endregion

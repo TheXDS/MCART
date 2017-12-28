@@ -34,13 +34,13 @@ namespace MCART.Types.TaskReporter
     {
         short sze = 20;
         bool ap;
-        Point p;
+        Point? p;
         void DoBegin()
         {
             SetOnDuty(true);
             Console.CursorVisible = false;
             if (Verbose) Console.Write(St.CtrlCCancel);
-            if (p.IsNull())
+            if (p is null)
             {
                 ap = true;
                 p = new Point(Console.CursorLeft, Console.CursorTop);
@@ -53,7 +53,7 @@ namespace MCART.Types.TaskReporter
             SetOnDuty(false);
             if (ap) p = default(Point);
             Console.WriteLine();
-            if (Verbose && !msg.IsNull())
+            if (Verbose && !(msg is null))
             {
                 Console.ForegroundColor = c;
                 Console.WriteLine(msg);
@@ -62,8 +62,8 @@ namespace MCART.Types.TaskReporter
         }
         void DoRprt(string msg, float? pgr)
         {
-            Console.SetCursorPosition((int)p.X, (int)p.Y);
-            if (!pgr.IsNull())
+            if (p.HasValue) Console.SetCursorPosition((int)p?.X, (int)p?.Y);
+            if (!(pgr is null))
             {
                 int cnt = (int)(sze * 3 * pgr);
                 short j = 0;
@@ -146,7 +146,7 @@ namespace MCART.Types.TaskReporter
         /// </param>
         public override void EndWithError(Exception ex = null)
         {
-            if (ex.IsNull()) ex = new Exception();
+            if (ex is null) ex = new Exception();
             DoEnd(ex.StackTrace + "\n" + ex.Message, ConsoleColor.DarkRed);
         }
         /// <summary>

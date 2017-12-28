@@ -58,7 +58,7 @@ namespace MCART.Types.TaskReporter
         {
             get
             {
-                if (Tmr.IsNull()) return null;
+                if (Tmr is null) return null;
                 return TimeSpan.FromMilliseconds(Tmr.Interval);
             }
             set

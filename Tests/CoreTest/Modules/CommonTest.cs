@@ -40,6 +40,7 @@ namespace MSTest.Modules
         [Fact]
         public void CondenseTest()
         {
+            Assert.Equal("A B C", (new string[] { "A", "B", "C" }).Condense());
             Assert.Equal("A, B, C", (new string[] { "A", "B", "C" }).Condense(", "));
         }
         /// <summary>

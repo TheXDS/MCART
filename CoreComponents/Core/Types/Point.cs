@@ -303,7 +303,7 @@ namespace MCART.Types
         public string ToString(string format, IFormatProvider formatProvider)
         {
             if (format.IsEmpty()) format = "C";
-            if (formatProvider.IsNull()) formatProvider = CI.CurrentCulture;
+            if (formatProvider is null) formatProvider = CI.CurrentCulture;
             switch (format.ToUpperInvariant()[0])
             {
                 case 'C': return $"{X},{Y}";

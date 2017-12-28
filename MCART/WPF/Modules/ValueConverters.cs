@@ -252,7 +252,7 @@ namespace System.Windows.Converters
             if (value is bool) return (bool)value ? True : False;
             if (value is bool?)
             {
-                if (value.IsNull()) return Null;
+                if (value is null) return Null;
                 return (bool)value ? True : False;
             }
             return null;

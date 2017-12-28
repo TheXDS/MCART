@@ -206,7 +206,7 @@ namespace MCART.Networking.Client
 				return new byte[] { };
 #endif
             NetworkStream ns = connection?.GetStream();
-            if (ns.IsNull())
+            if (ns is null)
 #if PreferExceptions
                 throw new ArgumentNullException();
 #else
@@ -249,7 +249,7 @@ namespace MCART.Networking.Client
 				return new byte[] { };
 #endif
             NetworkStream ns = connection?.GetStream();
-            if (ns.IsNull())
+            if (ns is null)
 #if PreferExceptions
                 throw new ArgumentNullException();
 #else

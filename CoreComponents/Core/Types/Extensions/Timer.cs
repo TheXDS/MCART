@@ -51,7 +51,7 @@ namespace MCART.Types.Extensions
         {
             get
             {
-                if (!st.IsNull()) return TimeSpan.FromMilliseconds(Interval) - (DateTime.Now - st);
+                if (!(st is null)) return TimeSpan.FromMilliseconds(Interval) - (DateTime.Now - st);
                 return null;
             }
         }

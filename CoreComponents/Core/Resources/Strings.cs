@@ -125,6 +125,26 @@ namespace MCART.Resources
         /// </returns>
         public static string InvalidSignature(string text) => $"{text} no tiene una firma válida.";
         /// <summary>
+        /// Devuelve una cadena con el texto "La llamada al método
+        /// '{<paramref name="method"/>}' es peligrosa.".
+        /// </summary>
+        /// <param name="method">Texto a formatear.</param>
+        /// <returns>
+        /// Una cadena con el texto "La llamada al método
+        /// '{<paramref name="method"/>}' es peligrosa.".
+        /// </returns>
+        public static string MethodIsDangerous(string method) => $"La llamada al método '{method}' es peligrosa.";
+        /// <summary>
+        /// Devuelve una cadena con el texto "El uso de la clase 
+        /// '{<paramref name="class"/>}' es peligroso.".
+        /// </summary>
+        /// <param name="class">Texto a formatear.</param>
+        /// <returns>
+        /// Una cadena con el texto "El uso de la clase 
+        /// '{<paramref name="class"/>}' es peligroso.".
+        /// </returns>
+        public static string ClassIsDangerous(string @class) => $"El uso de la clase '{@class}' es peligroso.";
+        /// <summary>
         /// Devuelve una cadena con el texto "Falta el argumento
         /// {<paramref name="text"/>}".
         /// </summary>
@@ -432,7 +452,7 @@ namespace MCART.Resources
         public const string LatinChars = "áéíóúüñäåöàèìòùç";
         public const string LstEmpty = "La lista está vacía";
         public const string MandatoryField = "Este campo es obligatorio";
-        public const string Menu = "Menú";
+        public const string Menu = "Menú";        
         public const string MinMCARTV = "Versión mínima de MCART";
         public const string MoreChars = @"ẁèỳùìòàǜǹẀÈỲÙÌÒÀǛǸẽẼỹỸũŨĩĨõÕãÃṽṼñÑ`~1!¡¹2@²űŰőŐ˝3#ĒǕŌĀ¯4$¤£5%€şḑģḩķļçņȩŗţ¸6ŵêŷûîôâŝĝĥĵẑĉŴÊŶÛÎÔÂŜĜĤĴẐĈ¼^7&ươƯƠ̛8*¾ęųįǫąĘŲĮǪĄ˛9(‘ĕŭĭŏăĔŬĬŎĂ˘0)’ẘẙůŮåÅ-_¥ẉẹṛṭỵụịọạṣḍḥḳḷṿḅṇṃ̣=+×÷qQwWeErR®tTþÞyYuUiIoOpP[{«“]}»”\|¬¦aAsSß§dDðÐfFgGhHjJkKœŒlLøØ;:¶°ẃéŕýúíóṕáśǵḱĺźćǘńḿ'ẅëẗÿüïöäḧẍẄËŸÜÏÖÄḦẌ""zZæÆxXcC©¢vVbBnNmMµ,<çÇ.>ˇěřťǔǐǒǎšďǧȟǰǩǩľžčǚň/?¿ʠⱳẻƭỷủỈỏƥảʂɗƒɠɦƙȥƈʋɓɲɱ̉";
         public const string MoreSymbs = "¡²³¤€¼½¾‘’¥×»«¬´¶¿Ç®ÞßÐØÆ©µ¹£÷¦¨°çþ§";

@@ -207,7 +207,7 @@ namespace MCART.Networking.Server
 			while (_isAlive)
 			{
 				TcpClient c = await GetClient();
-				if (!c.IsNull())
+				if (!(c is null))
 					clwaiter.Add(AttendClient(typeof(TClient).New(c, this) as TClient));
 			}
 		}
@@ -228,10 +228,10 @@ namespace MCART.Networking.Server
 		/// </exception>
 		public Server(Protocol<TClient> protocol, IPEndPoint ep = null)
 		{
-			if (protocol.IsNull()) throw new ArgumentNullException(nameof(protocol));
+			if (protocol is null) throw new ArgumentNullException(nameof(protocol));
 			Protocol = protocol;
 #if DEBUG
-			if (!Protocol.GetAttr<Attributes.BetaAttribute>().IsNull())
+			if (Protocol.HasAttr<Attributes.BetaAttribute>())
 				Debug.Print(St.Warn(St.XIsBeta(Protocol.GetType().Name)));
 #endif
 			ListeningPort = Protocol.GetAttr<PortAttribute>()?.Value ?? defaultPort;

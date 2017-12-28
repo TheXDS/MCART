@@ -337,7 +337,7 @@ namespace MCART
         /// de lo contrario, <c>false</c>.</returns>
         public static bool IsWarned(this Control c)
         {
-            if (c.IsNull()) throw new ArgumentNullException(nameof(c));
+            if (c is null) throw new ArgumentNullException(nameof(c));
             foreach (OrigControlColor j in origctrls) if (j.rf.Is(c)) return true;
             return false;
         }

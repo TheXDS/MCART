@@ -138,7 +138,7 @@ namespace MCART.Attributes
     /// <see cref="PluginSupport.IPlugin"/>, a pesar de implementar
     /// <see cref="PluginSupport.IPlugin"/>.
     /// </summary>
-    [AttributeUsage((AttributeTargets)1028)]
+    [AttributeUsage((AttributeTargets)1028, Inherited = false)]
     public sealed class NotPluginAttribute : Attribute { }
 
     /// <summary>
@@ -472,4 +472,10 @@ namespace MCART.Attributes
             Port = (ushort)endPoint.Port;
         }
     }
+
+    /// <summary>
+    /// Indica que el uso de un elemento es peligroso.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Module | AttributeTargets.Assembly | AttributeTargets.Constructor)]
+    sealed class DangerousAttribute : Attribute { }
 }

@@ -9,10 +9,11 @@
     <Import_RootNamespace>Examples</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)PluginSupport\Plugin.vb" />
     <None Include="$(MSBuildThisFileDirectory)VB\Examples.vb" />
-    <None Include="$(MSBuildThisFileDirectory)VB\PluginSupport\Plugin\MyMenu.vb" />
+    <None Include="$(MSBuildThisFileDirectory)VB\PluginSupport\Plugin\uiMenu.vb" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)CSharp\PluginSupport\Plugin\MyMenu.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\Plugin.cs" />
   </ItemGroup>
 </Project>

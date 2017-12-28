@@ -56,12 +56,12 @@ namespace CoreTests.Modules
         [Fact]
         public void Nearest2PowTest()
         {
-            Assert.Equal<ulong>(Nearest2Pow(456), 512);
+            Assert.Equal<ulong>(512,Nearest2Pow(456));
         }
         [Fact]
         public void NearestMultiplyUpTest()
         {
-            Assert.Equal(NearestMultiplyUp(50, 3), 81.0);
+            Assert.Equal(81.0, NearestMultiplyUp(50, 3));
         }
         [Fact]
         public void ArePositivesTest()
@@ -92,25 +92,25 @@ namespace CoreTests.Modules
         [Fact]
         public void ClampTest()
         {
-            Assert.Equal((5 + 10).Clamp(10), 10);
-            Assert.Equal((5 - 10).Clamp(10), 0);
-            Assert.Equal((5 + 10).Clamp(1, 10), 10);
-            Assert.Equal((5 - 10).Clamp(1, 10), 1);
+            Assert.Equal(10, (5 + 10).Clamp(10));
+            Assert.Equal(0, (5 - 10).Clamp(10));
+            Assert.Equal(10, (5 + 10).Clamp(1, 10));
+            Assert.Equal(1, (5 - 10).Clamp(1, 10));
 
 #if FloatDoubleSpecial
             Assert.True(float.IsNaN(float.NaN.Clamp(1, 10)));
-            Assert.Equal((13f).Clamp(1, 10), 10f);
-            Assert.Equal((-5f).Clamp(1, 10), 1f);
+            Assert.Equal(10f, (13f).Clamp(1, 10));
+            Assert.Equal(1f, (-5f).Clamp(1, 10));
             Assert.Equal((-5f).Clamp(10), -5f);
-            Assert.Equal(float.PositiveInfinity.Clamp(1, 10), 10f);
-            Assert.Equal(float.NegativeInfinity.Clamp(1, 10), 1f);
+            Assert.Equal(10f, float.PositiveInfinity.Clamp(1, 10));
+            Assert.Equal(1f, float.NegativeInfinity.Clamp(1, 10));
 
             Assert.True(double.IsNaN(double.NaN.Clamp(1, 10)));
-            Assert.Equal((13.0).Clamp(1, 10), 10.0);
-            Assert.Equal((-5.0).Clamp(1, 10), 1.0);
+            Assert.Equal(10.0, (13.0).Clamp(1, 10));
+            Assert.Equal(1.0, (-5.0).Clamp(1, 10));
             Assert.Equal((-5.0).Clamp(10), -5.0);
-            Assert.Equal(double.PositiveInfinity.Clamp(1, 10), 10.0);
-            Assert.Equal(double.NegativeInfinity.Clamp(1, 10), 1.0);
+            Assert.Equal(10.0, double.PositiveInfinity.Clamp(1, 10));
+            Assert.Equal(1.0, double.NegativeInfinity.Clamp(1, 10));
 #endif
         }
         [Fact]

@@ -31,17 +31,33 @@
 ' el desarrollador podrá aprender a utilizar la librería y crear su propio
 ' código.
 
+#Region "uiMenu1"
 Public Class MyPlugin
-#Region "Example1"
+
+    ' Este es un elemento de interacción que MCART cableará automáticamente.
+    <Name("Interacción 1")>
+    <Description("Muestra un mensaje de interacción.")>
+    <InteractionItem>
+    Public Sub Interaccion1(sender As Object, e As System.EventArgs)
+        System.Diagnostics.Debug.Print("Interacción 1 ejecutada.")
+    End Sub
+
     ''' <summary>
     ''' Constructor del Plugin.
     ''' </summary>
     Public Sub New()
         ' Crear la interacción...
-        Dim Interact1 As New InteractionItem(AddressOf Interaccion1, "Interacción 1", "Muestra un mensaje en la salida de la depuración.")
+        Dim Interact2 As New InteractionItem(
+            AddressOf Interaccion2,
+            "Interacción 2",
+            "Muestra un segundo mensaje de interacción.")
 
         ' Agregar la interacción al menú de este plugin...
-        MyMenu.Add(Interac1)
+        MyMenu.Add(Interac2)
+
+        ' Alternativamente, pueden establecerse atributos a la acción de
+        ' interacción, lo que resulta en un mayor orden del código.
+        uiMenu.Add(New InteractionItem(Interaccion3))
 
 
         ' También es posible utilizar delegados o lambdas con firma compatible
@@ -49,18 +65,22 @@ Public Class MyPlugin
         MyMenu.Add(
             New InteractionItem(
             Sub(sender As Object, e As System.EventArgs)
-                System.Diagnostics.Debug.Print("Interacción 2 ejecutada.")
+                System.Diagnostics.Debug.Print("Interacción 4 ejecutada.")
             End Sub,
-            "Interacción 2", "Muestra otro mensaje en la salida de la depuración."))
+            "Interacción 4", "Muestra otro mensaje en la salida de la depuración."))
     End Sub
 
-    ''' <summary>
-    ''' Lógica del primer elemento de interacción del plugin.
-    ''' </summary>
-    ''' <param name="sender">Objeto que generó el evento.</param>
-    ''' <param name="e">Argumentos del evento.</param>
-    Public Sub Interaccion1(sender As Object, e As System.EventArgs)
-        System.Diagnostics.Debug.Print("Interacción 1 ejecutada.")
+    ' Este es un elemento de interacción cableado manualmente.
+    Public Sub Interaccion2(sender As Object, e As System.EventArgs)
+        System.Diagnostics.Debug.Print("Interacción 2 ejecutada.")
     End Sub
-#End Region
+
+    ' Este es un elemento de interacción cableado manualmente, 
+    ' con atributos que especifican el nombre y la descripción.
+    <Name("Interacción 3")>
+    <Description("Muestra un tercer mensaje de interacción.")>
+    Public Sub Interaccion3(sender As Object, e As System.EventArgs)
+        System.Diagnostics.Debug.Print("Interacción 3 ejecutada.")
+    End Sub
 End Class
+#End Region

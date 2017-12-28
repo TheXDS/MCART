@@ -147,7 +147,7 @@ namespace MCART.PluginSupport
         /// Si utiliza la implementación predeterminada de la interfaz 
         /// <see cref="IPlugin"/> incluída en MCART (<see cref="Plugin"/>),
         /// puede agregar nuevos elementos <see cref="InteractionItem"/> a la
-        /// colección <see cref="Plugin.myMenu"/>.
+        /// colección <see cref="Plugin.uiMenu"/>.
         /// </remarks>
         ReadOnlyCollection<InteractionItem> PluginInteractions { get; }
         /// <summary>

@@ -808,8 +808,8 @@ namespace MCART.Controls
         /// </param>
         public void AttachView(BindingListCollectionView cv, string[] searchFields = null)
         {
-            if (!view.IsNull()) flts.Clear();
-            if (HasSearch && !searchFields.IsNull()) flts.AddRange(searchFields);
+            if (!(view is null)) flts.Clear();
+            if (HasSearch && !(searchFields is null)) flts.AddRange(searchFields);
             view = cv ?? throw new ArgumentNullException(nameof(cv));
             Max = view.Count;
             view.MoveCurrentToFirst();
@@ -835,7 +835,7 @@ namespace MCART.Controls
         /// <param name="C">Colección de controles a administrar.</param>
         public void AttachControls(params UIElement[] C)
         {
-            if (C.IsNull() || !C.Any()) throw new ArgumentNullException();
+            if (C is null || !C.Any()) throw new ArgumentNullException();
             if (btnCncl.IsVisible) throw new InvalidOperationException();
             ctrls.Clear();
             ctrls.AddRange(C);

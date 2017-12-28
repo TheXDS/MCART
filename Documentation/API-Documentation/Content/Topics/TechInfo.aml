@@ -198,6 +198,18 @@
               </para>
             </entry>
           </row>
+          <row>
+            <entry>
+              <para>CheckDanger</para>
+            </entry>
+            <entry>
+              <para>
+                Obliga a las funciones que lo permitan a limitar el uso de 
+                clases o funciones peligrosas (marcadas con el atributo
+                `DangerousAttribute`)
+              </para>
+            </entry>
+          </row>
         </table>
       </content>
     </section>

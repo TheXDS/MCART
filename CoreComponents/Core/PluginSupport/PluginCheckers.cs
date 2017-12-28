@@ -74,7 +74,7 @@ namespace MCART.PluginSupport
     /// <summary>
     /// <see cref="PluginChecker"/> con reglas de compatibilidad relajadas.
     /// </summary>
-    public class RelaxedPluginChecker : PluginChecker
+    [Dangerous] public class RelaxedPluginChecker : PluginChecker
     {
         /// <summary>
         /// Siempre devuelve <c>true</c> al comprobar la compatibilidad de un
@@ -82,7 +82,7 @@ namespace MCART.PluginSupport
         /// </summary>
         /// <param name="type">Tipo a comprobar.</param>
         /// <returns>Esta función siempre devuelve <c>true</c>.</returns>
-        public override bool? IsCompatible(Type type) => true;
+        [Dangerous] public override bool? IsCompatible(Type type) => true;
         /// <summary>
         /// Determina si un tipo es válido para ser cargado como un
         /// <see cref="IPlugin"/>.

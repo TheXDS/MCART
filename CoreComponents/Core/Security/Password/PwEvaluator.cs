@@ -71,7 +71,7 @@ namespace MCART.Security.Password
         /// <param name="evalRules">Reglas de evaluacióna incluir.</param>
         public PwEvaluator(params PwEvalRule[] evalRules)
         {
-            if (evalRules.IsNull()) throw new ArgumentNullException(nameof(evalRules));
+            if (evalRules is null) throw new ArgumentNullException(nameof(evalRules));
             Rules = new List<PwEvalRule>(evalRules);
         }
     }

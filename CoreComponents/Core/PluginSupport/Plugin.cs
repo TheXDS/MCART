@@ -44,11 +44,29 @@ namespace MCART.PluginSupport
         /// Colección de <see cref="InteractionItem"/> del
         /// <see cref="Plugin"/>.
         /// </summary>
+        /// <remarks>
+        /// Esta colección contendrá todas las interacciones asociadas al
+        /// <see cref="Plugin"/>, tanto las que MCART cablea automáticamente,
+        /// como la que sean agregadas durante la ejecución.
+        /// </remarks>
+        /// <example>
+        /// En este ejemplo se muestran distintos métodos para agregar
+        /// elementos de interacción a un <see cref="Plugin"/>:
+        /// <code language="cs" source="..\..\Documentation\Examples\PluginSupport\Plugin.cs" region="uiMenu1"/>
+        /// <code language="vb" source="..\..\Documentation\Examples\PluginSupport\Plugin.vb" region="uiMenu1"/>
+        /// </example>
+        /// <seealso cref="InteractionItem"/>
         protected readonly ObservableCollection<InteractionItem> uiMenu = new ObservableCollection<InteractionItem>();
-
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="Plugin"/>.
         /// </summary>
+        /// <remarks>
+        /// Este constructor cableará automáticamente cualquier método público
+        /// con una firma compatible con <see cref="EventArgs"/> que tenga el
+        /// atributo <see cref="InteractionItemAttribute"/>, y generará el
+        /// evento <see cref="PluginLoaded"/> con la hora en la que el
+        /// <see cref="Plugin"/> ha sido cargado.
+        /// </remarks>
         public Plugin()
         {
             foreach (var j in GetType().GetMethods().Where(k => k.HasAttr<InteractionItemAttribute>()))
@@ -56,34 +74,78 @@ namespace MCART.PluginSupport
             uiMenu.CollectionChanged += (sender, e) => RequestUIChange();
             RaisePluginLoaded(DateTime.Now);
         }
-        
+
         #region Propiedades de identificación
         /// <summary>
         /// Obtiene el nombre de este <see cref="Plugin"/>.
         /// </summary>
+        /// <value>
+        /// El valor del atributo <see cref="NameAttribute"/> definido para
+        /// este <see cref="Plugin"/>, o en caso de no establecer el atributo,
+        /// se devolverá el nombre del tipo de este <see cref="Plugin"/>.
+        /// </value>
         public virtual string Name => GetType().GetAttrAlt<NameAttribute>()?.Value ?? GetType().Name;
         /// <summary>
         /// Obtiene la versión de este <see cref="Plugin"/>.
         /// </summary>
+        /// <value>
+        /// El valor del atributo <see cref="VersionAttribute"/> definido para 
+        /// la implementación de <see cref="Plugin"/>, o en caso de no 
+        /// establecer el atributo, se devolverá la versión del ensamblado que
+        /// contiene a este <see cref="Plugin"/>.
+        /// </value>
         public virtual Version Version => GetType().GetAttrAlt<VersionAttribute>()?.Value ?? MyAssembly.GetName().Version;
         /// <summary>
         /// Obtiene la descripción de este <see cref="Plugin"/>.
         /// </summary>
+        /// <value>
+        /// El valor del atributo <see cref="DescriptionAttribute"/> definido
+        /// para este <see cref="Plugin"/>, o en caso de no establecer el
+        /// atributo, se devolverá la descripción del ensamblado que contiene a
+        /// este <see cref="Plugin"/>, o <c>null</c> en caso de no existir.
+        /// </value>
         public virtual string Description => GetType().GetAttrAlt<DescriptionAttribute>()?.Value
             ?? (Attribute.GetCustomAttribute(MyAssembly, typeof(AssemblyDescriptionAttribute)) as AssemblyDescriptionAttribute)?.Description;
         /// <summary>
         /// Obtiene el autor de este <see cref="Plugin"/>.
         /// </summary>
+        /// <value>
+        /// El valor del atributo <see cref="AuthorAttribute"/> definido para
+        /// este <see cref="Plugin"/>, o en caso de no establecer el atributo,
+        /// se devolverá el nombre de la compañía del ensamblado que contiene a
+        /// este <see cref="Plugin"/>, o <c>null</c> en caso de no existir.
+        /// </value>
         public virtual string Author => GetType().GetAttrAlt<AuthorAttribute>()?.Value
             ?? (Attribute.GetCustomAttribute(MyAssembly, typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute)?.Company;
         /// <summary>
         /// Obtiene la cadena de Copyright de este <see cref="Plugin"/>.
         /// </summary>
+        /// <value>
+        /// El valor del atributo <see cref="AuthorAttribute"/> definido para
+        /// este <see cref="Plugin"/>, o en caso de no establecer el atributo,
+        /// se devolverá el nombre de la compañía del ensamblado que contiene a
+        /// este <see cref="Plugin"/>, o <c>null</c> en caso de no existir.
+        /// </value>
         public virtual string Copyright => GetType().GetAttrAlt<CopyrightAttribute>()?.Value
             ?? (Attribute.GetCustomAttribute(MyAssembly, typeof(AssemblyCopyrightAttribute)) as AssemblyCopyrightAttribute)?.Copyright;
         /// <summary>
         /// Obtiene el texto de la licencia de este <see cref="Plugin"/>.
         /// </summary>
+        /// <value>
+        /// El valor del atributo <see cref="LicenseFileAttribute"/>,
+        /// <see cref="EmbeededLicenseAttribute"/> o
+        /// <see cref="LicenseTextAttribute"/>, cualesquiera esté definido
+        /// primero para este <see cref="Plugin"/>, o en caso de no establecer
+        /// ninguno de los atributos, se devolverá un texto de licencia no
+        /// establecida, o un mensaje de error junto con el StackTrace en caso
+        /// de no poder obtener la información de licencia debido a una
+        /// excepción.
+        /// <note type="note">
+        /// La licencia será buscada en el mismo orden establecido en el
+        /// apartado de valor, y se devolverá únicamente un atributo al ser
+        /// encontrado.
+        /// </note>
+        /// </value>
         public virtual string License
         {
             get
@@ -93,26 +155,16 @@ namespace MCART.PluginSupport
                     // Intentar buscar archivo...
                     if ((this.HasAttr<LicenseFileAttribute>(out var fileLic) || MyAssembly.HasAttr(out fileLic)) && File.Exists(fileLic?.Value))
                     {
-                        StreamReader inp = new StreamReader(fileLic?.Value);
-                        return inp.ReadToEnd();
+                        using (StreamReader inp = new StreamReader(fileLic?.Value))
+                            return inp.ReadToEnd();
                     }
 
                     // Intentar buscar archivo embebido...
                     if (this.HasAttr<EmbeededLicenseAttribute>(out var embLic) || MyAssembly.HasAttr(out embLic))
                     {
-                        Stream s = null;
-                        StreamReader r = null;
-                        try
-                        {
-                            s = MyAssembly.GetManifestResourceStream(embLic?.Value);
-                            r = new StreamReader(s);
+                        using (var s = MyAssembly.GetManifestResourceStream(embLic?.Value))
+                        using (var r = new StreamReader(s))
                             return r.ReadToEnd();
-                        }
-                        finally
-                        {
-                            r?.Dispose();
-                            s?.Dispose();
-                        }
                     }
 
                     // Buscar texto de licencia...
@@ -131,6 +183,11 @@ namespace MCART.PluginSupport
         /// Determina la versión mínima de MCART necesaria para este 
         /// <see cref="Plugin"/>.
         /// </summary>
+        /// <value>
+        /// El valor del atributo <see cref="MinMCARTVersionAttribute"/>
+        /// definido como la versión mínima de MCART requerida para un correcto
+        /// funcionamiento de este <see cref="Plugin"/>.
+        /// </value>
         /// <remarks>
         /// Si no se encuentra el atributo 
         /// <see cref="MinMCARTVersionAttribute"/> en la clase o en el 
@@ -141,6 +198,24 @@ namespace MCART.PluginSupport
         /// Determina la versión objetivo de MCART para este 
         /// <see cref="Plugin"/>.
         /// </summary>
+        /// <value>
+        /// El valor del atributo <see cref="TargetMCARTVersionAttribute"/>
+        /// definido como la versión de MCART para la cual este 
+        /// <see cref="Plugin"/> ha sido diseñado.
+        /// </value>
+        /// <remarks>
+        /// Si este <see cref="Plugin"/> se intenta cargar en una versión no
+        /// soportada de MCART, la carga es abortada.
+        /// <note type="caution">(NO RECOMENDADO)
+        /// En caso de que desee cargar un plugin sin verificación de
+        /// compatibilidad, cree un nuevo <see cref="PluginLoader"/> utilizando
+        /// una nueva instancia de <see cref="RelaxedPluginChecker"/> como
+        /// verificador de <see cref="Plugin"/>. Tome en cuenta que, es posible
+        /// que el programa falle si se intenta utilizar un plugin no
+        /// compatible, debido a los posibles cambios de API entre versiones de
+        /// MCART.
+        /// </note>
+        /// </remarks>
         public virtual Version TargetMCARTVersion => GetType().GetAttrAlt<TargetMCARTVersionAttribute>()?.Value;
         /// <summary>
         /// Determina si este <see cref="Plugin"/> es una versión Beta.
@@ -267,7 +342,7 @@ namespace MCART.PluginSupport
         public bool MinRTVersion(out Version minVersion)
         {
             minVersion = MinMCARTVersion;
-            return !minVersion.IsNull();
+            return !(minVersion is null);
         }
         /// <summary>
         /// Determina la versión objetivo de MCART necesaria para este 
@@ -282,7 +357,7 @@ namespace MCART.PluginSupport
         public bool TargetRTVersion(out Version tgtVersion)
         {
             tgtVersion = TargetMCARTVersion;
-            return !tgtVersion.IsNull();
+            return !(tgtVersion is null);
         }
         #endregion
 

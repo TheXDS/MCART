@@ -35,20 +35,28 @@ namespace MCART
     /// <summary>
     /// Contiene operaciones comunes de transformación de datos en los
     /// programas, y de algunas comparaciones especiales.
-    /// Además, algunas de estas funciones también se implementan como
-    /// extensiones.
     /// </summary>
+    /// <remarks>
+    /// Algunas de estas funciones también se implementan como extensiones, por
+    /// lo que para ser llamadas únicamente es necesario importar el espacio de
+    /// nombres <see cref="MCART"/>, y utilizar sintáxis de instancia.
+    /// </remarks>
     public static class Common
     {
         /// <summary>
         /// Condensa un arreglo de <see cref="string"/>  en una sola cadena.
         /// </summary>
-        /// <returns>La cadena condensada.</returns>
+        /// <returns>
+        /// Una cadena compuesta por los elementos de la colección, separados
+        /// por el caracter especificado.
+        /// </returns>
         /// <param name="str">Arreglo a condensar.</param>
         /// <param name="separation">
         /// Establece una cadena de separación entre los elementos de la
         /// cadena. Si de omite, se utilizará un espacio en blanco.
         /// </param>
+        /// <example>
+        /// </example>
         public static string Condense(this IEnumerable<string> str, string separation = " ")
         {
             StringBuilder outp = new StringBuilder();
