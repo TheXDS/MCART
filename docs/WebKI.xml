@@ -320,8 +320,8 @@
   <HelpKINode Title="BtnNew field" Url="html/c8d8a3da-8e46-61cc-b464-2c89330ea947.htm" />
   <HelpKINode Title="BtnSave field" Url="html/d0e9c5c7-0296-0ad2-49d2-7bc367ab138e.htm" />
   <HelpKINode Title="bufferSize field">
-    <HelpKINode Title="Client.bufferSize (Campo)" Url="html/1b5474a4-5c5d-8aa7-e862-714d97932b00.htm" />
     <HelpKINode Title="Client.bufferSize (Campo)" Url="html/504a4716-3c75-6aab-0547-d8f62bb0d329.htm" />
+    <HelpKINode Title="Client.bufferSize (Campo)" Url="html/1b5474a4-5c5d-8aa7-e862-714d97932b00.htm" />
   </HelpKINode>
   <HelpKINode Title="BurlyWood property" Url="html/220e8dc5-81aa-5164-d829-983dd0f84ffa.htm" />
   <HelpKINode Title="BurlyWood1 property" Url="html/1286a0ce-59cf-1123-a928-e77d0d6cc0e8.htm" />
@@ -405,6 +405,7 @@
   <HelpKINode Title="ChoosePassword method" Url="html/03da45cd-5cbb-88f5-3b68-87b2e4c7046c.htm" />
   <HelpKINode Title="CINotSupported method" Url="html/c545392f-fec9-b500-6a12-de2be94e7ad6.htm" />
   <HelpKINode Title="Clamp method" Url="html/1315e209-d3d4-26d8-ca9d-76e9098535d5.htm" />
+  <HelpKINode Title="ClassIsDangerous method" Url="html/ac4f3d05-1092-c47c-4da1-0125edbbe00f.htm" />
   <HelpKINode Title="CldntConnect method" Url="html/c5dd56f9-fb8d-a779-2b50-9d42f7ed706c.htm" />
   <HelpKINode Title="Clear method">
     <HelpKINode Title="List(T).Clear (M&#233;todo )" Url="html/0a7084ff-4d22-e0c0-6fa4-f9c253b1cc68.htm" />
@@ -415,18 +416,18 @@
   <HelpKINode Title="ClearingListEventHandler&lt;T&gt; delegate" Url="html/ee27683a-6749-709d-2a69-87c89adc2dd0.htm" />
   <HelpKINode Title="ClearWarn method" Url="html/85d38063-29ee-3957-1ab9-e7ca1cc49437.htm" />
   <HelpKINode Title="Client class">
-    <HelpKINode Title="Client (Clase)" Url="html/6e39bcde-7d6c-b14a-e433-55aaa84607c4.htm" />
     <HelpKINode Title="Client (Clase)" Url="html/192fdf1f-b8af-3ec9-0055-92ff0e690de3.htm" />
+    <HelpKINode Title="Client (Clase)" Url="html/6e39bcde-7d6c-b14a-e433-55aaa84607c4.htm" />
     <HelpKINode Title="about Client class" Url="html/192fdf1f-b8af-3ec9-0055-92ff0e690de3.htm" />
     <HelpKINode Title="about Client class" Url="html/6e39bcde-7d6c-b14a-e433-55aaa84607c4.htm" />
-    <HelpKINode Title="constructor" Url="html/d5557efa-9454-aa32-73bf-05d9ae33b443.htm" />
     <HelpKINode Title="constructor" Url="html/a41f3706-7d84-a529-fe2e-ca5d479ddd47.htm" />
-    <HelpKINode Title="fields" Url="html/7be742e3-141f-3671-42bd-4d4a1497c893.htm" />
+    <HelpKINode Title="constructor" Url="html/d5557efa-9454-aa32-73bf-05d9ae33b443.htm" />
     <HelpKINode Title="fields" Url="html/443f2a63-8a9a-436d-ab4b-fa2f80be7790.htm" />
+    <HelpKINode Title="fields" Url="html/7be742e3-141f-3671-42bd-4d4a1497c893.htm" />
     <HelpKINode Title="methods" Url="html/271d75df-2ac1-42e7-be68-ab981e71e39f.htm" />
     <HelpKINode Title="methods" Url="html/72ca22a0-9bb9-79d6-7365-c8cdc61b4d73.htm" />
-    <HelpKINode Title="properties" Url="html/398ac049-763b-c5a1-b3dc-35e7d1af2115.htm" />
     <HelpKINode Title="properties" Url="html/3d5056e6-d113-055d-0aa7-53dbe1c4b4e5.htm" />
+    <HelpKINode Title="properties" Url="html/398ac049-763b-c5a1-b3dc-35e7d1af2115.htm" />
   </HelpKINode>
   <HelpKINode Title="Client(Of T) class">
     <HelpKINode Title="Client(T) (Clase)" Url="html/5b0599aa-801f-59c2-be84-ec3a1a654d8a.htm" />
@@ -446,8 +447,8 @@
     <HelpKINode Title="Client.bufferSize (Campo)" Url="html/504a4716-3c75-6aab-0547-d8f62bb0d329.htm" />
   </HelpKINode>
   <HelpKINode Title="Client.Client constructor">
-    <HelpKINode Title="Client (Constructor )" Url="html/a41f3706-7d84-a529-fe2e-ca5d479ddd47.htm" />
     <HelpKINode Title="Client (Constructor )" Url="html/d5557efa-9454-aa32-73bf-05d9ae33b443.htm" />
+    <HelpKINode Title="Client (Constructor )" Url="html/a41f3706-7d84-a529-fe2e-ca5d479ddd47.htm" />
   </HelpKINode>
   <HelpKINode Title="Client.Connect method" Url="html/410fb533-8fc9-0005-6e9b-bf37b93356c7.htm" />
   <HelpKINode Title="Client.ConnectAsync method" Url="html/c8b66c9e-0407-9ede-56c7-7c6387516b0f.htm" />
@@ -455,13 +456,13 @@
   <HelpKINode Title="Client.DataAvailable property" Url="html/aac75495-bca1-5b1f-ac19-90cf09aaa22e.htm" />
   <HelpKINode Title="Client.defaultPort field" Url="html/aed49128-5035-b51b-224f-973e35195d96.htm" />
   <HelpKINode Title="Client.Disconnect method">
-    <HelpKINode Title="Client.Disconnect (M&#233;todo )" Url="html/335bd0b4-82b5-30c6-6c07-722310bb4ea9.htm" />
     <HelpKINode Title="Client.Disconnect (M&#233;todo )" Url="html/2a30b103-d358-04cb-3f7e-3af266d27998.htm" />
+    <HelpKINode Title="Client.Disconnect (M&#233;todo )" Url="html/335bd0b4-82b5-30c6-6c07-722310bb4ea9.htm" />
   </HelpKINode>
   <HelpKINode Title="Client.Finalize method" Url="html/290dcdc8-9e7a-d1ae-00e2-e4aa50e40931.htm" />
   <HelpKINode Title="Client.IsAlive property">
-    <HelpKINode Title="Client.IsAlive (Propiedad )" Url="html/f5cd32bc-4713-3b91-1459-49498cfeb280.htm" />
     <HelpKINode Title="Client.IsAlive (Propiedad )" Url="html/67fe8580-1e4c-c2ee-dd4a-cfb9821a3811.htm" />
+    <HelpKINode Title="Client.IsAlive (Propiedad )" Url="html/f5cd32bc-4713-3b91-1459-49498cfeb280.htm" />
   </HelpKINode>
   <HelpKINode Title="Client.Recieve method" Url="html/a8481d72-27b9-2a3f-7f93-293f691acb4b.htm" />
   <HelpKINode Title="Client.RecieveAsync method" Url="html/f600a542-9b0e-0d30-926e-9c0feb3e88ea.htm" />
@@ -523,10 +524,10 @@
   </HelpKINode>
   <HelpKINode Title="Color to Brush conversion" Url="html/b95bb4a7-0f85-2c34-c557-9ce83768ebe2.htm" />
   <HelpKINode Title="Color to Color conversion">
-    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/8527f134-4104-4065-edc2-bd2053d5d326.htm" />
     <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/ffec6dce-537f-3fa4-ad34-c3e8ebb91843.htm" />
-    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/0cb8161e-12a6-81c5-5702-c79e76d821c4.htm" />
+    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/8527f134-4104-4065-edc2-bd2053d5d326.htm" />
     <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/73fb1a55-5fcb-1544-43d3-757edc3f4172.htm" />
+    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/0cb8161e-12a6-81c5-5702-c79e76d821c4.htm" />
   </HelpKINode>
   <HelpKINode Title="Color.A property" Url="html/1033d9fa-de8c-e61d-312f-afb71595a21b.htm" />
   <HelpKINode Title="Color.Addition operator" Url="html/b4f18c9c-e237-b1de-76cc-d1a494741f68.htm" />
@@ -1215,6 +1216,28 @@
   <HelpKINode Title="Cyan property" Url="html/2b391574-c0e2-c8cd-4998-bc1341f70108.htm" />
   <HelpKINode Title="Cyan2 property" Url="html/e3ab05be-cd56-fe33-3d53-2cae4cb1ea84.htm" />
   <HelpKINode Title="Cyan3 property" Url="html/4b8bcdd2-0c19-acb6-47c3-33fcb8dd5b40.htm" />
+  <HelpKINode Title="DangerousCallException class">
+    <HelpKINode Title="DangerousCallException (Clase)" Url="html/c078cd4f-deb5-edc8-29e2-8b1cfb8ff14f.htm" />
+    <HelpKINode Title="about DangerousCallException class" Url="html/c078cd4f-deb5-edc8-29e2-8b1cfb8ff14f.htm" />
+    <HelpKINode Title="constructor" Url="html/e4de86a5-55bd-c864-d861-4304311a0b0d.htm" />
+    <HelpKINode Title="events" Url="html/dd6affc1-da31-f068-5054-7c749cb5ed8e.htm" />
+    <HelpKINode Title="fields" Url="html/09b836a3-65d9-8ee2-1deb-517b2d2479c3.htm" />
+    <HelpKINode Title="methods" Url="html/020154e5-179b-a394-5977-670718fc0699.htm" />
+    <HelpKINode Title="properties" Url="html/f606dc04-8b8c-bb3d-4a52-f183d3e2e907.htm" />
+  </HelpKINode>
+  <HelpKINode Title="DangerousCallException.DangerousCallException constructor" Url="html/e4de86a5-55bd-c864-d861-4304311a0b0d.htm" />
+  <HelpKINode Title="DangerousCallException.OffendingMethod field" Url="html/0b7fd54a-3e8f-6af1-7e7a-097118e86b24.htm" />
+  <HelpKINode Title="DangerousClassException class">
+    <HelpKINode Title="DangerousClassException (Clase)" Url="html/17941340-efc2-8d4f-73ed-ece9030196d5.htm" />
+    <HelpKINode Title="about DangerousClassException class" Url="html/17941340-efc2-8d4f-73ed-ece9030196d5.htm" />
+    <HelpKINode Title="constructor" Url="html/cc4da6a5-18b1-b2c3-f7df-7c472091c452.htm" />
+    <HelpKINode Title="events" Url="html/290f9e2e-0eb0-e926-79b8-b5563839d171.htm" />
+    <HelpKINode Title="fields" Url="html/5df6d3c3-3a3d-8af5-fd92-69697b9e92c7.htm" />
+    <HelpKINode Title="methods" Url="html/72528c43-151f-d18b-4ddf-1ca2fcf9cf04.htm" />
+    <HelpKINode Title="properties" Url="html/bd486206-c64f-f246-0d5b-94b272741568.htm" />
+  </HelpKINode>
+  <HelpKINode Title="DangerousClassException.DangerousClassException constructor" Url="html/cc4da6a5-18b1-b2c3-f7df-7c472091c452.htm" />
+  <HelpKINode Title="DangerousClassException.OffendingClass field" Url="html/c254988f-f786-bba3-5d82-ed53a977045f.htm" />
   <HelpKINode Title="DarkBG enumeration member" Url="html/e0c89656-ee6c-4e45-3170-9c71ba384cd7.htm" />
   <HelpKINode Title="DarkBlue property" Url="html/0dc7cbe9-2fa9-108b-ddd5-05c00f372999.htm" />
   <HelpKINode Title="DarkCyan property" Url="html/8b5d9e00-3527-9a76-f7de-086a7310f836.htm" />
@@ -1368,8 +1391,8 @@
   <HelpKINode Title="DirectoryIsFullException.OffendingDirectory field" Url="html/338c25c4-045d-3171-bd57-bc824f678690.htm" />
   <HelpKINode Title="DisableControls method" Url="html/19c9c21f-2d54-87e0-c870-c60e70d19aa5.htm" />
   <HelpKINode Title="Disconnect method">
-    <HelpKINode Title="Client.Disconnect (M&#233;todo )" Url="html/335bd0b4-82b5-30c6-6c07-722310bb4ea9.htm" />
     <HelpKINode Title="Client.Disconnect (M&#233;todo )" Url="html/2a30b103-d358-04cb-3f7e-3af266d27998.htm" />
+    <HelpKINode Title="Client.Disconnect (M&#233;todo )" Url="html/335bd0b4-82b5-30c6-6c07-722310bb4ea9.htm" />
   </HelpKINode>
   <HelpKINode Title="Disposal enumeration member" Url="html/efc40d57-94cc-0351-a8d4-b21df210f913.htm" />
   <HelpKINode Title="Dispose method" Url="html/4a78fe48-2b51-807f-2342-5cb4d3ff775d.htm" />
@@ -2250,8 +2273,6 @@
   <HelpKINode Title="ISliceGraph.TotalVisible property" Url="html/7dfab5c9-ccf1-1726-83b1-62337ae24007.htm" />
   <HelpKINode Title="IsNeither method" Url="html/eefea649-60a0-7eb1-917a-075b273494b9.htm" />
   <HelpKINode Title="IsNot method" Url="html/544e32e7-8440-b023-8a1b-4e3542ae24f5.htm" />
-  <HelpKINode Title="IsNull(Of T) method" Url="html/4bcd9845-caa1-c48c-d8c7-b56d23dc4258.htm" />
-  <HelpKINode Title="IsNull&lt;T&gt; method" Url="html/4bcd9845-caa1-c48c-d8c7-b56d23dc4258.htm" />
   <HelpKINode Title="IsNumericType method" Url="html/825311f5-4e01-a514-9300-b7bc7bfa1481.htm" />
   <HelpKINode Title="IsPrime method" Url="html/dae57ec2-2fe7-574e-f064-a1a6777ff8ba.htm" />
   <HelpKINode Title="IsStoppable field" Url="html/a869125c-fdf5-5f3f-fe99-0e23320f92eb.htm" />
@@ -2837,6 +2858,8 @@
   <HelpKINode Title="MCART.Exceptions.ConnectionClosedException class" Url="html/434cb942-2d50-5811-fdd3-aa343da3b6d8.htm" />
   <HelpKINode Title="MCART.Exceptions.CorruptDataException class" Url="html/f49ce316-38fc-ce2e-e467-ec9d45ba0744.htm" />
   <HelpKINode Title="MCART.Exceptions.CouldntConnectException class" Url="html/1f33e8cf-489f-8346-eeac-bb1aff729bf7.htm" />
+  <HelpKINode Title="MCART.Exceptions.DangerousCallException class" Url="html/c078cd4f-deb5-edc8-29e2-8b1cfb8ff14f.htm" />
+  <HelpKINode Title="MCART.Exceptions.DangerousClassException class" Url="html/17941340-efc2-8d4f-73ed-ece9030196d5.htm" />
   <HelpKINode Title="MCART.Exceptions.DataAlreadyExistsException class" Url="html/d38f8a1d-34a7-b250-a201-95b3ecbe72d1.htm" />
   <HelpKINode Title="MCART.Exceptions.DataNotFoundException class" Url="html/e15d629e-3003-f447-f7e1-3c5763cd9c75.htm" />
   <HelpKINode Title="MCART.Exceptions.DirectoryIsFullException class" Url="html/0b076328-419b-bab9-6c7b-c1631fad52a3.htm" />
@@ -3044,6 +3067,7 @@
   <HelpKINode Title="MediumVioletRed property" Url="html/b7458805-822e-5877-084a-b47678dff7ee.htm" />
   <HelpKINode Title="Melon property" Url="html/87e9b4a4-cf1b-caeb-9fbf-dd02e62e8a8f.htm" />
   <HelpKINode Title="Menu field" Url="html/e7284331-0507-7da5-0e73-e0fb4b494c0b.htm" />
+  <HelpKINode Title="MethodIsDangerous method" Url="html/67149995-5780-cec0-81f6-80d0515e1660.htm" />
   <HelpKINode Title="MidnightBlue property" Url="html/c4fa0033-bae2-d46a-1687-8ab6181908c2.htm" />
   <HelpKINode Title="Minimum property" Url="html/bbc5046d-1954-6b58-cad5-cb4e877ef1f5.htm" />
   <HelpKINode Title="MinMCARTV field" Url="html/8e83ae98-db59-ac90-e0a8-98e6e287a6d7.htm" />
@@ -3068,10 +3092,10 @@
   <HelpKINode Title="Mint property" Url="html/dc57f617-a4f6-1313-366d-2f86c449df02.htm" />
   <HelpKINode Title="MintCream property" Url="html/0e4383f0-ac6c-5e43-e1d5-779bfeaf9e20.htm" />
   <HelpKINode Title="Misc class">
-    <HelpKINode Title="Misc (Clase)" Url="html/06206d7c-2869-8a3a-1882-23c69403b55a.htm" />
     <HelpKINode Title="Misc (Clase)" Url="html/01881faa-5da8-f3c1-6dac-3498a8eed917.htm" />
-    <HelpKINode Title="about Misc class" Url="html/01881faa-5da8-f3c1-6dac-3498a8eed917.htm" />
+    <HelpKINode Title="Misc (Clase)" Url="html/06206d7c-2869-8a3a-1882-23c69403b55a.htm" />
     <HelpKINode Title="about Misc class" Url="html/06206d7c-2869-8a3a-1882-23c69403b55a.htm" />
+    <HelpKINode Title="about Misc class" Url="html/01881faa-5da8-f3c1-6dac-3498a8eed917.htm" />
     <HelpKINode Title="methods" Url="html/e450fd39-f4bf-b26c-9e4c-2dcd4c3ac52e.htm" />
     <HelpKINode Title="methods" Url="html/acc6160b-f46b-67b0-86af-634971cc4a80.htm" />
   </HelpKINode>
@@ -3405,8 +3429,6 @@
   <HelpKINode Title="Objects.IsEither method" Url="html/df46cf0b-190b-ec6a-69df-c78f6a5797bf.htm" />
   <HelpKINode Title="Objects.IsNeither method" Url="html/eefea649-60a0-7eb1-917a-075b273494b9.htm" />
   <HelpKINode Title="Objects.IsNot method" Url="html/544e32e7-8440-b023-8a1b-4e3542ae24f5.htm" />
-  <HelpKINode Title="Objects.IsNull(Of T) method" Url="html/4bcd9845-caa1-c48c-d8c7-b56d23dc4258.htm" />
-  <HelpKINode Title="Objects.IsNull&lt;T&gt; method" Url="html/4bcd9845-caa1-c48c-d8c7-b56d23dc4258.htm" />
   <HelpKINode Title="Objects.IsNumericType method" Url="html/825311f5-4e01-a514-9300-b7bc7bfa1481.htm" />
   <HelpKINode Title="Objects.IsTypeAnyOf method" Url="html/70abbe75-8272-d03a-69f7-beccf5849763.htm" />
   <HelpKINode Title="Objects.Itself(Of T) method" Url="html/1de922cd-857c-2f3d-c042-9b6380934fd8.htm" />
@@ -3416,12 +3438,16 @@
   <HelpKINode Title="Objects.ToTypes method" Url="html/8095ad4d-e3df-62df-1d9c-312b43e55f61.htm" />
   <HelpKINode Title="Of field" Url="html/226210e1-e633-cc70-9985-c6a30e4ac36f.htm" />
   <HelpKINode Title="OffendingAssembly field" Url="html/8cf2c7fd-a12f-438f-ed01-10ac6aa0f67f.htm" />
+  <HelpKINode Title="OffendingClass field" Url="html/c254988f-f786-bba3-5d82-ed53a977045f.htm" />
   <HelpKINode Title="OffendingCollection field" Url="html/9e316d8c-8df1-4b84-c1a0-7ae7609214c9.htm" />
   <HelpKINode Title="OffendingDirectory field" Url="html/338c25c4-045d-3171-bd57-bc824f678690.htm" />
   <HelpKINode Title="OffendingFunction field" Url="html/961b7a92-7b90-2776-f014-b8d450e2f969.htm" />
   <HelpKINode Title="OffendingFunctionName field" Url="html/50f4eaab-4987-dd22-e3e8-e82d327eb65e.htm" />
   <HelpKINode Title="OffendingIP field" Url="html/9b1742bd-50aa-5a27-9045-f4b8e6bdb586.htm" />
-  <HelpKINode Title="OffendingMethod field" Url="html/30f667cf-cb46-8138-98a5-381385ad1a68.htm" />
+  <HelpKINode Title="OffendingMethod field">
+    <HelpKINode Title="DangerousCallException.OffendingMethod (Campo)" Url="html/0b7fd54a-3e8f-6af1-7e7a-097118e86b24.htm" />
+    <HelpKINode Title="InvalidMethodSignatureException.OffendingMethod (Campo)" Url="html/30f667cf-cb46-8138-98a5-381385ad1a68.htm" />
+  </HelpKINode>
   <HelpKINode Title="OffendingPlugin field" Url="html/fe6d82e6-05f8-9a71-5af2-08f44d3d5e46.htm" />
   <HelpKINode Title="OffendingReturnValue field" Url="html/299f6711-0da5-cc16-1cb0-79cba6e6c234.htm" />
   <HelpKINode Title="OffendingTask field" Url="html/7f39c98d-8cb3-bed8-a47d-03d8611eebbc.htm" />
@@ -3755,10 +3781,10 @@
     <HelpKINode Title="properties" Url="html/b25ee3c9-3fcf-7b1d-71c8-1330dfe0ad21.htm" />
   </HelpKINode>
   <HelpKINode Title="Point to Point conversion">
-    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/af439fb7-ad17-922e-2bf3-7a6c30fd0b91.htm" />
     <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/a3edd71c-1c0e-23f1-0035-2394369ea126.htm" />
-    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/be50bc81-daba-dab0-0b0b-cbf89da005f7.htm" />
     <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/d597125f-824c-6c5b-73e9-f5f0928f55ce.htm" />
+    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/be50bc81-daba-dab0-0b0b-cbf89da005f7.htm" />
+    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/af439fb7-ad17-922e-2bf3-7a6c30fd0b91.htm" />
   </HelpKINode>
   <HelpKINode Title="Point.Addition operator" Url="html/32e4191a-5282-09de-2591-0ed8778fc109.htm" />
   <HelpKINode Title="Point.Angle method" Url="html/c8ae0249-2279-b5e3-66b7-6cdee5f9b9a6.htm" />
@@ -4659,6 +4685,7 @@
   <HelpKINode Title="Strings.CantCreateInstance method" Url="html/d72c5325-9d6d-17cc-bc80-60d89daf636e.htm" />
   <HelpKINode Title="Strings.Chars field" Url="html/8a78799f-c103-8a1c-5abf-bfc7881d9a61.htm" />
   <HelpKINode Title="Strings.CINotSupported method" Url="html/c545392f-fec9-b500-6a12-de2be94e7ad6.htm" />
+  <HelpKINode Title="Strings.ClassIsDangerous method" Url="html/ac4f3d05-1092-c47c-4da1-0125edbbe00f.htm" />
   <HelpKINode Title="Strings.CldntConnect method" Url="html/c5dd56f9-fb8d-a779-2b50-9d42f7ed706c.htm" />
   <HelpKINode Title="Strings.ClientConnected field" Url="html/ce0181d2-0caa-6c29-7bd4-28a59aa7ba00.htm" />
   <HelpKINode Title="Strings.ClosdConn field" Url="html/274c0ae5-b33c-f8fd-3d83-d74d0e996915.htm" />
@@ -4697,6 +4724,7 @@
   <HelpKINode Title="Strings.LstEmpty field" Url="html/735c3ebb-3966-46d6-6176-ccb2fe84f5e1.htm" />
   <HelpKINode Title="Strings.MandatoryField field" Url="html/4b12b440-190b-560e-792b-fa50fbcdae03.htm" />
   <HelpKINode Title="Strings.Menu field" Url="html/e7284331-0507-7da5-0e73-e0fb4b494c0b.htm" />
+  <HelpKINode Title="Strings.MethodIsDangerous method" Url="html/67149995-5780-cec0-81f6-80d0515e1660.htm" />
   <HelpKINode Title="Strings.MinMCARTV field" Url="html/8e83ae98-db59-ac90-e0a8-98e6e287a6d7.htm" />
   <HelpKINode Title="Strings.MissingArgument method" Url="html/efb75f2e-3a1e-6504-c8ca-32f363c37318.htm" />
   <HelpKINode Title="Strings.MoreChars field" Url="html/0e54a61a-70f3-6fda-9ff0-7f5d5ebdb4b5.htm" />
