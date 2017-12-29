@@ -200,51 +200,84 @@ namespace MCART.Exceptions
     /// Excepción que se produce cuando un <see cref="IEnumerable{T}"/> está 
     /// vacío.
     /// </summary>
+    /// <typeparam name="T">Tipo de la colección vacía.</typeparam>
     [Serializable]
     public class EmptyCollectionException<T> : Exception
     {
         /// <summary>
-        /// Colección a la que se intentó acceder.
+        /// Colección que ha causado la excepción.
         /// </summary>
         public readonly IEnumerable<T> OffendingCollection;
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException{T}"/> class
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="EmptyCollectionException{T}"/>.
         /// </summary>
-        public EmptyCollectionException(IEnumerable<T> offendingList) : base(St.LstEmpty) { OffendingCollection = offendingList; }
+        /// <param name="offendingCollection">
+        /// Colección que ha causado la excepción.
+        /// </param>
+        public EmptyCollectionException(IEnumerable<T> offendingCollection) : base(St.LstEmpty) { OffendingCollection = offendingCollection; }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException{T}"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="EmptyCollectionException{T}"/>.
         /// </summary>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        /// <param name="offendingList">Offending list.</param>
-        public EmptyCollectionException(Exception inner, IEnumerable<T> offendingList) : base(St.LstEmpty, inner) { OffendingCollection = offendingList; }
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="offendingCollection">
+        /// Colección que ha causado la excepción.
+        /// </param>
+        public EmptyCollectionException(Exception inner, IEnumerable<T> offendingCollection) : base(St.LstEmpty, inner) { OffendingCollection = offendingCollection; }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException{T}"/> class
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="EmptyCollectionException{T}"/>.
         /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="offendingCollection">Colección a la que se intentó acceder.</param>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="offendingCollection">
+        /// Colección que ha causado la excepción.
+        /// </param>
         public EmptyCollectionException(string message, IEnumerable<T> offendingCollection) : base(message) { OffendingCollection = offendingCollection; }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException{T}"/> class
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="EmptyCollectionException{T}"/>.
         /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        /// <param name="offendingCollection">Colección a la que se intentó acceder.</param>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="offendingCollection">
+        /// Colección que ha causado la excepción.
+        /// </param>
         public EmptyCollectionException(string message, Exception inner, IEnumerable<T> offendingCollection) : base(message, inner) { OffendingCollection = offendingCollection; }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException{T}"/> class
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="EmptyCollectionException{T}"/>.
         /// </summary>
-        /// <param name="context">La información contextual acerca del orígen o el destino.</param>
-        /// <param name="info">El objeto que contiene la información de serialización.</param>
-        /// <param name="offendingCollection">Colección a la que se intentó acceder.</param>
+        /// <param name="context">
+        /// La información contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El objeto que contiene la información de serialización.
+        /// </param>
+        /// <param name="offendingCollection">
+        /// Colección que ha causado la excepción.
+        /// </param>
         protected EmptyCollectionException(SerializationInfo info, StreamingContext context, IEnumerable<T> offendingCollection) : base(info, context) { OffendingCollection = offendingCollection; }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException{T}"/> class
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="EmptyCollectionException{T}"/>.
         /// </summary>
         public EmptyCollectionException() : base(St.LstEmpty) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException{T}"/> class
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="EmptyCollectionException{T}"/>.
         /// </summary>
-        /// <param name="message">A <see cref="string"/> that describes the exception. </param>
+        /// <param name="message">
+        /// A <see cref="string"/> that describes the exception.
+        /// </param>
         public EmptyCollectionException(string message) : base(message) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException{T}"/>.

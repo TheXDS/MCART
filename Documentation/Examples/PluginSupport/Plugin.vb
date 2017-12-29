@@ -1,4 +1,4 @@
-﻿'
+'
 ' MyMenu.vb
 '
 '  This file is part of MCART
@@ -33,6 +33,7 @@
 
 #Region "uiMenu1"
 Public Class MyPlugin
+	Inherits Plugin
 
     ' Este es un elemento de interacción que MCART cableará automáticamente.
     <Name("Interacción 1")>
@@ -40,6 +41,19 @@ Public Class MyPlugin
     <InteractionItem>
     Public Sub Interaccion1(sender As Object, e As System.EventArgs)
         System.Diagnostics.Debug.Print("Interacción 1 ejecutada.")
+    End Sub
+	
+    ' Este es un elemento de interacción cableado manualmente.
+    Public Sub Interaccion2(sender As Object, e As System.EventArgs)
+        System.Diagnostics.Debug.Print("Interacción 2 ejecutada.")
+    End Sub
+
+    ' Este es un elemento de interacción cableado manualmente, 
+    ' con atributos que especifican el nombre y la descripción.
+    <Name("Interacción 3")>
+    <Description("Muestra un tercer mensaje de interacción.")>
+    Public Sub Interaccion3(sender As Object, e As System.EventArgs)
+        System.Diagnostics.Debug.Print("Interacción 3 ejecutada.")
     End Sub
 
     ''' <summary>
@@ -68,19 +82,6 @@ Public Class MyPlugin
                 System.Diagnostics.Debug.Print("Interacción 4 ejecutada.")
             End Sub,
             "Interacción 4", "Muestra otro mensaje en la salida de la depuración."))
-    End Sub
-
-    ' Este es un elemento de interacción cableado manualmente.
-    Public Sub Interaccion2(sender As Object, e As System.EventArgs)
-        System.Diagnostics.Debug.Print("Interacción 2 ejecutada.")
-    End Sub
-
-    ' Este es un elemento de interacción cableado manualmente, 
-    ' con atributos que especifican el nombre y la descripción.
-    <Name("Interacción 3")>
-    <Description("Muestra un tercer mensaje de interacción.")>
-    Public Sub Interaccion3(sender As Object, e As System.EventArgs)
-        System.Diagnostics.Debug.Print("Interacción 3 ejecutada.")
     End Sub
 End Class
 #End Region

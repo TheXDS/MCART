@@ -68,6 +68,11 @@ namespace MCART.Events
         /// <see cref="DependencyPropertyChangedEventArgs"/>.
         /// </summary>
         /// <param name="x">Objeto a convertir.</param>
+        /// <returns>
+        /// Un <see cref="DependencyPropertyChangedEventArgs"/> con la misma
+        /// información de evento del
+        /// <see cref="DependencyPropertyChangingEventArgs"/> especificado.
+        /// </returns>
         public static implicit operator DependencyPropertyChangedEventArgs(DependencyPropertyChangingEventArgs x) => new DependencyPropertyChangedEventArgs(x.Property, x.OldValue, x.NewValue);
     }
     /// <summary>

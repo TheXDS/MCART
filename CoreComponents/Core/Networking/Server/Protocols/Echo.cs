@@ -34,6 +34,16 @@ namespace MCART.Networking.Server.Protocols
         /// <summary>
         /// Protocolo de atención normal.
         /// </summary>
+        /// <param name="client">
+        /// Cliente que está siendo atendido debido a una solicitud.
+        /// </param>
+        /// <param name="server">
+        /// Instancia del servidor que atenderá al cliente.
+        /// </param>
+        /// <param name="data">
+        /// Datos que <paramref name="client"/> ha enviado como parte de la
+        /// soliccitud de atención.
+        /// </param>
         public override void ClientAttendant(Client client, Server<Client> server, byte[] data)
         {
             client.Send(data);

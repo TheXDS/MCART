@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shfbBuild product="Sandcastle Help File Builder and Tools" version="2017.5.15.0" projectFile="C:\Users\xds_x\src\MCART\Documentation\API-Documentation\API-Documentation.shfbproj" started="28/12/2017 12:15:28 a.m.">
+<shfbBuild product="Sandcastle Help File Builder and Tools" version="2017.5.15.0" projectFile="C:\Users\xds_x\src\MCART\Documentation\API-Documentation\API-Documentation.shfbproj" started="29/12/2017 12:27:56 a.m.">
 <buildStep step="Initializing">
 Finding tools...
 The Sandcastle tools are located in &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\&#39;
@@ -33,16 +33,16 @@ Copying XML comments files
 <buildStep step="GenerateSharedContent">
 Generating shared content files (es-ES, Spanish (Spain))...
 <plugIn name="Lightweight Website Style" behavior="After" priority="1000">
-</plugIn>    Last step completed in 00:00:00.0115
+</plugIn>    Last step completed in 00:00:00.0000
 </buildStep>
 <buildStep step="GenerateApiFilter">
 Generating API filter for MRefBuilder...
-    Last step completed in 00:00:00.0105
+    Last step completed in 00:00:00.0156
 </buildStep>
 <buildStep step="GenerateReflectionInfo">
 Generating reflection information...
 [C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\MSBuild.exe - GenerateRefInfo.proj]
-Build started 28/12/2017 12:15:29 a.m..
+Build started 29/12/2017 12:27:59 a.m..
 Project &quot;D:\Temp\xds_x\Sandcastle\GenerateRefInfo.proj&quot; on node 1 (default targets).
 PrepareForBuild:
   Creating directory &quot;obj\Debug\&quot;.
@@ -59,12 +59,12 @@ GenerateRefInfo:
   Portions Copyright c 2006-2016, Eric Woodruff, All Rights Reserved.
   Applying XSL transformation &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\ProductionTransforms\MergeDuplicates.xsl&#39;.
 Done Building Project &quot;D:\Temp\xds_x\Sandcastle\GenerateRefInfo.proj&quot; (default targets).
-    Last step completed in 00:00:01.6501
+    Last step completed in 00:00:01.7744
 </buildStep>
 <buildStep step="TransformReflectionInfo">
 Transforming reflection output...
 [C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\MSBuild.exe - TransformManifest.proj]
-Build started 28/12/2017 12:15:31 a.m..
+Build started 29/12/2017 12:28:01 a.m..
 Project &quot;D:\Temp\xds_x\Sandcastle\TransformManifest.proj&quot; on node 1 (default targets).
 TransformManifest:
   XslTransform (v2017.5.15.0)
@@ -81,11 +81,11 @@ TransformManifest:
   Portions Copyright c 2006-2016, Eric Woodruff, All Rights Reserved.
   Applying XSL transformation &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\ProductionTransforms\ReflectionToManifest.xsl&#39;.
 Done Building Project &quot;D:\Temp\xds_x\Sandcastle\TransformManifest.proj&quot; (default targets).
-    Last step completed in 00:00:04.8734
+    Last step completed in 00:00:05.0129
 </buildStep>
 <buildStep step="GenerateNamespaceSummaries">
 Generating namespace summary information...
-    Last step completed in 00:00:00.2565
+    Last step completed in 00:00:00.2657
 </buildStep>
 <buildStep step="CopyConceptualContent">
 Copying conceptual content...
@@ -108,28 +108,28 @@ Generating conceptual topic files
     C:\Users\xds_x\src\MCART\Documentation\API-Documentation\Content\Walkthrough\Plugins.aml -&gt; D:\Temp\xds_x\Sandcastle\ddueXml\d34b79c8-ff06-45c4-8a02-02312345f028.xml
     Parsing topic file &#39;C:\Users\xds_x\src\MCART\Documentation\API-Documentation\Content\Topics\TechInfo.aml&#39;
     C:\Users\xds_x\src\MCART\Documentation\API-Documentation\Content\Topics\TechInfo.aml -&gt; D:\Temp\xds_x\Sandcastle\ddueXml\8e4ca775-621e-4350-ba47-40c623732add.xml
-    Last step completed in 00:00:00.0492
+    Last step completed in 00:00:00.0625
 </buildStep>
 <buildStep step="CreateConceptualTopicConfigs">
 Creating conceptual topic configuration files...
     Companion files
     _ContentMetadata_.xml
     Merging topic IDs into manifest.xml
-    Last step completed in 00:00:00.0236
+    Last step completed in 00:00:00.0156
 </buildStep>
 <buildStep step="CopyAdditionalContent">
 Copying additional content files...
 C:\Users\xds_x\src\MCART\Documentation\API-Documentation\icons\Help.png -&gt; D:\Temp\xds_x\Sandcastle\Output\Website\icons\Help.png
-    Last step completed in 00:00:00.0040
+    Last step completed in 00:00:00.0000
 </buildStep>
 <buildStep step="MergeTablesOfContents">
 Merging conceptual and additional tables of contents...
-    Last step completed in 00:00:00.0035
+    Last step completed in 00:00:00.0000
 </buildStep>
 <buildStep step="GenerateIntermediateTableOfContents">
 Generating intermediate table of contents file...
 [C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\MSBuild.exe - GenerateIntermediateTOC.proj]
-Build started 28/12/2017 12:15:36 a.m..
+Build started 29/12/2017 12:28:06 a.m..
 Project &quot;D:\Temp\xds_x\Sandcastle\GenerateIntermediateTOC.proj&quot; on node 1 (default targets).
 GenerateIntermediateTOC:
   XslTransform (v2017.5.15.0)
@@ -138,12 +138,12 @@ GenerateIntermediateTOC:
   Applying XSL transformation &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\\ProductionTransforms\CreateVSToc.xsl&#39;.
 Done Building Project &quot;D:\Temp\xds_x\Sandcastle\GenerateIntermediateTOC.proj&quot; (default targets).
 Generating conceptual content intermediate TOC file...
-    Last step completed in 00:00:00.4671
+    Last step completed in 00:00:00.5711
 </buildStep>
 <buildStep step="CreateBuildAssemblerConfigs">
 Creating Sandcastle configuration files...
     sandcastle.config
-    Last step completed in 00:00:00.2052
+    Last step completed in 00:00:00.2032
 </buildStep>
 <buildStep step="MergeCustomConfigs">
 Merging custom build component configurations
@@ -156,12 +156,12 @@ D:\Temp\xds_x\Sandcastle\sandcastle.config
     Skipping component &#39;API Token Resolution&#39;, not used in conceptual build
     Replacing default configuration for &#39;Code Block Component&#39; with the custom configuration
     Replacing default configuration for &#39;Syntax Component&#39; with the custom configuration
-    Last step completed in 00:00:00.0144
+    Last step completed in 00:00:00.0000
 </buildStep>
 <buildStep step="BuildTopics">
 Building help topics...
 [C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\MSBuild.exe - BuildTopics.proj]
-Build started 28/12/2017 12:15:37 a.m..
+Build started 29/12/2017 12:28:07 a.m..
 Project &quot;D:\Temp\xds_x\Sandcastle\BuildTopics.proj&quot; on node 1 (default targets).
 BuildTopics:
   BuildAssembler (v2017.5.15.0)
@@ -170,42 +170,6 @@ BuildTopics:
   Loading configuration...
 BuildAssembler : warning : CopyFromIndexComponent: Entries for the key &#39;N:System.Windows.Converters&#39; occur in both &#39;C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\Data\.NETFramework\System.Windows.Converters.xml&#39; and &#39;D:\Temp\xds_x\Sandcastle\reflection.xml&#39;. The last entry will be used. [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
   Processing topics...
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Common.CollectionListed(System.Collections.Generic.IEnumerable{System.String})] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Math.AreNegatives(System.Double[])] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Math.AreNotZero``1(``0[])] Missing &lt;typeparam name=&quot;T&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Math.AreNotZero``1(``0[])] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Math.ArePositives(System.Double[])] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Math.AreZero``1(``0[])] Missing &lt;typeparam name=&quot;T&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Math.AreZero``1(``0[])] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Math.Clamp``1(``0,``0)] Missing &lt;typeparam name=&quot;T&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Math.Clamp``1(``0,``0,``0)] Missing &lt;typeparam name=&quot;T&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Objects.Is(System.Object,System.Object)] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Events.DependencyPropertyChangingEventArgs.op_Implicit(MCART.Events.DependencyPropertyChangingEventArgs)~System.Windows.DependencyPropertyChangedEventArgs] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Events.ItemSavingEventArgs.op_Implicit(MCART.Events.ItemSavingEventArgs)~MCART.Events.ItemSavedEventArgs] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Events.ValueChangingEventArgs`1.op_Implicit(MCART.Events.ValueChangingEventArgs{`0})~MCART.Events.ValueEventArgs{`0}] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [T:MCART.Exceptions.EmptyCollectionException`1] Missing &lt;typeparam name=&quot;T&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Exceptions.EmptyCollectionException`1.#ctor(System.Collections.Generic.IEnumerable{`0})] Missing &lt;param name=&quot;offendingList&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ResolveReferenceLinksComponent: [M:MCART.Networking.Server.Client.#ctor(System.Net.Sockets.TcpClient,MCART.Networking.Server.Server{MCART.Networking.Server.Client})] Unknown reference link target &#39;F:MCART.Networking.Server.Client.TcpClient&#39;. [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Networking.Server.Client.Recieve] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Networking.Server.Client.RecieveAsync] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Networking.Server.Client.RecieveAsync(System.Threading.CancellationToken)] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Networking.Server.Client.SendAsync(System.Byte[])] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Networking.Server.Client.SendAsync(System.Byte[],System.Threading.CancellationToken)] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [T:MCART.Networking.Server.Client`1] Missing &lt;typeparam name=&quot;T&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [T:MCART.Networking.Server.IProtocol`1] Missing &lt;typeparam name=&quot;TClient&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [T:MCART.Networking.Server.Protocol`1] Missing &lt;typeparam name=&quot;TClient&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Networking.Server.Server.op_Implicit(MCART.Networking.Server.Protocol{MCART.Networking.Server.Client})~MCART.Networking.Server.Server] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [T:MCART.Networking.Server.Server`1] Missing &lt;typeparam name=&quot;TClient&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Networking.Server.Server`1.op_Implicit(MCART.Networking.Server.Protocol{`0})~MCART.Networking.Server.Server{`0}] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Networking.Server.Server`1.StopAsync] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Networking.Server.Protocols.Echo.ClientAttendant(MCART.Networking.Server.Client,MCART.Networking.Server.Server{MCART.Networking.Server.Client},System.Byte[])] Missing &lt;param name=&quot;client&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Networking.Server.Protocols.Echo.ClientAttendant(MCART.Networking.Server.Client,MCART.Networking.Server.Server{MCART.Networking.Server.Client},System.Byte[])] Missing &lt;param name=&quot;server&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Networking.Server.Protocols.Echo.ClientAttendant(MCART.Networking.Server.Client,MCART.Networking.Server.Server{MCART.Networking.Server.Client},System.Byte[])] Missing &lt;param name=&quot;data&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.PluginSupport.InteractionItem.op_Implicit(MCART.PluginSupport.InteractionItem)~System.Windows.Controls.MenuItem] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.PluginSupport.InteractionItem.op_Implicit(MCART.PluginSupport.InteractionItem)~System.Windows.Controls.Button] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.PluginSupport.Plugin.UIPanel``2] Missing &lt;typeparam name=&quot;T&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.PluginSupport.Plugin.UIPanel``2] Missing &lt;typeparam name=&quot;PanelT&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.PluginSupport.Plugin.UIPanel``2] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
 BuildAssembler : warning : ShowMissingComponent: [P:MCART.Resources.Colors.AliceBlue] Missing &lt;summary&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
 BuildAssembler : warning : ShowMissingComponent: [P:MCART.Resources.Colors.AntiqueWhite] Missing &lt;summary&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
 BuildAssembler : warning : ShowMissingComponent: [P:MCART.Resources.Colors.AntiqueWhite1] Missing &lt;summary&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
@@ -779,25 +743,9 @@ BuildAssembler : warning : ShowMissingComponent: [F:MCART.Resources.Strings.Updt
 BuildAssembler : warning : ShowMissingComponent: [F:MCART.Resources.Strings.Usr] Missing &lt;summary&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
 BuildAssembler : warning : ShowMissingComponent: [F:MCART.Resources.Strings.UsrCncl] Missing &lt;summary&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
 BuildAssembler : warning : ShowMissingComponent: [F:MCART.Resources.Strings.Ver] Missing &lt;summary&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Security.Password.PwEvalRule.Eval(System.Security.SecureString)] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Types.Color.op_Implicit(MCART.Types.Color)~System.Windows.Media.Color] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Types.Color.op_Implicit(MCART.Types.Color)~System.Windows.Media.Brush] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
 BuildAssembler : warning : ShowMissingComponent: [M:MCART.Types.Color.op_Implicit(MCART.Types.Color)~System.Drawing.Color] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
 BuildAssembler : warning : ShowMissingComponent: [M:MCART.Types.Color.op_Implicit(System.Drawing.Color)~MCART.Types.Color] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Types.Color.op_Implicit(System.Windows.Media.Color)~MCART.Types.Color] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ResolveReferenceLinksComponent: [T:MCART.Types.Point] Unknown reference link target &#39;T:MCART.Math.Functions.Point&#39;. [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ResolveReferenceLinksComponent: [M:MCART.Types.Point.#ctor(System.Double,System.Double)] Unknown reference link target &#39;T:MCART.Math.Functions.Point&#39;. [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Types.Point.op_Implicit(MCART.Types.Point)~System.Windows.Point] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Types.Point.op_Implicit(MCART.Types.Point)~System.Drawing.Point] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Types.Point.op_Implicit(System.Drawing.Point)~MCART.Types.Point] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Types.Point.op_Implicit(System.Windows.Point)~MCART.Types.Point] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Types.Point3D.#ctor(System.Double,System.Double,System.Double)] Missing &lt;param name=&quot;x&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Types.Point3D.#ctor(System.Double,System.Double,System.Double)] Missing &lt;param name=&quot;y&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Types.Point3D.#ctor(System.Double,System.Double,System.Double)] Missing &lt;param name=&quot;z&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Types.Extensions.IEnumerableExtensions.Pick``1(System.Collections.Generic.IEnumerable{``0})] Missing &lt;typeparam name=&quot;T&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
 BuildAssembler : warning : ShowMissingComponent: [M:MCART.Types.Extensions.IEnumerableExtensions.Pick``1(System.Collections.Generic.IEnumerable{``0})] Missing &lt;param name=&quot;a&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Types.Extensions.IEnumerableExtensions.Rotate``1(System.Collections.Generic.IEnumerable{``0},System.Int32)] Missing &lt;typeparam name=&quot;T&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
-BuildAssembler : warning : ShowMissingComponent: [M:MCART.Types.Extensions.IEnumerableExtensions.Shift``1(System.Collections.Generic.IEnumerable{``0},System.Int32)] Missing &lt;typeparam name=&quot;T&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
 BuildAssembler : warning : ShowMissingComponent: [M:MCART.Types.Extensions.IEnumerableExtensions.ToExtendedList``1(System.Collections.Generic.IEnumerable{``0})] Missing &lt;typeparam name=&quot;T&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
 BuildAssembler : warning : ShowMissingComponent: [T:MCART.Types.TaskReporter.ForEachAction`1] Missing &lt;typeparam name=&quot;T&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
 BuildAssembler : warning : ShowMissingComponent: [M:MCART.Types.TaskReporter.TaskReporter.Begin(System.TimeSpan,System.Boolean)] Missing &lt;param name=&quot;timeout&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
@@ -826,17 +774,17 @@ BuildAssembler : warning : ShowMissingComponent: [M:MCART.Types.TaskReporter.Tas
 BuildAssembler : warning : ShowMissingComponent: [M:MCART.Types.TaskReporter.TaskReporterPlugin.ForEach``1(System.Collections.Generic.IEnumerable{``0},MCART.Types.TaskReporter.ForEachAction{``0},System.String,System.Boolean,System.Action,System.Action,MCART.Types.TaskReporter.ITaskReporter)] Missing &lt;returns&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
 BuildAssembler : warning : ShowMissingComponent: [M:System.Windows.Converters.BooleanToInvVisibilityConverter.#ctor(System.Windows.Visibility)] Missing &lt;param name=&quot;trueState&quot;/&gt; documentation [D:\Temp\xds_x\Sandcastle\BuildTopics.proj]
   Processed 2893 topic(s)
-  656 warning(s)
+  604 warning(s)
   CopyFromIndexComponent: &quot;metadata&quot; in-memory cache entries used: 1 of 15.
   ResolveArtLinksComponent: Copying media files...
   CopyFromIndexComponent: &quot;reflection&quot; in-memory cache entries used: 15 of 15.
   CopyFromIndexComponent: &quot;comments&quot; in-memory cache entries used: 2 of 30.
 Done Building Project &quot;D:\Temp\xds_x\Sandcastle\BuildTopics.proj&quot; (default targets).
-    Last step completed in 00:00:24.1377
+    Last step completed in 00:00:23.3453
 </buildStep>
 <buildStep step="CombiningIntermediateTocFiles">
 Combining conceptual and API intermediate TOC files...
-    Last step completed in 00:00:00.0166
+    Last step completed in 00:00:00.0326
 </buildStep>
 <buildStep step="ExtractingHtmlInfo">
 Extracting HTML info for HTML Help 1 and/or website...
@@ -852,7 +800,7 @@ Processed 2893 HTML files
 Sorting keywords and generating See Also indices
 Saving website keyword index to D:\Temp\xds_x\Sandcastle\WebKI.xml
 Saving website table of contents to D:\Temp\xds_x\Sandcastle\WebTOC.xml
-    Last step completed in 00:00:00.9959
+    Last step completed in 00:00:02.0410
 </buildStep>
 <buildStep step="CopyStandardHelpContent">
 Copying standard help content...
@@ -934,18 +882,18 @@ C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyle
 C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\Web\scripts\branding-Website.js -&gt; D:\Temp\xds_x\Sandcastle\Output\Website\scripts\branding-Website.js
 C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\Web\scripts\clipboard.min.js -&gt; D:\Temp\xds_x\Sandcastle\Output\Website\scripts\clipboard.min.js
 C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\PresentationStyles\VS2013\Web\scripts\jquery-1.11.0.min.js -&gt; D:\Temp\xds_x\Sandcastle\Output\Website\scripts\jquery-1.11.0.min.js
-    Last step completed in 00:00:01.8006
+    Last step completed in 00:00:00.7747
 </buildStep>
 <buildStep step="GenerateHelpFormatTableOfContents">
 Generating website table of contents file...
-    Last step completed in 00:00:00.0010
+    Last step completed in 00:00:00.0000
 </buildStep>
 <buildStep step="GenerateFullTextIndex">
 Generating full-text index for the website...
 
 <plugIn name="Lightweight Website Style" behavior="After" priority="1000">
 Adding lightweight search and TOC elements to each topic...
-</plugIn>    Last step completed in 00:00:06.3400
+</plugIn>    Last step completed in 00:00:08.5077
 </buildStep>
 <buildStep step="CopyingWebsiteFiles">
 Copying website files to output folder...
@@ -958,15 +906,15 @@ Copied 2500 files
 Copied 3000 files
 Copied 3500 files
 Copied 3606 files for the website content
-    Last step completed in 00:00:11.8068
+    Last step completed in 00:00:11.3704
 </buildStep>
 <buildStep step="CleanIntermediates">
 Removing intermediate files...
-    Last step completed in 00:00:08.1086
+    Last step completed in 00:00:07.3536
 </buildStep>
 <buildStep step="Completed">
 
-Build completed successfully at 28/12/2017 12:16:30 a.m..  Total time: 00:01:02.0115
+Build completed successfully at 29/12/2017 12:29:00 a.m..  Total time: 00:01:03.7703
 
 </buildStep>
 </shfbBuild>

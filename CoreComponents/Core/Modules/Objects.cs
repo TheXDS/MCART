@@ -138,7 +138,10 @@ namespace MCART
         /// </summary>
         /// <param name="obj1">Objeto a comprobar.</param>
         /// <param name="obj2">Objeto contra el cual comparar.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// <c>true</c> si la instancia de <paramref name="obj1"/> es la misma
+        /// que <paramref name="obj2"/>, <c>false</c> en caso contrario.
+        /// </returns>
         [Thunk] public static bool Is(this object obj1, object obj2) => ReferenceEquals(obj1, obj2);
         /// <summary>
         /// Determina si <paramref name="obj1"/> es una instancia diferente a
@@ -147,8 +150,9 @@ namespace MCART
         /// <param name="obj1">Objeto a comprobar.</param>
         /// <param name="obj2">Objeto contra el cual comparar.</param>
         /// <returns>
-        /// <c>true</c> si la instancia de <paramref name="obj1"/> es
-        /// <paramref name="obj2"/>, <c>false</c> en caso contrario.</returns>
+        /// <c>true</c> si la instancia de <paramref name="obj1"/> no es la
+        /// misma que <paramref name="obj2"/>, <c>false</c> en caso contrario.
+        /// </returns>
         [Thunk] public static bool IsNot(this object obj1, object obj2) => !ReferenceEquals(obj1, obj2);
         /// <summary>
 		/// Determina si un objeto es cualquiera de los indicados.

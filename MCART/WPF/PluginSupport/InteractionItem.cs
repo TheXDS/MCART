@@ -132,15 +132,23 @@ namespace MCART.PluginSupport
         /// Convierte implícitamente este <see cref="InteractionItem"/> en un
         /// <see cref="MenuItem"/>.
         /// </summary>
-        /// <param name="j"><see cref="InteractionItem"/> a convertir.</param>
-        public static implicit operator MenuItem(InteractionItem j) => j.AsMenuItem();
+        /// <param name="interaction">
+        /// <see cref="InteractionItem"/> a convertir.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="MenuItem"/> creado a partir del
+        /// <see cref="InteractionItem"/> especificado.
+        /// </returns>
+        public static implicit operator MenuItem(InteractionItem interaction) => interaction.AsMenuItem();
         /// <summary>
         /// Devuelve este <see cref="InteractionItem"/> como un 
         /// <see cref="ButtonBase"/> de tipo <typeparamref name="T"/>.
         /// </summary>
         /// <typeparam name="T">Tipo de control a generar.</typeparam>
-        /// <returns>Un <typeparamref name="T"/> generado a partir de este
-        /// <see cref="InteractionItem"/>.</returns>
+        /// <returns>
+        /// Un <typeparamref name="T"/> creado a partir de este
+        /// <see cref="InteractionItem"/>.
+        /// </returns>
         public T AsButton<T>() where T : ButtonBase, new()
         {
             ButtonBase k = new T();
@@ -162,14 +170,20 @@ namespace MCART.PluginSupport
         /// Devuelve este <see cref="InteractionItem"/> como un
         /// <see cref="Button"/>.
         /// </summary>
-        /// <returns>Un <see cref="Button"/> generado a partir de este
-        /// <see cref="InteractionItem"/>.</returns>
+        /// <returns>
+        /// Un <see cref="Button"/> creado a partir de este
+        /// <see cref="InteractionItem"/>.
+        /// </returns>
         public Button AsButton() => AsButton<Button>();
         /// <summary>
         /// Convierte implícitamente este <see cref="InteractionItem"/> en un
         /// <see cref="Button"/>.
         /// </summary>
         /// <param name="j"><see cref="InteractionItem"/> a convertir.</param>
+        /// <returns>
+        /// Un <see cref="Button"/> creado a partir del
+        /// <see cref="InteractionItem"/> especificado.
+        /// </returns>
         public static implicit operator Button(InteractionItem j) => j.AsButton<Button>();
     }
 }

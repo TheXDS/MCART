@@ -275,7 +275,7 @@ namespace MCART
         /// Calcula la potencia de dos más cercana mayor o igual al número
         /// </summary>
         /// <param name="x">Número de entrada. Se buscará una potencia de dos mayor o igual a este valor.</param>
-        /// <returns>Un valor ULong que es resultado de la operación.</returns>
+        /// <returns>Un valor <see cref="ulong"/> que es resultado de la operación.</returns>
         public static ulong Nearest2Pow(uint x)
         {
             ulong c = 1;
@@ -299,6 +299,10 @@ namespace MCART
         /// Devuelve <c>true</c> si todos los números son positivos.
         /// </summary>
         /// <param name="x">números a comprobar.</param>
+        /// <returns>
+        /// <c>true</c> si todos los números de la colección son positivos,
+        /// <c>false</c> en caso contrario.
+        /// </returns>
         public static bool ArePositives(params double[] x)
         {
             foreach (double j in x) if (j <= 0) return false;
@@ -308,6 +312,10 @@ namespace MCART
         /// Devuelve <c>true</c> si todos los números son negativos.
         /// </summary>
         /// <param name="x">números a comprobar.</param>
+        /// <returns>
+        /// <c>true</c> si todos los números de la colección son negativos,
+        /// <c>false</c> en caso contrario.
+        /// </returns>
         public static bool AreNegatives(params double[] x)
         {
             foreach (double j in x) if (j >= 0) return false;
@@ -316,7 +324,14 @@ namespace MCART
         /// <summary>
         /// Devuelve <c>true</c> si todos los números son iguales a cero.
         /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de elementos a comprobar.
+        /// </typeparam>
         /// <param name="x">números a comprobar.</param>
+        /// <returns>
+        /// <c>true</c> si todos los números de la colección son iguales a
+        /// cero, <c>false</c> en caso contrario.
+        /// </returns>
         public static bool AreZero<T>(params T[] x) where T : IComparable<T>
         {
             foreach (T j in x) if (j.CompareTo(default(T)) != 0) return false;
@@ -325,7 +340,14 @@ namespace MCART
         /// <summary>
         /// Devuelve <c>true</c> si todos los números son distintos de cero.
         /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de elementos a comprobar.
+        /// </typeparam>
         /// <param name="x">números a comprobar.</param>
+        /// <returns>
+        /// <c>true</c> si todos los números de la colección son distintos de
+        /// cero, <c>false</c> en caso contrario.
+        /// </returns>
         public static bool AreNotZero<T>(params T[] x) where T : IComparable<T>
         {
             foreach (T j in x) if (j.CompareTo(default(T)) == 0) return false;
@@ -390,6 +412,7 @@ namespace MCART
         /// <summary>
         /// Establece límites de sobreflujo para evaluar una expresión.
         /// </summary>
+        /// <typeparam name="T"> Tipo de expresión a limitar. </typeparam>
         /// <param name="expression">Expresión a evaluar.</param>
         /// <param name="max">Límite superior de salida, inclusive.</param>
         /// <param name="min">Límite inferior de salida, inclusive.</param>
@@ -405,6 +428,7 @@ namespace MCART
         /// <summary>
         /// Establece límites de sobreflujo para evaluar una expresión.
         /// </summary>
+        /// <typeparam name="T"> Tipo de expresión a limitar. </typeparam>
         /// <param name="expression">Expresión a evaluar.</param>
         /// <param name="max">Límite superior de salida, inclusive.</param>
         /// <returns>
@@ -438,6 +462,7 @@ namespace MCART
         /// <summary>
         /// Establece puntos de sobreflujo intencional para evaluar una expresión.
         /// </summary>
+        /// <typeparam name="T"> Tipo de expresión a evaluar. </typeparam>
         /// <param name="expression">Expresión a evaluar.</param>
         /// <param name="max">Límite superior de salida, inclusive.</param>
         /// <param name="min">Límite inferior de salida, inclusive.</param>

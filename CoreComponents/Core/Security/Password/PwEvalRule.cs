@@ -73,7 +73,10 @@ namespace MCART.Security.Password
         /// Ejecuta la evaluación de este <see cref="PwEvalRule"/>.
         /// </summary>
         /// <param name="pwToEval">Contraseña a evaluar.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// Un <see cref="PwEvalResult"/> con el resultado de la evaluación de
+        /// la contraseña por parte de este <see cref="PwEvalRule"/>.
+        /// </returns>
         public PwEvalResult Eval(SecureString pwToEval)
         {
             if (!Enable) throw new InvalidOperationException(

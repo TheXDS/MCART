@@ -53,6 +53,9 @@ namespace MCART.Types
         /// Inicializa una nueva instancia de la estructura
         /// <see cref="Point3D"/>.
         /// </summary>
+        /// <param name="x">Coordenada X.</param>
+        /// <param name="y">Coordenada Y.</param>
+        /// <param name="z">Coordenada Z.</param>
         public Point3D(double x, double y, double z) { X = x; Y = y; Z = z; }
         /// <summary>
         /// Determina si el punto se encuentra dentro del cubo formado por los

@@ -320,8 +320,8 @@
   <HelpKINode Title="BtnNew field" Url="html/c8d8a3da-8e46-61cc-b464-2c89330ea947.htm" />
   <HelpKINode Title="BtnSave field" Url="html/d0e9c5c7-0296-0ad2-49d2-7bc367ab138e.htm" />
   <HelpKINode Title="bufferSize field">
-    <HelpKINode Title="Client.bufferSize (Campo)" Url="html/504a4716-3c75-6aab-0547-d8f62bb0d329.htm" />
     <HelpKINode Title="Client.bufferSize (Campo)" Url="html/1b5474a4-5c5d-8aa7-e862-714d97932b00.htm" />
+    <HelpKINode Title="Client.bufferSize (Campo)" Url="html/504a4716-3c75-6aab-0547-d8f62bb0d329.htm" />
   </HelpKINode>
   <HelpKINode Title="BurlyWood property" Url="html/220e8dc5-81aa-5164-d829-983dd0f84ffa.htm" />
   <HelpKINode Title="BurlyWood1 property" Url="html/1286a0ce-59cf-1123-a928-e77d0d6cc0e8.htm" />
@@ -416,14 +416,14 @@
   <HelpKINode Title="ClearingListEventHandler&lt;T&gt; delegate" Url="html/ee27683a-6749-709d-2a69-87c89adc2dd0.htm" />
   <HelpKINode Title="ClearWarn method" Url="html/85d38063-29ee-3957-1ab9-e7ca1cc49437.htm" />
   <HelpKINode Title="Client class">
-    <HelpKINode Title="Client (Clase)" Url="html/192fdf1f-b8af-3ec9-0055-92ff0e690de3.htm" />
     <HelpKINode Title="Client (Clase)" Url="html/6e39bcde-7d6c-b14a-e433-55aaa84607c4.htm" />
-    <HelpKINode Title="about Client class" Url="html/192fdf1f-b8af-3ec9-0055-92ff0e690de3.htm" />
+    <HelpKINode Title="Client (Clase)" Url="html/192fdf1f-b8af-3ec9-0055-92ff0e690de3.htm" />
     <HelpKINode Title="about Client class" Url="html/6e39bcde-7d6c-b14a-e433-55aaa84607c4.htm" />
-    <HelpKINode Title="constructor" Url="html/a41f3706-7d84-a529-fe2e-ca5d479ddd47.htm" />
+    <HelpKINode Title="about Client class" Url="html/192fdf1f-b8af-3ec9-0055-92ff0e690de3.htm" />
     <HelpKINode Title="constructor" Url="html/d5557efa-9454-aa32-73bf-05d9ae33b443.htm" />
-    <HelpKINode Title="fields" Url="html/443f2a63-8a9a-436d-ab4b-fa2f80be7790.htm" />
+    <HelpKINode Title="constructor" Url="html/a41f3706-7d84-a529-fe2e-ca5d479ddd47.htm" />
     <HelpKINode Title="fields" Url="html/7be742e3-141f-3671-42bd-4d4a1497c893.htm" />
+    <HelpKINode Title="fields" Url="html/443f2a63-8a9a-436d-ab4b-fa2f80be7790.htm" />
     <HelpKINode Title="methods" Url="html/271d75df-2ac1-42e7-be68-ab981e71e39f.htm" />
     <HelpKINode Title="methods" Url="html/72ca22a0-9bb9-79d6-7365-c8cdc61b4d73.htm" />
     <HelpKINode Title="properties" Url="html/3d5056e6-d113-055d-0aa7-53dbe1c4b4e5.htm" />
@@ -524,10 +524,10 @@
   </HelpKINode>
   <HelpKINode Title="Color to Brush conversion" Url="html/b95bb4a7-0f85-2c34-c557-9ce83768ebe2.htm" />
   <HelpKINode Title="Color to Color conversion">
-    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/ffec6dce-537f-3fa4-ad34-c3e8ebb91843.htm" />
-    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/8527f134-4104-4065-edc2-bd2053d5d326.htm" />
     <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/73fb1a55-5fcb-1544-43d3-757edc3f4172.htm" />
     <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/0cb8161e-12a6-81c5-5702-c79e76d821c4.htm" />
+    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/ffec6dce-537f-3fa4-ad34-c3e8ebb91843.htm" />
+    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/8527f134-4104-4065-edc2-bd2053d5d326.htm" />
   </HelpKINode>
   <HelpKINode Title="Color.A property" Url="html/1033d9fa-de8c-e61d-312f-afb71595a21b.htm" />
   <HelpKINode Title="Color.Addition operator" Url="html/b4f18c9c-e237-b1de-76cc-d1a494741f68.htm" />
@@ -1391,8 +1391,8 @@
   <HelpKINode Title="DirectoryIsFullException.OffendingDirectory field" Url="html/338c25c4-045d-3171-bd57-bc824f678690.htm" />
   <HelpKINode Title="DisableControls method" Url="html/19c9c21f-2d54-87e0-c870-c60e70d19aa5.htm" />
   <HelpKINode Title="Disconnect method">
-    <HelpKINode Title="Client.Disconnect (M&#233;todo )" Url="html/2a30b103-d358-04cb-3f7e-3af266d27998.htm" />
     <HelpKINode Title="Client.Disconnect (M&#233;todo )" Url="html/335bd0b4-82b5-30c6-6c07-722310bb4ea9.htm" />
+    <HelpKINode Title="Client.Disconnect (M&#233;todo )" Url="html/2a30b103-d358-04cb-3f7e-3af266d27998.htm" />
   </HelpKINode>
   <HelpKINode Title="Disposal enumeration member" Url="html/efc40d57-94cc-0351-a8d4-b21df210f913.htm" />
   <HelpKINode Title="Dispose method" Url="html/4a78fe48-2b51-807f-2342-5cb4d3ff775d.htm" />
@@ -2231,8 +2231,8 @@
   <HelpKINode Title="IronOxideGlass property" Url="html/9ee9ff9d-486b-32dd-59a5-12e103412701.htm" />
   <HelpKINode Title="Is method" Url="html/196f8475-b677-a34d-59bf-35344814f977.htm" />
   <HelpKINode Title="IsAlive property">
-    <HelpKINode Title="Client.IsAlive (Propiedad )" Url="html/67fe8580-1e4c-c2ee-dd4a-cfb9821a3811.htm" />
     <HelpKINode Title="Client.IsAlive (Propiedad )" Url="html/f5cd32bc-4713-3b91-1459-49498cfeb280.htm" />
+    <HelpKINode Title="Client.IsAlive (Propiedad )" Url="html/67fe8580-1e4c-c2ee-dd4a-cfb9821a3811.htm" />
     <HelpKINode Title="Server(TClient).IsAlive (Propiedad )" Url="html/82314302-6d07-a3f3-1416-7f90381e7928.htm" />
   </HelpKINode>
   <HelpKINode Title="IsAnyEmpty method" Url="html/4dca986c-f8c8-113f-2dc1-a8ebf5b04ff6.htm" />
@@ -3781,10 +3781,10 @@
     <HelpKINode Title="properties" Url="html/b25ee3c9-3fcf-7b1d-71c8-1330dfe0ad21.htm" />
   </HelpKINode>
   <HelpKINode Title="Point to Point conversion">
-    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/a3edd71c-1c0e-23f1-0035-2394369ea126.htm" />
+    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/af439fb7-ad17-922e-2bf3-7a6c30fd0b91.htm" />
     <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/d597125f-824c-6c5b-73e9-f5f0928f55ce.htm" />
     <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/be50bc81-daba-dab0-0b0b-cbf89da005f7.htm" />
-    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/af439fb7-ad17-922e-2bf3-7a6c30fd0b91.htm" />
+    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/a3edd71c-1c0e-23f1-0035-2394369ea126.htm" />
   </HelpKINode>
   <HelpKINode Title="Point.Addition operator" Url="html/32e4191a-5282-09de-2591-0ed8778fc109.htm" />
   <HelpKINode Title="Point.Angle method" Url="html/c8ae0249-2279-b5e3-66b7-6cdee5f9b9a6.htm" />

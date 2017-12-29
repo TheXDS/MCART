@@ -261,7 +261,10 @@ namespace MCART
         /// <summary>
         /// Condensa una lista en una <see cref="string"/>
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// Una cadena en formato de lista cuyos miembros están separados por
+        /// el separador de línea predeterminado del sistema.
+        /// </returns>
         /// <param name="lst">Lista a condensar. Sus elementos deben ser del
         /// tipo <see cref="string"/>.</param>
         public static string CollectionListed(this IEnumerable<string> lst)

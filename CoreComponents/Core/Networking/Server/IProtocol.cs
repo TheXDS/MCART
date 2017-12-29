@@ -27,6 +27,9 @@ namespace MCART.Networking.Server
     /// Determina una serie de funciones a implementar por una clase que provea
     /// de protocolos a un servidor.
     /// </summary>
+    /// <typeparam name="TClient">
+    /// Tipo de clientes que este protocolo es capaz de atender.
+    /// </typeparam>
     public interface IProtocol<TClient> where TClient : Client
     {
         /// <summary>

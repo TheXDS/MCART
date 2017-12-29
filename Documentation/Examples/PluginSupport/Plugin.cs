@@ -1,4 +1,4 @@
-﻿/*
+/*
 uiMenu.cs
 
 This file is part of MCART
@@ -32,7 +32,7 @@ el desarrollador podrá aprender a utilizar la librería y crear su propio
 código.
  */
 #region uiMenu1
-public class MyPlugin
+public class MyPlugin : Plugin
 {
     // Este es un elemento de interacción que MCART cableará automáticamente.
     [Name("Interacción 1")]
@@ -41,6 +41,21 @@ public class MyPlugin
     public void Interaccion1(object sender, System.EventArgs e)
     {
         System.Diagnostics.Debug.Print("Interacción 1 ejecutada.");
+    }
+
+    // Este es un elemento de interacción cableado manualmente.
+    public void Interaccion2(object sender, System.EventArgs e)
+    {
+        System.Diagnostics.Debug.Print("Interacción 2 ejecutada.");
+    }
+
+    // Este es un elemento de interacción cableado manualmente, 
+    // con atributos que especifican el nombre y la descripción.
+    [Name("Interacción 3")]
+    [Description("Muestra un tercer mensaje de interacción.")]
+    public void Interaccion3(object sender, System.EventArgs e)
+    {
+        System.Diagnostics.Debug.Print("Interacción 3 ejecutada.");
     }
 
     /// <summary>
@@ -70,21 +85,6 @@ public class MyPlugin
                 System.Diagnostics.Debug.Print("Interacción 4 ejecutada.");
             },
             "Interacción 4", "Muestra otro mensaje en la salida de la depuración."));
-    }
-
-    // Este es un elemento de interacción cableado manualmente.
-    public void Interaccion2(object sender, System.EventArgs e)
-    {
-        System.Diagnostics.Debug.Print("Interacción 2 ejecutada.");
-    }
-
-    // Este es un elemento de interacción cableado manualmente, 
-    // con atributos que especifican el nombre y la descripción.
-    [Name("Interacción 3")]
-    [Description("Muestra un tercer mensaje de interacción.")]
-    public void Interaccion3(object sender, System.EventArgs e)
-    {
-        System.Diagnostics.Debug.Print("Interacción 3 ejecutada.");
     }
 }
 #endregion

@@ -166,6 +166,10 @@ namespace MCART.Events
         /// <see cref="ValueEventArgs{T}"/>.
         /// </summary>
         /// <param name="x">Objeto a convertir.</param>
+        /// <returns>
+        /// Un <see cref="ValueEventArgs{T}"/> con la información pertinente
+        /// del <see cref="ValueChangingEventArgs{T}"/> especificado.
+        /// </returns>
         public static implicit operator ValueEventArgs<T>(ValueChangingEventArgs<T> x) => new ValueEventArgs<T>(x.NewValue);
     }
 
@@ -175,7 +179,6 @@ namespace MCART.Events
     /// </summary>
     public class ProgressionEventArgs : ValueEventArgs<double>
     {
-
         /// <summary>
         /// Devuelve una descripción rápida del estado de progreso.
         /// </summary>
@@ -212,7 +215,6 @@ namespace MCART.Events
     /// </summary>
     public class ItemSavingEventArgs : CancelEventArgs
     {
-
         /// <summary>
         /// Inicializa una nueva instancia de esta clase con la información de
         /// evento provista.
@@ -253,6 +255,10 @@ namespace MCART.Events
         /// <see cref="ItemSavedEventArgs"/>.
         /// </summary>
         /// <param name="x">Objeto a convertir.</param>
+        /// <returns>
+        /// Un <see cref="ItemSavedEventArgs"/> con la misma información de
+        /// evento que el <see cref="ItemSavingEventArgs"/> especificado.
+        /// </returns>
         public static implicit operator ItemSavedEventArgs(ItemSavingEventArgs x) => new ItemSavedEventArgs(x.Item, x.IsItemNew);
     }
     /// <summary>

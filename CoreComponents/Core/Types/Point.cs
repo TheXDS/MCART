@@ -22,6 +22,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using static System.Math;
 using St = MCART.Resources.Strings;
 using CI = System.Globalization.CultureInfo;
 
@@ -46,7 +47,7 @@ namespace MCART.Types
         /// </summary>
         public double Y;
         /// <summary>
-        /// Inicializa una nueva instancia de la estructura <see cref="T:MCART.Math.Functions.Point"/>.
+        /// Inicializa una nueva instancia de la estructura <see cref="Point"/>.
         /// </summary>
         /// <param name="x">The x coordinate.</param>
         /// <param name="y">The y coordinate.</param>
@@ -81,7 +82,7 @@ namespace MCART.Types
         /// <returns>
         /// La magnitud resultante entre el punto y el orígen.
         /// </returns>
-        public double Magnitude() => System.Math.Sqrt((X * X) + (Y * Y));
+        public double Magnitude() => Sqrt((X * X) + (Y * Y));
         /// <summary>
         /// Calcula la magnitud de las coordenadas desde el punto
         /// especificado.
@@ -92,7 +93,7 @@ namespace MCART.Types
         public double Magnitude(Point fromPoint)
         {
             double x = X - fromPoint.X, y = Y - fromPoint.Y;
-            return System.Math.Sqrt((x * x) + (y * y));
+            return Sqrt((x * x) + (y * y));
         }
         /// <summary>
         /// Calcula la magnitud de las coordenadas desde el punto
@@ -107,7 +108,7 @@ namespace MCART.Types
         public double Magnitude(double fromX, double fromY)
         {
             double x = X - fromX, y = Y - fromY;
-            return System.Math.Sqrt((x * x) + (y * y));
+            return Sqrt((x * x) + (y * y));
         }
         /// <summary>
         /// Calcula el ángulo formado por la línea que intersecta el orígen y
@@ -116,8 +117,8 @@ namespace MCART.Types
         /// <returns>El ángulo calculado.</returns>
         public double Angle()
         {
-            double ang = System.Math.Acos(X / Magnitude());
-            if (Y < 0) ang += System.Math.Acos(-1);
+            double ang = Acos(X / Magnitude());
+            if (Y < 0) ang += Acos(-1);
             return ang;
         }
         /// <summary>

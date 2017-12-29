@@ -41,7 +41,9 @@ namespace MCART.Types.Extensions
         /// instancia del objeto original.
         /// </returns>
         /// <param name="c">Colección a copiar.</param>
-        /// <typeparam name="T">Tipo de elementos de esta lista.</typeparam>
+        /// <typeparam name="T">
+        /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}"/>.
+        /// </typeparam>
         public static IEnumerable<T> Copy<T>(this IEnumerable<T> c)
         {
             List<T> tmp = new List<T>();
@@ -157,9 +159,12 @@ namespace MCART.Types.Extensions
             catch { throw; }
         }
         /// <summary>
-        /// Selecciona un elemento aleatorio de esta lista.
+        /// Selecciona un elemento aleatorio de la colección.
         /// </summary>
-        /// <returns>The pick.</returns>
+        /// <returns>Un objeto aleatorio de la colección.</returns>
+        /// <typeparam name="T">
+        /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}"/>.
+        /// </typeparam>
         public static T Pick<T>(this IEnumerable<T> a)
         {
             if (!a.Any()) throw new EmptyCollectionException<T>(a);
@@ -170,8 +175,8 @@ namespace MCART.Types.Extensions
         /// </summary>
         /// <param name="c">Colección a convertir</param>
         /// <returns>
-        /// Un <see cref="List{T}"/> extendido del espacio de nombres 
-        /// <c>MCART.TypeExtensions</c>.
+        /// Un <see cref="List{T}"/> extendido del espacio de nombres
+        /// <see cref="Extensions"/>.
         /// </returns>
         public static List<T> ToExtendedList<T>(this IEnumerable<T> c) => (List<T>)c.ToList();
         /// <summary>Rota los elementos de un arreglo, lista o colección.</summary>
@@ -181,6 +186,9 @@ namespace MCART.Types.Extensions
         /// Si <paramref name="steps"/> es positivo, la rotación ocurre de forma
         /// ascendente; en caso contrario, descendente.
         /// </remarks>
+        /// <typeparam name="T">
+        /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}"/>.
+        /// </typeparam>
         public static void Rotate<T>(this IEnumerable<T> a, int steps)
         {
             if (!a.Any()) throw new NullReferenceException();
@@ -194,6 +202,9 @@ namespace MCART.Types.Extensions
         /// Si <paramref name="steps"/> es positivo, la rotación ocurre de forma
         /// ascendente; en caso contrario, descendente.
         /// </remarks>
+        /// <typeparam name="T">
+        /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}"/>.
+        /// </typeparam>
         public static void Shift<T>(this IEnumerable<T> a, int steps)
         {
             if (!a.Any()) throw new NullReferenceException();
@@ -219,7 +230,9 @@ namespace MCART.Types.Extensions
         /// </summary>
         /// <returns>El último elemento en la lista.</returns>
         /// <param name="a">Lista de la cual obtener el elemento.</param>
-        /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
+        /// <typeparam name="T">
+        /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}"/>.
+        /// </typeparam>
         public static T Pop<T>(this IEnumerable<T> a)
         {
             T x = a.Last();
@@ -231,7 +244,9 @@ namespace MCART.Types.Extensions
         /// </summary>
         /// <returns>El primer elemento en la lista.</returns>
         /// <param name="a">Lista de la cual obtener el elemento.</param>
-        /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
+        /// <typeparam name="T">
+        /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}"/>.
+        /// </typeparam>
         public static T PopFirst<T>(this IEnumerable<T> a)
         {
             T x = a.First();

@@ -21,7 +21,6 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading;
@@ -29,11 +28,11 @@ using System.Threading.Tasks;
 
 namespace MCART.Networking.Server
 {
-	/// <summary>
-	/// Representa a un cliente que no requiere datos de estado que se ha
-	/// conectado al servidor.
-	/// </summary>
-	public class Client
+    /// <summary>
+    /// Representa a un cliente que no requiere datos de estado que se ha
+    /// conectado al servidor.
+    /// </summary>
+    public class Client
 	{
 		/// <summary>
 		/// Búfer predeterminado para recepción.
@@ -64,17 +63,17 @@ namespace MCART.Networking.Server
 		/// <value><c>true</c> si hay datos disponibles; sino, <c>false</c>.</value>
 		public bool DataAvailable => (bool)TcpClient?.GetStream()?.DataAvailable;
 
-		/// <summary>
-		/// Inicializa una nueva instancia de la clase <see cref="Client"/>.
-		/// </summary>
-		/// <param name="tcpClient">
-		/// <see cref="TcpClient"/> a utilizar para las comunicaciones con el 
-		/// cliente.
-		/// </param>
-		/// <param name="server">
-		/// <see cref="Server"/> que atenderá a este cliente.
-		/// </param>
-		public Client(TcpClient tcpClient, Server<Client> server)
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="Client"/>.
+        /// </summary>
+        /// <param name="tcpClient">
+        /// <see cref="System.Net.Sockets.TcpClient"/> a utilizar para las comunicaciones con el 
+        /// cliente.
+        /// </param>
+        /// <param name="server">
+        /// <see cref="Networking.Server.Server{TClient}"/> que atenderá a este cliente.
+        /// </param>
+        public Client(TcpClient tcpClient, Server<Client> server)
 		{
 			TcpClient = tcpClient;
 			Server = server;
@@ -89,21 +88,31 @@ namespace MCART.Networking.Server
 			TcpClient?.GetStream().Write(data, 0, data.Length);
 		}
 
-		/// <summary>
-		/// Envía un mensaje al cliente de forma asíncrona.
-		/// </summary>
-		/// <param name="data">Mensaje a enviar.</param>
-		public async Task SendAsync(byte[] data)
+        /// <summary>
+        /// Envía un mensaje al cliente de forma asíncrona.
+        /// </summary>
+        /// <param name="data">Mensaje a enviar.</param>
+        /// <returns>
+        /// Un <see cref="Task"/> que permite monitorizar el estado de la
+        /// tarea.
+        /// </returns>
+        public async Task SendAsync(byte[] data)
 		{
 			await TcpClient?.GetStream().WriteAsync(data, 0, data.Length);
 		}
 
-		/// <summary>
-		/// Envía un mensaje al cliente de forma asíncrona.
-		/// </summary>
-		/// <param name="data">Mensaje a enviar.</param>
-		/// <param name="cancellationToken">Token de cancelación de tarea.</param>
-		public async Task SendAsync(byte[] data, CancellationToken cancellationToken)
+        /// <summary>
+        /// Envía un mensaje al cliente de forma asíncrona.
+        /// </summary>
+        /// <param name="data">Mensaje a enviar.</param>
+        /// <param name="cancellationToken">
+        /// Token de cancelación de tarea.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="Task"/> que permite monitorizar el estado de la
+        /// tarea.
+        /// </returns>
+        public async Task SendAsync(byte[] data, CancellationToken cancellationToken)
 		{
 			await TcpClient?.GetStream().WriteAsync(data, 0, data.Length, cancellationToken);
 		}
@@ -111,6 +120,7 @@ namespace MCART.Networking.Server
 		/// <summary>
 		/// Devuelve los datos que el cliente envía.
 		/// </summary>
+        /// <returns>Un arreglo de <see cref="byte"/> con la información recibida desde el servidor.</returns>
 		public byte[] Recieve()
 		{
 			NetworkStream ns = TcpClient?.GetStream();
@@ -138,10 +148,11 @@ namespace MCART.Networking.Server
 #endif
 		}
 
-		/// <summary>
-		/// Devuelve los datos recibidos una vez que el cliente los envía.
-		/// </summary>
-		public async Task<byte[]> RecieveAsync()
+        /// <summary>
+        /// Devuelve los datos recibidos una vez que el cliente los envía.
+        /// </summary>
+        /// <returns>Un arreglo de <see cref="byte"/> con la información recibida desde el servidor.</returns>
+        public async Task<byte[]> RecieveAsync()
 		{
 			NetworkStream ns = TcpClient?.GetStream();
 			if (ns is null)
@@ -168,11 +179,12 @@ namespace MCART.Networking.Server
 #endif
 		}
 
-		/// <summary>
-		/// Devuelve los datos recibidos una vez que el cliente los envía.
-		/// </summary>
-		/// <param name="cancellationToken">Token de cancelación de tarea.</param>
-		public async Task<byte[]> RecieveAsync(CancellationToken cancellationToken)
+        /// <summary>
+        /// Devuelve los datos recibidos una vez que el cliente los envía.
+        /// </summary>
+        /// <param name="cancellationToken">Token de cancelación de tarea.</param>
+        /// <returns>Un arreglo de <see cref="byte"/> con la información recibida desde el servidor.</returns>
+        public async Task<byte[]> RecieveAsync(CancellationToken cancellationToken)
 		{
 			List<byte> outp = new List<byte>();
 			do
@@ -194,11 +206,14 @@ namespace MCART.Networking.Server
 		}
 	}
 
-	/// <summary>
-	/// Representa un cliente que requiere datos de estado asociados que se ha
-	/// conectado al servidor.
-	/// </summary>
-	public class Client<T> : Client
+    /// <summary>
+    /// Representa un cliente que requiere datos de estado asociados que se ha
+    /// conectado al servidor.
+    /// </summary>
+    /// <typeparam name="T">
+    /// Tipo de datos asociados de cliente requeridos.
+    /// </typeparam>
+    public class Client<T> : Client
 	{
 		/// <summary>
 		/// Contiene un objeto de estado personalizado asociado a esta 

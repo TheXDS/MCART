@@ -27,6 +27,9 @@ namespace MCART.Networking.Server
     /// Esta clase abstracta determina una serie de funciones a heredar por
     /// una clase que provea de protocolos a un servidor.
     /// </summary>
+    /// <typeparam name="TClient">
+    /// Tipo de clientes que este protocolo es capaz de atender.
+    /// </typeparam>
     public abstract class Protocol<TClient> : IProtocol<TClient> where TClient : Client
     {
         /// <summary>

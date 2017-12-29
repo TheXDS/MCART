@@ -32,11 +32,11 @@ using St = MCART.Resources.Strings;
 
 namespace MCART.Networking.Server
 {
-	/// <summary>
-	/// Controla conexiones entrantes y ejecuta protocolos sobre los clientes
-	/// que se conecten al servidor.
-	/// </summary>
-	public class Server : Server<Client>
+    /// <summary>
+    /// Controla conexiones entrantes y ejecuta protocolos sobre los clientes
+    /// que se conecten al servidor.
+    /// </summary>
+    public class Server : Server<Client>
 	{
 		/// <summary>
 		/// Convierte implícitamente un <see cref="Protocol{Client}"/> en un
@@ -45,6 +45,10 @@ namespace MCART.Networking.Server
 		/// <param name="p">
 		/// <see cref="Protocol{Client}"/> a convertir.
 		/// </param>
+        /// <returns>
+        /// Un <see cref="Server"/> que utiliza el protocolo especificado para
+        /// atender a los clientes.
+        /// </returns>
 		public static implicit operator Server(Protocol<Client> p) => new Server(p);
 
 		/// <summary>
@@ -68,6 +72,9 @@ namespace MCART.Networking.Server
 	/// Controla conexiones entrantes y ejecuta protocolos sobre los clientes
 	/// que se conecten al servidor.
 	/// </summary>
+    /// <typeparam name="TClient">
+    /// Tipo de <see cref="Client"/> que este servidor atiende.
+    /// </typeparam>
 	public class Server<TClient> where TClient : Client
 	{
 		/// <summary>
@@ -81,14 +88,18 @@ namespace MCART.Networking.Server
 		/// </summary>
 		public const int defaultPort = 51220;
 
-		/// <summary>
-		/// Convierte implícitamente un <see cref="Protocol{TClient}"/> en un
-		/// <see cref="Server{TClient}"/>.
-		/// </summary>
-		/// <param name="p">
-		/// <see cref="Protocol{TClient}"/> a convertir.
-		/// </param>
-		public static implicit operator Server<TClient>(Protocol<TClient> p) => new Server<TClient>(p);
+        /// <summary>
+        /// Convierte implícitamente un <see cref="Protocol{TClient}"/> en un
+        /// <see cref="Server{TClient}"/>.
+        /// </summary>
+        /// <param name="p">
+        /// <see cref="Protocol{TClient}"/> a convertir.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="Server{TClient}"/> que utiliza el protocolo 
+        /// especificado para atender a los clientes.
+        /// </returns>
+        public static implicit operator Server<TClient>(Protocol<TClient> p) => new Server<TClient>(p);
 
 		/// <summary>
 		/// Lista de objetos <see cref="Client"/> conectados a este servidor.
@@ -257,10 +268,14 @@ namespace MCART.Networking.Server
 			BeAlive();
 		}
 
-		/// <summary>
-		/// Detiene al servidor de forma asíncrona.
-		/// </summary>
-		public async Task StopAsync()
+        /// <summary>
+        /// Detiene al servidor de forma asíncrona.
+        /// </summary>
+        /// <returns>
+        /// Un <see cref="Task"/> que puede utilizarse para monitorear el
+        /// estado de esta tarea.
+        /// </returns>
+        public async Task StopAsync()
 		{
 			_isAlive = false;
 			await Task.WhenAny(

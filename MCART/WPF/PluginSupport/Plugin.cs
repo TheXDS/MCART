@@ -96,6 +96,19 @@ namespace MCART.PluginSupport
         /// Un <see cref="Panel"/> que puede agregarse a un
         /// <see cref="Menu"/> de Windows Presentation Framework.
         /// </value>
+        /// <typeparam name="T">
+        /// Tipo de controles que serán generados por cada
+        /// <see cref="InteractionItem"/> que el <see cref="Plugin"/>
+        /// contiene.
+        /// </typeparam>
+        /// <typeparam name="PanelT">
+        /// Tipo de panel que contendrá las interacciones.
+        /// </typeparam>
+        /// <returns>
+        /// Un <typeparamref name="PanelT"/> que contiene las interacciones
+        /// contenidas por el <see cref="IPlugin"/>, en la propiedad
+        /// <see cref="IPlugin.PluginInteractions"/>.
+        /// </returns>
         public PanelT UIPanel<T, PanelT>()
             where T : ButtonBase, new() where PanelT : Panel, new()
             => GetUIPanel<T, PanelT>(this);

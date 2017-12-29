@@ -30,12 +30,20 @@ namespace MCART.Types
         /// <see cref="System.Windows.Point"/>.
         /// </summary>
         /// <param name="x"><see cref="Point"/> a convertir.</param>
+        /// <returns>
+        /// Un <see cref="System.Windows.Point"/> equivalente al
+        /// <see cref="Point"/> especificado.
+        /// </returns>
         public static implicit operator System.Windows.Point(Point x) => new System.Windows.Point(x.X, x.Y);
         /// <summary>
         /// Convierte implícitamente un <see cref="System.Windows.Point"/> en 
         /// un <see cref="Point"/>.
         /// </summary>
         /// <param name="x"><see cref="System.Windows.Point"/> a convertir.</param>
+        /// <returns>
+        /// Un <see cref="Point"/> equivalente al
+        /// <see cref="System.Windows.Point"/> especificado.
+        /// </returns>
         public static implicit operator Point(System.Windows.Point x) => new Point(x.X, x.Y);
     }
 }
