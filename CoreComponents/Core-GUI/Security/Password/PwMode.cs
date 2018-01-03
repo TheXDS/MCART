@@ -27,6 +27,7 @@ namespace MCART.Security.Password
     /// Configura el cuadro de contraseña al utilizar la función 
     /// <see cref="Forms.PasswordDialog.ChoosePassword(PwMode, PwEvaluator, int)"/>.
     /// </summary>
+    [System.Flags]
     public enum PwMode : byte
     {
         /// <summary>

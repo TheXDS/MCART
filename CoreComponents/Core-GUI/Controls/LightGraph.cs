@@ -32,6 +32,7 @@ namespace MCART.Controls
         /// Determina el modo de dibujo de las etiquetas puntuales de las 
         /// gráficas.
         /// </summary>
+        [System.Flags]
         public enum SpotLabelsDrawMode : byte
         {
             /// <summary>
