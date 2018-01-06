@@ -44,7 +44,7 @@ namespace MCART.PluginSupport
         /// </returns>
         /// <param name="assembly"><see cref="Assembly"/> a cargar.</param>
         /// <typeparam name="T">Clase a cargar.</typeparam>
-        T Load<T>(Assembly assembly) where T : class, new();
+        T Load<T>(Assembly assembly) where T : class;
         /// <summary>
         /// Carga todos los <see cref="IPlugin"/> contenidos en el ensamblado.
         /// </summary>
@@ -60,7 +60,7 @@ namespace MCART.PluginSupport
         /// Se produce si <paramref name="assembly"/> no contiene clases cargables
         /// como <see cref="IPlugin"/>. 
         /// </exception>
-        IEnumerable<T> LoadAll<T>(Assembly assembly) where T : class, new();
+        IEnumerable<T> LoadAll<T>(Assembly assembly) where T : class;
         /// <summary>
         /// Carga todos los <see cref="IPlugin"/> contenidos en el ensamblado.
         /// </summary>

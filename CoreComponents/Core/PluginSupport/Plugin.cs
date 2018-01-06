@@ -29,6 +29,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using MCART.Exceptions;
 using St = MCART.Resources.Strings;
 
 namespace MCART.PluginSupport
@@ -67,10 +68,20 @@ namespace MCART.PluginSupport
         /// evento <see cref="PluginLoaded"/> con la hora en la que el
         /// <see cref="Plugin"/> ha sido cargado.
         /// </remarks>
-        public Plugin()
+        [System.Diagnostics.DebuggerStepThrough]
+        protected Plugin()
         {
             foreach (var j in GetType().GetMethods().Where(k => k.HasAttr<InteractionItemAttribute>()))
-                uiMenu.Add(new InteractionItem(j, this));
+            {
+                if (!(Delegate.CreateDelegate(typeof(EventHandler),this, j, false) is null))
+                    uiMenu.Add(new InteractionItem(j, this));
+                else
+#if PreferExceptions
+                    throw new PluginException(this, new InvalidMethodSignatureException(j));
+#else
+                    System.Diagnostics.Debug.Print(St.Warn(St.InvalidSignature(St.XYQuotes(St.TheMethod, $"{GetType().FullName}.{j.Name}")))); 
+#endif
+            }
             uiMenu.CollectionChanged += (sender, e) => RequestUIChange();
             RaisePluginLoaded(DateTime.Now);
         }

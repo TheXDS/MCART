@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace MCART
 {
@@ -216,7 +217,7 @@ namespace MCART
         /// </summary>
         /// <returns>La nueva instancia del tipo especificado.</returns>
         /// <typeparam name="T">Tipo de instancia a crear.</typeparam>
-        [Thunk] public static T New<T>() => typeof(T).New<T>(new object[] { });
+        [DebuggerStepThrough] [Thunk] public static T New<T>() => typeof(T).New<T>(new object[] { });
         /// <summary>
         /// Inicializa una nueva instancia del tipo dinámico especificado,
         /// devolviéndola como un <typeparamref name="T"/>.
@@ -225,13 +226,13 @@ namespace MCART
         /// <param name="j">Tipo a instanciar. Debe ser, heredar o implementar 
         /// el tipo especificado en <typeparamref name="T"/></param>
         /// <typeparam name="T">Tipo de instancia a devolver.</typeparam>
-        [Thunk] public static T New<T>(this Type j) => j.New<T>(new object[] { });
+        [DebuggerStepThrough] [Thunk] public static T New<T>(this Type j) => j.New<T>(new object[] { });
         /// <summary>
         /// Inicializa una nueva instancia del tipo en runtime especificado.
         /// </summary>
         /// <returns>La nueva instancia del tipo especificado.</returns>
         /// <param name="j">Tipo a instanciar.</param>
-        [Thunk] public static object New(this Type j) => j.New<object>(new object[] { });
+        [DebuggerStepThrough] [Thunk] public static object New(this Type j) => j.New<object>(new object[] { });
         /// <summary>
 		/// Crea uns instancia de un objeto con un constructor que acepte los 
 		/// argumentos provistos.
@@ -240,7 +241,7 @@ namespace MCART
 		/// <param name="Params">Parámetros a pasar al constructor. Se buscará 
 		/// un constructor compatible para poder crear la instancia.</param>
 		/// <returns>Una nueva instancia del tipo especificado.</returns>
-        [Thunk] public static T New<T>(object[] Params) => New<T>(typeof(T), Params);
+        [DebuggerStepThrough] [Thunk] public static T New<T>(object[] Params) => New<T>(typeof(T), Params);
         /// <summary>
         /// Inicializa una nueva instancia de un objeto con un constructor que
         /// acepte los argumentos provistos.
@@ -255,6 +256,7 @@ namespace MCART
         /// Se produce si no es posible instanciar una clase del tipo
         /// solicitado.
         /// </exception>
+        [DebuggerStepThrough]
         public static T New<T>(this Type j, params object[] Params)
         {
 #if NoDanger
@@ -270,7 +272,7 @@ namespace MCART
         /// <param name="j">Tipo a instanciar.</param>
         /// <param name="Params">Parámetros a pasar al constructor. Se buscará 
         /// un constructor compatible para poder crear la instancia.</param>
-        [Thunk] public static object New(this Type j, params object[] Params) => j.New<object>(Params);
+        [DebuggerStepThrough] [Thunk] public static object New(this Type j, params object[] Params) => j.New<object>(Params);
         /// <summary>
         /// Libera un objeto COM.
         /// </summary>
@@ -624,5 +626,20 @@ namespace MCART
         /// <typeparam name="T">Tipo a comprobar</typeparam>
         /// <returns><c>true</c> si <typeparamref name="T"/> es un tipo numérico, <c>false</c> en caso contrario.</returns>
         [Thunk] public static bool IsNumericType<T>() => IsNumericType(typeof(T));
+        /// <summary>
+        /// Comprueba que la firma de un método sea compatible con el delegado
+        /// especificado.
+        /// </summary>
+        /// <param name="methodInfo">
+        /// <see cref="MethodInfo"/> a comprobar.
+        /// </param>
+        /// <param name="delegate">
+        /// <see cref="Type"/> del <see cref="Delegate"/> a comprobar.
+        /// </param>
+        /// <returns></returns>
+        public static bool IsSignatureCompatible(this MethodInfo methodInfo, Type @delegate)
+        {
+            return !(Delegate.CreateDelegate(@delegate, methodInfo, false) is null);
+        }
     }
 }

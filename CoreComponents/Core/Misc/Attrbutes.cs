@@ -477,5 +477,5 @@ namespace MCART.Attributes
     /// Indica que el uso de un elemento es peligroso.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Module | AttributeTargets.Assembly | AttributeTargets.Constructor)]
-    sealed class DangerousAttribute : Attribute { }
+    public sealed class DangerousAttribute : Attribute { }
 }

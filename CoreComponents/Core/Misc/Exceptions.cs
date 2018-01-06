@@ -1606,7 +1606,7 @@ namespace MCART.Exceptions
         /// <see cref="InvalidMethodSignatureException"/>.
         /// </summary>
         /// <param name="method">Método que ha causado la excepción.</param>
-        public InvalidMethodSignatureException(MethodInfo method) : base(St.InvalidSignature(St.XYQuotes(St.TheMethod, method.Name))) { OffendingMethod = method; }
+        public InvalidMethodSignatureException(MethodInfo method) : base(St.InvalidSignature(St.XYQuotes(St.TheMethod, $"{method.DeclaringType.FullName}.{method.Name}"))) { OffendingMethod = method; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InvalidMethodSignatureException"/>.
@@ -1626,7 +1626,7 @@ namespace MCART.Exceptions
         /// </summary>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
         /// <param name="method">Método que ha causado la excepción.</param>
-        public InvalidMethodSignatureException(Exception inner, MethodInfo method) : base(St.InvalidSignature(St.XYQuotes(St.TheMethod, method.Name)), inner) { OffendingMethod = method; }
+        public InvalidMethodSignatureException(Exception inner, MethodInfo method) : base(St.InvalidSignature(St.XYQuotes(St.TheMethod, $"{method.DeclaringType.FullName}.{method.Name}")), inner) { OffendingMethod = method; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InvalidMethodSignatureException"/>.

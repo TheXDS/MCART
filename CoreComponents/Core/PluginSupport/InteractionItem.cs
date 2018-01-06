@@ -113,7 +113,7 @@ namespace MCART.PluginSupport
 
         internal InteractionItem(MethodInfo method, IPlugin parentInstance)
         {
-            Action = (Delegate.CreateDelegate(typeof(EventHandler), parentInstance, method) as EventHandler) 
+            Action = Delegate.CreateDelegate(typeof(EventHandler), parentInstance, method, false) as EventHandler
                 ?? throw new Exceptions.InvalidMethodSignatureException(method);
             Text = method.GetAttr<NameAttribute>()?.Value ?? method.Name;
             Description = method.GetAttr<DescriptionAttribute>()?.Value;

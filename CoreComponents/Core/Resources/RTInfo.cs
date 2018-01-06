@@ -43,7 +43,7 @@ namespace MCART.Resources
         /// Obtiene la referencia del ensamblado de MCART
         /// </summary>
         /// <returns>The ssembly.</returns>
-        public static Assembly RTAssembly => Assembly.GetExecutingAssembly();
+        public static Assembly RTAssembly => typeof(RTInfo).Assembly;
         /// <summary>
         /// Comprueba si el ensamblado es compatible con esta versión de MCART
         /// </summary>

@@ -50,7 +50,10 @@ namespace MCART.PluginSupport
         /// <see cref="IPluginChecker"/> a utilizar para compropbar la
         /// compatilibilidad de los plugins.
         /// </param>
-        /// <param name="ignoreDanger"></param>
+        /// <param name="ignoreDanger">
+        /// Omite las comprobaciones de peligrosidad de los
+        /// <see cref="Plugin"/> y sus miembros.
+        /// </param>
         /// <param name="pluginExtension">
         /// Parámetro opcional. Extensión de los archivos que contienen
         /// plugins.
@@ -137,7 +140,7 @@ namespace MCART.PluginSupport
         /// Se produce si el ensamblado no contiene ninguna clase cargable como
         /// <typeparamref name="T"/>.
         /// </exception>
-        public T Load<T>(string asmPath) where T : class, new() => Load<T>(Assembly.LoadFrom(asmPath));
+        public T Load<T>(string asmPath) where T : class => Load<T>(Assembly.LoadFrom(asmPath));
         /// <summary>
         /// Carga una clase de tipo <typeparamref name="T"/> contenida en el
         /// ensamblado especificado.
@@ -155,7 +158,7 @@ namespace MCART.PluginSupport
         /// Se produce si el ensamblado no contiene ninguna clase cargable como
         /// <typeparamref name="T"/>.
         /// </exception>
-        public T Load<T>(Assembly assembly) where T : class, new()
+        public T Load<T>(Assembly assembly) where T : class
         {
             if (!checker.IsVaild(assembly)) throw new NotPluginException(assembly);
             return assembly.GetTypes().FirstOrDefault(p =>
@@ -178,7 +181,7 @@ namespace MCART.PluginSupport
         /// <exception cref="FileNotFoundException">
         /// Se produce si el archivo del ensamblado no ha sido encontrado.
         /// </exception>
-        public IEnumerable<T> LoadAll<T>(string asmPath) where T : class, new() => LoadAll(Assembly.LoadFrom(asmPath)).OfType<T>();
+        public IEnumerable<T> LoadAll<T>(string asmPath) where T : class => LoadAll(Assembly.LoadFrom(asmPath)).OfType<T>();
         /// <summary>
         /// Carga todos los <see cref="IPlugin"/> contenidos en el ensamblado.
         /// </summary>
@@ -194,7 +197,7 @@ namespace MCART.PluginSupport
         /// Se produce si <paramref name="assembly"/> no contiene clases cargables
         /// como <see cref="IPlugin"/>. 
         /// </exception>
-        public IEnumerable<T> LoadAll<T>(Assembly assembly) where T : class, new() => LoadAll(assembly).OfType<T>();
+        public IEnumerable<T> LoadAll<T>(Assembly assembly) where T : class => LoadAll(assembly).OfType<T>();
         /// <summary>
         /// Carga todos los <see cref="IPlugin"/> contenidos en el ensamblado.
         /// </summary>
@@ -237,7 +240,7 @@ namespace MCART.PluginSupport
         /// <typeparam name="T">
         /// Tipo de <see cref="IPlugin"/> a cargar.
         /// </typeparam>
-        public IEnumerable<T> LoadEverything<T>(string pluginsPath = ".", SearchOption search = SearchOption.TopDirectoryOnly) where T : class, new()
+        public IEnumerable<T> LoadEverything<T>(string pluginsPath = ".", SearchOption search = SearchOption.TopDirectoryOnly) where T : class
         {
             if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
             foreach (var f in (new DirectoryInfo(pluginsPath)).GetFiles($"*{extension}", search))
@@ -289,7 +292,7 @@ namespace MCART.PluginSupport
         /// <typeparam name="T">
         /// Tipo de <see cref="IPlugin"/> a cargar.
         /// </typeparam>
-        public T LoadWhatever<T>(string pluginsPath = ".", SearchOption search = SearchOption.TopDirectoryOnly) where T : class, new()
+        public T LoadWhatever<T>(string pluginsPath = ".", SearchOption search = SearchOption.TopDirectoryOnly) where T : class
         {
             if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
             return LoadEverything<T>(pluginsPath, search).FirstOrDefault()
@@ -313,7 +316,7 @@ namespace MCART.PluginSupport
         /// Un enumerador de <see cref="FileInfo"/> de los archivos que
         /// contienen clases cargables como <typeparamref name="T"/>.
         /// </returns>
-        public IEnumerable<FileInfo> Dir<T>(string pluginsPath = ".", SearchOption search = SearchOption.TopDirectoryOnly) where T : class, new()
+        public IEnumerable<FileInfo> Dir<T>(string pluginsPath = ".", SearchOption search = SearchOption.TopDirectoryOnly) where T : class
         {
             if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
             foreach (var f in (new DirectoryInfo(pluginsPath)).GetFiles($"*{extension}", search))
@@ -365,7 +368,7 @@ namespace MCART.PluginSupport
         /// Un <see cref="Dictionary{TKey, TValue}"/> con los ensamblados y 
         /// sus correspondientes plugins.
         /// </returns>
-        public Dictionary<string, IEnumerable<T>> PluginTree<T>(string pluginsPath = ".", string searchPattern = "*", SearchOption search = SearchOption.TopDirectoryOnly) where T : class, new()
+        public Dictionary<string, IEnumerable<T>> PluginTree<T>(string pluginsPath = ".", string searchPattern = "*", SearchOption search = SearchOption.TopDirectoryOnly) where T : class
         {
             if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
             Dictionary<string, IEnumerable<T>> outp = new Dictionary<string, IEnumerable<T>>();
