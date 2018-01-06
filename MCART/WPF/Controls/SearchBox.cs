@@ -41,38 +41,17 @@ namespace MCART.Controls
         /// <summary>
         /// Se produce cuando se ha conectado a un <see cref="CollectionView"/>.
         /// </summary>
-        public event AttachedToViewEventHandler AttachedToView;
-
-        /// <summary>
-        /// Controla el evento <see cref="AttachedToView"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void AttachedToViewEventHandler(object sender, ValueEventArgs<CollectionView> e);
+        public event EventHandler<ValueEventArgs<CollectionView>> AttachedToView;
 
         /// <summary>
         /// Se produce cuando se ha introducido texto en el cuadro de búsqueda.
         /// </summary>
-        public event SearchEnteredEventHandler SearchEntered;
-
-        /// <summary>
-        /// Controla el evento <see cref="SearchEntered"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void SearchEnteredEventHandler(object sender, ValueEventArgs<string> e);
+        public event EventHandler<ValueEventArgs<string>> SearchEntered;
 
         /// <summary>
         /// Se produce cuando se ha cerrado la búsqueda.
         /// </summary>
-        public event SearchClosedEventHandler SearchClosed;
-
-        /// <summary>
-        /// Controla el evento <see cref="SearchClosed"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void SearchClosedEventHandler(object sender, EventArgs e);
+        public event EventHandler SearchClosed;
 
         static Type T = typeof(SearchBox);
 

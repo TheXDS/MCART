@@ -28,41 +28,6 @@ using System.ComponentModel;
 
 namespace MCART.PluginSupport
 {
-    #region Delegados EventHandler
-    /// <summary>
-    /// Maneja el evento <see cref="IPlugin.PluginLoadFailed"/>.
-    /// </summary>
-    /// <param name="sender">Objeto que generó el evento.</param>
-    /// <param name="e">Argumentos del evento.</param>
-    public delegate void PluginLoadFailedEventHandler(IPlugin sender, PluginFinalizedEventArgs e);
-    /// <summary>
-    /// Maneja el evento <see cref="IPlugin.PluginLoaded"/>.
-    /// </summary>
-    /// <param name="sender">Objeto que generó el evento.</param>
-    /// <param name="e">Argumentos del evento.</param>
-    public delegate void PluginLoadedEventHandler(IPlugin sender, PluginLoadedEventArgs e);
-    /// <summary>
-    /// Maneja el evento <see cref="IPlugin.PluginFinalized"/>.
-    /// </summary>
-    /// <param name="sender">
-    /// Este argumento siempre devolverá <c>null</c>.
-    /// </param>
-    /// <param name="e">Argumentos del evento.</param>
-    public delegate void PluginFinalizedEventHandler(object sender, PluginFinalizedEventArgs e);
-    /// <summary>
-    /// Maneja el evento <see cref="IPlugin.PluginFinalizing"/>.
-    /// </summary>
-    /// <param name="sender">Objeto que generó el evento.</param>
-    /// <param name="e">Argumentos del evento.</param>
-    public delegate void PluginFinalizingEventHandler(IPlugin sender, PluginFinalizingEventArgs e);
-    /// <summary>
-    /// Maneja el evento <see cref="IPlugin.UIChangeRequested"/>.
-    /// </summary>
-    /// <param name="sender">Objeto que generó el evento.</param>
-    /// <param name="e">Argumentos del evento.</param>
-    public delegate void UIChangeRequestedEventHandler(IPlugin sender, UIChangeEventArgs e);
-    #endregion
-    #region Argumentos de eventos
     /// <summary>
     /// Incluye información adicional del evento 
     /// <see cref="IPlugin.PluginFinalizing"/>.
@@ -210,5 +175,4 @@ namespace MCART.PluginSupport
             this.NewUI = new ReadOnlyCollection<InteractionItem>(NewUI);
         }
     }
-    #endregion
 }
