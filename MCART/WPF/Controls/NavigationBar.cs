@@ -336,233 +336,95 @@ namespace MCART.Controls
         /// <summary>
         /// Se produce cuando se ha conectado a un <see cref="CollectionView"/>.
         /// </summary>
-        public event AttachedToViewEventHandler AttachedToView;
-        /// <summary>
-        /// Controla el evento <see cref="AttachedToView"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void AttachedToViewEventHandler(object sender, ValueEventArgs<CollectionView> e);
+        public event EventHandler<ValueEventArgs<CollectionView>> AttachedToView;
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación al primer elemento.
         /// </summary>
-        public event MovingToFirstEventHandler MovingToFirst;
-        /// <summary>
-        /// Controla el evento <see cref="MovingToFirst"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void MovingToFirstEventHandler(object sender, DependencyPropertyChangingEventArgs e);
+        public event EventHandler<DependencyPropertyChangingEventArgs> MovingToFirst;
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación al elemento anterior.
         /// </summary>
-        public event MovingToPrevEventHandler MovingToPrev;
-        /// <summary>
-        /// Controla el evento <see cref="MovingToPrev"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void MovingToPrevEventHandler(object sender, DependencyPropertyChangingEventArgs e);
+        public event EventHandler<DependencyPropertyChangingEventArgs> MovingToPrev;
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación al elemento siguiente.
         /// </summary>
-        public event MovingToNextEventHandler MovingToNext;
-        /// <summary>
-        /// Controla el evento <see cref="MovingToNext"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void MovingToNextEventHandler(object sender, DependencyPropertyChangingEventArgs e);
+        public event EventHandler<DependencyPropertyChangingEventArgs> MovingToNext;
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación al último elemento.
         /// </summary>
-        public event MovingToLastEventHandler MovingToLast;
-        /// <summary>
-        /// Controla el evento <see cref="MovingToLast"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void MovingToLastEventHandler(object sender, DependencyPropertyChangingEventArgs e);
+        public event EventHandler<DependencyPropertyChangingEventArgs> MovingToLast;
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación a un elemento en particular.
         /// </summary>
-        public event MovingToPositionEventHandler MovingToPosition;
-        /// <summary>
-        /// Controla el evento <see cref="MovingToPosition"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void MovingToPositionEventHandler(object sender, DependencyPropertyChangingEventArgs e);
+        public event EventHandler<DependencyPropertyChangingEventArgs> MovingToPosition;
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación al primer elemento.
         /// </summary>
-        public event MovedToFirstEventHandler MovedToFirst;
-        /// <summary>
-        /// Controla el evento <see cref="MovedToFirst"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void MovedToFirstEventHandler(object sender, DependencyPropertyChangedEventArgs e);
+        public event EventHandler<DependencyPropertyChangedEventArgs> MovedToFirst;
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación al elemento anterior.
         /// </summary>
-        public event MovedToPrevEventHandler MovedToPrev;
-        /// <summary>
-        /// Controla el evento <see cref="MovedToPrev"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void MovedToPrevEventHandler(object sender, DependencyPropertyChangedEventArgs e);
+        public event EventHandler<DependencyPropertyChangedEventArgs> MovedToPrev;
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación al elemento siguiente.
         /// </summary>
-        public event MovedToNextEventHandler MovedToNext;
-        /// <summary>
-        /// Controla el evento <see cref="MovedToNext"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void MovedToNextEventHandler(object sender, DependencyPropertyChangedEventArgs e);
+        public event EventHandler<DependencyPropertyChangedEventArgs> MovedToNext;
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación al último elemento.
         /// </summary>
-        public event MovedToLastEventHandler MovedToLast;
-        /// <summary>
-        /// Controla el evento <see cref="MovedToLast"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void MovedToLastEventHandler(object sender, DependencyPropertyChangedEventArgs e);
+        public event EventHandler<DependencyPropertyChangedEventArgs> MovedToLast;
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación a un elemento en particular.
         /// </summary>
-        public event MovedToPositionEventHandler MovedToPosition;
-        /// <summary>
-        /// Controla el evento <see cref="MovedToPosition"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void MovedToPositionEventHandler(object sender, DependencyPropertyChangedEventArgs e);
+        public event EventHandler<DependencyPropertyChangedEventArgs> MovedToPosition;
         /// <summary>
         /// Se produce cuando se ha introducido texto en el cuadro de búsqueda.
         /// </summary>
-        public event SearchEnteredEventHandler SearchEntered;
-        /// <summary>
-        /// Controla el evento <see cref="SearchEntered"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void SearchEnteredEventHandler(object sender, ValueEventArgs<string> e);
+        public event EventHandler<ValueEventArgs<string>> SearchEntered;
         /// <summary>
         /// Se produce cuando se ha cerrado la búsqueda.
         /// </summary>
-        public event SearchClosedEventHandler SearchClosed;
-        /// <summary>
-        /// Controla el evento <see cref="SearchClosed"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void SearchClosedEventHandler(object sender, EventArgs e);
+        public event EventHandler SearchClosed;
         /// <summary>
         /// Se produce cuando se ha solicitado la creación de un elemento nuevo.
         /// </summary>
-        public event CreatingNewEventHandler CreatingNew;
-        /// <summary>
-        /// Controla el evento <see cref="CreatingNew"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void CreatingNewEventHandler(object sender, CancelEventArgs e);
+        public event EventHandler<CancelEventArgs> CreatingNew;
         /// <summary>
         /// Se produce cuando se ha solicitado la edición del elemento actual.
         /// </summary>
-        public event EditingEventHandler Editing;
-        /// <summary>
-        /// Controla el evento <see cref="Editing"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void EditingEventHandler(object sender, CancelEventArgs e);
+        public event EventHandler<CancelEventArgs> Editing;
         /// <summary>
         /// Se produce cuando se ha solicitado la eliminación del elemento actual.
         /// </summary>
-        public event DeletingEventHandler Deleting;
-        /// <summary>
-        /// Controla el evento <see cref="Deleting"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void DeletingEventHandler(object sender, CancelEventArgs e);
+        public event EventHandler<CancelEventArgs> Deleting;
         /// <summary>
         /// Se produce cuando se ha presionado el botón Guardar al editar o crear un nuevo elemento.
         /// </summary>
-        public event SavingEventHandler Saving;
-        /// <summary>
-        /// Controla el evento <see cref="Saving"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void SavingEventHandler(object sender, ItemSavingEventArgs e);
+        public event EventHandler<ItemSavingEventArgs> Saving;
         /// <summary>
         /// Se produce cuando se ha presionado el botón Cancelar al editar o crear un nuevo elemento.
         /// </summary>
-        public event CancellingEventHandler Cancelling;
-        /// <summary>
-        /// Controla el evento <see cref="Cancelling"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void CancellingEventHandler(object sender, CancelEventArgs e);
+        public event EventHandler<CancelEventArgs> Cancelling;
         /// <summary>
         /// Se produce cuando se ha creado un elemento nuevo.
         /// </summary>
-        public event NewCreatedEventHandler NewCreated;
-        /// <summary>
-        /// Controla el evento <see cref="NewCreated"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void NewCreatedEventHandler(object sender, EventArgs e);
+        public event EventHandler NewCreated;
         /// <summary>
         /// Se produce cuando se ha entrado en modo de edición.
         /// </summary>
-        public event EditEnteredEventHandler EditEntered;
-        /// <summary>
-        /// Controla el evento <see cref="EditEntered"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void EditEnteredEventHandler(object sender, EventArgs e);
+        public event EventHandler EditEntered;
         /// <summary>
         /// Se produce cuando se ha eliminado un elemento.
         /// </summary>
-        public event ItemDeletedEventHandler ItemDeleted;
-        /// <summary>
-        /// Controla el evento <see cref="ItemDeleted"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void ItemDeletedEventHandler(object sender, EventArgs e);
+        public event EventHandler ItemDeleted;
         /// <summary>
         /// Se produce cuando se ha guardado un elemento
         /// </summary>
-        public event ItemSavedEventHandler ItemSaved;
-        /// <summary>
-        /// Controla el evento <see cref="ItemSaved"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void ItemSavedEventHandler(object sender, ItemSavedEventArgs e);
+        public event EventHandler<ItemSavedEventArgs> ItemSaved;
         /// <summary>
         /// Se produce cuando se ha cancelado la creación/edición de un elemento
         /// </summary>
-        public event CancelledEventHandler Cancelled;
-        /// <summary>
-        /// Controla el evento <see cref="Cancelled"/>.
-        /// </summary>
-        /// <param name="sender">Objeto que generó el evento.</param>
-        /// <param name="e">argumentos del evento.</param>
-        public delegate void CancelledEventHandler(object sender, EventArgs e);
+        public event EventHandler Cancelled;
         #endregion
 
         #region Métodos privados

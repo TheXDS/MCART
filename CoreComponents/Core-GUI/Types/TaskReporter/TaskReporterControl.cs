@@ -24,6 +24,7 @@
 using MCART.Events;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using St = MCART.Resources.Strings;
 
@@ -78,32 +79,32 @@ namespace MCART.Types.TaskReporter
         /// <summary>
         /// Se produce cuando se ha solicitado la detención de la tarea.
         /// </summary>
-        public event CancelRequestedEventHandler CancelRequested;
+        public event EventHandler<CancelEventArgs> CancelRequested;
         /// <summary>
         /// Se produce cuando una tarea se ha iniciado.
         /// </summary>
-        public event BegunEventHandler Begun;
+        public event EventHandler<BegunEventArgs> Begun;
         /// <summary>
         /// Se produce cuando la tarea desea reportar su estado.
         /// </summary>
-        public event ReportingEventHandler Reporting;
+        public event EventHandler<ProgressEventArgs> Reporting;
         /// <summary>
         /// Se produce cuando una tarea finalizó correctamente.
         /// </summary>
-        public event EndedEventHandler Ended;
+        public event EventHandler Ended;
         /// <summary>
         /// Se produce cuando una tarea es cancelada.
         /// </summary>
-        public event StoppedEventHandler Stopped;
+        public event EventHandler<ProgressEventArgs> Stopped;
         /// <summary>
         /// Se produce cuando una tarea indica que finalizó con error.
         /// </summary>
-        public event ErrorEventHandler Error;
+        public event EventHandler<ExceptionEventArgs> Error;
         /// <summary>
         /// Se produce cuando una tarea ha alcanzado el límite del tiempo de
         /// espera establecido.
         /// </summary>
-        public event TaskTimeoutEventHandler TaskTimeout;
+        public event EventHandler<ProgressEventArgs> TaskTimeout;
         #endregion
         #region Métodos privados
         void Bgn(TimeSpan timeout, bool genTOutEx, bool ns)

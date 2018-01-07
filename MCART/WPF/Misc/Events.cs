@@ -26,8 +26,8 @@ using System.Windows;
 namespace MCART.Events
 {
     /// <summary>
-    /// Contiene información para los eventos basados en
-    /// <see cref="DependencyPropertyChangingEventHandler"/>.
+    /// Contiene información para los eventos cancelables que reporten el
+    /// cambio de una propiedad de dependencia.
     /// </summary>
     public class DependencyPropertyChangingEventArgs : CancelEventArgs
     {
@@ -75,11 +75,4 @@ namespace MCART.Events
         /// </returns>
         public static implicit operator DependencyPropertyChangedEventArgs(DependencyPropertyChangingEventArgs x) => new DependencyPropertyChangedEventArgs(x.Property, x.OldValue, x.NewValue);
     }
-    /// <summary>
-    /// Delegado que controla un evento cancelable de cambio en el valor de una 
-    /// propiedad de dependencia.
-    /// </summary>
-    /// <param name="sender">Objeto que generó el evento.</param>
-    /// <param name="e">Argumentos del evento.</param>
-    public delegate void DependencyPropertyChangingEventHandler(object sender, DependencyPropertyChangingEventArgs e);
 }
