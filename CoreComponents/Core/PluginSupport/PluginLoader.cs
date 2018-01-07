@@ -1,19 +1,19 @@
 ﻿//
 //  PluginLoader.cs
 //
-//  This file is part of MCART
+//  This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
 //  Author:
 //       César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 //  Copyright (c) 2011 - 2018 César Andrés Morgan
 //
-//  MCART is free software: you can redistribute it and/or modify
+//  Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation, either version 3 of the License, or
 //  (at your option) any later version.
 //
-//  MCART is distributed in the hope that it will be useful,
+//  Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will be useful,
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU General Public License for more details.
@@ -21,16 +21,19 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using MCART.Exceptions;
+using TheXDS.MCART.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using TheXDS.MCART.Attributes;
 using System.Reflection;
-using St = MCART.Resources.Strings;
+using St = TheXDS.MCART.Resources.Strings;
 
-namespace MCART.PluginSupport
+namespace TheXDS.MCART.PluginSupport
 {
+
+
     /// <summary>
     /// Permite cargar <see cref="IPlugin"/>.
     /// </summary>
@@ -39,7 +42,6 @@ namespace MCART.PluginSupport
         readonly string extension;
         readonly IPluginChecker checker;
 
-#if CheckDanger
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="PluginLoader"/> utilizando el
@@ -50,7 +52,7 @@ namespace MCART.PluginSupport
         /// <see cref="IPluginChecker"/> a utilizar para compropbar la
         /// compatilibilidad de los plugins.
         /// </param>
-        /// <param name="ignoreDanger">
+        /// <param name="sanityChecks">
         /// Omite las comprobaciones de peligrosidad de los
         /// <see cref="Plugin"/> y sus miembros.
         /// </param>
@@ -58,14 +60,35 @@ namespace MCART.PluginSupport
         /// Parámetro opcional. Extensión de los archivos que contienen
         /// plugins.
         /// </param>
-        [Attributes.Dangerous] public PluginLoader(IPluginChecker pluginChecker, bool ignoreDanger, string pluginExtension = ".dll")
+        /// <exception cref="DangerousCallException">
+        /// Se produce si <paramref name="sanityChecks"/> contiene un valor que
+        /// ha sido marcado con el atributo <see cref="DangerousAttribute"/>.
+        /// </exception>
+        /// <exception cref="DangerousClassException">
+        /// Se produce si <paramref name="sanityChecks"/> no contiene la
+        /// bandera <see cref="SanityChecks.IgnoreDanger"/> y el
+        /// <paramref name="pluginChecker"/> a utilizar fue marcado en su 
+        /// declaración con el atributo <see cref="DangerousAttribute"/>.
+        /// </exception>
+        /// <exception cref="UnusableObjectException">
+        /// Se produce si <paramref name="sanityChecks"/> no contiene la
+        /// bandera <see cref="SanityChecks.IgnoreUnusable"/> y el
+        /// <paramref name="pluginChecker"/> a utilizar fue marcado en su 
+        /// declaración con el atributo <see cref="UnusableAttribute"/>.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="pluginChecker"/> es <c>null</c>.
+        /// </exception>
+        public PluginLoader(IPluginChecker pluginChecker, SanityChecks sanityChecks, string pluginExtension = ".dll")
         {
-            if (!ignoreDanger && pluginChecker.HasAttr<Attributes.DangerousAttribute>()) throw new DangerousClassException(pluginChecker.GetType());
-
-            extension = pluginExtension;
-            checker = pluginChecker ?? throw new ArgumentNullException(nameof(pluginChecker));
-        }
+#if CheckDanger
+            if (sanityChecks.HasAttr<DangerousAttribute>()) throw new DangerousCallException();
 #endif
+            checker = pluginChecker ?? throw new ArgumentNullException(nameof(pluginChecker));
+            if (!sanityChecks.HasFlag(SanityChecks.IgnoreDanger) && checker.HasAttr<DangerousAttribute>()) throw new DangerousClassException(pluginChecker.GetType());
+            if (!sanityChecks.HasFlag(SanityChecks.IgnoreUnusable) && checker.HasAttr<UnusableAttribute>()) throw new UnusableObjectException(pluginChecker);
+            extension = pluginExtension;
+        }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="PluginLoader"/> utilizando el
@@ -80,14 +103,7 @@ namespace MCART.PluginSupport
         /// Parámetro opcional. Extensión de los archivos que contienen
         /// plugins.
         /// </param>
-        public PluginLoader(IPluginChecker pluginChecker, string pluginExtension = ".dll")
-        {
-#if NoDanger
-            if (pluginChecker.HasAttr<Attributes.DangerousAttribute>()) throw new DangerousClassException(pluginChecker.GetType());
-#endif
-            extension = pluginExtension;
-            checker = pluginChecker ?? throw new ArgumentNullException(nameof(pluginChecker));
-        }
+        public PluginLoader(IPluginChecker pluginChecker, string pluginExtension = ".dll") : this(pluginChecker, SanityChecks.Default, pluginExtension) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="PluginLoader"/> utilizando el verificador

@@ -19,13 +19,13 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using MCART.Networking.Server;
+using TheXDS.MCART.Networking.Server;
 using Xunit;
 using System.Net;
 using Cl = MCART.Networking.Client;
 
 #if ExtrasBuiltIn
-using MCART.Networking.Server.Protocols;
+using TheXDS.MCART.Networking.Server.Protocols;
 #endif
 
 namespace CoreTests.Networking

@@ -1,19 +1,19 @@
 ﻿//
 //  Color.cs
 //
-//  This file is part of MCART
+//  This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
 //  Author:
 //       César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 //  Copyright (c) 2011 - 2018 César Andrés Morgan
 //
-//  MCART is free software: you can redistribute it and/or modify
+//  Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation, either version 3 of the License, or
 //  (at your option) any later version.
 //
-//  MCART is distributed in the hope that it will be useful,
+//  Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will be useful,
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU General Public License for more details.
@@ -24,7 +24,7 @@
 using System;
 using CI = System.Globalization.CultureInfo;
 
-namespace MCART.Types
+namespace TheXDS.MCART.Types
 {
 	/// <summary>
 	/// Estructura universal que describe un color en sus componentes alfa,
@@ -168,18 +168,46 @@ namespace MCART.Types
 #endif
 			);
 		}
-		/// <summary>
-		/// Inicializa una nueva instancia de la esctructura 
-		/// <see cref="Color"/>.
-		/// </summary>
-		/// <param name="R">Canal rojo.</param>
-		/// <param name="G">Canal verde.</param>
-		/// <param name="B">Canal azul.</param>
-		/// <param name="A">
-		/// Parámetro opcional. Canal alfa. Si se omite, el color tendrá una 
-		/// opacidad de 100%.
+        /// <summary>
+        /// Determina si dos instancias de <see cref="Color"/> son iguales.
+        /// </summary>
+		/// <param name="left">
+        /// El primer <see cref="Color"/> a comprobar.
+        /// </param>
+		/// <param name="right">
+		/// El segundo <see cref="Color"/> a comprobar.
 		/// </param>
-		public Color(byte R, byte G, byte B, byte A = 255)
+        /// <returns>
+        /// <c>true</c> ambas instancias de <see cref="Color"/> son iguales,
+        /// <c>false</c> en caso contrario.
+        /// </returns>
+        public static bool operator ==(Color left, Color right) => left.Equals(right);
+        /// <summary>
+        /// Determina si dos instancias de <see cref="Color"/> son distintas.
+        /// </summary>
+        /// <param name="left">
+        /// El primer <see cref="Color"/> a comprobar.
+        /// </param>
+        /// <param name="right">
+        /// El segundo <see cref="Color"/> a comprobar.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> ambas instancias de <see cref="Color"/> son distintas,
+        /// <c>false</c> en caso contrario.
+        /// </returns>
+        public static bool operator !=(Color left, Color right) => !left.Equals(right);
+        /// <summary>
+        /// Inicializa una nueva instancia de la esctructura 
+        /// <see cref="Color"/>.
+        /// </summary>
+        /// <param name="R">Canal rojo.</param>
+        /// <param name="G">Canal verde.</param>
+        /// <param name="B">Canal azul.</param>
+        /// <param name="A">
+        /// Parámetro opcional. Canal alfa. Si se omite, el color tendrá una 
+        /// opacidad de 100%.
+        /// </param>
+        public Color(byte R, byte G, byte B, byte A = 255)
 		{
 			r = (float)R / 255;
 			g = (float)G / 255;
@@ -291,19 +319,18 @@ namespace MCART.Types
 			set => a = value.Clamp(0.0f, 1.0f);
 #endif
 		}
-		/// <summary>
-		/// Determines whether the specified <see cref="Color"/> is equal to the
-		/// current <see cref="Color"/>.
-		/// </summary>
-		/// <param name="other">
-		/// The <see cref="Color"/> to compare with the current 
-		/// <see cref="Color"/>.
-		/// </param>
-		/// <returns>
-		/// <c>true</c> if the specified <see cref="Color"/> is equal to the
-		/// current <see cref="Color"/>; otherwise, <c>false</c>.
-		/// </returns>
-		public bool Equals(Color other)
+        /// <summary>
+        /// Determina si el <see cref="Color"/> especificado es igual al
+        /// <see cref="Color"/> actual.
+        /// </summary>
+        /// <param name="other">
+        /// El <see cref="Color"/> a comparar contra este <see cref="Color"/>.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> si el <see cref="Color"/> especificado es igual al
+        /// <see cref="Color"/> actual, <c>false</c> en caso contrario.
+        /// </returns>
+        public bool Equals(Color other)
 		{
 			return a == other.a && r == other.r && g == other.g && b == other.b;
 		}
@@ -428,5 +455,22 @@ namespace MCART.Types
 			byte e = (byte)((b + ep) * 2);
 			return unchecked((byte)(q | (w << 1) | (B << 2) | ((q == 2 || w == 2 || B == 2) ? 4 : 0)));
 		}
-	}
+        /// <summary>
+        /// Indica si este objeto y el especificado son la misma instancia.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+        /// <summary>
+        /// Obtiene el código Hash pasa esta instancia.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+    }
 }

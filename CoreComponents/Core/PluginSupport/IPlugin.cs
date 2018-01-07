@@ -1,19 +1,19 @@
 ﻿//
 //  IPlugin.cs
 //
-//  This file is part of MCART
+//  This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
 //  Author:
 //       César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 //  Copyright (c) 2011 - 2018 César Andrés Morgan
 //
-//  MCART is free software: you can redistribute it and/or modify
+//  Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation, either version 3 of the License, or
 //  (at your option) any later version.
 //
-//  MCART is distributed in the hope that it will be useful,
+//  Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will be useful,
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU General Public License for more details.
@@ -26,7 +26,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
 
-namespace MCART.PluginSupport
+namespace TheXDS.MCART.PluginSupport
 {
     /// <summary>
 	/// Define una interfaz básica para crear Plugins administrados por MCART
@@ -37,23 +37,11 @@ namespace MCART.PluginSupport
         /// Se produce cuando un <see cref="IPlugin"/> solicita la actualización
         /// de su interfaz gráfica.
         /// </summary>
-        event EventHandler<UIChangeEventArgs> UIChangeRequested;
+        event EventHandler<UIChangedEventArgs> UIChanged;
         /// <summary>
         /// Se produce cuando un <see cref="IPlugin"/> está por ser deshechado.
         /// </summary>
         event EventHandler<PluginFinalizingEventArgs> PluginFinalizing;
-        /// <summary>
-        /// Se produce cuando un <see cref="IPlugin"/> ha sido desechado.
-        /// </summary>
-        event EventHandler<PluginFinalizedEventArgs> PluginFinalized;
-        /// <summary>
-        /// Se produce cuando un <see cref="IPlugin"/> ha sido cargado.
-        /// </summary>
-        event EventHandler<PluginLoadedEventArgs> PluginLoaded;
-        /// <summary>
-        /// Se produce cuando la carga de un <see cref="IPlugin"/> ha fallado.
-        /// </summary>
-        event EventHandler<PluginFinalizedEventArgs> PluginLoadFailed;
         /// <summary>
         /// Devuelve el nombre del <see cref="IPlugin"/>
         /// </summary>
@@ -113,7 +101,7 @@ namespace MCART.PluginSupport
         /// Determina si el plugin es inseguro
         /// </summary>
         /// <returns><c>true</c> si el plugin ha sido marcado como inseguro; de lo contrario, <c>False</c></returns>
-        bool IsUnsafe { get; }
+        bool IsUnmanaged { get; }
         /// <summary>
         /// Determina si el plugin es inseguro
         /// </summary>
@@ -169,9 +157,5 @@ namespace MCART.PluginSupport
         /// </summary>
         /// <returns>Información determinada por el usuario relacionada a este plugin</returns>
         object Tag { get; set; }
-        /// <summary>
-        /// Solicita a la aplicación que se actualize la interfaz de interacción del <see cref="IPlugin"/>
-        /// </summary>
-        void RequestUIChange();
     }
 }

@@ -1,19 +1,19 @@
 ﻿//
 //  Point.cs
 //
-//  This file is part of MCART
+//  This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
 //  Author:
 //       César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 //  Copyright (c) 2011 - 2018 César Andrés Morgan
 //
-//  MCART is free software: you can redistribute it and/or modify
+//  Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation, either version 3 of the License, or
 //  (at your option) any later version.
 //
-//  MCART is distributed in the hope that it will be useful,
+//  Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will be useful,
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU General Public License for more details.
@@ -23,10 +23,10 @@
 
 using System;
 using static System.Math;
-using St = MCART.Resources.Strings;
+using St = TheXDS.MCART.Resources.Strings;
 using CI = System.Globalization.CultureInfo;
 
-namespace MCART.Types
+namespace TheXDS.MCART.Types
 {
     /// <summary>
     /// Tipo universal para un conjunto de coordenadas bidimensionales.
@@ -36,7 +36,7 @@ namespace MCART.Types
     /// implementación de MCART definir métodos para convertir a la clase
     /// correspondiente para los diferentes tipos de UI disponibles.
     /// </remarks>
-    public partial struct Point : IFormattable
+    public partial struct Point : IFormattable, IEquatable<Point>
     {
         /// <summary>
         /// Coordenada X.
@@ -313,6 +313,19 @@ namespace MCART.Types
                 case 'N': return $"X: {X}\nY: {Y}";
                 default: throw new FormatException(St.FormatNotSupported(format));
             }
+        }
+        /// <summary>
+        /// Compara la igualdad de los vectores de los puntos.
+        /// </summary>
+        /// <param name="other">
+        /// <see cref="Point"/> contra el cual comparar.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> si todos los vectores de ambos puntos son iguales;
+        /// de lo contrario, <c>false</c>.</returns>
+        public bool Equals(Point other)
+        {
+            return this == other;
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿/*
-AssemblyInfo.cs
+Enums.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,9 +22,33 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Reflection;
+using System;
+using TheXDS.MCART.Attributes;
 
-[assembly: AssemblyCompany("TheXDS! non-Corp.")]
-[assembly: AssemblyProduct("Morgan's Advanced Runtime")]
-[assembly: AssemblyCopyright("Copyright © 2011-2018 César Andrés Morgan")]
-[assembly: AssemblyVersion("0.8.0.0")]
+namespace TheXDS.MCART
+{
+    /// <summary>
+    /// Enumera las distintas opciones de comprobación de sanidad al instanciar
+    /// tipos.
+    /// </summary>
+    [Flags]
+    public enum SanityChecks : byte
+    {
+        /// <summary>
+        /// Realizar todas las comprobaciones de sanidad.
+        /// </summary>
+        Default,
+        /// <summary>
+        /// Ignorar la presencia del atributo <see cref="DangerousAttribute"/>.
+        /// </summary>
+        IgnoreDanger,
+        /// <summary>
+        /// Ignorar la presencia del atributo <see cref="UnusableAttribute"/>.
+        /// </summary>
+        IgnoreUnusable,
+        /// <summary>
+        /// Omite todas las comprobaciones de seguridad.
+        /// </summary>
+        [Dangerous] IgnoreAll = 255
+    }
+}

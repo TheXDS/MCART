@@ -1,37 +1,39 @@
-﻿//
-//  Exceptions.cs
-//
-//  This file is part of MCART
-//
-//  Author:
-//       César Andrés Morgan <xds_xps_ivx@hotmail.com>
-//
-//  Copyright (c) 2011 - 2018 César Andrés Morgan
-//
-//  MCART is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-//
-//  MCART is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-//
-//  You should have received a copy of the GNU General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿/*
+Exceptions.cs
+
+This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Author(s):
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+
+Copyright (c) 2011 - 2018 César Andrés Morgan
+
+Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will be
+useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+*/
 
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Reflection;
 using System.Runtime.Serialization;
-using St = MCART.Resources.Strings;
+using St = TheXDS.MCART.Resources.Strings;
 
-namespace MCART.Exceptions
+namespace TheXDS.MCART.Exceptions
 {
     /// <summary>
-    /// Excepcion que se produce cuando un método o función esperaba una
+    /// Excepción que se produce cuando un método o función esperaba una
     /// interfaz como argumento.
     /// </summary>
     [Serializable]
@@ -40,7 +42,7 @@ namespace MCART.Exceptions
         /// <summary>
         /// Tipo que ha causado la excepción.
         /// </summary>
-        public readonly Type OffendingType;
+        public Type OffendingType { get; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InterfaceExpectedException"/>.
@@ -50,10 +52,10 @@ namespace MCART.Exceptions
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InterfaceExpectedException"/>.
         /// </summary>
-        /// <param name="T">Tipo que generó la excepción.</param>
-        public InterfaceExpectedException(Type T) : base(St.InterfaceExpected)
+        /// <param name="offendingType">Tipo que generó la excepción.</param>
+        public InterfaceExpectedException(Type offendingType) : base(St.InterfaceExpected)
         {
-            OffendingType = T;
+            OffendingType = offendingType;
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
@@ -68,9 +70,9 @@ namespace MCART.Exceptions
         /// </summary>
         /// <param name="message">A <see cref="string"/> that describes
         /// the exception.</param>
-        /// <param name="T">Tipo que generó la excepción.</param>
-        public InterfaceExpectedException(string message, Type T)
-            : base(message) { OffendingType = T; }
+        /// <param name="offendingType">Tipo que generó la excepción.</param>
+        public InterfaceExpectedException(string message, Type offendingType)
+            : base(message) { OffendingType = offendingType; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InterfaceExpectedException"/>.
@@ -85,9 +87,9 @@ namespace MCART.Exceptions
         /// </summary>
         /// <param name="inner">The exception that is the cause of the current
         /// exception.</param>
-        /// <param name="T">Tipo que generó la excepción.</param>
-        public InterfaceExpectedException(Exception inner, Type T)
-            : base(St.InterfaceExpected, inner) { OffendingType = T; }
+        /// <param name="offendingType">Tipo que generó la excepción.</param>
+        public InterfaceExpectedException(Exception inner, Type offendingType)
+            : base(St.InterfaceExpected, inner) { OffendingType = offendingType; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InterfaceExpectedException"/>.
@@ -96,8 +98,7 @@ namespace MCART.Exceptions
         /// the exception.</param>
         /// <param name="inner">The exception that is the cause of the current
         /// exception. </param>
-        public InterfaceExpectedException(string message, Exception inner)
-            : base(message, inner) { }
+        public InterfaceExpectedException(string message, Exception inner) : base(message, inner) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InterfaceExpectedException"/>.
@@ -106,9 +107,9 @@ namespace MCART.Exceptions
         /// the exception.</param>
         /// <param name="inner">The exception that is the cause of the current
         /// exception.</param>
-        /// <param name="T">Tipo que generó la excepción.</param>
-        public InterfaceExpectedException(string message, Exception inner, Type T)
-            : base(message, inner) { OffendingType = T; }
+        /// <param name="offendingType">Tipo que generó la excepción.</param>
+        public InterfaceExpectedException(string message, Exception inner, Type offendingType)
+            : base(message, inner) { OffendingType = offendingType; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InterfaceExpectedException"/>.
@@ -118,8 +119,7 @@ namespace MCART.Exceptions
         /// <param name="info">
         /// El objeto que contiene la información de serialización.
         /// </param>
-        protected InterfaceExpectedException(SerializationInfo info, StreamingContext context)
-            : base(info, context) { }
+        protected InterfaceExpectedException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InterfaceExpectedException"/>.
@@ -129,9 +129,9 @@ namespace MCART.Exceptions
         /// <param name="info">
         /// El objeto que contiene la información de serialización.
         /// </param>
-        /// <param name="T">Tipo que generó la excepción.</param>
-        protected InterfaceExpectedException(SerializationInfo info, StreamingContext context, Type T)
-            : base(info, context) { OffendingType = T; }
+        /// <param name="offendingType">Tipo que generó la excepción.</param>
+        protected InterfaceExpectedException(SerializationInfo info, StreamingContext context, Type offendingType)
+            : base(info, context) { OffendingType = offendingType; }
     }
     /// <summary>
     /// Excepción que se produce al intentar cargar plugins desde un ensamblado
@@ -143,14 +143,24 @@ namespace MCART.Exceptions
         /// <summary>
         /// The offending assembly.
         /// </summary>
-        public readonly System.Reflection.Assembly OffendingAssembly;
+        public Assembly OffendingAssembly { get; }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="NotPluginException"/>.
+        /// </summary>
+        public NotPluginException() : base(St.XIsInvalid(St.TheAssembly)) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="NotPluginException"/>.
         /// </summary>
         /// <param name="offendingAssembly">Offending assembly.</param>
-        public NotPluginException(System.Reflection.Assembly offendingAssembly = null)
-            : base(St.XIsInvalid(St.TheAssembly)) { OffendingAssembly = offendingAssembly; }
+        public NotPluginException(Assembly offendingAssembly) : base(St.XIsInvalid(St.TheAssembly))
+        {
+            OffendingAssembly = offendingAssembly;
+        }
+
+
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="NotPluginException"/>.
@@ -158,7 +168,7 @@ namespace MCART.Exceptions
         /// <param name="message">
         /// A <see cref="string"/> that describes the exception.</param>
         /// <param name="offendingAssembly">Offending assembly.</param>
-        public NotPluginException(string message, System.Reflection.Assembly offendingAssembly = null)
+        public NotPluginException(string message, Assembly offendingAssembly = null)
             : base(message) { OffendingAssembly = offendingAssembly; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
@@ -167,7 +177,7 @@ namespace MCART.Exceptions
         /// <param name="inner">
         /// <see cref="Exception"/> que es la causa de esta excepción.</param>
         /// <param name="offendingAssembly">Offending assembly.</param>
-        public NotPluginException(Exception inner, System.Reflection.Assembly offendingAssembly = null)
+        public NotPluginException(Exception inner, Assembly offendingAssembly = null)
             : base(St.XIsInvalid(St.TheAssembly), inner) { OffendingAssembly = offendingAssembly; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
@@ -180,7 +190,7 @@ namespace MCART.Exceptions
         /// <see cref="Exception"/> que es la causa de esta excepción.
         /// </param>
         /// <param name="offendingAssembly">Offending assembly.</param>
-        public NotPluginException(string message, Exception inner, System.Reflection.Assembly offendingAssembly = null)
+        public NotPluginException(string message, Exception inner, Assembly offendingAssembly = null)
             : base(message, inner) { OffendingAssembly = offendingAssembly; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
@@ -193,7 +203,7 @@ namespace MCART.Exceptions
         /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="offendingAssembly">Offending assembly.</param>
-        protected NotPluginException(SerializationInfo info, StreamingContext context, System.Reflection.Assembly offendingAssembly = null)
+        protected NotPluginException(SerializationInfo info, StreamingContext context, Assembly offendingAssembly = null)
             : base(info, context) { OffendingAssembly = offendingAssembly; }
     }
     /// <summary>
@@ -902,7 +912,7 @@ namespace MCART.Exceptions
         public readonly Type RequiredClassType;
     }
     /// <summary>
-    /// Excepción que se produce cuando un <see cref="System.Reflection.Assembly"/> no contiene la clase especificada.
+    /// Excepción que se produce cuando un <see cref="Assembly"/> no contiene la clase especificada.
     /// </summary>
     [Serializable]
     public class PluginClassNotFoundException : Exception
@@ -1177,21 +1187,11 @@ namespace MCART.Exceptions
     [Serializable]
     public class InvalidTypeException : Exception
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidTypeException"/>.
-        /// </summary>
-        /// <param name="info">
-        /// El objeto que contiene la información de serialización.
-        /// </param>
-        /// <param name="context">
-        /// La información contextual acerca del orígen o el destino.
-        /// </param>
-        protected InvalidTypeException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        private readonly Type offendingType;
         /// <summary>
         /// Tipo que ha causado la excepción.
         /// </summary>
-        public readonly Type OffendingType;
+        public Type OffendingType => offendingType;
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException"/>.
         /// </summary>
@@ -1199,10 +1199,10 @@ namespace MCART.Exceptions
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException"/>.
         /// </summary>
-        /// <param name="Type">Tipo que ha causado la excepción.</param>
-        public InvalidTypeException(Type Type) : base(St.XIsInvalid(St.TheType))
+        /// <param name="offendingType">Tipo que ha causado la excepción.</param>
+        public InvalidTypeException(Type offendingType) : base(St.XIsInvalid(St.TheType))
         {
-            OffendingType = Type;
+            this.offendingType = offendingType;
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException"/>.
@@ -1213,10 +1213,10 @@ namespace MCART.Exceptions
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException"/>.
         /// </summary>
         /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="Type">Tipo que ha causado la excepción.</param>
-        public InvalidTypeException(string message, Type Type) : base(message)
+        /// <param name="offendingType">Tipo que ha causado la excepción.</param>
+        public InvalidTypeException(string message, Type offendingType) : base(message)
         {
-            OffendingType = Type;
+            this.offendingType = offendingType;
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException"/>.
@@ -1233,31 +1233,24 @@ namespace MCART.Exceptions
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException"/>.
         /// </summary>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        /// <param name="Type">Tipo que ha causado la excepción.</param>
-        public InvalidTypeException(Exception inner, Type Type) : base(St.XIsInvalid(St.TheType), inner)
+        /// <param name="offendingType">Tipo que ha causado la excepción.</param>
+        public InvalidTypeException(Exception inner, Type offendingType) : base(St.XIsInvalid(St.TheType), inner)
         {
-            OffendingType = Type;
+            this.offendingType = offendingType;
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException"/>.
         /// </summary>
         /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        /// <param name="Type">Tipo que ha causado la excepción.</param>
-        public InvalidTypeException(string message, Exception inner, Type Type) : base(message, inner)
+        /// <param name="offendingType">Tipo que ha causado la excepción.</param>
+        public InvalidTypeException(string message, Exception inner, Type offendingType) : base(message, inner)
         {
-            OffendingType = Type;
+            this.offendingType = offendingType;
         }
-    }
-    /// <summary>
-    /// Excepción que se produce al intentar crear nueva información dentro de una Database con un Uid que ya existe
-    /// </summary>
-    [Serializable]
-    public class DataAlreadyExistsException : Exception
-    {
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
-        /// <see cref="DataAlreadyExistsException"/>.
+        /// <see cref="InvalidTypeException"/>.
         /// </summary>
         /// <param name="info">
         /// El objeto que contiene la información de serialización.
@@ -1265,7 +1258,15 @@ namespace MCART.Exceptions
         /// <param name="context">
         /// La información contextual acerca del orígen o el destino.
         /// </param>
-        protected DataAlreadyExistsException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        protected InvalidTypeException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+    }
+    /// <summary>
+    /// Excepción que se produce al intentar crear nueva información dentro de
+    /// una base de datos con un identificador que ya existe.
+    /// </summary>
+    [Serializable]
+    public class DataAlreadyExistsException : Exception
+    {
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="DataAlreadyExistsException"/>.
         /// </summary>
@@ -1281,6 +1282,17 @@ namespace MCART.Exceptions
         /// <param name="Uid">Uid.</param>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
         public DataAlreadyExistsException(string Uid, Exception inner) : base(St.XAlreadyExists(St.XYQuotes(St.TheUid, Uid)), inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="DataAlreadyExistsException"/>.
+        /// </summary>
+        /// <param name="info">
+        /// El objeto que contiene la información de serialización.
+        /// </param>
+        /// <param name="context">
+        /// La información contextual acerca del orígen o el destino.
+        /// </param>
+        protected DataAlreadyExistsException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
     /// <summary>
     /// Excepción que se produce cuando se llama a un método de un <see cref="PluginSupport.Plugin"/> sin inicializar
@@ -1397,21 +1409,11 @@ namespace MCART.Exceptions
     [Serializable]
     public class CouldntConnectException : Exception
     {
+        private readonly IPEndPoint offendingEndPoint;
         /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="CouldntConnectException"/>.
+        /// <see cref="IPEndPoint"/> que fue la causa de esta excepción.
         /// </summary>
-        /// <param name="info">
-        /// El objeto que contiene la información de serialización.
-        /// </param>
-        /// <param name="context">
-        /// La información contextual acerca del orígen o el destino.
-        /// </param>
-        protected CouldntConnectException(SerializationInfo info, StreamingContext context) : base(info, context) { }
-        /// <summary>
-        /// The offending ip.
-        /// </summary>
-        public readonly System.Net.IPEndPoint OffendingIP;
+        public IPEndPoint OffendingEndPoint => offendingEndPoint;
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="CouldntConnectException"/>.
         /// </summary>
@@ -1419,10 +1421,10 @@ namespace MCART.Exceptions
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="CouldntConnectException"/>.
         /// </summary>
-        /// <param name="EndPoint">End point.</param>
-        public CouldntConnectException(System.Net.IPEndPoint EndPoint) : base(St.CldntConnect($"{EndPoint.Address}:{EndPoint.Port}"))
+        /// <param name="offendingEndPoint">End point.</param>
+        public CouldntConnectException(IPEndPoint offendingEndPoint) : base(St.CldntConnect($"{offendingEndPoint.Address}:{offendingEndPoint.Port}"))
         {
-            OffendingIP = EndPoint;
+            this.offendingEndPoint = offendingEndPoint;
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="CouldntConnectException"/>.
@@ -1438,31 +1440,42 @@ namespace MCART.Exceptions
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="CouldntConnectException"/>.
         /// </summary>
-        /// <param name="EndPoint">End point.</param>
+        /// <param name="offendingEndPoint">End point.</param>
         /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        public CouldntConnectException(System.Net.IPEndPoint EndPoint, string message) : base(message)
+        public CouldntConnectException(IPEndPoint offendingEndPoint, string message) : base(message)
         {
-            OffendingIP = EndPoint;
+            this.offendingEndPoint = offendingEndPoint;
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="CouldntConnectException"/>.
         /// </summary>
-        /// <param name="EndPoint">End point.</param>
+        /// <param name="offendingEndPoint">End point.</param>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public CouldntConnectException(System.Net.IPEndPoint EndPoint, Exception inner) : base(St.CldntConnect($"{EndPoint.Address}:{EndPoint.Port}"), inner)
+        public CouldntConnectException(IPEndPoint offendingEndPoint, Exception inner) : base(St.CldntConnect($"{offendingEndPoint.Address}:{offendingEndPoint.Port}"), inner)
         {
-            OffendingIP = EndPoint;
+            this.offendingEndPoint = offendingEndPoint;
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="CouldntConnectException"/>.
         /// </summary>
-        /// <param name="EndPoint">End point.</param>
+        /// <param name="offendingEndPoint">End point.</param>
         /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public CouldntConnectException(System.Net.IPEndPoint EndPoint, string message, Exception inner) : base(message, inner)
+        public CouldntConnectException(IPEndPoint offendingEndPoint, string message, Exception inner) : base(message, inner)
         {
-            OffendingIP = EndPoint;
+            this.offendingEndPoint = offendingEndPoint;
         }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="CouldntConnectException"/>.
+        /// </summary>
+        /// <param name="info">
+        /// El objeto que contiene la información de serialización.
+        /// </param>
+        /// <param name="context">
+        /// La información contextual acerca del orígen o el destino.
+        /// </param>
+        protected CouldntConnectException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
     /// <summary>
     /// Excepción que se produce cuando la conexión se encontraba cerrada al intentar enviar o recibir datos
@@ -1493,6 +1506,11 @@ namespace MCART.Exceptions
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="ConnectionClosedException"/>.
         /// </summary>
+        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        public ConnectionClosedException(Exception inner) : base(St.ClosdConn, inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="ConnectionClosedException"/>.
+        /// </summary>
         /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
         public ConnectionClosedException(string message, Exception inner) : base(message, inner) { }
@@ -1503,21 +1521,11 @@ namespace MCART.Exceptions
     [Serializable]
     public class OperationException : Exception
     {
+        private readonly Delegate offendingOperation;
         /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="OperationException"/>.
+        /// Operación donde se produjo la excepción.
         /// </summary>
-        /// <param name="info">
-        /// El objeto que contiene la información de serialización.
-        /// </param>
-        /// <param name="context">
-        /// La información contextual acerca del orígen o el destino.
-        /// </param>
-        protected OperationException(SerializationInfo info, StreamingContext context) : base(info, context) { }
-        /// <summary>
-        /// The offending task.
-        /// </summary>
-        public readonly Delegate OffendingTask;
+        public Delegate OffendingOperation => offendingOperation;
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="OperationException"/>.
         /// </summary>
@@ -1541,49 +1549,60 @@ namespace MCART.Exceptions
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="OperationException"/>.
         /// </summary>
-        /// <param name="Task">Task.</param>
-        public OperationException(Delegate Task) : base(St.ExcDoingX(St.XYQuotes(St.TheTask.ToLower(), Task.Method.Name)))
+        /// <param name="offendingOperation">Operación que causó la excepción.</param>
+        public OperationException(Delegate offendingOperation) : base(St.ExcDoingX(St.XYQuotes(St.TheTask.ToLower(), offendingOperation.Method.Name)))
         {
-            OffendingTask = Task;
+            this.offendingOperation = offendingOperation;
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="OperationException"/>.
         /// </summary>
-        /// <param name="Task">Task.</param>
+        /// <param name="offendingOperation">Operación que causó la excepción.</param>
         /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        public OperationException(Delegate Task, string message) : base(message)
+        public OperationException(Delegate offendingOperation, string message) : base(message)
         {
-            OffendingTask = Task;
+            this.offendingOperation = offendingOperation;
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="OperationException"/>.
         /// </summary>
-        /// <param name="Task">Task.</param>
+        /// <param name="offendingOperation">Operación que causó la excepción.</param>
         /// <param name="info">El objeto que contiene la información de serialización.</param>
         /// <param name="context">La información contextual acerca del orígen o el destino.</param>
-        public OperationException(Delegate Task, SerializationInfo info, StreamingContext context) : base(info, context)
+        public OperationException(Delegate offendingOperation, SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            OffendingTask = Task;
+            this.offendingOperation = offendingOperation;
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="OperationException"/>.
         /// </summary>
-        /// <param name="Task">Task.</param>
+        /// <param name="offendingOperation">Operación que causó la excepción.</param>
         /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public OperationException(Delegate Task, string message, Exception inner) : base(message, inner)
+        public OperationException(Delegate offendingOperation, string message, Exception inner) : base(message, inner)
         {
-            OffendingTask = Task;
+            this.offendingOperation = offendingOperation;
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="OperationException"/>.
         /// </summary>
-        /// <param name="Task">Task.</param>
+        /// <param name="offendingOperation">Operación que causó la excepción.</param>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public OperationException(Delegate Task, Exception inner) : base(St.ExcDoingX(St.XYQuotes(St.TheTask.ToLower(), Task.Method.Name)), inner)
+        public OperationException(Delegate offendingOperation, Exception inner) : base(St.ExcDoingX(St.XYQuotes(St.TheTask.ToLower(), offendingOperation.Method.Name)), inner)
         {
-            OffendingTask = Task;
+            this.offendingOperation = offendingOperation;
         }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="OperationException"/>.
+        /// </summary>
+        /// <param name="info">
+        /// El objeto que contiene la información de serialización.
+        /// </param>
+        /// <param name="context">
+        /// La información contextual acerca del orígen o el destino.
+        /// </param>
+        protected OperationException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
     /// <summary>
     /// Excepción que se produce cuando la firma de un método representado en
@@ -1592,10 +1611,11 @@ namespace MCART.Exceptions
     [Serializable]
     public class InvalidMethodSignatureException : Exception
     {
+        private readonly MethodInfo offendingMethod;
         /// <summary>
         /// Referencia al método que ha causado la excepción.
         /// </summary>
-        public readonly MethodInfo OffendingMethod;
+        public MethodInfo OffendingMethod => offendingMethod;
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InvalidMethodSignatureException"/>.
@@ -1606,14 +1626,14 @@ namespace MCART.Exceptions
         /// <see cref="InvalidMethodSignatureException"/>.
         /// </summary>
         /// <param name="method">Método que ha causado la excepción.</param>
-        public InvalidMethodSignatureException(MethodInfo method) : base(St.InvalidSignature(St.XYQuotes(St.TheMethod, $"{method.DeclaringType.FullName}.{method.Name}"))) { OffendingMethod = method; }
+        public InvalidMethodSignatureException(MethodInfo method) : base(St.InvalidSignature(St.XYQuotes(St.TheMethod, $"{method.DeclaringType.FullName}.{method.Name}"))) { offendingMethod = method; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InvalidMethodSignatureException"/>.
         /// </summary>
         /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
         /// <param name="method">Método que ha causado la excepción.</param>
-        public InvalidMethodSignatureException(string message, MethodInfo method = null) : base(message) { OffendingMethod = method; }
+        public InvalidMethodSignatureException(string message, MethodInfo method = null) : base(message) { offendingMethod = method; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InvalidMethodSignatureException"/>.
@@ -1626,7 +1646,7 @@ namespace MCART.Exceptions
         /// </summary>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
         /// <param name="method">Método que ha causado la excepción.</param>
-        public InvalidMethodSignatureException(Exception inner, MethodInfo method) : base(St.InvalidSignature(St.XYQuotes(St.TheMethod, $"{method.DeclaringType.FullName}.{method.Name}")), inner) { OffendingMethod = method; }
+        public InvalidMethodSignatureException(Exception inner, MethodInfo method) : base(St.InvalidSignature(St.XYQuotes(St.TheMethod, $"{method.DeclaringType.FullName}.{method.Name}")), inner) { offendingMethod = method; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InvalidMethodSignatureException"/>.
@@ -1634,7 +1654,7 @@ namespace MCART.Exceptions
         /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
         /// <param name="method">Método que ha causado la excepción.</param>
-        public InvalidMethodSignatureException(string message, Exception inner, MethodInfo method = null) : base(message, inner) { OffendingMethod = method; }
+        public InvalidMethodSignatureException(string message, Exception inner, MethodInfo method = null) : base(message, inner) { offendingMethod = method; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InvalidMethodSignatureException"/>.
@@ -1646,7 +1666,7 @@ namespace MCART.Exceptions
         /// La información contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="method">Método que ha causado la excepción.</param>
-        protected InvalidMethodSignatureException(SerializationInfo info, StreamingContext context, MethodInfo method = null) : base(info, context) { OffendingMethod = method; }
+        protected InvalidMethodSignatureException(SerializationInfo info, StreamingContext context, MethodInfo method = null) : base(info, context) { offendingMethod = method; }
     }
     /// <summary>
     /// Excepción que se produce cuando la llamada a un método es peligrosa.
@@ -1654,10 +1674,11 @@ namespace MCART.Exceptions
     [Serializable]
     public class DangerousCallException : Exception
     {
+        private readonly MethodInfo offendingMethod;
         /// <summary>
         /// Referencia al método que ha causado la excepción.
         /// </summary>
-        public readonly MethodInfo OffendingMethod;
+        public MethodInfo OffendingMethod => offendingMethod;
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InvalidMethodSignatureException"/>.
@@ -1668,14 +1689,14 @@ namespace MCART.Exceptions
         /// <see cref="InvalidMethodSignatureException"/>.
         /// </summary>
         /// <param name="method">Método que ha causado la excepción.</param>
-        public DangerousCallException(MethodInfo method) : base(St.MethodIsDangerous(method.Name)) { OffendingMethod = method; }
+        public DangerousCallException(MethodInfo method) : base(St.MethodIsDangerous(method.Name)) { offendingMethod = method; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InvalidMethodSignatureException"/>.
         /// </summary>
         /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
         /// <param name="method">Método que ha causado la excepción.</param>
-        public DangerousCallException(string message, MethodInfo method = null) : base(message) { OffendingMethod = method; }
+        public DangerousCallException(string message, MethodInfo method = null) : base(message) { offendingMethod = method; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InvalidMethodSignatureException"/>.
@@ -1696,7 +1717,7 @@ namespace MCART.Exceptions
         /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
         /// <param name="method">Método que ha causado la excepción.</param>
-        public DangerousCallException(string message, Exception inner, MethodInfo method = null) : base(message, inner) { OffendingMethod = method; }
+        public DangerousCallException(string message, Exception inner, MethodInfo method = null) : base(message, inner) { offendingMethod = method; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InvalidMethodSignatureException"/>.
@@ -1708,7 +1729,7 @@ namespace MCART.Exceptions
         /// La información contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="method">Método que ha causado la excepción.</param>
-        protected DangerousCallException(SerializationInfo info, StreamingContext context, MethodInfo method = null) : base(info, context) { OffendingMethod = method; }
+        protected DangerousCallException(SerializationInfo info, StreamingContext context, MethodInfo method = null) : base(info, context) { offendingMethod = method; }
     }
     /// <summary>
     /// Excepción que se produce cuando una clase es peligrosa.
@@ -1716,10 +1737,12 @@ namespace MCART.Exceptions
     [Serializable]
     public class DangerousClassException : Exception
     {
+        private readonly Type offendingClass;
+
         /// <summary>
         /// Referencia al método que ha causado la excepción.
         /// </summary>
-        public readonly Type OffendingClass;
+        public Type OffendingClass => offendingClass;
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InvalidMethodSignatureException"/>.
@@ -1730,14 +1753,14 @@ namespace MCART.Exceptions
         /// <see cref="InvalidMethodSignatureException"/>.
         /// </summary>
         /// <param name="class">Método que ha causado la excepción.</param>
-        public DangerousClassException(Type @class) : base(St.MethodIsDangerous(@class.Name)) { OffendingClass = @class; }
+        public DangerousClassException(Type @class) : base(St.MethodIsDangerous(@class.Name)) { offendingClass = @class; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InvalidMethodSignatureException"/>.
         /// </summary>
         /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
         /// <param name="class">Método que ha causado la excepción.</param>
-        public DangerousClassException(string message, Type @class = null) : base(message) { OffendingClass = @class; }
+        public DangerousClassException(string message, Type @class = null) : base(message) { offendingClass = @class; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InvalidMethodSignatureException"/>.
@@ -1750,7 +1773,7 @@ namespace MCART.Exceptions
         /// </summary>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
         /// <param name="class">Método que ha causado la excepción.</param>
-        public DangerousClassException(Exception inner, Type @class) : base(St.MethodIsDangerous(@class.Name), inner) { OffendingClass = @class; }
+        public DangerousClassException(Exception inner, Type @class) : base(St.MethodIsDangerous(@class.Name), inner) { offendingClass = @class; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InvalidMethodSignatureException"/>.
@@ -1758,7 +1781,7 @@ namespace MCART.Exceptions
         /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
         /// <param name="class">Método que ha causado la excepción.</param>
-        public DangerousClassException(string message, Exception inner, Type @class = null) : base(message, inner) { OffendingClass = @class; }
+        public DangerousClassException(string message, Exception inner, Type @class = null) : base(message, inner) { offendingClass = @class; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InvalidMethodSignatureException"/>.
@@ -1770,6 +1793,28 @@ namespace MCART.Exceptions
         /// La información contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="class">Método que ha causado la excepción.</param>
-        protected DangerousClassException(SerializationInfo info, StreamingContext context, Type @class = null) : base(info, context) { OffendingClass = @class; }
+        protected DangerousClassException(SerializationInfo info, StreamingContext context, Type @class = null) : base(info, context) { offendingClass = @class; }
+    }
+
+
+    [Serializable]
+    public class UnusableObjectException : Exception
+    {
+        public object OffendingObject { get; }
+
+        public UnusableObjectException() :base(St.UnusableObject) { }
+        public UnusableObjectException(object offendingObject) : base(St.UnusableObject) { OffendingObject = offendingObject; }
+
+        public UnusableObjectException(string message) : base(message) { }
+        public UnusableObjectException(string message, object offendingObject) : base(message) { OffendingObject = offendingObject; }
+
+        public UnusableObjectException(Exception inner) : base(St.UnusableObject, inner) { }
+        public UnusableObjectException(Exception inner, object offendingObject) : base(St.UnusableObject, inner) { OffendingObject = offendingObject; }
+
+        public UnusableObjectException(string message, Exception inner) : base(message, inner) { }
+        public UnusableObjectException(string message, Exception inner, object offendingObject) : base(message, inner) { OffendingObject = offendingObject; }
+
+        protected UnusableObjectException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        protected UnusableObjectException(SerializationInfo info, StreamingContext context, object offendingObject) : base(info, context) { OffendingObject = offendingObject; }
     }
 }

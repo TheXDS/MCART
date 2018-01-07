@@ -1,35 +1,36 @@
-﻿//
-//  Objects.cs
-//
-//  This file is part of MCART
-//
-//  Author:
-//       César Andrés Morgan <xds_xps_ivx@hotmail.com>
-//
-//  Copyright (c) 2011 - 2018 César Andrés Morgan
-//
-//  MCART is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-//
-//  MCART is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-//
-//  You should have received a copy of the GNU General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿/*
+Objects.cs
 
-using MCART.Attributes;
+This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Author(s):
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+
+Copyright (c) 2011 - 2018 César Andrés Morgan
+
+Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Reflection;
 using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using TheXDS.MCART.Attributes;
 
-namespace MCART
+namespace TheXDS.MCART
 {
     /// <summary>
     /// Funciones de manipulación de objetos.
@@ -37,30 +38,25 @@ namespace MCART
     public static class Objects
     {
         /// <summary>
-        /// Comprueba si alguno de los tipos especificados es asignable a partir
-        /// del tipo <paramref name="source"/>.
+        /// Enumera los tipos asignables a partir de <paramref name="source"/>.
         /// </summary>
         /// <param name="types">Lista de tipos a comprobar.</param>
         /// <param name="source">Tipo que desea asignarse.</param>
-        /// <param name="index">
-        /// Argumento de salida. Indica el índice del primer tipo que puede ser
-        /// asignado a partir de <paramref name="source"/>.
-        /// </param>
         /// <returns>
-        /// <c>true</c> si el tipo <paramref name="source"/> puede ser asignado 
-        /// a uno de los tipos especificados, <c>false</c> en caso contrario.
+        /// Un enumerador con los tipos que pueden ser asignados a partir de
+        /// <paramref name="source"/>.
         /// </returns>
-        public static bool AnyAssignableFrom(this IEnumerable<Type> types, Type source, out int? index)
-        {
-            index = 0;
-            foreach (Type j in types)
-            {
-                if (j.IsAssignableFrom(source)) return true;
-                index++;
-            }
-            index = null;
-            return false;
-        }
+        public static IEnumerable<Type> Assignables(this Type source, IEnumerable<Type> types) => types.Where(p => p.IsAssignableFrom(source));
+        /// <summary>
+        /// Enumera los tipos asignables a partir de <paramref name="source"/>.
+        /// </summary>
+        /// <param name="types">Lista de tipos a comprobar.</param>
+        /// <param name="source">Tipo que desea asignarse.</param>
+        /// <returns>
+        /// Un enumerador con los tipos que pueden ser asignados a partir de
+        /// <paramref name="source"/>.
+        /// </returns>
+        public static IEnumerable<Type> Assignables(this Type source, params Type[] types) => source.Assignables(types.AsEnumerable());
         /// <summary>
         /// Comprueba si alguno de los tipos especificados es asignable a partir
         /// del tipo <paramref name="source"/>.
@@ -71,7 +67,18 @@ namespace MCART
         /// <c>true</c> si el tipo <paramref name="source"/> puede ser asignado 
         /// a uno de los tipos especificados, <c>false</c> en caso contrario.
         /// </returns>
-        [Thunk] public static bool AnyAssignableFrom(this IEnumerable<Type> types, Type source) => AnyAssignableFrom(types, source, out _);
+        public static bool IsAnyAssignable(this Type source, IEnumerable<Type> types) => types.Any(p => p.IsAssignableFrom(source));
+        /// <summary>
+        /// Comprueba si alguno de los tipos especificados es asignable a partir
+        /// del tipo <paramref name="source"/>.
+        /// </summary>
+        /// <param name="types">Lista de tipos a comprobar.</param>
+        /// <param name="source">Tipo que desea asignarse.</param>
+        /// <returns>
+        /// <c>true</c> si el tipo <paramref name="source"/> puede ser asignado 
+        /// a uno de los tipos especificados, <c>false</c> en caso contrario.
+        /// </returns>
+        public static bool IsAnyAssignable(this Type source, params Type[] types) => source.IsAnyAssignable(types.AsEnumerable());
         /// <summary>
         /// Comprueba si todos los tipos son asignables a partir del tipo
         /// <paramref name="source"/>.
@@ -80,7 +87,16 @@ namespace MCART
         /// <param name="source">Tipo que desea asignarse.</param>
         /// <returns><c>true</c> si todos los tipos son asignables a partir de
         /// <paramref name="source"/>, <c>false</c> en caso contrario.</returns>
-        [Thunk] public static bool AreAssignableFrom(this Type[] types, Type source) => types.All(p => p.IsAssignableFrom(source));
+        public static bool AreAllAssignable(this Type source, IEnumerable<Type> types) => types.All(p => p.IsAssignableFrom(source));
+        /// <summary>
+        /// Comprueba si todos los tipos son asignables a partir del tipo
+        /// <paramref name="source"/>.
+        /// </summary>
+        /// <param name="types">Lista de tipos a comprobar.</param>
+        /// <param name="source">Tipo que desea asignarse.</param>
+        /// <returns><c>true</c> si todos los tipos son asignables a partir de
+        /// <paramref name="source"/>, <c>false</c> en caso contrario.</returns>
+        public static bool AreAllAssignable(this Type source, params Type[] types) => source.AreAllAssignable(types.AsEnumerable());
         /// <summary>
         /// Determina si cualquiera de los objetos es <c>null</c>.
         /// </summary>
@@ -89,7 +105,7 @@ namespace MCART
         /// contrario, <c>false</c>.
         /// </returns>
         /// <param name="x">Objetos a comprobar.</param>
-        [Thunk] public static bool IsAnyNull(params object[] x) => x.Any(p => p is null);
+        public static bool IsAnyNull(this IEnumerable<object> x) => x.Any(p => p is null);
         /// <summary>
         /// Determina si cualquiera de los objetos es <c>null</c>.
         /// </summary>
@@ -97,23 +113,31 @@ namespace MCART
         /// <c>true</c>, si cualquiera de los objetos es <c>null</c>; de lo
         /// contrario, <c>false</c>.
         /// </returns>
-        /// <param name="index">
-        /// Parámetro de salida. Si se encuentra un objeto que es <c>null</c>,
-        /// este valor será igual al índice de dicho objeto, en caso contrario, 
-        /// se devolverá <c>-1</c>.
-        /// </param>
         /// <param name="x">Objetos a comprobar.</param>
-        public static bool IsAnyNull(out int index, params object[] x)
+        public static bool IsAnyNull(params object[] x) => x.IsAnyNull();
+        /// <summary>
+        /// Determina si cualquiera de los objetos es <c>null</c>.
+        /// </summary>
+        /// <returns>
+        /// Un enumerador con los índices de los objetos que son <c>null</c>.
+        /// </returns>
+        /// <param name="collection">Colección de objetos a comprobar.</param>
+        public static IEnumerable<int> WhichAreNull(this IEnumerable<object> collection)
         {
-            index = 0;
-            foreach (object j in x)
+            int c = 0;
+            foreach (object j in collection)
             {
-                if (j is null) return true;
-                index++;
+                if (j is null) yield return c++;
             }
-            index = -1;
-            return false;
         }
+        /// <summary>
+        /// Determina si cualquiera de los objetos es <c>null</c>.
+        /// </summary>
+        /// <returns>
+        /// Un enumerador con los índices de los objetos que son <c>null</c>.
+        /// </returns>
+        /// <param name="collection">Colección de objetos a comprobar.</param>
+        public static IEnumerable<int> WhichAreNull(params object[] collection) => collection.WhichAreNull();
         /// <summary>
         /// Determina si todos los objetos son <c>null</c>.
         /// </summary>
@@ -122,7 +146,16 @@ namespace MCART
         /// <c>false</c>.
         /// </returns>
         /// <param name="x">Objetos a comprobar.</param>
-        [Thunk] public static bool AreAllNull(params object[] x) => x.All(p => p is null);
+        public static bool AreAllNull(this IEnumerable<object> x)=> x.All(p => p is null);
+        /// <summary>
+        /// Determina si todos los objetos son <c>null</c>.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c>, si todos los objetos son <c>null</c>; de lo contrario,
+        /// <c>false</c>.
+        /// </returns>
+        /// <param name="x">Objetos a comprobar.</param>
+        public static bool AreAllNull(params object[] x) => x.AreAllNull();
         /// <summary>
         /// Devuelve una referencia circular a este mismo objeto.
         /// </summary>
@@ -162,7 +195,44 @@ namespace MCART
 		/// objetos especificados, <c>false</c> en caso contrario.</returns>
 		/// <param name="obj">Objeto a comprobar.</param>
 		/// <param name="objs">Lista de objetos a comparar.</param>
-		[Thunk] public static bool IsEither(this object obj, params object[] objs) => objs.Any(p => p.Is(obj));
+		public static bool IsEither(this object obj, params object[] objs) => objs.Any(p => p.Is(obj));
+        /// <summary>
+        /// Determina si un objeto es cualquiera de los indicados.
+        /// </summary>
+        /// <returns><c>true</c>si <paramref name="obj"/> es cualquiera de los
+        /// objetos especificados, <c>false</c> en caso contrario.</returns>
+        /// <param name="obj">Objeto a comprobar.</param>
+        /// <param name="objs">Lista de objetos a comparar.</param>
+        public static bool IsEither(this object obj, IEnumerable<object> objs) => objs.Any(p => p.Is(obj));
+        /// <summary>
+        /// Determina si cualquiera de los objetos es la misma instancia que
+        /// <paramref name="obj"/>.
+        /// </summary>
+        /// <returns>
+        /// Un enumerador con los índices de los objetos que son la misma
+        /// instancia que <paramref name="obj"/>.
+        /// </returns>
+        /// <param name="obj">Objeto a comprobar.</param>
+        /// <param name="collection">Colección de objetos a comprobar.</param>
+        public static IEnumerable<int> WhichAre(this object obj, IEnumerable<object> collection)
+        {
+            int c = 0;
+            foreach (object j in collection)
+            {
+                if (j.Is(obj)) yield return c++;
+            }
+        }
+        /// <summary>
+        /// Determina si cualquiera de los objetos es la misma instancia que
+        /// <paramref name="obj"/>.
+        /// </summary>
+        /// <returns>
+        /// Un enumerador con los índices de los objetos que son la misma
+        /// instancia que <paramref name="obj"/>.
+        /// </returns>
+        /// <param name="obj">Objeto a comprobar.</param>
+        /// <param name="collection">Colección de objetos a comprobar.</param>
+        public static IEnumerable<int> WhichAre(this object obj, params object[] collection) => obj.WhichAre(collection.AsEnumerable());
         /// <summary>
         /// Determina si un objeto no es ninguno de los indicados.
         /// </summary>
@@ -170,7 +240,15 @@ namespace MCART
         /// objetos especificados, <c>false</c> en caso contrario.</returns>
         /// <param name="obj">Objeto a comprobar.</param>
         /// <param name="objs">Lista de objetos a comparar.</param>
-        [Thunk] public static bool IsNeither(this object obj, params object[] objs) => objs.All(p => !p.Is(obj));
+        public static bool IsNeither(this object obj, params object[] objs) => obj.IsNeither(objs.AsEnumerable());
+        /// <summary>
+        /// Determina si un objeto no es ninguno de los indicados.
+        /// </summary>
+        /// <returns><c>true</c>si <paramref name="obj"/> no es ninguno de los
+        /// objetos especificados, <c>false</c> en caso contrario.</returns>
+        /// <param name="obj">Objeto a comprobar.</param>
+        /// <param name="objs">Lista de objetos a comparar.</param>
+        public static bool IsNeither(this object obj, IEnumerable<object> objs) => objs.All(p => !p.Is(obj));
         /// <summary>
         /// Obtiene una lista de tipos asignables a partir de la interfaz 
         /// especificada.
@@ -196,8 +274,8 @@ namespace MCART
         /// </returns>
         public static IEnumerable<Type> GetTypes<T>(this AppDomain Domain)
         {
-            return Domain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(
-                p => typeof(T).IsAssignableFrom(p)).ToList();
+            return Domain.GetAssemblies().SelectMany(s => s.GetTypes().Where(
+                p => typeof(T).IsAssignableFrom(p))).AsEnumerable();
         }
         /// <summary>
         /// Obtiene una lista de los tipos de los objetos especificados.
@@ -213,11 +291,21 @@ namespace MCART
             foreach (object j in objects) yield return j.GetType();
         }
         /// <summary>
+        /// Obtiene una lista de los tipos de los objetos especificados.
+        /// </summary>
+        /// <param name="objects">
+        /// Objetos a partir de los cuales generar la colección de tipos.
+        /// </param>
+        /// <returns>
+        /// Una lista compuesta por los tipos de los objetos provistos.
+        /// </returns>
+        public static IEnumerable<Type> ToTypes(params object[] objects) => objects.ToTypes();
+        /// <summary>
         /// Inicializa una nueva instancia del tipo en runtime especificado.
         /// </summary>
         /// <returns>La nueva instancia del tipo especificado.</returns>
-        /// <typeparam name="T">Tipo de instancia a crear.</typeparam>
-        [DebuggerStepThrough] [Thunk] public static T New<T>() => typeof(T).New<T>(new object[] { });
+        /// <param name="j">Tipo a instanciar.</param>
+        [DebuggerStepThrough] [Thunk] public static object New(this Type j) => j.New<object>(new object[] { });
         /// <summary>
         /// Inicializa una nueva instancia del tipo dinámico especificado,
         /// devolviéndola como un <typeparamref name="T"/>.
@@ -228,20 +316,14 @@ namespace MCART
         /// <typeparam name="T">Tipo de instancia a devolver.</typeparam>
         [DebuggerStepThrough] [Thunk] public static T New<T>(this Type j) => j.New<T>(new object[] { });
         /// <summary>
-        /// Inicializa una nueva instancia del tipo en runtime especificado.
+        /// Inicializa una nueva instancia de un objeto con un constructor que
+        /// acepte los argumentos provistos.
         /// </summary>
         /// <returns>La nueva instancia del tipo especificado.</returns>
         /// <param name="j">Tipo a instanciar.</param>
-        [DebuggerStepThrough] [Thunk] public static object New(this Type j) => j.New<object>(new object[] { });
-        /// <summary>
-		/// Crea uns instancia de un objeto con un constructor que acepte los 
-		/// argumentos provistos.
-		/// </summary>
-		/// <typeparam name="T">Tipo de instancia a devolver.</typeparam>
-		/// <param name="Params">Parámetros a pasar al constructor. Se buscará 
-		/// un constructor compatible para poder crear la instancia.</param>
-		/// <returns>Una nueva instancia del tipo especificado.</returns>
-        [DebuggerStepThrough] [Thunk] public static T New<T>(object[] Params) => New<T>(typeof(T), Params);
+        /// <param name="parameters">Parámetros a pasar al constructor. Se buscará 
+        /// un constructor compatible para poder crear la instancia.</param>
+        [DebuggerStepThrough] [Thunk] public static object New(this Type j, params object[] parameters) => j.New<object>(parameters);
         /// <summary>
         /// Inicializa una nueva instancia de un objeto con un constructor que
         /// acepte los argumentos provistos.
@@ -249,7 +331,7 @@ namespace MCART
         /// <typeparam name="T">Tipo de instancia a devolver.</typeparam>
         /// <param name="j">Tipo a instanciar. Debe ser, heredar o implementar 
         /// el tipo especificado en <typeparamref name="T"/>.</param>
-        /// <param name="Params">Parámetros a pasar al constructor. Se buscará 
+        /// <param name="parameters">Parámetros a pasar al constructor. Se buscará 
         /// un constructor compatible para poder crear la instancia.</param>
         /// <returns>Una nueva instancia del tipo especificado.</returns>
         /// <exception cref="TypeLoadException">
@@ -257,22 +339,11 @@ namespace MCART
         /// solicitado.
         /// </exception>
         [DebuggerStepThrough]
-        public static T New<T>(this Type j, params object[] Params)
+        public static T New<T>(this Type j, params object[] parameters)
         {
-#if NoDanger
-            if (j.HasAttr<DangerousAttribute>()) throw new Exceptions.DangerousClassException(j);
-#endif
             if (j.IsAbstract || j.IsInterface) throw new TypeLoadException();
-            return (T)j.GetConstructor(Params.ToTypes().ToArray()).Invoke(Params);
+            return (T)j.GetConstructor(parameters.ToTypes().ToArray())?.Invoke(parameters);
         }
-        /// <summary>
-        /// Inicializa una nueva instancia del tipo en runtime especificado.
-        /// </summary>
-        /// <returns>La nueva instancia del tipo especificado.</returns>
-        /// <param name="j">Tipo a instanciar.</param>
-        /// <param name="Params">Parámetros a pasar al constructor. Se buscará 
-        /// un constructor compatible para poder crear la instancia.</param>
-        [DebuggerStepThrough] [Thunk] public static object New(this Type j, params object[] Params) => j.New<object>(Params);
         /// <summary>
         /// Libera un objeto COM.
         /// </summary>
@@ -509,6 +580,64 @@ namespace MCART
         /// </returns>
         public static bool HasAttr<T>(this object obj) where T : Attribute => HasAttr<T>(obj, out _);
         /// <summary>
+        /// Devuelve el atributo asociado a la declaración del valor de
+        /// enumeración.
+        /// </summary>
+        /// <typeparam name="T">Tipo de atributo a devolver. Debe heredar 
+        /// <see cref="Attribute"/>.</typeparam>
+        /// <returns>
+        /// Un atributo del tipo <typeparamref name="T"/> con los datos 
+        /// asociados en la declaración del valor de enumeración.
+        /// </returns>
+        public static T GetAttr<T>(this Enum enumValue) where T : Attribute
+        {
+            var type = enumValue.GetType();
+            if (!type.IsEnumDefined(enumValue))
+#if PreferExceptions
+                /* -= NOTA =-
+                 * si se define el símbolo PreferExceptions, esta función ya no
+                 * cumplirá con el estándar CLS, debido a que un valor de tipo
+                 * Enum no debería tener un contrato que compruebe el rango de
+                 * valores. Al crear aplicaciones que utilicen esta función, se
+                 * debe tomar en cuenta este comportamiento.
+                 */
+                throw new ArgumentOutOfRangeException(nameof(enumValue));
+#else
+                return null;
+#endif
+            return enumValue.GetType().GetMember(type.GetEnumName(enumValue))[0].GetCustomAttributes(typeof(T), false).FirstOrDefault() as T;
+        }
+        /// <summary>
+        /// Determina si un valor de enumeración posee un atributo definido.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute"/>.
+        /// </typeparam>
+        /// <param name="enumValue">
+        /// Valor de enumeración del cual se extraerá el atributo.
+        /// </param>
+        /// <returns><c>true</c> si el valor de enumeración posee el atributo,
+        /// <c>false</c> en caso contrario.
+        /// </returns>
+        public static bool HasAttr<T>(this Enum enumValue) where T : Attribute
+        {
+            var type = enumValue.GetType();
+            if (!type.IsEnumDefined(enumValue))
+#if PreferExceptions
+                /* -= NOTA =-
+                 * si se define el símbolo PreferExceptions, esta función ya no
+                 * cumplirá con el estándar CLS, debido a que un valor de tipo
+                 * Enum no debería tener un contrato que compruebe el rango de
+                 * valores. Al crear aplicaciones que utilicen esta función, se
+                 * debe tomar en cuenta este comportamiento.
+                 */
+                throw new ArgumentOutOfRangeException(nameof(enumValue));
+#else
+                return false;
+#endif
+            return type.GetMember(type.GetEnumName(enumValue))[0].GetCustomAttributes(typeof(T), false).Any();
+        }
+        /// <summary>
         /// Devuelve el atributo asociado a la declaración del tipo
         /// especificado.
         /// </summary>
@@ -583,27 +712,13 @@ namespace MCART
         /// </returns>
         public static bool HasAttrAlt<T>(this Type type) where T : Attribute => HasAttrAlt<T>(type, out _);
         /// <summary>
-        /// Devuelve <c>true</c> si el tipo <typeparamref name="T"/> es alguno de los tipos especificados
-        /// </summary>
-        /// <typeparam name="T">Tipo a comprobar</typeparam>
-        /// <param name="Types">Lista de tipos aceptados</param>
-        /// <returns><c>true</c> si <typeparamref name="T"/> es alguno de los tipos especificados en <paramref name="Types"/>, <c>false</c> en caso contrario.</returns>
-        [Thunk] public static bool IsTypeAnyOf<T>(params Type[] Types) => Types.Contains(typeof(T));
-        /// <summary>
-        /// Devuelve <c>true</c> si el tipo <paramref name="T"/> es alguno de los tipos especificados
-        /// </summary>
-        /// <param name="T">Tipo a comprobar</param>
-        /// <param name="Types">Lista de tipos aceptados</param>
-        /// <returns><c>true</c> si <paramref name="T"/> es alguno de los tipos especificados en <paramref name="Types"/>, <c>false</c> en caso contrario.</returns>
-        [Thunk] public static bool IsTypeAnyOf(Type T, params Type[] Types) => Types.Contains(T);
-        /// <summary>
         /// Determina si el tipo <paramref name="T"/> es de un tipo numérico
         /// </summary>
         /// <param name="T">Tipo a comprobar</param>
         /// <returns><c>true</c> si <paramref name="T"/> es un tipo numérico; de
         /// lo contrario, <c>false</c>.</returns>
         [Stub]
-        [Thunk]
+        [Obsolete]
         public static bool IsNumericType(Type T)
         {
             return new[]{
@@ -625,7 +740,7 @@ namespace MCART
         /// </summary>
         /// <typeparam name="T">Tipo a comprobar</typeparam>
         /// <returns><c>true</c> si <typeparamref name="T"/> es un tipo numérico, <c>false</c> en caso contrario.</returns>
-        [Thunk] public static bool IsNumericType<T>() => IsNumericType(typeof(T));
+        [Thunk] [Obsolete] public static bool IsNumericType<T>() => IsNumericType(typeof(T));
         /// <summary>
         /// Comprueba que la firma de un método sea compatible con el delegado
         /// especificado.

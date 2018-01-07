@@ -1,19 +1,19 @@
 ﻿//
 //  RuleSets.cs
 //
-//  This file is part of MCART
+//  This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
 //  Author:
 //       César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 //  Copyright (c) 2011 - 2018 César Andrés Morgan
 //
-//  MCART is free software: you can redistribute it and/or modify
+//  Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation, either version 3 of the License, or
 //  (at your option) any later version.
 //
-//  MCART is distributed in the hope that it will be useful,
+//  Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will be useful,
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU General Public License for more details.
@@ -21,12 +21,12 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using MCART.Attributes;
+using TheXDS.MCART.Attributes;
 using System.Linq;
-using St = MCART.Resources.Strings;
-using St2 = MCART.Resources.SpecificStrings;
+using St = TheXDS.MCART.Resources.Strings;
+using St2 = TheXDS.MCART.Resources.SpecificStrings;
 
-namespace MCART.Security.Password
+namespace TheXDS.MCART.Security.Password
 {
     /// <summary>
     /// Contiene un conjunto de reglas de evaluación de contraseñas.
@@ -66,7 +66,7 @@ namespace MCART.Security.Password
 
             return new PwEvalRule(ps =>
             {
-                short[] p = ps.Read16();
+                short[] p = ps.ReadInt16();
                 int d = 0;
                 foreach (char j in a) if (p.Contains((short)j)) d++;
                 if (d == 0) return new PwEvalResult(0, ie ?
@@ -170,7 +170,7 @@ namespace MCART.Security.Password
             return new PwEvalRule((p) =>
             {
                 var charArr = St.MoreChars.ToCharArray();
-                foreach (var j in p.Read16())
+                foreach (var j in p.ReadInt16())
                     if (!charArr.Contains((char)j))
                         return new PwEvalResult(1, St.Ok(St.Includes(St2.PwOtherUTFEvalRule.ToLower())));
                 return new PwEvalResult(0);

@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Attrbutes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Misc\Enums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Events.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Exceptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\Math.cs" />
@@ -61,7 +62,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\PwEvaluator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\RuleSets.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Encryption\IEasyCrypto.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Security\Encryption\Plugins.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Encryption\EasyCrypto.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Checksum\IEasyChecksum.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Checksum\Plugins.cs" />

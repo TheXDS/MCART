@@ -1,19 +1,19 @@
 ﻿//
 //  Strings.cs
 //
-//  This file is part of MCART
+//  This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
 //  Author:
 //       César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 //  Copyright (c) 2011 - 2018 César Andrés Morgan
 //
-//  MCART is free software: you can redistribute it and/or modify
+//  Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation, either version 3 of the License, or
 //  (at your option) any later version.
 //
-//  MCART is distributed in the hope that it will be useful,
+//  Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will be useful,
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU General Public License for more details.
@@ -21,7 +21,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace MCART.Resources
+namespace TheXDS.MCART.Resources
 {
     /// <summary>
     /// Contiene cadenas de texto genéricas, además de funciones de composición de texto.
@@ -523,6 +523,7 @@ namespace MCART.Resources
         public const string UnknownType = "Tipo de objeto desconocido.";
         public const string UnspecLicense = "No se ha especificado una licencia, o la misma no ha sido incluída.";
         public const string UnsupportedVer = "Versión no soportada.";
+        public const string UnusableObject = "El objeto no puede ser utilizado.";
         public const string Updt = "Actualizar";
         public const string UsrCncl = "Operación cancelada por el usuario.";
         public const string Usr = "Usuario";

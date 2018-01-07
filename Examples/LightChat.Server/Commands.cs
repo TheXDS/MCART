@@ -20,8 +20,8 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.IO;
-using MCART;
-using MCART.Networking.Server;
+using TheXDS.MCART;
+using TheXDS.MCART.Networking.Server;
 
 namespace LightChat
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MCART.Controls.Graph
+namespace TheXDS.MCART.Controls.Graph
 {
     /// <summary>
     /// Expone una serie de métodos de redibujado disponibles para un

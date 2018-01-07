@@ -39,7 +39,7 @@ Public Class MainWindow
             .ShowDialog()
         End With
     End Sub
-    Private Sub MnuAboutMCART_Click(sender As Object, e As RoutedEventArgs) Handles mnuAboutMCART.Click
+    Private Sub MnuAboutMCART_Click(sender As Object, e As RoutedEventArgs) 'Handles mnuAboutMCART.Click
         'With New MCART.Forms.
         '    .ShowDialog()
         'End With
