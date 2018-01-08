@@ -25,7 +25,7 @@ using TheXDS.MCART;
 using System;
 using System.Security;
 using Xunit;
-using static MCART.Common;
+using static TheXDS.MCART.Common;
 
 namespace MSTest.Modules
 {
@@ -107,8 +107,6 @@ namespace MSTest.Modules
         public void IsAnyEmptyTest()
         {
             Assert.True(IsAnyEmpty("Test", String.Empty, ""));
-            Assert.True(IsAnyEmpty(out int[] idxs, "Test", String.Empty, ""));
-            Assert.True(idxs.Length == 2 && idxs[0] == 1 && idxs[1] == 2);
             Assert.False(IsAnyEmpty("T", "e", "s", "t"));
         }
         /// <summary>
@@ -187,7 +185,7 @@ namespace MSTest.Modules
         }
 
         [Fact]
-        public void ReadStringTest()
+        public void ReadTest()
         {
             var s = new SecureString();
             s.AppendChar('T');
@@ -198,7 +196,7 @@ namespace MSTest.Modules
             Assert.Equal("Test", s.Read());
         }
         [Fact]
-        public void Read16Test()
+        public void ReadInt16Test()
         {
             var s = new SecureString();
             s.AppendChar('@');
@@ -206,7 +204,7 @@ namespace MSTest.Modules
             Assert.Equal((short)64, s.ReadInt16()[0]);
         }
         [Fact]
-        public void Read8Test()
+        public void ReadBytesTest()
         {
             var s = new SecureString();
             s.AppendChar('@');

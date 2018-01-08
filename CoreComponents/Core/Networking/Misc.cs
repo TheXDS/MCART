@@ -102,7 +102,7 @@ namespace TheXDS.MCART.Networking
 
         private static void WriteToStream(Stream @in, Stream @out)
         {
-            if (!(@in.CanRead && @out.CanWrite)) throw new InvalidOperationException();
+            if (!(@in.CanRead && @out.CanWrite)) throw new InvalidOperationException();            
 #if BufferedIO
             // 64 KiB de búffer parece razonable...
             var b = new byte[65536];

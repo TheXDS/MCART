@@ -24,7 +24,9 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Reflection;
 
+[assembly: AssemblyTitle("BinUtil")]
+[assembly: AssemblyDescription("Utilidad de importación de recursos binarios comprimidos de MCART")]
 [assembly: AssemblyCompany("TheXDS! non-Corp.")]
 [assembly: AssemblyProduct("Morgan's CLR Advanced Runtime")]
 [assembly: AssemblyCopyright("Copyright © 2011-2018 César Andrés Morgan")]
-[assembly: AssemblyVersion("0.8.0.0")]
+[assembly: AssemblyVersion("1.0.*")]

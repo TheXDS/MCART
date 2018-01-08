@@ -388,9 +388,6 @@ namespace TheXDS.MCART.Attributes
         /// <value>
         /// La ruta del servidor a la cual este atributo apunta.
         /// </value>
-        /// <exception cref="ArgumentException">
-        /// Se produce si el servidor es una ruta malformada.
-        /// </exception>
         public string Server { get; }
         /// <summary>
         /// Obtiene o establece el puerto de conexión del servidor.
@@ -399,9 +396,6 @@ namespace TheXDS.MCART.Attributes
         /// Un valor entre 1 y 65535 que establece el número de puerto a
         /// apuntar.
         /// </value>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Se produce si <paramref name="value"/> es igual a cero.
-        /// </exception>
         public ushort Port { get; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase
