@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF}</ProjectGuid>
     <OutputType>library</OutputType>
-    <RootNamespace>MCART</RootNamespace>
-    <AssemblyName>MCART</AssemblyName>
+    <RootNamespace>TheXDS.MCART</RootNamespace>
+    <AssemblyName>TheXDS.MCART.WPF</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -23,7 +23,7 @@
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\Build\WPF\Debug\MCART.xml</DocumentationFile>
+    <DocumentationFile>..\..\Build\WPF\Debug\TheXDS.MCART.WPF.xml</DocumentationFile>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
