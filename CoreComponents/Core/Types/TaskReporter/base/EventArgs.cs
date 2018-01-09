@@ -82,7 +82,7 @@ namespace TheXDS.MCART.Types.TaskReporter
         public ProgressEventArgs(
             float? progress = null,
             string helpText = null,
-            T obj = default(T)) : base(progress, helpText)
+            T obj = default) : base(progress, helpText)
         {
             Obj = obj;
         }

@@ -31,6 +31,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\PluginChecker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\PluginCheckers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\PluginLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\Pack.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Strings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\SpecificStrings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\PwEvalResult.cs" />
@@ -72,7 +73,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\IProtocol.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Resources\Binary\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Resources\Pack\" />
     <Folder Include="$(MSBuildThisFileDirectory)Types\TaskReporter\" />
     <Folder Include="$(MSBuildThisFileDirectory)Types\TaskReporter\base\" />
     <Folder Include="$(MSBuildThisFileDirectory)Security\Encryption\" />

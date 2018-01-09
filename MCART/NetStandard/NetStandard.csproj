@@ -19,7 +19,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\..\Build\netstandard2.0\Debug\</OutputPath>
     <DocumentationFile>..\..\Build\netstandard2.0\Debug\MCART.xml</DocumentationFile>
-    <LangVersion>default</LangVersion>
+    <LangVersion>latest</LangVersion>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
@@ -27,6 +27,7 @@
     <DefineConstants>RELEASE;NETSTANDARD2_0</DefineConstants>
     <OutputPath>..\..\Build\netstandard2.0\Release\</OutputPath>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <Import Project="..\..\CoreComponents\Core\Core.projitems" Label="Shared" />
   <PropertyGroup Condition="'$(SolutionDir)' == '' or '$(SolutionDir)' == '*undefined*'">

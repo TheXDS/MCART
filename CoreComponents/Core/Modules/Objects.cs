@@ -756,5 +756,59 @@ namespace TheXDS.MCART
         {
             return !(Delegate.CreateDelegate(@delegate, methodInfo, false) is null);
         }
+        /// <summary>
+        /// Busca en el <see cref="AppDomain"/> actual un tipo que contenga el
+        /// <see cref="IdentifierAttribute"/> especificado.
+        /// </summary>
+        /// <param name="identifier">Identificador a buscar.</param>
+        /// <returns>
+        /// Un tipo que ha sido etiquetado con el identificador especificado,
+        /// o <c>null</c> si ningún tipo contiene el identificador.
+        /// </returns>
+        [Thunk]public static Type FindType(string identifier) => FindType<object>(identifier);
+        /// <summary>
+        /// Busca en el <see cref="AppDomain"/> actual un tipo que contenga el
+        /// <see cref="IdentifierAttribute"/> especificado.
+        /// </summary>
+        /// <typeparam name="T">Restringir búsqueda a estos tipos.</typeparam>
+        /// <param name="identifier">Identificador a buscar.</param>
+        /// <returns>
+        /// Un tipo que ha sido etiquetado con el identificador especificado,
+        /// o <c>null</c> si ningún tipo contiene el identificador.
+        /// </returns>
+        [Thunk] public static Type FindType<T>(string identifier) => FindType<T>(identifier, AppDomain.CurrentDomain);
+        /// <summary>
+        /// Busca en el <see cref="AppDomain"/> especificado un tipo que
+        /// contenga el <see cref="IdentifierAttribute"/> especificado.
+        /// </summary>
+        /// <param name="identifier">Identificador a buscar.</param>
+        /// <param name="domain">Dominio en el cual buscar.</param>
+        /// <returns>
+        /// Un tipo que ha sido etiquetado con el identificador especificado,
+        /// o <c>null</c> si ningún tipo contiene el identificador.
+        /// </returns>
+        [Thunk] public static Type FindType(string identifier, AppDomain domain) => FindType<object>(identifier, domain);
+        /// <summary>
+        /// Busca en el <see cref="AppDomain"/> especificado un tipo que
+        /// contenga el <see cref="IdentifierAttribute"/> especificado.
+        /// </summary>
+        /// <typeparam name="T">Restringir búsqueda a estos tipos.</typeparam>
+        /// <param name="identifier">Identificador a buscar.</param>
+        /// <param name="domain">Dominio en el cual buscar.</param>
+        /// <returns>
+        /// Un tipo que ha sido etiquetado con el identificador especificado,
+        /// o <c>null</c> si ningún tipo contiene el identificador.
+        /// </returns>
+        public static Type FindType<T>(string identifier, AppDomain domain)
+        {
+            foreach (var j in domain.GetTypes<T>())
+            {
+                foreach (IdentifierAttribute k in j.GetCustomAttributes(typeof(IdentifierAttribute), false))
+                {
+                    if (k.Value == identifier) return j;
+                }
+            }
+            return default;
+        }
     }
 }

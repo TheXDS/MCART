@@ -321,7 +321,7 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public static string XNotCancellable(string text) => $"{text} no es cancelable.";
         /// <summary>
-        /// Devuelve una cadena con el texto "{<paramref name="text"/>} no ha sido encotnrado.".
+        /// Devuelve una cadena con el texto "{<paramref name="text"/>} no ha sido encontrado.".
         /// </summary>
         /// <param name="text">Texto a formatear.</param>
         /// <returns>
@@ -509,6 +509,7 @@ namespace TheXDS.MCART.Resources
         public const string TheObj = "El objeto";
         public const string ThePlugin = "El Plugin";
         public const string TheProtocol = "El protocolo";
+        public const string TheResource = "El recurso";
         public const string TheSrv = "El servidor";
         public const string TheTask = "La tarea";
         public const string TheType = "El tipo";

@@ -213,7 +213,7 @@ namespace TheXDS.MCART.Types.Extensions
                 for (int j = 0; j < steps; j++)
                 {
                     a.ToList().Remove(a.First());
-                    a.ToList().Add(default(T));
+                    a.ToList().Add(default);
                 }
             }
             else if (steps < 0)
@@ -221,7 +221,7 @@ namespace TheXDS.MCART.Types.Extensions
                 for (int j = 0; j > steps; j--)
                 {
                     a.ToList().Remove(a.Last());
-                    a.ToList().Insert(0, default(T));
+                    a.ToList().Insert(0, default);
                 }
             }
         }

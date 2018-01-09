@@ -337,7 +337,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static bool AreZero<T>(params T[] value) where T : IComparable<T>
         {
-            foreach (T j in value) if (j.CompareTo(default(T)) != 0) return false;
+            foreach (T j in value) if (j.CompareTo(default) != 0) return false;
             return true;
         }
         /// <summary>
@@ -353,7 +353,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static bool AreNotZero<T>(params T[] x) where T : IComparable<T>
         {
-            foreach (T j in x) if (j.CompareTo(default(T)) == 0) return false;
+            foreach (T j in x) if (j.CompareTo(default) == 0) return false;
             return true;
         }
 
@@ -439,7 +439,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static T Clamp<T>(this T expression, T max) where T : IComparable<T>
         {
-            return Clamp(expression, default(T), max);
+            return Clamp(expression, default, max);
         }
 #if RatherDRY
 #if FloatDoubleSpecial

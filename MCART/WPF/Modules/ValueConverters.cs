@@ -44,7 +44,7 @@ namespace System.Windows.Converters
         /// </summary>
         /// <param name="TrueValue">Valor equivalente a <c>true</c>.</param>
         /// <param name="FalseValue">Valor equivalente a <c>false</c>.</param>
-        public BooleanConverter(T TrueValue, T FalseValue = default(T))
+        public BooleanConverter(T TrueValue, T FalseValue = default)
         {
             True = TrueValue;
             False = FalseValue;
@@ -118,7 +118,7 @@ namespace System.Windows.Converters
         public BoolFlagConverter()
         {
             if (!typeof(T).IsEnum) throw new InvalidOperationException();
-            True = default(T);
+            True = default;
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase
@@ -160,7 +160,7 @@ namespace System.Windows.Converters
         /// </returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return True.Equals(default(T)) ? !value.Equals(True) : value.Equals(True);
+            return True.Equals(default) ? !value.Equals(True) : value.Equals(True);
         }
         /// <summary>
         /// Convierte un <see cref="bool"/> al tipo establecido para este
@@ -177,10 +177,10 @@ namespace System.Windows.Converters
         /// Si <paramref name="value"/> es <c>true</c>, se devuelve la(s) 
         /// bandera(s) a ser detectada(s), en caso de haberse establecido un 
         /// valor para <see cref="True"/>, o en caso contrario, se devolverá
-        /// <c>default(T)</c>.</returns>
+        /// <c>default</c>.</returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value.Equals(true) ? True : default(T);
+            return value.Equals(true) ? True : default;
         }
     }
     /// <summary>
@@ -197,7 +197,7 @@ namespace System.Windows.Converters
         /// </summary>
         /// <param name="TrueValue">Valor equivalente a <c>true</c>.</param>
         /// <param name="FalseValue">Valor equivalente a <c>false</c>.</param>
-        public NullBoolConverter(T TrueValue, T FalseValue = default(T))
+        public NullBoolConverter(T TrueValue, T FalseValue = default)
         {
             True = TrueValue;
             False = FalseValue;

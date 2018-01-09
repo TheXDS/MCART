@@ -314,6 +314,6 @@ Global
 		$3.scope = text/x-csharp
 		$0.VersionControlPolicy = $4
 		description = Este es el proyecto principal de MCART. Contiene los proyectos de código compartido, proyectos de ensamblados, pruebas y algunos ensamblados auxiliares incluidos.
-		version = 0.6
+		version = 0.8
 	EndGlobalSection
 EndGlobal

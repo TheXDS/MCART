@@ -3,6 +3,8 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Text;
+using System.Xml;
 
 namespace TheXDS.MCARTBinUtil
 {
@@ -20,10 +22,10 @@ namespace TheXDS.MCARTBinUtil
                 return;
             }
 
-            var sourceArg = FindArg("source=", args);
+            var sourceArg = FindArg("source=", args) ?? FindArg(args);
             if (String.IsNullOrWhiteSpace(sourceArg))
             {
-                Console.WriteLine($"/!\\ Se necesita una fuente.");
+                Console.WriteLine($"/!\\ Se necesita una fuente válida.");
                 ShowHelp();
                 return;
             }
@@ -51,8 +53,8 @@ namespace TheXDS.MCARTBinUtil
                 return;
             }
 
-            var pth = @"C:\Users\xds_x\src\MCART\Build\Utils\Debug\";
-            using (var outputFile = new FileStream($"{pth}{resArg}.pack", FileMode.Create))
+            var pth = @"../../../CoreComponents/Core/";
+            using (var outputFile = new FileStream($"{pth}Resources/Pack/{resArg}.pack", FileMode.Create))
             {
                 Stream compressorStream = null;
                 try
@@ -77,7 +79,33 @@ namespace TheXDS.MCARTBinUtil
                 ct.Cancel();
                 compressorStream.Dispose();
             }
-            Console.ReadKey();
+            using (var fs = new FileStream($"{pth}Resources/Pack.cs", FileMode.Open))
+            {
+                long markerLine = 1;
+                using (var sr = new StreamReader(fs))
+                {
+                    while (!sr.EndOfStream)
+                    {
+                        string lin = sr.ReadLine();
+                        markerLine = fs.Position + 1;
+                        if (lin.Contains("<binutil-marker/>")) break;
+                    }
+                }
+                //fs.Seek(0, SeekOrigin.Begin);
+                using (var sw = new StreamWriter(fs))
+                {
+                    sw.Write(MakeProperty(resArg, compressorArg));
+                }
+            }
+            using (var pf = new FileStream($"{pth}Core.projitems", FileMode.Open))
+            {
+                XmlDocument proj = new XmlDocument();
+                proj.Load(pf);
+                XmlElement xe = proj.CreateElement("EmbeddedResource");
+                xe.SetAttribute("Include", $"$(MSBuildThisFileDirectory)Resources\\Pack\\{resArg}.pack");
+                proj.DocumentElement.LastChild.AppendChild(xe);
+                proj.Save(pf);
+            }
         }
 
         static void ShowHelp()
@@ -86,7 +114,7 @@ namespace TheXDS.MCARTBinUtil
 Utilidad de importación de recursos binarios comprimidos de MCART
 
 Uso:
-    binutil source=<orígen> [res=<nombre del recurso>] [input=<tipo de orígen>] [compressor=<compresor>]
+    binutil [source=]<orígen> [res=<nombre del recurso>] [input=<tipo de orígen>] [compressor=<compresor>]
 
 Argumentos:
     source    : Cadena que describe el orígen del archivo.
@@ -142,6 +170,24 @@ Argumentos:
             }
             return null;
         }
+        static string FindArg(string[] args)
+        {
+            foreach (var j in args)
+            {
+                if (Uri.TryCreate(j, UriKind.Absolute, out _)) return j;
+                if (Uri.TryCreate($"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}{j}", UriKind.Absolute, out Uri uri)) return uri.AbsolutePath;
+            }
+            return null;
+        }
         static long BytesLeft(this FileStream fs) => fs.Length - fs.Position;
+        static string MakeProperty(string resName, string compressor)
+        {
+            const string funcBody = @"
+        /// <summary>
+        /// Obtiene el recurso binario comprimido '{0}'.
+        /// </summary>
+        public static string {0} => GetResource(""{0}"", ""{1}"");";
+            return String.Format(funcBody, resName, compressor);
+        }
     }
 }

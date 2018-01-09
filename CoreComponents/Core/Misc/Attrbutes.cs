@@ -431,4 +431,28 @@ namespace TheXDS.MCART.Attributes
             return $"{Server}:{Port}";
         }
     }
+    /// <summary>
+    /// Atributo que indica el compresor utilizado para este elemento.
+    /// </summary>
+    [AttributeUsage(Property | Field)]
+    public sealed class CompressorAttribute : TextAttribute
+    {
+        /// <summary>
+        /// Indica el compresor utilizado por este elemento.
+        /// </summary>
+        /// <param name="compressor">Nombre del compresor utilizado.</param>
+        public CompressorAttribute(string compressor) : base(compressor) { }
+    }
+    /// <summary>
+    /// Indica una cadena que puede utilizarse para identificar a este elemento.
+    /// </summary>
+    [AttributeUsage(All, AllowMultiple = true)]
+    public sealed class IdentifierAttribute : TextAttribute
+    {
+        /// <summary>
+        /// Indica una cadena que puede utilizarse para identificar a este elemento.
+        /// </summary>
+        /// <param name="identifier">Identificador a utilizar.</param>
+        public IdentifierAttribute(string identifier) : base(identifier) { }
+    }
 }
