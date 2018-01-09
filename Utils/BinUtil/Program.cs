@@ -54,6 +54,7 @@ namespace TheXDS.MCARTBinUtil
             }
 
             var pth = @"../../../CoreComponents/Core/";
+
             using (var outputFile = new FileStream($"{pth}Resources/Pack/{resArg}.pack", FileMode.Create))
             {
                 Stream compressorStream = null;
@@ -79,24 +80,14 @@ namespace TheXDS.MCARTBinUtil
                 ct.Cancel();
                 compressorStream.Dispose();
             }
-            using (var fs = new FileStream($"{pth}Resources/Pack.cs", FileMode.Open))
+
+            string csFile;
+            using (var sr = new StreamReader($"{pth}Resources/Pack.cs")) { csFile = sr.ReadToEnd(); }
+            using (var sw = new StreamWriter($"{pth}Resources/Pack.cs"))
             {
-                long markerLine = 1;
-                using (var sr = new StreamReader(fs))
-                {
-                    while (!sr.EndOfStream)
-                    {
-                        string lin = sr.ReadLine();
-                        markerLine = fs.Position + 1;
-                        if (lin.Contains("<binutil-marker/>")) break;
-                    }
-                }
-                //fs.Seek(0, SeekOrigin.Begin);
-                using (var sw = new StreamWriter(fs))
-                {
-                    sw.Write(MakeProperty(resArg, compressorArg));
-                }
+                sw.Write(csFile.Replace("<binutil-marker/>", "<binutil-marker/>" + MakeProperty(resArg, compressorArg)));
             }
+
             using (var pf = new FileStream($"{pth}Core.projitems", FileMode.Open))
             {
                 XmlDocument proj = new XmlDocument();
@@ -104,6 +95,7 @@ namespace TheXDS.MCARTBinUtil
                 XmlElement xe = proj.CreateElement("EmbeddedResource");
                 xe.SetAttribute("Include", $"$(MSBuildThisFileDirectory)Resources\\Pack\\{resArg}.pack");
                 proj.DocumentElement.LastChild.AppendChild(xe);
+                pf.SetLength(0);
                 proj.Save(pf);
             }
         }

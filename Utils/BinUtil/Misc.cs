@@ -20,7 +20,7 @@ namespace TheXDS.MCARTBinUtil
         }
         public abstract bool TryGetStream(Uri source, out Stream stream);
         public abstract string InferRes(string source);
-        public string InferRes(Uri source) => source.Segments.Last();
+        public string InferRes(Uri source) => source.Segments.Last().Replace('.', '_');
     }
 
     public interface ICompressorGetter
