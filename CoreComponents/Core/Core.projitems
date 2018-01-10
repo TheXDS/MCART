@@ -17,7 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Modules\Objects.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\Client.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Common.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Networking\Misc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Networking\DownloadHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\Protocols\Echo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\Server.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\Client.cs" />

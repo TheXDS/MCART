@@ -3,8 +3,8 @@ using System.Collections;
 using System.Linq;
 using System.Reflection;
 using Xunit;
-using static MCART.Objects;
-using static MCART.Resources.RTInfo;
+using static TheXDS.MCART.Objects;
+using static TheXDS.MCART.Resources.RTInfo;
 
 namespace CoreTests.Modules
 {
@@ -14,37 +14,26 @@ namespace CoreTests.Modules
         /// <summary>
         /// Atributo de prueba.
         /// </summary>
-        [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
+        [AttributeUsage(AttributeTargets.Class)]
         sealed class AttrTestAttribute : Attribute { }
+
         [Fact]
         public void AnyAssignableFromTest()
         {
-            Assert.True(MCART.Objects.AnyAssignableFrom(
-                new[]
-                {
-                    typeof(int),
-                    typeof(EventArgs),
-                    typeof(ResolveEventArgs)
-                }, typeof(ResolveEventArgs), out int? index));
-            Assert.Equal(1, index);
+            Assert.True(typeof(ResolveEventArgs).Assignables(typeof(int), typeof(EventArgs), typeof(Exception)).First() == typeof(EventArgs));
+            Assert.False(typeof(ResolveEventArgs).Assignables(typeof(int), typeof(Version), typeof(Exception)).Any());
         }
         [Fact]
         public void AreAssignableFromTest()
         {
-            Assert.True(MCART.Objects.AreAssignableFrom(
-                new[]
-                {
-                    typeof(EventArgs),
-                    typeof(ResolveEventArgs)
-                }, typeof(ResolveEventArgs)));
+            Assert.True(typeof(ResolveEventArgs).AreAllAssignable(typeof(EventArgs), typeof(ResolveEventArgs)));
+            Assert.False(typeof(ResolveEventArgs).AreAllAssignable(typeof(AppContext), typeof(ResolveEventArgs)));
         }
         [Fact]
         public void IsAnyNullTest()
         {
             Assert.True(IsAnyNull(0, 1, null));
             Assert.False(IsAnyNull(0, 1, 2, 3));
-            Assert.True(IsAnyNull(out int index, 0, 1, null));
-            Assert.Equal(2, index);
         }
         [Fact]
         public void AreAllNullTest()
@@ -70,8 +59,8 @@ namespace CoreTests.Modules
         [Fact]
         public void IsNotTest()
         {
-            EventArgs ev = EventArgs.Empty;
-            EventArgs e = new MCART.Events.ExceptionEventArgs(null);
+            EventArgs ev = new TheXDS.MCART.Events.ExceptionEventArgs(null);
+            EventArgs e = new TheXDS.MCART.Events.ExceptionEventArgs(null);
             Assert.True(e.IsNot(ev));
         }
         [Fact]
@@ -109,7 +98,6 @@ namespace CoreTests.Modules
         [Fact]
         public void NewTest()
         {
-            Assert.NotNull(New<ResolveEventArgs>(new object[] { "Test" }));
             Assert.NotNull(typeof(ResolveEventArgs).New("Test"));
         }
         [Fact]

@@ -4,8 +4,6 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <HasSharedItems>true</HasSharedItems>
     <SharedGUID>967afaa3-ded3-4ec0-9401-7193b318fce8</SharedGUID>
-    <PostBuildEvent>nuget pack $(ProjectPath) -OutputDirectory $(TargetDir)</PostBuildEvent>
-    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
     <Import_RootNamespace>TheXDS.MCART</Import_RootNamespace>

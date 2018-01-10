@@ -30,7 +30,7 @@ using TheXDS.MCART.Types;
 namespace TheXDS.MCART
 {
     /// <summary>
-    /// Funciones matemáticas varias
+    /// Contiene series, operaciones, ecuaciones y constantes matemáticas adicionales.
     /// </summary>
     public static class Math
     {

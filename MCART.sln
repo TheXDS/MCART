@@ -68,6 +68,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "BinUtil.Shared", "Utils\Bin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinUtil.Exe", "Utils\BinUtil\BinUtil.Exe.csproj", "{8C082165-0A7E-437B-BB9B-DB7794A16027}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Downloader", "Downloader\Downloader.csproj", "{4B1887D4-BAF9-4F81-B153-BE4B405EDC19}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		CoreComponents\AssemblyInfo\AssemblyInfo.projitems*{214a1e64-25a4-4d98-97da-7ca0e7ab2eef}*SharedItemsImports = 4
@@ -273,6 +275,22 @@ Global
 		{8C082165-0A7E-437B-BB9B-DB7794A16027}.Tools|Any CPU.Build.0 = Release|Any CPU
 		{8C082165-0A7E-437B-BB9B-DB7794A16027}.Tools|x86.ActiveCfg = Release|Any CPU
 		{8C082165-0A7E-437B-BB9B-DB7794A16027}.Tools|x86.Build.0 = Release|Any CPU
+		{4B1887D4-BAF9-4F81-B153-BE4B405EDC19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B1887D4-BAF9-4F81-B153-BE4B405EDC19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B1887D4-BAF9-4F81-B153-BE4B405EDC19}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4B1887D4-BAF9-4F81-B153-BE4B405EDC19}.Debug|x86.Build.0 = Debug|Any CPU
+		{4B1887D4-BAF9-4F81-B153-BE4B405EDC19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B1887D4-BAF9-4F81-B153-BE4B405EDC19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B1887D4-BAF9-4F81-B153-BE4B405EDC19}.Release|x86.ActiveCfg = Release|Any CPU
+		{4B1887D4-BAF9-4F81-B153-BE4B405EDC19}.Release|x86.Build.0 = Release|Any CPU
+		{4B1887D4-BAF9-4F81-B153-BE4B405EDC19}.Tools_Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B1887D4-BAF9-4F81-B153-BE4B405EDC19}.Tools_Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B1887D4-BAF9-4F81-B153-BE4B405EDC19}.Tools_Debug|x86.ActiveCfg = Debug|Any CPU
+		{4B1887D4-BAF9-4F81-B153-BE4B405EDC19}.Tools_Debug|x86.Build.0 = Debug|Any CPU
+		{4B1887D4-BAF9-4F81-B153-BE4B405EDC19}.Tools|Any CPU.ActiveCfg = Release|Any CPU
+		{4B1887D4-BAF9-4F81-B153-BE4B405EDC19}.Tools|Any CPU.Build.0 = Release|Any CPU
+		{4B1887D4-BAF9-4F81-B153-BE4B405EDC19}.Tools|x86.ActiveCfg = Release|Any CPU
+		{4B1887D4-BAF9-4F81-B153-BE4B405EDC19}.Tools|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -299,6 +317,7 @@ Global
 		{B15FA103-0CD0-4398-858F-F9B48C88D209} = {7B09221E-59F7-4BC7-BD06-37DFE25DE5E9}
 		{7E9C4628-6F12-4760-834D-EC40CC22E57D} = {B15FA103-0CD0-4398-858F-F9B48C88D209}
 		{8C082165-0A7E-437B-BB9B-DB7794A16027} = {B15FA103-0CD0-4398-858F-F9B48C88D209}
+		{4B1887D4-BAF9-4F81-B153-BE4B405EDC19} = {13F522D6-0589-49C8-B378-1BDAFED286D5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {652A5AA9-D603-4E93-9CE9-CD0372E260F2}

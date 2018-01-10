@@ -23,7 +23,7 @@
 
 using TheXDS.MCART;
 using Xunit;
-using static MCART.Math;
+using static TheXDS.MCART.Math;
 
 #if FloatDoubleSpecial
 using System;

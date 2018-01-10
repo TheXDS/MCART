@@ -39,6 +39,9 @@
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -106,4 +109,7 @@
     <SolutionDir>..\..\</SolutionDir>
   </PropertyGroup>
   <Import Project="$(SolutionDir)CommonSettings.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>nuget pack $(ProjectPath) -OutputDirectory $(TargetDir)</PostBuildEvent>
+  </PropertyGroup>
 </Project>
