@@ -58,12 +58,12 @@ namespace TheXDS.MCART.Networking
         public static void DownloadHttp(Uri uri, Stream stream)
         {
 #if RatherDRY
-            Task.WaitAll(DownloadHttpAsync(uri, stream));
+            DownloadHttpAsync(uri, stream).GetAwaiter().GetResult();
 #else
             var wr = WebRequest.Create(uri);
             wr.Timeout = 10000;
-            var r = wr.GetResponse();
-            r.GetResponseStream().CopyTo(stream);
+            using (var r = wr.GetResponse())
+                r.GetResponseStream().CopyTo(stream);
 #endif
         }
         /// <summary>
@@ -191,27 +191,31 @@ namespace TheXDS.MCART.Networking
         {
             var wr = WebRequest.Create(uri);
             wr.Timeout = 10000;
-            var r = await wr.GetResponseAsync();
-            var rStream = r.GetResponseStream();
-            var ct = new CancellationTokenSource();
-            var downloadTask = rStream.CopyToAsync(stream);
-            var reportTask = new Task(() =>
+            using (var r = await wr.GetResponseAsync())
+            using (var rStream = r.GetResponseStream())
+            using (var ct = new CancellationTokenSource())
+            using (var downloadTask = rStream.CopyToAsync(stream))
+            using (var reportTask = new Task(() =>
+             {
+                 if (!(reportCallback is null))
+                 {
+                     while (!ct?.IsCancellationRequested ?? false)
+                     {
+                         reportCallback.Invoke(
+                             stream.CanSeek ? (long?)stream.Length : null,
+                             r.ContentLength);
+                         Thread.Sleep(polling);
+                     }
+                     reportCallback.Invoke(stream.CanSeek ? (long?)stream.Length : null, r.ContentLength);
+                 }
+             }, ct.Token))
             {
-                if (!(reportCallback is null))
-                {
-                    while (!ct?.IsCancellationRequested ?? false)
-                    {
-                        reportCallback.Invoke(
-                            stream.CanSeek ? (long?)stream.Length : null,
-                            r.ContentLength);
-                        Thread.Sleep(polling);
-                    }
-                    reportCallback.Invoke(stream.CanSeek ? (long?)stream.Length : null, r.ContentLength);
-                }
-            }, ct.Token);
-            reportTask.Start();
-            await downloadTask;
-            ct.Cancel();
+                reportTask.Start();
+                await downloadTask;
+                ct.Cancel();
+                await reportTask;
+            }
+            wr = null;
         }
     }
 }
