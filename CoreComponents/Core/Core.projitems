@@ -33,7 +33,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\PluginLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Pack.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Strings.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Resources\SpecificStrings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\InternalStrings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\PwEvalResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\StreamExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\IEnumerableExtensions.cs" />

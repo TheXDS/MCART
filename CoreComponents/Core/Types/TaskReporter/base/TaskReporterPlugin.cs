@@ -243,8 +243,8 @@ namespace TheXDS.MCART.Types.TaskReporter
         /// Parámetro opcional. Mensaje a mostrar.
         /// </param>
         /// <param name="nonStop">
-        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
-        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
+        /// Parámetro opcional. Si es <see langword="true"/>, el ciclo no podrá ser
+        /// interrumpido. De forma predeterminada, se asume <see langword="false"/>.
         /// </param>
         /// <param name="onCancel">
         /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
@@ -272,8 +272,8 @@ namespace TheXDS.MCART.Types.TaskReporter
         /// Parámetro opcional. Mensaje a mostrar.
         /// </param>
         /// <param name="nonStop">
-        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
-        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
+        /// Parámetro opcional. Si es <see langword="true"/>, el ciclo no podrá ser
+        /// interrumpido. De forma predeterminada, se asume <see langword="false"/>.
         /// </param>
         /// <param name="onCancel">
         /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
@@ -302,8 +302,8 @@ namespace TheXDS.MCART.Types.TaskReporter
         /// Parámetro opcional. Mensaje a mostrar.
         /// </param>
         /// <param name="nonStop">
-        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
-        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
+        /// Parámetro opcional. Si es <see langword="true"/>, el ciclo no podrá ser
+        /// interrumpido. De forma predeterminada, se asume <see langword="false"/>.
         /// </param>
         /// <param name="onCancel">
         /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
@@ -324,8 +324,8 @@ namespace TheXDS.MCART.Types.TaskReporter
         /// <param name="collection">Colección del ciclo.</param>
         /// <param name="forEachAct">Acción a ejecutar.</param>
         /// <param name="nonStop">
-        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
-        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
+        /// Parámetro opcional. Si es <see langword="true"/>, el ciclo no podrá ser
+        /// interrumpido. De forma predeterminada, se asume <see langword="false"/>.
         /// </param>
         /// <param name="onCancel">
         /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
@@ -346,7 +346,7 @@ namespace TheXDS.MCART.Types.TaskReporter
         /// </summary>
         /// <exception cref="InvalidOperationException">
         /// Se produce cuando no se está ejecutando una tarea (el valor de
-        /// <see cref="OnDuty"/> es <c>false</c>).</exception>
+        /// <see cref="OnDuty"/> es <see langword="false"/>).</exception>
         public void ResetTimeout() { Tmr.Reset(); }
         #endregion
         #region Métodos estáticos públicos
@@ -362,8 +362,8 @@ namespace TheXDS.MCART.Types.TaskReporter
         /// Parámetro opcional. Mensaje a mostrar.
         /// </param>
         /// <param name="nonStop">
-        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
-        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
+        /// Parámetro opcional. Si es <see langword="true"/>, el ciclo no podrá ser
+        /// interrumpido. De forma predeterminada, se asume <see langword="false"/>.
         /// </param>
         /// <param name="onCancel">
         /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
@@ -397,8 +397,8 @@ namespace TheXDS.MCART.Types.TaskReporter
         /// <param name="collection">Colección del ciclo.</param>
         /// <param name="forEachAct">Acción a ejecutar.</param>
         /// <param name="nonStop">
-        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
-        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
+        /// Parámetro opcional. Si es <see langword="true"/>, el ciclo no podrá ser
+        /// interrumpido. De forma predeterminada, se asume <see langword="false"/>.
         /// </param>
         /// <param name="onCancel">
         /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.

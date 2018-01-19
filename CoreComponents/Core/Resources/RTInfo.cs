@@ -48,8 +48,8 @@ namespace TheXDS.MCART.Resources
         /// Comprueba si el ensamblado es compatible con esta versión de MCART
         /// </summary>
         /// <returns>
-        /// <c>true</c> si el ensamblado es compatible con esta versión de
-        /// MCART, <c>false</c> si no lo es, y <c>null</c> si no se ha podido
+        /// <see langword="true"/> si el ensamblado es compatible con esta versión de
+        /// MCART, <see langword="false"/> si no lo es, y <c>null</c> si no se ha podido
         /// determinar la compatibilidad.
         /// </returns>
         /// <param name="asmbly">Ensamblado a comprobar.</param>
@@ -65,8 +65,8 @@ namespace TheXDS.MCART.Resources
         /// Comprueba si el plugin es compatible con esta versión de MCART
         /// </summary>
         /// <returns>
-        /// <c>true</c> si el plugin es compatible con esta versión de MCART,
-        /// <c>false</c> si no lo es, y <c>null</c> si no se ha podido
+        /// <see langword="true"/> si el plugin es compatible con esta versión de MCART,
+        /// <see langword="false"/> si no lo es, y <c>null</c> si no se ha podido
         /// determinar la compatibilidad.
         /// </returns>
         /// <typeparam name="T">

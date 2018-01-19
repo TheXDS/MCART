@@ -1,4 +1,4 @@
-﻿Imports MCART.Controls
+﻿Imports TheXDS.MCART.Controls
 
 Public Class GrphTest
     Private grph As IGraph

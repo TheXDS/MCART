@@ -440,11 +440,11 @@ namespace TheXDS.MCART.Resources
         public const string HasUI = "Incluye UI";
         public const string HelpDir = @"\Help";
         public const string ImplInterfaces = "Interfaces implementadas";
-        public const string IncorrectPWD = "La contraseña es incorrecta";
         public const string InterfaceExpected = "Se esperaba una interfaz";
         public const string InvalidData = "Los datos proporcionados no son válidos.";
         public const string InvalidDB = "El arhivo no contiene una base de datos válida";
         public const string InvalidInfo = "La información no es válida.";
+        public const string InvalidPassword = "La contraseña no es válida.";
         public const string invalidPluginClass = "La clase no es un Plugin válido.";
         public const string IsBeta = "Versión Beta";
         public const string IsUnsafe = "Inseguro (NO UTILIZAR)";

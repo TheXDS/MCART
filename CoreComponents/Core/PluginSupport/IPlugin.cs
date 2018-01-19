@@ -75,8 +75,8 @@ namespace TheXDS.MCART.PluginSupport
         /// </summary>
         /// <param name="minVersion">Versión mínima de MCART.</param>
         /// <returns>
-        /// <c>true</c> si fue posible obtener información sobre la versión 
-        /// mínima de MCART, <c>false</c> en caso contrario.
+        /// <see langword="true"/> si fue posible obtener información sobre la versión 
+        /// mínima de MCART, <see langword="false"/> en caso contrario.
         /// </returns>
         bool MinRTVersion(out Version minVersion);
         /// <summary>
@@ -88,24 +88,24 @@ namespace TheXDS.MCART.PluginSupport
         /// </summary>
         /// <param name="tgtVersion">Versión objetivo de MCART.</param>
         /// <returns>
-        /// <c>true</c> si fue posible obtener información sobre la versión 
-        /// objetivo de MCART, <c>false</c> en caso contrario.
+        /// <see langword="true"/> si fue posible obtener información sobre la versión 
+        /// objetivo de MCART, <see langword="false"/> en caso contrario.
         /// </returns>
         bool TargetRTVersion(out Version tgtVersion);
         /// <summary>
-        /// Devuelve <c>true</c> si el plugin es Beta
+        /// Devuelve <see langword="true"/> si el plugin es Beta
         /// </summary>
-        /// <returns><c>true</c> si el plugin ha sido marcado como versión Beta; de lo contrario, <c>False</c></returns>
+        /// <returns><see langword="true"/> si el plugin ha sido marcado como versión Beta; de lo contrario, <c>False</c></returns>
         bool IsBeta { get; }
         /// <summary>
         /// Determina si el plugin es inseguro
         /// </summary>
-        /// <returns><c>true</c> si el plugin ha sido marcado como inseguro; de lo contrario, <c>False</c></returns>
+        /// <returns><see langword="true"/> si el plugin ha sido marcado como inseguro; de lo contrario, <c>False</c></returns>
         bool IsUnmanaged { get; }
         /// <summary>
         /// Determina si el plugin es inseguro
         /// </summary>
-        /// <returns><c>true</c> si el plugin ha sido marcado como inseguro; de lo contrario, <c>False</c></returns>
+        /// <returns><see langword="true"/> si el plugin ha sido marcado como inseguro; de lo contrario, <c>False</c></returns>
         bool IsUnstable { get; }
         /// <summary>
         /// Devuelve la lista de interfaces que este <see cref="IPlugin"/>
@@ -139,7 +139,7 @@ namespace TheXDS.MCART.PluginSupport
         /// </remarks>
         ReadOnlyCollection<InteractionItem> PluginInteractions { get; }
         /// <summary>
-        /// Devuelve <c>true</c> si el <see cref="Plugin"/> contiene interacciones
+        /// Devuelve <see langword="true"/> si el <see cref="Plugin"/> contiene interacciones
         /// </summary>
         bool HasInteractions { get; }
         /// <summary>

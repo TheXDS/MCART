@@ -31,6 +31,6 @@ namespace TheXDS.MCART.PluginSupport
         /// <param name="p">
         /// <see cref="IPlugin"/> del cual se mostrará la información.
         /// </param>
-        [Attributes.Thunk] public static void About(IPlugin p) => (new Forms.PluginBrowser()).DetailsOf(p);
+        [Attributes.Thunk] public static void About(IPlugin p) => (new Dialogs.PluginBrowser()).DetailsOf(p);
     }
 }

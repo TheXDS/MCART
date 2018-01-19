@@ -158,7 +158,7 @@ namespace TheXDS.MCART
         /// Comprueba si un número es primo mediante prueba y error.
         /// </summary>
         /// <returns>
-        /// <c>true</c>si el número es primo, <c>false</c> en caso contrario.
+        /// <see langword="true"/>si el número es primo, <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="number">Número a comprobar.</param>
         public static bool IsPrime(this long number)
@@ -172,7 +172,7 @@ namespace TheXDS.MCART
         /// Comprueba si un número es primo.
         /// </summary>
         /// <returns>
-        /// <c>true</c>si el número es primo, <c>false</c> en caso contrario.
+        /// <see langword="true"/>si el número es primo, <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="number">Número a comprobar.</param>
         [Thunk] public static bool IsPrime(this int number) => ((long)number).IsPrime();
@@ -180,7 +180,7 @@ namespace TheXDS.MCART
         /// Comprueba si un número es primo.
         /// </summary>
         /// <returns>
-        /// <c>true</c>si el número es primo, <c>false</c> en caso contrario.
+        /// <see langword="true"/>si el número es primo, <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="number">Número a comprobar.</param>
         [Thunk] public static bool IsPrime(this uint number) => ((long)number).IsPrime();
@@ -188,7 +188,7 @@ namespace TheXDS.MCART
         /// Comprueba si un número es primo.
         /// </summary>
         /// <returns>
-        /// <c>true</c>si el número es primo, <c>false</c> en caso contrario.
+        /// <see langword="true"/>si el número es primo, <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="number">Número a comprobar.</param>
         [Thunk] public static bool IsPrime(this short number) => ((long)number).IsPrime();
@@ -196,7 +196,7 @@ namespace TheXDS.MCART
         /// Comprueba si un número es primo.
         /// </summary>
         /// <returns>
-        /// <c>true</c>si el número es primo, <c>false</c> en caso contrario.
+        /// <see langword="true"/>si el número es primo, <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="number">Número a comprobar.</param>
         [Thunk] public static bool IsPrime(this ushort number) => ((long)number).IsPrime();
@@ -204,7 +204,7 @@ namespace TheXDS.MCART
         /// Comprueba si un número es primo.
         /// </summary>
         /// <returns>
-        /// <c>true</c>si el número es primo, <c>false</c> en caso contrario.
+        /// <see langword="true"/>si el número es primo, <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="number">Número a comprobar.</param>
         [Thunk] public static bool IsPrime(this sbyte number) => ((long)number).IsPrime();
@@ -212,7 +212,7 @@ namespace TheXDS.MCART
         /// Comprueba si un número es primo.
         /// </summary>
         /// <returns>
-        /// <c>true</c>si el número es primo, <c>false</c> en caso contrario.
+        /// <see langword="true"/>si el número es primo, <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="number">Número a comprobar.</param>
         [Thunk] public static bool IsPrime(this byte number) => ((long)number).IsPrime();
@@ -221,11 +221,11 @@ namespace TheXDS.MCART
         /// </summary>
         /// <param name="value"><see cref="double"/> a comprobar.</param>
         /// <returns>
-        /// <c>true</c> si <paramref name="value"/> es un número real
+        /// <see langword="true"/> si <paramref name="value"/> es un número real
         /// <see cref="double"/> operable, en otras palabras, si no es igual a 
         /// <see cref="double.NaN"/>, <see cref="double.PositiveInfinity"/> o
         /// <see cref="double.NegativeInfinity"/>; en cuyo caso se devuelve 
-        /// <c>false</c>.
+        /// <see langword="false"/>.
         /// </returns>
         public static bool IsValid(this double value) => !(double.IsNaN(value) || double.IsInfinity(value));
         /// <summary>
@@ -233,11 +233,11 @@ namespace TheXDS.MCART
         /// </summary>
         /// <param name="value"><see cref="float"/> a comprobar.</param>
         /// <returns>
-        /// <c>true</c> si <paramref name="value"/> es un número real
+        /// <see langword="true"/> si <paramref name="value"/> es un número real
         /// <see cref="float"/> operable, en otras palabras, si no es igual a 
         /// <see cref="float.NaN"/>, <see cref="float.PositiveInfinity"/> o
         /// <see cref="float.NegativeInfinity"/>; en cuyo caso se devuelve 
-        /// <c>false</c>.
+        /// <see langword="false"/>.
         /// </returns>
         public static bool IsValid(this float value) => !(float.IsNaN(value) || float.IsInfinity(value));
         /// <summary>
@@ -248,9 +248,9 @@ namespace TheXDS.MCART
         /// Colección  de <see cref="double"/> a comprobar.
         /// </param>
         /// <returns>
-        /// <c>true</c> si todos los elementos de <paramref name="values"/> son 
+        /// <see langword="true"/> si todos los elementos de <paramref name="values"/> son 
         /// números operables, en otras palabras, si no son NaN o Infinito; en 
-        /// caso contrario, se devuelve <c>false</c>.
+        /// caso contrario, se devuelve <see langword="false"/>.
         /// </returns>
         public static bool AreValid(params double[] values)
         {
@@ -265,9 +265,9 @@ namespace TheXDS.MCART
         /// Colección  de <see cref="float"/> a comprobar.
         /// </param>
         /// <returns>
-        /// <c>true</c> si todos los elementos de <paramref name="values"/> son 
+        /// <see langword="true"/> si todos los elementos de <paramref name="values"/> son 
         /// números operables, en otras palabras, si no son NaN o Infinito; en 
-        /// caso contrario, se devuelve <c>false</c>.
+        /// caso contrario, se devuelve <see langword="false"/>.
         /// </returns>
         public static bool AreValid(params float[] values)
         {
@@ -299,12 +299,12 @@ namespace TheXDS.MCART
             return a;
         }
         /// <summary>
-        /// Devuelve <c>true</c> si todos los números son positivos.
+        /// Devuelve <see langword="true"/> si todos los números son positivos.
         /// </summary>
         /// <param name="values">números a comprobar.</param>
         /// <returns>
-        /// <c>true</c> si todos los números de la colección son positivos,
-        /// <c>false</c> en caso contrario.
+        /// <see langword="true"/> si todos los números de la colección son positivos,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool ArePositives(params double[] values)
         {
@@ -312,12 +312,12 @@ namespace TheXDS.MCART
             return true;
         }
         /// <summary>
-        /// Devuelve <c>true</c> si todos los números son negativos.
+        /// Devuelve <see langword="true"/> si todos los números son negativos.
         /// </summary>
         /// <param name="values">números a comprobar.</param>
         /// <returns>
-        /// <c>true</c> si todos los números de la colección son negativos,
-        /// <c>false</c> en caso contrario.
+        /// <see langword="true"/> si todos los números de la colección son negativos,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool AreNegatives(params double[] values)
         {
@@ -325,15 +325,15 @@ namespace TheXDS.MCART
             return true;
         }
         /// <summary>
-        /// Devuelve <c>true</c> si todos los números son iguales a cero.
+        /// Devuelve <see langword="true"/> si todos los números son iguales a cero.
         /// </summary>
         /// <typeparam name="T">
         /// Tipo de elementos a comprobar.
         /// </typeparam>
         /// <param name="value">números a comprobar.</param>
         /// <returns>
-        /// <c>true</c> si todos los números de la colección son iguales a
-        /// cero, <c>false</c> en caso contrario.
+        /// <see langword="true"/> si todos los números de la colección son iguales a
+        /// cero, <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool AreZero<T>(params T[] value) where T : IComparable<T>
         {
@@ -341,15 +341,15 @@ namespace TheXDS.MCART
             return true;
         }
         /// <summary>
-        /// Devuelve <c>true</c> si todos los números son distintos de cero.
+        /// Devuelve <see langword="true"/> si todos los números son distintos de cero.
         /// </summary>
         /// <typeparam name="T">
         /// Tipo de elementos a comprobar.
         /// </typeparam>
         /// <param name="x">números a comprobar.</param>
         /// <returns>
-        /// <c>true</c> si todos los números de la colección son distintos de
-        /// cero, <c>false</c> en caso contrario.
+        /// <see langword="true"/> si todos los números de la colección son distintos de
+        /// cero, <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool AreNotZero<T>(params T[] x) where T : IComparable<T>
         {
@@ -613,7 +613,7 @@ namespace TheXDS.MCART
         /// Determina si un <see cref="double"/> es un número entero.
         /// </summary>
         /// <param name="value">Valor a comprobar.</param>
-        /// <returns><c>true</c> si el valor es entero; de lo contrario, <c>False</c></returns>
+        /// <returns><see langword="true"/> si el valor es entero; de lo contrario, <c>False</c></returns>
         public static bool IsWhole(this double value) => !value.ToString().Contains(".");
         /// <summary>
         /// Obtiene las cooerdenadas X,Y de una posición específica dentro de un

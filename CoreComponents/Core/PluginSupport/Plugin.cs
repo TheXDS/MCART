@@ -320,8 +320,8 @@ namespace TheXDS.MCART.PluginSupport
         /// </summary>
         /// <param name="minVersion">Versión mínima de MCART.</param>
         /// <returns>
-        /// <c>true</c> si fue posible obtener información sobre la versión 
-        /// mínima de MCART, <c>false</c> en caso contrario.
+        /// <see langword="true"/> si fue posible obtener información sobre la versión 
+        /// mínima de MCART, <see langword="false"/> en caso contrario.
         /// </returns>
         [Thunk]
         public bool MinRTVersion(out Version minVersion)
@@ -335,8 +335,8 @@ namespace TheXDS.MCART.PluginSupport
         /// </summary>
         /// <param name="tgtVersion">Versión objetivo de MCART.</param>
         /// <returns>
-        /// <c>true</c> si fue posible obtener información sobre la versión 
-        /// objetivo de MCART, <c>false</c> en caso contrario.
+        /// <see langword="true"/> si fue posible obtener información sobre la versión 
+        /// objetivo de MCART, <see langword="false"/> en caso contrario.
         /// </returns>
         [Thunk]
         public bool TargetRTVersion(out Version tgtVersion)

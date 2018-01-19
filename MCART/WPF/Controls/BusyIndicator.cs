@@ -51,16 +51,16 @@ namespace TheXDS.MCART.Controls
             nameof(Radius), typeof(double), T,
             new PropertyMetadata(24.0, SetControlSize));
         /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="Fill"/>.
+        /// Identifica a la propiedad de dependencia <see cref="Stroke"/>.
         /// </summary>
-        public static DependencyProperty FillProperty = DependencyProperty.Register(
-            nameof(Fill), typeof(Brush), T,
+        public static DependencyProperty StrokeProperty = DependencyProperty.Register(
+            nameof(Stroke), typeof(Brush), T,
             new PropertyMetadata(SystemColors.HighlightBrush, Colorize));
         /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="Fill2"/>.
+        /// Identifica a la propiedad de dependencia <see cref="Stroke2"/>.
         /// </summary>
-        public static DependencyProperty Fill2Property = DependencyProperty.Register(
-            nameof(Fill2), typeof(Brush), T,
+        public static DependencyProperty Stroke2Property = DependencyProperty.Register(
+            nameof(Stroke2), typeof(Brush), T,
             new PropertyMetadata(SystemColors.GrayTextBrush, Colorize));
         /// <summary>
         /// Identifica a la propiedad de dependencia <see cref="Starting"/>.
@@ -68,10 +68,12 @@ namespace TheXDS.MCART.Controls
         public static DependencyProperty StartingProperty = DependencyProperty.Register(
             nameof(Starting), typeof(bool), T,
             new PropertyMetadata(false, Colorize));
+
+
         static void Colorize(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             BusyIndicator b = (BusyIndicator)d;
-            b.pth.Stroke = b.Starting ? b.Fill2 : b.Fill2;
+            b.pth.Stroke = b.Starting ? b.Stroke2 : b.Stroke;
         }
         static void SetControlSize(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -97,19 +99,19 @@ namespace TheXDS.MCART.Controls
         /// <summary>
         /// Obtiene o establece el <see cref="Brush"/> a aplicar al control.
         /// </summary>
-        public Brush Fill
+        public Brush Stroke
         {
-            get => (Brush)GetValue(FillProperty);
-            set => SetValue(FillProperty, value);
+            get => (Brush)GetValue(StrokeProperty);
+            set => SetValue(StrokeProperty, value);
         }
         /// <summary>
         /// Obtiene o establece el <see cref="Brush"/> a aplicar al estado
         /// secundario de el control.
         /// </summary>
-        public Brush Fill2
+        public Brush Stroke2
         {
-            get => (Brush)GetValue(Fill2Property);
-            set => SetValue(Fill2Property, value);
+            get => (Brush)GetValue(Stroke2Property);
+            set => SetValue(Stroke2Property, value);
         }
         /// <summary>
         /// Obtiene o establece el grosor de los elementos de este control.
@@ -143,7 +145,7 @@ namespace TheXDS.MCART.Controls
         {
             SetBinding(HeightProperty, new Binding(nameof(Width)) { Source = this });
             Loaded += OnLoaded;
-            SizeChanged += OnLoaded;
+            SizeChanged += OnLoaded;            
             pth.SetBinding(Shape.StrokeThicknessProperty, new Binding(nameof(Thickness)) { Source = this });
             SetControlSize(this, new DependencyPropertyChangedEventArgs());
             Colorize(this, new DependencyPropertyChangedEventArgs());

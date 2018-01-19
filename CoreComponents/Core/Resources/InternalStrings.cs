@@ -1,5 +1,5 @@
 ﻿//
-//  SpecificStrings.cs
+//  InternalStrings.cs
 //
 //  This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
@@ -26,10 +26,11 @@ namespace TheXDS.MCART.Resources
     /// <summary>
     /// Contiene cadenas específicas para uso interno de MCART.
     /// </summary>
-    internal static class SpecificStrings
+    internal static class InternalStrings
     {
-
 #pragma warning disable CS1591 // Las cadenas generalmente no requieren de descripción.
+        public const string ObsoleteCheckDoc= "Este método no está soportado. Por favor, lea la documentación de MCART acerca de esta clase.";
+
 
         public static readonly string GpVNoData =
             " (Sin datos)";

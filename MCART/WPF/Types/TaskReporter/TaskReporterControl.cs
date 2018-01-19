@@ -139,7 +139,7 @@ namespace TheXDS.MCART.Types.TaskReporter
         /// Indica si la tarea puede ser detenida.
         /// </summary>
         /// <returns>
-        /// <c>true</c> si la tarea puede ser detenida, <c>false</c> en caso
+        /// <see langword="true"/> si la tarea puede ser detenida, <see langword="false"/> en caso
         /// contrario.
         /// </returns>
         public bool? Stoppable => (bool?)GetValue(StoppableProperty);
@@ -147,7 +147,7 @@ namespace TheXDS.MCART.Types.TaskReporter
         /// Indica si ya se ha agotado el tiempo de espera de la tarea.
         /// </summary>
         /// <returns>
-        /// <c>true</c> si ya se ha agotado el tiempo de espera, <c>false</c>
+        /// <see langword="true"/> si ya se ha agotado el tiempo de espera, <see langword="false"/>
         /// en caso contrario.
         /// </returns>
         public bool TimedOut => (bool)GetValue(TimedOutProperty);

@@ -19,10 +19,10 @@
 ' You should have received a copy of the GNU General Public License
 ' along with this program.  If Not, see <http://www.gnu.org/licenses/>.
 
-Imports MCART.PluginSupport
-Imports MCART.Forms
-Imports MCART
-Imports MCART.Controls
+Imports TheXDS.MCART.PluginSupport
+Imports TheXDS.MCART.Dialogs
+Imports TheXDS.MCART
+Imports TheXDS.MCART.Controls
 
 Public Class MainWindow
     Private pl As IEnumerable(Of IPlugin)
@@ -36,7 +36,7 @@ Public Class MainWindow
     End Sub
     Private Sub MnuPlgBrowser_Click(sender As Object, e As EventArgs) Handles mnuPlgBrowser.Click
         With New PluginBrowser
-            .ShowDialog()
+            MessageBox.Show(.ShowDialog()?.ToString())
         End With
     End Sub
     Private Sub MnuAboutMCART_Click(sender As Object, e As RoutedEventArgs) 'Handles mnuAboutMCART.Click
@@ -47,14 +47,23 @@ Public Class MainWindow
     Private Sub MnuExit_Click(sender As Object, e As RoutedEventArgs) Handles mnuExit.Click
         Close()
     End Sub
+    Private Sub MnuBeautifulPwd_Click(sender As Object, e As RoutedEventArgs) Handles mnuBeautifulPwd.Click
+        With (New SplashLogin() With {.WindowState = WindowState.Maximized})
+            .Login("Usuario", "Test@1234", AddressOf LoginTest)
+        End With
+    End Sub
+    Private Async Function LoginTest(user As String, password As System.Security.SecureString) As Task(Of Boolean)
+        Await Task.Run(Sub() Threading.Thread.Sleep(3000))
+        Return user = "Usuario" AndAlso password.Read() = "Test@1234"
+    End Function
     Private Sub MnuPwd_Click(sender As Object, e As RoutedEventArgs) Handles mnuPwd.Click
-        With (New PasswordDialog).Login("Usuario", "Test@1234")
-            If .Result = MessageBoxResult.OK Then MessageBox.Show(.Usr & vbCrLf & .Pwd.ReadString())
+        With PasswordDialog.Login("Usuario", "Test@1234", AddressOf LoginTest)
+            If .HasValue Then MessageBox.Show(.Value.ToString())
         End With
     End Sub
     Private Sub MnuSetPw_Click(sender As Object, e As RoutedEventArgs) Handles mnuSetPw.Click
-        With (New PasswordDialog).ChoosePassword(Security.Password.PwMode.UsrBoth)
-            If .Result = MessageBoxResult.OK Then MessageBox.Show(.Usr & vbCrLf & .Pwd.ReadString())
+        With PasswordDialog.ChoosePassword(Security.Password.PwMode.UsrBoth)
+            If .Result = MessageBoxResult.OK Then MessageBox.Show(.Usr & vbCrLf & .Pwd.Read())
         End With
     End Sub
     Private Sub MnuImgfilter_Click(sender As Object, e As RoutedEventArgs) Handles mnuImgfilter.Click
@@ -71,16 +80,16 @@ Public Class MainWindow
         'End With
     End Sub
     Private Sub MnuPwGenPin_Click(sender As Object, e As RoutedEventArgs) Handles mnuPwGenPin.Click
-        MsgBox(Security.Password.Generators.Pin.ReadString())
+        MsgBox(Security.Password.Generators.Pin.Read())
     End Sub
     Private Sub MnuPwGenSafe_Click(sender As Object, e As RoutedEventArgs) Handles mnuPwGenSafe.Click
-        MsgBox(Security.Password.Generators.Safe.ReadString())
+        MsgBox(Security.Password.Generators.Safe.Read())
     End Sub
     Private Sub MnuPwGenComplex_Click(sender As Object, e As RoutedEventArgs) Handles mnuPwGenComplex.Click
-        MsgBox(Security.Password.Generators.VeryComplex.ReadString())
+        MsgBox(Security.Password.Generators.VeryComplex.Read())
     End Sub
     Private Sub MnuPwGenExtreme_Click(sender As Object, e As RoutedEventArgs) Handles mnuPwGenExtreme.Click
-        MsgBox(Security.Password.Generators.ExtremelyComplex.ReadString())
+        MsgBox(Security.Password.Generators.ExtremelyComplex.Read())
     End Sub
     Private Sub MnuGrphRing_Click(sender As Object, e As RoutedEventArgs) Handles mnuGrphRing.Click
         Dim r As New RingGraph() With {

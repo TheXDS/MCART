@@ -41,7 +41,7 @@ namespace TheXDS.MCART.Types.TaskReporter
         /// <param name="forAct">Acción a ejecutar.</param>
         /// <param name="message">Mensaje genérico de estado.</param>
         /// <param name="nonStop">
-        /// Si se establece en <c>true</c>, la tarea no podrá ser detenida.
+        /// Si se establece en <see langword="true"/>, la tarea no podrá ser detenida.
         /// </param>
         /// <param name="onCancel">
         /// Acción en caso de que la tarea se cancele.
@@ -63,7 +63,7 @@ namespace TheXDS.MCART.Types.TaskReporter
         /// <param name="forAct">Acción a ejecutar.</param>
         /// <param name="message">Mensaje genérico de estado.</param>
         /// <param name="nonStop">
-        /// Si se establece en <c>true</c>, la tarea no podrá ser detenida.
+        /// Si se establece en <see langword="true"/>, la tarea no podrá ser detenida.
         /// </param>
         /// <param name="onCancel">
         /// Acción en caso de que la tarea se cancele.
@@ -86,7 +86,7 @@ namespace TheXDS.MCART.Types.TaskReporter
         /// <param name="forAct">Acción a ejecutar.</param>
         /// <param name="message">Mensaje genérico de estado.</param>
         /// <param name="nonStop">
-        /// Si se establece en <c>true</c>, la tarea no podrá ser detenida.
+        /// Si se establece en <see langword="true"/>, la tarea no podrá ser detenida.
         /// </param>
         /// <param name="onCancel">
         /// Acción en caso de que la tarea se cancele.
@@ -110,7 +110,7 @@ namespace TheXDS.MCART.Types.TaskReporter
         /// </param>
         /// <param name="message">Mensaje genérico de estado.</param>
         /// <param name="nonStop">
-        /// Si se establece en <c>true</c>, la tarea no podrá ser detenida.
+        /// Si se establece en <see langword="true"/>, la tarea no podrá ser detenida.
         /// </param>
         /// <param name="onCancel">
         /// Acción en caso de que la tarea se cancele.

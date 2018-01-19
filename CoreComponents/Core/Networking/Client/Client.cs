@@ -61,7 +61,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <summary>
         /// Gets a value indicating whether this <see cref="Client"/> is alive.
         /// </summary>
-        /// <value><c>true</c> if is alive; otherwise, <c>false</c>.</value>
+        /// <value><see langword="true"/> if is alive; otherwise, <see langword="false"/>.</value>
         public bool IsAlive => (bool)connection?.Connected;
         /// <summary>
         /// Establece una conexión con el servidor de forma asíncrona.

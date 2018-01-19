@@ -128,8 +128,8 @@ namespace TheXDS.MCART.Controls
         /// indeterminado en este <see cref="ProgressRing"/>.
         /// </summary>
         /// <value>
-        /// <c>true</c> indica progreso indeterminado, causando que la propiedad
-        /// <see cref="Value"/> sea <see cref="float.NaN"/>; <c>false</c> indica
+        /// <see langword="true"/> indica progreso indeterminado, causando que la propiedad
+        /// <see cref="Value"/> sea <see cref="float.NaN"/>; <see langword="false"/> indica
         /// un progreso normal, y causará que <see cref="Value"/> sea igual a 0. 
         /// </value>
         public bool IsIndeterminate

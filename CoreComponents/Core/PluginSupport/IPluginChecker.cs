@@ -38,8 +38,8 @@ namespace TheXDS.MCART.PluginSupport
         /// <see cref="IPlugin"/>.
         /// </summary>
         /// <returns>
-        /// <c>true</c> si el ensamblado contiene clases cargables como
-        /// <see cref="IPlugin"/>, <c>false</c> en caso contrario.
+        /// <see langword="true"/> si el ensamblado contiene clases cargables como
+        /// <see cref="IPlugin"/>, <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="assembly"><see cref="Assembly"/> a comprobar.</param>
         bool IsVaild(Assembly assembly);
@@ -48,8 +48,8 @@ namespace TheXDS.MCART.PluginSupport
         /// <see cref="IPlugin"/>.
         /// </summary>
         /// <returns>
-        /// <c>true</c> si el tipo contiene clases cargables como
-        /// <see cref="IPlugin"/>, <c>false</c> en caso contrario.
+        /// <see langword="true"/> si el tipo contiene clases cargables como
+        /// <see cref="IPlugin"/>, <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="type"><see cref="Type"/> a comprobar.</param>
         bool IsVaild(Type type);
@@ -58,9 +58,9 @@ namespace TheXDS.MCART.PluginSupport
         /// tipo especificado.
         /// </summary>
         /// <returns>
-        /// <c>true</c> si el ensamblado contiene al menos una clase de tipo
+        /// <see langword="true"/> si el ensamblado contiene al menos una clase de tipo
         /// <typeparamref name="T"/> cargable como <see cref="IPlugin"/>, 
-        /// <c>false</c> en caso contrario.
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="assembly"><see cref="Assembly"/> a comprobar.</param>
         /// <typeparam name="T">Tipo a buscar.</typeparam>
@@ -71,8 +71,8 @@ namespace TheXDS.MCART.PluginSupport
         /// </summary>
         /// <param name="type">Tipo a comprobar.</param>
         /// <returns>
-        /// <c>true</c> si el tipo es compatible con esta versión de MCART,
-        /// <c>false</c> en caso de no ser compatible, o <c>null</c> si no fue
+        /// <see langword="true"/> si el tipo es compatible con esta versión de MCART,
+        /// <see langword="false"/> en caso de no ser compatible, o <c>null</c> si no fue
         /// posible comprobar la compatibilidad.
         /// </returns>
         bool? IsCompatible(Type type);        

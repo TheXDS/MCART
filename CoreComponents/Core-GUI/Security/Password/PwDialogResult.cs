@@ -29,7 +29,7 @@ namespace TheXDS.MCART.Security.Password
 {
     /// <summary>
     /// Representa el resultado de un cuadro de diálogo
-    /// <see cref="Forms.PasswordDialog"/>.
+    /// <see cref="Dialogs.PasswordDialog"/>.
     /// </summary>
     public partial struct PwDialogResult
     {
@@ -39,12 +39,12 @@ namespace TheXDS.MCART.Security.Password
         PwEvalResult e;
         /// <summary>
         /// Obtiene el usuario introducido en el 
-        /// <see cref="Forms.PasswordDialog"/>.
+        /// <see cref="Dialogs.PasswordDialog"/>.
         /// </summary>
         /// <returns>
         /// Si se muestra este diálogo con <see cref="PwMode.Usr"/>, se 
         /// devuelve el usuario introducido en el 
-        /// <see cref="Forms.PasswordDialog"/>; de lo contrario se devuelve
+        /// <see cref="Dialogs.PasswordDialog"/>; de lo contrario se devuelve
         /// <see cref="string.Empty"/>.
         /// </returns>
         public string Usr => u;
@@ -62,11 +62,11 @@ namespace TheXDS.MCART.Security.Password
         /// <returns>
         /// <see cref="string.Empty"/> si el cuadro se inicia con cualquier
         /// sobrecarga de los métodos
-        /// <see cref="Forms.PasswordDialog.GetPassword(string, Forms.PasswordDialog.LoginValidator)"/>
+        /// <see cref="Dialogs.PasswordDialog.GetPassword(string, Dialogs.PasswordDialog.LoginValidator)"/>
         /// o con 
-        /// <see cref="Forms.PasswordDialog.Login(string, string, Forms.PasswordDialog.LoginValidator)"/>.
+        /// <see cref="Dialogs.PasswordDialog.Login(string, string, Dialogs.PasswordDialog.LoginValidator)"/>.
         /// Si se inicia con 
-        /// <see cref="Forms.PasswordDialog.ChoosePassword(PwMode, PwEvaluator, int)"/>,
+        /// <see cref="Dialogs.PasswordDialog.ChoosePassword(PwMode, PwEvaluator, int)"/>,
         /// se devuelve un <see cref="string"/> con el indicio de contraseña 
         /// que el usuario ha introducido.
         /// </returns>
@@ -86,7 +86,7 @@ namespace TheXDS.MCART.Security.Password
         /// </summary>
         /// <param name="obj">Valor a comparar.</param>
         /// <returns>
-        /// <c>true</c> si ambos objetos son iguales, <c>false</c> en caso
+        /// <see langword="true"/> si ambos objetos son iguales, <see langword="false"/> en caso
         /// contrario.
         /// </returns>
         public override bool Equals(object obj) => base.Equals(obj);
@@ -102,7 +102,7 @@ namespace TheXDS.MCART.Security.Password
         /// <param name="left">Valor a comparar.</param>
         /// <param name="right">Valor a comparar.</param>
         /// <returns>
-        /// <c>true</c> si ambos objetos son iguales, <c>false</c> en caso
+        /// <see langword="true"/> si ambos objetos son iguales, <see langword="false"/> en caso
         /// contrario.
         /// </returns>
         public static bool operator ==(PwDialogResult left, PwDialogResult right)
@@ -116,7 +116,7 @@ namespace TheXDS.MCART.Security.Password
         /// <param name="left">Valor a comparar.</param>
         /// <param name="right">Valor a comparar.</param>
         /// <returns>
-        /// <c>true</c> si los objetos son diferentes, <c>false</c> en caso
+        /// <see langword="true"/> si los objetos son diferentes, <see langword="false"/> en caso
         /// contrario.
         /// </returns>
         public static bool operator !=(PwDialogResult left, PwDialogResult right) => !(left == right);

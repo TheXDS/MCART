@@ -43,7 +43,7 @@ namespace TheXDS.MCART.Networking.Server
         /// <summary>
         /// Protocolo de bienvenida del cliente.
         /// </summary>
-        /// <returns><c>true</c> si el cliente fue aceptado por el protocolo, <c>false</c> en caso contrario.</returns>
+        /// <returns><see langword="true"/> si el cliente fue aceptado por el protocolo, <see langword="false"/> en caso contrario.</returns>
         /// <param name="client">Cliente que será atendido.</param>
         /// <param name="server">Servidor que atiende al cliente.</param>
         public virtual bool ClientWelcome(TClient client, Server<TClient> server) { return true; }

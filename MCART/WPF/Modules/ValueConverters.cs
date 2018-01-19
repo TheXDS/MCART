@@ -29,8 +29,65 @@ using System.Windows.Media;
 
 namespace System.Windows.Converters
 {
+    #region Converters biendeables en código
     /// <summary>
-    /// Clase base para crear convertidores de valores booleanos
+    /// Clase base para crear convertidores de valores que inviertan el valor
+    /// de una propiedad de dependencia.
+    /// </summary>
+    /// <typeparam name="T">Tipo de valor a invertir.</typeparam>
+    public abstract class Inverter<T> : IValueConverter where T : struct
+    {
+        private T yay, nay;
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="Inverter{T}"/>.
+        /// </summary>
+        /// <param name="yayValue">Valor invertible.</param>
+        /// <param name="nayValue">
+        /// Valor inverso de <paramref name="yayValue"/>.
+        /// </param>
+        protected Inverter(T yayValue, T nayValue) { yay = yayValue; nay = nayValue; }
+        /// <summary>
+        /// Invierte el valor de  un <typeparamref name="T"/>.
+        /// </summary>
+        /// <param name="value">Objeto a convertir.</param>
+        /// <param name="targetType">Tipo del destino.</param>
+        /// <param name="parameter">
+        /// Parámetros personalizados para este <see cref="IValueConverter"/>.
+        /// </param>
+        /// <param name="culture">
+        /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
+        /// <returns>
+        /// Un <typeparamref name="T"/> cuyo valor es el inverso de
+        /// <paramref name="value"/>.
+        /// </returns>
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            T v = (T)value;
+            return v.Equals(yay) ? nay : yay;
+        }
+        /// <summary>
+        /// Invierte el valor de  un <typeparamref name="T"/>.
+        /// </summary>
+        /// <param name="value">Objeto a convertir.</param>
+        /// <param name="targetType">Tipo del destino.</param>
+        /// <param name="parameter">
+        /// Parámetros personalizados para este <see cref="IValueConverter"/>.
+        /// </param>
+        /// <param name="culture">
+        /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
+        /// <returns>
+        /// Un <typeparamref name="T"/> cuyo valor es el inverso de
+        /// <paramref name="value"/>.
+        /// </returns>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            T v = (T)value;
+            return v.Equals(yay) ? nay : yay;
+        }
+    }
+    /// <summary>
+    /// Clase base para crear convertidores de valores booleanos.
     /// </summary>
     /// <typeparam name="T">
     /// Tipo de valores a convertir. Deben ser estructuras o enumeraciones.
@@ -40,22 +97,22 @@ namespace System.Windows.Converters
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="BooleanConverter{T}"/>, configurando los valores que
-        /// corresponderán a <c>true</c> y <c>false</c>.
+        /// corresponderán a <see langword="true"/> y <see langword="false"/>.
         /// </summary>
-        /// <param name="TrueValue">Valor equivalente a <c>true</c>.</param>
-        /// <param name="FalseValue">Valor equivalente a <c>false</c>.</param>
+        /// <param name="TrueValue">Valor equivalente a <see langword="true"/>.</param>
+        /// <param name="FalseValue">Valor equivalente a <see langword="false"/>.</param>
         public BooleanConverter(T TrueValue, T FalseValue = default)
         {
             True = TrueValue;
             False = FalseValue;
         }
         /// <summary>
-        /// Obtiene o establece el valor que equivale a <c>true</c> en este
+        /// Obtiene o establece el valor que equivale a <see langword="true"/> en este
         /// <see cref="BooleanConverter{T}"/>.
         /// </summary>
         public T True { get; set; }
         /// <summary>
-        /// Obtiene o establece el valor que equivale a <c>false</c> en este
+        /// Obtiene o establece el valor que equivale a <see langword="false"/> en este
         /// <see cref="BooleanConverter{T}"/>.
         /// </summary>
         public T False { get; set; }
@@ -71,7 +128,7 @@ namespace System.Windows.Converters
         /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
         /// <returns>
         /// <see cref="True"/>, si el objeto es de tipo <see cref="bool"/> y su
-        /// valor es <c>true</c>; en caso contrario, se devuelve 
+        /// valor es <see langword="true"/>; en caso contrario, se devuelve 
         /// <see cref="False"/>.
         /// </returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -90,8 +147,8 @@ namespace System.Windows.Converters
         /// <param name="culture">
         /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
         /// <returns>
-        /// <c>true</c> si el objeto es igual a <see cref="True"/>; 
-        /// <c>false</c> en caso contrario.
+        /// <see langword="true"/> si el objeto es igual a <see cref="True"/>; 
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -123,9 +180,9 @@ namespace System.Windows.Converters
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="BoolFlagConverter{T}"/>, configurando el valor que
-        /// corresponderá a <c>true</c>.
+        /// corresponderá a <see langword="true"/>.
         /// </summary>
-        /// <param name="TrueValue">Valor equivalente a <c>true</c>.</param>
+        /// <param name="TrueValue">Valor equivalente a <see langword="true"/>.</param>
         /// <exception cref="InvalidOperationException">
         /// Se produce si el tipo especificado al instanciar esta clase no es
         /// una enumeración.
@@ -136,7 +193,7 @@ namespace System.Windows.Converters
             True = TrueValue;
         }
         /// <summary>
-        /// Obtiene o establece el valor que equivale a <c>true</c> en este
+        /// Obtiene o establece el valor que equivale a <see langword="true"/> en este
         /// <see cref="BoolFlagConverter{T}"/>.
         /// </summary>
         public T True { get; set; }
@@ -152,10 +209,10 @@ namespace System.Windows.Converters
         /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
         /// <returns>
         /// Si no se ha establecido un valor para <see cref="True"/>, se
-        /// devolverá <c>true</c> si hay alguna bandera activa, o <c>false</c> 
+        /// devolverá <see langword="true"/> si hay alguna bandera activa, o <see langword="false"/> 
         /// en caso contrario. Si se estableció un valor para 
-        /// <see cref="True"/>, se devolverá <c>true</c> solo si dicha(s) 
-        /// bandera(s) se encuentra(n) activa(s), <c>false</c> en caso
+        /// <see cref="True"/>, se devolverá <see langword="true"/> solo si dicha(s) 
+        /// bandera(s) se encuentra(n) activa(s), <see langword="false"/> en caso
         /// contrario.
         /// </returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -174,7 +231,7 @@ namespace System.Windows.Converters
         /// <param name="culture">
         /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
         /// <returns>
-        /// Si <paramref name="value"/> es <c>true</c>, se devuelve la(s) 
+        /// Si <paramref name="value"/> es <see langword="true"/>, se devuelve la(s) 
         /// bandera(s) a ser detectada(s), en caso de haberse establecido un 
         /// valor para <see cref="True"/>, o en caso contrario, se devolverá
         /// <c>default</c>.</returns>
@@ -182,272 +239,6 @@ namespace System.Windows.Converters
         {
             return value.Equals(true) ? True : default;
         }
-    }
-    /// <summary>
-    /// Clase base para crear convertidores de valores booleanos que pueden ser
-    /// <c>null</c>.
-    /// </summary>
-    /// <typeparam name="T">Tipo de valores a convertir.</typeparam>
-    public class NullBoolConverter<T> : IValueConverter
-    {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="NullBoolConverter{T}"/>, configurando los valores que
-        /// corresponderán a <c>true</c> y <c>false</c>.
-        /// </summary>
-        /// <param name="TrueValue">Valor equivalente a <c>true</c>.</param>
-        /// <param name="FalseValue">Valor equivalente a <c>false</c>.</param>
-        public NullBoolConverter(T TrueValue, T FalseValue = default)
-        {
-            True = TrueValue;
-            False = FalseValue;
-            Null = False;
-        }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="NullBoolConverter{T}"/>, configurando los valores que
-        /// corresponderán a <c>true</c> y <c>false</c>.
-        /// </summary>
-        /// <param name="TrueValue">Valor equivalente a <c>true</c>.</param>
-        /// <param name="FalseValue">Valor equivalente a <c>false</c>.</param>
-        /// <param name="NullValue">Valor equivalente a <c>null</c>.</param>
-        public NullBoolConverter(T TrueValue, T FalseValue, T NullValue)
-        {
-            True = TrueValue;
-            False = FalseValue;
-            Null = NullValue;
-        }
-        /// <summary>
-        /// Obtiene o establece el valor que equivale a <c>true</c> en este
-        /// <see cref="NullBoolConverter{T}"/>.
-        /// </summary>
-        public T True { get; set; }
-        /// <summary>
-        /// Obtiene o establece el valor que equivale a <c>false</c> en este
-        /// <see cref="NullBoolConverter{T}"/>.
-        /// </summary>
-        public T False { get; set; }
-        /// <summary>
-        /// Obtiene o establece el valor que equivale a <c>null</c> en este
-        /// <see cref="NullBoolConverter{T}"/>.
-        /// </summary>
-        public T Null { get; set; }
-        /// <summary>
-        /// Convierte un valor a <see cref="Nullable{T}"/>.
-        /// </summary>
-        /// <param name="value">Objeto a convertir.</param>
-        /// <param name="targetType">Tipo del destino.</param>
-        /// <param name="parameter">
-        /// Parámetros personalizados para este <see cref="IValueConverter"/>.
-        /// </param>
-        /// <param name="culture">
-        /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
-        /// <returns>
-        /// <see cref="True"/> si <paramref name="value"/> es <c>true</c>,
-        /// <see cref="False"/> si <paramref name="value"/> es <c>false</c>,
-        /// <see cref="Null"/> si <paramref name="value"/> es <c>null</c>.
-        /// </returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value is bool) return (bool)value ? True : False;
-            if (value is bool?)
-            {
-                if (value is null) return Null;
-                return (bool)value ? True : False;
-            }
-            return null;
-        }
-        /// <summary>
-        /// Convierte un <see cref="bool"/> al tipo establecido para este
-        /// <see cref="BooleanConverter{T}"/>.
-        /// </summary>
-        /// <param name="value">Objeto a convertir.</param>
-        /// <param name="targetType">Tipo del destino.</param>
-        /// <param name="parameter">
-        /// Parámetros personalizados para este <see cref="IValueConverter"/>.
-        /// </param>
-        /// <param name="culture">
-        /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
-        /// <returns>
-        /// <c>true</c> si <paramref name="value"/> es <see cref="True"/>,
-        /// <c>false</c> si <paramref name="value"/> es <see cref="False"/>,
-        /// <c>null</c> si <paramref name="value"/> es <see cref="Null"/>.
-        /// </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value.Equals(Null) && !ReferenceEquals(Null, False)) return null;
-            return (((T)value).Equals(True));
-        }
-    }
-    /// <summary>
-    /// Inverso de <see cref="BooleanToVisibilityConverter"/> 
-    /// </summary>
-    public sealed class BooleanToInvVisibilityConverter : BooleanConverter<Visibility>
-    {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="BooleanToInvVisibilityConverter"/>.
-        /// </summary>
-        public BooleanToInvVisibilityConverter(Visibility trueState = Visibility.Collapsed)
-            : base(trueState, Visibility.Visible)
-        {
-            if (trueState == Visibility.Visible) throw new ArgumentException(nameof(trueState));
-        }
-    }
-    /// <summary>
-    /// Convierte un valor a su representación como un <see cref="string"/>.
-    /// </summary>
-    public class ToStringConverter : IValueConverter
-    {
-        /// <summary>
-        /// Convierte cualquier objeto en un <see cref="string"/>
-        /// </summary>
-        /// <param name="value">Objeto a convertir.</param>
-        /// <param name="targetType">Tipo del destino.</param>
-        /// <param name="parameter">
-        /// Parámetros personalizados para este <see cref="IValueConverter"/>.
-        /// </param>
-        /// <param name="culture">
-        /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
-        /// <returns>
-        /// Un <see cref="string"/> que representa al objeto.
-        /// </returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return value?.ToString();
-        }
-        /// <summary>
-        /// Intenta una conversión de <see cref="string"/> a un objeto del tipo
-        /// de destino especificado.
-        /// </summary>
-        /// <param name="value">Objeto a convertir.</param>
-        /// <param name="targetType">Tipo del destino.</param>
-        /// <param name="parameter">
-        /// Parámetros personalizados para este <see cref="IValueConverter"/>.
-        /// </param>
-        /// <param name="culture">
-        /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
-        /// <returns>
-        /// Si la conversión desde <see cref="string"/> tuvo éxito, se 
-        /// devolverá al objeto, se devolverá <c>null</c> en caso contrario.
-        /// </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            try
-            {
-                return targetType?.GetMethod(
-                    "Parse", new Type[] { typeof(string) })?
-                    .Invoke(null, new object[] { value });
-            }
-            catch { return null; }
-        }
-    }
-    /// <summary>
-    /// Permite la adición de propiedades numéricas
-    /// </summary>
-    /// <typeparam name="T">
-    /// Tipo de valores. Puede ser cualquier tipo de valor numérico.
-    /// </typeparam>
-    public class AddConverter<T> : IValueConverter where T : struct
-    {
-        /// <summary>
-        /// Operando de suma de este <see cref="AddConverter{T}"/>.
-        /// </summary>
-        public dynamic Operand;
-        /// <summary>
-        /// .Clear()Inicializa una nueva instancia de la clase <see cref="AddConverter{T}"/>.
-        /// </summary>
-        /// <param name="Operand">
-        /// Operando a sumar a los valores procesados por este
-        /// <see cref="AddConverter{T}"/>.
-        /// </param>
-        public AddConverter(T Operand)
-        {
-            if (!typeof(T).IsPrimitive) throw new InvalidCastException();
-            this.Operand = Operand;
-        }
-        /// <summary>
-        /// Devuelve la suma entre <see cref="Operand"/> y 
-        /// <paramref name="value"/>.
-        /// </summary>
-        /// <param name="value">Objeto a convertir.</param>
-        /// <param name="targetType">Tipo del destino.</param>
-        /// <param name="parameter">
-        /// Parámetros personalizados para este <see cref="IValueConverter"/>.
-        /// </param>
-        /// <param name="culture">
-        /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
-        /// <returns>La suma de <paramref name="value"/> y el operando especificado.</returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (T)((T)value + Operand);
-        /// <summary>
-        /// Revierte la operación de suma aplicada a <paramref name="value"/>.
-        /// </summary>
-        /// <param name="value">Objeto a convertir.</param>
-        /// <param name="targetType">Tipo del destino.</param>
-        /// <param name="parameter">
-        /// Parámetros personalizados para este <see cref="IValueConverter"/>.
-        /// </param>
-        /// <param name="culture">
-        /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
-        /// <returns>
-        /// El valor de <paramref name="value"/> antes de la suma.
-        /// </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (T)((T)value - Operand);
-    }
-    /// <summary>
-    /// Permite la multiplicación de propiedades numéricas
-    /// </summary>
-    /// <typeparam name="T">
-    /// Tipo de valores. Puede ser cualquier tipo de valor numérico.
-    /// </typeparam>
-    public class MultiplyConverter<T> : IValueConverter where T : struct
-    {
-        /// <summary>
-        /// Operando de multiplicación de este 
-        /// <see cref="MultiplyConverter{T}"/>.
-        /// </summary>
-        public dynamic Operand;
-        /// <summary>
-        /// .Clear()Inicializa una nueva instancia de la clase 
-        /// <see cref="MultiplyConverter{T}"/>.
-        /// </summary>
-        /// <param name="Operand">
-        /// Operando a utilizar para multiplicar los valores procesados por
-        /// este <see cref="MultiplyConverter{T}"/>.
-        /// </param>
-        public MultiplyConverter(T Operand)
-        {
-            if (!typeof(T).IsPrimitive) throw new InvalidCastException();
-            this.Operand = Operand;
-        }
-        /// <summary>
-        /// Devuelve la multiplicación entre <see cref="Operand"/> y
-        /// <paramref name="value"/>.
-        /// </summary>
-        /// <param name="value">Objeto a convertir.</param>
-        /// <param name="targetType">Tipo del destino.</param>
-        /// <param name="parameter">
-        /// Parámetros personalizados para este <see cref="IValueConverter"/>.
-        /// </param>
-        /// <param name="culture">
-        /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
-        /// <returns>La suma de <paramref name="value"/> y el operando especificado.</returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (T)(Operand * (T)value);
-        /// <summary>
-        /// Revierte la operación de multiplicación aplicada a
-        /// <paramref name="value"/>.
-        /// </summary>
-        /// <param name="value">Objeto a convertir.</param>
-        /// <param name="targetType">Tipo del destino.</param>
-        /// <param name="parameter">
-        /// Parámetros personalizados para este <see cref="IValueConverter"/>.
-        /// </param>
-        /// <param name="culture">
-        /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
-        /// <returns>
-        /// El valor de <paramref name="value"/> antes de la multiplicación.
-        /// </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (T)(Operand / (T)value);
     }
     /// <summary>
     /// Convierte un valor <see cref="int"/>  a <see cref="Visibility"/> 
@@ -635,68 +426,6 @@ namespace System.Windows.Converters
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (Visibility)value == Positives ? 1.0f : 0.0f;
     }
     /// <summary>
-    /// Permite compartir un recurso de <see cref="Brush"/> entre controles,
-    /// ajustando la opacidad del enlace de datos.
-    /// </summary>
-    public class BrushOpacityAdjust : IValueConverter
-    {
-        /// <summary>
-        /// Obtiene o establece la opacidad a aplicar al <see cref="Brush"/>.
-        /// </summary>
-        public double Opacity;
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="BrushOpacityAdjust"/>.
-        /// </summary>
-        /// <param name="opacity">
-        /// Opacidad a aplicar al <see cref="Brush"/>.
-        /// </param>
-        public BrushOpacityAdjust(double opacity)
-        {
-            if (!opacity.IsBetween(0, 1)) throw new ArgumentOutOfRangeException(nameof(opacity));
-            Opacity = opacity;
-        }
-        /// <summary>
-        /// Aplica la nueva opacidad al <see cref="Brush"/>.
-        /// </summary>
-        /// <param name="value">Objeto a convertir.</param>
-        /// <param name="targetType">Tipo del destino.</param>
-        /// <param name="parameter">
-        /// Parámetros personalizados para este <see cref="IValueConverter"/>.
-        /// </param>
-        /// <param name="culture">
-        /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
-        /// <returns>
-        /// Un nuevo <see cref="Brush"/> con la opacidad establecida en este
-        /// <see cref="BrushOpacityAdjust"/>.
-        /// </returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            Brush b = ((Brush)value).Clone();
-            b.Opacity = Opacity;
-            return b;
-        }
-        /// <summary>
-        /// Devuelve un <see cref="Brush"/> con 100% opacidad.
-        /// </summary>
-        /// <param name="value">Objeto a convertir.</param>
-        /// <param name="targetType">Tipo del destino.</param>
-        /// <param name="parameter">
-        /// Parámetros personalizados para este <see cref="IValueConverter"/>.
-        /// </param>
-        /// <param name="culture">
-        /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
-        /// <returns>
-        /// Un nuevo <see cref="Brush"/> con la opacidad al 100%.
-        /// </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            Brush b = ((Brush)value).Clone();
-            b.Opacity = 1;
-            return b;
-        }
-    }
-    /// <summary>
     /// Convierte un <see cref="string"/> a un <see cref="Visibility"/>.
     /// </summary>
     public class StringVisibilityConverter : IValueConverter
@@ -785,14 +514,60 @@ namespace System.Windows.Converters
         /// cadena vacía, <see cref="String.Empty"/> en caso contrario.
         /// </returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (Visibility)value == NotEmpty ? value.ToString() : string.Empty;
-    }
+    } 
+    #endregion
+
     /// <summary>
-    /// Convierte directamente un número a <see cref="bool"/> 
+    /// Clase base para crear convertidores de valores booleanos que pueden ser
+    /// <c>null</c>.
     /// </summary>
-    public class NumberBoolConverter : IValueConverter
+    /// <typeparam name="T">Tipo de valores a convertir.</typeparam>
+    public class NullBoolConverter<T> : IValueConverter
     {
         /// <summary>
-        /// Convierte un <see cref="int"/> en un <see cref="bool"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="NullBoolConverter{T}"/>, configurando los valores que
+        /// corresponderán a <see langword="true"/> y <see langword="false"/>.
+        /// </summary>
+        /// <param name="TrueValue">Valor equivalente a <see langword="true"/>.</param>
+        /// <param name="FalseValue">Valor equivalente a <see langword="false"/>.</param>
+        public NullBoolConverter(T TrueValue, T FalseValue = default)
+        {
+            True = TrueValue;
+            False = FalseValue;
+            Null = False;
+        }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="NullBoolConverter{T}"/>, configurando los valores que
+        /// corresponderán a <see langword="true"/> y <see langword="false"/>.
+        /// </summary>
+        /// <param name="TrueValue">Valor equivalente a <see langword="true"/>.</param>
+        /// <param name="FalseValue">Valor equivalente a <see langword="false"/>.</param>
+        /// <param name="NullValue">Valor equivalente a <c>null</c>.</param>
+        public NullBoolConverter(T TrueValue, T FalseValue, T NullValue)
+        {
+            True = TrueValue;
+            False = FalseValue;
+            Null = NullValue;
+        }
+        /// <summary>
+        /// Obtiene o establece el valor que equivale a <see langword="true"/> en este
+        /// <see cref="NullBoolConverter{T}"/>.
+        /// </summary>
+        public T True { get; set; }
+        /// <summary>
+        /// Obtiene o establece el valor que equivale a <see langword="false"/> en este
+        /// <see cref="NullBoolConverter{T}"/>.
+        /// </summary>
+        public T False { get; set; }
+        /// <summary>
+        /// Obtiene o establece el valor que equivale a <c>null</c> en este
+        /// <see cref="NullBoolConverter{T}"/>.
+        /// </summary>
+        public T Null { get; set; }
+        /// <summary>
+        /// Convierte un valor a <see cref="Nullable{T}"/>.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
@@ -802,12 +577,23 @@ namespace System.Windows.Converters
         /// <param name="culture">
         /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
         /// <returns>
-        /// <c>true</c> si <paramref name="value"/> es distinto de cero,
-        /// <c>false</c> en caso contrario.
+        /// <see cref="True"/> si <paramref name="value"/> es <see langword="true"/>,
+        /// <see cref="False"/> si <paramref name="value"/> es <see langword="false"/>,
+        /// <see cref="Null"/> si <paramref name="value"/> es <c>null</c>.
         /// </returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (int)value != 0;
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is bool) return (bool)value ? True : False;
+            if (value is bool?)
+            {
+                if (value is null) return Null;
+                return (bool)value ? True : False;
+            }
+            return null;
+        }
         /// <summary>
-        /// Infiere un valor <see cref="int"/>a partir de un <see cref="bool"/>.
+        /// Convierte un <see cref="bool"/> al tipo establecido para este
+        /// <see cref="BooleanConverter{T}"/>.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
@@ -817,30 +603,45 @@ namespace System.Windows.Converters
         /// <param name="culture">
         /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
         /// <returns>
-        /// <c>-1</c> si <paramref name="value"/> es <c>true</c>, <c>0</c> en
-        /// caso contrario.
+        /// <see langword="true"/> si <paramref name="value"/> es <see cref="True"/>,
+        /// <see langword="false"/> si <paramref name="value"/> es <see cref="False"/>,
+        /// <c>null</c> si <paramref name="value"/> es <see cref="Null"/>.
         /// </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (bool)value ? -1 : 0;
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value.Equals(Null) && !ReferenceEquals(Null, False)) return null;
+            return (((T)value).Equals(True));
+        }
     }
     /// <summary>
-    /// Invierte un valor booleano
+    /// Invierte un valor de <see cref="Visibility"/>.
     /// </summary>
-    public class BooleanInverter : IValueConverter
+    public sealed class VisibilityInverter : Inverter<Visibility>
     {
         /// <summary>
-        /// Invierte el valor de un <see cref="bool"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="VisibilityInverter"/>.
         /// </summary>
-        /// <param name="value">Objeto a convertir.</param>
-        /// <param name="targetType">Tipo del destino.</param>
-        /// <param name="parameter">
-        /// Parámetros personalizados para este <see cref="IValueConverter"/>.
-        /// </param>
-        /// <param name="culture">
-        /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
-        /// <returns>El inverso del valor.</returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => !(bool)value;
+        public VisibilityInverter() : base(Visibility.Visible, Visibility.Collapsed) { }
+    }
+    /// <summary>
+    /// Inverso de <see cref="BooleanToVisibilityConverter"/> 
+    /// </summary>
+    public sealed class BooleanToInvVisibilityConverter : BooleanConverter<Visibility>
+    {
         /// <summary>
-        /// Invierte el valor de un <see cref="bool"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="BooleanToInvVisibilityConverter"/>.
+        /// </summary>
+        public BooleanToInvVisibilityConverter() : base(Visibility.Collapsed, Visibility.Visible) { }
+    }
+    /// <summary>
+    /// Convierte un valor a su representación como un <see cref="string"/>.
+    /// </summary>
+    public sealed class ToStringConverter : IValueConverter
+    {
+        /// <summary>
+        /// Convierte cualquier objeto en un <see cref="string"/>
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
@@ -849,13 +650,125 @@ namespace System.Windows.Converters
         /// </param>
         /// <param name="culture">
         /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
-        /// <returns>El inverso del valor.</returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => !(bool)value;
+        /// <returns>
+        /// Un <see cref="string"/> que representa al objeto.
+        /// </returns>
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value?.ToString();
+        }
+        /// <summary>
+        /// Intenta una conversión de <see cref="string"/> a un objeto del tipo
+        /// de destino especificado.
+        /// </summary>
+        /// <param name="value">Objeto a convertir.</param>
+        /// <param name="targetType">Tipo del destino.</param>
+        /// <param name="parameter">
+        /// Parámetros personalizados para este <see cref="IValueConverter"/>.
+        /// </param>
+        /// <param name="culture">
+        /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
+        /// <returns>
+        /// Si la conversión desde <see cref="string"/> tuvo éxito, se 
+        /// devolverá al objeto, se devolverá <c>null</c> en caso contrario.
+        /// </returns>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            try
+            {
+                return targetType?.GetMethod(
+                    "Parse", new Type[] { typeof(string) })?
+                    .Invoke(null, new object[] { value });
+            }
+            catch { return null; }
+        }
+    }
+    /// <summary>
+    /// Permite la adición de propiedades numéricas.
+    /// </summary>
+    public sealed class AddConverter : IValueConverter
+    {
+        /// <summary>
+        /// Devuelve la suma entre <paramref name="value"/> y 
+        /// <paramref name="parameter"/>.
+        /// </summary>
+        /// <param name="value">Primer operando de la suma.</param>
+        /// <param name="targetType">Tipo del destino.</param>
+        /// <param name="parameter">Segundo operando de la suma.</param>
+        /// <param name="culture">
+        /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
+        /// <returns>La suma de <paramref name="value"/> y el operando especificado.</returns>
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value.GetType().IsPrimitive && parameter.GetType().IsPrimitive)
+                return (dynamic)value + parameter;
+            throw new ArgumentException();
+        }
+        /// <summary>
+        /// Revierte la operación de suma aplicada a <paramref name="value"/>.
+        /// </summary>
+        /// <param name="value">Objeto a convertir.</param>
+        /// <param name="targetType">Tipo del destino.</param>
+        /// <param name="parameter">
+        /// Parámetros personalizados para este <see cref="IValueConverter"/>.
+        /// </param>
+        /// <param name="culture">
+        /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
+        /// <returns>
+        /// El valor de <paramref name="value"/> antes de la suma.
+        /// </returns>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value.GetType().IsPrimitive && parameter.GetType().IsPrimitive)
+                return (dynamic)value - parameter;
+            throw new ArgumentException();
+        }
+    }
+    /// <summary>
+    /// Permite la multiplicación de propiedades numéricas.
+    /// </summary>
+    public sealed class MultiplyConverter : IValueConverter
+    {
+        /// <summary>
+        /// Devuelve la multiplicación entre <paramref name="value"/> y 
+        /// <paramref name="parameter"/>.
+        /// </summary>
+        /// <param name="value">Primer operando de la multiplicación.</param>
+        /// <param name="targetType">Tipo del destino.</param>
+        /// <param name="parameter">Segundo operando de la multiplicación.</param>
+        /// <param name="culture">
+        /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
+        /// <returns>La multiplicación de <paramref name="value"/> y el operando especificado.</returns>
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value.GetType().IsPrimitive && parameter.GetType().IsPrimitive)
+                return (dynamic)value * parameter;
+            throw new ArgumentException();
+        }
+        /// <summary>
+        /// Revierte la operación de suma aplicada a <paramref name="value"/>.
+        /// </summary>
+        /// <param name="value">Objeto a convertir.</param>
+        /// <param name="targetType">Tipo del destino.</param>
+        /// <param name="parameter">
+        /// Parámetros personalizados para este <see cref="IValueConverter"/>.
+        /// </param>
+        /// <param name="culture">
+        /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
+        /// <returns>
+        /// El valor de <paramref name="value"/> antes de la suma.
+        /// </returns>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value.GetType().IsPrimitive && parameter.GetType().IsPrimitive)
+                return (dynamic)value / parameter;
+            throw new ArgumentException();
+        }
     }
     /// <summary>
     /// Convierte un <see cref="double"/> en un <see cref="Thickness"/>.
     /// </summary>
-    public class DoubleMarginConverter : IValueConverter
+    public sealed class DoubleMarginConverter : IValueConverter
     {
         /// <summary>
         /// Convierte un <see cref="double"/> en un <see cref="Thickness"/>.
@@ -879,7 +792,6 @@ namespace System.Windows.Converters
             double v = (double)value;
             return new Thickness(f?.Invoke(v) ?? v);
         }
-
         /// <summary>
         /// Revierte la conversión realizada por este objeto.
         /// </summary>
@@ -904,7 +816,7 @@ namespace System.Windows.Converters
     /// Convierte un <see cref="double"/> en un <see cref="string"/>,
     /// opcionalmente mostrando una etiqueta si el valor es inferior a cero.
     /// </summary>
-    public class LabeledDoubleConverter : IValueConverter
+    public sealed class LabeledDoubleConverter : IValueConverter
     {
         /// <summary>
         /// Convierte un <see cref="double"/> en un <see cref="string"/>,
@@ -957,27 +869,13 @@ namespace System.Windows.Converters
         }
     }
     /// <summary>
-    /// Invierte los valores de <see cref="Visibility"/> 
+    /// Permite compartir un recurso de <see cref="Brush"/> entre controles,
+    /// ajustando la opacidad del enlace de datos.
     /// </summary>
-    public class VisibilityInverter : IValueConverter
+    public sealed class BrushOpacityAdjust : IValueConverter
     {
         /// <summary>
-        /// Obtiene o establece el valor a devolver cuando el valor no sea
-        /// <see cref="Visibility.Visible"/>.
-        /// </summary>
-        Visibility NotVisible;
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="VisibilityInverter"/>.
-        /// </summary>
-        /// <param name="notVisible">
-        /// Opcional. Estado a devolver al invertir el valor de
-        /// <see cref="Visibility.Visible"/>. Si se omite, se devolverá
-        /// <see cref="Visibility.Collapsed"/>.
-        /// </param>
-        public VisibilityInverter(Visibility notVisible = Visibility.Collapsed) { NotVisible = notVisible; }
-        /// <summary>
-        /// Invierte el valor de un <see cref="Visibility"/>.
+        /// Aplica la nueva opacidad al <see cref="Brush"/>.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
@@ -986,10 +884,23 @@ namespace System.Windows.Converters
         /// </param>
         /// <param name="culture">
         /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
-        /// <returns>El inverso del valor.</returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (Visibility)value == Visibility.Visible ? NotVisible : Visibility.Visible;
+        /// <returns>
+        /// Un nuevo <see cref="Brush"/> con la opacidad establecida en este
+        /// <see cref="BrushOpacityAdjust"/>.
+        /// </returns>
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (parameter is double opacity)
+            {
+                if (!opacity.IsBetween(0, 1)) throw new ArgumentOutOfRangeException(nameof(opacity));
+                Brush b = ((Brush)value).Clone();
+                b.Opacity = opacity;
+                return b;
+            }
+            throw new ArgumentException(string.Empty, nameof(parameter));
+        }
         /// <summary>
-        /// Invierte el valor de un <see cref="Visibility"/>.
+        /// Devuelve un <see cref="Brush"/> con 100% opacidad.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
@@ -998,7 +909,60 @@ namespace System.Windows.Converters
         /// </param>
         /// <param name="culture">
         /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
-        /// <returns>El inverso del valor.</returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (Visibility)value == Visibility.Visible ? NotVisible : Visibility.Visible;
+        /// <returns>
+        /// Un nuevo <see cref="Brush"/> con la opacidad al 100%.
+        /// </returns>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            Brush b = ((Brush)value).Clone();
+            b.Opacity = 1;
+            return b;
+        }
+    }
+    /// <summary>
+    /// Convierte directamente un número a <see cref="bool"/> 
+    /// </summary>
+    public sealed class NumberBoolConverter : IValueConverter
+    {
+        /// <summary>
+        /// Convierte un <see cref="int"/> en un <see cref="bool"/>.
+        /// </summary>
+        /// <param name="value">Objeto a convertir.</param>
+        /// <param name="targetType">Tipo del destino.</param>
+        /// <param name="parameter">
+        /// Parámetros personalizados para este <see cref="IValueConverter"/>.
+        /// </param>
+        /// <param name="culture">
+        /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
+        /// <returns>
+        /// <see langword="true"/> si <paramref name="value"/> es distinto de cero,
+        /// <see langword="false"/> en caso contrario.
+        /// </returns>
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (int)value != 0;
+        /// <summary>
+        /// Infiere un valor <see cref="int"/>a partir de un <see cref="bool"/>.
+        /// </summary>
+        /// <param name="value">Objeto a convertir.</param>
+        /// <param name="targetType">Tipo del destino.</param>
+        /// <param name="parameter">
+        /// Parámetros personalizados para este <see cref="IValueConverter"/>.
+        /// </param>
+        /// <param name="culture">
+        /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
+        /// <returns>
+        /// <c>-1</c> si <paramref name="value"/> es <see langword="true"/>, <c>0</c> en
+        /// caso contrario.
+        /// </returns>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (bool)value ? -1 : 0;
+    }
+    /// <summary>
+    /// Invierte un valor booleano
+    /// </summary>
+    public sealed class BooleanInverter : Inverter<bool>
+    {
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="BooleanInverter"/>.
+        /// </summary>
+        public BooleanInverter() : base(true, false) { }
     }
 }

@@ -165,7 +165,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </exception>
         public new void Remove(T item)
         {
-            if (!this.Any()) throw new EmptyCollectionException<T>(this);
+            if (!this.Any()) throw new EmptyCollectionException(this);
             if (TriggerEvents && GlobalTriggerEvents)
             {
                 var a = new RemovingItemEventArgs<T>(this.Last(), IndexOf(item));
@@ -184,7 +184,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="index">Índice del elemento a remover</param>
         public new void RemoveAt(int index)
         {
-            if (!this.Any()) throw new EmptyCollectionException<T>(this);
+            if (!this.Any()) throw new EmptyCollectionException(this);
             if (TriggerEvents && GlobalTriggerEvents)
             {
                 var a = new RemovingItemEventArgs<T>(this[index], index);
@@ -211,7 +211,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </exception>
         public new void RemoveAll(Predicate<T> match)
         {
-            if (!this.Any()) throw new EmptyCollectionException<T>(this);
+            if (!this.Any()) throw new EmptyCollectionException(this);
             if (TriggerEvents && GlobalTriggerEvents)
             {
                 System.Collections.Generic.List<T> tmp = this.Where((c) => match(c)).ToList();

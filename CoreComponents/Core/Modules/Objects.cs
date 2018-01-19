@@ -64,8 +64,8 @@ namespace TheXDS.MCART
         /// <param name="types">Lista de tipos a comprobar.</param>
         /// <param name="source">Tipo que desea asignarse.</param>
         /// <returns>
-        /// <c>true</c> si el tipo <paramref name="source"/> puede ser asignado 
-        /// a uno de los tipos especificados, <c>false</c> en caso contrario.
+        /// <see langword="true"/> si el tipo <paramref name="source"/> puede ser asignado 
+        /// a uno de los tipos especificados, <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool IsAnyAssignable(this Type source, IEnumerable<Type> types) => types.Any(p => p.IsAssignableFrom(source));
         /// <summary>
@@ -75,8 +75,8 @@ namespace TheXDS.MCART
         /// <param name="types">Lista de tipos a comprobar.</param>
         /// <param name="source">Tipo que desea asignarse.</param>
         /// <returns>
-        /// <c>true</c> si el tipo <paramref name="source"/> puede ser asignado 
-        /// a uno de los tipos especificados, <c>false</c> en caso contrario.
+        /// <see langword="true"/> si el tipo <paramref name="source"/> puede ser asignado 
+        /// a uno de los tipos especificados, <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool IsAnyAssignable(this Type source, params Type[] types) => source.IsAnyAssignable(types.AsEnumerable());
         /// <summary>
@@ -85,8 +85,8 @@ namespace TheXDS.MCART
         /// </summary>
         /// <param name="types">Lista de tipos a comprobar.</param>
         /// <param name="source">Tipo que desea asignarse.</param>
-        /// <returns><c>true</c> si todos los tipos son asignables a partir de
-        /// <paramref name="source"/>, <c>false</c> en caso contrario.</returns>
+        /// <returns><see langword="true"/> si todos los tipos son asignables a partir de
+        /// <paramref name="source"/>, <see langword="false"/> en caso contrario.</returns>
         public static bool AreAllAssignable(this Type source, IEnumerable<Type> types) => types.All(p => p.IsAssignableFrom(source));
         /// <summary>
         /// Comprueba si todos los tipos son asignables a partir del tipo
@@ -94,15 +94,15 @@ namespace TheXDS.MCART
         /// </summary>
         /// <param name="types">Lista de tipos a comprobar.</param>
         /// <param name="source">Tipo que desea asignarse.</param>
-        /// <returns><c>true</c> si todos los tipos son asignables a partir de
-        /// <paramref name="source"/>, <c>false</c> en caso contrario.</returns>
+        /// <returns><see langword="true"/> si todos los tipos son asignables a partir de
+        /// <paramref name="source"/>, <see langword="false"/> en caso contrario.</returns>
         public static bool AreAllAssignable(this Type source, params Type[] types) => source.AreAllAssignable(types.AsEnumerable());
         /// <summary>
         /// Determina si cualquiera de los objetos es <c>null</c>.
         /// </summary>
         /// <returns>
-        /// <c>true</c>, si cualquiera de los objetos es <c>null</c>; de lo
-        /// contrario, <c>false</c>.
+        /// <see langword="true"/>, si cualquiera de los objetos es <c>null</c>; de lo
+        /// contrario, <see langword="false"/>.
         /// </returns>
         /// <param name="x">Objetos a comprobar.</param>
         public static bool IsAnyNull(this IEnumerable<object> x) => x.Any(p => p is null);
@@ -110,8 +110,8 @@ namespace TheXDS.MCART
         /// Determina si cualquiera de los objetos es <c>null</c>.
         /// </summary>
         /// <returns>
-        /// <c>true</c>, si cualquiera de los objetos es <c>null</c>; de lo
-        /// contrario, <c>false</c>.
+        /// <see langword="true"/>, si cualquiera de los objetos es <c>null</c>; de lo
+        /// contrario, <see langword="false"/>.
         /// </returns>
         /// <param name="x">Objetos a comprobar.</param>
         public static bool IsAnyNull(params object[] x) => x.IsAnyNull();
@@ -142,8 +142,8 @@ namespace TheXDS.MCART
         /// Determina si todos los objetos son <c>null</c>.
         /// </summary>
         /// <returns>
-        /// <c>true</c>, si todos los objetos son <c>null</c>; de lo contrario,
-        /// <c>false</c>.
+        /// <see langword="true"/>, si todos los objetos son <c>null</c>; de lo contrario,
+        /// <see langword="false"/>.
         /// </returns>
         /// <param name="x">Objetos a comprobar.</param>
         public static bool AreAllNull(this IEnumerable<object> x)=> x.All(p => p is null);
@@ -151,8 +151,8 @@ namespace TheXDS.MCART
         /// Determina si todos los objetos son <c>null</c>.
         /// </summary>
         /// <returns>
-        /// <c>true</c>, si todos los objetos son <c>null</c>; de lo contrario,
-        /// <c>false</c>.
+        /// <see langword="true"/>, si todos los objetos son <c>null</c>; de lo contrario,
+        /// <see langword="false"/>.
         /// </returns>
         /// <param name="x">Objetos a comprobar.</param>
         public static bool AreAllNull(params object[] x) => x.AreAllNull();
@@ -173,8 +173,8 @@ namespace TheXDS.MCART
         /// <param name="obj1">Objeto a comprobar.</param>
         /// <param name="obj2">Objeto contra el cual comparar.</param>
         /// <returns>
-        /// <c>true</c> si la instancia de <paramref name="obj1"/> es la misma
-        /// que <paramref name="obj2"/>, <c>false</c> en caso contrario.
+        /// <see langword="true"/> si la instancia de <paramref name="obj1"/> es la misma
+        /// que <paramref name="obj2"/>, <see langword="false"/> en caso contrario.
         /// </returns>
         [Thunk] public static bool Is(this object obj1, object obj2) => ReferenceEquals(obj1, obj2);
         /// <summary>
@@ -184,23 +184,23 @@ namespace TheXDS.MCART
         /// <param name="obj1">Objeto a comprobar.</param>
         /// <param name="obj2">Objeto contra el cual comparar.</param>
         /// <returns>
-        /// <c>true</c> si la instancia de <paramref name="obj1"/> no es la
-        /// misma que <paramref name="obj2"/>, <c>false</c> en caso contrario.
+        /// <see langword="true"/> si la instancia de <paramref name="obj1"/> no es la
+        /// misma que <paramref name="obj2"/>, <see langword="false"/> en caso contrario.
         /// </returns>
         [Thunk] public static bool IsNot(this object obj1, object obj2) => !ReferenceEquals(obj1, obj2);
         /// <summary>
 		/// Determina si un objeto es cualquiera de los indicados.
 		/// </summary>
-		/// <returns><c>true</c>si <paramref name="obj"/> es cualquiera de los
-		/// objetos especificados, <c>false</c> en caso contrario.</returns>
+		/// <returns><see langword="true"/>si <paramref name="obj"/> es cualquiera de los
+		/// objetos especificados, <see langword="false"/> en caso contrario.</returns>
 		/// <param name="obj">Objeto a comprobar.</param>
 		/// <param name="objs">Lista de objetos a comparar.</param>
 		public static bool IsEither(this object obj, params object[] objs) => objs.Any(p => p.Is(obj));
         /// <summary>
         /// Determina si un objeto es cualquiera de los indicados.
         /// </summary>
-        /// <returns><c>true</c>si <paramref name="obj"/> es cualquiera de los
-        /// objetos especificados, <c>false</c> en caso contrario.</returns>
+        /// <returns><see langword="true"/>si <paramref name="obj"/> es cualquiera de los
+        /// objetos especificados, <see langword="false"/> en caso contrario.</returns>
         /// <param name="obj">Objeto a comprobar.</param>
         /// <param name="objs">Lista de objetos a comparar.</param>
         public static bool IsEither(this object obj, IEnumerable<object> objs) => objs.Any(p => p.Is(obj));
@@ -236,16 +236,16 @@ namespace TheXDS.MCART
         /// <summary>
         /// Determina si un objeto no es ninguno de los indicados.
         /// </summary>
-        /// <returns><c>true</c>si <paramref name="obj"/> no es ninguno de los
-        /// objetos especificados, <c>false</c> en caso contrario.</returns>
+        /// <returns><see langword="true"/>si <paramref name="obj"/> no es ninguno de los
+        /// objetos especificados, <see langword="false"/> en caso contrario.</returns>
         /// <param name="obj">Objeto a comprobar.</param>
         /// <param name="objs">Lista de objetos a comparar.</param>
         public static bool IsNeither(this object obj, params object[] objs) => obj.IsNeither(objs.AsEnumerable());
         /// <summary>
         /// Determina si un objeto no es ninguno de los indicados.
         /// </summary>
-        /// <returns><c>true</c>si <paramref name="obj"/> no es ninguno de los
-        /// objetos especificados, <c>false</c> en caso contrario.</returns>
+        /// <returns><see langword="true"/>si <paramref name="obj"/> no es ninguno de los
+        /// objetos especificados, <see langword="false"/> en caso contrario.</returns>
         /// <param name="obj">Objeto a comprobar.</param>
         /// <param name="objs">Lista de objetos a comparar.</param>
         public static bool IsNeither(this object obj, IEnumerable<object> objs) => objs.All(p => !p.Is(obj));
@@ -393,7 +393,7 @@ namespace TheXDS.MCART
         /// Se devolverá <c>null</c> si el miembro no posee el atributo
         /// especificado.
         /// </param>
-        /// <returns><c>true</c> si el miembro posee el atributo, <c>false</c>
+        /// <returns><see langword="true"/> si el miembro posee el atributo, <see langword="false"/>
         /// en caso contrario.
         /// </returns>
         public static bool HasAttr<T>(this Assembly assembly, out T attribute) where T : Attribute
@@ -410,7 +410,7 @@ namespace TheXDS.MCART
         /// <param name="assembly">
         /// Miembro del cual se extraerá el atributo.
         /// </param>
-        /// <returns><c>true</c> si el miembro posee el atributo, <c>false</c>
+        /// <returns><see langword="true"/> si el miembro posee el atributo, <see langword="false"/>
         /// en caso contrario.
         /// </returns>
         public static bool HasAttr<T>(this Assembly assembly) where T : Attribute => HasAttr<T>(assembly, out _);
@@ -450,7 +450,7 @@ namespace TheXDS.MCART
         /// Se devolverá <c>null</c> si el miembro no posee el atributo
         /// especificado.
         /// </param>
-        /// <returns><c>true</c> si el miembro posee el atributo, <c>false</c>
+        /// <returns><see langword="true"/> si el miembro posee el atributo, <see langword="false"/>
         /// en caso contrario.
         /// </returns>
         public static bool HasAttr<T>(this MemberInfo member, out T attribute) where T : Attribute
@@ -467,7 +467,7 @@ namespace TheXDS.MCART
         /// <param name="member">
         /// Miembro del cual se extraerá el atributo.
         /// </param>
-        /// <returns><c>true</c> si el miembro posee el atributo, <c>false</c>
+        /// <returns><see langword="true"/> si el miembro posee el atributo, <see langword="false"/>
         /// en caso contrario.
         /// </returns>
         public static bool HasAttr<T>(this MemberInfo member) where T : Attribute => HasAttr<T>(member, out _);
@@ -504,7 +504,7 @@ namespace TheXDS.MCART
         /// Se devolverá <c>null</c> si el miembro no posee el atributo
         /// especificado.
         /// </param>
-        /// <returns><c>true</c> si el miembro posee el atributo, <c>false</c>
+        /// <returns><see langword="true"/> si el miembro posee el atributo, <see langword="false"/>
         /// en caso contrario.
         /// </returns>
         public static bool HasAttr<T>(this Type type, out T attribute) where T : Attribute
@@ -521,7 +521,7 @@ namespace TheXDS.MCART
         /// <param name="type">
         /// Miembro del cual se extraerá el atributo.
         /// </param>
-        /// <returns><c>true</c> si el miembro posee el atributo, <c>false</c>
+        /// <returns><see langword="true"/> si el miembro posee el atributo, <see langword="false"/>
         /// en caso contrario.
         /// </returns>
         public static bool HasAttr<T>(this Type type) where T : Attribute => HasAttr<T>(type, out _);
@@ -558,7 +558,7 @@ namespace TheXDS.MCART
         /// Se devolverá <c>null</c> si el miembro no posee el atributo
         /// especificado.
         /// </param>
-        /// <returns><c>true</c> si el miembro posee el atributo, <c>false</c>
+        /// <returns><see langword="true"/> si el miembro posee el atributo, <see langword="false"/>
         /// en caso contrario.
         /// </returns>
         public static bool HasAttr<T>(this object obj, out T attribute) where T : Attribute
@@ -575,7 +575,7 @@ namespace TheXDS.MCART
         /// <param name="obj">
         /// Miembro del cual se extraerá el atributo.
         /// </param>
-        /// <returns><c>true</c> si el miembro posee el atributo, <c>false</c>
+        /// <returns><see langword="true"/> si el miembro posee el atributo, <see langword="false"/>
         /// en caso contrario.
         /// </returns>
         public static bool HasAttr<T>(this object obj) where T : Attribute => HasAttr<T>(obj, out _);
@@ -616,8 +616,8 @@ namespace TheXDS.MCART
         /// <param name="enumValue">
         /// Valor de enumeración del cual se extraerá el atributo.
         /// </param>
-        /// <returns><c>true</c> si el valor de enumeración posee el atributo,
-        /// <c>false</c> en caso contrario.
+        /// <returns><see langword="true"/> si el valor de enumeración posee el atributo,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool HasAttr<T>(this Enum enumValue) where T : Attribute
         {
@@ -689,7 +689,7 @@ namespace TheXDS.MCART
         /// Se devolverá <c>null</c> si el miembro no posee el atributo
         /// especificado.
         /// </param>
-        /// <returns><c>true</c> si el miembro posee el atributo, <c>false</c>
+        /// <returns><see langword="true"/> si el miembro posee el atributo, <see langword="false"/>
         /// en caso contrario.
         /// </returns>
         public static bool HasAttrAlt<T>(this Type type, out T attribute) where T : Attribute
@@ -707,7 +707,7 @@ namespace TheXDS.MCART
         /// <param name="type">
         /// Miembro del cual se extraerá el atributo.
         /// </param>
-        /// <returns><c>true</c> si el miembro posee el atributo, <c>false</c>
+        /// <returns><see langword="true"/> si el miembro posee el atributo, <see langword="false"/>
         /// en caso contrario.
         /// </returns>
         public static bool HasAttrAlt<T>(this Type type) where T : Attribute => HasAttrAlt<T>(type, out _);
@@ -715,8 +715,8 @@ namespace TheXDS.MCART
         /// Determina si el tipo <paramref name="T"/> es de un tipo numérico
         /// </summary>
         /// <param name="T">Tipo a comprobar</param>
-        /// <returns><c>true</c> si <paramref name="T"/> es un tipo numérico; de
-        /// lo contrario, <c>false</c>.</returns>
+        /// <returns><see langword="true"/> si <paramref name="T"/> es un tipo numérico; de
+        /// lo contrario, <see langword="false"/>.</returns>
         [Stub]
         [Obsolete]
         public static bool IsNumericType(Type T)
@@ -739,7 +739,7 @@ namespace TheXDS.MCART
         /// Determina si el tipo <typeparamref name="T"/> es de un tipo numérico
         /// </summary>
         /// <typeparam name="T">Tipo a comprobar</typeparam>
-        /// <returns><c>true</c> si <typeparamref name="T"/> es un tipo numérico, <c>false</c> en caso contrario.</returns>
+        /// <returns><see langword="true"/> si <typeparamref name="T"/> es un tipo numérico, <see langword="false"/> en caso contrario.</returns>
         [Thunk] [Obsolete] public static bool IsNumericType<T>() => IsNumericType(typeof(T));
         /// <summary>
         /// Comprueba que la firma de un método sea compatible con el delegado

@@ -108,7 +108,7 @@ namespace TheXDS.MCART.Controls
         /// </param>
         public static void GetBounds(this IEnumerable<Slice> data, out double min, out double max)
         {
-            if (!data.Any()) throw new Exceptions.EmptyCollectionException<Slice>(data);
+            if (!data.Any()) throw new Exceptions.EmptyCollectionException(data);
             min = double.MaxValue;
             max = double.MinValue;
             foreach (var j in data)

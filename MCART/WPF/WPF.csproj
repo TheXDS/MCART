@@ -70,9 +70,12 @@
       <DependentUpon>RingGraph.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\SearchBox.cs" />
-    <Compile Include="Forms\PasswordDialog.cs" />
-    <Compile Include="Forms\PluginBrowser.xaml.cs">
+    <Compile Include="Dialogs\PasswordDialog.cs" />
+    <Compile Include="Dialogs\PluginBrowser.xaml.cs">
       <DependentUpon>PluginBrowser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SplashLogin.xaml.cs">
+      <DependentUpon>SplashLogin.xaml</DependentUpon>
     </Compile>
     <Compile Include="Misc\Events.cs" />
     <Compile Include="Modules\ValueConverters.cs" />
@@ -94,7 +97,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\PluginBrowser.xaml">
+    <Page Include="Dialogs\PluginBrowser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\SplashLogin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

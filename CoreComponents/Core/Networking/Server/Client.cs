@@ -54,13 +54,13 @@ namespace TheXDS.MCART.Networking.Server
 		/// <summary>
 		/// Gets a value indicating whether this <see cref="Client"/> is alive.
 		/// </summary>
-		/// <value><c>true</c> if is alive; otherwise, <c>false</c>.</value>
+		/// <value><see langword="true"/> if is alive; otherwise, <see langword="false"/>.</value>
 		public bool IsAlive => (bool)TcpClient?.Connected;
 
 		/// <summary>
 		/// Obtiene un valor que indica si hay datos disponibles para leer.
 		/// </summary>
-		/// <value><c>true</c> si hay datos disponibles; sino, <c>false</c>.</value>
+		/// <value><see langword="true"/> si hay datos disponibles; sino, <see langword="false"/>.</value>
 		public bool DataAvailable => (bool)TcpClient?.GetStream()?.DataAvailable;
 
         /// <summary>

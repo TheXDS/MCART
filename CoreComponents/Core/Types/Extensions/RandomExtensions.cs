@@ -54,35 +54,5 @@ namespace TheXDS.MCART.Types.Extensions
             while (x.Length < length) x += text[r.Next(0, text.Length)];
             return x;
         }
-        /// <summary>
-        /// Genera un nombre de archivo aleatorio que no se encuentre en uso en
-        /// el directorio actual.
-        /// </summary>
-        /// <param name="r">
-        /// Instancia del objeto <see cref="Random"/> a utilizar.
-        /// </param>
-        /// <param name="length">Longitud del nombre de archivo.</param>
-        /// <returns>
-        /// Un nombre de archivo aleatorio que no corresponde a ningún archivo
-        /// en el directorio actual.
-        /// </returns>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Se produce si <paramref name="length"/> es inferior a 0, o superior
-        /// a el máximo admitido por el sistema operativo.
-        /// </exception>
-        public static string RndFileName(this Random r, byte length = 8)
-        {
-            if (Environment.OSVersion.Platform == PlatformID.Win32NT && (length == 0 || length > 255))
-                throw new ArgumentOutOfRangeException(nameof(length));
-            int ac = 0;
-            string x = string.Empty;
-            do
-            {
-                ac++;
-                if (ac > System.Math.Pow(text.Length, length)) throw new Exceptions.DirectoryIsFullException();
-                x = RndText(r, length) + ".tmp";
-            } while (System.IO.File.Exists(x));
-            return x;
-        }
     }
 }

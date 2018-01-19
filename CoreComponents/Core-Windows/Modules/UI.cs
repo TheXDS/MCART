@@ -37,7 +37,7 @@ namespace TheXDS.MCART
         /// <summary>
         /// Abre una consola para la aplicación.
         /// </summary>
-        /// <returns><c>true</c> si la llamada obtuvo correctamente una consola, <c>false</c> en caso contrario.</returns>
+        /// <returns><see langword="true"/> si la llamada obtuvo correctamente una consola, <see langword="false"/> en caso contrario.</returns>
         /// <remarks>
         /// Esta función es exclusiva para sistemas operativos Microsoft
         /// Windows®.
@@ -46,7 +46,7 @@ namespace TheXDS.MCART
         /// <summary>
         /// Libera la consola de la aplicación.
         /// </summary>
-        /// <returns><c>true</c> si la llamada liberó correctamente la consola, <c>false</c> en caso contrario.</returns>
+        /// <returns><see langword="true"/> si la llamada liberó correctamente la consola, <see langword="false"/> en caso contrario.</returns>
         /// <remarks>
         /// Esta función es exclusiva para sistemas operativos Microsoft
         /// Windows®.

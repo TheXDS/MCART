@@ -31,6 +31,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Animation;
 
 namespace TheXDS.MCART
 {
@@ -293,11 +294,17 @@ namespace TheXDS.MCART
         /// Establece un estado de error para un control.
         /// </summary>
         /// <param name="c">Control a advertir.</param>
+        public static void Warn(this Control c) => Warn(c, null);
+        /// <summary>
+        /// Establece un estado de error para un control.
+        /// </summary>
+        /// <param name="c">Control a advertir.</param>
         /// <param name="ttip">
         /// <see cref="ToolTip"/> con un mensaje de error para mostrar.
         /// </param>
-        public static void Warn(this Control c, string ttip = null)
+        public static void Warn(this Control c, string ttip)
         {
+            if (c.IsWarned()) c.ClearWarn();
             origctrls.Add(new OrigControlColor
             {
                 rf = c,
@@ -305,8 +312,16 @@ namespace TheXDS.MCART
                 bacg = c.Background,
                 ttip = (ToolTip)c.ToolTip
             });
-            c.Background = new SolidColorBrush(Colors.Pink);
-            c.Foreground = new SolidColorBrush(Colors.DarkRed);
+            SolidColorBrush brush;
+            if (c.Foreground is SolidColorBrush fore)
+                brush = new SolidColorBrush(Types.Color.Blend(fore.Color, Colors.Red));
+            else brush = new SolidColorBrush(Colors.DarkRed);
+            c.Foreground = brush;
+            if (c.Background is SolidColorBrush backg)
+                brush = new SolidColorBrush(Types.Color.Blend(backg.Color, Colors.Red));
+            else brush = new SolidColorBrush(Colors.Pink);
+            c.Background = brush;
+            brush.Flash(Colors.Red);
             if (!ttip.IsEmpty()) c.ToolTip = new ToolTip() { Content = ttip };
         }
         /// <summary>
@@ -333,13 +348,29 @@ namespace TheXDS.MCART
         /// Obtiene un valor que determina si el control está advertido.
         /// </summary>
         /// <param name="c">Control a comprobar.</param>
-        /// <returns><c>true</c> si el control está mostrando una advertencia;
-        /// de lo contrario, <c>false</c>.</returns>
+        /// <returns><see langword="true"/> si el control está mostrando una advertencia;
+        /// de lo contrario, <see langword="false"/>.</returns>
         public static bool IsWarned(this Control c)
         {
             if (c is null) throw new ArgumentNullException(nameof(c));
             foreach (OrigControlColor j in origctrls) if (j.rf.Is(c)) return true;
             return false;
+        }
+        /// <summary>
+        /// Ejecuta una animación de destello en un
+        /// <see cref="SolidColorBrush"/>.
+        /// </summary>
+        /// <param name="brush"><see cref="SolidColorBrush"/> a animar.</param>
+        /// <param name="flashColor"><see cref="Color"/> del destello.</param>
+        public static void Flash(this SolidColorBrush brush, Color flashColor)
+        {
+            var flash = new ColorAnimation
+            {
+                From = flashColor,
+                To = brush.Color,
+                Duration = TimeSpan.FromSeconds(1)
+            };
+            brush.BeginAnimation(SolidColorBrush.ColorProperty, flash);
         }
         /// <summary>
         /// Establece la propiedad <see cref="UIElement.Visibility"/> a

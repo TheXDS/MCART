@@ -1,7 +1,7 @@
-﻿Imports MCART.Resources.RTInfo
-Imports MCART.Attributes
-<Assembly: MinMCARTVersion(0, 7)>
-<Assembly: TargetMCARTVersion(0, 7)>
+﻿Imports TheXDS.MCART.Resources.RTInfo
+Imports TheXDS.MCART.Attributes
+<Assembly: MinMCARTVersion(0, 8)>
+<Assembly: TargetMCARTVersion(0, 8)>
 Class Application
     Private Sub Application_Startup(sender As Object, e As StartupEventArgs) Handles Me.Startup
         If Not RTSupport(GetType(Application).Assembly) AndAlso MessageBox.Show(

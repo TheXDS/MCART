@@ -119,8 +119,8 @@ namespace TheXDS.MCART
         /// Determina si una cadena está vacía.
         /// </summary>
         /// <returns>
-        /// <c>true</c> si la cadena está vacía o es <c>null</c>; de lo
-        /// contrario, <c>false</c>.
+        /// <see langword="true"/> si la cadena está vacía o es <c>null</c>; de lo
+        /// contrario, <see langword="false"/>.
         /// </returns>
         /// <param name="stringToCheck">Cadena a comprobar.</param>
         [Thunk] public static bool IsEmpty(this string stringToCheck) => string.IsNullOrWhiteSpace(stringToCheck);
@@ -128,8 +128,8 @@ namespace TheXDS.MCART
         /// Determina si un conjunto de cadenas están vacías.
         /// </summary>
         /// <returns>
-        /// <c>true</c> si las cadenas están vacías o son <c>null</c>; de lo
-        /// contrario, <c>false</c>.
+        /// <see langword="true"/> si las cadenas están vacías o son <c>null</c>; de lo
+        /// contrario, <see langword="false"/>.
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
         [Thunk] public static bool AreAllEmpty(params string[] stringArray) => stringArray.All(j => j.IsEmpty());
@@ -137,8 +137,8 @@ namespace TheXDS.MCART
         /// Determina si alguna cadena está vacía.
         /// </summary>
         /// <returns>
-        /// <c>true</c> si alguna cadena está vacía o es <c>null</c>; de lo
-        /// contrario, <c>false</c>.
+        /// <see langword="true"/> si alguna cadena está vacía o es <c>null</c>; de lo
+        /// contrario, <see langword="false"/>.
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
         [Thunk] public static bool IsAnyEmpty(params string[] stringArray) => stringArray.Any(j => j.IsEmpty());
@@ -146,8 +146,8 @@ namespace TheXDS.MCART
         /// Determina si alguna cadena está vacía.
         /// </summary>
         /// <returns>
-        /// <c>true</c> si alguna cadena está vacía o es <c>null</c>; de lo
-        /// contrario, <c>false</c>.
+        /// <see langword="true"/> si alguna cadena está vacía o es <c>null</c>; de lo
+        /// contrario, <see langword="false"/>.
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
         /// <param name="index">
@@ -199,8 +199,8 @@ namespace TheXDS.MCART
         /// especificados.
         /// </summary>
         /// <returns>
-        /// <c>true</c> si la cadena contiene a cualquiera de los caracteres,
-        /// <c>false</c> en caso contrario.
+        /// <see langword="true"/> si la cadena contiene a cualquiera de los caracteres,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="stringToCheck">Cadena a verificar.</param>
         /// <param name="chars">Caracteres a buscar.</param>
@@ -210,8 +210,8 @@ namespace TheXDS.MCART
         /// especificados.
         /// </summary>
         /// <returns>
-        /// <c>true</c> si la cadena contiene a cualquiera de los caracteres,
-        /// <c>false</c> en caso contrario.
+        /// <see langword="true"/> si la cadena contiene a cualquiera de los caracteres,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="stringToCheck">Cadena a verificar.</param>
         /// <param name="argNum">
@@ -237,8 +237,8 @@ namespace TheXDS.MCART
         /// especificadas.
         /// </summary>
         /// <returns>
-        /// <c>true</c> si la cadena contiene a cualquiera de los caracteres,
-        /// <c>false</c> en caso contrario.
+        /// <see langword="true"/> si la cadena contiene a cualquiera de los caracteres,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="stringToCheck">Cadena a verificar.</param>
         /// <param name="strings">Cadenas a buscar.</param>
@@ -248,8 +248,8 @@ namespace TheXDS.MCART
         /// especificadas.
         /// </summary>
         /// <returns>
-        /// <c>true</c> si la cadena contiene a cualquiera de los caracteres,
-        /// <c>false</c> en caso contrario.
+        /// <see langword="true"/> si la cadena contiene a cualquiera de los caracteres,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="stringToCheck">Cadena a verificar.</param>
         /// <param name="argNum">
@@ -319,8 +319,8 @@ namespace TheXDS.MCART
         /// Comprueba que el valor se encuentre en el rango especificado.
         /// </summary>
         /// <returns>
-        /// <c>true</c>si el valor se encuentra entre los especificados; de lo
-        /// contrario, <c>false</c>.
+        /// <see langword="true"/>si el valor se encuentra entre los especificados; de lo
+        /// contrario, <see langword="false"/>.
         /// </returns>
         /// <param name="value">Valor a comprobar.</param>
         /// <param name="min">Mínimo del rango de valores, inclusive.</param>
@@ -382,7 +382,7 @@ namespace TheXDS.MCART
         /// <returns>Una colección de <see cref="float"/> con sus valores
         /// expresados en porcentaje.</returns>
         /// <param name="collection">Colección a procesar.</param>
-        /// <param name="baseZero">Si es <c>true</c>, la base de
+        /// <param name="baseZero">Si es <see langword="true"/>, la base de
         /// porcentaje es cero; de lo contrario, se utilizará el valor mínimo
         /// dentro de la colección.</param>
         [Thunk] public static IEnumerable<float> ToPercent(this IEnumerable<float> collection, bool baseZero) => ToPercent(collection, baseZero ? 0 : collection.Min(), collection.Max());
@@ -429,7 +429,7 @@ namespace TheXDS.MCART
         /// <returns>Una colección de <see cref="double"/> con sus valores
         /// expresados en porcentaje.</returns>
         /// <param name="collection">Colección a procesar.</param>
-        /// <param name="baseZero">Si es <c>true</c>, la base de
+        /// <param name="baseZero">Si es <see langword="true"/>, la base de
         /// porcentaje es cero; de lo contrario, se utilizará el valor mínimo
         /// dentro de la colección.</param>
         [Thunk] public static IEnumerable<double> ToPercent(this IEnumerable<double> collection, bool baseZero) => ToPercent(collection, baseZero ? 0 : collection.Min(), collection.Max());
@@ -476,7 +476,7 @@ namespace TheXDS.MCART
         /// <returns>Una colección de <see cref="float"/> con sus valores
         /// expresados en porcentaje.</returns>
         /// <param name="collection">Colección a procesar.</param>
-        /// <param name="baseZero">Opcional. si es <c>true</c>, la base de
+        /// <param name="baseZero">Opcional. si es <see langword="true"/>, la base de
         /// porcentaje es cero; de lo contrario, se utilizará el valor mínimo
         /// dentro de la colección.</param>
         [Thunk] public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, bool baseZero) => ToPercentSingle(collection, baseZero ? 0 : collection.Min(), collection.Max());
@@ -518,7 +518,7 @@ namespace TheXDS.MCART
         /// <returns>Una colección de <see cref="double"/> con sus valores
         /// expresados en porcentaje.</returns>
         /// <param name="collection">Colección a procesar.</param>
-        /// <param name="baseZero">Opcional. si es <c>true</c>, la base de
+        /// <param name="baseZero">Opcional. si es <see langword="true"/>, la base de
         /// porcentaje es cero; de lo contrario, se utilizará el valor mínimo
         /// dentro de la colección.</param>
         [Thunk] public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, bool baseZero) => ToPercentDouble(collection, baseZero ? 0 : collection.Min(), collection.Max());
@@ -642,8 +642,8 @@ namespace TheXDS.MCART
         /// Verifica si la cadena contiene letras.
         /// </summary>
         /// <returns>
-        /// <c>true</c> si la cadena contiene letras: de lo contrario,
-        /// <c>false</c>.
+        /// <see langword="true"/> si la cadena contiene letras: de lo contrario,
+        /// <see langword="false"/>.
         /// </returns>
         /// <param name="stringToCheck">Cadena a comprobar.</param>
         public static bool ContainsLetters(this string stringToCheck)
@@ -654,14 +654,14 @@ namespace TheXDS.MCART
         /// Verifica si la cadena contiene letras.
         /// </summary>
         /// <returns>
-        /// <c>true</c> si la cadena contiene letras: de lo contrario,
-        /// <c>false</c>.
+        /// <see langword="true"/> si la cadena contiene letras: de lo contrario,
+        /// <see langword="false"/>.
         /// </returns>
         /// <param name="stringToCheck">Cadena a comprobar.</param>
         /// <param name="ucase">
         /// Opcional. Especifica el tipo de comprobación a realizar. Si es
-        /// <c>true</c>, Se tomarán en cuenta únicamente los caracteres en
-        /// mayúsculas, si es <c>false</c>, se tomarán en cuenta unicamente  los
+        /// <see langword="true"/>, Se tomarán en cuenta únicamente los caracteres en
+        /// mayúsculas, si es <see langword="false"/>, se tomarán en cuenta unicamente  los
         /// caracteres en minúsculas. Si se omite o se establece en <c>null</c>,
         /// se tomarán en cuenta ambos casos.</param>
         public static bool ContainsLetters(this string stringToCheck, bool ucase)
@@ -672,8 +672,8 @@ namespace TheXDS.MCART
         /// Comprueba si la cadena contiene números
         /// </summary>
         /// <returns>
-        /// <c>true</c> si la cadena contiene números; de lo contrario,
-        /// <c>false</c>.
+        /// <see langword="true"/> si la cadena contiene números; de lo contrario,
+        /// <see langword="false"/>.
         /// </returns>
         /// <param name="stringToCheck">Cadena a comprobar.</param>
         public static bool ContainsNumbers(this string stringToCheck)

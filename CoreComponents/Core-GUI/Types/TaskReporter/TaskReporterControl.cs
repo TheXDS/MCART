@@ -157,10 +157,10 @@ namespace TheXDS.MCART.Types.TaskReporter
         /// <see cref="TaskTimeout"/>.
         /// </param>
         /// <param name="genTOutEx">
-        /// Parámetro opcional. Si es <c>true</c>, se generará un 
+        /// Parámetro opcional. Si es <see langword="true"/>, se generará un 
         /// <see cref="TimeoutException"/> al agotarse el tiempo de espera 
         /// especificado durante una tarea. Si se omite, o se establece en
-        /// <c>false</c>, no se generará la excepción. El evento
+        /// <see langword="false"/>, no se generará la excepción. El evento
         /// <see cref="TaskTimeout"/> se genera indistintamente de este valor.
         /// </param>
         /// <remarks>
@@ -184,9 +184,9 @@ namespace TheXDS.MCART.Types.TaskReporter
         /// Indica el tiempo total de espera antes de generar el evento 
         /// <see cref="TaskTimeout"/>.
         /// </param>
-        /// <param name="genTOutEx">Parámetro opcional. un valor <c>true</c> provocará una excepción
+        /// <param name="genTOutEx">Parámetro opcional. un valor <see langword="true"/> provocará una excepción
         /// <see cref="TimeoutException"/> además del evento <see cref="TaskTimeout"/>. Si se omite, o se establece en
-        /// <c>false</c>, no se generará la excepción.</param>
+        /// <see langword="false"/>, no se generará la excepción.</param>
         /// <remarks>
         /// Al iniciar una tarea con este método, la tarea no se podrá
         /// detener ni se mostrará la interfaz para detenerla.
@@ -222,8 +222,8 @@ namespace TheXDS.MCART.Types.TaskReporter
         /// Parámetro opcional. Mensaje a mostrar.
         /// </param>
         /// <param name="nonStop">
-        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
-        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
+        /// Parámetro opcional. Si es <see langword="true"/>, el ciclo no podrá ser
+        /// interrumpido. De forma predeterminada, se asume <see langword="false"/>.
         /// </param>
         /// <param name="onCancel">
         /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
@@ -251,8 +251,8 @@ namespace TheXDS.MCART.Types.TaskReporter
         /// Parámetro opcional. Mensaje a mostrar.
         /// </param>
         /// <param name="nonStop">
-        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
-        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
+        /// Parámetro opcional. Si es <see langword="true"/>, el ciclo no podrá ser
+        /// interrumpido. De forma predeterminada, se asume <see langword="false"/>.
         /// </param>
         /// <param name="onCancel">
         /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
@@ -281,8 +281,8 @@ namespace TheXDS.MCART.Types.TaskReporter
         /// Parámetro opcional. Mensaje a mostrar.
         /// </param>
         /// <param name="nonStop">
-        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
-        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
+        /// Parámetro opcional. Si es <see langword="true"/>, el ciclo no podrá ser
+        /// interrumpido. De forma predeterminada, se asume <see langword="false"/>.
         /// </param>
         /// <param name="onCancel">
         /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
@@ -303,8 +303,8 @@ namespace TheXDS.MCART.Types.TaskReporter
         /// <param name="collection">Colección del ciclo.</param>
         /// <param name="forEachAct">Acción a ejecutar.</param>
         /// <param name="nonStop">
-        /// Parámetro opcional. Si es <c>true</c>, el ciclo no podrá ser
-        /// interrumpido. De forma predeterminada, se asume <c>false</c>.
+        /// Parámetro opcional. Si es <see langword="true"/>, el ciclo no podrá ser
+        /// interrumpido. De forma predeterminada, se asume <see langword="false"/>.
         /// </param>
         /// <param name="onCancel">
         /// Parámetro opcional. Acción a ejecutar en caso de cancelar el ciclo.
@@ -350,7 +350,7 @@ namespace TheXDS.MCART.Types.TaskReporter
         /// </summary>
         /// <exception cref="InvalidOperationException">
         /// Se produce cuando no se está ejecutando una tarea (el valor de
-        /// <see cref="OnDuty"/> es <c>false</c>).</exception>
+        /// <see cref="OnDuty"/> es <see langword="false"/>).</exception>
         public void ResetTimeout()
         {
             if (!OnDuty) throw new InvalidOperationException();

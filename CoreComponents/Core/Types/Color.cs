@@ -63,6 +63,16 @@ namespace TheXDS.MCART.Types
 			byte r = (byte)(510 - (510 * x)).Clamp(0, 255);
 			return new Color(r, g, 0);
 		}
+        /// <summary>
+        /// Realiza una mezcla entre los colores especificados.
+        /// </summary>
+        /// <param name="left">El primer <see cref="Color"/> a mezclar.</param>
+        /// <param name="right">
+        /// El segundo <see cref="Color"/> a mezclar.
+        /// </param>
+        /// <returns>Una mezcla entre los colores <paramref name="left"/> y 
+        /// <paramref name="right"/>.</returns>
+        public static Color Blend(Color left, Color right) => left / right;
 		/// <summary>
 		/// Adds a <see cref="Color"/> to a <see cref="Color"/>, yielding a new
 		/// <see cref="Color"/>.
@@ -178,8 +188,8 @@ namespace TheXDS.MCART.Types
 		/// El segundo <see cref="Color"/> a comprobar.
 		/// </param>
         /// <returns>
-        /// <c>true</c> ambas instancias de <see cref="Color"/> son iguales,
-        /// <c>false</c> en caso contrario.
+        /// <see langword="true"/> ambas instancias de <see cref="Color"/> son iguales,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool operator ==(Color left, Color right) => left.Equals(right);
         /// <summary>
@@ -192,8 +202,8 @@ namespace TheXDS.MCART.Types
         /// El segundo <see cref="Color"/> a comprobar.
         /// </param>
         /// <returns>
-        /// <c>true</c> ambas instancias de <see cref="Color"/> son distintas,
-        /// <c>false</c> en caso contrario.
+        /// <see langword="true"/> ambas instancias de <see cref="Color"/> son distintas,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool operator !=(Color left, Color right) => !left.Equals(right);
         /// <summary>
@@ -327,8 +337,8 @@ namespace TheXDS.MCART.Types
         /// El <see cref="Color"/> a comparar contra este <see cref="Color"/>.
         /// </param>
         /// <returns>
-        /// <c>true</c> si el <see cref="Color"/> especificado es igual al
-        /// <see cref="Color"/> actual, <c>false</c> en caso contrario.
+        /// <see langword="true"/> si el <see cref="Color"/> especificado es igual al
+        /// <see cref="Color"/> actual, <see langword="false"/> en caso contrario.
         /// </returns>
         public bool Equals(Color other)
 		{

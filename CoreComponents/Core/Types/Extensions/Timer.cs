@@ -71,7 +71,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <summary>
         /// Empieza a generar el evento 
         /// <see cref="System.Timers.Timer.Elapsed"/> al establecer 
-        /// <see cref="Enabled"/> en <c>true</c>.
+        /// <see cref="Enabled"/> en <see langword="true"/>.
         /// </summary>
         public new void Start()
         {
@@ -80,7 +80,7 @@ namespace TheXDS.MCART.Types.Extensions
         }
         /// <summary>
         /// Deja de generar el evento <see cref="System.Timers.Timer.Elapsed"/>
-        /// al establecer <see cref="Enabled"/> en <c>false</c>.
+        /// al establecer <see cref="Enabled"/> en <see langword="false"/>.
         /// </summary>
         public new void Stop() { st = null; base.Stop(); }
         /// <summary>

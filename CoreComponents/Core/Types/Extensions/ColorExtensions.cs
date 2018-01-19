@@ -34,8 +34,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// Determina si los colores son lo suficientemente similares.
         /// </summary>
         /// <returns>
-        /// <c>true</c> si los colores son suficientemente similares, 
-        /// <c>false</c> en caso contrario.</returns>
+        /// <see langword="true"/> si los colores son suficientemente similares, 
+        /// <see langword="false"/> en caso contrario.</returns>
         /// <param name="c1">Primer <see cref="Color"/> a comparar.</param>
         /// <param name="c2">Segundo Color a comparar.</param>
         /// <param name="margin">

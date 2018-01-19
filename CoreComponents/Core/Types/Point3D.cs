@@ -62,8 +62,8 @@ namespace TheXDS.MCART.Types
         /// puntos tridimensionales especificados.
         /// </summary>
         /// <returns>
-        /// <c>true</c> si el punto se encuentra dentro del cubo formado,
-        /// <c>false</c> en caso contrario.
+        /// <see langword="true"/> si el punto se encuentra dentro del cubo formado,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="p1">Punto 1.</param>
         /// <param name="p2">Punto 2.</param>
@@ -73,8 +73,8 @@ namespace TheXDS.MCART.Types
         /// puntos tridimensionales especificados.
         /// </summary>
         /// <returns>
-        /// <c>true</c> si el punto se encuentra dentro del cubo formado,
-        /// <c>false</c> en caso contrario.
+        /// <see langword="true"/> si el punto se encuentra dentro del cubo formado,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="x1">La primer coordenada x.</param>
         /// <param name="y1">La primer coordenada y.</param>
@@ -250,8 +250,8 @@ namespace TheXDS.MCART.Types
         /// <param name="l">Punto 1.</param>
         /// <param name="r">Punto 2.</param>
         /// <returns>
-        /// <c>true</c> si todos los vectores de ambos puntos son iguales;
-        /// de lo contrario, <c>false</c>.</returns>
+        /// <see langword="true"/> si todos los vectores de ambos puntos son iguales;
+        /// de lo contrario, <see langword="false"/>.</returns>
         public static bool operator ==(Point3D l, Point3D r) => (l.X == r.X && l.Y == r.Y && l.Z == r.Z);
         /// <summary>
         /// Compara la diferencia de los vectores de los puntos.
@@ -259,8 +259,8 @@ namespace TheXDS.MCART.Types
         /// <param name="l">Punto 1.</param>
         /// <param name="r">Punto 2.</param>
         /// <returns>
-        /// <c>true</c> si los vectores de ambos puntos son diferentes;  de lo
-        /// contrario, <c>false</c>.</returns>
+        /// <see langword="true"/> si los vectores de ambos puntos son diferentes;  de lo
+        /// contrario, <see langword="false"/>.</returns>
         public static bool operator !=(Point3D l, Point3D r) => (l.X != r.X && l.Y != r.Y && l.Z != r.Z);
 #pragma warning restore RECS0018
         /// <summary>
@@ -270,8 +270,8 @@ namespace TheXDS.MCART.Types
         /// Objeto que se va a compara con la instancia actual.
         /// </param>
         /// <returns>
-        /// <c>true</c> si esta instancia y <paramref name="obj"/> son iguales;
-        /// de lo contrario, <c>false</c>.
+        /// <see langword="true"/> si esta instancia y <paramref name="obj"/> son iguales;
+        /// de lo contrario, <see langword="false"/>.
         /// </returns>
         public override bool Equals(object obj) => base.Equals(obj);
         /// <summary>
@@ -318,8 +318,8 @@ namespace TheXDS.MCART.Types
         /// <see cref="Point3D"/> contra el cual comparar.
         /// </param>
         /// <returns>
-        /// <c>true</c> si todos los vectores de ambos puntos son iguales;
-        /// de lo contrario, <c>false</c>.</returns>
+        /// <see langword="true"/> si todos los vectores de ambos puntos son iguales;
+        /// de lo contrario, <see langword="false"/>.</returns>
         public bool Equals(Point3D other)
         {
             return this == other;

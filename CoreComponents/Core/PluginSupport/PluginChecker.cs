@@ -37,9 +37,9 @@ namespace TheXDS.MCART.PluginSupport
         /// Comprueba si un ensamblado contiene un plugin del tipo especificado.
         /// </summary>
         /// <returns>
-        /// <c>true</c> si el ensamblado contiene al menos una clase de tipo
+        /// <see langword="true"/> si el ensamblado contiene al menos una clase de tipo
         /// <typeparamref name="T"/> cargable como <see cref="IPlugin"/>, 
-        /// <c>false</c> en caso contrario.
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="assembly"><see cref="Assembly"/> a comprobar.</param>
         /// <typeparam name="T">Tipo a buscar.</typeparam>
@@ -50,8 +50,8 @@ namespace TheXDS.MCART.PluginSupport
         /// </summary>
         /// <param name="type">Tipo a comprobar.</param>
         /// <returns>
-        /// <c>true</c> si el tipo es compatible con esta versión de MCART,
-        /// <c>false</c> en caso de no ser compatible, o <c>null</c> si no fue
+        /// <see langword="true"/> si el tipo es compatible con esta versión de MCART,
+        /// <see langword="false"/> en caso de no ser compatible, o <c>null</c> si no fue
         /// posible comprobar la compatibilidad.
         /// </returns>
         public abstract bool? IsCompatible(Type type);
@@ -60,8 +60,8 @@ namespace TheXDS.MCART.PluginSupport
         /// como <see cref="IPlugin"/>.
         /// </summary>
         /// <returns>
-        /// <c>true</c> si el ensamblado contiene clases cargables como
-        /// <see cref="IPlugin"/>, <c>false</c> en caso contrario.
+        /// <see langword="true"/> si el ensamblado contiene clases cargables como
+        /// <see cref="IPlugin"/>, <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="assembly"><see cref="Assembly"/> a comprobar.</param>
         public bool IsVaild(Assembly assembly) => assembly.IsNeither(RTInfo.RTAssembly, null) && assembly.GetTypes().Any((arg) => IsVaild(arg));
@@ -70,8 +70,8 @@ namespace TheXDS.MCART.PluginSupport
         /// <see cref="IPlugin"/>.
         /// </summary>
         /// <returns>
-        /// <c>true</c>, si el tipo puede ser cagado como un 
-        /// <see cref="Plugin"/>, <c>false</c> en caso contrario.
+        /// <see langword="true"/>, si el tipo puede ser cagado como un 
+        /// <see cref="Plugin"/>, <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="type">Tipo a comprobar.</param>
         public abstract bool IsVaild(Type type);

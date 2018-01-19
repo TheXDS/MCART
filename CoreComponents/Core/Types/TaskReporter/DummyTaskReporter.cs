@@ -32,7 +32,7 @@ namespace TheXDS.MCART.Types.TaskReporter
     public class DummyTaskReporter : TaskReporter
     {
         /// <summary>
-        /// Esta propiedad siempre devolverá <c>false</c>.
+        /// Esta propiedad siempre devolverá <see langword="false"/>.
         /// </summary>
         public override bool CancelPending => false;
         /// <summary>

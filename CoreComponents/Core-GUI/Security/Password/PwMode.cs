@@ -25,7 +25,7 @@ namespace TheXDS.MCART.Security.Password
 {
     /// <summary>
     /// Configura el cuadro de contraseña al utilizar la función 
-    /// <see cref="Forms.PasswordDialog.ChoosePassword(PwMode, PwEvaluator, int)"/>.
+    /// <see cref="Dialogs.PasswordDialog.ChoosePassword(PwMode, PwEvaluator, int)"/>.
     /// </summary>
     [System.Flags]
     public enum PwMode : byte

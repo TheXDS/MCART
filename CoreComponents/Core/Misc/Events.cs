@@ -246,7 +246,7 @@ namespace TheXDS.MCART.Events
         /// editado.
         /// </summary>
         /// <returns>
-        /// <c>true</c> si el elemento es nuevo, <c>false</c> si el elemento fue
+        /// <see langword="true"/> si el elemento es nuevo, <see langword="false"/> si el elemento fue
         ///  editado.
         /// </returns>
         public readonly bool IsNew;
@@ -282,7 +282,7 @@ namespace TheXDS.MCART.Events
         /// editado.
         /// </summary>
         /// <returns>
-        /// <c>true</c> si el elemento es nuevo, <c>false</c> si el elemento fue
+        /// <see langword="true"/> si el elemento es nuevo, <see langword="false"/> si el elemento fue
         /// editado.
         /// </returns>
         public readonly bool IsNew;

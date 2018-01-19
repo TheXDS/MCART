@@ -38,8 +38,8 @@ namespace TheXDS.MCART.PluginSupport
         /// </summary>
         /// <param name="type">Tipo a comprobar.</param>
         /// <returns>
-        /// <c>true</c> si el tipo es compatible con esta versión de MCART,
-        /// <c>false</c> en caso de no ser compatible, o <c>null</c> si no fue
+        /// <see langword="true"/> si el tipo es compatible con esta versión de MCART,
+        /// <see langword="false"/> en caso de no ser compatible, o <c>null</c> si no fue
         /// posible comprobar la compatibilidad.
         /// </returns>
         public override bool? IsCompatible(Type type)
@@ -58,8 +58,8 @@ namespace TheXDS.MCART.PluginSupport
         /// <see cref="IPlugin"/>.
         /// </summary>
         /// <returns>
-        /// <c>true</c>, si el tipo puede ser cagado como un 
-        /// <see cref="Plugin"/>, <c>false</c> en caso contrario.
+        /// <see langword="true"/>, si el tipo puede ser cagado como un 
+        /// <see cref="Plugin"/>, <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="type">Tipo a comprobar.</param>
         public override bool IsVaild(Type type)
@@ -77,19 +77,19 @@ namespace TheXDS.MCART.PluginSupport
     [Dangerous] public class RelaxedPluginChecker : PluginChecker
     {
         /// <summary>
-        /// Siempre devuelve <c>true</c> al comprobar la compatibilidad de un
+        /// Siempre devuelve <see langword="true"/> al comprobar la compatibilidad de un
         /// tipo con esta versión de MCART.
         /// </summary>
         /// <param name="type">Tipo a comprobar.</param>
-        /// <returns>Esta función siempre devuelve <c>true</c>.</returns>
+        /// <returns>Esta función siempre devuelve <see langword="true"/>.</returns>
         [Dangerous] public override bool? IsCompatible(Type type) => true;
         /// <summary>
         /// Determina si un tipo es válido para ser cargado como un
         /// <see cref="IPlugin"/>.
         /// </summary>
         /// <returns>
-        /// <c>true</c>, si el tipo puede ser cagado como un 
-        /// <see cref="Plugin"/>, <c>false</c> en caso contrario.
+        /// <see langword="true"/>, si el tipo puede ser cagado como un 
+        /// <see cref="Plugin"/>, <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="type">Tipo a comprobar.</param>
         public override bool IsVaild(Type type) => !(type.IsInterface || type.IsAbstract) && typeof(IPlugin).IsAssignableFrom(type);

@@ -271,7 +271,7 @@ namespace TheXDS.MCART.Controls
         /// <summary>
         /// Obtiene o establece si se mostrará el cuadro de búsqueda
         /// </summary>
-        /// <returns><c>true</c> si el cuadro de búsqueda es visible; de lo contrario, <c>False</c></returns>
+        /// <returns><see langword="true"/> si el cuadro de búsqueda es visible; de lo contrario, <c>False</c></returns>
         public bool HasSearch
         {
             get => (bool)GetValue(HasSearchProperty); set => SetValue(HasSearchProperty, value);
@@ -313,7 +313,7 @@ namespace TheXDS.MCART.Controls
         /// <summary>
         /// Determina si este control administra un <see cref="CollectionView"/>
         /// </summary>
-        /// <returns><c>true</c> si este control actualmente administra un <see cref="CollectionView"/>, <c>false</c> en caso contrario.</returns>
+        /// <returns><see langword="true"/> si este control actualmente administra un <see cref="CollectionView"/>, <see langword="false"/> en caso contrario.</returns>
         public bool HasViewAttached => view != null;
         /// <summary>
         /// Devuelve el <see cref="CollectionView"/> actualmente administrado por este control
@@ -323,7 +323,7 @@ namespace TheXDS.MCART.Controls
         /// <summary>
         /// Determina si este control administra el estado de otros controles
         /// </summary>
-        /// <returns><c>true</c> si este control administra el estado de otros controles; de lo contario, <c>False</c>.</returns>
+        /// <returns><see langword="true"/> si este control administra el estado de otros controles; de lo contario, <c>False</c>.</returns>
         public bool HasAttachedControls => ctrls.Any();
         /// <summary>
         /// Devuelve un <see cref="ReadOnlyCollection{T}"/> de los controles administrados por este control
@@ -665,7 +665,7 @@ namespace TheXDS.MCART.Controls
         /// <see cref="BindingListCollectionView"/> a controlar.
         /// </param>
         /// <param name="searchFields">
-        /// Si <see cref="HasSearch"/> es <c>true</c>, establece los campos
+        /// Si <see cref="HasSearch"/> es <see langword="true"/>, establece los campos
         /// necesarios para realizar búsquedas.
         /// </param>
         public void AttachView(BindingListCollectionView cv, string[] searchFields = null)

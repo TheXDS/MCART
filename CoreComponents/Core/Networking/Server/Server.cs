@@ -294,7 +294,7 @@ namespace TheXDS.MCART.Networking.Server
 		/// Obtiene o establece un valor que indica si este
 		/// <see cref="Server"/> está activo (vivo).
 		/// </summary>
-		/// <value><c>true</c> si está vivo; sino, <c>false</c>.</value>
+		/// <value><see langword="true"/> si está vivo; sino, <see langword="false"/>.</value>
 		public bool IsAlive
 		{
 			get { return _isAlive; }

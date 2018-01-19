@@ -61,7 +61,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static void Shuffle<T>(this IEnumerable<T> c, int deepness = 1)
         {
             if (c is null) throw new ArgumentNullException(nameof(c));
-            if (!c.Any()) throw new EmptyCollectionException<T>(c);
+            if (!c.Any()) throw new EmptyCollectionException(c);
             if (!deepness.IsBetween(1, c.Count())) throw new ArgumentOutOfRangeException(nameof(deepness));
             try
             {
@@ -88,7 +88,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static void Shuffle<T>(this IEnumerable<T> c, int firstIdx, int lastIdx, int deepness = 1)
         {
             if (c is null) throw new ArgumentNullException(nameof(c));
-            if (!c.Any()) throw new EmptyCollectionException<T>(c);
+            if (!c.Any()) throw new EmptyCollectionException(c);
             if (!firstIdx.IsBetween(0, c.Count())) throw new IndexOutOfRangeException();
             if (!lastIdx.IsBetween(0, c.Count())) throw new IndexOutOfRangeException();
             if (!deepness.IsBetween(1, firstIdx - lastIdx)) throw new ArgumentOutOfRangeException(nameof(deepness));
@@ -167,7 +167,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </typeparam>
         public static T Pick<T>(this IEnumerable<T> a)
         {
-            if (!a.Any()) throw new EmptyCollectionException<T>(a);
+            if (!a.Any()) throw new EmptyCollectionException(a);
             return a.ElementAt(RandomExtensions.Rnd.Next(0, a.Count()));
         }
         /// <summary>
