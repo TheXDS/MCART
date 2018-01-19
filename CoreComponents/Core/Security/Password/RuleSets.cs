@@ -24,7 +24,7 @@
 using TheXDS.MCART.Attributes;
 using System.Linq;
 using St = TheXDS.MCART.Resources.Strings;
-using St2 = TheXDS.MCART.Resources.SpecificStrings;
+using St2 = TheXDS.MCART.Resources.InternalStrings;
 
 namespace TheXDS.MCART.Security.Password
 {
@@ -50,11 +50,11 @@ namespace TheXDS.MCART.Security.Password
         /// <see cref="PonderationLevel.Normal"/>.
         /// </param>
         /// <param name="de">
-        /// Opcional. Si se establece en <c>true</c>, la regla se activa de
+        /// Opcional. Si se establece en <see langword="true"/>, la regla se activa de
         /// forma predeterminada.
         /// </param>
         /// <param name="ie">
-        /// Opcional. Si se establece en <c>true</c>, la regla se marcará como
+        /// Opcional. Si se establece en <see langword="true"/>, la regla se marcará como
         /// puntos adicionales.
         /// </param>
         static PwEvalRule ContentionRuleFactory(string a, string b, string c = null, PonderationLevel pn = PonderationLevel.Normal, bool de = true, bool ie = false)

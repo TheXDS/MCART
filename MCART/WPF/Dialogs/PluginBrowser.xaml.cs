@@ -29,7 +29,7 @@ using System.Linq;
 using static TheXDS.MCART.Resources.RTInfo;
 using St = TheXDS.MCART.Resources.Strings;
 
-namespace TheXDS.MCART.Forms
+namespace TheXDS.MCART.Dialogs
 {
     /// <summary>
     /// Diálogo que permite mostrar información acerca de los 

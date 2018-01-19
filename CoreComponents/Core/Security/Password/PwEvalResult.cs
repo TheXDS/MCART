@@ -34,7 +34,7 @@ namespace TheXDS.MCART.Security.Password
         /// </summary>
         public float Result;
         /// <summary>
-        /// Si es <c>true</c>, la contraseña no continuará siendo evaluada, ya
+        /// Si es <see langword="true"/>, la contraseña no continuará siendo evaluada, ya
         /// que es inválida.
         /// </summary>
         public bool Critical;
@@ -50,7 +50,7 @@ namespace TheXDS.MCART.Security.Password
         /// <param name="r">Resultado de la evaluación.</param>
         /// <param name="d">Detalles de la evaluación.</param>
         /// <param name="c">
-        /// Criticalidad de la evaluación. Si se establece en <c>true</c>, la
+        /// Criticalidad de la evaluación. Si se establece en <see langword="true"/>, la
         /// contraseña no seguirá siendo evaluada, ya que es inválida.
         /// </param>
         public PwEvalResult(float r, string d = null, bool c = false)
@@ -75,7 +75,7 @@ namespace TheXDS.MCART.Security.Password
         /// </summary>
         /// <param name="obj">Valor a comparar.</param>
         /// <returns>
-        /// <c>true</c> si ambos objetos son iguales, <c>false</c> en caso
+        /// <see langword="true"/> si ambos objetos son iguales, <see langword="false"/> en caso
         /// contrario.
         /// </returns>
         public override bool Equals(object obj) => base.Equals(obj);
@@ -91,7 +91,7 @@ namespace TheXDS.MCART.Security.Password
         /// <param name="left">Valor a comparar.</param>
         /// <param name="right">Valor a comparar.</param>
         /// <returns>
-        /// <c>true</c> si ambos objetos son iguales, <c>false</c> en caso
+        /// <see langword="true"/> si ambos objetos son iguales, <see langword="false"/> en caso
         /// contrario.
         /// </returns>
         public static bool operator ==(PwEvalResult left, PwEvalResult right)
@@ -105,7 +105,7 @@ namespace TheXDS.MCART.Security.Password
         /// <param name="left">Valor a comparar.</param>
         /// <param name="right">Valor a comparar.</param>
         /// <returns>
-        /// <c>true</c> si los objetos son diferentes, <c>false</c> en caso
+        /// <see langword="true"/> si los objetos son diferentes, <see langword="false"/> en caso
         /// contrario.
         /// </returns>
         public static bool operator !=(PwEvalResult left, PwEvalResult right) => !(left == right);

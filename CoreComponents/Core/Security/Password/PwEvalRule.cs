@@ -96,11 +96,11 @@ namespace TheXDS.MCART.Security.Password
         /// <param name="ponderation">Ponderación a aplicar.</param>
         /// <param name="description">Descripción de la regla.</param>
         /// <param name="defaultEnable">
-        /// Si se establece en <c>true</c>, la regla estará activa de forma
+        /// Si se establece en <see langword="true"/>, la regla estará activa de forma
         /// predeterminada.
         /// </param>
         /// <param name="isExtra">
-        /// Si se establece en <c>true</c>, el resultado de esta regla se
+        /// Si se establece en <see langword="true"/>, el resultado de esta regla se
         /// tomará en cuenta como puntos extra.
         /// </param>
         public PwEvalRule(
@@ -132,11 +132,11 @@ namespace TheXDS.MCART.Security.Password
         /// <param name="ponderation">Ponderación a aplicar.</param>
         /// <param name="description">Descripción de la regla.</param>
         /// <param name="defaultEnable">
-        /// Si se establece en <c>true</c>, la regla estará activa de forma
+        /// Si se establece en <see langword="true"/>, la regla estará activa de forma
         /// predeterminada.
         /// </param>
         /// <param name="isExtra">
-        /// Si se establece en <c>true</c>, el resultado de esta regla se
+        /// Si se establece en <see langword="true"/>, el resultado de esta regla se
         /// tomará en cuenta como puntos extra.
         /// </param>
         public PwEvalRule(
