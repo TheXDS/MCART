@@ -84,7 +84,7 @@ namespace TheXDS.MCART.Types.TaskReporter
         /// <summary>
         /// Obtiene la cantidad de tiempo disponible para finalizar la tarea.
         /// </summary>
-        /// <value>El tiempo disponible para finalizar la tarea, o <c>null</c>
+        /// <value>El tiempo disponible para finalizar la tarea, o <see langword="null"/>
         /// en caso que no exista una restricción de tiempo.</value>
         public TimeSpan? TimeLeft => Tmr?.TimeLeft;
         /// <summary>
@@ -108,7 +108,7 @@ namespace TheXDS.MCART.Types.TaskReporter
         /// tarea.
         /// </summary>
         /// <value>Un <see cref="float"/> que indica el progreso de la tarea, o
-        /// <c>null</c> en caso que el progreso sea indeterminado.</value>
+        /// <see langword="null"/> en caso que el progreso sea indeterminado.</value>
         public float? CurrentProgress => OnDuty ? curp : throw new InvalidOperationException();
         #endregion
         #region Eventos

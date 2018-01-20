@@ -49,9 +49,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MCART\CoreEdition\CoreEdition.csproj">
+    <ProjectReference Include="..\MCART\CoreEdition\Lite.csproj">
       <Project>{ffcb72d8-1cb3-47a2-876b-630076307d78}</Project>
-      <Name>CoreEdition</Name>
+      <Name>Lite</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -31,9 +31,15 @@
     <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\PluginChecker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\PluginCheckers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\PluginLoader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Resources\Pack.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\AssemblyUnpacker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\CompressorGetters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\IAsyncUnpacker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\ICompressorGetter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\IUnpacker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Strings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\InternalStrings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\StringUnpacker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\Unpacker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\PwEvalResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\StreamExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\IEnumerableExtensions.cs" />
@@ -62,10 +68,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\IPwEvaluator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\PwEvaluator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\RuleSets.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Security\Encryption\IEasyCrypto.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Security\Encryption\EasyCrypto.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Security\Checksum\IEasyChecksum.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Security\Checksum\Plugins.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\RTInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Color.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\ColorExtensions.cs" />
@@ -73,10 +75,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\IProtocol.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Resources\Pack\" />
     <Folder Include="$(MSBuildThisFileDirectory)Types\TaskReporter\" />
     <Folder Include="$(MSBuildThisFileDirectory)Types\TaskReporter\base\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Security\Encryption\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Security\Checksum\" />
   </ItemGroup>
 </Project>

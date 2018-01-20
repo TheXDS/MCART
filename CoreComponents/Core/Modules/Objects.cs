@@ -98,28 +98,28 @@ namespace TheXDS.MCART
         /// <paramref name="source"/>, <see langword="false"/> en caso contrario.</returns>
         public static bool AreAllAssignable(this Type source, params Type[] types) => source.AreAllAssignable(types.AsEnumerable());
         /// <summary>
-        /// Determina si cualquiera de los objetos es <c>null</c>.
+        /// Determina si cualquiera de los objetos es <see langword="null"/>.
         /// </summary>
         /// <returns>
-        /// <see langword="true"/>, si cualquiera de los objetos es <c>null</c>; de lo
+        /// <see langword="true"/>, si cualquiera de los objetos es <see langword="null"/>; de lo
         /// contrario, <see langword="false"/>.
         /// </returns>
         /// <param name="x">Objetos a comprobar.</param>
         public static bool IsAnyNull(this IEnumerable<object> x) => x.Any(p => p is null);
         /// <summary>
-        /// Determina si cualquiera de los objetos es <c>null</c>.
+        /// Determina si cualquiera de los objetos es <see langword="null"/>.
         /// </summary>
         /// <returns>
-        /// <see langword="true"/>, si cualquiera de los objetos es <c>null</c>; de lo
+        /// <see langword="true"/>, si cualquiera de los objetos es <see langword="null"/>; de lo
         /// contrario, <see langword="false"/>.
         /// </returns>
         /// <param name="x">Objetos a comprobar.</param>
         public static bool IsAnyNull(params object[] x) => x.IsAnyNull();
         /// <summary>
-        /// Determina si cualquiera de los objetos es <c>null</c>.
+        /// Determina si cualquiera de los objetos es <see langword="null"/>.
         /// </summary>
         /// <returns>
-        /// Un enumerador con los índices de los objetos que son <c>null</c>.
+        /// Un enumerador con los índices de los objetos que son <see langword="null"/>.
         /// </returns>
         /// <param name="collection">Colección de objetos a comprobar.</param>
         public static IEnumerable<int> WhichAreNull(this IEnumerable<object> collection)
@@ -131,27 +131,27 @@ namespace TheXDS.MCART
             }
         }
         /// <summary>
-        /// Determina si cualquiera de los objetos es <c>null</c>.
+        /// Determina si cualquiera de los objetos es <see langword="null"/>.
         /// </summary>
         /// <returns>
-        /// Un enumerador con los índices de los objetos que son <c>null</c>.
+        /// Un enumerador con los índices de los objetos que son <see langword="null"/>.
         /// </returns>
         /// <param name="collection">Colección de objetos a comprobar.</param>
         public static IEnumerable<int> WhichAreNull(params object[] collection) => collection.WhichAreNull();
         /// <summary>
-        /// Determina si todos los objetos son <c>null</c>.
+        /// Determina si todos los objetos son <see langword="null"/>.
         /// </summary>
         /// <returns>
-        /// <see langword="true"/>, si todos los objetos son <c>null</c>; de lo contrario,
+        /// <see langword="true"/>, si todos los objetos son <see langword="null"/>; de lo contrario,
         /// <see langword="false"/>.
         /// </returns>
         /// <param name="x">Objetos a comprobar.</param>
-        public static bool AreAllNull(this IEnumerable<object> x)=> x.All(p => p is null);
+        public static bool AreAllNull(this IEnumerable<object> x) => x.All(p => p is null);
         /// <summary>
-        /// Determina si todos los objetos son <c>null</c>.
+        /// Determina si todos los objetos son <see langword="null"/>.
         /// </summary>
         /// <returns>
-        /// <see langword="true"/>, si todos los objetos son <c>null</c>; de lo contrario,
+        /// <see langword="true"/>, si todos los objetos son <see langword="null"/>; de lo contrario,
         /// <see langword="false"/>.
         /// </returns>
         /// <param name="x">Objetos a comprobar.</param>
@@ -369,7 +369,7 @@ namespace TheXDS.MCART
         /// </param>
         /// <returns>
         /// Un atributo del tipo <typeparamref name="T"/> con los datos
-        /// asociados en la declaración del ensamblado; o <c>null</c> en caso
+        /// asociados en la declaración del ensamblado; o <see langword="null"/> en caso
         /// de no encontrarse el atributo especificado.
         /// </returns>
         [Thunk]
@@ -390,7 +390,7 @@ namespace TheXDS.MCART
         /// <param name="attribute">
         /// Parámetro de salida. Si un atributo de tipo
         /// <typeparamref name="T"/> ha sido encontrado, el mismo es devuelto.
-        /// Se devolverá <c>null</c> si el miembro no posee el atributo
+        /// Se devolverá <see langword="null"/> si el miembro no posee el atributo
         /// especificado.
         /// </param>
         /// <returns><see langword="true"/> si el miembro posee el atributo, <see langword="false"/>
@@ -426,7 +426,7 @@ namespace TheXDS.MCART
         /// </param>
         /// <returns>
         /// Un atributo del tipo <typeparamref name="T"/> con los datos
-        /// asociados en la declaración del miembro; o <c>null</c> en caso de
+        /// asociados en la declaración del miembro; o <see langword="null"/> en caso de
         /// no encontrarse el atributo especificado.
         /// </returns>
         [Thunk]
@@ -447,7 +447,7 @@ namespace TheXDS.MCART
         /// <param name="attribute">
         /// Parámetro de salida. Si un atributo de tipo
         /// <typeparamref name="T"/> ha sido encontrado, el mismo es devuelto.
-        /// Se devolverá <c>null</c> si el miembro no posee el atributo
+        /// Se devolverá <see langword="null"/> si el miembro no posee el atributo
         /// especificado.
         /// </param>
         /// <returns><see langword="true"/> si el miembro posee el atributo, <see langword="false"/>
@@ -480,7 +480,7 @@ namespace TheXDS.MCART
         /// <param name="type">Objeto del cual se extraerá el atributo.</param>
         /// <returns>
         /// Un atributo del tipo <typeparamref name="T"/> con los datos
-        /// asociados en la declaración del objeto; o <c>null</c> en caso de no
+        /// asociados en la declaración del objeto; o <see langword="null"/> en caso de no
         /// encontrarse el atributo especificado.
         /// </returns>
         [Thunk]
@@ -501,7 +501,7 @@ namespace TheXDS.MCART
         /// <param name="attribute">
         /// Parámetro de salida. Si un atributo de tipo
         /// <typeparamref name="T"/> ha sido encontrado, el mismo es devuelto.
-        /// Se devolverá <c>null</c> si el miembro no posee el atributo
+        /// Se devolverá <see langword="null"/> si el miembro no posee el atributo
         /// especificado.
         /// </param>
         /// <returns><see langword="true"/> si el miembro posee el atributo, <see langword="false"/>
@@ -534,7 +534,7 @@ namespace TheXDS.MCART
         /// <param name="obj">Objeto del cual se extraerá el atributo.</param>
         /// <returns>
         /// Un atributo del tipo <typeparamref name="T"/> con los datos
-        /// asociados en la declaración del objeto; o <c>null</c> en caso de no
+        /// asociados en la declaración del objeto; o <see langword="null"/> en caso de no
         /// encontrarse el atributo especificado.
         /// </returns>
         [Thunk]
@@ -555,7 +555,7 @@ namespace TheXDS.MCART
         /// <param name="attribute">
         /// Parámetro de salida. Si un atributo de tipo
         /// <typeparamref name="T"/> ha sido encontrado, el mismo es devuelto.
-        /// Se devolverá <c>null</c> si el miembro no posee el atributo
+        /// Se devolverá <see langword="null"/> si el miembro no posee el atributo
         /// especificado.
         /// </param>
         /// <returns><see langword="true"/> si el miembro posee el atributo, <see langword="false"/>
@@ -589,23 +589,17 @@ namespace TheXDS.MCART
         /// Un atributo del tipo <typeparamref name="T"/> con los datos 
         /// asociados en la declaración del valor de enumeración.
         /// </returns>
+#if !CLSCompliance && PreferExceptions
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Se produce si el tipo de enumeración no contiene un valor definido
+        /// para <paramref name="enumValue"/>.
+        /// </exception>
+        [CLSCompliant(false)]
+#endif
         public static T GetAttr<T>(this Enum enumValue) where T : Attribute
         {
-            var type = enumValue.GetType();
-            if (!type.IsEnumDefined(enumValue))
-#if PreferExceptions
-                /* -= NOTA =-
-                 * si se define el símbolo PreferExceptions, esta función ya no
-                 * cumplirá con el estándar CLS, debido a que un valor de tipo
-                 * Enum no debería tener un contrato que compruebe el rango de
-                 * valores. Al crear aplicaciones que utilicen esta función, se
-                 * debe tomar en cuenta este comportamiento.
-                 */
-                throw new ArgumentOutOfRangeException(nameof(enumValue));
-#else
-                return null;
-#endif
-            return enumValue.GetType().GetMember(type.GetEnumName(enumValue))[0].GetCustomAttributes(typeof(T), false).FirstOrDefault() as T;
+            HasAttr<T>(enumValue, out var retval);
+            return retval;
         }
         /// <summary>
         /// Determina si un valor de enumeración posee un atributo definido.
@@ -619,23 +613,52 @@ namespace TheXDS.MCART
         /// <returns><see langword="true"/> si el valor de enumeración posee el atributo,
         /// <see langword="false"/> en caso contrario.
         /// </returns>
-        public static bool HasAttr<T>(this Enum enumValue) where T : Attribute
+#if !CLSCompliance && PreferExceptions
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Se produce si el tipo de enumeración no contiene un valor definido
+        /// para <paramref name="enumValue"/>.
+        /// </exception>
+        [CLSCompliant(false)]
+#endif
+        public static bool HasAttr<T>(this Enum enumValue) where T : Attribute => HasAttr<T>(enumValue, out _);
+        /// <summary>
+        /// Determina si un valor de enumeración posee un atributo definido.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute"/>.
+        /// </typeparam>
+        /// <param name="enumValue">
+        /// Valor de enumeración del cual se extraerá el atributo.
+        /// </param>
+        /// <param name="attribute">
+        /// Parámetro de salida. Si un atributo de tipo
+        /// <typeparamref name="T"/> ha sido encontrado, el mismo es devuelto.
+        /// Se devolverá <see langword="null"/> si el miembro no posee el atributo
+        /// especificado.
+        /// </param>
+        /// <returns><see langword="true"/> si el valor de enumeración posee el atributo,
+        /// <see langword="false"/> en caso contrario.
+        /// </returns>
+#if !CLSCompliance && PreferExceptions
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Se produce si el tipo de enumeración no contiene un valor definido
+        /// para <paramref name="enumValue"/>.
+        /// </exception>
+        [CLSCompliant(false)]
+#endif
+        public static bool HasAttr<T>(this Enum enumValue, out T attribute) where T : Attribute
         {
             var type = enumValue.GetType();
+            attribute = null;
             if (!type.IsEnumDefined(enumValue))
-#if PreferExceptions
-                /* -= NOTA =-
-                 * si se define el símbolo PreferExceptions, esta función ya no
-                 * cumplirá con el estándar CLS, debido a que un valor de tipo
-                 * Enum no debería tener un contrato que compruebe el rango de
-                 * valores. Al crear aplicaciones que utilicen esta función, se
-                 * debe tomar en cuenta este comportamiento.
-                 */
+#if !CLSCompliance && PreferExceptions
                 throw new ArgumentOutOfRangeException(nameof(enumValue));
 #else
                 return false;
 #endif
-            return type.GetMember(type.GetEnumName(enumValue))[0].GetCustomAttributes(typeof(T), false).Any();
+
+                attribute = type.GetMember(type.GetEnumName(enumValue))[0].GetCustomAttributes(typeof(T), false).FirstOrDefault() as T;
+            return !(attribute is null);
         }
         /// <summary>
         /// Devuelve el atributo asociado a la declaración del tipo
@@ -666,7 +689,7 @@ namespace TheXDS.MCART
         /// <param name="type">Objeto del cual se extraerá el atributo.</param>
         /// <returns>
         /// Un atributo del tipo <typeparamref name="T"/> con los datos
-        /// asociados en la declaración del tipo; o <c>null</c> en caso de no
+        /// asociados en la declaración del tipo; o <see langword="null"/> en caso de no
         /// encontrarse el atributo especificado.
         /// </returns>
         public static T GetAttrAlt<T>(this Type type) where T : Attribute
@@ -686,7 +709,7 @@ namespace TheXDS.MCART
         /// <param name="attribute">
         /// Parámetro de salida. Si un atributo de tipo
         /// <typeparamref name="T"/> ha sido encontrado, el mismo es devuelto.
-        /// Se devolverá <c>null</c> si el miembro no posee el atributo
+        /// Se devolverá <see langword="null"/> si el miembro no posee el atributo
         /// especificado.
         /// </param>
         /// <returns><see langword="true"/> si el miembro posee el atributo, <see langword="false"/>
@@ -763,9 +786,9 @@ namespace TheXDS.MCART
         /// <param name="identifier">Identificador a buscar.</param>
         /// <returns>
         /// Un tipo que ha sido etiquetado con el identificador especificado,
-        /// o <c>null</c> si ningún tipo contiene el identificador.
+        /// o <see langword="null"/> si ningún tipo contiene el identificador.
         /// </returns>
-        [Thunk]public static Type FindType(string identifier) => FindType<object>(identifier);
+        [Thunk] public static Type FindType(string identifier) => FindType<object>(identifier);
         /// <summary>
         /// Busca en el <see cref="AppDomain"/> actual un tipo que contenga el
         /// <see cref="IdentifierAttribute"/> especificado.
@@ -774,7 +797,7 @@ namespace TheXDS.MCART
         /// <param name="identifier">Identificador a buscar.</param>
         /// <returns>
         /// Un tipo que ha sido etiquetado con el identificador especificado,
-        /// o <c>null</c> si ningún tipo contiene el identificador.
+        /// o <see langword="null"/> si ningún tipo contiene el identificador.
         /// </returns>
         [Thunk] public static Type FindType<T>(string identifier) => FindType<T>(identifier, AppDomain.CurrentDomain);
         /// <summary>
@@ -785,7 +808,7 @@ namespace TheXDS.MCART
         /// <param name="domain">Dominio en el cual buscar.</param>
         /// <returns>
         /// Un tipo que ha sido etiquetado con el identificador especificado,
-        /// o <c>null</c> si ningún tipo contiene el identificador.
+        /// o <see langword="null"/> si ningún tipo contiene el identificador.
         /// </returns>
         [Thunk] public static Type FindType(string identifier, AppDomain domain) => FindType<object>(identifier, domain);
         /// <summary>
@@ -797,7 +820,7 @@ namespace TheXDS.MCART
         /// <param name="domain">Dominio en el cual buscar.</param>
         /// <returns>
         /// Un tipo que ha sido etiquetado con el identificador especificado,
-        /// o <c>null</c> si ningún tipo contiene el identificador.
+        /// o <see langword="null"/> si ningún tipo contiene el identificador.
         /// </returns>
         public static Type FindType<T>(string identifier, AppDomain domain)
         {

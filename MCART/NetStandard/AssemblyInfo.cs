@@ -1,5 +1,5 @@
 ﻿/*
-Icons.cs
+AssemblyInfo.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -21,23 +21,6 @@ Public License for more details.
 You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
-
-using System.Windows.Media;
-
-namespace TheXDS.MCART.Resources
-{
-    /// <summary>
-    /// Contiene íconos y otras imágenes para utilizar en aplicaciones de
-    /// Windows Presentation Framework.
-    /// </summary>
-    public static partial class Icons
-    {
-        /// <summary>
-        /// Obtiene un ícono desde los recursos incrustados del ensamblado de
-        /// MCART.
-        /// </summary>
-        /// <param name="icon">Ícono que se desea obtener.</param>
-        /// <returns>El ícono de recurso incrustado solicitado.</returns>
-        public static ImageSource GetIcon(IconID icon) => GetIcon<ImageSource>(icon);
-    }
-}
+#if CLSCompliance
+[assembly: System.CLSCompliant(true)]
+#endif

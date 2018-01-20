@@ -40,7 +40,7 @@ namespace TheXDS.MCART.PluginSupport
         /// </summary>
         /// <returns>
         /// Un <see cref="BitmapSource"/> con el ícono asociado a este objeto.
-        /// Si no se ha establecido un ícono, se devuelve <c>null</c>.
+        /// Si no se ha establecido un ícono, se devuelve <see langword="null"/>.
         /// </returns>
         public readonly BitmapSource Icon;
         /// <summary>

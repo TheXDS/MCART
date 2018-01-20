@@ -80,7 +80,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </summary>
         /// <param name="item">
         /// El objeto a ser añadido al final de la <see cref="List{T}"/>. El
-        /// valor puede ser <c>null</c> para tipos de referencia.
+        /// valor puede ser <see langword="null"/> para tipos de referencia.
         /// </param>
         public new void Add(T item)
         {
@@ -382,7 +382,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </summary>
         /// <param name="comparer">
         /// Implementación de <see cref="IComparer{T}"/> que se va a utilizar
-        /// al comparar elementos, o <c>null</c> para utilizar el comparador
+        /// al comparar elementos, o <see langword="null"/> para utilizar el comparador
         /// predeterminado <see cref="Comparer{T}.Default"/>.
         /// </param>
         public new void Sort(IComparer<T> comparer)
@@ -411,7 +411,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         /// <param name="comparer">
         /// Implementación de <see cref="IComparer{T}"/> que se va a utilizar
-        /// al comparar elementos, o <c>null</c> para utilizar el comparador
+        /// al comparar elementos, o <see langword="null"/> para utilizar el comparador
         /// predeterminado <see cref="Comparer{T}.Default"/>.
         /// </param>
         public new void Sort(int index, int count, IComparer<T> comparer)

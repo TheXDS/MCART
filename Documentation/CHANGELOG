@@ -161,6 +161,8 @@ Cambiado: En lugar de Unit Testing de Visual Studio, se utiliza xUnit.
 
 MCART 0.8 Series
 - MCART ha cambiado sus implementaciones para cumplir al 100% con la especificación CLS.
+- MCART ahora será publicado en NuGet
+Nuevo: Soporte para objetos de extracción de recursos incrustados
 Mejorado: Reescritura parcial de MCART
 Mejorado: Soporte de plugins parcialmente rescrito (nuevamente).
 Cambiado: Todos los espacios de nombres respetan la convención estándar de la especificación CLS.

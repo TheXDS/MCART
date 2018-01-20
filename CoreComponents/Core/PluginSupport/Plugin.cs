@@ -1,35 +1,35 @@
-﻿//
-//  Plugin.cs
-//
-//  This file is part of Morgan's CLR Advanced Runtime (MCART)
-//
-//  Author:
-//       César Andrés Morgan <xds_xps_ivx@hotmail.com>
-//
-//  Copyright (c) 2011 - 2018 César Andrés Morgan
-//
-//  Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-//
-//  Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-//
-//  You should have received a copy of the GNU General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿/*
+Plugin.cs
 
-using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Types.TaskReporter;
+This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Author(s):
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+
+Copyright (c) 2011 - 2018 César Andrés Morgan
+
+Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Types.TaskReporter;
 using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.PluginSupport
@@ -40,7 +40,6 @@ namespace TheXDS.MCART.PluginSupport
     /// </summary>
     public abstract partial class Plugin : IPlugin
     {
-        ITaskReporter _reporter = new DummyTaskReporter();
         /// <summary>
         /// Colección de <see cref="InteractionItem"/> del
         /// <see cref="Plugin"/>.
@@ -57,7 +56,7 @@ namespace TheXDS.MCART.PluginSupport
         /// <code language="vb" source="..\..\Documentation\Examples\PluginSupport\Plugin.vb" region="uiMenu1"/>
         /// </example>
         /// <seealso cref="InteractionItem"/>
-        protected readonly ObservableCollection<InteractionItem> uiMenu = new ObservableCollection<InteractionItem>();
+        protected ObservableCollection<InteractionItem> InteractionItems { get; } = new ObservableCollection<InteractionItem>();
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="Plugin"/>.
         /// </summary>
@@ -72,7 +71,7 @@ namespace TheXDS.MCART.PluginSupport
             foreach (var j in GetType().GetMethods().Where(k => k.HasAttr<InteractionItemAttribute>()))
             {
                 if (!(Delegate.CreateDelegate(typeof(EventHandler), this, j, false) is null))
-                    uiMenu.Add(new InteractionItem(j, this));
+                    InteractionItems.Add(new InteractionItem(j, this));
                 else
 #if PreferExceptions
                     throw new PluginException(this, new InvalidMethodSignatureException(j));
@@ -80,7 +79,7 @@ namespace TheXDS.MCART.PluginSupport
                     System.Diagnostics.Debug.Print(St.Warn(St.InvalidSignature(St.XYQuotes(St.TheMethod, $"{GetType().FullName}.{j.Name}"))));
 #endif
             }
-            uiMenu.CollectionChanged += (sender, e) => OnUIChanged();
+            InteractionItems.CollectionChanged += (sender, e) => OnUIChanged();
         }
         #region Propiedades de identificación
         /// <summary>
@@ -109,7 +108,7 @@ namespace TheXDS.MCART.PluginSupport
         /// El valor del atributo <see cref="DescriptionAttribute"/> definido
         /// para este <see cref="Plugin"/>, o en caso de no establecer el
         /// atributo, se devolverá la descripción del ensamblado que contiene a
-        /// este <see cref="Plugin"/>, o <c>null</c> en caso de no existir.
+        /// este <see cref="Plugin"/>, o <see langword="null"/> en caso de no existir.
         /// </value>
         public virtual string Description => GetType().GetAttrAlt<DescriptionAttribute>()?.Value
             ?? (Attribute.GetCustomAttribute(MyAssembly, typeof(AssemblyDescriptionAttribute)) as AssemblyDescriptionAttribute)?.Description;
@@ -120,7 +119,7 @@ namespace TheXDS.MCART.PluginSupport
         /// El valor del atributo <see cref="AuthorAttribute"/> definido para
         /// este <see cref="Plugin"/>, o en caso de no establecer el atributo,
         /// se devolverá el nombre de la compañía del ensamblado que contiene a
-        /// este <see cref="Plugin"/>, o <c>null</c> en caso de no existir.
+        /// este <see cref="Plugin"/>, o <see langword="null"/> en caso de no existir.
         /// </value>
         public virtual string Author => GetType().GetAttrAlt<AuthorAttribute>()?.Value
             ?? (Attribute.GetCustomAttribute(MyAssembly, typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute)?.Company;
@@ -131,7 +130,7 @@ namespace TheXDS.MCART.PluginSupport
         /// El valor del atributo <see cref="AuthorAttribute"/> definido para
         /// este <see cref="Plugin"/>, o en caso de no establecer el atributo,
         /// se devolverá el nombre de la compañía del ensamblado que contiene a
-        /// este <see cref="Plugin"/>, o <c>null</c> en caso de no existir.
+        /// este <see cref="Plugin"/>, o <see langword="null"/> en caso de no existir.
         /// </value>
         public virtual string Copyright => GetType().GetAttrAlt<CopyrightAttribute>()?.Value
             ?? (Attribute.GetCustomAttribute(MyAssembly, typeof(AssemblyCopyrightAttribute)) as AssemblyCopyrightAttribute)?.Copyright;
@@ -265,16 +264,11 @@ namespace TheXDS.MCART.PluginSupport
         /// Contiene una lista de interacciones que este <see cref="Plugin"/>.
         /// provee para incluir en una interfaz gráfica.
         /// </summary>
-        public ReadOnlyCollection<InteractionItem> PluginInteractions => new ReadOnlyCollection<InteractionItem>(uiMenu);
+        public ReadOnlyCollection<InteractionItem> PluginInteractions => new ReadOnlyCollection<InteractionItem>(InteractionItems);
         /// <summary>
         /// Indica si este <see cref="Plugin"/> contiene o no interacciones.
         /// </summary>        
-        public bool HasInteractions => uiMenu.Any();
-        /// <summary>
-        /// Referencia al objeto <see cref="ITaskReporter"/> a utilizar por las
-        /// funciones de este <see cref="Plugin"/>.
-        /// </summary>
-        public ITaskReporter Reporter { get => _reporter; set => _reporter = value ?? throw new ArgumentNullException(nameof(value)); }
+        public bool HasInteractions => InteractionItems.Any();
         /// <summary>
         /// Contiene un objeto de libre uso para almacenamiento de cualquier
         /// inatancia que el usuario desee asociar a este <see cref="Plugin"/>.

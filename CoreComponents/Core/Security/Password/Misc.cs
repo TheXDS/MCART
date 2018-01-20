@@ -29,7 +29,7 @@ namespace TheXDS.MCART.Security.Password
     /// <summary>
     /// Determina el nivel de ponderación a aplicar a un objeto <see cref="PwEvalRule"/>
     /// </summary>
-    public enum PonderationLevel : sbyte
+    public enum PonderationLevel : short
 	{
 		/// <summary>
 		/// Puntuación adversa más baja.

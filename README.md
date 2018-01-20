@@ -1,4 +1,10 @@
-# MCART
+<div align="center">
+<h1>
+<img src="https://raw.githubusercontent.com/TheXDS/MCART/master/CoreComponents/Core-GUI/Resources/Icons/MCART.png" alt="MCART" align="middle" heigth="64px" width="64px">
+MCART
+</h1>
+</div>
+
 ## Introducción
 MCART es un conjunto de funciones, extensiones y módulos que he encontrado
 útiles a lo largo de mis años de experiencia con lenguajes .Net,
@@ -27,12 +33,47 @@ con .Net Standard y otro compilado para .Net Framework con la menor cantidad de
 referencias posibles, denomidado CoreEdition. También, existen planes de
 incorporar otros proyectos para soportar Universal Windows Platform (UWP) y, a
 un futuro, Cocoa para macOs.
+## Releases
+MCART se encuentra disponible en NuGet.
+### WPF
+MCART para Windows Presentation Framework.
+
+**Package Manager**  
+`PM> Install-Package TheXDS.MCART.WPF`
+
+**.NET CLI**  
+`> dotnet add package TheXDS.MCART.WPF`
+
+**Paket CLI**  
+`> paket add TheXDS.MCART.WPF`
+
+### Lite
+MCART Lite Edition.
+
+**Package Manager**  
+`PM> Install-Package TheXDS.MCART.Lite`
+
+**.NET CLI**  
+`> dotnet add package TheXDS.MCART.Lite`
+
+**Paket CLI**  
+`> paket add TheXDS.MCART.Lite`
+
+### NetStandard
+MCART para .Net Standard.
+
+**Package Manager**  
+`PM> Install-Package TheXDS.MCART.NetStandard`
+
+**.NET CLI**  
+`> dotnet add package TheXDS.MCART.NetStandard`
+
+**Paket CLI**  
+`> paket add TheXDS.MCART.NetStandard`
 ## Compilación
-MCART requiere de un compilador compatible con C# 7.0, debido a ciertas
-características especiales de contratos para argumentos. Eventualmente, es
-posible que el desarrollo se mueva a versiones más recientes del lenguaje,
-por ejemplo, cuando el soporte de C#7.1 sea mayor en diferentes entornos de
-desarrollo.
+MCART requiere de un compilador compatible con C# 7.2, debido a ciertas
+características especiales del lenguaje que ayudan a disminuir la
+complejidad del código.
 
 MCART también requiere que [.Net SDK 2.0](https://www.microsoft.com/net/core)
 esté instalado en el sistema. .Net SDK está disponible para Microsoft
@@ -42,22 +83,35 @@ proyectos.
 La siguiente tabla indica los entornos de desarrollo en las cuales se ha
 comprobado la compatibilidad para compilar MCART:
 
-|Entorno de desarollo|Core|WPF|Gtk|Win32|.Net Std|Tests
+|Entorno de desarollo|Lite|WPF|Gtk|Win32|.Net Std|Tests|API-Doc|Utils
 |-|:-:|:-:|:-:|:-:|:-:|:-:
-|Visual Studio 2017|X|X|X*|X|X|X
-|Visual Studio 2015**|X|X|X*|X|X|X
-|Visual Studio 2013**|X|X|X*|X||X
+|Visual Studio 2017|✓|✓|X*|X|✓*|✓|✓*|✓
+|Visual Studio 2015**|✓|✓|X*|X|✓*|✓|✓*|✓
+|Visual Studio 2013**|✓|✓|X*|X||✓|✓*|✓
 |Visual Studio 2010-
 |Xamarin Studio 4 (Windows)
-|MonoDevelop 7+|X||X|X|X|X
+|MonoDevelop 7+ (Linux)|✓||X|X|✓*|✓||✓
 |MonoDevelop 5-
 |SharpDevelop
-|Rider 2017.1.2|X|X|X*|X|~|X
+|Rider 2017.1.2|✓|✓|X*|X|~*|✓||✓
 
-*Una marca indica que el IDE soporta el proyecto. Los IDE que no están listados
-no han sido probados.*  
+*Una marca indica que el IDE soporta el proyecto.  
+Los IDE que no están listados
+no han sido probados.  
+Los paquetes de NuGet no se consideran componentes adicionales.  
+Los proyectos de ejemplo incluídos no se listan.*
+
+ ✓: Proyecto soportado  
+ X: Proyecto soportado, actualmente no compila  
  ~: Soporte parcial  
- *: Requiere de componentes adicionales (Gtk#) instalados en el sistema  
-**: Es necesario instalar un compilador para C# 7.0 o posterior (`PM> Install-Package Microsoft.Net.Compilers`)  
+ *: Requiere de componentes adicionales instalados en el sistema  
+**: Es necesario instalar un compilador para C# 7.2 o posterior (`PM> Install-Package Microsoft.Net.Compilers`)  
  +: Versiones posteriores  
  -: Versiones anteriores
+
+#### Componentes adicionales
+[Gtk# en NuGet](https://www.nuget.org/packages/GtkSharp)  
+[Información para descargar e instalar Gtk+3 en Microsoft Windows®](https://www.gtk.org/download/windows.php)  
+[.Net SDK 2.0 (Windows)](https://www.microsoft.com/download/details.aspx?id=19988)  
+[.Net SDK Getting Started (todas las plataformas)](https://www.microsoft.com/net/core)  
+[SandCastle Help File Builder](https://github.com/EWSoftware/SHFB/releases)

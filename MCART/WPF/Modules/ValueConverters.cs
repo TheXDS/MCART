@@ -519,7 +519,7 @@ namespace System.Windows.Converters
 
     /// <summary>
     /// Clase base para crear convertidores de valores booleanos que pueden ser
-    /// <c>null</c>.
+    /// <see langword="null"/>.
     /// </summary>
     /// <typeparam name="T">Tipo de valores a convertir.</typeparam>
     public class NullBoolConverter<T> : IValueConverter
@@ -544,7 +544,7 @@ namespace System.Windows.Converters
         /// </summary>
         /// <param name="TrueValue">Valor equivalente a <see langword="true"/>.</param>
         /// <param name="FalseValue">Valor equivalente a <see langword="false"/>.</param>
-        /// <param name="NullValue">Valor equivalente a <c>null</c>.</param>
+        /// <param name="NullValue">Valor equivalente a <see langword="null"/>.</param>
         public NullBoolConverter(T TrueValue, T FalseValue, T NullValue)
         {
             True = TrueValue;
@@ -562,7 +562,7 @@ namespace System.Windows.Converters
         /// </summary>
         public T False { get; set; }
         /// <summary>
-        /// Obtiene o establece el valor que equivale a <c>null</c> en este
+        /// Obtiene o establece el valor que equivale a <see langword="null"/> en este
         /// <see cref="NullBoolConverter{T}"/>.
         /// </summary>
         public T Null { get; set; }
@@ -579,7 +579,7 @@ namespace System.Windows.Converters
         /// <returns>
         /// <see cref="True"/> si <paramref name="value"/> es <see langword="true"/>,
         /// <see cref="False"/> si <paramref name="value"/> es <see langword="false"/>,
-        /// <see cref="Null"/> si <paramref name="value"/> es <c>null</c>.
+        /// <see cref="Null"/> si <paramref name="value"/> es <see langword="null"/>.
         /// </returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -605,7 +605,7 @@ namespace System.Windows.Converters
         /// <returns>
         /// <see langword="true"/> si <paramref name="value"/> es <see cref="True"/>,
         /// <see langword="false"/> si <paramref name="value"/> es <see cref="False"/>,
-        /// <c>null</c> si <paramref name="value"/> es <see cref="Null"/>.
+        /// <see langword="null"/> si <paramref name="value"/> es <see cref="Null"/>.
         /// </returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -670,7 +670,7 @@ namespace System.Windows.Converters
         /// <see cref="CultureInfo"/> a utilizar para la conversión.</param>
         /// <returns>
         /// Si la conversión desde <see cref="string"/> tuvo éxito, se 
-        /// devolverá al objeto, se devolverá <c>null</c> en caso contrario.
+        /// devolverá al objeto, se devolverá <see langword="null"/> en caso contrario.
         /// </returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {

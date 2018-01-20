@@ -24,6 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security;
@@ -119,7 +120,7 @@ namespace TheXDS.MCART
         /// Determina si una cadena está vacía.
         /// </summary>
         /// <returns>
-        /// <see langword="true"/> si la cadena está vacía o es <c>null</c>; de lo
+        /// <see langword="true"/> si la cadena está vacía o es <see langword="null"/>; de lo
         /// contrario, <see langword="false"/>.
         /// </returns>
         /// <param name="stringToCheck">Cadena a comprobar.</param>
@@ -128,7 +129,7 @@ namespace TheXDS.MCART
         /// Determina si un conjunto de cadenas están vacías.
         /// </summary>
         /// <returns>
-        /// <see langword="true"/> si las cadenas están vacías o son <c>null</c>; de lo
+        /// <see langword="true"/> si las cadenas están vacías o son <see langword="null"/>; de lo
         /// contrario, <see langword="false"/>.
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
@@ -137,7 +138,7 @@ namespace TheXDS.MCART
         /// Determina si alguna cadena está vacía.
         /// </summary>
         /// <returns>
-        /// <see langword="true"/> si alguna cadena está vacía o es <c>null</c>; de lo
+        /// <see langword="true"/> si alguna cadena está vacía o es <see langword="null"/>; de lo
         /// contrario, <see langword="false"/>.
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
@@ -146,7 +147,7 @@ namespace TheXDS.MCART
         /// Determina si alguna cadena está vacía.
         /// </summary>
         /// <returns>
-        /// <see langword="true"/> si alguna cadena está vacía o es <c>null</c>; de lo
+        /// <see langword="true"/> si alguna cadena está vacía o es <see langword="null"/>; de lo
         /// contrario, <see langword="false"/>.
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
@@ -585,7 +586,7 @@ namespace TheXDS.MCART
         /// <param name="actualName">Nombre real conocido.</param>
         /// <exception cref="ArgumentNullException">
         /// Se produce cuando <paramref name="checkName"/> o
-        /// <paramref name="actualName"/> son cadenas vacías o <c>null</c>.
+        /// <paramref name="actualName"/> son cadenas vacías o <see langword="null"/>.
         /// </exception>
         public static double CouldItBe(this string checkName, string actualName) => CouldItBe(checkName, actualName, 0.75f);
         /// <summary>
@@ -609,7 +610,7 @@ namespace TheXDS.MCART
         /// </exception>
         /// <exception cref="ArgumentNullException">
         /// Se produce cuando <paramref name="checkName"/> o
-        /// <paramref name="actualName"/> son cadenas vacías o <c>null</c>.
+        /// <paramref name="actualName"/> son cadenas vacías o <see langword="null"/>.
         /// </exception>
         public static double CouldItBe(this string checkName, string actualName, float tolerance = 0.75f)
         {
@@ -639,6 +640,36 @@ namespace TheXDS.MCART
         /// <param name="arr">Arreglo de bytes a convertir.</param>
         [Thunk] public static string ToHex(this byte[] arr) => BitConverter.ToString(arr).Replace("-", "");
         /// <summary>
+        /// Permite obtener el contenido de un <see cref="string"/> como un 
+        /// <see cref="Stream"/>.
+        /// </summary>
+        /// <param name="string">Cadena a convertir.</param>
+        /// <returns>
+        /// Un <see cref="Stream"/> con el contenido de la cadena.
+        /// </returns>
+        public static Stream ToStream(this string @string)
+        {
+            var ms = new MemoryStream();
+            using (var tw = new StreamWriter(ms))
+                tw.Write(@string);
+            return ms;
+        }
+        /// <summary>
+        /// Permite obtener el contenido de un <see cref="string"/> como un 
+        /// <see cref="Stream"/>, realizando la conversión de forma asíncrona.
+        /// </summary>
+        /// <param name="string">Cadena a convertir.</param>
+        /// <returns>
+        /// Un <see cref="Stream"/> con el contenido de la cadena.
+        /// </returns>
+        public static async System.Threading.Tasks.Task<Stream> ToStreamAsync(this string @string)
+        {
+            var ms = new MemoryStream();
+            using (var tw = new StreamWriter(ms))
+                await tw.WriteAsync(@string);
+            return ms;
+        }
+        /// <summary>
         /// Verifica si la cadena contiene letras.
         /// </summary>
         /// <returns>
@@ -662,7 +693,7 @@ namespace TheXDS.MCART
         /// Opcional. Especifica el tipo de comprobación a realizar. Si es
         /// <see langword="true"/>, Se tomarán en cuenta únicamente los caracteres en
         /// mayúsculas, si es <see langword="false"/>, se tomarán en cuenta unicamente  los
-        /// caracteres en minúsculas. Si se omite o se establece en <c>null</c>,
+        /// caracteres en minúsculas. Si se omite o se establece en <see langword="null"/>,
         /// se tomarán en cuenta ambos casos.</param>
         public static bool ContainsLetters(this string stringToCheck, bool ucase)
         {

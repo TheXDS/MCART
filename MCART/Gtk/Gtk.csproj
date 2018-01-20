@@ -5,8 +5,8 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProjectGuid>{99E6BBF2-0911-4A07-85C4-8A1BFC479F34}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>MCART</RootNamespace>
-    <AssemblyName>MCART</AssemblyName>
+    <RootNamespace>TheXDS.MCART</RootNamespace>
+    <AssemblyName>TheXDS.MCART.Gtk</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <ReleaseVersion>0.6</ReleaseVersion>
   </PropertyGroup>
@@ -19,7 +19,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DocumentationFile>..\..\Build\Gtk\Debug\MCART.xml</DocumentationFile>
+    <DocumentationFile>..\..\Build\Gtk\Debug\TheXDS.MCART.Gtk.xml</DocumentationFile>
     <LangVersion>default</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">

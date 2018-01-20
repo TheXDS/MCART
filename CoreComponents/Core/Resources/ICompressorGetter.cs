@@ -1,5 +1,5 @@
 ﻿/*
-Icons.cs
+ICompressorGetter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,22 +22,28 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Windows.Media;
+using System.IO;
 
 namespace TheXDS.MCART.Resources
 {
     /// <summary>
-    /// Contiene íconos y otras imágenes para utilizar en aplicaciones de
-    /// Windows Presentation Framework.
+    /// Define una serie de métodos a implementar por una clase que permita
+    /// obtener un <see cref="Stream"/> para extraer información comprimida
+    /// desde otro <see cref="Stream"/>.
     /// </summary>
-    public static partial class Icons
+    public interface ICompressorGetter
     {
         /// <summary>
-        /// Obtiene un ícono desde los recursos incrustados del ensamblado de
-        /// MCART.
+        /// Obtiene un <see cref="Stream"/> para extraer información comprimida
+        /// desde <paramref name="inputStream"/>.
         /// </summary>
-        /// <param name="icon">Ícono que se desea obtener.</param>
-        /// <returns>El ícono de recurso incrustado solicitado.</returns>
-        public static ImageSource GetIcon(IconID icon) => GetIcon<ImageSource>(icon);
+        /// <param name="inputStream">
+        /// <see cref="Stream"/> que contiene la información a extraer.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="Stream"/> que puede utilizarse para extraer
+        /// información comprimida desde <paramref name="inputStream"/>.
+        /// </returns>
+        Stream GetCompressor(Stream inputStream);
     }
 }

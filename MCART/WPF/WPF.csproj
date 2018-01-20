@@ -82,6 +82,8 @@
     <Compile Include="PluginSupport\InteractionItem.cs" />
     <Compile Include="PluginSupport\Plugin.cs" />
     <Compile Include="Resources\Icons.cs" />
+    <Compile Include="Resources\ImageUnpacker.cs" />
+    <Compile Include="Resources\RTInfo.cs" />
     <Compile Include="Security\Password\PwDialogResult.cs" />
     <Compile Include="Types\Color.cs" />
     <Compile Include="Types\Point.cs" />

@@ -13,6 +13,6 @@
     <description>$description$</description>
     <releaseNotes>Versión inicial disponible en NuGet.</releaseNotes>
     <copyright>$copyright$</copyright>
-    <tags>mcart runtime</tags>
+    <tags>mcart runtime extension helper async network security</tags>
   </metadata>
 </package>
