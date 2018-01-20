@@ -41,7 +41,7 @@
     <Compile Include="Properties.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MCART\CoreEdition\CoreEdition.csproj">
+    <ProjectReference Include="..\..\MCART\CoreEdition\Lite.csproj">
       <Project>{FFCB72D8-1CB3-47A2-876B-630076307D78}</Project>
       <Name>CoreEdition</Name>
     </ProjectReference>

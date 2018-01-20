@@ -34,6 +34,29 @@ namespace TheXDS.MCART.Types.Extensions
     public static class IEnumerableExtensions
     {
         /// <summary>
+        /// Obtiene un sub-rango de valores dentro de este
+        /// <see cref="List{T}"/>.
+        /// </summary>
+        /// <param name="from">
+        /// <see cref="IEnumerable{T}"/> desde el cual extraer la secuencia.
+        /// </param>
+        /// <param name="index">
+        /// Índice a partir del cual obtener el sub-rango.
+        /// </param>
+        /// <param name="count">
+        /// Cantidad de elementos a obtener.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="IEnumerable{T}"/> que contiene el sub-rango
+        /// especificado.
+        /// </returns>
+        public static IEnumerable<T> Range<T>(this IEnumerable<T> from, int index, int count)
+        {
+            var retVal = new T[] { };
+            from.ToList().CopyTo(0, retVal, index, count);
+            return retVal;
+        }
+        /// <summary>
         /// Ontiene una copia de los elementos de este <see cref="IEnumerable{T}"/> 
         /// </summary>
         /// <returns>
