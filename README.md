@@ -84,7 +84,7 @@ La siguiente tabla indica los entornos de desarrollo en las cuales se ha
 comprobado la compatibilidad para compilar MCART:
 
 |Entorno de desarollo|Lite|WPF|Gtk|Win32|.Net Std|Tests|API-Doc|Utils
-|-|:-:|:-:|:-:|:-:|:-:|:-:
+|-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:
 |Visual Studio 2017|✓|✓|X*|X|✓*|✓|✓*|✓
 |Visual Studio 2015**|✓|✓|X*|X|✓*|✓|✓*|✓
 |Visual Studio 2013**|✓|✓|X*|X||✓|✓*|✓
