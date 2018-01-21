@@ -46,6 +46,62 @@ namespace TheXDS.MCART
     public static class Common
     {
         /// <summary>
+        /// Invierte el Endianess de un valor <see cref="short"/>.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>Un <see cref="short"/> cuyo Endianess ha sido invertido.</returns>
+        public static short FlipEndianess(this short value) => BitConverter.ToInt16(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
+        /// <summary>
+        /// Invierte el Endianess de un valor <see cref="int"/>.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>Un <see cref="int"/> cuyo Endianess ha sido invertido.</returns>
+        public static int FlipEndianess(this int value) => BitConverter.ToInt32(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
+        /// <summary>
+        /// Invierte el Endianess de un valor <see cref="long"/>.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>Un <see cref="long"/> cuyo Endianess ha sido invertido.</returns>
+        public static long FlipEndianess(this long value) => BitConverter.ToInt64(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
+        /// <summary>
+        /// Invierte el Endianess de un valor <see cref="char"/>.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>Un <see cref="char"/> cuyo Endianess ha sido invertido.</returns>
+        public static char FlipEndianess(this char value) => BitConverter.ToChar(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
+        /// <summary>
+        /// Invierte el Endianess de un valor <see cref="float"/>.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>Un <see cref="float"/> cuyo Endianess ha sido invertido.</returns>
+        public static float FlipEndianess(this float value) => BitConverter.ToSingle(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
+        /// <summary>
+        /// Invierte el Endianess de un valor <see cref="double"/>.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>Un <see cref="double"/> cuyo Endianess ha sido invertido.</returns>
+        public static double FlipEndianess(this double value) => BitConverter.ToDouble(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
+#if !CLSCompliance
+        /// <summary>
+        /// Invierte el Endianess de un valor <see cref="ushort"/>.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>Un <see cref="ushort"/> cuyo Endianess ha sido invertido.</returns>
+        public static ushort FlipEndianess(this ushort value) => BitConverter.ToUInt16(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
+        /// <summary>
+        /// Invierte el Endianess de un valor <see cref="uint"/>.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>Un <see cref="uint"/> cuyo Endianess ha sido invertido.</returns>
+        public static uint FlipEndianess(this uint value) => BitConverter.ToUInt32(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
+        /// <summary>
+        /// Invierte el Endianess de un valor <see cref="ulong"/>.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>Un <see cref="ulong"/> cuyo Endianess ha sido invertido.</returns>
+        public static ulong FlipEndianess(this ulong value) => BitConverter.ToUInt64(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
+#endif
+        /// <summary>
         /// Condensa un arreglo de <see cref="string"/>  en una sola cadena.
         /// </summary>
         /// <returns>
@@ -80,6 +136,73 @@ namespace TheXDS.MCART
         /// <example>
         /// </example>
         public static string Condense(this IEnumerable<string> stringArray) => Condense(stringArray, " ");
+        /// <summary>
+        /// Comprueba si la cadena tiene un formato alfanumérico básico igual 
+        /// al especificado.
+        /// </summary>
+        /// <param name="checkString"><see cref="string"/> a comprobar.</param>
+        /// <param name="format">
+        /// Formato alfanumérico básico contra el cual comparar.
+        /// </param>
+        /// <returns>
+        /// <see langword="true"/> si el formato de la cadena es igual al
+        /// especificado, <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool IsFormattedAs(this string checkString, string format) => IsFormattedAs(checkString, format, false);
+        /// <summary>
+        /// Comprueba si la cadena tiene un formato alfanumérico básico igual 
+        /// al especificado.
+        /// </summary>
+        /// <param name="checkString"><see cref="string"/> a comprobar.</param>
+        /// <param name="format">
+        /// Formato alfanumérico básico contra el cual comparar.
+        /// </param>
+        /// <param name="checkCase">
+        /// Si se establece en <see langword="true"/>, se hará una evaluación
+        /// sensible al Casing de la cadena.
+        /// </param>
+        /// <returns>
+        /// <see langword="true"/> si el formato de la cadena es igual al
+        /// especificado, <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool IsFormattedAs(this string checkString, string format, bool checkCase)
+        {
+            var chkS = checkCase ? checkString : checkString.ToUpperInvariant();
+            var fS = checkCase ? format : format.ToUpperInvariant();
+            if (chkS.Length != fS.Length) return false;
+            for (int j = 0; j < chkS.Length; j++)
+            {
+                var strChar = chkS[j];
+                var fChar = fS[j];
+                switch (fChar)
+                {
+                    case '0':
+                    case '9':
+                        if (!Char.IsDigit(strChar)) return false;
+                        break;
+                    case 'B':
+                    case 'b':
+                        if (!byte.TryParse($"0b0{strChar}", out _)) return false;
+                        break;
+                    case 'f':
+                    case 'F':
+                        if (!byte.TryParse($"0x0{strChar}", out _)) return false;
+                        break;
+                    case 'A':
+                    case 'X':
+                        if (!Char.IsUpper(strChar)) return false;
+                        break;
+                    case 'a':
+                    case 'x':
+                        if (!Char.IsLower(strChar)) return false;
+                        break;
+                    default: // Caracteres literales.
+                        if (strChar != fChar) return false;
+                        break;
+                }
+            }
+            return true;
+        }
         /// <summary>
         /// Obtiene una cadena que contenga la cantidad de caracteres 
         /// especificados desde la izquierda de la cadena.

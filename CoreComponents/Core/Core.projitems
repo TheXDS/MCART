@@ -70,7 +70,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\RuleSets.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\RTInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Color.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\ColorExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Colors.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\IProtocol.cs" />
   </ItemGroup>
