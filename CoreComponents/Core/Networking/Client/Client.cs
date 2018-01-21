@@ -43,7 +43,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <summary>
         /// Puerto predeterminado para las conexiones entrantes.
         /// </summary>
-        public const ushort defaultPort = 51220;
+        public const int DefaultPort = 51220;
         /// <summary>
         /// Gets a value indicating whether this <see cref="Client"/> is alive.
         /// </summary>
@@ -54,7 +54,7 @@ namespace TheXDS.MCART.Networking.Client
         /// </summary>
         /// <returns>Un <see cref="Task"/> que representa la tarea.</returns>
         /// <param name="server">Servidor al cual conectarse.</param>
-        public async Task ConnectAsync(string server) => await ConnectAsync(server, defaultPort);
+        public async Task ConnectAsync(string server) => await ConnectAsync(server, DefaultPort);
         /// <summary>
         /// Establece una conexión con el servidor de forma asíncrona.
         /// </summary>
@@ -64,8 +64,9 @@ namespace TheXDS.MCART.Networking.Client
         /// Opcional. Puerto del servidor. Si se omite, se conectará al puerto
         /// predeterminado.
         /// </param>
-        public async Task ConnectAsync(string server, ushort port)
+        public async Task ConnectAsync(string server, int port)
         {
+            if (!port.IsBetween(1, 65535)) throw new ArgumentOutOfRangeException(nameof(port));
             try
             {
                 await connection.ConnectAsync(server, port);
@@ -100,7 +101,7 @@ namespace TheXDS.MCART.Networking.Client
         /// </summary>
         /// <returns>Un <see cref="Task"/> que representa la tarea.</returns>
         /// <param name="server">Servidor al cual conectarse.</param>
-        public async Task ConnectAsync(IPAddress server) => await ConnectAsync(server, defaultPort);
+        public async Task ConnectAsync(IPAddress server) => await ConnectAsync(server, DefaultPort);
         /// <summary>
         /// Establece una conexión con el servidor de forma asíncrona.
         /// </summary>
@@ -110,8 +111,9 @@ namespace TheXDS.MCART.Networking.Client
         /// Opcional. Puerto del servidor. Si se omite, se conectará al puerto
         /// predeterminado.
         /// </param>
-        public async Task ConnectAsync(IPAddress server, ushort port)
+        public async Task ConnectAsync(IPAddress server, int port)
         {
+            if (!port.IsBetween(1, 65535)) throw new ArgumentOutOfRangeException(nameof(port));
             try
             {
                 await connection.ConnectAsync(server, port);
@@ -127,7 +129,7 @@ namespace TheXDS.MCART.Networking.Client
         /// Establece una conexión con el servidor.
         /// </summary>
         /// <param name="server">Servidor al cual conectarse.</param>
-        public void Connect(string server) => Connect(server, defaultPort);
+        public void Connect(string server) => Connect(server, DefaultPort);
         /// <summary>
         /// Establece una conexión con el servidor.
         /// </summary>
@@ -136,8 +138,9 @@ namespace TheXDS.MCART.Networking.Client
         /// Opcional. Puerto del servidor. Si se omite, se conectará al puerto
         /// predeterminado.
         /// </param>
-        public void Connect(string server, ushort port)
+        public void Connect(string server, int port)
         {
+            if (!port.IsBetween(1, 65535)) throw new ArgumentOutOfRangeException(nameof(port));
             try
             {
                 connection.Connect(server, port);
@@ -170,7 +173,7 @@ namespace TheXDS.MCART.Networking.Client
         /// Establece una conexión con el servidor.
         /// </summary>
         /// <param name="server">Servidor al cual conectarse.</param>
-        public void Connect(IPAddress server) => Connect(server, defaultPort);
+        public void Connect(IPAddress server) => Connect(server, DefaultPort);
         /// <summary>
         /// Establece una conexión con el servidor.
         /// </summary>
@@ -179,8 +182,9 @@ namespace TheXDS.MCART.Networking.Client
         /// Opcional. Puerto del servidor. Si se omite, se conectará al puerto
         /// predeterminado.
         /// </param>
-        public void Connect(IPAddress server, ushort port)
+        public void Connect(IPAddress server, int port)
         {
+            if (!port.IsBetween(1, 65535)) throw new ArgumentOutOfRangeException(nameof(port));
             try
             {
                 connection.Connect(server, port);
@@ -254,10 +258,10 @@ namespace TheXDS.MCART.Networking.Client
                 return new byte[] { };
 #endif
             using (var ms = new MemoryStream(data))
-                await(ms.CopyToAsync(ns));
+                await (ms.CopyToAsync(ns));
             using (var ms = new MemoryStream())
             {
-                await(ns.CopyToAsync(ms));
+                await (ns.CopyToAsync(ms));
                 return ms.ToArray();
             }
         }

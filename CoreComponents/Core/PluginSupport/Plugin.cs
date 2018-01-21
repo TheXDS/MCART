@@ -29,7 +29,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Types.TaskReporter;
 using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.PluginSupport

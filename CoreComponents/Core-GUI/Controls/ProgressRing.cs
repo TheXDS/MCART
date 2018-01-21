@@ -32,7 +32,7 @@ namespace TheXDS.MCART.Controls
         /// Determina la dirección en la que este <see cref="ProgressRing"/>
         /// será rellenado.
         /// </summary>
-        public enum SweepDirection : sbyte
+        public enum SweepDirection:short
         {
             /// <summary>
             /// El <see cref="ProgressRing"/> se rellenará en el sentido de las

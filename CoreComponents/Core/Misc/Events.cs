@@ -257,7 +257,7 @@ namespace TheXDS.MCART.Events
         /// Un <see cref="ItemCreatedEventArgs{T}"/> con la misma información de
         /// evento que el <see cref="ItemCreatingEventArgs{T}"/> especificado.
         /// </returns>
-        public static explicit operator ItemCreatedEventArgs<T>(ItemCreatingEventArgs<T> fromValue) => new ItemCreatedEventArgs<T>(fromValue.Item);
+        public static implicit operator ItemCreatedEventArgs<T>(ItemCreatingEventArgs<T> fromValue) => new ItemCreatedEventArgs<T>(fromValue.Item);
     }
     /// <summary>
     /// Contiene información de evento para cualquier clase con eventos donde 

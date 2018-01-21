@@ -60,7 +60,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\BarStepper.cs" />
     <Compile Include="Controls\BusyIndicator.cs" />
     <Compile Include="Controls\Graph\Slice.cs" />
     <Compile Include="Controls\LightGraph.cs" />

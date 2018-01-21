@@ -37,7 +37,7 @@ namespace TheXDS.MCART.Resources
         /// <returns>
         /// Una cadena con el texto "Acerca de {<paramref name="text"/>}".
         /// </returns>
-        public static string About(string text) => $"Acerca de {text}";
+        public static string AboutX(string text) => $"Acerca de {text}";
         /// <summary>
         /// Devuelve una cadena con el texto "No se pudo crear una nueva
         /// instancia del tipo {<paramref name="text"/>}".
@@ -113,7 +113,7 @@ namespace TheXDS.MCART.Resources
         /// Una cadena con el texto "{<paramref name="text"/>} no es una clase
         /// de Plugin válida.".
         /// </returns>
-        public static string InvalidPluginClass(string text) => $"{text} no es una clase de Plugin válida.";
+        public static string InvalidPluginClassX(string text) => $"{text} no es una clase de Plugin válida.";
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} no
         /// tiene una firma válida.".
@@ -173,7 +173,7 @@ namespace TheXDS.MCART.Resources
         /// El texto generado por esta función podría no verse correctamente en
         /// un programa, consola o terminal que no sea Unicode.
         /// </remarks>
-        public static string Ok(string text) => $"✓ {text}";
+        public static string OkX(string text) => $"✓ {text}";
         /// <summary>
         /// Devuelve una cadena con el texto "El plugin {<paramref name="plg"/>} no contiene interacciones.".
         /// </summary>
@@ -408,11 +408,9 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public static string XYQuotes(string unquoted, string quoted) => $"{unquoted} '{quoted}'";
         #endregion
-
 #pragma warning disable CS1591 // Las cadenas generalmente no requieren de descripción.
-
         public const string Abort = "Abortar";
-        public const string about = "Acerca de...";
+        public const string About = "Acerca de...";
         public const string AllFiles = "Todos los archivos";
         public const string Alpha = "abcdefghijklmnopqrstuvwxyz";
         public const string Assmblies = "Ensamblados";
@@ -445,7 +443,7 @@ namespace TheXDS.MCART.Resources
         public const string InvalidDB = "La base de datos no es válida";
         public const string InvalidInfo = "La información no es válida.";
         public const string InvalidPassword = "La contraseña no es válida.";
-        public const string invalidPluginClass = "La clase no es un Plugin válido.";
+        public const string InvalidPluginClass = "La clase no es un Plugin válido.";
         public const string IsBeta = "Versión Beta";
         public const string IsUnsafe = "Inseguro (NO UTILIZAR)";
         public const string ItsLong = "Es muy larga";

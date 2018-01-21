@@ -147,7 +147,7 @@ namespace TheXDS.MCART.Dialogs
         /// </param>
         public void DetailsOf(IPlugin p)
         {
-            Title = St.About(p.Name);
+            Title = St.AboutX(p.Name);
             trvAsm.Visibility = Visibility.Collapsed;
             ShwDetails(p);
             ShowDialog();

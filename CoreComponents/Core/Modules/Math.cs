@@ -176,6 +176,7 @@ namespace TheXDS.MCART
         /// </returns>
         /// <param name="number">Número a comprobar.</param>
         [Thunk] public static bool IsPrime(this int number) => ((long)number).IsPrime();
+#if !CLSCompliance
         /// <summary>
         /// Comprueba si un número es primo.
         /// </summary>
@@ -184,6 +185,7 @@ namespace TheXDS.MCART
         /// </returns>
         /// <param name="number">Número a comprobar.</param>
         [Thunk] public static bool IsPrime(this uint number) => ((long)number).IsPrime();
+#endif
         /// <summary>
         /// Comprueba si un número es primo.
         /// </summary>
@@ -192,6 +194,7 @@ namespace TheXDS.MCART
         /// </returns>
         /// <param name="number">Número a comprobar.</param>
         [Thunk] public static bool IsPrime(this short number) => ((long)number).IsPrime();
+#if !CLSCompliance
         /// <summary>
         /// Comprueba si un número es primo.
         /// </summary>
@@ -208,6 +211,7 @@ namespace TheXDS.MCART
         /// </returns>
         /// <param name="number">Número a comprobar.</param>
         [Thunk] public static bool IsPrime(this sbyte number) => ((long)number).IsPrime();
+#endif
         /// <summary>
         /// Comprueba si un número es primo.
         /// </summary>
@@ -278,10 +282,10 @@ namespace TheXDS.MCART
         /// Calcula la potencia de dos más cercana mayor o igual al número
         /// </summary>
         /// <param name="value">Número de entrada. Se buscará una potencia de dos mayor o igual a este valor.</param>
-        /// <returns>Un valor <see cref="ulong"/> que es resultado de la operación.</returns>
-        public static ulong Nearest2Pow(uint value)
-        {
-            ulong c = 1;
+        /// <returns>Un valor <see cref="long"/> que es resultado de la operación.</returns>
+        public static long Nearest2Pow(int value)
+        {            
+            long c = 1;
             while (!(c >= value)) c *= 2;
             return c;
         }
@@ -548,6 +552,7 @@ namespace TheXDS.MCART
             if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
             return expression;
         }
+#if !CLSCompliance
         /// <summary>
         /// Establece puntos de sobreflujo intencional para evaluar una expresión.
         /// </summary>
@@ -562,7 +567,8 @@ namespace TheXDS.MCART
             if (expression.CompareTo(max) > 0) return (expression - (1 + max - min)).Wrap(min, max);
             if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
             return expression;
-        }
+        } 
+#endif
         /// <summary>
         /// Establece puntos de sobreflujo intencional para evaluar una expresión.
         /// </summary>
@@ -578,6 +584,7 @@ namespace TheXDS.MCART
             if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
             return expression;
         }
+#if !CLSCompliance
         /// <summary>
         /// Establece puntos de sobreflujo intencional para evaluar una expresión.
         /// </summary>
@@ -592,7 +599,8 @@ namespace TheXDS.MCART
             if (expression.CompareTo(max) > 0) return (expression - (1 + max - min)).Wrap(min, max);
             if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
             return expression;
-        }
+        } 
+#endif
         /// <summary>
         /// Establece puntos de sobreflujo intencional para evaluar una expresión.
         /// </summary>

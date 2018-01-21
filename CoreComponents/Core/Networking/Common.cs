@@ -39,6 +39,9 @@ namespace TheXDS.MCART.Networking
         /// <see cref="PortAttribute"/>.
         /// </summary>
         /// <param name="portNumber">Número de puerto a utilizar.</param>
-        public PortAttribute(ushort portNumber) : base(portNumber) { }
+        public PortAttribute(int portNumber) : base(portNumber)
+        {
+            if (!portNumber.IsBetween(1, 65535)) throw new ArgumentOutOfRangeException(nameof(portNumber));
+        }
     }
 }

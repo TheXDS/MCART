@@ -396,7 +396,7 @@ namespace TheXDS.MCART.Attributes
         /// Un valor entre 1 y 65535 que establece el número de puerto a
         /// apuntar.
         /// </value>
-        public ushort Port { get; }
+        public int Port { get; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ServerAttribute"/> estableciendo el servidor y el puerto
@@ -412,13 +412,13 @@ namespace TheXDS.MCART.Attributes
         /// Se produce si el servidor es una ruta malformada.
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// Se produce si <paramref name="port"/> es igual a cero.
+        /// Se produce si <paramref name="port"/> es inferior a 1, o superior
+        /// a 65535.
         /// </exception>
-        public ServerAttribute(string server, ushort port)
+        public ServerAttribute(string server, int port)
         {
             if (server.IsEmpty()) throw new ArgumentNullException(nameof(server));
-            if (port == 0) throw new ArgumentOutOfRangeException(nameof(port));
-
+            if (!port.IsBetween(1, 65535)) throw new ArgumentOutOfRangeException(nameof(port));
             Server = server;
             Port = port;
         }

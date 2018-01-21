@@ -83,7 +83,7 @@ namespace TheXDS.MCART.Controls
         Polyline Grp2 = new Polyline { Stroke = new SolidColorBrush(MC.ProgressBar) };
         Grid GrdGraphFG = new Grid();
         Grid GrdGraphFG2 = new Grid();
-        sbyte _padding = 1;
+        short _padding = 1;
         #endregion
 
         #region Propiedades de dependencia
@@ -219,7 +219,7 @@ namespace TheXDS.MCART.Controls
         /// <summary>
         /// Ajusta el espacio a la derecha del gráfico, en unidades de puntos.
         /// </summary>
-        public sbyte GraphPadding
+        public short GraphPadding
         {
             get => _padding; set => _padding = value;
         }
@@ -453,7 +453,7 @@ namespace TheXDS.MCART.Controls
             double l = GrdGraph.ActualWidth / ((lst.Count - 1) + _padding); //Unidades de gráfica
             double k = 0; //step en unidades de gráfica
             int a = 0; //step simple
-            Point p = default(Point);
+            Point p = default;
             foreach (double j in lst.ToPercent(min, max))
             {
                 if (j.IsValid())

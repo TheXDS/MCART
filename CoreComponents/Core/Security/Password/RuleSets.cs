@@ -214,7 +214,7 @@ namespace TheXDS.MCART.Security.Password
                 int d = 0;
                 foreach (char j in charset) if (p.Contains((short)j)) d++;
                 if (d == 0) return new PwEvalResult(0, isExtra ?
-                    St.Ok(St.Include(ruleName.ToLower())) :
+                    St.OkX(St.Include(ruleName.ToLower())) :
                     St.Warn(St.Include(ruleName.ToLower())));
                 return new PwEvalResult(((CFactoryFactor + (float)d / p.Length).Clamp(0, 1)));
             }, ruleName, ruleDescription ?? string.Format(St2.xBuilder, ruleName.ToLower()), ponderation, defaultEnable, isExtra);
@@ -339,7 +339,7 @@ namespace TheXDS.MCART.Security.Password
                 var charArr = St.MoreChars.ToCharArray();
                 foreach (var j in p.ReadInt16())
                     if (!charArr.Contains((char)j))
-                        return new PwEvalResult(1, St.Ok(St.Includes(St2.PwOtherUTFEvalRule.ToLower())));
+                        return new PwEvalResult(1, St.OkX(St.Includes(St2.PwOtherUTFEvalRule.ToLower())));
                 return new PwEvalResult(0);
             }, St2.PwOtherUTFEvalRule, null, PonderationLevel.Highest, true, true);
         }

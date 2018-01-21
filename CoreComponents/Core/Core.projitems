@@ -41,6 +41,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Resources\StringUnpacker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Unpacker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\PwEvalResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\ColorParsers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\StreamExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\IEnumerableExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\List\Enums.cs" />

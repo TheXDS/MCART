@@ -400,7 +400,7 @@ namespace TheXDS.MCART.Controls
         /// <summary>
         /// Se produce cuando se ha presionado el botón Guardar al editar o crear un nuevo elemento.
         /// </summary>
-        public event EventHandler<ItemCreatingEventArgs> Saving;
+        public event EventHandler<ItemCreatingEventArgs<object>> Saving;
         /// <summary>
         /// Se produce cuando se ha presionado el botón Cancelar al editar o crear un nuevo elemento.
         /// </summary>
@@ -420,7 +420,7 @@ namespace TheXDS.MCART.Controls
         /// <summary>
         /// Se produce cuando se ha guardado un elemento
         /// </summary>
-        public event EventHandler<ItemCreatedEventArgs> ItemSaved;
+        public event EventHandler<ItemCreatedEventArgs<object>> ItemSaved;
         /// <summary>
         /// Se produce cuando se ha cancelado la creación/edición de un elemento
         /// </summary>
@@ -631,7 +631,7 @@ namespace TheXDS.MCART.Controls
         }
         void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            ItemCreatingEventArgs ev = new ItemCreatingEventArgs(view.CurrentAddItem, wasNewPressed);
+            var ev = new ItemCreatingEventArgs<object>(view.CurrentAddItem, wasNewPressed);
             Saving?.Invoke(this, ev);
             if (!ev.Cancel)
             {
@@ -651,7 +651,7 @@ namespace TheXDS.MCART.Controls
                     }
                 }
                 GotoNormalMode();
-                ItemSaved?.Invoke(this, (ItemCreatedEventArgs)ev);
+                ItemSaved?.Invoke(this, ev);
             }
         }
         #endregion

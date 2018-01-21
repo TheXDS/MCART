@@ -56,7 +56,7 @@ namespace CoreTests.Modules
         [Fact]
         public void Nearest2PowTest()
         {
-            Assert.Equal<ulong>(512,Nearest2Pow(456));
+            Assert.Equal(512,Nearest2Pow(456));
         }
         [Fact]
         public void NearestMultiplyUpTest()

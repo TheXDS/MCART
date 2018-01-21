@@ -62,9 +62,9 @@ namespace TheXDS.MCART.Security.Password
         /// <returns>
         /// <see cref="string.Empty"/> si el cuadro se inicia con cualquier
         /// sobrecarga de los métodos
-        /// <see cref="Dialogs.PasswordDialog.GetPassword(string, Dialogs.PasswordDialog.LoginValidator)"/>
+        /// <see cref="Dialogs.PasswordDialog.GetPassword(string, LoginValidator, int)"/>
         /// o con 
-        /// <see cref="Dialogs.PasswordDialog.Login(string, string, Dialogs.PasswordDialog.LoginValidator)"/>.
+        /// <see cref="Dialogs.PasswordDialog.Login(string, string, LoginValidator)"/>.
         /// Si se inicia con 
         /// <see cref="Dialogs.PasswordDialog.ChoosePassword(PwMode, PwEvaluator, int)"/>,
         /// se devuelve un <see cref="string"/> con el indicio de contraseña 
