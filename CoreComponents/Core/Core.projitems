@@ -50,15 +50,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\Timer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Point.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Point3D.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Types\TaskReporter\base\Delegates.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Types\TaskReporter\base\EventArgs.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Types\TaskReporter\base\Events.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Types\TaskReporter\base\ITaskReporter_Auto.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Types\TaskReporter\base\ITaskReporter_Manual.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Types\TaskReporter\base\TaskReporter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Types\TaskReporter\base\TaskReporterPlugin.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Types\TaskReporter\DummyTaskReporter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Types\TaskReporter\ConsoleTaskReporter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\Plugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\List\List.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\Generators.cs" />
@@ -72,9 +63,5 @@
     <Compile Include="$(MSBuildThisFileDirectory)Types\Color.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Colors.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\IProtocol.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Types\TaskReporter\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Types\TaskReporter\base\" />
   </ItemGroup>
 </Project>

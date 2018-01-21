@@ -72,7 +72,6 @@
     <Compile Include="Types\Color.cs" />
     <Compile Include="Controls\ProgressRing.cs" />
     <Compile Include="Types\Point.cs" />
-    <Compile Include="Types\TaskReporter\TaskReporterControl.cs" />
     <Compile Include="Controls\BarStepper.cs" />
     <Compile Include="Controls\RingGraph.cs" />
   </ItemGroup>

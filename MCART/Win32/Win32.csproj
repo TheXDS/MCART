@@ -90,9 +90,6 @@
     <Compile Include="Resources\Icons.cs" />
     <Compile Include="Resources\RTInfo.cs" />
     <Compile Include="Security\Password\PwDialogResult.cs" />
-    <Compile Include="Types\TaskReporter\TaskReporterControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controls\BarStepper.resx">
@@ -114,7 +111,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Types\" />
+  </ItemGroup>
   <Import Project="..\..\CoreComponents\Core\Core.projitems" Label="Shared" />
   <Import Project="..\..\CoreComponents\Core-Windows\Core-Windows.projitems" Label="Shared" />
   <Import Project="..\..\CoreComponents\Core-NoWPF\Core-NoWPF.projitems" Label="Shared" />

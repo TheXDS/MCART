@@ -28,9 +28,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\PwMode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Color.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Point.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Types\TaskReporter\TaskReporterControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Icons\MCART.png" />

@@ -87,7 +87,6 @@
     <Compile Include="Security\Password\PwDialogResult.cs" />
     <Compile Include="Types\Color.cs" />
     <Compile Include="Types\Point.cs" />
-    <Compile Include="Types\TaskReporter\TaskReporterControl.cs" />
     <Compile Include="PluginSupport\IPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
