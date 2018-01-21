@@ -70,6 +70,9 @@ Public Class MainWindow
         'MCART.UI.SaveBitmap(MCART.UITools.Render(Me))
     End Sub
     Private Sub Mnuitskrconsole_Click(sender As Object, e As RoutedEventArgs) Handles mnuitskrconsole.Click
+        With New Types.TaskReporter.ConsoleTaskReporter
+            .For(1000, Sub(a, b) Threading.Thread.Sleep(10))
+        End With
     End Sub
     Private Sub Mnuitskrwndw_Click(sender As Object, e As RoutedEventArgs) Handles mnuitskrwndw.Click
         'With New ProgressWindow
