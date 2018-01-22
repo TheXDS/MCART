@@ -1,35 +1,36 @@
-//
-//  Math.cs
-//
-//  This file is part of MCART
-//
-//  Author:
-//       César Andrés Morgan <xds_xps_ivx@hotmail.com>
-//
-//  Copyright (c) 2011 - 2018 César Andrés Morgan
-//
-//  MCART is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-//
-//  MCART is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-//
-//  You should have received a copy of the GNU General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/*
+Math.cs
+
+This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Author(s):
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+
+Copyright (c) 2011 - 2018 César Andrés Morgan
+
+Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+*/
 
 using System;
 using System.Collections.Generic;
-using MCART.Attributes;
-using MCART.Types;
+using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Types;
 
-namespace MCART
+namespace TheXDS.MCART
 {
     /// <summary>
-    /// Funciones matemáticas varias
+    /// Contiene series, operaciones, ecuaciones y constantes matemáticas adicionales.
     /// </summary>
     public static class Math
     {
@@ -37,7 +38,7 @@ namespace MCART
         /// <summary>
         /// Representa la proporción de 1 grado DEG sobre PI
         /// </summary>
-        public const double Deg_Rad = System.Math.PI / 180;
+        public const double DegRad = System.Math.PI / 180;
         #endregion
 
         /// <summary>
@@ -45,15 +46,17 @@ namespace MCART
         /// </summary>
         public static class Series
         {
-            /*
-			Las series utilizan enumeradores para exponer las series completas
-			de una manera infinita. Es necesario silenciar la advertencia en
-			MonoDevelop que indica que estas funciones nunca finalizan.
-
-			Es necesario recalcar que, si se utilizan estas funciones de manera
-			incorrecta, el programa fallará con un error de sobreflujo o de pila, o
-			bien, el programa podría dejar de responder.
-			*/
+            /* -= NOTA =-
+			 * Las series utilizan enumeradores para exponer las series 
+			 * completas de una manera infinita. Es necesario silenciar la
+			 * advertencia en MonoDevelop que indica que estas funciones nunca
+             * finalizan.
+             *  
+			 * Es necesario recalcar que, si se utilizan estas funciones de
+			 * manera incorrecta, el programa fallará con un error de
+			 * sobreflujo o de pila, o bien, el programa podría dejar de
+             * responder.
+			 */
 #pragma warning disable RECS0135
             /// <summary>
             /// Expone un enumerador que contiene la secuencia completa de
@@ -152,208 +155,211 @@ namespace MCART
             }
         }
         /// <summary>
-        /// Comprueba si un número es primo.
+        /// Comprueba si un número es primo mediante prueba y error.
         /// </summary>
         /// <returns>
-        /// <c>true</c>si el número es primo, <c>false</c> en caso contrario.
+        /// <see langword="true"/>si el número es primo, <see langword="false"/> en caso contrario.
         /// </returns>
-        /// <param name="i">Número a comprobar.</param>
-        public static bool IsPrime(this long i)
+        /// <param name="number">Número a comprobar.</param>
+        public static bool IsPrime(this long number)
         {
-            long s = i / 2;
+            long s = number / 2;
             for (long j = 3; j < s; j += 2)
-                if (i % j == 0) return false;
+                if (number % j == 0) return false;
             return true;
         }
         /// <summary>
         /// Comprueba si un número es primo.
         /// </summary>
         /// <returns>
-        /// <c>true</c>si el número es primo, <c>false</c> en caso contrario.
+        /// <see langword="true"/>si el número es primo, <see langword="false"/> en caso contrario.
         /// </returns>
-        /// <param name="i">Número a comprobar.</param>
-        [Thunk] public static bool IsPrime(this int i) => ((long)i).IsPrime();
+        /// <param name="number">Número a comprobar.</param>
+        [Thunk] public static bool IsPrime(this int number) => ((long)number).IsPrime();
+#if !CLSCompliance
         /// <summary>
         /// Comprueba si un número es primo.
         /// </summary>
         /// <returns>
-        /// <c>true</c>si el número es primo, <c>false</c> en caso contrario.
+        /// <see langword="true"/>si el número es primo, <see langword="false"/> en caso contrario.
         /// </returns>
-        /// <param name="i">Número a comprobar.</param>
-        [Thunk] public static bool IsPrime(this uint i) => ((long)i).IsPrime();
+        /// <param name="number">Número a comprobar.</param>
+        [Thunk] public static bool IsPrime(this uint number) => ((long)number).IsPrime();
+#endif
         /// <summary>
         /// Comprueba si un número es primo.
         /// </summary>
         /// <returns>
-        /// <c>true</c>si el número es primo, <c>false</c> en caso contrario.
+        /// <see langword="true"/>si el número es primo, <see langword="false"/> en caso contrario.
         /// </returns>
-        /// <param name="i">Número a comprobar.</param>
-        [Thunk] public static bool IsPrime(this short i) => ((long)i).IsPrime();
+        /// <param name="number">Número a comprobar.</param>
+        [Thunk] public static bool IsPrime(this short number) => ((long)number).IsPrime();
+#if !CLSCompliance
         /// <summary>
         /// Comprueba si un número es primo.
         /// </summary>
         /// <returns>
-        /// <c>true</c>si el número es primo, <c>false</c> en caso contrario.
+        /// <see langword="true"/>si el número es primo, <see langword="false"/> en caso contrario.
         /// </returns>
-        /// <param name="i">Número a comprobar.</param>
-        [Thunk] public static bool IsPrime(this ushort i) => ((long)i).IsPrime();
+        /// <param name="number">Número a comprobar.</param>
+        [Thunk] public static bool IsPrime(this ushort number) => ((long)number).IsPrime();
         /// <summary>
         /// Comprueba si un número es primo.
         /// </summary>
         /// <returns>
-        /// <c>true</c>si el número es primo, <c>false</c> en caso contrario.
+        /// <see langword="true"/>si el número es primo, <see langword="false"/> en caso contrario.
         /// </returns>
-        /// <param name="i">Número a comprobar.</param>
-        [Thunk] public static bool IsPrime(this sbyte i) => ((long)i).IsPrime();
+        /// <param name="number">Número a comprobar.</param>
+        [Thunk] public static bool IsPrime(this sbyte number) => ((long)number).IsPrime();
+#endif
         /// <summary>
         /// Comprueba si un número es primo.
         /// </summary>
         /// <returns>
-        /// <c>true</c>si el número es primo, <c>false</c> en caso contrario.
+        /// <see langword="true"/>si el número es primo, <see langword="false"/> en caso contrario.
         /// </returns>
-        /// <param name="i">Número a comprobar.</param>
-        [Thunk] public static bool IsPrime(this byte i) => ((long)i).IsPrime();
+        /// <param name="number">Número a comprobar.</param>
+        [Thunk] public static bool IsPrime(this byte number) => ((long)number).IsPrime();
         /// <summary>
         /// Determina si un <see cref="double"/> es un número real operable.
         /// </summary>
-        /// <param name="x"><see cref="double"/> a comprobar.</param>
+        /// <param name="value"><see cref="double"/> a comprobar.</param>
         /// <returns>
-        /// <c>true</c> si <paramref name="x"/> es un número real
+        /// <see langword="true"/> si <paramref name="value"/> es un número real
         /// <see cref="double"/> operable, en otras palabras, si no es igual a 
         /// <see cref="double.NaN"/>, <see cref="double.PositiveInfinity"/> o
         /// <see cref="double.NegativeInfinity"/>; en cuyo caso se devuelve 
-        /// <c>false</c>.
+        /// <see langword="false"/>.
         /// </returns>
-        public static bool IsValid(this double x) => !(double.IsNaN(x) || double.IsInfinity(x));
+        public static bool IsValid(this double value) => !(double.IsNaN(value) || double.IsInfinity(value));
         /// <summary>
         /// Determina si un <see cref="float"/> es un número real operable.
         /// </summary>
-        /// <param name="x"><see cref="float"/> a comprobar.</param>
+        /// <param name="value"><see cref="float"/> a comprobar.</param>
         /// <returns>
-        /// <c>true</c> si <paramref name="x"/> es un número real
+        /// <see langword="true"/> si <paramref name="value"/> es un número real
         /// <see cref="float"/> operable, en otras palabras, si no es igual a 
         /// <see cref="float.NaN"/>, <see cref="float.PositiveInfinity"/> o
         /// <see cref="float.NegativeInfinity"/>; en cuyo caso se devuelve 
-        /// <c>false</c>.
+        /// <see langword="false"/>.
         /// </returns>
-        public static bool IsValid(this float x) => !(float.IsNaN(x) || float.IsInfinity(x));
+        public static bool IsValid(this float value) => !(float.IsNaN(value) || float.IsInfinity(value));
         /// <summary>
         /// Determina si una colección de <see cref="double"/> son números 
         /// reales operables.
         /// </summary>
-        /// <param name="x">
+        /// <param name="values">
         /// Colección  de <see cref="double"/> a comprobar.
         /// </param>
         /// <returns>
-        /// <c>true</c> si todos los elementos de <paramref name="x"/> son 
+        /// <see langword="true"/> si todos los elementos de <paramref name="values"/> son 
         /// números operables, en otras palabras, si no son NaN o Infinito; en 
-        /// caso contrario, se devuelve <c>false</c>.
+        /// caso contrario, se devuelve <see langword="false"/>.
         /// </returns>
-        public static bool AreValid(params double[] x)
+        public static bool AreValid(params double[] values)
         {
-            foreach (double j in x) if (!IsValid(j)) return false;
+            foreach (double j in values) if (!IsValid(j)) return false;
             return true;
         }
         /// <summary>
         /// Determina si una colección de <see cref="float"/> son números 
         /// reales operables.
         /// </summary>
-        /// <param name="x">
+        /// <param name="values">
         /// Colección  de <see cref="float"/> a comprobar.
         /// </param>
         /// <returns>
-        /// <c>true</c> si todos los elementos de <paramref name="x"/> son 
+        /// <see langword="true"/> si todos los elementos de <paramref name="values"/> son 
         /// números operables, en otras palabras, si no son NaN o Infinito; en 
-        /// caso contrario, se devuelve <c>false</c>.
+        /// caso contrario, se devuelve <see langword="false"/>.
         /// </returns>
-        public static bool AreValid(params float[] x)
+        public static bool AreValid(params float[] values)
         {
-            foreach (float j in x) if (!IsValid(j)) return false;
+            foreach (float j in values) if (!IsValid(j)) return false;
             return true;
         }
         /// <summary>
         /// Calcula la potencia de dos más cercana mayor o igual al número
         /// </summary>
-        /// <param name="x">Número de entrada. Se buscará una potencia de dos mayor o igual a este valor.</param>
-        /// <returns>Un valor <see cref="ulong"/> que es resultado de la operación.</returns>
-        public static ulong Nearest2Pow(uint x)
-        {
-            ulong c = 1;
-            while (!(c >= x)) c *= 2;
+        /// <param name="value">Número de entrada. Se buscará una potencia de dos mayor o igual a este valor.</param>
+        /// <returns>Un valor <see cref="long"/> que es resultado de la operación.</returns>
+        public static long Nearest2Pow(int value)
+        {            
+            long c = 1;
+            while (!(c >= value)) c *= 2;
             return c;
         }
         /// <summary>
-        /// Devuelve el primer múltiplo de <paramref name="multiplier"/> que es mayor que <paramref name="x"/>
+        /// Devuelve el primer múltiplo de <paramref name="multiplier"/> que es mayor que <paramref name="value"/>
         /// </summary>
-        /// <param name="x">Número objetivo</param>
-        /// <param name="multiplier">Base multiplicativa. Esta función devolverá un múltiplo de este valor que sea mayor a <paramref name="x"/></param>
-        /// <returns>Un <see cref="double"/> que es el primer múltiplo de <paramref name="multiplier"/> que es mayor que <paramref name="x"/></returns>
-        public static double NearestMultiplyUp(double x, double multiplier)
+        /// <param name="value">Número objetivo</param>
+        /// <param name="multiplier">Base multiplicativa. Esta función devolverá un múltiplo de este valor que sea mayor a <paramref name="value"/></param>
+        /// <returns>Un <see cref="double"/> que es el primer múltiplo de <paramref name="multiplier"/> que es mayor que <paramref name="value"/></returns>
+        public static double NearestMultiplyUp(double value, double multiplier)
         {
             double a = 1;
-            if (ArePositives(x, multiplier))
-                while (!(a > x)) a *= multiplier;
+            if (ArePositives(value, multiplier))
+                while (!(a > value)) a *= multiplier;
             return a;
         }
         /// <summary>
-        /// Devuelve <c>true</c> si todos los números son positivos.
+        /// Devuelve <see langword="true"/> si todos los números son positivos.
         /// </summary>
-        /// <param name="x">números a comprobar.</param>
+        /// <param name="values">números a comprobar.</param>
         /// <returns>
-        /// <c>true</c> si todos los números de la colección son positivos,
-        /// <c>false</c> en caso contrario.
+        /// <see langword="true"/> si todos los números de la colección son positivos,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
-        public static bool ArePositives(params double[] x)
+        public static bool ArePositives(params double[] values)
         {
-            foreach (double j in x) if (j <= 0) return false;
+            foreach (double j in values) if (j <= 0) return false;
             return true;
         }
         /// <summary>
-        /// Devuelve <c>true</c> si todos los números son negativos.
+        /// Devuelve <see langword="true"/> si todos los números son negativos.
         /// </summary>
-        /// <param name="x">números a comprobar.</param>
+        /// <param name="values">números a comprobar.</param>
         /// <returns>
-        /// <c>true</c> si todos los números de la colección son negativos,
-        /// <c>false</c> en caso contrario.
+        /// <see langword="true"/> si todos los números de la colección son negativos,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
-        public static bool AreNegatives(params double[] x)
+        public static bool AreNegatives(params double[] values)
         {
-            foreach (double j in x) if (j >= 0) return false;
+            foreach (double j in values) if (j >= 0) return false;
             return true;
         }
         /// <summary>
-        /// Devuelve <c>true</c> si todos los números son iguales a cero.
+        /// Devuelve <see langword="true"/> si todos los números son iguales a cero.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de elementos a comprobar.
+        /// </typeparam>
+        /// <param name="value">números a comprobar.</param>
+        /// <returns>
+        /// <see langword="true"/> si todos los números de la colección son iguales a
+        /// cero, <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool AreZero<T>(params T[] value) where T : IComparable<T>
+        {
+            foreach (T j in value) if (j.CompareTo(default) != 0) return false;
+            return true;
+        }
+        /// <summary>
+        /// Devuelve <see langword="true"/> si todos los números son distintos de cero.
         /// </summary>
         /// <typeparam name="T">
         /// Tipo de elementos a comprobar.
         /// </typeparam>
         /// <param name="x">números a comprobar.</param>
         /// <returns>
-        /// <c>true</c> si todos los números de la colección son iguales a
-        /// cero, <c>false</c> en caso contrario.
-        /// </returns>
-        public static bool AreZero<T>(params T[] x) where T : IComparable<T>
-        {
-            foreach (T j in x) if (j.CompareTo(default(T)) != 0) return false;
-            return true;
-        }
-        /// <summary>
-        /// Devuelve <c>true</c> si todos los números son distintos de cero.
-        /// </summary>
-        /// <typeparam name="T">
-        /// Tipo de elementos a comprobar.
-        /// </typeparam>
-        /// <param name="x">números a comprobar.</param>
-        /// <returns>
-        /// <c>true</c> si todos los números de la colección son distintos de
-        /// cero, <c>false</c> en caso contrario.
+        /// <see langword="true"/> si todos los números de la colección son distintos de
+        /// cero, <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool AreNotZero<T>(params T[] x) where T : IComparable<T>
         {
-            foreach (T j in x) if (j.CompareTo(default(T)) == 0) return false;
+            foreach (T j in x) if (j.CompareTo(default) == 0) return false;
             return true;
         }
-
 
 #if FloatDoubleSpecial
         /// <summary>
@@ -435,11 +441,9 @@ namespace MCART
         /// El valor evaluado que se encuentra entre 0 y 
         /// <paramref name="max"/>.
         /// </returns>
-        public static T Clamp<T>(this T expression, T max) where T :
-            IComparable,
-            IComparable<T>
+        public static T Clamp<T>(this T expression, T max) where T : IComparable<T>
         {
-            return Clamp(expression, default(T), max);
+            return Clamp(expression, default, max);
         }
 #if RatherDRY
 #if FloatDoubleSpecial
@@ -548,6 +552,7 @@ namespace MCART
             if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
             return expression;
         }
+#if !CLSCompliance
         /// <summary>
         /// Establece puntos de sobreflujo intencional para evaluar una expresión.
         /// </summary>
@@ -562,7 +567,8 @@ namespace MCART
             if (expression.CompareTo(max) > 0) return (expression - (1 + max - min)).Wrap(min, max);
             if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
             return expression;
-        }
+        } 
+#endif
         /// <summary>
         /// Establece puntos de sobreflujo intencional para evaluar una expresión.
         /// </summary>
@@ -578,6 +584,7 @@ namespace MCART
             if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
             return expression;
         }
+#if !CLSCompliance
         /// <summary>
         /// Establece puntos de sobreflujo intencional para evaluar una expresión.
         /// </summary>
@@ -592,7 +599,8 @@ namespace MCART
             if (expression.CompareTo(max) > 0) return (expression - (1 + max - min)).Wrap(min, max);
             if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
             return expression;
-        }
+        } 
+#endif
         /// <summary>
         /// Establece puntos de sobreflujo intencional para evaluar una expresión.
         /// </summary>
@@ -612,39 +620,39 @@ namespace MCART
         /// <summary>
         /// Determina si un <see cref="double"/> es un número entero.
         /// </summary>
-        /// <param name="x">Valor a comprobar.</param>
-        /// <returns><c>true</c> si el valor es entero; de lo contrario, <c>False</c></returns>
-        public static bool IsWhole(this double x) => !x.ToString().Contains(".");
+        /// <param name="value">Valor a comprobar.</param>
+        /// <returns><see langword="true"/> si el valor es entero; de lo contrario, <c>False</c></returns>
+        public static bool IsWhole(this double value) => !value.ToString().Contains(".");
         /// <summary>
         /// Obtiene las cooerdenadas X,Y de una posición específica dentro de un
         /// bézier cuadrático
         /// </summary>
-        /// <param name="Position">
+        /// <param name="position">
         /// Posición a obtener. Debe ser un <see cref="double"/> entre 0.0 y 
         /// 1.0.
         /// </param>
-        /// <param name="StartPoint">
+        /// <param name="startPoint">
         /// Punto inicial del bézier cuadrático.
         /// </param>
-        /// <param name="ControlPoint">
+        /// <param name="controlPoinr">
         /// Punto de control del bézier cuadrático.
         /// </param>
-        /// <param name="EndPoint">Punto final del bézier cuadrático.</param>
+        /// <param name="endPoint">Punto final del bézier cuadrático.</param>
         /// <returns>
         /// Un <see cref="Point"/> con las coordenadas correspondientes a la
         /// posición dentro del bézier cuadrático dado por
-        /// <paramref name="Position"/>.
+        /// <paramref name="position"/>.
         /// </returns>
-        public static Point GetQuadBezierPoint(double Position, Point StartPoint, Point ControlPoint, Point EndPoint)
+        public static Point GetQuadBezierPoint(double position, Point startPoint, Point controlPoinr, Point endPoint)
         {
-            if (!Position.IsBetween(0, 1)) throw new ArgumentOutOfRangeException(nameof(Position));
-            double a = 1 - Position;
+            if (!position.IsBetween(0, 1)) throw new ArgumentOutOfRangeException(nameof(position));
+            double a = 1 - position;
             double b = a * a;
-            double c = 2 * a * Position;
-            double d = Position * Position;
+            double c = 2 * a * position;
+            double d = position * position;
             return new Point(
-                b * StartPoint.X + c * ControlPoint.X + d * EndPoint.X,
-                b * StartPoint.Y + c * ControlPoint.Y + d * EndPoint.Y);
+                b * startPoint.X + c * controlPoinr.X + d * endPoint.X,
+                b * startPoint.Y + c * controlPoinr.Y + d * endPoint.Y);
         }
         /// <summary>
         /// Obtiene las coordenadas de un punto dentro de un arco.
@@ -656,23 +664,23 @@ namespace MCART
         /// <param name="endAngle">
         /// Ángulo final del arco; en el sentido de las agujas del reloj.
         /// </param>
-        /// <param name="place">Posición a obtener dentro del arco.</param>
+        /// <param name="position">Posición a obtener dentro del arco.</param>
         /// <returns>
         /// Un conjunto de coordenadas con la posición del punto solicitado.
         /// </returns>
-        public static Point GetArcPoint(double radius, double startAngle, double endAngle, double place = 0.5)
+        public static Point GetArcPoint(double radius, double startAngle, double endAngle, double position)
         {
-            double x = (startAngle - endAngle) * place * Deg_Rad;
+            double x = (startAngle - endAngle) * position * DegRad;
             return new Point(System.Math.Sin(x) * radius, System.Math.Cos(x) * radius);
         }
         /// <summary>
         /// Obtiene las coordenadas de un punto dentro de un círculo.
         /// </summary>
         /// <param name="radius">Radio del círculo.</param>
-        /// <param name="place">Posición a obtener dentro del círculo.</param>
+        /// <param name="position">Posición a obtener dentro del círculo.</param>
         /// <returns>
         /// Un conjunto de coordenadas con la posición del punto solicitado.
         /// </returns>
-        [Thunk] public static Point GetCirclePoint(double radius, double place) => GetArcPoint(radius, 0, 360, place);
+        [Thunk] public static Point GetCirclePoint(double radius, double position) => GetArcPoint(radius, 0, 360, position);
     }
 }

@@ -97,7 +97,7 @@ Nuevo: módulo ValueConverters
 Nuevo: las bases de datos ahora pueden contener información Tag
 Nuevo: Propiedades adicionales para Networking.ClientServer.Server
 Nuevo: Extensiones adicionales de la clase List(Of T)
-Mejorado: Limpieza de resursos de Networking.ClientServer.Server
+Mejorado: Limpieza de recursos de Networking.ClientServer.Server
 Mejorado: Extensión y mejoras varias al soporte de plugins
 Arreglado: AboutMCART debería funcionar correctamente.
 Arreglado: Problemas con el indicador de seguridad en PasswordDialog
@@ -154,5 +154,15 @@ Mejorado: Reescritura total de MCART
 Quitado: MCADB
 
 MCART 0.7 Series
-- MCART ha cambiado sus implementaciones para respetar los principios de SOLID.
+- MCART ha cambiado algunas de sus implementaciones para respetar los principios de SOLID.
+Nuevo: Proyecto de documentación basado en SandCastle.
 Mejorado: Soporte de plugins parcialmente rescrito.
+Cambiado: En lugar de Unit Testing de Visual Studio, se utiliza xUnit.
+
+MCART 0.8 Series
+- MCART ha cambiado sus implementaciones para cumplir al 100% con la especificación CLS.
+- MCART ahora será publicado en NuGet
+Nuevo: Soporte para objetos de extracción de recursos incrustados
+Mejorado: Reescritura parcial de MCART
+Mejorado: Soporte de plugins parcialmente rescrito (nuevamente).
+Cambiado: Todos los espacios de nombres respetan la convención estándar de la especificación CLS.

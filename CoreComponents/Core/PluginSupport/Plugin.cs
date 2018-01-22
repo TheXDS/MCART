@@ -1,38 +1,37 @@
-﻿//
-//  Plugin.cs
-//
-//  This file is part of MCART
-//
-//  Author:
-//       César Andrés Morgan <xds_xps_ivx@hotmail.com>
-//
-//  Copyright (c) 2011 - 2018 César Andrés Morgan
-//
-//  MCART is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-//
-//  MCART is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-//
-//  You should have received a copy of the GNU General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿/*
+Plugin.cs
 
-using MCART.Attributes;
-using MCART.Types.TaskReporter;
+This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Author(s):
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+
+Copyright (c) 2011 - 2018 César Andrés Morgan
+
+Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using MCART.Exceptions;
-using St = MCART.Resources.Strings;
+using TheXDS.MCART.Attributes;
+using St = TheXDS.MCART.Resources.Strings;
 
-namespace MCART.PluginSupport
+namespace TheXDS.MCART.PluginSupport
 {
     /// <summary>
     /// Clase base para todos los plugins que puedan ser contruídos y
@@ -40,7 +39,6 @@ namespace MCART.PluginSupport
     /// </summary>
     public abstract partial class Plugin : IPlugin
     {
-        ITaskReporter rptr = new DummyTaskReporter();
         /// <summary>
         /// Colección de <see cref="InteractionItem"/> del
         /// <see cref="Plugin"/>.
@@ -57,35 +55,31 @@ namespace MCART.PluginSupport
         /// <code language="vb" source="..\..\Documentation\Examples\PluginSupport\Plugin.vb" region="uiMenu1"/>
         /// </example>
         /// <seealso cref="InteractionItem"/>
-        protected readonly ObservableCollection<InteractionItem> uiMenu = new ObservableCollection<InteractionItem>();
+        protected ObservableCollection<InteractionItem> InteractionItems { get; } = new ObservableCollection<InteractionItem>();
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="Plugin"/>.
         /// </summary>
         /// <remarks>
         /// Este constructor cableará automáticamente cualquier método público
         /// con una firma compatible con <see cref="EventArgs"/> que tenga el
-        /// atributo <see cref="InteractionItemAttribute"/>, y generará el
-        /// evento <see cref="PluginLoaded"/> con la hora en la que el
-        /// <see cref="Plugin"/> ha sido cargado.
+        /// atributo <see cref="InteractionItemAttribute"/>.
         /// </remarks>
         [System.Diagnostics.DebuggerStepThrough]
         protected Plugin()
         {
             foreach (var j in GetType().GetMethods().Where(k => k.HasAttr<InteractionItemAttribute>()))
             {
-                if (!(Delegate.CreateDelegate(typeof(EventHandler),this, j, false) is null))
-                    uiMenu.Add(new InteractionItem(j, this));
+                if (!(Delegate.CreateDelegate(typeof(EventHandler), this, j, false) is null))
+                    InteractionItems.Add(new InteractionItem(j, this));
                 else
 #if PreferExceptions
                     throw new PluginException(this, new InvalidMethodSignatureException(j));
 #else
-                    System.Diagnostics.Debug.Print(St.Warn(St.InvalidSignature(St.XYQuotes(St.TheMethod, $"{GetType().FullName}.{j.Name}")))); 
+                    System.Diagnostics.Debug.Print(St.Warn(St.InvalidSignature(St.XYQuotes(St.TheMethod, $"{GetType().FullName}.{j.Name}"))));
 #endif
             }
-            uiMenu.CollectionChanged += (sender, e) => RequestUIChange();
-            RaisePluginLoaded(DateTime.Now);
+            InteractionItems.CollectionChanged += (sender, e) => OnUIChanged();
         }
-
         #region Propiedades de identificación
         /// <summary>
         /// Obtiene el nombre de este <see cref="Plugin"/>.
@@ -113,7 +107,7 @@ namespace MCART.PluginSupport
         /// El valor del atributo <see cref="DescriptionAttribute"/> definido
         /// para este <see cref="Plugin"/>, o en caso de no establecer el
         /// atributo, se devolverá la descripción del ensamblado que contiene a
-        /// este <see cref="Plugin"/>, o <c>null</c> en caso de no existir.
+        /// este <see cref="Plugin"/>, o <see langword="null"/> en caso de no existir.
         /// </value>
         public virtual string Description => GetType().GetAttrAlt<DescriptionAttribute>()?.Value
             ?? (Attribute.GetCustomAttribute(MyAssembly, typeof(AssemblyDescriptionAttribute)) as AssemblyDescriptionAttribute)?.Description;
@@ -124,7 +118,7 @@ namespace MCART.PluginSupport
         /// El valor del atributo <see cref="AuthorAttribute"/> definido para
         /// este <see cref="Plugin"/>, o en caso de no establecer el atributo,
         /// se devolverá el nombre de la compañía del ensamblado que contiene a
-        /// este <see cref="Plugin"/>, o <c>null</c> en caso de no existir.
+        /// este <see cref="Plugin"/>, o <see langword="null"/> en caso de no existir.
         /// </value>
         public virtual string Author => GetType().GetAttrAlt<AuthorAttribute>()?.Value
             ?? (Attribute.GetCustomAttribute(MyAssembly, typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute)?.Company;
@@ -135,7 +129,7 @@ namespace MCART.PluginSupport
         /// El valor del atributo <see cref="AuthorAttribute"/> definido para
         /// este <see cref="Plugin"/>, o en caso de no establecer el atributo,
         /// se devolverá el nombre de la compañía del ensamblado que contiene a
-        /// este <see cref="Plugin"/>, o <c>null</c> en caso de no existir.
+        /// este <see cref="Plugin"/>, o <see langword="null"/> en caso de no existir.
         /// </value>
         public virtual string Copyright => GetType().GetAttrAlt<CopyrightAttribute>()?.Value
             ?? (Attribute.GetCustomAttribute(MyAssembly, typeof(AssemblyCopyrightAttribute)) as AssemblyCopyrightAttribute)?.Copyright;
@@ -233,10 +227,10 @@ namespace MCART.PluginSupport
         /// </summary>
         public bool IsBeta => GetType().HasAttrAlt<BetaAttribute>();
         /// <summary>
-        /// Determina si este <see cref="Plugin"/> es considerado como 
-        /// inseguro.
+        /// Determina si este <see cref="Plugin"/> contiene código no
+        /// administrado.
         /// </summary>
-        public bool IsUnsafe => GetType().HasAttrAlt<UnsecureAttribute>();
+        public bool IsUnmanaged => GetType().HasAttrAlt<UnmanagedAttribute>();
         /// <summary>
         /// Determina si este <see cref="Plugin"/> es considerado como 
         /// inestable.
@@ -269,16 +263,11 @@ namespace MCART.PluginSupport
         /// Contiene una lista de interacciones que este <see cref="Plugin"/>.
         /// provee para incluir en una interfaz gráfica.
         /// </summary>
-        public ReadOnlyCollection<InteractionItem> PluginInteractions => new ReadOnlyCollection<InteractionItem>(uiMenu);
+        public ReadOnlyCollection<InteractionItem> PluginInteractions => new ReadOnlyCollection<InteractionItem>(InteractionItems);
         /// <summary>
         /// Indica si este <see cref="Plugin"/> contiene o no interacciones.
         /// </summary>        
-        public bool HasInteractions => uiMenu.Any();
-        /// <summary>
-        /// Referencia al objeto <see cref="ITaskReporter"/> a utilizar por las
-        /// funciones de este <see cref="Plugin"/>.
-        /// </summary>
-        public ITaskReporter Reporter { get => rptr; set => rptr = value ?? throw new ArgumentNullException(nameof(value)); }
+        public bool HasInteractions => InteractionItems.Any();
         /// <summary>
         /// Contiene un objeto de libre uso para almacenamiento de cualquier
         /// inatancia que el usuario desee asociar a este <see cref="Plugin"/>.
@@ -290,54 +279,32 @@ namespace MCART.PluginSupport
         /// Se produce cuando un <see cref="Plugin"/> solicita que se actualice
         /// su interfaz gráfica, en caso de contenerla.
         /// </summary>
-        public event EventHandler<UIChangeEventArgs> UIChangeRequested;
+        public event EventHandler<UIChangedEventArgs> UIChanged;
         /// <summary>
         /// Se produce cuando un <see cref="Plugin"/> va a ser finalizado.
         /// </summary>
         public event EventHandler<PluginFinalizingEventArgs> PluginFinalizing;
         /// <summary>
-        /// Se produce cuando un <see cref="Plugin"/> ha sido finalizado.
+        /// Genera el evento <see cref="UIChanged"/>.
         /// </summary>
-        public event EventHandler<PluginFinalizedEventArgs> PluginFinalized;
+        /// <param name="e">Argumentos del evento.</param>
+        protected virtual void OnUIChanged(UIChangedEventArgs e) => UIChanged?.Invoke(this, e);
         /// <summary>
-        /// Se produce cuando un <see cref="Plugin"/> ha sido cargado.
+        /// Genera el evento <see cref="UIChanged"/>.
         /// </summary>
-        public event EventHandler<PluginLoadedEventArgs> PluginLoaded;
+        protected void OnUIChanged() => OnUIChanged(new UIChangedEventArgs(PluginInteractions));
         /// <summary>
-        /// Se produce cuando un <see cref="Plugin"/> no pudo ser cargado.
+        /// Genera el evento <see cref="PluginFinalizing"/>.
         /// </summary>
-        public event EventHandler<PluginFinalizedEventArgs> PluginLoadFailed;
-
-        /// <summary>
-        /// Genera el evento <see cref="UIChangeRequested"/>.
-        /// </summary>
-        public void RequestUIChange() => UIChangeRequested?.Invoke(this, new UIChangeEventArgs(PluginInteractions));
-        /// <summary>
-        /// Genera el evento <see cref="PluginLoadFailed"/>.
-        /// </summary>
-        /// <param name="ex">
-        /// Parámetro opcional. <see cref="Exception"/> que ha causado que el
-        /// <see cref="Plugin"/> no pueda inicializarse.
-        /// </param>
-        protected void RaiseFailed(Exception ex = null) => PluginLoadFailed?.Invoke(this, new PluginFinalizedEventArgs(ex));
+        /// <param name="e">Argumentos del evento.</param>
+        protected virtual void OnPluginFinalizing(PluginFinalizingEventArgs e) => PluginFinalizing?.Invoke(this, e);
         /// <summary>
         /// Genera el evento <see cref="PluginFinalizing"/>.
         /// </summary>
         /// <param name="reason">
         /// Parámetro opcional. Razón por la que el plugin va a finalizar.
         /// </param>
-        protected void RaiseFinalizing(PluginFinalizingEventArgs.FinalizingReason reason = PluginFinalizingEventArgs.FinalizingReason.Shutdown) => PluginFinalizing?.Invoke(this, new PluginFinalizingEventArgs(reason));
-        /// <summary>
-        /// Genera el evento <see cref="PluginLoaded"/>.
-        /// </summary>
-        /// <param name="tme">
-        /// Instante de carga del <see cref="Plugin"/>.
-        /// </param>
-        /// <remarks>
-        /// Este es un método para uso interno de MCART. Esta función no debe
-        /// ser llamada por ningún código externo.
-        /// </remarks>
-        private void RaisePluginLoaded(DateTime tme) => PluginLoaded?.Invoke(this, new PluginLoadedEventArgs((DateTime.Now - tme).Ticks));
+        protected void OnPluginFinalizing(PluginFinalizingEventArgs.FinalizingReason reason = PluginFinalizingEventArgs.FinalizingReason.Shutdown) => OnPluginFinalizing(new PluginFinalizingEventArgs(reason));
         #endregion
         #region Métodos públicos
         /// <summary>
@@ -346,8 +313,8 @@ namespace MCART.PluginSupport
         /// </summary>
         /// <param name="minVersion">Versión mínima de MCART.</param>
         /// <returns>
-        /// <c>true</c> si fue posible obtener información sobre la versión 
-        /// mínima de MCART, <c>false</c> en caso contrario.
+        /// <see langword="true"/> si fue posible obtener información sobre la versión 
+        /// mínima de MCART, <see langword="false"/> en caso contrario.
         /// </returns>
         [Thunk]
         public bool MinRTVersion(out Version minVersion)
@@ -361,8 +328,8 @@ namespace MCART.PluginSupport
         /// </summary>
         /// <param name="tgtVersion">Versión objetivo de MCART.</param>
         /// <returns>
-        /// <c>true</c> si fue posible obtener información sobre la versión 
-        /// objetivo de MCART, <c>false</c> en caso contrario.
+        /// <see langword="true"/> si fue posible obtener información sobre la versión 
+        /// objetivo de MCART, <see langword="false"/> en caso contrario.
         /// </returns>
         [Thunk]
         public bool TargetRTVersion(out Version tgtVersion)
@@ -371,14 +338,5 @@ namespace MCART.PluginSupport
             return !(tgtVersion is null);
         }
         #endregion
-
-        /// <summary>
-        /// Realiza algunas tareas previas a la destrucción de esta instancia 
-        /// de <see cref="Plugin"/> por el colector de basura.
-        /// </summary>
-        ~Plugin()
-        {
-            PluginFinalized?.Invoke(null, new PluginFinalizedEventArgs());
-        }
     }
 }

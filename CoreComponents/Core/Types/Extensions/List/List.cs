@@ -1,33 +1,34 @@
-﻿//
-//  List.cs
-//
-//  This file is part of MCART
-//
-//  Author:
-//       César Andrés Morgan <xds_xps_ivx@hotmail.com>
-//
-//  Copyright (c) 2011 - 2018 César Andrés Morgan
-//
-//  MCART is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-//
-//  MCART is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-//
-//  You should have received a copy of the GNU General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿/*
+List.cs
+
+This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Author(s):
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+
+Copyright (c) 2011 - 2018 César Andrés Morgan
+
+Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+*/
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MCART.Exceptions;
-using MCART.Attributes;
+using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Attributes;
 
-namespace MCART.Types.Extensions
+namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
     /// Extensión observable de la clase 
@@ -45,17 +46,15 @@ namespace MCART.Types.Extensions
     /// </remarks>
     public partial class List<T> : System.Collections.Generic.List<T>, ICloneable
     {
-#pragma warning disable RECS0108 // Warns about static fields in generic types
         /// <summary>
         /// Activa o desactiva la generación global de eventos de todos los
         /// <see cref="List{T}"/>.
         /// </summary>
-        public static bool GlobalTriggerEvents = true;
-#pragma warning restore RECS0108
+        public static bool GlobalTriggerEvents { get; set; } = true;
         /// <summary>
         /// Activa o desactiva la generación de eventos.
         /// </summary>
-        public bool TriggerEvents = true;
+        public bool TriggerEvents { get; set; } = true;
         /// <summary>
         /// Obtiene o establece el elemento ubicado en el íncide especificado.
         /// </summary>
@@ -66,13 +65,17 @@ namespace MCART.Types.Extensions
             get => base[index];
             set
             {
-                ModifyingItemEventArgs<T> a = new ModifyingItemEventArgs<T>(index, base[index], value);
-                ModifyingItem?.Invoke(this, a);
-                if (!a.Cancel)
+                if (TriggerEvents && GlobalTriggerEvents)
                 {
-                    base[index] = value;
-                    ModifiedItem?.Invoke(this, new ItemModifiedEventArgs<T>(base[index], index));
+                    var a = new ModifyingItemEventArgs<T>(index, base[index], value);
+                    ModifyingItem?.Invoke(this, a);
+                    if (!a.Cancel)
+                    {
+                        base[index] = value;
+                        ModifiedItem?.Invoke(this, (ItemModifiedEventArgs<T>)a);
+                    }
                 }
+                else { base[index] = value; }
             }
         }
         /// <summary>
@@ -80,18 +83,18 @@ namespace MCART.Types.Extensions
         /// </summary>
         /// <param name="item">
         /// El objeto a ser añadido al final de la <see cref="List{T}"/>. El
-        /// valor puede ser <c>null</c> para tipos de referencia.
+        /// valor puede ser <see langword="null"/> para tipos de referencia.
         /// </param>
         public new void Add(T item)
         {
             if (TriggerEvents && GlobalTriggerEvents)
             {
-                AddingItemEventArgs<T> a = new AddingItemEventArgs<T>(item);
+                var a = new AddingItemEventArgs<T>(item);
                 AddingItem?.Invoke(this, a);
                 if (!a.Cancel)
                 {
                     base.Add(item);
-                    AddedItem?.Invoke(this, new AddedItemEventArgs<T>(item));
+                    AddedItem?.Invoke(this, a);
                 }
             }
             else { base.Add(item); }
@@ -105,12 +108,12 @@ namespace MCART.Types.Extensions
         {
             if (TriggerEvents && GlobalTriggerEvents)
             {
-                ListUpdatingEventArgs<T> a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsAdded, collection);
+                var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsAdded, collection);
                 ListUpdating?.Invoke(this, a);
                 if (!a.Cancel)
                 {
                     base.AddRange(collection);
-                    ListUpdated?.Invoke(this, new ListUpdatedEventArgs<T>(ListUpdateType.ItemsAdded, collection));
+                    ListUpdated?.Invoke(this, a);
                 }
             }
             else { base.AddRange(collection); }
@@ -124,12 +127,12 @@ namespace MCART.Types.Extensions
         {
             if (TriggerEvents && GlobalTriggerEvents)
             {
-                InsertingItemEventArgs<T> a = new InsertingItemEventArgs<T>(index, item);
+                var a = new InsertingItemEventArgs<T>(index, item);
                 InsertingItem?.Invoke(this, a);
                 if (!a.Cancel)
                 {
                     base.Insert(index, item);
-                    InsertedItem?.Invoke(this, new InsertedItemEventArgs<T>(index, item));
+                    InsertedItem?.Invoke(this, a);
                 }
             }
             else { base.Insert(index, item); }
@@ -143,12 +146,12 @@ namespace MCART.Types.Extensions
         {
             if (TriggerEvents && GlobalTriggerEvents)
             {
-                ListUpdatingEventArgs<T> a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsInserted, collection);
+                var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsInserted, collection);
                 ListUpdating?.Invoke(this, a);
                 if (!a.Cancel)
                 {
                     base.InsertRange(index, collection);
-                    ListUpdated?.Invoke(this, new ListUpdatedEventArgs<T>(ListUpdateType.ItemsInserted, collection));
+                    ListUpdated?.Invoke(this, a);
                 }
             }
             else { base.InsertRange(index, collection); }
@@ -160,20 +163,20 @@ namespace MCART.Types.Extensions
         /// <param name="item">
         /// Objeto de tipo <typeparamref name="T"/> a remover de la colección.
         /// </param>
-        /// <exception cref="EmptyCollectionException{T}">
+        /// <exception cref="IndexOutOfRangeException">
         /// se produce si esta lista está vacía.
         /// </exception>
         public new void Remove(T item)
         {
-            if (!this.Any()) throw new EmptyCollectionException<T>(this);
+            if (!this.Any()) throw new IndexOutOfRangeException(null, new EmptyCollectionException(this));
             if (TriggerEvents && GlobalTriggerEvents)
             {
-                var a = new RemovingItemEventArgs<T>(this.Last(), IndexOf(item));
+                var a = new RemovingItemEventArgs<T>(IndexOf(item), this.Last());
                 RemovingItem?.Invoke(this, a);
                 if (!a.Cancel)
                 {
                     base.Remove(item);
-                    RemovedItem?.Invoke(this, new RemovedItemEventArgs<T>(item));
+                    RemovedItem?.Invoke(this, a);
                 }
             }
             else { base.Remove(item); }
@@ -182,18 +185,22 @@ namespace MCART.Types.Extensions
         /// Quita el elemento situado en el índice especificado del <see cref="List{T}"/>
         /// </summary>
         /// <param name="index">Índice del elemento a remover</param>
+        /// <exception cref="IndexOutOfRangeException">
+        /// se produce si esta lista está vacía,  si se intenta remover un
+        /// elemento de un índice que no existe.
+        /// </exception>
         public new void RemoveAt(int index)
         {
-            if (!this.Any()) throw new EmptyCollectionException<T>(this);
+            if (!this.Any()) throw new IndexOutOfRangeException(null, new EmptyCollectionException(this));
             if (TriggerEvents && GlobalTriggerEvents)
             {
-                var a = new RemovingItemEventArgs<T>(this[index], index);
+                var a = new RemovingItemEventArgs<T>(index, this[index]);
                 RemovingItem?.Invoke(this, a);
                 if (!a.Cancel)
                 {
                     T x = this.ElementAt(index);
                     base.RemoveAt(index);
-                    RemovedItem?.Invoke(this, new RemovedItemEventArgs<T>(x));
+                    RemovedItem?.Invoke(this, a);
                 }
             }
             else { base.RemoveAt(index); }
@@ -206,26 +213,36 @@ namespace MCART.Types.Extensions
         /// Delegado <see cref="Predicate{T}"/> que define las condiciones de
         /// los elementos que se van a quitar.
         /// </param>
-        /// <exception cref="EmptyCollectionException{T}">
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="match"/> es <see langword="null"/>.
+        /// </exception>
+#if PreferExceptions
+		/// <exception cref="EmptyCollectionException">
         /// se produce si esta lista está vacía.
         /// </exception>
-        public new void RemoveAll(Predicate<T> match)
+#endif
+        public new int RemoveAll(Predicate<T> match)
         {
-            if (!this.Any()) throw new EmptyCollectionException<T>(this);
+            if (!this.Any())
+#if PreferExceptions
+                throw new EmptyCollectionException(this);
+#else
+                return 0;
+#endif
             if (TriggerEvents && GlobalTriggerEvents)
             {
-                System.Collections.Generic.List<T> tmp = this.Where((c) => match(c)).ToList();
+                var tmp = this.Where((c) => match(c));
                 var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsRemoved, tmp);
                 ListUpdating?.Invoke(this, a);
                 if (!a.Cancel)
                 {
-                    foreach (T itm in tmp) base.Remove(itm);
-                    ListUpdated?.Invoke(this, new ListUpdatedEventArgs<T>(ListUpdateType.ItemsRemoved, tmp));
-                    tmp?.Clear();
-                    tmp = null;
+                    var retVal = base.RemoveAll(match);
+                    ListUpdated?.Invoke(this, a);
+                    return retVal;
                 }
+                return 0;
             }
-            else { base.RemoveAll(match); }
+            else { return base.RemoveAll(match); }
         }
         /// <summary>
         /// Invierte el orden de los elementos en este <see cref="List{T}"/> completo.
@@ -234,12 +251,12 @@ namespace MCART.Types.Extensions
         {
             if (TriggerEvents && GlobalTriggerEvents)
             {
-                ListUpdatingEventArgs<T> a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, Reversed());
+                var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, Reversed());
                 ListUpdating?.Invoke(this, a);
                 if (!a.Cancel)
                 {
                     base.Reverse();
-                    ListUpdated?.Invoke(this, new ListUpdatedEventArgs<T>(ListUpdateType.ItemsInserted, this));
+                    ListUpdated?.Invoke(this, a);
                 }
             }
             else { base.Reverse(); }
@@ -257,12 +274,12 @@ namespace MCART.Types.Extensions
         {
             if (TriggerEvents && GlobalTriggerEvents)
             {
-                ListUpdatingEventArgs<T> a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, Reversed(index, count));
+                var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, Reversed(index, count));
                 ListUpdating?.Invoke(this, a);
                 if (!a.Cancel)
                 {
                     base.Reverse(index, count);
-                    ListUpdated?.Invoke(this, new ListUpdatedEventArgs<T>(ListUpdateType.ItemsInserted, this));
+                    ListUpdated?.Invoke(this, a);
                 }
             }
             else { base.Reverse(index, count); }
@@ -275,9 +292,9 @@ namespace MCART.Types.Extensions
         /// Una versión inversa del orden de los elementos de este 
         /// <see cref="List{T}"/>.
         /// </returns>
-        public List<T> Reversed()
+        public IEnumerable<T> Reversed()
         {
-            List<T> tmp = (List<T>)this.Copy();
+            var tmp = this.Copy();
             tmp.Reverse();
             return tmp;
         }
@@ -295,30 +312,20 @@ namespace MCART.Types.Extensions
         /// Una versión inversa del orden de los elementos de este 
         /// <see cref="List{T}"/>.
         /// </returns>
-        public List<T> Reversed(int index, int count)
+        public IEnumerable<T> Reversed(int index, int count)
         {
-            List<T> tmp = (List<T>)this.Copy();
+            var tmp = (List<T>)this.Copy();
             tmp.Reverse(index, count);
             return tmp;
         }
         /// <summary>
         /// Quita el último elemento de la <see cref="List{T}"/>
         /// </summary>
-        [Thunk]
-        public void RemoveLast()
-        {
-            try { Remove(this.Last()); }
-            catch { throw; }
-        }
+        [Thunk] public void RemoveLast() => Remove(this.Last());
         /// <summary>
         /// Quita el primer elemento de la <see cref="List{T}"/>
         /// </summary>
-        [Thunk]
-        public void RemoveFirst()
-        {
-            try { Remove(this.First()); }
-            catch { throw; }
-        }
+        [Thunk] public void RemoveFirst() => Remove(this.First());
         /// <summary>
         /// Remueve todos los elementos de la <see cref="List{T}"/>
         /// </summary>
@@ -326,8 +333,8 @@ namespace MCART.Types.Extensions
         {
             if (TriggerEvents && GlobalTriggerEvents)
             {
-                ListUpdatingEventArgs<T> a = new ListUpdatingEventArgs<T>(ListUpdateType.ListCleared, this);
-                ClearingList?.Invoke(this, a);
+                var a = new System.ComponentModel.CancelEventArgs();
+                ListClearing?.Invoke(this, a);
                 if (!a.Cancel)
                 {
                     base.Clear();
@@ -344,12 +351,12 @@ namespace MCART.Types.Extensions
         {
             if (TriggerEvents && GlobalTriggerEvents)
             {
-                ListUpdatingEventArgs<T> a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, this);
+                var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, this);
                 ListUpdating?.Invoke(this, a);
                 if (!a.Cancel)
                 {
                     base.Sort();
-                    ListUpdated?.Invoke(this, new ListUpdatedEventArgs<T>(ListUpdateType.ItemsMoved, this));
+                    ListUpdated?.Invoke(this, a);
                 }
             }
             else { base.Sort(); }
@@ -366,12 +373,12 @@ namespace MCART.Types.Extensions
         {
             if (TriggerEvents && GlobalTriggerEvents)
             {
-                ListUpdatingEventArgs<T> a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, this);
+                var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, this);
                 ListUpdating?.Invoke(this, a);
                 if (!a.Cancel)
                 {
                     base.Sort(comparsion);
-                    ListUpdated?.Invoke(this, new ListUpdatedEventArgs<T>(ListUpdateType.ItemsMoved, this));
+                    ListUpdated?.Invoke(this, a);
                 }
             }
             else { base.Sort(comparsion); }
@@ -382,19 +389,19 @@ namespace MCART.Types.Extensions
         /// </summary>
         /// <param name="comparer">
         /// Implementación de <see cref="IComparer{T}"/> que se va a utilizar
-        /// al comparar elementos, o <c>null</c> para utilizar el comparador
+        /// al comparar elementos, o <see langword="null"/> para utilizar el comparador
         /// predeterminado <see cref="Comparer{T}.Default"/>.
         /// </param>
         public new void Sort(IComparer<T> comparer)
         {
             if (TriggerEvents && GlobalTriggerEvents)
             {
-                ListUpdatingEventArgs<T> a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, this);
+                var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, this);
                 ListUpdating?.Invoke(this, a);
                 if (!a.Cancel)
                 {
                     base.Sort(comparer);
-                    ListUpdated?.Invoke(this, new ListUpdatedEventArgs<T>(ListUpdateType.ItemsMoved, this));
+                    ListUpdated?.Invoke(this, a);
                 }
             }
             else { base.Sort(comparer); }
@@ -411,19 +418,19 @@ namespace MCART.Types.Extensions
         /// </param>
         /// <param name="comparer">
         /// Implementación de <see cref="IComparer{T}"/> que se va a utilizar
-        /// al comparar elementos, o <c>null</c> para utilizar el comparador
+        /// al comparar elementos, o <see langword="null"/> para utilizar el comparador
         /// predeterminado <see cref="Comparer{T}.Default"/>.
         /// </param>
         public new void Sort(int index, int count, IComparer<T> comparer)
         {
             if (TriggerEvents && GlobalTriggerEvents)
             {
-                ListUpdatingEventArgs<T> a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, this);
+                var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, this.Range(index,count));
                 ListUpdating?.Invoke(this, a);
                 if (!a.Cancel)
                 {
                     base.Sort(index, count, comparer);
-                    ListUpdated?.Invoke(this, new ListUpdatedEventArgs<T>(ListUpdateType.ItemsMoved, this));
+                    ListUpdated?.Invoke(this, a);
                 }
             }
             else { base.Sort(index, count, comparer); }

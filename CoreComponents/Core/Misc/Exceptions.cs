@@ -1,177 +1,105 @@
-﻿//
-//  Exceptions.cs
-//
-//  This file is part of MCART
-//
-//  Author:
-//       César Andrés Morgan <xds_xps_ivx@hotmail.com>
-//
-//  Copyright (c) 2011 - 2018 César Andrés Morgan
-//
-//  MCART is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-//
-//  MCART is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-//
-//  You should have received a copy of the GNU General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿/*
+Exceptions.cs
+
+This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Author(s):
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+
+Copyright (c) 2011 - 2018 César Andrés Morgan
+
+Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will be
+useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+*/
 
 using System;
-using System.Collections.Generic;
-using System.IO;
+using System.Collections;
+using TheXDS.MCART.PluginSupport;
+using TheXDS.MCART.Attributes;
+using System.Net;
 using System.Reflection;
 using System.Runtime.Serialization;
-using St = MCART.Resources.Strings;
+using St = TheXDS.MCART.Resources.Strings;
 
-namespace MCART.Exceptions
+namespace TheXDS.MCART.Exceptions
 {
     /// <summary>
-    /// Excepcion que se produce cuando un método o función esperaba una
-    /// interfaz como argumento.
+    /// Excepción estándar producida al encontrarse un problema con un objeto.
     /// </summary>
     [Serializable]
-    public class InterfaceExpectedException : Exception
+    public class OffendingException<T> : Exception
     {
         /// <summary>
-        /// Tipo que ha causado la excepción.
+        /// Objeto que ha causado la excepción.
         /// </summary>
-        public readonly Type OffendingType;
+        public T OffendingObject { get; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InterfaceExpectedException"/>.
+        /// <see cref="OffendingException{T}"/>.
         /// </summary>
-        public InterfaceExpectedException() : base(St.InterfaceExpected) { }
+        public OffendingException() : base(St.XIsInvalid(St.TheObj)) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InterfaceExpectedException"/>.
+        /// <see cref="OffendingException{T}"/>.
         /// </summary>
-        /// <param name="T">Tipo que generó la excepción.</param>
-        public InterfaceExpectedException(Type T) : base(St.InterfaceExpected)
+        /// <param name="offendingObject">
+        /// Objeto que es la causa de esta excepción.
+        /// </param>
+        public OffendingException(T offendingObject) : this()
         {
-            OffendingType = T;
+            OffendingObject = offendingObject;
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InterfaceExpectedException"/>.
-        /// </summary>
-        /// <param name="message">A <see cref="string"/> that describes
-        /// the exception.</param>
-        public InterfaceExpectedException(string message) : base(message) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InterfaceExpectedException"/>.
-        /// </summary>
-        /// <param name="message">A <see cref="string"/> that describes
-        /// the exception.</param>
-        /// <param name="T">Tipo que generó la excepción.</param>
-        public InterfaceExpectedException(string message, Type T)
-            : base(message) { OffendingType = T; }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InterfaceExpectedException"/>.
-        /// </summary>
-        /// <param name="inner">The exception that is the cause of the current
-        /// exception.</param>
-        public InterfaceExpectedException(Exception inner)
-            : base(St.InterfaceExpected, inner) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InterfaceExpectedException"/>.
-        /// </summary>
-        /// <param name="inner">The exception that is the cause of the current
-        /// exception.</param>
-        /// <param name="T">Tipo que generó la excepción.</param>
-        public InterfaceExpectedException(Exception inner, Type T)
-            : base(St.InterfaceExpected, inner) { OffendingType = T; }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InterfaceExpectedException"/>.
-        /// </summary>
-        /// <param name="message">A <see cref="string"/> that describes
-        /// the exception.</param>
-        /// <param name="inner">The exception that is the cause of the current
-        /// exception. </param>
-        public InterfaceExpectedException(string message, Exception inner)
-            : base(message, inner) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InterfaceExpectedException"/>.
-        /// </summary>
-        /// <param name="message">A <see cref="string"/> that describes
-        /// the exception.</param>
-        /// <param name="inner">The exception that is the cause of the current
-        /// exception.</param>
-        /// <param name="T">Tipo que generó la excepción.</param>
-        public InterfaceExpectedException(string message, Exception inner, Type T)
-            : base(message, inner) { OffendingType = T; }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InterfaceExpectedException"/>.
-        /// </summary>
-        /// <param name="context">The contextual information about the source or
-        /// destination.</param>
-        /// <param name="info">
-        /// El objeto que contiene la información de serialización.
-        /// </param>
-        protected InterfaceExpectedException(SerializationInfo info, StreamingContext context)
-            : base(info, context) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InterfaceExpectedException"/>.
-        /// </summary>
-        /// <param name="context">The contextual information about the source or
-        /// destination.</param>
-        /// <param name="info">
-        /// El objeto que contiene la información de serialización.
-        /// </param>
-        /// <param name="T">Tipo que generó la excepción.</param>
-        protected InterfaceExpectedException(SerializationInfo info, StreamingContext context, Type T)
-            : base(info, context) { OffendingType = T; }
-    }
-    /// <summary>
-    /// Excepción que se produce al intentar cargar plugins desde un ensamblado
-    /// que no contiene ninguno.
-    /// </summary>
-    [Serializable]
-    public class NotPluginException : Exception
-    {
-        /// <summary>
-        /// The offending assembly.
-        /// </summary>
-        public readonly System.Reflection.Assembly OffendingAssembly;
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="NotPluginException"/>.
-        /// </summary>
-        /// <param name="offendingAssembly">Offending assembly.</param>
-        public NotPluginException(System.Reflection.Assembly offendingAssembly = null)
-            : base(St.XIsInvalid(St.TheAssembly)) { OffendingAssembly = offendingAssembly; }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="NotPluginException"/>.
+        /// <see cref="OffendingException{T}"/>.
         /// </summary>
         /// <param name="message">
-        /// A <see cref="string"/> that describes the exception.</param>
-        /// <param name="offendingAssembly">Offending assembly.</param>
-        public NotPluginException(string message, System.Reflection.Assembly offendingAssembly = null)
-            : base(message) { OffendingAssembly = offendingAssembly; }
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        public OffendingException(string message) : base(message) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
-        /// <see cref="NotPluginException"/>.
+        /// <see cref="OffendingException{T}"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="offendingObject">
+        /// Objeto que es la causa de esta excepción.
+        /// </param>
+        public OffendingException(string message, T offendingObject) : base(message) { OffendingObject = offendingObject; }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="OffendingException{T}"/>.
         /// </summary>
         /// <param name="inner">
-        /// <see cref="Exception"/> que es la causa de esta excepción.</param>
-        /// <param name="offendingAssembly">Offending assembly.</param>
-        public NotPluginException(Exception inner, System.Reflection.Assembly offendingAssembly = null)
-            : base(St.XIsInvalid(St.TheAssembly), inner) { OffendingAssembly = offendingAssembly; }
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        public OffendingException(Exception inner) : base(St.XIsInvalid(St.TheType), inner) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
-        /// <see cref="NotPluginException"/>.
+        /// <see cref="OffendingException{T}"/>.
+        /// </summary>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="offendingObject">
+        /// Objeto que es la causa de esta excepción.
+        /// </param>
+        public OffendingException(Exception inner, T offendingObject) : this(inner) { OffendingObject = offendingObject; }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="OffendingException{T}"/>.
         /// </summary>
         /// <param name="message">
         /// Un <see cref="string"/> que describe a la excepción.
@@ -179,400 +107,529 @@ namespace MCART.Exceptions
         /// <param name="inner">
         /// <see cref="Exception"/> que es la causa de esta excepción.
         /// </param>
-        /// <param name="offendingAssembly">Offending assembly.</param>
-        public NotPluginException(string message, Exception inner, System.Reflection.Assembly offendingAssembly = null)
-            : base(message, inner) { OffendingAssembly = offendingAssembly; }
+        public OffendingException(string message, Exception inner) : base(message, inner) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InterfaceExpectedException"/>.
+        /// <see cref="OffendingException{T}"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="offendingObject">
+        /// Objeto que es la causa de esta excepción.
+        /// </param>
+        public OffendingException(string message, Exception inner, T offendingObject) : base(message, inner) { OffendingObject = offendingObject; }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="OffendingException{T}"/> con datos serializados.
         /// </summary>
         /// <param name="context">
-        /// The contextual information about the source or destination.
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="info">
-        /// El objeto que contiene la información de serialización.
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
-        /// <param name="offendingAssembly">Offending assembly.</param>
-        protected NotPluginException(SerializationInfo info, StreamingContext context, System.Reflection.Assembly offendingAssembly = null)
-            : base(info, context) { OffendingAssembly = offendingAssembly; }
-    }
-    /// <summary>
-    /// Excepción que se produce cuando un <see cref="IEnumerable{T}"/> está 
-    /// vacío.
-    /// </summary>
-    /// <typeparam name="T">Tipo de la colección vacía.</typeparam>
-    [Serializable]
-    public class EmptyCollectionException<T> : Exception
-    {
+        protected OffendingException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
-        /// Colección que ha causado la excepción.
-        /// </summary>
-        public readonly IEnumerable<T> OffendingCollection;
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="EmptyCollectionException{T}"/>.
-        /// </summary>
-        /// <param name="offendingCollection">
-        /// Colección que ha causado la excepción.
-        /// </param>
-        public EmptyCollectionException(IEnumerable<T> offendingCollection) : base(St.LstEmpty) { OffendingCollection = offendingCollection; }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="EmptyCollectionException{T}"/>.
-        /// </summary>
-        /// <param name="inner">
-        /// <see cref="Exception"/> que es la causa de esta excepción.
-        /// </param>
-        /// <param name="offendingCollection">
-        /// Colección que ha causado la excepción.
-        /// </param>
-        public EmptyCollectionException(Exception inner, IEnumerable<T> offendingCollection) : base(St.LstEmpty, inner) { OffendingCollection = offendingCollection; }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="EmptyCollectionException{T}"/>.
-        /// </summary>
-        /// <param name="message">
-        /// Un <see cref="string"/> que describe a la excepción.
-        /// </param>
-        /// <param name="offendingCollection">
-        /// Colección que ha causado la excepción.
-        /// </param>
-        public EmptyCollectionException(string message, IEnumerable<T> offendingCollection) : base(message) { OffendingCollection = offendingCollection; }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="EmptyCollectionException{T}"/>.
-        /// </summary>
-        /// <param name="message">
-        /// Un <see cref="string"/> que describe a la excepción.
-        /// </param>
-        /// <param name="inner">
-        /// <see cref="Exception"/> que es la causa de esta excepción.
-        /// </param>
-        /// <param name="offendingCollection">
-        /// Colección que ha causado la excepción.
-        /// </param>
-        public EmptyCollectionException(string message, Exception inner, IEnumerable<T> offendingCollection) : base(message, inner) { OffendingCollection = offendingCollection; }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="EmptyCollectionException{T}"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="OffendingException{T}"/> con datos serializados.
         /// </summary>
         /// <param name="context">
-        /// La información contextual acerca del orígen o el destino.
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="info">
-        /// El objeto que contiene la información de serialización.
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
-        /// <param name="offendingCollection">
-        /// Colección que ha causado la excepción.
+        /// <param name="offendingObject">
+        /// Objeto que es la causa de esta excepción.
         /// </param>
-        protected EmptyCollectionException(SerializationInfo info, StreamingContext context, IEnumerable<T> offendingCollection) : base(info, context) { OffendingCollection = offendingCollection; }
+        protected OffendingException(SerializationInfo info, StreamingContext context, T offendingObject) : base(info, context) { OffendingObject = offendingObject; }
+    }
+    /// <summary>
+    /// Excepción que se produce cuando se intenta cargar plugins desde un ensamblado que no contiene ninguna clase cargable como <see cref="IPlugin"/>.
+    /// </summary>
+    [Serializable]
+    public class NotPluginException : OffendingException<Assembly>
+    {
+        static string Msg() => St.XIsInvalid(St.TheAssembly);
+        static string Msg(Assembly assembly) => St.XIsInvalid(St.XYQuotes(St.TheAssembly, assembly.FullName));
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="NotPluginException"/>.
+        /// </summary>
+        /// <param name="context">
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
+        /// </param>
+        protected NotPluginException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="NotPluginException"/>.
+        /// </summary>
+        /// <param name="context">
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
+        /// </param>
+        /// <param name="assembly"><see cref="Assembly"/> desde el cual se intentó cargar un <see cref="IPlugin"/>.</param>
+        protected NotPluginException(SerializationInfo info, StreamingContext context, Assembly assembly) : base(info, context, assembly) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase
-        /// <see cref="EmptyCollectionException{T}"/>.
+        /// <see cref="NotPluginException"/>.
+        /// </summary>
+        public NotPluginException() : base(Msg()) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="NotPluginException"/>.
+        /// </summary>
+        /// <param name="assembly"><see cref="Assembly"/> desde el cual se intentó cargar un <see cref="IPlugin"/>.</param>
+        public NotPluginException(Assembly assembly) : base(Msg(assembly), assembly) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="NotPluginException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        public NotPluginException(string message) : base(message) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="NotPluginException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="assembly"><see cref="Assembly"/> desde el cual se intentó cargar un <see cref="IPlugin"/>.</param>
+        public NotPluginException(string message, Assembly assembly) : base(message, assembly) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="NotPluginException"/>.
+        /// </summary>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        public NotPluginException(Exception inner) : base(Msg(), inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="NotPluginException"/>.
+        /// </summary>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="assembly"><see cref="Assembly"/> desde el cual se intentó cargar un <see cref="IPlugin"/>.</param>
+        public NotPluginException(Exception inner, Assembly assembly) : base(Msg(assembly), inner, assembly) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="NotPluginException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        public NotPluginException(string message, Exception inner) : base(message, inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="NotPluginException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="assembly"><see cref="Assembly"/> desde el cual se intentó cargar un <see cref="IPlugin"/>.</param>
+        public NotPluginException(string message, Exception inner, Assembly assembly) : base(message, inner, assembly) { }
+    }
+    /// <summary>
+    /// Excepción que se produce cuando una colección está vacía.
+    /// </summary>
+    [Serializable]
+    public class EmptyCollectionException : OffendingException<IEnumerable>
+    {
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="EmptyCollectionException"/>.
+        /// </summary>
+        /// <param name="context">
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
+        /// </param>
+        protected EmptyCollectionException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="EmptyCollectionException"/>.
+        /// </summary>
+        /// <param name="context">
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
+        /// </param>
+        /// <param name="offendingCollection">Colección vacía que ha generado la excepción.</param>
+        protected EmptyCollectionException(SerializationInfo info, StreamingContext context, IEnumerable offendingCollection) : base(info, context, offendingCollection) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="EmptyCollectionException"/>.
         /// </summary>
         public EmptyCollectionException() : base(St.LstEmpty) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase
-        /// <see cref="EmptyCollectionException{T}"/>.
+        /// <see cref="EmptyCollectionException"/>.
+        /// </summary>
+        /// <param name="offendingCollection">Colección vacía que ha generado la excepción.</param>
+        public EmptyCollectionException(IEnumerable offendingCollection) : base(St.LstEmpty, offendingCollection) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException"/>.
         /// </summary>
         /// <param name="message">
-        /// A <see cref="string"/> that describes the exception.
+        /// Un <see cref="string"/> que describe a la excepción.
         /// </param>
         public EmptyCollectionException(string message) : base(message) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException{T}"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException"/>.
         /// </summary>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="offendingCollection">Colección vacía que ha generado la excepción.</param>
+        public EmptyCollectionException(string message, IEnumerable offendingCollection) : base(message, offendingCollection) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException"/>.
+        /// </summary>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
         public EmptyCollectionException(Exception inner) : base(St.LstEmpty, inner) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException{T}"/> class
+        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException"/>.
         /// </summary>
-        /// <param name="message">A <see cref="string"/> that describes the exception. </param>
-        /// <param name="inner">The exception that is the cause of the current exception. </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="offendingCollection">Colección vacía que ha generado la excepción.</param>
+        public EmptyCollectionException(Exception inner, IEnumerable offendingCollection) : base(St.LstEmpty, inner, offendingCollection) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
         public EmptyCollectionException(string message, Exception inner) : base(message, inner) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException{T}"/> class
+        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException"/>.
         /// </summary>
-        /// <param name="context">La información contextual acerca del orígen o el destino.</param>
-        /// <param name="info">El objeto que contiene la información de serialización.</param>
-        protected EmptyCollectionException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="offendingCollection">Colección vacía que ha generado la excepción.</param>
+        public EmptyCollectionException(string message, Exception inner, IEnumerable offendingCollection) : base(message, inner, offendingCollection) { }
     }
     /// <summary>
-    /// Excepcion que se produce cuando se solicita cargar un <see cref="PluginSupport.Plugin"/> con la interfaz especificada, pero no la implementa.
-    /// </summary>
-    [Serializable]
-    public class InterfaceNotImplementedException : Exception
-    {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InterfaceNotImplementedException"/>.
-        /// </summary>
-        /// <param name="info">El objeto que contiene la información de serialización.</param>
-        /// <param name="context">La información contextual acerca del orígen o el destino.</param>
-        protected InterfaceNotImplementedException(SerializationInfo info, StreamingContext context) : base(info, context) { }
-        /// <summary>
-        /// Obtiene el tipo de la interfaz que se ha solicitado cargar
-        /// </summary>
-        /// <returns></returns>
-        public readonly Type MissingInterface;
-        /// <summary>
-        /// Inicializa una nueva instancia de este objeto con los valores predeterminados, sin establecer la instancia solicitada que generó el error
-        /// </summary>
-        public InterfaceNotImplementedException() : base(St.XDoesntContainY(St.ThePlugin, St.TheInterface)) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de este objeto con la excepción interna que causó esta excepción
-        /// </summary>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public InterfaceNotImplementedException(Exception inner) : base(St.XDoesntContainY(St.ThePlugin, St.TheInterface), inner) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de este objeto especificando el tipo que causó la excepción
-        /// </summary>
-        /// <param name="T">Tipo que generó la excepción</param>
-        public InterfaceNotImplementedException(Type T) : base(St.XDoesntContainY(St.ThePlugin, St.XYQuotes(St.TheInterface, T.Name)))
-        {
-            MissingInterface = T;
-        }
-        /// <summary>
-        /// Inicializa una nueva instancia de este objeto especificando el tipo que causó la excepción, además de la <see cref="Exception"/> que generó esta.
-        /// </summary>
-        /// <param name="T">Tipo que generó la excepción</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public InterfaceNotImplementedException(Type T, Exception inner) : base(St.XDoesntContainY(St.ThePlugin, St.XYQuotes(St.TheInterface, T.Name)), inner)
-        {
-            MissingInterface = T;
-        }
-        /// <summary>
-        /// Inicializa una nueva instancia de este objeto con el mensaje especificado
-        /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        public InterfaceNotImplementedException(string message) : base(message) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de este objeto especificando el mensaje, la <see cref="Exception"/> y el tipo que generó esta excepción.
-        /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        /// <param name="T">Tipo que generó la excepción</param>
-        public InterfaceNotImplementedException(string message, Exception inner, Type T = null) : base(message, inner)
-        {
-            MissingInterface = T;
-        }
-    }
-    /// <summary>
-    /// Excepción que se produce cuando se determina que el directorio está lleno
-    /// </summary>
-    [Serializable]
-    public class DirectoryIsFullException : Exception
-    {
-        /// <summary>
-        /// Directorio al que se intentó escribir.
-        /// </summary>
-        public readonly DirectoryInfo OffendingDirectory;
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="DirectoryIsFullException"/>.
-        /// </summary>
-        /// <param name="info">El objeto que contiene la información de serialización.</param>
-        /// <param name="context">La información contextual acerca del orígen o el destino.</param>
-        protected DirectoryIsFullException(SerializationInfo info, StreamingContext context) : base(info, context) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="DirectoryIsFullException"/>.
-        /// </summary>
-        /// <param name="OffendingDirectory">Offending directory.</param>
-        public DirectoryIsFullException(DirectoryInfo OffendingDirectory = null) : base(St.DirectoryIsFull)
-        {
-            this.OffendingDirectory = OffendingDirectory;
-        }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="DirectoryIsFullException"/>.
-        /// </summary>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        /// <param name="OffendingDirectory">Offending directory.</param>
-        public DirectoryIsFullException(Exception inner, DirectoryInfo OffendingDirectory = null) : base(St.DirectoryIsFull, inner)
-        {
-            this.OffendingDirectory = OffendingDirectory;
-        }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="DirectoryIsFullException"/>.
-        /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="OffendingDirectory">Offending directory.</param>
-        public DirectoryIsFullException(string message, DirectoryInfo OffendingDirectory = null) : base(message)
-        {
-            this.OffendingDirectory = OffendingDirectory;
-        }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="DirectoryIsFullException"/>.
-        /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        /// <param name="OffendingDirectory">Offending directory.</param>
-        public DirectoryIsFullException(string message, Exception inner, DirectoryInfo OffendingDirectory = null) : base(message, inner)
-        {
-            this.OffendingDirectory = OffendingDirectory;
-        }
-    }
-    /// <summary>
-    /// Excepción que se produce si la contraseña es incorrecta
+    /// Excepción que se produce si la contraseña es incorrecta.
     /// </summary>
     [Serializable]
     public class InvalidPasswordException : Exception
     {
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidPasswordException"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidPasswordException"/>.
         /// </summary>
-        /// <param name="info">El objeto que contiene la información de serialización.</param>
-        /// <param name="context">La información contextual acerca del orígen o el destino.</param>
+        /// <param name="context">
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
+        /// </param>
         protected InvalidPasswordException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidPasswordException"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidPasswordException"/>.
         /// </summary>
-        public InvalidPasswordException() : base(St.IncorrectPWD) { }
+        public InvalidPasswordException() : base(St.InvalidPassword) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidPasswordException"/>.
+        /// </summary>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        public InvalidPasswordException(Exception inner) : base(St.InvalidPassword, inner) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidPasswordException"/>.
         /// </summary>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public InvalidPasswordException(Exception inner) : base(St.IncorrectPWD, inner) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidPasswordException"/>.
-        /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
         public InvalidPasswordException(string message) : base(message) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidPasswordException"/>.
         /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
         public InvalidPasswordException(string message, Exception inner) : base(message, inner) { }
     }
     /// <summary>
-    /// Excepción que se produce al intentar utilizar una característica no disponible
+    /// Excepción que se produce al intentar utilizar una característica no
+    /// disponible.
     /// </summary>
     [Serializable]
     public class FeatureNotAvailableException : Exception
     {
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="FeatureNotAvailableException"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="FeatureNotAvailableException"/>.
         /// </summary>
-        /// <param name="info">El objeto que contiene la información de serialización.</param>
-        /// <param name="context">La información contextual acerca del orígen o el destino.</param>
+        /// <param name="context">
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
+        /// </param>
         protected FeatureNotAvailableException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="FeatureNotAvailableException"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="FeatureNotAvailableException"/>.
         /// </summary>
         public FeatureNotAvailableException() : base(St.FeatNotAvailable) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="FeatureNotAvailableException"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="FeatureNotAvailableException"/>.
         /// </summary>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
         public FeatureNotAvailableException(Exception inner) : base(St.FeatNotAvailable, inner) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="FeatureNotAvailableException"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="FeatureNotAvailableException"/>.
         /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
         public FeatureNotAvailableException(string message) : base(message) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="FeatureNotAvailableException"/>.
         /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
         public FeatureNotAvailableException(string message, Exception inner) : base(message, inner) { }
     }
     /// <summary>
-    /// Excepción que se produce al enviar demasiados parámetros a un método
+    /// Excepción que se produce al enviar demasiados parámetros a un método.
     /// </summary>
     [Serializable]
     public class TooManyArgumentsException : Exception
     {
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="TooManyArgumentsException"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="TooManyArgumentsException"/>.
         /// </summary>
-        /// <param name="info">El objeto que contiene la información de serialización.</param>
-        /// <param name="context">La información contextual acerca del orígen o el destino.</param>
+        /// <param name="context">
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
+        /// </param>
         protected TooManyArgumentsException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="TooManyArgumentsException"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="TooManyArgumentsException"/>.
         /// </summary>
         public TooManyArgumentsException() : base(St.TooManyArguments) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="TooManyArgumentsException"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="TooManyArgumentsException"/>.
         /// </summary>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
         public TooManyArgumentsException(Exception inner) : base(St.TooManyArguments, inner) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="TooManyArgumentsException"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="TooManyArgumentsException"/>.
         /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
         public TooManyArgumentsException(string message) : base(message) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="TooManyArgumentsException"/>.
         /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
         public TooManyArgumentsException(string message, Exception inner) : base(message, inner) { }
     }
     /// <summary>
-    /// Excepción que se produce al enviar muy pocos parámetros a un método
+    /// Excepción que se produce al enviar muy pocos parámetros a un método.
     /// </summary>
     [Serializable]
     public class TooFewArgumentsException : Exception
     {
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="TooFewArgumentsException"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="TooFewArgumentsException"/>.
         /// </summary>
-        /// <param name="info">El objeto que contiene la información de serialización.</param>
-        /// <param name="context">La información contextual acerca del orígen o el destino.</param>
+        /// <param name="context">
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
+        /// </param>
         protected TooFewArgumentsException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="TooFewArgumentsException"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="TooFewArgumentsException"/>.
         /// </summary>
         public TooFewArgumentsException() : base(St.TooFewArguments) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="TooFewArgumentsException"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="TooFewArgumentsException"/>.
         /// </summary>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
         public TooFewArgumentsException(Exception inner) : base(St.TooFewArguments, inner) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="TooFewArgumentsException"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="TooFewArgumentsException"/>.
         /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
         public TooFewArgumentsException(string message) : base(message) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="TooFewArgumentsException"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="TooFewArgumentsException"/>.
         /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
         public TooFewArgumentsException(string message, Exception inner) : base(message, inner) { }
     }
     /// <summary>
-    /// Excepción que se produce cuando falta un argumento
+    /// Excepción que se produce cuando falta un argumento.
     /// </summary>
     [Serializable]
-    public class MissingArgumentException : Exception
+    public class MissingArgumentException : ArgumentException
     {
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="MissingArgumentException"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="MissingArgumentException"/>.
         /// </summary>
-        /// <param name="info">El objeto que contiene la información de serialización.</param>
-        /// <param name="context">La información contextual acerca del orígen o el destino.</param>
+        /// <param name="context">
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
+        /// </param>
         protected MissingArgumentException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="MissingArgumentException"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="MissingArgumentException"/>.
         /// </summary>
         public MissingArgumentException() : base(St.MissingArgument(St.Needed)) { }
         /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="MissingArgumentException"/>.
+        /// </summary>
+        /// <param name="argumentName">Nombre del argumento faltante.</param>
+        public MissingArgumentException(string argumentName) : base(St.MissingArgument(argumentName)) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="MissingArgumentException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="argumentName">Nombre del argumento faltante.</param>
+        public MissingArgumentException(string message, string argumentName) : base(message, argumentName) { }
+        /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="MissingArgumentException"/>.
         /// </summary>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
         public MissingArgumentException(Exception inner) : base(St.MissingArgument(St.Needed), inner) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="MissingArgumentException"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="MissingArgumentException"/>.
         /// </summary>
-        /// <param name="ArgumentName">Argument name.</param>
-        public MissingArgumentException(string ArgumentName) : base(St.MissingArgument(ArgumentName)) { }
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        public MissingArgumentException(string message, Exception inner) : base(message, inner) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="MissingArgumentException"/>.
         /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public MissingArgumentException(string message, Exception inner) : base(message, inner) { }
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="argumentName">Nombre del argumento faltante.</param>
+        public MissingArgumentException(string message, string argumentName, Exception inner) : base(message, argumentName, inner) { }
     }
     /// <summary>
     /// Excepción que se produce cuando se detecta que una función ha devuelto
@@ -585,366 +642,885 @@ namespace MCART.Exceptions
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InvalidReturnValueException"/>.
         /// </summary>
-        /// <param name="info">
-        /// El objeto que contiene la información de serialización.
-        /// </param>
         /// <param name="context">
-        /// La información contextual acerca del orígen o el destino.
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
         protected InvalidReturnValueException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidReturnValueException"/> .
+        /// <see cref="InvalidReturnValueException"/>.
         /// </summary>
         public InvalidReturnValueException() : base(St.XReturnedInvalid(St.TheFunc)) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la excepción con el delegado
-        /// especificado.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidReturnValueException"/> especificando el delegado
+        /// que causó esta excepción.
         /// </summary>
-        /// <param name="Function"><see cref="Delegate"/> cuyo resultado causó
-        /// la excepción.</param>
-        public InvalidReturnValueException(Delegate Function) : base(St.XReturnedInvalid(St.XYQuotes(St.TheFunc, Function.Method.Name)))
+        /// <param name="call">
+        /// <see cref="Delegate"/> cuyo resultado causó la excepción.
+        /// </param>
+        public InvalidReturnValueException(Delegate call) : base(St.XReturnedInvalid(St.XYQuotes(St.TheFunc, call.Method.Name)))
         {
-            OffendingFunction = Function;
+            OffendingFunction = call;
             OffendingFunctionName = OffendingFunction.Method.Name;
         }
         /// <summary>
-        /// Inicializa una nueva instancia de la excepción especificando el nombre de
-        /// la función.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidReturnValueException"/> especificando el delegado
+        /// que causó esta excepción.
         /// </summary>
-        /// <param name="FunctionName">Nombre de la función cuyo resultado ha causado la excepción</param>
-        public InvalidReturnValueException(string FunctionName) : base(St.XReturnedInvalid(St.XYQuotes(St.TheFunc, FunctionName)))
+        /// <param name="methodName">
+        /// Nombre del método cuyo resultado ha causado la excepción.
+        /// </param>
+        public InvalidReturnValueException(string methodName) : base(St.XReturnedInvalid(St.XYQuotes(St.TheFunc, methodName)))
         {
-            OffendingFunctionName = FunctionName;
+            OffendingFunctionName = methodName;
         }
         /// <summary>
-        /// Inicializa una nueva instancia de este objeto con la función y el valor
-        /// devuelto especificados.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidReturnValueException"/> especificando el delegado
+        /// que causó esta excepción.
         /// </summary>
-        /// <param name="Function"><see cref="Delegate"/> cuyo resultado causó
-        /// la excepción.</param>
-        /// <param name="ReturnValue">Valor inválido que ha causado esta
-        /// excepción.</param>
-        public InvalidReturnValueException(Delegate Function, object ReturnValue) : base(St.XReturnedInvalid(St.XYQuotes(St.TheFunc, Function.Method.Name)))
+        /// <param name="call">
+        /// <see cref="Delegate"/> cuyo resultado causó la excepción.
+        /// </param>
+        /// <param name="returnValue">
+        /// Valor inválido devuelto por <paramref name="call"/>.
+        /// </param>
+        public InvalidReturnValueException(Delegate call, object returnValue) : base(St.XReturnedInvalid(St.XYQuotes(St.TheFunc, call.Method.Name)))
         {
-            OffendingFunction = Function;
+            OffendingFunction = call;
             OffendingFunctionName = OffendingFunction.Method.Name;
-            OffendingReturnValue = ReturnValue;
+            OffendingReturnValue = returnValue;
         }
         /// <summary>
-        /// Inicializa una nueva instancia de este objeto con la función y el valor
-        /// devuelto especificados.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidReturnValueException"/> especificando el delegado
+        /// que causó esta excepción.
         /// </summary>
-        /// <param name="FunctionName">Nombre de la función cuyo resultado ha
-        /// causado la excepción.</param>
-        /// <param name="ReturnValue">Valor inválido que ha causado esta
-        /// excepción.</param>
-        public InvalidReturnValueException(string FunctionName, object ReturnValue) : base(St.XReturnedInvalid(St.XYQuotes(St.TheFunc, FunctionName)))
+        /// <param name="methodName">
+        /// Nombre del método cuyo resultado ha causado la excepción.
+        /// </param>
+        /// <param name="returnValue">
+        /// Valor inválido devuelto por el método.
+        /// </param>
+        public InvalidReturnValueException(string methodName, object returnValue) : base(St.XReturnedInvalid(St.XYQuotes(St.TheFunc, methodName)))
         {
-            OffendingFunctionName = FunctionName;
-            OffendingReturnValue = ReturnValue;
+            OffendingFunctionName = methodName;
+            OffendingReturnValue = returnValue;
         }
         /// <summary>
-        /// Inicializa una nueva instancia de esta excepción con el mensaje y la
-        /// excepción interna especificadas.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidReturnValueException"/>.
         /// </summary>
-        /// <param name="message">Mensaje informativo acerca de esta excepción.</param>
-        /// <param name="inner">Excepción interna que causó esta excepción.</param>
-        public InvalidReturnValueException(string message, Exception inner) : base(message, inner)
-        {
-        }
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        public InvalidReturnValueException(string message, Exception inner) : base(message, inner) { }
         /// <summary>
-        /// Inicializa una nueva instancia de este objeto con la función y el valor
-        /// devuelto especificados.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidReturnValueException"/> especificando el delegado
+        /// que causó esta excepción.
         /// </summary>
-        /// <param name="Function"><see cref="Delegate"/> cuyo resultado causó
-        /// la excepción.</param>
-        /// <param name="ReturnValue">Valor inválido que ha causado esta
-        /// excepción.</param>
-        /// <param name="inner">Excepción interna que causó esta excepción.</param>
-        public InvalidReturnValueException(Delegate Function, object ReturnValue, Exception inner) : base(St.XReturnedInvalid(St.XYQuotes(St.TheFunc, Function.Method.Name)), inner)
+        /// <param name="call">
+        /// <see cref="Delegate"/> cuyo resultado causó la excepción.
+        /// </param>
+        /// <param name="returnValue">
+        /// Valor inválido devuelto por <paramref name="call"/>.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        public InvalidReturnValueException(Delegate call, object returnValue, Exception inner) : base(St.XReturnedInvalid(St.XYQuotes(St.TheFunc, call.Method.Name)), inner)
         {
-            OffendingFunction = Function;
+            OffendingFunction = call;
             OffendingFunctionName = OffendingFunction.Method.Name;
-            OffendingReturnValue = ReturnValue;
+            OffendingReturnValue = returnValue;
         }
         /// <summary>
-        /// Inicializa una nueva instancia de este objeto con la función y el valor
-        /// devuelto especificados.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidReturnValueException"/> especificando el delegado
+        /// que causó esta excepción.
         /// </summary>
-        /// <param name="FunctionName">Nombre de la función cuyo resultado ha
-        /// causado la excepción.</param>
-        /// <param name="ReturnValue">Valor inválido que ha causado esta
-        /// excepción.</param>
-        /// <param name="inner">Excepción interna que causó esta excepción.</param>
-        public InvalidReturnValueException(string FunctionName, object ReturnValue, Exception inner) : base(St.XReturnedInvalid(St.XYQuotes(St.TheFunc, FunctionName)), inner)
+        /// <param name="methodName">
+        /// Nombre del método cuyo resultado ha causado la excepción.
+        /// </param>
+        /// <param name="returnValue">
+        /// Valor inválido devuelto por el método.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        public InvalidReturnValueException(string methodName, object returnValue, Exception inner) : base(St.XReturnedInvalid(St.XYQuotes(St.TheFunc, methodName)), inner)
         {
-            OffendingFunctionName = FunctionName;
-            OffendingReturnValue = ReturnValue;
+            OffendingFunctionName = methodName;
+            OffendingReturnValue = returnValue;
         }
         /// <summary>
-        /// Obtiene el delegado del método que ha causado la excepción
+        /// Obtiene uan referencia al método que ha causado la excepción.
         /// </summary>
-        /// <returns>Un objeto <see cref="Delegate"/> cuyo resultado causó la excepción</returns>
-        public readonly Delegate OffendingFunction;
+        /// <returns>
+        /// Un <see cref="Delegate"/> que representa un método cuyo valor 
+        /// devuelto causó la excepción.
+        /// </returns>
+        public Delegate OffendingFunction { get; }
         /// <summary>
-        /// Obtiene el nombre de la función que ha causado la excepción
+        /// Obtiene el nombre del método que ha causado la excepción.
         /// </summary>
-        /// <returns>El nombre de la función cuyo resultado causó la excepción</returns>
-        public readonly string OffendingFunctionName;
+        /// <returns>
+        /// El nombre de la función cuyo resultado causó la excepción.
+        /// </returns>
+        public string OffendingFunctionName { get; }
         /// <summary>
-        /// Obtiene el valor que ha causado la excepción
+        /// Obtiene el valor devuelto que ha causado la excepción.
         /// </summary>
-        /// <returns>El valor inválido devuelto por la función, causante de la excepción</returns>
-        public readonly object OffendingReturnValue;
+        /// <returns>
+        /// El valor inválido devuelto por método, causante de la excepción.
+        /// </returns>
+        public object OffendingReturnValue { get; }
     }
     /// <summary>
-    /// Excepción que produce un <see cref="PluginSupport.Plugin"/> al encontrar un error
+    /// Excepción que se produce cuando un <see cref="IPlugin"/> encuentra un error.
     /// </summary>
     [Serializable]
-    public class PluginException : Exception
+    public class PluginException : OffendingException<IPlugin>
     {
-        /// <summary>
-        /// The offending plugin.
-        /// </summary>
-        public readonly PluginSupport.IPlugin OffendingPlugin;
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="PluginException"/>.
-        /// </summary>
-        public PluginException() : base(St.XFoundError(St.ThePlugin)) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="PluginException"/>.
-        /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        public PluginException(string message) : base(message) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="PluginException"/>.
-        /// </summary>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public PluginException(Exception inner) : base(St.XFoundError(St.ThePlugin), inner) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="PluginException"/>.
-        /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public PluginException(string message, Exception inner) : base(message, inner) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="PluginException"/>.
-        /// </summary>
-        /// <param name="Plugin">Plugin.</param>
-        public PluginException(PluginSupport.IPlugin Plugin) : base(St.XFoundError(St.XYQuotes(St.ThePlugin, Plugin.Name)))
-        {
-            OffendingPlugin = Plugin;
-        }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="PluginException"/>.
-        /// </summary>
-        /// <param name="Plugin">Plugin.</param>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        public PluginException(PluginSupport.IPlugin Plugin, string message) : base(message)
-        {
-            OffendingPlugin = Plugin;
-        }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="PluginException"/>.
-        /// </summary>
-        /// <param name="Plugin">Plugin.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public PluginException(PluginSupport.IPlugin Plugin, Exception inner) : base(St.XFoundError(St.XYQuotes(St.ThePlugin, Plugin.Name)), inner)
-        {
-            OffendingPlugin = Plugin;
-        }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="PluginException"/>.
-        /// </summary>
-        /// <param name="Plugin">Plugin.</param>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public PluginException(PluginSupport.IPlugin Plugin, string message, Exception inner) : base(message, inner)
-        {
-            OffendingPlugin = Plugin;
-        }
+        static string Msg() => St.XFoundError(St.ThePlugin);
+        static string Msg(IPlugin plugin) => St.XFoundError(St.XYQuotes(St.ThePlugin, plugin.Name));
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="PluginException"/>.
         /// </summary>
-        /// <param name="info">
-        /// El objeto que contiene la información de serialización.
-        /// </param>
         /// <param name="context">
-        /// La información contextual acerca del orígen o el destino.
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
         protected PluginException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="PluginException"/>.
+        /// </summary>
+        /// <param name="context">
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
+        /// </param>
+        /// <param name="plugin"><see cref="IPlugin"/> donde se ha generado la excepción.</param>
+        protected PluginException(SerializationInfo info, StreamingContext context, IPlugin plugin) : base(info, context, plugin) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="PluginException"/>.
+        /// </summary>
+        public PluginException() : base(Msg()) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="PluginException"/>.
+        /// </summary>
+        /// <param name="plugin"><see cref="IPlugin"/> donde se ha generado la excepción.</param>
+        public PluginException(IPlugin plugin) : base(Msg(plugin), plugin) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="PluginException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        public PluginException(string message) : base(message) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="PluginException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="plugin"><see cref="IPlugin"/> donde se ha generado la excepción.</param>
+        public PluginException(string message, IPlugin plugin) : base(message, plugin) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="PluginException"/>.
+        /// </summary>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        public PluginException(Exception inner) : base(Msg(), inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="PluginException"/>.
+        /// </summary>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="plugin"><see cref="IPlugin"/> donde se ha generado la excepción.</param>
+        public PluginException(Exception inner, IPlugin plugin) : base(Msg(plugin), inner, plugin) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="PluginException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        public PluginException(string message, Exception inner) : base(message, inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="PluginException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="plugin"><see cref="IPlugin"/> donde se ha generado la excepción.</param>
+        public PluginException(string message, Exception inner, IPlugin plugin) : base(message, inner, plugin) { }
     }
     /// <summary>
-    /// Excepción que se produce cuando se requere un plugin para continuar
+    /// Excepción que se produce cuando se intenta utilizar un objeto marcado con el atributo <see cref="UnusableAttribute"/>.
     /// </summary>
     [Serializable]
-    public class PluginNeededException : Exception
+    public class UnusableObjectException : OffendingException<object>
     {
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
-        /// <see cref="PluginNeededException"/>.
+        /// <see cref="UnusableObjectException"/>.
         /// </summary>
-        /// <param name="info">
-        /// El objeto que contiene la información de serialización.
-        /// </param>
         /// <param name="context">
-        /// La información contextual acerca del orígen o el destino.
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
         /// </param>
-        protected PluginNeededException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
+        /// </param>
+        protected UnusableObjectException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="PluginNeededException"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="UnusableObjectException"/>.
         /// </summary>
-        public PluginNeededException() : base(St.PluginNeeded) { }
+        /// <param name="context">
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
+        /// </param>
+        /// <param name="unusableObject">Objeto inutilizable que es la causa de esta excepción.</param>
+        protected UnusableObjectException(SerializationInfo info, StreamingContext context, object unusableObject) : base(info, context, unusableObject) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="PluginNeededException"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="UnusableObjectException"/>.
         /// </summary>
-        /// <param name="ClassType">Class type.</param>
-        public PluginNeededException(Type ClassType) : base(St.PluginXNeeded(ClassType.Name))
-        {
-            RequiredClassType = ClassType;
-        }
+        public UnusableObjectException() : base(St.UnusableObject) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="PluginNeededException"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="UnusableObjectException"/>.
         /// </summary>
-        /// <param name="ClassName">Class name.</param>
-        public PluginNeededException(string ClassName) : base(St.PluginXNeeded(ClassName)) { }
+        /// <param name="unusableObject">Objeto inutilizable que es la causa de esta excepción.</param>
+        public UnusableObjectException(object unusableObject) : base(St.UnusableObject, unusableObject) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="PluginNeededException"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="UnusableObjectException"/>.
         /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public PluginNeededException(string message, Exception inner) : base(message, inner) { }
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        public UnusableObjectException(string message) : base(message) { }
         /// <summary>
-        /// Tipo de clase requerida.
+        /// Inicializa una nueva instancia de la clase <see cref="UnusableObjectException"/>.
         /// </summary>
-        public readonly Type RequiredClassType;
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="unusableObject">Objeto inutilizable que es la causa de esta excepción.</param>
+        public UnusableObjectException(string message, object unusableObject) : base(message, unusableObject) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="UnusableObjectException"/>.
+        /// </summary>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        public UnusableObjectException(Exception inner) : base(St.UnusableObject, inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="UnusableObjectException"/>.
+        /// </summary>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="unusableObject">Objeto inutilizable que es la causa de esta excepción.</param>
+        public UnusableObjectException(Exception inner, object unusableObject) : base(St.UnusableObject, inner, unusableObject) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="UnusableObjectException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        public UnusableObjectException(string message, Exception inner) : base(message, inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="UnusableObjectException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="unusableObject">Objeto inutilizable que es la causa de esta excepción.</param>
+        public UnusableObjectException(string message, Exception inner, object unusableObject) : base(message, inner, unusableObject) { }
     }
     /// <summary>
-    /// Excepción que se produce cuando un <see cref="PluginSupport.Plugin"/> encuentra un error al inicializarse.
+    /// Excepción que se produce cuando un plugin no pudo inicializarse.
     /// </summary>
     [Serializable]
-    public class PluginInitializationException : Exception
+    public class PluginInitializationException : OffendingException<IPlugin>
     {
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="PluginInitializationException"/>.
         /// </summary>
-        /// <param name="info">
-        /// El objeto que contiene la información de serialización.
-        /// </param>
         /// <param name="context">
-        /// La información contextual acerca del orígen o el destino.
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
         protected PluginInitializationException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="PluginInitializationException"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="PluginInitializationException"/>.
+        /// </summary>
+        /// <param name="context">
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
+        /// </param>
+        /// <param name="plugin"><see cref="IPlugin"/> que no pudo inicializarse.</param>
+        protected PluginInitializationException(SerializationInfo info, StreamingContext context, IPlugin plugin) : base(info, context, plugin) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="PluginInitializationException"/>.
         /// </summary>
         public PluginInitializationException() : base(St.PluginDidntInit) { }
         /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="PluginInitializationException"/>.
+        /// </summary>
+        /// <param name="plugin"><see cref="IPlugin"/> que no pudo inicializarse.</param>
+        public PluginInitializationException(IPlugin plugin) : base(St.PluginDidntInit, plugin) { }
+        /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="PluginInitializationException"/>.
         /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
         public PluginInitializationException(string message) : base(message) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="PluginInitializationException"/>.
         /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="plugin"><see cref="IPlugin"/> que no pudo inicializarse.</param>
+        public PluginInitializationException(string message, IPlugin plugin) : base(message, plugin) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="PluginInitializationException"/>.
+        /// </summary>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        public PluginInitializationException(Exception inner) : base(St.PluginDidntInit, inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="PluginInitializationException"/>.
+        /// </summary>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="plugin"><see cref="IPlugin"/> que no pudo inicializarse.</param>
+        public PluginInitializationException(Exception inner, IPlugin plugin) : base(St.PluginDidntInit, inner, plugin) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="PluginInitializationException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
         public PluginInitializationException(string message, Exception inner) : base(message, inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="PluginInitializationException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="plugin"><see cref="IPlugin"/> que no pudo inicializarse.</param>
+        public PluginInitializationException(string message, Exception inner, IPlugin plugin) : base(message, inner, plugin) { }
     }
     /// <summary>
-    /// Excepción que se produce cuando la clase no puede ser cargada como <see cref="PluginSupport.Plugin"/>
+    /// Excepción que se produce cuando se intenta utilizar una clase marcada con el atributo <see cref="DangerousAttribute"/>.
     /// </summary>
     [Serializable]
-    public class InvalidPluginClassException : Exception
+    public class DangerousTypeException : OffendingException<Type>
     {
+        static string Msg() => St.ClassIsDangerous(St.Unk);
+        static string Msg(Type dangerousType) => St.ClassIsDangerous(dangerousType.Name);
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidPluginClassException"/>.
+        /// <see cref="DangerousTypeException"/>.
         /// </summary>
-        /// <param name="info">
-        /// El objeto que contiene la información de serialización.
-        /// </param>
         /// <param name="context">
-        /// La información contextual acerca del orígen o el destino.
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
         /// </param>
-        protected InvalidPluginClassException(SerializationInfo info, StreamingContext context) : base(info, context) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidPluginClassException"/>.
-        /// </summary>
-        public InvalidPluginClassException() : base(St.invalidPluginClass) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidPluginClassException"/>.
-        /// </summary>
-        /// <param name="ClassType">Class type.</param>
-        public InvalidPluginClassException(Type ClassType) : base(St.InvalidPluginClass(St.XYQuotes(St.TheClass, ClassType.Name)))
-        {
-            RequiredClassType = ClassType;
-        }
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
+        /// </param>
+        protected DangerousTypeException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidPluginClassException"/>.
+        /// <see cref="DangerousTypeException"/>.
         /// </summary>
-        /// <param name="ClassName">Nombre de la clase que es la causa de este 
-        /// <see cref="InvalidPluginClassException"/>.</param>
-        public InvalidPluginClassException(string ClassName) : base(St.InvalidPluginClass(St.XYQuotes(St.TheClass, ClassName))) { }
+        /// <param name="context">
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
+        /// </param>
+        /// <param name="dangerousType">Clase marcada con el atributo <see cref="DangerousAttribute"/>.</param>
+        protected DangerousTypeException(SerializationInfo info, StreamingContext context, Type dangerousType) : base(info, context, dangerousType) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidPluginClassException"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="DangerousTypeException"/>.
         /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public InvalidPluginClassException(string message, Exception inner) : base(message, inner) { }
+        public DangerousTypeException() : base(Msg()) { }
         /// <summary>
-        /// Tipo de clase requerida.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="DangerousTypeException"/>.
         /// </summary>
-        public readonly Type RequiredClassType;
+        /// <param name="dangerousType">Clase marcada con el atributo <see cref="DangerousAttribute"/>.</param>
+        public DangerousTypeException(Type dangerousType) : base(Msg(dangerousType), dangerousType) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="DangerousTypeException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        public DangerousTypeException(string message) : base(message) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="DangerousTypeException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="dangerousType">Clase marcada con el atributo <see cref="DangerousAttribute"/>.</param>
+        public DangerousTypeException(string message, Type dangerousType) : base(message, dangerousType) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="DangerousTypeException"/>.
+        /// </summary>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        public DangerousTypeException(Exception inner) : base(Msg(), inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="DangerousTypeException"/>.
+        /// </summary>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="dangerousType">Clase marcada con el atributo <see cref="DangerousAttribute"/>.</param>
+        public DangerousTypeException(Exception inner, Type dangerousType) : base(Msg(dangerousType), inner, dangerousType) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="DangerousTypeException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        public DangerousTypeException(string message, Exception inner) : base(message, inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="DangerousTypeException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="dangerousType">Clase marcada con el atributo <see cref="DangerousAttribute"/>.</param>
+        public DangerousTypeException(string message, Exception inner, Type dangerousType) : base(message, inner, dangerousType) { }
     }
     /// <summary>
-    /// Excepción que se produce cuando un <see cref="System.Reflection.Assembly"/> no contiene la clase especificada.
+    /// Excepción que se produce cuando un método ha sido marcado con el atributo <see cref="DangerousAttribute"/>.
     /// </summary>
     [Serializable]
-    public class PluginClassNotFoundException : Exception
+    public class DangerousMethodException : OffendingException<MethodInfo>
     {
+        static string Msg() => St.MethodIsDangerous(St.Unk);
+        static string Msg(MethodInfo offendingMethod) => St.MethodIsDangerous(offendingMethod.Name);
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="DangerousMethodException"/>.
+        /// </summary>
+        /// <param name="context">
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
+        /// </param>
+        protected DangerousMethodException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="DangerousMethodException"/>.
+        /// </summary>
+        /// <param name="context">
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
+        /// </param>
+        /// <param name="offendingMethod">Método marcado con el atributo <see cref="DangerousAttribute"/>.</param>
+        protected DangerousMethodException(SerializationInfo info, StreamingContext context, MethodInfo offendingMethod) : base(info, context, offendingMethod) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="DangerousMethodException"/>.
+        /// </summary>
+        public DangerousMethodException() : base(Msg()) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="DangerousMethodException"/>.
+        /// </summary>
+        /// <param name="offendingMethod">Método marcado con el atributo <see cref="DangerousAttribute"/>.</param>
+        public DangerousMethodException(MethodInfo offendingMethod) : base(Msg(offendingMethod), offendingMethod) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="DangerousMethodException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        public DangerousMethodException(string message) : base(message) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="DangerousMethodException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="offendingMethod">Método marcado con el atributo <see cref="DangerousAttribute"/>.</param>
+        public DangerousMethodException(string message, MethodInfo offendingMethod) : base(message, offendingMethod) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="DangerousMethodException"/>.
+        /// </summary>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        public DangerousMethodException(Exception inner) : base(Msg(), inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="DangerousMethodException"/>.
+        /// </summary>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="offendingMethod">Método marcado con el atributo <see cref="DangerousAttribute"/>.</param>
+        public DangerousMethodException(Exception inner, MethodInfo offendingMethod) : base(Msg(offendingMethod), inner, offendingMethod) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="DangerousMethodException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        public DangerousMethodException(string message, Exception inner) : base(message, inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="DangerousMethodException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="offendingMethod">Método marcado con el atributo <see cref="DangerousAttribute"/>.</param>
+        public DangerousMethodException(string message, Exception inner, MethodInfo offendingMethod) : base(message, inner, offendingMethod) { }
+    }
+    /// <summary>
+    /// Excepción que se produce cuando un <see cref="Assembly"/> no contiene la clase especificada.
+    /// </summary>
+    [Serializable]
+    public class PluginClassNotFoundException : OffendingException<Type>
+    {
+        static string Msg() => St.XDoesntContainY(St.ThePlugin, St.TheClass.ToLower());
+        static string Msg(Type type) => St.XDoesntContainY(St.ThePlugin, St.XYQuotes(St.TheClass.ToLower(), type.Name));
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="PluginClassNotFoundException"/>.
         /// </summary>
+        /// <param name="context">
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
+        /// </param>
+        protected PluginClassNotFoundException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="PluginClassNotFoundException"/>.
+        /// </summary>
+        /// <param name="context">
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
+        /// </param>
+        /// <param name="requiredType">Tipo que fue requerido.</param>
+        protected PluginClassNotFoundException(SerializationInfo info, StreamingContext context, Type requiredType) : base(info, context, requiredType) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="PluginClassNotFoundException"/>.
+        /// </summary>
+        public PluginClassNotFoundException() : base(Msg()) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="PluginClassNotFoundException"/>.
+        /// </summary>
+        /// <param name="requiredType">Tipo que fue requerido.</param>
+        public PluginClassNotFoundException(Type requiredType) : base(Msg(requiredType), requiredType) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="PluginClassNotFoundException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        public PluginClassNotFoundException(string message) : base(message) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="PluginClassNotFoundException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="requiredType">Tipo que fue requerido.</param>
+        public PluginClassNotFoundException(string message, Type requiredType) : base(message, requiredType) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="PluginClassNotFoundException"/>.
+        /// </summary>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        public PluginClassNotFoundException(Exception inner) : base(Msg(), inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="PluginClassNotFoundException"/>.
+        /// </summary>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="requiredType">Tipo que fue requerido.</param>
+        public PluginClassNotFoundException(Exception inner, Type requiredType) : base(Msg(requiredType), inner, requiredType) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="PluginClassNotFoundException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        public PluginClassNotFoundException(string message, Exception inner) : base(message, inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="PluginClassNotFoundException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="requiredType">Tipo que fue requerido.</param>
+        public PluginClassNotFoundException(string message, Exception inner, Type requiredType) : base(message, inner, requiredType) { }
+    }
+    /// <summary>
+    /// Excepción que se produce al hacer referencia a un tipo desconodico
+    /// </summary>
+    [Serializable]
+    public class UnknownTypeException : Exception
+    {
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="UnknownTypeException"/>.
+        /// </summary>
         /// <param name="info">
         /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
         /// La información contextual acerca del orígen o el destino.
         /// </param>
-        protected PluginClassNotFoundException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        protected UnknownTypeException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="PluginClassNotFoundException"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="UnknownTypeException"/>.
         /// </summary>
-        public PluginClassNotFoundException() : base(St.XDoesntContainY(St.ThePlugin, St.TheClass.ToLower())) { }
+        public UnknownTypeException() : base(St.UnknownType) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="PluginClassNotFoundException"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="UnknownTypeException"/>.
         /// </summary>
-        /// <param name="ClassType">Class type.</param>
-        public PluginClassNotFoundException(Type ClassType) : base(St.XDoesntContainY(St.ThePlugin, St.XYQuotes(St.TheClass.ToLower(), ClassType.Name)))
-        {
-            RequiredClassType = ClassType;
-        }
+        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
+        public UnknownTypeException(string message) : base(message) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="PluginClassNotFoundException"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="UnknownTypeException"/>.
         /// </summary>
-        /// <param name="ClassName">Class name.</param>
-        public PluginClassNotFoundException(string ClassName) : base(St.XDoesntContainY(St.ThePlugin, St.XYQuotes(St.TheClass.ToLower(), ClassName))) { }
+        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        public UnknownTypeException(Exception inner) : base(St.UnknownType, inner) { }
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="PluginClassNotFoundException"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="UnknownTypeException"/>.
         /// </summary>
         /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public PluginClassNotFoundException(string message, Exception inner) : base(message, inner) { }
+        public UnknownTypeException(string message, Exception inner) : base(message, inner) { }
+    }
+    /// <summary>
+    /// Excepción que se produce cuando la firma de un método representado en un <see cref="MethodInfo"/> no es válida.
+    /// </summary>
+    [Serializable]
+    public class InvalidMethodSignatureException : OffendingException<MethodInfo>
+    {
+        static string Msg() => St.InvalidSignature(St.TheMethod);
+        static string Msg(MethodInfo offendingMethod) => St.InvalidSignature(St.XYQuotes(St.TheMethod, $"{offendingMethod.DeclaringType.FullName}.{offendingMethod.Name}"));
         /// <summary>
-        /// Tipo de clase requerida.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidMethodSignatureException"/>.
         /// </summary>
-        public readonly Type RequiredClassType;
+        /// <param name="context">
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
+        /// </param>
+        protected InvalidMethodSignatureException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="context">
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
+        /// </param>
+        /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
+        protected InvalidMethodSignatureException(SerializationInfo info, StreamingContext context, MethodInfo offendingMethod) : base(info, context, offendingMethod) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        public InvalidMethodSignatureException() : base(Msg()) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
+        public InvalidMethodSignatureException(MethodInfo offendingMethod) : base(Msg(offendingMethod), offendingMethod) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        public InvalidMethodSignatureException(string message) : base(message) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
+        public InvalidMethodSignatureException(string message, MethodInfo offendingMethod) : base(message, offendingMethod) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        public InvalidMethodSignatureException(Exception inner) : base(Msg(), inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
+        public InvalidMethodSignatureException(Exception inner, MethodInfo offendingMethod) : base(Msg(offendingMethod), inner, offendingMethod) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        public InvalidMethodSignatureException(string message, Exception inner) : base(message, inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidMethodSignatureException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
+        public InvalidMethodSignatureException(string message, Exception inner, MethodInfo offendingMethod) : base(message, inner, offendingMethod) { }
     }
     /// <summary>
     /// Excepción que se produce al intentar remover un objeto de una pila vacía
@@ -975,43 +1551,88 @@ namespace MCART.Exceptions
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="StackUnderflowException"/>.
         /// </summary>
+        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        public StackUnderflowException(Exception inner) : base(St.StackUnderflow, inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="StackUnderflowException"/>.
+        /// </summary>
         /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
         public StackUnderflowException(string message, Exception inner) : base(message, inner) { }
     }
     /// <summary>
-    /// Excepción que se produce cuando una base de datos no es válida.
+    /// Excepción que se produce cuando se intenta acceder a una base de datos inválida.
     /// </summary>
     [Serializable]
-    public class InvalidDatabaseException : Exception
+    public class InvalidDatabaseException : OffendingException<string>
     {
+        static string Msg() => St.InvalidDB;
+        static string Msg(string databasePath) => St.XYQuotes(St.InvalidDB, databasePath);
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InvalidDatabaseException"/>.
         /// </summary>
-        /// <param name="info">
-        /// El objeto que contiene la información de serialización.
-        /// </param>
         /// <param name="context">
-        /// La información contextual acerca del orígen o el destino.
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
         protected InvalidDatabaseException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="InvalidDatabaseException"/>.
         /// </summary>
-        public InvalidDatabaseException() : base(St.InvalidDB) { }
+        /// <param name="context">
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
+        /// </param>
+        /// <param name="databasePath">Nombre o ruta de la base de datos que ha causado la excepción.</param>
+        protected InvalidDatabaseException(SerializationInfo info, StreamingContext context, string databasePath) : base(info, context, databasePath) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="InvalidDatabaseException"/>.
         /// </summary>
-        /// <param name="message">
-        /// Un <see cref="string"/> que describe a la excepción.
-        /// </param>
-        public InvalidDatabaseException(string message) : base(message) { }
+        public InvalidDatabaseException() : base(Msg()) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="InvalidDatabaseException"/>.
+        /// </summary>
+        /// <param name="databasePath">Nombre o ruta de la base de datos que ha causado la excepción.</param>
+        public InvalidDatabaseException(string databasePath) : base(Msg(databasePath), databasePath) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidDatabaseException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="databasePath">Nombre o ruta de la base de datos que ha causado la excepción.</param>
+        public InvalidDatabaseException(string message, string databasePath) : base(message, databasePath) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidDatabaseException"/>.
+        /// </summary>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        public InvalidDatabaseException(Exception inner) : base(Msg(), inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidDatabaseException"/>.
+        /// </summary>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="databasePath">Nombre o ruta de la base de datos que ha causado la excepción.</param>
+        public InvalidDatabaseException(Exception inner, string databasePath) : base(Msg(databasePath), inner, databasePath) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidDatabaseException"/>.
         /// </summary>
         /// <param name="message">
         /// Un <see cref="string"/> que describe a la excepción.
@@ -1020,7 +1641,198 @@ namespace MCART.Exceptions
         /// <see cref="Exception"/> que es la causa de esta excepción.
         /// </param>
         public InvalidDatabaseException(string message, Exception inner) : base(message, inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidDatabaseException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="databasePath">Nombre o ruta de la base de datos que ha causado la excepción.</param>
+        public InvalidDatabaseException(string message, Exception inner, string databasePath) : base(message, inner, databasePath) { }
     }
+    /// <summary>
+    /// Excepción que se produce cuando se reciben datos corruptos
+    /// </summary>
+    [Serializable]
+    public class CorruptDataException : Exception
+    {
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="CorruptDataException"/>.
+        /// </summary>
+        /// <param name="info">
+        /// El objeto que contiene la información de serialización.
+        /// </param>
+        /// <param name="context">
+        /// La información contextual acerca del orígen o el destino.
+        /// </param>
+        protected CorruptDataException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="CorruptDataException"/>.
+        /// </summary>
+        public CorruptDataException() : base(St.CorruptData) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="CorruptDataException"/>.
+        /// </summary>
+        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
+        public CorruptDataException(string message) : base(message) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="CorruptDataException"/>.
+        /// </summary>
+        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
+        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        public CorruptDataException(string message, Exception inner) : base(message, inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="CorruptDataException"/>.
+        /// </summary>
+        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        public CorruptDataException(Exception inner) : base(St.CorruptData, inner) { }
+    }
+    /// <summary>
+    /// Excepción que se produce cuando una operación falla.
+    /// </summary>
+    [Serializable]
+    public class OperationException : OffendingException<Delegate>
+    {
+        static string Msg() => St.ExcDoingX(St.TheTask.ToLower());
+        static string Msg(Delegate offendingOperation) => St.ExcDoingX(St.XYQuotes(St.TheTask.ToLower(), offendingOperation.Method.Name));
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="OperationException"/>.
+        /// </summary>
+        /// <param name="context">
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
+        /// </param>
+        protected OperationException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="OperationException"/>.
+        /// </summary>
+        /// <param name="context">
+        /// El <see cref="StreamingContext"/> que contiene información
+        /// contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="info">
+        /// El <see cref="SerializationInfo"/> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
+        /// </param>
+        /// <param name="offendingOperation">Delegado de operación en donde se ha producido la excepción.</param>
+        protected OperationException(SerializationInfo info, StreamingContext context, Delegate offendingOperation) : base(info, context, offendingOperation) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="OperationException"/>.
+        /// </summary>
+        public OperationException() : base(Msg()) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="OperationException"/>.
+        /// </summary>
+        /// <param name="offendingOperation">Delegado de operación en donde se ha producido la excepción.</param>
+        public OperationException(Delegate offendingOperation) : base(Msg(offendingOperation), offendingOperation) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="OperationException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        public OperationException(string message) : base(message) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="OperationException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="offendingOperation">Delegado de operación en donde se ha producido la excepción.</param>
+        public OperationException(string message, Delegate offendingOperation) : base(message, offendingOperation) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="OperationException"/>.
+        /// </summary>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        public OperationException(Exception inner) : base(Msg(), inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="OperationException"/>.
+        /// </summary>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="offendingOperation">Delegado de operación en donde se ha producido la excepción.</param>
+        public OperationException(Exception inner, Delegate offendingOperation) : base(Msg(offendingOperation), inner, offendingOperation) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="OperationException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        public OperationException(string message, Exception inner) : base(message, inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="OperationException"/>.
+        /// </summary>
+        /// <param name="message">
+        /// Un <see cref="string"/> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="offendingOperation">Delegado de operación en donde se ha producido la excepción.</param>
+        public OperationException(string message, Exception inner, Delegate offendingOperation) : base(message, inner, offendingOperation) { }
+    }
+    /// <summary>
+    /// Excepción que se produce cuando la conexión se encontraba cerrada al intentar enviar o recibir datos
+    /// </summary>
+    [Serializable]
+    public class ConnectionClosedException : Exception
+    {
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="ConnectionClosedException"/>.
+        /// </summary>
+        /// <param name="info">
+        /// El objeto que contiene la información de serialización.
+        /// </param>
+        /// <param name="context">
+        /// La información contextual acerca del orígen o el destino.
+        /// </param>
+        protected ConnectionClosedException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="ConnectionClosedException"/>.
+        /// </summary>
+        public ConnectionClosedException() : base(St.ClosdConn) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="ConnectionClosedException"/>.
+        /// </summary>
+        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
+        public ConnectionClosedException(string message) : base(message) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="ConnectionClosedException"/>.
+        /// </summary>
+        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        public ConnectionClosedException(Exception inner) : base(St.ClosdConn, inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="ConnectionClosedException"/>.
+        /// </summary>
+        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
+        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
+        public ConnectionClosedException(string message, Exception inner) : base(message, inner) { }
+    }
+
+
+
+
     /// <summary>
     /// Excepción que se produce cuando una base de datos no corresponde a la
     /// aplicación.
@@ -1134,64 +1946,16 @@ namespace MCART.Exceptions
         public InsufficientDataException(string message, Exception inner) : base(message, inner) { }
     }
     /// <summary>
-    /// Excepción que se produce al hacer referencia a un tipo desconodico
-    /// </summary>
-    [Serializable]
-    public class UnknownTypeException : Exception
-    {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="UnknownTypeException"/>.
-        /// </summary>
-        /// <param name="info">
-        /// El objeto que contiene la información de serialización.
-        /// </param>
-        /// <param name="context">
-        /// La información contextual acerca del orígen o el destino.
-        /// </param>
-        protected UnknownTypeException(SerializationInfo info, StreamingContext context) : base(info, context) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="UnknownTypeException"/>.
-        /// </summary>
-        public UnknownTypeException() : base(St.UnknownType) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="UnknownTypeException"/>.
-        /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        public UnknownTypeException(string message) : base(message) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="UnknownTypeException"/>.
-        /// </summary>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public UnknownTypeException(Exception inner) : base(St.UnknownType, inner) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="UnknownTypeException"/>.
-        /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public UnknownTypeException(string message, Exception inner) : base(message, inner) { }
-    }
-    /// <summary>
     /// Excepción que se produce al hacer referencia a un tipo inválido
     /// </summary>
     [Serializable]
     public class InvalidTypeException : Exception
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidTypeException"/>.
-        /// </summary>
-        /// <param name="info">
-        /// El objeto que contiene la información de serialización.
-        /// </param>
-        /// <param name="context">
-        /// La información contextual acerca del orígen o el destino.
-        /// </param>
-        protected InvalidTypeException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        private readonly Type offendingType;
         /// <summary>
         /// Tipo que ha causado la excepción.
         /// </summary>
-        public readonly Type OffendingType;
+        public Type OffendingType => offendingType;
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException"/>.
         /// </summary>
@@ -1199,10 +1963,10 @@ namespace MCART.Exceptions
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException"/>.
         /// </summary>
-        /// <param name="Type">Tipo que ha causado la excepción.</param>
-        public InvalidTypeException(Type Type) : base(St.XIsInvalid(St.TheType))
+        /// <param name="offendingType">Tipo que ha causado la excepción.</param>
+        public InvalidTypeException(Type offendingType) : base(St.XIsInvalid(St.TheType))
         {
-            OffendingType = Type;
+            this.offendingType = offendingType;
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException"/>.
@@ -1213,10 +1977,10 @@ namespace MCART.Exceptions
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException"/>.
         /// </summary>
         /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="Type">Tipo que ha causado la excepción.</param>
-        public InvalidTypeException(string message, Type Type) : base(message)
+        /// <param name="offendingType">Tipo que ha causado la excepción.</param>
+        public InvalidTypeException(string message, Type offendingType) : base(message)
         {
-            OffendingType = Type;
+            this.offendingType = offendingType;
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException"/>.
@@ -1233,31 +1997,24 @@ namespace MCART.Exceptions
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException"/>.
         /// </summary>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        /// <param name="Type">Tipo que ha causado la excepción.</param>
-        public InvalidTypeException(Exception inner, Type Type) : base(St.XIsInvalid(St.TheType), inner)
+        /// <param name="offendingType">Tipo que ha causado la excepción.</param>
+        public InvalidTypeException(Exception inner, Type offendingType) : base(St.XIsInvalid(St.TheType), inner)
         {
-            OffendingType = Type;
+            this.offendingType = offendingType;
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException"/>.
         /// </summary>
         /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        /// <param name="Type">Tipo que ha causado la excepción.</param>
-        public InvalidTypeException(string message, Exception inner, Type Type) : base(message, inner)
+        /// <param name="offendingType">Tipo que ha causado la excepción.</param>
+        public InvalidTypeException(string message, Exception inner, Type offendingType) : base(message, inner)
         {
-            OffendingType = Type;
+            this.offendingType = offendingType;
         }
-    }
-    /// <summary>
-    /// Excepción que se produce al intentar crear nueva información dentro de una Database con un Uid que ya existe
-    /// </summary>
-    [Serializable]
-    public class DataAlreadyExistsException : Exception
-    {
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
-        /// <see cref="DataAlreadyExistsException"/>.
+        /// <see cref="InvalidTypeException"/>.
         /// </summary>
         /// <param name="info">
         /// El objeto que contiene la información de serialización.
@@ -1265,7 +2022,15 @@ namespace MCART.Exceptions
         /// <param name="context">
         /// La información contextual acerca del orígen o el destino.
         /// </param>
-        protected DataAlreadyExistsException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        protected InvalidTypeException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+    }
+    /// <summary>
+    /// Excepción que se produce al intentar crear nueva información dentro de
+    /// una base de datos con un identificador que ya existe.
+    /// </summary>
+    [Serializable]
+    public class DataAlreadyExistsException : Exception
+    {
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="DataAlreadyExistsException"/>.
         /// </summary>
@@ -1281,6 +2046,17 @@ namespace MCART.Exceptions
         /// <param name="Uid">Uid.</param>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
         public DataAlreadyExistsException(string Uid, Exception inner) : base(St.XAlreadyExists(St.XYQuotes(St.TheUid, Uid)), inner) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="DataAlreadyExistsException"/>.
+        /// </summary>
+        /// <param name="info">
+        /// El objeto que contiene la información de serialización.
+        /// </param>
+        /// <param name="context">
+        /// La información contextual acerca del orígen o el destino.
+        /// </param>
+        protected DataAlreadyExistsException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
     /// <summary>
     /// Excepción que se produce cuando se llama a un método de un <see cref="PluginSupport.Plugin"/> sin inicializar
@@ -1354,64 +2130,16 @@ namespace MCART.Exceptions
         public ServerNotFoundException(Exception inner) : base(St.XNotFound(St.TheSrv), inner) { }
     }
     /// <summary>
-    /// Excepción que se produce cuando se reciben datos corruptos
-    /// </summary>
-    [Serializable]
-    public class CorruptDataException : Exception
-    {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="CorruptDataException"/>.
-        /// </summary>
-        /// <param name="info">
-        /// El objeto que contiene la información de serialización.
-        /// </param>
-        /// <param name="context">
-        /// La información contextual acerca del orígen o el destino.
-        /// </param>
-        protected CorruptDataException(SerializationInfo info, StreamingContext context) : base(info, context) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="CorruptDataException"/>.
-        /// </summary>
-        public CorruptDataException() : base(St.CorruptData) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="CorruptDataException"/>.
-        /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        public CorruptDataException(string message) : base(message) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="CorruptDataException"/>.
-        /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public CorruptDataException(string message, Exception inner) : base(message, inner) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="CorruptDataException"/>.
-        /// </summary>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public CorruptDataException(Exception inner) : base(St.CorruptData, inner) { }
-    }
-    /// <summary>
     /// Excepción que se produce cuando no se puede realizar la conexión
     /// </summary>
     [Serializable]
     public class CouldntConnectException : Exception
     {
+        private readonly IPEndPoint offendingEndPoint;
         /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="CouldntConnectException"/>.
+        /// <see cref="IPEndPoint"/> que fue la causa de esta excepción.
         /// </summary>
-        /// <param name="info">
-        /// El objeto que contiene la información de serialización.
-        /// </param>
-        /// <param name="context">
-        /// La información contextual acerca del orígen o el destino.
-        /// </param>
-        protected CouldntConnectException(SerializationInfo info, StreamingContext context) : base(info, context) { }
-        /// <summary>
-        /// The offending ip.
-        /// </summary>
-        public readonly System.Net.IPEndPoint OffendingIP;
+        public IPEndPoint OffendingEndPoint => offendingEndPoint;
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="CouldntConnectException"/>.
         /// </summary>
@@ -1419,10 +2147,10 @@ namespace MCART.Exceptions
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="CouldntConnectException"/>.
         /// </summary>
-        /// <param name="EndPoint">End point.</param>
-        public CouldntConnectException(System.Net.IPEndPoint EndPoint) : base(St.CldntConnect($"{EndPoint.Address}:{EndPoint.Port}"))
+        /// <param name="offendingEndPoint">End point.</param>
+        public CouldntConnectException(IPEndPoint offendingEndPoint) : base(St.CldntConnect($"{offendingEndPoint.Address}:{offendingEndPoint.Port}"))
         {
-            OffendingIP = EndPoint;
+            this.offendingEndPoint = offendingEndPoint;
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="CouldntConnectException"/>.
@@ -1438,41 +2166,34 @@ namespace MCART.Exceptions
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="CouldntConnectException"/>.
         /// </summary>
-        /// <param name="EndPoint">End point.</param>
+        /// <param name="offendingEndPoint">End point.</param>
         /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        public CouldntConnectException(System.Net.IPEndPoint EndPoint, string message) : base(message)
+        public CouldntConnectException(IPEndPoint offendingEndPoint, string message) : base(message)
         {
-            OffendingIP = EndPoint;
+            this.offendingEndPoint = offendingEndPoint;
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="CouldntConnectException"/>.
         /// </summary>
-        /// <param name="EndPoint">End point.</param>
+        /// <param name="offendingEndPoint">End point.</param>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public CouldntConnectException(System.Net.IPEndPoint EndPoint, Exception inner) : base(St.CldntConnect($"{EndPoint.Address}:{EndPoint.Port}"), inner)
+        public CouldntConnectException(IPEndPoint offendingEndPoint, Exception inner) : base(St.CldntConnect($"{offendingEndPoint.Address}:{offendingEndPoint.Port}"), inner)
         {
-            OffendingIP = EndPoint;
+            this.offendingEndPoint = offendingEndPoint;
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="CouldntConnectException"/>.
         /// </summary>
-        /// <param name="EndPoint">End point.</param>
+        /// <param name="offendingEndPoint">End point.</param>
         /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
         /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public CouldntConnectException(System.Net.IPEndPoint EndPoint, string message, Exception inner) : base(message, inner)
+        public CouldntConnectException(IPEndPoint offendingEndPoint, string message, Exception inner) : base(message, inner)
         {
-            OffendingIP = EndPoint;
+            this.offendingEndPoint = offendingEndPoint;
         }
-    }
-    /// <summary>
-    /// Excepción que se produce cuando la conexión se encontraba cerrada al intentar enviar o recibir datos
-    /// </summary>
-    [Serializable]
-    public class ConnectionClosedException : Exception
-    {
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
-        /// <see cref="ConnectionClosedException"/>.
+        /// <see cref="CouldntConnectException"/>.
         /// </summary>
         /// <param name="info">
         /// El objeto que contiene la información de serialización.
@@ -1480,296 +2201,6 @@ namespace MCART.Exceptions
         /// <param name="context">
         /// La información contextual acerca del orígen o el destino.
         /// </param>
-        protected ConnectionClosedException(SerializationInfo info, StreamingContext context) : base(info, context) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="ConnectionClosedException"/>.
-        /// </summary>
-        public ConnectionClosedException() : base(St.ClosdConn) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="ConnectionClosedException"/>.
-        /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        public ConnectionClosedException(string message) : base(message) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="ConnectionClosedException"/>.
-        /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public ConnectionClosedException(string message, Exception inner) : base(message, inner) { }
-    }
-    /// <summary>
-    /// Excepción que se produce cuando una operación falla
-    /// </summary>
-    [Serializable]
-    public class OperationException : Exception
-    {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="OperationException"/>.
-        /// </summary>
-        /// <param name="info">
-        /// El objeto que contiene la información de serialización.
-        /// </param>
-        /// <param name="context">
-        /// La información contextual acerca del orígen o el destino.
-        /// </param>
-        protected OperationException(SerializationInfo info, StreamingContext context) : base(info, context) { }
-        /// <summary>
-        /// The offending task.
-        /// </summary>
-        public readonly Delegate OffendingTask;
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="OperationException"/>.
-        /// </summary>
-        public OperationException() : base(St.ExcDoingX(St.TheTask.ToLower())) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="OperationException"/>.
-        /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        public OperationException(string message) : base(message) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="OperationException"/>.
-        /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public OperationException(string message, Exception inner) : base(message, inner) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="OperationException"/>.
-        /// </summary>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public OperationException(Exception inner) : base(St.ExcDoingX(St.TheTask.ToLower()), inner) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="OperationException"/>.
-        /// </summary>
-        /// <param name="Task">Task.</param>
-        public OperationException(Delegate Task) : base(St.ExcDoingX(St.XYQuotes(St.TheTask.ToLower(), Task.Method.Name)))
-        {
-            OffendingTask = Task;
-        }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="OperationException"/>.
-        /// </summary>
-        /// <param name="Task">Task.</param>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        public OperationException(Delegate Task, string message) : base(message)
-        {
-            OffendingTask = Task;
-        }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="OperationException"/>.
-        /// </summary>
-        /// <param name="Task">Task.</param>
-        /// <param name="info">El objeto que contiene la información de serialización.</param>
-        /// <param name="context">La información contextual acerca del orígen o el destino.</param>
-        public OperationException(Delegate Task, SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-            OffendingTask = Task;
-        }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="OperationException"/>.
-        /// </summary>
-        /// <param name="Task">Task.</param>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public OperationException(Delegate Task, string message, Exception inner) : base(message, inner)
-        {
-            OffendingTask = Task;
-        }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="OperationException"/>.
-        /// </summary>
-        /// <param name="Task">Task.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public OperationException(Delegate Task, Exception inner) : base(St.ExcDoingX(St.XYQuotes(St.TheTask.ToLower(), Task.Method.Name)), inner)
-        {
-            OffendingTask = Task;
-        }
-    }
-    /// <summary>
-    /// Excepción que se produce cuando la firma de un método representado en
-    /// un <see cref="MethodInfo"/> no es válida.
-    /// </summary>
-    [Serializable]
-    public class InvalidMethodSignatureException : Exception
-    {
-        /// <summary>
-        /// Referencia al método que ha causado la excepción.
-        /// </summary>
-        public readonly MethodInfo OffendingMethod;
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidMethodSignatureException"/>.
-        /// </summary>
-        public InvalidMethodSignatureException() : base(St.InvalidSignature(St.TheMethod)) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidMethodSignatureException"/>.
-        /// </summary>
-        /// <param name="method">Método que ha causado la excepción.</param>
-        public InvalidMethodSignatureException(MethodInfo method) : base(St.InvalidSignature(St.XYQuotes(St.TheMethod, $"{method.DeclaringType.FullName}.{method.Name}"))) { OffendingMethod = method; }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidMethodSignatureException"/>.
-        /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="method">Método que ha causado la excepción.</param>
-        public InvalidMethodSignatureException(string message, MethodInfo method = null) : base(message) { OffendingMethod = method; }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidMethodSignatureException"/>.
-        /// </summary>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public InvalidMethodSignatureException(Exception inner) : base(St.InvalidSignature(St.TheMethod), inner) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidMethodSignatureException"/>.
-        /// </summary>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        /// <param name="method">Método que ha causado la excepción.</param>
-        public InvalidMethodSignatureException(Exception inner, MethodInfo method) : base(St.InvalidSignature(St.XYQuotes(St.TheMethod, $"{method.DeclaringType.FullName}.{method.Name}")), inner) { OffendingMethod = method; }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidMethodSignatureException"/>.
-        /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        /// <param name="method">Método que ha causado la excepción.</param>
-        public InvalidMethodSignatureException(string message, Exception inner, MethodInfo method = null) : base(message, inner) { OffendingMethod = method; }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidMethodSignatureException"/>.
-        /// </summary>
-        /// <param name="info">
-        /// El objeto que contiene la información de serialización.
-        /// </param>
-        /// <param name="context">
-        /// La información contextual acerca del orígen o el destino.
-        /// </param>
-        /// <param name="method">Método que ha causado la excepción.</param>
-        protected InvalidMethodSignatureException(SerializationInfo info, StreamingContext context, MethodInfo method = null) : base(info, context) { OffendingMethod = method; }
-    }
-    /// <summary>
-    /// Excepción que se produce cuando la llamada a un método es peligrosa.
-    /// </summary>
-    [Serializable]
-    public class DangerousCallException : Exception
-    {
-        /// <summary>
-        /// Referencia al método que ha causado la excepción.
-        /// </summary>
-        public readonly MethodInfo OffendingMethod;
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidMethodSignatureException"/>.
-        /// </summary>
-        public DangerousCallException() : base(St.MethodIsDangerous(St.Unk)) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidMethodSignatureException"/>.
-        /// </summary>
-        /// <param name="method">Método que ha causado la excepción.</param>
-        public DangerousCallException(MethodInfo method) : base(St.MethodIsDangerous(method.Name)) { OffendingMethod = method; }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidMethodSignatureException"/>.
-        /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="method">Método que ha causado la excepción.</param>
-        public DangerousCallException(string message, MethodInfo method = null) : base(message) { OffendingMethod = method; }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidMethodSignatureException"/>.
-        /// </summary>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public DangerousCallException(Exception inner) : base(St.MethodIsDangerous(St.Unk), inner) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidMethodSignatureException"/>.
-        /// </summary>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        /// <param name="method">Método que ha causado la excepción.</param>
-        public DangerousCallException(Exception inner, MethodInfo method) : base(St.MethodIsDangerous(method.Name), inner) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidMethodSignatureException"/>.
-        /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        /// <param name="method">Método que ha causado la excepción.</param>
-        public DangerousCallException(string message, Exception inner, MethodInfo method = null) : base(message, inner) { OffendingMethod = method; }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidMethodSignatureException"/>.
-        /// </summary>
-        /// <param name="info">
-        /// El objeto que contiene la información de serialización.
-        /// </param>
-        /// <param name="context">
-        /// La información contextual acerca del orígen o el destino.
-        /// </param>
-        /// <param name="method">Método que ha causado la excepción.</param>
-        protected DangerousCallException(SerializationInfo info, StreamingContext context, MethodInfo method = null) : base(info, context) { OffendingMethod = method; }
-    }
-    /// <summary>
-    /// Excepción que se produce cuando una clase es peligrosa.
-    /// </summary>
-    [Serializable]
-    public class DangerousClassException : Exception
-    {
-        /// <summary>
-        /// Referencia al método que ha causado la excepción.
-        /// </summary>
-        public readonly Type OffendingClass;
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidMethodSignatureException"/>.
-        /// </summary>
-        public DangerousClassException() : base(St.MethodIsDangerous(St.Unk)) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidMethodSignatureException"/>.
-        /// </summary>
-        /// <param name="class">Método que ha causado la excepción.</param>
-        public DangerousClassException(Type @class) : base(St.MethodIsDangerous(@class.Name)) { OffendingClass = @class; }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidMethodSignatureException"/>.
-        /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="class">Método que ha causado la excepción.</param>
-        public DangerousClassException(string message, Type @class = null) : base(message) { OffendingClass = @class; }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidMethodSignatureException"/>.
-        /// </summary>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        public DangerousClassException(Exception inner) : base(St.MethodIsDangerous(St.Unk), inner) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidMethodSignatureException"/>.
-        /// </summary>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        /// <param name="class">Método que ha causado la excepción.</param>
-        public DangerousClassException(Exception inner, Type @class) : base(St.MethodIsDangerous(@class.Name), inner) { OffendingClass = @class; }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidMethodSignatureException"/>.
-        /// </summary>
-        /// <param name="message">Un <see cref="string"/> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception"/> que es la causa de esta excepción.</param>
-        /// <param name="class">Método que ha causado la excepción.</param>
-        public DangerousClassException(string message, Exception inner, Type @class = null) : base(message, inner) { OffendingClass = @class; }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidMethodSignatureException"/>.
-        /// </summary>
-        /// <param name="info">
-        /// El objeto que contiene la información de serialización.
-        /// </param>
-        /// <param name="context">
-        /// La información contextual acerca del orígen o el destino.
-        /// </param>
-        /// <param name="class">Método que ha causado la excepción.</param>
-        protected DangerousClassException(SerializationInfo info, StreamingContext context, Type @class = null) : base(info, context) { OffendingClass = @class; }
+        protected CouldntConnectException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 }

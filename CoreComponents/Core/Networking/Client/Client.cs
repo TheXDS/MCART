@@ -1,38 +1,34 @@
-﻿//
-//  Client.cs
-//
-//  This file is part of MCART
-//
-//  Author:
-//       César Andrés Morgan <xds_xps_ivx@hotmail.com>
-//
-//  Copyright (c) 2011 - 2018 César Andrés Morgan
-//
-//  MCART is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-//
-//  MCART is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-//
-//  You should have received a copy of the GNU General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿/*
+Client.cs
 
+This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Author(s):
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+
+Copyright (c) 2011 - 2018 César Andrés Morgan
+
+Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+using System;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using System.Net;
+using System.IO;
 
-#if BufferedIO
-using System.Collections.Generic;
-#endif
-
-#if PreferExceptions
-using System;
-#endif
-
-namespace MCART.Networking.Client
+namespace TheXDS.MCART.Networking.Client
 {
     /// <summary>
     /// Permite enviar y recibir información desde y hacia un servidor. Además,
@@ -47,22 +43,18 @@ namespace MCART.Networking.Client
         /// <summary>
         /// Puerto predeterminado para las conexiones entrantes.
         /// </summary>
-        public const ushort defaultPort = 51220;
-
-#if BufferedIO
-
-        /// <summary>
-        /// Búfer predeterminado para recepción.
-        /// </summary>
-        public const ushort bufferSize = 256;
-
-#endif
-
+        public const int DefaultPort = 51220;
         /// <summary>
         /// Gets a value indicating whether this <see cref="Client"/> is alive.
         /// </summary>
-        /// <value><c>true</c> if is alive; otherwise, <c>false</c>.</value>
+        /// <value><see langword="true"/> if is alive; otherwise, <see langword="false"/>.</value>
         public bool IsAlive => (bool)connection?.Connected;
+        /// <summary>
+        /// Establece una conexión con el servidor de forma asíncrona.
+        /// </summary>
+        /// <returns>Un <see cref="Task"/> que representa la tarea.</returns>
+        /// <param name="server">Servidor al cual conectarse.</param>
+        public async Task ConnectAsync(string server) => await ConnectAsync(server, DefaultPort);
         /// <summary>
         /// Establece una conexión con el servidor de forma asíncrona.
         /// </summary>
@@ -72,8 +64,9 @@ namespace MCART.Networking.Client
         /// Opcional. Puerto del servidor. Si se omite, se conectará al puerto
         /// predeterminado.
         /// </param>
-        public async Task ConnectAsync(string server, ushort port = defaultPort)
+        public async Task ConnectAsync(string server, int port)
         {
+            if (!port.IsBetween(1, 65535)) throw new ArgumentOutOfRangeException(nameof(port));
             try
             {
                 await connection.ConnectAsync(server, port);
@@ -82,7 +75,7 @@ namespace MCART.Networking.Client
 #if PreferExceptions
             catch { throw; }
 #else
-			catch { ConnChk(); AtFail(); }
+            catch (Exception ex) { ConnChk(); AtFail(ex); }
 #endif
         }
         /// <summary>
@@ -90,7 +83,7 @@ namespace MCART.Networking.Client
         /// </summary>
         /// <returns>Un <see cref="Task"/> que representa la tarea.</returns>
         /// <param name="server">Servidor al cual conectarse.</param>
-        public async Task ConnectAsync(System.Net.IPEndPoint server)
+        public async Task ConnectAsync(IPEndPoint server)
         {
             try
             {
@@ -100,9 +93,15 @@ namespace MCART.Networking.Client
 #if PreferExceptions
             catch { throw; }
 #else
-			catch { ConnChk(); AtFail(); }
+            catch (Exception ex) { ConnChk(); AtFail(ex); }
 #endif
         }
+        /// <summary>
+        /// Establece una conexión con el servidor de forma asíncrona.
+        /// </summary>
+        /// <returns>Un <see cref="Task"/> que representa la tarea.</returns>
+        /// <param name="server">Servidor al cual conectarse.</param>
+        public async Task ConnectAsync(IPAddress server) => await ConnectAsync(server, DefaultPort);
         /// <summary>
         /// Establece una conexión con el servidor de forma asíncrona.
         /// </summary>
@@ -112,8 +111,9 @@ namespace MCART.Networking.Client
         /// Opcional. Puerto del servidor. Si se omite, se conectará al puerto
         /// predeterminado.
         /// </param>
-        public async Task ConnectAsync(System.Net.IPAddress server, ushort port = defaultPort)
+        public async Task ConnectAsync(IPAddress server, int port)
         {
+            if (!port.IsBetween(1, 65535)) throw new ArgumentOutOfRangeException(nameof(port));
             try
             {
                 await connection.ConnectAsync(server, port);
@@ -122,9 +122,14 @@ namespace MCART.Networking.Client
 #if PreferExceptions
             catch { throw; }
 #else
-			catch { ConnChk(); AtFail(); }
+            catch (Exception ex) { ConnChk(); AtFail(ex); }
 #endif
         }
+        /// <summary>
+        /// Establece una conexión con el servidor.
+        /// </summary>
+        /// <param name="server">Servidor al cual conectarse.</param>
+        public void Connect(string server) => Connect(server, DefaultPort);
         /// <summary>
         /// Establece una conexión con el servidor.
         /// </summary>
@@ -133,8 +138,9 @@ namespace MCART.Networking.Client
         /// Opcional. Puerto del servidor. Si se omite, se conectará al puerto
         /// predeterminado.
         /// </param>
-        public void Connect(string server, ushort port = defaultPort)
+        public void Connect(string server, int port)
         {
+            if (!port.IsBetween(1, 65535)) throw new ArgumentOutOfRangeException(nameof(port));
             try
             {
                 connection.Connect(server, port);
@@ -143,14 +149,14 @@ namespace MCART.Networking.Client
 #if PreferExceptions
             catch { throw; }
 #else
-			catch { ConnChk(); AtFail(); }
+            catch (Exception ex) { ConnChk(); AtFail(ex); }
 #endif
         }
         /// <summary>
         /// Establece una conexión con el servidor.
         /// </summary>
         /// <param name="server">Servidor al cual conectarse.</param>
-        public void Connect(System.Net.IPEndPoint server)
+        public void Connect(IPEndPoint server)
         {
             try
             {
@@ -160,9 +166,14 @@ namespace MCART.Networking.Client
 #if PreferExceptions
             catch { throw; }
 #else
-			catch { ConnChk(); AtFail(); }
+            catch (Exception ex) { ConnChk(); AtFail(ex); }
 #endif
         }
+        /// <summary>
+        /// Establece una conexión con el servidor.
+        /// </summary>
+        /// <param name="server">Servidor al cual conectarse.</param>
+        public void Connect(IPAddress server) => Connect(server, DefaultPort);
         /// <summary>
         /// Establece una conexión con el servidor.
         /// </summary>
@@ -171,8 +182,9 @@ namespace MCART.Networking.Client
         /// Opcional. Puerto del servidor. Si se omite, se conectará al puerto
         /// predeterminado.
         /// </param>
-        public void Connect(System.Net.IPAddress server, ushort port = defaultPort)
+        public void Connect(IPAddress server, int port)
         {
+            if (!port.IsBetween(1, 65535)) throw new ArgumentOutOfRangeException(nameof(port));
             try
             {
                 connection.Connect(server, port);
@@ -181,7 +193,7 @@ namespace MCART.Networking.Client
 #if PreferExceptions
             catch { throw; }
 #else
-			catch { ConnChk(); AtFail(); }
+            catch (Exception ex) { ConnChk(); AtFail(ex); }
 #endif
         }
         /// <summary>
@@ -190,6 +202,11 @@ namespace MCART.Networking.Client
         public void Disconnect()
         {
             try { AtDisconnect(); }
+#if PreferExceptions
+            catch { throw; }
+#else
+            catch (Exception ex) { AtFail(ex); }
+#endif
             finally { ConnChk(); }
         }
         /// <summary>
@@ -203,37 +220,22 @@ namespace MCART.Networking.Client
 #if PreferExceptions
                 throw new ArgumentNullException();
 #else
-				return new byte[] { };
+                return new byte[] { };
 #endif
             NetworkStream ns = connection?.GetStream();
             if (ns is null)
 #if PreferExceptions
                 throw new ArgumentNullException();
 #else
-				return new byte[] { };
+                return new byte[] { };
 #endif
-#if BufferedIO
-            int sze = data.Length;
-            while (sze > 0)
+            using (var ms = new MemoryStream(data))
+                ms.CopyTo(ns);
+            using (var ms = new MemoryStream())
             {
-                ns.Write(data, data.Length - sze, (bufferSize < sze ? bufferSize : sze));
-                sze -= bufferSize;
+                ns.CopyTo(ms);
+                return ms.ToArray();
             }
-            List<byte> outp = new List<byte>();
-            do
-            {
-                byte[] buff = new byte[bufferSize];
-                sze = ns.Read(buff, 0, buff.Length);
-                if (sze < bufferSize) System.Array.Resize(ref buff, sze);
-                outp.AddRange(buff);
-            } while (ns.DataAvailable);
-            return outp.ToArray();
-#else
-			ns.Write(data, 0, data.Length);
-			byte[] buff = new byte[(int)connection?.Available];
-			ns.Read(buff,0, connection.Available);
-			return buff;
-#endif
         }
         /// <summary>
         /// Envía un mensaje, y espera a que el servidor responda de forma asíncrona.
@@ -246,38 +248,22 @@ namespace MCART.Networking.Client
 #if PreferExceptions
                 throw new ArgumentNullException();
 #else
-				return new byte[] { };
+                return new byte[] { };
 #endif
             NetworkStream ns = connection?.GetStream();
             if (ns is null)
 #if PreferExceptions
                 throw new ArgumentNullException();
 #else
-				return new byte[] { };
+                return new byte[] { };
 #endif
-#if BufferedIO
-            await ns.WriteAsync(data, 0, data.Length);
-            int sze = data.Length;
-            while (sze > 0)
+            using (var ms = new MemoryStream(data))
+                await (ms.CopyToAsync(ns));
+            using (var ms = new MemoryStream())
             {
-                ns.Write(data, data.Length - sze, (bufferSize < sze ? bufferSize : sze));
-                sze -= bufferSize;
+                await (ns.CopyToAsync(ms));
+                return ms.ToArray();
             }
-            List<byte> outp = new List<byte>();
-            do
-            {
-                byte[] buff = new byte[bufferSize];
-                sze = await ns.ReadAsync(buff, 0, buff.Length);
-                if (sze < bufferSize) System.Array.Resize(ref buff, sze);
-                outp.AddRange(buff);
-            } while (ns.DataAvailable);
-            return outp.ToArray();
-#else
-			await ns.WriteAsync(data, 0, data.Length);
-			byte[] buff = new byte[(int)connection?.Available];
-			await ns.ReadAsync(buff,0, connection.Available);
-			return buff;
-#endif
         }
         /// <summary>
         /// Método invalidable que indica una serie de acciones a realizar al
@@ -296,13 +282,21 @@ namespace MCART.Networking.Client
         /// </remarks>
         public virtual void AtDisconnect() { }
         /// <summary>
+        /// Indica una serie de acciones a realizar al no poder establecerse
+        /// una conexión con el servidor.
+        /// </summary>
+        public void AtFail() => AtFail(null);
+        /// <summary>
         /// Método invalidable que indica una serie de acciones a realizar al no
         /// poder establecerse una conexión con el servidor.
         /// </summary>
+        /// <param name="ex">
+        /// Excepción producida en la falla.
+        /// </param>
         /// <remarks>
         /// De forma predeterminada, no se realiza ninguna acción.
         /// </remarks>
-        public virtual void AtFail() { }
+        public virtual void AtFail(Exception ex) { }
         /// <summary>
         /// Se asegura de cerrar la conexión.
         /// </summary>

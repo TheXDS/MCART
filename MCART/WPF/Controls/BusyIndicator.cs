@@ -1,19 +1,19 @@
 //
 //  BusyIndicator.cs
 //
-//  This file is part of MCART
+//  This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
 //  Author:
 //       César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 //  Copyright (c) 2011 - 2018 César Andrés Morgan
 //
-//  MCART is free software: you can redistribute it and/or modify
+//  Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation, either version 3 of the License, or
 //  (at your option) any later version.
 //
-//  MCART is distributed in the hope that it will be useful,
+//  Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will be useful,
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU General Public License for more details.
@@ -28,9 +28,9 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using static MCART.UI;
+using static TheXDS.MCART.UI;
 
-namespace MCART.Controls
+namespace TheXDS.MCART.Controls
 {
     /// <summary>
     /// Control simple que indica al usuario que la aplicación está ocupada.
@@ -51,16 +51,16 @@ namespace MCART.Controls
             nameof(Radius), typeof(double), T,
             new PropertyMetadata(24.0, SetControlSize));
         /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="Fill"/>.
+        /// Identifica a la propiedad de dependencia <see cref="Stroke"/>.
         /// </summary>
-        public static DependencyProperty FillProperty = DependencyProperty.Register(
-            nameof(Fill), typeof(Brush), T,
+        public static DependencyProperty StrokeProperty = DependencyProperty.Register(
+            nameof(Stroke), typeof(Brush), T,
             new PropertyMetadata(SystemColors.HighlightBrush, Colorize));
         /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="Fill2"/>.
+        /// Identifica a la propiedad de dependencia <see cref="Stroke2"/>.
         /// </summary>
-        public static DependencyProperty Fill2Property = DependencyProperty.Register(
-            nameof(Fill2), typeof(Brush), T,
+        public static DependencyProperty Stroke2Property = DependencyProperty.Register(
+            nameof(Stroke2), typeof(Brush), T,
             new PropertyMetadata(SystemColors.GrayTextBrush, Colorize));
         /// <summary>
         /// Identifica a la propiedad de dependencia <see cref="Starting"/>.
@@ -68,10 +68,12 @@ namespace MCART.Controls
         public static DependencyProperty StartingProperty = DependencyProperty.Register(
             nameof(Starting), typeof(bool), T,
             new PropertyMetadata(false, Colorize));
+
+
         static void Colorize(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             BusyIndicator b = (BusyIndicator)d;
-            b.pth.Stroke = b.Starting ? b.Fill2 : b.Fill2;
+            b.pth.Stroke = b.Starting ? b.Stroke2 : b.Stroke;
         }
         static void SetControlSize(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -97,19 +99,19 @@ namespace MCART.Controls
         /// <summary>
         /// Obtiene o establece el <see cref="Brush"/> a aplicar al control.
         /// </summary>
-        public Brush Fill
+        public Brush Stroke
         {
-            get => (Brush)GetValue(FillProperty);
-            set => SetValue(FillProperty, value);
+            get => (Brush)GetValue(StrokeProperty);
+            set => SetValue(StrokeProperty, value);
         }
         /// <summary>
         /// Obtiene o establece el <see cref="Brush"/> a aplicar al estado
         /// secundario de el control.
         /// </summary>
-        public Brush Fill2
+        public Brush Stroke2
         {
-            get => (Brush)GetValue(Fill2Property);
-            set => SetValue(Fill2Property, value);
+            get => (Brush)GetValue(Stroke2Property);
+            set => SetValue(Stroke2Property, value);
         }
         /// <summary>
         /// Obtiene o establece el grosor de los elementos de este control.
@@ -143,7 +145,7 @@ namespace MCART.Controls
         {
             SetBinding(HeightProperty, new Binding(nameof(Width)) { Source = this });
             Loaded += OnLoaded;
-            SizeChanged += OnLoaded;
+            SizeChanged += OnLoaded;            
             pth.SetBinding(Shape.StrokeThicknessProperty, new Binding(nameof(Thickness)) { Source = this });
             SetControlSize(this, new DependencyPropertyChangedEventArgs());
             Colorize(this, new DependencyPropertyChangedEventArgs());

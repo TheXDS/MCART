@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{EAFF4297-E338-4093-BB51-38C16B325B40}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>MCART</RootNamespace>
-    <AssemblyName>MCART</AssemblyName>
+    <RootNamespace>TheXDS.MCART</RootNamespace>
+    <AssemblyName>TheXDS.MCART.Win32</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -22,7 +22,7 @@
     <DefineConstants>TRACE;DEBUG;IncludeExampleImplementations</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\Build\Win32\Debug\MCART.xml</DocumentationFile>
+    <DocumentationFile>..\..\Build\Win32\Debug\TheXDS.MCART.Win32.xml</DocumentationFile>
     <LangVersion>default</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -88,10 +88,8 @@
     <Compile Include="PluginSupport\Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Icons.cs" />
+    <Compile Include="Resources\RTInfo.cs" />
     <Compile Include="Security\Password\PwDialogResult.cs" />
-    <Compile Include="Types\TaskReporter\TaskReporterControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controls\BarStepper.resx">
@@ -113,7 +111,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Types\" />
+  </ItemGroup>
   <Import Project="..\..\CoreComponents\Core\Core.projitems" Label="Shared" />
   <Import Project="..\..\CoreComponents\Core-Windows\Core-Windows.projitems" Label="Shared" />
   <Import Project="..\..\CoreComponents\Core-NoWPF\Core-NoWPF.projitems" Label="Shared" />

@@ -1,31 +1,32 @@
-﻿//
-//  InteractionItem.cs
-//
-//  This file is part of MCART
-//
-//  Author:
-//       César Andrés Morgan <xds_xps_ivx@hotmail.com>
-//
-//  Copyright (c) 2011 - 2018 César Andrés Morgan
-//
-//  MCART is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-//
-//  MCART is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-//
-//  You should have received a copy of the GNU General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿/*
+InteractionItem.cs
+
+This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Author(s):
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+
+Copyright (c) 2011 - 2018 César Andrés Morgan
+
+Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+*/
 
 using System;
 using System.Reflection;
-using MCART.Attributes;
+using TheXDS.MCART.Attributes;
 
-namespace MCART.PluginSupport
+namespace TheXDS.MCART.PluginSupport
 {
     /// <summary>
     /// Esta clase define a un elemento de interacción.
@@ -35,7 +36,7 @@ namespace MCART.PluginSupport
         /// <summary>
         /// Obtiene un texto asociado a este <see cref="InteractionItem"/>.
         /// </summary>
-        public readonly string Text;
+        public string Text { get; }
         /// <summary>
         /// Obtiene una descripción larga de este <see cref="InteractionItem"/>.
         /// </summary>
@@ -47,7 +48,7 @@ namespace MCART.PluginSupport
         /// Esta propiedad puede ser utilizada mostrándose en un Tooltip, o un 
         /// menú descriptivo.
         /// </remarks>
-        public readonly string Description;
+        public string Description { get; }
         /// <summary>
         /// Obtiene un delegado con la acción a realizar por este 
         /// <see cref="InteractionItem"/>.
@@ -62,7 +63,7 @@ namespace MCART.PluginSupport
         /// función de conversión entre <see cref="EventHandler"/> y 
         /// RoutedEventHandler.
 		/// </remarks>
-        public readonly EventHandler Action;
+        public EventHandler Action { get; }
         /// <summary>
         /// Crea una nueva entrada de interacción con el delegado 
         /// <see cref="EventHandler"/> especificado.
@@ -110,7 +111,6 @@ namespace MCART.PluginSupport
             Text = action.GetAttr<NameAttribute>()?.Value ?? action.Method.Name;
             Description = action.GetAttr<DescriptionAttribute>()?.Value;
         }
-
         internal InteractionItem(MethodInfo method, IPlugin parentInstance)
         {
             Action = Delegate.CreateDelegate(typeof(EventHandler), parentInstance, method, false) as EventHandler

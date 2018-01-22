@@ -1,19 +1,19 @@
 ﻿//
 //  Colorizer.cs
 //
-//  This file is part of MCART
+//  This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
 //  Author:
 //       César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 //  Copyright (c) 2011 - 2018 César Andrés Morgan
 //
-//  MCART is free software: you can redistribute it and/or modify
+//  Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation, either version 3 of the License, or
 //  (at your option) any later version.
 //
-//  MCART is distributed in the hope that it will be useful,
+//  Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will be useful,
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU General Public License for more details.
@@ -24,7 +24,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MCART.Controls
+namespace TheXDS.MCART.Controls
 {
     /// <summary>
     /// Describe una serie de métodos a implementar por clases que permitan
@@ -108,7 +108,7 @@ namespace MCART.Controls
         /// </param>
         public static void GetBounds(this IEnumerable<Slice> data, out double min, out double max)
         {
-            if (!data.Any()) throw new Exceptions.EmptyCollectionException<Slice>(data);
+            if (!data.Any()) throw new Exceptions.EmptyCollectionException(data);
             min = double.MaxValue;
             max = double.MinValue;
             foreach (var j in data)

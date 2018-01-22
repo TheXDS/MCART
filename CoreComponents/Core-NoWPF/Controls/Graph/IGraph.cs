@@ -1,5 +1,5 @@
 ﻿using System;
-namespace MCART.Controls.Graph
+namespace TheXDS.MCART.Controls.Graph
 {
     /// <summary>
     /// Define una serie de métodos a implementar por controles que permitan

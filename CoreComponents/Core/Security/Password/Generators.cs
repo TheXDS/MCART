@@ -1,33 +1,34 @@
-﻿//
-//  Generators.cs
-//
-//  This file is part of MCART
-//
-//  Author:
-//       César Andrés Morgan <xds_xps_ivx@hotmail.com>
-//
-//  Copyright (c) 2011 - 2018 César Andrés Morgan
-//
-//  MCART is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-//
-//  MCART is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-//
-//  You should have received a copy of the GNU General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿/*
+Generators.cs
+
+This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Author(s):
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+
+Copyright (c) 2011 - 2018 César Andrés Morgan
+
+Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+*/
 
 using System;
 using System.Linq;
-using MCART.Types.Extensions;
-using St = MCART.Resources.Strings;
+using TheXDS.MCART.Types.Extensions;
+using St = TheXDS.MCART.Resources.Strings;
 using System.Security;
 
-namespace MCART.Security.Password
+namespace TheXDS.MCART.Security.Password
 {
     /// <summary>
     /// Contiene funciones que generan contraseñas.
@@ -52,17 +53,32 @@ namespace MCART.Security.Password
             return retval;
         }
         /// <summary>
-        /// Genera una contraseña segura.
+        /// Genera una contraseña segura de 16 caracteres.
+        /// </summary>
+        /// <returns>
+        /// Una contraseña que incluye mayúsculas, minúsculas, números y
+        /// símbolos, todos disponibles en el teclado inglés.
+        /// </returns>
+        public static SecureString Safe() => GenPw(St.Chars, 16);
+        /// <summary>
+        /// Genera una contraseña segura de la longitud especificada.
         /// </summary>
         /// <returns>
         /// Una contraseña que incluye mayúsculas, minúsculas, números y
         /// símbolos, todos disponibles en el teclado inglés.
         /// </returns>
         /// <param name="length">
-        /// Opcional. Longitud de la contraseña a generar. Si se omite, se
-        /// generará una contraseña de 16 caracteres.
+        /// Longitud de la contraseña a generar.
         /// </param>
-        public static SecureString Safe(int length = 16) => GenPw(St.Chars, length);
+        public static SecureString Safe(int length) => GenPw(St.Chars, length);
+        /// <summary>
+        /// Genera una contraseña muy compleja de 128 caracteres.
+        /// </summary>
+        /// <returns>
+        /// Una contraseña que incluye mayúsculas, minúsculas, números y
+        /// símbolos, todos disponibles en el teclado inglés internacional.
+        /// </returns>
+        public static SecureString VeryComplex() => GenPw(St.MoreChars, 128);
         /// <summary>
         /// Genera una contraseña muy compleja.
         /// </summary>
@@ -71,34 +87,44 @@ namespace MCART.Security.Password
         /// símbolos, todos disponibles en el teclado inglés internacional.
         /// </returns>
         /// <param name="length">
-        /// Opcional. Longitud de la contraseña a generar. Si se omite, se
-        /// generará una contraseña de 128 caracteres.
+        /// Longitud de la contraseña a generar.
         /// </param>
-        public static SecureString VeryComplex(int length = 128) => GenPw(St.MoreChars, length);
+        public static SecureString VeryComplex(int length) => GenPw(St.MoreChars, length);
+        /// <summary>
+        /// Genera un número de pin de 4 dígitos.
+        /// </summary>
+        /// <returns>Un número de pin de la longitud especificada.</returns>
+        public static SecureString Pin() => GenPw(St.Numbers, 4);
         /// <summary>
         /// Genera un número de pin.
         /// </summary>
         /// <returns>Un número de pin de la longitud especificada.</returns>
         /// <param name="length">
-        /// Opcional. Longitud del número de pin a generar. Si se omite, se
-        /// generará un número de pin de 4 dígitos.
+        /// Longitud del número de pin a generar.
         /// </param>
-        public static SecureString Pin(int length = 4) => GenPw(St.Numbers, length);
+        public static SecureString Pin(int length) => GenPw(St.Numbers, length);
         /// <summary>
-        /// Genera una contraseña extremadamente segura, utilizando UTF-16
+        /// Genera una contraseña extremadamente segura de 512 caracteres,
+        /// utilizando UTF-16.
+        /// </summary>
+        /// <returns>
+        /// Un <see cref="SecureString"/> con la contraseña generada.
+        /// </returns>
+        public static SecureString ExtremelyComplex() => ExtremelyComplex(512);
+        /// <summary>
+        /// Genera una contraseña extremadamente segura, utilizando UTF-16.
         /// </summary>
         /// <param name="length">
-        /// Opcional. Longitud de la contraseña a generar. Si se omite, se
-        /// generará una contraseña de 512 caracteres UTF-16.
+        /// Longitud de la contraseña a generar.
         /// </param>
         /// <returns>
         /// Un <see cref="SecureString"/> con la contraseña generada.
         /// </returns>
-        public static SecureString ExtremelyComplex(int length = 512)
+        public static SecureString ExtremelyComplex(int length)
         {
             var rnd = new Random();
             var retval = new SecureString();
-            for (int j = 0; j < length; j++) retval.AppendChar((char)rnd.Next(0, 0x10000));
+            for (int j = 0; j < length; j++) retval.AppendChar((char)rnd.Next(0, char.MaxValue + 1));
             return retval;
         }
     }

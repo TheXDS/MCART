@@ -3,14 +3,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:Converters="clr-namespace:System.Windows.Converters;assembly=MCART"
+    xmlns:Converters="clr-namespace:System.Windows.Converters;assembly=TheXDS.MCART.WPF"
     x:Class="MainWindow"
     mc:Ignorable="d"
     Title="MCART Test Application"
     Height="350"
     Width="525">
     <Window.Resources>
-        <Converters:BooleanInverter x:Key="BooleanInverter" />
+        <Converters:BooleanInverter x:Key="BooleanInverter"/>
     </Window.Resources>
     <DockPanel Background="Gray" TextBlock.Foreground="white">
         <Menu DockPanel.Dock="top">
@@ -23,6 +23,7 @@
                     <MenuItem x:Name="mnuProgressRing" Header="ProgressRing..." />
                 </MenuItem>
                 <MenuItem Header="Contraseñas">
+                    <MenuItem x:Name="mnuBeautifulPwd" Header="Probar login..."/>
                     <MenuItem x:Name="mnuPwd" Header="Probar contraseña" />
                     <MenuItem x:Name="mnuSetPw" Header="Probar Establecer Pw" />
                     <MenuItem Header="Generar contraseña">

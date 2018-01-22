@@ -7,19 +7,19 @@
 // Windows, tanto Win32 como WPF, y en Linux, en el port de las API de Win32 en
 // Mono, e incluso Wine si se cuenta con algún framework compatible.
 //
-//  This file is part of MCART
+//  This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
 // Author:
 //      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 // Copyright (c) 2011 - 2018 César Andrés Morgan
 //
-// MCART Is free software: you can redistribute it And/Or modify
+// Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it And/Or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, Or
 // (at your option) any later version.
 //
-// MCART Is distributed in the hope that it will be useful,
+// Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY Or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
@@ -27,11 +27,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If Not, see <http://www.gnu.org/licenses/>.
 
-using MCART;
-using MCART.Attributes;
-using MCART.PluginSupport;
-using MCART.Security.Checksum;
-using MCART.Types.TaskReporter;
+using TheXDS.MCART;
+using TheXDS.MCART.Attributes;
+using TheXDS.MCART.PluginSupport;
+using TheXDS.MCART.Security.Checksum;
+using TheXDS.MCART.Types.TaskReporter;
 using System;
 using System.IO;
 using static MCART.Common;

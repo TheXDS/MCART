@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using System.IO;
-using MCART.Networking.Server;
+using TheXDS.MCART.Networking.Server;
 
 namespace LightChat
 {

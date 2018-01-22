@@ -1,33 +1,34 @@
-﻿//
-//  StreamExtensions.cs
-//
-//  This file is part of MCART
-//
-//  Author:
-//       César Andrés Morgan <xds_xps_ivx@hotmail.com>
-//
-//  Copyright (c) 2011 - 2018 César Andrés Morgan
-//
-//  MCART is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-//
-//  MCART is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-//
-//  You should have received a copy of the GNU General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿/*
+StreamExtensions.cs
+
+This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Author(s):
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+
+Copyright (c) 2011 - 2018 César Andrés Morgan
+
+Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+*/
 
 using System;
 using System.Text;
 using System.IO;
 using System.Threading.Tasks;
-using MCART.Attributes;
+using TheXDS.MCART.Attributes;
 
-namespace MCART.Types.Extensions
+namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
     /// Extensiones de la clase <see cref="Stream"/>.
@@ -38,14 +39,9 @@ namespace MCART.Types.Extensions
         /// Destruye el contenido del <see cref="Stream"/>.
         /// </summary>
         /// <param name="fs">
-        /// <see cref="Stream"/> del cual este método es una extensión.
+        /// <see cref="Stream"/> a destruir.
         /// </param>
-        [Unsecure]
-        public static void Destroy(this Stream fs)
-        {
-            try { fs.SetLength(0); }
-            catch { throw; }
-        }
+        [Dangerous] [Thunk] public static void Destroy(this Stream fs) => fs.SetLength(0);
         /// <summary>
         /// Salta la cantidad especificada de bytes en la secuencia desde la
         /// posición actual.
@@ -62,9 +58,18 @@ namespace MCART.Types.Extensions
         {
             if (bytesToSkip < 0 || (fs.Position + bytesToSkip) > fs.Length)
                 throw new ArgumentOutOfRangeException(nameof(bytesToSkip));
-            try { fs.Seek(bytesToSkip, SeekOrigin.Current); }
-            catch { throw; }
+            fs.Seek(bytesToSkip, SeekOrigin.Current);
         }
+        /// <summary>
+        /// Lee una cadena desde la secuencia y avanza la posición de lectura
+        /// hasta después del último carácter Unicode leído.
+        /// </summary>
+        /// <returns>La cadena que ha sido leída.</returns>
+        /// <param name="fs"><see cref="Stream"/> del cual este método es
+        /// una extensión.</param>
+        /// <param name="count">Cantidad de caracteres a leer.</param>
+        [Thunk]
+        public static string ReadString(this Stream fs, int count) => ReadString(fs, count, Encoding.Unicode);
         /// <summary>
         /// Lee una cadena desde la secuencia y avanza la posición de lectura
         /// hasta después del último carácter leído.
@@ -76,16 +81,11 @@ namespace MCART.Types.Extensions
         /// <param name="encoding"><see cref="Encoding"/> a utilizar.</param>
         public static string ReadString(this Stream fs, int count, Encoding encoding)
         {
-            string outp = string.Empty;
+            var retVal = new List<char>();
             BinaryReader br = new BinaryReader(fs, encoding);
-            try
-            {
-                while (outp.Length < count) outp += br.ReadChar();
-                return outp;
-            }
-            catch { throw; }
+            while (retVal.Count < count) retVal.Add(br.ReadChar());
+            return new string(retVal.ToArray());
         }
-        
         /// <summary>
         /// Obtiene la cantidad de bytes restantes desde la posición actual.
         /// </summary>
@@ -94,22 +94,7 @@ namespace MCART.Types.Extensions
         /// <returns>
         /// La cantidad de bytes restantes desde la posición actual.
         /// </returns>
-        public static long RemainingBytes(this Stream fs) => fs.Length - fs.Position;
-
-        /// <summary>
-        /// Lee una cadena desde la secuencia y avanza la posición de lectura
-        /// hasta después del último carácter Unicode leído.
-        /// </summary>
-        /// <returns>La cadena que ha sido leída.</returns>
-        /// <param name="fs"><see cref="Stream"/> del cual este método es
-        /// una extensión.</param>
-        /// <param name="count">Cantidad de caracteres a leer.</param>
-        [Thunk]
-        public static string ReadString(this Stream fs, int count)
-        {
-            try { return ReadString(fs, count, Encoding.Unicode); }
-            catch { throw; }
-        }
+        [Thunk] public static long RemainingBytes(this Stream fs) => fs.Length - fs.Position;
         /// <summary>
         /// Lee asíncronamente una cadena desde la secuencia y avanza la posición
         /// de lectura hasta después del último carácter Unicode leído.
@@ -118,12 +103,7 @@ namespace MCART.Types.Extensions
         /// <param name="fs"><see cref="Stream"/> del cual este método es
         /// una extensión.</param>
         /// <param name="count">Cantidad de caracteres a leer.</param>
-        [Thunk]
-        public static async Task<string> ReadStringAsync(this Stream fs, int count)
-        {
-            try { return await Task.Run(() => ReadString(fs, count)); }
-            catch { throw; }
-        }
+        [Thunk] public static async Task<string> ReadStringAsync(this Stream fs, int count) => await Task.Run(() => ReadString(fs, count));
         /// <summary>
         /// Lee asíncronamente una cadena desde la secuencia y avanza la posición
         /// de lectura hasta después del último carácter leído.
@@ -134,12 +114,7 @@ namespace MCART.Types.Extensions
         /// </param>
         /// <param name="count">Cantidad de caracteres a leer.</param>
         /// <param name="encoding"><see cref="Encoding"/> a utilizar.</param>
-        [Thunk]
-        public static async Task<string> ReadStringAsync(this Stream fs, int count, Encoding encoding)
-        {
-            try { return await Task.Run(() => ReadString(fs, count, encoding)); }
-            catch { throw; }
-        }
+        public static async Task<string> ReadStringAsync(this Stream fs, int count, Encoding encoding) => await Task.Run(() => ReadString(fs, count, encoding));
         /// <summary>
         /// Lee asíncronamente una cadena desde la posición actual hasta el
         /// final de la secuencia.
@@ -148,12 +123,7 @@ namespace MCART.Types.Extensions
         /// <see cref="Stream"/> del cual este método es una extensión.
         /// </param>
         /// <returns>La cadena que ha sido leída.</returns>
-        [Thunk]
-        public static async Task<string> ReadStringToEndAsync(this Stream fs)
-        {
-            try { return await ReadStringToAsync(fs, fs.Length); }
-            catch { throw; }
-        }
+        [Thunk] public static async Task<string> ReadStringToEndAsync(this Stream fs) => await ReadStringToAsync(fs, fs.Length);
         /// <summary>
         /// Lee asíncronamente una cadena desde la posición actual hasta 
         /// alcanzar la posición especificada.
@@ -167,19 +137,15 @@ namespace MCART.Types.Extensions
         /// <returns>La cadena que ha sido leída.</returns>
         public static async Task<string> ReadStringToAsync(this Stream fs, long pos)
         {
-            try
+            if (pos < fs.Position)
             {
-                if (pos < fs.Position)
-                {
-                    long x = pos;
-                    pos = fs.Position;
-                    fs.Position = x;
-                }
-                byte[] bf = new byte[pos - fs.Position];
-                await fs.ReadAsync(bf, 0, (int)(pos - fs.Position));
-                return Encoding.UTF8.GetString(bf);
+                long x = pos;
+                pos = fs.Position;
+                fs.Position = x;
             }
-            catch { throw; }
+            byte[] bf = new byte[pos - fs.Position];
+            await fs.ReadAsync(bf, 0, (int)(pos - fs.Position));
+            return Encoding.UTF8.GetString(bf);
         }
         /// <summary>
         /// Escribe un conjunto de objetos <see cref="byte"/> en el 
@@ -190,12 +156,7 @@ namespace MCART.Types.Extensions
         /// </param>
         /// <param name="bytes">Colección de objetos <see cref="byte"/> a
         /// escribir en el <see cref="Stream"/>.</param>
-        [Thunk]
-        public static void WriteBytes(this Stream fs, params byte[] bytes)
-        {
-            try { fs.Write(bytes, 0, bytes.Length); }
-            catch { throw; }
-        }
+        [Thunk] public static void WriteBytes(this Stream fs, params byte[] bytes) => fs.Write(bytes, 0, bytes.Length);
         /// <summary>
         /// Escribe un conjunto de colecciones <see cref="byte"/> en el 
         /// <see cref="Stream"/>.
@@ -205,11 +166,9 @@ namespace MCART.Types.Extensions
         /// </param>
         /// <param name="bytes">Colecciones de <see cref="byte"/> a escribir en
         /// el <see cref="Stream"/>.</param>
-        [Thunk]
         public static void WriteSeveralBytes(this Stream fs, params byte[][] bytes)
         {
-            try { foreach (byte[] x in bytes) { fs.Write(x, 0, x.Length); } }
-            catch { throw; }
+            foreach (byte[] x in bytes) fs.Write(x, 0, x.Length);
         }
     }
 }

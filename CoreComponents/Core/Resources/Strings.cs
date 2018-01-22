@@ -1,19 +1,19 @@
 ﻿//
 //  Strings.cs
 //
-//  This file is part of MCART
+//  This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
 //  Author:
 //       César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 //  Copyright (c) 2011 - 2018 César Andrés Morgan
 //
-//  MCART is free software: you can redistribute it and/or modify
+//  Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation, either version 3 of the License, or
 //  (at your option) any later version.
 //
-//  MCART is distributed in the hope that it will be useful,
+//  Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will be useful,
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU General Public License for more details.
@@ -21,7 +21,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace MCART.Resources
+namespace TheXDS.MCART.Resources
 {
     /// <summary>
     /// Contiene cadenas de texto genéricas, además de funciones de composición de texto.
@@ -37,7 +37,7 @@ namespace MCART.Resources
         /// <returns>
         /// Una cadena con el texto "Acerca de {<paramref name="text"/>}".
         /// </returns>
-        public static string About(string text) => $"Acerca de {text}";
+        public static string AboutX(string text) => $"Acerca de {text}";
         /// <summary>
         /// Devuelve una cadena con el texto "No se pudo crear una nueva
         /// instancia del tipo {<paramref name="text"/>}".
@@ -113,7 +113,7 @@ namespace MCART.Resources
         /// Una cadena con el texto "{<paramref name="text"/>} no es una clase
         /// de Plugin válida.".
         /// </returns>
-        public static string InvalidPluginClass(string text) => $"{text} no es una clase de Plugin válida.";
+        public static string InvalidPluginClassX(string text) => $"{text} no es una clase de Plugin válida.";
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} no
         /// tiene una firma válida.".
@@ -173,7 +173,7 @@ namespace MCART.Resources
         /// El texto generado por esta función podría no verse correctamente en
         /// un programa, consola o terminal que no sea Unicode.
         /// </remarks>
-        public static string Ok(string text) => $"✓ {text}";
+        public static string OkX(string text) => $"✓ {text}";
         /// <summary>
         /// Devuelve una cadena con el texto "El plugin {<paramref name="plg"/>} no contiene interacciones.".
         /// </summary>
@@ -321,7 +321,7 @@ namespace MCART.Resources
         /// </returns>
         public static string XNotCancellable(string text) => $"{text} no es cancelable.";
         /// <summary>
-        /// Devuelve una cadena con el texto "{<paramref name="text"/>} no ha sido encotnrado.".
+        /// Devuelve una cadena con el texto "{<paramref name="text"/>} no ha sido encontrado.".
         /// </summary>
         /// <param name="text">Texto a formatear.</param>
         /// <returns>
@@ -408,11 +408,9 @@ namespace MCART.Resources
         /// </returns>
         public static string XYQuotes(string unquoted, string quoted) => $"{unquoted} '{quoted}'";
         #endregion
-
 #pragma warning disable CS1591 // Las cadenas generalmente no requieren de descripción.
-
         public const string Abort = "Abortar";
-        public const string about = "Acerca de...";
+        public const string About = "Acerca de...";
         public const string AllFiles = "Todos los archivos";
         public const string Alpha = "abcdefghijklmnopqrstuvwxyz";
         public const string Assmblies = "Ensamblados";
@@ -440,12 +438,12 @@ namespace MCART.Resources
         public const string HasUI = "Incluye UI";
         public const string HelpDir = @"\Help";
         public const string ImplInterfaces = "Interfaces implementadas";
-        public const string IncorrectPWD = "La contraseña es incorrecta";
         public const string InterfaceExpected = "Se esperaba una interfaz";
         public const string InvalidData = "Los datos proporcionados no son válidos.";
-        public const string InvalidDB = "El arhivo no contiene una base de datos válida";
+        public const string InvalidDB = "La base de datos no es válida";
         public const string InvalidInfo = "La información no es válida.";
-        public const string invalidPluginClass = "La clase no es un Plugin válido.";
+        public const string InvalidPassword = "La contraseña no es válida.";
+        public const string InvalidPluginClass = "La clase no es un Plugin válido.";
         public const string IsBeta = "Versión Beta";
         public const string IsUnsafe = "Inseguro (NO UTILIZAR)";
         public const string ItsLong = "Es muy larga";
@@ -509,6 +507,7 @@ namespace MCART.Resources
         public const string TheObj = "El objeto";
         public const string ThePlugin = "El Plugin";
         public const string TheProtocol = "El protocolo";
+        public const string TheResource = "El recurso";
         public const string TheSrv = "El servidor";
         public const string TheTask = "La tarea";
         public const string TheType = "El tipo";
@@ -523,6 +522,7 @@ namespace MCART.Resources
         public const string UnknownType = "Tipo de objeto desconocido.";
         public const string UnspecLicense = "No se ha especificado una licencia, o la misma no ha sido incluída.";
         public const string UnsupportedVer = "Versión no soportada.";
+        public const string UnusableObject = "El objeto no puede ser utilizado.";
         public const string Updt = "Actualizar";
         public const string UsrCncl = "Operación cancelada por el usuario.";
         public const string Usr = "Usuario";

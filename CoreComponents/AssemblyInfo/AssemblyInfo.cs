@@ -1,30 +1,33 @@
 ﻿/*
 AssemblyInfo.cs
 
-This file is part of MCART
+This file is part of Morgan's CLR Advanced Runtime (MCART)
 
-Author:
+Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Copyright (c) 2011 - 2018 César Andrés Morgan
 
-MCART is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
 
-MCART is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
 */
+
 using System.Reflection;
 
 [assembly: AssemblyCompany("TheXDS! non-Corp.")]
-[assembly: AssemblyProduct("MCA Runtime")]
+[assembly: AssemblyProduct("Morgan's CLR Advanced Runtime")]
 [assembly: AssemblyCopyright("Copyright © 2011-2018 César Andrés Morgan")]
-[assembly: AssemblyTrademark("MCA Corporation")]
-[assembly: AssemblyVersion("0.7.0.0")]
+[assembly: AssemblyVersion("0.8.1.0")]
+#if CLSCompliance
+[assembly: System.CLSCompliant(true)]
+#endif

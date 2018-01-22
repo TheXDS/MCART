@@ -1,19 +1,19 @@
 ﻿//
 //  SearchBox.cs
 //
-//  This file is part of MCART
+//  This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
 //  Author:
 //       César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 //  Copyright (c) 2011 - 2018 César Andrés Morgan
 //
-//  MCART is free software: you can redistribute it and/or modify
+//  Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation, either version 3 of the License, or
 //  (at your option) any later version.
 //
-//  MCART is distributed in the hope that it will be useful,
+//  Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will be useful,
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU General Public License for more details.
@@ -21,7 +21,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using MCART.Events;
+using TheXDS.MCART.Events;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -29,9 +29,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Converters;
 using System.Windows.Data;
-using St = MCART.Resources.Strings;
+using St = TheXDS.MCART.Resources.Strings;
 
-namespace MCART.Controls
+namespace TheXDS.MCART.Controls
 {
     /// <summary>
     /// Cuadro de texto simple con marca de agua optimizado para búsquedas.
@@ -42,43 +42,35 @@ namespace MCART.Controls
         /// Se produce cuando se ha conectado a un <see cref="CollectionView"/>.
         /// </summary>
         public event EventHandler<ValueEventArgs<CollectionView>> AttachedToView;
-
         /// <summary>
         /// Se produce cuando se ha introducido texto en el cuadro de búsqueda.
         /// </summary>
         public event EventHandler<ValueEventArgs<string>> SearchEntered;
-
         /// <summary>
         /// Se produce cuando se ha cerrado la búsqueda.
         /// </summary>
         public event EventHandler SearchClosed;
-
         static Type T = typeof(SearchBox);
-
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="HasSearch"/>.
         /// </summary>
         public static DependencyProperty HasSearchProperty = DependencyProperty.Register(nameof(HasSearch), typeof(bool), T, new PropertyMetadata(true));
-
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="Search"/>.
         /// </summary>
         public static DependencyProperty SearchProperty = DependencyProperty.Register(nameof(Search), typeof(string), T, new PropertyMetadata(string.Empty));
-
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="SearchWatermark"/>.
         /// </summary>
         public static DependencyProperty SearchWatermarkProperty = DependencyProperty.Register(nameof(SearchWatermark), typeof(string), T, new PropertyMetadata(St.Search));
-
         /// <summary>
         /// Obtiene o establece si se mostrará el cuadro de búsqueda
         /// </summary>
-        /// <returns><c>true</c> si el cuadro de búsqueda es visible; de lo contrario, <c>False</c></returns>
+        /// <returns><see langword="true"/> si el cuadro de búsqueda es visible; de lo contrario, <c>False</c></returns>
         public bool HasSearch
         {
             get => (bool)GetValue(HasSearchProperty); set => SetValue(HasSearchProperty, value);
         }
-
         /// <summary>
         /// Obtiene o establece el valor actual del cuadro de búsqueda.
         /// </summary>        
@@ -86,7 +78,6 @@ namespace MCART.Controls
         {
             get => (string)GetValue(SearchProperty); set => txtSearch.Text = value;
         }
-
         /// <summary>
         /// Obtiene o establece la marca de agua a mostrar en el cuadro de búsqueda
         /// </summary>        
@@ -94,11 +85,8 @@ namespace MCART.Controls
         {
             get => (string)GetValue(SearchWatermarkProperty); set => SetValue(SearchWatermarkProperty, value);
         }
-
         BindingListCollectionView view = null;
-
         List<string> flts = new List<string>();
-
         TextBox txtSearch = new TextBox()
         {
             // Este control es transparente
@@ -106,21 +94,18 @@ namespace MCART.Controls
             // marca de agua.            
             Background = null
         };
-
         Button btnClseSearch = new Button()
         {
             Width = 24,
             Content = "X"
         };
-
         /// <summary>
         /// Inicializa la clase <see cref="SearchBox"/>.
         /// </summary>
         static SearchBox()
         {
-            BackgroundProperty.OverrideMetadata(typeof(SearchBox), new FrameworkPropertyMetadata(SystemColors.WindowBrush));            
+            BackgroundProperty.OverrideMetadata(typeof(SearchBox), new FrameworkPropertyMetadata(SystemColors.WindowBrush));
         }
-
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="SearchBox"/>.
         /// </summary>
@@ -158,9 +143,7 @@ namespace MCART.Controls
             btnClseSearch.Click += CnclSrch;
             txtSearch.TextChanged += TxtSearch_TextChanged;
         }
-
         void CnclSrch(object sender, RoutedEventArgs e) => txtSearch.Clear();
-
         string GenFilters(string s)
         {
             StringBuilder x = new StringBuilder();
@@ -171,7 +154,6 @@ namespace MCART.Controls
             }
             return x.ToString();
         }
-
         void TxtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (txtSearch.Text.IsEmpty())
@@ -195,7 +177,6 @@ namespace MCART.Controls
                 SearchEntered?.Invoke(this, new ValueEventArgs<string>(txtSearch.Text));
             }
         }
-
         /// <summary>
         /// Conecta un <see cref="BindingListCollectionView"/> para ser
         /// controlado automáticamente por este control.
@@ -204,7 +185,7 @@ namespace MCART.Controls
         /// <see cref="BindingListCollectionView"/> a controlar.
         /// </param>
         /// <param name="searchFields">
-        /// Si <see cref="HasSearch"/> es <c>true</c>, establece los campos
+        /// Si <see cref="HasSearch"/> es <see langword="true"/>, establece los campos
         /// necesarios para realizar búsquedas.
         /// </param>
         public void AttachView(BindingListCollectionView cv, string[] searchFields = null)
@@ -216,7 +197,6 @@ namespace MCART.Controls
             txtSearch.Text = string.Empty;
             AttachedToView?.Invoke(this, new ValueEventArgs<CollectionView>(cv));
         }
-
         /// <summary>
         /// Libera la conexión de <see cref="BindingListCollectionView"/>
         /// </summary>

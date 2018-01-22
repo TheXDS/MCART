@@ -1,19 +1,19 @@
 ﻿//
 //  UITools.cs
 //
-//  This file is part of MCART
+//  This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
 //  Author:
 //       César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 //  Copyright (c) 2011 - 2018 César Andrés Morgan
 //
-//  MCART is free software: you can redistribute it and/or modify
+//  Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation, either version 3 of the License, or
 //  (at your option) any later version.
 //
-//  MCART is distributed in the hope that it will be useful,
+//  Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will be useful,
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU General Public License for more details.
@@ -21,7 +21,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using MCART.Attributes;
+using TheXDS.MCART.Attributes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,8 +31,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Animation;
 
-namespace MCART
+namespace TheXDS.MCART
 {
     /// <summary>
     /// Contiene varias herramientas de UI para utilizar en proyectos de
@@ -235,8 +236,8 @@ namespace MCART
             {
                 IsLargeArc = angle > 180.0,
                 Point = new Point(
-                    cp.X + System.Math.Sin(Math.Deg_Rad * angle) * radius,
-                    cp.Y - System.Math.Cos(Math.Deg_Rad * angle) * radius),
+                    cp.X + System.Math.Sin(Math.DegRad * angle) * radius,
+                    cp.Y - System.Math.Cos(Math.DegRad * angle) * radius),
                 Size = new Size(radius, radius),
                 SweepDirection = SweepDirection.Clockwise
             };
@@ -272,16 +273,16 @@ namespace MCART
             {
                 IsLargeArc = endAngle - startAngle > 180.0,
                 Point = new Point(
-                    cp.X + System.Math.Sin(Math.Deg_Rad * endAngle) * radius,
-                    cp.Y - System.Math.Cos(Math.Deg_Rad * endAngle) * radius),
+                    cp.X + System.Math.Sin(Math.DegRad * endAngle) * radius,
+                    cp.Y - System.Math.Cos(Math.DegRad * endAngle) * radius),
                 Size = new Size(radius, radius),
                 SweepDirection = SweepDirection.Clockwise
             };
             PathFigure pth = new PathFigure()
             {
                 StartPoint = new Point(
-                    cp.X + System.Math.Sin(Math.Deg_Rad * startAngle) * radius,
-                    cp.Y - System.Math.Cos(Math.Deg_Rad * startAngle) * radius),
+                    cp.X + System.Math.Sin(Math.DegRad * startAngle) * radius,
+                    cp.Y - System.Math.Cos(Math.DegRad * startAngle) * radius),
                 IsClosed = false
             };
             pth.Segments.Add(arc);
@@ -293,11 +294,17 @@ namespace MCART
         /// Establece un estado de error para un control.
         /// </summary>
         /// <param name="c">Control a advertir.</param>
+        public static void Warn(this Control c) => Warn(c, null);
+        /// <summary>
+        /// Establece un estado de error para un control.
+        /// </summary>
+        /// <param name="c">Control a advertir.</param>
         /// <param name="ttip">
         /// <see cref="ToolTip"/> con un mensaje de error para mostrar.
         /// </param>
-        public static void Warn(this Control c, string ttip = null)
+        public static void Warn(this Control c, string ttip)
         {
+            if (c.IsWarned()) c.ClearWarn();
             origctrls.Add(new OrigControlColor
             {
                 rf = c,
@@ -305,8 +312,16 @@ namespace MCART
                 bacg = c.Background,
                 ttip = (ToolTip)c.ToolTip
             });
-            c.Background = new SolidColorBrush(Colors.Pink);
-            c.Foreground = new SolidColorBrush(Colors.DarkRed);
+            SolidColorBrush brush;
+            if (c.Foreground is SolidColorBrush fore)
+                brush = new SolidColorBrush(Types.Color.Blend(fore.Color, Colors.Red));
+            else brush = new SolidColorBrush(Colors.DarkRed);
+            c.Foreground = brush;
+            if (c.Background is SolidColorBrush backg)
+                brush = new SolidColorBrush(Types.Color.Blend(backg.Color, Colors.Red));
+            else brush = new SolidColorBrush(Colors.Pink);
+            c.Background = brush;
+            brush.Flash(Colors.Red);
             if (!ttip.IsEmpty()) c.ToolTip = new ToolTip() { Content = ttip };
         }
         /// <summary>
@@ -333,13 +348,29 @@ namespace MCART
         /// Obtiene un valor que determina si el control está advertido.
         /// </summary>
         /// <param name="c">Control a comprobar.</param>
-        /// <returns><c>true</c> si el control está mostrando una advertencia;
-        /// de lo contrario, <c>false</c>.</returns>
+        /// <returns><see langword="true"/> si el control está mostrando una advertencia;
+        /// de lo contrario, <see langword="false"/>.</returns>
         public static bool IsWarned(this Control c)
         {
             if (c is null) throw new ArgumentNullException(nameof(c));
             foreach (OrigControlColor j in origctrls) if (j.rf.Is(c)) return true;
             return false;
+        }
+        /// <summary>
+        /// Ejecuta una animación de destello en un
+        /// <see cref="SolidColorBrush"/>.
+        /// </summary>
+        /// <param name="brush"><see cref="SolidColorBrush"/> a animar.</param>
+        /// <param name="flashColor"><see cref="Color"/> del destello.</param>
+        public static void Flash(this SolidColorBrush brush, Color flashColor)
+        {
+            var flash = new ColorAnimation
+            {
+                From = flashColor,
+                To = brush.Color,
+                Duration = TimeSpan.FromSeconds(1)
+            };
+            brush.BeginAnimation(SolidColorBrush.ColorProperty, flash);
         }
         /// <summary>
         /// Establece la propiedad <see cref="UIElement.Visibility"/> a

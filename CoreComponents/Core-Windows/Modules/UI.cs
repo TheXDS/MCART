@@ -1,19 +1,19 @@
 ﻿//
 //  UI.cs
 //
-//  This file is part of MCART
+//  This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
 //  Author:
 //       César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 //  Copyright (c) 2011 - 2018 César Andrés Morgan
 //
-//  MCART is free software: you can redistribute it and/or modify
+//  Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation, either version 3 of the License, or
 //  (at your option) any later version.
 //
-//  MCART is distributed in the hope that it will be useful,
+//  Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will be useful,
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU General Public License for more details.
@@ -21,12 +21,12 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using MCART.Attributes;
+using TheXDS.MCART.Attributes;
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
-namespace MCART
+namespace TheXDS.MCART
 {
     /// <summary>
     /// Módulo de funciones universales de UI para sistemas operativos
@@ -37,7 +37,7 @@ namespace MCART
         /// <summary>
         /// Abre una consola para la aplicación.
         /// </summary>
-        /// <returns><c>true</c> si la llamada obtuvo correctamente una consola, <c>false</c> en caso contrario.</returns>
+        /// <returns><see langword="true"/> si la llamada obtuvo correctamente una consola, <see langword="false"/> en caso contrario.</returns>
         /// <remarks>
         /// Esta función es exclusiva para sistemas operativos Microsoft
         /// Windows®.
@@ -46,7 +46,7 @@ namespace MCART
         /// <summary>
         /// Libera la consola de la aplicación.
         /// </summary>
-        /// <returns><c>true</c> si la llamada liberó correctamente la consola, <c>false</c> en caso contrario.</returns>
+        /// <returns><see langword="true"/> si la llamada liberó correctamente la consola, <see langword="false"/> en caso contrario.</returns>
         /// <remarks>
         /// Esta función es exclusiva para sistemas operativos Microsoft
         /// Windows®.

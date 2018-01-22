@@ -1,19 +1,19 @@
 //
 //  CommonTest.cs
 //
-//  This file is part of MCART
+//  This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
 //  Author:
 //       César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 //  Copyright (c) 2011 - 2018 César Andrés Morgan
 //
-//  MCART is free software: you can redistribute it and/or modify
+//  Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation, either version 3 of the License, or
 //  (at your option) any later version.
 //
-//  MCART is distributed in the hope that it will be useful,
+//  Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will be useful,
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU General Public License for more details.
@@ -21,11 +21,11 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using MCART;
+using TheXDS.MCART;
 using System;
 using System.Security;
 using Xunit;
-using static MCART.Common;
+using static TheXDS.MCART.Common;
 
 namespace MSTest.Modules
 {
@@ -107,8 +107,6 @@ namespace MSTest.Modules
         public void IsAnyEmptyTest()
         {
             Assert.True(IsAnyEmpty("Test", String.Empty, ""));
-            Assert.True(IsAnyEmpty(out int[] idxs, "Test", String.Empty, ""));
-            Assert.True(idxs.Length == 2 && idxs[0] == 1 && idxs[1] == 2);
             Assert.False(IsAnyEmpty("T", "e", "s", "t"));
         }
         /// <summary>
@@ -134,7 +132,7 @@ namespace MSTest.Modules
             Assert.Equal(-1, idx3);
         }
         /// <summary>
-        /// Prueba del método <see cref="Common.CollectionListed(System.Collections.Generic.IEnumerable{string})"/>
+        /// Prueba del método <see cref="Common.Listed(System.Collections.Generic.IEnumerable{string})"/>
         /// </summary>
         [Fact]
         public void CollectionListedTest()
@@ -142,7 +140,7 @@ namespace MSTest.Modules
             string outp = (new string[]
             {
                 "This" ,"is", "a", "test"
-            }).CollectionListed();
+            }).Listed();
             Assert.Equal($"This{Environment.NewLine}is{Environment.NewLine}a{Environment.NewLine}test{Environment.NewLine}", outp);
 
         }
@@ -187,7 +185,7 @@ namespace MSTest.Modules
         }
 
         [Fact]
-        public void ReadStringTest()
+        public void ReadTest()
         {
             var s = new SecureString();
             s.AppendChar('T');
@@ -195,23 +193,23 @@ namespace MSTest.Modules
             s.AppendChar('s');
             s.AppendChar('t');
             s.MakeReadOnly();
-            Assert.Equal("Test", s.ReadString());
+            Assert.Equal("Test", s.Read());
         }
         [Fact]
-        public void Read16Test()
+        public void ReadInt16Test()
         {
             var s = new SecureString();
             s.AppendChar('@');
             s.MakeReadOnly();
-            Assert.Equal((short)64, s.Read16()[0]);
+            Assert.Equal((short)64, s.ReadInt16()[0]);
         }
         [Fact]
-        public void Read8Test()
+        public void ReadBytesTest()
         {
             var s = new SecureString();
             s.AppendChar('@');
             s.MakeReadOnly();
-            var r = s.Read8();
+            var r = s.ReadBytes();
             Assert.True(64 == r[0] && 0 == r[1]);
         }
 

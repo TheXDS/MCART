@@ -1,32 +1,33 @@
-﻿//
-//  Events.cs
-//
-//  This file is part of MCART
-//
-//  Author:
-//       César Andrés Morgan <xds_xps_ivx@hotmail.com>
-//
-//  Copyright (c) 2011 - 2018 César Andrés Morgan
-//
-//  MCART is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-//
-//  MCART is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-//
-//  You should have received a copy of the GNU General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿/*
+Events.cs
+
+This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Author(s):
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+
+Copyright (c) 2011 - 2018 César Andrés Morgan
+
+Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+*/
 
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace MCART.PluginSupport
+namespace TheXDS.MCART.PluginSupport
 {
     /// <summary>
     /// Incluye información adicional del evento 
@@ -36,7 +37,7 @@ namespace MCART.PluginSupport
     public sealed class PluginFinalizingEventArgs : CancelEventArgs
     {
         /// <summary>
-        /// Determina el motivo de finalización del <see cref="Plugin"/>.
+        /// Determina el motivo de finalización del <see cref="IPlugin"/>.
         /// </summary>
         public enum FinalizingReason
         {
@@ -57,120 +58,42 @@ namespace MCART.PluginSupport
             /// </summary>
             AppClosing
         }
-
         /// <summary>
         /// Indica la razón por la cual se está finalizando el 
         /// <see cref="IPlugin"/>.
         /// </summary>
-        public readonly FinalizingReason Reason;
-
+        public FinalizingReason Reason { get; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="PluginFinalizingEventArgs"/>.
         /// </summary>
-        /// <param name="reason">Parámetro opcional. Permite establecer una
-        /// razón por la cual se está finalizando este plugin.</param>
-        internal PluginFinalizingEventArgs(FinalizingReason reason = FinalizingReason.Shutdown)
-        {
-            Reason = reason;
-        }
-    }
-    /// <summary>
-    /// Incluye información adicional del evento
-    /// <see cref="IPlugin.PluginFinalized"/>.
-    /// </summary>
-    [Serializable]
-    public sealed class PluginFinalizedEventArgs : EventArgs
-    {
+        internal PluginFinalizingEventArgs() : this(FinalizingReason.Shutdown) { }
         /// <summary>
-        /// Obtiene la excepción que causó la finalización del Plugin.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="PluginFinalizingEventArgs"/>.
         /// </summary>
-        /// <remarks>Se devolverá <c>null</c> si el <see cref="Plugin"/> ha
-        /// finalizado correctamente, en caso contrario se devuelve la excepción
-        /// que causó la finalización del <see cref="Plugin"/>.</remarks>
-        public readonly Exception Exception;
-        /// <summary>
-        /// Obtiene un valor que indica si el <see cref="Plugin"/> finalizó
-        /// correctamente.
-        /// </summary>
-        /// <value><c>true</c> si el <see cref="Plugin"/> finalizó
-        /// correctamente, <c>false</c> en caso contrario.</value>
-        public bool OK => ReferenceEquals(Exception, null);
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="PluginFinalizedEventArgs"/>.
-        /// </summary>
-        /// <param name="exception">Opcional. Excepción de finalización del
-        /// <see cref="Plugin"/>. Si se omite o se establece en <c>null</c>,
-        /// significa que el <see cref="Plugin"/> ha finalizado correctamente.
+        /// <param name="reason">
+        /// Establece la cual se está finalizando este plugin.
         /// </param>
-        internal PluginFinalizedEventArgs(Exception exception = null)
-        {
-            Exception = exception;
-        }
+        internal PluginFinalizingEventArgs(FinalizingReason reason) { Reason = reason; }
     }
     /// <summary>
     /// Incluye información adicional del evento 
-    /// <see cref="IPlugin.PluginLoaded"/>.
+    /// <see cref="IPlugin.UIChanged"/>
     /// </summary>
-    [Serializable]
-    public sealed class PluginLoadedEventArgs : EventArgs
-    {
-        /// <summary>
-        /// Obtiene el tiempo que le ha tomado al <see cref="Plugin"/> ser
-        /// cargado.
-        /// </summary>
-        public readonly TimeSpan LoadTime;
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="PluginLoadedEventArgs"/>.
-        /// </summary>
-        /// <param name="t"><see cref="TimeSpan"/> que le ha tomado al
-        /// <see cref="Plugin"/> ser cargado.</param>
-        internal PluginLoadedEventArgs(TimeSpan t)
-        {
-            LoadTime = t;
-        }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="PluginLoadedEventArgs"/>.
-        /// </summary>
-        /// <param name="ticks">Tiempo en ticks que le ha tomado al
-        /// <see cref="Plugin"/> ser cargado.</param>
-        internal PluginLoadedEventArgs(long ticks)
-        {
-            LoadTime = new TimeSpan(ticks);
-        }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="PluginLoadedEventArgs"/>.
-        /// </summary>
-        /// <param name="milliseconds">Milisegundos que le ha tomado al
-        /// <see cref="Plugin"/> ser cargado.</param>
-        /// <param name="seconds">Opcional. Segundos que le ha tomado al
-        /// <see cref="Plugin"/> ser cargado.</param>
-        internal PluginLoadedEventArgs(int milliseconds, int seconds = 0)
-        {
-            LoadTime = new TimeSpan(0, 0, 0, seconds, milliseconds);
-        }
-    }
-    /// <summary>
-    /// Incluye información adicional del evento 
-    /// <see cref="IPlugin.UIChangeRequested"/>
-    /// </summary>
-    public sealed class UIChangeEventArgs : EventArgs
+    public sealed class UIChangedEventArgs : EventArgs
     {
         /// <summary>
         /// Obtiene la nueva interfaz que el <see cref="IPlugin"/> ha 
         /// solicitado.
         /// </summary>
-        public readonly ReadOnlyCollection<InteractionItem> NewUI;
+        public ReadOnlyCollection<InteractionItem> NewUI { get; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase
-        /// <see cref="UIChangeEventArgs"/>.
+        /// <see cref="UIChangedEventArgs"/>.
         /// </summary>
         /// <param name="NewUI">Nueva interfaz de usuario solicitada.</param>
-        internal UIChangeEventArgs(IList<InteractionItem> NewUI)
+        internal UIChangedEventArgs(IList<InteractionItem> NewUI)
         {
             this.NewUI = new ReadOnlyCollection<InteractionItem>(NewUI);
         }

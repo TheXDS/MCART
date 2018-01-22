@@ -6,9 +6,12 @@
     <SharedGUID>967afaa3-ded3-4ec0-9401-7193b318fce8</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>AssemblyInfo</Import_RootNamespace>
+    <Import_RootNamespace>TheXDS.MCART</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)NuGet.nuspec" />
   </ItemGroup>
 </Project>

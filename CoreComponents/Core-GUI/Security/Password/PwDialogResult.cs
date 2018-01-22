@@ -1,19 +1,19 @@
 ﻿//
 //  PwDialogResult.cs
 //
-//  This file is part of MCART
+//  This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
 //  Author:
 //       César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 //  Copyright (c) 2011 - 2018 César Andrés Morgan
 //
-//  MCART is free software: you can redistribute it and/or modify
+//  Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation, either version 3 of the License, or
 //  (at your option) any later version.
 //
-//  MCART is distributed in the hope that it will be useful,
+//  Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will be useful,
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU General Public License for more details.
@@ -25,11 +25,11 @@
 
 using System.Security;
 
-namespace MCART.Security.Password
+namespace TheXDS.MCART.Security.Password
 {
     /// <summary>
     /// Representa el resultado de un cuadro de diálogo
-    /// <see cref="Forms.PasswordDialog"/>.
+    /// <see cref="Dialogs.PasswordDialog"/>.
     /// </summary>
     public partial struct PwDialogResult
     {
@@ -39,12 +39,12 @@ namespace MCART.Security.Password
         PwEvalResult e;
         /// <summary>
         /// Obtiene el usuario introducido en el 
-        /// <see cref="Forms.PasswordDialog"/>.
+        /// <see cref="Dialogs.PasswordDialog"/>.
         /// </summary>
         /// <returns>
         /// Si se muestra este diálogo con <see cref="PwMode.Usr"/>, se 
         /// devuelve el usuario introducido en el 
-        /// <see cref="Forms.PasswordDialog"/>; de lo contrario se devuelve
+        /// <see cref="Dialogs.PasswordDialog"/>; de lo contrario se devuelve
         /// <see cref="string.Empty"/>.
         /// </returns>
         public string Usr => u;
@@ -62,11 +62,11 @@ namespace MCART.Security.Password
         /// <returns>
         /// <see cref="string.Empty"/> si el cuadro se inicia con cualquier
         /// sobrecarga de los métodos
-        /// <see cref="Forms.PasswordDialog.GetPassword(string, Forms.PasswordDialog.LoginValidator)"/>
+        /// <see cref="Dialogs.PasswordDialog.GetPassword(string, LoginValidator, int)"/>
         /// o con 
-        /// <see cref="Forms.PasswordDialog.Login(string, string, Forms.PasswordDialog.LoginValidator)"/>.
+        /// <see cref="Dialogs.PasswordDialog.Login(string, string, LoginValidator)"/>.
         /// Si se inicia con 
-        /// <see cref="Forms.PasswordDialog.ChoosePassword(PwMode, PwEvaluator, int)"/>,
+        /// <see cref="Dialogs.PasswordDialog.ChoosePassword(PwMode, PwEvaluator, int)"/>,
         /// se devuelve un <see cref="string"/> con el indicio de contraseña 
         /// que el usuario ha introducido.
         /// </returns>
@@ -86,7 +86,7 @@ namespace MCART.Security.Password
         /// </summary>
         /// <param name="obj">Valor a comparar.</param>
         /// <returns>
-        /// <c>true</c> si ambos objetos son iguales, <c>false</c> en caso
+        /// <see langword="true"/> si ambos objetos son iguales, <see langword="false"/> en caso
         /// contrario.
         /// </returns>
         public override bool Equals(object obj) => base.Equals(obj);
@@ -102,7 +102,7 @@ namespace MCART.Security.Password
         /// <param name="left">Valor a comparar.</param>
         /// <param name="right">Valor a comparar.</param>
         /// <returns>
-        /// <c>true</c> si ambos objetos son iguales, <c>false</c> en caso
+        /// <see langword="true"/> si ambos objetos son iguales, <see langword="false"/> en caso
         /// contrario.
         /// </returns>
         public static bool operator ==(PwDialogResult left, PwDialogResult right)
@@ -116,7 +116,7 @@ namespace MCART.Security.Password
         /// <param name="left">Valor a comparar.</param>
         /// <param name="right">Valor a comparar.</param>
         /// <returns>
-        /// <c>true</c> si los objetos son diferentes, <c>false</c> en caso
+        /// <see langword="true"/> si los objetos son diferentes, <see langword="false"/> en caso
         /// contrario.
         /// </returns>
         public static bool operator !=(PwDialogResult left, PwDialogResult right) => !(left == right);

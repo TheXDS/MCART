@@ -20,8 +20,8 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Reflection;
-using MCART.Attributes;
-using MCART.PluginSupport;
+using TheXDS.MCART.Attributes;
+using TheXDS.MCART.PluginSupport;
 
 [assembly: AssemblyTitle("Servidor de LightChat para MCART")]
 [assembly: AssemblyDescription("Servidor de LightChat para MCART")]

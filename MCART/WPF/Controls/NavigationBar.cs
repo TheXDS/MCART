@@ -1,19 +1,19 @@
 ﻿//
 //  NavigationBar.cs
 //
-//  This file is part of MCART
+//  This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
 //  Author:
 //       César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 //  Copyright (c) 2011 - 2018 César Andrés Morgan
 //
-//  MCART is free software: you can redistribute it and/or modify
+//  Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation, either version 3 of the License, or
 //  (at your option) any later version.
 //
-//  MCART is distributed in the hope that it will be useful,
+//  Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will be useful,
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU General Public License for more details.
@@ -21,7 +21,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using MCART.Events;
+using TheXDS.MCART.Events;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -35,10 +35,10 @@ using System.Windows.Converters;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Shapes;
-using static MCART.UI;
-using St = MCART.Resources.Strings;
+using static TheXDS.MCART.UI;
+using St = TheXDS.MCART.Resources.Strings;
 
-namespace MCART.Controls
+namespace TheXDS.MCART.Controls
 {
     /// <remarks>
     /// Este control es especialmente útil para controlar un objeto 
@@ -271,7 +271,7 @@ namespace MCART.Controls
         /// <summary>
         /// Obtiene o establece si se mostrará el cuadro de búsqueda
         /// </summary>
-        /// <returns><c>true</c> si el cuadro de búsqueda es visible; de lo contrario, <c>False</c></returns>
+        /// <returns><see langword="true"/> si el cuadro de búsqueda es visible; de lo contrario, <c>False</c></returns>
         public bool HasSearch
         {
             get => (bool)GetValue(HasSearchProperty); set => SetValue(HasSearchProperty, value);
@@ -313,7 +313,7 @@ namespace MCART.Controls
         /// <summary>
         /// Determina si este control administra un <see cref="CollectionView"/>
         /// </summary>
-        /// <returns><c>true</c> si este control actualmente administra un <see cref="CollectionView"/>, <c>false</c> en caso contrario.</returns>
+        /// <returns><see langword="true"/> si este control actualmente administra un <see cref="CollectionView"/>, <see langword="false"/> en caso contrario.</returns>
         public bool HasViewAttached => view != null;
         /// <summary>
         /// Devuelve el <see cref="CollectionView"/> actualmente administrado por este control
@@ -323,7 +323,7 @@ namespace MCART.Controls
         /// <summary>
         /// Determina si este control administra el estado de otros controles
         /// </summary>
-        /// <returns><c>true</c> si este control administra el estado de otros controles; de lo contario, <c>False</c>.</returns>
+        /// <returns><see langword="true"/> si este control administra el estado de otros controles; de lo contario, <c>False</c>.</returns>
         public bool HasAttachedControls => ctrls.Any();
         /// <summary>
         /// Devuelve un <see cref="ReadOnlyCollection{T}"/> de los controles administrados por este control
@@ -400,7 +400,7 @@ namespace MCART.Controls
         /// <summary>
         /// Se produce cuando se ha presionado el botón Guardar al editar o crear un nuevo elemento.
         /// </summary>
-        public event EventHandler<ItemSavingEventArgs> Saving;
+        public event EventHandler<ItemCreatingEventArgs<object>> Saving;
         /// <summary>
         /// Se produce cuando se ha presionado el botón Cancelar al editar o crear un nuevo elemento.
         /// </summary>
@@ -420,7 +420,7 @@ namespace MCART.Controls
         /// <summary>
         /// Se produce cuando se ha guardado un elemento
         /// </summary>
-        public event EventHandler<ItemSavedEventArgs> ItemSaved;
+        public event EventHandler<ItemCreatedEventArgs<object>> ItemSaved;
         /// <summary>
         /// Se produce cuando se ha cancelado la creación/edición de un elemento
         /// </summary>
@@ -631,7 +631,7 @@ namespace MCART.Controls
         }
         void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            ItemSavingEventArgs ev = new ItemSavingEventArgs(view.CurrentAddItem, wasNewPressed);
+            var ev = new ItemCreatingEventArgs<object>(view.CurrentAddItem, wasNewPressed);
             Saving?.Invoke(this, ev);
             if (!ev.Cancel)
             {
@@ -665,7 +665,7 @@ namespace MCART.Controls
         /// <see cref="BindingListCollectionView"/> a controlar.
         /// </param>
         /// <param name="searchFields">
-        /// Si <see cref="HasSearch"/> es <c>true</c>, establece los campos
+        /// Si <see cref="HasSearch"/> es <see langword="true"/>, establece los campos
         /// necesarios para realizar búsquedas.
         /// </param>
         public void AttachView(BindingListCollectionView cv, string[] searchFields = null)

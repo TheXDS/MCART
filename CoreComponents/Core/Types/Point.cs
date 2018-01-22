@@ -1,32 +1,33 @@
-﻿//
-//  Point.cs
-//
-//  This file is part of MCART
-//
-//  Author:
-//       César Andrés Morgan <xds_xps_ivx@hotmail.com>
-//
-//  Copyright (c) 2011 - 2018 César Andrés Morgan
-//
-//  MCART is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-//
-//  MCART is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-//
-//  You should have received a copy of the GNU General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿/*
+Point.cs
+
+This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Author(s):
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+
+Copyright (c) 2011 - 2018 César Andrés Morgan
+
+Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+*/
 
 using System;
 using static System.Math;
-using St = MCART.Resources.Strings;
+using St = TheXDS.MCART.Resources.Strings;
 using CI = System.Globalization.CultureInfo;
 
-namespace MCART.Types
+namespace TheXDS.MCART.Types
 {
     /// <summary>
     /// Tipo universal para un conjunto de coordenadas bidimensionales.
@@ -36,91 +37,14 @@ namespace MCART.Types
     /// implementación de MCART definir métodos para convertir a la clase
     /// correspondiente para los diferentes tipos de UI disponibles.
     /// </remarks>
-    public partial struct Point : IFormattable
+    public partial struct Point : IFormattable, IEquatable<Point>
     {
         /// <summary>
-        /// Coordenada X.
+        /// Obtiene un punto que no representa ninguna posición. Este campo es
+        /// de solo lectura.
         /// </summary>
-        public double X;
-        /// <summary>
-        /// Coordenada Y.
-        /// </summary>
-        public double Y;
-        /// <summary>
-        /// Inicializa una nueva instancia de la estructura <see cref="Point"/>.
-        /// </summary>
-        /// <param name="x">The x coordinate.</param>
-        /// <param name="y">The y coordinate.</param>
-        public Point(double x, double y) { X = x; Y = y; }
-        /// <summary>
-        /// Determina si el punto se encuentra dentro del rectángulo formado por
-        /// los puntos especificados.
-        /// </summary>
-        /// <returns>
-        /// <c>true</c> si el punto se encuentra dentro del rectángulo
-        /// formado, <c>false</c> en caso contrario.
-        /// </returns>
-        /// <param name="p1">Punto 1.</param>
-        /// <param name="p2">Punto 2.</param>
-        public bool FitsInBox(Point p1, Point p2) => X.IsBetween(p1.X, p2.X) && Y.IsBetween(p1.Y, p2.Y);
-        /// <summary>
-        /// Determina si el punto se encuentra dentro del rectángulo formado por
-        /// las coordenadas especificadas.
-        /// </summary>
-        /// <returns>
-        /// <c>true</c> si el punto se encuentra dentro del rectángulo
-        /// formado, <c>false</c> en caso contrario.
-        /// </returns>
-        /// <param name="x1">La primer coordenada x.</param>
-        /// <param name="y1">La primer coordenada y.</param>
-        /// <param name="x2">La segunda coordenada x.</param>
-        /// <param name="y2">La segunda coordenada y.</param>
-        public bool FitsInBox(double x1, double y1, double x2, double y2) => X.IsBetween(x1, x2) && Y.IsBetween(y1, y2);
-        /// <summary>
-        /// Calcula la magnitud de las coordenadas.
-        /// </summary>
-        /// <returns>
-        /// La magnitud resultante entre el punto y el orígen.
-        /// </returns>
-        public double Magnitude() => Sqrt((X * X) + (Y * Y));
-        /// <summary>
-        /// Calcula la magnitud de las coordenadas desde el punto
-        /// especificado.
-        /// </summary>
-        /// <returns>La magnitud resultante entre ambos puntos.</returns>
-        /// <param name="fromPoint">Punto de referencia para calcular la
-        /// magnitud.</param>
-        public double Magnitude(Point fromPoint)
-        {
-            double x = X - fromPoint.X, y = Y - fromPoint.Y;
-            return Sqrt((x * x) + (y * y));
-        }
-        /// <summary>
-        /// Calcula la magnitud de las coordenadas desde el punto
-        /// especificado.
-        /// </summary>
-        /// <returns>
-        /// La magnitud resultante entre el punto y las coordenadas
-        /// especificadas.
-        /// </returns>
-        /// <param name="fromX">Coordenada X de orígen.</param>
-        /// <param name="fromY">Coordenada Y de orígen.</param>
-        public double Magnitude(double fromX, double fromY)
-        {
-            double x = X - fromX, y = Y - fromY;
-            return Sqrt((x * x) + (y * y));
-        }
-        /// <summary>
-        /// Calcula el ángulo formado por la línea que intersecta el orígen y
-        /// este <see cref="Point"/> contra el eje horizontal X.
-        /// </summary>
-        /// <returns>El ángulo calculado.</returns>
-        public double Angle()
-        {
-            double ang = Acos(X / Magnitude());
-            if (Y < 0) ang += Acos(-1);
-            return ang;
-        }
+        /// <value>The nowhere.</value>
+        public static Point Nowhere => new Point(double.NaN, double.NaN);
         /// <summary>
         /// Obtiene un punto en el orígen. Este campo es de solo lectura.
         /// </summary>
@@ -128,12 +52,6 @@ namespace MCART.Types
         /// Un <see cref="Point"/> con sus coordenadas en el orígen.
         /// </value>
         public static Point Origin => new Point(0, 0);
-        /// <summary>
-        /// Obtiene un punto que no representa ninguna posición. Este campo es
-        /// de solo lectura.
-        /// </summary>
-        /// <value>The nowhere.</value>
-        public static Point Nowhere => new Point(double.NaN, double.NaN);
         /// <summary>
         /// Realiza una operación de suma sobre los puntos.
         /// </summary>
@@ -253,8 +171,8 @@ namespace MCART.Types
         /// <param name="l">Punto 1.</param>
         /// <param name="r">Punto 2.</param>
         /// <returns>
-        /// <c>true</c> si todos los vectores de ambos puntos son iguales;
-        /// de lo contrario, <c>false</c>.</returns>
+        /// <see langword="true"/> si todos los vectores de ambos puntos son iguales;
+        /// de lo contrario, <see langword="false"/>.</returns>
         public static bool operator ==(Point l, Point r) => (l.X == r.X && l.Y == r.Y);
         /// <summary>
         /// Compara la diferencia de los vectores de los puntos.
@@ -262,33 +180,103 @@ namespace MCART.Types
         /// <param name="l">Punto 1.</param>
         /// <param name="r">Punto 2.</param>
         /// <returns>
-        /// <c>true</c> si los vectores de ambos puntos son diferentes;  de lo
-        /// contrario, <c>false</c>.</returns>
+        /// <see langword="true"/> si los vectores de ambos puntos son diferentes;  de lo
+        /// contrario, <see langword="false"/>.</returns>
         public static bool operator !=(Point l, Point r) => (l.X != r.X || l.Y != r.Y);
 #pragma warning restore RECS0018
         /// <summary>
-        /// Indica si esta instancia y un objeto especificado son iguales.
+        /// Coordenada X.
         /// </summary>
-        /// <param name="obj">
-        /// Objeto que se va a compara con la instancia actual.
+        public double X { get; set; }
+        /// <summary>
+        /// Coordenada Y.
+        /// </summary>
+        public double Y { get; set; }
+        /// <summary>
+        /// Inicializa una nueva instancia de la estructura <see cref="Point"/>.
+        /// </summary>
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
+        public Point(double x, double y) { X = x; Y = y; }
+        /// <summary>
+        /// Calcula el ángulo formado por la línea que intersecta el orígen y
+        /// este <see cref="Point"/> contra el eje horizontal X.
+        /// </summary>
+        /// <returns>El ángulo calculado.</returns>
+        public double Angle()
+        {
+            double ang = Acos(X / Magnitude());
+            if (Y < 0) ang += Acos(-1);
+            return ang;
+        }
+        /// <summary>
+        /// Compara la igualdad de los vectores de los puntos.
+        /// </summary>
+        /// <param name="other">
+        /// <see cref="Point"/> contra el cual comparar.
         /// </param>
         /// <returns>
-        /// <c>true</c> si esta instancia y <paramref name="obj"/> son iguales;
-        /// de lo contrario, <c>false</c>.
-        /// </returns>
-        public override bool Equals(object obj) => base.Equals(obj);
+        /// <see langword="true"/> si todos los vectores de ambos puntos son iguales;
+        /// de lo contrario, <see langword="false"/>.</returns>
+        public bool Equals(Point other) => this == other;
         /// <summary>
-        /// Devuelve el código Hash de esta instancia.
-        /// </summary>
-        /// <returns>El código Hash de esta instancia.</returns>
-        public override int GetHashCode() => base.GetHashCode();
-        /// <summary>
-        /// Convierte este objeto en su representación como una cadena.
+        /// Determina si el punto se encuentra dentro del rectángulo formado por
+        /// los puntos especificados.
         /// </summary>
         /// <returns>
-        /// Una representación en forma de <see cref="string"/> de este objeto.
+        /// <see langword="true"/> si el punto se encuentra dentro del rectángulo
+        /// formado, <see langword="false"/> en caso contrario.
         /// </returns>
-        public override string ToString() => ToString(null, CI.CurrentCulture);
+        /// <param name="p1">Punto 1.</param>
+        /// <param name="p2">Punto 2.</param>
+        public bool FitsInBox(Point p1, Point p2) => X.IsBetween(p1.X, p2.X) && Y.IsBetween(p1.Y, p2.Y);
+        /// <summary>
+        /// Determina si el punto se encuentra dentro del rectángulo formado por
+        /// las coordenadas especificadas.
+        /// </summary>
+        /// <returns>
+        /// <see langword="true"/> si el punto se encuentra dentro del rectángulo
+        /// formado, <see langword="false"/> en caso contrario.
+        /// </returns>
+        /// <param name="x1">La primer coordenada x.</param>
+        /// <param name="y1">La primer coordenada y.</param>
+        /// <param name="x2">La segunda coordenada x.</param>
+        /// <param name="y2">La segunda coordenada y.</param>
+        public bool FitsInBox(double x1, double y1, double x2, double y2) => X.IsBetween(x1, x2) && Y.IsBetween(y1, y2);
+        /// <summary>
+        /// Calcula la magnitud de las coordenadas.
+        /// </summary>
+        /// <returns>
+        /// La magnitud resultante entre el punto y el orígen.
+        /// </returns>
+        public double Magnitude() => Sqrt((X * X) + (Y * Y));
+        /// <summary>
+        /// Calcula la magnitud de las coordenadas desde el punto
+        /// especificado.
+        /// </summary>
+        /// <returns>La magnitud resultante entre ambos puntos.</returns>
+        /// <param name="fromPoint">Punto de referencia para calcular la
+        /// magnitud.</param>
+        public double Magnitude(Point fromPoint)
+        {
+            double x = X - fromPoint.X, y = Y - fromPoint.Y;
+            return Sqrt((x * x) + (y * y));
+        }
+        /// <summary>
+        /// Calcula la magnitud de las coordenadas desde el punto
+        /// especificado.
+        /// </summary>
+        /// <returns>
+        /// La magnitud resultante entre el punto y las coordenadas
+        /// especificadas.
+        /// </returns>
+        /// <param name="fromX">Coordenada X de orígen.</param>
+        /// <param name="fromY">Coordenada Y de orígen.</param>
+        public double Magnitude(double fromX, double fromY)
+        {
+            double x = X - fromX, y = Y - fromY;
+            return Sqrt((x * x) + (y * y));
+        }
         /// <summary>
         /// Convierte este objeto en su representación como una cadena.
         /// </summary>
@@ -314,5 +302,28 @@ namespace MCART.Types
                 default: throw new FormatException(St.FormatNotSupported(format));
             }
         }
+        /// <summary>
+        /// Indica si esta instancia y un objeto especificado son iguales.
+        /// </summary>
+        /// <param name="obj">
+        /// Objeto que se va a compara con la instancia actual.
+        /// </param>
+        /// <returns>
+        /// <see langword="true"/> si esta instancia y <paramref name="obj"/> son iguales;
+        /// de lo contrario, <see langword="false"/>.
+        /// </returns>
+        public override bool Equals(object obj) => base.Equals(obj);
+        /// <summary>
+        /// Devuelve el código Hash de esta instancia.
+        /// </summary>
+        /// <returns>El código Hash de esta instancia.</returns>
+        public override int GetHashCode() => base.GetHashCode();
+        /// <summary>
+        /// Convierte este objeto en su representación como una cadena.
+        /// </summary>
+        /// <returns>
+        /// Una representación en forma de <see cref="string"/> de este objeto.
+        /// </returns>
+        public override string ToString() => ToString(null, CI.CurrentCulture);
     }
 }
