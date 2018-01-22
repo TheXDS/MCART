@@ -22,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreComponents", "CoreCompo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MCART", "MCART", "{D1A6B294-5A43-479F-9BA5-431BEFA203FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lite", "MCART\CoreEdition\Lite.csproj", "{FFCB72D8-1CB3-47A2-876B-630076307D78}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lite", "MCART\Lite\Lite.csproj", "{FFCB72D8-1CB3-47A2-876B-630076307D78}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{AE0A84D6-D40C-4D36-ADE6-BB3CF90A1DCA}"
 EndProject
@@ -39,7 +39,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{D34D6209-75E9-495C-A672-3C3D04EC7A26}"
 	ProjectSection(SolutionItems) = preProject
 		Documentation\AUTHORS = Documentation\AUTHORS
-		Documentation\CHANGELOG = Documentation\CHANGELOG
+		Documentation\CHANGELOG.md = Documentation\CHANGELOG.md
 		CONTRIBUTING.md = CONTRIBUTING.md
 		LICENSE = LICENSE
 		README.md = README.md
