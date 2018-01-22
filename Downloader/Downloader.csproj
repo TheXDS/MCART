@@ -49,7 +49,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MCART\CoreEdition\Lite.csproj">
+    <ProjectReference Include="..\MCART\Lite\Lite.csproj">
       <Project>{ffcb72d8-1cb3-47a2-876b-630076307d78}</Project>
       <Name>Lite</Name>
     </ProjectReference>
