@@ -3,7 +3,18 @@
 	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
 		<introduction>
 			<para>Los temas en esta sección describen los distintos cambios que ha sufrido MCART durante su desarrollo.</para>
-		</introduction>
+      <para>
+        Un historial de versiones más completo acompaña al código fuente de
+        MCART, aquí se cubren las versiones posteriores a la reescritura en C#.
+        Para ver el historial de versiones anteriores a MCART 0.6, vea
+        el archivo
+        <externalLink>
+          <linkText>CHANGELOG</linkText>
+          <linkUri>https://github.com/TheXDS/MCART/blob/master/Documentation/CHANGELOG.md</linkUri>
+        </externalLink>
+        en la carpeta Documentation del proyecto.
+      </para>
+    </introduction>
 		<section>
 			<title>Historial de versiones</title>
 			<content>
@@ -15,10 +26,12 @@
             </para>
             <para>
               <link xlink:href="1d355a2c-6ff6-4108-9310-510c361b6304" />
-            </para>            
+            </para>
+            <para>              
+              <link xlink:href="a67e661d-af1b-43e4-973c-b4ed687f9ff4" />
+            </para>
           </listItem>
 				</list>
-        <para>Para una información más completa, refiérase al arhcivo CHANGELOG, en la carpeta de documentación de MCART.</para>
 			</content>
 		</section>
 		<relatedTopics>

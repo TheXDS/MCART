@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<topic id="3da38ebe-758f-490b-97cd-dc04d9460e18" revisionNumber="1">
+<topic id="a67e661d-af1b-43e4-973c-b4ed687f9ff4" revisionNumber="1">
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction>
       <para>
@@ -17,7 +17,7 @@
           </listItem>
           <listItem>
             <para>
-              MCART ahora será publicado en NuGet
+              MCART ahora será publicado en NuGet.
             </para>
           </listItem>
         </list>

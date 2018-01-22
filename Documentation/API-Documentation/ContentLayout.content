@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Topics>
-  <Topic id="acf56513-1ec9-4330-9ee9-5cbe6f288196" visible="True" isDefault="true" title="Bienvenido a la documentación de API de MCART">
+  <Topic id="acf56513-1ec9-4330-9ee9-5cbe6f288196" visible="True" isDefault="true" isSelected="true" title="Bienvenido a la documentación de API de MCART">
     <HelpKeywords>
       <HelpKeyword index="K" term="Welcome" />
     </HelpKeywords>
@@ -19,12 +19,21 @@
         <HelpKeyword index="K" term="version, 0.7" />
       </HelpKeywords>
     </Topic>
+    <Topic id="a67e661d-af1b-43e4-973c-b4ed687f9ff4" visible="True" title="MCART 0.8 Series">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 0.8" />
+      </HelpKeywords>
+    </Topic>
   </Topic>
   <Topic id="6f14a13b-f5ea-420a-b2ac-85555f17e888" visible="True" noFile="true" isExpanded="true" title="Guías">
     <HelpKeywords>
       <HelpKeyword index="K" term="guide, tutorial, guia, walkthrough" />
     </HelpKeywords>
-    <Topic id="d34b79c8-ff06-45c4-8a02-02312345f028" visible="True" isSelected="true" />
+    <Topic id="d34b79c8-ff06-45c4-8a02-02312345f028" visible="True">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="plugin, tutorial" />
+      </HelpKeywords>
+    </Topic>
   </Topic>
   <Topic id="8e4ca775-621e-4350-ba47-40c623732add" visible="True" title="Información técnica" />
 </Topics>
