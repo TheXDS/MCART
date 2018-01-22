@@ -4,6 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Converters="clr-namespace:System.Windows.Converters;assembly=TheXDS.MCART.WPF"
+    xmlns:mcart="clr-namespace:TheXDS.MCART.Controls;assembly=TheXDS.MCART.WPF"
     x:Class="MainWindow"
     mc:Ignorable="d"
     Title="MCART Test Application"
@@ -55,5 +56,6 @@
             </MenuItem>
         </Menu>
         <Image Source="MCART.ico" Stretch="None" />
+        <mcart:BusyIndicator/>
     </DockPanel>
 </Window>

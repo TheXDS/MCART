@@ -61,7 +61,7 @@ namespace TheXDS.MCART.Controls
         /// </summary>
         public static DependencyProperty Stroke2Property = DependencyProperty.Register(
             nameof(Stroke2), typeof(Brush), T,
-            new PropertyMetadata(SystemColors.GrayTextBrush, Colorize));
+            new PropertyMetadata(SystemColors.ControlDarkBrush, Colorize));
         /// <summary>
         /// Identifica a la propiedad de dependencia <see cref="Starting"/>.
         /// </summary>
@@ -74,6 +74,8 @@ namespace TheXDS.MCART.Controls
         {
             BusyIndicator b = (BusyIndicator)d;
             b.pth.Stroke = b.Starting ? b.Stroke2 : b.Stroke;
+            b.pth.RenderTransform.BeginAnimation(RotateTransform.AngleProperty, null);
+            b.pth.RenderTransform.BeginAnimation(RotateTransform.AngleProperty, b.Starting ? b.spin2 : b.spin);
         }
         static void SetControlSize(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -148,7 +150,6 @@ namespace TheXDS.MCART.Controls
             SizeChanged += OnLoaded;            
             pth.SetBinding(Shape.StrokeThicknessProperty, new Binding(nameof(Thickness)) { Source = this });
             SetControlSize(this, new DependencyPropertyChangedEventArgs());
-            Colorize(this, new DependencyPropertyChangedEventArgs());
             spin.KeyFrames.Add(new EasingDoubleKeyFrame()
             {
                 KeyTime=KeyTime.FromTimeSpan(new TimeSpan(0,0,1)),
@@ -159,7 +160,8 @@ namespace TheXDS.MCART.Controls
                 KeyTime = KeyTime.FromTimeSpan(new TimeSpan(0, 0, 3)),
                 Value = -360.0
             });
-            pth.RenderTransform.BeginAnimation(RotateTransform.AngleProperty, spin);
+            Colorize(this, new DependencyPropertyChangedEventArgs());
+            //pth.RenderTransform.BeginAnimation(RotateTransform.AngleProperty, spin);
             Content = pth;
         }
     }
