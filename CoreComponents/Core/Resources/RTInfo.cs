@@ -81,7 +81,15 @@ namespace TheXDS.MCART.Resources
         /// <param name="type"><see cref="Type"/> a comprobar.</param>
         public static bool? RTSupport(Type type)
         {
-            // HACK: Esta función debe reimplementarse completa debido a un problema de boxing al intentar llamar RTSupport<T>(T).
+            /* HACK: Problema al implementar RTSupport(Type)
+             * Esta función debe reimplementarse completa debido a un
+             * problema de boxing al intentar llamar a RTSupport<T>(T), ya que
+             * .Net Framework podría pasar un objeto de tipo interno, 
+             * System.Reflection.RuntimeType, el cual se encaja como Object al
+             * intentar llamar a la función mencionada, causando que se llame a
+             * la función HasAttr<T>(object, T) en lugar de HasAttr(Type, T),
+             * lo cual no es la implementación intencionada.
+             */
             if (!type.HasAttr(out TargetMCARTVersionAttribute tt)) return null;
             if (!type.HasAttr(out MinMCARTVersionAttribute mt))
 #if StrictMCARTVersioning
@@ -91,7 +99,6 @@ namespace TheXDS.MCART.Resources
 #endif
             return RTVersion.IsBetween(mt?.Value, tt?.Value);
         }
-        //=> RTSupport<Type>(type);
         /// <summary>
         /// Obtiene la versión de MCART como una cadena.
         /// </summary>

@@ -64,9 +64,26 @@ namespace TheXDS.MCART.PluginSupport
         }
     }
     /// <summary>
+    /// <see cref="PluginChecker"/> con reglas de compatibilidad estándard.
+    /// </summary>
+    public class DefaultPluginChecker : StrictPluginChecker
+    {
+        /// <summary>
+        /// Comprueba que el tipo cargado sea compatible con esta versión de
+        /// MCART.
+        /// </summary>
+        /// <param name="type">Tipo a comprobar.</param>
+        /// <returns>
+        /// <see langword="true"/> si el tipo es compatible con esta versión de
+        /// MCART o si el plugin no incluye información de compatibilidad,
+        /// <see langword="false"/> en caso de no ser compatible.
+        /// </returns>
+        public override bool? IsCompatible(Type type) => base.IsCompatible(type) ?? true;
+    }
+    /// <summary>
     /// <see cref="PluginChecker"/> con reglas de compatibilidad relajadas.
     /// </summary>
-    [Dangerous] public class RelaxedPluginChecker : PluginChecker
+    public class RelaxedPluginChecker : PluginChecker
     {
         /// <summary>
         /// Siempre devuelve <see langword="true"/> al comprobar la compatibilidad de un

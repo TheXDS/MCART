@@ -47,7 +47,7 @@ namespace TheXDS.MCART.PluginSupport
         /// <see cref="PluginLoader"/> utilizando el verificador
         /// predeterminado.
         /// </summary>
-        public PluginLoader() : this(new StrictPluginChecker(), defaultPluginExtension) { }
+        public PluginLoader() : this(new DefaultPluginChecker(), defaultPluginExtension) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="PluginLoader"/> utilizando el verificador

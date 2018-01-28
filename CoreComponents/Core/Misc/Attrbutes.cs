@@ -124,9 +124,8 @@ namespace TheXDS.MCART.Attributes
     /// los atributos que describan un valor <see cref="Version"/> para un 
     /// elemento.
     /// </summary>
-    [AttributeUsage(Method | Class | Module | Assembly)]
     [Serializable]
-    public class VersionAttribute : Attribute
+    public abstract class VersionAttributeBase : Attribute
     {
         /// <summary>
         /// Obtiene el valor asociado a este atributo.
@@ -135,13 +134,13 @@ namespace TheXDS.MCART.Attributes
         public Version Value { get; }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
-        /// <see cref="VersionAttribute"/>.
+        /// <see cref="VersionAttributeBase"/>.
         /// </summary>
         /// <param name="major">Número de versión mayor.</param>
         /// <param name="minor">Número de versión menor.</param>
         /// <param name="build">Número de compilación.</param>
         /// <param name="rev">Número de revisión.</param>
-        public VersionAttribute(int major, int minor, int build, int rev) { Value = new Version(major, minor, build, rev); }
+        public VersionAttributeBase(int major, int minor, int build, int rev) { Value = new Version(major, minor, build, rev); }
     }
 
     /// <summary>
@@ -166,7 +165,7 @@ namespace TheXDS.MCART.Attributes
     /// </summary>
     [AttributeUsage(Method | Class | Module | Assembly)]
     [Serializable]
-    public sealed class MinMCARTVersionAttribute : VersionAttribute
+    public sealed class MinMCARTVersionAttribute : VersionAttributeBase
     {
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
@@ -192,7 +191,7 @@ namespace TheXDS.MCART.Attributes
     /// </summary>
     [AttributeUsage(Method | Class | Module | Assembly)]
     [Serializable]
-    public sealed class TargetMCARTVersionAttribute : VersionAttribute
+    public sealed class TargetMCARTVersionAttribute : VersionAttributeBase
     {
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
@@ -211,7 +210,30 @@ namespace TheXDS.MCART.Attributes
         /// <param name="rev">Número de revisión.</param>
         public TargetMCARTVersionAttribute(int major, int minor, int build, int rev) : base(major, minor, build, rev) { }
     }
-
+    /// <summary>
+    /// Especifica la versión del elemento.
+    /// </summary>
+    [AttributeUsage(Method | Class | Module | Assembly)]
+    [Serializable]
+    public sealed class VersionAttribute : VersionAttributeBase
+    {
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="VersionAttribute"/>.
+        /// </summary>
+        /// <param name="major">Número de versión mayor.</param>
+        /// <param name="minor">Número de versión menor.</param>
+        public VersionAttribute(int major, int minor) : base(major, minor, int.MaxValue, int.MaxValue) { }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="VersionAttribute"/>.
+        /// </summary>
+        /// <param name="major">Número de versión mayor.</param>
+        /// <param name="minor">Número de versión menor.</param>
+        /// <param name="build">Número de compilación.</param>
+        /// <param name="rev">Número de revisión.</param>
+        public VersionAttribute(int major, int minor, int build, int rev) : base(major, minor, build, rev) { }
+    }
     /// <summary>
     /// Marca un elemento como versión Beta.
     /// </summary>
@@ -426,11 +448,9 @@ namespace TheXDS.MCART.Attributes
         /// Devuelve una cadena que representa al objeto actual.
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return $"{Server}:{Port}";
-        }
+        public override string ToString() => $"{Server}:{Port}";
     }
+
     /// <summary>
     /// Atributo que indica el compresor utilizado para este elemento.
     /// </summary>
@@ -443,6 +463,7 @@ namespace TheXDS.MCART.Attributes
         /// <param name="compressor">Nombre del compresor utilizado.</param>
         public CompressorAttribute(string compressor) : base(compressor) { }
     }
+
     /// <summary>
     /// Indica una cadena que puede utilizarse para identificar a este elemento.
     /// </summary>
