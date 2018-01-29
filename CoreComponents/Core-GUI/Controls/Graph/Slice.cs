@@ -62,7 +62,7 @@ namespace TheXDS.MCART.Controls
         /// Una lista de <see cref="Slice"/> para utilizar como orígen de
         /// datos para un <see cref="ISliceGraph"/>.
         /// </returns>
-        public static System.Collections.Generic.IEnumerable<Slice> FromValues(double[] values)
+        public static IEnumerable<Slice> FromValues(double[] values)
         {
             foreach (double j in values) yield return new Slice { Value = j };
         }
@@ -104,7 +104,7 @@ namespace TheXDS.MCART.Controls
     /// <summary>
     /// Extensiones especiales para <see cref="Slice"/>.
     /// </summary>
-    public static class Extensions
+    public static class SliceExtensions
     {
         /// <summary>
         /// Obtiene los límites mínimo y máximo de una colección de
@@ -129,6 +129,23 @@ namespace TheXDS.MCART.Controls
                 if (j.Value < min) min = j.Value;
                 if (j.Value > max) max = j.Value;
             }
+        }
+        /// <summary>
+        /// Obtiene la suma de todos los valores de una colección de
+        /// <see cref="Slice"/>.
+        /// </summary>
+        /// <param name="c">
+        /// Colección de <see cref="Slice"/> para la cual obtener la suma.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="double"/> con la suma de los valores de una colección
+        /// de <see cref="Slice"/>.
+        /// </returns>
+        public static double GetTotal(this IEnumerable<Slice> c)
+        {
+            double tot = 0.0;
+            foreach (var k in c) tot += k.Value;
+            return tot;
         }
     }
 }

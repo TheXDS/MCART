@@ -24,13 +24,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TheXDS.MCART.Controls;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Controls
 {
     /// <summary>
     /// Representa una serie de valores que pueden ser representados en un
-    /// control TODO.
+    /// control <see cref="ISeriesGraph"/>.
     /// </summary>
     public partial class Series
     {

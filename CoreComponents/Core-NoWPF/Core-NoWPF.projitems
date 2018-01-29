@@ -14,9 +14,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\Slice.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\IRedrawable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ProgressRing.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Types\TaskReporter\TaskReporterControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\IGraph.cs" />
   </ItemGroup>
 </Project>

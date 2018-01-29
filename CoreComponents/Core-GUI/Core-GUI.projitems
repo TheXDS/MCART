@@ -15,7 +15,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\ISeriesGraph.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\ISliceGraph.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\RingGraph.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\Misc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\Series.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\LightGraph.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\NavigationBar.cs" />
@@ -24,6 +23,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\PasswordDialog.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\UI.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Icons.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\InternalStrings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\PwDialogResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\PwMode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Color.cs" />

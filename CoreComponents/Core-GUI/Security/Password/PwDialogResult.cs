@@ -1,42 +1,38 @@
-﻿//
-//  PwDialogResult.cs
-//
-//  This file is part of Morgan's CLR Advanced Runtime (MCART)
-//
-//  Author:
-//       César Andrés Morgan <xds_xps_ivx@hotmail.com>
-//
-//  Copyright (c) 2011 - 2018 César Andrés Morgan
-//
-//  Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-//
-//  Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-//
-//  You should have received a copy of the GNU General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿/*
+PwDialogResult.cs
 
-#pragma warning disable CS0282 // No hay un orden específico entre los campos en declaraciones múltiples de la estructura parcial
+This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Author(s):
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+
+Copyright (c) 2011 - 2018 César Andrés Morgan
+
+Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+*/
 
 using System.Security;
 
 namespace TheXDS.MCART.Security.Password
 {
+#pragma warning disable CS0282 // No hay un orden específico entre los campos en declaraciones múltiples de la estructura parcial
     /// <summary>
     /// Representa el resultado de un cuadro de diálogo
     /// <see cref="Dialogs.PasswordDialog"/>.
     /// </summary>
     public partial struct PwDialogResult
     {
-        string u;
-        SecureString p;
-        string h;
-        PwEvalResult e;
         /// <summary>
         /// Obtiene el usuario introducido en el 
         /// <see cref="Dialogs.PasswordDialog"/>.
@@ -47,7 +43,7 @@ namespace TheXDS.MCART.Security.Password
         /// <see cref="Dialogs.PasswordDialog"/>; de lo contrario se devuelve
         /// <see cref="string.Empty"/>.
         /// </returns>
-        public string Usr => u;
+        public string User { get; }
         /// <summary>
         /// Obtiene la contraseña que el usuario ha introducido.
         /// </summary>
@@ -55,7 +51,7 @@ namespace TheXDS.MCART.Security.Password
         /// Un <see cref="string"/> con la contraseña que el usuario ha 
         /// introducido.
         /// </returns>
-        public SecureString Pwd => p;
+        public SecureString Password { get; }
         /// <summary>
         /// Obtiene el indicio de contraseña introducido por el usuario.
         /// </summary>
@@ -70,16 +66,16 @@ namespace TheXDS.MCART.Security.Password
         /// se devuelve un <see cref="string"/> con el indicio de contraseña 
         /// que el usuario ha introducido.
         /// </returns>
-        public string Hint => h;
+        public string Hint { get; }
         /// <summary>
-        /// Obtiene el resultado de la evaluación de la contraseña.
-        /// </summary>
-        /// <returns>
-        /// Si se muestra este diálogo con <see cref="PwMode.Secur"/>, se
-        /// devuelve el resultado de la evaluación de las reglas especificadas;
-        /// de lo contrario se devuelve <see cref="PwEvalResult.Null"/>.
-        /// </returns>
-        public PwEvalResult Evaluation => e;
+         /// Obtiene el resultado de la evaluación de la contraseña.
+         /// </summary>
+         /// <returns>
+         /// Si se muestra este diálogo con <see cref="PwMode.Secur"/>, se
+         /// devuelve el resultado de la evaluación de las reglas especificadas;
+         /// de lo contrario se devuelve <see cref="PwEvalResult.Null"/>.
+         /// </returns>
+        public PwEvalResult Evaluation { get; }
         /// <summary>
         /// Evalúa si esta instancia y <paramref name="obj"/> son 
         /// iguales.
@@ -105,10 +101,7 @@ namespace TheXDS.MCART.Security.Password
         /// <see langword="true"/> si ambos objetos son iguales, <see langword="false"/> en caso
         /// contrario.
         /// </returns>
-        public static bool operator ==(PwDialogResult left, PwDialogResult right)
-        {
-            return left.e == right.e && left.u == right.u;
-        }
+        public static bool operator ==(PwDialogResult left, PwDialogResult right) => left.Evaluation == right.Evaluation && left.User == right.User;
         /// <summary>
         /// Evalúa si <paramref name="left"/> y <paramref name="right"/> son 
         /// diferentes.

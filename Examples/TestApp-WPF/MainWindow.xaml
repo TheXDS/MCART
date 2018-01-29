@@ -56,6 +56,6 @@
             </MenuItem>
         </Menu>
         <Image Source="MCART.ico" Stretch="None" />
-        <mcart:BusyIndicator/>
+        <mcart:ProgressRing IsIndeterminate="false" Value="850" Maximum="8000" Angle="180" TextFormat="{}{0} RPM" FullAngle="270" Redline="6500" Fill="White"/>
     </DockPanel>
 </Window>

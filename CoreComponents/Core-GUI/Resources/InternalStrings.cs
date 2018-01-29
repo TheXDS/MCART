@@ -1,5 +1,5 @@
 ﻿/*
-AssemblyInfo.cs
+InternalStrings.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,10 +22,12 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Reflection;
-using System.Windows;
-using static System.Windows.ResourceDictionaryLocation;
-
-[assembly: ThemeInfo(None, SourceAssembly)]
-[assembly: AssemblyTitle("MCART for WPF")]
-[assembly: AssemblyDescription("MCART for Windows Presentation Framework")]
+namespace TheXDS.MCART.Resources
+{
+    internal static partial class InternalStrings
+    {
+#pragma warning disable CS0618 // Las cadenas podrían hacer referencia a miembros obsoletos.
+        internal const string LightGraphObsolete = "El control " + nameof(Controls.LightGraph) + " está obsoleto. Procure utilizar un control de la familia " + nameof(Controls.ISeriesGraph) + ".";
+#pragma warning restore CS0618
+    }
+}

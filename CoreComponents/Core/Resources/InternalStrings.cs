@@ -27,9 +27,8 @@ namespace TheXDS.MCART.Resources
     /// <summary>
     /// Contiene cadenas específicas para uso interno de MCART.
     /// </summary>
-    internal static class InternalStrings
+    internal static partial class InternalStrings
     {
-        internal static string UnkErrLoadingRes(string res, string ex) => $"Error desconocido al cargar recurso {res}\n{ex}";
         internal const string GpVNoData = " (Sin datos)";
         internal const string NullPwEvalRule = "Regla nula";
         internal const string NullPwEvalRule2 = "Esta regla no evaluará la contraseña, sino que devolverá un valor constante que ayuda a balancear el puntaje de otras reglas en el total.";
@@ -44,5 +43,6 @@ namespace TheXDS.MCART.Resources
         internal const string PwSymbolsEvalRule = "Símbolos";
         internal const string PwUcaseEvalRule = "Mayúsculas";
         internal const string xBuilder = "Esta regla evalúa que la contraseña contenga {0}";
+        internal static string UnkErrLoadingRes(string res, string ex) => $"Error desconocido al cargar recurso {res}\n{ex}";
     }
 }

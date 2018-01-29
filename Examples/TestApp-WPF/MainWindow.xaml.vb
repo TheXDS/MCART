@@ -63,7 +63,7 @@ Public Class MainWindow
     End Sub
     Private Sub MnuSetPw_Click(sender As Object, e As RoutedEventArgs) Handles mnuSetPw.Click
         With PasswordDialog.ChoosePassword(Security.Password.PwMode.UsrBoth)
-            If .Result = MessageBoxResult.OK Then MessageBox.Show(.Usr & vbCrLf & .Pwd.Read())
+            If .Result = MessageBoxResult.OK Then MessageBox.Show(.User & vbCrLf & .Password.Read())
         End With
     End Sub
     Private Sub MnuImgfilter_Click(sender As Object, e As RoutedEventArgs) Handles mnuImgfilter.Click
