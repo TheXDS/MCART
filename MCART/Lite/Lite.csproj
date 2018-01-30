@@ -57,6 +57,6 @@
   </PropertyGroup>
   <Import Project="$(SolutionDir)CommonSettings.targets" />
   <PropertyGroup>
-    <PostBuildEvent>nuget pack $(ProjectPath) -OutputDirectory $(TargetDir)</PostBuildEvent>
+    <PostBuildEvent>nuget pack $(ProjectPath) -OutputDirectory $(TargetDir) Configuration=$(ConfigurationName)</PostBuildEvent>
   </PropertyGroup>
 </Project>
