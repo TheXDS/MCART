@@ -95,9 +95,9 @@ namespace TheXDS.MCART.Security.Password
             using (var bw = new BinaryWriter(ms))
             {
                 bw.Write(PBKDF2_ITERATIONS);
-                bw.Write(salt.Length);
+                bw.Write((short)salt.Length);
                 bw.Write(salt);
-                bw.Write(hash.Length);
+                bw.Write((short)hash.Length);
                 bw.Write(hash);
                 return ms.ToArray();
             }
