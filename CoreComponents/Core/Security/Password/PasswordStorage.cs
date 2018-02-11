@@ -23,9 +23,11 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System.Collections.Generic;
 using System.IO;
 using System.Security;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 
 namespace TheXDS.MCART.Security.Password
 {
@@ -49,28 +51,25 @@ namespace TheXDS.MCART.Security.Password
         */
 
         #region Constantes
-        const short SALT_BYTES = 24;
-        const short HASH_BYTES = 18;
-        const int PBKDF2_ITERATIONS = 64000;
+        private const short SaltBytes = 24;
+        private const short HashBytes = 18;
+        private const int Pbkdf2Iterations = 64000;
         #endregion
 
-        static byte[] PBKDF2(SecureString password, byte[] salt, int iterations, int outputBytes)
+        private static byte[] Pbkdf2(SecureString password, byte[] salt, int iterations, int outputBytes)
         {
             using (password)
             using (var pbkdf2 = new Rfc2898DeriveBytes(password.ReadBytes(), salt, iterations))
-            {
                 return pbkdf2.GetBytes(outputBytes);
-            }
         }
-        static bool CheckEquals(byte[] a, byte[] b)
+        private static bool CheckEquals(IReadOnlyList<byte> a, IReadOnlyList<byte> b)
         {
 #if SaferPasswords
             // Este método realiza una comprobación lenta intencionalmente.
-            uint diff = (uint)a.Length ^ (uint)b.Length;
-            for (int i = 0; i < a.Length && i < b.Length; i++)
-            {
+            var diff = (uint)a.Count ^ (uint)b.Count;
+            for (var i = 0; i < a.Count && i < b.Count; i++)
                 diff |= (uint)(a[i] ^ b[i]);
-            }
+            
             return diff == 0;
 #else
             return System.Linq.Enumerable.SequenceEqual(a, b);
@@ -84,17 +83,16 @@ namespace TheXDS.MCART.Security.Password
         /// <returns></returns>
         public static byte[] CreateHash(SecureString password)
         {
-            byte[] salt = new byte[SALT_BYTES];
-            using (RNGCryptoServiceProvider csprng = new RNGCryptoServiceProvider())
-            {
+            var salt = new byte[SaltBytes];
+            using (var csprng = new RNGCryptoServiceProvider())
                 csprng.GetBytes(salt);
-            }
-            byte[] hash = PBKDF2(password, salt, PBKDF2_ITERATIONS, HASH_BYTES);
+
+            var hash = Pbkdf2(password, salt, Pbkdf2Iterations, HashBytes);
 
             using (var ms = new MemoryStream())
             using (var bw = new BinaryWriter(ms))
             {
-                bw.Write(PBKDF2_ITERATIONS);
+                bw.Write(Pbkdf2Iterations);
                 bw.Write((short)salt.Length);
                 bw.Write(salt);
                 bw.Write((short)hash.Length);
@@ -102,26 +100,8 @@ namespace TheXDS.MCART.Security.Password
                 return ms.ToArray();
             }
         }
-
-#if PreferExceptions
         /// <summary>
-        /// Verifica la contraseña.
-        /// </summary>
-        /// <param name="password">
-        /// Contraseña a verificar.
-        /// </param>
-        /// <param name="goodHash">
-        /// Hash+Salt contra el cual comparar.
-        /// </param>
-        /// <returns>
-        /// <see langword="true"/> si la contraseña es válida,
-        /// <see langword="false"/> en caso contrario.
-        /// </returns>
-        public static bool? VerifyPassword(SecureString password, byte[] goodHash)
-        {
-#else
-        /// <summary>
-        /// Verifica la contraseña.
+        /// Verifica una contraseña.
         /// </summary>
         /// <param name="password">
         /// Contraseña a verificar.
@@ -139,21 +119,39 @@ namespace TheXDS.MCART.Security.Password
         {
             try
             {
-#endif
                 using (var ms = new MemoryStream(goodHash))
                 using (var br = new BinaryReader(ms))
                 {
-                    int iterations = br.ReadInt32();
-                    byte[] salt = br.ReadBytes(br.ReadInt16());
-                    byte[] hash = br.ReadBytes(br.ReadInt16());
+                    var iterations = br.ReadInt32();
+                    var salt = br.ReadBytes(br.ReadInt16());
+                    var hash = br.ReadBytes(br.ReadInt16());
 
-                    byte[] testHash = PBKDF2(password, salt, iterations, hash.Length);
+                    var testHash = Pbkdf2(password, salt, iterations, hash.Length);
                     return CheckEquals(hash, testHash);
                 }
 #if !PreferExceptions
             }
             catch { return null; }
+#else
+            }
+            catch { throw; }
 #endif
         }
+        /// <summary>
+        /// Verifica una contraseña de forma asíncrona.
+        /// </summary>
+        /// <param name="password">
+        /// Contraseña a verificar.
+        /// </param>
+        /// <param name="goodHash">
+        /// Hash+Salt contra el cual comparar.
+        /// </param>
+        /// <returns>
+        /// <see langword="true"/> si la contraseña es válida,
+        /// <see langword="false"/> en caso contrario, o
+        /// <see langword="null"/> si hay un problema al verificar la
+        /// contraseña, como ser, debido a tampering.
+        /// </returns>
+        public static async Task<bool?> VerifyPasswordAsync(SecureString password, byte[] goodHash) => await Task.Run(()=>VerifyPassword(password, goodHash));
     }
 }
