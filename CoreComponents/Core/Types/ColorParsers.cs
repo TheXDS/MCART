@@ -432,7 +432,6 @@ namespace TheXDS.MCART.Types
                 float ySrgb = (float)(yLinear > 0.0031308 ? (System.Math.Pow(yLinear, 1 / 2.4) * 1.055) - 0.055 : 12.92 * yLinear);
                 return new Color(ySrgb, ySrgb, ySrgb);
             }
-
             /// <summary>
             /// Convierte un <see cref="Color"/> en un valor, utilizando el
             /// <see cref="IColorParser{T}"/> especificado.
@@ -451,10 +450,10 @@ namespace TheXDS.MCART.Types
         }
         /// <summary>
         /// Implementa un <see cref="IColorParser{T}"/> que tiene como formato
-        /// de color un byte de atributo CGA con información de color e
+        /// de color un byte de atributo VGA con información de color e
         /// intensidad, ignorando el color de fondo y el bit de blink.
         /// </summary>
-        public class CGAByte : IColorParser<byte>
+        public class VGAAttributeByte : IColorParser<byte>
         {
             /// <summary>
             /// Convierte una estructura compatible en un <see cref="Color"/>.
@@ -471,10 +470,9 @@ namespace TheXDS.MCART.Types
                 byte b = (byte)((value | 1) * i);
                 return new Color(r, g, b);
             }
-
             /// <summary>
             /// Convierte un <see cref="Color"/> en su representación como un
-            /// <see cref="byte"/> de atributo CGA.
+            /// <see cref="byte"/> de atributo VGA.
             /// </summary>
             /// <returns>
             /// Un <see cref="byte"/> con la representación binaria de este

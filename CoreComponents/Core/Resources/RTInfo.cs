@@ -70,6 +70,36 @@ namespace TheXDS.MCART.Resources
         /// <param name="asmbly">Ensamblado a comprobar.</param>
         public static bool? RTSupport(Assembly asmbly) => RTSupport<Assembly>(asmbly);
         /// <summary>
+        /// Comprueba si el <see cref="Type"/> es compatible con esta versión de <see cref="MCART"/>.
+        /// </summary>
+        /// <returns>
+        /// <see langword="true"/> si el <see cref="Type"/> es compatible con esta
+        /// versión de <see cref="MCART"/>, <see langword="false"/> si no lo
+        /// es, y <see langword="null"/> si no se ha podido determinar la
+        /// compatibilidad.
+        /// </returns>
+        /// <param name="type"><see cref="Type"/> a comprobar.</param>
+        public static bool? RTSupport(Type type)
+        {
+            /* HACK: Problema al implementar RTSupport(Type)
+             * Esta función debe reimplementarse completa debido a un
+             * problema de boxing al intentar llamar a RTSupport<T>(T), ya que
+             * .Net Framework podría pasar un objeto de tipo interno, 
+             * System.Reflection.RuntimeType, el cual se encaja como Object al
+             * intentar llamar a la función mencionada, causando que se llame a
+             * la función HasAttr<T>(object, T) en lugar de HasAttr(Type, T),
+             * lo cual no es la implementación intencionada.
+             */
+            if (!type.HasAttr(out TargetMCARTVersionAttribute tt)) return null;
+            if (!type.HasAttr(out MinMCARTVersionAttribute mt))
+#if StrictMCARTVersioning
+                return null;
+#else
+                mt=tt;
+#endif
+            return RTVersion.IsBetween(mt?.Value, tt?.Value);
+        }
+        /// <summary>
         /// Obtiene la versión de MCART como una cadena.
         /// </summary>
         /// <value>La versión de MCART como una cadena.</value>

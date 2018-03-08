@@ -27,7 +27,7 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\Build\WPF\Release\</OutputPath>
     <DefineConstants>
@@ -35,6 +35,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>latest</LangVersion>
+    <DocumentationFile>..\..\Build\WPF\Release\TheXDS.MCART.WPF.xml</DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -117,6 +119,6 @@
   </PropertyGroup>
   <Import Project="$(SolutionDir)CommonSettings.targets" />
   <PropertyGroup>
-    <PostBuildEvent>nuget pack $(ProjectPath) -OutputDirectory $(TargetDir)</PostBuildEvent>
+    <PostBuildEvent>nuget pack $(ProjectPath) -OutputDirectory $(TargetDir) -Properties Configuration=$(ConfigurationName)</PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -701,7 +701,7 @@ namespace System.Windows.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value.GetType().IsPrimitive && parameter.GetType().IsPrimitive)
-                return (dynamic)value + parameter;
+                return (dynamic)value + (dynamic)parameter;
             throw new ArgumentException();
         }
         /// <summary>
@@ -720,7 +720,7 @@ namespace System.Windows.Converters
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value.GetType().IsPrimitive && parameter.GetType().IsPrimitive)
-                return (dynamic)value - parameter;
+                return (dynamic)value - (dynamic)parameter;
             throw new ArgumentException();
         }
     }
@@ -742,7 +742,7 @@ namespace System.Windows.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value.GetType().IsPrimitive && parameter.GetType().IsPrimitive)
-                return (dynamic)value * parameter;
+                return (dynamic)value * (dynamic)parameter;
             throw new ArgumentException();
         }
         /// <summary>
@@ -761,7 +761,7 @@ namespace System.Windows.Converters
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value.GetType().IsPrimitive && parameter.GetType().IsPrimitive)
-                return (dynamic)value / parameter;
+                return (dynamic)value / (dynamic)parameter;
             throw new ArgumentException();
         }
     }

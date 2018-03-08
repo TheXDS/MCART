@@ -1,26 +1,28 @@
-﻿//
-//  LightGraph.cs
-//
-//  This file is part of Morgan's CLR Advanced Runtime (MCART)
-//
-//  Author:
-//       César Andrés Morgan <xds_xps_ivx@hotmail.com>
-//
-//  Copyright (c) 2011 - 2018 César Andrés Morgan
-//
-//  Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-//
-//  Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-//
-//  You should have received a copy of the GNU General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿/*
+LightGraph.cs
 
+This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Author(s):
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+
+Copyright (c) 2011 - 2018 César Andrés Morgan
+
+Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+using TheXDS.MCART.Types.Extensions;
 using System;
 using System.Linq;
 using System.Text;
@@ -32,61 +34,15 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using MC = TheXDS.MCART.Resources.Colors;
+using ISt = TheXDS.MCART.Resources.InternalStrings;
 
 namespace TheXDS.MCART.Controls
 {
+    [Obsolete(ISt.LightGraphObsolete)]
     public partial class LightGraph : UserControl
     {
-        #region Miembros privados
-        static Type T = typeof(LightGraph);
-        Types.Extensions.List<double> graph = new Types.Extensions.List<double>();
-        Types.Extensions.List<double> graph2 = new Types.Extensions.List<double>();
-        Types.Extensions.List<string> xLabels = new Types.Extensions.List<string>();
-        TextBlock LblTitle = new TextBlock
-        {
-            FontSize = 16,
-            HorizontalAlignment = HorizontalAlignment.Center
-        };
-        Grid GrdXLbls = new Grid();
-        TextBlock XLbl = new TextBlock { HorizontalAlignment = HorizontalAlignment.Center };
-        CheckBox YLbl = new CheckBox
-        {
-            Visibility = Visibility.Collapsed,
-            VerticalAlignment = VerticalAlignment.Center,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            IsThreeState = true,
-            IsChecked = true
-        };
-        TextBlock YMx = new TextBlock
-        {
-            VerticalAlignment = VerticalAlignment.Bottom,
-            HorizontalAlignment = HorizontalAlignment.Right
-        };
-        TextBlock YMn = new TextBlock
-        {
-            VerticalAlignment = VerticalAlignment.Bottom,
-            HorizontalAlignment = HorizontalAlignment.Left
-        };
-        CheckBox Y2Lbl = new CheckBox
-        {
-            Visibility = Visibility.Collapsed,
-            VerticalAlignment = VerticalAlignment.Center,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            IsThreeState = true,
-            IsChecked = true
-        };
-        TextBlock Y2Mx = new TextBlock { HorizontalAlignment = HorizontalAlignment.Right };
-        TextBlock Y2Mn = new TextBlock { HorizontalAlignment = HorizontalAlignment.Left };
-        Grid GrdGraphBG = new Grid();
-        Grid GrdGraph = new Grid();
-        Polyline Grp1 = new Polyline { Stroke = SystemColors.HighlightBrush };
-        Polyline Grp2 = new Polyline { Stroke = new SolidColorBrush(MC.ProgressBar) };
-        Grid GrdGraphFG = new Grid();
-        Grid GrdGraphFG2 = new Grid();
-        short _padding = 1;
-        #endregion
-
         #region Propiedades de dependencia
+        static Type T = typeof(LightGraph);
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="Frozen"/>.
         /// </summary>
@@ -151,7 +107,7 @@ namespace TheXDS.MCART.Controls
             if (d.Graph.Count > 0)
             {
                 if (double.IsNaN((double)e.NewValue)) d.YMn.Text = d.Graph.Min().ToString();
-                else d.YMn.Text = ((double)e.NewValue).ToString();                
+                else d.YMn.Text = ((double)e.NewValue).ToString();
                 d.RefreshGraph1();
             }
         })));
@@ -164,8 +120,8 @@ namespace TheXDS.MCART.Controls
             d.YMx.Text = string.Empty;
             if (d.Graph.Count > 0)
             {
-                if (double.IsNaN((double)e.NewValue)) d.YMn.Text = d.Graph.Max().ToString();                
-                else d.YMn.Text = ((double)e.NewValue).ToString();                
+                if (double.IsNaN((double)e.NewValue)) d.YMn.Text = d.Graph.Max().ToString();
+                else d.YMn.Text = ((double)e.NewValue).ToString();
                 d.RefreshGraph1();
             }
         })));
@@ -182,8 +138,8 @@ namespace TheXDS.MCART.Controls
             d.Y2Mn.Text = string.Empty;
             if (d.Graph2.Count > 0)
             {
-                if (double.IsNaN((double)e.NewValue)) d.Y2Mn.Text = d.Graph2.Min().ToString();                
-                else d.Y2Mn.Text = ((double)e.NewValue).ToString();                
+                if (double.IsNaN((double)e.NewValue)) d.Y2Mn.Text = d.Graph2.Min().ToString();
+                else d.Y2Mn.Text = ((double)e.NewValue).ToString();
                 d.RefreshGraph2();
             }
         })));
@@ -196,13 +152,55 @@ namespace TheXDS.MCART.Controls
             d.Y2Mx.Text = string.Empty;
             if (d.Graph2.Count > 0)
             {
-                if (double.IsNaN((double)e.NewValue)) d.Y2Mn.Text = d.Graph2.Max().ToString();                
-                else d.Y2Mn.Text = ((double)e.NewValue).ToString();                
+                if (double.IsNaN((double)e.NewValue)) d.Y2Mn.Text = d.Graph2.Max().ToString();
+                else d.Y2Mn.Text = ((double)e.NewValue).ToString();
                 d.RefreshGraph2();
             }
         })));
         #endregion
-
+        #region Miembros privados
+        TextBlock LblTitle = new TextBlock
+        {
+            FontSize = 16,
+            HorizontalAlignment = HorizontalAlignment.Center
+        };
+        Grid GrdXLbls = new Grid();
+        TextBlock XLbl = new TextBlock { HorizontalAlignment = HorizontalAlignment.Center };
+        CheckBox YLbl = new CheckBox
+        {
+            Visibility = Visibility.Collapsed,
+            VerticalAlignment = VerticalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            IsThreeState = true,
+            IsChecked = true
+        };
+        TextBlock YMx = new TextBlock
+        {
+            VerticalAlignment = VerticalAlignment.Bottom,
+            HorizontalAlignment = HorizontalAlignment.Right
+        };
+        TextBlock YMn = new TextBlock
+        {
+            VerticalAlignment = VerticalAlignment.Bottom,
+            HorizontalAlignment = HorizontalAlignment.Left
+        };
+        CheckBox Y2Lbl = new CheckBox
+        {
+            Visibility = Visibility.Collapsed,
+            VerticalAlignment = VerticalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            IsThreeState = true,
+            IsChecked = true
+        };
+        TextBlock Y2Mx = new TextBlock { HorizontalAlignment = HorizontalAlignment.Right };
+        TextBlock Y2Mn = new TextBlock { HorizontalAlignment = HorizontalAlignment.Left };
+        Grid GrdGraphBG = new Grid();
+        Grid GrdGraph = new Grid();
+        Polyline Grp1 = new Polyline { Stroke = SystemColors.HighlightBrush };
+        Polyline Grp2 = new Polyline { Stroke = new SolidColorBrush(MC.ProgressBar) };
+        Grid GrdGraphFG = new Grid();
+        Grid GrdGraphFG2 = new Grid();
+        #endregion
         #region Propiedades
         /// <summary>
         /// Congela o descongela la actualización del control.
@@ -217,28 +215,13 @@ namespace TheXDS.MCART.Controls
             set => SetValue(FrozenProperty, value);
         }
         /// <summary>
-        /// Ajusta el espacio a la derecha del gráfico, en unidades de puntos.
-        /// </summary>
-        public short GraphPadding
-        {
-            get => _padding; set => _padding = value;
-        }
-        /// <summary>
-        /// Obtiene o establece las etiquetas del eje X.
-        /// </summary>
-        /// <remarks>
-        /// Esta no es una propiedad de dependencia, debido a algunas 
-        /// complicaciones de eventos.
-        /// </remarks>
-        public Types.Extensions.List<string> XLabels => xLabels;
-        /// <summary>
         /// Obtiene o establece los elementos de la gráfica.
         /// </summary>
         /// <remarks>
         /// Esta no es una propiedad de dependencia, debido a algunas
         /// complicaciones de eventos.
         /// </remarks>
-        public Types.Extensions.List<double> Graph => graph;
+        public List<double> Graph { get; set; } = new List<double>();
         /// <summary>
         /// Obtiene o establece los elementos de la gráfica secundaria.
         /// </summary>
@@ -246,7 +229,54 @@ namespace TheXDS.MCART.Controls
         /// Esta no es una propiedad de dependencia, debido a algunas 
         /// complicaciones de eventos.
         /// </remarks>
-        public Types.Extensions.List<double> Graph2 => graph2;
+        public List<double> Graph2 { get; set; } = new List<double>();
+        /// <summary>
+        /// Determina el modo de dibujo del gráfico.
+        /// </summary>
+        public EnumGraphDrawMode GraphDrawMode
+        {
+            get => (EnumGraphDrawMode)GetValue(GraphDrawModeProperty);
+            set => SetValue(GraphDrawModeProperty, value);
+        }
+        /// <summary>
+        /// Ajusta el espacio a la derecha del gráfico, en unidades de puntos.
+        /// </summary>
+        public short GraphPadding { get; set; } = 1;
+        /// <summary>
+        /// Obtiene o establece el <see cref="Brush"/> del gráfico.
+        /// </summary>
+        public Brush GraphStroke
+        {
+            get => (Brush)GetValue(GraphStrokeProperty);
+            set => SetValue(GraphStrokeProperty, value);
+        }
+        /// <summary>
+        /// Obtiene o establece el <see cref="Brush"/> del gráfico secundario.
+        /// </summary>
+        public Brush Graph2Stroke
+        {
+            get => (Brush)GetValue(Graph2StrokeProperty);
+            set => SetValue(Graph2StrokeProperty, value);
+        }
+        /// <summary>
+        /// Obtiene o establece el grosor de la línea del gráfico.
+        /// </summary>
+        public double GraphThickness
+        {
+            get => (double)GetValue(GraphThicknessProperty);
+            set => SetValue(GraphThicknessProperty, value);
+        }
+        /// <summary>
+        /// Obtiene o establece el título principal del gráfico.
+        /// </summary>
+        /// <returns>
+        /// Un <see cref="string"/> con el título establecido para el control.
+        /// </returns>
+        public string GraphTitle
+        {
+            get => (string)GetValue(GraphTitleProperty);
+            set => SetValue(GraphTitleProperty, value);
+        }
         /// <summary>
         /// Obtiene o establece el modo de dibujo de las etiquetas dentro del gráfico
         /// </summary>
@@ -257,15 +287,13 @@ namespace TheXDS.MCART.Controls
             set => SetValue(SpotLabelsProperty, value);
         }
         /// <summary>
-        /// Obtiene o establece el período de la rejilla mayor del eje X.
+        /// Obtiene o establece la cantidad de pasos para dibujar etiquetas en 
+        /// los puntos del gráfico.
         /// </summary>
-        /// <returns>
-        /// La cantidad de pasos de la rejilla necesarios para un paso mayor.
-        /// </returns>
-        public short XPeriod
+        public short SpotPeriod
         {
-            get => (short)GetValue(xPeriodProperty);
-            set => SetValue(xPeriodProperty, value);
+            get => (short)GetValue(SpotPeriodProperty);
+            set => SetValue(SpotPeriodProperty, value);
         }
         /// <summary>
         /// Obtiene o establece el título del eje X del gráfico.
@@ -280,24 +308,23 @@ namespace TheXDS.MCART.Controls
             set => SetValue(XLabelProperty, value);
         }
         /// <summary>
-        /// Obtiene o establece el título principal del gráfico.
+        /// Obtiene o establece las etiquetas del eje X.
+        /// </summary>
+        /// <remarks>
+        /// Esta no es una propiedad de dependencia, debido a algunas 
+        /// complicaciones de eventos.
+        /// </remarks>
+        public List<string> XLabels { get; set; } = new List<string>();
+        /// <summary>
+        /// Obtiene o establece el período de la rejilla mayor del eje X.
         /// </summary>
         /// <returns>
-        /// Un <see cref="string"/> con el título establecido para el control.
+        /// La cantidad de pasos de la rejilla necesarios para un paso mayor.
         /// </returns>
-        public string GraphTitle
+        public short XPeriod
         {
-            get => (string)GetValue(GraphTitleProperty);
-            set => SetValue(GraphTitleProperty, value);
-        }
-        /// <summary>
-        /// Obtiene o establece la cantidad de pasos para dibujar etiquetas en 
-        /// los puntos del gráfico.
-        /// </summary>
-        public short SpotPeriod
-        {
-            get => (short)GetValue(SpotPeriodProperty);
-            set => SetValue(SpotPeriodProperty, value);
+            get => (short)GetValue(xPeriodProperty);
+            set => SetValue(xPeriodProperty, value);
         }
         /// <summary>
         /// Obtiene o establece el título del eje Y del gráfico.
@@ -324,38 +351,6 @@ namespace TheXDS.MCART.Controls
             set => SetValue(YMaxProperty, value);
         }
         /// <summary>
-        /// Obtiene o establece el <see cref="Brush"/> del gráfico.
-        /// </summary>
-        public Brush GraphStroke
-        {
-            get => (Brush)GetValue(GraphStrokeProperty);
-            set => SetValue(GraphStrokeProperty, value);
-        }
-        /// <summary>
-        /// Obtiene o establece el <see cref="Brush"/> del gráfico secundario.
-        /// </summary>
-        public Brush Graph2Stroke
-        {
-            get => (Brush)GetValue(Graph2StrokeProperty);
-            set => SetValue(Graph2StrokeProperty, value);
-        }
-        /// <summary>
-        /// Obtiene o establece el grosor de la línea del gráfico.
-        /// </summary>
-        public double GraphThickness
-        {
-            get => (double)GetValue(GraphThicknessProperty);
-            set => SetValue(GraphThicknessProperty, value);
-        }
-        /// <summary>
-        /// Determina el modo de dibujo del gráfico.
-        /// </summary>
-        public EnumGraphDrawMode GraphDrawMode
-        {
-            get => (EnumGraphDrawMode)GetValue(GraphDrawModeProperty);
-            set => SetValue(GraphDrawModeProperty, value);
-        }
-        /// <summary>
         /// Obtiene o establece el título del eje Y del gráfico secundario.
         /// </summary>
         public string Y2Label
@@ -380,9 +375,8 @@ namespace TheXDS.MCART.Controls
             set => SetValue(Y2MaxProperty, value);
         }
         #endregion
-
         #region Métodos internos
-        bool AmIValid() => Math.ArePositives(ActualHeight, ActualWidth);        
+        bool AmIValid() => Math.ArePositives(ActualHeight, ActualWidth);
         void ClearGrp(Polyline grp, TextBlock mx, TextBlock mn)
         {
             if (!AmIValid()) return;
@@ -399,7 +393,7 @@ namespace TheXDS.MCART.Controls
         void PlotAxis()
         {
             if (!AmIValid()) return;
-            double l = GrdGraphBG.ActualWidth / ((XLabels.Count - 1) + _padding);
+            double l = GrdGraphBG.ActualWidth / ((XLabels.Count - 1) + GraphPadding);
             if (l == 0) return;
             GrdGraphBG.Children.Clear();
             if (XLabels.Count > 0)
@@ -414,7 +408,7 @@ namespace TheXDS.MCART.Controls
                         Y2 = GrdGraphBG.ActualHeight,
                         Stroke = Foreground
                     };
-                    k.StrokeThickness = (System.Math.Round(j / l) % XPeriod == 0 && XPeriod > 1) ? 2 : 0.5;                    
+                    k.StrokeThickness = (System.Math.Round(j / l) % XPeriod == 0 && XPeriod > 1) ? 2 : 0.5;
                     GrdGraphBG.Children.Add(k);
                 }
             }
@@ -422,12 +416,12 @@ namespace TheXDS.MCART.Controls
         void PlotLabels()
         {
             if (!AmIValid()) return;
-            double l = GrdGraphBG.ActualWidth / ((XLabels.Count - 1) + _padding);
-            if (l == 0) return;            
+            double l = GrdGraphBG.ActualWidth / ((XLabels.Count - 1) + GraphPadding);
+            if (l == 0) return;
             GrdXLbls.Children.Clear();
             if (XLabels.Count > 0)
             {
-                for (double j = 0; j <= GrdGraphBG.ActualWidth - (_padding * l) + 1; j += (l * XPeriod))
+                for (double j = 0; j <= GrdGraphBG.ActualWidth - (GraphPadding * l) + 1; j += (l * XPeriod))
                 {
                     if (System.Math.Round(j / l) < XLabels.Count)
                     {
@@ -441,16 +435,16 @@ namespace TheXDS.MCART.Controls
                 }
             }
         }
-        void PlotGrp(Polyline grp, Types.Extensions.List<double> lst, TextBlock mx, TextBlock mn, double max, double min, CheckBox chk)
+        void PlotGrp(Polyline grp, List<double> lst, TextBlock mx, TextBlock mn, double max, double min, CheckBox chk)
         {
             if (!AmIValid()) return;
             ClearGrp(grp, mx, mn);
             if (lst.Count == 0) return;
-            if (double.IsNaN(max))  max = lst.Max();
+            if (double.IsNaN(max)) max = lst.Max();
             mx.Text = max.ToString();
-            if (double.IsNaN(min))  min = lst.Min();
+            if (double.IsNaN(min)) min = lst.Min();
             mn.Text = min.ToString();
-            double l = GrdGraph.ActualWidth / ((lst.Count - 1) + _padding); //Unidades de gráfica
+            double l = GrdGraph.ActualWidth / ((lst.Count - 1) + GraphPadding); //Unidades de gráfica
             double k = 0; //step en unidades de gráfica
             int a = 0; //step simple
             Point p = default;
@@ -477,7 +471,7 @@ namespace TheXDS.MCART.Controls
                 grp.Fill = new SolidColorBrush(x);
             }
         }
-        void PlotSpotLabels(Polyline Ps, Types.Extensions.List<double> grp, Grid g)
+        void PlotSpotLabels(Polyline Ps, List<double> grp, Grid g)
         {
             if (!AmIValid()) return;
             g.Children.Clear();
@@ -532,7 +526,7 @@ namespace TheXDS.MCART.Controls
             switch (YLbl.IsChecked)
             {
                 case true:
-                    PlotGrp(Grp1, graph, YMx, YMn, YMax, YMin, YLbl);
+                    PlotGrp(Grp1, Graph, YMx, YMn, YMax, YMin, YLbl);
                     ClearLabels(GrdGraphFG);
                     break;
                 case false:
@@ -540,8 +534,8 @@ namespace TheXDS.MCART.Controls
                     ClearLabels(GrdGraphFG);
                     break;
                 default:
-                    PlotGrp(Grp1, graph, YMx, YMn, YMax, YMin, YLbl);
-                    PlotSpotLabels(Grp1, graph, GrdGraphFG);
+                    PlotGrp(Grp1, Graph, YMx, YMn, YMax, YMin, YLbl);
+                    PlotSpotLabels(Grp1, Graph, GrdGraphFG);
                     break;
             }
         }
@@ -551,7 +545,7 @@ namespace TheXDS.MCART.Controls
             switch (Y2Lbl.IsChecked)
             {
                 case true:
-                    PlotGrp(Grp2, graph2, Y2Mx, Y2Mn, Y2Max, Y2Min, Y2Lbl);
+                    PlotGrp(Grp2, Graph2, Y2Mx, Y2Mn, Y2Max, Y2Min, Y2Lbl);
                     ClearLabels(GrdGraphFG2);
                     break;
                 case false:
@@ -559,8 +553,8 @@ namespace TheXDS.MCART.Controls
                     ClearLabels(GrdGraphFG2);
                     break;
                 default:
-                    PlotGrp(Grp2, graph2, Y2Mx, Y2Mn, Y2Max, Y2Min, Y2Lbl);
-                    PlotSpotLabels(Grp2, graph2, GrdGraphFG2);
+                    PlotGrp(Grp2, Graph2, Y2Mx, Y2Mn, Y2Max, Y2Min, Y2Lbl);
+                    PlotSpotLabels(Grp2, Graph2, GrdGraphFG2);
                     break;
             }
         }
@@ -574,7 +568,7 @@ namespace TheXDS.MCART.Controls
                     ClearLabels(GrdGraphFG);
                     break;
                 default:
-                    PlotSpotLabels(Grp1, graph, GrdGraphFG);
+                    PlotSpotLabels(Grp1, Graph, GrdGraphFG);
                     break;
             }
             switch (Y2Lbl.IsChecked)
@@ -584,18 +578,17 @@ namespace TheXDS.MCART.Controls
                     ClearLabels(GrdGraphFG2);
                     break;
                 default:
-                    PlotSpotLabels(Grp2, graph2, GrdGraphFG2);
+                    PlotSpotLabels(Grp2, Graph2, GrdGraphFG2);
                     break;
             }
         }
         #endregion
-
         #region Control de eventos
         void Rfrsh(object sender, EventArgs e)
         {
-            if (sender.Is(graph) || sender.Is(YLbl)) RefreshGraph1();
-            else if (sender.Is(graph2) || sender.Is(Y2Lbl)) RefreshGraph2();
-            else if (sender.Is(xLabels)) RefreshBase();
+            if (sender.Is(Graph) || sender.Is(YLbl)) RefreshGraph1();
+            else if (sender.Is(Graph2) || sender.Is(Y2Lbl)) RefreshGraph2();
+            else if (sender.Is(XLabels)) RefreshBase();
         }
         void Root_Change(object sender, EventArgs e)
         {
@@ -604,7 +597,6 @@ namespace TheXDS.MCART.Controls
             RefreshGraph2();
         }
         #endregion
-
         #region Métodos públicos
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
@@ -693,18 +685,18 @@ namespace TheXDS.MCART.Controls
             Content = pnlroot;
 
             // Conectar eventos...
-            graph.AddedItem += Rfrsh;
-            graph.RemovedItem += Rfrsh;
-            graph.ListCleared += Rfrsh;
-            graph.ListUpdated += Rfrsh;
-            graph2.AddedItem += Rfrsh;
-            graph2.RemovedItem += Rfrsh;
-            graph2.ListCleared += Rfrsh;
-            graph2.ListUpdated += Rfrsh;
-            xLabels.AddedItem += Rfrsh;
-            xLabels.RemovedItem += Rfrsh;
-            xLabels.ListCleared += Rfrsh;
-            xLabels.ListUpdated += Rfrsh;
+            Graph.AddedItem += Rfrsh;
+            Graph.RemovedItem += Rfrsh;
+            Graph.ListCleared += Rfrsh;
+            Graph.ListUpdated += Rfrsh;
+            Graph2.AddedItem += Rfrsh;
+            Graph2.RemovedItem += Rfrsh;
+            Graph2.ListCleared += Rfrsh;
+            Graph2.ListUpdated += Rfrsh;
+            XLabels.AddedItem += Rfrsh;
+            XLabels.RemovedItem += Rfrsh;
+            XLabels.ListCleared += Rfrsh;
+            XLabels.ListUpdated += Rfrsh;
             YLbl.Checked += Rfrsh;
             YLbl.Unchecked += Rfrsh;
             YLbl.Indeterminate += Rfrsh;
@@ -720,7 +712,7 @@ namespace TheXDS.MCART.Controls
         /// <remarks>
         /// Este método omite el valor de la propiedad <see cref="Frozen"/>.
         /// </remarks>
-        public void Redraw()=> Root_Change(this, EventArgs.Empty);        
+        public void Redraw() => Root_Change(this, EventArgs.Empty);
         #endregion
     }
 }

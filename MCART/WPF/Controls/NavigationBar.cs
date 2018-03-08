@@ -1,25 +1,26 @@
-﻿//
-//  NavigationBar.cs
-//
-//  This file is part of Morgan's CLR Advanced Runtime (MCART)
-//
-//  Author:
-//       César Andrés Morgan <xds_xps_ivx@hotmail.com>
-//
-//  Copyright (c) 2011 - 2018 César Andrés Morgan
-//
-//  Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-//
-//  Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-//
-//  You should have received a copy of the GNU General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿/*
+NavigationBar.cs
+
+This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Author(s):
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+
+Copyright (c) 2011 - 2018 César Andrés Morgan
+
+Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+*/
 
 using TheXDS.MCART.Events;
 using System;
@@ -90,7 +91,6 @@ namespace TheXDS.MCART.Controls
         /// <see cref="Thickness"/> predeterminado para algunos controles.
         /// </summary>
         static Thickness thk1 = new Thickness(5, 5, 5, 0);
-
         DockPanel pnlNav = new DockPanel()
         {
             VerticalAlignment = VerticalAlignment.Center
@@ -103,22 +103,22 @@ namespace TheXDS.MCART.Controls
         Button btnFirst = new Button()
         {
             Width = btnW,
-            Content = "⏮"
+            Content = (char)9198
         };
         Button btnPrev = new Button()
         {
             Width = btnW,
-            Content = "◀"
+            Content = (char)9664
         };
         Button btnNext = new Button()
         {
             Width = btnW,
-            Content = "▶"
+            Content = (char)9654
         };
         Button btnLast = new Button()
         {
             Width = btnW,
-            Content = "⏭"
+            Content = (char)9197
         };
 
         // TODO: Reemplazar por un posible nuevo control compatible con marca de agua.
@@ -131,7 +131,6 @@ namespace TheXDS.MCART.Controls
             // marca de agua.            
             Background = null
         };
-
         Button btnClseSearch = new Button()
         {
             Width = btnW,

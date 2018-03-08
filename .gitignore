@@ -43,3 +43,6 @@ test-results/
 
 # dotCover
 *.dotCover
+
+# More JetBrains stuff
+.idea/

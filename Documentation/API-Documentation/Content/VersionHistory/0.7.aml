@@ -24,7 +24,17 @@
         <list class="nobullet">
           <listItem>
             <para>
+              Nuevo: Proyecto de documentación basado en SandCastle.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
               Mejorado: Soporte de plugins parcialmente rescrito.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Cambiado: En lugar de Unit Testing de Visual Studio, se utiliza xUnit.
             </para>
           </listItem>
         </list>

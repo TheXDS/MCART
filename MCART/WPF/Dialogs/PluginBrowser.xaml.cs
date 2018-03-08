@@ -119,7 +119,7 @@ namespace TheXDS.MCART.Dialogs
         void BtnClose_Click(object sender, RoutedEventArgs e) => Close();
         void TrvAsm_Loaded(object sender, RoutedEventArgs e)
         {
-            var pl = new PluginLoader(new RelaxedPluginChecker());
+            var pl = new PluginLoader(new RelaxedPluginChecker(), SanityChecks.IgnoreDanger);
 
             if (trvAsm.Visibility == Visibility.Collapsed) return;
             foreach (var j in pl.PluginTree())

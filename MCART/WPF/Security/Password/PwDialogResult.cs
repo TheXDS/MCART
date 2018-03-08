@@ -1,36 +1,36 @@
-﻿//
-//  PwDialogResult.cs
-//
-//  This file is part of Morgan's CLR Advanced Runtime (MCART)
-//
-//  Author:
-//       César Andrés Morgan <xds_xps_ivx@hotmail.com>
-//
-//  Copyright (c) 2011 - 2018 César Andrés Morgan
-//
-//  Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-//
-//  Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-//
-//  You should have received a copy of the GNU General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿/*
+PwDialogResult.cs
 
-#pragma warning disable CS0282 // No hay un orden específico entre los campos en declaraciones múltiples de la estructura parcial
+This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Author(s):
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+
+Copyright (c) 2011 - 2018 César Andrés Morgan
+
+Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 
 using System.Security;
 using System.Windows;
 
 namespace TheXDS.MCART.Security.Password
 {
+#pragma warning disable CS0282 // No hay un orden específico entre los campos en declaraciones múltiples de la estructura parcial
     public partial struct PwDialogResult
     {
-        MessageBoxResult r;
         /// <summary>
         /// Obtiene el resultado del cuadro de diálogo.
         /// </summary>
@@ -38,7 +38,7 @@ namespace TheXDS.MCART.Security.Password
         /// Un <see cref="MessageBoxResult"/> que indica la acción realizada
         /// por el usuario.
         /// </returns>
-        public MessageBoxResult Result => r;
+        public MessageBoxResult Result { get; }
         /// <summary>
         /// Constante. Resultado de evaluación nulo.
         /// </summary>
@@ -64,12 +64,12 @@ namespace TheXDS.MCART.Security.Password
         /// </param>
         internal PwDialogResult(string us, SecureString pw, string hn, MessageBoxResult re, PwEvalResult ev)
         {
-            u = us;
-            p = pw;
-            if (!(p?.IsReadOnly() ?? true)) p.MakeReadOnly();
-            h = hn;
-            r = re;
-            e = ev;
+            User = us;
+            Password = pw;
+            if (!(Password?.IsReadOnly() ?? true)) Password.MakeReadOnly();
+            Hint = hn;
+            Result = re;
+            Evaluation = ev;
         }
     }
 }

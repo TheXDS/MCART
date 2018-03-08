@@ -1,25 +1,26 @@
-//
-//  ProgressRing.cs
-//
-//  This file is part of Morgan's CLR Advanced Runtime (MCART)
-//
-//  Author:
-//       César Andrés Morgan <xds_xps_ivx@hotmail.com>
-//
-//  Copyright (c) 2011 - 2018 César Andrés Morgan
-//
-//  Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-//
-//  Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-//
-//  You should have received a copy of the GNU General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/*
+ProgressRing.cs
+
+This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Author(s):
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+
+Copyright (c) 2011 - 2018 César Andrés Morgan
+
+Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+*/
 
 using System;
 using System.Windows;
@@ -83,19 +84,54 @@ namespace TheXDS.MCART.Controls
         /// </summary>
         public static DependencyProperty IsIndeterminateProperty = DependencyProperty.Register(
             nameof(IsIndeterminate), typeof(bool), typeof(ProgressRing),
-            new PropertyMetadata(false, Updt));
+            new PropertyMetadata(false, Updt3));
         /// <summary>
         /// Identifica a la propiedad de dependencia <see cref="Maximum"/>.
         /// </summary>
         public static DependencyProperty MaxProperty = DependencyProperty.Register(
             nameof(Maximum), typeof(double), typeof(ProgressRing),
-            new PropertyMetadata(100.0, Updt2));
+            new PropertyMetadata(100.0, (DependencyObject d, DependencyPropertyChangedEventArgs e) =>
+            {
+                ProgressRing p = (ProgressRing)d;
+                double v = (double)e.NewValue;
+                if (double.IsNaN(v)) throw new ArgumentException();
+                if (v < p.Minimum) throw new ArgumentOutOfRangeException(nameof(v));
+                if (!double.IsNaN(p.Redline) && p.Redline > v)
+                    p.Redline = v;
+                Updt2(p, e);
+            }));
         /// <summary>
         /// Identifica a la propiedad de dependencia <see cref="Minimum"/>.
         /// </summary>
         public static DependencyProperty MinProperty = DependencyProperty.Register(
             nameof(Minimum), typeof(double), typeof(ProgressRing),
-            new PropertyMetadata(0.0, Updt2));
+            new PropertyMetadata(0.0, (DependencyObject d, DependencyPropertyChangedEventArgs e) =>
+            {
+                ProgressRing p = (ProgressRing)d;
+                double v = (double)e.NewValue;
+                if (double.IsNaN(v)) throw new ArgumentException();
+                if (v > p.Maximum) throw new ArgumentOutOfRangeException(nameof(v));
+                Updt2(p, e);
+            }));
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="Redline"/>.
+        /// </summary>
+        public static DependencyProperty RedlineProperty = DependencyProperty.Register(
+            nameof(Redline), typeof(double), typeof(ProgressRing),
+            new PropertyMetadata(double.NaN, (DependencyObject d, DependencyPropertyChangedEventArgs e) =>
+            {
+                ProgressRing p = (ProgressRing)d;
+                double v = (double)e.NewValue;
+                if (!(double.IsNaN(v) || v.IsBetween(p.Minimum, p.Maximum)))
+                    throw new ArgumentOutOfRangeException();
+                Updt3(p, e);
+            }));
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="RedlineBrush"/>.
+        /// </summary>
+        public static DependencyProperty RedlineBrushProperty = DependencyProperty.Register(
+                nameof(RedlineBrush), typeof(Brush), typeof(ProgressRing),
+                new PropertyMetadata((Brush)(new Types.Color(255, 0, 0, 128))));
         /// <summary>
         /// Identifica a la propiedad de dependencia <see cref="RingStroke"/>.
         /// </summary>
@@ -126,7 +162,7 @@ namespace TheXDS.MCART.Controls
         /// </summary>
         public static DependencyProperty ThicknessProperty = DependencyProperty.Register(
             nameof(Thickness), typeof(double), typeof(ProgressRing),
-            new PropertyMetadata(4.0, Updt));
+            new PropertyMetadata(4.0, Updt3));
         /// <summary>
         /// Identifica a la propiedad de dependencia <see cref="Value"/>.
         /// </summary>
@@ -137,6 +173,7 @@ namespace TheXDS.MCART.Controls
         #region Campos privados
         bool amIAnimated = false;
         Path ellBg = new Path();
+        Path redlinePath = new Path() { Stroke = new Types.Color(255, 0, 0, 192) };
         Path pth = new Path()
         {
             RenderTransform = new RotateTransform(),
@@ -151,41 +188,6 @@ namespace TheXDS.MCART.Controls
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
         };
-        #endregion
-        #region Métodos privados
-        void BgDraw()
-        {
-            double radius = 50 - Thickness / 2;
-            if (!IsIndeterminate)
-                ellBg.Data = GetCircleArc(radius, Angle, Angle + FullAngle.Clamp(0f, 359.999f), Thickness);
-            else
-                ellBg.Data = GetCircleArc(radius, 0, 359.999, Thickness);
-        }
-        void Draw()
-        {
-            double radius = 50 - Thickness / 2;
-            if (!pth.IsLoaded) return;
-            RotateTransform x = (RotateTransform)pth.RenderTransform;
-            if (!IsIndeterminate)
-            {
-                amIAnimated = false;
-                x.BeginAnimation(RotateTransform.AngleProperty, null);
-                pth.Data = GetCircleArc(radius, Angle, Angle + (((Value - Minimum) / (Maximum - Minimum)) * FullAngle).Clamp(0, 359.999), Thickness);
-                TxtPercent.Text = string.Format(TextFormat, Value);
-            }
-            else if (!amIAnimated)
-            {
-                pth.Data = GetCircleArc(radius, 90, Thickness);
-                amIAnimated = true;
-                x.BeginAnimation(RotateTransform.AngleProperty, spin);
-                TxtPercent.Text = "...";
-            }
-        }
-        void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            BgDraw();
-            Draw();
-        }
         #endregion
         #region Propiedades
         /// <summary>
@@ -241,6 +243,22 @@ namespace TheXDS.MCART.Controls
         {
             get => (double)GetValue(MinProperty);
             set => SetValue(MinProperty, value);
+        }
+        /// <summary>
+        /// Obtiene o establece el punto en el que inicia la línea de límite.
+        /// </summary>
+        public double Redline
+        {
+            get => (double)GetValue(RedlineProperty);
+            set => SetValue(RedlineProperty, value);
+        }
+        /// <summary>
+        /// Obtiene o establece el color de la línea de límite.
+        /// </summary>
+        public Brush RedlineBrush
+        {
+            get => (Brush)GetValue(RedlineBrushProperty);
+            set => SetValue(RedlineBrushProperty, value);
         }
         /// <summary>
         /// Obtiene o establece el <see cref="Brush"/> a utilizar para dibujar
@@ -305,6 +323,8 @@ namespace TheXDS.MCART.Controls
         {
             ellBg.SetBinding(Shape.StrokeThicknessProperty, new Binding(nameof(Thickness)) { Source = this });
             ellBg.SetBinding(Shape.StrokeProperty, new Binding(nameof(RingStroke)) { Source = this });
+            redlinePath.SetBinding(Shape.StrokeThicknessProperty, new Binding(nameof(Thickness)) { Source = this });
+            redlinePath.SetBinding(Shape.StrokeProperty, new Binding(nameof(RedlineBrush)) { Source = this });
             pth.SetBinding(Shape.StrokeThicknessProperty, new Binding(nameof(Thickness)) { Source = this });
             pth.SetBinding(Shape.StrokeProperty, new Binding(nameof(Fill)) { Source = this });
             spin.KeyFrames.Add(new EasingDoubleKeyFrame()
@@ -316,10 +336,66 @@ namespace TheXDS.MCART.Controls
             a.SetBinding(HeightProperty, new Binding(nameof(Width)) { Source = a, Mode = BindingMode.TwoWay });
             a.Children.Add(ellBg);
             a.Children.Add(pth);
+            a.Children.Add(redlinePath);
             TxtPercent.SetBinding(TextBlock.FontSizeProperty, new Binding(nameof(TextSize)) { Source = this });
             a.Children.Add(TxtPercent);
             Content = new Viewbox() { Child = a };
             Loaded += OnLoaded;
         }
+        #region Métodos privados
+        void BgDraw()
+        {
+            double radius = 50 - Thickness / 2;
+            double fullAngle = FullAngle.Clamp(0f, 359.999f);
+            if (!IsIndeterminate)
+                ellBg.Data = GetCircleArc(radius, Angle, Angle + fullAngle, Thickness);
+            else
+                ellBg.Data = GetCircleArc(radius, 0, 359.999, Thickness);
+
+            if (!double.IsNaN(Redline))
+            {
+                redlinePath.Data = GetCircleArc(radius, (((Redline - Minimum) / (Maximum - Minimum)) * FullAngle) + Angle, Angle + FullAngle, Thickness);
+            }
+            else
+                redlinePath.Data = null;
+        }
+        void Draw()
+        {
+            double radius = 50 - Thickness / 2;
+            if (!pth.IsLoaded) return;
+            RotateTransform x = (RotateTransform)pth.RenderTransform;
+            if (!IsIndeterminate)
+            {
+                amIAnimated = false;
+                x.BeginAnimation(RotateTransform.AngleProperty, null);
+                switch (Sweep)
+                {
+                    case SweepDirection.Clockwise:
+                        pth.Data = GetCircleArc(radius, Angle, Angle + (((Value - Minimum) / (Maximum - Minimum)) * FullAngle).Clamp(0, 359.999), Thickness);
+                        break;
+                    case SweepDirection.CounterClockwise:
+                        pth.Data = GetCircleArc(radius, Angle + (((Maximum-(Value - Minimum)) / (Maximum - Minimum)) * FullAngle).Clamp(0, 359.999), Angle + FullAngle, Thickness);
+                        break;
+                    default:
+                        break;
+                }
+
+
+                TxtPercent.Text = string.Format(TextFormat, Value);
+            }
+            else if (!amIAnimated)
+            {
+                pth.Data = GetCircleArc(radius, 90, Thickness);
+                amIAnimated = true;
+                x.BeginAnimation(RotateTransform.AngleProperty, spin);
+                TxtPercent.Text = "...";
+            }
+        }
+        void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            BgDraw();
+            Draw();
+        }
+        #endregion
     }
 }

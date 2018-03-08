@@ -2,11 +2,11 @@
 using System.Collections;
 using System.Linq;
 using System.Reflection;
+using TheXDS.MCART;
+using TheXDS.MCART.Resources;
 using Xunit;
-using static TheXDS.MCART.Objects;
-using static TheXDS.MCART.Resources.RTInfo;
 
-namespace CoreTests.Modules
+namespace CoreTest.Modules
 {
     [AttrTest]
     public class ObjectsTest
@@ -32,14 +32,14 @@ namespace CoreTests.Modules
         [Fact]
         public void IsAnyNullTest()
         {
-            Assert.True(IsAnyNull(0, 1, null));
-            Assert.False(IsAnyNull(0, 1, 2, 3));
+            Assert.True(Objects.IsAnyNull(0, 1, null));
+            Assert.False(Objects.IsAnyNull(0, 1, 2, 3));
         }
         [Fact]
         public void AreAllNullTest()
         {
-            Assert.True(AreAllNull(null, null, null));
-            Assert.False(AreAllNull(0, null));
+            Assert.True(Objects.AreAllNull(null, null, null));
+            Assert.False(Objects.AreAllNull(0, null));
         }
         [Fact]
         public void ItselfTest()
@@ -80,7 +80,7 @@ namespace CoreTests.Modules
         [Fact]
         public void GetTypesTest()
         {
-            Assert.True(GetTypes<IComparable>().Count() > 2);
+            Assert.True(Objects.GetTypes<IComparable>().Count() > 2);
         }
         [Fact]
         public void ToTypesTest()
@@ -103,9 +103,9 @@ namespace CoreTests.Modules
         [Fact]
         public void GetAttrTest()
         {
-            Assert.NotNull(RTAssembly.GetAttr<AssemblyTitleAttribute>());
+            Assert.NotNull(RTInfo.RTAssembly.GetAttr<AssemblyTitleAttribute>());
             Assert.NotNull(MethodBase.GetCurrentMethod().GetAttr<FactAttribute>());
-            Assert.NotNull(GetAttr<AttrTestAttribute, ObjectsTest>());
+            Assert.NotNull(Objects.GetAttr<AttrTestAttribute, ObjectsTest>());
             Assert.NotNull(typeof(ObjectsTest).GetAttr<AttrTestAttribute>());
         }
     }

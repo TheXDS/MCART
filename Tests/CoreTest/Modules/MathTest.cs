@@ -23,13 +23,12 @@
 
 using TheXDS.MCART;
 using Xunit;
-using static TheXDS.MCART.Math;
-
+using Math = TheXDS.MCART.Math;
 #if FloatDoubleSpecial
-using System;
+
 #endif
 
-namespace CoreTests.Modules
+namespace CoreTest.Modules
 {
     public class MathTest
     {
@@ -49,45 +48,45 @@ namespace CoreTests.Modules
         [Fact]
         public void AreValidTest()
         {
-            Assert.True(AreValid(1f, 2f, 3f, 4f, 5f));
-            Assert.False(AreValid(1f, 2f, float.NaN, 4f, 5f));
+            Assert.True(Math.AreValid(1f, 2f, 3f, 4f, 5f));
+            Assert.False(Math.AreValid(1f, 2f, float.NaN, 4f, 5f));
 
         }
         [Fact]
         public void Nearest2PowTest()
         {
-            Assert.Equal(512,Nearest2Pow(456));
+            Assert.Equal(512,Math.Nearest2Pow(456));
         }
         [Fact]
         public void NearestMultiplyUpTest()
         {
-            Assert.Equal(81.0, NearestMultiplyUp(50, 3));
+            Assert.Equal(81.0, Math.NearestMultiplyUp(50, 3));
         }
         [Fact]
         public void ArePositivesTest()
         {
-            Assert.True(ArePositives(1, 2, 3, 4, 5));
-            Assert.False(ArePositives(1, 2, 3, 0));
-            Assert.False(ArePositives(1, 2, 3, -1));
+            Assert.True(Math.ArePositives(1, 2, 3, 4, 5));
+            Assert.False(Math.ArePositives(1, 2, 3, 0));
+            Assert.False(Math.ArePositives(1, 2, 3, -1));
         }
         [Fact]
         public void AreNegativesTest()
         {
-            Assert.True(AreNegatives(-1, -2, -3, -4, -5));
-            Assert.False(AreNegatives(-1, -2, -3, 0));
-            Assert.False(AreNegatives(-1, -2, -3, 1));
+            Assert.True(Math.AreNegatives(-1, -2, -3, -4, -5));
+            Assert.False(Math.AreNegatives(-1, -2, -3, 0));
+            Assert.False(Math.AreNegatives(-1, -2, -3, 1));
         }
         [Fact]
         public void AreZeroTest()
         {
-            Assert.True(AreZero(0, 0, 0));
-            Assert.False(AreZero(0, 1, 0));
+            Assert.True(Math.AreZero(0, 0, 0));
+            Assert.False(Math.AreZero(0, 1, 0));
         }
         [Fact]
         public void AreNotZeroTest()
         {
-            Assert.True(AreNotZero(1, 2, 3));
-            Assert.False(AreNotZero(1, 2, 0));
+            Assert.True(Math.AreNotZero(1, 2, 3));
+            Assert.False(Math.AreNotZero(1, 2, 0));
         }
         [Fact]
         public void ClampTest()

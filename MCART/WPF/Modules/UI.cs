@@ -32,6 +32,8 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Animation;
+using System.Runtime.InteropServices;
+using System.Windows.Interop;
 
 namespace TheXDS.MCART
 {
@@ -41,10 +43,40 @@ namespace TheXDS.MCART
     /// </summary>
     public static partial class UI
     {
-        /// <summary>
-        /// Contiene información de los controles modificados por la función
-        /// <see cref="Warn(Control, string)"/>.
-        /// </summary>
+        [DllImport("user32.dll")]
+        static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
+        static List<OrigControlColor> origctrls = new List<OrigControlColor>();
+        static List<BitmapEncoder> bEncLst;
+        static void SetBlur(Window window, AccentState state)
+        {
+            var windowHelper = new WindowInteropHelper(window);
+            var accent = new AccentPolicy { AccentState = state };
+            var accentStructSize = Marshal.SizeOf(accent);
+            var accentPtr = Marshal.AllocHGlobal(accentStructSize);
+            Marshal.StructureToPtr(accent, accentPtr, false);
+            var data = new WindowCompositionAttributeData
+            {
+                Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY,
+                SizeOfData = accentStructSize,
+                Data = accentPtr
+            };
+            SetWindowCompositionAttribute(windowHelper.Handle, ref data);
+            Marshal.FreeHGlobal(accentPtr);
+        }
+        enum WindowCompositionAttribute
+        {
+            // ...
+            WCA_ACCENT_POLICY = 19
+            // ...
+        }
+        enum AccentState
+        {
+            ACCENT_DISABLED = 0,
+            ACCENT_ENABLE_GRADIENT = 1,
+            ACCENT_ENABLE_TRANSPARENTGRADIENT = 2,
+            ACCENT_ENABLE_BLURBEHIND = 3,
+            ACCENT_INVALID_STATE = 4
+        }
         struct OrigControlColor
         {
             /// <summary>
@@ -64,16 +96,31 @@ namespace TheXDS.MCART
             /// </summary>
             internal ToolTip ttip;
         }
+        [StructLayout(LayoutKind.Sequential)]
+        struct WindowCompositionAttributeData
+        {
+            public WindowCompositionAttribute Attribute;
+            public IntPtr Data;
+            public int SizeOfData;
+        }
+        [StructLayout(LayoutKind.Sequential)]
+        struct AccentPolicy
+        {
+            public AccentState AccentState;
+            public int AccentFlags;
+            public int GradientColor;
+            public int AnimationId;
+        }
         /// <summary>
-        /// Lista privada de estados de los controles modificados por la función
-        /// <see cref="Warn(Control, string)"/>
+        /// Habilita los efectos de difuminado de Windows 10 en la ventana de WPF.
         /// </summary>
-        static List<OrigControlColor> origctrls = new List<OrigControlColor>();
+        /// <param name="window">Instancia de ventana a difuminar.</param>
+        public static void EnableBlur(this Window window) => SetBlur(window, AccentState.ACCENT_ENABLE_BLURBEHIND);
         /// <summary>
-        /// Lista privada de <see cref="BitmapEncoder"/> cargados en el
-        /// <see cref="AppDomain"/> actual.
+        /// Deshabilita los efectos de difuminado de Windows 10 en la ventana de WPF.
         /// </summary>
-        static List<BitmapEncoder> bEncLst;
+        /// <param name="window">Instancia de ventana a difuminar.</param>
+        public static void DisableBlur(this Window window) => SetBlur(window, AccentState.ACCENT_DISABLED);
         /// <summary>
         /// Devuelve una colección de los códecs de mapas de bits disponibles.
         /// Soporta cargar códecs desde cualquier ensamblado cargado.

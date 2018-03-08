@@ -28,25 +28,23 @@ using Cl = TheXDS.MCART.Networking.Client;
 using TheXDS.MCART.Networking.Server.Protocols;
 #endif
 
-namespace CoreTests.Networking
+namespace CoreTest.Networking
 {
     public class NetworkingTest
     {
         [Fact]
         public void TalkTest()
         {
-            Server srv = new Server(new Echo(), new IPEndPoint(IPAddress.Loopback, 51220));
+            var srv = new Server(new Echo(), new IPEndPoint(IPAddress.Loopback, 51220));
             srv.Start();
             Assert.True(srv.IsAlive);
-            Cl.Client cl = new Cl.Client();
+            var cl = new Cl.Client();
             cl.Connect("localhost");
 
             byte[] test = { 10, 20, 30, 40, 50 };
-            byte[] resp = cl.TalkToServer(test);
+            var resp = cl.TalkToServer(test);
             cl.Disconnect();
             srv.Stop();
-            cl = null;
-            srv = null;
 
             Assert.Equal(test.Length, resp.Length);
             for (byte j = 0; j < 5; j++)
