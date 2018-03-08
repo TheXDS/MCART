@@ -119,9 +119,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}"/>.
         /// </typeparam>
         /// <param name="c"><see cref="IEnumerable{T}"/> a desordenar.</param>
-        /// <param name="firstIdx">Índice inicial del intervalo.</param>
-        /// <param name="lastIdx">Índice inicial del intervalo.</param>
-        public static void Shuffle<T>(this IEnumerable<T> c, int firstIdx, int lastIdx) => Shuffle(c, firstIdx, lastIdx, 1);
+        /// <param name="firstIndex">Índice inicial del intervalo.</param>
+        /// <param name="lastIndex">Índice inicial del intervalo.</param>
+        public static void Shuffle<T>(this IEnumerable<T> c, int firstIndex, int lastIndex) => Shuffle(c, firstIndex, lastIndex, 1);
         /// <summary>
         /// Desordena los elementos del intervalo especificado de un
         /// <see cref="IEnumerable{T}"/>.
@@ -131,23 +131,24 @@ namespace TheXDS.MCART.Types.Extensions
         /// </typeparam>
         /// <param name="c"><see cref="IEnumerable{T}"/> a desordenar.</param>
         /// <param name="deepness">Profundidad del desorden. 1 es el más alto.</param>
-        /// <param name="firstIdx">Índice inicial del intervalo.</param>
-        /// <param name="lastIdx">Índice inicial del intervalo.</param>
-        public static void Shuffle<T>(this IEnumerable<T> c, int firstIdx, int lastIdx, int deepness)
+        /// <param name="firstIndex">Índice inicial del intervalo.</param>
+        /// <param name="lastIndex">Índice inicial del intervalo.</param>
+        public static void Shuffle<T>(this IEnumerable<T> c, int firstIndex, int lastIndex, int deepness)
         {
             if (c is null) throw new ArgumentNullException(nameof(c));
-            if (!c.Any()) throw new EmptyCollectionException(c);
-            if (!firstIdx.IsBetween(0, c.Count())) throw new IndexOutOfRangeException();
-            if (!lastIdx.IsBetween(0, c.Count() - 1)) throw new IndexOutOfRangeException();
-            if (!deepness.IsBetween(1, firstIdx - lastIdx)) throw new ArgumentOutOfRangeException(nameof(deepness));
-            if (firstIdx > lastIdx) Common.Swap(ref firstIdx, ref lastIdx);
-            T[] a = c.ToArray();
+            var toShuffle = c as T[] ?? c.ToArray();
+            if (!toShuffle.Any()) throw new EmptyCollectionException(toShuffle);
+            if (!firstIndex.IsBetween(0, toShuffle.Length - 2)) throw new IndexOutOfRangeException();
+            if (!lastIndex.IsBetween(0, toShuffle.Length - 1)) throw new IndexOutOfRangeException();
+            if (!deepness.IsBetween(1, lastIndex - firstIndex)) throw new ArgumentOutOfRangeException(nameof(deepness));
+            if (firstIndex > lastIndex) Common.Swap(ref firstIndex, ref lastIndex);
+            T[] a = toShuffle.ToArray();
             Random rnd = new Random();
-            lastIdx++;
-            for (int j = firstIdx; j < lastIdx; j += deepness)
-                Common.Swap(ref a[j], ref a[rnd.Next(firstIdx, lastIdx)]);
-            c.ToList().Clear();
-            c.ToList().AddRange(a);
+            lastIndex++;
+            for (int j = firstIndex; j < lastIndex; j += deepness)
+                Common.Swap(ref a[j], ref a[rnd.Next(firstIndex, lastIndex)]);
+            toShuffle.ToList().Clear();
+            toShuffle.ToList().AddRange(a);
         }
         /// <summary>
         /// Devuelve una versión desordenada del <see cref="IEnumerable{T}"/>
