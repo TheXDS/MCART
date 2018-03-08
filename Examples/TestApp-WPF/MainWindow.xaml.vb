@@ -95,13 +95,17 @@ Public Class MainWindow
             .Colorizer = New HeatColorizer(),
             .ToolTipFormat = "{0}: {1}"}
         r.Slices.Add(New Slice())
+        r.Slices.Add(New Slice() With{.Value=2.5})
         r.Slices.Add(New Slice())
-        r.Slices.Add(New Slice())
-        r.Slices.Add(New Slice())
-        r.Slices.Add(New Slice())
+        dim rrr as New Random()
+        'For i As Integer = 0 To 5
+
+        '    r.Slices.Add(New Slice() With {.Value=rrr.NextDouble()+0.5})
+        'Next
+        r.Slices.Add(New Slice() With{.Value=0.7})
         Dim a As New Slice()
         a.SubSlices.Add(New Slice())
-        Dim b As New Slice()
+        Dim b As New Slice() With{ .Value=2.1}
         Dim c As New Slice()
         b.SubSlices.Add(c)
         a.SubSlices.Add(b)

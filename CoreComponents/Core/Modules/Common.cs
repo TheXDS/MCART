@@ -690,8 +690,8 @@ namespace TheXDS.MCART
         public static float Likeness(this string ofString, string toString, int tolerance)
         {
             int steps = 0, likes = 0;
-            ofString = ofString.ToUpper().PadLeft(toString.Length + tolerance);
-            foreach (char c in toString.ToUpper())
+            ofString = new string(' ', tolerance - 1) + ofString.ToUpper() + new string(' ', tolerance - 1);
+            foreach (var c in toString.ToUpper())
             {
                 if (ofString.Substring(steps++, tolerance).Contains(c)) likes++;
             }
@@ -711,7 +711,7 @@ namespace TheXDS.MCART
         /// Se produce cuando <paramref name="checkName"/> o
         /// <paramref name="actualName"/> son cadenas vacías o <see langword="null"/>.
         /// </exception>
-        public static double CouldItBe(this string checkName, string actualName) => CouldItBe(checkName, actualName, 0.75f);
+        public static float CouldItBe(this string checkName, string actualName) => CouldItBe(checkName, actualName, 0.75f);
         /// <summary>
         /// Comprueba si un nombre podría tratarse de otro indicado.
         /// </summary>
@@ -735,21 +735,17 @@ namespace TheXDS.MCART
         /// Se produce cuando <paramref name="checkName"/> o
         /// <paramref name="actualName"/> son cadenas vacías o <see langword="null"/>.
         /// </exception>
-        public static double CouldItBe(this string checkName, string actualName, float tolerance = 0.75f)
+        public static float CouldItBe(this string checkName, string actualName, float tolerance)
         {
             if (!tolerance.IsBetween(0, 1)) throw new ArgumentOutOfRangeException(nameof(tolerance));
             if (checkName.IsEmpty()) throw new ArgumentNullException(nameof(checkName));
             if (actualName.IsEmpty()) throw new ArgumentNullException(nameof(actualName));
-            float l = 0, n = 0;
-            int m = 0;
-            foreach (string j in checkName.Split(' '))
+            var n = 0f;
+            var m = 0;
+            foreach (var j in checkName.Split(' '))
             {
                 m++;
-                foreach (string k in actualName.Split(' '))
-                {
-                    l = j.Likeness(k);
-                    if (l > tolerance) n += l;
-                }
+                n += actualName.Split(' ').Select(k => j.Likeness(k)).Where(l => l > tolerance).Sum();
             }
             return n / m;
         }
