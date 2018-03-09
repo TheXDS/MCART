@@ -476,16 +476,9 @@ namespace TheXDS.MCART
         /// </typeparam>
         public static void Swap<T>(ref T a, ref T b)
         {
-            try
-            {
-                var c = a;
-                a = b;
-                b = c;
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidCastException(string.Empty, ex);
-            }
+            var c = a;
+            a = b;
+            b = c;
         }
 
         /// <summary>
@@ -514,7 +507,7 @@ namespace TheXDS.MCART
         [Thunk]
         public static IEnumerable<int> Sequence(int top)
         {
-            return Sequence(top, 0, 1);
+            return Sequence(0, top, 1);
         }
 
         /// <summary>
@@ -523,12 +516,12 @@ namespace TheXDS.MCART
         /// <returns>
         ///     Una lista de enteros con la secuencia generada.
         /// </returns>
-        /// <param name="top">Valor más alto.</param>
         /// <param name="floor">Valor más bajo.</param>
+        /// <param name="top">Valor más alto.</param>
         [Thunk]
-        public static IEnumerable<int> Sequence(int top, int floor)
+        public static IEnumerable<int> Sequence(int floor, int top)
         {
-            return Sequence(top, floor, 1);
+            return Sequence(floor, top, 1);
         }
 
         /// <summary>
@@ -537,20 +530,14 @@ namespace TheXDS.MCART
         /// <returns>
         ///     Una lista de enteros con la secuencia generada.
         /// </returns>
-        /// <param name="top">Valor más alto.</param>
         /// <param name="floor">Valor más bajo.</param>
+        /// <param name="top">Valor más alto.</param>
         /// <param name="stepping">Saltos del secuenciador.</param>
-        public static IEnumerable<int> Sequence(int top, int floor, int stepping)
+        public static IEnumerable<int> Sequence(int floor, int top, int stepping)
         {
-            if (floor > top)
-            {
-                Swap(ref floor, ref top);
-                stepping *= -1;
-            }
-
-            if (stepping == 0 || System.Math.Abs(stepping) > System.Math.Abs(top - floor))
-                throw new ArgumentOutOfRangeException(nameof(stepping));
-            for (var b = floor; b <= top; b += stepping) yield return b;
+            if (floor > top) stepping *= -1;
+            for (var b = floor; stepping > 0 ? b <= top : b >= top; b += stepping)
+                yield return b;
         }
 
         /// <summary>
@@ -778,7 +765,7 @@ namespace TheXDS.MCART
         public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, int min, int max)
         {
             if (min == max) throw new InvalidOperationException();
-            foreach (var j in collection) yield return (j - min) / (float) (max - min);
+            foreach (var j in collection) yield return (j - min) / (float)(max - min);
         }
 
         /// <summary>
@@ -848,7 +835,7 @@ namespace TheXDS.MCART
         public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, int min, int max)
         {
             if (min == max) throw new InvalidOperationException();
-            foreach (var j in collection) yield return (j - min) / (double) (max - min);
+            foreach (var j in collection) yield return (j - min) / (double)(max - min);
         }
 
         /// <summary>
@@ -882,7 +869,7 @@ namespace TheXDS.MCART
                 if (ofString.Substring(steps++, tolerance).Contains(c)) likes++;
             }
 
-            return likes / (float) steps;
+            return likes / (float)steps;
         }
 
         /// <summary>
@@ -929,9 +916,9 @@ namespace TheXDS.MCART
         /// </exception>
         public static float CouldItBe(this string checkName, string actualName, float tolerance)
         {
-            if (!tolerance.IsBetween(0, 1)) throw new ArgumentOutOfRangeException(nameof(tolerance));
             if (checkName.IsEmpty()) throw new ArgumentNullException(nameof(checkName));
             if (actualName.IsEmpty()) throw new ArgumentNullException(nameof(actualName));
+            if (!tolerance.IsBetween(float.Epsilon, 1)) throw new ArgumentOutOfRangeException(nameof(tolerance));
             var n = 0f;
             var m = 0;
             foreach (var j in checkName.Split(' '))
