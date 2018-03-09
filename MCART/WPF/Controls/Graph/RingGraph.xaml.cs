@@ -172,8 +172,8 @@ namespace TheXDS.MCART.Controls
             grdRoot.Children.Clear();
             Grid g = new Grid();
             grdRoot.Children.Add(g);
-            g.SetBinding(HeightProperty, new Binding(nameof(ActualHeight)) { Source = grdRoot });
-            g.SetBinding(WidthProperty, new Binding(nameof(ActualWidth)) { Source = grdRoot });
+            g.SetBinding(HeightProperty, new Binding(nameof(ActualHeight)) { Source = grdRoot, Mode = BindingMode.OneWay });
+            g.SetBinding(WidthProperty, new Binding(nameof(ActualWidth)) { Source = grdRoot, Mode = BindingMode.OneWay});
             RdrwChild(Slices, g, 0, 360, pnlLabels.Items, out double tot);
             SetValue(TotalPropertyKey, tot);
             txtTotal.Text = tot.ToString();
@@ -189,9 +189,10 @@ namespace TheXDS.MCART.Controls
             //HACK: Aún no es posible redibujar selectivamente los hijos de r.
             Redraw();
         }
-        private void RdrwSeries(Slice j, double tot, double angle, double sze, Grid g, ItemCollection i, out TreeViewItem t)
+        private void RdrwSeries(Slice j, double tot, double angle, double sze, Grid g, ItemCollection i, int currsl, out TreeViewItem t)
         {
-            Path p = new Path { Data = UI.GetCircleArc(((new[] { g.ActualWidth, g.Width }).Max() - RingThickness) / 2, angle, angle + sze, RingThickness) };
+            var ssz = (200 + currsl * (RingThickness*2) - RingThickness) / 2;
+            Path p = new Path { Data = UI.GetCircleArc(ssz, angle, angle + sze, RingThickness) };
             p.SetBinding(Shape.StrokeProperty, new Binding(nameof(j.SliceBrush)) { Source = j });
             p.SetBinding(Shape.StrokeThicknessProperty, new Binding(nameof(RingThickness)) { Source = this });
             if (!ToolTipFormat.IsEmpty()) p.ToolTip = new ToolTip { Content = string.Format(ToolTipFormat, j.Name, j.Value) };
@@ -213,11 +214,10 @@ namespace TheXDS.MCART.Controls
             total = slices.GetTotal();
             double ang = startAngle;
             if (!grdRoot.Children.Contains(g))
-            {
                 grdRoot.Children.Add(g);
-                grdRoot.UpdateLayout();
-                g.UpdateLayout();
-            }
+            grdRoot.Measure(Size.Empty);
+            grdRoot.UpdateLayout();
+
             Grid subg = null;
             if (SubLevelsShown - 1 > sublevel)
             {
@@ -228,7 +228,7 @@ namespace TheXDS.MCART.Controls
             {
                 if (g.Children.Contains(k.shape)) g.Children.Remove(k.shape);
                 double sz = totalSize * (k.Value / total);
-                RdrwSeries(k, total, ang, sz, g, labels, out TreeViewItem t);
+                RdrwSeries(k, total, ang, sz, g, labels, sublevel, out TreeViewItem t);
                 if (SubLevelsShown - 1 > sublevel)
                 {
                     RdrwChild(

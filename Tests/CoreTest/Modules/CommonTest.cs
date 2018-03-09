@@ -36,16 +36,6 @@ namespace CoreTest.Modules
         }
 
         /// <summary>
-        ///     Prueba del método <see cref="Common.Condense(System.Collections.Generic.IEnumerable{string}, string)" />
-        /// </summary>
-        [Fact]
-        public void CondenseTest()
-        {
-            Assert.Equal("A B C", new[] { "A", "B", "C" }.Condense());
-            Assert.Equal("A, B, C", new[] { "A", "B", "C" }.Condense(", "));
-        }
-
-        /// <summary>
         ///     Prueba del método <see cref="Common.ContainsAny(string, char[])" />.
         /// </summary>
         [Fact]

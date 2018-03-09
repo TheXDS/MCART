@@ -44,7 +44,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\PwEvalResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\ColorParsers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\StreamExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\IEnumerableExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\EnumerableExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\List\Enums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\List\Events.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\RandomExtensions.cs" />

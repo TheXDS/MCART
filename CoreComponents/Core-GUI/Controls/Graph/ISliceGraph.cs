@@ -53,7 +53,7 @@ namespace TheXDS.MCART.Controls
         /// Obtiene un listado de los <see cref="Slice"/> que conforman el
         /// set de datos de este <see cref="ISliceGraph"/>.
         /// </summary>
-        System.Collections.Generic.IList<Slice> Slices { get; }
+        System.Collections.Generic.IList<Slice> Slices { get; set; }
         /// <summary>
         /// Obtiene el total general de los datos de este 
         /// <see cref="ISliceGraph"/>.
