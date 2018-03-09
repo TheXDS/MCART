@@ -143,6 +143,34 @@ namespace TheXDS.MCART.Attributes
 
     /// <inheritdoc />
     /// <summary>
+    ///     Agrega un elemento de tipo a un elemento, además de ser la
+    ///     clase base para los atributos que describan un valor representable como
+    ///     <see cref="Type" /> para un elemento.
+    /// </summary>
+    [AttributeUsage(All)]
+    [Serializable]
+    public class TypeAttribute : Attribute
+    {
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="TypeAttribute" />.
+        /// </summary>
+        /// <param name="type">Valor de este atributo.</param>
+        protected TypeAttribute(Type type)
+        {
+            Value = type;
+        }
+
+        /// <summary>
+        ///     Obtiene el valor asociado a este atributo.
+        /// </summary>
+        /// <value>El valor de este atributo.</value>
+        public Type Value { get; }
+    }
+
+    /// <inheritdoc />
+    /// <summary>
     ///     Especifica la versión de un elemento, además de ser la clase base para
     ///     los atributos que describan un valor <see cref="Version" /> para un
     ///     elemento.
