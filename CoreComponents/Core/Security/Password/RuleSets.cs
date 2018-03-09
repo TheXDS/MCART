@@ -305,7 +305,7 @@ namespace TheXDS.MCART.Security.Password
         {
             return ContentionRuleFactory(
 #if NativeNumbers
-            System.Globalization.NumberFormatInfo.CurrentInfo.NativeDigits.Condense()
+            string.Join(null, System.Globalization.NumberFormatInfo.CurrentInfo.NativeDigits)
 #else
             St.Numbers
 #endif

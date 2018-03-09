@@ -49,7 +49,17 @@ namespace TheXDS.MCART.Controls
         /// observación de la lista de <see cref="Slice"/> se implementa
         /// mediante eventos.
         /// </remarks>
-        public IList<Slice> Slices => slices;
+        public IList<Slice> Slices
+        {
+            get => slices;
+            set
+            {
+                slices.Clear();
+                foreach (var j in value)
+                    slices.Add(j);
+            }
+        }
+
         /// <summary>
         /// Obtiene o establece un <see cref="IGraphColorizer"/> opcional a
         /// utilizar para establecer los colores de las series.
@@ -88,7 +98,6 @@ namespace TheXDS.MCART.Controls
                     foreach (Slice j in e.OldItems) j.DrawingParent = null;
                     break;
                 case NotifyCollectionChangedAction.Reset: return;
-                default: break;
             }
             Redraw();
         }
