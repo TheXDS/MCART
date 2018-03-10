@@ -5,9 +5,6 @@ MCART
 </h1>
 </div>
 
-[![Build status](https://ci.appveyor.com/api/projects/status/e7nvl288x20kt4ls?svg=true)](https://ci.appveyor.com/project/TheXDS/mcart)
-[![Coverage Status](https://coveralls.io/repos/github/TheXDS/MCART/badge.svg?branch=master)](https://coveralls.io/github/TheXDS/MCART?branch=master)
-
 ## Introducción
 MCART es un conjunto de funciones, extensiones y módulos que he encontrado
 útiles a lo largo de mis años de experiencia con lenguajes .Net,
