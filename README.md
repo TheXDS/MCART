@@ -4,6 +4,8 @@
 MCART
 </h1>
 </div>
+
+[![Build status](https://ci.appveyor.com/api/projects/status/e7nvl288x20kt4ls?svg=true)](https://ci.appveyor.com/project/TheXDS/mcart)
 <a href='https://coveralls.io/github/TheXDS/MCART?branch=master'><img src='https://coveralls.io/repos/github/TheXDS/MCART/badge.svg?branch=master' alt='Coverage Status' /></a>
 
 ## Introducción
