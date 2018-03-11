@@ -30,75 +30,68 @@ namespace TheXDS.MCART.Controls
 {
     public partial class RingGraph : ISliceGraph
     {
-        IGraphColorizer colorizer;
-        readonly ObservableCollection<Slice> slices = new ObservableCollection<Slice>();
+        private readonly ObservableCollection<Slice> _slices = new ObservableCollection<Slice>();
+        private IGraphColorizer _colorizer;
+
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="RingGraph"/>.
+        ///     Inicializa una nueva instancia de la clase <see cref="RingGraph" />.
         /// </summary>
         public RingGraph()
         {
-            slices.CollectionChanged += Slices_CollectionChanged;
+            _slices.CollectionChanged += Slices_CollectionChanged;
             Init();
         }
+
         /// <summary>
-        /// Obtiene un listado de los <see cref="Slice"/> que conforman el
-        /// set de datos de este <see cref="ISliceGraph"/>.
+        ///     Obtiene un listado de los <see cref="Slice" /> que conforman el
+        ///     set de datos de este <see cref="ISliceGraph" />.
         /// </summary>
         /// <remarks>
-        /// Esta no puede ser una propiedad de dependencia debido a que la
-        /// observación de la lista de <see cref="Slice"/> se implementa
-        /// mediante eventos.
+        ///     Esta no puede ser una propiedad de dependencia debido a que la
+        ///     observación de la lista de <see cref="Slice" /> se implementa
+        ///     mediante eventos.
         /// </remarks>
         public IList<Slice> Slices
         {
-            get => slices;
+            get => _slices;
             set
             {
-                slices.Clear();
+                _slices.Clear();
                 foreach (var j in value)
-                    slices.Add(j);
+                    _slices.Add(j);
             }
         }
 
         /// <summary>
-        /// Obtiene o establece un <see cref="IGraphColorizer"/> opcional a
-        /// utilizar para establecer los colores de las series.
+        ///     Obtiene o establece un <see cref="IGraphColorizer" /> opcional a
+        ///     utilizar para establecer los colores de las series.
         /// </summary>
         public IGraphColorizer Colorizer
         {
-            get => colorizer;
+            get => _colorizer;
             set
             {
-                colorizer = value;
+                _colorizer = value;
                 Redraw();
             }
         }
+
         /// <summary>
-        /// Vuelve a dibujar todo el control.
+        ///     Vuelve a dibujar al control.
         /// </summary>
         /// <param name="r">
-        /// <see cref="Slice"/> que ha realizado la solicitud.
+        ///     <see cref="Slice" /> que ha realizado la solicitud.
         /// </param>
         public void DrawMe(Slice r)
         {
-            // Si un Slice cambia, cambia todo el gráfico.
+            // Si un Slice cambia, cambia el gráfico completo.
             Redraw();
         }
+
         private void Slices_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                    foreach (Slice j in e.NewItems) j.DrawingParent = this;
-                    break;
-                case NotifyCollectionChangedAction.Replace:
-                    foreach (Slice j in e.OldItems) j.DrawingParent = null;
-                    goto case NotifyCollectionChangedAction.Add;
-                case NotifyCollectionChangedAction.Remove:
-                    foreach (Slice j in e.OldItems) j.DrawingParent = null;
-                    break;
-                case NotifyCollectionChangedAction.Reset: return;
-            }
+            foreach (Slice j in e.OldItems ?? new Slice[] { }) j.DrawingParent = null;
+            foreach (Slice j in e.NewItems ?? new Slice[] { }) j.DrawingParent = this;
             Redraw();
         }
     }

@@ -187,11 +187,11 @@ namespace TheXDS.MCART
                         break;
                     case 'B':
                     case 'b':
-                        if (!byte.TryParse($"0b0{strChar}", out _)) return false;
+                        if (!"01".Contains(strChar)) return false;
                         break;
                     case 'f':
                     case 'F':
-                        if (!byte.TryParse($"0x0{strChar}", out _)) return false;
+                        if (!byte.TryParse($"{strChar}", NumberStyles.HexNumber, null, out _)) return false;
                         break;
                     case 'A':
                     case 'X':
@@ -332,9 +332,7 @@ namespace TheXDS.MCART
         /// <param name="chars">Caracteres a contar.</param>
         public static int CountChars(this string stringToCheck, params char[] chars)
         {
-            var c = 0;
-            foreach (var j in chars) c += stringToCheck.Count(a => a == j);
-            return c;
+            return chars.Sum(j => stringToCheck.Count(a => a == j));
         }
 
         /// <summary>

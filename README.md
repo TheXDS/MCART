@@ -4,7 +4,6 @@
 MCART
 </h1>
 </div>
-<a href='https://coveralls.io/github/TheXDS/MCART?branch=master'><img src='https://coveralls.io/repos/github/TheXDS/MCART/badge.svg?branch=master' alt='Coverage Status' /></a>
 
 ## Introducción
 MCART es un conjunto de funciones, extensiones y módulos que he encontrado
