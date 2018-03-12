@@ -51,21 +51,34 @@ namespace TheXDS.MCART.Networking.Server
         /// atender a los clientes.
         /// </returns>
         public static implicit operator Server(Protocol<Client> p) => new Server(p);
+        /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="Server"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Networking.Server.Server" />.
         /// </summary>
         /// <param name="protocol">
         /// Conjunto de protocolos a utilizar para este servidor.
         /// </param>
         /// <param name="ep">
-        /// <see cref="IPEndPoint"/> local a escuchar. Si se omite, se
-        /// escuchará el puerto <see cref="Server{TClient}.defaultPort"/> de
+        /// <see cref="T:System.Net.IPEndPoint" /> local a escuchar. Si se omite, se
+        /// escuchará el puerto <see cref="F:TheXDS.MCART.Networking.Server.Server`1.DefaultPort" /> de
         /// todas las direcciones IP del servidor.
         /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="protocol"/> es <see langword="null"/>.
+        /// <exception cref="T:System.ArgumentNullException">
+        /// Se produce si <paramref name="protocol" /> es <see langword="null" />.
         /// </exception>
         public Server(Protocol<Client> protocol, IPEndPoint ep = null) : base(protocol, ep) { }
+        /// <inheritdoc />
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Networking.Server.Server`1" />.
+        /// </summary>
+        /// <param name="protocol">
+        /// Conjunto de protocolos a utilizar para este servidor.
+        /// </param>
+        /// <param name="port">Puerto local a escuchar.</param>
+        /// <exception cref="T:System.ArgumentNullException">
+        /// Se produce si <paramref name="protocol" /> es <see langword="null" />.
+        /// </exception>
+        public Server(Protocol<Client> protocol, int port) : base(protocol, port) { }
     }
     /// <summary>
     /// Controla conexiones entrantes y ejecuta protocolos sobre los clientes
@@ -88,15 +101,16 @@ namespace TheXDS.MCART.Networking.Server
         /// especificado para atender a los clientes.
         /// </returns>
         public static implicit operator Server<TClient>(Protocol<TClient> p) => new Server<TClient>(p);
+
         /// <summary>
         /// Tiempo de espera en milisegundos antes de realizar una desconexión
         /// forzada al cerrar el servidor.
         /// </summary>
-        const int disconnectionTimeout = 15000;
+        private const int DisconnectionTimeout = 15000;
         /// <summary>
         /// Puerto predeterminado para las conexiones entrantes.
         /// </summary>
-        public const int defaultPort = 51220;
+        public const int DefaultPort = 51220;
 
         /// <summary>
         /// Lista de hilos atendiendo a clientes.
@@ -110,21 +124,21 @@ namespace TheXDS.MCART.Networking.Server
         /// campo que determina si el servidor está escuchando conexiones y
         /// sirviendo a clientes (vivo)
         /// </summary>
-        bool _isAlive;
+        private bool _isAlive;
+        /// <summary>
+        /// Lista de clientes conectados.
+        /// </summary>
+        private readonly List<TClient> _clients = new List<TClient>();
 
         /// <summary>
         /// Lista de objetos <see cref="Client"/> conectados a este servidor.
         /// </summary>
-        public List<TClient> Clients { get; } = new List<TClient>();
+        public IReadOnlyCollection<TClient> Clients => _clients.AsReadOnly();
         /// <summary>
         /// Instancia de protocolos a utilizar para dar servicio a los
         /// clientes que se conecten a este servidor.
         /// </summary>
         public Protocol<TClient> Protocol { get; }
-        /// <summary>
-        /// Número de puerto al que este servidor escucha.
-        /// </summary>
-        public int ListeningPort { get; }
         /// <summary>
         /// Dirección IP a la cual este servidor escucha.
         /// </summary>
@@ -140,16 +154,29 @@ namespace TheXDS.MCART.Networking.Server
             set { if (!_isAlive && value) Start(); }
         }
 
+        /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="Server{TClient}"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Networking.Server.Server`1" />.
         /// </summary>
         /// <param name="protocol">
         /// Conjunto de protocolos a utilizar para este servidor.
         /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="protocol"/> es <see langword="null"/>.
+        /// <exception cref="T:System.ArgumentNullException">
+        /// Se produce si <paramref name="protocol" /> es <see langword="null" />.
         /// </exception>
         public Server(Protocol<TClient> protocol) : this(protocol, null) { }
+        /// <inheritdoc />
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Networking.Server.Server`1" />.
+        /// </summary>
+        /// <param name="protocol">
+        /// Conjunto de protocolos a utilizar para este servidor.
+        /// </param>
+        /// <param name="port">Puerto local a escuchar.</param>
+        /// <exception cref="T:System.ArgumentNullException">
+        /// Se produce si <paramref name="protocol" /> es <see langword="null" />.
+        /// </exception>
+        public Server(Protocol<TClient> protocol, int port) : this(protocol, new IPEndPoint(IPAddress.Any, port)) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="Server{TClient}"/>.
         /// </summary>
@@ -160,23 +187,22 @@ namespace TheXDS.MCART.Networking.Server
         /// <see cref="IPEndPoint"/> local a escuchar. Si se establece en
         /// <see langword="null"/>, se escuchará al puerto predeterminado del
         /// protocolo (indicado por el atributo <see cref="PortAttribute"/>) o
-        /// <see cref="defaultPort"/> de todas las direcciones IP del servidor.
+        /// <see cref="DefaultPort"/> de todas las direcciones IP del servidor.
         /// </param>
         /// <exception cref="ArgumentNullException">
         /// Se produce si <paramref name="protocol"/> es <see langword="null"/>.
         /// </exception>
         public Server(Protocol<TClient> protocol, IPEndPoint ep)
         {
-            if (protocol is null) throw new ArgumentNullException(nameof(protocol));
-            Protocol = protocol;
+            Protocol = protocol ?? throw new ArgumentNullException(nameof(protocol));
 #if DEBUG
             if (Protocol.HasAttr<Attributes.BetaAttribute>())
                 Debug.Print(St.Warn(St.XIsBeta(Protocol.GetType().Name)));
 #endif
-            ListeningPort = Protocol.GetAttr<PortAttribute>()?.Value ?? defaultPort;
-            ListeningEndPoint = ep ?? new IPEndPoint(IPAddress.Any, ListeningPort);
+            ListeningEndPoint = ep ?? new IPEndPoint(IPAddress.Any, Protocol.GetAttr<PortAttribute>()?.Value ?? DefaultPort);
             conns = new TcpListener(ListeningEndPoint);
         }
+
         /// <summary>
         /// Encapsula <see cref="TcpListener.AcceptTcpClientAsync"/> para
         /// permitir cancelar la tarea cuando el servidor se detenga.
@@ -189,10 +215,10 @@ namespace TheXDS.MCART.Networking.Server
         {
             //Necesario para poder detener el lambda
             //de espera sin matar al servidor.
-            bool bewaiting = true;
+            var bewaiting = true;
             try
             {
-                Task<TcpClient> t = conns.AcceptTcpClientAsync();
+                var t = conns.AcceptTcpClientAsync();
                 if (t == await Task.WhenAny(t, Task.Run(() => { while (_isAlive && bewaiting) ; })))
                     //devolver tarea...
                     return await t;
@@ -212,7 +238,7 @@ namespace TheXDS.MCART.Networking.Server
         /// <param name="client">Cliente a atender.</param>
         private async Task AttendClient(TClient client)
         {
-            Clients.Add(client);
+            _clients.Add(client);
             if (Protocol.ClientWelcome(client, this))
             {
                 /*
@@ -230,15 +256,27 @@ namespace TheXDS.MCART.Networking.Server
 				*/
                 while (client.IsAlive)
                 {
-                    Task<byte[]> ts = client.RecieveAsync();
-                    bool wdat = true;
+                    var ts = client.RecieveAsync();
+                    var wdat = true;
                     if (Task.WaitAny(ts, Task.Run(() => { while (_isAlive && wdat) ; })) == 0)
                         Protocol.ClientAttendant(client, this, await ts);
                     wdat = false;
                 }
             }
-            else if (client?.IsAlive ?? false) client.TcpClient.Close();
-            if (Clients?.Contains(client) ?? false) Clients.Remove(client);
+            else if (client?.IsAlive ?? false)
+            {
+                try
+                {
+                    client.TcpClient.GetStream().Close();
+                    client.TcpClient.Close();
+                }
+                finally
+                {
+                    client.TcpClient.GetStream().Dispose();
+                    //client.TcpClient.Dispose();
+                }
+            }
+            if ((bool) _clients?.Contains(client)) _clients.Remove(client);
         }
         /// <summary>
         /// Hilo de escucha y atención del servidor.
@@ -247,11 +285,12 @@ namespace TheXDS.MCART.Networking.Server
         {
             while (_isAlive)
             {
-                TcpClient c = await GetClient();
+                var c = await GetClient();
                 if (!(c is null))
                     clwaiter.Add(AttendClient(typeof(TClient).New(c, this) as TClient));
             }
         }
+
         /// <summary>
         /// Crea un hilo de ejecución que da servicio a los clientes
         /// </summary>
@@ -267,6 +306,9 @@ namespace TheXDS.MCART.Networking.Server
             }
             _isAlive = true;
             conns.Start();
+
+            //var x = new Thread(BeAlive);
+            //x.Start();
             BeAlive();
         }
         /// <summary>
@@ -282,7 +324,7 @@ namespace TheXDS.MCART.Networking.Server
             _isAlive = false;
             await Task.WhenAny(
                 Task.WhenAll(clwaiter),
-                new Task(() => Thread.Sleep(disconnectionTimeout)));
+                new Task(() => Thread.Sleep(DisconnectionTimeout)));
             foreach (TClient j in Clients) j.TcpClient.Close();
         }
         /// <summary>

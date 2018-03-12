@@ -112,7 +112,7 @@ namespace LightChat
         public void ClientDisconnect(Client<string> client, Server<Client<string>> server)
         {
             if (server.IsAlive)
-                server.Broadcast(NewMsg($"{(client?.userObj ?? "Un usuario")} se ha desconectado inesperadamente."), client);
+                server.Broadcast(NewMsg($"{(client?.ClientData ?? "Un usuario")} se ha desconectado inesperadamente."), client);
             try { client?.Disconnect(); }
             finally { client = null; }
         }

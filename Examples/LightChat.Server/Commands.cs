@@ -34,7 +34,7 @@ namespace LightChat
         delegate void DoCommand(BinaryReader br, Client<string> client, Server<Client<string>> server);
         void DoLogin(BinaryReader br, Client<string> client, Server<Client<string>> server)
         {
-            if (!client.userObj.IsEmpty()) client.Send(NewErr(ErrCodes.InvalidCommand));
+            if (!client.ClientData.IsEmpty()) client.Send(NewErr(ErrCodes.InvalidCommand));
             else
             {
                 string usr = br.ReadString();
@@ -42,8 +42,8 @@ namespace LightChat
                 {
                     if (!Users[usr].Banned)
                     {
-                        client.userObj = usr;
-                        server.Broadcast(NewMsg($"{client.userObj} ha iniciado sesión."), client);
+                        client.ClientData = usr;
+                        server.Broadcast(NewMsg($"{client.ClientData} ha iniciado sesión."), client);
                         client.Send(OkMsg());
                         client.Send(NewMsg("Has iniciado sesión."));
                     }
@@ -54,13 +54,13 @@ namespace LightChat
         }
         void DoLogout(BinaryReader br, Client<string> client, Server<Client<string>> server)
         {
-            if (client.userObj.IsEmpty()) client.Send(NewErr(ErrCodes.NoLogin));
+            if (client.ClientData.IsEmpty()) client.Send(NewErr(ErrCodes.NoLogin));
             else
             {
-                server.Broadcast(NewMsg($"{client.userObj} ha cerrado sesión."), client);
+                server.Broadcast(NewMsg($"{client.ClientData} ha cerrado sesión."), client);
                 client.Send(OkMsg());
                 client.Send(NewMsg("Has cerrado sesión."));
-                client.userObj = null;
+                client.ClientData = null;
                 client.Disconnect();
             }
         }
@@ -73,35 +73,35 @@ namespace LightChat
                     bw.Write((byte)RetVal.Ok);
                     bw.Write(server.Clients.Count);
                     foreach (var j in server.Clients)
-                        if (!j.userObj.IsEmpty() && j.IsNot(client))
-                            bw.Write(j.userObj);
+                        if (!j.ClientData.IsEmpty() && j.IsNot(client))
+                            bw.Write(j.ClientData);
                     client.Send(os.ToArray());
                 }
             }
         }
         void DoSay(BinaryReader br, Client<string> client, Server<Client<string>> server)
         {
-            if (client.userObj.IsEmpty()) client.Send(NewErr(ErrCodes.NoLogin));
+            if (client.ClientData.IsEmpty()) client.Send(NewErr(ErrCodes.NoLogin));
             else
             {
                 string msg = br.ReadString();
-                server.Broadcast(NewMsg($"{client.userObj} dice al grupo: {msg}"), client);
+                server.Broadcast(NewMsg($"{client.ClientData} dice al grupo: {msg}"), client);
                 client.Send(OkMsg());
                 client.Send(NewMsg($"Dijiste: {msg}"));
             }
         }
         void DoSayTo(BinaryReader br, Client<string> client, Server<Client<string>> server)
         {
-            if (client.userObj.IsEmpty()) client.Send(NewErr(ErrCodes.NoLogin));
+            if (client.ClientData.IsEmpty()) client.Send(NewErr(ErrCodes.NoLogin));
             else
             {
                 string dest = br.ReadString();
                 string msg = br.ReadString();
                 foreach (var j in server.Clients)
                 {
-                    if (j.userObj == dest)
+                    if (j.ClientData == dest)
                     {
-                        j.Send(NewMsg($"{client.userObj} te dice: {msg}"));
+                        j.Send(NewMsg($"{client.ClientData} te dice: {msg}"));
                         client.Send(OkMsg());
                         client.Send(NewMsg($"Dijiste a {dest}: {msg}"));
                         break;

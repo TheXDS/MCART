@@ -36,6 +36,10 @@ namespace TheXDS.MCART.Networking.Client
     /// </summary>
     public class Client
     {
+        private string _host;
+        private int _port;
+        private IPEndPoint _endPoint;
+
         /// <summary>
         /// Conexión al servidor
         /// </summary>
@@ -196,6 +200,7 @@ namespace TheXDS.MCART.Networking.Client
             catch (Exception ex) { ConnChk(); AtFail(ex); }
 #endif
         }
+
         /// <summary>
         /// Desconecta correctamente a este cliente del servidor.
         /// </summary>
@@ -209,6 +214,8 @@ namespace TheXDS.MCART.Networking.Client
 #endif
             finally { ConnChk(); }
         }
+
+
         /// <summary>
         /// Envía un mensaje, y espera a que el servidor responda.
         /// </summary>
@@ -222,21 +229,24 @@ namespace TheXDS.MCART.Networking.Client
 #else
                 return new byte[] { };
 #endif
-            NetworkStream ns = connection?.GetStream();
+            var ns = connection?.GetStream();
+            
             if (ns is null)
 #if PreferExceptions
                 throw new ArgumentNullException();
 #else
                 return new byte[] { };
-#endif
-            using (var ms = new MemoryStream(data))
-                ms.CopyTo(ns);
+#endif                
+            ns.Write(data, 0, data.Length);
+            
             using (var ms = new MemoryStream())
             {
-                ns.CopyTo(ms);
+                //ns.ReadTimeout = 5000;
+                //ns.CopyTo(ms);
                 return ms.ToArray();
             }
         }
+
         /// <summary>
         /// Envía un mensaje, y espera a que el servidor responda de forma asíncrona.
         /// </summary>
@@ -297,10 +307,20 @@ namespace TheXDS.MCART.Networking.Client
         /// De forma predeterminada, no se realiza ninguna acción.
         /// </remarks>
         public virtual void AtFail(Exception ex) { }
+
         /// <summary>
         /// Se asegura de cerrar la conexión.
         /// </summary>
-        void ConnChk() { if (connection?.Connected ?? false) connection.Close(); }
+        private void ConnChk()
+        {
+            if (!(connection?.Connected ?? false)) return;
+            try
+            {
+                connection?.GetStream().Dispose();
+                connection.Close();
+            }
+            catch { /* suprimir cualquier excepción */ }
+        }
         /// <summary>
         /// Realiza alguans tareas de limpieza antes de finalizar esta
         /// instancia de la clase <see cref="Client"/>.

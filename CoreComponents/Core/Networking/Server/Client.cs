@@ -22,6 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using System.Threading;
@@ -139,7 +140,7 @@ namespace TheXDS.MCART.Networking.Server
         /// <returns>Un arreglo de <see cref="byte"/> con la información recibida desde el servidor.</returns>
         public async Task<byte[]> RecieveAsync()
         {
-            NetworkStream ns = TcpClient?.GetStream();
+            var ns = TcpClient?.GetStream();
             if (ns is null)
 #if PreferExceptions
 				throw new ArgumentNullException();
@@ -148,9 +149,23 @@ namespace TheXDS.MCART.Networking.Server
 #endif
             using (var ms = new MemoryStream())
             {
-                await ns.CopyToAsync(ms);
-                return ms.ToArray();
+                //if (ns.DataAvailable)
+                //await ns.CopyToAsync(ms);
+                //return ms.ToArray();
             }
+
+            var outp = new List<byte>();
+            do
+            {
+                var buff = new byte[1024];
+                var sze = await ns.ReadAsync(buff, 0, buff.Length);
+                if (sze < 1024) System.Array.Resize(ref buff, sze);
+                outp.AddRange(buff);
+            } while (ns.DataAvailable);
+
+            return outp.ToArray();
+
+
         }
         /// <summary>
         /// Devuelve los datos recibidos una vez que el cliente los envía.
@@ -159,7 +174,7 @@ namespace TheXDS.MCART.Networking.Server
         /// <returns>Un arreglo de <see cref="byte"/> con la información recibida desde el servidor.</returns>
         public async Task<byte[]> RecieveAsync(CancellationToken cancellationToken)
         {
-            NetworkStream ns = TcpClient?.GetStream();
+            var ns = TcpClient?.GetStream();
             if (ns is null)
 #if PreferExceptions
 				throw new ArgumentNullException();
