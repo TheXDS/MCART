@@ -1,3 +1,27 @@
+/*
+CommonTest.cs
+
+This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Author(s):
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+
+Copyright (c) 2011 - 2018 César Andrés Morgan
+
+Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 using System;
 using System.Linq;
 using System.Security;
@@ -36,16 +60,41 @@ namespace CoreTest.Modules
         }
 
         [Fact]
-        public void FlipEndianessTest()
+        public void FlipEndianessTest_Char()
+        {
+            Assert.Equal((char)0x0102, ((char)0x0201).FlipEndianess());
+        }
+
+        [Fact]
+        public void FlipEndianessTest_Int16()
         {
             Assert.Equal((short)0x0102, ((short)0x0201).FlipEndianess());
-            Assert.Equal((char)0x0102, ((char)0x0201).FlipEndianess());
+        }
+
+        [Fact]
+        public void FlipEndianessTest_Int32()
+        {
             Assert.Equal(0x01020304, 0x04030201.FlipEndianess());
+        }
+
+        [Fact]
+        public void FlipEndianessTest_Int64()
+        {
             Assert.Equal(0x0102030405060708, 0x0807060504030201.FlipEndianess());
         }
-        /// <summary>
-        ///     Prueba del método <see cref="Common.AreAllEmpty" />
-        /// </summary>
+
+        [Fact]
+        public void FlipEndianessTest_Single()
+        {
+            Assert.Equal(3.02529E-39f, 123456f.FlipEndianess());
+        }
+
+        [Fact]
+        public void FlipEndianessTest_Double()
+        {
+            Assert.InRange(System.Math.PI.FlipEndianess(), 3.20737563067636E-192, 3.20737563067638E-192);
+        }
+
         [Fact]
         public void AreAllEmptyTest()
         {
@@ -53,9 +102,6 @@ namespace CoreTest.Modules
             Assert.False(Common.AreAllEmpty(null, "Test", string.Empty));
         }
 
-        /// <summary>
-        ///     Prueba del método <see cref="Common.Listed(System.Collections.Generic.IEnumerable{string})" />
-        /// </summary>
         [Fact]
         public void CollectionListedTest()
         {
@@ -68,31 +114,29 @@ namespace CoreTest.Modules
                 outp);
         }
 
-        /// <summary>
-        ///     Prueba del método <see cref="Common.ContainsAny(string, char[])" />.
-        /// </summary>
         [Fact]
         public void ContainsAnyTest()
         {
+            Assert.True("Test".ContainsAny('q', 't', 'a'));
             Assert.True("Test".ContainsAny(out var idx, 'q', 't', 'a'));
             Assert.Equal(1, idx);
 
             Assert.True("Test".ContainsAny(out var idx2, "t", "a"));
             Assert.Equal(0, idx2);
 
+            Assert.True("Test".ContainsAny("Ta", "Te"));
             Assert.True("Test".ContainsAny(out var idx3, "Ta", "Te"));
             Assert.Equal(1, idx3);
 
+            Assert.False("Test".ContainsAny('a', 'd'));
             Assert.False("Test".ContainsAny(out var idx4, 'a', 'd'));
             Assert.Equal(-1, idx4);
 
+            Assert.False("Test".ContainsAny("Ta", "Ti"));
             Assert.False("Test".ContainsAny(out var idx5, "Ta", "Ti"));
             Assert.Equal(-1, idx5);
         }
 
-        /// <summary>
-        ///     Prueba del método <see cref="Common.CouldItBe(string, string)"/>
-        /// </summary>
         [Fact]
         public void CouldItBeTest()
         {
@@ -107,9 +151,6 @@ namespace CoreTest.Modules
             Assert.Equal(0.5, "Edith Alvarez".CouldItBe("Edith Mena"));
         }
 
-        /// <summary>
-        ///     Prueba del método <see cref="Common.CountChars(string, char[])" />
-        /// </summary>
         [Fact]
         public void CountCharsTest()
         {
@@ -122,11 +163,17 @@ namespace CoreTest.Modules
         {
             Assert.True(Common.IsAnyEmpty("Test", string.Empty, ""));
             Assert.False(Common.IsAnyEmpty("T", "e", "s", "t"));
+
+            Assert.True(Common.IsAnyEmpty(out var i1, "Test", string.Empty, ""));
+            Assert.Equal(new[] { 1, 2 }, i1);
+
+            Assert.True(Common.IsAnyEmpty(out var i2, null, string.Empty, ""));
+            Assert.Equal(new[] { 0, 1, 2 }, i2);
+
+            Assert.False(Common.IsAnyEmpty(out var i3, "T", "e", "s", "t"));
+            Assert.Equal(new int[] { }, i3);
         }
 
-        /// <summary>
-        ///     Prueba del método <see cref="Common.IsBetween{T}(T, T, T)" />.
-        /// </summary>
         [Fact]
         public void IsBetweenTest()
         {
@@ -137,9 +184,6 @@ namespace CoreTest.Modules
             Assert.False(((sbyte)-50).IsBetween((sbyte)0, (sbyte)1));
         }
 
-        /// <summary>
-        ///     Prueba del método <see cref="Common.IsEmpty(string)" />
-        /// </summary>
         [Fact]
         public void IsEmptyTest()
         {
@@ -148,9 +192,6 @@ namespace CoreTest.Modules
             Assert.True((null as string).IsEmpty());
         }
 
-        /// <summary>
-        ///     Prueba del método <see cref="Common.Left(string, int)" />
-        /// </summary>
         [Fact]
         public void LeftTest()
         {
@@ -199,9 +240,6 @@ namespace CoreTest.Modules
             Assert.Equal("Test", s.Read());
         }
 
-        /// <summary>
-        ///     Prueba del método <see cref="Common.Right(string, int)" />
-        /// </summary>
         [Fact]
         public void RightTest()
         {
@@ -213,9 +251,6 @@ namespace CoreTest.Modules
             Assert.Throws<ArgumentOutOfRangeException>(() => "Test".Right(-1));
         }
 
-        /// <summary>
-        ///     Prueba del método <see cref="Common.Swap{T}" />.
-        /// </summary>
         [Fact]
         public void SwapTest()
         {
@@ -225,18 +260,12 @@ namespace CoreTest.Modules
             Assert.Equal(1, b);
         }
 
-        /// <summary>
-        ///     Prueba del método <see cref="Common.ToHex(byte[])" />
-        /// </summary>
         [Fact]
         public void ToHexTest1()
         {
             Assert.Equal("F0", ((byte)240).ToHex());
         }
 
-        /// <summary>
-        ///     Prueba del método <see cref="Common.ToHex(byte)" />
-        /// </summary>
         [Fact]
         public void ToHexTest2()
         {
@@ -244,7 +273,7 @@ namespace CoreTest.Modules
         }
 
         [Fact]
-        public void ToPercentTest1()
+        public void ToPercentTest_Single()
         {
             Assert.Equal(
                 new[] { 0f, 0.25f, 0.5f, 0.75f, 1.0f },
@@ -272,7 +301,7 @@ namespace CoreTest.Modules
         }
 
         [Fact]
-        public void ToPercentTest2()
+        public void ToPercentTest_Double()
         {
             Assert.Equal(
                 new[] { 0, 0.25, 0.5, 0.75, 1.0 },
@@ -296,7 +325,28 @@ namespace CoreTest.Modules
 
             Assert.Throws<ArgumentException>(() => new[] { 1.0 }.ToPercent(double.NaN, double.NaN).ToList());
             Assert.Throws<ArgumentException>(() => new[] { 1.0 }.ToPercent(0.0, double.NaN).ToList());
+        }
 
+        [Fact]
+        public void IsFormattedTest()
+        {
+            Assert.False("XYZ-ABCD".IsFormattedAs("A0"));
+
+            Assert.True("XYZ-1234".IsFormattedAs("XAX-0909"));
+            Assert.False("XYZ-ABCD".IsFormattedAs("XAX-0909"));
+
+            Assert.True("XYZ-1234".IsFormattedAs("XAX-0909", true));
+            Assert.True("XyZ-1234".IsFormattedAs("AaX-0909", true));
+            Assert.False("xyz-1234".IsFormattedAs("XAA-0909", true));
+            Assert.True("xyz-1234".IsFormattedAs("axa-0909", true));
+            Assert.False("XYZ-1234".IsFormattedAs("axa-0909", true));
+            Assert.False("xyz+1234".IsFormattedAs("axa-0909", true));
+
+            Assert.True("10101010".IsFormattedAs("bBbBbBbB"));
+            Assert.False("12121212".IsFormattedAs("bBbBbBbB"));
+
+            Assert.True("0123456789AbCdEf".IsFormattedAs("fFfFfFfFfFfFfFfF"));
+            Assert.False("AbCdEfGhIjKlMnOp".IsFormattedAs("fFfFfFfFfFfFfFfF"));
         }
     }
 }
