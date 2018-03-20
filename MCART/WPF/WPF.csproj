@@ -71,6 +71,7 @@
       <DependentUpon>RingGraph.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\SearchBox.cs" />
+    <Compile Include="Controls\StretchyWrapPanel.cs" />
     <Compile Include="Dialogs\PasswordDialog.cs" />
     <Compile Include="Dialogs\PluginBrowser.xaml.cs">
       <DependentUpon>PluginBrowser.xaml</DependentUpon>
