@@ -38,8 +38,7 @@ namespace LightChat
     /// </summary>
     [Description("Protocolo de chat ligero LightChat, ensamblado de servidor.")]
     [Beta]
-    [MinMCARTVersion(0, 6)]
-    [TargetMCARTVersion(0, 6)]
-    [Unsecure]
+    [MinMCARTVersion(0,8)]
+    [TargetMCARTVersion(0, 8,3,5)]
     public partial class LightChat : Plugin { }
 }

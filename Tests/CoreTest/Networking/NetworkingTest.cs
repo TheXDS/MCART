@@ -22,6 +22,7 @@
 using TheXDS.MCART.Networking.Server;
 using Xunit;
 using System.Net;
+using System.Threading;
 using Cl = TheXDS.MCART.Networking.Client;
 
 #if ExtrasBuiltIn
@@ -37,9 +38,18 @@ namespace CoreTest.Networking
         {
             var srv = new Server(new Echo(), new IPEndPoint(IPAddress.Loopback, 51220));
             srv.Start();
+            Thread.Sleep(500); //Esperar a que el servidor arranque.
+
             Assert.True(srv.IsAlive);
+            Assert.Equal(IPAddress.Loopback, srv.ListeningEndPoint.Address);
+            Assert.Equal(51220, srv.ListeningEndPoint.Port);
+            Assert.Empty(srv.Clients);
+            
             var cl = new Cl.Client();
-            cl.Connect("localhost");
+            cl.Connect("localhost",51220);
+            Thread.Sleep(500); //Esperar a que la conexión se realice.
+
+            Assert.Single(srv.Clients);
 
             byte[] test = { 10, 20, 30, 40, 50 };
             var resp = cl.TalkToServer(test);

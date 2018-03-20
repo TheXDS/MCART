@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #if ExtrasBuiltIn
 namespace TheXDS.MCART.Networking.Server.Protocols
 {
+    /// <inheritdoc />
     /// <summary>
     /// Protocolo simple de eco.
     /// </summary>
@@ -32,6 +33,7 @@ namespace TheXDS.MCART.Networking.Server.Protocols
     [Port(7)]
     public class Echo : Protocol
     {
+        /// <inheritdoc />
         /// <summary>
         /// Protocolo de atención normal.
         /// </summary>
@@ -42,7 +44,7 @@ namespace TheXDS.MCART.Networking.Server.Protocols
         /// Instancia del servidor que atenderá al cliente.
         /// </param>
         /// <param name="data">
-        /// Datos que <paramref name="client"/> ha enviado como parte de la
+        /// Datos que <paramref name="client" /> ha enviado como parte de la
         /// soliccitud de atención.
         /// </param>
         public override void ClientAttendant(Client client, Server<Client> server, byte[] data)
