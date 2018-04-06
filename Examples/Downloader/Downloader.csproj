@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B1F87675-1F7C-40B7-9D9E-9147F94535D1}</ProjectGuid>
+    <ProjectGuid>{4B1887D4-BAF9-4F81-B153-BE4B405EDC19}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>EchoServer</RootNamespace>
-    <AssemblyName>EchoServer</AssemblyName>
+    <RootNamespace>Downloader</RootNamespace>
+    <AssemblyName>Downloader</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -49,7 +49,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MCART\Lite\Lite.csproj">
+    <ProjectReference Include="..\..\MCART\Lite\Lite.csproj">
       <Project>{ffcb72d8-1cb3-47a2-876b-630076307d78}</Project>
       <Name>Lite</Name>
     </ProjectReference>
