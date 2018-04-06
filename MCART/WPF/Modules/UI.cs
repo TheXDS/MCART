@@ -34,6 +34,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media.Animation;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
+using C = TheXDS.MCART.Math.Geometry;
 
 namespace TheXDS.MCART
 {
@@ -283,8 +284,8 @@ namespace TheXDS.MCART
             {
                 IsLargeArc = angle > 180.0,
                 Point = new Point(
-                    cp.X + System.Math.Sin(Math.DegRad * angle) * radius,
-                    cp.Y - System.Math.Cos(Math.DegRad * angle) * radius),
+                    cp.X + System.Math.Sin(C.DegRad * angle) * radius,
+                    cp.Y - System.Math.Cos(C.DegRad * angle) * radius),
                 Size = new Size(radius, radius),
                 SweepDirection = SweepDirection.Clockwise
             };
@@ -320,16 +321,16 @@ namespace TheXDS.MCART
             {
                 IsLargeArc = endAngle - startAngle > 180.0,
                 Point = new Point(
-                    cp.X + System.Math.Sin(Math.DegRad * endAngle) * radius,
-                    cp.Y - System.Math.Cos(Math.DegRad * endAngle) * radius),
+                    cp.X + System.Math.Sin(C.DegRad * endAngle) * radius,
+                    cp.Y - System.Math.Cos(C.DegRad * endAngle) * radius),
                 Size = new Size(radius, radius),
                 SweepDirection = SweepDirection.Clockwise
             };
             PathFigure pth = new PathFigure()
             {
                 StartPoint = new Point(
-                    cp.X + System.Math.Sin(Math.DegRad * startAngle) * radius,
-                    cp.Y - System.Math.Cos(Math.DegRad * startAngle) * radius),
+                    cp.X + System.Math.Sin(C.DegRad * startAngle) * radius,
+                    cp.Y - System.Math.Cos(C.DegRad * startAngle) * radius),
                 IsClosed = false
             };
             pth.Segments.Add(arc);

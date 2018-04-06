@@ -9,11 +9,16 @@
     <Import_RootNamespace>MCART</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Math\Common.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Math\Geometry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Math\Algebra.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Math\Physics.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Math\Series.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Math\Tween.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Attrbutes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Enums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Events.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Exceptions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Modules\Math.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\Objects.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\Client.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Common.cs" />
@@ -43,6 +48,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\PasswordStorage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\PwEvalResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\ColorParsers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\CollectionExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\StreamExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\EnumerableExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\List\Enums.cs" />
@@ -66,4 +72,5 @@
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Colors.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\IProtocol.cs" />
   </ItemGroup>
+  <ItemGroup />
 </Project>

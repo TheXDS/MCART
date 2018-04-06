@@ -98,8 +98,8 @@ namespace CoreTest.Modules
         [Fact]
         public void AreAllEmptyTest()
         {
-            Assert.True(Common.AreAllEmpty(null, " ", string.Empty));
-            Assert.False(Common.AreAllEmpty(null, "Test", string.Empty));
+            Assert.True(Common.AllEmpty(null, " ", string.Empty));
+            Assert.False(Common.AllEmpty(null, "Test", string.Empty));
         }
 
         [Fact]
@@ -140,7 +140,7 @@ namespace CoreTest.Modules
         [Fact]
         public void CouldItBeTest()
         {
-            Assert.Throws<ArgumentNullException>(() => string.Empty.CouldItBe(""));
+            Assert.Throws<ArgumentNullException>(() => string.Empty.CouldItBe("Test"));
             Assert.Throws<ArgumentNullException>(() => "Test".CouldItBe(""));
             Assert.Throws<ArgumentOutOfRangeException>(() => "Test".CouldItBe("Test", 0f));
             Assert.Throws<ArgumentOutOfRangeException>(() => "Test".CouldItBe("Test", 2f));
@@ -161,16 +161,16 @@ namespace CoreTest.Modules
         [Fact]
         public void IsAnyEmptyTest()
         {
-            Assert.True(Common.IsAnyEmpty("Test", string.Empty, ""));
-            Assert.False(Common.IsAnyEmpty("T", "e", "s", "t"));
+            Assert.True(Common.AnyEmpty("Test", string.Empty, ""));
+            Assert.False(Common.AnyEmpty("T", "e", "s", "t"));
 
-            Assert.True(Common.IsAnyEmpty(out var i1, "Test", string.Empty, ""));
+            Assert.True(Common.AnyEmpty(out var i1, "Test", string.Empty, ""));
             Assert.Equal(new[] { 1, 2 }, i1);
 
-            Assert.True(Common.IsAnyEmpty(out var i2, null, string.Empty, ""));
+            Assert.True(Common.AnyEmpty(out var i2, null, string.Empty, ""));
             Assert.Equal(new[] { 0, 1, 2 }, i2);
 
-            Assert.False(Common.IsAnyEmpty(out var i3, "T", "e", "s", "t"));
+            Assert.False(Common.AnyEmpty(out var i3, "T", "e", "s", "t"));
             Assert.Equal(new int[] { }, i3);
         }
 
@@ -347,6 +347,22 @@ namespace CoreTest.Modules
 
             Assert.True("0123456789AbCdEf".IsFormattedAs("fFfFfFfFfFfFfFfF"));
             Assert.False("AbCdEfGhIjKlMnOp".IsFormattedAs("fFfFfFfFfFfFfFfF"));
+        }
+
+        [Fact]
+        public void String_ToSecureStringTest()
+        {
+            Assert.Equal("Test", "Test".ToSecureString().Read());
+        }
+
+        [Fact]
+        public void SecureString_ReadBytesTest()
+        {
+            Assert.Equal(new byte[]
+                {
+                    84, 0, 101, 0, 115, 0, 116, 0
+                },
+                "Test".ToSecureString().ReadBytes());
         }
     }
 }

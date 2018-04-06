@@ -8,10 +8,18 @@ de estas configuraciones, y no existe un mecanismo elegante para administrar
 las configuraciones globales. Por ende, es necesario agregar el siguiente nodo
 a la definición de cada proyecto:
 ```xml
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <!-- 
+  ... 
+  Definiciones del proyecto
+   ...
+   -->  
   <PropertyGroup Condition="'$(SolutionDir)' == '' or '$(SolutionDir)' == '*undefined*'">
     <SolutionDir>..\..\</SolutionDir>
   </PropertyGroup>
   <Import Project="$(SolutionDir)CommonSettings.targets" />
+</Project>
 ```
 Al agregar este bloque de código a los proyectos, es posible cambiar las
 constantes de compilación globales editando el archivo
