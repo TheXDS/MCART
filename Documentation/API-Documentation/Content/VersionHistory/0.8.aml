@@ -3,7 +3,7 @@
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction>
       <para>
-        MCART 0.8 tuvo su último Milestone (0.8.1.0) el miércoles, 21 de enero de 2018.
+        MCART 0.8 tuvo su último Milestone (0.8.4.0) el viernes, 6 de abril de 2018.
       </para>
     </introduction>
     <section>
@@ -30,6 +30,11 @@
           <listItem>
             <para>
               Nuevo: Soporte para objetos de extracción de recursos incrustados
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Nuevo: Librería matemática
             </para>
           </listItem>
           <listItem>
