@@ -33,6 +33,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Math;
 using St = TheXDS.MCART.Resources.Strings;
 
 #region Configuración de ReSharper
@@ -271,7 +272,20 @@ namespace TheXDS.MCART
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
         [Thunk]
-        public static bool AreAllEmpty(params string[] stringArray)
+        public static bool AllEmpty(params string[] stringArray)
+        {
+            return stringArray.AsEnumerable().AllEmpty();
+        }
+
+        /// <summary>
+        ///     Determina si un conjunto de cadenas están vacías.
+        /// </summary>
+        /// <returns>
+        ///     <see langword="true" /> si las cadenas están vacías o son <see langword="null" />; de lo
+        ///     contrario, <see langword="false" />.
+        /// </returns>
+        /// <param name="stringArray">Cadenas a comprobar.</param>
+        public static bool AllEmpty(this IEnumerable<string> stringArray)
         {
             return stringArray.All(j => j.IsEmpty());
         }
@@ -285,7 +299,21 @@ namespace TheXDS.MCART
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
         [Thunk]
-        public static bool IsAnyEmpty(params string[] stringArray)
+        public static bool AnyEmpty(params string[] stringArray)
+        {
+            return stringArray.AsEnumerable().AnyEmpty();
+        }
+
+        /// <summary>
+        ///     Determina si alguna cadena está vacía.
+        /// </summary>
+        /// <returns>
+        ///     <see langword="true" /> si alguna cadena está vacía o es <see langword="null" />; de lo
+        ///     contrario, <see langword="false" />.
+        /// </returns>
+        /// <param name="stringArray">Cadenas a comprobar.</param>
+        [Thunk]
+        public static bool AnyEmpty(this IEnumerable<string> stringArray)
         {
             return stringArray.Any(j => j.IsEmpty());
         }
@@ -301,7 +329,23 @@ namespace TheXDS.MCART
         /// <param name="index">
         ///     Argumento de salida. Índices de las cadenas vacías encontradas.
         /// </param>
-        public static bool IsAnyEmpty(out IEnumerable<int> index, params string[] stringArray)
+        public static bool AnyEmpty(out IEnumerable<int> index, params string[] stringArray)
+        {
+            return stringArray.AsEnumerable().AnyEmpty(out index);
+        }
+
+        /// <summary>
+        ///     Determina si alguna cadena está vacía.
+        /// </summary>
+        /// <returns>
+        ///     <see langword="true" /> si alguna cadena está vacía o es <see langword="null" />; de lo
+        ///     contrario, <see langword="false" />.
+        /// </returns>
+        /// <param name="stringArray">Cadenas a comprobar.</param>
+        /// <param name="index">
+        ///     Argumento de salida. Índices de las cadenas vacías encontradas.
+        /// </param>
+        public static bool AnyEmpty(this IEnumerable<string> stringArray, out IEnumerable<int> index)
         {
             var idx = new List<int>();
             var c = 0;
@@ -385,6 +429,27 @@ namespace TheXDS.MCART
         /// <param name="chars">Caracteres a buscar.</param>
         public static bool ContainsAny(this string stringToCheck, out int argNum, params char[] chars)
         {
+            return stringToCheck.ContainsAny(chars, out argNum);
+        }
+
+        /// <summary>
+        ///     Determina si la cadena contiene a cualquiera de los caracteres
+        ///     especificados.
+        /// </summary>
+        /// <returns>
+        ///     <see langword="true" /> si la cadena contiene a cualquiera de los caracteres,
+        ///     <see langword="false" /> en caso contrario.
+        /// </returns>
+        /// <param name="stringToCheck">Cadena a verificar.</param>
+        /// <param name="argNum">
+        ///     Parámetro de salida. Si <paramref name="stringToCheck" /> contiene cualquier
+        ///     caracter especificado en <paramref name="chars" />, se devolverá el
+        ///     índice del argumento contenido; en caso contrario, se devuelve
+        ///     <c>-1</c>.
+        /// </param>
+        /// <param name="chars">Caracteres a buscar.</param>
+        public static bool ContainsAny(this string stringToCheck, IEnumerable<char> chars, out int argNum)
+        {
             argNum = 0;
             foreach (var j in chars)
             {
@@ -409,7 +474,23 @@ namespace TheXDS.MCART
         [Thunk]
         public static bool ContainsAny(this string stringToCheck, params string[] strings)
         {
-            return ContainsAny(stringToCheck, out _, strings);
+            return ContainsAny(stringToCheck, strings, out _);
+        }
+
+        /// <summary>
+        ///     Determina si la cadena contiene a cualquiera de las cadenas
+        ///     especificadas.
+        /// </summary>
+        /// <returns>
+        ///     <see langword="true" /> si la cadena contiene a cualquiera de los caracteres,
+        ///     <see langword="false" /> en caso contrario.
+        /// </returns>
+        /// <param name="stringToCheck">Cadena a verificar.</param>
+        /// <param name="strings">Cadenas a buscar.</param>
+        [Thunk]
+        public static bool ContainsAny(this string stringToCheck, IEnumerable<string> strings)
+        {
+            return ContainsAny(stringToCheck, strings, out _);
         }
 
         /// <summary>
@@ -429,6 +510,27 @@ namespace TheXDS.MCART
         /// </param>
         /// <param name="strings">Cadenas a buscar.</param>
         public static bool ContainsAny(this string stringToCheck, out int argNum, params string[] strings)
+        {
+            return stringToCheck.ContainsAny(strings, out argNum);
+        }
+
+        /// <summary>
+        ///     Determina si la cadena contiene a cualquiera de las cadenas
+        ///     especificadas.
+        /// </summary>
+        /// <returns>
+        ///     <see langword="true" /> si la cadena contiene a cualquiera de los caracteres,
+        ///     <see langword="false" /> en caso contrario.
+        /// </returns>
+        /// <param name="stringToCheck">Cadena a verificar.</param>
+        /// <param name="argNum">
+        ///     Parámetro de salida. Si <paramref name="stringToCheck" /> contiene cualquier
+        ///     caracter especificado en <paramref name="strings" />, se devolverá
+        ///     el índice del argumento contenido; en caso contrario, se devuelve
+        ///     <c>-1</c>.
+        /// </param>
+        /// <param name="strings">Cadenas a buscar.</param>
+        public static bool ContainsAny(this string stringToCheck, IEnumerable<string> strings, out int argNum)
         {
             argNum = 0;
             foreach (var j in strings)
