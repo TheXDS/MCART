@@ -27,10 +27,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security;
 using System.Text;
+using TheXDS.MCART.Math;
 using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Security.Password
 {
+    /// <inheritdoc />
     /// <summary>
     /// Define un evaluador de contraseñas. Esta clase no puede heredarse.
     /// </summary>

@@ -111,7 +111,15 @@ namespace TheXDS.MCART.PluginSupport
             Text = action.GetAttr<NameAttribute>()?.Value ?? action.Method.Name;
             Description = action.GetAttr<DescriptionAttribute>()?.Value;
         }
-        internal InteractionItem(MethodInfo method, IPlugin parentInstance)
+        /// <summary>
+        /// Crea una una nueva entrada de interacción utilizando el método
+        /// especificado asociado a una instancia de <see cref="IPlugin"/>.
+        /// </summary>
+        /// <param name="method">Método a llamar.</param>
+        /// <param name="parentInstance">
+        /// Instancia padre de este <see cref="InteractionItem"/>.
+        /// </param>
+        public InteractionItem(MethodInfo method, IPlugin parentInstance)
         {
             Action = Delegate.CreateDelegate(typeof(EventHandler), parentInstance, method, false) as EventHandler
                 ?? throw new Exceptions.InvalidMethodSignatureException(method);

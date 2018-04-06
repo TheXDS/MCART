@@ -28,6 +28,7 @@ using System.Windows.Controls;
 using System.Windows.Converters;
 using System.Windows.Data;
 using System.Windows.Shapes;
+using TheXDS.MCART.Math;
 
 namespace TheXDS.MCART.Controls
 {
@@ -189,7 +190,7 @@ namespace TheXDS.MCART.Controls
         /// </summary>
         public void Redraw()
         {
-            if (!Math.AreNotZero(ActualHeight, ActualWidth)) return;
+            if (!Algebra.AreNotZero(ActualHeight, ActualWidth)) return;
             var s = (SubLevelsShown - 1) * RingThickness;
             grdRoot.Margin = new Thickness(s);
             vbxTotal.Margin = new Thickness(100 + s - RingThickness);

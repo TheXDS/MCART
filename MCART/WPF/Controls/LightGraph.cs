@@ -35,6 +35,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using MC = TheXDS.MCART.Resources.Colors;
 using ISt = TheXDS.MCART.Resources.InternalStrings;
+using TheXDS.MCART.Math;
 
 namespace TheXDS.MCART.Controls
 {
@@ -376,7 +377,7 @@ namespace TheXDS.MCART.Controls
         }
         #endregion
         #region Métodos internos
-        bool AmIValid() => Math.ArePositives(ActualHeight, ActualWidth);
+        bool AmIValid() => Algebra.ArePositive(ActualHeight, ActualWidth);
         void ClearGrp(Polyline grp, TextBlock mx, TextBlock mn)
         {
             if (!AmIValid()) return;
@@ -487,7 +488,7 @@ namespace TheXDS.MCART.Controls
                 mi = double.IsNaN(YMin) ? grp.Min() : YMin;
                 foreach (Point p in Ps.Points)
                 {
-                    if (Math.AreValid(p.X, p.Y) && drop == 0)
+                    if (Algebra.AreValid(p.X, p.Y) && drop == 0)
                     {
                         TextBlock lb = new TextBlock()
                         {

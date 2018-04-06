@@ -4,9 +4,9 @@ ProgressRing.cs
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
-     CÈsar AndrÈs Morgan <xds_xps_ivx@hotmail.com>
+     C√©sar Andr√©s Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright (c) 2011 - 2018 CÈsar AndrÈs Morgan
+Copyright (c) 2011 - 2018 C√©sar Andr√©s Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -29,13 +29,14 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using TheXDS.MCART.Math;
 using static TheXDS.MCART.UI;
 
 namespace TheXDS.MCART.Controls
 {
     public partial class ProgressRing : UserControl
     {
-        #region Miembros est·ticos
+        #region Miembros est√°ticos
         static void Updt(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ((ProgressRing)d).Draw();
@@ -191,7 +192,7 @@ namespace TheXDS.MCART.Controls
         #endregion
         #region Propiedades
         /// <summary>
-        /// Obtiene o establece el ·ngulo desde el que se empezar· a dibujar el
+        /// Obtiene o establece el √°ngulo desde el que se empezar√° a dibujar el
         /// relleno de este <see cref="ProgressRing"/>. 
         /// </summary>
         public float Angle
@@ -209,7 +210,7 @@ namespace TheXDS.MCART.Controls
             set => SetValue(FillProperty, value);
         }
         /// <summary>
-        /// Obtiene o establece el ·ngulo que indica un valor completo del
+        /// Obtiene o establece el √°ngulo que indica un valor completo del
         /// <see cref="ProgressRing"/>.
         /// </summary>
         public float FullAngle
@@ -218,7 +219,7 @@ namespace TheXDS.MCART.Controls
             set => SetValue(FullAngleProperty, value);
         }
         /// <summary>
-        /// Obtiene o establece un valor que indica si se mostrar· un estado
+        /// Obtiene o establece un valor que indica si se mostrar√° un estado
         /// indeterminado en este <see cref="ProgressRing"/>.
         /// </summary>
         public bool IsIndeterminate
@@ -227,7 +228,7 @@ namespace TheXDS.MCART.Controls
             set => SetValue(IsIndeterminateProperty, value);
         }
         /// <summary>
-        /// Obtiene o establece el valor m·ximo de este
+        /// Obtiene o establece el valor m√°ximo de este
         /// <see cref="ProgressRing"/>.
         /// </summary>
         public double Maximum
@@ -236,7 +237,7 @@ namespace TheXDS.MCART.Controls
             set => SetValue(MaxProperty, value);
         }
         /// <summary>
-        /// Obtiene o establece el valor mÌnimo de este
+        /// Obtiene o establece el valor m√≠nimo de este
         /// <see cref="ProgressRing"/>.
         /// </summary>
         public double Minimum
@@ -245,7 +246,7 @@ namespace TheXDS.MCART.Controls
             set => SetValue(MinProperty, value);
         }
         /// <summary>
-        /// Obtiene o establece el punto en el que inicia la lÌnea de lÌmite.
+        /// Obtiene o establece el punto en el que inicia la l√≠nea de l√≠mite.
         /// </summary>
         public double Redline
         {
@@ -253,7 +254,7 @@ namespace TheXDS.MCART.Controls
             set => SetValue(RedlineProperty, value);
         }
         /// <summary>
-        /// Obtiene o establece el color de la lÌnea de lÌmite.
+        /// Obtiene o establece el color de la l√≠nea de l√≠mite.
         /// </summary>
         public Brush RedlineBrush
         {
@@ -270,7 +271,7 @@ namespace TheXDS.MCART.Controls
             set => SetValue(RingStrokeProperty, value);
         }
         /// <summary>
-        /// Obtiene o establece la direcciÛn en la cual se rellenar· este
+        /// Obtiene o establece la direcci√≥n en la cual se rellenar√° este
         /// <see cref="ProgressRing"/>. 
         /// </summary>
         public SweepDirection Sweep
@@ -288,7 +289,7 @@ namespace TheXDS.MCART.Controls
             set => SetValue(TextFormatProperty, value);
         }
         /// <summary>
-        /// Obtiene o establece el tamaÒo del texto de etiqueta del
+        /// Obtiene o establece el tama√±o del texto de etiqueta del
         /// <see cref="ProgressRing"/>.
         /// </summary>
         public double TextSize
@@ -342,7 +343,7 @@ namespace TheXDS.MCART.Controls
             Content = new Viewbox() { Child = a };
             Loaded += OnLoaded;
         }
-        #region MÈtodos privados
+        #region M√©todos privados
         void BgDraw()
         {
             double radius = 50 - Thickness / 2;

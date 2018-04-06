@@ -23,6 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using TheXDS.MCART.Math;
 using CI = System.Globalization.CultureInfo;
 
 namespace TheXDS.MCART.Types
