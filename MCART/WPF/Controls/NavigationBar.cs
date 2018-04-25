@@ -724,7 +724,7 @@ namespace TheXDS.MCART.Controls
             SetBinding(HasItemsProperty, new Binding(nameof(Max))
             {
                 Source = this,
-                Converter = new NumberBoolConverter()
+                Converter = new NumberToBooleanConverter()
             });
             Grid c = new Grid
             {

@@ -1,4 +1,4 @@
-﻿/*
+/*
 ColorParsers.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
@@ -79,7 +79,7 @@ namespace TheXDS.MCART.Types
             /// <returns>
             /// Un valor creado a partir de este <see cref="Color"/>.
             /// </returns>
-            public int To(Color color) => (color.R | color.G << 4 | color.B << 8 | color.A << 12);
+            public int To(Color color) => (color.R | color.G << 8 | color.B << 16 | color.A << 24);
         }
         /// <summary>
         /// Implementa un <see cref="IColorParser{T}"/> que tiene como formato
@@ -106,7 +106,7 @@ namespace TheXDS.MCART.Types
             /// <returns>
             /// Un valor creado a partir de este <see cref="Color"/>.
             /// </returns>
-            public int To(Color color) => (color.R | color.G << 4 | color.B << 8);
+            public int To(Color color) => (color.R | color.G << 8 | color.B << 16);
         }
         /// <summary>
         /// Implementa un <see cref="IColorParser{T}"/> que tiene como formato

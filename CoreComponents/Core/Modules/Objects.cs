@@ -265,16 +265,16 @@ namespace TheXDS.MCART
         /// especificada dentro del <see cref="AppDomain"/> especificado.
         /// </summary>
         /// <typeparam name="T">Interfaz a buscar.</typeparam>
-        /// <param name="Domain">
+        /// <param name="domain">
         /// <see cref="AppDomain"/> en el cual realizar la búsqueda.
         /// </param>
         /// <returns>
         /// Una lista de tipos de las clases que implementan a la interfaz 
-        /// <typeparamref name="T"/> dentro del <paramref name="Domain"/>.
+        /// <typeparamref name="T"/> dentro del <paramref name="domain"/>.
         /// </returns>
-        public static IEnumerable<Type> GetTypes<T>(this AppDomain Domain)
+        public static IEnumerable<Type> GetTypes<T>(this AppDomain domain)
         {
-            return Domain.GetAssemblies().SelectMany(s => s.GetTypes().Where(
+            return domain.GetAssemblies().SelectMany(s => s.GetTypes().Where(
                 p => typeof(T).IsAssignableFrom(p))).AsEnumerable();
         }
         /// <summary>
@@ -348,7 +348,7 @@ namespace TheXDS.MCART
         /// Libera un objeto COM.
         /// </summary>
         /// <param name="obj">Objeto COM a liberar.</param>
-        public static void ReleaseCOMObject(object obj)
+        public static void ReleaseComObject(object obj)
         {
             try { Marshal.ReleaseComObject(obj); }
             finally
