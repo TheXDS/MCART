@@ -9,6 +9,7 @@
     <Import_RootNamespace>MCART</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Fluent\FlowDocumentFluentExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\UI.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\PluginStatic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Colors.cs" />

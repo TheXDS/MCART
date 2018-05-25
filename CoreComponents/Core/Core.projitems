@@ -56,6 +56,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\RandomExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\Common.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\Timer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\TypeExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Point.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Point3D.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\Plugin.cs" />

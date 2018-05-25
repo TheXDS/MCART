@@ -79,7 +79,7 @@ namespace TheXDS.MCART.Types
             /// <returns>
             /// Un valor creado a partir de este <see cref="Color"/>.
             /// </returns>
-            public int To(Color color) => (color.R | color.G << 8 | color.B << 16 | color.A << 24);
+            public int To(Color color) => color.R | color.G << 8 | color.B << 16 | color.A << 24;
         }
         /// <summary>
         /// Implementa un <see cref="IColorParser{T}"/> que tiene como formato
