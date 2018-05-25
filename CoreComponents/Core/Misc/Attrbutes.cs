@@ -43,6 +43,54 @@ namespace TheXDS.MCART.Attributes
 
     /// <inheritdoc />
     /// <summary>
+    ///     Clase base para los atributos de cualquier tipo.
+    /// </summary>
+    public abstract class ObjectAttribute : Attribute
+    {
+        /// <inheritdoc />
+        /// <summary>
+        ///     Crea una nueva isntancia de la clase
+        ///     <see cref="T:TheXDS.MCART.Attributes.ObjectAttribute" />.
+        /// </summary>
+        /// <param name="attributeValue">Valor de este atributo.</param>
+        protected ObjectAttribute(object attributeValue)
+        {
+            Value = attributeValue;
+        }
+
+        /// <summary>
+        ///     Obtiene el valor asociado a este atributo.
+        /// </summary>
+        public object Value { get; }
+    }
+
+#if !CLSCompliance
+    /// <inheritdoc />
+    /// <summary>
+    ///     Clase base para los atributos de cualquier tipo.
+    /// </summary>
+    public abstract class ValueAttribute : Attribute
+    {
+        /// <inheritdoc />
+        /// <summary>
+        ///     Crea una nueva isntancia de la clase
+        ///     <see cref="T:TheXDS.MCART.Attributes.ObjectAttribute" />.
+        /// </summary>
+        /// <param name="attributeValue">Valor de este atributo.</param>
+        protected ValueAttribute(dynamic attributeValue)
+        {
+            Value = attributeValue;
+        }
+
+        /// <summary>
+        ///     Obtiene el valor asociado a este atributo.
+        /// </summary>
+        public dynamic Value { get; }
+    }
+#endif
+
+    /// <inheritdoc />
+    /// <summary>
     ///     Clase base para los atributos basados en números enteros.
     /// </summary>
     public abstract class IntAttribute : Attribute
