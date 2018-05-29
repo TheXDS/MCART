@@ -23,6 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System.Globalization;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 using TheXDS.MCART;
@@ -1406,6 +1407,285 @@ namespace System.Windows.Converters
             var b = brush.Clone();
             b.Opacity = 1;
             return b;
+        }
+    }
+    /// <inheritdoc />
+    /// <summary>
+    /// Para un <see cref="T:System.Windows.Controls.ContentControl" /> o un <see cref="T:System.Windows.Controls.Panel" />, obtiene
+    /// un valor <see cref="F:System.Windows.Visibility.Visible" /> si al menos un control hijo
+    /// directo es visible.
+    /// </summary>
+    public sealed class AnyContentVisibilityConverter : IValueConverter
+    {
+        /// <inheritdoc />
+        /// <summary>
+        /// Obtiene un valor <see cref="Visibility.Visible"/> si al menos un
+        /// control hijo directo es visible.
+        /// </summary>
+        /// <param name="value">Objeto a convertir.</param>
+        /// <param name="targetType">Tipo del destino.</param>
+        /// <param name="parameter">
+        /// Parámetros personalizados para este <see cref="T:System.Windows.Data.IValueConverter"/>.
+        /// </param>
+        /// <param name="culture">
+        /// <see cref="T:System.Globalization.CultureInfo" /> a utilizar para la conversión.</param>
+        /// <returns>
+        /// Un nuevo <see cref="F:System.Windows.Visibility.Visible" /> si al
+        /// menos un hijo directo del control es visible,
+        /// <see cref="F:System.Windows.Visibility.Collapsed" /> en caso contrario.
+        /// </returns>
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            switch (value)
+            {
+                case ContentControl contentControl:
+                    return (contentControl.Content as FrameworkElement)?.Visibility ?? Visibility.Collapsed;
+                case Panel panel:
+                    foreach (var j in panel.Children)
+                    {
+                        if ((j as FrameworkElement)?.IsVisible ?? false) return Visibility.Visible;
+                    }
+                    return Visibility.Collapsed;
+                default:
+                    return Visibility.Visible;
+            }
+        }
+
+        /// <inheritdoc />
+        /// <summary>Convierte un valor.</summary>
+        /// <param name="value">
+        ///   Valor generado por el destino de enlace.
+        /// </param>
+        /// <param name="targetType">Tipo al que se va a convertir.</param>
+        /// <param name="parameter">
+        ///   Parámetro de convertidor que se va a usar.
+        /// </param>
+        /// <param name="culture">
+        ///   Referencia cultural que se va a usar en el convertidor.
+        /// </param>
+        /// <returns>
+        ///   Valor convertido.
+        ///    Si el método devuelve <see langword="null" />, se usa el valor nulo válido.
+        /// </returns>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new InvalidOperationException();
+        }
+    }
+    /// <inheritdoc />
+    /// <summary>
+    /// Determina si un objeto es una instancia del tipo provisto, y devuelve
+    /// <see cref="F:System.Windows.Visibility.Visible" /> si lo es.
+    /// </summary>
+    public sealed class StrictTypeVisibilityConverter : IValueConverter
+    {
+        /// <inheritdoc />
+        /// <summary>
+        /// Determina si un objeto es una instancia del tipo provisto.
+        /// </summary>
+        /// <param name="value">
+        /// Valor generado por el origen de enlace.
+        /// </param>
+        /// <param name="targetType">
+        /// El tipo de la propiedad del destino de enlace.
+        /// </param>
+        /// <param name="parameter">
+        /// Parámetro de convertidor que se va a usar.
+        /// </param>
+        /// <param name="culture">
+        /// Referencia cultural que se va a usar en el convertidor.
+        /// </param>
+        /// <returns>
+        /// <see cref="F:System.Windows.Visibility.Visible" /> si el objeto es una instancia del
+        /// tipo provisto, <see cref="F:System.Windows.Visibility.Collapsed" /> en caso contrario.
+        /// </returns>
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (!(parameter is Type t)) throw new ArgumentException();
+            return t.IsInstanceOfType(value) ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        /// <inheritdoc />
+        /// <summary>Convierte un valor.</summary>
+        /// <param name="value">
+        ///   Valor generado por el destino de enlace.
+        /// </param>
+        /// <param name="targetType">Tipo al que se va a convertir.</param>
+        /// <param name="parameter">
+        ///   Parámetro de convertidor que se va a usar.
+        /// </param>
+        /// <param name="culture">
+        ///   Referencia cultural que se va a usar en el convertidor.
+        /// </param>
+        /// <returns>
+        /// Este método siempre genera un <see cref="InvalidOperationException"/>.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">Este método siempre genera esta excepción al ser llamado.</exception>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new InvalidOperationException();
+        }
+    }
+    /// <inheritdoc />
+    /// <summary>
+    /// Determina si un objeto es una instancia del tipo provisto o de una clase derivada, y devuelve
+    /// <see cref="F:System.Windows.Visibility.Visible" /> si lo es.
+    /// </summary>
+    public sealed class TypeVisibilityConverter : IValueConverter
+    {
+        /// <inheritdoc />
+        /// <summary>
+        /// Determina si un objeto es una instancia del tipo provisto o de una clase derivada.
+        /// </summary>
+        /// <param name="value">
+        /// Valor generado por el origen de enlace.
+        /// </param>
+        /// <param name="targetType">
+        /// El tipo de la propiedad del destino de enlace.
+        /// </param>
+        /// <param name="parameter">
+        /// Parámetro de convertidor que se va a usar.
+        /// </param>
+        /// <param name="culture">
+        /// Referencia cultural que se va a usar en el convertidor.
+        /// </param>
+        /// <returns>
+        /// <see cref="F:System.Windows.Visibility.Visible" /> si el objeto es una instancia del
+        /// tipo provisto o de una clase derivada, <see cref="F:System.Windows.Visibility.Collapsed" /> en caso contrario.
+        /// </returns>
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (!(parameter is Type t)) throw new ArgumentException();
+            return t.IsAssignableFrom(value?.GetType()) ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        /// <inheritdoc />
+        /// <summary>Convierte un valor.</summary>
+        /// <param name="value">
+        ///   Valor generado por el destino de enlace.
+        /// </param>
+        /// <param name="targetType">Tipo al que se va a convertir.</param>
+        /// <param name="parameter">
+        ///   Parámetro de convertidor que se va a usar.
+        /// </param>
+        /// <param name="culture">
+        ///   Referencia cultural que se va a usar en el convertidor.
+        /// </param>
+        /// <returns>
+        /// Este método siempre genera un <see cref="InvalidOperationException"/>.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">Este método siempre genera esta excepción al ser llamado.</exception>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new InvalidOperationException();
+        }
+    }
+    /// <inheritdoc />
+    /// <summary>
+    /// Determina si un objeto es una instancia del tipo provisto, y devuelve
+    /// <see langword="true" /> si lo es.
+    /// </summary>
+    public sealed class StrictTypeBooleanConverter : IValueConverter
+    {
+        /// <inheritdoc />
+        /// <summary>
+        /// Determina si un objeto es una instancia del tipo provisto.
+        /// </summary>
+        /// <param name="value">
+        /// Valor generado por el origen de enlace.
+        /// </param>
+        /// <param name="targetType">
+        /// El tipo de la propiedad del destino de enlace.
+        /// </param>
+        /// <param name="parameter">
+        /// Parámetro de convertidor que se va a usar.
+        /// </param>
+        /// <param name="culture">
+        /// Referencia cultural que se va a usar en el convertidor.
+        /// </param>
+        /// <returns>
+        /// <see langword="true" /> si el objeto es una instancia del
+        /// tipo provisto, <see langword="false" /> en caso contrario.
+        /// </returns>
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (!(parameter is Type t)) throw new ArgumentException();
+            return t.IsInstanceOfType(value);
+        }
+
+        /// <inheritdoc />
+        /// <summary>Convierte un valor.</summary>
+        /// <param name="value">
+        ///   Valor generado por el destino de enlace.
+        /// </param>
+        /// <param name="targetType">Tipo al que se va a convertir.</param>
+        /// <param name="parameter">
+        ///   Parámetro de convertidor que se va a usar.
+        /// </param>
+        /// <param name="culture">
+        ///   Referencia cultural que se va a usar en el convertidor.
+        /// </param>
+        /// <returns>
+        /// Este método siempre genera un <see cref="InvalidOperationException"/>.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">Este método siempre genera esta excepción al ser llamado.</exception>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new InvalidOperationException();
+        }
+    }
+    /// <inheritdoc />
+    /// <summary>
+    /// Determina si un objeto es una instancia del tipo provisto o de una clase derivada, y devuelve
+    /// <see langword="true" /> si lo es.
+    /// </summary>
+    public sealed class TypeBooleanConverter : IValueConverter
+    {
+        /// <inheritdoc />
+        /// <summary>
+        /// Determina si un objeto es una instancia del tipo provisto o de una clase derivada.
+        /// </summary>
+        /// <param name="value">
+        /// Valor generado por el origen de enlace.
+        /// </param>
+        /// <param name="targetType">
+        /// El tipo de la propiedad del destino de enlace.
+        /// </param>
+        /// <param name="parameter">
+        /// Parámetro de convertidor que se va a usar.
+        /// </param>
+        /// <param name="culture">
+        /// Referencia cultural que se va a usar en el convertidor.
+        /// </param>
+        /// <returns>
+        /// <see langword="true" /> si el objeto es una instancia del
+        /// tipo provisto o de una clase derivada, <see langword="true" /> en caso contrario.
+        /// </returns>
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (!(parameter is Type t)) throw new ArgumentException();
+            return t.IsAssignableFrom(value?.GetType());
+        }
+
+        /// <inheritdoc />
+        /// <summary>Convierte un valor.</summary>
+        /// <param name="value">
+        ///   Valor generado por el destino de enlace.
+        /// </param>
+        /// <param name="targetType">Tipo al que se va a convertir.</param>
+        /// <param name="parameter">
+        ///   Parámetro de convertidor que se va a usar.
+        /// </param>
+        /// <param name="culture">
+        /// Referencia cultural que se va a usar en el convertidor.
+        /// </param>
+        /// <returns>
+        /// Este método siempre genera un <see cref="InvalidOperationException"/>.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">Este método siempre genera esta excepción al ser llamado.</exception>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new InvalidOperationException();
         }
     }
 }
