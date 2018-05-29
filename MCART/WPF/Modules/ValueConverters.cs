@@ -1443,7 +1443,7 @@ namespace System.Windows.Converters
                 case Panel panel:
                     foreach (var j in panel.Children)
                     {
-                        if ((j as FrameworkElement)?.IsVisible ?? false) return Visibility.Visible;
+                        if ((j as FrameworkElement)?.Visibility == Visibility.Visible) return Visibility.Visible;
                     }
                     return Visibility.Collapsed;
                 default:
