@@ -30,9 +30,10 @@ using TheXDS.MCART.Attributes;
 
 namespace TheXDS.MCART.Types.Extensions
 {
+    /// <inheritdoc cref="T:System.Collections.Generic.List`1"/>
     /// <summary>
     /// Extensión observable de la clase 
-    /// <see cref="System.Collections.Generic.List{T}"/>. Provee de toda la
+    /// <see cref="T:System.Collections.Generic.List`1"/>. Provee de toda la
     /// funcionalidad previamente disponible, e incluye algunas extensiones
     /// útiles.
     /// </summary>
@@ -41,7 +42,7 @@ namespace TheXDS.MCART.Types.Extensions
     /// </typeparam>
     /// <remarks>
     /// Esta clase puede considerarse como una alternativa más completa a 
-    /// <see cref="System.Collections.ObjectModel.ObservableCollection{T}"/>
+    /// <see cref="T:System.Collections.ObjectModel.ObservableCollection`1" />
     /// con numerosos eventos adicionales y otras extensiones.
     /// </remarks>
     public partial class List<T> : System.Collections.Generic.List<T>, ICloneable
@@ -108,13 +109,12 @@ namespace TheXDS.MCART.Types.Extensions
         {
             if (TriggerEvents && GlobalTriggerEvents)
             {
-                var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsAdded, collection);
+                var affectedItems = collection.ToList();
+                var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsAdded, affectedItems);
                 ListUpdating?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    base.AddRange(collection);
-                    ListUpdated?.Invoke(this, a);
-                }
+                if (a.Cancel) return;
+                base.AddRange(affectedItems);
+                ListUpdated?.Invoke(this, a);
             }
             else { base.AddRange(collection); }
         }
@@ -129,11 +129,9 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 var a = new InsertingItemEventArgs<T>(index, item);
                 InsertingItem?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    base.Insert(index, item);
-                    InsertedItem?.Invoke(this, a);
-                }
+                if (a.Cancel) return;
+                base.Insert(index, item);
+                InsertedItem?.Invoke(this, a);
             }
             else { base.Insert(index, item); }
         }
@@ -146,13 +144,12 @@ namespace TheXDS.MCART.Types.Extensions
         {
             if (TriggerEvents && GlobalTriggerEvents)
             {
-                var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsInserted, collection);
+                var affectedItems = collection.ToList();
+                var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsInserted, affectedItems);
                 ListUpdating?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    base.InsertRange(index, collection);
-                    ListUpdated?.Invoke(this, a);
-                }
+                if (a.Cancel) return;
+                base.InsertRange(index, affectedItems);
+                ListUpdated?.Invoke(this, a);
             }
             else { base.InsertRange(index, collection); }
         }
@@ -173,11 +170,9 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 var a = new RemovingItemEventArgs<T>(IndexOf(item), this.Last());
                 RemovingItem?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    base.Remove(item);
-                    RemovedItem?.Invoke(this, a);
-                }
+                if (a.Cancel) return;
+                base.Remove(item);
+                RemovedItem?.Invoke(this, a);
             }
             else { base.Remove(item); }
         }
@@ -196,12 +191,9 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 var a = new RemovingItemEventArgs<T>(index, this[index]);
                 RemovingItem?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    T x = this.ElementAt(index);
-                    base.RemoveAt(index);
-                    RemovedItem?.Invoke(this, a);
-                }
+                if (a.Cancel) return;
+                base.RemoveAt(index);
+                RemovedItem?.Invoke(this, a);
             }
             else { base.RemoveAt(index); }
         }
@@ -229,20 +221,15 @@ namespace TheXDS.MCART.Types.Extensions
 #else
                 return 0;
 #endif
-            if (TriggerEvents && GlobalTriggerEvents)
-            {
-                var tmp = this.Where((c) => match(c));
-                var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsRemoved, tmp);
-                ListUpdating?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    var retVal = base.RemoveAll(match);
-                    ListUpdated?.Invoke(this, a);
-                    return retVal;
-                }
-                return 0;
-            }
-            else { return base.RemoveAll(match); }
+            if (!TriggerEvents || !GlobalTriggerEvents) return base.RemoveAll(match);
+            var tmp = this.Where((c) => match(c));
+            var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsRemoved, tmp);
+            ListUpdating?.Invoke(this, a);
+            if (a.Cancel) return 0;
+            var retVal = base.RemoveAll(match);
+            ListUpdated?.Invoke(this, a);
+            return retVal;
+
         }
         /// <summary>
         /// Invierte el orden de los elementos en este <see cref="List{T}"/> completo.
@@ -253,11 +240,9 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, Reversed());
                 ListUpdating?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    base.Reverse();
-                    ListUpdated?.Invoke(this, a);
-                }
+                if (a.Cancel) return;
+                base.Reverse();
+                ListUpdated?.Invoke(this, a);
             }
             else { base.Reverse(); }
         }
@@ -276,11 +261,9 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, Reversed(index, count));
                 ListUpdating?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    base.Reverse(index, count);
-                    ListUpdated?.Invoke(this, a);
-                }
+                if (a.Cancel) return;
+                base.Reverse(index, count);
+                ListUpdated?.Invoke(this, a);
             }
             else { base.Reverse(index, count); }
         }
@@ -294,7 +277,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public IEnumerable<T> Reversed()
         {
-            var tmp = this.Copy();
+            var tmp = (List<T>)this.Copy();
             tmp.Reverse();
             return tmp;
         }
@@ -335,11 +318,9 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 var a = new System.ComponentModel.CancelEventArgs();
                 ListClearing?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    base.Clear();
-                    ListCleared?.Invoke(this, EventArgs.Empty);
-                }
+                if (a.Cancel) return;
+                base.Clear();
+                ListCleared?.Invoke(this, EventArgs.Empty);
             }
             else { base.Clear(); }
         }
@@ -353,11 +334,9 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, this);
                 ListUpdating?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    base.Sort();
-                    ListUpdated?.Invoke(this, a);
-                }
+                if (a.Cancel) return;
+                base.Sort();
+                ListUpdated?.Invoke(this, a);
             }
             else { base.Sort(); }
         }
@@ -375,11 +354,9 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, this);
                 ListUpdating?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    base.Sort(comparsion);
-                    ListUpdated?.Invoke(this, a);
-                }
+                if (a.Cancel) return;
+                base.Sort(comparsion);
+                ListUpdated?.Invoke(this, a);
             }
             else { base.Sort(comparsion); }
         }
@@ -398,11 +375,9 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, this);
                 ListUpdating?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    base.Sort(comparer);
-                    ListUpdated?.Invoke(this, a);
-                }
+                if (a.Cancel) return;
+                base.Sort(comparer);
+                ListUpdated?.Invoke(this, a);
             }
             else { base.Sort(comparer); }
         }
@@ -427,11 +402,9 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, this.Range(index,count));
                 ListUpdating?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    base.Sort(index, count, comparer);
-                    ListUpdated?.Invoke(this, a);
-                }
+                if (a.Cancel) return;
+                base.Sort(index, count, comparer);
+                ListUpdated?.Invoke(this, a);
             }
             else { base.Sort(index, count, comparer); }
         }
