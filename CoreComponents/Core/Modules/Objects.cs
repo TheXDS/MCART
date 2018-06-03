@@ -666,7 +666,7 @@ namespace TheXDS.MCART
         /// </summary>
         /// <typeparam name="T">Tipo de atributo a devolver. Debe heredar 
         /// <see cref="Attribute"/>.</typeparam>
-        /// <typeparam name="It">
+        /// <typeparam name="TIt">
         /// Tipo del cual se extraerá el atributo.
         /// </typeparam>
         /// <returns>
@@ -674,9 +674,9 @@ namespace TheXDS.MCART
         /// asociados en la declaración del tipo.
         /// </returns>
         [Thunk]
-        public static T GetAttr<T, It>() where T : Attribute
+        public static T GetAttr<T, TIt>() where T : Attribute
         {
-            HasAttr(typeof(It), out T attr);
+            HasAttr(typeof(TIt), out T attr);
             return attr;
         }
         /// <summary>
@@ -832,6 +832,13 @@ namespace TheXDS.MCART
                 }
             }
             return default;
+        }
+
+        public static IEnumerable<Type> AllTypes<T>() => AllTypes(typeof(T));
+        public static IEnumerable<Type> AllTypes(Type t)
+        {
+            return AppDomain.CurrentDomain.GetAssemblies().SelectMany(p => p.GetExportedTypes())
+                .Where(t.IsAssignableFrom);
         }
     }
 }

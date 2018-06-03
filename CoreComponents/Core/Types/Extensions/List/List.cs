@@ -47,11 +47,19 @@ namespace TheXDS.MCART.Types.Extensions
     /// </remarks>
     public partial class List<T> : System.Collections.Generic.List<T>, ICloneable
     {
+        /// <inheritdoc />
         /// <summary>
-        /// Activa o desactiva la generación global de eventos de todos los
-        /// <see cref="List{T}"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Types.Extensions.List`1" />.
         /// </summary>
-        public static bool GlobalTriggerEvents { get; set; } = true;
+        public List() { }
+        /// <inheritdoc />
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Types.Extensions.List`1" />.
+        /// </summary>
+        /// <param name="collection">
+        /// Colección incial de este <see cref="T:TheXDS.MCART.Types.Extensions.List`1" />.
+        /// </param>
+        public List(IEnumerable<T> collection) : base(collection) { }
         /// <summary>
         /// Activa o desactiva la generación de eventos.
         /// </summary>
@@ -66,7 +74,7 @@ namespace TheXDS.MCART.Types.Extensions
             get => base[index];
             set
             {
-                if (TriggerEvents && GlobalTriggerEvents)
+                if (TriggerEvents)
                 {
                     var a = new ModifyingItemEventArgs<T>(index, base[index], value);
                     ModifyingItem?.Invoke(this, a);
@@ -88,7 +96,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         public new void Add(T item)
         {
-            if (TriggerEvents && GlobalTriggerEvents)
+            if (TriggerEvents)
             {
                 var a = new AddingItemEventArgs<T>(item);
                 AddingItem?.Invoke(this, a);
@@ -107,7 +115,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="collection">Colección a añadir.</param>
         public new void AddRange(IEnumerable<T> collection)
         {
-            if (TriggerEvents && GlobalTriggerEvents)
+            if (TriggerEvents)
             {
                 var affectedItems = collection.ToList();
                 var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsAdded, affectedItems);
@@ -125,7 +133,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="item">Elemento a insertar</param>
         public new void Insert(int index, T item)
         {
-            if (TriggerEvents && GlobalTriggerEvents)
+            if (TriggerEvents)
             {
                 var a = new InsertingItemEventArgs<T>(index, item);
                 InsertingItem?.Invoke(this, a);
@@ -142,7 +150,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="collection">Colección de elementos a insertar</param>
         public new void InsertRange(int index, IEnumerable<T> collection)
         {
-            if (TriggerEvents && GlobalTriggerEvents)
+            if (TriggerEvents)
             {
                 var affectedItems = collection.ToList();
                 var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsInserted, affectedItems);
@@ -166,7 +174,7 @@ namespace TheXDS.MCART.Types.Extensions
         public new void Remove(T item)
         {
             if (!this.Any()) throw new IndexOutOfRangeException(null, new EmptyCollectionException(this));
-            if (TriggerEvents && GlobalTriggerEvents)
+            if (TriggerEvents)
             {
                 var a = new RemovingItemEventArgs<T>(IndexOf(item), this.Last());
                 RemovingItem?.Invoke(this, a);
@@ -187,7 +195,7 @@ namespace TheXDS.MCART.Types.Extensions
         public new void RemoveAt(int index)
         {
             if (!this.Any()) throw new IndexOutOfRangeException(null, new EmptyCollectionException(this));
-            if (TriggerEvents && GlobalTriggerEvents)
+            if (TriggerEvents)
             {
                 var a = new RemovingItemEventArgs<T>(index, this[index]);
                 RemovingItem?.Invoke(this, a);
@@ -221,22 +229,21 @@ namespace TheXDS.MCART.Types.Extensions
 #else
                 return 0;
 #endif
-            if (!TriggerEvents || !GlobalTriggerEvents) return base.RemoveAll(match);
-            var tmp = this.Where((c) => match(c));
+            if (!TriggerEvents) return base.RemoveAll(match);
+            var tmp = this.Where(c => match(c));
             var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsRemoved, tmp);
             ListUpdating?.Invoke(this, a);
             if (a.Cancel) return 0;
             var retVal = base.RemoveAll(match);
             ListUpdated?.Invoke(this, a);
             return retVal;
-
         }
         /// <summary>
         /// Invierte el orden de los elementos en este <see cref="List{T}"/> completo.
         /// </summary>
         public new void Reverse()
         {
-            if (TriggerEvents && GlobalTriggerEvents)
+            if (TriggerEvents)
             {
                 var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, Reversed());
                 ListUpdating?.Invoke(this, a);
@@ -257,7 +264,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         public new void Reverse(int index, int count)
         {
-            if (TriggerEvents && GlobalTriggerEvents)
+            if (TriggerEvents)
             {
                 var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, Reversed(index, count));
                 ListUpdating?.Invoke(this, a);
@@ -314,7 +321,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </summary>
         public new void Clear()
         {
-            if (TriggerEvents && GlobalTriggerEvents)
+            if (TriggerEvents)
             {
                 var a = new System.ComponentModel.CancelEventArgs();
                 ListClearing?.Invoke(this, a);
@@ -330,7 +337,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </summary>
         public new void Sort()
         {
-            if (TriggerEvents && GlobalTriggerEvents)
+            if (TriggerEvents)
             {
                 var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, this);
                 ListUpdating?.Invoke(this, a);
@@ -350,7 +357,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         public new void Sort(Comparison<T> comparsion)
         {
-            if (TriggerEvents && GlobalTriggerEvents)
+            if (TriggerEvents)
             {
                 var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, this);
                 ListUpdating?.Invoke(this, a);
@@ -371,7 +378,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         public new void Sort(IComparer<T> comparer)
         {
-            if (TriggerEvents && GlobalTriggerEvents)
+            if (TriggerEvents)
             {
                 var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, this);
                 ListUpdating?.Invoke(this, a);
@@ -398,7 +405,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         public new void Sort(int index, int count, IComparer<T> comparer)
         {
-            if (TriggerEvents && GlobalTriggerEvents)
+            if (TriggerEvents)
             {
                 var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, this.Range(index,count));
                 ListUpdating?.Invoke(this, a);

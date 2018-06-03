@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,9 +9,9 @@ using System.Xml;
 
 namespace TheXDS.MCARTBinUtil
 {
-    static class Program
+    internal static class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             if (!args.Any()
                 || args.Contains("--help")
@@ -45,7 +46,7 @@ namespace TheXDS.MCARTBinUtil
                 return;
             }
 
-            var resArg = FindArg("res=", args) ?? inputGetter.InferRes(sourceUri);
+            var resArg = FindArg("res=", args) ?? StreamGetter.InferRes(sourceUri);
 
             if (!inputGetter.TryGetStream(sourceUri, out var inputStream))
             {
@@ -53,11 +54,11 @@ namespace TheXDS.MCARTBinUtil
                 return;
             }
 
-            var pth = @"../../../CoreComponents/Core/";
+            const string pth = @"../../../CoreComponents/Core/";
 
             using (var outputFile = new FileStream($"{pth}Resources/Pack/{resArg}.pack", FileMode.Create))
             {
-                Stream compressorStream = null;
+                Stream compressorStream;
                 try
                 {
                     compressorStream = FindObject<ICompressorGetter>(compressorArg)?.GetCompressor(outputFile);
@@ -100,7 +101,7 @@ namespace TheXDS.MCARTBinUtil
             }
         }
 
-        static void ShowHelp()
+        private static void ShowHelp()
         {
             Console.WriteLine(@"
 Utilidad de importación de recursos binarios comprimidos de MCART
@@ -116,34 +117,42 @@ Argumentos:
 ");
             return;
         }
-        static async Task Report(Stream stream, CancellationToken token)
+
+        private static async Task Report(Stream stream, CancellationToken token)
         {
-            await Task.Run(() =>
+            // reportar solamente si la copia del stream toma más de 500 milisegundos.
+            //Thread.Sleep(500);
+            if (stream.CanSeek)
             {
-                // reportar solamente si la copia del stream toma más de 500 milisegundos.
-                //Thread.Sleep(500);
-                if (stream.CanSeek)
+                Console.Write("Obteniendo... ");
+                var row = Console.CursorTop;
+                var col = Console.CursorLeft;
+                while (stream.Position <= stream.Length)
                 {
-                    while (stream.Position < stream.Length)
-                    {
-                        if (token.IsCancellationRequested) return;
-                        Thread.Sleep(500);
-                        Console.WriteLine($"Obteniendo... {stream.Position / (float)stream.Length:%}");
-                    }
+                    if (token.IsCancellationRequested) break;
+                    await Task.Delay(50, token);
+                    Console.CursorTop = row;
+                    Console.CursorLeft = col;
+                    Console.Write($"{stream.Position / (float)stream.Length:P1}");
                 }
-                else
+            }
+            else
+            {
+                Console.Write("Obteniendo... ");
+                var row = Console.CursorTop;
+                var col = Console.CursorLeft;
+                while (!token.IsCancellationRequested)
                 {
-                    Console.Write("Obteniendo");
-                    while (!token.IsCancellationRequested)
-                    {
-                        Thread.Sleep(50);
-                        Console.Write('.');
-                    }
-                    Console.WriteLine();
+                    await Task.Delay(50, token);
+                    Console.CursorTop = row;
+                    Console.CursorLeft = col;
+                    Console.Write($"{(float)stream.Length/1024:F0} KB");
                 }
-            });
+                Console.WriteLine();
+            }
         }
-        static T FindObject<T>(string arg) where T : class
+
+        private static T FindObject<T>(string arg) where T : class
         {
             foreach (var j in typeof(Program).Assembly.GetTypes().Where(p => typeof(T).IsAssignableFrom(p)))
             {
@@ -154,7 +163,8 @@ Argumentos:
             }
             return null;
         }
-        static string FindArg(string argName, string[] args)
+
+        private static string FindArg(string argName, string[] args)
         {
             foreach (var j in args)
             {
@@ -162,7 +172,8 @@ Argumentos:
             }
             return null;
         }
-        static string FindArg(string[] args)
+
+        private static string FindArg(IEnumerable<string> args)
         {
             foreach (var j in args)
             {
@@ -171,15 +182,17 @@ Argumentos:
             }
             return null;
         }
-        static long BytesLeft(this FileStream fs) => fs.Length - fs.Position;
-        static string MakeProperty(string resName, string compressor)
+
+        private static long BytesLeft(this Stream fs) => fs.Length - fs.Position;
+
+        private static string MakeProperty(string resName, string compressor)
         {
             const string funcBody = @"
         /// <summary>
         /// Obtiene el recurso binario comprimido '{0}'.
         /// </summary>
         public static string {0} => GetResource(""{0}"", ""{1}"");";
-            return String.Format(funcBody, resName, compressor);
+            return string.Format(funcBody, resName, compressor);
         }
     }
 }

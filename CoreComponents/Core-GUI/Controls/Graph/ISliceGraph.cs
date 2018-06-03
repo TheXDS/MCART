@@ -22,47 +22,61 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System.Collections.Generic;
+
 namespace TheXDS.MCART.Controls
 {
+    /// <inheritdoc />
     /// <summary>
-    /// Expone una serie de métodos de redibujado disponibles para un
-    /// control que acepte un <see cref="Slice"/>.
+    ///     Expone una serie de métodos de redibujado disponibles para un
+    ///     control que acepte un <see cref="T:TheXDS.MCART.Controls.Slice" />.
     /// </summary>
-    public partial interface ISliceGraph : IGraph
+    public interface ISliceGraph : IGraph
     {
         /// <summary>
-        /// Dibuja al <see cref="Slice"/> y a sus hijos.
-        /// </summary>
-        /// <param name="r">
-        /// <see cref="Slice"/> que ha realizado la solicitud de redibujo.
-        /// </param>
-        void DrawMe(Slice r);
-        /// <summary>
-        /// Dibuja únicamente a los hijos del <see cref="Slice"/>.
-        /// </summary>
-        /// <param name="r">
-        /// <see cref="Slice"/> que ha realizado la solicitud de redibujo.
-        /// </param>
-        void DrawMyChildren(Slice r);
-        /// <summary>
-        /// Obtiene o establece un valor que determina si se mostrarán los
-        /// totales de los puntos y el total general de los datos.
+        ///     Obtiene o establece un valor que determina si se mostrarán los
+        ///     totales de los puntos y el total general de los datos.
         /// </summary>
         bool TotalVisible { get; set; }
+
         /// <summary>
-        /// Obtiene un listado de los <see cref="Slice"/> que conforman el
-        /// set de datos de este <see cref="ISliceGraph"/>.
+        ///     Obtiene un listado de los <see cref="Slice" /> que conforman el
+        ///     set de datos de este <see cref="ISliceGraph" />.
         /// </summary>
-        System.Collections.Generic.IList<Slice> Slices { get; set; }
+        IList<Slice> Slices { get; set; }
+
         /// <summary>
-        /// Obtiene el total general de los datos de este 
-        /// <see cref="ISliceGraph"/>.
+        ///     Obtiene el total general de los datos de este
+        ///     <see cref="ISliceGraph" />.
         /// </summary>
         double Total { get; }
+
         /// <summary>
-        /// Obtiene o establece la cantidad de sub-niveles a mostrar en este
-        /// <see cref="ISliceGraph"/>.
+        ///     Obtiene o establece el formato a aplicar a la etiqueta de total del
+        ///     <see cref="ISliceGraph" />.
+        /// </summary>
+        string TotalFormat { get; set; }
+
+        /// <summary>
+        ///     Obtiene o establece la cantidad de sub-niveles a mostrar en este
+        ///     <see cref="ISliceGraph" />.
         /// </summary>
         int SubLevelsShown { get; set; }
+
+        /// <summary>
+        ///     Dibuja al <see cref="Slice" /> y a sus hijos.
+        /// </summary>
+        /// <param name="r">
+        ///     <see cref="Slice" /> que ha realizado la solicitud de redibujo.
+        /// </param>
+        void DrawMe(Slice r);
+
+        /// <summary>
+        ///     Dibuja únicamente a los hijos del <see cref="Slice" />.
+        /// </summary>
+        /// <param name="r">
+        ///     <see cref="Slice" /> que ha realizado la solicitud de redibujo.
+        /// </param>
+        void DrawMyChildren(Slice r);
     }
 }

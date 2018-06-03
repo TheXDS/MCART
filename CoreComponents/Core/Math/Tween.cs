@@ -40,17 +40,26 @@ namespace TheXDS.MCART.Math
     public static class Tween
     {
         /// <summary>
+        ///     Describe una función que aplica una tranformación de suavizado.
+        /// </summary>
+        /// <returns>
+        ///     Un valor correspondiente al suavizado aplicado.
+        /// </returns>
+        /// <param name="position">
+        /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
+        /// </param>
+        public delegate double TweenFunction(double position);
+
+        /// <summary>
         ///     Realiza un suavizado lineal de un valor.
         /// </summary>
         /// <returns>
         ///     Un valor correspondiente al suavizado aplicado.
         /// </returns>
-        /// <param name="step">Número de paso a suavizar.</param>
-        /// <param name="total">Total de pasos.</param>
-        public static float Linear(int step, int total)
-        {
-            return (float) step / total;
-        }
+        /// <param name="position">
+        /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
+        /// </param>
+        public static double Linear(double position) => position;
 
         /// <summary>
         ///     Realiza un suavizado cuadrático de un valor.
@@ -58,12 +67,13 @@ namespace TheXDS.MCART.Math
         /// <returns>
         ///     Un valor correspondiente al suavizado aplicado.
         /// </returns>
-        /// <param name="step">Número de paso a suavizar.</param>
-        /// <param name="total">Total de pasos.</param>
-        public static float Quadratic(int step, int total)
+        /// <param name="position">
+        /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
+        /// </param>
+        public static double Quadratic(double position)
         {
-            var t = (float) step / total;
-            return t * t / (2 * t * t - 2 * t + 1);
+            var x2 = System.Math.Pow(position, 2);
+            return x2 / (2 * x2 - 2 * position + 1);
         }
 
         /// <summary>
@@ -72,12 +82,12 @@ namespace TheXDS.MCART.Math
         /// <returns>
         ///     Un valor correspondiente al suavizado aplicado.
         /// </returns>
-        /// <param name="step">Número de paso a suavizar.</param>
-        /// <param name="total">Total de pasos.</param>
-        public static float Cubic(int step, int total)
+        /// <param name="position">
+        /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
+        /// </param>
+        public static double Cubic(double position)
         {
-            var t = (float) step / total;
-            return t * t * t / (3 * t * t - 3 * t + 1);
+            return System.Math.Pow(position, 3) / (3 * System.Math.Pow(position, 2) - 3 * position + 1);
         }
 
         /// <summary>
@@ -86,12 +96,77 @@ namespace TheXDS.MCART.Math
         /// <returns>
         ///     Un valor correspondiente al suavizado aplicado.
         /// </returns>
-        /// <param name="step">Número de paso a suavizar.</param>
-        /// <param name="total">Total de pasos.</param>
-        public static float Quartic(int step, int total)
+        /// <param name="position">
+        /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
+        /// </param>
+        public static double Quartic(double position)
         {
-            var t = (float) step / total;
-            return -((t - 1) * (t - 1) * (t - 1) * (t - 1)) + 1;
+            return -System.Math.Pow(position - 1, 4) + 1;
+        }
+
+        /// <summary>
+        ///     Realiza un suavizado con sacudida de un valor.
+        /// </summary>
+        /// <returns>
+        ///     Un valor correspondiente al suavizado aplicado.
+        /// </returns>
+        /// <param name="position">
+        /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
+        /// </param>
+        public static double Shaky(double position) => Shaky(position, 10);
+
+        /// <summary>
+        ///     Realiza un suavizado con sacudida de un valor.
+        /// </summary>
+        /// <returns>
+        ///     Un valor correspondiente al suavizado aplicado.
+        /// </returns>
+        /// <param name="position">
+        /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
+        /// </param>
+        /// <param name="shakes">Cantidad de sacudidas a realizar.</param>
+        public static double Shaky(double position, int shakes)
+        {
+            return 1 - System.Math.Cos(shakes * System.Math.PI * position) * System.Math.Cos(System.Math.PI / 2 * position);
+        }
+
+        /// <summary>
+        ///     Realiza un suavizado con rebote de un valor.
+        /// </summary>
+        /// <returns>
+        ///     Un valor correspondiente al suavizado aplicado.
+        /// </returns>
+        /// <param name="position">
+        /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
+        /// </param>
+        public static double Bouncy(double position) => Bouncy(position, 10, 8);
+
+        /// <summary>
+        ///     Realiza un suavizado con rebote de un valor.
+        /// </summary>
+        /// <returns>
+        ///     Un valor correspondiente al suavizado aplicado.
+        /// </returns>
+        /// <param name="position">
+        /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
+        /// </param>
+        /// <param name="bounces">Cantidad de rebotes a calcular.</param>
+        public static double Bouncy(double position, int bounces) => Bouncy(position, bounces, 8);
+
+        /// <summary>
+        ///     Realiza un suavizado con rebote de un valor.
+        /// </summary>
+        /// <returns>
+        ///     Un valor correspondiente al suavizado aplicado.
+        /// </returns>
+        /// <param name="position">
+        /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
+        /// </param>
+        /// <param name="bounces">Cantidad de rebotes a calcular.</param>
+        /// <param name="damping">Amortiguación a calcular.</param>
+        public static double Bouncy(double position, int bounces, int damping)
+        {
+            return 1 - System.Math.Cos(bounces * System.Math.PI * position) * (1 - System.Math.Pow(position, 1 / (double)damping));
         }
     }
 }

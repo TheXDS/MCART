@@ -489,6 +489,7 @@ namespace TheXDS.MCART.Resources
         public const string Specified = "especificado";
         public const string StackUnderflow = "Subflujo de pila";
         public const string Symbols = "`~!@#$%^&*()-_=+\\|]}[{'\";:/?.>,<";
+        public const string TamperDetected = "Se ha detectado una manipulación inesperada de la aplicación, o la memoria del proceso ha sido corrompida. Detenga la ejecución del programa inmediatamente.";
         public const string TargetMCARTV = "Versión destino de MCART";
         public const string TestUI = "Probar UI...";
         public const string TheArgument = "El argumento";

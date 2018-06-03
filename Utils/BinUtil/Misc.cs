@@ -16,11 +16,11 @@ namespace TheXDS.MCARTBinUtil
         public bool TryGetStream(string source, out Stream stream)
         {
             stream = null;
-            return (Uri.TryCreate(source, UriKind.Absolute, out Uri uriResult) && TryGetStream(uriResult, out stream));
+            return Uri.TryCreate(source, UriKind.Absolute, out var uriResult) && TryGetStream(uriResult, out stream);
         }
         public abstract bool TryGetStream(Uri source, out Stream stream);
         public abstract string InferRes(string source);
-        public string InferRes(Uri source) => System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(source.Segments.Last()).Replace('.', '_').Replace('-', '_').Replace(" ", "");
+        public static string InferRes(Uri source) => System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(source.Segments.Last()).Replace('.', '_').Replace('-', '_').Replace(" ", "");
     }
 
     public interface ICompressorGetter

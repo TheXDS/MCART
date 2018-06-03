@@ -7,7 +7,7 @@ namespace TheXDS.MCARTBinUtil
     [Arg("web")]
     [Arg("http")]
     [Arg("https")]
-    sealed class WebGetter : StreamGetter
+    internal sealed class WebGetter : StreamGetter
     {
         public override string InferRes(string source)
         {
@@ -32,7 +32,7 @@ namespace TheXDS.MCARTBinUtil
     }
 
     [Arg("file")]
-    sealed class FileGetter : StreamGetter
+    internal sealed class FileGetter : StreamGetter
     {
         public override string InferRes(string source)
         {

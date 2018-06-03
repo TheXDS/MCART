@@ -75,5 +75,35 @@ namespace TheXDS.MCART.Types.Extensions
         /// <typeparam name="T">Tipo de elementos en la colección.</typeparam>
         /// <param name="collection">Colección a procesar.</param>
         public static void RemoveAll<T>(this ICollection<T> collection) => RemoveAll(collection, null, null);
+
+        /// <summary>
+        ///     Devuelve el último elemento en la lista, quitándolo.
+        /// </summary>
+        /// <returns>El último elemento en la lista.</returns>
+        /// <param name="a">Lista de la cual obtener el elemento.</param>
+        /// <typeparam name="T">
+        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+        /// </typeparam>
+        public static T Pop<T>(this ICollection<T> a)
+        {
+            var x = a.Last();
+            a.Remove(x);
+            return x;
+        }
+
+        /// <summary>
+        ///     Devuelve el primer elemento en la lista, quitándolo.
+        /// </summary>
+        /// <returns>El primer elemento en la lista.</returns>
+        /// <param name="a">Lista de la cual obtener el elemento.</param>
+        /// <typeparam name="T">
+        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+        /// </typeparam>
+        public static T PopFirst<T>(this ICollection<T> a)
+        {
+            var x = a.First();
+            a.Remove(x);
+            return x;
+        }
     }
 }

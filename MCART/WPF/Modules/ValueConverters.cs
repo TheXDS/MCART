@@ -22,17 +22,25 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using TheXDS.MCART;
 
+#region Configuración de ReSharper
+
+// ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
 // ReSharper disable UnusedMember.Global
-
 // ReSharper disable once CheckNamespace
+
+#endregion
+
 namespace System.Windows.Converters
 {
     #region Clases base
@@ -98,6 +106,97 @@ namespace System.Windows.Converters
             if (value is T v)
                 return v.Equals(_yay) ? _nay : _yay;
             throw new InvalidCastException();
+        }
+    }
+
+    /// <inheritdoc />
+    /// <summary>
+    /// Clase base para convertidores de valores que tomen un valor <see cref="T:System.Windows.Size" /> para determinar un valor de tipo <see cref="T:System.Windows.Visibility" /> basado en un umbral.
+    /// </summary>
+    public abstract class SizeVisibilityConverter : IValueConverter
+    {
+        private readonly Visibility _below;
+        private readonly Visibility _above;
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="SizeVisibilityConverter"/>.
+        /// </summary>
+        /// <param name="below">Valor a devolver por debajo del umbral.</param>
+        /// <param name="above">Valor a devolver por encima del umbral.</param>
+        protected SizeVisibilityConverter(Visibility below, Visibility above)
+        {
+            _below = below;
+            _above = above;
+        }
+        /// <inheritdoc />
+        /// <summary>
+        /// Convierte un <see cref="Size" /> a un <see cref="Visibility"/> basado en un valor de umbral.
+        /// </summary>
+        /// <param name="value">Objeto a convertir.</param>
+        /// <param name="targetType">Tipo del destino.</param>
+        /// <param name="parameter">
+        /// Parámetros personalizados para este <see cref="T:System.Windows.Data.IValueConverter" />.
+        /// </param>
+        /// <param name="culture">
+        /// <see cref="T:System.Globalization.CultureInfo" /> a utilizar para la conversión.</param>
+        /// <returns>
+        /// El valor de <see cref="Visibility"/> calculado a partir del tamaño especificado.
+        /// </returns>
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (!targetType.IsAssignableFrom(typeof(Visibility))) throw new InvalidCastException();
+            Size size;
+            switch (parameter)
+            {
+                case string str:
+                    try
+                    {
+                        size = Size.Parse(str);
+                    }
+                    catch (Exception e)
+                    {
+                        throw new ArgumentException(string.Empty, nameof(parameter), e);
+                    }
+                    break;
+                case Size sz:
+                    size = sz;
+                    break;
+                case double d:
+                    size = new Size(d, d);
+                    break;
+                case int d:
+                    size = new Size(d, d);
+                    break;
+                default:
+                    throw new ArgumentException(string.Empty, nameof(parameter));
+            }
+
+            switch (value)
+            {
+                case FrameworkElement f:
+                    return f.ActualWidth < size.Width && f.ActualHeight < size.Height ? _below : _above;
+                case Size sz:
+                    return sz.Width < size.Width && sz.Height < size.Height ? _below : _above;
+            }
+            return _above;
+        }
+        /// <inheritdoc />
+        /// <summary>
+        /// Infiere un valor basado en el <see cref="T:System.Windows.Visibility" /> provisto.
+        /// </summary>
+        /// <param name="value">Objeto a convertir.</param>
+        /// <param name="targetType">Tipo del destino.</param>
+        /// <param name="parameter">
+        /// Parámetros personalizados para este <see cref="T:System.Windows.Data.IValueConverter" />.
+        /// </param>
+        /// <param name="culture">
+        /// <see cref="T:System.Globalization.CultureInfo" /> a utilizar para la conversión.</param>
+        /// <returns>
+        /// Un valor de <see cref="Size"/> inferido a partir del valor de entrada.
+        /// </returns>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value is Visibility v && v == _above ? parameter : new Size();
         }
     }
 
@@ -264,6 +363,167 @@ namespace System.Windows.Converters
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value?.Equals(true) ?? false ? True : default;
+        }
+    }
+    /// <inheritdoc />
+    /// <summary>
+    /// Clase base para un convertidor de valores que digitalice un valor
+    /// arbitrario de entrada.
+    /// </summary>
+    /// <typeparam name="TIn">
+    /// Tipo de valores de entrada del <see cref="T:System.Windows.Data.IValueConverter" />.
+    /// </typeparam>
+    /// <typeparam name="TOut">
+    /// Tipo de valores de salida del <see cref="T:System.Windows.Data.IValueConverter" />.
+    /// </typeparam>
+    public class ThresholdConverter<TIn, TOut> : IValueConverter where TIn:IComparable<TIn> where TOut : struct
+    {
+        /// <inheritdoc />
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="T:System.Windows.Converters.ThresholdConverter`2" />
+        /// </summary>
+        /// <param name="belowValue">
+        /// Valor a devolver cuando el valor de entrada sea menor o igual al
+        /// umbral.
+        /// </param>
+        /// <param name="aboveValue">
+        /// Valor a devolver cuando el valor de entrada sea mayor al umbral.
+        /// </param>
+        public ThresholdConverter(TOut belowValue, TOut aboveValue) : this(belowValue, aboveValue, null)
+        {
+        }
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="ThresholdConverter{TIn,TOut}"/>
+        /// </summary>
+        /// <param name="belowValue">
+        /// Valor a devolver cuando el valor de entrada sea menor al umbral.
+        /// </param>
+        /// <param name="aboveValue">
+        /// Valor a devolver cuando el valor de entrada sea mayor al umbral.
+        /// </param>
+        /// <param name="atValue">
+        /// Valor a devolver cuando el valor de entrada sea igual al umbral.
+        ///</param>
+        public ThresholdConverter(TOut belowValue, TOut aboveValue, TOut? atValue)
+        {
+            BelowValue = belowValue;
+            AboveValue = aboveValue;
+            AtValue = atValue;
+        }
+
+        /// <summary>
+        /// Valor a devolver cuando el valor de entrada sea menor al umbral.
+        /// </summary>
+        public TOut BelowValue { get; }
+        /// <summary>
+        /// Valor a devolver cuando el valor de entrada sea mayor al umbral.
+        /// </summary>
+        public TOut AboveValue { get; }
+        /// <summary>
+        /// Valor a devolver cuando el valor de entrada sea igual al umbral.
+        /// </summary>
+        public TOut? AtValue { get; }
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Realiza una comparación del valor de entrada contra un valor especificado como el umbral.
+        /// </summary>
+        /// <param name="value">Valor actual a comparar.</param>
+        /// <param name="targetType">
+        /// Tipo de campo objetivo. debe ser de tipo <typeparamref name="TOut" />.
+        /// </param>
+        /// <param name="parameter">
+        /// Valor de umbral. debe ser del mismo tipo que <paramref name="value" />.
+        /// </param>
+        /// <param name="culture">
+        /// Este parámetro es ignorado.
+        /// Referencia cultural que se va a usar en el convertidor.
+        /// </param>
+        /// <returns></returns>
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            TIn currentValue;
+            switch (parameter)
+            {
+                case TIn tin: currentValue = tin; break;
+                case string str:
+                    TypeConverter typeConverter;
+                    var converters = Objects.AllTypes<TypeConverter>().Where(p=>!(p.IsAbstract || p.IsInterface));
+
+                    if (parameter.GetType().HasAttr(out TypeConverterAttribute tc))
+                    {
+                        typeConverter = converters.FirstOrDefault(p => p.Name == tc.ConverterTypeName).New<TypeConverter>();
+                    }
+                    else
+                    {
+                        typeConverter = converters.Select(t => t.New<TypeConverter>())
+                            .FirstOrDefault(p => p.CanConvertFrom(typeof(string)) && p.CanConvertTo(typeof(TIn)));
+                        GC.Collect();
+                    }
+
+                    if (typeConverter is null) throw new ArgumentException(string.Empty, nameof(parameter));
+
+                    try
+                    {
+                        currentValue = (TIn)typeConverter.ConvertTo(str,typeof(TIn));
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new ArgumentException(string.Empty,nameof(parameter),ex);
+                    }
+
+                    break;
+                case null:
+                    throw new ArgumentNullException(nameof(parameter));
+                default:
+                    throw new ArgumentException(string.Empty, nameof(parameter));
+            }
+
+            switch (value)
+            {
+                case TIn v:
+                    switch (v.CompareTo(currentValue))
+                    {
+                        case -1:
+                            return BelowValue;
+                        case 0:
+                            return AtValue ?? BelowValue;
+                        case 1:
+                            return AboveValue;
+                        default: throw new TheXDS.MCART.Exceptions.InvalidReturnValueException(nameof(IComparable<TIn>.CompareTo));
+                    }
+                case null:
+                    throw new ArgumentNullException(nameof(value));
+            }
+
+            throw new ArgumentException(nameof(value));
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Implementa <see cref="IValueConverter.ConvertBack"/>.
+        /// </summary>
+        /// <param name="value">Objeto a convertir.</param>
+        /// <param name="targetType">Tipo del destino.</param>
+        /// <param name="parameter">
+        /// Parámetros personalizados para este <see cref="T:System.Windows.Data.IValueConverter" />.
+        /// </param>
+        /// <param name="culture">
+        /// <see cref="T:System.Globalization.CultureInfo" /> a utilizar para la conversión.</param>
+        /// <exception cref="InvalidCastException">
+        /// Se produce si <paramref name="value"/> no es un <see cref="Visibility"/>.
+        /// </exception>
+        /// <exception cref="TypeLoadException">
+        /// Se produce si <paramref name="targetType"/> no es una clase o estructura instanciable con un constructor sin parámetros.
+        /// </exception>
+        /// <returns>
+        /// Este método siempre genera un <see cref="InvalidOperationException"/>.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">Este método siempre genera esta excepción al ser llamado.</exception>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new InvalidOperationException();
         }
     }
 
@@ -1506,17 +1766,22 @@ namespace System.Windows.Converters
         }
 
         /// <inheritdoc />
-        /// <summary>Convierte un valor.</summary>
-        /// <param name="value">
-        ///   Valor generado por el destino de enlace.
-        /// </param>
-        /// <param name="targetType">Tipo al que se va a convertir.</param>
+        /// <summary>
+        /// Implementa <see cref="IValueConverter.ConvertBack"/>.
+        /// </summary>
+        /// <param name="value">Objeto a convertir.</param>
+        /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///   Parámetro de convertidor que se va a usar.
+        /// Parámetros personalizados para este <see cref="T:System.Windows.Data.IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///   Referencia cultural que se va a usar en el convertidor.
-        /// </param>
+        /// <see cref="T:System.Globalization.CultureInfo" /> a utilizar para la conversión.</param>
+        /// <exception cref="InvalidCastException">
+        /// Se produce si <paramref name="value"/> no es un <see cref="Visibility"/>.
+        /// </exception>
+        /// <exception cref="TypeLoadException">
+        /// Se produce si <paramref name="targetType"/> no es una clase o estructura instanciable con un constructor sin parámetros.
+        /// </exception>
         /// <returns>
         /// Este método siempre genera un <see cref="InvalidOperationException"/>.
         /// </returns>
@@ -1560,17 +1825,22 @@ namespace System.Windows.Converters
         }
 
         /// <inheritdoc />
-        /// <summary>Convierte un valor.</summary>
-        /// <param name="value">
-        ///   Valor generado por el destino de enlace.
-        /// </param>
-        /// <param name="targetType">Tipo al que se va a convertir.</param>
+        /// <summary>
+        /// Implementa <see cref="IValueConverter.ConvertBack"/>.
+        /// </summary>
+        /// <param name="value">Objeto a convertir.</param>
+        /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///   Parámetro de convertidor que se va a usar.
+        /// Parámetros personalizados para este <see cref="T:System.Windows.Data.IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///   Referencia cultural que se va a usar en el convertidor.
-        /// </param>
+        /// <see cref="T:System.Globalization.CultureInfo" /> a utilizar para la conversión.</param>
+        /// <exception cref="InvalidCastException">
+        /// Se produce si <paramref name="value"/> no es un <see cref="Visibility"/>.
+        /// </exception>
+        /// <exception cref="TypeLoadException">
+        /// Se produce si <paramref name="targetType"/> no es una clase o estructura instanciable con un constructor sin parámetros.
+        /// </exception>
         /// <returns>
         /// Este método siempre genera un <see cref="InvalidOperationException"/>.
         /// </returns>
@@ -1614,17 +1884,22 @@ namespace System.Windows.Converters
         }
 
         /// <inheritdoc />
-        /// <summary>Convierte un valor.</summary>
-        /// <param name="value">
-        ///   Valor generado por el destino de enlace.
-        /// </param>
-        /// <param name="targetType">Tipo al que se va a convertir.</param>
+        /// <summary>
+        /// Implementa <see cref="IValueConverter.ConvertBack"/>.
+        /// </summary>
+        /// <param name="value">Objeto a convertir.</param>
+        /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///   Parámetro de convertidor que se va a usar.
+        /// Parámetros personalizados para este <see cref="T:System.Windows.Data.IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///   Referencia cultural que se va a usar en el convertidor.
-        /// </param>
+        /// <see cref="T:System.Globalization.CultureInfo" /> a utilizar para la conversión.</param>
+        /// <exception cref="InvalidCastException">
+        /// Se produce si <paramref name="value"/> no es un <see cref="Visibility"/>.
+        /// </exception>
+        /// <exception cref="TypeLoadException">
+        /// Se produce si <paramref name="targetType"/> no es una clase o estructura instanciable con un constructor sin parámetros.
+        /// </exception>
         /// <returns>
         /// Este método siempre genera un <see cref="InvalidOperationException"/>.
         /// </returns>
@@ -1668,17 +1943,22 @@ namespace System.Windows.Converters
         }
 
         /// <inheritdoc />
-        /// <summary>Convierte un valor.</summary>
-        /// <param name="value">
-        ///   Valor generado por el destino de enlace.
-        /// </param>
-        /// <param name="targetType">Tipo al que se va a convertir.</param>
+        /// <summary>
+        /// Implementa <see cref="IValueConverter.ConvertBack"/>.
+        /// </summary>
+        /// <param name="value">Objeto a convertir.</param>
+        /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///   Parámetro de convertidor que se va a usar.
+        /// Parámetros personalizados para este <see cref="T:System.Windows.Data.IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        /// Referencia cultural que se va a usar en el convertidor.
-        /// </param>
+        /// <see cref="T:System.Globalization.CultureInfo" /> a utilizar para la conversión.</param>
+        /// <exception cref="InvalidCastException">
+        /// Se produce si <paramref name="value"/> no es un <see cref="Visibility"/>.
+        /// </exception>
+        /// <exception cref="TypeLoadException">
+        /// Se produce si <paramref name="targetType"/> no es una clase o estructura instanciable con un constructor sin parámetros.
+        /// </exception>
         /// <returns>
         /// Este método siempre genera un <see cref="InvalidOperationException"/>.
         /// </returns>
@@ -1686,6 +1966,114 @@ namespace System.Windows.Converters
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new InvalidOperationException();
+        }
+    }
+    /// <inheritdoc />
+    /// <summary>
+    /// Convierte un valor <see cref="T:System.Double" /> en un <see cref="T:System.Windows.Visibility" />
+    /// </summary>
+    public sealed class MinValueVisibilityConverter : ThresholdConverter<double, Visibility>
+    {
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="MinSizeVisibilityConverter"/>.
+        /// </summary>
+        public MinValueVisibilityConverter():base(Visibility.Collapsed,Visibility.Visible,Visibility.Visible)
+        {
+        }
+    }
+    /// <inheritdoc />
+    /// <summary>
+    /// Convierte un valor <see cref="T:System.Double" /> en un <see cref="T:System.Windows.Visibility" />
+    /// </summary>
+    public sealed class MaxValueVisibilityConverter : ThresholdConverter<double, Visibility>
+    {
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="MaxSizeVisibilityConverter"/>.
+        /// </summary>
+        public MaxValueVisibilityConverter() : base(Visibility.Visible, Visibility.Collapsed)
+        {
+        }
+    }
+    /// <inheritdoc />
+    /// <summary>
+    /// Oculta un control si su tamaño es inferior al umbral especificado.
+    /// </summary>
+    public sealed class MinSizeVisibilityConverter : SizeVisibilityConverter
+    {
+        /// <inheritdoc />
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="T:System.Windows.Converters.MinSizeVisibilityConverter" />.
+        /// </summary>
+        public MinSizeVisibilityConverter() : base(Visibility.Collapsed, Visibility.Visible)
+        {
+        }
+    }
+    /// <inheritdoc />
+    /// <summary>
+    /// Oculta un control si su tamaño es superior al umbral especificado.
+    /// </summary>
+    public sealed class MaxSizeVisibilityConverter : SizeVisibilityConverter
+    {
+        /// <inheritdoc />
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="T:System.Windows.Converters.MaxSizeVisibilityConverter" />.
+        /// </summary>
+        public MaxSizeVisibilityConverter() : base(Visibility.Visible, Visibility.Collapsed)
+        {
+        }
+    }
+
+    public sealed class AnyVisibileConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            return values.OfType<Visibility>().Any(p => p == Visibility.Visible) ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new InvalidOperationException();
+        }
+    }
+    public sealed class AllVisibileConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            return values.OfType<Visibility>().All(p => p == Visibility.Visible) ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new InvalidOperationException();
+        }
+    }
+    public sealed class BooleanToBlurEffectConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            double radius = 5;
+            switch (parameter)
+            {
+                case string str:
+                    if (!double.TryParse(str,out radius))
+                        throw new ArgumentException(nameof(parameter));
+                    break;
+                case double d: radius = d; break;
+                case int d: radius = d; break;
+                default:
+                    throw new ArgumentException(nameof(parameter));
+
+            }
+
+            if (value is bool b && b) return new BlurEffect { Radius = radius };
+            return null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value is BlurEffect;
         }
     }
 }

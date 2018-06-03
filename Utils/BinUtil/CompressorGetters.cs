@@ -5,7 +5,7 @@ namespace TheXDS.MCARTBinUtil
 {
     [Arg("")]
     [Arg("deflate")]
-    sealed class DeflateGetter : ICompressorGetter
+    internal sealed class DeflateGetter : ICompressorGetter
     {
         public Stream GetCompressor(Stream stream)
         {
@@ -15,11 +15,21 @@ namespace TheXDS.MCARTBinUtil
 
     [Arg("gzip")]
     [Arg("gz")]
-    sealed class GZipGetter : ICompressorGetter
+    internal sealed class GZipGetter : ICompressorGetter
     {
         public Stream GetCompressor(Stream stream)
         {
             return new GZipStream(stream, CompressionLevel.Optimal);
+        }
+    }
+
+    [Arg("none")]
+    [Arg("null")]
+    internal sealed class NullGetter : ICompressorGetter
+    {
+        public Stream GetCompressor(Stream stream)
+        {
+            return stream;
         }
     }
 }

@@ -49,8 +49,12 @@ namespace TheXDS.MCART.Math
         /// <summary>
         ///     Representa la proporción de 1 grado DEG sobre PI
         /// </summary>
-        public const double DegRad = System.Math.PI / 180;
+        public const double DegRad = 0.0174532925199433D;
 
+        /// <summary>
+        ///     Representa la proporción de la circunferencia entre el diámetro de un círculo.
+        /// </summary>
+        public const double Thau = 6.28318530717959D;
         #endregion
 
         /// <summary>

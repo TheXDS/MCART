@@ -34,68 +34,89 @@ namespace TheXDS.MCART.Controls
 {
     public partial class RingGraph
     {
+        private Binding totalBinding;
+
+
         #region Propiedades de dependencia
 
-        private static DependencyPropertyKey TotalPropertyKey = DependencyProperty.RegisterReadOnly(
+        private static readonly DependencyPropertyKey TotalPropertyKey = DependencyProperty.RegisterReadOnly(
             nameof(Total), typeof(double), typeof(RingGraph),
             new PropertyMetadata(0.0));
 
-        /**
+        /*
         Internamente, las propiedades de FontSize de txtTotal y el Margin
         del ViewBox que lo contiene, causan que la propiedad StrokeThickness
         de los elementos a dibujar representen valores porcentuales.
-        <summary>
-        Identifica a la propiedad de dependencia
-        <see cref="RingThickness"/>.
-        </summary>
-        **/
-        public static DependencyProperty RingThicknessProperty = DependencyProperty.Register(
+        */
+        /// <summary>
+        ///     Identifica a la propiedad de dependencia
+        ///     <see cref="RingThickness"/>.
+        /// </summary>
+        public static readonly DependencyProperty RingThicknessProperty = DependencyProperty.Register(
             nameof(RingThickness), typeof(double), typeof(RingGraph),
             new PropertyMetadata(30.0), p => ((double)p).IsBetween(0.0, 100.0));
 
         /// <summary>
         ///     Identifica a la propiedad de dependencia <see cref="SubLevelsShown" />.
         /// </summary>
-        public static DependencyProperty SubLevelsShownProperty = DependencyProperty.Register(
+        public static readonly DependencyProperty SubLevelsShownProperty = DependencyProperty.Register(
             nameof(SubLevelsShown), typeof(int), typeof(RingGraph),
             new PropertyMetadata(1, (d, e) => ((RingGraph)d).Redraw()), v => (int)v > 0);
 
         /// <summary>
         ///     Identifica a la propiedad de dependencia <see cref="Title" />.
         /// </summary>
-        public static DependencyProperty TitleProperty = DependencyProperty.Register(
+        public static readonly DependencyProperty TitleProperty = DependencyProperty.Register(
             nameof(Title), typeof(string), typeof(RingGraph),
             new PropertyMetadata(string.Empty));
 
         /// <summary>
         ///     Identifica a la propiedad de dependencia <see cref="TitleFontSize" />.
         /// </summary>
-        public static DependencyProperty TitleFontSizeProperty = DependencyProperty.Register(
+        public static readonly DependencyProperty TitleFontSizeProperty = DependencyProperty.Register(
             nameof(IGraph.TitleFontSize), typeof(double), typeof(RingGraph),
             new PropertyMetadata(16.0));
 
         /// <summary>
         ///     Identifica a la propiedad de dependencia <see cref="ToolTipFormat" />.
         /// </summary>
-        public static DependencyProperty ToolTipFormatProperty = DependencyProperty.Register(
+        public static readonly DependencyProperty ToolTipFormatProperty = DependencyProperty.Register(
             nameof(ToolTipFormat), typeof(string), typeof(RingGraph),
             new PropertyMetadata(string.Empty));
 
         /// <summary>
         ///     Identifica a la propiedad de dependencia <see cref="Total" />.
         /// </summary>
-        public static DependencyProperty TotalProperty = TotalPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty TotalProperty = TotalPropertyKey.DependencyProperty;
 
         /// <summary>
         ///     Identifica a la propiedad de dependencia <see cref="TotalVisible" />.
         /// </summary>
-        public static DependencyProperty TotalVisibleProperty = DependencyProperty.Register(
+        public static readonly DependencyProperty TotalVisibleProperty = DependencyProperty.Register(
             nameof(TotalVisible), typeof(bool), typeof(RingGraph),
             new PropertyMetadata(true));
+
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="TotalFormat"/>.
+        /// </summary>
+        public static readonly DependencyProperty TotalFormatProperty = DependencyProperty.Register(
+                nameof(TotalFormat), typeof(string), typeof(RingGraph),
+                new PropertyMetadata(null));
 
         #endregion
 
         #region Propiedades
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Obtiene o establece el formato a aplicar a la etiqueta de total del
+        ///     <see cref="T:TheXDS.MCART.Controls.ISliceGraph" />.
+        /// </summary>
+        public string TotalFormat
+        {
+            get => (string)GetValue(TotalFormatProperty);
+            set => SetValue(TotalFormatProperty, value);
+        }
 
         /// <summary>
         ///     Obtiene o establece el porcentaje de espacio ocupado por los datos
@@ -108,9 +129,10 @@ namespace TheXDS.MCART.Controls
             set => SetValue(RingThicknessProperty, value);
         }
 
+        /// <inheritdoc />
         /// <summary>
         ///     Obtiene o establece la cantidad de sub-niveles a mostrar en este
-        ///     <see cref="ISliceGraph" />.
+        ///     <see cref="T:TheXDS.MCART.Controls.ISliceGraph" />.
         /// </summary>
         public int SubLevelsShown
         {
@@ -118,9 +140,10 @@ namespace TheXDS.MCART.Controls
             set => SetValue(SubLevelsShownProperty, value);
         }
 
+        /// <inheritdoc />
         /// <summary>
         ///     Obtiene o establece el título a mostrar de este
-        ///     <see cref="IGraph" />.
+        ///     <see cref="T:TheXDS.MCART.Controls.IGraph" />.
         /// </summary>
         public string Title
         {
@@ -128,9 +151,10 @@ namespace TheXDS.MCART.Controls
             set => SetValue(TitleProperty, value);
         }
 
+        /// <inheritdoc />
         /// <summary>
         ///     Obtiene o establece el tamaño de fuente a aplicar al título de este
-        ///     <see cref="IGraph" />.
+        ///     <see cref="T:TheXDS.MCART.Controls.IGraph" />.
         /// </summary>
         public double TitleFontSize
         {
@@ -138,9 +162,10 @@ namespace TheXDS.MCART.Controls
             set => SetValue(TitleFontSizeProperty, value);
         }
 
+        /// <inheritdoc />
         /// <summary>
         ///     Obtiene o establece el formato opcional a aplicar a etiquetas
-        ///     flotantes para los <see cref="Slice" /> dibujados en este control.
+        ///     flotantes para los <see cref="T:TheXDS.MCART.Controls.Slice" /> dibujados en este control.
         /// </summary>
         public string ToolTipFormat
         {
@@ -148,12 +173,14 @@ namespace TheXDS.MCART.Controls
             set => SetValue(ToolTipFormatProperty, value);
         }
 
+        /// <inheritdoc />
         /// <summary>
         ///     Obtiene el total general de los datos de este
-        ///     <see cref="ISliceGraph" />.
+        ///     <see cref="T:TheXDS.MCART.Controls.ISliceGraph" />.
         /// </summary>
         public double Total => (double)GetValue(TotalProperty);
 
+        /// <inheritdoc />
         /// <summary>
         ///     Obtiene o establece un valor que determina si se mostrarán los
         ///     totales de los puntos y el total general de los datos.
@@ -166,25 +193,31 @@ namespace TheXDS.MCART.Controls
 
         #endregion
 
+        /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="RingGraph" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Controls.RingGraph" />.
         /// </summary>
         public void Init()
         {
             InitializeComponent();
+            totalBinding = new Binding(nameof(Total)) {Source = this};
+
+
             txtTitle.SetBinding(VisibilityProperty,
                 new Binding(nameof(txtTitle.Text))
                 {
                     Source = txtTitle,
                     Converter = new StringVisibilityConverter()
                 });
-            txtTitle.SetBinding(TextBlock.TextProperty,
-                new Binding(nameof(Title)) {Source = this});
-            txtTitle.SetBinding(TextBlock.FontSizeProperty,
-                new Binding(nameof(TitleFontSize)) {Source = this});
+            txtTitle.SetBinding(TextBlock.TextProperty, new Binding(nameof(Title)) {Source = this});
+            txtTitle.SetBinding(TextBlock.FontSizeProperty, new Binding(nameof(TitleFontSize)) {Source = this});
+            txtTotal.SetBinding(TextBlock.TextProperty, new Binding(nameof(Total)) {Source = this});
+
+
             Loaded += (sender, e) => Redraw();
         }
 
+        /// <inheritdoc />
         /// <summary>
         ///     Vuelve a dibujar el control.
         /// </summary>
@@ -202,14 +235,16 @@ namespace TheXDS.MCART.Controls
             g.SetBinding(WidthProperty, new Binding(nameof(ActualWidth)) {Source = grdRoot, Mode = BindingMode.OneWay});
             RdrwChild(Slices, g, 0, 360, pnlLabels.Items, out var tot);
             SetValue(TotalPropertyKey, tot);
+
             txtTotal.Text = tot.ToString();
         }
 
+        /// <inheritdoc />
         /// <summary>
-        ///     Vuelve a dibujar únicamente a los hijos del <see cref="Slice" />.
+        ///     Vuelve a dibujar únicamente a los hijos del <see cref="T:TheXDS.MCART.Controls.Slice" />.
         /// </summary>
         /// <param name="r">
-        ///     <see cref="Slice" /> que ha realizado la solicitud.
+        ///     <see cref="T:TheXDS.MCART.Controls.Slice" /> que ha realizado la solicitud.
         /// </param>
         public void DrawMyChildren(Slice r)
         {

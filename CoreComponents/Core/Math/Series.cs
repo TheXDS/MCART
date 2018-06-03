@@ -49,10 +49,6 @@ namespace TheXDS.MCART.Math
          * manera incorrecta, el programa fallará con un error de
          * sobreflujo o de pila, o bien, el programa podría dejar de
          * responder.
-         *
-         * A este fin, se incorpora una verificación de sobreflujo para
-         * eventualmente detener a un enumerador utilizado de manera
-         * incorrecta.
          */
 
         /// <summary>

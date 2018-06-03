@@ -28,6 +28,9 @@ using System.Collections.Specialized;
 
 namespace TheXDS.MCART.Controls
 {
+    /// <summary>
+    ///     Gráfico que permite representar valores en un anillo.
+    /// </summary>
     public partial class RingGraph : ISliceGraph
     {
         private readonly ObservableCollection<Slice> _slices = new ObservableCollection<Slice>();

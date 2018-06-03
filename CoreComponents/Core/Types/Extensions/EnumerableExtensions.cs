@@ -23,8 +23,10 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using TheXDS.MCART.Exceptions;
 
 namespace TheXDS.MCART.Types.Extensions
@@ -36,7 +38,7 @@ namespace TheXDS.MCART.Types.Extensions
     {
         /// <summary>
         ///     Obtiene un sub-rango de valores dentro de este
-        ///     <see cref="List{T}" />.
+        ///     <see cref="IEnumerable{T}" />.
         /// </summary>
         /// <param name="from">
         ///     <see cref="IEnumerable{T}" /> desde el cual extraer la secuencia.
@@ -56,10 +58,11 @@ namespace TheXDS.MCART.Types.Extensions
             using (var e = from.GetEnumerator())
             {
                 e.Reset();
+                e.MoveNext();
                 var c = 0;
                 while (c++ < index) e.MoveNext();
                 c = 0;
-                while (c++ < index)
+                while (c++ < count)
                 {
                     yield return e.Current;
                     if (!e.MoveNext()) yield break;
@@ -83,8 +86,6 @@ namespace TheXDS.MCART.Types.Extensions
             var tmp = new List<T>();
             tmp.AddRange(c);
             return tmp;
-
-            //return c;
         }
 
         /// <summary>
@@ -129,7 +130,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// </exception>
         public static void Shuffle<T>(this IEnumerable<T> c, int deepness)
         {
-            Shuffle(c, 0, c.Count() - 1, deepness);
+            var enumerable = c.ToList();
+            Shuffle(enumerable, 0, enumerable.Count - 1, deepness);
         }
 
         /// <summary>
@@ -160,7 +162,25 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="lastIdx">Índice inicial del intervalo.</param>
         public static void Shuffle<T>(this IEnumerable<T> toShuffle, int firstIdx, int lastIdx, int deepness)
         {
+            Shuffle(toShuffle, firstIdx, lastIdx, deepness, RandomExtensions.Rnd);
+        }
+
+        /// <summary>
+        ///     Desordena los elementos del intervalo especificado de un
+        ///     <see cref="IEnumerable{T}" />.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+        /// </typeparam>
+        /// <param name="toShuffle"><see cref="IEnumerable{T}" /> a desordenar.</param>
+        /// <param name="deepness">Profundidad del desorden. 1 es el más alto.</param>
+        /// <param name="firstIdx">Índice inicial del intervalo.</param>
+        /// <param name="lastIdx">Índice inicial del intervalo.</param>
+        /// <param name="random">Generador de números aleatorios a utilizar.</param>
+        public static void Shuffle<T>(this IEnumerable<T> toShuffle, int firstIdx, int lastIdx, int deepness, Random random)
+        {
             if (toShuffle is null) throw new ArgumentNullException(nameof(toShuffle));
+            if (random is null) random = RandomExtensions.Rnd;
             var c = toShuffle as T[] ?? toShuffle.ToArray();
             if (!c.Any()) throw new EmptyCollectionException(c);
             if (!firstIdx.IsBetween(0, c.Length)) throw new IndexOutOfRangeException();
@@ -168,10 +188,9 @@ namespace TheXDS.MCART.Types.Extensions
             if (!deepness.IsBetween(1, lastIdx - firstIdx)) throw new ArgumentOutOfRangeException(nameof(deepness));
             if (firstIdx > lastIdx) Common.Swap(ref firstIdx, ref lastIdx);
             var a = c.ToArray();
-            var rnd = new Random();
             lastIdx++;
             for (var j = firstIdx; j < lastIdx; j += deepness)
-                Common.Swap(ref a[j], ref a[rnd.Next(firstIdx, lastIdx)]);
+                Common.Swap(ref a[j], ref a[random.Next(firstIdx, lastIdx)]);
             c.ToList().Clear();
             c.ToList().AddRange(a);
         }
@@ -208,7 +227,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> c, int deepness)
         {
-            return Shuffled(c, 0, c.Count() - 1, deepness);
+            var enumerable = c.ToList();
+            return Shuffled(enumerable, 0, enumerable.Count - 1, deepness, RandomExtensions.Rnd);
         }
 
         /// <summary>
@@ -228,7 +248,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> c, int firstIdx, int lastIdx)
         {
-            return Shuffled(c, firstIdx, lastIdx, 1);
+            return Shuffled(c, firstIdx, lastIdx, 1, RandomExtensions.Rnd);
         }
 
         /// <summary>
@@ -245,15 +265,32 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="deepness">
         ///     Profundidad del desorden. 1 es el más alto.
         /// </param>
+        /// <param name="random">Generador de números aleatorios a utilizar.</param>
         /// <returns>
         ///     Una versión desordenada del intervalo especificado de elementos del
         ///     <see cref="IEnumerable{T}" />.
         /// </returns>
-        public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> c, int firstIdx, int lastIdx, int deepness)
+        public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> c, int firstIdx, int lastIdx, int deepness, Random random)
         {
             var tmp = new System.Collections.Generic.List<T>(c);
-            tmp.Shuffle(firstIdx, lastIdx, deepness);
+            tmp.Shuffle(firstIdx, lastIdx, deepness, random);
             return tmp;
+        }
+
+        /// <summary>
+        ///     Selecciona un elemento aleatorio de la colección.
+        /// </summary>
+        /// <returns>Un objeto aleatorio de la colección.</returns>
+        /// <param name="collection">Colección desde la cual seleccionar.</param>
+        /// <typeparam name="T">
+        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+        /// </typeparam>
+        /// <returns>
+        ///     Un elemento aleatorio de la colección.
+        /// </returns>
+        public static T Pick<T>(this IEnumerable<T> collection)
+        {
+            return Pick(collection, RandomExtensions.Rnd);
         }
 
         /// <summary>
@@ -263,24 +300,81 @@ namespace TheXDS.MCART.Types.Extensions
         /// <typeparam name="T">
         ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
         /// </typeparam>
-        public static T Pick<T>(this IEnumerable<T> collection)
+        /// <param name="collection">Colección desde la cual seleccionar.</param>
+        /// <param name="random">Generador de números aleatorios a utilizar.</param>
+        /// <returns>
+        ///     Un elemento aleatorio de la colección.
+        /// </returns>
+        public static T Pick<T>(this IEnumerable<T> collection, Random random)
         {
             var c = collection.ToList();
+#if PreferExceptions
             if (!c.Any()) throw new EmptyCollectionException(c);
             return c.ElementAt(RandomExtensions.Rnd.Next(0, c.Count));
+#else
+            return !c.Any() ? default : c.ElementAt(random.Next(0, c.Count));
+#endif
         }
 
         /// <summary>
-        ///     Convierte una colección a <see cref="List{T}" />
+        ///     Selecciona un elemento aleatorio de la colección de forma asíncrona.
+        /// </summary>
+        /// <returns>Un objeto aleatorio de la colección.</returns>
+        /// <typeparam name="T">
+        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+        /// </typeparam>
+        /// <returns>
+        ///     Una tarea que puede utilizarse para monitorear la operación.
+        /// </returns>
+        public static async Task<T> PickAsync<T>(this IEnumerable<T> collection)
+        {
+            var c = await collection.ToListAsync();
+#if PreferExceptions
+            if (!c.Any()) throw new EmptyCollectionException(c);
+            return c.ElementAt(RandomExtensions.Rnd.Next(0, c.Count));
+#else
+            return !c.Any() ? default : c.ElementAt(RandomExtensions.Rnd.Next(0, c.Count));
+#endif
+        }
+
+        /// <summary>
+        ///     Crea un <see cref="List{T}"/> a partir de un <see cref="IEnumerable{T}"/>.
         /// </summary>
         /// <param name="c">Colección a convertir</param>
+        /// <typeparam name="T">Tipo de la colección.</typeparam>
         /// <returns>
         ///     Un <see cref="List{T}" /> extendido del espacio de nombres
         ///     <see cref="Extensions" />.
         /// </returns>
         public static List<T> ToExtendedList<T>(this IEnumerable<T> c)
         {
-            return (List<T>) c.ToList();
+            return new List<T>(c);
+        }
+
+        /// <summary>
+        ///     Crea un <see cref="System.Collections.Generic.List{T}"/> a partir de un <see cref="IEnumerable{T}"/> de forma asíncrona.
+        /// </summary>
+        /// <typeparam name="T">Tipo de la colección.</typeparam>
+        /// <param name="enumerable"></param>
+        /// <returns>
+        /// Una tarea que puede utilizarse para monitorear la operación.
+        /// </returns>
+        public static async Task<System.Collections.Generic.List<T>> ToListAsync<T>(this IEnumerable<T> enumerable)
+        {
+            return await Task.Run(() => enumerable.ToList());
+        }
+
+        /// <summary>
+        ///     Crea un <see cref="List{T}"/> a partir de un <see cref="IEnumerable{T}"/> de forma asíncrona.
+        /// </summary>
+        /// <typeparam name="T">Tipo de la colección.</typeparam>
+        /// <param name="enumerable"></param>
+        /// <returns>
+        /// Una tarea que puede utilizarse para monitorear la operación.
+        /// </returns>
+        public static async Task<List<T>> ToExtendedListAsync<T>(this IEnumerable<T> enumerable)
+        {
+            return await Task.Run(() => enumerable.ToExtendedList());
         }
 
         /// <summary>Rota los elementos de un arreglo, lista o colección.</summary>
@@ -293,16 +387,34 @@ namespace TheXDS.MCART.Types.Extensions
         /// <typeparam name="T">
         ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
         /// </typeparam>
-        public static void Rotate<T>(this IEnumerable<T> a, int steps)
+        public static IEnumerable<T> Rotate<T>(this IEnumerable<T> a, int steps)
         {
-            var enumerable = a.ToList();
-            if (!enumerable.Any()) throw new NullReferenceException();
-            if (steps > 0)
-                for (var j = 0; j < steps; j++)
-                    enumerable.ToList().Add(enumerable.PopFirst());
-            else if (steps < 0)
-                for (var j = 0; j > steps; j--)
-                    enumerable.ToList().Insert(0, enumerable.Pop());
+            using (var e = a.GetEnumerator())
+            {
+                e.Reset();
+                var j = 0;
+
+                if (steps > 0)
+                {
+                    while (j++ < steps) e.MoveNext();
+                    while (e.MoveNext()) yield return e.Current;
+                    e.Reset();
+                    while (--j > 0)
+                    {
+                        e.MoveNext();
+                        yield return e.Current;
+                    }
+                }
+                else if (steps < 0)
+                {
+                    var c = new List<T>();
+
+                    // HACK: La implementación para IList<T> es funcional, y no requiere de trucos inusuales para rotar.
+                    while (e.MoveNext()) c.Add(e.Current);
+                    c.ApplyRotate(steps);
+                    foreach (var i in c) yield return i;
+                }
+            }
         }
 
         /// <summary>Desplaza los elementos de un arreglo, lista o colección.</summary>
@@ -315,58 +427,30 @@ namespace TheXDS.MCART.Types.Extensions
         /// <typeparam name="T">
         ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
         /// </typeparam>
-        public static void Shift<T>(this IEnumerable<T> a, int steps)
+        public static IEnumerable<T> Shift<T>(this IEnumerable<T> a, int steps)
         {
-            var enumerable = a.ToList();
-            if (!enumerable.Any()) throw new NullReferenceException();
-            if (steps > 0)
+            using (var e = a.GetEnumerator())
             {
-                for (var j = 0; j < steps; j++)
+                e.Reset();
+                var j = 0;
+
+                if (steps > 0)
                 {
-                    enumerable.ToList().Remove(enumerable.First());
-                    enumerable.ToList().Add(default);
+                    while (j++ < steps) e.MoveNext();
+                    while (e.MoveNext()) yield return e.Current;
+                    while (--j > 0) yield return default;
+                }
+                else if (steps < 0)
+                {
+                    var c = new List<T>();
+
+                    // HACK: Enumeración manual
+                    while(e.MoveNext()) c.Add(e.Current);
+                    while (j-- > steps) yield return default;
+                    j += c.Count;
+                    while (j-->=0) yield return c.PopFirst();
                 }
             }
-            else if (steps < 0)
-            {
-                for (var j = 0; j > steps; j--)
-                {
-                    enumerable.ToList().Remove(enumerable.Last());
-                    enumerable.ToList().Insert(0, default);
-                }
-            }
-        }
-
-        /// <summary>
-        ///     Devuelve el último elemento en la lista, quitándolo.
-        /// </summary>
-        /// <returns>El último elemento en la lista.</returns>
-        /// <param name="a">Lista de la cual obtener el elemento.</param>
-        /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
-        /// </typeparam>
-        public static T Pop<T>(this IEnumerable<T> a)
-        {
-            var enumerable = a.ToList();
-            var x = enumerable.Last();
-            enumerable.Remove(enumerable.Last());
-            return x;
-        }
-
-        /// <summary>
-        ///     Devuelve el primer elemento en la lista, quitándolo.
-        /// </summary>
-        /// <returns>El primer elemento en la lista.</returns>
-        /// <param name="a">Lista de la cual obtener el elemento.</param>
-        /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
-        /// </typeparam>
-        public static T PopFirst<T>(this IEnumerable<T> a)
-        {
-            var enumerable = a.ToList();
-            var x = enumerable.First();
-            enumerable.Remove(enumerable.First());
-            return x;
         }
     }
 }
