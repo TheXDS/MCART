@@ -23,28 +23,43 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using TheXDS.MCART;
 using TheXDS.MCART.Attributes;
 
 namespace MCART.Types.Extensions
 {
     /// <summary>
-    ///     Extensiones para todos los elementos de tipo <see cref="Type"/>.
+    ///     Extensiones para todos los elementos de tipo <see cref="Type" />.
     /// </summary>
     public static class TypeExtensions
     {
         /// <summary>
+        ///     Equivalente programático de <see langword="default" />, obtiene
+        ///     el valor predeterminado del tipo.
+        /// </summary>
+        /// <param name="t">
+        ///     <see cref="Type" /> del cual obtener el valor predeterminado.
+        /// </param>
+        /// <returns>
+        ///     Una nueva instancia del tipo si el mismo es un
+        ///     <see langword="struct" />, o <see langword="null" /> si es una
+        ///     <see langword="class" />.
+        /// </returns>
+        public static object Default(this Type t)
+        {
+            return t.IsValueType ? Activator.CreateInstance(t) : null;
+        }
+
+        /// <summary>
         ///     Obtiene un nombre personalizado para un tipo.
         /// </summary>
         /// <param name="t">
-        ///     <see cref="Type"/> del cual obtener el nombre.
+        ///     <see cref="Type" /> del cual obtener el nombre.
         /// </param>
         /// <returns>
-        ///     Un nombre amigable para <paramref name="t"/>, o el nombre de
-        ///     tipo de <paramref name="t"/> si no se ha definido un nombre
-        ///     amigable por medio del atributo <see cref="NameAttribute"/>.
+        ///     Un nombre amigable para <paramref name="t" />, o el nombre de
+        ///     tipo de <paramref name="t" /> si no se ha definido un nombre
+        ///     amigable por medio del atributo <see cref="NameAttribute" />.
         /// </returns>
         public static string TypeName(this Type t)
         {
