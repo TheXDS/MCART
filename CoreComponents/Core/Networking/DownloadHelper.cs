@@ -198,17 +198,15 @@ namespace TheXDS.MCART.Networking
             using (var downloadTask = rStream.CopyToAsync(stream))
             using (var reportTask = new Task(() =>
              {
-                 if (!(reportCallback is null))
+                 if (reportCallback is null) return;
+                 while (!ct?.IsCancellationRequested ?? false)
                  {
-                     while (!ct?.IsCancellationRequested ?? false)
-                     {
-                         reportCallback.Invoke(
-                             stream.CanSeek ? (long?)stream.Length : null,
-                             r.ContentLength);
-                         Thread.Sleep(polling);
-                     }
-                     reportCallback.Invoke(stream.CanSeek ? (long?)stream.Length : null, r.ContentLength);
+                     reportCallback.Invoke(
+                         stream.CanSeek ? (long?)stream.Length : null,
+                         r.ContentLength);
+                     Thread.Sleep(polling);
                  }
+                 reportCallback.Invoke(stream.CanSeek ? (long?)stream.Length : null, r.ContentLength);
              }, ct.Token))
             {
                 reportTask.Start();
