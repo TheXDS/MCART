@@ -33,7 +33,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Animation;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Windows.Interop;
+using TheXDS.MCART.Networking;
 using C = TheXDS.MCART.Math.Geometry;
 
 namespace TheXDS.MCART
@@ -45,10 +47,11 @@ namespace TheXDS.MCART
     public static partial class UI
     {
         [DllImport("user32.dll")]
-        static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
-        static List<OrigControlColor> origctrls = new List<OrigControlColor>();
-        static List<BitmapEncoder> bEncLst;
-        static void SetBlur(Window window, AccentState state)
+        private static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
+        private static readonly List<OrigControlColor> Origctrls = new List<OrigControlColor>();
+        private static List<BitmapEncoder> _bEncLst;
+
+        private static void SetBlur(Window window, AccentState state)
         {
             var windowHelper = new WindowInteropHelper(window);
             var accent = new AccentPolicy { AccentState = state };
@@ -64,13 +67,15 @@ namespace TheXDS.MCART
             SetWindowCompositionAttribute(windowHelper.Handle, ref data);
             Marshal.FreeHGlobal(accentPtr);
         }
-        enum WindowCompositionAttribute
+
+        private enum WindowCompositionAttribute
         {
             // ...
             WCA_ACCENT_POLICY = 19
             // ...
         }
-        enum AccentState
+
+        private enum AccentState
         {
             ACCENT_DISABLED = 0,
             ACCENT_ENABLE_GRADIENT = 1,
@@ -78,7 +83,8 @@ namespace TheXDS.MCART
             ACCENT_ENABLE_BLURBEHIND = 3,
             ACCENT_INVALID_STATE = 4
         }
-        struct OrigControlColor
+
+        private struct OrigControlColor
         {
             /// <summary>
             /// Color primario original.
@@ -98,14 +104,14 @@ namespace TheXDS.MCART
             internal ToolTip ttip;
         }
         [StructLayout(LayoutKind.Sequential)]
-        struct WindowCompositionAttributeData
+        private struct WindowCompositionAttributeData
         {
             public WindowCompositionAttribute Attribute;
             public IntPtr Data;
             public int SizeOfData;
         }
         [StructLayout(LayoutKind.Sequential)]
-        struct AccentPolicy
+        private struct AccentPolicy
         {
             public AccentState AccentState;
             public int AccentFlags;
@@ -132,18 +138,16 @@ namespace TheXDS.MCART
         /// </returns>
         public static IReadOnlyCollection<BitmapEncoder> GetBitmapEncoders()
         {
-            if (!(bool)bEncLst?.Any())
+            if (_bEncLst?.Any() ?? false) return _bEncLst.AsReadOnly();
+            _bEncLst = new List<BitmapEncoder>();
+            var t = typeof(BitmapEncoder);
+            foreach (var j in AppDomain.CurrentDomain.GetAssemblies())
             {
-                bEncLst = new List<BitmapEncoder>();
-                Type t = typeof(BitmapEncoder);
-                foreach (Assembly j in AppDomain.CurrentDomain.GetAssemblies())
-                {
-                    foreach (Type k in j.GetTypes().Where(
-                        (x) => t.IsAssignableFrom(x) && !x.IsAbstract && !x.IsInterface))
-                        bEncLst.Add(k.New<BitmapEncoder>());
-                }
+                foreach (var k in j.GetTypes().Where(
+                    x => t.IsAssignableFrom(x) && !x.IsAbstract && !x.IsInterface))
+                    _bEncLst.Add(k.New<BitmapEncoder>());
             }
-            return bEncLst.AsReadOnly();
+            return _bEncLst.AsReadOnly();
         }
         /// <summary>
         /// Limpia la lista en caché de los <see cref="BitmapEncoder"/>
@@ -151,8 +155,10 @@ namespace TheXDS.MCART
         /// </summary>
         public static void FlushBitmapEncoders()
         {
-            bEncLst?.Clear();
-            bEncLst = null;
+            if (_bEncLst is null) return;
+            foreach (var j in _bEncLst.OfType<IDisposable>()) j.Dispose();
+            _bEncLst.Clear();
+            _bEncLst = null;
             GC.Collect();
         }
         /// <summary>
@@ -172,6 +178,61 @@ namespace TheXDS.MCART
             retVal.StreamSource = stream;
             retVal.EndInit();
             return retVal;
+        }
+        /// <summary>
+        /// Obtiene una imagen a partir de un <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="uri">
+        /// <see cref="Stream"/> con el contenido de la imagen.
+        /// </param>
+        /// <returns>
+        /// La imagen que ha sido leída desde el <see cref="Stream"/>.
+        /// </returns>
+        public static BitmapImage GetBitmap(Uri uri)
+        {
+            if (uri.IsFile)
+                using (var fs = new FileStream(uri.AbsolutePath, FileMode.Open))
+                    return GetBitmap(fs);
+            using (var ms = new MemoryStream())
+            {
+                DownloadHelper.DownloadHttp(uri,ms);
+                return GetBitmap(ms);
+            }
+        }
+        /// <summary>
+        /// Obtiene una imagen a partir de un <see cref="Uri"/> de forma
+        /// asíncrona.
+        /// </summary>
+        /// <param name="uri">
+        /// <see cref="Stream"/> con el contenido de la imagen.
+        /// </param>
+        /// <returns>
+        /// La imagen que ha sido leída desde el <see cref="Stream"/>.
+        /// </returns>
+        public static async Task<BitmapImage> GetBitmapAsync(Uri uri)
+        {
+            if (uri.IsFile)
+                using (var fs = new FileStream(uri.AbsolutePath, FileMode.Open))
+                    return GetBitmap(fs);
+            using (var ms = new MemoryStream())
+            {
+                await DownloadHelper.DownloadHttpAsync(uri, ms);
+                return GetBitmap(ms);
+            }
+        }
+        /// <summary>
+        /// Obtiene una imagen a partir de una ruta especificada.
+        /// </summary>
+        /// <param name="path">
+        /// <see cref="Stream"/> con el contenido de la imagen.
+        /// </param>
+        /// <returns>
+        /// La imagen que ha sido leída desde el <see cref="Stream"/>.
+        /// </returns>
+        public static BitmapImage GetBitmap(string path)
+        {
+            using (var fs = new FileStream(path, FileMode.Open))
+                return GetBitmap(fs);
         }
         /// <summary>
         /// Crea un mapa de bits de un <see cref="FrameworkElement"/>.
@@ -353,7 +414,7 @@ namespace TheXDS.MCART
         public static void Warn(this Control c, string ttip)
         {
             if (c.IsWarned()) c.ClearWarn();
-            origctrls.Add(new OrigControlColor
+            Origctrls.Add(new OrigControlColor
             {
                 rf = c,
                 fore = c.Foreground,
@@ -379,15 +440,15 @@ namespace TheXDS.MCART
         public static void ClearWarn(this Control c)
         {
             OrigControlColor j;
-            for (int k = 0; k < origctrls.Count; k++)
+            for (int k = 0; k < Origctrls.Count; k++)
             {
-                j = origctrls[k];
+                j = Origctrls[k];
                 if (j.rf.Is(c))
                 {
                     c.Foreground = j.fore;
                     c.Background = j.bacg;
                     c.ToolTip = j.ttip;
-                    origctrls.Remove(j);
+                    Origctrls.Remove(j);
                     return;
                 }
             }
@@ -401,7 +462,7 @@ namespace TheXDS.MCART
         public static bool IsWarned(this Control c)
         {
             if (c is null) throw new ArgumentNullException(nameof(c));
-            foreach (OrigControlColor j in origctrls) if (j.rf.Is(c)) return true;
+            foreach (OrigControlColor j in Origctrls) if (j.rf.Is(c)) return true;
             return false;
         }
         /// <summary>
