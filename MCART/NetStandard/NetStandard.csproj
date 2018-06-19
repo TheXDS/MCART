@@ -3,14 +3,14 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>TheXDS.MCART.NetStandard</AssemblyName>
     <RootNamespace>TheXDS.MCART</RootNamespace>
-    <Version>0.8.4.3</Version>
+    <Version>0.8.4.4</Version>
     <Authors>César Andrés Morgan</Authors>
     <Product>Morgan's CLR Advanced Runtime</Product>
     <Company>TheXDS! non-Corp.</Company>
     <RepositoryUrl>https://github.com/TheXDS/MCART</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <AssemblyVersion>0.8.4.3</AssemblyVersion>
-    <FileVersion>0.8.4.3</FileVersion>
+    <AssemblyVersion>0.8.4.4</AssemblyVersion>
+    <FileVersion>0.8.4.4</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Copyright>Copyright © 2011-2018 César Andrés Morgan</Copyright>
     <PackageLicenseUrl>http://www.gnu.org/licenses/gpl-3.0.html</PackageLicenseUrl>
