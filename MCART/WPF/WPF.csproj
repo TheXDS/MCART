@@ -79,6 +79,7 @@
     <Compile Include="Dialogs\SplashLogin.xaml.cs">
       <DependentUpon>SplashLogin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Fluent\FlowDocumentFluentExtensions.cs" />
     <Compile Include="Misc\Events.cs" />
     <Compile Include="Modules\ValueConverters.cs" />
     <Compile Include="PluginSupport\InteractionItem.cs" />
