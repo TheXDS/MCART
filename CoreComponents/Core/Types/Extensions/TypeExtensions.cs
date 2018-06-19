@@ -23,10 +23,9 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using TheXDS.MCART;
 using TheXDS.MCART.Attributes;
 
-namespace MCART.Types.Extensions
+namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
     ///     Extensiones para todos los elementos de tipo <see cref="Type" />.
