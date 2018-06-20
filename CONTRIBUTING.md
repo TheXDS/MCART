@@ -46,9 +46,11 @@ Personalmente, debo admitir que probablemente MCART para WPF sea la versión con
 más avances, ya que es mi campo de mayor experiencia. Sin embargo, pretendo que
 los otros proyectos no se queden atrás.
 
-Por los momentos, los proyectos de Gtk y Win32 no pueden ser compilados, debido
-a la falta de tiempo (y francamente, dedicación) puestos en ellos. Agradecería
-mucho algo de ayuda para colocar estos proyectos al par de WPF.
+Por los momentos, los proyectos de Gtk y Win32 (presentes, pero no funcionales
+en versiones anteriores de MCART) han sido completamente deprecados. Todo su
+código se rezagó al punto de ser inmanejable. Eventualmente, cuando exista un
+release 1.0 de MCART, exploraré la posibilidad de reimplementar versiones para
+estas plataformas. Lee a continuación para conocer las razones.
 ### Notas adicionales
 #### Ruptura de compatibilidad Pre-Release
 Actualmente, MCART se encuentra en una temprana fase de desarrollo (pese al
@@ -57,23 +59,12 @@ fase Pre-Alpha, los espacios de nombres, clases, métodos, recursos y cualquier
 componente existente de MCART están sujetos a grandes cambios o a deprecarse.
 
 Una versión 1.0 de MCART indicará que el contenido del proyecto ha sido curado,
-y que no se esperan grandes cambios de implementación, y cualquier nueva
+no se esperarán grandes cambios de implementación, y cualquier nueva
 característica simplemente acompañará a la existente al momento de un Release.
 
 En los casos en donde sea necesario realizar cambios mayores de implementación,
 el cambio se verá reflejado con el incremento en el número de versión mayor,
 convirtiéndose en una nueva rama independiente de MCART.
-#### Gtk:
-El proyecto incluye paquetes de NuGet de Gtk# 3.22, por lo que en Microsoft
-Windows® es necesario comprobar que se cuente con una copia de los respectivos
-archivos DLL de GTK+ 3 en el directorio principal de la aplicación que se esté
-desarrollando, en versiones compatibles con las utilizadas por Gtk#, junto al
-ensamblado de MCART Gtk. Las distintas distribuciones de Linux generalmente ya
-incluyen GTK+ 3, por lo que únicamente es necesario comprobar que los paquetes
-correspondientes hayan sido instalados y se encuentren actualizados.
-
-[Gtk# en NuGet](https://www.nuget.org/packages/GtkSharp)  
-[Información para descargar e instalar Gtk+3 en Microsoft Windows®](https://www.gtk.org/download/windows.php)
 #### C# 7.2
 Respecto a la decisión de utilizar una versión tan nueva del lenguaje, C# 7.2
 ofrece ciertas características de lenguaje sobre las cuales MCART depende.
@@ -83,6 +74,11 @@ complejidad del código, aprovechando las características disponibles.
 
 Es posible utilizar la aplicación *dotnet* incluída en el .Net SDK 2.0 para
 compilar código de C#7.2 en cualquier plataforma soportada.
+
+A la fecha, existe una versión superior de C#, 7.3. MCART aún no hace uso de
+las características ofrecidas por C# 7.3, pero no se descarta que en un
+futuro sea necesario utilizar dicha versión. Debes tomar en cuenta esta
+posibilidad.
 
 [.Net SDK 2.0 (Windows)](https://www.microsoft.com/download/details.aspx?id=19988)  
 [.Net SDK Getting Started (todas las plataformas)](https://www.microsoft.com/net/core)

@@ -37,7 +37,7 @@ public class MyPlugin : Plugin
     // Este es un elemento de interacción que MCART cableará automáticamente.
     [Name("Interacción 1")]
     [Description("Muestra un mensaje de interacción.")]
-    [InteractionItem]
+    [InteractionItem] // <=- Este atributo marca a este método para cablearse automáticamente.
     public void Interaccion1(object sender, System.EventArgs e)
     {
         System.Diagnostics.Debug.Print("Interacción 1 ejecutada.");
@@ -63,6 +63,9 @@ public class MyPlugin : Plugin
     /// </summary>
     public MyPlugin()
     {
+        // la primera interacción es configurada y añadida de forma automática
+        // por MCART, por lo que no es necesario realizar ninguna acción.
+
         // Crear una segunda interacción...
         var Interac2 = new InteractionItem(Interaccion2,
             "Interacción 2", 

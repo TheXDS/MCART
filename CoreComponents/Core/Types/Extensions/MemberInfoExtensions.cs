@@ -22,7 +22,9 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
 using TheXDS.MCART;
 using TheXDS.MCART.Types.Extensions;
@@ -35,20 +37,26 @@ namespace MCART.Types.Extensions
     public static class MemberInfoExtensions
     {
         /// <summary>
-        /// Establece el valor de la propiedad de un objeto a su valor predeterminado.
+        ///     Establece el valor de la propiedad de un objeto a su valor predeterminado.
         /// </summary>
         /// <param name="property">Propiedad a restablecer.</param>
         /// <param name="instance">Instancia del objeto que contiene la propiedad.</param>
         public static void Default(this PropertyInfo property, object instance)
         {
-            property.SetMethod?.Invoke(instance,
-                new[] {property.GetAttr<DefaultValueAttribute>()?.Value ?? property.PropertyType.Default()});
+            if (instance is null || instance.GetType().GetProperties().Any(p => p.Is(property)))
+                property.SetMethod?.Invoke(instance,
+                    new[] { property.GetAttr<DefaultValueAttribute>()?.Value ?? property.PropertyType.Default() });
+            else
+                throw new MissingMemberException(instance.GetType().Name, property.Name);
         }
 
         /// <summary>
-        /// Establece el valor de una propiedad estática a su valor predeterminado.
+        ///     Establece el valor de una propiedad estática a su valor predeterminado.
         /// </summary>
         /// <param name="property">Propiedad a restablecer.</param>
-        public static void Default(this PropertyInfo property) => Default(property, null);
+        public static void Default(this PropertyInfo property)
+        {
+            Default(property, null);
+        }
     }
 }

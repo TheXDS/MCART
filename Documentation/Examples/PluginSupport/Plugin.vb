@@ -38,11 +38,11 @@ Public Class MyPlugin
     ' Este es un elemento de interacción que MCART cableará automáticamente.
     <Name("Interacción 1")>
     <Description("Muestra un mensaje de interacción.")>
-    <InteractionItem>
+    <InteractionItem> ' <=- Este atributo marca a este método para cablearse automáticamente.
     Public Sub Interaccion1(sender As Object, e As System.EventArgs)
         System.Diagnostics.Debug.Print("Interacción 1 ejecutada.")
     End Sub
-	
+
     ' Este es un elemento de interacción cableado manualmente.
     Public Sub Interaccion2(sender As Object, e As System.EventArgs)
         System.Diagnostics.Debug.Print("Interacción 2 ejecutada.")
@@ -60,7 +60,10 @@ Public Class MyPlugin
     ''' Constructor del Plugin.
     ''' </summary>
     Public Sub New()
-        ' Crear la interacción...
+        ' la primera interacción es configurada y añadida de forma automática
+        ' por MCART, por lo que no es necesario realizar ninguna acción.
+
+        ' Crear una segunda interacción...
         Dim Interact2 As New InteractionItem(
             AddressOf Interaccion2,
             "Interacción 2",

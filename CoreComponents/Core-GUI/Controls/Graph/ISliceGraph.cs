@@ -31,7 +31,7 @@ namespace TheXDS.MCART.Controls
     ///     Expone una serie de métodos de redibujado disponibles para un
     ///     control que acepte un <see cref="T:TheXDS.MCART.Controls.Slice" />.
     /// </summary>
-    public interface ISliceGraph : IGraph
+    public partial interface ISliceGraph : IGraph
     {
         /// <summary>
         ///     Obtiene o establece un valor que determina si se mostrarán los

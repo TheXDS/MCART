@@ -83,17 +83,17 @@ proyectos.
 La siguiente tabla indica los entornos de desarrollo en las cuales se ha
 comprobado la compatibilidad para compilar MCART:
 
-|Entorno de desarollo|Lite|WPF|Gtk|Win32|.Net Std|Tests|API-Doc|Utils
-|-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:
-|Visual Studio 2017|✓|✓|X*|X|✓*|✓|✓*|✓
-|Visual Studio 2015**|✓|✓|X*|X|✓*|✓|✓*|✓
-|Visual Studio 2013**|✓|✓|X*|X||✓|✓*|✓
+|Entorno de desarollo|Lite|WPF|.Net Std*|Tests|API-Doc*|Utils
+|-|:-:|:-:|:-:|:-:|:-:|:-:
+|Visual Studio 2017|✓|✓|✓|✓|✓|✓
+|Visual Studio 2015**|✓|✓|✓|✓|✓|✓
+|Visual Studio 2013**|✓|✓||✓|✓|✓
 |Visual Studio 2010-
 |Xamarin Studio 4 (Windows)
-|MonoDevelop 7+ (Linux)|✓||X|X|✓*|✓||✓
+|MonoDevelop 7.6+ (Linux)|✓||✓|✓||✓
 |MonoDevelop 5-
 |SharpDevelop
-|Rider 2017.1.2|✓|✓|X*|X|~*|✓||✓
+|Rider 2018.1|✓|✓|✓|✓||✓
 
 *Una marca indica que el IDE soporta el proyecto.  
 Los IDE que no están listados
@@ -102,7 +102,6 @@ Los paquetes de NuGet no se consideran componentes adicionales.
 Los proyectos de ejemplo incluídos no se listan.*
 
  ✓: Proyecto soportado  
- X: Proyecto soportado, actualmente no compila  
  ~: Soporte parcial  
  *: Requiere de componentes adicionales instalados en el sistema  
 **: Es necesario instalar un compilador para C# 7.2 o posterior (`PM> Install-Package Microsoft.Net.Compilers`)  
@@ -110,8 +109,6 @@ Los proyectos de ejemplo incluídos no se listan.*
  -: Versiones anteriores
 
 #### Componentes adicionales
-[Gtk# en NuGet](https://www.nuget.org/packages/GtkSharp)  
-[Información para descargar e instalar Gtk+3 en Microsoft Windows®](https://www.gtk.org/download/windows.php)  
 [.Net SDK 2.0 (Windows)](https://www.microsoft.com/download/details.aspx?id=19988)  
 [.Net SDK Getting Started (todas las plataformas)](https://www.microsoft.com/net/core)  
 [SandCastle Help File Builder](https://github.com/EWSoftware/SHFB/releases)
