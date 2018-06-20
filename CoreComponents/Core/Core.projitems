@@ -50,6 +50,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Types\ColorParsers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\CollectionExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\ListExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\MemberInfoExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\StreamExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\EnumerableExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\List\Enums.cs" />
