@@ -371,6 +371,44 @@ namespace TheXDS.MCART.Attributes
 
     /// <inheritdoc />
     /// <summary>
+    /// Establece un valor mínimo al cual se deben limitar los campos y propiedades.
+    /// </summary>
+    [AttributeUsage(Property | Field)]
+    public class MinimumAttribute : ObjectAttribute
+    {
+        /// <inheritdoc />
+        /// <summary>
+        /// Inicializa una nueva instancia del atributo
+        /// <see cref="T:TheXDS.MCART.Attributes.MinimumAttribute" /> estableciendo el valor mínimo a
+        /// representar.
+        /// </summary>
+        /// <param name="attributeValue">Valor del atributo.</param>
+        public MinimumAttribute(object attributeValue) : base(attributeValue)
+        {
+        }
+    }
+
+    /// <inheritdoc />
+    /// <summary>
+    /// Establece un valor máximo al cual se deben limitar los campos y propiedades.
+    /// </summary>
+    [AttributeUsage(Property | Field)]
+    public class MaximumAttribute : ObjectAttribute
+    {
+        /// <inheritdoc />
+        /// <summary>
+        /// Inicializa una nueva instancia del atributo
+        /// <see cref="T:TheXDS.MCART.Attributes.MinimumAttribute" /> estableciendo el valor máximo a
+        /// representar.
+        /// </summary>
+        /// <param name="attributeValue">Valor del atributo.</param>
+        public MaximumAttribute(object attributeValue) : base(attributeValue)
+        {
+        }
+    }
+
+    /// <inheritdoc />
+    /// <summary>
     ///     Marca un elemento como versión Beta.
     /// </summary>
     [AttributeUsage(Method | Class | Module | Assembly)]
@@ -676,4 +714,37 @@ namespace TheXDS.MCART.Attributes
         {
         }
     }
+
+    /// <summary>
+    /// Establece un formato de protocolo para abrir un vínculo por medio del 
+    /// sistema operativo.
+    /// </summary>
+    [AttributeUsage(Property | Field)]
+    public sealed class ProtocolFormatAttribute : Attribute
+    {
+        /// <summary>
+        /// Formato de llamada de protocolo.
+        /// </summary>
+        public string Format { get; }
+        /// <inheritdoc />
+        /// <summary>
+        /// Establece un formato de protocolo para abrir un vínculo por medio del sistema operativo.
+        /// </summary>
+        /// <param name="format">Máscara a aplicar.</param>
+        public ProtocolFormatAttribute(string format)
+        {
+            Format = format;
+        }
+        /// <summary>
+        /// Abre un url con este protocolo formateado.
+        /// </summary>
+        /// <param name="url"></param>
+        public void Open(string url)
+        {
+            if (string.IsNullOrWhiteSpace(url)) return;
+            try { System.Diagnostics.Process.Start(string.Format(Format, url)); }
+            catch { /* Ignorar excepción */ }
+        }
+    }
+
 }

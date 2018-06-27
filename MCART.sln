@@ -69,11 +69,14 @@ Global
 		CoreComponents\Core-Windows\Core-Windows.projitems*{214a1e64-25a4-4d98-97da-7ca0e7ab2eef}*SharedItemsImports = 4
 		CoreComponents\Core\Core.projitems*{214a1e64-25a4-4d98-97da-7ca0e7ab2eef}*SharedItemsImports = 4
 		CoreComponents\Core-GUI\Core-GUI.projitems*{4963ba2e-aa9f-43df-9674-d7257a201aa3}*SharedItemsImports = 13
+		CoreComponents\AssemblyInfo\AssemblyInfo.projitems*{4b1887d4-baf9-4f81-b153-be4b405edc19}*SharedItemsImports = 4
 		CoreComponents\Core-NoWPF\Core-NoWPF.projitems*{5b5c0ea8-e8c3-4442-94fb-03b7ac6be9e8}*SharedItemsImports = 13
 		Documentation\Examples\Examples.projitems*{913db390-bcf2-478d-996e-1b7248425597}*SharedItemsImports = 13
 		CoreComponents\AssemblyInfo\AssemblyInfo.projitems*{967afaa3-ded3-4ec0-9401-7193b318fce8}*SharedItemsImports = 13
+		CoreComponents\AssemblyInfo\AssemblyInfo.projitems*{b1f87675-1f7c-40b7-9d9e-9147f94535d1}*SharedItemsImports = 4
 		CoreComponents\Core\Core.projitems*{e5f6a0e5-b532-480c-b72e-516908c07944}*SharedItemsImports = 13
 		CoreComponents\Core-Windows\Core-Windows.projitems*{f1d4fe86-bb72-4d8d-901e-525f697991fe}*SharedItemsImports = 13
+		CoreComponents\AssemblyInfo\AssemblyInfo.projitems*{f282e27e-2f20-40ea-a66c-c7b91ac1e5a9}*SharedItemsImports = 4
 		CoreComponents\AssemblyInfo\AssemblyInfo.projitems*{ffcb72d8-1cb3-47a2-876b-630076307d78}*SharedItemsImports = 4
 		CoreComponents\Core\Core.projitems*{ffcb72d8-1cb3-47a2-876b-630076307d78}*SharedItemsImports = 4
 	EndGlobalSection

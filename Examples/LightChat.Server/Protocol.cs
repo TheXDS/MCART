@@ -75,8 +75,8 @@ namespace LightChat
         /// Instancia del servidor al cual el cliente se ha conectado.
         /// </param>
         /// <returns>
-        /// <c>true</c> para indicar que el cliente ha sido aceptado por el
-        /// protocolo, <c>false</c> para indicar lo contrario.
+        /// <see langword="true"/> para indicar que el cliente ha sido aceptado por el
+        /// protocolo, <see langword="false"/> para indicar lo contrario.
         /// </returns>
         public bool ClientWelcome(Client<string> client, Server<Client<string>> server)
         {
@@ -112,7 +112,7 @@ namespace LightChat
         public void ClientDisconnect(Client<string> client, Server<Client<string>> server)
         {
             if (server.IsAlive)
-                server.Broadcast(NewMsg($"{(client?.ClientData ?? "Un usuario")} se ha desconectado inesperadamente."), client);
+                server.Broadcast(NewMsg($"{client?.ClientData ?? "Un usuario"} se ha desconectado inesperadamente."), client);
             try { client?.Disconnect(); }
             finally { client = null; }
         }

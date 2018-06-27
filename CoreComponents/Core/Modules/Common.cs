@@ -24,6 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -32,6 +33,7 @@ using System.Security;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TheXDS.MCART.Types;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Math;
 using St = TheXDS.MCART.Resources.Strings;
@@ -59,6 +61,69 @@ namespace TheXDS.MCART
     /// </remarks>
     public static class Common
     {
+        /// <summary>
+        ///     Busca y obtiene un <see cref="TypeConverter"/> apropiado para
+        ///     realizar la conversión entre <see cref="string"/> y el tipo
+        ///     especificado.
+        /// </summary>
+        /// <param name="target">Tipo de datos de destino.</param>
+        /// <returns>
+        ///     Un <see cref="TypeConverter"/> capaz de realizar la conversión
+        ///     entre <see cref="string"/> y el tipo especificado, o
+        ///     <see langword="null"/> si no se ha encontrado un convertidor
+        ///     adecuado.
+        /// </returns>
+        public static TypeConverter FindConverter(Type target) => FindConverter(typeof(string), target);
+
+        /// <summary>
+        ///     Busca y obtiene un <see cref="TypeConverter"/> apropiado para
+        ///     realizar la conversión entre <see cref="string"/> y el tipo
+        ///     especificado.
+        /// </summary>
+        /// <typeparam name="T">Tipo de datos de destino.</typeparam>
+        /// <returns>
+        ///     Un <see cref="TypeConverter"/> capaz de realizar la conversión
+        ///     entre <see cref="string"/> y el tipo especificado, o
+        ///     <see langword="null"/> si no se ha encontrado un convertidor
+        ///     adecuado.
+        /// </returns>
+        public static TypeConverter FindConverter<T>() => FindConverter(typeof(T));
+
+        /// <summary>
+        ///     Busca y obtiene un <see cref="TypeConverter"/> apropiado para
+        ///     realizar la conversión entre tipos solicitada.
+        /// </summary>
+        /// <typeparam name="TSource">Tipo de datos de orígen.</typeparam>
+        /// <typeparam name="TTarget">Tipo de datos de destino.</typeparam>
+        /// <returns>
+        ///     Un <see cref="TypeConverter"/> capaz de realizar la conversión
+        ///     entre los tipos requeridos, o <see langword="null"/> si no se
+        ///     ha encontrado un convertidor adecuado.
+        /// </returns>
+        public static TypeConverter FindConverter<TSource, TTarget>() => FindConverter(typeof(TSource), typeof(TTarget));
+
+        /// <summary>
+        ///     Busca y obtiene un <see cref="TypeConverter"/> apropiado para
+        ///     realizar la conversión entre tipos solicitada.
+        /// </summary>
+        /// <param name="source">Tipo de datos de orígen.</param>
+        /// <param name="target">Tipo de datos de destino.</param>
+        /// <returns>
+        ///     Un <see cref="TypeConverter"/> capaz de realizar la conversión
+        ///     entre los tipos requeridos, o <see langword="null"/> si no se
+        ///     ha encontrado un convertidor adecuado.
+        /// </returns>
+        public static TypeConverter FindConverter(Type source, Type target)
+        {
+            return Objects.GetTypes<TypeConverter>(true)
+                .Select(j => j.New<TypeConverter>())
+                .FirstOrDefault(t =>
+                {
+                    if (t is null) return false;
+                    return t.CanConvertFrom(source) && t.CanConvertTo(target);
+                });
+        }
+
         /// <summary>
         ///     Invierte el Endianess de un valor <see cref="short" />.
         /// </summary>
@@ -585,16 +650,31 @@ namespace TheXDS.MCART
         ///     Comprueba que el valor se encuentre en el rango especificado.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" />si el valor se encuentra entre los especificados; de lo
-        ///     contrario, <see langword="false" />.
+        ///     <see langword="true"/> si el valor se encuentra entre los
+        ///     especificados; de lo contrario, <see langword="false"/>.
         /// </returns>
         /// <param name="value">Valor a comprobar.</param>
         /// <param name="min">Mínimo del rango de valores, inclusive.</param>
         /// <param name="max">Máximo del rango de valores, inclusive.</param>
-        /// <typeparam name="T">The 1st type parameter.</typeparam>
+        /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
         public static bool IsBetween<T>(this T value, T min, T max) where T : IComparable<T>
         {
             return value.CompareTo(min) >= 0 && value.CompareTo(max) <= 0;
+        }
+
+        /// <summary>
+        ///     Comprueba que el valor se encuentre en el rango especificado.
+        /// </summary>
+        /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
+        /// <param name="value">Valor a comprobar.</param>
+        /// <param name="range">Rango de valores inclusivos a comprobar.</param>
+        /// <returns>
+        ///     <see langword="true"/> si el valor se encuentra entre los
+        ///     especificados; de lo contrario, <see langword="false"/>.
+        /// </returns>
+        public static bool IsBetween<T>(this T value, Range<T> range) where T : IComparable<T>
+        {
+            return range.IsWithin(value);
         }
 
         /// <summary>

@@ -171,8 +171,11 @@
 * Nuevo: Soporte para objetos de extracción de recursos incrustados
 * Nuevo: Librería matemática
 * Nuevo: Extensiones Fluent para trabajar con objetos de documento (System.Windows.Documents)
+* Nuevo: Tipo Range&lt;T&gt;, extensiones misc. para soporte del nuevo tipo.
+* Nuevo: Extensiones para MemberInfo
 * Mejorado: Reescritura parcial de MCART
 * Mejorado: Soporte de plugins parcialmente rescrito (nuevamente).
 * Cambiado: Todos los espacios de nombres respetan la convención estándar de la especificación CLS.
+* Cambiado: Información de ensamblado de los ejemplos de MCART unificados.
 * Quitado: TaskReporter
 * Deprecado: Gtk y Win32

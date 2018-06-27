@@ -26,10 +26,8 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using TheXDS.MCART;
-using TheXDS.MCART.Types.Extensions;
 
-namespace MCART.Types.Extensions
+namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
     ///     Extensiones varias para objetos <see cref="MemberInfo" />.

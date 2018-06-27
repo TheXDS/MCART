@@ -27,32 +27,47 @@ using System;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    /// Extensiones para la clase <see cref="Random"/>
+    ///     Extensiones para la clase <see cref="Random" />
     /// </summary>
     public static class RandomExtensions
     {
-        const string text = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        private const string Text = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
         /// <summary>
-        /// Necesario para evitar que las funciones que requieren de números
-        /// aleatorios generen objetos <see cref="Random"/> con el mismo
-        /// número de semilla basada en tiempo.
+        ///     Necesario para evitar que las funciones que requieren de números
+        ///     aleatorios generen objetos <see cref="Random" /> con el mismo
+        ///     número de semilla basada en tiempo.
         /// </summary>
         public static Random Rnd { get; } = new Random();
+
         /// <summary>
-        /// Obtiene una cadena de texto aleatorio.
+        ///     Obtiene una cadena de texto aleatorio.
         /// </summary>
         /// <param name="r">
-        /// Instancia del objeto <see cref="Random"/> a utilizar.
+        ///     Instancia del objeto <see cref="Random" /> a utilizar.
         /// </param>
         /// <param name="length">Longitud de la cadena a generar.</param>
         /// <returns>
-        /// Una cadena de texto aleatorio con la longitud especificada.
+        ///     Una cadena de texto aleatorio con la longitud especificada.
         /// </returns>
         public static string RndText(this Random r, int length)
         {
-            string x = string.Empty;
-            while (x.Length < length) x += text[r.Next(0, text.Length)];
+            var x = string.Empty;
+            while (x.Length < length) x += Text[r.Next(0, Text.Length)];
             return x;
+        }
+
+        /// <summary>
+        ///     Devuelve un número entero aleatorio que se encuentra dentro del rango especificado.
+        /// </summary>
+        /// <param name="r">
+        ///     Instancia del objeto <see cref="Random" /> a utilizar.
+        /// </param>
+        /// <param name="range"><see cref="Range{T}" /> de números a seleccionar.</param>
+        /// <returns>Un número entero aleatorio que se encuentra dentro del rango especificado.</returns>
+        public static int Next(this Random r, Range<int> range)
+        {
+            return r.Next(range.Minimum, range.Maximum);
         }
     }
 }

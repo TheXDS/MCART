@@ -26,9 +26,8 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTitle("TestApp")>
 <Assembly: AssemblyDescription("Aplicación de pruebas de MCART")>
 <Assembly: AssemblyCompany("TheXDS! non-Corp.")>
-<Assembly: AssemblyProduct("MCA Runtime")>
-<Assembly: AssemblyCopyright("Copyright © 2017 TheXDS! non-Corp.")>
-<Assembly: AssemblyTrademark("MCA Corporation")>
+<Assembly: AssemblyProduct("Morgan's CLR Advanced Runtime")>
+<Assembly: AssemblyCopyright("Copyright © 2011-2018 TheXDS! non-Corp.")>
 <Assembly: ComVisible(False)>
 <Assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)>
-<Assembly: AssemblyVersion("0.6.*")>
+<Assembly: AssemblyVersion("1.0.*")>

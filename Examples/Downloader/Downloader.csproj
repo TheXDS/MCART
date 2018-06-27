@@ -54,5 +54,6 @@
       <Name>Lite</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\..\CoreComponents\AssemblyInfo\AssemblyInfo.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

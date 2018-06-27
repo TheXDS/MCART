@@ -1,5 +1,5 @@
 ﻿/*
-AssemblyInfo.cs
+RangeTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,10 +22,31 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Reflection;
-using TheXDS.MCART.Attributes;
+using System;
+using System.Linq;
+using TheXDS.MCART.Types;
+using Xunit;
 
-[assembly: AssemblyTitle("Downloader")]
-[assembly: AssemblyFileVersion("1.0.*")]
-[assembly: MinMCARTVersion(0, 8, 5, 0)]
-[assembly: TargetMCARTVersion(0, 8, 5, 0)]
+namespace CoreTest.Types
+{
+    public class RangeTests
+    {
+        [Theory]
+        [InlineData("1 - 5")]
+        [InlineData("1 5")]
+        [InlineData("1, 5")]
+        [InlineData("1;5")]
+        [InlineData("1:5")]
+        [InlineData("1|5")]
+        [InlineData("1..5")]
+        [InlineData("1...5")]
+        [InlineData("1 to 5")]
+        [InlineData("1 a 5")]
+        public void TryParseTest(string testArg)
+        {
+            Assert.True(Range<int>.TryParse(testArg, out var range));
+            Assert.Equal(1, range.Minimum);
+            Assert.Equal(5, range.Maximum);
+        }
+    }
+}

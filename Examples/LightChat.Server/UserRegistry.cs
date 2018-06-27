@@ -41,7 +41,7 @@ namespace LightChat
         /// </summary>
         /// <param name="pw">contraseña a comprobar.</param>
         /// <returns>
-        /// <c>true</c> si la contraseña coincide, <c>false</c> en caso
+        /// <see langword="true"/> si la contraseña coincide, <see langword="false"/> en caso
         /// contrario.
         /// </returns>
         public bool CheckPw(byte[] pw) => pwd == pw;

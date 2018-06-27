@@ -250,32 +250,75 @@ namespace TheXDS.MCART
         /// <param name="objs">Lista de objetos a comparar.</param>
         public static bool IsNeither(this object obj, IEnumerable<object> objs) => objs.All(p => !p.Is(obj));
         /// <summary>
-        /// Obtiene una lista de tipos asignables a partir de la interfaz 
+        /// Obtiene una lista de tipos asignables a partir de la interfaz o clase base
         /// especificada.
         /// </summary>
-        /// <typeparam name="T">Interfaz a buscar.</typeparam>
+        /// <typeparam name="T">Interfaz o clase base a buscar.</typeparam>
         /// <returns>
-        /// Una lista de tipos de las clases que implementan a la interfaz
-        /// <typeparamref name="T"/> dentro del 
-        /// <see cref="AppDomain.CurrentDomain"/>.
+        /// Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
+        /// <typeparamref name="T"/> dentro de <see cref="AppDomain.CurrentDomain"/>.
         /// </returns>
         [Thunk] public static IEnumerable<Type> GetTypes<T>() => GetTypes<T>(AppDomain.CurrentDomain);
         /// <summary>
-        /// Obtiene una lista de tipos asignables a partir de la interfaz 
+        /// Obtiene una lista de tipos asignables a partir de la interfaz o clase base
         /// especificada dentro del <see cref="AppDomain"/> especificado.
         /// </summary>
-        /// <typeparam name="T">Interfaz a buscar.</typeparam>
+        /// <typeparam name="T">Interfaz o clase base a buscar.</typeparam>
         /// <param name="domain">
         /// <see cref="AppDomain"/> en el cual realizar la búsqueda.
         /// </param>
         /// <returns>
-        /// Una lista de tipos de las clases que implementan a la interfaz 
+        /// Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
         /// <typeparamref name="T"/> dentro del <paramref name="domain"/>.
         /// </returns>
         public static IEnumerable<Type> GetTypes<T>(this AppDomain domain)
         {
-            return domain.GetAssemblies().SelectMany(s => s.GetTypes().Where(
-                p => typeof(T).IsAssignableFrom(p))).AsEnumerable();
+            return domain.GetAssemblies().SelectMany(s => s.GetTypes()
+                .Where(p => typeof(T).IsAssignableFrom(p))).AsEnumerable();
+        }
+
+        /// <summary>
+        /// Obtiene una lista de tipos asignables a partir de la interfaz o clase base
+        /// especificada.
+        /// </summary>
+        /// <typeparam name="T">Interfaz o clase base a buscar.</typeparam>
+        /// <param name="instantiablesOnly">
+        /// Si se establece en <see langword="true"/>, únicamente se incluirán aquellos tipos instanciables.
+        /// <see langword="false"/> hará que se devuelvan todos los tipos coincidientes.
+        /// </param>
+        /// <returns>
+        /// Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
+        /// <typeparamref name="T"/> dentro de <see cref="AppDomain.CurrentDomain"/>.
+        /// </returns>
+        public static IEnumerable<Type> GetTypes<T>(bool instantiablesOnly)
+        {
+            return GetTypes<T>(AppDomain.CurrentDomain, instantiablesOnly);
+        }
+
+        /// <summary>
+        /// Obtiene una lista de tipos asignables a partir de la interfaz o clase base
+        /// especificada dentro del <see cref="AppDomain"/> especificado.
+        /// </summary>
+        /// <typeparam name="T">Interfaz o clase base a buscar.</typeparam>
+        /// <param name="domain">
+        /// <see cref="AppDomain"/> en el cual realizar la búsqueda.
+        /// </param>
+        /// <param name="instantiablesOnly">
+        /// Si se establece en <see langword="true"/>, únicamente se incluirán aquellos tipos instanciables.
+        /// <see langword="false"/> hará que se devuelvan todos los tipos coincidientes.
+        /// </param>
+        /// <returns>
+        /// Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
+        /// <typeparamref name="T"/> dentro del <paramref name="domain"/>.
+        /// </returns>
+        public static IEnumerable<Type> GetTypes<T>(this AppDomain domain, bool instantiablesOnly)
+        {
+            return domain.GetAssemblies().SelectMany(s => s.GetTypes()
+                .Where(p => typeof(T).IsAssignableFrom(p))
+                .Where(p=>!instantiablesOnly 
+                          || !(p.IsInterface 
+                              || p.IsAbstract 
+                              || !p.GetConstructors().Any()))).AsEnumerable();
         }
         /// <summary>
         /// Obtiene una lista de los tipos de los objetos especificados.

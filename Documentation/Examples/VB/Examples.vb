@@ -31,8 +31,8 @@
 ' el desarrollador podrá aprender a utilizar la librería y crear su propio
 ' código.
 
-Imports MCART.Attributes
-Imports MCART.MCADatabase
+Imports TheXDS.MCART.Attributes
+Imports TheXDS.MCART.MCADatabase
 
 Namespace Examples
     ''' <summary>

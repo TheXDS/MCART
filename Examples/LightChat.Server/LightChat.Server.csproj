@@ -46,6 +46,7 @@
       <Name>CoreEdition</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\..\CoreComponents\AssemblyInfo\AssemblyInfo.projitems" Label="Shared" />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <MonoDevelop>
