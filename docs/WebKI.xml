@@ -5,8 +5,10 @@
   <HelpKINode Title="About field" Url="html/F_TheXDS_MCART_Resources_Strings_About.htm" />
   <HelpKINode Title="About method" Url="html/M_TheXDS_MCART_PluginSupport_Plugin_About.htm" />
   <HelpKINode Title="AboutX method" Url="html/M_TheXDS_MCART_Resources_Strings_AboutX.htm" />
+  <HelpKINode Title="AboveValue property" Url="html/P_System_Windows_Converters_ThresholdConverter_2_AboveValue.htm" />
   <HelpKINode Title="Action property" Url="html/P_TheXDS_MCART_PluginSupport_InteractionItem_Action.htm" />
   <HelpKINode Title="Add method" Url="html/M_TheXDS_MCART_Types_Extensions_List_1_Add.htm" />
+  <HelpKINode Title="AddCell method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_AddCell.htm" />
   <HelpKINode Title="AddConverter class">
     <HelpKINode Title="AddConverter (Clase)" Url="html/T_System_Windows_Converters_AddConverter.htm" />
     <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_AddConverter__ctor.htm" />
@@ -30,6 +32,7 @@
     <HelpKINode Title="type conversions" Url="html/Operators_T_TheXDS_MCART_Types_Extensions_AddedItemEventArgs_1.htm" />
   </HelpKINode>
   <HelpKINode Title="AddedItemEventArgs&lt;T&gt;.NewItem property" Url="html/P_TheXDS_MCART_Types_Extensions_AddedItemEventArgs_1_NewItem.htm" />
+  <HelpKINode Title="AddGroup method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_AddGroup.htm" />
   <HelpKINode Title="AddingItem event" Url="html/E_TheXDS_MCART_Types_Extensions_List_1_AddingItem.htm" />
   <HelpKINode Title="AddingItemEventArgs(Of T) class">
     <HelpKINode Title="AddingItemEventArgs(T) (Clase)" Url="html/T_TheXDS_MCART_Types_Extensions_AddingItemEventArgs_1.htm" />
@@ -51,6 +54,8 @@
     <HelpKINode Title="Point3D.Addition (Operador )" Url="html/Overload_TheXDS_MCART_Types_Point3D_op_Addition.htm" />
   </HelpKINode>
   <HelpKINode Title="AddRange method" Url="html/M_TheXDS_MCART_Types_Extensions_List_1_AddRange.htm" />
+  <HelpKINode Title="AddRow method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_AddRow.htm" />
+  <HelpKINode Title="AddTable method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_AddTable.htm" />
   <HelpKINode Title="AdverseHigh enumeration member" Url="html/T_TheXDS_MCART_Security_Password_PonderationLevel.htm" />
   <HelpKINode Title="AdverseHigher enumeration member" Url="html/T_TheXDS_MCART_Security_Password_PonderationLevel.htm" />
   <HelpKINode Title="AdverseHighest enumeration member" Url="html/T_TheXDS_MCART_Security_Password_PonderationLevel.htm" />
@@ -81,6 +86,15 @@
   <HelpKINode Title="AllEmpty method" Url="html/Overload_TheXDS_MCART_Common_AllEmpty.htm" />
   <HelpKINode Title="AllFiles field" Url="html/F_TheXDS_MCART_Resources_Strings_AllFiles.htm" />
   <HelpKINode Title="AllocConsole method" Url="html/M_TheXDS_MCART_UI_AllocConsole.htm" />
+  <HelpKINode Title="AllTypes method" Url="html/Overload_TheXDS_MCART_Objects_AllTypes.htm" />
+  <HelpKINode Title="AllVisibileConverter class">
+    <HelpKINode Title="AllVisibileConverter (Clase)" Url="html/T_System_Windows_Converters_AllVisibileConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_AllVisibileConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_AllVisibileConverter.htm" />
+  </HelpKINode>
+  <HelpKINode Title="AllVisibileConverter.AllVisibileConverter constructor" Url="html/M_System_Windows_Converters_AllVisibileConverter__ctor.htm" />
+  <HelpKINode Title="AllVisibileConverter.Convert method" Url="html/M_System_Windows_Converters_AllVisibileConverter_Convert.htm" />
+  <HelpKINode Title="AllVisibileConverter.ConvertBack method" Url="html/M_System_Windows_Converters_AllVisibileConverter_ConvertBack.htm" />
   <HelpKINode Title="Alpha field" Url="html/F_TheXDS_MCART_Resources_Strings_Alpha.htm" />
   <HelpKINode Title="Angle method" Url="html/M_TheXDS_MCART_Types_Point_Angle.htm" />
   <HelpKINode Title="Angle property" Url="html/P_TheXDS_MCART_Controls_ProgressRing_Angle.htm" />
@@ -90,7 +104,23 @@
   <HelpKINode Title="AntiqueWhite2 property" Url="html/P_TheXDS_MCART_Resources_Colors_AntiqueWhite2.htm" />
   <HelpKINode Title="AntiqueWhite3 property" Url="html/P_TheXDS_MCART_Resources_Colors_AntiqueWhite3.htm" />
   <HelpKINode Title="AntiqueWhite4 property" Url="html/P_TheXDS_MCART_Resources_Colors_AntiqueWhite4.htm" />
+  <HelpKINode Title="AnyContentVisibilityConverter class">
+    <HelpKINode Title="AnyContentVisibilityConverter (Clase)" Url="html/T_System_Windows_Converters_AnyContentVisibilityConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_AnyContentVisibilityConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_AnyContentVisibilityConverter.htm" />
+  </HelpKINode>
+  <HelpKINode Title="AnyContentVisibilityConverter.AnyContentVisibilityConverter constructor" Url="html/M_System_Windows_Converters_AnyContentVisibilityConverter__ctor.htm" />
+  <HelpKINode Title="AnyContentVisibilityConverter.Convert method" Url="html/M_System_Windows_Converters_AnyContentVisibilityConverter_Convert.htm" />
+  <HelpKINode Title="AnyContentVisibilityConverter.ConvertBack method" Url="html/M_System_Windows_Converters_AnyContentVisibilityConverter_ConvertBack.htm" />
   <HelpKINode Title="AnyEmpty method" Url="html/Overload_TheXDS_MCART_Common_AnyEmpty.htm" />
+  <HelpKINode Title="AnyVisibileConverter class">
+    <HelpKINode Title="AnyVisibileConverter (Clase)" Url="html/T_System_Windows_Converters_AnyVisibileConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_AnyVisibileConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_AnyVisibileConverter.htm" />
+  </HelpKINode>
+  <HelpKINode Title="AnyVisibileConverter.AnyVisibileConverter constructor" Url="html/M_System_Windows_Converters_AnyVisibileConverter__ctor.htm" />
+  <HelpKINode Title="AnyVisibileConverter.Convert method" Url="html/M_System_Windows_Converters_AnyVisibileConverter_Convert.htm" />
+  <HelpKINode Title="AnyVisibileConverter.ConvertBack method" Url="html/M_System_Windows_Converters_AnyVisibileConverter_ConvertBack.htm" />
   <HelpKINode Title="AppClosing enumeration member" Url="html/T_TheXDS_MCART_PluginSupport_PluginFinalizingEventArgs_FinalizingReason.htm" />
   <HelpKINode Title="Apply method">
     <HelpKINode Title="HealthColorizer.Apply (M&#233;todo )" Url="html/M_TheXDS_MCART_Controls_HealthColorizer_Apply.htm" />
@@ -98,6 +128,10 @@
     <HelpKINode Title="IGraphColorizer.Apply (M&#233;todo )" Url="html/M_TheXDS_MCART_Controls_IGraphColorizer_Apply.htm" />
     <HelpKINode Title="RandomColorizer.Apply (M&#233;todo )" Url="html/M_TheXDS_MCART_Controls_RandomColorizer_Apply.htm" />
   </HelpKINode>
+  <HelpKINode Title="ApplyRotate(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_ListExtensions_ApplyRotate__1.htm" />
+  <HelpKINode Title="ApplyRotate&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_ListExtensions_ApplyRotate__1.htm" />
+  <HelpKINode Title="ApplyShift(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_ListExtensions_ApplyShift__1.htm" />
+  <HelpKINode Title="ApplyShift&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_ListExtensions_ApplyShift__1.htm" />
   <HelpKINode Title="Aquamarine property" Url="html/P_TheXDS_MCART_Resources_Colors_Aquamarine.htm" />
   <HelpKINode Title="Aquamarine2 property" Url="html/P_TheXDS_MCART_Resources_Colors_Aquamarine2.htm" />
   <HelpKINode Title="Aquamarine4 property" Url="html/P_TheXDS_MCART_Resources_Colors_Aquamarine4.htm" />
@@ -144,6 +178,7 @@
     <HelpKINode Title="NavigationBar.AttachView (M&#233;todo )" Url="html/M_TheXDS_MCART_Controls_NavigationBar_AttachView.htm" />
     <HelpKINode Title="SearchBox.AttachView (M&#233;todo )" Url="html/M_TheXDS_MCART_Controls_SearchBox_AttachView.htm" />
   </HelpKINode>
+  <HelpKINode Title="AtValue property" Url="html/P_System_Windows_Converters_ThresholdConverter_2_AtValue.htm" />
   <HelpKINode Title="Author property">
     <HelpKINode Title="IPlugin.Author (Propiedad )" Url="html/P_TheXDS_MCART_PluginSupport_IPlugin_Author.htm" />
     <HelpKINode Title="Plugin.Author (Propiedad )" Url="html/P_TheXDS_MCART_PluginSupport_Plugin_Author.htm" />
@@ -160,11 +195,14 @@
   <HelpKINode Title="Azure3 property" Url="html/P_TheXDS_MCART_Resources_Colors_Azure3.htm" />
   <HelpKINode Title="Azure4 property" Url="html/P_TheXDS_MCART_Resources_Colors_Azure4.htm" />
   <HelpKINode Title="B property" Url="html/P_TheXDS_MCART_Types_Color_B.htm" />
+  <HelpKINode Title="Background(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Background__1.htm" />
+  <HelpKINode Title="Background&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Background__1.htm" />
   <HelpKINode Title="BackgroundImage property" Url="html/P_TheXDS_MCART_Dialogs_SplashLogin_BackgroundImage.htm" />
   <HelpKINode Title="BackgroundImageProperty field" Url="html/F_TheXDS_MCART_Dialogs_SplashLogin_BackgroundImageProperty.htm" />
   <HelpKINode Title="Banana property" Url="html/P_TheXDS_MCART_Resources_Colors_Banana.htm" />
   <HelpKINode Title="Bars enumeration member" Url="html/T_TheXDS_MCART_Controls_LightGraph_EnumGraphDrawMode.htm" />
   <HelpKINode Title="Beige property" Url="html/P_TheXDS_MCART_Resources_Colors_Beige.htm" />
+  <HelpKINode Title="BelowValue property" Url="html/P_System_Windows_Converters_ThresholdConverter_2_BelowValue.htm" />
   <HelpKINode Title="BetaAttribute class">
     <HelpKINode Title="BetaAttribute (Clase)" Url="html/T_TheXDS_MCART_Attributes_BetaAttribute.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Attributes_BetaAttribute__ctor.htm" />
@@ -187,6 +225,8 @@
   <HelpKINode Title="Blue property" Url="html/P_TheXDS_MCART_Resources_Colors_Blue.htm" />
   <HelpKINode Title="Blue2 property" Url="html/P_TheXDS_MCART_Resources_Colors_Blue2.htm" />
   <HelpKINode Title="BlueViolet property" Url="html/P_TheXDS_MCART_Resources_Colors_BlueViolet.htm" />
+  <HelpKINode Title="Bold(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Bold__1.htm" />
+  <HelpKINode Title="Bold&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Bold__1.htm" />
   <HelpKINode Title="BoolAttribute class">
     <HelpKINode Title="BoolAttribute (Clase)" Url="html/T_TheXDS_MCART_Attributes_BoolAttribute.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Attributes_BoolAttribute__ctor.htm" />
@@ -223,6 +263,14 @@
     <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_BooleanInverter.htm" />
   </HelpKINode>
   <HelpKINode Title="BooleanInverter.BooleanInverter constructor" Url="html/M_System_Windows_Converters_BooleanInverter__ctor.htm" />
+  <HelpKINode Title="BooleanToBlurEffectConverter class">
+    <HelpKINode Title="BooleanToBlurEffectConverter (Clase)" Url="html/T_System_Windows_Converters_BooleanToBlurEffectConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_BooleanToBlurEffectConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_BooleanToBlurEffectConverter.htm" />
+  </HelpKINode>
+  <HelpKINode Title="BooleanToBlurEffectConverter.BooleanToBlurEffectConverter constructor" Url="html/M_System_Windows_Converters_BooleanToBlurEffectConverter__ctor.htm" />
+  <HelpKINode Title="BooleanToBlurEffectConverter.Convert method" Url="html/M_System_Windows_Converters_BooleanToBlurEffectConverter_Convert.htm" />
+  <HelpKINode Title="BooleanToBlurEffectConverter.ConvertBack method" Url="html/M_System_Windows_Converters_BooleanToBlurEffectConverter_ConvertBack.htm" />
   <HelpKINode Title="BooleanToInvVisibilityConverter class">
     <HelpKINode Title="BooleanToInvVisibilityConverter (Clase)" Url="html/T_System_Windows_Converters_BooleanToInvVisibilityConverter.htm" />
     <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_BooleanToInvVisibilityConverter__ctor.htm" />
@@ -250,7 +298,10 @@
   <HelpKINode Title="BoolFlagConverter&lt;T&gt;.Convert method" Url="html/M_System_Windows_Converters_BoolFlagConverter_1_Convert.htm" />
   <HelpKINode Title="BoolFlagConverter&lt;T&gt;.ConvertBack method" Url="html/M_System_Windows_Converters_BoolFlagConverter_1_ConvertBack.htm" />
   <HelpKINode Title="BoolFlagConverter&lt;T&gt;.True property" Url="html/P_System_Windows_Converters_BoolFlagConverter_1_True.htm" />
+  <HelpKINode Title="Border method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Border.htm" />
+  <HelpKINode Title="Borders method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Borders.htm" />
   <HelpKINode Title="Both enumeration member" Url="html/T_TheXDS_MCART_Security_Password_PwMode.htm" />
+  <HelpKINode Title="Bouncy method" Url="html/Overload_TheXDS_MCART_Math_Tween_Bouncy.htm" />
   <HelpKINode Title="Brick property" Url="html/P_TheXDS_MCART_Resources_Colors_Brick.htm" />
   <HelpKINode Title="Broadcast method" Url="html/Overload_TheXDS_MCART_Networking_Server_Server_1_Broadcast.htm" />
   <HelpKINode Title="BroadcastAsync method" Url="html/Overload_TheXDS_MCART_Networking_Server_Server_1_BroadcastAsync.htm" />
@@ -331,15 +382,15 @@
   </HelpKINode>
   <HelpKINode Title="ClearWarn method" Url="html/M_TheXDS_MCART_UI_ClearWarn.htm" />
   <HelpKINode Title="Client class">
-    <HelpKINode Title="Client (Clase)" Url="html/T_TheXDS_MCART_Networking_Client_Client.htm" />
     <HelpKINode Title="Client (Clase)" Url="html/T_TheXDS_MCART_Networking_Server_Client.htm" />
+    <HelpKINode Title="Client (Clase)" Url="html/T_TheXDS_MCART_Networking_Client_Client.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Networking_Server_Client__ctor.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Networking_Client_Client__ctor.htm" />
     <HelpKINode Title="fields" Url="html/Fields_T_TheXDS_MCART_Networking_Client_Client.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_Server_Client.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_Client_Client.htm" />
-    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Networking_Client_Client.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Networking_Server_Client.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Networking_Client_Client.htm" />
   </HelpKINode>
   <HelpKINode Title="Client(Of T) class">
     <HelpKINode Title="Client(T) (Clase)" Url="html/T_TheXDS_MCART_Networking_Server_Client_1.htm" />
@@ -362,8 +413,8 @@
   <HelpKINode Title="Client.DataAvailable property" Url="html/P_TheXDS_MCART_Networking_Server_Client_DataAvailable.htm" />
   <HelpKINode Title="Client.DefaultPort field" Url="html/F_TheXDS_MCART_Networking_Client_Client_DefaultPort.htm" />
   <HelpKINode Title="Client.Disconnect method">
-    <HelpKINode Title="Client.Disconnect (M&#233;todo )" Url="html/M_TheXDS_MCART_Networking_Client_Client_Disconnect.htm" />
     <HelpKINode Title="Client.Disconnect (M&#233;todo )" Url="html/M_TheXDS_MCART_Networking_Server_Client_Disconnect.htm" />
+    <HelpKINode Title="Client.Disconnect (M&#233;todo )" Url="html/M_TheXDS_MCART_Networking_Client_Client_Disconnect.htm" />
   </HelpKINode>
   <HelpKINode Title="Client.Finalize method" Url="html/M_TheXDS_MCART_Networking_Client_Client_Finalize.htm" />
   <HelpKINode Title="Client.IsAlive property">
@@ -418,6 +469,10 @@
     <HelpKINode Title="CollectionExtensions (Clase)" Url="html/T_TheXDS_MCART_Types_Extensions_CollectionExtensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Extensions_CollectionExtensions.htm" />
   </HelpKINode>
+  <HelpKINode Title="CollectionExtensions.Pop(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_CollectionExtensions_Pop__1.htm" />
+  <HelpKINode Title="CollectionExtensions.Pop&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_CollectionExtensions_Pop__1.htm" />
+  <HelpKINode Title="CollectionExtensions.PopFirst(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_CollectionExtensions_PopFirst__1.htm" />
+  <HelpKINode Title="CollectionExtensions.PopFirst&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_CollectionExtensions_PopFirst__1.htm" />
   <HelpKINode Title="CollectionExtensions.RemoveAll method" Url="html/Overload_TheXDS_MCART_Types_Extensions_CollectionExtensions_RemoveAll.htm" />
   <HelpKINode Title="Color property">
     <HelpKINode Title="IGraphData.Color (Propiedad )" Url="html/P_TheXDS_MCART_Controls_IGraphData_Color.htm" />
@@ -432,10 +487,10 @@
   </HelpKINode>
   <HelpKINode Title="Color to Brush conversion" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_3.htm" />
   <HelpKINode Title="Color to Color conversion">
-    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_2.htm" />
-    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit.htm" />
     <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_4.htm" />
     <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_1.htm" />
+    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit.htm" />
+    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_2.htm" />
   </HelpKINode>
   <HelpKINode Title="Color.A property" Url="html/P_TheXDS_MCART_Types_Color_A.htm" />
   <HelpKINode Title="Color.Addition operator" Url="html/M_TheXDS_MCART_Types_Color_op_Addition.htm" />
@@ -1042,6 +1097,10 @@
   <HelpKINode Title="Colors.Yellow2 property" Url="html/P_TheXDS_MCART_Resources_Colors_Yellow2.htm" />
   <HelpKINode Title="Colors.Yellow3 property" Url="html/P_TheXDS_MCART_Resources_Colors_Yellow3.htm" />
   <HelpKINode Title="Colors.Yellow4 property" Url="html/P_TheXDS_MCART_Resources_Colors_Yellow4.htm" />
+  <HelpKINode Title="ColumnBackgound method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_ColumnBackgound.htm" />
+  <HelpKINode Title="ColumnSpan method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_ColumnSpan.htm" />
+  <HelpKINode Title="ColumnWidth method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_ColumnWidth.htm" />
+  <HelpKINode Title="ColumnWidths method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_ColumnWidths.htm" />
   <HelpKINode Title="Common class">
     <HelpKINode Title="Common (Clase)" Url="html/T_TheXDS_MCART_Common.htm" />
     <HelpKINode Title="Common (Clase)" Url="html/T_TheXDS_MCART_Math_Common.htm" />
@@ -1056,9 +1115,9 @@
   <HelpKINode Title="Common.ContainsNumbers method" Url="html/M_TheXDS_MCART_Common_ContainsNumbers.htm" />
   <HelpKINode Title="Common.CouldItBe method" Url="html/Overload_TheXDS_MCART_Common_CouldItBe.htm" />
   <HelpKINode Title="Common.CountChars method" Url="html/Overload_TheXDS_MCART_Common_CountChars.htm" />
+  <HelpKINode Title="Common.FindConverter method" Url="html/Overload_TheXDS_MCART_Common_FindConverter.htm" />
   <HelpKINode Title="Common.FlipEndianess method" Url="html/Overload_TheXDS_MCART_Common_FlipEndianess.htm" />
-  <HelpKINode Title="Common.IsBetween(Of T) method" Url="html/M_TheXDS_MCART_Common_IsBetween__1.htm" />
-  <HelpKINode Title="Common.IsBetween&lt;T&gt; method" Url="html/M_TheXDS_MCART_Common_IsBetween__1.htm" />
+  <HelpKINode Title="Common.IsBetween method" Url="html/Overload_TheXDS_MCART_Common_IsBetween.htm" />
   <HelpKINode Title="Common.IsEmpty method" Url="html/M_TheXDS_MCART_Common_IsEmpty.htm" />
   <HelpKINode Title="Common.IsFormattedAs method" Url="html/Overload_TheXDS_MCART_Common_IsFormattedAs.htm" />
   <HelpKINode Title="Common.Left method" Url="html/M_TheXDS_MCART_Common_Left.htm" />
@@ -1105,37 +1164,67 @@
   <HelpKINode Title="ContentionRuleFactory method" Url="html/Overload_TheXDS_MCART_Security_Password_RuleSets_ContentionRuleFactory.htm" />
   <HelpKINode Title="Convert method">
     <HelpKINode Title="AddConverter.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_AddConverter_Convert.htm" />
+    <HelpKINode Title="AllVisibileConverter.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_AllVisibileConverter_Convert.htm" />
+    <HelpKINode Title="AnyContentVisibilityConverter.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_AnyContentVisibilityConverter_Convert.htm" />
+    <HelpKINode Title="AnyVisibileConverter.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_AnyVisibileConverter_Convert.htm" />
     <HelpKINode Title="BooleanConverter(T).Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_BooleanConverter_1_Convert.htm" />
+    <HelpKINode Title="BooleanToBlurEffectConverter.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_BooleanToBlurEffectConverter_Convert.htm" />
     <HelpKINode Title="BoolFlagConverter(T).Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_BoolFlagConverter_1_Convert.htm" />
     <HelpKINode Title="BrushOpacityAdjust.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_BrushOpacityAdjust_Convert.htm" />
     <HelpKINode Title="CountVisibilityConverter.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_CountVisibilityConverter_Convert.htm" />
     <HelpKINode Title="DoubleMarginConverter.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_DoubleMarginConverter_Convert.htm" />
     <HelpKINode Title="DoubleVisibilityConverter.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_DoubleVisibilityConverter_Convert.htm" />
     <HelpKINode Title="FloatVisibilityConverter.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_FloatVisibilityConverter_Convert.htm" />
+    <HelpKINode Title="FromStringConverter.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_FromStringConverter_Convert.htm" />
     <HelpKINode Title="Inverter(T).Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_Inverter_1_Convert.htm" />
     <HelpKINode Title="LabeledDoubleConverter.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_LabeledDoubleConverter_Convert.htm" />
     <HelpKINode Title="MultiplyConverter.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_MultiplyConverter_Convert.htm" />
+    <HelpKINode Title="NotNullToBooleanConverter.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_NotNullToBooleanConverter_Convert.htm" />
+    <HelpKINode Title="NotNullToVisibilityConverter.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_NotNullToVisibilityConverter_Convert.htm" />
     <HelpKINode Title="NullBoolConverter(T).Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_NullBoolConverter_1_Convert.htm" />
-    <HelpKINode Title="NumberBoolConverter.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_NumberBoolConverter_Convert.htm" />
+    <HelpKINode Title="NullToBooleanConverter.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_NullToBooleanConverter_Convert.htm" />
+    <HelpKINode Title="NullToVisibilityConverter.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_NullToVisibilityConverter_Convert.htm" />
+    <HelpKINode Title="NumberToBooleanConverter.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_NumberToBooleanConverter_Convert.htm" />
+    <HelpKINode Title="SizeVisibilityConverter.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_SizeVisibilityConverter_Convert.htm" />
+    <HelpKINode Title="StrictTypeBooleanConverter.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_StrictTypeBooleanConverter_Convert.htm" />
+    <HelpKINode Title="StrictTypeVisibilityConverter.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_StrictTypeVisibilityConverter_Convert.htm" />
     <HelpKINode Title="StringVisibilityConverter.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_StringVisibilityConverter_Convert.htm" />
+    <HelpKINode Title="ThresholdConverter(TIn, TOut).Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_ThresholdConverter_2_Convert.htm" />
     <HelpKINode Title="ToStringConverter.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_ToStringConverter_Convert.htm" />
+    <HelpKINode Title="TypeBooleanConverter.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_TypeBooleanConverter_Convert.htm" />
+    <HelpKINode Title="TypeVisibilityConverter.Convert (M&#233;todo )" Url="html/M_System_Windows_Converters_TypeVisibilityConverter_Convert.htm" />
   </HelpKINode>
   <HelpKINode Title="ConvertBack method">
     <HelpKINode Title="AddConverter.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_AddConverter_ConvertBack.htm" />
+    <HelpKINode Title="AllVisibileConverter.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_AllVisibileConverter_ConvertBack.htm" />
+    <HelpKINode Title="AnyContentVisibilityConverter.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_AnyContentVisibilityConverter_ConvertBack.htm" />
+    <HelpKINode Title="AnyVisibileConverter.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_AnyVisibileConverter_ConvertBack.htm" />
     <HelpKINode Title="BooleanConverter(T).ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_BooleanConverter_1_ConvertBack.htm" />
+    <HelpKINode Title="BooleanToBlurEffectConverter.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_BooleanToBlurEffectConverter_ConvertBack.htm" />
     <HelpKINode Title="BoolFlagConverter(T).ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_BoolFlagConverter_1_ConvertBack.htm" />
     <HelpKINode Title="BrushOpacityAdjust.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_BrushOpacityAdjust_ConvertBack.htm" />
     <HelpKINode Title="CountVisibilityConverter.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_CountVisibilityConverter_ConvertBack.htm" />
     <HelpKINode Title="DoubleMarginConverter.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_DoubleMarginConverter_ConvertBack.htm" />
     <HelpKINode Title="DoubleVisibilityConverter.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_DoubleVisibilityConverter_ConvertBack.htm" />
     <HelpKINode Title="FloatVisibilityConverter.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_FloatVisibilityConverter_ConvertBack.htm" />
+    <HelpKINode Title="FromStringConverter.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_FromStringConverter_ConvertBack.htm" />
     <HelpKINode Title="Inverter(T).ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_Inverter_1_ConvertBack.htm" />
     <HelpKINode Title="LabeledDoubleConverter.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_LabeledDoubleConverter_ConvertBack.htm" />
     <HelpKINode Title="MultiplyConverter.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_MultiplyConverter_ConvertBack.htm" />
+    <HelpKINode Title="NotNullToBooleanConverter.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_NotNullToBooleanConverter_ConvertBack.htm" />
+    <HelpKINode Title="NotNullToVisibilityConverter.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_NotNullToVisibilityConverter_ConvertBack.htm" />
     <HelpKINode Title="NullBoolConverter(T).ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_NullBoolConverter_1_ConvertBack.htm" />
-    <HelpKINode Title="NumberBoolConverter.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_NumberBoolConverter_ConvertBack.htm" />
+    <HelpKINode Title="NullToBooleanConverter.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_NullToBooleanConverter_ConvertBack.htm" />
+    <HelpKINode Title="NullToVisibilityConverter.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_NullToVisibilityConverter_ConvertBack.htm" />
+    <HelpKINode Title="NumberToBooleanConverter.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_NumberToBooleanConverter_ConvertBack.htm" />
+    <HelpKINode Title="SizeVisibilityConverter.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_SizeVisibilityConverter_ConvertBack.htm" />
+    <HelpKINode Title="StrictTypeBooleanConverter.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_StrictTypeBooleanConverter_ConvertBack.htm" />
+    <HelpKINode Title="StrictTypeVisibilityConverter.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_StrictTypeVisibilityConverter_ConvertBack.htm" />
     <HelpKINode Title="StringVisibilityConverter.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_StringVisibilityConverter_ConvertBack.htm" />
+    <HelpKINode Title="ThresholdConverter(TIn, TOut).ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_ThresholdConverter_2_ConvertBack.htm" />
     <HelpKINode Title="ToStringConverter.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_ToStringConverter_ConvertBack.htm" />
+    <HelpKINode Title="TypeBooleanConverter.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_TypeBooleanConverter_ConvertBack.htm" />
+    <HelpKINode Title="TypeVisibilityConverter.ConvertBack (M&#233;todo )" Url="html/M_System_Windows_Converters_TypeVisibilityConverter_ConvertBack.htm" />
   </HelpKINode>
   <HelpKINode Title="Copy(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Copy__1.htm" />
   <HelpKINode Title="Copy&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Copy__1.htm" />
@@ -1185,15 +1274,15 @@
   <HelpKINode Title="CounterClockwise enumeration member" Url="html/T_TheXDS_MCART_Controls_ProgressRing_SweepDirection.htm" />
   <HelpKINode Title="CountVisibilityConverter class">
     <HelpKINode Title="CountVisibilityConverter (Clase)" Url="html/T_System_Windows_Converters_CountVisibilityConverter.htm" />
-    <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_CountVisibilityConverter__ctor.htm" />
-    <HelpKINode Title="fields" Url="html/Fields_T_System_Windows_Converters_CountVisibilityConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_System_Windows_Converters_CountVisibilityConverter__ctor.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_CountVisibilityConverter.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_System_Windows_Converters_CountVisibilityConverter.htm" />
   </HelpKINode>
   <HelpKINode Title="CountVisibilityConverter.Convert method" Url="html/M_System_Windows_Converters_CountVisibilityConverter_Convert.htm" />
   <HelpKINode Title="CountVisibilityConverter.ConvertBack method" Url="html/M_System_Windows_Converters_CountVisibilityConverter_ConvertBack.htm" />
-  <HelpKINode Title="CountVisibilityConverter.CountVisibilityConverter constructor" Url="html/M_System_Windows_Converters_CountVisibilityConverter__ctor.htm" />
-  <HelpKINode Title="CountVisibilityConverter.WithItems field" Url="html/F_System_Windows_Converters_CountVisibilityConverter_WithItems.htm" />
-  <HelpKINode Title="CountVisibilityConverter.WithoutItems field" Url="html/F_System_Windows_Converters_CountVisibilityConverter_WithoutItems.htm" />
+  <HelpKINode Title="CountVisibilityConverter.CountVisibilityConverter constructor" Url="html/Overload_System_Windows_Converters_CountVisibilityConverter__ctor.htm" />
+  <HelpKINode Title="CountVisibilityConverter.WithItems property" Url="html/P_System_Windows_Converters_CountVisibilityConverter_WithItems.htm" />
+  <HelpKINode Title="CountVisibilityConverter.WithoutItems property" Url="html/P_System_Windows_Converters_CountVisibilityConverter_WithoutItems.htm" />
   <HelpKINode Title="CreateHash method" Url="html/M_TheXDS_MCART_Security_Password_PasswordStorage_CreateHash.htm" />
   <HelpKINode Title="CreatingNew event" Url="html/E_TheXDS_MCART_Controls_NavigationBar_CreatingNew.htm" />
   <HelpKINode Title="Crimson property" Url="html/P_TheXDS_MCART_Resources_Colors_Crimson.htm" />
@@ -1300,6 +1389,10 @@
   <HelpKINode Title="DeepSkyBlue3 property" Url="html/P_TheXDS_MCART_Resources_Colors_DeepSkyBlue3.htm" />
   <HelpKINode Title="DeepSkyBlue4 property" Url="html/P_TheXDS_MCART_Resources_Colors_DeepSkyBlue4.htm" />
   <HelpKINode Title="Default enumeration member" Url="html/T_TheXDS_MCART_SanityChecks.htm" />
+  <HelpKINode Title="Default method">
+    <HelpKINode Title="MemberInfoExtensions.Default (M&#233;todo )" Url="html/Overload_TheXDS_MCART_Types_Extensions_MemberInfoExtensions_Default.htm" />
+    <HelpKINode Title="TypeExtensions.Default (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Extensions_TypeExtensions_Default.htm" />
+  </HelpKINode>
   <HelpKINode Title="DefaultEnableAttribute class">
     <HelpKINode Title="DefaultEnableAttribute (Clase)" Url="html/T_TheXDS_MCART_Security_Password_DefaultEnableAttribute.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Security_Password_DefaultEnableAttribute__ctor.htm" />
@@ -1369,8 +1462,8 @@
   <HelpKINode Title="DisableBlur method" Url="html/M_TheXDS_MCART_UI_DisableBlur.htm" />
   <HelpKINode Title="DisableControls method" Url="html/Overload_TheXDS_MCART_UI_DisableControls.htm" />
   <HelpKINode Title="Disconnect method">
-    <HelpKINode Title="Client.Disconnect (M&#233;todo )" Url="html/M_TheXDS_MCART_Networking_Client_Client_Disconnect.htm" />
     <HelpKINode Title="Client.Disconnect (M&#233;todo )" Url="html/M_TheXDS_MCART_Networking_Server_Client_Disconnect.htm" />
+    <HelpKINode Title="Client.Disconnect (M&#233;todo )" Url="html/M_TheXDS_MCART_Networking_Client_Client_Disconnect.htm" />
   </HelpKINode>
   <HelpKINode Title="Disposal enumeration member" Url="html/T_TheXDS_MCART_PluginSupport_PluginFinalizingEventArgs_FinalizingReason.htm" />
   <HelpKINode Title="Dispose method" Url="html/M_TheXDS_MCART_Dialogs_PasswordDialog_Dispose.htm" />
@@ -1383,6 +1476,7 @@
   <HelpKINode Title="DodgerBlue2 property" Url="html/P_TheXDS_MCART_Resources_Colors_DodgerBlue2.htm" />
   <HelpKINode Title="DodgerBlue3 property" Url="html/P_TheXDS_MCART_Resources_Colors_DodgerBlue3.htm" />
   <HelpKINode Title="DodgerBlue4 property" Url="html/P_TheXDS_MCART_Resources_Colors_DodgerBlue4.htm" />
+  <HelpKINode Title="Done method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Done.htm" />
   <HelpKINode Title="DoubleMarginConverter class">
     <HelpKINode Title="DoubleMarginConverter (Clase)" Url="html/T_System_Windows_Converters_DoubleMarginConverter.htm" />
     <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_DoubleMarginConverter__ctor.htm" />
@@ -1393,15 +1487,15 @@
   <HelpKINode Title="DoubleMarginConverter.DoubleMarginConverter constructor" Url="html/M_System_Windows_Converters_DoubleMarginConverter__ctor.htm" />
   <HelpKINode Title="DoubleVisibilityConverter class">
     <HelpKINode Title="DoubleVisibilityConverter (Clase)" Url="html/T_System_Windows_Converters_DoubleVisibilityConverter.htm" />
-    <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_DoubleVisibilityConverter__ctor.htm" />
-    <HelpKINode Title="fields" Url="html/Fields_T_System_Windows_Converters_DoubleVisibilityConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_System_Windows_Converters_DoubleVisibilityConverter__ctor.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_DoubleVisibilityConverter.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_System_Windows_Converters_DoubleVisibilityConverter.htm" />
   </HelpKINode>
   <HelpKINode Title="DoubleVisibilityConverter.Convert method" Url="html/M_System_Windows_Converters_DoubleVisibilityConverter_Convert.htm" />
   <HelpKINode Title="DoubleVisibilityConverter.ConvertBack method" Url="html/M_System_Windows_Converters_DoubleVisibilityConverter_ConvertBack.htm" />
-  <HelpKINode Title="DoubleVisibilityConverter.DoubleVisibilityConverter constructor" Url="html/M_System_Windows_Converters_DoubleVisibilityConverter__ctor.htm" />
-  <HelpKINode Title="DoubleVisibilityConverter.Positives field" Url="html/F_System_Windows_Converters_DoubleVisibilityConverter_Positives.htm" />
-  <HelpKINode Title="DoubleVisibilityConverter.ZeroOrNegatives field" Url="html/F_System_Windows_Converters_DoubleVisibilityConverter_ZeroOrNegatives.htm" />
+  <HelpKINode Title="DoubleVisibilityConverter.DoubleVisibilityConverter constructor" Url="html/Overload_System_Windows_Converters_DoubleVisibilityConverter__ctor.htm" />
+  <HelpKINode Title="DoubleVisibilityConverter.Positives property" Url="html/P_System_Windows_Converters_DoubleVisibilityConverter_Positives.htm" />
+  <HelpKINode Title="DoubleVisibilityConverter.ZeroOrNegatives property" Url="html/P_System_Windows_Converters_DoubleVisibilityConverter_ZeroOrNegatives.htm" />
   <HelpKINode Title="DownloadHelper class">
     <HelpKINode Title="DownloadHelper (Clase)" Url="html/T_TheXDS_MCART_Networking_DownloadHelper.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_DownloadHelper.htm" />
@@ -1429,6 +1523,8 @@
   <HelpKINode Title="EditDelete enumeration member" Url="html/T_TheXDS_MCART_Controls_NavigationBar_EditMode.htm" />
   <HelpKINode Title="EditEntered event" Url="html/E_TheXDS_MCART_Controls_NavigationBar_EditEntered.htm" />
   <HelpKINode Title="Editing event" Url="html/E_TheXDS_MCART_Controls_NavigationBar_Editing.htm" />
+  <HelpKINode Title="Effect(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Effect__1.htm" />
+  <HelpKINode Title="Effect&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Effect__1.htm" />
   <HelpKINode Title="EggShell property" Url="html/P_TheXDS_MCART_Resources_Colors_EggShell.htm" />
   <HelpKINode Title="EmbeededLicenseAttribute class">
     <HelpKINode Title="EmbeededLicenseAttribute (Clase)" Url="html/T_TheXDS_MCART_Attributes_EmbeededLicenseAttribute.htm" />
@@ -1438,7 +1534,7 @@
   </HelpKINode>
   <HelpKINode Title="EmbeededLicenseAttribute.EmbeededLicenseAttribute constructor" Url="html/M_TheXDS_MCART_Attributes_EmbeededLicenseAttribute__ctor.htm" />
   <HelpKINode Title="EmeraldGreen property" Url="html/P_TheXDS_MCART_Resources_Colors_EmeraldGreen.htm" />
-  <HelpKINode Title="Empty field" Url="html/F_System_Windows_Converters_StringVisibilityConverter_Empty.htm" />
+  <HelpKINode Title="Empty property" Url="html/P_System_Windows_Converters_StringVisibilityConverter_Empty.htm" />
   <HelpKINode Title="EmptyCollectionException class">
     <HelpKINode Title="EmptyCollectionException (Clase)" Url="html/T_TheXDS_MCART_Exceptions_EmptyCollectionException.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_TheXDS_MCART_Exceptions_EmptyCollectionException__ctor.htm" />
@@ -1457,12 +1553,9 @@
   </HelpKINode>
   <HelpKINode Title="EnumerableExtensions.Copy(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Copy__1.htm" />
   <HelpKINode Title="EnumerableExtensions.Copy&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Copy__1.htm" />
-  <HelpKINode Title="EnumerableExtensions.Pick(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Pick__1.htm" />
-  <HelpKINode Title="EnumerableExtensions.Pick&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Pick__1.htm" />
-  <HelpKINode Title="EnumerableExtensions.Pop(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Pop__1.htm" />
-  <HelpKINode Title="EnumerableExtensions.Pop&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Pop__1.htm" />
-  <HelpKINode Title="EnumerableExtensions.PopFirst(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_PopFirst__1.htm" />
-  <HelpKINode Title="EnumerableExtensions.PopFirst&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_PopFirst__1.htm" />
+  <HelpKINode Title="EnumerableExtensions.Pick method" Url="html/Overload_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Pick.htm" />
+  <HelpKINode Title="EnumerableExtensions.PickAsync(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_PickAsync__1.htm" />
+  <HelpKINode Title="EnumerableExtensions.PickAsync&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_PickAsync__1.htm" />
   <HelpKINode Title="EnumerableExtensions.Range(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Range__1.htm" />
   <HelpKINode Title="EnumerableExtensions.Range&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Range__1.htm" />
   <HelpKINode Title="EnumerableExtensions.Rotate(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Rotate__1.htm" />
@@ -1473,6 +1566,10 @@
   <HelpKINode Title="EnumerableExtensions.Shuffled method" Url="html/Overload_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Shuffled.htm" />
   <HelpKINode Title="EnumerableExtensions.ToExtendedList(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_ToExtendedList__1.htm" />
   <HelpKINode Title="EnumerableExtensions.ToExtendedList&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_ToExtendedList__1.htm" />
+  <HelpKINode Title="EnumerableExtensions.ToExtendedListAsync(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_ToExtendedListAsync__1.htm" />
+  <HelpKINode Title="EnumerableExtensions.ToExtendedListAsync&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_ToExtendedListAsync__1.htm" />
+  <HelpKINode Title="EnumerableExtensions.ToListAsync(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_ToListAsync__1.htm" />
+  <HelpKINode Title="EnumerableExtensions.ToListAsync&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_ToListAsync__1.htm" />
   <HelpKINode Title="Equality operator">
     <HelpKINode Title="Color.Equality (Operador )" Url="html/M_TheXDS_MCART_Types_Color_op_Equality.htm" />
     <HelpKINode Title="Point.Equality (Operador )" Url="html/M_TheXDS_MCART_Types_Point_op_Equality.htm" />
@@ -1534,14 +1631,13 @@
     <HelpKINode Title="Client.Finalize (M&#233;todo )" Url="html/M_TheXDS_MCART_Networking_Client_Client_Finalize.htm" />
     <HelpKINode Title="Slice.Finalize (M&#233;todo )" Url="html/M_TheXDS_MCART_Controls_Slice_Finalize.htm" />
   </HelpKINode>
+  <HelpKINode Title="FindConverter method" Url="html/Overload_TheXDS_MCART_Common_FindConverter.htm" />
   <HelpKINode Title="FindType method" Url="html/Overload_TheXDS_MCART_Objects_FindType.htm" />
   <HelpKINode Title="FireBrick property" Url="html/P_TheXDS_MCART_Resources_Colors_FireBrick.htm" />
   <HelpKINode Title="FireBrick1 property" Url="html/P_TheXDS_MCART_Resources_Colors_FireBrick1.htm" />
   <HelpKINode Title="FireBrick2 property" Url="html/P_TheXDS_MCART_Resources_Colors_FireBrick2.htm" />
   <HelpKINode Title="FireBrick3 property" Url="html/P_TheXDS_MCART_Resources_Colors_FireBrick3.htm" />
   <HelpKINode Title="FireBrick4 property" Url="html/P_TheXDS_MCART_Resources_Colors_FireBrick4.htm" />
-  <HelpKINode Title="FitsInBox method" Url="html/Overload_TheXDS_MCART_Types_Point_FitsInBox.htm" />
-  <HelpKINode Title="FitsInCube method" Url="html/Overload_TheXDS_MCART_Types_Point3D_FitsInCube.htm" />
   <HelpKINode Title="Flash method" Url="html/M_TheXDS_MCART_UI_Flash.htm" />
   <HelpKINode Title="Flesh property" Url="html/P_TheXDS_MCART_Resources_Colors_Flesh.htm" />
   <HelpKINode Title="FlipEndianess method" Url="html/Overload_TheXDS_MCART_Common_FlipEndianess.htm" />
@@ -1555,18 +1651,154 @@
   <HelpKINode Title="FloatAttribute.Value property" Url="html/P_TheXDS_MCART_Attributes_FloatAttribute_Value.htm" />
   <HelpKINode Title="FloatVisibilityConverter class">
     <HelpKINode Title="FloatVisibilityConverter (Clase)" Url="html/T_System_Windows_Converters_FloatVisibilityConverter.htm" />
-    <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_FloatVisibilityConverter__ctor.htm" />
-    <HelpKINode Title="fields" Url="html/Fields_T_System_Windows_Converters_FloatVisibilityConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_System_Windows_Converters_FloatVisibilityConverter__ctor.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_FloatVisibilityConverter.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_System_Windows_Converters_FloatVisibilityConverter.htm" />
   </HelpKINode>
   <HelpKINode Title="FloatVisibilityConverter.Convert method" Url="html/M_System_Windows_Converters_FloatVisibilityConverter_Convert.htm" />
   <HelpKINode Title="FloatVisibilityConverter.ConvertBack method" Url="html/M_System_Windows_Converters_FloatVisibilityConverter_ConvertBack.htm" />
-  <HelpKINode Title="FloatVisibilityConverter.FloatVisibilityConverter constructor" Url="html/M_System_Windows_Converters_FloatVisibilityConverter__ctor.htm" />
-  <HelpKINode Title="FloatVisibilityConverter.Positives field" Url="html/F_System_Windows_Converters_FloatVisibilityConverter_Positives.htm" />
-  <HelpKINode Title="FloatVisibilityConverter.ZeroOrNegatives field" Url="html/F_System_Windows_Converters_FloatVisibilityConverter_ZeroOrNegatives.htm" />
+  <HelpKINode Title="FloatVisibilityConverter.FloatVisibilityConverter constructor" Url="html/Overload_System_Windows_Converters_FloatVisibilityConverter__ctor.htm" />
+  <HelpKINode Title="FloatVisibilityConverter.Positives property" Url="html/P_System_Windows_Converters_FloatVisibilityConverter_Positives.htm" />
+  <HelpKINode Title="FloatVisibilityConverter.ZeroOrNegatives property" Url="html/P_System_Windows_Converters_FloatVisibilityConverter_ZeroOrNegatives.htm" />
   <HelpKINode Title="FloralWhite property" Url="html/P_TheXDS_MCART_Resources_Colors_FloralWhite.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions class">
+    <HelpKINode Title="FlowDocumentFluentExtensions (Clase)" Url="html/T_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions.htm" />
+  </HelpKINode>
+  <HelpKINode Title="FlowDocumentFluentExtensions.AddCell method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_AddCell.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.AddGroup method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_AddGroup.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.AddRow method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_AddRow.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.AddTable method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_AddTable.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Background(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Background__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Background&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Background__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Bold(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Bold__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Bold&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Bold__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Border method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Border.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Borders method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Borders.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.ColumnBackgound method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_ColumnBackgound.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.ColumnSpan method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_ColumnSpan.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.ColumnWidth method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_ColumnWidth.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.ColumnWidths method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_ColumnWidths.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Done method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Done.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Effect(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Effect__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Effect&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Effect__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Foreground(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Foreground__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Foreground&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Foreground__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Format method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Format.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Paragraph method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Paragraph.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.RowSpan method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_RowSpan.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Run method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Run.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Style method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Style.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Table method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Table.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TableSelector(Of T) class">
+    <HelpKINode Title="FlowDocumentFluentExtensions.TableSelector(T) (Clase)" Url="html/T_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TableSelector_1.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TableSelector_1__ctor.htm" />
+  </HelpKINode>
+  <HelpKINode Title="FlowDocumentFluentExtensions.TableSelector(Of T).Header property" Url="html/P_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TableSelector_1_Header.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TableSelector(Of T).Selector property" Url="html/P_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TableSelector_1_Selector.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TableSelector(Of T).TableSelector constructor" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TableSelector_1__ctor.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TableSelector&lt;T&gt; class">
+    <HelpKINode Title="FlowDocumentFluentExtensions.TableSelector(T) (Clase)" Url="html/T_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TableSelector_1.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TableSelector_1__ctor.htm" />
+  </HelpKINode>
+  <HelpKINode Title="FlowDocumentFluentExtensions.TableSelector&lt;T&gt;.Header property" Url="html/P_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TableSelector_1_Header.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TableSelector&lt;T&gt;.Selector property" Url="html/P_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TableSelector_1_Selector.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TableSelector&lt;T&gt;.TableSelector constructor" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TableSelector_1__ctor.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Text method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Text.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Title method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Title.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.ToDocumentTable method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_ToDocumentTable.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyAnnotationAlternates(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyAnnotationAlternates__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyAnnotationAlternates&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyAnnotationAlternates__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyCapitalSpacing(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyCapitalSpacing__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyCapitalSpacing&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyCapitalSpacing__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyCaseSensitiveForms(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyCaseSensitiveForms__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyCaseSensitiveForms&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyCaseSensitiveForms__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyContextualAlternates(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyContextualAlternates__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyContextualAlternates&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyContextualAlternates__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyContextualLigatures(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyContextualLigatures__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyContextualLigatures&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyContextualLigatures__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyContextualSwashes(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyContextualSwashes__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyContextualSwashes&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyContextualSwashes__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyDiscretionaryLigatures(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyDiscretionaryLigatures__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyDiscretionaryLigatures&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyDiscretionaryLigatures__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyEastAsianExpertForms(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyEastAsianExpertForms__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyEastAsianExpertForms&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyEastAsianExpertForms__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyEastAsianLanguage(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyEastAsianLanguage__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyEastAsianLanguage&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyEastAsianLanguage__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyEastAsianWidths(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyEastAsianWidths__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyEastAsianWidths&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyEastAsianWidths__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyFontCapitals(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyFontCapitals__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyFontCapitals&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyFontCapitals__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyFontNumeralAlignment(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyFontNumeralAlignment__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyFontNumeralAlignment&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyFontNumeralAlignment__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyFontNumeralStyle(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyFontNumeralStyle__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyFontNumeralStyle&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyFontNumeralStyle__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyFraction(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyFraction__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyFraction&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyFraction__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyHistoricalForms(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyHistoricalForms__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyHistoricalForms&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyHistoricalForms__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyHistoricalLigatures(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyHistoricalLigatures__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyHistoricalLigatures&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyHistoricalLigatures__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyKerning(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyKerning__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyKerning&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyKerning__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyMathematicalGreek(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyMathematicalGreek__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyMathematicalGreek&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyMathematicalGreek__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographySlashedZero(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographySlashedZero__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographySlashedZero&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographySlashedZero__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStandardLigatures(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStandardLigatures__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStandardLigatures&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStandardLigatures__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStandardSwashes(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStandardSwashes__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStandardSwashes&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStandardSwashes__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticAlternates(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticAlternates__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticAlternates&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticAlternates__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet1(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet1__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet10(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet10__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet10&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet10__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet11(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet11__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet11&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet11__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet12(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet12__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet12&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet12__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet13(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet13__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet13&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet13__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet14(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet14__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet14&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet14__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet15(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet15__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet15&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet15__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet16(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet16__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet16&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet16__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet17(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet17__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet17&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet17__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet18(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet18__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet18&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet18__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet19(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet19__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet19&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet19__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet1&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet1__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet2(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet2__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet20(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet20__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet20&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet20__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet2&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet2__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet3(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet3__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet3&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet3__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet4(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet4__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet4&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet4__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet5(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet5__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet5&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet5__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet6(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet6__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet6&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet6__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet7(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet7__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet7&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet7__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet8(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet8__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet8&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet8__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet9(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet9__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet9&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet9__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyVariants(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyVariants__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.TypographyVariants&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyVariants__1.htm" />
   <HelpKINode Title="FlushBitmapEncoders method" Url="html/M_TheXDS_MCART_UI_FlushBitmapEncoders.htm" />
+  <HelpKINode Title="Foreground(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Foreground__1.htm" />
+  <HelpKINode Title="Foreground&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Foreground__1.htm" />
   <HelpKINode Title="ForestGreen property" Url="html/P_TheXDS_MCART_Resources_Colors_ForestGreen.htm" />
+  <HelpKINode Title="Format method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Format.htm" />
+  <HelpKINode Title="Format property" Url="html/P_TheXDS_MCART_Attributes_ProtocolFormatAttribute_Format.htm" />
   <HelpKINode Title="FormatNotSupported method" Url="html/M_TheXDS_MCART_Resources_Strings_FormatNotSupported.htm" />
   <HelpKINode Title="FreeConsole method" Url="html/M_TheXDS_MCART_UI_FreeConsole.htm" />
   <HelpKINode Title="FrmIncorreclyOpened field" Url="html/F_TheXDS_MCART_Resources_Strings_FrmIncorreclyOpened.htm" />
@@ -1589,6 +1821,14 @@
   </HelpKINode>
   <HelpKINode Title="From(Of T, TParser) method" Url="html/M_TheXDS_MCART_Types_Color_From__2.htm" />
   <HelpKINode Title="From&lt;T, TParser&gt; method" Url="html/M_TheXDS_MCART_Types_Color_From__2.htm" />
+  <HelpKINode Title="FromStringConverter class">
+    <HelpKINode Title="FromStringConverter (Clase)" Url="html/T_System_Windows_Converters_FromStringConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_FromStringConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_FromStringConverter.htm" />
+  </HelpKINode>
+  <HelpKINode Title="FromStringConverter.Convert method" Url="html/M_System_Windows_Converters_FromStringConverter_Convert.htm" />
+  <HelpKINode Title="FromStringConverter.ConvertBack method" Url="html/M_System_Windows_Converters_FromStringConverter_ConvertBack.htm" />
+  <HelpKINode Title="FromStringConverter.FromStringConverter constructor" Url="html/M_System_Windows_Converters_FromStringConverter__ctor.htm" />
   <HelpKINode Title="FromValues method" Url="html/M_TheXDS_MCART_Controls_Slice_FromValues.htm" />
   <HelpKINode Title="Frozen property" Url="html/P_TheXDS_MCART_Controls_LightGraph_Frozen.htm" />
   <HelpKINode Title="FrozenProperty field" Url="html/F_TheXDS_MCART_Controls_LightGraph_FrozenProperty.htm" />
@@ -1615,11 +1855,13 @@
   <HelpKINode Title="Geometry.GetArcPoint method" Url="html/M_TheXDS_MCART_Math_Geometry_GetArcPoint.htm" />
   <HelpKINode Title="Geometry.GetCirclePoint method" Url="html/M_TheXDS_MCART_Math_Geometry_GetCirclePoint.htm" />
   <HelpKINode Title="Geometry.GetQuadBezierPoint method" Url="html/M_TheXDS_MCART_Math_Geometry_GetQuadBezierPoint.htm" />
+  <HelpKINode Title="Geometry.Thau field" Url="html/F_TheXDS_MCART_Math_Geometry_Thau.htm" />
   <HelpKINode Title="GetArcPoint method" Url="html/M_TheXDS_MCART_Math_Geometry_GetArcPoint.htm" />
   <HelpKINode Title="GetAttr method" Url="html/Overload_TheXDS_MCART_Objects_GetAttr.htm" />
   <HelpKINode Title="GetAttrAlt(Of T) method" Url="html/M_TheXDS_MCART_Objects_GetAttrAlt__1.htm" />
   <HelpKINode Title="GetAttrAlt&lt;T&gt; method" Url="html/M_TheXDS_MCART_Objects_GetAttrAlt__1.htm" />
-  <HelpKINode Title="GetBitmap method" Url="html/M_TheXDS_MCART_UI_GetBitmap.htm" />
+  <HelpKINode Title="GetBitmap method" Url="html/Overload_TheXDS_MCART_UI_GetBitmap.htm" />
+  <HelpKINode Title="GetBitmapAsync method" Url="html/M_TheXDS_MCART_UI_GetBitmapAsync.htm" />
   <HelpKINode Title="GetBitmapEncoders method" Url="html/M_TheXDS_MCART_UI_GetBitmapEncoders.htm" />
   <HelpKINode Title="GetBounds method" Url="html/M_TheXDS_MCART_Controls_SliceExtensions_GetBounds.htm" />
   <HelpKINode Title="GetCircleArc method" Url="html/Overload_TheXDS_MCART_UI_GetCircleArc.htm" />
@@ -1651,7 +1893,6 @@
   <HelpKINode Title="GetXDpi method" Url="html/Overload_TheXDS_MCART_UI_GetXDpi.htm" />
   <HelpKINode Title="GetYDpi method" Url="html/Overload_TheXDS_MCART_UI_GetYDpi.htm" />
   <HelpKINode Title="GhostWhite property" Url="html/P_TheXDS_MCART_Resources_Colors_GhostWhite.htm" />
-  <HelpKINode Title="GlobalTriggerEvents property" Url="html/P_TheXDS_MCART_Types_Extensions_List_1_GlobalTriggerEvents.htm" />
   <HelpKINode Title="Gold property" Url="html/P_TheXDS_MCART_Resources_Colors_Gold.htm" />
   <HelpKINode Title="Gold2 property" Url="html/P_TheXDS_MCART_Resources_Colors_Gold2.htm" />
   <HelpKINode Title="Gold3 property" Url="html/P_TheXDS_MCART_Resources_Colors_Gold3.htm" />
@@ -1720,6 +1961,7 @@
   </HelpKINode>
   <HelpKINode Title="HasUI field" Url="html/F_TheXDS_MCART_Resources_Strings_HasUI.htm" />
   <HelpKINode Title="HasViewAttached property" Url="html/P_TheXDS_MCART_Controls_NavigationBar_HasViewAttached.htm" />
+  <HelpKINode Title="Header property" Url="html/P_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TableSelector_1_Header.htm" />
   <HelpKINode Title="HealthColorizer class">
     <HelpKINode Title="HealthColorizer (Clase)" Url="html/T_TheXDS_MCART_Controls_HealthColorizer.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Controls_HealthColorizer__ctor.htm" />
@@ -2098,8 +2340,7 @@
     <HelpKINode Title="IPlugin.IsBeta (Propiedad )" Url="html/P_TheXDS_MCART_PluginSupport_IPlugin_IsBeta.htm" />
     <HelpKINode Title="Plugin.IsBeta (Propiedad )" Url="html/P_TheXDS_MCART_PluginSupport_Plugin_IsBeta.htm" />
   </HelpKINode>
-  <HelpKINode Title="IsBetween(Of T) method" Url="html/M_TheXDS_MCART_Common_IsBetween__1.htm" />
-  <HelpKINode Title="IsBetween&lt;T&gt; method" Url="html/M_TheXDS_MCART_Common_IsBetween__1.htm" />
+  <HelpKINode Title="IsBetween method" Url="html/Overload_TheXDS_MCART_Common_IsBetween.htm" />
   <HelpKINode Title="IsCompatible method">
     <HelpKINode Title="DefaultPluginChecker.IsCompatible (M&#233;todo )" Url="html/M_TheXDS_MCART_PluginSupport_DefaultPluginChecker_IsCompatible.htm" />
     <HelpKINode Title="IPluginChecker.IsCompatible (M&#233;todo )" Url="html/M_TheXDS_MCART_PluginSupport_IPluginChecker_IsCompatible.htm" />
@@ -2126,6 +2367,7 @@
   <HelpKINode Title="ISliceGraph.Slices property" Url="html/P_TheXDS_MCART_Controls_ISliceGraph_Slices.htm" />
   <HelpKINode Title="ISliceGraph.SubLevelsShown property" Url="html/P_TheXDS_MCART_Controls_ISliceGraph_SubLevelsShown.htm" />
   <HelpKINode Title="ISliceGraph.Total property" Url="html/P_TheXDS_MCART_Controls_ISliceGraph_Total.htm" />
+  <HelpKINode Title="ISliceGraph.TotalFormat property" Url="html/P_TheXDS_MCART_Controls_ISliceGraph_TotalFormat.htm" />
   <HelpKINode Title="ISliceGraph.TotalVisible property" Url="html/P_TheXDS_MCART_Controls_ISliceGraph_TotalVisible.htm" />
   <HelpKINode Title="IsNeither method" Url="html/Overload_TheXDS_MCART_Objects_IsNeither.htm" />
   <HelpKINode Title="IsNot method" Url="html/M_TheXDS_MCART_Objects_IsNot.htm" />
@@ -2150,6 +2392,7 @@
   <HelpKINode Title="IsValid method" Url="html/Overload_TheXDS_MCART_Math_Algebra_IsValid.htm" />
   <HelpKINode Title="IsWarned method" Url="html/M_TheXDS_MCART_UI_IsWarned.htm" />
   <HelpKINode Title="IsWhole method" Url="html/M_TheXDS_MCART_Math_Algebra_IsWhole.htm" />
+  <HelpKINode Title="IsWithin method" Url="html/M_TheXDS_MCART_Types_Range_1_IsWithin.htm" />
   <HelpKINode Title="Item property">
     <HelpKINode Title="ItemCreatingEventArgs(T).Item (Propiedad )" Url="html/P_TheXDS_MCART_Events_ItemCreatingEventArgs_1_Item.htm" />
     <HelpKINode Title="ItemModifiedEventArgs(T).Item (Propiedad )" Url="html/P_TheXDS_MCART_Types_Extensions_ItemModifiedEventArgs_1_Item.htm" />
@@ -2383,7 +2626,7 @@
   <HelpKINode Title="Linen property" Url="html/P_TheXDS_MCART_Resources_Colors_Linen.htm" />
   <HelpKINode Title="List(Of T) class">
     <HelpKINode Title="List(T) (Clase)" Url="html/T_TheXDS_MCART_Types_Extensions_List_1.htm" />
-    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Types_Extensions_List_1__ctor.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_TheXDS_MCART_Types_Extensions_List_1__ctor.htm" />
     <HelpKINode Title="events" Url="html/Events_T_TheXDS_MCART_Types_Extensions_List_1.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Extensions_List_1.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Types_Extensions_List_1.htm" />
@@ -2395,13 +2638,12 @@
   <HelpKINode Title="List(Of T).Clear method" Url="html/M_TheXDS_MCART_Types_Extensions_List_1_Clear.htm" />
   <HelpKINode Title="List(Of T).Clone method" Url="html/M_TheXDS_MCART_Types_Extensions_List_1_Clone.htm" />
   <HelpKINode Title="List(Of T).GetListType property" Url="html/P_TheXDS_MCART_Types_Extensions_List_1_GetListType.htm" />
-  <HelpKINode Title="List(Of T).GlobalTriggerEvents property" Url="html/P_TheXDS_MCART_Types_Extensions_List_1_GlobalTriggerEvents.htm" />
   <HelpKINode Title="List(Of T).Insert method" Url="html/M_TheXDS_MCART_Types_Extensions_List_1_Insert.htm" />
   <HelpKINode Title="List(Of T).InsertedItem event" Url="html/E_TheXDS_MCART_Types_Extensions_List_1_InsertedItem.htm" />
   <HelpKINode Title="List(Of T).InsertingItem event" Url="html/E_TheXDS_MCART_Types_Extensions_List_1_InsertingItem.htm" />
   <HelpKINode Title="List(Of T).InsertRange method" Url="html/M_TheXDS_MCART_Types_Extensions_List_1_InsertRange.htm" />
   <HelpKINode Title="List(Of T).Item property" Url="html/P_TheXDS_MCART_Types_Extensions_List_1_Item.htm" />
-  <HelpKINode Title="List(Of T).List constructor" Url="html/M_TheXDS_MCART_Types_Extensions_List_1__ctor.htm" />
+  <HelpKINode Title="List(Of T).List constructor" Url="html/Overload_TheXDS_MCART_Types_Extensions_List_1__ctor.htm" />
   <HelpKINode Title="List(Of T).ListCleared event" Url="html/E_TheXDS_MCART_Types_Extensions_List_1_ListCleared.htm" />
   <HelpKINode Title="List(Of T).ListClearing event" Url="html/E_TheXDS_MCART_Types_Extensions_List_1_ListClearing.htm" />
   <HelpKINode Title="List(Of T).ListUpdated event" Url="html/E_TheXDS_MCART_Types_Extensions_List_1_ListUpdated.htm" />
@@ -2421,7 +2663,7 @@
   <HelpKINode Title="List(Of T).TriggerEvents property" Url="html/P_TheXDS_MCART_Types_Extensions_List_1_TriggerEvents.htm" />
   <HelpKINode Title="List&lt;T&gt; class">
     <HelpKINode Title="List(T) (Clase)" Url="html/T_TheXDS_MCART_Types_Extensions_List_1.htm" />
-    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Types_Extensions_List_1__ctor.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_TheXDS_MCART_Types_Extensions_List_1__ctor.htm" />
     <HelpKINode Title="events" Url="html/Events_T_TheXDS_MCART_Types_Extensions_List_1.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Extensions_List_1.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Types_Extensions_List_1.htm" />
@@ -2433,13 +2675,12 @@
   <HelpKINode Title="List&lt;T&gt;.Clear method" Url="html/M_TheXDS_MCART_Types_Extensions_List_1_Clear.htm" />
   <HelpKINode Title="List&lt;T&gt;.Clone method" Url="html/M_TheXDS_MCART_Types_Extensions_List_1_Clone.htm" />
   <HelpKINode Title="List&lt;T&gt;.GetListType property" Url="html/P_TheXDS_MCART_Types_Extensions_List_1_GetListType.htm" />
-  <HelpKINode Title="List&lt;T&gt;.GlobalTriggerEvents property" Url="html/P_TheXDS_MCART_Types_Extensions_List_1_GlobalTriggerEvents.htm" />
   <HelpKINode Title="List&lt;T&gt;.Insert method" Url="html/M_TheXDS_MCART_Types_Extensions_List_1_Insert.htm" />
   <HelpKINode Title="List&lt;T&gt;.InsertedItem event" Url="html/E_TheXDS_MCART_Types_Extensions_List_1_InsertedItem.htm" />
   <HelpKINode Title="List&lt;T&gt;.InsertingItem event" Url="html/E_TheXDS_MCART_Types_Extensions_List_1_InsertingItem.htm" />
   <HelpKINode Title="List&lt;T&gt;.InsertRange method" Url="html/M_TheXDS_MCART_Types_Extensions_List_1_InsertRange.htm" />
   <HelpKINode Title="List&lt;T&gt;.Item property" Url="html/P_TheXDS_MCART_Types_Extensions_List_1_Item.htm" />
-  <HelpKINode Title="List&lt;T&gt;.List constructor" Url="html/M_TheXDS_MCART_Types_Extensions_List_1__ctor.htm" />
+  <HelpKINode Title="List&lt;T&gt;.List constructor" Url="html/Overload_TheXDS_MCART_Types_Extensions_List_1__ctor.htm" />
   <HelpKINode Title="List&lt;T&gt;.ListCleared event" Url="html/E_TheXDS_MCART_Types_Extensions_List_1_ListCleared.htm" />
   <HelpKINode Title="List&lt;T&gt;.ListClearing event" Url="html/E_TheXDS_MCART_Types_Extensions_List_1_ListClearing.htm" />
   <HelpKINode Title="List&lt;T&gt;.ListUpdated event" Url="html/E_TheXDS_MCART_Types_Extensions_List_1_ListUpdated.htm" />
@@ -2462,6 +2703,14 @@
   <HelpKINode Title="ListClearing event" Url="html/E_TheXDS_MCART_Types_Extensions_List_1_ListClearing.htm" />
   <HelpKINode Title="Listed method" Url="html/M_TheXDS_MCART_Common_Listed.htm" />
   <HelpKINode Title="ListeningEndPoint property" Url="html/P_TheXDS_MCART_Networking_Server_Server_1_ListeningEndPoint.htm" />
+  <HelpKINode Title="ListExtensions class">
+    <HelpKINode Title="ListExtensions (Clase)" Url="html/T_TheXDS_MCART_Types_Extensions_ListExtensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Extensions_ListExtensions.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ListExtensions.ApplyRotate(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_ListExtensions_ApplyRotate__1.htm" />
+  <HelpKINode Title="ListExtensions.ApplyRotate&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_ListExtensions_ApplyRotate__1.htm" />
+  <HelpKINode Title="ListExtensions.ApplyShift(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_ListExtensions_ApplyShift__1.htm" />
+  <HelpKINode Title="ListExtensions.ApplyShift&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_ListExtensions_ApplyShift__1.htm" />
   <HelpKINode Title="ListUpdated event" Url="html/E_TheXDS_MCART_Types_Extensions_List_1_ListUpdated.htm" />
   <HelpKINode Title="ListUpdatedEventArgs(Of T) class">
     <HelpKINode Title="ListUpdatedEventArgs(T) (Clase)" Url="html/T_TheXDS_MCART_Types_Extensions_ListUpdatedEventArgs_1.htm" />
@@ -2542,11 +2791,34 @@
   <HelpKINode Title="Maroon3 property" Url="html/P_TheXDS_MCART_Resources_Colors_Maroon3.htm" />
   <HelpKINode Title="Maroon4 property" Url="html/P_TheXDS_MCART_Resources_Colors_Maroon4.htm" />
   <HelpKINode Title="Max property" Url="html/P_TheXDS_MCART_Controls_NavigationBar_Max.htm" />
-  <HelpKINode Title="Maximum property" Url="html/P_TheXDS_MCART_Controls_ProgressRing_Maximum.htm" />
+  <HelpKINode Title="Maximum property">
+    <HelpKINode Title="ProgressRing.Maximum (Propiedad )" Url="html/P_TheXDS_MCART_Controls_ProgressRing_Maximum.htm" />
+    <HelpKINode Title="Range(T).Maximum (Propiedad )" Url="html/P_TheXDS_MCART_Types_Range_1_Maximum.htm" />
+  </HelpKINode>
+  <HelpKINode Title="MaximumAttribute class">
+    <HelpKINode Title="MaximumAttribute (Clase)" Url="html/T_TheXDS_MCART_Attributes_MaximumAttribute.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Attributes_MaximumAttribute__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Attributes_MaximumAttribute.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Attributes_MaximumAttribute.htm" />
+  </HelpKINode>
+  <HelpKINode Title="MaximumAttribute.MaximumAttribute constructor" Url="html/M_TheXDS_MCART_Attributes_MaximumAttribute__ctor.htm" />
   <HelpKINode Title="MaxProperty field">
     <HelpKINode Title="NavigationBar.MaxProperty (Campo)" Url="html/F_TheXDS_MCART_Controls_NavigationBar_MaxProperty.htm" />
     <HelpKINode Title="ProgressRing.MaxProperty (Campo)" Url="html/F_TheXDS_MCART_Controls_ProgressRing_MaxProperty.htm" />
   </HelpKINode>
+  <HelpKINode Title="MaxSizeVisibilityConverter class">
+    <HelpKINode Title="MaxSizeVisibilityConverter (Clase)" Url="html/T_System_Windows_Converters_MaxSizeVisibilityConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_MaxSizeVisibilityConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_MaxSizeVisibilityConverter.htm" />
+  </HelpKINode>
+  <HelpKINode Title="MaxSizeVisibilityConverter.MaxSizeVisibilityConverter constructor" Url="html/M_System_Windows_Converters_MaxSizeVisibilityConverter__ctor.htm" />
+  <HelpKINode Title="MaxValueVisibilityConverter class">
+    <HelpKINode Title="MaxValueVisibilityConverter (Clase)" Url="html/T_System_Windows_Converters_MaxValueVisibilityConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_MaxValueVisibilityConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_MaxValueVisibilityConverter.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_System_Windows_Converters_MaxValueVisibilityConverter.htm" />
+  </HelpKINode>
+  <HelpKINode Title="MaxValueVisibilityConverter.MaxValueVisibilityConverter constructor" Url="html/M_System_Windows_Converters_MaxValueVisibilityConverter__ctor.htm" />
   <HelpKINode Title="MCART enumeration member" Url="html/T_TheXDS_MCART_Resources_Icons_IconID.htm" />
   <HelpKINode Title="MCARTBadge enumeration member" Url="html/T_TheXDS_MCART_Resources_Icons_IconID.htm" />
   <HelpKINode Title="MCARTPlugin enumeration member" Url="html/T_TheXDS_MCART_Resources_Icons_IconID.htm" />
@@ -2569,10 +2841,25 @@
   <HelpKINode Title="MediumTurquoise property" Url="html/P_TheXDS_MCART_Resources_Colors_MediumTurquoise.htm" />
   <HelpKINode Title="MediumVioletRed property" Url="html/P_TheXDS_MCART_Resources_Colors_MediumVioletRed.htm" />
   <HelpKINode Title="Melon property" Url="html/P_TheXDS_MCART_Resources_Colors_Melon.htm" />
+  <HelpKINode Title="MemberInfoExtensions class">
+    <HelpKINode Title="MemberInfoExtensions (Clase)" Url="html/T_TheXDS_MCART_Types_Extensions_MemberInfoExtensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Extensions_MemberInfoExtensions.htm" />
+  </HelpKINode>
+  <HelpKINode Title="MemberInfoExtensions.Default method" Url="html/Overload_TheXDS_MCART_Types_Extensions_MemberInfoExtensions_Default.htm" />
   <HelpKINode Title="Menu field" Url="html/F_TheXDS_MCART_Resources_Strings_Menu.htm" />
   <HelpKINode Title="MethodIsDangerous method" Url="html/M_TheXDS_MCART_Resources_Strings_MethodIsDangerous.htm" />
   <HelpKINode Title="MidnightBlue property" Url="html/P_TheXDS_MCART_Resources_Colors_MidnightBlue.htm" />
-  <HelpKINode Title="Minimum property" Url="html/P_TheXDS_MCART_Controls_ProgressRing_Minimum.htm" />
+  <HelpKINode Title="Minimum property">
+    <HelpKINode Title="ProgressRing.Minimum (Propiedad )" Url="html/P_TheXDS_MCART_Controls_ProgressRing_Minimum.htm" />
+    <HelpKINode Title="Range(T).Minimum (Propiedad )" Url="html/P_TheXDS_MCART_Types_Range_1_Minimum.htm" />
+  </HelpKINode>
+  <HelpKINode Title="MinimumAttribute class">
+    <HelpKINode Title="MinimumAttribute (Clase)" Url="html/T_TheXDS_MCART_Attributes_MinimumAttribute.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Attributes_MinimumAttribute__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Attributes_MinimumAttribute.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Attributes_MinimumAttribute.htm" />
+  </HelpKINode>
+  <HelpKINode Title="MinimumAttribute.MinimumAttribute constructor" Url="html/M_TheXDS_MCART_Attributes_MinimumAttribute__ctor.htm" />
   <HelpKINode Title="MinMCARTV field" Url="html/F_TheXDS_MCART_Resources_Strings_MinMCARTV.htm" />
   <HelpKINode Title="MinMCARTVersion property">
     <HelpKINode Title="IPlugin.MinMCARTVersion (Propiedad )" Url="html/P_TheXDS_MCART_PluginSupport_IPlugin_MinMCARTVersion.htm" />
@@ -2590,8 +2877,21 @@
     <HelpKINode Title="IPlugin.MinRTVersion (M&#233;todo )" Url="html/M_TheXDS_MCART_PluginSupport_IPlugin_MinRTVersion.htm" />
     <HelpKINode Title="Plugin.MinRTVersion (M&#233;todo )" Url="html/M_TheXDS_MCART_PluginSupport_Plugin_MinRTVersion.htm" />
   </HelpKINode>
+  <HelpKINode Title="MinSizeVisibilityConverter class">
+    <HelpKINode Title="MinSizeVisibilityConverter (Clase)" Url="html/T_System_Windows_Converters_MinSizeVisibilityConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_MinSizeVisibilityConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_MinSizeVisibilityConverter.htm" />
+  </HelpKINode>
+  <HelpKINode Title="MinSizeVisibilityConverter.MinSizeVisibilityConverter constructor" Url="html/M_System_Windows_Converters_MinSizeVisibilityConverter__ctor.htm" />
   <HelpKINode Title="Mint property" Url="html/P_TheXDS_MCART_Resources_Colors_Mint.htm" />
   <HelpKINode Title="MintCream property" Url="html/P_TheXDS_MCART_Resources_Colors_MintCream.htm" />
+  <HelpKINode Title="MinValueVisibilityConverter class">
+    <HelpKINode Title="MinValueVisibilityConverter (Clase)" Url="html/T_System_Windows_Converters_MinValueVisibilityConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_MinValueVisibilityConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_MinValueVisibilityConverter.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_System_Windows_Converters_MinValueVisibilityConverter.htm" />
+  </HelpKINode>
+  <HelpKINode Title="MinValueVisibilityConverter.MinValueVisibilityConverter constructor" Url="html/M_System_Windows_Converters_MinValueVisibilityConverter__ctor.htm" />
   <HelpKINode Title="MissingArgument method" Url="html/M_TheXDS_MCART_Resources_Strings_MissingArgument.htm" />
   <HelpKINode Title="MissingArgumentException class">
     <HelpKINode Title="MissingArgumentException (Clase)" Url="html/T_TheXDS_MCART_Exceptions_MissingArgumentException.htm" />
@@ -2767,6 +3067,7 @@
     <HelpKINode Title="ModifyingItemEventArgs(T).NewValue (Propiedad )" Url="html/P_TheXDS_MCART_Types_Extensions_ModifyingItemEventArgs_1_NewValue.htm" />
     <HelpKINode Title="ValueChangingEventArgs(T).NewValue (Propiedad )" Url="html/P_TheXDS_MCART_Events_ValueChangingEventArgs_1_NewValue.htm" />
   </HelpKINode>
+  <HelpKINode Title="Next method" Url="html/M_TheXDS_MCART_Types_Extensions_RandomExtensions_Next.htm" />
   <HelpKINode Title="Nme field" Url="html/F_TheXDS_MCART_Resources_Strings_Nme.htm" />
   <HelpKINode Title="NoData field" Url="html/F_TheXDS_MCART_Resources_Strings_NoData.htm" />
   <HelpKINode Title="NoLicense field" Url="html/F_TheXDS_MCART_Resources_Strings_NoLicense.htm" />
@@ -2776,7 +3077,7 @@
   </HelpKINode>
   <HelpKINode Title="Normal enumeration member" Url="html/T_TheXDS_MCART_Security_Password_PonderationLevel.htm" />
   <HelpKINode Title="NoRules field" Url="html/F_TheXDS_MCART_Resources_Strings_NoRules.htm" />
-  <HelpKINode Title="NotEmpty field" Url="html/F_System_Windows_Converters_StringVisibilityConverter_NotEmpty.htm" />
+  <HelpKINode Title="NotEmpty property" Url="html/P_System_Windows_Converters_StringVisibilityConverter_NotEmpty.htm" />
   <HelpKINode Title="NotEnoughData field" Url="html/F_TheXDS_MCART_Resources_Strings_NotEnoughData.htm" />
   <HelpKINode Title="NotImplemented field" Url="html/F_TheXDS_MCART_Resources_Strings_NotImplemented.htm" />
   <HelpKINode Title="NotMyDatabaseException class">
@@ -2787,6 +3088,22 @@
     <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Exceptions_NotMyDatabaseException.htm" />
   </HelpKINode>
   <HelpKINode Title="NotMyDatabaseException.NotMyDatabaseException constructor" Url="html/Overload_TheXDS_MCART_Exceptions_NotMyDatabaseException__ctor.htm" />
+  <HelpKINode Title="NotNullToBooleanConverter class">
+    <HelpKINode Title="NotNullToBooleanConverter (Clase)" Url="html/T_System_Windows_Converters_NotNullToBooleanConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_NotNullToBooleanConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_NotNullToBooleanConverter.htm" />
+  </HelpKINode>
+  <HelpKINode Title="NotNullToBooleanConverter.Convert method" Url="html/M_System_Windows_Converters_NotNullToBooleanConverter_Convert.htm" />
+  <HelpKINode Title="NotNullToBooleanConverter.ConvertBack method" Url="html/M_System_Windows_Converters_NotNullToBooleanConverter_ConvertBack.htm" />
+  <HelpKINode Title="NotNullToBooleanConverter.NotNullToBooleanConverter constructor" Url="html/M_System_Windows_Converters_NotNullToBooleanConverter__ctor.htm" />
+  <HelpKINode Title="NotNullToVisibilityConverter class">
+    <HelpKINode Title="NotNullToVisibilityConverter (Clase)" Url="html/T_System_Windows_Converters_NotNullToVisibilityConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_NotNullToVisibilityConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_NotNullToVisibilityConverter.htm" />
+  </HelpKINode>
+  <HelpKINode Title="NotNullToVisibilityConverter.Convert method" Url="html/M_System_Windows_Converters_NotNullToVisibilityConverter_Convert.htm" />
+  <HelpKINode Title="NotNullToVisibilityConverter.ConvertBack method" Url="html/M_System_Windows_Converters_NotNullToVisibilityConverter_ConvertBack.htm" />
+  <HelpKINode Title="NotNullToVisibilityConverter.NotNullToVisibilityConverter constructor" Url="html/M_System_Windows_Converters_NotNullToVisibilityConverter__ctor.htm" />
   <HelpKINode Title="NotPluginAttribute class">
     <HelpKINode Title="NotPluginAttribute (Clase)" Url="html/T_TheXDS_MCART_Attributes_NotPluginAttribute.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Attributes_NotPluginAttribute__ctor.htm" />
@@ -2836,19 +3153,44 @@
   <HelpKINode Title="NullBoolConverter&lt;T&gt;.NullBoolConverter constructor" Url="html/Overload_System_Windows_Converters_NullBoolConverter_1__ctor.htm" />
   <HelpKINode Title="NullBoolConverter&lt;T&gt;.True property" Url="html/P_System_Windows_Converters_NullBoolConverter_1_True.htm" />
   <HelpKINode Title="NullEvalRule method" Url="html/Overload_TheXDS_MCART_Security_Password_RuleSets_NullEvalRule.htm" />
-  <HelpKINode Title="NumberBoolConverter class">
-    <HelpKINode Title="NumberBoolConverter (Clase)" Url="html/T_System_Windows_Converters_NumberBoolConverter.htm" />
-    <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_NumberBoolConverter__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_NumberBoolConverter.htm" />
+  <HelpKINode Title="NullToBooleanConverter class">
+    <HelpKINode Title="NullToBooleanConverter (Clase)" Url="html/T_System_Windows_Converters_NullToBooleanConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_NullToBooleanConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_NullToBooleanConverter.htm" />
   </HelpKINode>
-  <HelpKINode Title="NumberBoolConverter.Convert method" Url="html/M_System_Windows_Converters_NumberBoolConverter_Convert.htm" />
-  <HelpKINode Title="NumberBoolConverter.ConvertBack method" Url="html/M_System_Windows_Converters_NumberBoolConverter_ConvertBack.htm" />
-  <HelpKINode Title="NumberBoolConverter.NumberBoolConverter constructor" Url="html/M_System_Windows_Converters_NumberBoolConverter__ctor.htm" />
+  <HelpKINode Title="NullToBooleanConverter.Convert method" Url="html/M_System_Windows_Converters_NullToBooleanConverter_Convert.htm" />
+  <HelpKINode Title="NullToBooleanConverter.ConvertBack method" Url="html/M_System_Windows_Converters_NullToBooleanConverter_ConvertBack.htm" />
+  <HelpKINode Title="NullToBooleanConverter.NullToBooleanConverter constructor" Url="html/M_System_Windows_Converters_NullToBooleanConverter__ctor.htm" />
+  <HelpKINode Title="NullToVisibilityConverter class">
+    <HelpKINode Title="NullToVisibilityConverter (Clase)" Url="html/T_System_Windows_Converters_NullToVisibilityConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_NullToVisibilityConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_NullToVisibilityConverter.htm" />
+  </HelpKINode>
+  <HelpKINode Title="NullToVisibilityConverter.Convert method" Url="html/M_System_Windows_Converters_NullToVisibilityConverter_Convert.htm" />
+  <HelpKINode Title="NullToVisibilityConverter.ConvertBack method" Url="html/M_System_Windows_Converters_NullToVisibilityConverter_ConvertBack.htm" />
+  <HelpKINode Title="NullToVisibilityConverter.NullToVisibilityConverter constructor" Url="html/M_System_Windows_Converters_NullToVisibilityConverter__ctor.htm" />
   <HelpKINode Title="Numbers field" Url="html/F_TheXDS_MCART_Resources_Strings_Numbers.htm" />
+  <HelpKINode Title="NumberToBooleanConverter class">
+    <HelpKINode Title="NumberToBooleanConverter (Clase)" Url="html/T_System_Windows_Converters_NumberToBooleanConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_NumberToBooleanConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_NumberToBooleanConverter.htm" />
+  </HelpKINode>
+  <HelpKINode Title="NumberToBooleanConverter.Convert method" Url="html/M_System_Windows_Converters_NumberToBooleanConverter_Convert.htm" />
+  <HelpKINode Title="NumberToBooleanConverter.ConvertBack method" Url="html/M_System_Windows_Converters_NumberToBooleanConverter_ConvertBack.htm" />
+  <HelpKINode Title="NumberToBooleanConverter.NumberToBooleanConverter constructor" Url="html/M_System_Windows_Converters_NumberToBooleanConverter__ctor.htm" />
+  <HelpKINode Title="ObjectAttribute class">
+    <HelpKINode Title="ObjectAttribute (Clase)" Url="html/T_TheXDS_MCART_Attributes_ObjectAttribute.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Attributes_ObjectAttribute__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Attributes_ObjectAttribute.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Attributes_ObjectAttribute.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ObjectAttribute.ObjectAttribute constructor" Url="html/M_TheXDS_MCART_Attributes_ObjectAttribute__ctor.htm" />
+  <HelpKINode Title="ObjectAttribute.Value property" Url="html/P_TheXDS_MCART_Attributes_ObjectAttribute_Value.htm" />
   <HelpKINode Title="Objects class">
     <HelpKINode Title="Objects (Clase)" Url="html/T_TheXDS_MCART_Objects.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Objects.htm" />
   </HelpKINode>
+  <HelpKINode Title="Objects.AllTypes method" Url="html/Overload_TheXDS_MCART_Objects_AllTypes.htm" />
   <HelpKINode Title="Objects.AreAllAssignable method" Url="html/Overload_TheXDS_MCART_Objects_AreAllAssignable.htm" />
   <HelpKINode Title="Objects.AreAllNull method" Url="html/Overload_TheXDS_MCART_Objects_AreAllNull.htm" />
   <HelpKINode Title="Objects.Assignables method" Url="html/Overload_TheXDS_MCART_Objects_Assignables.htm" />
@@ -2870,7 +3212,7 @@
   <HelpKINode Title="Objects.Itself(Of T) method" Url="html/M_TheXDS_MCART_Objects_Itself__1.htm" />
   <HelpKINode Title="Objects.Itself&lt;T&gt; method" Url="html/M_TheXDS_MCART_Objects_Itself__1.htm" />
   <HelpKINode Title="Objects.New method" Url="html/Overload_TheXDS_MCART_Objects_New.htm" />
-  <HelpKINode Title="Objects.ReleaseCOMObject method" Url="html/M_TheXDS_MCART_Objects_ReleaseCOMObject.htm" />
+  <HelpKINode Title="Objects.ReleaseComObject method" Url="html/M_TheXDS_MCART_Objects_ReleaseComObject.htm" />
   <HelpKINode Title="Objects.ToTypes method" Url="html/Overload_TheXDS_MCART_Objects_ToTypes.htm" />
   <HelpKINode Title="Objects.WhichAre method" Url="html/Overload_TheXDS_MCART_Objects_WhichAre.htm" />
   <HelpKINode Title="Objects.WhichAreNull method" Url="html/Overload_TheXDS_MCART_Objects_WhichAreNull.htm" />
@@ -2916,6 +3258,7 @@
   <HelpKINode Title="Olivedrab4 property" Url="html/P_TheXDS_MCART_Resources_Colors_Olivedrab4.htm" />
   <HelpKINode Title="OnPluginFinalizing method" Url="html/Overload_TheXDS_MCART_PluginSupport_Plugin_OnPluginFinalizing.htm" />
   <HelpKINode Title="OnUIChanged method" Url="html/Overload_TheXDS_MCART_PluginSupport_Plugin_OnUIChanged.htm" />
+  <HelpKINode Title="Open method" Url="html/M_TheXDS_MCART_Attributes_ProtocolFormatAttribute_Open.htm" />
   <HelpKINode Title="OperationException class">
     <HelpKINode Title="OperationException (Clase)" Url="html/T_TheXDS_MCART_Exceptions_OperationException.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_TheXDS_MCART_Exceptions_OperationException__ctor.htm" />
@@ -2958,7 +3301,11 @@
   <HelpKINode Title="PaleVioletRed3 property" Url="html/P_TheXDS_MCART_Resources_Colors_PaleVioletRed3.htm" />
   <HelpKINode Title="PaleVioletRed4 property" Url="html/P_TheXDS_MCART_Resources_Colors_PaleVioletRed4.htm" />
   <HelpKINode Title="PapayaWhip property" Url="html/P_TheXDS_MCART_Resources_Colors_PapayaWhip.htm" />
-  <HelpKINode Title="Parse method" Url="html/M_TheXDS_MCART_Types_Color_Parse.htm" />
+  <HelpKINode Title="Paragraph method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Paragraph.htm" />
+  <HelpKINode Title="Parse method">
+    <HelpKINode Title="Color.Parse (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_Parse.htm" />
+    <HelpKINode Title="Range(T).Parse (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Range_1_Parse.htm" />
+  </HelpKINode>
   <HelpKINode Title="Password property" Url="html/P_TheXDS_MCART_Security_Password_PwDialogResult_Password.htm" />
   <HelpKINode Title="PasswordDialog class">
     <HelpKINode Title="PasswordDialog (Clase)" Url="html/T_TheXDS_MCART_Dialogs_PasswordDialog.htm" />
@@ -2985,9 +3332,12 @@
   <HelpKINode Title="Percent enumeration member" Url="html/T_TheXDS_MCART_Controls_LightGraph_SpotLabelsDrawMode.htm" />
   <HelpKINode Title="Peru property" Url="html/P_TheXDS_MCART_Resources_Colors_Peru.htm" />
   <HelpKINode Title="Physics class" Url="html/T_TheXDS_MCART_Math_Physics.htm" />
-  <HelpKINode Title="Pick method" Url="html/M_TheXDS_MCART_Resources_Colors_Pick.htm" />
-  <HelpKINode Title="Pick(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Pick__1.htm" />
-  <HelpKINode Title="Pick&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Pick__1.htm" />
+  <HelpKINode Title="Pick method">
+    <HelpKINode Title="Colors.Pick (M&#233;todo )" Url="html/M_TheXDS_MCART_Resources_Colors_Pick.htm" />
+    <HelpKINode Title="EnumerableExtensions.Pick (M&#233;todo )" Url="html/Overload_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Pick.htm" />
+  </HelpKINode>
+  <HelpKINode Title="PickAsync(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_PickAsync__1.htm" />
+  <HelpKINode Title="PickAsync&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_PickAsync__1.htm" />
   <HelpKINode Title="PickDrawingBrush method" Url="html/M_TheXDS_MCART_UI_PickDrawingBrush.htm" />
   <HelpKINode Title="Pin method" Url="html/Overload_TheXDS_MCART_Security_Password_Generators_Pin.htm" />
   <HelpKINode Title="Pink property" Url="html/P_TheXDS_MCART_Resources_Colors_Pink.htm" />
@@ -3142,9 +3492,9 @@
   </HelpKINode>
   <HelpKINode Title="Point to Point conversion">
     <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit_1.htm" />
-    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit_2.htm" />
     <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit.htm" />
     <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit_3.htm" />
+    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit_2.htm" />
   </HelpKINode>
   <HelpKINode Title="Point.Addition operator" Url="html/Overload_TheXDS_MCART_Types_Point_op_Addition.htm" />
   <HelpKINode Title="Point.Angle method" Url="html/M_TheXDS_MCART_Types_Point_Angle.htm" />
@@ -3152,7 +3502,6 @@
   <HelpKINode Title="Point.Division operator" Url="html/Overload_TheXDS_MCART_Types_Point_op_Division.htm" />
   <HelpKINode Title="Point.Equality operator" Url="html/M_TheXDS_MCART_Types_Point_op_Equality.htm" />
   <HelpKINode Title="Point.Equals method" Url="html/Overload_TheXDS_MCART_Types_Point_Equals.htm" />
-  <HelpKINode Title="Point.FitsInBox method" Url="html/Overload_TheXDS_MCART_Types_Point_FitsInBox.htm" />
   <HelpKINode Title="Point.GetHashCode method" Url="html/M_TheXDS_MCART_Types_Point_GetHashCode.htm" />
   <HelpKINode Title="Point.Increment operator" Url="html/M_TheXDS_MCART_Types_Point_op_Increment.htm" />
   <HelpKINode Title="Point.Inequality operator" Url="html/M_TheXDS_MCART_Types_Point_op_Inequality.htm" />
@@ -3166,6 +3515,8 @@
   <HelpKINode Title="Point.ToString method" Url="html/Overload_TheXDS_MCART_Types_Point_ToString.htm" />
   <HelpKINode Title="Point.UnaryNegation operator" Url="html/M_TheXDS_MCART_Types_Point_op_UnaryNegation.htm" />
   <HelpKINode Title="Point.UnaryPlus operator" Url="html/M_TheXDS_MCART_Types_Point_op_UnaryPlus.htm" />
+  <HelpKINode Title="Point.WithinBox method" Url="html/Overload_TheXDS_MCART_Types_Point_WithinBox.htm" />
+  <HelpKINode Title="Point.WithinCircle method" Url="html/M_TheXDS_MCART_Types_Point_WithinCircle.htm" />
   <HelpKINode Title="Point.X property" Url="html/P_TheXDS_MCART_Types_Point_X.htm" />
   <HelpKINode Title="Point.Y property" Url="html/P_TheXDS_MCART_Types_Point_Y.htm" />
   <HelpKINode Title="Point3D structure">
@@ -3180,7 +3531,6 @@
   <HelpKINode Title="Point3D.Division operator" Url="html/Overload_TheXDS_MCART_Types_Point3D_op_Division.htm" />
   <HelpKINode Title="Point3D.Equality operator" Url="html/M_TheXDS_MCART_Types_Point3D_op_Equality.htm" />
   <HelpKINode Title="Point3D.Equals method" Url="html/Overload_TheXDS_MCART_Types_Point3D_Equals.htm" />
-  <HelpKINode Title="Point3D.FitsInCube method" Url="html/Overload_TheXDS_MCART_Types_Point3D_FitsInCube.htm" />
   <HelpKINode Title="Point3D.GetHashCode method" Url="html/M_TheXDS_MCART_Types_Point3D_GetHashCode.htm" />
   <HelpKINode Title="Point3D.Increment operator" Url="html/M_TheXDS_MCART_Types_Point3D_op_Increment.htm" />
   <HelpKINode Title="Point3D.Inequality operator" Url="html/M_TheXDS_MCART_Types_Point3D_op_Inequality.htm" />
@@ -3194,6 +3544,8 @@
   <HelpKINode Title="Point3D.ToString method" Url="html/Overload_TheXDS_MCART_Types_Point3D_ToString.htm" />
   <HelpKINode Title="Point3D.UnaryNegation operator" Url="html/M_TheXDS_MCART_Types_Point3D_op_UnaryNegation.htm" />
   <HelpKINode Title="Point3D.UnaryPlus operator" Url="html/M_TheXDS_MCART_Types_Point3D_op_UnaryPlus.htm" />
+  <HelpKINode Title="Point3D.WithinCube method" Url="html/Overload_TheXDS_MCART_Types_Point3D_WithinCube.htm" />
+  <HelpKINode Title="Point3D.WithinSphere method" Url="html/M_TheXDS_MCART_Types_Point3D_WithinSphere.htm" />
   <HelpKINode Title="Point3D.X property" Url="html/P_TheXDS_MCART_Types_Point3D_X.htm" />
   <HelpKINode Title="Point3D.Y property" Url="html/P_TheXDS_MCART_Types_Point3D_Y.htm" />
   <HelpKINode Title="Point3D.Z property" Url="html/P_TheXDS_MCART_Types_Point3D_Z.htm" />
@@ -3207,10 +3559,10 @@
   <HelpKINode Title="PonderationAttribute.PonderationAttribute constructor" Url="html/M_TheXDS_MCART_Security_Password_PonderationAttribute__ctor.htm" />
   <HelpKINode Title="PonderationLevel enumeration" Url="html/T_TheXDS_MCART_Security_Password_PonderationLevel.htm" />
   <HelpKINode Title="Poop property" Url="html/P_TheXDS_MCART_Resources_Colors_Poop.htm" />
-  <HelpKINode Title="Pop(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Pop__1.htm" />
-  <HelpKINode Title="Pop&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Pop__1.htm" />
-  <HelpKINode Title="PopFirst(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_PopFirst__1.htm" />
-  <HelpKINode Title="PopFirst&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_PopFirst__1.htm" />
+  <HelpKINode Title="Pop(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_CollectionExtensions_Pop__1.htm" />
+  <HelpKINode Title="Pop&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_CollectionExtensions_Pop__1.htm" />
+  <HelpKINode Title="PopFirst(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_CollectionExtensions_PopFirst__1.htm" />
+  <HelpKINode Title="PopFirst&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_CollectionExtensions_PopFirst__1.htm" />
   <HelpKINode Title="Port property" Url="html/P_TheXDS_MCART_Attributes_ServerAttribute_Port.htm" />
   <HelpKINode Title="PortAttribute class">
     <HelpKINode Title="PortAttribute (Clase)" Url="html/T_TheXDS_MCART_Networking_PortAttribute.htm" />
@@ -3221,9 +3573,9 @@
   <HelpKINode Title="PortAttribute.PortAttribute constructor" Url="html/M_TheXDS_MCART_Networking_PortAttribute__ctor.htm" />
   <HelpKINode Title="Position property" Url="html/P_TheXDS_MCART_Controls_NavigationBar_Position.htm" />
   <HelpKINode Title="PositionProperty field" Url="html/F_TheXDS_MCART_Controls_NavigationBar_PositionProperty.htm" />
-  <HelpKINode Title="Positives field">
-    <HelpKINode Title="DoubleVisibilityConverter.Positives (Campo)" Url="html/F_System_Windows_Converters_DoubleVisibilityConverter_Positives.htm" />
-    <HelpKINode Title="FloatVisibilityConverter.Positives (Campo)" Url="html/F_System_Windows_Converters_FloatVisibilityConverter_Positives.htm" />
+  <HelpKINode Title="Positives property">
+    <HelpKINode Title="DoubleVisibilityConverter.Positives (Propiedad )" Url="html/P_System_Windows_Converters_DoubleVisibilityConverter_Positives.htm" />
+    <HelpKINode Title="FloatVisibilityConverter.Positives (Propiedad )" Url="html/P_System_Windows_Converters_FloatVisibilityConverter_Positives.htm" />
   </HelpKINode>
   <HelpKINode Title="PowderBlue property" Url="html/P_TheXDS_MCART_Resources_Colors_PowderBlue.htm" />
   <HelpKINode Title="ProgressBar property" Url="html/P_TheXDS_MCART_Resources_Colors_ProgressBar.htm" />
@@ -3305,6 +3657,15 @@
   <HelpKINode Title="Protocol&lt;TClient&gt;.ClientDisconnect method" Url="html/M_TheXDS_MCART_Networking_Server_Protocol_1_ClientDisconnect.htm" />
   <HelpKINode Title="Protocol&lt;TClient&gt;.ClientWelcome method" Url="html/M_TheXDS_MCART_Networking_Server_Protocol_1_ClientWelcome.htm" />
   <HelpKINode Title="Protocol&lt;TClient&gt;.Protocol constructor" Url="html/M_TheXDS_MCART_Networking_Server_Protocol_1__ctor.htm" />
+  <HelpKINode Title="ProtocolFormatAttribute class">
+    <HelpKINode Title="ProtocolFormatAttribute (Clase)" Url="html/T_TheXDS_MCART_Attributes_ProtocolFormatAttribute.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Attributes_ProtocolFormatAttribute__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Attributes_ProtocolFormatAttribute.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Attributes_ProtocolFormatAttribute.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ProtocolFormatAttribute.Format property" Url="html/P_TheXDS_MCART_Attributes_ProtocolFormatAttribute_Format.htm" />
+  <HelpKINode Title="ProtocolFormatAttribute.Open method" Url="html/M_TheXDS_MCART_Attributes_ProtocolFormatAttribute_Open.htm" />
+  <HelpKINode Title="ProtocolFormatAttribute.ProtocolFormatAttribute constructor" Url="html/M_TheXDS_MCART_Attributes_ProtocolFormatAttribute__ctor.htm" />
   <HelpKINode Title="Purple property" Url="html/P_TheXDS_MCART_Resources_Colors_Purple.htm" />
   <HelpKINode Title="Purple1 property" Url="html/P_TheXDS_MCART_Resources_Colors_Purple1.htm" />
   <HelpKINode Title="Purple2 property" Url="html/P_TheXDS_MCART_Resources_Colors_Purple2.htm" />
@@ -3403,10 +3764,33 @@
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Extensions_RandomExtensions.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Types_Extensions_RandomExtensions.htm" />
   </HelpKINode>
+  <HelpKINode Title="RandomExtensions.Next method" Url="html/M_TheXDS_MCART_Types_Extensions_RandomExtensions_Next.htm" />
   <HelpKINode Title="RandomExtensions.Rnd property" Url="html/P_TheXDS_MCART_Types_Extensions_RandomExtensions_Rnd.htm" />
   <HelpKINode Title="RandomExtensions.RndText method" Url="html/M_TheXDS_MCART_Types_Extensions_RandomExtensions_RndText.htm" />
   <HelpKINode Title="Range(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Range__1.htm" />
+  <HelpKINode Title="Range(Of T) structure">
+    <HelpKINode Title="Range(T) (Estructura)" Url="html/T_TheXDS_MCART_Types_Range_1.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Range_1.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Types_Range_1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Range(Of T).IsWithin method" Url="html/M_TheXDS_MCART_Types_Range_1_IsWithin.htm" />
+  <HelpKINode Title="Range(Of T).Maximum property" Url="html/P_TheXDS_MCART_Types_Range_1_Maximum.htm" />
+  <HelpKINode Title="Range(Of T).Minimum property" Url="html/P_TheXDS_MCART_Types_Range_1_Minimum.htm" />
+  <HelpKINode Title="Range(Of T).Parse method" Url="html/M_TheXDS_MCART_Types_Range_1_Parse.htm" />
+  <HelpKINode Title="Range(Of T).ToString method" Url="html/M_TheXDS_MCART_Types_Range_1_ToString.htm" />
+  <HelpKINode Title="Range(Of T).TryParse method" Url="html/M_TheXDS_MCART_Types_Range_1_TryParse.htm" />
   <HelpKINode Title="Range&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Range__1.htm" />
+  <HelpKINode Title="Range&lt;T&gt; structure">
+    <HelpKINode Title="Range(T) (Estructura)" Url="html/T_TheXDS_MCART_Types_Range_1.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Range_1.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Types_Range_1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Range&lt;T&gt;.IsWithin method" Url="html/M_TheXDS_MCART_Types_Range_1_IsWithin.htm" />
+  <HelpKINode Title="Range&lt;T&gt;.Maximum property" Url="html/P_TheXDS_MCART_Types_Range_1_Maximum.htm" />
+  <HelpKINode Title="Range&lt;T&gt;.Minimum property" Url="html/P_TheXDS_MCART_Types_Range_1_Minimum.htm" />
+  <HelpKINode Title="Range&lt;T&gt;.Parse method" Url="html/M_TheXDS_MCART_Types_Range_1_Parse.htm" />
+  <HelpKINode Title="Range&lt;T&gt;.ToString method" Url="html/M_TheXDS_MCART_Types_Range_1_ToString.htm" />
+  <HelpKINode Title="Range&lt;T&gt;.TryParse method" Url="html/M_TheXDS_MCART_Types_Range_1_TryParse.htm" />
   <HelpKINode Title="Raspberry property" Url="html/P_TheXDS_MCART_Resources_Colors_Raspberry.htm" />
   <HelpKINode Title="RawSienna property" Url="html/P_TheXDS_MCART_Resources_Colors_RawSienna.htm" />
   <HelpKINode Title="Rdy field" Url="html/F_TheXDS_MCART_Resources_Strings_Rdy.htm" />
@@ -3441,7 +3825,7 @@
   <HelpKINode Title="RelaxedPluginChecker.IsCompatible method" Url="html/M_TheXDS_MCART_PluginSupport_RelaxedPluginChecker_IsCompatible.htm" />
   <HelpKINode Title="RelaxedPluginChecker.IsVaild method" Url="html/Overload_TheXDS_MCART_PluginSupport_RelaxedPluginChecker_IsVaild.htm" />
   <HelpKINode Title="RelaxedPluginChecker.RelaxedPluginChecker constructor" Url="html/M_TheXDS_MCART_PluginSupport_RelaxedPluginChecker__ctor.htm" />
-  <HelpKINode Title="ReleaseCOMObject method" Url="html/M_TheXDS_MCART_Objects_ReleaseCOMObject.htm" />
+  <HelpKINode Title="ReleaseComObject method" Url="html/M_TheXDS_MCART_Objects_ReleaseComObject.htm" />
   <HelpKINode Title="RemainingBytes method" Url="html/M_TheXDS_MCART_Types_Extensions_StreamExtensions_RemainingBytes.htm" />
   <HelpKINode Title="Remove method" Url="html/M_TheXDS_MCART_Types_Extensions_List_1_Remove.htm" />
   <HelpKINode Title="RemoveAll method">
@@ -3548,6 +3932,8 @@
   <HelpKINode Title="RingGraph.ToolTipFormat property" Url="html/P_TheXDS_MCART_Controls_RingGraph_ToolTipFormat.htm" />
   <HelpKINode Title="RingGraph.ToolTipFormatProperty field" Url="html/F_TheXDS_MCART_Controls_RingGraph_ToolTipFormatProperty.htm" />
   <HelpKINode Title="RingGraph.Total property" Url="html/P_TheXDS_MCART_Controls_RingGraph_Total.htm" />
+  <HelpKINode Title="RingGraph.TotalFormat property" Url="html/P_TheXDS_MCART_Controls_RingGraph_TotalFormat.htm" />
+  <HelpKINode Title="RingGraph.TotalFormatProperty field" Url="html/F_TheXDS_MCART_Controls_RingGraph_TotalFormatProperty.htm" />
   <HelpKINode Title="RingGraph.TotalProperty field" Url="html/F_TheXDS_MCART_Controls_RingGraph_TotalProperty.htm" />
   <HelpKINode Title="RingGraph.TotalVisible property" Url="html/P_TheXDS_MCART_Controls_RingGraph_TotalVisible.htm" />
   <HelpKINode Title="RingGraph.TotalVisibleProperty field" Url="html/F_TheXDS_MCART_Controls_RingGraph_TotalVisibleProperty.htm" />
@@ -3565,6 +3951,7 @@
   <HelpKINode Title="Rotate(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Rotate__1.htm" />
   <HelpKINode Title="Rotate&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Rotate__1.htm" />
   <HelpKINode Title="RoutedAction property" Url="html/P_TheXDS_MCART_PluginSupport_InteractionItem_RoutedAction.htm" />
+  <HelpKINode Title="RowSpan method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_RowSpan.htm" />
   <HelpKINode Title="RoyalBlue property" Url="html/P_TheXDS_MCART_Resources_Colors_RoyalBlue.htm" />
   <HelpKINode Title="RoyalBlue1 property" Url="html/P_TheXDS_MCART_Resources_Colors_RoyalBlue1.htm" />
   <HelpKINode Title="RoyalBlue2 property" Url="html/P_TheXDS_MCART_Resources_Colors_RoyalBlue2.htm" />
@@ -3601,6 +3988,7 @@
   <HelpKINode Title="RuleSets.PwOtherUTFEvalRule method" Url="html/M_TheXDS_MCART_Security_Password_RuleSets_PwOtherUTFEvalRule.htm" />
   <HelpKINode Title="RuleSets.PwSymbolsEvalRule method" Url="html/M_TheXDS_MCART_Security_Password_RuleSets_PwSymbolsEvalRule.htm" />
   <HelpKINode Title="RuleSets.PwUcaseEvalRule method" Url="html/M_TheXDS_MCART_Security_Password_RuleSets_PwUcaseEvalRule.htm" />
+  <HelpKINode Title="Run method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Run.htm" />
   <HelpKINode Title="SaddleBrown property" Url="html/P_TheXDS_MCART_Resources_Colors_SaddleBrown.htm" />
   <HelpKINode Title="Safe method" Url="html/Overload_TheXDS_MCART_Security_Password_Generators_Safe.htm" />
   <HelpKINode Title="Salmon property" Url="html/P_TheXDS_MCART_Resources_Colors_Salmon.htm" />
@@ -3670,16 +4058,17 @@
   <HelpKINode Title="SeaShell4 property" Url="html/P_TheXDS_MCART_Resources_Colors_SeaShell4.htm" />
   <HelpKINode Title="Secur enumeration member" Url="html/T_TheXDS_MCART_Security_Password_PwMode.htm" />
   <HelpKINode Title="Security field" Url="html/F_TheXDS_MCART_Resources_Strings_Security.htm" />
+  <HelpKINode Title="Selector property" Url="html/P_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TableSelector_1_Selector.htm" />
   <HelpKINode Title="Send method" Url="html/M_TheXDS_MCART_Networking_Server_Client_Send.htm" />
   <HelpKINode Title="SendAsync method" Url="html/Overload_TheXDS_MCART_Networking_Server_Client_SendAsync.htm" />
   <HelpKINode Title="Sepia property" Url="html/P_TheXDS_MCART_Resources_Colors_Sepia.htm" />
   <HelpKINode Title="Sequence method" Url="html/Overload_TheXDS_MCART_Common_Sequence.htm" />
   <HelpKINode Title="Series class">
-    <HelpKINode Title="Series (Clase)" Url="html/T_TheXDS_MCART_Controls_Series.htm" />
     <HelpKINode Title="Series (Clase)" Url="html/T_TheXDS_MCART_Math_Series.htm" />
+    <HelpKINode Title="Series (Clase)" Url="html/T_TheXDS_MCART_Controls_Series.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Controls_Series__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Controls_Series.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Math_Series.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Controls_Series.htm" />
   </HelpKINode>
   <HelpKINode Title="Series.Fibonacci method" Url="html/M_TheXDS_MCART_Math_Series_Fibonacci.htm" />
   <HelpKINode Title="Series.Lucas method" Url="html/M_TheXDS_MCART_Math_Series_Lucas.htm" />
@@ -3777,6 +4166,7 @@
   <HelpKINode Title="SgiSalmon property" Url="html/P_TheXDS_MCART_Resources_Colors_SgiSalmon.htm" />
   <HelpKINode Title="SgiSlateBlue property" Url="html/P_TheXDS_MCART_Resources_Colors_SgiSlateBlue.htm" />
   <HelpKINode Title="Sgiteal property" Url="html/P_TheXDS_MCART_Resources_Colors_Sgiteal.htm" />
+  <HelpKINode Title="Shaky method" Url="html/Overload_TheXDS_MCART_Math_Tween_Shaky.htm" />
   <HelpKINode Title="Shift(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Shift__1.htm" />
   <HelpKINode Title="Shift&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Shift__1.htm" />
   <HelpKINode Title="Show method" Url="html/M_TheXDS_MCART_Dialogs_SplashLogin_Show.htm" />
@@ -3793,6 +4183,14 @@
   <HelpKINode Title="Sienna4 property" Url="html/P_TheXDS_MCART_Resources_Colors_Sienna4.htm" />
   <HelpKINode Title="Silver property" Url="html/P_TheXDS_MCART_Resources_Colors_Silver.htm" />
   <HelpKINode Title="Similarity method" Url="html/M_TheXDS_MCART_Types_Color_Similarity.htm" />
+  <HelpKINode Title="SizeVisibilityConverter class">
+    <HelpKINode Title="SizeVisibilityConverter (Clase)" Url="html/T_System_Windows_Converters_SizeVisibilityConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_SizeVisibilityConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_SizeVisibilityConverter.htm" />
+  </HelpKINode>
+  <HelpKINode Title="SizeVisibilityConverter.Convert method" Url="html/M_System_Windows_Converters_SizeVisibilityConverter_Convert.htm" />
+  <HelpKINode Title="SizeVisibilityConverter.ConvertBack method" Url="html/M_System_Windows_Converters_SizeVisibilityConverter_ConvertBack.htm" />
+  <HelpKINode Title="SizeVisibilityConverter.SizeVisibilityConverter constructor" Url="html/M_System_Windows_Converters_SizeVisibilityConverter__ctor.htm" />
   <HelpKINode Title="Skip method" Url="html/M_TheXDS_MCART_Types_Extensions_StreamExtensions_Skip.htm" />
   <HelpKINode Title="SkyBlue property" Url="html/P_TheXDS_MCART_Resources_Colors_SkyBlue.htm" />
   <HelpKINode Title="SkyBlue1 property" Url="html/P_TheXDS_MCART_Resources_Colors_SkyBlue1.htm" />
@@ -3941,6 +4339,22 @@
   <HelpKINode Title="StrictPluginChecker.IsCompatible method" Url="html/M_TheXDS_MCART_PluginSupport_StrictPluginChecker_IsCompatible.htm" />
   <HelpKINode Title="StrictPluginChecker.IsVaild method" Url="html/Overload_TheXDS_MCART_PluginSupport_StrictPluginChecker_IsVaild.htm" />
   <HelpKINode Title="StrictPluginChecker.StrictPluginChecker constructor" Url="html/M_TheXDS_MCART_PluginSupport_StrictPluginChecker__ctor.htm" />
+  <HelpKINode Title="StrictTypeBooleanConverter class">
+    <HelpKINode Title="StrictTypeBooleanConverter (Clase)" Url="html/T_System_Windows_Converters_StrictTypeBooleanConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_StrictTypeBooleanConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_StrictTypeBooleanConverter.htm" />
+  </HelpKINode>
+  <HelpKINode Title="StrictTypeBooleanConverter.Convert method" Url="html/M_System_Windows_Converters_StrictTypeBooleanConverter_Convert.htm" />
+  <HelpKINode Title="StrictTypeBooleanConverter.ConvertBack method" Url="html/M_System_Windows_Converters_StrictTypeBooleanConverter_ConvertBack.htm" />
+  <HelpKINode Title="StrictTypeBooleanConverter.StrictTypeBooleanConverter constructor" Url="html/M_System_Windows_Converters_StrictTypeBooleanConverter__ctor.htm" />
+  <HelpKINode Title="StrictTypeVisibilityConverter class">
+    <HelpKINode Title="StrictTypeVisibilityConverter (Clase)" Url="html/T_System_Windows_Converters_StrictTypeVisibilityConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_StrictTypeVisibilityConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_StrictTypeVisibilityConverter.htm" />
+  </HelpKINode>
+  <HelpKINode Title="StrictTypeVisibilityConverter.Convert method" Url="html/M_System_Windows_Converters_StrictTypeVisibilityConverter_Convert.htm" />
+  <HelpKINode Title="StrictTypeVisibilityConverter.ConvertBack method" Url="html/M_System_Windows_Converters_StrictTypeVisibilityConverter_ConvertBack.htm" />
+  <HelpKINode Title="StrictTypeVisibilityConverter.StrictTypeVisibilityConverter constructor" Url="html/M_System_Windows_Converters_StrictTypeVisibilityConverter__ctor.htm" />
   <HelpKINode Title="Strings class">
     <HelpKINode Title="Strings (Clase)" Url="html/T_TheXDS_MCART_Resources_Strings.htm" />
     <HelpKINode Title="fields" Url="html/Fields_T_TheXDS_MCART_Resources_Strings.htm" />
@@ -4044,6 +4458,7 @@
   <HelpKINode Title="Strings.Specified field" Url="html/F_TheXDS_MCART_Resources_Strings_Specified.htm" />
   <HelpKINode Title="Strings.StackUnderflow field" Url="html/F_TheXDS_MCART_Resources_Strings_StackUnderflow.htm" />
   <HelpKINode Title="Strings.Symbols field" Url="html/F_TheXDS_MCART_Resources_Strings_Symbols.htm" />
+  <HelpKINode Title="Strings.TamperDetected field" Url="html/F_TheXDS_MCART_Resources_Strings_TamperDetected.htm" />
   <HelpKINode Title="Strings.TargetMCARTV field" Url="html/F_TheXDS_MCART_Resources_Strings_TargetMCARTV.htm" />
   <HelpKINode Title="Strings.TestUI field" Url="html/F_TheXDS_MCART_Resources_Strings_TestUI.htm" />
   <HelpKINode Title="Strings.TheArgument field" Url="html/F_TheXDS_MCART_Resources_Strings_TheArgument.htm" />
@@ -4117,13 +4532,13 @@
   <HelpKINode Title="StringVisibilityConverter class">
     <HelpKINode Title="StringVisibilityConverter (Clase)" Url="html/T_System_Windows_Converters_StringVisibilityConverter.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_System_Windows_Converters_StringVisibilityConverter__ctor.htm" />
-    <HelpKINode Title="fields" Url="html/Fields_T_System_Windows_Converters_StringVisibilityConverter.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_StringVisibilityConverter.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_System_Windows_Converters_StringVisibilityConverter.htm" />
   </HelpKINode>
   <HelpKINode Title="StringVisibilityConverter.Convert method" Url="html/M_System_Windows_Converters_StringVisibilityConverter_Convert.htm" />
   <HelpKINode Title="StringVisibilityConverter.ConvertBack method" Url="html/M_System_Windows_Converters_StringVisibilityConverter_ConvertBack.htm" />
-  <HelpKINode Title="StringVisibilityConverter.Empty field" Url="html/F_System_Windows_Converters_StringVisibilityConverter_Empty.htm" />
-  <HelpKINode Title="StringVisibilityConverter.NotEmpty field" Url="html/F_System_Windows_Converters_StringVisibilityConverter_NotEmpty.htm" />
+  <HelpKINode Title="StringVisibilityConverter.Empty property" Url="html/P_System_Windows_Converters_StringVisibilityConverter_Empty.htm" />
+  <HelpKINode Title="StringVisibilityConverter.NotEmpty property" Url="html/P_System_Windows_Converters_StringVisibilityConverter_NotEmpty.htm" />
   <HelpKINode Title="StringVisibilityConverter.StringVisibilityConverter constructor" Url="html/Overload_System_Windows_Converters_StringVisibilityConverter__ctor.htm" />
   <HelpKINode Title="Stroke property" Url="html/P_TheXDS_MCART_Controls_BusyIndicator_Stroke.htm" />
   <HelpKINode Title="Stroke2 property" Url="html/P_TheXDS_MCART_Controls_BusyIndicator_Stroke2.htm" />
@@ -4136,6 +4551,7 @@
     <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Attributes_StubAttribute.htm" />
   </HelpKINode>
   <HelpKINode Title="StubAttribute.StubAttribute constructor" Url="html/M_TheXDS_MCART_Attributes_StubAttribute__ctor.htm" />
+  <HelpKINode Title="Style method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Style.htm" />
   <HelpKINode Title="Subject property" Url="html/P_TheXDS_MCART_Events_LoggingEventArgs_Subject.htm" />
   <HelpKINode Title="SubLevelsShown property">
     <HelpKINode Title="ISliceGraph.SubLevelsShown (Propiedad )" Url="html/P_TheXDS_MCART_Controls_ISliceGraph_SubLevelsShown.htm" />
@@ -4155,9 +4571,13 @@
   <HelpKINode Title="Symbols field" Url="html/F_TheXDS_MCART_Resources_Strings_Symbols.htm" />
   <HelpKINode Title="System.Windows.Converters namespace" Url="html/N_System_Windows_Converters.htm" />
   <HelpKINode Title="System.Windows.Converters.AddConverter class" Url="html/T_System_Windows_Converters_AddConverter.htm" />
+  <HelpKINode Title="System.Windows.Converters.AllVisibileConverter class" Url="html/T_System_Windows_Converters_AllVisibileConverter.htm" />
+  <HelpKINode Title="System.Windows.Converters.AnyContentVisibilityConverter class" Url="html/T_System_Windows_Converters_AnyContentVisibilityConverter.htm" />
+  <HelpKINode Title="System.Windows.Converters.AnyVisibileConverter class" Url="html/T_System_Windows_Converters_AnyVisibileConverter.htm" />
   <HelpKINode Title="System.Windows.Converters.BooleanConverter(Of T) class" Url="html/T_System_Windows_Converters_BooleanConverter_1.htm" />
   <HelpKINode Title="System.Windows.Converters.BooleanConverter&lt;T&gt; class" Url="html/T_System_Windows_Converters_BooleanConverter_1.htm" />
   <HelpKINode Title="System.Windows.Converters.BooleanInverter class" Url="html/T_System_Windows_Converters_BooleanInverter.htm" />
+  <HelpKINode Title="System.Windows.Converters.BooleanToBlurEffectConverter class" Url="html/T_System_Windows_Converters_BooleanToBlurEffectConverter.htm" />
   <HelpKINode Title="System.Windows.Converters.BooleanToInvVisibilityConverter class" Url="html/T_System_Windows_Converters_BooleanToInvVisibilityConverter.htm" />
   <HelpKINode Title="System.Windows.Converters.BoolFlagConverter(Of T) class" Url="html/T_System_Windows_Converters_BoolFlagConverter_1.htm" />
   <HelpKINode Title="System.Windows.Converters.BoolFlagConverter&lt;T&gt; class" Url="html/T_System_Windows_Converters_BoolFlagConverter_1.htm" />
@@ -4166,22 +4586,56 @@
   <HelpKINode Title="System.Windows.Converters.DoubleMarginConverter class" Url="html/T_System_Windows_Converters_DoubleMarginConverter.htm" />
   <HelpKINode Title="System.Windows.Converters.DoubleVisibilityConverter class" Url="html/T_System_Windows_Converters_DoubleVisibilityConverter.htm" />
   <HelpKINode Title="System.Windows.Converters.FloatVisibilityConverter class" Url="html/T_System_Windows_Converters_FloatVisibilityConverter.htm" />
+  <HelpKINode Title="System.Windows.Converters.FromStringConverter class" Url="html/T_System_Windows_Converters_FromStringConverter.htm" />
   <HelpKINode Title="System.Windows.Converters.Inverter(Of T) class" Url="html/T_System_Windows_Converters_Inverter_1.htm" />
   <HelpKINode Title="System.Windows.Converters.Inverter&lt;T&gt; class" Url="html/T_System_Windows_Converters_Inverter_1.htm" />
   <HelpKINode Title="System.Windows.Converters.LabeledDoubleConverter class" Url="html/T_System_Windows_Converters_LabeledDoubleConverter.htm" />
+  <HelpKINode Title="System.Windows.Converters.MaxSizeVisibilityConverter class" Url="html/T_System_Windows_Converters_MaxSizeVisibilityConverter.htm" />
+  <HelpKINode Title="System.Windows.Converters.MaxValueVisibilityConverter class" Url="html/T_System_Windows_Converters_MaxValueVisibilityConverter.htm" />
+  <HelpKINode Title="System.Windows.Converters.MinSizeVisibilityConverter class" Url="html/T_System_Windows_Converters_MinSizeVisibilityConverter.htm" />
+  <HelpKINode Title="System.Windows.Converters.MinValueVisibilityConverter class" Url="html/T_System_Windows_Converters_MinValueVisibilityConverter.htm" />
   <HelpKINode Title="System.Windows.Converters.MultiplyConverter class" Url="html/T_System_Windows_Converters_MultiplyConverter.htm" />
+  <HelpKINode Title="System.Windows.Converters.NotNullToBooleanConverter class" Url="html/T_System_Windows_Converters_NotNullToBooleanConverter.htm" />
+  <HelpKINode Title="System.Windows.Converters.NotNullToVisibilityConverter class" Url="html/T_System_Windows_Converters_NotNullToVisibilityConverter.htm" />
   <HelpKINode Title="System.Windows.Converters.NullBoolConverter(Of T) class" Url="html/T_System_Windows_Converters_NullBoolConverter_1.htm" />
   <HelpKINode Title="System.Windows.Converters.NullBoolConverter&lt;T&gt; class" Url="html/T_System_Windows_Converters_NullBoolConverter_1.htm" />
-  <HelpKINode Title="System.Windows.Converters.NumberBoolConverter class" Url="html/T_System_Windows_Converters_NumberBoolConverter.htm" />
+  <HelpKINode Title="System.Windows.Converters.NullToBooleanConverter class" Url="html/T_System_Windows_Converters_NullToBooleanConverter.htm" />
+  <HelpKINode Title="System.Windows.Converters.NullToVisibilityConverter class" Url="html/T_System_Windows_Converters_NullToVisibilityConverter.htm" />
+  <HelpKINode Title="System.Windows.Converters.NumberToBooleanConverter class" Url="html/T_System_Windows_Converters_NumberToBooleanConverter.htm" />
+  <HelpKINode Title="System.Windows.Converters.SizeVisibilityConverter class" Url="html/T_System_Windows_Converters_SizeVisibilityConverter.htm" />
+  <HelpKINode Title="System.Windows.Converters.StrictTypeBooleanConverter class" Url="html/T_System_Windows_Converters_StrictTypeBooleanConverter.htm" />
+  <HelpKINode Title="System.Windows.Converters.StrictTypeVisibilityConverter class" Url="html/T_System_Windows_Converters_StrictTypeVisibilityConverter.htm" />
   <HelpKINode Title="System.Windows.Converters.StringVisibilityConverter class" Url="html/T_System_Windows_Converters_StringVisibilityConverter.htm" />
+  <HelpKINode Title="System.Windows.Converters.ThresholdConverter(Of TIn, TOut) class" Url="html/T_System_Windows_Converters_ThresholdConverter_2.htm" />
+  <HelpKINode Title="System.Windows.Converters.ThresholdConverter&lt;TIn, TOut&gt; class" Url="html/T_System_Windows_Converters_ThresholdConverter_2.htm" />
   <HelpKINode Title="System.Windows.Converters.ToStringConverter class" Url="html/T_System_Windows_Converters_ToStringConverter.htm" />
+  <HelpKINode Title="System.Windows.Converters.TypeBooleanConverter class" Url="html/T_System_Windows_Converters_TypeBooleanConverter.htm" />
+  <HelpKINode Title="System.Windows.Converters.TypeVisibilityConverter class" Url="html/T_System_Windows_Converters_TypeVisibilityConverter.htm" />
   <HelpKINode Title="System.Windows.Converters.VisibilityInverter class" Url="html/T_System_Windows_Converters_VisibilityInverter.htm" />
+  <HelpKINode Title="Table method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Table.htm" />
+  <HelpKINode Title="TableSelector(Of T) class">
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TableSelector_1.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TableSelector_1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="TableSelector&lt;T&gt; class">
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TableSelector_1.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TableSelector_1.htm" />
+  </HelpKINode>
   <HelpKINode Title="Tag property">
     <HelpKINode Title="IPlugin.Tag (Propiedad )" Url="html/P_TheXDS_MCART_PluginSupport_IPlugin_Tag.htm" />
     <HelpKINode Title="Plugin.Tag (Propiedad )" Url="html/P_TheXDS_MCART_PluginSupport_Plugin_Tag.htm" />
   </HelpKINode>
   <HelpKINode Title="TalkToServer method" Url="html/M_TheXDS_MCART_Networking_Client_Client_TalkToServer.htm" />
   <HelpKINode Title="TalkToServerAsync method" Url="html/M_TheXDS_MCART_Networking_Client_Client_TalkToServerAsync.htm" />
+  <HelpKINode Title="TamperDetected field" Url="html/F_TheXDS_MCART_Resources_Strings_TamperDetected.htm" />
+  <HelpKINode Title="TamperException class">
+    <HelpKINode Title="TamperException (Clase)" Url="html/T_TheXDS_MCART_Exceptions_TamperException.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_TheXDS_MCART_Exceptions_TamperException__ctor.htm" />
+    <HelpKINode Title="events" Url="html/Events_T_TheXDS_MCART_Exceptions_TamperException.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Exceptions_TamperException.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Exceptions_TamperException.htm" />
+  </HelpKINode>
+  <HelpKINode Title="TamperException.TamperException constructor" Url="html/Overload_TheXDS_MCART_Exceptions_TamperException__ctor.htm" />
   <HelpKINode Title="Tan property" Url="html/P_TheXDS_MCART_Resources_Colors_Tan.htm" />
   <HelpKINode Title="Tan1 property" Url="html/P_TheXDS_MCART_Resources_Colors_Tan1.htm" />
   <HelpKINode Title="Tan2 property" Url="html/P_TheXDS_MCART_Resources_Colors_Tan2.htm" />
@@ -4204,6 +4658,7 @@
   </HelpKINode>
   <HelpKINode Title="Teal property" Url="html/P_TheXDS_MCART_Resources_Colors_Teal.htm" />
   <HelpKINode Title="TestUI field" Url="html/F_TheXDS_MCART_Resources_Strings_TestUI.htm" />
+  <HelpKINode Title="Text method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Text.htm" />
   <HelpKINode Title="Text property" Url="html/P_TheXDS_MCART_PluginSupport_InteractionItem_Text.htm" />
   <HelpKINode Title="TextAttribute class">
     <HelpKINode Title="TextAttribute (Clase)" Url="html/T_TheXDS_MCART_Attributes_TextAttribute.htm" />
@@ -4217,6 +4672,7 @@
   <HelpKINode Title="TextFormatProperty field" Url="html/F_TheXDS_MCART_Controls_ProgressRing_TextFormatProperty.htm" />
   <HelpKINode Title="TextSize property" Url="html/P_TheXDS_MCART_Controls_ProgressRing_TextSize.htm" />
   <HelpKINode Title="TextSizeProperty field" Url="html/F_TheXDS_MCART_Controls_ProgressRing_TextSizeProperty.htm" />
+  <HelpKINode Title="Thau field" Url="html/F_TheXDS_MCART_Math_Geometry_Thau.htm" />
   <HelpKINode Title="TheArgument field" Url="html/F_TheXDS_MCART_Resources_Strings_TheArgument.htm" />
   <HelpKINode Title="TheAssembly field" Url="html/F_TheXDS_MCART_Resources_Strings_TheAssembly.htm" />
   <HelpKINode Title="TheClass field" Url="html/F_TheXDS_MCART_Resources_Strings_TheClass.htm" />
@@ -4256,9 +4712,13 @@
   <HelpKINode Title="TheXDS.MCART.Attributes.LenghtyAttribute class" Url="html/T_TheXDS_MCART_Attributes_LenghtyAttribute.htm" />
   <HelpKINode Title="TheXDS.MCART.Attributes.LicenseFileAttribute class" Url="html/T_TheXDS_MCART_Attributes_LicenseFileAttribute.htm" />
   <HelpKINode Title="TheXDS.MCART.Attributes.LicenseTextAttribute class" Url="html/T_TheXDS_MCART_Attributes_LicenseTextAttribute.htm" />
+  <HelpKINode Title="TheXDS.MCART.Attributes.MaximumAttribute class" Url="html/T_TheXDS_MCART_Attributes_MaximumAttribute.htm" />
+  <HelpKINode Title="TheXDS.MCART.Attributes.MinimumAttribute class" Url="html/T_TheXDS_MCART_Attributes_MinimumAttribute.htm" />
   <HelpKINode Title="TheXDS.MCART.Attributes.MinMCARTVersionAttribute class" Url="html/T_TheXDS_MCART_Attributes_MinMCARTVersionAttribute.htm" />
   <HelpKINode Title="TheXDS.MCART.Attributes.NameAttribute class" Url="html/T_TheXDS_MCART_Attributes_NameAttribute.htm" />
   <HelpKINode Title="TheXDS.MCART.Attributes.NotPluginAttribute class" Url="html/T_TheXDS_MCART_Attributes_NotPluginAttribute.htm" />
+  <HelpKINode Title="TheXDS.MCART.Attributes.ObjectAttribute class" Url="html/T_TheXDS_MCART_Attributes_ObjectAttribute.htm" />
+  <HelpKINode Title="TheXDS.MCART.Attributes.ProtocolFormatAttribute class" Url="html/T_TheXDS_MCART_Attributes_ProtocolFormatAttribute.htm" />
   <HelpKINode Title="TheXDS.MCART.Attributes.ServerAttribute class" Url="html/T_TheXDS_MCART_Attributes_ServerAttribute.htm" />
   <HelpKINode Title="TheXDS.MCART.Attributes.StubAttribute class" Url="html/T_TheXDS_MCART_Attributes_StubAttribute.htm" />
   <HelpKINode Title="TheXDS.MCART.Attributes.TargetMCARTVersionAttribute class" Url="html/T_TheXDS_MCART_Attributes_TargetMCARTVersionAttribute.htm" />
@@ -4341,10 +4801,15 @@
   <HelpKINode Title="TheXDS.MCART.Exceptions.PluginNotInitializedException class" Url="html/T_TheXDS_MCART_Exceptions_PluginNotInitializedException.htm" />
   <HelpKINode Title="TheXDS.MCART.Exceptions.ServerNotFoundException class" Url="html/T_TheXDS_MCART_Exceptions_ServerNotFoundException.htm" />
   <HelpKINode Title="TheXDS.MCART.Exceptions.StackUnderflowException class" Url="html/T_TheXDS_MCART_Exceptions_StackUnderflowException.htm" />
+  <HelpKINode Title="TheXDS.MCART.Exceptions.TamperException class" Url="html/T_TheXDS_MCART_Exceptions_TamperException.htm" />
   <HelpKINode Title="TheXDS.MCART.Exceptions.TooFewArgumentsException class" Url="html/T_TheXDS_MCART_Exceptions_TooFewArgumentsException.htm" />
   <HelpKINode Title="TheXDS.MCART.Exceptions.TooManyArgumentsException class" Url="html/T_TheXDS_MCART_Exceptions_TooManyArgumentsException.htm" />
   <HelpKINode Title="TheXDS.MCART.Exceptions.UnknownTypeException class" Url="html/T_TheXDS_MCART_Exceptions_UnknownTypeException.htm" />
   <HelpKINode Title="TheXDS.MCART.Exceptions.UnusableObjectException class" Url="html/T_TheXDS_MCART_Exceptions_UnusableObjectException.htm" />
+  <HelpKINode Title="TheXDS.MCART.Fluent namespace" Url="html/N_TheXDS_MCART_Fluent.htm" />
+  <HelpKINode Title="TheXDS.MCART.Fluent.FlowDocumentFluentExtensions class" Url="html/T_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions.htm" />
+  <HelpKINode Title="TheXDS.MCART.Fluent.FlowDocumentFluentExtensions.TableSelector(Of T) class" Url="html/T_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TableSelector_1.htm" />
+  <HelpKINode Title="TheXDS.MCART.Fluent.FlowDocumentFluentExtensions.TableSelector&lt;T&gt; class" Url="html/T_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TableSelector_1.htm" />
   <HelpKINode Title="TheXDS.MCART.Math namespace" Url="html/N_TheXDS_MCART_Math.htm" />
   <HelpKINode Title="TheXDS.MCART.Math.Algebra class" Url="html/T_TheXDS_MCART_Math_Algebra.htm" />
   <HelpKINode Title="TheXDS.MCART.Math.Common class" Url="html/T_TheXDS_MCART_Math_Common.htm" />
@@ -4352,6 +4817,7 @@
   <HelpKINode Title="TheXDS.MCART.Math.Physics class" Url="html/T_TheXDS_MCART_Math_Physics.htm" />
   <HelpKINode Title="TheXDS.MCART.Math.Series class" Url="html/T_TheXDS_MCART_Math_Series.htm" />
   <HelpKINode Title="TheXDS.MCART.Math.Tween class" Url="html/T_TheXDS_MCART_Math_Tween.htm" />
+  <HelpKINode Title="TheXDS.MCART.Math.Tween.TweenFunction delegate" Url="html/T_TheXDS_MCART_Math_Tween_TweenFunction.htm" />
   <HelpKINode Title="TheXDS.MCART.Networking namespace" Url="html/N_TheXDS_MCART_Networking.htm" />
   <HelpKINode Title="TheXDS.MCART.Networking.Client namespace" Url="html/N_TheXDS_MCART_Networking_Client.htm" />
   <HelpKINode Title="TheXDS.MCART.Networking.Client.Client class" Url="html/T_TheXDS_MCART_Networking_Client_Client.htm" />
@@ -4456,11 +4922,13 @@
   <HelpKINode Title="TheXDS.MCART.Types.Extensions.ItemModifiedEventArgs&lt;T&gt; class" Url="html/T_TheXDS_MCART_Types_Extensions_ItemModifiedEventArgs_1.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Extensions.List(Of T) class" Url="html/T_TheXDS_MCART_Types_Extensions_List_1.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Extensions.List&lt;T&gt; class" Url="html/T_TheXDS_MCART_Types_Extensions_List_1.htm" />
+  <HelpKINode Title="TheXDS.MCART.Types.Extensions.ListExtensions class" Url="html/T_TheXDS_MCART_Types_Extensions_ListExtensions.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Extensions.ListUpdatedEventArgs(Of T) class" Url="html/T_TheXDS_MCART_Types_Extensions_ListUpdatedEventArgs_1.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Extensions.ListUpdatedEventArgs&lt;T&gt; class" Url="html/T_TheXDS_MCART_Types_Extensions_ListUpdatedEventArgs_1.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Extensions.ListUpdateType enumeration" Url="html/T_TheXDS_MCART_Types_Extensions_ListUpdateType.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Extensions.ListUpdatingEventArgs(Of T) class" Url="html/T_TheXDS_MCART_Types_Extensions_ListUpdatingEventArgs_1.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Extensions.ListUpdatingEventArgs&lt;T&gt; class" Url="html/T_TheXDS_MCART_Types_Extensions_ListUpdatingEventArgs_1.htm" />
+  <HelpKINode Title="TheXDS.MCART.Types.Extensions.MemberInfoExtensions class" Url="html/T_TheXDS_MCART_Types_Extensions_MemberInfoExtensions.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Extensions.ModifyingItemEventArgs(Of T) class" Url="html/T_TheXDS_MCART_Types_Extensions_ModifyingItemEventArgs_1.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Extensions.ModifyingItemEventArgs&lt;T&gt; class" Url="html/T_TheXDS_MCART_Types_Extensions_ModifyingItemEventArgs_1.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Extensions.RandomExtensions class" Url="html/T_TheXDS_MCART_Types_Extensions_RandomExtensions.htm" />
@@ -4470,8 +4938,11 @@
   <HelpKINode Title="TheXDS.MCART.Types.Extensions.RemovingItemEventArgs&lt;T&gt; class" Url="html/T_TheXDS_MCART_Types_Extensions_RemovingItemEventArgs_1.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Extensions.StreamExtensions class" Url="html/T_TheXDS_MCART_Types_Extensions_StreamExtensions.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Extensions.Timer class" Url="html/T_TheXDS_MCART_Types_Extensions_Timer.htm" />
+  <HelpKINode Title="TheXDS.MCART.Types.Extensions.TypeExtensions class" Url="html/T_TheXDS_MCART_Types_Extensions_TypeExtensions.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Point structure" Url="html/T_TheXDS_MCART_Types_Point.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Point3D structure" Url="html/T_TheXDS_MCART_Types_Point3D.htm" />
+  <HelpKINode Title="TheXDS.MCART.Types.Range(Of T) structure" Url="html/T_TheXDS_MCART_Types_Range_1.htm" />
+  <HelpKINode Title="TheXDS.MCART.Types.Range&lt;T&gt; structure" Url="html/T_TheXDS_MCART_Types_Range_1.htm" />
   <HelpKINode Title="TheXDS.MCART.UI class" Url="html/T_TheXDS_MCART_UI.htm" />
   <HelpKINode Title="Thickness property">
     <HelpKINode Title="BusyIndicator.Thickness (Propiedad )" Url="html/P_TheXDS_MCART_Controls_BusyIndicator_Thickness.htm" />
@@ -4486,6 +4957,30 @@
   <HelpKINode Title="Thistle2 property" Url="html/P_TheXDS_MCART_Resources_Colors_Thistle2.htm" />
   <HelpKINode Title="Thistle3 property" Url="html/P_TheXDS_MCART_Resources_Colors_Thistle3.htm" />
   <HelpKINode Title="Thistle4 property" Url="html/P_TheXDS_MCART_Resources_Colors_Thistle4.htm" />
+  <HelpKINode Title="ThresholdConverter(Of TIn, TOut) class">
+    <HelpKINode Title="ThresholdConverter(TIn, TOut) (Clase)" Url="html/T_System_Windows_Converters_ThresholdConverter_2.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_System_Windows_Converters_ThresholdConverter_2__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_ThresholdConverter_2.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_System_Windows_Converters_ThresholdConverter_2.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ThresholdConverter(Of TIn, TOut).AboveValue property" Url="html/P_System_Windows_Converters_ThresholdConverter_2_AboveValue.htm" />
+  <HelpKINode Title="ThresholdConverter(Of TIn, TOut).AtValue property" Url="html/P_System_Windows_Converters_ThresholdConverter_2_AtValue.htm" />
+  <HelpKINode Title="ThresholdConverter(Of TIn, TOut).BelowValue property" Url="html/P_System_Windows_Converters_ThresholdConverter_2_BelowValue.htm" />
+  <HelpKINode Title="ThresholdConverter(Of TIn, TOut).Convert method" Url="html/M_System_Windows_Converters_ThresholdConverter_2_Convert.htm" />
+  <HelpKINode Title="ThresholdConverter(Of TIn, TOut).ConvertBack method" Url="html/M_System_Windows_Converters_ThresholdConverter_2_ConvertBack.htm" />
+  <HelpKINode Title="ThresholdConverter(Of TIn, TOut).ThresholdConverter constructor" Url="html/Overload_System_Windows_Converters_ThresholdConverter_2__ctor.htm" />
+  <HelpKINode Title="ThresholdConverter&lt;TIn, TOut&gt; class">
+    <HelpKINode Title="ThresholdConverter(TIn, TOut) (Clase)" Url="html/T_System_Windows_Converters_ThresholdConverter_2.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_System_Windows_Converters_ThresholdConverter_2__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_ThresholdConverter_2.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_System_Windows_Converters_ThresholdConverter_2.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ThresholdConverter&lt;TIn, TOut&gt;.AboveValue property" Url="html/P_System_Windows_Converters_ThresholdConverter_2_AboveValue.htm" />
+  <HelpKINode Title="ThresholdConverter&lt;TIn, TOut&gt;.AtValue property" Url="html/P_System_Windows_Converters_ThresholdConverter_2_AtValue.htm" />
+  <HelpKINode Title="ThresholdConverter&lt;TIn, TOut&gt;.BelowValue property" Url="html/P_System_Windows_Converters_ThresholdConverter_2_BelowValue.htm" />
+  <HelpKINode Title="ThresholdConverter&lt;TIn, TOut&gt;.Convert method" Url="html/M_System_Windows_Converters_ThresholdConverter_2_Convert.htm" />
+  <HelpKINode Title="ThresholdConverter&lt;TIn, TOut&gt;.ConvertBack method" Url="html/M_System_Windows_Converters_ThresholdConverter_2_ConvertBack.htm" />
+  <HelpKINode Title="ThresholdConverter&lt;TIn, TOut&gt;.ThresholdConverter constructor" Url="html/Overload_System_Windows_Converters_ThresholdConverter_2__ctor.htm" />
   <HelpKINode Title="ThunkAttribute class">
     <HelpKINode Title="ThunkAttribute (Clase)" Url="html/T_TheXDS_MCART_Attributes_ThunkAttribute.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Attributes_ThunkAttribute__ctor.htm" />
@@ -4509,6 +5004,7 @@
   <HelpKINode Title="Timer.Stop method" Url="html/M_TheXDS_MCART_Types_Extensions_Timer_Stop.htm" />
   <HelpKINode Title="Timer.TimeLeft property" Url="html/P_TheXDS_MCART_Types_Extensions_Timer_TimeLeft.htm" />
   <HelpKINode Title="Timer.Timer constructor" Url="html/Overload_TheXDS_MCART_Types_Extensions_Timer__ctor.htm" />
+  <HelpKINode Title="Title method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Title.htm" />
   <HelpKINode Title="Title property">
     <HelpKINode Title="IGraph.Title (Propiedad )" Url="html/P_TheXDS_MCART_Controls_IGraph_Title.htm" />
     <HelpKINode Title="RingGraph.Title (Propiedad )" Url="html/P_TheXDS_MCART_Controls_RingGraph_Title.htm" />
@@ -4538,11 +5034,16 @@
   </HelpKINode>
   <HelpKINode Title="To(Of T, TParser) method" Url="html/M_TheXDS_MCART_Types_Color_To__2.htm" />
   <HelpKINode Title="To&lt;T, TParser&gt; method" Url="html/M_TheXDS_MCART_Types_Color_To__2.htm" />
+  <HelpKINode Title="ToDocumentTable method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_ToDocumentTable.htm" />
   <HelpKINode Title="ToExtendedList(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_ToExtendedList__1.htm" />
   <HelpKINode Title="ToExtendedList&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_ToExtendedList__1.htm" />
+  <HelpKINode Title="ToExtendedListAsync(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_ToExtendedListAsync__1.htm" />
+  <HelpKINode Title="ToExtendedListAsync&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_ToExtendedListAsync__1.htm" />
   <HelpKINode Title="ToggleControls method" Url="html/Overload_TheXDS_MCART_UI_ToggleControls.htm" />
   <HelpKINode Title="ToHex method" Url="html/Overload_TheXDS_MCART_Common_ToHex.htm" />
   <HelpKINode Title="ToImage method" Url="html/M_TheXDS_MCART_UI_ToImage.htm" />
+  <HelpKINode Title="ToListAsync(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_ToListAsync__1.htm" />
+  <HelpKINode Title="ToListAsync&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_ToListAsync__1.htm" />
   <HelpKINode Title="Tomato property" Url="html/P_TheXDS_MCART_Resources_Colors_Tomato.htm" />
   <HelpKINode Title="Tomato2 property" Url="html/P_TheXDS_MCART_Resources_Colors_Tomato2.htm" />
   <HelpKINode Title="Tomato3 property" Url="html/P_TheXDS_MCART_Resources_Colors_Tomato3.htm" />
@@ -4580,6 +5081,7 @@
     <HelpKINode Title="Color.ToString (M&#233;todo )" Url="html/Overload_TheXDS_MCART_Types_Color_ToString.htm" />
     <HelpKINode Title="Point.ToString (M&#233;todo )" Url="html/Overload_TheXDS_MCART_Types_Point_ToString.htm" />
     <HelpKINode Title="Point3D.ToString (M&#233;todo )" Url="html/Overload_TheXDS_MCART_Types_Point3D_ToString.htm" />
+    <HelpKINode Title="Range(T).ToString (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Range_1_ToString.htm" />
     <HelpKINode Title="ServerAttribute.ToString (M&#233;todo )" Url="html/M_TheXDS_MCART_Attributes_ServerAttribute_ToString.htm" />
   </HelpKINode>
   <HelpKINode Title="ToStringConverter class">
@@ -4595,6 +5097,11 @@
     <HelpKINode Title="ISliceGraph.Total (Propiedad )" Url="html/P_TheXDS_MCART_Controls_ISliceGraph_Total.htm" />
     <HelpKINode Title="RingGraph.Total (Propiedad )" Url="html/P_TheXDS_MCART_Controls_RingGraph_Total.htm" />
   </HelpKINode>
+  <HelpKINode Title="TotalFormat property">
+    <HelpKINode Title="ISliceGraph.TotalFormat (Propiedad )" Url="html/P_TheXDS_MCART_Controls_ISliceGraph_TotalFormat.htm" />
+    <HelpKINode Title="RingGraph.TotalFormat (Propiedad )" Url="html/P_TheXDS_MCART_Controls_RingGraph_TotalFormat.htm" />
+  </HelpKINode>
+  <HelpKINode Title="TotalFormatProperty field" Url="html/F_TheXDS_MCART_Controls_RingGraph_TotalFormatProperty.htm" />
   <HelpKINode Title="TotalProperty field" Url="html/F_TheXDS_MCART_Controls_RingGraph_TotalProperty.htm" />
   <HelpKINode Title="TotalVisible property">
     <HelpKINode Title="ISliceGraph.TotalVisible (Propiedad )" Url="html/P_TheXDS_MCART_Controls_ISliceGraph_TotalVisible.htm" />
@@ -4608,7 +5115,10 @@
     <HelpKINode Title="BoolFlagConverter(T).True (Propiedad )" Url="html/P_System_Windows_Converters_BoolFlagConverter_1_True.htm" />
     <HelpKINode Title="NullBoolConverter(T).True (Propiedad )" Url="html/P_System_Windows_Converters_NullBoolConverter_1_True.htm" />
   </HelpKINode>
-  <HelpKINode Title="TryParse method" Url="html/M_TheXDS_MCART_Types_Color_TryParse.htm" />
+  <HelpKINode Title="TryParse method">
+    <HelpKINode Title="Color.TryParse (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_TryParse.htm" />
+    <HelpKINode Title="Range(T).TryParse (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Range_1_TryParse.htm" />
+  </HelpKINode>
   <HelpKINode Title="Turquoise property" Url="html/P_TheXDS_MCART_Resources_Colors_Turquoise.htm" />
   <HelpKINode Title="Turquoise1 property" Url="html/P_TheXDS_MCART_Resources_Colors_Turquoise1.htm" />
   <HelpKINode Title="Turquoise2 property" Url="html/P_TheXDS_MCART_Resources_Colors_Turquoise2.htm" />
@@ -4619,10 +5129,13 @@
     <HelpKINode Title="Tween (Clase)" Url="html/T_TheXDS_MCART_Math_Tween.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Math_Tween.htm" />
   </HelpKINode>
+  <HelpKINode Title="Tween.Bouncy method" Url="html/Overload_TheXDS_MCART_Math_Tween_Bouncy.htm" />
   <HelpKINode Title="Tween.Cubic method" Url="html/M_TheXDS_MCART_Math_Tween_Cubic.htm" />
   <HelpKINode Title="Tween.Linear method" Url="html/M_TheXDS_MCART_Math_Tween_Linear.htm" />
   <HelpKINode Title="Tween.Quadratic method" Url="html/M_TheXDS_MCART_Math_Tween_Quadratic.htm" />
   <HelpKINode Title="Tween.Quartic method" Url="html/M_TheXDS_MCART_Math_Tween_Quartic.htm" />
+  <HelpKINode Title="Tween.Shaky method" Url="html/Overload_TheXDS_MCART_Math_Tween_Shaky.htm" />
+  <HelpKINode Title="Tween.TweenFunction delegate" Url="html/T_TheXDS_MCART_Math_Tween_TweenFunction.htm" />
   <HelpKINode Title="TypeAttribute class">
     <HelpKINode Title="TypeAttribute (Clase)" Url="html/T_TheXDS_MCART_Attributes_TypeAttribute.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Attributes_TypeAttribute__ctor.htm" />
@@ -4631,6 +5144,115 @@
   </HelpKINode>
   <HelpKINode Title="TypeAttribute.TypeAttribute constructor" Url="html/M_TheXDS_MCART_Attributes_TypeAttribute__ctor.htm" />
   <HelpKINode Title="TypeAttribute.Value property" Url="html/P_TheXDS_MCART_Attributes_TypeAttribute_Value.htm" />
+  <HelpKINode Title="TypeBooleanConverter class">
+    <HelpKINode Title="TypeBooleanConverter (Clase)" Url="html/T_System_Windows_Converters_TypeBooleanConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_TypeBooleanConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_TypeBooleanConverter.htm" />
+  </HelpKINode>
+  <HelpKINode Title="TypeBooleanConverter.Convert method" Url="html/M_System_Windows_Converters_TypeBooleanConverter_Convert.htm" />
+  <HelpKINode Title="TypeBooleanConverter.ConvertBack method" Url="html/M_System_Windows_Converters_TypeBooleanConverter_ConvertBack.htm" />
+  <HelpKINode Title="TypeBooleanConverter.TypeBooleanConverter constructor" Url="html/M_System_Windows_Converters_TypeBooleanConverter__ctor.htm" />
+  <HelpKINode Title="TypeExtensions class">
+    <HelpKINode Title="TypeExtensions (Clase)" Url="html/T_TheXDS_MCART_Types_Extensions_TypeExtensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Extensions_TypeExtensions.htm" />
+  </HelpKINode>
+  <HelpKINode Title="TypeExtensions.Default method" Url="html/M_TheXDS_MCART_Types_Extensions_TypeExtensions_Default.htm" />
+  <HelpKINode Title="TypeExtensions.TypeName method" Url="html/M_TheXDS_MCART_Types_Extensions_TypeExtensions_TypeName.htm" />
+  <HelpKINode Title="TypeName method" Url="html/M_TheXDS_MCART_Types_Extensions_TypeExtensions_TypeName.htm" />
+  <HelpKINode Title="TypeVisibilityConverter class">
+    <HelpKINode Title="TypeVisibilityConverter (Clase)" Url="html/T_System_Windows_Converters_TypeVisibilityConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_System_Windows_Converters_TypeVisibilityConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_System_Windows_Converters_TypeVisibilityConverter.htm" />
+  </HelpKINode>
+  <HelpKINode Title="TypeVisibilityConverter.Convert method" Url="html/M_System_Windows_Converters_TypeVisibilityConverter_Convert.htm" />
+  <HelpKINode Title="TypeVisibilityConverter.ConvertBack method" Url="html/M_System_Windows_Converters_TypeVisibilityConverter_ConvertBack.htm" />
+  <HelpKINode Title="TypeVisibilityConverter.TypeVisibilityConverter constructor" Url="html/M_System_Windows_Converters_TypeVisibilityConverter__ctor.htm" />
+  <HelpKINode Title="TypographyAnnotationAlternates(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyAnnotationAlternates__1.htm" />
+  <HelpKINode Title="TypographyAnnotationAlternates&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyAnnotationAlternates__1.htm" />
+  <HelpKINode Title="TypographyCapitalSpacing(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyCapitalSpacing__1.htm" />
+  <HelpKINode Title="TypographyCapitalSpacing&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyCapitalSpacing__1.htm" />
+  <HelpKINode Title="TypographyCaseSensitiveForms(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyCaseSensitiveForms__1.htm" />
+  <HelpKINode Title="TypographyCaseSensitiveForms&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyCaseSensitiveForms__1.htm" />
+  <HelpKINode Title="TypographyContextualAlternates(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyContextualAlternates__1.htm" />
+  <HelpKINode Title="TypographyContextualAlternates&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyContextualAlternates__1.htm" />
+  <HelpKINode Title="TypographyContextualLigatures(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyContextualLigatures__1.htm" />
+  <HelpKINode Title="TypographyContextualLigatures&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyContextualLigatures__1.htm" />
+  <HelpKINode Title="TypographyContextualSwashes(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyContextualSwashes__1.htm" />
+  <HelpKINode Title="TypographyContextualSwashes&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyContextualSwashes__1.htm" />
+  <HelpKINode Title="TypographyDiscretionaryLigatures(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyDiscretionaryLigatures__1.htm" />
+  <HelpKINode Title="TypographyDiscretionaryLigatures&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyDiscretionaryLigatures__1.htm" />
+  <HelpKINode Title="TypographyEastAsianExpertForms(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyEastAsianExpertForms__1.htm" />
+  <HelpKINode Title="TypographyEastAsianExpertForms&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyEastAsianExpertForms__1.htm" />
+  <HelpKINode Title="TypographyEastAsianLanguage(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyEastAsianLanguage__1.htm" />
+  <HelpKINode Title="TypographyEastAsianLanguage&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyEastAsianLanguage__1.htm" />
+  <HelpKINode Title="TypographyEastAsianWidths(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyEastAsianWidths__1.htm" />
+  <HelpKINode Title="TypographyEastAsianWidths&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyEastAsianWidths__1.htm" />
+  <HelpKINode Title="TypographyFontCapitals(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyFontCapitals__1.htm" />
+  <HelpKINode Title="TypographyFontCapitals&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyFontCapitals__1.htm" />
+  <HelpKINode Title="TypographyFontNumeralAlignment(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyFontNumeralAlignment__1.htm" />
+  <HelpKINode Title="TypographyFontNumeralAlignment&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyFontNumeralAlignment__1.htm" />
+  <HelpKINode Title="TypographyFontNumeralStyle(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyFontNumeralStyle__1.htm" />
+  <HelpKINode Title="TypographyFontNumeralStyle&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyFontNumeralStyle__1.htm" />
+  <HelpKINode Title="TypographyFraction(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyFraction__1.htm" />
+  <HelpKINode Title="TypographyFraction&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyFraction__1.htm" />
+  <HelpKINode Title="TypographyHistoricalForms(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyHistoricalForms__1.htm" />
+  <HelpKINode Title="TypographyHistoricalForms&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyHistoricalForms__1.htm" />
+  <HelpKINode Title="TypographyHistoricalLigatures(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyHistoricalLigatures__1.htm" />
+  <HelpKINode Title="TypographyHistoricalLigatures&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyHistoricalLigatures__1.htm" />
+  <HelpKINode Title="TypographyKerning(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyKerning__1.htm" />
+  <HelpKINode Title="TypographyKerning&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyKerning__1.htm" />
+  <HelpKINode Title="TypographyMathematicalGreek(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyMathematicalGreek__1.htm" />
+  <HelpKINode Title="TypographyMathematicalGreek&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyMathematicalGreek__1.htm" />
+  <HelpKINode Title="TypographySlashedZero(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographySlashedZero__1.htm" />
+  <HelpKINode Title="TypographySlashedZero&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographySlashedZero__1.htm" />
+  <HelpKINode Title="TypographyStandardLigatures(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStandardLigatures__1.htm" />
+  <HelpKINode Title="TypographyStandardLigatures&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStandardLigatures__1.htm" />
+  <HelpKINode Title="TypographyStandardSwashes(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStandardSwashes__1.htm" />
+  <HelpKINode Title="TypographyStandardSwashes&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStandardSwashes__1.htm" />
+  <HelpKINode Title="TypographyStylisticAlternates(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticAlternates__1.htm" />
+  <HelpKINode Title="TypographyStylisticAlternates&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticAlternates__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet1(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet1__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet10(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet10__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet10&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet10__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet11(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet11__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet11&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet11__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet12(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet12__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet12&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet12__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet13(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet13__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet13&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet13__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet14(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet14__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet14&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet14__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet15(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet15__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet15&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet15__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet16(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet16__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet16&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet16__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet17(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet17__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet17&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet17__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet18(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet18__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet18&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet18__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet19(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet19__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet19&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet19__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet1&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet1__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet2(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet2__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet20(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet20__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet20&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet20__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet2&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet2__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet3(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet3__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet3&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet3__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet4(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet4__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet4&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet4__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet5(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet5__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet5&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet5__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet6(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet6__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet6&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet6__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet7(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet7__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet7&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet7__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet8(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet8__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet8&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet8__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet9(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet9__1.htm" />
+  <HelpKINode Title="TypographyStylisticSet9&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet9__1.htm" />
+  <HelpKINode Title="TypographyVariants(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyVariants__1.htm" />
+  <HelpKINode Title="TypographyVariants&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyVariants__1.htm" />
   <HelpKINode Title="UI class">
     <HelpKINode Title="UI (Clase)" Url="html/T_TheXDS_MCART_UI.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_UI.htm" />
@@ -4646,7 +5268,8 @@
   <HelpKINode Title="UI.Flash method" Url="html/M_TheXDS_MCART_UI_Flash.htm" />
   <HelpKINode Title="UI.FlushBitmapEncoders method" Url="html/M_TheXDS_MCART_UI_FlushBitmapEncoders.htm" />
   <HelpKINode Title="UI.FreeConsole method" Url="html/M_TheXDS_MCART_UI_FreeConsole.htm" />
-  <HelpKINode Title="UI.GetBitmap method" Url="html/M_TheXDS_MCART_UI_GetBitmap.htm" />
+  <HelpKINode Title="UI.GetBitmap method" Url="html/Overload_TheXDS_MCART_UI_GetBitmap.htm" />
+  <HelpKINode Title="UI.GetBitmapAsync method" Url="html/M_TheXDS_MCART_UI_GetBitmapAsync.htm" />
   <HelpKINode Title="UI.GetBitmapEncoders method" Url="html/M_TheXDS_MCART_UI_GetBitmapEncoders.htm" />
   <HelpKINode Title="UI.GetCircleArc method" Url="html/Overload_TheXDS_MCART_UI_GetCircleArc.htm" />
   <HelpKINode Title="UI.GetDeviceCaps method" Url="html/M_TheXDS_MCART_UI_GetDeviceCaps.htm" />
@@ -4767,6 +5390,7 @@
     <HelpKINode Title="BoolAttribute.Value (Propiedad )" Url="html/P_TheXDS_MCART_Attributes_BoolAttribute_Value.htm" />
     <HelpKINode Title="FloatAttribute.Value (Propiedad )" Url="html/P_TheXDS_MCART_Attributes_FloatAttribute_Value.htm" />
     <HelpKINode Title="IntAttribute.Value (Propiedad )" Url="html/P_TheXDS_MCART_Attributes_IntAttribute_Value.htm" />
+    <HelpKINode Title="ObjectAttribute.Value (Propiedad )" Url="html/P_TheXDS_MCART_Attributes_ObjectAttribute_Value.htm" />
     <HelpKINode Title="ProgressRing.Value (Propiedad )" Url="html/P_TheXDS_MCART_Controls_ProgressRing_Value.htm" />
     <HelpKINode Title="Slice.Value (Propiedad )" Url="html/P_TheXDS_MCART_Controls_Slice_Value.htm" />
     <HelpKINode Title="TextAttribute.Value (Propiedad )" Url="html/P_TheXDS_MCART_Attributes_TextAttribute_Value.htm" />
@@ -4890,8 +5514,12 @@
   <HelpKINode Title="WhichAreNull method" Url="html/Overload_TheXDS_MCART_Objects_WhichAreNull.htm" />
   <HelpKINode Title="White property" Url="html/P_TheXDS_MCART_Resources_Colors_White.htm" />
   <HelpKINode Title="Whitesmoke property" Url="html/P_TheXDS_MCART_Resources_Colors_Whitesmoke.htm" />
-  <HelpKINode Title="WithItems field" Url="html/F_System_Windows_Converters_CountVisibilityConverter_WithItems.htm" />
-  <HelpKINode Title="WithoutItems field" Url="html/F_System_Windows_Converters_CountVisibilityConverter_WithoutItems.htm" />
+  <HelpKINode Title="WithinBox method" Url="html/Overload_TheXDS_MCART_Types_Point_WithinBox.htm" />
+  <HelpKINode Title="WithinCircle method" Url="html/M_TheXDS_MCART_Types_Point_WithinCircle.htm" />
+  <HelpKINode Title="WithinCube method" Url="html/Overload_TheXDS_MCART_Types_Point3D_WithinCube.htm" />
+  <HelpKINode Title="WithinSphere method" Url="html/M_TheXDS_MCART_Types_Point3D_WithinSphere.htm" />
+  <HelpKINode Title="WithItems property" Url="html/P_System_Windows_Converters_CountVisibilityConverter_WithItems.htm" />
+  <HelpKINode Title="WithoutItems property" Url="html/P_System_Windows_Converters_CountVisibilityConverter_WithoutItems.htm" />
   <HelpKINode Title="WoodYellow property" Url="html/P_TheXDS_MCART_Resources_Colors_WoodYellow.htm" />
   <HelpKINode Title="Wrap method" Url="html/Overload_TheXDS_MCART_Math_Common_Wrap.htm" />
   <HelpKINode Title="WriteBytes method" Url="html/M_TheXDS_MCART_Types_Extensions_StreamExtensions_WriteBytes.htm" />
@@ -4951,8 +5579,8 @@
   <HelpKINode Title="YMinProperty field" Url="html/F_TheXDS_MCART_Controls_LightGraph_YMinProperty.htm" />
   <HelpKINode Title="YValues enumeration member" Url="html/T_TheXDS_MCART_Controls_LightGraph_SpotLabelsDrawMode.htm" />
   <HelpKINode Title="Z property" Url="html/P_TheXDS_MCART_Types_Point3D_Z.htm" />
-  <HelpKINode Title="ZeroOrNegatives field">
-    <HelpKINode Title="DoubleVisibilityConverter.ZeroOrNegatives (Campo)" Url="html/F_System_Windows_Converters_DoubleVisibilityConverter_ZeroOrNegatives.htm" />
-    <HelpKINode Title="FloatVisibilityConverter.ZeroOrNegatives (Campo)" Url="html/F_System_Windows_Converters_FloatVisibilityConverter_ZeroOrNegatives.htm" />
+  <HelpKINode Title="ZeroOrNegatives property">
+    <HelpKINode Title="DoubleVisibilityConverter.ZeroOrNegatives (Propiedad )" Url="html/P_System_Windows_Converters_DoubleVisibilityConverter_ZeroOrNegatives.htm" />
+    <HelpKINode Title="FloatVisibilityConverter.ZeroOrNegatives (Propiedad )" Url="html/P_System_Windows_Converters_FloatVisibilityConverter_ZeroOrNegatives.htm" />
   </HelpKINode>
 </HelpKI>
