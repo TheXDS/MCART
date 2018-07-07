@@ -33,6 +33,49 @@ namespace TheXDS.MCART.Types.Extensions
     public static class TypeExtensions
     {
         /// <summary>
+        /// Determina si el tipo implementa a <paramref name="type"/>.
+        /// </summary>
+        /// <param name="t">Tipo a comprobar</param>
+        /// <param name="type">Herencia de tipo a verificar.</param>
+        /// <returns>
+        /// <see langword="true"/> si <paramref name="t"/> implementa a <paramref name="type"/>,
+        /// <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool Implements(this Type t, Type type)
+        {
+            if (!type.ContainsGenericParameters) return type.IsAssignableFrom(t);
+            var gt = type.MakeGenericType(t);
+            return !gt.ContainsGenericParameters && gt.IsAssignableFrom(t);
+        }
+
+        /// <summary>
+        /// Determina si el tipo implementa a <paramref name="baseType"/> con los argumentos de tipo genérico especificados.
+        /// </summary>
+        /// <param name="t">Tipo a comprobar</param>
+        /// <param name="baseType">Herencia de tipo a verificar.</param>
+        /// <param name="typeArgs">Tipos de argumentos genéricos a utilizar para crear el tipo genérico a comprobar.</param>
+        /// <returns>
+        /// <see langword="true"/> si <paramref name="t"/> implementa a <paramref name="baseType"/>,
+        /// <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool Implements(this Type t, Type baseType, params Type[] typeArgs)
+        {
+            if (!baseType.ContainsGenericParameters) return baseType.IsAssignableFrom(t);
+            var gt = baseType.MakeGenericType(typeArgs);
+            return !gt.ContainsGenericParameters && gt.IsAssignableFrom(t);
+        }
+        /// <summary>
+        /// Determina si el tipo implementa a <typeparamref name="T"/>.
+        /// </summary>
+        /// <param name="type">Tipo a comprobar</param>
+        /// <typeparam name="T">Herencia de tipo a verificar.</typeparam>
+        /// <returns>
+        /// <see langword="true"/> si <paramref name="type"/> implementa a <typeparamref name="T"/>,
+        /// <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool Implements<T>(this Type type) => Implements(type, typeof(T));
+
+        /// <summary>
         ///     Equivalente programático de <see langword="default" />, obtiene
         ///     el valor predeterminado del tipo.
         /// </summary>
