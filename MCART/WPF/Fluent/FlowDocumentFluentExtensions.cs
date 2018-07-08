@@ -125,6 +125,34 @@ namespace TheXDS.MCART.Fluent
             element.FontWeight = FontWeights.Bold;
             return element;
         }
+        public static TElement Center<TElement>(this TElement element) where TElement : Block
+        {
+            element.TextAlignment = TextAlignment.Center;
+            return element;
+        }
+        public static TableRow CenterAll(this TableRow element)
+        {
+            foreach (var j in element.Cells.SelectMany(p=>p.Blocks))
+            {
+                j.Center();
+            }
+            return element;
+        }
+        public static TElement Justify<TElement>(this TElement element) where TElement : Block
+        {
+            element.TextAlignment = TextAlignment.Justify;
+            return element;
+        }
+        public static TElement Right<TElement>(this TElement element) where TElement : Block
+        {
+            element.TextAlignment = TextAlignment.Right;
+            return element;
+        }
+        public static TElement Left<TElement>(this TElement element) where TElement : Block
+        {
+            element.TextAlignment = TextAlignment.Left;
+            return element;
+        }
         public static TElement Format<TElement>(this TElement element, FontFamily fontFamily) where TElement : TextElement
         {
             element.FontFamily = fontFamily;
@@ -418,8 +446,21 @@ namespace TheXDS.MCART.Fluent
             var t = new Table();
             foreach (var j in columnWidths)
                 t.Columns.Add(new TableColumn { Width = j });
+            document.Blocks.Add(t);
             return t;
         }
+        public static Table AddTable(this FlowDocument document, IEnumerable<KeyValuePair<string,GridLength>> columnWidths)
+        {
+            var t = new Table();
+            t.AddGroup().AddRow(columnWidths.Select(p =>
+            {
+               t.Columns.Add(new TableColumn { Width = p.Value });
+               return p.Key;
+            })).Bold();
+            document.Blocks.Add(t);
+            return t;
+        }
+
         public static TableCell AddCell(this TableRow row)
         {
             var c = new TableCell();
