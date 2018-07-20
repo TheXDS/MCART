@@ -24,6 +24,7 @@
 using TheXDS.MCART.Attributes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -34,6 +35,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media.Animation;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Interop;
 using TheXDS.MCART.Networking;
 using C = TheXDS.MCART.Math.Geometry;
@@ -50,6 +52,74 @@ namespace TheXDS.MCART
         private static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
         private static readonly List<OrigControlColor> Origctrls = new List<OrigControlColor>();
         private static List<BitmapEncoder> _bEncLst;
+
+        /// <summary>
+        ///     Enlaza una propiedad de dependencia de un <see cref="DependencyObject"/> a un <see cref="FrameworkElement"/>.
+        /// </summary>
+        /// <param name="obj">Objeto destino del enlace</param>
+        /// <param name="dp">Propiedad de dependencia a enlazar.</param>
+        /// <param name="source">Orígen del enlace.</param>
+        public static void Bind(this FrameworkElement obj, DependencyProperty dp, DependencyObject source)
+        {
+            Bind(obj, dp, (object)source, BindingMode.TwoWay);
+        }
+
+        /// <summary>
+        ///     Enlaza una propiedad de dependencia de un <see cref="DependencyObject"/> a un <see cref="FrameworkElement"/>.
+        /// </summary>
+        /// <param name="obj">Objeto destino del enlace</param>
+        /// <param name="dp">Propiedad de dependencia a enlazar.</param>
+        /// <param name="source">Orígen del enlace.</param>
+        /// <param name="mode">Modo del enlace.</param>
+        public static void Bind(this FrameworkElement obj, DependencyProperty dp, DependencyObject source, BindingMode mode)
+        {
+            Bind(obj, dp, (object) source, mode);
+        }
+
+        /// <summary>
+        ///     Enlaza una propiedad de dependencia de un <see cref="DependencyObject"/> a un <see cref="INotifyPropertyChanged"/>.
+        /// </summary>
+        /// <param name="obj">Objeto destino del enlace</param>
+        /// <param name="dp">Propiedad de dependencia a enlazar.</param>
+        /// <param name="source">Orígen del enlace.</param>
+        public static void Bind(this FrameworkElement obj, DependencyProperty dp, INotifyPropertyChanged source)
+        {
+            Bind(obj, dp, (object) source, BindingMode.TwoWay);
+        }
+
+        /// <summary>
+        ///     Enlaza una propiedad de dependencia de un <see cref="DependencyObject"/> a un <see cref="INotifyPropertyChanged"/>.
+        /// </summary>
+        /// <param name="obj">Objeto destino del enlace</param>
+        /// <param name="dp">Propiedad de dependencia a enlazar.</param>
+        /// <param name="source">Orígen del enlace.</param>
+        /// <param name="mode">Modo del enlace.</param>
+        public static void Bind(this FrameworkElement obj, DependencyProperty dp, INotifyPropertyChanged source, BindingMode mode)
+        {
+            Bind(obj, dp, (object) source, mode);
+        }
+
+        private static void Bind(this FrameworkElement obj, DependencyProperty dp, object source, BindingMode mode)
+        {
+            obj.SetBinding(dp, new Binding
+            {
+                Path = new PropertyPath(dp),
+                Mode = mode,
+                Source = source
+            });
+        }
+
+
+        public static void Bind(this FrameworkElement obj, DependencyProperty targetDp, object source, DependencyProperty sourceDp, BindingMode mode)
+        {
+            obj.SetBinding(targetDp, new Binding
+            {
+                Path = new PropertyPath(sourceDp),
+                Mode = mode,
+                Source = source
+            });
+        }
+
 
         private static void SetBlur(Window window, AccentState state)
         {
