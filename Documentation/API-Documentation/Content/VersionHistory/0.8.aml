@@ -3,7 +3,7 @@
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction>
       <para>
-        MCART 0.8 tuvo su último Milestone (0.8.5.0) el miércoles, 27 de junio de 2018.
+        MCART 0.8 tuvo su último Milestone (0.8.6.0) el jueves, 26 de julio de 2018.
       </para>
     </introduction>
     <section>
@@ -12,7 +12,7 @@
         <list class="bullet">
           <listItem>
             <para>
-              MCART ha cambiado sus implementaciones para cumplir al 100% con la especificación CLS.
+              MCART está cambiando sus implementaciones para cumplir al 100% con la especificación CLS.
             </para>
           </listItem>
           <listItem>
@@ -59,6 +59,11 @@
           </listItem>
           <listItem>
             <para>
+              Cambiado: Reorganización de los espacios de nombre.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
               Cambiado: Todos los espacios de nombres respetan la convención estándar de la especificación CLS.
             </para>
           </listItem>
@@ -69,7 +74,7 @@
           </listItem>
           <listItem>
             <para>
-              Deprecado: Gtk y Win32
+              Deprecado: Gtk y Win32 han sido deprecados temporalmente.
             </para>
           </listItem>
         </list>

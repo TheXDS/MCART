@@ -32,6 +32,10 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Media;
 
+// ReSharper disable UnusedMethodReturnValue.Global
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable UnusedMember.Global
+
 namespace TheXDS.MCART.Fluent
 {
     /// <summary>
@@ -39,14 +43,18 @@ namespace TheXDS.MCART.Fluent
     /// </summary>
     public static class FlowDocumentFluentExtensions
     {
+        /// <summary>
+        /// Genera un objeto <see cref="System.Windows.Documents.Table"/> a partir de la vista actual de un <see cref="ListView"/>.
+        /// </summary>
+        /// <param name="listView"><see cref="ListView"/> a procesar.</param>
+        /// <returns>
+        /// Un <see cref="System.Windows.Documents.Table"/> con el contenido de la vista activa del <see cref="ListView"/>.
+        /// </returns>
         public static Table ToDocumentTable(this ListView listView)
         {
             var cols = (listView.View as GridView)?.Columns ?? throw new ArgumentException();
-
             var table = new Table().ColumnWidths(cols.Select(p => p.Width));
-
-            var data = table.AddGroup().AddRow(cols.Select(p => p.Header as string))
-                .Bold().Done().AddGroup();
+            var data = table.AddGroup().AddRow(cols.Select(p => p.Header.ToString())).CenterAll().Bold().Done().AddGroup();
             foreach (var j in listView.Items)
             {
                 var row = data.AddRow();
@@ -58,12 +66,28 @@ namespace TheXDS.MCART.Fluent
                     if (!(o is null)) row.AddCell(o.ToString());
                 }
             }
-
             return table;
         }
-
+        /// <summary>
+        /// Establece los anchos de columna para un <see cref="System.Windows.Documents.Table"/>.
+        /// </summary>
+        /// <param name="table"><see cref="System.Windows.Documents.Table"/> a procesar.</param>
+        /// <param name="lengths">Anchos de columna a aplicar.</param>
+        /// <returns>
+        ///     <paramref name="table" />, lo que permite utilizar esta función
+        ///     con sintáxis Fluent.
+        /// </returns>
         public static Table ColumnWidths(this Table table, IEnumerable<double> lengths) =>
             ColumnWidths(table, lengths.Select(p => new GridLength(p)));
+        /// <summary>
+        /// Establece los anchos de columna para un <see cref="System.Windows.Documents.Table"/>.
+        /// </summary>
+        /// <param name="table"><see cref="System.Windows.Documents.Table"/> a procesar.</param>
+        /// <param name="lengths">Anchos de columna a aplicar.</param>
+        /// <returns>
+        ///     <paramref name="table" />, lo que permite utilizar esta función
+        ///     con sintáxis Fluent.
+        /// </returns>
         public static Table ColumnWidths(this Table table, IEnumerable<GridLength> lengths)
         {
             using (var a = table.Columns.ToList().GetEnumerator())
@@ -77,39 +101,85 @@ namespace TheXDS.MCART.Fluent
             }
             return table;
         }
+        /// <summary>
+        /// Establece el ancho de una columna para un <see cref="System.Windows.Documents.Table"/>.
+        /// </summary>
+        /// <param name="table"><see cref="System.Windows.Documents.Table"/> a procesar.</param>
+        /// <param name="column">Índice de la columna.</param>
+        /// <param name="width">Ancho de columna a aplicar.</param>
+        /// <returns>
+        ///     <paramref name="table" />, lo que permite utilizar esta función
+        ///     con sintáxis Fluent.
+        /// </returns>
         public static Table ColumnWidth(this Table table, int column, GridLength width)
         {
             table.Columns[column].Width = width;
             return table;
         }
+        /// <summary>
+        /// Establece un color de fondo para la columna especificada de la tabla.
+        /// </summary>
+        /// <param name="table"><see cref="System.Windows.Documents.Table"/> a procesar.</param>
+        /// <param name="column">Índice de la columna.</param>
+        /// <param name="brush"><see cref="Brush"/> a aplicar al dibujar la tabla.</param>
+        /// <returns>
+        ///     <paramref name="table" />, lo que permite utilizar esta función
+        ///     con sintáxis Fluent.
+        /// </returns>
         public static Table ColumnBackgound(this Table table, int column, Brush brush)
         {
             table.Columns[column].Background = brush;
             return table;
         }
+        /// <summary>
+        /// Establece un borde para una celda de una tabla.
+        /// </summary>
+        /// <param name="element">Celda a procesar.</param>
+        /// <param name="brush"><see cref="Brush"/> a utilizar para dibujar el borde.</param>
+        /// <param name="thickness">Grosor del borde.</param>
+        /// <returns>
+        ///     <paramref name="element" />, lo que permite utilizar esta función
+        ///     con sintáxis Fluent.
+        /// </returns>
         public static TableCell Border(this TableCell element, Brush brush, Thickness thickness)
         {
             element.BorderBrush = brush;
             element.BorderThickness = thickness;
             return element;
         }
+        /// <summary>
+        /// Establece un borde para todas las celdas de un <see cref="TableRow"/>.
+        /// </summary>
+        /// <param name="element"><see cref="TableRow"/> a procesar.</param>
+        /// <param name="brush"><see cref="Brush"/> a utilizar para dibujar el borde.</param>
+        /// <param name="thickness">Grosor del borde.</param>
+        /// <returns>
+        ///     <paramref name="element" />, lo que permite utilizar esta función
+        ///     con sintáxis Fluent.
+        /// </returns>
         public static TableRow Borders(this TableRow element, Brush brush, Thickness thickness)
         {
             foreach (var j in element.Cells)
-            {
                 j.Border(brush, thickness);
-            }
             return element;
         }
+        /// <summary>
+        /// Establece un borde para todas las celdas de un <see cref="TableRowGroup"/>.
+        /// </summary>
+        /// <param name="element"><see cref="TableRowGroup"/> a procesar.</param>
+        /// <param name="brush"><see cref="Brush"/> a utilizar para dibujar el borde.</param>
+        /// <param name="thickness">Grosor del borde.</param>
+        /// <returns>
+        ///     <paramref name="element" />, lo que permite utilizar esta función
+        ///     con sintáxis Fluent.
+        /// </returns>
         public static TableRowGroup Borders(this TableRowGroup element, Brush brush, Thickness thickness)
         {
-            foreach (var j in element.Rows)
-            {
-                foreach (var k in j.Cells)
-                    k.Border(brush, thickness);
-            }
+            foreach (var j in element.Rows.SelectMany(p => p.Cells))
+                j.Border(brush, thickness);
             return element;
         }
+
         public static TElement Background<TElement>(this TElement element, Brush value) where TElement : TextElement
         {
             element.Background = value;
@@ -132,7 +202,15 @@ namespace TheXDS.MCART.Fluent
         }
         public static TableRow CenterAll(this TableRow element)
         {
-            foreach (var j in element.Cells.SelectMany(p=>p.Blocks))
+            foreach (var j in element.Cells.SelectMany(p => p.Blocks))
+            {
+                j.Center();
+            }
+            return element;
+        }
+        public static TableRowGroup CenterAll(this TableRowGroup element)
+        {
+            foreach (var j in element.Rows.SelectMany(o=>o.Cells.SelectMany(p => p.Blocks)))
             {
                 j.Center();
             }
@@ -631,7 +709,7 @@ namespace TheXDS.MCART.Fluent
             return fd;
         }
 
-        public static FlowDocument Table(this FlowDocument fd, IDictionary<string, string> headers, IEnumerable data)
+        public static FlowDocument MakeTable(this FlowDocument fd, IDictionary<string, string> headers, IEnumerable data)
         {
             var tbl = new Table();
 
@@ -662,7 +740,7 @@ namespace TheXDS.MCART.Fluent
             return fd;
         }
 
-        public static FlowDocument Table<T>(this FlowDocument fd, IEnumerable<TableSelector<T>> columns,
+        public static FlowDocument MakeTable<T>(this FlowDocument fd, IEnumerable<TableSelector<T>> columns,
             IEnumerable<T> data)
         {
             var tbl = new Table();
@@ -690,7 +768,7 @@ namespace TheXDS.MCART.Fluent
             return fd;
         }
 
-        public static Table Table(this FlowDocument fd, IEnumerable<string> headers)
+        public static Table MakeTable(this FlowDocument fd, IEnumerable<string> headers)
         {
             var tbl = new Table();
 
@@ -721,10 +799,20 @@ namespace TheXDS.MCART.Fluent
 
         public static FlowDocument Title(this FlowDocument fd, string text)
         {
-            return Title(fd, text, 0);
+            return Title(fd, text, 0, TextAlignment.Left);
         }
 
         public static FlowDocument Title(this FlowDocument fd, string text, byte level)
+        {
+            return Title(fd, text, level, TextAlignment.Left);
+        }
+
+        public static FlowDocument Title(this FlowDocument fd, string text, TextAlignment alignment)
+        {
+            return Title(fd, text, 0, alignment);
+        }
+
+        public static FlowDocument Title(this FlowDocument fd, string text, byte level, TextAlignment alignment)
         {
             fd.Blocks.Add(new Paragraph
             {
@@ -735,7 +823,7 @@ namespace TheXDS.MCART.Fluent
                         Text = text,
                         FontSize = 36 - 6 * level
                     }
-                }
+                },TextAlignment = alignment
             });
             return fd;
         }

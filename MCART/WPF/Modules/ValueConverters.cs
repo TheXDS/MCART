@@ -30,6 +30,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 using TheXDS.MCART;
+using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 
 #region Configuración de ReSharper
 

@@ -1,4 +1,4 @@
-﻿/*
+/*
 EnumerableExtensions.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
@@ -36,6 +36,10 @@ namespace TheXDS.MCART.Types.Extensions
     /// </summary>
     public static class EnumerableExtensions
     {
+		public static IEnumerable<T> ExceptFor<T>(this IEnumerable<T> collection, params T[] exclusions)
+		{
+            return collection.Where(j => j.IsNeither(exclusions));
+		}
         /// <summary>
         ///     Obtiene un sub-rango de valores dentro de este
         ///     <see cref="IEnumerable{T}" />.

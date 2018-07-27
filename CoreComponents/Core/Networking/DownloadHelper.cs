@@ -3,6 +3,9 @@ DownloadHelper.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
+Este archivo contiene funciones para la descarga de archivos por medio de
+protocolos web que se bansen en TCP, como http y ftp.
+
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
@@ -31,30 +34,34 @@ using System.Threading.Tasks;
 namespace TheXDS.MCART.Networking
 {
     /// <summary>
-    /// Contiene funciones de descarga de archivos por medio de protocolos web.
+    ///     Contiene funciones de descarga de archivos por medio de protocolos web.
     /// </summary>
     public static class DownloadHelper
     {
         /// <summary>
-        /// Descarga un archivo por medio de http y lo almacena en el
-        /// <see cref="Stream"/> provisto.
+        ///     Descarga un archivo por medio de http y lo almacena en el
+        ///     <see cref="Stream" /> provisto.
         /// </summary>
         /// <param name="url">
-        /// Url del archivo. Debe ser una ruta http válida.
+        ///     Url del archivo. Debe ser una ruta http válida.
         /// </param>
         /// <param name="stream">
-        /// <see cref="Stream"/> en el cual se almacenará el archivo.
+        ///     <see cref="Stream" /> en el cual se almacenará el archivo.
         /// </param>
-        public static void DownloadHttp(string url, Stream stream) => DownloadHttp(new Uri(url), stream);
+        public static void DownloadHttp(string url, Stream stream)
+        {
+            DownloadHttp(new Uri(url), stream);
+        }
+
         /// <summary>
-        /// Descarga un archivo por medio de http y lo almacena en el
-        /// <see cref="Stream"/> provisto.
+        ///     Descarga un archivo por medio de http y lo almacena en el
+        ///     <see cref="Stream" /> provisto.
         /// </summary>
         /// <param name="uri">
-        /// Url del archivo. Debe ser una ruta http válida.
+        ///     Url del archivo. Debe ser una ruta http válida.
         /// </param>
         /// <param name="stream">
-        /// <see cref="Stream"/> en el cual se almacenará el archivo.
+        ///     <see cref="Stream" /> en el cual se almacenará el archivo.
         /// </param>
         public static void DownloadHttp(Uri uri, Stream stream)
         {
@@ -64,157 +71,182 @@ namespace TheXDS.MCART.Networking
             var wr = WebRequest.Create(uri);
             wr.Timeout = 10000;
             using (var r = wr.GetResponse())
-                r.GetResponseStream().CopyTo(stream);
+            {
+                r.GetResponseStream()?.CopyTo(stream);
+            }
 #endif
         }
+
         /// <summary>
-        /// Descarga un archivo por medio de http y lo almacena en el
-        /// <see cref="Stream"/> provisto de forma asíncrona.
+        ///     Descarga un archivo por medio de http y lo almacena en el
+        ///     <see cref="Stream" /> provisto de forma asíncrona.
         /// </summary>
         /// <param name="url">
-        /// Url del archivo. Debe ser una ruta http válida.
+        ///     Url del archivo. Debe ser una ruta http válida.
         /// </param>
         /// <param name="stream">
-        /// <see cref="Stream"/> en el cual se almacenará el archivo.
+        ///     <see cref="Stream" /> en el cual se almacenará el archivo.
         /// </param>
         /// <returns>
-        /// Un <see cref="Task"/> que representa a la tarea en ejecución.
+        ///     Un <see cref="Task" /> que representa a la tarea en ejecución.
         /// </returns>
-        public static async Task DownloadHttpAsync(string url, Stream stream) => await DownloadHttpAsync(new Uri(url), stream, null, 0);
+        public static async Task DownloadHttpAsync(string url, Stream stream)
+        {
+            await DownloadHttpAsync(new Uri(url), stream, null, 0);
+        }
+
         /// <summary>
-        /// Descarga un archivo por medio de http y lo almacena en el
-        /// <see cref="Stream"/> provisto de forma asíncrona.
+        ///     Descarga un archivo por medio de http y lo almacena en el
+        ///     <see cref="Stream" /> provisto de forma asíncrona.
         /// </summary>
         /// <param name="uri">
-        /// Url del archivo. Debe ser una ruta http válida.
+        ///     Url del archivo. Debe ser una ruta http válida.
         /// </param>
         /// <param name="stream">
-        /// <see cref="Stream"/> en el cual se almacenará el archivo.
+        ///     <see cref="Stream" /> en el cual se almacenará el archivo.
         /// </param>
         /// <returns>
-        /// Un <see cref="Task"/> que representa a la tarea en ejecución.
+        ///     Un <see cref="Task" /> que representa a la tarea en ejecución.
         /// </returns>
-        public static async Task DownloadHttpAsync(Uri uri, Stream stream) => await DownloadHttpAsync(uri, stream, null, 0);
+        public static async Task DownloadHttpAsync(Uri uri, Stream stream)
+        {
+            await DownloadHttpAsync(uri, stream, null, 0);
+        }
+
         /// <summary>
-        /// Descarga un archivo por medio de http y lo almacena en el
-        /// <see cref="Stream"/> provisto de forma asíncrona.
+        ///     Descarga un archivo por medio de http y lo almacena en el
+        ///     <see cref="Stream" /> provisto de forma asíncrona.
         /// </summary>
         /// <param name="url">
-        /// Url del archivo. Debe ser una ruta http válida.
+        ///     Url del archivo. Debe ser una ruta http válida.
         /// </param>
         /// <param name="stream">
-        /// <see cref="Stream"/> en el cual se almacenará el archivo.
+        ///     <see cref="Stream" /> en el cual se almacenará el archivo.
         /// </param>
         /// <param name="reportCallback">
-        /// Delegado que permite reportar el estado de esta tarea. El primer
-        /// parámetro devolverá la cantidad de bytes recibidos, o <see langword="null"/>
-        /// si <paramref name="stream"/> no es capaz de reportar su tamaño
-        /// actual. El segundo parámetro devolverá la longitud total de la
-        /// solicitud, o <c>-1</c> si el servidor no reportó el tamaño de los
-        /// datos a recibir.
+        ///     Delegado que permite reportar el estado de esta tarea. El primer
+        ///     parámetro devolverá la cantidad de bytes recibidos, o <see langword="null" />
+        ///     si <paramref name="stream" /> no es capaz de reportar su tamaño
+        ///     actual. El segundo parámetro devolverá la longitud total de la
+        ///     solicitud, o <c>-1</c> si el servidor no reportó el tamaño de los
+        ///     datos a recibir.
         /// </param>
         /// <returns>
-        /// Un <see cref="Task"/> que representa a la tarea en ejecución.
+        ///     Un <see cref="Task" /> que representa a la tarea en ejecución.
         /// </returns>
-        public static async Task DownloadHttpAsync(string url, Stream stream, Action<long?, long> reportCallback) => await DownloadHttpAsync(new Uri(url), stream, reportCallback);
+        public static async Task DownloadHttpAsync(string url, Stream stream, Action<long?, long> reportCallback)
+        {
+            await DownloadHttpAsync(new Uri(url), stream, reportCallback);
+        }
+
         /// <summary>
-        /// Descarga un archivo por medio de http y lo almacena en el
-        /// <see cref="Stream"/> provisto de forma asíncrona.
+        ///     Descarga un archivo por medio de http y lo almacena en el
+        ///     <see cref="Stream" /> provisto de forma asíncrona.
         /// </summary>
         /// <param name="uri">
-        /// Url del archivo. Debe ser una ruta http válida.
+        ///     Url del archivo. Debe ser una ruta http válida.
         /// </param>
         /// <param name="stream">
-        /// <see cref="Stream"/> en el cual se almacenará el archivo.
+        ///     <see cref="Stream" /> en el cual se almacenará el archivo.
         /// </param>
         /// <param name="reportCallback">
-        /// Delegado que permite reportar el estado de esta tarea. El primer
-        /// parámetro devolverá la cantidad de bytes recibidos, o <see langword="null"/>
-        /// si <paramref name="stream"/> no es capaz de reportar su tamaño
-        /// actual. El segundo parámetro devolverá la longitud total de la
-        /// solicitud, o <c>-1</c> si el servidor no reportó el tamaño de los
-        /// datos a recibir.
+        ///     Delegado que permite reportar el estado de esta tarea. El primer
+        ///     parámetro devolverá la cantidad de bytes recibidos, o <see langword="null" />
+        ///     si <paramref name="stream" /> no es capaz de reportar su tamaño
+        ///     actual. El segundo parámetro devolverá la longitud total de la
+        ///     solicitud, o <c>-1</c> si el servidor no reportó el tamaño de los
+        ///     datos a recibir.
         /// </param>
         /// <returns>
-        /// Un <see cref="Task"/> que representa a la tarea en ejecución.
+        ///     Un <see cref="Task" /> que representa a la tarea en ejecución.
         /// </returns>
-        public static async Task DownloadHttpAsync(Uri uri, Stream stream, Action<long?, long> reportCallback) => await DownloadHttpAsync(uri, stream, reportCallback, 100);
+        public static async Task DownloadHttpAsync(Uri uri, Stream stream, Action<long?, long> reportCallback)
+        {
+            await DownloadHttpAsync(uri, stream, reportCallback, 100);
+        }
+
         /// <summary>
-        /// Descarga un archivo por medio de http y lo almacena en el
-        /// <see cref="Stream"/> provisto de forma asíncrona.
+        ///     Descarga un archivo por medio de http y lo almacena en el
+        ///     <see cref="Stream" /> provisto de forma asíncrona.
         /// </summary>
         /// <param name="url">
-        /// Url del archivo. Debe ser una ruta http válida.
+        ///     Url del archivo. Debe ser una ruta http válida.
         /// </param>
         /// <param name="stream">
-        /// <see cref="Stream"/> en el cual se almacenará el archivo.
+        ///     <see cref="Stream" /> en el cual se almacenará el archivo.
         /// </param>
         /// <param name="reportCallback">
-        /// Delegado que permite reportar el estado de esta tarea. El primer
-        /// parámetro devolverá la cantidad de bytes recibidos, o <see langword="null"/>
-        /// si <paramref name="stream"/> no es capaz de reportar su tamaño
-        /// actual. El segundo parámetro devolverá la longitud total de la
-        /// solicitud, o <c>-1</c> si el servidor no reportó el tamaño de los
-        /// datos a recibir.
+        ///     Delegado que permite reportar el estado de esta tarea. El primer
+        ///     parámetro devolverá la cantidad de bytes recibidos, o <see langword="null" />
+        ///     si <paramref name="stream" /> no es capaz de reportar su tamaño
+        ///     actual. El segundo parámetro devolverá la longitud total de la
+        ///     solicitud, o <c>-1</c> si el servidor no reportó el tamaño de los
+        ///     datos a recibir.
         /// </param>
         /// <param name="polling">
-        /// Intervalo en milisegundos para reportar el estado de la descarga.
+        ///     Intervalo en milisegundos para reportar el estado de la descarga.
         /// </param>
         /// <returns>
-        /// Un <see cref="Task"/> que representa a la tarea en ejecución.
+        ///     Un <see cref="Task" /> que representa a la tarea en ejecución.
         /// </returns>
-        public static async Task DownloadHttpAsync(string url, Stream stream, Action<long?, long> reportCallback, int polling) => await DownloadHttpAsync(new Uri(url), stream, reportCallback, polling);
+        public static async Task DownloadHttpAsync(string url, Stream stream, Action<long?, long> reportCallback,
+            int polling)
+        {
+            await DownloadHttpAsync(new Uri(url), stream, reportCallback, polling);
+        }
+
         /// <summary>
-        /// Descarga un archivo por medio de http y lo almacena en el
-        /// <see cref="Stream"/> provisto de forma asíncrona.
+        ///     Descarga un archivo por medio de http y lo almacena en el
+        ///     <see cref="Stream" /> provisto de forma asíncrona.
         /// </summary>
         /// <param name="uri">
-        /// Url del archivo. Debe ser una ruta http válida.
+        ///     Url del archivo. Debe ser una ruta http válida.
         /// </param>
         /// <param name="stream">
-        /// <see cref="Stream"/> en el cual se almacenará el archivo.
+        ///     <see cref="Stream" /> en el cual se almacenará el archivo.
         /// </param>
         /// <param name="reportCallback">
-        /// Delegado que permite reportar el estado de esta tarea. El primer
-        /// parámetro devolverá la cantidad de bytes recibidos, o <see langword="null"/>
-        /// si <paramref name="stream"/> no es capaz de reportar su tamaño
-        /// actual. El segundo parámetro devolverá la longitud total de la
-        /// solicitud, o <c>-1</c> si el servidor no reportó el tamaño de los
-        /// datos a recibir.
+        ///     Delegado que permite reportar el estado de esta tarea. El primer
+        ///     parámetro devolverá la cantidad de bytes recibidos, o <see langword="null" />
+        ///     si <paramref name="stream" /> no es capaz de reportar su tamaño
+        ///     actual. El segundo parámetro devolverá la longitud total de la
+        ///     solicitud, o <c>-1</c> si el servidor no reportó el tamaño de los
+        ///     datos a recibir.
         /// </param>
         /// <param name="polling">
-        /// Intervalo en milisegundos para reportar el estado de la descarga.
+        ///     Intervalo en milisegundos para reportar el estado de la descarga.
         /// </param>
         /// <returns>
-        /// Un <see cref="Task"/> que representa a la tarea en ejecución.
+        ///     Un <see cref="Task" /> que representa a la tarea en ejecución.
         /// </returns>
-        public static async Task DownloadHttpAsync(Uri uri, Stream stream, Action<long?, long> reportCallback, int polling)
+        public static async Task DownloadHttpAsync(Uri uri, Stream stream, Action<long?, long> reportCallback,
+            int polling)
         {
             var wr = WebRequest.Create(uri);
             wr.Timeout = 10000;
             using (var r = await wr.GetResponseAsync())
             using (var rStream = r.GetResponseStream())
             using (var ct = new CancellationTokenSource())
-            using (var downloadTask = rStream.CopyToAsync(stream))
+            using (var downloadTask = rStream?.CopyToAsync(stream))
             using (var reportTask = new Task(() =>
-             {
-                 if (reportCallback is null) return;
-                 while (!ct?.IsCancellationRequested ?? false)
-                 {
-                     reportCallback.Invoke(
-                         stream.CanSeek ? (long?)stream.Length : null,
-                         r.ContentLength);
-                     Thread.Sleep(polling);
-                 }
-                 reportCallback.Invoke(stream.CanSeek ? (long?)stream.Length : null, r.ContentLength);
-             }, ct.Token))
+            {
+                if (reportCallback is null) return;
+                while (!ct?.IsCancellationRequested ?? false)
+                {
+                    reportCallback.Invoke(
+                        stream.CanSeek ? (long?) stream.Length : null,
+                        r.ContentLength);
+                    Thread.Sleep(polling);
+                }
+
+                reportCallback.Invoke(stream.CanSeek ? (long?) stream.Length : null, r.ContentLength);
+            }, ct.Token))
             {
                 reportTask.Start();
-                await downloadTask;
+                if (downloadTask != null) await downloadTask;
                 ct.Cancel();
                 await reportTask;
             }
-            wr = null;
         }
     }
 }

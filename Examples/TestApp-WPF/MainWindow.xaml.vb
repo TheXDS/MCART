@@ -53,7 +53,7 @@ Public Class MainWindow
         End With
     End Sub
     Private Async Function LoginTest(user As String, password As System.Security.SecureString) As Task(Of Boolean)
-        Await Task.Run(Sub() Threading.Thread.Sleep(3000))
+        Await Task.Run(Sub() System.Threading.Thread.Sleep(3000))
         Return user = "Usuario" AndAlso password.Read() = "Test@1234"
     End Function
     Private Sub MnuPwd_Click(sender As Object, e As RoutedEventArgs) Handles mnuPwd.Click
