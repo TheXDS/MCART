@@ -23,6 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Net;
@@ -238,13 +239,17 @@ namespace TheXDS.MCART.Networking.Client
                 return new byte[] { };
 #endif                
             ns.Write(data, 0, data.Length);
-            
-            using (var ms = new MemoryStream())
+
+            var outp = new List<byte>();
+            do
             {
-                //ns.ReadTimeout = 5000;
-                //ns.CopyTo(ms);
-                return ms.ToArray();
-            }
+                var buff = new byte[connection.ReceiveBufferSize];
+                var sze = ns.Read(buff, 0, buff.Length);
+                if (sze < connection.ReceiveBufferSize) Array.Resize(ref buff, sze);
+                outp.AddRange(buff);
+            } while (ns.DataAvailable);
+
+            return outp.ToArray();
         }
 
         /// <summary>

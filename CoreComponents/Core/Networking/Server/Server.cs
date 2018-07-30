@@ -259,9 +259,25 @@ namespace TheXDS.MCART.Networking.Server
                 {
                     var ts = client.RecieveAsync();
                     var wdat = true;
-                    if (Task.WaitAny(ts, Task.Run(() => { while (_isAlive && wdat) ; })) == 0)
-                        Protocol.ClientAttendant(client, this, await ts);
+                    if (Task.WaitAny(ts, Task.Run(() =>
+                    {
+                        while (_isAlive && wdat) ;
+                    })) == 0)
+                    {
+                        if (ts.Result.Length != 0)
+                            Protocol.ClientAttendant(client, this, await ts);
+                        else
+                        {
+                            Protocol.ClientDisconnect(client,this);
+                            client.TcpClient.Close();
+                        }
+                        
+                    }
+                    else
+                        ts.Dispose();
+                    
                     wdat = false;
+
                 }
             }
             else if (client?.IsAlive ?? false)
