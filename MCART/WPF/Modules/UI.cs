@@ -24,9 +24,10 @@
 using TheXDS.MCART.Attributes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -34,9 +35,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media.Animation;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Interop;
 using TheXDS.MCART.Networking;
 using C = TheXDS.MCART.Math.Geometry;
+using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 
 namespace TheXDS.MCART
 {
@@ -49,9 +52,108 @@ namespace TheXDS.MCART
         [DllImport("user32.dll")]
         private static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
         private static readonly List<OrigControlColor> Origctrls = new List<OrigControlColor>();
-        private static List<BitmapEncoder> _bEncLst;
 
-        private static void SetBlur(Window window, AccentState state)
+        /// <summary>
+        ///     Enlaza una propiedad de dependencia de un <see cref="DependencyObject"/> a un <see cref="FrameworkElement"/>.
+        /// </summary>
+        /// <param name="obj">Objeto destino del enlace</param>
+        /// <param name="dp">Propiedad de dependencia a enlazar.</param>
+        /// <param name="source">Orígen del enlace.</param>
+        public static void Bind(this FrameworkElement obj, DependencyProperty dp, DependencyObject source) => Bind(obj, dp, (object)source,dp, BindingMode.TwoWay);
+
+        /// <summary>
+        ///     Enlaza una propiedad de dependencia de un <see cref="DependencyObject"/> a un <see cref="FrameworkElement"/>.
+        /// </summary>
+        /// <param name="obj">Objeto destino del enlace</param>
+        /// <param name="dp">Propiedad de dependencia a enlazar.</param>
+        /// <param name="source">Orígen del enlace.</param>
+        /// <param name="mode">Modo del enlace.</param>
+        public static void Bind(this FrameworkElement obj, DependencyProperty dp, DependencyObject source, BindingMode mode) => Bind(obj, dp, (object) source, dp, mode);
+
+        /// <summary>
+        ///     Enlaza una propiedad de dependencia de un <see cref="DependencyObject"/> a un <see cref="INotifyPropertyChanged"/>.
+        /// </summary>
+        /// <param name="obj">Objeto destino del enlace</param>
+        /// <param name="dp">Propiedad de dependencia a enlazar.</param>
+        /// <param name="source">Orígen del enlace.</param>
+        public static void Bind(this FrameworkElement obj, DependencyProperty dp, INotifyPropertyChanged source) => Bind(obj, dp, (object) source, dp, BindingMode.TwoWay);
+
+        /// <summary>
+        ///     Enlaza una propiedad de dependencia de un <see cref="INotifyPropertyChanged"/> a un <see cref="FrameworkElement"/>.
+        /// </summary>
+        /// <param name="obj">Objeto destino del enlace</param>
+        /// <param name="dp">Propiedad de dependencia a enlazar.</param>
+        /// <param name="source">Orígen del enlace.</param>
+        /// <param name="mode">Modo del enlace.</param>
+        public static void Bind(this FrameworkElement obj, DependencyProperty dp, INotifyPropertyChanged source, BindingMode mode) => Bind(obj, dp, (object) source, dp, mode);
+
+        /// <summary>
+        ///     Enlaza una propiedad de dependencia de un <see cref="DependencyObject"/> a un <see cref="FrameworkElement"/>.
+        /// </summary>
+        /// <param name="obj">Objeto destino del enlace</param>
+        /// <param name="targetDp">Propiedad de dependencia de destino del enlace.</param>
+        /// <param name="source">Orígen del enlace.</param>
+        /// <param name="sourceDp">Propiedad de dependencia de destino del enlace.</param>
+        public static void Bind(this FrameworkElement obj, DependencyProperty targetDp, DependencyObject source, DependencyProperty sourceDp) => Bind(obj, targetDp, (object) source, sourceDp, BindingMode.TwoWay);
+
+        /// <summary>
+        ///     Enlaza una propiedad de dependencia de un <see cref="DependencyObject"/> a un <see cref="FrameworkElement"/>.
+        /// </summary>
+        /// <param name="obj">Objeto destino del enlace</param>
+        /// <param name="targetDp">Propiedad de dependencia de destino del enlace.</param>
+        /// <param name="source">Orígen del enlace.</param>
+        /// <param name="sourceDp">Propiedad de dependencia de destino del enlace.</param>
+        /// <param name="mode">Modo del enlace.</param>
+        public static void Bind(this FrameworkElement obj, DependencyProperty targetDp, DependencyObject source, DependencyProperty sourceDp, BindingMode mode) => Bind(obj, targetDp, (object)source, sourceDp, mode);
+
+        /// <summary>
+        ///     Enlaza una propiedad de dependencia de un <see cref="INotifyPropertyChanged"/> a un <see cref="FrameworkElement"/>.
+        /// </summary>
+        /// <param name="obj">Objeto destino del enlace</param>
+        /// <param name="targetDp">Propiedad de dependencia de destino del enlace.</param>
+        /// <param name="source">Orígen del enlace.</param>
+        /// <param name="sourceDp">Propiedad de dependencia de destino del enlace.</param>
+        public static void Bind(this FrameworkElement obj, DependencyProperty targetDp, INotifyPropertyChanged source, DependencyProperty sourceDp) => Bind(obj, targetDp, (object)source, sourceDp, BindingMode.TwoWay);
+
+        /// <summary>
+        ///     Enlaza una propiedad de dependencia de un <see cref="INotifyPropertyChanged"/> a un <see cref="FrameworkElement"/>.
+        /// </summary>
+        /// <param name="obj">Objeto destino del enlace</param>
+        /// <param name="targetDp">Propiedad de dependencia de destino del enlace.</param>
+        /// <param name="source">Orígen del enlace.</param>
+        /// <param name="sourceDp">Propiedad de dependencia de destino del enlace.</param>
+        /// <param name="mode">Modo del enlace.</param>
+        public static void Bind(this FrameworkElement obj, DependencyProperty targetDp, INotifyPropertyChanged source, DependencyProperty sourceDp, BindingMode mode) => Bind(obj, targetDp, (object)source, sourceDp, mode);
+
+        /// <summary>
+        ///     Enlaza una propiedad de dependencia de un <see cref="object"/> a un <see cref="FrameworkElement"/>.
+        /// </summary>
+        /// <param name="obj">Objeto destino del enlace</param>
+        /// <param name="targetDp">Propiedad de dependencia de destino del enlace.</param>
+        /// <param name="source">Orígen del enlace.</param>
+        /// <param name="sourceDp">Propiedad de dependencia de destino del enlace.</param>
+        /// <param name="mode">Modo del enlace.</param>
+        public static void Bind(this FrameworkElement obj, DependencyProperty targetDp, object source, DependencyProperty sourceDp, BindingMode mode)
+        {
+            obj.SetBinding(targetDp, new Binding
+            {
+                Path = new PropertyPath(sourceDp),
+                Mode = mode,
+                Source = source
+            });
+        }
+
+        /// <summary>
+        ///     Ejecuta una llamada de API para establecer un efecto de dibujo
+        ///     aplicado al fondo de la ventana.
+        /// </summary>
+        /// <param name="window">
+        ///     Ventana a la cual cambiar los efectos de dibujo del fondo.
+        /// </param>
+        /// <param name="state">
+        ///     Estado de acento (efecto) a aplicar al fondo de la ventana.
+        /// </param>
+        private static void SetWindowEffect(Window window, AccentState state)
         {
             var windowHelper = new WindowInteropHelper(window);
             var accent = new AccentPolicy { AccentState = state };
@@ -68,6 +170,7 @@ namespace TheXDS.MCART
             Marshal.FreeHGlobal(accentPtr);
         }
 
+        [SuppressMessage("ReSharper", "InconsistentNaming")]
         private enum WindowCompositionAttribute
         {
             // ...
@@ -75,6 +178,7 @@ namespace TheXDS.MCART
             // ...
         }
 
+        [SuppressMessage("ReSharper", "InconsistentNaming")]
         private enum AccentState
         {
             ACCENT_DISABLED = 0,
@@ -84,6 +188,9 @@ namespace TheXDS.MCART
             ACCENT_INVALID_STATE = 4
         }
 
+        /// <summary>
+        /// Estructura de control de colores originales.
+        /// </summary>
         private struct OrigControlColor
         {
             /// <summary>
@@ -122,12 +229,12 @@ namespace TheXDS.MCART
         /// Habilita los efectos de difuminado de Windows 10 en la ventana de WPF.
         /// </summary>
         /// <param name="window">Instancia de ventana a difuminar.</param>
-        public static void EnableBlur(this Window window) => SetBlur(window, AccentState.ACCENT_ENABLE_BLURBEHIND);
+        public static void EnableBlur(this Window window) => SetWindowEffect(window, AccentState.ACCENT_ENABLE_BLURBEHIND);
         /// <summary>
         /// Deshabilita los efectos de difuminado de Windows 10 en la ventana de WPF.
         /// </summary>
         /// <param name="window">Instancia de ventana a difuminar.</param>
-        public static void DisableBlur(this Window window) => SetBlur(window, AccentState.ACCENT_DISABLED);
+        public static void DisableBlur(this Window window) => SetWindowEffect(window, AccentState.ACCENT_DISABLED);
         /// <summary>
         /// Devuelve una colección de los códecs de mapas de bits disponibles.
         /// Soporta cargar códecs desde cualquier ensamblado cargado.
@@ -136,31 +243,11 @@ namespace TheXDS.MCART
         /// Una lista con una nueva instancia de todos los códecs de mapa de
         /// bits disponibles.
         /// </returns>
-        public static IReadOnlyCollection<BitmapEncoder> GetBitmapEncoders()
+        public static IEnumerable<BitmapEncoder> GetBitmapEncoders()
         {
-            if (_bEncLst?.Any() ?? false) return _bEncLst.AsReadOnly();
-            _bEncLst = new List<BitmapEncoder>();
-            var t = typeof(BitmapEncoder);
-            foreach (var j in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                foreach (var k in j.GetTypes().Where(
-                    x => t.IsAssignableFrom(x) && !x.IsAbstract && !x.IsInterface))
-                    _bEncLst.Add(k.New<BitmapEncoder>());
-            }
-            return _bEncLst.AsReadOnly();
+            return Objects.GetTypes<BitmapEncoder>(true).Select(p => p.New<BitmapEncoder>());
         }
-        /// <summary>
-        /// Limpia la lista en caché de los <see cref="BitmapEncoder"/>
-        /// cargados desde el <see cref="AppDomain"/> actual.
-        /// </summary>
-        public static void FlushBitmapEncoders()
-        {
-            if (_bEncLst is null) return;
-            foreach (var j in _bEncLst.OfType<IDisposable>()) j.Dispose();
-            _bEncLst.Clear();
-            _bEncLst = null;
-            GC.Collect();
-        }
+
         /// <summary>
         /// Obtiene una imagen a partir de un <see cref="Stream"/>.
         /// </summary>

@@ -35,6 +35,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{D34D6209-75E9-495C-A672-3C3D04EC7A26}"
 	ProjectSection(SolutionItems) = preProject
 		Documentation\AUTHORS = Documentation\AUTHORS
+		BUGS.md = BUGS.md
 		Documentation\CHANGELOG.md = Documentation\CHANGELOG.md
 		CONTRIBUTING.md = CONTRIBUTING.md
 		LICENSE = LICENSE

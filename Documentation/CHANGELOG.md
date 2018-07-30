@@ -165,7 +165,7 @@
 
 ## MCART 0.8 Series
 ### HightLights
-- MCART ha cambiado sus implementaciones para cumplir al 100% con la especificación CLS.
+- MCART está cambiando sus implementaciones para cumplir al 100% con la especificación CLS.
 - MCART ahora será publicado en NuGet.
 ### Cambios
 * Nuevo: Soporte para objetos de extracción de recursos incrustados
@@ -175,7 +175,8 @@
 * Nuevo: Extensiones para MemberInfo
 * Mejorado: Reescritura parcial de MCART
 * Mejorado: Soporte de plugins parcialmente rescrito (nuevamente).
+* Cambiado: Reorganización de los espacios de nombre.
 * Cambiado: Todos los espacios de nombres respetan la convención estándar de la especificación CLS.
 * Cambiado: Información de ensamblado de los ejemplos de MCART unificados.
 * Quitado: TaskReporter
-* Deprecado: Gtk y Win32
+* Deprecado: Gtk y Win32 han sido deprecados temporalmente.

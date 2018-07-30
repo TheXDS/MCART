@@ -29,28 +29,35 @@ using System.IO;
 using System.Linq;
 using TheXDS.MCART.Attributes;
 using System.Reflection;
+using System.Threading.Tasks;
+using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 using St = TheXDS.MCART.Resources.Strings;
+// ReSharper disable UnusedMember.Global
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace TheXDS.MCART.PluginSupport
 {
+    /// <inheritdoc />
     /// <summary>
     /// Permite cargar clases que implementen la interfaz
-    /// <see cref="IPlugin"/>.
+    /// <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />.
     /// </summary>
     public class PluginLoader : IPluginLoader
     {
-        const string defaultPluginExtension = ".dll";
-        readonly string extension;
-        readonly IPluginChecker checker;
+        private const string DefaultPluginExtension = ".dll";
+        private readonly string _extension;
+        private readonly IPluginChecker _checker;
+        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
-        /// <see cref="PluginLoader"/> utilizando el verificador
+        /// <see cref="T:TheXDS.MCART.PluginSupport.PluginLoader" /> utilizando el verificador
         /// predeterminado.
         /// </summary>
-        public PluginLoader() : this(new DefaultPluginChecker(), defaultPluginExtension) { }
+        public PluginLoader() : this(new DefaultPluginChecker(), DefaultPluginExtension) { }
+        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
-        /// <see cref="PluginLoader"/> utilizando el verificador
+        /// <see cref="T:TheXDS.MCART.PluginSupport.PluginLoader" /> utilizando el verificador
         /// predeterminado.
         /// </summary>
         /// <param name="pluginExtension">
@@ -58,25 +65,27 @@ namespace TheXDS.MCART.PluginSupport
         /// plugins.
         /// </param>
         public PluginLoader(string pluginExtension) : this(new StrictPluginChecker(), pluginExtension) { }
+        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
-        /// <see cref="PluginLoader"/> utilizando el
-        /// <see cref="IPluginChecker"/> y la extensión de plugins
+        /// <see cref="T:TheXDS.MCART.PluginSupport.PluginLoader" /> utilizando el
+        /// <see cref="T:TheXDS.MCART.PluginSupport.IPluginChecker" /> y la extensión de plugins
         /// especificada.
         /// </summary>
         /// <param name="pluginChecker">
-        /// <see cref="IPluginChecker"/> a utilizar para compropbar la
+        /// <see cref="T:TheXDS.MCART.PluginSupport.IPluginChecker" /> a utilizar para compropbar la
         /// compatilibilidad de los plugins.
         /// </param>
-        public PluginLoader(IPluginChecker pluginChecker) : this(pluginChecker, SanityChecks.Default, defaultPluginExtension) { }
+        public PluginLoader(IPluginChecker pluginChecker) : this(pluginChecker, SanityChecks.Default, DefaultPluginExtension) { }
+        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
-        /// <see cref="PluginLoader"/> utilizando el
-        /// <see cref="IPluginChecker"/> y la extensión de plugins
+        /// <see cref="T:TheXDS.MCART.PluginSupport.PluginLoader" /> utilizando el
+        /// <see cref="T:TheXDS.MCART.PluginSupport.IPluginChecker" /> y la extensión de plugins
         /// especificada.
         /// </summary>
         /// <param name="pluginChecker">
-        /// <see cref="IPluginChecker"/> a utilizar para compropbar la
+        /// <see cref="T:TheXDS.MCART.PluginSupport.IPluginChecker" /> a utilizar para compropbar la
         /// compatilibilidad de los plugins.
         /// </param>
         /// <param name="pluginExtension">
@@ -84,40 +93,41 @@ namespace TheXDS.MCART.PluginSupport
         /// plugins.
         /// </param>
         public PluginLoader(IPluginChecker pluginChecker, string pluginExtension) : this(pluginChecker, SanityChecks.Default, pluginExtension) { }
+        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
-        /// <see cref="PluginLoader"/> utilizando el
-        /// <see cref="IPluginChecker"/> y la extensión de plugins
+        /// <see cref="T:TheXDS.MCART.PluginSupport.PluginLoader" /> utilizando el
+        /// <see cref="T:TheXDS.MCART.PluginSupport.IPluginChecker" /> y la extensión de plugins
         /// especificada.
         /// </summary>
         /// <param name="pluginChecker">
-        /// <see cref="IPluginChecker"/> a utilizar para compropbar la
+        /// <see cref="T:TheXDS.MCART.PluginSupport.IPluginChecker" /> a utilizar para compropbar la
         /// compatilibilidad de los plugins.
         /// </param>
         /// <param name="sanityChecks">
         /// Omite las comprobaciones de peligrosidad de los
-        /// <see cref="Plugin"/> y sus miembros.
+        /// <see cref="T:TheXDS.MCART.PluginSupport.Plugin" /> y sus miembros.
         /// </param>
-        /// <exception cref="DangerousMethodException">
-        /// Se produce si <paramref name="sanityChecks"/> contiene un valor que
-        /// ha sido marcado con el atributo <see cref="DangerousAttribute"/>.
+        /// <exception cref="T:TheXDS.MCART.Exceptions.DangerousMethodException">
+        /// Se produce si <paramref name="sanityChecks" /> contiene un valor que
+        /// ha sido marcado con el atributo <see cref="T:TheXDS.MCART.Attributes.DangerousAttribute" />.
         /// </exception>
-        /// <exception cref="DangerousTypeException">
-        /// Se produce si <paramref name="sanityChecks"/> no contiene la
-        /// bandera <see cref="SanityChecks.IgnoreDanger"/> y el
-        /// <paramref name="pluginChecker"/> a utilizar fue marcado en su 
-        /// declaración con el atributo <see cref="DangerousAttribute"/>.
+        /// <exception cref="T:TheXDS.MCART.Exceptions.DangerousTypeException">
+        /// Se produce si <paramref name="sanityChecks" /> no contiene la
+        /// bandera <see cref="F:TheXDS.MCART.SanityChecks.IgnoreDanger" /> y el
+        /// <paramref name="pluginChecker" /> a utilizar fue marcado en su 
+        /// declaración con el atributo <see cref="T:TheXDS.MCART.Attributes.DangerousAttribute" />.
         /// </exception>
-        /// <exception cref="UnusableObjectException">
-        /// Se produce si <paramref name="sanityChecks"/> no contiene la
-        /// bandera <see cref="SanityChecks.IgnoreUnusable"/> y el
-        /// <paramref name="pluginChecker"/> a utilizar fue marcado en su 
-        /// declaración con el atributo <see cref="UnusableAttribute"/>.
+        /// <exception cref="T:TheXDS.MCART.Exceptions.UnusableObjectException">
+        /// Se produce si <paramref name="sanityChecks" /> no contiene la
+        /// bandera <see cref="F:TheXDS.MCART.SanityChecks.IgnoreUnusable" /> y el
+        /// <paramref name="pluginChecker" /> a utilizar fue marcado en su 
+        /// declaración con el atributo <see cref="T:TheXDS.MCART.Attributes.UnusableAttribute" />.
         /// </exception>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="pluginChecker"/> es <see langword="null"/>.
+        /// <exception cref="T:System.ArgumentNullException">
+        /// Se produce si <paramref name="pluginChecker" /> es <see langword="null" />.
         /// </exception>
-        public PluginLoader(IPluginChecker pluginChecker, SanityChecks sanityChecks) : this(pluginChecker, sanityChecks, defaultPluginExtension) { }
+        public PluginLoader(IPluginChecker pluginChecker, SanityChecks sanityChecks) : this(pluginChecker, sanityChecks, DefaultPluginExtension) { }
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="PluginLoader"/> utilizando el
@@ -160,10 +170,10 @@ namespace TheXDS.MCART.PluginSupport
 #if CheckDanger
             if (sanityChecks.HasAttr<DangerousAttribute>()) throw new DangerousMethodException();
 #endif
-            checker = pluginChecker ?? throw new ArgumentNullException(nameof(pluginChecker));
-            if (!sanityChecks.HasFlag(SanityChecks.IgnoreDanger) && checker.HasAttr<DangerousAttribute>()) throw new DangerousTypeException(pluginChecker.GetType());
-            if (!sanityChecks.HasFlag(SanityChecks.IgnoreUnusable) && checker.HasAttr<UnusableAttribute>()) throw new UnusableObjectException(pluginChecker);
-            extension = pluginExtension;
+            _checker = pluginChecker ?? throw new ArgumentNullException(nameof(pluginChecker));
+            if (!sanityChecks.HasFlag(SanityChecks.IgnoreDanger) && _checker.HasAttr<DangerousAttribute>()) throw new DangerousTypeException(pluginChecker.GetType());
+            if (!sanityChecks.HasFlag(SanityChecks.IgnoreUnusable) && _checker.HasAttr<UnusableAttribute>()) throw new UnusableObjectException(pluginChecker);
+            _extension = pluginExtension;
         }
         /// <summary>
         /// Carga una clase de tipo <typeparamref name="T"/> contenida en el
@@ -208,29 +218,30 @@ namespace TheXDS.MCART.PluginSupport
         /// <typeparamref name="T"/>.
         /// </exception>
         public T Load<T>(string asmPath) where T : class => Load<T>(Assembly.LoadFrom(asmPath));
+        /// <inheritdoc />
         /// <summary>
-        /// Carga una clase de tipo <typeparamref name="T"/> contenida en el
+        /// Carga una clase de tipo <typeparamref name="T" /> contenida en el
         /// ensamblado especificado.
         /// </summary>
         /// <returns>
-        /// Un <see cref="IPlugin"/> de tipo <typeparamref name="T"/>.
+        /// Un <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" /> de tipo <typeparamref name="T" />.
         /// </returns>
-        /// <param name="assembly"><see cref="Assembly"/> a cargar.</param>
+        /// <param name="assembly"><see cref="T:System.Reflection.Assembly" /> a cargar.</param>
         /// <typeparam name="T">Clase a cargar.</typeparam>
-        /// <exception cref="NotPluginException">
+        /// <exception cref="T:TheXDS.MCART.Exceptions.NotPluginException">
         /// Se produce si el ensamblado no contiene ninguna clase cargable como
-        /// <see cref="IPlugin"/>.
+        /// <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />.
         /// </exception>
-        /// <exception cref="PluginClassNotFoundException">
+        /// <exception cref="T:TheXDS.MCART.Exceptions.PluginClassNotFoundException">
         /// Se produce si el ensamblado no contiene ninguna clase cargable como
-        /// <typeparamref name="T"/>.
+        /// <typeparamref name="T" />.
         /// </exception>
         public T Load<T>(Assembly assembly) where T : class
         {
-            if (!checker.IsVaild(assembly)) throw new NotPluginException(assembly);
+            if (!_checker.IsVaild(assembly)) throw new NotPluginException(assembly);
             return assembly.GetTypes().FirstOrDefault(p =>
-                checker.IsVaild(p)
-                && (checker.IsCompatible(p) ?? false)
+                _checker.IsVaild(p)
+                && (_checker.IsCompatible(p) ?? false)
                 && typeof(T).IsAssignableFrom(p)
                 )?.New<T>() ?? throw new PluginClassNotFoundException(typeof(T));
         }
@@ -249,30 +260,32 @@ namespace TheXDS.MCART.PluginSupport
         /// Se produce si el archivo del ensamblado no ha sido encontrado.
         /// </exception>
         public IEnumerable<T> LoadAll<T>(string asmPath) where T : class => LoadAll(Assembly.LoadFrom(asmPath)).OfType<T>();
+        /// <inheritdoc />
         /// <summary>
-        /// Carga todos los <see cref="IPlugin"/> contenidos en el ensamblado.
+        /// Carga todos los <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" /> contenidos en el ensamblado.
         /// </summary>
         /// <returns>
-        /// Un <see cref="IEnumerable{T}"/> con los <see cref="IPlugin"/>
+        /// Un <see cref="T:System.Collections.Generic.IEnumerable`1" /> con los <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />
         /// encontrados.
         /// </returns>
-        /// <param name="assembly"><see cref="Assembly"/> a cargar.</param>
+        /// <param name="assembly"><see cref="T:System.Reflection.Assembly" /> a cargar.</param>
         /// <typeparam name="T">
-        /// Tipo de <see cref="IPlugin"/> a cargar.
+        /// Tipo de <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" /> a cargar.
         /// </typeparam>
-        /// <exception cref="NotPluginException">
-        /// Se produce si <paramref name="assembly"/> no contiene clases cargables
-        /// como <see cref="IPlugin"/>. 
+        /// <exception cref="T:TheXDS.MCART.Exceptions.NotPluginException">
+        /// Se produce si <paramref name="assembly" /> no contiene clases cargables
+        /// como <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />. 
         /// </exception>
         public IEnumerable<T> LoadAll<T>(Assembly assembly) where T : class => LoadAll(assembly).OfType<T>();
+        /// <inheritdoc />
         /// <summary>
-        /// Carga todos los <see cref="IPlugin"/> contenidos en el ensamblado.
+        /// Carga todos los <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" /> contenidos en el ensamblado.
         /// </summary>
         /// <returns>
-        /// Un <see cref="IEnumerable{T}"/> con los <see cref="IPlugin"/>
+        /// Un <see cref="T:System.Collections.Generic.IEnumerable`1" /> con los <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />
         /// encontrados.
         /// </returns>
-        /// <param name="assembly"><see cref="Assembly"/> a cargar.</param>
+        /// <param name="assembly"><see cref="T:System.Reflection.Assembly" /> a cargar.</param>
 #if PreferExceptions
         /// <exception cref="NotPluginException">
         /// Se produce si <paramref name="assembly"/> no contiene clases cargables
@@ -284,12 +297,12 @@ namespace TheXDS.MCART.PluginSupport
 #if PreferExceptions
             if (!checker.IsVaild(assembly)) throw new NotPluginException(assembly);
 #else
-            if (checker.IsVaild(assembly))
+            if (_checker.IsVaild(assembly))
 #endif
             {
                 foreach (var j in assembly.GetTypes().Where(p =>
-                checker.IsVaild(p)
-                && (checker.IsCompatible(p) ?? false)))
+                _checker.IsVaild(p)
+                && (_checker.IsCompatible(p) ?? false)))
                     yield return j.New() as IPlugin;
             }
         }
@@ -387,7 +400,7 @@ namespace TheXDS.MCART.PluginSupport
         public IEnumerable<T> LoadEverything<T>(string pluginsPath, SearchOption search) where T : class
         {
             if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
-            foreach (var f in (new DirectoryInfo(pluginsPath)).GetFiles($"*{extension}", search))
+            foreach (var f in new DirectoryInfo(pluginsPath).GetFiles($"*{_extension}", search))
             {
                 Assembly a = null;
                 try { a = Assembly.LoadFrom(f.FullName); }
@@ -512,12 +525,12 @@ namespace TheXDS.MCART.PluginSupport
         public IEnumerable<FileInfo> Dir<T>(string pluginsPath, SearchOption search) where T : class
         {
             if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
-            foreach (var f in (new DirectoryInfo(pluginsPath)).GetFiles($"*{extension}", search))
+            foreach (var f in (new DirectoryInfo(pluginsPath)).GetFiles($"*{_extension}", search))
             {
                 Assembly a = null;
                 try { a = Assembly.LoadFrom(f.FullName); }
                 catch { }
-                if (checker.Has<T>(a)) yield return f;
+                if (_checker.Has<T>(a)) yield return f;
             }
         }
         /// <summary>
@@ -654,12 +667,12 @@ namespace TheXDS.MCART.PluginSupport
         {
             if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
             Dictionary<string, IEnumerable<T>> outp = new Dictionary<string, IEnumerable<T>>();
-            foreach (FileInfo f in (new DirectoryInfo(pluginsPath)).GetFiles(searchPattern + extension, search))
+            foreach (FileInfo f in (new DirectoryInfo(pluginsPath)).GetFiles(searchPattern + _extension, search))
             {
                 try
                 {
                     Assembly a = Assembly.LoadFrom(f.FullName);
-                    if (checker.IsVaild(a)) outp.Add(f.Name, LoadAll<T>(a));
+                    if (_checker.IsVaild(a)) outp.Add(f.Name, LoadAll<T>(a));
                 }
                 catch (Exception ex) { System.Diagnostics.Debug.Print(ex.Message); }
             }

@@ -55,7 +55,7 @@
   </HelpKINode>
   <HelpKINode Title="AddRange method" Url="html/M_TheXDS_MCART_Types_Extensions_List_1_AddRange.htm" />
   <HelpKINode Title="AddRow method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_AddRow.htm" />
-  <HelpKINode Title="AddTable method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_AddTable.htm" />
+  <HelpKINode Title="AddTable method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_AddTable.htm" />
   <HelpKINode Title="AdverseHigh enumeration member" Url="html/T_TheXDS_MCART_Security_Password_PonderationLevel.htm" />
   <HelpKINode Title="AdverseHigher enumeration member" Url="html/T_TheXDS_MCART_Security_Password_PonderationLevel.htm" />
   <HelpKINode Title="AdverseHighest enumeration member" Url="html/T_TheXDS_MCART_Security_Password_PonderationLevel.htm" />
@@ -135,7 +135,7 @@
   <HelpKINode Title="Aquamarine property" Url="html/P_TheXDS_MCART_Resources_Colors_Aquamarine.htm" />
   <HelpKINode Title="Aquamarine2 property" Url="html/P_TheXDS_MCART_Resources_Colors_Aquamarine2.htm" />
   <HelpKINode Title="Aquamarine4 property" Url="html/P_TheXDS_MCART_Resources_Colors_Aquamarine4.htm" />
-  <HelpKINode Title="AreAllAssignable method" Url="html/Overload_TheXDS_MCART_Objects_AreAllAssignable.htm" />
+  <HelpKINode Title="AreAllAssignable method" Url="html/Overload_TheXDS_MCART_Types_Extensions_TypeExtensions_AreAllAssignable.htm" />
   <HelpKINode Title="AreAllNull method" Url="html/Overload_TheXDS_MCART_Objects_AreAllNull.htm" />
   <HelpKINode Title="AreClose method" Url="html/Overload_TheXDS_MCART_Types_Color_AreClose.htm" />
   <HelpKINode Title="AreNegative method" Url="html/Overload_TheXDS_MCART_Math_Algebra_AreNegative.htm" />
@@ -162,7 +162,7 @@
   <HelpKINode Title="AssemblyUnpacker&lt;T&gt;.AssemblyUnpacker constructor" Url="html/M_TheXDS_MCART_Resources_AssemblyUnpacker_1__ctor.htm" />
   <HelpKINode Title="AssemblyUnpacker&lt;T&gt;.Unpack method" Url="html/Overload_TheXDS_MCART_Resources_AssemblyUnpacker_1_Unpack.htm" />
   <HelpKINode Title="AssemblyUnpacker&lt;T&gt;.UnpackStream method" Url="html/Overload_TheXDS_MCART_Resources_AssemblyUnpacker_1_UnpackStream.htm" />
-  <HelpKINode Title="Assignables method" Url="html/Overload_TheXDS_MCART_Objects_Assignables.htm" />
+  <HelpKINode Title="Assignables method" Url="html/Overload_TheXDS_MCART_Types_Extensions_TypeExtensions_Assignables.htm" />
   <HelpKINode Title="Assmblies field" Url="html/F_TheXDS_MCART_Resources_Strings_Assmblies.htm" />
   <HelpKINode Title="AtConnect method" Url="html/M_TheXDS_MCART_Networking_Client_Client_AtConnect.htm" />
   <HelpKINode Title="AtDisconnect method" Url="html/M_TheXDS_MCART_Networking_Client_Client_AtDisconnect.htm" />
@@ -213,6 +213,7 @@
   <HelpKINode Title="BGR332 class">
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Color_BGR332.htm" />
   </HelpKINode>
+  <HelpKINode Title="Bind method" Url="html/Overload_TheXDS_MCART_UI_Bind.htm" />
   <HelpKINode Title="Bisque property" Url="html/P_TheXDS_MCART_Resources_Colors_Bisque.htm" />
   <HelpKINode Title="Bisque2 property" Url="html/P_TheXDS_MCART_Resources_Colors_Bisque2.htm" />
   <HelpKINode Title="Bisque3 property" Url="html/P_TheXDS_MCART_Resources_Colors_Bisque3.htm" />
@@ -362,6 +363,9 @@
   <HelpKINode Title="Cancelling event" Url="html/E_TheXDS_MCART_Controls_NavigationBar_Cancelling.htm" />
   <HelpKINode Title="CantCreateInstance method" Url="html/M_TheXDS_MCART_Resources_Strings_CantCreateInstance.htm" />
   <HelpKINode Title="Carrot property" Url="html/P_TheXDS_MCART_Resources_Colors_Carrot.htm" />
+  <HelpKINode Title="Center(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Center__1.htm" />
+  <HelpKINode Title="Center&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Center__1.htm" />
+  <HelpKINode Title="CenterAll method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_CenterAll.htm" />
   <HelpKINode Title="Chars field" Url="html/F_TheXDS_MCART_Resources_Strings_Chars.htm" />
   <HelpKINode Title="Chartreuse property" Url="html/P_TheXDS_MCART_Resources_Colors_Chartreuse.htm" />
   <HelpKINode Title="Chartreuse2 property" Url="html/P_TheXDS_MCART_Resources_Colors_Chartreuse2.htm" />
@@ -387,10 +391,10 @@
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Networking_Server_Client__ctor.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Networking_Client_Client__ctor.htm" />
     <HelpKINode Title="fields" Url="html/Fields_T_TheXDS_MCART_Networking_Client_Client.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_Server_Client.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_Client_Client.htm" />
-    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Networking_Server_Client.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_Server_Client.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Networking_Client_Client.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Networking_Server_Client.htm" />
   </HelpKINode>
   <HelpKINode Title="Client(Of T) class">
     <HelpKINode Title="Client(T) (Clase)" Url="html/T_TheXDS_MCART_Networking_Server_Client_1.htm" />
@@ -418,8 +422,8 @@
   </HelpKINode>
   <HelpKINode Title="Client.Finalize method" Url="html/M_TheXDS_MCART_Networking_Client_Client_Finalize.htm" />
   <HelpKINode Title="Client.IsAlive property">
-    <HelpKINode Title="Client.IsAlive (Propiedad )" Url="html/P_TheXDS_MCART_Networking_Client_Client_IsAlive.htm" />
     <HelpKINode Title="Client.IsAlive (Propiedad )" Url="html/P_TheXDS_MCART_Networking_Server_Client_IsAlive.htm" />
+    <HelpKINode Title="Client.IsAlive (Propiedad )" Url="html/P_TheXDS_MCART_Networking_Client_Client_IsAlive.htm" />
   </HelpKINode>
   <HelpKINode Title="Client.Receive method" Url="html/M_TheXDS_MCART_Networking_Server_Client_Receive.htm" />
   <HelpKINode Title="Client.RecieveAsync method" Url="html/Overload_TheXDS_MCART_Networking_Server_Client_RecieveAsync.htm" />
@@ -487,10 +491,10 @@
   </HelpKINode>
   <HelpKINode Title="Color to Brush conversion" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_3.htm" />
   <HelpKINode Title="Color to Color conversion">
-    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_4.htm" />
-    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_1.htm" />
-    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit.htm" />
     <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_2.htm" />
+    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit.htm" />
+    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_1.htm" />
+    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_4.htm" />
   </HelpKINode>
   <HelpKINode Title="Color.A property" Url="html/P_TheXDS_MCART_Types_Color_A.htm" />
   <HelpKINode Title="Color.Addition operator" Url="html/M_TheXDS_MCART_Types_Color_op_Addition.htm" />
@@ -1102,10 +1106,10 @@
   <HelpKINode Title="ColumnWidth method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_ColumnWidth.htm" />
   <HelpKINode Title="ColumnWidths method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_ColumnWidths.htm" />
   <HelpKINode Title="Common class">
-    <HelpKINode Title="Common (Clase)" Url="html/T_TheXDS_MCART_Common.htm" />
     <HelpKINode Title="Common (Clase)" Url="html/T_TheXDS_MCART_Math_Common.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Math_Common.htm" />
+    <HelpKINode Title="Common (Clase)" Url="html/T_TheXDS_MCART_Common.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Common.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Math_Common.htm" />
   </HelpKINode>
   <HelpKINode Title="Common.AllEmpty method" Url="html/Overload_TheXDS_MCART_Common_AllEmpty.htm" />
   <HelpKINode Title="Common.AnyEmpty method" Url="html/Overload_TheXDS_MCART_Common_AnyEmpty.htm" />
@@ -1118,8 +1122,10 @@
   <HelpKINode Title="Common.FindConverter method" Url="html/Overload_TheXDS_MCART_Common_FindConverter.htm" />
   <HelpKINode Title="Common.FlipEndianess method" Url="html/Overload_TheXDS_MCART_Common_FlipEndianess.htm" />
   <HelpKINode Title="Common.IsBetween method" Url="html/Overload_TheXDS_MCART_Common_IsBetween.htm" />
+  <HelpKINode Title="Common.IsBinary method" Url="html/M_TheXDS_MCART_Common_IsBinary.htm" />
   <HelpKINode Title="Common.IsEmpty method" Url="html/M_TheXDS_MCART_Common_IsEmpty.htm" />
   <HelpKINode Title="Common.IsFormattedAs method" Url="html/Overload_TheXDS_MCART_Common_IsFormattedAs.htm" />
+  <HelpKINode Title="Common.IsHex method" Url="html/M_TheXDS_MCART_Common_IsHex.htm" />
   <HelpKINode Title="Common.Left method" Url="html/M_TheXDS_MCART_Common_Left.htm" />
   <HelpKINode Title="Common.Likeness method" Url="html/Overload_TheXDS_MCART_Common_Likeness.htm" />
   <HelpKINode Title="Common.Listed method" Url="html/M_TheXDS_MCART_Common_Listed.htm" />
@@ -1553,6 +1559,8 @@
   </HelpKINode>
   <HelpKINode Title="EnumerableExtensions.Copy(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Copy__1.htm" />
   <HelpKINode Title="EnumerableExtensions.Copy&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Copy__1.htm" />
+  <HelpKINode Title="EnumerableExtensions.ExceptFor(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_ExceptFor__1.htm" />
+  <HelpKINode Title="EnumerableExtensions.ExceptFor&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_ExceptFor__1.htm" />
   <HelpKINode Title="EnumerableExtensions.Pick method" Url="html/Overload_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Pick.htm" />
   <HelpKINode Title="EnumerableExtensions.PickAsync(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_PickAsync__1.htm" />
   <HelpKINode Title="EnumerableExtensions.PickAsync&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_PickAsync__1.htm" />
@@ -1593,6 +1601,8 @@
   </HelpKINode>
   <HelpKINode Title="Evaluation property" Url="html/P_TheXDS_MCART_Security_Password_PwDialogResult_Evaluation.htm" />
   <HelpKINode Title="ExcDoingX method" Url="html/M_TheXDS_MCART_Resources_Strings_ExcDoingX.htm" />
+  <HelpKINode Title="ExceptFor(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_ExceptFor__1.htm" />
+  <HelpKINode Title="ExceptFor&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_ExceptFor__1.htm" />
   <HelpKINode Title="ExceptionEventArgs class">
     <HelpKINode Title="ExceptionEventArgs (Clase)" Url="html/T_TheXDS_MCART_Events_ExceptionEventArgs.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Events_ExceptionEventArgs__ctor.htm" />
@@ -1668,13 +1678,16 @@
   <HelpKINode Title="FlowDocumentFluentExtensions.AddCell method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_AddCell.htm" />
   <HelpKINode Title="FlowDocumentFluentExtensions.AddGroup method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_AddGroup.htm" />
   <HelpKINode Title="FlowDocumentFluentExtensions.AddRow method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_AddRow.htm" />
-  <HelpKINode Title="FlowDocumentFluentExtensions.AddTable method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_AddTable.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.AddTable method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_AddTable.htm" />
   <HelpKINode Title="FlowDocumentFluentExtensions.Background(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Background__1.htm" />
   <HelpKINode Title="FlowDocumentFluentExtensions.Background&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Background__1.htm" />
   <HelpKINode Title="FlowDocumentFluentExtensions.Bold(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Bold__1.htm" />
   <HelpKINode Title="FlowDocumentFluentExtensions.Bold&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Bold__1.htm" />
   <HelpKINode Title="FlowDocumentFluentExtensions.Border method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Border.htm" />
   <HelpKINode Title="FlowDocumentFluentExtensions.Borders method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Borders.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Center(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Center__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Center&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Center__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.CenterAll method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_CenterAll.htm" />
   <HelpKINode Title="FlowDocumentFluentExtensions.ColumnBackgound method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_ColumnBackgound.htm" />
   <HelpKINode Title="FlowDocumentFluentExtensions.ColumnSpan method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_ColumnSpan.htm" />
   <HelpKINode Title="FlowDocumentFluentExtensions.ColumnWidth method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_ColumnWidth.htm" />
@@ -1685,11 +1698,17 @@
   <HelpKINode Title="FlowDocumentFluentExtensions.Foreground(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Foreground__1.htm" />
   <HelpKINode Title="FlowDocumentFluentExtensions.Foreground&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Foreground__1.htm" />
   <HelpKINode Title="FlowDocumentFluentExtensions.Format method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Format.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Justify(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Justify__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Justify&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Justify__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Left(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Left__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Left&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Left__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.MakeTable method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_MakeTable.htm" />
   <HelpKINode Title="FlowDocumentFluentExtensions.Paragraph method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Paragraph.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Right(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Right__1.htm" />
+  <HelpKINode Title="FlowDocumentFluentExtensions.Right&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Right__1.htm" />
   <HelpKINode Title="FlowDocumentFluentExtensions.RowSpan method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_RowSpan.htm" />
   <HelpKINode Title="FlowDocumentFluentExtensions.Run method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Run.htm" />
   <HelpKINode Title="FlowDocumentFluentExtensions.Style method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Style.htm" />
-  <HelpKINode Title="FlowDocumentFluentExtensions.Table method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Table.htm" />
   <HelpKINode Title="FlowDocumentFluentExtensions.TableSelector(Of T) class">
     <HelpKINode Title="FlowDocumentFluentExtensions.TableSelector(T) (Clase)" Url="html/T_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TableSelector_1.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TableSelector_1__ctor.htm" />
@@ -1793,7 +1812,6 @@
   <HelpKINode Title="FlowDocumentFluentExtensions.TypographyStylisticSet9&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyStylisticSet9__1.htm" />
   <HelpKINode Title="FlowDocumentFluentExtensions.TypographyVariants(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyVariants__1.htm" />
   <HelpKINode Title="FlowDocumentFluentExtensions.TypographyVariants&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TypographyVariants__1.htm" />
-  <HelpKINode Title="FlushBitmapEncoders method" Url="html/M_TheXDS_MCART_UI_FlushBitmapEncoders.htm" />
   <HelpKINode Title="Foreground(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Foreground__1.htm" />
   <HelpKINode Title="Foreground&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Foreground__1.htm" />
   <HelpKINode Title="ForestGreen property" Url="html/P_TheXDS_MCART_Resources_Colors_ForestGreen.htm" />
@@ -1846,12 +1864,10 @@
   <HelpKINode Title="Generators.VeryComplex method" Url="html/Overload_TheXDS_MCART_Security_Password_Generators_VeryComplex.htm" />
   <HelpKINode Title="Geometry class">
     <HelpKINode Title="Geometry (Clase)" Url="html/T_TheXDS_MCART_Math_Geometry.htm" />
-    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Math_Geometry__ctor.htm" />
     <HelpKINode Title="fields" Url="html/Fields_T_TheXDS_MCART_Math_Geometry.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Math_Geometry.htm" />
   </HelpKINode>
   <HelpKINode Title="Geometry.DegRad field" Url="html/F_TheXDS_MCART_Math_Geometry_DegRad.htm" />
-  <HelpKINode Title="Geometry.Geometry constructor" Url="html/M_TheXDS_MCART_Math_Geometry__ctor.htm" />
   <HelpKINode Title="Geometry.GetArcPoint method" Url="html/M_TheXDS_MCART_Math_Geometry_GetArcPoint.htm" />
   <HelpKINode Title="Geometry.GetCirclePoint method" Url="html/M_TheXDS_MCART_Math_Geometry_GetCirclePoint.htm" />
   <HelpKINode Title="Geometry.GetQuadBezierPoint method" Url="html/M_TheXDS_MCART_Math_Geometry_GetQuadBezierPoint.htm" />
@@ -2062,6 +2078,7 @@
   </HelpKINode>
   <HelpKINode Title="ImageUnpacker.ImageUnpacker constructor" Url="html/M_TheXDS_MCART_Resources_ImageUnpacker__ctor.htm" />
   <HelpKINode Title="ImageUnpacker.Unpack method" Url="html/Overload_TheXDS_MCART_Resources_ImageUnpacker_Unpack.htm" />
+  <HelpKINode Title="Implements method" Url="html/Overload_TheXDS_MCART_Types_Extensions_TypeExtensions_Implements.htm" />
   <HelpKINode Title="ImplInterfaces field" Url="html/F_TheXDS_MCART_Resources_Strings_ImplInterfaces.htm" />
   <HelpKINode Title="Include method" Url="html/M_TheXDS_MCART_Resources_Strings_Include.htm" />
   <HelpKINode Title="Includes method" Url="html/M_TheXDS_MCART_Resources_Strings_Includes.htm" />
@@ -2329,11 +2346,11 @@
   <HelpKINode Title="IronOxideGlass property" Url="html/P_TheXDS_MCART_Resources_Colors_IronOxideGlass.htm" />
   <HelpKINode Title="Is method" Url="html/M_TheXDS_MCART_Objects_Is.htm" />
   <HelpKINode Title="IsAlive property">
-    <HelpKINode Title="Client.IsAlive (Propiedad )" Url="html/P_TheXDS_MCART_Networking_Server_Client_IsAlive.htm" />
     <HelpKINode Title="Client.IsAlive (Propiedad )" Url="html/P_TheXDS_MCART_Networking_Client_Client_IsAlive.htm" />
+    <HelpKINode Title="Client.IsAlive (Propiedad )" Url="html/P_TheXDS_MCART_Networking_Server_Client_IsAlive.htm" />
     <HelpKINode Title="Server(TClient).IsAlive (Propiedad )" Url="html/P_TheXDS_MCART_Networking_Server_Server_1_IsAlive.htm" />
   </HelpKINode>
-  <HelpKINode Title="IsAnyAssignable method" Url="html/Overload_TheXDS_MCART_Objects_IsAnyAssignable.htm" />
+  <HelpKINode Title="IsAnyAssignable method" Url="html/Overload_TheXDS_MCART_Types_Extensions_TypeExtensions_IsAnyAssignable.htm" />
   <HelpKINode Title="IsAnyNull method" Url="html/Overload_TheXDS_MCART_Objects_IsAnyNull.htm" />
   <HelpKINode Title="IsBeta field" Url="html/F_TheXDS_MCART_Resources_Strings_IsBeta.htm" />
   <HelpKINode Title="IsBeta property">
@@ -2341,6 +2358,7 @@
     <HelpKINode Title="Plugin.IsBeta (Propiedad )" Url="html/P_TheXDS_MCART_PluginSupport_Plugin_IsBeta.htm" />
   </HelpKINode>
   <HelpKINode Title="IsBetween method" Url="html/Overload_TheXDS_MCART_Common_IsBetween.htm" />
+  <HelpKINode Title="IsBinary method" Url="html/M_TheXDS_MCART_Common_IsBinary.htm" />
   <HelpKINode Title="IsCompatible method">
     <HelpKINode Title="DefaultPluginChecker.IsCompatible (M&#233;todo )" Url="html/M_TheXDS_MCART_PluginSupport_DefaultPluginChecker_IsCompatible.htm" />
     <HelpKINode Title="IPluginChecker.IsCompatible (M&#233;todo )" Url="html/M_TheXDS_MCART_PluginSupport_IPluginChecker_IsCompatible.htm" />
@@ -2355,8 +2373,10 @@
   <HelpKINode Title="IsEmpty method" Url="html/M_TheXDS_MCART_Common_IsEmpty.htm" />
   <HelpKINode Title="IsExtraPoints property" Url="html/P_TheXDS_MCART_Security_Password_PwEvalRule_IsExtraPoints.htm" />
   <HelpKINode Title="IsFormattedAs method" Url="html/Overload_TheXDS_MCART_Common_IsFormattedAs.htm" />
+  <HelpKINode Title="IsHex method" Url="html/M_TheXDS_MCART_Common_IsHex.htm" />
   <HelpKINode Title="IsIndeterminate property" Url="html/P_TheXDS_MCART_Controls_ProgressRing_IsIndeterminate.htm" />
   <HelpKINode Title="IsIndeterminateProperty field" Url="html/F_TheXDS_MCART_Controls_ProgressRing_IsIndeterminateProperty.htm" />
+  <HelpKINode Title="IsInstantiable method" Url="html/Overload_TheXDS_MCART_Types_Extensions_TypeExtensions_IsInstantiable.htm" />
   <HelpKINode Title="ISliceGraph interface">
     <HelpKINode Title="ISliceGraph (Interfaz)" Url="html/T_TheXDS_MCART_Controls_ISliceGraph.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Controls_ISliceGraph.htm" />
@@ -2478,6 +2498,8 @@
   <HelpKINode Title="Ivory4 property" Url="html/P_TheXDS_MCART_Resources_Colors_Ivory4.htm" />
   <HelpKINode Title="IvoryBlack property" Url="html/P_TheXDS_MCART_Resources_Colors_IvoryBlack.htm" />
   <HelpKINode Title="JustConfirm enumeration member" Url="html/T_TheXDS_MCART_Security_Password_PwMode.htm" />
+  <HelpKINode Title="Justify(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Justify__1.htm" />
+  <HelpKINode Title="Justify&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Justify__1.htm" />
   <HelpKINode Title="Khaki property" Url="html/P_TheXDS_MCART_Resources_Colors_Khaki.htm" />
   <HelpKINode Title="Khaki1 property" Url="html/P_TheXDS_MCART_Resources_Colors_Khaki1.htm" />
   <HelpKINode Title="Khaki2 property" Url="html/P_TheXDS_MCART_Resources_Colors_Khaki2.htm" />
@@ -2499,6 +2521,8 @@
   <HelpKINode Title="LavenderBlush4 property" Url="html/P_TheXDS_MCART_Resources_Colors_LavenderBlush4.htm" />
   <HelpKINode Title="LawnGreen property" Url="html/P_TheXDS_MCART_Resources_Colors_LawnGreen.htm" />
   <HelpKINode Title="Left method" Url="html/M_TheXDS_MCART_Common_Left.htm" />
+  <HelpKINode Title="Left(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Left__1.htm" />
+  <HelpKINode Title="Left&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Left__1.htm" />
   <HelpKINode Title="Lemonchiffon property" Url="html/P_TheXDS_MCART_Resources_Colors_Lemonchiffon.htm" />
   <HelpKINode Title="Lemonchiffon2 property" Url="html/P_TheXDS_MCART_Resources_Colors_Lemonchiffon2.htm" />
   <HelpKINode Title="Lemonchiffon3 property" Url="html/P_TheXDS_MCART_Resources_Colors_Lemonchiffon3.htm" />
@@ -2783,6 +2807,7 @@
     <HelpKINode Title="Point.Magnitude (M&#233;todo )" Url="html/Overload_TheXDS_MCART_Types_Point_Magnitude.htm" />
     <HelpKINode Title="Point3D.Magnitude (M&#233;todo )" Url="html/Overload_TheXDS_MCART_Types_Point3D_Magnitude.htm" />
   </HelpKINode>
+  <HelpKINode Title="MakeTable method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_MakeTable.htm" />
   <HelpKINode Title="MandatoryField field" Url="html/F_TheXDS_MCART_Resources_Strings_MandatoryField.htm" />
   <HelpKINode Title="ManganeseBlue property" Url="html/P_TheXDS_MCART_Resources_Colors_ManganeseBlue.htm" />
   <HelpKINode Title="Maroon property" Url="html/P_TheXDS_MCART_Resources_Colors_Maroon.htm" />
@@ -3051,7 +3076,7 @@
   <HelpKINode Title="Nearest2Pow method" Url="html/M_TheXDS_MCART_Math_Algebra_Nearest2Pow.htm" />
   <HelpKINode Title="NearestMultiplyUp method" Url="html/M_TheXDS_MCART_Math_Algebra_NearestMultiplyUp.htm" />
   <HelpKINode Title="Needed field" Url="html/F_TheXDS_MCART_Resources_Strings_Needed.htm" />
-  <HelpKINode Title="New method" Url="html/Overload_TheXDS_MCART_Objects_New.htm" />
+  <HelpKINode Title="New method" Url="html/Overload_TheXDS_MCART_Types_Extensions_TypeExtensions_New.htm" />
   <HelpKINode Title="Newable enumeration member" Url="html/T_TheXDS_MCART_Controls_NavigationBar_EditMode.htm" />
   <HelpKINode Title="NewCreated event" Url="html/E_TheXDS_MCART_Controls_NavigationBar_NewCreated.htm" />
   <HelpKINode Title="NewDelete enumeration member" Url="html/T_TheXDS_MCART_Controls_NavigationBar_EditMode.htm" />
@@ -3191,9 +3216,7 @@
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Objects.htm" />
   </HelpKINode>
   <HelpKINode Title="Objects.AllTypes method" Url="html/Overload_TheXDS_MCART_Objects_AllTypes.htm" />
-  <HelpKINode Title="Objects.AreAllAssignable method" Url="html/Overload_TheXDS_MCART_Objects_AreAllAssignable.htm" />
   <HelpKINode Title="Objects.AreAllNull method" Url="html/Overload_TheXDS_MCART_Objects_AreAllNull.htm" />
-  <HelpKINode Title="Objects.Assignables method" Url="html/Overload_TheXDS_MCART_Objects_Assignables.htm" />
   <HelpKINode Title="Objects.FindType method" Url="html/Overload_TheXDS_MCART_Objects_FindType.htm" />
   <HelpKINode Title="Objects.GetAttr method" Url="html/Overload_TheXDS_MCART_Objects_GetAttr.htm" />
   <HelpKINode Title="Objects.GetAttrAlt(Of T) method" Url="html/M_TheXDS_MCART_Objects_GetAttrAlt__1.htm" />
@@ -3202,7 +3225,6 @@
   <HelpKINode Title="Objects.HasAttr method" Url="html/Overload_TheXDS_MCART_Objects_HasAttr.htm" />
   <HelpKINode Title="Objects.HasAttrAlt method" Url="html/Overload_TheXDS_MCART_Objects_HasAttrAlt.htm" />
   <HelpKINode Title="Objects.Is method" Url="html/M_TheXDS_MCART_Objects_Is.htm" />
-  <HelpKINode Title="Objects.IsAnyAssignable method" Url="html/Overload_TheXDS_MCART_Objects_IsAnyAssignable.htm" />
   <HelpKINode Title="Objects.IsAnyNull method" Url="html/Overload_TheXDS_MCART_Objects_IsAnyNull.htm" />
   <HelpKINode Title="Objects.IsEither method" Url="html/Overload_TheXDS_MCART_Objects_IsEither.htm" />
   <HelpKINode Title="Objects.IsNeither method" Url="html/Overload_TheXDS_MCART_Objects_IsNeither.htm" />
@@ -3211,7 +3233,6 @@
   <HelpKINode Title="Objects.IsSignatureCompatible method" Url="html/M_TheXDS_MCART_Objects_IsSignatureCompatible.htm" />
   <HelpKINode Title="Objects.Itself(Of T) method" Url="html/M_TheXDS_MCART_Objects_Itself__1.htm" />
   <HelpKINode Title="Objects.Itself&lt;T&gt; method" Url="html/M_TheXDS_MCART_Objects_Itself__1.htm" />
-  <HelpKINode Title="Objects.New method" Url="html/Overload_TheXDS_MCART_Objects_New.htm" />
   <HelpKINode Title="Objects.ReleaseComObject method" Url="html/M_TheXDS_MCART_Objects_ReleaseComObject.htm" />
   <HelpKINode Title="Objects.ToTypes method" Url="html/Overload_TheXDS_MCART_Objects_ToTypes.htm" />
   <HelpKINode Title="Objects.WhichAre method" Url="html/Overload_TheXDS_MCART_Objects_WhichAre.htm" />
@@ -3491,9 +3512,9 @@
     <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Types_Point.htm" />
   </HelpKINode>
   <HelpKINode Title="Point to Point conversion">
-    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit_1.htm" />
-    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit.htm" />
     <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit_3.htm" />
+    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit.htm" />
+    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit_1.htm" />
     <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit_2.htm" />
   </HelpKINode>
   <HelpKINode Title="Point.Addition operator" Url="html/Overload_TheXDS_MCART_Types_Point_op_Addition.htm" />
@@ -3905,6 +3926,8 @@
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Color_RGBA8888.htm" />
   </HelpKINode>
   <HelpKINode Title="Right method" Url="html/M_TheXDS_MCART_Common_Right.htm" />
+  <HelpKINode Title="Right(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Right__1.htm" />
+  <HelpKINode Title="Right&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Right__1.htm" />
   <HelpKINode Title="RingGraph class">
     <HelpKINode Title="RingGraph (Clase)" Url="html/T_TheXDS_MCART_Controls_RingGraph.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Controls_RingGraph__ctor.htm" />
@@ -4064,8 +4087,8 @@
   <HelpKINode Title="Sepia property" Url="html/P_TheXDS_MCART_Resources_Colors_Sepia.htm" />
   <HelpKINode Title="Sequence method" Url="html/Overload_TheXDS_MCART_Common_Sequence.htm" />
   <HelpKINode Title="Series class">
-    <HelpKINode Title="Series (Clase)" Url="html/T_TheXDS_MCART_Math_Series.htm" />
     <HelpKINode Title="Series (Clase)" Url="html/T_TheXDS_MCART_Controls_Series.htm" />
+    <HelpKINode Title="Series (Clase)" Url="html/T_TheXDS_MCART_Math_Series.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Controls_Series__ctor.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Math_Series.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Controls_Series.htm" />
@@ -4612,7 +4635,6 @@
   <HelpKINode Title="System.Windows.Converters.TypeBooleanConverter class" Url="html/T_System_Windows_Converters_TypeBooleanConverter.htm" />
   <HelpKINode Title="System.Windows.Converters.TypeVisibilityConverter class" Url="html/T_System_Windows_Converters_TypeVisibilityConverter.htm" />
   <HelpKINode Title="System.Windows.Converters.VisibilityInverter class" Url="html/T_System_Windows_Converters_VisibilityInverter.htm" />
-  <HelpKINode Title="Table method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Table.htm" />
   <HelpKINode Title="TableSelector(Of T) class">
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TableSelector_1.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_TableSelector_1.htm" />
@@ -5156,7 +5178,13 @@
     <HelpKINode Title="TypeExtensions (Clase)" Url="html/T_TheXDS_MCART_Types_Extensions_TypeExtensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Extensions_TypeExtensions.htm" />
   </HelpKINode>
+  <HelpKINode Title="TypeExtensions.AreAllAssignable method" Url="html/Overload_TheXDS_MCART_Types_Extensions_TypeExtensions_AreAllAssignable.htm" />
+  <HelpKINode Title="TypeExtensions.Assignables method" Url="html/Overload_TheXDS_MCART_Types_Extensions_TypeExtensions_Assignables.htm" />
   <HelpKINode Title="TypeExtensions.Default method" Url="html/M_TheXDS_MCART_Types_Extensions_TypeExtensions_Default.htm" />
+  <HelpKINode Title="TypeExtensions.Implements method" Url="html/Overload_TheXDS_MCART_Types_Extensions_TypeExtensions_Implements.htm" />
+  <HelpKINode Title="TypeExtensions.IsAnyAssignable method" Url="html/Overload_TheXDS_MCART_Types_Extensions_TypeExtensions_IsAnyAssignable.htm" />
+  <HelpKINode Title="TypeExtensions.IsInstantiable method" Url="html/Overload_TheXDS_MCART_Types_Extensions_TypeExtensions_IsInstantiable.htm" />
+  <HelpKINode Title="TypeExtensions.New method" Url="html/Overload_TheXDS_MCART_Types_Extensions_TypeExtensions_New.htm" />
   <HelpKINode Title="TypeExtensions.TypeName method" Url="html/M_TheXDS_MCART_Types_Extensions_TypeExtensions_TypeName.htm" />
   <HelpKINode Title="TypeName method" Url="html/M_TheXDS_MCART_Types_Extensions_TypeExtensions_TypeName.htm" />
   <HelpKINode Title="TypeVisibilityConverter class">
@@ -5258,6 +5286,7 @@
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_UI.htm" />
   </HelpKINode>
   <HelpKINode Title="UI.AllocConsole method" Url="html/M_TheXDS_MCART_UI_AllocConsole.htm" />
+  <HelpKINode Title="UI.Bind method" Url="html/Overload_TheXDS_MCART_UI_Bind.htm" />
   <HelpKINode Title="UI.Clear method" Url="html/M_TheXDS_MCART_UI_Clear.htm" />
   <HelpKINode Title="UI.ClearWarn method" Url="html/M_TheXDS_MCART_UI_ClearWarn.htm" />
   <HelpKINode Title="UI.CollapseControls method" Url="html/Overload_TheXDS_MCART_UI_CollapseControls.htm" />
@@ -5266,7 +5295,6 @@
   <HelpKINode Title="UI.EnableBlur method" Url="html/M_TheXDS_MCART_UI_EnableBlur.htm" />
   <HelpKINode Title="UI.EnableControls method" Url="html/Overload_TheXDS_MCART_UI_EnableControls.htm" />
   <HelpKINode Title="UI.Flash method" Url="html/M_TheXDS_MCART_UI_Flash.htm" />
-  <HelpKINode Title="UI.FlushBitmapEncoders method" Url="html/M_TheXDS_MCART_UI_FlushBitmapEncoders.htm" />
   <HelpKINode Title="UI.FreeConsole method" Url="html/M_TheXDS_MCART_UI_FreeConsole.htm" />
   <HelpKINode Title="UI.GetBitmap method" Url="html/Overload_TheXDS_MCART_UI_GetBitmap.htm" />
   <HelpKINode Title="UI.GetBitmapAsync method" Url="html/M_TheXDS_MCART_UI_GetBitmapAsync.htm" />

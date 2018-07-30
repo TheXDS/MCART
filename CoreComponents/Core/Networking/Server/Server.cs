@@ -29,6 +29,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Networking.Server

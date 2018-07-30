@@ -3,6 +3,8 @@ Objects.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
+Este archivo contiene funciones de manipulación de objetos, 
+
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
@@ -30,6 +32,16 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.Attributes;
 
+#region Configuración de ReSharper
+
+// ReSharper disable IntroduceOptionalParameters.Global
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable MemberCanBeProtected.Global
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+// ReSharper disable UnusedMember.Global
+
+#endregion
+
 namespace TheXDS.MCART
 {
     /// <summary>
@@ -37,66 +49,6 @@ namespace TheXDS.MCART
     /// </summary>
     public static class Objects
     {
-        /// <summary>
-        /// Enumera los tipos asignables a partir de <paramref name="source"/>.
-        /// </summary>
-        /// <param name="types">Lista de tipos a comprobar.</param>
-        /// <param name="source">Tipo que desea asignarse.</param>
-        /// <returns>
-        /// Un enumerador con los tipos que pueden ser asignados a partir de
-        /// <paramref name="source"/>.
-        /// </returns>
-        public static IEnumerable<Type> Assignables(this Type source, IEnumerable<Type> types) => types.Where(p => p.IsAssignableFrom(source));
-        /// <summary>
-        /// Enumera los tipos asignables a partir de <paramref name="source"/>.
-        /// </summary>
-        /// <param name="types">Lista de tipos a comprobar.</param>
-        /// <param name="source">Tipo que desea asignarse.</param>
-        /// <returns>
-        /// Un enumerador con los tipos que pueden ser asignados a partir de
-        /// <paramref name="source"/>.
-        /// </returns>
-        public static IEnumerable<Type> Assignables(this Type source, params Type[] types) => source.Assignables(types.AsEnumerable());
-        /// <summary>
-        /// Comprueba si alguno de los tipos especificados es asignable a partir
-        /// del tipo <paramref name="source"/>.
-        /// </summary>
-        /// <param name="types">Lista de tipos a comprobar.</param>
-        /// <param name="source">Tipo que desea asignarse.</param>
-        /// <returns>
-        /// <see langword="true"/> si el tipo <paramref name="source"/> puede ser asignado 
-        /// a uno de los tipos especificados, <see langword="false"/> en caso contrario.
-        /// </returns>
-        public static bool IsAnyAssignable(this Type source, IEnumerable<Type> types) => types.Any(p => p.IsAssignableFrom(source));
-        /// <summary>
-        /// Comprueba si alguno de los tipos especificados es asignable a partir
-        /// del tipo <paramref name="source"/>.
-        /// </summary>
-        /// <param name="types">Lista de tipos a comprobar.</param>
-        /// <param name="source">Tipo que desea asignarse.</param>
-        /// <returns>
-        /// <see langword="true"/> si el tipo <paramref name="source"/> puede ser asignado 
-        /// a uno de los tipos especificados, <see langword="false"/> en caso contrario.
-        /// </returns>
-        public static bool IsAnyAssignable(this Type source, params Type[] types) => source.IsAnyAssignable(types.AsEnumerable());
-        /// <summary>
-        /// Comprueba si todos los tipos son asignables a partir del tipo
-        /// <paramref name="source"/>.
-        /// </summary>
-        /// <param name="types">Lista de tipos a comprobar.</param>
-        /// <param name="source">Tipo que desea asignarse.</param>
-        /// <returns><see langword="true"/> si todos los tipos son asignables a partir de
-        /// <paramref name="source"/>, <see langword="false"/> en caso contrario.</returns>
-        public static bool AreAllAssignable(this Type source, IEnumerable<Type> types) => types.All(p => p.IsAssignableFrom(source));
-        /// <summary>
-        /// Comprueba si todos los tipos son asignables a partir del tipo
-        /// <paramref name="source"/>.
-        /// </summary>
-        /// <param name="types">Lista de tipos a comprobar.</param>
-        /// <param name="source">Tipo que desea asignarse.</param>
-        /// <returns><see langword="true"/> si todos los tipos son asignables a partir de
-        /// <paramref name="source"/>, <see langword="false"/> en caso contrario.</returns>
-        public static bool AreAllAssignable(this Type source, params Type[] types) => source.AreAllAssignable(types.AsEnumerable());
         /// <summary>
         /// Determina si cualquiera de los objetos es <see langword="null"/>.
         /// </summary>
@@ -124,11 +76,8 @@ namespace TheXDS.MCART
         /// <param name="collection">Colección de objetos a comprobar.</param>
         public static IEnumerable<int> WhichAreNull(this IEnumerable<object> collection)
         {
-            int c = 0;
-            foreach (object j in collection)
-            {
-                if (j is null) yield return c++;
-            }
+            var c = 0;
+            foreach (var j in collection) if (j is null) yield return c++;
         }
         /// <summary>
         /// Determina si cualquiera de los objetos es <see langword="null"/>.
@@ -163,8 +112,9 @@ namespace TheXDS.MCART
         /// <param name="obj">Objeto.</param>
         /// <typeparam name="T">Tipo de este objeto.</typeparam>
         /// <remarks>
-        /// Esta función únicamente es útil al utilizar Visual Basic en conjunto
-        /// con la estructura <c lang="VB">With</c></remarks>
+        ///     Esta función únicamente es únicamente útil al utilizar Visual
+        ///     Basic en conjunto con la estructura <c lang="VB">With</c>.
+        /// </remarks>
         [Thunk] public static T Itself<T>(this T obj) => obj;
         /// <summary>
         /// Determina si <paramref name="obj1"/> es la misma instancia en
@@ -216,11 +166,8 @@ namespace TheXDS.MCART
         /// <param name="collection">Colección de objetos a comprobar.</param>
         public static IEnumerable<int> WhichAre(this object obj, IEnumerable<object> collection)
         {
-            int c = 0;
-            foreach (object j in collection)
-            {
-                if (j.Is(obj)) yield return c++;
-            }
+            var c = 0;
+            foreach (var j in collection) if (j.Is(obj)) yield return c++;
         }
         /// <summary>
         /// Determina si cualquiera de los objetos es la misma instancia que
@@ -329,10 +276,7 @@ namespace TheXDS.MCART
         /// <returns>
         /// Una lista compuesta por los tipos de los objetos provistos.
         /// </returns>
-        public static IEnumerable<Type> ToTypes(this IEnumerable<object> objects)
-        {
-            foreach (object j in objects) yield return j.GetType();
-        }
+        public static IEnumerable<Type> ToTypes(this IEnumerable<object> objects) => objects.Select(j => j.GetType());
         /// <summary>
         /// Obtiene una lista de los tipos de los objetos especificados.
         /// </summary>
@@ -343,50 +287,7 @@ namespace TheXDS.MCART
         /// Una lista compuesta por los tipos de los objetos provistos.
         /// </returns>
         public static IEnumerable<Type> ToTypes(params object[] objects) => objects.ToTypes();
-        /// <summary>
-        /// Inicializa una nueva instancia del tipo en runtime especificado.
-        /// </summary>
-        /// <returns>La nueva instancia del tipo especificado.</returns>
-        /// <param name="j">Tipo a instanciar.</param>
-        [DebuggerStepThrough] [Thunk] public static object New(this Type j) => j.New<object>(new object[] { });
-        /// <summary>
-        /// Inicializa una nueva instancia del tipo dinámico especificado,
-        /// devolviéndola como un <typeparamref name="T"/>.
-        /// </summary>
-        /// <returns>La nueva instancia del tipo especificado.</returns>
-        /// <param name="j">Tipo a instanciar. Debe ser, heredar o implementar 
-        /// el tipo especificado en <typeparamref name="T"/></param>
-        /// <typeparam name="T">Tipo de instancia a devolver.</typeparam>
-        [DebuggerStepThrough] [Thunk] public static T New<T>(this Type j) => j.New<T>(new object[] { });
-        /// <summary>
-        /// Inicializa una nueva instancia de un objeto con un constructor que
-        /// acepte los argumentos provistos.
-        /// </summary>
-        /// <returns>La nueva instancia del tipo especificado.</returns>
-        /// <param name="j">Tipo a instanciar.</param>
-        /// <param name="parameters">Parámetros a pasar al constructor. Se buscará 
-        /// un constructor compatible para poder crear la instancia.</param>
-        [DebuggerStepThrough] [Thunk] public static object New(this Type j, params object[] parameters) => j.New<object>(parameters);
-        /// <summary>
-        /// Inicializa una nueva instancia de un objeto con un constructor que
-        /// acepte los argumentos provistos.
-        /// </summary>
-        /// <typeparam name="T">Tipo de instancia a devolver.</typeparam>
-        /// <param name="j">Tipo a instanciar. Debe ser, heredar o implementar 
-        /// el tipo especificado en <typeparamref name="T"/>.</param>
-        /// <param name="parameters">Parámetros a pasar al constructor. Se buscará 
-        /// un constructor compatible para poder crear la instancia.</param>
-        /// <returns>Una nueva instancia del tipo especificado.</returns>
-        /// <exception cref="TypeLoadException">
-        /// Se produce si no es posible instanciar una clase del tipo
-        /// solicitado.
-        /// </exception>
-        [DebuggerStepThrough]
-        public static T New<T>(this Type j, params object[] parameters)
-        {
-            if (j.IsAbstract || j.IsInterface) throw new TypeLoadException();
-            return (T)j.GetConstructor(parameters.ToTypes().ToArray())?.Invoke(parameters);
-        }
+        
         /// <summary>
         /// Libera un objeto COM.
         /// </summary>
@@ -396,6 +297,7 @@ namespace TheXDS.MCART
             try { Marshal.ReleaseComObject(obj); }
             finally
             {
+                // ReSharper disable once RedundantAssignment
                 obj = null;
                 GC.Collect();
             }

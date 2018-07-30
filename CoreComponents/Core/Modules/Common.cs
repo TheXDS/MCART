@@ -3,6 +3,13 @@ Common.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
+Este archivo contiene operaciones comunes de transformación de datos en los
+programas, y de algunas comparaciones especiales.
+
+Algunas de estas funciones también se implementan como extensiones, por lo que
+para ser llamadas únicamente es necesario importar el espacio de nombres
+"MCART" y utilizar sintáxis de instancia.
+
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
@@ -33,10 +40,11 @@ using System.Security;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using TheXDS.MCART.Types;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Math;
+using TheXDS.MCART.Types;
 using St = TheXDS.MCART.Resources.Strings;
+using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 
 #region Configuración de ReSharper
 
@@ -57,60 +65,69 @@ namespace TheXDS.MCART
     /// <remarks>
     ///     Algunas de estas funciones también se implementan como extensiones, por
     ///     lo que para ser llamadas únicamente es necesario importar el espacio de
-    ///     nombres <see cref="MCART" />, y utilizar sintáxis de instancia.
+    ///     nombres <see cref="MCART" /> y utilizar sintáxis de instancia.
     /// </remarks>
     public static class Common
     {
         /// <summary>
-        ///     Busca y obtiene un <see cref="TypeConverter"/> apropiado para
-        ///     realizar la conversión entre <see cref="string"/> y el tipo
+        ///     Busca y obtiene un <see cref="TypeConverter" /> apropiado para
+        ///     realizar la conversión entre <see cref="string" /> y el tipo
         ///     especificado.
         /// </summary>
         /// <param name="target">Tipo de datos de destino.</param>
         /// <returns>
-        ///     Un <see cref="TypeConverter"/> capaz de realizar la conversión
-        ///     entre <see cref="string"/> y el tipo especificado, o
-        ///     <see langword="null"/> si no se ha encontrado un convertidor
+        ///     Un <see cref="TypeConverter" /> capaz de realizar la conversión
+        ///     entre <see cref="string" /> y el tipo especificado, o
+        ///     <see langword="null" /> si no se ha encontrado un convertidor
         ///     adecuado.
         /// </returns>
-        public static TypeConverter FindConverter(Type target) => FindConverter(typeof(string), target);
+        public static TypeConverter FindConverter(Type target)
+        {
+            return FindConverter(typeof(string), target);
+        }
 
         /// <summary>
-        ///     Busca y obtiene un <see cref="TypeConverter"/> apropiado para
-        ///     realizar la conversión entre <see cref="string"/> y el tipo
+        ///     Busca y obtiene un <see cref="TypeConverter" /> apropiado para
+        ///     realizar la conversión entre <see cref="string" /> y el tipo
         ///     especificado.
         /// </summary>
         /// <typeparam name="T">Tipo de datos de destino.</typeparam>
         /// <returns>
-        ///     Un <see cref="TypeConverter"/> capaz de realizar la conversión
-        ///     entre <see cref="string"/> y el tipo especificado, o
-        ///     <see langword="null"/> si no se ha encontrado un convertidor
+        ///     Un <see cref="TypeConverter" /> capaz de realizar la conversión
+        ///     entre <see cref="string" /> y el tipo especificado, o
+        ///     <see langword="null" /> si no se ha encontrado un convertidor
         ///     adecuado.
         /// </returns>
-        public static TypeConverter FindConverter<T>() => FindConverter(typeof(T));
+        public static TypeConverter FindConverter<T>()
+        {
+            return FindConverter(typeof(T));
+        }
 
         /// <summary>
-        ///     Busca y obtiene un <see cref="TypeConverter"/> apropiado para
+        ///     Busca y obtiene un <see cref="TypeConverter" /> apropiado para
         ///     realizar la conversión entre tipos solicitada.
         /// </summary>
         /// <typeparam name="TSource">Tipo de datos de orígen.</typeparam>
         /// <typeparam name="TTarget">Tipo de datos de destino.</typeparam>
         /// <returns>
-        ///     Un <see cref="TypeConverter"/> capaz de realizar la conversión
-        ///     entre los tipos requeridos, o <see langword="null"/> si no se
+        ///     Un <see cref="TypeConverter" /> capaz de realizar la conversión
+        ///     entre los tipos requeridos, o <see langword="null" /> si no se
         ///     ha encontrado un convertidor adecuado.
         /// </returns>
-        public static TypeConverter FindConverter<TSource, TTarget>() => FindConverter(typeof(TSource), typeof(TTarget));
+        public static TypeConverter FindConverter<TSource, TTarget>()
+        {
+            return FindConverter(typeof(TSource), typeof(TTarget));
+        }
 
         /// <summary>
-        ///     Busca y obtiene un <see cref="TypeConverter"/> apropiado para
+        ///     Busca y obtiene un <see cref="TypeConverter" /> apropiado para
         ///     realizar la conversión entre tipos solicitada.
         /// </summary>
         /// <param name="source">Tipo de datos de orígen.</param>
         /// <param name="target">Tipo de datos de destino.</param>
         /// <returns>
-        ///     Un <see cref="TypeConverter"/> capaz de realizar la conversión
-        ///     entre los tipos requeridos, o <see langword="null"/> si no se
+        ///     Un <see cref="TypeConverter" /> capaz de realizar la conversión
+        ///     entre los tipos requeridos, o <see langword="null" /> si no se
         ///     ha encontrado un convertidor adecuado.
         /// </returns>
         public static TypeConverter FindConverter(Type source, Type target)
@@ -122,6 +139,38 @@ namespace TheXDS.MCART
                     if (t is null) return false;
                     return t.CanConvertFrom(source) && t.CanConvertTo(target);
                 });
+        }
+
+        /// <summary>
+        ///     Determina si una cadena contiene un valor hexadecimal.
+        /// </summary>
+        /// <param name="str">cadena a comprobar.</param>
+        /// <returns>
+        ///     <see langword="true" /> si la cadena contiene un valor que puede
+        ///     ser interpretado como un número hexadecimal,
+        ///     <see langword="false" /> en caso contrario.
+        /// </returns>
+        public static bool IsHex(this string str)
+        {
+            return str.StartsWith("0x")
+                ? IsHex(str.Substring(2))
+                : str.ToCharArray().All(j => "0123456789abcdefABCDEF".Contains(j));
+        }
+
+        /// <summary>
+        ///     Determina si una cadena contiene un valor binario.
+        /// </summary>
+        /// <param name="str">cadena a comprobar.</param>
+        /// <returns>
+        ///     <see langword="true" /> si la cadena contiene un valor que puede
+        ///     ser interpretado como un número binario,
+        ///     <see langword="false" /> en caso contrario.
+        /// </returns>
+        public static bool IsBinary(this string str)
+        {
+            return str.StartsWith("0b")
+                ? IsBinary(str.Substring(2))
+                : str.ToCharArray().All(j => "01".Contains(j));
         }
 
         /// <summary>
@@ -650,8 +699,8 @@ namespace TheXDS.MCART
         ///     Comprueba que el valor se encuentre en el rango especificado.
         /// </summary>
         /// <returns>
-        ///     <see langword="true"/> si el valor se encuentra entre los
-        ///     especificados; de lo contrario, <see langword="false"/>.
+        ///     <see langword="true" /> si el valor se encuentra entre los
+        ///     especificados; de lo contrario, <see langword="false" />.
         /// </returns>
         /// <param name="value">Valor a comprobar.</param>
         /// <param name="min">Mínimo del rango de valores, inclusive.</param>
@@ -669,8 +718,8 @@ namespace TheXDS.MCART
         /// <param name="value">Valor a comprobar.</param>
         /// <param name="range">Rango de valores inclusivos a comprobar.</param>
         /// <returns>
-        ///     <see langword="true"/> si el valor se encuentra entre los
-        ///     especificados; de lo contrario, <see langword="false"/>.
+        ///     <see langword="true" /> si el valor se encuentra entre los
+        ///     especificados; de lo contrario, <see langword="false" />.
         /// </returns>
         public static bool IsBetween<T>(this T value, Range<T> range) where T : IComparable<T>
         {
@@ -793,10 +842,10 @@ namespace TheXDS.MCART
                 throw new ArgumentException(
                     St.XIsInvalid(St.XYQuotes(St.TheValue, max.ToString(CultureInfo.CurrentCulture))), nameof(max));
             foreach (var j in collection)
-            {
-                if (j.IsValid()) yield return (j - min) / (max - min).Clamp(1, float.NaN);
-                else yield return float.NaN;
-            }
+                if (j.IsValid())
+                    yield return (j - min) / (max - min).Clamp(1, float.NaN);
+                else
+                    yield return float.NaN;
         }
 
         /// <summary>
@@ -872,10 +921,10 @@ namespace TheXDS.MCART
                 throw new ArgumentException(
                     St.XIsInvalid(St.XYQuotes(St.TheValue, max.ToString(CultureInfo.CurrentCulture))), nameof(max));
             foreach (var j in collection)
-            {
-                if (j.IsValid()) yield return (j - min) / (max - min).Clamp(1, double.NaN);
-                else yield return double.NaN;
-            }
+                if (j.IsValid())
+                    yield return (j - min) / (max - min).Clamp(1, double.NaN);
+                else
+                    yield return double.NaN;
         }
 
         /// <summary>
@@ -945,7 +994,7 @@ namespace TheXDS.MCART
         public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, int min, int max)
         {
             if (min == max) throw new InvalidOperationException();
-            foreach (var j in collection) yield return (j - min) / (float)(max - min);
+            foreach (var j in collection) yield return (j - min) / (float) (max - min);
         }
 
         /// <summary>
@@ -1015,7 +1064,7 @@ namespace TheXDS.MCART
         public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, int min, int max)
         {
             if (min == max) throw new InvalidOperationException();
-            foreach (var j in collection) yield return (j - min) / (double)(max - min);
+            foreach (var j in collection) yield return (j - min) / (double) (max - min);
         }
 
         /// <summary>
@@ -1045,11 +1094,10 @@ namespace TheXDS.MCART
             int steps = 0, likes = 0;
             ofString = new string(' ', tolerance - 1) + ofString.ToUpper() + new string(' ', tolerance - 1);
             foreach (var c in toString.ToUpper())
-            {
-                if (ofString.Substring(steps++, tolerance).Contains(c)) likes++;
-            }
+                if (ofString.Substring(steps++, tolerance).Contains(c))
+                    likes++;
 
-            return likes / (float)steps;
+            return likes / (float) steps;
         }
 
         /// <summary>
@@ -1136,7 +1184,10 @@ namespace TheXDS.MCART
         {
             var ms = new MemoryStream();
             using (var tw = new StreamWriter(ms))
+            {
                 tw.Write(@string);
+            }
+
             return ms;
         }
 
@@ -1152,7 +1203,10 @@ namespace TheXDS.MCART
         {
             var ms = new MemoryStream();
             using (var tw = new StreamWriter(ms))
+            {
                 await tw.WriteAsync(@string);
+            }
+
             return ms;
         }
 

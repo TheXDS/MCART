@@ -26,8 +26,8 @@ constantes de compilación globales editando el archivo
 `CommonSettings.targets`.
 
 **Nota:** las constantes aplicables al proyecto deben definirse antes de
-agregar este nodo a la definición dle proyecto, para evitar que Visual Studio
-copie las constantes globales al archivo del proyecto.
+agregar este nodo a la definición del proyecto, para evitar que Visual Studio
+copie las constantes globales localmente al archivo del proyecto.
 ### Números de versión
 La información genérica de los ensamblados de MCART se encuentra en el proyecto
 compartido *AssemblyInfo*, el cual contiene únicamente un archivo con las

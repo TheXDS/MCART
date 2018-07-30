@@ -12,7 +12,7 @@
         <list class="bullet">
           <listItem>
             <para>
-              MCART ha cambiado sus implementaciones para respetar los principios de SOLID.
+              MCART ha cambiado algunas de sus implementaciones para respetar los principios de SOLID.
             </para>
           </listItem>
         </list>

@@ -41,7 +41,7 @@ namespace TheXDS.MCART.Math
     /// <summary>
     ///     Contiene funciones de trigonometría y geometría.
     /// </summary>
-    public class Geometry
+    public static class Geometry
     {
         
         #region Constantes
