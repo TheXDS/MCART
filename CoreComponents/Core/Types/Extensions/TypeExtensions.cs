@@ -301,7 +301,40 @@ namespace TheXDS.MCART.Types.Extensions
         [DebuggerStepThrough]
         public static T New<T>(this Type type, params object[] parameters)
         {
-            if (!type.IsInstantiable(parameters.ToTypes())) throw new TypeLoadException();
+            return New<T>(type, true, parameters);
+        }
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de un objeto con un constructor que
+        ///     acepte los argumentos provistos.
+        /// </summary>
+        /// <typeparam name="T">Tipo de instancia a devolver.</typeparam>
+        /// <param name="type">
+        ///     Tipo a instanciar. Debe ser, heredar o implementar
+        ///     el tipo especificado en <typeparamref name="T" />.
+        /// </param>
+        /// <param name="throwOnFail">
+        ///     Si se establece en <see langword="true"/>, se producirá una
+        ///     excepción en caso que el tipo no pueda instanciarse con la
+        ///     información provista, o se devolverá <see langword="null"/> si
+        ///     se establece en <see langword="false"/>
+        /// </param>
+        /// <param name="parameters">
+        ///     Parámetros a pasar al constructor. Se buscará
+        ///     un constructor compatible para poder crear la instancia.
+        /// </param>
+        /// <returns>Una nueva instancia del tipo especificado.</returns>
+        /// <exception cref="TypeLoadException">
+        ///     Se produce si no es posible instanciar una clase del tipo
+        ///     solicitado.
+        /// </exception>
+        [DebuggerStepThrough]
+        public static T New<T>(this Type type, bool throwOnFail, params object[] parameters)
+        {
+            if (!type.IsInstantiable(parameters.ToTypes()))
+            {
+                return throwOnFail ? throw new TypeLoadException() : (T) default;
+            }
             return (T) type.GetConstructor(parameters.ToTypes().ToArray())?.Invoke(parameters);
         }
 

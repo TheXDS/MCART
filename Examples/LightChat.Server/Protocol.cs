@@ -1,23 +1,31 @@
-﻿//
-//  Protocol.cs
-//
-//  Author:
-//       César Morgan <xds_xps_ivx@hotmail.com>
-//
-//  Copyright (c) 2017 César Morgan
-//
-//  This program is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-//
-//  This program is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-//
-//  You should have received a copy of the GNU General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿/*
+Protocol.cs
+
+This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Este archivo contiene las implementaciones de la interfaz IProtocol<TClient>
+con un cliente que únicamente contiene el nombre de inicio de sesión. Toda la
+información pertinente del mismo es manejada dentro del protocolo en el
+servidor.
+
+Author(s):
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+
+Copyright (c) 2011 - 2018 César Andrés Morgan
+
+Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+*/
 
 using System.Collections.Generic;
 using System.IO;
@@ -32,6 +40,7 @@ namespace LightChat
         /// </summary>
         public Dictionary<string, UserRegistry> Users = new Dictionary<string, UserRegistry>();
 
+        /// <inheritdoc />
         /// <summary>
         /// Atiende al cliente.
         /// </summary>
@@ -42,30 +51,14 @@ namespace LightChat
         {
             using (var br = new BinaryReader(new MemoryStream(data)))
             {
-                switch ((Command)br.ReadByte())
-                {
-                    case Command.Login:
-                        DoLogin(br, client, server);
-                        break;
-                    case Command.Logout:
-                        DoLogout(br, client, server);
-                        break;
-                    case Command.List:
-                        DoList(br, client, server);
-                        break;
-                    case Command.Say:
-                        DoSay(br, client, server);
-                        break;
-                    case Command.SayTo:
-                        DoSayTo(br, client, server);
-                        break;
-                    default:
-                        // Comando desconocido. Devolver error.
-                        client.Send(NewErr(ErrCodes.InvalidCommand));
-                        break;
-                }
+                var c = (Command) br.ReadByte();
+                if (_commands.ContainsKey(c))
+                    _commands[c](br, client, server);
+                else
+                    client.Send(NewErr(ErrCodes.InvalidCommand));
             }
         }
+        /// <inheritdoc />
         /// <summary>
         /// Realiza funciones de bienvenida al cliente que se acaba de
         /// conectar a este servidor.
@@ -75,8 +68,8 @@ namespace LightChat
         /// Instancia del servidor al cual el cliente se ha conectado.
         /// </param>
         /// <returns>
-        /// <see langword="true"/> para indicar que el cliente ha sido aceptado por el
-        /// protocolo, <see langword="false"/> para indicar lo contrario.
+        /// <see langword="true" /> para indicar que el cliente ha sido aceptado por el
+        /// protocolo, <see langword="false" /> para indicar lo contrario.
         /// </returns>
         public bool ClientWelcome(Client<string> client, Server<Client<string>> server)
         {
@@ -91,6 +84,7 @@ namespace LightChat
             // TODO: Implementar cifrado RSA para las comunicaciones.
             return true;
         }
+        /// <inheritdoc />
         /// <summary>
         /// Ejecuta acciones adicionales cuando un cliente se desconecta.
         /// </summary>
@@ -99,6 +93,7 @@ namespace LightChat
         /// Servidor al cual el cliente se encontraba conectado.
         /// </param>
         public void ClientBye(Client<string> client, Server<Client<string>> server) { }
+        /// <inheritdoc />
         /// <summary>
         /// Ejecuta acciones adicionales cuando se pierde la conectividad con un
         /// cliente.

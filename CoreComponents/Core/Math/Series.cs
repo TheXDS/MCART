@@ -3,6 +3,8 @@ Series.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
+Este archivo contiene funciones de enumeración de series matemáticas.
+
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
@@ -37,7 +39,7 @@ using System.Collections.Generic;
 namespace TheXDS.MCART.Math
 {
     /// <summary>
-    ///     Series matemáticas
+    ///     Esta clase contiene funciones de enumeración de series matemáticas.
     /// </summary>
     public static class Series
     {
@@ -49,6 +51,10 @@ namespace TheXDS.MCART.Math
          * manera incorrecta, el programa fallará con un error de
          * sobreflujo o de pila, o bien, el programa podría dejar de
          * responder.
+         *
+         * Todas las funciones de enumeración infinita deben utilizarse junto
+         * con el método de extensión
+         * System.Linq.Enumerable.Take<TSource>(IEnumerable<TSource>, int)
          */
 
         /// <summary>
@@ -59,21 +65,16 @@ namespace TheXDS.MCART.Math
         ///     Un <see cref="IEnumerable{T}" /> con la secuencia infinita de
         ///     Fibonacci.
         /// </returns>
-        public static IEnumerable<long> Fibonacci()
-        {
-            long a = 0;
-            long b = 1;
-            unchecked
-            {
-                while (b > 0)
-                {
-                    yield return a;
-                    yield return b;
-                    a += b;
-                    b += a;
-                }
-            }
-        }
+        /// <remarks>
+        ///     Las series utilizan enumeradores para exponer las series
+        ///     completas de una manera infinita. Es necesario recalcar que, si
+        ///     se utilizan estas funciones de manera incorrecta, el programa
+        ///     fallará con un error de sobreflujo o de pila, o bien, el
+        ///     programa podría dejar de responder durante un período de tiempo
+        ///     prolongado.
+        /// </remarks>
+        /// <seealso cref="System.Linq.Enumerable.Take{TSource}(IEnumerable{TSource}, int)"/>
+        public static IEnumerable<long> Fibonacci() => MakeSeriesAdditive(0, 1);
 
         /// <summary>
         ///     Expone un enumerador que contiene la secuencia completa de
@@ -83,12 +84,30 @@ namespace TheXDS.MCART.Math
         ///     Un <see cref="IEnumerable{T}" /> con la secuencia infinita de
         ///     Lucas.
         /// </returns>
-        public static IEnumerable<long> Lucas()
+        /// <remarks>
+        ///     Las series utilizan enumeradores para exponer las series
+        ///     completas de una manera infinita. Es necesario recalcar que, si
+        ///     se utilizan estas funciones de manera incorrecta, el programa
+        ///     fallará con un error de sobreflujo o de pila, o bien, el
+        ///     programa podría dejar de responder durante un período de tiempo
+        ///     prolongado.
+        /// </remarks>
+        /// <seealso cref="System.Linq.Enumerable.Take{TSource}(IEnumerable{TSource}, int)"/>
+        public static IEnumerable<long> Lucas() => MakeSeriesAdditive(2, 1);
+
+        private static IEnumerable<long> MakeSeriesAdditive(long a, long b)
         {
-            long a = 2;
-            long b = 1;
+#if AntiFreeze
             unchecked
             {
+                /* -= NOTA =-
+                 * El bloque while se implementa dentro de un contexto sin
+                 * desbordamiento de manera intencional, para permitir a un
+                 * programa utilizando incorrectamente esta función detenerse
+                 * eventualmente. Esto es útil en programas desatendidos, como
+                 * ser un daemon corriendo en un servidor.
+                 */
+
                 while (b > 0)
                 {
                     yield return a;
@@ -97,6 +116,16 @@ namespace TheXDS.MCART.Math
                     b += a;
                 }
             }
+#else
+            while (true)
+            {
+                yield return a;
+                yield return b;
+                a += b;
+                b += a;
+            }
+            // ReSharper disable once IteratorNeverReturns
+#endif
         }
     }
 }

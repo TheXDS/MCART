@@ -99,6 +99,18 @@
           </tableHeader>
           <row>
             <entry>
+              <para>AntiFreeze</para>
+            </entry>
+            <entry>
+              <para>
+                Habilita a las funciones que así lo permitan eventualmente
+                detener una enumeración potencialmente infinita cuando esta
+                haya sido mal utilizada.
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry>
               <para>BufferedIO</para>
             </entry>
             <entry>

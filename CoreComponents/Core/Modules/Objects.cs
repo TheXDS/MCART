@@ -779,6 +779,20 @@ namespace TheXDS.MCART
             return default;
         }
 
+        /// <summary>
+        /// Obtiene todos los métodos con firma compatible con el delegado especificado.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="methods"></param>
+        /// <returns></returns>
+        public static IEnumerable<Delegate> WithSignature<T>(this IEnumerable<MethodInfo> methods) where T : Delegate
+        {
+            foreach (var j in methods)
+            {
+                if (Delegate.CreateDelegate(typeof(T), j, false) is Delegate d) yield return d;
+            }
+        }
+
         public static IEnumerable<Type> AllTypes<T>() => AllTypes(typeof(T));
         public static IEnumerable<Type> AllTypes(Type t)
         {

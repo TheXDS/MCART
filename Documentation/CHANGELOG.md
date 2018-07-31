@@ -180,3 +180,6 @@
 * Cambiado: Información de ensamblado de los ejemplos de MCART unificados.
 * Quitado: TaskReporter
 * Deprecado: Gtk y Win32 han sido deprecados temporalmente.
+
+#### MCART 0.8.7.0
+* Arreglado: Stack de red problemático.
