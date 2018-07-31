@@ -27,6 +27,7 @@ using System.Linq;
 using System.Security;
 using TheXDS.MCART;
 using Xunit;
+using static TheXDS.MCART.Common;
 
 namespace CoreTest.Modules
 {
@@ -57,6 +58,13 @@ namespace CoreTest.Modules
             Assert.Equal(
                 new[] { 10, 8, 6, 4, 2 },
                 Common.Sequence(10, 1, 2));
+        }
+
+        [Fact]
+        public void FindConverterTest()
+        {
+            Assert.NotNull(FindConverter<int>());
+            Assert.Null(FindConverter<Exception, Enum>());
         }
 
         [Fact]

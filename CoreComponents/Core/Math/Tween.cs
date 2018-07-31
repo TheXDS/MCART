@@ -3,6 +3,8 @@ Tween.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
+Este archivo contiene diversas fórmulas de suavizado.
+
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
@@ -35,7 +37,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.Math
 {
     /// <summary>
-    ///     Contiene fórmulas de suavizado.
+    ///     Contiene diversas fórmulas de suavizado.
     /// </summary>
     public static class Tween
     {

@@ -24,15 +24,69 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using TheXDS.MCART.Networking.Server;
-using TheXDS.MCART.Networking.Server.Protocols;
 
 namespace EchoServer
 {
     internal static class Program
     {
+        private class EchoProt : Protocol
+        {
+            /// <inheritdoc />
+            /// <summary>
+            /// Protocolo de atención al cliente
+            /// </summary>
+            /// <param name="client">Cliente que será atendido.</param>
+            /// <param name="server">Servidor que atiende al cliente.</param>
+            /// <param name="data">Datos recibidos desde el cliente.</param>
+            public override void ClientAttendant(Client client, Server<Client> server, byte[] data)
+            {
+                client.Send(data);
+                Console.WriteLine($"Solicitud de eco atendida. {data.Length}");
+                if (data[0]=='z') client.Disconnect();
+            }
+
+            /// <inheritdoc />
+            /// <summary>
+            /// Protocolo de desconexión del cliente.
+            /// </summary>
+            /// <param name="client">Cliente que será atendido.</param>
+            /// <param name="server">Servidor que atiende al cliente.</param>
+            public override void ClientBye(Client client, Server<Client> server)
+            {
+                Console.WriteLine("Cliente desconectado correctamente.");
+            }
+
+            /// <inheritdoc />
+            /// <summary>
+            /// Protocolo de desconexión inesperada del cliente.
+            /// </summary>
+            /// <param name="client">Cliente que se ha desconectado.</param>
+            /// <param name="server">Servidor que atiendía al cliente.</param>
+            public override void ClientDisconnect(Client client, Server<Client> server)
+            {
+                Console.WriteLine("Cliente desconectado inesperadamente.");
+            }
+
+            /// <inheritdoc />
+            /// <summary>
+            /// Protocolo de bienvenida del cliente.
+            /// </summary>
+            /// <returns>
+            /// <see langword="true" /> si el cliente fue aceptado por el protocolo,
+            /// <see langword="false" /> en caso contrario.
+            /// </returns>
+            /// <param name="client">Cliente que será atendido.</param>
+            /// <param name="server">Servidor que atiende al cliente.</param>
+            public override bool ClientWelcome(Client client, Server<Client> server)
+            {
+                Console.WriteLine("Un cliente se ha conectado.");
+                return true;
+            }
+        }
+
         private static void Main()
         {
-            var srv = new Server(new Echo(), 51200);
+            var srv = new Server(new EchoProt(), 51200);
             srv.Start();
             if (!srv.IsAlive)
             {

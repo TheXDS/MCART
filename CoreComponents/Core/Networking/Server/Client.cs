@@ -55,7 +55,9 @@ namespace TheXDS.MCART.Networking.Server
         /// encuentra conectada a un servidor, <see langword="false"/> en caso
         /// contrario.
         /// </value>
-        public bool IsAlive => TcpClient?.Connected ?? false;
+        public bool IsAlive =>!(TcpClient?.GetStream() is null);
+        //public bool IsAlive => (TcpClient?.Connected ?? false) && !(TcpClient?.GetStream() is null);
+
         /// <summary>
         /// Obtiene un valor que indica si hay datos disponibles para leer.
         /// </summary>
@@ -63,7 +65,7 @@ namespace TheXDS.MCART.Networking.Server
         /// <see langword="true"/> si hay datos disponibles,
         /// <see langword="false"/> en caso contrario.
         /// </value>
-        public bool DataAvailable => TcpClient?.GetStream()?.DataAvailable ?? false;
+        public bool DataAvailable => TcpClient?.GetStream().DataAvailable ?? false;
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="Client"/>.
         /// </summary>
@@ -147,25 +149,17 @@ namespace TheXDS.MCART.Networking.Server
 #else
                 return new byte[] { };
 #endif
-            using (var ms = new MemoryStream())
-            {
-                //if (ns.DataAvailable)
-                //await ns.CopyToAsync(ms);
-                //return ms.ToArray();
-            }
 
             var outp = new List<byte>();
             do
             {
-                var buff = new byte[1024];
+                var buff = new byte[TcpClient.ReceiveBufferSize];
                 var sze = await ns.ReadAsync(buff, 0, buff.Length);
-                if (sze < 1024) System.Array.Resize(ref buff, sze);
+                if (sze < TcpClient.ReceiveBufferSize) System.Array.Resize(ref buff, sze);
                 outp.AddRange(buff);
             } while (ns.DataAvailable);
 
             return outp.ToArray();
-
-
         }
         /// <summary>
         /// Devuelve los datos recibidos una vez que el cliente los envía.

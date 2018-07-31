@@ -7,6 +7,7 @@ algunas limitaciones presentadas por Visual Studio, no existe un editor visual
 de estas configuraciones, y no existe un mecanismo elegante para administrar
 las configuraciones globales. Por ende, es necesario agregar el siguiente nodo
 a la definición de cada proyecto:
+
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
@@ -21,6 +22,7 @@ a la definición de cada proyecto:
   <Import Project="$(SolutionDir)CommonSettings.targets" />
 </Project>
 ```
+
 Al agregar este bloque de código a los proyectos, es posible cambiar las
 constantes de compilación globales editando el archivo
 `CommonSettings.targets`.
@@ -62,6 +64,7 @@ al activarse:
 
 Constante | Efecto
 --- | ---
+AntiFreeze | Habilita a las funciones que así lo permitan eventualmente detener una enumeración potencialmente infinita cuando esta haya sido mal utilizada.
 BufferedIO | Algunas funciones de entrada/salida incluyen una implementación opcional con búffer. Activar esta opción habilita las lecturas y escrituras con búffer.
 CheckDanger | Obliga a las funciones que lo permitan a limitar el uso de clases o funciones peligrosas (marcadas con el atributo `DangerousAttribute`)
 CLSCompliance | Obliga a utilizar implementaciones que cumplen con CLS (Common Language Standard). Se recomienda encarecidamente activar esta constante.

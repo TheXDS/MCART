@@ -29,11 +29,17 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Linq;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 using St = TheXDS.MCART.Resources.Strings;
 
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable MemberCanBeProtected.Global
+// ReSharper disable UnusedMember.Global
+
 namespace TheXDS.MCART.Networking.Server
 {
+    /// <inheritdoc />
     /// <summary>
     /// Controla conexiones entrantes y ejecuta protocolos sobre los clientes
     /// que se conecten al servidor.
@@ -116,11 +122,11 @@ namespace TheXDS.MCART.Networking.Server
         /// <summary>
         /// Lista de hilos atendiendo a clientes.
         /// </summary>
-        List<Task> clwaiter = new List<Task>();
+        private readonly List<Task> _clwaiter = new List<Task>();
         /// <summary>
         /// Escucha de conexiones entrantes.
         /// </summary>
-        TcpListener conns;
+        private readonly TcpListener _conns;
         /// <summary>
         /// campo que determina si el servidor está escuchando conexiones y
         /// sirviendo a clientes (vivo)
@@ -201,7 +207,7 @@ namespace TheXDS.MCART.Networking.Server
                 Debug.Print(St.Warn(St.XIsBeta(Protocol.GetType().Name)));
 #endif
             ListeningEndPoint = ep ?? new IPEndPoint(IPAddress.Any, Protocol.GetAttr<PortAttribute>()?.Value ?? DefaultPort);
-            conns = new TcpListener(ListeningEndPoint);
+            _conns = new TcpListener(ListeningEndPoint);
         }
 
         /// <summary>
@@ -219,9 +225,9 @@ namespace TheXDS.MCART.Networking.Server
             var bewaiting = true;
             try
             {
-                var t = conns.AcceptTcpClientAsync();
+                var t = _conns.AcceptTcpClientAsync();
                 if (t == await Task.WhenAny(t, Task.Run(() => { while (_isAlive && bewaiting) ; })))
-                    //devolver tarea...
+                    //devolver al cliente que se obtenga del hilo de aceptación...
                     return await t;
             }
 #if PreferExceptions
@@ -248,19 +254,27 @@ namespace TheXDS.MCART.Networking.Server
 				implementación del protocolo. La función ClientDisconnect será
 				llamada cuando se detecte que la conexión ha finalizado sin
 				llamar a la función de desconexión.
-
-				Es el protocolo (y no el servidor) quien debe implementar un
-				método que ayude a determinar si la conexión sigue viva, por
-				ejemplo, enviando un paquete tipo Heartbeat; si el envío del
-				mensaje falla, el servidor automáticamente determinará que la
-				conexión fue cerrada.
 				*/
                 while (client.IsAlive)
                 {
                     var ts = client.RecieveAsync();
                     var wdat = true;
-                    if (Task.WaitAny(ts, Task.Run(() => { while (_isAlive && wdat) ; })) == 0)
-                        Protocol.ClientAttendant(client, this, await ts);
+                    if (Task.WaitAny(ts, Task.Run(() =>
+                    {
+                        while (_isAlive && wdat) ;
+                    })) == 0)
+                    {
+                        if (ts.Result.Length != 0)
+                            Protocol.ClientAttendant(client, this, await ts);
+                        else
+                        {
+                            Protocol.ClientDisconnect(client,this);
+                            //client.TcpClient.Close();
+                        }
+                    }
+                    else
+                        ts.Dispose();
+                    
                     wdat = false;
                 }
             }
@@ -268,14 +282,10 @@ namespace TheXDS.MCART.Networking.Server
             {
                 try
                 {
-                    client.TcpClient.GetStream().Close();
+                    //client.TcpClient.GetStream().Close();
                     client.TcpClient.Close();
                 }
-                finally
-                {
-                    client.TcpClient.GetStream().Dispose();
-                    //client.TcpClient.Dispose();
-                }
+                catch { /* Silenciar excepción */ }
             }
             if ((bool) _clients?.Contains(client)) _clients.Remove(client);
         }
@@ -288,7 +298,7 @@ namespace TheXDS.MCART.Networking.Server
             {
                 var c = await GetClient();
                 if (!(c is null))
-                    clwaiter.Add(AttendClient(typeof(TClient).New(c, this) as TClient));
+                    _clwaiter.Add(AttendClient(typeof(TClient).New(c, this) as TClient));
             }
         }
 
@@ -306,10 +316,8 @@ namespace TheXDS.MCART.Networking.Server
 #endif
             }
             _isAlive = true;
-            conns.Start();
+            _conns.Start();
 
-            //var x = new Thread(BeAlive);
-            //x.Start();
             BeAlive();
         }
         /// <summary>
@@ -321,17 +329,23 @@ namespace TheXDS.MCART.Networking.Server
         /// </returns>
         public async Task StopAsync()
         {
-            conns.Stop();
+            _conns.Stop();
             _isAlive = false;
             await Task.WhenAny(
-                Task.WhenAll(clwaiter),
+                Task.WhenAll(_clwaiter),
                 new Task(() => Thread.Sleep(DisconnectionTimeout)));
-            foreach (TClient j in Clients) j.TcpClient.Close();
+            foreach (var j in Clients) j.TcpClient.Close();
         }
         /// <summary>
         /// Detiene al servidor.
         /// </summary>
-        public void Stop() => StopAsync().GetAwaiter().GetResult();
+        public void Stop()
+        {
+            _conns.Stop();
+            _isAlive = false;
+            Task.WhenAll(_clwaiter).Wait(DisconnectionTimeout);
+            foreach (var j in Clients) j.TcpClient.Close();
+        }
 
         #region Helpers
         /// <summary>
@@ -344,7 +358,7 @@ namespace TheXDS.MCART.Networking.Server
         /// </summary>
         /// <param name="data">Mensaje a enviar a los clientes.</param>
         /// <param name="client">Cliente que envía los datos.</param>
-        public void Broadcast(byte[] data, Client client) => Multicast(data, (j) => client.IsNot(j));
+        public void Broadcast(byte[] data, Client client) => Multicast(data, client.IsNot);
         /// <summary>
         /// Envía un mensaje a todos los clientes que satisfacen la
         /// condición especificada por <paramref name="condition"/>.
@@ -355,7 +369,7 @@ namespace TheXDS.MCART.Networking.Server
         /// </param>
         public void Multicast(byte[] data, Predicate<Client> condition)
         {
-            foreach (Client j in Clients) if (condition(j)) j.Send(data);
+            foreach (var j in Clients) if (condition(j)) j.Send(data);
         }
         /// <summary>
         /// Envía un mensaje a todos los clientes.
@@ -364,7 +378,7 @@ namespace TheXDS.MCART.Networking.Server
         /// Un <see cref="Task"/> que representa esta tarea.
         /// </returns>
         /// <param name="data">Mensaje a enviar a los clientes.</param>
-        public async Task BroadcastAsync(byte[] data) => await BroadcastAsync(data, null);
+        public Task BroadcastAsync(byte[] data) => BroadcastAsync(data, null);
         /// <summary>
         /// Envía un mensaje a todos los clientes, excepto el especificado.
         /// </summary>
@@ -373,7 +387,7 @@ namespace TheXDS.MCART.Networking.Server
         /// </returns>
         /// <param name="data">Mensaje a enviar a los clientes.</param>
         /// <param name="client">Cliente que envía los datos.</param>
-        public async Task BroadcastAsync(byte[] data, Client client = null) => await MulticastAsync(data, (j) => client.IsNot(j));
+        public Task BroadcastAsync(byte[] data, Client client) => MulticastAsync(data, client.IsNot);
         /// <summary>
         /// Envía un mensaje a todos los clientes que satisfacen la
         /// condición especificada por <paramref name="condition"/>.
@@ -385,12 +399,12 @@ namespace TheXDS.MCART.Networking.Server
         /// <param name="condition">
         /// Condición que determina a los clientes que recibirán el mensaje.
         /// </param>
-        public async Task MulticastAsync(byte[] data, Predicate<Client> condition)
+        public Task MulticastAsync(byte[] data, Predicate<Client> condition)
         {
-            List<Task> w = new List<Task>();
-            foreach (Client j in Clients)
+            var w = new HashSet<Task>();
+            foreach (var j in Clients)
                 if (condition(j)) w.Add(j.SendAsync(data));
-            await Task.WhenAll(w.ToArray());
+            return Task.WhenAll(w);
         }
         #endregion
     }

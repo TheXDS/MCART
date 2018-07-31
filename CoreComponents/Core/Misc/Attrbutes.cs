@@ -715,6 +715,7 @@ namespace TheXDS.MCART.Attributes
         }
     }
 
+    /// <inheritdoc />
     /// <summary>
     /// Establece un formato de protocolo para abrir un vínculo por medio del 
     /// sistema operativo.
@@ -736,9 +737,12 @@ namespace TheXDS.MCART.Attributes
             Format = format;
         }
         /// <summary>
-        /// Abre un url con este protocolo formateado.
+        ///     Abre un url con este protocolo formateado.
         /// </summary>
-        /// <param name="url"></param>
+        /// <param name="url">
+        ///     URL del recurso a abrir por medio del protocolo definido por
+        ///     este atributo.
+        /// </param>
         public void Open(string url)
         {
             if (string.IsNullOrWhiteSpace(url)) return;
@@ -746,5 +750,4 @@ namespace TheXDS.MCART.Attributes
             catch { /* Ignorar excepción */ }
         }
     }
-
 }

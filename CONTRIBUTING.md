@@ -23,6 +23,7 @@ Al enviar un nuevo reporte de error, el reporte debe incluir:
 En caso de un error de visualización, se debe considerar lo siguiente:
 * Que MCART se ejecute en un equipo estable, que no presente fallas en sí mismo.
 * Que el error sea causado por un defecto en MCART, y no en el uso incorrecto de sus controles/ventanas/diálogos.
+* Que el error sea reproducible.
 * (Recomendado) que el reporte incluya una captura de pantalla del error, sin exceder los límites de tamaño y resolución de 320x200, preferiblemente enformato PNG, o JPEG si se trata de información fotográfica. Si el error requiere más de una imagen y/o una resuloción mayor a 320x200, se debería recurrir a un servicio de hosting externo para las imágenes.
 
 **Los errores generados por Testing con xUnit no son errores necesariamente, sino que se deben considerar como diseños de implementación.**
@@ -51,6 +52,7 @@ en versiones anteriores de MCART) han sido completamente deprecados. Todo su
 código se rezagó al punto de ser inmanejable. Eventualmente, cuando exista un
 release 1.0 de MCART, exploraré la posibilidad de reimplementar versiones para
 estas plataformas. Lee a continuación para conocer las razones.
+
 ### Notas adicionales
 #### Ruptura de compatibilidad Pre-Release
 Actualmente, MCART se encuentra en una temprana fase de desarrollo (pese al
@@ -60,28 +62,23 @@ componente existente de MCART están sujetos a grandes cambios o a deprecarse.
 
 Una versión 1.0 de MCART indicará que el contenido del proyecto ha sido curado,
 no se esperarán grandes cambios de implementación, y cualquier nueva
-característica simplemente acompañará a la existente al momento de un Release.
+característica simplemente acompañará a la existente al momento de un Release,
+respetando las buenas prácticas y los principios de SOLID.
 
 En los casos en donde sea necesario realizar cambios mayores de implementación,
 el cambio se verá reflejado con el incremento en el número de versión mayor,
 convirtiéndose en una nueva rama independiente de MCART.
-#### C# 7.2
-Respecto a la decisión de utilizar una versión tan nueva del lenguaje, C# 7.2
+
+#### C# 7.3
+Respecto a la decisión de utilizar una versión tan nueva del lenguaje, C# 7.3
 ofrece ciertas características de lenguaje sobre las cuales MCART depende.
-Aunque los cambios necesarios para utilizar una versión anterior (C# 6.0 
-específicamente) son relativamente pocos, la idea es poder reducir la
-complejidad del código, aprovechando las características disponibles.
 
 Es posible utilizar la aplicación *dotnet* incluída en el .Net SDK 2.0 para
-compilar código de C#7.2 en cualquier plataforma soportada.
-
-A la fecha, existe una versión superior de C#, 7.3. MCART aún no hace uso de
-las características ofrecidas por C# 7.3, pero no se descarta que en un
-futuro sea necesario utilizar dicha versión. Debes tomar en cuenta esta
-posibilidad.
+compilar código de C#7.3 en cualquier plataforma soportada.
 
 [.Net SDK 2.0 (Windows)](https://www.microsoft.com/download/details.aspx?id=19988)  
 [.Net SDK Getting Started (todas las plataformas)](https://www.microsoft.com/net/core)
+
 #### Proyectos de ejemplos
 Se incluyen algunas aplicaciones sencillas de prueba en la solución, su
 propósito es el de probar ciertas características que requieren de una UI, y

@@ -133,7 +133,7 @@ namespace TheXDS.MCART
         public static TypeConverter FindConverter(Type source, Type target)
         {
             return Objects.GetTypes<TypeConverter>(true)
-                .Select(j => j.New<TypeConverter>())
+                .Select(j => j.New<TypeConverter>(false))
                 .FirstOrDefault(t =>
                 {
                     if (t is null) return false;
@@ -1104,7 +1104,7 @@ namespace TheXDS.MCART
         ///     Comprueba si un nombre podría tratarse de otro indicado.
         /// </summary>
         /// <returns>
-        ///     Un valor que representa la probabilidad de que
+        ///     Un valor porcentual que representa la probabilidad de que
         ///     <paramref name="checkName" /> haga referencia al nombre
         ///     <paramref name="actualName" />.
         /// </returns>
@@ -1130,7 +1130,7 @@ namespace TheXDS.MCART
         /// <param name="checkName">Nombre a comprobar.</param>
         /// <param name="actualName">Nombre real conocido.</param>
         /// <param name="tolerance">
-        ///     Opcional. <see cref="double" /> entre 0.0 y 1.0 que establece el
+        ///     Opcional. <see cref="float" /> entre 0.0 y 1.0 que establece el
         ///     nivel mínimo de similitud aceptado. si no se especifica, se asume
         ///     75% (0.75).
         /// </param>
@@ -1324,12 +1324,40 @@ namespace TheXDS.MCART
         /// </returns>
         public static short[] ReadInt16(this SecureString value)
         {
+            const int sz = sizeof(short);
             var outp = new List<short>();
             var valuePtr = IntPtr.Zero;
             try
             {
                 valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
-                for (var i = 0; i < value.Length; i++) outp.Add(Marshal.ReadInt16(valuePtr, i * 2));
+                for (var i = 0; i < value.Length; i+=sz) outp.Add(Marshal.ReadInt16(valuePtr, i));
+                return outp.ToArray();
+            }
+            finally
+            {
+                Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
+            }
+        }
+
+        /// <summary>
+        ///     Convierte un <see cref="SecureString" /> en un
+        ///     arreglo de <see cref="char" />.
+        /// </summary>
+        /// <param name="value">
+        ///     <see cref="SecureString" /> a convertir.
+        /// </param>
+        /// <returns>
+        ///     Un arreglo de <see cref="char" /> de código administrado.
+        /// </returns>
+        public static char[] ReadChars(this SecureString value)
+        {
+            const int sz = sizeof(char);
+            var outp = new List<char>();
+            var valuePtr = IntPtr.Zero;
+            try
+            {
+                valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
+                for (var i = 0; i < value.Length; i+=sz) outp.Add((char) Marshal.ReadInt16(valuePtr, i));
                 return outp.ToArray();
             }
             finally

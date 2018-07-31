@@ -57,8 +57,6 @@ namespace TheXDS.MCART.Exceptions
     /// <description>Modificación externa de valores internos protegidos de la aplicación.</description>
     /// </item>
     /// </list>
-    /// <list type="">
-    /// </list>
     /// </summary>
     [Serializable]
     public class TamperException : Exception
