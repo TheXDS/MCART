@@ -3,6 +3,9 @@ Range.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
+Este archivo define la estructura Range<T>, la cual permite representar rangos
+de valores.
+
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
@@ -32,6 +35,17 @@ namespace TheXDS.MCART.Types
     /// <typeparam name="T">Tipo base del rango de valores.</typeparam>
     public struct Range<T> where T : IComparable<T>
     {
+        /// <summary>
+        /// Inicializa una nueva instancia de la esctructura <see cref="Range{T}"/>
+        /// </summary>
+        /// <param name="minimum">Valor mínimo del rango, inclusive.</param>
+        /// <param name="maximum">Valor máximo del rango, inclusive.</param>
+        public Range(T minimum, T maximum)
+        {
+            _minimum = minimum;
+            _maximum = maximum;
+        }
+
         private T _minimum;
         private T _maximum;
 
@@ -140,11 +154,9 @@ namespace TheXDS.MCART.Types
 
                     try
                     {
-                        range = new Range<T>
-                        {
-                            _minimum = (T) t.ConvertTo(l[0].Trim(), typeof(T)),
-                            Maximum = (T) t.ConvertTo(l[1].Trim(), typeof(T))
-                        };
+                        range = new Range<T>(
+                            (T) t.ConvertTo(l[0].Trim(), typeof(T)),
+                            (T) t.ConvertTo(l[1].Trim(), typeof(T)));
                         return true;
                     }
                     catch

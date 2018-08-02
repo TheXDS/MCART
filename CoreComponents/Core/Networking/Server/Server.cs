@@ -248,13 +248,6 @@ namespace TheXDS.MCART.Networking.Server
             _clients.Add(client);
             if (Protocol.ClientWelcome(client, this))
             {
-                /*
-				ClientBye será llamado por una función dentro de la clase
-				Client, que será accesible por el código del usuario o la
-				implementación del protocolo. La función ClientDisconnect será
-				llamada cuando se detecte que la conexión ha finalizado sin
-				llamar a la función de desconexión.
-				*/
                 while (client.IsAlive)
                 {
                     var ts = client.RecieveAsync();
@@ -268,13 +261,18 @@ namespace TheXDS.MCART.Networking.Server
                             Protocol.ClientAttendant(client, this, await ts);
                         else
                         {
-                            Protocol.ClientDisconnect(client,this);
-                            //client.TcpClient.Close();
+                            Protocol.ClientDisconnect(client, this);
                         }
                     }
                     else
                         ts.Dispose();
-                    
+
+                    if (client.Disconnecting)
+                    {
+                        Protocol.ClientBye(client,this);
+                        client.TcpClient.Close();
+                    }
+
                     wdat = false;
                 }
             }
@@ -282,7 +280,6 @@ namespace TheXDS.MCART.Networking.Server
             {
                 try
                 {
-                    //client.TcpClient.GetStream().Close();
                     client.TcpClient.Close();
                 }
                 catch { /* Silenciar excepción */ }
@@ -298,7 +295,7 @@ namespace TheXDS.MCART.Networking.Server
             {
                 var c = await GetClient();
                 if (!(c is null))
-                    _clwaiter.Add(AttendClient(typeof(TClient).New(c, this) as TClient));
+                    _clwaiter.Add(AttendClient(typeof(TClient).New(c) as TClient));
             }
         }
 
