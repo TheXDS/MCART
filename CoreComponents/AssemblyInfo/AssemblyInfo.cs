@@ -27,7 +27,7 @@ using System.Reflection;
 [assembly: AssemblyCompany("TheXDS! non-Corp.")]
 [assembly: AssemblyProduct("Morgan's CLR Advanced Runtime")]
 [assembly: AssemblyCopyright("Copyright © 2011-2018 César Andrés Morgan")]
-[assembly: AssemblyVersion("0.8.7.0")]
+[assembly: AssemblyVersion("0.8.7.1")]
 #if CLSCompliance
 [assembly: System.CLSCompliant(true)]
 #endif

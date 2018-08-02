@@ -3,6 +3,9 @@ CommonTest.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
+Este archivo contiene todas las pruebas pertenecientes a la clase estática
+TheXDS.MCART.Common.
+
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
@@ -23,9 +26,14 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security;
+using System.Text;
+using System.Threading.Tasks;
 using TheXDS.MCART;
+using TheXDS.MCART.Types;
 using Xunit;
 using static TheXDS.MCART.Common;
 
@@ -37,27 +45,126 @@ namespace CoreTest.Modules
     public class CommonTest
     {
         [Fact]
+        public void IsBinaryTest()
+        {
+            Assert.True("0b1010".IsBinary());
+            Assert.True("1010".IsBinary());
+            Assert.True("&b1010".IsBinary());
+
+            Assert.False("0b0b1010".IsBinary());
+            Assert.False("&b&b1010".IsBinary());
+            Assert.False("0b1012".IsBinary());
+            Assert.False("1012".IsBinary());
+            Assert.False("&b1012".IsBinary());
+        }
+
+        [Fact]
+        public void IsHexTest()
+        {
+            Assert.True("0x123F".IsHex());
+            Assert.True("123F".IsHex());
+            Assert.True("&h123F".IsHex());
+            Assert.True("0x123f".IsHex());
+            Assert.True("123f".IsHex());
+            Assert.True("&h123f".IsHex());
+
+            Assert.False("0x0x123F".IsHex());
+            Assert.False("&h&h123F".IsHex());
+            Assert.False("0x123J".IsHex());
+            Assert.False("123J".IsHex());
+            Assert.False("&h123J".IsHex());
+        }
+
+        [Fact]
+        public void ContainsLettersTest()
+        {
+            Assert.True("abc123".ContainsLetters());
+            Assert.False("123456".ContainsLetters());
+
+            Assert.False("abcdef".ContainsLetters(true));
+            Assert.True("ABCdef".ContainsLetters(true));
+
+            Assert.False("ABCDEF".ContainsLetters(false));
+            Assert.True("ABCdef".ContainsLetters(true));
+        }
+
+        [Fact]
+        public void ContainsNumbersTest()
+        {
+            Assert.True("abc123".ContainsNumbers());
+            Assert.False("abcdef".ContainsNumbers());
+        }
+
+        [Fact]
+        public void ToPercentTestDouble()
+        {
+            var c = new[] { 1, 2, 3, 4, 5 };
+
+            Assert.Equal(new[] { 0.2, 0.4, 0.6, 0.8, 1.0 }, c.ToPercentDouble());
+            Assert.Equal(new[] { 0.2, 0.4, 0.6, 0.8, 1.0 }, c.ToPercentDouble(true));
+            Assert.Equal(new[] { 0.0, 0.25, 0.5, 0.75, 1.0 }, c.ToPercentDouble(false));
+            Assert.Equal(new[] { 0.1, 0.2, 0.3, 0.4, 0.5 }, c.ToPercentDouble(10));
+            Assert.Equal(new[] { 0.0, 0.25, 0.5, 0.75, 1.0 }, c.ToPercentDouble(1, 5));
+            Assert.Throws<InvalidOperationException>(() => c.ToPercentDouble(1, 1).ToList());
+        }
+
+        [Fact]
+        public void ToPercentTestSingle()
+        {
+            var c = new[] { 1, 2, 3, 4, 5 };
+
+            Assert.Equal(new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f }, c.ToPercentSingle());
+            Assert.Equal(new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f }, c.ToPercentSingle(true));
+            Assert.Equal(new[] { 0.0f, 0.25f, 0.5f, 0.75f, 1.0f }, c.ToPercentSingle(false));
+            Assert.Equal(new[] { 0.1f, 0.2f, 0.3f, 0.4f, 0.5f }, c.ToPercentSingle(10));
+            Assert.Equal(new[] { 0.0f, 0.25f, 0.5f, 0.75f, 1.0f }, c.ToPercentSingle(1, 5));
+            Assert.Throws<InvalidOperationException>(() => c.ToPercentSingle(1, 1).ToList());
+        }
+
+        [Fact]
+        public void ToStreamTest()
+        {
+            using (var r = new System.IO.StreamReader("Test".ToStream()))
+                Assert.Equal("Test", r.ReadToEnd());
+
+            using (var r = new System.IO.StreamReader("Test".ToStream(Encoding.Unicode)))
+                Assert.Equal("T\0e\0s\0t\0", r.ReadToEnd());
+        }
+
+        [Fact]
+        public void ReadCharsTest()
+        {
+            var s = new SecureString();
+            s.AppendChar('T');
+            s.AppendChar('e');
+            s.AppendChar('s');
+            s.AppendChar('t');
+            s.MakeReadOnly();
+            Assert.Equal("Test".ToCharArray(), s.ReadChars());
+        }
+
+        [Fact]
         public void SequenceTest()
         {
             Assert.Equal(
                 new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
-                Common.Sequence(10));
+                Sequence(10));
 
             Assert.Equal(
                 new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
-                Common.Sequence(1, 10));
+                Sequence(1, 10));
 
             Assert.Equal(
                 new[] { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 },
-                Common.Sequence(10, 1));
+                Sequence(10, 1));
 
             Assert.Equal(
                 new[] { 1, 3, 5, 7, 9 },
-                Common.Sequence(1, 10, 2));
+                Sequence(1, 10, 2));
 
             Assert.Equal(
                 new[] { 10, 8, 6, 4, 2 },
-                Common.Sequence(10, 1, 2));
+                Sequence(10, 1, 2));
         }
 
         [Fact]
@@ -106,8 +213,8 @@ namespace CoreTest.Modules
         [Fact]
         public void AreAllEmptyTest()
         {
-            Assert.True(Common.AllEmpty(null, " ", string.Empty));
-            Assert.False(Common.AllEmpty(null, "Test", string.Empty));
+            Assert.True(AllEmpty(null, " ", string.Empty));
+            Assert.False(AllEmpty(null, "Test", string.Empty));
         }
 
         [Fact]
@@ -125,10 +232,11 @@ namespace CoreTest.Modules
         [Fact]
         public void ContainsAnyTest()
         {
+            Assert.True("Test".ContainsAny(new List<string>{ "Ta", "Te" }));
             Assert.True("Test".ContainsAny('q', 't', 'a'));
             Assert.True("Test".ContainsAny(out var idx, 'q', 't', 'a'));
             Assert.Equal(1, idx);
-
+            
             Assert.True("Test".ContainsAny(out var idx2, "t", "a"));
             Assert.Equal(0, idx2);
 
@@ -169,16 +277,16 @@ namespace CoreTest.Modules
         [Fact]
         public void IsAnyEmptyTest()
         {
-            Assert.True(Common.AnyEmpty("Test", string.Empty, ""));
-            Assert.False(Common.AnyEmpty("T", "e", "s", "t"));
+            Assert.True(AnyEmpty("Test", string.Empty, ""));
+            Assert.False(AnyEmpty("T", "e", "s", "t"));
 
-            Assert.True(Common.AnyEmpty(out var i1, "Test", string.Empty, ""));
+            Assert.True(AnyEmpty(out var i1, "Test", string.Empty, ""));
             Assert.Equal(new[] { 1, 2 }, i1);
 
-            Assert.True(Common.AnyEmpty(out var i2, null, string.Empty, ""));
+            Assert.True(AnyEmpty(out var i2, null, string.Empty, ""));
             Assert.Equal(new[] { 0, 1, 2 }, i2);
 
-            Assert.False(Common.AnyEmpty(out var i3, "T", "e", "s", "t"));
+            Assert.False(AnyEmpty(out var i3, "T", "e", "s", "t"));
             Assert.Equal(new int[] { }, i3);
         }
 
@@ -190,6 +298,10 @@ namespace CoreTest.Modules
             Assert.True(1.0f.IsBetween(0.0f, 1.0f));
             Assert.False(((byte)2).IsBetween((byte)0, (byte)1));
             Assert.False(((sbyte)-50).IsBetween((sbyte)0, (sbyte)1));
+            Assert.True("b".IsBetween("a", "c"));
+            Assert.False("d".IsBetween("a", "c"));
+            Assert.True('b'.IsBetween(new Range<char>('a', 'c')));
+            Assert.False('d'.IsBetween(new Range<char>('a', 'c')));
         }
 
         [Fact]
@@ -263,7 +375,7 @@ namespace CoreTest.Modules
         public void SwapTest()
         {
             int a = 1, b = 2;
-            Common.Swap(ref a, ref b);
+            Swap(ref a, ref b);
             Assert.Equal(2, a);
             Assert.Equal(1, b);
         }
@@ -371,6 +483,24 @@ namespace CoreTest.Modules
                     84, 0, 101, 0, 115, 0, 116, 0
                 },
                 "Test".ToSecureString().ReadBytes());
+        }
+
+        [Fact]
+        public void StartsWithAnyTest()
+        {
+            Assert.True("Test".StartsWithAny("Ta","Te"));
+            Assert.True("Test".StartsWithAny(new List<string>{"Ta","Te"}));
+            Assert.False("Test".StartsWithAny("Ta", "Ti"));
+            Assert.False("Test".StartsWithAny(new List<string> { "Ta", "Ti" }));
+
+            Assert.True("TEST".StartsWithAny(new List<string> { "ta", "te" },true));
+            Assert.False("TEST".StartsWithAny(new List<string> { "ta", "ti" }, true));
+
+            Assert.True("TEST".StartsWithAny(new List<string> { "ta", "te" }, true, CultureInfo.CurrentCulture));
+            Assert.False("TEST".StartsWithAny(new List<string> { "ta", "ti" }, true, CultureInfo.CurrentCulture));
+
+            Assert.True("TEST".StartsWithAny(new List<string> { "ta", "te" }, StringComparison.OrdinalIgnoreCase));
+            Assert.False("TEST".StartsWithAny(new List<string> { "ta", "ti" }, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

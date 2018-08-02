@@ -19,6 +19,8 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+using System.Linq;
 using TheXDS.MCART.Networking.Server;
 using Xunit;
 using System.Net;
@@ -34,7 +36,7 @@ namespace CoreTest.Networking
     public class NetworkingTest
     {
         [Fact]
-        public void TalkTest()
+        public void Server_IntegrationTest()
         {
             var srv = new Server(new Echo(), new IPEndPoint(IPAddress.Loopback, 51220));
             srv.Start();
@@ -56,10 +58,30 @@ namespace CoreTest.Networking
             cl.Disconnect();
             srv.Stop();
 
-            Assert.Equal(test.Length, resp.Length);
-            for (byte j = 0; j < 5; j++)
-                Assert.True(test[j] == resp[j]);
+            Assert.Equal(test, resp);
         }
+
+        [Fact]
+        public void ServerWithData_IntegrationTest()
+        {
+            var srv = new Server<Client<int>>(new NamedEcho());
+            srv.Start();
+
+            var cl = new Cl.Client();
+            cl.Connect("localhost", 51227);
+            Thread.Sleep(500); //Esperar a que la conexión se realice.
+
+            Assert.Single(srv.Clients);
+
+            byte[] test = { 10, 20, 30, 40, 50 };
+            var resp = cl.TalkToServer(test);
+            cl.Disconnect();
+            srv.Stop();
+
+            Assert.Equal(BitConverter.GetBytes(0x123456).Concat(test), resp);
+        }
+
+
         [Fact]
         public void DownloadTest()
         {
@@ -68,17 +90,53 @@ namespace CoreTest.Networking
             Assert.Equal(5242880, ms.Length);
         }
 
+        [TheXDS.MCART.Networking.Port(51227)]
+        internal class NamedEcho : Protocol<Client<int>>
+        {
+            /// <inheritdoc />
+            /// <summary>
+            /// Protocolo de bienvenida del cliente.
+            /// </summary>
+            /// <returns>
+            /// <see langword="true" /> si el cliente fue aceptado por el protocolo,
+            /// <see langword="false" /> en caso contrario.
+            /// </returns>
+            /// <param name="client">Cliente que será atendido.</param>
+            /// <param name="server">Servidor que atiende al cliente.</param>
+            public override bool ClientWelcome(Client<int> client, Server<Client<int>> server)
+            {
+                client.ClientData = 0x123456;
+                return true;
+            }
+
+            /// <summary>
+            /// Protocolo de atención al cliente
+            /// </summary>
+            /// <param name="client">Cliente que será atendido.</param>
+            /// <param name="server">Servidor que atiende al cliente.</param>
+            /// <param name="data">Datos recibidos desde el cliente.</param>
+            public override void ClientAttendant(Client<int> client, Server<Client<int>> server, byte[] data)
+            {
+                client.Send(BitConverter.GetBytes(client.ClientData).Concat(data));
+            }
+        }
+
 #if !ExtrasBuiltIn
+        /// <inheritdoc />
         /// <summary>
         /// Protocolo simple de eco.
         /// </summary>
         /// <remarks>Este protocolo utiliza TCP/IP, no IGMP.</remarks>
-        [MCART.Networking.Port(7)]
-        class Echo : Protocol
+        [TheXDS.MCART.Networking.Port(7)]
+        private class Echo : Protocol
         {
+            /// <inheritdoc />
             /// <summary>
-            /// Protocolo de atención normal.
+            /// Protocolo de atención al cliente
             /// </summary>
+            /// <param name="client">Cliente que será atendido.</param>
+            /// <param name="server">Servidor que atiende al cliente.</param>
+            /// <param name="data">Datos recibidos desde el cliente.</param>
             public override void ClientAttendant(Client client, Server<Client> server, byte[] data)
             {
                 client.Send(data);
