@@ -28,6 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using TheXDS.MCART;
+using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Networking.Server;
 
 namespace LightChat
@@ -43,7 +44,7 @@ namespace LightChat
         private delegate void DoCommand(BinaryReader br, Client<string> client, Server<Client<string>> server);
 
         [AttributeUsage(AttributeTargets.Method, Inherited = false)]
-        private sealed class CommandAttribute : Attribute
+        private sealed class CommandAttribute : Attribute, IValueAttribute<Command>
         {
             public Command Value { get; }
 

@@ -27,6 +27,24 @@ using TheXDS.MCART.Attributes;
 
 namespace TheXDS.MCART.Networking
 {
+    /// <summary>
+    ///     Contiene definiciones y objetos predeterminados a utilizar en el
+    ///     espacio de nombres <see cref="Networking"/>.
+    /// </summary>
+    public static class Common
+    {
+        /// <summary>
+        ///     Puerto predeterminado para todos los objetos de red.
+        /// </summary>
+        public const int DefaultPort = 51220;
+
+        /// <summary>
+        ///     Tiempo de espera en milisegundos antes de realizar una
+        ///     desconexión forzada.
+        /// </summary>
+        public const int DisconnectionTimeout = 15000;
+ }
+
     /// <inheritdoc />
     /// <summary>
     ///     Atributo que establece un número de puerto que un

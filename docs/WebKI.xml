@@ -7,6 +7,19 @@
   <HelpKINode Title="AboutX method" Url="html/M_TheXDS_MCART_Resources_Strings_AboutX.htm" />
   <HelpKINode Title="AboveValue property" Url="html/P_System_Windows_Converters_ThresholdConverter_2_AboveValue.htm" />
   <HelpKINode Title="Action property" Url="html/P_TheXDS_MCART_PluginSupport_InteractionItem_Action.htm" />
+  <HelpKINode Title="ActiveClient class">
+    <HelpKINode Title="ActiveClient (Clase)" Url="html/T_TheXDS_MCART_Networking_Client_ActiveClient.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Networking_Client_ActiveClient__ctor.htm" />
+    <HelpKINode Title="events" Url="html/Events_T_TheXDS_MCART_Networking_Client_ActiveClient.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_Client_ActiveClient.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Networking_Client_ActiveClient.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ActiveClient.ActiveClient constructor" Url="html/M_TheXDS_MCART_Networking_Client_ActiveClient__ctor.htm" />
+  <HelpKINode Title="ActiveClient.AttendServer method" Url="html/M_TheXDS_MCART_Networking_Client_ActiveClient_AttendServer.htm" />
+  <HelpKINode Title="ActiveClient.ConnectionLost event" Url="html/E_TheXDS_MCART_Networking_Client_ActiveClient_ConnectionLost.htm" />
+  <HelpKINode Title="ActiveClient.PostConnection method" Url="html/M_TheXDS_MCART_Networking_Client_ActiveClient_PostConnection.htm" />
+  <HelpKINode Title="ActiveClient.TalkToServer method" Url="html/M_TheXDS_MCART_Networking_Client_ActiveClient_TalkToServer.htm" />
+  <HelpKINode Title="ActiveClient.TalkToServerAsync method" Url="html/M_TheXDS_MCART_Networking_Client_ActiveClient_TalkToServerAsync.htm" />
   <HelpKINode Title="Add method" Url="html/M_TheXDS_MCART_Types_Extensions_List_1_Add.htm" />
   <HelpKINode Title="AddCell method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_AddCell.htm" />
   <HelpKINode Title="AddConverter class">
@@ -54,6 +67,7 @@
     <HelpKINode Title="Point3D.Addition (Operador )" Url="html/Overload_TheXDS_MCART_Types_Point3D_op_Addition.htm" />
   </HelpKINode>
   <HelpKINode Title="AddRange method" Url="html/M_TheXDS_MCART_Types_Extensions_List_1_AddRange.htm" />
+  <HelpKINode Title="Address property" Url="html/P_TheXDS_MCART_Networking_Client_ConnectionFailureEventArgs_Address.htm" />
   <HelpKINode Title="AddRow method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_AddRow.htm" />
   <HelpKINode Title="AddTable method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_AddTable.htm" />
   <HelpKINode Title="AdverseHigh enumeration member" Url="html/T_TheXDS_MCART_Security_Password_PonderationLevel.htm" />
@@ -164,9 +178,6 @@
   <HelpKINode Title="AssemblyUnpacker&lt;T&gt;.UnpackStream method" Url="html/Overload_TheXDS_MCART_Resources_AssemblyUnpacker_1_UnpackStream.htm" />
   <HelpKINode Title="Assignables method" Url="html/Overload_TheXDS_MCART_Types_Extensions_TypeExtensions_Assignables.htm" />
   <HelpKINode Title="Assmblies field" Url="html/F_TheXDS_MCART_Resources_Strings_Assmblies.htm" />
-  <HelpKINode Title="AtConnect method" Url="html/M_TheXDS_MCART_Networking_Client_Client_AtConnect.htm" />
-  <HelpKINode Title="AtDisconnect method" Url="html/M_TheXDS_MCART_Networking_Client_Client_AtDisconnect.htm" />
-  <HelpKINode Title="AtFail method" Url="html/Overload_TheXDS_MCART_Networking_Client_Client_AtFail.htm" />
   <HelpKINode Title="AttachControls method" Url="html/M_TheXDS_MCART_Controls_NavigationBar_AttachControls.htm" />
   <HelpKINode Title="AttachedControls property" Url="html/P_TheXDS_MCART_Controls_NavigationBar_AttachedControls.htm" />
   <HelpKINode Title="AttachedToView event">
@@ -178,6 +189,7 @@
     <HelpKINode Title="NavigationBar.AttachView (M&#233;todo )" Url="html/M_TheXDS_MCART_Controls_NavigationBar_AttachView.htm" />
     <HelpKINode Title="SearchBox.AttachView (M&#233;todo )" Url="html/M_TheXDS_MCART_Controls_SearchBox_AttachView.htm" />
   </HelpKINode>
+  <HelpKINode Title="AttendServer method" Url="html/M_TheXDS_MCART_Networking_Client_ActiveClient_AttendServer.htm" />
   <HelpKINode Title="AtValue property" Url="html/P_System_Windows_Converters_ThresholdConverter_2_AtValue.htm" />
   <HelpKINode Title="Author property">
     <HelpKINode Title="IPlugin.Author (Propiedad )" Url="html/P_TheXDS_MCART_PluginSupport_IPlugin_Author.htm" />
@@ -386,15 +398,10 @@
   </HelpKINode>
   <HelpKINode Title="ClearWarn method" Url="html/M_TheXDS_MCART_UI_ClearWarn.htm" />
   <HelpKINode Title="Client class">
-    <HelpKINode Title="Client (Clase)" Url="html/T_TheXDS_MCART_Networking_Client_Client.htm" />
     <HelpKINode Title="Client (Clase)" Url="html/T_TheXDS_MCART_Networking_Server_Client.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Networking_Server_Client__ctor.htm" />
-    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Networking_Client_Client__ctor.htm" />
-    <HelpKINode Title="fields" Url="html/Fields_T_TheXDS_MCART_Networking_Client_Client.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_Server_Client.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_Client_Client.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Networking_Server_Client.htm" />
-    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Networking_Client_Client.htm" />
   </HelpKINode>
   <HelpKINode Title="Client(Of T) class">
     <HelpKINode Title="Client(T) (Clase)" Url="html/T_TheXDS_MCART_Networking_Server_Client_1.htm" />
@@ -404,34 +411,15 @@
   </HelpKINode>
   <HelpKINode Title="Client(Of T).Client constructor" Url="html/M_TheXDS_MCART_Networking_Server_Client_1__ctor.htm" />
   <HelpKINode Title="Client(Of T).ClientData property" Url="html/P_TheXDS_MCART_Networking_Server_Client_1_ClientData.htm" />
-  <HelpKINode Title="Client.AtConnect method" Url="html/M_TheXDS_MCART_Networking_Client_Client_AtConnect.htm" />
-  <HelpKINode Title="Client.AtDisconnect method" Url="html/M_TheXDS_MCART_Networking_Client_Client_AtDisconnect.htm" />
-  <HelpKINode Title="Client.AtFail method" Url="html/Overload_TheXDS_MCART_Networking_Client_Client_AtFail.htm" />
-  <HelpKINode Title="Client.Client constructor">
-    <HelpKINode Title="Client (Constructor )" Url="html/M_TheXDS_MCART_Networking_Server_Client__ctor.htm" />
-    <HelpKINode Title="Client (Constructor )" Url="html/M_TheXDS_MCART_Networking_Client_Client__ctor.htm" />
-  </HelpKINode>
-  <HelpKINode Title="Client.Connect method" Url="html/Overload_TheXDS_MCART_Networking_Client_Client_Connect.htm" />
-  <HelpKINode Title="Client.ConnectAsync method" Url="html/Overload_TheXDS_MCART_Networking_Client_Client_ConnectAsync.htm" />
-  <HelpKINode Title="Client.connection field" Url="html/F_TheXDS_MCART_Networking_Client_Client_connection.htm" />
+  <HelpKINode Title="Client.Client constructor" Url="html/M_TheXDS_MCART_Networking_Server_Client__ctor.htm" />
   <HelpKINode Title="Client.DataAvailable property" Url="html/P_TheXDS_MCART_Networking_Server_Client_DataAvailable.htm" />
-  <HelpKINode Title="Client.DefaultPort field" Url="html/F_TheXDS_MCART_Networking_Client_Client_DefaultPort.htm" />
-  <HelpKINode Title="Client.Disconnect method">
-    <HelpKINode Title="Client.Disconnect (M&#233;todo )" Url="html/M_TheXDS_MCART_Networking_Server_Client_Disconnect.htm" />
-    <HelpKINode Title="Client.Disconnect (M&#233;todo )" Url="html/M_TheXDS_MCART_Networking_Client_Client_Disconnect.htm" />
-  </HelpKINode>
+  <HelpKINode Title="Client.Disconnect method" Url="html/M_TheXDS_MCART_Networking_Server_Client_Disconnect.htm" />
   <HelpKINode Title="Client.EndPoint property" Url="html/P_TheXDS_MCART_Networking_Server_Client_EndPoint.htm" />
-  <HelpKINode Title="Client.Finalize method" Url="html/M_TheXDS_MCART_Networking_Client_Client_Finalize.htm" />
-  <HelpKINode Title="Client.IsAlive property">
-    <HelpKINode Title="Client.IsAlive (Propiedad )" Url="html/P_TheXDS_MCART_Networking_Server_Client_IsAlive.htm" />
-    <HelpKINode Title="Client.IsAlive (Propiedad )" Url="html/P_TheXDS_MCART_Networking_Client_Client_IsAlive.htm" />
-  </HelpKINode>
+  <HelpKINode Title="Client.IsAlive property" Url="html/P_TheXDS_MCART_Networking_Server_Client_IsAlive.htm" />
   <HelpKINode Title="Client.Recieve method" Url="html/M_TheXDS_MCART_Networking_Server_Client_Recieve.htm" />
   <HelpKINode Title="Client.RecieveAsync method" Url="html/Overload_TheXDS_MCART_Networking_Server_Client_RecieveAsync.htm" />
   <HelpKINode Title="Client.Send method" Url="html/Overload_TheXDS_MCART_Networking_Server_Client_Send.htm" />
   <HelpKINode Title="Client.SendAsync method" Url="html/Overload_TheXDS_MCART_Networking_Server_Client_SendAsync.htm" />
-  <HelpKINode Title="Client.TalkToServer method" Url="html/M_TheXDS_MCART_Networking_Client_Client_TalkToServer.htm" />
-  <HelpKINode Title="Client.TalkToServerAsync method" Url="html/M_TheXDS_MCART_Networking_Client_Client_TalkToServerAsync.htm" />
   <HelpKINode Title="Client&lt;T&gt; class">
     <HelpKINode Title="Client(T) (Clase)" Url="html/T_TheXDS_MCART_Networking_Server_Client_1.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Networking_Server_Client_1__ctor.htm" />
@@ -445,6 +433,20 @@
     <HelpKINode Title="IProtocol(TClient).ClientAttendant (M&#233;todo )" Url="html/M_TheXDS_MCART_Networking_Server_IProtocol_1_ClientAttendant.htm" />
     <HelpKINode Title="Protocol(TClient).ClientAttendant (M&#233;todo )" Url="html/M_TheXDS_MCART_Networking_Server_Protocol_1_ClientAttendant.htm" />
   </HelpKINode>
+  <HelpKINode Title="ClientBase class">
+    <HelpKINode Title="ClientBase (Clase)" Url="html/T_TheXDS_MCART_Networking_Client_ClientBase.htm" />
+    <HelpKINode Title="events" Url="html/Events_T_TheXDS_MCART_Networking_Client_ClientBase.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_Client_ClientBase.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Networking_Client_ClientBase.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ClientBase.CloseConnection method" Url="html/M_TheXDS_MCART_Networking_Client_ClientBase_CloseConnection.htm" />
+  <HelpKINode Title="ClientBase.Connect method" Url="html/Overload_TheXDS_MCART_Networking_Client_ClientBase_Connect.htm" />
+  <HelpKINode Title="ClientBase.ConnectAsync method" Url="html/Overload_TheXDS_MCART_Networking_Client_ClientBase_ConnectAsync.htm" />
+  <HelpKINode Title="ClientBase.Connected event" Url="html/E_TheXDS_MCART_Networking_Client_ClientBase_Connected.htm" />
+  <HelpKINode Title="ClientBase.ConnectionFailed event" Url="html/E_TheXDS_MCART_Networking_Client_ClientBase_ConnectionFailed.htm" />
+  <HelpKINode Title="ClientBase.Finalize method" Url="html/M_TheXDS_MCART_Networking_Client_ClientBase_Finalize.htm" />
+  <HelpKINode Title="ClientBase.IsAlive property" Url="html/P_TheXDS_MCART_Networking_Client_ClientBase_IsAlive.htm" />
+  <HelpKINode Title="ClientBase.PostConnection method" Url="html/M_TheXDS_MCART_Networking_Client_ClientBase_PostConnection.htm" />
   <HelpKINode Title="ClientBye method">
     <HelpKINode Title="IProtocol(TClient).ClientBye (M&#233;todo )" Url="html/M_TheXDS_MCART_Networking_Server_IProtocol_1_ClientBye.htm" />
     <HelpKINode Title="Protocol(TClient).ClientBye (M&#233;todo )" Url="html/M_TheXDS_MCART_Networking_Server_Protocol_1_ClientBye.htm" />
@@ -463,6 +465,7 @@
   <HelpKINode Title="Clockwise enumeration member" Url="html/T_TheXDS_MCART_Controls_ProgressRing_SweepDirection.htm" />
   <HelpKINode Title="Clone method" Url="html/M_TheXDS_MCART_Types_Extensions_List_1_Clone.htm" />
   <HelpKINode Title="ClosdConn field" Url="html/F_TheXDS_MCART_Resources_Strings_ClosdConn.htm" />
+  <HelpKINode Title="CloseConnection method" Url="html/M_TheXDS_MCART_Networking_Client_ClientBase_CloseConnection.htm" />
   <HelpKINode Title="Clse field" Url="html/F_TheXDS_MCART_Resources_Strings_Clse.htm" />
   <HelpKINode Title="Cncl field" Url="html/F_TheXDS_MCART_Resources_Strings_Cncl.htm" />
   <HelpKINode Title="Cobalt property" Url="html/P_TheXDS_MCART_Resources_Colors_Cobalt.htm" />
@@ -491,10 +494,10 @@
   </HelpKINode>
   <HelpKINode Title="Color to Brush conversion" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_3.htm" />
   <HelpKINode Title="Color to Color conversion">
-    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit.htm" />
-    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_1.htm" />
-    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_2.htm" />
     <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_4.htm" />
+    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_1.htm" />
+    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit.htm" />
+    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_2.htm" />
   </HelpKINode>
   <HelpKINode Title="Color.A property" Url="html/P_TheXDS_MCART_Types_Color_A.htm" />
   <HelpKINode Title="Color.Addition operator" Url="html/M_TheXDS_MCART_Types_Color_op_Addition.htm" />
@@ -1106,10 +1109,12 @@
   <HelpKINode Title="ColumnWidth method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_ColumnWidth.htm" />
   <HelpKINode Title="ColumnWidths method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_ColumnWidths.htm" />
   <HelpKINode Title="Common class">
-    <HelpKINode Title="Common (Clase)" Url="html/T_TheXDS_MCART_Common.htm" />
+    <HelpKINode Title="Common (Clase)" Url="html/T_TheXDS_MCART_Networking_Common.htm" />
     <HelpKINode Title="Common (Clase)" Url="html/T_TheXDS_MCART_Math_Common.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Math_Common.htm" />
+    <HelpKINode Title="Common (Clase)" Url="html/T_TheXDS_MCART_Common.htm" />
+    <HelpKINode Title="fields" Url="html/Fields_T_TheXDS_MCART_Networking_Common.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Common.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Math_Common.htm" />
   </HelpKINode>
   <HelpKINode Title="Common.AllEmpty method" Url="html/Overload_TheXDS_MCART_Common_AllEmpty.htm" />
   <HelpKINode Title="Common.AnyEmpty method" Url="html/Overload_TheXDS_MCART_Common_AnyEmpty.htm" />
@@ -1119,6 +1124,8 @@
   <HelpKINode Title="Common.ContainsNumbers method" Url="html/M_TheXDS_MCART_Common_ContainsNumbers.htm" />
   <HelpKINode Title="Common.CouldItBe method" Url="html/Overload_TheXDS_MCART_Common_CouldItBe.htm" />
   <HelpKINode Title="Common.CountChars method" Url="html/Overload_TheXDS_MCART_Common_CountChars.htm" />
+  <HelpKINode Title="Common.DefaultPort field" Url="html/F_TheXDS_MCART_Networking_Common_DefaultPort.htm" />
+  <HelpKINode Title="Common.DisconnectionTimeout field" Url="html/F_TheXDS_MCART_Networking_Common_DisconnectionTimeout.htm" />
   <HelpKINode Title="Common.FindConverter method" Url="html/Overload_TheXDS_MCART_Common_FindConverter.htm" />
   <HelpKINode Title="Common.FlipEndianess method" Url="html/Overload_TheXDS_MCART_Common_FlipEndianess.htm" />
   <HelpKINode Title="Common.IsBetween method" Url="html/Overload_TheXDS_MCART_Common_IsBetween.htm" />
@@ -1154,9 +1161,9 @@
     <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Attributes_CompressorAttribute.htm" />
   </HelpKINode>
   <HelpKINode Title="CompressorAttribute.CompressorAttribute constructor" Url="html/M_TheXDS_MCART_Attributes_CompressorAttribute__ctor.htm" />
-  <HelpKINode Title="Connect method" Url="html/Overload_TheXDS_MCART_Networking_Client_Client_Connect.htm" />
-  <HelpKINode Title="ConnectAsync method" Url="html/Overload_TheXDS_MCART_Networking_Client_Client_ConnectAsync.htm" />
-  <HelpKINode Title="connection field" Url="html/F_TheXDS_MCART_Networking_Client_Client_connection.htm" />
+  <HelpKINode Title="Connect method" Url="html/Overload_TheXDS_MCART_Networking_Client_ClientBase_Connect.htm" />
+  <HelpKINode Title="ConnectAsync method" Url="html/Overload_TheXDS_MCART_Networking_Client_ClientBase_ConnectAsync.htm" />
+  <HelpKINode Title="Connected event" Url="html/E_TheXDS_MCART_Networking_Client_ClientBase_Connected.htm" />
   <HelpKINode Title="ConnectionClosedException class">
     <HelpKINode Title="ConnectionClosedException (Clase)" Url="html/T_TheXDS_MCART_Exceptions_ConnectionClosedException.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_TheXDS_MCART_Exceptions_ConnectionClosedException__ctor.htm" />
@@ -1165,6 +1172,19 @@
     <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Exceptions_ConnectionClosedException.htm" />
   </HelpKINode>
   <HelpKINode Title="ConnectionClosedException.ConnectionClosedException constructor" Url="html/Overload_TheXDS_MCART_Exceptions_ConnectionClosedException__ctor.htm" />
+  <HelpKINode Title="ConnectionFailed event" Url="html/E_TheXDS_MCART_Networking_Client_ClientBase_ConnectionFailed.htm" />
+  <HelpKINode Title="ConnectionFailureEventArgs class">
+    <HelpKINode Title="ConnectionFailureEventArgs (Clase)" Url="html/T_TheXDS_MCART_Networking_Client_ConnectionFailureEventArgs.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_TheXDS_MCART_Networking_Client_ConnectionFailureEventArgs__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_Client_ConnectionFailureEventArgs.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Networking_Client_ConnectionFailureEventArgs.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ConnectionFailureEventArgs.Address property" Url="html/P_TheXDS_MCART_Networking_Client_ConnectionFailureEventArgs_Address.htm" />
+  <HelpKINode Title="ConnectionFailureEventArgs.ConnectionFailureEventArgs constructor" Url="html/Overload_TheXDS_MCART_Networking_Client_ConnectionFailureEventArgs__ctor.htm" />
+  <HelpKINode Title="ConnectionFailureEventArgs.Exception property" Url="html/P_TheXDS_MCART_Networking_Client_ConnectionFailureEventArgs_Exception.htm" />
+  <HelpKINode Title="ConnectionFailureEventArgs.Host property" Url="html/P_TheXDS_MCART_Networking_Client_ConnectionFailureEventArgs_Host.htm" />
+  <HelpKINode Title="ConnectionFailureEventArgs.Port property" Url="html/P_TheXDS_MCART_Networking_Client_ConnectionFailureEventArgs_Port.htm" />
+  <HelpKINode Title="ConnectionLost event" Url="html/E_TheXDS_MCART_Networking_Client_ActiveClient_ConnectionLost.htm" />
   <HelpKINode Title="ContainsAny method" Url="html/Overload_TheXDS_MCART_Common_ContainsAny.htm" />
   <HelpKINode Title="ContainsLetters method" Url="html/Overload_TheXDS_MCART_Common_ContainsLetters.htm" />
   <HelpKINode Title="ContainsNumbers method" Url="html/M_TheXDS_MCART_Common_ContainsNumbers.htm" />
@@ -1414,10 +1434,7 @@
   </HelpKINode>
   <HelpKINode Title="DefaultPluginChecker.DefaultPluginChecker constructor" Url="html/M_TheXDS_MCART_PluginSupport_DefaultPluginChecker__ctor.htm" />
   <HelpKINode Title="DefaultPluginChecker.IsCompatible method" Url="html/M_TheXDS_MCART_PluginSupport_DefaultPluginChecker_IsCompatible.htm" />
-  <HelpKINode Title="DefaultPort field">
-    <HelpKINode Title="Client.DefaultPort (Campo)" Url="html/F_TheXDS_MCART_Networking_Client_Client_DefaultPort.htm" />
-    <HelpKINode Title="Server(TClient).DefaultPort (Campo)" Url="html/F_TheXDS_MCART_Networking_Server_Server_1_DefaultPort.htm" />
-  </HelpKINode>
+  <HelpKINode Title="DefaultPort field" Url="html/F_TheXDS_MCART_Networking_Common_DefaultPort.htm" />
   <HelpKINode Title="DeflateGetter class">
     <HelpKINode Title="DeflateGetter (Clase)" Url="html/T_TheXDS_MCART_Resources_DeflateGetter.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Resources_DeflateGetter__ctor.htm" />
@@ -1468,12 +1485,14 @@
   <HelpKINode Title="DirectoryIsFull field" Url="html/F_TheXDS_MCART_Resources_Strings_DirectoryIsFull.htm" />
   <HelpKINode Title="DisableBlur method" Url="html/M_TheXDS_MCART_UI_DisableBlur.htm" />
   <HelpKINode Title="DisableControls method" Url="html/Overload_TheXDS_MCART_UI_DisableControls.htm" />
-  <HelpKINode Title="Disconnect method">
-    <HelpKINode Title="Client.Disconnect (M&#233;todo )" Url="html/M_TheXDS_MCART_Networking_Client_Client_Disconnect.htm" />
-    <HelpKINode Title="Client.Disconnect (M&#233;todo )" Url="html/M_TheXDS_MCART_Networking_Server_Client_Disconnect.htm" />
-  </HelpKINode>
+  <HelpKINode Title="Disconnect method" Url="html/M_TheXDS_MCART_Networking_Server_Client_Disconnect.htm" />
+  <HelpKINode Title="DisconnectionTimeout field" Url="html/F_TheXDS_MCART_Networking_Common_DisconnectionTimeout.htm" />
   <HelpKINode Title="Disposal enumeration member" Url="html/T_TheXDS_MCART_PluginSupport_PluginFinalizingEventArgs_FinalizingReason.htm" />
-  <HelpKINode Title="Dispose method" Url="html/M_TheXDS_MCART_Dialogs_PasswordDialog_Dispose.htm" />
+  <HelpKINode Title="Dispose method">
+    <HelpKINode Title="PasswordDialog.Dispose (M&#233;todo )" Url="html/M_TheXDS_MCART_Dialogs_PasswordDialog_Dispose.htm" />
+    <HelpKINode Title="TcpClient.Dispose (M&#233;todo )" Url="html/Overload_TheXDS_MCART_Types_Extensions_TcpClient_Dispose.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Disposed property" Url="html/P_TheXDS_MCART_Types_Extensions_TcpClient_Disposed.htm" />
   <HelpKINode Title="Division operator">
     <HelpKINode Title="Color.Division (Operador )" Url="html/M_TheXDS_MCART_Types_Color_op_Division.htm" />
     <HelpKINode Title="Point.Division (Operador )" Url="html/Overload_TheXDS_MCART_Types_Point_op_Division.htm" />
@@ -1520,12 +1539,20 @@
     <HelpKINode Title="RingGraph.DrawMyChildren (M&#233;todo )" Url="html/M_TheXDS_MCART_Controls_RingGraph_DrawMyChildren.htm" />
   </HelpKINode>
   <HelpKINode Title="Echo class">
+    <HelpKINode Title="Echo (Clase)" Url="html/T_TheXDS_MCART_Networking_Client_Protocols_Echo.htm" />
     <HelpKINode Title="Echo (Clase)" Url="html/T_TheXDS_MCART_Networking_Server_Protocols_Echo.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Networking_Client_Protocols_Echo__ctor.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Networking_Server_Protocols_Echo__ctor.htm" />
+    <HelpKINode Title="events" Url="html/Events_T_TheXDS_MCART_Networking_Client_Protocols_Echo.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_Client_Protocols_Echo.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_Server_Protocols_Echo.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Networking_Client_Protocols_Echo.htm" />
   </HelpKINode>
   <HelpKINode Title="Echo.ClientAttendant method" Url="html/M_TheXDS_MCART_Networking_Server_Protocols_Echo_ClientAttendant.htm" />
-  <HelpKINode Title="Echo.Echo constructor" Url="html/M_TheXDS_MCART_Networking_Server_Protocols_Echo__ctor.htm" />
+  <HelpKINode Title="Echo.Echo constructor">
+    <HelpKINode Title="Echo (Constructor )" Url="html/M_TheXDS_MCART_Networking_Client_Protocols_Echo__ctor.htm" />
+    <HelpKINode Title="Echo (Constructor )" Url="html/M_TheXDS_MCART_Networking_Server_Protocols_Echo__ctor.htm" />
+  </HelpKINode>
   <HelpKINode Title="Editable enumeration member" Url="html/T_TheXDS_MCART_Controls_NavigationBar_EditMode.htm" />
   <HelpKINode Title="EditDelete enumeration member" Url="html/T_TheXDS_MCART_Controls_NavigationBar_EditMode.htm" />
   <HelpKINode Title="EditEntered event" Url="html/E_TheXDS_MCART_Controls_NavigationBar_EditEntered.htm" />
@@ -1605,6 +1632,7 @@
   <HelpKINode Title="ExcDoingX method" Url="html/M_TheXDS_MCART_Resources_Strings_ExcDoingX.htm" />
   <HelpKINode Title="ExceptFor(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_ExceptFor__1.htm" />
   <HelpKINode Title="ExceptFor&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_ExceptFor__1.htm" />
+  <HelpKINode Title="Exception property" Url="html/P_TheXDS_MCART_Networking_Client_ConnectionFailureEventArgs_Exception.htm" />
   <HelpKINode Title="ExceptionEventArgs class">
     <HelpKINode Title="ExceptionEventArgs (Clase)" Url="html/T_TheXDS_MCART_Events_ExceptionEventArgs.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Events_ExceptionEventArgs__ctor.htm" />
@@ -1640,7 +1668,7 @@
   <HelpKINode Title="FillProperty field" Url="html/F_TheXDS_MCART_Controls_ProgressRing_FillProperty.htm" />
   <HelpKINode Title="Filters property" Url="html/P_TheXDS_MCART_Controls_NavigationBar_Filters.htm" />
   <HelpKINode Title="Finalize method">
-    <HelpKINode Title="Client.Finalize (M&#233;todo )" Url="html/M_TheXDS_MCART_Networking_Client_Client_Finalize.htm" />
+    <HelpKINode Title="ClientBase.Finalize (M&#233;todo )" Url="html/M_TheXDS_MCART_Networking_Client_ClientBase_Finalize.htm" />
     <HelpKINode Title="Slice.Finalize (M&#233;todo )" Url="html/M_TheXDS_MCART_Controls_Slice_Finalize.htm" />
   </HelpKINode>
   <HelpKINode Title="FindConverter method" Url="html/Overload_TheXDS_MCART_Common_FindConverter.htm" />
@@ -2007,6 +2035,20 @@
   <HelpKINode Title="Honeydew2 property" Url="html/P_TheXDS_MCART_Resources_Colors_Honeydew2.htm" />
   <HelpKINode Title="Honeydew3 property" Url="html/P_TheXDS_MCART_Resources_Colors_Honeydew3.htm" />
   <HelpKINode Title="Honeydew4 property" Url="html/P_TheXDS_MCART_Resources_Colors_Honeydew4.htm" />
+  <HelpKINode Title="Host property">
+    <HelpKINode Title="ConnectionFailureEventArgs.Host (Propiedad )" Url="html/P_TheXDS_MCART_Networking_Client_ConnectionFailureEventArgs_Host.htm" />
+    <HelpKINode Title="HostConnectionInfoEventArgs.Host (Propiedad )" Url="html/P_TheXDS_MCART_Networking_Client_HostConnectionInfoEventArgs_Host.htm" />
+  </HelpKINode>
+  <HelpKINode Title="HostConnectionInfoEventArgs class">
+    <HelpKINode Title="HostConnectionInfoEventArgs (Clase)" Url="html/T_TheXDS_MCART_Networking_Client_HostConnectionInfoEventArgs.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_TheXDS_MCART_Networking_Client_HostConnectionInfoEventArgs__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_Client_HostConnectionInfoEventArgs.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Networking_Client_HostConnectionInfoEventArgs.htm" />
+  </HelpKINode>
+  <HelpKINode Title="HostConnectionInfoEventArgs.Host property" Url="html/P_TheXDS_MCART_Networking_Client_HostConnectionInfoEventArgs_Host.htm" />
+  <HelpKINode Title="HostConnectionInfoEventArgs.HostConnectionInfoEventArgs constructor" Url="html/Overload_TheXDS_MCART_Networking_Client_HostConnectionInfoEventArgs__ctor.htm" />
+  <HelpKINode Title="HostConnectionInfoEventArgs.LocalEndPoint property" Url="html/P_TheXDS_MCART_Networking_Client_HostConnectionInfoEventArgs_LocalEndPoint.htm" />
+  <HelpKINode Title="HostConnectionInfoEventArgs.RemoteEndpoint property" Url="html/P_TheXDS_MCART_Networking_Client_HostConnectionInfoEventArgs_RemoteEndpoint.htm" />
   <HelpKINode Title="HotPink property" Url="html/P_TheXDS_MCART_Resources_Colors_HotPink.htm" />
   <HelpKINode Title="HotPink1 property" Url="html/P_TheXDS_MCART_Resources_Colors_HotPink1.htm" />
   <HelpKINode Title="HotPink2 property" Url="html/P_TheXDS_MCART_Resources_Colors_HotPink2.htm" />
@@ -2349,7 +2391,7 @@
   <HelpKINode Title="Is method" Url="html/M_TheXDS_MCART_Objects_Is.htm" />
   <HelpKINode Title="IsAlive property">
     <HelpKINode Title="Client.IsAlive (Propiedad )" Url="html/P_TheXDS_MCART_Networking_Server_Client_IsAlive.htm" />
-    <HelpKINode Title="Client.IsAlive (Propiedad )" Url="html/P_TheXDS_MCART_Networking_Client_Client_IsAlive.htm" />
+    <HelpKINode Title="ClientBase.IsAlive (Propiedad )" Url="html/P_TheXDS_MCART_Networking_Client_ClientBase_IsAlive.htm" />
     <HelpKINode Title="Server(TClient).IsAlive (Propiedad )" Url="html/P_TheXDS_MCART_Networking_Server_Server_1_IsAlive.htm" />
   </HelpKINode>
   <HelpKINode Title="IsAnyAssignable method" Url="html/Overload_TheXDS_MCART_Types_Extensions_TypeExtensions_IsAnyAssignable.htm" />
@@ -2783,6 +2825,7 @@
   </HelpKINode>
   <HelpKINode Title="LoadEverything method" Url="html/Overload_TheXDS_MCART_PluginSupport_PluginLoader_LoadEverything.htm" />
   <HelpKINode Title="LoadWhatever method" Url="html/Overload_TheXDS_MCART_PluginSupport_PluginLoader_LoadWhatever.htm" />
+  <HelpKINode Title="LocalEndPoint property" Url="html/P_TheXDS_MCART_Networking_Client_HostConnectionInfoEventArgs_LocalEndPoint.htm" />
   <HelpKINode Title="LoggingEventArgs class">
     <HelpKINode Title="LoggingEventArgs (Clase)" Url="html/T_TheXDS_MCART_Events_LoggingEventArgs.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_TheXDS_MCART_Events_LoggingEventArgs__ctor.htm" />
@@ -3331,6 +3374,17 @@
     <HelpKINode Title="Color.Parse (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_Parse.htm" />
     <HelpKINode Title="Range(T).Parse (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Range_1_Parse.htm" />
   </HelpKINode>
+  <HelpKINode Title="PassiveClient class">
+    <HelpKINode Title="PassiveClient (Clase)" Url="html/T_TheXDS_MCART_Networking_Client_PassiveClient.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Networking_Client_PassiveClient__ctor.htm" />
+    <HelpKINode Title="events" Url="html/Events_T_TheXDS_MCART_Networking_Client_PassiveClient.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_Client_PassiveClient.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Networking_Client_PassiveClient.htm" />
+  </HelpKINode>
+  <HelpKINode Title="PassiveClient.PassiveClient constructor" Url="html/M_TheXDS_MCART_Networking_Client_PassiveClient__ctor.htm" />
+  <HelpKINode Title="PassiveClient.PostConnection method" Url="html/M_TheXDS_MCART_Networking_Client_PassiveClient_PostConnection.htm" />
+  <HelpKINode Title="PassiveClient.TalkToServer method" Url="html/Overload_TheXDS_MCART_Networking_Client_PassiveClient_TalkToServer.htm" />
+  <HelpKINode Title="PassiveClient.TalkToServerAsync method" Url="html/Overload_TheXDS_MCART_Networking_Client_PassiveClient_TalkToServerAsync.htm" />
   <HelpKINode Title="Password property" Url="html/P_TheXDS_MCART_Security_Password_PwDialogResult_Password.htm" />
   <HelpKINode Title="PasswordDialog class">
     <HelpKINode Title="PasswordDialog (Clase)" Url="html/T_TheXDS_MCART_Dialogs_PasswordDialog.htm" />
@@ -3516,9 +3570,9 @@
     <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Types_Point.htm" />
   </HelpKINode>
   <HelpKINode Title="Point to Point conversion">
-    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit.htm" />
-    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit_2.htm" />
     <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit_1.htm" />
+    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit_2.htm" />
+    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit.htm" />
     <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit_3.htm" />
   </HelpKINode>
   <HelpKINode Title="Point.Addition operator" Url="html/Overload_TheXDS_MCART_Types_Point_op_Addition.htm" />
@@ -3588,7 +3642,10 @@
   <HelpKINode Title="Pop&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_CollectionExtensions_Pop__1.htm" />
   <HelpKINode Title="PopFirst(Of T) method" Url="html/M_TheXDS_MCART_Types_Extensions_CollectionExtensions_PopFirst__1.htm" />
   <HelpKINode Title="PopFirst&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_CollectionExtensions_PopFirst__1.htm" />
-  <HelpKINode Title="Port property" Url="html/P_TheXDS_MCART_Attributes_ServerAttribute_Port.htm" />
+  <HelpKINode Title="Port property">
+    <HelpKINode Title="ConnectionFailureEventArgs.Port (Propiedad )" Url="html/P_TheXDS_MCART_Networking_Client_ConnectionFailureEventArgs_Port.htm" />
+    <HelpKINode Title="ServerAttribute.Port (Propiedad )" Url="html/P_TheXDS_MCART_Attributes_ServerAttribute_Port.htm" />
+  </HelpKINode>
   <HelpKINode Title="PortAttribute class">
     <HelpKINode Title="PortAttribute (Clase)" Url="html/T_TheXDS_MCART_Networking_PortAttribute.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Networking_PortAttribute__ctor.htm" />
@@ -3601,6 +3658,11 @@
   <HelpKINode Title="Positives property">
     <HelpKINode Title="DoubleVisibilityConverter.Positives (Propiedad )" Url="html/P_System_Windows_Converters_DoubleVisibilityConverter_Positives.htm" />
     <HelpKINode Title="FloatVisibilityConverter.Positives (Propiedad )" Url="html/P_System_Windows_Converters_FloatVisibilityConverter_Positives.htm" />
+  </HelpKINode>
+  <HelpKINode Title="PostConnection method">
+    <HelpKINode Title="ActiveClient.PostConnection (M&#233;todo )" Url="html/M_TheXDS_MCART_Networking_Client_ActiveClient_PostConnection.htm" />
+    <HelpKINode Title="ClientBase.PostConnection (M&#233;todo )" Url="html/M_TheXDS_MCART_Networking_Client_ClientBase_PostConnection.htm" />
+    <HelpKINode Title="PassiveClient.PostConnection (M&#233;todo )" Url="html/M_TheXDS_MCART_Networking_Client_PassiveClient_PostConnection.htm" />
   </HelpKINode>
   <HelpKINode Title="PowderBlue property" Url="html/P_TheXDS_MCART_Resources_Colors_PowderBlue.htm" />
   <HelpKINode Title="ProgressBar property" Url="html/P_TheXDS_MCART_Resources_Colors_ProgressBar.htm" />
@@ -3857,6 +3919,7 @@
   <HelpKINode Title="RelaxedPluginChecker.RelaxedPluginChecker constructor" Url="html/M_TheXDS_MCART_PluginSupport_RelaxedPluginChecker__ctor.htm" />
   <HelpKINode Title="ReleaseComObject method" Url="html/M_TheXDS_MCART_Objects_ReleaseComObject.htm" />
   <HelpKINode Title="RemainingBytes method" Url="html/M_TheXDS_MCART_Types_Extensions_StreamExtensions_RemainingBytes.htm" />
+  <HelpKINode Title="RemoteEndpoint property" Url="html/P_TheXDS_MCART_Networking_Client_HostConnectionInfoEventArgs_RemoteEndpoint.htm" />
   <HelpKINode Title="Remove method" Url="html/M_TheXDS_MCART_Types_Extensions_List_1_Remove.htm" />
   <HelpKINode Title="RemoveAll method">
     <HelpKINode Title="CollectionExtensions.RemoveAll (M&#233;todo )" Url="html/Overload_TheXDS_MCART_Types_Extensions_CollectionExtensions_RemoveAll.htm" />
@@ -4116,7 +4179,6 @@
   <HelpKINode Title="Server(Of TClient) class">
     <HelpKINode Title="Server(TClient) (Clase)" Url="html/T_TheXDS_MCART_Networking_Server_Server_1.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_TheXDS_MCART_Networking_Server_Server_1__ctor.htm" />
-    <HelpKINode Title="fields" Url="html/Fields_T_TheXDS_MCART_Networking_Server_Server_1.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_Server_Server_1.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Networking_Server_Server_1.htm" />
     <HelpKINode Title="type conversions" Url="html/Operators_T_TheXDS_MCART_Networking_Server_Server_1.htm" />
@@ -4124,7 +4186,6 @@
   <HelpKINode Title="Server(Of TClient).Broadcast method" Url="html/Overload_TheXDS_MCART_Networking_Server_Server_1_Broadcast.htm" />
   <HelpKINode Title="Server(Of TClient).BroadcastAsync method" Url="html/Overload_TheXDS_MCART_Networking_Server_Server_1_BroadcastAsync.htm" />
   <HelpKINode Title="Server(Of TClient).Clients property" Url="html/P_TheXDS_MCART_Networking_Server_Server_1_Clients.htm" />
-  <HelpKINode Title="Server(Of TClient).DefaultPort field" Url="html/F_TheXDS_MCART_Networking_Server_Server_1_DefaultPort.htm" />
   <HelpKINode Title="Server(Of TClient).IsAlive property" Url="html/P_TheXDS_MCART_Networking_Server_Server_1_IsAlive.htm" />
   <HelpKINode Title="Server(Of TClient).ListeningEndPoint property" Url="html/P_TheXDS_MCART_Networking_Server_Server_1_ListeningEndPoint.htm" />
   <HelpKINode Title="Server(Of TClient).Multicast method" Url="html/M_TheXDS_MCART_Networking_Server_Server_1_Multicast.htm" />
@@ -4138,7 +4199,6 @@
   <HelpKINode Title="Server&lt;TClient&gt; class">
     <HelpKINode Title="Server(TClient) (Clase)" Url="html/T_TheXDS_MCART_Networking_Server_Server_1.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_TheXDS_MCART_Networking_Server_Server_1__ctor.htm" />
-    <HelpKINode Title="fields" Url="html/Fields_T_TheXDS_MCART_Networking_Server_Server_1.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_Server_Server_1.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Networking_Server_Server_1.htm" />
     <HelpKINode Title="type conversions" Url="html/Operators_T_TheXDS_MCART_Networking_Server_Server_1.htm" />
@@ -4146,7 +4206,6 @@
   <HelpKINode Title="Server&lt;TClient&gt;.Broadcast method" Url="html/Overload_TheXDS_MCART_Networking_Server_Server_1_Broadcast.htm" />
   <HelpKINode Title="Server&lt;TClient&gt;.BroadcastAsync method" Url="html/Overload_TheXDS_MCART_Networking_Server_Server_1_BroadcastAsync.htm" />
   <HelpKINode Title="Server&lt;TClient&gt;.Clients property" Url="html/P_TheXDS_MCART_Networking_Server_Server_1_Clients.htm" />
-  <HelpKINode Title="Server&lt;TClient&gt;.DefaultPort field" Url="html/F_TheXDS_MCART_Networking_Server_Server_1_DefaultPort.htm" />
   <HelpKINode Title="Server&lt;TClient&gt;.IsAlive property" Url="html/P_TheXDS_MCART_Networking_Server_Server_1_IsAlive.htm" />
   <HelpKINode Title="Server&lt;TClient&gt;.ListeningEndPoint property" Url="html/P_TheXDS_MCART_Networking_Server_Server_1_ListeningEndPoint.htm" />
   <HelpKINode Title="Server&lt;TClient&gt;.Multicast method" Url="html/M_TheXDS_MCART_Networking_Server_Server_1_Multicast.htm" />
@@ -4654,8 +4713,14 @@
     <HelpKINode Title="IPlugin.Tag (Propiedad )" Url="html/P_TheXDS_MCART_PluginSupport_IPlugin_Tag.htm" />
     <HelpKINode Title="Plugin.Tag (Propiedad )" Url="html/P_TheXDS_MCART_PluginSupport_Plugin_Tag.htm" />
   </HelpKINode>
-  <HelpKINode Title="TalkToServer method" Url="html/M_TheXDS_MCART_Networking_Client_Client_TalkToServer.htm" />
-  <HelpKINode Title="TalkToServerAsync method" Url="html/M_TheXDS_MCART_Networking_Client_Client_TalkToServerAsync.htm" />
+  <HelpKINode Title="TalkToServer method">
+    <HelpKINode Title="ActiveClient.TalkToServer (M&#233;todo )" Url="html/M_TheXDS_MCART_Networking_Client_ActiveClient_TalkToServer.htm" />
+    <HelpKINode Title="PassiveClient.TalkToServer (M&#233;todo )" Url="html/Overload_TheXDS_MCART_Networking_Client_PassiveClient_TalkToServer.htm" />
+  </HelpKINode>
+  <HelpKINode Title="TalkToServerAsync method">
+    <HelpKINode Title="ActiveClient.TalkToServerAsync (M&#233;todo )" Url="html/M_TheXDS_MCART_Networking_Client_ActiveClient_TalkToServerAsync.htm" />
+    <HelpKINode Title="PassiveClient.TalkToServerAsync (M&#233;todo )" Url="html/Overload_TheXDS_MCART_Networking_Client_PassiveClient_TalkToServerAsync.htm" />
+  </HelpKINode>
   <HelpKINode Title="TamperDetected field" Url="html/F_TheXDS_MCART_Resources_Strings_TamperDetected.htm" />
   <HelpKINode Title="TamperException class">
     <HelpKINode Title="TamperException (Clase)" Url="html/T_TheXDS_MCART_Exceptions_TamperException.htm" />
@@ -4685,6 +4750,15 @@
     <HelpKINode Title="IPlugin.TargetRTVersion (M&#233;todo )" Url="html/M_TheXDS_MCART_PluginSupport_IPlugin_TargetRTVersion.htm" />
     <HelpKINode Title="Plugin.TargetRTVersion (M&#233;todo )" Url="html/M_TheXDS_MCART_PluginSupport_Plugin_TargetRTVersion.htm" />
   </HelpKINode>
+  <HelpKINode Title="TcpClient class">
+    <HelpKINode Title="TcpClient (Clase)" Url="html/T_TheXDS_MCART_Types_Extensions_TcpClient.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Types_Extensions_TcpClient__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Extensions_TcpClient.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Types_Extensions_TcpClient.htm" />
+  </HelpKINode>
+  <HelpKINode Title="TcpClient.Dispose method" Url="html/Overload_TheXDS_MCART_Types_Extensions_TcpClient_Dispose.htm" />
+  <HelpKINode Title="TcpClient.Disposed property" Url="html/P_TheXDS_MCART_Types_Extensions_TcpClient_Disposed.htm" />
+  <HelpKINode Title="TcpClient.TcpClient constructor" Url="html/M_TheXDS_MCART_Types_Extensions_TcpClient__ctor.htm" />
   <HelpKINode Title="Teal property" Url="html/P_TheXDS_MCART_Resources_Colors_Teal.htm" />
   <HelpKINode Title="TestUI field" Url="html/F_TheXDS_MCART_Resources_Strings_TestUI.htm" />
   <HelpKINode Title="Text method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Text.htm" />
@@ -4849,7 +4923,14 @@
   <HelpKINode Title="TheXDS.MCART.Math.Tween.TweenFunction delegate" Url="html/T_TheXDS_MCART_Math_Tween_TweenFunction.htm" />
   <HelpKINode Title="TheXDS.MCART.Networking namespace" Url="html/N_TheXDS_MCART_Networking.htm" />
   <HelpKINode Title="TheXDS.MCART.Networking.Client namespace" Url="html/N_TheXDS_MCART_Networking_Client.htm" />
-  <HelpKINode Title="TheXDS.MCART.Networking.Client.Client class" Url="html/T_TheXDS_MCART_Networking_Client_Client.htm" />
+  <HelpKINode Title="TheXDS.MCART.Networking.Client.ActiveClient class" Url="html/T_TheXDS_MCART_Networking_Client_ActiveClient.htm" />
+  <HelpKINode Title="TheXDS.MCART.Networking.Client.ClientBase class" Url="html/T_TheXDS_MCART_Networking_Client_ClientBase.htm" />
+  <HelpKINode Title="TheXDS.MCART.Networking.Client.ConnectionFailureEventArgs class" Url="html/T_TheXDS_MCART_Networking_Client_ConnectionFailureEventArgs.htm" />
+  <HelpKINode Title="TheXDS.MCART.Networking.Client.HostConnectionInfoEventArgs class" Url="html/T_TheXDS_MCART_Networking_Client_HostConnectionInfoEventArgs.htm" />
+  <HelpKINode Title="TheXDS.MCART.Networking.Client.PassiveClient class" Url="html/T_TheXDS_MCART_Networking_Client_PassiveClient.htm" />
+  <HelpKINode Title="TheXDS.MCART.Networking.Client.Protocols namespace" Url="html/N_TheXDS_MCART_Networking_Client_Protocols.htm" />
+  <HelpKINode Title="TheXDS.MCART.Networking.Client.Protocols.Echo class" Url="html/T_TheXDS_MCART_Networking_Client_Protocols_Echo.htm" />
+  <HelpKINode Title="TheXDS.MCART.Networking.Common class" Url="html/T_TheXDS_MCART_Networking_Common.htm" />
   <HelpKINode Title="TheXDS.MCART.Networking.DownloadHelper class" Url="html/T_TheXDS_MCART_Networking_DownloadHelper.htm" />
   <HelpKINode Title="TheXDS.MCART.Networking.PortAttribute class" Url="html/T_TheXDS_MCART_Networking_PortAttribute.htm" />
   <HelpKINode Title="TheXDS.MCART.Networking.Server namespace" Url="html/N_TheXDS_MCART_Networking_Server.htm" />
@@ -4966,6 +5047,7 @@
   <HelpKINode Title="TheXDS.MCART.Types.Extensions.RemovingItemEventArgs(Of T) class" Url="html/T_TheXDS_MCART_Types_Extensions_RemovingItemEventArgs_1.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Extensions.RemovingItemEventArgs&lt;T&gt; class" Url="html/T_TheXDS_MCART_Types_Extensions_RemovingItemEventArgs_1.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Extensions.StreamExtensions class" Url="html/T_TheXDS_MCART_Types_Extensions_StreamExtensions.htm" />
+  <HelpKINode Title="TheXDS.MCART.Types.Extensions.TcpClient class" Url="html/T_TheXDS_MCART_Types_Extensions_TcpClient.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Extensions.Timer class" Url="html/T_TheXDS_MCART_Types_Extensions_Timer.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Extensions.TypeExtensions class" Url="html/T_TheXDS_MCART_Types_Extensions_TypeExtensions.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Point structure" Url="html/T_TheXDS_MCART_Types_Point.htm" />

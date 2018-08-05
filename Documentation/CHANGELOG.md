@@ -183,3 +183,6 @@
 
 #### MCART 0.8.7.0
 * Arreglado: Stack de red problemático.
+
+#### MCART 0.8.7.2
+* Cambiado: Stack de red (lado de cliente) parcialmente rescrito.

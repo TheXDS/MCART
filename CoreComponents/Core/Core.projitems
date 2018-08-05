@@ -20,7 +20,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Events.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Exceptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\Objects.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\Client.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\ActiveClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\ClientBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\ConnectionFailureEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\HostConnectionInfoEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\PassiveClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\Protocols\Echo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\TcpClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Common.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\DownloadHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\Protocols\Echo.cs" />

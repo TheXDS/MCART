@@ -32,6 +32,7 @@ using System.Diagnostics;
 using System.Linq;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 using St = TheXDS.MCART.Resources.Strings;
+using static TheXDS.MCART.Networking.Common;
 
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable MemberCanBeProtected.Global
@@ -108,16 +109,6 @@ namespace TheXDS.MCART.Networking.Server
         /// especificado para atender a los clientes.
         /// </returns>
         public static implicit operator Server<TClient>(Protocol<TClient> p) => new Server<TClient>(p);
-
-        /// <summary>
-        /// Tiempo de espera en milisegundos antes de realizar una desconexión
-        /// forzada al cerrar el servidor.
-        /// </summary>
-        private const int DisconnectionTimeout = 15000;
-        /// <summary>
-        /// Puerto predeterminado para las conexiones entrantes.
-        /// </summary>
-        public const int DefaultPort = 51220;
 
         /// <summary>
         /// Lista de hilos atendiendo a clientes.
