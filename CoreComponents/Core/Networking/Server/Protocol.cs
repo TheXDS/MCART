@@ -84,13 +84,62 @@ namespace TheXDS.MCART.Networking.Server
     /// </summary>
     public abstract class Protocol : Protocol<Client> { }
 
-    public abstract class SelfWiredCommandProtocol<TClient, TCommand> : Protocol<TClient> where TClient: Client where TCommand : Enum
+    /// <summary>
+    ///     Clase base para crear protocolos simples con bytes de comandos 
+    /// </summary>
+    /// <typeparam name="TClient"></typeparam>
+    /// <typeparam name="TCommand"></typeparam>
+    /// <typeparam name="TResponse"></typeparam>
+    public abstract class SelfWiredCommandProtocol<TClient, TCommand, TResponse> : Protocol<TClient> where TClient: Client where TCommand : struct, Enum where TResponse: struct, Enum
     {
         /// <summary>
         ///     Describe la firma de un comando del protocolo.
         /// </summary>
         private delegate void DoCommand(BinaryReader br, TClient client, Server<TClient> server);
         private readonly Dictionary<TCommand, DoCommand> _commands = new Dictionary<TCommand, DoCommand>();
+
+        private readonly TResponse? _errResponse;
+        private readonly TResponse? _unkResponse;
+        private readonly TResponse? _notMappedResponse;
+
+        private static TCommand ReadCommand(BinaryReader br)
+        {
+            switch (Marshal.SizeOf<TCommand>())
+            {
+                case 1:
+                    return (TCommand)Enum.ToObject(typeof(TCommand), br.ReadByte());
+                case 2:
+                    return (TCommand)Enum.ToObject(typeof(TCommand), br.ReadInt16());
+                case 4:
+                    return (TCommand)Enum.ToObject(typeof(TCommand), br.ReadInt32());
+                case 8:
+                    return (TCommand)Enum.ToObject(typeof(TCommand), br.ReadInt64());
+                default:
+                    throw new PlatformNotSupportedException();
+            }
+        }
+
+        private static byte[] MakeCommand(TResponse command)
+        {
+            /* -= QUIRK =-
+             * Recurrir a boxing no es ideal, pero es la única alternativa
+             * disponible mientras C# no brinde un mejor soporte a los
+             * argumentos de tipo genérico con restricción de Enum.
+             */
+            switch (Marshal.SizeOf<TResponse>())
+            {
+                case 1:
+                    return BitConverter.GetBytes((byte)(object)command);
+                case 2:
+                    return BitConverter.GetBytes((short)(object)command);
+                case 4:
+                    return BitConverter.GetBytes((int)(object)command);
+                case 8:
+                    return BitConverter.GetBytes((long)(object)command);
+                default:
+                    throw new PlatformNotSupportedException();
+            }
+        }
 
         /// <inheritdoc />
         /// <summary>
@@ -103,30 +152,20 @@ namespace TheXDS.MCART.Networking.Server
         {
             using (var br = new BinaryReader(new MemoryStream(data)))
             {
-                TCommand c;
-                switch (Marshal.SizeOf<TCommand>())
-                {
-                    case 1:
-                        c = (TCommand) Enum.Parse(typeof(TCommand), br.ReadByte().ToString());
-                        break;
-                    case 2:
-                        c = (TCommand)Enum.Parse(typeof(TCommand), br.ReadInt16().ToString());
-                        break;
-                    case 4:
-                        c = (TCommand)Enum.Parse(typeof(TCommand), br.ReadInt32().ToString());
-                        break;
-                    case 8:
-                        c = (TCommand)Enum.Parse(typeof(TCommand), br.ReadInt64().ToString());
-                        break;
-                    default:
-                        throw new InvalidOperationException();
-                }
+                var c = ReadCommand(br);
+
+                if (!Enum.IsDefined(typeof(TCommand), br))
+                    client.Send(MakeCommand(_unkResponse ?? throw new InvalidOperationException()));
 
                 if (_commands.ContainsKey(c))
-                    _commands[c](br, client, server);
+                {
+                    try { _commands[c](br, client, server); }
+                    catch { client.Send(MakeCommand(_errResponse ?? throw new InvalidOperationException())); }
+                }
                 else
-                    //client.Send(NewErr(ErrCodes.InvalidCommand));
-                    throw new InvalidOperationException();
+                {
+                    client.Send(MakeCommand(_notMappedResponse ?? _errResponse ?? throw new InvalidOperationException()));
+                }
             }
         }
 
@@ -135,6 +174,12 @@ namespace TheXDS.MCART.Networking.Server
         /// </summary>
         public SelfWiredCommandProtocol()
         {
+            var vals = Enum.GetValues(typeof(TResponse)).OfType<TResponse?>().ToArray();
+
+            _errResponse = vals.FirstOrDefault(p => p.HasAttr<ErrorResponseAttribute>());
+            _unkResponse = vals.FirstOrDefault(p => p.HasAttr<UnknownResponseAttribute>());
+            _notMappedResponse = vals.FirstOrDefault(p => p.HasAttr<NotMappedResponseAttribute>());
+
             var tCmdAttr = Objects.GetTypes<IValueAttribute<TCommand>>(true).FirstOrDefault() ??
                            throw new MissingTypeException(typeof(IValueAttribute<TCommand>));
             foreach (var j in GetType().GetMethods().WithSignature<DoCommand>())
@@ -144,5 +189,18 @@ namespace TheXDS.MCART.Networking.Server
                     _commands.Add(attr.Value, j as DoCommand);
             }
         }
+    }
+
+    [AttributeUsage(AttributeTargets.Field)]
+    sealed class ErrorResponseAttribute : Attribute
+    {
+    }
+    [AttributeUsage(AttributeTargets.Field)]
+    sealed class UnknownResponseAttribute : Attribute
+    {
+    }
+    [AttributeUsage(AttributeTargets.Field)]
+    sealed class NotMappedResponseAttribute : Attribute
+    {
     }
 }

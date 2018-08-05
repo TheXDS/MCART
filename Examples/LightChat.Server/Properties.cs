@@ -30,16 +30,18 @@ using TheXDS.MCART.PluginSupport;
 
 [assembly: AssemblyTitle("Servidor de LightChat para MCART")]
 [assembly: AssemblyDescription("Servidor de LightChat para MCART")]
+#pragma warning disable CS7035
 [assembly: AssemblyFileVersion("1.0.*")]
 
 namespace LightChat
 {
+    /// <inheritdoc cref="Plugin"/>
     /// <summary>
     /// Protocolo simple de chat.
     /// </summary>
     [Description("Protocolo de chat ligero LightChat, ensamblado de servidor.")]
     [Beta]
     [MinMCARTVersion(0, 8, 7, 0)]
-    [TargetMCARTVersion(0, 8, 7, 0)]
+    [TargetMCARTVersion(0, 8, 7, 3)]
     public partial class LightChat : Plugin { }
 }
