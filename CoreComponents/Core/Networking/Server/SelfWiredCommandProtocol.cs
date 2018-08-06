@@ -1,5 +1,5 @@
 ﻿/*
-Protocol.cs
+SelfWiredCommandProtocol.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -43,14 +43,14 @@ namespace TheXDS.MCART.Networking.Server
         /// <summary>
         ///     Describe la firma de un comando del protocolo.
         /// </summary>
-        private delegate void DoCommand(BinaryReader br, TClient client, Server<TClient> server);
-        private readonly Dictionary<TCommand, DoCommand> _commands = new Dictionary<TCommand, DoCommand>();
+        public delegate void CommandCallback(BinaryReader br, TClient client, Server<TClient> server);
+        private readonly Dictionary<TCommand, CommandCallback> _commands = new Dictionary<TCommand, CommandCallback>();
 
         private readonly TResponse? _errResponse;
         private readonly TResponse? _unkResponse;
         private readonly TResponse? _notMappedResponse;
 
-        private static TCommand ReadCommand(BinaryReader br)
+        public static TCommand ReadCommand(BinaryReader br)
         {
             switch (Marshal.SizeOf<TCommand>())
             {
@@ -67,7 +67,7 @@ namespace TheXDS.MCART.Networking.Server
             }
         }
 
-        private static byte[] MakeCommand(TResponse command)
+        public static byte[] MakeResponse(TResponse response)
         {
             /* -= QUIRK =-
              * Recurrir a boxing no es ideal, pero es la única alternativa
@@ -77,13 +77,13 @@ namespace TheXDS.MCART.Networking.Server
             switch (Marshal.SizeOf<TResponse>())
             {
                 case 1:
-                    return BitConverter.GetBytes((byte)(object)command);
+                    return BitConverter.GetBytes((byte)(object)response);
                 case 2:
-                    return BitConverter.GetBytes((short)(object)command);
+                    return BitConverter.GetBytes((short)(object)response);
                 case 4:
-                    return BitConverter.GetBytes((int)(object)command);
+                    return BitConverter.GetBytes((int)(object)response);
                 case 8:
-                    return BitConverter.GetBytes((long)(object)command);
+                    return BitConverter.GetBytes((long)(object)response);
                 default:
                     throw new PlatformNotSupportedException();
             }
@@ -103,16 +103,16 @@ namespace TheXDS.MCART.Networking.Server
                 var c = ReadCommand(br);
 
                 if (!Enum.IsDefined(typeof(TCommand), br))
-                    client.Send(MakeCommand(_unkResponse ?? _errResponse ?? throw new InvalidOperationException()));
+                    client.Send(MakeResponse(_unkResponse ?? _errResponse ?? throw new InvalidOperationException()));
 
                 if (_commands.ContainsKey(c))
                 {
                     try { _commands[c](br, client, server); }
-                    catch { client.Send(MakeCommand(_errResponse ?? throw new InvalidOperationException())); }
+                    catch { client.Send(MakeResponse(_errResponse ?? throw new InvalidOperationException())); }
                 }
                 else
                 {
-                    client.Send(MakeCommand(_notMappedResponse ?? _errResponse ?? throw new InvalidOperationException()));
+                    client.Send(MakeResponse(_notMappedResponse ?? _errResponse ?? throw new InvalidOperationException()));
                 }
             }
         }
@@ -130,11 +130,14 @@ namespace TheXDS.MCART.Networking.Server
 
             var tCmdAttr = Objects.GetTypes<IValueAttribute<TCommand>>(true).FirstOrDefault() ??
                            throw new MissingTypeException(typeof(IValueAttribute<TCommand>));
-            foreach (var j in GetType().GetMethods().WithSignature<DoCommand>())
+            foreach (var j in 
+                GetType().GetMethods().WithSignature<CommandCallback>()
+                    .Concat(this.PropertiesOf<CommandCallback>())
+                    .Concat(this.FieldsOf<CommandCallback>()))
             {
-                var attr=j.Method.GetCustomAttributes(tCmdAttr,false).OfType<IValueAttribute<TCommand>>().FirstOrDefault();
+                var attr=j.Method.GetCustomAttributes(tCmdAttr, false).OfType<IValueAttribute<TCommand>>().FirstOrDefault();
                 if (attr is null) continue;
-                _commands.Add(attr.Value, j as DoCommand);
+                _commands.Add(attr.Value, j as CommandCallback);
             }
         }
     }

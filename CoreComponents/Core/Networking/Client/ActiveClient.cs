@@ -120,8 +120,9 @@ namespace TheXDS.MCART.Networking.Client
                     } while (ns.DataAvailable);
                     AttendServer(outp.ToArray());
                 }
-                catch { ConnectionLost?.Invoke(this,EventArgs.Empty); }
+                catch { RaiseConnectionLost(); }
             }
         }
+        protected void RaiseConnectionLost()=> ConnectionLost?.Invoke(this, EventArgs.Empty);
     }
 }

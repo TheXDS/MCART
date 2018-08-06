@@ -26,6 +26,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\HostConnectionInfoEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\PassiveClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\Protocols\Echo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\SelfWiredCommandClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\SelfWiredCommandProtocol.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\TcpClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Common.cs" />

@@ -792,6 +792,35 @@ namespace TheXDS.MCART
             }
         }
 
+        public static IEnumerable<T> PropertiesOf<T>(this IEnumerable<PropertyInfo> properties, object instance)
+        {
+            return 
+                from j in properties.Where(p=>p.CanRead)
+                where j.PropertyType == typeof(T)
+                select (T) j.GetMethod.Invoke(instance,new object[0]);
+        }
+
+        public static IEnumerable<T> PropertiesOf<T>(this object instance)
+        {
+            return
+                from j in instance.GetType().GetProperties().Where(p => p.CanRead)
+                where j.PropertyType == typeof(T)
+                select (T)j.GetMethod.Invoke(instance, new object[0]);
+        }
+        public static IEnumerable<T> FieldsOf<T>(this IEnumerable<FieldInfo> fields, object instance)
+        {
+            return
+                from j in fields.Where(p => p.IsPublic)
+                where j.FieldType == typeof(T)
+                select (T)j.GetValue(instance);
+        }
+        public static IEnumerable<T> FieldsOf<T>(this object instance)
+        {
+            return
+                from j in instance.GetType().GetFields().Where(p => p.IsPublic)
+                where j.FieldType == typeof(T)
+                select (T)j.GetValue(instance);
+        }
         public static IEnumerable<Type> AllTypes<T>() => AllTypes(typeof(T));
         public static IEnumerable<Type> AllTypes(Type t)
         {
