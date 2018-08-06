@@ -495,9 +495,9 @@
   </HelpKINode>
   <HelpKINode Title="Color to Brush conversion" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_3.htm" />
   <HelpKINode Title="Color to Color conversion">
-    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_1.htm" />
     <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_4.htm" />
     <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_2.htm" />
+    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_1.htm" />
     <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit.htm" />
   </HelpKINode>
   <HelpKINode Title="Color.A property" Url="html/P_TheXDS_MCART_Types_Color_A.htm" />
@@ -1111,8 +1111,8 @@
   <HelpKINode Title="ColumnWidths method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_ColumnWidths.htm" />
   <HelpKINode Title="Common class">
     <HelpKINode Title="Common (Clase)" Url="html/T_TheXDS_MCART_Common.htm" />
-    <HelpKINode Title="Common (Clase)" Url="html/T_TheXDS_MCART_Math_Common.htm" />
     <HelpKINode Title="Common (Clase)" Url="html/T_TheXDS_MCART_Networking_Common.htm" />
+    <HelpKINode Title="Common (Clase)" Url="html/T_TheXDS_MCART_Math_Common.htm" />
     <HelpKINode Title="fields" Url="html/Fields_T_TheXDS_MCART_Networking_Common.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Math_Common.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Common.htm" />
@@ -1545,14 +1545,14 @@
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Networking_Client_Protocols_Echo__ctor.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Networking_Server_Protocols_Echo__ctor.htm" />
     <HelpKINode Title="events" Url="html/Events_T_TheXDS_MCART_Networking_Client_Protocols_Echo.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_Client_Protocols_Echo.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_Server_Protocols_Echo.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_Client_Protocols_Echo.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Networking_Client_Protocols_Echo.htm" />
   </HelpKINode>
   <HelpKINode Title="Echo.ClientAttendant method" Url="html/M_TheXDS_MCART_Networking_Server_Protocols_Echo_ClientAttendant.htm" />
   <HelpKINode Title="Echo.Echo constructor">
-    <HelpKINode Title="Echo (Constructor )" Url="html/M_TheXDS_MCART_Networking_Server_Protocols_Echo__ctor.htm" />
     <HelpKINode Title="Echo (Constructor )" Url="html/M_TheXDS_MCART_Networking_Client_Protocols_Echo__ctor.htm" />
+    <HelpKINode Title="Echo (Constructor )" Url="html/M_TheXDS_MCART_Networking_Server_Protocols_Echo__ctor.htm" />
   </HelpKINode>
   <HelpKINode Title="Editable enumeration member" Url="html/T_TheXDS_MCART_Controls_NavigationBar_EditMode.htm" />
   <HelpKINode Title="EditDelete enumeration member" Url="html/T_TheXDS_MCART_Controls_NavigationBar_EditMode.htm" />
@@ -1624,6 +1624,13 @@
   </HelpKINode>
   <HelpKINode Title="Err field" Url="html/F_TheXDS_MCART_Resources_Strings_Err.htm" />
   <HelpKINode Title="Error enumeration member" Url="html/T_TheXDS_MCART_PluginSupport_PluginFinalizingEventArgs_FinalizingReason.htm" />
+  <HelpKINode Title="ErrorResponseAttribute class">
+    <HelpKINode Title="ErrorResponseAttribute (Clase)" Url="html/T_TheXDS_MCART_Networking_ErrorResponseAttribute.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Networking_ErrorResponseAttribute__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_ErrorResponseAttribute.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Networking_ErrorResponseAttribute.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ErrorResponseAttribute.ErrorResponseAttribute constructor" Url="html/M_TheXDS_MCART_Networking_ErrorResponseAttribute__ctor.htm" />
   <HelpKINode Title="Eval method" Url="html/M_TheXDS_MCART_Security_Password_PwEvalRule_Eval.htm" />
   <HelpKINode Title="Evaluate method">
     <HelpKINode Title="IPwEvaluator.Evaluate (M&#233;todo )" Url="html/M_TheXDS_MCART_Security_Password_IPwEvaluator_Evaluate.htm" />
@@ -3169,6 +3176,13 @@
   <HelpKINode Title="NotEmpty property" Url="html/P_System_Windows_Converters_StringVisibilityConverter_NotEmpty.htm" />
   <HelpKINode Title="NotEnoughData field" Url="html/F_TheXDS_MCART_Resources_Strings_NotEnoughData.htm" />
   <HelpKINode Title="NotImplemented field" Url="html/F_TheXDS_MCART_Resources_Strings_NotImplemented.htm" />
+  <HelpKINode Title="NotMappedResponseAttribute class">
+    <HelpKINode Title="NotMappedResponseAttribute (Clase)" Url="html/T_TheXDS_MCART_Networking_NotMappedResponseAttribute.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Networking_NotMappedResponseAttribute__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_NotMappedResponseAttribute.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Networking_NotMappedResponseAttribute.htm" />
+  </HelpKINode>
+  <HelpKINode Title="NotMappedResponseAttribute.NotMappedResponseAttribute constructor" Url="html/M_TheXDS_MCART_Networking_NotMappedResponseAttribute__ctor.htm" />
   <HelpKINode Title="NotMyDatabaseException class">
     <HelpKINode Title="NotMyDatabaseException (Clase)" Url="html/T_TheXDS_MCART_Exceptions_NotMyDatabaseException.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_TheXDS_MCART_Exceptions_NotMyDatabaseException__ctor.htm" />
@@ -3589,9 +3603,9 @@
     <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Types_Point.htm" />
   </HelpKINode>
   <HelpKINode Title="Point to Point conversion">
-    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit_2.htm" />
-    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit_1.htm" />
     <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit.htm" />
+    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit_1.htm" />
+    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit_2.htm" />
     <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit_3.htm" />
   </HelpKINode>
   <HelpKINode Title="Point.Addition operator" Url="html/Overload_TheXDS_MCART_Types_Point_op_Addition.htm" />
@@ -4192,11 +4206,11 @@
   <HelpKINode Title="Sepia property" Url="html/P_TheXDS_MCART_Resources_Colors_Sepia.htm" />
   <HelpKINode Title="Sequence method" Url="html/Overload_TheXDS_MCART_Common_Sequence.htm" />
   <HelpKINode Title="Series class">
-    <HelpKINode Title="Series (Clase)" Url="html/T_TheXDS_MCART_Math_Series.htm" />
     <HelpKINode Title="Series (Clase)" Url="html/T_TheXDS_MCART_Controls_Series.htm" />
+    <HelpKINode Title="Series (Clase)" Url="html/T_TheXDS_MCART_Math_Series.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Controls_Series__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Math_Series.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Controls_Series.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Math_Series.htm" />
   </HelpKINode>
   <HelpKINode Title="Series.Fibonacci method" Url="html/M_TheXDS_MCART_Math_Series_Fibonacci.htm" />
   <HelpKINode Title="Series.Lucas method" Url="html/M_TheXDS_MCART_Math_Series_Lucas.htm" />
@@ -4968,6 +4982,8 @@
   <HelpKINode Title="TheXDS.MCART.Networking.Client.Protocols.Echo class" Url="html/T_TheXDS_MCART_Networking_Client_Protocols_Echo.htm" />
   <HelpKINode Title="TheXDS.MCART.Networking.Common class" Url="html/T_TheXDS_MCART_Networking_Common.htm" />
   <HelpKINode Title="TheXDS.MCART.Networking.DownloadHelper class" Url="html/T_TheXDS_MCART_Networking_DownloadHelper.htm" />
+  <HelpKINode Title="TheXDS.MCART.Networking.ErrorResponseAttribute class" Url="html/T_TheXDS_MCART_Networking_ErrorResponseAttribute.htm" />
+  <HelpKINode Title="TheXDS.MCART.Networking.NotMappedResponseAttribute class" Url="html/T_TheXDS_MCART_Networking_NotMappedResponseAttribute.htm" />
   <HelpKINode Title="TheXDS.MCART.Networking.PortAttribute class" Url="html/T_TheXDS_MCART_Networking_PortAttribute.htm" />
   <HelpKINode Title="TheXDS.MCART.Networking.Server namespace" Url="html/N_TheXDS_MCART_Networking_Server.htm" />
   <HelpKINode Title="TheXDS.MCART.Networking.Server.Client class" Url="html/T_TheXDS_MCART_Networking_Server_Client.htm" />
@@ -4985,6 +5001,7 @@
   <HelpKINode Title="TheXDS.MCART.Networking.Server.Server class" Url="html/T_TheXDS_MCART_Networking_Server_Server.htm" />
   <HelpKINode Title="TheXDS.MCART.Networking.Server.Server(Of TClient) class" Url="html/T_TheXDS_MCART_Networking_Server_Server_1.htm" />
   <HelpKINode Title="TheXDS.MCART.Networking.Server.Server&lt;TClient&gt; class" Url="html/T_TheXDS_MCART_Networking_Server_Server_1.htm" />
+  <HelpKINode Title="TheXDS.MCART.Networking.UnknownResponseAttribute class" Url="html/T_TheXDS_MCART_Networking_UnknownResponseAttribute.htm" />
   <HelpKINode Title="TheXDS.MCART.Objects class" Url="html/T_TheXDS_MCART_Objects.htm" />
   <HelpKINode Title="TheXDS.MCART.PluginSupport namespace" Url="html/N_TheXDS_MCART_PluginSupport.htm" />
   <HelpKINode Title="TheXDS.MCART.PluginSupport.DefaultPluginChecker class" Url="html/T_TheXDS_MCART_PluginSupport_DefaultPluginChecker.htm" />
@@ -5470,6 +5487,13 @@
     <HelpKINode Title="Point3D.UnaryPlus (Operador )" Url="html/M_TheXDS_MCART_Types_Point3D_op_UnaryPlus.htm" />
   </HelpKINode>
   <HelpKINode Title="Unk field" Url="html/F_TheXDS_MCART_Resources_Strings_Unk.htm" />
+  <HelpKINode Title="UnknownResponseAttribute class">
+    <HelpKINode Title="UnknownResponseAttribute (Clase)" Url="html/T_TheXDS_MCART_Networking_UnknownResponseAttribute.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Networking_UnknownResponseAttribute__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_UnknownResponseAttribute.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Networking_UnknownResponseAttribute.htm" />
+  </HelpKINode>
+  <HelpKINode Title="UnknownResponseAttribute.UnknownResponseAttribute constructor" Url="html/M_TheXDS_MCART_Networking_UnknownResponseAttribute__ctor.htm" />
   <HelpKINode Title="UnknownType field" Url="html/F_TheXDS_MCART_Resources_Strings_UnknownType.htm" />
   <HelpKINode Title="UnknownTypeException class">
     <HelpKINode Title="UnknownTypeException (Clase)" Url="html/T_TheXDS_MCART_Exceptions_UnknownTypeException.htm" />
