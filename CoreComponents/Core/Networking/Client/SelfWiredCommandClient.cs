@@ -25,73 +25,143 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
-using System.Runtime.InteropServices;
+using System.Reflection;
 using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 
+#region Configuración de ReSharper
+
+// ReSharper disable UnusedMember.Global
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable EventNeverSubscribedTo.Global
+
+#endregion
+
 namespace TheXDS.MCART.Networking.Client
 {
-    public abstract class SelfWiredCommandClient<TCommand, TResponse> : ActiveClient where TCommand : struct, Enum where TResponse : struct, Enum
+    /// <summary>
+    ///     Clase base para clientes auto-cableados de atención a protocolos de
+    ///     comandos simples basados en la clase
+    ///     <see cref="Server.SelfWiredCommandProtocol{TClient, TCommand, TResponse}" />.
+    /// </summary>
+    /// <typeparam name="TCommand">
+    ///     Tipo de enumeración de los comandos enviados por este cliente.
+    /// </typeparam>
+    /// <typeparam name="TResponse">
+    ///     Tipo de enumeración de las respuestas manejadas por este cliente.
+    /// </typeparam>
+    /// <remarks>
+    ///     Debido a las limitaciones actuales de C#, para poder implementar
+    ///     este protocolo es necesario crear un atributo aplicable a los
+    ///     métodos miembros de la clase que derive de
+    ///     <see cref="SelfWiredCommandClient{TCommand,TResponse}" />, dicho
+    ///     atributo deberá implementar <see cref="IValueAttribute{T}" /> y ser
+    ///     aplicado a cada método que pueda manejar respuestas del servidor.
+    ///     Tales métodos deberán a su vez, ser compatibles con el delegado
+    ///     <see cref="ResponseCallBack" />.
+    ///     Los comandos y las respuestas son enumeraciones comúnes.
+    /// </remarks>
+    /// <example>
+    ///     Este ejemplo define un protocolo sencillo que imprime mensajes enviados por el servidor.
+    ///     <code language="cs" source="..\..\Documentation\Examples\Networking\Client\SelfWiredCommandClient.cs"
+    ///         region="example1" />
+    ///     <code language="vb" source="..\..\Documentation\Examples\Networking\Client\SelfWiredCommandClient.vb"
+    ///         region="example1" />
+    /// </example>
+    public abstract class SelfWiredCommandClient<TCommand, TResponse> : ActiveClient
+        where TCommand : struct, Enum where TResponse : struct, Enum
     {
-        private readonly TResponse? _errResponse;
-        private readonly TResponse? _unkResponse;
-
-        public event EventHandler ServerError;
-        public event EventHandler UnknownCommandIssued;
-
         /// <summary>
         ///     Describe la firma de una respuesta del protocolo.
         /// </summary>
         public delegate void ResponseCallBack(BinaryReader br);
-        private readonly Dictionary<TResponse, ResponseCallBack> _responses = new Dictionary<TResponse, ResponseCallBack>();
 
-        public static TResponse ReadResponse(BinaryReader br)
+        private readonly TResponse? _errResponse;
+
+        private readonly ConcurrentQueue<ResponseCallBack> _interrupts =
+            new ConcurrentQueue<ResponseCallBack>();
+
+        private readonly MethodInfo _makeCmd;
+
+        private readonly MethodInfo _readRsp;
+
+        private readonly Dictionary<TResponse, ResponseCallBack> _responses =
+            new Dictionary<TResponse, ResponseCallBack>();
+
+        private readonly TResponse? _unkResponse;
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="SelfWiredCommandClient{TCommand,TResponse}" />.
+        /// </summary>
+        protected SelfWiredCommandClient()
         {
-            switch (Marshal.SizeOf<TResponse>())
+            var tRsp = typeof(TResponse).GetEnumUnderlyingType();
+            var tCmd = typeof(TCommand).GetEnumUnderlyingType();
+
+            _readRsp = typeof(BinaryReader).GetMethods().FirstOrDefault(p =>
+                           p.Name.StartsWith("Read")
+                           && p.GetParameters().Length == 0
+                           && p.ReturnType == tRsp)
+                       ?? throw new PlatformNotSupportedException();
+
+            _makeCmd = typeof(BitConverter).GetMethods().FirstOrDefault(p =>
             {
-                case 1:
-                    return (TResponse)Enum.ToObject(typeof(TCommand), br.ReadByte());
-                case 2:
-                    return (TResponse)Enum.ToObject(typeof(TCommand), br.ReadInt16());
-                case 4:
-                    return (TResponse)Enum.ToObject(typeof(TCommand), br.ReadInt32());
-                case 8:
-                    return (TResponse)Enum.ToObject(typeof(TCommand), br.ReadInt64());
-                default:
-                    throw new PlatformNotSupportedException();
+                var pars = p.GetParameters();
+                return p.Name == nameof(BitConverter.GetBytes)
+                       && pars.Length == 1
+                       && pars[0].ParameterType == tCmd;
+            }) ?? throw new PlatformNotSupportedException();
+
+            var vals = Enum.GetValues(typeof(TResponse)).OfType<TResponse?>().ToArray();
+
+            _errResponse = vals.FirstOrDefault(p => p.HasAttr<ErrorResponseAttribute>());
+            _unkResponse = vals.FirstOrDefault(p => p.HasAttr<UnknownResponseAttribute>());
+
+            var tCmdAttr = Objects.GetTypes<IValueAttribute<TResponse>>(true).FirstOrDefault() ??
+                           throw new MissingTypeException(typeof(IValueAttribute<TResponse>));
+            foreach (var j in
+                GetType().GetMethods().WithSignature<ResponseCallBack>()
+                    .Concat(this.PropertiesOf<ResponseCallBack>())
+                    .Concat(this.FieldsOf<ResponseCallBack>()))
+            {
+                foreach (var k in j.Method.GetCustomAttributes(tCmdAttr, false).OfType<IValueAttribute<TResponse>>())
+                {
+                    if (_responses.ContainsKey(k.Value)) throw new DataAlreadyExistsException();
+                    _responses.Add(k.Value, j as ResponseCallBack);
+                }
             }
         }
 
-        public static byte[] MakeCommand(TCommand command)
+        /// <inheritdoc />
+        /// <summary>
+        ///     Atiende una solicitud realizada por el servidor cuando no
+        ///     existe un método mapeado a la respuesta recibida.
+        /// </summary>
+        /// <param name="data">Datos recibidos desde el servidor.</param>
+        /// <remarks>
+        ///     De forma predeterminada, este método no realiza ninguna acción.
+        ///     Invalide este método en caso de que la implementación no mapee
+        ///     todas las respuestas que el servidor podría enviar, en cuyo
+        ///     caso, serán atendidas aquí.
+        /// </remarks>
+        public override void AttendServer(byte[] data)
         {
-            /* -= QUIRK =-
-             * Recurrir a boxing no es ideal, pero es la única alternativa
-             * disponible mientras C# no brinde un mejor soporte a los
-             * argumentos de tipo genérico con restricción de Enum.
-             */
-            switch (Marshal.SizeOf<TResponse>())
-            {
-                case 1:
-                    return BitConverter.GetBytes((byte)(object)command);
-                case 2:
-                    return BitConverter.GetBytes((short)(object)command);
-                case 4:
-                    return BitConverter.GetBytes((int)(object)command);
-                case 8:
-                    return BitConverter.GetBytes((long)(object)command);
-                default:
-                    throw new PlatformNotSupportedException();
-            }
+            /* No realizar ninguna acción. */
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicia la escucha activa del servidor.
+        /// </summary>
         protected override async void PostConnection()
         {
             while (!(Connection?.Disposed ?? true) && Connection.GetStream() is NetworkStream ns)
-            {
                 try
                 {
                     var outp = new List<byte>();
@@ -102,7 +172,6 @@ namespace TheXDS.MCART.Networking.Client
                         if (sze < Connection.ReceiveBufferSize) Array.Resize(ref buff, sze);
                         outp.AddRange(buff);
                     } while (ns.DataAvailable);
-
 
                     using (var ms = new MemoryStream(outp.ToArray()))
                     using (var br = new BinaryReader(ms))
@@ -116,62 +185,297 @@ namespace TheXDS.MCART.Networking.Client
                             var cmd = ReadResponse(br);
                             if (_errResponse.Equals(cmd)) ServerError?.Invoke(this, EventArgs.Empty);
                             if (_unkResponse.Equals(cmd)) UnknownCommandIssued?.Invoke(this, EventArgs.Empty);
-                            if (_responses.ContainsKey(cmd))
-                                _responses[cmd](br);
+                            if (_responses.ContainsKey(cmd)) _responses[cmd](br);
                             else AttendServer(outp.ToArray());
                         }
                     }
                 }
-                catch { RaiseConnectionLost(); }
-            }
+                catch
+                {
+                    RaiseConnectionLost();
+                }
         }
 
-        private readonly ConcurrentQueue<ResponseCallBack> _interrupts = new ConcurrentQueue<ResponseCallBack>();
-
-        protected SelfWiredCommandClient()
+        /// <summary>
+        ///     Genera un arreglo de bytes de comando al servidor a partir del
+        ///     valor especificado.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a partir de cual generar el arreglo de bytes.
+        /// </param>
+        /// <returns>
+        ///     Un arreglo de bytes que contiene los bytes que representan al
+        ///     comando, a partir del cual se pueden concatenar más datos para
+        ///     construir una solicitud completa.
+        /// </returns>
+        public IEnumerable<byte> MakeCommand(TCommand command)
         {
-            var vals = Enum.GetValues(typeof(TResponse)).OfType<TResponse?>().ToArray();
-
-            _errResponse = vals.FirstOrDefault(p => p.HasAttr<ErrorResponseAttribute>());
-            _unkResponse = vals.FirstOrDefault(p => p.HasAttr<UnknownResponseAttribute>());
-
-            var tCmdAttr = Objects.GetTypes<IValueAttribute<TResponse>>(true).FirstOrDefault() ??
-                           throw new MissingTypeException(typeof(IValueAttribute<TResponse>));
-            foreach (var j in
-                GetType().GetMethods().WithSignature<ResponseCallBack>()
-                    .Concat(this.PropertiesOf<ResponseCallBack>())
-                    .Concat(this.FieldsOf<ResponseCallBack>()))
-            {
-                var attr = j.Method.GetCustomAttributes(tCmdAttr, false).OfType<IValueAttribute<TResponse>>().FirstOrDefault();
-                if (attr is null) continue;
-                _responses.Add(attr.Value, j as ResponseCallBack);
-            }
+            return (byte[]) _makeCmd.Invoke(null, new object[] {command});
         }
 
-
-        public async Task TalkToServerAsync(TCommand command, byte[] data, ResponseCallBack callback)
+        /// <summary>
+        ///     Obtiene una respuesta a partir de un <see cref="BinaryReader" />
+        ///     activo.
+        /// </summary>
+        /// <param name="br">
+        ///     <see cref="BinaryReader" /> desde el cual se obtendrá la
+        ///     información.
+        /// </param>
+        /// <returns>
+        ///     Un <typeparamref name="TResponse" /> con la respuesta enviada
+        ///     por el servidor.
+        /// </returns>
+        public TResponse ReadResponse(BinaryReader br)
         {
-            if (!(data?.Length > 0))
-#if PreferExceptions
-                throw new ArgumentNullException();
-#else
-                return;
-#endif
-            var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
-            await ns.WriteAsync(data, 0, data.Length);
-            _interrupts.Enqueue(callback);
+            return (TResponse) Enum.ToObject(typeof(TResponse), _readRsp.Invoke(br, new object[0]));
         }
+
+        /// <summary>
+        ///     Se produce cuando el servidor envía un mensaje indicando estado
+        ///     de error.
+        /// </summary>
+        public event EventHandler ServerError;
+
+        /// <summary>
+        ///     Envía un comando al servidor, y ejecuta un método de atención
+        ///     cuando el servidor responda, evitando el hilo de atención
+        ///     normal.
+        /// </summary>
+        /// <param name="command">Comando a enviar al servidor.</param>
+        /// <param name="data">
+        ///     Datos adicionales a concatenar a la solicitud.
+        /// </param>
+        /// <param name="callback">
+        ///     Llamada a ejecutar cuando el servidor responda.
+        /// </param>
         public void TalkToServer(TCommand command, byte[] data, ResponseCallBack callback)
         {
-            if (!(data?.Length > 0))
-#if PreferExceptions
-                throw new ArgumentNullException();
-#else
-                return;
-#endif
+            if (!(data?.Length > 0)) throw new ArgumentNullException();
+            if (callback is null) throw new ArgumentNullException(nameof(callback));
+            var msg = MakeCommand(command).Concat(data).ToArray();
             var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
-            ns.Write(data, 0, data.Length);
+            ns.Write(msg, 0, msg.Length);
             _interrupts.Enqueue(callback);
         }
+
+        /// <summary>
+        ///     Envía un comando al servidor, y ejecuta un método de atención
+        ///     cuando el servidor responda, evitando el hilo de atención
+        ///     normal.
+        /// </summary>
+        /// <param name="command">Comando a enviar al servidor.</param>
+        /// <param name="callback">
+        ///     Llamada a ejecutar cuando el servidor responda.
+        /// </param>
+        public void TalkToServer(TCommand command, ResponseCallBack callback)
+        {
+            if (callback is null) throw new ArgumentNullException(nameof(callback));
+            var msg = MakeCommand(command).ToArray();
+            var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
+            ns.Write(msg, 0, msg.Length);
+            _interrupts.Enqueue(callback);
+        }
+
+        /// <summary>
+        ///     Envía un comando al servidor.
+        /// </summary>
+        /// <param name="command">Comando a enviar al servidor.</param>
+        public void TalkToServer(TCommand command)
+        {
+            var msg = MakeCommand(command).ToArray();
+            var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
+            ns.Write(msg, 0, msg.Length);
+        }
+
+        /// <summary>
+        ///     Envía un comando al servidor.
+        /// </summary>
+        /// <param name="command">Comando a enviar al servidor.</param>
+        /// <param name="data">
+        ///     Datos adicionales a concatenar a la solicitud.
+        /// </param>
+        public void TalkToServer(TCommand command, byte[] data)
+        {
+            if (!(data?.Length > 0)) throw new ArgumentNullException();
+            var msg = MakeCommand(command).Concat(data).ToArray();
+            var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
+            ns.Write(msg, 0, msg.Length);
+        }
+        
+        /// <summary>
+        ///     Envía un comando al servidor.
+        /// </summary>
+        /// <param name="command">Comando a enviar al servidor.</param>
+        /// <param name="data">
+        ///     Datos adicionales a concatenar a la solicitud.
+        /// </param>
+        public void TalkToServer(TCommand command, IEnumerable<byte> data) => TalkToServer(command, data as byte[] ?? data.ToArray());
+
+        /// <summary>
+        ///     Envía un comando al servidor.
+        /// </summary>
+        /// <param name="command">Comando a enviar al servidor.</param>
+        /// <param name="data">
+        ///     Datos adicionales a concatenar a la solicitud.
+        /// </param>
+        public void TalkToServer(TCommand command, MemoryStream data) => TalkToServer(command, data.ToArray());
+
+        /// <summary>
+        ///     Envía un comando al servidor.
+        /// </summary>
+        /// <param name="command">Comando a enviar al servidor.</param>
+        /// <param name="data">
+        ///     Datos adicionales a concatenar a la solicitud.
+        /// </param>
+        public void TalkToServer(TCommand command, Stream data)
+        {
+            if (!data.CanRead) throw new InvalidOperationException();
+            if (data.CanSeek)
+            {
+                using (var sr = new BinaryReader(data))
+                {
+                    TalkToServer(command, sr.ReadBytes((int)data.Length));
+                }
+            }
+            else
+            {
+                using (var ms = new MemoryStream())
+                {
+                    data.CopyTo(ms);
+                    TalkToServer(command, ms);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Envía un comando al servidor de forma asíncrona, y ejecuta un
+        ///     método de atención cuando el servidor responda, evitando el
+        ///     hilo de atención normal.
+        /// </summary>
+        /// <param name="command">Comando a enviar al servidor.</param>
+        /// <param name="data">
+        ///     Datos adicionales a concatenar a la solicitud.
+        /// </param>
+        /// <param name="callback">
+        ///     Llamada a ejecutar cuando el servidor responda.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="Task" /> que permite monitorear la operación.
+        /// </returns>
+        public async Task TalkToServerAsync(TCommand command, byte[] data, ResponseCallBack callback)
+        {
+            if (!(data?.Length > 0)) throw new ArgumentNullException();
+            if (callback is null) throw new ArgumentNullException(nameof(callback));
+            var msg = MakeCommand(command).Concat(data).ToArray();
+
+            var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
+            await ns.WriteAsync(msg, 0, msg.Length);
+            _interrupts.Enqueue(callback);
+        }
+
+        /// <summary>
+        ///     Envía un comando al servidor de forma asíncrona, y ejecuta un
+        ///     método de atención cuando el servidor responda, evitando el
+        ///     hilo de atención normal.
+        /// </summary>
+        /// <param name="command">Comando a enviar al servidor.</param>
+        /// <param name="callback">
+        ///     Llamada a ejecutar cuando el servidor responda.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="Task" /> que permite monitorear la operación.
+        /// </returns>
+        public async Task TalkToServerAsync(TCommand command, ResponseCallBack callback)
+        {
+            if (callback is null) throw new ArgumentNullException(nameof(callback));
+            var msg = MakeCommand(command).ToArray();
+            var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
+            await ns.WriteAsync(msg, 0, msg.Length);
+            _interrupts.Enqueue(callback);
+        }
+
+        /// <summary>
+        ///     Envía un comando al servidor de forma asíncrona.
+        /// </summary>
+        /// <param name="command">Comando a enviar al servidor.</param>
+        /// <returns>
+        ///     Un <see cref="Task" /> que permite monitorear la operación.
+        /// </returns>
+        public async Task TalkToServerAsync(TCommand command)
+        {
+            var msg = MakeCommand(command).ToArray();
+            var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
+            await ns.WriteAsync(msg, 0, msg.Length);
+        }
+
+        /// <summary>
+        ///     Envía un comando al servidor de forma asíncrona.
+        /// </summary>
+        /// <param name="command">Comando a enviar al servidor.</param>
+        /// <param name="data">
+        ///     Datos adicionales a concatenar a la solicitud.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="Task" /> que permite monitorear la operación.
+        /// </returns>
+        public async Task TalkToServerAsync(TCommand command, byte[] data)
+        {
+            if (!(data?.Length > 0)) throw new ArgumentNullException();
+            var msg = MakeCommand(command).Concat(data).ToArray();
+            var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
+            await ns.WriteAsync(msg, 0, msg.Length);
+        }
+        
+        
+        /// <summary>
+        ///     Envía un comando al servidor.
+        /// </summary>
+        /// <param name="command">Comando a enviar al servidor.</param>
+        /// <param name="data">
+        ///     Datos adicionales a concatenar a la solicitud.
+        /// </param>
+        public Task TalkToServerAsync(TCommand command, IEnumerable<byte> data) => TalkToServerAsync(command, data as byte[] ?? data.ToArray());
+
+        /// <summary>
+        ///     Envía un comando al servidor.
+        /// </summary>
+        /// <param name="command">Comando a enviar al servidor.</param>
+        /// <param name="data">
+        ///     Datos adicionales a concatenar a la solicitud.
+        /// </param>
+        public Task TalkToServerAsync(TCommand command, MemoryStream data) => TalkToServerAsync(command, data.ToArray());
+
+        /// <summary>
+        ///     Envía un comando al servidor.
+        /// </summary>
+        /// <param name="command">Comando a enviar al servidor.</param>
+        /// <param name="data">
+        ///     Datos adicionales a concatenar a la solicitud.
+        /// </param>
+        public async Task TalkToServerAsync(TCommand command, Stream data)
+        {
+            if (!data.CanRead) throw new InvalidOperationException();
+            if (data.CanSeek)
+            {
+                using (var sr = new BinaryReader(data))
+                {
+                    await TalkToServerAsync(command, sr.ReadBytes((int)data.Length));
+                }
+            }
+            else
+            {
+                using (var ms = new MemoryStream())
+                {
+                    await data.CopyToAsync(ms);
+                    await TalkToServerAsync(command, ms);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Se produce cuando el servidor envía un mensaje indicando que no
+        ///     reconoce al comando que se le ha enviado.
+        /// </summary>
+        public event EventHandler UnknownCommandIssued;
     }
 }

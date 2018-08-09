@@ -22,16 +22,15 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System.Net.Sockets;
+
 namespace TheXDS.MCART.Networking.Server
 {
     /// <summary>
     /// Determina una serie de funciones a implementar por una clase que provea
     /// de protocolos a un servidor.
     /// </summary>
-    /// <typeparam name="TClient">
-    /// Tipo de clientes que este protocolo es capaz de atender.
-    /// </typeparam>
-    public interface IProtocol<TClient> where TClient : Client
+    public interface IProtocol
     {
         /// <summary>
         /// Atiende al cliente
@@ -39,25 +38,35 @@ namespace TheXDS.MCART.Networking.Server
         /// <param name="client">Cliente que será atendido.</param>
         /// <param name="server">Servidor que atiende al cliente.</param>
         /// <param name="data">Datos recibidos desde el cliente.</param>
-        void ClientAttendant(TClient client, Server<TClient> server, byte[] data);
+        void ClientAttendant(Client client, Server server, byte[] data);
         /// <summary>
         /// Protocolo de bienvenida del cliente.
         /// </summary>
         /// <returns><see langword="true"/> si el cliente fue aceptado por el protocolo, <see langword="false"/> en caso contrario.</returns>
         /// <param name="client">Cliente que será atendido.</param>
         /// <param name="server">Servidor que atiende al cliente.</param>
-        bool ClientWelcome(TClient client, Server<TClient> server);
+        bool ClientWelcome(Client client, Server server);
         /// <summary>
         /// Protocolo de desconexión del cliente.
         /// </summary>
         /// <param name="client">Cliente que será atendido.</param>
         /// <param name="server">Servidor que atiende al cliente.</param>
-        void ClientBye(TClient client, Server<TClient> server);
+        void ClientBye(Client client, Server server);
         /// <summary>
         /// Protocolo de desconexión inesperada del cliente.
         /// </summary>
         /// <param name="client">Cliente que se ha desconectado.</param>
         /// <param name="server">Servidor que atiendía al cliente.</param>
-        void ClientDisconnect(TClient client, Server<TClient> server);
+        void ClientDisconnect(Client client, Server server);
+        /// <summary>
+        /// Inicializa un nuevo cliente manejado por este protocolo.
+        /// </summary>
+        /// <param name="tcpClient">
+        /// <see cref="TcpClient"/> de la conexión con el host remoto.
+        /// </param>
+        /// <returns>
+        /// Un nuevo <see cref="Client"/>.
+        /// </returns>
+        Client CreateClient(TcpClient tcpClient);
     }
 }

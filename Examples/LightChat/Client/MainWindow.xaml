@@ -1,0 +1,26 @@
+﻿<Window x:Class="TheXDS.LightChat.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mcart="clr-namespace:TheXDS.MCART.Controls;assembly=TheXDS.MCART.WPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <mcart:StretchyWrapPanel x:Name="PnlConectar">
+            <TextBox x:Name="TxtServer" Text="localhost"/>
+            <TextBox x:Name="TxtPort" Text="51220"/>
+            <Button Click="BtnConnect_OnClick">Conectar</Button>
+        </mcart:StretchyWrapPanel>
+        <TextBox x:Name="TxtChat" Grid.Row="1" TextWrapping="Wrap" IsReadOnly="True" VerticalScrollBarVisibility="Auto"/>
+        <DockPanel Grid.Row="2">
+            <Button Click="BtnSend_OnClick" DockPanel.Dock="Right">Enviar</Button>
+            <TextBox x:Name="TxtSend"/>
+        </DockPanel>
+    </Grid>
+</Window>

@@ -48,6 +48,49 @@ namespace TheXDS.MCART.Networking
         ///     desconexión forzada.
         /// </summary>
         public const int DisconnectionTimeout = 15000;
+
+        /// <summary>
+        /// Convierte un valor <see cref="long"/> que representa una cuenta de
+        /// bytes en la unidad de magnitud más fácil de leer.
+        /// </summary>
+        /// <param name="bytes">Cantidad de bytes a representar.</param>
+        /// <returns>
+        /// Una cadena con la cantidad de bytes utilizando la unidad de
+        /// magnitud adecuada.
+        /// </returns>
+        public static string ByteUnits(this long bytes)
+        {
+            var c = 0;
+            var f = 0;
+            while (bytes > 1023)
+            {
+                c++;
+                f = (int)(bytes % 1024);
+                bytes /= 1024;
+            }
+
+            switch (c)
+            {
+                case 0:
+                    return $"{bytes} Bytes";
+                case 1:
+                    return $"{bytes+(float)f/1024:F1} KiB";
+                case 2:
+                    return $"{bytes + (float)f / 1024:F1} MiB";
+                case 3:
+                    return $"{bytes + (float)f / 1024:F1} GiB";
+                case 4:
+                    return $"{bytes + (float)f / 1024:F1} TiB";
+                case 5:
+                    return $"{bytes + (float)f / 1024:F1} PiB";
+                case 6:
+                    return $"{bytes + (float)f / 1024:F1} EiB";
+                case 7:
+                    return $"{bytes + (float)f / 1024:F1} ZiB";
+                default:
+                    return $"{bytes + (float)f / 1024:F1} YiB";
+            }
+        }
  }
 
     /// <inheritdoc />
