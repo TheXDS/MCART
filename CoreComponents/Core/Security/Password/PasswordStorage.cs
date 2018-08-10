@@ -33,7 +33,7 @@ namespace TheXDS.MCART.Security.Password
 {
     /// <summary>
     /// Contiene métodos para crear Salty Hashes de contraseñas que son seguros
-    /// para ser almacenados, así com otambién comprobar la validez de una
+    /// para ser almacenados, así como también comprobar la validez de una
     /// contraseña.
     /// </summary>
     /// <remarks>
