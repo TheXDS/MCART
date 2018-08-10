@@ -134,7 +134,7 @@ namespace TheXDS.MCART.Networking
         /// <returns>
         ///     Un <see cref="Task" /> que representa a la tarea en ejecución.
         /// </returns>
-        public static async Task DownloadHttpAsync(string url, Stream stream, Action<long?, long> reportCallback)
+        public static async Task DownloadHttpAsync(string url, Stream stream, ReportCallBack reportCallback)
         {
             await DownloadHttpAsync(new Uri(url), stream, reportCallback);
         }
@@ -160,7 +160,7 @@ namespace TheXDS.MCART.Networking
         /// <returns>
         ///     Un <see cref="Task" /> que representa a la tarea en ejecución.
         /// </returns>
-        public static async Task DownloadHttpAsync(Uri uri, Stream stream, Action<long?, long> reportCallback)
+        public static async Task DownloadHttpAsync(Uri uri, Stream stream, ReportCallBack reportCallback)
         {
             await DownloadHttpAsync(uri, stream, reportCallback, 100);
         }
@@ -189,7 +189,7 @@ namespace TheXDS.MCART.Networking
         /// <returns>
         ///     Un <see cref="Task" /> que representa a la tarea en ejecución.
         /// </returns>
-        public static async Task DownloadHttpAsync(string url, Stream stream, Action<long?, long> reportCallback,
+        public static async Task DownloadHttpAsync(string url, Stream stream, ReportCallBack reportCallback,
             int polling)
         {
             await DownloadHttpAsync(new Uri(url), stream, reportCallback, polling);
@@ -219,7 +219,7 @@ namespace TheXDS.MCART.Networking
         /// <returns>
         ///     Un <see cref="Task" /> que representa a la tarea en ejecución.
         /// </returns>
-        public static async Task DownloadHttpAsync(Uri uri, Stream stream, Action<long?, long> reportCallback,
+        public static async Task DownloadHttpAsync(Uri uri, Stream stream, ReportCallBack reportCallback,
             int polling)
         {
             var wr = WebRequest.Create(uri);
@@ -231,15 +231,26 @@ namespace TheXDS.MCART.Networking
             using (var reportTask = new Task(() =>
             {
                 if (reportCallback is null) return;
+                var t = r.ContentLength > 0 ? r.ContentLength : (long?) null;
+                var spd = 0L;
                 while (!ct?.IsCancellationRequested ?? false)
                 {
-                    reportCallback.Invoke(
-                        stream.CanSeek ? (long?) stream.Length : null,
-                        r.ContentLength);
+                    if (stream.CanSeek)
+                    {
+                        var l = stream.Length;
+                        reportCallback.Invoke(l, t, (l - spd)* 1000 / polling);
+                        spd = l;
+                    }
+                    else reportCallback.Invoke(null,t,null);
                     Thread.Sleep(polling);
                 }
 
-                reportCallback.Invoke(stream.CanSeek ? (long?) stream.Length : null, r.ContentLength);
+                if (stream.CanSeek)
+                {
+                    spd = stream.Length - spd;
+                    reportCallback.Invoke(stream.Length, t, spd * 1000 / polling);
+                }
+                else reportCallback.Invoke(null, t, null);
             }, ct.Token))
             {
                 reportTask.Start();
@@ -248,5 +259,20 @@ namespace TheXDS.MCART.Networking
                 await reportTask;
             }
         }
+
+        /// <summary>
+        ///     Delegado que describe un método para reportar el estado de una
+        ///     operación de descarga.
+        /// </summary>
+        /// <param name="current">
+        ///     Bytes descargados actualmente.
+        /// </param>
+        /// <param name="total">
+        ///     Cuenta total de bytes esperados.
+        /// </param>
+        /// <param name="speed">
+        ///     Velocidad de descarga actual, en bytes por segundo.
+        /// </param>
+        public delegate void ReportCallBack(long? current, long? total, long? speed);
     }
 }

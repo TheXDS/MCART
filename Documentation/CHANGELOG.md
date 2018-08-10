@@ -3,24 +3,24 @@
 
 ## Nürburgring 0.2.0.10
 - Primera implementación de concepto de plugins
-- Corregido un problema con VMRunner al finalizar una máquina virtual
-- Corregida parcialmente la inoperatibilidad de Bintools2
-- Desactivación de código no compilable (DUFParser v1.0)
+- Corregido un problema con ```VMRunner``` al finalizar una máquina virtual
+- Corregida parcialmente la inoperatibilidad de ```Bintools2```
+- Desactivación de código no compilable (*DUFParser v1.0*)
 
 ## Nürburgring 0.2.0.11
 - Cambios menores
 
 ## Nürburgring 0.2.1.12
 - Corregidos problemas de estabilidad al cargar Plugins
-- Más correcciones a la inoperatibilidad de Bintools2
-- Reactivación de DUFParser v1.0 mediante una capa de compatibilidad con el plugin AESCrypter
+- Más correcciones a la inoperatibilidad de ```Bintools2```
+- Reactivación de *DUFParser v1.0* mediante una capa de compatibilidad con el plugin ```AESCrypter```
 
 ## Nürburgring 0.2.2.13
-- Implementación de funciones Shift en Bintools2
+- Implementación de funciones Shift en ```Bintools2```
 - Cambios menores
 
 ## Nürburgring 0.2.3.18
-- Reactivación de funciones inoperativas de DUFParser v2.0
+- Reactivación de funciones inoperativas de *DUFParser v2.0*
 - Mejoras en la implementación de plugins
 - Cambios menores
 
@@ -58,7 +58,7 @@
 
 ## Nürburgring 0.4.0.0
 - Reescritura total de MCA Runtime
-- Ahora, este software se identifica como MCART
+- Ahora, este software se identifica como **MCART**
 - Eliminación de abundante código innecesario
 - Otra reescritura total del soporte de plugins
 - Eliminación de plugins innecesarios
@@ -92,18 +92,18 @@
 - Otras mejoras varias
 
 ## Nürburgring 0.4.3.0
-* Nuevo: control NavigationBar
-* Nuevo: módulo ValueConverters
+* Nuevo: control ```NavigationBar```
+* Nuevo: módulo ```ValueConverters```
 * Nuevo: las bases de datos ahora pueden contener información Tag
-* Nuevo: Propiedades adicionales para Networking.ClientServer.Server
-* Nuevo: Extensiones adicionales de la clase List(Of T)
-* Mejorado: Limpieza de recursos de Networking.ClientServer.Server
+* Nuevo: Propiedades adicionales para ```Networking.ClientServer.Server```
+* Nuevo: Extensiones adicionales de la clase ```List(Of T)```
+* Mejorado: Limpieza de recursos de ```Networking.ClientServer.Server```
 * Mejorado: Extensión y mejoras varias al soporte de plugins
-* Arreglado: AboutMCART debería funcionar correctamente.
-* Arreglado: Problemas con el indicador de seguridad en PasswordDialog
-* Reemplazado: MCAGraph > LightGraph
-* Movido: Objects ahora es un módulo independiente en el proyecto (ObjectManagement)
-* Inhabilitado: MCADBServer
+* Arreglado: ```AboutMCART``` debería funcionar correctamente.
+* Arreglado: Problemas con el indicador de seguridad en ```PasswordDialog```
+* Reemplazado: ```MCAGraph``` > ```LightGraph```
+* Movido: ```Objects``` ahora es un módulo independiente en el proyecto (```ObjectManagement```)
+* Inhabilitado: ```MCADBServer```
 * Algunas nuevas funciones, atributos, argumentos de eventos, excepciones y recursos misceláneos.
 * También han sido agregadas algunas etiquetas XML de documentación.
 
@@ -112,26 +112,26 @@
 * Modificado: Cambios a los constructores de StringVisibilityConverter
 
 ## Nürburgring 0.4.3.2
-* Nuevo: eventos adicionales para NavigationBar
-* Mejorado: GraphView tiene soporte para tipos adicionales de gráficas, modo histograma y búffer de máximo/mínimo
-* Arreglado: problemas de confiabilidad de GraphView
+* Nuevo: eventos adicionales para ```NavigationBar```
+* Mejorado: ```GraphView``` tiene soporte para tipos adicionales de gráficas, modo histograma y búffer de máximo/mínimo
+* Arreglado: problemas de confiabilidad de ```GraphView```
 * Quitado: código de carga de XAML innecesario que aún formaba parte de los controles
 * Otras mejoras y correcciones varias.
 
 ## Nürburgring 0.4.4.0
 * Nuevo: Módulo de recursos de ícono
-* Nuevo: Clase abstracta System.Threading.Reporters.TaskReporter
-* Nuevo: Clase System.Threading.Reporters.ConsoleReporter
-* Mejorado: Significativa expansión de ITaskReporter
-* Cambiado: refactorización y renombrado de multiples propiedades de BarStepper
+* Nuevo: Clase abstracta ```System.Threading.Reporters.TaskReporter```
+* Nuevo: Clase ```System.Threading.Reporters.ConsoleReporter```
+* Mejorado: Significativa expansión de ```ITaskReporter```
+* Cambiado: refactorización y renombrado de multiples propiedades de ```BarStepper```
 * Algunas nuevas funciones, atributos, argumentos de eventos, excepciones y recursos misceláneos, además una profunda limpieza de archivos innecesarios
 
 ## MCART 0.5.0.0
-* Nuevo: Soporte preeliminar para campos llave secundarios, campos de autoincremento y campos automáticos para MCADB.
-* Nuevo: Para desarrolladores, existen nuevas opciones de carga de bases de datos de MCADB para realizar tareas de depuración.
-* Nuevo: Nuevas funciones de administración de objetos: GetTypes(Of T)(AppDomain), ToTypes(Object()), NewInstance(Of T)(Type, Object())
-* Nuevo: Funciones PackString(String, IO.Stream), UnpackString(IO.Stream), IsEither(Object, Object()), IsNeither(Object, Object())
-* Mejorado: las bases de datos de MCADB utilizan el GUID de la aplicación en lugar del nombre del ensamblado.
+* Nuevo: Soporte preeliminar para campos llave secundarios, campos de autoincremento y campos automáticos para ```MCADB```.
+* Nuevo: Para desarrolladores, existen nuevas opciones de carga de bases de datos de ```MCADB``` para realizar tareas de depuración.
+* Nuevo: Nuevas funciones de administración de objetos: ```GetTypes(Of T)(AppDomain)```, ```ToTypes(Object())```, ```NewInstance(Of T)(Type, Object())```
+* Nuevo: Funciones ```PackString(String, IO.Stream)```, ```UnpackString(IO.Stream)```, ```IsEither(Object, Object())```, ```IsNeither(Object, Object())```
+* Mejorado: las bases de datos de ```MCADB``` utilizan el *GUID* de la aplicación en lugar del nombre del ensamblado.
 * Cambiado: Todos los controles y formularios ahora se encuentran contenidos dentro de su propio Namespace.
 * Cambiado: Más movimientos de código de ejemplo a un módulo de ejemplos independiente. Los archivos fuente de MCART son más pequeños.
 * Arreglado: Error de XML de compilación de documentación
@@ -148,41 +148,45 @@
 * Nuevo: Soporte para Mono Runtime
 * Nuevo: Soporte para .Net Standard (Core 2.0)
 * Nuevo: Soporte para Linux/macOs por medio de Mono Runtime
-* Nuevo: Librería de UI en gtk (incluye widgets y ventanas)
-* Nuevo: Librería de UI en Windows Forms (incluye controles y formularios)
-* Nuevo: Librería de UI en WPF (incluye controles y ventanas)
+* Nuevo: Librería de UI en *gtk* (incluye widgets y ventanas)
+* Nuevo: Librería de UI en *Windows Forms* (incluye controles y formularios)
+* Nuevo: Librería de UI en *WPF* (incluye controles y ventanas)
 * Nuevo: Proyectos de Unit Testing compatibles con Visual Studio
 * Mejorado: Reescritura total de MCART
-* Quitado: MCADB
+* Quitado: ```MCADB```
 
 ## MCART 0.7 Series
 ### HightLights
 - MCART ha cambiado algunas de sus implementaciones para respetar los principios de SOLID.
 ### Cambios
-* Nuevo: Proyecto de documentación basado en SandCastle.
+* Nuevo: Proyecto de documentación basado en *SandCastle*.
 * Mejorado: Soporte de plugins parcialmente rescrito.
-* Cambiado: En lugar de Unit Testing de Visual Studio, se utiliza xUnit.
+* Cambiado: En lugar de Unit Testing de Visual Studio, se utiliza *xUnit*.
 
 ## MCART 0.8 Series
 ### HightLights
 - MCART está cambiando sus implementaciones para cumplir al 100% con la especificación CLS.
-- MCART ahora será publicado en NuGet.
+- MCART ahora será publicado en *NuGet*.
+- MCART se basa en C# 7.3.
 ### Cambios
 * Nuevo: Soporte para objetos de extracción de recursos incrustados
 * Nuevo: Librería matemática
-* Nuevo: Extensiones Fluent para trabajar con objetos de documento (System.Windows.Documents)
-* Nuevo: Tipo Range&lt;T&gt;, extensiones misc. para soporte del nuevo tipo.
-* Nuevo: Extensiones para MemberInfo
+* Nuevo: Extensiones Fluent para trabajar con objetos de documento (```System.Windows.Documents```)
+* Nuevo: Tipo ```Range<T>```, extensiones misc. para soporte del nuevo tipo.
+* Nuevo: Extensiones para ```MemberInfo```
 * Mejorado: Reescritura parcial de MCART
 * Mejorado: Soporte de plugins parcialmente rescrito (nuevamente).
 * Cambiado: Reorganización de los espacios de nombre.
 * Cambiado: Todos los espacios de nombres respetan la convención estándar de la especificación CLS.
 * Cambiado: Información de ensamblado de los ejemplos de MCART unificados.
-* Quitado: TaskReporter
-* Deprecado: Gtk y Win32 han sido deprecados temporalmente.
+* Quitado: ```TaskReporter```
+* Deprecado: *Gtk* y *Win32* han sido deprecados temporalmente.
 
 #### MCART 0.8.7.0
 * Arreglado: Stack de red problemático.
 
 #### MCART 0.8.7.2
-* Cambiado: Stack de red (lado de cliente) parcialmente rescrito.
+* Cambiado: Stack de red (lado del cliente) parcialmente rescrito.
+
+#### MCART 0.8.8.0
+* Cambiado: Stack de red (lado del servidor) parcialmente rescrito.

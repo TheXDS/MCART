@@ -47,6 +47,16 @@ namespace TheXDS.MCART.Events
     /// </typeparam>
     public class ValueEventArgs<T> : EventArgs
     {
+        /// <summary>
+        ///     Crea implícitamente un <see cref="ValueEventArgs{T}"/> a partir
+        ///     de un valor <typeparamref name="T"/>.
+        /// </summary>
+        /// <param name="value">
+        ///     Valor a partir del cual crear el nuevo
+        ///     <see cref="ValueEventArgs{T}"/>.
+        /// </param>
+        public static implicit operator ValueEventArgs<T>(T value)=>new ValueEventArgs<T>(value);
+
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de este objeto con el valor provisto.
