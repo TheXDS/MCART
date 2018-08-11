@@ -82,7 +82,21 @@ namespace TheXDS.MCART.Networking.Server
         /// <summary>
         ///     Obtiene el <see cref="IPEndPoint" /> remoto del cliente.
         /// </summary>
-        public IPEndPoint EndPoint => Connection.Client.RemoteEndPoint as IPEndPoint;
+        public IPEndPoint EndPoint
+        {
+            get
+            {
+                try
+                {
+                    return Connection.Client.RemoteEndPoint as IPEndPoint;
+
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
 
         /// <summary>
         ///     Indica si esta instancia de <see cref="Client" /> se encuentra

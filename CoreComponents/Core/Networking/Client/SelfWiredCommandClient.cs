@@ -235,6 +235,7 @@ namespace TheXDS.MCART.Networking.Client
         /// </returns>
         public TResponse ReadResponse(BinaryReader br)
         {
+            if (br.BaseStream.CanSeek && br.BaseStream.Length == 0) return default;
             return (TResponse) Enum.ToObject(typeof(TResponse), ReadRsp.Invoke(br, new object[0]));
         }
 

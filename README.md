@@ -71,7 +71,7 @@ MCART para .Net Standard.
 **Paket CLI**  
 `> paket add TheXDS.MCART.NetStandard`
 ## Compilación
-MCART requiere de un compilador compatible con C# 7.2, debido a ciertas
+MCART requiere de un compilador compatible con C# 7.3, debido a ciertas
 características especiales del lenguaje que ayudan a disminuir la
 complejidad del código.
 
@@ -104,7 +104,7 @@ Los proyectos de ejemplo incluídos no se listan.*
  ✓: Proyecto soportado  
  ~: Soporte parcial  
  *: Requiere de componentes adicionales instalados en el sistema  
-**: Es necesario instalar un compilador para C# 7.2 o posterior (`PM> Install-Package Microsoft.Net.Compilers`)  
+**: Es necesario instalar un compilador para C# 7.3 o posterior (`PM> Install-Package Microsoft.Net.Compilers`)  
  +: Versiones posteriores  
  -: Versiones anteriores
 

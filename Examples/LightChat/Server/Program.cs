@@ -25,7 +25,7 @@ namespace TheXDS.LightChat
             s.ClientConnected += S_ClientConnected;
             s.ClientRejected += S_ClientRejected;
             s.ClientAccepted += S_ClientAccepted;
-            s.ClientDisconnected += S_ClientDisconnected;
+            s.ClientFarewell += S_ClientFarewell;
             s.ClientLost += S_ClientLost;
 
             s.Start();
@@ -38,7 +38,7 @@ namespace TheXDS.LightChat
             Console.WriteLine($"Se ha perdido la conexión con el cliente {e.Value.EndPoint.Address}");
         }
 
-        private static void S_ClientDisconnected(object sender, MCART.Events.ValueEventArgs<Client> e)
+        private static void S_ClientFarewell(object sender, MCART.Events.ValueEventArgs<Client> e)
         {
             Console.WriteLine($"El cliente {e.Value.EndPoint.Address} ha finalizado su sesión.");
         }
