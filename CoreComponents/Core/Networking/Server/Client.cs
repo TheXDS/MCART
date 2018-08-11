@@ -33,115 +33,122 @@ using System.Threading.Tasks;
 
 namespace TheXDS.MCART.Networking.Server
 {
+    /// <inheritdoc />
     /// <summary>
-    /// Representa a un cliente que no requiere datos de estado que se ha
-    /// conectado al servidor.
+    ///     Representa a un cliente que no requiere datos de estado que se ha
+    ///     conectado al servidor.
     /// </summary>
     public class Client
     {
         /// <summary>
-        /// Obtiene la conexión <see cref="System.Net.Sockets.TcpClient"/> asociada a esta instancia.
+        ///     Obtiene de forma segura la instancia del
+        ///     <see cref="NetworkStream"/> utilizada para la conexión con el
+        ///     cliente remoto.
+        /// </summary>
+        /// <returns>
+        ///     Un <see cref="NetworkStream"/> utilizado para la conexión con
+        ///     el cliente remoto, o <see langword="null"/> si no existe una
+        ///     conexión activa válida.
+        /// </returns>
+        protected NetworkStream NwStream()
+        {
+            try
+            {
+                return Connection?.GetStream();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Define los métodos a implementar por una clase que represente a un
+        ///     cliente conectado al servidor.
+        /// </summary>
+        public bool Disconnecting { get; private set; }
+    
+        /// <summary>
+        ///     Obtiene un valor que indica si hay datos disponibles para leer.
+        /// </summary>
+        /// <value>
+        ///     <see langword="true" /> si hay datos disponibles,
+        ///     <see langword="false" /> en caso contrario.
+        /// </value>
+        public bool DataAvailable => NwStream()?.DataAvailable ?? false;
+
+        /// <summary>
+        ///     Obtiene el <see cref="IPEndPoint" /> remoto del cliente.
+        /// </summary>
+        public IPEndPoint EndPoint
+        {
+            get
+            {
+                try
+                {
+                    return Connection.Client.RemoteEndPoint as IPEndPoint;
+
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Indica si esta instancia de <see cref="Client" /> se encuentra
+        ///     conectada a un servidor.
+        /// </summary>
+        /// <value>
+        ///     <see langword="true" /> si esta instancia de <see cref="Client" /> se
+        ///     encuentra conectada a un servidor, <see langword="false" /> en caso
+        ///     contrario.
+        /// </value>
+        public bool IsAlive => !(NwStream() is null);
+
+        /// <summary>
+        ///     Obtiene la conexión <see cref="System.Net.Sockets.TcpClient" /> asociada a esta instancia.
         /// </summary>
         /// <value>My connection.</value>
-        internal TcpClient TcpClient { get; }
-
-        public IPEndPoint EndPoint => TcpClient.Client.RemoteEndPoint as IPEndPoint;
+        private TcpClient Connection { get; }
 
         /// <summary>
-        /// Indica si esta instancia de <see cref="Client"/> se encuentra
-        /// conectada a un servidor.
+        ///     Inicializa una nueva instancia de la clase <see cref="Client" />.
         /// </summary>
-        /// <value>
-        /// <see langword="true"/> si esta instancia de <see cref="Client"/> se
-        /// encuentra conectada a un servidor, <see langword="false"/> en caso
-        /// contrario.
-        /// </value>
-        public bool IsAlive =>!(TcpClient?.GetStream() is null);
-        /// <summary>
-        /// Obtiene un valor que indica si hay datos disponibles para leer.
-        /// </summary>
-        /// <value>
-        /// <see langword="true"/> si hay datos disponibles,
-        /// <see langword="false"/> en caso contrario.
-        /// </value>
-        public bool DataAvailable => TcpClient?.GetStream().DataAvailable ?? false;
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="Client"/>.
-        /// </summary>
-        /// <param name="tcpClient">
-        /// <see cref="System.Net.Sockets.TcpClient"/> a utilizar para las 
-        /// comunicaciones con el cliente.
+        /// <param name="connection">
+        ///     <see cref="System.Net.Sockets.TcpClient" /> a utilizar para las
+        ///     comunicaciones con el cliente.
         /// </param>
-        /// <param name="server">
-        /// <see cref="Networking.Server.Server{TClient}"/> que atenderá a este
-        /// cliente.
-        /// </param>
-        public Client(TcpClient tcpClient)
+        public Client(TcpClient connection)
         {
-            TcpClient = tcpClient;
-        }
-        /// <summary>
-        /// Envía un mensaje al cliente.
-        /// </summary>
-        /// <param name="data">Mensaje a enviar.</param>
-        public void Send(byte[] data)
-        {
-            TcpClient?.GetStream().Write(data, 0, data.Length);
+            Connection = connection;
         }
 
-        public void Send(IEnumerable<byte> data) => Send(data.ToArray());
-        public void Send(Stream data)
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicia el proceso de desconexión del cliente.
+        /// </summary>
+        public void Bye()
         {
-            using (var reader = new MemoryStream())
-            {
-                data.CopyTo(reader);
-                Send(reader.ToArray());
-            }
-        }
-        public Task SendAsync(IEnumerable<byte> data) => SendAsync(data.ToArray());
-        public Task SendAsync(Stream data)
-        {
-            using (var reader = new MemoryStream())
-            {
-                data.CopyTo(reader);
-                return SendAsync(reader.ToArray());
-            }
+            Disconnecting = true;
         }
 
+        /// <inheritdoc />
         /// <summary>
-        /// Envía un mensaje al cliente de forma asíncrona.
+        ///     Desconecta al cliente del servidor.
         /// </summary>
-        /// <param name="data">Mensaje a enviar.</param>
-        /// <returns>
-        /// Un <see cref="Task"/> que permite monitorizar el estado de la
-        /// tarea.
-        /// </returns>
-        public Task SendAsync(byte[] data)
-        {
-            return TcpClient?.GetStream().WriteAsync(data, 0, data.Length);
-        }
+        public void Disconnect() => Connection.Close();
+
         /// <summary>
-        /// Envía un mensaje al cliente de forma asíncrona.
+        ///     Devuelve los datos que el cliente envía.
         /// </summary>
-        /// <param name="data">Mensaje a enviar.</param>
-        /// <param name="cancellationToken">
-        /// Token de cancelación de tarea.
-        /// </param>
-        /// <returns>
-        /// Un <see cref="Task"/> que permite monitorizar el estado de la
-        /// tarea.
-        /// </returns>
-        public Task SendAsync(byte[] data, CancellationToken cancellationToken)
-        {
-            return TcpClient?.GetStream().WriteAsync(data, 0, data.Length, cancellationToken);
-        }
-        /// <summary>
-        /// Devuelve los datos que el cliente envía.
-        /// </summary>
-        /// <returns>Un arreglo de <see cref="byte"/> con la información recibida desde el servidor.</returns>
+        /// <returns>Un arreglo de <see cref="byte" /> con la información recibida desde el servidor.</returns>
         public byte[] Recieve()
         {
-            var ns = TcpClient?.GetStream();
+            var ns = NwStream();
             if (ns is null)
 #if PreferExceptions
 				throw new ArgumentNullException();
@@ -155,12 +162,48 @@ namespace TheXDS.MCART.Networking.Server
             }
         }
         /// <summary>
-        /// Devuelve los datos recibidos una vez que el cliente los envía.
+        /// Obtiene un paquete completo de datos desde el servidor.
         /// </summary>
-        /// <returns>Un arreglo de <see cref="byte"/> con la información recibida desde el servidor.</returns>
+        /// <param name="ns"></param>
+        /// <returns></returns>
+        protected byte[] GetData(NetworkStream ns)
+        {
+            var outp = new List<byte>();
+            do
+            {
+                var buff = new byte[Connection.ReceiveBufferSize];
+                var sze = ns.Read(buff, 0, buff.Length);
+                if (sze < Connection.ReceiveBufferSize) Array.Resize(ref buff, sze);
+                outp.AddRange(buff);
+            } while (ns.DataAvailable);
+            return outp.ToArray();
+        }
+
+        /// <summary>
+        /// Obtiene un paquete completo de datos desde el servidor.
+        /// </summary>
+        /// <param name="ns"></param>
+        /// <returns></returns>
+        protected async Task<byte[]> GetDataAsync(NetworkStream ns)
+        {
+            var outp = new List<byte>();
+            do
+            {
+                var buff = new byte[Connection.ReceiveBufferSize];
+                var sze = await ns.ReadAsync(buff, 0, buff.Length);
+                if (sze < Connection.ReceiveBufferSize) Array.Resize(ref buff, sze);
+                outp.AddRange(buff);
+            } while (ns.DataAvailable);
+            return outp.ToArray();
+        }
+
+        /// <summary>
+        ///     Devuelve los datos recibidos una vez que el cliente los envía.
+        /// </summary>
+        /// <returns>Un arreglo de <see cref="byte" /> con la información recibida desde el servidor.</returns>
         public async Task<byte[]> RecieveAsync()
         {
-            var ns = TcpClient?.GetStream();
+            var ns = NwStream();
             if (ns is null)
 #if PreferExceptions
 				throw new ArgumentNullException();
@@ -168,25 +211,17 @@ namespace TheXDS.MCART.Networking.Server
                 return new byte[] { };
 #endif
 
-            var outp = new List<byte>();
-            do
-            {
-                var buff = new byte[TcpClient.ReceiveBufferSize];
-                var sze = await ns.ReadAsync(buff, 0, buff.Length);
-                if (sze < TcpClient.ReceiveBufferSize) System.Array.Resize(ref buff, sze);
-                outp.AddRange(buff);
-            } while (ns.DataAvailable);
-
-            return outp.ToArray();
+            return await GetDataAsync(ns);
         }
+
         /// <summary>
-        /// Devuelve los datos recibidos una vez que el cliente los envía.
+        ///     Devuelve los datos recibidos una vez que el cliente los envía.
         /// </summary>
         /// <param name="cancellationToken">Token de cancelación de tarea.</param>
-        /// <returns>Un arreglo de <see cref="byte"/> con la información recibida desde el servidor.</returns>
+        /// <returns>Un arreglo de <see cref="byte" /> con la información recibida desde el servidor.</returns>
         public async Task<byte[]> RecieveAsync(CancellationToken cancellationToken)
         {
-            var ns = TcpClient?.GetStream();
+            var ns = NwStream();
             if (ns is null)
 #if PreferExceptions
 				throw new ArgumentNullException();
@@ -195,47 +230,150 @@ namespace TheXDS.MCART.Networking.Server
 #endif
             using (var ms = new MemoryStream())
             {
-                await ns.CopyToAsync(ms, 81920, cancellationToken);
+                await ns.CopyToAsync(ms, Connection.ReceiveBufferSize, cancellationToken);
                 return ms.ToArray();
             }
         }
 
         /// <summary>
-        /// Desconecta al cliente del servidor.
+        ///     Envía un mensaje al cliente.
         /// </summary>
-        public void Disconnect()
+        /// <param name="data">Mensaje a enviar.</param>
+        public void Send(byte[] data)
         {
-            Disconnecting = true;
+            NwStream()?.Write(data, 0, data.Length);
         }
 
-        internal bool Disconnecting;
+        /// <summary>
+        ///     Envía un mensaje al cliente.
+        /// </summary>
+        /// <param name="data">Mensaje a enviar.</param>
+        public void Send(IEnumerable<byte> data)
+        {
+            Send(data.ToArray());
+        }
+
+        /// <summary>
+        ///     Envía un mensaje al cliente.
+        /// </summary>
+        /// <param name="data">Mensaje a enviar.</param>
+        public void Send(MemoryStream data)
+        {
+            Send(data.ToArray());
+        }
+
+        /// <summary>
+        ///     Envía un mensaje al cliente.
+        /// </summary>
+        /// <param name="data">Mensaje a enviar.</param>
+        public void Send(Stream data)
+        {
+            using (var reader = new MemoryStream())
+            {
+                data.CopyTo(reader);
+                Send(reader.ToArray());
+            }
+        }
+
+        /// <summary>
+        ///     Envía un mensaje al cliente de forma asíncrona.
+        /// </summary>
+        /// <param name="data">Mensaje a enviar.</param>
+        /// <returns>
+        ///     Un <see cref="Task"/> que puede utilizarse para monitorear la
+        ///     operación asíncrona.
+        /// </returns>
+        public Task SendAsync(IEnumerable<byte> data)
+        {
+            return SendAsync(data.ToArray());
+        }
+
+        /// <summary>
+        ///     Envía un mensaje al cliente de forma asíncrona.
+        /// </summary>
+        /// <param name="data">Mensaje a enviar.</param>
+        /// <returns>
+        ///     Un <see cref="Task"/> que puede utilizarse para monitorear la
+        ///     operación asíncrona.
+        /// </returns>
+        public async Task SendAsync(Stream data)
+        {
+            using (var reader = new MemoryStream())
+            {
+                await data.CopyToAsync(reader);
+                await SendAsync(reader.ToArray());
+            }
+        }
+
+        /// <summary>
+        ///     Envía un mensaje al cliente de forma asíncrona.
+        /// </summary>
+        /// <param name="data">Mensaje a enviar.</param>
+        /// <returns>
+        ///     Un <see cref="Task"/> que puede utilizarse para monitorear la
+        ///     operación asíncrona.
+        /// </returns>
+        public Task SendAsync(MemoryStream data)
+        {
+            return SendAsync(data.ToArray());
+        }
+
+        /// <summary>
+        ///     Envía un mensaje al cliente de forma asíncrona.
+        /// </summary>
+        /// <param name="data">Mensaje a enviar.</param>
+        /// <returns>
+        ///     Un <see cref="Task"/> que puede utilizarse para monitorear la
+        ///     operación asíncrona.
+        /// </returns>
+        public Task SendAsync(byte[] data)
+        {
+            return NwStream()?.WriteAsync(data, 0, data.Length);
+        }
+
+        /// <summary>
+        ///     Envía un mensaje al cliente de forma asíncrona.
+        /// </summary>
+        /// <param name="data">Mensaje a enviar.</param>
+        /// <param name="cancellationToken">
+        ///     Token de cancelación de tarea.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="Task"/> que puede utilizarse para monitorear la
+        ///     operación asíncrona.
+        /// </returns>
+        public Task SendAsync(byte[] data, CancellationToken cancellationToken)
+        {
+            return NwStream()?.WriteAsync(data, 0, data.Length, cancellationToken);
+        }
     }
 
+    /// <inheritdoc />
     /// <summary>
-    /// Representa un cliente que requiere datos de estado asociados que se ha
-    /// conectado al servidor.
+    ///     Representa un cliente que requiere datos de estado asociados que se ha
+    ///     conectado al servidor.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de datos asociados de cliente requeridos.
+    ///     Tipo de datos asociados de cliente requeridos.
     /// </typeparam>
     public class Client<T> : Client
     {
         /// <summary>
-        /// Contiene un objeto de estado personalizado asociado a esta
-        /// instancia de la clase <see cref="Client{T}"/>.
+        ///     Contiene un objeto de estado personalizado asociado a esta
+        ///     instancia de la clase <see cref="Client{T}" />.
         /// </summary>
         public T ClientData { get; set; }
+
         /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Networking.Server.Client`1" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Networking.Server.Client`1" />.
         /// </summary>
-        /// <param name="tcpClient">
-        /// <see cref="T:System.Net.Sockets.TcpClient" /> a utilizar para las comunicaciones con el 
-        /// cliente.
+        /// <param name="connection">
+        ///     <see cref="T:System.Net.Sockets.TcpClient" /> a utilizar para las comunicaciones con el
+        ///     cliente.
         /// </param>
-        /// <param name="server">
-        /// <see cref="T:TheXDS.MCART.Networking.Server.Server" /> que atenderá a este cliente.
-        /// </param>
-        public Client(TcpClient tcpClient) : base(tcpClient) { }
+        public Client(TcpClient connection) : base(connection)
+        {
+        }
     }
 }

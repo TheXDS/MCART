@@ -32,8 +32,13 @@ using System.Reflection;
 using System.Threading.Tasks;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 using St = TheXDS.MCART.Resources.Strings;
+
+#region Configuración de ReSharper
+
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global
+
+#endregion
 
 namespace TheXDS.MCART.PluginSupport
 {

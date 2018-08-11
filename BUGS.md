@@ -1,32 +1,32 @@
-# InformaciÛn de errores conocidos
-En la siguiente secciÛn se describen los errores conocidos (y en algunos casos,
+# Informaci√≥n de errores conocidos
+En la siguiente secci√≥n se describen los errores conocidos (y en algunos casos,
 un workaround para los mismos) que existen dentro de MCART. Cuando el proyecto
-finalmente vea un release, este archivo ser· eliminado, y se utilizar· el
+finalmente vea un release, este archivo ser√° eliminado, y se utilizar√° el
 sistema de control de problemas existente en el servicio Git en donde el
 proyecto se encuentre alojado; excepto si el servicio no incluye tal
-caracterÌstica.
+caracter√≠stica.
 
-La decisiÛn de crear este archivo obedece a tres factores:
+La decisi√≥n de crear este archivo obedece a tres factores:
 1) Actualmente, no existen contribuyentes a parte de su creador
-2) Mientras el proyecto estÈ en fase pre-alpha, no vale la pena congestionar el repositorio con tickets de problemas.
-3) Los problemas descritos aquÌ podrÌan llegar a permanecer a largo plazo durante el desarrollo de MCART.
+2) Mientras el proyecto est√° en fase pre-alpha, no vale la pena congestionar el repositorio con tickets de problemas.
+3) Los problemas descritos aqu√≠ podr√≠an llegar a permanecer a largo plazo durante el desarrollo de MCART.
 
-Por lo general, ˙nicamente los programadores de este proyecto aportarÌan
-informaciÛn de problemas conocidos a travÈs de este archivo, ya que la
-plataforma de tickets tiene como propÛsito brindarle esa posibilidad a
-cualquier persona que no estÈ involucrada en este proyecto a un nivel tan
+Por lo general, √∫nicamente los programadores de este proyecto aportar√°n
+informaci√≥n de problemas conocidos a trav√©s de este archivo, ya que la
+plataforma de tickets tiene como prop√≥sito brindarle esa posibilidad a
+cualquier persona que no est√© involucrada en este proyecto a un nivel tan
 profundo.
 
-Futuros reportes seguir·n el siguiente formato est·ndar en Markdown:
+Futuros reportes seguir√°n el siguiente formato est√°ndar en Markdown:
 
-```
-## (TÌtulo del fallo conocido)
+``` md
+## (T√≠tulo del fallo conocido)
 #### Problema:
-(DescripciÛn corta del problema)
-#### Detalles tÈcnicos (en caso de existir):
-(DescripciÛn tÈcnica del problema)
+(Descripci√≥n corta del problema)
+#### Detalles t√©cnicos (en caso de existir):
+(Descripci√≥n t√©cnica del problema)
 #### Workaround (en caso de existir):
-(DescripciÛn del workaround)
+(Descripci√≥n del workaround)
 #### Comentarios(en caso de existir):
 (Comentarios sobre el problema)
 ```

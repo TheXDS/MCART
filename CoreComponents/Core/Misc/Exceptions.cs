@@ -2781,6 +2781,51 @@ namespace TheXDS.MCART.Exceptions
         }
     }
 
+    /// <summary>
+    /// Excepción que se produce cuando un tipo requerido no ha sido encontrado.
+    /// </summary>
+    public class MissingTypeException : OffendingException<Type>
+    {
+        public MissingTypeException()
+        {
+        }
+
+        public MissingTypeException(Type offendingObject) : base(offendingObject)
+        {
+        }
+
+        public MissingTypeException(string message) : base(message)
+        {
+        }
+
+        public MissingTypeException(Exception inner) : base(inner)
+        {
+        }
+
+        public MissingTypeException(string message, Type offendingObject) : base(message, offendingObject)
+        {
+        }
+
+        public MissingTypeException(Exception inner, Type offendingObject) : base(inner, offendingObject)
+        {
+        }
+
+        public MissingTypeException(string message, Exception inner) : base(message, inner)
+        {
+        }
+
+        public MissingTypeException(string message, Exception inner, Type offendingObject) : base(message, inner, offendingObject)
+        {
+        }
+
+        protected MissingTypeException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+
+        protected MissingTypeException(SerializationInfo info, StreamingContext context, Type offendingObject) : base(info, context, offendingObject)
+        {
+        }
+    }
 
     /// <summary>
     ///     Excepción que se produce cuando una base de datos no corresponde a la

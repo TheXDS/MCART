@@ -25,10 +25,10 @@ using TheXDS.MCART.Networking.Server;
 using Xunit;
 using System.Net;
 using System.Threading;
-using Cl = TheXDS.MCART.Networking.Client;
 
 #if ExtrasBuiltIn
 using TheXDS.MCART.Networking.Server.Protocols;
+using Cl = TheXDS.MCART.Networking.Client.Protocols;
 #endif
 
 namespace CoreTest.Networking
@@ -47,7 +47,8 @@ namespace CoreTest.Networking
             Assert.Equal(51220, srv.ListeningEndPoint.Port);
             Assert.Empty(srv.Clients);
             
-            var cl = new Cl.Client();
+            var cl= new Cl.Echo();
+            
             cl.Connect("localhost",51220);
             Thread.Sleep(500); //Esperar a que la conexión se realice.
 
@@ -55,7 +56,7 @@ namespace CoreTest.Networking
 
             byte[] test = { 10, 20, 30, 40, 50 };
             var resp = cl.TalkToServer(test);
-            cl.Disconnect();
+            cl.CloseConnection();
             srv.Stop();
 
             Assert.Equal(test, resp);
@@ -67,7 +68,7 @@ namespace CoreTest.Networking
             var srv = new Server<Client<int>>(new NamedEcho());
             srv.Start();
 
-            var cl = new Cl.Client();
+            var cl = new Cl.Echo();
             cl.Connect("localhost", 51227);
             Thread.Sleep(500); //Esperar a que la conexión se realice.
 
@@ -75,7 +76,7 @@ namespace CoreTest.Networking
 
             byte[] test = { 10, 20, 30, 40, 50 };
             var resp = cl.TalkToServer(test);
-            cl.Disconnect();
+            cl.CloseConnection();
             srv.Stop();
 
             Assert.Equal(BitConverter.GetBytes(0x123456).Concat(test), resp);

@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System.Net.Sockets;
+
 #if ExtrasBuiltIn
 namespace TheXDS.MCART.Networking.Server.Protocols
 {
@@ -47,9 +49,24 @@ namespace TheXDS.MCART.Networking.Server.Protocols
         /// Datos que <paramref name="client" /> ha enviado como parte de la
         /// soliccitud de atención.
         /// </param>
-        public override void ClientAttendant(Client client, Server<Client> server, byte[] data)
+        public override void ClientAttendant(Client client, Server server, byte[] data)
         {
             client.Send(data);
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Inicializa un nuevo cliente manejado por este protocolo.
+        /// </summary>
+        /// <param name="tcpClient">
+        /// <see cref="T:System.Net.Sockets.TcpClient" /> de la conexión con el host remoto.
+        /// </param>
+        /// <returns>
+        /// Un nuevo <see cref="T:TheXDS.MCART.Networking.Server.Client" />.
+        /// </returns>
+        public override Client CreateClient(TcpClient tcpClient)
+        {
+            return new Client(tcpClient);
         }
     }
 }

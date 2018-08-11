@@ -3,6 +3,9 @@ Common.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
+Este archivo contiene definiciones misceláneas y compartidas en el espacio de
+nombres TheXDS.MCART.Networking.
+
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
@@ -25,8 +28,71 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using TheXDS.MCART.Attributes;
 
+// ReSharper disable ClassNeverInstantiated.Global
+
 namespace TheXDS.MCART.Networking
 {
+    /// <summary>
+    ///     Contiene definiciones y objetos predeterminados a utilizar en el
+    ///     espacio de nombres <see cref="Networking"/>.
+    /// </summary>
+    public static class Common
+    {
+        /// <summary>
+        ///     Puerto predeterminado para todos los objetos de red.
+        /// </summary>
+        public const int DefaultPort = 51220;
+
+        /// <summary>
+        ///     Tiempo de espera en milisegundos antes de realizar una
+        ///     desconexión forzada.
+        /// </summary>
+        public const int DisconnectionTimeout = 15000;
+
+        /// <summary>
+        /// Convierte un valor <see cref="long"/> que representa una cuenta de
+        /// bytes en la unidad de magnitud más fácil de leer.
+        /// </summary>
+        /// <param name="bytes">Cantidad de bytes a representar.</param>
+        /// <returns>
+        /// Una cadena con la cantidad de bytes utilizando la unidad de
+        /// magnitud adecuada.
+        /// </returns>
+        public static string ByteUnits(this long bytes)
+        {
+            var c = 0;
+            var f = 0;
+            while (bytes > 1023)
+            {
+                c++;
+                f = (int)(bytes % 1024);
+                bytes /= 1024;
+            }
+
+            switch (c)
+            {
+                case 0:
+                    return $"{bytes} Bytes";
+                case 1:
+                    return $"{bytes+(float)f/1024:F1} KiB";
+                case 2:
+                    return $"{bytes + (float)f / 1024:F1} MiB";
+                case 3:
+                    return $"{bytes + (float)f / 1024:F1} GiB";
+                case 4:
+                    return $"{bytes + (float)f / 1024:F1} TiB";
+                case 5:
+                    return $"{bytes + (float)f / 1024:F1} PiB";
+                case 6:
+                    return $"{bytes + (float)f / 1024:F1} EiB";
+                case 7:
+                    return $"{bytes + (float)f / 1024:F1} ZiB";
+                default:
+                    return $"{bytes + (float)f / 1024:F1} YiB";
+            }
+        }
+ }
+
     /// <inheritdoc />
     /// <summary>
     ///     Atributo que establece un número de puerto que un
@@ -46,5 +112,61 @@ namespace TheXDS.MCART.Networking
         {
             if (!portNumber.IsBetween(1, 65535)) throw new ArgumentOutOfRangeException(nameof(portNumber));
         }
+    }
+
+    /// <inheritdoc />
+    /// <summary>
+    ///     Atributo que se establece en el miembro de una enumeración a ser
+    ///     utilizado como la respuesta en caso de error que enviará un
+    ///     protocolo derivado de la clase
+    ///     <see cref="T:TheXDS.MCART.Networking.Server.SelfWiredCommandProtocol`3" />
+    /// </summary>
+    /// <remarks>
+    ///     Si ningún miembro de la enumeración se marca con este atributo, en
+    ///     caso de ocurrir un error se lanzará una excepción que el servidor
+    ///     deberá manejar.
+    /// </remarks>
+    [AttributeUsage(AttributeTargets.Field)]
+    public sealed class ErrorResponseAttribute : Attribute
+    {
+    }
+
+    /// <inheritdoc />
+    /// <summary>
+    ///     Atributo que se establece en el miembro de una enumeración a ser
+    ///     utilizado como la respuesta en caso de encontrar un comando
+    ///     desconocido que enviará un protocolo derivado de la clase
+    ///     <see cref="T:TheXDS.MCART.Networking.Server.SelfWiredCommandProtocol`3" />
+    /// </summary>
+    /// <remarks>
+    ///     Si ningún miembro de la enumeración se marca con este atributo, en
+    ///     caso de no existir el comando de la solicitud, se devolverá el
+    ///     valor que sea marcado con el atributo
+    ///     <see cref="T:TheXDS.MCART.Networking.ErrorResponseAttribute" />, o en su defecto se lanzará
+    ///     una excepción que el servidor deberá manejar.
+    /// </remarks>
+    [AttributeUsage(AttributeTargets.Field)]
+    public sealed class UnknownResponseAttribute : Attribute
+    {
+    }
+
+    /// <inheritdoc />
+    /// <summary>
+    ///     Atributo que se establece en el miembro de una enumeración a ser
+    ///     utilizado como la respuesta en caso de encontrar un comando
+    ///     que no ha sido mapeado a una función de un protocolo derivado de la
+    ///     clase
+    ///     <see cref="T:TheXDS.MCART.Networking.Server.SelfWiredCommandProtocol`3" />
+    /// </summary>
+    /// <remarks>
+    ///     Si ningún miembro de la enumeración se marca con este atributo, en
+    ///     caso de no existir una función que esté mapeada al comando de la
+    ///     solicitud, se devolverá el valor que sea marcado con el atributo
+    ///     <see cref="T:TheXDS.MCART.Networking.ErrorResponseAttribute" />, o en su defecto se lanzará
+    ///     una excepción que el servidor deberá manejar.
+    /// </remarks>
+    [AttributeUsage(AttributeTargets.Field)]
+    public sealed class NotMappedResponseAttribute : Attribute
+    {
     }
 }

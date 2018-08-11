@@ -79,7 +79,6 @@ namespace TheXDS.MCART.Types.Extensions
             return source.AreAllAssignable(types.AsEnumerable());
         }
 
-
         /// <summary>
         ///     Enumera los tipos asignables a partir de <paramref name="source" />.
         /// </summary>

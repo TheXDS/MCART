@@ -29,6 +29,7 @@ using System.Reflection;
 using TheXDS.MCART;
 using TheXDS.MCART.Resources;
 using Xunit;
+using static TheXDS.MCART.Objects;
 
 namespace CoreTest.Modules
 {
@@ -39,8 +40,7 @@ namespace CoreTest.Modules
         /// Atributo de prueba.
         /// </summary>
         [AttributeUsage(AttributeTargets.Class)]
-        sealed class AttrTestAttribute : Attribute { }
-
+        sealed class AttrTestAttribute : Attribute { }        
         [Fact]
         public void IsAnyNullTest()
         {
@@ -48,10 +48,25 @@ namespace CoreTest.Modules
             Assert.False(Objects.IsAnyNull(0, 1, 2, 3));
         }
         [Fact]
+        public void WhichAreNullTest()
+        {
+            Assert.Equal(new int[] { }, WhichAreNull(new object(), new object()));
+            Assert.Equal(new int[] { 1 }, WhichAreNull(new object(), null, new object(), new object()));
+            Assert.Equal(new int[] { 2, 3 }, WhichAreNull(new object(), new object(), null, null));
+        }
+        [Fact]
         public void AreAllNullTest()
         {
-            Assert.True(Objects.AreAllNull(null, null, null));
-            Assert.False(Objects.AreAllNull(0, null));
+            Assert.True(AreAllNull(null, null, null));
+            Assert.False(AreAllNull(0, null));
+        }
+        [Fact]
+        public void WhichAreTest()
+        {
+            var x = new object();
+            Assert.Equal(new int[] { }, x.WhichAre(new object(), 1, 0.0f));
+            Assert.Equal(new int[] { 2 }, x.WhichAre(new object(), 1, x));
+            Assert.Equal(new int[] { 1,3 }, x.WhichAre(new object(), x, 0, x));
         }
         [Fact]
         public void ItselfTest()
@@ -92,12 +107,14 @@ namespace CoreTest.Modules
         [Fact]
         public void GetTypesTest()
         {
-            Assert.True(Objects.GetTypes<IComparable>().Count() > 2);
+            Assert.True(GetTypes<IComparable>().Count() > 2);
+            Assert.True(GetTypes<System.IO.Stream>(true).Count() > 2);
+            Assert.True(GetTypes<System.IO.Stream>(true).Count() < GetTypes<System.IO.Stream>(false).Count());
         }
         [Fact]
         public void ToTypesTest()
         {
-            Type[] x = (new object[] { 1, "Test", 2.5f }).ToTypes().ToArray();
+            var x = ToTypes(1, "Test", 2.5f).ToArray();
             IEnumerator y = x.GetEnumerator();
             y.Reset();
             y.MoveNext();
@@ -112,7 +129,7 @@ namespace CoreTest.Modules
         {
             Assert.NotNull(RTInfo.RTAssembly.GetAttr<AssemblyTitleAttribute>());
             Assert.NotNull(MethodBase.GetCurrentMethod().GetAttr<FactAttribute>());
-            Assert.NotNull(Objects.GetAttr<AttrTestAttribute, ObjectsTest>());
+            Assert.NotNull(GetAttr<AttrTestAttribute, ObjectsTest>());
             Assert.NotNull(typeof(ObjectsTest).GetAttr<AttrTestAttribute>());
         }
     }

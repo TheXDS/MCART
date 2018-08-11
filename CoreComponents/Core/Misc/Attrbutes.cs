@@ -41,11 +41,26 @@ namespace TheXDS.MCART.Attributes
      * base de valor que pueda ser necesaria.
      */
 
+    /// <summary>
+    ///     Define una interfaz para los atributos que expongan valores por
+    ///     medio de la propiedad <see cref="Value"/>.
+    /// </summary>
+    /// <typeparam name="T">
+    ///     Tipo del valor espuesto por este atributo.
+    /// </typeparam>
+    public interface IValueAttribute<out T>
+    {
+        /// <summary>
+        /// Obtiene el valor de este atributo.
+        /// </summary>
+        T Value { get; }
+    }
+
     /// <inheritdoc />
     /// <summary>
     ///     Clase base para los atributos de cualquier tipo.
     /// </summary>
-    public abstract class ObjectAttribute : Attribute
+    public abstract class ObjectAttribute : Attribute, IValueAttribute<object>
     {
         /// <inheritdoc />
         /// <summary>
@@ -58,6 +73,7 @@ namespace TheXDS.MCART.Attributes
             Value = attributeValue;
         }
 
+        /// <inheritdoc />
         /// <summary>
         ///     Obtiene el valor asociado a este atributo.
         /// </summary>
@@ -93,7 +109,7 @@ namespace TheXDS.MCART.Attributes
     /// <summary>
     ///     Clase base para los atributos basados en números enteros.
     /// </summary>
-    public abstract class IntAttribute : Attribute
+    public abstract class IntAttribute : Attribute, IValueAttribute<int>
     {
         /// <inheritdoc />
         /// <summary>
@@ -106,6 +122,7 @@ namespace TheXDS.MCART.Attributes
             Value = attributeValue;
         }
 
+        /// <inheritdoc />
         /// <summary>
         ///     Obtiene el valor asociado a este atributo.
         /// </summary>
@@ -116,7 +133,7 @@ namespace TheXDS.MCART.Attributes
     /// <summary>
     ///     Clase base para los atributos basados en números flotantes.
     /// </summary>
-    public abstract class FloatAttribute : Attribute
+    public abstract class FloatAttribute : Attribute, IValueAttribute<float>
     {
         /// <inheritdoc />
         /// <summary>
@@ -129,6 +146,7 @@ namespace TheXDS.MCART.Attributes
             Value = attributeValue;
         }
 
+        /// <inheritdoc />
         /// <summary>
         ///     Obtiene el valor asociado a este atributo.
         /// </summary>
@@ -139,7 +157,7 @@ namespace TheXDS.MCART.Attributes
     /// <summary>
     ///     Clase base para los atributos basados en valores booleanos.
     /// </summary>
-    public abstract class BoolAttribute : Attribute
+    public abstract class BoolAttribute : Attribute, IValueAttribute<bool>
     {
         /// <inheritdoc />
         /// <summary>
@@ -169,7 +187,7 @@ namespace TheXDS.MCART.Attributes
     /// </summary>
     [AttributeUsage(All)]
     [Serializable]
-    public class TextAttribute : Attribute
+    public class TextAttribute : Attribute, IValueAttribute<string>
     {
         /// <inheritdoc />
         /// <summary>
@@ -182,6 +200,7 @@ namespace TheXDS.MCART.Attributes
             Value = text;
         }
 
+        /// <inheritdoc />
         /// <summary>
         ///     Obtiene el valor asociado a este atributo.
         /// </summary>
@@ -197,7 +216,7 @@ namespace TheXDS.MCART.Attributes
     /// </summary>
     [AttributeUsage(All)]
     [Serializable]
-    public class TypeAttribute : Attribute
+    public class TypeAttribute : Attribute, IValueAttribute<Type>
     {
         /// <inheritdoc />
         /// <summary>
@@ -210,6 +229,7 @@ namespace TheXDS.MCART.Attributes
             Value = type;
         }
 
+        /// <inheritdoc />
         /// <summary>
         ///     Obtiene el valor asociado a este atributo.
         /// </summary>
@@ -224,7 +244,7 @@ namespace TheXDS.MCART.Attributes
     ///     elemento.
     /// </summary>
     [Serializable]
-    public abstract class VersionAttributeBase : Attribute
+    public abstract class VersionAttributeBase : Attribute, IValueAttribute<Version>
     {
         /// <inheritdoc />
         /// <summary>
@@ -240,6 +260,7 @@ namespace TheXDS.MCART.Attributes
             Value = new Version(major, minor, build, rev);
         }
 
+        /// <inheritdoc />
         /// <summary>
         ///     Obtiene el valor asociado a este atributo.
         /// </summary>

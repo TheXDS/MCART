@@ -36,6 +36,15 @@ namespace TheXDS.MCART.Types.Extensions
     /// </summary>
     public static class EnumerableExtensions
     {
+        /// <summary>
+        ///     Enumera todos los elementos de la colección, omitiendo los especificados.
+        /// </summary>
+        /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
+        /// <param name="collection">Colección a enumerar.</param>
+        /// <param name="exclusions">Elementos a excluir de la colección.</param>
+        /// <returns>
+        ///     Una enumeración con los elementos de la colección, omitiendo las exclusiones especificadas.
+        /// </returns>
 		public static IEnumerable<T> ExceptFor<T>(this IEnumerable<T> collection, params T[] exclusions)
 		{
             return collection.Where(j => j.IsNeither(exclusions));

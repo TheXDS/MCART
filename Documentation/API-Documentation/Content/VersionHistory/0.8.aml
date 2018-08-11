@@ -3,7 +3,7 @@
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction>
       <para>
-        MCART 0.8 tuvo su último Milestone (0.8.7.0) el martes, 31 de julio de 2018.
+        MCART 0.8 tuvo su último Milestone (0.8.8.0) el jueves, 9 de agosto de 2018.
       </para>
     </introduction>
     <section>
@@ -18,6 +18,11 @@
           <listItem>
             <para>
               MCART ahora será publicado en NuGet.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              MCART se basa en C#7.3.
             </para>
           </listItem>
         </list>

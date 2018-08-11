@@ -3,6 +3,8 @@ Server.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
+Este archivo contiene la implementación de servidor de MCART.
+
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
@@ -24,199 +26,322 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Diagnostics;
-using System.Linq;
-using static TheXDS.MCART.Types.Extensions.TypeExtensions;
-using St = TheXDS.MCART.Resources.Strings;
+using TheXDS.MCART.Events;
+using static TheXDS.MCART.Networking.Common;
 
+#region Configuración de ReSharper
+
+// ReSharper disable EventNeverSubscribedTo.Global
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable UnusedMember.Global
+
+#endregion
 
 namespace TheXDS.MCART.Networking.Server
 {
     /// <inheritdoc />
     /// <summary>
-    /// Controla conexiones entrantes y ejecuta protocolos sobre los clientes
-    /// que se conecten al servidor.
+    ///     Controla conexiones entrantes y ejecuta protocolos sobre los clientes
+    ///     que se conecten al servidor.
     /// </summary>
-    public class Server : Server<Client>
+    public class Server<TClient> : Server where TClient : Client
     {
-        /// <summary>
-        /// Convierte implícitamente un <see cref="Protocol{Client}"/> en un
-        /// <see cref="Server"/>.
-        /// </summary>
-        /// <param name="p">
-        /// <see cref="Protocol{Client}"/> a convertir.
-        /// </param>
-        /// <returns>
-        /// Un <see cref="Server"/> que utiliza el protocolo especificado para
-        /// atender a los clientes.
-        /// </returns>
-        public static implicit operator Server(Protocol<Client> p) => new Server(p);
         /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Networking.Server.Server" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Networking.Server.Server`1" />.
         /// </summary>
         /// <param name="protocol">
-        /// Conjunto de protocolos a utilizar para este servidor.
-        /// </param>
-        /// <param name="ep">
-        /// <see cref="T:System.Net.IPEndPoint" /> local a escuchar. Si se omite, se
-        /// escuchará el puerto <see cref="F:TheXDS.MCART.Networking.Server.Server`1.DefaultPort" /> de
-        /// todas las direcciones IP del servidor.
+        ///     Conjunto de protocolos a utilizar para este servidor.
         /// </param>
         /// <exception cref="T:System.ArgumentNullException">
-        /// Se produce si <paramref name="protocol" /> es <see langword="null" />.
+        ///     Se produce si <paramref name="protocol" /> es <see langword="null" />.
         /// </exception>
-        public Server(Protocol<Client> protocol, IPEndPoint ep = null) : base(protocol, ep) { }
+        public Server(IProtocol protocol) : base(protocol)
+        {
+        }
+
         /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Networking.Server.Server`1" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Networking.Server.Server`1" />.
         /// </summary>
         /// <param name="protocol">
-        /// Conjunto de protocolos a utilizar para este servidor.
+        ///     Conjunto de protocolos a utilizar para este servidor.
         /// </param>
         /// <param name="port">Puerto local a escuchar.</param>
         /// <exception cref="T:System.ArgumentNullException">
-        /// Se produce si <paramref name="protocol" /> es <see langword="null" />.
+        ///     Se produce si <paramref name="protocol" /> es <see langword="null" />.
         /// </exception>
-        public Server(Protocol<Client> protocol, int port) : base(protocol, port) { }
+        public Server(IProtocol protocol, int port) : base(protocol, port)
+        {
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Networking.Server.Server" />.
+        /// </summary>
+        /// <param name="protocol">
+        ///     Conjunto de protocolos a utilizar para este servidor.
+        /// </param>
+        /// <param name="ep">
+        ///     <see cref="T:System.Net.IPEndPoint" /> local a escuchar. Si se establece en
+        ///     <see langword="null" />, se escuchará al puerto predeterminado del
+        ///     protocolo (indicado por el atributo <see cref="T:TheXDS.MCART.Networking.PortAttribute" />) o
+        ///     <see cref="F:TheXDS.MCART.Networking.Common.DefaultPort" /> de todas las direcciones IP del servidor.
+        /// </param>
+        /// <exception cref="T:System.ArgumentNullException">
+        ///     Se produce si <paramref name="protocol" /> es <see langword="null" />.
+        /// </exception>
+        public Server(IProtocol protocol, IPEndPoint ep) : base(protocol, ep)
+        {
+        }
+
+        /// <summary>
+        ///     Lista de objetos <typeparamref name="TClient"/> conectados a
+        ///     este servidor.
+        /// </summary>
+        public new IEnumerable<TClient> Clients => base.Clients.OfType<TClient>();
     }
+
     /// <summary>
-    /// Controla conexiones entrantes y ejecuta protocolos sobre los clientes
-    /// que se conecten al servidor.
+    ///     Controla conexiones entrantes y ejecuta protocolos sobre los clientes
+    ///     que se conecten al servidor.
     /// </summary>
-    /// <typeparam name="TClient">
-    /// Tipo de <see cref="Client"/> que este servidor atiende.
-    /// </typeparam>
-    public class Server<TClient> where TClient : Client
+    public class Server
     {
         /// <summary>
-        /// Convierte implícitamente un <see cref="Protocol{TClient}"/> en un
-        /// <see cref="Server{TClient}"/>.
+        ///     Lista de clientes conectados.
         /// </summary>
-        /// <param name="p">
-        /// <see cref="Protocol{TClient}"/> a convertir.
-        /// </param>
-        /// <returns>
-        /// Un <see cref="Server{TClient}"/> que utiliza el protocolo 
-        /// especificado para atender a los clientes.
-        /// </returns>
-        public static implicit operator Server<TClient>(Protocol<TClient> p) => new Server<TClient>(p);
+        private readonly HashSet<Client> _clients = new HashSet<Client>();
 
         /// <summary>
-        /// Tiempo de espera en milisegundos antes de realizar una desconexión
-        /// forzada al cerrar el servidor.
+        ///     Lista de hilos atendiendo a clientes.
         /// </summary>
-        private const int DisconnectionTimeout = 15000;
-        /// <summary>
-        /// Puerto predeterminado para las conexiones entrantes.
-        /// </summary>
-        public const int DefaultPort = 51220;
+        private readonly HashSet<Task> _clientThreads = new HashSet<Task>();
 
         /// <summary>
-        /// Lista de hilos atendiendo a clientes.
-        /// </summary>
-        private readonly List<Task> _clwaiter = new List<Task>();
-        /// <summary>
-        /// Escucha de conexiones entrantes.
+        ///     Escucha de conexiones entrantes.
         /// </summary>
         private readonly TcpListener _conns;
-        /// <summary>
-        /// campo que determina si el servidor está escuchando conexiones y
-        /// sirviendo a clientes (vivo)
-        /// </summary>
-        private bool _isAlive;
-        /// <summary>
-        /// Lista de clientes conectados.
-        /// </summary>
-        private readonly List<TClient> _clients = new List<TClient>();
 
         /// <summary>
-        /// Lista de objetos <see cref="Client"/> conectados a este servidor.
+        ///     campo que determina si el servidor está escuchando conexiones y
+        ///     sirviendo a clientes (vivo)
         /// </summary>
-        public IReadOnlyCollection<TClient> Clients => _clients.AsReadOnly();
+        private bool _isAlive;
+
         /// <summary>
-        /// Instancia de protocolos a utilizar para dar servicio a los
-        /// clientes que se conecten a este servidor.
+        ///     Lista de objetos <see cref="Client" /> conectados a este servidor.
         /// </summary>
-        public Protocol<TClient> Protocol { get; }
+        public IEnumerable<Client> Clients => _clients;
+
         /// <summary>
-        /// Dirección IP a la cual este servidor escucha.
+        ///     Obtiene o establece un valor que indica si este
+        ///     <see cref="Server" /> está activo (vivo).
         /// </summary>
-        public IPEndPoint ListeningEndPoint { get; }
-        /// <summary>
-        /// Obtiene o establece un valor que indica si este
-        /// <see cref="Server"/> está activo (vivo).
-        /// </summary>
-        /// <value><see langword="true"/> si está vivo; sino, <see langword="false"/>.</value>
+        /// <value><see langword="true" /> si está vivo; sino, <see langword="false" />.</value>
         public bool IsAlive
         {
             get => _isAlive;
-            set { if (!_isAlive && value) Start(); }
+            set
+            {
+                if (!_isAlive && value) Start();
+                if (_isAlive && !value) Stop();
+            }
+        }
+
+        /// <summary>
+        ///     Dirección IP a la cual este servidor escucha.
+        /// </summary>
+        public IPEndPoint ListeningEndPoint { get; }
+
+        /// <summary>
+        ///     Instancia de protocolos a utilizar para dar servicio a los
+        ///     clientes que se conecten a este servidor.
+        /// </summary>
+        public IProtocol Protocol { get; }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Networking.Server.Server`1" />.
+        /// </summary>
+        /// <param name="protocol">
+        ///     Conjunto de protocolos a utilizar para este servidor.
+        /// </param>
+        /// <exception cref="T:System.ArgumentNullException">
+        ///     Se produce si <paramref name="protocol" /> es <see langword="null" />.
+        /// </exception>
+        public Server(IProtocol protocol) : this(protocol, null)
+        {
         }
 
         /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Networking.Server.Server`1" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Networking.Server.Server`1" />.
         /// </summary>
         /// <param name="protocol">
-        /// Conjunto de protocolos a utilizar para este servidor.
-        /// </param>
-        /// <exception cref="T:System.ArgumentNullException">
-        /// Se produce si <paramref name="protocol" /> es <see langword="null" />.
-        /// </exception>
-        public Server(Protocol<TClient> protocol) : this(protocol, null) { }
-        /// <inheritdoc />
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Networking.Server.Server`1" />.
-        /// </summary>
-        /// <param name="protocol">
-        /// Conjunto de protocolos a utilizar para este servidor.
+        ///     Conjunto de protocolos a utilizar para este servidor.
         /// </param>
         /// <param name="port">Puerto local a escuchar.</param>
         /// <exception cref="T:System.ArgumentNullException">
-        /// Se produce si <paramref name="protocol" /> es <see langword="null" />.
+        ///     Se produce si <paramref name="protocol" /> es <see langword="null" />.
         /// </exception>
-        public Server(Protocol<TClient> protocol, int port) : this(protocol, new IPEndPoint(IPAddress.Any, port)) { }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="Server{TClient}"/>.
-        /// </summary>
-        /// <param name="protocol">
-        /// Conjunto de protocolos a utilizar para este servidor.
-        /// </param>
-        /// <param name="ep">
-        /// <see cref="IPEndPoint"/> local a escuchar. Si se establece en
-        /// <see langword="null"/>, se escuchará al puerto predeterminado del
-        /// protocolo (indicado por el atributo <see cref="PortAttribute"/>) o
-        /// <see cref="DefaultPort"/> de todas las direcciones IP del servidor.
-        /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="protocol"/> es <see langword="null"/>.
-        /// </exception>
-        public Server(Protocol<TClient> protocol, IPEndPoint ep)
+        public Server(IProtocol protocol, int port) : this(protocol, new IPEndPoint(IPAddress.Any, port))
         {
-            Protocol = protocol ?? throw new ArgumentNullException(nameof(protocol));
-#if DEBUG
-            if (Protocol.HasAttr<Attributes.BetaAttribute>())
-                Debug.Print(St.Warn(St.XIsBeta(Protocol.GetType().Name)));
-#endif
-            ListeningEndPoint = ep ?? new IPEndPoint(IPAddress.Any, Protocol.GetAttr<PortAttribute>()?.Value ?? DefaultPort);
-            _conns = new TcpListener(ListeningEndPoint);
         }
 
         /// <summary>
-        /// Encapsula <see cref="TcpListener.AcceptTcpClientAsync"/> para
-        /// permitir cancelar la tarea cuando el servidor se detenga.
+        ///     Inicializa una nueva instancia de la clase <see cref="Server" />.
+        /// </summary>
+        /// <param name="protocol">
+        ///     Conjunto de protocolos a utilizar para este servidor.
+        /// </param>
+        /// <param name="ep">
+        ///     <see cref="IPEndPoint" /> local a escuchar. Si se establece en
+        ///     <see langword="null" />, se escuchará al puerto predeterminado del
+        ///     protocolo (indicado por el atributo <see cref="PortAttribute" />) o
+        ///     <see cref="DefaultPort" /> de todas las direcciones IP del servidor.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///     Se produce si <paramref name="protocol" /> es <see langword="null" />.
+        /// </exception>
+        public Server(IProtocol protocol, IPEndPoint ep)
+        {
+            Protocol = protocol ?? throw new ArgumentNullException(nameof(protocol));
+            ListeningEndPoint =
+                ep ?? new IPEndPoint(IPAddress.Any, Protocol.GetAttr<PortAttribute>()?.Value ?? DefaultPort);
+            _conns = new TcpListener(ListeningEndPoint);
+        }
+
+        private byte[] GetResponse(Task<byte[]> task)
+        {
+            try
+            {
+                return task.Result;
+            }
+            catch (AggregateException)
+            {
+                return new byte[0];
+            }
+        }
+
+        /// <summary>
+        ///     Atiende al cliente.
+        /// </summary>
+        /// <returns>Un <see cref="Task" /> que atiende al cliente.</returns>
+        /// <param name="client">Cliente a atender.</param>
+        private void AttendClient(Client client)
+        {
+            ClientConnected?.Invoke(this, client);
+            if (Protocol.ClientWelcome(client, this))
+            {
+                ClientAccepted?.Invoke(this, client);
+                _clients.Add(client);
+                while (client.IsAlive)
+                {
+                    var ts = client.RecieveAsync();
+                    var waitData = true;
+                    if (Task.WaitAny(ts, Task.Run(() =>
+                    {
+                        // ReSharper disable once AccessToModifiedClosure
+                        // ReSharper disable once EmptyEmbeddedStatement
+                        while (_isAlive && waitData) ;
+                    })) == 0)
+                    {
+                        var r = GetResponse(ts);
+                        if (r.Any())
+                        {
+                            Protocol.ClientAttendant(client, this, r);
+                        }
+                        else
+                        {
+                            ClientLost?.Invoke(this, client);
+                            Protocol.ClientDisconnect(client, this);
+                        }
+                    }
+                    else
+                    {
+                        ts.Dispose();
+                    }
+
+                    waitData = false;
+                    if (!client.Disconnecting) continue;
+                    ClientFarewell?.Invoke(this, client);
+                    Protocol.ClientBye(client, this);
+                    client.Disconnect();
+                    ClientDisconnected?.Invoke(this, client);
+                }
+            }
+            else if (client?.IsAlive ?? false)
+            {
+                ClientRejected?.Invoke(this, client);
+                try
+                {
+                    client.Disconnect();
+                }
+                catch
+                {
+                    /* Silenciar excepción */
+                }
+            }
+
+            if (_clients.Contains(client)) _clients.Remove(client);
+        }
+
+        /// <summary>
+        ///     Hilo de escucha y atención del servidor.
+        /// </summary>
+        private async void BeAlive()
+        {
+            while (_isAlive)
+            {
+                var c = await GetClient();
+                if (c is null) continue;
+                _clientThreads.Add(Task.Run(()=> AttendClient(Protocol.CreateClient(c))));
+            }
+        }
+
+        /// <summary>
+        ///     Ocurre cuando el protocolo ha aceptado al nuevo cliente.
+        /// </summary>
+        public event EventHandler<ValueEventArgs<Client>> ClientAccepted;
+
+        /// <summary>
+        ///     Ocurre cuando un nuevo cliente se conecta al servidor.
+        /// </summary>
+        public event EventHandler<ValueEventArgs<Client>> ClientConnected;
+
+        /// <summary>
+        ///     Ocurre cuando un cliente se desconecta correctamente.
+        /// </summary>
+        public event EventHandler<ValueEventArgs<Client>> ClientDisconnected;
+
+        /// <summary>
+        ///     Ocurre cuando el protocolo despide a un cliente.
+        /// </summary>
+        public event EventHandler<ValueEventArgs<Client>> ClientFarewell;
+
+        /// <summary>
+        ///     Ocurre cuando un cliente se desconecta inesperadamente.
+        /// </summary>
+        public event EventHandler<ValueEventArgs<Client>> ClientLost;
+
+        /// <summary>
+        ///     Ocurre cuando el protocolo rechaza al nuevo cliente.
+        /// </summary>
+        public event EventHandler<ValueEventArgs<Client>> ClientRejected;
+
+        /// <summary>
+        ///     Encapsula <see cref="TcpListener.AcceptTcpClientAsync" /> para
+        ///     permitir cancelar la tarea cuando el servidor se detenga.
         /// </summary>
         /// <returns>
-        /// El <see cref="TcpClient"/> conectado. Si el servidor se detiene, se
-        /// devuelve <see langword="null"/>.
+        ///     El <see cref="TcpClient" /> conectado. Si el servidor se detiene, se
+        ///     devuelve <see langword="null" />.
         /// </returns>
         private async Task<TcpClient> GetClient()
         {
@@ -226,81 +351,39 @@ namespace TheXDS.MCART.Networking.Server
             try
             {
                 var t = _conns.AcceptTcpClientAsync();
-                if (t == await Task.WhenAny(t, Task.Run(() => { while (_isAlive && bewaiting) ; })))
+                // ReSharper disable once AccessToModifiedClosure
+                // ReSharper disable once EmptyEmbeddedStatement
+                if (t == await Task.WhenAny(t, Task.Run(() =>
+                    {
+                        while (_isAlive && bewaiting) ;
+                    })))
                     //devolver al cliente que se obtenga del hilo de aceptación...
                     return await t;
             }
 #if PreferExceptions
 				catch { throw; }
 #endif
-            finally { bewaiting = false; } //detener el lambda de espera...
+            finally
+            {
+                bewaiting = false;
+            } //detener el lambda de espera...
 
             // Devolver null. BeAlive() se encarga de manejar correctamente esto
             return null;
         }
+
         /// <summary>
-        /// Atiende al cliente.
+        ///     Ocurre cuando el servidor es iniciado.
         /// </summary>
-        /// <returns>Un <see cref="Task"/> que atiende al cliente.</returns>
-        /// <param name="client">Cliente a atender.</param>
-        private async Task AttendClient(TClient client)
-        {
-            _clients.Add(client);
-            if (Protocol.ClientWelcome(client, this))
-            {
-                while (client.IsAlive)
-                {
-                    var ts = client.RecieveAsync();
-                    var wdat = true;
-                    if (Task.WaitAny(ts, Task.Run(() =>
-                    {
-                        while (_isAlive && wdat) ;
-                    })) == 0)
-                    {
-                        if (ts.Result.Length != 0)
-                            Protocol.ClientAttendant(client, this, await ts);
-                        else
-                        {
-                            Protocol.ClientDisconnect(client, this);
-                        }
-                    }
-                    else
-                        ts.Dispose();
+        public event EventHandler<ValueEventArgs<DateTime>> ServerStarted;
 
-                    if (client.Disconnecting)
-                    {
-                        Protocol.ClientBye(client,this);
-                        client.TcpClient.Close();
-                    }
-
-                    wdat = false;
-                }
-            }
-            else if (client?.IsAlive ?? false)
-            {
-                try
-                {
-                    client.TcpClient.Close();
-                }
-                catch { /* Silenciar excepción */ }
-            }
-            if ((bool) _clients?.Contains(client)) _clients.Remove(client);
-        }
         /// <summary>
-        /// Hilo de escucha y atención del servidor.
+        ///     Ocurre cuando el servidor es detenido.
         /// </summary>
-        private async void BeAlive()
-        {
-            while (_isAlive)
-            {
-                var c = await GetClient();
-                if (!(c is null))
-                    _clwaiter.Add(AttendClient(typeof(TClient).New(c) as TClient));
-            }
-        }
+        public event EventHandler<ValueEventArgs<DateTime>> ServerStopped;
 
         /// <summary>
-        /// Crea un hilo de ejecución que da servicio a los clientes
+        ///     Crea un hilo de ejecución que da servicio a los clientes
         /// </summary>
         public void Start()
         {
@@ -312,97 +395,124 @@ namespace TheXDS.MCART.Networking.Server
                 return;
 #endif
             }
+
             _isAlive = true;
             _conns.Start();
-
+            ServerStarted?.Invoke(this, DateTime.Now);
             BeAlive();
         }
+
         /// <summary>
-        /// Detiene al servidor de forma asíncrona.
-        /// </summary>
-        /// <returns>
-        /// Un <see cref="Task"/> que puede utilizarse para monitorear el
-        /// estado de esta tarea.
-        /// </returns>
-        public async Task StopAsync()
-        {
-            _conns.Stop();
-            _isAlive = false;
-            await Task.WhenAny(
-                Task.WhenAll(_clwaiter),
-                new Task(() => Thread.Sleep(DisconnectionTimeout)));
-            foreach (var j in Clients) j.TcpClient.Close();
-        }
-        /// <summary>
-        /// Detiene al servidor.
+        ///     Detiene al servidor.
         /// </summary>
         public void Stop()
         {
             _conns.Stop();
             _isAlive = false;
-            Task.WhenAll(_clwaiter).Wait(DisconnectionTimeout);
-            foreach (var j in Clients) j.TcpClient.Close();
+            ServerStopped?.Invoke(this, DateTime.Now);
+            Task.WhenAll(_clientThreads).Wait(DisconnectionTimeout);
+            foreach (var j in Clients) j.Disconnect();
+        }
+
+        /// <summary>
+        ///     Detiene al servidor de forma asíncrona.
+        /// </summary>
+        /// <returns>
+        ///     Un <see cref="Task" /> que puede utilizarse para monitorear el
+        ///     estado de esta tarea.
+        /// </returns>
+        public async Task StopAsync()
+        {
+            _conns.Stop();
+            _isAlive = false;
+            ServerStopped?.Invoke(this, DateTime.Now);
+            await Task.WhenAny(
+                Task.WhenAll(_clientThreads),
+                Task.Delay(DisconnectionTimeout));
+            foreach (var j in Clients) j.Disconnect();
         }
 
         #region Helpers
+
         /// <summary>
-        /// Envía un mensaje a todos los clientes.
+        ///     Envía un mensaje a todos los clientes.
         /// </summary>
         /// <param name="data">Mensaje a enviar a los clientes.</param>
-        public void Broadcast(byte[] data) => Broadcast(data, null);
+        public void Broadcast(byte[] data)
+        {
+            Broadcast(data, null);
+        }
+
         /// <summary>
-        /// Envía un mensaje a todos los clientes, excepto el especificado.
+        ///     Envía un mensaje a todos los clientes, excepto el especificado.
         /// </summary>
         /// <param name="data">Mensaje a enviar a los clientes.</param>
         /// <param name="client">Cliente que envía los datos.</param>
-        public void Broadcast(byte[] data, Client client) => Multicast(data, client.IsNot);
+        public void Broadcast(byte[] data, Client client)
+        {
+            Multicast(data, client.IsNot);
+        }
+
         /// <summary>
-        /// Envía un mensaje a todos los clientes que satisfacen la
-        /// condición especificada por <paramref name="condition"/>.
+        ///     Envía un mensaje a todos los clientes que satisfacen la
+        ///     condición especificada por <paramref name="condition" />.
         /// </summary>
         /// <param name="data">Mensaje a enviar a los clientes.</param>
         /// <param name="condition">
-        /// Condición que determina a los clientes que recibirán el mensaje.
+        ///     Condición que determina a los clientes que recibirán el mensaje.
         /// </param>
         public void Multicast(byte[] data, Predicate<Client> condition)
         {
-            foreach (var j in Clients) if (condition(j)) j.Send(data);
+            foreach (var j in Clients)
+                if (condition(j))
+                    j.Send(data);
         }
+
         /// <summary>
-        /// Envía un mensaje a todos los clientes.
+        ///     Envía un mensaje a todos los clientes.
         /// </summary>
         /// <returns>
-        /// Un <see cref="Task"/> que representa esta tarea.
+        ///     Un <see cref="Task" /> que representa esta tarea.
         /// </returns>
         /// <param name="data">Mensaje a enviar a los clientes.</param>
-        public Task BroadcastAsync(byte[] data) => BroadcastAsync(data, null);
+        public Task BroadcastAsync(byte[] data)
+        {
+            return BroadcastAsync(data, null);
+        }
+
         /// <summary>
-        /// Envía un mensaje a todos los clientes, excepto el especificado.
+        ///     Envía un mensaje a todos los clientes, excepto el especificado.
         /// </summary>
         /// <returns>
-        /// Un <see cref="Task"/> que representa esta tarea.
+        ///     Un <see cref="Task" /> que representa esta tarea.
         /// </returns>
         /// <param name="data">Mensaje a enviar a los clientes.</param>
         /// <param name="client">Cliente que envía los datos.</param>
-        public Task BroadcastAsync(byte[] data, Client client) => MulticastAsync(data, client.IsNot);
+        public Task BroadcastAsync(byte[] data, Client client)
+        {
+            return MulticastAsync(data, client.IsNot);
+        }
+
         /// <summary>
-        /// Envía un mensaje a todos los clientes que satisfacen la
-        /// condición especificada por <paramref name="condition"/>.
+        ///     Envía un mensaje a todos los clientes que satisfacen la
+        ///     condición especificada por <paramref name="condition" />.
         /// </summary>
         /// <returns>
-        /// Un <see cref="Task"/> que representa esta tarea.
+        ///     Un <see cref="Task" /> que representa esta tarea.
         /// </returns>
         /// <param name="data">Mensaje a enviar a los clientes.</param>
         /// <param name="condition">
-        /// Condición que determina a los clientes que recibirán el mensaje.
+        ///     Condición que determina a los clientes que recibirán el mensaje.
         /// </param>
         public Task MulticastAsync(byte[] data, Predicate<Client> condition)
         {
             var w = new HashSet<Task>();
             foreach (var j in Clients)
-                if (condition(j)) w.Add(j.SendAsync(data));
+                if (condition(j))
+                    w.Add(j.SendAsync(data));
             return Task.WhenAll(w);
         }
+
         #endregion
     }
 }

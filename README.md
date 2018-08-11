@@ -71,7 +71,7 @@ MCART para .Net Standard.
 **Paket CLI**  
 `> paket add TheXDS.MCART.NetStandard`
 ## Compilación
-MCART requiere de un compilador compatible con C# 7.2, debido a ciertas
+MCART requiere de un compilador compatible con C# 7.3, debido a ciertas
 características especiales del lenguaje que ayudan a disminuir la
 complejidad del código.
 
@@ -83,17 +83,17 @@ proyectos.
 La siguiente tabla indica los entornos de desarrollo en las cuales se ha
 comprobado la compatibilidad para compilar MCART:
 
-|Entorno de desarollo|Lite|WPF|.Net Std*|Tests|API-Doc*|Utils
+|Entorno de desarollo|Lite|WPF|.Net Std* |Tests|API-Doc* |Utils
 |-|:-:|:-:|:-:|:-:|:-:|:-:
 |Visual Studio 2017|✓|✓|✓|✓|✓|✓
 |Visual Studio 2015**|✓|✓|✓|✓|✓|✓
-|Visual Studio 2013**|✓|✓||✓|✓|✓
-|Visual Studio 2010-
-|Xamarin Studio 4 (Windows)
-|MonoDevelop 7.6+ (Linux)|✓||✓|✓||✓
-|MonoDevelop 5-
-|SharpDevelop
-|Rider 2018.1|✓|✓|✓|✓||✓
+|Visual Studio 2013**|✓|✓|X|✓|✓|✓
+|Visual Studio 2010-|X|X|X|X|X|X
+|Xamarin Studio 4 (Windows)|X|X|X|X|X|X
+|MonoDevelop 7.6+ (Linux)|✓|X|✓|✓|X|✓
+|MonoDevelop 5-|X|X|X|X|X|X
+|SharpDevelop|X|X|X|X|X|X
+|Rider 2018.1|✓|✓|✓|✓|X|✓
 
 *Una marca indica que el IDE soporta el proyecto.  
 Los IDE que no están listados
@@ -104,7 +104,7 @@ Los proyectos de ejemplo incluídos no se listan.*
  ✓: Proyecto soportado  
  ~: Soporte parcial  
  *: Requiere de componentes adicionales instalados en el sistema  
-**: Es necesario instalar un compilador para C# 7.2 o posterior (`PM> Install-Package Microsoft.Net.Compilers`)  
+**: Es necesario instalar un compilador para C# 7.3 o posterior (`PM> Install-Package Microsoft.Net.Compilers`)  
  +: Versiones posteriores  
  -: Versiones anteriores
 

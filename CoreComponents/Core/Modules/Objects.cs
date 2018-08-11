@@ -222,7 +222,6 @@ namespace TheXDS.MCART
             return domain.GetAssemblies().SelectMany(s => s.GetTypes()
                 .Where(p => typeof(T).IsAssignableFrom(p))).AsEnumerable();
         }
-
         /// <summary>
         /// Obtiene una lista de tipos asignables a partir de la interfaz o clase base
         /// especificada.
@@ -240,7 +239,6 @@ namespace TheXDS.MCART
         {
             return GetTypes<T>(AppDomain.CurrentDomain, instantiablesOnly);
         }
-
         /// <summary>
         /// Obtiene una lista de tipos asignables a partir de la interfaz o clase base
         /// especificada dentro del <see cref="AppDomain"/> especificado.
@@ -266,6 +264,7 @@ namespace TheXDS.MCART
                               || p.IsAbstract 
                               || !p.GetConstructors().Any()))).AsEnumerable();
         }
+        
         /// <summary>
         /// Obtiene una lista de los tipos de los objetos especificados.
         /// </summary>
@@ -777,7 +776,6 @@ namespace TheXDS.MCART
             }
             return default;
         }
-
         /// <summary>
         /// Obtiene todos los métodos con firma compatible con el delegado especificado.
         /// </summary>
@@ -791,8 +789,107 @@ namespace TheXDS.MCART
                 if (Delegate.CreateDelegate(typeof(T), j, false) is Delegate d) yield return d;
             }
         }
-
+        /// <summary>
+        /// Enumera el valor de todas las propiedades que devuelvan valores de
+        /// tipo <typeparamref name="T"/>.
+        /// </summary>
+        /// <typeparam name="T">Tipo de propiedades a obtener.</typeparam>
+        /// <param name="properties">
+        /// Colección de propiedades a analizar.
+        /// </param>
+        /// <param name="instance">
+        /// Instancia desde la cual obtener las propiedades.
+        /// </param>
+        /// <returns>
+        ///     Una enumeración de todos los valores de tipo
+        ///     <typeparamref name="T"/> de la instancia.
+        /// </returns>
+        public static IEnumerable<T> PropertiesOf<T>(this IEnumerable<PropertyInfo> properties, object instance)
+        {
+            return 
+                from j in properties.Where(p=>p.CanRead)
+                where j.PropertyType == typeof(T)
+                select (T) j.GetMethod.Invoke(instance,new object[0]);
+        }
+        /// <summary>
+        /// Enumera el valor de todas las propiedades que devuelvan valores de
+        /// tipo <typeparamref name="T"/> del objeto especificado.
+        /// </summary>
+        /// <typeparam name="T">Tipo de propiedades a obtener.</typeparam>
+        /// <param name="instance">
+        /// Instancia desde la cual obtener las propiedades.
+        /// </param>
+        /// <returns>
+        ///     Una enumeración de todos los valores de tipo
+        ///     <typeparamref name="T"/> del objeto.
+        /// </returns>
+        public static IEnumerable<T> PropertiesOf<T>(this object instance)
+        {
+            return
+                from j in instance.GetType().GetProperties().Where(p => p.CanRead)
+                where j.PropertyType == typeof(T)
+                select (T)j.GetMethod.Invoke(instance, new object[0]);
+        }
+        /// <summary>
+        /// Enumera el valor de todas los campos que devuelvan valores de tipo
+        /// <typeparamref name="T"/>.
+        /// </summary>
+        /// <typeparam name="T">Tipo de campos a obtener.</typeparam>
+        /// <param name="fields">
+        /// Colección de campos a analizar.
+        /// </param>
+        /// <param name="instance">
+        /// Instancia desde la cual obtener los campos.
+        /// </param>
+        /// <returns>
+        ///     Una enumeración de todos los valores de tipo
+        ///     <typeparamref name="T"/> de la instancia.
+        /// </returns>
+        public static IEnumerable<T> FieldsOf<T>(this IEnumerable<FieldInfo> fields, object instance)
+        {
+            return
+                from j in fields.Where(p => p.IsPublic)
+                where j.FieldType == typeof(T)
+                select (T)j.GetValue(instance);
+        }
+        /// <summary>
+        /// Enumera el valor de todas los campos que devuelvan valores de
+        /// tipo <typeparamref name="T"/> del objeto especificado.
+        /// </summary>
+        /// <typeparam name="T">Tipo de campos a obtener.</typeparam>
+        /// <param name="instance">
+        /// Instancia desde la cual obtener los campos.
+        /// </param>
+        /// <returns>
+        ///     Una enumeración de todos los valores de tipo
+        ///     <typeparamref name="T"/> del objeto.
+        /// </returns>
+        public static IEnumerable<T> FieldsOf<T>(this object instance)
+        {
+            return
+                from j in instance.GetType().GetFields().Where(p => p.IsPublic)
+                where j.FieldType == typeof(T)
+                select (T)j.GetValue(instance);
+        }
+        /// <summary>
+        /// Obtiene todos los tipos públicos que implementan al tipo especificado.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipode objetos a obtener.
+        /// </typeparam>
+        /// <returns>
+        /// Una enumeración con todos los tipos que heredan o implementan el
+        /// tipo especificado.
+        /// </returns>
         public static IEnumerable<Type> AllTypes<T>() => AllTypes(typeof(T));
+        /// <summary>
+        /// Obtiene todos los tipos públicos que implementan al tipo especificado.
+        /// </summary>
+        /// <param name="t">Tipo a obtener.</param>
+        /// <returns>
+        /// Una enumeración con todos los tipos que heredan o implementan el
+        /// tipo especificado.
+        /// </returns>
         public static IEnumerable<Type> AllTypes(Type t)
         {
             return AppDomain.CurrentDomain.GetAssemblies().SelectMany(p => p.GetExportedTypes())
