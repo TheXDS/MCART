@@ -265,7 +265,7 @@ namespace TheXDS.MCART.Networking.Server
                     }
                     else
                     {
-                        ts.Dispose();
+                        //ts.Dispose();
                     }
 
                     waitData = false;

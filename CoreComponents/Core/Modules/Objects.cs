@@ -76,7 +76,11 @@ namespace TheXDS.MCART
         public static IEnumerable<int> WhichAreNull(this IEnumerable<object> collection)
         {
             var c = 0;
-            foreach (var j in collection) if (j is null) yield return c++;
+            foreach (var j in collection)
+            {
+                if (j is null) yield return c;
+                c++;
+            }
         }
         /// <summary>
         /// Determina si cualquiera de los objetos es <see langword="null"/>.
@@ -166,7 +170,11 @@ namespace TheXDS.MCART
         public static IEnumerable<int> WhichAre(this object obj, IEnumerable<object> collection)
         {
             var c = 0;
-            foreach (var j in collection) if (j.Is(obj)) yield return c++;
+            foreach (var j in collection)
+            {
+                if (j.Is(obj)) yield return c;
+                c++;
+            }
         }
         /// <summary>
         /// Determina si cualquiera de los objetos es la misma instancia que

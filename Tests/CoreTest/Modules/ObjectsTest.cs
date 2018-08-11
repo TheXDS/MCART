@@ -50,9 +50,9 @@ namespace CoreTest.Modules
         [Fact]
         public void WhichAreNullTest()
         {
-            Assert.Equal(new int[] { }, WhichAreNull(new object(), new object()));
-            Assert.Equal(new int[] { 1 }, WhichAreNull(new object(), null, new object(), new object()));
-            Assert.Equal(new int[] { 2, 3 }, WhichAreNull(new object(), new object(), null, null));
+            Assert.Equal(new int[] { }, WhichAreNull(new object(), new object()).ToArray());
+            Assert.Equal(new int[] { 1 }, WhichAreNull(new object(), null, new object(), new object()).ToArray());
+            Assert.Equal(new int[] { 2, 3 }, WhichAreNull(new object(), new object(), null, null).ToArray());
         }
         [Fact]
         public void AreAllNullTest()
@@ -64,9 +64,9 @@ namespace CoreTest.Modules
         public void WhichAreTest()
         {
             var x = new object();
-            Assert.Equal(new int[] { }, x.WhichAre(new object(), 1, 0.0f));
-            Assert.Equal(new int[] { 2 }, x.WhichAre(new object(), 1, x));
-            Assert.Equal(new int[] { 1,3 }, x.WhichAre(new object(), x, 0, x));
+            Assert.Equal(new int[] { }, x.WhichAre(new object(), 1, 0.0f).ToArray());
+            Assert.Equal(new int[] { 2 }, x.WhichAre(new object(), 1, x).ToArray());
+            Assert.Equal(new int[] { 1,3 }, x.WhichAre(new object(), x, 0, x).ToArray());
         }
         [Fact]
         public void ItselfTest()
