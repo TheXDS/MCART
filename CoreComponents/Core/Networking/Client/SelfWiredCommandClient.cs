@@ -25,7 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Configuration;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
@@ -36,6 +36,7 @@ using TheXDS.MCART.Exceptions;
 
 #region Configuración de ReSharper
 
+// ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable EventNeverSubscribedTo.Global
@@ -44,10 +45,11 @@ using TheXDS.MCART.Exceptions;
 
 namespace TheXDS.MCART.Networking.Client
 {
+    /// <inheritdoc />
     /// <summary>
     ///     Clase base para clientes auto-cableados de atención a protocolos de
     ///     comandos simples basados en la clase
-    ///     <see cref="Server.SelfWiredCommandProtocol{TClient, TCommand, TResponse}" />.
+    ///     <see cref="T:TheXDS.MCART.Networking.Server.SelfWiredCommandProtocol`3" />.
     /// </summary>
     /// <typeparam name="TCommand">
     ///     Tipo de enumeración de los comandos enviados por este cliente.
@@ -59,11 +61,11 @@ namespace TheXDS.MCART.Networking.Client
     ///     Debido a las limitaciones actuales de C#, para poder implementar
     ///     este protocolo es necesario crear un atributo aplicable a los
     ///     métodos miembros de la clase que derive de
-    ///     <see cref="SelfWiredCommandClient{TCommand,TResponse}" />, dicho
-    ///     atributo deberá implementar <see cref="IValueAttribute{T}" /> y ser
+    ///     <see cref="T:TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2" />, dicho
+    ///     atributo deberá implementar <see cref="T:TheXDS.MCART.Attributes.IValueAttribute`1" /> y ser
     ///     aplicado a cada método que pueda manejar respuestas del servidor.
     ///     Tales métodos deberán a su vez, ser compatibles con el delegado
-    ///     <see cref="ResponseCallBack" />.
+    ///     <see cref="T:TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.ResponseCallBack" />.
     ///     Los comandos y las respuestas son enumeraciones comúnes.
     /// </remarks>
     /// <example>
@@ -73,27 +75,52 @@ namespace TheXDS.MCART.Networking.Client
     ///     <code language="vb" source="..\..\Documentation\Examples\Networking\Client\SelfWiredCommandClient.vb"
     ///         region="example1" />
     /// </example>
+    [SuppressMessage("ReSharper", "StaticMemberInGenericType")]
     public abstract class SelfWiredCommandClient<TCommand, TResponse> : ActiveClient
         where TCommand : struct, Enum where TResponse : struct, Enum
     {
         /// <summary>
         ///     Describe la firma de una respuesta del protocolo.
         /// </summary>
-        public delegate void ResponseCallBack(BinaryReader br);
+        public delegate void ResponseCallBack(object instance, BinaryReader br);
 
-        private readonly TResponse? _errResponse;
+        private static readonly TResponse? ErrResponse;
+        private static readonly MethodInfo MakeCmd;
+        private static readonly MethodInfo ReadRsp;
+        private static readonly TResponse? UnkResponse;
 
         private readonly ConcurrentQueue<ResponseCallBack> _interrupts =
             new ConcurrentQueue<ResponseCallBack>();
 
-        private readonly MethodInfo _makeCmd;
-
-        private readonly MethodInfo _readRsp;
-
         private readonly Dictionary<TResponse, ResponseCallBack> _responses =
             new Dictionary<TResponse, ResponseCallBack>();
 
-        private readonly TResponse? _unkResponse;
+        static SelfWiredCommandClient()
+        {
+            var tRsp = typeof(TResponse).GetEnumUnderlyingType();
+            var tCmd = typeof(TCommand).GetEnumUnderlyingType();
+
+            ReadRsp = typeof(BinaryReader).GetMethods().FirstOrDefault(p =>
+                          p.Name.StartsWith("Read")
+                          && p.GetParameters().Length == 0
+                          && p.ReturnType == tRsp)
+                      ?? throw new PlatformNotSupportedException();
+
+            if (tCmd == typeof(byte))
+                MakeCmd = new Func<byte, byte[]>(BypassByte).Method;
+            else
+                MakeCmd = typeof(BitConverter).GetMethods().FirstOrDefault(p =>
+                {
+                    var pars = p.GetParameters();
+                    return p.Name == nameof(BitConverter.GetBytes)
+                           && pars.Length == 1
+                           && pars[0].ParameterType == tCmd;
+                }) ?? throw new PlatformNotSupportedException();
+
+            var vals = Enum.GetValues(typeof(TResponse)).OfType<TResponse?>().ToArray();
+            ErrResponse = vals.FirstOrDefault(p => p.HasAttr<ErrorResponseAttribute>());
+            UnkResponse = vals.FirstOrDefault(p => p.HasAttr<UnknownResponseAttribute>());
+        }
 
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
@@ -101,41 +128,22 @@ namespace TheXDS.MCART.Networking.Client
         /// </summary>
         protected SelfWiredCommandClient()
         {
-            var tRsp = typeof(TResponse).GetEnumUnderlyingType();
-            var tCmd = typeof(TCommand).GetEnumUnderlyingType();
-
-            _readRsp = typeof(BinaryReader).GetMethods().FirstOrDefault(p =>
-                           p.Name.StartsWith("Read")
-                           && p.GetParameters().Length == 0
-                           && p.ReturnType == tRsp)
-                       ?? throw new PlatformNotSupportedException();
-
-            _makeCmd = typeof(BitConverter).GetMethods().FirstOrDefault(p =>
-            {
-                var pars = p.GetParameters();
-                return p.Name == nameof(BitConverter.GetBytes)
-                       && pars.Length == 1
-                       && pars[0].ParameterType == tCmd;
-            }) ?? throw new PlatformNotSupportedException();
-
-            var vals = Enum.GetValues(typeof(TResponse)).OfType<TResponse?>().ToArray();
-
-            _errResponse = vals.FirstOrDefault(p => p.HasAttr<ErrorResponseAttribute>());
-            _unkResponse = vals.FirstOrDefault(p => p.HasAttr<UnknownResponseAttribute>());
-
             var tCmdAttr = Objects.GetTypes<IValueAttribute<TResponse>>(true).FirstOrDefault() ??
                            throw new MissingTypeException(typeof(IValueAttribute<TResponse>));
             foreach (var j in
                 GetType().GetMethods().WithSignature<ResponseCallBack>()
                     .Concat(this.PropertiesOf<ResponseCallBack>())
                     .Concat(this.FieldsOf<ResponseCallBack>()))
+            foreach (var k in j.Method.GetCustomAttributes(tCmdAttr, false).OfType<IValueAttribute<TResponse>>())
             {
-                foreach (var k in j.Method.GetCustomAttributes(tCmdAttr, false).OfType<IValueAttribute<TResponse>>())
-                {
-                    if (_responses.ContainsKey(k.Value)) throw new DataAlreadyExistsException();
-                    _responses.Add(k.Value, j as ResponseCallBack);
-                }
+                if (_responses.ContainsKey(k.Value)) throw new DataAlreadyExistsException();
+                _responses.Add(k.Value, j as ResponseCallBack);
             }
+        }
+
+        private static byte[] BypassByte(byte b)
+        {
+            return new[] {b};
         }
 
         /// <inheritdoc />
@@ -161,39 +169,39 @@ namespace TheXDS.MCART.Networking.Client
         /// </summary>
         protected override async void PostConnection()
         {
-            while (!(Connection?.Disposed ?? true) && Connection.GetStream() is NetworkStream ns)
-                try
+            while (GetNs() is NetworkStream ns)
+            {
+                var outp = await GetDataAsync(ns);
+                using (var ms = new MemoryStream(outp))
+                using (var br = new BinaryReader(ms))
                 {
-                    var outp = new List<byte>();
-                    do
+                    if (_interrupts.TryDequeue(out var callback))
                     {
-                        var buff = new byte[Connection.ReceiveBufferSize];
-                        var sze = await ns.ReadAsync(buff, 0, buff.Length);
-                        if (sze < Connection.ReceiveBufferSize) Array.Resize(ref buff, sze);
-                        outp.AddRange(buff);
-                    } while (ns.DataAvailable);
-
-                    using (var ms = new MemoryStream(outp.ToArray()))
-                    using (var br = new BinaryReader(ms))
+                        callback.Invoke(this, br);
+                    }
+                    else
                     {
-                        if (_interrupts.TryDequeue(out var callback))
-                        {
-                            callback.Invoke(br);
-                        }
-                        else
-                        {
-                            var cmd = ReadResponse(br);
-                            if (_errResponse.Equals(cmd)) ServerError?.Invoke(this, EventArgs.Empty);
-                            if (_unkResponse.Equals(cmd)) UnknownCommandIssued?.Invoke(this, EventArgs.Empty);
-                            if (_responses.ContainsKey(cmd)) _responses[cmd](br);
-                            else AttendServer(outp.ToArray());
-                        }
+                        var cmd = ReadResponse(br);
+                        if (ErrResponse.Equals(cmd)) ServerError?.Invoke(this, EventArgs.Empty);
+                        if (UnkResponse.Equals(cmd)) UnknownCommandIssued?.Invoke(this, EventArgs.Empty);
+                        if (_responses.ContainsKey(cmd)) _responses[cmd](this, br);
+                        else if (outp.Any()) AttendServer(outp);
                     }
                 }
-                catch
-                {
-                    RaiseConnectionLost();
-                }
+            }
+        }
+
+        private NetworkStream GetNs()
+        {
+            try
+            {
+                return Connection.GetStream();
+            }
+            catch
+            {
+                RaiseConnectionLost();
+                return null;
+            }
         }
 
         /// <summary>
@@ -210,7 +218,7 @@ namespace TheXDS.MCART.Networking.Client
         /// </returns>
         public IEnumerable<byte> MakeCommand(TCommand command)
         {
-            return (byte[]) _makeCmd.Invoke(null, new object[] {command});
+            return (byte[]) MakeCmd.Invoke(null, new object[] {command});
         }
 
         /// <summary>
@@ -227,7 +235,7 @@ namespace TheXDS.MCART.Networking.Client
         /// </returns>
         public TResponse ReadResponse(BinaryReader br)
         {
-            return (TResponse) Enum.ToObject(typeof(TResponse), _readRsp.Invoke(br, new object[0]));
+            return (TResponse) Enum.ToObject(typeof(TResponse), ReadRsp.Invoke(br, new object[0]));
         }
 
         /// <summary>
@@ -298,18 +306,9 @@ namespace TheXDS.MCART.Networking.Client
         {
             if (!(data?.Length > 0)) throw new ArgumentNullException();
             var msg = MakeCommand(command).Concat(data).ToArray();
-            var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
+            var ns = NwStream() ?? throw new InvalidOperationException();
             ns.Write(msg, 0, msg.Length);
         }
-        
-        /// <summary>
-        ///     Envía un comando al servidor.
-        /// </summary>
-        /// <param name="command">Comando a enviar al servidor.</param>
-        /// <param name="data">
-        ///     Datos adicionales a concatenar a la solicitud.
-        /// </param>
-        public void TalkToServer(TCommand command, IEnumerable<byte> data) => TalkToServer(command, data as byte[] ?? data.ToArray());
 
         /// <summary>
         ///     Envía un comando al servidor.
@@ -318,7 +317,22 @@ namespace TheXDS.MCART.Networking.Client
         /// <param name="data">
         ///     Datos adicionales a concatenar a la solicitud.
         /// </param>
-        public void TalkToServer(TCommand command, MemoryStream data) => TalkToServer(command, data.ToArray());
+        public void TalkToServer(TCommand command, IEnumerable<byte> data)
+        {
+            TalkToServer(command, data as byte[] ?? data.ToArray());
+        }
+
+        /// <summary>
+        ///     Envía un comando al servidor.
+        /// </summary>
+        /// <param name="command">Comando a enviar al servidor.</param>
+        /// <param name="data">
+        ///     Datos adicionales a concatenar a la solicitud.
+        /// </param>
+        public void TalkToServer(TCommand command, MemoryStream data)
+        {
+            TalkToServer(command, data.ToArray());
+        }
 
         /// <summary>
         ///     Envía un comando al servidor.
@@ -331,20 +345,16 @@ namespace TheXDS.MCART.Networking.Client
         {
             if (!data.CanRead) throw new InvalidOperationException();
             if (data.CanSeek)
-            {
                 using (var sr = new BinaryReader(data))
                 {
-                    TalkToServer(command, sr.ReadBytes((int)data.Length));
+                    TalkToServer(command, sr.ReadBytes((int) data.Length));
                 }
-            }
             else
-            {
                 using (var ms = new MemoryStream())
                 {
                     data.CopyTo(ms);
                     TalkToServer(command, ms);
                 }
-            }
         }
 
         /// <summary>
@@ -425,16 +435,6 @@ namespace TheXDS.MCART.Networking.Client
             var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
             await ns.WriteAsync(msg, 0, msg.Length);
         }
-        
-        
-        /// <summary>
-        ///     Envía un comando al servidor.
-        /// </summary>
-        /// <param name="command">Comando a enviar al servidor.</param>
-        /// <param name="data">
-        ///     Datos adicionales a concatenar a la solicitud.
-        /// </param>
-        public Task TalkToServerAsync(TCommand command, IEnumerable<byte> data) => TalkToServerAsync(command, data as byte[] ?? data.ToArray());
 
         /// <summary>
         ///     Envía un comando al servidor.
@@ -443,7 +443,22 @@ namespace TheXDS.MCART.Networking.Client
         /// <param name="data">
         ///     Datos adicionales a concatenar a la solicitud.
         /// </param>
-        public Task TalkToServerAsync(TCommand command, MemoryStream data) => TalkToServerAsync(command, data.ToArray());
+        public Task TalkToServerAsync(TCommand command, IEnumerable<byte> data)
+        {
+            return TalkToServerAsync(command, data as byte[] ?? data.ToArray());
+        }
+
+        /// <summary>
+        ///     Envía un comando al servidor.
+        /// </summary>
+        /// <param name="command">Comando a enviar al servidor.</param>
+        /// <param name="data">
+        ///     Datos adicionales a concatenar a la solicitud.
+        /// </param>
+        public Task TalkToServerAsync(TCommand command, MemoryStream data)
+        {
+            return TalkToServerAsync(command, data.ToArray());
+        }
 
         /// <summary>
         ///     Envía un comando al servidor.
@@ -456,20 +471,16 @@ namespace TheXDS.MCART.Networking.Client
         {
             if (!data.CanRead) throw new InvalidOperationException();
             if (data.CanSeek)
-            {
                 using (var sr = new BinaryReader(data))
                 {
-                    await TalkToServerAsync(command, sr.ReadBytes((int)data.Length));
+                    await TalkToServerAsync(command, sr.ReadBytes((int) data.Length));
                 }
-            }
             else
-            {
                 using (var ms = new MemoryStream())
                 {
                     await data.CopyToAsync(ms);
                     await TalkToServerAsync(command, ms);
                 }
-            }
         }
 
         /// <summary>

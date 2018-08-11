@@ -22,7 +22,7 @@ namespace TheXDS.LightChat
 
         private void BtnConnect_OnClick(object sender, RoutedEventArgs e)
         {
-            client.Connect("localhost",51220);
+            client.Connect(TxtServer.Text,51220);
             client.Login(TxtSend.Text, new byte[0]);
         }
         private void BtnSend_OnClick(object sender, RoutedEventArgs e)
@@ -52,9 +52,9 @@ namespace TheXDS.LightChat
             {
                 var x = text.Split(new []{' '}, 2);
                 if (x.Length < 2) return;
-                client.SayTo(x[0], x[1]);
+                client.SayTo(x[0].Substring(1), x[1]);
             }
-            client.Say(text);
+            else client.Say(text);
         }
     }
 
@@ -62,9 +62,12 @@ namespace TheXDS.LightChat
     {
         private MainWindow wnd;
 
-        private void Write(string text)
+        private static void Write(LightChatClient instance, string text)
         {
-            wnd.TxtChat.Text += $"{text}\n";
+            instance.wnd.Dispatcher.Invoke(() =>
+            {
+                instance.wnd.TxtChat.Text += $"{text}\n";
+            });
         }
         
         public LightChatClient(MainWindow wnd)
@@ -73,9 +76,9 @@ namespace TheXDS.LightChat
         }
 
         [Response(RetVal.Msg)]
-        public void DoMsg(BinaryReader br)
+        public static void DoMsg(object instance, BinaryReader br)
         {
-            Write(br.ReadString());
+            Write(instance as LightChatClient, br.ReadString());
         }
         
         [Response(RetVal.Err)]
@@ -83,27 +86,27 @@ namespace TheXDS.LightChat
         [Response(RetVal.InvalidCommand)]
         [Response(RetVal.InvalidLogin)]
         [Response(RetVal.InvalidInfo)]
-        public void DoErr(BinaryReader br)
+        public static void DoErr(object instance, BinaryReader br)
         {
-            Write("El servidor ha encontrado un error.");
+            Write(instance as LightChatClient, "El servidor ha encontrado un error.");
         }
 
         [Response(RetVal.Ok)]
-        public void DoOk(BinaryReader br)
+        public static void DoOk(object instance, BinaryReader br)
         {
             if (br.PeekChar() < 0) return;
             var c = br.ReadInt32();
-            Write($"Hay {c} usuarios conectados:");
+            Write(instance as LightChatClient, $"Hay otros {c} usuarios conectados:");
             for (var j = 0; j < c; j++)
             {
-                Write(br.ReadString());
+                Write(instance as LightChatClient, br.ReadString());
             }
         }
         
         [Response(RetVal.NoLogin)]
-        public void DoNoLogin(BinaryReader br)
+        public static void DoNoLogin(object instance, BinaryReader br)
         {
-            Write("No has iniciado sesión.");
+            Write(instance as LightChatClient, "No has iniciado sesión.");
         }
 
         public void Say(string text)
@@ -122,7 +125,7 @@ namespace TheXDS.LightChat
             {
                 bw.Write(dest);
                 bw.Write(text);
-                TalkToServer(Command.SayTo,ms.ToArray());
+                TalkToServer(Command.SayTo, ms.ToArray());
             }
         }
         public void Logout()

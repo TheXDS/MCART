@@ -22,9 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using TheXDS.MCART.Exceptions;
 
 namespace TheXDS.MCART.Networking.Client
 {
@@ -67,22 +66,12 @@ namespace TheXDS.MCART.Networking.Client
         /// </returns>
         public byte[] TalkToServer(byte[] data)
         {
-            var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
+            var ns = NwStream() ?? throw new ConnectionClosedException();
             if (data?.Length > 0)
             {
                 ns.Write(data, 0, data.Length);
             }
-
-            var resp = new List<byte>();
-            do
-            {
-                var buff = new byte[Connection.ReceiveBufferSize];
-                var sze = ns.Read(buff, 0, buff.Length);
-                if (sze < Connection.ReceiveBufferSize) Array.Resize(ref buff, sze);
-                resp.AddRange(buff);
-
-            } while (ns.DataAvailable);
-            return resp.ToArray();
+            return GetData(ns);
         }
 
         /// <summary>
@@ -106,22 +95,13 @@ namespace TheXDS.MCART.Networking.Client
         /// </returns>
         public async Task<byte[]> TalkToServerAsync(byte[] data)
         {
-            var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
+            var ns = NwStream() ?? throw new ConnectionClosedException();
             if (data?.Length > 0)
             {
                 await ns.WriteAsync(data, 0, data.Length);
             }
 
-            var resp = new List<byte>();
-            do
-            {
-                var buff = new byte[Connection.ReceiveBufferSize];
-                var sze = await ns.ReadAsync(buff, 0, buff.Length);
-                if (sze < Connection.ReceiveBufferSize) Array.Resize(ref buff, sze);
-                resp.AddRange(buff);
-
-            } while (ns.DataAvailable);
-            return resp.ToArray();
+            return await GetDataAsync(ns);
         }
     }
 }

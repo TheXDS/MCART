@@ -123,6 +123,10 @@ namespace TheXDS.MCART.Networking.Client
                 catch { RaiseConnectionLost(); }
             }
         }
+
+        /// <summary>
+        /// Genera el evento <see cref="ConnectionLost"/>.
+        /// </summary>
         protected void RaiseConnectionLost()=> ConnectionLost?.Invoke(this, EventArgs.Empty);
     }
 }

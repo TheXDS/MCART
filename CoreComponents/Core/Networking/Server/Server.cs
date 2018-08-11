@@ -217,12 +217,24 @@ namespace TheXDS.MCART.Networking.Server
             _conns = new TcpListener(ListeningEndPoint);
         }
 
+        private byte[] GetResponse(Task<byte[]> task)
+        {
+            try
+            {
+                return task.Result;
+            }
+            catch (AggregateException)
+            {
+                return new byte[0];
+            }
+        }
+
         /// <summary>
         ///     Atiende al cliente.
         /// </summary>
         /// <returns>Un <see cref="Task" /> que atiende al cliente.</returns>
         /// <param name="client">Cliente a atender.</param>
-        private async Task AttendClient(Client client)
+        private void AttendClient(Client client)
         {
             ClientConnected?.Invoke(this, client);
             if (Protocol.ClientWelcome(client, this))
@@ -240,9 +252,10 @@ namespace TheXDS.MCART.Networking.Server
                         while (_isAlive && waitData) ;
                     })) == 0)
                     {
-                        if (ts.Result.Length != 0)
+                        var r = GetResponse(ts);
+                        if (r.Any())
                         {
-                            Protocol.ClientAttendant(client, this, await ts);
+                            Protocol.ClientAttendant(client, this, r);
                         }
                         else
                         {
@@ -287,8 +300,8 @@ namespace TheXDS.MCART.Networking.Server
             while (_isAlive)
             {
                 var c = await GetClient();
-                if (!(c is null))
-                    _clientThreads.Add(AttendClient(Protocol.CreateClient(c)));
+                if (c is null) continue;
+                _clientThreads.Add(Task.Run(()=> AttendClient(Protocol.CreateClient(c))));
             }
         }
 

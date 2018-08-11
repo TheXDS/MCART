@@ -89,7 +89,7 @@ namespace TheXDS.LightChat
         NoLogin
     }
 
-    [AttributeUsage(AttributeTargets.Method, Inherited = false)]
+    [AttributeUsage(AttributeTargets.Method|AttributeTargets.Field|AttributeTargets.Property, Inherited = false)]
     internal sealed class CommandAttribute : Attribute, IValueAttribute<Command>
     {
         public Command Value { get; }
@@ -100,7 +100,7 @@ namespace TheXDS.LightChat
         }
     }
     
-    [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Field | AttributeTargets.Property, Inherited = false, AllowMultiple = true)]
     internal sealed class ResponseAttribute : Attribute, IValueAttribute<RetVal>
     {
         public RetVal Value { get; }

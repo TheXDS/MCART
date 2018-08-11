@@ -40,6 +40,29 @@ namespace TheXDS.MCART.Networking.Server
     /// </summary>
     public class Client
     {
+        /// <summary>
+        ///     Obtiene de forma segura la instancia del
+        ///     <see cref="NetworkStream"/> utilizada para la conexión con el
+        ///     cliente remoto.
+        /// </summary>
+        /// <returns>
+        ///     Un <see cref="NetworkStream"/> utilizado para la conexión con
+        ///     el cliente remoto, o <see langword="null"/> si no existe una
+        ///     conexión activa válida.
+        /// </returns>
+        protected NetworkStream NwStream()
+        {
+            try
+            {
+                return Connection?.GetStream();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+
         /// <inheritdoc />
         /// <summary>
         ///     Define los métodos a implementar por una clase que represente a un
@@ -54,12 +77,12 @@ namespace TheXDS.MCART.Networking.Server
         ///     <see langword="true" /> si hay datos disponibles,
         ///     <see langword="false" /> en caso contrario.
         /// </value>
-        public bool DataAvailable => TcpClient?.GetStream().DataAvailable ?? false;
+        public bool DataAvailable => NwStream()?.DataAvailable ?? false;
 
         /// <summary>
         ///     Obtiene el <see cref="IPEndPoint" /> remoto del cliente.
         /// </summary>
-        public IPEndPoint EndPoint => TcpClient.Client.RemoteEndPoint as IPEndPoint;
+        public IPEndPoint EndPoint => Connection.Client.RemoteEndPoint as IPEndPoint;
 
         /// <summary>
         ///     Indica si esta instancia de <see cref="Client" /> se encuentra
@@ -70,24 +93,24 @@ namespace TheXDS.MCART.Networking.Server
         ///     encuentra conectada a un servidor, <see langword="false" /> en caso
         ///     contrario.
         /// </value>
-        public bool IsAlive => !(TcpClient?.GetStream() is null);
+        public bool IsAlive => !(NwStream() is null);
 
         /// <summary>
         ///     Obtiene la conexión <see cref="System.Net.Sockets.TcpClient" /> asociada a esta instancia.
         /// </summary>
         /// <value>My connection.</value>
-        private TcpClient TcpClient { get; }
+        private TcpClient Connection { get; }
 
         /// <summary>
         ///     Inicializa una nueva instancia de la clase <see cref="Client" />.
         /// </summary>
-        /// <param name="tcpClient">
+        /// <param name="connection">
         ///     <see cref="System.Net.Sockets.TcpClient" /> a utilizar para las
         ///     comunicaciones con el cliente.
         /// </param>
-        public Client(TcpClient tcpClient)
+        public Client(TcpClient connection)
         {
-            TcpClient = tcpClient;
+            Connection = connection;
         }
 
         /// <inheritdoc />
@@ -103,7 +126,7 @@ namespace TheXDS.MCART.Networking.Server
         /// <summary>
         ///     Desconecta al cliente del servidor.
         /// </summary>
-        public void Disconnect() => TcpClient.Close();
+        public void Disconnect() => Connection.Close();
 
         /// <summary>
         ///     Devuelve los datos que el cliente envía.
@@ -111,7 +134,7 @@ namespace TheXDS.MCART.Networking.Server
         /// <returns>Un arreglo de <see cref="byte" /> con la información recibida desde el servidor.</returns>
         public byte[] Recieve()
         {
-            var ns = TcpClient?.GetStream();
+            var ns = NwStream();
             if (ns is null)
 #if PreferExceptions
 				throw new ArgumentNullException();
@@ -124,6 +147,41 @@ namespace TheXDS.MCART.Networking.Server
                 return ms.ToArray();
             }
         }
+        /// <summary>
+        /// Obtiene un paquete completo de datos desde el servidor.
+        /// </summary>
+        /// <param name="ns"></param>
+        /// <returns></returns>
+        protected byte[] GetData(NetworkStream ns)
+        {
+            var outp = new List<byte>();
+            do
+            {
+                var buff = new byte[Connection.ReceiveBufferSize];
+                var sze = ns.Read(buff, 0, buff.Length);
+                if (sze < Connection.ReceiveBufferSize) Array.Resize(ref buff, sze);
+                outp.AddRange(buff);
+            } while (ns.DataAvailable);
+            return outp.ToArray();
+        }
+
+        /// <summary>
+        /// Obtiene un paquete completo de datos desde el servidor.
+        /// </summary>
+        /// <param name="ns"></param>
+        /// <returns></returns>
+        protected async Task<byte[]> GetDataAsync(NetworkStream ns)
+        {
+            var outp = new List<byte>();
+            do
+            {
+                var buff = new byte[Connection.ReceiveBufferSize];
+                var sze = await ns.ReadAsync(buff, 0, buff.Length);
+                if (sze < Connection.ReceiveBufferSize) Array.Resize(ref buff, sze);
+                outp.AddRange(buff);
+            } while (ns.DataAvailable);
+            return outp.ToArray();
+        }
 
         /// <summary>
         ///     Devuelve los datos recibidos una vez que el cliente los envía.
@@ -131,7 +189,7 @@ namespace TheXDS.MCART.Networking.Server
         /// <returns>Un arreglo de <see cref="byte" /> con la información recibida desde el servidor.</returns>
         public async Task<byte[]> RecieveAsync()
         {
-            var ns = TcpClient?.GetStream();
+            var ns = NwStream();
             if (ns is null)
 #if PreferExceptions
 				throw new ArgumentNullException();
@@ -139,16 +197,7 @@ namespace TheXDS.MCART.Networking.Server
                 return new byte[] { };
 #endif
 
-            var outp = new List<byte>();
-            do
-            {
-                var buff = new byte[TcpClient.ReceiveBufferSize];
-                var sze = await ns.ReadAsync(buff, 0, buff.Length);
-                if (sze < TcpClient.ReceiveBufferSize) Array.Resize(ref buff, sze);
-                outp.AddRange(buff);
-            } while (ns.DataAvailable);
-
-            return outp.ToArray();
+            return await GetDataAsync(ns);
         }
 
         /// <summary>
@@ -158,7 +207,7 @@ namespace TheXDS.MCART.Networking.Server
         /// <returns>Un arreglo de <see cref="byte" /> con la información recibida desde el servidor.</returns>
         public async Task<byte[]> RecieveAsync(CancellationToken cancellationToken)
         {
-            var ns = TcpClient?.GetStream();
+            var ns = NwStream();
             if (ns is null)
 #if PreferExceptions
 				throw new ArgumentNullException();
@@ -167,7 +216,7 @@ namespace TheXDS.MCART.Networking.Server
 #endif
             using (var ms = new MemoryStream())
             {
-                await ns.CopyToAsync(ms, 81920, cancellationToken);
+                await ns.CopyToAsync(ms, Connection.ReceiveBufferSize, cancellationToken);
                 return ms.ToArray();
             }
         }
@@ -178,7 +227,7 @@ namespace TheXDS.MCART.Networking.Server
         /// <param name="data">Mensaje a enviar.</param>
         public void Send(byte[] data)
         {
-            TcpClient?.GetStream().Write(data, 0, data.Length);
+            NwStream()?.Write(data, 0, data.Length);
         }
 
         /// <summary>
@@ -265,7 +314,7 @@ namespace TheXDS.MCART.Networking.Server
         /// </returns>
         public Task SendAsync(byte[] data)
         {
-            return TcpClient?.GetStream().WriteAsync(data, 0, data.Length);
+            return NwStream()?.WriteAsync(data, 0, data.Length);
         }
 
         /// <summary>
@@ -281,7 +330,7 @@ namespace TheXDS.MCART.Networking.Server
         /// </returns>
         public Task SendAsync(byte[] data, CancellationToken cancellationToken)
         {
-            return TcpClient?.GetStream().WriteAsync(data, 0, data.Length, cancellationToken);
+            return NwStream()?.WriteAsync(data, 0, data.Length, cancellationToken);
         }
     }
 
@@ -305,11 +354,11 @@ namespace TheXDS.MCART.Networking.Server
         /// <summary>
         ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Networking.Server.Client`1" />.
         /// </summary>
-        /// <param name="tcpClient">
+        /// <param name="connection">
         ///     <see cref="T:System.Net.Sockets.TcpClient" /> a utilizar para las comunicaciones con el
         ///     cliente.
         /// </param>
-        public Client(TcpClient tcpClient) : base(tcpClient)
+        public Client(TcpClient connection) : base(connection)
         {
         }
     }

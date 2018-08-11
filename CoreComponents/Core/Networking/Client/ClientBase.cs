@@ -27,10 +27,12 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
 using System.Net;
+using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
-using TheXDS.MCART.Types.Extensions;
+using TcpClient = TheXDS.MCART.Types.Extensions.TcpClient;
 
 #region Configuración de ReSharper
 
@@ -52,6 +54,28 @@ namespace TheXDS.MCART.Networking.Client
         ///     <see cref="ClientBase"/>.
         /// </summary>
         private protected ClientBase() { }
+
+        /// <summary>
+        ///     Obtiene de forma segura la instancia del
+        ///     <see cref="NetworkStream"/> utilizada para la conexión con el
+        ///     servidor remoto.
+        /// </summary>
+        /// <returns>
+        ///     Un <see cref="NetworkStream"/> utilizado para la conexión con
+        ///     el servidor remoto, o <see langword="null"/> si no existe una
+        ///     conexión activa válida.
+        /// </returns>
+        protected NetworkStream NwStream()
+        {
+            try
+            {
+                return Connection?.GetStream();
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
         /// <summary>
         /// Se produce cuando ocurre una conexión de manera satisfactoria.
@@ -76,7 +100,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     <see langword="true"/> si la conexión se encuentra activa,
         ///     <see langword="false"/> en caso contrario.
         /// </value>
-        public bool IsAlive => !(Connection?.Disposed ?? true) && !(Connection.GetStream() is null);
+        public bool IsAlive => !(Connection?.Disposed ?? true) && !(NwStream() is null);
 
         /// <summary>
         ///     Método invalidable que es ejecutado inmediatamente después de
@@ -106,7 +130,6 @@ namespace TheXDS.MCART.Networking.Client
         /// <returns>Un <see cref="Task"/> que representa la tarea.</returns>
         /// <param name="server">Servidor al cual conectarse.</param>
         public Task ConnectAsync(IPAddress server) => ConnectAsync(server, GetType().GetAttr<PortAttribute>()?.Value ?? Common.DefaultPort);
-        
         /// <summary>
         /// Establece una conexión con el servidor de forma asíncrona.
         /// </summary>
@@ -166,7 +189,6 @@ namespace TheXDS.MCART.Networking.Client
             }
 #endif
         }
-
         /// <summary>
         /// Establece una conexión con el servidor.
         /// </summary>
@@ -182,7 +204,6 @@ namespace TheXDS.MCART.Networking.Client
         /// </summary>
         /// <param name="server">Servidor al cual conectarse.</param>
         public void Connect(IPAddress server) => Connect(server, GetType().GetAttr<PortAttribute>()?.Value ?? Common.DefaultPort);
-        
         /// <summary>
         /// Establece una conexión con el servidor.
         /// </summary>
@@ -252,7 +273,7 @@ namespace TheXDS.MCART.Networking.Client
             try
             {
                 _worker.Abort();
-                Connection?.GetStream().Dispose();
+                NwStream()?.Dispose();
                 Connection?.Close();
             }
             catch { /* suprimir cualquier excepción */ }
@@ -262,5 +283,41 @@ namespace TheXDS.MCART.Networking.Client
         /// instancia de la clase <see cref="ClientBase"/>.
         /// </summary>
         ~ClientBase() { CloseConnection(); }
+
+        /// <summary>
+        /// Obtiene un paquete completo de datos desde el servidor.
+        /// </summary>
+        /// <param name="ns"></param>
+        /// <returns></returns>
+        protected async Task<byte[]> GetDataAsync(NetworkStream ns)
+        {
+            var outp = new List<byte>();
+            do
+            {
+                var buff = new byte[Connection.ReceiveBufferSize];
+                var sze = await ns.ReadAsync(buff, 0, buff.Length);
+                if (sze < Connection.ReceiveBufferSize) Array.Resize(ref buff, sze);
+                outp.AddRange(buff);
+            } while (ns.DataAvailable);
+            return outp.ToArray();
+        }
+
+        /// <summary>
+        /// Obtiene un paquete completo de datos desde el servidor.
+        /// </summary>
+        /// <param name="ns"></param>
+        /// <returns></returns>
+        protected byte[] GetData(NetworkStream ns)
+        {
+            var outp = new List<byte>();
+            do
+            {
+                var buff = new byte[Connection.ReceiveBufferSize];
+                var sze = ns.Read(buff, 0, buff.Length);
+                if (sze < Connection.ReceiveBufferSize) Array.Resize(ref buff, sze);
+                outp.AddRange(buff);
+            } while (ns.DataAvailable);
+            return outp.ToArray();
+        }
     }
 }

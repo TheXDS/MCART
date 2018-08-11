@@ -15,10 +15,47 @@ namespace TheXDS.LightChat
         private static void Main(string[] args)
         {
             var p = new LightChatProtocol();
-            p.Users.Add("user1",new UserRegistry());
+            p.Users.Add("user1", new UserRegistry());
             p.Users.Add("user2", new UserRegistry());
+            p.Users.Add("user3", new UserRegistry());
+            p.Users.Add("user4", new UserRegistry());
+            p.Users.Add("user5", new UserRegistry());
 
             var s =new Server<Client<string>>(p);
+            s.ClientConnected += S_ClientConnected;
+            s.ClientRejected += S_ClientRejected;
+            s.ClientAccepted += S_ClientAccepted;
+            s.ClientDisconnected += S_ClientDisconnected;
+            s.ClientLost += S_ClientLost;
+
+            s.Start();
+            Console.ReadKey();
+            s.Stop();
+        }
+
+        private static void S_ClientLost(object sender, MCART.Events.ValueEventArgs<Client> e)
+        {
+            Console.WriteLine($"Se ha perdido la conexión con el cliente {e.Value.EndPoint.Address}");
+        }
+
+        private static void S_ClientDisconnected(object sender, MCART.Events.ValueEventArgs<Client> e)
+        {
+            Console.WriteLine($"El cliente {e.Value.EndPoint.Address} ha finalizado su sesión.");
+        }
+
+        private static void S_ClientAccepted(object sender, MCART.Events.ValueEventArgs<Client> e)
+        {
+            Console.WriteLine($"Se ha aceptado al cliente {e.Value.EndPoint.Address}");
+        }
+
+        private static void S_ClientRejected(object sender, MCART.Events.ValueEventArgs<Client> e)
+        {
+            Console.WriteLine($"Se ha rechazado al cliente {e.Value.EndPoint.Address}");
+        }
+
+        private static void S_ClientConnected(object sender, MCART.Events.ValueEventArgs<Client> e)
+        {
+            Console.WriteLine($"Conexión entrante desde {e.Value.EndPoint.Address}");
         }
     }
     
@@ -53,9 +90,9 @@ namespace TheXDS.LightChat
         /// <summary>
         /// Lista de usuarios registrados para este protocolo.
         /// </summary>
-        public Dictionary<string, UserRegistry> Users = new Dictionary<string, UserRegistry>();
+        public readonly Dictionary<string, UserRegistry> Users = new Dictionary<string, UserRegistry>();
 
-        private byte[] NewMsg(string msg)
+        private static byte[] NewMsg(string msg)
         {
             using (var os = new MemoryStream())
             using (var bw = new BinaryWriter(os))
@@ -66,13 +103,13 @@ namespace TheXDS.LightChat
         }
         
         [Command(Command.List)]
-        public void DoList(BinaryReader br, Client<string> client, Server<Client<string>> server)
+        public static void DoList(object instance, BinaryReader br, Client<string> client, Server<Client<string>> server)
         {
             using (var os = new MemoryStream())
             using (var bw = new BinaryWriter(os))
             {
                 bw.Write((byte) RetVal.Ok);
-                bw.Write(server.Clients.Count());
+                bw.Write(server.Clients.Count()-1);
                 foreach (var j in server.Clients)
                     if (!j.ClientData.IsEmpty() && j.IsNot(client))
                         bw.Write(j.ClientData);
@@ -81,21 +118,21 @@ namespace TheXDS.LightChat
         }
         
         [Command(Command.Login)]
-        public void DoLogin(BinaryReader br, Client<string> client, Server<Client<string>> server)
+        public static void DoLogin(object instance, BinaryReader br, Client<string> client, Server<Client<string>> server)
         {
+            var p = (LightChatProtocol)instance;
             if (!client.ClientData.IsEmpty())
             {
                 client.Send(MakeResponse(RetVal.InvalidCommand));
                 return;
             }
             var usr = br.ReadString();
-            if (Users.ContainsKey(usr) && Users[usr].CheckPw(br.ReadBytes(64)))
+            if (p.Users.ContainsKey(usr) /*&& p.Users[usr].CheckPw(br.ReadBytes(64))*/)
             {
-                if (!Users[usr].Banned)
+                if (!p.Users[usr].Banned)
                 {
                     client.ClientData = usr;
                     server.Broadcast(NewMsg($"{client.ClientData} ha iniciado sesión."), client);
-                    client.Send(MakeResponse(RetVal.Ok));
                     client.Send(NewMsg("Has iniciado sesión."));
                 }
                 else
@@ -110,7 +147,7 @@ namespace TheXDS.LightChat
         }
 
         [Command(Command.Logout)]
-        public void DoLogout(BinaryReader br, Client<string> client, Server<Client<string>> server)
+        public static void DoLogout(object instance, BinaryReader br, Client<string> client, Server<Client<string>> server)
         {
             if (client.ClientData.IsEmpty())
             {
@@ -119,14 +156,13 @@ namespace TheXDS.LightChat
             }
 
             server.Broadcast(NewMsg($"{client.ClientData} ha cerrado sesión."), client);
-            client.Send(MakeResponse(RetVal.Ok));
             client.Send(NewMsg("Has cerrado sesión."));
             client.ClientData = null;
             client.Bye();
         }
 
         [Command(Command.Say)]
-        public void DoSay(BinaryReader br, Client<string> client, Server<Client<string>> server)
+        public static void DoSay(object instance, BinaryReader br, Client<string> client, Server<Client<string>> server)
         {
             if (client.ClientData.IsEmpty())
             {
@@ -136,12 +172,11 @@ namespace TheXDS.LightChat
 
             var msg = br.ReadString();
             server.Broadcast(NewMsg($"{client.ClientData} dice al grupo: {msg}"), client);
-            client.Send(MakeResponse(RetVal.Ok));
             client.Send(NewMsg($"Dijiste: {msg}"));
         }
 
         [Command(Command.SayTo)]
-        public void DoSayTo(BinaryReader br, Client<string> client, Server<Client<string>> server)
+        public static void DoSayTo(object instance, BinaryReader br, Client<string> client, Server<Client<string>> server)
         {
             if (client.ClientData.IsEmpty())
             {
@@ -156,14 +191,27 @@ namespace TheXDS.LightChat
                 if (j.ClientData == dest)
                 {
                     j.Send(NewMsg($"{client.ClientData} te dice: {msg}"));
-                    client.Send(MakeResponse(RetVal.Ok));
                     client.Send(NewMsg($"Dijiste a {dest}: {msg}"));
                     break;
                 }
-
                 client.Send(MakeResponse(RetVal.InvalidInfo));
             }
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        /// Protocolo de desconexión inesperada del cliente.
+        /// </summary>
+        /// <param name="client">Cliente que se ha desconectado.</param>
+        /// <param name="server">Servidor que atiendía al cliente.</param>
+        public override void ClientDisconnect(Client<string> client, Server<Client<string>> server)
+        {
+            server.Broadcast(NewMsg($"{client.ClientData} se ha desconectado inesperadamente."),client);
+        }
+
+        public override void ClientBye(Client<string> client, Server<Client<string>> server)
+        {
+            server.Broadcast(NewMsg($"{client.ClientData} ha cerrado sesión."),client);
+        }
     }
 }
