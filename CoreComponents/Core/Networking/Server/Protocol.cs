@@ -38,69 +38,80 @@ namespace TheXDS.MCART.Networking.Server
 {
     /// <inheritdoc />
     /// <summary>
-    /// Esta clase abstracta determina una serie de funciones a heredar por
-    /// una clase que provea de protocolos a un servidor.
+    ///     Esta clase abstracta determina una serie de funciones a heredar por
+    ///     una clase que provea de protocolos a un servidor.
     /// </summary>
     public abstract class Protocol : IProtocol
     {
         /// <inheritdoc />
         /// <summary>
-        /// Protocolo de atención al cliente
+        ///     Protocolo de atención al cliente
         /// </summary>
         /// <param name="client">Cliente que será atendido.</param>
         /// <param name="server">Servidor que atiende al cliente.</param>
         /// <param name="data">Datos recibidos desde el cliente.</param>
         public abstract void ClientAttendant(Client client, Server server, byte[] data);
+
         /// <inheritdoc />
         /// <summary>
-        /// Protocolo de bienvenida del cliente.
-        /// </summary>
-        /// <returns>
-        /// <see langword="true" /> si el cliente fue aceptado por el protocolo,
-        /// <see langword="false" /> en caso contrario.
-        /// </returns>
-        /// <param name="client">Cliente que será atendido.</param>
-        /// <param name="server">Servidor que atiende al cliente.</param>
-        public virtual bool ClientWelcome(Client client, Server server) { return true; }
-        /// <inheritdoc />
-        /// <summary>
-        /// Protocolo de desconexión del cliente.
+        ///     Protocolo de desconexión del cliente.
         /// </summary>
         /// <param name="client">Cliente que será atendido.</param>
         /// <param name="server">Servidor que atiende al cliente.</param>
-        public virtual void ClientBye(Client client, Server server) { }
+        public virtual void ClientBye(Client client, Server server)
+        {
+        }
+
         /// <inheritdoc />
         /// <summary>
-        /// Protocolo de desconexión inesperada del cliente.
+        ///     Protocolo de desconexión inesperada del cliente.
         /// </summary>
         /// <param name="client">Cliente que se ha desconectado.</param>
         /// <param name="server">Servidor que atiendía al cliente.</param>
-        public virtual void ClientDisconnect(Client client, Server server) { }
+        public virtual void ClientDisconnect(Client client, Server server)
+        {
+        }
+
         /// <inheritdoc />
         /// <summary>
-        /// Inicializa un nuevo cliente manejado por este protocolo.
+        ///     Protocolo de bienvenida del cliente.
+        /// </summary>
+        /// <returns>
+        ///     <see langword="true" /> si el cliente fue aceptado por el protocolo,
+        ///     <see langword="false" /> en caso contrario.
+        /// </returns>
+        /// <param name="client">Cliente que será atendido.</param>
+        /// <param name="server">Servidor que atiende al cliente.</param>
+        public virtual bool ClientWelcome(Client client, Server server)
+        {
+            return true;
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa un nuevo cliente manejado por este protocolo.
         /// </summary>
         /// <param name="tcpClient">
-        /// <see cref="T:System.Net.Sockets.TcpClient" /> de la conexión con el host remoto.
+        ///     <see cref="T:System.Net.Sockets.TcpClient" /> de la conexión con el host remoto.
         /// </param>
         /// <returns>
-        /// Un nuevo <see cref="T:TheXDS.MCART.Networking.Server.Client" />.
+        ///     Un nuevo <see cref="T:TheXDS.MCART.Networking.Server.Client" />.
         /// </returns>
         public abstract Client CreateClient(TcpClient tcpClient);
     }
 
     /// <inheritdoc />
     /// <summary>
-    /// Esta clase abstracta determina una serie de funciones a heredar por
-    /// una clase que provea de protocolos a un servidor.
+    ///     Esta clase abstracta determina una serie de funciones a heredar por
+    ///     una clase que provea de protocolos a un servidor.
     /// </summary>
     /// <typeparam name="T"> Tipo de cliente a atender.</typeparam>
     public abstract class Protocol<T> : IProtocol where T : Client
     {
         /// <inheritdoc />
         /// <summary>
-        /// Realiza casting de las interfaces a tipos genéricos específicos
-        /// para el protocolo.
+        ///     Realiza casting de las interfaces a tipos genéricos específicos
+        ///     para el protocolo.
         /// </summary>
         /// <param name="client">Cliente que será atendido.</param>
         /// <param name="server">Servidor que atiende al cliente.</param>
@@ -108,92 +119,105 @@ namespace TheXDS.MCART.Networking.Server
         [DebuggerStepThrough]
         public void ClientAttendant(Client client, Server server, byte[] data)
         {
-            ClientAttendant((T)client, (Server<T>)server,data);
+            ClientAttendant((T) client, (Server<T>) server, data);
         }
-
-        /// <summary>
-        /// Atiende al cliente
-        /// </summary>
-        /// <param name="client">Cliente que será atendido.</param>
-        /// <param name="server">Servidor que atiende al cliente.</param>
-        /// <param name="data">Datos recibidos desde el cliente.</param>
-        public abstract void ClientAttendant(T client, Server<T> server, byte[] data);
 
         /// <inheritdoc />
         /// <summary>
-        /// Realiza casting de las interfaces a tipos genéricos específicos
-        /// para el protocolo.
-        /// </summary>
-        /// <returns><see langword="true" /> si el cliente fue aceptado por el protocolo, <see langword="false" /> en caso contrario.</returns>
-        /// <param name="client">Cliente que será atendido.</param>
-        /// <param name="server">Servidor que atiende al cliente.</param>
-        [DebuggerStepThrough]
-        public bool ClientWelcome(Client client, Server server)
-        {
-            return ClientWelcome((T)client, (Server<T>)server);
-        }
-
-        /// <summary>
-        /// Protocolo de bienvenida del cliente.
-        /// </summary>
-        /// <returns><see langword="true"/> si el cliente fue aceptado por el protocolo, <see langword="false"/> en caso contrario.</returns>
-        /// <param name="client">Cliente que será atendido.</param>
-        /// <param name="server">Servidor que atiende al cliente.</param>
-        public virtual bool ClientWelcome(T client, Server<T> server) { return true; }
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Realiza casting de las interfaces a tipos genéricos específicos
-        /// para el protocolo.
+        ///     Realiza casting de las interfaces a tipos genéricos específicos
+        ///     para el protocolo.
         /// </summary>
         /// <param name="client">Cliente que será atendido.</param>
         /// <param name="server">Servidor que atiende al cliente.</param>
         [DebuggerStepThrough]
         public void ClientBye(Client client, Server server)
         {
-            ClientBye((T)client, (Server<T>)server);
+            ClientBye((T) client, (Server<T>) server);
         }
-
-        /// <summary>
-        /// Protocolo de desconexión del cliente.
-        /// </summary>
-        /// <param name="client">Cliente que será atendido.</param>
-        /// <param name="server">Servidor que atiende al cliente.</param>
-        public virtual void ClientBye(T client, Server<T> server) { }
 
         /// <inheritdoc />
         /// <summary>
-        /// Realiza casting de las interfaces a tipos genéricos específicos
-        /// para el protocolo.
+        ///     Realiza casting de las interfaces a tipos genéricos específicos
+        ///     para el protocolo.
         /// </summary>
         /// <param name="client">Cliente que se ha desconectado.</param>
         /// <param name="server">Servidor que atiendía al cliente.</param>
         [DebuggerStepThrough]
         public void ClientDisconnect(Client client, Server server)
         {
-            ClientDisconnect((T)client,(Server<T>)server);
+            ClientDisconnect((T) client, (Server<T>) server);
         }
-
-        /// <summary>
-        /// Protocolo de desconexión inesperada del cliente.
-        /// </summary>
-        /// <param name="client">Cliente que se ha desconectado.</param>
-        /// <param name="server">Servidor que atiendía al cliente.</param>
-        public virtual void ClientDisconnect(T client, Server<T> server) { }
 
         /// <inheritdoc />
         /// <summary>
-        /// Inicializa un nuevo cliente manejado por este protocolo.
+        ///     Realiza casting de las interfaces a tipos genéricos específicos
+        ///     para el protocolo.
+        /// </summary>
+        /// <returns>
+        ///     <see langword="true" /> si el cliente fue aceptado por el protocolo, <see langword="false" /> en caso
+        ///     contrario.
+        /// </returns>
+        /// <param name="client">Cliente que será atendido.</param>
+        /// <param name="server">Servidor que atiende al cliente.</param>
+        [DebuggerStepThrough]
+        public bool ClientWelcome(Client client, Server server)
+        {
+            return ClientWelcome((T) client, (Server<T>) server);
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa un nuevo cliente manejado por este protocolo.
         /// </summary>
         /// <param name="tcpClient">
-        /// <see cref="T:System.Net.Sockets.TcpClient" /> de la conexión con el host remoto.
+        ///     <see cref="T:System.Net.Sockets.TcpClient" /> de la conexión con el host remoto.
         /// </param>
         /// <returns>
-        /// Un nuevo <see cref="T:TheXDS.MCART.Networking.Server.Client" />.
+        ///     Un nuevo <see cref="T:TheXDS.MCART.Networking.Server.Client" />.
         /// </returns>
         public virtual Client CreateClient(TcpClient tcpClient)
         {
             return typeof(T).New<T>(tcpClient);
+        }
+
+        /// <summary>
+        ///     Atiende al cliente
+        /// </summary>
+        /// <param name="client">Cliente que será atendido.</param>
+        /// <param name="server">Servidor que atiende al cliente.</param>
+        /// <param name="data">Datos recibidos desde el cliente.</param>
+        public abstract void ClientAttendant(T client, Server<T> server, byte[] data);
+
+        /// <summary>
+        ///     Protocolo de desconexión del cliente.
+        /// </summary>
+        /// <param name="client">Cliente que será atendido.</param>
+        /// <param name="server">Servidor que atiende al cliente.</param>
+        public virtual void ClientBye(T client, Server<T> server)
+        {
+        }
+
+        /// <summary>
+        ///     Protocolo de desconexión inesperada del cliente.
+        /// </summary>
+        /// <param name="client">Cliente que se ha desconectado.</param>
+        /// <param name="server">Servidor que atiendía al cliente.</param>
+        public virtual void ClientDisconnect(T client, Server<T> server)
+        {
+        }
+
+        /// <summary>
+        ///     Protocolo de bienvenida del cliente.
+        /// </summary>
+        /// <returns>
+        ///     <see langword="true" /> si el cliente fue aceptado por el protocolo, <see langword="false" /> en caso
+        ///     contrario.
+        /// </returns>
+        /// <param name="client">Cliente que será atendido.</param>
+        /// <param name="server">Servidor que atiende al cliente.</param>
+        public virtual bool ClientWelcome(T client, Server<T> server)
+        {
+            return true;
         }
     }
 }
