@@ -334,7 +334,16 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 return throwOnFail ? throw new TypeLoadException() : (T) default;
             }
-            return (T) type.GetConstructor(parameters.ToTypes().ToArray())?.Invoke(parameters);
+
+            try
+            {
+                return (T) type.GetConstructor(parameters.ToTypes().ToArray())?.Invoke(parameters);
+
+            }
+            catch (Exception e)
+            {
+                return throwOnFail ? throw new TypeLoadException(string.Empty, e) : (T)default;
+            }
         }
 
         /// <summary>

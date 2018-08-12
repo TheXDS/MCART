@@ -2781,52 +2781,139 @@ namespace TheXDS.MCART.Exceptions
         }
     }
 
+    /// <inheritdoc />
     /// <summary>
     /// Excepción que se produce cuando un tipo requerido no ha sido encontrado.
     /// </summary>
     public class MissingTypeException : OffendingException<Type>
     {
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.Exceptions.MissingTypeException" />.
+        /// </summary>
         public MissingTypeException()
         {
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.Exceptions.MissingTypeException" />.
+        /// </summary>
+        /// <param name="offendingObject">
+        ///     Tipo que ha producido la excepción.
+        /// </param>
         public MissingTypeException(Type offendingObject) : base(offendingObject)
         {
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.Exceptions.MissingTypeException" />.
+        /// </summary>
+        /// <param name="message">
+        ///     Un <see cref="T:System.String" /> que describe a la excepción.
+        /// </param>
         public MissingTypeException(string message) : base(message)
         {
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.MissingTypeException" />.
+        /// </summary>
+        /// <param name="inner"><see cref="T:System.Exception" /> que es la causa de esta excepción.</param>
         public MissingTypeException(Exception inner) : base(inner)
         {
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.Exceptions.MissingTypeException" />.
+        /// </summary>
+        /// <param name="message">
+        ///     Un <see cref="T:System.String" /> que describe a la excepción.
+        /// </param>
+        /// <param name="offendingObject">
+        ///     Tipo que ha producido la excepción.
+        /// </param>
         public MissingTypeException(string message, Type offendingObject) : base(message, offendingObject)
         {
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.MissingTypeException" />.
+        /// </summary>
+        /// <param name="inner"><see cref="T:System.Exception" /> que es la causa de esta excepción.</param>
+        /// <param name="offendingObject">
+        ///     Tipo que ha producido la excepción.
+        /// </param>
         public MissingTypeException(Exception inner, Type offendingObject) : base(inner, offendingObject)
         {
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.MissingTypeException" />.
+        /// </summary>
+        /// <param name="message">Un <see cref="T:System.String" /> que describe a la excepción.</param>
+        /// <param name="inner"><see cref="T:System.Exception" /> que es la causa de esta excepción.</param>
         public MissingTypeException(string message, Exception inner) : base(message, inner)
         {
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.MissingTypeException" />.
+        /// </summary>
+        /// <param name="message">Un <see cref="T:System.String" /> que describe a la excepción.</param>
+        /// <param name="inner"><see cref="T:System.Exception" /> que es la causa de esta excepción.</param>
+        /// <param name="offendingObject">
+        ///     Tipo que ha producido la excepción.
+        /// </param>
         public MissingTypeException(string message, Exception inner, Type offendingObject) : base(message, inner, offendingObject)
         {
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.Exceptions.MissingTypeException" />.
+        /// </summary>
+        /// <param name="info">
+        ///     El objeto que contiene la información de serialización.
+        /// </param>
+        /// <param name="context">
+        ///     La información contextual acerca del orígen o el destino.
+        /// </param>
         protected MissingTypeException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.Exceptions.MissingTypeException" />.
+        /// </summary>
+        /// <param name="info">
+        ///     El objeto que contiene la información de serialización.
+        /// </param>
+        /// <param name="context">
+        ///     La información contextual acerca del orígen o el destino.
+        /// </param>
+        /// <param name="offendingObject">
+        ///     Tipo que ha producido la excepción.
+        /// </param>
         protected MissingTypeException(SerializationInfo info, StreamingContext context, Type offendingObject) : base(info, context, offendingObject)
         {
         }
     }
 
+    /// <inheritdoc />
     /// <summary>
     ///     Excepción que se produce cuando una base de datos no corresponde a la
     ///     aplicación.
@@ -2834,9 +2921,10 @@ namespace TheXDS.MCART.Exceptions
     [Serializable]
     public class NotMyDatabaseException : Exception
     {
+        /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="NotMyDatabaseException" />.
+        ///     <see cref="T:TheXDS.MCART.Exceptions.NotMyDatabaseException" />.
         /// </summary>
         /// <param name="info">
         ///     El objeto que contiene la información de serialización.
@@ -2847,35 +2935,50 @@ namespace TheXDS.MCART.Exceptions
         protected NotMyDatabaseException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
-
+        /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="NotMyDatabaseException" />.
+        ///     <see cref="T:TheXDS.MCART.Exceptions.NotMyDatabaseException" />.
         /// </summary>
         public NotMyDatabaseException() : base(St.DBDoesntBelong)
         {
         }
-
+        /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="NotMyDatabaseException" />.
+        ///     <see cref="T:TheXDS.MCART.Exceptions.NotMyDatabaseException" />.
         /// </summary>
-        /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
+        /// <param name="message">
+        ///     Un <see cref="T:System.String" /> que describe a la excepción.
+        /// </param>
         public NotMyDatabaseException(string message) : base(message)
         {
         }
-
+        /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="NotMyDatabaseException" />.
+        ///     <see cref="T:TheXDS.MCART.Exceptions.NotMyDatabaseException"/>.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        ///     Un <see cref="T:System.String" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        ///     <see cref="T:System.Exception" /> que es la causa de esta
+        ///     excepción.
         /// </param>
         public NotMyDatabaseException(string message, Exception inner) : base(message, inner)
+        {
+        }
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.Exceptions.NotMyDatabaseException"/>.
+        /// </summary>
+        /// <param name="inner">
+        ///     <see cref="T:System.Exception"/> que es la causa de esta
+        ///     excepción.
+        /// </param>
+        public NotMyDatabaseException(Exception inner) : base(St.DBDoesntBelong,inner)
         {
         }
     }
@@ -2985,8 +3088,6 @@ namespace TheXDS.MCART.Exceptions
     [Serializable]
     public class InvalidTypeException : Exception
     {
-        private readonly Type _offendingType;
-
         /// <summary>
         ///     Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
         /// </summary>
@@ -3000,7 +3101,7 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="offendingType">Tipo que ha causado la excepción.</param>
         public InvalidTypeException(Type offendingType) : base(St.XIsInvalid(St.TheType))
         {
-            _offendingType = offendingType;
+            OffendingType = offendingType;
         }
 
         /// <summary>
@@ -3018,7 +3119,7 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="offendingType">Tipo que ha causado la excepción.</param>
         public InvalidTypeException(string message, Type offendingType) : base(message)
         {
-            _offendingType = offendingType;
+            OffendingType = offendingType;
         }
 
         /// <summary>
@@ -3045,7 +3146,7 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="offendingType">Tipo que ha causado la excepción.</param>
         public InvalidTypeException(Exception inner, Type offendingType) : base(St.XIsInvalid(St.TheType), inner)
         {
-            _offendingType = offendingType;
+            OffendingType = offendingType;
         }
 
         /// <summary>
@@ -3056,7 +3157,7 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="offendingType">Tipo que ha causado la excepción.</param>
         public InvalidTypeException(string message, Exception inner, Type offendingType) : base(message, inner)
         {
-            _offendingType = offendingType;
+            OffendingType = offendingType;
         }
 
         /// <summary>
@@ -3076,7 +3177,7 @@ namespace TheXDS.MCART.Exceptions
         /// <summary>
         ///     Tipo que ha causado la excepción.
         /// </summary>
-        public Type OffendingType => _offendingType;
+        public Type OffendingType { get; }
     }
 
     /// <summary>

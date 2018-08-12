@@ -29,25 +29,27 @@ namespace TheXDS.MCART.Networking.Server.Protocols
 {
     /// <inheritdoc />
     /// <summary>
-    /// Protocolo simple de eco.
+    ///     Protocolo simple de eco.
     /// </summary>
-    /// <remarks>Este protocolo utiliza TCP/IP, no IGMP.</remarks>
+    /// <remarks>
+    ///     Este protocolo utiliza TCP/IP, no IGMP.
+    /// </remarks>
     [Port(7)]
     public class Echo : Protocol
     {
         /// <inheritdoc />
         /// <summary>
-        /// Protocolo de atención normal.
+        ///     Protocolo de atención normal.
         /// </summary>
         /// <param name="client">
-        /// Cliente que está siendo atendido debido a una solicitud.
+        ///     Cliente que está siendo atendido debido a una solicitud.
         /// </param>
         /// <param name="server">
-        /// Instancia del servidor que atenderá al cliente.
+        ///     Instancia del servidor que atenderá al cliente.
         /// </param>
         /// <param name="data">
-        /// Datos que <paramref name="client" /> ha enviado como parte de la
-        /// soliccitud de atención.
+        ///     Datos que <paramref name="client" /> ha enviado como parte de la
+        ///     soliccitud de atención.
         /// </param>
         public override void ClientAttendant(Client client, Server server, byte[] data)
         {
@@ -56,13 +58,13 @@ namespace TheXDS.MCART.Networking.Server.Protocols
 
         /// <inheritdoc />
         /// <summary>
-        /// Inicializa un nuevo cliente manejado por este protocolo.
+        ///     Inicializa un nuevo cliente manejado por este protocolo.
         /// </summary>
         /// <param name="tcpClient">
-        /// <see cref="T:System.Net.Sockets.TcpClient" /> de la conexión con el host remoto.
+        ///     <see cref="T:System.Net.Sockets.TcpClient" /> de la conexión con el host remoto.
         /// </param>
         /// <returns>
-        /// Un nuevo <see cref="T:TheXDS.MCART.Networking.Server.Client" />.
+        ///     Un nuevo <see cref="T:TheXDS.MCART.Networking.Server.Client" />.
         /// </returns>
         public override Client CreateClient(TcpClient tcpClient)
         {

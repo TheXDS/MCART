@@ -137,7 +137,7 @@ namespace TheXDS.MCART.Networking.Client
             foreach (var k in j.Method.GetCustomAttributes(tCmdAttr, false).OfType<IValueAttribute<TResponse>>())
             {
                 if (_responses.ContainsKey(k.Value)) throw new DataAlreadyExistsException();
-                _responses.Add(k.Value, j as ResponseCallBack);
+                _responses.Add(k.Value, j);
             }
         }
 

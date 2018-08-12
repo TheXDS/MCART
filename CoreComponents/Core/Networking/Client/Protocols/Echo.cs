@@ -25,8 +25,15 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #if ExtrasBuiltIn
 namespace TheXDS.MCART.Networking.Client.Protocols
 {
+    /// <inheritdoc />
+    /// <summary>
+    ///     Implementa el cliente pasivo del protocolo de Echo.
+    /// </summary>
+    /// <remarks>
+    ///     Este protocolo utiliza TCP/IP, no IGMP.
+    /// </remarks>
     [Port(7)]
-    public class Echo: PassiveClient
+    public class Echo : PassiveClient
     {
     }
 }

@@ -26,6 +26,10 @@ using System.Reflection;
 using TheXDS.MCART.Attributes;
 
 [assembly: AssemblyTitle("EchoServer")]
+#pragma warning disable CS7035
+
 [assembly: AssemblyFileVersion("1.1.*")]
+#pragma warning restore CS7035
+
 [assembly: MinMCARTVersion(0, 8, 5, 0)]
-[assembly: TargetMCARTVersion(0, 8, 5, 0)]
+[assembly: TargetMCARTVersion(0, 8, 8, 2)]

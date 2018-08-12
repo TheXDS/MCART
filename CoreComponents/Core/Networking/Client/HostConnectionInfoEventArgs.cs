@@ -26,14 +26,65 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 
+#region Configuración de ReSharper
+
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+// ReSharper disable MemberCanBePrivate.Global
+
+#endregion
+
 namespace TheXDS.MCART.Networking.Client
 {
+    /// <inheritdoc />
+    /// <summary>
+    ///     Contiene información de evento que describe un evento de conexión
+    ///     satisfactorio.
+    /// </summary>
     public class HostConnectionInfoEventArgs : EventArgs
     {
-        public HostConnectionInfoEventArgs(IPEndPoint remoteEndpoint, IPEndPoint localEndPoint) : this(remoteEndpoint.Address.ToString(), remoteEndpoint, localEndPoint)
+        /// <summary>
+        ///     Nomrbe del host remoto.
+        /// </summary>
+        public string Host { get; }
+
+        /// <summary>
+        ///     Punto de red local utilizado para realizar la conexión.
+        /// </summary>
+        public IPEndPoint LocalEndPoint { get; }
+
+        /// <summary>
+        ///     Punto de red del host remoto.
+        /// </summary>
+        public IPEndPoint RemoteEndpoint { get; }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.Networking.Client.HostConnectionInfoEventArgs" />.
+        /// </summary>
+        /// <param name="remoteEndpoint">
+        ///     Punto de acceso remoto del servidor.
+        /// </param>
+        /// <param name="localEndPoint">
+        ///     Punto de acceso local utilizado para realizar la conexión.
+        /// </param>
+        public HostConnectionInfoEventArgs(IPEndPoint remoteEndpoint, IPEndPoint localEndPoint) : this(
+            remoteEndpoint.Address.ToString(), remoteEndpoint, localEndPoint)
         {
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.Networking.Client.HostConnectionInfoEventArgs" />.
+        /// </summary>
+        /// <param name="host">Nombre del host remoto.</param>
+        /// <param name="remoteEndpoint">
+        ///     Punto de acceso remoto del servidor.
+        /// </param>
+        /// <param name="localEndPoint">
+        ///     Punto de acceso local utilizado para realizar la conexión.
+        /// </param>
         public HostConnectionInfoEventArgs(string host, IPEndPoint remoteEndpoint, IPEndPoint localEndPoint)
         {
             Host = host;
@@ -41,16 +92,31 @@ namespace TheXDS.MCART.Networking.Client
             LocalEndPoint = localEndPoint;
         }
 
-        public HostConnectionInfoEventArgs(TcpClient client) : this((IPEndPoint)client.Client.RemoteEndPoint, (IPEndPoint)client.Client.LocalEndPoint)
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.Networking.Client.HostConnectionInfoEventArgs" />.
+        /// </summary>
+        /// <param name="client">
+        ///     Cliente TCP utilizado para establecer la conexión.
+        /// </param>
+        public HostConnectionInfoEventArgs(TcpClient client) : this((IPEndPoint) client.Client.RemoteEndPoint,
+            (IPEndPoint) client.Client.LocalEndPoint)
         {
         }
 
-        public HostConnectionInfoEventArgs(string host, TcpClient client) : this(host, (IPEndPoint)client.Client.RemoteEndPoint, (IPEndPoint)client.Client.LocalEndPoint)
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.Networking.Client.HostConnectionInfoEventArgs" />.
+        /// </summary>
+        /// <param name="host">Nombre del host remoto.</param>
+        /// <param name="client">
+        ///     Cliente TCP utilizado para establecer la conexión.
+        /// </param>
+        public HostConnectionInfoEventArgs(string host, TcpClient client) : this(host,
+            (IPEndPoint) client.Client.RemoteEndPoint, (IPEndPoint) client.Client.LocalEndPoint)
         {
         }
-
-        public string Host { get; }
-        public IPEndPoint RemoteEndpoint { get; }
-        public IPEndPoint LocalEndPoint { get; }
     }
 }

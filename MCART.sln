@@ -46,6 +46,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreTest", "Tests\CoreTest\CoreTest.csproj", "{3B7D6090-1BD1-406B-B0A6-CADA4D3B6DB8}"
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "API-Documentation", "Documentation\API-Documentation\API-Documentation.shfbproj", "{14A05F92-BF65-4801-95A7-48EE59C72159}"
+	ProjectSection(ProjectDependencies) = postProject
+		{214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF} = {214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF}
+	EndProjectSection
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Examples", "Documentation\Examples\Examples.shproj", "{913DB390-BCF2-478D-996E-1B7248425597}"
 EndProject
@@ -69,10 +72,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Examples\LightCha
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Common", "Examples\LightChat\Common\Common.shproj", "{1459CF01-8F9B-47B1-A3F2-57E1F84D9D0E}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Common", "Tests\Common\Common.shproj", "{19D54254-A3B9-46B2-B687-43AEEB4636DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteTests", "Tests\LiteTests\LiteTests.csproj", "{575BC2AD-BE73-473C-A161-3E96305988FA}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Examples\LightChat\Common\Common.projitems*{10561745-a4f7-40a1-98f6-d7eefdff7cee}*SharedItemsImports = 4
 		Examples\LightChat\Common\Common.projitems*{1459cf01-8f9b-47b1-a3f2-57e1f84d9d0e}*SharedItemsImports = 13
+		Tests\Common\Common.projitems*{19d54254-a3b9-46b2-b687-43aeeb4636df}*SharedItemsImports = 13
 		CoreComponents\AssemblyInfo\AssemblyInfo.projitems*{214a1e64-25a4-4d98-97da-7ca0e7ab2eef}*SharedItemsImports = 4
 		CoreComponents\Core-GUI\Core-GUI.projitems*{214a1e64-25a4-4d98-97da-7ca0e7ab2eef}*SharedItemsImports = 4
 		CoreComponents\Core-Windows\Core-Windows.projitems*{214a1e64-25a4-4d98-97da-7ca0e7ab2eef}*SharedItemsImports = 4
@@ -80,10 +88,12 @@ Global
 		Examples\LightChat\Common\Common.projitems*{416a8e0c-62fe-4014-a442-7859b00939e8}*SharedItemsImports = 4
 		CoreComponents\Core-GUI\Core-GUI.projitems*{4963ba2e-aa9f-43df-9674-d7257a201aa3}*SharedItemsImports = 13
 		CoreComponents\AssemblyInfo\AssemblyInfo.projitems*{4b1887d4-baf9-4f81-b153-be4b405edc19}*SharedItemsImports = 4
+		Tests\Common\Common.projitems*{575bc2ad-be73-473c-a161-3e96305988fa}*SharedItemsImports = 4
 		CoreComponents\Core-NoWPF\Core-NoWPF.projitems*{5b5c0ea8-e8c3-4442-94fb-03b7ac6be9e8}*SharedItemsImports = 13
 		Documentation\Examples\Examples.projitems*{913db390-bcf2-478d-996e-1b7248425597}*SharedItemsImports = 13
 		CoreComponents\AssemblyInfo\AssemblyInfo.projitems*{967afaa3-ded3-4ec0-9401-7193b318fce8}*SharedItemsImports = 13
 		CoreComponents\AssemblyInfo\AssemblyInfo.projitems*{b1f87675-1f7c-40b7-9d9e-9147f94535d1}*SharedItemsImports = 4
+		Tests\Common\Common.projitems*{c20079c9-e990-470f-9e3a-7af38ad65cda}*SharedItemsImports = 4
 		CoreComponents\Core\Core.projitems*{e5f6a0e5-b532-480c-b72e-516908c07944}*SharedItemsImports = 13
 		CoreComponents\Core-Windows\Core-Windows.projitems*{f1d4fe86-bb72-4d8d-901e-525f697991fe}*SharedItemsImports = 13
 		CoreComponents\AssemblyInfo\AssemblyInfo.projitems*{ffcb72d8-1cb3-47a2-876b-630076307d78}*SharedItemsImports = 4
@@ -305,6 +315,26 @@ Global
 		{416A8E0C-62FE-4014-A442-7859B00939E8}.Tools|Any CPU.ActiveCfg = Release|Any CPU
 		{416A8E0C-62FE-4014-A442-7859B00939E8}.Tools|x86.ActiveCfg = Release|Any CPU
 		{416A8E0C-62FE-4014-A442-7859B00939E8}.Tools|x86.Build.0 = Release|Any CPU
+		{575BC2AD-BE73-473C-A161-3E96305988FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{575BC2AD-BE73-473C-A161-3E96305988FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{575BC2AD-BE73-473C-A161-3E96305988FA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{575BC2AD-BE73-473C-A161-3E96305988FA}.Debug|x86.Build.0 = Debug|Any CPU
+		{575BC2AD-BE73-473C-A161-3E96305988FA}.Release_NoHelp|Any CPU.ActiveCfg = Release|Any CPU
+		{575BC2AD-BE73-473C-A161-3E96305988FA}.Release_NoHelp|Any CPU.Build.0 = Release|Any CPU
+		{575BC2AD-BE73-473C-A161-3E96305988FA}.Release_NoHelp|x86.ActiveCfg = Release|Any CPU
+		{575BC2AD-BE73-473C-A161-3E96305988FA}.Release_NoHelp|x86.Build.0 = Release|Any CPU
+		{575BC2AD-BE73-473C-A161-3E96305988FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{575BC2AD-BE73-473C-A161-3E96305988FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{575BC2AD-BE73-473C-A161-3E96305988FA}.Release|x86.ActiveCfg = Release|Any CPU
+		{575BC2AD-BE73-473C-A161-3E96305988FA}.Release|x86.Build.0 = Release|Any CPU
+		{575BC2AD-BE73-473C-A161-3E96305988FA}.Tools_Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{575BC2AD-BE73-473C-A161-3E96305988FA}.Tools_Debug|Any CPU.Build.0 = Debug|Any CPU
+		{575BC2AD-BE73-473C-A161-3E96305988FA}.Tools_Debug|x86.ActiveCfg = Debug|Any CPU
+		{575BC2AD-BE73-473C-A161-3E96305988FA}.Tools_Debug|x86.Build.0 = Debug|Any CPU
+		{575BC2AD-BE73-473C-A161-3E96305988FA}.Tools|Any CPU.ActiveCfg = Release|Any CPU
+		{575BC2AD-BE73-473C-A161-3E96305988FA}.Tools|Any CPU.Build.0 = Release|Any CPU
+		{575BC2AD-BE73-473C-A161-3E96305988FA}.Tools|x86.ActiveCfg = Release|Any CPU
+		{575BC2AD-BE73-473C-A161-3E96305988FA}.Tools|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -331,6 +361,8 @@ Global
 		{10561745-A4F7-40A1-98F6-D7EEFDFF7CEE} = {73F5E350-F792-499B-8395-F86D63A8C809}
 		{416A8E0C-62FE-4014-A442-7859B00939E8} = {73F5E350-F792-499B-8395-F86D63A8C809}
 		{1459CF01-8F9B-47B1-A3F2-57E1F84D9D0E} = {73F5E350-F792-499B-8395-F86D63A8C809}
+		{19D54254-A3B9-46B2-B687-43AEEB4636DF} = {AE0A84D6-D40C-4D36-ADE6-BB3CF90A1DCA}
+		{575BC2AD-BE73-473C-A161-3E96305988FA} = {AE0A84D6-D40C-4D36-ADE6-BB3CF90A1DCA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {652A5AA9-D603-4E93-9CE9-CD0372E260F2}
