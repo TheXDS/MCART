@@ -26,11 +26,13 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using TheXDS.MCART.Events;
+using TheXDS.MCART.Exceptions;
 using static TheXDS.MCART.Networking.Common;
 
 #region Configuración de ReSharper
@@ -51,6 +53,16 @@ namespace TheXDS.MCART.Networking.Server
     /// </summary>
     public class Server<TClient> : Server where TClient : Client
     {
+        //[DebuggerStepThrough]
+        private static void CheckProtocolType(IProtocol protocol)
+        {
+            var tClient = protocol.GetType().BaseType?.GenericTypeArguments.FirstOrDefault(p => typeof(Client).IsAssignableFrom(p)) ?? typeof(Client);
+            if (!typeof(TClient).IsAssignableFrom(tClient))
+            {
+                throw new InvalidTypeException();
+            }
+        }
+
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Networking.Server.Server`1" />.
@@ -61,8 +73,10 @@ namespace TheXDS.MCART.Networking.Server
         /// <exception cref="T:System.ArgumentNullException">
         ///     Se produce si <paramref name="protocol" /> es <see langword="null" />.
         /// </exception>
+        //[DebuggerStepThrough]
         public Server(IProtocol protocol) : base(protocol)
         {
+            CheckProtocolType(protocol);
         }
 
         /// <inheritdoc />
@@ -76,8 +90,10 @@ namespace TheXDS.MCART.Networking.Server
         /// <exception cref="T:System.ArgumentNullException">
         ///     Se produce si <paramref name="protocol" /> es <see langword="null" />.
         /// </exception>
+        [DebuggerStepThrough]
         public Server(IProtocol protocol, int port) : base(protocol, port)
         {
+            CheckProtocolType(protocol);
         }
 
         /// <inheritdoc />
@@ -96,8 +112,10 @@ namespace TheXDS.MCART.Networking.Server
         /// <exception cref="T:System.ArgumentNullException">
         ///     Se produce si <paramref name="protocol" /> es <see langword="null" />.
         /// </exception>
+        [DebuggerStepThrough]
         public Server(IProtocol protocol, IPEndPoint ep) : base(protocol, ep)
         {
+            CheckProtocolType(protocol);
         }
 
         /// <summary>
@@ -217,7 +235,7 @@ namespace TheXDS.MCART.Networking.Server
             _conns = new TcpListener(ListeningEndPoint);
         }
 
-        private byte[] GetResponse(Task<byte[]> task)
+        private static byte[] GetResponse(Task<byte[]> task)
         {
             try
             {
@@ -263,10 +281,6 @@ namespace TheXDS.MCART.Networking.Server
                             Protocol.ClientDisconnect(client, this);
                         }
                     }
-                    else
-                    {
-                        ts.Dispose();
-                    }
 
                     waitData = false;
                     if (!client.Disconnecting) continue;
@@ -301,7 +315,7 @@ namespace TheXDS.MCART.Networking.Server
             {
                 var c = await GetClient();
                 if (c is null) continue;
-                _clientThreads.Add(Task.Run(()=> AttendClient(Protocol.CreateClient(c))));
+                _clientThreads.Add(Task.Run(() => AttendClient(Protocol.CreateClient(c))));
             }
         }
 
@@ -411,7 +425,15 @@ namespace TheXDS.MCART.Networking.Server
             _isAlive = false;
             ServerStopped?.Invoke(this, DateTime.Now);
             Task.WhenAll(_clientThreads).Wait(DisconnectionTimeout);
-            foreach (var j in Clients) j.Disconnect();
+
+            while (_clients.Count > 0)
+            {
+                try
+                {
+                    _clients.FirstOrDefault()?.Disconnect();
+                }
+                catch { /* Silenciar la excepción */ }
+            }
         }
 
         /// <summary>
@@ -429,7 +451,14 @@ namespace TheXDS.MCART.Networking.Server
             await Task.WhenAny(
                 Task.WhenAll(_clientThreads),
                 Task.Delay(DisconnectionTimeout));
-            foreach (var j in Clients) j.Disconnect();
+            while (Clients.Any())
+            {
+                try
+                {
+                    Clients.FirstOrDefault()?.Disconnect();
+                }
+                catch { /* Silenciar la excepción */ }
+            }
         }
 
         #region Helpers

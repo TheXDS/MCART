@@ -33,62 +33,6 @@ namespace CoreTest.Math
     public class MathTest
     {
         [Fact]
-        public void IsPrimeTest()
-        {
-            Assert.True(29.IsPrime());
-            Assert.False(39.IsPrime());
-        }
-        [Fact]
-        public void IsValidTest()
-        {
-            Assert.True(1.0.IsValid());
-            Assert.False(float.NaN.IsValid());
-            Assert.False(double.NegativeInfinity.IsValid());
-        }
-        [Fact]
-        public void AreValidTest()
-        {
-            Assert.True(Algebra.AreValid(1f, 2f, 3f, 4f, 5f));
-            Assert.False(Algebra.AreValid(1f, 2f, float.NaN, 4f, 5f));
-
-        }
-        [Fact]
-        public void Nearest2PowTest()
-        {
-            Assert.Equal(512,Algebra.Nearest2Pow(456));
-        }
-        [Fact]
-        public void NearestMultiplyUpTest()
-        {
-            Assert.Equal(81.0, Algebra.NearestMultiplyUp(50, 3));
-        }
-        [Fact]
-        public void ArePositivesTest()
-        {
-            Assert.True(Algebra.ArePositive(1, 2, 3, 4, 5));
-            Assert.False(Algebra.ArePositive(1, 2, 3, 0));
-            Assert.False(Algebra.ArePositive(1, 2, 3, -1));
-        }
-        [Fact]
-        public void AreNegativesTest()
-        {
-            Assert.True(Algebra.AreNegative(-1, -2, -3, -4, -5));
-            Assert.False(Algebra.AreNegative(-1, -2, -3, 0));
-            Assert.False(Algebra.AreNegative(-1, -2, -3, 1));
-        }
-        [Fact]
-        public void AreZeroTest()
-        {
-            Assert.True(Algebra.AreZero(0, 0, 0));
-            Assert.False(Algebra.AreZero(0, 1, 0));
-        }
-        [Fact]
-        public void AreNotZeroTest()
-        {
-            Assert.True(Algebra.AreNotZero(1, 2, 3));
-            Assert.False(Algebra.AreNotZero(1, 2, 0));
-        }
-        [Fact]
         public void ClampTest()
         {
             Assert.Equal(10, (5 + 10).Clamp(10));
@@ -120,13 +64,6 @@ namespace CoreTest.Math
             Assert.Equal(15f, 4f.Wrap(5, 15));
             Assert.Equal(14f, 3f.Wrap(5, 15));
             Assert.Equal(8f, 8f.Wrap(5, 15));
-        }
-        [Fact]
-        public void IsWholeTest()
-        {
-            Assert.True(14.0.IsWhole());
-            Assert.False(14.1.IsWhole());
-            Assert.False(14.9.IsWhole());
         }
     }
 }

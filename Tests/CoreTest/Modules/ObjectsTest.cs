@@ -23,10 +23,12 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
-using TheXDS.MCART;
+using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Events;
 using TheXDS.MCART.Resources;
 using Xunit;
 using static TheXDS.MCART.Objects;
@@ -36,86 +38,173 @@ namespace CoreTest.Modules
     [AttrTest]
     public class ObjectsTest
     {
-        /// <summary>
-        /// Atributo de prueba.
-        /// </summary>
         [AttributeUsage(AttributeTargets.Class)]
-        sealed class AttrTestAttribute : Attribute { }        
-        [Fact]
-        public void IsAnyNullTest()
+        private sealed class AttrTestAttribute : Attribute
         {
-            Assert.True(Objects.IsAnyNull(0, 1, null));
-            Assert.False(Objects.IsAnyNull(0, 1, 2, 3));
         }
-        [Fact]
-        public void WhichAreNullTest()
+
+        private interface ITestInterface
         {
-            Assert.Equal(new int[] { }, WhichAreNull(new object(), new object()));
-            Assert.Equal(new int[] { 1 }, WhichAreNull(new object(), null, new object(), new object()));
-            Assert.Equal(new int[] { 2, 3 }, WhichAreNull(new object(), new object(), null, null));
         }
+
+        [Identifier("FindTypeTest")]
+        private class TestClass : ITestInterface
+        {
+            public static readonly double StaticField = 2;
+
+            public readonly float TestField = 1.0f;
+
+            public static byte ByteProperty { get; } = 2;
+
+            public int TestProperty { get; } = 1;
+
+            public static void TestMethod(int x)
+            {
+            }
+
+            public void TestMethod2(float x)
+            {
+            }
+        }
+
+        [Theory]
+        [InlineData(typeof(byte), true)]
+        [InlineData(typeof(sbyte), true)]
+        [InlineData(typeof(short), true)]
+        [InlineData(typeof(ushort), true)]
+        [InlineData(typeof(int), true)]
+        [InlineData(typeof(uint), true)]
+        [InlineData(typeof(long), true)]
+        [InlineData(typeof(ulong), true)]
+        [InlineData(typeof(decimal), true)]
+        [InlineData(typeof(float), true)]
+        [InlineData(typeof(double), true)]
+        [InlineData(typeof(char), false)]
+        [InlineData(typeof(string), false)]
+        public void IsNumericTypeTest(Type type, bool result)
+        {
+            Assert.Equal(result, IsNumericType(type));
+        }
+
         [Fact]
         public void AreAllNullTest()
         {
             Assert.True(AreAllNull(null, null, null));
             Assert.False(AreAllNull(0, null));
         }
+
         [Fact]
-        public void WhichAreTest()
+        public void FieldsOfTest()
         {
-            var x = new object();
-            Assert.Equal(new int[] { }, x.WhichAre(new object(), 1, 0.0f));
-            Assert.Equal(new int[] { 2 }, x.WhichAre(new object(), 1, x));
-            Assert.Equal(new int[] { 1,3 }, x.WhichAre(new object(), x, 0, x));
+            var tc = new TestClass();
+            Assert.Equal(tc.TestField, tc.FieldsOf<float>().FirstOrDefault());
+            Assert.Equal(tc.TestField, tc.GetType().GetFields().FieldsOf<float>(tc).FirstOrDefault());
+            Assert.Equal(TestClass.StaticField, tc.GetType().GetFields().FieldsOf<double>().FirstOrDefault());
         }
+
         [Fact]
-        public void ItselfTest()
+        public void FindTypeTest()
         {
-            ApplicationException ex = new ApplicationException();
-            Assert.Same(ex, ex.Itself());
-            Assert.NotSame(ex, new ApplicationException());
-            Assert.NotSame(ex, null);
+            Assert.Equal(typeof(TestClass), FindType<ITestInterface>("FindTypeTest"));
+            Assert.Null(FindType<ITestInterface>("FindTypeTest2"));
         }
+
         [Fact]
-        public void IsTest()
+        public void GetAttrTest()
         {
-            EventArgs ev = EventArgs.Empty;
-            EventArgs e = ev;
-            Assert.True(e.Is(ev));
+            Assert.NotNull(RTInfo.RTAssembly.GetAttr<AssemblyTitleAttribute>());
+            Assert.NotNull(MethodBase.GetCurrentMethod().GetAttr<FactAttribute>());
+            Assert.NotNull(GetAttr<AttrTestAttribute, ObjectsTest>());
+            Assert.NotNull(typeof(ObjectsTest).GetAttr<AttrTestAttribute>());
         }
-        [Fact]
-        public void IsNotTest()
-        {
-            EventArgs ev = new TheXDS.MCART.Events.ExceptionEventArgs(null);
-            EventArgs e = new TheXDS.MCART.Events.ExceptionEventArgs(null);
-            Assert.True(e.IsNot(ev));
-        }
-        [Fact]
-        public void IsEitherTest()
-        {
-            Type t = typeof(int);
-            Assert.True(t.IsEither(typeof(bool), typeof(int)));
-            Assert.False(t.IsEither(typeof(bool), typeof(float)));
-        }
-        [Fact]
-        public void IsNeitherTest()
-        {
-            Type t = typeof(int);
-            Assert.True(t.IsNeither(typeof(bool), typeof(float)));
-            Assert.False(t.IsNeither(typeof(bool), typeof(int)));
-        }
+
         [Fact]
         public void GetTypesTest()
         {
             Assert.True(GetTypes<IComparable>().Count() > 2);
-            Assert.True(GetTypes<System.IO.Stream>(true).Count() > 2);
-            Assert.True(GetTypes<System.IO.Stream>(true).Count() < GetTypes<System.IO.Stream>(false).Count());
+            Assert.True(GetTypes<Stream>(true).Count() > 2);
+            Assert.True(GetTypes<Stream>(true).Count() < GetTypes<Stream>(false).Count());
         }
+
+        [Fact]
+        public void HasAttrTest_Assembly()
+        {
+            Assert.True(RTInfo.RTAssembly.HasAttr<AssemblyCopyrightAttribute>());
+        }
+
+        [Fact]
+        public void IsAnyNullTest()
+        {
+            Assert.True(IsAnyNull(0, 1, null));
+            Assert.False(IsAnyNull(0, 1, 2, 3));
+        }
+
+        [Fact]
+        public void IsEitherTest()
+        {
+            var t = typeof(int);
+            Assert.True(t.IsEither(typeof(bool), typeof(int)));
+            Assert.False(t.IsEither(typeof(bool), typeof(float)));
+
+            Assert.True(t.IsEither(new HashSet<object> {typeof(bool), typeof(int)}));
+            Assert.False(t.IsEither(new HashSet<object> {typeof(bool), typeof(float)}));
+        }
+
+        [Fact]
+        public void IsNeitherTest()
+        {
+            var t = typeof(int);
+            Assert.True(t.IsNeither(typeof(bool), typeof(float)));
+            Assert.False(t.IsNeither(typeof(bool), typeof(int)));
+        }
+
+        [Fact]
+        public void IsNotTest()
+        {
+            EventArgs ev = new ExceptionEventArgs(null);
+            EventArgs e = new ExceptionEventArgs(null);
+            Assert.True(e.IsNot(ev));
+        }
+
+        [Fact]
+        public void IsSignatureCompatibleTest()
+        {
+            Assert.True(typeof(TestClass).GetMethod(nameof(TestClass.TestMethod)).IsSignatureCompatible<Action<int>>());
+            Assert.False(typeof(TestClass).GetMethod(nameof(TestClass.TestMethod))
+                .IsSignatureCompatible<Action<float>>());
+        }
+
+        [Fact]
+        public void IsTest()
+        {
+            var ev = EventArgs.Empty;
+            var e = ev;
+            Assert.True(e.Is(ev));
+        }
+
+        [Fact]
+        public void ItselfTest()
+        {
+            var ex = new ApplicationException();
+            Assert.Same(ex, ex.Itself());
+            Assert.NotSame(ex, new ApplicationException());
+            Assert.NotSame(ex, null);
+        }
+
+        [Fact]
+        public void PropertiesOfTest()
+        {
+            var tc = new TestClass();
+            Assert.Equal(tc.TestProperty, tc.PropertiesOf<int>().FirstOrDefault());
+            Assert.Equal(tc.TestProperty, tc.GetType().GetProperties().PropertiesOf<int>(tc).FirstOrDefault());
+            Assert.Equal(TestClass.ByteProperty, tc.GetType().GetProperties().PropertiesOf<byte>().FirstOrDefault());
+        }
+
         [Fact]
         public void ToTypesTest()
         {
             var x = ToTypes(1, "Test", 2.5f).ToArray();
-            IEnumerator y = x.GetEnumerator();
+            var y = x.GetEnumerator();
             y.Reset();
             y.MoveNext();
             Assert.Same(typeof(int), y.Current);
@@ -124,13 +213,41 @@ namespace CoreTest.Modules
             y.MoveNext();
             Assert.Same(typeof(float), y.Current);
         }
+
         [Fact]
-        public void GetAttrTest()
+        public void WhichAreNullTest()
         {
-            Assert.NotNull(RTInfo.RTAssembly.GetAttr<AssemblyTitleAttribute>());
-            Assert.NotNull(MethodBase.GetCurrentMethod().GetAttr<FactAttribute>());
-            Assert.NotNull(GetAttr<AttrTestAttribute, ObjectsTest>());
-            Assert.NotNull(typeof(ObjectsTest).GetAttr<AttrTestAttribute>());
+            Assert.Equal(new int[] { }, WhichAreNull(new object(), new object()).ToArray());
+            Assert.Equal(new[] {1}, WhichAreNull(new object(), null, new object(), new object()).ToArray());
+            Assert.Equal(new[] {2, 3}, WhichAreNull(new object(), new object(), null, null).ToArray());
+        }
+
+        [Fact]
+        public void WhichAreTest()
+        {
+            var x = new object();
+            Assert.Equal(new int[] { }, x.WhichAre(new object(), 1, 0.0f).ToArray());
+            Assert.Equal(new[] {2}, x.WhichAre(new object(), 1, x).ToArray());
+            Assert.Equal(new[] {1, 3}, x.WhichAre(new object(), x, 0, x).ToArray());
+        }
+
+        [Fact]
+        public void WithSignatureTest()
+        {
+            Assert.Null(typeof(TestClass).GetMethods().WithSignature<Action<short>>().FirstOrDefault());
+            var m = typeof(TestClass).GetMethods().WithSignature<Action<int>>().FirstOrDefault();
+            Assert.NotNull(m);
+            m(1);
+        }
+
+        [Fact]
+        public void WithSignatureTest_object()
+        {
+            var tc = new TestClass();
+            Assert.Null(typeof(TestClass).GetMethods().WithSignature<Action<double>>(tc).FirstOrDefault());
+            var m = typeof(TestClass).GetMethods().WithSignature<Action<float>>(tc).FirstOrDefault();
+            Assert.NotNull(m);
+            m(1.0f);
         }
     }
 }
