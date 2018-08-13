@@ -1,4 +1,4 @@
-﻿/*
+/*
 AssemblyInfo.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
@@ -28,7 +28,7 @@ using System.Reflection;
 [assembly: AssemblyProduct("Morgan's CLR Advanced Runtime")]
 [assembly: AssemblyCopyright("Copyright © 2011-2018 César Andrés Morgan")]
 #pragma warning disable CS7035
-[assembly: AssemblyVersion("0.8.8.2")]
+[assembly: AssemblyVersion("0.8.8.3")]
 #if CLSCompliance
 [assembly: System.CLSCompliant(true)]
 #endif

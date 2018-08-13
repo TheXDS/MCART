@@ -67,14 +67,8 @@ namespace TheXDS.MCART.Networking.Client
         /// </returns>
         protected NetworkStream NwStream()
         {
-            try
-            {
-                return Connection?.GetStream();
-            }
-            catch
-            {
-                return null;
-            }
+            try{return Connection?.GetStream();}
+            catch{return null;}
         }
 
         /// <summary>
@@ -292,13 +286,17 @@ namespace TheXDS.MCART.Networking.Client
         protected async Task<byte[]> GetDataAsync(NetworkStream ns)
         {
             var outp = new List<byte>();
-            do
+            try
             {
-                var buff = new byte[Connection.ReceiveBufferSize];
-                var sze = await ns.ReadAsync(buff, 0, buff.Length);
-                if (sze < Connection.ReceiveBufferSize) Array.Resize(ref buff, sze);
-                outp.AddRange(buff);
-            } while (ns.DataAvailable);
+                do
+                {
+                    var buff = new byte[Connection.ReceiveBufferSize];
+                    var sze = await ns.ReadAsync(buff, 0, buff.Length);
+                    if (sze < Connection.ReceiveBufferSize) Array.Resize(ref buff, sze);
+                    outp.AddRange(buff);
+                } while (ns.DataAvailable);
+            }
+            catch { outp.Clear(); }
             return outp.ToArray();
         }
 
@@ -310,13 +308,17 @@ namespace TheXDS.MCART.Networking.Client
         protected byte[] GetData(NetworkStream ns)
         {
             var outp = new List<byte>();
-            do
+            try
             {
-                var buff = new byte[Connection.ReceiveBufferSize];
-                var sze = ns.Read(buff, 0, buff.Length);
-                if (sze < Connection.ReceiveBufferSize) Array.Resize(ref buff, sze);
-                outp.AddRange(buff);
-            } while (ns.DataAvailable);
+                do
+                {
+                    var buff = new byte[Connection.ReceiveBufferSize];
+                    var sze = ns.Read(buff, 0, buff.Length);
+                    if (sze < Connection.ReceiveBufferSize) Array.Resize(ref buff, sze);
+                    outp.AddRange(buff);
+                } while (ns.DataAvailable);
+            }
+            catch { outp.Clear(); }
             return outp.ToArray();
         }
     }
