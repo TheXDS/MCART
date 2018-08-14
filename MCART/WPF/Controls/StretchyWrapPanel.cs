@@ -288,13 +288,11 @@ namespace TheXDS.MCART.Controls
                     panelSize.V += curLineSize.V;
                     curLineSize = sz;
 
-                    if (sz.U > uvConstraint.U)
-                    {
-                        // The element is wider then the constrint - give it a separate line             
-                        panelSize.U = System.Math.Max(sz.U, panelSize.U);
-                        panelSize.V += sz.V;
-                        curLineSize = new UvSize(Orientation);
-                    }
+                    if (!(sz.U > uvConstraint.U)) continue;
+                    // The element is wider then the constrint - give it a separate line             
+                    panelSize.U = System.Math.Max(sz.U, panelSize.U);
+                    panelSize.V += sz.V;
+                    curLineSize = new UvSize(Orientation);
                 }
                 else
                 {
@@ -320,14 +318,12 @@ namespace TheXDS.MCART.Controls
             for (var i = start; i < end; i++)
             {
                 var child = children[i];
-                if (child != null)
-                {
-                    var childSize = new UvSize(Orientation, child.DesiredSize.Width, child.DesiredSize.Height);
-                    var layoutSlotU = useItemU ? itemU : childSize.U;
-                    child.Arrange(new Rect(horizontal ? u : v, horizontal ? v : u,
-                        horizontal ? layoutSlotU : lineV, horizontal ? lineV : layoutSlotU));
-                    u += layoutSlotU;
-                }
+                if (child == null) continue;
+                var childSize = new UvSize(Orientation, child.DesiredSize.Width, child.DesiredSize.Height);
+                var layoutSlotU = useItemU ? itemU : childSize.U;
+                child.Arrange(new Rect(horizontal ? u : v, horizontal ? v : u,
+                    horizontal ? layoutSlotU : lineV, horizontal ? lineV : layoutSlotU));
+                u += layoutSlotU;
             }
         }
 
@@ -341,18 +337,16 @@ namespace TheXDS.MCART.Controls
             for (var i = start; i < end; i++)
                 total += horizontal ? children[i].DesiredSize.Width : children[i].DesiredSize.Height;
 
-            var uMultipler = limitU / total;
+            var uMultipler = total >0 ? limitU / total: 0;
             for (var i = start; i < end; i++)
             {
                 var child = children[i];
-                if (child != null)
-                {
-                    var childSize = new UvSize(Orientation, child.DesiredSize.Width, child.DesiredSize.Height);
-                    var layoutSlotU = childSize.U * uMultipler;
-                    child.Arrange(new Rect(horizontal ? u : v, horizontal ? v : u,
-                        horizontal ? layoutSlotU : lineV, horizontal ? lineV : layoutSlotU));
-                    u += layoutSlotU;
-                }
+                if (child == null) continue;
+                var childSize = new UvSize(Orientation, child.DesiredSize.Width, child.DesiredSize.Height);
+                var layoutSlotU = childSize.U * uMultipler;
+                child.Arrange(new Rect(horizontal ? u : v, horizontal ? v : u,
+                    horizontal ? layoutSlotU : lineV, horizontal ? lineV : layoutSlotU));
+                u += layoutSlotU;
             }
         }
     }
