@@ -31,7 +31,7 @@ namespace TheXDS.MCART.Controls
 {
     /// <inheritdoc />
     /// <summary>
-    ///     <see cref="Panel"/> que permite organizar los controles como una
+    ///     <see cref="Panel" /> que permite organizar los controles como una
     ///     línea justificada con sobreflujo, opcionalmente aplicando una
     ///     transformación proporcional a los mismos.
     /// </summary>
@@ -40,6 +40,63 @@ namespace TheXDS.MCART.Controls
     /// </remarks>
     public class StretchyWrapPanel : Panel
     {
+        /* Cambios:
+         * Streamlining del código
+         * Escritura de documentación
+         */
+
+        private struct UvSize
+        {
+            internal UvSize(Orientation orientation, double width, double height)
+            {
+                U = V = 0d;
+                _orientation = orientation;
+                Width = width;
+                Height = height;
+            }
+
+            internal UvSize(Orientation orientation)
+            {
+                U = V = 0d;
+                _orientation = orientation;
+            }
+
+            internal double U;
+            internal double V;
+            private readonly Orientation _orientation;
+
+            internal double Width
+            {
+                get => _orientation == Orientation.Horizontal ? U : V;
+                private set
+                {
+                    if (_orientation == Orientation.Horizontal)
+                        U = value;
+                    else
+                        V = value;
+                }
+            }
+
+            internal double Height
+            {
+                get => _orientation == Orientation.Horizontal ? V : U;
+                private set
+                {
+                    if (_orientation == Orientation.Horizontal)
+                        V = value;
+                    else
+                        U = value;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Identifica a la propiedad de dependencia <see cref="ItemHeight" />
+        /// </summary>
+        public static readonly DependencyProperty ItemHeightProperty = DependencyProperty.Register(nameof(ItemHeight),
+            typeof(double), typeof(StretchyWrapPanel),
+            new FrameworkPropertyMetadata(double.NaN, FrameworkPropertyMetadataOptions.AffectsMeasure));
+
         /// <summary>
         ///     Obtiene o establece la altura de los elementos hijos de este <see cref="Panel" />.
         /// </summary>
@@ -51,9 +108,9 @@ namespace TheXDS.MCART.Controls
         }
 
         /// <summary>
-        ///     Identifica a la propiedad de dependencia <see cref="ItemHeight" />
+        ///     Identifica a la propiedad de dependencia <see cref="ItemWidth" />.
         /// </summary>
-        public static readonly DependencyProperty ItemHeightProperty = DependencyProperty.Register(nameof(ItemHeight),
+        public static readonly DependencyProperty ItemWidthProperty = DependencyProperty.Register(nameof(ItemWidth),
             typeof(double), typeof(StretchyWrapPanel),
             new FrameworkPropertyMetadata(double.NaN, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
@@ -66,17 +123,19 @@ namespace TheXDS.MCART.Controls
             get => (double) GetValue(ItemWidthProperty);
             set => SetValue(ItemWidthProperty, value);
         }
-        /* Cambios:
-         * Streamlining del código
-         * Escritura de documentación
-        */
 
         /// <summary>
-        ///     Identifica a la propiedad de dependencia <see cref="ItemWidth" />.
+        ///     Identifica a la propiedad de dependencia <see cref="Orientation" />
         /// </summary>
-        public static readonly DependencyProperty ItemWidthProperty = DependencyProperty.Register(nameof(ItemWidth),
-            typeof(double), typeof(StretchyWrapPanel),
-            new FrameworkPropertyMetadata(double.NaN, FrameworkPropertyMetadataOptions.AffectsMeasure));
+        public static readonly DependencyProperty OrientationProperty = StackPanel.OrientationProperty.AddOwner(
+            typeof(StretchyWrapPanel),
+            new FrameworkPropertyMetadata(Orientation.Horizontal, FrameworkPropertyMetadataOptions.AffectsMeasure,
+                OnOrientationChanged));
+
+        private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ((StretchyWrapPanel) d)._orientation = (Orientation) e.NewValue;
+        }
 
         /// <summary>
         ///     Obtiene o establece la orientación de la colocación de elementos en este <see cref="Panel" />.
@@ -88,12 +147,16 @@ namespace TheXDS.MCART.Controls
         }
 
         /// <summary>
-        ///     Identifica a la propiedad de dependencia <see cref="Orientation" />
+        ///     Identifica a la propiedad de dependencia <see cref="StretchProportionally" />.
         /// </summary>
-        public static readonly DependencyProperty OrientationProperty = StackPanel.OrientationProperty.AddOwner(
-            typeof(StretchyWrapPanel),
-            new FrameworkPropertyMetadata(Orientation.Horizontal, FrameworkPropertyMetadataOptions.AffectsMeasure,
-                OnOrientationChanged));
+        public static readonly DependencyProperty StretchProportionallyProperty = DependencyProperty.Register(
+            nameof(StretchProportionally), typeof(bool),
+            typeof(StretchyWrapPanel), new PropertyMetadata(true, OnStretchProportionallyChanged));
+
+        private static void OnStretchProportionallyChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
+        {
+            ((StretchyWrapPanel) o)._stretchProportionally = (bool) e.NewValue;
+        }
 
         /// <summary>
         ///     Obtiene o establece un valor que indica si los controles hijos se alargarán proporcionalmente entre sí.
@@ -104,12 +167,9 @@ namespace TheXDS.MCART.Controls
             set => SetValue(StretchProportionallyProperty, value);
         }
 
-        /// <summary>
-        ///     Identifica a la propiedad de dependencia <see cref="StretchProportionally" />.
-        /// </summary>
-        public static readonly DependencyProperty StretchProportionallyProperty = DependencyProperty.Register(
-            nameof(StretchProportionally), typeof(bool),
-            typeof(StretchyWrapPanel), new PropertyMetadata(true, OnStretchProportionallyChanged));
+        private Orientation _orientation = Orientation.Horizontal;
+
+        private bool _stretchProportionally = true;
 
         /// <inheritdoc />
         /// <summary>
@@ -228,13 +288,11 @@ namespace TheXDS.MCART.Controls
                     panelSize.V += curLineSize.V;
                     curLineSize = sz;
 
-                    if (sz.U > uvConstraint.U)
-                    {
-                        // The element is wider then the constrint - give it a separate line             
-                        panelSize.U = System.Math.Max(sz.U, panelSize.U);
-                        panelSize.V += sz.V;
-                        curLineSize = new UvSize(Orientation);
-                    }
+                    if (!(sz.U > uvConstraint.U)) continue;
+                    // The element is wider then the constrint - give it a separate line             
+                    panelSize.U = System.Math.Max(sz.U, panelSize.U);
+                    panelSize.V += sz.V;
+                    curLineSize = new UvSize(Orientation);
                 }
                 else
                 {
@@ -252,10 +310,6 @@ namespace TheXDS.MCART.Controls
             return new Size(panelSize.Width, panelSize.Height);
         }
 
-        private Orientation _orientation = Orientation.Horizontal;
-
-        private bool _stretchProportionally = true;
-
         private void ArrangeLine(double v, double lineV, int start, int end, bool useItemU, double itemU)
         {
             var u = 0d;
@@ -264,14 +318,12 @@ namespace TheXDS.MCART.Controls
             for (var i = start; i < end; i++)
             {
                 var child = children[i];
-                if (child != null)
-                {
-                    var childSize = new UvSize(Orientation, child.DesiredSize.Width, child.DesiredSize.Height);
-                    var layoutSlotU = useItemU ? itemU : childSize.U;
-                    child.Arrange(new Rect(horizontal ? u : v, horizontal ? v : u,
-                        horizontal ? layoutSlotU : lineV, horizontal ? lineV : layoutSlotU));
-                    u += layoutSlotU;
-                }
+                if (child == null) continue;
+                var childSize = new UvSize(Orientation, child.DesiredSize.Width, child.DesiredSize.Height);
+                var layoutSlotU = useItemU ? itemU : childSize.U;
+                child.Arrange(new Rect(horizontal ? u : v, horizontal ? v : u,
+                    horizontal ? layoutSlotU : lineV, horizontal ? lineV : layoutSlotU));
+                u += layoutSlotU;
             }
         }
 
@@ -285,73 +337,16 @@ namespace TheXDS.MCART.Controls
             for (var i = start; i < end; i++)
                 total += horizontal ? children[i].DesiredSize.Width : children[i].DesiredSize.Height;
 
-            var uMultipler = limitU / total;
+            var uMultipler = total >0 ? limitU / total: 0;
             for (var i = start; i < end; i++)
             {
                 var child = children[i];
-                if (child != null)
-                {
-                    var childSize = new UvSize(Orientation, child.DesiredSize.Width, child.DesiredSize.Height);
-                    var layoutSlotU = childSize.U * uMultipler;
-                    child.Arrange(new Rect(horizontal ? u : v, horizontal ? v : u,
-                        horizontal ? layoutSlotU : lineV, horizontal ? lineV : layoutSlotU));
-                    u += layoutSlotU;
-                }
-            }
-        }
-
-        private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ((StretchyWrapPanel) d)._orientation = (Orientation) e.NewValue;
-        }
-
-        private static void OnStretchProportionallyChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
-        {
-            ((StretchyWrapPanel) o)._stretchProportionally = (bool) e.NewValue;
-        }
-
-        private struct UvSize
-        {
-            internal UvSize(Orientation orientation, double width, double height)
-            {
-                U = V = 0d;
-                _orientation = orientation;
-                Width = width;
-                Height = height;
-            }
-
-            internal UvSize(Orientation orientation)
-            {
-                U = V = 0d;
-                _orientation = orientation;
-            }
-
-            internal double U;
-            internal double V;
-            private readonly Orientation _orientation;
-
-            internal double Width
-            {
-                get => _orientation == Orientation.Horizontal ? U : V;
-                private set
-                {
-                    if (_orientation == Orientation.Horizontal)
-                        U = value;
-                    else
-                        V = value;
-                }
-            }
-
-            internal double Height
-            {
-                get => _orientation == Orientation.Horizontal ? V : U;
-                private set
-                {
-                    if (_orientation == Orientation.Horizontal)
-                        V = value;
-                    else
-                        U = value;
-                }
+                if (child == null) continue;
+                var childSize = new UvSize(Orientation, child.DesiredSize.Width, child.DesiredSize.Height);
+                var layoutSlotU = childSize.U * uMultipler;
+                child.Arrange(new Rect(horizontal ? u : v, horizontal ? v : u,
+                    horizontal ? layoutSlotU : lineV, horizontal ? lineV : layoutSlotU));
+                u += layoutSlotU;
             }
         }
     }

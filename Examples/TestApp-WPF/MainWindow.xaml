@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     Title="MCART Test Application"
     Height="350"
-    Width="525">
+    Width="401">
     <Window.Resources>
         <Converters:BooleanInverter x:Key="BooleanInverter"/>
     </Window.Resources>
@@ -55,7 +55,11 @@
                 <MenuItem x:Name="mnuAboutMCART" Header="Acerca de MCART..." />
             </MenuItem>
         </Menu>
-        <Image Source="MCART.ico" Stretch="None" />
-        <mcart:ProgressRing IsIndeterminate="false" Value="850" Maximum="8000" Angle="180" TextFormat="{}{0} RPM" FullAngle="270" Redline="6500" Fill="White"/>
+            <Image Source="MCART.ico" Width="200"/>
+        <mcart:StretchyWrapPanel>
+            <Image Source="MCART.ico" Width="100"/>
+            <Image Source="MCART.ico" Width="100"/>
+            <Image Source="MCART.ico" Width="100"/>
+        </mcart:StretchyWrapPanel>
     </DockPanel>
 </Window>
