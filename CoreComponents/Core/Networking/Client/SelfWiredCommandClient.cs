@@ -184,7 +184,9 @@ namespace TheXDS.MCART.Networking.Client
                         var cmd = ReadResponse(br);
                         if (ErrResponse.Equals(cmd)) ServerError?.Invoke(this, EventArgs.Empty);
                         if (UnkResponse.Equals(cmd)) UnknownCommandIssued?.Invoke(this, EventArgs.Empty);
-                        if (_responses.ContainsKey(cmd)) _responses[cmd](this, br);
+                        if (_responses.ContainsKey(cmd))
+                          await Task.Run(()=>_responses[cmd](this, br));
+                        
                         else if (outp.Any()) AttendServer(outp);
                     }
                 }
@@ -261,10 +263,10 @@ namespace TheXDS.MCART.Networking.Client
         {
             if (!(data?.Length > 0)) throw new ArgumentNullException();
             if (callback is null) throw new ArgumentNullException(nameof(callback));
-            var msg = MakeCommand(command).Concat(data).ToArray();
             var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
-            ns.Write(msg, 0, msg.Length);
             _interrupts.Enqueue(callback);
+            var msg = MakeCommand(command).Concat(data).ToArray();
+            ns.Write(msg, 0, msg.Length);
         }
 
         /// <summary>
@@ -279,10 +281,10 @@ namespace TheXDS.MCART.Networking.Client
         public void TalkToServer(TCommand command, ResponseCallBack callback)
         {
             if (callback is null) throw new ArgumentNullException(nameof(callback));
-            var msg = MakeCommand(command).ToArray();
             var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
-            ns.Write(msg, 0, msg.Length);
             _interrupts.Enqueue(callback);
+            var msg = MakeCommand(command).ToArray();
+            ns.Write(msg, 0, msg.Length);
         }
 
         /// <summary>
