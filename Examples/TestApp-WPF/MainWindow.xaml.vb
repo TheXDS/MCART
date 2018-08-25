@@ -26,8 +26,18 @@ Imports TheXDS.MCART.Controls
 
 Public Class MainWindow
     Private pl As IEnumerable(Of IPlugin)
+    Private Sub MnuWindow_Click(sender As Object, e As EventArgs) Handles MnuWindow.Click
+        Dim v = New Window() With {
+            .WindowStyle = WindowStyle.None,
+            .Opacity = 0.5,
+            .AllowsTransparency = True
+        }
+        AddHandler v.Loaded, Sub(o, args) v.EnableBlur()
+        v.Show()
+    End Sub
+
     Private Sub Wndtest_Initialized(sender As Object, e As EventArgs) Handles Me.Initialized
-        pl = (New PluginLoader()).LoadEverything()
+        pl = New PluginLoader().LoadEverything()
         For Each j As IPlugin In pl
             If j.HasInteractions Then
                 mnuPlugins.Items.Add(j.UIMenu)
@@ -97,7 +107,7 @@ Public Class MainWindow
         'r.Slices.Add(New Slice())
         'r.Slices.Add(New Slice() With{.Value=2.5})
         'r.Slices.Add(New Slice())
-        Dim rrr as New Random()
+        Dim rrr As New Random()
         For i As Integer = 0 To 2
             r.Slices.Add(New Slice()) 'With {.Value = rrr.NextDouble() + 0.5})
         Next
@@ -119,4 +129,5 @@ Public Class MainWindow
             .ShowDialog()
         End With
     End Sub
+
 End Class

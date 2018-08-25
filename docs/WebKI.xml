@@ -1,6 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <HelpKI>
   <HelpKINode Title="A property" Url="html/P_TheXDS_MCART_Types_Color_A.htm" />
+  <HelpKINode Title="ABGR16 class">
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Color_ABGR16.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ABGR2222 class">
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Color_ABGR2222.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ABGR32 class">
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Color_ABGR32.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ABGR4444 class">
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Color_ABGR4444.htm" />
+  </HelpKINode>
   <HelpKINode Title="Abort field" Url="html/F_TheXDS_MCART_Resources_Strings_Abort.htm" />
   <HelpKINode Title="About field" Url="html/F_TheXDS_MCART_Resources_Strings_About.htm" />
   <HelpKINode Title="About method" Url="html/M_TheXDS_MCART_PluginSupport_Plugin_About.htm" />
@@ -226,8 +238,20 @@
     <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Attributes_BetaAttribute.htm" />
   </HelpKINode>
   <HelpKINode Title="BetaAttribute.BetaAttribute constructor" Url="html/M_TheXDS_MCART_Attributes_BetaAttribute__ctor.htm" />
-  <HelpKINode Title="BGR332 class">
-    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Color_BGR332.htm" />
+  <HelpKINode Title="BGR12 class">
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Color_BGR12.htm" />
+  </HelpKINode>
+  <HelpKINode Title="BGR222 class">
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Color_BGR222.htm" />
+  </HelpKINode>
+  <HelpKINode Title="BGR24 class">
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Color_BGR24.htm" />
+  </HelpKINode>
+  <HelpKINode Title="BGR555 class">
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Color_BGR555.htm" />
+  </HelpKINode>
+  <HelpKINode Title="BGR565 class">
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Color_BGR565.htm" />
   </HelpKINode>
   <HelpKINode Title="Bind method" Url="html/Overload_TheXDS_MCART_UI_Bind.htm" />
   <HelpKINode Title="Bisque property" Url="html/P_TheXDS_MCART_Resources_Colors_Bisque.htm" />
@@ -394,6 +418,8 @@
   <HelpKINode Title="Chocolate2 property" Url="html/P_TheXDS_MCART_Resources_Colors_Chocolate2.htm" />
   <HelpKINode Title="Chocolate3 property" Url="html/P_TheXDS_MCART_Resources_Colors_Chocolate3.htm" />
   <HelpKINode Title="ChoosePassword method" Url="html/Overload_TheXDS_MCART_Dialogs_PasswordDialog_ChoosePassword.htm" />
+  <HelpKINode Title="ChromeBlur property" Url="html/P_TheXDS_MCART_Types_Extensions_Window_ChromeBlur.htm" />
+  <HelpKINode Title="ChromeBlurProperty field" Url="html/F_TheXDS_MCART_Types_Extensions_Window_ChromeBlurProperty.htm" />
   <HelpKINode Title="CINotSupported method" Url="html/M_TheXDS_MCART_Resources_Strings_CINotSupported.htm" />
   <HelpKINode Title="Clamp method" Url="html/Overload_TheXDS_MCART_Math_Common_Clamp.htm" />
   <HelpKINode Title="ClassIsDangerous method" Url="html/M_TheXDS_MCART_Resources_Strings_ClassIsDangerous.htm" />
@@ -523,21 +549,77 @@
   <HelpKINode Title="Color to Brush conversion" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_3.htm" />
   <HelpKINode Title="Color to Color conversion">
     <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_4.htm" />
-    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit.htm" />
     <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_1.htm" />
+    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit.htm" />
     <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_2.htm" />
   </HelpKINode>
   <HelpKINode Title="Color.A property" Url="html/P_TheXDS_MCART_Types_Color_A.htm" />
+  <HelpKINode Title="Color.ABGR16 class">
+    <HelpKINode Title="Color.ABGR16 (Clase)" Url="html/T_TheXDS_MCART_Types_Color_ABGR16.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Types_Color_ABGR16__ctor.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Color.ABGR16.ABGR16 constructor" Url="html/M_TheXDS_MCART_Types_Color_ABGR16__ctor.htm" />
+  <HelpKINode Title="Color.ABGR16.From method" Url="html/M_TheXDS_MCART_Types_Color_ABGR16_From.htm" />
+  <HelpKINode Title="Color.ABGR16.To method" Url="html/M_TheXDS_MCART_Types_Color_ABGR16_To.htm" />
+  <HelpKINode Title="Color.ABGR2222 class">
+    <HelpKINode Title="Color.ABGR2222 (Clase)" Url="html/T_TheXDS_MCART_Types_Color_ABGR2222.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Types_Color_ABGR2222__ctor.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Color.ABGR2222.ABGR2222 constructor" Url="html/M_TheXDS_MCART_Types_Color_ABGR2222__ctor.htm" />
+  <HelpKINode Title="Color.ABGR2222.From method" Url="html/M_TheXDS_MCART_Types_Color_ABGR2222_From.htm" />
+  <HelpKINode Title="Color.ABGR2222.To method" Url="html/M_TheXDS_MCART_Types_Color_ABGR2222_To.htm" />
+  <HelpKINode Title="Color.ABGR32 class">
+    <HelpKINode Title="Color.ABGR32 (Clase)" Url="html/T_TheXDS_MCART_Types_Color_ABGR32.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Types_Color_ABGR32__ctor.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Color.ABGR32.ABGR32 constructor" Url="html/M_TheXDS_MCART_Types_Color_ABGR32__ctor.htm" />
+  <HelpKINode Title="Color.ABGR32.From method" Url="html/M_TheXDS_MCART_Types_Color_ABGR32_From.htm" />
+  <HelpKINode Title="Color.ABGR32.To method" Url="html/M_TheXDS_MCART_Types_Color_ABGR32_To.htm" />
+  <HelpKINode Title="Color.ABGR4444 class">
+    <HelpKINode Title="Color.ABGR4444 (Clase)" Url="html/T_TheXDS_MCART_Types_Color_ABGR4444.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Types_Color_ABGR4444__ctor.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Color.ABGR4444.ABGR4444 constructor" Url="html/M_TheXDS_MCART_Types_Color_ABGR4444__ctor.htm" />
+  <HelpKINode Title="Color.ABGR4444.From method" Url="html/M_TheXDS_MCART_Types_Color_ABGR4444_From.htm" />
+  <HelpKINode Title="Color.ABGR4444.To method" Url="html/M_TheXDS_MCART_Types_Color_ABGR4444_To.htm" />
   <HelpKINode Title="Color.Addition operator" Url="html/M_TheXDS_MCART_Types_Color_op_Addition.htm" />
   <HelpKINode Title="Color.AreClose method" Url="html/Overload_TheXDS_MCART_Types_Color_AreClose.htm" />
   <HelpKINode Title="Color.B property" Url="html/P_TheXDS_MCART_Types_Color_B.htm" />
-  <HelpKINode Title="Color.BGR332 class">
-    <HelpKINode Title="Color.BGR332 (Clase)" Url="html/T_TheXDS_MCART_Types_Color_BGR332.htm" />
-    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Types_Color_BGR332__ctor.htm" />
+  <HelpKINode Title="Color.BGR12 class">
+    <HelpKINode Title="Color.BGR12 (Clase)" Url="html/T_TheXDS_MCART_Types_Color_BGR12.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Types_Color_BGR12__ctor.htm" />
   </HelpKINode>
-  <HelpKINode Title="Color.BGR332.BGR332 constructor" Url="html/M_TheXDS_MCART_Types_Color_BGR332__ctor.htm" />
-  <HelpKINode Title="Color.BGR332.From method" Url="html/M_TheXDS_MCART_Types_Color_BGR332_From.htm" />
-  <HelpKINode Title="Color.BGR332.To method" Url="html/M_TheXDS_MCART_Types_Color_BGR332_To.htm" />
+  <HelpKINode Title="Color.BGR12.BGR12 constructor" Url="html/M_TheXDS_MCART_Types_Color_BGR12__ctor.htm" />
+  <HelpKINode Title="Color.BGR12.From method" Url="html/M_TheXDS_MCART_Types_Color_BGR12_From.htm" />
+  <HelpKINode Title="Color.BGR12.To method" Url="html/M_TheXDS_MCART_Types_Color_BGR12_To.htm" />
+  <HelpKINode Title="Color.BGR222 class">
+    <HelpKINode Title="Color.BGR222 (Clase)" Url="html/T_TheXDS_MCART_Types_Color_BGR222.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Types_Color_BGR222__ctor.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Color.BGR222.BGR222 constructor" Url="html/M_TheXDS_MCART_Types_Color_BGR222__ctor.htm" />
+  <HelpKINode Title="Color.BGR222.From method" Url="html/M_TheXDS_MCART_Types_Color_BGR222_From.htm" />
+  <HelpKINode Title="Color.BGR222.To method" Url="html/M_TheXDS_MCART_Types_Color_BGR222_To.htm" />
+  <HelpKINode Title="Color.BGR24 class">
+    <HelpKINode Title="Color.BGR24 (Clase)" Url="html/T_TheXDS_MCART_Types_Color_BGR24.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Types_Color_BGR24__ctor.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Color.BGR24.BGR24 constructor" Url="html/M_TheXDS_MCART_Types_Color_BGR24__ctor.htm" />
+  <HelpKINode Title="Color.BGR24.From method" Url="html/M_TheXDS_MCART_Types_Color_BGR24_From.htm" />
+  <HelpKINode Title="Color.BGR24.To method" Url="html/M_TheXDS_MCART_Types_Color_BGR24_To.htm" />
+  <HelpKINode Title="Color.BGR555 class">
+    <HelpKINode Title="Color.BGR555 (Clase)" Url="html/T_TheXDS_MCART_Types_Color_BGR555.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Types_Color_BGR555__ctor.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Color.BGR555.BGR555 constructor" Url="html/M_TheXDS_MCART_Types_Color_BGR555__ctor.htm" />
+  <HelpKINode Title="Color.BGR555.From method" Url="html/M_TheXDS_MCART_Types_Color_BGR555_From.htm" />
+  <HelpKINode Title="Color.BGR555.To method" Url="html/M_TheXDS_MCART_Types_Color_BGR555_To.htm" />
+  <HelpKINode Title="Color.BGR565 class">
+    <HelpKINode Title="Color.BGR565 (Clase)" Url="html/T_TheXDS_MCART_Types_Color_BGR565.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Types_Color_BGR565__ctor.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Color.BGR565.BGR565 constructor" Url="html/M_TheXDS_MCART_Types_Color_BGR565__ctor.htm" />
+  <HelpKINode Title="Color.BGR565.From method" Url="html/M_TheXDS_MCART_Types_Color_BGR565_From.htm" />
+  <HelpKINode Title="Color.BGR565.To method" Url="html/M_TheXDS_MCART_Types_Color_BGR565_To.htm" />
   <HelpKINode Title="Color.Blend method" Url="html/M_TheXDS_MCART_Types_Color_Blend.htm" />
   <HelpKINode Title="Color.BlendHealth method" Url="html/M_TheXDS_MCART_Types_Color_BlendHealth.htm" />
   <HelpKINode Title="Color.BlendHeat method" Url="html/M_TheXDS_MCART_Types_Color_BlendHeat.htm" />
@@ -581,69 +663,13 @@
   <HelpKINode Title="Color.Multiply operator" Url="html/M_TheXDS_MCART_Types_Color_op_Multiply.htm" />
   <HelpKINode Title="Color.Parse method" Url="html/M_TheXDS_MCART_Types_Color_Parse.htm" />
   <HelpKINode Title="Color.R property" Url="html/P_TheXDS_MCART_Types_Color_R.htm" />
-  <HelpKINode Title="Color.RGB222 class">
-    <HelpKINode Title="Color.RGB222 (Clase)" Url="html/T_TheXDS_MCART_Types_Color_RGB222.htm" />
-    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Types_Color_RGB222__ctor.htm" />
+  <HelpKINode Title="Color.RGB233 class">
+    <HelpKINode Title="Color.RGB233 (Clase)" Url="html/T_TheXDS_MCART_Types_Color_RGB233.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Types_Color_RGB233__ctor.htm" />
   </HelpKINode>
-  <HelpKINode Title="Color.RGB222.From method" Url="html/M_TheXDS_MCART_Types_Color_RGB222_From.htm" />
-  <HelpKINode Title="Color.RGB222.RGB222 constructor" Url="html/M_TheXDS_MCART_Types_Color_RGB222__ctor.htm" />
-  <HelpKINode Title="Color.RGB222.To method" Url="html/M_TheXDS_MCART_Types_Color_RGB222_To.htm" />
-  <HelpKINode Title="Color.RGB444 class">
-    <HelpKINode Title="Color.RGB444 (Clase)" Url="html/T_TheXDS_MCART_Types_Color_RGB444.htm" />
-    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Types_Color_RGB444__ctor.htm" />
-  </HelpKINode>
-  <HelpKINode Title="Color.RGB444.From method" Url="html/M_TheXDS_MCART_Types_Color_RGB444_From.htm" />
-  <HelpKINode Title="Color.RGB444.RGB444 constructor" Url="html/M_TheXDS_MCART_Types_Color_RGB444__ctor.htm" />
-  <HelpKINode Title="Color.RGB444.To method" Url="html/M_TheXDS_MCART_Types_Color_RGB444_To.htm" />
-  <HelpKINode Title="Color.RGB555 class">
-    <HelpKINode Title="Color.RGB555 (Clase)" Url="html/T_TheXDS_MCART_Types_Color_RGB555.htm" />
-    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Types_Color_RGB555__ctor.htm" />
-  </HelpKINode>
-  <HelpKINode Title="Color.RGB555.From method" Url="html/M_TheXDS_MCART_Types_Color_RGB555_From.htm" />
-  <HelpKINode Title="Color.RGB555.RGB555 constructor" Url="html/M_TheXDS_MCART_Types_Color_RGB555__ctor.htm" />
-  <HelpKINode Title="Color.RGB555.To method" Url="html/M_TheXDS_MCART_Types_Color_RGB555_To.htm" />
-  <HelpKINode Title="Color.RGB565 class">
-    <HelpKINode Title="Color.RGB565 (Clase)" Url="html/T_TheXDS_MCART_Types_Color_RGB565.htm" />
-    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Types_Color_RGB565__ctor.htm" />
-  </HelpKINode>
-  <HelpKINode Title="Color.RGB565.From method" Url="html/M_TheXDS_MCART_Types_Color_RGB565_From.htm" />
-  <HelpKINode Title="Color.RGB565.RGB565 constructor" Url="html/M_TheXDS_MCART_Types_Color_RGB565__ctor.htm" />
-  <HelpKINode Title="Color.RGB565.To method" Url="html/M_TheXDS_MCART_Types_Color_RGB565_To.htm" />
-  <HelpKINode Title="Color.RGB888 class">
-    <HelpKINode Title="Color.RGB888 (Clase)" Url="html/T_TheXDS_MCART_Types_Color_RGB888.htm" />
-    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Types_Color_RGB888__ctor.htm" />
-  </HelpKINode>
-  <HelpKINode Title="Color.RGB888.From method" Url="html/M_TheXDS_MCART_Types_Color_RGB888_From.htm" />
-  <HelpKINode Title="Color.RGB888.RGB888 constructor" Url="html/M_TheXDS_MCART_Types_Color_RGB888__ctor.htm" />
-  <HelpKINode Title="Color.RGB888.To method" Url="html/M_TheXDS_MCART_Types_Color_RGB888_To.htm" />
-  <HelpKINode Title="Color.RGBA2222 class">
-    <HelpKINode Title="Color.RGBA2222 (Clase)" Url="html/T_TheXDS_MCART_Types_Color_RGBA2222.htm" />
-    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Types_Color_RGBA2222__ctor.htm" />
-  </HelpKINode>
-  <HelpKINode Title="Color.RGBA2222.From method" Url="html/M_TheXDS_MCART_Types_Color_RGBA2222_From.htm" />
-  <HelpKINode Title="Color.RGBA2222.RGBA2222 constructor" Url="html/M_TheXDS_MCART_Types_Color_RGBA2222__ctor.htm" />
-  <HelpKINode Title="Color.RGBA2222.To method" Url="html/M_TheXDS_MCART_Types_Color_RGBA2222_To.htm" />
-  <HelpKINode Title="Color.RGBA4444 class">
-    <HelpKINode Title="Color.RGBA4444 (Clase)" Url="html/T_TheXDS_MCART_Types_Color_RGBA4444.htm" />
-    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Types_Color_RGBA4444__ctor.htm" />
-  </HelpKINode>
-  <HelpKINode Title="Color.RGBA4444.From method" Url="html/M_TheXDS_MCART_Types_Color_RGBA4444_From.htm" />
-  <HelpKINode Title="Color.RGBA4444.RGBA4444 constructor" Url="html/M_TheXDS_MCART_Types_Color_RGBA4444__ctor.htm" />
-  <HelpKINode Title="Color.RGBA4444.To method" Url="html/M_TheXDS_MCART_Types_Color_RGBA4444_To.htm" />
-  <HelpKINode Title="Color.RGBA5551 class">
-    <HelpKINode Title="Color.RGBA5551 (Clase)" Url="html/T_TheXDS_MCART_Types_Color_RGBA5551.htm" />
-    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Types_Color_RGBA5551__ctor.htm" />
-  </HelpKINode>
-  <HelpKINode Title="Color.RGBA5551.From method" Url="html/M_TheXDS_MCART_Types_Color_RGBA5551_From.htm" />
-  <HelpKINode Title="Color.RGBA5551.RGBA5551 constructor" Url="html/M_TheXDS_MCART_Types_Color_RGBA5551__ctor.htm" />
-  <HelpKINode Title="Color.RGBA5551.To method" Url="html/M_TheXDS_MCART_Types_Color_RGBA5551_To.htm" />
-  <HelpKINode Title="Color.RGBA8888 class">
-    <HelpKINode Title="Color.RGBA8888 (Clase)" Url="html/T_TheXDS_MCART_Types_Color_RGBA8888.htm" />
-    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Types_Color_RGBA8888__ctor.htm" />
-  </HelpKINode>
-  <HelpKINode Title="Color.RGBA8888.From method" Url="html/M_TheXDS_MCART_Types_Color_RGBA8888_From.htm" />
-  <HelpKINode Title="Color.RGBA8888.RGBA8888 constructor" Url="html/M_TheXDS_MCART_Types_Color_RGBA8888__ctor.htm" />
-  <HelpKINode Title="Color.RGBA8888.To method" Url="html/M_TheXDS_MCART_Types_Color_RGBA8888_To.htm" />
+  <HelpKINode Title="Color.RGB233.From method" Url="html/M_TheXDS_MCART_Types_Color_RGB233_From.htm" />
+  <HelpKINode Title="Color.RGB233.RGB233 constructor" Url="html/M_TheXDS_MCART_Types_Color_RGB233__ctor.htm" />
+  <HelpKINode Title="Color.RGB233.To method" Url="html/M_TheXDS_MCART_Types_Color_RGB233_To.htm" />
   <HelpKINode Title="Color.ScA property" Url="html/P_TheXDS_MCART_Types_Color_ScA.htm" />
   <HelpKINode Title="Color.ScB property" Url="html/P_TheXDS_MCART_Types_Color_ScB.htm" />
   <HelpKINode Title="Color.ScG property" Url="html/P_TheXDS_MCART_Types_Color_ScG.htm" />
@@ -1137,13 +1163,13 @@
   <HelpKINode Title="ColumnWidth method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_ColumnWidth.htm" />
   <HelpKINode Title="ColumnWidths method" Url="html/Overload_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_ColumnWidths.htm" />
   <HelpKINode Title="Common class">
-    <HelpKINode Title="Common (Clase)" Url="html/T_TheXDS_MCART_Math_Common.htm" />
     <HelpKINode Title="Common (Clase)" Url="html/T_TheXDS_MCART_Networking_Common.htm" />
+    <HelpKINode Title="Common (Clase)" Url="html/T_TheXDS_MCART_Math_Common.htm" />
     <HelpKINode Title="Common (Clase)" Url="html/T_TheXDS_MCART_Common.htm" />
     <HelpKINode Title="fields" Url="html/Fields_T_TheXDS_MCART_Networking_Common.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_Common.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Math_Common.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Common.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Math_Common.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_Common.htm" />
   </HelpKINode>
   <HelpKINode Title="Common.AllEmpty method" Url="html/Overload_TheXDS_MCART_Common_AllEmpty.htm" />
   <HelpKINode Title="Common.AnyEmpty method" Url="html/Overload_TheXDS_MCART_Common_AnyEmpty.htm" />
@@ -1519,8 +1545,8 @@
   <HelpKINode Title="DimGray property" Url="html/P_TheXDS_MCART_Resources_Colors_DimGray.htm" />
   <HelpKINode Title="Dir method" Url="html/Overload_TheXDS_MCART_PluginSupport_PluginLoader_Dir.htm" />
   <HelpKINode Title="DirectoryIsFull field" Url="html/F_TheXDS_MCART_Resources_Strings_DirectoryIsFull.htm" />
-  <HelpKINode Title="DisableBlur method" Url="html/M_TheXDS_MCART_UI_DisableBlur.htm" />
   <HelpKINode Title="DisableControls method" Url="html/Overload_TheXDS_MCART_UI_DisableControls.htm" />
+  <HelpKINode Title="DisableEffects method" Url="html/M_TheXDS_MCART_UI_DisableEffects.htm" />
   <HelpKINode Title="Disconnect method" Url="html/M_TheXDS_MCART_Networking_Server_Client_Disconnect.htm" />
   <HelpKINode Title="Disconnecting property" Url="html/P_TheXDS_MCART_Networking_Server_Client_Disconnecting.htm" />
   <HelpKINode Title="DisconnectionTimeout field" Url="html/F_TheXDS_MCART_Networking_Common_DisconnectionTimeout.htm" />
@@ -1577,8 +1603,8 @@
     <HelpKINode Title="RingGraph.DrawMyChildren (M&#233;todo )" Url="html/M_TheXDS_MCART_Controls_RingGraph_DrawMyChildren.htm" />
   </HelpKINode>
   <HelpKINode Title="Echo class">
-    <HelpKINode Title="Echo (Clase)" Url="html/T_TheXDS_MCART_Networking_Client_Protocols_Echo.htm" />
     <HelpKINode Title="Echo (Clase)" Url="html/T_TheXDS_MCART_Networking_Server_Protocols_Echo.htm" />
+    <HelpKINode Title="Echo (Clase)" Url="html/T_TheXDS_MCART_Networking_Client_Protocols_Echo.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Networking_Server_Protocols_Echo__ctor.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Networking_Client_Protocols_Echo__ctor.htm" />
     <HelpKINode Title="events" Url="html/Events_T_TheXDS_MCART_Networking_Client_Protocols_Echo.htm" />
@@ -1617,6 +1643,7 @@
   </HelpKINode>
   <HelpKINode Title="EmptyCollectionException.EmptyCollectionException constructor" Url="html/Overload_TheXDS_MCART_Exceptions_EmptyCollectionException__ctor.htm" />
   <HelpKINode Title="Enable property" Url="html/P_TheXDS_MCART_Security_Password_PwEvalRule_Enable.htm" />
+  <HelpKINode Title="EnableAcrylic method" Url="html/M_TheXDS_MCART_UI_EnableAcrylic.htm" />
   <HelpKINode Title="EnableBlur method" Url="html/M_TheXDS_MCART_UI_EnableBlur.htm" />
   <HelpKINode Title="EnableControls method" Url="html/Overload_TheXDS_MCART_UI_EnableControls.htm" />
   <HelpKINode Title="Enabled property" Url="html/P_TheXDS_MCART_Types_Extensions_Timer_Enabled.htm" />
@@ -1898,20 +1925,20 @@
   <HelpKINode Title="FreeConsole method" Url="html/M_TheXDS_MCART_UI_FreeConsole.htm" />
   <HelpKINode Title="FrmIncorreclyOpened field" Url="html/F_TheXDS_MCART_Resources_Strings_FrmIncorreclyOpened.htm" />
   <HelpKINode Title="From method">
-    <HelpKINode Title="Color.BGR332.From (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_BGR332_From.htm" />
+    <HelpKINode Title="Color.ABGR16.From (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_ABGR16_From.htm" />
+    <HelpKINode Title="Color.ABGR2222.From (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_ABGR2222_From.htm" />
+    <HelpKINode Title="Color.ABGR32.From (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_ABGR32_From.htm" />
+    <HelpKINode Title="Color.ABGR4444.From (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_ABGR4444_From.htm" />
+    <HelpKINode Title="Color.BGR12.From (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_BGR12_From.htm" />
+    <HelpKINode Title="Color.BGR222.From (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_BGR222_From.htm" />
+    <HelpKINode Title="Color.BGR24.From (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_BGR24_From.htm" />
+    <HelpKINode Title="Color.BGR555.From (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_BGR555_From.htm" />
+    <HelpKINode Title="Color.BGR565.From (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_BGR565_From.htm" />
     <HelpKINode Title="Color.ColorimetricGrayscale.From (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_ColorimetricGrayscale_From.htm" />
     <HelpKINode Title="Color.Grayscale.From (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_Grayscale_From.htm" />
     <HelpKINode Title="Color.IColorParser(T).From (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_IColorParser_1_From.htm" />
     <HelpKINode Title="Color.Monochrome.From (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_Monochrome_From.htm" />
-    <HelpKINode Title="Color.RGB222.From (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_RGB222_From.htm" />
-    <HelpKINode Title="Color.RGB444.From (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_RGB444_From.htm" />
-    <HelpKINode Title="Color.RGB555.From (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_RGB555_From.htm" />
-    <HelpKINode Title="Color.RGB565.From (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_RGB565_From.htm" />
-    <HelpKINode Title="Color.RGB888.From (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_RGB888_From.htm" />
-    <HelpKINode Title="Color.RGBA2222.From (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_RGBA2222_From.htm" />
-    <HelpKINode Title="Color.RGBA4444.From (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_RGBA4444_From.htm" />
-    <HelpKINode Title="Color.RGBA5551.From (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_RGBA5551_From.htm" />
-    <HelpKINode Title="Color.RGBA8888.From (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_RGBA8888_From.htm" />
+    <HelpKINode Title="Color.RGB233.From (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_RGB233_From.htm" />
     <HelpKINode Title="Color.VGAAttributeByte.From (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_VGAAttributeByte_From.htm" />
   </HelpKINode>
   <HelpKINode Title="From(Of T, TParser) method" Url="html/M_TheXDS_MCART_Types_Color_From__2.htm" />
@@ -2078,6 +2105,7 @@
   <HelpKINode Title="HeatColorizer.Apply method" Url="html/M_TheXDS_MCART_Controls_HeatColorizer_Apply.htm" />
   <HelpKINode Title="HeatColorizer.HeatColorizer constructor" Url="html/M_TheXDS_MCART_Controls_HeatColorizer__ctor.htm" />
   <HelpKINode Title="HelpDir field" Url="html/F_TheXDS_MCART_Resources_Strings_HelpDir.htm" />
+  <HelpKINode Title="HelpInvoked event" Url="html/E_TheXDS_MCART_Types_Extensions_Window_HelpInvoked.htm" />
   <HelpKINode Title="HelpText property" Url="html/P_TheXDS_MCART_Events_ProgressionEventArgs_HelpText.htm" />
   <HelpKINode Title="HideControls method" Url="html/Overload_TheXDS_MCART_UI_HideControls.htm" />
   <HelpKINode Title="High enumeration member" Url="html/T_TheXDS_MCART_Security_Password_PonderationLevel.htm" />
@@ -2090,6 +2118,7 @@
   <HelpKINode Title="Honeydew2 property" Url="html/P_TheXDS_MCART_Resources_Colors_Honeydew2.htm" />
   <HelpKINode Title="Honeydew3 property" Url="html/P_TheXDS_MCART_Resources_Colors_Honeydew3.htm" />
   <HelpKINode Title="Honeydew4 property" Url="html/P_TheXDS_MCART_Resources_Colors_Honeydew4.htm" />
+  <HelpKINode Title="HookHelp method" Url="html/M_TheXDS_MCART_UI_HookHelp.htm" />
   <HelpKINode Title="Host property">
     <HelpKINode Title="ConnectionFailureEventArgs.Host (Propiedad )" Url="html/P_TheXDS_MCART_Networking_Client_ConnectionFailureEventArgs_Host.htm" />
     <HelpKINode Title="HostConnectionInfoEventArgs.Host (Propiedad )" Url="html/P_TheXDS_MCART_Networking_Client_HostConnectionInfoEventArgs_Host.htm" />
@@ -3650,10 +3679,10 @@
     <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Types_Point.htm" />
   </HelpKINode>
   <HelpKINode Title="Point to Point conversion">
-    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit_2.htm" />
     <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit_1.htm" />
     <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit.htm" />
     <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit_3.htm" />
+    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit_2.htm" />
   </HelpKINode>
   <HelpKINode Title="Point.Addition operator" Url="html/Overload_TheXDS_MCART_Types_Point_op_Addition.htm" />
   <HelpKINode Title="Point.Angle method" Url="html/M_TheXDS_MCART_Types_Point_Angle.htm" />
@@ -4058,32 +4087,8 @@
   <HelpKINode Title="Result property" Url="html/P_TheXDS_MCART_Security_Password_PwDialogResult_Result.htm" />
   <HelpKINode Title="Reverse method" Url="html/Overload_TheXDS_MCART_Types_Extensions_List_1_Reverse.htm" />
   <HelpKINode Title="Reversed method" Url="html/Overload_TheXDS_MCART_Types_Extensions_List_1_Reversed.htm" />
-  <HelpKINode Title="RGB222 class">
-    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Color_RGB222.htm" />
-  </HelpKINode>
-  <HelpKINode Title="RGB444 class">
-    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Color_RGB444.htm" />
-  </HelpKINode>
-  <HelpKINode Title="RGB555 class">
-    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Color_RGB555.htm" />
-  </HelpKINode>
-  <HelpKINode Title="RGB565 class">
-    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Color_RGB565.htm" />
-  </HelpKINode>
-  <HelpKINode Title="RGB888 class">
-    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Color_RGB888.htm" />
-  </HelpKINode>
-  <HelpKINode Title="RGBA2222 class">
-    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Color_RGBA2222.htm" />
-  </HelpKINode>
-  <HelpKINode Title="RGBA4444 class">
-    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Color_RGBA4444.htm" />
-  </HelpKINode>
-  <HelpKINode Title="RGBA5551 class">
-    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Color_RGBA5551.htm" />
-  </HelpKINode>
-  <HelpKINode Title="RGBA8888 class">
-    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Color_RGBA8888.htm" />
+  <HelpKINode Title="RGB233 class">
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Color_RGB233.htm" />
   </HelpKINode>
   <HelpKINode Title="Right method" Url="html/M_TheXDS_MCART_Common_Right.htm" />
   <HelpKINode Title="Right(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Right__1.htm" />
@@ -4304,8 +4309,8 @@
     <HelpKINode Title="Series (Clase)" Url="html/T_TheXDS_MCART_Controls_Series.htm" />
     <HelpKINode Title="Series (Clase)" Url="html/T_TheXDS_MCART_Math_Series.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Controls_Series__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Math_Series.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Controls_Series.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Math_Series.htm" />
   </HelpKINode>
   <HelpKINode Title="Series.Fibonacci method" Url="html/M_TheXDS_MCART_Math_Series_Fibonacci.htm" />
   <HelpKINode Title="Series.Lucas method" Url="html/M_TheXDS_MCART_Math_Series_Lucas.htm" />
@@ -5163,21 +5168,21 @@
   <HelpKINode Title="TheXDS.MCART.Security.Password.RuleSets class" Url="html/T_TheXDS_MCART_Security_Password_RuleSets.htm" />
   <HelpKINode Title="TheXDS.MCART.Types namespace" Url="html/N_TheXDS_MCART_Types.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Color structure" Url="html/T_TheXDS_MCART_Types_Color.htm" />
-  <HelpKINode Title="TheXDS.MCART.Types.Color.BGR332 class" Url="html/T_TheXDS_MCART_Types_Color_BGR332.htm" />
+  <HelpKINode Title="TheXDS.MCART.Types.Color.ABGR16 class" Url="html/T_TheXDS_MCART_Types_Color_ABGR16.htm" />
+  <HelpKINode Title="TheXDS.MCART.Types.Color.ABGR2222 class" Url="html/T_TheXDS_MCART_Types_Color_ABGR2222.htm" />
+  <HelpKINode Title="TheXDS.MCART.Types.Color.ABGR32 class" Url="html/T_TheXDS_MCART_Types_Color_ABGR32.htm" />
+  <HelpKINode Title="TheXDS.MCART.Types.Color.ABGR4444 class" Url="html/T_TheXDS_MCART_Types_Color_ABGR4444.htm" />
+  <HelpKINode Title="TheXDS.MCART.Types.Color.BGR12 class" Url="html/T_TheXDS_MCART_Types_Color_BGR12.htm" />
+  <HelpKINode Title="TheXDS.MCART.Types.Color.BGR222 class" Url="html/T_TheXDS_MCART_Types_Color_BGR222.htm" />
+  <HelpKINode Title="TheXDS.MCART.Types.Color.BGR24 class" Url="html/T_TheXDS_MCART_Types_Color_BGR24.htm" />
+  <HelpKINode Title="TheXDS.MCART.Types.Color.BGR555 class" Url="html/T_TheXDS_MCART_Types_Color_BGR555.htm" />
+  <HelpKINode Title="TheXDS.MCART.Types.Color.BGR565 class" Url="html/T_TheXDS_MCART_Types_Color_BGR565.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Color.ColorimetricGrayscale class" Url="html/T_TheXDS_MCART_Types_Color_ColorimetricGrayscale.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Color.Grayscale class" Url="html/T_TheXDS_MCART_Types_Color_Grayscale.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Color.IColorParser(Of T) interface" Url="html/T_TheXDS_MCART_Types_Color_IColorParser_1.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Color.IColorParser&lt;T&gt; interface" Url="html/T_TheXDS_MCART_Types_Color_IColorParser_1.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Color.Monochrome class" Url="html/T_TheXDS_MCART_Types_Color_Monochrome.htm" />
-  <HelpKINode Title="TheXDS.MCART.Types.Color.RGB222 class" Url="html/T_TheXDS_MCART_Types_Color_RGB222.htm" />
-  <HelpKINode Title="TheXDS.MCART.Types.Color.RGB444 class" Url="html/T_TheXDS_MCART_Types_Color_RGB444.htm" />
-  <HelpKINode Title="TheXDS.MCART.Types.Color.RGB555 class" Url="html/T_TheXDS_MCART_Types_Color_RGB555.htm" />
-  <HelpKINode Title="TheXDS.MCART.Types.Color.RGB565 class" Url="html/T_TheXDS_MCART_Types_Color_RGB565.htm" />
-  <HelpKINode Title="TheXDS.MCART.Types.Color.RGB888 class" Url="html/T_TheXDS_MCART_Types_Color_RGB888.htm" />
-  <HelpKINode Title="TheXDS.MCART.Types.Color.RGBA2222 class" Url="html/T_TheXDS_MCART_Types_Color_RGBA2222.htm" />
-  <HelpKINode Title="TheXDS.MCART.Types.Color.RGBA4444 class" Url="html/T_TheXDS_MCART_Types_Color_RGBA4444.htm" />
-  <HelpKINode Title="TheXDS.MCART.Types.Color.RGBA5551 class" Url="html/T_TheXDS_MCART_Types_Color_RGBA5551.htm" />
-  <HelpKINode Title="TheXDS.MCART.Types.Color.RGBA8888 class" Url="html/T_TheXDS_MCART_Types_Color_RGBA8888.htm" />
+  <HelpKINode Title="TheXDS.MCART.Types.Color.RGB233 class" Url="html/T_TheXDS_MCART_Types_Color_RGB233.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Color.VGAAttributeByte class" Url="html/T_TheXDS_MCART_Types_Color_VGAAttributeByte.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Extensions namespace" Url="html/N_TheXDS_MCART_Types_Extensions.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Extensions.AddedItemEventArgs(Of T) class" Url="html/T_TheXDS_MCART_Types_Extensions_AddedItemEventArgs_1.htm" />
@@ -5212,6 +5217,7 @@
   <HelpKINode Title="TheXDS.MCART.Types.Extensions.TcpClient class" Url="html/T_TheXDS_MCART_Types_Extensions_TcpClient.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Extensions.Timer class" Url="html/T_TheXDS_MCART_Types_Extensions_Timer.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Extensions.TypeExtensions class" Url="html/T_TheXDS_MCART_Types_Extensions_TypeExtensions.htm" />
+  <HelpKINode Title="TheXDS.MCART.Types.Extensions.Window class" Url="html/T_TheXDS_MCART_Types_Extensions_Window.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Point structure" Url="html/T_TheXDS_MCART_Types_Point.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Point3D structure" Url="html/T_TheXDS_MCART_Types_Point3D.htm" />
   <HelpKINode Title="TheXDS.MCART.Types.Range(Of T) structure" Url="html/T_TheXDS_MCART_Types_Range_1.htm" />
@@ -5289,20 +5295,20 @@
   <HelpKINode Title="TitleFontSizeProperty field" Url="html/F_TheXDS_MCART_Controls_RingGraph_TitleFontSizeProperty.htm" />
   <HelpKINode Title="TitleProperty field" Url="html/F_TheXDS_MCART_Controls_RingGraph_TitleProperty.htm" />
   <HelpKINode Title="To method">
-    <HelpKINode Title="Color.BGR332.To (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_BGR332_To.htm" />
+    <HelpKINode Title="Color.ABGR16.To (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_ABGR16_To.htm" />
+    <HelpKINode Title="Color.ABGR2222.To (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_ABGR2222_To.htm" />
+    <HelpKINode Title="Color.ABGR32.To (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_ABGR32_To.htm" />
+    <HelpKINode Title="Color.ABGR4444.To (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_ABGR4444_To.htm" />
+    <HelpKINode Title="Color.BGR12.To (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_BGR12_To.htm" />
+    <HelpKINode Title="Color.BGR222.To (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_BGR222_To.htm" />
+    <HelpKINode Title="Color.BGR24.To (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_BGR24_To.htm" />
+    <HelpKINode Title="Color.BGR555.To (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_BGR555_To.htm" />
+    <HelpKINode Title="Color.BGR565.To (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_BGR565_To.htm" />
     <HelpKINode Title="Color.ColorimetricGrayscale.To (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_ColorimetricGrayscale_To.htm" />
     <HelpKINode Title="Color.Grayscale.To (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_Grayscale_To.htm" />
     <HelpKINode Title="Color.IColorParser(T).To (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_IColorParser_1_To.htm" />
     <HelpKINode Title="Color.Monochrome.To (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_Monochrome_To.htm" />
-    <HelpKINode Title="Color.RGB222.To (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_RGB222_To.htm" />
-    <HelpKINode Title="Color.RGB444.To (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_RGB444_To.htm" />
-    <HelpKINode Title="Color.RGB555.To (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_RGB555_To.htm" />
-    <HelpKINode Title="Color.RGB565.To (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_RGB565_To.htm" />
-    <HelpKINode Title="Color.RGB888.To (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_RGB888_To.htm" />
-    <HelpKINode Title="Color.RGBA2222.To (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_RGBA2222_To.htm" />
-    <HelpKINode Title="Color.RGBA4444.To (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_RGBA4444_To.htm" />
-    <HelpKINode Title="Color.RGBA5551.To (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_RGBA5551_To.htm" />
-    <HelpKINode Title="Color.RGBA8888.To (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_RGBA8888_To.htm" />
+    <HelpKINode Title="Color.RGB233.To (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_RGB233_To.htm" />
     <HelpKINode Title="Color.VGAAttributeByte.To (M&#233;todo )" Url="html/M_TheXDS_MCART_Types_Color_VGAAttributeByte_To.htm" />
   </HelpKINode>
   <HelpKINode Title="To(Of T, TParser) method" Url="html/M_TheXDS_MCART_Types_Color_To__2.htm" />
@@ -5540,8 +5546,9 @@
   <HelpKINode Title="UI.Clear method" Url="html/M_TheXDS_MCART_UI_Clear.htm" />
   <HelpKINode Title="UI.ClearWarn method" Url="html/M_TheXDS_MCART_UI_ClearWarn.htm" />
   <HelpKINode Title="UI.CollapseControls method" Url="html/Overload_TheXDS_MCART_UI_CollapseControls.htm" />
-  <HelpKINode Title="UI.DisableBlur method" Url="html/M_TheXDS_MCART_UI_DisableBlur.htm" />
   <HelpKINode Title="UI.DisableControls method" Url="html/Overload_TheXDS_MCART_UI_DisableControls.htm" />
+  <HelpKINode Title="UI.DisableEffects method" Url="html/M_TheXDS_MCART_UI_DisableEffects.htm" />
+  <HelpKINode Title="UI.EnableAcrylic method" Url="html/M_TheXDS_MCART_UI_EnableAcrylic.htm" />
   <HelpKINode Title="UI.EnableBlur method" Url="html/M_TheXDS_MCART_UI_EnableBlur.htm" />
   <HelpKINode Title="UI.EnableControls method" Url="html/Overload_TheXDS_MCART_UI_EnableControls.htm" />
   <HelpKINode Title="UI.Flash method" Url="html/M_TheXDS_MCART_UI_Flash.htm" />
@@ -5556,6 +5563,7 @@
   <HelpKINode Title="UI.GetXDpi method" Url="html/Overload_TheXDS_MCART_UI_GetXDpi.htm" />
   <HelpKINode Title="UI.GetYDpi method" Url="html/Overload_TheXDS_MCART_UI_GetYDpi.htm" />
   <HelpKINode Title="UI.HideControls method" Url="html/Overload_TheXDS_MCART_UI_HideControls.htm" />
+  <HelpKINode Title="UI.HookHelp method" Url="html/M_TheXDS_MCART_UI_HookHelp.htm" />
   <HelpKINode Title="UI.IsWarned method" Url="html/M_TheXDS_MCART_UI_IsWarned.htm" />
   <HelpKINode Title="UI.PickDrawingBrush method" Url="html/M_TheXDS_MCART_UI_PickDrawingBrush.htm" />
   <HelpKINode Title="UI.Render method" Url="html/Overload_TheXDS_MCART_UI_Render.htm" />
@@ -5803,6 +5811,18 @@
   <HelpKINode Title="WhichAreNull method" Url="html/Overload_TheXDS_MCART_Objects_WhichAreNull.htm" />
   <HelpKINode Title="White property" Url="html/P_TheXDS_MCART_Resources_Colors_White.htm" />
   <HelpKINode Title="Whitesmoke property" Url="html/P_TheXDS_MCART_Resources_Colors_Whitesmoke.htm" />
+  <HelpKINode Title="Window class">
+    <HelpKINode Title="Window (Clase)" Url="html/T_TheXDS_MCART_Types_Extensions_Window.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Types_Extensions_Window__ctor.htm" />
+    <HelpKINode Title="events" Url="html/Events_T_TheXDS_MCART_Types_Extensions_Window.htm" />
+    <HelpKINode Title="fields" Url="html/Fields_T_TheXDS_MCART_Types_Extensions_Window.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Types_Extensions_Window.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Types_Extensions_Window.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Window.ChromeBlur property" Url="html/P_TheXDS_MCART_Types_Extensions_Window_ChromeBlur.htm" />
+  <HelpKINode Title="Window.ChromeBlurProperty field" Url="html/F_TheXDS_MCART_Types_Extensions_Window_ChromeBlurProperty.htm" />
+  <HelpKINode Title="Window.HelpInvoked event" Url="html/E_TheXDS_MCART_Types_Extensions_Window_HelpInvoked.htm" />
+  <HelpKINode Title="Window.Window constructor" Url="html/M_TheXDS_MCART_Types_Extensions_Window__ctor.htm" />
   <HelpKINode Title="WithinBox method" Url="html/Overload_TheXDS_MCART_Types_Point_WithinBox.htm" />
   <HelpKINode Title="WithinCircle method" Url="html/M_TheXDS_MCART_Types_Point_WithinCircle.htm" />
   <HelpKINode Title="WithinCube method" Url="html/Overload_TheXDS_MCART_Types_Point3D_WithinCube.htm" />

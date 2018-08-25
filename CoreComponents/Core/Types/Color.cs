@@ -37,7 +37,7 @@ namespace TheXDS.MCART.Types
         /// <summary>
         /// constante auxiliar de redondeo para las funciones de conversión.
         /// </summary>
-        const float ep = 0.499f;
+        private const float Ep = 0.499f;
         /// <summary>
         /// Mezcla un color de temperatura basado en el porcentaje.
         /// </summary>
@@ -62,7 +62,7 @@ namespace TheXDS.MCART.Types
         public static Color BlendHealth(float x)
         {
             byte g = (byte)(510 * x).Clamp(0, 255);
-            byte r = (byte)(510 - (510 * x)).Clamp(0, 255);
+            byte r = (byte)(510 - 510 * x).Clamp(0, 255);
             return new Color(r, g, 0);
         }
         /// <summary>
@@ -111,7 +111,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         /// <param name="c1">Primer <see cref="Color"/> a comparar.</param>
         /// <param name="c2">Segundo Color a comparar.</param>
-        public static float Similarity(Color c1, Color c2) => 1.0f - ((c1.ScA - c2.ScA) + (c1.ScR - c2.ScR) + (c1.ScG - c2.ScG) + (c1.ScB - c2.ScB));
+        public static float Similarity(Color c1, Color c2) => 1.0f - (c1.ScA - c2.ScA + (c1.ScR - c2.ScR) + (c1.ScG - c2.ScG) + (c1.ScB - c2.ScB));
         /// <summary>
         /// Intenta crear un <see cref="Color"/> a partir de la cadena
         /// especificada.
@@ -130,22 +130,22 @@ namespace TheXDS.MCART.Types
         {
             if (from.IsFormattedAs("#FFFFFFFF"))
             {
-                color = (new RGBA8888()).From(int.Parse($"0x{from.Substring(1)}"));
+                color = new ABGR32().From(int.Parse($"0x{from.Substring(1)}"));
                 return true;
             }
             if (from.IsFormattedAs("#FFFFFF"))
             {
-                color = (new RGB888()).From(int.Parse($"0x{from.Substring(1)}"));
+                color = (new BGR24()).From(int.Parse($"0x{from.Substring(1)}"));
                 return true;
             }
             if (from.IsFormattedAs("#FFFF"))
             {
-                color = (new RGBA4444()).From(short.Parse($"0x{from.Substring(1)}"));
+                color = (new ABGR4444()).From(short.Parse($"0x{from.Substring(1)}"));
                 return true;
             }
             if (from.IsFormattedAs("#FFF"))
             {
-                color = (new RGB444()).From(short.Parse($"0x{from.Substring(1)}"));
+                color = (new BGR12()).From(short.Parse($"0x{from.Substring(1)}"));
                 return true;
             }
             var cName = typeof(Resources.Colors).GetProperty(from, typeof(Color));
@@ -471,16 +471,17 @@ namespace TheXDS.MCART.Types
             b = B.Clamp(0.0f, 1.0f);
 #endif
         }
+        /// <inheritdoc />
         /// <summary>
-        /// Determina si el <see cref="Color"/> especificado es igual al
-        /// <see cref="Color"/> actual.
+        /// Determina si el <see cref="T:TheXDS.MCART.Types.Color" /> especificado es igual al
+        /// <see cref="T:TheXDS.MCART.Types.Color" /> actual.
         /// </summary>
         /// <param name="other">
-        /// El <see cref="Color"/> a comparar contra este <see cref="Color"/>.
+        /// El <see cref="T:TheXDS.MCART.Types.Color" /> a comparar contra este <see cref="T:TheXDS.MCART.Types.Color" />.
         /// </param>
         /// <returns>
-        /// <see langword="true"/> si el <see cref="Color"/> especificado es igual al
-        /// <see cref="Color"/> actual, <see langword="false"/> en caso contrario.
+        /// <see langword="true" /> si el <see cref="T:TheXDS.MCART.Types.Color" /> especificado es igual al
+        /// <see cref="T:TheXDS.MCART.Types.Color" /> actual, <see langword="false" /> en caso contrario.
         /// </returns>
         public bool Equals(Color other)
         {
@@ -520,19 +521,20 @@ namespace TheXDS.MCART.Types
                     return format;
             }
         }
+        /// <inheritdoc />
         /// <summary>
-        /// Compara este <see cref="Color"/> contra otro.
+        /// Compara este <see cref="T:TheXDS.MCART.Types.Color" /> contra otro.
         /// </summary>
-        /// <param name="other"><see cref="Color"/> a comparar.</param>
+        /// <param name="other"><see cref="T:TheXDS.MCART.Types.Color" /> a comparar.</param>
         /// <returns>
         /// Un valor que determina la posición ordinal de este color con
         /// respecto al otro.
         /// </returns>
         public int CompareTo(Color other)
         {
-            int a = (new RGBA8888()).To(this);
-            int b = (new RGBA8888()).To(other);
-            return a.CompareTo(b);
+            var first = new ABGR32().To(this);
+            var second = new ABGR32().To(other);
+            return first.CompareTo(second);
         }
         /// <summary>
         /// Indica si este objeto y el especificado son la misma instancia.
@@ -561,7 +563,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public override string ToString()
         {
-            return $"#{(new byte[] { A, R, G, B }).ToHex()}";
+            return $"#{new[] { A, R, G, B }.ToHex()}";
         }
     }
 }

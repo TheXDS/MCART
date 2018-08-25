@@ -145,16 +145,18 @@ namespace TheXDS.MCART.Resources
         protected Stream UnpackStream(string id, ICompressorGetter compressor, string compressorId)
         {
             if (id.IsEmpty()) throw new ArgumentNullException(nameof(id));
-            ICompressorGetter c = compressor ?? Objects.FindType<ICompressorGetter>(compressorId)?.New<ICompressorGetter>() ?? throw new NotSupportedException();
-            string cId = compressorId ?? Attribute.GetCustomAttributes(c.GetType()).OfType<IdentifierAttribute>().FirstOrDefault()?.Value ?? "compressed";
+            var c = compressor ?? Objects.FindType<ICompressorGetter>(compressorId)?.New<ICompressorGetter>() ?? throw new NotSupportedException();
+            var cId = compressorId ?? Attribute.GetCustomAttributes(c.GetType()).OfType<IdentifierAttribute>().FirstOrDefault()?.Value ?? "compressed";
             return c.GetCompressor(assembly.GetManifestResourceStream($"{path}.{id}.{cId}"));
         }
+        /// <inheritdoc />
         /// <summary>
         /// Obtiene un recurso identificable.
         /// </summary>
         /// <param name="id">Identificador del recurso.</param>
-        /// <returns>Un recurso de tipo <typeparamref name="T"/>.</returns>
+        /// <returns>Un recurso de tipo <typeparamref name="T" />.</returns>
         public abstract T Unpack(string id);
+        /// <inheritdoc />
         /// <summary>
         /// Extrae un recurso comprimido utilizando el compresor con el
         /// identificador especificado.
@@ -164,19 +166,20 @@ namespace TheXDS.MCART.Resources
         /// Identificador del compresor a utilizar para extraer al recurso.
         /// </param>
         /// <returns>
-        /// Un recurso sin comprimir de tipo <typeparamref name="T"/>.
+        /// Un recurso sin comprimir de tipo <typeparamref name="T" />.
         /// </returns>
         public abstract T Unpack(string id, string compressorId);
+        /// <inheritdoc />
         /// <summary>
         /// Extrae un recurso comprimido utilizando el compresor con el
         /// identificador especificado.
         /// </summary>
         /// <param name="id">Identificador del recurso.</param>
         /// <param name="compressor">
-        /// <see cref="ICompressorGetter"/> a utilizar para extraer al recurso.
+        /// <see cref="T:TheXDS.MCART.Resources.ICompressorGetter" /> a utilizar para extraer al recurso.
         /// </param>
         /// <returns>
-        /// Un recurso sin comprimir de tipo <typeparamref name="T"/>.
+        /// Un recurso sin comprimir de tipo <typeparamref name="T" />.
         /// </returns>
         public abstract T Unpack(string id, ICompressorGetter compressor);
     }

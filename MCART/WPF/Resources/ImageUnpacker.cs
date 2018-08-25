@@ -27,35 +27,41 @@ using System.Windows.Media.Imaging;
 
 namespace TheXDS.MCART.Resources
 {
+    /// <inheritdoc />
     /// <summary>
-    /// <see cref="AssemblyUnpacker{T}"/> que extrae recursos de imagen como un
-    /// <see cref="BitmapImage"/>.
+    ///     <see cref="T:TheXDS.MCART.Resources.AssemblyUnpacker`1" /> que
+    ///     extrae recursos de imagen como un
+    ///     <see cref="T:System.Windows.Media.Imaging.BitmapImage" />.
     /// </summary>
     public class ImageUnpacker : AssemblyUnpacker<BitmapImage>
     {
+        /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="ImageUnpacker"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="T:TheXDS.MCART.Resources.ImageUnpacker" />.
         /// </summary>
         /// <param name="assembly">
-        /// <see cref="Assembly"/> de orígen de los recursos incrustados.
+        /// <see cref="T:System.Reflection.Assembly" /> de orígen de los recursos incrustados.
         /// </param>
         /// <param name="path">
         /// Ruta (como espacio de nombre) donde se ubican los recursos
         /// incrustados.
         /// </param>
         public ImageUnpacker(Assembly assembly, string path) : base(assembly, path) { }
+        /// <inheritdoc />
         /// <summary>
-        /// Obtiene un <see cref="BitmapImage"/> desde los recursos incrustados
+        /// Obtiene un <see cref="T:System.Windows.Media.Imaging.BitmapImage" /> desde los recursos incrustados
         /// del ensamblado.
         /// </summary>
         /// <param name="id">Nombre del recurso a extraer.</param>
         /// <returns>
-        /// Un <see cref="BitmapImage"/> extraído desde los recursos
+        /// Un <see cref="T:System.Windows.Media.Imaging.BitmapImage" /> extraído desde los recursos
         /// incrustados del ensamblado.
         /// </returns>
         public override BitmapImage Unpack(string id) => UI.GetBitmap(UnpackStream(id));
+        /// <inheritdoc />
         /// <summary>
-        /// Obtiene un <see cref="BitmapImage"/> desde los recursos incrustados
+        /// Obtiene un <see cref="T:System.Windows.Media.Imaging.BitmapImage" /> desde los recursos incrustados
         /// comprimidos del ensamblado.
         /// </summary>
         /// <param name="id">Nombre del recurso a extraer.</param>
@@ -63,21 +69,22 @@ namespace TheXDS.MCART.Resources
         /// Nombre del compresor a utilizar para extraer el recurso.
         /// </param>
         /// <returns>
-        /// Un <see cref="BitmapImage"/> extraído desde los recursos
+        /// Un <see cref="T:System.Windows.Media.Imaging.BitmapImage" /> extraído desde los recursos
         /// incrustados comprimidos del ensamblado.
         /// </returns>
         public override BitmapImage Unpack(string id, string compressorId) => UI.GetBitmap(UnpackStream(id, compressorId));
+        /// <inheritdoc />
         /// <summary>
-        /// Obtiene un <see cref="BitmapImage"/> desde los recursos incrustados
+        /// Obtiene un <see cref="T:System.Windows.Media.Imaging.BitmapImage" /> desde los recursos incrustados
         /// comprimidos del ensamblado.
         /// </summary>
         /// <param name="id">Nombre del recurso a extraer.</param>
         /// <param name="compressor">
-        /// <see cref="ICompressorGetter"/> desde el cual se obtendrá el
+        /// <see cref="T:TheXDS.MCART.Resources.ICompressorGetter" /> desde el cual se obtendrá el
         /// compresor a utilizar para extraer el recurso.
         /// </param>
         /// <returns>
-        /// Un <see cref="BitmapImage"/> extraído desde los recursos
+        /// Un <see cref="T:System.Windows.Media.Imaging.BitmapImage" /> extraído desde los recursos
         /// incrustados comprimidos del ensamblado.
         /// </returns>
         public override BitmapImage Unpack(string id, ICompressorGetter compressor) => UI.GetBitmap(UnpackStream(id, compressor));

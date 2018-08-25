@@ -66,9 +66,9 @@ namespace TheXDS.MCART.Types
         /// <inheritdoc />
         /// <summary>
         ///     Implementa un <see cref="T:TheXDS.MCART.Types.Color.IColorParser`1" /> que tiene como formato
-        ///     de color un valor de 32 bits, 8 bits por canal, 8 bits de alfa.
+        ///     de color un valor de 32 bits, 8 bits por canal, 8 bits de alfa ordenados como AABBGGRR.
         /// </summary>
-        public class RGBA8888 : IColorParser<int>
+        public class ABGR32 : IColorParser<int>
         {
             /// <inheritdoc />
             /// <summary>
@@ -81,10 +81,10 @@ namespace TheXDS.MCART.Types
             public Color From(int value)
             {
                 return new Color(
-                    (byte) (value & 0xff),
-                    (byte) ((value & 0xff00) >> 8),
-                    (byte) ((value & 0xff0000) >> 16),
-                    (byte) ((value & 0xff000000) >> 24));
+                    (byte)(value & 0xff),
+                    (byte)((value & 0xff00) >> 8),
+                    (byte)((value & 0xff0000) >> 16),
+                    (byte)((value & 0xff000000) >> 24));
             }
 
             /// <inheritdoc />
@@ -107,7 +107,7 @@ namespace TheXDS.MCART.Types
         ///     Implementa un <see cref="T:TheXDS.MCART.Types.Color.IColorParser`1" /> que tiene como formato
         ///     de color un valor de 24 bits, 8 bits por canal, sin alfa.
         /// </summary>
-        public class RGB888 : IColorParser<int>
+        public class BGR24 : IColorParser<int>
         {
             /// <inheritdoc />
             /// <summary>
@@ -145,7 +145,7 @@ namespace TheXDS.MCART.Types
         ///     Implementa un <see cref="T:TheXDS.MCART.Types.Color.IColorParser`1" /> que tiene como formato
         ///     de color un valor de 16 bits, 4 bits por canal, 4 bits de alfa.
         /// </summary>
-        public class RGBA4444 : IColorParser<short>
+        public class ABGR4444 : IColorParser<short>
         {
             /// <inheritdoc />
             /// <summary>
@@ -188,7 +188,7 @@ namespace TheXDS.MCART.Types
         ///     Implementa un <see cref="T:TheXDS.MCART.Types.Color.IColorParser`1" /> que tiene como formato
         ///     de color un valor de 12 bits, 4 bits por canal, sin alfa.
         /// </summary>
-        public class RGB444 : IColorParser<short>
+        public class BGR12 : IColorParser<short>
         {
             /// <inheritdoc />
             /// <summary>
@@ -230,7 +230,7 @@ namespace TheXDS.MCART.Types
         ///     Implementa un <see cref="T:TheXDS.MCART.Types.Color.IColorParser`1" /> que tiene como formato
         ///     de color un valor de 16 bits, 5 bits por canal, 1 bit de alfa.
         /// </summary>
-        public class RGBA5551 : IColorParser<short>
+        public class ABGR16 : IColorParser<short>
         {
             /// <inheritdoc />
             /// <summary>
@@ -273,7 +273,7 @@ namespace TheXDS.MCART.Types
         ///     Implementa un <see cref="T:TheXDS.MCART.Types.Color.IColorParser`1" /> que tiene como formato
         ///     de color un valor de 15 bits, 5 bits por canal, sin alfa.
         /// </summary>
-        public class RGB555 : IColorParser<short>
+        public class BGR555 : IColorParser<short>
         {
             /// <inheritdoc />
             /// <summary>
@@ -316,7 +316,7 @@ namespace TheXDS.MCART.Types
         ///     de color un valor de 16 bits, 5 bits para los canales rojo y azul,
         ///     6 para el canal verde, sin alfa.
         /// </summary>
-        public class RGB565 : IColorParser<short>
+        public class BGR565 : IColorParser<short>
         {
             /// <inheritdoc />
             /// <summary>
@@ -358,7 +358,7 @@ namespace TheXDS.MCART.Types
         ///     Implementa un <see cref="T:TheXDS.MCART.Types.Color.IColorParser`1" /> que tiene como formato
         ///     de color un valor de 8 bits, 2 bits por canal, 2 bits de alfa.
         /// </summary>
-        public class RGBA2222 : IColorParser<byte>
+        public class ABGR2222 : IColorParser<byte>
         {
             /// <inheritdoc />
             /// <summary>
@@ -401,7 +401,7 @@ namespace TheXDS.MCART.Types
         ///     Implementa un <see cref="T:TheXDS.MCART.Types.Color.IColorParser`1" /> que tiene como formato
         ///     de color un valor de 6 bits, 2 bits por canal, sin alfa.
         /// </summary>
-        public class RGB222 : IColorParser<byte>
+        public class BGR222 : IColorParser<byte>
         {
             /// <inheritdoc />
             /// <summary>
@@ -443,7 +443,7 @@ namespace TheXDS.MCART.Types
         ///     de color un valor de 8 bits, 3 bits para los canales rojo y verde,
         ///     2 para el canal azul, sin alfa.
         /// </summary>
-        public class BGR332 : IColorParser<byte>
+        public class RGB233 : IColorParser<byte>
         {
             /// <inheritdoc />
             /// <summary>

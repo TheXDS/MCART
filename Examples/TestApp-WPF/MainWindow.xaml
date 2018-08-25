@@ -20,6 +20,9 @@
                 <MenuItem x:Name="mnuExit" Header="Salir" />
             </MenuItem>
             <MenuItem Header="Pruebas">
+                <MenuItem Header="Ventanas">
+                    <MenuItem x:Name="MnuWindow" Header="Ventana de prueba"/>
+                </MenuItem>
                 <MenuItem Header="Controles">
                     <MenuItem x:Name="mnuProgressRing" Header="ProgressRing..." />
                 </MenuItem>
