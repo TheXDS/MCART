@@ -53,7 +53,7 @@ namespace TheXDS.MCART.Networking.Server
     /// </summary>
     public class Server<TClient> : Server where TClient : Client
     {
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         private static void CheckProtocolType(IProtocol protocol)
         {
             var tClient = protocol.GetType().BaseType?.GenericTypeArguments.FirstOrDefault(p => typeof(Client).IsAssignableFrom(p)) ?? typeof(Client);
@@ -73,7 +73,7 @@ namespace TheXDS.MCART.Networking.Server
         /// <exception cref="T:System.ArgumentNullException">
         ///     Se produce si <paramref name="protocol" /> es <see langword="null" />.
         /// </exception>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         public Server(IProtocol protocol) : base(protocol)
         {
             CheckProtocolType(protocol);
@@ -144,7 +144,7 @@ namespace TheXDS.MCART.Networking.Server
         /// <summary>
         ///     Escucha de conexiones entrantes.
         /// </summary>
-        private readonly TcpListener _conns;
+        private readonly TcpListener _listener;
 
         /// <summary>
         ///     campo que determina si el servidor está escuchando conexiones y
@@ -230,9 +230,11 @@ namespace TheXDS.MCART.Networking.Server
         public Server(IProtocol protocol, IPEndPoint ep)
         {
             Protocol = protocol ?? throw new ArgumentNullException(nameof(protocol));
+            if (Protocol is IServerProtocol p) p.MyServer = this;
+
             ListeningEndPoint =
                 ep ?? new IPEndPoint(IPAddress.Any, Protocol.GetAttr<PortAttribute>()?.Value ?? DefaultPort);
-            _conns = new TcpListener(ListeningEndPoint);
+            _listener = new TcpListener(ListeningEndPoint);
         }
 
         private static byte[] GetResponse(Task<byte[]> task)
@@ -255,7 +257,7 @@ namespace TheXDS.MCART.Networking.Server
         private void AttendClient(Client client)
         {
             ClientConnected?.Invoke(this, client);
-            if (Protocol.ClientWelcome(client, this))
+            if (Protocol.ClientWelcome(client))
             {
                 ClientAccepted?.Invoke(this, client);
                 _clients.Add(client);
@@ -273,19 +275,19 @@ namespace TheXDS.MCART.Networking.Server
                         var r = GetResponse(ts);
                         if (r.Any())
                         {
-                            Protocol.ClientAttendant(client, this, r);
+                            Protocol.ClientAttendant(client, r);
                         }
                         else
                         {
                             ClientLost?.Invoke(this, client);
-                            Protocol.ClientDisconnect(client, this);
+                            Protocol.ClientDisconnect(client);
                         }
                     }
 
                     waitData = false;
                     if (!client.Disconnecting) continue;
                     ClientFarewell?.Invoke(this, client);
-                    Protocol.ClientBye(client, this);
+                    Protocol.ClientBye(client);
                     client.Disconnect();
                     ClientDisconnected?.Invoke(this, client);
                 }
@@ -364,7 +366,7 @@ namespace TheXDS.MCART.Networking.Server
             var bewaiting = true;
             try
             {
-                var t = _conns.AcceptTcpClientAsync();
+                var t = _listener.AcceptTcpClientAsync();
                 // ReSharper disable once AccessToModifiedClosure
                 // ReSharper disable once EmptyEmbeddedStatement
                 if (t == await Task.WhenAny(t, Task.Run(() =>
@@ -411,7 +413,7 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             _isAlive = true;
-            _conns.Start();
+            _listener.Start();
             ServerStarted?.Invoke(this, DateTime.Now);
             BeAlive();
         }
@@ -421,7 +423,7 @@ namespace TheXDS.MCART.Networking.Server
         /// </summary>
         public void Stop()
         {
-            _conns.Stop();
+            _listener.Stop();
             _isAlive = false;
             ServerStopped?.Invoke(this, DateTime.Now);
             Task.WhenAll(_clientThreads).Wait(DisconnectionTimeout);
@@ -445,7 +447,7 @@ namespace TheXDS.MCART.Networking.Server
         /// </returns>
         public async Task StopAsync()
         {
-            _conns.Stop();
+            _listener.Stop();
             _isAlive = false;
             ServerStopped?.Invoke(this, DateTime.Now);
             await Task.WhenAny(

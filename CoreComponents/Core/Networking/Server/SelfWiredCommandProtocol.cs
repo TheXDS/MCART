@@ -142,14 +142,12 @@ namespace TheXDS.MCART.Networking.Server
             return (TCommand) Enum.ToObject(typeof(TCommand), ReadCmd.Invoke(br, new object[0]));
         }
 
-        /// <inheritdoc />
         /// <summary>
         ///     Protocolo de atención al cliente
         /// </summary>
         /// <param name="client">Cliente que será atendido.</param>
-        /// <param name="server">Servidor que atiende al cliente.</param>
         /// <param name="data">Datos recibidos desde el cliente.</param>
-        public override void ClientAttendant(TClient client, Server<TClient> server, byte[] data)
+        public override void ClientAttendant(TClient client, byte[] data)
         {
             using (var br = new BinaryReader(new MemoryStream(data)))
             {
@@ -161,7 +159,7 @@ namespace TheXDS.MCART.Networking.Server
                 if (_commands.ContainsKey(c))
                     try
                     {
-                        _commands[c](this, br, client, server);
+                        _commands[c](this, br, client, Server);
                     }
                     catch
                     {

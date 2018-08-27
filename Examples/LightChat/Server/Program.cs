@@ -203,15 +203,19 @@ namespace TheXDS.LightChat
         /// Protocolo de desconexión inesperada del cliente.
         /// </summary>
         /// <param name="client">Cliente que se ha desconectado.</param>
-        /// <param name="server">Servidor que atiendía al cliente.</param>
-        public override void ClientDisconnect(Client<string> client, Server<Client<string>> server)
+        public override void ClientDisconnect(Client<string> client)
         {
-            server.Broadcast(NewMsg($"{client.ClientData} se ha desconectado inesperadamente."),client);
+            Server.Broadcast(NewMsg($"{client.ClientData} se ha desconectado inesperadamente."),client);
         }
 
-        public override void ClientBye(Client<string> client, Server<Client<string>> server)
+        /// <inheritdoc />
+        /// <summary>
+        ///     Protocolo de desconexión del cliente.
+        /// </summary>
+        /// <param name="client">Cliente que será atendido.</param>
+        public override void ClientBye(Client<string> client)
         {
-            server.Broadcast(NewMsg($"{client.ClientData} ha cerrado sesión."),client);
+            Server.Broadcast(NewMsg($"{client.ClientData} ha cerrado sesión."),client);
         }
     }
 }

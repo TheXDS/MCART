@@ -44,31 +44,13 @@ namespace TheXDS.MCART.Networking.Server.Protocols
         /// <param name="client">
         ///     Cliente que está siendo atendido debido a una solicitud.
         /// </param>
-        /// <param name="server">
-        ///     Instancia del servidor que atenderá al cliente.
-        /// </param>
         /// <param name="data">
         ///     Datos que <paramref name="client" /> ha enviado como parte de la
         ///     soliccitud de atención.
         /// </param>
-        public override void ClientAttendant(Client client, Server server, byte[] data)
+        public override void ClientAttendant(Client client, byte[] data)
         {
             client.Send(data);
-        }
-
-        /// <inheritdoc />
-        /// <summary>
-        ///     Inicializa un nuevo cliente manejado por este protocolo.
-        /// </summary>
-        /// <param name="tcpClient">
-        ///     <see cref="T:System.Net.Sockets.TcpClient" /> de la conexión con el host remoto.
-        /// </param>
-        /// <returns>
-        ///     Un nuevo <see cref="T:TheXDS.MCART.Networking.Server.Client" />.
-        /// </returns>
-        public override Client CreateClient(TcpClient tcpClient)
-        {
-            return new Client(tcpClient);
         }
     }
 }
