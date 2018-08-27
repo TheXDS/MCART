@@ -22,20 +22,22 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Net.Sockets;
-
 #if ExtrasBuiltIn
+
+using System.Diagnostics.CodeAnalysis;
+
 namespace TheXDS.MCART.Networking.Server.Protocols
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Protocolo simple de eco.
+    ///     Protocolo simple de eco definido según el estándar RFC 862.
     /// </summary>
     /// <remarks>
     ///     Este protocolo utiliza TCP/IP, no IGMP.
     /// </remarks>
     [Port(7)]
-    public class Echo : Protocol
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
+    public class Echo : SimpleProtocol
     {
         /// <inheritdoc />
         /// <summary>
@@ -46,7 +48,7 @@ namespace TheXDS.MCART.Networking.Server.Protocols
         /// </param>
         /// <param name="data">
         ///     Datos que <paramref name="client" /> ha enviado como parte de la
-        ///     soliccitud de atención.
+        ///     solicitud de atención.
         /// </param>
         public override void ClientAttendant(Client client, byte[] data)
         {
@@ -54,4 +56,5 @@ namespace TheXDS.MCART.Networking.Server.Protocols
         }
     }
 }
+
 #endif

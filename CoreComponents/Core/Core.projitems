@@ -19,6 +19,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Enums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Events.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Exceptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Modules\Common_nonCLS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\Objects.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\ActiveClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\ClientBase.cs" />
@@ -28,14 +29,19 @@
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\Protocols\Echo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\SelfWiredCommandClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\IServerProtocol.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\Protocols\Daytime.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\Protocols\Discard.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\Protocols\Time.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\SelfWiredCommandProtocol.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\SimpleProtocol.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\DateTimeExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\TcpClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Common.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\DownloadHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\Protocols\Echo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\Server.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\Client.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\Protocol.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\ServerProtocol.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\Events.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\Attributes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\IPlugin.cs" />
@@ -84,8 +90,5 @@
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Colors.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\IProtocol.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Range.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Modules\MCART\" />
   </ItemGroup>
 </Project>

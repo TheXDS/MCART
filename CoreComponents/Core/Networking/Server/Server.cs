@@ -231,12 +231,16 @@ namespace TheXDS.MCART.Networking.Server
         {
             Protocol = protocol ?? throw new ArgumentNullException(nameof(protocol));
             if (Protocol is IServerProtocol p) p.MyServer = this;
-
-            ListeningEndPoint =
-                ep ?? new IPEndPoint(IPAddress.Any, Protocol.GetAttr<PortAttribute>()?.Value ?? DefaultPort);
+            ListeningEndPoint = ep ?? new IPEndPoint(IPAddress.Any, Protocol.GetAttr<PortAttribute>()?.Value ?? DefaultPort);
             _listener = new TcpListener(ListeningEndPoint);
         }
 
+        /// <summary>
+        ///     Encapsula una tarea para devolver un arreglo de bytes vacío
+        ///     cuando ocurra una excepción.
+        /// </summary>
+        /// <param name="task"></param>
+        /// <returns></returns>
         private static byte[] GetResponse(Task<byte[]> task)
         {
             try

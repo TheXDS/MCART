@@ -30,7 +30,7 @@ namespace EchoServer
 {
     internal static class Program
     {
-        private class EchoProt : Protocol
+        private class EchoProt : IProtocol
         {
             /// <inheritdoc />
             /// <summary>
@@ -38,7 +38,7 @@ namespace EchoServer
             /// </summary>
             /// <param name="client">Cliente que será atendido.</param>
             /// <param name="data">Datos recibidos desde el cliente.</param>
-            public override void ClientAttendant(Client client, byte[] data)
+            public void ClientAttendant(Client client, byte[] data)
             {
                 client.Send(data);
                 Console.WriteLine($"Solicitud de eco atendida. {data.Length}");
@@ -50,7 +50,7 @@ namespace EchoServer
             /// Protocolo de desconexión del cliente.
             /// </summary>
             /// <param name="client">Cliente que será atendido.</param>
-            public override void ClientBye(Client client)
+            public void ClientBye(Client client)
             {
                 Console.WriteLine("Cliente desconectado correctamente.");
             }
@@ -60,8 +60,7 @@ namespace EchoServer
             /// Protocolo de desconexión inesperada del cliente.
             /// </summary>
             /// <param name="client">Cliente que se ha desconectado.</param>
-            /// <param name="server">Servidor que atiendía al cliente.</param>
-            public override void ClientDisconnect(Client client)
+            public void ClientDisconnect(Client client)
             {
                 Console.WriteLine("Cliente desconectado inesperadamente.");
             }
@@ -75,11 +74,25 @@ namespace EchoServer
             /// <see langword="false" /> en caso contrario.
             /// </returns>
             /// <param name="client">Cliente que será atendido.</param>
-            /// <param name="server">Servidor que atiende al cliente.</param>
-            public override bool ClientWelcome(Client client)
+            public bool ClientWelcome(Client client)
             {
                 Console.WriteLine("Un cliente se ha conectado.");
                 return true;
+            }
+
+            /// <inheritdoc />
+            /// <summary>
+            ///     Inicializa un nuevo cliente manejado por este protocolo.
+            /// </summary>
+            /// <param name="tcpClient">
+            ///     <see cref="T:System.Net.Sockets.TcpClient" /> de la conexión con el host remoto.
+            /// </param>
+            /// <returns>
+            ///     Un nuevo <see cref="T:TheXDS.MCART.Networking.Server.Client" />.
+            /// </returns>
+            public Client CreateClient(TcpClient tcpClient)
+            {
+                return new Client(tcpClient);
             }
         }
 

@@ -134,10 +134,23 @@ namespace TheXDS.MCART.Networking.Client
                 GetType().GetMethods().WithSignature<ResponseCallBack>()
                     .Concat(this.PropertiesOf<ResponseCallBack>())
                     .Concat(this.FieldsOf<ResponseCallBack>()))
-            foreach (var k in j.Method.GetCustomAttributes(tCmdAttr, false).OfType<IValueAttribute<TResponse>>())
             {
-                if (_responses.ContainsKey(k.Value)) throw new DataAlreadyExistsException();
-                _responses.Add(k.Value, j);
+
+                var attrs = j.Method.GetCustomAttributes(tCmdAttr, false).OfType<IValueAttribute<TResponse>>().ToList();
+                if (attrs.Any()) // Mapeo por configuración
+                {
+                    foreach (var k in attrs)
+                    {
+                        if (_responses.ContainsKey(k.Value)) throw new DataAlreadyExistsException();
+                        _responses.Add(k.Value, j);
+                    }
+                }
+                else // Mapeo por convención
+                {
+                    if (!Enum.TryParse(j.Method.Name, out TResponse k)) continue;
+                    if (_responses.ContainsKey(k)) throw new DataAlreadyExistsException();
+                    _responses.Add(k, j);
+                }
             }
         }
 

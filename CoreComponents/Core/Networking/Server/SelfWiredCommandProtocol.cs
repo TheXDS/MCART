@@ -50,7 +50,7 @@ namespace TheXDS.MCART.Networking.Server
     /// <typeparam name="TCommand"></typeparam>
     /// <typeparam name="TResponse"></typeparam>
     [SuppressMessage("ReSharper", "StaticMemberInGenericType")]
-    public abstract class SelfWiredCommandProtocol<TClient, TCommand, TResponse> : Protocol<TClient>
+    public abstract class SelfWiredCommandProtocol<TClient, TCommand, TResponse> : ServerProtocol<TClient>
         where TClient : Client where TCommand : struct, Enum where TResponse : struct, Enum
     {
         /// <summary>
@@ -67,6 +67,18 @@ namespace TheXDS.MCART.Networking.Server
         private readonly Dictionary<TCommand, CommandCallback> _commands =
             new Dictionary<TCommand, CommandCallback>();
 
+        /// <summary>
+        ///     Inicializa la clase
+        ///     <see cref="SelfWiredCommandProtocol{TClient,TCommand,TResponse}"/>.
+        /// </summary>
+        /// <remarks>
+        ///     Este método realiza inicializaciones especiales, como
+        ///     determinar el método a utilizar para leer y escribir valores de
+        ///     enumeración desde y hacia un <see cref="Stream"/> o un arreglo
+        ///     de bytes. Además, inicializa respuestas predeterminadas si las
+        ///     mismas se encuentran definidas en la enumeración de respuestas
+        ///     de <typeparamref name="TResponse"/>.
+        /// </remarks>
         static SelfWiredCommandProtocol()
         {
             var tCmd = typeof(TCommand).GetEnumUnderlyingType();
@@ -98,6 +110,10 @@ namespace TheXDS.MCART.Networking.Server
         /// <summary>
         ///     Inicializa una nueva instancia de la clase <see cref="SelfWiredCommandProtocol{TClient,TCommand,TResponse}" />
         /// </summary>
+        /// <remarks>
+        ///     En este método se realiza el mapeo entre comandos aceptados por
+        ///     el protocolo y sus respectivos métodos de atención.
+        /// </remarks>
         protected SelfWiredCommandProtocol()
         {
             var tCmdAttr = Objects.GetTypes<IValueAttribute<TCommand>>(true).FirstOrDefault() ??
@@ -106,10 +122,22 @@ namespace TheXDS.MCART.Networking.Server
                 GetType().GetMethods().WithSignature<CommandCallback>()
                     .Concat(this.PropertiesOf<CommandCallback>())
                     .Concat(this.FieldsOf<CommandCallback>()))
-            foreach (var k in j.Method.GetCustomAttributes(tCmdAttr, false).OfType<IValueAttribute<TCommand>>())
             {
-                if (_commands.ContainsKey(k.Value)) throw new DataAlreadyExistsException();
-                _commands.Add(k.Value, j as CommandCallback);
+                var attrs = j.Method.GetCustomAttributes(tCmdAttr, false).OfType<IValueAttribute<TCommand>>().ToList();
+                if (attrs.Any()) // Mapeo por configuración
+                {
+                    foreach (var k in attrs)
+                    {
+                        if (_commands.ContainsKey(k.Value)) throw new DataAlreadyExistsException();
+                        _commands.Add(k.Value, j);
+                    }
+                }
+                else // Mapeo por convención
+                {
+                    if (!Enum.TryParse(j.Method.Name, out TCommand k)) continue;
+                    if (_commands.ContainsKey(k)) throw new DataAlreadyExistsException();
+                    _commands.Add(k, j);
+                }
             }
         }
 
