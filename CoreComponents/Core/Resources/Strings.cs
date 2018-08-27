@@ -313,6 +313,17 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public static string XMissing(string text) => $"Falta {text}";
         /// <summary>
+        /// Devuelve una cadena con el texto "{<paramref name="x"/>} debe ser 
+        /// {<paramref name="y"/>}".
+        /// </summary>
+        /// <param name="x">Elemento x.</param>
+        /// <param name="y">Elemento y.</param>
+        /// <returns>
+        /// Una cadena con el texto "{<paramref name="x"/>} no puede ser
+        /// {<paramref name="y"/>}".
+        /// </returns>
+        public static string XMustBeY(string x, string y) => $"{x} debe ser {y}";
+        /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} no es cancelable".
         /// </summary>
         /// <param name="text">Texto a formatear.</param>
@@ -438,6 +449,7 @@ namespace TheXDS.MCART.Resources
         public const string HasUI = "Incluye UI";
         public const string HelpDir = @"\Help";
         public const string ImplInterfaces = "Interfaces implementadas";
+        public const string Instantiable = "Instanciable";
         public const string InterfaceExpected = "Se esperaba una interfaz";
         public const string InvalidData = "Los datos proporcionados no son válidos.";
         public const string InvalidDB = "La base de datos no es válida";

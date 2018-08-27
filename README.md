@@ -83,17 +83,17 @@ proyectos.
 La siguiente tabla indica los entornos de desarrollo en las cuales se ha
 comprobado la compatibilidad para compilar MCART:
 
-|Entorno de desarollo|Lite|WPF|.Net Std* |Tests|API-Doc* |Utils
+|Entorno de desarollo      |Lite|WPF|.Net Std* |Tests|API-Doc* |Utils
 |-|:-:|:-:|:-:|:-:|:-:|:-:
-|Visual Studio 2017|✓|✓|✓|✓|✓|✓
-|Visual Studio 2015**|✓|✓|✓|✓|✓|✓
-|Visual Studio 2013**|✓|✓|X|✓|✓|✓
-|Visual Studio 2010-|X|X|X|X|X|X
-|Xamarin Studio 4 (Windows)|X|X|X|X|X|X
-|MonoDevelop 7.6+ (Linux)|✓|X|✓|✓|X|✓
-|MonoDevelop 5-|X|X|X|X|X|X
-|SharpDevelop|X|X|X|X|X|X
-|Rider 2018.1|✓|✓|✓|✓|X|✓
+|Visual Studio 2017        | ✓ | ✓|    ✓    |  ✓ |    ✓   |  ✓
+|Visual Studio 2015**      | ✓ | ✓|    ✓    |  ✓ |    ✓   |  ✓
+|Visual Studio 2013**      | ✓ | ✓|    X     |  ✓ |    ✓   |  ✓
+|Visual Studio 2010-       | X  | X |    X     |  X  |    X    |  X
+|Xamarin Studio 4 (Windows)| X  | X |    X     |  X  |    X    |  X
+|MonoDevelop 7.6+ (Linux)  | ✓ | X |    ✓    |  ✓ |    X    |  ✓
+|MonoDevelop 5-            | X  | X |    X     |  X  |    X    |  X
+|SharpDevelop              | X  | X |    X     |  X  |    X    |  X
+|Rider 2018.2              | ✓ | ✓|    ✓    |  ✓ |    X    |  ✓
 
 *Una marca indica que el IDE soporta el proyecto.  
 Los IDE que no están listados

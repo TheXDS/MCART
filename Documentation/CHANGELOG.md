@@ -190,3 +190,6 @@
 
 #### MCART 0.8.8.1
 * Cambiado: Stack de red (lado del servidor) parcialmente rescrito.
+
+#### MCART 0.8.9.0
+* Cambios de API de stack de red
