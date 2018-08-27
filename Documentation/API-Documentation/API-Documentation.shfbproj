@@ -41,7 +41,7 @@
     <MaximumGroupParts>2</MaximumGroupParts>
     <NamespaceGrouping>False</NamespaceGrouping>
     <SyntaxFilters>C#, Visual Basic</SyntaxFilters>
-    <SdkLinkTarget>Blank</SdkLinkTarget>
+    <SdkLinkTarget>Top</SdkLinkTarget>
     <RootNamespaceContainer>False</RootNamespaceContainer>
     <PresentationStyle>VS2013</PresentationStyle>
     <Preliminary>True</Preliminary>
@@ -57,57 +57,69 @@
         <component id="API Token Resolution">{@TokenFiles}
 <replace elements="/*//token" item="string(.)" /></component>
       </ComponentConfig>
-<ComponentConfig id="Code Block Component" enabled="True"><component id="Code Block Component"><basePath value="{@HtmlEncProjectFolder}" /><outputPaths>{@HelpFormatOutputPaths}</outputPaths><allowMissingSource value="false" /><removeRegionMarkers value="false" /><colorizer syntaxFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.xml" styleFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.xsl" stylesheet="{@SHFBFolder}PresentationStyles\Colorizer\highlight.css" scriptFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.js" disabled="{@DisableCodeBlockComponent}" language="cs" tabSize="0" numberLines="true" outlining="false" keepSeeTags="false" defaultTitle="true" /></component></ComponentConfig>
-<ComponentConfig id="Syntax Component" enabled="True"><component id="Syntax Component">
-  <syntax input="/document/reference" output="/document/syntax" renderReferenceLinks="true" />
-  <generators>
+      <ComponentConfig id="Code Block Component" enabled="True">
+        <component id="Code Block Component">
+          <basePath value="{@HtmlEncProjectFolder}" />
+          <outputPaths>{@HelpFormatOutputPaths}</outputPaths>
+          <allowMissingSource value="false" />
+          <removeRegionMarkers value="false" />
+          <colorizer syntaxFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.xml" styleFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.xsl" stylesheet="{@SHFBFolder}PresentationStyles\Colorizer\highlight.css" scriptFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.js" disabled="{@DisableCodeBlockComponent}" language="cs" tabSize="0" numberLines="true" outlining="false" keepSeeTags="false" defaultTitle="true" />
+        </component>
+      </ComponentConfig>
+      <ComponentConfig id="Syntax Component" enabled="True">
+        <component id="Syntax Component">
+          <syntax input="/document/reference" output="/document/syntax" renderReferenceLinks="true" />
+          <generators>
     {@SyntaxFilters}
 </generators>
-  <containerElement name="codeSnippetGroup" addNoExampleTabs="true" includeOnSingleSnippets="false" groupingEnabled="{@CodeSnippetGrouping}" />
-  <configurations>
-    <generator id="C#" />
-    <generator id="Visual Basic">
-      <includeLineContinuation value="false" />
-    </generator>
-    <generator id="Visual Basic Usage">
-      <includeLineContinuation value="false" />
-    </generator>
-    <generator id="Managed C++" />
-    <generator id="F#" />
-    <generator id="J#" />
-    <generator id="JScript" />
-    <generator id="JavaScript" />
-    <generator id="XAML Usage" />
-    <generator id="ASP.NET" />
-    <generator id="X#" />
-  </configurations>
-</component></ComponentConfig></ComponentConfigurations>
+          <containerElement name="codeSnippetGroup" addNoExampleTabs="true" includeOnSingleSnippets="false" groupingEnabled="{@CodeSnippetGrouping}" />
+          <configurations>
+            <generator id="C#" />
+            <generator id="Visual Basic">
+              <includeLineContinuation value="false" />
+            </generator>
+            <generator id="Visual Basic Usage">
+              <includeLineContinuation value="false" />
+            </generator>
+            <generator id="Managed C++" />
+            <generator id="F#" />
+            <generator id="J#" />
+            <generator id="JScript" />
+            <generator id="JavaScript" />
+            <generator id="XAML Usage" />
+            <generator id="ASP.NET" />
+            <generator id="X#" />
+          </configurations>
+        </component>
+      </ComponentConfig>
+    </ComponentConfigurations>
     <DocumentationSources>
       <DocumentationSource sourceFile="..\..\MCART\WPF\WPF.csproj" />
     </DocumentationSources>
     <NamespaceSummaries>
-      <NamespaceSummaryItem name="MCART" isDocumented="True" xmlns="">Este es el espacio de nombres raíz de MCART. Al importar este espacio de hombres en un proyecto, numerosas extensiones comunes se encontrarán disponibles.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="MCART.Attributes" isDocumented="True" xmlns="">El espacio de nombres MCART.Attributes contiene múltiples clases que pueden ser utilizadas como atributos para diversos fines.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="MCART.Controls" isDocumented="True" xmlns="">El espacio de nombres MCART.Controls contiene una librería de controles/widgets disponibles para aplicaciones de GUI.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="MCART.Events" isDocumented="True" xmlns="">El espacio de nombres MCART.Attributes contiene múltiples clases que pueden ser utilizadas como argumentos de eventos acompañados de sus respectivos delegados para diversos fines.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="MCART.Exceptions" isDocumented="True" xmlns="">El espacio de nombres MCART.Attributes contiene múltiples clases que pueden ser utilizadas como excepciones para diversos fines.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="MCART.Forms" isDocumented="True" xmlns="">El espacio de nombres MCART.Controls contiene una librería de ventanas y diálogos disponibles para aplicaciones de GUI.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="MCART.Networking" isDocumented="True" xmlns="">El espacio de nombres MCART.Networking contiene diversas herramientas y clases auxiliares para crear aplicaciones con conectividad de red (capa TCP) y/o web (capa de aplicación).</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="MCART.Networking.Client" isDocumented="True" xmlns="">Este espacio de nombres contiene herramientas específicas para crear aplicaciones cliente que requieran acceso de red.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="MCART.Networking.Server" isDocumented="True" xmlns="">Este espacio de nombres contiene herramientas específicas para crear aplicaciones servidor que provean servicios de red.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="MCART.Networking.Server.Protocols" isDocumented="True" xmlns="">Este espacio de nombres contiene protocolos predeterminados para implementar fácilmente aplicaciones de servidor que provean servicios de red.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="MCART.PluginSupport" isDocumented="True" xmlns="">Este espacio de nombres contiene la funcionalidad completa de administración y soporte de plugins por medio de la implementación de MCART.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="MCART.Resources" isDocumented="True" xmlns="">Este espacio de nombres contiene numerosos recursos misceláneos disponibles para MCART y otras aplicaciones.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="MCART.Security.Checksum" isDocumented="True" xmlns="">Este espacio de nombres contiene herramientas de seguridad específicas para el cálculo de sumas de verificación.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="MCART.Security.Encryption" isDocumented="True" xmlns="">Este espacio de nombres contiene herramientas de seguridad específicas para el encriptado de información.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="MCART.Security.Password" isDocumented="True" xmlns="">Este espacio de nombres contiene herramientas de seguridad específicas para trabajar con contraseñas.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="MCART.Types" isDocumented="True" xmlns="">El espacio de nombres MCART.Types contiene nuevos tipos con funcionalidad adicional y/o universal.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="MCART.Types.Extensions" isDocumented="True" xmlns="">El espacio de nombres MCART.Types contiene métodos de extensión genéricos para tipos integrados de .Net Framework.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="MCART.Types.TaskReporter" isDocumented="True" xmlns="">Este espacio de nombres es temporal, y contiene el tipo TaskReporter y otras clases relacionadas.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="System.Windows.Converters" isDocumented="True" xmlns="">Este espacio de nombres contiene clases de conversión de valores utilizadas en propiedades de dependencia en Windows Presentation Framework.</NamespaceSummaryItem>
-    </NamespaceSummaries>
+      <NamespaceSummaryItem name="System.Windows.Converters" isDocumented="True">Este espacio de nombres contiene clases de conversión de valores utilizadas en propiedades de dependencia en Windows Presentation Framework.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="TheXDS.MCART" isDocumented="True">El espacio de nombres raíz de MCART. Al importar el espacio de nombres, se accede automáticamente a ciertas extensiones básicas de tipos.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="TheXDS.MCART.Attributes" isDocumented="True">Este espacio de nombres contiene una librería de atributos aplicables a distintos elementos del código.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="TheXDS.MCART.Controls" isDocumented="True">Este espacio de nombres contiene una librería de controles disponibles para proyectos de WPF.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="TheXDS.MCART.Dialogs" isDocumented="True">Este espacio de nombres contiene una librería de diálogos prefabricados y/o fábricas de diálogos para aplicaciones WPF interactivas.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="TheXDS.MCART.Events" isDocumented="True">Este espacio de nombres contiene una librería de objetos que pueden ser utilizados para construir manejadores de eventos.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="TheXDS.MCART.Exceptions" isDocumented="True">Este espacio de nombres contiene una librería de excepciones que pueden ser lanzadas por MCART o por su aplicación.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="TheXDS.MCART.Fluent" isDocumented="True">Este espacio de nombres contiene extensiones de tipo Fluent para diversos tipos de objetos.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="TheXDS.MCART.Math" isDocumented="True">Este espacio de nombres contiene toda la funcionalidad matemática de MCART, como ser álgebra, series numéricas, operaciones, funciones, etc.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="TheXDS.MCART.Networking" isDocumented="True">Este espacio de nombres contiene la raíz del Stack de redes de MCART.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="TheXDS.MCART.Networking.Client" isDocumented="True">Este espacio de nombres provee múltiples clases que permiten crear aplicaciones de red. Aquí se encuentran las clases de lado del cliente.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="TheXDS.MCART.Networking.Client.Protocols" isDocumented="True">En este espacio de nombres se definen implementaciones predeterminadas de ciertos protocolos que acompañan a esta distribución de MCART. Aquí se definen los clientes de red de cada protocolo.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="TheXDS.MCART.Networking.Server" isDocumented="True">Este espacio de nombres provee múltiples clases que permiten crear aplicaciones de red. Aquí se encuentran las clases de lado del servidor.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="TheXDS.MCART.Networking.Server.Protocols" isDocumented="True">En este espacio de nombres se definen implementaciones predeterminadas de ciertos protocolos que acompañan a esta distribución de MCART. Aquí se definen los servidores de red de cada protocolo.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="TheXDS.MCART.PluginSupport" isDocumented="True">Este espacio de nombres contiene toda la implementación del Stack de Plugins de MCART.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="TheXDS.MCART.Resources" isDocumented="True">Este espacio de nombres contiene todos los recursos incrustados de MCART, como ser cadenas, gráficos, colores, etc.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="TheXDS.MCART.Security.Password" isDocumented="True">Este espacio de nombres comprende toda la funcionalidad de seguridad en cuanto a contraseñas se refiere.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="TheXDS.MCART.Types" isDocumented="True">Este espacio de nombres contiene las definiciones de nuevos tipos, así como también de extensiones de tipos existentes.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="TheXDS.MCART.Types.Extensions" isDocumented="True">Este espacio de nombres contiene extensiones de tipos.</NamespaceSummaryItem></NamespaceSummaries>
     <CopyrightText>Copyright &amp;#169%3b 2011-2018 C&amp;#233%3bsar Andr&amp;#233%3bs Morgan</CopyrightText>
     <SourceCodeBasePath>..\..\</SourceCodeBasePath>
+    <FeedbackEMailAddress>xds_xps_ivx%40hotmail.com</FeedbackEMailAddress>
+    <FeedbackEMailLinkText>Sugerencias%3f</FeedbackEMailLinkText>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->

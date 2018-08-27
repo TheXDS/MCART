@@ -32,8 +32,8 @@
     <OutputPath>..\..\Build\netstandard2.0\Release\</OutputPath>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
     <LangVersion>latest</LangVersion>
-    <DebugType>none</DebugType>
-    <DebugSymbols>false</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
     <DocumentationFile>..\..\Build\netstandard2.0\Release\TheXDS.MCART.NetStandard.xml</DocumentationFile>
   </PropertyGroup>
   <Import Project="..\..\CoreComponents\Core\Core.projitems" Label="Shared" />
