@@ -185,44 +185,46 @@ namespace TheXDS.MCART.Networking.Client
             while (GetNs() is NetworkStream ns)
             {
                 var outp = await GetDataAsync(ns);
-                using (var ms = new MemoryStream(outp))
+                var ms = new MemoryStream(outp);
+                var br = new BinaryReader(ms);
+                if (_interrupts.TryDequeue(out var callback))
                 {
-                    var br = new BinaryReader(ms);
-                    if (_interrupts.TryDequeue(out var callback))
-                    {
 #pragma warning disable 4014
-                        Task.Run(() =>
-                        {
-                            callback.Invoke(this, br); 
-                            br.Dispose();
-                        });
+                    Task.Run(() =>
+                    {
+                        callback.Invoke(this, br);
+                        br.Dispose();
+                        ms.Dispose();
+                    });
 #pragma warning restore 4014
 
+                }
+                else
+                {
+                    var cmd = ReadResponse(br);
+                    if (ErrResponse.Equals(cmd)) ServerError?.Invoke(this, EventArgs.Empty);
+                    if (UnkResponse.Equals(cmd)) UnknownCommandIssued?.Invoke(this, EventArgs.Empty);
+                    if (_responses.ContainsKey(cmd))
+                    {
+#pragma warning disable 4014
+                        Task.Run(()=>
+                        {
+                            _responses[cmd](this, br);
+                            br.Dispose();
+                            ms.Dispose();
+                        });
+                    }
+#pragma warning restore 4014
+                    else if (outp.Any())
+                    {
+                        br.Dispose();
+                        ms.Dispose();
+                        AttendServer(outp);
                     }
                     else
                     {
-                        var cmd = ReadResponse(br);
-                        if (ErrResponse.Equals(cmd)) ServerError?.Invoke(this, EventArgs.Empty);
-                        if (UnkResponse.Equals(cmd)) UnknownCommandIssued?.Invoke(this, EventArgs.Empty);
-                        if (_responses.ContainsKey(cmd))
-                        {
-#pragma warning disable 4014
-                            Task.Run(()=>
-                            {
-                                _responses[cmd](this, br);
-                                br.Dispose();
-                            });
-                        }
-#pragma warning restore 4014
-                        else if (outp.Any())
-                        {
-                            br.Dispose();
-                            AttendServer(outp);
-                        }
-                        else
-                        {
-                            br.Dispose();
-                        }
+                        br.Dispose();
+                        ms.Dispose();
                     }
                 }
             }

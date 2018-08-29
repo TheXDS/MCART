@@ -28,7 +28,7 @@ using System.Reflection;
 [assembly: AssemblyProduct("Morgan's CLR Advanced Runtime")]
 [assembly: AssemblyCopyright("Copyright © 2011-2018 César Andrés Morgan")]
 #pragma warning disable CS7035
-[assembly: AssemblyVersion("0.8.9.0")]
+[assembly: AssemblyVersion("0.8.9.1")]
 #if CLSCompliance
 [assembly: System.CLSCompliant(true)]
 #endif
