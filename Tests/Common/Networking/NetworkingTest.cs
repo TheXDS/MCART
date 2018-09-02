@@ -39,8 +39,8 @@ namespace CoreTest.Networking
         public void DownloadTest()
         {
             var ms = new System.IO.MemoryStream();
-            TheXDS.MCART.Networking.DownloadHelper.DownloadHttp("http://ipv4.download.thinkbroadband.com/5MB.zip", ms);
-            Assert.Equal(5242880, ms.Length);
+            TheXDS.MCART.Networking.DownloadHelper.DownloadHttp("http://speedtest.ftp.otenet.gr/files/test100k.db", ms);
+            Assert.Equal(102400, ms.Length);
         }
     }
 }
