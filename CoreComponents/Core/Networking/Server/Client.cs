@@ -31,9 +31,16 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 
+#region Configuración de ReSharper
+
+// ReSharper disable UnusedMember.Global
+// ReSharper disable ClassNeverInstantiated.Global
+// ReSharper disable MemberCanBePrivate.Global
+
+#endregion
+
 namespace TheXDS.MCART.Networking.Server
 {
-    /// <inheritdoc />
     /// <summary>
     ///     Representa a un cliente que no requiere datos de estado que se ha
     ///     conectado al servidor.
@@ -62,8 +69,6 @@ namespace TheXDS.MCART.Networking.Server
             }
         }
 
-
-        /// <inheritdoc />
         /// <summary>
         ///     Define los métodos a implementar por una clase que represente a un
         ///     cliente conectado al servidor.
@@ -127,7 +132,6 @@ namespace TheXDS.MCART.Networking.Server
             Connection = connection;
         }
 
-        /// <inheritdoc />
         /// <summary>
         ///     Inicia el proceso de desconexión del cliente.
         /// </summary>
@@ -136,7 +140,6 @@ namespace TheXDS.MCART.Networking.Server
             Disconnecting = true;
         }
 
-        /// <inheritdoc />
         /// <summary>
         ///     Desconecta al cliente del servidor.
         /// </summary>
@@ -161,6 +164,7 @@ namespace TheXDS.MCART.Networking.Server
                 return ms.ToArray();
             }
         }
+
         /// <summary>
         /// Obtiene un paquete completo de datos desde el servidor.
         /// </summary>

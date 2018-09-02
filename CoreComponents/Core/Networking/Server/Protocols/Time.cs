@@ -47,12 +47,7 @@ namespace TheXDS.MCART.Networking.Server.Protocols
         /// <param name="data">Datos recibidos desde el cliente.</param>
         public void ClientAttendant(Client client, byte[] data)
         {
-            unchecked
-            {
-                var l = (int)DateTime.Now.ToTimestamp(DateTimeExtensions.CenturyEpoch);
-                if (BitConverter.IsLittleEndian) l=l.FlipEndianess();
-                client.Send(BitConverter.GetBytes(l));
-            }
+            Send(client);
         }
 
         /// <inheritdoc />
@@ -85,12 +80,7 @@ namespace TheXDS.MCART.Networking.Server.Protocols
         /// <param name="client">Cliente que será atendido.</param>
         public bool ClientWelcome(Client client)
         {
-            unchecked
-            {
-                var l = (int)DateTime.Now.ToTimestamp(DateTimeExtensions.CenturyEpoch);
-                if (BitConverter.IsLittleEndian) l=l.FlipEndianess();
-                client.Send(BitConverter.GetBytes(l));
-            }
+            Send(client);
             return false;
         }
 
@@ -107,6 +97,16 @@ namespace TheXDS.MCART.Networking.Server.Protocols
         public Client CreateClient(TcpClient tcpClient)
         {
             return new Client(tcpClient);
+        }
+
+        private static void Send(Client client)
+        {
+            unchecked
+            {
+                var l = (int)DateTime.Now.ToTimestamp(DateTimeExtensions.CenturyEpoch);
+                if (BitConverter.IsLittleEndian) l = l.FlipEndianess();
+                client.Send(BitConverter.GetBytes(l));
+            }
         }
     }
 }
