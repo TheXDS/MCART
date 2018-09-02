@@ -85,7 +85,16 @@ namespace TheXDS.MCART.Networking.Client
         public delegate void ResponseCallBack(object instance, BinaryReader br);
 
         private static readonly TResponse? ErrResponse;
-        private static readonly MethodInfo MakeCmd;
+        /// <summary>
+        ///     Genera un arreglo de bytes de comando al servidor a partir del
+        ///     valor especificado.
+        /// </summary>
+        /// <returns>
+        ///     Un arreglo de bytes que contiene los bytes que representan al
+        ///     comando, a partir del cual se pueden concatenar más datos para
+        ///     construir una solicitud completa.
+        /// </returns>
+        public static Func<TCommand, byte[]> MakeCommand { get; }
         private static readonly MethodInfo ReadRsp;
         private static readonly TResponse? UnkResponse;
 
@@ -97,25 +106,14 @@ namespace TheXDS.MCART.Networking.Client
 
         static SelfWiredCommandClient()
         {
-            var tRsp = typeof(TResponse).GetEnumUnderlyingType();
-            var tCmd = typeof(TCommand).GetEnumUnderlyingType();
+            MakeCommand = Types.Extensions.EnumExtensions.ToBytes<TCommand>();
 
+            var tRsp = typeof(TResponse).GetEnumUnderlyingType();
             ReadRsp = typeof(BinaryReader).GetMethods().FirstOrDefault(p =>
                           p.Name.StartsWith("Read")
                           && p.GetParameters().Length == 0
                           && p.ReturnType == tRsp)
                       ?? throw new PlatformNotSupportedException();
-
-            if (tCmd == typeof(byte))
-                MakeCmd = new Func<byte, byte[]>(BypassByte).Method;
-            else
-                MakeCmd = typeof(BitConverter).GetMethods().FirstOrDefault(p =>
-                {
-                    var pars = p.GetParameters();
-                    return p.Name == nameof(BitConverter.GetBytes)
-                           && pars.Length == 1
-                           && pars[0].ParameterType == tCmd;
-                }) ?? throw new PlatformNotSupportedException();
 
             var vals = Enum.GetValues(typeof(TResponse)).OfType<TResponse?>().ToArray();
             ErrResponse = vals.FirstOrDefault(p => p.HasAttr<ErrorResponseAttribute>());
@@ -152,11 +150,6 @@ namespace TheXDS.MCART.Networking.Client
                     _responses.Add(k, j);
                 }
             }
-        }
-
-        private static byte[] BypassByte(byte b)
-        {
-            return new[] {b};
         }
 
         /// <inheritdoc />
@@ -241,23 +234,6 @@ namespace TheXDS.MCART.Networking.Client
                 RaiseConnectionLost();
                 return null;
             }
-        }
-
-        /// <summary>
-        ///     Genera un arreglo de bytes de comando al servidor a partir del
-        ///     valor especificado.
-        /// </summary>
-        /// <param name="command">
-        ///     Comando a partir de cual generar el arreglo de bytes.
-        /// </param>
-        /// <returns>
-        ///     Un arreglo de bytes que contiene los bytes que representan al
-        ///     comando, a partir del cual se pueden concatenar más datos para
-        ///     construir una solicitud completa.
-        /// </returns>
-        public IEnumerable<byte> MakeCommand(TCommand command)
-        {
-            return (byte[]) MakeCmd.Invoke(null, new object[] {command});
         }
 
         /// <summary>

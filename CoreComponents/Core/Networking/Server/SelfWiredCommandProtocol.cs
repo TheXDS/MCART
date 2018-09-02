@@ -30,6 +30,7 @@ using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Types.Extensions;
 
 #region Configuración de ReSharper
 
@@ -44,11 +45,18 @@ namespace TheXDS.MCART.Networking.Server
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Clase base para crear protocolos simples con bytes de comandos
+    ///     Clase base para crear protocolos simples con bytes de comandos.
     /// </summary>
-    /// <typeparam name="TClient"></typeparam>
-    /// <typeparam name="TCommand"></typeparam>
-    /// <typeparam name="TResponse"></typeparam>
+    /// <typeparam name="TClient">
+    ///     Tipo de clientes a atender.
+    /// </typeparam>
+    /// <typeparam name="TCommand">
+    ///     Tipo de la enumeración de comandos que el protocolo aceptará.
+    /// </typeparam>
+    /// <typeparam name="TResponse">
+    ///     Tipo de la enumeración de las respuestas que este protocolo
+    ///     devolverá a los clientes conectados.
+    /// </typeparam>
     [SuppressMessage("ReSharper", "StaticMemberInGenericType")]
     public abstract class SelfWiredCommandProtocol<TClient, TCommand, TResponse> : ServerProtocol<TClient>
         where TClient : Client where TCommand : struct, Enum where TResponse : struct, Enum
@@ -59,7 +67,6 @@ namespace TheXDS.MCART.Networking.Server
         public delegate void CommandCallback(object instance, BinaryReader br, TClient client, Server<TClient> server);
 
         private static readonly TResponse? ErrResponse;
-        private static readonly MethodInfo MakeRsp;
         private static readonly TResponse? NotMappedResponse;
         private static readonly MethodInfo ReadCmd;
         private static readonly TResponse? UnkResponse;
@@ -68,40 +75,36 @@ namespace TheXDS.MCART.Networking.Server
             new Dictionary<TCommand, CommandCallback>();
 
         /// <summary>
+        ///     Genera un arreglo de bytes con la respuesta de este servidor.
+        /// </summary>
+        /// <returns>
+        ///     Un arreglo de bytes con la respuesta, al cual se pueden concatenar más datos.
+        /// </returns>
+        public static Func<TResponse, byte[]> MakeResponse { get; }
+
+        /// <summary>
         ///     Inicializa la clase
-        ///     <see cref="SelfWiredCommandProtocol{TClient,TCommand,TResponse}"/>.
+        ///     <see cref="SelfWiredCommandProtocol{TClient,TCommand,TResponse}" />.
         /// </summary>
         /// <remarks>
         ///     Este método realiza inicializaciones especiales, como
         ///     determinar el método a utilizar para leer y escribir valores de
-        ///     enumeración desde y hacia un <see cref="Stream"/> o un arreglo
+        ///     enumeración desde y hacia un <see cref="Stream" /> o un arreglo
         ///     de bytes. Además, inicializa respuestas predeterminadas si las
         ///     mismas se encuentran definidas en la enumeración de respuestas
-        ///     de <typeparamref name="TResponse"/>.
+        ///     de <typeparamref name="TResponse" />.
         /// </remarks>
         static SelfWiredCommandProtocol()
         {
+            MakeResponse = EnumExtensions.ToBytes<TResponse>();
+
             var tCmd = typeof(TCommand).GetEnumUnderlyingType();
-            var tRsp = typeof(TResponse).GetEnumUnderlyingType();
             ReadCmd = typeof(BinaryReader).GetMethods().FirstOrDefault(p =>
                           p.Name.StartsWith("Read")
                           && p.GetParameters().Length == 0
                           && p.ReturnType == tCmd)
                       ?? throw new PlatformNotSupportedException();
-
-            if (tRsp == typeof(byte))
-                MakeRsp = new Func<byte, byte[]>(BypassByte).Method;
-            else
-                MakeRsp = typeof(BitConverter).GetMethods().FirstOrDefault(p =>
-                {
-                    var pars = p.GetParameters();
-                    return p.Name == nameof(BitConverter.GetBytes)
-                           && pars.Length == 1
-                           && pars[0].ParameterType == tRsp;
-                }) ?? throw new PlatformNotSupportedException();
-
             var vals = Enum.GetValues(typeof(TResponse)).OfType<TResponse?>().ToArray();
-
             ErrResponse = vals.FirstOrDefault(p => p.HasAttr<ErrorResponseAttribute>());
             UnkResponse = vals.FirstOrDefault(p => p.HasAttr<UnknownResponseAttribute>());
             NotMappedResponse = vals.FirstOrDefault(p => p.HasAttr<NotMappedResponseAttribute>());
@@ -141,23 +144,6 @@ namespace TheXDS.MCART.Networking.Server
             }
         }
 
-        private static byte[] BypassByte(byte b)
-        {
-            return new[] {b};
-        }
-
-        /// <summary>
-        ///     Genera un arreglo de bytes con la respuesta de este servidor.
-        /// </summary>
-        /// <param name="response">Respuesta a partir de la cual crear el arreglo de bytes.</param>
-        /// <returns>
-        ///     Un arreglo de bytes con la respuesta, al cual se pueden concatenar más datos.
-        /// </returns>
-        public static byte[] MakeResponse(TResponse response)
-        {
-            return (byte[]) MakeRsp.Invoke(null, new object[] {response});
-        }
-
         /// <summary>
         ///     Lee un comando desde el <see cref="BinaryReader" /> especificado.
         /// </summary>
@@ -170,11 +156,17 @@ namespace TheXDS.MCART.Networking.Server
             return (TCommand) Enum.ToObject(typeof(TCommand), ReadCmd.Invoke(br, new object[0]));
         }
 
+        /// <inheritdoc />
         /// <summary>
         ///     Protocolo de atención al cliente
         /// </summary>
         /// <param name="client">Cliente que será atendido.</param>
         /// <param name="data">Datos recibidos desde el cliente.</param>
+        /// <exception cref="InvalidOperationException">
+        ///     Se produce cuando el servidor encuentra un problema y no
+        ///     existen respuestas mapeadas de error, comando inválido o
+        ///     comando no mapeado.
+        /// </exception>
         public override void ClientAttendant(TClient client, byte[] data)
         {
             using (var br = new BinaryReader(new MemoryStream(data)))

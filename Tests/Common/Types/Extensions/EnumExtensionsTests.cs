@@ -1,0 +1,74 @@
+﻿/*
+EnumExtensionsTests.cs
+
+This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Author(s):
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+
+Copyright (c) 2011 - 2018 César Andrés Morgan
+
+Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+using System;
+using System.Linq;
+using static TheXDS.MCART.Types.Extensions.EnumExtensions;
+using Xunit;
+
+namespace Common.Types.Extensions
+{
+    public class EnumExtensionsTests
+    {
+        [Fact]
+        public void ToBytesTest()
+        {
+            Assert.Equal(new byte[]{1,0,0,0}, DayOfWeek.Monday.ToBytes());
+            Assert.Equal(new byte[] { 1 }, TestByteEnum.One.ToBytes());
+        }
+
+        [Fact]
+        public void ByteConversionmethodTest()
+        {
+            var a = ByteConversionMethod<DayOfWeek>();
+            Assert.NotNull(a);
+
+            var b = BitConverter.GetBytes((int)DayOfWeek.Monday);
+            var c = (byte[]) a.Invoke(null, new object[] {DayOfWeek.Monday});
+            Assert.Equal(b, c);
+
+            Assert.Throws<ArgumentException>(() => ByteConversionMethod(typeof(bool)));
+
+            var d = ByteConversionMethod(typeof(DayOfWeek));
+            Assert.Same(a,d);
+
+        }
+
+        [Fact]
+        public void ToBytesFunctionTest()
+        {
+            var a = BitConverter.GetBytes((int)DayOfWeek.Monday);
+            var b = ToBytes<DayOfWeek>();
+
+            Assert.Equal(a, b(DayOfWeek.Monday));
+        }
+
+        private enum TestByteEnum : byte
+        {
+            Zero,
+            One,
+            Two
+        }
+    }
+}

@@ -442,6 +442,7 @@ namespace TheXDS.MCART.Resources
         public const string DBDoesntBelong = "La base de datos no pertenece a este programa";
         public const string Descr = "Descripción";
         public const string DirectoryIsFull = "El directorio está lleno";
+        public const string EnumTypeExpected = "Se esperaba un tipo de enumeración.";
         public const string Err = "Error";
         public const string FeatNotAvailable = "Característica no disponible";
         public const string FrmIncorreclyOpened = "Este diálogo fue abierto de forma incorrecta. Refiérase a la documentación de MCART para resolver este problema. Si ve este mensaje de error, póngase en contacto con el desarrollador de la aplicación.";
