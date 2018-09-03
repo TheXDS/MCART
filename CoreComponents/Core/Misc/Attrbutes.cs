@@ -56,7 +56,6 @@ namespace TheXDS.MCART.Attributes
         T Value { get; }
     }
 
-    /// <inheritdoc />
     /// <summary>
     ///     Clase base para los atributos de cualquier tipo.
     /// </summary>
@@ -179,7 +178,6 @@ namespace TheXDS.MCART.Attributes
 
     #endregion
 
-    /// <inheritdoc />
     /// <summary>
     ///     Agrega un elemento textual genérico a un elemento, además de ser la
     ///     clase base para los atributos que describan un valor representable como
@@ -208,7 +206,6 @@ namespace TheXDS.MCART.Attributes
         public string Value { get; }
     }
 
-    /// <inheritdoc />
     /// <summary>
     ///     Agrega un elemento de tipo a un elemento, además de ser la
     ///     clase base para los atributos que describan un valor representable como
@@ -237,7 +234,6 @@ namespace TheXDS.MCART.Attributes
         public Type Value { get; }
     }
 
-    /// <inheritdoc />
     /// <summary>
     ///     Especifica la versión de un elemento, además de ser la clase base para
     ///     los atributos que describan un valor <see cref="Version" /> para un

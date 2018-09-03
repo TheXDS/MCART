@@ -45,6 +45,36 @@ namespace CoreTest.Modules
     public class CommonTest
     {
         [Fact]
+        public void ClampTest()
+        {
+            Assert.Equal(2,TheXDS.MCART.Math.Common.Clamp(1 + 1, 0, 3));
+            Assert.Equal(2,TheXDS.MCART.Math.Common.Clamp(1 + 3, 0, 2));
+            Assert.Equal(2,TheXDS.MCART.Math.Common.Clamp(1 + 0, 2, 4));
+        }
+
+        [Fact]
+        public void ClampTest_double()
+        {
+            Assert.Equal(2.0, TheXDS.MCART.Math.Common.Clamp(1.0+1.0,0.0,3.0));
+            Assert.Equal(2.0, TheXDS.MCART.Math.Common.Clamp(1.0+3.0,0.0,2.0));
+            Assert.Equal(2.0, TheXDS.MCART.Math.Common.Clamp(1.0-1.0,2.0,3.0));
+            Assert.Equal(double.NaN, TheXDS.MCART.Math.Common.Clamp(double.NaN, 0.0,1.0));
+            Assert.Equal(5.0, TheXDS.MCART.Math.Common.Clamp(double.PositiveInfinity, -5.0, 5.0));
+            Assert.Equal(-5.0, TheXDS.MCART.Math.Common.Clamp(double.NegativeInfinity, -5.0, 5.0));
+        }
+
+        [Fact]
+        public void ClampTest_float()
+        {
+            Assert.Equal(2.0f, TheXDS.MCART.Math.Common.Clamp(1.0f + 1.0f, 0.0f, 3.0f));
+            Assert.Equal(2.0f, TheXDS.MCART.Math.Common.Clamp(1.0f + 3.0f, 0.0f, 2.0f));
+            Assert.Equal(2.0f, TheXDS.MCART.Math.Common.Clamp(1.0f - 1.0f, 2.0f, 3.0f));
+            Assert.Equal(float.NaN, TheXDS.MCART.Math.Common.Clamp(float.NaN, 0.0f, 1.0f));
+            Assert.Equal(5.0f, TheXDS.MCART.Math.Common.Clamp(float.PositiveInfinity, -5.0f, 5.0f));
+            Assert.Equal(-5.0f, TheXDS.MCART.Math.Common.Clamp(float.NegativeInfinity, -5.0f, 5.0f));
+        }
+
+        [Fact]
         public void IsBinaryTest()
         {
             Assert.True("0b1010".IsBinary());

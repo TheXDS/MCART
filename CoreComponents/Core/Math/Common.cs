@@ -296,6 +296,7 @@ namespace TheXDS.MCART.Math
         /// </returns>
         public static double Wrap(this double expression, double min, double max)
         {
+            if (double.IsNaN(expression)) return double.NaN;
             if (expression.CompareTo(max) > 0) return (expression - (1 + max - min)).Wrap(min, max);
             if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
             return expression;
@@ -312,6 +313,7 @@ namespace TheXDS.MCART.Math
         /// </returns>
         public static float Wrap(this float expression, float min, float max)
         {
+            if (float.IsNaN(expression)) return float.NaN;
             if (expression.CompareTo(max) > 0) return (expression - (1 + max - min)).Wrap(min, max);
             if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
             return expression;

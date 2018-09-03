@@ -11,7 +11,12 @@
     <iconUrl>https://raw.githubusercontent.com/TheXDS/MCART/master/CoreComponents/Core-GUI/Resources/Icons/MCART.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Versión inicial disponible en NuGet.</releaseNotes>
+    <releaseNotes>
+      Este paquete es una versión Pre-Release de MCART, por lo que se
+      recomienda que su uso se limite a pruebas y demostraciones de la API, ya
+      que no se puede garantizar la estabilidad de la misma. Para más detalles,
+      vea la documentación que acompaña a MCART.
+    </releaseNotes>
     <copyright>$copyright$</copyright>
     <tags>mcart runtime extension helper async network security</tags>
   </metadata>

@@ -604,7 +604,26 @@ namespace TheXDS.MCART
         /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
         public static bool IsBetween<T>(this T value, T min, T max) where T : IComparable<T>
         {
-            return value.CompareTo(min) >= 0 && value.CompareTo(max) <= 0;
+            return IsBetween(value, min, max, true);
+        }
+
+        /// <summary>
+        ///     Comprueba que el valor se encuentre en el rango especificado.
+        /// </summary>
+        /// <returns>
+        ///     <see langword="true" /> si el valor se encuentra entre los
+        ///     especificados; de lo contrario, <see langword="false" />.
+        /// </returns>
+        /// <param name="value">Valor a comprobar.</param>
+        /// <param name="min">Mínimo del rango de valores, inclusive.</param>
+        /// <param name="max">Máximo del rango de valores, inclusive.</param>
+        /// <param name="inclusive">Inclusividad. de forma predeterminada, la comprobación es inclusive.</param>
+        /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
+        public static bool IsBetween<T>(this T value, T min, T max, bool inclusive) where T : IComparable<T>
+        {
+            return inclusive
+                ? value.CompareTo(min) >= 0 && value.CompareTo(max) <= 0
+                : value.CompareTo(min) > 0 && value.CompareTo(max) < 0;
         }
 
         /// <summary>
@@ -619,7 +638,23 @@ namespace TheXDS.MCART
         /// </returns>
         public static bool IsBetween<T>(this T value, Range<T> range) where T : IComparable<T>
         {
-            return range.IsWithin(value);
+            return IsBetween(value, range, true);
+        }
+
+        /// <summary>
+        ///     Comprueba que el valor se encuentre en el rango especificado.
+        /// </summary>
+        /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
+        /// <param name="value">Valor a comprobar.</param>
+        /// <param name="range">Rango de valores inclusivos a comprobar.</param>
+        /// <param name="inclusive">Inclusividad. de forma predeterminada, la comprobación es inclusive.</param>
+        /// <returns>
+        ///     <see langword="true" /> si el valor se encuentra entre los
+        ///     especificados; de lo contrario, <see langword="false" />.
+        /// </returns>
+        public static bool IsBetween<T>(this T value, Range<T> range, bool inclusive) where T : IComparable<T>
+        {
+            return range.IsWithin(value, inclusive);
         }
 
         /// <summary>

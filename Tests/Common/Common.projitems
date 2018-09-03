@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Math\AlgebraTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Math\MathTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Math\SeriesTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\CommonTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\ObjectsTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\NetworkingTest.cs" />

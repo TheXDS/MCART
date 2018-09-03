@@ -11,8 +11,6 @@
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Networking\Client\SelfWiredCommandClient.vb" />
     <None Include="$(MSBuildThisFileDirectory)PluginSupport\Plugin.vb" />
-    <None Include="$(MSBuildThisFileDirectory)VB\Examples.vb" />
-    <None Include="$(MSBuildThisFileDirectory)VB\PluginSupport\Plugin\uiMenu.vb" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\SelfWiredCommandClient.cs" />
