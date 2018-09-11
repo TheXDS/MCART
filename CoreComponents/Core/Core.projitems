@@ -91,5 +91,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Colors.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\IProtocol.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Range.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Networking\Reporters\ConsoleReporters.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Networking\Reporters\" />
   </ItemGroup>
 </Project>

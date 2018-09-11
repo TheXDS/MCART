@@ -61,37 +61,37 @@ namespace TheXDS.MCART.Networking
         public static string ByteUnits(this long bytes)
         {
             var c = 0;
-            var f = 0;
+            var f = 0.0f;
             while (bytes > 1023)
             {
                 c++;
                 f = (int)(bytes % 1024);
                 bytes /= 1024;
             }
-
+			f /= 1024;
             switch (c)
             {
                 case 0:
                     return $"{bytes} Bytes";
                 case 1:
-                    return $"{bytes+(float)f/1024:F1} KiB";
+                    return $"{bytes + f:F1} KiB";
                 case 2:
-                    return $"{bytes + (float)f / 1024:F1} MiB";
+                    return $"{bytes + f:F1} MiB";
                 case 3:
-                    return $"{bytes + (float)f / 1024:F1} GiB";
+                    return $"{bytes + f:F1} GiB";
                 case 4:
-                    return $"{bytes + (float)f / 1024:F1} TiB";
+                    return $"{bytes + f:F1} TiB";
                 case 5:
-                    return $"{bytes + (float)f / 1024:F1} PiB";
+                    return $"{bytes + f:F1} PiB";
                 case 6:
-                    return $"{bytes + (float)f / 1024:F1} EiB";
+                    return $"{bytes + f:F1} EiB";
                 case 7:
-                    return $"{bytes + (float)f / 1024:F1} ZiB";
+                    return $"{bytes + f:F1} ZiB";
                 default:
-                    return $"{bytes + (float)f / 1024:F1} YiB";
+                    return $"{bytes + f:F1} YiB";
             }
         }
- }
+    }
 
     /// <inheritdoc />
     /// <summary>

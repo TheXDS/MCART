@@ -29,34 +29,43 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using static TheXDS.MCART.Networking.Common;
 using static TheXDS.MCART.Networking.DownloadHelper;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using TheXDS.MCART;
+using TheXDS.MCART.Networking.Reporters;
+
+#if !ExtrasBuiltIn
 using TheXDS.MCART.Math;
+using static TheXDS.MCART.Networking.Common;
+#endif
 
 namespace Downloader
 {
-    internal static class Program
-    {
-        private static async Task Main(string[] args)
-        {
-            foreach (var j in args)
-            {
-                if (!Uri.TryCreate(j, UriKind.Absolute, out var uri)) continue;
-                if (!uri.Scheme.IsEither(Uri.UriSchemeHttp, Uri.UriSchemeHttps)) continue;
-                using (var fs = new FileStream(uri.Segments.Last(), FileMode.Create))
-                {
-                    Console.Write($"{j} => {fs.Name} ");
+	internal static class Program
+	{
+		private static async Task Main(string[] args)
+		{
+			foreach (var j in args)
+			{
+				if (!Uri.TryCreate(j, UriKind.Absolute, out var uri)) continue;
+				if (!uri.Scheme.IsEither(Uri.UriSchemeHttp, Uri.UriSchemeHttps)) continue;
+				using (var fs = new FileStream(uri.Segments.Last(), FileMode.Create))
+				{
+					Console.Write($"{j} => {fs.Name} ");
+#if ExtrasBuiltIn
+					await DownloadHttpAsync(uri, fs, ConsoleReporters.FullWidth, 1000);
+#else
                     await DownloadHttpAsync(uri, fs, Report, 1000);
-                    Console.WriteLine();
-                }
-            }
-        }
+#endif
+					Console.WriteLine();
+				}
+			}
+		}
 
-        private static void Report(long? current, long? total, long? speed)
+#if !ExtrasBuiltIn
+		private static void Report(long? current, long? total, long? speed)
         {
             var col = Console.CursorLeft;
             Console.Write(new string(' ', Console.BufferWidth-col-1));
@@ -72,5 +81,6 @@ namespace Downloader
             Console.Write(text);
             Console.CursorLeft = col;
         }
+#endif
     }
 }

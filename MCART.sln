@@ -28,7 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{13
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TestApp-WPF", "Examples\TestApp-WPF\TestApp-WPF.vbproj", "{D92E5DCA-64C6-4B41-B88D-59B0001814B2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetStandard", "MCART\NetStandard\NetStandard.csproj", "{BDC6D2BE-54B0-47B3-83CC-046BE00268C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetStandard", "MCART\NetStandard\NetStandard.csproj", "{BDC6D2BE-54B0-47B3-83CC-046BE00268C3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{D34D6209-75E9-495C-A672-3C3D04EC7A26}"
 	ProjectSection(SolutionItems) = preProject
@@ -43,7 +43,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AssemblyInfo", "CoreComponents\AssemblyInfo\AssemblyInfo.shproj", "{967AFAA3-DED3-4EC0-9401-7193B318FCE8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreTest", "Tests\CoreTest\CoreTest.csproj", "{3B7D6090-1BD1-406B-B0A6-CADA4D3B6DB8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreTest", "Tests\CoreTest\CoreTest.csproj", "{3B7D6090-1BD1-406B-B0A6-CADA4D3B6DB8}"
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "API-Documentation", "Documentation\API-Documentation\API-Documentation.shfbproj", "{14A05F92-BF65-4801-95A7-48EE59C72159}"
 	ProjectSection(ProjectDependencies) = postProject

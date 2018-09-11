@@ -57,5 +57,11 @@ namespace CoreTest.Networking
             TheXDS.MCART.Networking.DownloadHelper.DownloadHttp("http://speedtest.ftp.otenet.gr/files/test100k.db", ms);
             Assert.Equal(102400, ms.Length);
         }
+
+        [Fact]
+		public void TEst()
+		{
+			Assert.Equal("50%", $"{0.05:%}");
+		}
     }
 }
