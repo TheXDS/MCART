@@ -39,6 +39,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Math;
@@ -65,11 +66,123 @@ namespace TheXDS.MCART
     /// <remarks>
     ///     Algunas de estas funciones también se implementan como extensiones, por
     ///     lo que para ser llamadas únicamente es necesario importar el espacio de
-    ///     nombres <see cref="MCART" /> y utilizar sintáxis de instancia.
+    ///     nombres <see cref="MCART" /> y utilizar sintaxis de instancia.
     /// </remarks>
     [SuppressMessage("ReSharper", "PartialTypeWithSinglePart")]
     public static partial class Common
     {
+        /// <summary>
+        ///     Describe las opciones de búsqueda para el método
+        ///     <see cref="Common.TokenSearch"/>
+        /// </summary>
+        [Flags]
+        public enum SearchOptions
+        {
+            /// <summary>
+            ///     Modo de búsqueda predeterminado. Se ignorará el Casing y la
+            ///     cadena coincidirá con los términos de búsqueda si contiene al
+            ///     menos uno de los tokens. 
+            /// </summary>
+            Default,
+            /// <summary>
+            ///     Modo sensible al Casing. La cadena coincidirá con los términos
+            ///     de búsqueda si contiene al menos uno de los tokens. 
+            /// </summary>
+            CaseSensitive = 1,
+            /// <summary>
+            ///     Modo de búsqueda estricto. Se ignorará el casing, y la cadena
+            ///     coincidirá con los términos de búsqueda si contiene todos los
+            ///     tokens especificados.
+            /// </summary>
+            IncludeAll = 2,
+            /// <summary>
+            ///     Interpretar los tokens por medio del operador Like
+            /// </summary>
+            WildCard=4
+        }
+
+        /// <summary>
+        ///     Realiza una búsqueda tokenizada sobre la cadena especificada.
+        /// </summary>
+        /// <param name="str">
+        ///     Cadena en la cual buscar.
+        /// </param>
+        /// <param name="searchTerms">
+        ///     Términos de búsqueda.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> si la cadena coincide con los términos de
+        ///     búsqueda especificados, <see langword="false"/> en caso
+        ///     contrario.
+        /// </returns>
+        public static bool TokenSearch(this string str, string searchTerms)
+        {
+            return TokenSearch(str, searchTerms, SearchOptions.Default);
+        }
+
+        /// <summary>
+        ///     Realiza una búsqueda tokenizada sobre la cadena especificada.
+        /// </summary>
+        /// <param name="str">
+        ///     Cadena en la cual buscar.
+        /// </param>
+        /// <param name="searchTerms">
+        ///     Términos de búsqueda.
+        /// </param>
+        /// <param name="options">
+        ///     Opciones de búsqueda.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> si la cadena coincide con los términos de
+        ///     búsqueda y las opciones especificadas, <see langword="false"/> en
+        ///     caso contrario.
+        /// </returns>
+        public static bool TokenSearch(this string str, string searchTerms, SearchOptions options)
+        {
+            return TokenSearch(str, searchTerms, ' ', options);
+        }
+
+        /// <summary>
+        ///     Realiza una búsqueda tokenizada sobre la cadena especificada.
+        /// </summary>
+        /// <param name="str">
+        ///     Cadena en la cual buscar.
+        /// </param>
+        /// <param name="searchTerms">
+        ///     Términos de búsqueda.
+        /// </param>
+        /// <param name="separator">
+        ///     Separador de tokens.
+        /// </param>
+        /// <param name="options">
+        ///     Opciones de búsqueda.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> si la cadena coincide con los términos de
+        ///     búsqueda y las opciones especificadas, <see langword="false"/> en
+        ///     caso contrario.
+        /// </returns>
+        public static bool TokenSearch(this string str, string searchTerms, char separator, SearchOptions options)
+        {
+            var s = options.HasFlag(SearchOptions.CaseSensitive) ? str:str.ToUpper();
+            var t = options.HasFlag(SearchOptions.CaseSensitive) ? searchTerms : searchTerms.ToUpper();
+            var terms = t.Split(separator);
+
+            if (options.HasFlag(SearchOptions.WildCard))
+            {
+                return options.HasFlag(SearchOptions.IncludeAll)
+                    ? terms.All(j => Regex.IsMatch(s, WildCardToRegular(j)))
+                    : terms.Any(j => Regex.IsMatch(s, WildCardToRegular(j)));
+            }
+
+            return options.HasFlag(SearchOptions.IncludeAll) 
+                ? terms.All(j => s.Contains(j)) 
+                : terms.Any(j => s.Contains(j));
+        }
+        private static string WildCardToRegular(string value)
+        {
+            return "^" + Regex.Escape(value).Replace("\\?", ".").Replace("\\*", ".*") + "$";
+        }
         /// <summary>
         ///     Determina si un conjunto de cadenas están vacías.
         /// </summary>
@@ -685,6 +798,18 @@ namespace TheXDS.MCART
         public static bool IsEmpty(this string stringToCheck)
         {
             return string.IsNullOrWhiteSpace(stringToCheck);
+        }
+
+        /// <summary>
+        ///     Se asegura de devolver <see langword="null"/> si la cadena está vacía.
+        /// </summary>
+        /// <param name="str">Cadena a devolver.</param>
+        /// <returns>
+        ///     La cadena, o <see langword="null"/> si la cadena está vacía.
+        /// </returns>
+        public static string OrNull(this string str)
+        {
+            return str.IsEmpty() ? null : str;
         }
 
         /// <summary>

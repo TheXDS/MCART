@@ -1,5 +1,5 @@
-/*
-AssemblyInfo.cs
+﻿/*
+TreeViewExtensions.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,13 +22,28 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Reflection;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Controls;
 
-[assembly: AssemblyCompany("TheXDS! non-Corp.")]
-[assembly: AssemblyProduct("Morgan's CLR Advanced Runtime")]
-[assembly: AssemblyCopyright("Copyright © 2011-2018 César Andrés Morgan")]
-#pragma warning disable CS7035
-[assembly: AssemblyVersion("0.8.9.4")]
-#if CLSCompliance
-[assembly: System.CLSCompliant(true)]
-#endif
+namespace TheXDS.MCART.Types.Extensions
+{
+    /// <summary>
+    ///     Contiene extensiones útiles para la clase <see cref="TreeView"/>.
+    /// </summary>
+    public static class TreeViewExtensions
+    {
+        /// <summary>
+        ///     Deselecciona todos los ítems del <see cref="TreeView"/>.
+        /// </summary>
+        /// <param name="treeView"><see cref="TreeView"/> a procesar.</param>
+        public static void UnSelectAll(this TreeView treeView)
+        {
+            foreach (var j in treeView.Items.OfType<TreeViewItem>())
+                j.IsSelected = false;
+        }
+    }
+}

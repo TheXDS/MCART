@@ -122,10 +122,10 @@ namespace TheXDS.MCART
         [StructLayout(LayoutKind.Sequential)]
         private struct Margins
         {
-            public readonly int Left;
-            public readonly int Right;
-            public readonly int Top;
-            public readonly int Bottom;
+            public int Left;
+            public int Right;
+            public int Top;
+            public int Bottom;
         }
 
         private enum WindowData
@@ -442,6 +442,43 @@ namespace TheXDS.MCART
         [DllImport("dwmapi.dll")]
         private static extern int DwmExtendFrameIntoClientArea(IntPtr hWnd, ref Margins pMargins);
 
+        public static void SetFramePadding(this Window window, Thickness padding)
+        {
+            window.Padding = padding;
+            if (DwmIsCompositionEnabled())
+            {
+                var margins = new Margins();
+                margins.Top = (int)padding.Top;
+                margins.Left = (int)padding.Left;
+                margins.Bottom = (int)padding.Bottom;
+                margins.Right = (int)padding.Right;
+                DwmExtendFrameIntoClientArea(window.GetHwnd(), ref margins);
+
+            }
+        }
+
+        /// <summary>
+        ///     Obtiene el Handle de la ventana de WPF.
+        /// </summary>
+        /// <param name="window">
+        ///     Ventana de la cual obtener el Handle.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="IntPtr"/> que es el Handle de la ventana.
+        /// </returns>
+        public static IntPtr GetHwnd(this Window window) => new WindowInteropHelper(window).Handle;
+
+        /// <summary>
+        ///     Comprueba si la composición de ventanas está disponible en el
+        ///     sistema.
+        /// </summary>
+        /// <returns>
+        ///     <see langword="true"/> si la composición de ventanas está
+        ///     disponible, <see langword="false"/> en caso contrario.
+        /// </returns>
+        [DllImport("dwmapi.dll", PreserveSig = false)]
+        public static extern bool DwmIsCompositionEnabled();
+
         /// <summary>
         ///     Habilita los efectos de difuminado de Windows 10 en la ventana de WPF.
         /// </summary>
@@ -694,6 +731,17 @@ namespace TheXDS.MCART
             HideControls(ctrls.ToArray());
         }
 
+        /// <summary>
+        ///     Habilita el botón de ayuda de las ventanas de Windows y conecta
+        ///     un manejador de eventos al mismo.
+        /// </summary>
+        /// <param name="window">
+        ///     Ventana en la cual habilitar el botón de ayuda.
+        /// </param>
+        /// <param name="handler">
+        ///     Delegado con la acción a ejecutar al hacer clic en el botón de
+        ///     ayuda de la ventana.
+        /// </param>
         public static void HookHelp(this Window window, HandledEventHandler handler)
         {
             var hwnd = new WindowInteropHelper(window).Handle;
@@ -848,7 +896,6 @@ namespace TheXDS.MCART
             SetWindowCompositionAttribute(windowHelper.Handle, ref data);
             Marshal.FreeHGlobal(accentPtr);
         }
-
 
         [DllImport("user32.dll")]
         internal static extern int SetWindowLong(IntPtr hwnd, int index, uint newStyle);

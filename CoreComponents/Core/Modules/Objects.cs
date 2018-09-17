@@ -144,6 +144,23 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
+        ///     Enumera el valor de todas los campos que devuelvan valores de
+        ///     tipo <typeparamref name="T" /> del objeto especificado.
+        /// </summary>
+        /// <typeparam name="T">Tipo de campos a obtener.</typeparam>
+        /// <param name="type">
+        ///     Tipo desde el cual obtener los campos.
+        /// </param>
+        /// <returns>
+        ///     Una enumeración de todos los valores de tipo
+        ///     <typeparamref name="T" /> del objeto.
+        /// </returns>
+        public static IEnumerable<T> FieldsOf<T>(this Type type)
+        {
+            return FieldsOf<T>(type.GetFields(), null);
+        }
+
+        /// <summary>
         ///     Enumera el valor de todas los campos estáticos que devuelvan
         ///     valores de tipo <typeparamref name="T" />.
         /// </summary>

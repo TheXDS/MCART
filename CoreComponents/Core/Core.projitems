@@ -36,6 +36,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\SimpleProtocol.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\DateTimeExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\EnumExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\StringExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\TcpClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Common.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\DownloadHelper.cs" />
