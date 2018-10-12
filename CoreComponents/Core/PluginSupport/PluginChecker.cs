@@ -47,7 +47,7 @@ namespace TheXDS.MCART.PluginSupport
         /// </returns>
         /// <param name="assembly"><see cref="T:System.Reflection.Assembly" /> a comprobar.</param>
         /// <typeparam name="T">Tipo a buscar.</typeparam>
-        public bool Has<T>(Assembly assembly) => assembly.IsNeither(RTInfo.RTAssembly, null) && assembly.GetTypes().Any((arg) => IsVaild(arg) && typeof(T).IsAssignableFrom(arg));
+        public bool Has<T>(Assembly assembly) => assembly.IsNeither(RTInfo.RTAssembly, null) && assembly.GetTypes().Any((arg) => IsValid(arg) && typeof(T).IsAssignableFrom(arg));
         /// <inheritdoc />
         /// <summary>
         /// Comprueba que el tipo cargado sea compatible con esta versión de
@@ -74,7 +74,7 @@ namespace TheXDS.MCART.PluginSupport
         {
             try
             {
-                return assembly.IsNeither(RTInfo.RTAssembly, null) && assembly.GetTypes().Any(IsVaild);
+                return assembly.IsNeither(RTInfo.RTAssembly, null) && assembly.GetTypes().Any(IsValid);
             }
             catch
             {
@@ -91,6 +91,6 @@ namespace TheXDS.MCART.PluginSupport
         /// <see cref="T:TheXDS.MCART.PluginSupport.Plugin" />, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="type">Tipo a comprobar.</param>
-        public abstract bool IsVaild(Type type);
+        public abstract bool IsValid(Type type);
     }
 }

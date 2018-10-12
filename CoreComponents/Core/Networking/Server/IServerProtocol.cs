@@ -24,8 +24,16 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 namespace TheXDS.MCART.Networking.Server
 {
+    /// <summary>
+    ///     Define una serie de métodos a implementar por una clase que deba
+    ///     exponer un <see cref="Server"/> asociado.
+    /// </summary>
     internal interface IServerProtocol
     {
+        /// <summary>
+        ///     Obtiene o establece la instancia de servidor asociada a este
+        ///     objeto.
+        /// </summary>
         Server MyServer { get; set; }
     }
 }

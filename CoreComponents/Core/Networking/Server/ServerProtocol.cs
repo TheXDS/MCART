@@ -116,6 +116,13 @@ namespace TheXDS.MCART.Networking.Server
     /// <typeparam name="T"> Tipo de cliente a atender.</typeparam>
     public abstract class ServerProtocol<T> : IProtocol, IServerProtocol where T : Client
     {
+        /// <summary>
+        ///     Inicializa la clase <see cref="ServerProtocol"/>
+        /// </summary>
+        /// <exception cref="InvalidTypeException">
+        ///     Se produce si <typeparamref name="T"/> no es una clase derivada
+        ///     de <see cref="Client"/> instanciable.
+        /// </exception>
         static ServerProtocol()
         {
             if (!typeof(T).IsInstantiable(typeof(TcpClient))) throw new InvalidTypeException(St.XMustBeY(nameof(T),St.Instantiable));
@@ -205,6 +212,10 @@ namespace TheXDS.MCART.Networking.Server
         /// <returns>
         ///     Un nuevo <see cref="T:TheXDS.MCART.Networking.Server.Client" />.
         /// </returns>
+        /// <exception cref="InvalidTypeException">
+        ///     Se produce si no es posible crear una nueva instancia del
+        ///     cliente debido a una excepción del constructor.
+        /// </exception>
         public virtual Client CreateClient(TcpClient tcpClient)
         {
             try

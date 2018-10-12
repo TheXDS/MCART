@@ -236,6 +236,13 @@ namespace TheXDS.MCART.PluginSupport
         /// inestable.
         /// </summary>
         public bool IsUnstable => GetType().HasAttrAlt<UnstableAttribute>();
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Determina si el plugin cumple con el Common Language Standard.
+        /// </summary>
+        public bool IsClsCompliant => GetType().HasAttrAlt<CLSCompliantAttribute>();
+
         #endregion
         #region Propiedades
         /// <summary>

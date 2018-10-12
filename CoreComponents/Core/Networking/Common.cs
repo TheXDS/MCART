@@ -60,6 +60,21 @@ namespace TheXDS.MCART.Networking
         /// </returns>
         public static string ByteUnits(this long bytes)
         {
+            return ByteUnits(bytes, ByteUnitType.Binary);
+        }
+
+        /// <summary>
+        /// Convierte un valor <see cref="long"/> que representa una cuenta de
+        /// bytes en la unidad de magnitud más fácil de leer.
+        /// </summary>
+        /// <param name="bytes">Cantidad de bytes a representar.</param>
+        /// <param name="unit">Tipo de unidad a utilizar.</param>
+        /// <returns>
+        /// Una cadena con la cantidad de bytes utilizando la unidad de
+        /// magnitud adecuada.
+        /// </returns>
+        public static string ByteUnits(this long bytes, ByteUnitType unit)
+        {
             var c = 0;
             var f = 0.0f;
             while (bytes > 1023)
@@ -91,6 +106,23 @@ namespace TheXDS.MCART.Networking
                     return $"{bytes + f:F1} YiB";
             }
         }
+
+        /// <summary>
+        ///     Enumera los tipos de unidades que se pueden utilizar para
+        ///     representar grandes cantidades de bytes.
+        /// </summary>
+        public enum ByteUnitType : byte
+        {
+            /// <summary>
+            ///     Numeración binaria. Cada orden de magnitud equivale a 1024 de su inferior.
+            /// </summary>
+            Binary,
+            /// <summary>
+            ///     Numeración decimal. Cada orden de magnitud equivale a 1000 de su inferior. 
+            /// </summary>
+            Decimal
+        }
+        
     }
 
     /// <inheritdoc />

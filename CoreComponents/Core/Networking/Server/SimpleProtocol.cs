@@ -28,7 +28,7 @@ namespace TheXDS.MCART.Networking.Server
 {
     /// <inheritdoc />
     /// <summary>
-    /// Define un protocolo súmamente simple.
+    ///     Define un protocolo súmamente simple.
     /// </summary>
     public abstract class SimpleProtocol : IProtocol
     {

@@ -705,7 +705,7 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si un miembro posee un atributo definido.
+        ///     Determina si un miembro o su ensamblado contenedor posee un atributo definido.
         /// </summary>
         /// <typeparam name="T">
         ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
@@ -725,13 +725,13 @@ namespace TheXDS.MCART
         /// </returns>
         public static bool HasAttrAlt<T>(this Type type, out T attribute) where T : Attribute
         {
-            attribute = (Attribute.GetCustomAttribute(type, typeof(T))
-                         ?? Attribute.GetCustomAttribute(type.Assembly, typeof(T))) as T;
+            attribute = (Attribute.GetCustomAttributes(type, typeof(T)).FirstOrDefault()
+                         ?? Attribute.GetCustomAttributes(type.Assembly, typeof(T)).FirstOrDefault()) as T;
             return !(attribute is null);
         }
 
         /// <summary>
-        ///     Determina si un miembro posee un atributo definido.
+        ///     Determina si un miembro o su ensamblado contenedor posee un atributo definido.
         /// </summary>
         /// <typeparam name="T">
         ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.

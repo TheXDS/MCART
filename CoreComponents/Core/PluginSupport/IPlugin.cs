@@ -91,6 +91,10 @@ namespace TheXDS.MCART.PluginSupport
         /// <returns><see langword="true"/> si el plugin ha sido marcado como inseguro; de lo contrario, <c>False</c></returns>
         bool IsUnstable { get; }
         /// <summary>
+        ///     Determina si el plugin cumple con el Common Language Standard.
+        /// </summary>
+        bool IsClsCompliant { get; }
+        /// <summary>
         /// Devuelve la lista de interfaces que este <see cref="IPlugin"/>
         /// implementa.
         /// </summary>

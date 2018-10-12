@@ -245,7 +245,7 @@ namespace TheXDS.MCART.PluginSupport
         {
             if (!_checker.IsVaild(assembly)) throw new NotPluginException(assembly);
             return assembly.GetTypes().FirstOrDefault(p =>
-                _checker.IsVaild(p)
+                _checker.IsValid(p)
                 && (_checker.IsCompatible(p) ?? false)
                 && typeof(T).IsAssignableFrom(p)
                 )?.New<T>() ?? throw new PluginClassNotFoundException(typeof(T));
@@ -306,7 +306,7 @@ namespace TheXDS.MCART.PluginSupport
 #endif
             {
                 foreach (var j in assembly.GetTypes().Where(p =>
-                _checker.IsVaild(p)
+                _checker.IsValid(p)
                 && (_checker.IsCompatible(p) ?? false)))
                     yield return j.New() as IPlugin;
             }

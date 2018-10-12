@@ -230,11 +230,14 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static bool IsInstantiable(this Type type, IEnumerable<Type> constructorArgs)
         {
+            if (constructorArgs is null) return !(type.IsAbstract || type.IsInterface) && type.GetConstructors().Any();
             return !(type.IsAbstract || type.IsInterface) && !(type.GetConstructor(constructorArgs.ToArray()) is null);
         }
 
         /// <summary>
-        ///     Obtiene un valor que determina si el tipo es instanciable.
+        ///     Obtiene un valor que determina si el tipo es instanciable
+        ///     utilizando un contrustor que acepte los parámetros
+        ///     especificados.
         /// </summary>
         /// <param name="type">Tipo a comprobar.</param>
         /// <param name="constructorArgs">
@@ -246,6 +249,8 @@ namespace TheXDS.MCART.Types.Extensions
         ///     un constructor con los parámetros del tipo especificado,
         ///     <see langword="false" /> en caso contrario.
         /// </returns>
+        [DebuggerStepThrough]
+        [Thunk] 
         public static bool IsInstantiable(this Type type, params Type[] constructorArgs)
         {
             return IsInstantiable(type, constructorArgs.AsEnumerable());

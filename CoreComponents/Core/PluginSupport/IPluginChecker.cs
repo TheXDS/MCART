@@ -53,7 +53,7 @@ namespace TheXDS.MCART.PluginSupport
         /// <see cref="IPlugin"/>, <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="type"><see cref="Type"/> a comprobar.</param>
-        bool IsVaild(Type type);
+        bool IsValid(Type type);
         /// <summary>
         /// Comprueba si un ensamblado contiene un <see cref="IPlugin"/> del
         /// tipo especificado.

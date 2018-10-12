@@ -266,7 +266,7 @@ namespace TheXDS.MCART.Math
         /// </returns>
         public static bool IsValid(this double value)
         {
-            return !(Double.IsNaN(value) || Double.IsInfinity(value));
+            return !(double.IsNaN(value) || double.IsInfinity(value));
         }
 
         /// <summary>
@@ -282,7 +282,7 @@ namespace TheXDS.MCART.Math
         /// </returns>
         public static bool IsValid(this float value)
         {
-            return !(Single.IsNaN(value) || Single.IsInfinity(value));
+            return !(float.IsNaN(value) || float.IsInfinity(value));
         }
 
         /// <summary>
