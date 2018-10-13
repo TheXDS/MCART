@@ -8,7 +8,7 @@ programas, y de algunas comparaciones especiales.
 
 Algunas de estas funciones también se implementan como extensiones, por lo que
 para ser llamadas únicamente es necesario importar el espacio de nombres
-"TheXDS.MCART" y utilizar sintáxis de instancia.
+"TheXDS.MCART" y utilizar sintaxis de instancia.
 
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
@@ -73,7 +73,7 @@ namespace TheXDS.MCART
     {
         /// <summary>
         ///     Describe las opciones de búsqueda para el método
-        ///     <see cref="Common.TokenSearch"/>
+        ///     <see cref="Common.TokenSearch(string, string, SearchOptions)"/>
         /// </summary>
         [Flags]
         public enum SearchOptions
@@ -312,7 +312,7 @@ namespace TheXDS.MCART
         /// <param name="stringToCheck">Cadena a verificar.</param>
         /// <param name="argNum">
         ///     Parámetro de salida. Si <paramref name="stringToCheck" /> contiene cualquier
-        ///     caracter especificado en <paramref name="chars" />, se devolverá el
+        ///     carácter especificado en <paramref name="chars" />, se devolverá el
         ///     índice del argumento contenido; en caso contrario, se devuelve
         ///     <c>-1</c>.
         /// </param>
@@ -333,7 +333,7 @@ namespace TheXDS.MCART
         /// <param name="stringToCheck">Cadena a verificar.</param>
         /// <param name="argNum">
         ///     Parámetro de salida. Si <paramref name="stringToCheck" /> contiene cualquier
-        ///     caracter especificado en <paramref name="chars" />, se devolverá el
+        ///     carácter especificado en <paramref name="chars" />, se devolverá el
         ///     índice del argumento contenido; en caso contrario, se devuelve
         ///     <c>-1</c>.
         /// </param>
@@ -394,7 +394,7 @@ namespace TheXDS.MCART
         /// <param name="stringToCheck">Cadena a verificar.</param>
         /// <param name="argNum">
         ///     Parámetro de salida. Si <paramref name="stringToCheck" /> contiene cualquier
-        ///     caracter especificado en <paramref name="strings" />, se devolverá
+        ///     carácter especificado en <paramref name="strings" />, se devolverá
         ///     el índice del argumento contenido; en caso contrario, se devuelve
         ///     <c>-1</c>.
         /// </param>
@@ -415,7 +415,7 @@ namespace TheXDS.MCART
         /// <param name="stringToCheck">Cadena a verificar.</param>
         /// <param name="argNum">
         ///     Parámetro de salida. Si <paramref name="stringToCheck" /> contiene cualquier
-        ///     caracter especificado en <paramref name="strings" />, se devolverá
+        ///     carácter especificado en <paramref name="strings" />, se devolverá
         ///     el índice del argumento contenido; en caso contrario, se devuelve
         ///     <c>-1</c>.
         /// </param>
@@ -610,7 +610,7 @@ namespace TheXDS.MCART
         ///     Busca y obtiene un <see cref="TypeConverter" /> apropiado para
         ///     realizar la conversión entre tipos solicitada.
         /// </summary>
-        /// <typeparam name="TSource">Tipo de datos de orígen.</typeparam>
+        /// <typeparam name="TSource">Tipo de datos de origen.</typeparam>
         /// <typeparam name="TTarget">Tipo de datos de destino.</typeparam>
         /// <returns>
         ///     Un <see cref="TypeConverter" /> capaz de realizar la conversión
@@ -626,7 +626,7 @@ namespace TheXDS.MCART
         ///     Busca y obtiene un <see cref="TypeConverter" /> apropiado para
         ///     realizar la conversión entre tipos solicitada.
         /// </summary>
-        /// <param name="source">Tipo de datos de orígen.</param>
+        /// <param name="source">Tipo de datos de origen.</param>
         /// <param name="target">Tipo de datos de destino.</param>
         /// <returns>
         ///     Un <see cref="TypeConverter" /> capaz de realizar la conversión
@@ -637,11 +637,7 @@ namespace TheXDS.MCART
         {
             return Objects.GetTypes<TypeConverter>(true)
                 .Select(j => j.New<TypeConverter>(false))
-                .FirstOrDefault(t =>
-                {
-                    if (t is null) return false;
-                    return t.CanConvertFrom(source) && t.CanConvertTo(target);
-                });
+                .FirstOrDefault(t => !(t is null) && t.CanConvertFrom(source) && t.CanConvertTo(target));
         }
 
         /// <summary>
@@ -897,7 +893,7 @@ namespace TheXDS.MCART
         public static bool IsHex(this string str)
         {
             if (str.StartsWith("0x") || str.StartsWith("&h", true, CultureInfo.CurrentCulture)) str = str.Substring(2);
-            return str.ToCharArray().All(j => "0123456789abcdefABCDEF".Contains(j));
+            return str.ToCharArray().All(j => @"0123456789abcdefABCDEF".Contains(j));
         }
 
         /// <summary>
@@ -938,7 +934,7 @@ namespace TheXDS.MCART
         /// <param name="toString">Cadena B a comparar.</param>
         /// <param name="tolerance">
         ///     Rango de tolerancia de la comparación. Representa la distancia
-        ///     máxima permitida de cada caracter que todavía hace a las cadenas
+        ///     máxima permitida de cada carácter que todavía hace a las cadenas
         ///     similares.
         /// </param>
         public static float Likeness(this string ofString, string toString, int tolerance)

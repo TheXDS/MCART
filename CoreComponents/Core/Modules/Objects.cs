@@ -52,7 +52,7 @@ namespace TheXDS.MCART
         ///     Obtiene todos los tipos públicos que implementan al tipo especificado.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipode objetos a obtener.
+        ///     Tipo de objetos a obtener.
         /// </typeparam>
         /// <returns>
         ///     Una enumeración con todos los tipos que heredan o implementan el

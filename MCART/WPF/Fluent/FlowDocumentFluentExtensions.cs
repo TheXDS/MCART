@@ -1,4 +1,4 @@
-﻿/*
+/*
 FlowDocumentFluentExtensions.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
@@ -47,6 +47,27 @@ namespace TheXDS.MCART.Fluent
     /// </summary>
     public static class FlowDocumentFluentExtensions
     {
+        /// <summary>
+        ///     Imprime un <see cref="FlowDocument"/> por medio del cuadro de
+        ///     diálogo de impresión del sistema operativo.
+        /// </summary>
+        /// <param name="fd">
+        ///     <see cref="FlowDocument"/> a imprimir.
+        /// </param>
+		/// <param name="title">
+        ///     Título del documento a imprimir.
+        /// </param>
+        public static void Print(this FlowDocument fd, string title)
+        {
+            var dialog = new PrintDialog();
+            if (!dialog.ShowDialog() ?? true) return;
+            var sz = new Size(dialog.PrintableAreaWidth, dialog.PrintableAreaHeight);
+
+            var paginator = (fd as IDocumentPaginatorSource).DocumentPaginator;
+            paginator.PageSize = sz;
+            dialog.PrintDocument(paginator, title);
+        }
+
         public class TableSelector<T>
         {
             public string Header { get; }
@@ -59,6 +80,15 @@ namespace TheXDS.MCART.Fluent
             }
         }
 
+        /// <summary>
+        ///     Agrega una celda vacía de tabla a la fila actual.
+        /// </summary>
+        /// <param name="row">
+        ///     Fila de tabla en la cual se agregará la celda.
+        /// </param>
+        /// <returns>
+        ///     La celda que ha sido agregada.
+        /// </returns>
         public static TableCell AddCell(this TableRow row)
         {
             var c = new TableCell();
@@ -66,6 +96,18 @@ namespace TheXDS.MCART.Fluent
             return c;
         }
 
+        /// <summary>
+        ///     Agrega una celda vacía de tabla a la fila actual.
+        /// </summary>
+        /// <param name="row">
+        ///     Fila de tabla en la cual se agregará la celda.
+        /// </param>
+        /// <param name="columnSpan">
+        ///     Cantidad de columnas que la nueva celda podrá ocupar.
+        /// </param>
+        /// <returns>
+        ///     La celda que ha sido agregada.
+        /// </returns>
         public static TableCell AddCell(this TableRow row, int columnSpan)
         {
             var c = new TableCell {ColumnSpan = columnSpan};
@@ -73,6 +115,21 @@ namespace TheXDS.MCART.Fluent
             return c;
         }
 
+        /// <summary>
+        ///     Agrega una celda vacía de tabla a la fila actual.
+        /// </summary>
+        /// <param name="row">
+        ///     Fila de tabla en la cual se agregará la celda.
+        /// </param>
+        /// <param name="rowSpan">
+        ///     Cantidad de filas que la nueva celda podrá ocupar.
+        /// </param>
+        /// <param name="columnSpan">
+        ///     Cantidad de columnas que la nueva celda podrá ocupar.
+        /// </param>
+        /// <returns>
+        ///     La celda que ha sido agregada.
+        /// </returns>
         public static TableCell AddCell(this TableRow row, int rowSpan, int columnSpan)
         {
             var c = new TableCell {RowSpan = rowSpan, ColumnSpan = columnSpan};
@@ -87,19 +144,40 @@ namespace TheXDS.MCART.Fluent
         /// <param name="text">Texto de la celda.</param>
         /// <returns>
         ///     <paramref name="row" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TableRow AddCell(this TableRow row, string text)
         {
             return AddCell(row, text, FontWeights.Normal);
         }
 
+        /// <summary>
+        ///     Agrega una celda simple con texto a una fila.
+        /// </summary>
+        /// <param name="row">Fila a la cual agregar la nueva celda.</param>
+        /// <param name="text">Texto de la celda.</param>
+        /// <param name="weight">
+        ///     Densidad de la fuente a utilizar dentro de la celda.
+        /// </param>
+        /// <returns>
+        ///     <paramref name="row" />, lo que permite utilizar esta función
+        ///     con sintaxis Fluent.
+        /// </returns>
         public static TableRow AddCell(this TableRow row, string text, FontWeight weight)
         {
             row.Cells.Add(new TableCell(new Paragraph(new Run(text) {FontWeight = weight})));
             return row;
         }
 
+        /// <summary>
+        ///     Agrega un nuevo grupo de filas a la tabla.
+        /// </summary>
+        /// <param name="table">
+        ///     Tabla a la cual agregar el nuevo grupo de filas.
+        /// </param>
+        /// <returns>
+        ///     El nuevo grupo de filas que ha sido añadido a la tabla.
+        /// </returns>
         public static TableRowGroup AddGroup(this Table table)
         {
             var rowGroup = new TableRowGroup();
@@ -211,7 +289,7 @@ namespace TheXDS.MCART.Fluent
         /// <param name="value">Fondo a aplicar.</param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TElement Background<TElement>(this TElement element, Brush value) where TElement : TextElement
         {
@@ -226,7 +304,7 @@ namespace TheXDS.MCART.Fluent
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TElement Bold<TElement>(this TElement element) where TElement : TextElement
         {
@@ -242,7 +320,7 @@ namespace TheXDS.MCART.Fluent
         /// <param name="thickness">Grosor del borde.</param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TableCell Border(this TableCell element, Brush brush, Thickness thickness)
         {
@@ -259,7 +337,7 @@ namespace TheXDS.MCART.Fluent
         /// <param name="thickness">Grosor del borde.</param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TableRow Borders(this TableRow element, Brush brush, Thickness thickness)
         {
@@ -276,7 +354,7 @@ namespace TheXDS.MCART.Fluent
         /// <param name="thickness">Grosor del borde.</param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TableRowGroup Borders(this TableRowGroup element, Brush brush, Thickness thickness)
         {
@@ -292,7 +370,7 @@ namespace TheXDS.MCART.Fluent
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TElement Center<TElement>(this TElement element) where TElement : Block
         {
@@ -320,9 +398,9 @@ namespace TheXDS.MCART.Fluent
         /// <param name="brush"><see cref="Brush" /> a aplicar al dibujar la tabla.</param>
         /// <returns>
         ///     <paramref name="table" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
-        public static Table ColumnBackgound(this Table table, int column, Brush brush)
+        public static Table ColumnBackground(this Table table, int column, Brush brush)
         {
             table.Columns[column].Background = brush;
             return table;
@@ -342,7 +420,7 @@ namespace TheXDS.MCART.Fluent
         /// <param name="width">Ancho de columna a aplicar.</param>
         /// <returns>
         ///     <paramref name="table" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static Table ColumnWidth(this Table table, int column, GridLength width)
         {
@@ -357,7 +435,7 @@ namespace TheXDS.MCART.Fluent
         /// <param name="lengths">Anchos de columna a aplicar.</param>
         /// <returns>
         ///     <paramref name="table" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static Table ColumnWidths(this Table table, IEnumerable<double> lengths)
         {
@@ -371,7 +449,7 @@ namespace TheXDS.MCART.Fluent
         /// <param name="lengths">Anchos de columna a aplicar.</param>
         /// <returns>
         ///     <paramref name="table" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static Table ColumnWidths(this Table table, IEnumerable<GridLength> lengths)
         {
@@ -414,7 +492,7 @@ namespace TheXDS.MCART.Fluent
         /// <param name="effect">Efecto a aplicar al texto.</param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TElement Effect<TElement>(this TElement element, TextEffect effect) where TElement : TextElement
         {
@@ -430,7 +508,7 @@ namespace TheXDS.MCART.Fluent
         /// <param name="value">Color principal a aplicar.</param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TElement Foreground<TElement>(this TElement element, Brush value) where TElement : TextElement
         {
@@ -448,7 +526,7 @@ namespace TheXDS.MCART.Fluent
         /// </param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TElement Format<TElement>(this TElement element, FontFamily fontFamily)
             where TElement : TextElement
@@ -467,7 +545,7 @@ namespace TheXDS.MCART.Fluent
         /// </param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TElement Format<TElement>(this TElement element, FontWeight fontWeight)
             where TElement : TextElement
@@ -484,7 +562,7 @@ namespace TheXDS.MCART.Fluent
         /// <param name="fontSize">Tamaño de la fuente.</param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TElement Format<TElement>(this TElement element, double fontSize) where TElement : TextElement
         {
@@ -502,7 +580,7 @@ namespace TheXDS.MCART.Fluent
         /// </param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TElement Format<TElement>(this TElement element, FontStretch fontStretch)
             where TElement : TextElement
@@ -519,7 +597,7 @@ namespace TheXDS.MCART.Fluent
         /// <param name="fontStyle">Estilo de la fuente.</param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TElement Format<TElement>(this TElement element, FontStyle fontStyle) where TElement : TextElement
         {
@@ -535,7 +613,7 @@ namespace TheXDS.MCART.Fluent
         /// <param name="alignment">Alineación de texto.</param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TElement Format<TElement>(this TElement element, TextAlignment alignment) where TElement : Block
         {
@@ -550,7 +628,7 @@ namespace TheXDS.MCART.Fluent
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TElement Justify<TElement>(this TElement element) where TElement : Block
         {
@@ -565,7 +643,7 @@ namespace TheXDS.MCART.Fluent
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TElement Left<TElement>(this TElement element) where TElement : Block
         {
@@ -677,7 +755,7 @@ namespace TheXDS.MCART.Fluent
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TElement Right<TElement>(this TElement element) where TElement : Block
         {
@@ -810,7 +888,7 @@ namespace TheXDS.MCART.Fluent
         /// <param name="value">Índice de formato de anotación alternativa.</param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TElement TypographyAnnotationAlternates<TElement>(this TElement element, int value)
             where TElement : TextElement
@@ -830,7 +908,7 @@ namespace TheXDS.MCART.Fluent
         /// </param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TElement TypographyCapitalSpacing<TElement>(this TElement element, bool value)
             where TElement : TextElement
@@ -850,7 +928,7 @@ namespace TheXDS.MCART.Fluent
         /// </param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TElement TypographyCaseSensitiveForms<TElement>(this TElement element, bool value)
             where TElement : TextElement
@@ -865,12 +943,12 @@ namespace TheXDS.MCART.Fluent
         /// <typeparam name="TElement">Tipo del <see cref="TextElement" /> a manipular.</typeparam>
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <param name="value">
-        ///     Si se establece en <see langword="true" /> se utilizaránglifos personalizados según el contexto del texto que se
+        ///     Si se establece en <see langword="true" /> se utilizarán glifos personalizados según el contexto del texto que se
         ///     procesa.
         /// </param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TElement TypographyContextualAlternates<TElement>(this TElement element, bool value)
             where TElement : TextElement
@@ -889,7 +967,7 @@ namespace TheXDS.MCART.Fluent
         /// </param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TElement TypographyContextualLigatures<TElement>(this TElement element, bool value)
             where TElement : TextElement
@@ -906,7 +984,7 @@ namespace TheXDS.MCART.Fluent
         /// <param name="value">Especifica el índice de un formulario de glifos floreados contextuales.</param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TElement TypographyContextualSwashes<TElement>(this TElement element, int value)
             where TElement : TextElement
@@ -925,7 +1003,7 @@ namespace TheXDS.MCART.Fluent
         /// </param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TElement TypographyDiscretionaryLigatures<TElement>(this TElement element, bool value)
             where TElement : TextElement
@@ -945,7 +1023,7 @@ namespace TheXDS.MCART.Fluent
         /// </param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TElement TypographyEastAsianExpertForms<TElement>(this TElement element, bool value)
             where TElement : TextElement
@@ -964,7 +1042,7 @@ namespace TheXDS.MCART.Fluent
         /// </param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TElement TypographyEastAsianLanguage<TElement>(this TElement element, FontEastAsianLanguage value)
             where TElement : TextElement
@@ -981,7 +1059,7 @@ namespace TheXDS.MCART.Fluent
         /// <param name="value">Ancho de los caracteres latinos en uan fuente de estilo asiático.</param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TElement TypographyEastAsianWidths<TElement>(this TElement element, FontEastAsianWidths value)
             where TElement : TextElement
@@ -998,7 +1076,7 @@ namespace TheXDS.MCART.Fluent
         /// <param name="value">Estilo de letra mayúscula para una tipografía.</param>
         /// <returns>
         ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintáxis Fluent.
+        ///     con sintaxis Fluent.
         /// </returns>
         public static TElement TypographyFontCapitals<TElement>(this TElement element, FontCapitals value)
             where TElement : TextElement

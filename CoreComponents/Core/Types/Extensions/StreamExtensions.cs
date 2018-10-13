@@ -139,11 +139,11 @@ namespace TheXDS.MCART.Types.Extensions
         {
             if (pos < fs.Position)
             {
-                long x = pos;
+                var x = pos;
                 pos = fs.Position;
                 fs.Position = x;
             }
-            byte[] bf = new byte[pos - fs.Position];
+            var bf = new byte[pos - fs.Position];
             await fs.ReadAsync(bf, 0, (int)(pos - fs.Position));
             return Encoding.UTF8.GetString(bf);
         }
@@ -168,7 +168,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// el <see cref="Stream"/>.</param>
         public static void WriteSeveralBytes(this Stream fs, params byte[][] bytes)
         {
-            foreach (byte[] x in bytes) fs.Write(x, 0, x.Length);
+            foreach (var x in bytes) fs.Write(x, 0, x.Length);
         }
     }
 }

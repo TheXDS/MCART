@@ -104,7 +104,7 @@ namespace TheXDS.MCART.Attributes
     }
 #endif
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="Attribute"/>
     /// <summary>
     ///     Clase base para los atributos basados en números enteros.
     /// </summary>
@@ -128,7 +128,7 @@ namespace TheXDS.MCART.Attributes
         public int Value { get; }
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="Attribute"/>
     /// <summary>
     ///     Clase base para los atributos basados en números flotantes.
     /// </summary>
@@ -152,7 +152,7 @@ namespace TheXDS.MCART.Attributes
         public float Value { get; }
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="Attribute"/>
     /// <summary>
     ///     Clase base para los atributos basados en valores booleanos.
     /// </summary>
@@ -178,6 +178,7 @@ namespace TheXDS.MCART.Attributes
 
     #endregion
 
+    /// <inheritdoc cref="Attribute"/>
     /// <summary>
     ///     Agrega un elemento textual genérico a un elemento, además de ser la
     ///     clase base para los atributos que describan un valor representable como
@@ -206,6 +207,7 @@ namespace TheXDS.MCART.Attributes
         public string Value { get; }
     }
 
+    /// <inheritdoc cref="Attribute"/>
     /// <summary>
     ///     Agrega un elemento de tipo a un elemento, además de ser la
     ///     clase base para los atributos que describan un valor representable como
@@ -234,6 +236,7 @@ namespace TheXDS.MCART.Attributes
         public Type Value { get; }
     }
 
+    /// <inheritdoc cref="Attribute"/>
     /// <summary>
     ///     Especifica la versión de un elemento, además de ser la clase base para
     ///     los atributos que describan un valor <see cref="Version" /> para un

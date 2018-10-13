@@ -22,6 +22,11 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
+using System.Text;
+using System.Threading.Tasks;
+using TheXDS.MCART.Types.Extensions;
+
 #if ExtrasBuiltIn
 namespace TheXDS.MCART.Networking.Client.Protocols
 {
@@ -35,6 +40,91 @@ namespace TheXDS.MCART.Networking.Client.Protocols
     [Port(7)]
     public class Echo : PassiveClient
     {
+        /// <summary>
+        /// Envía un paquete de echo al servidor, y devuelve su respuesta.
+        /// </summary>
+        /// <param name="str">Cadena a enviar al servidor.</param>
+        /// <returns>
+        ///     La respuesta del servidor, la cual para este protocolo debe ser
+        ///     igual a la cadena enviada.
+        /// </returns>
+        public string Send(string str)
+        {
+            return Send(str, Encoding.Unicode);
+        }
+
+        /// <summary>
+        /// Envía un paquete de echo al servidor, y devuelve su respuesta.
+        /// </summary>
+        /// <param name="str">Cadena a enviar al servidor.</param>
+        /// <param name="encoding">
+        ///     Codificación a utilizar para convertir la cadena a bytes.
+        /// </param>
+        /// <returns>
+        ///     La respuesta del servidor, la cual para este protocolo debe ser
+        ///     igual a la cadena enviada.
+        /// </returns>
+        public string Send(string str, Encoding encoding)
+        {
+            return encoding.GetString(TalkToServer(encoding.GetBytes(str)));
+        }
+
+        /// <summary>
+        /// Comprueba el funcionamiento del protocolo Echo.
+        /// </summary>
+        /// <returns>
+        ///     <see langword="true"/> si el protocolo de Echo funciona
+        ///     correctamente, <see langword="false"/> en caso contrario.
+        /// </returns>
+        public bool Check()
+        {
+            var str = new Random().RndText(4096);
+            return Send(str) == str;
+        }
+
+        /// <summary>
+        ///     Envía un paquete de echo al servidor, y devuelve su respuesta
+        ///     de forma asíncrona.
+        /// </summary>
+        /// <param name="str">Cadena a enviar al servidor.</param>
+        /// <returns>
+        ///     La respuesta del servidor, la cual para este protocolo debe ser
+        ///     igual a la cadena enviada.
+        /// </returns>
+        public Task<string> SendAsync(string str)
+        {
+            return SendAsync(str, Encoding.Unicode);
+        }
+
+        /// <summary>
+        ///     Envía un paquete de echo al servidor, y devuelve su respuesta
+        ///     de forma asíncrona.
+        /// </summary>
+        /// <param name="str">Cadena a enviar al servidor.</param>
+        /// <param name="encoding">
+        ///     Codificación a utilizar para convertir la cadena a bytes.
+        /// </param>
+        /// <returns>
+        ///     La respuesta del servidor, la cual para este protocolo debe ser
+        ///     igual a la cadena enviada.
+        /// </returns>
+        public async Task<string> SendAsync(string str, Encoding encoding)
+        {
+            return encoding.GetString(await TalkToServerAsync(encoding.GetBytes(str)));
+        }
+
+        /// <summary>
+        /// Comprueba el funcionamiento del protocolo Echo de forma asíncrona.
+        /// </summary>
+        /// <returns>
+        ///     <see langword="true"/> si el protocolo de Echo funciona
+        ///     correctamente, <see langword="false"/> en caso contrario.
+        /// </returns>
+        public async Task<bool> CheckAsync()
+        {
+            var str = new Random().RndText(4096);
+            return await SendAsync(str) == str;
+        }
     }
 }
 #endif

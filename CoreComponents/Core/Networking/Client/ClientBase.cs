@@ -273,7 +273,7 @@ namespace TheXDS.MCART.Networking.Client
             catch { /* suprimir cualquier excepción */ }
         }
         /// <summary>
-        /// Realiza alguans tareas de limpieza antes de finalizar esta
+        /// Realiza algunas tareas de limpieza antes de finalizar esta
         /// instancia de la clase <see cref="ClientBase"/>.
         /// </summary>
         ~ClientBase() { CloseConnection(); }
