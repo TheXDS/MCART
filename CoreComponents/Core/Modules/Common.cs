@@ -724,8 +724,8 @@ namespace TheXDS.MCART
         ///     especificados; de lo contrario, <see langword="false" />.
         /// </returns>
         /// <param name="value">Valor a comprobar.</param>
-        /// <param name="min">Mínimo del rango de valores, inclusive.</param>
-        /// <param name="max">Máximo del rango de valores, inclusive.</param>
+        /// <param name="min">Mínimo del rango de valores.</param>
+        /// <param name="max">Máximo del rango de valores.</param>
         /// <param name="inclusive">Inclusividad. de forma predeterminada, la comprobación es inclusive.</param>
         /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
         public static bool IsBetween<T>(this T value, T min, T max, bool inclusive) where T : IComparable<T>
@@ -755,7 +755,7 @@ namespace TheXDS.MCART
         /// </summary>
         /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
         /// <param name="value">Valor a comprobar.</param>
-        /// <param name="range">Rango de valores inclusivos a comprobar.</param>
+        /// <param name="range">Rango de valores a comprobar.</param>
         /// <param name="inclusive">Inclusividad. de forma predeterminada, la comprobación es inclusive.</param>
         /// <returns>
         ///     <see langword="true" /> si el valor se encuentra entre los
