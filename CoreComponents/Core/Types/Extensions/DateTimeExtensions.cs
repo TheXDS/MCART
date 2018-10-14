@@ -29,7 +29,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace MCART.Types.Extensions
+namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
     /// Contiene extensiones útiles de la estructura <see cref="DateTime"/>.

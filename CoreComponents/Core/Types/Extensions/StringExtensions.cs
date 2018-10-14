@@ -28,7 +28,7 @@ using System.Linq;
 
 // ReSharper disable UnusedMember.Global
 
-namespace MCART.Types.Extensions
+namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
     ///     Extensiones de la clase <see cref="string"/>.
