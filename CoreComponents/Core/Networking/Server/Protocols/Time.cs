@@ -26,8 +26,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Net.Sockets;
-using MCART.Types.Extensions;
+using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Networking.Server.Protocols
 {
@@ -94,7 +93,7 @@ namespace TheXDS.MCART.Networking.Server.Protocols
         /// <returns>
         ///     Un nuevo <see cref="T:TheXDS.MCART.Networking.Server.Client" />.
         /// </returns>
-        public Client CreateClient(TcpClient tcpClient)
+        public Client CreateClient(System.Net.Sockets.TcpClient tcpClient)
         {
             return new Client(tcpClient);
         }
