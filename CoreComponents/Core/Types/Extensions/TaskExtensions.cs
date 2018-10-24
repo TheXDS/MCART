@@ -23,45 +23,101 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TheXDS.MCART.Attributes;
 
-namespace MCART.Types.Extensions
+namespace TheXDS.MCART.Types.Extensions
 {
+    /// <summary>
+    ///     Extensiones para la clase <see cref="Task"/>.
+    /// </summary>
     public static class TaskExtensions
     {
-        [DebuggerStepThrough]
+        /// <summary>
+        ///     Espera la finalización de una tarea y devuelve su resultado.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
+        /// </typeparam>
+        /// <param name="task">Tarea a esperar.</param>
+        /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
+        [DebuggerStepThrough, Thunk]
         public static T Yield<T>(this Task<T> task)
         {
             task.Wait();
             return task.Result;
         }
 
-        [DebuggerStepThrough]
+        /// <summary>
+        ///     Espera la finalización de una tarea y devuelve su resultado.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
+        /// </typeparam>
+        /// <param name="task">Tarea a esperar.</param>
+        /// <param name="ct">Token de cancelación de la tarea.</param>
+        /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
+        [DebuggerStepThrough, Thunk]
         public static T Yield<T>(this Task<T> task, CancellationToken ct)
         {
             task.Wait(ct);
             return task.Result;
         }
 
-        [DebuggerStepThrough]
+        /// <summary>
+        ///     Espera la finalización de una tarea y devuelve su resultado.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
+        /// </typeparam>
+        /// <param name="task">Tarea a esperar.</param>
+        /// <param name="timeout">
+        ///     Cantidad de tiempo a esperar a que la tarea finalice antes de
+        ///     abortarla forzosamente.
+        /// </param>
+        /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
+        [DebuggerStepThrough, Thunk]
         public static T Yield<T>(this Task<T> task, TimeSpan timeout)
         {
             task.Wait(timeout);
             return task.Result;
         }
 
-        [DebuggerStepThrough]
+        /// <summary>
+        ///     Espera la finalización de una tarea y devuelve su resultado.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
+        /// </typeparam>
+        /// <param name="task">Tarea a esperar.</param>
+        /// <param name="msTimeout">
+        ///     Cantidad de tiempo en milisegundos a esperar a que la tarea
+        ///     finalice antes de abortarla forzosamente.
+        /// </param>
+        /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
+        [DebuggerStepThrough, Thunk]
         public static T Yield<T>(this Task<T> task, int msTimeout)
         {
             task.Wait(msTimeout);
             return task.Result;
         }
 
-        [DebuggerStepThrough]
+        /// <summary>
+        ///     Espera la finalización de una tarea y devuelve su resultado.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
+        /// </typeparam>
+        /// <param name="task">Tarea a esperar.</param>
+        /// <param name="msTimeout">
+        ///     Cantidad de tiempo en milisegundos a esperar a que la tarea
+        ///     finalice antes de abortarla forzosamente.
+        /// </param>
+        /// <param name="ct">Token de cancelación de la tarea.</param>
+        /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
+        [DebuggerStepThrough, Thunk]
         public static T Yield<T>(this Task<T> task, int msTimeout, CancellationToken ct)
         {
             task.Wait(msTimeout,ct);
