@@ -23,9 +23,11 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using TheXDS.MCART.Attributes;
 
 namespace TheXDS.MCART.Types.Extensions
 {
@@ -55,6 +57,23 @@ namespace TheXDS.MCART.Types.Extensions
         public static void Default(this PropertyInfo property)
         {
             Default(property, null);
+        }
+
+        /// <summary>
+        ///     Obtiene un nombre personalizado para un miembro.
+        /// </summary>
+        /// <param name="member">
+        ///     <see cref="MemberInfo" /> del cual obtener el nombre.
+        /// </param>
+        /// <returns>
+        ///     Un nombre amigable para <paramref name="member" />, o el nombre
+        ///     definido para <paramref name="member" /> si no se ha definido
+        ///     un nombre amigable por medio del atributo
+        ///     <see cref="NameAttribute"/>.
+        /// </returns>
+        public static string NameOf(this MemberInfo member)
+        {
+            return member.GetAttr<NameAttribute>()?.Value ?? member.Name;
         }
     }
 }

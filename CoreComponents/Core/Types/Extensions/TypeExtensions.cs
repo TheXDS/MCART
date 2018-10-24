@@ -368,21 +368,5 @@ namespace TheXDS.MCART.Types.Extensions
                 return throwOnFail ? throw new TypeLoadException(string.Empty, e) : (T)default;
             }
         }
-
-        /// <summary>
-        ///     Obtiene un nombre personalizado para un tipo.
-        /// </summary>
-        /// <param name="type">
-        ///     <see cref="Type" /> del cual obtener el nombre.
-        /// </param>
-        /// <returns>
-        ///     Un nombre amigable para <paramref name="type" />, o el nombre de
-        ///     tipo de <paramref name="type" /> si no se ha definido un nombre
-        ///     amigable por medio del atributo <see cref="NameAttribute" />.
-        /// </returns>
-        public static string TypeName(this Type type)
-        {
-            return type.GetAttr<NameAttribute>()?.Value ?? type.Name;
-        }
     }
 }

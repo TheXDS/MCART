@@ -37,6 +37,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\DateTimeExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\EnumExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\StringExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\TaskExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\TcpClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Common.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\DownloadHelper.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Modules\Common.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\Timer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\TypeExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\NamedObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Point.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Point3D.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\Plugin.cs" />

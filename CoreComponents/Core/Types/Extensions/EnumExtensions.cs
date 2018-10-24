@@ -23,9 +23,11 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using TheXDS.MCART.Attributes;
 using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Types.Extensions
@@ -119,6 +121,38 @@ namespace TheXDS.MCART.Types.Extensions
         {
             return (Func<T, byte[]>) Delegate.CreateDelegate(typeof(Func<T, byte[]>),
                 ByteConversionMethodInternal(typeof(T)), true);
+        }
+
+        /// <summary>
+        ///     Obtiene un nombre personalizado para un valor de enumeración.
+        /// </summary>
+        /// <param name="value">
+        ///     <see cref="Enum" /> del cual obtener el nombre.
+        /// </param>
+        /// <returns>
+        ///     Un nombre amigable para <paramref name="value" />, o el nombre
+        ///     compilado de <paramref name="value" /> si no se ha definido un
+        ///     nombre amigable por medio del atributo
+        ///     <see cref="NameAttribute"/>.
+        /// </returns>
+        public static string NameOf(this Enum value)
+        {
+            return value.GetAttr<NameAttribute>()?.Value ?? value.ToString();
+        }
+
+        /// <summary>
+        ///     Expone los valores de un <see cref="Enum"/> como una colección
+        ///     de <see cref="NamedObject{T}"/>.
+        /// </summary>
+        /// <typeparam name="T">Tipo de la enumeración a obtener.</typeparam>
+        /// <returns>
+        ///     Un enumerador que expone los valores del <see cref="Enum"/>
+        ///     como una colección de <see cref="NamedObject{T}"/>.
+        /// </returns>
+        public static IEnumerable<NamedObject<T>> NamedEnums<T>() where T : Enum
+        {
+            return typeof(T).GetEnumValues().OfType<T>()
+                .Select(j => new NamedObject<T>(j, j.NameOf()));
         }
     }
 }
