@@ -28,6 +28,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 
 namespace TheXDS.MCART.Types.Extensions
 {
@@ -184,6 +185,39 @@ namespace TheXDS.MCART.Types.Extensions
         public static DateTime FromTimestampMs(long milliseconds, DateTime epoch)
         {
             return epoch.AddMilliseconds(milliseconds);
+        }
+
+        /// <summary>
+        ///     Obtiene el nombre del mes especificado.
+        /// </summary>
+        /// <param name="month">Número de mes del cual obtener el nombre.</param>
+        /// <returns>El nombre del mes especificado.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     Se produce si <paramref name="month"/> no representa un número
+        ///     de mes válido.
+        /// </exception>
+        public static string MonthName(int month)
+        {
+            if (!month.IsBetween(1,12)) throw new ArgumentOutOfRangeException(nameof(month));
+            var t = DateTime.Now;
+            return new DateTime(t.Year,month,t.Day).ToString("MMMM");
+        }
+
+        /// <summary>
+        ///     Obtiene el nombre del mes especificado.
+        /// </summary>
+        /// <param name="month">Número de mes del cual obtener el nombre.</param>
+        /// <param name="culture">Cultura a utilizar para obtener el nombre.</param>
+        /// <returns>El nombre del mes especificado.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     Se produce si <paramref name="month"/> no representa un número
+        ///     de mes válido.
+        /// </exception>
+        public static string MonthName(int month, CultureInfo culture)
+        {
+            if (!month.IsBetween(1, 12)) throw new ArgumentOutOfRangeException(nameof(month));
+            var t = DateTime.Now;
+            return new DateTime(t.Year, month, t.Day).ToString("MMMM",culture);
         }
     }
 }
