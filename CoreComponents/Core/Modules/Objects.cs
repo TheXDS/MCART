@@ -58,9 +58,39 @@ namespace TheXDS.MCART
         ///     Una enumeración con todos los tipos que heredan o implementan el
         ///     tipo especificado.
         /// </returns>
-        public static IEnumerable<Type> AllTypes<T>()
+        /// <remarks>
+        ///     Esta función obtiene todos los tipos públicos exportados del
+        ///     dominio especificado, obviando los ensamblados dinámicos
+        ///     (generados por medio del espacio de nombres
+        ///     <see cref="System.Reflection.Emit"/>). Para obtener una lista
+        ///     indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
+        /// </remarks>
+        public static IEnumerable<Type> PublicTypes<T>()
         {
-            return AllTypes(typeof(T));
+            return PublicTypes(typeof(T));
+        }
+
+        /// <summary>
+        ///     Obtiene todos los tipos públicos que implementan al tipo especificado.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de objetos a obtener.
+        /// </typeparam>
+        /// <param name="domain">Dominio de aplicación dentro del cual buscar tipos.</param>
+        /// <returns>
+        ///     Una enumeración con todos los tipos que heredan o implementan el
+        ///     tipo especificado.
+        /// </returns>
+        /// <remarks>
+        ///     Esta función obtiene todos los tipos públicos exportados del
+        ///     dominio especificado, obviando los ensamblados dinámicos
+        ///     (generados por medio del espacio de nombres
+        ///     <see cref="System.Reflection.Emit"/>). Para obtener una lista
+        ///     indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
+        /// </remarks>
+        public static IEnumerable<Type> PublicTypes<T>(AppDomain domain)
+        {
+            return PublicTypes(typeof(T),domain);
         }
 
         /// <summary>
@@ -71,9 +101,39 @@ namespace TheXDS.MCART
         ///     Una enumeración con todos los tipos que heredan o implementan el
         ///     tipo especificado.
         /// </returns>
-        public static IEnumerable<Type> AllTypes(Type t)
+        /// <remarks>
+        ///     Esta función obtiene todos los tipos públicos exportados del
+        ///     dominio actual, obviando los ensamblados dinámicos (generados
+        ///     por medio del espacio de nombres
+        ///     <see cref="System.Reflection.Emit"/>). Para obtener una lista
+        ///     indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
+        /// </remarks>
+        public static IEnumerable<Type> PublicTypes(Type t)
         {
-            return AppDomain.CurrentDomain.GetAssemblies().SelectMany(p => p.GetExportedTypes())
+            return PublicTypes(t, AppDomain.CurrentDomain);
+        }
+
+        /// <summary>
+        ///     Obtiene todos los tipos públicos que implementan al tipo especificado.
+        /// </summary>
+        /// <param name="t">Tipo a obtener.</param>
+        /// <param name="domain">Dominio de aplicación dentro del cual buscar tipos.</param>
+        /// <returns>
+        ///     Una enumeración con todos los tipos que heredan o implementan el
+        ///     tipo especificado.
+        /// </returns>
+        /// <remarks>
+        ///     Esta función obtiene todos los tipos públicos exportados del
+        ///     dominio especificado, obviando los ensamblados dinámicos
+        ///     (generados por medio del espacio de nombres
+        ///     <see cref="System.Reflection.Emit"/>). Para obtener una lista
+        ///     indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
+        /// </remarks>
+        public static IEnumerable<Type> PublicTypes(Type t, AppDomain domain)
+        {
+            return domain.GetAssemblies()
+                .Where(p => !p.IsDynamic) // Los ensamblados dinámicos no soportan el método GetExportedTypes().
+                .SelectMany(p => p.GetExportedTypes())
                 .Where(t.IsAssignableFrom);
         }
 
@@ -400,7 +460,15 @@ namespace TheXDS.MCART
         ///     Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
         ///     <typeparamref name="T" /> dentro de <see cref="AppDomain.CurrentDomain" />.
         /// </returns>
-        [Thunk]
+        /// <remarks>
+        ///     Esta función obtiene todos los tipos (privados y públicos)
+        ///     definidos dentro de todos ls ensamblados dentro del dominio
+        ///     actual. Para obtener únicamente aquellos tipos exportados
+        ///     públicamente, utilice <see cref="PublicTypes(Type)"/>,
+        ///     <see cref="PublicTypes(Type, AppDomain)"/>,
+        ///     <see cref="PublicTypes{T}()"/> o
+        ///     <see cref="PublicTypes{T}(AppDomain)"/>.
+        /// </remarks>
         public static IEnumerable<Type> GetTypes<T>()
         {
             return GetTypes<T>(AppDomain.CurrentDomain);
@@ -418,9 +486,46 @@ namespace TheXDS.MCART
         ///     Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
         ///     <typeparamref name="T" /> dentro del <paramref name="domain" />.
         /// </returns>
+        /// <remarks>
+        ///     Esta función obtiene todos los tipos (privados y públicos)
+        ///     definidos dentro de todos ls ensamblados dentro del dominio
+        ///     especificado. Para obtener únicamente aquellos tipos exportados
+        ///     públicamente, utilice <see cref="PublicTypes(Type)"/>,
+        ///     <see cref="PublicTypes(Type, AppDomain)"/>,
+        ///     <see cref="PublicTypes{T}()"/> o
+        ///     <see cref="PublicTypes{T}(AppDomain)"/>.
+        /// </remarks>
         public static IEnumerable<Type> GetTypes<T>(this AppDomain domain)
         {
-            return domain.GetAssemblies().SelectMany(s => s.GetTypes()
+            return GetTypes<T>(domain.GetAssemblies());
+        }
+
+        /// <summary>
+        ///     Obtiene una lista de tipos asignables a partir de la interfaz o clase base
+        ///     especificada dentro del <see cref="AppDomain" /> especificado.
+        /// </summary>
+        /// <typeparam name="T">Interfaz o clase base a buscar.</typeparam>
+        /// <param name="assemblies">
+        ///     Colección de ensamblados en la cual realizar la búsqueda.
+        /// </param>
+        /// <returns>
+        ///     Una lista de tipos de las clases que implementan a la interfaz
+        ///     o que heredan a la clase base <typeparamref name="T" /> dentro
+        ///     de <paramref name="assemblies" />.
+        /// </returns>
+        /// <remarks>
+        ///     Esta función obtiene todos los tipos (privados y públicos)
+        ///     definidos dentro de todos los ensamblados dentro de la
+        ///     colección especificada. Para obtener únicamente aquellos tipos
+        ///     exportados públicamente, utilice
+        ///     <see cref="PublicTypes(Type)"/>,
+        ///     <see cref="PublicTypes(Type, AppDomain)"/>,
+        ///     <see cref="PublicTypes{T}()"/> o
+        ///     <see cref="PublicTypes{T}(AppDomain)"/>.
+        /// </remarks>
+        public static IEnumerable<Type> GetTypes<T>(this IEnumerable<Assembly> assemblies)
+        {
+            return assemblies.SelectMany(s => s.GetTypes()
                 .Where(p => typeof(T).IsAssignableFrom(p))).AsEnumerable();
         }
 
@@ -437,6 +542,15 @@ namespace TheXDS.MCART
         ///     Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
         ///     <typeparamref name="T" /> dentro de <see cref="AppDomain.CurrentDomain" />.
         /// </returns>
+        /// <remarks>
+        ///     Esta función obtiene todos los tipos (privados y públicos)
+        ///     definidos dentro de todos ls ensamblados dentro del dominio
+        ///     actual. Para obtener únicamente aquellos tipos exportados
+        ///     públicamente, utilice <see cref="PublicTypes(Type)"/>,
+        ///     <see cref="PublicTypes(Type, AppDomain)"/>,
+        ///     <see cref="PublicTypes{T}()"/> o
+        ///     <see cref="PublicTypes{T}(AppDomain)"/>.
+        /// </remarks>
         public static IEnumerable<Type> GetTypes<T>(bool instantiablesOnly)
         {
             return GetTypes<T>(AppDomain.CurrentDomain, instantiablesOnly);
@@ -458,9 +572,49 @@ namespace TheXDS.MCART
         ///     Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
         ///     <typeparamref name="T" /> dentro del <paramref name="domain" />.
         /// </returns>
+        /// <remarks>
+        ///     Esta función obtiene todos los tipos (privados y públicos)
+        ///     definidos dentro de todos los ensamblados dentro del dominio
+        ///     especificado. Para obtener únicamente aquellos tipos exportados
+        ///     públicamente, utilice <see cref="PublicTypes(Type)"/>,
+        ///     <see cref="PublicTypes(Type, AppDomain)"/>,
+        ///     <see cref="PublicTypes{T}()"/> o
+        ///     <see cref="PublicTypes{T}(AppDomain)"/>.
+        /// </remarks>
         public static IEnumerable<Type> GetTypes<T>(this AppDomain domain, bool instantiablesOnly)
         {
-            return domain.GetAssemblies().SelectMany(s => s.GetTypes()
+            return GetTypes<T>(domain.GetAssemblies(),instantiablesOnly);
+        }
+
+        /// <summary>
+        ///     Obtiene una lista de tipos asignables a partir de la interfaz o clase base
+        ///     especificada dentro del <see cref="AppDomain" /> especificado.
+        /// </summary>
+        /// <typeparam name="T">Interfaz o clase base a buscar.</typeparam>
+        /// <param name="assemblies">
+        ///     Colección de ensamblados en la cual realizar la búsqueda.
+        /// </param>
+        /// <param name="instantiablesOnly">
+        ///     Si se establece en <see langword="true" />, únicamente se incluirán aquellos tipos instanciables.
+        ///     <see langword="false" /> hará que se devuelvan todos los tipos coincidientes.
+        /// </param>
+        /// <returns>
+        ///     Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
+        ///     <typeparamref name="T" /> dentro del <paramref name="domain" />.
+        /// </returns>
+        /// <remarks>
+        ///     Esta función obtiene todos los tipos (privados y públicos)
+        ///     definidos dentro de todos los ensamblados dentro de la
+        ///     colección especificada. Para obtener únicamente aquellos tipos
+        ///     exportados públicamente, utilice
+        ///     <see cref="PublicTypes(Type)"/>,
+        ///     <see cref="PublicTypes(Type, AppDomain)"/>,
+        ///     <see cref="PublicTypes{T}()"/> o
+        ///     <see cref="PublicTypes{T}(AppDomain)"/>.
+        /// </remarks>
+        public static IEnumerable<Type> GetTypes<T>(this IEnumerable<Assembly> assemblies, bool instantiablesOnly)
+        {
+            return assemblies.SelectMany(s => s.GetTypes()
                 .Where(p => typeof(T).IsAssignableFrom(p))
                 .Where(p => !instantiablesOnly
                             || !(p.IsInterface
