@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     Title="MCART Test Application"
     Height="350"
-    Width="401">
+    Width="540">
     <Window.Resources>
         <Converters:BooleanInverter x:Key="BooleanInverter"/>
     </Window.Resources>
@@ -58,11 +58,14 @@
                 <MenuItem x:Name="mnuAboutMCART" Header="Acerca de MCART..." />
             </MenuItem>
         </Menu>
-            <Image Source="MCART.ico" Width="200"/>
-        <mcart:StretchyWrapPanel>
-            <Image Source="MCART.ico" Width="100"/>
-            <Image Source="MCART.ico" Width="100"/>
-            <Image Source="MCART.ico" Width="100"/>
+        <Image Source="MCART.ico" Width="200"/>
+        <mcart:StretchyWrapPanel StretchProportionally="False">
+            <TextBlock Text="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" MinWidth="50" Background="Red"/>
+            <TextBlock Text="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" MinWidth="60" Background="Green"/>
+            <TextBlock Text="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" MinWidth="40" Background="Blue"/>
+            <TextBlock Text="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" MinWidth="50" Background="Cyan"/>
+            <TextBlock Text="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" MinWidth="60" Background="Magenta"/>
+            <TextBlock Text="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" MinWidth="40" Background="Yellow"/>
         </mcart:StretchyWrapPanel>
     </DockPanel>
 </Window>

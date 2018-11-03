@@ -90,6 +90,8 @@ namespace TheXDS.MCART.Controls
             }
         }
 
+        #region Propiedades de dependencia
+
         /// <summary>
         ///     Identifica a la propiedad de dependencia <see cref="ItemHeight" />
         /// </summary>
@@ -103,7 +105,7 @@ namespace TheXDS.MCART.Controls
         [TypeConverter(typeof(LengthConverter))]
         public double ItemHeight
         {
-            get => (double) GetValue(ItemHeightProperty);
+            get => (double)GetValue(ItemHeightProperty);
             set => SetValue(ItemHeightProperty, value);
         }
 
@@ -120,7 +122,7 @@ namespace TheXDS.MCART.Controls
         [TypeConverter(typeof(LengthConverter))]
         public double ItemWidth
         {
-            get => (double) GetValue(ItemWidthProperty);
+            get => (double)GetValue(ItemWidthProperty);
             set => SetValue(ItemWidthProperty, value);
         }
 
@@ -134,7 +136,7 @@ namespace TheXDS.MCART.Controls
 
         private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((StretchyWrapPanel) d)._orientation = (Orientation) e.NewValue;
+            ((StretchyWrapPanel)d)._orientation = (Orientation)e.NewValue;
         }
 
         /// <summary>
@@ -155,7 +157,7 @@ namespace TheXDS.MCART.Controls
 
         private static void OnStretchProportionallyChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
-            ((StretchyWrapPanel) o)._stretchProportionally = (bool) e.NewValue;
+            ((StretchyWrapPanel)o)._stretchProportionally = (bool)e.NewValue;
         }
 
         /// <summary>
@@ -166,6 +168,8 @@ namespace TheXDS.MCART.Controls
             get => _stretchProportionally;
             set => SetValue(StretchProportionallyProperty, value);
         }
+        
+        #endregion
 
         private Orientation _orientation = Orientation.Horizontal;
 
@@ -173,10 +177,12 @@ namespace TheXDS.MCART.Controls
 
         /// <inheritdoc />
         /// <summary>
-        ///     Invalida al método <see cref="M:System.Windows.FrameworkElement.ArrangeOverride(System.Windows.Size)" />
+        ///   Si se reemplaza en una clase derivada, coloca los elementos secundarios y determina un tamaño para una clase derivada <see cref="T:System.Windows.FrameworkElement" />.
         /// </summary>
-        /// <param name="finalSize"></param>
-        /// <returns></returns>
+        /// <param name="finalSize">
+        ///   Área final dentro del elemento primario que este elemento debe usar para organizarse a sí mismo y a sus elementos secundarios.
+        /// </param>
+        /// <returns>Tamaño real usado.</returns>
         protected override Size ArrangeOverride(Size finalSize)
         {
             var firstInLine = 0;
@@ -206,7 +212,7 @@ namespace TheXDS.MCART.Controls
                         ArrangeLineProportionally(accumulatedV, curLineSize.V, firstInLine, i, uvFinalSize.Width);
                     else
                         ArrangeLine(accumulatedV, curLineSize.V, firstInLine, i, true,
-                            useItemU ? itemU : uvFinalSize.Width / System.Math.Max(1, i - firstInLine - 1));
+                            useItemU ? itemU : uvFinalSize.Width / System.Math.Max(1, i - firstInLine));
 
                     accumulatedV += curLineSize.V;
                     curLineSize = sz;
@@ -241,17 +247,22 @@ namespace TheXDS.MCART.Controls
                         uvFinalSize.Width);
                 else
                     ArrangeLine(accumulatedV, curLineSize.V, firstInLine, children.Count, true,
-                        useItemU ? itemU : uvFinalSize.Width / System.Math.Max(1, children.Count - firstInLine - 1));
+                        useItemU ? itemU : uvFinalSize.Width / System.Math.Max(1, children.Count - firstInLine));
 
             return finalSize;
         }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Invalida al método <see cref="M:System.Windows.FrameworkElement.MeasureOverride(System.Windows.Size)" />.
+        ///   Si se reemplaza en una clase derivada, mide el tamaño del diseño necesario para los elementos secundarios y determina un tamaño para la clase derivada <see cref="T:System.Windows.FrameworkElement" />.
         /// </summary>
-        /// <param name="constraint"></param>
-        /// <returns></returns>
+        /// <param name="constraint">
+        ///   Tamaño disponible que este elemento puede otorgar a los elementos secundarios.
+        ///    Se puede usar infinito como valor para indicar que el elemento se ajustará a cualquier contenido disponible.
+        /// </param>
+        /// <returns>
+        ///   Tamaño que este elemento determina que necesita durante el diseño, según sus cálculos de los tamaños de los elementos secundarios.
+        /// </returns>
         protected override Size MeasureOverride(Size constraint)
         {
             var curLineSize = new UvSize(Orientation);
@@ -268,12 +279,11 @@ namespace TheXDS.MCART.Controls
 
             var children = InternalChildren;
 
-            for (int i = 0, count = children.Count; i < count; i++)
+            foreach(UIElement child in children)
             {
-                var child = children[i];
                 if (child == null) continue;
 
-                // Flow passes its own constrint to children
+                // Flow passes its own constraint to children
                 child.Measure(childConstraint);
 
                 // This is the size of the child in UV space
@@ -289,7 +299,7 @@ namespace TheXDS.MCART.Controls
                     curLineSize = sz;
 
                     if (!(sz.U > uvConstraint.U)) continue;
-                    // The element is wider then the constrint - give it a separate line             
+                    // The element is wider then the constraint - give it a separate line             
                     panelSize.U = System.Math.Max(sz.U, panelSize.U);
                     panelSize.V += sz.V;
                     curLineSize = new UvSize(Orientation);
@@ -315,6 +325,7 @@ namespace TheXDS.MCART.Controls
             var u = 0d;
             var horizontal = Orientation == Orientation.Horizontal;
             var children = InternalChildren;
+
             for (var i = start; i < end; i++)
             {
                 var child = children[i];
