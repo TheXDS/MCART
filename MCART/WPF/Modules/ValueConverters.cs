@@ -31,6 +31,7 @@ using System.Windows.Media;
 using System.Windows.Media.Effects;
 using TheXDS.MCART;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 
 #region Configuración de ReSharper
@@ -487,19 +488,14 @@ namespace System.Windows.Converters
                     break;
                 case string str:
                     TypeConverter typeConverter;
-                    var converters = Objects.AllTypes<TypeConverter>().Where(p => !(p.IsAbstract || p.IsInterface));
 
                     if (parameter.GetType().HasAttr(out TypeConverterAttribute tc))
                     {
-                        typeConverter = converters.FirstOrDefault(p => p.Name == tc.ConverterTypeName)
+                        var converters = Objects.PublicTypes<TypeConverter>().Where(TypeExtensions.IsInstantiable);
+                        typeConverter = converters.FirstOrDefault(p => p.AssemblyQualifiedName == tc.ConverterTypeName)
                             .New<TypeConverter>();
                     }
-                    else
-                    {
-                        typeConverter = converters.Select(t => t.New<TypeConverter>())
-                            .FirstOrDefault(p => p.CanConvertFrom(typeof(string)) && p.CanConvertTo(typeof(TIn)));
-                        GC.Collect();
-                    }
+                    else { typeConverter = Common.FindConverter<string, TIn>(); }
 
                     if (typeConverter is null) throw new ArgumentException(string.Empty, nameof(parameter));
 

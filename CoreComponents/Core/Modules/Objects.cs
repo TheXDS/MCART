@@ -30,6 +30,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Types.Extensions;
 
 #region Configuración de ReSharper
 

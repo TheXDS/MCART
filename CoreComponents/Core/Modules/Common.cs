@@ -44,6 +44,7 @@ using System.Threading;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Types;
+using TheXDS.MCART.Types.Extensions;
 using St = TheXDS.MCART.Resources.Strings;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 
@@ -267,7 +268,7 @@ namespace TheXDS.MCART
         /// </param>
         public static bool AnyEmpty(this IEnumerable<string> stringArray, out IEnumerable<int> index)
         {
-            var idx = new List<int>();
+            var idx = new System.Collections.Generic.List<int>();
             var c = 0;
             var found = false;
             foreach (var j in stringArray)
@@ -635,9 +636,13 @@ namespace TheXDS.MCART
         /// </returns>
         public static TypeConverter FindConverter(Type source, Type target)
         {
-            return Objects.GetTypes<TypeConverter>(true)
-                .Select(j => j.New<TypeConverter>(false))
-                .FirstOrDefault(t => !(t is null) && t.CanConvertFrom(source) && t.CanConvertTo(target));
+            try
+            {
+                return Objects.PublicTypes<TypeConverter>().Where(TypeExtensions.IsInstantiable)
+                    .Select(j => j.New<TypeConverter>(false))
+                    .FirstOrDefault(t => !(t is null) && t.CanConvertFrom(source) && t.CanConvertTo(target));
+            }
+            finally { GC.Collect(); }
         }
 
         /// <summary>
@@ -1567,7 +1572,7 @@ namespace TheXDS.MCART
         public static short[] ReadInt16(this SecureString value)
         {
             const int sz = sizeof(short);
-            var outp = new List<short>();
+            var outp = new System.Collections.Generic.List<short>();
             var valuePtr = IntPtr.Zero;
             try
             {
@@ -1594,7 +1599,7 @@ namespace TheXDS.MCART
         public static char[] ReadChars(this SecureString value)
         {
             const int sz = sizeof(char);
-            var outp = new List<char>();
+            var outp = new System.Collections.Generic.List<char>();
             var valuePtr = IntPtr.Zero;
             try
             {
@@ -1620,7 +1625,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static byte[] ReadBytes(this SecureString value)
         {
-            var outp = new List<byte>();
+            var outp = new System.Collections.Generic.List<byte>();
             var valuePtr = IntPtr.Zero;
             try
             {
