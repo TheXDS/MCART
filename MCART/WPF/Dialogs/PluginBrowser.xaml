@@ -4,84 +4,64 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"    
+    xmlns:dialogs="clr-namespace:TheXDS.MCART.Dialogs"
+    xmlns:pluginSupport="clr-namespace:TheXDS.MCART.PluginSupport"
+    xmlns:pages="clr-namespace:TheXDS.MCART.Pages"
+    xmlns:converters="clr-namespace:System.Windows.Converters"
+    xmlns:resources="clr-namespace:TheXDS.MCART.Resources"
+    mc:Ignorable="d" d:DataContext="{d:DesignInstance dialogs:PluginBrowserViewModel}"
     Title="Explorador de plugins" Height="400" Width="600"
     Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
     <Window.Resources>
         <Thickness x:Key="Mrg">5</Thickness>
+        <converters:NotNullToVisibilityConverter x:Key="NnConv"/>
+        <converters:NullToVisibilityConverter x:Key="NConv"/>
+        <BooleanToVisibilityConverter x:Key="BoolVis"/>
     </Window.Resources>
-    <DockPanel>
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Right">
-            <Button x:Name="btnClose" Content="Cerrar" Margin="10" MinHeight="24" Width="75" Click="BtnClose_Click"/>
-        </StackPanel>
-        <TreeView x:Name="trvAsm" Margin="{DynamicResource Mrg}" Width="200" Loaded="TrvAsm_Loaded"/>
-        <DockPanel Grid.Column="1" Margin="{DynamicResource Mrg}">
-            <Grid DockPanel.Dock="top">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="3*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Grid.Resources>
-                    <Style TargetType="TextBox">
-                        <Setter Property="Margin" Value="{DynamicResource Mrg}"/>
-                        <Setter Property="IsReadOnly" Value="True"/>
-                    </Style>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="Margin" Value="{DynamicResource Mrg}"/>
-                    </Style>
-                </Grid.Resources>
-                <TextBlock Text="Nombre"/>
-                <TextBox x:Name="txtName" Grid.Column="1"/>
-                <TextBlock Text="Versión" Grid.Row="1"/>
-                <DockPanel Grid.Row="1" Grid.Column="1" Margin="{DynamicResource Mrg}">
-                    <CheckBox x:Name="chkUnstable" Content="Inestable" VerticalAlignment="Center" DockPanel.Dock="Right" IsEnabled="False" />
-                    <CheckBox x:Name="chkBeta" Content="Beta" Margin="5,0" VerticalAlignment="Center" DockPanel.Dock="Right" IsEnabled="False" />
-                    <TextBox x:Name="txtVersion" Grid.Column="1" Margin="0"/>
-                </DockPanel>
-                <TextBlock Text="Descripción" Grid.Row="2"/>
-                <TextBox x:Name="txtDesc" Grid.Row="3" Grid.ColumnSpan="2"/>
-                <TextBlock Text="Copyright" Grid.Row="4"/>
-                <TextBox x:Name="txtCopyrgt" Grid.Row="4" Grid.Column="1"/>
-            </Grid>
-            <TabControl>
-                <TabControl.Resources>
-                    <Style TargetType="TextBox">
-                        <Setter Property="IsReadOnly" Value="True"/>
-                    </Style>
-                </TabControl.Resources>
-                <TabItem Header="Licencia">
-                    <TextBox x:Name="txtLicense" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" FontFamily="Courier New"/>
-                </TabItem>
-                <TabItem Header="Interfaces">
-                    <ListView x:Name="lstInterf" />
-                </TabItem>
-                <TabItem Header="Compatibilidad">
-                    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <WrapPanel HorizontalAlignment="Right">
-                            <TextBlock Text="Versión mínima de MCART" VerticalAlignment="Center" />
-                            <TextBox x:Name="txtMinVer" Width="{Binding ActualWidth, ElementName=txtTgtVer}" Margin="{DynamicResource Mrg}" />
-                        </WrapPanel>
-                        <WrapPanel Grid.Row="1" HorizontalAlignment="Right">
-                            <TextBlock Text="Versión objetivo de MCART" VerticalAlignment="Center" />
-                            <TextBox x:Name="txtTgtVer" Margin="{DynamicResource Mrg}" />
-                        </WrapPanel>
-                        <TextBlock x:Name="lblVeredict" Grid.Row="2" HorizontalAlignment="Center" Margin="{DynamicResource Mrg}" />
-                    </Grid>
-                </TabItem>
-                <TabItem Header="Interacciones" x:Name="tabInteractions" />
-            </TabControl>
-        </DockPanel>
-    </DockPanel>
+    <Grid Margin="{StaticResource Mrg}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TreeView 
+            Visibility="{Binding ShowPlugins, Converter={StaticResource BoolVis}}"
+            SelectedItemChanged="TreeView_OnSelectedItemChanged"
+            Width="180"
+            Margin="{StaticResource Mrg}" 
+            ItemsSource="{Binding Plugins, Mode=OneWay}">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Value, Mode=OneWay}">
+                    <HierarchicalDataTemplate.ItemTemplate>
+                        <DataTemplate DataType="pluginSupport:IPlugin">
+                            <TextBlock Text="{Binding Name, Mode=OneWay}"/>
+                        </DataTemplate>
+                    </HierarchicalDataTemplate.ItemTemplate>
+                    <TextBlock FontWeight="Bold" Text="{Binding Key, Mode=OneWay}"/>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+        <TextBlock 
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Visibility="{Binding Selection, Mode=OneWay, Converter={StaticResource NConv}}"
+            Text="{x:Static resources:Strings.SlctAPlugin}"/>
+        <pages:PluginDetails
+            Grid.Column="1"
+            Visibility="{Binding Selection, Mode=OneWay, Converter={StaticResource NnConv}}"
+            DataContext="{Binding Selection, Mode=OneWay}"/>
+        <Button 
+            IsCancel="True"
+            Content="Cerrar"
+            Padding="10,5"
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Margin="{StaticResource Mrg}"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"/>
+    </Grid>
 </Window>

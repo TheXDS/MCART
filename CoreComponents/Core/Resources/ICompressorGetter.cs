@@ -45,5 +45,11 @@ namespace TheXDS.MCART.Resources
         /// información comprimida desde <paramref name="inputStream"/>.
         /// </returns>
         Stream GetCompressor(Stream inputStream);
+        /// <summary>
+        ///     Obtiene la extensión utilizada de forma predeterminada para un
+        ///     recurso comprimido utilizando este
+        ///     <see cref="ICompressorGetter"/>.
+        /// </summary>
+        string Extension { get; }
     }
 }

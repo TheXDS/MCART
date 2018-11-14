@@ -94,7 +94,11 @@ namespace TheXDS.MCART.Resources
         /// <see cref="ICompressorGetter"/> con el identificador especificado o
         /// si este es una cadena vacía.
         /// </exception>
-        [Thunk] protected Stream UnpackStream(string id, string compressorId) => UnpackStream(id, null, compressorId);
+        /// 
+        [Thunk] protected Stream UnpackStream(string id, string compressorId)
+        {
+            return UnpackStream(id, Objects.FindType<ICompressorGetter>(compressorId)?.New<ICompressorGetter>() ?? new NullGetter());
+        }
         /// <summary>
         /// Obtiene un <see cref="Stream"/> desde el cual extraer un recurso
         /// incrustado comprimido.
@@ -112,42 +116,10 @@ namespace TheXDS.MCART.Resources
         /// <see langword="null"/>, o si <paramref name="compressor"/> es
         /// <see langword="null"/>.
         /// </exception>
-        [Thunk] protected Stream UnpackStream(string id, ICompressorGetter compressor) => UnpackStream(id, compressor, null);
-        /// <summary>
-        /// Obtiene un <see cref="Stream"/> desde el cual extraer un recurso
-        /// incrustado comprimido.
-        /// </summary>
-        /// <param name="id">Identificador del recurso incrustado.</param>
-        /// <param name="compressor">
-        /// <see cref="ICompressorGetter"/> a utilizar para extraer al recurso.
-        /// Si se establece en <see langword="null"/>, se utilizará el
-        /// parámetro <paramref name="compressorId"/> para determinar el
-        /// compresor a utilizar.
-        /// </param>
-        /// <param name="compressorId">
-        /// Identificador del compresor a utilizar para extraer al recurso.
-        /// Si se establece en <see langword="null"/>, se utilizará el
-        /// atributo <see cref="IdentifierAttribute"/> del objeto establecido
-        /// en el parámetro <paramref name="compressor"/>.
-        /// </param>
-        /// <returns>
-        /// Un <see cref="Stream"/> desde el cual leer un recurso incrustado
-        /// sin comprimir.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="id"/> es una cadena vacía o
-        /// <see langword="null"/>, si <paramref name="compressor"/> y
-        /// <paramref name="compressorId"/> son <see langword="null"/>,
-        /// o si <paramref name="compressor"/> es <see langword="null"/> y no
-        /// se ha encontrado un <see cref="ICompressorGetter"/> con el
-        /// identificador especificado o si este es una cadena vacía.
-        /// </exception>        
-        protected Stream UnpackStream(string id, ICompressorGetter compressor, string compressorId)
+        [Thunk] protected Stream UnpackStream(string id, ICompressorGetter compressor)
         {
             if (id.IsEmpty()) throw new ArgumentNullException(nameof(id));
-            var c = compressor ?? Objects.FindType<ICompressorGetter>(compressorId)?.New<ICompressorGetter>() ?? throw new NotSupportedException();
-            var cId = compressorId ?? Attribute.GetCustomAttributes(c.GetType()).OfType<IdentifierAttribute>().FirstOrDefault()?.Value ?? "compressed";
-            return c.GetCompressor(assembly.GetManifestResourceStream($"{path}.{id}.{cId}"));
+            return compressor.GetCompressor(assembly.GetManifestResourceStream($"{path}.{id}{compressor.Extension}"));
         }
         /// <inheritdoc />
         /// <summary>

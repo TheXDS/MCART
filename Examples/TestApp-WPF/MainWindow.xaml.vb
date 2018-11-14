@@ -23,6 +23,8 @@ Imports TheXDS.MCART.PluginSupport
 Imports TheXDS.MCART.Dialogs
 Imports TheXDS.MCART
 Imports TheXDS.MCART.Controls
+Imports TheXDS.MCART.Pages
+Imports TheXDS.MCART.Resources
 
 Public Class MainWindow
     Private pl As IEnumerable(Of IPlugin)
@@ -49,10 +51,11 @@ Public Class MainWindow
             MessageBox.Show(.ShowDialog()?.ToString())
         End With
     End Sub
-    Private Sub MnuAboutMCART_Click(sender As Object, e As RoutedEventArgs) 'Handles mnuAboutMCART.Click
-        'With New MCART.Forms.
-        '    .ShowDialog()
-        'End With
+    Private Sub MnuAboutApp_Click(sender As Object, e As RoutedEventArgs) Handles mnuAboutApp.Click
+        AboutBox.ShowDialog(My.Application)
+    End Sub
+    Private Sub MnuAboutMCART_Click(sender As Object, e As RoutedEventArgs) Handles mnuAboutMCART.Click
+        RTInfo.Show()
     End Sub
     Private Sub MnuExit_Click(sender As Object, e As RoutedEventArgs) Handles mnuExit.Click
         Close()

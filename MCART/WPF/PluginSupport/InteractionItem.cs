@@ -23,6 +23,7 @@
 
 using TheXDS.MCART.Attributes;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -33,6 +34,8 @@ namespace TheXDS.MCART.PluginSupport
     /// <summary>
     /// Esta clase define a un elemento de interacción.
     /// </summary>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public partial class InteractionItem
     {
         /// <summary>
@@ -47,70 +50,70 @@ namespace TheXDS.MCART.PluginSupport
         /// Crea una nueva entrada de interacción con el delegado
         /// <see cref="EventHandler"/> especificado.
         /// </summary>
-        /// <param name="Text">Nombre del comando.</param>
-        /// <param name="Description">
+        /// <param name="text">Nombre del comando.</param>
+        /// <param name="description">
         /// Descripción larga del comando. útil para aplicar a Tooltips.
         /// </param>
-        /// <param name="Action">
+        /// <param name="action">
         /// <see cref="EventHandler"/> que se utilizará para controlar la
         /// activación de este <see cref="InteractionItem"/>.
         /// </param>
-        /// <param name="Icon">
+        /// <param name="icon">
         /// <see cref="BitmapSource"/> con el ícono para este 
         /// <see cref="InteractionItem"/>.
         /// </param>
-        public InteractionItem(EventHandler Action, string Text, string Description, BitmapSource Icon)
+        public InteractionItem(EventHandler action, string text, string description, BitmapSource icon)
         {
-            this.Action = Action ?? throw new ArgumentNullException(nameof(Action));
-            this.Text = Text ?? Action.Method.Name;
-            this.Description = Action.GetAttr<DescriptionAttribute>()?.Value ?? Description;
-            this.Icon = Icon;
+            Action = action ?? throw new ArgumentNullException(nameof(action));
+            Text = text ?? action.Method.Name;
+            Description = action.GetAttr<DescriptionAttribute>()?.Value ?? description;
+            Icon = icon;
         }
         /// <summary>
         /// Crea una nueva entrada de interacción con el delegado 
         /// <see cref="EventHandler"/> especificado.
         /// </summary>
-        /// <param name="Text">Nombre del comando.</param>
-        /// <param name="Action">
+        /// <param name="text">Nombre del comando.</param>
+        /// <param name="action">
         /// <see cref="EventHandler"/> que se utilizará para controlar la 
         /// activación de este <see cref="InteractionItem"/>.
         /// </param>
-        /// <param name="Icon">
+        /// <param name="icon">
         /// <see cref="BitmapSource"/> con el ícono para este 
         /// <see cref="InteractionItem"/>.
         /// </param>
-        public InteractionItem(EventHandler Action, string Text, BitmapSource Icon)
+        public InteractionItem(EventHandler action, string text, BitmapSource icon)
         {
-            this.Action = Action ?? throw new ArgumentNullException(nameof(Action));
-            this.Text = Text ?? Action.Method.Name;
-            Description = Action.GetAttr<DescriptionAttribute>()?.Value;
-            this.Icon = Icon;
+            Action = action ?? throw new ArgumentNullException(nameof(action));
+            Text = text ?? action.Method.Name;
+            Description = action.GetAttr<DescriptionAttribute>()?.Value;
+            Icon = icon;
         }
         /// <summary>
         /// Crea una nueva entrada de interacción con el delegado 
         /// <see cref="EventHandler"/> especificado.
         /// </summary>
-        /// <param name="Action">
+        /// <param name="action">
         /// <see cref="EventHandler"/> que se utilizará para controlar la
         /// activación de este <see cref="InteractionItem"/>.
         /// </param>
-        /// <param name="Icon">
+        /// <param name="icon">
         /// <see cref="BitmapSource"/> con el ícono para este
         /// <see cref="InteractionItem"/>.
         /// </param>
-        public InteractionItem(EventHandler Action, BitmapSource Icon)
+        public InteractionItem(EventHandler action, BitmapSource icon)
         {
-            this.Action = Action ?? throw new ArgumentNullException(nameof(Action));
-            Text = Action.Method.Name;
-            Description = Action.GetAttr<DescriptionAttribute>()?.Value;
-            this.Icon = Icon;
+            Action = action ?? throw new ArgumentNullException(nameof(action));
+            Text = action.Method.Name;
+            Description = action.GetAttr<DescriptionAttribute>()?.Value;
+            Icon = icon;
         }
         /// <summary>
         /// Encapsula el <see cref="Action"/> como un
         /// <see cref="RoutedEventHandler"/> compatible con Windows
         /// Presentation Framework.
         /// </summary>
-        public RoutedEventHandler RoutedAction => new RoutedEventHandler((s, e) => Action(s, e));
+        public RoutedEventHandler RoutedAction => (s, e) => Action(s, e);
         /// <summary>
         /// Devuelve este <see cref="InteractionItem"/> como un
         /// <see cref="MenuItem"/>.

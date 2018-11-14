@@ -21,14 +21,21 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System.Windows;
 using TheXDS.MCART.Exceptions;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
 namespace TheXDS.MCART.PluginSupport
 {
-    public abstract partial class Plugin : IPlugin
+    public abstract partial class Plugin
     {
+        /// <inheritdoc />
+        /// <summary>
+        ///     Obtiene un ícono opcional a mostrar que describe al elemento.
+        /// </summary>
+        public virtual UIElement Icon => null;
+
         /// <summary>
         /// Genera un <see cref="MenuItem"/> a partir de las interacciones del
         /// <see cref="IPlugin"/>.

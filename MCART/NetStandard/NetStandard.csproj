@@ -1,24 +1,29 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>TheXDS.MCART.NetStandard</AssemblyName>
     <RootNamespace>TheXDS.MCART</RootNamespace>
-    <Version>0.8.9.9</Version>
+    <Version>0.8.10.0</Version>
     <Authors>César Andrés Morgan</Authors>
     <Product>Morgan's CLR Advanced Runtime</Product>
     <Company>TheXDS! non-Corp.</Company>
     <RepositoryUrl>https://github.com/TheXDS/MCART</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <AssemblyVersion>0.8.9.9</AssemblyVersion>
-    <FileVersion>0.8.9.9</FileVersion>
+    <AssemblyVersion>0.8.10.0</AssemblyVersion>
+    <FileVersion>0.8.10.0</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Copyright>Copyright © 2011-2018 César Andrés Morgan</Copyright>
     <PackageLicenseUrl>http://www.gnu.org/licenses/gpl-3.0.html</PackageLicenseUrl>
     <Description>MCART .Net Standard Edition</Description>
     <PackageIconUrl>https://raw.githubusercontent.com/TheXDS/MCART/master/CoreComponents/Core-GUI/Resources/Icons/MCART.png</PackageIconUrl>
-    <PackageProjectUrl>https://github.com/TheXDS/MCART</PackageProjectUrl>
+    <PackageProjectUrl>https://thexds.github.io/MCART</PackageProjectUrl>
     <PackageTags>mcart runtime extension helper async network security</PackageTags>
     <PackageReleaseNotes>Este paquete es una versión Pre-Release de MCART, por lo que se recomienda que su uso se limite a pruebas y demostraciones de la API, ya que no se puede garantizar la estabilidad de la misma. Para más detalles, vea la documentación que acompaña a MCART.</PackageReleaseNotes>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\..\Build\netstandard2.0\Debug\</OutputPath>

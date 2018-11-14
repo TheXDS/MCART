@@ -499,6 +499,7 @@ namespace TheXDS.MCART.Resources
         public const string Rdy = "Listo";
         public const string Search = "Buscar...";
         public const string Security = "Seguridad";
+        public const string SlctAPlugin = "Seleccione un elemento de la lista para ver más información.";
         public const string Specified = "especificado";
         public const string StackUnderflow = "Subflujo de pila";
         public const string Symbols = "`~!@#$%^&*()-_=+\\|]}[{'\";:/?.>,<";

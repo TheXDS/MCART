@@ -1,18 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
+# Blend for Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core", "CoreComponents\Core\Core.shproj", "{E5F6A0E5-B532-480C-B72E-516908C07944}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core-GUI", "CoreComponents\Core-GUI\Core-GUI.shproj", "{4963BA2E-AA9F-43DF-9674-D7257A201AA3}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core-NoWPF", "CoreComponents\Core-NoWPF\Core-NoWPF.shproj", "{5B5C0EA8-E8C3-4442-94FB-03B7AC6BE9E8}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core-Windows", "CoreComponents\Core-Windows\Core-Windows.shproj", "{F1D4FE86-BB72-4D8D-901E-525F697991FE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF", "MCART\WPF\WPF.csproj", "{214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreComponents", "CoreComponents", "{9FDABDB6-9BC6-4DB6-9B3C-C43492893ED4}"
 	ProjectSection(SolutionItems) = preProject
 		CommonSettings.targets = CommonSettings.targets
@@ -20,15 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreComponents", "CoreCompo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MCART", "MCART", "{D1A6B294-5A43-479F-9BA5-431BEFA203FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lite", "MCART\Lite\Lite.csproj", "{FFCB72D8-1CB3-47A2-876B-630076307D78}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{AE0A84D6-D40C-4D36-ADE6-BB3CF90A1DCA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{13F522D6-0589-49C8-B378-1BDAFED286D5}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TestApp-WPF", "Examples\TestApp-WPF\TestApp-WPF.vbproj", "{D92E5DCA-64C6-4B41-B88D-59B0001814B2}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetStandard", "MCART\NetStandard\NetStandard.csproj", "{BDC6D2BE-54B0-47B3-83CC-046BE00268C3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{D34D6209-75E9-495C-A672-3C3D04EC7A26}"
 	ProjectSection(SolutionItems) = preProject
@@ -41,9 +25,31 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		TECHINFO.md = TECHINFO.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{7B09221E-59F7-4BC7-BD06-37DFE25DE5E9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BinUtil", "BinUtil", "{B15FA103-0CD0-4398-858F-F9B48C88D209}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LightChat", "LightChat", "{73F5E350-F792-499B-8395-F86D63A8C809}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core", "CoreComponents\Core\Core.shproj", "{E5F6A0E5-B532-480C-B72E-516908C07944}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core-GUI", "CoreComponents\Core-GUI\Core-GUI.shproj", "{4963BA2E-AA9F-43DF-9674-D7257A201AA3}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core-NoWPF", "CoreComponents\Core-NoWPF\Core-NoWPF.shproj", "{5B5C0EA8-E8C3-4442-94FB-03B7AC6BE9E8}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core-Windows", "CoreComponents\Core-Windows\Core-Windows.shproj", "{F1D4FE86-BB72-4D8D-901E-525F697991FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF", "MCART\WPF\WPF.csproj", "{214A1E64-25A4-4D98-97DA-7CA0E7AB2EEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lite", "MCART\Lite\Lite.csproj", "{FFCB72D8-1CB3-47A2-876B-630076307D78}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TestApp-WPF", "Examples\TestApp-WPF\TestApp-WPF.vbproj", "{D92E5DCA-64C6-4B41-B88D-59B0001814B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetStandard", "MCART\NetStandard\NetStandard.csproj", "{BDC6D2BE-54B0-47B3-83CC-046BE00268C3}"
+EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AssemblyInfo", "CoreComponents\AssemblyInfo\AssemblyInfo.shproj", "{967AFAA3-DED3-4EC0-9401-7193B318FCE8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreTest", "Tests\CoreTest\CoreTest.csproj", "{3B7D6090-1BD1-406B-B0A6-CADA4D3B6DB8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreTest", "Tests\CoreTest\CoreTest.csproj", "{3B7D6090-1BD1-406B-B0A6-CADA4D3B6DB8}"
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "API-Documentation", "Documentation\API-Documentation\API-Documentation.shfbproj", "{14A05F92-BF65-4801-95A7-48EE59C72159}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -52,10 +58,6 @@ Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "API-Documentation", "Docume
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Examples", "Documentation\Examples\Examples.shproj", "{913DB390-BCF2-478D-996E-1B7248425597}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{7B09221E-59F7-4BC7-BD06-37DFE25DE5E9}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BinUtil", "BinUtil", "{B15FA103-0CD0-4398-858F-F9B48C88D209}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinUtil.Exe", "Utils\BinUtil\BinUtil.Exe.csproj", "{8C082165-0A7E-437B-BB9B-DB7794A16027}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Downloader", "Examples\Downloader\Downloader.csproj", "{4B1887D4-BAF9-4F81-B153-BE4B405EDC19}"
@@ -63,8 +65,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EchoServer", "Examples\EchoServer\EchoServer.csproj", "{B1F87675-1F7C-40B7-9D9E-9147F94535D1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFTests", "Tests\WPFTests\WPFTests.csproj", "{C20079C9-E990-470F-9E3A-7AF38AD65CDA}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LightChat", "LightChat", "{73F5E350-F792-499B-8395-F86D63A8C809}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Examples\LightChat\Server\Server.csproj", "{10561745-A4F7-40A1-98F6-D7EEFDFF7CEE}"
 EndProject
@@ -85,6 +85,7 @@ Global
 		CoreComponents\Core-GUI\Core-GUI.projitems*{214a1e64-25a4-4d98-97da-7ca0e7ab2eef}*SharedItemsImports = 4
 		CoreComponents\Core-Windows\Core-Windows.projitems*{214a1e64-25a4-4d98-97da-7ca0e7ab2eef}*SharedItemsImports = 4
 		CoreComponents\Core\Core.projitems*{214a1e64-25a4-4d98-97da-7ca0e7ab2eef}*SharedItemsImports = 4
+		Examples\LightChat\Common\Common.projitems*{3b7d6090-1bd1-406b-b0a6-cada4d3b6db8}*SharedItemsImports = 4
 		Examples\LightChat\Common\Common.projitems*{416a8e0c-62fe-4014-a442-7859b00939e8}*SharedItemsImports = 4
 		CoreComponents\Core-GUI\Core-GUI.projitems*{4963ba2e-aa9f-43df-9674-d7257a201aa3}*SharedItemsImports = 13
 		CoreComponents\AssemblyInfo\AssemblyInfo.projitems*{4b1887d4-baf9-4f81-b153-be4b405edc19}*SharedItemsImports = 4
@@ -93,6 +94,7 @@ Global
 		Documentation\Examples\Examples.projitems*{913db390-bcf2-478d-996e-1b7248425597}*SharedItemsImports = 13
 		CoreComponents\AssemblyInfo\AssemblyInfo.projitems*{967afaa3-ded3-4ec0-9401-7193b318fce8}*SharedItemsImports = 13
 		CoreComponents\AssemblyInfo\AssemblyInfo.projitems*{b1f87675-1f7c-40b7-9d9e-9147f94535d1}*SharedItemsImports = 4
+		CoreComponents\Core\Core.projitems*{bdc6d2be-54b0-47b3-83cc-046be00268c3}*SharedItemsImports = 4
 		Tests\Common\Common.projitems*{c20079c9-e990-470f-9e3a-7af38ad65cda}*SharedItemsImports = 4
 		CoreComponents\Core\Core.projitems*{e5f6a0e5-b532-480c-b72e-516908c07944}*SharedItemsImports = 13
 		CoreComponents\Core-Windows\Core-Windows.projitems*{f1d4fe86-bb72-4d8d-901e-525f697991fe}*SharedItemsImports = 13
@@ -382,6 +384,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{B15FA103-0CD0-4398-858F-F9B48C88D209} = {7B09221E-59F7-4BC7-BD06-37DFE25DE5E9}
+		{73F5E350-F792-499B-8395-F86D63A8C809} = {13F522D6-0589-49C8-B378-1BDAFED286D5}
 		{E5F6A0E5-B532-480C-B72E-516908C07944} = {9FDABDB6-9BC6-4DB6-9B3C-C43492893ED4}
 		{4963BA2E-AA9F-43DF-9674-D7257A201AA3} = {9FDABDB6-9BC6-4DB6-9B3C-C43492893ED4}
 		{5B5C0EA8-E8C3-4442-94FB-03B7AC6BE9E8} = {9FDABDB6-9BC6-4DB6-9B3C-C43492893ED4}
@@ -394,12 +398,10 @@ Global
 		{3B7D6090-1BD1-406B-B0A6-CADA4D3B6DB8} = {AE0A84D6-D40C-4D36-ADE6-BB3CF90A1DCA}
 		{14A05F92-BF65-4801-95A7-48EE59C72159} = {D34D6209-75E9-495C-A672-3C3D04EC7A26}
 		{913DB390-BCF2-478D-996E-1B7248425597} = {D34D6209-75E9-495C-A672-3C3D04EC7A26}
-		{B15FA103-0CD0-4398-858F-F9B48C88D209} = {7B09221E-59F7-4BC7-BD06-37DFE25DE5E9}
 		{8C082165-0A7E-437B-BB9B-DB7794A16027} = {B15FA103-0CD0-4398-858F-F9B48C88D209}
 		{4B1887D4-BAF9-4F81-B153-BE4B405EDC19} = {13F522D6-0589-49C8-B378-1BDAFED286D5}
 		{B1F87675-1F7C-40B7-9D9E-9147F94535D1} = {13F522D6-0589-49C8-B378-1BDAFED286D5}
 		{C20079C9-E990-470F-9E3A-7AF38AD65CDA} = {AE0A84D6-D40C-4D36-ADE6-BB3CF90A1DCA}
-		{73F5E350-F792-499B-8395-F86D63A8C809} = {13F522D6-0589-49C8-B378-1BDAFED286D5}
 		{10561745-A4F7-40A1-98F6-D7EEFDFF7CEE} = {73F5E350-F792-499B-8395-F86D63A8C809}
 		{416A8E0C-62FE-4014-A442-7859B00939E8} = {73F5E350-F792-499B-8395-F86D63A8C809}
 		{1459CF01-8F9B-47B1-A3F2-57E1F84D9D0E} = {73F5E350-F792-499B-8395-F86D63A8C809}

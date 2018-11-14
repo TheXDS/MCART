@@ -22,7 +22,14 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System.IO;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Markup;
+using System.Xml;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using TheXDS.MCART.Attributes;
 
 namespace TheXDS.MCART.Resources
 {
@@ -32,12 +39,33 @@ namespace TheXDS.MCART.Resources
     /// </summary>
     public static partial class Icons
     {
+        private const string DefaultExt = "png";
+
+        private static readonly ImageUnpacker imgs = new ImageUnpacker(RTInfo.RTAssembly, typeof(Icons).FullName);
+        private static readonly StringUnpacker strs = new StringUnpacker(RTInfo.RTAssembly, typeof(Icons).FullName);
+
         /// <summary>
-        /// Obtiene un ícono desde los recursos incrustados del ensamblado de
-        /// MCART.
+        ///     Obtiene un ícono desde los recursos incrustados del ensamblado
+        ///     de MCART.
         /// </summary>
         /// <param name="icon">Ícono que se desea obtener.</param>
         /// <returns>El ícono de recurso incrustado solicitado.</returns>
-        public static ImageSource GetIcon(IconID icon) => GetIcon<ImageSource>(icon);
+        public static ImageSource GetIcon(IconId icon) => imgs.Unpack(
+            $"{icon.ToString()}.{(icon.HasAttr<IdentifierAttribute>(out var attr) ? attr.Value : DefaultExt)}");
+
+        /// <summary>
+        ///     Obtiene un ícono desde los recursos incrustados del ensamblado
+        ///     de MCART.
+        /// </summary>
+        /// <param name="icon">Ícono que se desea obtener.</param>
+        /// <returns>El ícono de recurso incrustado solicitado.</returns>
+        public static UIElement GetXamlIcon(IconId icon)
+        {
+            using (var sr = new StringReader(strs.Unpack($"{icon.ToString()}_Xml", new DeflateGetter())))
+            {
+                var xx = XmlReader.Create(sr);
+                return XamlReader.Load(xx) as UIElement;
+            }
+        }
     }
 }

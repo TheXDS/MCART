@@ -30,7 +30,6 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Types.Extensions;
 
 #region Configuración de ReSharper
 
@@ -327,6 +326,28 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
+        ///     Devuelve el atributo asociado al ensamblado especificado.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// </typeparam>
+        /// <param name="assembly">
+        ///     <see cref="Assembly" /> del cual se extraerá el
+        ///     atributo.
+        /// </param>
+        /// <returns>
+        ///     Un atributo del tipo <typeparamref name="T" /> con los datos
+        ///     asociados en la declaración del ensamblado; o <see langword="null" /> en caso
+        ///     de no encontrarse el atributo especificado.
+        /// </returns>
+        [Thunk]
+        public static IEnumerable<T> GetAttrs<T>(this Assembly assembly) where T : Attribute
+        {
+            HasAttrs(assembly, out IEnumerable<T> attr);
+            return attr;
+        }
+
+        /// <summary>
         ///     Devuelve el atributo asociado a la declaración del objeto
         ///     especificado.
         /// </summary>
@@ -349,40 +370,65 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Devuelve el atributo asociado a la declaración del objeto especificado.
+        ///     Devuelve el atributo asociado al ensamblado especificado.
         /// </summary>
         /// <typeparam name="T">
         ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
-        /// <param name="type">Objeto del cual se extraerá el atributo.</param>
+        /// <param name="member">
+        ///     <see cref="MemberInfo" /> del cual se extraerá el
+        ///     atributo.
+        /// </param>
         /// <returns>
         ///     Un atributo del tipo <typeparamref name="T" /> con los datos
-        ///     asociados en la declaración del objeto; o <see langword="null" /> en caso de no
-        ///     encontrarse el atributo especificado.
+        ///     asociados en la declaración del ensamblado; o <see langword="null" /> en caso
+        ///     de no encontrarse el atributo especificado.
         /// </returns>
         [Thunk]
-        public static T GetAttr<T>(this Type type) where T : Attribute
+        public static IEnumerable<T> GetAttrs<T>(this MemberInfo member) where T : Attribute
         {
-            HasAttr(type, out T attr);
+            HasAttrs(member, out IEnumerable<T> attr);
             return attr;
         }
 
         /// <summary>
-        ///     Devuelve el atributo asociado a la declaración del objeto especificado.
-        /// </summary>
-        /// <typeparam name="T">
-        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
-        /// </typeparam>
-        /// <param name="obj">Objeto del cual se extraerá el atributo.</param>
-        /// <returns>
-        ///     Un atributo del tipo <typeparamref name="T" /> con los datos
-        ///     asociados en la declaración del objeto; o <see langword="null" /> en caso de no
-        ///     encontrarse el atributo especificado.
-        /// </returns>
+         ///     Devuelve el atributo asociado a la declaración del objeto especificado.
+         /// </summary>
+         /// <typeparam name="T">
+         ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+         /// </typeparam>
+         /// <param name="obj">Objeto del cual se extraerá el atributo.</param>
+         /// <returns>
+         ///     Un atributo del tipo <typeparamref name="T" /> con los datos
+         ///     asociados en la declaración del objeto; o <see langword="null" /> en caso de no
+         ///     encontrarse el atributo especificado.
+         /// </returns>
         [Thunk]
         public static T GetAttr<T>(this object obj) where T : Attribute
         {
             HasAttr(obj, out T attr);
+            return attr;
+        }
+
+        /// <summary>
+        ///     Devuelve el atributo asociado al ensamblado especificado.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// </typeparam>
+        /// <param name="member">
+        ///     <see cref="Object" /> del cual se extraerá el
+        ///     atributo.
+        /// </param>
+        /// <returns>
+        ///     Un atributo del tipo <typeparamref name="T" /> con los datos
+        ///     asociados en la declaración del ensamblado; o <see langword="null" /> en caso
+        ///     de no encontrarse el atributo especificado.
+        /// </returns>
+        [Thunk]
+        public static IEnumerable<T> GetAttrs<T>(this object member) where T : Attribute
+        {
+            HasAttrs(member, out IEnumerable<T> attr);
             return attr;
         }
 
@@ -409,6 +455,28 @@ namespace TheXDS.MCART
         {
             HasAttr<T>(enumValue, out var retval);
             return retval;
+        }
+
+        /// <summary>
+        ///     Devuelve el atributo asociado al ensamblado especificado.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// </typeparam>
+        /// <param name="enumValue">
+        ///     <see cref="Enum" /> del cual se extraerá el
+        ///     atributo.
+        /// </param>
+        /// <returns>
+        ///     Un atributo del tipo <typeparamref name="T" /> con los datos
+        ///     asociados en la declaración del ensamblado; o <see langword="null" /> en caso
+        ///     de no encontrarse el atributo especificado.
+        /// </returns>
+        [Thunk]
+        public static IEnumerable<T> GetAttrs<T>(this Enum enumValue) where T : Attribute
+        {
+            HasAttrs(enumValue, out IEnumerable<T> attr);
+            return attr;
         }
 
         /// <summary>
@@ -552,6 +620,7 @@ namespace TheXDS.MCART
         ///     <see cref="PublicTypes{T}()"/> o
         ///     <see cref="PublicTypes{T}(AppDomain)"/>.
         /// </remarks>
+        // ReSharper disable once IdentifierTypo
         public static IEnumerable<Type> GetTypes<T>(bool instantiablesOnly)
         {
             return GetTypes<T>(AppDomain.CurrentDomain, instantiablesOnly);
@@ -582,6 +651,7 @@ namespace TheXDS.MCART
         ///     <see cref="PublicTypes{T}()"/> o
         ///     <see cref="PublicTypes{T}(AppDomain)"/>.
         /// </remarks>
+        // ReSharper disable once IdentifierTypo
         public static IEnumerable<Type> GetTypes<T>(this AppDomain domain, bool instantiablesOnly)
         {
             return GetTypes<T>(domain.GetAssemblies(),instantiablesOnly);
@@ -601,7 +671,7 @@ namespace TheXDS.MCART
         /// </param>
         /// <returns>
         ///     Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
-        ///     <typeparamref name="T" /> dentro del <paramref name="domain" />.
+        ///     <typeparamref name="T" /> dentro del dominio predeterminado.
         /// </returns>
         /// <remarks>
         ///     Esta función obtiene todos los tipos (privados y públicos)
@@ -613,6 +683,7 @@ namespace TheXDS.MCART
         ///     <see cref="PublicTypes{T}()"/> o
         ///     <see cref="PublicTypes{T}(AppDomain)"/>.
         /// </remarks>
+        // ReSharper disable once IdentifierTypo
         public static IEnumerable<Type> GetTypes<T>(this IEnumerable<Assembly> assemblies, bool instantiablesOnly)
         {
             return assemblies.SelectMany(s => s.GetTypes()
@@ -644,8 +715,9 @@ namespace TheXDS.MCART
         /// </returns>
         public static bool HasAttr<T>(this Assembly assembly, out T attribute) where T : Attribute
         {
-            attribute = Attribute.GetCustomAttribute(assembly, typeof(T)) as T;
-            return !(attribute is null);
+            var retVal = HasAttrs<T>(assembly, out var attrs);
+            attribute = attrs.FirstOrDefault();
+            return retVal;
         }
 
         /// <summary>
@@ -685,10 +757,36 @@ namespace TheXDS.MCART
         ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
         ///     en caso contrario.
         /// </returns>
+        public static bool HasAttrs<T>(this Assembly member, out IEnumerable<T> attribute) where T : Attribute
+        {
+            attribute = Attribute.GetCustomAttributes(member, typeof(T)).OfType<T>();
+            return attribute.Any();
+        }
+
+        /// <summary>
+        ///     Determina si un miembro posee un atributo definido.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// </typeparam>
+        /// <param name="member">
+        ///     Miembro del cual se extraerá el atributo.
+        /// </param>
+        /// <param name="attribute">
+        ///     Parámetro de salida. Si un atributo de tipo
+        ///     <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
+        ///     Se devolverá <see langword="null" /> si el miembro no posee el atributo
+        ///     especificado.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        ///     en caso contrario.
+        /// </returns>
         public static bool HasAttr<T>(this MemberInfo member, out T attribute) where T : Attribute
         {
-            attribute = Attribute.GetCustomAttribute(member, typeof(T)) as T;
-            return !(attribute is null);
+            var retVal = HasAttrs<T>(member, out var attrs);
+            attribute = attrs.FirstOrDefault();
+            return retVal;
         }
 
         /// <summary>
@@ -715,7 +813,7 @@ namespace TheXDS.MCART
         /// <typeparam name="T">
         ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
-        /// <param name="type">
+        /// <param name="member">
         ///     Miembro del cual se extraerá el atributo.
         /// </param>
         /// <param name="attribute">
@@ -728,28 +826,10 @@ namespace TheXDS.MCART
         ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
         ///     en caso contrario.
         /// </returns>
-        public static bool HasAttr<T>(this Type type, out T attribute) where T : Attribute
+        public static bool HasAttrs<T>(this MemberInfo member, out IEnumerable<T> attribute) where T : Attribute
         {
-            attribute = Attribute.GetCustomAttribute(type, typeof(T)) as T;
-            return !(attribute is null);
-        }
-
-        /// <summary>
-        ///     Determina si un miembro posee un atributo definido.
-        /// </summary>
-        /// <typeparam name="T">
-        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
-        /// </typeparam>
-        /// <param name="type">
-        ///     Miembro del cual se extraerá el atributo.
-        /// </param>
-        /// <returns>
-        ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-        ///     en caso contrario.
-        /// </returns>
-        public static bool HasAttr<T>(this Type type) where T : Attribute
-        {
-            return HasAttr<T>(type, out _);
+            attribute = Attribute.GetCustomAttributes(member, typeof(T)).OfType<T>();
+            return attribute.Any();
         }
 
         /// <summary>
@@ -773,8 +853,9 @@ namespace TheXDS.MCART
         /// </returns>
         public static bool HasAttr<T>(this object obj, out T attribute) where T : Attribute
         {
-            attribute = Attribute.GetCustomAttribute(obj.GetType(), typeof(T)) as T;
-            return !(attribute is null);
+            var retVal = HasAttrs<T>(obj.GetType(), out var attrs);
+            attribute = attrs.FirstOrDefault();
+            return retVal;
         }
 
         /// <summary>
@@ -793,6 +874,31 @@ namespace TheXDS.MCART
         public static bool HasAttr<T>(this object obj) where T : Attribute
         {
             return HasAttr<T>(obj, out _);
+        }
+
+        /// <summary>
+        ///     Determina si un miembro posee un atributo definido.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// </typeparam>
+        /// <param name="member">
+        ///     Miembro del cual se extraerá el atributo.
+        /// </param>
+        /// <param name="attribute">
+        ///     Parámetro de salida. Si un atributo de tipo
+        ///     <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
+        ///     Se devolverá <see langword="null" /> si el miembro no posee el atributo
+        ///     especificado.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        ///     en caso contrario.
+        /// </returns>
+        public static bool HasAttrs<T>(this object member, out IEnumerable<T> attribute) where T : Attribute
+        {
+            attribute = Attribute.GetCustomAttributes(member.GetType(), typeof(T)).OfType<T>();
+            return attribute.Any();
         }
 
         /// <summary>
@@ -857,6 +963,47 @@ namespace TheXDS.MCART
             attribute = type.GetMember(type.GetEnumName(enumValue))[0].GetCustomAttributes(typeof(T), false)
                 .FirstOrDefault() as T;
             return !(attribute is null);
+        }
+
+        /// <summary>
+        ///     Determina si un miembro posee un atributo definido.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// </typeparam>
+        /// <param name="enumValue">
+        ///     Miembro del cual se extraerá el atributo.
+        /// </param>
+        /// <param name="attribute">
+        ///     Parámetro de salida. Si un atributo de tipo
+        ///     <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
+        ///     Se devolverá <see langword="null" /> si el miembro no posee el atributo
+        ///     especificado.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        ///     en caso contrario.
+        /// </returns>
+#if !CLSCompliance && PreferExceptions
+/// <exception cref="ArgumentOutOfRangeException">
+/// Se produce si el tipo de enumeración no contiene un valor definido
+/// para <paramref name="enumValue"/>.
+/// </exception>
+        [CLSCompliant(false)]
+#endif
+        public static bool HasAttrs<T>(this Enum enumValue, out IEnumerable<T> attribute) where T : Attribute
+        {
+            var type = enumValue.GetType();
+            attribute = null;
+            if (!type.IsEnumDefined(enumValue))
+#if !CLSCompliance && PreferExceptions
+                throw new ArgumentOutOfRangeException(nameof(enumValue));
+#else
+                return false;
+#endif
+
+            attribute = type.GetMember(type.GetEnumName(enumValue))[0].GetCustomAttributes(typeof(T), false).OfType<T>();
+            return attribute.Any();
         }
 
         /// <summary>

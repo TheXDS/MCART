@@ -50,5 +50,6 @@ namespace TheXDS.MCARTBinUtil
     public interface ICompressorGetter
     {
         Stream GetCompressor(Stream stream);
+        string Extension { get; }
     }
 }

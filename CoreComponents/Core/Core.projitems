@@ -9,12 +9,14 @@
     <Import_RootNamespace>MCART</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Component\IExposeInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Math\Common.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Math\Geometry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Math\Algebra.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Math\Physics.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Math\Series.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Math\Tween.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Misc\Annotations.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Attrbutes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Enums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Events.cs" />
@@ -34,6 +36,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\Protocols\Time.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\SelfWiredCommandProtocol.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\SimpleProtocol.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\TextUnpacker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\Base\NotifyPropertyChanged.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\DateTimeExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\EnumExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\StringExtensions.cs" />

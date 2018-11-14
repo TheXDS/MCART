@@ -26,13 +26,16 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
+using TheXDS.MCART.Component;
 
 namespace TheXDS.MCART.PluginSupport
 {
+    /// <inheritdoc />
     /// <summary>
-	/// Define una interfaz básica para crear Plugins administrados por MCART
-	/// </summary>
-	public partial interface IPlugin
+    ///     Define una interfaz básica para crear Plugins administrados por
+    ///     MCART.
+    /// </summary>
+	public partial interface IPlugin: IExposeInfo
     {
         /// <summary>
         /// Se produce cuando un <see cref="IPlugin"/> solicita la actualización
@@ -43,30 +46,6 @@ namespace TheXDS.MCART.PluginSupport
         /// Se produce cuando un <see cref="IPlugin"/> está por ser deshechado.
         /// </summary>
         event EventHandler<PluginFinalizingEventArgs> PluginFinalizing;
-        /// <summary>
-        /// Devuelve el nombre del <see cref="IPlugin"/>
-        /// </summary>
-        string Name { get; }
-        /// <summary>
-        /// Devuelve la versión del <see cref="IPlugin"/>
-        /// </summary>
-        Version Version { get; }
-        /// <summary>
-        /// Devuelve una descripción del <see cref="IPlugin"/>
-        /// </summary>
-        string Description { get; }
-        /// <summary>
-        /// Devuelve el autor del <see cref="IPlugin"/>
-        /// </summary>
-        string Author { get; }
-        /// <summary>
-        /// Devuelve el Copyright del <see cref="IPlugin"/>
-        /// </summary>
-        string Copyright { get; }
-        /// <summary>
-        /// Devuelve la licencia del <see cref="IPlugin"/>
-        /// </summary>
-        string License { get; }
         /// <summary>
         /// Determina la versión mínima de MCART necesaria para este <see cref="IPlugin"/>
         /// </summary>

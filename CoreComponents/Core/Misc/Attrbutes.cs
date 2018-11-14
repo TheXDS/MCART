@@ -774,4 +774,5 @@ namespace TheXDS.MCART.Attributes
             catch { /* Ignorar excepción */ }
         }
     }
+
 }

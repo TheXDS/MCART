@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows;
+using TheXDS.MCART.Dialogs;
 using TheXDS.MCART.Networking.Client;
 
 namespace TheXDS.LightChat
@@ -18,6 +19,10 @@ namespace TheXDS.LightChat
         {
             InitializeComponent();
             client = new LightChatClient(this);
+            TheXDS.MCART.UI.HookHelp(this, (sender, e) =>
+            {
+                AboutBox.ShowDialog(GetType().Assembly);
+            });
         }
 
         private void BtnConnect_OnClick(object sender, RoutedEventArgs e)

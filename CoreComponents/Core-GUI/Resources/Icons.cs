@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using TheXDS.MCART.Attributes;
-
 namespace TheXDS.MCART.Resources
 {
     /// <summary>
@@ -31,13 +29,10 @@ namespace TheXDS.MCART.Resources
     /// </summary>
     public static partial class Icons
     {
-        const string defaultExt = "png";
-        static readonly ImageUnpacker imgs = new ImageUnpacker(RTInfo.RTAssembly, typeof(Icons).FullName);
-        static T GetIcon<T>(IconID icon) where T : class => imgs.Unpack($"{icon.ToString()}.{(icon.HasAttr<IdentifierAttribute>(out var attr) ? attr.Value : defaultExt)}") as T;
         /// <summary>
         /// Determina el ícono a obtener.
         /// </summary>
-        public enum IconID
+        public enum IconId
         {
             /// <summary>
             /// Ícono principal de MCART.

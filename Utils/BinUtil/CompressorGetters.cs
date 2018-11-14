@@ -35,6 +35,8 @@ namespace TheXDS.MCARTBinUtil
         {
             return new DeflateStream(stream, CompressionLevel.Optimal);
         }
+
+        public string Extension => ".deflate";
     }
 
     [Arg("gzip")]
@@ -45,6 +47,7 @@ namespace TheXDS.MCARTBinUtil
         {
             return new GZipStream(stream, CompressionLevel.Optimal);
         }
+        public string Extension => ".gzip";
     }
 
     [Arg("none")]
@@ -55,5 +58,6 @@ namespace TheXDS.MCARTBinUtil
         {
             return stream;
         }
+        public string Extension => null;
     }
 }

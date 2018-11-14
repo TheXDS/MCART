@@ -48,6 +48,8 @@ namespace TheXDS.MCART.Resources
         /// información comprimida desde <paramref name="inputStream"/>.
         /// </returns>
         public Stream GetCompressor(Stream inputStream) => new DeflateStream(inputStream, CompressionMode.Decompress);
+
+        public string Extension => ".deflate";
     }
     /// <summary>
     /// <see cref="ICompressorGetter"/> que construye un
@@ -70,5 +72,27 @@ namespace TheXDS.MCART.Resources
         /// información comprimida desde <paramref name="inputStream"/>.
         /// </returns>
         public Stream GetCompressor(Stream inputStream) => new GZipStream(inputStream, CompressionMode.Decompress);
+        public string Extension => ".gzip";
+    }
+
+    public sealed class NullGetter : ICompressorGetter
+    {
+        /// <summary>
+        /// Obtiene un <see cref="Stream"/> para extraer información comprimida
+        /// desde <paramref name="inputStream"/>.
+        /// </summary>
+        /// <param name="inputStream">
+        /// <see cref="Stream"/> que contiene la información a extraer.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="Stream"/> que puede utilizarse para extraer
+        /// información comprimida desde <paramref name="inputStream"/>.
+        /// </returns>
+        public Stream GetCompressor(Stream inputStream)
+        {
+            return inputStream;
+        }
+
+        public string Extension => null;
     }
 }

@@ -23,6 +23,9 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System.Windows;
+using TheXDS.MCART.Component;
+using TheXDS.MCART.Dialogs;
+using TheXDS.MCART.Pages;
 
 namespace TheXDS.MCART.Resources
 {
@@ -40,5 +43,22 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         /// <param name="app"><see cref="Application"/> a comprobar.</param>
         public static bool? RTSupport(Application app) => RTSupport<Application>(app);
+
+        /// <summary>
+        ///     Obtiene un <see cref="IExposeInfo"/> que brinda acceso a la
+        ///     información básica de identificación de MCART.
+        /// </summary>
+        /// <returns>
+        ///     Un <see cref="IExposeInfo"/> con la información de MCART.
+        /// </returns>
+        public static IExposeInfo GetInfo()=>new AssemblyDataExposer(RTAssembly, Icons.GetXamlIcon(Icons.IconId.MCART));
+
+        /// <summary>
+        ///     Muestra la información de identificación de MCART.
+        /// </summary>
+        public static void Show()
+        {
+            AboutBox.ShowDialog(GetInfo());
+        }
     }
 }

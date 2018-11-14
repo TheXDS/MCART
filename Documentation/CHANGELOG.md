@@ -192,4 +192,9 @@
 * Cambiado: Stack de red (lado del servidor) parcialmente rescrito.
 
 #### MCART 0.8.9.0
-* Cambios de API de stack de red
+* Mejorado: Cambios de API de stack de red
+
+#### MCART 0.8.10.0
+* Nuevo: Diálogo ```AboutBox```
+* Nuevo: Página ```AboutPage```
+* Mejorado: Los diálogos utilizarán en la medida de lo posible la arquitectura *ViewModel*
