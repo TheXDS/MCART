@@ -1,5 +1,5 @@
 ﻿/*
-Plugin.cs
+TypeDetails.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -23,36 +23,34 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+using TheXDS.MCART.Dialogs.ViewModel;
 
 namespace TheXDS.MCART.Pages
 {
-    /// <inheritdoc cref="System.Windows.Controls.Page"/>
+    /// <inheritdoc cref="System.Windows.Controls.UserControl"/>
     /// <summary>
-    /// Página de detalles de plugins.
+    /// Lógica de interacción para TypeDetails.xaml
     /// </summary>
-    public partial class PluginDetails
+    public partial class TypeDetails
     {
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Pages.PluginDetails" />.
+        ///     <see cref="T:TheXDS.MCART.Pages.TypeDetails" />.
         /// </summary>
-        public PluginDetails()
+        public TypeDetails():this(null)
+        {
+        }
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.Pages.TypeDetails" />.
+        /// </summary>
+        /// <param name="type">Tipo del cual mostrar información</param>
+        public TypeDetails(Type type)
         {
             InitializeComponent();
-        }
-
-        private void LstInterfaces_OnDblClick(object sender, MouseButtonEventArgs e)
-        {
-            var i = sender as ListViewItem ?? throw new InvalidOperationException();
-            if (!(i.Content is Type t)) return;
-            new Window
-            {
-                Content = new TypeDetails(t)
-            }.ShowDialog();
+            DataContext = new TypeDetailsViewModel(type);
         }
     }
 }

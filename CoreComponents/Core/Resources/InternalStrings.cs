@@ -48,7 +48,6 @@ namespace TheXDS.MCART.Resources
         public const string ComplexPw = "Contraseña compleja";
         public const string PinNumber = "Número PIN";
         public const string CryptoPw = "Contraseña criptográfica";
-
         public const string User = "Usuario";
         public const string Password = "Contraseña";
         public const string ConfirmPassword = "Confirmar contraseña";
@@ -60,6 +59,38 @@ namespace TheXDS.MCART.Resources
         public const string AvoidYears = "Evite utilizar el año actual en la contraseña.";
         public const string ExtendedEvaluator = "Evaluador extendido de contraseñas";
         public const string ComplexEvaluator = "Evaluador complejo de contraseñas";
+
+        public const string TypeName = "Nombre del tipo";
+        public const string Namespace = "Espacio de nombres";
+        public const string DeclaringAssembly = "Ensamblado de declaración";
+        public const string PublicMembers = "Miembros públicos";
+        public const string PublicInstanceMembers = "Miembros públicos de instancia";
+        public const string PublicStaticMembers = "Miembros públicos estáticos";
+        public const string Methods = "Métodos";
+        public const string Properties = "Propiedades";
+        public const string Interfaces = "Interfaces implementadas";
+        public const string BaseTypes = "Tipos base";
+        public const string DynamicType = "Tipo definido en tiempo de ejecución";
+        public const string DefaultValue = "Valor predeterminado";
+
+        public const string Instantiable = "Tipo instanciable";
+        public const string IsStatic = "Clase estática";
+        public const string Serializable = "Tipo serializable";
+        public const string GenericArgs = "Argumentos genéricos";
+        public const string GenericType = "Tipo genérico";
+        public const string IsGenericBuilt = "Tipo genérico construido";
+        public const string Abstract = "Tipo abstracto";
+        public const string IsSealed = "Tipo sellado";
+        public const string IsPrimitive = "Tipo primitivo";
+        public const string IsValueType = "Tipo de valor";
+        public const string IsInterface = "Es una interfaz";
+        public const string IsClass = "Es una clase";
+        public const string IsEnum = "Es una enumeración";
+        public const string NewInstance = "Valor de nueva instancia";
+
+
+
+
 
         public static string UnkErrLoadingRes(string res, string ex) => $"Error desconocido al cargar recurso {res}\n{ex}";
     }

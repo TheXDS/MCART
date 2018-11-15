@@ -767,7 +767,22 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Se asegura de devolver <see langword="null" /> si la cadena está vacía.
+        ///     Se asegura de devolver <see cref="string.Empty" /> si la cadena
+        ///     está vacía.
+        /// </summary>
+        /// <param name="str">Cadena a devolver.</param>
+        /// <returns>
+        ///     La cadena, o <see cref="string.Empty" /> si la cadena está
+        ///     vacía.
+        /// </returns>
+        public static string OrEmpty(this string str)
+        {
+            return OrX(str, string.Empty);
+        }
+
+        /// <summary>
+        ///     Se asegura de devolver <see langword="null" /> si la cadena
+        ///     está vacía.
         /// </summary>
         /// <param name="str">Cadena a devolver.</param>
         /// <returns>
@@ -775,7 +790,12 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static string OrNull(this string str)
         {
-            return str.IsEmpty() ? null : str;
+            return OrX(str, null);
+        }
+
+        private static string OrX(string source, string emptyRetVal)
+        {
+            return source.IsEmpty() ? string.Empty : emptyRetVal;
         }
 
         /// <summary>

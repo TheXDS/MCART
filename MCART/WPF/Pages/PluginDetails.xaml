@@ -70,6 +70,11 @@
             </TabItem>
             <TabItem Header="Interfaces">
                 <ListView ItemsSource="{Binding Interfaces, Mode=OneWay}">
+                    <ListView.Resources>
+                        <Style TargetType="ListViewItem">
+                            <EventSetter Event="MouseDoubleClick" Handler="LstInterfaces_OnDblClick"></EventSetter>
+                        </Style>
+                    </ListView.Resources>
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Interfaz" Width="180" DisplayMemberBinding="{Binding Name, Mode=OneWay}"/>

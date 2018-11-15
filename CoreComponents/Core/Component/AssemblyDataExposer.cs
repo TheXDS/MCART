@@ -24,7 +24,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Reflection;
-using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Misc;
 
 namespace TheXDS.MCART.Component
@@ -75,6 +74,16 @@ namespace TheXDS.MCART.Component
         /// Devuelve el autor del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// </summary>
         public string Author => Assembly.GetAttr<AssemblyCompanyAttribute>()?.Company;
+
+        /// <summary>
+        /// Devuelve la marca comercial del <see cref="Assembly" />
+        /// </summary>
+        public string Trademark => Assembly.GetAttr<AssemblyTrademarkAttribute>()?.Trademark;
+
+        /// <summary>
+        /// Devuelve el autor del <see cref="Assembly" />
+        /// </summary>
+        public string Product => Assembly.GetAttr<AssemblyProductAttribute>()?.Product;
 
         /// <inheritdoc />
         /// <summary>

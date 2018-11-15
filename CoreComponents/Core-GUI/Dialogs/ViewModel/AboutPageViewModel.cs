@@ -1,5 +1,5 @@
 ﻿/*
-AboutPage.cs
+AboutPageViewModel.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -23,10 +23,14 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Windows;
 using TheXDS.MCART.Component;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
+using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Dialogs.ViewModel
 {
@@ -62,5 +66,73 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         public UIElement Icon => Element?.Icon;
 
         public bool IsMcart => (Element as AssemblyDataExposer)?.Assembly == RTInfo.RTAssembly;
+    }
+
+    internal class TypeDetailsViewModel : NotifyPropertyChanged
+    {
+        private Type _type;
+        public static TypeDetailsViewModel Create => new TypeDetailsViewModel(typeof(System.Windows.Controls.UserControl));
+
+        public TypeDetailsViewModel()
+        {
+        }
+
+        public TypeDetailsViewModel(Type type)
+        {
+            Type = type;
+        }
+
+        public Type Type
+        {
+            get => _type;
+            set
+            {
+                if (Equals(value, _type)) return;
+                _type = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Inheritances));
+                OnPropertyChanged(nameof(InheritancesVm));
+                OnPropertyChanged(nameof(BaseTypes));
+                OnPropertyChanged(nameof(MemberTree));
+                OnPropertyChanged(nameof(DefaultValue));
+                OnPropertyChanged(nameof(Instantiable));
+                OnPropertyChanged(nameof(IsStatic));
+                OnPropertyChanged(nameof(IsDynamic));
+                OnPropertyChanged(nameof(NewValue));
+            }
+        }
+
+        public bool IsDynamic => Type.Assembly.IsDynamic;
+
+        public bool IsStatic => Type.IsAbstract && Type.IsSealed;
+
+        public bool Instantiable => Type.IsInstantiable();
+
+        public IEnumerable<Type> Inheritances=> Type?.GetInterfaces();
+
+        public IEnumerable<TypeDetailsViewModel> InheritancesVm
+            => Inheritances?.Select(p => new TypeDetailsViewModel(p));
+
+        public IEnumerable<Type> BaseTypes
+        {
+            get
+            {
+                var baseType=Type;
+                while (!(baseType is null))
+                {
+                    baseType = baseType.BaseType;
+                    yield return baseType;
+                }
+            }
+        }
+
+        public IEnumerable<IGrouping<MemberTypes, MemberInfo>> MemberTree
+        {
+            get { return Type?.GetMembers().GroupBy(p => p.MemberType); }
+        }
+
+        public string DefaultValue => Type?.Default()?.ToString() ?? "null";
+
+        public object NewValue => Type.IsInstantiable() ? Type.New() : null;
     }
 }

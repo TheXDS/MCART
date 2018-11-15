@@ -90,6 +90,9 @@
     <Compile Include="Pages\PluginDetails.xaml.cs">
       <DependentUpon>PluginDetails.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\TypeDetails.xaml.cs">
+      <DependentUpon>TypeDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PluginSupport\InteractionItem.cs" />
     <Compile Include="PluginSupport\Plugin.cs" />
     <Compile Include="Resources\Icons.cs" />
@@ -123,6 +126,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\PluginDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\TypeDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
