@@ -74,7 +74,11 @@ namespace TheXDS.MCART.PluginSupport
         {
             try
             {
+#if McartAsPlugin
+                return !(assembly is null) && assembly.GetTypes().Any(IsValid);
+#else
                 return assembly.IsNeither(RTInfo.RTAssembly, null) && assembly.GetTypes().Any(IsValid);
+#endif
             }
             catch
             {

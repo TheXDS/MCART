@@ -25,21 +25,23 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Component;
-using TheXDS.MCART.Types;
+using static TheXDS.MCART.Misc.Internal;
 using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.PluginSupport
 {
     /// <inheritdoc />
     /// <summary>
-    /// Clase base para todos los plugins que puedan ser contruídos y
+    /// Clase base para todos los plugins que puedan ser construidos y
     /// administrador por MCART.
     /// </summary>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public abstract partial class Plugin : IPlugin
     {
         /// <summary>
@@ -147,7 +149,7 @@ namespace TheXDS.MCART.PluginSupport
         /// </summary>
         /// <value>
         /// El valor del atributo <see cref="T:TheXDS.MCART.Attributes.LicenseFileAttribute" />,
-        /// <see cref="T:TheXDS.MCART.Attributes.EmbeededLicenseAttribute" /> o
+        /// <see cref="T:TheXDS.MCART.Attributes.EmbeddedLicenseAttribute" /> o
         /// <see cref="T:TheXDS.MCART.Attributes.LicenseTextAttribute" />, cualesquiera esté definido
         /// primero para este <see cref="T:TheXDS.MCART.PluginSupport.Plugin" />, o en caso de no establecer
         /// ninguno de los atributos, se devolverá un texto de licencia no
@@ -160,46 +162,16 @@ namespace TheXDS.MCART.PluginSupport
         /// encontrado.
         /// </note>
         /// </value>
-        public virtual string License
-        {
-            get
-            {
-                try
-                {
-                    // Intentar buscar archivo...
-                    if ((this.HasAttr<LicenseFileAttribute>(out var fileLic) || MyAssembly.HasAttr(out fileLic)) && File.Exists(fileLic?.Value))
-                    {
-                        using (StreamReader inp = new StreamReader(fileLic?.Value))
-                            return inp.ReadToEnd();
-                    }
-
-                    // Intentar buscar archivo embebido...
-                    if (this.HasAttr<EmbeededLicenseAttribute>(out var embLic) || MyAssembly.HasAttr(out embLic))
-                    {
-                        using (var s = MyAssembly.GetManifestResourceStream(embLic?.Value))
-                        using (var r = new StreamReader(s))
-                            return r.ReadToEnd();
-                    }
-
-                    // Buscar texto de licencia...
-                    if (this.HasAttr<LicenseTextAttribute>(out var txtLic) || MyAssembly.HasAttr(out txtLic) && !txtLic.Value.IsEmpty())
-                        return txtLic?.Value;
-                    else
-                        return St.Warn(St.UnspecLicense);
-                }
-                catch (Exception ex)
-                {
-                    return $"{ex.Message}\n-------------------------\n{ex.StackTrace}";
-                }
-            }
-        }
+        public virtual string License =>
+            ReadLicense(this) ??
+            ReadLicense(MyAssembly,false);
 
         /// <inheritdoc />
         /// <summary>
         /// Obtiene un valor que determina si este <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// contiene información de licencia.
         /// </summary>
-        public bool HasLicense => this.HasAttr<LicenseFileAttribute>() || this.HasAttr<EmbeededLicenseAttribute>() || this.HasAttr<LicenseTextAttribute>();
+        public bool HasLicense => HasLicense(this) || HasLicense(MyAssembly);
 
         /// <inheritdoc />
         /// <summary>
@@ -311,7 +283,7 @@ namespace TheXDS.MCART.PluginSupport
         /// <inheritdoc />
         /// <summary>
         /// Contiene un objeto de libre uso para almacenamiento de cualquier
-        /// inatancia que el usuario desee asociar a este <see cref="T:TheXDS.MCART.PluginSupport.Plugin" />.
+        /// instancia que el usuario desee asociar a este <see cref="T:TheXDS.MCART.PluginSupport.Plugin" />.
         /// </summary>
         public object Tag { get; set; }
 

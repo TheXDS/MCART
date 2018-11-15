@@ -23,6 +23,12 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.IO;
+using System.Reflection;
+using TheXDS.MCART.Annotations;
+using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Resources;
+using TheXDS.MCART.Types.Extensions;
 using static System.AttributeTargets;
 
 // ReSharper disable UnusedAutoPropertyAccessor.Global
@@ -276,7 +282,7 @@ namespace TheXDS.MCART.Attributes
     ///     Este atributo no debería aplicarse a sobrecargas de un método que
     ///     no sea en sí mismo un método de Thunking.
     /// </remarks>
-    [AttributeUsage(Property | Method | Class | Module | Assembly)]
+    [AttributeUsage(Property | Method | Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     [Serializable]
     public sealed class ThunkAttribute : Attribute
     {
@@ -298,7 +304,7 @@ namespace TheXDS.MCART.Attributes
     /// <summary>
     ///     Especifica la versión mínima de MCART requerida por el elemento.
     /// </summary>
-    [AttributeUsage(Method | Class | Module | Assembly)]
+    [AttributeUsage(Method | Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     [Serializable]
     public sealed class MinMCARTVersionAttribute : VersionAttributeBase
     {
@@ -331,7 +337,7 @@ namespace TheXDS.MCART.Attributes
     /// <summary>
     ///     Especifica la versión de MCART recomendada para el elemento.
     /// </summary>
-    [AttributeUsage(Method | Class | Module | Assembly)]
+    [AttributeUsage(Method | Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     [Serializable]
     public sealed class TargetMCARTVersionAttribute : VersionAttributeBase
     {
@@ -364,7 +370,7 @@ namespace TheXDS.MCART.Attributes
     /// <summary>
     ///     Especifica la versión del elemento.
     /// </summary>
-    [AttributeUsage(Method | Class | Module | Assembly)]
+    [AttributeUsage(Method | Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     [Serializable]
     public sealed class VersionAttribute : VersionAttributeBase
     {
@@ -435,7 +441,7 @@ namespace TheXDS.MCART.Attributes
     /// <summary>
     ///     Marca un elemento como versión Beta.
     /// </summary>
-    [AttributeUsage(Method | Class | Module | Assembly)]
+    [AttributeUsage(Method | Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     [Serializable]
     public sealed class BetaAttribute : Attribute
     {
@@ -477,7 +483,7 @@ namespace TheXDS.MCART.Attributes
     /// <summary>
     ///     Indica que un elemento contiene código no administrado.
     /// </summary>
-    [AttributeUsage(Property | Method | Constructor | Class | Module | Assembly)]
+    [AttributeUsage(Property | Method | Constructor | Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     [Serializable]
     public sealed class UnmanagedAttribute : Attribute
     {
@@ -487,7 +493,7 @@ namespace TheXDS.MCART.Attributes
     /// <summary>
     ///     Indica que un elemento contiene código que podría ser inestable.
     /// </summary>
-    [AttributeUsage(Method | Class | Module | Assembly)]
+    [AttributeUsage(Method | Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     [Serializable]
     public sealed class UnstableAttribute : Attribute
     {
@@ -535,7 +541,7 @@ namespace TheXDS.MCART.Attributes
     /// <summary>
     ///     Establece el autor del elemento.
     /// </summary>
-    [AttributeUsage(Property | Method | Constructor | Class | Module | Assembly)]
+    [AttributeUsage(Property | Method | Constructor | Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     [Serializable]
     public sealed class AuthorAttribute : TextAttribute
     {
@@ -554,7 +560,7 @@ namespace TheXDS.MCART.Attributes
     /// <summary>
     ///     Establece la información de Copyright del elemento.
     /// </summary>
-    [AttributeUsage(Method | Class | Module | Assembly)]
+    [AttributeUsage(Method | Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     [Serializable]
     public sealed class CopyrightAttribute : TextAttribute
     {
@@ -573,7 +579,7 @@ namespace TheXDS.MCART.Attributes
     /// <summary>
     ///     Establece el texto de licencia a asociar con el elemento.
     /// </summary>
-    [AttributeUsage(Class | Module | Assembly)]
+    [AttributeUsage(Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     [Serializable]
     public sealed class LicenseTextAttribute : TextAttribute
     {
@@ -592,20 +598,68 @@ namespace TheXDS.MCART.Attributes
     /// <summary>
     ///     Establece un archivo incrustado de licencia a asociar con el elemento.
     /// </summary>
-    [AttributeUsage(Class | Module | Assembly)]
+    [AttributeUsage(Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     [Serializable]
-    public sealed class EmbeededLicenseAttribute : TextAttribute
+    public sealed class EmbeddedLicenseAttribute : TextAttribute
     {
+        /// <summary>
+        ///     Ruta del archivo embebido de licencia dentro del ensamblado.
+        /// </summary>
+        public string Path { get; }
+        /// <summary>
+        ///     Compressor utilizado para extraer el recurso incrustado.
+        /// </summary>
+        public Type CompressorType { get; }
+
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="EmbeededLicenseAttribute" />.
+        ///     <see cref="EmbeddedLicenseAttribute" />.
         /// </summary>
         /// <param name="resourcePath">
         ///     Archivo incrustado de la licencia.
         /// </param>
-        public EmbeededLicenseAttribute(string resourcePath) : base(resourcePath)
+        /// <param name="path">
+        ///     Ruta del archivo embebido de licencia dentro del ensamblado.
+        /// </param>
+        public EmbeddedLicenseAttribute(string resourcePath, string path) : this(resourcePath, path, typeof(NullGetter))
         {
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="EmbeddedLicenseAttribute" />.
+        /// </summary>
+        /// <param name="resourcePath">
+        ///     Archivo incrustado de la licencia.
+        /// </param>
+        /// <param name="path">
+        ///     Ruta del archivo embebido de licencia dentro del ensamblado.
+        /// </param>
+        /// <param name="compressorType">
+        ///     Compressor utilizado para extraer el recurso incrustado.
+        /// </param>
+        public EmbeddedLicenseAttribute(string resourcePath, string path, [NotNull] Type compressorType) : base(resourcePath)
+        {
+            if (!compressorType.Implements<ICompressorGetter>()) throw new InvalidTypeException(compressorType);   
+            Path = path;
+            CompressorType = compressorType;
+        }
+
+        /// <summary>
+        ///     Lee el contenido de la licencia embebida dentro del ensamblado.
+        /// </summary>
+        /// <param name="origin">
+        ///     Ensamblado que contiene el archivo de licencia como un recurso
+        ///     embebido.
+        /// </param>
+        /// <returns>
+        ///     El contenido de la licencia
+        /// </returns>
+        public string ReadLicense([NotNull]Assembly origin)
+        {
+            return new StringUnpacker(origin, Path).Unpack(Value,CompressorType?.New<ICompressorGetter>());
         }
     }
 
@@ -613,7 +667,7 @@ namespace TheXDS.MCART.Attributes
     /// <summary>
     ///     Establece un archivo de licencia externo a asociar con el elemento.
     /// </summary>
-    [AttributeUsage(Class | Module | Assembly)]
+    [AttributeUsage(Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     [Serializable]
     public sealed class LicenseFileAttribute : TextAttribute
     {
@@ -627,6 +681,17 @@ namespace TheXDS.MCART.Attributes
         /// </param>
         public LicenseFileAttribute(string licenseFile) : base(licenseFile)
         {
+        }
+
+        /// <summary>
+        ///     Lee el archivo de licencia especificado por este atributo.
+        /// </summary>
+        /// <returns>
+        ///     El contenido del archivo de licencia especificado.
+        /// </returns>
+        public string ReadLicense()
+        {
+            using (var inp = new StreamReader(Value)) return inp.ReadToEnd();
         }
     }
 

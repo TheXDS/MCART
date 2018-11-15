@@ -33,6 +33,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using static System.Math;
+using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using St = TheXDS.MCART.Resources.Strings;
 using CI = System.Globalization.CultureInfo;
 

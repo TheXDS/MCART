@@ -37,6 +37,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Shapes;
 using static TheXDS.MCART.UI;
+using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Controls
@@ -168,7 +169,7 @@ namespace TheXDS.MCART.Controls
         Button btnCncl = new Button()
         {
             Height = 20,
-            Content = St.Cncl,
+            Content = St.Cancel,
             HorizontalAlignment = HorizontalAlignment.Center,
             Margin = thk1,
             Visibility = Visibility.Collapsed

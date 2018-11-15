@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Modules\UI.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\PluginStatic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\Plugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Colors.cs" />
   </ItemGroup>
 </Project>

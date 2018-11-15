@@ -29,6 +29,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Converters;
 using System.Windows.Data;
+using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Controls

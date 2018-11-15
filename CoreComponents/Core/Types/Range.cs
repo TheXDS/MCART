@@ -26,6 +26,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.ComponentModel;
 using System.Linq;
 
 // ReSharper disable UnusedMember.Global
@@ -38,16 +39,71 @@ namespace TheXDS.MCART.Types
     /// <typeparam name="T">Tipo base del rango de valores.</typeparam>
     public struct Range<T> where T : IComparable<T>
     {
+        /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la esctructura <see cref="Range{T}"/>
+        /// Inicializa una nueva instancia de la estructura <see cref="T:TheXDS.MCART.Types.Range`1" />
+        /// </summary>
+        /// <param name="maximum">Valor máximo del rango, inclusive.</param>
+        public Range(T maximum) : this(default, maximum, true, true) { }
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Inicializa una nueva instancia de la estructura <see cref="T:TheXDS.MCART.Types.Range`1" />
         /// </summary>
         /// <param name="minimum">Valor mínimo del rango, inclusive.</param>
         /// <param name="maximum">Valor máximo del rango, inclusive.</param>
-        public Range(T minimum, T maximum)
+        public Range(T minimum, T maximum) : this(minimum, maximum, true, true) { }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la estructura
+        ///     <see cref="T:TheXDS.MCART.Types.Range`1" />
+        /// </summary>
+        /// <param name="maximum">Valor máximo del rango.</param>
+        /// <param name="inclusive">
+        ///     Si se establece en <see langword="true"/>, el valor máximo será
+        ///     incluido dentro del rango.
+        /// </param>
+        public Range(T maximum, bool inclusive) : this(default, maximum, inclusive, inclusive)
+        {
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la estructura
+        ///     <see cref="T:TheXDS.MCART.Types.Range`1" />
+        /// </summary>
+        /// <param name="minimum">Valor mínimo del rango.</param>
+        /// <param name="maximum">Valor máximo del rango.</param>
+        /// <param name="inclusive">
+        ///     Si se establece en <see langword="true" />, los valores mínimo y
+        ///     máximo serán incluidos dentro del rango.
+        /// </param>
+        public Range(T minimum, T maximum, bool inclusive) : this(minimum, maximum, inclusive, inclusive)
+        {
+        }
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de la estructura
+        ///     <see cref="Range{T}"/>
+        /// </summary>
+        /// <param name="minimum">Valor mínimo del rango.</param>
+        /// <param name="maximum">Valor máximo del rango.</param>
+        /// <param name="minInclusive">
+        ///     Si se establece en <see langword="true"/>, el valor mínimo será
+        ///     incluido dentro del rango.
+        /// </param>
+        /// <param name="maxInclusive">
+        ///     Si se establece en <see langword="true"/>, el valor máximo será
+        ///     incluido dentro del rango.
+        /// </param>
+        public Range(T minimum, T maximum, bool minInclusive, bool maxInclusive)
         {
             if (minimum.CompareTo(maximum) > 0) throw new ArgumentOutOfRangeException();
             _minimum = minimum;
             _maximum = maximum;
+            MinInclusive = minInclusive;
+            MaxInclusive = maxInclusive;
         }
 
         private T _minimum;
@@ -80,6 +136,18 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
+        ///     Obtiene o establece un valor que determina si el valor mínimo
+        ///     es parte del rango.
+        /// </summary>
+        public bool MinInclusive { get; set; }
+
+        /// <summary>
+        ///     Obtiene o establece un valor que determina si el valor mínimo
+        ///     es parte del rango.
+        /// </summary>
+        public bool MaxInclusive { get; set; }
+
+        /// <summary>
         /// Convierte este <see cref="Range{T}"/> en su representación como una cadena.
         /// </summary>
         /// <returns>
@@ -100,21 +168,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public bool IsWithin(T value)
         {
-            return IsWithin(value, true);
-        }
-
-        /// <summary>
-        /// Comprueba si un valor <typeparamref name="T"/> se encuentra dentro de este <see cref="Range{T}"/>.
-        /// </summary>
-        /// <param name="value">Valor a comporbar.</param>
-        /// <param name="inclusive">Inclusividad. de forma predeterminada, la comprobación es inclusive.</param>
-        /// <returns>
-        /// <see langword="true"/> si el valor se encuentra dentro de este <see cref="Range{T}"/>,
-        /// <see langword="false"/> en caso contrario.
-        /// </returns>
-        public bool IsWithin(T value, bool inclusive)
-        {
-            return value.IsBetween(Minimum, Maximum,inclusive);
+            return value.IsBetween(Minimum, Maximum, MinInclusive, MaxInclusive);
         }
 
         /// <summary>
@@ -215,32 +269,13 @@ namespace TheXDS.MCART.Types
         /// </summary>
         /// <param name="other">Rango a comprobar.</param>
         /// <returns>
-        ///     <see langword="true"/> si <paramref name="other"/> intercecta a
+        ///     <see langword="true"/> si <paramref name="other"/> intersecta a
         ///     este <see cref="Range{T}"/>, <see langword="false"/> en caso
         ///     contrario.
         /// </returns>
         public bool Intersects(Range<T> other)
         {
-            return Intersects(other, false);
-        }
-
-        /// <summary>
-        ///     Determina si un <see cref="Range{T}"/> intersecta a este.
-        /// </summary>
-        /// <param name="other">Rango a comprobar.</param>
-        /// <param name="inclusiveEnds">
-        ///     Si se establece en <see langword="true"/>, se incluirán los
-        ///     puntos iniciales y finales del rango al realizar la
-        ///     comprobación de intersección.
-        /// </param>
-        /// <returns>
-        ///     <see langword="true"/> si <paramref name="other"/> intercecta a
-        ///     este <see cref="Range{T}"/>, <see langword="false"/> en caso
-        ///     contrario.
-        /// </returns>
-        public bool Intersects(Range<T> other, bool inclusiveEnds)
-        {
-            return other.IsWithin(Maximum, inclusiveEnds) || other.IsWithin(Minimum, inclusiveEnds);
+            return other.IsWithin(Maximum) || other.IsWithin(Minimum);
         }
 
         /// <summary>

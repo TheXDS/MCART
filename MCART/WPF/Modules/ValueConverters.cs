@@ -32,6 +32,7 @@ using System.Windows.Media.Effects;
 using TheXDS.MCART;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
+using static TheXDS.MCART.Math.Common;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 
 #region Configuración de ReSharper
@@ -47,6 +48,65 @@ using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 namespace System.Windows.Converters
 {
     #region Clases base
+
+    /// <summary>
+    ///     Clase base que incluye un método para obtener un <see cref="float"/>.
+    /// </summary>
+    public abstract class FloatConverterBase
+    {
+        /// <summary>
+        ///     Convierte un valor a un <see cref="float"/>.
+        /// </summary>
+        /// <param name="value">
+        ///     Valor desde el cual obtener un <see cref="float"/>.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="float"/> obtenido a partir del valor brindado.
+        /// </returns>
+        protected static float GetFloat(object value)
+        {
+            var v = 0f;
+            switch (value)
+            {
+                case float f:
+                    v = f;
+                    break;
+                case double d:
+                    v = (float)d;
+                    break;
+                case byte b:
+                    v = (float)b / 100;
+                    break;
+                case short s:
+                    v = (float)s / 100;
+                    break;
+                case int i:
+                    v = (float)i / 100;
+                    break;
+                case long l:
+                    v = (float)l / 100;
+                    break;
+                case string str:
+                    float.TryParse(str, out v);
+                    break;
+#if !CLSCompliance
+                case sbyte sb:
+                    v = (float)sb / 100;
+                    break;
+                case ushort us:
+                    v = (float)us / 100;
+                    break;
+                case uint ui:
+                    v = (float)ui / 100;
+                    break;
+                case ulong ul:
+                    v = (float)ul / 100;
+                    break;
+#endif
+            }
+            return v;
+        }
+    }
 
     /// <inheritdoc />
     /// <summary>
@@ -565,6 +625,110 @@ namespace System.Windows.Converters
     }
 
     #endregion
+
+    /// <inheritdoc cref="FloatConverterBase"/>
+    /// <summary>
+    ///     Obtiene un <see cref="T:System.Windows.Media.Brush" /> correspondiente a la salud expresada
+    ///     com porcentaje.
+    /// </summary>
+    public sealed class HealthBrushConverter : FloatConverterBase, IValueConverter
+    {
+        /// <inheritdoc />
+        /// <summary>Convierte un valor.</summary>
+        /// <param name="value">
+        ///   Valor generado por el origen de enlace.
+        /// </param>
+        /// <param name="targetType">
+        ///   El tipo de la propiedad del destino de enlace.
+        /// </param>
+        /// <param name="parameter">
+        ///   Parámetro de convertidor que se va a usar.
+        /// </param>
+        /// <param name="culture">
+        ///   Referencia cultural que se va a usar en el convertidor.
+        /// </param>
+        /// <returns>
+        ///   Valor convertido.
+        ///    Si el método devuelve <see langword="null" />, se usa el valor nulo válido.
+        /// </returns>
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return new SolidColorBrush(TheXDS.MCART.Types.Color.BlendHealth(GetFloat(value).Clamp(0f, 1f)));
+        }
+
+        /// <inheritdoc />
+        /// <summary>Convierte un valor.</summary>
+        /// <param name="value">
+        ///   Valor generado por el destino de enlace.
+        /// </param>
+        /// <param name="targetType">Tipo al que se va a convertir.</param>
+        /// <param name="parameter">
+        ///   Parámetro de convertidor que se va a usar.
+        /// </param>
+        /// <param name="culture">
+        ///   Referencia cultural que se va a usar en el convertidor.
+        /// </param>
+        /// <returns>
+        ///   Valor convertido.
+        ///    Si el método devuelve <see langword="null" />, se usa el valor nulo válido.
+        /// </returns>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new InvalidOperationException();
+        }
+    }
+
+    /// <inheritdoc cref="FloatConverterBase"/>
+    /// <summary>
+    ///     Obtiene un <see cref="T:System.Windows.Media.Brush" /> correspondiente a la salud expresada
+    ///     com porcentaje.
+    /// </summary>
+    public sealed class HeatBrushConverter : FloatConverterBase, IValueConverter
+    {
+        /// <inheritdoc />
+        /// <summary>Convierte un valor.</summary>
+        /// <param name="value">
+        ///   Valor generado por el origen de enlace.
+        /// </param>
+        /// <param name="targetType">
+        ///   El tipo de la propiedad del destino de enlace.
+        /// </param>
+        /// <param name="parameter">
+        ///   Parámetro de convertidor que se va a usar.
+        /// </param>
+        /// <param name="culture">
+        ///   Referencia cultural que se va a usar en el convertidor.
+        /// </param>
+        /// <returns>
+        ///   Valor convertido.
+        ///    Si el método devuelve <see langword="null" />, se usa el valor nulo válido.
+        /// </returns>
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return new SolidColorBrush(TheXDS.MCART.Types.Color.BlendHeat(GetFloat(value).Clamp(0f, 1f)));
+        }
+
+        /// <inheritdoc />
+        /// <summary>Convierte un valor.</summary>
+        /// <param name="value">
+        ///   Valor generado por el destino de enlace.
+        /// </param>
+        /// <param name="targetType">Tipo al que se va a convertir.</param>
+        /// <param name="parameter">
+        ///   Parámetro de convertidor que se va a usar.
+        /// </param>
+        /// <param name="culture">
+        ///   Referencia cultural que se va a usar en el convertidor.
+        /// </param>
+        /// <returns>
+        ///   Valor convertido.
+        ///    Si el método devuelve <see langword="null" />, se usa el valor nulo válido.
+        /// </returns>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new InvalidOperationException();
+        }
+    }
 
     /// <inheritdoc />
     /// <summary>

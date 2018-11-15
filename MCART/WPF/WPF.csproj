@@ -62,6 +62,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Component\AssemblyDataExposer.cs" />
     <Compile Include="Component\IExposeInfo.cs" />
     <Compile Include="Controls\BusyIndicator.cs" />
     <Compile Include="Controls\Graph\Slice.cs" />
@@ -74,12 +75,11 @@
     <Compile Include="Controls\SearchBox.cs" />
     <Compile Include="Controls\StretchyWrapPanel.cs" />
     <Compile Include="Dialogs\AboutBox.cs" />
-    <Compile Include="Dialogs\PasswordDialog.cs" />
+    <Compile Include="Dialogs\PasswordDialog.xaml.cs">
+      <DependentUpon>PasswordDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\PluginBrowser.xaml.cs">
       <DependentUpon>PluginBrowser.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\SplashLogin.xaml.cs">
-      <DependentUpon>SplashLogin.xaml</DependentUpon>
     </Compile>
     <Compile Include="Fluent\FlowDocumentFluentExtensions.cs" />
     <Compile Include="Misc\Events.cs" />
@@ -95,7 +95,6 @@
     <Compile Include="Resources\Icons.cs" />
     <Compile Include="Resources\ImageUnpacker.cs" />
     <Compile Include="Resources\RTInfo.cs" />
-    <Compile Include="Security\Password\PwDialogResult.cs" />
     <Compile Include="Types\Color.cs" />
     <Compile Include="Types\Extensions\TreeViewExtensions.cs" />
     <Compile Include="Types\Point.cs" />
@@ -104,17 +103,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Modules\UI.cs" />
+    <Compile Include="ViewModel\ValidationRules\TextNotEmpty.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\Graph\RingGraph.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\PluginBrowser.xaml">
+    <Page Include="Dialogs\PasswordDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\SplashLogin.xaml">
+    <Page Include="Dialogs\PluginBrowser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

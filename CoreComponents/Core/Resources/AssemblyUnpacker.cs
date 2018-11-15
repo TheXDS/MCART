@@ -24,10 +24,10 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
+using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
 namespace TheXDS.MCART.Resources
 {
@@ -118,8 +118,9 @@ namespace TheXDS.MCART.Resources
         /// </exception>
         [Thunk] protected Stream UnpackStream(string id, ICompressorGetter compressor)
         {
+            var c = compressor ?? new NullGetter();
             if (id.IsEmpty()) throw new ArgumentNullException(nameof(id));
-            return compressor.GetCompressor(assembly.GetManifestResourceStream($"{path}.{id}{compressor.Extension}"));
+            return c.GetCompressor(assembly.GetManifestResourceStream($"{path}.{id}{c.Extension}"));
         }
         /// <inheritdoc />
         /// <summary>

@@ -39,15 +39,22 @@ namespace TheXDS.MCART.Types.Extensions
     public class TcpClient : System.Net.Sockets.TcpClient
     {
         /// <summary>
-        /// Obtiene un valor que indica si la instancia actual ha sido deshechada.
+        ///     Obtiene un valor que indica si la instancia actual ha sido
+        ///     desechada.
         /// </summary>
         public bool Disposed { get; private set; }
+
         /// <inheritdoc />
         /// <summary>
-        ///   Libera los recursos no administrados que usa <see cref="T:System.Net.Sockets.TcpClient" /> y libera los recursos administrados de forma opcional.
+        ///     Libera los recursos no administrados que usa
+        ///     <see cref="T:System.Net.Sockets.TcpClient" /> y libera los
+        ///     recursos administrados de forma opcional.
         /// </summary>
         /// <param name="disposing">
-        ///   Se establece en <see langword="true" /> para liberar tanto los recursos administrados como los no administrados; se establece en <see langword="false" /> para liberar únicamente los recursos no administrados.
+        ///     Se establece en <see langword="true" /> para liberar tanto los
+        ///     recursos administrados como los no administrados; se establece
+        ///     en <see langword="false" /> para liberar únicamente los
+        ///     recursos no administrados.
         /// </param>
         protected override void Dispose(bool disposing)
         {

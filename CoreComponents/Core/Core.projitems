@@ -9,6 +9,7 @@
     <Import_RootNamespace>MCART</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Component\AssemblyDataExposer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Component\IExposeInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Math\Common.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Math\Geometry.cs" />
@@ -21,6 +22,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Enums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Events.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Exceptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Misc\Internal.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\Common_nonCLS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\Objects.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\ActiveClient.cs" />
@@ -37,7 +39,15 @@
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\SelfWiredCommandProtocol.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Server\SimpleProtocol.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\TextUnpacker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Security\Password\Credential.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Security\Password\CryptoPasswordGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Security\Password\ICredential.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Security\Password\IPasswordGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Security\Password\PasswordEvaluators.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Security\Password\PasswordGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Security\Password\UserData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Base\NotifyPropertyChanged.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\Converters\BasicParseConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\DateTimeExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\EnumExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\StringExtensions.cs" />
@@ -81,6 +91,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Modules\Common.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\Timer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\TypeExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\Converters\IntRangeConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\NamedObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Point.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Point3D.cs" />
@@ -88,10 +99,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\List\List.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\Generators.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\Misc.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Security\Password\PwEvalRule.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Security\Password\PasswordEvaluationRule.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\Attributes.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Security\Password\IPwEvaluator.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Security\Password\PwEvaluator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Security\Password\IPasswordEvaluator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Security\Password\PasswordEvaluator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\RuleSets.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\RTInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Color.cs" />
@@ -102,5 +113,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Networking\Reporters\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Types\Converters\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\License\GPLv3.deflate" />
   </ItemGroup>
 </Project>

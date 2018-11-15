@@ -945,7 +945,7 @@ namespace TheXDS.MCART.Annotations
     /// <example>
     ///     <code>
     /// [ActionName("Foo")]
-    /// public ActionResult Login(string returnUrl) {
+    /// public ActionResult Credential(string returnUrl) {
     ///   ViewBag.ReturnUrl = Url.Action("Foo"); // OK
     ///   return RedirectToAction("Bar"); // Error: Cannot resolve action
     /// }

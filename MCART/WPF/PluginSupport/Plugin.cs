@@ -25,6 +25,7 @@ using System.Windows;
 using TheXDS.MCART.Exceptions;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
 namespace TheXDS.MCART.PluginSupport
 {

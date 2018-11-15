@@ -36,26 +36,32 @@ namespace TheXDS.MCART.Component
         /// Devuelve el autor del <see cref="IExposeInfo"/>
         /// </summary>
         string Author { get; }
+
         /// <summary>
         /// Devuelve el Copyright del <see cref="IExposeInfo"/>
         /// </summary>
         string Copyright { get; }
+
         /// <summary>
         /// Devuelve una descripción del <see cref="IExposeInfo"/>
         /// </summary>
         string Description { get; }
+
         /// <summary>
         /// Devuelve la licencia del <see cref="IExposeInfo"/>
         /// </summary>
         string License { get; }
+
         /// <summary>
         /// Devuelve el nombre del <see cref="IExposeInfo"/>
         /// </summary>
         string Name { get; }
+
         /// <summary>
         /// Devuelve la versión del <see cref="IExposeInfo"/>
         /// </summary>
         Version Version { get; }
+
         /// <summary>
         /// Obtiene un valor que determina si este <see cref="IExposeInfo"/>
         /// contiene información de licencia.

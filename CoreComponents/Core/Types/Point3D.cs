@@ -34,6 +34,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using CI = System.Globalization.CultureInfo;
 using St = TheXDS.MCART.Resources.Strings;
+using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
 namespace TheXDS.MCART.Types
 {

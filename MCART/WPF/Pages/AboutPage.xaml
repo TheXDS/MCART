@@ -4,11 +4,10 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:controls="clr-namespace:TheXDS.MCART.Controls"
-      xmlns:component="clr-namespace:TheXDS.MCART.Component"
-      xmlns:pages="clr-namespace:TheXDS.MCART.Pages"
       xmlns:converters="clr-namespace:System.Windows.Converters"
+      xmlns:viewModel="clr-namespace:TheXDS.MCART.Dialogs.ViewModel"
       mc:Ignorable="d"
-      d:DataContext="{d:DesignInstance pages:AboutPageViewModel}"
+      d:DataContext="{d:DesignInstance viewModel:AboutPageViewModel}"
       Title="AboutPage">
     <Page.Resources>
         <Thickness x:Key="M5">5</Thickness>

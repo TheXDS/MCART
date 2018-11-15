@@ -32,6 +32,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
+using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using TcpClient = TheXDS.MCART.Types.Extensions.TcpClient;
 
 #region Configuración de ReSharper

@@ -22,17 +22,19 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using MCART.Types.Base;
+using System.Windows.Input;
+using TheXDS.MCART.Component;
+using TheXDS.MCART.Dialogs.ViewModel;
 using TheXDS.MCART.PluginSupport;
 
 namespace TheXDS.MCART.Dialogs
 {
+    /// <inheritdoc cref="Window"/>
     /// <summary>
     ///     Diálogo que permite mostrar información acerca de los
-    ///     <see cref="Plugin" /> cargables por MCART.
+    ///     <see cref="T:TheXDS.MCART.PluginSupport.Plugin" /> cargables por MCART.
     /// </summary>
     public partial class PluginBrowser
     {
@@ -66,51 +68,10 @@ namespace TheXDS.MCART.Dialogs
             if (!Vm.ShowPlugins) return;
             Vm.Selection = (sender as TreeView)?.SelectedItem;
         }
-    }
 
-    internal class PluginBrowserViewModel : NotifyPropertyChanged
-    {
-        private object _selection;
-        private bool _showPlugins = true;
-
-        public Dictionary<string, IEnumerable<IPlugin>> Plugins
+        private void Plugin_OnDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            get
-            {
-                if (!ShowPlugins) return new Dictionary<string, IEnumerable<IPlugin>>(0);
-                try
-                {
-                    return new PluginLoader(new RelaxedPluginChecker(), SanityChecks.IgnoreDanger).PluginTree();
-                }
-                catch
-                {
-                    return new Dictionary<string, IEnumerable<IPlugin>>(0);
-                }
-            }
-        }
-
-        public object Selection
-        {
-            get => _selection;
-            set
-            {
-                if (!(value is IPlugin)) value = null;
-                if (Equals(value, _selection)) return;
-                _selection = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool ShowPlugins
-        {
-            get => _showPlugins;
-            set
-            {
-                if (value == _showPlugins) return;
-                _showPlugins = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(Plugins));
-            }
+            if ((sender as TreeView)?.SelectedItem is IExposeInfo x) AboutBox.Show(x);
         }
     }
 }

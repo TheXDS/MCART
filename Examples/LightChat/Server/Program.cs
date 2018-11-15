@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TheXDS.MCART;
 using TheXDS.MCART.Networking.Server;
+using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
 namespace TheXDS.LightChat
 {

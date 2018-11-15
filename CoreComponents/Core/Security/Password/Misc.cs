@@ -27,7 +27,7 @@ using System.Security;
 namespace TheXDS.MCART.Security.Password
 {
     /// <summary>
-    /// Determina el nivel de ponderación a aplicar a un objeto <see cref="PwEvalRule"/>
+    /// Determina el nivel de ponderación a aplicar a un objeto <see cref="PasswordEvaluationRule"/>
     /// </summary>
     public enum PonderationLevel : short
 	{
@@ -92,21 +92,21 @@ namespace TheXDS.MCART.Security.Password
 		/// </summary>
 		Highest = 7
 	}
+
     /// <summary>
     /// Delegado que permite verificar una contraseña.
     /// </summary>
-    /// <param name="user">Usuario a verificar.</param>
-    /// <param name="password">Contraseña a verificar.</param>
+    /// <param name="credential">
+    ///     Información de credenciales a utilizar para la verificación.
+    /// </param>
     /// <returns>
-    /// <see langword="true"/> si la información de inicio de sesión es válida, 
-    /// <see langword="false"/> en caso contrario.</returns>
-    public delegate System.Threading.Tasks.Task<bool> LoginValidator(string user, SecureString password);
-	/// <summary>
-	/// Delegado que define una función que genera contraseñas.
-	/// </summary>
-	public delegate SecureString PwGenerator(int length);
-	/// <summary>
-	/// Delegado que define una función que evalúa contraseñas.
+    ///     <see langword="true"/> si la información de inicio de sesión es
+    ///     válida, <see langword="false"/> en caso contrario.
+    /// </returns>
+    public delegate System.Threading.Tasks.Task<bool> LoginValidator(ICredential credential);
+
+    /// <summary>
+	///     Delegado que define una función que evalúa contraseñas.
 	/// </summary>
 	public delegate PwEvalResult PwEvalFunc(SecureString pwToEval);
 }

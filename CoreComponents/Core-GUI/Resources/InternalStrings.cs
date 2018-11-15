@@ -27,7 +27,7 @@ namespace TheXDS.MCART.Resources
     internal static partial class InternalStrings
     {
 #pragma warning disable CS0618 // Las cadenas podrían hacer referencia a miembros obsoletos.
-        internal const string LightGraphObsolete = "El control " + nameof(Controls.LightGraph) + " está obsoleto. Procure utilizar un control de la familia " + nameof(Controls.ISeriesGraph) + ".";
+        public const string LightGraphObsolete = "El control " + nameof(Controls.LightGraph) + " está obsoleto. Procure utilizar un control de la familia " + nameof(Controls.ISeriesGraph) + ".";
 #pragma warning restore CS0618
     }
 }

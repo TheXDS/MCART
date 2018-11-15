@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using Ist = TheXDS.MCART.Resources.InternalStrings;
+
 namespace TheXDS.MCART.Security.Password
 {
     /// <summary>
@@ -40,7 +42,7 @@ namespace TheXDS.MCART.Security.Password
         /// </summary>
         public bool Critical;
         /// <summary>
-        /// Detalles que el <see cref="PwEvaluator"/> ha colocado sobre la
+        /// Detalles que el <see cref="PasswordEvaluator"/> ha colocado sobre la
         /// evaluación de la contraseña.
         /// </summary>
         public string Details;
@@ -74,15 +76,20 @@ namespace TheXDS.MCART.Security.Password
             Details = d;
         }
         /// <summary>
-        /// Obtiene un <see cref="PwEvalResult"/> nulo. Este campo es de sólo 
+        /// Obtiene un <see cref="PwEvalResult"/> nulo. Este campo es de solo 
         /// lectura.
         /// </summary>
-        public static PwEvalResult Null => new PwEvalResult();
+        public static readonly PwEvalResult Null = new PwEvalResult(float.NaN);
+        /// <summary>
+        ///     Obtiene un <see cref="PwEvalResult"/> que representa una
+        ///     contraseña vacía. Este campo es de solo lectura.
+        /// </summary>
+        public static readonly PwEvalResult Empty = new PwEvalResult(float.NaN, Ist.EmptyPassword);
         /// <summary>
         /// Obtiene un <see cref="PwEvalResult"/> fallido. Este campo es de
         /// sólo lectura.
         /// </summary>
-        public static PwEvalResult Fail => new PwEvalResult(0, null, true);
+        public static readonly PwEvalResult Fail = new PwEvalResult(0, null, true);
         /// <summary>
         /// Evalúa si esta instancia y <paramref name="obj"/> son 
         /// iguales.

@@ -29,20 +29,38 @@ namespace TheXDS.MCART.Resources
     /// </summary>
     internal static partial class InternalStrings
     {
-        internal const string GpVNoData = " (Sin datos)";
-        internal const string NullPwEvalRule = "Regla nula";
-        internal const string NullPwEvalRule2 = "Esta regla no evaluará la contraseña, sino que devolverá un valor constante que ayuda a balancear el puntaje de otras reglas en el total.";
-        internal const string ObsoleteCheckDoc = "Este método no está soportado. Por favor, lea la documentación de MCART acerca de esta clase.";
-        internal const string PwLatinEvalRule = "Caracteres latinos";
-        internal const string PwLcaseEvalRule = "Minúsculas";
-        internal const string PwLenghtEvalRule = "Longitud de contraseña";
-        internal const string PwLenghtEvalRule2 = "Esta regla evalúa la longitud de la contraseña, para asegurarse que contenga de {0} a {1} caracteres.";
-        internal const string PwNumbersEvalRule = "Números";
-        internal const string PwOtherSymbsEvalRule = "Otros símbolos";
-        internal const string PwOtherUTFEvalRule = "Otros caracteres Unicode";
-        internal const string PwSymbolsEvalRule = "Símbolos";
-        internal const string PwUcaseEvalRule = "Mayúsculas";
-        internal const string xBuilder = "Esta regla evalúa que la contraseña contenga {0}";
-        internal static string UnkErrLoadingRes(string res, string ex) => $"Error desconocido al cargar recurso {res}\n{ex}";
+        public const string GpVNoData = " (Sin datos)";
+        public const string NullPwEvalRule = "Regla nula";
+        public const string NullPwEvalRule2 = "Esta regla no evaluará la contraseña, sino que devolverá un valor constante que ayuda a balancear el puntaje de otras reglas en el total.";
+        public const string ObsoleteCheckDoc = "Este método no está soportado. Por favor, lea la documentación de MCART acerca de esta clase.";
+        public const string PwLatinEvalRule = "Caracteres latinos";
+        public const string PwLcaseEvalRule = "Minúsculas";
+        public const string PwLenghtEvalRule = "Longitud de contraseña";
+        public const string PwLenghtEvalRule2 = "Esta regla evalúa la longitud de la contraseña, para asegurarse que contenga de {0} a {1} caracteres.";
+        public const string PwNumbersEvalRule = "Números";
+        public const string PwOtherSymbsEvalRule = "Otros símbolos";
+        public const string PwOtherUTFEvalRule = "Otros caracteres Unicode";
+        public const string PwSymbolsEvalRule = "Símbolos";
+        public const string PwUcaseEvalRule = "Mayúsculas";
+        public const string xBuilder = "Esta regla evalúa que la contraseña contenga {0}";
+
+        public const string SafePw = "Contraseña segura";
+        public const string ComplexPw = "Contraseña compleja";
+        public const string PinNumber = "Número PIN";
+        public const string CryptoPw = "Contraseña criptográfica";
+
+        public const string User = "Usuario";
+        public const string Password = "Contraseña";
+        public const string ConfirmPassword = "Confirmar contraseña";
+        public const string PasswordHint = "Indicio de contraseña";
+        public const string EmptyPassword = "Introduzca una contraseña para continuar.";
+        public const string CommonEvaluator = "Evaluador de reglas comunes.";
+        public const string CommonEvaluatorDesc = "Se evalúa la contraseña contra reglas comunmente utilizadas, como ser longitud, uso de mayúsculas y minúsculas, letras y símbolos.";
+        public const string AvoidCommonPasswords = "Evite el uso de contraseñas comunes.";
+        public const string AvoidYears = "Evite utilizar el año actual en la contraseña.";
+        public const string ExtendedEvaluator = "Evaluador extendido de contraseñas";
+        public const string ComplexEvaluator = "Evaluador complejo de contraseñas";
+
+        public static string UnkErrLoadingRes(string res, string ex) => $"Error desconocido al cargar recurso {res}\n{ex}";
     }
 }

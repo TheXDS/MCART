@@ -853,9 +853,19 @@ namespace TheXDS.MCART
         /// </returns>
         public static bool HasAttr<T>(this object obj, out T attribute) where T : Attribute
         {
-            var retVal = HasAttrs<T>(obj.GetType(), out var attrs);
-            attribute = attrs.FirstOrDefault();
-            return retVal;
+            switch (obj)
+            {
+                case Assembly a:
+                    return HasAttr(a, out attribute);
+                case MemberInfo m:
+                    return HasAttr(m, out attribute);
+                case Enum e:
+                    return HasAttr(e, out attribute);
+                default:
+                    var retVal = HasAttrs<T>(obj.GetType(), out var attrs);
+                    attribute = attrs.FirstOrDefault();
+                    return retVal;
+            }
         }
 
         /// <summary>
@@ -882,7 +892,7 @@ namespace TheXDS.MCART
         /// <typeparam name="T">
         ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
-        /// <param name="member">
+        /// <param name="obj">
         ///     Miembro del cual se extraerá el atributo.
         /// </param>
         /// <param name="attribute">
@@ -895,10 +905,20 @@ namespace TheXDS.MCART
         ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
         ///     en caso contrario.
         /// </returns>
-        public static bool HasAttrs<T>(this object member, out IEnumerable<T> attribute) where T : Attribute
+        public static bool HasAttrs<T>(this object obj, out IEnumerable<T> attribute) where T : Attribute
         {
-            attribute = Attribute.GetCustomAttributes(member.GetType(), typeof(T)).OfType<T>();
-            return attribute.Any();
+            switch (obj)
+            {
+                case Assembly a:
+                    return HasAttrs(a, out attribute);
+                case MemberInfo m:
+                    return HasAttrs(m, out attribute);
+                case Enum e:
+                    return HasAttrs(e, out attribute);
+                default:
+                    attribute = Attribute.GetCustomAttributes(obj.GetType(), typeof(T)).OfType<T>();
+                    return attribute.Any();
+            }
         }
 
         /// <summary>

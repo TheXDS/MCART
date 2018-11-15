@@ -21,6 +21,9 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+using TheXDS.MCART.Types;
+
 namespace TheXDS.MCART.Resources
 {
     /// <summary>
@@ -199,13 +202,13 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public static string SetX(string text) => $"Establecer {text}";
         /// <summary>
-        /// Devuelve una cadena con el texto "/!\ {<paramref name="text"/>}".
+        /// Devuelve una cadena con el texto "⚠ {<paramref name="text"/>}".
         /// </summary>
         /// <param name="text">Texto a formatear.</param>
         /// <returns>
-        /// Una cadena con el texto "/!\ {<paramref name="text"/>}".
+        /// Una cadena con el texto "⚠ {<paramref name="text"/>}".
         /// </returns>
-        public static string Warn(string text) => $"/!\\ {text}";
+        public static string Warn(string text) => $"⚠ {text}";
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} ha sido aceptado.".
         /// </summary>
@@ -418,6 +421,24 @@ namespace TheXDS.MCART.Resources
         /// '{<paramref name="quoted"/>}'".
         /// </returns>
         public static string XYQuotes(string unquoted, string quoted) => $"{unquoted} '{quoted}'";
+
+        /// <summary>
+        ///     Devuelve una cadena con el texto "El valor se encuentra fuera
+        ///     del rango válido. Debe ser {(range.MinInclusive ? ">=" : ">")}
+        ///     {range.Minimum} y {(range.MaxInclusive ? "&lt;=" : "&lt;")}
+        ///     {range.Maximum}".
+        /// </summary>
+        /// <param name="range">Rango de valores válidos.</param>
+        /// <returns>
+        ///     Una cadena con el texto "El valor se encuentra fuera
+        ///     del rango válido. Debe ser {(range.MinInclusive ? ">=" : ">")}
+        ///     {range.Minimum} y {(range.MaxInclusive ? "&lt;=" : "&lt;")}
+        ///     {range.Maximum}".
+        /// </returns>
+        public static string ValueMustBeBetween<T>(Range<T> range) where T:IComparable<T>
+        {
+            return $"El valor se encuentra fuera del rango válido. Debe ser {(range.MinInclusive ? ">=" : ">")} {range.Minimum} y {(range.MaxInclusive ? "<=" : "<")} {range.Maximum}";
+        }
         #endregion
 #pragma warning disable CS1591 // Las cadenas generalmente no requieren de descripción.
         public const string Abort = "Abortar";
@@ -434,7 +455,7 @@ namespace TheXDS.MCART.Resources
         public const string ClientConnected = "Se ha conectado un nuevo cliente.";
         public const string ClosdConn = "La conexión está cerrada";
         public const string Clse = "Cerrar";
-        public const string Cncl = "Cancelar";
+        public const string Cancel = "Cancelar";
         public const string Copyright = "Copyright";
         public const string CorruptData = "Se han recibido datos corruptos";
         public const string CtrlCCancel = "Presione Ctrl+C para cancelar";
@@ -457,6 +478,7 @@ namespace TheXDS.MCART.Resources
         public const string InvalidInfo = "La información no es válida.";
         public const string InvalidPassword = "La contraseña no es válida.";
         public const string InvalidPluginClass = "La clase no es un Plugin válido.";
+        public const string InvalidValue = "Valor inválido.";
         public const string IsBeta = "Versión Beta";
         public const string IsUnsafe = "Inseguro (NO UTILIZAR)";
         public const string ItsLong = "Es muy larga";
@@ -497,6 +519,8 @@ namespace TheXDS.MCART.Resources
         public const string PwTooLong = "La contraseña es excesivamente larga.";
         public const string PwTooShort = "La contraseña es muy corta.";
         public const string Rdy = "Listo";
+        public const string RequiredField = "Este campo es obligatorio.";
+        public const string RequiredNumber = "Se requiere un valor numérico.";
         public const string Search = "Buscar...";
         public const string Security = "Seguridad";
         public const string SlctAPlugin = "Seleccione un elemento de la lista para ver más información.";

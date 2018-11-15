@@ -36,6 +36,7 @@ using TheXDS.MCART;
 using TheXDS.MCART.Types;
 using Xunit;
 using static TheXDS.MCART.Common;
+using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
 namespace CoreTest.Modules
 {

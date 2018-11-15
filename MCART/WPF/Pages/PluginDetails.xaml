@@ -87,7 +87,7 @@
                         <TextBlock Text="Versión objetivo de MCART" VerticalAlignment="Center" />
                         <TextBox Text="{Binding TargetMCARTVersion, Mode=OneWay}" Margin="{DynamicResource Mrg}" />
                     </UniformGrid>
-                    <CheckBox Margin="{DynamicResource Mrg}" IsChecked="{Binding IsSupported, Mode=OneWay}">Plugin soportado por MCART</CheckBox>
+                    <CheckBox Margin="{DynamicResource Mrg}" IsEnabled="false" IsChecked="{Binding IsSupported, Mode=OneWay}">Plugin soportado por MCART</CheckBox>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Interacciones" IsEnabled="{Binding HasInteractions, Mode=OneWay}">

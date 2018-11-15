@@ -391,24 +391,24 @@
   </HelpKINode>
   <HelpKINode Title="AspTypePropertyAttribute.AspTypePropertyAttribute constructor" Url="html/M_TheXDS_MCART_Annotations_AspTypePropertyAttribute__ctor.htm" />
   <HelpKINode Title="AspTypePropertyAttribute.CreateConstructorReferences property" Url="html/P_TheXDS_MCART_Annotations_AspTypePropertyAttribute_CreateConstructorReferences.htm" />
-  <HelpKINode Title="Assembly field" Url="html/F_TheXDS_MCART_Pages_AssemblyDataExposer_Assembly.htm" />
+  <HelpKINode Title="Assembly field" Url="html/F_TheXDS_MCART_Component_AssemblyDataExposer_Assembly.htm" />
   <HelpKINode Title="AssemblyDataExposer class">
-    <HelpKINode Title="AssemblyDataExposer (Clase)" Url="html/T_TheXDS_MCART_Pages_AssemblyDataExposer.htm" />
-    <HelpKINode Title="constructor" Url="html/Overload_TheXDS_MCART_Pages_AssemblyDataExposer__ctor.htm" />
-    <HelpKINode Title="fields" Url="html/Fields_T_TheXDS_MCART_Pages_AssemblyDataExposer.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Pages_AssemblyDataExposer.htm" />
-    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Pages_AssemblyDataExposer.htm" />
+    <HelpKINode Title="AssemblyDataExposer (Clase)" Url="html/T_TheXDS_MCART_Component_AssemblyDataExposer.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_TheXDS_MCART_Component_AssemblyDataExposer__ctor.htm" />
+    <HelpKINode Title="fields" Url="html/Fields_T_TheXDS_MCART_Component_AssemblyDataExposer.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Component_AssemblyDataExposer.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Component_AssemblyDataExposer.htm" />
   </HelpKINode>
-  <HelpKINode Title="AssemblyDataExposer.Assembly field" Url="html/F_TheXDS_MCART_Pages_AssemblyDataExposer_Assembly.htm" />
-  <HelpKINode Title="AssemblyDataExposer.AssemblyDataExposer constructor" Url="html/Overload_TheXDS_MCART_Pages_AssemblyDataExposer__ctor.htm" />
-  <HelpKINode Title="AssemblyDataExposer.Author property" Url="html/P_TheXDS_MCART_Pages_AssemblyDataExposer_Author.htm" />
-  <HelpKINode Title="AssemblyDataExposer.Copyright property" Url="html/P_TheXDS_MCART_Pages_AssemblyDataExposer_Copyright.htm" />
-  <HelpKINode Title="AssemblyDataExposer.Description property" Url="html/P_TheXDS_MCART_Pages_AssemblyDataExposer_Description.htm" />
-  <HelpKINode Title="AssemblyDataExposer.HasLicense property" Url="html/P_TheXDS_MCART_Pages_AssemblyDataExposer_HasLicense.htm" />
-  <HelpKINode Title="AssemblyDataExposer.Icon property" Url="html/P_TheXDS_MCART_Pages_AssemblyDataExposer_Icon.htm" />
-  <HelpKINode Title="AssemblyDataExposer.License property" Url="html/P_TheXDS_MCART_Pages_AssemblyDataExposer_License.htm" />
-  <HelpKINode Title="AssemblyDataExposer.Name property" Url="html/P_TheXDS_MCART_Pages_AssemblyDataExposer_Name.htm" />
-  <HelpKINode Title="AssemblyDataExposer.Version property" Url="html/P_TheXDS_MCART_Pages_AssemblyDataExposer_Version.htm" />
+  <HelpKINode Title="AssemblyDataExposer.Assembly field" Url="html/F_TheXDS_MCART_Component_AssemblyDataExposer_Assembly.htm" />
+  <HelpKINode Title="AssemblyDataExposer.AssemblyDataExposer constructor" Url="html/Overload_TheXDS_MCART_Component_AssemblyDataExposer__ctor.htm" />
+  <HelpKINode Title="AssemblyDataExposer.Author property" Url="html/P_TheXDS_MCART_Component_AssemblyDataExposer_Author.htm" />
+  <HelpKINode Title="AssemblyDataExposer.Copyright property" Url="html/P_TheXDS_MCART_Component_AssemblyDataExposer_Copyright.htm" />
+  <HelpKINode Title="AssemblyDataExposer.Description property" Url="html/P_TheXDS_MCART_Component_AssemblyDataExposer_Description.htm" />
+  <HelpKINode Title="AssemblyDataExposer.HasLicense property" Url="html/P_TheXDS_MCART_Component_AssemblyDataExposer_HasLicense.htm" />
+  <HelpKINode Title="AssemblyDataExposer.Icon property" Url="html/P_TheXDS_MCART_Component_AssemblyDataExposer_Icon.htm" />
+  <HelpKINode Title="AssemblyDataExposer.License property" Url="html/P_TheXDS_MCART_Component_AssemblyDataExposer_License.htm" />
+  <HelpKINode Title="AssemblyDataExposer.Name property" Url="html/P_TheXDS_MCART_Component_AssemblyDataExposer_Name.htm" />
+  <HelpKINode Title="AssemblyDataExposer.Version property" Url="html/P_TheXDS_MCART_Component_AssemblyDataExposer_Version.htm" />
   <HelpKINode Title="AssemblyUnpacker(Of T) class">
     <HelpKINode Title="AssemblyUnpacker(T) (Clase)" Url="html/T_TheXDS_MCART_Resources_AssemblyUnpacker_1.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Resources_AssemblyUnpacker_1__ctor.htm" />
@@ -462,7 +462,7 @@
   <HelpKINode Title="Attribute property" Url="html/P_TheXDS_MCART_Annotations_AspRequiredAttributeAttribute_Attribute.htm" />
   <HelpKINode Title="AtValue property" Url="html/P_System_Windows_Converters_ThresholdConverter_2_AtValue.htm" />
   <HelpKINode Title="Author property">
-    <HelpKINode Title="AssemblyDataExposer.Author (Propiedad )" Url="html/P_TheXDS_MCART_Pages_AssemblyDataExposer_Author.htm" />
+    <HelpKINode Title="AssemblyDataExposer.Author (Propiedad )" Url="html/P_TheXDS_MCART_Component_AssemblyDataExposer_Author.htm" />
     <HelpKINode Title="IExposeInfo.Author (Propiedad )" Url="html/P_TheXDS_MCART_Component_IExposeInfo_Author.htm" />
     <HelpKINode Title="Plugin.Author (Propiedad )" Url="html/P_TheXDS_MCART_PluginSupport_Plugin_Author.htm" />
   </HelpKINode>
@@ -854,10 +854,10 @@
   </HelpKINode>
   <HelpKINode Title="Color to Brush conversion" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_3.htm" />
   <HelpKINode Title="Color to Color conversion">
-    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit.htm" />
     <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_4.htm" />
     <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_2.htm" />
     <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit_1.htm" />
+    <HelpKINode Title="Color&#160;Implicit (Conversi&#243;n (Color to Color))" Url="html/M_TheXDS_MCART_Types_Color_op_Implicit.htm" />
   </HelpKINode>
   <HelpKINode Title="Color.A property" Url="html/P_TheXDS_MCART_Types_Color_A.htm" />
   <HelpKINode Title="Color.ABGR16 class">
@@ -1471,8 +1471,8 @@
   <HelpKINode Title="Comment property" Url="html/P_TheXDS_MCART_Annotations_PublicAPIAttribute_Comment.htm" />
   <HelpKINode Title="Common class">
     <HelpKINode Title="Common (Clase)" Url="html/T_TheXDS_MCART_Networking_Common.htm" />
-    <HelpKINode Title="Common (Clase)" Url="html/T_TheXDS_MCART_Common.htm" />
     <HelpKINode Title="Common (Clase)" Url="html/T_TheXDS_MCART_Math_Common.htm" />
+    <HelpKINode Title="Common (Clase)" Url="html/T_TheXDS_MCART_Common.htm" />
     <HelpKINode Title="fields" Url="html/Fields_T_TheXDS_MCART_Networking_Common.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_Common.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Common.htm" />
@@ -1642,7 +1642,7 @@
   <HelpKINode Title="Copy&lt;T&gt; method" Url="html/M_TheXDS_MCART_Types_Extensions_EnumerableExtensions_Copy__1.htm" />
   <HelpKINode Title="Copyright field" Url="html/F_TheXDS_MCART_Resources_Strings_Copyright.htm" />
   <HelpKINode Title="Copyright property">
-    <HelpKINode Title="AssemblyDataExposer.Copyright (Propiedad )" Url="html/P_TheXDS_MCART_Pages_AssemblyDataExposer_Copyright.htm" />
+    <HelpKINode Title="AssemblyDataExposer.Copyright (Propiedad )" Url="html/P_TheXDS_MCART_Component_AssemblyDataExposer_Copyright.htm" />
     <HelpKINode Title="IExposeInfo.Copyright (Propiedad )" Url="html/P_TheXDS_MCART_Component_IExposeInfo_Copyright.htm" />
     <HelpKINode Title="Plugin.Copyright (Propiedad )" Url="html/P_TheXDS_MCART_PluginSupport_Plugin_Copyright.htm" />
   </HelpKINode>
@@ -1885,7 +1885,7 @@
   <HelpKINode Title="DependencyPropertyChangingEventArgs.Property field" Url="html/F_TheXDS_MCART_Events_DependencyPropertyChangingEventArgs_Property.htm" />
   <HelpKINode Title="Descr field" Url="html/F_TheXDS_MCART_Resources_Strings_Descr.htm" />
   <HelpKINode Title="Description property">
-    <HelpKINode Title="AssemblyDataExposer.Description (Propiedad )" Url="html/P_TheXDS_MCART_Pages_AssemblyDataExposer_Description.htm" />
+    <HelpKINode Title="AssemblyDataExposer.Description (Propiedad )" Url="html/P_TheXDS_MCART_Component_AssemblyDataExposer_Description.htm" />
     <HelpKINode Title="IExposeInfo.Description (Propiedad )" Url="html/P_TheXDS_MCART_Component_IExposeInfo_Description.htm" />
     <HelpKINode Title="InteractionItem.Description (Propiedad )" Url="html/P_TheXDS_MCART_PluginSupport_InteractionItem_Description.htm" />
     <HelpKINode Title="Plugin.Description (Propiedad )" Url="html/P_TheXDS_MCART_PluginSupport_Plugin_Description.htm" />
@@ -1977,11 +1977,11 @@
   <HelpKINode Title="Echo class">
     <HelpKINode Title="Echo (Clase)" Url="html/T_TheXDS_MCART_Networking_Client_Protocols_Echo.htm" />
     <HelpKINode Title="Echo (Clase)" Url="html/T_TheXDS_MCART_Networking_Server_Protocols_Echo.htm" />
-    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Networking_Client_Protocols_Echo__ctor.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Networking_Server_Protocols_Echo__ctor.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Networking_Client_Protocols_Echo__ctor.htm" />
     <HelpKINode Title="events" Url="html/Events_T_TheXDS_MCART_Networking_Client_Protocols_Echo.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_Client_Protocols_Echo.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_Server_Protocols_Echo.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Networking_Client_Protocols_Echo.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Networking_Client_Protocols_Echo.htm" />
   </HelpKINode>
   <HelpKINode Title="Echo.Check method" Url="html/M_TheXDS_MCART_Networking_Client_Protocols_Echo_Check.htm" />
@@ -2001,13 +2001,15 @@
   <HelpKINode Title="Effect(Of TElement) method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Effect__1.htm" />
   <HelpKINode Title="Effect&lt;TElement&gt; method" Url="html/M_TheXDS_MCART_Fluent_FlowDocumentFluentExtensions_Effect__1.htm" />
   <HelpKINode Title="EggShell property" Url="html/P_TheXDS_MCART_Resources_Colors_EggShell.htm" />
-  <HelpKINode Title="EmbeededLicenseAttribute class">
-    <HelpKINode Title="EmbeededLicenseAttribute (Clase)" Url="html/T_TheXDS_MCART_Attributes_EmbeededLicenseAttribute.htm" />
-    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Attributes_EmbeededLicenseAttribute__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Attributes_EmbeededLicenseAttribute.htm" />
-    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Attributes_EmbeededLicenseAttribute.htm" />
+  <HelpKINode Title="EmbeddedLicenseAttribute class">
+    <HelpKINode Title="EmbeddedLicenseAttribute (Clase)" Url="html/T_TheXDS_MCART_Attributes_EmbeddedLicenseAttribute.htm" />
+    <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Attributes_EmbeddedLicenseAttribute__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_TheXDS_MCART_Attributes_EmbeddedLicenseAttribute.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Attributes_EmbeddedLicenseAttribute.htm" />
   </HelpKINode>
-  <HelpKINode Title="EmbeededLicenseAttribute.EmbeededLicenseAttribute constructor" Url="html/M_TheXDS_MCART_Attributes_EmbeededLicenseAttribute__ctor.htm" />
+  <HelpKINode Title="EmbeddedLicenseAttribute.EmbeddedLicenseAttribute constructor" Url="html/M_TheXDS_MCART_Attributes_EmbeddedLicenseAttribute__ctor.htm" />
+  <HelpKINode Title="EmbeddedLicenseAttribute.Path property" Url="html/P_TheXDS_MCART_Attributes_EmbeddedLicenseAttribute_Path.htm" />
+  <HelpKINode Title="EmbeddedLicenseAttribute.ReadLicense method" Url="html/M_TheXDS_MCART_Attributes_EmbeddedLicenseAttribute_ReadLicense.htm" />
   <HelpKINode Title="EmeraldGreen property" Url="html/P_TheXDS_MCART_Resources_Colors_EmeraldGreen.htm" />
   <HelpKINode Title="Empty property" Url="html/P_System_Windows_Converters_StringVisibilityConverter_Empty.htm" />
   <HelpKINode Title="EmptyCollectionException class">
@@ -2498,7 +2500,7 @@
   <HelpKINode Title="HasItemsProperty field" Url="html/F_TheXDS_MCART_Controls_NavigationBar_HasItemsProperty.htm" />
   <HelpKINode Title="HasItemsPropertyKey field" Url="html/F_TheXDS_MCART_Controls_NavigationBar_HasItemsPropertyKey.htm" />
   <HelpKINode Title="HasLicense property">
-    <HelpKINode Title="AssemblyDataExposer.HasLicense (Propiedad )" Url="html/P_TheXDS_MCART_Pages_AssemblyDataExposer_HasLicense.htm" />
+    <HelpKINode Title="AssemblyDataExposer.HasLicense (Propiedad )" Url="html/P_TheXDS_MCART_Component_AssemblyDataExposer_HasLicense.htm" />
     <HelpKINode Title="IExposeInfo.HasLicense (Propiedad )" Url="html/P_TheXDS_MCART_Component_IExposeInfo_HasLicense.htm" />
     <HelpKINode Title="Plugin.HasLicense (Propiedad )" Url="html/P_TheXDS_MCART_PluginSupport_Plugin_HasLicense.htm" />
   </HelpKINode>
@@ -2602,7 +2604,7 @@
   <HelpKINode Title="ICompressorGetter.GetCompressor method" Url="html/M_TheXDS_MCART_Resources_ICompressorGetter_GetCompressor.htm" />
   <HelpKINode Title="Icon field" Url="html/F_TheXDS_MCART_PluginSupport_InteractionItem_Icon.htm" />
   <HelpKINode Title="Icon property">
-    <HelpKINode Title="AssemblyDataExposer.Icon (Propiedad )" Url="html/P_TheXDS_MCART_Pages_AssemblyDataExposer_Icon.htm" />
+    <HelpKINode Title="AssemblyDataExposer.Icon (Propiedad )" Url="html/P_TheXDS_MCART_Component_AssemblyDataExposer_Icon.htm" />
     <HelpKINode Title="IExposeInfo.Icon (Propiedad )" Url="html/P_TheXDS_MCART_Component_IExposeInfo_Icon.htm" />
     <HelpKINode Title="Plugin.Icon (Propiedad )" Url="html/P_TheXDS_MCART_PluginSupport_Plugin_Icon.htm" />
   </HelpKINode>
@@ -3175,7 +3177,7 @@
   </HelpKINode>
   <HelpKINode Title="LenghtyAttribute.LenghtyAttribute constructor" Url="html/M_TheXDS_MCART_Attributes_LenghtyAttribute__ctor.htm" />
   <HelpKINode Title="License property">
-    <HelpKINode Title="AssemblyDataExposer.License (Propiedad )" Url="html/P_TheXDS_MCART_Pages_AssemblyDataExposer_License.htm" />
+    <HelpKINode Title="AssemblyDataExposer.License (Propiedad )" Url="html/P_TheXDS_MCART_Component_AssemblyDataExposer_License.htm" />
     <HelpKINode Title="IExposeInfo.License (Propiedad )" Url="html/P_TheXDS_MCART_Component_IExposeInfo_License.htm" />
     <HelpKINode Title="Plugin.License (Propiedad )" Url="html/P_TheXDS_MCART_PluginSupport_Plugin_License.htm" />
   </HelpKINode>
@@ -3186,6 +3188,7 @@
     <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Attributes_LicenseFileAttribute.htm" />
   </HelpKINode>
   <HelpKINode Title="LicenseFileAttribute.LicenseFileAttribute constructor" Url="html/M_TheXDS_MCART_Attributes_LicenseFileAttribute__ctor.htm" />
+  <HelpKINode Title="LicenseFileAttribute.ReadLicense method" Url="html/M_TheXDS_MCART_Attributes_LicenseFileAttribute_ReadLicense.htm" />
   <HelpKINode Title="LicenseTextAttribute class">
     <HelpKINode Title="LicenseTextAttribute (Clase)" Url="html/T_TheXDS_MCART_Attributes_LicenseTextAttribute.htm" />
     <HelpKINode Title="constructor" Url="html/M_TheXDS_MCART_Attributes_LicenseTextAttribute__ctor.htm" />
@@ -3692,7 +3695,7 @@
     <HelpKINode Title="Plugin.MyAssembly (Propiedad )" Url="html/P_TheXDS_MCART_PluginSupport_Plugin_MyAssembly.htm" />
   </HelpKINode>
   <HelpKINode Title="Name property">
-    <HelpKINode Title="AssemblyDataExposer.Name (Propiedad )" Url="html/P_TheXDS_MCART_Pages_AssemblyDataExposer_Name.htm" />
+    <HelpKINode Title="AssemblyDataExposer.Name (Propiedad )" Url="html/P_TheXDS_MCART_Component_AssemblyDataExposer_Name.htm" />
     <HelpKINode Title="HtmlAttributeValueAttribute.Name (Propiedad )" Url="html/P_TheXDS_MCART_Annotations_HtmlAttributeValueAttribute_Name.htm" />
     <HelpKINode Title="HtmlElementAttributesAttribute.Name (Propiedad )" Url="html/P_TheXDS_MCART_Annotations_HtmlElementAttributesAttribute_Name.htm" />
     <HelpKINode Title="IExposeInfo.Name (Propiedad )" Url="html/P_TheXDS_MCART_Component_IExposeInfo_Name.htm" />
@@ -4159,6 +4162,7 @@
   <HelpKINode Title="PasswordStorage.CreateHash method" Url="html/M_TheXDS_MCART_Security_Password_PasswordStorage_CreateHash.htm" />
   <HelpKINode Title="PasswordStorage.VerifyPassword method" Url="html/M_TheXDS_MCART_Security_Password_PasswordStorage_VerifyPassword.htm" />
   <HelpKINode Title="PasswordStorage.VerifyPasswordAsync method" Url="html/M_TheXDS_MCART_Security_Password_PasswordStorage_VerifyPasswordAsync.htm" />
+  <HelpKINode Title="Path property" Url="html/P_TheXDS_MCART_Attributes_EmbeddedLicenseAttribute_Path.htm" />
   <HelpKINode Title="PathReferenceAttribute class">
     <HelpKINode Title="PathReferenceAttribute (Clase)" Url="html/T_TheXDS_MCART_Annotations_PathReferenceAttribute.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_TheXDS_MCART_Annotations_PathReferenceAttribute__ctor.htm" />
@@ -4347,10 +4351,10 @@
     <HelpKINode Title="properties" Url="html/Properties_T_TheXDS_MCART_Types_Point.htm" />
   </HelpKINode>
   <HelpKINode Title="Point to Point conversion">
+    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit_3.htm" />
     <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit_2.htm" />
     <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit_1.htm" />
     <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit.htm" />
-    <HelpKINode Title="Point&#160;Implicit (Conversi&#243;n (Point to Point))" Url="html/M_TheXDS_MCART_Types_Point_op_Implicit_3.htm" />
   </HelpKINode>
   <HelpKINode Title="Point.Addition operator" Url="html/Overload_TheXDS_MCART_Types_Point_op_Addition.htm" />
   <HelpKINode Title="Point.Angle method" Url="html/M_TheXDS_MCART_Types_Point_Angle.htm" />
@@ -4752,6 +4756,10 @@
   <HelpKINode Title="ReadChars method" Url="html/M_TheXDS_MCART_Common_ReadChars.htm" />
   <HelpKINode Title="ReadCommand method" Url="html/M_TheXDS_MCART_Networking_Server_SelfWiredCommandProtocol_3_ReadCommand.htm" />
   <HelpKINode Title="ReadInt16 method" Url="html/M_TheXDS_MCART_Common_ReadInt16.htm" />
+  <HelpKINode Title="ReadLicense method">
+    <HelpKINode Title="EmbeddedLicenseAttribute.ReadLicense (M&#233;todo )" Url="html/M_TheXDS_MCART_Attributes_EmbeddedLicenseAttribute_ReadLicense.htm" />
+    <HelpKINode Title="LicenseFileAttribute.ReadLicense (M&#233;todo )" Url="html/M_TheXDS_MCART_Attributes_LicenseFileAttribute_ReadLicense.htm" />
+  </HelpKINode>
   <HelpKINode Title="ReadOnly enumeration member" Url="html/T_TheXDS_MCART_Controls_NavigationBar_EditMode.htm" />
   <HelpKINode Title="ReadResponse method" Url="html/M_TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_ReadResponse.htm" />
   <HelpKINode Title="ReadString method" Url="html/Overload_TheXDS_MCART_Types_Extensions_StreamExtensions_ReadString.htm" />
@@ -5916,7 +5924,7 @@
   <HelpKINode Title="TheXDS.MCART.Attributes.CopyrightAttribute class" Url="html/T_TheXDS_MCART_Attributes_CopyrightAttribute.htm" />
   <HelpKINode Title="TheXDS.MCART.Attributes.DangerousAttribute class" Url="html/T_TheXDS_MCART_Attributes_DangerousAttribute.htm" />
   <HelpKINode Title="TheXDS.MCART.Attributes.DescriptionAttribute class" Url="html/T_TheXDS_MCART_Attributes_DescriptionAttribute.htm" />
-  <HelpKINode Title="TheXDS.MCART.Attributes.EmbeededLicenseAttribute class" Url="html/T_TheXDS_MCART_Attributes_EmbeededLicenseAttribute.htm" />
+  <HelpKINode Title="TheXDS.MCART.Attributes.EmbeddedLicenseAttribute class" Url="html/T_TheXDS_MCART_Attributes_EmbeddedLicenseAttribute.htm" />
   <HelpKINode Title="TheXDS.MCART.Attributes.FloatAttribute class" Url="html/T_TheXDS_MCART_Attributes_FloatAttribute.htm" />
   <HelpKINode Title="TheXDS.MCART.Attributes.IdentifierAttribute class" Url="html/T_TheXDS_MCART_Attributes_IdentifierAttribute.htm" />
   <HelpKINode Title="TheXDS.MCART.Attributes.IntAttribute class" Url="html/T_TheXDS_MCART_Attributes_IntAttribute.htm" />
@@ -5946,6 +5954,7 @@
   <HelpKINode Title="TheXDS.MCART.Common class" Url="html/T_TheXDS_MCART_Common.htm" />
   <HelpKINode Title="TheXDS.MCART.Common.SearchOptions enumeration" Url="html/T_TheXDS_MCART_Common_SearchOptions.htm" />
   <HelpKINode Title="TheXDS.MCART.Component namespace" Url="html/N_TheXDS_MCART_Component.htm" />
+  <HelpKINode Title="TheXDS.MCART.Component.AssemblyDataExposer class" Url="html/T_TheXDS_MCART_Component_AssemblyDataExposer.htm" />
   <HelpKINode Title="TheXDS.MCART.Component.IExposeInfo interface" Url="html/T_TheXDS_MCART_Component_IExposeInfo.htm" />
   <HelpKINode Title="TheXDS.MCART.Controls namespace" Url="html/N_TheXDS_MCART_Controls.htm" />
   <HelpKINode Title="TheXDS.MCART.Controls.BusyIndicator class" Url="html/T_TheXDS_MCART_Controls_BusyIndicator.htm" />
@@ -6083,7 +6092,6 @@
   <HelpKINode Title="TheXDS.MCART.Objects class" Url="html/T_TheXDS_MCART_Objects.htm" />
   <HelpKINode Title="TheXDS.MCART.Pages namespace" Url="html/N_TheXDS_MCART_Pages.htm" />
   <HelpKINode Title="TheXDS.MCART.Pages.AboutPage class" Url="html/T_TheXDS_MCART_Pages_AboutPage.htm" />
-  <HelpKINode Title="TheXDS.MCART.Pages.AssemblyDataExposer class" Url="html/T_TheXDS_MCART_Pages_AssemblyDataExposer.htm" />
   <HelpKINode Title="TheXDS.MCART.Pages.PluginDetails class" Url="html/T_TheXDS_MCART_Pages_PluginDetails.htm" />
   <HelpKINode Title="TheXDS.MCART.PluginSupport namespace" Url="html/N_TheXDS_MCART_PluginSupport.htm" />
   <HelpKINode Title="TheXDS.MCART.PluginSupport.DefaultPluginChecker class" Url="html/T_TheXDS_MCART_PluginSupport_DefaultPluginChecker.htm" />
@@ -6788,7 +6796,7 @@
     <HelpKINode Title="history" Url="html/a43a94b2-1336-49d7-b56e-160b8ed4dd09.htm" />
   </HelpKINode>
   <HelpKINode Title="Version property">
-    <HelpKINode Title="AssemblyDataExposer.Version (Propiedad )" Url="html/P_TheXDS_MCART_Pages_AssemblyDataExposer_Version.htm" />
+    <HelpKINode Title="AssemblyDataExposer.Version (Propiedad )" Url="html/P_TheXDS_MCART_Component_AssemblyDataExposer_Version.htm" />
     <HelpKINode Title="IExposeInfo.Version (Propiedad )" Url="html/P_TheXDS_MCART_Component_IExposeInfo_Version.htm" />
     <HelpKINode Title="Plugin.Version (Propiedad )" Url="html/P_TheXDS_MCART_PluginSupport_Plugin_Version.htm" />
   </HelpKINode>

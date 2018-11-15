@@ -671,12 +671,12 @@ namespace TheXDS.MCART.PluginSupport
         public Dictionary<string, IEnumerable<T>> PluginTree<T>(string pluginsPath, string searchPattern, SearchOption search) where T : class
         {
             if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
-            Dictionary<string, IEnumerable<T>> outp = new Dictionary<string, IEnumerable<T>>();
-            foreach (FileInfo f in (new DirectoryInfo(pluginsPath)).GetFiles(searchPattern + _extension, search))
+            var outp = new Dictionary<string, IEnumerable<T>>();
+            foreach (var f in (new DirectoryInfo(pluginsPath)).GetFiles(searchPattern + _extension, search))
             {
                 try
                 {
-                    Assembly a = Assembly.LoadFrom(f.FullName);
+                    var a = Assembly.LoadFrom(f.FullName);
                     if (_checker.IsVaild(a)) outp.Add(f.Name, LoadAll<T>(a));
                 }
                 catch (Exception ex) { System.Diagnostics.Debug.Print(ex.Message); }

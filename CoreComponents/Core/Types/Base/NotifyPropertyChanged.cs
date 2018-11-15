@@ -26,7 +26,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Annotations;
 
-namespace MCART.Types.Base
+namespace TheXDS.MCART.Types.Base
 {
     /// <inheritdoc />
     /// <summary>

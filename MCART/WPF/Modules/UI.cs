@@ -40,6 +40,7 @@ using System.Windows.Media.Imaging;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Networking;
 using C = TheXDS.MCART.Math.Geometry;
+using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 
 // ReSharper disable MemberCanBePrivate.Global
