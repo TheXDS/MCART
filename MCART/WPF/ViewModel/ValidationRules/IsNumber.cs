@@ -1,5 +1,5 @@
 ﻿/*
-TextNotEmpty.cs
+IsNumber.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -24,16 +24,15 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Globalization;
 using System.Windows.Controls;
-using St = TheXDS.MCART.Resources.Strings;
-using static TheXDS.MCART.Types.Extensions.StringExtensions;
+using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.ViewModel.ValidationRules
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Regla que verifica que un valor de texto no se encuentre vacío.
+    ///     Regla que verifica que un valor sea numérico.
     /// </summary>
-    public class TextNotEmpty : ValidationRule
+    public class IsNumber : ValidationRule
     {
         /// <inheritdoc />
         /// <summary>
@@ -50,7 +49,7 @@ namespace TheXDS.MCART.ViewModel.ValidationRules
         /// </returns>
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            return new ValidationResult(!value?.ToString().IsEmpty() ?? false, St.RequiredField);
+            return new ValidationResult(Objects.IsNumericType(value?.GetType()), Strings.RequiredNumber);
         }
     }
 }

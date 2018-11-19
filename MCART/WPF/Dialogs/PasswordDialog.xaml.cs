@@ -31,6 +31,7 @@ using TheXDS.MCART.Security.Password;
 
 namespace TheXDS.MCART.Dialogs
 {
+    /// <inheritdoc cref="Window"/>
     /// <summary>
     ///     Lógica de interacción para PasswordDialog.xaml
     /// </summary>
@@ -352,6 +353,10 @@ namespace TheXDS.MCART.Dialogs
         /// </param>
         /// <param name="maxTries">Número máximo de intentos.</param>
         /// <param name="userData"></param>
+        /// <param name="generator">
+        ///     Si se establece en <see langword="true"/>, se incluye la
+        ///     funcionalidad del generador de contraseñas.
+        /// </param>
         /// <returns>
         ///     <see langword="true" /> si se ha obtenido la información del
         ///     usuario correctamente, <see langword="false" /> en caso
@@ -384,11 +389,6 @@ namespace TheXDS.MCART.Dialogs
         /// </summary>
         /// <param name="credential">Credenciales conocidas.</param>
         /// <param name="knownHint">Indicio de contraseña conocido.</param>
-        /// <param name="evaluator">Evaluador de contraseña a utilizar.</param>
-        /// <param name="validator">
-        ///     Función de validación de contraseña.
-        /// </param>
-        /// <param name="maxTries">Número máximo de intentos.</param>
         /// <param name="userData"></param>
         /// <returns>
         ///     <see langword="true" /> si se ha obtenido la información del
@@ -422,10 +422,6 @@ namespace TheXDS.MCART.Dialogs
         /// <param name="credential">Credenciales conocidas.</param>
         /// <param name="knownHint">Indicio de contraseña conocido.</param>
         /// <param name="evaluator">Evaluador de contraseña a utilizar.</param>
-        /// <param name="validator">
-        ///     Función de validación de contraseña.
-        /// </param>
-        /// <param name="maxTries">Número máximo de intentos.</param>
         /// <param name="userData"></param>
         /// <returns>
         ///     <see langword="true" /> si se ha obtenido la información del
@@ -446,7 +442,6 @@ namespace TheXDS.MCART.Dialogs
         /// <param name="validator">
         ///     Función de validación de contraseña.
         /// </param>
-        /// <param name="maxTries">Número máximo de intentos.</param>
         /// <param name="userData"></param>
         /// <returns>
         ///     <see langword="true" /> si se ha obtenido la información del

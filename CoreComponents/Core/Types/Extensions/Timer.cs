@@ -27,22 +27,23 @@ using System.Timers;
 
 namespace TheXDS.MCART.Types.Extensions
 {
+    /// <inheritdoc />
     /// <summary>
-    /// Extensión de la clase <see cref="System.Timers.Timer"/>. provee de toda
+    /// Extensión de la clase <see cref="T:System.Timers.Timer" />. provee de toda
     /// la funcionalidad previamente disponible, e incluye algunas extensiones
     /// útiles.
     /// </summary>
     public class Timer : System.Timers.Timer
     {
-        DateTime? st;
-        void Tmr_Elapsed(object sender, ElapsedEventArgs e)
+        private void Tmr_Elapsed(object sender, ElapsedEventArgs e)
         {
-            if (AutoReset) st = DateTime.Now;
+            if (AutoReset) StartTime = DateTime.Now;
         }
         /// <summary>
         /// Indica el momento de inicio de este <see cref="Timer"/>.
         /// </summary>
-        public DateTime? StartTime => st;
+        public DateTime? StartTime { get; private set; }
+
         /// <summary>
         /// Indica la cantidad de tiempo disponible antes de cumplir con el 
         /// intervalo establecido en 
@@ -52,7 +53,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             get
             {
-                if (!(st is null)) return TimeSpan.FromMilliseconds(Interval) - (DateTime.Now - st);
+                if (!(StartTime is null)) return TimeSpan.FromMilliseconds(Interval) - (DateTime.Now - StartTime);
                 return null;
             }
         }
@@ -65,7 +66,7 @@ namespace TheXDS.MCART.Types.Extensions
             get=> base.Enabled;
             set
             {
-                st = value ? (DateTime?)DateTime.Now : null;
+                StartTime = value ? (DateTime?)DateTime.Now : null;
                 base.Enabled = value;
             }
         }
@@ -76,30 +77,32 @@ namespace TheXDS.MCART.Types.Extensions
         /// </summary>
         public new void Start()
         {
-            st = DateTime.Now;
+            StartTime = DateTime.Now;
             base.Start();
         }
         /// <summary>
         /// Deja de generar el evento <see cref="System.Timers.Timer.Elapsed"/>
         /// al establecer <see cref="Enabled"/> en <see langword="false"/>.
         /// </summary>
-        public new void Stop() { st = null; base.Stop(); }
+        public new void Stop() { StartTime = null; base.Stop(); }
         /// <summary>
         /// Reinicia este <see cref="Timer"/>.
         /// </summary>
         public void Reset() { Stop(); Start(); }
+        /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="Timer"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Types.Extensions.Timer" />.
         /// </summary>
         public Timer() { Elapsed += Tmr_Elapsed; }
+        /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="Timer"/> y 
-        /// establece la propiedad <see cref="System.Timers.Timer.Interval"/>
+        /// Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Types.Extensions.Timer" /> y 
+        /// establece la propiedad <see cref="P:System.Timers.Timer.Interval" />
         /// en el número de milisegundos especificado.
         /// </summary>
         /// <param name="interval">
         /// Tiempo, en milisegundos, entre eventos. Este valor debe ser mayor
-        /// que cero y menor que <see cref="int.MaxValue"/>.
+        /// que cero y menor que <see cref="F:System.Int32.MaxValue" />.
         /// </param>
         public Timer(double interval) : base(interval) { }
     }

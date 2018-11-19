@@ -77,7 +77,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static void RemoveAll<T>(this ICollection<T> collection) => RemoveAll(collection, null, null);
 
         /// <summary>
-        ///     Devuelve el último elemento en la lista, quitándolo.
+        ///     Devuelve el último elemento en la lista, quitándole.
         /// </summary>
         /// <returns>El último elemento en la lista.</returns>
         /// <param name="a">Lista de la cual obtener el elemento.</param>
@@ -92,7 +92,7 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Devuelve el primer elemento en la lista, quitándolo.
+        ///     Devuelve el primer elemento en la lista, quitándole.
         /// </summary>
         /// <returns>El primer elemento en la lista.</returns>
         /// <param name="a">Lista de la cual obtener el elemento.</param>

@@ -7,7 +7,7 @@ Public Class GrphTest
         grph = g
         Show()
     End Sub
-    Public Sub rfrsh(sender As Object, e As EventArgs) Handles BtnRfrsh.Click
+    Public Sub rfrsh(sender As Object, e As EventArgs) Handles BtnRefresh.Click
         With grph
             .Redraw()
         End With

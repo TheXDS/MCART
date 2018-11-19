@@ -464,11 +464,33 @@ namespace TheXDS.MCART.Fluent
             return table;
         }
 
+        /// <summary>
+        ///     Marca el final del contexto de una fila de tabla, devolviendo a
+        ///     su grupo padre de forma compatible con la sintaxis Fluent.
+        /// </summary>
+        /// <param name="row">
+        ///     Fila para la cual finalizar el contexto de la sintaxis Fluent.
+        /// </param>
+        /// <returns>
+        ///     El grupo de filas a las que esta fila pertenece.
+        /// </returns>
         public static TableRowGroup Done(this TableRow row)
         {
             return row.Parent as TableRowGroup;
         }
 
+        /// <summary>
+        ///     Marca el final del contexto de un grupo de filas de tabla,
+        ///     devolviendo a su tabla padre de forma compatible con la
+        ///     sintaxis Fluent.
+        /// </summary>
+        /// <param name="rowGroup">
+        ///     Grupo de filas para el cual finalizar el contexto de la
+        ///     sintaxis Fluent.
+        /// </param>
+        /// <returns>
+        ///     La tabla a las que este grupo de filas pertenece.
+        /// </returns>
         public static Table Done(this TableRowGroup rowGroup)
         {
             return rowGroup.Parent as Table;

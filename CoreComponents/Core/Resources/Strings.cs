@@ -22,6 +22,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Types;
 
 namespace TheXDS.MCART.Resources
@@ -29,6 +30,7 @@ namespace TheXDS.MCART.Resources
     /// <summary>
     /// Contiene cadenas de texto genéricas, además de funciones de composición de texto.
     /// </summary>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public static class Strings
     {
         #region Composición de texto

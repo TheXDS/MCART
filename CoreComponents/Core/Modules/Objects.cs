@@ -1450,8 +1450,10 @@ namespace TheXDS.MCART
             where T : Delegate
         {
             foreach (var j in methods)
-                if (Delegate.CreateDelegate(typeof(T), j, false) is T d)
+            {
+                if (TryCreateDelegate<T>(j, out var d))
                     yield return d;
+            }
         }
 
         /// <summary>
@@ -1474,13 +1476,86 @@ namespace TheXDS.MCART
         public static IEnumerable<T> WithSignature<T>(this IEnumerable<MethodInfo> methods, object instance)
             where T : Delegate
         {
-            foreach (var j in methods)
-                if (Delegate.CreateDelegate(
-                    typeof(T),
-                    instance,
-                    j.Name,
-                    false, false) is T d)
-                    yield return d;
+                foreach (var j in methods)
+                    if (TryCreateDelegate<T>(j, instance, out var d))
+                        yield return d;
+        }
+
+        /// <summary>
+        ///     Versión segura de <see cref="Delegate.CreateDelegate(Type, MethodInfo, bool)"/>
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo del delegado a crear.
+        /// </typeparam>
+        /// <param name="method">
+        ///     Método desde el cual se creará el delegado.
+        /// </param>
+        /// <param name="delegate">
+        ///     Delegado que ha sido creado. <see langword="null"/> si no fue
+        ///     posible crear el delegado especificado.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> si se ha creado el delegado de forma
+        ///     satisfactoria, <see langword="false"/> en caso contrario.
+        /// </returns>
+        /// <remarks>
+        ///     Este método se creó debido a un Quirk de funcionamiento del
+        ///     método
+        ///     <see cref="Delegate.CreateDelegate(Type, MethodInfo, bool)"/>,
+        ///     en el cual el mismo aún podría arrojar una excepción cuando no
+        ///     es posible enlazar un método a un delegado si el método
+        ///     contiene parámetros genéricos.
+        /// </remarks>
+        public static bool TryCreateDelegate<T>(MethodInfo method, out T @delegate) where T : Delegate
+        {
+            try
+            {
+                @delegate = Delegate.CreateDelegate(typeof(T), method, false) as T;
+                return !(@delegate is null);
+            }
+            catch
+            {
+                @delegate = null;
+                return false;
+            }
+        }
+
+        /// <summary>
+        ///     Encapsula <see cref="Delegate.CreateDelegate(Type, object, string, bool, bool)"/>
+        ///     para garantizar la captura de todas las excepciones posibles.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo del delegado a crear.
+        /// </typeparam>
+        /// <param name="method">
+        ///     Método desde el cual se creará el delegado.
+        /// </param>
+        /// <param name="instance">Instancia hacia la cual enlazar el delegado a crear.</param>
+        /// <param name="delegate">Delegado que ha sido creado. <see langword="null"/> si no fue posible crear el delegado especificado.</param>
+        /// <returns>
+        ///     <see langword="true"/> si se ha creado el delegado de forma
+        ///     satisfactoria, <see langword="false"/> en caso contrario.
+        /// </returns>
+        /// <remarks>
+        ///     Este método se creó debido a un Quirk de funcionamiento del
+        ///     método
+        ///     <see cref="Delegate.CreateDelegate(Type, object, string, bool, bool)"/>,
+        ///     en el cual el mismo aún podría arrojar una excepción cuando no
+        ///     es posible enlazar un método a un delegado si el método
+        ///     contiene parámetros genéricos.
+        /// </remarks>
+        public static bool TryCreateDelegate<T>(MethodInfo method, object instance, out T @delegate) where T : Delegate
+        {
+            try
+            {
+                @delegate = Delegate.CreateDelegate(typeof(T), instance, method.Name, false, false) as T;
+                return !(@delegate is null);
+            }
+            catch
+            {
+                @delegate = null;
+                return false;
+            }
         }
     }
 }

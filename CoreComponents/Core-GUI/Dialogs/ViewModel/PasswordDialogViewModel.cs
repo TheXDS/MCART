@@ -22,7 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
 using System.Security;
 using System.Threading.Tasks;
 using TheXDS.MCART.Security.Password;
@@ -42,7 +41,6 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         private IPasswordGenerator _generator;
         private string _title;
         private bool _isBusy;
-
 
         public PasswordDialogMode Mode
         {

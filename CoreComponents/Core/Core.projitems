@@ -19,10 +19,29 @@
     <Compile Include="$(MSBuildThisFileDirectory)Math\Tween.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Annotations.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Attrbutes.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Misc\Enums.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\OffendingException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\NotPluginException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\EmptyCollectionException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\FeatureNotAvailableException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\InvalidPasswordException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\DangerousMethodException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\DangerousTypeException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\InvalidMethodSignatureException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\InvalidReturnValueException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\MissingArgumentException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\PluginClassNotFoundException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\PluginException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\PluginInitializationException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Misc\SanityChecks.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Events.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Exceptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Internal.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\TamperException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\TooManyArgumentsException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\StackUnderflowException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\TooFewArgumentsException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\UnknownTypeException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\UnusableObjectException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\Common_nonCLS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\Objects.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\ActiveClient.cs" />
@@ -48,6 +67,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\UserData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Base\NotifyPropertyChanged.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Converters\BasicParseConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\Converters\RangeConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\DateTimeExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\EnumExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\StringExtensions.cs" />
@@ -113,7 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Networking\Reporters\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Types\Converters\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\License\GPLv3.deflate" />

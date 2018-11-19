@@ -23,6 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using TheXDS.MCART.Misc;
 
@@ -32,6 +33,7 @@ namespace TheXDS.MCART.Component
     /// <summary>
     ///     Expone la información de identificación de un ensamblado.
     /// </summary>
+    [SuppressMessage("ReSharper", "PartialTypeWithSinglePart")]
     public partial class AssemblyDataExposer : IExposeInfo
     {
         /// <summary>

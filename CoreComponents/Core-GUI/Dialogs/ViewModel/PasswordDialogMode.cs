@@ -27,7 +27,7 @@ using System;
 namespace TheXDS.MCART.Dialogs.ViewModel
 {
     [Flags]
-    public enum PasswordDialogMode : byte
+    internal enum PasswordDialogMode : byte
     {
         PasswordOnly,
         User,

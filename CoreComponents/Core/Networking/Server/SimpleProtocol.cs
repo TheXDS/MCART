@@ -28,7 +28,7 @@ namespace TheXDS.MCART.Networking.Server
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Define un protocolo súmamente simple.
+    ///     Define un protocolo sumamente simple.
     /// </summary>
     public abstract class SimpleProtocol : IProtocol
     {
@@ -59,8 +59,8 @@ namespace TheXDS.MCART.Networking.Server
         ///     Protocolo de bienvenida del cliente.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si el cliente fue aceptado por el protocolo, <see langword="false" /> en caso
-        ///     contrario.
+        ///     <see langword="true" /> si el cliente fue aceptado por el
+        ///     protocolo, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="client">Cliente que será atendido.</param>
         public bool ClientWelcome(Client client) => true;
@@ -70,7 +70,8 @@ namespace TheXDS.MCART.Networking.Server
         ///     Inicializa un nuevo cliente manejado por este protocolo.
         /// </summary>
         /// <param name="tcpClient">
-        ///     <see cref="T:System.Net.Sockets.TcpClient" /> de la conexión con el host remoto.
+        ///     <see cref="T:System.Net.Sockets.TcpClient" /> de la conexión
+        ///     con el host remoto.
         /// </param>
         /// <returns>
         ///     Un nuevo <see cref="T:TheXDS.MCART.Networking.Server.Client" />.

@@ -1,5 +1,5 @@
 ﻿/*
-TextNotEmpty.cs
+InRange.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,19 +22,28 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Controls;
-using St = TheXDS.MCART.Resources.Strings;
-using static TheXDS.MCART.Types.Extensions.StringExtensions;
+using TheXDS.MCART.Resources;
+using TheXDS.MCART.Types;
 
 namespace TheXDS.MCART.ViewModel.ValidationRules
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Regla que verifica que un valor de texto no se encuentre vacío.
+    ///     Comprueba que un valor se encuentre dentro de un rango de valores.
     /// </summary>
-    public class TextNotEmpty : ValidationRule
+    /// <typeparam name="T"></typeparam>
+    [DefaultProperty(nameof(Range))]
+    public class InRange<T> : ValidationRule where T : IComparable<T>
     {
+        /// <summary>
+        ///    Rango de valores admitidos.
+        /// </summary>
+        public Range<T> Range { get; set; }
+
         /// <inheritdoc />
         /// <summary>
         ///   Si se reemplaza en una clase derivada, realiza comprobaciones de validación en un valor.
@@ -50,7 +59,8 @@ namespace TheXDS.MCART.ViewModel.ValidationRules
         /// </returns>
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            return new ValidationResult(!value?.ToString().IsEmpty() ?? false, St.RequiredField);
+            if (!(value is T v)) return new ValidationResult(false, Strings.InvalidValue);
+            return new ValidationResult(Range.IsWithin(v), Strings.ValueMustBeBetween(Range));
         }
     }
 }

@@ -30,7 +30,6 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using TheXDS.MCART.Math;
 
 namespace TheXDS.MCART.Networking
 {
@@ -225,9 +224,12 @@ namespace TheXDS.MCART.Networking
 		{
 			var wr = WebRequest.Create(uri);
 			wr.Timeout = 10000;
-			using (var r = await wr.GetResponseAsync())
+		    WebResponse r;
+		    CancellationTokenSource ct;
+
+			using (r = await wr.GetResponseAsync())
 			using (var rStream = r.GetResponseStream())
-			using (var ct = new CancellationTokenSource())
+			using (ct = new CancellationTokenSource())
 			using (var downloadTask = rStream?.CopyToAsync(stream))
 			using (var reportTask = new Task(() =>
 			{

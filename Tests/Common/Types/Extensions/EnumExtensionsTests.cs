@@ -23,9 +23,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Linq;
-using static TheXDS.MCART.Types.Extensions.EnumExtensions;
 using Xunit;
+using static TheXDS.MCART.Types.Extensions.EnumExtensions;
 
 namespace Common.Types.Extensions
 {
@@ -39,7 +38,7 @@ namespace Common.Types.Extensions
         }
 
         [Fact]
-        public void ByteConversionmethodTest()
+        public void ByteConversionMethodTest()
         {
             var a = ByteConversionMethod<DayOfWeek>();
             Assert.NotNull(a);

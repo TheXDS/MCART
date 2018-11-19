@@ -22,11 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Collections.Generic;
-using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Types;
-
 #region Configuración de ReSharper
 
 // ReSharper disable IntroduceOptionalParameters.Global

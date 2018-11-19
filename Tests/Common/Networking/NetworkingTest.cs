@@ -22,12 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Linq;
-using TheXDS.MCART.Networking.Server;
 using Xunit;
-using System.Net;
-using System.Threading;
 
 #if ExtrasBuiltIn
 using TheXDS.MCART.Networking.Server.Protocols;
@@ -45,7 +40,7 @@ namespace CoreTest.Networking
              * Este Test tiene un problema...
              * El método DownloadHttp se prueba realizando una descarga desde
              * cualquier servidor, y dependiendo del servicio de host, es
-             * probable que consideren en uso contínuo de los mismos para
+             * probable que consideren en uso continuo de los mismos para
              * realizar las pruebas como abusivo. A este fin, se espera que en
              * el futuro se implemente un servidor contenido dentro del mismo
              * equipo para realizar pruebas de descarga.
@@ -57,11 +52,5 @@ namespace CoreTest.Networking
             TheXDS.MCART.Networking.DownloadHelper.DownloadHttp("http://speedtest.ftp.otenet.gr/files/test100k.db", ms);
             Assert.Equal(102400, ms.Length);
         }
-
-        [Fact]
-		public void TEst()
-		{
-			Assert.Equal("50%", $"{0.05:%}");
-		}
     }
 }

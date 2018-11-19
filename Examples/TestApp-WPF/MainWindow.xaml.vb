@@ -26,6 +26,12 @@ Imports TheXDS.MCART.Controls
 Imports TheXDS.MCART.Pages
 Imports TheXDS.MCART.Resources
 Imports TheXDS.MCART.Security.Password
+Imports TheXDS.MCART.Types
+
+Public Class ModelTest
+    Public Property Text As String
+    Public Property ValidRange As Range(Of Integer) = New Range(Of Integer)(1, 10)
+End Class
 
 Public Class MainWindow
     Private pl As IEnumerable(Of IPlugin)

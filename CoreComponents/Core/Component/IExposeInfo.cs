@@ -23,6 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TheXDS.MCART.Component
 {
@@ -30,6 +31,7 @@ namespace TheXDS.MCART.Component
     ///     Define una serie de miembros a implementar para una clase que
     ///     exponga diversa información de identificación.
     /// </summary>
+    [SuppressMessage("ReSharper", "PartialTypeWithSinglePart")]
     public partial interface IExposeInfo
     {
         /// <summary>

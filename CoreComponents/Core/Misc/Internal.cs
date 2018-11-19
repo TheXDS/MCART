@@ -27,7 +27,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Security.Password;
 using TheXDS.MCART.Types.Extensions;
 using St = TheXDS.MCART.Resources.Strings;
 
