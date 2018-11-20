@@ -27,6 +27,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Math;
+using St = TheXDS.MCART.Resources.InternalStrings;
 
 // ReSharper disable ClassNeverInstantiated.Global
 
@@ -48,81 +50,6 @@ namespace TheXDS.MCART.Networking
         ///     desconexión forzada.
         /// </summary>
         public const int DisconnectionTimeout = 15000;
-
-        /// <summary>
-        /// Convierte un valor <see cref="long"/> que representa una cuenta de
-        /// bytes en la unidad de magnitud más fácil de leer.
-        /// </summary>
-        /// <param name="bytes">Cantidad de bytes a representar.</param>
-        /// <returns>
-        /// Una cadena con la cantidad de bytes utilizando la unidad de
-        /// magnitud adecuada.
-        /// </returns>
-        public static string ByteUnits(this long bytes)
-        {
-            return ByteUnits(bytes, ByteUnitType.Binary);
-        }
-
-        /// <summary>
-        /// Convierte un valor <see cref="long"/> que representa una cuenta de
-        /// bytes en la unidad de magnitud más fácil de leer.
-        /// </summary>
-        /// <param name="bytes">Cantidad de bytes a representar.</param>
-        /// <param name="unit">Tipo de unidad a utilizar.</param>
-        /// <returns>
-        /// Una cadena con la cantidad de bytes utilizando la unidad de
-        /// magnitud adecuada.
-        /// </returns>
-        public static string ByteUnits(this long bytes, ByteUnitType unit)
-        {
-            var c = 0;
-            var f = 0.0f;
-            while (bytes > 1023)
-            {
-                c++;
-                f = (int)(bytes % 1024);
-                bytes /= 1024;
-            }
-			f /= 1024;
-            switch (c)
-            {
-                case 0:
-                    return $"{bytes} Bytes";
-                case 1:
-                    return $"{bytes + f:F1} KiB";
-                case 2:
-                    return $"{bytes + f:F1} MiB";
-                case 3:
-                    return $"{bytes + f:F1} GiB";
-                case 4:
-                    return $"{bytes + f:F1} TiB";
-                case 5:
-                    return $"{bytes + f:F1} PiB";
-                case 6:
-                    return $"{bytes + f:F1} EiB";
-                case 7:
-                    return $"{bytes + f:F1} ZiB";
-                default:
-                    return $"{bytes + f:F1} YiB";
-            }
-        }
-
-        /// <summary>
-        ///     Enumera los tipos de unidades que se pueden utilizar para
-        ///     representar grandes cantidades de bytes.
-        /// </summary>
-        public enum ByteUnitType : byte
-        {
-            /// <summary>
-            ///     Numeración binaria. Cada orden de magnitud equivale a 1024 de su inferior.
-            /// </summary>
-            Binary,
-            /// <summary>
-            ///     Numeración decimal. Cada orden de magnitud equivale a 1000 de su inferior. 
-            /// </summary>
-            Decimal
-        }
-        
     }
 
     /// <inheritdoc />

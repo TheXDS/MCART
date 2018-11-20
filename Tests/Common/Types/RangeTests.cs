@@ -50,6 +50,12 @@ namespace CoreTest.Types
         }
 
         [Fact]
+        public void TryParseTest_FailingToParse()
+        {
+            Assert.False(Range<int>.TryParse("TEST", out var range));
+        }
+
+        [Fact]
         public void JoinTest()
         {
             var a = new Range<int>(1, 5);
@@ -72,14 +78,15 @@ namespace CoreTest.Types
         }
 
         [Theory]
-        [InlineData(1, 3, 2, 5, true)]
-        [InlineData(1, 2, 3, 4, false)]
-        [InlineData(1, 2, 2, 3, false)]
-        public void IntersectsTest(int min1, int max1, int min2, int max2, bool expected)
+        [InlineData(1, 3, 2, 5, true, false)]
+        [InlineData(1, 2, 3, 4, false, false)]
+        [InlineData(1, 2, 2, 3, false, false)]
+        [InlineData(1, 2, 2, 3, true, true)]
+        public void IntersectsTest(int min1, int max1, int min2, int max2, bool expected, bool inclusively)
         {
-            var a = new Range<int>(min1, max1);
-            var b = new Range<int>(min2, max2);
-
+            var a = new Range<int>(min1, max1, inclusively);
+            var b = new Range<int>(min2, max2, inclusively);
+            
             Assert.Equal(expected, a.Intersects(b));
         }
     }

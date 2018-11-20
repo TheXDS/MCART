@@ -43,6 +43,7 @@ using TheXDS.MCART.Math;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
 using St = TheXDS.MCART.Resources.Strings;
+using St2 = TheXDS.MCART.Resources.InternalStrings;
 
 #region Configuración de ReSharper
 
@@ -352,7 +353,7 @@ namespace TheXDS.MCART
         public static bool IsBetween<T>(this T value, T min, T max, bool minInclusive, bool maxInclusive) where T : IComparable<T>
         {
             return (minInclusive ? value.CompareTo(min) >= 0 : value.CompareTo(min) > 0) 
-                && (maxInclusive ? value.CompareTo(max) <= 0 : value.CompareTo(min) < 0);
+                && (maxInclusive ? value.CompareTo(max) <= 0 : value.CompareTo(max) < 0);
         }
 
         /// <summary>
@@ -777,6 +778,82 @@ namespace TheXDS.MCART
         {
             if (min == max) throw new InvalidOperationException();
             foreach (var j in collection) yield return (j - min) / (float) (max - min);
+        }
+        /// <summary>
+        /// Convierte un valor <see cref="long"/> que representa una cuenta de
+        /// bytes en la unidad de magnitud más fácil de leer.
+        /// </summary>
+        /// <param name="bytes">Cantidad de bytes a representar.</param>
+        /// <param name="unit">Tipo de unidad a utilizar.</param>
+        /// <returns>
+        /// Una cadena con la cantidad de bytes utilizando la unidad de
+        /// magnitud adecuada.
+        /// </returns>
+        public static string ByteUnits(long bytes, ByteUnitType unit)
+        {
+            var c = 0;
+            var f = 0.0f;
+
+            int mag;
+            string[] u;
+
+            switch (unit)
+            {
+                case ByteUnitType.Binary:
+                    mag = 1024;
+                    u = new[] {St2.KiB, St2.MiB, St2.GiB, St2.TiB, St2.PiB, St2.EiB, St2.ZiB, St2.YiB};
+                    break;
+                case ByteUnitType.Decimal:
+                    mag = 1000;
+                    u = new[] {St2.KB, St2.MB, St2.GB, St2.TB, St2.PB, St2.EB, St2.ZB, St2.YB};
+                    break;
+                default:
+
+#if PreferExceptions
+                    throw new ArgumentOutOfRangeException(nameof(unit), unit, null);
+#else
+                    return $"{bytes} {St2.Bytes}";
+#endif
+            }
+            
+            while (bytes > mag-1)
+            {
+                c++;
+                f = (int)(bytes % mag);
+                bytes /= mag;
+            }
+			f /= mag;
+
+            return c > 0 ? $"{bytes + f:F1} {u[c.Clamp(7)-1]}" : $"{bytes} {St2.Bytes}";
+        }
+        /// <summary>
+        /// Convierte un valor <see cref="long"/> que representa una cuenta de
+        /// bytes en la unidad de magnitud más fácil de leer.
+        /// </summary>
+        /// <param name="bytes">Cantidad de bytes a representar.</param>
+        /// <returns>
+        /// Una cadena con la cantidad de bytes utilizando la unidad de
+        /// magnitud adecuada.
+        /// </returns>
+        public static string ByteUnits(this long bytes)
+        {
+            return ByteUnits(bytes, ByteUnitType.Binary);
+        }
+
+        /// <summary>
+        ///     Enumera los tipos de unidades que se pueden utilizar para
+        ///     representar grandes cantidades de bytes.
+        /// </summary>
+        public enum ByteUnitType : byte
+        {
+            /// <summary>
+            ///     Numeración binaria. Cada orden de magnitud equivale a 1024 de su inferior.
+            /// </summary>
+            Binary,
+            /// <summary>
+            ///     Numeración decimal. Cada orden de magnitud equivale a 1000 de su inferior. 
+            /// </summary>
+            Decimal
         }
 
 #pragma warning disable XS0001

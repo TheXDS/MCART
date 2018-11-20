@@ -88,7 +88,23 @@ namespace TheXDS.MCART.Resources
         public const string IsEnum = "Es una enumeración";
         public const string NewInstance = "Valor de nueva instancia";
 
-
+        public const string Bytes = "Bytes";
+        public const string KB = "KB";
+        public const string MB = "MB";
+        public const string GB = "GB";
+        public const string TB = "TB";
+        public const string PB = "PB";
+        public const string EB = "EB";
+        public const string ZB = "ZB";
+        public const string YB = "YB";
+        public const string KiB = "KiB";
+        public const string MiB = "MiB";
+        public const string GiB = "GiB";
+        public const string TiB = "TiB";
+        public const string PiB = "PiB";
+        public const string EiB = "EiB";
+        public const string ZiB = "ZiB";
+        public const string YiB = "YiB";
 
 
 

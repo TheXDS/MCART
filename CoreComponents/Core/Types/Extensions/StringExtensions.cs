@@ -795,7 +795,7 @@ namespace TheXDS.MCART.Types.Extensions
 
         private static string OrX(string source, string emptyRetVal)
         {
-            return source.IsEmpty() ? string.Empty : emptyRetVal;
+            return !source.IsEmpty() ? source : emptyRetVal;
         }
 
         /// <summary>

@@ -17,6 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Networking\NetworkingTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\EnumerableExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\EnumExtensionsTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\StringExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\TypeExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\RangeTests.cs" />
   </ItemGroup>
