@@ -31,7 +31,7 @@ using TheXDS.MCART.Resources;
 [assembly: AssemblyCopyright("Copyright © 2011-2018 César Andrés Morgan")]
 [assembly: EmbeddedLicense("GPLv3","TheXDS.MCART.Resources.License", typeof(DeflateGetter))]
 #pragma warning disable CS7035
-[assembly: AssemblyVersion("0.9.1.1")]
+[assembly: AssemblyVersion("0.9.1.2")]
 #if CLSCompliance
 [assembly: System.CLSCompliant(true)]
 #endif
