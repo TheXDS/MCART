@@ -68,8 +68,8 @@ namespace TheXDS.MCART.Networking.Client
         /// </returns>
         protected NetworkStream NwStream()
         {
-            try{return Connection?.GetStream();}
-            catch{return null;}
+            try { return Connection?.GetStream(); }
+            catch { return null; }
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <summary>
         /// Conexión al servidor
         /// </summary>
-        private protected readonly TcpClient Connection = new TcpClient();
+        private protected TcpClient Connection { get; private set; } = new TcpClient();
 
         /// <summary>
         ///     Obtiene un valor que indica si la conexión con el servidor se
@@ -241,6 +241,8 @@ namespace TheXDS.MCART.Networking.Client
             if (!port.IsBetween(1, 65535)) throw new ArgumentOutOfRangeException(nameof(port));
             try
             {
+                if (IsAlive) CloseConnection();
+                Connection = new TcpClient();
                 Connection.Connect(server, port);
                 Connected?.Invoke(this, new HostConnectionInfoEventArgs(server, Connection));
                 _worker = new Thread(PostConnection);

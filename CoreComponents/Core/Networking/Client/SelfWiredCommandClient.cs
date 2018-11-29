@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
@@ -291,6 +292,14 @@ namespace TheXDS.MCART.Networking.Client
         /// <param name="callback">
         ///     Llamada a ejecutar cuando el servidor responda.
         /// </param>
+        /// <exception cref="InvalidOperationException">
+        ///     Se produce cuando se intenta enviar un comando a un servidor
+        ///     cuando la conexión está cerrada.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     Se produce si <paramref name="callback"/> es <see langword="null"/>.
+        /// </exception>
+        [DebuggerStepThrough]
         public void TalkToServer(TCommand command, ResponseCallBack callback)
         {
             if (callback is null) throw new ArgumentNullException(nameof(callback));
@@ -304,10 +313,15 @@ namespace TheXDS.MCART.Networking.Client
         ///     Envía un comando al servidor.
         /// </summary>
         /// <param name="command">Comando a enviar al servidor.</param>
+        /// <exception cref="InvalidOperationException">
+        ///     Se produce cuando se intenta enviar un comando a un servidor
+        ///     cuando la conexión está cerrada.
+        /// </exception>
+        [DebuggerStepThrough]
         public void TalkToServer(TCommand command)
         {
-            var msg = MakeCommand(command).ToArray();
             var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
+            var msg = MakeCommand(command).ToArray();
             ns.Write(msg, 0, msg.Length);
         }
 
@@ -318,11 +332,20 @@ namespace TheXDS.MCART.Networking.Client
         /// <param name="data">
         ///     Datos adicionales a concatenar a la solicitud.
         /// </param>
+        /// <exception cref="InvalidOperationException">
+        ///     Se produce cuando se intenta enviar un comando a un servidor
+        ///     cuando la conexión está cerrada.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     Se produce si <paramref name="data"/> no contiene datos o es
+        ///     <see langword="null"/>.
+        /// </exception>
+        [DebuggerStepThrough]
         public void TalkToServer(TCommand command, byte[] data)
         {
+            var ns = NwStream() ?? throw new InvalidOperationException();
             if (!(data?.Length > 0)) throw new ArgumentNullException();
             var msg = MakeCommand(command).Concat(data).ToArray();
-            var ns = NwStream() ?? throw new InvalidOperationException();
             ns.Write(msg, 0, msg.Length);
         }
 
@@ -333,6 +356,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <param name="data">
         ///     Datos adicionales a concatenar a la solicitud.
         /// </param>
+        [DebuggerStepThrough]
         public void TalkToServer(TCommand command, IEnumerable<byte> data)
         {
             TalkToServer(command, data as byte[] ?? data.ToArray());
@@ -345,6 +369,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <param name="data">
         ///     Datos adicionales a concatenar a la solicitud.
         /// </param>
+        [DebuggerStepThrough]
         public void TalkToServer(TCommand command, MemoryStream data)
         {
             TalkToServer(command, data.ToArray());
@@ -357,6 +382,11 @@ namespace TheXDS.MCART.Networking.Client
         /// <param name="data">
         ///     Datos adicionales a concatenar a la solicitud.
         /// </param>
+        /// <exception cref="InvalidOperationException">
+        ///     Se produce cuando no es posible obtener datos desde
+        ///     <paramref name="data"/>.
+        /// </exception>
+        [DebuggerStepThrough]
         public void TalkToServer(TCommand command, Stream data)
         {
             if (!data.CanRead) throw new InvalidOperationException();
@@ -388,6 +418,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <returns>
         ///     Un <see cref="Task" /> que permite monitorear la operación.
         /// </returns>
+        [DebuggerStepThrough]
         public async Task TalkToServerAsync(TCommand command, byte[] data, ResponseCallBack callback)
         {
             if (!(data?.Length > 0)) throw new ArgumentNullException();

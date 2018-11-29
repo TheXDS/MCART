@@ -285,6 +285,16 @@ namespace TheXDS.MCART.Networking.Server
                         {
                             ClientLost?.Invoke(this, client);
                             Protocol.ClientDisconnect(client);
+
+                            /*
+                             * HACK: Este bloque de código se asegura de romper
+                             * el ciclo, ya que bajo algunas circunstancias
+                             * extrañas relacionadas con la sincronización de
+                             * hilos, el cliente no desecha correctamente 
+                             */
+                            client.Disconnect();
+                            waitData = false;
+                            break;
                         }
                     }
 
@@ -299,14 +309,8 @@ namespace TheXDS.MCART.Networking.Server
             else if (client?.IsAlive ?? false)
             {
                 ClientRejected?.Invoke(this, client);
-                try
-                {
-                    client.Disconnect();
-                }
-                catch
-                {
-                    /* Silenciar excepción */
-                }
+                try { client.Disconnect(); }
+                catch { /* Silenciar excepción */ }
             }
 
             if (_clients.Contains(client)) _clients.Remove(client);

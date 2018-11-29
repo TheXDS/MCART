@@ -42,12 +42,19 @@ namespace TheXDS.LightChat
 
         [Response(RetVal.Err)]
         [Response(RetVal.InvalidCommand)]
-        [Response(RetVal.InvalidInfo)]
-        [Response(RetVal.InvalidLogin)]
         [Response(RetVal.Unknown)]
         public static void DoErr(object instance, BinaryReader br)
         {
             Write(instance as LightChatClient, "El servidor ha encontrado un error.");
+        }
+
+        [Response(RetVal.InvalidInfo)]
+        [Response(RetVal.InvalidLogin)]
+        public static void ShowLoginErr(object instance, BinaryReader br)
+        {
+            var i = instance as LightChatClient;
+            Write(i, "Inicio de sesión inválido. Para continuar, inicie sesión, o cierre la conexión y vuelva a intentarlo.");
+            i.CloseConnection();
         }
 
         [Response(RetVal.Msg)]
