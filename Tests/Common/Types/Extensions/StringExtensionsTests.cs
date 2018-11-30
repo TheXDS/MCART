@@ -248,5 +248,10 @@ namespace Common.Types.Extensions
             Assert.Equal(string.Empty,((string)null).OrEmpty());
             Assert.NotEqual(string.Empty, "Test".OrEmpty());
         }
+        [Fact]
+        public void SpellTest()
+        {
+            Assert.Equal("T e s t", "Test".Spell());
+        }
     }
 }

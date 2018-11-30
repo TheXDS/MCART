@@ -26,6 +26,8 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using TheXDS.MCART.Annotations;
+using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Networking.Client;
 
 namespace TheXDS.LightChat
@@ -33,11 +35,11 @@ namespace TheXDS.LightChat
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class LightChatClient : SelfWiredCommandClient<Command, RetVal>
     {
-        private readonly MainWindow _wnd;
+        private readonly ITerminal _term;
 
-        public LightChatClient(MainWindow wnd)
+        public LightChatClient(ITerminal terminal)
         {
-            _wnd = wnd;
+            _term = terminal;
         }
 
         [Response(RetVal.Err)]
@@ -45,28 +47,28 @@ namespace TheXDS.LightChat
         [Response(RetVal.Unknown)]
         public static void DoErr(object instance, BinaryReader br)
         {
-            Write(instance as LightChatClient, "El servidor ha encontrado un error.");
+            Write(instance ?? throw new TamperException(), "El servidor ha encontrado un error.");
         }
 
         [Response(RetVal.InvalidInfo)]
         [Response(RetVal.InvalidLogin)]
         public static void ShowLoginErr(object instance, BinaryReader br)
         {
-            var i = instance as LightChatClient;
-            Write(i, "Inicio de sesión inválido. Para continuar, inicie sesión, o cierre la conexión y vuelva a intentarlo.");
+            var i = instance as LightChatClient ?? throw new TamperException();
+            Write(i, "Inicio de sesión inválido.");
             i.CloseConnection();
         }
 
         [Response(RetVal.Msg)]
         public static void DoMsg(object instance, BinaryReader br)
         {
-            Write(instance as LightChatClient, br.ReadString());
+            Write(instance ?? throw new TamperException(), br.ReadString());
         }
 
         [Response(RetVal.NoLogin)]
         public static void DoNoLogin(object instance, BinaryReader br)
         {
-            Write(instance as LightChatClient, "No has iniciado sesión.");
+            Write(instance ?? throw new TamperException(), "No has iniciado sesión.");
         }
 
         [Response(RetVal.Ok)]
@@ -74,13 +76,13 @@ namespace TheXDS.LightChat
         {
             if (br.PeekChar() < 0) return;
             var c = br.ReadInt32();
-            Write(instance as LightChatClient, $"Hay otros {c} usuarios conectados:");
-            for (var j = 0; j < c; j++) Write(instance as LightChatClient, br.ReadString());
+            Write(instance ?? throw new TamperException(), $"Hay otros {c} usuarios conectados:");
+            for (var j = 0; j < c; j++) Write(instance, br.ReadString());
         }
 
-        private static void Write(LightChatClient instance, string text)
+        private static void Write([NotNull] object instance, string text)
         {
-            instance._wnd.Dispatcher.Invoke(() => { instance._wnd.TxtChat.Text += $"{text}\n"; });
+            (instance as LightChatClient)?._term.WriteLine(text);
         }
 
         public void Login(string user, IEnumerable<byte> password)

@@ -28,11 +28,17 @@ using static TheXDS.MCART.UI;
 
 namespace TheXDS.LightChat
 {
+    public interface ITerminal
+    {
+        void Write(string text);
+        void WriteLine(string text);
+    }
+
     /// <inheritdoc cref="Window"/>
     /// <summary>
     /// Lógica de interacción para MainWindow.xaml
     /// </summary>
-    public partial class MainWindow
+    public partial class MainWindow : ITerminal
     {
         private readonly LightChatClient _client;
         public MainWindow()
@@ -42,10 +48,12 @@ namespace TheXDS.LightChat
             this.HookHelp((sender, e) => AboutBox.ShowDialog(GetType().Assembly));
         }
 
-        private void BtnConnect_OnClick(object sender, RoutedEventArgs e)
+        private async void BtnConnect_OnClick(object sender, RoutedEventArgs e)
         {
-            _client.Connect(TxtServer.Text, 51220);
-            _client.Login(TxtSend.Text, new byte[0]);
+            if (await _client.ConnectAsync(TxtServer.Text, 51220))
+                _client.Login(TxtSend.Text, new byte[0]);
+            else
+                WriteLine("No fue posible conectarse al servidor.");
         }
         private void BtnSend_OnClick(object sender, RoutedEventArgs e)
         {
@@ -78,5 +86,13 @@ namespace TheXDS.LightChat
             }
             else _client.Say(text);
         }
+
+        public void Write(string text)
+        {
+            if (CheckAccess()) TxtChat.Text += text;
+            else Dispatcher.Invoke(() => Write(text));
+        }
+
+        public void WriteLine(string text) => Write($"{text}\n");
     }
 }

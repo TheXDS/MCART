@@ -33,6 +33,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Exceptions;
 using St = TheXDS.MCART.Resources.Strings;
 
 // ReSharper disable UnusedMember.Global
@@ -1055,6 +1056,46 @@ namespace TheXDS.MCART.Types.Extensions
         private static string WildCardToRegular(string value)
         {
             return "^" + Regex.Escape(value).Replace("\\?", ".").Replace("\\*", ".*") + "$";
+        }
+
+        /// <summary>
+        ///     Separa cada carácter de una cadena con un espacio en blanco.
+        /// </summary>
+        /// <param name="str">Cadena a procesar.</param>
+        /// <returns>
+        ///     Una cadena cuyos caracteres han sido separados con un espacio en blanco.
+        /// </returns>
+        public static string Spell(this string str)
+        {
+            return Separate(str,' ');
+        }
+
+        /// <summary>
+        ///     Separa cada carácter de una cadena con el <see cref="char"/>
+        ///     especificado.
+        /// </summary>
+        /// <param name="str">Cadena a procesar.</param>
+        /// <param name="separationChar">Carácter de separación a utilizar.</param>
+        /// <returns>
+        ///     Una cadena cuyos caracteres han sido separados con el
+        ///     <see cref="char"/> especificado.
+        /// </returns>
+        public static string Separate(this string str, char separationChar)
+        {
+            IEnumerable<char> InsertSpace()
+            {
+                var e = str.ToCharArray().GetEnumerator();
+                e.Reset();
+                if (!e.MoveNext()) yield break;
+                while (true)
+                {
+                    yield return (char)(e.Current ?? throw new TamperException());
+                    if (!e.MoveNext()) break;
+                    yield return ' ';
+                }
+            }
+
+            return new string(InsertSpace().ToArray());
         }
     }
 }

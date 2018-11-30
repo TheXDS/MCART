@@ -23,7 +23,9 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using TheXDS.MCART.Exceptions;
@@ -33,6 +35,8 @@ namespace TheXDS.MCART.Types.Extensions
     /// <summary>
     ///     Extensiones para todos los elementos de tipo <see cref="IEnumerable{T}" />.
     /// </summary>
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public static class EnumerableExtensions
     {
         /// <summary>
@@ -65,6 +69,10 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Un <see cref="IEnumerable{T}" /> que contiene el sub-rango
         ///     especificado.
         /// </returns>
+        /// <exception cref="IndexOutOfRangeException">
+        ///     Se produce si <paramref name="index"/> está fuera del rango de
+        ///     la colección.
+        /// </exception>
         public static IEnumerable<T> Range<T>(this IEnumerable<T> from, int index, int count)
         {
             using (var e = from.GetEnumerator())
@@ -72,7 +80,10 @@ namespace TheXDS.MCART.Types.Extensions
                 e.Reset();
                 e.MoveNext();
                 var c = 0;
-                while (c++ < index) e.MoveNext();
+                while (c++ < index)
+                {
+                    if (!e.MoveNext()) throw new IndexOutOfRangeException();
+                }
                 c = 0;
                 while (c++ < count)
                 {
@@ -83,7 +94,7 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Ontiene una copia de los elementos de este <see cref="IEnumerable{T}" />
+        ///     Obtiene una copia de los elementos de este <see cref="IEnumerable{T}" />
         /// </summary>
         /// <returns>
         ///     Copia de esta lista. Los elementos de la copia representan la misma
@@ -373,7 +384,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static async Task<System.Collections.Generic.List<T>> ToListAsync<T>(this IEnumerable<T> enumerable)
         {
-            return await Task.Run(() => enumerable.ToList());
+            return await Task.Run(enumerable.ToList);
         }
 
         /// <summary>
@@ -386,7 +397,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static async Task<List<T>> ToExtendedListAsync<T>(this IEnumerable<T> enumerable)
         {
-            return await Task.Run(() => enumerable.ToExtendedList());
+            return await Task.Run(enumerable.ToExtendedList);
         }
 
         /// <summary>Rota los elementos de un arreglo, lista o colección.</summary>
@@ -463,6 +474,29 @@ namespace TheXDS.MCART.Types.Extensions
                     while (j-->=0) yield return c.PopFirst();
                 }
             }
+        }
+        /// <summary>
+        ///     Compara dos colecciones y determina si sus elementos son iguales.
+        /// </summary>
+        /// <param name="a">
+        ///     Enumeración a comprobar.
+        /// </param>
+        /// <param name="b">
+        ///     Enumeración contra la cual comprobar.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> si los elementos de ambas colecciones
+        ///     son iguales, <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool ItemsEqual(this IEnumerable a, IEnumerable b)
+        {
+            var ea = a.GetEnumerator();
+            var eb = b.GetEnumerator();
+            while (ea.MoveNext())
+            {
+                if (!eb.MoveNext() || (ea.Current?.Equals(eb.Current) ?? false)) return false;
+            }
+            return !eb.MoveNext();
         }
     }
 }

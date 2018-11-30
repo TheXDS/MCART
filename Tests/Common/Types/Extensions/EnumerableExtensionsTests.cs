@@ -71,5 +71,14 @@ namespace CoreTest.Types.Extensions
             Assert.Equal(new[] { 5, 1, 2, 3, 4 }, c.Rotate(-1));
             Assert.Equal(new[] { 4, 5, 1, 2, 3 }, c.Rotate(-2));
         }
+        [Fact]
+        public void ExeptForTest()
+        {
+            var array = new[] {1, 2, 3, 4, 5};
+            var exclusions = new[] {2, 4};
+            var result = new[] {1, 3, 5};
+
+            Assert.Equal(result, array.ExceptFor(exclusions));
+        }
     }
 }
