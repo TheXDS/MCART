@@ -169,7 +169,7 @@ namespace TheXDS.LightChat
         }
 
         [Command(Command.Logout)]
-        public static void DoLogout(object instance, BinaryReader br, Client<string> client, Server<Client<string>> server)
+        public static async void DoLogout(object instance, BinaryReader br, Client<string> client, Server<Client<string>> server)
         {
             if (client.ClientData.IsEmpty())
             {
@@ -177,10 +177,12 @@ namespace TheXDS.LightChat
                 return;
             }
 
-            server.Broadcast(NewMsg($"{client.ClientData} ha cerrado sesión."), client);
+            var c = client.ClientData;
+            var bt = server.BroadcastAsync(NewMsg($"{c} ha cerrado sesión."), client);
             client.Send(NewMsg("Has cerrado sesión."));
             client.ClientData = null;
             client.Bye();
+            await bt;
         }
 
         [Command(Command.Say)]
@@ -212,11 +214,16 @@ namespace TheXDS.LightChat
             {
                 if (j.ClientData == dest)
                 {
+                    if (j.ClientData == client.ClientData)
+                    {
+                        client.Send(NewMsg($"No puedes enviarte un mensaje a tí mismo."));
+                        break;
+                    }
                     j.Send(NewMsg($"{client.ClientData} te dice: {msg}"));
                     client.Send(NewMsg($"Dijiste a {dest}: {msg}"));
                     break;
                 }
-                client.Send(MakeResponse(RetVal.InvalidInfo));
+                client.Send(NewMsg($"El usuario {dest} no está presente en la sala."));
             }
         }
 

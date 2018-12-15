@@ -17,9 +17,15 @@
             <TextBox x:Name="TxtPort" Text="51220"/>
             <Button Click="BtnConnect_OnClick">Conectar</Button>
         </mcart:StretchyWrapPanel>
-        <TextBox x:Name="TxtChat" Grid.Row="1" TextWrapping="Wrap" IsReadOnly="True" VerticalScrollBarVisibility="Auto"/>
+        <TextBox
+            x:Name="TxtChat"
+            Grid.Row="1"
+            TextWrapping="Wrap"
+            IsReadOnly="True"
+            FontFamily="Consolas"
+            VerticalScrollBarVisibility="Auto"/>
         <DockPanel Grid.Row="2">
-            <Button Click="BtnSend_OnClick" DockPanel.Dock="Right">Enviar</Button>
+            <Button Click="BtnSend_OnClick" IsDefault="True" DockPanel.Dock="Right">Enviar</Button>
             <TextBox x:Name="TxtSend"/>
         </DockPanel>
     </Grid>

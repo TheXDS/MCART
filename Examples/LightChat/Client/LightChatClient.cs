@@ -45,12 +45,12 @@ namespace TheXDS.LightChat
         [Response(RetVal.Err)]
         [Response(RetVal.InvalidCommand)]
         [Response(RetVal.Unknown)]
+        [Response(RetVal.InvalidInfo)]
         public static void DoErr(object instance, BinaryReader br)
         {
             Write(instance ?? throw new TamperException(), "El servidor ha encontrado un error.");
         }
 
-        [Response(RetVal.InvalidInfo)]
         [Response(RetVal.InvalidLogin)]
         public static void ShowLoginErr(object instance, BinaryReader br)
         {
@@ -87,6 +87,7 @@ namespace TheXDS.LightChat
 
         public void Login(string user, IEnumerable<byte> password)
         {
+            if (!IsAlive) return;
             using (var ms = new MemoryStream())
             using (var bw = new BinaryWriter(ms))
             {
@@ -98,11 +99,13 @@ namespace TheXDS.LightChat
 
         public void Logout()
         {
+            if (!IsAlive) return;
             TalkToServer(Command.Logout);
         }
 
         public void Say(string text)
         {
+            if (!IsAlive) return;
             using (var ms = new MemoryStream())
             using (var bw = new BinaryWriter(ms))
             {
@@ -113,6 +116,7 @@ namespace TheXDS.LightChat
 
         public void SayTo(string dest, string text)
         {
+            if (!IsAlive) return;
             using (var ms = new MemoryStream())
             using (var bw = new BinaryWriter(ms))
             {
