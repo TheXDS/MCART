@@ -36,12 +36,14 @@ namespace TheXDS.MCART.Types.Extensions
     /// Contiene extensiones útiles de la estructura <see cref="DateTime"/>.
     /// </summary>
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public static class DateTimeExtensions
     {
         /// <summary>
         /// Obtiene un <see cref="DateTime"/> que representa el inicio del tiempo de Unix.
         /// </summary>
         public static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
         /// <summary>
         /// Obtiene un <see cref="DateTime"/> que representa el inicio del tiempo del siglo 20.
         /// </summary>
@@ -51,7 +53,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     de Unix, y se establece como el primero de enero del año 1900.
         ///
         ///     El estándar se definía por medio del tiempo GMT, en su ausencia
-        ///     se utiliza UTC coom un substituto suficientemente cercano.
+        ///     se utiliza UTC como un substituto suficientemente cercano.
         /// </remarks>
         public static readonly DateTime CenturyEpoch = new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
@@ -169,6 +171,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             return epoch.AddSeconds(seconds);
         }
+
         /// <summary>
         ///     Obtiene un <see cref="DateTime"/> a partir de un Timestamp en
         ///     milisegundos.
@@ -200,6 +203,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             if (!month.IsBetween(1,12)) throw new ArgumentOutOfRangeException(nameof(month));
             var t = DateTime.Now;
+            // ReSharper disable once StringLiteralTypo
             return new DateTime(t.Year,month,t.Day).ToString("MMMM");
         }
 
@@ -217,6 +221,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             if (!month.IsBetween(1, 12)) throw new ArgumentOutOfRangeException(nameof(month));
             var t = DateTime.Now;
+            // ReSharper disable once StringLiteralTypo
             return new DateTime(t.Year, month, t.Day).ToString("MMMM",culture);
         }
     }

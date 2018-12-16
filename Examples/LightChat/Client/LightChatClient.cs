@@ -88,12 +88,13 @@ namespace TheXDS.LightChat
         public void Login(string user, IEnumerable<byte> password)
         {
             if (!IsAlive) return;
+
             using (var ms = new MemoryStream())
             using (var bw = new BinaryWriter(ms))
             {
                 bw.Write(user);
                 bw.Write(password.ToArray());
-                TalkToServer(Command.Login, ms);
+                TalkToServer(MakeCommand(Command.Login, ms));
             }
         }
 
@@ -106,24 +107,14 @@ namespace TheXDS.LightChat
         public void Say(string text)
         {
             if (!IsAlive) return;
-            using (var ms = new MemoryStream())
-            using (var bw = new BinaryWriter(ms))
-            {
-                bw.Write(text);
-                TalkToServer(Command.Say, ms);
-            }
+            TalkToServer(MakeCommand(Command.Say,text));
         }
 
         public void SayTo(string dest, string text)
         {
             if (!IsAlive) return;
-            using (var ms = new MemoryStream())
-            using (var bw = new BinaryWriter(ms))
-            {
-                bw.Write(dest);
-                bw.Write(text);
-                TalkToServer(Command.SayTo, ms.ToArray());
-            }
+
+            TalkToServer(MakeCommand(Command.SayTo, new[]{dest, text}));
         }
     }
 }

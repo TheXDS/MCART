@@ -63,6 +63,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         public string License => Element?.License;
         public Version Version => Element?.Version;
         public bool HasLicense => Element?.HasLicense ?? false;
+        public bool ClsCompliant => Element?.ClsCompliant ?? false;
         public UIElement Icon => Element?.Icon;
 
         public bool IsMcart => (Element as AssemblyDataExposer)?.Assembly == RTInfo.RTAssembly;
@@ -87,7 +88,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
             get => _type;
             set
             {
-                if (Equals(value, _type)) return;
+                if (value == _type) return;
                 _type = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(Inheritances));

@@ -24,8 +24,10 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using TheXDS.MCART.Annotations;
 
 #region Configuración de ReSharper
 
@@ -55,16 +57,17 @@ namespace TheXDS.MCART.Networking.Client
         /// <param name="data">
         ///     Datos a enviar al servidor.
         /// </param>
-        public void TalkToServer(byte[] data)
+        public void TalkToServer([CanBeNull]IEnumerable<byte> data)
         {
-            if (!(data?.Length > 0))
+            var d = data?.ToArray();
+            if (!(d?.Length > 0))
 #if PreferExceptions
                 throw new ArgumentNullException();
 #else
                 return;
 #endif
             var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
-            ns.Write(data, 0, data.Length);
+            ns.Write(d, 0, d.Length);
         }
 
         /// <summary>
@@ -76,22 +79,22 @@ namespace TheXDS.MCART.Networking.Client
         /// <returns>
         ///     Un objeto <see cref="Task"/> para monitorear la operación asíncrona.
         /// </returns>
-        public Task TalkToServerAsync(byte[] data)
+        public Task TalkToServerAsync([CanBeNull]IEnumerable<byte> data)
         {
-            if (!(data?.Length > 0))
+            var d = data?.ToArray();
+            if (!(d?.Length > 0))
 #if PreferExceptions
                 throw new ArgumentNullException();
 #else
 #if Lite
                 //HACK: Debido a quirks inusuales del framework, la propiedad Task.CompletedTask no es pública.
                 return Task.Run(() => { });
-
 #else
                 return Task.CompletedTask;
 #endif
 #endif
             var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
-            return ns.WriteAsync(data, 0, data.Length);
+            return ns.WriteAsync(d, 0, d.Length);
         }
 
         /// <summary>

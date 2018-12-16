@@ -34,6 +34,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Types.Extensions;
 
 #region Configuración de ReSharper
 
@@ -67,7 +68,7 @@ namespace TheXDS.MCART.Networking.Client
     ///     aplicado a cada método que pueda manejar respuestas del servidor.
     ///     Tales métodos deberán a su vez, ser compatibles con el delegado
     ///     <see cref="T:TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.ResponseCallBack" />.
-    ///     Los comandos y las respuestas son enumeraciones comúnes.
+    ///     Los comandos y las respuestas son enumeraciones comunes.
     /// </remarks>
     /// <example>
     ///     Este ejemplo define un protocolo sencillo que imprime mensajes enviados por el servidor.
@@ -86,16 +87,6 @@ namespace TheXDS.MCART.Networking.Client
         public delegate void ResponseCallBack(object instance, BinaryReader br);
 
         private static readonly TResponse? ErrResponse;
-        /// <summary>
-        ///     Genera un arreglo de bytes de comando al servidor a partir del
-        ///     valor especificado.
-        /// </summary>
-        /// <returns>
-        ///     Un arreglo de bytes que contiene los bytes que representan al
-        ///     comando, a partir del cual se pueden concatenar más datos para
-        ///     construir una solicitud completa.
-        /// </returns>
-        public static Func<TCommand, byte[]> MakeCommand { get; }
         private static readonly MethodInfo ReadRsp;
         private static readonly TResponse? UnkResponse;
 
@@ -105,9 +96,20 @@ namespace TheXDS.MCART.Networking.Client
         private readonly Dictionary<TResponse, ResponseCallBack> _responses =
             new Dictionary<TResponse, ResponseCallBack>();
 
+        /// <summary>
+        ///     Genera un arreglo de bytes de comando al servidor a partir del
+        ///     valor especificado.
+        /// </summary>
+        /// <returns>
+        ///     Un arreglo de bytes que contiene los bytes que representan al
+        ///     comando, a partir del cual se pueden concatenar más datos para
+        ///     construir una solicitud completa.
+        /// </returns>
+        private static Func<TCommand, byte[]> ToCommand { get; }
+
         static SelfWiredCommandClient()
         {
-            MakeCommand = Types.Extensions.EnumExtensions.ToBytes<TCommand>();
+            ToCommand = EnumExtensions.ToBytes<TCommand>();
 
             var tRsp = typeof(TResponse).GetEnumUnderlyingType();
             ReadRsp = typeof(BinaryReader).GetMethods().FirstOrDefault(p =>
@@ -134,7 +136,6 @@ namespace TheXDS.MCART.Networking.Client
                     .Concat(this.PropertiesOf<ResponseCallBack>())
                     .Concat(this.FieldsOf<ResponseCallBack>()))
             {
-
                 var attrs = j.Method.GetCustomAttributes(tCmdAttr, false).OfType<IValueAttribute<TResponse>>().ToList();
                 if (attrs.Any()) // Mapeo por configuración
                 {
@@ -150,6 +151,131 @@ namespace TheXDS.MCART.Networking.Client
                     if (_responses.ContainsKey(k)) throw new DataAlreadyExistsException();
                     _responses.Add(k, j);
                 }
+            }
+        }
+
+        /// <summary>
+        ///     Genera un arreglo de bytes con la solicitud de este cliente.
+        /// </summary>
+        /// <param name="command">
+        ///     Valor a partir del cual generar la solicitud.
+        /// </param>
+        /// <returns>
+        ///     Un arreglo de bytes con la solicitud, al cual se pueden
+        ///     concatenar más datos.
+        /// </returns>
+        public static byte[] MakeCommand(TCommand command)
+        {
+            return ToCommand?.Invoke(command);
+        }
+
+        /// <summary>
+        ///     Genera un arreglo de bytes con la solicitud de este cliente.
+        /// </summary>
+        /// <param name="command">
+        ///     Valor a partir del cual generar la solicitud.
+        /// </param>
+        /// <param name="data">
+        ///     Arreglo de bytes con datos adicionales a adjuntar al datagrama
+        ///     de respuesta.
+        /// </param>
+        /// <returns>
+        ///     Un arreglo de bytes con la solicitud, al cual se pueden
+        ///     concatenar más datos.
+        /// </returns>
+        public static byte[] MakeCommand(TCommand command, IEnumerable<byte> data)
+        {
+            return MakeCommand(command)?.Concat(data).ToArray();
+        }
+
+        /// <summary>
+        ///     Genera un arreglo de bytes con la solicitud de este cliente.
+        /// </summary>
+        /// <param name="command">
+        ///     Valor a partir del cual generar la solicitud.
+        /// </param>
+        /// <param name="data">
+        ///     Cadena de texto a adjuntar al datagrama de solicitud.
+        /// </param>
+        /// <returns>
+        ///     Un arreglo de bytes con la solicitud, al cual se pueden
+        ///     concatenar más datos.
+        /// </returns>
+        public static byte[] MakeCommand(TCommand command, string data)
+        {
+            return MakeCommand(command, new[] {data});
+        }
+
+        /// <summary>
+        ///     Genera un arreglo de bytes con la solicitud de este cliente.
+        /// </summary>
+        /// <param name="command">
+        ///     Valor a partir del cual generar la solicitud.
+        /// </param>
+        /// <param name="data">
+        ///     Enumeración con múltiples cadenas de texto adicionales a
+        ///     adjuntar al datagrama de solicitud.
+        /// </param>
+        /// <returns>
+        ///     Un arreglo de bytes con la solicitud, al cual se pueden
+        ///     concatenar más datos.
+        /// </returns>
+        public static byte[] MakeCommand(TCommand command, IEnumerable<string> data)
+        {
+            using (var ms = new MemoryStream())
+            using (var bw = new BinaryWriter(ms))
+            {
+                foreach (var j in data) bw.Write(j);
+                return MakeCommand(command, ms);
+            }
+        }
+
+        /// <summary>
+        ///     Genera un arreglo de bytes con la solicitud de este cliente.
+        /// </summary>
+        /// <param name="command">
+        ///     Valor a partir del cual generar la solicitud.
+        /// </param>
+        /// <param name="data">
+        ///     Flujo de datos que contiene la información a adjuntar al
+        ///     datagrama de solicitud.
+        /// </param>
+        /// <returns>
+        ///     Un arreglo de bytes con la solicitud, al cual se pueden
+        ///     concatenar más datos.
+        /// </returns>
+        public static byte[] MakeCommand(TCommand command, MemoryStream data)
+        {
+            return MakeCommand(command, data.ToArray());
+        }
+
+        /// <summary>
+        ///     Genera un arreglo de bytes con la solicitud de este cliente.
+        /// </summary>
+        /// <param name="command">
+        ///     Valor a partir del cual generar la solicitud.
+        /// </param>
+        /// <param name="data">
+        ///     Flujo de datos que contiene la información a adjuntar al
+        ///     datagrama de solicitud.
+        /// </param>
+        /// <returns>
+        ///     Un arreglo de bytes con la solicitud, al cual se pueden
+        ///     concatenar más datos.
+        /// </returns>
+        public static byte[] MakeCommand(TCommand command, Stream data)
+        {
+            if (!data.CanRead) throw new InvalidOperationException();
+            if (data.CanSeek)
+                using (var sr = new BinaryReader(data))
+                {
+                    return MakeCommand(command, sr.ReadBytes((int) data.Length));
+                }
+
+            using (var ms = new MemoryStream())
+            {
+                data.CopyTo(ms);
+                return MakeCommand(command, ms.ToArray());
             }
         }
 
@@ -191,7 +317,6 @@ namespace TheXDS.MCART.Networking.Client
                         ms.Dispose();
                     });
 #pragma warning restore 4014
-
                 }
                 else
                 {
@@ -201,7 +326,7 @@ namespace TheXDS.MCART.Networking.Client
                     if (_responses.ContainsKey(cmd))
                     {
 #pragma warning disable 4014
-                        Task.Run(()=>
+                        Task.Run(() =>
                         {
                             _responses[cmd](this, br);
                             br.Dispose();
@@ -266,21 +391,19 @@ namespace TheXDS.MCART.Networking.Client
         ///     cuando el servidor responda, evitando el hilo de atención
         ///     normal.
         /// </summary>
-        /// <param name="command">Comando a enviar al servidor.</param>
         /// <param name="data">
         ///     Datos adicionales a concatenar a la solicitud.
         /// </param>
         /// <param name="callback">
         ///     Llamada a ejecutar cuando el servidor responda.
         /// </param>
-        public void TalkToServer(TCommand command, byte[] data, ResponseCallBack callback)
+        public void TalkToServer(byte[] data, ResponseCallBack callback)
         {
-            if (!(data?.Length > 0)) throw new ArgumentNullException();
+            if (!(data?.Length > 0)) throw new EmptyCollectionException();
             if (callback is null) throw new ArgumentNullException(nameof(callback));
             var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
             _interrupts.Enqueue(callback);
-            var msg = MakeCommand(command).Concat(data).ToArray();
-            ns.Write(msg, 0, msg.Length);
+            ns.Write(data, 0, data.Length);
         }
 
         /// <summary>
@@ -297,7 +420,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     cuando la conexión está cerrada.
         /// </exception>
         /// <exception cref="ArgumentNullException">
-        ///     Se produce si <paramref name="callback"/> es <see langword="null"/>.
+        ///     Se produce si <paramref name="callback" /> es <see langword="null" />.
         /// </exception>
         [DebuggerStepThrough]
         public void TalkToServer(TCommand command, ResponseCallBack callback)
@@ -305,7 +428,7 @@ namespace TheXDS.MCART.Networking.Client
             if (callback is null) throw new ArgumentNullException(nameof(callback));
             var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
             _interrupts.Enqueue(callback);
-            var msg = MakeCommand(command).ToArray();
+            var msg = MakeCommand(command);
             ns.Write(msg, 0, msg.Length);
         }
 
@@ -321,86 +444,8 @@ namespace TheXDS.MCART.Networking.Client
         public void TalkToServer(TCommand command)
         {
             var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
-            var msg = MakeCommand(command).ToArray();
+            var msg = MakeCommand(command);
             ns.Write(msg, 0, msg.Length);
-        }
-
-        /// <summary>
-        ///     Envía un comando al servidor.
-        /// </summary>
-        /// <param name="command">Comando a enviar al servidor.</param>
-        /// <param name="data">
-        ///     Datos adicionales a concatenar a la solicitud.
-        /// </param>
-        /// <exception cref="InvalidOperationException">
-        ///     Se produce cuando se intenta enviar un comando a un servidor
-        ///     cuando la conexión está cerrada.
-        /// </exception>
-        /// <exception cref="ArgumentNullException">
-        ///     Se produce si <paramref name="data"/> no contiene datos o es
-        ///     <see langword="null"/>.
-        /// </exception>
-        [DebuggerStepThrough]
-        public void TalkToServer(TCommand command, byte[] data)
-        {
-            var ns = NwStream() ?? throw new InvalidOperationException();
-            if (!(data?.Length > 0)) throw new ArgumentNullException();
-            var msg = MakeCommand(command).Concat(data).ToArray();
-            ns.Write(msg, 0, msg.Length);
-        }
-
-        /// <summary>
-        ///     Envía un comando al servidor.
-        /// </summary>
-        /// <param name="command">Comando a enviar al servidor.</param>
-        /// <param name="data">
-        ///     Datos adicionales a concatenar a la solicitud.
-        /// </param>
-        [DebuggerStepThrough]
-        public void TalkToServer(TCommand command, IEnumerable<byte> data)
-        {
-            TalkToServer(command, data as byte[] ?? data.ToArray());
-        }
-
-        /// <summary>
-        ///     Envía un comando al servidor.
-        /// </summary>
-        /// <param name="command">Comando a enviar al servidor.</param>
-        /// <param name="data">
-        ///     Datos adicionales a concatenar a la solicitud.
-        /// </param>
-        [DebuggerStepThrough]
-        public void TalkToServer(TCommand command, MemoryStream data)
-        {
-            TalkToServer(command, data.ToArray());
-        }
-
-        /// <summary>
-        ///     Envía un comando al servidor.
-        /// </summary>
-        /// <param name="command">Comando a enviar al servidor.</param>
-        /// <param name="data">
-        ///     Datos adicionales a concatenar a la solicitud.
-        /// </param>
-        /// <exception cref="InvalidOperationException">
-        ///     Se produce cuando no es posible obtener datos desde
-        ///     <paramref name="data"/>.
-        /// </exception>
-        [DebuggerStepThrough]
-        public void TalkToServer(TCommand command, Stream data)
-        {
-            if (!data.CanRead) throw new InvalidOperationException();
-            if (data.CanSeek)
-                using (var sr = new BinaryReader(data))
-                {
-                    TalkToServer(command, sr.ReadBytes((int) data.Length));
-                }
-            else
-                using (var ms = new MemoryStream())
-                {
-                    data.CopyTo(ms);
-                    TalkToServer(command, ms);
-                }
         }
 
         /// <summary>
@@ -408,7 +453,6 @@ namespace TheXDS.MCART.Networking.Client
         ///     método de atención cuando el servidor responda, evitando el
         ///     hilo de atención normal.
         /// </summary>
-        /// <param name="command">Comando a enviar al servidor.</param>
         /// <param name="data">
         ///     Datos adicionales a concatenar a la solicitud.
         /// </param>
@@ -419,14 +463,13 @@ namespace TheXDS.MCART.Networking.Client
         ///     Un <see cref="Task" /> que permite monitorear la operación.
         /// </returns>
         [DebuggerStepThrough]
-        public async Task TalkToServerAsync(TCommand command, byte[] data, ResponseCallBack callback)
+        public async Task TalkToServerAsync(byte[] data, ResponseCallBack callback)
         {
             if (!(data?.Length > 0)) throw new ArgumentNullException();
             if (callback is null) throw new ArgumentNullException(nameof(callback));
-            var msg = MakeCommand(command).Concat(data).ToArray();
 
             var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
-            await ns.WriteAsync(msg, 0, msg.Length);
+            await ns.WriteAsync(data, 0, data.Length);
             _interrupts.Enqueue(callback);
         }
 
@@ -458,76 +501,11 @@ namespace TheXDS.MCART.Networking.Client
         /// <returns>
         ///     Un <see cref="Task" /> que permite monitorear la operación.
         /// </returns>
-        public async Task TalkToServerAsync(TCommand command)
+        public Task TalkToServerAsync(TCommand command)
         {
             var msg = MakeCommand(command).ToArray();
             var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
-            await ns.WriteAsync(msg, 0, msg.Length);
-        }
-
-        /// <summary>
-        ///     Envía un comando al servidor de forma asíncrona.
-        /// </summary>
-        /// <param name="command">Comando a enviar al servidor.</param>
-        /// <param name="data">
-        ///     Datos adicionales a concatenar a la solicitud.
-        /// </param>
-        /// <returns>
-        ///     Un <see cref="Task" /> que permite monitorear la operación.
-        /// </returns>
-        public async Task TalkToServerAsync(TCommand command, byte[] data)
-        {
-            if (!(data?.Length > 0)) throw new ArgumentNullException();
-            var msg = MakeCommand(command).Concat(data).ToArray();
-            var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
-            await ns.WriteAsync(msg, 0, msg.Length);
-        }
-
-        /// <summary>
-        ///     Envía un comando al servidor.
-        /// </summary>
-        /// <param name="command">Comando a enviar al servidor.</param>
-        /// <param name="data">
-        ///     Datos adicionales a concatenar a la solicitud.
-        /// </param>
-        public Task TalkToServerAsync(TCommand command, IEnumerable<byte> data)
-        {
-            return TalkToServerAsync(command, data as byte[] ?? data.ToArray());
-        }
-
-        /// <summary>
-        ///     Envía un comando al servidor.
-        /// </summary>
-        /// <param name="command">Comando a enviar al servidor.</param>
-        /// <param name="data">
-        ///     Datos adicionales a concatenar a la solicitud.
-        /// </param>
-        public Task TalkToServerAsync(TCommand command, MemoryStream data)
-        {
-            return TalkToServerAsync(command, data.ToArray());
-        }
-
-        /// <summary>
-        ///     Envía un comando al servidor.
-        /// </summary>
-        /// <param name="command">Comando a enviar al servidor.</param>
-        /// <param name="data">
-        ///     Datos adicionales a concatenar a la solicitud.
-        /// </param>
-        public async Task TalkToServerAsync(TCommand command, Stream data)
-        {
-            if (!data.CanRead) throw new InvalidOperationException();
-            if (data.CanSeek)
-                using (var sr = new BinaryReader(data))
-                {
-                    await TalkToServerAsync(command, sr.ReadBytes((int) data.Length));
-                }
-            else
-                using (var ms = new MemoryStream())
-                {
-                    await data.CopyToAsync(ms);
-                    await TalkToServerAsync(command, ms);
-                }
+            return ns.WriteAsync(msg, 0, msg.Length);
         }
 
         /// <summary>

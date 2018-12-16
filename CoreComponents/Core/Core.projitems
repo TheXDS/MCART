@@ -110,6 +110,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\RandomExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\Common.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\Timer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\TimeSpanExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\TypeExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Converters\IntRangeConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\NamedObject.cs" />

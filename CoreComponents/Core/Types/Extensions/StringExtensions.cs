@@ -782,6 +782,24 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
+        ///     Se asegura de devolver <see cref="string.Empty" /> si la cadena
+        ///     está vacía.
+        /// </summary>
+        /// <param name="str">Cadena a devolver.</param>
+        /// <param name="notEmptyFormat">
+        ///     Formato a aplicar en caso de que la cadena no sea
+        ///     <see cref="string.Empty" />.
+        /// </param>
+        /// <returns>
+        ///     La cadena, o <see cref="string.Empty" /> si la cadena está
+        ///     vacía.
+        /// </returns>
+        public static string OrEmpty(this string str, string notEmptyFormat)
+        {
+            return !str.IsEmpty() ? string.Format(notEmptyFormat, str) : string.Empty;
+        }
+
+        /// <summary>
         ///     Se asegura de devolver <see langword="null" /> si la cadena
         ///     está vacía.
         /// </summary>
@@ -792,6 +810,23 @@ namespace TheXDS.MCART.Types.Extensions
         public static string OrNull(this string str)
         {
             return OrX(str, null);
+        }
+
+        /// <summary>
+        ///     Se asegura de devolver <see langword="null" /> si la cadena
+        ///     está vacía.
+        /// </summary>
+        /// <param name="str">Cadena a devolver.</param>
+        /// <param name="notNullFormat">
+        ///     Formato a aplicar en caso de que la cadena no sea
+        ///     <see langword="null" />.
+        /// </param>
+        /// <returns>
+        ///     La cadena, o <see langword="null" /> si la cadena está vacía.
+        /// </returns>
+        public static string OrNull(this string str, string notNullFormat)
+        {
+            return !str.IsEmpty() ? string.Format(notNullFormat, str) : null;
         }
 
         private static string OrX(string source, string emptyRetVal)
@@ -816,6 +851,46 @@ namespace TheXDS.MCART.Types.Extensions
             if (!length.IsBetween(0, @string.Length))
                 throw new ArgumentOutOfRangeException(nameof(length));
             return @string.Substring(length, @string.Length - length);
+        }
+
+        /// <summary>
+        ///     Separa cada carácter de una cadena con el <see cref="char" />
+        ///     especificado.
+        /// </summary>
+        /// <param name="str">Cadena a procesar.</param>
+        /// <param name="separationChar">Carácter de separación a utilizar.</param>
+        /// <returns>
+        ///     Una cadena cuyos caracteres han sido separados con el
+        ///     <see cref="char" /> especificado.
+        /// </returns>
+        public static string Separate(this string str, char separationChar)
+        {
+            IEnumerable<char> InsertSpace()
+            {
+                var e = str.ToCharArray().GetEnumerator();
+                e.Reset();
+                if (!e.MoveNext()) yield break;
+                while (true)
+                {
+                    yield return (char) (e.Current ?? throw new TamperException());
+                    if (!e.MoveNext()) break;
+                    yield return separationChar;
+                }
+            }
+
+            return new string(InsertSpace().ToArray());
+        }
+
+        /// <summary>
+        ///     Separa cada carácter de una cadena con un espacio en blanco.
+        /// </summary>
+        /// <param name="str">Cadena a procesar.</param>
+        /// <returns>
+        ///     Una cadena cuyos caracteres han sido separados con un espacio en blanco.
+        /// </returns>
+        public static string Spell(this string str)
+        {
+            return Separate(str, ' ');
         }
 
         /// <summary>
@@ -1056,46 +1131,6 @@ namespace TheXDS.MCART.Types.Extensions
         private static string WildCardToRegular(string value)
         {
             return "^" + Regex.Escape(value).Replace("\\?", ".").Replace("\\*", ".*") + "$";
-        }
-
-        /// <summary>
-        ///     Separa cada carácter de una cadena con un espacio en blanco.
-        /// </summary>
-        /// <param name="str">Cadena a procesar.</param>
-        /// <returns>
-        ///     Una cadena cuyos caracteres han sido separados con un espacio en blanco.
-        /// </returns>
-        public static string Spell(this string str)
-        {
-            return Separate(str,' ');
-        }
-
-        /// <summary>
-        ///     Separa cada carácter de una cadena con el <see cref="char"/>
-        ///     especificado.
-        /// </summary>
-        /// <param name="str">Cadena a procesar.</param>
-        /// <param name="separationChar">Carácter de separación a utilizar.</param>
-        /// <returns>
-        ///     Una cadena cuyos caracteres han sido separados con el
-        ///     <see cref="char"/> especificado.
-        /// </returns>
-        public static string Separate(this string str, char separationChar)
-        {
-            IEnumerable<char> InsertSpace()
-            {
-                var e = str.ToCharArray().GetEnumerator();
-                e.Reset();
-                if (!e.MoveNext()) yield break;
-                while (true)
-                {
-                    yield return (char)(e.Current ?? throw new TamperException());
-                    if (!e.MoveNext()) break;
-                    yield return ' ';
-                }
-            }
-
-            return new string(InsertSpace().ToArray());
         }
     }
 }

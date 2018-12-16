@@ -29,6 +29,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Component;
 using static TheXDS.MCART.Misc.Internal;
 using St = TheXDS.MCART.Resources.Strings;
 
@@ -173,6 +174,7 @@ namespace TheXDS.MCART.PluginSupport
         /// </summary>
         public bool HasLicense => HasLicense(this) || HasLicense(MyAssembly);
 
+
         /// <inheritdoc />
         /// <summary>
         /// Determina la versión mínima de MCART necesaria para este 
@@ -239,9 +241,10 @@ namespace TheXDS.MCART.PluginSupport
 
         /// <inheritdoc />
         /// <summary>
-        ///     Determina si el plugin cumple con el Common Language Standard.
+        ///     Obtiene un valor que indica si este <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
+        ///     cumple con el Common Language Standard (CLS)
         /// </summary>
-        public bool IsClsCompliant => GetType().HasAttrAlt<CLSCompliantAttribute>();
+        public bool ClsCompliant => GetType().HasAttrAlt<CLSCompliantAttribute>();
 
         #endregion
         #region Propiedades

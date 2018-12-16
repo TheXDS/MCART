@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using TheXDS.MCART.Component;
 
@@ -35,7 +36,8 @@ namespace TheXDS.MCART.PluginSupport
     ///     Define una interfaz básica para crear Plugins administrados por
     ///     MCART.
     /// </summary>
-	public partial interface IPlugin: IExposeInfo
+	[SuppressMessage("ReSharper", "PartialTypeWithSinglePart")]
+    public partial interface IPlugin: IExposeInfo
     {
         /// <summary>
         /// Se produce cuando un <see cref="IPlugin"/> solicita la actualización
@@ -70,10 +72,6 @@ namespace TheXDS.MCART.PluginSupport
         /// <returns><see langword="true"/> si el plugin ha sido marcado como inseguro; de lo contrario, <c>False</c></returns>
         bool IsUnstable { get; }
         /// <summary>
-        ///     Determina si el plugin cumple con el Common Language Standard.
-        /// </summary>
-        bool IsClsCompliant { get; }
-        /// <summary>
         /// Devuelve la lista de interfaces que este <see cref="IPlugin"/>
         /// implementa.
         /// </summary>
@@ -99,7 +97,7 @@ namespace TheXDS.MCART.PluginSupport
         /// </returns>
         /// <remarks>
         /// Si utiliza la implementación predeterminada de la interfaz 
-        /// <see cref="IPlugin"/> incluída en MCART (<see cref="Plugin"/>),
+        /// <see cref="IPlugin"/> incluida en MCART (<see cref="Plugin"/>),
         /// puede agregar nuevos elementos <see cref="InteractionItem"/> a la
         /// colección <see cref="Plugin.InteractionItems"/>.
         /// </remarks>

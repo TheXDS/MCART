@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using TheXDS.MCART.Annotations;
 using TheXDS.MCART.Misc;
 
 namespace TheXDS.MCART.Component
@@ -43,7 +44,7 @@ namespace TheXDS.MCART.Component
         /// <param name="assembly">
         ///     Ensamblado del cual se mostrará la información.
         /// </param>
-        public AssemblyDataExposer(Assembly assembly)
+        public AssemblyDataExposer([NotNull]Assembly assembly)
         {
             Assembly = assembly;
         }
@@ -105,5 +106,12 @@ namespace TheXDS.MCART.Component
         /// contiene información de licencia.
         /// </summary>
         public bool HasLicense => Internal.HasLicense(Assembly);
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Obtiene un valor que indica si este <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
+        ///     cumple con el Common Language Standard (CLS)
+        /// </summary>
+        public bool ClsCompliant => Assembly.HasAttr<CLSCompliantAttribute>();
     }
 }

@@ -34,6 +34,39 @@ namespace TheXDS.MCART.Resources
     public static class Strings
     {
         #region Composición de texto
+
+        /// <summary>
+        /// Devuelve una cadena con el texto "{<paramref name="days"/>} días".
+        /// </summary>
+        /// <param name="days">Texto a formatear.</param>
+        /// <returns>
+        ///     Una cadena con el texto "{<paramref name="days"/>} días".
+        /// </returns>
+        public static string Days(int days) => $"{days} días";
+        /// <summary>
+        /// Devuelve una cadena con el texto "{<paramref name="hours"/>} horas".
+        /// </summary>
+        /// <param name="hours">Texto a formatear.</param>
+        /// <returns>
+        ///     Una cadena con el texto "{<paramref name="hours"/>} horas".
+        /// </returns>
+        public static string Hours(int hours) => $"{hours} horas";
+        /// <summary>
+        /// Devuelve una cadena con el texto "{<paramref name="minutes"/>} minutos".
+        /// </summary>
+        /// <param name="minutes">Texto a formatear.</param>
+        /// <returns>
+        ///     Una cadena con el texto "{<paramref name="minutes"/>} minutos".
+        /// </returns>
+        public static string Minutes(int minutes) => $"{minutes} minutos";
+        /// <summary>
+        /// Devuelve una cadena con el texto "{<paramref name="seconds"/>} segundos".
+        /// </summary>
+        /// <param name="seconds">Texto a formatear.</param>
+        /// <returns>
+        ///     Una cadena con el texto "{<paramref name="seconds"/>} segundos".
+        /// </returns>
+        public static string Seconds(int seconds) => $"{seconds} segundos";
         /// <summary>
         /// Devuelve una cadena con el texto "Acerca de
         /// {<paramref name="text"/>}".

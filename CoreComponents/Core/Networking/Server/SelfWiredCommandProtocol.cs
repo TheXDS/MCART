@@ -74,13 +74,7 @@ namespace TheXDS.MCART.Networking.Server
         private readonly Dictionary<TCommand, CommandCallback> _commands =
             new Dictionary<TCommand, CommandCallback>();
 
-        /// <summary>
-        ///     Genera un arreglo de bytes con la respuesta de este servidor.
-        /// </summary>
-        /// <returns>
-        ///     Un arreglo de bytes con la respuesta, al cual se pueden concatenar más datos.
-        /// </returns>
-        public static Func<TResponse, byte[]> MakeResponse { get; }
+        private static Func<TResponse, byte[]> ToResponse { get; }
 
         /// <summary>
         ///     Inicializa la clase
@@ -96,7 +90,7 @@ namespace TheXDS.MCART.Networking.Server
         /// </remarks>
         static SelfWiredCommandProtocol()
         {
-            MakeResponse = EnumExtensions.ToBytes<TResponse>();
+            ToResponse = EnumExtensions.ToBytes<TResponse>();
 
             var tCmd = typeof(TCommand).GetEnumUnderlyingType();
             ReadCmd = typeof(BinaryReader).GetMethods().FirstOrDefault(p =>
@@ -145,6 +139,131 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
+        ///     Genera un arreglo de bytes con la respuesta de este servidor.
+        /// </summary>
+        /// <param name="response">
+        ///     Valor a partir del cual generar la respuesta.
+        /// </param>
+        /// <returns>
+        ///     Un arreglo de bytes con la respuesta, al cual se pueden
+        ///     concatenar más datos.
+        /// </returns>
+        public static byte[] MakeResponse(TResponse response)
+        {
+            return ToResponse?.Invoke(response);
+        }
+
+        /// <summary>
+        ///     Genera un arreglo de bytes con la respuesta de este servidor.
+        /// </summary>
+        /// <param name="response">
+        ///     Valor a partir del cual generar la respuesta.
+        /// </param>
+        /// <param name="data">
+        ///     Arreglo de bytes con datos adicionales a adjuntar al datagrama
+        ///     de respuesta.
+        /// </param>
+        /// <returns>
+        ///     Un arreglo de bytes con la respuesta, al cual se pueden
+        ///     concatenar más datos.
+        /// </returns>
+        public static byte[] MakeResponse(TResponse response, IEnumerable<byte> data)
+        {
+            return MakeResponse(response)?.Concat(data).ToArray();
+        }
+
+        /// <summary>
+        ///     Genera un arreglo de bytes con la respuesta de este servidor.
+        /// </summary>
+        /// <param name="response">
+        ///     Valor a partir del cual generar la respuesta.
+        /// </param>
+        /// <param name="data">
+        ///     Cadena de texto a adjuntar al datagrama de respuesta.
+        /// </param>
+        /// <returns>
+        ///     Un arreglo de bytes con la respuesta, al cual se pueden
+        ///     concatenar más datos.
+        /// </returns>
+        public static byte[] MakeResponse(TResponse response, string data)
+        {
+            return MakeResponse(response, new[] {data});
+        }
+
+        /// <summary>
+        ///     Genera un arreglo de bytes con la respuesta de este servidor.
+        /// </summary>
+        /// <param name="response">
+        ///     Valor a partir del cual generar la respuesta.
+        /// </param>
+        /// <param name="data">
+        ///     Enumeración con múltiples cadenas de texto adicionales a
+        ///     adjuntar al datagrama de respuesta.
+        /// </param>
+        /// <returns>
+        ///     Un arreglo de bytes con la respuesta, al cual se pueden
+        ///     concatenar más datos.
+        /// </returns>
+        public static byte[] MakeResponse(TResponse response, IEnumerable<string> data)
+        {
+            using (var ms = new MemoryStream())
+            using (var bw = new BinaryWriter(ms))
+            {
+                foreach (var j in data) bw.Write(j);
+                return MakeResponse(response, ms);
+            }
+        }
+
+        /// <summary>
+        ///     Genera un arreglo de bytes con la respuesta de este servidor.
+        /// </summary>
+        /// <param name="response">
+        ///     Valor a partir del cual generar la respuesta.
+        /// </param>
+        /// <param name="data">
+        ///     Flujo de datos que contiene la información a adjuntar al
+        ///     datagrama de respuesta.
+        /// </param>
+        /// <returns>
+        ///     Un arreglo de bytes con la respuesta, al cual se pueden
+        ///     concatenar más datos.
+        /// </returns>
+        public static byte[] MakeResponse(TResponse response, MemoryStream data)
+        {
+            return MakeResponse(response, data.ToArray());
+        }
+
+        /// <summary>
+        ///     Genera un arreglo de bytes con la respuesta de este servidor.
+        /// </summary>
+        /// <param name="response">
+        ///     Valor a partir del cual generar la respuesta.
+        /// </param>
+        /// <param name="data">
+        ///     Flujo de datos que contiene la información a adjuntar al
+        ///     datagrama de respuesta.
+        /// </param>
+        /// <returns>
+        ///     Un arreglo de bytes con la respuesta, al cual se pueden
+        ///     concatenar más datos.
+        /// </returns>
+        public static byte[] MakeResponse(TResponse response, Stream data)
+        {
+            if (!data.CanRead) throw new InvalidOperationException();
+            if (data.CanSeek)
+                using (var sr = new BinaryReader(data))
+                {
+                    return MakeResponse(response, sr.ReadBytes((int) data.Length));
+                }
+
+            using (var ms = new MemoryStream())
+            {
+                data.CopyTo(ms);
+                return MakeResponse(response, ms.ToArray());
+            }
+        }
+
+        /// <summary>
         ///     Lee un comando desde el <see cref="BinaryReader" /> especificado.
         /// </summary>
         /// <param name="br"><see cref="BinaryReader" /> desde el cual leer la información.</param>
@@ -174,7 +293,7 @@ namespace TheXDS.MCART.Networking.Server
                 var c = ReadCommand(br);
 
                 if (!Enum.IsDefined(typeof(TCommand), c))
-                    client.Send(MakeResponse(UnkResponse ?? ErrResponse ?? throw new InvalidOperationException()));
+                    client.Send(ToResponse(UnkResponse ?? ErrResponse ?? throw new InvalidOperationException()));
 
                 if (_commands.ContainsKey(c))
                     try
@@ -183,11 +302,11 @@ namespace TheXDS.MCART.Networking.Server
                     }
                     catch
                     {
-                        client.Send(MakeResponse(ErrResponse ?? throw new InvalidOperationException()));
+                        client.Send(ToResponse(ErrResponse ?? throw new InvalidOperationException()));
                     }
                 else
                     client.Send(
-                        MakeResponse(NotMappedResponse ?? ErrResponse ?? throw new InvalidOperationException()));
+                        ToResponse(NotMappedResponse ?? ErrResponse ?? throw new InvalidOperationException()));
             }
         }
     }

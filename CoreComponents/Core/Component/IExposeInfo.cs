@@ -69,5 +69,11 @@ namespace TheXDS.MCART.Component
         /// contiene información de licencia.
         /// </summary>
         bool HasLicense { get; }
+
+        /// <summary>
+        ///     Obtiene un valor que indica si este <see cref="IExposeInfo"/>
+        ///     cumple con el Common Language Standard (CLS)
+        /// </summary>
+        bool ClsCompliant { get; }
     }
 }
