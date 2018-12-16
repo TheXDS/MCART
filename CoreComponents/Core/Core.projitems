@@ -17,8 +17,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Math\Physics.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Math\Series.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Math\Tween.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Misc\Annotations.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Misc\Attrbutes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Annotations\Annotations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\Attrbutes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\OffendingException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\NotPluginException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\EmptyCollectionException.cs" />
@@ -32,9 +32,20 @@
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\PluginClassNotFoundException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\PluginException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\PluginInitializationException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\CorruptDataException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\OperationException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\ConnectionClosedException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\MissingTypeException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\PluginNotInitializedException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\CouldNotConnectException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\DataAlreadyExistsException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\DataNotFoundException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\InvalidDatabaseException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Misc\InvalidTypeException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\NotMyDatabaseException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\SanityChecks.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Events.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Misc\Exceptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\InsufficientDataException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Internal.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\TamperException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\TooManyArgumentsException.cs" />
@@ -42,6 +53,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\TooFewArgumentsException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\UnknownTypeException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\UnusableObjectException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\ServerNotFoundException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\Common_nonCLS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\Objects.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\ActiveClient.cs" />
@@ -135,6 +147,8 @@
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Networking\Reporters\" />
     <Folder Include="$(MSBuildThisFileDirectory)Exceptions\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Annotations\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Attributes\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\License\GPLv3.deflate" />

@@ -48,7 +48,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Una cadena amigable que indica los componentes de días, horas,
         ///     minutos y segundos de <paramref name="timeSpan"/>.
         /// </returns>
-        public static string Verbose(this TimeSpan timeSpan)
+        public static string Verbose(this in TimeSpan timeSpan)
         {
             var msjs = new HashSet<string>();
             if (timeSpan.Days > 0)
@@ -67,7 +67,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </summary>
         /// <param name="timeSpan">Valor a convertir.</param>
         /// <returns>Una cadena que representa una hora.</returns>
-        public static string AsTime(this TimeSpan timeSpan)
+        public static string AsTime(this in TimeSpan timeSpan)
         {
             return AsTime(timeSpan,CultureInfo.CurrentCulture);
         }
@@ -78,7 +78,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="timeSpan">Valor a convertir.</param>
         /// <param name="culture">Cultura a utilizar para el formato de hora.</param>
         /// <returns>Una cadena que representa una hora.</returns>
-        public static string AsTime(this TimeSpan timeSpan, CultureInfo culture)
+        public static string AsTime(this in TimeSpan timeSpan, in CultureInfo culture)
         {
             var f = $"{{0:{culture.DateTimeFormat.ShortTimePattern}}}";
             return string.Format(f, DateTime.MinValue.Add(timeSpan));

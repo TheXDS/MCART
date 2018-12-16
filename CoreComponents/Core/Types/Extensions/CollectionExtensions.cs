@@ -40,7 +40,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="check">Función que verifica si un elemento cumple con una condición.</param>
         /// <param name="beforeDelete">Acción a ejecutar antes de borrar a un elemento en particular.</param>
-        public static void RemoveAll<T>(this ICollection<T> collection, Predicate<T> check, Action<T> beforeDelete)
+        public static void RemoveAll<T>(this ICollection<T> collection, in Predicate<T> check, in Action<T> beforeDelete)
         {
             var lst = collection.ToList();
             foreach (var j in lst)
@@ -57,7 +57,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <typeparam name="T">Tipo de elementos en la colección.</typeparam>
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="beforeDelete">Acción a ejecutar antes de borrar a un elemento en particular.</param>
-        public static void RemoveAll<T>(this ICollection<T> collection, Action<T> beforeDelete) =>
+        public static void RemoveAll<T>(this ICollection<T> collection, in Action<T> beforeDelete) =>
             RemoveAll(collection, null, beforeDelete);
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <typeparam name="T">Tipo de elementos en la colección.</typeparam>
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="check">Función que verifica si un elemento cumple con una condición.</param>
-        public static void RemoveAll<T>(this ICollection<T> collection, Predicate<T> check) =>
+        public static void RemoveAll<T>(this ICollection<T> collection, in Predicate<T> check) =>
             RemoveAll(collection, check, null);
 
         /// <summary>

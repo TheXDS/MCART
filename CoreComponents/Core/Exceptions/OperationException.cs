@@ -1,5 +1,5 @@
 ﻿/*
-InvalidMethodSignatureException.cs
+OperationException.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -32,7 +32,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #endregion
 
 using System;
-using System.Reflection;
 using System.Runtime.Serialization;
 using TheXDS.MCART.Resources;
 
@@ -40,16 +39,15 @@ namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Excepción que se produce cuando la firma de un método representado en un
-    ///     <see cref="T:System.Reflection.MethodInfo" /> no es válida.
+    ///     Excepción que se produce cuando una operación falla.
     /// </summary>
     [Serializable]
-    public class InvalidMethodSignatureException : OffendingException<MethodInfo>
+    public class OperationException : OffendingException<Delegate>
     {
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.InvalidMethodSignatureException" />.
+        ///     <see cref="T:TheXDS.MCART.Exceptions.OperationException" />.
         /// </summary>
         /// <param name="context">
         ///     El <see cref="T:System.Runtime.Serialization.StreamingContext" /> que contiene información
@@ -60,15 +58,14 @@ namespace TheXDS.MCART.Exceptions
         ///     serializada del objeto acerca de la excepción que está siendo
         ///     lanzada.
         /// </param>
-        protected InvalidMethodSignatureException(SerializationInfo info, StreamingContext context) : base(info,
-            context)
+        protected OperationException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
 
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.InvalidMethodSignatureException" />.
+        ///     <see cref="T:TheXDS.MCART.Exceptions.OperationException" />.
         /// </summary>
         /// <param name="context">
         ///     El <see cref="T:System.Runtime.Serialization.StreamingContext" /> que contiene información
@@ -79,87 +76,81 @@ namespace TheXDS.MCART.Exceptions
         ///     serializada del objeto acerca de la excepción que está siendo
         ///     lanzada.
         /// </param>
-        /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
-        protected InvalidMethodSignatureException(SerializationInfo info, StreamingContext context,
-            MethodInfo offendingMethod) : base(info, context, offendingMethod)
+        /// <param name="offendingOperation">Delegado de operación en donde se ha producido la excepción.</param>
+        protected OperationException(SerializationInfo info, StreamingContext context, Delegate offendingOperation) :
+            base(info, context, offendingOperation)
         {
         }
 
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.InvalidMethodSignatureException" />.
+        ///     <see cref="T:TheXDS.MCART.Exceptions.OperationException" />.
         /// </summary>
-        public InvalidMethodSignatureException() : base(Msg())
+        public OperationException() : base(Msg())
         {
         }
 
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.InvalidMethodSignatureException" />.
+        ///     <see cref="T:TheXDS.MCART.Exceptions.OperationException" />.
         /// </summary>
-        /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
-        public InvalidMethodSignatureException(MethodInfo offendingMethod) : base(Msg(offendingMethod), offendingMethod)
+        /// <param name="offendingOperation">Delegado de operación en donde se ha producido la excepción.</param>
+        public OperationException(Delegate offendingOperation) : base(Msg(offendingOperation), offendingOperation)
         {
         }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.InvalidMethodSignatureException" />
-        ///     .
-        /// </summary>
-        /// <param name="message">
-        ///     Un <see cref="T:System.String" /> que describe a la excepción.
-        /// </param>
-        public InvalidMethodSignatureException(string message) : base(message)
-        {
-        }
-
-        /// <inheritdoc />
-        /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.InvalidMethodSignatureException" />
-        ///     .
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.OperationException" />.
         /// </summary>
         /// <param name="message">
         ///     Un <see cref="T:System.String" /> que describe a la excepción.
         /// </param>
-        /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
-        public InvalidMethodSignatureException(string message, MethodInfo offendingMethod) : base(message,
-            offendingMethod)
+        public OperationException(string message) : base(message)
         {
         }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.InvalidMethodSignatureException" />
-        ///     .
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.OperationException" />.
+        /// </summary>
+        /// <param name="message">
+        ///     Un <see cref="T:System.String" /> que describe a la excepción.
+        /// </param>
+        /// <param name="offendingOperation">Delegado de operación en donde se ha producido la excepción.</param>
+        public OperationException(string message, Delegate offendingOperation) : base(message, offendingOperation)
+        {
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.OperationException" />.
         /// </summary>
         /// <param name="inner">
         ///     <see cref="T:System.Exception" /> que es la causa de esta excepción.
         /// </param>
-        public InvalidMethodSignatureException(Exception inner) : base(Msg(), inner)
+        public OperationException(Exception inner) : base(Msg(), inner)
         {
         }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.InvalidMethodSignatureException" />
-        ///     .
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.OperationException" />.
         /// </summary>
         /// <param name="inner">
         ///     <see cref="T:System.Exception" /> que es la causa de esta excepción.
         /// </param>
-        /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
-        public InvalidMethodSignatureException(Exception inner, MethodInfo offendingMethod) : base(Msg(offendingMethod),
-            inner, offendingMethod)
+        /// <param name="offendingOperation">Delegado de operación en donde se ha producido la excepción.</param>
+        public OperationException(Exception inner, Delegate offendingOperation) : base(Msg(offendingOperation), inner,
+            offendingOperation)
         {
         }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.InvalidMethodSignatureException" />
-        ///     .
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.OperationException" />.
         /// </summary>
         /// <param name="message">
         ///     Un <see cref="T:System.String" /> que describe a la excepción.
@@ -167,14 +158,13 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="inner">
         ///     <see cref="T:System.Exception" /> que es la causa de esta excepción.
         /// </param>
-        public InvalidMethodSignatureException(string message, Exception inner) : base(message, inner)
+        public OperationException(string message, Exception inner) : base(message, inner)
         {
         }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.InvalidMethodSignatureException" />
-        ///     .
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.OperationException" />.
         /// </summary>
         /// <param name="message">
         ///     Un <see cref="T:System.String" /> que describe a la excepción.
@@ -182,21 +172,20 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="inner">
         ///     <see cref="T:System.Exception" /> que es la causa de esta excepción.
         /// </param>
-        /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
-        public InvalidMethodSignatureException(string message, Exception inner, MethodInfo offendingMethod) : base(
-            message, inner, offendingMethod)
+        /// <param name="offendingOperation">Delegado de operación en donde se ha producido la excepción.</param>
+        public OperationException(string message, Exception inner, Delegate offendingOperation) : base(message, inner,
+            offendingOperation)
         {
         }
 
         private static string Msg()
         {
-            return Strings.InvalidSignature(Strings.TheMethod);
+            return Strings.ExcDoingX(Strings.TheTask.ToLower());
         }
 
-        private static string Msg(MemberInfo offendingMethod)
+        private static string Msg(Delegate offendingOperation)
         {
-            return Strings.InvalidSignature(Strings.XYQuotes(Strings.TheMethod,
-                $"{offendingMethod?.DeclaringType?.FullName}.{offendingMethod?.Name}"));
+            return Strings.ExcDoingX(Strings.XYQuotes(Strings.TheTask.ToLower(), offendingOperation.Method.Name));
         }
     }
 }

@@ -52,6 +52,7 @@ namespace TheXDS.MCART.Types.Extensions
 		{
             return collection.Where(j => j.IsNeither(exclusions));
 		}
+
         /// <summary>
         ///     Obtiene un sub-rango de valores dentro de este
         ///     <see cref="IEnumerable{T}" />.
@@ -151,7 +152,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Se produce si <paramref name="deepness" /> es inferior a 1, o
         ///     superior a la cuenta de elementos de la colección a desordenar.
         /// </exception>
-        public static void Shuffle<T>(this IEnumerable<T> c, int deepness)
+        public static void Shuffle<T>(this IEnumerable<T> c, in int deepness)
         {
             var enumerable = c.ToList();
             Shuffle(enumerable, 0, enumerable.Count - 1, deepness);
@@ -167,7 +168,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="c"><see cref="IEnumerable{T}" /> a desordenar.</param>
         /// <param name="firstIdx">Índice inicial del intervalo.</param>
         /// <param name="lastIdx">Índice inicial del intervalo.</param>
-        public static void Shuffle<T>(this IEnumerable<T> c, int firstIdx, int lastIdx)
+        public static void Shuffle<T>(this IEnumerable<T> c, in int firstIdx, in int lastIdx)
         {
             Shuffle(c, firstIdx, lastIdx, 1);
         }
@@ -183,7 +184,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="deepness">Profundidad del desorden. 1 es el más alto.</param>
         /// <param name="firstIdx">Índice inicial del intervalo.</param>
         /// <param name="lastIdx">Índice inicial del intervalo.</param>
-        public static void Shuffle<T>(this IEnumerable<T> toShuffle, int firstIdx, int lastIdx, int deepness)
+        public static void Shuffle<T>(this IEnumerable<T> toShuffle, in int firstIdx, in int lastIdx, in int deepness)
         {
             Shuffle(toShuffle, firstIdx, lastIdx, deepness, RandomExtensions.Rnd);
         }
@@ -248,7 +249,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>
         ///     Una versión desordenada del <see cref="IEnumerable{T}" />.
         /// </returns>
-        public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> c, int deepness)
+        public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> c, in int deepness)
         {
             var enumerable = c.ToList();
             return Shuffled(enumerable, 0, enumerable.Count - 1, deepness, RandomExtensions.Rnd);
@@ -269,7 +270,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Una versión desordenada del intervalo especificado de elementos del
         ///     <see cref="IEnumerable{T}" />.
         /// </returns>
-        public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> c, int firstIdx, int lastIdx)
+        public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> c, in int firstIdx, in int lastIdx)
         {
             return Shuffled(c, firstIdx, lastIdx, 1, RandomExtensions.Rnd);
         }
@@ -293,7 +294,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Una versión desordenada del intervalo especificado de elementos del
         ///     <see cref="IEnumerable{T}" />.
         /// </returns>
-        public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> c, int firstIdx, int lastIdx, int deepness, Random random)
+        public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> c, in int firstIdx, in int lastIdx, in int deepness, in Random random)
         {
             var tmp = new System.Collections.Generic.List<T>(c);
             tmp.Shuffle(firstIdx, lastIdx, deepness, random);
@@ -328,7 +329,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>
         ///     Un elemento aleatorio de la colección.
         /// </returns>
-        public static T Pick<T>(this IEnumerable<T> collection, Random random)
+        public static T Pick<T>(this IEnumerable<T> collection, in Random random)
         {
             var c = collection.ToList();
 #if PreferExceptions
