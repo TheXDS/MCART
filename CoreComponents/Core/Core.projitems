@@ -9,16 +9,57 @@
     <Import_RootNamespace>MCART</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\AuthorAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\BetaAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\BoolAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\CompressorAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\CopyrightAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\DangerousAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\DescriptionAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\EmbeddedLicenseAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\FloatAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\IdentifierAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\IntAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\IValueAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\LenghtyAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\LicenseFileAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\LicenseTextAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\MaximumAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\MinimumAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\MinMCARTVersionAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\NameAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\NotPluginAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\ProtocolFormatAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\ServerAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\StubAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\TargetMCARTVersionAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\TextAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\ThunkAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\TypeAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\UnmanagedAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\UnstableAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\UnusableAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\ValueAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\VersionAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\VersionAttributeBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Component\AssemblyDataExposer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Component\IExposeInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\ExceptionEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\IncommingDataEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\ItemCreatedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\ItemCreatingEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\LoggingEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\ProgressionEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\ValueChangingEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\ValueEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Math\Common.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Math\Geometry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Math\Algebra.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Math\Physics.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Math\Series.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Math\Tween.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Misc\Annotations.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Misc\Attrbutes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Annotations\Annotations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\ObjectAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\OffendingException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\NotPluginException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\EmptyCollectionException.cs" />
@@ -32,9 +73,19 @@
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\PluginClassNotFoundException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\PluginException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\PluginInitializationException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\CorruptDataException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\OperationException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\ConnectionClosedException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\MissingTypeException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\PluginNotInitializedException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\CouldNotConnectException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\DataAlreadyExistsException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\DataNotFoundException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\InvalidDatabaseException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\InvalidTypeException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\NotMyDatabaseException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\SanityChecks.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Misc\Events.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Misc\Exceptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\InsufficientDataException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Misc\Internal.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\TamperException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\TooManyArgumentsException.cs" />
@@ -42,6 +93,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\TooFewArgumentsException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\UnknownTypeException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\UnusableObjectException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\ServerNotFoundException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\Common_nonCLS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\Objects.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\ActiveClient.cs" />
@@ -135,6 +187,7 @@
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Networking\Reporters\" />
     <Folder Include="$(MSBuildThisFileDirectory)Exceptions\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Annotations\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\License\GPLv3.deflate" />

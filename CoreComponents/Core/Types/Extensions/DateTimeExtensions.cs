@@ -99,7 +99,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Un <see cref="DateTime"/> construido a partir del Timestamp de
         ///     Unix.
         /// </returns>
-        public static DateTime FromUnixTimestamp(long seconds)
+        public static DateTime FromUnixTimestamp(in long seconds)
         {
             return FromTimestamp(seconds, UnixEpoch);
         }
@@ -114,7 +114,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Un <see cref="DateTime"/> construido a partir del Timestamp de
         ///     Unix.
         /// </returns>
-        public static DateTime FromUnixTimestampMs(long milliseconds)
+        public static DateTime FromUnixTimestampMs(in long milliseconds)
         {
             return FromTimestampMs(milliseconds, UnixEpoch);
         }
@@ -132,7 +132,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Un <see cref="long"/> que representa el valor de Timestamp del
         ///     <see cref="DateTime"/> especificado.
         /// </returns>
-        public static long ToTimestamp(this DateTime dateTime, DateTime epoch)
+        public static long ToTimestamp(this DateTime dateTime, in DateTime epoch)
         {
             return (long)(dateTime - epoch).TotalSeconds;
         }
@@ -150,7 +150,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Un <see cref="long"/> que representa el valor de Timestamp del
         ///     <see cref="DateTime"/> especificado.
         /// </returns>
-        public static long ToTimestampMs(this DateTime dateTime, DateTime epoch)
+        public static long ToTimestampMs(this DateTime dateTime, in DateTime epoch)
         {
             return (long)(dateTime - epoch).TotalMilliseconds;
         }
@@ -167,7 +167,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>
         ///     Un <see cref="DateTime"/> construido a partir del Timestamp.
         /// </returns>
-        public static DateTime FromTimestamp(long seconds, DateTime epoch)
+        public static DateTime FromTimestamp(long seconds, in DateTime epoch)
         {
             return epoch.AddSeconds(seconds);
         }
@@ -185,7 +185,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>
         ///     Un <see cref="DateTime"/> construido a partir del Timestamp.
         /// </returns>
-        public static DateTime FromTimestampMs(long milliseconds, DateTime epoch)
+        public static DateTime FromTimestampMs(long milliseconds, in DateTime epoch)
         {
             return epoch.AddMilliseconds(milliseconds);
         }
@@ -199,7 +199,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Se produce si <paramref name="month"/> no representa un número
         ///     de mes válido.
         /// </exception>
-        public static string MonthName(int month)
+        public static string MonthName(in int month)
         {
             if (!month.IsBetween(1,12)) throw new ArgumentOutOfRangeException(nameof(month));
             var t = DateTime.Now;
@@ -217,7 +217,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Se produce si <paramref name="month"/> no representa un número
         ///     de mes válido.
         /// </exception>
-        public static string MonthName(int month, CultureInfo culture)
+        public static string MonthName(in int month, in CultureInfo culture)
         {
             if (!month.IsBetween(1, 12)) throw new ArgumentOutOfRangeException(nameof(month));
             var t = DateTime.Now;

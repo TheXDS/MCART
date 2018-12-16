@@ -66,14 +66,14 @@ namespace TheXDS.MCART.Types.Extensions
         ///     el tipo base de la enumeración a un arreglo de bytes.
         /// </returns>
         [DebuggerStepThrough]
-        public static MethodInfo ByteConversionMethod(Type enumType)
+        public static MethodInfo ByteConversionMethod(in Type enumType)
         {
             if (!enumType.IsEnum) throw new ArgumentException(St.EnumTypeExpected, nameof(enumType));
             return ByteConversionMethodInternal(enumType);
         }
 
         [DebuggerStepThrough]
-        private static MethodInfo ByteConversionMethodInternal(Type enumType)
+        private static MethodInfo ByteConversionMethodInternal(in Type enumType)
         {
             var tRsp = enumType.GetEnumUnderlyingType();
             return tRsp != typeof(byte)

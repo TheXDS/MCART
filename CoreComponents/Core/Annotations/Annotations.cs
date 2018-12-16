@@ -24,7 +24,6 @@ using System;
 using static System.AttributeTargets;
 
 #pragma warning disable 1591
-// ReSharper disable CheckNamespace
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
@@ -36,8 +35,8 @@ namespace TheXDS.MCART.Annotations
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Indicates that the value of the marked element could be <c>null</c> sometimes,
-    ///     so the check for <c>null</c> is necessary before its usage.
+    ///     Indicates that the value of the marked element could be <see langword="null"/> sometimes,
+    ///     so the check for <see langword="null"/> is necessary before its usage.
     /// </summary>
     /// <example>
     ///     <code>
@@ -56,7 +55,7 @@ namespace TheXDS.MCART.Annotations
 
     /// <inheritdoc />
     /// <summary>
-    ///     Indicates that the value of the marked element could never be <c>null</c>.
+    ///     Indicates that the value of the marked element could never be <see langword="null"/>.
     /// </summary>
     /// <example>
     ///     <code>
@@ -345,7 +344,7 @@ namespace TheXDS.MCART.Annotations
     ///     Indicates that the value of the marked type (or its derivatives)
     ///     cannot be compared using '==' or '!=' operators and <c>Equals()</c>
     ///     should be used instead. However, using '==' or '!=' for comparison
-    ///     with <c>null</c> is always permitted.
+    ///     with <see langword="null"/> is always permitted.
     /// </summary>
     /// <example>
     ///     <code>

@@ -1,5 +1,5 @@
 ﻿/*
-InvalidMethodSignatureException.cs
+InvalidDatabaseException.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -32,7 +32,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #endregion
 
 using System;
-using System.Reflection;
 using System.Runtime.Serialization;
 using TheXDS.MCART.Resources;
 
@@ -40,16 +39,15 @@ namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Excepción que se produce cuando la firma de un método representado en un
-    ///     <see cref="T:System.Reflection.MethodInfo" /> no es válida.
+    ///     Excepción que se produce cuando se intenta acceder a una base de datos inválida.
     /// </summary>
     [Serializable]
-    public class InvalidMethodSignatureException : OffendingException<MethodInfo>
+    public class InvalidDatabaseException : OffendingException<string>
     {
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.InvalidMethodSignatureException" />.
+        ///     <see cref="T:TheXDS.MCART.Exceptions.InvalidDatabaseException" />.
         /// </summary>
         /// <param name="context">
         ///     El <see cref="T:System.Runtime.Serialization.StreamingContext" /> que contiene información
@@ -60,15 +58,14 @@ namespace TheXDS.MCART.Exceptions
         ///     serializada del objeto acerca de la excepción que está siendo
         ///     lanzada.
         /// </param>
-        protected InvalidMethodSignatureException(SerializationInfo info, StreamingContext context) : base(info,
-            context)
+        protected InvalidDatabaseException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
 
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.InvalidMethodSignatureException" />.
+        ///     <see cref="T:TheXDS.MCART.Exceptions.InvalidDatabaseException" />.
         /// </summary>
         /// <param name="context">
         ///     El <see cref="T:System.Runtime.Serialization.StreamingContext" /> que contiene información
@@ -79,87 +76,70 @@ namespace TheXDS.MCART.Exceptions
         ///     serializada del objeto acerca de la excepción que está siendo
         ///     lanzada.
         /// </param>
-        /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
-        protected InvalidMethodSignatureException(SerializationInfo info, StreamingContext context,
-            MethodInfo offendingMethod) : base(info, context, offendingMethod)
+        /// <param name="databasePath">Nombre o ruta de la base de datos que ha causado la excepción.</param>
+        protected InvalidDatabaseException(SerializationInfo info, StreamingContext context, string databasePath) :
+            base(info, context, databasePath)
         {
         }
 
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.InvalidMethodSignatureException" />.
+        ///     <see cref="T:TheXDS.MCART.Exceptions.InvalidDatabaseException" />.
         /// </summary>
-        public InvalidMethodSignatureException() : base(Msg())
+        public InvalidDatabaseException() : base(Msg())
         {
         }
 
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.InvalidMethodSignatureException" />.
+        ///     <see cref="T:TheXDS.MCART.Exceptions.InvalidDatabaseException" />.
         /// </summary>
-        /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
-        public InvalidMethodSignatureException(MethodInfo offendingMethod) : base(Msg(offendingMethod), offendingMethod)
+        /// <param name="databasePath">Nombre o ruta de la base de datos que ha causado la excepción.</param>
+        public InvalidDatabaseException(string databasePath) : base(Msg(databasePath), databasePath)
         {
         }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.InvalidMethodSignatureException" />
-        ///     .
-        /// </summary>
-        /// <param name="message">
-        ///     Un <see cref="T:System.String" /> que describe a la excepción.
-        /// </param>
-        public InvalidMethodSignatureException(string message) : base(message)
-        {
-        }
-
-        /// <inheritdoc />
-        /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.InvalidMethodSignatureException" />
-        ///     .
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.InvalidDatabaseException" />.
         /// </summary>
         /// <param name="message">
         ///     Un <see cref="T:System.String" /> que describe a la excepción.
         /// </param>
-        /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
-        public InvalidMethodSignatureException(string message, MethodInfo offendingMethod) : base(message,
-            offendingMethod)
+        /// <param name="databasePath">Nombre o ruta de la base de datos que ha causado la excepción.</param>
+        public InvalidDatabaseException(string message, string databasePath) : base(message, databasePath)
         {
         }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.InvalidMethodSignatureException" />
-        ///     .
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.InvalidDatabaseException" />.
         /// </summary>
         /// <param name="inner">
         ///     <see cref="T:System.Exception" /> que es la causa de esta excepción.
         /// </param>
-        public InvalidMethodSignatureException(Exception inner) : base(Msg(), inner)
+        public InvalidDatabaseException(Exception inner) : base(Msg(), inner)
         {
         }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.InvalidMethodSignatureException" />
-        ///     .
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.InvalidDatabaseException" />.
         /// </summary>
         /// <param name="inner">
         ///     <see cref="T:System.Exception" /> que es la causa de esta excepción.
         /// </param>
-        /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
-        public InvalidMethodSignatureException(Exception inner, MethodInfo offendingMethod) : base(Msg(offendingMethod),
-            inner, offendingMethod)
+        /// <param name="databasePath">Nombre o ruta de la base de datos que ha causado la excepción.</param>
+        public InvalidDatabaseException(Exception inner, string databasePath) : base(Msg(databasePath), inner,
+            databasePath)
         {
         }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.InvalidMethodSignatureException" />
-        ///     .
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.InvalidDatabaseException" />.
         /// </summary>
         /// <param name="message">
         ///     Un <see cref="T:System.String" /> que describe a la excepción.
@@ -167,14 +147,13 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="inner">
         ///     <see cref="T:System.Exception" /> que es la causa de esta excepción.
         /// </param>
-        public InvalidMethodSignatureException(string message, Exception inner) : base(message, inner)
+        public InvalidDatabaseException(string message, Exception inner) : base(message, inner)
         {
         }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.InvalidMethodSignatureException" />
-        ///     .
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.InvalidDatabaseException" />.
         /// </summary>
         /// <param name="message">
         ///     Un <see cref="T:System.String" /> que describe a la excepción.
@@ -182,21 +161,20 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="inner">
         ///     <see cref="T:System.Exception" /> que es la causa de esta excepción.
         /// </param>
-        /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
-        public InvalidMethodSignatureException(string message, Exception inner, MethodInfo offendingMethod) : base(
-            message, inner, offendingMethod)
+        /// <param name="databasePath">Nombre o ruta de la base de datos que ha causado la excepción.</param>
+        public InvalidDatabaseException(string message, Exception inner, string databasePath) : base(message, inner,
+            databasePath)
         {
         }
 
         private static string Msg()
         {
-            return Strings.InvalidSignature(Strings.TheMethod);
+            return Strings.InvalidDB;
         }
 
-        private static string Msg(MemberInfo offendingMethod)
+        private static string Msg(string databasePath)
         {
-            return Strings.InvalidSignature(Strings.XYQuotes(Strings.TheMethod,
-                $"{offendingMethod?.DeclaringType?.FullName}.{offendingMethod?.Name}"));
+            return Strings.XYQuotes(Strings.InvalidDB, databasePath);
         }
     }
 }

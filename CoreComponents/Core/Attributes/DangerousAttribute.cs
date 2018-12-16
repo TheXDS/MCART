@@ -1,5 +1,5 @@
-/*
-AssemblyInfo.cs
+﻿/*
+DangerousAttribute.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,15 +22,22 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Reflection;
-using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Resources;
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+// ReSharper disable UnusedMember.Global
+// ReSharper disable ClassNeverInstantiated.Global
+// ReSharper disable MemberCanBePrivate.Global
 
-[assembly: AssemblyCompany("TheXDS! non-Corp.")]
-[assembly: AssemblyProduct("Morgan's CLR Advanced Runtime")]
-[assembly: AssemblyCopyright("Copyright © 2011-2018 César Andrés Morgan")]
-[assembly: EmbeddedLicense("GPLv3", "TheXDS.MCART.Resources.License", typeof(DeflateGetter))]
-[assembly: AssemblyVersion("0.9.2.0")]
-#if CLSCompliance
-[assembly: System.CLSCompliant(true)]
-#endif
+using System;
+
+namespace TheXDS.MCART.Attributes
+{
+    /// <inheritdoc />
+    /// <summary>
+    ///     Indica que el uso de un elemento es peligroso.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.All)]
+    [Serializable]
+    public sealed class DangerousAttribute : Attribute
+    {
+    }
+}
