@@ -1,5 +1,5 @@
-/*
-AssemblyInfo.cs
+﻿/*
+ValueAttribute.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,15 +22,32 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Reflection;
-using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Resources;
+#if !CLSCompliance
+using System;
 
-[assembly: AssemblyCompany("TheXDS! non-Corp.")]
-[assembly: AssemblyProduct("Morgan's CLR Advanced Runtime")]
-[assembly: AssemblyCopyright("Copyright © 2011-2018 César Andrés Morgan")]
-[assembly: EmbeddedLicense("GPLv3", "TheXDS.MCART.Resources.License", typeof(DeflateGetter))]
-[assembly: AssemblyVersion("0.9.2.0")]
-#if CLSCompliance
-[assembly: System.CLSCompliant(true)]
+namespace TheXDS.MCART.Attributes
+{
+    /// <inheritdoc />
+    /// <summary>
+    ///     Clase base para los atributos de cualquier tipo.
+    /// </summary>
+    public abstract class ValueAttribute : Attribute
+    {
+        /// <inheritdoc />
+        /// <summary>
+        ///     Crea una nueva isntancia de la clase
+        ///     <see cref="T:TheXDS.MCART.Attributes.ObjectAttribute" />.
+        /// </summary>
+        /// <param name="attributeValue">Valor de este atributo.</param>
+        protected ValueAttribute(dynamic attributeValue)
+        {
+            Value = attributeValue;
+        }
+
+        /// <summary>
+        ///     Obtiene el valor asociado a este atributo.
+        /// </summary>
+        public dynamic Value { get; }
+    }
+}
 #endif

@@ -170,8 +170,7 @@ namespace TheXDS.MCART
             index = idx.AsEnumerable();
             return found;
         }
-
-
+        
         /// <summary>
         ///     Busca y obtiene un <see cref="TypeConverter" /> apropiado para
         ///     realizar la conversión entre <see cref="string" /> y el tipo
@@ -370,8 +369,6 @@ namespace TheXDS.MCART
         {
             return range.IsWithin(value);
         }
-
-
 
         /// <summary>
         ///     Condensa una lista en una <see cref="string" />
