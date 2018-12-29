@@ -1,5 +1,5 @@
 ﻿/*
-SelfWiredCommandClient.cs
+Annotations.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -32,51 +32,33 @@ el desarrollador podrá aprender a utilizar la librería y crear su propio
 código.
  */
 
-#region example1
-public enum CommandsEnum
+class ExampleClass
 {
-    Hello,
-    Message,
-    Bye
-}
-
-public enum ResponsesEnum
-{
-    Ok,
-    MessageResponse,
-    [ErrorResponse] Fail
-}
-
-// Es necesario crear este atributo, debido a limitaciones de C#.
-[AttributeUsage(AttributeTargets.Method, Inherited = false)]
-sealed class ResponseAttribute : Attribute, IValueAttribute<ResponsesEnum>
-{
-    public ResponseAttribute(ResponsesEnum value)
+    #region CanBeNullAttributeExample
+    [CanBeNull] object Test() => null;
+    
+    void UseTest()
     {
-        Value = value;
+        var p = Test();
+        var s = p.ToString(); // Advertencia: Posible 'System.NullReferenceException'
     }
+    #endregion
 
-    public ResponsesEnum Value { get; }
+    #region NotNullAttributeExample
+    [NotNull]
+    object Foo()
+    {
+        return null; // Advertencia: Posible asignación de 'null'
+    }
+    #endregion
+
+    #region StringFormatMethodAttributeExample
+    [StringFormatMethod("message")]
+    void ShowError(string message, params object[] args) { /* hacer algo */ }
+
+    void Foo()
+    {
+        ShowError("Error: {0}"); // Advertencia: El argumento no existe en la cadena de formato.
+    }
+    #endregion
 }
-
-public class MyClient : SelfWiredCommandClient<CommandsEnum, ResponsesEnum>
-{
-    [Response(ResponsesEnum.Ok)]
-    public void ServerOk(BinaryReader br)
-    {
-        Console.WriteLine("Comando ejecutado correctamente.");
-    }
-
-    [Response(ResponsesEnum.MessageResponse)]
-    public void ServerMessage(BinaryReader br)
-    {
-        Console.WriteLine(br.ReadString());
-    }
-
-    [Response(ResponsesEnum.Fail)]
-    public void ServerFail(BinaryReader br)
-    {
-        Console.WriteLine("El servidor ha encontrado un error.");
-    }
-}
-#endregion

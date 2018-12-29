@@ -35,39 +35,56 @@ namespace TheXDS.MCART.Annotations
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Indicates that the value of the marked element could be <see langword="null"/> sometimes,
-    ///     so the check for <see langword="null"/> is necessary before its usage.
+    ///     Indica que el valor del elemento marcado podría ser 
+    ///     <see langword="null"/> algunas veces, por lo que es necesario
+    ///     comprobar si el valor es <see langword="null"/> antes de
+    ///     utilizarlo.
     /// </summary>
     /// <example>
-    ///     <code>
-    /// [CanBeNull] object Test() =&gt; null;
-    /// void UseTest() {
-    ///   var p = Test();
-    ///   var s = p.ToString(); // Warning: Possible 'System.NullReferenceException'
-    /// }
-    /// </code>
+    ///     Este ejemplo muestra el uso del atributo
+    ///     <see cref="CanBeNullAttribute"/> soportado por ReSharper en C# 7.3
+    ///     y anteriores, así como todas las versiones de VB y opcionalmente C#
+    ///     8.0 y posteriores cuando no se habilite el soporte de tipos de
+    ///     referencia nulabes a nivel de lenguaje.
+    ///     <code language="cs" source="..\..\Documentation\Examples\Annotations\Annotations.cs"
+    ///         region="CanBeNullAttributeExample" />
+    ///     <code language="vb" source="..\..\Documentation\Examples\Annotations\Annotations.vb"
+    ///         region="CanBeNullAttributeExample" />
     /// </example>
-    [AttributeUsage(Method | Parameter | Property | AttributeTargets.Delegate | Field | Event | Class | Interface |
-                    GenericParameter)]
+    /// <remarks>
+    ///     Este atributo puede colocarse en métodos, parámetros, propiedades,
+    ///     delegados, campos, eventos, clases, interfaces y parámetros genéricos.
+    /// </remarks>
+    [AttributeUsage(
+        Method | Parameter | Property | AttributeTargets.Delegate |
+        Field | Event | Class | Interface | GenericParameter)]
     public sealed class CanBeNullAttribute : Attribute
     {
     }
 
     /// <inheritdoc />
     /// <summary>
-    ///     Indicates that the value of the marked element could never be <see langword="null"/>.
+    ///     Indica que el valor del elemento marcado nunca puede ser
+    ///     <see langword="null"/>.
     /// </summary>
     /// <example>
-    ///     <code>
-    /// [NotNull] object Foo() {
-    ///   return null; // Warning: Possible 'null' assignment
-    /// }
-    /// </code>
+    ///     Este ejemplo muestra el uso del atributo
+    ///     <see cref="NotNullAttribute"/> soportado por ReSharper en C# 7.3
+    ///     y anteriores, así como todas las versiones de VB y opcionalmente C#
+    ///     8.0 y posteriores cuando no se habilite el soporte de tipos de
+    ///     referencia nulabes a nivel de lenguaje.
+    ///     <code language="cs" source="..\..\Documentation\Examples\Annotations\Annotations.cs"
+    ///         region="NotNullAttributeExample" />
+    ///     <code language="vb" source="..\..\Documentation\Examples\Annotations\Annotations.vb"
+    ///         region="NotNullAttributeExample" />
     /// </example>
+    /// <remarks>
+    ///     Este atributo puede colocarse en métodos, parámetros, propiedades,
+    ///     delegados, campos, eventos, clases, interfaces y parámetros genéricos.
+    /// </remarks>
     [AttributeUsage(
-        Method | Parameter | Property |
-        AttributeTargets.Delegate | Field | Event |
-        Class | Interface | GenericParameter)]
+        Method | Parameter | Property | AttributeTargets.Delegate |
+        Field | Event | Class | Interface | GenericParameter)]
     public sealed class NotNullAttribute : Attribute
     {
     }
@@ -78,6 +95,9 @@ namespace TheXDS.MCART.Annotations
     ///     and Lazy classes to indicate that the value of a collection item, of the Task.Result property
     ///     or of the Lazy.Value property can never be null.
     /// </summary>
+    /// <remarks>
+    ///     Este atributo puede colocarse en métodos, parámetros, propiedades, delegados y campos.
+    /// </remarks>
     [AttributeUsage(
         Method | Parameter | Property |
         AttributeTargets.Delegate | Field)]
@@ -91,6 +111,9 @@ namespace TheXDS.MCART.Annotations
     ///     and Lazy classes to indicate that the value of a collection item, of the Task.Result property
     ///     or of the Lazy.Value property can be null.
     /// </summary>
+    /// <remarks>
+    ///     Este atributo puede colocarse en métodos, parámetros, propiedades, delegados y campos.
+    /// </remarks>
     [AttributeUsage(
         Method | Parameter | Property |
         AttributeTargets.Delegate | Field)]
@@ -100,19 +123,24 @@ namespace TheXDS.MCART.Annotations
 
     /// <inheritdoc />
     /// <summary>
-    ///     Indicates that the marked method builds string by format pattern and (optional) arguments.
-    ///     Parameter, which contains format string, should be given in constructor. The format string
-    ///     should be in <see cref="M:System.String.Format(System.IFormatProvider,System.String,System.Object[])" />-like form.
+    ///     Indica que el método marcado construye cadenas por medio del patrón
+    ///     de formateo junto con argumentos opcionales.
+    ///     El nombre del parámetro que contiene el formato de cadena deberá
+    ///     ser pasado en el constructor. La cadena de formato debe estar en
+    ///     un formato como el de
+    ///     <see cref="M:System.String.Format(System.IFormatProvider,System.String,System.Object[])"/>.
     /// </summary>
     /// <example>
-    ///     <code>
-    /// [StringFormatMethod("message")]
-    /// void ShowError(string message, params object[] args) { /* do something */ }
-    /// void Foo() {
-    ///   ShowError("Failed: {0}"); // Warning: Non-existing argument in format string
-    /// }
-    /// </code>
+    ///     Este ejemplo muestra el uso del atributo
+    ///     <see cref="StringFormatMethodAttribute"/> soportado por ReSharper.
+    ///     <code language="cs" source="..\..\Documentation\Examples\Annotations\Annotations.cs"
+    ///         region="StringFormatMethodAttributeExample" />
+    ///     <code language="vb" source="..\..\Documentation\Examples\Annotations\Annotations.vb"
+    ///         region="StringFormatMethodAttributeExample" />
     /// </example>
+    /// <remarks>
+    ///     Este atributo puede colocarse en constructores, métodos, propiedades y delegados.
+    /// </remarks>
     [AttributeUsage(
         Constructor | Method |
         Property | AttributeTargets.Delegate)]
@@ -120,9 +148,14 @@ namespace TheXDS.MCART.Annotations
     {
         [NotNull] public string FormatParameterName { get; }
 
+        /// <summary>
+        ///     Indica que el método marcado construye cadenas por medio del patrón
+        ///     de formateo junto con argumentos opcionales.
+        /// </summary>
         /// <param name="formatParameterName">
-        ///     Specifies which parameter of an annotated method should be treated as format-string
-        /// </param>
+        ///     Especifica cual parámetro del método anotado deberá ser tratado
+        ///     como una cadena de formato.
+        /// </param>        
         public StringFormatMethodAttribute([NotNull] string formatParameterName)
         {
             FormatParameterName = formatParameterName;
