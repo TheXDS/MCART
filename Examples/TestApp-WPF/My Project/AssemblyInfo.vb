@@ -27,7 +27,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("Aplicación de pruebas de MCART")>
 <Assembly: AssemblyCompany("TheXDS! non-Corp.")>
 <Assembly: AssemblyProduct("Morgan's CLR Advanced Runtime")>
-<Assembly: AssemblyCopyright("Copyright © 2011-2018 TheXDS! non-Corp.")>
+<Assembly: AssemblyCopyright("Copyright © 2011 - 2019 César Andrés Morgan")>
 <Assembly: ComVisible(False)>
 <Assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)>
 <Assembly: AssemblyVersion("1.0.*")>

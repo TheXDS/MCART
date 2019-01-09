@@ -16,6 +16,8 @@ La serie 0.10 marcará un hito muy importante, ya que se espera que esta serie s
 
 En la serie 0.10, procuraré reintegrar los proyectos de Gtk# y Win32, junto con una tentativa nueva adición: Eto.Forms, y con ello, el soporte para todas las plataformas de escritorio. Al incluir Eto.Forms, no pretendo deprecar ninguno de los demás proyectos, ya que los mismos contendrán código optimizado para su respectiva plataforma. En realidad, la idea es contar con una plataforma universal a opción del desarrollador.
 
+Pretendo también considerar la opción de mudar el código a C# 8.0, lo cual podría modificar este roadmap considerablemente.
+
 ## MCART 0.11 Series
 También un hito muy importante, la serie 0.11 será oficialmente la Beta de MCART. A este punto, la API no debería cambiar, y únicamente se trabajará en correcciones de errores y limpieza del código. Aún así, podría tomarme la libertad de agregar nueva funcionalidad si así fuese necesario.
 

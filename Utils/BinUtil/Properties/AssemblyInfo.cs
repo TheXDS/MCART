@@ -28,5 +28,5 @@ using System.Reflection;
 [assembly: AssemblyDescription("Utilidad de importación de recursos binarios comprimidos de MCART")]
 [assembly: AssemblyCompany("TheXDS! non-Corp.")]
 [assembly: AssemblyProduct("Morgan's CLR Advanced Runtime")]
-[assembly: AssemblyCopyright("Copyright © 2011-2018 César Andrés Morgan")]
+[assembly: AssemblyCopyright("Copyright © 2011 - 2019 César Andrés Morgan")]
 [assembly: AssemblyVersion("1.0.*")]

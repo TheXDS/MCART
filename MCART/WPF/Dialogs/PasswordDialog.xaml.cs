@@ -46,11 +46,9 @@ namespace TheXDS.MCART.Dialogs
 
             Vm.PropertyChanged += (sender, e) =>
             {
-                if (e.PropertyName == nameof(PasswordDialogViewModel.GeneratedPassword))
-                {
-                    TxtPassword.Password = Vm.GeneratedPassword;
-                    TxtConfirm.Password = Vm.GeneratedPassword;
-                }
+                if (e.PropertyName != nameof(PasswordDialogViewModel.GeneratedPassword)) return;
+                TxtPassword.Password = Vm.GeneratedPassword;
+                TxtConfirm.Password = Vm.GeneratedPassword;
             };
         }
 
@@ -898,7 +896,7 @@ namespace TheXDS.MCART.Dialogs
 
         private void BtnReGen_OnClick(object sender, RoutedEventArgs e)
         {
-            Vm.Generate();
+            Vm.OnGenerate();
         }
 
         private void BtnToClipboard_OnClick(object sender, RoutedEventArgs e)

@@ -26,22 +26,117 @@ using System.Security;
 using System.Threading.Tasks;
 using TheXDS.MCART.Security.Password;
 using TheXDS.MCART.Types.Base;
+using TheXDS.MCART.ViewModel;
 
 namespace TheXDS.MCART.Dialogs.ViewModel
 {
     internal class PasswordDialogViewModel : NotifyPropertyChanged
     {
-        private PasswordDialogMode _mode;
-        private string _user;
-        private SecureString _password;
         private SecureString _confirm;
-        private string _hint;
         private IPasswordEvaluator _evaluator;
-        private PwEvalResult _result;
+        private string _generatedPassword;
         private IPasswordGenerator _generator;
-        private string _title;
+        private string _hint;
         private bool _isBusy;
+        private PasswordDialogMode _mode;
+        private SecureString _password;
+        private PwEvalResult _result;
+        private string _title;
+        private string _user;
+        private int _triesCount;
+        private LoginValidator _validator;
+        private int? _maxTries;
 
+        private void OnEvaluate()
+        {
+            if (!Mode.HasFlag(PasswordDialogMode.Security)) return;
+            Result = Password.Length == 0 ? PwEvalResult.Empty : Evaluator?.Evaluate(Password) ?? PwEvalResult.Null;
+        }
+
+        public SimpleCommand Evaluate { get; }
+        public SimpleCommand Generate { get; }
+        public bool IsConfirmVisible => Mode.HasFlag(PasswordDialogMode.Confirm);
+        public bool IsGeneratorVisible => Mode.HasFlag(PasswordDialogMode.Generator);
+        public bool IsHintVisible => Mode.HasFlag(PasswordDialogMode.Hint);
+        public bool IsInvalid => Result.Critical;
+        public bool IsSecurityVisible => Mode.HasFlag(PasswordDialogMode.Security);
+        public bool IsUserVisible => Mode.HasFlag(PasswordDialogMode.User);
+        public string MorInfo => Result.Details;
+        public float PasswordQuality => Result.Result * 100;
+        public SecureString Confirm
+        {
+            get => _confirm;
+            set
+            {
+                if (Equals(value, _confirm)) return;
+                _confirm = value;
+                OnPropertyChanged();
+            }
+        }
+        public IPasswordEvaluator Evaluator
+        {
+            get => _evaluator;
+            set
+            {
+                if (Equals(value, _evaluator)) return;
+                _evaluator = value;
+                OnPropertyChanged();
+                Evaluate.SetCanExecute(IsSecurityVisible && !(value is null));
+                OnEvaluate();
+            }
+        }
+        public string GeneratedPassword
+        {
+            get => _generatedPassword;
+            private set
+            {
+                if (value == _generatedPassword) return;
+                _generatedPassword = value;
+                OnPropertyChanged();
+            }
+        }
+        public IPasswordGenerator Generator
+        {
+            get => _generator;
+            set
+            {
+                if (Equals(value, _generator)) return;
+                _generator = value;
+                OnPropertyChanged();
+                Generate.SetCanExecute(IsGeneratorVisible && !(value is null));
+                OnGenerate();
+            }
+        }
+        public string Hint
+        {
+            get => _hint;
+            set
+            {
+                if (value == _hint) return;
+                _hint = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool IsBusy
+        {
+            get => _isBusy;
+            private set
+            {
+                if (value == _isBusy) return;
+                _isBusy = value;
+                OnPropertyChanged();
+            }
+        }
+        public int? MaxTries
+        {
+            get => _maxTries;
+            set
+            {
+                if (value == _maxTries) return;
+                _maxTries = value;
+                OnPropertyChanged();
+            }
+        }
         public PasswordDialogMode Mode
         {
             get => _mode;
@@ -55,37 +150,11 @@ namespace TheXDS.MCART.Dialogs.ViewModel
                 OnPropertyChanged(nameof(IsHintVisible));
                 OnPropertyChanged(nameof(IsSecurityVisible));
                 OnPropertyChanged(nameof(IsGeneratorVisible));
+
+                Evaluate.SetCanExecute(IsSecurityVisible && !(Evaluator is null));
+                Generate.SetCanExecute(IsGeneratorVisible && !(Generator is null));
             }
         }
-
-        public bool IsUserVisible => Mode.HasFlag(PasswordDialogMode.User);
-        public bool IsConfirmVisible => Mode.HasFlag(PasswordDialogMode.Confirm);
-        public bool IsHintVisible => Mode.HasFlag(PasswordDialogMode.Hint);
-        public bool IsSecurityVisible => Mode.HasFlag(PasswordDialogMode.Security);
-        public bool IsGeneratorVisible => Mode.HasFlag(PasswordDialogMode.Generator);
-
-        public string Title
-        {
-            get => _title;
-            set
-            {
-                if (value == _title) return;
-                _title = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string User
-        {
-            get => _user;
-            set
-            {
-                if (value == _user) return;
-                _user = value;
-                OnPropertyChanged();
-            }
-        }
-
         public SecureString Password
         {
             get => _password;
@@ -94,44 +163,9 @@ namespace TheXDS.MCART.Dialogs.ViewModel
                 if (Equals(value, _password)) return;
                 _password = value;
                 OnPropertyChanged();
-                Eval();
+                OnEvaluate();
             }
         }
-
-        public SecureString Confirm
-        {
-            get => _confirm;
-            set
-            {
-                if (Equals(value, _confirm)) return;
-                _confirm = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string Hint
-        {
-            get => _hint;
-            set
-            {
-                if (value == _hint) return;
-                _hint = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public IPasswordEvaluator Evaluator
-        {
-            get => _evaluator;
-            set
-            {
-                if (Equals(value, _evaluator)) return;
-                _evaluator = value;
-                OnPropertyChanged();
-                Eval();
-            }
-        }
-
         public PwEvalResult Result
         {
             get => _result;
@@ -145,32 +179,53 @@ namespace TheXDS.MCART.Dialogs.ViewModel
                 OnPropertyChanged(nameof(IsInvalid));
             }
         }
-
-        public IPasswordGenerator Generator
+        public string Title
         {
-            get => _generator;
+            get => _title;
             set
             {
-                if (Equals(value, _generator)) return;
-                _generator = value;
+                if (value == _title) return;
+                _title = value;
                 OnPropertyChanged();
-                Generate();
             }
         }
-
-        private void Eval()
+        public int TriesCount
         {
-            if (!Mode.HasFlag(PasswordDialogMode.Security)) return;
-            Result = Password.Length == 0 ? PwEvalResult.Empty : Evaluator?.Evaluate(Password) ?? PwEvalResult.Null;
+            get => _triesCount;
+            set
+            {
+                if (value == _triesCount) return;
+                _triesCount = value;
+                OnPropertyChanged();
+            }
+        }
+        public string User
+        {
+            get => _user;
+            set
+            {
+                if (value == _user) return;
+                _user = value;
+                OnPropertyChanged();
+            }
+        }
+        public LoginValidator Validator
+        {
+            get => _validator;
+            set
+            {
+                if (Equals(value, _validator)) return;
+                _validator = value;
+                OnPropertyChanged();
+            }
+        }
+        public PasswordDialogViewModel()
+        {
+            Evaluate = new SimpleCommand(OnEvaluate, false);
+            Generate = new SimpleCommand(OnGenerate, false);
         }
 
-        public float PasswordQuality => Result.Result * 100;
-        public string MorInfo => Result.Details;
-        public bool IsInvalid => Result.Critical;
-
-        public string GeneratedPassword { get; private set; }
-
-        public void Generate()
+        public void OnGenerate()
         {
             if (!Mode.HasFlag(PasswordDialogMode.Generator)) return;
             Password = Generator?.Generate();
@@ -178,18 +233,6 @@ namespace TheXDS.MCART.Dialogs.ViewModel
             GeneratedPassword = Password?.Read();
             OnPropertyChanged(nameof(GeneratedPassword));
         }
-
-        public bool IsBusy
-        {
-            get => _isBusy;
-            private set
-            {
-                if (value == _isBusy) return;
-                _isBusy = value;
-                OnPropertyChanged();
-            }
-        }
-
         public async Task<bool> ValidateAsync()
         {
             if (Password is null || Password.Length == 0) return false;
@@ -202,9 +245,5 @@ namespace TheXDS.MCART.Dialogs.ViewModel
             IsBusy = false;
             return t;
         }
-
-        public int? MaxTries { get; set; }
-        public int TriesCount { get; set; }
-        public LoginValidator Validator { get; set; }
     }
 }

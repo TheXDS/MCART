@@ -25,6 +25,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
+
 namespace TheXDS.MCART.Types.Converters
 {
 #if !CLSCompliance
@@ -149,6 +151,7 @@ namespace TheXDS.MCART.Types.Converters
     public class CharRangeConverter : RangeConverter<char>
     {
     }
+
     /// <inheritdoc />
     /// <summary>
     ///     Permite realizar la conversión entre tipos
@@ -159,4 +162,25 @@ namespace TheXDS.MCART.Types.Converters
     public class StringRangeConverter : RangeConverter<string>
     {
     }
+    /// <inheritdoc />
+    /// <summary>
+    ///     Permite realizar la conversión entre tipos
+    ///     <see cref="T:System.String" /> y
+    ///     <see cref="T:TheXDS.MCART.Types.Range`1" /> para rangos de tipo
+    ///     <see cref="T:System.DateTime" />.
+    /// </summary>
+    public class DateTimeRangeConverter : RangeConverter<DateTime>
+    {
+    }
+    /// <inheritdoc />
+    /// <summary>
+    ///     Permite realizar la conversión entre tipos
+    ///     <see cref="T:System.String" /> y
+    ///     <see cref="T:TheXDS.MCART.Types.Range`1" /> para rangos de tipo
+    ///     <see cref="T:System.TimeSpan" />.
+    /// </summary>
+    public class TimeSpanRangeConverter : RangeConverter<TimeSpan>
+    {
+    }
+
 }
