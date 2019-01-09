@@ -21,6 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. */
 
 using System;
+using TheXDS.MCART.Types;
 using static System.AttributeTargets;
 
 #pragma warning disable 1591
@@ -162,7 +163,7 @@ namespace TheXDS.MCART.Annotations
         }
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="Attribute"/>
     /// <summary>
     ///     For a parameter that is expected to be one of the limited set of values.
     ///     Specify fields of which type should be used as values for this parameter.
@@ -170,7 +171,7 @@ namespace TheXDS.MCART.Annotations
     [AttributeUsage(
         Parameter | Property | Field,
         AllowMultiple = true)]
-    public sealed class ValueProviderAttribute : Attribute
+    public sealed class ValueProviderAttribute : Attribute, INameable
     {
         [NotNull] public string Name { get; }
 
@@ -989,7 +990,7 @@ namespace TheXDS.MCART.Annotations
     }
 
     [AttributeUsage(Parameter | Property | Field)]
-    public sealed class HtmlElementAttributesAttribute : Attribute
+    public sealed class HtmlElementAttributesAttribute : Attribute, INameable
     {
         [CanBeNull] public string Name { get; }
 
@@ -1004,7 +1005,7 @@ namespace TheXDS.MCART.Annotations
     }
 
     [AttributeUsage(Parameter | Field | Property)]
-    public sealed class HtmlAttributeValueAttribute : Attribute
+    public sealed class HtmlAttributeValueAttribute : Attribute, INameable
     {
         [NotNull] public string Name { get; }
 
@@ -1234,7 +1235,7 @@ namespace TheXDS.MCART.Annotations
     }
 
     [AttributeUsage(Assembly, AllowMultiple = true)]
-    public sealed class RazorImportNamespaceAttribute : Attribute
+    public sealed class RazorImportNamespaceAttribute : Attribute, INameable
     {
         [NotNull] public string Name { get; }
 

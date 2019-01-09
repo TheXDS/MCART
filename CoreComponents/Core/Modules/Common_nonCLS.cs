@@ -14,7 +14,7 @@ para ser llamadas únicamente es necesario importar el espacio de nombres
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright (c) 2011 - 2018 César Andrés Morgan
+Copyright (c) 2011 - 2019 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -43,7 +43,7 @@ namespace TheXDS.MCART
         /// </summary>
         /// <param name="value"></param>
         /// <returns>Un <see cref="ushort" /> cuyo Endianess ha sido invertido.</returns>
-        public static ushort FlipEndianess(this ushort value)
+        public static ushort FlipEndianess(this in ushort value)
         {
             return BitConverter.ToUInt16(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
         }
@@ -53,7 +53,7 @@ namespace TheXDS.MCART
         /// </summary>
         /// <param name="value"></param>
         /// <returns>Un <see cref="uint" /> cuyo Endianess ha sido invertido.</returns>
-        public static uint FlipEndianess(this uint value)
+        public static uint FlipEndianess(this in uint value)
         {
             return BitConverter.ToUInt32(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
         }
@@ -63,7 +63,7 @@ namespace TheXDS.MCART
         /// </summary>
         /// <param name="value"></param>
         /// <returns>Un <see cref="ulong" /> cuyo Endianess ha sido invertido.</returns>
-        public static ulong FlipEndianess(this ulong value)
+        public static ulong FlipEndianess(this in ulong value)
         {
             return BitConverter.ToUInt64(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
         }

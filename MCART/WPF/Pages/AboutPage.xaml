@@ -6,13 +6,13 @@
       xmlns:controls="clr-namespace:TheXDS.MCART.Controls"
       xmlns:converters="clr-namespace:System.Windows.Converters"
       xmlns:viewModel="clr-namespace:TheXDS.MCART.Dialogs.ViewModel"
+      xmlns:resources="clr-namespace:TheXDS.MCART.Resources"
       mc:Ignorable="d"
       d:DataContext="{d:DesignInstance viewModel:AboutPageViewModel}"
       Title="AboutPage">
     <Page.Resources>
         <Thickness x:Key="M5">5</Thickness>
-        <BooleanToVisibilityConverter x:Key="B2vConv"/>
-        <converters:BooleanToInvVisibilityConverter x:Key="B2IvConv"/>
+        <BooleanToVisibilityConverter x:Key="B2VConv"/>
         <converters:NotNullToVisibilityConverter x:Key="Nn2V"/>
     </Page.Resources>
     <Grid>
@@ -38,14 +38,14 @@
                 <TextBlock Text="{Binding Copyright}" />
                 <controls:StretchyWrapPanel>
                     <Button
-                        Visibility="{Binding HasLicense, Converter={StaticResource B2vConv}}"
-                        Click="BtnLicense_OnClick">Ver licencia...</Button>
+                        Visibility="{Binding HasLicense, Converter={StaticResource B2VConv}}"
+                        Click="BtnLicense_OnClick" Content="{x:Static resources:Strings.SeeLicense}"/>
                     <Button
-                        Visibility="{Binding IsMcart, Converter={StaticResource B2vConv}}"
-                        Click="BtnPluginInfo_OnClick">Información de plugins...</Button>
+                        Visibility="{Binding ShowPluginInfo, Converter={StaticResource B2VConv}}"
+                        Click="BtnPluginInfo_OnClick" Content="{x:Static resources:Strings.PluginDetails}"/>
                     <Button
-                        Visibility="{Binding IsMcart, Converter={StaticResource B2IvConv}}"
-                        Click="BtnAboutMCART_OnClick">Acerca de MCART...</Button>
+                        Visibility="{Binding ShowAboutMcart, Converter={StaticResource B2VConv}}"
+                        Click="BtnAboutMCART_OnClick" Content="{x:Static resources:Strings.AboutMCART}"/>
                 </controls:StretchyWrapPanel>
             </StackPanel>
         </controls:StretchyWrapPanel>

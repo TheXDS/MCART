@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright (c) 2011 - 2018 César Andrés Morgan
+Copyright (c) 2011 - 2019 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -77,7 +77,7 @@ namespace TheXDS.MCART.Math
         ///     posición dentro del bézier cuadrático dado por
         ///     <paramref name="position" />.
         /// </returns>
-        public static Point GetQuadBezierPoint(double position, Point startPoint, Point controlPoinr, Point endPoint)
+        public static Point GetQuadBezierPoint(in double position, in Point startPoint, in Point controlPoinr, in Point endPoint)
         {
             if (!position.IsBetween(0, 1)) throw new ArgumentOutOfRangeException(nameof(position));
             var a = 1 - position;
@@ -103,7 +103,7 @@ namespace TheXDS.MCART.Math
         /// <returns>
         ///     Un conjunto de coordenadas con la posición del punto solicitado.
         /// </returns>
-        public static Point GetArcPoint(double radius, double startAngle, double endAngle, double position)
+        public static Point GetArcPoint(in double radius, in double startAngle, in double endAngle, in double position)
         {
             var x = (startAngle - endAngle) * position * DegRad;
             return new Point(System.Math.Sin(x) * radius, System.Math.Cos(x) * radius);
@@ -118,7 +118,7 @@ namespace TheXDS.MCART.Math
         ///     Un conjunto de coordenadas con la posición del punto solicitado.
         /// </returns>
         [Thunk]
-        public static Point GetCirclePoint(double radius, double position)
+        public static Point GetCirclePoint(in double radius, in double position)
         {
             return GetArcPoint(radius, 0, 360, position);
         }

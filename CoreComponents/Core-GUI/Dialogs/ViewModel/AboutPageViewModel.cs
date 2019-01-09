@@ -23,21 +23,26 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using System.Windows;
 using TheXDS.MCART.Component;
 using TheXDS.MCART.Resources;
+using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
-using TheXDS.MCART.Types.Extensions;
+
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace TheXDS.MCART.Dialogs.ViewModel
 {
-    internal class AboutPageViewModel : NotifyPropertyChanged
+    internal class AboutPageViewModel : NotifyPropertyChanged, INameable, IDescriptible
     {
         private IExposeInfo _element;
+        private bool _showAboutMcart = true;
+        private bool _showPluginInfo;
 
+        public string Author => Element?.Author;
+        public bool ClsCompliant => Element?.ClsCompliant ?? false;
+        public string Copyright => Element?.Copyright;
+        public string Description => Element?.Description;
         public IExposeInfo Element
         {
             get => _element;
@@ -46,94 +51,45 @@ namespace TheXDS.MCART.Dialogs.ViewModel
                 if (Equals(value, _element)) return;
                 _element = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(Name));
+                OnPropertyChanged(nameof(Author));
+                OnPropertyChanged(nameof(ClsCompliant));
                 OnPropertyChanged(nameof(Copyright));
                 OnPropertyChanged(nameof(Description));
-                OnPropertyChanged(nameof(Author));
-                OnPropertyChanged(nameof(License));
-                OnPropertyChanged(nameof(Version));
                 OnPropertyChanged(nameof(HasLicense));
+                OnPropertyChanged(nameof(Icon));
                 OnPropertyChanged(nameof(IsMcart));
+                OnPropertyChanged(nameof(License));
+                OnPropertyChanged(nameof(Name));
+                OnPropertyChanged(nameof(ShowAboutMcart));
+                OnPropertyChanged(nameof(ShowPluginInfo));
+                OnPropertyChanged(nameof(Version));
             }
         }
-        public string Name => Element?.Name;
-        public string Copyright => Element?.Copyright;
-        public string Description => Element?.Description;
-        public string Author => Element?.Author;
-        public string License => Element?.License;
-        public Version Version => Element?.Version;
         public bool HasLicense => Element?.HasLicense ?? false;
-        public bool ClsCompliant => Element?.ClsCompliant ?? false;
         public UIElement Icon => Element?.Icon;
-
         public bool IsMcart => (Element as AssemblyDataExposer)?.Assembly == RTInfo.RTAssembly;
-    }
-
-    internal class TypeDetailsViewModel : NotifyPropertyChanged
-    {
-        private Type _type;
-        public static TypeDetailsViewModel Create => new TypeDetailsViewModel(typeof(System.Windows.Controls.UserControl));
-
-        public TypeDetailsViewModel()
+        public string License => Element?.License;
+        public string Name => Element?.Name;
+        public bool ShowAboutMcart
         {
-        }
-
-        public TypeDetailsViewModel(Type type)
-        {
-            Type = type;
-        }
-
-        public Type Type
-        {
-            get => _type;
+            get => _showAboutMcart && !IsMcart;
             set
             {
-                if (value == _type) return;
-                _type = value;
+                if (value == _showAboutMcart) return;
+                _showAboutMcart = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(Inheritances));
-                OnPropertyChanged(nameof(InheritancesVm));
-                OnPropertyChanged(nameof(BaseTypes));
-                OnPropertyChanged(nameof(MemberTree));
-                OnPropertyChanged(nameof(DefaultValue));
-                OnPropertyChanged(nameof(Instantiable));
-                OnPropertyChanged(nameof(IsStatic));
-                OnPropertyChanged(nameof(IsDynamic));
-                OnPropertyChanged(nameof(NewValue));
             }
         }
-
-        public bool IsDynamic => Type.Assembly.IsDynamic;
-
-        public bool IsStatic => Type.IsAbstract && Type.IsSealed;
-
-        public bool Instantiable => Type.IsInstantiable();
-
-        public IEnumerable<Type> Inheritances=> Type?.GetInterfaces();
-
-        public IEnumerable<TypeDetailsViewModel> InheritancesVm
-            => Inheritances?.Select(p => new TypeDetailsViewModel(p));
-
-        public IEnumerable<Type> BaseTypes
+        public bool ShowPluginInfo
         {
-            get
+            get => _showPluginInfo;
+            set
             {
-                var baseType=Type;
-                while (!(baseType is null))
-                {
-                    baseType = baseType.BaseType;
-                    yield return baseType;
-                }
+                if (value == _showPluginInfo) return;
+                _showPluginInfo = value;
+                OnPropertyChanged();
             }
         }
-
-        public IEnumerable<IGrouping<MemberTypes, MemberInfo>> MemberTree
-        {
-            get { return Type?.GetMembers().GroupBy(p => p.MemberType); }
-        }
-
-        public string DefaultValue => Type?.Default()?.ToString() ?? "null";
-
-        public object NewValue => Type.IsInstantiable() ? Type.New() : null;
+        public Version Version => Element?.Version;
     }
 }

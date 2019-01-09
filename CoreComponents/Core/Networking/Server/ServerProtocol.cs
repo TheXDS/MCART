@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright (c) 2011 - 2018 César Andrés Morgan
+Copyright (c) 2011 - 2019 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -58,7 +58,6 @@ namespace TheXDS.MCART.Networking.Server
         ///     Protocolo de desconexión del cliente.
         /// </summary>
         /// <param name="client">Cliente que será atendido.</param>
-        /// <param name="server">Servidor que atiende al cliente.</param>
         public virtual void ClientBye(Client client)
         {
         }
@@ -68,7 +67,6 @@ namespace TheXDS.MCART.Networking.Server
         ///     Protocolo de desconexión inesperada del cliente.
         /// </summary>
         /// <param name="client">Cliente que se ha desconectado.</param>
-        /// <param name="server">Servidor que atiendía al cliente.</param>
         public virtual void ClientDisconnect(Client client)
         {
         }
@@ -82,7 +80,6 @@ namespace TheXDS.MCART.Networking.Server
         ///     <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="client">Cliente que será atendido.</param>
-        /// <param name="server">Servidor que atiende al cliente.</param>
         public virtual bool ClientWelcome(Client client)
         {
             return true;
@@ -108,7 +105,7 @@ namespace TheXDS.MCART.Networking.Server
         protected Server Server => ((IServerProtocol)this).MyServer;
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IServerProtocol"/>
     /// <summary>
     ///     Esta clase abstracta determina una serie de funciones a heredar por
     ///     una clase que provea de protocolos a un servidor.

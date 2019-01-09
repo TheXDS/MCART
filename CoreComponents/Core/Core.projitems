@@ -165,6 +165,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\TimeSpanExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\TypeExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Converters\IntRangeConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\IDescriptible.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\INameable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\NamedObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Point.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Point3D.cs" />

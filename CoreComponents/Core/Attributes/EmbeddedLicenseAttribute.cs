@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright (c) 2011 - 2018 César Andrés Morgan
+Copyright (c) 2011 - 2019 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -58,13 +58,13 @@ namespace TheXDS.MCART.Attributes
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="EmbeddedLicenseAttribute" />.
         /// </summary>
-        /// <param name="resourcePath">
+        /// <param name="value">
         ///     Archivo incrustado de la licencia.
         /// </param>
         /// <param name="path">
         ///     Ruta del archivo embebido de licencia dentro del ensamblado.
         /// </param>
-        public EmbeddedLicenseAttribute(string resourcePath, string path) : this(resourcePath, path, typeof(NullGetter))
+        public EmbeddedLicenseAttribute(string value, string path) : this(value, path, typeof(NullGetter))
         {
         }
 
@@ -73,7 +73,7 @@ namespace TheXDS.MCART.Attributes
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="EmbeddedLicenseAttribute" />.
         /// </summary>
-        /// <param name="resourcePath">
+        /// <param name="value">
         ///     Archivo incrustado de la licencia.
         /// </param>
         /// <param name="path">
@@ -82,7 +82,7 @@ namespace TheXDS.MCART.Attributes
         /// <param name="compressorType">
         ///     Compressor utilizado para extraer el recurso incrustado.
         /// </param>
-        public EmbeddedLicenseAttribute(string resourcePath, string path, [NotNull] Type compressorType) : base(resourcePath)
+        public EmbeddedLicenseAttribute(string value, string path, [NotNull] Type compressorType) : base(value)
         {
             if (!compressorType.Implements<ICompressorGetter>()) throw new InvalidTypeException(compressorType);   
             Path = path;

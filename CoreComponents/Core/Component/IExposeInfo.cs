@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright (c) 2011 - 2018 César Andrés Morgan
+Copyright (c) 2011 - 2019 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -24,15 +24,17 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using TheXDS.MCART.Types;
 
 namespace TheXDS.MCART.Component
 {
+    /// <inheritdoc />
     /// <summary>
     ///     Define una serie de miembros a implementar para una clase que
     ///     exponga diversa información de identificación.
     /// </summary>
     [SuppressMessage("ReSharper", "PartialTypeWithSinglePart")]
-    public partial interface IExposeInfo
+    public partial interface IExposeInfo : INameable, IDescriptible
     {
         /// <summary>
         /// Devuelve el autor del <see cref="IExposeInfo"/>
@@ -45,19 +47,9 @@ namespace TheXDS.MCART.Component
         string Copyright { get; }
 
         /// <summary>
-        /// Devuelve una descripción del <see cref="IExposeInfo"/>
-        /// </summary>
-        string Description { get; }
-
-        /// <summary>
         /// Devuelve la licencia del <see cref="IExposeInfo"/>
         /// </summary>
         string License { get; }
-
-        /// <summary>
-        /// Devuelve el nombre del <see cref="IExposeInfo"/>
-        /// </summary>
-        string Name { get; }
 
         /// <summary>
         /// Devuelve la versión del <see cref="IExposeInfo"/>
