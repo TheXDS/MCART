@@ -106,6 +106,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Modules\UI.cs" />
+    <Compile Include="ViewModel\ObservingCommand.cs" />
     <Compile Include="ViewModel\SimpleCommand.cs" />
     <Compile Include="ViewModel\ValidationRules\InRange.cs" />
     <Compile Include="ViewModel\ValidationRules\IsNumber.cs" />

@@ -171,7 +171,25 @@ namespace TheXDS.MCART
             index = idx.AsEnumerable();
             return found;
         }
-        
+
+        /// <summary>
+        ///     Determina si alguna cadena está vacía.
+        /// </summary>
+        /// <returns>
+        ///     <see langword="true" /> si alguna cadena está vacía o es <see langword="null" />; de lo
+        ///     contrario, <see langword="false" />.
+        /// </returns>
+        /// <param name="stringArray">Cadenas a comprobar.</param>
+        /// <param name="firstIndex">
+        ///     Argumento de salida. Índice de la primera cadena vacía encontrada.
+        /// </param>
+        public static bool AnyEmpty(this IEnumerable<string> stringArray, out int firstIndex)
+        {
+            var r = AnyEmpty(stringArray, out IEnumerable<int> indexes);
+            firstIndex = indexes.FirstOrDefault();
+            return r;
+        }
+
         /// <summary>
         ///     Busca y obtiene un <see cref="TypeConverter" /> apropiado para
         ///     realizar la conversión entre <see cref="string" /> y el tipo

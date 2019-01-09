@@ -1,5 +1,5 @@
 ﻿/*
-PasswordDialogViewModel.cs
+SimpleCommand.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -27,6 +27,7 @@ using System.Windows;
 using System.Windows.Input;
 using TheXDS.MCART.Types.Base;
 
+// ReSharper disable UnusedAutoPropertyAccessor.Global
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedMember.Global
 

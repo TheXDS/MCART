@@ -143,6 +143,14 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public static string Includes(string text) => $"Incluye {text}";
         /// <summary>
+        /// Devuelve una cadena con el texto "El parámetro {<paramref name="text"/>} no es válido.".
+        /// </summary>
+        /// <param name="text">Texto a formatear.</param>
+        /// <returns>
+        /// Una cadena con el texto "El parámetro {<paramref name="text"/>} no es válido.".
+        /// </returns>
+        public static string InvalidParameterX(string text) => $"El parámetro {text} es inválido.";
+        /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} no es
         /// una clase de Plugin válida.".
         /// </summary>
