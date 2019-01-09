@@ -217,4 +217,4 @@
 * Nuevo: Múltiples funciones de extensión para cadenas, enumeraciones, tareas y tipos.
 * Mejorado: Sistema de generación de contraseñas parcialmente rescrito.
 * Mejorado: Rescritura parcial de la clase ```ClientBase```.
-* Corregido: Problemas de confiabilidad del protocolo ```LightChat```
+* Corregido: Problemas de confiabilidad del protocolo ```LightChat```.

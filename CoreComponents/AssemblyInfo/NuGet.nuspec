@@ -6,11 +6,18 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <licenseUrl>https://www.gnu.org/licenses/gpl-3.0.html</licenseUrl>
+    <license type="expression">GPL-3.0-or-later</license>
     <projectUrl>https://thexds.github.io/MCART</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/TheXDS/MCART/master/CoreComponents/Core-GUI/Resources/Icons/MCART.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
+    <summary>
+      MCART es un conjunto de funciones, extensiones y módulos que he encontrado
+      útiles a lo largo de mis años de experiencia con lenguajes .Net,
+      particularmente con Visual Basic. Trata de añadir características que no se
+      encuentran fácilmente disponibles en .Net Framework, y además añade controles,
+      ventanas, recursos y otros objetos de utilidad.
+    </summary>
     <releaseNotes>
       Este paquete es una versión Pre-Release de MCART, por lo que se
       recomienda que su uso se limite a pruebas y demostraciones de la API, ya
@@ -19,5 +26,6 @@
     </releaseNotes>
     <copyright>$copyright$</copyright>
     <tags>mcart runtime extension helper async network security</tags>
+    <repository type="git" url="https://github.com/TheXDS/MCART"/>
   </metadata>
 </package>

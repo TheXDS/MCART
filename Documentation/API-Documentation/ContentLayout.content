@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Topics>
-  <Topic id="acf56513-1ec9-4330-9ee9-5cbe6f288196" visible="True" isDefault="true" isSelected="true" title="Bienvenido a la documentación de API de MCART">
+  <Topic id="acf56513-1ec9-4330-9ee9-5cbe6f288196" visible="True" isDefault="true" title="Bienvenido a la documentación de API de MCART">
     <HelpKeywords>
       <HelpKeyword index="K" term="Welcome" />
     </HelpKeywords>
@@ -22,6 +22,11 @@
     <Topic id="a67e661d-af1b-43e4-973c-b4ed687f9ff4" visible="True" title="MCART 0.8 Series">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.8" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="85493125-4169-4dbb-aab3-c5fb293e44ad" visible="True" isSelected="true" title="MCART 0.9 Series">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 0.9" />
       </HelpKeywords>
     </Topic>
   </Topic>
