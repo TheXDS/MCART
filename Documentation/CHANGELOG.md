@@ -1,4 +1,4 @@
-﻿## Nürburgring 0.1.11.5
+## Nürburgring 0.1.11.5
 - Versión inicial
 
 ## Nürburgring 0.2.0.10
@@ -198,3 +198,23 @@
 * Nuevo: Diálogo ```AboutBox```
 * Nuevo: Página ```AboutPage```
 * Mejorado: Los diálogos utilizarán en la medida de lo posible la arquitectura *ViewModel*
+
+## MCART 0.9 Series
+### HightLights
+- MCART está cambiando sus implementaciones para cumplir al 100% con la especificación CLS.
+- MCART está mudando sus implementaciones de UI al esquema MVVM.
+- Algunas características planeadas para MCART han sido reconsideradas y nuevos proyectos hermanos han sido creados para acomodarlas.
+- Se han reorganizado grandes bloques monolíticos de tipos en archivos independientes más manejables.
+- Se están optimizando las firmas de funciones para acelerar el desempeño de MCART bajo la iniciativa *Performante*
+### Cambios
+* Nuevo: Implementaciones MVVM para cuadros de diálogo y páginas.
+* Nuevo: ```AssemblyDataExposer```.
+* Nuevo: Nuevos convertidores de tipo.
+* Nuevo: Clase estática especial para funciones internas.
+* Nuevo: Clases y estructuras básicas para crear aplicaciones bajo el esquema MVVM.
+* Nuevo: Página para detalles de Plugin.
+* Nuevo: Página para detalles de Tipos.
+* Nuevo: Múltiples funciones de extensión para cadenas, enumeraciones, tareas y tipos.
+* Mejorado: Sistema de generación de contraseñas parcialmente rescrito.
+* Mejorado: Rescritura parcial de la clase ```ClientBase```.
+* Corregido: Problemas de confiabilidad del protocolo ```LightChat```.

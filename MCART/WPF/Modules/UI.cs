@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author:
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright (c) 2011 - 2018 César Andrés Morgan
+Copyright (c) 2011 - 2019 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -443,6 +443,16 @@ namespace TheXDS.MCART
         [DllImport("dwmapi.dll")]
         private static extern int DwmExtendFrameIntoClientArea(IntPtr hWnd, ref Margins pMargins);
 
+        /// <summary>
+        ///     Establece un valor de marco interno para el recuadro de una
+        ///     ventana de WPF.
+        /// </summary>
+        /// <param name="window">
+        ///     Instancia de ventana para la cual configurar el marco interno.
+        /// </param>
+        /// <param name="padding">
+        ///     Grosor de los márgenes del marco interno de la ventana.
+        /// </param>
         public static void SetFramePadding(this Window window, Thickness padding)
         {
             window.Padding = padding;

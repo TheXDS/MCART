@@ -65,13 +65,15 @@
                 When applied to a target attribute, specifies a requirement for any type marked
                 with the target attribute to implement or inherit specific type or types.
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" alt="Clase pública" title="Clase pública" /><img src="../icons/CodeExample.png" alt="Código de ejemplo" title="Código de ejemplo" /></td><td><a href="T_TheXDS_MCART_Annotations_CanBeNullAttribute.htm">CanBeNullAttribute</a></td><td><div class="summary">
-                Indicates that the value of the marked element could be <span class="code">null</span> sometimes,
-                so the check for <span class="code">null</span> is necessary before its usage.
+                Indica que el valor del elemento marcado podría ser 
+                <span class="keyword"><span id="LSTB10C9B80_0"></span><script type="text/javascript">AddLanguageSpecificTextSet("LSTB10C9B80_0?vb=Nothing|cpp=nullptr|nu=null");</script></span> algunas veces, por lo que es necesario
+                comprobar si el valor es <span class="keyword"><span id="LSTB10C9B80_1"></span><script type="text/javascript">AddLanguageSpecificTextSet("LSTB10C9B80_1?vb=Nothing|cpp=nullptr|nu=null");</script></span> antes de
+                utilizarlo.
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" alt="Clase pública" title="Clase pública" /><img src="../icons/CodeExample.png" alt="Código de ejemplo" title="Código de ejemplo" /></td><td><a href="T_TheXDS_MCART_Annotations_CannotApplyEqualityOperatorAttribute.htm">CannotApplyEqualityOperatorAttribute</a></td><td><div class="summary">
                 Indicates that the value of the marked type (or its derivatives)
                 cannot be compared using '==' or '!=' operators and <span class="code">Equals()</span>
                 should be used instead. However, using '==' or '!=' for comparison
-                with <span class="code">null</span> is always permitted.
+                with <span class="keyword"><span id="LSTB10C9B80_2"></span><script type="text/javascript">AddLanguageSpecificTextSet("LSTB10C9B80_2?vb=Nothing|cpp=nullptr|nu=null");</script></span> is always permitted.
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" alt="Clase pública" title="Clase pública" /></td><td><a href="T_TheXDS_MCART_Annotations_CollectionAccessAttribute.htm">CollectionAccessAttribute</a></td><td><div class="summary">
                 Indicates how method, constructor invocation or property access
                 over collection type affects content of the collection.
@@ -116,7 +118,8 @@
                 <span class="code">System.ComponentModel.INotifyPropertyChanged</span> interface and this method
                 is used to notify that some property value changed.
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" alt="Clase pública" title="Clase pública" /><img src="../icons/CodeExample.png" alt="Código de ejemplo" title="Código de ejemplo" /></td><td><a href="T_TheXDS_MCART_Annotations_NotNullAttribute.htm">NotNullAttribute</a></td><td><div class="summary">
-                Indicates that the value of the marked element could never be <span class="code">null</span>.
+                Indica que el valor del elemento marcado nunca puede ser
+                <span class="keyword"><span id="LSTB10C9B80_3"></span><script type="text/javascript">AddLanguageSpecificTextSet("LSTB10C9B80_3?vb=Nothing|cpp=nullptr|nu=null");</script></span>.
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" alt="Clase pública" title="Clase pública" /></td><td><a href="T_TheXDS_MCART_Annotations_PathReferenceAttribute.htm">PathReferenceAttribute</a></td><td><div class="summary">
                 Indicates that a parameter is a path to a file or a folder within a web project.
                 Path can be relative or absolute, starting from web root (~).
@@ -141,9 +144,12 @@
                 as a 'Source Template'. When extension method is completed over some expression, it's source code
                 is automatically expanded like a template at call site.
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" alt="Clase pública" title="Clase pública" /><img src="../icons/CodeExample.png" alt="Código de ejemplo" title="Código de ejemplo" /></td><td><a href="T_TheXDS_MCART_Annotations_StringFormatMethodAttribute.htm">StringFormatMethodAttribute</a></td><td><div class="summary">
-                Indicates that the marked method builds string by format pattern and (optional) arguments.
-                Parameter, which contains format string, should be given in constructor. The format string
-                should be in <a href="http://msdn2.microsoft.com/es-es/library/1ksz8yb7" target="_top">Format(IFormatProvider, String, <span id="LSTB10C9B80_0"></span><script type="text/javascript">AddLanguageSpecificTextSet("LSTB10C9B80_0?cpp=array&lt;");</script>Object<span id="LSTB10C9B80_1"></span><script type="text/javascript">AddLanguageSpecificTextSet("LSTB10C9B80_1?cpp=&gt;|cs=[]|vb=()|nu=[]|fs=[]");</script>)</a>-like form.
+                Indica que el método marcado construye cadenas por medio del patrón
+                de formateo junto con argumentos opcionales.
+                El nombre del parámetro que contiene el formato de cadena deberá
+                ser pasado en el constructor. La cadena de formato debe estar en
+                un formato como el de
+                <a href="http://msdn2.microsoft.com/es-es/library/1ksz8yb7" target="_top">Format(IFormatProvider, String, <span id="LSTB10C9B80_4"></span><script type="text/javascript">AddLanguageSpecificTextSet("LSTB10C9B80_4?cpp=array&lt;");</script>Object<span id="LSTB10C9B80_5"></span><script type="text/javascript">AddLanguageSpecificTextSet("LSTB10C9B80_5?cpp=&gt;|cs=[]|vb=()|nu=[]|fs=[]");</script>)</a>.
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" alt="Clase pública" title="Clase pública" /></td><td><a href="T_TheXDS_MCART_Annotations_TerminatesProgramAttribute.htm">TerminatesProgramAttribute</a></td><td> <strong>Obsoleto. </strong><div class="summary">
                 Indicates that the marked method unconditionally terminates control flow execution.
                 For example, it could unconditionally throw exception.

@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright (c) 2011 - 2018 César Andrés Morgan
+Copyright (c) 2011 - 2019 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -33,7 +33,7 @@ namespace TheXDS.MCART.Types
     ///     Estructura que permite asignarle una etiqueta a cualquier objeto.
     /// </summary>
     /// <typeparam name="T">Tipo de objeto.</typeparam>
-    public struct NamedObject<T>
+    public struct NamedObject<T> : INameable
     {
         /// <summary>
         ///     Valor del objeto.
@@ -43,7 +43,7 @@ namespace TheXDS.MCART.Types
         /// <summary>
         ///     Etiqueta del objeto.
         /// </summary>
-        public string Label { get; }
+        public string Name { get; }
 
         /// <inheritdoc />
         /// <summary>
@@ -61,11 +61,11 @@ namespace TheXDS.MCART.Types
         ///     etiqueta para el mismo.
         /// </summary>
         /// <param name="value">Objeto a etiquetar.</param>
-        /// <param name="label">Etiqueta del objeto.</param>
-        public NamedObject(T value, string label)
+        /// <param name="name">Etiqueta del objeto.</param>
+        public NamedObject(T value, string name)
         {
             Value = value;
-            Label = label;
+            Name = name;
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace TheXDS.MCART.Types
         /// <param name="namedObj">Objeto a convertir.</param>
         public static implicit operator string(NamedObject<T> namedObj)
         {
-            return namedObj.Label;
+            return namedObj.Name;
         }
 
         /// <summary>

@@ -13,7 +13,7 @@ para ser llamadas únicamente es necesario importar el espacio de nombres
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright (c) 2011 - 2018 César Andrés Morgan
+Copyright (c) 2011 - 2019 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -38,6 +38,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
+using TheXDS.MCART.Annotations;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Types;
@@ -170,7 +171,25 @@ namespace TheXDS.MCART
             index = idx.AsEnumerable();
             return found;
         }
-        
+
+        /// <summary>
+        ///     Determina si alguna cadena está vacía.
+        /// </summary>
+        /// <returns>
+        ///     <see langword="true" /> si alguna cadena está vacía o es <see langword="null" />; de lo
+        ///     contrario, <see langword="false" />.
+        /// </returns>
+        /// <param name="stringArray">Cadenas a comprobar.</param>
+        /// <param name="firstIndex">
+        ///     Argumento de salida. Índice de la primera cadena vacía encontrada.
+        /// </param>
+        public static bool AnyEmpty(this IEnumerable<string> stringArray, out int firstIndex)
+        {
+            var r = AnyEmpty(stringArray, out IEnumerable<int> indexes);
+            firstIndex = indexes.FirstOrDefault();
+            return r;
+        }
+
         /// <summary>
         ///     Busca y obtiene un <see cref="TypeConverter" /> apropiado para
         ///     realizar la conversión entre <see cref="string" /> y el tipo
@@ -236,7 +255,8 @@ namespace TheXDS.MCART
         {
             try
             {
-                return Objects.PublicTypes<TypeConverter>().Where(TypeExtensions.IsInstantiable)
+                return Objects.PublicTypes<TypeConverter>()
+                    .Where(TypeExtensions.IsInstantiable)
                     .Select(j => j.New<TypeConverter>(false))
                     .FirstOrDefault(t => !(t is null) && t.CanConvertFrom(source) && t.CanConvertTo(target));
             }
@@ -248,7 +268,7 @@ namespace TheXDS.MCART
         /// </summary>
         /// <param name="value"></param>
         /// <returns>Un <see cref="short" /> cuyo Endianess ha sido invertido.</returns>
-        public static short FlipEndianess(this short value)
+        public static short FlipEndianess(this in short value)
         {
             return BitConverter.ToInt16(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
         }
@@ -258,7 +278,7 @@ namespace TheXDS.MCART
         /// </summary>
         /// <param name="value"></param>
         /// <returns>Un <see cref="int" /> cuyo Endianess ha sido invertido.</returns>
-        public static int FlipEndianess(this int value)
+        public static int FlipEndianess(this in int value)
         {
             return BitConverter.ToInt32(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
         }
@@ -268,7 +288,7 @@ namespace TheXDS.MCART
         /// </summary>
         /// <param name="value"></param>
         /// <returns>Un <see cref="long" /> cuyo Endianess ha sido invertido.</returns>
-        public static long FlipEndianess(this long value)
+        public static long FlipEndianess(this in long value)
         {
             return BitConverter.ToInt64(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
         }
@@ -278,7 +298,7 @@ namespace TheXDS.MCART
         /// </summary>
         /// <param name="value"></param>
         /// <returns>Un <see cref="char" /> cuyo Endianess ha sido invertido.</returns>
-        public static char FlipEndianess(this char value)
+        public static char FlipEndianess(this in char value)
         {
             return BitConverter.ToChar(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
         }
@@ -288,7 +308,7 @@ namespace TheXDS.MCART
         /// </summary>
         /// <param name="value"></param>
         /// <returns>Un <see cref="float" /> cuyo Endianess ha sido invertido.</returns>
-        public static float FlipEndianess(this float value)
+        public static float FlipEndianess(this in float value)
         {
             return BitConverter.ToSingle(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
         }
@@ -298,7 +318,7 @@ namespace TheXDS.MCART
         /// </summary>
         /// <param name="value"></param>
         /// <returns>Un <see cref="double" /> cuyo Endianess ha sido invertido.</returns>
-        public static double FlipEndianess(this double value)
+        public static double FlipEndianess(this in double value)
         {
             return BitConverter.ToDouble(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
         }
@@ -331,7 +351,7 @@ namespace TheXDS.MCART
         /// <param name="max">Máximo del rango de valores.</param>
         /// <param name="inclusive">Inclusividad. de forma predeterminada, la comprobación es inclusive.</param>
         /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
-        public static bool IsBetween<T>(this T value, T min, T max, bool inclusive) where T : IComparable<T>
+        public static bool IsBetween<T>(this T value, T min, T max, in bool inclusive) where T : IComparable<T>
         {
             return IsBetween(value, min, max, inclusive, inclusive);
         }
@@ -349,7 +369,7 @@ namespace TheXDS.MCART
         /// <param name="minInclusive">Inclusividad del valor mínimo. de forma predeterminada, la comprobación es inclusive.</param>
         /// <param name="maxInclusive">Inclusividad del valor máximo. de forma predeterminada, la comprobación es inclusive.</param>
         /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
-        public static bool IsBetween<T>(this T value, T min, T max, bool minInclusive, bool maxInclusive) where T : IComparable<T>
+        public static bool IsBetween<T>(this T value, T min, T max, in bool minInclusive, in bool maxInclusive) where T : IComparable<T>
         {
             return (minInclusive ? value.CompareTo(min) >= 0 : value.CompareTo(min) > 0) 
                 && (maxInclusive ? value.CompareTo(max) <= 0 : value.CompareTo(max) < 0);
@@ -365,9 +385,78 @@ namespace TheXDS.MCART
         ///     <see langword="true" /> si el valor se encuentra entre los
         ///     especificados; de lo contrario, <see langword="false" />.
         /// </returns>
-        public static bool IsBetween<T>(this T value, Range<T> range) where T : IComparable<T>
+        public static bool IsBetween<T>(this T value, in Range<T> range) where T : IComparable<T>
         {
             return range.IsWithin(value);
+        }
+
+        /// <summary>
+        ///     Comprueba que el valor se encuentre en el rango especificado.
+        /// </summary>
+        /// <returns>
+        ///     <see langword="true" /> si el valor se encuentra entre los
+        ///     especificados; de lo contrario, <see langword="false" />.
+        /// </returns>
+        /// <param name="value">Valor a comprobar.</param>
+        /// <param name="min">Mínimo del rango de valores, inclusive.</param>
+        /// <param name="max">Máximo del rango de valores, inclusive.</param>
+        /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
+        public static bool IsBetween<T>([CanBeNull] this T? value, in T min, in T max) where T : struct, IComparable<T>
+        {
+            return value.IsBetween(min, max, true, true);
+        }
+
+        /// <summary>
+        ///     Comprueba que el valor se encuentre en el rango especificado.
+        /// </summary>
+        /// <returns>
+        ///     <see langword="true" /> si el valor se encuentra entre los
+        ///     especificados; de lo contrario, <see langword="false" />.
+        /// </returns>
+        /// <param name="value">Valor a comprobar.</param>
+        /// <param name="min">Mínimo del rango de valores.</param>
+        /// <param name="max">Máximo del rango de valores.</param>
+        /// <param name="inclusive">Inclusividad. de forma predeterminada, la comprobación es inclusive.</param>
+        /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
+        public static bool IsBetween<T>([CanBeNull] this T? value, in T min, in T max, in bool inclusive) where T : struct, IComparable<T>
+        {
+            return IsBetween(value, min, max, inclusive, inclusive);
+        }
+
+        /// <summary>
+        ///     Comprueba que el valor se encuentre en el rango especificado.
+        /// </summary>
+        /// <returns>
+        ///     <see langword="true" /> si el valor se encuentra entre los
+        ///     especificados; de lo contrario, <see langword="false" />.
+        /// </returns>
+        /// <param name="value">Valor a comprobar.</param>
+        /// <param name="min">Mínimo del rango de valores.</param>
+        /// <param name="max">Máximo del rango de valores.</param>
+        /// <param name="minInclusive">Inclusividad del valor mínimo. de forma predeterminada, la comprobación es inclusive.</param>
+        /// <param name="maxInclusive">Inclusividad del valor máximo. de forma predeterminada, la comprobación es inclusive.</param>
+        /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
+        public static bool IsBetween<T>([CanBeNull] this T? value, in T min, in T max, in bool minInclusive, in bool maxInclusive) where T : struct, IComparable<T>
+        {
+            if (!value.HasValue) return false;
+            var v = value.Value;
+            return (minInclusive ? v.CompareTo(min) >= 0 : v.CompareTo(min) > 0)
+                   && (maxInclusive ? v.CompareTo(max) <= 0 : v.CompareTo(max) < 0);
+        }
+
+        /// <summary>
+        ///     Comprueba que el valor se encuentre en el rango especificado.
+        /// </summary>
+        /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
+        /// <param name="value">Valor a comprobar.</param>
+        /// <param name="range">Rango de valores inclusivos a comprobar.</param>
+        /// <returns>
+        ///     <see langword="true" /> si el valor se encuentra entre los
+        ///     especificados; de lo contrario, <see langword="false" />.
+        /// </returns>
+        public static bool IsBetween<T>([CanBeNull] this T? value, in Range<T> range) where T : struct, IComparable<T>
+        {
+            return value.HasValue && range.IsWithin(value.Value);
         }
 
         /// <summary>
@@ -400,7 +489,7 @@ namespace TheXDS.MCART
         /// </returns>
         /// <param name="top">Valor más alto.</param>
         [Thunk]
-        public static IEnumerable<int> Sequence(int top)
+        public static IEnumerable<int> Sequence(in int top)
         {
             return Sequence(0, top, 1);
         }
@@ -414,7 +503,7 @@ namespace TheXDS.MCART
         /// <param name="floor">Valor más bajo.</param>
         /// <param name="top">Valor más alto.</param>
         [Thunk]
-        public static IEnumerable<int> Sequence(int floor, int top)
+        public static IEnumerable<int> Sequence(in int floor, in int top)
         {
             return Sequence(floor, top, 1);
         }
@@ -434,8 +523,7 @@ namespace TheXDS.MCART
             for (var b = floor; stepping > 0 ? b <= top : b >= top; b += stepping)
                 yield return b;
         }
-
-
+        
         /// <summary>
         ///     Intercambia el valor de los objetos especificados.
         /// </summary>
@@ -474,7 +562,7 @@ namespace TheXDS.MCART
         /// </returns>
         /// <param name="byte">El <see cref="byte" /> a convertir.</param>
         [Thunk]
-        public static string ToHex(this byte @byte)
+        public static string ToHex(this in byte @byte)
         {
             return @byte.ToString("X");
         }
@@ -510,7 +598,7 @@ namespace TheXDS.MCART
         ///     dentro de la colección.
         /// </param>
         [Thunk]
-        public static IEnumerable<float> ToPercent(this IEnumerable<float> collection, bool baseZero)
+        public static IEnumerable<float> ToPercent(this IEnumerable<float> collection, in bool baseZero)
         {
             var enumerable = collection.ToList();
             return ToPercent(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
@@ -527,7 +615,7 @@ namespace TheXDS.MCART
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="max">Valor que representará 100%.</param>
         [Thunk]
-        public static IEnumerable<float> ToPercent(this IEnumerable<float> collection, float max)
+        public static IEnumerable<float> ToPercent(this IEnumerable<float> collection, in float max)
         {
             return ToPercent(collection, 0, max);
         }
@@ -589,7 +677,7 @@ namespace TheXDS.MCART
         ///     dentro de la colección.
         /// </param>
         [Thunk]
-        public static IEnumerable<double> ToPercent(this IEnumerable<double> collection, bool baseZero)
+        public static IEnumerable<double> ToPercent(this IEnumerable<double> collection, in bool baseZero)
         {
             var enumerable = collection.ToList();
             return ToPercent(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
@@ -606,7 +694,7 @@ namespace TheXDS.MCART
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="max">Valor que representará 100%.</param>
         [Thunk]
-        public static IEnumerable<double> ToPercent(this IEnumerable<double> collection, double max)
+        public static IEnumerable<double> ToPercent(this IEnumerable<double> collection, in double max)
         {
             return ToPercent(collection, 0, max);
         }
@@ -668,7 +756,7 @@ namespace TheXDS.MCART
         ///     dentro de la colección.
         /// </param>
         [Thunk]
-        public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, bool baseZero)
+        public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, in bool baseZero)
         {
             var enumerable = collection.ToList();
             return ToPercentDouble(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
@@ -685,7 +773,7 @@ namespace TheXDS.MCART
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="max">Valor que representará 100%.</param>
         [Thunk]
-        public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, int max)
+        public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, in int max)
         {
             return ToPercentDouble(collection, 0, max);
         }
@@ -738,7 +826,7 @@ namespace TheXDS.MCART
         ///     dentro de la colección.
         /// </param>
         [Thunk]
-        public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, bool baseZero)
+        public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, in bool baseZero)
         {
             var enumerable = collection.ToList();
             return ToPercentSingle(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
@@ -755,7 +843,7 @@ namespace TheXDS.MCART
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="max">Valor que representará 100%.</param>
         [Thunk]
-        public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, int max)
+        public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, in int max)
         {
             return ToPercentSingle(collection, 0, max);
         }
@@ -776,6 +864,7 @@ namespace TheXDS.MCART
             if (min == max) throw new InvalidOperationException();
             foreach (var j in collection) yield return (j - min) / (float) (max - min);
         }
+
         /// <summary>
         /// Convierte un valor <see cref="long"/> que representa una cuenta de
         /// bytes en la unidad de magnitud más fácil de leer.
@@ -786,7 +875,7 @@ namespace TheXDS.MCART
         /// Una cadena con la cantidad de bytes utilizando la unidad de
         /// magnitud adecuada.
         /// </returns>
-        public static string ByteUnits(long bytes, ByteUnitType unit)
+        public static string ByteUnits(long bytes, in ByteUnitType unit)
         {
             var c = 0;
             var f = 0.0f;
@@ -813,7 +902,7 @@ namespace TheXDS.MCART
 #endif
             }
             
-            while (bytes > mag-1)
+            while (bytes > mag - 1)
             {
                 c++;
                 f = (int)(bytes % mag);
@@ -823,6 +912,7 @@ namespace TheXDS.MCART
 
             return c > 0 ? $"{bytes + f:F1} {u[c.Clamp(7)-1]}" : $"{bytes} {St2.Bytes}";
         }
+
         /// <summary>
         /// Convierte un valor <see cref="long"/> que representa una cuenta de
         /// bytes en la unidad de magnitud más fácil de leer.
@@ -832,7 +922,7 @@ namespace TheXDS.MCART
         /// Una cadena con la cantidad de bytes utilizando la unidad de
         /// magnitud adecuada.
         /// </returns>
-        public static string ByteUnits(this long bytes)
+        public static string ByteUnits(in this long bytes)
         {
             return ByteUnits(bytes, ByteUnitType.Binary);
         }
@@ -971,7 +1061,6 @@ namespace TheXDS.MCART
                 Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
             }
         }
-
 #pragma warning restore XS0001
     }
 }

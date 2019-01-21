@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright (c) 2011 - 2018 César Andrés Morgan
+Copyright (c) 2011 - 2019 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -26,6 +26,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using TheXDS.MCART.Annotations;
+using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Misc;
 
 namespace TheXDS.MCART.Component
@@ -58,25 +59,25 @@ namespace TheXDS.MCART.Component
         /// <summary>
         /// Devuelve el nombre del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// </summary>
-        public string Name => Assembly.GetAttr<AssemblyTitleAttribute>()?.Title;
+        public string Name => Assembly.GetAttr<AssemblyTitleAttribute>()?.Title ?? Assembly.GetAttr<NameAttribute>()?.Value;
 
         /// <inheritdoc />
         /// <summary>
         /// Devuelve el Copyright del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// </summary>
-        public string Copyright => Assembly.GetAttr<AssemblyCopyrightAttribute>()?.Copyright;
+        public string Copyright => Assembly.GetAttr<AssemblyCopyrightAttribute>()?.Copyright ?? Assembly.GetAttr<CopyrightAttribute>()?.Value;
 
         /// <inheritdoc />
         /// <summary>
         /// Devuelve una descripción del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// </summary>
-        public string Description => Assembly.GetAttr<AssemblyDescriptionAttribute>()?.Description;
+        public string Description => Assembly.GetAttr<AssemblyDescriptionAttribute>()?.Description ?? Assembly.GetAttr<DescriptionAttribute>()?.Value;
 
         /// <inheritdoc />
         /// <summary>
         /// Devuelve el autor del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// </summary>
-        public string Author => Assembly.GetAttr<AssemblyCompanyAttribute>()?.Company;
+        public string Author => Assembly.GetAttr<AssemblyCompanyAttribute>()?.Company ?? Assembly.GetAttr<AuthorAttribute>()?.Value;
 
         /// <summary>
         /// Devuelve la marca comercial del <see cref="Assembly" />

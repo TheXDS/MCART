@@ -9,10 +9,12 @@
     <Import_RootNamespace>Examples</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Annotations\Annotations.vb" />
     <None Include="$(MSBuildThisFileDirectory)Networking\Client\SelfWiredCommandClient.vb" />
     <None Include="$(MSBuildThisFileDirectory)PluginSupport\Plugin.vb" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Annotations\Annotations.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\SelfWiredCommandClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PluginSupport\Plugin.cs" />
   </ItemGroup>

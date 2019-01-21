@@ -52,6 +52,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Events\ProgressionEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\ValueChangingEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\ValueEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\InvalidArgumentException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Math\Common.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Math\Geometry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Math\Algebra.cs" />
@@ -165,6 +166,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\TimeSpanExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\TypeExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Converters\IntRangeConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\IDescriptible.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\INameable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\NamedObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Point.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Point3D.cs" />
@@ -186,7 +189,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Networking\Reporters\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Exceptions\" />
     <Folder Include="$(MSBuildThisFileDirectory)Annotations\" />
   </ItemGroup>
   <ItemGroup>

@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright (c) 2011 - 2018 César Andrés Morgan
+Copyright (c) 2011 - 2019 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -46,11 +46,9 @@ namespace TheXDS.MCART.Dialogs
 
             Vm.PropertyChanged += (sender, e) =>
             {
-                if (e.PropertyName == nameof(PasswordDialogViewModel.GeneratedPassword))
-                {
-                    TxtPassword.Password = Vm.GeneratedPassword;
-                    TxtConfirm.Password = Vm.GeneratedPassword;
-                }
+                if (e.PropertyName != nameof(PasswordDialogViewModel.GeneratedPassword)) return;
+                TxtPassword.Password = Vm.GeneratedPassword;
+                TxtConfirm.Password = Vm.GeneratedPassword;
             };
         }
 
@@ -898,7 +896,7 @@ namespace TheXDS.MCART.Dialogs
 
         private void BtnReGen_OnClick(object sender, RoutedEventArgs e)
         {
-            Vm.Generate();
+            Vm.OnGenerate();
         }
 
         private void BtnToClipboard_OnClick(object sender, RoutedEventArgs e)

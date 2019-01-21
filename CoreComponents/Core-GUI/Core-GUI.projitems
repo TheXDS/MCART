@@ -24,6 +24,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\ViewModel\PasswordDialogMode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\ViewModel\PasswordDialogViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\ViewModel\PluginBrowserViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Dialogs\ViewModel\TypeDetailsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\UI.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Icons.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\InternalStrings.cs" />

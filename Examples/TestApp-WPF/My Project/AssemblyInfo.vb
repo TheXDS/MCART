@@ -6,7 +6,7 @@
 '  Author:
 '       César Andrés Morgan <xds_xps_ivx@hotmail.com>
 '
-'  Copyright (c) 2011 - 2018 César Andrés Morgan
+'  Copyright (c) 2011 - 2019 César Andrés Morgan
 '
 '  Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it And/Or modify
 '  it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("Aplicación de pruebas de MCART")>
 <Assembly: AssemblyCompany("TheXDS! non-Corp.")>
 <Assembly: AssemblyProduct("Morgan's CLR Advanced Runtime")>
-<Assembly: AssemblyCopyright("Copyright © 2011-2018 TheXDS! non-Corp.")>
+<Assembly: AssemblyCopyright("Copyright © 2011 - 2019 César Andrés Morgan")>
 <Assembly: ComVisible(False)>
 <Assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)>
 <Assembly: AssemblyVersion("1.0.*")>

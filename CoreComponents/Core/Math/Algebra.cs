@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright (c) 2011 - 2018 César Andrés Morgan
+Copyright (c) 2011 - 2019 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -52,7 +52,7 @@ namespace TheXDS.MCART.Math
         ///     <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="number">Número a comprobar.</param>
-        public static bool IsPrime(this long number)
+        public static bool IsPrime(this in long number)
         {
             var s = number / 2;
             for (long j = 3; j < s; j += 2)
@@ -69,41 +69,11 @@ namespace TheXDS.MCART.Math
         /// </returns>
         /// <param name="number">Número a comprobar.</param>
         [Thunk]
-        public static bool IsPrime(this int number)
+        public static bool IsPrime(this in int number)
         {
             return ((long) number).IsPrime();
         }
 #if !CLSCompliance
-/// <summary>
-/// Comprueba si un número es primo.
-/// </summary>
-/// <returns>
-/// <see langword="true"/>si el número es primo, <see langword="false"/> en caso contrario.
-/// </returns>
-/// <param name="number">Número a comprobar.</param>
-        [Thunk] public static bool IsPrime(this uint number) => ((long)number).IsPrime();
-#endif
-        /// <summary>
-        ///     Comprueba si un número es primo.
-        /// </summary>
-        /// <returns>
-        ///     <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
-        /// </returns>
-        /// <param name="number">Número a comprobar.</param>
-        [Thunk]
-        public static bool IsPrime(this short number)
-        {
-            return ((long) number).IsPrime();
-        }
-#if !CLSCompliance
-/// <summary>
-/// Comprueba si un número es primo.
-/// </summary>
-/// <returns>
-/// <see langword="true"/>si el número es primo, <see langword="false"/> en caso contrario.
-/// </returns>
-/// <param name="number">Número a comprobar.</param>
-        [Thunk] public static bool IsPrime(this ushort number) => ((long)number).IsPrime();
         /// <summary>
         /// Comprueba si un número es primo.
         /// </summary>
@@ -111,7 +81,7 @@ namespace TheXDS.MCART.Math
         /// <see langword="true"/>si el número es primo, <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="number">Número a comprobar.</param>
-        [Thunk] public static bool IsPrime(this sbyte number) => ((long)number).IsPrime();
+        [Thunk] public static bool IsPrime(this in uint number) => ((long)number).IsPrime();
 #endif
         /// <summary>
         ///     Comprueba si un número es primo.
@@ -121,7 +91,38 @@ namespace TheXDS.MCART.Math
         /// </returns>
         /// <param name="number">Número a comprobar.</param>
         [Thunk]
-        public static bool IsPrime(this byte number)
+        public static bool IsPrime(this in short number)
+        {
+            return ((long) number).IsPrime();
+        }
+#if !CLSCompliance
+        /// <summary>
+        /// Comprueba si un número es primo.
+        /// </summary>
+        /// <returns>
+        /// <see langword="true"/>si el número es primo, <see langword="false"/> en caso contrario.
+        /// </returns>
+        /// <param name="number">Número a comprobar.</param>
+        
+        [Thunk] public static bool IsPrime(this in ushort number) => ((long)number).IsPrime();
+        /// <summary>
+        /// Comprueba si un número es primo.
+        /// </summary>
+        /// <returns>
+        /// <see langword="true"/>si el número es primo, <see langword="false"/> en caso contrario.
+        /// </returns>
+        /// <param name="number">Número a comprobar.</param>
+        [Thunk] public static bool IsPrime(this in sbyte number) => ((long)number).IsPrime();
+#endif
+        /// <summary>
+        ///     Comprueba si un número es primo.
+        /// </summary>
+        /// <returns>
+        ///     <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
+        /// </returns>
+        /// <param name="number">Número a comprobar.</param>
+        [Thunk]
+        public static bool IsPrime(this in byte number)
         {
             return ((long) number).IsPrime();
         }
@@ -131,7 +132,7 @@ namespace TheXDS.MCART.Math
         /// </summary>
         /// <param name="value">Número de entrada. Se buscará una potencia de dos mayor o igual a este valor.</param>
         /// <returns>Un valor <see cref="long" /> que es resultado de la operación.</returns>
-        public static long Nearest2Pow(int value)
+        public static long Nearest2Pow(in int value)
         {
             long c = 1;
             while (!(c >= value)) c *= 2;
@@ -150,7 +151,7 @@ namespace TheXDS.MCART.Math
         ///     Un <see cref="double" /> que es el primer múltiplo de <paramref name="multiplier" /> que es mayor que
         ///     <paramref name="value" />
         /// </returns>
-        public static double NearestMultiplyUp(double value, double multiplier)
+        public static double NearestMultiplyUp(in double value, in double multiplier)
         {
             double a = 1;
             if (!ArePositive(value, multiplier)) return a;
@@ -248,7 +249,7 @@ namespace TheXDS.MCART.Math
         /// </summary>
         /// <param name="value">Valor a comprobar.</param>
         /// <returns><see langword="true" /> si el valor es entero; de lo contrario, <c>False</c></returns>
-        public static bool IsWhole(this double value)
+        public static bool IsWhole(this in double value)
         {
             return !value.ToString(CultureInfo.InvariantCulture).Contains(".");
         }
@@ -264,7 +265,7 @@ namespace TheXDS.MCART.Math
         ///     <see cref="double.NegativeInfinity" />; en cuyo caso se devuelve
         ///     <see langword="false" />.
         /// </returns>
-        public static bool IsValid(this double value)
+        public static bool IsValid(this in double value)
         {
             return !(double.IsNaN(value) || double.IsInfinity(value));
         }
@@ -280,7 +281,7 @@ namespace TheXDS.MCART.Math
         ///     <see cref="float.NegativeInfinity" />; en cuyo caso se devuelve
         ///     <see langword="false" />.
         /// </returns>
-        public static bool IsValid(this float value)
+        public static bool IsValid(this in float value)
         {
             return !(float.IsNaN(value) || float.IsInfinity(value));
         }
@@ -300,7 +301,7 @@ namespace TheXDS.MCART.Math
         [Thunk]
         public static bool AreValid(params double[] values)
         {
-            return values.All(IsValid);
+            return values.All(p=>IsValid(p));
         }
 
         /// <summary>
@@ -318,7 +319,7 @@ namespace TheXDS.MCART.Math
         [Thunk]
         public static bool AreValid(params float[] values)
         {
-            return values.All(IsValid);
+            return values.All(p=>IsValid(p));
         }
 
         /// <summary>
@@ -336,7 +337,7 @@ namespace TheXDS.MCART.Math
         [Thunk]
         public static bool AreValid(IEnumerable<float> values)
         {
-            return values.All(IsValid);
+            return values.All(p=>IsValid(p));
         }
 
         /// <summary>
@@ -354,7 +355,7 @@ namespace TheXDS.MCART.Math
         [Thunk]
         public static bool AreValid(IEnumerable<double> values)
         {
-            return values.All(IsValid);
+            return values.All(p=>IsValid(p));
         }
 
         /// <summary>

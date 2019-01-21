@@ -8,7 +8,7 @@ Este archivo contiene diversas fórmulas de suavizado.
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright (c) 2011 - 2018 César Andrés Morgan
+Copyright (c) 2011 - 2019 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -42,7 +42,7 @@ namespace TheXDS.MCART.Math
     public static class Tween
     {
         /// <summary>
-        ///     Describe una función que aplica una tranformación de suavizado.
+        ///     Describe una función que aplica una transformación de suavizado.
         /// </summary>
         /// <returns>
         ///     Un valor correspondiente al suavizado aplicado.
@@ -50,7 +50,7 @@ namespace TheXDS.MCART.Math
         /// <param name="position">
         /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
         /// </param>
-        public delegate double TweenFunction(double position);
+        public delegate double TweenFunction(in double position);
 
         /// <summary>
         ///     Realiza un suavizado lineal de un valor.
@@ -61,7 +61,7 @@ namespace TheXDS.MCART.Math
         /// <param name="position">
         /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
         /// </param>
-        public static double Linear(double position) => position;
+        public static double Linear(in double position) => position;
 
         /// <summary>
         ///     Realiza un suavizado cuadrático de un valor.
@@ -72,7 +72,7 @@ namespace TheXDS.MCART.Math
         /// <param name="position">
         /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
         /// </param>
-        public static double Quadratic(double position)
+        public static double Quadratic(in double position)
         {
             var x2 = System.Math.Pow(position, 2);
             return x2 / (2 * x2 - 2 * position + 1);
@@ -87,7 +87,7 @@ namespace TheXDS.MCART.Math
         /// <param name="position">
         /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
         /// </param>
-        public static double Cubic(double position)
+        public static double Cubic(in double position)
         {
             return System.Math.Pow(position, 3) / (3 * System.Math.Pow(position, 2) - 3 * position + 1);
         }
@@ -101,7 +101,7 @@ namespace TheXDS.MCART.Math
         /// <param name="position">
         /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
         /// </param>
-        public static double Quartic(double position)
+        public static double Quartic(in double position)
         {
             return -System.Math.Pow(position - 1, 4) + 1;
         }
@@ -115,7 +115,7 @@ namespace TheXDS.MCART.Math
         /// <param name="position">
         /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
         /// </param>
-        public static double Shaky(double position) => Shaky(position, 10);
+        public static double Shaky(in double position) => Shaky(position, 10);
 
         /// <summary>
         ///     Realiza un suavizado con sacudida de un valor.
@@ -127,7 +127,7 @@ namespace TheXDS.MCART.Math
         /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
         /// </param>
         /// <param name="shakes">Cantidad de sacudidas a realizar.</param>
-        public static double Shaky(double position, int shakes)
+        public static double Shaky(in double position, in int shakes)
         {
             return 1 - System.Math.Cos(shakes * System.Math.PI * position) * System.Math.Cos(System.Math.PI / 2 * position);
         }
@@ -141,7 +141,7 @@ namespace TheXDS.MCART.Math
         /// <param name="position">
         /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
         /// </param>
-        public static double Bouncy(double position) => Bouncy(position, 10, 8);
+        public static double Bouncy(in double position) => Bouncy(position, 10, 8);
 
         /// <summary>
         ///     Realiza un suavizado con rebote de un valor.
@@ -153,7 +153,7 @@ namespace TheXDS.MCART.Math
         /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
         /// </param>
         /// <param name="bounces">Cantidad de rebotes a calcular.</param>
-        public static double Bouncy(double position, int bounces) => Bouncy(position, bounces, 8);
+        public static double Bouncy(in double position, in int bounces) => Bouncy(position, bounces, 8);
 
         /// <summary>
         ///     Realiza un suavizado con rebote de un valor.
@@ -166,7 +166,7 @@ namespace TheXDS.MCART.Math
         /// </param>
         /// <param name="bounces">Cantidad de rebotes a calcular.</param>
         /// <param name="damping">Amortiguación a calcular.</param>
-        public static double Bouncy(double position, int bounces, int damping)
+        public static double Bouncy(in double position, in int bounces, in int damping)
         {
             return 1 - System.Math.Cos(bounces * System.Math.PI * position) * (1 - System.Math.Pow(position, 1 / (double)damping));
         }

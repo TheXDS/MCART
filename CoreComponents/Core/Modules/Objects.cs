@@ -8,7 +8,7 @@ Este archivo contiene funciones de manipulación de objetos,
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright (c) 2011 - 2018 César Andrés Morgan
+Copyright (c) 2011 - 2019 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -652,7 +652,7 @@ namespace TheXDS.MCART
         ///     <see cref="PublicTypes{T}(AppDomain)"/>.
         /// </remarks>
         // ReSharper disable once IdentifierTypo
-        public static IEnumerable<Type> GetTypes<T>(this AppDomain domain, bool instantiablesOnly)
+        public static IEnumerable<Type> GetTypes<T>(this AppDomain domain, in bool instantiablesOnly)
         {
             return GetTypes<T>(domain.GetAssemblies(),instantiablesOnly);
         }

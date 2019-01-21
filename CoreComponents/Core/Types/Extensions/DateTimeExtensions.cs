@@ -10,7 +10,7 @@ invocación compleja.
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright (c) 2011 - 2018 César Andrés Morgan
+Copyright (c) 2011 - 2019 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -40,12 +40,14 @@ namespace TheXDS.MCART.Types.Extensions
     public static class DateTimeExtensions
     {
         /// <summary>
-        /// Obtiene un <see cref="DateTime"/> que representa el inicio del tiempo de Unix.
+        ///     Obtiene un <see cref="DateTime"/> que representa el inicio del
+        ///     tiempo de Unix.
         /// </summary>
-        public static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        public static readonly DateTime UnixEpoch = Epoch(1970);
 
         /// <summary>
-        /// Obtiene un <see cref="DateTime"/> que representa el inicio del tiempo del siglo 20.
+        ///     Obtiene un <see cref="DateTime"/> que representa el inicio del
+        ///     tiempo del siglo 20.
         /// </summary>
         /// <remarks>
         ///     Se define el Century Epoch como el punto de inicio del tiempo
@@ -55,7 +57,24 @@ namespace TheXDS.MCART.Types.Extensions
         ///     El estándar se definía por medio del tiempo GMT, en su ausencia
         ///     se utiliza UTC como un substituto suficientemente cercano.
         /// </remarks>
-        public static readonly DateTime CenturyEpoch = new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        public static readonly DateTime CenturyEpoch = Epoch(1900);
+
+        /// <summary>
+        ///     Obtiene un <see cref="DateTime"/> que representa el inicio del
+        ///     tiempo del siglo 21.
+        /// </summary>
+        /// <remarks>
+        ///     Se define el Y2K Epoch como el punto de inicio del tiempo para
+        ///     los dispositivos de 32 bits que no siguen el estándar de Unix,
+        ///     y se establece como el primero de enero del año 2000.
+        /// </remarks>
+        public static readonly DateTime Y2KEpoch = Epoch(2000);
+
+        /// <summary>
+        ///     Crea un <see cref="DateTime"/> que representa el inicio del
+        ///     tiempo para un año específico.
+        /// </summary>
+        public static DateTime Epoch(in int year) => new DateTime(year, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
         /// <summary>
         ///     Convierte un <see cref="DateTime"/> a un Timestamp de Unix de
@@ -68,7 +87,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Un <see cref="long"/> que representa el valor de Timestamp de
         ///     Unix del <see cref="DateTime"/> especificado.
         /// </returns>
-        public static long ToUnixTimestamp(this DateTime dateTime)
+        public static long ToUnixTimestamp(this in DateTime dateTime)
         {
             return ToTimestamp(dateTime, UnixEpoch);
         }
@@ -84,7 +103,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Un <see cref="long"/> que representa el valor de Timestamp de
         ///     Unix en milisegundos del <see cref="DateTime"/> especificado.
         /// </returns>
-        public static long ToUnixTimestampMs(this DateTime dateTime)
+        public static long ToUnixTimestampMs(this in DateTime dateTime)
         {
             return ToTimestampMs(dateTime, UnixEpoch);
         }
@@ -132,7 +151,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Un <see cref="long"/> que representa el valor de Timestamp del
         ///     <see cref="DateTime"/> especificado.
         /// </returns>
-        public static long ToTimestamp(this DateTime dateTime, in DateTime epoch)
+        public static long ToTimestamp(this in DateTime dateTime, in DateTime epoch)
         {
             return (long)(dateTime - epoch).TotalSeconds;
         }
@@ -150,7 +169,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Un <see cref="long"/> que representa el valor de Timestamp del
         ///     <see cref="DateTime"/> especificado.
         /// </returns>
-        public static long ToTimestampMs(this DateTime dateTime, in DateTime epoch)
+        public static long ToTimestampMs(this in DateTime dateTime, in DateTime epoch)
         {
             return (long)(dateTime - epoch).TotalMilliseconds;
         }
@@ -167,7 +186,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>
         ///     Un <see cref="DateTime"/> construido a partir del Timestamp.
         /// </returns>
-        public static DateTime FromTimestamp(long seconds, in DateTime epoch)
+        public static DateTime FromTimestamp(in long seconds, in DateTime epoch)
         {
             return epoch.AddSeconds(seconds);
         }
@@ -185,7 +204,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>
         ///     Un <see cref="DateTime"/> construido a partir del Timestamp.
         /// </returns>
-        public static DateTime FromTimestampMs(long milliseconds, in DateTime epoch)
+        public static DateTime FromTimestampMs(in long milliseconds, in DateTime epoch)
         {
             return epoch.AddMilliseconds(milliseconds);
         }

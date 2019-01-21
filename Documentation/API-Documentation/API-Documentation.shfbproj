@@ -98,24 +98,25 @@
     </DocumentationSources>
     <NamespaceSummaries>
       <NamespaceSummaryItem name="System.Windows.Converters" isDocumented="True">Este espacio de nombres contiene clases de conversión de valores utilizadas en propiedades de dependencia en Windows Presentation Framework.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="TheXDS.MCART" isDocumented="True">El espacio de nombres raíz de MCART. Al importar el espacio de nombres, se accede automáticamente a ciertas extensiones básicas de tipos.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="TheXDS.MCART.Attributes" isDocumented="True">Este espacio de nombres contiene una librería de atributos aplicables a distintos elementos del código.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="TheXDS.MCART.Controls" isDocumented="True">Este espacio de nombres contiene una librería de controles disponibles para proyectos de WPF.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="TheXDS.MCART.Dialogs" isDocumented="True">Este espacio de nombres contiene una librería de diálogos prefabricados y/o fábricas de diálogos para aplicaciones WPF interactivas.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="TheXDS.MCART.Events" isDocumented="True">Este espacio de nombres contiene una librería de objetos que pueden ser utilizados para construir manejadores de eventos.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="TheXDS.MCART.Exceptions" isDocumented="True">Este espacio de nombres contiene una librería de excepciones que pueden ser lanzadas por MCART o por su aplicación.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="TheXDS.MCART.Fluent" isDocumented="True">Este espacio de nombres contiene extensiones de tipo Fluent para diversos tipos de objetos.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="TheXDS.MCART.Math" isDocumented="True">Este espacio de nombres contiene toda la funcionalidad matemática de MCART, como ser álgebra, series numéricas, operaciones, funciones, etc.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="TheXDS.MCART.Networking" isDocumented="True">Este espacio de nombres contiene la raíz del Stack de redes de MCART.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="TheXDS.MCART.Networking.Client" isDocumented="True">Este espacio de nombres provee múltiples clases que permiten crear aplicaciones de red. Aquí se encuentran las clases de lado del cliente.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="TheXDS.MCART.Networking.Client.Protocols" isDocumented="True">En este espacio de nombres se definen implementaciones predeterminadas de ciertos protocolos que acompañan a esta distribución de MCART. Aquí se definen los clientes de red de cada protocolo.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="TheXDS.MCART.Networking.Server" isDocumented="True">Este espacio de nombres provee múltiples clases que permiten crear aplicaciones de red. Aquí se encuentran las clases de lado del servidor.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="TheXDS.MCART.Networking.Server.Protocols" isDocumented="True">En este espacio de nombres se definen implementaciones predeterminadas de ciertos protocolos que acompañan a esta distribución de MCART. Aquí se definen los servidores de red de cada protocolo.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="TheXDS.MCART.PluginSupport" isDocumented="True">Este espacio de nombres contiene toda la implementación del Stack de Plugins de MCART.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="TheXDS.MCART.Resources" isDocumented="True">Este espacio de nombres contiene todos los recursos incrustados de MCART, como ser cadenas, gráficos, colores, etc.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="TheXDS.MCART.Security.Password" isDocumented="True">Este espacio de nombres comprende toda la funcionalidad de seguridad en cuanto a contraseñas se refiere.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="TheXDS.MCART.Types" isDocumented="True">Este espacio de nombres contiene las definiciones de nuevos tipos, así como también de extensiones de tipos existentes.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="TheXDS.MCART.Types.Extensions" isDocumented="True">Este espacio de nombres contiene extensiones de tipos.</NamespaceSummaryItem></NamespaceSummaries>
+      <NamespaceSummaryItem name="TheXDS.MCART" isDocumented="True">El espacio de nombres raíz de MCART. Al importar el espacio de nombres, se accede automáticamente a ciertas extensiones básicas de tipos.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="TheXDS.MCART.Attributes" isDocumented="True">Este espacio de nombres contiene una librería de atributos aplicables a distintos elementos del código.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="TheXDS.MCART.Controls" isDocumented="True">Este espacio de nombres contiene una librería de controles disponibles para proyectos de WPF.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="TheXDS.MCART.Dialogs" isDocumented="True">Este espacio de nombres contiene una librería de diálogos prefabricados y/o fábricas de diálogos para aplicaciones WPF interactivas.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="TheXDS.MCART.Events" isDocumented="True">Este espacio de nombres contiene una librería de objetos que pueden ser utilizados para construir manejadores de eventos.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="TheXDS.MCART.Exceptions" isDocumented="True">Este espacio de nombres contiene una librería de excepciones que pueden ser lanzadas por MCART o por su aplicación.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="TheXDS.MCART.Fluent" isDocumented="True">Este espacio de nombres contiene extensiones de tipo Fluent para diversos tipos de objetos.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="TheXDS.MCART.Math" isDocumented="True">Este espacio de nombres contiene toda la funcionalidad matemática de MCART, como ser álgebra, series numéricas, operaciones, funciones, etc.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="TheXDS.MCART.Networking" isDocumented="True">Este espacio de nombres contiene la raíz del Stack de redes de MCART.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="TheXDS.MCART.Networking.Client" isDocumented="True">Este espacio de nombres provee múltiples clases que permiten crear aplicaciones de red. Aquí se encuentran las clases de lado del cliente.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="TheXDS.MCART.Networking.Client.Protocols" isDocumented="True">En este espacio de nombres se definen implementaciones predeterminadas de ciertos protocolos que acompañan a esta distribución de MCART. Aquí se definen los clientes de red de cada protocolo.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="TheXDS.MCART.Networking.Server" isDocumented="True">Este espacio de nombres provee múltiples clases que permiten crear aplicaciones de red. Aquí se encuentran las clases de lado del servidor.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="TheXDS.MCART.Networking.Server.Protocols" isDocumented="True">En este espacio de nombres se definen implementaciones predeterminadas de ciertos protocolos que acompañan a esta distribución de MCART. Aquí se definen los servidores de red de cada protocolo.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="TheXDS.MCART.PluginSupport" isDocumented="True">Este espacio de nombres contiene toda la implementación del Stack de Plugins de MCART.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="TheXDS.MCART.Resources" isDocumented="True">Este espacio de nombres contiene todos los recursos incrustados de MCART, como ser cadenas, gráficos, colores, etc.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="TheXDS.MCART.Security.Password" isDocumented="True">Este espacio de nombres comprende toda la funcionalidad de seguridad en cuanto a contraseñas se refiere.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="TheXDS.MCART.Types" isDocumented="True">Este espacio de nombres contiene las definiciones de nuevos tipos, así como también de extensiones de tipos existentes.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="TheXDS.MCART.Types.Extensions" isDocumented="True">Este espacio de nombres contiene extensiones de tipos.</NamespaceSummaryItem>
+    </NamespaceSummaries>
     <CopyrightText>Copyright &amp;#169%3b 2011-2018 C&amp;#233%3bsar Andr&amp;#233%3bs Morgan</CopyrightText>
     <SourceCodeBasePath>..\..\</SourceCodeBasePath>
     <FeedbackEMailAddress>xds_xps_ivx%40hotmail.com</FeedbackEMailAddress>
@@ -153,6 +154,7 @@
     <None Include="Content\VersionHistory\0.6.aml" />
     <None Include="Content\VersionHistory\0.7.aml" />
     <None Include="Content\VersionHistory\0.8.aml" />
+    <None Include="Content\VersionHistory\0.9.aml" />
     <None Include="Content\VersionHistory\VersionHistory.aml" />
     <None Include="Content\Walkthrough\Plugins.aml" />
     <None Include="Content\Welcome.aml" />

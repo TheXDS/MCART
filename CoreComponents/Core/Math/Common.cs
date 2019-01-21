@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright (c) 2011 - 2018 César Andrés Morgan
+Copyright (c) 2011 - 2019 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -89,7 +89,7 @@ namespace TheXDS.MCART.Math
         ///     <see cref="double.NaN" />, <see cref="double.NegativeInfinity" /> y
         ///     <see cref="double.PositiveInfinity" />.
         /// </remarks>
-        public static double Clamp(this double expression, double min, double max)
+        public static double Clamp(this in double expression, in double min, in double max)
         {
             if (double.IsNaN(expression)) return double.NaN;
             if (expression > max) return max;
@@ -110,7 +110,7 @@ namespace TheXDS.MCART.Math
         ///     <see cref="double.NaN" />, <see cref="double.NegativeInfinity" /> y
         ///     <see cref="double.PositiveInfinity" />.
         /// </remarks>
-        public static double Clamp(this double expression, double max)
+        public static double Clamp(this in double expression, in double max)
         {
             return Clamp(expression, double.NegativeInfinity, max);
         }
@@ -128,11 +128,11 @@ namespace TheXDS.MCART.Math
         ///     <see cref="float.NaN" />, <see cref="float.NegativeInfinity" /> y
         ///     <see cref="float.PositiveInfinity" />.
         /// </remarks>
-        public static float Clamp(this float expression, float max)
+        public static float Clamp(this in float expression, in float max)
         {
             return Clamp(expression, float.NegativeInfinity, max);
         }
-        
+
 #if RatherDRY
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace TheXDS.MCART.Math
         ///     <see cref="float.NaN" />, <see cref="float.NegativeInfinity" /> y
         ///     <see cref="float.PositiveInfinity" />.
         /// </remarks>
-        public static float Clamp(this float expression, float min, float max)
+        public static float Clamp(this in float expression, in float min, in float max)
         {
             return (float) Clamp((double) expression, min, max);
         }
@@ -169,7 +169,7 @@ namespace TheXDS.MCART.Math
         ///     <see cref="float.NaN" />, <see cref="float.NegativeInfinity" /> y
         ///     <see cref="float.PositiveInfinity" />.
         /// </remarks>
-        public static float Clamp(this float expression, float min, float max)
+        public static float Clamp(this in float expression, in float min, in float max)
         {
             if (float.IsNaN(expression)) return float.NaN;
             if (expression > max) return max;
@@ -195,8 +195,11 @@ namespace TheXDS.MCART.Math
         /// </returns>
         public static T Wrap<T>(this T expression, T min, T max) where T : IComparable<T>
         {
-            if (expression.CompareTo(max) > 0) return (expression - ((dynamic) 1 + max - min)).Wrap(min, max);
-            if (expression.CompareTo(min) < 0) return (expression + ((dynamic) 1 + max - min)).Wrap(min, max);
+            unchecked
+            {
+                if (expression.CompareTo(max) > 0) return (expression - ((dynamic) 1 + max - min)).Wrap(min, max);
+                if (expression.CompareTo(min) < 0) return (expression + ((dynamic) 1 + max - min)).Wrap(min, max);
+            }
             return expression;
         }
     
@@ -211,7 +214,26 @@ namespace TheXDS.MCART.Math
         /// <returns>
         ///     El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
-        public static int Wrap(this byte expression, byte min, byte max)
+        public static byte Wrap(this in byte expression, in byte min, in byte max)
+        {
+            unchecked
+            {
+                if (expression.CompareTo(max) > 0) return (byte)(expression - (1 + max - min)).Wrap(min, max);
+                if (expression.CompareTo(min) < 0) return (byte)(expression + (1 + max - min)).Wrap(min, max);
+                return expression;
+            }
+        }
+
+        /// <summary>
+        ///     Establece puntos de sobreflujo intencional para evaluar una expresión.
+        /// </summary>
+        /// <param name="expression">Expresión a evaluar.</param>
+        /// <param name="max">Límite superior de salida, inclusive.</param>
+        /// <param name="min">Límite inferior de salida, inclusive.</param>
+        /// <returns>
+        ///     El valor evaluado que se encuentra dentro del rango especificado.
+        /// </returns>
+        public static int Wrap(this in short expression, in short min, in short max)
         {
             if (expression.CompareTo(max) > 0) return (expression - (1 + max - min)).Wrap(min, max);
             if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
@@ -227,7 +249,24 @@ namespace TheXDS.MCART.Math
         /// <returns>
         ///     El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
-        public static int Wrap(this short expression, short min, short max)
+        public static int Wrap(this in char expression, in char min, in char max)
+        {
+            if (expression.CompareTo(max) > 0) return (expression - (1 + max - min)).Wrap(min, max);
+            if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
+            return expression;
+        }
+
+
+        /// <summary>
+        ///     Establece puntos de sobreflujo intencional para evaluar una expresión.
+        /// </summary>
+        /// <param name="expression">Expresión a evaluar.</param>
+        /// <param name="max">Límite superior de salida, inclusive.</param>
+        /// <param name="min">Límite inferior de salida, inclusive.</param>
+        /// <returns>
+        ///     El valor evaluado que se encuentra dentro del rango especificado.
+        /// </returns>
+        public static int Wrap(this in int expression, in int min, in int max)
         {
             if (expression.CompareTo(max) > 0) return (expression - (1 + max - min)).Wrap(min, max);
             if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
@@ -243,7 +282,7 @@ namespace TheXDS.MCART.Math
         /// <returns>
         ///     El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
-        public static int Wrap(this int expression, int min, int max)
+        public static long Wrap(this in long expression, in long min, in long max)
         {
             if (expression.CompareTo(max) > 0) return (expression - (1 + max - min)).Wrap(min, max);
             if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
@@ -259,7 +298,7 @@ namespace TheXDS.MCART.Math
         /// <returns>
         ///     El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
-        public static long Wrap(this long expression, long min, long max)
+        public static decimal Wrap(this in decimal expression, in decimal min, in decimal max)
         {
             if (expression.CompareTo(max) > 0) return (expression - (1 + max - min)).Wrap(min, max);
             if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
@@ -275,23 +314,7 @@ namespace TheXDS.MCART.Math
         /// <returns>
         ///     El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
-        public static decimal Wrap(this decimal expression, decimal min, decimal max)
-        {
-            if (expression.CompareTo(max) > 0) return (expression - (1 + max - min)).Wrap(min, max);
-            if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
-            return expression;
-        }
-
-        /// <summary>
-        ///     Establece puntos de sobreflujo intencional para evaluar una expresión.
-        /// </summary>
-        /// <param name="expression">Expresión a evaluar.</param>
-        /// <param name="max">Límite superior de salida, inclusive.</param>
-        /// <param name="min">Límite inferior de salida, inclusive.</param>
-        /// <returns>
-        ///     El valor evaluado que se encuentra dentro del rango especificado.
-        /// </returns>
-        public static double Wrap(this double expression, double min, double max)
+        public static double Wrap(this in double expression, in double min, in double max)
         {
             if (double.IsNaN(expression)) return double.NaN;
             if (expression.CompareTo(max) > 0) return (expression - (1 + max - min)).Wrap(min, max);
@@ -308,7 +331,7 @@ namespace TheXDS.MCART.Math
         /// <returns>
         ///     El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
-        public static float Wrap(this float expression, float min, float max)
+        public static float Wrap(this in float expression, in float min, in float max)
         {
             if (float.IsNaN(expression)) return float.NaN;
             if (expression.CompareTo(max) > 0) return (expression - (1 + max - min)).Wrap(min, max);
@@ -326,7 +349,7 @@ namespace TheXDS.MCART.Math
         /// <returns>
         ///     El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
-        public static int Wrap(this sbyte expression, sbyte min, sbyte max)
+        public static int Wrap(this in sbyte expression, in sbyte min, in sbyte max)
         {
             if (expression.CompareTo(max) > 0) return (expression - (1 + max - min)).Wrap(min, max);
             if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
@@ -342,7 +365,7 @@ namespace TheXDS.MCART.Math
         /// <returns>
         ///     El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
-        public static int Wrap(this ushort expression, ushort min, ushort max)
+        public static int Wrap(this in ushort expression, in ushort min, in ushort max)
         {
             if (expression.CompareTo(max) > 0) return (expression - (1 + max - min)).Wrap(min, max);
             if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
@@ -358,7 +381,7 @@ namespace TheXDS.MCART.Math
         /// <returns>
         ///     El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
-        public static uint Wrap(this uint expression, uint min, uint max)
+        public static uint Wrap(this in uint expression, in uint min, in uint max)
         {
             if (expression.CompareTo(max) > 0) return (expression - (1 + max - min)).Wrap(min, max);
             if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
@@ -374,16 +397,13 @@ namespace TheXDS.MCART.Math
         /// <returns>
         ///     El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
-        public static ulong Wrap(this ulong expression, ulong min, ulong max)
+        public static ulong Wrap(this in ulong expression, in ulong min, in ulong max)
         {
             if (expression.CompareTo(max) > 0) return (expression - (1 + max - min)).Wrap(min, max);
             if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
             return expression;
-        }
-        
-     #endif
-
+        }        
 #endif
-        
+#endif
     }
 }

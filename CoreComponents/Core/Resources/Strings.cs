@@ -6,7 +6,7 @@
 //  Author:
 //       César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
-//  Copyright (c) 2011 - 2018 César Andrés Morgan
+//  Copyright (c) 2011 - 2019 César Andrés Morgan
 //
 //  Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -142,6 +142,14 @@ namespace TheXDS.MCART.Resources
         /// Una cadena con el texto "Incluye {<paramref name="text"/>}".
         /// </returns>
         public static string Includes(string text) => $"Incluye {text}";
+        /// <summary>
+        /// Devuelve una cadena con el texto "El parámetro {<paramref name="text"/>} no es válido.".
+        /// </summary>
+        /// <param name="text">Texto a formatear.</param>
+        /// <returns>
+        /// Una cadena con el texto "El parámetro {<paramref name="text"/>} no es válido.".
+        /// </returns>
+        public static string InvalidParameterX(string text) => $"El parámetro {text} es inválido.";
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} no es
         /// una clase de Plugin válida.".
@@ -476,6 +484,7 @@ namespace TheXDS.MCART.Resources
         }
         #endregion
 #pragma warning disable CS1591 // Las cadenas generalmente no requieren de descripción.
+        public const string AboutMCART = "Acerca de MCART...";
         public const string Abort = "Abortar";
         public const string About = "Acerca de...";
         public const string AllFiles = "Todos los archivos";
@@ -535,7 +544,7 @@ namespace TheXDS.MCART.Resources
         public const string Numbers = "0123456789";
         public const string Of = "de";
         public const string OK = "Aceptar";
-        public const string PluginDetails = "Detalles de plugins";
+        public const string PluginDetails = "Información de Plugins...";
         public const string PluginDidntInit = "El plugin no se inicializó";
         public const string PluginInfo1 = "Seleccione un plugin para comprobar la compatibilidad.";
         public const string PluginInfo2 = "El plugin es compatible con esta versión de MCART.";
@@ -558,6 +567,7 @@ namespace TheXDS.MCART.Resources
         public const string RequiredNumber = "Se requiere un valor numérico.";
         public const string Search = "Buscar...";
         public const string Security = "Seguridad";
+        public const string SeeLicense = "Ver licencia...";
         public const string SlctAPlugin = "Seleccione un elemento de la lista para ver más información.";
         public const string Specified = "especificado";
         public const string StackUnderflow = "Subflujo de pila";
