@@ -21,7 +21,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\IdentifierAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\IntAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\IValueAttribute.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Attributes\LenghtyAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\LengthyAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\LicenseFileAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\LicenseTextAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\MaximumAttribute.cs" />

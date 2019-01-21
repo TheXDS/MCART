@@ -41,9 +41,14 @@ namespace TheXDS.MCART.Exceptions
     /// <summary>
     ///     Excepción que se produce cuando se reciben datos corruptos
     /// </summary>
+#if NETFX_CORE
+    [DataContract]
+#else
     [Serializable]
+#endif
     public class CorruptDataException : Exception
     {
+#if !NETFX_CORE
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
@@ -58,6 +63,8 @@ namespace TheXDS.MCART.Exceptions
         protected CorruptDataException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
+#endif
+
 
         /// <inheritdoc />
         /// <summary>

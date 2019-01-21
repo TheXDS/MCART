@@ -9,10 +9,10 @@
     <Company>TheXDS! non-Corp.</Company>
     <RepositoryUrl>https://github.com/TheXDS/MCART</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <AssemblyVersion>0.9.3.0</AssemblyVersion>
-    <FileVersion>0.9.3.0</FileVersion>
+    <AssemblyVersion>0.9.4.0</AssemblyVersion>
+    <FileVersion>0.9.4.0</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Copyright>Copyright © 2011-2018 César Andrés Morgan</Copyright>
+    <Copyright>Copyright © 2011 - 2019 César Andrés Morgan</Copyright>
     <PackageLicenseUrl>http://www.gnu.org/licenses/gpl-3.0.html</PackageLicenseUrl>
     <Description>MCART .Net Standard Edition</Description>
     <PackageIconUrl>https://raw.githubusercontent.com/TheXDS/MCART/master/CoreComponents/Core-GUI/Resources/Icons/MCART.png</PackageIconUrl>

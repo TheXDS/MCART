@@ -22,8 +22,9 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+// ReSharper disable PartialTypeWithSinglePart
+
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using TheXDS.MCART.Annotations;
 using TheXDS.MCART.Attributes;
@@ -35,7 +36,6 @@ namespace TheXDS.MCART.Component
     /// <summary>
     ///     Expone la información de identificación de un ensamblado.
     /// </summary>
-    [SuppressMessage("ReSharper", "PartialTypeWithSinglePart")]
     public partial class AssemblyDataExposer : IExposeInfo
     {
         /// <summary>
@@ -50,6 +50,17 @@ namespace TheXDS.MCART.Component
             Assembly = assembly;
         }
 
+#if !NETFX_CORE
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="AssemblyDataExposer"/>
+        /// </summary>
+        public AssemblyDataExposer()
+        {
+            Assembly = Assembly.GetCallingAssembly();
+        }
+#endif
+
         /// <summary>
         ///     Referencia al ensamblado del cual se expone la información.
         /// </summary>
@@ -57,54 +68,54 @@ namespace TheXDS.MCART.Component
 
         /// <inheritdoc />
         /// <summary>
-        /// Devuelve el nombre del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
+        ///     Devuelve el nombre del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// </summary>
         public string Name => Assembly.GetAttr<AssemblyTitleAttribute>()?.Title ?? Assembly.GetAttr<NameAttribute>()?.Value;
 
         /// <inheritdoc />
         /// <summary>
-        /// Devuelve el Copyright del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
+        ///     Devuelve el Copyright del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// </summary>
         public string Copyright => Assembly.GetAttr<AssemblyCopyrightAttribute>()?.Copyright ?? Assembly.GetAttr<CopyrightAttribute>()?.Value;
 
         /// <inheritdoc />
         /// <summary>
-        /// Devuelve una descripción del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
+        ///     Devuelve una descripción del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// </summary>
         public string Description => Assembly.GetAttr<AssemblyDescriptionAttribute>()?.Description ?? Assembly.GetAttr<DescriptionAttribute>()?.Value;
 
         /// <inheritdoc />
         /// <summary>
-        /// Devuelve el autor del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
+        ///     Devuelve el autor del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// </summary>
         public string Author => Assembly.GetAttr<AssemblyCompanyAttribute>()?.Company ?? Assembly.GetAttr<AuthorAttribute>()?.Value;
 
         /// <summary>
-        /// Devuelve la marca comercial del <see cref="Assembly" />
+        ///     Devuelve la marca comercial del <see cref="Assembly" />
         /// </summary>
         public string Trademark => Assembly.GetAttr<AssemblyTrademarkAttribute>()?.Trademark;
 
         /// <summary>
-        /// Devuelve el autor del <see cref="Assembly" />
+        ///     Devuelve el autor del <see cref="Assembly" />
         /// </summary>
         public string Product => Assembly.GetAttr<AssemblyProductAttribute>()?.Product;
 
         /// <inheritdoc />
         /// <summary>
-        /// Devuelve la licencia del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
+        ///     Devuelve la licencia del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// </summary>
         public string License => Internal.ReadLicense(Assembly);
 
         /// <inheritdoc />
         /// <summary>
-        /// Devuelve la versión del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
+        ///     Devuelve la versión del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// </summary>
         public Version Version => Assembly.GetName().Version;
 
         /// <inheritdoc />
         /// <summary>
-        /// Obtiene un valor que determina si este <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
-        /// contiene información de licencia.
+        ///     Obtiene un valor que determina si este <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
+        ///     contiene información de licencia.
         /// </summary>
         public bool HasLicense => Internal.HasLicense(Assembly);
 

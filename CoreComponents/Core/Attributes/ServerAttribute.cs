@@ -1,18 +1,56 @@
-﻿using System;
+﻿/*
+ServerAttribute.cs
+
+This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Author(s):
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+
+Copyright (c) 2011 - 2019 César Andrés Morgan
+
+Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+// ReSharper disable UnusedMember.Global
+// ReSharper disable ClassNeverInstantiated.Global
+// ReSharper disable MemberCanBePrivate.Global
+
+using System;
 using TheXDS.MCART.Types.Extensions;
+using static System.AttributeTargets;
+#if NETFX_CORE
+using System.Runtime.Serialization;
+#endif
+
 
 namespace TheXDS.MCART.Attributes
 {
-    /// <inheritdoc />
+    /// <inheritdoc cref="Attribute"/>
     /// <summary>
-    ///     Attributo que define la ruta de un servidor.
+    ///     Atributo que define la ruta de un servidor.
     /// </summary>
     /// <remarks>
     ///     Es posible establecer este atributo más de una vez en un mismo elemento.
     /// </remarks>
-    [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
+    [AttributeUsage(All, AllowMultiple = true)]
+#if NETFX_CORE
+    [DataContract]
+#else
     [Serializable]
-    public sealed class ServerAttribute : Attribute
+#endif
+    public sealed class ServerAttribute : Attribute, IValueAttribute<(string, int)>
     {
         /// <inheritdoc />
         /// <summary>
@@ -47,6 +85,9 @@ namespace TheXDS.MCART.Attributes
         /// <value>
         ///     La ruta del servidor a la cual este atributo apunta.
         /// </value>
+#if NETFX_CORE
+        [DataMember]
+#endif
         public string Server { get; }
 
         /// <summary>
@@ -56,6 +97,9 @@ namespace TheXDS.MCART.Attributes
         ///     Un valor entre 1 y 65535 que establece el número de puerto a
         ///     apuntar.
         /// </value>
+#if NETFX_CORE
+        [DataMember]
+#endif
         public int Port { get; }
 
         /// <summary>
@@ -66,5 +110,11 @@ namespace TheXDS.MCART.Attributes
         {
             return $"{Server}:{Port}";
         }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Obtiene el valor de este atributo.
+        /// </summary>
+        public (string, int) Value => (Server, Port);
     }
 }

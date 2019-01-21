@@ -1,5 +1,39 @@
-﻿using System;
+﻿/*
+LicenseFileAttribute.cs
+
+This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Author(s):
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+
+Copyright (c) 2011 - 2019 César Andrés Morgan
+
+Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+// ReSharper disable UnusedMember.Global
+// ReSharper disable ClassNeverInstantiated.Global
+// ReSharper disable MemberCanBePrivate.Global
+
+using System;
 using System.IO;
+using static System.AttributeTargets;
+using static TheXDS.MCART.Resources.Strings;
+#if NETFX_CORE
+using System.Runtime.Serialization;
+#endif
 
 namespace TheXDS.MCART.Attributes
 {
@@ -7,8 +41,12 @@ namespace TheXDS.MCART.Attributes
     /// <summary>
     ///     Establece un archivo de licencia externo a asociar con el elemento.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Module | AttributeTargets.Assembly)]
+    [AttributeUsage(Class | Module | Assembly)]
+#if NETFX_CORE
+    [DataContract]
+#else
     [Serializable]
+#endif
     public sealed class LicenseFileAttribute : TextAttribute
     {
         /// <inheritdoc />
@@ -31,7 +69,16 @@ namespace TheXDS.MCART.Attributes
         /// </returns>
         public string ReadLicense()
         {
-            using (var inp = new StreamReader(Value)) return inp.ReadToEnd();
+            try
+            {
+                using (var fs = new FileStream(Value, FileMode.Open))
+                using (var sr = new StreamReader(fs))
+                    return sr.ReadToEnd();
+            }
+            catch
+            {
+                return Warn(UnspecLicense);
+            }
         }
     }
 }

@@ -41,9 +41,15 @@ namespace TheXDS.MCART.Exceptions
     /// <summary>
     ///     Excepción que se produce cuando la conexión se encontraba cerrada al intentar enviar o recibir datos
     /// </summary>
+#if NETFX_CORE
+    [DataContract]
+#else
     [Serializable]
+#endif
     public class ConnectionClosedException : Exception
     {
+
+#if !NETFX_CORE
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
@@ -58,6 +64,7 @@ namespace TheXDS.MCART.Exceptions
         protected ConnectionClosedException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
+#endif
 
         /// <inheritdoc />
         /// <summary>
