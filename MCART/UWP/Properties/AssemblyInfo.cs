@@ -1,5 +1,5 @@
 ﻿/*
-UnmanagedAttribute.cs
+AssemblyInfo.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,30 +22,9 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable ClassNeverInstantiated.Global
-// ReSharper disable MemberCanBePrivate.Global
+using System.Reflection;
+using System.Runtime.InteropServices;
 
-using System;
-using static System.AttributeTargets;
-#if NETFX_CORE
-using System.Runtime.Serialization;
-#endif
-
-namespace TheXDS.MCART.Attributes
-{
-    /// <inheritdoc />
-    /// <summary>
-    ///     Indica que un elemento contiene código no administrado.
-    /// </summary>
-    [AttributeUsage(Property | Method | Constructor | Class | Module | Assembly)]
-#if NETFX_CORE
-    [DataContract]
-#else
-    [Serializable]
-#endif
-    public sealed class UnmanagedAttribute : Attribute
-    {
-    }
-}
+[assembly: AssemblyTitle("TheXDS.MCART.UWP")]
+[assembly: AssemblyDescription("MCART UWP Edition")]
+[assembly: ComVisible(false)]

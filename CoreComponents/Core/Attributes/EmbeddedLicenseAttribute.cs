@@ -33,6 +33,10 @@ using TheXDS.MCART.Annotations;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
+using static System.AttributeTargets;
+#if NETFX_CORE
+using System.Runtime.Serialization;
+#endif
 
 namespace TheXDS.MCART.Attributes
 {
@@ -40,17 +44,27 @@ namespace TheXDS.MCART.Attributes
     /// <summary>
     ///     Establece un archivo incrustado de licencia a asociar con el elemento.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Module | AttributeTargets.Assembly)]
+    [AttributeUsage(Class | AttributeTargets.Module | AttributeTargets.Assembly)]
+#if NETFX_CORE
+    [DataContract]
+#else
     [Serializable]
+#endif
     public sealed class EmbeddedLicenseAttribute : TextAttribute
     {
         /// <summary>
         ///     Ruta del archivo embebido de licencia dentro del ensamblado.
         /// </summary>
+#if NETFX_CORE
+        [DataMember]
+#endif
         public string Path { get; }
         /// <summary>
         ///     Compressor utilizado para extraer el recurso incrustado.
         /// </summary>
+#if NETFX_CORE
+        [DataMember]
+#endif
         public Type CompressorType { get; }
 
         /// <inheritdoc />

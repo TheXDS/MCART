@@ -42,78 +42,93 @@ namespace TheXDS.MCART.Exceptions
     /// <summary>
     ///     Excepción que se produce cuando no se puede realizar la conexión
     /// </summary>
+#if NETFX_CORE
+    [DataContract]
+#else
     [Serializable]
+#endif
     public class CouldNotConnectException : Exception
     {
-        private readonly IPEndPoint _offendingEndPoint;
-
+        /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.CouldNotConnectException" />.
         /// </summary>
         public CouldNotConnectException() : base(Strings.CldntConnect(Strings.TheSrv.ToLower()))
         {
         }
 
+        /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.CouldNotConnectException" />.
         /// </summary>
         /// <param name="offendingEndPoint">End point.</param>
         public CouldNotConnectException(IPEndPoint offendingEndPoint) : base(
             Strings.CldntConnect($"{offendingEndPoint.Address}:{offendingEndPoint.Port}"))
         {
-            _offendingEndPoint = offendingEndPoint;
+            OffendingEndPoint = offendingEndPoint;
         }
 
+        /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.CouldNotConnectException" />.
         /// </summary>
-        /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
+        /// <param name="message">Un <see cref="T:System.String" /> que describe a la excepción.</param>
         public CouldNotConnectException(string message) : base(message)
         {
         }
 
+        /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.CouldNotConnectException" />.
         /// </summary>
-        /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
+        /// <param name="message">Un <see cref="T:System.String" /> que describe a la excepción.</param>
+        /// <param name="inner"><see cref="T:System.Exception" /> que es la causa de esta excepción.</param>
         public CouldNotConnectException(string message, Exception inner) : base(message, inner)
         {
         }
 
+        /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.CouldNotConnectException" />.
         /// </summary>
         /// <param name="offendingEndPoint">End point.</param>
-        /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
+        /// <param name="message">Un <see cref="T:System.String" /> que describe a la excepción.</param>
         public CouldNotConnectException(IPEndPoint offendingEndPoint, string message) : base(message)
         {
-            _offendingEndPoint = offendingEndPoint;
+            OffendingEndPoint = offendingEndPoint;
         }
 
+        /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.CouldNotConnectException" />.
         /// </summary>
         /// <param name="offendingEndPoint">End point.</param>
-        /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
+        /// <param name="inner"><see cref="T:System.Exception" /> que es la causa de esta excepción.</param>
         public CouldNotConnectException(IPEndPoint offendingEndPoint, Exception inner) : base(
             Strings.CldntConnect($"{offendingEndPoint.Address}:{offendingEndPoint.Port}"), inner)
         {
-            _offendingEndPoint = offendingEndPoint;
+            OffendingEndPoint = offendingEndPoint;
         }
 
+        /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.CouldNotConnectException" />.
         /// </summary>
         /// <param name="offendingEndPoint">End point.</param>
-        /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
+        /// <param name="message">Un <see cref="T:System.String" /> que describe a la excepción.</param>
+        /// <param name="inner"><see cref="T:System.Exception" /> que es la causa de esta excepción.</param>
         public CouldNotConnectException(IPEndPoint offendingEndPoint, string message, Exception inner) : base(message,
             inner)
         {
-            _offendingEndPoint = offendingEndPoint;
+            OffendingEndPoint = offendingEndPoint;
         }
 
+        /// <summary>
+        ///     <see cref="IPEndPoint" /> que fue la causa de esta excepción.
+        /// </summary>
+        public IPEndPoint OffendingEndPoint { get; }
+
+#if !NETFX_CORE
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="CouldNotConnectException" />.
@@ -127,10 +142,6 @@ namespace TheXDS.MCART.Exceptions
         protected CouldNotConnectException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
-
-        /// <summary>
-        ///     <see cref="IPEndPoint" /> que fue la causa de esta excepción.
-        /// </summary>
-        public IPEndPoint OffendingEndPoint => _offendingEndPoint;
+#endif
     }
 }

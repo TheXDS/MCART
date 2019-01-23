@@ -28,6 +28,9 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 // ReSharper disable MemberCanBePrivate.Global
 
 using System;
+#if NETFX_CORE
+using System.Runtime.Serialization;
+#endif
 
 namespace TheXDS.MCART.Attributes
 {
@@ -36,7 +39,11 @@ namespace TheXDS.MCART.Attributes
     ///     Establece una descripción larga para este elemento.
     /// </summary>
     [AttributeUsage(AttributeTargets.All)]
+#if NETFX_CORE
+    [DataContract]
+#else
     [Serializable]
+#endif
     public sealed class DescriptionAttribute : TextAttribute
     {
         /// <inheritdoc />

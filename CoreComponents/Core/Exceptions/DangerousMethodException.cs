@@ -43,9 +43,14 @@ namespace TheXDS.MCART.Exceptions
     ///     Excepción que se produce cuando un método ha sido marcado con el atributo
     ///     <see cref="T:TheXDS.MCART.Attributes.DangerousAttribute" />.
     /// </summary>
+#if NETFX_CORE
+    [DataContract]
+#else
     [Serializable]
+#endif
     public class DangerousMethodException : OffendingException<MethodInfo>
     {
+#if !NETFX_CORE
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
@@ -86,6 +91,7 @@ namespace TheXDS.MCART.Exceptions
             : base(info, context, offendingMethod)
         {
         }
+#endif
 
         /// <inheritdoc />
         /// <summary>
@@ -200,7 +206,7 @@ namespace TheXDS.MCART.Exceptions
             return Strings.MethodIsDangerous(Strings.Unk);
         }
 
-        private static string Msg(MethodInfo offendingMethod)
+        private static string Msg(MemberInfo offendingMethod)
         {
             return Strings.MethodIsDangerous(offendingMethod.Name);
         }
