@@ -24,10 +24,11 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Linq;
+using System.Windows.Media;
 using Xunit;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 
-namespace CoreTest.Types.Extensions
+namespace TheXDS.MCART.Tests.Types.Extensions
 {
     public class TypeExtensionsTests
     {

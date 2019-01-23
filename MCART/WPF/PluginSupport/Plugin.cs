@@ -53,10 +53,10 @@ namespace TheXDS.MCART.PluginSupport
         public static MenuItem GetUIMenu(IPlugin plugin)
         {
             if (!plugin.HasInteractions) throw new FeatureNotAvailableException();
-            MenuItem mnu = new MenuItem() { Header = plugin.Name };
+            var mnu = new MenuItem() { Header = plugin.Name };
             if (!plugin.Description.IsEmpty())
                 mnu.ToolTip = new ToolTip() { Content = plugin.Description };
-            foreach (InteractionItem j in plugin.PluginInteractions)
+            foreach (var j in plugin.PluginInteractions)
                 mnu.Items.Add(j.AsMenuItem());
             return mnu;
         }
@@ -81,8 +81,8 @@ namespace TheXDS.MCART.PluginSupport
         public static PanelT GetUIPanel<T, PanelT>(IPlugin plugin)
             where T : ButtonBase, new() where PanelT : Panel, new()
         {
-            PanelT pnl = new PanelT();
-            foreach (InteractionItem j in plugin.PluginInteractions)
+            var pnl = new PanelT();
+            foreach (var j in plugin.PluginInteractions)
                 pnl.Children.Add(j.AsButton<T>());
             return pnl;
         }

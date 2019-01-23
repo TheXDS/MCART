@@ -40,6 +40,7 @@ namespace TheXDS.MCART.Controls
         void Apply(IEnumerable<IGraphData> data);
     }
 
+    /// <inheritdoc />
     /// <summary>
     /// Coloreado de temperatura.
     /// </summary>
@@ -51,36 +52,42 @@ namespace TheXDS.MCART.Controls
         /// <param name="data"></param> 
         public void Apply(IEnumerable<IGraphData> data)
         {
-            float c = data.Count();
-            int i = 0;
-            foreach (var j in data)
+            var graphDatas = data as IGraphData[] ?? data.ToArray();
+            float c = graphDatas.Count();
+            var i = 0;
+            foreach (var j in graphDatas)
                 j.Color = Types.Color.BlendHeat(++i / c);
         }
     }
+    /// <inheritdoc />
     /// <summary>
     /// Coloreado de salud.
     /// </summary>
     public class HealthColorizer : IGraphColorizer
     {
+        /// <inheritdoc />
         /// <summary>
-        /// Aplica el coloreado a la colección de <see cref="IGraphData"/>.
+        /// Aplica el coloreado a la colección de <see cref="T:TheXDS.MCART.Controls.IGraphData" />.
         /// </summary>
         /// <param name="data"></param>
         public void Apply(IEnumerable<IGraphData> data)
         {
-            float c = data.Count();
-            int i = 0;
-            foreach (var j in data)
+            var graphDatas = data as IGraphData[] ?? data.ToArray();
+            float c = graphDatas.Count();
+            var i = 0;
+            foreach (var j in graphDatas)
                 j.Color = Types.Color.BlendHealth(++i / c);
         }
     }
+    /// <inheritdoc />
     /// <summary>
     /// Coloreado aleatorio.
     /// </summary>
     public class RandomColorizer : IGraphColorizer
     {
+        /// <inheritdoc />
         /// <summary>
-        /// Aplica el coloreado a la colección de <see cref="IGraphData"/>.
+        /// Aplica el coloreado a la colección de <see cref="T:TheXDS.MCART.Controls.IGraphData" />.
         /// </summary>
         /// <param name="data"></param>
         public void Apply(IEnumerable<IGraphData> data)

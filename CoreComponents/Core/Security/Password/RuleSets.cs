@@ -216,9 +216,9 @@ namespace TheXDS.MCART.Security.Password
 
             return new PasswordEvaluationRule(ps =>
             {
-                short[] p = ps.ReadInt16();
-                int d = 0;
-                foreach (char j in charset) if (p.Contains((short)j)) d++;
+                var p = ps.ReadInt16();
+                var d = 0;
+                foreach (var j in charset) if (p.Contains((short)j)) d++;
                 if (d == 0) return new PwEvalResult(0, isExtra ?
                     St.OkX(St.Include(ruleName.ToLower())) :
                     St.Warn(St.Include(ruleName.ToLower())));

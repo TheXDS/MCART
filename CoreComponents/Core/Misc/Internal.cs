@@ -27,8 +27,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
 using St = TheXDS.MCART.Resources.Strings;
+
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable UnusedMethodReturnValue.Global
 
 namespace TheXDS.MCART.Misc
 {
@@ -38,14 +42,14 @@ namespace TheXDS.MCART.Misc
         {
             try
             {
-                return asm.GetAttr<LicenseTextAttribute>()
-                           ?.Value.OrNull() ??
-                       asm.GetAttr<EmbeddedLicenseAttribute>()
-                           ?.ReadLicense((asm as Assembly ?? (asm as Type)?.Assembly) ??
+                return asm.GetAttr<LicenseTextAttribute>()?
+                           .Value.OrNull() ??
+                       asm.GetAttr<EmbeddedLicenseAttribute>()?
+                           .ReadLicense((asm as Assembly ?? (asm as Type)?.Assembly) ??
                                          throw new InvalidOperationException())
                            .OrNull() ??
-                       asm.GetAttr<LicenseFileAttribute>()
-                           ?.ReadLicense()
+                       asm.GetAttr<LicenseFileAttribute>()?
+                           .ReadLicense()
                            .OrNull() ??
                        (returnNull
                            ? null
@@ -66,19 +70,20 @@ namespace TheXDS.MCART.Misc
                    || obj.HasAttr<LicenseFileAttribute>();
         }
 
-        public static IEnumerable<KeyValuePair<string, TField>> List<TField>(Type source, object instance)
+        public static IEnumerable<NamedObject<TField>> List<TField>(Type source, object instance)
         {
-            return source.GetFields(BindingFlags.Public)
-                .Where(f => f.FieldType.Implements<TField>())
-                .Select(p => new KeyValuePair<string, TField>(p.NameOf(), (TField)p.GetValue(instance)));
+            return List<TField>(source, BindingFlags.Public, instance);
         }
 
-        public static IEnumerable<KeyValuePair<string, TField>> List<TField>(Type source)
+        public static IEnumerable<NamedObject<TField>> List<TField>(Type source)
         {
-            return source.GetFields(BindingFlags.Static | BindingFlags.Public)
-                .Where(f => f.FieldType.Implements<TField>())
-                .Select(p => new KeyValuePair<string, TField>(p.NameOf(), (TField)p.GetValue(null)));
+            return List<TField>(source, BindingFlags.Static | BindingFlags.Public, null);
         }
 
+        private static IEnumerable<NamedObject<TField>> List<TField>(IReflect source, BindingFlags flags, object instance)
+        {
+            return source.GetFields(flags).Where(f => f.FieldType.Implements<TField>())
+                .Select(p => new NamedObject<TField>((TField)p.GetValue(null)));
+        }
     }
 }

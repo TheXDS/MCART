@@ -9,7 +9,7 @@
     <ProjectGuid>{575BC2AD-BE73-473C-A161-3E96305988FA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LiteTests</RootNamespace>
+    <RootNamespace>TheXDS.MCART.Tests</RootNamespace>
     <AssemblyName>LiteTests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

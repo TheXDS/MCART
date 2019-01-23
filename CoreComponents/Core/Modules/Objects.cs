@@ -1121,7 +1121,7 @@ namespace TheXDS.MCART
         /// </returns>
         /// <param name="obj">Objeto a comprobar.</param>
         /// <param name="objs">Lista de objetos a comparar.</param>
-        public static bool IsEither(this object obj, params object[] objs)
+        public static bool IsEither<T>(this T obj, params T[] objs)
         {
             return objs.Any(p => p.Is(obj));
         }
@@ -1135,7 +1135,7 @@ namespace TheXDS.MCART
         /// </returns>
         /// <param name="obj">Objeto a comprobar.</param>
         /// <param name="objs">Lista de objetos a comparar.</param>
-        public static bool IsEither(this object obj, IEnumerable<object> objs)
+        public static bool IsEither<T>(this T obj, IEnumerable<T> objs)
         {
             return objs.Any(p => p.Is(obj));
         }
@@ -1149,7 +1149,7 @@ namespace TheXDS.MCART
         /// </returns>
         /// <param name="obj">Objeto a comprobar.</param>
         /// <param name="objs">Lista de objetos a comparar.</param>
-        public static bool IsNeither(this object obj, params object[] objs)
+        public static bool IsNeither<T>(this T obj, params T[] objs)
         {
             return obj.IsNeither(objs.AsEnumerable());
         }
@@ -1163,7 +1163,7 @@ namespace TheXDS.MCART
         /// </returns>
         /// <param name="obj">Objeto a comprobar.</param>
         /// <param name="objs">Lista de objetos a comparar.</param>
-        public static bool IsNeither(this object obj, IEnumerable<object> objs)
+        public static bool IsNeither<T>(this T obj, IEnumerable<T> objs)
         {
             return objs.All(p => !p.Is(obj));
         }

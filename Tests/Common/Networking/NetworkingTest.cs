@@ -29,7 +29,7 @@ using TheXDS.MCART.Networking.Server.Protocols;
 using Cl = TheXDS.MCART.Networking.Client.Protocols;
 #endif
 
-namespace CoreTest.Networking
+namespace TheXDS.MCART.Tests.Networking
 {
     public class NetworkingTest
     {

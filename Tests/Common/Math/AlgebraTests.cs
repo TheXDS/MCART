@@ -25,7 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using Xunit;
 using static TheXDS.MCART.Math.Algebra;
 
-namespace CoreTest.Math
+namespace TheXDS.MCART.Tests.Math
 {
     public class AlgebraTests
     {

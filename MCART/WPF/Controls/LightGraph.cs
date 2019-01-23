@@ -103,7 +103,7 @@ namespace TheXDS.MCART.Controls
         /// </summary>
         public static DependencyProperty YMinProperty = DependencyProperty.Register(nameof(YMin), typeof(double), T, new PropertyMetadata(double.NaN, new PropertyChangedCallback((dd, e) =>
         {
-            LightGraph d = (LightGraph)dd;
+            var d = (LightGraph)dd;
             d.YMn.Text = string.Empty;
             if (d.Graph.Count > 0)
             {
@@ -117,7 +117,7 @@ namespace TheXDS.MCART.Controls
         /// </summary>
         public static DependencyProperty YMaxProperty = DependencyProperty.Register(nameof(YMax), typeof(double), T, new PropertyMetadata(double.NaN, new PropertyChangedCallback((dd, e) =>
         {
-            LightGraph d = (LightGraph)dd;
+            var d = (LightGraph)dd;
             d.YMx.Text = string.Empty;
             if (d.Graph.Count > 0)
             {
@@ -135,7 +135,7 @@ namespace TheXDS.MCART.Controls
         /// </summary>
         public static DependencyProperty Y2MinProperty = DependencyProperty.Register(nameof(Y2Min), typeof(double), T, new PropertyMetadata(double.NaN, new PropertyChangedCallback((dd, e) =>
         {
-            LightGraph d = (LightGraph)dd;
+            var d = (LightGraph)dd;
             d.Y2Mn.Text = string.Empty;
             if (d.Graph2.Count > 0)
             {
@@ -149,7 +149,7 @@ namespace TheXDS.MCART.Controls
         /// </summary>
         public static DependencyProperty Y2MaxProperty = DependencyProperty.Register(nameof(Y2Max), typeof(double), T, new PropertyMetadata(double.NaN, new PropertyChangedCallback((dd, e) =>
         {
-            LightGraph d = (LightGraph)dd;
+            var d = (LightGraph)dd;
             d.Y2Mx.Text = string.Empty;
             if (d.Graph2.Count > 0)
             {
@@ -394,14 +394,14 @@ namespace TheXDS.MCART.Controls
         void PlotAxis()
         {
             if (!AmIValid()) return;
-            double l = GrdGraphBG.ActualWidth / ((XLabels.Count - 1) + GraphPadding);
+            var l = GrdGraphBG.ActualWidth / ((XLabels.Count - 1) + GraphPadding);
             if (l == 0) return;
             GrdGraphBG.Children.Clear();
             if (XLabels.Count > 0)
             {
                 for (double j = 0; j <= GrdGraphBG.ActualWidth; j += l)
                 {
-                    Line k = new Line()
+                    var k = new Line()
                     {
                         X1 = j,
                         X2 = j,
@@ -417,7 +417,7 @@ namespace TheXDS.MCART.Controls
         void PlotLabels()
         {
             if (!AmIValid()) return;
-            double l = GrdGraphBG.ActualWidth / ((XLabels.Count - 1) + GraphPadding);
+            var l = GrdGraphBG.ActualWidth / ((XLabels.Count - 1) + GraphPadding);
             if (l == 0) return;
             GrdXLbls.Children.Clear();
             if (XLabels.Count > 0)
@@ -426,7 +426,7 @@ namespace TheXDS.MCART.Controls
                 {
                     if (System.Math.Round(j / l) < XLabels.Count)
                     {
-                        TextBlock k = new TextBlock()
+                        var k = new TextBlock()
                         {
                             Text = XLabels[(int)(j / l)],
                             Margin = new Thickness(j, 0, 0, 0)
@@ -445,11 +445,11 @@ namespace TheXDS.MCART.Controls
             mx.Text = max.ToString();
             if (double.IsNaN(min)) min = lst.Min();
             mn.Text = min.ToString();
-            double l = GrdGraph.ActualWidth / ((lst.Count - 1) + GraphPadding); //Unidades de gráfica
+            var l = GrdGraph.ActualWidth / ((lst.Count - 1) + GraphPadding); //Unidades de gráfica
             double k = 0; //step en unidades de gráfica
-            int a = 0; //step simple
+            var a = 0; //step simple
             Point p = default;
-            foreach (double j in lst.ToPercent(min, max))
+            foreach (var j in lst.ToPercent(min, max))
             {
                 if (j.IsValid())
                 {
@@ -468,7 +468,7 @@ namespace TheXDS.MCART.Controls
                     grp.Points.Add(new Point(k - l, GrdGraph.ActualHeight + GraphThickness * 2));
                 grp.Points.Add(new Point(0, GrdGraph.ActualHeight + GraphThickness * 2));
                 var _with2 = ((SolidColorBrush)grp.Stroke).Color;
-                Color x = Color.FromArgb((byte)(_with2.A / 2), _with2.R, _with2.G, _with2.B);
+                var x = Color.FromArgb((byte)(_with2.A / 2), _with2.R, _with2.G, _with2.B);
                 grp.Fill = new SolidColorBrush(x);
             }
         }
@@ -476,21 +476,21 @@ namespace TheXDS.MCART.Controls
         {
             if (!AmIValid()) return;
             g.Children.Clear();
-            SpotLabelsDrawMode mde = SpotLabels;
+            var mde = SpotLabels;
             if (grp.Count > 1 && Convert.ToBoolean(mde))
             {
                 double mi = 0;
                 double ma = 0;
-                int j = 0;
+                var j = 0;
                 byte drop = 0;
-                double tot = grp.Sum();
+                var tot = grp.Sum();
                 ma = double.IsNaN(YMax) ? grp.Max() : YMax;
                 mi = double.IsNaN(YMin) ? grp.Min() : YMin;
-                foreach (Point p in Ps.Points)
+                foreach (var p in Ps.Points)
                 {
                     if (Algebra.AreValid(p.X, p.Y) && drop == 0)
                     {
-                        TextBlock lb = new TextBlock()
+                        var lb = new TextBlock()
                         {
                             Foreground = ((mde & SpotLabelsDrawMode.GraphColor) != 0 ? Ps.Stroke : Foreground),
                             Background = (mde & SpotLabelsDrawMode.DarkBG) != 0 ? Brushes.Black : null,
@@ -606,14 +606,14 @@ namespace TheXDS.MCART.Controls
         public LightGraph()
         {
             // Inicializar controles...
-            DockPanel pnlroot = new DockPanel();
-            TextBlock lba = new TextBlock { LayoutTransform = new RotateTransform(-90) };
-            Rectangle rct1 = new Rectangle();
-            DockPanel dp1 = new DockPanel();
-            Grid gr1 = new Grid { LayoutTransform = new RotateTransform(-90) };
-            Grid gr2 = new Grid { LayoutTransform = new RotateTransform(-90) };
-            Grid gr3 = new Grid();
-            Grid gr4 = new Grid();
+            var pnlroot = new DockPanel();
+            var lba = new TextBlock { LayoutTransform = new RotateTransform(-90) };
+            var rct1 = new Rectangle();
+            var dp1 = new DockPanel();
+            var gr1 = new Grid { LayoutTransform = new RotateTransform(-90) };
+            var gr2 = new Grid { LayoutTransform = new RotateTransform(-90) };
+            var gr3 = new Grid();
+            var gr4 = new Grid();
             DockPanel.SetDock(LblTitle, Dock.Top);
             DockPanel.SetDock(dp1, Dock.Bottom);
             DockPanel.SetDock(gr1, Dock.Left);

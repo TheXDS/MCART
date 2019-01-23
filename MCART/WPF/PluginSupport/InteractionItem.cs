@@ -123,7 +123,7 @@ namespace TheXDS.MCART.PluginSupport
         /// <see cref="InteractionItem"/>.</returns>
         public MenuItem AsMenuItem()
         {
-            MenuItem k = new MenuItem() { Header = Text };
+            var k = new MenuItem() { Header = Text };
             if (!Description.IsEmpty())
                 k.ToolTip = new ToolTip() { Content = Description };
             if (!(Icon is null))
@@ -160,7 +160,7 @@ namespace TheXDS.MCART.PluginSupport
                 k.ToolTip = new ToolTip() { Content = Description };
             if (!(Icon is null))
             {
-                StackPanel cnt = new StackPanel() { Orientation = Orientation.Horizontal };
+                var cnt = new StackPanel() { Orientation = Orientation.Horizontal };
                 cnt.Children.Add(new Image() { Source = Icon });
                 cnt.Children.Add(new TextBlock() { Text = Text });
                 k.Content = cnt;

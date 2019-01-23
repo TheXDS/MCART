@@ -28,6 +28,7 @@ using System.Reflection;
 using St = TheXDS.MCART.Resources.Strings;
 using Ist= TheXDS.MCART.Resources.InternalStrings;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Security.Password
@@ -40,7 +41,7 @@ namespace TheXDS.MCART.Security.Password
         /// <summary>
         ///     Obtiene un listado de todos los generadores de contraseña disponibles.
         /// </summary>
-        public static IEnumerable<KeyValuePair<string, IPasswordGenerator>> List
+        public static IEnumerable<NamedObject<IPasswordGenerator>> List
         {
             get
             {

@@ -1,6 +1,7 @@
 # Información técnica de desarrollo
 En este archivo, se detallan algunas consideraciones técnicas al trabajar en
 MCART. Para un eficiente flujo de trabajo, por favor, lee todo este documento.
+
 ### Creando nuevos proyectos
 Los proyectos comparten un conjunto de constantes de compilación. Debido a
 algunas limitaciones presentadas por Visual Studio, no existe un editor visual
@@ -30,6 +31,13 @@ constantes de compilación globales editando el archivo
 **Nota:** las constantes aplicables al proyecto deben definirse antes de
 agregar este nodo a la definición del proyecto, para evitar que Visual Studio
 copie las constantes globales localmente al archivo del proyecto.
+
+Debido a recientes actualizaciones en Visual Studio, además del nuevo nodo para
+soporte de configuración de compilación global, si existe el siguiente nodo en
+la definición del proyecto: `<Deterministic>true</Deterministic>` debe
+cambiarse su valor a: `<Deterministic>false</Deterministic>` para soportar la
+compilación con números de versión con *Wildcards*.
+
 ### Números de versión
 La información genérica de los ensamblados de MCART se encuentra en el proyecto
 compartido *AssemblyInfo*, el cual contiene únicamente un archivo con las
@@ -53,6 +61,7 @@ Debido a la forma en la que dichos atributos se encuentran almacenados en un
 proyecto de este tipo, será necesario actualizar manualmente la información de
 ensamblado de *NetStandard* al compilar. Por favor, no olvides realizar estos
 cambios y recompilar *NetStandard* por separado.
+
 ### Constantes globales de compilación
 El archivo `CommonSettings.targets` contiene un conjunto de constantes de
 compilación definidas para toda la solución. Esto, con el propósito de evitar
@@ -62,18 +71,18 @@ permitir compartir eficientemente dichas constantes.
 La siguiente tabla incluye las constantes existentes y el efecto que producen
 al activarse:
 
-Constante | Efecto
---- | ---
-AntiFreeze | Habilita a las funciones que así lo permitan eventualmente detener una enumeración potencialmente infinita cuando esta haya sido mal utilizada.
-BufferedIO | Algunas funciones de entrada/salida incluyen una implementación opcional con búffer. Activar esta opción habilita las lecturas y escrituras con búffer.
-CheckDanger | Obliga a las funciones que lo permitan a limitar el uso de clases o funciones peligrosas (marcadas con el atributo `DangerousAttribute`)
-CLSCompliance | Obliga a utilizar implementaciones que cumplen con CLS (Common Language Standard). Se recomienda encarecidamente activar esta constante.
-DynamicLoading | Habilita la carga de clases por medio de ```System.Reflection``` de elementos contenidos dentro de MCART.
-ExtrasBuiltIn | Incluir en el ensamblado de MCART ejemplos e implementaciones estándar básicas de las interfaces o clases abstractas para las cuales se pueda proveer.
-FloatDoubleSpecial | `float` y `double` son tipos numéricos que pueden contener valores especiales, como ser NaN o infinito. Al activar esta constante, se habilitan métodos especiales que pueden trabajar con estos valores.
-McartAsPlugin | Habilita la carga de plugins definidos dentro de MCART.
-NativeNumbers | Permite utilizar implementaciones conscientes de la cultura nativa para algunas funciones que trabajan con símbolos numéricos, utilizando los dígitos numéricos locales.
-PreferExceptions | Cuando ciertas funciones deban manejar información inválida, activar esta constante causa que se arrojen excepciones en lugar de continuar con código alternativo (activar esta bandera puede ser un dolor de cabeza, pero resulta en código más seguro).
-RatherDRY | Indica que, a pesar de disminuir la optimización del código, se debe respetar el principio DRY (Don't Repeat Yourself) al implementar sobrecargas cuyo cuerpo sea exactamente igual.
-SaferPasswords | Permite que algunas funciones de seguridad requieran, comprueben o generen contraseñas más seguras, a expensas de compatibilidad con los métodos de entrada disponibles o con el equipo.
+Constante             | Efecto
+---                   | ---
+AntiFreeze            | Habilita a las funciones que así lo permitan eventualmente detener una enumeración potencialmente infinita cuando esta haya sido mal utilizada.
+BufferedIO            | Algunas funciones de entrada/salida incluyen una implementación opcional con búffer. Activar esta opción habilita las lecturas y escrituras con búffer.
+CheckDanger           | Obliga a las funciones que lo permitan a limitar el uso de clases o funciones peligrosas (marcadas con el atributo `DangerousAttribute`)
+CLSCompliance         | Obliga a utilizar implementaciones que cumplen con CLS (Common Language Standard). Se recomienda encarecidamente activar esta constante.
+DynamicLoading        | Habilita la carga de clases por medio de ```System.Reflection``` de elementos contenidos dentro de MCART.
+ExtrasBuiltIn         | Incluir en el ensamblado de MCART ejemplos e implementaciones estándar básicas de las interfaces o clases abstractas para las cuales se pueda proveer.
+FloatDoubleSpecial    | `float` y `double` son tipos numéricos que pueden contener valores especiales, como ser NaN o infinito. Al activar esta constante, se habilitan métodos especiales que pueden trabajar con estos valores.
+McartAsPlugin         | Habilita la carga de plugins definidos dentro de MCART.
+NativeNumbers         | Permite utilizar implementaciones conscientes de la cultura nativa para algunas funciones que trabajan con símbolos numéricos, utilizando los dígitos numéricos locales.
+PreferExceptions      | Cuando ciertas funciones deban manejar información inválida, activar esta constante causa que se arrojen excepciones en lugar de continuar con código alternativo (activar esta bandera puede ser un dolor de cabeza, pero resulta en código más seguro).
+RatherDRY             | Indica que, a pesar de disminuir la optimización del código, se debe respetar el principio DRY (Don't Repeat Yourself) al implementar sobrecargas cuyo cuerpo sea exactamente igual.
+SaferPasswords        | Permite que algunas funciones de seguridad requieran, comprueben o generen contraseñas más seguras, a expensas de compatibilidad con los métodos de entrada disponibles o con el equipo.
 StrictMCARTVersioning | Cuando se realicen comprobaciones de compatibilidad con MCART, activar esta constante causa que dichas comprobaciones sean más estrictas. Se recomienda mantener esta constante habilitada.

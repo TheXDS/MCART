@@ -93,7 +93,7 @@ namespace TheXDS.MCART.Security.Password
         public PwEvalResult Eval(SecureString pwToEval)
         {
             if (!Enable) throw new InvalidOperationException(St.XDisabled(St.TheObj));
-            PwEvalResult k = _func(pwToEval);
+            var k = _func(pwToEval);
             if (!k.Result.IsBetween(0.0f, 1.0f)) throw new Exceptions.InvalidReturnValueException(_func, k.Result);
             k.Result *= (float)_pond;
             return k;

@@ -30,7 +30,7 @@ using TheXDS.MCART.Resources;
 [assembly: AssemblyProduct("Morgan's CLR Advanced Runtime")]
 [assembly: AssemblyCopyright("Copyright © 2011 - 2019 César Andrés Morgan")]
 [assembly: EmbeddedLicense("GPLv3", "TheXDS.MCART.Resources.License", typeof(DeflateGetter))]
-[assembly: AssemblyVersion("0.9.3.0")]
+[assembly: AssemblyVersion("0.9.3.1")]
 #if CLSCompliance
 [assembly: System.CLSCompliant(true)]
 #endif

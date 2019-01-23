@@ -37,7 +37,7 @@ using TheXDS.MCART.Types;
 using Xunit;
 using static TheXDS.MCART.Common;
 
-namespace CoreTest.Modules
+namespace TheXDS.MCART.Tests.Modules
 {
     /// <summary>
     ///     Contiene pruebas para la clase estática <see cref="Common" />.
@@ -228,6 +228,12 @@ namespace CoreTest.Modules
             Assert.False("d".IsBetween("a", "c"));
             Assert.True('b'.IsBetween(new Range<char>('a', 'c')));
             Assert.False('d'.IsBetween(new Range<char>('a', 'c')));
+
+            Assert.True(((double?) 0.5).IsBetween(0.0, 1.0));
+            Assert.True(((double?) 0.0).IsBetween(0.0, 1.0,true));
+            Assert.False(((double?) 0.0).IsBetween(0.0, 1.0,false));
+            Assert.False(((double?) null).IsBetween(0.0, 1.0));
+            Assert.True(((double?) 0.5).IsBetween(new Range<double>(0.0, 1.0)));
         }
 
 
@@ -359,6 +365,18 @@ namespace CoreTest.Modules
         public void ByteUnitsTest_Long(long bytes, string result)
         {
             Assert.Equal(result,bytes.ByteUnits());
+        }
+
+        [Fact]
+        public void AnyEmptyTest()
+        {
+            var array = new [] { "0", null, "2", "3", null, "5" };
+            Assert.False(new[]{ "0", "1", "2" }.AnyEmpty(out int i));
+            Assert.Equal(-1, i);
+            Assert.True(array.AnyEmpty(out int index));
+            Assert.Equal(1, index);
+            Assert.True(array.AnyEmpty(out IEnumerable<int> indexes));
+            Assert.Equal(new[]{ 1, 4 },indexes.ToArray());
         }
     }
 }

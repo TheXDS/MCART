@@ -430,9 +430,9 @@ namespace TheXDS.MCART.Controls
         #region Métodos privados
         static void UpdtLayout(DependencyObject dd, DependencyPropertyChangedEventArgs e)
         {
-            NavigationBar d = (NavigationBar)dd;
-            int max = d.Max;
-            int pos = d.Position;
+            var d = (NavigationBar)dd;
+            var max = d.Max;
+            var pos = d.Position;
 
             if (e.Property.Is(MaxProperty))
             {
@@ -468,8 +468,8 @@ namespace TheXDS.MCART.Controls
         }
         string GenFilters(string s)
         {
-            StringBuilder x = new StringBuilder();
-            foreach (string j in flts)
+            var x = new StringBuilder();
+            foreach (var j in flts)
             {
                 if (!x.ToString().IsEmpty()) x.Append(" OR ");
                 x.Append($"{j} LIKE '%{s}%'");
@@ -485,7 +485,7 @@ namespace TheXDS.MCART.Controls
         }
         void BtnCncl_Click(object sender, RoutedEventArgs e)
         {
-            CancelEventArgs ev = new CancelEventArgs();
+            var ev = new CancelEventArgs();
             Cancelling?.Invoke(this, ev);
             if (!ev.Cancel)
             {
@@ -497,7 +497,7 @@ namespace TheXDS.MCART.Controls
         }
         void First(object sender, RoutedEventArgs e)
         {
-            DependencyPropertyChangingEventArgs ev = new DependencyPropertyChangingEventArgs(PositionProperty, Position, 1);
+            var ev = new DependencyPropertyChangingEventArgs(PositionProperty, Position, 1);
             MovingToFirst?.Invoke(this, ev);
             if (!ev.Cancel)
             {
@@ -508,8 +508,8 @@ namespace TheXDS.MCART.Controls
         }
         void Prev(object sender, RoutedEventArgs e)
         {
-            int cp = Position;
-            DependencyPropertyChangingEventArgs ev = new DependencyPropertyChangingEventArgs(PositionProperty, cp, cp - 1);
+            var cp = Position;
+            var ev = new DependencyPropertyChangingEventArgs(PositionProperty, cp, cp - 1);
             MovingToPrev?.Invoke(this, ev);
             if (!ev.Cancel)
             {
@@ -520,8 +520,8 @@ namespace TheXDS.MCART.Controls
         }
         void Nxt(object sender, RoutedEventArgs e)
         {
-            int cp = Position;
-            DependencyPropertyChangingEventArgs ev = new DependencyPropertyChangingEventArgs(PositionProperty, cp, cp + 1);
+            var cp = Position;
+            var ev = new DependencyPropertyChangingEventArgs(PositionProperty, cp, cp + 1);
             MovingToNext?.Invoke(this, ev);
             if (!ev.Cancel)
             {
@@ -532,8 +532,8 @@ namespace TheXDS.MCART.Controls
         }
         void Last(object sender, RoutedEventArgs e)
         {
-            int cp = Max;
-            DependencyPropertyChangingEventArgs ev = new DependencyPropertyChangingEventArgs(PositionProperty, Position, cp);
+            var cp = Max;
+            var ev = new DependencyPropertyChangingEventArgs(PositionProperty, Position, cp);
             MovingToLast?.Invoke(this, ev);
             if (!ev.Cancel)
             {
@@ -544,11 +544,11 @@ namespace TheXDS.MCART.Controls
         }
         void TxtPos_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (!int.TryParse(e.Text, out int v)) return;
+            if (!int.TryParse(e.Text, out var v)) return;
             e.Handled = true;
             if (v.IsBetween(1, Max) && char.IsDigit(e.Text.Last()) && e.Text.Last() != ' ')
             {
-                DependencyPropertyChangingEventArgs ev = new DependencyPropertyChangingEventArgs(PositionProperty, Position, v);
+                var ev = new DependencyPropertyChangingEventArgs(PositionProperty, Position, v);
                 MovingToPosition?.Invoke(this, ev);
                 if (!ev.Cancel)
                 {
@@ -588,7 +588,7 @@ namespace TheXDS.MCART.Controls
         }
         void BtnNew_Click(object sender, RoutedEventArgs e)
         {
-            CancelEventArgs ev = new CancelEventArgs();
+            var ev = new CancelEventArgs();
             CreatingNew?.Invoke(this, ev);
             if (!ev.Cancel)
             {
@@ -602,7 +602,7 @@ namespace TheXDS.MCART.Controls
         }
         void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
-            CancelEventArgs ev = new CancelEventArgs();
+            var ev = new CancelEventArgs();
             Editing?.Invoke(this, ev);
             if (!ev.Cancel)
             {
@@ -613,7 +613,7 @@ namespace TheXDS.MCART.Controls
         }
         void BtnDel_Click(object sender, RoutedEventArgs e)
         {
-            CancelEventArgs ev = new CancelEventArgs();
+            var ev = new CancelEventArgs();
             Deleting?.Invoke(this, ev);
             if (view != null && !ev.Cancel)
             {
@@ -639,7 +639,7 @@ namespace TheXDS.MCART.Controls
                 {
                     if (view.IsAddingNew)
                     {
-                        object i = view.CurrentAddItem;
+                        var i = view.CurrentAddItem;
                         view.CommitNew();
                         view.MoveCurrentTo(i);
                         Max += 1;
@@ -718,16 +718,16 @@ namespace TheXDS.MCART.Controls
         public NavigationBar()
         {
             MinWidth = 96;
-            StackPanel roth = new StackPanel { MinWidth = 96 };
-            WrapPanel grdedit = new WrapPanel { HorizontalAlignment = HorizontalAlignment.Center };
-            WrapPanel b = new WrapPanel();
+            var roth = new StackPanel { MinWidth = 96 };
+            var grdedit = new WrapPanel { HorizontalAlignment = HorizontalAlignment.Center };
+            var b = new WrapPanel();
             SetBinding(TextBox.TextProperty, new Binding(nameof(txtSearch.Text)) { Source = txtSearch });
             SetBinding(HasItemsProperty, new Binding(nameof(Max))
             {
                 Source = this,
                 Converter = new NumberToBooleanConverter()
             });
-            Grid c = new Grid
+            var c = new Grid
             {
                 Margin = new Thickness(5, 0, 0, 0),
                 Height = 20
@@ -737,7 +737,7 @@ namespace TheXDS.MCART.Controls
                 Source = this,
                 Converter = new BooleanToVisibilityConverter()
             });
-            TextBlock d = new TextBlock
+            var d = new TextBlock
             {
                 Margin = new Thickness(5, 0, 5, 0),
                 VerticalAlignment = VerticalAlignment.Center,
@@ -820,7 +820,7 @@ namespace TheXDS.MCART.Controls
             DockPanel.SetDock(b, Dock.Right);
             b.Children.Add(btnNext);
             b.Children.Add(btnLast);
-            Rectangle a = new Rectangle();
+            var a = new Rectangle();
             a.SetBinding(Shape.FillProperty, new Binding(nameof(Background)) { Source = txtPos });
             c.Children.Add(a);
             c.Children.Add(d);

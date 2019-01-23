@@ -50,9 +50,9 @@ namespace TheXDS.MCART.Types
         /// </param>
         public static Color BlendHeat(float x)
         {
-            byte r = (byte)(1020 * (float)(x + 0.5) - 1020).Clamp(0, 255);
-            byte g = (byte)((float)(-System.Math.Abs(2040 * (x - 0.5)) + 1020) / 2).Clamp(0, 255);
-            byte b = (byte)(-1020 * (float)(x + 0.5) + 1020).Clamp(0, 255);
+            var r = (byte)(1020 * (float)(x + 0.5) - 1020).Clamp(0, 255);
+            var g = (byte)((float)(-System.Math.Abs(2040 * (x - 0.5)) + 1020) / 2).Clamp(0, 255);
+            var b = (byte)(-1020 * (float)(x + 0.5) + 1020).Clamp(0, 255);
             return new Color(r, g, b);
         }
         /// <summary>
@@ -62,8 +62,8 @@ namespace TheXDS.MCART.Types
         /// <param name="x">The x coordinate.</param>
         public static Color BlendHealth(float x)
         {
-            byte g = (byte)(510 * x).Clamp(0, 255);
-            byte r = (byte)(510 - 510 * x).Clamp(0, 255);
+            var g = (byte)(510 * x).Clamp(0, 255);
+            var r = (byte)(510 - 510 * x).Clamp(0, 255);
             return new Color(r, g, 0);
         }
         /// <summary>
@@ -172,7 +172,7 @@ namespace TheXDS.MCART.Types
         /// </exception>
         public static Color Parse(string from)
         {
-            if (TryParse(from, out Color color)) return color;
+            if (TryParse(from, out var color)) return color;
             throw new FormatException();
         }
         /// <summary>

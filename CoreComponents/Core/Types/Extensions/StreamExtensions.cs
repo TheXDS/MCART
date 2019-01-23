@@ -82,7 +82,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static string ReadString(this Stream fs, int count, Encoding encoding)
         {
             var retVal = new List<char>();
-            BinaryReader br = new BinaryReader(fs, encoding);
+            var br = new BinaryReader(fs, encoding);
             while (retVal.Count < count) retVal.Add(br.ReadChar());
             return new string(retVal.ToArray());
         }

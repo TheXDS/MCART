@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System.Collections.Generic;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Resources;
+using TheXDS.MCART.Types;
 
 namespace TheXDS.MCART.Security.Password
 {
@@ -33,7 +34,10 @@ namespace TheXDS.MCART.Security.Password
     /// </summary>
     public static class PasswordEvaluators
     {
-        public static IEnumerable<KeyValuePair<string, IPasswordEvaluator>> List
+        /// <summary>
+        ///     Lista los evaluadores de contraseña integrados en esta clase.
+        /// </summary>
+        public static IEnumerable<NamedObject<IPasswordEvaluator>> List
         {
             get
             {
@@ -55,6 +59,9 @@ namespace TheXDS.MCART.Security.Password
         [Name(InternalStrings.CommonEvaluator), Description(InternalStrings.CommonEvaluatorDesc)]
         public static readonly IPasswordEvaluator CommonEvaluator = new PasswordEvaluator(RuleSets.CommonComplexityRuleSet());
 
+        /// <summary>
+        ///     Obtiene un evaluador de contraseñas con reglas seguras.
+        /// </summary>
         [Name(InternalStrings.ExtendedEvaluator)]
         public static readonly IPasswordEvaluator SaferEvaluator = new PasswordEvaluator(RuleSets.ExtendedRuleSet());
 #if SaferPasswords

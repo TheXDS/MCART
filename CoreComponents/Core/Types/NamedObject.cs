@@ -23,9 +23,12 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types.Extensions;
+
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace TheXDS.MCART.Types
 {
@@ -40,6 +43,7 @@ namespace TheXDS.MCART.Types
         /// </summary>
         public T Value { get; }
 
+        /// <inheritdoc />
         /// <summary>
         ///     Etiqueta del objeto.
         /// </summary>
@@ -53,11 +57,13 @@ namespace TheXDS.MCART.Types
         ///     <see cref="M:System.Object.ToString" />.
         /// </summary>
         /// <param name="value">Objeto a etiquetar.</param>
-        public NamedObject(T value) : this(value, Infer(value)) { }
+        public NamedObject(T value) : this(value, Infer(value))
+        {
+        }
 
         /// <summary>
         ///     Inicializa una nueva instancia de la estructura
-        ///     <see cref="NamedObject{T}"/> estableciendo un valor y una
+        ///     <see cref="NamedObject{T}" /> estableciendo un valor y una
         ///     etiqueta para el mismo.
         /// </summary>
         /// <param name="value">Objeto a etiquetar.</param>
@@ -69,8 +75,26 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Convierte implícitamente un <typeparamref name="T"/> en un
-        ///     <see cref="NamedObject{T}"/>.
+        ///     Infiere la etiqueta de un objeto.
+        /// </summary>
+        /// <param name="o">Objeto para el cual inferir una etiqueta.</param>
+        /// <returns>
+        ///     El nombre inferido del objeto, o
+        ///     <see cref="object.ToString()" /> de no poderse inferir una
+        ///     etiqueta adecuada.
+        /// </returns>
+        public static string Infer(T o)
+        {
+            return
+                (o as MemberInfo)?.NameOf() ??
+                (o as Enum)?.NameOf() ??
+                o.GetAttr<NameAttribute>()?.Value ??
+                o.ToString();
+        }
+
+        /// <summary>
+        ///     Convierte implícitamente un <typeparamref name="T" /> en un
+        ///     <see cref="NamedObject{T}" />.
         /// </summary>
         /// <param name="obj">Objeto a convertir.</param>
         public static implicit operator NamedObject<T>(T obj)
@@ -79,8 +103,8 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Convierte implícitamente un <see cref="NamedObject{T}"/> en un
-        ///     <typeparamref name="T"/>.
+        ///     Convierte implícitamente un <see cref="NamedObject{T}" /> en un
+        ///     <typeparamref name="T" />.
         /// </summary>
         /// <param name="namedObj">Objeto a convertir.</param>
         public static implicit operator T(NamedObject<T> namedObj)
@@ -89,8 +113,8 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Convierte implícitamente un <see cref="NamedObject{T}"/> en un
-        ///     <see cref="string"/>.
+        ///     Convierte implícitamente un <see cref="NamedObject{T}" /> en un
+        ///     <see cref="string" />.
         /// </summary>
         /// <param name="namedObj">Objeto a convertir.</param>
         public static implicit operator string(NamedObject<T> namedObj)
@@ -99,21 +123,24 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Infiere la etiqueta de un objeto.
+        ///     Convierte implícitamente un <see cref="NamedObject{T}" /> en un
+        ///     <see cref="KeyValuePair{TKey,TValue}" />.
         /// </summary>
-        /// <param name="o">Objeto para el cual inferir una etiqueta.</param>
-        /// <returns>
-        ///     El nombre inferido del objeto, o
-        ///     <see cref="object.ToString()"/> de no poderse inferir una
-        ///     etiqueta adecuada.
-        /// </returns>
-        private static string Infer(T o)
+        /// <param name="namedObj">Objeto a convertir.</param>
+        public static implicit operator KeyValuePair<string, T>(NamedObject<T> namedObj)
         {
-            return
-                (o as MemberInfo)?.NameOf() ??
-                (o as Enum)?.NameOf() ??
-                o.GetAttr<NameAttribute>()?.Value ??
-                o.ToString();
+            return new KeyValuePair<string, T>(namedObj.Name, namedObj.Value);
+        }
+
+        /// <summary>
+        ///     Convierte implícitamente un
+        ///     <see cref="KeyValuePair{TKey,TValue}" /> en un
+        ///     <see cref="NamedObject{T}" />.
+        /// </summary>
+        /// <param name="keyValuePair">Objeto a convertir.</param>
+        public static implicit operator NamedObject<T>(KeyValuePair<string, T> keyValuePair)
+        {
+            return new NamedObject<T>(keyValuePair.Value, keyValuePair.Key);
         }
     }
 }

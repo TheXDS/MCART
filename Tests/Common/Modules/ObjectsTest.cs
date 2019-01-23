@@ -33,7 +33,7 @@ using TheXDS.MCART.Resources;
 using Xunit;
 using static TheXDS.MCART.Objects;
 
-namespace CoreTest.Modules
+namespace TheXDS.MCART.Tests.Modules
 {
     [AttrTest]
     public class ObjectsTest
@@ -66,6 +66,12 @@ namespace CoreTest.Modules
             {
             }
         }
+#pragma warning disable xUnit1013
+        // ReSharper disable once MemberCanBePrivate.Global
+        // ReSharper disable once MemberCanBeMadeStatic.Global
+        public void TestEventHandler(object sender, EventArgs e) { }
+#pragma warning restore xUnit1013
+
 
         [Theory]
         [InlineData(typeof(byte), true)]
@@ -99,7 +105,9 @@ namespace CoreTest.Modules
             var tc = new TestClass();
             Assert.Equal(tc.TestField, tc.FieldsOf<float>().FirstOrDefault());
             Assert.Equal(tc.TestField, tc.GetType().GetFields().FieldsOf<float>(tc).FirstOrDefault());
+            Assert.Equal(TestClass.StaticField, tc.GetType().FieldsOf<double>().FirstOrDefault());
             Assert.Equal(TestClass.StaticField, tc.GetType().GetFields().FieldsOf<double>().FirstOrDefault());
+            Assert.Equal(TestClass.StaticField, typeof(TestClass).GetFields().FieldsOf<double>().FirstOrDefault());
         }
 
         [Fact]
@@ -248,6 +256,34 @@ namespace CoreTest.Modules
             var m = typeof(TestClass).GetMethods().WithSignature<Action<float>>(tc).FirstOrDefault();
             Assert.NotNull(m);
             m(1.0f);
+        }
+
+        [Fact]
+        public void PublicTypesTest()
+        {
+            var d = AppDomain.CreateDomain("test");
+            var cd = PublicTypes<Exception>(AppDomain.CurrentDomain).ToArray();
+            var nd = PublicTypes<Exception>(d).ToArray();
+
+            Assert.True(cd.Any());
+            Assert.True(nd.Any());
+            Assert.True(cd.Length > nd.Length);
+        }
+
+        [Fact]
+        public void TryCreateDelegateTest()
+        {
+            var m = GetType().GetMethod(nameof(TestEventHandler));
+
+            Assert.True(TryCreateDelegate<EventHandler>(m, this, out _));
+
+            Assert.False(TryCreateDelegate<EventHandler>(m, null, out _));
+            Assert.False(TryCreateDelegate<Action>(m, this, out _));
+            Assert.False(TryCreateDelegate<Action<int>>(m, this, out _));
+
+            Assert.False(TryCreateDelegate<EventHandler>(null, out _));
+            Assert.False(TryCreateDelegate<Action>(m, out _));
+            Assert.False(TryCreateDelegate<Action<int>>(m, out _));
         }
     }
 }

@@ -14,7 +14,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Math\SeriesTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\CommonTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\ObjectsTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Modules\ReflectionHelpersTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\NetworkingTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\Base\NotifyPropertyChangedTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\Base\NotifyPropertyChangingTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\EnumerableExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\EnumExtensionsTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\StringExtensionsTests.cs" />

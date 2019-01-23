@@ -25,33 +25,78 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using TheXDS.MCART.Exceptions;
+
+// ReSharper disable UnusedMember.Global
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
     ///     Extensiones para todos los elementos de tipo <see cref="IEnumerable{T}" />.
     /// </summary>
-    [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public static class EnumerableExtensions
     {
         /// <summary>
-        ///     Enumera todos los elementos de la colección, omitiendo los especificados.
+        ///     Enumera todos los elementos de la colección, omitiendo los
+        ///     especificados.
         /// </summary>
         /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
         /// <param name="collection">Colección a enumerar.</param>
-        /// <param name="exclusions">Elementos a excluir de la colección.</param>
+        /// <param name="exclusions">
+        ///     Elementos a excluir de la colección.
+        /// </param>
         /// <returns>
-        ///     Una enumeración con los elementos de la colección, omitiendo las exclusiones especificadas.
+        ///     Una enumeración con los elementos de la colección, omitiendo
+        ///     las exclusiones especificadas.
         /// </returns>
 		public static IEnumerable<T> ExceptFor<T>(this IEnumerable<T> collection, params T[] exclusions)
-		{
-            return collection.Where(j => j.IsNeither(exclusions));
-		}
+        {
+            //return default(T) == null
+            //    ? collection.Where(j => j.IsNeither(exclusions))
+            //    : collection.Where(j => !exclusions.Contains(j));
+
+            bool Compare(T value)
+            {
+                return value.GetType().Default() == null 
+                    ? value.IsNeither(exclusions.AsEnumerable()) 
+                    : !exclusions.Contains(value);
+            }
+
+            return collection.Where(Compare);
+        }
+
+        /// <summary>
+        ///     Enumera los elementos no nulos de una colección.
+        /// </summary>
+        /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
+        /// <param name="collection">Colección a enumerar.</param>
+        /// <returns>
+        ///     Una enumeración con los elementos de la colección, omitiendo
+        ///     aquellos que sean <see langword="null"/>.
+        /// </returns>
+        public static IEnumerable<T> NotNull<T>(this IEnumerable<T> collection) where T : class
+        {
+            return collection.Where(p => !(p is null));
+        }
+
+        /// <summary>
+        ///     Enumera los elementos que sean distintos de su valor
+        ///     predeterminado dentro de una colección.
+        /// </summary>
+        /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
+        /// <param name="collection">Colección a enumerar.</param>
+        /// <returns>
+        ///     Una enumeración con los elementos de la colección, omitiendo
+        ///     aquellos que sean iguales a su valor predeterminado, o en el
+        ///     caso de tipos de referencia, <see langword="null"/>.
+        /// </returns>
+        public static IEnumerable<T> NonDefaults<T>(this IEnumerable<T> collection)
+        {
+            return collection.Where(p => !(Equals(p, default(T))));
+        }
 
         /// <summary>
         ///     Obtiene un sub-rango de valores dentro de este
@@ -476,6 +521,7 @@ namespace TheXDS.MCART.Types.Extensions
                 }
             }
         }
+
         /// <summary>
         ///     Compara dos colecciones y determina si sus elementos son iguales.
         /// </summary>

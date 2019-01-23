@@ -186,7 +186,8 @@ namespace TheXDS.MCART
         public static bool AnyEmpty(this IEnumerable<string> stringArray, out int firstIndex)
         {
             var r = AnyEmpty(stringArray, out IEnumerable<int> indexes);
-            firstIndex = indexes.FirstOrDefault();
+            var a = indexes.ToArray();
+            firstIndex = a.Any() ? a.First() : -1;
             return r;
         }
 

@@ -87,7 +87,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static float GetScalingFactor(IntPtr Hwnd)
         {
-            IntPtr h = Graphics.FromHwnd(Hwnd).GetHdc();
+            var h = Graphics.FromHwnd(Hwnd).GetHdc();
             return (float)GetDeviceCaps(h, 10) / GetDeviceCaps(h, 117);
         }
         /// <summary>
@@ -134,7 +134,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static Point GetDpi(IntPtr Hwnd)
         {
-            IntPtr h = Graphics.FromHwnd(Hwnd).GetHdc();
+            var h = Graphics.FromHwnd(Hwnd).GetHdc();
             return new Point(GetDeviceCaps(h, 88), GetDeviceCaps(h, 90));
         }
         /// <summary>

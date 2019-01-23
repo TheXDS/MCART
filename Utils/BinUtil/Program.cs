@@ -317,7 +317,7 @@ Argumentos:
             foreach (var j in args)
             {
                 if (Uri.TryCreate(j, UriKind.Absolute, out _)) return j;
-                if (Uri.TryCreate($"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}{j}", UriKind.Absolute, out Uri uri)) return uri.AbsolutePath;
+                if (Uri.TryCreate($"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}{j}", UriKind.Absolute, out var uri)) return uri.AbsolutePath;
             }
             return null;
         }

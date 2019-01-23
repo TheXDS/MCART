@@ -28,7 +28,7 @@ using Xunit;
 
 #endif
 
-namespace CoreTest.Math
+namespace TheXDS.MCART.Tests.Math
 {
     public class MathTest
     {

@@ -64,7 +64,7 @@ namespace TheXDS.MCART.Controls
         /// </returns>
         public static IEnumerable<Slice> FromValues(double[] values)
         {
-            foreach (double j in values) yield return new Slice { Value = j };
+            foreach (var j in values) yield return new Slice { Value = j };
         }
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="Slice"/>.
@@ -143,7 +143,7 @@ namespace TheXDS.MCART.Controls
         /// </returns>
         public static double GetTotal(this IEnumerable<Slice> c)
         {
-            double tot = 0.0;
+            var tot = 0.0;
             foreach (var k in c) tot += k.Value;
             return tot;
         }

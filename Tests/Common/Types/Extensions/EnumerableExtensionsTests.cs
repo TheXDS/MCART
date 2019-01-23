@@ -27,7 +27,7 @@ using System.Linq;
 using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
 using Xunit;
 
-namespace CoreTest.Types.Extensions
+namespace TheXDS.MCART.Tests.Types.Extensions
 {
     public class EnumerableExtensionsTests
     {
@@ -72,7 +72,7 @@ namespace CoreTest.Types.Extensions
             Assert.Equal(new[] { 4, 5, 1, 2, 3 }, c.Rotate(-2));
         }
         [Fact]
-        public void ExeptForTest()
+        public void ExceptForTest_WithValues()
         {
             var array = new[] {1, 2, 3, 4, 5};
             var exclusions = new[] {2, 4};
@@ -80,5 +80,16 @@ namespace CoreTest.Types.Extensions
 
             Assert.Equal(result, array.ExceptFor(exclusions));
         }
+        [Fact]
+        public void ExceptForTest_WithObjects()
+        {
+            var array = new object[5];
+            for(var j = 0; j < 5; j++) array[j] = new object();
+            var exclusions = array.Range(3,2).ToArray();
+            var result = array.Range(0,3).ToArray();
+
+            Assert.Equal(result, array.ExceptFor(exclusions).ToArray());
+        }
+
     }
 }

@@ -258,7 +258,7 @@ namespace TheXDS.MCART.PluginSupport
         {
             get
             {
-                foreach (Type j in GetType().GetInterfaces())
+                foreach (var j in GetType().GetInterfaces())
                     if (j.IsNeither(typeof(IPlugin), typeof(IDisposable)))
                         yield return j;
             }

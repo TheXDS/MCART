@@ -1,5 +1,5 @@
 ﻿/*
-MemberInfoExtensions.cs
+NotifyPropertyChanged.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,31 +22,30 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Reflection;
-using TheXDS.MCART.Attributes;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
-namespace TheXDS.MCART.Types.Extensions
+namespace TheXDS.MCART.Types.Base
 {
+    /// <inheritdoc />
     /// <summary>
-    ///     Extensiones varias para objetos <see cref="MemberInfo" />.
+    ///     Clase base para los objetos que puedan notificar sobre el cambio
+    ///     del valor de una de sus propiedades.
     /// </summary>
-    public static class MemberInfoExtensions
+    public abstract class NotifyPropertyChanging : INotifyPropertyChanging
     {
+        /// <inheritdoc />
         /// <summary>
-        ///     Obtiene un nombre personalizado para un miembro.
+        ///     Se produce cuando cambia el valor de una propiedad.
         /// </summary>
-        /// <param name="member">
-        ///     <see cref="MemberInfo" /> del cual obtener el nombre.
-        /// </param>
-        /// <returns>
-        ///     Un nombre amigable para <paramref name="member" />, o el nombre
-        ///     definido para <paramref name="member" /> si no se ha definido
-        ///     un nombre amigable por medio del atributo
-        ///     <see cref="NameAttribute"/>.
-        /// </returns>
-        public static string NameOf(this MemberInfo member)
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        /// <summary>
+        ///     Notifica a los clientes que el valor de una propiedad cambiará.
+        /// </summary>
+        protected virtual void OnPropertyChanging([CallerMemberName] string propertyName = null)
         {
-            return member.GetAttr<NameAttribute>()?.Value ?? member.Name;
+            PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
         }
     }
 }

@@ -8,7 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{C20079C9-E990-470F-9E3A-7AF38AD65CDA}</ProjectGuid>
     <OutputType>library</OutputType>
-    <RootNamespace>WPFTests</RootNamespace>
+    <RootNamespace>TheXDS.MCART.Tests</RootNamespace>
     <AssemblyName>WPFTests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

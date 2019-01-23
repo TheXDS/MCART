@@ -97,6 +97,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\ServerNotFoundException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\Common_nonCLS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Modules\Objects.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Modules\ReflectionHelpers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\ActiveClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\ClientBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Networking\Client\ConnectionFailureEventArgs.cs" />
@@ -119,10 +120,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\PasswordGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Security\Password\UserData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Base\NotifyPropertyChanged.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\Base\NotifyPropertyChanging.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Converters\BasicParseConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Converters\RangeConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\DateTimeExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\EnumExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\PropertyInfoExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\StringExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\TaskExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Types\Extensions\TcpClient.cs" />

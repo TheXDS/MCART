@@ -27,7 +27,7 @@ using System.Linq;
 using TheXDS.MCART.Types;
 using Xunit;
 
-namespace CoreTest.Types
+namespace TheXDS.MCART.Tests.Types
 {
     public class RangeTests
     {
