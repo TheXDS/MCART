@@ -1,8 +1,9 @@
+# Windows garbage
+[Tt]humbs.db
+[Dd]esktop.ini
 
 # Autosave files
 *~
-
-
 
 # globs
 Makefile.in
@@ -23,8 +24,6 @@ autom4te.cache/
 *.tar.gz
 tarballs/
 test-results/
-[Tt]humbs.db
-[Dd]esktop.ini
 .vs/
 
 # Mac bundle stuff

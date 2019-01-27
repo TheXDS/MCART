@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<!-- Más información sobre este archivo en Documentation/TECHINFO.md -->
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
-  <PropertyGroup>
-    <!-- /!\ IMPORTANTE: no quitar el "$(DefineConstants)" de la línea de abajo! -->
-    <DefineConstants>$(DefineConstants);DynamicLoading;McartAsPlugin;NativeNumbers;FloatDoubleSpecial;BufferedIO;ExtrasBuiltIn;StrictMCARTVersioning;SaferPasswords;CheckDanger;CLSCompliance;AntiFreeze</DefineConstants>
-  </PropertyGroup>
-</Project>

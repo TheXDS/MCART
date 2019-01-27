@@ -97,12 +97,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\MCART\WPF\WPF.csproj">
-      <Project>{214a1e64-25a4-4d98-97da-7ca0e7ab2eef}</Project>
-      <Name>WPF</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="..\Common\Common.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
