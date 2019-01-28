@@ -1,5 +1,5 @@
 ﻿/*
-IGraphData.cs
+SweepDirection.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,24 +22,21 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using TheXDS.MCART.Types;
-
 namespace TheXDS.MCART.Controls
 {
     /// <summary>
-    /// Determina una serie de propiedades a implementar por clases que puedan
-    /// ser utilizadas en controles/widgets <see cref="IGraph"/>.
+    ///     Enumera los diferentes valores de enumeración que indican el
+    ///     sentido en el que un objeto gráfico avanza.
     /// </summary>
-    public interface IGraphData
+    public enum SweepDirection : short
     {
         /// <summary>
-        /// Obtiene o establece el nombre de este <see cref="IGraphData"/>.
+        /// Sentido de las agujas del reloj.
         /// </summary>
-        string Name { get; set; }
+        Clockwise = 1,
         /// <summary>
-        /// Obtiene o establece el <see cref="Types.Color"/> a utilizar para
-        /// dibujar este <see cref="IGraphData"/>.
+        /// El sentido contrario a las agujas del reloj. 
         /// </summary>
-        Color Color { get; set; }
+        CounterClockwise = -1
     }
 }

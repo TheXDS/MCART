@@ -29,11 +29,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using static System.AttributeTargets;
-#if NETFX_CORE
-using System.Runtime.Serialization;
-#endif
-
-using System;
 
 namespace TheXDS.MCART.Attributes
 {
@@ -42,11 +37,7 @@ namespace TheXDS.MCART.Attributes
     ///     Indica que un elemento contiene código que podría ser inestable.
     /// </summary>
     [AttributeUsage(Method | Class | Module | Assembly)]
-#if NETFX_CORE
-    [DataContract]
-#else
     [Serializable]
-#endif
     public sealed class UnstableAttribute : Attribute
     {
     }

@@ -9,19 +9,6 @@
     <Import_RootNamespace>MCART</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\Colorizer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\IGraph.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\IGraphData.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\ISeriesGraph.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\ISliceGraph.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\RingGraph.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\Series.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\LightGraph.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\NavigationBar.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\ProgressRing.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\Graph\Slice.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Dialogs\ViewModel\AboutPageViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Dialogs\ViewModel\PasswordDialogMode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\ViewModel\PasswordDialogViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\ViewModel\PluginBrowserViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dialogs\ViewModel\TypeDetailsViewModel.cs" />

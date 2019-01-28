@@ -23,6 +23,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 // ReSharper disable UnusedMember.Global
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+// ReSharper disable MemberCanBePrivate.Global
 
 using System;
 using System.Reflection;
@@ -30,9 +32,6 @@ using System.Windows;
 using TheXDS.MCART.Annotations;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable MemberCanBePrivate.Global
 
 namespace TheXDS.MCART.Component
 {
@@ -181,5 +180,10 @@ namespace TheXDS.MCART.Component
         ///     cumple con el Common Language Standard (CLS)
         /// </summary>
         public bool ClsCompliant => _infoExposer.ClsCompliant;
+
+        /// <summary>
+        ///     Referencia al ensamblado del cual se expone la información.
+        /// </summary>
+        public Assembly Assembly => _infoExposer.Assembly;
     }
 }

@@ -1,5 +1,5 @@
 ﻿/*
-ProgressRing.cs
+ViewModelBase.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,29 +22,24 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Controls
+using TheXDS.MCART.Types.Base;
+
+namespace TheXDS.MCART.ViewModel
 {
     /// <summary>
-    /// Permite representar un valor porcentual en un anillo de progreso.
+    ///     Clase base para la creación de ViewModels.
     /// </summary>
-    public partial class ProgressRing
+    public abstract class ViewModelBase : NotifyPropertyChanged
     {
+        private bool _isBusy;
+
         /// <summary>
-        /// Determina la dirección en la que este <see cref="ProgressRing"/>
-        /// será rellenado.
+        ///     Obtiene un valor que indica si este <see cref="ViewModelBase"/> está ocupado.
         /// </summary>
-        public enum SweepDirection : short
+        public bool IsBusy
         {
-            /// <summary>
-            /// El <see cref="ProgressRing"/> se rellenará en el sentido de las
-            /// agujas del reloj.
-            /// </summary>
-            Clockwise = 1,
-            /// <summary>
-            /// El <see cref="ProgressRing"/> se rellenará en el sentido
-            /// contrario a las agujas del reloj. 
-            /// </summary>
-            CounterClockwise = -1
+            get => _isBusy;
+            protected set => Change(ref _isBusy, value);
         }
     }
 }

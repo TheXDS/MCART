@@ -1,5 +1,5 @@
 ﻿/*
-AboutPageViewModel.cs
+AboutPageViewModelBase.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -23,72 +23,67 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Windows;
 using TheXDS.MCART.Component;
-using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types;
-using TheXDS.MCART.Types.Base;
+using TheXDS.MCART.ViewModel;
 
 // ReSharper disable MemberCanBePrivate.Global
 
 namespace TheXDS.MCART.Dialogs.ViewModel
 {
-    internal class AboutPageViewModel : NotifyPropertyChanged, INameable, IDescriptible
+    public abstract class AboutPageViewModelBase<T> : ViewModelBase, INameable, IDescriptible where T : IExposeInfo
     {
-        private IExposeInfo _element;
+        private T _element;
         private bool _showAboutMcart = true;
         private bool _showPluginInfo;
+        private bool _isMcart;
+
+        public bool IsMcart
+        {
+            get => _isMcart;
+            protected set => Change(ref _isMcart, value);
+        }
 
         public string Author => Element?.Author;
         public bool ClsCompliant => Element?.ClsCompliant ?? false;
         public string Copyright => Element?.Copyright;
         public string Description => Element?.Description;
-        public IExposeInfo Element
+        public T Element
         {
             get => _element;
             set
             {
-                if (Equals(value, _element)) return;
-                _element = value;
-                OnPropertyChanged();
+                if (!Change(ref _element, value)) return;
                 OnPropertyChanged(nameof(Author));
                 OnPropertyChanged(nameof(ClsCompliant));
                 OnPropertyChanged(nameof(Copyright));
                 OnPropertyChanged(nameof(Description));
                 OnPropertyChanged(nameof(HasLicense));
-                OnPropertyChanged(nameof(Icon));
                 OnPropertyChanged(nameof(IsMcart));
                 OnPropertyChanged(nameof(License));
                 OnPropertyChanged(nameof(Name));
                 OnPropertyChanged(nameof(ShowAboutMcart));
                 OnPropertyChanged(nameof(ShowPluginInfo));
                 OnPropertyChanged(nameof(Version));
+                OnElementChanged();
             }
         }
         public bool HasLicense => Element?.HasLicense ?? false;
-        public UIElement Icon => Element?.Icon;
-        public bool IsMcart => (Element as AssemblyDataExposer)?.Assembly == RTInfo.RTAssembly;
+
+        protected abstract void OnElementChanged();
+
         public string License => Element?.License;
         public string Name => Element?.Name;
+
         public bool ShowAboutMcart
         {
             get => _showAboutMcart && !IsMcart;
-            set
-            {
-                if (value == _showAboutMcart) return;
-                _showAboutMcart = value;
-                OnPropertyChanged();
-            }
+            set => Change(ref _showAboutMcart, value);
         }
         public bool ShowPluginInfo
         {
             get => _showPluginInfo;
-            set
-            {
-                if (value == _showPluginInfo) return;
-                _showPluginInfo = value;
-                OnPropertyChanged();
-            }
+            set => Change(ref _showPluginInfo, value);
         }
         public Version Version => Element?.Version;
     }

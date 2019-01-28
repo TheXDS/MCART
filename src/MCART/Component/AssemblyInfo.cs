@@ -48,7 +48,6 @@ namespace TheXDS.MCART.Component
             Assembly = assembly;
         }
 
-#if !NETFX_CORE
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="AssemblyInfo"/>
@@ -57,7 +56,6 @@ namespace TheXDS.MCART.Component
         {
             Assembly = Assembly.GetCallingAssembly();
         }
-#endif
 
         /// <summary>
         ///     Referencia al ensamblado del cual se expone la información.

@@ -25,7 +25,6 @@
 
     <!-- Información del ensamblado -->
     <Company>TheXDS! non-Corp.</Company>
-    <Description>/!\ Por favor, reemplace la descripción.</Description>
     <Version>0.10.0.0</Version>
     <FileVersion>0.10.0.0</FileVersion>
     <AssemblyVersion>0.10.0.0</AssemblyVersion>
@@ -40,7 +39,7 @@
     <RepositoryUrl>https://github.com/TheXDS/MCART</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <RootNamespace>TheXDS.MCART</RootNamespace>
-
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     <Deterministic>true</Deterministic>
     <DocumentationFile>$(OutDir)$(AssemblyName).xml</DocumentationFile>
     <IsPackable>true</IsPackable>

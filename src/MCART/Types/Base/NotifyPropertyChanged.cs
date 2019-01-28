@@ -50,44 +50,6 @@ namespace TheXDS.MCART.Types.Base
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-    }
-
-    /// <summary>
-    ///     Clase base para los objetos que puedan notificar sobre el cambio
-    ///     del valor de una de sus propiedades, tanto antes como después de
-    ///     haber ocurrido dicho cambio.
-    /// </summary>
-    public abstract class NotifyPropertyChange : INotifyPropertyChanging, INotifyPropertyChanged
-    {
-        /// <inheritdoc />
-        /// <summary>
-        ///     Se produce cuando se cambiará el valor de una propiedad.
-        /// </summary>
-        public event PropertyChangingEventHandler PropertyChanging;
-
-        /// <inheritdoc />
-        /// <summary>
-        ///     Ocurre cuando el valor de una propiedad ha cambiado.
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        ///     Notifica a los clientes que el valor de una propiedad cambiará.
-        /// </summary>
-        protected virtual void OnPropertyChanging([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
-        }
-
-        /// <summary>
-        ///     Notifica a los clientes que el valor de una propiedad ha
-        ///     cambiado.
-        /// </summary>
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         /// <summary>
         ///     Cambia el valor de un campo, y genera los eventos de
@@ -100,12 +62,16 @@ namespace TheXDS.MCART.Types.Base
         ///     Nombre de la propiedad. Por lo general, este valor debe
         ///     omitirse.
         /// </param>
-        protected void Change<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        /// <returns>
+        ///     <see langword="true"/> si el valor de la propiedad ha
+        ///     cambiado, <see langword="false"/> en caso contrario.
+        /// </returns>
+        protected bool Change<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
-            if (field.Equals(value)) return;
-            OnPropertyChanging(propertyName);
+            if (field.Equals(value)) return false;
             field = value;
             OnPropertyChanged(propertyName);
+            return true;
         }
     }
 }

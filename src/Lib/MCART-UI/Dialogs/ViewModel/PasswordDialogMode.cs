@@ -26,14 +26,38 @@ using System;
 
 namespace TheXDS.MCART.Dialogs.ViewModel
 {
+    /// <summary>
+    ///     Enumeración de estados de componentes activos del ViewModel
+    ///     <see cref="PasswordDialogViewModelBase"/>.
+    /// </summary>
     [Flags]
-    internal enum PasswordDialogMode : byte
+    public enum PasswordDialogMode : byte
     {
+        /// <summary>
+        ///     Únicamente mostrar un cuadro de contraseña.
+        /// </summary>
         PasswordOnly,
+        /// <summary>
+        ///     Mostrar cuadro de usuario.
+        /// </summary>
         User,
+        /// <summary>
+        ///     Mostrar cuadro de confirmación.
+        /// </summary>
         Confirm,
+        /// <summary>
+        ///     Mostrar cuadro de indicio. Implica <see cref="Confirm"/>.
+        /// </summary>
         Hint = 4 | Confirm,
-        Security = 8 | Confirm,
+        /// <summary>
+        ///     Mostrar evaluador de calidad de contraseña. Implica
+        ///     <see cref="Confirm"/>.
+        /// </summary>
+        PwQuality = 8 | Confirm,
+        /// <summary>
+        ///     Mostrar un generador de contraseñas. Implica
+        ///     <see cref="Confirm"/>.
+        /// </summary>
         Generator = 16 | Confirm,
     }
 }

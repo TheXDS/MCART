@@ -1,5 +1,5 @@
 ﻿/*
-IGraph.cs
+LightGraphBase.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -25,41 +25,54 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.Controls
 {
     /// <summary>
-    /// Define una serie de métodos y propiedades a implementar por un control
-    /// que permita mostrar gráficos de cualquier tipo.
+    /// Determina el modo de dibujo de las etiquetas puntuales de las 
+    /// gráficas.
     /// </summary>
-    public interface IGraph
+    [System.Flags]
+    public enum SpotLabelsDrawMode : byte
     {
         /// <summary>
-        /// Realiza tareas finales de inicialización del control.
+        /// No dibujar etiquetas.
         /// </summary>
-        /// <remarks>
-        /// En esta función deben colocarse llamadas como 
-        /// <c>InitializeComponent()</c> (Win32 y WPF) o <c>Build()</c> (Gtk#)
-        /// </remarks>
-        void Init();
+        None = 0,
         /// <summary>
-        /// Obtiene o establece el título de este <see cref="IGraph"/>.
+        /// Dibujar el valor del punto.
         /// </summary>
-        string Title { get; set; }
+        YValues = 1,
         /// <summary>
-        /// Obtiene o establece el tamaño de fuente a aplicar al título.
+        /// Dibujar el valor porcentual del punto.
         /// </summary>
-        double TitleFontSize { get; set; }
+        Percent = 2,
         /// <summary>
-        /// Obtiene o establece un <see cref="IGraphColorizer"/> opcional a
-        /// utilizar para establecer los colores de las series.
+        /// Dibujar una etiqueta del eje X.
         /// </summary>
-        IGraphColorizer Colorizer { get; set; }
+        XValues = 4,
         /// <summary>
-        /// Solicita al control volver a dibujarse en su totalidad.
+        /// Dibujar en el mismo color del gráfico en lugar del color de
+        /// texto.
         /// </summary>
-        void Redraw();
+        GraphColor = 8,
         /// <summary>
-        /// Obtiene o establece un formato opcional de etiquetado flotante para
-        /// aplicar a los puntos de datos o series dibujadas en este
-        /// <see cref="IGraph"/>.
+        /// Hace que el fondo de las etiquetas sea obscuro.
         /// </summary>
-        string ToolTipFormat { get; set; }
+        DarkBg = 16
+    }
+    /// <summary>
+    /// Determina el modo de dibujo del gráfico.
+    /// </summary>
+    public enum EnumGraphDrawMode : byte
+    {
+        /// <summary>
+        /// Dibujar histograma
+        /// </summary>
+        Histogram,
+        /// <summary>
+        /// Rellenar el área del gráfico
+        /// </summary>
+        Filled,
+        /// <summary>
+        /// Dibujar barras
+        /// </summary>
+        Bars
     }
 }

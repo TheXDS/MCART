@@ -1,5 +1,5 @@
 ﻿/*
-NotifyPropertyChanged.cs
+NotifyPropertyChange.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -24,21 +24,28 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using TheXDS.MCART.Annotations;
 
 namespace TheXDS.MCART.Types.Base
 {
-    /// <inheritdoc />
     /// <summary>
     ///     Clase base para los objetos que puedan notificar sobre el cambio
-    ///     del valor de una de sus propiedades.
+    ///     del valor de una de sus propiedades, tanto antes como después de
+    ///     haber ocurrido dicho cambio.
     /// </summary>
-    public abstract class NotifyPropertyChanging : INotifyPropertyChanging
+    public abstract class NotifyPropertyChange : INotifyPropertyChanging, INotifyPropertyChanged
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Se produce cuando cambia el valor de una propiedad.
+        ///     Se produce cuando se cambiará el valor de una propiedad.
         /// </summary>
         public event PropertyChangingEventHandler PropertyChanging;
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Ocurre cuando el valor de una propiedad ha cambiado.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         ///     Notifica a los clientes que el valor de una propiedad cambiará.
@@ -46,6 +53,16 @@ namespace TheXDS.MCART.Types.Base
         protected virtual void OnPropertyChanging([CallerMemberName] string propertyName = null)
         {
             PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
+        }
+
+        /// <summary>
+        ///     Notifica a los clientes que el valor de una propiedad ha
+        ///     cambiado.
+        /// </summary>
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         /// <summary>
@@ -68,6 +85,7 @@ namespace TheXDS.MCART.Types.Base
             if (field.Equals(value)) return false;
             OnPropertyChanging(propertyName);
             field = value;
+            OnPropertyChanged(propertyName);
             return true;
         }
     }
