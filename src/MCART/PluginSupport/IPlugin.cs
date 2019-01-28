@@ -40,7 +40,7 @@ namespace TheXDS.MCART.PluginSupport
     ///     Define una interfaz básica para crear Plugins administrados por
     ///     MCART.
     /// </summary>
-    public interface IPlugin: IExposeInfo
+    public interface IPlugin: IExposeInfo, IExposeAssembly
     {
         /// <summary>
         /// Se produce cuando un <see cref="IPlugin"/> solicita la actualización
@@ -87,10 +87,6 @@ namespace TheXDS.MCART.PluginSupport
         /// <see cref="IPlugin"/> y <see cref="IDisposable"/>.
         /// </remarks>
         IEnumerable<Type> Interfaces { get; }
-        ///<summary>
-        ///Devuelve la referencia al ensamblado que contiene a este <see cref="IPlugin"/>.
-        ///</summary>
-        Assembly MyAssembly { get; }
         /// <summary>
         /// Devuelve una colección de opciones de interacción.
         /// </summary>

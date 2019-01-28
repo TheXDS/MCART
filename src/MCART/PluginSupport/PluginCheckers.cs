@@ -47,7 +47,7 @@ namespace TheXDS.MCART.PluginSupport
         /// <see langword="false" /> en caso de no ser compatible, o <see langword="null" /> si no fue
         /// posible comprobar la compatibilidad.
         /// </returns>
-        public override bool? IsCompatible(Type type) => RTInfo.RTSupport(type);
+        public override bool? IsCompatible(Type type) => RtInfo.RtSupport(type);
         /// <inheritdoc />
         /// <summary>
         /// Determina si un tipo es válido para ser cargado como un

@@ -34,7 +34,7 @@ namespace TheXDS.MCART.Component
     /// <summary>
     ///     Expone la información de identificación de un ensamblado.
     /// </summary>
-    public class AssemblyInfo : IExposeInfo
+    public class AssemblyInfo : IExposeInfo, IExposeAssembly
     {
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
@@ -56,11 +56,6 @@ namespace TheXDS.MCART.Component
         {
             Assembly = Assembly.GetCallingAssembly();
         }
-
-        /// <summary>
-        ///     Referencia al ensamblado del cual se expone la información.
-        /// </summary>
-        public readonly Assembly Assembly;
 
         /// <inheritdoc />
         /// <summary>
@@ -121,5 +116,11 @@ namespace TheXDS.MCART.Component
         ///     cumple con el Common Language Standard (CLS)
         /// </summary>
         public bool ClsCompliant => Assembly.HasAttr<CLSCompliantAttribute>();
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Obtiene una referencia al ensamblado del cual se expone la información.
+        /// </summary>
+        public Assembly Assembly { get; }
     }
 }

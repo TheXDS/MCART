@@ -3,41 +3,12 @@
 <!-- Más información sobre este archivo en TECHINFO.md -->
 
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="CompileOptions.targets" Label="Opciones de compilación"/>
+  <Import Project="PackageInfo.targets" Label="Información de paquete"/>
   <PropertyGroup Condition="'$(SolutionDir)'==''">
     <SolutionDir>$(MSBuildProjectDirectory)</SolutionDir>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(MSBuildProjectExtension)'=='.csproj'">
-
-    <!-- Constantes de compilación -->
-    <DefineConstants>
-      DynamicLoading;
-      McartAsPlugin;
-      NativeNumbers;
-      FloatDoubleSpecial;
-      BufferedIO;
-      ExtrasBuiltIn;
-      StrictMCARTVersioning;
-      SaferPasswords;
-      CheckDanger;
-      CLSCompliance;
-      AntiFreeze;
-    </DefineConstants>
-
-    <!-- Información del ensamblado -->
-    <Company>TheXDS! non-Corp.</Company>
-    <Version>0.10.0.0</Version>
-    <FileVersion>0.10.0.0</FileVersion>
-    <AssemblyVersion>0.10.0.0</AssemblyVersion>
-    <Product>Morgan's CLR Advanced Runtime</Product>
-    <AssemblyTitle>$(Description)</AssemblyTitle>
-    <Authors>César Andrés Morgan</Authors>
-    <Copyright>Copyright © 2011 - $([System.DateTime]::Today.Year) $(Authors)</Copyright>
-    <PackageProjectUrl>https://thexds.github.io/MCART</PackageProjectUrl>
-    <PackageIconUrl>https://raw.githubusercontent.com/TheXDS/MCART/master/CoreComponents/Core-GUI/Resources/Icons/MCART.png</PackageIconUrl>
-    <PackageReleaseNotes>Este paquete es una versión Pre-Release de MCART, por lo que se recomienda que su uso se limite a pruebas y demostraciones de la API, ya que no se puede garantizar la estabilidad de la misma. Para más detalles, vea la documentación que acompaña a MCART.</PackageReleaseNotes>
-    <PackageTags>mcart runtime extension helper async network security</PackageTags>
-    <RepositoryUrl>https://github.com/TheXDS/MCART</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
+  <PropertyGroup Condition="'$(MSBuildProjectExtension)'=='.csproj'">    
     <RootNamespace>TheXDS.MCART</RootNamespace>
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     <Deterministic>true</Deterministic>
@@ -50,7 +21,12 @@
     <PackageOutputPath>$(SolutionDir)..\build\$(Configuration)\</PackageOutputPath>
     <LangVersion>latest</LangVersion>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(NoPack)'!='true'">
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(NoPack)'=='true'">
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
     <DefineConstants>$(DefineConstants)DEBUG;TRACE</DefineConstants>

@@ -27,7 +27,7 @@ namespace TheXDS.MCART.Resources
     /// <summary>
     /// Contiene cadenas específicas para uso interno de MCART.
     /// </summary>
-    internal static partial class InternalStrings
+    public static class InternalStrings
     {
         public const string GpVNoData = " (Sin datos)";
         public const string NullPwEvalRule = "Regla nula";
@@ -107,7 +107,7 @@ namespace TheXDS.MCART.Resources
         public const string YiB = "YiB";
 
         public const string ErrorShowingPluginInfo = "Error mostrando la información del plugin.";
-
+        public const string LegacyComponent = "Este es un componente legado.";
         public static string UnkErrLoadingRes(string res, string ex) => $"Error desconocido al cargar recurso {res}\n{ex}";
     }
 }

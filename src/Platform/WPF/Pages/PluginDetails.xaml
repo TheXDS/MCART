@@ -1,0 +1,110 @@
+﻿<UserControl x:Class="TheXDS.MCART.Pages.PluginDetails"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:pluginSupport="clr-namespace:TheXDS.MCART.PluginSupport;assembly=MCART"
+      d:DataContext="{d:DesignInstance pluginSupport:Plugin}"
+      mc:Ignorable="d">
+    <UserControl.Resources>
+        <Thickness x:Key="Mrg">5</Thickness>
+    </UserControl.Resources>
+    <DockPanel Margin="{DynamicResource Mrg}">
+        <Grid DockPanel.Dock="top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.Resources>
+                <Style TargetType="TextBox">
+                    <Setter Property="Margin" Value="{DynamicResource Mrg}"/>
+                    <Setter Property="IsReadOnly" Value="True"/>
+                </Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Margin" Value="{DynamicResource Mrg}"/>
+                </Style>
+            </Grid.Resources>
+            <TextBlock Text="Nombre"/>
+            <TextBox Grid.Column="1" Text="{Binding Name, Mode=OneWay}"/>
+            <TextBlock Text="Versión" Grid.Row="1"/>
+            <DockPanel Grid.Row="1" Grid.Column="1" Margin="{DynamicResource Mrg}">
+                <CheckBox 
+                    IsChecked="{Binding IsUnstable, Mode=OneWay}"
+                    Content="Inestable"
+                    VerticalAlignment="Center"
+                    DockPanel.Dock="Right"
+                    IsEnabled="False" />
+                <CheckBox 
+                    IsChecked="{Binding IsBeta, Mode=OneWay}"
+                    Content="Beta"
+                    Margin="5,0"
+                    VerticalAlignment="Center"
+                    DockPanel.Dock="Right"
+                    IsEnabled="False" />
+                <TextBox Margin="0" Text="{Binding Version, Mode=OneWay}"/>
+            </DockPanel>
+            <TextBlock Text="Descripción" Grid.Row="2"/>
+            <TextBox Text="{Binding Description, Mode=OneWay}" Grid.Row="3" Grid.ColumnSpan="2"/>
+            <TextBlock Text="Copyright" Grid.Row="4"/>
+            <TextBox Text="{Binding Copyright, Mode=OneWay}" Grid.Row="4" Grid.Column="1"/>
+        </Grid>
+        <TabControl>
+            <TabControl.Resources>
+                <Style TargetType="TextBox">
+                    <Setter Property="IsReadOnly" Value="True"/>
+                </Style>
+            </TabControl.Resources>
+            <TabItem Header="Licencia" IsEnabled="{Binding HasLicense, Mode=OneWay}">
+                <TextBox
+                    Text="{Binding License, Mode=OneWay}"
+                    TextWrapping="Wrap"
+                    VerticalScrollBarVisibility="Auto"
+                    FontFamily="Consolas"/>
+            </TabItem>
+            <TabItem Header="Interfaces">
+                <ListView ItemsSource="{Binding Interfaces, Mode=OneWay}">
+                    <ListView.Resources>
+                        <Style TargetType="ListViewItem">
+                            <EventSetter Event="MouseDoubleClick" Handler="LstInterfaces_OnDblClick"></EventSetter>
+                        </Style>
+                    </ListView.Resources>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Interfaz" Width="180" DisplayMemberBinding="{Binding Name, Mode=OneWay}"/>
+                            <GridViewColumn Header="Espacio de nombres" Width="180" DisplayMemberBinding="{Binding Namespace, Mode=OneWay}"/>
+                            <GridViewColumn Header="Ensamblado" Width="180" DisplayMemberBinding="{Binding AssemblyQualifiedName, Mode=OneWay}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+            <TabItem Header="Compatibilidad">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <UniformGrid Columns="2">
+                        <TextBlock Text="Versión mínima de MCART" VerticalAlignment="Center" />
+                        <TextBox Text="{Binding MinMcartVersion, Mode=OneWay}" Margin="{DynamicResource Mrg}" />
+                        <TextBlock Text="Versión objetivo de MCART" VerticalAlignment="Center" />
+                        <TextBox Text="{Binding TargetMcartVersion, Mode=OneWay}" Margin="{DynamicResource Mrg}" />
+                    </UniformGrid>
+                    <CheckBox Margin="{DynamicResource Mrg}" IsEnabled="false" IsChecked="{Binding IsSupported, Mode=OneWay}">Plugin soportado por MCART</CheckBox>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Interacciones" IsEnabled="{Binding HasInteractions, Mode=OneWay}">
+                <ListView ItemsSource="{Binding PluginInteractions, Mode=OneWay}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Etiqueta" Width="120" DisplayMemberBinding="{Binding Text, Mode=OneWay}"/>
+                            <GridViewColumn Header="Descripción" Width="300" DisplayMemberBinding="{Binding Description, Mode=OneWay}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</UserControl>

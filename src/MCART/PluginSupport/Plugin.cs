@@ -28,6 +28,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Component;
 using static TheXDS.MCART.Misc.Internal;
 using St = TheXDS.MCART.Resources.Strings;
 using St2 = TheXDS.MCART.Resources.InternalStrings;
@@ -132,7 +133,7 @@ namespace TheXDS.MCART.PluginSupport
         /// establecer el atributo, se devolverá la versión del ensamblado que
         /// contiene a este <see cref="T:TheXDS.MCART.PluginSupport.Plugin" />.
         /// </value>
-        public virtual Version Version => GetType().GetAttrAlt<VersionAttribute>()?.Value ?? MyAssembly.GetName().Version;
+        public virtual Version Version => GetType().GetAttrAlt<VersionAttribute>()?.Value ?? Assembly.GetName().Version;
         /// <inheritdoc />
         /// <summary>
         /// Obtiene la descripción de este <see cref="T:TheXDS.MCART.PluginSupport.Plugin" />.
@@ -144,7 +145,7 @@ namespace TheXDS.MCART.PluginSupport
         /// este <see cref="T:TheXDS.MCART.PluginSupport.Plugin" />, o <see langword="null" /> en caso de no existir.
         /// </value>
         public virtual string Description => GetType().GetAttrAlt<DescriptionAttribute>()?.Value
-            ?? (Attribute.GetCustomAttribute(MyAssembly, typeof(AssemblyDescriptionAttribute)) as AssemblyDescriptionAttribute)?.Description;
+            ?? (Attribute.GetCustomAttribute(Assembly, typeof(AssemblyDescriptionAttribute)) as AssemblyDescriptionAttribute)?.Description;
         /// <inheritdoc />
         /// <summary>
         /// Obtiene el autor de este <see cref="T:TheXDS.MCART.PluginSupport.Plugin" />.
@@ -156,7 +157,7 @@ namespace TheXDS.MCART.PluginSupport
         /// este <see cref="T:TheXDS.MCART.PluginSupport.Plugin" />, o <see langword="null" /> en caso de no existir.
         /// </value>
         public virtual string Author => GetType().GetAttrAlt<AuthorAttribute>()?.Value
-            ?? (Attribute.GetCustomAttribute(MyAssembly, typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute)?.Company;
+            ?? (Attribute.GetCustomAttribute(Assembly, typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute)?.Company;
         /// <inheritdoc />
         /// <summary>
         /// Obtiene la cadena de Copyright de este <see cref="T:TheXDS.MCART.PluginSupport.Plugin" />.
@@ -168,7 +169,7 @@ namespace TheXDS.MCART.PluginSupport
         /// este <see cref="T:TheXDS.MCART.PluginSupport.Plugin" />, o <see langword="null" /> en caso de no existir.
         /// </value>
         public virtual string Copyright => GetType().GetAttrAlt<CopyrightAttribute>()?.Value
-            ?? (Attribute.GetCustomAttribute(MyAssembly, typeof(AssemblyCopyrightAttribute)) as AssemblyCopyrightAttribute)?.Copyright;
+            ?? (Attribute.GetCustomAttribute(Assembly, typeof(AssemblyCopyrightAttribute)) as AssemblyCopyrightAttribute)?.Copyright;
         /// <inheritdoc />
         /// <summary>
         /// Obtiene el texto de la licencia de este <see cref="T:TheXDS.MCART.PluginSupport.Plugin" />.
@@ -190,14 +191,14 @@ namespace TheXDS.MCART.PluginSupport
         /// </value>
         public virtual string License =>
             ReadLicense(this) ??
-            ReadLicense(MyAssembly,false);
+            ReadLicense(Assembly,false);
 
         /// <inheritdoc />
         /// <summary>
         /// Obtiene un valor que determina si este <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// contiene información de licencia.
         /// </summary>
-        public bool HasLicense => HasLicense(this) || HasLicense(MyAssembly);
+        public bool HasLicense => HasLicense(this) || HasLicense(Assembly);
 
 
         /// <inheritdoc />
@@ -215,7 +216,7 @@ namespace TheXDS.MCART.PluginSupport
         /// <see cref="T:TheXDS.MCART.Attributes.MinMCARTVersionAttribute" /> en la clase o en el 
         /// ensamblado, se devolverá <see cref="P:TheXDS.MCART.PluginSupport.Plugin.TargetMCARTVersion" />.
         /// </remarks>
-        public virtual Version MinMcartVersion => GetType().GetAttrAlt<MinMCARTVersionAttribute>()?.Value ?? TargetMcartVersion;
+        public virtual Version MinMcartVersion => GetType().GetAttrAlt<MinMcartVersionAttribute>()?.Value ?? TargetMcartVersion;
         /// <inheritdoc />
         /// <summary>
         /// Determina la versión objetivo de MCART para este 
@@ -244,7 +245,7 @@ namespace TheXDS.MCART.PluginSupport
         /// <summary>
         ///     Obtiene un valor que determina si el <see cref="Plugin"/> es compatible con esta versión de MCART.
         /// </summary>
-        public bool? IsSupported => Resources.RTInfo.RTSupport(GetType());
+        public bool? IsSupported => Resources.RtInfo.RtSupport(GetType());
 
         /// <inheritdoc />
         /// <summary>
@@ -296,7 +297,7 @@ namespace TheXDS.MCART.PluginSupport
         /// <value>
         /// Ensamblado en el cual se declara este <see cref="T:TheXDS.MCART.PluginSupport.Plugin" />.
         /// </value>
-        [Thunk] public Assembly MyAssembly => GetType().Assembly;
+        [Thunk] public Assembly Assembly => GetType().Assembly;
         /// <inheritdoc />
         /// <summary>
         /// Contiene una lista de interacciones que este <see cref="T:TheXDS.MCART.PluginSupport.Plugin" />.

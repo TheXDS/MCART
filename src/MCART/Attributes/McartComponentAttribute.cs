@@ -1,5 +1,5 @@
 ﻿/*
-MinMcartVersionAttribute.cs
+McartComponentAttribute.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,45 +22,43 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-// ReSharper disable UnusedAutoPropertyAccessor.Global
 // ReSharper disable UnusedMember.Global
-// ReSharper disable ClassNeverInstantiated.Global
 // ReSharper disable MemberCanBePrivate.Global
 
 using System;
-using static System.AttributeTargets;
+using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Attributes
 {
-    /// <inheritdoc />
+    /// <inheritdoc cref="Attribute"/>
     /// <summary>
-    ///     Especifica la versión mínima de MCART requerida por el elemento.
+    ///     Marca un ensamblado como un componente de MCART.
     /// </summary>
-    [AttributeUsage(Method | Class | Module | Assembly)]
-    public sealed class MinMcartVersionAttribute : VersionAttributeBase
+    [AttributeUsage(AttributeTargets.Assembly)]
+    public sealed class McartComponentAttribute : Attribute, IValueAttribute<RtInfo.ComponentKind>
     {
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="MinMcartVersionAttribute" />.
+        ///     <see cref="T:TheXDS.MCART.Attributes.McartComponentAttribute" />.
         /// </summary>
-        /// <param name="major">Número de versión mayor.</param>
-        /// <param name="minor">Número de versión menor.</param>
-        public MinMcartVersionAttribute(int major, int minor) : base(major, minor, 0, 0)
+        /// <param name="kind">
+        ///     Tipo de componente que este ensamblado es.
+        /// </param>
+        public McartComponentAttribute(RtInfo.ComponentKind kind)
         {
+            Kind = kind;
         }
+
+        /// <summary>
+        ///     Obtiene el tipo de componente que es este ensamblado de MCART.
+        /// </summary>
+        public RtInfo.ComponentKind Kind { get; }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="MinMcartVersionAttribute" />.
+        ///     Obtiene el valor de este atributo.
         /// </summary>
-        /// <param name="major">Número de versión mayor.</param>
-        /// <param name="minor">Número de versión menor.</param>
-        /// <param name="build">Número de compilación.</param>
-        /// <param name="rev">Número de revisión.</param>
-        public MinMcartVersionAttribute(int major, int minor, int build, int rev) : base(major, minor, build, rev)
-        {
-        }
+        RtInfo.ComponentKind IValueAttribute<RtInfo.ComponentKind>.Value => Kind;
     }
 }

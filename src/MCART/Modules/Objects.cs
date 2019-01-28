@@ -723,6 +723,39 @@ namespace TheXDS.MCART
         /// <summary>
         ///     Determina si un miembro posee un atributo definido.
         /// </summary>
+        /// <typeparam name="TValue">
+        ///     Tipo de valor a devolver.
+        /// </typeparam>
+        /// <typeparam name="TAttribute">
+        ///     Tipo de atributo a buscar. Debe heredar de
+        ///     <see cref="Attribute"/> y de <see cref="IValueAttribute{T}"/>.
+        /// </typeparam>
+        /// <param name="assembly">
+        ///     Miembro del cual se extraerá el atributo.
+        /// </param>
+        /// <param name="value">
+        ///     Parámetro de salida. Si un atributo de tipo
+        ///     <typeparamref name="TAttribute" /> ha sido encontrado, el valor
+        ///     del mismo es devuelto.
+        ///     Se devolverá <see langword="default" /> si el miembro no posee el atributo
+        ///     especificado.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        ///     en caso contrario.
+        /// </returns>
+        public static bool HasAttrValue<TAttribute, TValue>(this Assembly assembly, out TValue value)
+            where TAttribute : Attribute, IValueAttribute<TValue>
+        {
+            var retVal = HasAttrs<TAttribute>(assembly, out var attrs);
+            var a = attrs.FirstOrDefault();
+            value = !(a is null) ? a.Value : default;
+            return retVal;
+        }
+
+        /// <summary>
+        ///     Determina si un miembro posee un atributo definido.
+        /// </summary>
         /// <typeparam name="T">
         ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
@@ -789,6 +822,39 @@ namespace TheXDS.MCART
             return retVal;
         }
 
+        /// <summary>
+        ///     Determina si un miembro posee un atributo definido.
+        /// </summary>
+        /// <typeparam name="TValue">
+        ///     Tipo de valor a devolver.
+        /// </typeparam>
+        /// <typeparam name="TAttribute">
+        ///     Tipo de atributo a buscar. Debe heredar de
+        ///     <see cref="Attribute"/> y de <see cref="IValueAttribute{T}"/>.
+        /// </typeparam>
+        /// <param name="member">
+        ///     Miembro del cual se extraerá el atributo.
+        /// </param>
+        /// <param name="value">
+        ///     Parámetro de salida. Si un atributo de tipo
+        ///     <typeparamref name="TAttribute" /> ha sido encontrado, el valor
+        ///     del mismo es devuelto.
+        ///     Se devolverá <see langword="default" /> si el miembro no posee el atributo
+        ///     especificado.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        ///     en caso contrario.
+        /// </returns>
+        public static bool HasAttrValue<TAttribute, TValue>(this MemberInfo member, out TValue value)
+            where TAttribute : Attribute, IValueAttribute<TValue>
+        {
+            var retVal = HasAttrs<TAttribute>(member, out var attrs);
+            var a = attrs.FirstOrDefault();
+            value = !(a is null) ? a.Value : default;
+            return retVal;
+        }
+        
         /// <summary>
         ///     Determina si un miembro posee un atributo definido.
         /// </summary>
@@ -864,6 +930,48 @@ namespace TheXDS.MCART
                 default:
                     var retVal = HasAttrs<T>(obj.GetType(), out var attrs);
                     attribute = attrs.FirstOrDefault();
+                    return retVal;
+            }
+        }
+        /// <summary>
+        ///     Determina si un miembro posee un atributo definido.
+        /// </summary>
+        /// <typeparam name="TValue">
+        ///     Tipo de valor a devolver.
+        /// </typeparam>
+        /// <typeparam name="TAttribute">
+        ///     Tipo de atributo a buscar. Debe heredar de
+        ///     <see cref="Attribute"/> y de <see cref="IValueAttribute{T}"/>.
+        /// </typeparam>
+        /// <param name="obj">
+        ///     Miembro del cual se extraerá el atributo.
+        /// </param>
+        /// <param name="value">
+        ///     Parámetro de salida. Si un atributo de tipo
+        ///     <typeparamref name="TAttribute" /> ha sido encontrado, el valor
+        ///     del mismo es devuelto.
+        ///     Se devolverá <see langword="default" /> si el miembro no posee el atributo
+        ///     especificado.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        ///     en caso contrario.
+        /// </returns>
+        public static bool HasAttrValue<TAttribute, TValue>(this object obj, out TValue value)
+            where TAttribute : Attribute, IValueAttribute<TValue>
+        {
+            switch (obj)
+            {
+                case Assembly a:
+                    return HasAttrValue<TAttribute, TValue>(a, out value);
+                case MemberInfo m:
+                    return HasAttrValue<TAttribute, TValue>(m, out value);
+                case Enum e:
+                    return HasAttrValue<TAttribute, TValue>(e, out value);
+                default:
+                    var retVal = HasAttrs<TAttribute>(obj, out var attrs);
+                    var attr = attrs.FirstOrDefault();
+                    value = !(attr is null) ? attr.Value : default;
                     return retVal;
             }
         }
@@ -984,7 +1092,37 @@ namespace TheXDS.MCART
                 .FirstOrDefault() as T;
             return !(attribute is null);
         }
-
+        /// <summary>
+        ///     Determina si un miembro posee un atributo definido.
+        /// </summary>
+        /// <typeparam name="TValue">
+        ///     Tipo de valor a devolver.
+        /// </typeparam>
+        /// <typeparam name="TAttribute">
+        ///     Tipo de atributo a buscar. Debe heredar de
+        ///     <see cref="Attribute"/> y de <see cref="IValueAttribute{T}"/>.
+        /// </typeparam>
+        /// <param name="enumValue">
+        ///     Miembro del cual se extraerá el atributo.
+        /// </param>
+        /// <param name="value">
+        ///     Parámetro de salida. Si un atributo de tipo
+        ///     <typeparamref name="TAttribute" /> ha sido encontrado, el valor
+        ///     del mismo es devuelto.
+        ///     Se devolverá <see langword="default" /> si el miembro no posee el atributo
+        ///     especificado.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        ///     en caso contrario.
+        /// </returns>
+        public static bool HasAttrValue<TAttribute, TValue>(this Enum enumValue, out TValue value)
+            where TAttribute : Attribute, IValueAttribute<TValue>
+        {
+            var retVal = HasAttr<TAttribute>(enumValue, out var attr);
+            value = retVal ? attr.Value : default;
+            return retVal;
+        }
         /// <summary>
         ///     Determina si un miembro posee un atributo definido.
         /// </summary>

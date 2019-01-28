@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(MSBuildProjectExtension)'=='.csproj'">
+    <Company>TheXDS! non-Corp.</Company>
+    <Version>0.10.0.1</Version>
+    <FileVersion>0.10.0.1</FileVersion>
+    <AssemblyVersion>0.10.0.1</AssemblyVersion>
+    <Product>Morgan's CLR Advanced Runtime</Product>
+    <AssemblyTitle>$(Description)</AssemblyTitle>
+    <Authors>César Andrés Morgan</Authors>
+    <Copyright>Copyright © 2011 - $([System.DateTime]::Today.Year) $(Authors)</Copyright>
+    <PackageProjectUrl>https://thexds.github.io/MCART</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/TheXDS/MCART/master/CoreComponents/Core-GUI/Resources/Icons/MCART.png</PackageIconUrl>
+    <PackageReleaseNotes>Este paquete es una versión Pre-Release de MCART, por lo que se recomienda que su uso se limite a pruebas y demostraciones de la API, ya que no se puede garantizar la estabilidad de la misma. Para más detalles, vea la documentación que acompaña a MCART.</PackageReleaseNotes>
+    <PackageTags>mcart runtime extension helper async network security</PackageTags>
+    <RepositoryUrl>https://github.com/TheXDS/MCART</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+</Project>

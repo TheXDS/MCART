@@ -28,7 +28,6 @@ using TheXDS.MCART.Types;
 
 namespace TheXDS.MCART.Component
 {
-    /// <inheritdoc />
     /// <summary>
     ///     Define una serie de miembros a implementar para una clase que
     ///     exponga diversa información de identificación.

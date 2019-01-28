@@ -1,5 +1,5 @@
 ﻿/*
-RTInfo.cs
+RtInfo.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -25,61 +25,91 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Component;
 
 namespace TheXDS.MCART.Resources
 {
+    /// <inheritdoc />
     /// <summary>
-    /// Contiene métodos con funciones de identificación en información del 
-    /// ensamblado de MCART.
+    ///     Contiene métodos con funciones de identificación en información del
+    ///     ensamblado de MCART.
     /// </summary>
-    public static partial class RTInfo
+    public class RtInfo : AssemblyInfo
     {
-        internal static bool? RTSupport<T>(T obj)
+        /// <summary>
+        ///     Enumera los tipos de componentes existentes para MCART.
+        /// </summary>
+        public enum ComponentKind
+        {
+            /// <summary>
+            ///     Ensamblado Core principal.
+            /// </summary>
+            Core,
+
+            /// <summary>
+            ///     Librería auxiliar de plataforma.
+            /// </summary>
+            PlatformLibrary,
+
+            /// <summary>
+            ///     Ensamblado objetivo de plataforma.
+            /// </summary>
+            PlatformTarget,
+
+            /// <summary>
+            ///     Extensión opcional genérica.
+            /// </summary>
+            Extension,
+
+            /// <summary>
+            ///     Ensamblado especial de instrumentación.
+            /// </summary>
+            Instrumentation,
+
+            /// <summary>
+            ///     Herramienta de desarrollo.
+            /// </summary>
+            Tool
+        }
+        
+        public static bool? RtSupport<T>(T obj)
         {
             if (!obj.HasAttr(out TargetMCARTVersionAttribute tt)) return null;
-            if (!obj.HasAttr(out MinMCARTVersionAttribute mt))
+            if (!obj.HasAttr(out MinMcartVersionAttribute mt))
 #if StrictMCARTVersioning
                 return null;
 #else
                 return RTVersion == tt?.Value;
 #endif
-            return RTVersion.IsBetween(mt?.Value, tt?.Value);
+            return CoreRtVersion.IsBetween(mt?.Value, tt?.Value);
         }
+
         /// <summary>
-        /// Obtiene la versión del ensamblado de <see cref="MCART"/>.
+        ///     Comprueba si el ensamblado es compatible con esta versión de <see cref="MCART" />.
         /// </summary>
         /// <returns>
-        /// Un <see cref="Version"/> con la información de versión de 
-        /// <see cref="MCART"/>.
-        /// </returns>
-        public static Version RTVersion => RTAssembly.GetName().Version;
-        /// <summary>
-        /// Obtiene la referencia del ensamblado de MCART
-        /// </summary>
-        /// <returns>The ssembly.</returns>
-        public static Assembly RTAssembly => typeof(RTInfo).Assembly;
-        /// <summary>
-        /// Comprueba si el ensamblado es compatible con esta versión de <see cref="MCART"/>.
-        /// </summary>
-        /// <returns>
-        /// <see langword="true"/> si el ensamblado es compatible con esta
-        /// versión de <see cref="MCART"/>, <see langword="false"/> si no lo
-        /// es, y <see langword="null"/> si no se ha podido determinar la
-        /// compatibilidad.
+        ///     <see langword="true" /> si el ensamblado es compatible con esta
+        ///     versión de <see cref="MCART" />, <see langword="false" /> si no lo
+        ///     es, y <see langword="null" /> si no se ha podido determinar la
+        ///     compatibilidad.
         /// </returns>
         /// <param name="asmbly">Ensamblado a comprobar.</param>
-        public static bool? RTSupport(Assembly asmbly) => RTSupport<Assembly>(asmbly);
+        public static bool? RtSupport(Assembly asmbly)
+        {
+            return RtSupport<Assembly>(asmbly);
+        }
+
         /// <summary>
-        /// Comprueba si el <see cref="Type"/> es compatible con esta versión de <see cref="MCART"/>.
+        ///     Comprueba si el <see cref="Type" /> es compatible con esta versión de <see cref="MCART" />.
         /// </summary>
         /// <returns>
-        /// <see langword="true"/> si el <see cref="Type"/> es compatible con esta
-        /// versión de <see cref="MCART"/>, <see langword="false"/> si no lo
-        /// es, y <see langword="null"/> si no se ha podido determinar la
-        /// compatibilidad.
+        ///     <see langword="true" /> si el <see cref="Type" /> es compatible con esta
+        ///     versión de <see cref="MCART" />, <see langword="false" /> si no lo
+        ///     es, y <see langword="null" /> si no se ha podido determinar la
+        ///     compatibilidad.
         /// </returns>
-        /// <param name="type"><see cref="Type"/> a comprobar.</param>
-        public static bool? RTSupport(Type type)
+        /// <param name="type"><see cref="Type" /> a comprobar.</param>
+        public static bool? RtSupport(Type type)
         {
             /* HACK: Problema al implementar RTSupport(Type)
              * Esta función debe reimplementarse completa debido a un
@@ -91,18 +121,67 @@ namespace TheXDS.MCART.Resources
              * lo cual no es la implementación intencionada.
              */
             if (!type.HasAttr(out TargetMCARTVersionAttribute tt)) return null;
-            if (!type.HasAttr(out MinMCARTVersionAttribute mt))
+            if (!type.HasAttr(out MinMcartVersionAttribute mt))
 #if StrictMCARTVersioning
                 return null;
 #else
                 return RTVersion == tt?.Value;
 #endif
-            return RTVersion.IsBetween(mt?.Value, tt?.Value);
+            return CoreRtVersion.IsBetween(mt?.Value, tt?.Value);
         }
+
+        private static ComponentKind GetKind(Assembly mcartAssembly)
+        {
+            if (!mcartAssembly.HasAttrValue<McartComponentAttribute, ComponentKind>(out var kind))
+                throw new InvalidOperationException();
+            return kind;
+        }
+
+        /// <summary>Returns a string that represents the current object.</summary>
+        /// <returns>A string that represents the current object.</returns>
+        public override string ToString()
+        {
+            return $"{Name} {Version}";
+        }
+
         /// <summary>
-        /// Obtiene la versión de MCART como una cadena.
+        ///     Obtiene la referencia del ensamblado principal de MCART
         /// </summary>
-        /// <value>La versión de MCART como una cadena.</value>
-        public static string VersionString => $"{RTAssembly.FullName} {RTAssembly.GetName().Version}";
+        /// <returns>
+        ///     El ensamblado principal de MCART.
+        /// </returns>
+        public static Assembly CoreRtAssembly => typeof(RtInfo).Assembly;
+
+        /// <summary>
+        ///     Obtiene la versión del ensamblado de <see cref="MCART" />.
+        /// </summary>
+        /// <returns>
+        ///     Un <see cref="Version" /> con la información de versión de
+        ///     <see cref="MCART" />.
+        /// </returns>
+        public static Version CoreRtVersion => CoreRtAssembly.GetName().Version;
+
+        public ComponentKind Kind { get; }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Resources.RtInfo" />.
+        /// </summary>
+        public RtInfo() : this(CoreRtAssembly)
+        {
+        }
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase <see cref="RtInfo"/>.
+        /// </summary>
+        /// <param name="asm">Ensamblado de MCART a relacionar.</param>
+        protected RtInfo(Assembly asm) : this(asm, GetKind(asm))
+        {
+        }
+
+        private RtInfo(Assembly asm, ComponentKind kind) : base(asm)
+        {
+            Kind = kind;
+        }
     }
 }

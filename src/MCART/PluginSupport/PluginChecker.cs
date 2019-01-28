@@ -47,7 +47,7 @@ namespace TheXDS.MCART.PluginSupport
         /// </returns>
         /// <param name="assembly"><see cref="T:System.Reflection.Assembly" /> a comprobar.</param>
         /// <typeparam name="T">Tipo a buscar.</typeparam>
-        public bool Has<T>(Assembly assembly) => assembly.IsNeither(RTInfo.RTAssembly, null) && assembly.GetTypes().Any((arg) => IsValid(arg) && typeof(T).IsAssignableFrom(arg));
+        public bool Has<T>(Assembly assembly) => assembly.IsNeither(RtInfo.CoreRtAssembly, null) && assembly.GetTypes().Any((arg) => IsValid(arg) && typeof(T).IsAssignableFrom(arg));
         /// <inheritdoc />
         /// <summary>
         /// Comprueba que el tipo cargado sea compatible con esta versión de

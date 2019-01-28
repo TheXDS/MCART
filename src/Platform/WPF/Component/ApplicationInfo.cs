@@ -39,7 +39,7 @@ namespace TheXDS.MCART.Component
     /// <summary>
     ///     Expone la información de ensamblado de una aplicación de WPF.
     /// </summary>
-    public class ApplicationInfo : IExposeInfo
+    public class ApplicationInfo : IExposeInfo<UIElement>
     {
         private readonly AssemblyInfo _infoExposer;
 
