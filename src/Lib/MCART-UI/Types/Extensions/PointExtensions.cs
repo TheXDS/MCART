@@ -1,5 +1,5 @@
 ﻿/*
-UI.cs
+PointExtensions.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,25 +22,32 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using TheXDS.MCART.Types.Extensions;
-using System.Drawing;
+using P = System.Drawing.Point;
+using M = TheXDS.MCART.Types.Point;
 
-namespace TheXDS.MCART
+namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    /// Módulo de funciones universales de UI.
+    ///     Extensiones de conversión de estructuras <see cref="M"/> en
+    ///     <see cref="P"/>.
     /// </summary>
-    public static partial class UI
+    public static class PointExtensions
     {
         /// <summary>
-        /// Devuelve un <see cref="Brush"/> aleatorio.
+        ///     Convierte un <see cref="M"/> en un <see cref="P"/>.
         /// </summary>
+        /// <param name="x"><see cref="M"/> a convertir.</param>
         /// <returns>
-        /// Un <see cref="Brush"/> seleccionado aleatoriamente.
+        ///     Un <see cref="P"/> equivalente al <see cref="M"/> especificado.
         /// </returns>
-        public static Brush PickDrawingBrush()
-        {
-            return (Brush)typeof(Brushes).GetProperties().Pick().GetValue(null);
-        }
+        public static P Point(M x) => new P((int)x.X,(int) x.Y);
+        /// <summary>
+        ///     Convierte un <see cref="P"/> en un <see cref="M"/>.
+        /// </summary>
+        /// <param name="x"><see cref="P"/> a convertir.</param>
+        /// <returns>
+        ///     Un <see cref="M"/> equivalente al <see cref="P"/> especificado.
+        /// </returns>
+        public static M ToMcartPoint(P x) => new M(x.X, x.Y);
     }
 }

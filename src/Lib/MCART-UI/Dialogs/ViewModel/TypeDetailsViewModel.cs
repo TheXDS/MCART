@@ -26,13 +26,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Windows.Controls;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Dialogs.ViewModel
 {
-    internal class TypeDetailsViewModel : NotifyPropertyChanged
+    public class TypeDetailsViewModel : NotifyPropertyChanged
     {
         private Type _type;
 
@@ -49,7 +48,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
             }
         }
 
-        public static TypeDetailsViewModel Create => new TypeDetailsViewModel(typeof(UserControl));
+        public static TypeDetailsViewModel Create => new TypeDetailsViewModel(null);
 
         public string DefaultValue => Type?.Default()?.ToString() ?? "null";
 

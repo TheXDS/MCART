@@ -15,19 +15,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{B75874BF
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "API-Documentation", "Documentation\API-Documentation\API-Documentation.shfbproj", "{14A05F92-BF65-4801-95A7-48EE59C72159}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AssemblyInfo", "Shared\AssemblyInfo\AssemblyInfo.shproj", "{967AFAA3-DED3-4EC0-9401-7193B318FCE8}"
-EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Snippets", "Documentation\Snippets\Snippets.shproj", "{913DB390-BCF2-478D-996E-1B7248425597}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared", "Tests\Shared\Shared.shproj", "{19D54254-A3B9-46B2-B687-43AEEB4636DF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART", "MCART\MCART.csproj", "{D39B543E-571D-4EA5-B8A2-9F6729C8E689}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core-GUI", "Shared\Core-GUI\Core-GUI.shproj", "{4963BA2E-AA9F-43DF-9674-D7257A201AA3}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core-NoWPF", "Shared\Core-NoWPF\Core-NoWPF.shproj", "{5B5C0EA8-E8C3-4442-94FB-03B7AC6BE9E8}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core-Windows", "Shared\Core-Windows\Core-Windows.shproj", "{F1D4FE86-BB72-4D8D-901E-525F697991FE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{B80D3805-8722-4877-AF4E-C7763C850A9E}"
 	ProjectSection(SolutionItems) = preProject
@@ -40,15 +32,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{8D80435C-F7C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART-UI", "Lib\MCART-UI\MCART-UI.csproj", "{5DC28582-5BA8-440B-AAEA-FC601CF4A8D3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART-Windows", "Lib\MCART-Windows\MCART-Windows.csproj", "{620E1805-E9FA-48A5-A9C6-C9E6D35E464D}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AssemblyInfo", "Shared\AssemblyInfo\AssemblyInfo.shproj", "{967AFAA3-DED3-4EC0-9401-7193B318FCE8}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Tests\Shared\Shared.projitems*{19d54254-a3b9-46b2-b687-43aeeb4636df}*SharedItemsImports = 13
-		Shared\Core-GUI\Core-GUI.projitems*{4963ba2e-aa9f-43df-9674-d7257a201aa3}*SharedItemsImports = 13
-		Shared\Core-NoWPF\Core-NoWPF.projitems*{5b5c0ea8-e8c3-4442-94fb-03b7ac6be9e8}*SharedItemsImports = 13
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{77706828-80be-4bac-a97c-072e101d01de}*SharedItemsImports = 4
 		Documentation\Snippets\Snippets.projitems*{913db390-bcf2-478d-996e-1b7248425597}*SharedItemsImports = 13
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{967afaa3-ded3-4ec0-9401-7193b318fce8}*SharedItemsImports = 13
-		Shared\Core-Windows\Core-Windows.projitems*{f1d4fe86-bb72-4d8d-901e-525f697991fe}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,20 +64,22 @@ Global
 		{5DC28582-5BA8-440B-AAEA-FC601CF4A8D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DC28582-5BA8-440B-AAEA-FC601CF4A8D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DC28582-5BA8-440B-AAEA-FC601CF4A8D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{620E1805-E9FA-48A5-A9C6-C9E6D35E464D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{620E1805-E9FA-48A5-A9C6-C9E6D35E464D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{620E1805-E9FA-48A5-A9C6-C9E6D35E464D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{620E1805-E9FA-48A5-A9C6-C9E6D35E464D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{14A05F92-BF65-4801-95A7-48EE59C72159} = {1AF1EDA3-FEAD-4702-8541-26B364AD0C4E}
-		{967AFAA3-DED3-4EC0-9401-7193B318FCE8} = {D74BF4B6-D008-4124-B4F5-DAEA45272A78}
 		{913DB390-BCF2-478D-996E-1B7248425597} = {1AF1EDA3-FEAD-4702-8541-26B364AD0C4E}
 		{19D54254-A3B9-46B2-B687-43AEEB4636DF} = {19EC529F-C50D-4A09-8B2A-70E21B642109}
-		{4963BA2E-AA9F-43DF-9674-D7257A201AA3} = {D74BF4B6-D008-4124-B4F5-DAEA45272A78}
-		{5B5C0EA8-E8C3-4442-94FB-03B7AC6BE9E8} = {D74BF4B6-D008-4124-B4F5-DAEA45272A78}
-		{F1D4FE86-BB72-4D8D-901E-525F697991FE} = {D74BF4B6-D008-4124-B4F5-DAEA45272A78}
 		{77706828-80BE-4BAC-A97C-072E101D01DE} = {DB2C9D58-DF3F-4361-ACE4-EF1219AD1810}
 		{5DC28582-5BA8-440B-AAEA-FC601CF4A8D3} = {8D80435C-F7CE-46FE-82F0-58F0D5282344}
+		{620E1805-E9FA-48A5-A9C6-C9E6D35E464D} = {8D80435C-F7CE-46FE-82F0-58F0D5282344}
+		{967AFAA3-DED3-4EC0-9401-7193B318FCE8} = {D74BF4B6-D008-4124-B4F5-DAEA45272A78}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A16C9D23-2B39-4202-8A15-4A3536784E27}

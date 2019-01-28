@@ -1,5 +1,5 @@
 ﻿/*
-Colors.cs
+UI.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,16 +22,25 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using TheXDS.MCART.Types;
+using TheXDS.MCART.Types.Extensions;
+using System.Drawing;
 
-namespace TheXDS.MCART.Resources
+namespace TheXDS.MCART
 {
-    public static partial class Colors
+    /// <summary>
+    /// Módulo de funciones universales de UI.
+    /// </summary>
+    public static class UI
     {
         /// <summary>
-        /// Obtiene un <see cref="Color"/> correspondiente a las barras de
-        /// progreso de Microsoft® Windows®.
+        /// Devuelve un <see cref="Brush"/> aleatorio.
         /// </summary>
-        public static Color ProgressBar => new Color(0x1, 0xd3, 0x28);
+        /// <returns>
+        /// Un <see cref="Brush"/> seleccionado aleatoriamente.
+        /// </returns>
+        public static Brush PickDrawingBrush()
+        {
+            return (Brush)typeof(Brushes).GetProperties().Pick().GetValue(null);
+        }
     }
 }

@@ -5,7 +5,17 @@
     <AssemblyName>MCART.UI</AssemblyName>
     <ProjectGuid>{5dc28582-5ba8-440b-aaea-fc601cf4a8d3}</ProjectGuid>
     <OutputType>Library</OutputType>
-  </PropertyGroup>
+  </PropertyGroup>  
+  <ItemGroup>
+    <None Remove="Resources\Icons\MCART.png" />
+    <None Remove="Resources\Icons\MCARTBadge.png" />
+    <None Remove="Resources\Icons\MCARTPlugin.png" />
+  </ItemGroup>  
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Icons\MCART.png" />
+    <EmbeddedResource Include="Resources\Icons\MCARTBadge.png" />
+    <EmbeddedResource Include="Resources\Icons\MCARTPlugin.png" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\MCART\MCART.csproj">
       <Project>{d39b543e-571d-4ea5-b8a2-9f6729c8e689}</Project>

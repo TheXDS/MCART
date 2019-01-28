@@ -1,5 +1,5 @@
 ﻿/*
-Color.cs
+PointExtensions.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,27 +22,32 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types
+using P = System.Windows.Point;
+using M = TheXDS.MCART.Types.Point;
+
+namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    /// Estructura universal que describe un color en sus componentes alfa,
-    /// rojo, verde y azul.
+    ///     Extensiones de conversión de estructuras <see cref="M"/> en
+    ///     <see cref="P"/>.
     /// </summary>
-    public partial struct Color
+    public static class WpfPointExtensions
     {
         /// <summary>
-        /// Convierte implícitamente una estructura <see cref="Color"/> en un
-        /// un <see cref="System.Drawing.Color"/>.
+        ///     Convierte un <see cref="M"/> en un <see cref="P"/>.
         /// </summary>
-        /// <param name="c"><see cref="Color"/> a convertir.</param>
-        public static implicit operator System.Drawing.Color(Color c) => System.Drawing.Color.FromArgb(c.A, c.R, c.G, c.B);
+        /// <param name="x"><see cref="M"/> a convertir.</param>
+        /// <returns>
+        ///     Un <see cref="P"/> equivalente al <see cref="M"/> especificado.
+        /// </returns>
+        public static P Poindt(M x) => new P(x.X, x.Y);
         /// <summary>
-        /// Convierte implícitamente una estructura
-        /// <see cref="System.Drawing.Color"/> en un <see cref="Color"/>.
+        ///     Convierte un <see cref="P"/> en un <see cref="M"/>.
         /// </summary>
-        /// <param name="c">
-        /// <see cref="System.Drawing.Color"/> a convertir.
-        /// </param>
-        public static implicit operator Color(System.Drawing.Color c) => new Color(c.R, c.G, c.B,c.A);
+        /// <param name="x"><see cref="P"/> a convertir.</param>
+        /// <returns>
+        ///     Un <see cref="M"/> equivalente al <see cref="P"/> especificado.
+        /// </returns>
+        public static M ToMcartPoint(P x) => new M(x.X, x.Y);
     }
 }

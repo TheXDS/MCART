@@ -1,5 +1,5 @@
 ﻿/*
-IRedrawable.cs
+Color.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,17 +22,33 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Controls
+using D = System.Drawing.Color;
+
+namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    /// Define una serie de métodos a implementar por un control que pueda
-    /// solicitar manualmente al sistema operativo ser redibujado.
+    ///     Extensiones de conversión de colores de MCART en
+    ///     <see cref="D"/>.
     /// </summary>
-    public interface IRedrawable
+    public static class ColorExtensions
     {
         /// <summary>
-        /// Solicita al sistema operativo que este control se vuelva a dibujar.
+        ///     Convierte una estructura <see cref="Color"/> en un
+        ///     <see cref="D"/>.
         /// </summary>
-        void RequestRedraw();
+        /// <param name="c"><see cref="Color"/> a convertir.</param>
+        public static D FromMcartColor(this Color c)
+        {
+            return D.FromArgb(c.A, c.R, c.G, c.B);
+        }
+        /// <summary>
+        ///     Convierte una estructura <see cref="D"/> en un
+        ///     <see cref="Color"/>.
+        /// </summary>
+        /// <param name="c"><see cref="D"/> a convertir.</param>
+        public static Color ToMcartColor(this D c)
+        {
+            return new Color(c.R, c.G, c.B, c.A);
+        }
     }
 }

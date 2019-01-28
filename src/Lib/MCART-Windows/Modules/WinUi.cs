@@ -1,5 +1,5 @@
 ﻿/*
-UI.cs
+WinUi.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -33,7 +33,7 @@ namespace TheXDS.MCART
     /// Módulo de funciones universales de UI para sistemas operativos
     /// Microsoft® Windows®.
     /// </summary>
-    public static partial class UI
+    public static class WinUi
     {
         /// <summary>
         /// Abre una consola para la aplicación.

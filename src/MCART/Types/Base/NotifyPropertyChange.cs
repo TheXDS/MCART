@@ -22,9 +22,14 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Annotations;
+using System.Linq;
+using TheXDS.MCART.Exceptions;
+using System;
 
 namespace TheXDS.MCART.Types.Base
 {
@@ -72,21 +77,56 @@ namespace TheXDS.MCART.Types.Base
         /// <typeparam name="T">Tipo de valores a procesar.</typeparam>
         /// <param name="field">Campo a actualizar.</param>
         /// <param name="value">Nuevo valor del campo.</param>
-        /// <param name="propertyName">
-        ///     Nombre de la propiedad. Por lo general, este valor debe
-        ///     omitirse.
-        /// </param>
         /// <returns>
         ///     <see langword="true"/> si el valor de la propiedad ha
         ///     cambiado, <see langword="false"/> en caso contrario.
         /// </returns>
-        protected bool Change<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
+        protected bool Change<T>(ref T field, T value)
+        {            
             if (field.Equals(value)) return false;
-            OnPropertyChanging(propertyName);
+
+            var m = ReflectionHelpers.GetCallingMethod() ?? throw new TamperException();
+            var p = GetType().GetProperties().SingleOrDefault(q => q.SetMethod == m) ?? throw new TamperException();
+
+            OnPropertyChanging(p.Name);
             field = value;
-            OnPropertyChanged(propertyName);
+
+            var rm = new HashSet<WeakReference<PropertyChangeObserver>>();
+            foreach (var j in ObserveSubscriptions)
+            {
+                if (j.TryGetTarget(out var t)) t?.Invoke(this, p);
+                else rm.Add(j);
+            }
+            foreach (var j in rm)
+            {
+                ObserveSubscriptions.Remove(j);
+            }
+            OnPropertyChanged(p.Name);
             return true;
         }
+
+        private HashSet<WeakReference<PropertyChangeObserver>> ObserveSubscriptions = new HashSet<WeakReference<PropertyChangeObserver>>();
+
+        /// <summary>
+        ///     Suscribe a un delegado para observar el cambio de una propiedad.
+        /// </summary>
+        /// <param name="callback">Delegado a suscribir.</param>
+        public void Subscribe(PropertyChangeObserver callback)
+        {
+            ObserveSubscriptions.Add(new WeakReference<PropertyChangeObserver>(callback));
+        }
+
+        /// <summary>
+        ///     Quita al delegado previamente suscrito de la lista de
+        ///     suscripciones de notificación de cambios de propiedad.
+        /// </summary>
+        /// <param name="callback">Delegado a quitar.</param>
+        public void Unsubscribe(PropertyChangeObserver callback)
+        {
+            var rm = ObserveSubscriptions.FirstOrDefault(p => p.TryGetTarget(out var t) && t == callback);
+            if (!(rm is null)) ObserveSubscriptions.Remove(rm);
+        }
     }
+    public delegate void PropertyChangeObserver(object instance, PropertyInfo property);
+
 }

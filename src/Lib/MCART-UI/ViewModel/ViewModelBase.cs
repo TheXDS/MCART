@@ -22,6 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System.Reflection;
 using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.ViewModel
@@ -31,15 +32,53 @@ namespace TheXDS.MCART.ViewModel
     /// </summary>
     public abstract class ViewModelBase : NotifyPropertyChanged
     {
+        /// <summary>
+        ///     Inicialica una nueva instancia de la clase 
+        ///     <see cref="ViewModelBase"/>.
+        /// </summary>
+        public ViewModelBase() { }
+
+        /// <summary>
+        ///     Inicialica una nueva instancia de la clase 
+        ///     <see cref="ViewModelBase"/>.
+        /// </summary>
+        /// <param name="observeSelf"></param>
+        public ViewModelBase(bool observeSelf)
+        {
+            if (observeSelf)
+            PropertyChanged += ViewModelBase_PropertyChanged;
+        }
+
+        private void ViewModelBase_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            SelfObserve(GetType().GetProperty(e.PropertyName));
+        }
+
+        /// <summary>
+        ///     Método invalidable que permite observar cambios en los valores de las propiedades de esta instancia.
+        /// </summary>
+        /// <param name="property"></param>
+        protected virtual void SelfObserve(PropertyInfo property) { }
+
         private bool _isBusy;
 
         /// <summary>
-        ///     Obtiene un valor que indica si este <see cref="ViewModelBase"/> está ocupado.
+        ///     Obtiene un valor que indica si este <see cref="ViewModelBase"/>
+        ///     está ocupado.
         /// </summary>
         public bool IsBusy
         {
             get => _isBusy;
             protected set => Change(ref _isBusy, value);
+        }
+
+        /// <summary>
+        ///     Destruye esta instancia de la clase 
+        ///     <see cref="ViewModelBase"/>.
+        /// </summary>
+        ~ViewModelBase()
+        {
+            PropertyChanged -= ViewModelBase_PropertyChanged;
         }
     }
 }

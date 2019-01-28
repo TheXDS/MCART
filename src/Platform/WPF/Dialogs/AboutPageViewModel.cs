@@ -98,4 +98,35 @@ namespace TheXDS.MCART.Dialogs.ViewModel
 
         }
     }
+
+    public class PasswordDialogViewModel : PasswordDialogViewModelBase
+    {
+        /// <summary>
+        ///     Obtiene un comando que permite evaluar la calidad de la contraseña.
+        /// </summary>
+        public ObservingCommand EvaluateCommand { get; }
+        /// <summary>
+        ///     Obtiene un comando que permite generar una contraseña.
+        /// </summary>
+        public ObservingCommand GenerateCommand { get; }
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="PasswordDialogViewModel"/>.
+        /// </summary>
+        public PasswordDialogViewModel()
+        {
+            EvaluateCommand = new ObservingCommand(this, OnEvaluate, CanEvaluate, nameof(IsGeneratorVisible), nameof(Generator));
+            GenerateCommand = new ObservingCommand(this, OnGenerate, CanGenerate, nameof(IsQualityVisible), nameof(Evaluator));
+        }
+
+        private bool CanGenerate(object arg)
+        {
+            return IsGeneratorVisible && !(Generator is null);
+        }
+        private bool CanEvaluate()
+        {
+            return IsQualityVisible && !(Evaluator is null);
+        }
+    }
 }

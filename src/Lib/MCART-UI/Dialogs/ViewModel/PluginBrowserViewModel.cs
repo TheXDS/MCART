@@ -28,7 +28,7 @@ using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Dialogs.ViewModel
 {
-    internal class PluginBrowserViewModel : NotifyPropertyChanged
+    public class PluginBrowserViewModel : NotifyPropertyChanged
     {
         private object _selection;
         private bool _showPlugins = true;
