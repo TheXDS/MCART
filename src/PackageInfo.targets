@@ -4,7 +4,7 @@
     <Company>TheXDS! non-Corp.</Company>
     <Version>0.10.0.2</Version>
     <FileVersion>$(Version)</FileVersion>
-    <AssemblyVersion>>$(Version)</AssemblyVersion>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
     <Product>Morgan's CLR Advanced Runtime</Product>
     <AssemblyTitle>$(Description)</AssemblyTitle>
     <Authors>César Andrés Morgan</Authors>
