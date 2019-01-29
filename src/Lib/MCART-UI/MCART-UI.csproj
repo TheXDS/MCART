@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">  
   <PropertyGroup>  
-    <TargetFramework>net47</TargetFramework>
+    <TargetFrameworks>netcoreapp2.1;net47</TargetFrameworks>
     <Description>MCART UI Core</Description>
     <AssemblyName>MCART.UI</AssemblyName>
     <ProjectGuid>{5dc28582-5ba8-440b-aaea-fc601cf4a8d3}</ProjectGuid>
@@ -21,9 +21,5 @@
       <Project>{d39b543e-571d-4ea5-b8a2-9f6729c8e689}</Project>
       <Name>MCART</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data.DataSetExtensions" />
   </ItemGroup>
 </Project>

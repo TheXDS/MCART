@@ -32,6 +32,8 @@ using TheXDS.MCART.Annotations;
 using static System.Reflection.BindingFlags;
 using TheXDS.MCART.Exceptions;
 
+// ReSharper disable StaticMemberInGenericType
+
 namespace TheXDS.MCART.ViewModel
 {
     /// <summary>
@@ -45,10 +47,10 @@ namespace TheXDS.MCART.ViewModel
     {
         private const string Namespace = "TheXDS.MCART.ViewModel._Generated";
         private static readonly ModuleBuilder MBuilder =
-            AppDomain.CurrentDomain.DefineDynamicAssembly(
-                    new AssemblyName(Namespace),
-                    AssemblyBuilderAccess.Run)
-                .DefineDynamicModule(Namespace);
+            AssemblyBuilder.DefineDynamicAssembly(
+                new AssemblyName(Namespace),
+                AssemblyBuilderAccess.Run)
+            .DefineDynamicModule(Namespace);
 
         private static readonly Dictionary<Type, Type> BuiltTypes = new Dictionary<Type, Type>();
         
@@ -92,7 +94,7 @@ namespace TheXDS.MCART.ViewModel
 
         /// <summary>
         ///     Construye un tipo de ViewModel utilizando una clase base que
-        ///     hereda de <see cref="ViewModel{TModel,TKey}"/> como base.
+        ///     hereda de <see cref="ViewModel{TModel}"/> como base.
         /// </summary>
         /// <typeparam name="TViewModel">
         ///     Clase de ViewModel a utilizar como tipo base.

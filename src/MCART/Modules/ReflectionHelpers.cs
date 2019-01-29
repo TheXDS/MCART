@@ -76,5 +76,19 @@ namespace TheXDS.MCART
             var frames = new StackTrace().GetFrames();
             return frames?.Length >= nCaller ? frames[nCaller].GetMethod() : null;
         }
+
+        /// <summary>
+        ///     Determina si el método invalida a una definición base.
+        /// </summary>
+        /// <param name="methodInfo"></param>
+        /// <returns>
+        ///     <see langword="true"/> si el método invalida a una definición
+        ///     base, <see langword="false"/> em caso contrario.
+        /// </returns>
+        public static bool IsOverride(this MethodInfo methodInfo)
+        {
+            return methodInfo.GetBaseDefinition() != methodInfo;
+        }
+
     }
 }

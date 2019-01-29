@@ -26,6 +26,7 @@ using TheXDS.MCART.Attributes;
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART
 {
@@ -145,5 +146,16 @@ namespace TheXDS.MCART
         /// la pantalla en Puntos Por Pulgada (DPI).
         /// </returns>
         [Thunk] public static Point GetDpi() => GetDpi(IntPtr.Zero);
+
+        /// <summary>
+        /// Devuelve un <see cref="Brush"/> aleatorio.
+        /// </summary>
+        /// <returns>
+        /// Un <see cref="Brush"/> seleccionado aleatoriamente.
+        /// </returns>
+        public static Brush PickDrawingBrush()
+        {
+            return (Brush)typeof(Brushes).GetProperties().Pick().GetValue(null);
+        }
     }
 }

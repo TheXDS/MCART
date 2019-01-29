@@ -30,6 +30,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.Attributes;
+using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 
 #region Configuración de ReSharper
 
@@ -48,6 +49,61 @@ namespace TheXDS.MCART
     /// </summary>
     public static class Objects
     {
+        /// <summary>
+        ///     Obtiene un único objeto que coincida con el tipo base
+        ///     especificado.
+        /// </summary>
+        /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
+        /// <returns>
+        ///     Una nueva instancia del objeto solicitado.
+        /// </returns>
+        public static T FindSingleObject<T>() where T : class
+        {
+            return GetTypes<T>(true).SingleOrDefault()?.New<T>();
+        }
+        /// <summary>
+        ///     Obtiene un único objeto que coincida con el tipo base
+        ///     especificado.
+        /// </summary>
+        /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
+        /// <param name="typeFilter">
+        ///     Función de filtro a aplicar a los tipos coincidientes.
+        /// </param>
+        /// <returns>
+        ///     Una nueva instancia del objeto solicitado.
+        /// </returns>
+        public static T FindSingleObject<T>(Func<Type,bool> typeFilter) where T : class
+        {
+            return GetTypes<T>(true).SingleOrDefault(typeFilter)?.New<T>();
+        }
+        /// <summary>
+        ///     Obtiene al primer objeto que coincida con el tipo base
+        ///     especificado.
+        /// </summary>
+        /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
+        /// <returns>
+        ///     Una nueva instancia del objeto solicitado.
+        /// </returns>
+        public static T FindFirstObject<T>() where T : class
+        {
+            return GetTypes<T>(true).FirstOrDefault()?.New<T>();
+        }
+        /// <summary>
+        ///     Obtiene al primer objeto que coincida con el tipo base
+        ///     especificado.
+        /// </summary>
+        /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
+        /// <param name="typeFilter">
+        ///     Función de filtro a aplicar a los tipos coincidientes.
+        /// </param>
+        /// <returns>
+        ///     Una nueva instancia del objeto solicitado.
+        /// </returns>
+        public static T FindFirstObject<T>(Func<Type, bool> typeFilter) where T : class
+        {
+            return GetTypes<T>(true).FirstOrDefault(typeFilter)?.New<T>();
+        }
+
         /// <summary>
         ///     Obtiene todos los tipos públicos que implementan al tipo especificado.
         /// </summary>
