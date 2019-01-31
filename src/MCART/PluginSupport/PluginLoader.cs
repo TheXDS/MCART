@@ -22,14 +22,14 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using TheXDS.MCART.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using TheXDS.MCART.Attributes;
 using System.Reflection;
-using System.Threading.Tasks;
+using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Exceptions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 using St = TheXDS.MCART.Resources.Strings;
 
@@ -44,131 +44,150 @@ namespace TheXDS.MCART.PluginSupport
 {
     /// <inheritdoc />
     /// <summary>
-    /// Permite cargar clases que implementen la interfaz
-    /// <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />.
+    ///     Permite cargar clases que implementen la interfaz
+    ///     <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />.
     /// </summary>
     public class PluginLoader : IPluginLoader
     {
         private const string DefaultPluginExtension = ".dll";
-        private readonly string _extension;
         private readonly IPluginChecker _checker;
+        private readonly string _extension;
+
         /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="T:TheXDS.MCART.PluginSupport.PluginLoader" /> utilizando el verificador
-        /// predeterminado.
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.PluginSupport.PluginLoader" /> utilizando el verificador
+        ///     predeterminado.
         /// </summary>
-        public PluginLoader() : this(new DefaultPluginChecker(), DefaultPluginExtension) { }
+        public PluginLoader() : this(new DefaultPluginChecker(), DefaultPluginExtension)
+        {
+        }
+
         /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="T:TheXDS.MCART.PluginSupport.PluginLoader" /> utilizando el verificador
-        /// predeterminado.
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.PluginSupport.PluginLoader" /> utilizando el verificador
+        ///     predeterminado.
         /// </summary>
         /// <param name="pluginExtension">
-        /// Parámetro opcional. Extensión de los archivos que contienen
-        /// plugins.
+        ///     Parámetro opcional. Extensión de los archivos que contienen
+        ///     plugins.
         /// </param>
-        public PluginLoader(string pluginExtension) : this(new StrictPluginChecker(), pluginExtension) { }
+        public PluginLoader(string pluginExtension) : this(new StrictPluginChecker(), pluginExtension)
+        {
+        }
+
         /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="T:TheXDS.MCART.PluginSupport.PluginLoader" /> utilizando el
-        /// <see cref="T:TheXDS.MCART.PluginSupport.IPluginChecker" /> y la extensión de plugins
-        /// especificada.
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.PluginSupport.PluginLoader" /> utilizando el
+        ///     <see cref="T:TheXDS.MCART.PluginSupport.IPluginChecker" /> y la extensión de plugins
+        ///     especificada.
         /// </summary>
         /// <param name="pluginChecker">
-        /// <see cref="T:TheXDS.MCART.PluginSupport.IPluginChecker" /> a utilizar para compropbar la
-        /// compatilibilidad de los plugins.
+        ///     <see cref="T:TheXDS.MCART.PluginSupport.IPluginChecker" /> a utilizar para comprobar la
+        ///     compatibilidad de los plugins.
         /// </param>
-        public PluginLoader(IPluginChecker pluginChecker) : this(pluginChecker, SanityChecks.Default, DefaultPluginExtension) { }
+        public PluginLoader(IPluginChecker pluginChecker) : this(pluginChecker, SanityChecks.Default,
+            DefaultPluginExtension)
+        {
+        }
+
         /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="T:TheXDS.MCART.PluginSupport.PluginLoader" /> utilizando el
-        /// <see cref="T:TheXDS.MCART.PluginSupport.IPluginChecker" /> y la extensión de plugins
-        /// especificada.
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.PluginSupport.PluginLoader" /> utilizando el
+        ///     <see cref="T:TheXDS.MCART.PluginSupport.IPluginChecker" /> y la extensión de plugins
+        ///     especificada.
         /// </summary>
         /// <param name="pluginChecker">
-        /// <see cref="T:TheXDS.MCART.PluginSupport.IPluginChecker" /> a utilizar para compropbar la
-        /// compatilibilidad de los plugins.
+        ///     <see cref="T:TheXDS.MCART.PluginSupport.IPluginChecker" /> a utilizar para comprobar la
+        ///     compatibilidad de los plugins.
         /// </param>
         /// <param name="pluginExtension">
-        /// Parámetro opcional. Extensión de los archivos que contienen
-        /// plugins.
+        ///     Parámetro opcional. Extensión de los archivos que contienen
+        ///     plugins.
         /// </param>
-        public PluginLoader(IPluginChecker pluginChecker, string pluginExtension) : this(pluginChecker, SanityChecks.Default, pluginExtension) { }
+        public PluginLoader(IPluginChecker pluginChecker, string pluginExtension) : this(pluginChecker,
+            SanityChecks.Default, pluginExtension)
+        {
+        }
+
         /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="T:TheXDS.MCART.PluginSupport.PluginLoader" /> utilizando el
-        /// <see cref="T:TheXDS.MCART.PluginSupport.IPluginChecker" /> y la extensión de plugins
-        /// especificada.
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.PluginSupport.PluginLoader" /> utilizando el
+        ///     <see cref="T:TheXDS.MCART.PluginSupport.IPluginChecker" /> y la extensión de plugins
+        ///     especificada.
         /// </summary>
         /// <param name="pluginChecker">
-        /// <see cref="T:TheXDS.MCART.PluginSupport.IPluginChecker" /> a utilizar para compropbar la
-        /// compatilibilidad de los plugins.
+        ///     <see cref="T:TheXDS.MCART.PluginSupport.IPluginChecker" /> a utilizar para comprobar la
+        ///     compatibilidad de los plugins.
         /// </param>
         /// <param name="sanityChecks">
-        /// Omite las comprobaciones de peligrosidad de los
-        /// <see cref="T:TheXDS.MCART.PluginSupport.Plugin" /> y sus miembros.
+        ///     Omite las comprobaciones de peligrosidad de los
+        ///     <see cref="T:TheXDS.MCART.PluginSupport.Plugin" /> y sus miembros.
         /// </param>
         /// <exception cref="T:TheXDS.MCART.Exceptions.DangerousMethodException">
-        /// Se produce si <paramref name="sanityChecks" /> contiene un valor que
-        /// ha sido marcado con el atributo <see cref="T:TheXDS.MCART.Attributes.DangerousAttribute" />.
+        ///     Se produce si <paramref name="sanityChecks" /> contiene un valor que
+        ///     ha sido marcado con el atributo <see cref="T:TheXDS.MCART.Attributes.DangerousAttribute" />.
         /// </exception>
         /// <exception cref="T:TheXDS.MCART.Exceptions.DangerousTypeException">
-        /// Se produce si <paramref name="sanityChecks" /> no contiene la
-        /// bandera <see cref="F:TheXDS.MCART.SanityChecks.IgnoreDanger" /> y el
-        /// <paramref name="pluginChecker" /> a utilizar fue marcado en su 
-        /// declaración con el atributo <see cref="T:TheXDS.MCART.Attributes.DangerousAttribute" />.
+        ///     Se produce si <paramref name="sanityChecks" /> no contiene la
+        ///     bandera <see cref="F:TheXDS.MCART.SanityChecks.IgnoreDanger" /> y el
+        ///     <paramref name="pluginChecker" /> a utilizar fue marcado en su
+        ///     declaración con el atributo <see cref="T:TheXDS.MCART.Attributes.DangerousAttribute" />.
         /// </exception>
         /// <exception cref="T:TheXDS.MCART.Exceptions.UnusableObjectException">
-        /// Se produce si <paramref name="sanityChecks" /> no contiene la
-        /// bandera <see cref="F:TheXDS.MCART.SanityChecks.IgnoreUnusable" /> y el
-        /// <paramref name="pluginChecker" /> a utilizar fue marcado en su 
-        /// declaración con el atributo <see cref="T:TheXDS.MCART.Attributes.UnusableAttribute" />.
+        ///     Se produce si <paramref name="sanityChecks" /> no contiene la
+        ///     bandera <see cref="F:TheXDS.MCART.SanityChecks.IgnoreUnusable" /> y el
+        ///     <paramref name="pluginChecker" /> a utilizar fue marcado en su
+        ///     declaración con el atributo <see cref="T:TheXDS.MCART.Attributes.UnusableAttribute" />.
         /// </exception>
         /// <exception cref="T:System.ArgumentNullException">
-        /// Se produce si <paramref name="pluginChecker" /> es <see langword="null" />.
+        ///     Se produce si <paramref name="pluginChecker" /> es <see langword="null" />.
         /// </exception>
-        public PluginLoader(IPluginChecker pluginChecker, SanityChecks sanityChecks) : this(pluginChecker, sanityChecks, DefaultPluginExtension) { }
+        public PluginLoader(IPluginChecker pluginChecker, SanityChecks sanityChecks) : this(pluginChecker, sanityChecks,
+            DefaultPluginExtension)
+        {
+        }
+
         /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="PluginLoader"/> utilizando el
-        /// <see cref="IPluginChecker"/> y la extensión de plugins
-        /// especificada.
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="PluginLoader" /> utilizando el
+        ///     <see cref="IPluginChecker" /> y la extensión de plugins
+        ///     especificada.
         /// </summary>
         /// <param name="pluginChecker">
-        /// <see cref="IPluginChecker"/> a utilizar para compropbar la
-        /// compatilibilidad de los plugins.
+        ///     <see cref="IPluginChecker" /> a utilizar para comprobar la
+        ///     compatibilidad de los plugins.
         /// </param>
         /// <param name="sanityChecks">
-        /// Omite las comprobaciones de peligrosidad de los
-        /// <see cref="Plugin"/> y sus miembros.
+        ///     Omite las comprobaciones de peligrosidad de los
+        ///     <see cref="Plugin" /> y sus miembros.
         /// </param>
         /// <param name="pluginExtension">
-        /// Parámetro opcional. Extensión de los archivos que contienen
-        /// plugins.
+        ///     Parámetro opcional. Extensión de los archivos que contienen
+        ///     plugins.
         /// </param>
         /// <exception cref="DangerousMethodException">
-        /// Se produce si <paramref name="sanityChecks"/> contiene un valor que
-        /// ha sido marcado con el atributo <see cref="DangerousAttribute"/>.
+        ///     Se produce si <paramref name="sanityChecks" /> contiene un valor que
+        ///     ha sido marcado con el atributo <see cref="DangerousAttribute" />.
         /// </exception>
         /// <exception cref="DangerousTypeException">
-        /// Se produce si <paramref name="sanityChecks"/> no contiene la
-        /// bandera <see cref="SanityChecks.IgnoreDanger"/> y el
-        /// <paramref name="pluginChecker"/> a utilizar fue marcado en su 
-        /// declaración con el atributo <see cref="DangerousAttribute"/>.
+        ///     Se produce si <paramref name="sanityChecks" /> no contiene la
+        ///     bandera <see cref="SanityChecks.IgnoreDanger" /> y el
+        ///     <paramref name="pluginChecker" /> a utilizar fue marcado en su
+        ///     declaración con el atributo <see cref="DangerousAttribute" />.
         /// </exception>
         /// <exception cref="UnusableObjectException">
-        /// Se produce si <paramref name="sanityChecks"/> no contiene la
-        /// bandera <see cref="SanityChecks.IgnoreUnusable"/> y el
-        /// <paramref name="pluginChecker"/> a utilizar fue marcado en su 
-        /// declaración con el atributo <see cref="UnusableAttribute"/>.
+        ///     Se produce si <paramref name="sanityChecks" /> no contiene la
+        ///     bandera <see cref="SanityChecks.IgnoreUnusable" /> y el
+        ///     <paramref name="pluginChecker" /> a utilizar fue marcado en su
+        ///     declaración con el atributo <see cref="UnusableAttribute" />.
         /// </exception>
         /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="pluginChecker"/> es <see langword="null"/>.
+        ///     Se produce si <paramref name="pluginChecker" /> es <see langword="null" />.
         /// </exception>
         public PluginLoader(IPluginChecker pluginChecker, SanityChecks sanityChecks, string pluginExtension)
         {
@@ -176,119 +195,71 @@ namespace TheXDS.MCART.PluginSupport
             if (sanityChecks.HasAttr<DangerousAttribute>()) throw new DangerousMethodException();
 #endif
             _checker = pluginChecker ?? throw new ArgumentNullException(nameof(pluginChecker));
-            if (!sanityChecks.HasFlag(SanityChecks.IgnoreDanger) && _checker.HasAttr<DangerousAttribute>()) throw new DangerousTypeException(pluginChecker.GetType());
-            if (!sanityChecks.HasFlag(SanityChecks.IgnoreUnusable) && _checker.HasAttr<UnusableAttribute>()) throw new UnusableObjectException(pluginChecker);
+            if (!sanityChecks.HasFlag(SanityChecks.IgnoreDanger) && _checker.HasAttr<DangerousAttribute>())
+                throw new DangerousTypeException(pluginChecker.GetType());
+            if (!sanityChecks.HasFlag(SanityChecks.IgnoreUnusable) && _checker.HasAttr<UnusableAttribute>())
+                throw new UnusableObjectException(pluginChecker);
             _extension = pluginExtension;
         }
-        /// <summary>
-        /// Carga una clase de tipo <typeparamref name="T"/> contenida en el
-        /// ensamblado especificado.
-        /// </summary>
-        /// <returns>
-        /// Un <see cref="IPlugin"/> de tipo <typeparamref name="T"/>.
-        /// </returns>
-        /// <param name="asmPath">Ruta del ensamblado a cargar.</param>
-        /// <typeparam name="T">Clase a cargar.</typeparam>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="asmPath"/> es <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="FileNotFoundException">
-        /// Se produce si el archivo del ensamblado no ha sido encontrado.
-        /// </exception>
-        /// <exception cref="FileLoadException">
-        /// Se produce si el ensamblado no se pudo cargar desde el archivo.
-        /// </exception>
-        /// <exception cref="BadImageFormatException">
-        /// Se produce si <paramref name="asmPath"/> no contiene una imagen de
-        /// biblioteca de vínculos dinámicos o ejecutable válida.
-        /// </exception>
-        /// <exception cref="System.Security.SecurityException">
-        /// Se produce si no es posible cargar el ensamblado desde
-        /// <paramref name="asmPath"/> debido a un problema de seguridad.
-        /// </exception>
-        /// <exception cref="ArgumentException">
-        /// Se produce si <paramref name="asmPath"/> no es un argumento válido.
-        /// </exception>
-        /// <exception cref="PathTooLongException">
-        /// Se produce si <paramref name="asmPath"/> excede la longitud de ruta
-        /// de archivo máxima admitida por el sistema de archivos y/o el
-        /// sistema operativo.
-        /// </exception>
-        /// <exception cref="NotPluginException">
-        /// Se produce si el ensamblado no contiene ninguna clase cargable como
-        /// <see cref="IPlugin"/>.
-        /// </exception>
-        /// <exception cref="PluginClassNotFoundException">
-        /// Se produce si el ensamblado no contiene ninguna clase cargable como
-        /// <typeparamref name="T"/>.
-        /// </exception>
-        public T Load<T>(string asmPath) where T : class => Load<T>(Assembly.LoadFrom(asmPath));
+
         /// <inheritdoc />
         /// <summary>
-        /// Carga una clase de tipo <typeparamref name="T" /> contenida en el
-        /// ensamblado especificado.
+        ///     Carga una clase de tipo <typeparamref name="T" /> contenida en el
+        ///     ensamblado especificado.
         /// </summary>
         /// <returns>
-        /// Un <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" /> de tipo <typeparamref name="T" />.
+        ///     Un <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" /> de tipo <typeparamref name="T" />.
         /// </returns>
         /// <param name="assembly"><see cref="T:System.Reflection.Assembly" /> a cargar.</param>
         /// <typeparam name="T">Clase a cargar.</typeparam>
         /// <exception cref="T:TheXDS.MCART.Exceptions.NotPluginException">
-        /// Se produce si el ensamblado no contiene ninguna clase cargable como
-        /// <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />.
+        ///     Se produce si el ensamblado no contiene ninguna clase cargable como
+        ///     <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />.
         /// </exception>
         /// <exception cref="T:TheXDS.MCART.Exceptions.PluginClassNotFoundException">
-        /// Se produce si el ensamblado no contiene ninguna clase cargable como
-        /// <typeparamref name="T" />.
+        ///     Se produce si el ensamblado no contiene ninguna clase cargable como
+        ///     <typeparamref name="T" />.
         /// </exception>
         public T Load<T>(Assembly assembly) where T : class
         {
             if (!_checker.IsVaild(assembly)) throw new NotPluginException(assembly);
             return assembly.GetTypes().FirstOrDefault(p =>
-                _checker.IsValid(p)
-                && (_checker.IsCompatible(p) ?? false)
-                && typeof(T).IsAssignableFrom(p)
-                )?.New<T>() ?? throw new PluginClassNotFoundException(typeof(T));
+                       _checker.IsValid(p)
+                       && (_checker.IsCompatible(p) ?? false)
+                       && typeof(T).IsAssignableFrom(p)
+                   )?.New<T>() ?? throw new PluginClassNotFoundException(typeof(T));
         }
-        /// <summary>
-        /// Carga todos los <see cref="IPlugin"/> contenidos en el ensamblado.
-        /// </summary>
-        /// <returns>
-        /// Un <see cref="IEnumerable{T}"/> con los <see cref="IPlugin"/> 
-        /// encontrados.
-        /// </returns>
-        /// <param name="asmPath">Ruta del ensamblado a cargar.</param>
-        /// <typeparam name="T">
-        /// Tipo de <see cref="IPlugin"/> a cargar.
-        /// </typeparam>
-        /// <exception cref="FileNotFoundException">
-        /// Se produce si el archivo del ensamblado no ha sido encontrado.
-        /// </exception>
-        public IEnumerable<T> LoadAll<T>(string asmPath) where T : class => LoadAll(Assembly.LoadFrom(asmPath)).OfType<T>();
+
         /// <inheritdoc />
         /// <summary>
-        /// Carga todos los <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" /> contenidos en el ensamblado.
+        ///     Carga todos los <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" /> contenidos en el ensamblado.
         /// </summary>
         /// <returns>
-        /// Un <see cref="T:System.Collections.Generic.IEnumerable`1" /> con los <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />
-        /// encontrados.
+        ///     Un <see cref="T:System.Collections.Generic.IEnumerable`1" /> con los
+        ///     <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />
+        ///     encontrados.
         /// </returns>
         /// <param name="assembly"><see cref="T:System.Reflection.Assembly" /> a cargar.</param>
         /// <typeparam name="T">
-        /// Tipo de <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" /> a cargar.
+        ///     Tipo de <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" /> a cargar.
         /// </typeparam>
         /// <exception cref="T:TheXDS.MCART.Exceptions.NotPluginException">
-        /// Se produce si <paramref name="assembly" /> no contiene clases cargables
-        /// como <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />. 
+        ///     Se produce si <paramref name="assembly" /> no contiene clases cargables
+        ///     como <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />.
         /// </exception>
-        public IEnumerable<T> LoadAll<T>(Assembly assembly) where T : class => LoadAll(assembly).OfType<T>();
+        public IEnumerable<T> LoadAll<T>(Assembly assembly) where T : class
+        {
+            return LoadAll<T>(assembly, null);
+        }
+
         /// <inheritdoc />
         /// <summary>
-        /// Carga todos los <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" /> contenidos en el ensamblado.
+        ///     Carga todos los <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" /> contenidos en el ensamblado.
         /// </summary>
         /// <returns>
-        /// Un <see cref="T:System.Collections.Generic.IEnumerable`1" /> con los <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />
-        /// encontrados.
+        ///     Un <see cref="T:System.Collections.Generic.IEnumerable`1" /> con los
+        ///     <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />
+        ///     encontrados.
         /// </returns>
         /// <param name="assembly"><see cref="T:System.Reflection.Assembly" /> a cargar.</param>
 #if PreferExceptions
@@ -299,470 +270,867 @@ namespace TheXDS.MCART.PluginSupport
 #endif
         public IEnumerable<IPlugin> LoadAll(Assembly assembly)
         {
-#if PreferExceptions
-            if (!checker.IsVaild(assembly)) throw new NotPluginException(assembly);
-#else
-            if (_checker.IsVaild(assembly))
-#endif
-            {
-                foreach (var j in assembly.GetTypes().Where(p =>
-                _checker.IsValid(p)
-                && (_checker.IsCompatible(p) ?? false)))
-                    yield return j.New() as IPlugin;
-            }
+            return LoadAll(assembly, null);
         }
+
         /// <summary>
-        /// Carga todos los plugins de todos los ensamblados en el directorio.
+        ///     Enumera todos los archivos que contienen clases cargables como
+        ///     <typeparamref name="T" />.
         /// </summary>
-        /// <returns>
-        /// Un enumerador que itera sobre todos los <see cref="IPlugin"/> que
-        /// pueden ser cargados.
-        /// </returns>
-        public IEnumerable<IPlugin> LoadEverything() => LoadEverything<IPlugin>(Environment.CurrentDirectory, SearchOption.TopDirectoryOnly);
-        /// <summary>
-        /// Carga todos los plugins de todos los ensamblados en el directorio.
-        /// </summary>
-        /// <returns>
-        /// Un enumerador que itera sobre todos los <see cref="IPlugin"/> que
-        /// pueden ser cargados.
-        /// </returns>
-        /// <param name="pluginsPath">
-        /// Ruta del directorio que contiene los archivos a cargar.
-        /// </param>
-        public IEnumerable<IPlugin> LoadEverything(string pluginsPath) => LoadEverything<IPlugin>(pluginsPath, SearchOption.TopDirectoryOnly);
-        /// <summary>
-        /// Carga todos los plugins de todos los ensamblados en el directorio.
-        /// </summary>
-        /// <returns>
-        /// Un enumerador que itera sobre todos los <see cref="IPlugin"/> que
-        /// pueden ser cargados.
-        /// </returns>
-        /// <param name="search">Modo de búsqueda.</param>
-        public IEnumerable<IPlugin> LoadEverything(SearchOption search) => LoadEverything<IPlugin>(Environment.CurrentDirectory, search);
-        /// <summary>
-        /// Carga todos los plugins de todos los ensamblados en el directorio.
-        /// </summary>
-        /// <returns>
-        /// Un enumerador que itera sobre todos los <see cref="IPlugin"/> que
-        /// pueden ser cargados.
-        /// </returns>
-        /// <param name="pluginsPath">
-        /// Ruta del directorio que contiene los archivos a cargar.
-        /// </param>
-        /// <param name="search">Modo de búsqueda.</param>
-        public IEnumerable<IPlugin> LoadEverything(string pluginsPath, SearchOption search) => LoadEverything<IPlugin>(pluginsPath, search);
-        /// <summary>
-        /// Carga todos los plugins de todos los ensamblados en el directorio.
-        /// </summary>
-        /// <returns>
-        /// Un enumerador que itera sobre todos los <see cref="IPlugin"/> que
-        /// pueden ser cargados.
-        /// </returns>
         /// <typeparam name="T">
-        /// Tipo de <see cref="IPlugin"/> a cargar.
+        ///     Tipo de <see cref="IPlugin" /> a cargar.
         /// </typeparam>
-        public IEnumerable<T> LoadEverything<T>() where T : class => LoadEverything<T>(Environment.CurrentDirectory, SearchOption.TopDirectoryOnly);
-        /// <summary>
-        /// Carga todos los plugins de todos los ensamblados en el directorio.
-        /// </summary>
         /// <returns>
-        /// Un enumerador que itera sobre todos los <see cref="IPlugin"/> que
-        /// pueden ser cargados.
+        ///     Un enumerador de <see cref="FileInfo" /> de los archivos que
+        ///     contienen clases cargables como <typeparamref name="T" />.
         /// </returns>
+        public IEnumerable<FileInfo> Dir<T>() where T : class
+        {
+            return Dir<T>(Environment.CurrentDirectory, SearchOption.TopDirectoryOnly);
+        }
+
+        /// <summary>
+        ///     Enumera todos los archivos que contienen clases cargables como
+        ///     <typeparamref name="T" />.
+        /// </summary>
         /// <param name="pluginsPath">
-        /// Ruta del directorio que contiene los archivos a cargar.
+        ///     Ruta del directorio que contiene los archivos a cargar.
         /// </param>
         /// <typeparam name="T">
-        /// Tipo de <see cref="IPlugin"/> a cargar.
+        ///     Tipo de <see cref="IPlugin" /> a cargar.
         /// </typeparam>
-        public IEnumerable<T> LoadEverything<T>(string pluginsPath) where T : class => LoadEverything<T>(pluginsPath, SearchOption.TopDirectoryOnly);
-        /// <summary>
-        /// Carga todos los plugins de todos los ensamblados en el directorio.
-        /// </summary>
         /// <returns>
-        /// Un enumerador que itera sobre todos los <see cref="IPlugin"/> que
-        /// pueden ser cargados.
+        ///     Un enumerador de <see cref="FileInfo" /> de los archivos que
+        ///     contienen clases cargables como <typeparamref name="T" />.
         /// </returns>
+        public IEnumerable<FileInfo> Dir<T>(string pluginsPath) where T : class
+        {
+            return Dir<T>(pluginsPath, SearchOption.TopDirectoryOnly);
+        }
+
+        /// <summary>
+        ///     Enumera todos los archivos que contienen clases cargables como
+        ///     <typeparamref name="T" />.
+        /// </summary>
         /// <param name="search">Modo de búsqueda.</param>
         /// <typeparam name="T">
-        /// Tipo de <see cref="IPlugin"/> a cargar.
+        ///     Tipo de <see cref="IPlugin" /> a cargar.
         /// </typeparam>
-        public IEnumerable<T> LoadEverything<T>(SearchOption search) where T : class => LoadEverything<T>(Environment.CurrentDirectory, search);
-        /// <summary>
-        /// Carga todos los plugins de todos los ensamblados en el directorio.
-        /// </summary>
         /// <returns>
-        /// Un enumerador que itera sobre todos los <see cref="IPlugin"/> que
-        /// pueden ser cargados.
+        ///     Un enumerador de <see cref="FileInfo" /> de los archivos que
+        ///     contienen clases cargables como <typeparamref name="T" />.
         /// </returns>
+        public IEnumerable<FileInfo> Dir<T>(SearchOption search) where T : class
+        {
+            return Dir<T>(Environment.CurrentDirectory, search);
+        }
+
+        /// <summary>
+        ///     Enumera todos los archivos que contienen clases cargables como
+        ///     <typeparamref name="T" />.
+        /// </summary>
         /// <param name="pluginsPath">
-        /// Ruta del directorio que contiene los archivos a cargar.
+        ///     Ruta del directorio que contiene los archivos a cargar.
         /// </param>
         /// <param name="search">Modo de búsqueda.</param>
         /// <typeparam name="T">
-        /// Tipo de <see cref="IPlugin"/> a cargar.
+        ///     Tipo de <see cref="IPlugin" /> a cargar.
         /// </typeparam>
-        public IEnumerable<T> LoadEverything<T>(string pluginsPath, SearchOption search) where T : class
+        /// <returns>
+        ///     Un enumerador de <see cref="FileInfo" /> de los archivos que
+        ///     contienen clases cargables como <typeparamref name="T" />.
+        /// </returns>
+        public IEnumerable<FileInfo> Dir<T>(string pluginsPath, SearchOption search) where T : class
         {
             if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
             foreach (var f in new DirectoryInfo(pluginsPath).GetFiles($"*{_extension}", search))
             {
                 Assembly a = null;
-                try { a = Assembly.LoadFrom(f.FullName); }
-                catch { System.Diagnostics.Debug.Print(St.Warn(St.XIsInvalid(St.XYQuotes(St.TheAssembly, f.Name)))); }
+                try
+                {
+                    a = Assembly.LoadFrom(f.FullName);
+                }
+                catch
+                {
+                    /* Ignorar el error, el archivo no es un ensamblado válido. */
+                }
+
+                if (_checker.Has<T>(a)) yield return f;
+            }
+        }
+
+        /// <summary>
+        ///     Enumera todos los archivos que contienen clases cargables como
+        ///     <see cref="IPlugin" />.
+        /// </summary>
+        /// <returns>
+        ///     Un enumerador de <see cref="FileInfo" /> de los archivos que
+        ///     contienen clases cargables como <see cref="IPlugin" />.
+        /// </returns>
+        public IEnumerable<FileInfo> Dir()
+        {
+            return Dir<IPlugin>(Environment.CurrentDirectory, SearchOption.TopDirectoryOnly);
+        }
+
+        /// <summary>
+        ///     Enumera todos los archivos que contienen clases cargables como
+        ///     <see cref="IPlugin" />.
+        /// </summary>
+        /// <param name="pluginsPath">
+        ///     Ruta del directorio que contiene los archivos a cargar.
+        /// </param>
+        /// <returns>
+        ///     Un enumerador de <see cref="FileInfo" /> de los archivos que
+        ///     contienen clases cargables como <see cref="IPlugin" />.
+        /// </returns>
+        public IEnumerable<FileInfo> Dir(string pluginsPath)
+        {
+            return Dir<IPlugin>(pluginsPath, SearchOption.TopDirectoryOnly);
+        }
+
+        /// <summary>
+        ///     Enumera todos los archivos que contienen clases cargables como
+        ///     <see cref="IPlugin" />.
+        /// </summary>
+        /// <param name="search">Modo de búsqueda.</param>
+        /// <returns>
+        ///     Un enumerador de <see cref="FileInfo" /> de los archivos que
+        ///     contienen clases cargables como <see cref="IPlugin" />.
+        /// </returns>
+        public IEnumerable<FileInfo> Dir(SearchOption search)
+        {
+            return Dir<IPlugin>(Environment.CurrentDirectory, search);
+        }
+
+        /// <summary>
+        ///     Enumera todos los archivos que contienen clases cargables como
+        ///     <see cref="IPlugin" />.
+        /// </summary>
+        /// <param name="pluginsPath">
+        ///     Ruta del directorio que contiene los archivos a cargar.
+        /// </param>
+        /// <param name="search">Modo de búsqueda.</param>
+        /// <returns>
+        ///     Un enumerador de <see cref="FileInfo" /> de los archivos que
+        ///     contienen clases cargables como <see cref="IPlugin" />.
+        /// </returns>
+        public IEnumerable<FileInfo> Dir(string pluginsPath, SearchOption search)
+        {
+            return Dir<IPlugin>(pluginsPath, search);
+        }
+
+        /// <summary>
+        ///     Carga una clase de tipo <typeparamref name="T" /> contenida en el
+        ///     ensamblado especificado.
+        /// </summary>
+        /// <returns>
+        ///     Un <see cref="IPlugin" /> de tipo <typeparamref name="T" />.
+        /// </returns>
+        /// <param name="asmPath">Ruta del ensamblado a cargar.</param>
+        /// <typeparam name="T">Clase a cargar.</typeparam>
+        /// <exception cref="ArgumentNullException">
+        ///     Se produce si <paramref name="asmPath" /> es <see langword="null" />.
+        /// </exception>
+        /// <exception cref="FileNotFoundException">
+        ///     Se produce si el archivo del ensamblado no ha sido encontrado.
+        /// </exception>
+        /// <exception cref="FileLoadException">
+        ///     Se produce si el ensamblado no se pudo cargar desde el archivo.
+        /// </exception>
+        /// <exception cref="BadImageFormatException">
+        ///     Se produce si <paramref name="asmPath" /> no contiene una imagen de
+        ///     biblioteca de vínculos dinámicos o ejecutable válida.
+        /// </exception>
+        /// <exception cref="System.Security.SecurityException">
+        ///     Se produce si no es posible cargar el ensamblado desde
+        ///     <paramref name="asmPath" /> debido a un problema de seguridad.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     Se produce si <paramref name="asmPath" /> no es un argumento válido.
+        /// </exception>
+        /// <exception cref="PathTooLongException">
+        ///     Se produce si <paramref name="asmPath" /> excede la longitud de ruta
+        ///     de archivo máxima admitida por el sistema de archivos y/o el
+        ///     sistema operativo.
+        /// </exception>
+        /// <exception cref="NotPluginException">
+        ///     Se produce si el ensamblado no contiene ninguna clase cargable como
+        ///     <see cref="IPlugin" />.
+        /// </exception>
+        /// <exception cref="PluginClassNotFoundException">
+        ///     Se produce si el ensamblado no contiene ninguna clase cargable como
+        ///     <typeparamref name="T" />.
+        /// </exception>
+        public T Load<T>(string asmPath) where T : class
+        {
+            return Load<T>(Assembly.LoadFrom(asmPath));
+        }
+
+        /// <summary>
+        ///     Carga todos los <see cref="IPlugin" /> contenidos en el ensamblado.
+        /// </summary>
+        /// <returns>
+        ///     Un <see cref="IEnumerable{T}" /> con los <see cref="IPlugin" />
+        ///     encontrados.
+        /// </returns>
+        /// <param name="asmPath">Ruta del ensamblado a cargar.</param>
+        /// <typeparam name="T">
+        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        /// </typeparam>
+        /// <exception cref="FileNotFoundException">
+        ///     Se produce si el archivo del ensamblado no ha sido encontrado.
+        /// </exception>
+        public IEnumerable<T> LoadAll<T>(string asmPath) where T : class
+        {
+            return LoadAll(Assembly.LoadFrom(asmPath)).OfType<T>();
+        }
+
+        /// <summary>
+        ///     Carga todos los <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" /> contenidos en el ensamblado.
+        /// </summary>
+        /// <returns>
+        ///     Un <see cref="T:System.Collections.Generic.IEnumerable`1" /> con los
+        ///     <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />
+        ///     encontrados.
+        /// </returns>
+        /// <param name="assembly"><see cref="T:System.Reflection.Assembly" /> a cargar.</param>
+        /// <param name="predicate">
+        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
+        /// </param>
+        /// <typeparam name="T">
+        ///     Tipo de <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" /> a cargar.
+        /// </typeparam>
+        /// <exception cref="T:TheXDS.MCART.Exceptions.NotPluginException">
+        ///     Se produce si <paramref name="assembly" /> no contiene clases cargables
+        ///     como <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />.
+        /// </exception>
+        public IEnumerable<T> LoadAll<T>(Assembly assembly, Func<Type, bool> predicate) where T : class
+        {
+            return LoadAll(assembly, predicate).OfType<T>();
+        }
+
+        /// <summary>
+        ///     Carga todos los <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" /> contenidos en el ensamblado.
+        /// </summary>
+        /// <returns>
+        ///     Un <see cref="T:System.Collections.Generic.IEnumerable`1" /> con los
+        ///     <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />
+        ///     encontrados.
+        /// </returns>
+        /// <param name="assembly"><see cref="T:System.Reflection.Assembly" /> a cargar.</param>
+        /// <param name="predicate">
+        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
+        /// </param>
+#if PreferExceptions
+        /// <exception cref="NotPluginException">
+        /// Se produce si <paramref name="assembly"/> no contiene clases cargables
+        /// como <see cref="IPlugin"/>. 
+        /// </exception>
+#endif
+        public IEnumerable<IPlugin> LoadAll(Assembly assembly, Func<Type, bool> predicate)
+        {
+            bool IsTypeCompatible(Type p)
+            {
+                return _checker.IsValid(p) && (_checker.IsCompatible(p) ?? false) && (predicate?.Invoke(p) ?? true);
+            }
+#if PreferExceptions
+            if (!checker.IsVaild(assembly)) throw new NotPluginException(assembly);
+#else
+            if (_checker.IsVaild(assembly))
+#endif
+                foreach (var j in assembly.GetTypes().Where(IsTypeCompatible))
+                    yield return j.New() as IPlugin;
+        }
+
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        public IEnumerable<IPlugin> LoadEverything()
+        {
+            return LoadEverything<IPlugin>(Environment.CurrentDirectory, SearchOption.TopDirectoryOnly);
+        }
+
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        /// <param name="pluginsPath">
+        ///     Ruta del directorio que contiene los archivos a cargar.
+        /// </param>
+        public IEnumerable<IPlugin> LoadEverything(string pluginsPath)
+        {
+            return LoadEverything<IPlugin>(pluginsPath, SearchOption.TopDirectoryOnly);
+        }
+
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        /// <param name="search">Modo de búsqueda.</param>
+        public IEnumerable<IPlugin> LoadEverything(SearchOption search)
+        {
+            return LoadEverything<IPlugin>(Environment.CurrentDirectory, search);
+        }
+
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        /// <param name="pluginsPath">
+        ///     Ruta del directorio que contiene los archivos a cargar.
+        /// </param>
+        /// <param name="search">Modo de búsqueda.</param>
+        public IEnumerable<IPlugin> LoadEverything(string pluginsPath, SearchOption search)
+        {
+            return LoadEverything<IPlugin>(pluginsPath, search);
+        }
+
+
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        /// <param name="predicate">
+        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
+        /// </param>
+        public IEnumerable<IPlugin> LoadEverything(Func<Type, bool> predicate)
+        {
+            return LoadEverything<IPlugin>(Environment.CurrentDirectory, SearchOption.TopDirectoryOnly, predicate);
+        }
+
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        /// <param name="pluginsPath">
+        ///     Ruta del directorio que contiene los archivos a cargar.
+        /// </param>
+        /// <param name="predicate">
+        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
+        /// </param>
+        public IEnumerable<IPlugin> LoadEverything(string pluginsPath, Func<Type, bool> predicate)
+        {
+            return LoadEverything<IPlugin>(pluginsPath, SearchOption.TopDirectoryOnly, predicate);
+        }
+
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        /// <param name="search">Modo de búsqueda.</param>
+        /// <param name="predicate">
+        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
+        /// </param>
+        public IEnumerable<IPlugin> LoadEverything(SearchOption search, Func<Type, bool> predicate)
+        {
+            return LoadEverything<IPlugin>(Environment.CurrentDirectory, search, predicate);
+        }
+
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <param name="predicate">
+        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
+        /// </param>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        /// <param name="pluginsPath">
+        ///     Ruta del directorio que contiene los archivos a cargar.
+        /// </param>
+        /// <param name="search">Modo de búsqueda.</param>
+        public IEnumerable<IPlugin> LoadEverything(string pluginsPath, SearchOption search, Func<Type, bool> predicate)
+        {
+            return LoadEverything<IPlugin>(pluginsPath, search, predicate);
+        }
+        
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        /// <typeparam name="T">
+        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        /// </typeparam>
+        public IEnumerable<T> LoadEverything<T>() where T : class
+        {
+            return LoadEverything<T>((Func<Type, bool>) null);
+        }
+
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        /// <param name="predicate">
+        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
+        /// </param>
+        /// <typeparam name="T">
+        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        /// </typeparam>
+        public IEnumerable<T> LoadEverything<T>(Func<Type, bool> predicate) where T : class
+        {
+            return LoadEverything<T>(Environment.CurrentDirectory, SearchOption.TopDirectoryOnly, predicate);
+        }
+
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        /// <param name="pluginsPath">
+        ///     Ruta del directorio que contiene los archivos a cargar.
+        /// </param>
+        /// <typeparam name="T">
+        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        /// </typeparam>
+        public IEnumerable<T> LoadEverything<T>(string pluginsPath) where T : class
+        {
+            return LoadEverything<T>(pluginsPath, null);
+        }
+
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        /// <param name="pluginsPath">
+        ///     Ruta del directorio que contiene los archivos a cargar.
+        /// </param>
+        /// <param name="predicate">
+        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
+        /// </param>
+        /// <typeparam name="T">
+        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        /// </typeparam>
+        public IEnumerable<T> LoadEverything<T>(string pluginsPath, Func<Type, bool> predicate) where T : class
+        {
+            return LoadEverything<T>(pluginsPath, SearchOption.TopDirectoryOnly, predicate);
+        }
+
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        /// <param name="search">Modo de búsqueda.</param>
+        /// <typeparam name="T">
+        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        /// </typeparam>
+        public IEnumerable<T> LoadEverything<T>(SearchOption search) where T : class
+        {
+            return LoadEverything<T>(search, null);
+        }
+
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <param name="predicate">
+        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
+        /// </param>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        /// <param name="search">Modo de búsqueda.</param>
+        /// <typeparam name="T">
+        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        /// </typeparam>
+        public IEnumerable<T> LoadEverything<T>(SearchOption search, Func<Type, bool> predicate) where T : class
+        {
+            return LoadEverything<T>(Environment.CurrentDirectory, search, predicate);
+        }
+
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        /// <param name="pluginsPath">
+        ///     Ruta del directorio que contiene los archivos a cargar.
+        /// </param>
+        /// <param name="search">Modo de búsqueda.</param>
+        /// <typeparam name="T">
+        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        /// </typeparam>
+        public IEnumerable<T> LoadEverything<T>(string pluginsPath, SearchOption search) where T : class
+        {
+            return LoadEverything<T>(pluginsPath, search, null);
+        }
+
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        /// <param name="pluginsPath">
+        ///     Ruta del directorio que contiene los archivos a cargar.
+        /// </param>
+        /// <param name="search">Modo de búsqueda.</param>
+        /// <param name="predicate">
+        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
+        /// </param>
+        /// <typeparam name="T">
+        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        /// </typeparam>
+        public IEnumerable<T> LoadEverything<T>(string pluginsPath, SearchOption search, Func<Type, bool> predicate)
+            where T : class
+        {
+            if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
+            foreach (var f in new DirectoryInfo(pluginsPath).GetFiles($"*{_extension}", search))
+            {
+                Assembly a = null;
+                try
+                {
+                    a = Assembly.LoadFrom(f.FullName);
+                }
+                catch
+                {
+                    Debug.Print(St.Warn(St.XIsInvalid(St.XYQuotes(St.TheAssembly, f.Name))));
+                }
 #if PreferExceptions
                 if (checker.IsVaild(a))
 #endif
-                foreach (var j in LoadAll<T>(a)) yield return j;
+                foreach (var j in LoadAll<T>(a, predicate)) yield return j;
             }
         }
+
         /// <summary>
-        /// Carga cualquier <see cref="IPlugin"/> disponible.
+        ///     Carga cualquier <see cref="IPlugin" /> disponible.
         /// </summary>
         /// <returns>
-        /// Un <see cref="IPlugin"/> de tipo <typeparamref name="T"/>.
+        ///     Un <see cref="IPlugin" /> de tipo <typeparamref name="T" />.
         /// </returns>
         /// <typeparam name="T">
-        /// Tipo de <see cref="IPlugin"/> a cargar.
+        ///     Tipo de <see cref="IPlugin" /> a cargar.
         /// </typeparam>
-        public T LoadWhatever<T>() where T : class => LoadWhatever<T>(Environment.CurrentDirectory, SearchOption.TopDirectoryOnly);
+        public T LoadWhatever<T>() where T : class
+        {
+            return LoadWhatever<T>(Environment.CurrentDirectory, SearchOption.TopDirectoryOnly);
+        }
+
         /// <summary>
-        /// Carga cualquier <see cref="IPlugin"/> disponible.
+        ///     Carga cualquier <see cref="IPlugin" /> disponible.
         /// </summary>
         /// <returns>
-        /// Un <see cref="IPlugin"/> de tipo <typeparamref name="T"/>.
+        ///     Un <see cref="IPlugin" /> de tipo <typeparamref name="T" />.
         /// </returns>
         /// <param name="pluginsPath">
-        /// Ruta del directorio que contiene los archivos a cargar.
+        ///     Ruta del directorio que contiene los archivos a cargar.
         /// </param>
         /// <typeparam name="T">
-        /// Tipo de <see cref="IPlugin"/> a cargar.
+        ///     Tipo de <see cref="IPlugin" /> a cargar.
         /// </typeparam>
-        public T LoadWhatever<T>(string pluginsPath) where T : class => LoadWhatever<T>(pluginsPath, SearchOption.TopDirectoryOnly);
+        public T LoadWhatever<T>(string pluginsPath) where T : class
+        {
+            return LoadWhatever<T>(pluginsPath, SearchOption.TopDirectoryOnly);
+        }
+
         /// <summary>
-        /// Carga cualquier <see cref="IPlugin"/> disponible.
+        ///     Carga cualquier <see cref="IPlugin" /> disponible.
         /// </summary>
         /// <returns>
-        /// Un <see cref="IPlugin"/> de tipo <typeparamref name="T"/>.
+        ///     Un <see cref="IPlugin" /> de tipo <typeparamref name="T" />.
         /// </returns>
         /// <param name="search">Modo de búsqueda.</param>
         /// <typeparam name="T">
-        /// Tipo de <see cref="IPlugin"/> a cargar.
+        ///     Tipo de <see cref="IPlugin" /> a cargar.
         /// </typeparam>
-        public T LoadWhatever<T>(SearchOption search) where T : class => LoadWhatever<T>(Environment.CurrentDirectory, search);
+        public T LoadWhatever<T>(SearchOption search) where T : class
+        {
+            return LoadWhatever<T>(Environment.CurrentDirectory, search);
+        }
+
         /// <summary>
-        /// Carga cualquier <see cref="IPlugin"/> disponible.
+        ///     Carga cualquier <see cref="IPlugin" /> disponible.
         /// </summary>
         /// <returns>
-        /// Un <see cref="IPlugin"/> de tipo <typeparamref name="T"/>.
+        ///     Un <see cref="IPlugin" /> de tipo <typeparamref name="T" />.
         /// </returns>
         /// <param name="pluginsPath">
-        /// Ruta del directorio que contiene los archivos a cargar.
+        ///     Ruta del directorio que contiene los archivos a cargar.
         /// </param>
         /// <param name="search">Modo de búsqueda.</param>
         /// <typeparam name="T">
-        /// Tipo de <see cref="IPlugin"/> a cargar.
+        ///     Tipo de <see cref="IPlugin" /> a cargar.
         /// </typeparam>
         public T LoadWhatever<T>(string pluginsPath, SearchOption search) where T : class
         {
             if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
             return LoadEverything<T>(pluginsPath, search).FirstOrDefault()
 #if !PreferExceptions
-                ?? throw new PluginClassNotFoundException(typeof(T))
+                   ?? throw new PluginClassNotFoundException(typeof(T))
 #endif
                 ;
         }
+
         /// <summary>
-        /// Enumera todos los archivos que contienen clases cargables como
-        /// <typeparamref name="T"/>.
+        ///     Carga todos los plugins de todos los ensamblados como una
+        ///     estructura de árbol.
         /// </summary>
-        /// <typeparam name="T">
-        /// Tipo de <see cref="IPlugin"/> a cargar.
-        /// </typeparam>
+        /// <typeparam name="T">Tipos a cargar.</typeparam>
         /// <returns>
-        /// Un enumerador de <see cref="FileInfo"/> de los archivos que
-        /// contienen clases cargables como <typeparamref name="T"/>.
+        ///     Un <see cref="Dictionary{TKey, TValue}" /> con los ensamblados y
+        ///     sus correspondientes plugins.
         /// </returns>
-        public IEnumerable<FileInfo> Dir<T>() where T : class => Dir<T>(Environment.CurrentDirectory, SearchOption.TopDirectoryOnly);
-        /// <summary>
-        /// Enumera todos los archivos que contienen clases cargables como
-        /// <typeparamref name="T"/>.
-        /// </summary>
-        /// <param name="pluginsPath">
-        /// Ruta del directorio que contiene los archivos a cargar.
-        /// </param>
-        /// <typeparam name="T">
-        /// Tipo de <see cref="IPlugin"/> a cargar.
-        /// </typeparam>
-        /// <returns>
-        /// Un enumerador de <see cref="FileInfo"/> de los archivos que
-        /// contienen clases cargables como <typeparamref name="T"/>.
-        /// </returns>
-        public IEnumerable<FileInfo> Dir<T>(string pluginsPath) where T : class => Dir<T>(pluginsPath, SearchOption.TopDirectoryOnly);
-        /// <summary>
-        /// Enumera todos los archivos que contienen clases cargables como
-        /// <typeparamref name="T"/>.
-        /// </summary>
-        /// <param name="search">Modo de búsqueda.</param>
-        /// <typeparam name="T">
-        /// Tipo de <see cref="IPlugin"/> a cargar.
-        /// </typeparam>
-        /// <returns>
-        /// Un enumerador de <see cref="FileInfo"/> de los archivos que
-        /// contienen clases cargables como <typeparamref name="T"/>.
-        /// </returns>
-        public IEnumerable<FileInfo> Dir<T>(SearchOption search) where T : class => Dir<T>(Environment.CurrentDirectory, search);
-        /// <summary>
-        /// Enumera todos los archivos que contienen clases cargables como
-        /// <typeparamref name="T"/>.
-        /// </summary>
-        /// <param name="pluginsPath">
-        /// Ruta del directorio que contiene los archivos a cargar.
-        /// </param>
-        /// <param name="search">Modo de búsqueda.</param>
-        /// <typeparam name="T">
-        /// Tipo de <see cref="IPlugin"/> a cargar.
-        /// </typeparam>
-        /// <returns>
-        /// Un enumerador de <see cref="FileInfo"/> de los archivos que
-        /// contienen clases cargables como <typeparamref name="T"/>.
-        /// </returns>
-        public IEnumerable<FileInfo> Dir<T>(string pluginsPath, SearchOption search) where T : class
+        public Dictionary<string, IEnumerable<T>> PluginTree<T>() where T : class
         {
-            if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
-            foreach (var f in (new DirectoryInfo(pluginsPath)).GetFiles($"*{_extension}", search))
-            {
-                Assembly a = null;
-                try { a = Assembly.LoadFrom(f.FullName); }
-                catch { }
-                if (_checker.Has<T>(a)) yield return f;
-            }
+            return PluginTree<T>(Environment.CurrentDirectory, "*", SearchOption.TopDirectoryOnly);
         }
+
         /// <summary>
-        /// Enumera todos los archivos que contienen clases cargables como
-        /// <see cref="IPlugin"/>.
-        /// </summary>
-        /// <returns>
-        /// Un enumerador de <see cref="FileInfo"/> de los archivos que
-        /// contienen clases cargables como <see cref="IPlugin"/>.
-        /// </returns>
-        public IEnumerable<FileInfo> Dir() => Dir<IPlugin>(Environment.CurrentDirectory, SearchOption.TopDirectoryOnly);
-        /// <summary>
-        /// Enumera todos los archivos que contienen clases cargables como
-        /// <see cref="IPlugin"/>.
-        /// </summary>
-        /// <param name="pluginsPath">
-        /// Ruta del directorio que contiene los archivos a cargar.
-        /// </param>
-        /// <returns>
-        /// Un enumerador de <see cref="FileInfo"/> de los archivos que
-        /// contienen clases cargables como <see cref="IPlugin"/>.
-        /// </returns>
-        public IEnumerable<FileInfo> Dir(string pluginsPath) => Dir<IPlugin>(pluginsPath, SearchOption.TopDirectoryOnly);
-        /// <summary>
-        /// Enumera todos los archivos que contienen clases cargables como
-        /// <see cref="IPlugin"/>.
-        /// </summary>
-        /// <param name="search">Modo de búsqueda.</param>
-        /// <returns>
-        /// Un enumerador de <see cref="FileInfo"/> de los archivos que
-        /// contienen clases cargables como <see cref="IPlugin"/>.
-        /// </returns>
-        public IEnumerable<FileInfo> Dir(SearchOption search) => Dir<IPlugin>(Environment.CurrentDirectory, search);
-        /// <summary>
-        /// Enumera todos los archivos que contienen clases cargables como
-        /// <see cref="IPlugin"/>.
-        /// </summary>
-        /// <param name="pluginsPath">
-        /// Ruta del directorio que contiene los archivos a cargar.
-        /// </param>
-        /// <param name="search">Modo de búsqueda.</param>
-        /// <returns>
-        /// Un enumerador de <see cref="FileInfo"/> de los archivos que
-        /// contienen clases cargables como <see cref="IPlugin"/>.
-        /// </returns>
-        public IEnumerable<FileInfo> Dir(string pluginsPath, SearchOption search) => Dir<IPlugin>(pluginsPath, search);
-        /// <summary>
-        /// Carga todos los plugins de todos los ensamblados como una
-        /// estructura de árbol.
-        /// </summary>
-        /// <typeparam name="T">Tipos a cargar.</typeparam>
-        /// <returns>
-        /// Un <see cref="Dictionary{TKey, TValue}"/> con los ensamblados y 
-        /// sus correspondientes plugins.
-        /// </returns>
-        public Dictionary<string, IEnumerable<T>> PluginTree<T>() where T : class => PluginTree<T>(Environment.CurrentDirectory, "*", SearchOption.TopDirectoryOnly);
-        /// <summary>
-        /// Carga todos los plugins de todos los ensamblados que coincidan con 
-        /// el patrón como una estructura de árbol.
+        ///     Carga todos los plugins de todos los ensamblados que coincidan con
+        ///     el patrón como una estructura de árbol.
         /// </summary>
         /// <typeparam name="T">Tipos a cargar.</typeparam>
         /// <param name="pluginsPath">
-        /// Ruta de búsqueda. Debe ser un directorio.
+        ///     Ruta de búsqueda. Debe ser un directorio.
         /// </param>
         /// <returns>
-        /// Un <see cref="Dictionary{TKey, TValue}"/> con los ensamblados y 
-        /// sus correspondientes plugins.
+        ///     Un <see cref="Dictionary{TKey, TValue}" /> con los ensamblados y
+        ///     sus correspondientes plugins.
         /// </returns>
-        public Dictionary<string, IEnumerable<T>> PluginTree<T>(string pluginsPath) where T : class => PluginTree<T>(pluginsPath, "*", SearchOption.TopDirectoryOnly);
+        public Dictionary<string, IEnumerable<T>> PluginTree<T>(string pluginsPath) where T : class
+        {
+            return PluginTree<T>(pluginsPath, "*", SearchOption.TopDirectoryOnly);
+        }
+
         /// <summary>
-        /// Carga todos los plugins de todos los ensamblados que coincidan con 
-        /// el patrón como una estructura de árbol.
+        ///     Carga todos los plugins de todos los ensamblados que coincidan con
+        ///     el patrón como una estructura de árbol.
         /// </summary>
         /// <typeparam name="T">Tipos a cargar.</typeparam>
         /// <param name="pluginsPath">
-        /// Ruta de búsqueda. Debe ser un directorio.
+        ///     Ruta de búsqueda. Debe ser un directorio.
         /// </param>
         /// <param name="searchPattern">
-        /// Patrón de búsqueda de ensamblados.
+        ///     Patrón de búsqueda de ensamblados.
         /// </param>
         /// <returns>
-        /// Un <see cref="Dictionary{TKey, TValue}"/> con los ensamblados y 
-        /// sus correspondientes plugins.
+        ///     Un <see cref="Dictionary{TKey, TValue}" /> con los ensamblados y
+        ///     sus correspondientes plugins.
         /// </returns>
-        public Dictionary<string, IEnumerable<T>> PluginTree<T>(string pluginsPath, string searchPattern) where T : class => PluginTree<T>(pluginsPath, searchPattern, SearchOption.TopDirectoryOnly);
+        public Dictionary<string, IEnumerable<T>> PluginTree<T>(string pluginsPath, string searchPattern)
+            where T : class
+        {
+            return PluginTree<T>(pluginsPath, searchPattern, SearchOption.TopDirectoryOnly);
+        }
+
         /// <summary>
-        /// Carga todos los plugins de todos los ensamblados que coincidan con 
-        /// el patrón como una estructura de árbol.
+        ///     Carga todos los plugins de todos los ensamblados que coincidan con
+        ///     el patrón como una estructura de árbol.
         /// </summary>
         /// <typeparam name="T">Tipos a cargar.</typeparam>
         /// <param name="search">
-        /// <see cref="SearchOption"/> con las opciones de búsqueda.
+        ///     <see cref="SearchOption" /> con las opciones de búsqueda.
         /// </param>
         /// <returns>
-        /// Un <see cref="Dictionary{TKey, TValue}"/> con los ensamblados y 
-        /// sus correspondientes plugins.
+        ///     Un <see cref="Dictionary{TKey, TValue}" /> con los ensamblados y
+        ///     sus correspondientes plugins.
         /// </returns>
-        public Dictionary<string, IEnumerable<T>> PluginTree<T>(SearchOption search) where T : class => PluginTree<T>(Environment.CurrentDirectory, "*", search);
+        public Dictionary<string, IEnumerable<T>> PluginTree<T>(SearchOption search) where T : class
+        {
+            return PluginTree<T>(Environment.CurrentDirectory, "*", search);
+        }
+
         /// <summary>
-        /// Carga todos los plugins de todos los ensamblados que coincidan con 
-        /// el patrón como una estructura de árbol.
+        ///     Carga todos los plugins de todos los ensamblados que coincidan con
+        ///     el patrón como una estructura de árbol.
         /// </summary>
         /// <typeparam name="T">Tipos a cargar.</typeparam>
         /// <param name="pluginsPath">
-        /// Ruta de búsqueda. Debe ser un directorio.
+        ///     Ruta de búsqueda. Debe ser un directorio.
         /// </param>
         /// <param name="search">
-        /// <see cref="SearchOption"/> con las opciones de búsqueda.
+        ///     <see cref="SearchOption" /> con las opciones de búsqueda.
         /// </param>
         /// <returns>
-        /// Un <see cref="Dictionary{TKey, TValue}"/> con los ensamblados y 
-        /// sus correspondientes plugins.
+        ///     Un <see cref="Dictionary{TKey, TValue}" /> con los ensamblados y
+        ///     sus correspondientes plugins.
         /// </returns>
-        public Dictionary<string, IEnumerable<T>> PluginTree<T>(string pluginsPath, SearchOption search) where T : class => PluginTree<T>(pluginsPath, "*", search);
+        public Dictionary<string, IEnumerable<T>> PluginTree<T>(string pluginsPath, SearchOption search) where T : class
+        {
+            return PluginTree<T>(pluginsPath, "*", search);
+        }
+
         /// <summary>
-        /// Carga todos los plugins de todos los ensamblados que coincidan con 
-        /// el patrón como una estructura de árbol.
+        ///     Carga todos los plugins de todos los ensamblados que coincidan con
+        ///     el patrón como una estructura de árbol.
         /// </summary>
         /// <typeparam name="T">Tipos a cargar.</typeparam>
         /// <param name="pluginsPath">
-        /// Ruta de búsqueda. Debe ser un directorio.
+        ///     Ruta de búsqueda. Debe ser un directorio.
         /// </param>
         /// <param name="searchPattern">
-        /// Patrón de búsqueda de ensamblados.
+        ///     Patrón de búsqueda de ensamblados.
         /// </param>
         /// <param name="search">
-        /// <see cref="SearchOption"/> con las opciones de búsqueda.
+        ///     <see cref="SearchOption" /> con las opciones de búsqueda.
         /// </param>
         /// <returns>
-        /// Un <see cref="Dictionary{TKey, TValue}"/> con los ensamblados y 
-        /// sus correspondientes plugins.
+        ///     Un <see cref="Dictionary{TKey, TValue}" /> con los ensamblados y
+        ///     sus correspondientes plugins.
         /// </returns>
-        public Dictionary<string, IEnumerable<T>> PluginTree<T>(string pluginsPath, string searchPattern, SearchOption search) where T : class
+        public Dictionary<string, IEnumerable<T>> PluginTree<T>(string pluginsPath, string searchPattern,
+            SearchOption search) where T : class
         {
             if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
             var outp = new Dictionary<string, IEnumerable<T>>();
-            foreach (var f in (new DirectoryInfo(pluginsPath)).GetFiles(searchPattern + _extension, search))
-            {
+            foreach (var f in new DirectoryInfo(pluginsPath).GetFiles(searchPattern + _extension, search))
                 try
                 {
                     var a = Assembly.LoadFrom(f.FullName);
                     if (_checker.IsVaild(a)) outp.Add(f.Name, LoadAll<T>(a));
                 }
-                catch (Exception ex) { System.Diagnostics.Debug.Print(ex.Message); }
-            }
+                catch (Exception ex)
+                {
+                    Debug.Print(ex.Message);
+                }
+
             return outp;
         }
+
         /// <summary>
-        /// Carga todos los plugins de todos los ensamblados como una
-        /// estructura de árbol.
+        ///     Carga todos los plugins de todos los ensamblados como una
+        ///     estructura de árbol.
         /// </summary>
         /// <returns>
-        /// Un <see cref="Dictionary{TKey, TValue}"/> con los ensamblados y 
-        /// sus correspondientes plugins.
+        ///     Un <see cref="Dictionary{TKey, TValue}" /> con los ensamblados y
+        ///     sus correspondientes plugins.
         /// </returns>
-        public Dictionary<string, IEnumerable<IPlugin>> PluginTree() => PluginTree<IPlugin>(Environment.CurrentDirectory, "*", SearchOption.TopDirectoryOnly);
+        public Dictionary<string, IEnumerable<IPlugin>> PluginTree()
+        {
+            return PluginTree<IPlugin>(Environment.CurrentDirectory, "*", SearchOption.TopDirectoryOnly);
+        }
+
         /// <summary>
-        /// Carga todos los plugins de todos los ensamblados que coincidan con 
-        /// el patrón como una estructura de árbol.
+        ///     Carga todos los plugins de todos los ensamblados que coincidan con
+        ///     el patrón como una estructura de árbol.
         /// </summary>
         /// <param name="pluginsPath">
-        /// Ruta de búsqueda. Debe ser un directorio.
+        ///     Ruta de búsqueda. Debe ser un directorio.
         /// </param>
         /// <returns>
-        /// Un <see cref="Dictionary{TKey, TValue}"/> con los ensamblados y 
-        /// sus correspondientes plugins.
+        ///     Un <see cref="Dictionary{TKey, TValue}" /> con los ensamblados y
+        ///     sus correspondientes plugins.
         /// </returns>
-        public Dictionary<string, IEnumerable<IPlugin>> PluginTree(string pluginsPath) => PluginTree<IPlugin>(pluginsPath, "*", SearchOption.TopDirectoryOnly);
+        public Dictionary<string, IEnumerable<IPlugin>> PluginTree(string pluginsPath)
+        {
+            return PluginTree<IPlugin>(pluginsPath, "*", SearchOption.TopDirectoryOnly);
+        }
+
         /// <summary>
-        /// Carga todos los plugins de todos los ensamblados que coincidan con 
-        /// el patrón como una estructura de árbol.
+        ///     Carga todos los plugins de todos los ensamblados que coincidan con
+        ///     el patrón como una estructura de árbol.
         /// </summary>
         /// <param name="pluginsPath">
-        /// Ruta de búsqueda. Debe ser un directorio.
+        ///     Ruta de búsqueda. Debe ser un directorio.
         /// </param>
         /// <param name="searchPattern">
-        /// Patrón de búsqueda de ensamblados.
+        ///     Patrón de búsqueda de ensamblados.
         /// </param>
         /// <returns>
-        /// Un <see cref="Dictionary{TKey, TValue}"/> con los ensamblados y 
-        /// sus correspondientes plugins.
+        ///     Un <see cref="Dictionary{TKey, TValue}" /> con los ensamblados y
+        ///     sus correspondientes plugins.
         /// </returns>
-        public Dictionary<string, IEnumerable<IPlugin>> PluginTree(string pluginsPath, string searchPattern)=> PluginTree<IPlugin>(pluginsPath, searchPattern, SearchOption.TopDirectoryOnly);
+        public Dictionary<string, IEnumerable<IPlugin>> PluginTree(string pluginsPath, string searchPattern)
+        {
+            return PluginTree<IPlugin>(pluginsPath, searchPattern, SearchOption.TopDirectoryOnly);
+        }
+
         /// <summary>
-        /// Carga todos los plugins de todos los ensamblados que coincidan con 
-        /// el patrón como una estructura de árbol.
+        ///     Carga todos los plugins de todos los ensamblados que coincidan con
+        ///     el patrón como una estructura de árbol.
         /// </summary>
         /// <param name="search">
-        /// <see cref="SearchOption"/> con las opciones de búsqueda.
+        ///     <see cref="SearchOption" /> con las opciones de búsqueda.
         /// </param>
         /// <returns>
-        /// Un <see cref="Dictionary{TKey, TValue}"/> con los ensamblados y 
-        /// sus correspondientes plugins.
+        ///     Un <see cref="Dictionary{TKey, TValue}" /> con los ensamblados y
+        ///     sus correspondientes plugins.
         /// </returns>
-        public Dictionary<string, IEnumerable<IPlugin>> PluginTree(SearchOption search) => PluginTree<IPlugin>(Environment.CurrentDirectory, "*", search);
+        public Dictionary<string, IEnumerable<IPlugin>> PluginTree(SearchOption search)
+        {
+            return PluginTree<IPlugin>(Environment.CurrentDirectory, "*", search);
+        }
+
         /// <summary>
-        /// Carga todos los plugins de todos los ensamblados que coincidan con 
-        /// el patrón como una estructura de árbol.
+        ///     Carga todos los plugins de todos los ensamblados que coincidan con
+        ///     el patrón como una estructura de árbol.
         /// </summary>
         /// <param name="pluginsPath">
-        /// Ruta de búsqueda. Debe ser un directorio.
+        ///     Ruta de búsqueda. Debe ser un directorio.
         /// </param>
         /// <param name="search">
-        /// <see cref="SearchOption"/> con las opciones de búsqueda.
+        ///     <see cref="SearchOption" /> con las opciones de búsqueda.
         /// </param>
         /// <returns>
-        /// Un <see cref="Dictionary{TKey, TValue}"/> con los ensamblados y 
-        /// sus correspondientes plugins.
+        ///     Un <see cref="Dictionary{TKey, TValue}" /> con los ensamblados y
+        ///     sus correspondientes plugins.
         /// </returns>
-        public Dictionary<string, IEnumerable<IPlugin>> PluginTree(string pluginsPath, SearchOption search) => PluginTree<IPlugin>(pluginsPath, "*", search);
+        public Dictionary<string, IEnumerable<IPlugin>> PluginTree(string pluginsPath, SearchOption search)
+        {
+            return PluginTree<IPlugin>(pluginsPath, "*", search);
+        }
+
         /// <summary>
-        /// Carga todos los plugins de todos los ensamblados que coincidan con 
-        /// el patrón como una estructura de árbol.
+        ///     Carga todos los plugins de todos los ensamblados que coincidan con
+        ///     el patrón como una estructura de árbol.
         /// </summary>
         /// <param name="pluginsPath">
-        /// Ruta de búsqueda. Debe ser un directorio.
+        ///     Ruta de búsqueda. Debe ser un directorio.
         /// </param>
         /// <param name="searchPattern">
-        /// Patrón de búsqueda de ensamblados.
+        ///     Patrón de búsqueda de ensamblados.
         /// </param>
         /// <param name="search">
-        /// <see cref="SearchOption"/> con las opciones de búsqueda.
+        ///     <see cref="SearchOption" /> con las opciones de búsqueda.
         /// </param>
         /// <returns>
-        /// Un <see cref="Dictionary{TKey, TValue}"/> con los ensamblados y 
-        /// sus correspondientes plugins.
+        ///     Un <see cref="Dictionary{TKey, TValue}" /> con los ensamblados y
+        ///     sus correspondientes plugins.
         /// </returns>
-        public Dictionary<string, IEnumerable<IPlugin>> PluginTree(string pluginsPath, string searchPattern, SearchOption search) => PluginTree<IPlugin>(pluginsPath, searchPattern, search);
+        public Dictionary<string, IEnumerable<IPlugin>> PluginTree(string pluginsPath, string searchPattern,
+            SearchOption search)
+        {
+            return PluginTree<IPlugin>(pluginsPath, searchPattern, search);
+        }
     }
 }

@@ -27,6 +27,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 
 // ReSharper disable UnusedMember.Global
@@ -39,6 +40,27 @@ namespace TheXDS.MCART.Types.Extensions
     /// </summary>
     public static class EnumerableExtensions
     {
+        /// <summary>
+        ///     Obtiene al primer elemento del tipo solicitado dentro de una
+        ///     colección.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de elemento a buscar.
+        /// </typeparam>
+        /// <param name="collection">
+        ///     Colección sobre la cual realizar la búsqueda.
+        /// </param>
+        /// <returns>
+        ///     El primer elemento de tipo <typeparamref name="T"/> que sea
+        ///     encontrado en la colección, o <see langword="null"/> si no se
+        ///     encuentra ningún elemento del tipo especificado.
+        /// </returns>
+        [Thunk]
+        public static T FirstOf<T>(this IEnumerable collection)
+        {
+            return collection.OfType<T>().FirstOrDefault();
+        }
+
         /// <summary>
         ///     Enumera todos los elementos de la colección, omitiendo los
         ///     especificados.
@@ -54,10 +76,6 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
 		public static IEnumerable<T> ExceptFor<T>(this IEnumerable<T> collection, params T[] exclusions)
         {
-            //return default(T) == null
-            //    ? collection.Where(j => j.IsNeither(exclusions))
-            //    : collection.Where(j => !exclusions.Contains(j));
-
             bool Compare(T value)
             {
                 return value.GetType().Default() == null 

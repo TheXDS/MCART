@@ -172,6 +172,24 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
+        ///     Determina si el tipo implementa a todos los tipos especificados.
+        /// </summary>
+        /// <param name="type">Tipo a comprobar</param>
+        /// <param name="baseTypes">
+        ///     Colección de tipos a comprobar que <paramref name="type"/>
+        ///     herede.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true" /> si <paramref name="type" /> implementa
+        ///     a todos los tipos especificados, <see langword="false" /> en
+        ///     caso contrario.
+        /// </returns>
+        public static bool Implements(this Type type, IEnumerable<Type> baseTypes)
+        {
+            return baseTypes.Select(type.Implements).And();
+        }
+
+        /// <summary>
         ///     Comprueba si alguno de los tipos especificados es asignable a partir
         ///     del tipo <paramref name="source" />.
         /// </summary>

@@ -25,8 +25,12 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
+using System.Text;
+using TheXDS.MCART.Attributes;
 
 namespace TheXDS.MCART
 {
@@ -80,15 +84,69 @@ namespace TheXDS.MCART
         /// <summary>
         ///     Determina si el método invalida a una definición base.
         /// </summary>
-        /// <param name="methodInfo"></param>
+        /// <param name="method"></param>
         /// <returns>
         ///     <see langword="true"/> si el método invalida a una definición
         ///     base, <see langword="false"/> em caso contrario.
         /// </returns>
-        public static bool IsOverride(this MethodInfo methodInfo)
+        public static bool IsOverride(this MethodInfo method)
         {
-            return methodInfo.GetBaseDefinition() != methodInfo;
+            return method.GetBaseDefinition() != method;
         }
 
+        /// <summary>Obtiene un nombre completo para un método.</summary>
+        /// <param name="method">Método del cual obtener el nombre.</param>
+        /// <returns>El nombre completo del método.</returns>
+        public static string FullName(this MethodInfo method)
+        {
+            var s = new StringBuilder();
+            s.Append($"{method.DeclaringType.Namespace}.{method.DeclaringType.Name}.{method.Name}");
+            if (method.IsGenericMethod)
+            {
+                s.Append($"<{string.Join(", ", method.GetGenericArguments().Select(q => q.Name))}>");
+            }
+            s.Append($"({string.Join(", ", method.GetParameters().Select(q => q.ParameterType.FullName))})");
+            return s.ToString();
+        }
+    }
+
+    /// <summary>
+    ///     Funciones auxiliares para trabajar con colecciones y enumeraciones.
+    /// </summary>
+    public static class CollectionHelpers
+    {
+        /// <summary>
+        ///     Aplica un operador OR a una colección de valores
+        ///     <see cref="bool"/>.
+        /// </summary>
+        /// <param name="collection"></param>
+        /// <returns></returns>
+        [Thunk]
+        public static bool Or(this IEnumerable<bool> collection)
+        {
+            return collection.Aggregate(false, (current, j) => current | j);
+        }
+        /// <summary>
+        ///     Aplica un operador OR a una colección de valores
+        ///     <see cref="bool"/>.
+        /// </summary>
+        /// <param name="collection"></param>
+        /// <returns></returns>
+        [Thunk]
+        public static bool And(this IEnumerable<bool> collection)
+        {
+            return collection.Aggregate(false, (current, j) => current & j);
+        }
+        /// <summary>
+        ///     Aplica un operador OR a una colección de valores
+        ///     <see cref="bool"/>.
+        /// </summary>
+        /// <param name="collection"></param>
+        /// <returns></returns>
+        [Thunk]
+        public static bool Xor(this IEnumerable<bool> collection)
+        {
+            return collection.Aggregate(false, (current, j) => current ^ j);
+        }
     }
 }

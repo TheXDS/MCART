@@ -55,7 +55,9 @@ namespace TheXDS.MCART
         /// </summary>
         /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
         /// <returns>
-        ///     Una nueva instancia del objeto solicitado.
+        ///     Una nueva instancia del objeto solicitado, o
+        ///     <see langword="null"/> si no se encuentra ningún tipo
+        ///     coincidente.
         /// </returns>
         public static T FindSingleObject<T>() where T : class
         {
@@ -70,7 +72,9 @@ namespace TheXDS.MCART
         ///     Función de filtro a aplicar a los tipos coincidientes.
         /// </param>
         /// <returns>
-        ///     Una nueva instancia del objeto solicitado.
+        ///     Una nueva instancia del objeto solicitado, o
+        ///     <see langword="null"/> si no se encuentra ningún tipo
+        ///     coincidente.
         /// </returns>
         public static T FindSingleObject<T>(Func<Type,bool> typeFilter) where T : class
         {
@@ -82,7 +86,9 @@ namespace TheXDS.MCART
         /// </summary>
         /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
         /// <returns>
-        ///     Una nueva instancia del objeto solicitado.
+        ///     Una nueva instancia del objeto solicitado, o
+        ///     <see langword="null"/> si no se encuentra ningún tipo
+        ///     coincidente.
         /// </returns>
         public static T FindFirstObject<T>() where T : class
         {
@@ -97,7 +103,9 @@ namespace TheXDS.MCART
         ///     Función de filtro a aplicar a los tipos coincidientes.
         /// </param>
         /// <returns>
-        ///     Una nueva instancia del objeto solicitado.
+        ///     Una nueva instancia del objeto solicitado, o
+        ///     <see langword="null"/> si no se encuentra ningún tipo
+        ///     coincidente.
         /// </returns>
         public static T FindFirstObject<T>(Func<Type, bool> typeFilter) where T : class
         {
