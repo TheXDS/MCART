@@ -39,9 +39,7 @@ namespace TheXDS.MCART.Tests.Types.Base
                 get => _value;
                 set
                 {
-                    if (value == _value) return;
-                    _value = value;
-                    OnPropertyChanged();
+                    Change(ref _value, value);
                 }
             }
         }

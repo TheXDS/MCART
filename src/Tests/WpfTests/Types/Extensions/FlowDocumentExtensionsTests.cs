@@ -1,5 +1,5 @@
 ﻿/*
-FlowDocumentFluentExtensionsTests.cs
+FlowDocumentExtensionsTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -24,11 +24,11 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Windows.Documents;
 using Xunit;
-using static TheXDS.MCART.Fluent.FlowDocumentFluentExtensions;
+using static TheXDS.MCART.Types.Extensions.FlowDocumentExtensions;
 
-namespace WPFTests.Fluent
+namespace TheXDS.MCART.WpfTests.Types.Extensions
 {
-    public class FlowDocumentFluentExtensionsTests
+    public class FlowDocumentExtensionsTests
     {
         [Fact]
         public void DoneTest()

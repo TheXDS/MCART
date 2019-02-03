@@ -65,7 +65,7 @@ namespace TheXDS.MCART.Types.Base
         /// </returns>
         protected bool Change<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
-            if (field.Equals(value)) return false;
+            if (field?.Equals(value) ?? Objects.AreAllNull(field, value)) return false;
             OnPropertyChanging(propertyName);
             field = value;
             return true;

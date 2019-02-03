@@ -82,8 +82,8 @@ namespace TheXDS.MCART.Types.Base
         ///     cambiado, <see langword="false"/> en caso contrario.
         /// </returns>
         protected bool Change<T>(ref T field, T value)
-        {            
-            if (field.Equals(value)) return false;
+        {
+            if (field?.Equals(value) ?? Objects.AreAllNull(field, value)) return false;
 
             var m = ReflectionHelpers.GetCallingMethod() ?? throw new TamperException();
             var p = GetType().GetProperties().SingleOrDefault(q => q.SetMethod == m) ?? throw new TamperException();

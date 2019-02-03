@@ -29,7 +29,7 @@ using System.Windows;
 using Xunit;
 using System.Windows.Converters;
 
-namespace WPFTests.Modules
+namespace TheXDS.MCART.WpfTests.Modules
 {
     public class ValueConvertersTests
     {
