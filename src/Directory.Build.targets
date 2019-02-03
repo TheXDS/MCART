@@ -13,7 +13,6 @@
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     <Deterministic>true</Deterministic>
     <DocumentationFile>$(OutDir)$(AssemblyName).xml</DocumentationFile>
-    <IsPackable>true</IsPackable>
     <PackageId>TheXDS.$(AssemblyName)</PackageId>
     <Title>$(AssemblyTitle)</Title>
     <PackageDescription>$(Description)</PackageDescription>
