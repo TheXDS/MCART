@@ -28,6 +28,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
@@ -542,6 +543,27 @@ namespace TheXDS.MCART.PluginSupport
                     yield return j.New() as IPlugin;
         }
 
+        public async Task<IEnumerable<IPlugin>> LoadAllAsync(Assembly assembly, Func<Type, bool> predicate)
+        {
+            bool IsTypeCompatible(Type p)
+            {
+                return _checker.IsValid(p) && (_checker.IsCompatible(p) ?? false) && (predicate?.Invoke(p) ?? true);
+            }
+            if (await Task.Run(() => _checker.IsVaild(assembly)))
+            {
+                return assembly.GetTypes().Where(IsTypeCompatible).Select(p=>p.New<IPlugin>());
+            }
+#if PreferExceptions
+            else { throw new NotPluginException(assembly); }
+#endif
+            return new IPlugin[0];
+        }
+        public async Task<IEnumerable<T>> LoadAllAsync<T>(Assembly assembly, Func<Type, bool> predicate) where T : class
+        {
+            return (await LoadAllAsync(assembly, predicate)).OfType<T>();
+        }
+
+
         /// <summary>
         ///     Carga todos los plugins de todos los ensamblados en el directorio.
         /// </summary>
@@ -831,6 +853,48 @@ namespace TheXDS.MCART.PluginSupport
                 foreach (var j in LoadAll<T>(a, predicate)) yield return j;
             }
         }
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        /// <param name="pluginsPath">
+        ///     Ruta del directorio que contiene los archivos a cargar.
+        /// </param>
+        /// <param name="search">Modo de búsqueda.</param>
+        /// <param name="predicate">
+        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
+        /// </param>
+        /// <typeparam name="T">
+        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        /// </typeparam>
+        public async Task<IEnumerable<T>> LoadEverythingAsync<T>(string pluginsPath, SearchOption search, Func<Type, bool> predicate)
+            where T : class
+        {
+            if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
+            var r = new List<T>();
+            foreach (var f in await Task.Run(() => new DirectoryInfo(pluginsPath).GetFiles($"*{_extension}", search)))
+            {
+                Assembly a = null;
+                try
+                {
+                    a = await Task.Run(()=>Assembly.LoadFrom(f.FullName));
+                }
+                catch
+                {
+                    Debug.Print(St.Warn(St.XIsInvalid(St.XYQuotes(St.TheAssembly, f.Name))));
+                }
+#if PreferExceptions
+                if (checker.IsVaild(a))
+#endif
+                r.AddRange(await LoadAllAsync<T>(a, predicate));
+            }
+            return r;
+        }
+
+
 
         /// <summary>
         ///     Carga cualquier <see cref="IPlugin" /> disponible.

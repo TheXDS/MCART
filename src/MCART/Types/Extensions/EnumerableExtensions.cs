@@ -101,6 +101,22 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
+        ///     Enumera la colección, y devuelve <see langword="null"/> si la
+        ///     colección no contiene elementos.
+        /// </summary>
+        /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
+        /// <param name="collection">Colección a enumerar.</param>
+        /// <returns>
+        ///     Una enumeración con los elementos de la colección, o
+        ///     <see langword="null"/> si la colección no contiene elementos.
+        /// </returns>
+        public static IEnumerable<T> OrNull<T>(this IEnumerable<T> collection)
+        {
+            var c = collection.ToArray();
+            return c.Any() ? c : null;
+        }
+
+        /// <summary>
         ///     Enumera los elementos que sean distintos de su valor
         ///     predeterminado dentro de una colección.
         /// </summary>

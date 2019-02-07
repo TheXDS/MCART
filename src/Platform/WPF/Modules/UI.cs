@@ -84,22 +84,22 @@ namespace TheXDS.MCART
             /// <summary>
             ///     Color primario original.
             /// </summary>
-            internal Brush fore;
+            internal Brush _fore;
 
             /// <summary>
             ///     Color de fondo original.
             /// </summary>
-            internal Brush bacg;
+            internal Brush _bacg;
 
             /// <summary>
             ///     Referencia del control al cual se aplica.
             /// </summary>
-            internal Control rf;
+            internal Control _rf;
 
             /// <summary>
             ///     <see cref="ToolTip" /> original del control.
             /// </summary>
-            internal ToolTip ttip;
+            internal ToolTip _ttip;
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -217,7 +217,7 @@ namespace TheXDS.MCART
             SC_CONTEXTHELP = 0xF180
         }
 
-        private static readonly List<OrigControlColor> Origctrls = new List<OrigControlColor>();
+        private static readonly List<OrigControlColor> _origctrls = new List<OrigControlColor>();
 
         /// <summary>
         ///     Enlaza una propiedad de dependencia de un <see cref="DependencyObject" /> a un <see cref="FrameworkElement" />.
@@ -359,14 +359,14 @@ namespace TheXDS.MCART
         /// <param name="c">Control a limpiar.</param>
         public static void ClearWarn(this Control c)
         {
-            for (var k = 0; k < Origctrls.Count; k++)
+            for (var k = 0; k < _origctrls.Count; k++)
             {
-                var j = Origctrls[k];
-                if (!j.rf.Is(c)) continue;
-                c.Foreground = j.fore;
-                c.Background = j.bacg;
-                c.ToolTip = j.ttip;
-                Origctrls.Remove(j);
+                var j = _origctrls[k];
+                if (!j._rf.Is(c)) continue;
+                c.Foreground = j._fore;
+                c.Background = j._bacg;
+                c.ToolTip = j._ttip;
+                _origctrls.Remove(j);
                 return;
             }
         }
@@ -459,11 +459,13 @@ namespace TheXDS.MCART
             window.Padding = padding;
             if (DwmIsCompositionEnabled())
             {
-                var margins = new Margins();
-                margins.Top = (int)padding.Top;
-                margins.Left = (int)padding.Left;
-                margins.Bottom = (int)padding.Bottom;
-                margins.Right = (int)padding.Right;
+                var margins = new Margins
+                {
+                    Top = (int)padding.Top,
+                    Left = (int)padding.Left,
+                    Bottom = (int)padding.Bottom,
+                    Right = (int)padding.Right
+                };
                 DwmExtendFrameIntoClientArea(window.GetHwnd(), ref margins);
 
             }
@@ -780,6 +782,16 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
+        ///     Deshabilita y oculta el botón de cerrar de la ventana de Wpf.
+        /// </summary>
+        /// <param name="window"></param>
+        public static void HideClose(this Window window)
+        {
+            var hwnd = new WindowInteropHelper(window).Handle;
+            SetWindowLong(hwnd, (int) WindowData.GWL_STYLE, GetWindowLong(hwnd, (int) WindowData.GWL_STYLE) & (uint) ~WindowStyles.WS_SYSMENU);
+        }
+
+        /// <summary>
         ///     Obtiene un valor que determina si el control está advertido.
         /// </summary>
         /// <param name="c">Control a comprobar.</param>
@@ -790,8 +802,8 @@ namespace TheXDS.MCART
         public static bool IsWarned(this Control c)
         {
             if (c is null) throw new ArgumentNullException(nameof(c));
-            foreach (var j in Origctrls)
-                if (j.rf.Is(c))
+            foreach (var j in _origctrls)
+                if (j._rf.Is(c))
                     return true;
             return false;
         }
@@ -1011,12 +1023,12 @@ namespace TheXDS.MCART
         public static void Warn(this Control c, string ttip)
         {
             if (c.IsWarned()) c.ClearWarn();
-            Origctrls.Add(new OrigControlColor
+            _origctrls.Add(new OrigControlColor
             {
-                rf = c,
-                fore = c.Foreground,
-                bacg = c.Background,
-                ttip = (ToolTip) c.ToolTip
+                _rf = c,
+                _fore = c.Foreground,
+                _bacg = c.Background,
+                _ttip = (ToolTip) c.ToolTip
             });
             SolidColorBrush brush;
             if (c.Foreground is SolidColorBrush fore)
