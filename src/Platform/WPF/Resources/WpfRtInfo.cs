@@ -25,40 +25,34 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System.Windows;
 using System.Windows.Markup;
 
-[assembly: XmlnsPrefix(@"http://schemas.thexds.com/2019/mcart", "mcart")]
-[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart", "TheXDS.MCART.Controls", AssemblyName = "MCART.WPF")]
-[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart", "System.Windows.Converters", AssemblyName = "MCART.WPF")]
-[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart", "TheXDS.MCART.Resources", AssemblyName = "MCART.WPF")]
-[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart", "TheXDS.MCART.Dialogs", AssemblyName = "MCART.WPF")]
-[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart", "TheXDS.MCART.Pages", AssemblyName = "MCART.WPF")]
-[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart", "TheXDS.MCART.ViewModel", AssemblyName = "MCART.UI")]
-[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart", "TheXDS.MCART.ViewModel", AssemblyName = "MCART.WPF")]
-[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart", "TheXDS.MCART.ViewModel.ValidationRules", AssemblyName = "MCART.WPF")]
-[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart", "TheXDS.MCART.Types", AssemblyName = "MCART")]
-[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart", "TheXDS.MCART.Types.Converters", AssemblyName = "MCART")]
-
-
-[assembly: XmlnsPrefix(@"http://schemas.thexds.com/2019/mcart/controls", "mcartc")]
-[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart/controls", "TheXDS.MCART.Controls", AssemblyName = "MCART.WPF")]
-[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart/controls", "System.Windows.Converters", AssemblyName = "MCART.WPF")]
-
-[assembly: XmlnsPrefix(@"http://schemas.thexds.com/2019/mcart/controls", "mcartr")]
-[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart/resources", "TheXDS.MCART.Resources", AssemblyName = "MCART.WPF")]
-
-[assembly: XmlnsPrefix(@"http://schemas.thexds.com/2019/mcart/dialogs", "mcartd")]
-[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart/dialogs", "TheXDS.MCART.Dialogs", AssemblyName = "MCART.WPF")]
-
-[assembly: XmlnsPrefix(@"http://schemas.thexds.com/2019/mcart/pages", "mcartp")]
-[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart/pages", "TheXDS.MCART.Pages", AssemblyName = "MCART.WPF")]
-
-[assembly: XmlnsPrefix(@"http://schemas.thexds.com/2019/mcart/viewmodel", "mcartvm")]
-[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart/viewmodel", "TheXDS.MCART.ViewModel", AssemblyName = "MCART.UI")]
-[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart/viewmodel", "TheXDS.MCART.ViewModel", AssemblyName = "MCART.WPF")]
-[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart/viewmodel", "TheXDS.MCART.ViewModel.ValidationRules", AssemblyName = "MCART.WPF")]
-
-[assembly: XmlnsPrefix(@"http://schemas.thexds.com/2019/mcart/types", "mcartt")]
-[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart/types", "TheXDS.MCART.Types", AssemblyName = "MCART")]
-[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart/types", "TheXDS.MCART.Types.Converters", AssemblyName = "MCART")]
+//[assembly: XmlnsPrefix(@"http://schemas.thexds.com/2019/mcart", "mcart")]
+//[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart", "TheXDS.MCART.Controls", AssemblyName = "MCART.WPF")]
+//[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart", "System.Windows.Converters", AssemblyName = "MCART.WPF")]
+//[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart", "TheXDS.MCART.Resources", AssemblyName = "MCART.WPF")]
+//[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart", "TheXDS.MCART.Dialogs", AssemblyName = "MCART.WPF")]
+//[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart", "TheXDS.MCART.Pages", AssemblyName = "MCART.WPF")]
+//[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart", "TheXDS.MCART.ViewModel", AssemblyName = "MCART.UI")]
+//[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart", "TheXDS.MCART.ViewModel", AssemblyName = "MCART.WPF")]
+//[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart", "TheXDS.MCART.ViewModel.ValidationRules", AssemblyName = "MCART.WPF")]
+//[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart", "TheXDS.MCART.Types", AssemblyName = "MCART")]
+//[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart", "TheXDS.MCART.Types.Converters", AssemblyName = "MCART")]
+//[assembly: XmlnsPrefix(@"http://schemas.thexds.com/2019/mcart/controls", "mcartc")]
+//[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart/controls", "TheXDS.MCART.Controls", AssemblyName = "MCART.WPF")]
+//[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart/controls", "System.Windows.Converters", AssemblyName = "MCART.WPF")]
+//[assembly: XmlnsPrefix(@"http://schemas.thexds.com/2019/mcart/resources", "mcartr")]
+//[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart/resources", "TheXDS.MCART.Resources", AssemblyName = "MCART")]
+//[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart/resources", "TheXDS.MCART.Resources", AssemblyName = "MCART.WPF")]
+//[assembly: XmlnsPrefix(@"http://schemas.thexds.com/2019/mcart/dialogs", "mcartd")]
+//[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart/dialogs", "TheXDS.MCART.Dialogs", AssemblyName = "MCART.WPF")]
+//[assembly: XmlnsPrefix(@"http://schemas.thexds.com/2019/mcart/pages", "mcartp")]
+//[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart/pages", "TheXDS.MCART.Pages", AssemblyName = "MCART.WPF")]
+//[assembly: XmlnsPrefix(@"http://schemas.thexds.com/2019/mcart/viewmodel", "mcartvm")]
+//[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart/viewmodel", "TheXDS.MCART.ViewModel", AssemblyName = "MCART.UI")]
+//[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart/viewmodel", "TheXDS.MCART.ViewModel", AssemblyName = "MCART.WPF")]
+//[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart/viewmodel", "TheXDS.MCART.ViewModel.ValidationRules", AssemblyName = "MCART.WPF")]
+//[assembly: XmlnsPrefix(@"http://schemas.thexds.com/2019/mcart/types", "mcartt")]
+//[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart/types", "TheXDS.MCART.Types", AssemblyName = "MCART")]
+//[assembly: XmlnsDefinition(@"http://schemas.thexds.com/2019/mcart/types", "TheXDS.MCART.Types.Converters", AssemblyName = "MCART")]
 
 namespace TheXDS.MCART.Resources
 {

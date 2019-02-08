@@ -6,7 +6,7 @@
       xmlns:converters="clr-namespace:System.Windows.Converters"
       xmlns:viewModel="clr-namespace:TheXDS.MCART.Dialogs.ViewModel"
       xmlns:resources="clr-namespace:TheXDS.MCART.Resources;assembly=MCART"
-      xmlns:controls="http://schemas.thexds.com/2019/mcart/controls"
+      xmlns:controls="clr-namespace:TheXDS.MCART.Controls"
       mc:Ignorable="d"
       d:DataContext="{d:DesignInstance viewModel:AboutPageViewModel}"
       Title="AboutPage">

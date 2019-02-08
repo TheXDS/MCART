@@ -10,8 +10,7 @@
     xmlns:viewModel="clr-namespace:TheXDS.MCART.Dialogs.ViewModel;assembly=MCART.UI"
     xmlns:resources="clr-namespace:TheXDS.MCART.Resources;assembly=MCART"
     mc:Ignorable="d" d:DataContext="{d:DesignInstance viewModel:PluginBrowserViewModel}"
-    Title="Explorador de plugins" Height="400" Width="600"
-    Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+    Title="Explorador de plugins" Height="400" Width="600">
     <Window.Resources>
         <Thickness x:Key="Mrg">5</Thickness>
         <converters:VisibilityInverter x:Key="VisInv"/>
