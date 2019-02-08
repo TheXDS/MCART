@@ -32,7 +32,7 @@ namespace TheXDS.MCART.Types.Base
     ///     Clase base para los objetos que puedan notificar sobre el cambio
     ///     del valor de una de sus propiedades.
     /// </summary>
-    public abstract class NotifyPropertyChanging : INotifyPropertyChanging
+    public abstract class NotifyPropertyChanging : NotifyPropertyChangeBase, INotifyPropertyChanging
     {
         /// <inheritdoc />
         /// <summary>
@@ -66,9 +66,20 @@ namespace TheXDS.MCART.Types.Base
         protected bool Change<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
             if (field?.Equals(value) ?? Objects.AreAllNull(field, value)) return false;
-            OnPropertyChanging(propertyName);
+            Notify(propertyName);
             field = value;
             return true;
+        }
+
+        /// <summary>
+        ///     Notifica el cambio en el valor de una propiedad.
+        /// </summary>
+        /// <param name="property">
+        ///     Propiedad a notificar.
+        /// </param>
+        protected override void Notify(string property)
+        {
+            OnPropertyChanging(property);
         }
     }
 }

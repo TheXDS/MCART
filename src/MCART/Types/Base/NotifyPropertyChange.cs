@@ -38,7 +38,7 @@ namespace TheXDS.MCART.Types.Base
     ///     del valor de una de sus propiedades, tanto antes como después de
     ///     haber ocurrido dicho cambio.
     /// </summary>
-    public abstract class NotifyPropertyChange : INotifyPropertyChanging, INotifyPropertyChanged
+    public abstract class NotifyPropertyChange : NotifyPropertyChangeBase, INotifyPropertyChanging, INotifyPropertyChanged
     {
         /// <inheritdoc />
         /// <summary>
@@ -126,7 +126,17 @@ namespace TheXDS.MCART.Types.Base
             var rm = ObserveSubscriptions.FirstOrDefault(p => p.TryGetTarget(out var t) && t == callback);
             if (!(rm is null)) ObserveSubscriptions.Remove(rm);
         }
+
+        /// <summary>
+        ///     Notifica el cambio en el valor de una propiedad.
+        /// </summary>
+        /// <param name="property">
+        ///     Propiedad a notificar.
+        /// </param>
+        protected override void Notify(string property)
+        {
+            OnPropertyChanged(property);
+        }
     }
     public delegate void PropertyChangeObserver(object instance, PropertyInfo property);
-
 }

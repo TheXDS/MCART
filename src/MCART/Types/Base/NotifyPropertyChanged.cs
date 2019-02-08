@@ -22,7 +22,9 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Annotations;
@@ -34,7 +36,7 @@ namespace TheXDS.MCART.Types.Base
     ///     Clase base para los objetos que puedan notificar sobre el cambio
     ///     del valor de una de sus propiedades.
     /// </summary>
-    public abstract class NotifyPropertyChanged : INotifyPropertyChanged
+    public abstract class NotifyPropertyChanged : NotifyPropertyChangeBase, INotifyPropertyChanged
     {
         /// <inheritdoc />
         /// <summary>
@@ -73,6 +75,16 @@ namespace TheXDS.MCART.Types.Base
             field = value;
             OnPropertyChanged(propertyName);
             return true;
+        }
+        /// <summary>
+        ///     Notifica el cambio en el valor de una propiedad.
+        /// </summary>
+        /// <param name="property">
+        ///     Propiedad a notificar.
+        /// </param>
+        protected override void Notify(string property)
+        {
+            OnPropertyChanged(property);
         }
     }
 }

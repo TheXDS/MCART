@@ -3,10 +3,10 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:controls="clr-namespace:TheXDS.MCART.Controls"
       xmlns:converters="clr-namespace:System.Windows.Converters"
       xmlns:viewModel="clr-namespace:TheXDS.MCART.Dialogs.ViewModel"
       xmlns:resources="clr-namespace:TheXDS.MCART.Resources;assembly=MCART"
+      xmlns:controls="http://schemas.thexds.com/2019/mcart/controls"
       mc:Ignorable="d"
       d:DataContext="{d:DesignInstance viewModel:AboutPageViewModel}"
       Title="AboutPage">
