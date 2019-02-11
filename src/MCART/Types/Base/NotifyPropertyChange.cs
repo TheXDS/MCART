@@ -68,6 +68,7 @@ namespace TheXDS.MCART.Types.Base
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            NotifyRegistroir(propertyName);
         }
 
         /// <summary>
@@ -86,7 +87,8 @@ namespace TheXDS.MCART.Types.Base
             if (field?.Equals(value) ?? Objects.AreAllNull(field, value)) return false;
 
             var m = ReflectionHelpers.GetCallingMethod() ?? throw new TamperException();
-            var p = GetType().GetProperties().SingleOrDefault(q => q.SetMethod == m) ?? throw new TamperException();
+            var p = GetType().GetProperties().SingleOrDefault(q => q.SetMethod == m) 
+                ?? throw new InvalidOperationException();
 
             OnPropertyChanging(p.Name);
             field = value;
@@ -138,5 +140,15 @@ namespace TheXDS.MCART.Types.Base
             OnPropertyChanged(property);
         }
     }
+    /// <summary>
+    ///     Delegado que define un método para observar y procesar cambios en
+    ///     el valor de una propiedad asociada a un objeto.
+    /// </summary>
+    /// <param name="instance">
+    ///     Instancia del objeto a observar.
+    /// </param>
+    /// <param name="property">
+    ///     Propiedad observada.
+    /// </param>
     public delegate void PropertyChangeObserver(object instance, PropertyInfo property);
 }

@@ -22,6 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System.Collections.Generic;
 using System.Reflection;
 using TheXDS.MCART.Types.Base;
 
@@ -32,6 +33,7 @@ namespace TheXDS.MCART.ViewModel
     /// </summary>
     public abstract class ViewModelBase : NotifyPropertyChanged
     {
+
         /// <summary>
         ///     Inicialica una nueva instancia de la clase 
         ///     <see cref="ViewModelBase"/>.

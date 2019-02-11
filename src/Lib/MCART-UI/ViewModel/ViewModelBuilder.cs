@@ -31,6 +31,11 @@ using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.Annotations;
 using static System.Reflection.BindingFlags;
 using TheXDS.MCART.Exceptions;
+using System.Collections.Specialized;
+using static System.Reflection.Emit.OpCodes;
+using System.Collections.ObjectModel;
+using TheXDS.MCART.Types.Base;
+using System.Collections;
 
 // ReSharper disable StaticMemberInGenericType
 
@@ -45,14 +50,15 @@ namespace TheXDS.MCART.ViewModel
     /// </typeparam>
     public static class ViewModelBuilder<T> where T : new()
     {
-        private const string Namespace = "TheXDS.MCART.ViewModel._Generated";
-        private static readonly ModuleBuilder MBuilder =
+        private const string _namespace = "TheXDS.MCART.ViewModel._Generated";
+        private static readonly ModuleBuilder _mBuilder =
             AssemblyBuilder.DefineDynamicAssembly(
-                new AssemblyName(Namespace),
+                new AssemblyName(_namespace),
                 AssemblyBuilderAccess.Run)
-            .DefineDynamicModule(Namespace);
+            .DefineDynamicModule(_namespace);
 
-        private static readonly Dictionary<Type, Type> BuiltTypes = new Dictionary<Type, Type>();
+
+        private static readonly Dictionary<Type, Type> _builtTypes = new Dictionary<Type, Type>();
         
         /// <summary>
         ///     Construye un nuevo ViewModel sin ninguna clase que herede
@@ -80,7 +86,7 @@ namespace TheXDS.MCART.ViewModel
         ///     implementadas como llamadas con notificación de cambio de
         ///     propiedades.
         /// </returns>
-        public static TViewModel New<TViewModel>() where TViewModel : ViewModel<T>
+        public static TViewModel New<TViewModel>() where TViewModel : class, IEntityViewModel<T>, new()
         {
             return Activator.CreateInstance(Build<TViewModel>()) as TViewModel;
         }
@@ -100,13 +106,13 @@ namespace TheXDS.MCART.ViewModel
         ///     Clase de ViewModel a utilizar como tipo base.
         /// </typeparam>
         /// <returns></returns>
-        public static Type Build<TViewModel>() where TViewModel : ViewModel<T>
+        public static Type Build<TViewModel>() where TViewModel : IEntityViewModel<T>
         {
-            if (BuiltTypes.ContainsKey(typeof(TViewModel)))
-                return BuiltTypes[typeof(TViewModel)];
+            if (_builtTypes.ContainsKey(typeof(TViewModel)))
+                return _builtTypes[typeof(TViewModel)];
 
-            var tb = MBuilder.DefineType(
-                $"{typeof(T).Name}_{Guid.NewGuid()}",
+            var tb = _mBuilder.DefineType(
+                $"{typeof(TViewModel).Name}_{Guid.NewGuid().ToString().Replace("-","")}",
                 TypeAttributes.Public,
                 typeof(TViewModel)
             );
@@ -116,29 +122,32 @@ namespace TheXDS.MCART.ViewModel
                 CallingConventions.Standard,
                 Type.EmptyTypes);
             var ctorIl = ctor.GetILGenerator();
-            ctorIl.Emit(OpCodes.Ldarg_0);
-            ctorIl.Emit(OpCodes.Call, typeof(TViewModel).GetConstructor(Type.EmptyTypes) ?? throw new InvalidOperationException());
-            ctorIl.Emit(OpCodes.Ret);
+            ctorIl.Emit(Ldarg_0);
+            ctorIl.Emit(Call, typeof(TViewModel).GetConstructor(Type.EmptyTypes) ?? throw new InvalidOperationException());
 
-            var addedProps = new HashSet<string>(typeof(TViewModel).GetProperties().Select(p => p.Name));
-            var modelProps = typeof(T).GetProperties(Public | Instance).Where(p => p.CanRead);
-            
-            foreach (var j in modelProps.Where(p => p.CanWrite && addedProps.All(q => q != p.Name)))
+            var modelProps = typeof(T).GetProperties(Public | Instance).Where(p => p.CanRead).Distinct();
+
+            foreach (var j in modelProps.Where(p => p.CanWrite))
             {
-                addedProps.Add(j.Name);
-                AddProp(tb, j);
+                AddProp(typeof(TViewModel), tb, j);
+            }
+            foreach (var j in modelProps.Where(p => typeof(IEnumerable).IsAssignableFrom(p.PropertyType) && p.PropertyType != typeof(string)))
+            {
+                ProcessCollection(typeof(TViewModel), tb, ctorIl, j);
             }
 
+            ctorIl.Emit(Ret);
+
             var retVal = tb.CreateType();
-            BuiltTypes.Add(typeof(TViewModel), retVal);
+            _builtTypes.Add(typeof(TViewModel), retVal);
             return retVal;
         }
 
-        private static void AddProp([NotNull]TypeBuilder tb, [NotNull] PropertyInfo property)
+        private static PropertyBuilder AddProp([NotNull]Type baseType, [NotNull]TypeBuilder tb, [NotNull] PropertyInfo property)
         {
             const MethodAttributes gsArgs = MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.HideBySig;
-            var t = typeof(ViewModel<T>);
-            var entity = t.GetProperty("Entity", NonPublic | Instance)?.GetMethod ?? throw new TamperException();
+            //var entity = baseType.GetProperty("Entity", Public | Instance)?.GetMethod?.DeclaringType?.GetMethod("get_Entity") ?? throw new TamperException();
+            var entity = typeof(IEntityViewModel<T>).GetMethod("get_Entity") ?? throw new TamperException();
 
             var prop = tb.DefineProperty(
                 property.Name,
@@ -153,13 +162,13 @@ namespace TheXDS.MCART.ViewModel
                 null
             );
             var getIl = getM.GetILGenerator();
-            getIl.Emit(OpCodes.Ldarg_0);
-            getIl.Emit(OpCodes.Call, entity);
-            getIl.Emit(OpCodes.Callvirt, property.GetMethod);
-            getIl.Emit(OpCodes.Ret);
+            getIl.Emit(Ldarg_0);
+            getIl.Emit(Call, entity);
+            getIl.Emit(Callvirt, property.GetMethod);
+            getIl.Emit(Ret);
             prop.SetGetMethod(getM);
 
-            if (!property.CanWrite) return;
+            if (!property.CanWrite) return prop;
             var setM = tb.DefineMethod(
                 $"set_{property.Name}",
                 gsArgs,
@@ -167,29 +176,181 @@ namespace TheXDS.MCART.ViewModel
                 new[] { property.PropertyType }
             );
             var setIl = setM.GetILGenerator();
-            var eqM = property.PropertyType.GetMethod("Equals", new[] { property.PropertyType }) ??
-                        property.PropertyType.GetMethod("Equals", new[] { typeof(object) });
-            if (!(eqM is null))
-            {
-                var lbl1 = setIl.DefineLabel();
-                setIl.Emit(OpCodes.Ldarg_0);
-                setIl.Emit(OpCodes.Call, entity);
-                setIl.Emit(OpCodes.Callvirt, property.GetMethod);
-                setIl.Emit(OpCodes.Ldarg_1);
-                setIl.Emit(OpCodes.Callvirt, eqM);
-                setIl.Emit(OpCodes.Brfalse, lbl1);
-                setIl.Emit(OpCodes.Ret);
-                setIl.MarkLabel(lbl1);
-            }
-            setIl.Emit(OpCodes.Ldarg_0);
-            setIl.Emit(OpCodes.Call, entity);
-            setIl.Emit(OpCodes.Ldarg_1);
-            setIl.Emit(OpCodes.Callvirt, property.SetMethod);
-            setIl.Emit(OpCodes.Ldarg_0);
-            setIl.Emit(OpCodes.Ldstr, property.Name);
-            setIl.Emit(OpCodes.Call, t.GetMethod("OnPropertyChanged", NonPublic | Instance) ?? throw new TamperException());
-            setIl.Emit(OpCodes.Ret);
+            //var eqM = property.PropertyType.GetMethod("Equals", new[] { property.PropertyType }) ??
+            //            property.PropertyType.GetMethod("Equals", new[] { typeof(object) });
+            //if (!(eqM is null))
+            //{
+            //    var lbl1 = setIl.DefineLabel();
+            //    setIl.Emit(Ldarg_0);
+            //    setIl.Emit(Call, entity);
+            //    setIl.Emit(Callvirt, property.GetMethod);
+            //    setIl.Emit(Ldarg_1);
+            //    setIl.Emit(Callvirt, eqM);
+            //    setIl.Emit(Brfalse, lbl1);
+            //    setIl.Emit(Ret);
+            //    setIl.MarkLabel(lbl1);
+            //}
+            setIl.Emit(Ldarg_0);
+            setIl.Emit(Call, entity);
+            setIl.Emit(Ldarg_1);
+            setIl.Emit(Callvirt, property.SetMethod);
+            setIl.Emit(Ldarg_0);
+            setIl.Emit(Ldstr, property.Name);
+            setIl.Emit(Call, baseType.GetMethod("OnPropertyChanged", NonPublic | Instance) ?? throw new TamperException());
+            setIl.Emit(Ret);
             prop.SetSetMethod(setM);
+            return prop;
+        }
+
+        private static void ProcessCollection([NotNull]Type baseType, [NotNull]TypeBuilder tb, [NotNull]ILGenerator ctorIl, [NotNull]PropertyInfo modelProperty)
+        {
+            // Variables necesarias de estado
+            var entity = baseType.GetProperty("Entity", Public | Instance)?.GetMethod ?? throw new TamperException();
+            var labels = new Dictionary<string, Label>();
+            var listType = modelProperty.PropertyType.GenericTypeArguments?.Count() == 1 ? modelProperty.PropertyType.GenericTypeArguments.Single() : typeof(object);
+            var enumerable = typeof(IEnumerable<>).MakeGenericType(listType);
+            var enumerator = typeof(IEnumerator<>).MakeGenericType(listType);
+            var thisType = typeof(ObservableCollection<>).MakeGenericType(listType);
+            var collectionType = typeof(ICollection<>).MakeGenericType(listType);
+
+            // Funciones locales útiles
+            Label NewLabel(string id, ILGenerator generator)
+            {
+                var l = generator.DefineLabel();
+                labels.Add(id,l);
+                return l;
+            }
+
+            var thisField = tb.DefineField($"_{modelProperty.Name.Substring(0, 1).ToLower()}{modelProperty.Name.Substring(1)}",thisType,FieldAttributes.Private| FieldAttributes.InitOnly);
+
+            var thisProp = tb.DefineProperty(
+                modelProperty.Name,
+                PropertyAttributes.HasDefault,
+                typeof(ObservableCollection<>).MakeGenericType(listType),
+                null);
+
+            var getM = tb.DefineMethod(
+                $"get_{modelProperty.Name}",
+                MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.HideBySig,
+                thisType,
+                null);
+            var getIl = getM.GetILGenerator();
+            getIl.Emit(Ldarg_0);
+            getIl.Emit(Ldfld, thisField);
+            getIl.Emit(Ret);
+            thisProp.SetGetMethod(getM);
+
+            var handler = tb.DefineMethod(
+                $"{modelProperty.Name}_CollectionChanged",
+                MethodAttributes.Private,
+                null,
+                new[] {typeof(object), typeof(NotifyCollectionChangedEventArgs) });
+
+            var handlerIl = handler.GetILGenerator();
+
+            handlerIl.Emit(Ldarg_2);
+            handlerIl.Emit(Callvirt, typeof(NotifyCollectionChangedEventArgs).GetMethod("get_NewItems"));
+            handlerIl.Emit(Dup);
+            handlerIl.Emit(Brtrue_S, NewLabel("0x000f", handlerIl));
+            handlerIl.Emit(Pop);
+            handlerIl.Emit(Ldnull);
+            handlerIl.Emit(Br_S, NewLabel("0x0014", handlerIl));
+            handlerIl.MarkLabel(labels["0x000f"]);
+            handlerIl.Emit(Call,typeof(Enumerable).GetMethod("OfType").MakeGenericMethod(listType));
+            handlerIl.MarkLabel(labels["0x0014"]);
+            handlerIl.Emit(Dup);
+            handlerIl.Emit(Brtrue_S, NewLabel("0x001e", handlerIl));
+            handlerIl.Emit(Pop);
+            handlerIl.Emit(Ldc_I4_0);
+            handlerIl.Emit(Newarr, listType);
+            handlerIl.MarkLabel(labels["0x001e"]);
+            handlerIl.Emit(Callvirt, enumerable.GetMethod("GetEnumerator"));
+            handlerIl.Emit(Stloc_0);
+
+            handlerIl.BeginExceptionBlock();
+            handlerIl.Emit(Br_S, NewLabel("0x003f", handlerIl));
+            handlerIl.MarkLabel(NewLabel("0x0026", handlerIl));
+            handlerIl.Emit(Ldloc_0);
+            handlerIl.Emit(Callvirt, enumerator.GetMethod("get_Current"));
+            handlerIl.Emit(Stloc_1);
+            handlerIl.Emit(Ldarg_0);
+            handlerIl.Emit(Call,modelProperty.GetMethod);
+            handlerIl.Emit(Callvirt, entity);
+            handlerIl.Emit(Ldloc_1);
+            handlerIl.Emit(Callvirt, collectionType.GetMethod("Add"));
+            handlerIl.MarkLabel(labels["0x003f"]);
+            handlerIl.Emit(Ldloc_0);
+            handlerIl.Emit(Callvirt, typeof(IEnumerator).GetMethod("MoveNext"));
+            handlerIl.Emit(Brtrue_S,labels["0x0026"]);
+            handlerIl.Emit(Leave_S, NewLabel("0x0054", handlerIl));
+            handlerIl.BeginFinallyBlock();            
+            handlerIl.Emit(Ldloc_0);
+            handlerIl.Emit(Brfalse_S,NewLabel("0x0053", handlerIl));
+            handlerIl.Emit(Ldloc_0);
+            handlerIl.Emit(Callvirt, typeof(IDisposable).GetMethod("Dispose"));
+            handlerIl.MarkLabel(labels["0x0053"]);
+            handlerIl.Emit(Endfinally);
+            handlerIl.EndExceptionBlock();
+            handlerIl.MarkLabel(labels["0x0054"]);
+
+            handlerIl.Emit(Ldarg_2);
+            handlerIl.Emit(Callvirt, typeof(NotifyCollectionChangedEventArgs).GetMethod("get_OldItems"));
+            handlerIl.Emit(Dup);
+            handlerIl.Emit(Brtrue_S, NewLabel("0x0062", handlerIl));
+            handlerIl.Emit(Pop);
+            handlerIl.Emit(Ldnull);
+            handlerIl.Emit(Br_S, NewLabel("0x0067", handlerIl));
+            handlerIl.MarkLabel(labels["0x0062"]);
+            handlerIl.Emit(Call, typeof(Enumerable).GetMethod("OfType").MakeGenericMethod(listType));
+            handlerIl.MarkLabel(labels["0x0067"]);
+            handlerIl.Emit(Dup);
+            handlerIl.Emit(Brtrue_S, NewLabel("0x0071", handlerIl));
+            handlerIl.Emit(Pop);
+            handlerIl.Emit(Ldc_I4_0);
+            handlerIl.Emit(Newarr, listType);
+            handlerIl.MarkLabel(labels["0x0071"]);
+            handlerIl.Emit(Callvirt, enumerable.GetMethod("GetEnumerator"));
+            handlerIl.Emit(Stloc_0);
+
+            handlerIl.BeginExceptionBlock();
+            handlerIl.Emit(Br_S, NewLabel("0x013f", handlerIl));
+            handlerIl.MarkLabel(NewLabel("0x0126", handlerIl));
+            handlerIl.Emit(Ldloc_0);
+            handlerIl.Emit(Callvirt, enumerator.GetMethod("get_Current"));
+            handlerIl.Emit(Stloc_1);
+            handlerIl.Emit(Ldarg_0);
+            handlerIl.Emit(Call, modelProperty.GetMethod);
+            handlerIl.Emit(Callvirt, entity);
+            handlerIl.Emit(Ldloc_1);
+            handlerIl.Emit(Callvirt, collectionType.GetMethod("Add"));
+            handlerIl.MarkLabel(labels["0x013f"]);
+            handlerIl.Emit(Ldloc_0);
+            handlerIl.Emit(Callvirt, typeof(IEnumerator).GetMethod("MoveNext"));
+            handlerIl.Emit(Brtrue_S, labels["0x0126"]);
+            handlerIl.Emit(Leave_S, NewLabel("0x0154", handlerIl));
+            handlerIl.BeginFinallyBlock();
+            handlerIl.Emit(Ldloc_0);
+            handlerIl.Emit(Brfalse_S, NewLabel("0x0153", handlerIl));
+            handlerIl.Emit(Ldloc_0);
+            handlerIl.Emit(Callvirt, typeof(IDisposable).GetMethod("Dispose"));
+            handlerIl.MarkLabel(labels["0x0153"]);
+            handlerIl.Emit(Endfinally);
+            handlerIl.EndExceptionBlock();
+            handlerIl.MarkLabel(labels["0x0154"]);
+            handlerIl.Emit(Ldarg_0);
+            handlerIl.Emit(Ldstr, modelProperty.Name);
+            handlerIl.Emit(Callvirt, typeof(NotifyPropertyChanged).GetMethod("OnPropertyChanged", NonPublic|Instance));
+            handlerIl.Emit(Ret);
+
+            ctorIl.Emit(Ldarg_0);
+            ctorIl.Emit(Newobj, thisType.GetConstructor(Type.EmptyTypes));
+            ctorIl.Emit(Stfld, thisField);
+            ctorIl.Emit(Ldarg_0);
+            ctorIl.Emit(Ldfld,thisField);
+            ctorIl.Emit(Ldarg_0);
+            ctorIl.Emit(Ldftn, handler);
+            ctorIl.Emit(Newobj, typeof(NotifyCollectionChangedEventHandler).GetConstructors().Single());
+            ctorIl.Emit(Callvirt, typeof(INotifyCollectionChanged).GetMethod("add_CollectionChanged"));
         }
     }
 }

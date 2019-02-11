@@ -46,6 +46,7 @@ namespace TheXDS.MCART.Types.Base
         protected virtual void OnPropertyChanging([CallerMemberName] string propertyName = null)
         {
             PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
+            NotifyRegistroir(propertyName);
         }
 
         /// <summary>

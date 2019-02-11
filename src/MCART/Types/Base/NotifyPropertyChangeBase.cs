@@ -1,5 +1,5 @@
 ﻿/*
-NotifyPropertyChanged.cs
+NotifyPropertyChangeBase.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -26,12 +26,85 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using St = TheXDS.MCART.Resources.Strings;
+using Ist = TheXDS.MCART.Resources.InternalStrings;
+using static TheXDS.MCART.Types.Extensions.DictionaryExtensions;
+using System.Collections.ObjectModel;
 
 namespace TheXDS.MCART.Types.Base
 {
+    /// <summary>
+    ///     Clase base abstracta para todas las clases que implementen alguna
+    ///     de las interfaces de notificación de propiedades disponibles en
+    ///     .Net Framework / .Net Core.
+    /// </summary>
     public abstract class NotifyPropertyChangeBase
     {
-        private Action<string> _notifyCall;
+        private readonly IDictionary<string, IEnumerable<string>> _observeRegistry
+            = new Dictionary<string, IEnumerable<string>>();
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="NotifyPropertyChangeBase"/>.
+        /// </summary>
+        protected NotifyPropertyChangeBase()
+        {
+             ObserveRegistry= new ReadOnlyDictionary<string, IEnumerable<string>>(_observeRegistry);
+        }
+        /// <summary>
+        ///     Registra un Broadcast de notificación de cambio de propiedad.
+        /// </summary>
+        /// <param name="property">
+        ///     Propiedad a registrar.
+        /// </param>
+        /// <param name="affectedProperties">
+        ///     Colección de propiedades a notificar cuando se cambie el valor
+        ///     de esta propiedad.
+        /// </param>
+        protected void RegisterPropertyChangeBroadcast(string property, params string[] affectedProperties)
+        {
+            if (_observeRegistry.ContainsKey(property))
+                throw new InvalidOperationException(Ist.ErrorXAlreadyRegistered(St.XYQuotes(St.TheProperty,property)));
+            
+            if (_observeRegistry.CheckCircularRef(property))
+                throw new InvalidOperationException(Ist.ErrorCircularOperationDetected);
+
+            _observeRegistry.Add(property, affectedProperties);
+        }
+
+        /// <summary>
+        ///     Registra un Broadcast de notificación de cambio de propiedad.
+        /// </summary>
+        /// <param name="property">
+        ///     Propiedad a registrar.
+        /// </param>
+        /// <param name="affectedProperties">
+        ///     Colección de propiedades a notificar cuando se cambie el valor
+        ///     de esta propiedad.
+        /// </param>
+        protected void RegisterPropertyChangeBroadcast(string property, IEnumerable<string> affectedProperties)
+        {
+            RegisterPropertyChangeBroadcast(property, affectedProperties.ToArray());
+        }
+
+        /// <summary>
+        ///     Quita una entrada del registro de Broadcast de notificación de
+        ///     cambio de propiedad.
+        /// </summary>
+        /// <param name="property">
+        ///     Entrada a quitar del registro de Broadcast.
+        /// </param>
+        protected void UnregisterPropertyChangeBroadcast(string property)
+        {
+            if (_observeRegistry.ContainsKey(property))
+                _observeRegistry.Remove(property);
+        }
+
+        /// <summary>
+        ///     Obtiene el registro de broadcast de notificaciones de cambio de
+        ///     propiedad.
+        /// </summary>
+        protected IReadOnlyDictionary<string, IEnumerable<string>> ObserveRegistry { get; }
 
         /// <summary>
         ///     Notifica desde un punto externo el cambio en el valor de una propiedad.
@@ -41,7 +114,7 @@ namespace TheXDS.MCART.Types.Base
         /// </param>
         public void Notify(params string[] properties)
         {
-            foreach (var j in properties) _notifyCall(j);
+            foreach (var j in properties) Notify(j);
         }
 
         /// <summary>
@@ -51,6 +124,22 @@ namespace TheXDS.MCART.Types.Base
         ///     Propiedad a notificar.
         /// </param>
         protected abstract void Notify(string property);
+
+        /// <summary>
+        ///     Ejecuta una propagación de notificación según el registro
+        ///     integrado de notificaciones suscritas.
+        /// </summary>
+        /// <param name="property"></param>
+        protected void NotifyRegistroir(string property)
+        {
+            if (_observeRegistry.ContainsKey(property))
+            {
+                foreach (var j in _observeRegistry[property])
+                {
+                    Notify(j);
+                }
+            }
+        }
 
         /// <summary>
         ///     Notifica desde un punto externo el cambio en el valor de una propiedad.

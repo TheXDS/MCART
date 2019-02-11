@@ -35,17 +35,17 @@ namespace TheXDS.MCART.ViewModel
     ///     almacenamiento sean parte de un modelo de entidad.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class ViewModel<T> : ViewModelBase where T : new()
+    public abstract class ViewModel<T> : ViewModelBase, IEntityViewModel<T> where T : new()
     {
-        private static readonly HashSet<PropertyInfo> ModelProperties = new HashSet<PropertyInfo>();
-        private static IEnumerable<PropertyInfo> WrittableProperties => ModelProperties.Where(p => p.CanWrite);
+        private static readonly HashSet<PropertyInfo> _modelProperties = new HashSet<PropertyInfo>();
+        private static IEnumerable<PropertyInfo> WrittableProperties => _modelProperties.Where(p => p.CanWrite);
 
         /// <summary>
         ///     Inicializa la clase <see cref="ViewModel{T}"/>.
         /// </summary>
         static ViewModel()
         {
-            ModelProperties = new HashSet<PropertyInfo>(
+            _modelProperties = new HashSet<PropertyInfo>(
                 typeof(T)
                 .GetProperties(Public | Instance)
                 .Where(p => p.CanRead));
@@ -54,7 +54,7 @@ namespace TheXDS.MCART.ViewModel
         /// <summary>
         ///     Instancia de la entidad controlada por este ViewModel.
         /// </summary>
-        protected T Entity { get; private set; }
+        public T Entity { get; private set; }
 
         /// <summary>
         ///     Instancia un nuevo <typeparamref name="T"/> en este ViewModel.
@@ -92,14 +92,11 @@ namespace TheXDS.MCART.ViewModel
         ///     Notifica al sistema que las propiedades de este
         ///     <see cref="ViewModel{T}"/> han cambiado.
         /// </summary>
-        public void Refresh()
+        public override void Refresh()
         {
             lock (Entity)
             {
-                foreach (var j in ModelProperties)
-                {
-                    OnPropertyChanged(j.Name);
-                }
+                Notify(_modelProperties.Select(p => p.Name));
             }
         }
     }

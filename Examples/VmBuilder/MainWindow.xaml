@@ -1,0 +1,15 @@
+﻿<Window x:Class="VmBuilder.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VmBuilder"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <StackPanel>
+        <TextBox Text="{Binding Id, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Click="Button_Click" Content="10"/>
+        <Button Click="Button_Click_1" Content="+"/>
+        <ListView ItemsSource="{Binding Elements}"/>
+    </StackPanel>
+</Window>

@@ -591,6 +591,7 @@ namespace TheXDS.MCART.Resources
         public const string TheObj = "El objeto";
         public const string ThePlugin = "El Plugin";
         public const string TheProtocol = "El protocolo";
+        public const string TheProperty = "La propiedad";
         public const string TheResource = "El recurso";
         public const string TheSrv = "El servidor";
         public const string TheTask = "La tarea";

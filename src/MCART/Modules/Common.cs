@@ -69,7 +69,7 @@ namespace TheXDS.MCART
     /// </remarks>
     [SuppressMessage("ReSharper", "PartialTypeWithSinglePart")]
     public static partial class Common
-    {
+    {        
         /// <summary>
         ///     Determina si un conjunto de cadenas están vacías.
         /// </summary>
