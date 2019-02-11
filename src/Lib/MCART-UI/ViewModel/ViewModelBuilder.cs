@@ -46,7 +46,7 @@ namespace TheXDS.MCART.ViewModel
     /// </summary>
     /// <typeparam name="T">
     ///     Tipo de modelo a utilizar como campo de almacenamiento y a partir
-    ///     del cual se diseñará un nuevo <see cref="ViewModel{T}"/>.
+    ///     del cual se diseñará un nuevo <see cref="IEntityViewModel{T}"/>.
     /// </typeparam>
     public static class ViewModelBuilder<T> where T : new()
     {
@@ -61,7 +61,7 @@ namespace TheXDS.MCART.ViewModel
         private static readonly Dictionary<Type, Type> _builtTypes = new Dictionary<Type, Type>();
         
         /// <summary>
-        ///     Construye un nuevo ViewModel sin ninguna clase que herede
+        ///     Construye un nuevo ViewModel utilizando la clase
         ///     <see cref="ViewModel{TModel}"/> como base.
         /// </summary>
         /// <returns>
@@ -76,7 +76,7 @@ namespace TheXDS.MCART.ViewModel
 
         /// <summary>
         ///     Construye un nuevo ViewModel utilizando una clase base que
-        ///     hereda de <see cref="ViewModel{T}"/> como base.
+        ///     implementa <see cref="IEntityViewModel{T}"/> como base.
         /// </summary>
         /// <typeparam name="TViewModel">
         ///     Clase de ViewModel a utilizar como tipo base.
@@ -92,27 +92,33 @@ namespace TheXDS.MCART.ViewModel
         }
 
         /// <summary>
-        ///     Construye un tipo de ViewModel sin ninguna clase que herede
+        ///     Construye un tipo de ViewModel utilizando la clase
         ///     <see cref="ViewModel{T}"/> como base.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        ///     Un nuevo tipo definido en Runtime que hereda
+        ///     <see cref="ViewModel{T}"/>.
+        /// </returns>
         public static Type Build() => Build<ViewModel<T>>();
 
         /// <summary>
         ///     Construye un tipo de ViewModel utilizando una clase base que
-        ///     hereda de <see cref="ViewModel{TModel}"/> como base.
+        ///     implementa <see cref="IEntityViewModel{TModel}"/> como base.
         /// </summary>
         /// <typeparam name="TViewModel">
         ///     Clase de ViewModel a utilizar como tipo base.
         /// </typeparam>
-        /// <returns></returns>
+        /// <returns>
+        ///     Un nuevo tipo definido en Runtime que implementa
+        ///     <typeparamref name="TViewModel"/>.
+        /// </returns>
         public static Type Build<TViewModel>() where TViewModel : IEntityViewModel<T>
         {
             if (_builtTypes.ContainsKey(typeof(TViewModel)))
                 return _builtTypes[typeof(TViewModel)];
 
             var tb = _mBuilder.DefineType(
-                $"{typeof(TViewModel).Name}_{Guid.NewGuid().ToString().Replace("-","")}",
+                $"{_namespace}.{typeof(TViewModel).Name}_{Guid.NewGuid().ToString().Replace("-","")}",
                 TypeAttributes.Public,
                 typeof(TViewModel)
             );
@@ -204,7 +210,6 @@ namespace TheXDS.MCART.ViewModel
 
         private static void ProcessCollection([NotNull]Type baseType, [NotNull]TypeBuilder tb, [NotNull]ILGenerator ctorIl, [NotNull]PropertyInfo modelProperty)
         {
-            // Variables necesarias de estado
             var entity = baseType.GetProperty("Entity", Public | Instance)?.GetMethod ?? throw new TamperException();
             var labels = new Dictionary<string, Label>();
             var listType = modelProperty.PropertyType.GenericTypeArguments?.Count() == 1 ? modelProperty.PropertyType.GenericTypeArguments.Single() : typeof(object);
@@ -212,23 +217,18 @@ namespace TheXDS.MCART.ViewModel
             var enumerator = typeof(IEnumerator<>).MakeGenericType(listType);
             var thisType = typeof(ObservableCollection<>).MakeGenericType(listType);
             var collectionType = typeof(ICollection<>).MakeGenericType(listType);
-
-            // Funciones locales útiles
             Label NewLabel(string id, ILGenerator generator)
             {
                 var l = generator.DefineLabel();
                 labels.Add(id,l);
                 return l;
             }
-
             var thisField = tb.DefineField($"_{modelProperty.Name.Substring(0, 1).ToLower()}{modelProperty.Name.Substring(1)}",thisType,FieldAttributes.Private| FieldAttributes.InitOnly);
-
             var thisProp = tb.DefineProperty(
                 modelProperty.Name,
                 PropertyAttributes.HasDefault,
                 typeof(ObservableCollection<>).MakeGenericType(listType),
                 null);
-
             var getM = tb.DefineMethod(
                 $"get_{modelProperty.Name}",
                 MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.HideBySig,
@@ -239,15 +239,15 @@ namespace TheXDS.MCART.ViewModel
             getIl.Emit(Ldfld, thisField);
             getIl.Emit(Ret);
             thisProp.SetGetMethod(getM);
-
             var handler = tb.DefineMethod(
                 $"{modelProperty.Name}_CollectionChanged",
-                MethodAttributes.Private,
+                MethodAttributes.Private|MethodAttributes.HideBySig,
                 null,
-                new[] {typeof(object), typeof(NotifyCollectionChangedEventArgs) });
-
+                new[] { typeof(object), typeof(NotifyCollectionChangedEventArgs) });
+            handler.InitLocals = true;            
             var handlerIl = handler.GetILGenerator();
-
+            handlerIl.DeclareLocal(enumerator);
+            handlerIl.DeclareLocal(listType);
             handlerIl.Emit(Ldarg_2);
             handlerIl.Emit(Callvirt, typeof(NotifyCollectionChangedEventArgs).GetMethod("get_NewItems"));
             handlerIl.Emit(Dup);
@@ -256,7 +256,7 @@ namespace TheXDS.MCART.ViewModel
             handlerIl.Emit(Ldnull);
             handlerIl.Emit(Br_S, NewLabel("0x0014", handlerIl));
             handlerIl.MarkLabel(labels["0x000f"]);
-            handlerIl.Emit(Call,typeof(Enumerable).GetMethod("OfType").MakeGenericMethod(listType));
+            handlerIl.Emit(Call, typeof(Enumerable).GetMethod("OfType").MakeGenericMethod(listType));
             handlerIl.MarkLabel(labels["0x0014"]);
             handlerIl.Emit(Dup);
             handlerIl.Emit(Brtrue_S, NewLabel("0x001e", handlerIl));
@@ -266,7 +266,6 @@ namespace TheXDS.MCART.ViewModel
             handlerIl.MarkLabel(labels["0x001e"]);
             handlerIl.Emit(Callvirt, enumerable.GetMethod("GetEnumerator"));
             handlerIl.Emit(Stloc_0);
-
             handlerIl.BeginExceptionBlock();
             handlerIl.Emit(Br_S, NewLabel("0x003f", handlerIl));
             handlerIl.MarkLabel(NewLabel("0x0026", handlerIl));
@@ -274,25 +273,21 @@ namespace TheXDS.MCART.ViewModel
             handlerIl.Emit(Callvirt, enumerator.GetMethod("get_Current"));
             handlerIl.Emit(Stloc_1);
             handlerIl.Emit(Ldarg_0);
-            handlerIl.Emit(Call,modelProperty.GetMethod);
-            handlerIl.Emit(Callvirt, entity);
+            handlerIl.Emit(Call, entity);
+            handlerIl.Emit(Callvirt, modelProperty.GetMethod);
             handlerIl.Emit(Ldloc_1);
             handlerIl.Emit(Callvirt, collectionType.GetMethod("Add"));
             handlerIl.MarkLabel(labels["0x003f"]);
             handlerIl.Emit(Ldloc_0);
             handlerIl.Emit(Callvirt, typeof(IEnumerator).GetMethod("MoveNext"));
-            handlerIl.Emit(Brtrue_S,labels["0x0026"]);
-            handlerIl.Emit(Leave_S, NewLabel("0x0054", handlerIl));
-            handlerIl.BeginFinallyBlock();            
+            handlerIl.Emit(Brtrue_S, labels["0x0026"]);
+            handlerIl.BeginFinallyBlock();
             handlerIl.Emit(Ldloc_0);
-            handlerIl.Emit(Brfalse_S,NewLabel("0x0053", handlerIl));
+            handlerIl.Emit(Brfalse_S, NewLabel("0x0053", handlerIl));
             handlerIl.Emit(Ldloc_0);
             handlerIl.Emit(Callvirt, typeof(IDisposable).GetMethod("Dispose"));
             handlerIl.MarkLabel(labels["0x0053"]);
-            handlerIl.Emit(Endfinally);
             handlerIl.EndExceptionBlock();
-            handlerIl.MarkLabel(labels["0x0054"]);
-
             handlerIl.Emit(Ldarg_2);
             handlerIl.Emit(Callvirt, typeof(NotifyCollectionChangedEventArgs).GetMethod("get_OldItems"));
             handlerIl.Emit(Dup);
@@ -311,7 +306,6 @@ namespace TheXDS.MCART.ViewModel
             handlerIl.MarkLabel(labels["0x0071"]);
             handlerIl.Emit(Callvirt, enumerable.GetMethod("GetEnumerator"));
             handlerIl.Emit(Stloc_0);
-
             handlerIl.BeginExceptionBlock();
             handlerIl.Emit(Br_S, NewLabel("0x013f", handlerIl));
             handlerIl.MarkLabel(NewLabel("0x0126", handlerIl));
@@ -319,29 +313,26 @@ namespace TheXDS.MCART.ViewModel
             handlerIl.Emit(Callvirt, enumerator.GetMethod("get_Current"));
             handlerIl.Emit(Stloc_1);
             handlerIl.Emit(Ldarg_0);
-            handlerIl.Emit(Call, modelProperty.GetMethod);
-            handlerIl.Emit(Callvirt, entity);
+            handlerIl.Emit(Call, entity);
+            handlerIl.Emit(Callvirt, modelProperty.GetMethod);
             handlerIl.Emit(Ldloc_1);
-            handlerIl.Emit(Callvirt, collectionType.GetMethod("Add"));
+            handlerIl.Emit(Callvirt, collectionType.GetMethod("Remove"));
+            handlerIl.Emit(Pop);
             handlerIl.MarkLabel(labels["0x013f"]);
             handlerIl.Emit(Ldloc_0);
             handlerIl.Emit(Callvirt, typeof(IEnumerator).GetMethod("MoveNext"));
             handlerIl.Emit(Brtrue_S, labels["0x0126"]);
-            handlerIl.Emit(Leave_S, NewLabel("0x0154", handlerIl));
             handlerIl.BeginFinallyBlock();
             handlerIl.Emit(Ldloc_0);
             handlerIl.Emit(Brfalse_S, NewLabel("0x0153", handlerIl));
             handlerIl.Emit(Ldloc_0);
             handlerIl.Emit(Callvirt, typeof(IDisposable).GetMethod("Dispose"));
             handlerIl.MarkLabel(labels["0x0153"]);
-            handlerIl.Emit(Endfinally);
             handlerIl.EndExceptionBlock();
-            handlerIl.MarkLabel(labels["0x0154"]);
             handlerIl.Emit(Ldarg_0);
             handlerIl.Emit(Ldstr, modelProperty.Name);
-            handlerIl.Emit(Callvirt, typeof(NotifyPropertyChanged).GetMethod("OnPropertyChanged", NonPublic|Instance));
+            handlerIl.Emit(Callvirt, typeof(NotifyPropertyChanged).GetMethod("OnPropertyChanged", NonPublic | Instance));
             handlerIl.Emit(Ret);
-
             ctorIl.Emit(Ldarg_0);
             ctorIl.Emit(Newobj, thisType.GetConstructor(Type.EmptyTypes));
             ctorIl.Emit(Stfld, thisField);

@@ -29,20 +29,21 @@ namespace VmBuilder
             InitializeComponent();
             var Vm = ViewModelBuilder<Test>.New<TestViewModel>();
             DataContext = Vm;
-            ((INotifyPropertyChanged)DataContext).PropertyChanged += (sender, e) =>
-            {
-                MessageBox.Show(e.PropertyName);
-            };
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ((dynamic)DataContext).Id=10;
+            ((dynamic)DataContext).Id+=10;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             ((dynamic)DataContext).Elements.Add(((dynamic)DataContext).Id.ToString());
         }
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            ((dynamic)DataContext).Elements.Remove(((dynamic)DataContext).Id.ToString());
+        }
+
     }
 
     public class Test
@@ -58,10 +59,8 @@ namespace VmBuilder
     {
         public TestViewModel()
         {
-            RegisterPropertyChangeBroadcast("Id","Name","LastName");
+            RegisterPropertyChangeBroadcast("Elements", "RealCount");
         }
+        public int RealCount => Entity.Elements.Count;
     }
-
-
-
 }

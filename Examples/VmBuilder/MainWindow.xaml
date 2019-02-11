@@ -8,8 +8,10 @@
         Title="MainWindow" Height="450" Width="800">
     <StackPanel>
         <TextBox Text="{Binding Id, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Text="{Binding RealCount, Mode=OneWay}"/>
         <Button Click="Button_Click" Content="10"/>
         <Button Click="Button_Click_1" Content="+"/>
+        <Button Click="Button_Click_2" Content="-"/>
         <ListView ItemsSource="{Binding Elements}"/>
     </StackPanel>
 </Window>
