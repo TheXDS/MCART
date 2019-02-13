@@ -16,7 +16,7 @@
         <DockPanel>
             <Button Click="Button_Click" Content="Guardar" DockPanel.Dock="Bottom"/>
             <Button Click="Button_Click_1"  Content="Nuevo" DockPanel.Dock="Bottom"/>
-            <ListView x:Name ="lst1" SelectionChanged="Lst1_SelectionChanged">
+            <ListView x:Name ="lst1" SelectedItem="{Binding Entity}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Nombre" Width="150">

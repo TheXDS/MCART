@@ -57,7 +57,10 @@ namespace VmBuilder
 
         private void Button_Click_1(object sender, RoutedEventArgs e) => Vm.Entity = new Test();
 
-        private void Lst1_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e) => Vm.Entity = lst1.SelectedItem as ITest;
+        private void Lst1_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            Vm.Entity = lst1.SelectedItem as ITest;
+        }
     }
 
     public class TestContext : DbContext
