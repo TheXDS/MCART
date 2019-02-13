@@ -1,5 +1,5 @@
 ﻿/*
-IEntityViewModel.cs
+ISetteableViewModel.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,31 +22,27 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Collections.Generic;
-using System.Linq;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using TheXDS.MCART.Annotations;
-using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Types;
 using System.ComponentModel;
+using TheXDS.MCART.Annotations;
+using TheXDS.MCART.Types;
 
 namespace TheXDS.MCART.ViewModel
 {
     /// <summary>
-    ///     Define una serie de métodos a implementar por una clase que exponga
-    ///     una entidad dentro de una clase ViewModel del patrón MVVM.
+    ///     Define una serie de miembros a implementar por una clase que
+    ///     implemente funcionalidades básicas de edición de entidades de
+    ///     ViewModel.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IEntityViewModel<T> : IRefreshable, INotifyPropertyChanged where T : new()
+    public interface ISetteableViewModel<T> : IRefreshable, INotifyPropertyChanged
     {
         /// <summary>
-        ///     Instancia un nuevo <typeparamref name="T"/> en este ViewModel.
+        ///     Edita la instancia de <typeparamref name="T"/> dentro de este
+        ///     ViewModel.
         /// </summary>
-        void New();
-        /// <summary>
-        ///     Instancia de la entidad controlada por este ViewModel.
-        /// </summary>
-        T Entity { get; }
+        /// <param name="entity">
+        ///     Entidad desde la cual extraer información.
+        /// </param>
+        void Edit([NotNull] T entity);
     }
 }

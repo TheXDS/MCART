@@ -1,5 +1,5 @@
 ﻿/*
-Color.cs
+TypeFactory.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -23,28 +23,28 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using TheXDS.MCART.Types.Extensions;
-using TheXDS.MCART.Annotations;
-using static System.Reflection.BindingFlags;
+using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
-using System.Collections.Specialized;
-using static System.Reflection.Emit.OpCodes;
-using System.Collections.ObjectModel;
 using TheXDS.MCART.Types.Base;
-using System.Collections;
-using static TheXDS.MCART.ViewModel.TypeFactory;
-using static TheXDS.MCART.Types.Extensions.StringExtensions;
+using TheXDS.MCART.Types.Extensions;
+using static System.Reflection.BindingFlags;
+using static System.Reflection.Emit.OpCodes;
+using static System.Reflection.MethodAttributes;
 using static TheXDS.MCART.Types.Extensions.EnumExtensions;
-using System.Diagnostics;
+using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
-
-namespace TheXDS.MCART.Types.Extensions
+namespace TheXDS.MCART.Types
 {
-    public static class EmitExtensions
+    public abstract class TypeFactory
     {
+        
     }
 }

@@ -1,5 +1,5 @@
 ﻿/*
-IGeneratedViewModel.cs
+GeneratedViewModel.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,45 +22,10 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
 using TheXDS.MCART.Annotations;
-using TheXDS.MCART.Types;
-using static System.Reflection.BindingFlags;
 
 namespace TheXDS.MCART.ViewModel
 {
-    /// <summary>
-    ///     Define una serie de miembros a implementar por una clase que
-    ///     contenga una propiedad de acceso de instancia dinámicamente
-    ///     generado a partir de una interfaz.
-    /// </summary>
-    /// <typeparam name="T">
-    ///     Tipo de interfaz de acceso a implementar.
-    /// </typeparam>
-    public interface IGeneratedViewModel<T> : IViewModel<T>, IRefreshable where T : class
-    {
-        /// <summary>
-        ///     Expone a los campos auto generados para este ViewModel por
-        ///     medio de la interfaz <typeparamref name="T"/>.
-        /// </summary>
-        /// <remarks>
-        ///     La implementación de este campo debe ser abstracta para
-        ///     permitir al constructor de ViewModels invalidarla.
-        /// </remarks>
-        T Self { get; }
-        /// <summary>
-        ///     Entidad subyacente que funciona como campo de almacenamiento
-        ///     para los datos de este ViewModel.
-        /// </summary>
-        /// <remarks>
-        ///     La implementación de este campo debe ser abstracta para
-        ///     permitir al constructor de ViewModels invalidarla.
-        /// </remarks>
-        new T Entity { get; set; }
-    }
     /// <summary>
     ///     Clase base para un ViewModel autogenerado.
     /// </summary>

@@ -1,5 +1,5 @@
 ﻿/*
-TypeFactory.cs
+ViewModelFactory.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -48,7 +48,7 @@ namespace TheXDS.MCART.ViewModel
     /// <summary>
     ///     Fábrica de tipos para implementaciones ViewModel dinámicas.
     /// </summary>
-    public static class TypeFactory
+    public static class ViewModelFactory
     {
         private const MethodAttributes _gsArgs = MethodAttributes.Public | SpecialName | HideBySig;
         private const string _namespace = "TheXDS.MCART.ViewModel._Generated";
@@ -498,7 +498,11 @@ namespace TheXDS.MCART.ViewModel
             if (_builtViewModels.ContainsKey(interfaceType)) return _builtViewModels[interfaceType];
 
             var modelProps = interfaceType.GetProperties(BindingFlags.Public | Instance).Where(p => p.CanRead);
-            var tb = NewType(NoIfaceName($"{interfaceType.Name}ViewModel"), baseType, new[] { typeof(IGeneratedViewModel<>).MakeGenericType(interfaceType), interfaceType });
+            var tb = NewType(NoIfaceName($"{interfaceType.Name}ViewModel"), baseType, new[]
+            {
+                typeof(IGeneratedViewModel<>).MakeGenericType(interfaceType),
+                interfaceType
+            });
             var ctor = tb.DefineConstructor(MethodAttributes.Public, CallingConventions.Standard, Type.EmptyTypes).GetILGenerator();
             var selfProp = tb.DefineProperty("Self", PropertyAttributes.None, interfaceType, null);
             var getSelf = tb.DefineMethod($"get_Self", _gsArgs | Virtual, interfaceType, null);
@@ -518,7 +522,7 @@ namespace TheXDS.MCART.ViewModel
 
             selfProp.SetGetMethod(getSelf);
             entityProp.SetGetMethod(getEntity);
-            entityProp.SetGetMethod(setEntity);
+            entityProp.SetSetMethod(setEntity);
 
             ctor.Emit(Ldarg_0);
             ctor.Emit(Call, baseType.GetConstructor(Type.EmptyTypes) ?? throw new InvalidOperationException());

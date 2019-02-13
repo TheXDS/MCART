@@ -35,7 +35,7 @@ namespace TheXDS.MCART.ViewModel
     ///     almacenamiento sean parte de un modelo de entidad.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class ViewModel<T> : ViewModelBase, IEntityViewModel<T> where T : new()
+    public abstract class ViewModel<T> : ViewModelBase, IEntityViewModel<T>, ISetteableViewModel<T> where T : new()
     {
         private static readonly HashSet<PropertyInfo> _modelProperties = new HashSet<PropertyInfo>();
         private static IEnumerable<PropertyInfo> WrittableProperties => _modelProperties.Where(p => p.CanWrite);

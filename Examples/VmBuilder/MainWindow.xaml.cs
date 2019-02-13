@@ -1,5 +1,5 @@
 ﻿/*
-TypeFactory.cs
+MainWindow.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -43,7 +43,7 @@ namespace VmBuilder
         {
             InitializeComponent();
             _db.Database.CreateIfNotExists();
-            DataContext = TypeFactory.NewViewModel<TestViewModel, ITest>();
+            DataContext = ViewModelFactory.NewViewModel<TestViewModel, ITest>();
             lst1.ItemsSource = _db.Tests.ToList();
         }
 

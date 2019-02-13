@@ -105,6 +105,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Extensions\ViewModelFactory\ViewModelFactory.csproj">
+      <Project>{f1a220ec-f4b8-4703-907b-f8bf9b26154e}</Project>
+      <Name>ViewModelFactory</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Lib\MCART-UI\MCART-UI.csproj">
       <Project>{5dc28582-5ba8-440b-aaea-fc601cf4a8d3}</Project>
       <Name>MCART-UI</Name>
