@@ -1,5 +1,5 @@
 ﻿/*
-ColorExtensions.cs
+Color.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,33 +22,29 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using D = System.Drawing.Color;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
+using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Annotations;
+using static System.Reflection.BindingFlags;
+using TheXDS.MCART.Exceptions;
+using System.Collections.Specialized;
+using static System.Reflection.Emit.OpCodes;
+using System.Collections.ObjectModel;
+using TheXDS.MCART.Types.Base;
+using System.Collections;
+using static TheXDS.MCART.ViewModel.TypeFactory;
+using static TheXDS.MCART.Types.Extensions.StringExtensions;
+using static TheXDS.MCART.Types.Extensions.EnumExtensions;
+using System.Diagnostics;
+
 
 namespace TheXDS.MCART.Types.Extensions
 {
-    /// <summary>
-    ///     Extensiones de conversión de colores de MCART en
-    ///     <see cref="D"/>.
-    /// </summary>
-    public static class ColorExtensions
+    public static class EmitExtensions
     {
-        /// <summary>
-        ///     Convierte una estructura <see cref="Color"/> en un
-        ///     <see cref="D"/>.
-        /// </summary>
-        /// <param name="c"><see cref="Color"/> a convertir.</param>
-        public static D FromMcartColor(this Color c)
-        {
-            return D.FromArgb(c.A, c.R, c.G, c.B);
-        }
-        /// <summary>
-        ///     Convierte una estructura <see cref="D"/> en un
-        ///     <see cref="Color"/>.
-        /// </summary>
-        /// <param name="c"><see cref="D"/> a convertir.</param>
-        public static Color ToMcartColor(this D c)
-        {
-            return new Color(c.R, c.G, c.B, c.A);
-        }
     }
 }

@@ -154,5 +154,30 @@ namespace TheXDS.MCART.Types.Extensions
             return typeof(T).GetEnumValues().OfType<T>()
                 .Select(j => new NamedObject<T>(j, j.NameOf()));
         }
+
+        /// <summary>
+        ///     Conveirte un valor de enumeración a su tipo base.
+        /// </summary>
+        /// <typeparam name="T">Tipo de la enumeración.</typeparam>
+        /// <param name="value">Valor de enumeración a convertir.</param>
+        /// <returns>
+        ///     Un valor primitivo igual al valor de enumeración.
+        /// </returns>
+        public static object ToUnderlyingType<T>(this T value) where T : struct, Enum
+        {
+            return Convert.ChangeType(value, Enum.GetUnderlyingType(typeof(T)));            
+        }
+
+        /// <summary>
+        ///     Conveirte un valor de enumeración a su tipo base.
+        /// </summary>
+        /// <param name="value">Valor de enumeración a convertir.</param>
+        /// <returns>
+        ///     Un valor primitivo igual al valor de enumeración.
+        /// </returns>
+        public static object ToUnderlyingType(this Enum value)
+        {
+            return Convert.ChangeType(value, Enum.GetUnderlyingType(value.GetType()));
+        }
     }
 }

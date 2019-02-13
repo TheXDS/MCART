@@ -1,5 +1,5 @@
 ﻿/*
-ColorExtensions.cs
+IRefreshable.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,33 +22,17 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using D = System.Drawing.Color;
-
-namespace TheXDS.MCART.Types.Extensions
+namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Extensiones de conversión de colores de MCART en
-    ///     <see cref="D"/>.
+    ///     Describe una serie de miembros a implementar por una clase o
+    ///     estructura que permite refrescarse.
     /// </summary>
-    public static class ColorExtensions
+    public interface IRefreshable
     {
         /// <summary>
-        ///     Convierte una estructura <see cref="Color"/> en un
-        ///     <see cref="D"/>.
+        ///     Refresca el estado de este objeto.
         /// </summary>
-        /// <param name="c"><see cref="Color"/> a convertir.</param>
-        public static D FromMcartColor(this Color c)
-        {
-            return D.FromArgb(c.A, c.R, c.G, c.B);
-        }
-        /// <summary>
-        ///     Convierte una estructura <see cref="D"/> en un
-        ///     <see cref="Color"/>.
-        /// </summary>
-        /// <param name="c"><see cref="D"/> a convertir.</param>
-        public static Color ToMcartColor(this D c)
-        {
-            return new Color(c.R, c.G, c.B, c.A);
-        }
+        void Refresh();
     }
 }

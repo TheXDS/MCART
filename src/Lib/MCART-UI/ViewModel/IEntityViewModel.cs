@@ -28,6 +28,8 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using TheXDS.MCART.Annotations;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Types;
+using System.ComponentModel;
 
 namespace TheXDS.MCART.ViewModel
 {
@@ -36,27 +38,11 @@ namespace TheXDS.MCART.ViewModel
     ///     una entidad dentro de una clase ViewModel del patrón MVVM.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IEntityViewModel<T> where T : new()
+    public interface IEntityViewModel<T> : IViewModel<T>, IRefreshable, INotifyPropertyChanged where T : new()
     {
-        /// <summary>
-        ///     Instancia de la entidad controlada por este ViewModel.
-        /// </summary>
-        T Entity { get; }
-        /// <summary>
-        ///     Edita la instancia de <typeparamref name="T"/> dentro de este
-        ///     ViewModel.
-        /// </summary>
-        /// <param name="entity"></param>
-        void Edit([NotNull] T entity);
         /// <summary>
         ///     Instancia un nuevo <typeparamref name="T"/> en este ViewModel.
         /// </summary>
         void New();
-        /// <summary>
-        ///     Notifica al sistema que las propiedades de este
-        ///     <see cref="IEntityViewModel{T}"/> han cambiado.
-        /// </summary>
-        void Refresh();
     }
-
 }
