@@ -45,6 +45,39 @@ namespace TheXDS.MCART.Types
 {
     public abstract class TypeFactory
     {
-        
+        protected class PropertyBuilderInfo
+        {
+            [Flags]
+            public enum PropertyFlags
+            {
+                None,
+                Readable,
+                Writtable,
+                ReadWrite,
+                Notifies,
+
+
+            }
+            public readonly PropertyBuilder Builder;
+            public readonly FieldBuilder BackingField;
+            public readonly ILGenerator Getter;
+            public readonly ILGenerator Setter;
+            public readonly MethodBuilder GetterBuilder;
+            public readonly MethodBuilder SetterBuilder;
+            public readonly PropertyFlags Flags;
+            private PropertyBuilderInfo(PropertyBuilder builder, FieldBuilder backingField)
+            {
+
+            }
+        }
+
+
+
+        private readonly HashSet<PropertyBuilder> _declaredProperties = new HashSet<PropertyBuilder>();
+        private readonly HashSet<FieldBuilder> _declaredFields = new HashSet<FieldBuilder>();
+
+
     }
+
+    
 }

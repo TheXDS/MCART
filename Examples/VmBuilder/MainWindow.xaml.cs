@@ -22,6 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
@@ -43,13 +44,13 @@ namespace VmBuilder
         {
             InitializeComponent();
             _db.Database.CreateIfNotExists();
-            DataContext = ViewModelFactory.NewViewModel<TestViewModel, ITest>();
+            DataContext = ViewModelFactory.BuildViewModel(typeof(TestViewModel),typeof(Test)).New();
             lst1.ItemsSource = _db.Tests.ToList();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (Vm.Self.Id == 0) _db.Tests.Add(Vm.Entity as Test);
+            if (Vm.Entity.Id == 0) _db.Tests.Add(Vm.Entity);
             _db.SaveChanges();
             lst1.ItemsSource = null;
             lst1.ItemsSource = _db.Tests.ToList();
@@ -59,64 +60,52 @@ namespace VmBuilder
 
         private void Lst1_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            Vm.Entity = lst1.SelectedItem as ITest;
+            Vm.Entity = lst1.SelectedItem as Test;
         }
     }
 
-    public class TestContext : DbContext
-    {
-        public DbSet<Test> Tests { get; set; }
-    }
-    public interface ITest
+    public class Test
     {
         [Key]
-        int Id { get; set; }
-        string Name { get; set; }
-        string LastName { get; set; }
-        string Email { get; set; }
-        ICollection<Number> Elements { get; }
-    }
-    public interface INumber
-    {
-        [Key]
-        int Id { get; set; }
-        string Phone { get; set; }
-    }
-    public class Number : INumber
-    {
-        public int Id { get; set; }
-        public string Phone { get; set; }
-    }
-    public class Test : ITest
-    {
         public int Id { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
         public virtual ICollection<Number> Elements { get; } = new Collection<Number>();
     }
+    public class Number
+    {
+        [Key]
+        public int Id { get; set; }
+        public string Phone { get; set; }
+    }
 
-    public abstract class TestViewModel : NotifyPropertyChanged, IGeneratedViewModel<ITest>
+    public abstract class TestViewModel : NotifyPropertyChanged, IDynamicViewModel<Test>
     {
         private string _newPhone;
 
         public TestViewModel()
         {
-            RegisterPropertyChangeBroadcast(nameof(ITest.Elements), nameof(RealCount));
-            RegisterPropertyChangeBroadcast(nameof(ITest.Id), nameof(IdLength));
+            RegisterPropertyChangeBroadcast(nameof(Test.Elements), nameof(RealCount));
+            RegisterPropertyChangeBroadcast(nameof(Test.Id), nameof(IdLength));
 
-            var t = false;
-            t = true;
-
-            AddId = new SimpleCommand(() =>
-            {
-                Self.Elements?.Add(new Number { Phone = NewPhone });
-                NewPhone = null;
-            });
-            RemId = new SimpleCommand(() => Self.Elements.RemoveAll(p=>p.Phone==NewPhone));
+            AddId = new SimpleCommand(OnAdd);
+            RemId = new SimpleCommand(OnRemove);
         }
-        public int RealCount => Self.Elements.Count;
-        public int IdLength => Self.Id.ToString().Length;
+        private void OnAdd()
+        {
+            Entity.Elements?.Add(new Number { Phone = NewPhone });
+            NewPhone = null;
+            Notify(nameof(Entity.Elements));
+        }
+        private void OnRemove()
+        {
+            Entity.Elements.RemoveAll(p => p.Phone == NewPhone);
+            Notify(nameof(Entity.Elements));
+        }        
+
+        public int RealCount => Entity.Elements.Count;
+        public int IdLength => Entity.Id.ToString().Length;
         public ICommand AddId { get; }
         public ICommand RemId { get; }
         public string NewPhone
@@ -124,8 +113,11 @@ namespace VmBuilder
             get => _newPhone;
             set => Change(ref _newPhone, value);
         }
-        public abstract ITest Self { get; }
-        public abstract ITest Entity { get; set; }
-        public abstract void Edit(ITest entity);
+        public abstract Test Entity { get; set; }
+        public abstract void Edit(Test entity);
+    }
+    public class TestContext : DbContext
+    {
+        public DbSet<Test> Tests { get; set; }
     }
 }

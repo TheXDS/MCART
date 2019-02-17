@@ -55,6 +55,7 @@ namespace TheXDS.MCART.ViewModel
         private static readonly ModuleBuilder _mBuilder = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName(_namespace), AssemblyBuilderAccess.Run).DefineDynamicModule(_namespace);
         private static readonly Dictionary<Type, Type> _builtViewModels = new Dictionary<Type, Type>();
         private static readonly Dictionary<Type, Type> _builtModels = new Dictionary<Type, Type>();
+        private static readonly Dictionary<Type, Type> _builtDynViewModels = new Dictionary<Type, Type>();
 
         #region Helpers
 
@@ -145,6 +146,7 @@ namespace TheXDS.MCART.ViewModel
         }
         private static TypeBuilder NewType(string name, Type baseType, params Type[] interfaces) => _mBuilder.DefineType($"{_namespace}.{name}_{Guid.NewGuid().ToString().Replace("-", "")}", TypeAttributes.Public | TypeAttributes.Class, baseType, interfaces);
         private static Type GetListType(Type listType) => listType.GenericTypeArguments?.Count() == 1 ? listType.GenericTypeArguments.Single() : typeof(object);
+        
         #endregion
 
         #region Construcción de campos
@@ -158,7 +160,6 @@ namespace TheXDS.MCART.ViewModel
                  setIl.Emit(Stfld, f);
              }, out prop, out field);
         }
-
         private static void AddNpcProp(TypeBuilder tb, PropertyInfo property, Type propType, MethodAttributes morFlags, out PropertyBuilder prop, out FieldBuilder field)
         {
             AddFieldProp(tb, property, propType, morFlags, (setIl, f) =>
@@ -171,7 +172,6 @@ namespace TheXDS.MCART.ViewModel
                 setIl.Emit(Call, tb.BaseType.GetMethod("OnPropertyChanged", NonPublic | Instance) ?? throw new TamperException());
             }, out prop, out field);
         }
-
         private static void AddFieldProp(TypeBuilder tb, PropertyInfo property, Action<ILGenerator, FieldBuilder> setMethodBuilder, out PropertyBuilder prop, out FieldBuilder field) => AddFieldProp(tb, property, property.PropertyType, ReuseSlot, setMethodBuilder, out prop, out field);
         private static void AddFieldProp(TypeBuilder tb, PropertyInfo property, Type fieldType, MethodAttributes morFlags, Action<ILGenerator, FieldBuilder> setMethodBuilder, out PropertyBuilder prop, out FieldBuilder field)
         {
@@ -229,7 +229,7 @@ namespace TheXDS.MCART.ViewModel
 
         #region Construcción de entidades
 
-        private static void AddEntityProp(TypeBuilder tb, PropertyInfo property, MethodAttributes morFlags, out PropertyBuilder prop)
+        private static void AddEntityProp(TypeBuilder tb, ILGenerator editIl, PropertyInfo property, MethodAttributes morFlags, out PropertyBuilder prop)
         {
             prop = tb.DefineProperty(property.Name, PropertyAttributes.HasDefault, property.PropertyType, null);
             var getM = tb.DefineMethod($"get_{property.Name}", _gsArgs | morFlags, property.PropertyType, null);
@@ -266,15 +266,17 @@ namespace TheXDS.MCART.ViewModel
                 setIl.MarkLabel(exitLabel);
                 setIl.Emit(Ret);
                 prop.SetSetMethod(setM);
+                editIl.Emit(Ldarg_0);
+                editIl.Emit(Ldarg_1);
+                editIl.Emit(Callvirt, property.GetMethod);
+                editIl.Emit(Call, prop.SetMethod);
             }
         }
-        private static void AddEntityCollection(TypeBuilder tb, ILGenerator ctorIl, PropertyInfo modelProperty,FieldBuilder checkField, out PropertyBuilder thisProp)
+        private static void AddEntityCollection(TypeBuilder tb, ILGenerator ctorIl, ILGenerator setEntityIl, PropertyInfo modelProperty, FieldBuilder checkField, out PropertyBuilder thisProp)
         {
             var entity = tb.BaseType.GetProperty("Entity", BindingFlags.Public | Instance)?.GetMethod;
             var labels = new Dictionary<string, Label>();
             var listType = GetListType(modelProperty.PropertyType);
-            var enumerable = typeof(IEnumerable);
-            var enumerator = typeof(IEnumerator);
             var collectionType = typeof(ICollection<>).MakeGenericType(listType);
             var thisType = typeof(ObservableCollection<>).MakeGenericType(listType);
             var thisField = tb.DefineField(UndName(modelProperty.Name), thisType, FieldAttributes.Private | FieldAttributes.InitOnly);
@@ -291,244 +293,197 @@ namespace TheXDS.MCART.ViewModel
             }
 
             // Getter
-            getIl.Emit(Ldarg_0);
-            getIl.Emit(Ldfld, thisField);
-            getIl.Emit(Ret);
-            thisProp.SetGetMethod(getM);
+            {
+                getIl.Emit(Ldarg_0);
+                getIl.Emit(Ldfld, thisField);
+                getIl.Emit(Ret);
+                thisProp.SetGetMethod(getM);
+            }
 
             // NotifyCollectionChangedHandler
-            handlerIl.DeclareLocal(enumerator);
-            handlerIl.DeclareLocal(typeof(IDisposable));
-            handlerIl.Emit(Ldarg_0);
-            handlerIl.Emit(Ldfld, checkField);
-            handlerIl.Emit(Brtrue, NewLabel("Exit"));
-            handlerIl.Emit(Ldarg_0);
-            handlerIl.Emit(Callvirt, entity);
-            handlerIl.Emit(Brfalse, labels["Exit"]);
-            handlerIl.Emit(Ldarg_2);
-            handlerIl.Emit(Callvirt, typeof(NotifyCollectionChangedEventArgs).GetMethod("get_NewItems"));
-            handlerIl.Emit(Dup);
-            handlerIl.Emit(Brtrue_S, NewLabel("GetEnumerator"));
-            handlerIl.Emit(Pop);
-            handlerIl.Emit(Ldc_I4_0);
-            handlerIl.Emit(Newarr, listType);
-            handlerIl.MarkLabel(labels["GetEnumerator"]);
-            handlerIl.Emit(Callvirt, enumerable.GetMethod("GetEnumerator"));
-            handlerIl.Emit(Stloc_0);
-            handlerIl.BeginExceptionBlock();
-            handlerIl.Emit(Br_S, NewLabel("Next"));
-            handlerIl.MarkLabel(NewLabel("Loop"));
-            handlerIl.Emit(Ldarg_0);
-            handlerIl.Emit(Callvirt, entity);
-            handlerIl.Emit(Callvirt, modelProperty.GetMethod);
-            handlerIl.Emit(Ldloc_0);
-            handlerIl.Emit(Callvirt, enumerator.GetMethod("get_Current"));
-            handlerIl.Emit(Callvirt, collectionType.GetMethod("Add"));
-            handlerIl.MarkLabel(labels["Next"]);
-            handlerIl.Emit(Ldloc_0);
-            handlerIl.Emit(Callvirt, typeof(IEnumerator).GetMethod("MoveNext"));
-            handlerIl.Emit(Brtrue_S, labels["Loop"]);
-            handlerIl.BeginFinallyBlock();
-            handlerIl.Emit(Ldloc_0);
-            handlerIl.Emit(Isinst, typeof(IDisposable));
-            handlerIl.Emit(Stloc_1);
-            handlerIl.Emit(Ldloc_1);
-            handlerIl.Emit(Brfalse_S, NewLabel("Disposed"));
-            handlerIl.Emit(Ldloc_1);
-            handlerIl.Emit(Callvirt, typeof(IDisposable).GetMethod("Dispose"));
-            handlerIl.MarkLabel(labels["Disposed"]);
-            handlerIl.EndExceptionBlock();
+            {
+                var enumerable = typeof(IEnumerable);
+                var enumerator = typeof(IEnumerator);
+                handlerIl.DeclareLocal(enumerator);
+                handlerIl.DeclareLocal(typeof(IDisposable));
+                handlerIl.Emit(Ldarg_0);
+                handlerIl.Emit(Ldfld, checkField);
+                handlerIl.Emit(Brtrue, NewLabel("Exit"));
+                handlerIl.Emit(Ldarg_0);
+                handlerIl.Emit(Callvirt, entity);
+                handlerIl.Emit(Brfalse, labels["Exit"]);
+                handlerIl.Emit(Ldarg_2);
+                handlerIl.Emit(Callvirt, typeof(NotifyCollectionChangedEventArgs).GetMethod("get_NewItems"));
+                handlerIl.Emit(Dup);
+                handlerIl.Emit(Brtrue_S, NewLabel("GetEnumerator"));
+                handlerIl.Emit(Pop);
+                handlerIl.Emit(Ldc_I4_0);
+                handlerIl.Emit(Newarr, listType);
+                handlerIl.MarkLabel(labels["GetEnumerator"]);
+                handlerIl.Emit(Callvirt, enumerable.GetMethod("GetEnumerator"));
+                handlerIl.Emit(Stloc_0);
+                handlerIl.BeginExceptionBlock();
+                handlerIl.Emit(Br_S, NewLabel("Next"));
+                handlerIl.MarkLabel(NewLabel("Loop"));
+                handlerIl.Emit(Ldarg_0);
+                handlerIl.Emit(Callvirt, entity);
+                handlerIl.Emit(Callvirt, modelProperty.GetMethod);
+                handlerIl.Emit(Ldloc_0);
+                handlerIl.Emit(Callvirt, enumerator.GetMethod("get_Current"));
+                handlerIl.Emit(Callvirt, collectionType.GetMethod("Add"));
+                handlerIl.MarkLabel(labels["Next"]);
+                handlerIl.Emit(Ldloc_0);
+                handlerIl.Emit(Callvirt, typeof(IEnumerator).GetMethod("MoveNext"));
+                handlerIl.Emit(Brtrue_S, labels["Loop"]);
+                handlerIl.BeginFinallyBlock();
+                handlerIl.Emit(Ldloc_0);
+                handlerIl.Emit(Isinst, typeof(IDisposable));
+                handlerIl.Emit(Stloc_1);
+                handlerIl.Emit(Ldloc_1);
+                handlerIl.Emit(Brfalse_S, NewLabel("Disposed"));
+                handlerIl.Emit(Ldloc_1);
+                handlerIl.Emit(Callvirt, typeof(IDisposable).GetMethod("Dispose"));
+                handlerIl.MarkLabel(labels["Disposed"]);
+                handlerIl.EndExceptionBlock();
+                handlerIl.Emit(Ldarg_2);
+                handlerIl.Emit(Callvirt, typeof(NotifyCollectionChangedEventArgs).GetMethod("get_OldItems"));
+                handlerIl.Emit(Dup);
+                handlerIl.Emit(Brtrue_S, NewLabel("GetEnumerator2"));
+                handlerIl.Emit(Pop);
+                handlerIl.Emit(Ldc_I4_0);
+                handlerIl.Emit(Newarr, listType);
+                handlerIl.MarkLabel(labels["GetEnumerator2"]);
+                handlerIl.Emit(Callvirt, enumerable.GetMethod("GetEnumerator"));
+                handlerIl.Emit(Stloc_0);
+                handlerIl.BeginExceptionBlock();
+                handlerIl.Emit(Br_S, NewLabel("Next2"));
+                handlerIl.MarkLabel(NewLabel("Loop2"));
+                handlerIl.Emit(Ldarg_0);
+                handlerIl.Emit(Callvirt, entity);
+                handlerIl.Emit(Callvirt, modelProperty.GetMethod);
+                handlerIl.Emit(Ldloc_0);
+                handlerIl.Emit(Callvirt, enumerator.GetMethod("get_Current"));
+                handlerIl.Emit(Callvirt, collectionType.GetMethod("Remove"));
+                handlerIl.Emit(Pop);
+                handlerIl.MarkLabel(labels["Next2"]);
+                handlerIl.Emit(Ldloc_0);
+                handlerIl.Emit(Callvirt, typeof(IEnumerator).GetMethod("MoveNext"));
+                handlerIl.Emit(Brtrue_S, labels["Loop2"]);
+                handlerIl.BeginFinallyBlock();
+                handlerIl.Emit(Ldloc_0);
+                handlerIl.Emit(Isinst, typeof(IDisposable));
+                handlerIl.Emit(Stloc_1);
+                handlerIl.Emit(Ldloc_1);
+                handlerIl.Emit(Brfalse_S, NewLabel("Disposed2"));
+                handlerIl.Emit(Ldloc_1);
+                handlerIl.Emit(Callvirt, typeof(IDisposable).GetMethod("Dispose"));
+                handlerIl.MarkLabel(labels["Disposed2"]);
+                handlerIl.EndExceptionBlock();
+                handlerIl.Emit(Ldarg_0);
+                handlerIl.Emit(Ldstr, modelProperty.Name);
+                handlerIl.Emit(Callvirt, typeof(NotifyPropertyChanged).GetMethod("OnPropertyChanged", NonPublic | Instance));
+                handlerIl.MarkLabel(labels["Exit"]);
+                handlerIl.Emit(Ret);
+            }
 
-            handlerIl.Emit(Ldarg_2);
-            handlerIl.Emit(Callvirt, typeof(NotifyCollectionChangedEventArgs).GetMethod("get_OldItems"));
-            handlerIl.Emit(Dup);
-            handlerIl.Emit(Brtrue_S, NewLabel("GetEnumerator2"));
-            handlerIl.Emit(Pop);
-            handlerIl.Emit(Ldc_I4_0);
-            handlerIl.Emit(Newarr, listType);
-            handlerIl.MarkLabel(labels["GetEnumerator2"]);
-            handlerIl.Emit(Callvirt, enumerable.GetMethod("GetEnumerator"));
-            handlerIl.Emit(Stloc_0);
-            handlerIl.BeginExceptionBlock();
-            handlerIl.Emit(Br_S, NewLabel("Next2"));
-            handlerIl.MarkLabel(NewLabel("Loop2"));
-            handlerIl.Emit(Ldarg_0);
-            handlerIl.Emit(Callvirt, entity);
-            handlerIl.Emit(Callvirt, modelProperty.GetMethod);
-            handlerIl.Emit(Ldloc_0);
-            handlerIl.Emit(Callvirt, enumerator.GetMethod("get_Current"));
-            handlerIl.Emit(Callvirt, collectionType.GetMethod("Remove"));
-            handlerIl.Emit(Pop);
-            handlerIl.MarkLabel(labels["Next2"]);
-            handlerIl.Emit(Ldloc_0);
-            handlerIl.Emit(Callvirt, typeof(IEnumerator).GetMethod("MoveNext"));
-            handlerIl.Emit(Brtrue_S, labels["Loop2"]);
-            handlerIl.BeginFinallyBlock();
-            handlerIl.Emit(Ldloc_0);
-            handlerIl.Emit(Isinst, typeof(IDisposable));
-            handlerIl.Emit(Stloc_1);
-            handlerIl.Emit(Ldloc_1);
-            handlerIl.Emit(Brfalse_S, NewLabel("Disposed2"));
-            handlerIl.Emit(Ldloc_1);
-            handlerIl.Emit(Callvirt, typeof(IDisposable).GetMethod("Dispose"));
-            handlerIl.MarkLabel(labels["Disposed2"]);
-            handlerIl.EndExceptionBlock();
+            // Entity setter
+            {
+                var il32 = setEntityIl.DefineLabel();
+                var il37 = setEntityIl.DefineLabel();
+                var il41 = setEntityIl.DefineLabel();
+                var il5d = setEntityIl.DefineLabel();
+                var il49 = setEntityIl.DefineLabel();
+                var il71 = setEntityIl.DefineLabel();
+                var enumerator = setEntityIl.DeclareLocal(typeof(IEnumerator));
+                var disposable = setEntityIl.DeclareLocal(typeof(IDisposable));
 
-            handlerIl.Emit(Ldarg_0);
-            handlerIl.Emit(Ldstr, modelProperty.Name);
-            handlerIl.Emit(Callvirt, typeof(NotifyPropertyChanged).GetMethod("OnPropertyChanged", NonPublic | Instance));
-            handlerIl.MarkLabel(labels["Exit"]);
-            handlerIl.Emit(Ret);
+                setEntityIl.Emit(Ldarg_0);
+                setEntityIl.Emit(Call, thisProp.GetMethod);
+                setEntityIl.Emit(Callvirt, thisProp.PropertyType.GetMethod("Clear"));
+
+                setEntityIl.Emit(Ldarg_0);
+                setEntityIl.Emit(Ldfld, entity);
+                setEntityIl.Emit(Dup);
+                setEntityIl.Emit(Brtrue_S, il32);
+                setEntityIl.Emit(Pop);
+                setEntityIl.Emit(Ldnull);
+                setEntityIl.Emit(Br_S, il37);
+                setEntityIl.MarkLabel(il32);
+                setEntityIl.Emit(Callvirt, modelProperty.GetMethod);
+                setEntityIl.MarkLabel(il37);
+                setEntityIl.Emit(Dup);
+                setEntityIl.Emit(Brtrue_S, il41);
+                setEntityIl.Emit(Pop);
+                setEntityIl.Emit(Ldc_I4_0);
+                setEntityIl.Emit(Newarr, listType);
+                setEntityIl.MarkLabel(il41);
+                setEntityIl.Emit(Callvirt, typeof(IEnumerable).GetMethod("GetEnumerator"));
+                setEntityIl.Emit(Stloc, enumerator);
+                setEntityIl.BeginExceptionBlock();
+                setEntityIl.Emit(Br_S, il5d);
+                setEntityIl.MarkLabel(il49);
+
+                setEntityIl.Emit(Ldarg_0);
+                setEntityIl.Emit(Call, thisProp.GetMethod);
+                setEntityIl.Emit(Ldloc, enumerator);
+                setEntityIl.Emit(Callvirt, typeof(IEnumerator).GetMethod("get_Current"));
+                setEntityIl.Emit(Callvirt, thisProp.PropertyType.GetMethod("Add"));
+
+                setEntityIl.MarkLabel(il5d);
+                setEntityIl.Emit(Ldloc, enumerator);
+                setEntityIl.Emit(Callvirt, typeof(IEnumerator).GetMethod("MoveNext"));
+                setEntityIl.Emit(Brtrue_S, il49);
+                setEntityIl.BeginFinallyBlock();
+                setEntityIl.Emit(Ldloc, enumerator);
+                setEntityIl.Emit(Isinst, typeof(IDisposable));
+                setEntityIl.Emit(Stloc, disposable);
+                setEntityIl.Emit(Ldloc, disposable);
+                setEntityIl.Emit(Brfalse_S, il71);
+                setEntityIl.Emit(Ldloc, disposable);
+                setEntityIl.Emit(Callvirt, typeof(IDisposable).GetMethod("Dispose"));
+                setEntityIl.MarkLabel(il71);
+                setEntityIl.EndExceptionBlock();
+            }
 
             // Inicializaciones en el constructor
-            ctorIl.Emit(Ldarg_0);
-            ctorIl.Emit(Newobj, thisType.GetConstructor(Type.EmptyTypes));
-            ctorIl.Emit(Stfld, thisField);
-            ctorIl.Emit(Ldarg_0);
-            ctorIl.Emit(Ldfld, thisField);
-            ctorIl.Emit(Ldarg_0);
-            ctorIl.Emit(Ldftn, handler);
-            ctorIl.Emit(Newobj, typeof(NotifyCollectionChangedEventHandler).GetConstructors().Single());
-            ctorIl.Emit(Callvirt, typeof(INotifyCollectionChanged).GetMethod("add_CollectionChanged"));
+            { 
+                ctorIl.Emit(Ldarg_0);
+                ctorIl.Emit(Newobj, thisType.GetConstructor(Type.EmptyTypes));
+                ctorIl.Emit(Stfld, thisField);
+                ctorIl.Emit(Ldarg_0);
+                ctorIl.Emit(Ldfld, thisField);
+                ctorIl.Emit(Ldarg_0);
+                ctorIl.Emit(Ldftn, handler);
+                ctorIl.Emit(Newobj, typeof(NotifyCollectionChangedEventHandler).GetConstructors().Single());
+                ctorIl.Emit(Callvirt, typeof(INotifyCollectionChanged).GetMethod("add_CollectionChanged"));
+            }
         }
 
         #endregion
 
         #region Constructores de ViewModels
 
-        /// <summary>
-        ///     Compila y genera un nuevo ViewModel con los tipos de herencia y
-        ///     de interfaz especificados, y devuelve una nueva instancia del
-        ///     mismo.
-        /// </summary>
-        /// <typeparam name="TViewModel">
-        ///     Tipo base del ViewModel. Este tipo podrá contener todas las
-        ///     definiciones adicionales necesarias que no son auto-generadas,
-        ///     como ser los campos calculados, comandos, y campos auxiliares.
-        ///     Si se omite, se creará un ViewModel que hereda de la clase
-        ///     <see cref="GeneratedViewModel{T}"/>.
-        /// </typeparam>
-        /// <typeparam name="TInterface">
-        ///     Interfaz que describe los campos expuestos por este ViewModel.
-        /// </typeparam>
-        /// <returns>
-        ///     Una nueva instancia del ViewModel solicitado.
-        /// </returns>
-        [Thunk]
-        public static TViewModel NewViewModel<TViewModel, TInterface>() where TViewModel : IGeneratedViewModel<TInterface> where TInterface : class => BuildViewModel(typeof(TViewModel), typeof(TInterface)).New<TViewModel>();
-
-        /// <summary>
-        ///     Compila y genera un nuevo ViewModel con el tipo de interfaz
-        ///     especificado, y devuelve una nueva instancia del mismo.
-        /// </summary>
-        /// <typeparam name="TInterface">
-        ///     Interfaz que describe los campos expuestos por este ViewModel.
-        /// </typeparam>
-        /// <returns>
-        ///     Una nueva instancia del ViewModel solicitado.
-        /// </returns>
-        [Thunk]
-        public static GeneratedViewModel<TInterface> NewViewModel<TInterface>() where TInterface : class => BuildViewModel(typeof(TInterface)).New<GeneratedViewModel<TInterface>>();
-
-        /// <summary>
-        ///     Compila y genera un nuevo tipo que puede utilizarse como un
-        ///     ViewModel.
-        /// </summary>
-        /// <typeparam name="TViewModel">
-        ///     Tipo base del ViewModel. Este tipo podrá contener todas las
-        ///     definiciones adicionales necesarias que no son auto-generadas,
-        ///     como ser los campos calculados, comandos, y campos auxiliares.
-        ///     Si se omite, se creará un ViewModel que hereda de la clase
-        ///     <see cref="GeneratedViewModel{T}"/>.
-        /// </typeparam>
-        /// <typeparam name="TInterface">
-        ///     Interfaz que describe los campos expuestos por este ViewModel.
-        /// </typeparam>
-        /// <returns></returns>
-        public static Type BuildViewModel<TViewModel, TInterface>() where TViewModel : IGeneratedViewModel<TInterface> where TInterface : class => BuildViewModel(typeof(TViewModel), typeof(TInterface));
-
-        /// <summary>
-        ///     Compila y genera un nuevo tipo que puede utilizarse como un
-        ///     ViewModel.
-        /// </summary>
-        /// <typeparam name="T">
-        ///     Interfaz que describe los campos expuestos por este ViewModel.
-        /// </typeparam>
-        /// <returns>
-        ///     Un nuevo tipo compilado en runtimeque expone propiedades para
-        ///     cada una de mas mismas definidas en la interfaz especificada.
-        /// </returns>
-        public static Type BuildViewModel<T>() where T : class => BuildModel(typeof(T));
-
-        /// <summary>
-        ///     Compila y genera un nuevo tipo que puede utilizarse como un
-        ///     ViewModel.
-        /// </summary>
-        /// <param name="interfaceType">
-        ///     Interfaz que describe los campos expuestos por este ViewModel.
-        /// </param>
-        /// <returns>
-        ///     Un nuevo tipo compilado en runtimeque expone propiedades para
-        ///     cada una de mas mismas definidas en la interfaz especificada.
-        /// </returns>
-        public static Type BuildViewModel(Type interfaceType) => BuildViewModel(typeof(GeneratedViewModel<>).MakeGenericType(interfaceType), interfaceType);
-
-        /// <summary>
-        ///     Compila y genera un nuevo tipo que puede utilizarse como un
-        ///     ViewModel.
-        /// </summary>
-        /// <param name="baseType">
-        ///     Tipo base del ViewModel. Este tipo podrá contener todas las
-        ///     definiciones adicionales necesarias que no son auto-generadas,
-        ///     como ser los campos calculados, comandos, y campos auxiliares.
-        ///     Si se omite, se creará un ViewModel que hereda de la clase
-        ///     <see cref="GeneratedViewModel{T}"/>.
-        /// </param>
-        /// <param name="interfaceType">
-        ///     Interfaz que describe los campos expuestos por este ViewModel.
-        /// </param>
-        /// <returns>
-        ///     Un nuevo tipo compilado en runtimeque expone propiedades para
-        ///     cada una de mas mismas definidas en la interfaz especificada.
-        /// </returns>
-        public static Type BuildViewModel(Type baseType, Type interfaceType)
+        private static void BuildViewModel(TypeBuilder tb, Type modelType)
         {
-            if (!interfaceType.IsInterface) throw new InvalidTypeException(interfaceType);
-            if (!typeof(IGeneratedViewModel<>).MakeGenericType(interfaceType).IsAssignableFrom(baseType)) throw new InvalidTypeException(baseType);
-            if (_builtViewModels.ContainsKey(interfaceType)) return _builtViewModels[interfaceType];
-
-            var modelProps = interfaceType.GetProperties(BindingFlags.Public | Instance).Where(p => p.CanRead);
-            var tb = NewType(NoIfaceName($"{interfaceType.Name}ViewModel"), baseType, new[]
-            {
-                typeof(IGeneratedViewModel<>).MakeGenericType(interfaceType),
-                interfaceType
-            });
+            var modelProps = modelType.GetProperties(BindingFlags.Public | Instance).Where(p => p.CanRead);
             var ctor = tb.DefineConstructor(MethodAttributes.Public, CallingConventions.Standard, Type.EmptyTypes).GetILGenerator();
-            var selfProp = tb.DefineProperty("Self", PropertyAttributes.None, interfaceType, null);
-            var getSelf = tb.DefineMethod($"get_Self", _gsArgs | Virtual, interfaceType, null);
-            var getSelfIl = getSelf.GetILGenerator();
-            var updatingObservables = tb.DefineField("updatingObservables", typeof(bool), FieldAttributes.Private | FieldAttributes.Static);
-            var entity = tb.DefineField("_entity", interfaceType, FieldAttributes.Private);
-            var entityProp = tb.DefineProperty("Entity", PropertyAttributes.HasDefault, interfaceType, null);
-            var getEntity = tb.DefineMethod($"get_Entity", _gsArgs | Virtual, interfaceType, null);
+            var updatingObservables = tb.DefineField("updatingObservables", typeof(bool), FieldAttributes.Private);
+            var entity = tb.DefineField("_entity", modelType, FieldAttributes.Private);
+            var entityProp = tb.DefineProperty("Entity", PropertyAttributes.HasDefault, modelType, null);
+            var getEntity = tb.DefineMethod($"get_Entity", _gsArgs | Virtual, modelType, null);
             var getEntityIl = getEntity.GetILGenerator();
-            var setEntity = tb.DefineMethod($"set_Entity", _gsArgs | Virtual, null, new[] { interfaceType });
+            var setEntity = tb.DefineMethod($"set_Entity", _gsArgs | Virtual, null, new[] { modelType });
             var setEntityIl = setEntity.GetILGenerator();
-
-            var editMethod = tb.DefineMethod($"Edit", (tb.BaseType.GetMethod("Edit").IsAbstract || tb.BaseType.GetMethod("Edit").IsVirtual ? Virtual : 0) | MethodAttributes.Public | HideBySig, null, new[] { interfaceType });
+            var editMethod = tb.DefineMethod($"Edit", (tb.BaseType.GetMethod("Edit").IsAbstract || tb.BaseType.GetMethod("Edit").IsVirtual ? Virtual : 0) | MethodAttributes.Public | HideBySig, null, new[] { modelType });
             var editIl = editMethod.GetILGenerator();
             var refreshMethod = tb.DefineMethod($"Refresh", Virtual | MethodAttributes.Public | HideBySig, null, null);
             var refreshIl = refreshMethod.GetILGenerator();
 
-            selfProp.SetGetMethod(getSelf);
             entityProp.SetGetMethod(getEntity);
             entityProp.SetSetMethod(setEntity);
 
             ctor.Emit(Ldarg_0);
-            ctor.Emit(Call, baseType.GetConstructor(Type.EmptyTypes) ?? throw new InvalidOperationException());
-
-            getSelfIl.Emit(Ldarg_0);
-            getSelfIl.Emit(Ret);
+            ctor.Emit(Call, tb.BaseType.GetConstructor(Type.EmptyTypes) ?? throw new InvalidOperationException());
 
             getEntityIl.Emit(Ldarg_0);
             getEntityIl.Emit(Ldfld, entity);
@@ -539,7 +494,7 @@ namespace TheXDS.MCART.ViewModel
             setEntityIl.Emit(Ldflda, entity);
             setEntityIl.Emit(Ldarg_1);
             setEntityIl.Emit(Ldstr, "Entity");
-            setEntityIl.Emit(Call, typeof(NotifyPropertyChanged).GetMethod("Change", Instance | NonPublic).MakeGenericMethod(interfaceType));
+            setEntityIl.Emit(Call, typeof(NotifyPropertyChanged).GetMethod("Change", Instance | NonPublic).MakeGenericMethod(modelType));
             var ret = setEntityIl.DefineLabel();
             setEntityIl.Emit(Brfalse, ret);
             setEntityIl.Emit(Ldarg_0);
@@ -548,79 +503,13 @@ namespace TheXDS.MCART.ViewModel
 
             foreach (var j in modelProps)
             {
-                if (typeof(ICollection<>).MakeGenericType(GetListType(j.PropertyType)).IsAssignableFrom(j.PropertyType))
-                {
-                    AddEntityCollection(tb, ctor, j,updatingObservables, out var prop);
-                    var il32 = setEntityIl.DefineLabel();
-                    var il37 = setEntityIl.DefineLabel();
-                    var il41 = setEntityIl.DefineLabel();
-                    var il5d = setEntityIl.DefineLabel();
-                    var il49 = setEntityIl.DefineLabel();
-                    var il71 = setEntityIl.DefineLabel();
-                    var enumerator = setEntityIl.DeclareLocal(typeof(IEnumerator));
-                    var disposable = setEntityIl.DeclareLocal(typeof(IDisposable));
-
-                    setEntityIl.Emit(Ldarg_0);
-                    setEntityIl.Emit(Call, prop.GetMethod);
-                    setEntityIl.Emit(Callvirt, prop.PropertyType.GetMethod("Clear"));
-
-                    setEntityIl.Emit(Ldarg_0);
-                    setEntityIl.Emit(Ldfld, entity);
-                    setEntityIl.Emit(Dup);
-                    setEntityIl.Emit(Brtrue_S, il32);
-                    setEntityIl.Emit(Pop);
-                    setEntityIl.Emit(Ldnull);
-                    setEntityIl.Emit(Br_S, il37);
-                    setEntityIl.MarkLabel(il32);
-                    setEntityIl.Emit(Callvirt, j.GetMethod);
-                    setEntityIl.MarkLabel(il37);
-                    setEntityIl.Emit(Dup);
-                    setEntityIl.Emit(Brtrue_S, il41);
-                    setEntityIl.Emit(Pop);
-                    setEntityIl.Emit(Ldc_I4_0);
-                    setEntityIl.Emit(Newarr, GetListType(j.PropertyType));
-                    setEntityIl.MarkLabel(il41);
-                    setEntityIl.Emit(Callvirt, typeof(IEnumerable).GetMethod("GetEnumerator"));
-                    setEntityIl.Emit(Stloc, enumerator);
-                    setEntityIl.BeginExceptionBlock();
-                    setEntityIl.Emit(Br_S, il5d);
-                    setEntityIl.MarkLabel(il49);
-
-                    setEntityIl.Emit(Ldarg_0);
-                    setEntityIl.Emit(Call, prop.GetMethod);
-                    setEntityIl.Emit(Ldloc, enumerator);
-                    setEntityIl.Emit(Callvirt, typeof(IEnumerator).GetMethod("get_Current"));
-                    setEntityIl.Emit(Callvirt, prop.PropertyType.GetMethod("Add"));
-
-                    setEntityIl.MarkLabel(il5d);
-                    setEntityIl.Emit(Ldloc, enumerator);
-                    setEntityIl.Emit(Callvirt, typeof(IEnumerator).GetMethod("MoveNext"));
-                    setEntityIl.Emit(Brtrue_S, il49);
-                    setEntityIl.BeginFinallyBlock();
-                    setEntityIl.Emit(Ldloc, enumerator);
-                    setEntityIl.Emit(Isinst, typeof(IDisposable));
-                    setEntityIl.Emit(Stloc, disposable);
-                    setEntityIl.Emit(Ldloc, disposable);
-                    setEntityIl.Emit(Brfalse_S, il71);
-                    setEntityIl.Emit(Ldloc, disposable);
-                    setEntityIl.Emit(Callvirt, typeof(IDisposable).GetMethod("Dispose"));
-                    setEntityIl.MarkLabel(il71);
-                    setEntityIl.EndExceptionBlock();
-                }
-                else
-                {
-                    refreshIl.Emit(Ldarg_0);
-                    refreshIl.Emit(Ldstr, j.Name);
-                    refreshIl.Emit(Callvirt, tb.BaseType.GetMethod("OnPropertyChanged", Instance | NonPublic));
-                    AddEntityProp(tb, j, Infer(j.PropertyType), out var prop);
-                    if (j.CanWrite)
-                    {
-                        editIl.Emit(Ldarg_0);
-                        editIl.Emit(Ldarg_1);
-                        editIl.Emit(Callvirt, j.GetMethod);
-                        editIl.Emit(Call, prop.SetMethod);
-                    }
-                }
+                refreshIl.Emit(Ldarg_0);
+                refreshIl.Emit(Ldstr, j.Name);
+                refreshIl.Emit(Callvirt, tb.BaseType.GetMethod("OnPropertyChanged", Instance | NonPublic));
+                if (typeof(ICollection<>).MakeGenericType(GetListType(j.PropertyType)).IsAssignableFrom(j.PropertyType))                
+                    AddEntityCollection(tb, ctor, setEntityIl, j,updatingObservables, out var prop);                
+                else                
+                    AddEntityProp(tb,editIl, j, Infer(j.PropertyType), out var prop);                
             }
 
             ctor.Emit(Ret);
@@ -641,10 +530,6 @@ namespace TheXDS.MCART.ViewModel
             }
             refreshIl.Emit(Ret);
             editIl.Emit(Ret);
-
-            var retVal = tb.CreateType();
-            _builtViewModels.Add(interfaceType, retVal);
-            return retVal;
                        
             MethodAttributes Infer(Type propType)
             {
@@ -655,6 +540,239 @@ namespace TheXDS.MCART.ViewModel
                 }
                 return rv;
             }
+        }
+
+        /// <summary>
+        ///     Compila y genera un nuevo ViewModel con los tipos de herencia y
+        ///     de interfaz especificados, y devuelve una nueva instancia del
+        ///     mismo.
+        /// </summary>
+        /// <typeparam name="TViewModel">
+        ///     Tipo base del ViewModel. Este tipo podrá contener todas las
+        ///     definiciones adicionales necesarias que no son auto-generadas,
+        ///     como ser los campos calculados, comandos, y campos auxiliares.
+        ///     Si se omite, se creará un ViewModel que hereda de la clase
+        ///     <see cref="GeneratedViewModel{T}"/>.
+        /// </typeparam>
+        /// <typeparam name="TInterface">
+        ///     Interfaz que describe los campos expuestos por este ViewModel.
+        /// </typeparam>
+        /// <returns>
+        ///     Una nueva instancia del ViewModel solicitado.
+        /// </returns>
+        [Thunk]
+        public static TViewModel NewSelfViewModel<TViewModel, TInterface>() where TViewModel : IGeneratedViewModel<TInterface> where TInterface : class => BuildSelfViewModel(typeof(TViewModel), typeof(TInterface)).New<TViewModel>();
+
+        /// <summary>
+        ///     Compila y genera un nuevo ViewModel con el tipo de interfaz
+        ///     especificado, y devuelve una nueva instancia del mismo.
+        /// </summary>
+        /// <typeparam name="TInterface">
+        ///     Interfaz que describe los campos expuestos por este ViewModel.
+        /// </typeparam>
+        /// <returns>
+        ///     Una nueva instancia del ViewModel solicitado.
+        /// </returns>
+        [Thunk]
+        public static GeneratedViewModel<TInterface> NewSelfViewModel<TInterface>() where TInterface : class => BuildSelfViewModel(typeof(TInterface)).New<GeneratedViewModel<TInterface>>();
+
+        /// <summary>
+        ///     Compila y genera un nuevo tipo que puede utilizarse como un
+        ///     ViewModel.
+        /// </summary>
+        /// <typeparam name="TViewModel">
+        ///     Tipo base del ViewModel. Este tipo podrá contener todas las
+        ///     definiciones adicionales necesarias que no son auto-generadas,
+        ///     como ser los campos calculados, comandos, y campos auxiliares.
+        ///     Si se omite, se creará un ViewModel que hereda de la clase
+        ///     <see cref="GeneratedViewModel{T}"/>.
+        /// </typeparam>
+        /// <typeparam name="TInterface">
+        ///     Interfaz que describe los campos expuestos por este ViewModel.
+        /// </typeparam>
+        /// <returns></returns>
+        public static Type BuildSelfViewModel<TViewModel, TInterface>() where TViewModel : IGeneratedViewModel<TInterface> where TInterface : class => BuildSelfViewModel(typeof(TViewModel), typeof(TInterface));
+
+        /// <summary>
+        ///     Compila y genera un nuevo tipo que puede utilizarse como un
+        ///     ViewModel.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Interfaz que describe los campos expuestos por este ViewModel.
+        /// </typeparam>
+        /// <returns>
+        ///     Un nuevo tipo compilado en runtimeque expone propiedades para
+        ///     cada una de mas mismas definidas en la interfaz especificada.
+        /// </returns>
+        public static Type BuildSelfViewModel<T>() where T : class => BuildSelfViewModel(typeof(T));
+
+        /// <summary>
+        ///     Compila y genera un nuevo tipo que puede utilizarse como un
+        ///     ViewModel.
+        /// </summary>
+        /// <param name="interfaceType">
+        ///     Interfaz que describe los campos expuestos por este ViewModel.
+        /// </param>
+        /// <returns>
+        ///     Un nuevo tipo compilado en runtimeque expone propiedades para
+        ///     cada una de mas mismas definidas en la interfaz especificada.
+        /// </returns>
+        public static Type BuildSelfViewModel(Type interfaceType) => BuildSelfViewModel(typeof(GeneratedViewModel<>).MakeGenericType(interfaceType), interfaceType);
+
+        /// <summary>
+        ///     Compila y genera un nuevo tipo que puede utilizarse como un
+        ///     ViewModel.
+        /// </summary>
+        /// <param name="baseType">
+        ///     Tipo base del ViewModel. Este tipo podrá contener todas las
+        ///     definiciones adicionales necesarias que no son auto-generadas,
+        ///     como ser los campos calculados, comandos, y campos auxiliares.
+        ///     Si se omite, se creará un ViewModel que hereda de la clase
+        ///     <see cref="GeneratedViewModel{T}"/>.
+        /// </param>
+        /// <param name="interfaceType">
+        ///     Interfaz que describe los campos expuestos por este ViewModel.
+        /// </param>
+        /// <returns>
+        ///     Un nuevo tipo compilado en runtime que expone propiedades para
+        ///     cada una de mas mismas definidas en la interfaz especificada.
+        /// </returns>
+        public static Type BuildSelfViewModel(Type baseType, Type interfaceType)
+        {
+            if (!interfaceType.IsInterface) throw new InvalidTypeException(interfaceType);
+            if (!typeof(IGeneratedViewModel<>).MakeGenericType(interfaceType).IsAssignableFrom(baseType)) throw new InvalidTypeException(baseType);
+            if (_builtViewModels.ContainsKey(interfaceType)) return _builtViewModels[interfaceType];
+            var tb = NewType(NoIfaceName($"{interfaceType.Name}ViewModel"), baseType, new[]
+            {
+                typeof(IGeneratedViewModel<>).MakeGenericType(interfaceType),
+                interfaceType
+            });
+            BuildViewModel(tb, interfaceType);
+
+            var selfProp = tb.DefineProperty("Self", PropertyAttributes.None, interfaceType, null);
+            var getSelf = tb.DefineMethod($"get_Self", _gsArgs | Virtual, interfaceType, null);
+            var getSelfIl = getSelf.GetILGenerator();
+
+            getSelfIl.Emit(Ldarg_0);
+            getSelfIl.Emit(Ret);
+            selfProp.SetGetMethod(getSelf);
+
+            var retVal = tb.CreateType();
+            _builtViewModels.Add(interfaceType, retVal);
+            return retVal;
+        }
+
+        /// <summary>
+        ///     Compila y genera un nuevo ViewModel con los tipos de herencia y
+        ///     de modelo especificados, y devuelve una nueva instancia del
+        ///     mismo.
+        /// </summary>
+        /// <typeparam name="TModel">
+        ///     Modelo de datos que será editable por medio de este ViewModel.
+        /// </typeparam>
+        /// <returns>
+        ///     Una nueva instancia del ViewModel solicitado.
+        /// </returns>
+        public static DynamicViewModel<TModel> NewViewModel<TModel>() where TModel : class, new() => NewViewModel<DynamicViewModel<TModel>,TModel>();
+
+        /// <summary>
+        ///     Compila y genera un nuevo ViewModel con los tipos de herencia y
+        ///     de modelo especificados, y devuelve una nueva instancia del
+        ///     mismo.
+        /// </summary>
+        /// <typeparam name="TViewModel">
+        ///     Tipo base del ViewModel. Este tipo podrá contener todas las
+        ///     definiciones adicionales necesarias que no son auto-generadas,
+        ///     como ser los campos calculados, comandos, y campos auxiliares.
+        ///     Si se omite, se creará un ViewModel que hereda de la clase
+        ///     <see cref="DynamicViewModel{T}"/>.
+        /// </typeparam>
+        /// <typeparam name="TModel">
+        ///     Modelo de datos que será editable por medio de este ViewModel.
+        /// </typeparam>
+        /// <returns>
+        ///     Una nueva instancia del ViewModel solicitado.
+        /// </returns>
+        public static TViewModel NewViewModel<TViewModel, TModel>() where TViewModel : IDynamicViewModel<TModel> where TModel : class, new() => BuildViewModel<TViewModel,TModel>().New<TViewModel>();
+
+        /// <summary>
+        ///     Compila y genera un nuevo tipo que puede utilizarse como un
+        ///     ViewModel.
+        /// </summary>
+        /// <typeparam name="TModel">
+        ///     Modelo de datos que será editable por medio de este ViewModel.
+        /// </typeparam>
+        /// <returns>
+        ///     Un nuevo tipo compilado en runtime que permite editar una
+        ///     entidad por medio de MVVM.
+        /// </returns>
+        public static Type BuildViewModel<TModel>() where TModel : class, new() => BuildViewModel<DynamicViewModel<TModel>, TModel>();
+
+        /// <summary>
+        ///     Compila y genera un nuevo tipo que puede utilizarse como un
+        ///     ViewModel.
+        /// </summary>
+        /// <typeparam name="TViewModel">
+        ///     Tipo base del ViewModel. Este tipo podrá contener todas las
+        ///     definiciones adicionales necesarias que no son auto-generadas,
+        ///     como ser los campos calculados, comandos, y campos auxiliares.
+        ///     Si se omite, se creará un ViewModel que hereda de la clase
+        ///     <see cref="DynamicViewModel{T}"/>.
+        /// </typeparam>
+        /// <typeparam name="TModel">
+        ///     Modelo de datos que será editable por medio de este ViewModel.
+        /// </typeparam>
+        /// <returns>
+        ///     Un nuevo tipo compilado en runtime que permite editar una
+        ///     entidad por medio de MVVM.
+        /// </returns>
+        public static Type BuildViewModel<TViewModel, TModel>() where TViewModel : IDynamicViewModel<TModel> where TModel : class,new() => BuildViewModel(typeof(TViewModel), typeof(TModel));
+  
+        /// <summary>
+        ///     Compila y genera un nuevo tipo que puede utilizarse como un
+        ///     ViewModel.
+        /// </summary>
+        /// <param name="modelType">
+        ///     Modelo de datos que será editable por medio de este ViewModel.
+        /// </param>
+        /// <returns>
+        ///     Un nuevo tipo compilado en runtime que permite editar una
+        ///     entidad por medio de MVVM.
+        /// </returns>
+        public static Type BuildViewModel(Type modelType) => BuildViewModel(typeof(DynamicViewModel<>).MakeGenericType(modelType), modelType);
+
+        /// <summary>
+        ///     Compila y genera un nuevo tipo que puede utilizarse como un
+        ///     ViewModel.
+        /// </summary>
+        /// <param name="baseType">
+        ///     Tipo base del ViewModel. Este tipo podrá contener todas las
+        ///     definiciones adicionales necesarias que no son auto-generadas,
+        ///     como ser los campos calculados, comandos, y campos auxiliares.
+        ///     Si se omite, se creará un ViewModel que hereda de la clase
+        ///     <see cref="DynamicViewModel{T}"/>.
+        /// </param>
+        /// <param name="modelType">
+        ///     Modelo de datos que será editable por medio de este ViewModel.
+        /// </param>
+        /// <returns>
+        ///     Un nuevo tipo compilado en runtime que permite editar una
+        ///     entidad por medio de MVVM.
+        /// </returns>
+        public static Type BuildViewModel(Type baseType,Type modelType)
+        {
+            if (!typeof(IDynamicViewModel<>).MakeGenericType(modelType).IsAssignableFrom(baseType)) throw new InvalidTypeException(baseType);
+            if (_builtDynViewModels.ContainsKey(modelType)) return _builtDynViewModels[modelType];
+            var modelProps = modelType.GetProperties(BindingFlags.Public | Instance).Where(p => p.CanRead);
+            var tb = NewType($"{modelType.Name}ViewModel", baseType, new[]
+            {
+                typeof(IDynamicViewModel<>).MakeGenericType(modelType)
+            });
+            BuildViewModel(tb, modelType);
+
+            var retVal = tb.CreateType();
+            _builtDynViewModels.Add(modelType, retVal);
+            return retVal;
         }
 
         #endregion

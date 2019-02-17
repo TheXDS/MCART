@@ -1,5 +1,5 @@
 ﻿/*
-IGeneratedViewModel.cs
+IDynamicViewModel.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -29,8 +29,8 @@ namespace TheXDS.MCART.ViewModel
 {
     /// <summary>
     ///     Define una serie de miembros a implementar por una clase que
-    ///     contenga una propiedad de acceso de instancia dinámicamente
-    ///     generado a partir de una interfaz.
+    ///     permita establecer u obtener un modelo de datos a la cual poder
+    ///     manipular.
     /// </summary>
     /// <typeparam name="T">
     ///     Tipo de interfaz de acceso a implementar.
@@ -41,16 +41,16 @@ namespace TheXDS.MCART.ViewModel
     ///     estos miembros, por lo que las implementaciones directas de estos
     ///     miembros en la clase base se ignorarán por medio de Shadowing.
     /// </remarks>
-    public interface IGeneratedViewModel<T> : IDynamicViewModel<T> where T : class
+    public interface IDynamicViewModel<T> : ISetteableViewModel<T>, IRefreshable, INotifyPropertyChanged
     {
         /// <summary>
-        ///     Expone a los campos auto generados para este ViewModel por
-        ///     medio de la interfaz <typeparamref name="T"/>.
+        ///     Entidad subyacente que funciona como campo de almacenamiento
+        ///     para los datos de este ViewModel.
         /// </summary>
         /// <remarks>
         ///     La implementación de este campo debe ser abstracta para
         ///     permitir al constructor de ViewModels invalidarla.
         /// </remarks>
-        T Self { get; }
+        T Entity { get; set; }
     }
 }

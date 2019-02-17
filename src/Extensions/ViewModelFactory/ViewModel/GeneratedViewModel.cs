@@ -56,4 +56,22 @@ namespace TheXDS.MCART.ViewModel
         /// </param>
         public abstract void Edit([NotNull] T entity);
     }
+    public abstract class DynamicViewModel<T> : ViewModelBase, IDynamicViewModel<T> where T : class
+    {
+        /// <summary>
+        ///     Entidad subyacente que funciona como campo de almacenamiento
+        ///     para los datos de este ViewModel.
+        /// </summary>
+        public abstract T Entity { get; set; }
+
+        /// <summary>
+        ///     Edita la instancia de <typeparamref name="T"/> expuesta por
+        ///     este ViewModel.
+        /// </summary>
+        /// <param name="entity">
+        ///     Instancia de <typeparamref name="T"/> con los valores a
+        ///     establecer.
+        /// </param>
+        public abstract void Edit([NotNull] T entity);
+    }
 }

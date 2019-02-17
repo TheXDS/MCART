@@ -43,6 +43,21 @@ using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
 namespace TheXDS.MCART.Types.Extensions
 {
+    internal static class Helpers
+    {
+        internal static string UndName(string name)
+        {
+            if (name.IsEmpty()) throw new ArgumentNullException(name);
+            return name.Length > 1
+                ? $"_{name.Substring(0, 1).ToLower()}{name.Substring(1)}"
+                : $"_{name.ToLower()}";
+        }
+        internal static string NoIfaceName(string name)
+        {
+            if (name.IsEmpty()) throw new ArgumentNullException(name);
+            return name[0] != 'I' ? $"{name}Implementation" : name.Substring(1);
+        }
+    }
     public static class ILGeneratorExtensions
     {
         /// <summary>
@@ -106,22 +121,24 @@ namespace TheXDS.MCART.Types.Extensions
                     ilGen.Emit(Ldtoken, (Type)value);
                     ilGen.Emit(Call, typeof(Type).GetMethod("GetTypeFromHandle"));
                     break;
-                default:
+                case null:
                     ilGen.Emit(Ldnull);
                     break;
+                default:
+                    throw new InvalidOperationException();
             }
         }
     }
     public static class FieldBuilderExtensions
     {
-        public static void InitField(ILGenerator ilGen, FieldBuilder field, object value)
+        public static void InitField(this FieldBuilder field, ILGenerator ilGen, object value)
         {
             ilGen.Emit(Ldarg_0);
             ILGeneratorExtensions.LoadConstant(ilGen, value);
             ilGen.Emit(Stfld, field);
         }
 
-        public static void InitField(ILGenerator ilGen, FieldBuilder field, Type instanceType, params object[] args)
+        public static void InitField(this FieldBuilder field, ILGenerator ilGen, Type instanceType, params object[] args)
         {
             if (instanceType.IsAbstract) throw new InvalidTypeException(instanceType);
             var c = instanceType.GetConstructor(args.ToTypes().ToArray()) ?? throw new TypeLoadException();
@@ -130,6 +147,68 @@ namespace TheXDS.MCART.Types.Extensions
             ilGen.Emit(Newobj, c);
             ilGen.Emit(Stfld, field);
         }
+    }
+    public static class TypeBuilderExtensions
+    {
+        public static bool Overridable(this TypeBuilder tb, string method, params Type[] args)
+        {
+            var bm = tb.BaseType?.GetMethod(method, args);
+            return !(bm is null) && (bm.IsVirtual || bm.IsAbstract);
+        }
 
+        private static void AddAutoProp(this TypeBuilder tb, string name,Type type, MemberAccess access, bool writtable, out PropertyBuilder prop, out FieldBuilder field)
+        {
+            var flags = Access(access) | SpecialName | HideBySig;
+            if (tb.Overridable($"get_{name}")) flags |= Virtual;
+
+            field = tb.DefineField(Helpers.UndName(name), type, FieldAttributes.Private | (writtable ? 0 : FieldAttributes.InitOnly));
+            prop = tb.DefineProperty(name, PropertyAttributes.HasDefault, type, null);
+            var getM = tb.DefineMethod($"get_{name}", flags , type, null);
+            var getIl = getM.GetILGenerator();
+            getIl.Emit(Ldarg_0);
+            getIl.Emit(Ldfld, field);
+            getIl.Emit(Ret);
+            prop.SetGetMethod(getM);
+
+            if (writtable)
+            {
+                var setM = tb.DefineMethod($"set_{name}",flags, null, new[] { type });
+                var setIl = setM.GetILGenerator();
+                setIl.Emit(Ldarg_0);
+                setIl.Emit(Ldarg_1);
+                setIl.Emit(Stfld, field);
+                setIl.Emit(Ret);
+                prop.SetSetMethod(setM);
+            }
+        }
+
+        public static PropertyBuilder AddAutoProp(this TypeBuilder tb, string name, Type type, MemberAccess access, bool writtable)
+        {
+            AddAutoProp(tb, name, type, access, writtable, out var prop, out _);
+            return prop;
+        }
+
+        private static MethodAttributes Access(MemberAccess access)
+        {
+            switch (access)
+            {
+                case MemberAccess.Private:
+                    return MethodAttributes.Private;
+                case MemberAccess.Protected:
+                    return MethodAttributes.Family;
+                case MemberAccess.Internal:
+                    return MethodAttributes.Assembly;
+                case MemberAccess.Public:
+                    return MethodAttributes.Public;
+            }
+            throw new NotImplementedException();
+        }
+    }
+    public enum MemberAccess
+    {
+        Private,
+        Protected,
+        Internal,
+        Public
     }
 }
