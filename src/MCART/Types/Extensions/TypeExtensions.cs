@@ -31,6 +31,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Exceptions;
 
 #region Configuración de ReSharper
 
@@ -371,20 +372,22 @@ namespace TheXDS.MCART.Types.Extensions
         [DebuggerStepThrough]
         public static T New<T>(this Type type, bool throwOnFail, params object[] parameters)
         {
-            if (!type.IsInstantiable(parameters.ToTypes()))
+            if (type is null)
             {
-                return throwOnFail ? throw new TypeLoadException() : (T) default;
+#if PreferExceptions
+                throw new ArgumentNullException(nameof(type));
+#else
+                return throwOnFail ? throw new ArgumentNullException(nameof(type)) : (T)default;
+#endif
             }
+            if (!type.IsInstantiable(parameters.ToTypes()))
+                return throwOnFail ? throw new ClassNotInstantiableException(type) : (T) default;
 
             try
             {
                 return (T) type.GetConstructor(parameters.ToTypes().ToArray())?.Invoke(parameters);
-
             }
-            catch (Exception e)
-            {
-                return throwOnFail ? throw new TypeLoadException(string.Empty, e) : (T)default;
-            }
+            catch (Exception e) { return throwOnFail ? throw new TypeLoadException(string.Empty, e) : (T)default; }
         }
     }
 }

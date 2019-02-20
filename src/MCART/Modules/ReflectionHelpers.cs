@@ -28,6 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using TheXDS.MCART.Attributes;
@@ -107,6 +108,53 @@ namespace TheXDS.MCART
             }
             s.Append($"({string.Join(", ", method.GetParameters().Select(q => q.ParameterType.FullName))})");
             return s.ToString();
+        }
+
+        /// <summary>
+        ///     Obtiene un miembro de una clase a partir de una expresión.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Clase desde la cual obtener al miembro.
+        /// </typeparam>
+        /// <param name="memberSelector">
+        ///     Expresión que indica qué miembro de la clase debe devolverse.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="MemberInfo"/> que representa al miembro
+        ///     seleccionado en la expresión.
+        /// </returns>
+        public static MemberInfo GetMember<T>(Expression<Func<T, object>> memberSelector)
+        {
+            if (memberSelector.Body is UnaryExpression UnExp && UnExp.Operand is MemberExpression)                
+                return ((MemberExpression)UnExp.Operand).Member;
+            else if (memberSelector.Body is MemberExpression)            
+                return ((MemberExpression)memberSelector.Body).Member;
+            throw new ArgumentException();
+        }
+
+        /// <summary>
+        ///     Obtiene un miembro de una clase a partir de una expresión.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Clase desde la cual obtener al miembro.
+        /// </typeparam>
+        /// <typeparam name="TProperty">
+        ///     Tipo de la propiedad obtenida.
+        /// </typeparam>
+        /// <param name="memberSelector">
+        ///     Expresión que indica qué miembro de la clase debe devolverse.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="MemberInfo"/> que representa al miembro
+        ///     seleccionado en la expresión.
+        /// </returns>
+        public static MemberInfo GetMember<T, TProperty>(Expression<Func<T, TProperty>> memberSelector)
+        {
+            if (memberSelector.Body is UnaryExpression UnExp && UnExp.Operand is MemberExpression)
+                return ((MemberExpression)UnExp.Operand).Member;
+            else if (memberSelector.Body is MemberExpression)
+                return ((MemberExpression)memberSelector.Body).Member;
+            throw new ArgumentException();
         }
     }
 

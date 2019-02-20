@@ -402,6 +402,14 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public static string XNotInit(string text) => $"{text} no se ha inicializado aún.";
         /// <summary>
+        /// Devuelve una cadena con el texto "{<paramref name="text"/>} no es instanciable.".
+        /// </summary>
+        /// <param name="text">Texto a formatear.</param>
+        /// <returns>
+        /// Una cadena con el texto "{<paramref name="text"/>} no es instanciable.".
+        /// </returns>
+        public static string XNotInstantiable(string text) => $"{text} no es instanciable";
+        /// <summary>
         /// Devuelve una cadena con el texto "No se ha seleccionado {<paramref name="text"/>}".
         /// </summary>
         /// <param name="text">Texto a formatear.</param>

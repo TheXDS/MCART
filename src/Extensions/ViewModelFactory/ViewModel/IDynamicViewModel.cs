@@ -41,7 +41,7 @@ namespace TheXDS.MCART.ViewModel
     ///     estos miembros, por lo que las implementaciones directas de estos
     ///     miembros en la clase base se ignorarán por medio de Shadowing.
     /// </remarks>
-    public interface IDynamicViewModel<T> : ISetteableViewModel<T>, IRefreshable, INotifyPropertyChanged
+    public interface IDynamicViewModel<T> : ISetteableViewModel<T>, IDynamicViewModel, IRefreshable, INotifyPropertyChanged
     {
         /// <summary>
         ///     Entidad subyacente que funciona como campo de almacenamiento
@@ -51,6 +51,18 @@ namespace TheXDS.MCART.ViewModel
         ///     La implementación de este campo debe ser abstracta para
         ///     permitir al constructor de ViewModels invalidarla.
         /// </remarks>
-        T Entity { get; set; }
+        new T Entity { get; set; }
+    }
+    public interface IDynamicViewModel : IRefreshable, INotifyPropertyChanged
+    {
+        /// <summary>
+        ///     Entidad subyacente que funciona como campo de almacenamiento
+        ///     para los datos de este ViewModel.
+        /// </summary>
+        /// <remarks>
+        ///     La implementación de este campo debe ser abstracta para
+        ///     permitir al constructor de ViewModels invalidarla.
+        /// </remarks>
+        object Entity { get; set; }
     }
 }

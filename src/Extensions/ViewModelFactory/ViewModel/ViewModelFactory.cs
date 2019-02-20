@@ -469,11 +469,18 @@ namespace TheXDS.MCART.ViewModel
             var ctor = tb.DefineConstructor(MethodAttributes.Public, CallingConventions.Standard, Type.EmptyTypes).GetILGenerator();
             var updatingObservables = tb.DefineField("updatingObservables", typeof(bool), FieldAttributes.Private);
             var entity = tb.DefineField("_entity", modelType, FieldAttributes.Private);
+
             var entityProp = tb.DefineProperty("Entity", PropertyAttributes.HasDefault, modelType, null);
+            //var entityProp2 = tb.DefineProperty("TheXDS.MCART.ViewModel.IDynamicViewModel.Entity", PropertyAttributes.HasDefault, typeof(object), null);
             var getEntity = tb.DefineMethod($"get_Entity", _gsArgs | Virtual, modelType, null);
             var getEntityIl = getEntity.GetILGenerator();
+            //var getEntity2 = tb.DefineMethod($"TheXDS.MCART.ViewModel.IDynamicViewModel.get_Entity", Private | Final | HideBySig | SpecialName | NewSlot | Virtual, typeof(object), null);
+            //var getEntity2Il = getEntity2.GetILGenerator();
             var setEntity = tb.DefineMethod($"set_Entity", _gsArgs | Virtual, null, new[] { modelType });
             var setEntityIl = setEntity.GetILGenerator();
+            //var setEntity2 = tb.DefineMethod($"TheXDS.MCART.ViewModel.IDynamicViewModel.set_Entity", Private | Final | HideBySig | SpecialName | NewSlot | Virtual, null, new[] { typeof(object) });
+            //var setEntity2Il = setEntity.GetILGenerator();
+
             var editMethod = tb.DefineMethod($"Edit", (tb.BaseType.GetMethod("Edit").IsAbstract || tb.BaseType.GetMethod("Edit").IsVirtual ? Virtual : 0) | MethodAttributes.Public | HideBySig, null, new[] { modelType });
             var editIl = editMethod.GetILGenerator();
             var refreshMethod = tb.DefineMethod($"Refresh", Virtual | MethodAttributes.Public | HideBySig, null, null);
@@ -481,13 +488,20 @@ namespace TheXDS.MCART.ViewModel
 
             entityProp.SetGetMethod(getEntity);
             entityProp.SetSetMethod(setEntity);
+            //entityProp2.SetGetMethod(getEntity2);
+            //entityProp2.SetSetMethod(setEntity2);
 
             ctor.Emit(Ldarg_0);
-            ctor.Emit(Call, tb.BaseType.GetConstructor(Type.EmptyTypes) ?? throw new InvalidOperationException());
+            ctor.Emit(Call, tb.BaseType.GetConstructor(Type.EmptyTypes) ?? tb.BaseType.GetConstructors(NonPublic | Instance).First(p=>p.GetParameters().Length==0) ?? throw new InvalidOperationException());
 
             getEntityIl.Emit(Ldarg_0);
             getEntityIl.Emit(Ldfld, entity);
             getEntityIl.Emit(Ret);
+
+            //getEntity2Il.Emit(Ldarg_0);
+            ////getEntity2Il.Emit(Callvirt, getEntity);
+            //getEntity2Il.Emit(Ldfld, entity);
+            //getEntity2Il.Emit(Ret);
 
             setEntityIl.Emit(Ldarg_0);
             setEntityIl.Emit(Ldarg_0);
@@ -500,6 +514,12 @@ namespace TheXDS.MCART.ViewModel
             setEntityIl.Emit(Ldarg_0);
             LoadConstant(setEntityIl, true);
             setEntityIl.Emit(Stfld,updatingObservables);
+
+            //setEntity2Il.Emit(Ldarg_0);
+            //setEntity2Il.Emit(Ldarg_1);
+            //setEntity2Il.Emit(Isinst, modelType);
+            //setEntity2Il.Emit(Callvirt, setEntity);
+            //setEntity2Il.Emit(Ret);
 
             foreach (var j in modelProps)
             {

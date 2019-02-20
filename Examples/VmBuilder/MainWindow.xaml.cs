@@ -84,6 +84,11 @@ namespace VmBuilder
     {
         private string _newPhone;
 
+        object IDynamicViewModel.Entity
+        {
+            get => Entity;
+            set => Entity = value as Test;
+        }
         public TestViewModel()
         {
             RegisterPropertyChangeBroadcast(nameof(Test.Elements), nameof(RealCount));

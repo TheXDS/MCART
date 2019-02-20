@@ -27,19 +27,10 @@ using TheXDS.MCART.Annotations;
 namespace TheXDS.MCART.ViewModel
 {
     /// <summary>
-    ///     Clase base para un ViewModel autogenerado.
+    ///     Clase base para un ViewModel dinámico.
     /// </summary>
-    /// <typeparam name="T">
-    ///     Tipo de interfaz de acceso.
-    /// </typeparam>
-    public abstract class GeneratedViewModel<T> : ViewModelBase, IGeneratedViewModel<T> where T : class
+    public abstract class DynamicViewModel<T> : ViewModelBase, IDynamicViewModel<T> where T : class
     {
-        /// <summary>
-        ///     Expone a los campos auto generados para este ViewModel por
-        ///     medio de la interfaz <typeparamref name="T"/>.
-        /// </summary>
-        public abstract T Self { get; }
-
         /// <summary>
         ///     Entidad subyacente que funciona como campo de almacenamiento
         ///     para los datos de este ViewModel.
@@ -64,6 +55,5 @@ namespace TheXDS.MCART.ViewModel
             get => Entity;
             set => Entity = value as T;
         }
-
     }
 }
