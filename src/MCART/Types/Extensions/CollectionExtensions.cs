@@ -50,7 +50,7 @@ namespace TheXDS.MCART.Types.Extensions
                 collection.Remove(j);
             }
         }
-
+       
         /// <summary>
         ///     Elimina todos los elementos de una colección.
         /// </summary>
@@ -59,7 +59,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="beforeDelete">Acción a ejecutar antes de borrar a un elemento en particular.</param>
         public static void RemoveAll<T>(this ICollection<T> collection, in Action<T> beforeDelete) =>
             RemoveAll(collection, null, beforeDelete);
-
+        
         /// <summary>
         ///     Elimina todos los elementos de una colección que cumplen con una condición.
         /// </summary>
@@ -82,7 +82,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>El último elemento en la lista.</returns>
         /// <param name="a">Lista de la cual obtener el elemento.</param>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+        ///     Tipo de elementos contenidos en el <see cref="ICollection{T}" />.
         /// </typeparam>
         public static T Pop<T>(this ICollection<T> a)
         {
@@ -97,13 +97,31 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>El primer elemento en la lista.</returns>
         /// <param name="a">Lista de la cual obtener el elemento.</param>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+        ///     Tipo de elementos contenidos en el <see cref="ICollection{T}" />.
         /// </typeparam>
         public static T PopFirst<T>(this ICollection<T> a)
         {
             var x = a.First();
             a.Remove(x);
             return x;
+        }
+
+        /// <summary>
+        ///     Alternativa a <see cref="ICollection{T}.Add(T)"/> con soporte
+        ///     para sintáxis fluent.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de elementos contenidos en el <see cref="ICollection{T}" />.
+        /// </typeparam>
+        /// <param name="collection">
+        ///     Colección a la cual agregar el nuevo elemento.
+        /// </param>
+        /// <param name="value">Valor a agregar a la colección.</param>
+        /// <returns>El objeto agregado a la colección.</returns>
+        public static T Push<T>(this ICollection<T> collection, T value)
+        {
+            collection.Add(value);
+            return value;
         }
     }
 }

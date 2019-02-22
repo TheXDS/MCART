@@ -32,6 +32,7 @@ using System.Diagnostics;
 using System.Linq;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Resources;
 
 #region Configuración de ReSharper
 
@@ -301,7 +302,7 @@ namespace TheXDS.MCART.Types.Extensions
         [Thunk]
         public static T New<T>(this Type type)
         {
-            return type.New<T>(new object[] { });
+            return type.New<T>(new object[0]);
         }
 
         /// <summary>
@@ -370,7 +371,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     solicitado.
         /// </exception>
         [DebuggerStepThrough]
-        public static T New<T>(this Type type, bool throwOnFail, params object[] parameters)
+        public static T New<T>(this Type type, bool throwOnFail, IEnumerable<object> parameters)
         {
             if (type is null)
             {
@@ -385,9 +386,9 @@ namespace TheXDS.MCART.Types.Extensions
 
             try
             {
-                return (T) type.GetConstructor(parameters.ToTypes().ToArray())?.Invoke(parameters);
+                return (T) type.GetConstructor(parameters.ToTypes().ToArray())?.Invoke(parameters.ToArray());
             }
-            catch (Exception e) { return throwOnFail ? throw new TypeLoadException(string.Empty, e) : (T)default; }
+            catch (Exception e) { return throwOnFail ? throw new TypeLoadException(InternalStrings.ErrorXClassNotInstantiableWithArgs(type.Name), e) : (T)default; }
         }
     }
 }

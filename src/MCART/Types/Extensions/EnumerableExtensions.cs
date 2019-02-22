@@ -41,6 +41,20 @@ namespace TheXDS.MCART.Types.Extensions
     public static class EnumerableExtensions
     {
         /// <summary>
+        ///     Enumera una colección no genérica como una genérica.
+        /// </summary>
+        /// <param name="collection">
+        ///     Colección a enumerar.
+        /// </param>
+        /// <returns>
+        ///     Una enumeración con el contenido de la enumeración no genérica
+        ///     expuesta como una genérica.
+        /// </returns>
+        public static IEnumerable<object> ToGeneric(this IEnumerable collection)
+        {
+            foreach (var j in collection) yield return j;
+        }
+        /// <summary>
         ///     Obtiene al primer elemento del tipo solicitado dentro de una
         ///     colección.
         /// </summary>

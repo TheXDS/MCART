@@ -25,12 +25,14 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.Attributes;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
+using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
 
 #region Configuración de ReSharper
 
@@ -50,6 +52,74 @@ namespace TheXDS.MCART
     public static class Objects
     {
         /// <summary>
+        ///     Instancia todos los objetos del tipo especificado,
+        ///     devolviéndolos en una enumeración.
+        /// </summary>
+        /// <typeparam name="T">Tipo de objetos a buscar.</typeparam>
+        /// <returns>
+        ///     Una enumeración de todas las instancias de objeto de tipo
+        ///     <typeparamref name="T"/> encontradas.
+        /// </returns>
+        public static IEnumerable<T> FindAllObjects<T>() where T : class
+        {
+            return FindAllObjects<T>(new object[0]);
+        }
+
+        /// <summary>
+        ///     Instancia todos los objetos del tipo especificado,
+        ///     devolviéndolos en una enumeración.
+        /// </summary>
+        /// <typeparam name="T">Tipo de objetos a buscar.</typeparam>
+        /// <param name="ctorArgs">
+        ///     Argumentos a pasar al constructor de instancia de la clase.
+        /// </param>
+        /// <returns>
+        ///     Una enumeración de todas las instancias de objeto de tipo
+        ///     <typeparamref name="T"/> encontradas.
+        /// </returns>
+        public static IEnumerable<T> FindAllObjects<T>(IEnumerable ctorArgs) where T : class
+        {
+            return GetTypes<T>(true).Select(p => p?.New<T>(ctorArgs.ToGeneric().ToArray()));
+        }
+
+        /// <summary>
+        ///     Instancia todos los objetos del tipo especificado,
+        ///     devolviéndolos en una enumeración.
+        /// </summary>
+        /// <typeparam name="T">Tipo de objetos a buscar.</typeparam>
+        /// <param name="typeFilter">
+        ///     Función de filtro a aplicar a los tipos coincidientes.
+        /// </param>
+        /// <returns>
+        ///     Una enumeración de todas las instancias de objeto de tipo
+        ///     <typeparamref name="T"/> encontradas.
+        /// </returns>
+        public static IEnumerable<T> FindAllObjects<T>(Func<Type, bool> typeFilter) where T : class
+        {
+            return FindAllObjects<T>(new object[0], typeFilter);
+        }
+
+        /// <summary>
+        ///     Instancia todos los objetos del tipo especificado,
+        ///     devolviéndolos en una enumeración.
+        /// </summary>
+        /// <typeparam name="T">Tipo de objetos a buscar.</typeparam>
+        /// <param name="ctorArgs">
+        ///     Argumentos a pasar al constructor de instancia de la clase.
+        /// </param>
+        /// <param name="typeFilter">
+        ///     Función de filtro a aplicar a los tipos coincidientes.
+        /// </param>
+        /// <returns>
+        ///     Una enumeración de todas las instancias de objeto de tipo
+        ///     <typeparamref name="T"/> encontradas.
+        /// </returns>
+        public static IEnumerable<T> FindAllObjects<T>(IEnumerable ctorArgs, Func<Type, bool> typeFilter) where T : class
+        {
+            return GetTypes<T>(true).Where(typeFilter).Select(p => p?.New<T>(ctorArgs.ToGeneric().ToArray()));
+        }
+
+        /// <summary>
         ///     Obtiene un único objeto que coincida con el tipo base
         ///     especificado.
         /// </summary>
@@ -61,8 +131,27 @@ namespace TheXDS.MCART
         /// </returns>
         public static T FindSingleObject<T>() where T : class
         {
-            return GetTypes<T>(true).SingleOrDefault()?.New<T>();
+            return FindSingleObject<T>(new object[0]);
         }
+
+        /// <summary>
+        ///     Obtiene un único objeto que coincida con el tipo base
+        ///     especificado.
+        /// </summary>
+        /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
+        /// <param name="ctorArgs">
+        ///     Argumentos a pasar al constructor de instancia de la clase.
+        /// </param>
+        /// <returns>
+        ///     Una nueva instancia del objeto solicitado, o
+        ///     <see langword="null"/> si no se encuentra ningún tipo
+        ///     coincidente.
+        /// </returns>
+        public static T FindSingleObject<T>(IEnumerable ctorArgs) where T : class
+        {
+            return GetTypes<T>(true).SingleOrDefault()?.New<T>(ctorArgs.ToGeneric().ToArray());
+        }
+
         /// <summary>
         ///     Obtiene un único objeto que coincida con el tipo base
         ///     especificado.
@@ -78,8 +167,30 @@ namespace TheXDS.MCART
         /// </returns>
         public static T FindSingleObject<T>(Func<Type,bool> typeFilter) where T : class
         {
-            return GetTypes<T>(true).SingleOrDefault(typeFilter)?.New<T>();
+            return FindSingleObject<T>(new object[0], typeFilter);
         }
+
+        /// <summary>
+        ///     Obtiene un único objeto que coincida con el tipo base
+        ///     especificado.
+        /// </summary>
+        /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
+        /// <param name="ctorArgs">
+        ///     Argumentos a pasar al constructor de instancia de la clase.
+        /// </param>
+        /// <param name="typeFilter">
+        ///     Función de filtro a aplicar a los tipos coincidientes.
+        /// </param>
+        /// <returns>
+        ///     Una nueva instancia del objeto solicitado, o
+        ///     <see langword="null"/> si no se encuentra ningún tipo
+        ///     coincidente.
+        /// </returns>
+        public static T FindSingleObject<T>(IEnumerable ctorArgs, Func<Type, bool> typeFilter) where T : class
+        {
+            return GetTypes<T>(true).SingleOrDefault(typeFilter)?.New<T>(ctorArgs.ToGeneric().ToArray());
+        }
+
         /// <summary>
         ///     Obtiene al primer objeto que coincida con el tipo base
         ///     especificado.
@@ -92,8 +203,27 @@ namespace TheXDS.MCART
         /// </returns>
         public static T FindFirstObject<T>() where T : class
         {
-            return GetTypes<T>(true).FirstOrDefault()?.New<T>();
+            return FindFirstObject<T>(new object[0]);
         }
+
+        /// <summary>
+        ///     Obtiene al primer objeto que coincida con el tipo base
+        ///     especificado.
+        /// </summary>
+        /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
+        /// <param name="ctorArgs">
+        ///     Argumentos a pasar al constructor de instancia de la clase.
+        /// </param>
+        /// <returns>
+        ///     Una nueva instancia del objeto solicitado, o
+        ///     <see langword="null"/> si no se encuentra ningún tipo
+        ///     coincidente.
+        /// </returns>
+        public static T FindFirstObject<T>(IEnumerable ctorArgs) where T : class
+        {
+            return GetTypes<T>(true).FirstOrDefault()?.New<T>(ctorArgs.ToGeneric().ToArray());
+        }
+
         /// <summary>
         ///     Obtiene al primer objeto que coincida con el tipo base
         ///     especificado.
@@ -109,7 +239,28 @@ namespace TheXDS.MCART
         /// </returns>
         public static T FindFirstObject<T>(Func<Type, bool> typeFilter) where T : class
         {
-            return GetTypes<T>(true).FirstOrDefault(typeFilter)?.New<T>();
+            return FindFirstObject<T>(new object[0],typeFilter);
+        }
+
+        /// <summary>
+        ///     Obtiene al primer objeto que coincida con el tipo base
+        ///     especificado.
+        /// </summary>
+        /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
+        /// <param name="ctorArgs">
+        ///     Argumentos a pasar al constructor de instancia de la clase.
+        /// </param>
+        /// <param name="typeFilter">
+        ///     Función de filtro a aplicar a los tipos coincidientes.
+        /// </param>
+        /// <returns>
+        ///     Una nueva instancia del objeto solicitado, o
+        ///     <see langword="null"/> si no se encuentra ningún tipo
+        ///     coincidente.
+        /// </returns>
+        public static T FindFirstObject<T>(IEnumerable ctorArgs, Func<Type, bool> typeFilter) where T : class
+        {
+            return GetTypes<T>(true).FirstOrDefault(typeFilter)?.New<T>(ctorArgs.ToGeneric().ToArray());
         }
 
         /// <summary>
@@ -1551,9 +1702,9 @@ namespace TheXDS.MCART
         /// <returns>
         ///     Una lista compuesta por los tipos de los objetos provistos.
         /// </returns>
-        public static IEnumerable<Type> ToTypes(this IEnumerable<object> objects)
+        public static IEnumerable<Type> ToTypes(this System.Collections.IEnumerable objects)
         {
-            return objects.Select(j => j.GetType());
+            foreach (var j in objects) yield return j.GetType();
         }
 
         /// <summary>

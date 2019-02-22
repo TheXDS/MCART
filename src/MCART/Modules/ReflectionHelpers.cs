@@ -25,13 +25,11 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
-using TheXDS.MCART.Attributes;
 
 namespace TheXDS.MCART
 {
@@ -155,46 +153,6 @@ namespace TheXDS.MCART
             else if (memberSelector.Body is MemberExpression)
                 return ((MemberExpression)memberSelector.Body).Member;
             throw new ArgumentException();
-        }
-    }
-
-    /// <summary>
-    ///     Funciones auxiliares para trabajar con colecciones y enumeraciones.
-    /// </summary>
-    public static class CollectionHelpers
-    {
-        /// <summary>
-        ///     Aplica un operador OR a una colección de valores
-        ///     <see cref="bool"/>.
-        /// </summary>
-        /// <param name="collection"></param>
-        /// <returns></returns>
-        [Thunk]
-        public static bool Or(this IEnumerable<bool> collection)
-        {
-            return collection.Aggregate(false, (current, j) => current | j);
-        }
-        /// <summary>
-        ///     Aplica un operador OR a una colección de valores
-        ///     <see cref="bool"/>.
-        /// </summary>
-        /// <param name="collection"></param>
-        /// <returns></returns>
-        [Thunk]
-        public static bool And(this IEnumerable<bool> collection)
-        {
-            return collection.Aggregate(false, (current, j) => current & j);
-        }
-        /// <summary>
-        ///     Aplica un operador OR a una colección de valores
-        ///     <see cref="bool"/>.
-        /// </summary>
-        /// <param name="collection"></param>
-        /// <returns></returns>
-        [Thunk]
-        public static bool Xor(this IEnumerable<bool> collection)
-        {
-            return collection.Aggregate(false, (current, j) => current ^ j);
         }
     }
 }
