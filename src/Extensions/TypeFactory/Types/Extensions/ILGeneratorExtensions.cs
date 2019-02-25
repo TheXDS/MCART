@@ -24,40 +24,17 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
 using System.Reflection.Emit;
-using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Types.Base;
-using TheXDS.MCART.Types.Extensions;
-using static System.Reflection.BindingFlags;
 using static System.Reflection.Emit.OpCodes;
-using static System.Reflection.MethodAttributes;
-using static TheXDS.MCART.Types.Extensions.EnumExtensions;
-using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
 namespace TheXDS.MCART.Types.Extensions
 {
-    internal static class Helpers
-    {
-        internal static string UndName(string name)
-        {
-            if (name.IsEmpty()) throw new ArgumentNullException(name);
-            return name.Length > 1
-                ? $"_{name.Substring(0, 1).ToLower()}{name.Substring(1)}"
-                : $"_{name.ToLower()}";
-        }
-        internal static string NoIfaceName(string name)
-        {
-            if (name.IsEmpty()) throw new ArgumentNullException(name);
-            return name[0] != 'I' ? $"{name}Implementation" : name.Substring(1);
-        }
-    }
+    /// <summary>
+    ///     Contiene extensiones útiles para la generación de código por medio
+    ///     de la clase <see cref="ILGenerator"/>.
+    /// </summary>
     public static class ILGeneratorExtensions
     {
         /// <summary>
@@ -71,6 +48,13 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="value">
         ///     Valor constante a cargar.
         /// </param>
+        /// <exception cref="T:System.NotImplementedException">
+        ///     Se produce al intentar cargar un valor constante desconocido.
+        /// </exception>
+        /// <exception cref="T:System.InvalidOperationException">
+        ///     Se produce al intentar cargar un valor que no es constante, como
+        ///     una instancia de objeto.
+        /// </exception>
         public static void LoadConstant(this ILGenerator ilGen, object value)
         {
             switch (value)
@@ -103,8 +87,8 @@ namespace TheXDS.MCART.Types.Extensions
                     ilGen.Emit(Ldc_R8, (double)value);
                     break;
                 case decimal _:
-                    foreach (var j in decimal.GetBits((decimal)value))                    
-                        ilGen.Emit(Ldc_I4, j);                    
+                    foreach (var j in decimal.GetBits((decimal)value))
+                        ilGen.Emit(Ldc_I4, j);
                     ilGen.Emit(Newobj, typeof(decimal).GetConstructor(new Type[]
                     {
                         typeof(int),
@@ -124,91 +108,47 @@ namespace TheXDS.MCART.Types.Extensions
                 case null:
                     ilGen.Emit(Ldnull);
                     break;
+                case Delegate _:
+#pragma warning disable RECS0083 // Intencionalmente, producir una NotImplementedException.
+                    throw new NotImplementedException();
+#pragma warning restore RECS0083
                 default:
                     throw new InvalidOperationException();
             }
         }
-    }
-    public static class FieldBuilderExtensions
-    {
-        public static void InitField(this FieldBuilder field, ILGenerator ilGen, object value)
+        public static void NewObject<T>(this ILGenerator ilGen) => NewObject(ilGen, typeof(T));
+        public static void NewObject<T>(this ILGenerator ilGen, IEnumerable args) => NewObject(ilGen, typeof(T), args);
+        public static void NewObject(this ILGenerator ilGen, Type type)
         {
-            ilGen.Emit(Ldarg_0);
-            ILGeneratorExtensions.LoadConstant(ilGen, value);
-            ilGen.Emit(Stfld, field);
+            NewObject(ilGen, type, new object[0]);
         }
-
-        public static void InitField(this FieldBuilder field, ILGenerator ilGen, Type instanceType, params object[] args)
+        /// <summary>
+        ///     Crea un nuevo objeto del tipo especificado.
+        /// </summary>
+        /// <param name="ilGen">
+        ///     Generador de código en el cual se instanciará el nuevo objeto.
+        /// </param>
+        /// <param name="type">Tipo a instanciar.</param>
+        /// <param name="args">Argumentos del constructor a utilizar.</param>
+        /// <exception cref="T:TheXDS.MCART.Exceptions.ClassNotInstantiableException">
+        ///     Se produce si la clase no es instanciable, o si no existe un 
+        ///     constructor que acepte los argumentos especificados.
+        ///     También puede producirse si uno de los parámetros es un objeto,
+        ///     y no contiene un constructor predeterminado sin argumentos, en
+        ///     cuyo caso, la excepción indicará el tipo que no puede
+        ///     instanciarse.
+        /// </exception>
+        public static void NewObject(this ILGenerator ilGen, Type type, IEnumerable args)
         {
-            if (instanceType.IsAbstract) throw new InvalidTypeException(instanceType);
-            var c = instanceType.GetConstructor(args.ToTypes().ToArray()) ?? throw new TypeLoadException();
-            ilGen.Emit(Ldarg_0);
-            foreach (var j in args) ILGeneratorExtensions.LoadConstant(ilGen, j);
-            ilGen.Emit(Newobj, c);
-            ilGen.Emit(Stfld, field);
-        }
-    }
-    public static class TypeBuilderExtensions
-    {
-        public static bool Overridable(this TypeBuilder tb, string method, params Type[] args)
-        {
-            var bm = tb.BaseType?.GetMethod(method, args);
-            return !(bm is null) && (bm.IsVirtual || bm.IsAbstract);
-        }
-
-        private static void AddAutoProp(this TypeBuilder tb, string name,Type type, MemberAccess access, bool writtable, out PropertyBuilder prop, out FieldBuilder field)
-        {
-            var flags = Access(access) | SpecialName | HideBySig;
-            if (tb.Overridable($"get_{name}")) flags |= Virtual;
-
-            field = tb.DefineField(Helpers.UndName(name), type, FieldAttributes.Private | (writtable ? 0 : FieldAttributes.InitOnly));
-            prop = tb.DefineProperty(name, PropertyAttributes.HasDefault, type, null);
-            var getM = tb.DefineMethod($"get_{name}", flags , type, null);
-            var getIl = getM.GetILGenerator();
-            getIl.Emit(Ldarg_0);
-            getIl.Emit(Ldfld, field);
-            getIl.Emit(Ret);
-            prop.SetGetMethod(getM);
-
-            if (writtable)
+            if (type.GetConstructor(args.ToTypes().ToArray()) is null)
+                throw new ClassNotInstantiableException(type);
+            foreach (var j in args)
             {
-                var setM = tb.DefineMethod($"set_{name}",flags, null, new[] { type });
-                var setIl = setM.GetILGenerator();
-                setIl.Emit(Ldarg_0);
-                setIl.Emit(Ldarg_1);
-                setIl.Emit(Stfld, field);
-                setIl.Emit(Ret);
-                prop.SetSetMethod(setM);
+                if (j.GetType().IsClass)
+                    NewObject(ilGen, j.GetType());
+                else
+                    LoadConstant(ilGen, j);
             }
         }
-
-        public static PropertyBuilder AddAutoProp(this TypeBuilder tb, string name, Type type, MemberAccess access, bool writtable)
-        {
-            AddAutoProp(tb, name, type, access, writtable, out var prop, out _);
-            return prop;
-        }
-
-        private static MethodAttributes Access(MemberAccess access)
-        {
-            switch (access)
-            {
-                case MemberAccess.Private:
-                    return MethodAttributes.Private;
-                case MemberAccess.Protected:
-                    return MethodAttributes.Family;
-                case MemberAccess.Internal:
-                    return MethodAttributes.Assembly;
-                case MemberAccess.Public:
-                    return MethodAttributes.Public;
-            }
-            throw new NotImplementedException();
-        }
-    }
-    public enum MemberAccess
-    {
-        Private,
-        Protected,
-        Internal,
-        Public
     }
 }
