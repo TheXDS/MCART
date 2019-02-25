@@ -79,7 +79,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static IEnumerable<T> FindAllObjects<T>(IEnumerable ctorArgs) where T : class
         {
-            return GetTypes<T>(true).Select(p => p?.New<T>(ctorArgs.ToGeneric().ToArray()));
+            return GetTypes<T>(true).Select(p => p?.New<T>(false, ctorArgs));
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static IEnumerable<T> FindAllObjects<T>(IEnumerable ctorArgs, Func<Type, bool> typeFilter) where T : class
         {
-            return GetTypes<T>(true).Where(typeFilter).Select(p => p?.New<T>(ctorArgs.ToGeneric().ToArray()));
+            return GetTypes<T>(true).Where(typeFilter).Select(p => p?.New<T>(false, ctorArgs));
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static T FindSingleObject<T>(IEnumerable ctorArgs) where T : class
         {
-            return GetTypes<T>(true).SingleOrDefault()?.New<T>(ctorArgs.ToGeneric().ToArray());
+            return GetTypes<T>(true).SingleOrDefault()?.New<T>(false, ctorArgs);
         }
 
         /// <summary>
@@ -188,7 +188,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static T FindSingleObject<T>(IEnumerable ctorArgs, Func<Type, bool> typeFilter) where T : class
         {
-            return GetTypes<T>(true).SingleOrDefault(typeFilter)?.New<T>(ctorArgs.ToGeneric().ToArray());
+            return GetTypes<T>(true).SingleOrDefault(typeFilter)?.New<T>(false, ctorArgs);
         }
 
         /// <summary>
@@ -221,7 +221,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static T FindFirstObject<T>(IEnumerable ctorArgs) where T : class
         {
-            return GetTypes<T>(true).FirstOrDefault()?.New<T>(ctorArgs.ToGeneric().ToArray());
+            return GetTypes<T>(true).FirstOrDefault()?.New<T>(false, ctorArgs);
         }
 
         /// <summary>
@@ -260,7 +260,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static T FindFirstObject<T>(IEnumerable ctorArgs, Func<Type, bool> typeFilter) where T : class
         {
-            return GetTypes<T>(true).FirstOrDefault(typeFilter)?.New<T>(ctorArgs.ToGeneric().ToArray());
+            return GetTypes<T>(true).FirstOrDefault(typeFilter)?.New<T>(false, ctorArgs);
         }
 
         /// <summary>

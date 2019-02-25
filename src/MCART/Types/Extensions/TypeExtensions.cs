@@ -27,6 +27,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -371,7 +372,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     solicitado.
         /// </exception>
         [DebuggerStepThrough]
-        public static T New<T>(this Type type, bool throwOnFail, IEnumerable<object> parameters)
+        public static T New<T>(this Type type, bool throwOnFail, IEnumerable parameters)
         {
             if (type is null)
             {
@@ -386,7 +387,7 @@ namespace TheXDS.MCART.Types.Extensions
 
             try
             {
-                return (T) type.GetConstructor(parameters.ToTypes().ToArray())?.Invoke(parameters.ToArray());
+                return (T) type.GetConstructor(parameters.ToTypes().ToArray())?.Invoke(parameters.ToGeneric().ToArray());
             }
             catch (Exception e) { return throwOnFail ? throw new TypeLoadException(InternalStrings.ErrorXClassNotInstantiableWithArgs(type.Name), e) : (T)default; }
         }
