@@ -23,7 +23,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace TheXDS.MCART.Types
 {
@@ -35,7 +34,7 @@ namespace TheXDS.MCART.Types
     /// <typeparam name="TValue">
     ///     Tipo del valor contenido en este diccionario.
     /// </typeparam>
-    public class AutoDictionary<Tkey, TValue>: Dictionary<Tkey, TValue> where TValue : new()
+    public class AutoDictionary<Tkey, TValue> : Dictionary<Tkey, TValue> where TValue : new()
     {
         /// <summary>
         ///     Obtiene o establece el valor asociado con la llave
@@ -58,10 +57,7 @@ namespace TheXDS.MCART.Types
                 if (!ContainsKey(key)) Add(key, new TValue());
                 return base[key];
             }
-            set
-            {
-                base[key] = value;
-            }
+            set => base[key] = value;
         }
     }
 }
