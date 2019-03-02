@@ -132,6 +132,10 @@ namespace TheXDS.MCART.Tests.Modules
             Assert.True(GetTypes<IComparable>().Count() > 2);
             Assert.True(GetTypes<Stream>(true).Count() > 2);
             Assert.True(GetTypes<Stream>(true).Count() < GetTypes<Stream>(false).Count());
+
+            Assert.Contains(typeof(Enum), GetTypes<Enum>());
+            Assert.Contains(typeof(Enum), GetTypes<Enum>(false));
+            Assert.DoesNotContain(typeof(Enum), GetTypes<Enum>(true));
         }
 
         [Fact]
@@ -262,7 +266,7 @@ namespace TheXDS.MCART.Tests.Modules
         public void PublicTypesTest()
         {
             //var d = AppDomain.CreateDomain("test");
-            var cd = PublicTypes<Exception>(AppDomain.CurrentDomain).ToArray();
+            var cd = PublicTypes<Enum>(AppDomain.CurrentDomain).ToArray();
             //var nd = PublicTypes<Exception>(d).ToArray();
 
             Assert.True(cd.Any());
