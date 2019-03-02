@@ -402,7 +402,7 @@ namespace TheXDS.MCART.ViewModel
                 setEntityIl.Emit(Callvirt, thisProp.PropertyType.GetMethod("Clear"));
 
                 setEntityIl.Emit(Ldarg_0);
-                setEntityIl.Emit(Ldfld, entity);
+                setEntityIl.Emit(Callvirt, entity);
                 setEntityIl.Emit(Dup);
                 setEntityIl.Emit(Brtrue_S, il32);
                 setEntityIl.Emit(Pop);
