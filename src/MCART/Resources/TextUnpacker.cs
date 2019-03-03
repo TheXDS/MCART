@@ -56,7 +56,9 @@ namespace TheXDS.MCART.Resources
         /// Obtiene un recurso identificable.
         /// </summary>
         /// <param name="id">Identificador del recurso.</param>
-        /// <returns>Un recurso de tipo <typeparamref name="T" />.</returns>
+        /// <returns>
+        ///     Una cadena con el contenido total del recurso.
+        /// </returns>
         public override string Unpack(string id)
         {
             using (var sr = new StreamReader(UnpackStream(id)))

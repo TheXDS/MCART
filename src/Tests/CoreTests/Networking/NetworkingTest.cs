@@ -22,12 +22,10 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using Xunit;
+#pragma warning disable CS1591
 
-#if ExtrasBuiltIn
-using TheXDS.MCART.Networking.Server.Protocols;
-using Cl = TheXDS.MCART.Networking.Client.Protocols;
-#endif
+using Xunit;
+using TheXDS.MCART.Networking;
 
 namespace TheXDS.MCART.Tests.Networking
 {
@@ -48,9 +46,11 @@ namespace TheXDS.MCART.Tests.Networking
              * recomienda probar para evitar caer en situaciones de abuso:
              * - https://www.thinkbroadband.com/download
              */
-            var ms = new System.IO.MemoryStream();
-            TheXDS.MCART.Networking.DownloadHelper.DownloadHttp("http://speedtest.ftp.otenet.gr/files/test100k.db", ms);
-            Assert.Equal(102400, ms.Length);
+            using (var ms = new System.IO.MemoryStream())
+            {
+                DownloadHelper.DownloadHttp("http://speedtest.ftp.otenet.gr/files/test100k.db", ms);
+                Assert.Equal(102400, ms.Length);
+            }
         }
     }
 }

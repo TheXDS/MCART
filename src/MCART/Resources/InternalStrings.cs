@@ -24,6 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 namespace TheXDS.MCART.Resources
 {
+#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible públicamente
     /// <summary>
     /// Contiene cadenas específicas para uso interno de MCART.
     /// </summary>

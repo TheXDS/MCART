@@ -26,8 +26,9 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
-
+using System.Linq;
 // ReSharper disable MemberCanBePrivate.Global
 
 namespace TheXDS.MCART.Types
@@ -38,6 +39,20 @@ namespace TheXDS.MCART.Types
     /// <typeparam name="T">Tipo de objeto.</typeparam>
     public struct NamedObject<T> : INameable
     {
+        /// <summary>
+        ///     Enumera a todos los miembros de la enumeración como objetos
+        ///     nombrables.
+        /// </summary>
+        /// <returns>
+        ///     Una enumeración de <see cref="NamedObject{T}"/> de todos los
+        ///     valores de enumeración.
+        /// </returns>
+        public static IEnumerable<NamedObject<T>> FromEnum()
+        {
+            if (!typeof(T).IsEnum) throw new InvalidTypeException(typeof(T));
+            return typeof(T).GetEnumValues().OfType<T>().Select(p => (NamedObject<T>)p);
+        }
+
         /// <summary>
         ///     Valor del objeto.
         /// </summary>

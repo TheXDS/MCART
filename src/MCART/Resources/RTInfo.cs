@@ -27,6 +27,8 @@ using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Component;
 
+[assembly: McartComponent(TheXDS.MCART.Resources.RtInfo.ComponentKind.Core)]
+
 namespace TheXDS.MCART.Resources
 {
     /// <inheritdoc />
@@ -72,6 +74,20 @@ namespace TheXDS.MCART.Resources
             Tool
         }
         
+        /// <summary>
+        ///     Comprueba si el objeto es compatible con esta versión de MCART
+        ///     comparando los números de versión establecidos en
+        ///     <see cref="MinMcartVersionAttribute"/> y
+        ///     <see cref="TargetMCARTVersionAttribute"/>.
+        /// </summary>
+        /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
+        /// <param name="obj">Objeto a comprobar.</param>
+        /// <returns>
+        ///     <see langword="true"/> si el objeto es compatible con MCART,
+        ///     <see langword="false"/> si el objeto no es compatible, y
+        ///     <see langword="null"/> si no es posible verificar la
+        ///     compatibilidad.
+        /// </returns>
         public static bool? RtSupport<T>(T obj)
         {
             if (!obj.HasAttr(out TargetMCARTVersionAttribute tt)) return null;
@@ -161,11 +177,15 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public static Version CoreRtVersion => CoreRtAssembly.GetName().Version;
 
+        /// <summary>
+        ///     Obtiene el tipo de componente de MCART que este ensamblado es.
+        /// </summary>
         public ComponentKind Kind { get; }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Resources.RtInfo" />.
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.Resources.RtInfo" />.
         /// </summary>
         public RtInfo() : this(CoreRtAssembly)
         {

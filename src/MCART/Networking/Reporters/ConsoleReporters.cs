@@ -1,10 +1,7 @@
 ﻿/*
-DownloadHelper.cs
+ConsoleReporters.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
-
-Este archivo contiene funciones para la descarga de archivos por medio de
-protocolos web que se bansen en TCP, como http y ftp.
 
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
@@ -31,8 +28,21 @@ using TheXDS.MCART.Math;
 namespace TheXDS.MCART.Networking.Reporters
 {
 #if ExtrasBuiltIn
+    /// <summary>
+    ///     Contiene funciones auxiliares de reporte de progreso que se muestra
+    ///     en la consola.
+    /// </summary>
 	public static class ConsoleReporters
 	{
+        /// <summary>
+        ///     Muestra el progreso de una operación de descarga, ocupando el
+        ///     ancho total de la consola.
+        /// </summary>
+        /// <param name="current">Bytes actuales.</param>
+        /// <param name="total">Bytes totales.</param>
+        /// <param name="speed">
+        ///     Velocidad media de descarga, en bytes/s.
+        /// </param>
 		public static void FullWidth(long? current, long? total, long? speed)
         {
             var col = Console.CursorLeft;
@@ -49,9 +59,18 @@ namespace TheXDS.MCART.Networking.Reporters
             Console.Write(text);
             Console.CursorLeft = col;
         }
+        /// <summary>
+        ///     Muestra el progreso de una operación realizada en pasos,
+        ///     ocupando el ancho total de la consola.
+        /// </summary>
+        /// <param name="current">Paso actual.</param>
+        /// <param name="total">Pasos totales.</param>
+        /// <param name="speed">
+        ///     Cantidad de pasos desde el último reporte.
+        /// </param>
 		public static void Simplistic(long? current, long? total, long? speed)
 		{
-			if (Objects.IsAnyNull(current,total,speed))
+			if (Objects.IsAnyNull(current, total))
 			{
 				Console.Write('.');
 				return;
@@ -60,7 +79,8 @@ namespace TheXDS.MCART.Networking.Reporters
             Console.Write(new string(' ', Console.BufferWidth - col - 1));
             Console.CursorLeft = col;
 			Console.Write($"{current / total:%}");
-		}
-	}
+            if ((speed ?? 0) != 0) Console.Write($", -{TimeSpan.FromSeconds((total - current ?? 0) / speed ?? 1)}");
+        }
+    }
 #endif
 }

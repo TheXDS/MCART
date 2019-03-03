@@ -47,6 +47,7 @@ using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Types.Extensions
 {
+
     /// <summary>
     ///     Extensiones para todos los elementos de tipo <see cref="Type"/>.
     /// </summary>

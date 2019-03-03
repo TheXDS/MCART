@@ -30,10 +30,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using TheXDS.MCART.Types.Extensions;
 using static System.AttributeTargets;
-#if NETFX_CORE
-using System.Runtime.Serialization;
-#endif
-
 
 namespace TheXDS.MCART.Attributes
 {
@@ -45,12 +41,8 @@ namespace TheXDS.MCART.Attributes
     ///     Es posible establecer este atributo más de una vez en un mismo elemento.
     /// </remarks>
     [AttributeUsage(All, AllowMultiple = true)]
-#if NETFX_CORE
-    [DataContract]
-#else
     [Serializable]
-#endif
-    public sealed class ServerAttribute : Attribute//, IValueAttribute<(string, int)>
+    public sealed class ServerAttribute : Attribute, IValueAttribute<string>
     {
         /// <inheritdoc />
         /// <summary>
@@ -85,9 +77,6 @@ namespace TheXDS.MCART.Attributes
         /// <value>
         ///     La ruta del servidor a la cual este atributo apunta.
         /// </value>
-#if NETFX_CORE
-        [DataMember]
-#endif
         public string Server { get; }
 
         /// <summary>
@@ -97,9 +86,6 @@ namespace TheXDS.MCART.Attributes
         ///     Un valor entre 1 y 65535 que establece el número de puerto a
         ///     apuntar.
         /// </value>
-#if NETFX_CORE
-        [DataMember]
-#endif
         public int Port { get; }
 
         /// <summary>
@@ -115,6 +101,6 @@ namespace TheXDS.MCART.Attributes
         /// <summary>
         ///     Obtiene el valor de este atributo.
         /// </summary>
-        //public (string, int) Value => (Server, Port);
+        public string Value => ToString();
     }
 }

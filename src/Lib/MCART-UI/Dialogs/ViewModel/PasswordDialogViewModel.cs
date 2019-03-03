@@ -40,7 +40,6 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         private string _generatedPassword;
         private IPasswordGenerator _generator;
         private string _hint;
-        private bool _isBusy;
         private PasswordDialogMode _mode;
         private SecureString _password;
         private PwEvalResult _result;

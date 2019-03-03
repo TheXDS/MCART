@@ -1,5 +1,5 @@
 ﻿/*
-AssemblyInfo.cs
+NamedObjectTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,14 +22,28 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Reflection;
+#pragma warning disable CS1591
+
+using System.Linq;
+using Xunit;
+using static TheXDS.MCART.Types.Extensions.NamedObjectExtensions;
 using TheXDS.MCART.Attributes;
 
-[assembly: AssemblyTitle("EchoServer")]
-#pragma warning disable CS7035
-
-[assembly: AssemblyFileVersion("1.1.*")]
-#pragma warning restore CS7035
-
-[assembly: MinMCARTVersion(0, 8, 5, 0)]
-[assembly: TargetMCARTVersion(0, 8, 8, 2)]
+namespace TheXDS.MCART.Types
+{
+    public class NamedObjectTests
+    {
+        enum TestEnum
+        {
+            [Name("Elemento A")] A,
+            [Name("Elemento B")] B,
+            [Name("Elemento C")] C
+        }
+        [Fact]
+        public void FromEnumTest()
+        {
+            var x = typeof(TestEnum).AsNamedEnum();
+            Assert.Equal("Elemento A", x.First());
+        }
+    }
+}

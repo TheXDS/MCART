@@ -31,6 +31,9 @@ namespace TheXDS.MCART.Component
     /// <typeparam name="TIcon">Tipo del ícono a exponer.</typeparam>
     public interface IExposeInfo<out TIcon> : IExposeInfo
     {
+        /// <summary>
+        /// Obtiene el ícono establecido del elemento.
+        /// </summary>
         TIcon Icon { get; }
     }
 }

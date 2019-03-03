@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#pragma warning disable CS1591
+
 using System;
 using System.Linq;
 using TheXDS.MCART.Types;
@@ -31,6 +33,7 @@ namespace TheXDS.MCART.Tests.Types
 {
     public class RangeTests
     {
+        [CLSCompliant(false)]
         [Theory]
         [InlineData("1 - 5")]
         [InlineData("1 5")]
@@ -77,6 +80,7 @@ namespace TheXDS.MCART.Tests.Types
             Assert.Equal(5, r.Maximum);
         }
 
+        [CLSCompliant(false)]
         [Theory]
         [InlineData(1, 3, 2, 5, true, false)]
         [InlineData(1, 2, 3, 4, false, false)]

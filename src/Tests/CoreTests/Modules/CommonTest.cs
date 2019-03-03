@@ -25,14 +25,12 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#pragma warning disable CS1591
+
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
-using TheXDS.MCART;
 using TheXDS.MCART.Types;
 using Xunit;
 using static TheXDS.MCART.Common;
@@ -345,6 +343,7 @@ namespace TheXDS.MCART.Tests.Modules
             Assert.Throws<ArgumentException>(() => new[] { 1.0 }.ToPercent(0.0, double.NaN).ToList());
         }
         [Theory]
+        [CLSCompliant(false)]
         [InlineData(1000, ByteUnitType.Binary, "1000 Bytes")]
         [InlineData(1000, ByteUnitType.Decimal, "1.0 KB")]
         [InlineData(100000, (ByteUnitType) 2, "100000 Bytes")]
@@ -354,6 +353,7 @@ namespace TheXDS.MCART.Tests.Modules
         }
         
         [Theory]
+        [CLSCompliant(false)]
         [InlineData(1000, "1000 Bytes")]
         [InlineData(1024, "1.0 KiB")]
         [InlineData(1536, "1.5 KiB")]

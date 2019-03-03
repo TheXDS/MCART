@@ -58,6 +58,7 @@ namespace TheXDS.MCART.Security.Password
         /// </summary>
         /// <param name="username">Nombre de usuario.</param>
         /// <param name="password">Contraseña.</param>
+        /// <param name="hint">Indicio de contraseña.</param>
         public UserData(string username, SecureString password, string hint) : this(username, password, hint, null)
         {
         }

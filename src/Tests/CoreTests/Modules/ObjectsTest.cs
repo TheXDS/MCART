@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#pragma warning disable CS1591
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -74,6 +76,7 @@ namespace TheXDS.MCART.Tests.Modules
 
 
         [Theory]
+        [CLSCompliant(false)]
         [InlineData(typeof(byte), true)]
         [InlineData(typeof(sbyte), true)]
         [InlineData(typeof(short), true)]

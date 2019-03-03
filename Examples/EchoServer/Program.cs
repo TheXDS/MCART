@@ -108,6 +108,8 @@ namespace EchoServer
             Console.WriteLine("Servidor de eco activo. Presione cualquier tecla para salir.");
             Console.ReadKey();
             srv.Stop();
+            Console.WriteLine("El servidor de eco se ha detenido.");
+
         }
     }
 }

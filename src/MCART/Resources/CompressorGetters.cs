@@ -49,12 +49,17 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public Stream GetCompressor(Stream inputStream) => new DeflateStream(inputStream, CompressionMode.Decompress);
 
+        /// <summary>
+        ///     Obtiene la extensión utilizada de forma predeterminada para un
+        ///     recurso comprimido utilizando este
+        ///     <see cref="ICompressorGetter"/>.
+        /// </summary>
         public string Extension => ".deflate";
     }
     /// <summary>
-    /// <see cref="ICompressorGetter"/> que construye un
-    /// <see cref="GZipStream"/> que puede ser utilizado para extraer
-    /// información comprimida desde un <see cref="Stream"/>.
+    ///     <see cref="ICompressorGetter"/> que construye un
+    ///     <see cref="GZipStream"/> que puede ser utilizado para extraer
+    ///     información comprimida desde un <see cref="Stream"/>.
     /// </summary>
     [Identifier("gzip")]
     [Identifier("gz")]
@@ -72,27 +77,42 @@ namespace TheXDS.MCART.Resources
         /// información comprimida desde <paramref name="inputStream"/>.
         /// </returns>
         public Stream GetCompressor(Stream inputStream) => new GZipStream(inputStream, CompressionMode.Decompress);
+        /// <summary>
+        ///     Obtiene la extensión utilizada de forma predeterminada para un
+        ///     recurso comprimido utilizando este
+        ///     <see cref="ICompressorGetter"/>.
+        /// </summary>
         public string Extension => ".gzip";
     }
 
+    /// <summary>
+    ///     <see cref="ICompressorGetter"/> que expone directamente un 
+    ///     <see cref="Stream"/> cuando el mismo no ha sido escrito utilizando
+    ///     un compresor.
+    /// </summary>
     public sealed class NullGetter : ICompressorGetter
     {
         /// <summary>
-        /// Obtiene un <see cref="Stream"/> para extraer información comprimida
-        /// desde <paramref name="inputStream"/>.
+        ///     Obtiene un <see cref="Stream"/>  que expone a 
+        ///     <paramref name="inputStream"/> directamente.
         /// </summary>
         /// <param name="inputStream">
         /// <see cref="Stream"/> que contiene la información a extraer.
         /// </param>
         /// <returns>
-        /// Un <see cref="Stream"/> que puede utilizarse para extraer
-        /// información comprimida desde <paramref name="inputStream"/>.
+        ///     El mismo <see cref="Stream"/> que
+        ///     <paramref name="inputStream"/>.
         /// </returns>
         public Stream GetCompressor(Stream inputStream)
         {
             return inputStream;
         }
 
+        /// <summary>
+        ///     Obtiene la extensión utilizada de forma predeterminada para un
+        ///     recurso comprimido utilizando este
+        ///     <see cref="ICompressorGetter"/>.
+        /// </summary>
         public string Extension => null;
     }
 }
