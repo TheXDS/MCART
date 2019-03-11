@@ -397,9 +397,13 @@ namespace TheXDS.MCART.ViewModel
                 var enumerator = setEntityIl.DeclareLocal(typeof(IEnumerator));
                 var disposable = setEntityIl.DeclareLocal(typeof(IDisposable));
 
+                //setEntityIl.BeginExceptionBlock();
                 setEntityIl.Emit(Ldarg_0);
                 setEntityIl.Emit(Call, thisProp.GetMethod);
                 setEntityIl.Emit(Callvirt, thisProp.PropertyType.GetMethod("Clear"));
+                //setEntityIl.BeginCatchBlock(typeof(Exception));
+                //setEntityIl.Emit(Pop);
+                //setEntityIl.EndExceptionBlock();
 
                 setEntityIl.Emit(Ldarg_0);
                 setEntityIl.Emit(Callvirt, entity);

@@ -82,6 +82,17 @@ namespace VmBuilder
 
     public abstract class TestViewModel : NotifyPropertyChanged, IDynamicViewModel<Test>
     {
+        public void Testtest()
+        {
+            try
+            {
+                Entity.Elements.Clear();
+            }
+            catch
+            {
+                /* nada */
+            }
+        }
         private string _newPhone;
 
         object IDynamicViewModel.Entity

@@ -93,5 +93,21 @@ namespace TheXDS.MCART.Tests.Math
             Assert.False(14.1.IsWhole());
             Assert.False(14.9.IsWhole());
         }
+        [Fact]
+        public void IsTwoPowTest()
+        {
+            Assert.True(IsTwoPow(2));
+            Assert.True(IsTwoPow(16));
+            Assert.True(IsTwoPow(64));
+            Assert.True(IsTwoPow(256));
+            Assert.True(IsTwoPow(65536));
+            Assert.True(IsTwoPow(16777216));
+            Assert.False(IsTwoPow(1));
+            Assert.False(IsTwoPow(15));
+            Assert.False(IsTwoPow(63));
+            Assert.False(IsTwoPow(255));
+            Assert.False(IsTwoPow(65535));
+            Assert.False(IsTwoPow(16777215));
+        }
     }
 }

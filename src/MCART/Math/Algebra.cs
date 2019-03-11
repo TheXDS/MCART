@@ -135,9 +135,115 @@ namespace TheXDS.MCART.Math
         public static long Nearest2Pow(in int value)
         {
             long c = 1;
-            while (!(c >= value)) c *= 2;
+            while (!(c >= value)) c <<= 1;
             return c;
         }
+
+        /// <summary>
+        ///     Determina si el valor es una potencia de 2.
+        /// </summary>
+        /// <param name="value">Valor a comprobar.</param>
+        /// <returns>
+        ///     <see langword="true"/> si el valor es una potencia de 2,
+        ///     <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool IsTwoPow(in byte value)
+        {
+            return value.BitCount() == 1;
+        }
+
+        /// <summary>
+        ///     Determina si el valor es una potencia de 2.
+        /// </summary>
+        /// <param name="value">Valor a comprobar.</param>
+        /// <returns>
+        ///     <see langword="true"/> si el valor es una potencia de 2,
+        ///     <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool IsTwoPow(in short value)
+        {
+            return value.BitCount() == 1;
+        }
+
+        /// <summary>
+        ///     Determina si el valor es una potencia de 2.
+        /// </summary>
+        /// <param name="value">Valor a comprobar.</param>
+        /// <returns>
+        ///     <see langword="true"/> si el valor es una potencia de 2,
+        ///     <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool IsTwoPow(in int value)
+        {
+            return value.BitCount() == 1;
+        }
+
+        /// <summary>
+        ///     Determina si el valor es una potencia de 2.
+        /// </summary>
+        /// <param name="value">Valor a comprobar.</param>
+        /// <returns>
+        ///     <see langword="true"/> si el valor es una potencia de 2,
+        ///     <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool IsTwoPow(in long value)
+        {
+            return value.BitCount() == 1;
+        }
+
+#if !CLSCompliance
+        /// <summary>
+        ///     Determina si el valor es una potencia de 2.
+        /// </summary>
+        /// <param name="value">Valor a comprobar.</param>
+        /// <returns>
+        ///     <see langword="true"/> si el valor es una potencia de 2,
+        ///     <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool IsTwoPow(in sbyte value)
+        {
+            return value.BitCount() == 1;
+        }
+
+        /// <summary>
+        ///     Determina si el valor es una potencia de 2.
+        /// </summary>
+        /// <param name="value">Valor a comprobar.</param>
+        /// <returns>
+        ///     <see langword="true"/> si el valor es una potencia de 2,
+        ///     <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool IsTwoPow(in ushort value)
+        {
+            return value.BitCount() == 1;
+        }
+
+        /// <summary>
+        ///     Determina si el valor es una potencia de 2.
+        /// </summary>
+        /// <param name="value">Valor a comprobar.</param>
+        /// <returns>
+        ///     <see langword="true"/> si el valor es una potencia de 2,
+        ///     <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool IsTwoPow(in uint value)
+        {
+            return value.BitCount() == 1;
+        }
+
+        /// <summary>
+        ///     Determina si el valor es una potencia de 2.
+        /// </summary>
+        /// <param name="value">Valor a comprobar.</param>
+        /// <returns>
+        ///     <see langword="true"/> si el valor es una potencia de 2,
+        ///     <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool IsTwoPow(in ulong value)
+        {
+            return value.BitCount() == 1;
+        }
+#endif
 
         /// <summary>
         ///     Devuelve el primer múltiplo de <paramref name="multiplier" /> que es mayor que <paramref name="value" />

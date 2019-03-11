@@ -593,5 +593,31 @@ namespace TheXDS.MCART.Types.Extensions
             }
             return !eb.MoveNext();
         }
+
+        public static bool ContainsAll(this IEnumerable<object> a, IEnumerable b)
+        {
+            foreach (var j in b)
+            {
+                if (!a.Contains(j)) return false;
+            }
+            return true;
+        }
+        public static bool ContainsAll(this IEnumerable<object> a, params object[] b)
+        {
+            return ContainsAll(a, b.AsEnumerable());
+        }
+        public static bool ContainsAny(this IEnumerable<object> a, IEnumerable b)
+        {
+            foreach (var j in b)
+            {
+                if (a.Contains(j)) return true;
+            }
+            return false;
+        }
+        public static bool ContainsAny(this IEnumerable<object> a, params object[] b)
+        {
+            return ContainsAny(a, b.AsEnumerable());
+        }
+
     }
 }
