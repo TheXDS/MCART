@@ -17,7 +17,9 @@
     </Page.Resources>
     <Grid>
         <controls:StretchyWrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
-            <ContentControl MaxHeight="128" MaxWidth="128" Margin="{StaticResource M5}" Content="{Binding Icon}" Visibility="{Binding Icon, Converter={StaticResource Nn2V}}"/>
+            <Viewbox MaxHeight="128" MaxWidth="128" Margin="{StaticResource M5}" Visibility="{Binding Icon, Converter={StaticResource Nn2V}}">
+                <ContentControl Content="{Binding Icon}"/>
+            </Viewbox>
             <StackPanel VerticalAlignment="Center" Margin="{StaticResource M5}">
                 <StackPanel.Resources>
                     <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">

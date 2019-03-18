@@ -61,25 +61,25 @@ namespace TheXDS.MCART.Component
         /// <summary>
         ///     Devuelve el nombre del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// </summary>
-        public string Name => Assembly.GetAttr<AssemblyTitleAttribute>()?.Title ?? Assembly.GetAttr<NameAttribute>()?.Value;
+        public string Name => Assembly.GetAttr<NameAttribute>()?.Value ?? Assembly.GetAttr<AssemblyTitleAttribute>()?.Title;
 
         /// <inheritdoc />
         /// <summary>
         ///     Devuelve el Copyright del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// </summary>
-        public string Copyright => Assembly.GetAttr<AssemblyCopyrightAttribute>()?.Copyright ?? Assembly.GetAttr<CopyrightAttribute>()?.Value;
+        public string Copyright => Assembly.GetAttr<CopyrightAttribute>()?.Value ?? Assembly.GetAttr<AssemblyCopyrightAttribute>()?.Copyright;
 
         /// <inheritdoc />
         /// <summary>
         ///     Devuelve una descripción del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// </summary>
-        public string Description => Assembly.GetAttr<AssemblyDescriptionAttribute>()?.Description ?? Assembly.GetAttr<DescriptionAttribute>()?.Value;
+        public string Description => Assembly.GetAttr<DescriptionAttribute>()?.Value ?? Assembly.GetAttr<AssemblyDescriptionAttribute>()?.Description;
 
         /// <inheritdoc />
         /// <summary>
         ///     Devuelve el autor del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// </summary>
-        public string Author => Assembly.GetAttr<AssemblyCompanyAttribute>()?.Company ?? Assembly.GetAttr<AuthorAttribute>()?.Value;
+        public string Author => Assembly.GetAttr<AuthorAttribute>()?.Value ?? Assembly.GetAttr<AssemblyCompanyAttribute>()?.Company;
 
         /// <summary>
         ///     Devuelve la marca comercial del <see cref="Assembly" />

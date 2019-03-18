@@ -54,17 +54,19 @@ namespace TheXDS.MCART.Dialogs.ViewModel
             set
             {
                 if (!Change(ref _element, value)) return;
-                OnPropertyChanged(nameof(Author));
-                OnPropertyChanged(nameof(ClsCompliant));
-                OnPropertyChanged(nameof(Copyright));
-                OnPropertyChanged(nameof(Description));
-                OnPropertyChanged(nameof(HasLicense));
-                OnPropertyChanged(nameof(IsMcart));
-                OnPropertyChanged(nameof(License));
-                OnPropertyChanged(nameof(Name));
-                OnPropertyChanged(nameof(ShowAboutMcart));
-                OnPropertyChanged(nameof(ShowPluginInfo));
-                OnPropertyChanged(nameof(Version));
+                Notify(new[]{
+                    nameof(Author),
+                    nameof(ClsCompliant),
+                    nameof(Copyright),
+                    nameof(Description),
+                    nameof(HasLicense),
+                    nameof(IsMcart),
+                    nameof(License),
+                    nameof(Name),
+                    nameof(ShowAboutMcart),
+                    nameof(ShowPluginInfo),
+                    nameof(Version)
+                });
                 OnElementChanged();
             }
         }

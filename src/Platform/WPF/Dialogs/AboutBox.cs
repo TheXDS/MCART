@@ -60,6 +60,16 @@ namespace TheXDS.MCART.Dialogs
             new AboutBox(new AboutPage(assembly)).ShowDialog();
         }
 
+        public static void Show(ApplicationInfo appInfo)
+        {
+            new AboutBox(new AboutPage(appInfo)).Show();
+        }
+        public static void ShowDialog(ApplicationInfo appInfo)
+        {
+            new AboutBox(new AboutPage(appInfo)).ShowDialog();
+        }
+
+
         public static void Show(IExposeAssembly info)
         {
             new AboutBox(new AboutPage(info.Assembly)).Show();
