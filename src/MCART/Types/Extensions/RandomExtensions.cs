@@ -89,7 +89,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         public static bool CoinFlip(this Random r)
         {
-            return (r.Next() | 1) == 0;
+            return (r.Next() & 1) == 0;
         }
     }
 }
