@@ -587,9 +587,9 @@ namespace TheXDS.MCART.Types
             /// </returns>
             public byte To(Color color)
             {
-                var lr = color.r > 0.04045f ? System.Math.Pow((color.r + 0.055) / 1.055, 2.4) : color.r / 12.92;
-                var lg = color.g > 0.04045f ? System.Math.Pow((color.g + 0.055) / 1.055, 2.4) : color.g / 12.92;
-                var lb = color.b > 0.04045f ? System.Math.Pow((color.b + 0.055) / 1.055, 2.4) : color.b / 12.92;
+                var lr = color._r > 0.04045f ? System.Math.Pow((color._r + 0.055) / 1.055, 2.4) : color._r / 12.92;
+                var lg = color._g > 0.04045f ? System.Math.Pow((color._g + 0.055) / 1.055, 2.4) : color._g / 12.92;
+                var lb = color._b > 0.04045f ? System.Math.Pow((color._b + 0.055) / 1.055, 2.4) : color._b / 12.92;
                 return (byte) (lr * 0.2126 + lg * 0.7152 + lb * 0.0722);
             }
         }

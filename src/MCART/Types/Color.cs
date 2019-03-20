@@ -36,10 +36,6 @@ namespace TheXDS.MCART.Types
     public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color>
     {
         /// <summary>
-        /// constante auxiliar de redondeo para las funciones de conversión.
-        /// </summary>
-        private const float Ep = 0.499f;
-        /// <summary>
         /// Mezcla un color de temperatura basado en el porcentaje.
         /// </summary>
         /// <returns>
@@ -219,10 +215,10 @@ namespace TheXDS.MCART.Types
 				(left.b + right.b).Clamp(0.0f, 1.0f),
 				(left.a + right.a).Clamp(0.0f, 1.0f)
 #else
-                left.r + right.r,
-                left.g + right.g,
-                left.b + right.b,
-                left.a + right.a
+                left._r + right._r,
+                left._g + right._g,
+                left._b + right._b,
+                left._a + right._a
 #endif
             );
         }
@@ -249,10 +245,10 @@ namespace TheXDS.MCART.Types
 				(left.b - right.b).Clamp(0.0f, 1.0f),
 				(left.a - right.a).Clamp(0.0f, 1.0f)
 #else
-                left.r - right.r,
-                left.g - right.g,
-                left.b - right.b,
-                left.a - right.a
+                left._r - right._r,
+                left._g - right._g,
+                left._b - right._b,
+                left._a - right._a
 #endif
             );
         }
@@ -275,10 +271,10 @@ namespace TheXDS.MCART.Types
 				(left.b * right).Clamp(0.0f, 1.0f),
 				(left.a * right).Clamp(0.0f, 1.0f)
 #else
-                left.r * right,
-                left.g * right,
-                left.b * right,
-                left.a * right
+                left._r * right,
+                left._g * right,
+                left._b * right,
+                left._a * right
 #endif
             );
         }
@@ -300,10 +296,10 @@ namespace TheXDS.MCART.Types
 				((left.b + right.b) / 2).Clamp(0.0f, 1.0f),
 				((left.a + right.a) / 2).Clamp(0.0f, 1.0f)
 #else
-                (left.r + right.r) / 2,
-                (left.g + right.g) / 2,
-                (left.b + right.b) / 2,
-                (left.a + right.a) / 2
+                (left._r + right._r) / 2,
+                (left._g + right._g) / 2,
+                (left._b + right._b) / 2,
+                (left._a + right._a) / 2
 #endif
             );
         }
@@ -335,52 +331,52 @@ namespace TheXDS.MCART.Types
         /// <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool operator !=(Color left, Color right) => !left.Equals(right);
-        float r;
-        float g;
-        float b;
-        float a;
+        float _r;
+        float _g;
+        float _b;
+        float _a;
         /// <summary>
         /// Obtiene o establece el valor RGB del canal rojo del color.
         /// </summary>
         public byte R
         {
-            get => (byte)(r * byte.MaxValue);
-            set => r = (float)value / byte.MaxValue;
+            get => (byte)(_r * byte.MaxValue);
+            set => _r = (float)value / byte.MaxValue;
         }
         /// <summary>
         /// Obtiene o establece el valor RGB del canal verde del color.
         /// </summary>
         public byte G
         {
-            get => (byte)(g * byte.MaxValue);
-            set => g = (float)value / byte.MaxValue;
+            get => (byte)(_g * byte.MaxValue);
+            set => _g = (float)value / byte.MaxValue;
         }
         /// <summary>
         /// Obtiene o establece el valor RGB del canal azul del color.
         /// </summary>
         public byte B
         {
-            get => (byte)(b * byte.MaxValue);
-            set => b = (float)value / byte.MaxValue;
+            get => (byte)(_b * byte.MaxValue);
+            set => _b = (float)value / byte.MaxValue;
         }
         /// <summary>
         /// Obtiene o establece el valor RGB del canal alfa del color.
         /// </summary>
         public byte A
         {
-            get => (byte)(a * 255);
-            set => a = (float)value / byte.MaxValue;
+            get => (byte)(_a * 255);
+            set => _a = (float)value / byte.MaxValue;
         }
         /// <summary>
         /// Obtiene o establece el valor ScRGB del canal rojo del color.
         /// </summary>
         public float ScR
         {
-            get => r;
+            get => _r;
 #if PreferExceptions
 			set => r = value.IsBetween(0.0f, 1.0f) ? value : throw new ArgumentOutOfRangeException(nameof(value));
 #else
-            set => r = value.Clamp(0.0f, 1.0f);
+            set => _r = value.Clamp(0.0f, 1.0f);
 #endif
         }
         /// <summary>
@@ -388,11 +384,11 @@ namespace TheXDS.MCART.Types
         /// </summary>
         public float ScG
         {
-            get => g;
+            get => _g;
 #if PreferExceptions
 			set => g = value.IsBetween(0.0f, 1.0f) ? value : throw new ArgumentOutOfRangeException(nameof(value));
 #else
-            set => g = value.Clamp(0.0f, 1.0f);
+            set => _g = value.Clamp(0.0f, 1.0f);
 #endif
         }
         /// <summary>
@@ -400,11 +396,11 @@ namespace TheXDS.MCART.Types
         /// </summary>
         public float ScB
         {
-            get => b;
+            get => _b;
 #if PreferExceptions
 			set => b = value.IsBetween(0.0f, 1.0f) ? value : throw new ArgumentOutOfRangeException(nameof(value));
 #else
-            set => b = value.Clamp(0.0f, 1.0f);
+            set => _b = value.Clamp(0.0f, 1.0f);
 #endif
         }
         /// <summary>
@@ -412,53 +408,53 @@ namespace TheXDS.MCART.Types
         /// </summary>
         public float ScA
         {
-            get => a;
+            get => _a;
 #if PreferExceptions
 			set => a = value.IsBetween(0.0f, 1.0f) ? value : throw new ArgumentOutOfRangeException(nameof(value));
 #else
-            set => a = value.Clamp(0.0f, 1.0f);
+            set => _a = value.Clamp(0.0f, 1.0f);
 #endif
         }
         /// <summary>
         /// Inicializa una nueva instancia de la esctructura 
         /// <see cref="Color"/>.
         /// </summary>
-        /// <param name="R">Canal rojo.</param>
-        /// <param name="G">Canal verde.</param>
-        /// <param name="B">Canal azul.</param>
-        public Color(byte R, byte G, byte B) : this(R, G, B, 255) { }
+        /// <param name="r">Canal rojo.</param>
+        /// <param name="g">Canal verde.</param>
+        /// <param name="b">Canal azul.</param>
+        public Color(byte r, byte g, byte b) : this(r, g, b, 255) { }
         /// <summary>
         /// Inicializa una nueva instancia de la esctructura 
         /// <see cref="Color"/>.
         /// </summary>
-        /// <param name="R">Canal rojo.</param>
-        /// <param name="G">Canal verde.</param>
-        /// <param name="B">Canal azul.</param>
-        /// <param name="A">Canal alfa.</param>
-        public Color(byte R, byte G, byte B, byte A)
+        /// <param name="r">Canal rojo.</param>
+        /// <param name="g">Canal verde.</param>
+        /// <param name="b">Canal azul.</param>
+        /// <param name="a">Canal alfa.</param>
+        public Color(byte r, byte g, byte b, byte a)
         {
-            r = (float)R / 255;
-            g = (float)G / 255;
-            b = (float)B / 255;
-            a = (float)A / 255;
+            _r = (float)r / 255;
+            _g = (float)g / 255;
+            _b = (float)b / 255;
+            _a = (float)a / 255;
         }
         /// <summary>
         /// Inicializa una nueva instancia de la esctructura 
         /// <see cref="Color"/>.
         /// </summary>
-        /// <param name="R">Canal rojo.</param>
-        /// <param name="G">Canal verde.</param>
-        /// <param name="B">Canal azul.</param>
-        public Color(float R, float G, float B) : this(R, G, B, 1.0f) { }
+        /// <param name="r">Canal rojo.</param>
+        /// <param name="g">Canal verde.</param>
+        /// <param name="b">Canal azul.</param>
+        public Color(float r, float g, float b) : this(r, g, b, 1.0f) { }
         /// <summary>
         /// Inicializa una nueva instancia de la esctructura 
         /// <see cref="Color"/>.
         /// </summary>
-        /// <param name="R">Canal rojo.</param>
-        /// <param name="G">Canal verde.</param>
-        /// <param name="B">Canal azul.</param>
-        /// <param name="A">Canal alfa.</param>
-        public Color(float R, float G, float B, float A)
+        /// <param name="r">Canal rojo.</param>
+        /// <param name="g">Canal verde.</param>
+        /// <param name="b">Canal azul.</param>
+        /// <param name="a">Canal alfa.</param>
+        public Color(float r, float g, float b, float a)
         {
 #if PreferExceptions
 			a = A.IsBetween(0.0f, 1.0f) ? A : throw new ArgumentOutOfRangeException(nameof(A));
@@ -466,10 +462,10 @@ namespace TheXDS.MCART.Types
 			g = G.IsBetween(0.0f, 1.0f) ? G : throw new ArgumentOutOfRangeException(nameof(G));
 			b = B.IsBetween(0.0f, 1.0f) ? B : throw new ArgumentOutOfRangeException(nameof(B));
 #else
-            a = A.Clamp(0.0f, 1.0f);
-            r = R.Clamp(0.0f, 1.0f);
-            g = G.Clamp(0.0f, 1.0f);
-            b = B.Clamp(0.0f, 1.0f);
+            _a = a.Clamp(0.0f, 1.0f);
+            _r = r.Clamp(0.0f, 1.0f);
+            _g = g.Clamp(0.0f, 1.0f);
+            _b = b.Clamp(0.0f, 1.0f);
 #endif
         }
         /// <inheritdoc />
@@ -486,7 +482,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public bool Equals(Color other)
         {
-            return a == other.a && r == other.r && g == other.g && b == other.b;
+            return _a == other._a && _r == other._r && _g == other._g && _b == other._b;
         }
         /// <summary>
         /// Returns a <see cref="String"/> that represents the current 
@@ -508,8 +504,8 @@ namespace TheXDS.MCART.Types
                 case "h": return $"#{(new byte[] { A, R, G, B }).ToHex().ToLower((CI)formatProvider)}";
                 case "b": return $"a:{A} r:{R} g:{G} b:{B}";
                 case "B": return $"A:{A} R:{R} G:{G} B:{B}";
-                case "f": return $"a:{a} r:{r} g:{g} b:{b}";
-                case "F": return $"A:{a} R:{r} G:{g} B:{b}";
+                case "f": return $"a:{_a} r:{_r} g:{_g} b:{_b}";
+                case "F": return $"A:{_a} R:{_r} G:{_g} B:{_b}";
                 default:
                     format = format.Replace("AA", A.ToHex());
                     format = format.Replace("aa", A.ToHex().ToLower((CI)formatProvider));
