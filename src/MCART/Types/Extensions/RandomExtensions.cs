@@ -58,16 +58,38 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Devuelve un número entero aleatorio que se encuentra dentro del rango especificado.
+        ///     Devuelve un número entero aleatorio que se encuentra dentro del 
+        ///     rango especificado.
         /// </summary>
         /// <param name="r">
         ///     Instancia del objeto <see cref="Random" /> a utilizar.
         /// </param>
-        /// <param name="range"><see cref="Range{T}" /> de números a seleccionar.</param>
-        /// <returns>Un número entero aleatorio que se encuentra dentro del rango especificado.</returns>
+        /// <param name="range">
+        ///     <see cref="Range{T}" /> de números a seleccionar.
+        /// </param>
+        /// <returns>
+        ///     Un número entero aleatorio que se encuentra dentro del rango
+        ///     especificado.
+        /// </returns>
         public static int Next(this Random r, Range<int> range)
         {
             return r.Next(range.Minimum, range.Maximum);
+        }
+
+        /// <summary>
+        ///     Obtiene aleatoriamente un valor <see langword="true"/> o
+        ///     <see langword="false"/>.
+        /// </summary>
+        /// <returns>
+        ///     <see langword="true"/> o <see langword="false"/>, de manera
+        ///     aleatoria.
+        /// </returns>
+        /// <param name="r">
+        ///     Instancia del objeto <see cref="Random" /> a utilizar.
+        /// </param>
+        public static bool CoinFlip(this Random r)
+        {
+            return (r.Next() | 1) == 0;
         }
     }
 }
