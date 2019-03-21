@@ -23,6 +23,7 @@ namespace TheXDS.MCART.Samples.PictVGA
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new PictureViewModel();
         }
     }
 }
