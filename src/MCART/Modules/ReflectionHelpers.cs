@@ -136,8 +136,8 @@ namespace TheXDS.MCART
         /// <typeparam name="T">
         ///     Clase desde la cual obtener al miembro.
         /// </typeparam>
-        /// <typeparam name="TProperty">
-        ///     Tipo de la propiedad obtenida.
+        /// <typeparam name="TMember">
+        ///     Tipo del miembro obtenido.
         /// </typeparam>
         /// <param name="memberSelector">
         ///     Expresión que indica qué miembro de la clase debe devolverse.
@@ -146,7 +146,7 @@ namespace TheXDS.MCART
         ///     Un <see cref="MemberInfo"/> que representa al miembro
         ///     seleccionado en la expresión.
         /// </returns>
-        public static MemberInfo GetMember<T, TProperty>(Expression<Func<T, TProperty>> memberSelector)
+        public static MemberInfo GetMember<T, TMember>(Expression<Func<T, TMember>> memberSelector)
         {
             if (memberSelector.Body is UnaryExpression UnExp && UnExp.Operand is MemberExpression)
                 return ((MemberExpression)UnExp.Operand).Member;

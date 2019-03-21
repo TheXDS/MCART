@@ -1,12 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.1;netcoreapp2.2;net47</TargetFrameworks>
-    <Description>ViewModelFactory Extension for MCART</Description>
-    <AssemblyName>MCART.Ext.ViewModelFactory</AssemblyName>
+    <TargetFramework>net47</TargetFramework>
+    <Description>Prism-Like syntax extensions for MCART ViewModels</Description>
+    <AssemblyName>MCART.Ext.PrismLike</AssemblyName>
     <OutputType>Library</OutputType>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Lib\MCART-UI\MCART-UI.csproj" />
+    <ProjectReference Include="..\..\Lib\MCART-Windows\MCART-Windows.csproj" />
     <ProjectReference Include="..\..\MCART\MCART.csproj" />
+    <ProjectReference Include="..\..\Platform\WPF\WPF.csproj" />
   </ItemGroup>
 </Project>

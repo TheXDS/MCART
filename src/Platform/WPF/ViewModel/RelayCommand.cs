@@ -25,10 +25,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Windows.Input;
 
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable UnusedMember.Global
-
 namespace TheXDS.MCART.ViewModel
 {
     /// <inheritdoc cref="ICommand"/>
@@ -102,5 +98,13 @@ namespace TheXDS.MCART.ViewModel
         ///     <see langword="null" />.
         /// </param>
         public void Execute(object parameter) { _action(parameter); }
+
+        /// <summary>
+        ///     Obliga al comando a evaluar <see cref="CanExecute(object)"/>.
+        /// </summary>
+        public void RaiseCanExecuteChanged()
+        {
+            CommandManager.InvalidateRequerySuggested();
+        }
     }
 }

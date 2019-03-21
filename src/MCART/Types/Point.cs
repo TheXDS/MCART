@@ -22,15 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#region Configuración de ReSharper
-
-// ReSharper disable CompareOfFloatsByEqualityOperator
-// ReSharper disable PartialTypeWithSinglePart
-// ReSharper disable UnusedMember.Global
-// ReSharper disable MemberCanBePrivate.Global
-
-#endregion
-
 using System;
 using static System.Math;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
@@ -47,7 +38,7 @@ namespace TheXDS.MCART.Types
     ///     implementación de MCART definir métodos para convertir a la clase
     ///     correspondiente para los diferentes tipos de UI disponibles.
     /// </remarks>
-    public partial struct Point : IFormattable, IEquatable<Point>
+    public partial struct Point : IFormattable, IEquatable<Point>, I2DVector
     {
         /// <summary>
         ///     Obtiene un punto que no representa ninguna posición. Este campo es
@@ -71,6 +62,17 @@ namespace TheXDS.MCART.Types
         /// <param name="r">Punto 2.</param>
         /// <returns>La suma de los vectores de los puntos.</returns>
         public static Point operator +(Point l, Point r)
+        {
+            return new Point(l.X + r.X, l.Y + r.Y);
+        }
+
+        /// <summary>
+        ///     Realiza una operación de suma sobre los puntos.
+        /// </summary>
+        /// <param name="l">Punto 1.</param>
+        /// <param name="r">Punto 2.</param>
+        /// <returns>La suma de los vectores de los puntos.</returns>
+        public static Point operator +(Point l, I2DVector r)
         {
             return new Point(l.X + r.X, l.Y + r.Y);
         }
@@ -101,6 +103,17 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
+        ///     Realiza una operación de resta sobre los puntos.
+        /// </summary>
+        /// <param name="l">Punto 1.</param>
+        /// <param name="r">Punto 2.</param>
+        /// <returns>La resta de los vectores de los puntos.</returns>
+        public static Point operator -(Point l, I2DVector r)
+        {
+            return new Point(l.X - r.X, l.Y - r.Y);
+        }
+
+        /// <summary>
         ///     Realiza una operación de resta sobre el punto.
         /// </summary>
         /// <param name="l">Punto 1.</param>
@@ -121,6 +134,17 @@ namespace TheXDS.MCART.Types
         /// <param name="r">Punto 2.</param>
         /// <returns>La multiplicación de los vectores de los puntos.</returns>
         public static Point operator *(Point l, Point r)
+        {
+            return new Point(l.X * r.X, l.Y * r.Y);
+        }
+
+        /// <summary>
+        ///     Realiza una operación de multiplicación sobre los puntos.
+        /// </summary>
+        /// <param name="l">Punto 1.</param>
+        /// <param name="r">Punto 2.</param>
+        /// <returns>La multiplicación de los vectores de los puntos.</returns>
+        public static Point operator *(Point l, I2DVector r)
         {
             return new Point(l.X * r.X, l.Y * r.Y);
         }
@@ -151,6 +175,17 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
+        ///     Realiza una operación de división sobre los puntos.
+        /// </summary>
+        /// <param name="l">Punto 1.</param>
+        /// <param name="r">Punto 2.</param>
+        /// <returns>La división de los vectores de los puntos.</returns>
+        public static Point operator /(Point l, I2DVector r)
+        {
+            return new Point(l.X / r.X, l.Y / r.Y);
+        }
+
+        /// <summary>
         ///     Realiza una operación de división sobre el punto.
         /// </summary>
         /// <param name="l">Punto 1.</param>
@@ -171,6 +206,17 @@ namespace TheXDS.MCART.Types
         /// <param name="r">Punto 2.</param>
         /// <returns>El resíduo de los vectores de los puntos.</returns>
         public static Point operator %(Point l, Point r)
+        {
+            return new Point(l.X % r.X, l.Y % r.Y);
+        }
+
+        /// <summary>
+        ///     Realiza una operación de resíduo sobre los puntos.
+        /// </summary>
+        /// <param name="l">Punto 1.</param>
+        /// <param name="r">Punto 2.</param>
+        /// <returns>El resíduo de los vectores de los puntos.</returns>
+        public static Point operator %(Point l, I2DVector r)
         {
             return new Point(l.X % r.X, l.Y % r.Y);
         }
@@ -248,6 +294,20 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
+        ///     Compara la igualdad de los vectores de los puntos.
+        /// </summary>
+        /// <param name="l">Punto a comparar.</param>
+        /// <param name="r">Vector bidimensional contra el cual comparar.</param>
+        /// <returns>
+        ///     <see langword="true" /> si todos los vectores de ambos puntos son iguales;
+        ///     de lo contrario, <see langword="false" />.
+        /// </returns>
+        public static bool operator ==(Point l, I2DVector r)
+        {
+            return l.X == r.X && l.Y == r.Y;
+        }
+
+        /// <summary>
         ///     Compara la diferencia de los vectores de los puntos.
         /// </summary>
         /// <param name="l">Punto 1.</param>
@@ -257,6 +317,20 @@ namespace TheXDS.MCART.Types
         ///     contrario, <see langword="false" />.
         /// </returns>
         public static bool operator !=(Point l, Point r)
+        {
+            return l.X != r.X || l.Y != r.Y;
+        }
+
+        /// <summary>
+        ///     Compara la diferencia de los vectores de los puntos.
+        /// </summary>
+        /// <param name="l">Punto a comparar.</param>
+        /// <param name="r">Vector bidimensional contra el cual comparar.</param>
+        /// <returns>
+        ///     <see langword="true" /> si los vectores de ambos puntos son diferentes;  de lo
+        ///     contrario, <see langword="false" />.
+        /// </returns>
+        public static bool operator !=(Point l, I2DVector r)
         {
             return l.X != r.X || l.Y != r.Y;
         }
@@ -338,6 +412,36 @@ namespace TheXDS.MCART.Types
         public bool WithinBox(Range<double> x, Range<double> y)
         {
             return x.IsWithin(X) && y.IsWithin(Y);
+        }
+
+        /// <summary>
+        ///     Determina si el punto se encuentra dentro del rectángulo formado por
+        ///     las coordenadas especificadas.
+        /// </summary>
+        /// <returns>
+        ///     <see langword="true" /> si el punto se encuentra dentro del rectángulo
+        ///     formado, <see langword="false" /> en caso contrario.
+        /// </returns>
+        /// <param name="size">Tamaño del rectángulo.</param>
+        /// <param name="topLeft">Coordenadas de esquina superior izquierda</param>
+        public bool WithinBox(Size size, Point topLeft)
+        {
+            return WithinBox(topLeft.X, topLeft.Y, size.Width - topLeft.X, size.Height - topLeft.Y);
+        }
+
+        /// <summary>
+        ///     Determina si el punto se encuentra dentro del rectángulo formado por
+        ///     las coordenadas especificadas.
+        /// </summary>
+        /// <returns>
+        ///     <see langword="true" /> si el punto se encuentra dentro del rectángulo
+        ///     formado, <see langword="false" /> en caso contrario.
+        /// </returns>
+        /// <param name="size">Tamaño del rectángulo.</param>
+        /// <param name="topLeft">Coordenadas de esquina superior izquierda</param>
+        public bool WithinBox(Size size)
+        {
+            return WithinBox(size, Origin);
         }
 
         /// <summary>
@@ -474,6 +578,22 @@ namespace TheXDS.MCART.Types
         public override string ToString()
         {
             return ToString(null, CI.CurrentCulture);
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Compara la igualdad de los vectores.
+        /// </summary>
+        /// <param name="other">
+        ///     <see cref="T:TheXDS.MCART.Types.I2DVector" /> contra el cual comparar.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true" /> si todos los vectores de ambos objetos
+        ///     son iguales, <see langword="false" /> en caso contrario.
+        /// </returns>
+        public bool Equals(I2DVector other)
+        {
+            return this == other;
         }
     }
 }

@@ -35,6 +35,7 @@ using System;
 using CI = System.Globalization.CultureInfo;
 using St = TheXDS.MCART.Resources.Strings;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
+using TheXDS.MCART.Math;
 
 namespace TheXDS.MCART.Types
 {
@@ -46,7 +47,7 @@ namespace TheXDS.MCART.Types
     ///     implementación de MCART definir métodos para convertir a la clase
     ///     correspondiente para los diferentes tipos de UI disponibles.
     /// </remarks>
-    public partial struct Point3D : IFormattable, IEquatable<Point3D>
+    public partial struct Point3D : IFormattable, IEquatable<Point3D>, I3DVector
     {
         /// <summary>
         ///     Obtiene un punto que no representa ninguna posición. Este campo es
@@ -459,5 +460,17 @@ namespace TheXDS.MCART.Types
         {
             return ToString(null, CI.CurrentCulture);
         }
+
+        /// <summary>
+        ///     Indica si esta instancia y un objeto especificado son iguales.
+        /// </summary>
+        /// <param name="other">
+        ///     Objeto que se va a compara con la instancia actual.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true" /> si esta instancia y <paramref name="other" /> son iguales;
+        ///     de lo contrario, <see langword="false" />.
+        /// </returns>
+        public bool Equals(I2DVector other) => X == other.X && Y == other.Y && !Z.IsValid();
     }
 }

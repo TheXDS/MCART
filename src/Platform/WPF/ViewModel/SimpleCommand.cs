@@ -27,10 +27,6 @@ using System.Windows;
 using System.Windows.Input;
 using TheXDS.MCART.Types.Base;
 
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable UnusedMember.Global
-
 namespace TheXDS.MCART.ViewModel
 {
     /// <inheritdoc cref="ICommand"/>

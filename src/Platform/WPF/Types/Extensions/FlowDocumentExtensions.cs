@@ -63,7 +63,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             var dialog = new PrintDialog();
             if (!dialog.ShowDialog() ?? true) return;
-            var sz = new Size(dialog.PrintableAreaWidth, dialog.PrintableAreaHeight);
+            var sz = new System.Windows.Size(dialog.PrintableAreaWidth, dialog.PrintableAreaHeight);
 
             var paginator = (fd as IDocumentPaginatorSource).DocumentPaginator;
             paginator.PageSize = sz;

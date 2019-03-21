@@ -24,6 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
 using System.Reflection;
+using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.ViewModel
@@ -83,4 +84,5 @@ namespace TheXDS.MCART.ViewModel
             PropertyChanged -= ViewModelBase_PropertyChanged;
         }
     }
+
 }

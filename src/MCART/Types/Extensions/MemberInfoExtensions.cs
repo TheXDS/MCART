@@ -22,6 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 
@@ -47,6 +48,15 @@ namespace TheXDS.MCART.Types.Extensions
         public static string NameOf(this MemberInfo member)
         {
             return member.GetAttr<NameAttribute>()?.Value ?? member.Name;
+        }
+    }
+    public static class MethodInfoExtensions
+    {
+        public static T ToDelegate<T>(this MethodInfo m) where T : Delegate
+        {
+            if (m.IsSignatureCompatible<Func<object, bool>>())
+                return (T)Delegate.CreateDelegate(typeof(T), m);
+            return null;
         }
     }
 }

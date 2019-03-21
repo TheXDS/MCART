@@ -28,10 +28,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using TheXDS.MCART.Annotations;
-
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable UnusedMember.Global
+using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
 namespace TheXDS.MCART.ViewModel
 {
@@ -45,8 +42,8 @@ namespace TheXDS.MCART.ViewModel
     public class ObservingCommand : ICommand
     {
         [NotNull] private readonly Action<object> _action;
-        [CanBeNull] private readonly Func<object, bool> _canExecute;
-        [CanBeNull] private readonly HashSet<string> _properties;
+        [CanBeNull] private Func<object, bool> _canExecute;
+        [NotNull] private readonly HashSet<string> _properties;
 
         /// <inheritdoc />
         /// <summary>
@@ -208,7 +205,7 @@ namespace TheXDS.MCART.ViewModel
 #else
             if (_canExecute is null) return;
 #endif
-            _properties = toListen?.Any() ?? false ? new HashSet<string>(toListen) : null;
+            _properties = toListen?.Any() ?? false ? new HashSet<string>(toListen) : new HashSet<string>();
             observedSource.PropertyChanged += RaiseCanExecuteChanged;
         }
 
@@ -228,7 +225,7 @@ namespace TheXDS.MCART.ViewModel
         /// <summary>
         ///     Enumera las propiedades que están siendo observadas por este <see cref="ObservingCommand"/>.
         /// </summary>
-        [CanBeNull, ItemNotNull] public IEnumerable<string> ObservedProperties => _properties;
+        [NotNull, ItemNotNull] public IEnumerable<string> ObservedProperties => _properties;
 
         /// <inheritdoc />
         /// <summary>
@@ -263,9 +260,62 @@ namespace TheXDS.MCART.ViewModel
             _action(parameter);
         }
 
+        /// <summary>
+        ///     Registra una nueva propiedad a observar en este comando.
+        /// </summary>
+        /// <param name="property">Nombre de la propiedad a observar.</param>
+        public void RegisterObservedProperty(string property)
+        {
+            if (property is null) throw new ArgumentNullException(nameof(property));
+            if (property.IsEmpty()) throw new ArgumentException();
+            _properties.Add(property);
+        }
+
+        /// <summary>
+        ///     Establece la función de comprobación a ejecutar cuando se desee
+        ///     saber si es posible ejecutar el comando.
+        /// </summary>
+        /// <param name="canExecute">
+        ///     Función a ejecutar para determinar la posibilidad de ejecutar
+        ///     el comando.
+        /// </param>
+        public void SetCanExecute(Func<object, bool> canExecute)
+        {
+            if (canExecute is null)
+            {
+                ObservedSource.PropertyChanged -= RaiseCanExecuteChanged;
+            }
+            else if (_canExecute is null)
+            {
+                ObservedSource.PropertyChanged += RaiseCanExecuteChanged;
+            }
+
+            _canExecute = canExecute;
+        }
+
+        /// <summary>
+        ///     Establece la función de comprobación a ejecutar cuando se desee
+        ///     saber si es posible ejecutar el comando.
+        /// </summary>
+        /// <param name="canExecute">
+        ///     Función a ejecutar para determinar la posibilidad de ejecutar
+        ///     el comando.
+        /// </param>
+        public void SetCanExecute(Func<bool> canExecute)
+        {
+            if (canExecute is null) throw new ArgumentNullException();
+            SetCanExecute(_ => canExecute());
+        }
+
+        /// <summary>
+        ///     Desconecta la función establecida para comprobar la posibilidad
+        ///     de ejecutar este comando.
+        /// </summary>
+        public void UnsetCanExecute() => SetCanExecute((Func<object, bool>)null);
+
         private void RaiseCanExecuteChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (_properties?.Contains(e.PropertyName) ?? true) CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+            if (_properties.Contains(e.PropertyName)) CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }
