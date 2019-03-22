@@ -147,10 +147,7 @@ namespace TheXDS.MCART.Math
         ///     <see langword="true"/> si el valor es una potencia de 2,
         ///     <see langword="false"/> en caso contrario.
         /// </returns>
-        public static bool IsTwoPow(in byte value)
-        {
-            return value.BitCount() == 1;
-        }
+        public static bool IsTwoPow(in byte value) => (value & ~1).BitCount() == 1;
 
         /// <summary>
         ///     Determina si el valor es una potencia de 2.
@@ -160,10 +157,7 @@ namespace TheXDS.MCART.Math
         ///     <see langword="true"/> si el valor es una potencia de 2,
         ///     <see langword="false"/> en caso contrario.
         /// </returns>
-        public static bool IsTwoPow(in short value)
-        {
-            return value.BitCount() == 1;
-        }
+        public static bool IsTwoPow(in short value) => (value & ~1).BitCount() == 1;
 
         /// <summary>
         ///     Determina si el valor es una potencia de 2.
@@ -173,11 +167,7 @@ namespace TheXDS.MCART.Math
         ///     <see langword="true"/> si el valor es una potencia de 2,
         ///     <see langword="false"/> en caso contrario.
         /// </returns>
-        public static bool IsTwoPow(in int value)
-        {
-            if (value == 1) return false;
-            return value.BitCount() == 1;
-        }
+        public static bool IsTwoPow(in int value) => (value & ~1).BitCount() == 1;
 
         /// <summary>
         ///     Determina si el valor es una potencia de 2.
@@ -187,10 +177,7 @@ namespace TheXDS.MCART.Math
         ///     <see langword="true"/> si el valor es una potencia de 2,
         ///     <see langword="false"/> en caso contrario.
         /// </returns>
-        public static bool IsTwoPow(in long value)
-        {
-            return value.BitCount() == 1;
-        }
+        public static bool IsTwoPow(in long value) => (value & ~1).BitCount() == 1;
 
 #if !CLSCompliance
         /// <summary>
@@ -201,10 +188,7 @@ namespace TheXDS.MCART.Math
         ///     <see langword="true"/> si el valor es una potencia de 2,
         ///     <see langword="false"/> en caso contrario.
         /// </returns>
-        public static bool IsTwoPow(in sbyte value)
-        {
-            return value.BitCount() == 1;
-        }
+        public static bool IsTwoPow(in sbyte value) => (value & ~1).BitCount() == 1;
 
         /// <summary>
         ///     Determina si el valor es una potencia de 2.
@@ -214,10 +198,7 @@ namespace TheXDS.MCART.Math
         ///     <see langword="true"/> si el valor es una potencia de 2,
         ///     <see langword="false"/> en caso contrario.
         /// </returns>
-        public static bool IsTwoPow(in ushort value)
-        {
-            return value.BitCount() == 1;
-        }
+        public static bool IsTwoPow(in ushort value) => (value & ~1).BitCount() == 1;
 
         /// <summary>
         ///     Determina si el valor es una potencia de 2.
@@ -227,10 +208,7 @@ namespace TheXDS.MCART.Math
         ///     <see langword="true"/> si el valor es una potencia de 2,
         ///     <see langword="false"/> en caso contrario.
         /// </returns>
-        public static bool IsTwoPow(in uint value)
-        {
-            return value.BitCount() == 1;
-        }
+        public static bool IsTwoPow(in uint value) => (value & ~1).BitCount() == 1;
 
         /// <summary>
         ///     Determina si el valor es una potencia de 2.
@@ -240,10 +218,7 @@ namespace TheXDS.MCART.Math
         ///     <see langword="true"/> si el valor es una potencia de 2,
         ///     <see langword="false"/> en caso contrario.
         /// </returns>
-        public static bool IsTwoPow(in ulong value)
-        {
-            return value.BitCount() == 1;
-        }
+        public static bool IsTwoPow(in ulong value) => (value & ~1UL).BitCount() == 1;
 #endif
 
         /// <summary>
