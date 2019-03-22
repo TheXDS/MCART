@@ -31,23 +31,52 @@ using System;
 using Xunit;
 using System.Reflection;
 using static TheXDS.MCART.ReflectionHelpers;
+using TheXDS.MCART.Exceptions;
 
 namespace TheXDS.MCART.Tests.Modules
 {
+    public class Test1
+    {
+        public virtual void Test() { }
+    }
+    public class Test2 : Test1
+    {
+        public override void Test() { }
+        public void TestB() { }
+    }
+
+
+
     public class ReflectionHelpersTests
     {
         [Fact]
         public void GetCallingMethodTest()
         {
-            MethodBase TestMethod()
-            {
-                return GetCallingMethod();
-            }
+            MethodBase TestMethod() => GetCallingMethod();
 
             Assert.Equal(MethodBase.GetCurrentMethod(), TestMethod());
-            Assert.Null(GetCallingMethod(int.MaxValue-1));
+            Assert.Null(GetCallingMethod(int.MaxValue - 1));
             Assert.Throws<OverflowException>(() => GetCallingMethod(int.MaxValue));
             Assert.Throws<ArgumentOutOfRangeException>(() => GetCallingMethod(0));
+        }
+
+        [Fact]
+        public void IsOverridenTest()
+        {
+            var t1 = new Test1();
+            var t2 = new Test2();
+            var m1 = t1.GetType().GetMethod("Test");
+            var m2 = t2.GetType().GetMethod("Test");
+            var m3 = t2.GetType().GetMethod("TestB");
+
+            Assert.False(m1.IsOverriden(t1));
+            Assert.True(m1.IsOverriden(t2));
+            Assert.False(m2.IsOverriden(t2));
+
+            Assert.Throws<ArgumentNullException>(() => m1.IsOverriden(null));
+            Assert.Throws<ArgumentNullException>(() => ReflectionHelpers.IsOverriden(null, null));
+            Assert.Throws<InvalidTypeException>(() => m2.IsOverriden(t1));
+
         }
     }
 }

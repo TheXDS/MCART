@@ -30,6 +30,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using TheXDS.MCART.Exceptions;
+using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 
 namespace TheXDS.MCART
 {
@@ -93,15 +95,22 @@ namespace TheXDS.MCART
             return method.GetBaseDefinition() != method;
         }
 
-        public static bool IsOverriden(this MethodInfo method, object thisInstance)
+        /// <summary>
+        ///     Determina si el método especificado ha sido invalidado en la
+        ///     instancia provista.
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="thisInstance"></param>
+        /// <returns></returns>
+        public static bool IsOverriden(this MethodBase method, object thisInstance)
         {
-            var t = thisInstance.GetType();
-            var m = t.GetMethod(
-                method.Name,
-                GetBindingFlags(method),
-                null,
-                method.GetParameters().Select(p => p.ParameterType).ToArray(),
-                null);
+            if (method is null) throw new ArgumentNullException(nameof(method));
+            var t = thisInstance?.GetType() ?? throw new ArgumentNullException(nameof(thisInstance));
+            if (!t.Implements(method.DeclaringType)) throw new InvalidTypeException(t);
+
+            var m = t.GetMethod(method.Name, GetBindingFlags(method), null,
+                method.GetParameters().Select(p => p.ParameterType).ToArray(), null) 
+                ?? throw new TamperException(new MissingMethodException(thisInstance.GetType().Name, method.Name));
 
             return method != m;
         }
@@ -168,7 +177,7 @@ namespace TheXDS.MCART
             throw new ArgumentException();
         }
 
-        public static BindingFlags GetBindingFlags(this MethodInfo method)
+        public static BindingFlags GetBindingFlags(this MethodBase method)
         {
             var retVal = BindingFlags.Default;
 

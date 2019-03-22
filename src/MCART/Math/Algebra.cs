@@ -175,6 +175,7 @@ namespace TheXDS.MCART.Math
         /// </returns>
         public static bool IsTwoPow(in int value)
         {
+            if (value == 1) return false;
             return value.BitCount() == 1;
         }
 
