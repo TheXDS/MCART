@@ -272,7 +272,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     <see langword="false" /> en caso contrario.
         /// </returns>
         [DebuggerStepThrough]
-        [Thunk] 
+        [Sugar] 
         public static bool IsInstantiable(this Type type, params Type[] constructorArgs)
         {
             return IsInstantiable(type, constructorArgs.AsEnumerable());
@@ -284,7 +284,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>La nueva instancia del tipo especificado.</returns>
         /// <param name="type">Tipo a instanciar.</param>
         [DebuggerStepThrough]
-        [Thunk]
+        [Sugar]
         public static object New(this Type type)
         {
             return type.New<object>(new object[] { });
@@ -301,7 +301,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         /// <typeparam name="T">Tipo de instancia a devolver.</typeparam>
         [DebuggerStepThrough]
-        [Thunk]
+        [Sugar]
         public static T New<T>(this Type type)
         {
             return type.New<T>(new object[0]);
@@ -318,7 +318,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     un constructor compatible para poder crear la instancia.
         /// </param>
         [DebuggerStepThrough]
-        [Thunk]
+        [Sugar]
         public static object New(this Type type, params object[] parameters)
         {
             return type.New<object>(parameters);

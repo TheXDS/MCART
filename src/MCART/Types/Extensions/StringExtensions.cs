@@ -89,7 +89,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         /// <param name="stringToCheck">Cadena a verificar.</param>
         /// <param name="chars">Caracteres a buscar.</param>
-        [Thunk]
+        [Sugar]
         public static bool ContainsAny(this string stringToCheck, params char[] chars)
         {
             return ContainsAny(stringToCheck, out _, chars);
@@ -155,7 +155,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         /// <param name="stringToCheck">Cadena a verificar.</param>
         /// <param name="strings">Cadenas a buscar.</param>
-        [Thunk]
+        [Sugar]
         public static bool ContainsAny(this string stringToCheck, params string[] strings)
         {
             return ContainsAny(stringToCheck, strings, out _);
@@ -171,7 +171,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         /// <param name="stringToCheck">Cadena a verificar.</param>
         /// <param name="strings">Cadenas a buscar.</param>
-        [Thunk]
+        [Sugar]
         public static bool ContainsAny(this string stringToCheck, IEnumerable<string> strings)
         {
             return ContainsAny(stringToCheck, strings, out _);
@@ -360,7 +360,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         /// <param name="stringToCheck">Cadena a comprobar.</param>
         /// <param name="chars">Caracteres a contar.</param>
-        [Thunk]
+        [Sugar]
         public static int CountChars(this string stringToCheck, string chars)
         {
             return CountChars(stringToCheck, chars.ToCharArray());
@@ -620,7 +620,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     contrario, <see langword="false" />.
         /// </returns>
         /// <param name="stringToCheck">Cadena a comprobar.</param>
-        [Thunk]
+        [Sugar]
         public static bool IsEmpty(this string stringToCheck)
         {
             return string.IsNullOrWhiteSpace(stringToCheck);

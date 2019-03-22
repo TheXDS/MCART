@@ -68,7 +68,7 @@ namespace TheXDS.MCART.Math
         ///     <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="number">Número a comprobar.</param>
-        [Thunk]
+        [Sugar]
         public static bool IsPrime(this in int number)
         {
             return ((long) number).IsPrime();
@@ -90,7 +90,7 @@ namespace TheXDS.MCART.Math
         ///     <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="number">Número a comprobar.</param>
-        [Thunk]
+        [Sugar]
         public static bool IsPrime(this in short number)
         {
             return ((long) number).IsPrime();
@@ -121,7 +121,7 @@ namespace TheXDS.MCART.Math
         ///     <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="number">Número a comprobar.</param>
-        [Thunk]
+        [Sugar]
         public static bool IsPrime(this in byte number)
         {
             return ((long) number).IsPrime();
@@ -380,7 +380,7 @@ namespace TheXDS.MCART.Math
         ///     números operables, en otras palabras, si no son NaN o Infinito; en
         ///     caso contrario, se devuelve <see langword="false" />.
         /// </returns>
-        [Thunk]
+        [Sugar]
         public static bool AreValid(params double[] values)
         {
             return values.All(p=>IsValid(p));
@@ -398,7 +398,7 @@ namespace TheXDS.MCART.Math
         ///     números operables, en otras palabras, si no son NaN o Infinito; en
         ///     caso contrario, se devuelve <see langword="false" />.
         /// </returns>
-        [Thunk]
+        [Sugar]
         public static bool AreValid(params float[] values)
         {
             return values.All(p=>IsValid(p));
@@ -416,7 +416,7 @@ namespace TheXDS.MCART.Math
         ///     números operables, en otras palabras, si no son NaN o Infinito; en
         ///     caso contrario, se devuelve <see langword="false" />.
         /// </returns>
-        [Thunk]
+        [Sugar]
         public static bool AreValid(IEnumerable<float> values)
         {
             return values.All(p=>IsValid(p));
@@ -434,7 +434,7 @@ namespace TheXDS.MCART.Math
         ///     números operables, en otras palabras, si no son NaN o Infinito; en
         ///     caso contrario, se devuelve <see langword="false" />.
         /// </returns>
-        [Thunk]
+        [Sugar]
         public static bool AreValid(IEnumerable<double> values)
         {
             return values.All(p=>IsValid(p));

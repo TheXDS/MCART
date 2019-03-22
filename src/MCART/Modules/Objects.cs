@@ -461,7 +461,7 @@ namespace TheXDS.MCART
         ///     Un tipo que ha sido etiquetado con el identificador especificado,
         ///     o <see langword="null" /> si ningún tipo contiene el identificador.
         /// </returns>
-        [Thunk]
+        [Sugar]
         public static Type FindType(string identifier)
         {
             return FindType<object>(identifier);
@@ -477,7 +477,7 @@ namespace TheXDS.MCART
         ///     Un tipo que ha sido etiquetado con el identificador especificado,
         ///     o <see langword="null" /> si ningún tipo contiene el identificador.
         /// </returns>
-        [Thunk]
+        [Sugar]
         public static Type FindType<T>(string identifier)
         {
             return FindType<T>(identifier, AppDomain.CurrentDomain);
@@ -493,7 +493,7 @@ namespace TheXDS.MCART
         ///     Un tipo que ha sido etiquetado con el identificador especificado,
         ///     o <see langword="null" /> si ningún tipo contiene el identificador.
         /// </returns>
-        [Thunk]
+        [Sugar]
         public static Type FindType(string identifier, AppDomain domain)
         {
             return FindType<object>(identifier, domain);
@@ -533,7 +533,7 @@ namespace TheXDS.MCART
         ///     asociados en la declaración del ensamblado; o <see langword="null" /> en caso
         ///     de no encontrarse el atributo especificado.
         /// </returns>
-        [Thunk]
+        [Sugar]
         public static T GetAttr<T>(this Assembly assembly) where T : Attribute
         {
             HasAttr(assembly, out T attr);
@@ -555,7 +555,7 @@ namespace TheXDS.MCART
         ///     asociados en la declaración del ensamblado; o <see langword="null" /> en caso
         ///     de no encontrarse el atributo especificado.
         /// </returns>
-        [Thunk]
+        [Sugar]
         public static IEnumerable<T> GetAttrs<T>(this Assembly assembly) where T : Attribute
         {
             HasAttrs(assembly, out IEnumerable<T> attr);
@@ -577,7 +577,7 @@ namespace TheXDS.MCART
         ///     asociados en la declaración del miembro; o <see langword="null" /> en caso de
         ///     no encontrarse el atributo especificado.
         /// </returns>
-        [Thunk]
+        [Sugar]
         public static T GetAttr<T>(this MemberInfo member) where T : Attribute
         {
             HasAttr(member, out T attr);
@@ -599,7 +599,7 @@ namespace TheXDS.MCART
         ///     asociados en la declaración del ensamblado; o <see langword="null" /> en caso
         ///     de no encontrarse el atributo especificado.
         /// </returns>
-        [Thunk]
+        [Sugar]
         public static IEnumerable<T> GetAttrs<T>(this MemberInfo member) where T : Attribute
         {
             HasAttrs(member, out IEnumerable<T> attr);
@@ -618,7 +618,7 @@ namespace TheXDS.MCART
          ///     asociados en la declaración del objeto; o <see langword="null" /> en caso de no
          ///     encontrarse el atributo especificado.
          /// </returns>
-        [Thunk]
+        [Sugar]
         public static T GetAttr<T>(this object obj) where T : Attribute
         {
             HasAttr(obj, out T attr);
@@ -640,7 +640,7 @@ namespace TheXDS.MCART
         ///     asociados en la declaración del ensamblado; o <see langword="null" /> en caso
         ///     de no encontrarse el atributo especificado.
         /// </returns>
-        [Thunk]
+        [Sugar]
         public static IEnumerable<T> GetAttrs<T>(this object member) where T : Attribute
         {
             HasAttrs(member, out IEnumerable<T> attr);
@@ -687,7 +687,7 @@ namespace TheXDS.MCART
         ///     asociados en la declaración del ensamblado; o <see langword="null" /> en caso
         ///     de no encontrarse el atributo especificado.
         /// </returns>
-        [Thunk]
+        [Sugar]
         public static IEnumerable<T> GetAttrs<T>(this Enum enumValue) where T : Attribute
         {
             HasAttrs(enumValue, out IEnumerable<T> attr);
@@ -709,7 +709,7 @@ namespace TheXDS.MCART
         ///     Un atributo del tipo <typeparamref name="T" /> con los datos
         ///     asociados en la declaración del tipo.
         /// </returns>
-        [Thunk]
+        [Sugar]
         public static T GetAttr<T, TIt>() where T : Attribute
         {
             HasAttr(typeof(TIt), out T attr);
@@ -1433,7 +1433,7 @@ namespace TheXDS.MCART
         ///     <see langword="true" /> si la instancia de <paramref name="obj1" /> es la misma
         ///     que <paramref name="obj2" />, <see langword="false" /> en caso contrario.
         /// </returns>
-        [Thunk]
+        [Sugar]
         public static bool Is(this object obj1, object obj2)
         {
             return ReferenceEquals(obj1, obj2);
@@ -1531,7 +1531,7 @@ namespace TheXDS.MCART
         ///     <see langword="true" /> si la instancia de <paramref name="obj1" /> no es la
         ///     misma que <paramref name="obj2" />, <see langword="false" /> en caso contrario.
         /// </returns>
-        [Thunk]
+        [Sugar]
         public static bool IsNot(this object obj1, object obj2)
         {
             return !ReferenceEquals(obj1, obj2);
@@ -1612,7 +1612,7 @@ namespace TheXDS.MCART
         ///     Esta función únicamente es únicamente útil al utilizar Visual
         ///     Basic en conjunto con la estructura <c lang="VB">With</c>.
         /// </remarks>
-        [Thunk]
+        [Sugar]
         public static T Itself<T>(this T obj)
         {
             return obj;

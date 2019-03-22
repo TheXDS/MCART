@@ -390,7 +390,7 @@ namespace TheXDS.MCART
         /// <param name="ctrls">
         ///     Arreglo de <see cref="UIElement" /> a colapsar.
         /// </param>
-        [Thunk]
+        [Sugar]
         public static void CollapseControls(this IEnumerable<UIElement> ctrls)
         {
             CollapseControls(ctrls.ToArray());
@@ -426,7 +426,7 @@ namespace TheXDS.MCART
         /// <param name="ctrls">
         ///     Arreglo de <see cref="UIElement" /> a deshabilitar.
         /// </param>
-        [Thunk]
+        [Sugar]
         public static void DisableControls(this IEnumerable<UIElement> ctrls)
         {
             DisableControls(ctrls.ToArray());
@@ -519,7 +519,7 @@ namespace TheXDS.MCART
         /// <param name="ctrls">
         ///     Arreglo de <see cref="UIElement" /> a habilitar.
         /// </param>
-        [Thunk]
+        [Sugar]
         public static void EnableControls(this IEnumerable<UIElement> ctrls)
         {
             EnableControls(ctrls.ToArray());
@@ -739,7 +739,7 @@ namespace TheXDS.MCART
         /// <param name="ctrls">
         ///     Arreglo de <see cref="UIElement" /> a ocultar.
         /// </param>
-        [Thunk]
+        [Sugar]
         public static void HideControls(this IEnumerable<UIElement> ctrls)
         {
             HideControls(ctrls.ToArray());
@@ -947,7 +947,7 @@ namespace TheXDS.MCART
         /// <param name="ctrls">
         ///     Arreglo de <see cref="UIElement" /> a mostrar.
         /// </param>
-        [Thunk]
+        [Sugar]
         public static void ShowControls(this IEnumerable<UIElement> ctrls)
         {
             ShowControls(ctrls.ToArray());
@@ -972,7 +972,7 @@ namespace TheXDS.MCART
         /// <param name="ctrls">
         ///     Arreglo de <see cref="UIElement" /> a habilitar/deshabilitar.
         /// </param>
-        [Thunk]
+        [Sugar]
         public static void ToggleControls(this IEnumerable<UIElement> ctrls)
         {
             ToggleControls(ctrls.ToArray());

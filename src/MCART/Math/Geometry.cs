@@ -117,7 +117,7 @@ namespace TheXDS.MCART.Math
         /// <returns>
         ///     Un conjunto de coordenadas con la posición del punto solicitado.
         /// </returns>
-        [Thunk]
+        [Sugar]
         public static Point GetCirclePoint(in double radius, in double position)
         {
             return GetArcPoint(radius, 0, 360, position);

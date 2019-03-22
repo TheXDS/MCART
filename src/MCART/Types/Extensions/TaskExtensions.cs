@@ -43,7 +43,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </typeparam>
         /// <param name="task">Tarea a esperar.</param>
         /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
-        [DebuggerStepThrough, Thunk]
+        [DebuggerStepThrough, Sugar]
         public static T Yield<T>(this Task<T> task)
         {
             task.Wait();
@@ -59,7 +59,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="task">Tarea a esperar.</param>
         /// <param name="ct">Token de cancelación de la tarea.</param>
         /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
-        [DebuggerStepThrough, Thunk]
+        [DebuggerStepThrough, Sugar]
         public static T Yield<T>(this Task<T> task, CancellationToken ct)
         {
             task.Wait(ct);
@@ -78,7 +78,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     abortarla forzosamente.
         /// </param>
         /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
-        [DebuggerStepThrough, Thunk]
+        [DebuggerStepThrough, Sugar]
         public static T Yield<T>(this Task<T> task, TimeSpan timeout)
         {
             task.Wait(timeout);
@@ -97,7 +97,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     finalice antes de abortarla forzosamente.
         /// </param>
         /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
-        [DebuggerStepThrough, Thunk]
+        [DebuggerStepThrough, Sugar]
         public static T Yield<T>(this Task<T> task, int msTimeout)
         {
             task.Wait(msTimeout);
@@ -117,7 +117,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         /// <param name="ct">Token de cancelación de la tarea.</param>
         /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
-        [DebuggerStepThrough, Thunk]
+        [DebuggerStepThrough, Sugar]
         public static T Yield<T>(this Task<T> task, int msTimeout, CancellationToken ct)
         {
             task.Wait(msTimeout,ct);

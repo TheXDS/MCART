@@ -59,7 +59,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Una enumeración de <see cref="NamedObject{T}"/> a partir de los
         ///     valores de enumeración del tipo especificado.
         /// </returns>
-        [Thunk]
+        [Sugar]
         public static IEnumerable<NamedObject<T>> AsNamedObject<T>() where T : Enum
         {
             return NamedObject<T>.FromEnum();

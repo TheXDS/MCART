@@ -69,7 +69,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     encontrado en la colección, o <see langword="null"/> si no se
         ///     encuentra ningún elemento del tipo especificado.
         /// </returns>
-        [Thunk]
+        [Sugar]
         public static T FirstOf<T>(this IEnumerable collection)
         {
             return collection.OfType<T>().FirstOrDefault();

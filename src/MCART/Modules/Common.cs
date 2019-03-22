@@ -78,7 +78,7 @@ namespace TheXDS.MCART
         ///     contrario, <see langword="false" />.
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
-        [Thunk]
+        [Sugar]
         public static bool AllEmpty(params string[] stringArray)
         {
             return stringArray.AsEnumerable().AllEmpty();
@@ -105,7 +105,7 @@ namespace TheXDS.MCART
         ///     contrario, <see langword="false" />.
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
-        [Thunk]
+        [Sugar]
         public static bool AnyEmpty(params string[] stringArray)
         {
             return stringArray.AsEnumerable().AnyEmpty();
@@ -119,7 +119,7 @@ namespace TheXDS.MCART
         ///     contrario, <see langword="false" />.
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
-        [Thunk]
+        [Sugar]
         public static bool AnyEmpty(this IEnumerable<string> stringArray)
         {
             return stringArray.Any(j => j.IsEmpty());
@@ -688,7 +688,7 @@ public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)val
         ///     Una lista de enteros con la secuencia generada.
         /// </returns>
         /// <param name="top">Valor más alto.</param>
-        [Thunk]
+        [Sugar]
         public static IEnumerable<int> Sequence(in int top)
         {
             return Sequence(0, top, 1);
@@ -702,7 +702,7 @@ public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)val
         /// </returns>
         /// <param name="floor">Valor más bajo.</param>
         /// <param name="top">Valor más alto.</param>
-        [Thunk]
+        [Sugar]
         public static IEnumerable<int> Sequence(in int floor, in int top)
         {
             return Sequence(floor, top, 1);
@@ -741,14 +741,14 @@ public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)val
         }
 
         /// <summary>
-        ///     <see cref="ThunkAttribute" /> de
+        ///     <see cref="SugarAttribute" /> de
         ///     <see cref="BitConverter.ToString(byte[])" /> que no incluye guiones.
         /// </summary>
         /// <returns>
         ///     La representación hexadecimal del arreglo de <see cref="byte" />.
         /// </returns>
         /// <param name="arr">Arreglo de bytes a convertir.</param>
-        [Thunk]
+        [Sugar]
         public static string ToHex(this byte[] arr)
         {
             return BitConverter.ToString(arr).Replace("-", "");
@@ -761,7 +761,7 @@ public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)val
         ///     La representación hexadecimal de <paramref name="byte" />.
         /// </returns>
         /// <param name="byte">El <see cref="byte" /> a convertir.</param>
-        [Thunk]
+        [Sugar]
         public static string ToHex(this in byte @byte)
         {
             return @byte.ToString("X");
@@ -776,7 +776,7 @@ public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)val
         ///     expresados en porcentaje.
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
-        [Thunk]
+        [Sugar]
         public static IEnumerable<float> ToPercent(this IEnumerable<float> collection)
         {
             var enumerable = collection.ToList();
@@ -797,7 +797,7 @@ public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)val
         ///     porcentaje es cero; de lo contrario, se utilizará el valor mínimo
         ///     dentro de la colección.
         /// </param>
-        [Thunk]
+        [Sugar]
         public static IEnumerable<float> ToPercent(this IEnumerable<float> collection, in bool baseZero)
         {
             var enumerable = collection.ToList();
@@ -814,7 +814,7 @@ public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)val
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="max">Valor que representará 100%.</param>
-        [Thunk]
+        [Sugar]
         public static IEnumerable<float> ToPercent(this IEnumerable<float> collection, in float max)
         {
             return ToPercent(collection, 0, max);
@@ -855,7 +855,7 @@ public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)val
         ///     expresados en porcentaje.
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
-        [Thunk]
+        [Sugar]
         public static IEnumerable<double> ToPercent(this IEnumerable<double> collection)
         {
             var enumerable = collection.ToList();
@@ -876,7 +876,7 @@ public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)val
         ///     porcentaje es cero; de lo contrario, se utilizará el valor mínimo
         ///     dentro de la colección.
         /// </param>
-        [Thunk]
+        [Sugar]
         public static IEnumerable<double> ToPercent(this IEnumerable<double> collection, in bool baseZero)
         {
             var enumerable = collection.ToList();
@@ -893,7 +893,7 @@ public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)val
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="max">Valor que representará 100%.</param>
-        [Thunk]
+        [Sugar]
         public static IEnumerable<double> ToPercent(this IEnumerable<double> collection, in double max)
         {
             return ToPercent(collection, 0, max);
@@ -934,7 +934,7 @@ public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)val
         ///     expresados en porcentaje.
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
-        [Thunk]
+        [Sugar]
         public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection)
         {
             var enumerable = collection.ToList();
@@ -955,7 +955,7 @@ public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)val
         ///     porcentaje es cero; de lo contrario, se utilizará el valor mínimo
         ///     dentro de la colección.
         /// </param>
-        [Thunk]
+        [Sugar]
         public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, in bool baseZero)
         {
             var enumerable = collection.ToList();
@@ -972,7 +972,7 @@ public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)val
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="max">Valor que representará 100%.</param>
-        [Thunk]
+        [Sugar]
         public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, in int max)
         {
             return ToPercentDouble(collection, 0, max);
@@ -1004,7 +1004,7 @@ public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)val
         ///     expresados en porcentaje.
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
-        [Thunk]
+        [Sugar]
         public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection)
         {
             var enumerable = collection.ToList();
@@ -1025,7 +1025,7 @@ public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)val
         ///     porcentaje es cero; de lo contrario, se utilizará el valor mínimo
         ///     dentro de la colección.
         /// </param>
-        [Thunk]
+        [Sugar]
         public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, in bool baseZero)
         {
             var enumerable = collection.ToList();
@@ -1042,7 +1042,7 @@ public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)val
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="max">Valor que representará 100%.</param>
-        [Thunk]
+        [Sugar]
         public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, in int max)
         {
             return ToPercentSingle(collection, 0, max);

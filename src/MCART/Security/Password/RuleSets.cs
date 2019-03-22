@@ -333,17 +333,17 @@ namespace TheXDS.MCART.Security.Password
         /// Crea una nueva regla que comprueba si la contraseña contiene mayúsculas.
         /// </summary>
         /// <returns>Un <see cref="PasswordEvaluationRule"/> que comprueba si la contraseña contiene mayúsculas.</returns>
-        [Thunk] public static PasswordEvaluationRule PwUcaseEvalRule() => ContentionRuleFactory(St.Alpha.ToUpper(), St2.PwUcaseEvalRule);
+        [Sugar] public static PasswordEvaluationRule PwUcaseEvalRule() => ContentionRuleFactory(St.Alpha.ToUpper(), St2.PwUcaseEvalRule);
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene minúsculas.
         /// </summary>
         /// <returns>Un <see cref="PasswordEvaluationRule"/> que comprueba si la contraseña contiene minúsculas.</returns>
-        [Thunk] public static PasswordEvaluationRule PwLcaseEvalRule() => ContentionRuleFactory(St.Alpha.ToLower(), St2.PwLcaseEvalRule);
+        [Sugar] public static PasswordEvaluationRule PwLcaseEvalRule() => ContentionRuleFactory(St.Alpha.ToLower(), St2.PwLcaseEvalRule);
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene números.
         /// </summary>
         /// <returns>Un <see cref="PasswordEvaluationRule"/> que comprueba si la contraseña contiene números.</returns>
-        [Thunk]
+        [Sugar]
         public static PasswordEvaluationRule PwNumbersEvalRule()
         {
             return ContentionRuleFactory(
@@ -358,17 +358,17 @@ namespace TheXDS.MCART.Security.Password
         /// Crea una nueva regla que comprueba si la contraseña contiene símbolos.
         /// </summary>
         /// <returns>Un <see cref="PasswordEvaluationRule"/> que comprueba si la contraseña contiene símbolos.</returns>
-        [Thunk] public static PasswordEvaluationRule PwSymbolsEvalRule() => ContentionRuleFactory(St.Symbols, St2.PwSymbolsEvalRule);
+        [Sugar] public static PasswordEvaluationRule PwSymbolsEvalRule() => ContentionRuleFactory(St.Symbols, St2.PwSymbolsEvalRule);
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene caracteres latinos.
         /// </summary>
         /// <returns>Un <see cref="PasswordEvaluationRule"/> que comprueba si la contraseña contiene caracteres latinos.</returns>
-        [Thunk] public static PasswordEvaluationRule PwLatinEvalRule() => ContentionRuleFactory(St.LatinChars, St2.PwLatinEvalRule, null, PonderationLevel.Low, true, true);
+        [Sugar] public static PasswordEvaluationRule PwLatinEvalRule() => ContentionRuleFactory(St.LatinChars, St2.PwLatinEvalRule, null, PonderationLevel.Low, true, true);
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene otros símbolos.
         /// </summary>
         /// <returns>Un <see cref="PasswordEvaluationRule"/> que comprueba si la contraseña contiene otros símbolos.</returns>
-        [Thunk] public static PasswordEvaluationRule PwOtherSymbsEvalRule() => ContentionRuleFactory(St.MoreSymbs, St2.PwOtherSymbsEvalRule, null, PonderationLevel.High, true, true);
+        [Sugar] public static PasswordEvaluationRule PwOtherSymbsEvalRule() => ContentionRuleFactory(St.MoreSymbs, St2.PwOtherSymbsEvalRule, null, PonderationLevel.High, true, true);
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene otros
         /// caracteres Unicode que no están disponibles en el teclado Inglés

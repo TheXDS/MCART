@@ -584,7 +584,7 @@ namespace TheXDS.MCART.ViewModel
         /// <returns>
         ///     Una nueva instancia del ViewModel solicitado.
         /// </returns>
-        [Thunk]
+        [Sugar]
         public static TViewModel NewSelfViewModel<TViewModel, TInterface>() where TViewModel : IGeneratedViewModel<TInterface> where TInterface : class => BuildSelfViewModel(typeof(TViewModel), typeof(TInterface)).New<TViewModel>();
 
         /// <summary>
@@ -597,7 +597,7 @@ namespace TheXDS.MCART.ViewModel
         /// <returns>
         ///     Una nueva instancia del ViewModel solicitado.
         /// </returns>
-        [Thunk]
+        [Sugar]
         public static GeneratedViewModel<TInterface> NewSelfViewModel<TInterface>() where TInterface : class => BuildSelfViewModel(typeof(TInterface)).New<GeneratedViewModel<TInterface>>();
 
         /// <summary>

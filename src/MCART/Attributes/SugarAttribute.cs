@@ -1,5 +1,5 @@
 ﻿/*
-TextAttribute.cs
+SugarAttribute.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -29,16 +29,16 @@ namespace TheXDS.MCART.Attributes
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Indica que un elemento es un proveedor de Thunking (facilita la
-    ///     llamada a otros entornos o Frameworks).
+    ///     Indica que un elemento facilita la llamada a otros elementos o
+    ///     miembros.
     /// </summary>
     /// <remarks>
     ///     Este atributo no debería aplicarse a sobrecargas de un método que
-    ///     no sea en sí mismo un método de Thunking.
+    ///     no sea en sí mismo un método de "Code Sugar".
     /// </remarks>
-    [AttributeUsage(Property | Method | Class | Module | Assembly)]
+    [AttributeUsage(Property | Method)]
     [Serializable]
-    public sealed class ThunkAttribute : Attribute
+    public sealed class SugarAttribute : Attribute
     {
     }
 }

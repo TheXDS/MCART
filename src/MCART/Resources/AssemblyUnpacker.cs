@@ -95,7 +95,7 @@ namespace TheXDS.MCART.Resources
         /// si este es una cadena vacía.
         /// </exception>
         /// 
-        [Thunk] protected Stream UnpackStream(string id, string compressorId)
+        [Sugar] protected Stream UnpackStream(string id, string compressorId)
         {
             return UnpackStream(id, Objects.FindType<ICompressorGetter>(compressorId)?.New<ICompressorGetter>() ?? new NullGetter());
         }
@@ -116,7 +116,7 @@ namespace TheXDS.MCART.Resources
         /// <see langword="null"/>, o si <paramref name="compressor"/> es
         /// <see langword="null"/>.
         /// </exception>
-        [Thunk] protected Stream UnpackStream(string id, ICompressorGetter compressor)
+        [Sugar] protected Stream UnpackStream(string id, ICompressorGetter compressor)
         {
             var c = compressor ?? new NullGetter();
             if (id.IsEmpty()) throw new ArgumentNullException(nameof(id));

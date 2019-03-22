@@ -41,7 +41,7 @@ namespace TheXDS.MCART
         /// </summary>
         /// <param name="collection"></param>
         /// <returns></returns>
-        [Thunk]
+        [Sugar]
         public static bool Or(this IEnumerable<bool> collection)
         {
             return collection.Aggregate(false, (current, j) => current | j);
@@ -52,7 +52,7 @@ namespace TheXDS.MCART
         /// </summary>
         /// <param name="collection"></param>
         /// <returns></returns>
-        [Thunk]
+        [Sugar]
         public static bool And(this IEnumerable<bool> collection)
         {
             return collection.Aggregate(false, (current, j) => current & j);
@@ -63,7 +63,7 @@ namespace TheXDS.MCART
         /// </summary>
         /// <param name="collection"></param>
         /// <returns></returns>
-        [Thunk]
+        [Sugar]
         public static bool Xor(this IEnumerable<bool> collection)
         {
             return collection.Aggregate(false, (current, j) => current ^ j);

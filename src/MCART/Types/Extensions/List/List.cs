@@ -311,11 +311,11 @@ namespace TheXDS.MCART.Types.Extensions
         /// <summary>
         /// Quita el último elemento de la <see cref="List{T}"/>
         /// </summary>
-        [Thunk] public void RemoveLast() => Remove(this.Last());
+        [Sugar] public void RemoveLast() => Remove(this.Last());
         /// <summary>
         /// Quita el primer elemento de la <see cref="List{T}"/>
         /// </summary>
-        [Thunk] public void RemoveFirst() => Remove(this.First());
+        [Sugar] public void RemoveFirst() => Remove(this.First());
         /// <summary>
         /// Remueve todos los elementos de la <see cref="List{T}"/>
         /// </summary>
@@ -419,7 +419,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// Implementa la interfaz <see cref="ICloneable"/>
         /// </summary>
         /// <returns>Una copia de esta instancia.</returns>
-        [Thunk] public object Clone() => this.Copy();
+        [Sugar] public object Clone() => this.Copy();
         /// <summary>
         /// Devuelve el tipo de elementos de <see cref="List{T}"/>
         /// </summary>

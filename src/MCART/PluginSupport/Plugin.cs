@@ -297,7 +297,7 @@ namespace TheXDS.MCART.PluginSupport
         /// <value>
         /// Ensamblado en el cual se declara este <see cref="T:TheXDS.MCART.PluginSupport.Plugin" />.
         /// </value>
-        [Thunk] public Assembly Assembly => GetType().Assembly;
+        [Sugar] public Assembly Assembly => GetType().Assembly;
         /// <inheritdoc />
         /// <summary>
         /// Contiene una lista de interacciones que este <see cref="T:TheXDS.MCART.PluginSupport.Plugin" />.
@@ -361,7 +361,7 @@ namespace TheXDS.MCART.PluginSupport
         /// <see langword="true"/> si fue posible obtener información sobre la versión 
         /// mínima de MCART, <see langword="false"/> en caso contrario.
         /// </returns>
-        [Thunk]
+        [Sugar]
         public bool MinRtVersion(out Version minVersion)
         {
             minVersion = MinMcartVersion;
@@ -376,7 +376,7 @@ namespace TheXDS.MCART.PluginSupport
         /// <see langword="true"/> si fue posible obtener información sobre la versión 
         /// objetivo de MCART, <see langword="false"/> en caso contrario.
         /// </returns>
-        [Thunk]
+        [Sugar]
         public bool TargetRtVersion(out Version tgtVersion)
         {
             tgtVersion = TargetMcartVersion;

@@ -41,7 +41,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="fs">
         /// <see cref="Stream"/> a destruir.
         /// </param>
-        [Dangerous] [Thunk] public static void Destroy(this Stream fs) => fs.SetLength(0);
+        [Dangerous] [Sugar] public static void Destroy(this Stream fs) => fs.SetLength(0);
         /// <summary>
         /// Salta la cantidad especificada de bytes en la secuencia desde la
         /// posición actual.
@@ -53,7 +53,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// Se produce si <paramref name="bytesToSkip"/> es menor a cero, o si
         /// se extiende fuera de la secuencia.
         /// </exception>
-        [Thunk]
+        [Sugar]
         public static void Skip(this Stream fs, int bytesToSkip)
         {
             if (bytesToSkip < 0 || (fs.Position + bytesToSkip) > fs.Length)
@@ -68,7 +68,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="fs"><see cref="Stream"/> del cual este método es
         /// una extensión.</param>
         /// <param name="count">Cantidad de caracteres a leer.</param>
-        [Thunk]
+        [Sugar]
         public static string ReadString(this Stream fs, int count) => ReadString(fs, count, Encoding.Unicode);
         /// <summary>
         /// Lee una cadena desde la secuencia y avanza la posición de lectura
@@ -94,7 +94,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>
         /// La cantidad de bytes restantes desde la posición actual.
         /// </returns>
-        [Thunk] public static long RemainingBytes(this Stream fs) => fs.Length - fs.Position;
+        [Sugar] public static long RemainingBytes(this Stream fs) => fs.Length - fs.Position;
         /// <summary>
         /// Lee asíncronamente una cadena desde la secuencia y avanza la posición
         /// de lectura hasta después del último carácter Unicode leído.
@@ -103,7 +103,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="fs"><see cref="Stream"/> del cual este método es
         /// una extensión.</param>
         /// <param name="count">Cantidad de caracteres a leer.</param>
-        [Thunk] public static async Task<string> ReadStringAsync(this Stream fs, int count) => await Task.Run(() => ReadString(fs, count));
+        [Sugar] public static async Task<string> ReadStringAsync(this Stream fs, int count) => await Task.Run(() => ReadString(fs, count));
         /// <summary>
         /// Lee asíncronamente una cadena desde la secuencia y avanza la posición
         /// de lectura hasta después del último carácter leído.
@@ -123,7 +123,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <see cref="Stream"/> del cual este método es una extensión.
         /// </param>
         /// <returns>La cadena que ha sido leída.</returns>
-        [Thunk] public static async Task<string> ReadStringToEndAsync(this Stream fs) => await ReadStringToAsync(fs, fs.Length);
+        [Sugar] public static async Task<string> ReadStringToEndAsync(this Stream fs) => await ReadStringToAsync(fs, fs.Length);
         /// <summary>
         /// Lee asíncronamente una cadena desde la posición actual hasta 
         /// alcanzar la posición especificada.
@@ -156,7 +156,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         /// <param name="bytes">Colección de objetos <see cref="byte"/> a
         /// escribir en el <see cref="Stream"/>.</param>
-        [Thunk] public static void WriteBytes(this Stream fs, params byte[] bytes) => fs.Write(bytes, 0, bytes.Length);
+        [Sugar] public static void WriteBytes(this Stream fs, params byte[] bytes) => fs.Write(bytes, 0, bytes.Length);
         /// <summary>
         /// Escribe un conjunto de colecciones <see cref="byte"/> en el 
         /// <see cref="Stream"/>.

@@ -75,7 +75,7 @@ namespace TheXDS.MCART
         /// Un valor <see cref="float"/> que representa el factor de escala
         /// utilizado para dibujar la interfaz gráfica del sistema.
         /// </returns>
-        [Thunk] public static float GetScalingFactor() => GetScalingFactor(IntPtr.Zero);
+        [Sugar] public static float GetScalingFactor() => GetScalingFactor(IntPtr.Zero);
         /// <summary>
         /// Obtiene el factor de escala de la ventana especificada por
         /// el <see cref="IntPtr"/> <paramref name="Hwnd"/>.
@@ -98,7 +98,7 @@ namespace TheXDS.MCART
         /// Un valor entero que indica la resolución horizontal de la pantalla 
         /// en Puntos Por Pulgada (DPI).
         /// </returns>
-        [Thunk] public static int GetXDpi() => GetXDpi(IntPtr.Zero);
+        [Sugar] public static int GetXDpi() => GetXDpi(IntPtr.Zero);
         /// <summary>
         /// Obtiene la resolución vertical de la pantalla en DPI.
         /// </summary>
@@ -106,7 +106,7 @@ namespace TheXDS.MCART
         /// Un valor entero que indica la resolución vertical de la pantalla en
         /// Puntos Por Pulgada (DPI).
         /// </returns>
-        [Thunk] public static int GetYDpi() => GetXDpi(IntPtr.Zero);
+        [Sugar] public static int GetYDpi() => GetXDpi(IntPtr.Zero);
         /// <summary>
         /// Obtiene la resolución horizontal de la ventana en DPI.
         /// </summary>
@@ -145,7 +145,7 @@ namespace TheXDS.MCART
         /// Un <see cref="Point"/> que indica la resolución de
         /// la pantalla en Puntos Por Pulgada (DPI).
         /// </returns>
-        [Thunk] public static Point GetDpi() => GetDpi(IntPtr.Zero);
+        [Sugar] public static Point GetDpi() => GetDpi(IntPtr.Zero);
 
         /// <summary>
         /// Devuelve un <see cref="Brush"/> aleatorio.
