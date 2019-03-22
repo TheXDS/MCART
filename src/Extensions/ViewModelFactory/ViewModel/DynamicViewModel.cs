@@ -46,6 +46,7 @@ namespace TheXDS.MCART.ViewModel
         ///     establecer.
         /// </param>
         public abstract void Edit([NotNull] T entity);
+
         /// <summary>
         ///     Entidad subyacente que funciona como campo de almacenamiento
         ///     para los datos de este ViewModel.

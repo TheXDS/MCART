@@ -1,4 +1,4 @@
-﻿/*
+/*
 ReflectionHelpers.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
@@ -86,11 +86,24 @@ namespace TheXDS.MCART
         /// <param name="method"></param>
         /// <returns>
         ///     <see langword="true"/> si el método invalida a una definición
-        ///     base, <see langword="false"/> em caso contrario.
+        ///     base, <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool IsOverride(this MethodInfo method)
         {
             return method.GetBaseDefinition() != method;
+        }
+
+        public static bool IsOverriden(this MethodInfo method, object thisInstance)
+        {
+            var t = thisInstance.GetType();
+            var m = t.GetMethod(
+                method.Name,
+                GetBindingFlags(method),
+                null,
+                method.GetParameters().Select(p => p.ParameterType).ToArray(),
+                null);
+
+            return method != m;
         }
 
         /// <summary>Obtiene un nombre completo para un método.</summary>
@@ -153,6 +166,30 @@ namespace TheXDS.MCART
             else if (memberSelector.Body is MemberExpression)
                 return ((MemberExpression)memberSelector.Body).Member;
             throw new ArgumentException();
+        }
+
+        public static BindingFlags GetBindingFlags(this MethodInfo method)
+        {
+            var retVal = BindingFlags.Default;
+
+            if ((method.Attributes & MethodAttributes.Public) != 0)
+            {
+                retVal |= BindingFlags.Public;
+            }
+            if ((method.Attributes & MethodAttributes.Private) != 0)
+            {
+                retVal |= BindingFlags.NonPublic;
+            }
+            if ((method.Attributes & MethodAttributes.Static) != 0)
+            {
+                retVal |= BindingFlags.Static;
+            }
+            else
+            {
+                retVal |= BindingFlags.Instance;
+            }
+
+            return retVal;
         }
     }
 }
