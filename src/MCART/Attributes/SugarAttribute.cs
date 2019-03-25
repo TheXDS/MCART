@@ -36,7 +36,7 @@ namespace TheXDS.MCART.Attributes
     ///     Este atributo no debería aplicarse a sobrecargas de un método que
     ///     no sea en sí mismo un método de "Code Sugar".
     /// </remarks>
-    [AttributeUsage(Property | Method)]
+    [AttributeUsage(Property | Method | Class | Module)]
     [Serializable]
     public sealed class SugarAttribute : Attribute
     {

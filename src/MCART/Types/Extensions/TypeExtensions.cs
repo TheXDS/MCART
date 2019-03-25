@@ -392,5 +392,20 @@ namespace TheXDS.MCART.Types.Extensions
             }
             catch (Exception e) { return throwOnFail ? throw new TypeLoadException(InternalStrings.ErrorXClassNotInstantiableWithArgs(type.Name), e) : (T)default; }
         }
+
+        /// <summary>
+        ///     Se asegura de devolver un tipo no nulable para las estructuras.
+        /// </summary>
+        /// <param name="t">Tipo a devolver</param>
+        /// <returns>
+        ///     El tipo subyacente de un <see cref="Nullable{T}"/>, o
+        ///     <paramref name="t"/> si el tipo no es nulable.
+        /// </returns>
+        [DebuggerStepThrough]
+        public static Type NotNullable(this Type t)
+        {
+            if (t == null) throw new ArgumentNullException(nameof(t));
+            return Nullable.GetUnderlyingType(t) ?? t;
+        }
     }
 }

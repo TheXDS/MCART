@@ -75,8 +75,10 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static IEnumerable<NamedObject<Enum>> AsNamedEnum(this Type t)
         {
-            if (!t.IsEnum) throw new InvalidTypeException(t);
-            return t.GetEnumValues().OfType<Enum>().Select(p => (NamedObject<Enum>)p);
+            if (t == null) throw new ArgumentNullException(nameof(t));
+            var q = t.IsEnum ? t : Nullable.GetUnderlyingType(t);
+            if (!q.IsEnum) throw new InvalidTypeException(t);
+            return q.GetEnumValues().OfType<Enum>().Select(p => (NamedObject<Enum>)p);
         }
     }
 }

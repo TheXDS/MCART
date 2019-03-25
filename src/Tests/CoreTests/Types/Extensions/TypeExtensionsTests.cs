@@ -39,16 +39,34 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.True(typeof(ResolveEventArgs).Assignables(typeof(int), typeof(EventArgs), typeof(Exception)).First() == typeof(EventArgs));
             Assert.False(typeof(ResolveEventArgs).Assignables(typeof(int), typeof(Version), typeof(Exception)).Any());
         }
+
         [Fact]
         public void AreAssignableFromTest()
         {
             Assert.True(typeof(ResolveEventArgs).AreAllAssignable(typeof(EventArgs), typeof(ResolveEventArgs)));
             Assert.False(typeof(ResolveEventArgs).AreAllAssignable(typeof(AppContext), typeof(ResolveEventArgs)));
         }
+
         [Fact]
         public void NewTest()
         {
             Assert.NotNull(typeof(ResolveEventArgs).New("Test"));
+        }
+
+        [Fact]
+        public void NotNullableTest()
+        {
+            Assert.Equal(typeof(int), typeof(int).NotNullable());
+            Assert.Equal(typeof(int), typeof(int?).NotNullable());
+            Assert.Throws<ArgumentNullException>(() => ((Type)null).NotNullable());
+        }
+
+        [Fact]
+        public void IsInstantiableTest()
+        {
+            Assert.True(typeof(Exception).IsInstantiable());
+            Assert.True(typeof(Exception).IsInstantiable(typeof(string)));
+            Assert.False(typeof(Exception).IsInstantiable(typeof(int)));
         }
     }
 }
