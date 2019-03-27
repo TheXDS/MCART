@@ -22,16 +22,10 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable ClassNeverInstantiated.Global
-// ReSharper disable MemberCanBePrivate.Global
+#nullable enable
 
 using System;
 using static System.AttributeTargets;
-#if NETFX_CORE
-using System.Runtime.Serialization;
-#endif
 
 namespace TheXDS.MCART.Attributes
 {
@@ -39,15 +33,10 @@ namespace TheXDS.MCART.Attributes
     /// <summary>
     ///     Agrega un elemento textual genérico a un elemento, además de ser la
     ///     clase base para los atributos que describan un valor representable como
-    ///     <see cref="String" /> para un elemento.
+    ///     <see cref="string" /> para un elemento.
     /// </summary>
-    [AttributeUsage(All)]
-#if NETFX_CORE
-    [DataContract]
-#else
-    [Serializable]
-#endif
-    public class TextAttribute : Attribute, IValueAttribute<string>
+    [AttributeUsage(All), Serializable]
+    public class TextAttribute : Attribute, IValueAttribute<string?>
     {
         /// <inheritdoc />
         /// <summary>
@@ -55,7 +44,7 @@ namespace TheXDS.MCART.Attributes
         ///     <see cref="TextAttribute" />.
         /// </summary>
         /// <param name="text">Valor de este atributo.</param>
-        protected TextAttribute(string text)
+        protected TextAttribute(string? text)
         {
             Value = text;
         }
@@ -65,9 +54,6 @@ namespace TheXDS.MCART.Attributes
         ///     Obtiene el valor asociado a este atributo.
         /// </summary>
         /// <value>El valor de este atributo.</value>
-#if NETFX_CORE
-        [DataMember]
-#endif
-        public string Value { get; }
+        public string? Value { get; }
     }
 }

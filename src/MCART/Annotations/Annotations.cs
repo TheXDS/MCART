@@ -20,17 +20,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. */
 
+#nullable enable
+
 using System;
+using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types;
 using static System.AttributeTargets;
-
-#pragma warning disable 1591
-// ReSharper disable UnusedMember.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable IntroduceOptionalParameters.Global
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable InconsistentNaming
 
 namespace TheXDS.MCART.Annotations
 {
@@ -147,7 +142,10 @@ namespace TheXDS.MCART.Annotations
         Property | AttributeTargets.Delegate)]
     public sealed class StringFormatMethodAttribute : Attribute
     {
-        [NotNull] public string FormatParameterName { get; }
+        /// <summary>
+        ///     Obtiene el nombre del parámetro de formato.
+        /// </summary>
+        public string FormatParameterName { get; }
 
         /// <summary>
         ///     Indica que el método marcado construye cadenas por medio del patrón
@@ -157,7 +155,7 @@ namespace TheXDS.MCART.Annotations
         ///     Especifica cual parámetro del método anotado deberá ser tratado
         ///     como una cadena de formato.
         /// </param>        
-        public StringFormatMethodAttribute([NotNull] string formatParameterName)
+        public StringFormatMethodAttribute(string formatParameterName)
         {
             FormatParameterName = formatParameterName;
         }
@@ -171,11 +169,22 @@ namespace TheXDS.MCART.Annotations
     [AttributeUsage(
         Parameter | Property | Field,
         AllowMultiple = true)]
-    public sealed class ValueProviderAttribute : Attribute, INameable
+    public sealed class ValueProviderAttribute : Attribute, INameable, IValueAttribute<string>
     {
-        [NotNull] public string Name { get; }
+        /// <summary>
+        ///     Obtiene el nombre especificado en este atributo.
+        /// </summary>
+        public string Name { get; }
 
-        public ValueProviderAttribute([NotNull] string name)
+        string IValueAttribute<string>.Value => Name;
+        /// <summary>
+        ///     For a parameter that is expected to be one of the limited set of values.
+        ///     Specify fields of which type should be used as values for this parameter.
+        /// </summary>
+        /// <param name="name">
+        ///     Name.
+        /// </param>
+        public ValueProviderAttribute(string name)
         {
             Name = name;
         }
@@ -258,13 +267,31 @@ namespace TheXDS.MCART.Annotations
     [AttributeUsage(Method)]
     public sealed class NotifyPropertyChangedInvocatorAttribute : Attribute
     {
-        [CanBeNull] public string ParameterName { get; }
+        /// <summary>
+        ///     Obtiene el nombre del parámetro a utilizar para generar el
+        ///     código correspondiente de notificación de cambio de valor en
+        ///     una propiedad.
+        /// </summary>
+        public string? ParameterName { get; }
 
+        /// <summary>
+        ///     Marca al método como el método utilizado para notificar del
+        ///     cambio de una propiedad en una clase que implementa
+        ///     <see cref="System.ComponentModel.INotifyPropertyChanged"/>.
+        /// </summary>
         public NotifyPropertyChangedInvocatorAttribute()
         {
         }
-
-        public NotifyPropertyChangedInvocatorAttribute([NotNull] string parameterName)
+        /// <summary>
+        ///     Marca al método como el método utilizado para notificar del
+        ///     cambio de una propiedad en una clase que implementa
+        ///     <see cref="System.ComponentModel.INotifyPropertyChanged"/>.
+        /// </summary>
+        /// <param name="parameterName">
+        ///     Nombre del parámetro que se utilizará para pasar la referencia
+        ///     a la propiedad que ha cambiado.
+        /// </param>
+        public NotifyPropertyChangedInvocatorAttribute(string parameterName)
         {
             ParameterName = parameterName;
         }
@@ -330,16 +357,15 @@ namespace TheXDS.MCART.Annotations
     [AttributeUsage(Method, AllowMultiple = true)]
     public sealed class ContractAnnotationAttribute : Attribute
     {
-        [NotNull] public string Contract { get; }
+        public string Contract { get; }
 
         public bool ForceFullStates { get; }
 
-        public ContractAnnotationAttribute([NotNull] string contract)
-            : this(contract, false)
+        public ContractAnnotationAttribute(string contract) : this(contract, false)
         {
         }
 
-        public ContractAnnotationAttribute([NotNull] string contract, bool forceFullStates)
+        public ContractAnnotationAttribute(string contract, bool forceFullStates)
         {
             Contract = contract;
             ForceFullStates = forceFullStates;
@@ -417,9 +443,9 @@ namespace TheXDS.MCART.Annotations
     [BaseTypeRequired(typeof(Attribute))]
     public sealed class BaseTypeRequiredAttribute : Attribute
     {
-        [NotNull] public Type BaseType { get; }
+        public Type BaseType { get; }
 
-        public BaseTypeRequiredAttribute([NotNull] Type baseType)
+        public BaseTypeRequiredAttribute(Type baseType)
         {
             BaseType = baseType;
         }

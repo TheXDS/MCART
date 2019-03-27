@@ -37,16 +37,63 @@ namespace TheXDS.MCART.Types.Extensions
     /// </summary>
     public static class ObservingCommandExtensions
     {
+        /// <summary>
+        ///     Indica que un <see cref="ObservingCommand"/> escuchará los
+        ///     cambios anunciados de la propiedad seleccionada.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de objeto para el cual seleccionar una propiedad.
+        ///     Generalmente, se trata de la referencia <see langword="this"/>.
+        /// </typeparam>
+        /// <param name="command">
+        ///     Comando para el cual se configurará la escucha.
+        /// </param>
+        /// <param name="propertySelector">
+        ///     Expresión Lambda de selección de propiedad.
+        /// </param>
+        /// <returns>
+        ///     <paramref name="command"/>, permitiendo el uso de sintáxis
+        ///     Fluent.
+        /// </returns>
+        /// <exception cref="InvalidArgumentException">
+        ///     Se produce si el elemento seleccionado por medio de
+        ///     <paramref name="propertySelector"/> no es una propiedad.
+        /// </exception>
         public static ObservingCommand ListensToProperty<T>(this ObservingCommand command, Expression<Func<T, object>> propertySelector)
         {
-            var m = GetMember(propertySelector) as PropertyInfo ?? throw new InvalidOperationException();
+            var m = GetMember(propertySelector) as PropertyInfo ?? throw new InvalidArgumentException();
             command.RegisterObservedProperty(m.Name);
             return command;
         }
+        /// <summary>
+        ///     Indica que un <see cref="ObservingCommand"/> escuchará los
+        ///     cambios anunciados de la propiedad seleccionada o del método
+        ///     para la bandera <see cref="System.Windows.Input.ICommand.CanExecute(object)"/>.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de objeto para el cual seleccionar una propiedad o el
+        ///     método. Generalmente, se trata de la referencia
+        ///     <see langword="this"/>.
+        /// </typeparam>
+        /// <param name="command">
+        ///     Comando para el cual se configurará la escucha.
+        /// </param>
+        /// <param name="selector">
+        ///     Expresión Lambda de selección de propiedado de método con tipo
+        ///     de retorno <see cref="bool"/>.
+        /// </param>
+        /// <returns>
+        ///     <paramref name="command"/>, permitiendo el uso de sintáxis
+        ///     Fluent.
+        /// </returns>
+        /// <exception cref="InvalidArgumentException">
+        ///     Se produce si el elemento seleccionado por medio de
+        ///     <paramref name="selector"/> no es una propiedad o un método con
+        ///     un tipo de retorno <see cref="bool"/>.
+        /// </exception>
         public static ObservingCommand ListensToCanExecute<T>(this ObservingCommand command, Expression<Func<T, bool>> selector)
         {
             var m = GetMember(selector);
-
             switch (m)
             {
                 case PropertyInfo pi:

@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
@@ -33,16 +35,6 @@ using TheXDS.MCART;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Math.Common;
-
-#region Configuración de ReSharper
-
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable once CheckNamespace
-
-#endregion
 
 namespace System.Windows.Converters
 {
@@ -333,7 +325,7 @@ namespace System.Windows.Converters
         ///     valor es <see langword="true" />; en caso contrario, se devuelve
         ///     <see cref="P:System.Windows.Converters.BooleanConverter`1.False" />.
         /// </returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is bool b) return b ? True : False;
             return null;
@@ -388,7 +380,7 @@ namespace System.Windows.Converters
         public BoolFlagConverter()
         {
             if (!typeof(T).IsEnum) throw new InvalidOperationException();
-            True = default;
+            True = (T)typeof(T).Default();
         }
 
         /// <summary>
@@ -428,9 +420,9 @@ namespace System.Windows.Converters
         ///     bandera(s) se encuentra(n) activa(s), <see langword="false" /> en caso
         ///     contrario.
         /// </returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is T v) return True.Equals(default) ? !v.Equals(True) : v.Equals(True);
+            if (value is T v) return (True?.Equals(default) ?? true) ? !v.Equals(True) : v.Equals(True);
             return null;
         }
 
@@ -453,7 +445,7 @@ namespace System.Windows.Converters
         ///     valor para <see cref="P:System.Windows.Converters.BoolFlagConverter`1.True" />, o en caso contrario, se devolverá
         ///     <c>default</c>.
         /// </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value?.Equals(true) ?? false ? True : default;
         }
@@ -1151,7 +1143,7 @@ namespace System.Windows.Converters
         ///     <c>value.ToString()</c> si <paramref name="value" /> no es una
         ///     cadena vacía, <see cref="F:System.String.Empty" /> en caso contrario.
         /// </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is Visibility v)
                 return v == NotEmpty ? value.ToString() : string.Empty;
@@ -1210,7 +1202,7 @@ namespace System.Windows.Converters
         ///     Una nueva instancia de tipo <paramref name="targetType" /> si <paramref name="value" /> se evalúa como
         ///     <see cref="Visibility.Visible" />, <see langword="null" /> en caso contrario.
         /// </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is Visibility b) return b == Visibility.Visible ? null : targetType.New();
             throw new InvalidCastException();
@@ -1269,7 +1261,7 @@ namespace System.Windows.Converters
         ///     Una nueva instancia de tipo <paramref name="targetType" /> si <paramref name="value" /> se evalúa distinto a
         ///     <see cref="Visibility.Visible" />, <see langword="null" /> en caso contrario.
         /// </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is Visibility b) return b != Visibility.Visible ? null : targetType.New();
             throw new InvalidCastException();
@@ -1327,7 +1319,7 @@ namespace System.Windows.Converters
         ///     Una nueva instancia de tipo <paramref name="targetType" /> si <paramref name="value" /> se evalúa como
         ///     <see langword="true" />, <see langword="null" /> en caso contrario.
         /// </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is bool b) return b ? null : targetType.New();
             throw new InvalidCastException();
@@ -1385,7 +1377,7 @@ namespace System.Windows.Converters
         ///     Una nueva instancia de tipo <paramref name="targetType" /> si <paramref name="value" /> se evalúa como
         ///     <see langword="false" />, <see langword="null" /> en caso contrario.
         /// </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is bool b) return b ? targetType.New() : null;
             throw new InvalidCastException();
@@ -1499,7 +1491,7 @@ namespace System.Windows.Converters
         ///     <see cref="P:System.Windows.Converters.NullBoolConverter`1.Null" /> si <paramref name="value" /> es
         ///     <see langword="null" />.
         /// </returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             switch (value)
             {
@@ -1508,7 +1500,6 @@ namespace System.Windows.Converters
                 case null:
                     return Null;
             }
-
             return null;
         }
 
@@ -1533,7 +1524,7 @@ namespace System.Windows.Converters
         ///     <see langword="null" /> si <paramref name="value" /> es
         ///     <see cref="P:System.Windows.Converters.NullBoolConverter`1.Null" />.
         /// </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is null) return null;
             if (value.Equals(Null) && !ReferenceEquals(Null, False)) return null;
@@ -1584,7 +1575,7 @@ namespace System.Windows.Converters
         ///     Si la conversión desde <see cref="T:System.String" /> tuvo éxito, se
         ///     devolverá al objeto, se devolverá <see langword="null" /> en caso contrario.
         /// </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             try
             {
@@ -1622,7 +1613,7 @@ namespace System.Windows.Converters
         ///     Si la conversión desde <see cref="T:System.String" /> tuvo éxito, se
         ///     devolverá al objeto, se devolverá <see langword="null" /> en caso contrario.
         /// </returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             try
             {
@@ -1794,14 +1785,18 @@ namespace System.Windows.Converters
         /// <returns>La suma de <paramref name="value" /> y el operando especificado.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            try
+            return (value, parameter) switch
             {
-                return (dynamic) value + (dynamic) parameter;
-            }
-            catch (Exception e)
-            {
-                throw new ArgumentException(string.Empty, e);
-            }
+                (byte b1, byte b2) => b1 + b2,
+                (short b1, short b2) => b1 + b2,
+                (int b1, int b2) => b1 + b2,
+                (long b1, long b2) => b1 + b2,
+                (float b1, float b2) => b1 + b2,
+                (double b1, double b2) => b1 + b2,
+                (object _, object _) => 0,
+                (object _, null) => 0,
+                (null, null) => 0,
+            };
         }
 
         /// <inheritdoc />
@@ -1822,14 +1817,18 @@ namespace System.Windows.Converters
         /// </returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            try
+            return (value, parameter) switch
             {
-                return (dynamic) value - (dynamic) parameter;
-            }
-            catch (Exception e)
-            {
-                throw new ArgumentException(string.Empty, e);
-            }
+                (byte b1, byte b2) => b1 - b2,
+                (short b1, short b2) => b1 - b2,
+                (int b1, int b2) => b1 - b2,
+                (long b1, long b2) => b1 - b2,
+                (float b1, float b2) => b1 - b2,
+                (double b1, double b2) => b1 - b2,
+                (object _, object _) => 0,
+                (object _, null) => 0,
+                (null, null) => 0,
+            };
         }
     }
 
@@ -1851,16 +1850,20 @@ namespace System.Windows.Converters
         ///     <see cref="T:System.Globalization.CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>La multiplicación de <paramref name="value" /> y el operando especificado.</returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            try
+            return (value, parameter) switch
             {
-                return (dynamic) value * (dynamic) parameter;
-            }
-            catch (Exception e)
-            {
-                throw new ArgumentException(string.Empty, e);
-            }
+                (byte b1,   byte b2)    => b1 * b2,
+                (short b1,  short b2)   => b1 * b2,
+                (int b1,    int b2)     => b1 * b2,
+                (long b1,   long b2)    => b1 * b2,
+                (float b1,  float b2)   => b1 * b2,
+                (double b1, double b2)  => b1 * b2,
+                (object _,  object _)   => 0,
+                (object _,  null)       => 0,
+                (null,      null)       => 0,
+            };
         }
 
         /// <inheritdoc />
@@ -1880,14 +1883,18 @@ namespace System.Windows.Converters
         /// </returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            try
+            return (value, parameter) switch
             {
-                return (dynamic) value / (dynamic) parameter;
-            }
-            catch (Exception e)
-            {
-                throw new ArgumentException(string.Empty, e);
-            }
+                (byte b1, byte b2) => b1 / b2,
+                (short b1, short b2) => b1 / b2,
+                (int b1, int b2) => b1 / b2,
+                (long b1, long b2) => b1 / b2,
+                (float b1, float b2) => b1 / b2,
+                (double b1, double b2) => b1 / b2,
+                (object _, object _) => 0,
+                (object _, null) => 0,
+                (null, null) => 0,
+            };
         }
     }
 

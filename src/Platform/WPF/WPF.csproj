@@ -1,33 +1,22 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras/1.6.65" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">  
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
-    <TargetFramework>net47</TargetFramework>
     <Description>MCART WPF Library</Description>
     <AssemblyName>MCART.WPF</AssemblyName>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <ProjectGuid>{77706828-80BE-4BAC-A97C-072E101D01DE}</ProjectGuid>
     <OutputType>Library</OutputType>
-  </PropertyGroup>  
+    <TargetFrameworks>netcoreapp3.0;net47</TargetFrameworks>
+    <UseWPF>true</UseWPF>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
   <ItemGroup>
     <None Remove="Resources\Icons\MCART_Xml.deflate" />
-  </ItemGroup>  
-  <ItemGroup>
     <EmbeddedResource Include="Resources\Icons\MCART_Xml.deflate" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\Lib\MCART-UI\MCART-UI.csproj" />
     <ProjectReference Include="..\..\Lib\MCART-Windows\MCART-Windows.csproj" />
     <ProjectReference Include="..\..\MCART\MCART.csproj">
       <Project>{d39b543e-571d-4ea5-b8a2-9f6729c8e689}</Project>
       <Name>MCART</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
 </Project>
