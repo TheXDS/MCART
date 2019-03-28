@@ -1,5 +1,5 @@
 ﻿/*
-Events.cs
+ValueChangingEventArgs.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,15 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#region Configuración de ReSharper
-
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable IntroduceOptionalParameters.Global
-
-#endregion
+#nullable enable
 
 using System.ComponentModel;
 
@@ -102,7 +94,7 @@ namespace TheXDS.MCART.Events
     ///     Incluye información para cualquier evento que incluya tipos de valor y
     ///     puedan ser cancelados.
     /// </summary>
-    public class ValueChangingEventArgs : ValueChangingEventArgs<object>
+    public class ValueChangingEventArgs : ValueChangingEventArgs<object?>
     {
         /// <inheritdoc />
         /// <summary>
@@ -115,7 +107,7 @@ namespace TheXDS.MCART.Events
         /// <param name="newValue">
         ///     Nuevo valor asociado al evento generado.
         /// </param>
-        public ValueChangingEventArgs(object oldValue, object newValue) : base(oldValue, newValue)
+        public ValueChangingEventArgs(object? oldValue, object? newValue) : base(oldValue, newValue)
         {
         }
     }

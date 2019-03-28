@@ -24,17 +24,9 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System.Collections.Generic;
-
-#region Configuración de ReSharper
-
-// ReSharper disable IntroduceOptionalParameters.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable UnusedMember.Global
-
-#endregion
 
 namespace TheXDS.MCART.Math
 {
@@ -124,7 +116,6 @@ namespace TheXDS.MCART.Math
                 a += b;
                 b += a;
             }
-            // ReSharper disable once IteratorNeverReturns
 #endif
         }
     }

@@ -1,5 +1,5 @@
 ﻿/*
-Events.cs
+LoggingEventArgs.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,15 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#region Configuración de ReSharper
-
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable IntroduceOptionalParameters.Global
-
-#endregion
+#nullable enable 
 
 namespace TheXDS.MCART.Events
 {
@@ -66,6 +58,6 @@ namespace TheXDS.MCART.Events
         /// <summary>
         ///     Objeto relacionado a esta entrada de log.
         /// </summary>
-        public object Subject { get; }
+        public object? Subject { get; }
     }
 }

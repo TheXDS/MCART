@@ -1,5 +1,5 @@
 ﻿/*
-TextAttribute.cs
+ThirdPartyAttribute.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -23,8 +23,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Windows;
-using TheXDS.MCART.Component;
 using static System.AttributeTargets;
 
 namespace TheXDS.MCART.Attributes

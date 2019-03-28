@@ -22,21 +22,13 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using TheXDS.MCART.Attributes;
-
-#region Configuración de ReSharper
-
-// ReSharper disable IntroduceOptionalParameters.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable UnusedMember.Global
-
-#endregion
 
 namespace TheXDS.MCART.Math
 {
@@ -250,7 +242,7 @@ namespace TheXDS.MCART.Math
         ///     <see langword="true" /> si todos los números de la colección son positivos,
         ///     <see langword="false" /> en caso contrario.
         /// </returns>
-        public static bool ArePositive<T>(params T[] values) where T : IComparable<T>
+        public static bool ArePositive<T>(params T[] values) where T : struct, IComparable<T>
         {
             return ArePositive(values.AsEnumerable());
         }
@@ -263,7 +255,7 @@ namespace TheXDS.MCART.Math
         ///     <see langword="true" /> si todos los números de la colección son negativos,
         ///     <see langword="false" /> en caso contrario.
         /// </returns>
-        public static bool AreNegative<T>(params T[] values) where T : IComparable<T>
+        public static bool AreNegative<T>(params T[] values) where T : struct, IComparable<T>
         {
             return AreNegative(values.AsEnumerable());
         }
@@ -279,7 +271,7 @@ namespace TheXDS.MCART.Math
         ///     <see langword="true" /> si todos los números de la colección son iguales a
         ///     cero, <see langword="false" /> en caso contrario.
         /// </returns>
-        public static bool AreZero<T>(params T[] values) where T : IComparable<T>
+        public static bool AreZero<T>(params T[] values) where T : struct, IComparable<T>
         {
             return AreZero(values.AsEnumerable());
         }
@@ -292,7 +284,7 @@ namespace TheXDS.MCART.Math
         ///     <see langword="true" /> si todos los números de la colección son negativos,
         ///     <see langword="false" /> en caso contrario.
         /// </returns>
-        public static bool AreNegative<T>(this IEnumerable<T> values) where T : IComparable<T>
+        public static bool AreNegative<T>(this IEnumerable<T> values) where T : struct, IComparable<T>
         {
             return values.All(j => j.CompareTo(default) < 0);
         }
@@ -308,7 +300,7 @@ namespace TheXDS.MCART.Math
         ///     <see langword="true" /> si todos los números de la colección son iguales a
         ///     cero, <see langword="false" /> en caso contrario.
         /// </returns>
-        public static bool AreZero<T>(this IEnumerable<T> values) where T : IComparable<T>
+        public static bool AreZero<T>(this IEnumerable<T> values) where T : struct, IComparable<T>
         {
             return values.All(j => j.CompareTo(default) == 0);
         }
@@ -321,7 +313,7 @@ namespace TheXDS.MCART.Math
         ///     <see langword="true" /> si todos los números de la colección son positivos,
         ///     <see langword="false" /> en caso contrario.
         /// </returns>
-        public static bool ArePositive<T>(this IEnumerable<T> values) where T : IComparable<T>
+        public static bool ArePositive<T>(this IEnumerable<T> values) where T : struct, IComparable<T>
         {
             return values.All(j => j.CompareTo(default) > 0);
         }
@@ -451,7 +443,7 @@ namespace TheXDS.MCART.Math
         ///     <see langword="true" /> si todos los números de la colección son distintos de
         ///     cero, <see langword="false" /> en caso contrario.
         /// </returns>
-        public static bool AreNotZero<T>(params T[] x) where T : IComparable<T>
+        public static bool AreNotZero<T>(params T[] x) where T : struct, IComparable<T>
         {
             return x.All(j => j.CompareTo(default) != 0);
         }
@@ -467,7 +459,7 @@ namespace TheXDS.MCART.Math
         ///     <see langword="true" /> si todos los números de la colección son distintos de
         ///     cero, <see langword="false" /> en caso contrario.
         /// </returns>
-        public static bool AreNotZero<T>(IEnumerable<T> x) where T : IComparable<T>
+        public static bool AreNotZero<T>(IEnumerable<T> x) where T : struct, IComparable<T>
         {
             return x.All(j => j.CompareTo(default) != 0);
         }

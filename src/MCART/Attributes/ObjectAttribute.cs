@@ -22,12 +22,9 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
+#nullable enable
 
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable ClassNeverInstantiated.Global
-// ReSharper disable MemberCanBePrivate.Global
+using System;
 
 namespace TheXDS.MCART.Attributes
 {
@@ -41,7 +38,7 @@ namespace TheXDS.MCART.Attributes
     /// <summary>
     ///     Clase base para los atributos de cualquier tipo.
     /// </summary>
-    public abstract class ObjectAttribute : Attribute, IValueAttribute<object>
+    public abstract class ObjectAttribute : Attribute, IValueAttribute<object?>
     {
         /// <inheritdoc />
         /// <summary>
@@ -49,7 +46,7 @@ namespace TheXDS.MCART.Attributes
         ///     <see cref="T:TheXDS.MCART.Attributes.ObjectAttribute" />.
         /// </summary>
         /// <param name="attributeValue">Valor de este atributo.</param>
-        protected ObjectAttribute(object attributeValue)
+        protected ObjectAttribute(object? attributeValue)
         {
             Value = attributeValue;
         }
@@ -58,6 +55,6 @@ namespace TheXDS.MCART.Attributes
         /// <summary>
         ///     Obtiene el valor asociado a este atributo.
         /// </summary>
-        public object Value { get; }
+        public object? Value { get; }
     }
 }

@@ -26,16 +26,6 @@ using System;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types;
 
-#region Configuración de ReSharper
-
-// ReSharper disable IntroduceOptionalParameters.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable UnusedMember.Global
-
-#endregion
-
 namespace TheXDS.MCART.Math
 {
     /// <summary>
@@ -55,6 +45,7 @@ namespace TheXDS.MCART.Math
         ///     Representa la proporción de la circunferencia entre el diámetro de un círculo.
         /// </summary>
         public const double Thau = 6.28318530717959D;
+
         #endregion
 
         /// <summary>

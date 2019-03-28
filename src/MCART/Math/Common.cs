@@ -22,17 +22,9 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
-
-#region Configuración de ReSharper
-
-// ReSharper disable IntroduceOptionalParameters.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable UnusedMember.Global
-
-#endregion
 
 namespace TheXDS.MCART.Math
 {
@@ -68,7 +60,7 @@ namespace TheXDS.MCART.Math
         ///     El valor evaluado que se encuentra entre 0 y
         ///     <paramref name="max" />.
         /// </returns>
-        public static T Clamp<T>(this T expression, T max) where T : IComparable<T>
+        public static T Clamp<T>(this T expression, T max) where T : struct, IComparable<T>
         {
             return Clamp(expression, default, max);
         }

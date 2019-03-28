@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Types;
@@ -38,22 +40,22 @@ namespace TheXDS.MCART.Component
         /// <summary>
         /// Devuelve el autor del <see cref="IExposeInfo"/>
         /// </summary>
-        string Author { get; }
+        string? Author { get; }
 
         /// <summary>
         /// Devuelve el Copyright del <see cref="IExposeInfo"/>
         /// </summary>
-        string Copyright { get; }
+        string? Copyright { get; }
 
         /// <summary>
         /// Devuelve la licencia del <see cref="IExposeInfo"/>
         /// </summary>
-        string License { get; }
+        string? License { get; }
 
         /// <summary>
         /// Devuelve la versión del <see cref="IExposeInfo"/>
         /// </summary>
-        Version Version { get; }
+        Version? Version { get; }
 
         /// <summary>
         /// Obtiene un valor que determina si este <see cref="IExposeInfo"/>

@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,14 +33,11 @@ using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
 using St = TheXDS.MCART.Resources.Strings;
 
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable UnusedMethodReturnValue.Global
-
 namespace TheXDS.MCART.Misc
 {
     internal static class Internal
     {
-        public static string ReadLicense(object asm, bool returnNull = true)
+        public static string? ReadLicense(object asm, bool returnNull = true)
         {
             try
             {
@@ -80,10 +79,10 @@ namespace TheXDS.MCART.Misc
             return List<TField>(source, BindingFlags.Static | BindingFlags.Public, null);
         }
 
-        private static IEnumerable<NamedObject<TField>> List<TField>(IReflect source, BindingFlags flags, object instance)
+        private static IEnumerable<NamedObject<TField>> List<TField>(IReflect source, BindingFlags flags, object? instance)
         {
             return source.GetFields(flags).Where(f => f.FieldType.Implements<TField>())
-                .Select(p => new NamedObject<TField>((TField)p.GetValue(null)));
+                .Select(p => new NamedObject<TField>((TField)p.GetValue(instance)));
         }
     }
 }

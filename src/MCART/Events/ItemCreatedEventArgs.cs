@@ -1,5 +1,5 @@
 ﻿/*
-Events.cs
+ItemCreatedEventArgs.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -21,16 +21,6 @@ Public License for more details.
 You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
-
-#region Configuración de ReSharper
-
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable IntroduceOptionalParameters.Global
-
-#endregion
 
 namespace TheXDS.MCART.Events
 {

@@ -22,19 +22,24 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using TheXDS.MCART.Types;
 using static System.AttributeTargets;
 
 namespace TheXDS.MCART.Attributes
 {
-    
-
     [AttributeUsage(Class | Module | Assembly)]
     [Serializable]
-    public sealed class CommonLicenseAttribute : Attribute
+    public sealed class CommonLicenseAttribute : Attribute, IValueAttribute<CommonLicenses.LicenseId>
     {
+        public CommonLicenseAttribute(CommonLicenses.LicenseId license)
+        {
+            Value = license;
+        }
 
+        public CommonLicenses.LicenseId Value { get; }
     }
 
     public class CommonLicenses : INameable

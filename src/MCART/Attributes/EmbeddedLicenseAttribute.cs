@@ -22,21 +22,14 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable ClassNeverInstantiated.Global
-// ReSharper disable MemberCanBePrivate.Global
+#nullable enable
 
 using System;
 using System.Reflection;
-using TheXDS.MCART.Annotations;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
 using static System.AttributeTargets;
-#if NETFX_CORE
-using System.Runtime.Serialization;
-#endif
 
 namespace TheXDS.MCART.Attributes
 {
@@ -45,26 +38,16 @@ namespace TheXDS.MCART.Attributes
     ///     Establece un archivo incrustado de licencia a asociar con el elemento.
     /// </summary>
     [AttributeUsage(Class | AttributeTargets.Module | AttributeTargets.Assembly)]
-#if NETFX_CORE
-    [DataContract]
-#else
     [Serializable]
-#endif
     public sealed class EmbeddedLicenseAttribute : TextAttribute
     {
         /// <summary>
         ///     Ruta del archivo embebido de licencia dentro del ensamblado.
         /// </summary>
-#if NETFX_CORE
-        [DataMember]
-#endif
         public string Path { get; }
         /// <summary>
         ///     Compressor utilizado para extraer el recurso incrustado.
         /// </summary>
-#if NETFX_CORE
-        [DataMember]
-#endif
         public Type CompressorType { get; }
 
         /// <inheritdoc />
@@ -96,7 +79,7 @@ namespace TheXDS.MCART.Attributes
         /// <param name="compressorType">
         ///     Compressor utilizado para extraer el recurso incrustado.
         /// </param>
-        public EmbeddedLicenseAttribute(string value, string path, [NotNull] Type compressorType) : base(value)
+        public EmbeddedLicenseAttribute(string value, string path, Type compressorType) : base(value)
         {
             if (!compressorType.Implements<ICompressorGetter>()) throw new InvalidTypeException(compressorType);   
             Path = path;
@@ -113,9 +96,9 @@ namespace TheXDS.MCART.Attributes
         /// <returns>
         ///     El contenido de la licencia
         /// </returns>
-        public string ReadLicense([NotNull]Assembly origin)
+        public string ReadLicense(Assembly origin)
         {
-            return new StringUnpacker(origin, Path).Unpack(Value,CompressorType?.New<ICompressorGetter>());
+            return new StringUnpacker(origin, Path).Unpack(Value, CompressorType.New<ICompressorGetter>());
         }
     }
 }

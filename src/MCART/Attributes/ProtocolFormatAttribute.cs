@@ -22,16 +22,10 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable ClassNeverInstantiated.Global
-// ReSharper disable MemberCanBePrivate.Global
+#nullable enable
 
 using System;
 using static System.AttributeTargets;
-#if NETFX_CORE
-using System.Runtime.Serialization;
-#endif
 
 namespace TheXDS.MCART.Attributes
 {
@@ -41,19 +35,12 @@ namespace TheXDS.MCART.Attributes
     /// sistema operativo.
     /// </summary>
     [AttributeUsage(Property | Field)]
-#if NETFX_CORE
-    [DataContract]
-#else
     [Serializable]
-#endif
     public sealed class ProtocolFormatAttribute : Attribute, IValueAttribute<string>
     {
         /// <summary>
         /// Formato de llamada de protocolo.
         /// </summary>
-#if NETFX_CORE
-        [DataMember]
-#endif
         public string Format { get; }
 
         /// <inheritdoc />
@@ -71,6 +58,7 @@ namespace TheXDS.MCART.Attributes
         {
             Format = format;
         }
+
         /// <summary>
         ///     Abre un url con este protocolo formateado.
         /// </summary>
@@ -78,15 +66,6 @@ namespace TheXDS.MCART.Attributes
         ///     URL del recurso a abrir por medio del protocolo definido por
         ///     este atributo.
         /// </param>
-#if NETFX_CORE
-        public async void Open(string url)
-        {
-            if (string.IsNullOrWhiteSpace(url)) return;
-            try
-            {
-                await Windows.System.Launcher.LaunchUriAsync(new Uri(string.Format(Format, url)));
-            }
-#else
         public void Open(string url)
         {
             if (string.IsNullOrWhiteSpace(url)) return;
@@ -94,7 +73,6 @@ namespace TheXDS.MCART.Attributes
             {
                 System.Diagnostics.Process.Start(string.Format(Format, url));
             }
-#endif
             catch
             {
 #if PreferExceptions

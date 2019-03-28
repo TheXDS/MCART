@@ -1,5 +1,5 @@
 ﻿/*
-Events.cs
+ProgressionEventArgs.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,15 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#region Configuración de ReSharper
-
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable IntroduceOptionalParameters.Global
-
-#endregion
+#nullable enable
 
 using System;
 
@@ -48,25 +40,45 @@ namespace TheXDS.MCART.Events
         ///     Inicializa una nueva instancia de este objeto con los datos
         ///     provistos.
         /// </summary>
-        /// <param name="x">
+        /// <param name="progress">
         ///     Valor de progreso. Debe ser un <see cref="T:System.Double" /> entre
         ///     <c>0.0</c> y <c>1.0</c>, o los valores <see cref="F:System.Double.NaN" />,
         ///     <see cref="F:System.Double.PositiveInfinity" /> o
         ///     <see cref="F:System.Double.NegativeInfinity" />.
         /// </param>
-        /// <param name="y">
+        /// <param name="helpText">
         ///     Parámetro opcional. Descripción del estado de progreso que generó el
         ///     evento.
         /// </param>
         /// <exception cref="T:System.ArgumentOutOfRangeException">
-        ///     Se produce si <paramref name="x" /> no en un valor entre <c>0.0</c>
+        ///     Se produce si <paramref name="progress" /> no en un valor entre <c>0.0</c>
         ///     y <c>1.0</c>.
         /// </exception>
-        public ProgressionEventArgs(double x, string y = null) : base(x)
+        public ProgressionEventArgs(double progress, string? helpText) : base(progress)
         {
-            if (x > 1 || x < 0) throw new ArgumentOutOfRangeException();
-            HelpText = y;
+            if (progress > 1 || progress < 0) throw new ArgumentOutOfRangeException();
+            HelpText = helpText;
         }
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de este objeto con los datos
+        ///     provistos.
+        /// </summary>
+        /// <param name="progress">
+        ///     Valor de progreso. Debe ser un <see cref="T:System.Double" /> entre
+        ///     <c>0.0</c> y <c>1.0</c>, o los valores <see cref="F:System.Double.NaN" />,
+        ///     <see cref="F:System.Double.PositiveInfinity" /> o
+        ///     <see cref="F:System.Double.NegativeInfinity" />.
+        /// </param>
+        /// <exception cref="T:System.ArgumentOutOfRangeException">
+        ///     Se produce si <paramref name="progress" /> no en un valor entre <c>0.0</c>
+        ///     y <c>1.0</c>.
+        /// </exception>
+        public ProgressionEventArgs(double progress) : this(progress, null)
+        {
+
+        }
+
 
         /// <summary>
         ///     Devuelve una descripción rápida del estado de progreso.
@@ -75,6 +87,6 @@ namespace TheXDS.MCART.Events
         ///     Un <see cref="string" /> con un mensaje que describe el estado de
         ///     progreso del evento.
         /// </returns>
-        public string HelpText { get; }
+        public string? HelpText { get; }
     }
 }

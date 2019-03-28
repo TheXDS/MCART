@@ -22,15 +22,9 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable ClassNeverInstantiated.Global
-// ReSharper disable MemberCanBePrivate.Global
+#nullable enable
 
 using System;
-#if NETFX_CORE
-using System.Runtime.Serialization;
-#endif
 
 namespace TheXDS.MCART.Attributes
 {
@@ -40,11 +34,7 @@ namespace TheXDS.MCART.Attributes
     ///     los atributos que describan un valor <see cref="Version" /> para un
     ///     elemento.
     /// </summary>
-#if NETFX_CORE
-    [DataContract]
-#else
     [Serializable]
-#endif
     public abstract class VersionAttributeBase : Attribute, IValueAttribute<Version>
     {
         /// <inheritdoc />
@@ -66,9 +56,6 @@ namespace TheXDS.MCART.Attributes
         ///     Obtiene el valor asociado a este atributo.
         /// </summary>
         /// <value>El valor de este atributo.</value>
-#if NETFX_CORE
-        [DataMember]
-#endif
         public Version Value { get; }
     }
 }

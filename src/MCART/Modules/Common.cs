@@ -29,6 +29,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -45,16 +47,6 @@ using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
 using St = TheXDS.MCART.Resources.Strings;
 using St2 = TheXDS.MCART.Resources.InternalStrings;
-
-#region Configuración de ReSharper
-
-// ReSharper disable IntroduceOptionalParameters.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable UnusedMember.Global
-
-#endregion
 
 namespace TheXDS.MCART
 {
@@ -92,6 +84,7 @@ namespace TheXDS.MCART
         ///     contrario, <see langword="false" />.
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
+        [Sugar]
         public static bool AllEmpty(this IEnumerable<string> stringArray)
         {
             return stringArray.All(j => j.IsEmpty());
@@ -164,7 +157,6 @@ namespace TheXDS.MCART
                     found = true;
                     idx.Add(c);
                 }
-
                 c++;
             }
 
@@ -203,7 +195,7 @@ namespace TheXDS.MCART
         ///     <see langword="null" /> si no se ha encontrado un convertidor
         ///     adecuado.
         /// </returns>
-        public static TypeConverter FindConverter(Type target)
+        public static TypeConverter? FindConverter(Type target)
         {
             return FindConverter(typeof(string), target);
         }
@@ -220,7 +212,7 @@ namespace TheXDS.MCART
         ///     <see langword="null" /> si no se ha encontrado un convertidor
         ///     adecuado.
         /// </returns>
-        public static TypeConverter FindConverter<T>()
+        public static TypeConverter? FindConverter<T>()
         {
             return FindConverter(typeof(T));
         }
@@ -236,7 +228,7 @@ namespace TheXDS.MCART
         ///     entre los tipos requeridos, o <see langword="null" /> si no se
         ///     ha encontrado un convertidor adecuado.
         /// </returns>
-        public static TypeConverter FindConverter<TSource, TTarget>()
+        public static TypeConverter? FindConverter<TSource, TTarget>()
         {
             return FindConverter(typeof(TSource), typeof(TTarget));
         }
@@ -252,7 +244,7 @@ namespace TheXDS.MCART
         ///     entre los tipos requeridos, o <see langword="null" /> si no se
         ///     ha encontrado un convertidor adecuado.
         /// </returns>
-        public static TypeConverter FindConverter(Type source, Type target)
+        public static TypeConverter? FindConverter(Type source, Type target)
         {
             try
             {
@@ -324,7 +316,7 @@ namespace TheXDS.MCART
             return BitConverter.ToDouble(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
         }
 
-        private static IEnumerable<bool> ToBits(this ulong value, byte maxBits)
+        private static IEnumerable<bool> ToBits(this ulong value, in byte maxBits)
         {
             var ret = new System.Collections.Generic.List<bool>();
             byte f = 0;
@@ -421,11 +413,11 @@ public static IEnumerable<bool> ToBits(this in ushort value) => ToBits(value, 16
         /// </returns>
 public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)value,8);
 #endif
-        private static byte BitCount(this ulong value, byte maxBits)
+        private static byte BitCount(this ulong value, in byte maxBits)
         {
             byte c = 0;
             byte f = 0;
-            while (value != 0||f++==maxBits)
+            while (value != 0|| f++ == maxBits)
             {
                 c += (byte)(value & 1);
                 value >>= 1;
@@ -601,7 +593,7 @@ public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)val
         /// <param name="min">Mínimo del rango de valores, inclusive.</param>
         /// <param name="max">Máximo del rango de valores, inclusive.</param>
         /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
-        public static bool IsBetween<T>([CanBeNull] this T? value, in T min, in T max) where T : struct, IComparable<T>
+        public static bool IsBetween<T>(this T? value, in T min, in T max) where T : struct, IComparable<T>
         {
             return value.IsBetween(min, max, true, true);
         }
@@ -618,7 +610,7 @@ public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)val
         /// <param name="max">Máximo del rango de valores.</param>
         /// <param name="inclusive">Inclusividad. de forma predeterminada, la comprobación es inclusive.</param>
         /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
-        public static bool IsBetween<T>([CanBeNull] this T? value, in T min, in T max, in bool inclusive) where T : struct, IComparable<T>
+        public static bool IsBetween<T>(this T? value, in T min, in T max, in bool inclusive) where T : struct, IComparable<T>
         {
             return IsBetween(value, min, max, inclusive, inclusive);
         }
@@ -636,7 +628,7 @@ public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)val
         /// <param name="minInclusive">Inclusividad del valor mínimo. de forma predeterminada, la comprobación es inclusive.</param>
         /// <param name="maxInclusive">Inclusividad del valor máximo. de forma predeterminada, la comprobación es inclusive.</param>
         /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
-        public static bool IsBetween<T>([CanBeNull] this T? value, in T min, in T max, in bool minInclusive, in bool maxInclusive) where T : struct, IComparable<T>
+        public static bool IsBetween<T>(this T? value, in T min, in T max, in bool minInclusive, in bool maxInclusive) where T : struct, IComparable<T>
         {
             if (!value.HasValue) return false;
             var v = value.Value;
@@ -654,7 +646,7 @@ public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)val
         ///     <see langword="true" /> si el valor se encuentra entre los
         ///     especificados; de lo contrario, <see langword="false" />.
         /// </returns>
-        public static bool IsBetween<T>([CanBeNull] this T? value, in Range<T> range) where T : struct, IComparable<T>
+        public static bool IsBetween<T>(this T? value, in Range<T> range) where T : struct, IComparable<T>
         {
             return value.HasValue && range.IsWithin(value.Value);
         }
@@ -741,8 +733,8 @@ public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)val
         }
 
         /// <summary>
-        ///     <see cref="SugarAttribute" /> de
-        ///     <see cref="BitConverter.ToString(byte[])" /> que no incluye guiones.
+        ///     Atajo de <see cref="BitConverter.ToString(byte[])" /> que no
+        ///     incluye guiones.
         /// </summary>
         /// <returns>
         ///     La representación hexadecimal del arreglo de <see cref="byte" />.

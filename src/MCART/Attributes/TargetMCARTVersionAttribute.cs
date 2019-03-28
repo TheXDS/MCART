@@ -22,18 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable ClassNeverInstantiated.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable InconsistentNaming
-
 using System;
 using static System.AttributeTargets;
-#if NETFX_CORE
-using System.Runtime.Serialization;
-#endif
-
 
 namespace TheXDS.MCART.Attributes
 {
@@ -42,11 +32,7 @@ namespace TheXDS.MCART.Attributes
     ///     Especifica la versión de MCART recomendada para el elemento.
     /// </summary>
     [AttributeUsage(Method | Class | Module | Assembly)]
-#if NETFX_CORE
-    [DataContract]
-#else
     [Serializable]
-#endif
     public sealed class TargetMCARTVersionAttribute : VersionAttributeBase
     {
         /// <inheritdoc />

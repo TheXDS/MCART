@@ -1,5 +1,5 @@
 ﻿/*
-Events.cs
+ValueEventArgs.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,15 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#region Configuración de ReSharper
-
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable IntroduceOptionalParameters.Global
-
-#endregion
+#nullable enable
 
 using System;
 
@@ -54,7 +46,7 @@ namespace TheXDS.MCART.Events
         ///     Valor a partir del cual crear el nuevo
         ///     <see cref="ValueEventArgs{T}"/>.
         /// </param>
-        public static implicit operator ValueEventArgs<T>(T value)=>new ValueEventArgs<T>(value);
+        public static implicit operator ValueEventArgs<T>(T value) => new ValueEventArgs<T>(value);
 
         /// <inheritdoc />
         /// <summary>
@@ -81,14 +73,14 @@ namespace TheXDS.MCART.Events
     ///     Incluye información de evento para cualquier clase con eventos que
     ///     incluyan tipos de valor.
     /// </summary>
-    public class ValueEventArgs : ValueEventArgs<object>
+    public class ValueEventArgs : ValueEventArgs<object?>
     {
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de este objeto con el valor provisto.
         /// </summary>
         /// <param name="value">Valor asociado al evento generado.</param>
-        public ValueEventArgs(object value) : base(value)
+        public ValueEventArgs(object? value) : base(value)
         {
         }
     }

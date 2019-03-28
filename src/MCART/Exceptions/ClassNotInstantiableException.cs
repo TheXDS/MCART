@@ -1,5 +1,5 @@
 ﻿/*
-TamperException.cs
+ClassNotInstantiableException.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,14 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#region Configuración de ReSharper
-
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-
-#endregion
+#nullable enable
 
 using System;
 using System.Runtime.Serialization;
@@ -41,9 +34,9 @@ namespace TheXDS.MCART.Exceptions
     ///     Excepción que se produce cuando no es posible instanciar un tipo.
     /// </summary>
     [Serializable]
-    public class ClassNotInstantiableException : OffendingException<Type>
+    public class ClassNotInstantiableException : OffendingException<Type?>
     {
-        private static string DefaultMessage(Type offendingType = null)
+        private static string DefaultMessage(Type? offendingType = null)
         {
             if (offendingType is null) return Strings.XNotInstantiable(Strings.TheClass);
             return InternalStrings.ErrorXClassNotInstantiableWithArgs(offendingType.Name);
@@ -53,7 +46,7 @@ namespace TheXDS.MCART.Exceptions
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="ClassNotInstantiableException" />.
         /// </summary>
-        public ClassNotInstantiableException():base(DefaultMessage()) { }
+        public ClassNotInstantiableException() : base(DefaultMessage()) { }
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="ClassNotInstantiableException" />.
@@ -61,7 +54,7 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="offendingType">
         ///     Tipo que es la causa de esta excepción.
         /// </param>
-        public ClassNotInstantiableException(Type offendingType) : base(DefaultMessage(offendingType), offendingType) { }
+        public ClassNotInstantiableException(Type? offendingType) : base(DefaultMessage(offendingType), offendingType) { }
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="ClassNotInstantiableException" />.
@@ -80,7 +73,7 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="offendingType">
         ///     Tipo que es la causa de esta excepción.
         /// </param>
-        public ClassNotInstantiableException(string message, Type offendingType) : base(message, offendingType) { }
+        public ClassNotInstantiableException(string message, Type? offendingType) : base(message, offendingType) { }
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="ClassNotInstantiableException" />.
@@ -88,7 +81,7 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="inner">
         ///     <see cref="T:System.Exception" /> secundaria producida por esta excepción.
         /// </param>
-        public ClassNotInstantiableException(Exception inner) : base(DefaultMessage(),inner) { }
+        public ClassNotInstantiableException(Exception inner) : base(DefaultMessage(), inner) { }
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="ClassNotInstantiableException" />.
@@ -99,7 +92,7 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="offendingType">
         ///     Tipo que es la causa de esta excepción.
         /// </param>
-        public ClassNotInstantiableException(Exception inner, Type offendingType) : base(DefaultMessage(offendingType),inner,offendingType) { }
+        public ClassNotInstantiableException(Exception inner, Type? offendingType) : base(DefaultMessage(offendingType),inner,offendingType) { }
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="ClassNotInstantiableException" />.
@@ -110,7 +103,7 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="inner">
         ///     <see cref="T:System.Exception" /> secundaria producida por esta excepción.
         /// </param>
-        public ClassNotInstantiableException(string message,Exception inner) : base(message,inner) { }
+        public ClassNotInstantiableException(string message, Exception inner) : base(message,inner) { }
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="ClassNotInstantiableException" />.
@@ -124,7 +117,7 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="offendingType">
         ///     Tipo que es la causa de esta excepción.
         /// </param>
-        public ClassNotInstantiableException(string message,Exception inner, Type offendingType) : base(message,inner,offendingType) { }
+        public ClassNotInstantiableException(string message, Exception inner, Type? offendingType) : base(message,inner,offendingType) { }
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase

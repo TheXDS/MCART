@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Reflection;
 using TheXDS.MCART.Annotations;
@@ -43,7 +45,7 @@ namespace TheXDS.MCART.Component
         /// <param name="assembly">
         ///     Ensamblado del cual se mostrará la información.
         /// </param>
-        public AssemblyInfo([NotNull]Assembly assembly)
+        public AssemblyInfo(Assembly assembly)
         {
             Assembly = assembly;
         }
@@ -61,47 +63,47 @@ namespace TheXDS.MCART.Component
         /// <summary>
         ///     Devuelve el nombre del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// </summary>
-        public string Name => Assembly.GetAttr<NameAttribute>()?.Value ?? Assembly.GetAttr<AssemblyTitleAttribute>()?.Title;
+        public string? Name => Assembly.GetAttr<NameAttribute>()?.Value ?? Assembly.GetAttr<AssemblyTitleAttribute>()?.Title;
 
         /// <inheritdoc />
         /// <summary>
         ///     Devuelve el Copyright del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// </summary>
-        public string Copyright => Assembly.GetAttr<CopyrightAttribute>()?.Value ?? Assembly.GetAttr<AssemblyCopyrightAttribute>()?.Copyright;
+        public string? Copyright => Assembly.GetAttr<CopyrightAttribute>()?.Value ?? Assembly.GetAttr<AssemblyCopyrightAttribute>()?.Copyright;
 
         /// <inheritdoc />
         /// <summary>
         ///     Devuelve una descripción del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// </summary>
-        public string Description => Assembly.GetAttr<DescriptionAttribute>()?.Value ?? Assembly.GetAttr<AssemblyDescriptionAttribute>()?.Description;
+        public string? Description => Assembly.GetAttr<DescriptionAttribute>()?.Value ?? Assembly.GetAttr<AssemblyDescriptionAttribute>()?.Description;
 
         /// <inheritdoc />
         /// <summary>
         ///     Devuelve el autor del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// </summary>
-        public string Author => Assembly.GetAttr<AuthorAttribute>()?.Value ?? Assembly.GetAttr<AssemblyCompanyAttribute>()?.Company;
+        public string? Author => Assembly.GetAttr<AuthorAttribute>()?.Value ?? Assembly.GetAttr<AssemblyCompanyAttribute>()?.Company;
 
         /// <summary>
         ///     Devuelve la marca comercial del <see cref="Assembly" />
         /// </summary>
-        public string Trademark => Assembly.GetAttr<AssemblyTrademarkAttribute>()?.Trademark;
+        public string? Trademark => Assembly.GetAttr<AssemblyTrademarkAttribute>()?.Trademark;
 
         /// <summary>
         ///     Devuelve el autor del <see cref="Assembly" />
         /// </summary>
-        public string Product => Assembly.GetAttr<AssemblyProductAttribute>()?.Product;
+        public string? Product => Assembly.GetAttr<AssemblyProductAttribute>()?.Product;
 
         /// <inheritdoc />
         /// <summary>
         ///     Devuelve la licencia del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// </summary>
-        public string License => Internal.ReadLicense(Assembly);
+        public string? License => Internal.ReadLicense(Assembly);
 
         /// <inheritdoc />
         /// <summary>
         ///     Devuelve la versión del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// </summary>
-        public Version Version => Assembly.GetName().Version;
+        public Version? Version => Assembly.GetName().Version;
 
         /// <inheritdoc />
         /// <summary>

@@ -1,5 +1,5 @@
 ﻿/*
-IExposeInfo.cs
+IExposeAssembly.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -21,6 +21,8 @@ Public License for more details.
 You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
+
+#nullable enable
 
 using System.Reflection;
 
