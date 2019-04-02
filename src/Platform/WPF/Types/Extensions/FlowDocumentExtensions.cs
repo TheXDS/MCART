@@ -22,8 +22,9 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -32,22 +33,12 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Media;
 
-#region Configuración de ReSharper
-
-// ReSharper disable UnusedMethodReturnValue.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable UnusedMember.Global
-
-#endregion
-
-#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible públicamente
-
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
     ///     Extensiones de tipo Fluent para manipular objetos <see cref="FlowDocument" />
     /// </summary>
-    public static class FlowDocumentExtensions
+    public static partial class FlowDocumentExtensions
     {
         /// <summary>
         ///     Imprime un <see cref="FlowDocument"/> por medio del cuadro de
@@ -70,16 +61,23 @@ namespace TheXDS.MCART.Types.Extensions
             dialog.PrintDocument(paginator, title);
         }
 
-        public class TableSelector<T>
+        /// <summary>
+        ///     Imprime directamente un <see cref="FlowDocument"/> sin pasar
+        ///     por el cuadro de diálogo de impresión del sistema operativo.
+        /// </summary>
+        /// <param name="fd">
+        ///     <see cref="FlowDocument"/> a imprimir.
+        /// </param>
+        /// <param name="title">
+        ///     Título del documento a imprimir.
+        /// </param>
+        public static void PrintDirect(this FlowDocument fd, string title)
         {
-            public string Header { get; }
-            public Func<T, string> Selector { get; }
-
-            public TableSelector(string header, Func<T, string> selector)
-            {
-                Header = header;
-                Selector = selector;
-            }
+            var dialog = new PrintDialog();
+            var sz = new System.Windows.Size(dialog.PrintableAreaWidth, dialog.PrintableAreaHeight);
+            var paginator = (fd as IDocumentPaginatorSource).DocumentPaginator;
+            paginator.PageSize = sz;
+            dialog.PrintDocument(paginator, title);
         }
 
         /// <summary>
@@ -97,7 +95,7 @@ namespace TheXDS.MCART.Types.Extensions
             row.Cells.Add(c);
             return c;
         }
-
+		
         /// <summary>
         ///     Agrega una celda vacía de tabla a la fila actual.
         /// </summary>
@@ -158,6 +156,24 @@ namespace TheXDS.MCART.Types.Extensions
         /// </summary>
         /// <param name="row">Fila a la cual agregar la nueva celda.</param>
         /// <param name="text">Texto de la celda.</param>
+        /// <param name="alignment">
+        ///     Alineación horizontal de texto dentro de la celda.
+        /// </param>
+        /// <returns>
+        ///     <paramref name="row" />, lo que permite utilizar esta función
+        ///     con sintaxis Fluent.
+        /// </returns>
+        public static TableRow AddCell(this TableRow row, string text, TextAlignment alignment)
+        {
+            row.Cells.Add(new TableCell(new Paragraph(new Run(text)) { TextAlignment = alignment }));
+            return row;
+        }
+
+        /// <summary>
+        ///     Agrega una celda simple con texto a una fila.
+        /// </summary>
+        /// <param name="row">Fila a la cual agregar la nueva celda.</param>
+        /// <param name="text">Texto de la celda.</param>
         /// <param name="weight">
         ///     Densidad de la fuente a utilizar dentro de la celda.
         /// </param>
@@ -167,7 +183,28 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static TableRow AddCell(this TableRow row, string text, FontWeight weight)
         {
-            row.Cells.Add(new TableCell(new Paragraph(new Run(text) {FontWeight = weight})));
+            row.Cells.Add(new TableCell(new Paragraph(new Run(text) { FontWeight = weight })));
+            return row;
+        }
+
+        /// <summary>
+        ///     Agrega una celda simple con texto a una fila.
+        /// </summary>
+        /// <param name="row">Fila a la cual agregar la nueva celda.</param>
+        /// <param name="text">Texto de la celda.</param>
+        /// <param name="alignment">
+        ///     Alineación horizontal de texto dentro de la celda.
+        /// </param>
+        /// <param name="weight">
+        ///     Densidad de la fuente a utilizar dentro de la celda.
+        /// </param>
+        /// <returns>
+        ///     <paramref name="row" />, lo que permite utilizar esta función
+        ///     con sintaxis Fluent.
+        /// </returns>
+        public static TableRow AddCell(this TableRow row, string text, TextAlignment alignment, FontWeight weight)
+        {
+            row.Cells.Add(new TableCell(new Paragraph(new Run(text) { FontWeight = weight }) { TextAlignment = alignment }));
             return row;
         }
 
@@ -187,12 +224,35 @@ namespace TheXDS.MCART.Types.Extensions
             return rowGroup;
         }
 
+        /// <summary>
+        ///     Agrega un nuevo grupo de filas a la tabla.
+        /// </summary>
+        /// <param name="table">
+        ///     Tabla a la cual agregar el nuevo grupo de filas.
+        /// </param>
+        /// <param name="newGroup">
+        ///     Nueva instancia del grupo de filas a agregar a la tabla.
+        /// </param>
+        /// <returns>
+        ///     <paramref name="newGroup" />, lo que permite utilizar esta
+        ///     función con sintaxis Fluent.
+        /// </returns>
         public static TableRowGroup AddGroup(this Table table, TableRowGroup newGroup)
         {
             table.RowGroups.Add(newGroup);
             return newGroup;
         }
 
+        /// <summary>
+        ///     Agrega una nueva fila al grupo de filas.
+        /// </summary>
+        /// <param name="group">
+        ///     Grupo de filas al cual agregar la nueva fila.
+        ///     </param>
+        /// <returns>
+        ///     Una referencia a la nueva fila creada dentro del grupo de filas
+        ///     de la tabla.
+        /// </returns>
         public static TableRow AddRow(this TableRowGroup group)
         {
             var row = new TableRow();
@@ -200,16 +260,38 @@ namespace TheXDS.MCART.Types.Extensions
             return row;
         }
 
+        /// <summary>
+        ///     Agrega una nueva fila al grupo de filas.
+        /// </summary>
+        /// <param name="rg">
+        ///     Grupo de filas al cual agregar la nueva fila.
+        /// </param>
+        /// <param name="values">Valores a agregar a la fila.</param>
+        /// <returns>
+        ///     Una referencia a la nueva fila creada dentro del grupo de filas
+        ///     de la tabla.
+        /// </returns>
         public static TableRowGroup AddRow(this TableRowGroup rg, IEnumerable<string> values)
         {
             var lst = values.ToList();
 
             var row = new TableRow();
-            foreach (var j in lst) row.Cells.Add(new TableCell(new Paragraph(new Run(j))));
+            foreach (var j in lst) row.Cells.Add(j);
             rg.Rows.Add(row);
             return rg;
         }
 
+        /// <summary>
+        ///     Agrega una nueva fila a la tabla.
+        /// </summary>
+        /// <param name="tbl">
+        ///     Tabla a la cual agregar la nueva fila.
+        /// </param>
+        /// <param name="values">Valores a agregar a la fila.</param>
+        /// <returns>
+        ///     Una referencia a la nueva fila creada dentro de un nuevo grupo
+        ///     de filas de la tabla.
+        /// </returns>
         public static Table AddRow(this Table tbl, IEnumerable<string> values)
         {
             var lst = values.ToList();
@@ -221,17 +303,38 @@ namespace TheXDS.MCART.Types.Extensions
             foreach (var j in lst) row.Cells.Add(new TableCell(new Paragraph(new Run(j))));
             rg.Rows.Add(row);
 
-
             tbl.RowGroups.Add(rg);
 
             return tbl;
         }
 
+        /// <summary>
+        ///     Agrega una nueva fila al grupo de filas.
+        /// </summary>
+        /// <param name="rg">
+        ///     Grupo de filas al cual agregar la nueva fila.
+        /// </param>
+        /// <param name="values">Valores a agregar a la fila.</param>
+        /// <returns>
+        ///     Una referencia a la nueva fila creada dentro del grupo de filas
+        ///     de la tabla.
+        /// </returns>
         public static TableRowGroup AddRow(this TableRowGroup rg, params string[] values)
         {
             return AddRow(rg, values.ToList());
         }
 
+        /// <summary>
+        ///     Agrega una nueva fila al grupo de filas.
+        /// </summary>
+        /// <param name="rg">
+        ///     Grupo de filas al cual agregar la nueva fila.
+        /// </param>
+        /// <param name="cells">Celdas a agregar a la fila.</param>
+        /// <returns>
+        ///     Una referencia a la nueva fila creada dentro del grupo de filas
+        ///     de la tabla.
+        /// </returns>
         public static TableRowGroup AddRow(this TableRowGroup rg, IEnumerable<TableCell> cells)
         {
             var tr = new TableRow();
@@ -241,11 +344,33 @@ namespace TheXDS.MCART.Types.Extensions
             return rg;
         }
 
+        /// <summary>
+        ///     Agrega una nueva fila al grupo de filas.
+        /// </summary>
+        /// <param name="rg">
+        ///     Grupo de filas al cual agregar la nueva fila.
+        /// </param>
+        /// <param name="cells">Celdas a agregar a la fila.</param>
+        /// <returns>
+        ///     Una referencia a la nueva fila creada dentro del grupo de filas
+        ///     de la tabla.
+        /// </returns>
         public static TableRowGroup AddRow(this TableRowGroup rg, params TableCell[] cells)
         {
             return AddRow(rg, cells.ToList());
         }
 
+        /// <summary>
+        ///     Agrega una nueva fila al grupo de filas.
+        /// </summary>
+        /// <param name="rg">
+        ///     Grupo de filas al cual agregar la nueva fila.
+        /// </param>
+        /// <param name="values">Valores a agregar a la fila.</param>
+        /// <returns>
+        ///     Una referencia a la nueva fila creada dentro del grupo de filas
+        ///     de la tabla.
+        /// </returns>
         public static TableRowGroup AddRow(this TableRowGroup rg, IEnumerable<Block> values)
         {
             var lst = values.ToList();
@@ -256,11 +381,34 @@ namespace TheXDS.MCART.Types.Extensions
             return rg;
         }
 
+        /// <summary>
+        ///     Agrega una nueva fila al grupo de filas.
+        /// </summary>
+        /// <param name="rg">
+        ///     Grupo de filas al cual agregar la nueva fila.
+        /// </param>
+        /// <param name="values">Valores a agregar a la fila.</param>
+        /// <returns>
+        ///     Una referencia a la nueva fila creada dentro del grupo de filas
+        ///     de la tabla.
+        /// </returns>
         public static TableRowGroup AddRow(this TableRowGroup rg, params Block[] values)
         {
             return AddRow(rg, values.ToList());
         }
 
+        /// <summary>
+        ///     Agrega una nueva tabla al <see cref="FlowDocument"/> especificado.
+        /// </summary>
+        /// <param name="document">
+        ///     Documento al cual agregar la nueva tabla.
+        /// </param>
+        /// <param name="columnWidths">
+        ///     Anchos de columna a establecer.
+        /// </param>
+        /// <returns>
+        ///     Una referencia a la nueva tabla creada.
+        /// </returns>
         public static Table AddTable(this FlowDocument document, params GridLength[] columnWidths)
         {
             var t = new Table();
@@ -270,11 +418,22 @@ namespace TheXDS.MCART.Types.Extensions
             return t;
         }
 
-        public static Table AddTable(this FlowDocument document,
-            IEnumerable<KeyValuePair<string, GridLength>> columnWidths)
+        /// <summary>
+        ///     Agrega una nueva tabla al <see cref="FlowDocument"/> especificado.
+        /// </summary>
+        /// <param name="document">
+        ///     Documento al cual agregar la nueva tabla.
+        /// </param>
+        /// <param name="columns">
+        ///     Columnas a agregar.
+        /// </param>
+        /// <returns>
+        ///     Una referencia a la nueva tabla creada.
+        /// </returns>
+        public static Table AddTable(this FlowDocument document, IEnumerable<KeyValuePair<string, GridLength>> columns)
         {
             var t = new Table();
-            t.AddGroup().AddRow(columnWidths.Select(p =>
+            t.AddGroup().AddRow(columns.Select(p =>
             {
                 t.Columns.Add(new TableColumn {Width = p.Value});
                 return p.Key;
@@ -380,22 +539,42 @@ namespace TheXDS.MCART.Types.Extensions
             return element;
         }
 
-        public static TableRow CenterAll(this TableRow element)
+        /// <summary>
+        ///     Centra todos los bloques de contenido de una fila.
+        /// </summary>
+        /// <param name="row">
+        ///     Fila a la cual se debe aplicar la operación.
+        /// </param>
+        /// <returns>
+        ///     <paramref name="row" />, lo que permite utilizar esta función
+        ///     con sintaxis Fluent.
+        /// </returns>
+        public static TableRow CenterAll(this TableRow row)
         {
-            foreach (var j in element.Cells.SelectMany(p => p.Blocks)) j.Center();
-            return element;
+            foreach (var j in row.Cells.SelectMany(p => p.Blocks)) j.Center();
+            return row;
         }
 
-        public static TableRowGroup CenterAll(this TableRowGroup element)
+        /// <summary>
+        ///     Centra todos los bloques de contenido de un grupo de filas.
+        /// </summary>
+        /// <param name="rowGroup">
+        ///     Grupo de filas a la cual se debe aplicar la operación.
+        /// </param>
+        /// <returns>
+        ///     <paramref name="rowGroup" />, lo que permite utilizar esta
+        ///     funcióncon sintaxis Fluent.
+        /// </returns>
+        public static TableRowGroup CenterAll(this TableRowGroup rowGroup)
         {
-            foreach (var j in element.Rows.SelectMany(o => o.Cells.SelectMany(p => p.Blocks))) j.Center();
-            return element;
+            foreach (var j in rowGroup.Rows.SelectMany(o => o.Cells.SelectMany(p => p.Blocks))) j.Center();
+            return rowGroup;
         }
 
         /// <summary>
         ///     Establece un color de fondo para la columna especificada de la tabla.
         /// </summary>
-        /// <param name="table"><see cref="System.Windows.Documents.Table" /> a procesar.</param>
+        /// <param name="table"><see cref="Table" /> a procesar.</param>
         /// <param name="column">Índice de la columna.</param>
         /// <param name="brush"><see cref="Brush" /> a aplicar al dibujar la tabla.</param>
         /// <returns>
@@ -408,6 +587,20 @@ namespace TheXDS.MCART.Types.Extensions
             return table;
         }
 
+        /// <summary>
+        ///     Establece un valor de combinación de columnas a la celda
+        ///     especificada.
+        /// </summary>
+        /// <param name="cell">
+        ///     Celda a combinar.
+        /// </param>
+        /// <param name="span">
+        ///     Cantidad de columnas que la celda abarca.
+        /// </param>
+        /// <returns>
+        ///     <paramref name="cell" />, lo que permite utilizar esta función
+        ///     con sintaxis Fluent.
+        /// </returns>
         public static TableCell ColumnSpan(this TableCell cell, int span)
         {
             cell.ColumnSpan = span;
@@ -415,9 +608,9 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Establece el ancho de una columna para un <see cref="System.Windows.Documents.Table" />.
+        ///     Establece el ancho de una columna para un <see cref="Table" />.
         /// </summary>
-        /// <param name="table"><see cref="System.Windows.Documents.Table" /> a procesar.</param>
+        /// <param name="table"><see cref="Table" /> a procesar.</param>
         /// <param name="column">Índice de la columna.</param>
         /// <param name="width">Ancho de columna a aplicar.</param>
         /// <returns>
@@ -474,11 +667,11 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Fila para la cual finalizar el contexto de la sintaxis Fluent.
         /// </param>
         /// <returns>
-        ///     El grupo de filas a las que esta fila pertenece.
+        ///     El grupo de filas al que esta fila pertenece.
         /// </returns>
         public static TableRowGroup Done(this TableRow row)
         {
-            return row.Parent as TableRowGroup;
+            return (TableRowGroup)row.Parent;
         }
 
         /// <summary>
@@ -495,14 +688,39 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static Table Done(this TableRowGroup rowGroup)
         {
-            return rowGroup.Parent as Table;
+            return (Table)rowGroup.Parent;
         }
 
+        /// <summary>
+        ///     Marca el final del contexto de una celda, devolviendo a su fila
+        ///     padre de forma compatible con la sintaxis Fluent.
+        /// </summary>
+        /// <param name="cell">
+        ///     Celda para la cual finalizar el contexto de la sintaxis Fluent.
+        /// </param>
+        /// <returns>
+        ///     La fila a la que esta celda pertenece.
+        /// </returns>
         public static TableRow Done(this TableCell cell)
         {
-            return cell.Parent as TableRow;
+            return (TableRow)cell.Parent;
         }
 
+        /// <summary>
+        ///     marca el final del contexto de un elemento, devolviendo a su
+        ///     padre.
+        /// </summary>
+        /// <typeparam name="T">Tipo de padre a devolver.</typeparam>
+        /// <param name="block">
+        ///     bloque del cual obtener al padre.
+        /// </param>
+        /// <returns>
+        ///     El padre del elemento especificado.
+        /// </returns>
+        /// <exception cref="InvalidCastException">
+        ///     Se produce si el padre del elemento no es del tipo
+        ///     <typeparamref name="T"/>.
+        /// </exception>
         public static T Done<T>(this FrameworkContentElement block) where T : class
         {
             return block.Parent as T ?? throw new InvalidCastException();
@@ -675,83 +893,217 @@ namespace TheXDS.MCART.Types.Extensions
             return element;
         }
 
-        public static FlowDocument MakeTable(this FlowDocument fd, IDictionary<string, string> headers,
-            IEnumerable data)
+        /// <summary>
+        ///     Aplica un estilo a una celda.
+        /// </summary>
+        /// <param name="cell">Celda a estilizar.</param>
+        /// <param name="style">Estilo a aplicar a la celda.</param>
+        /// <returns>
+        ///     <paramref name="cell" />, lo que permite utilizar esta función
+        ///     con sintaxis Fluent.
+        /// </returns>
+        public static TableCell ApplyStyle(this TableCell cell, ICellStyle? style)
         {
-            var tbl = new Table();
+            return ApplyStyle(cell, style, false);
+        }
 
-            var headersRow = new TableRow {FontWeight = FontWeights.Bold};
-            foreach (var j in headers)
+        /// <summary>
+        ///     Aplica un estilo a una celda.
+        /// </summary>
+        /// <param name="cell">Celda a estilizar.</param>
+        /// <param name="style">Estilo a aplicar a la celda.</param>
+        /// <param name="odd">
+        ///     Bandera que indica si se trata de una fila impar o no.
+        /// </param>
+        /// <returns>
+        ///     <paramref name="cell" />, lo que permite utilizar esta función
+        ///     con sintaxis Fluent.
+        /// </returns>
+        public static TableCell ApplyStyle(this TableCell cell, ICellStyle? style, bool odd)
+        {
+            if (style != null)
             {
-                tbl.Columns.Add(new TableColumn());
-                headersRow.Cells.Add(new TableCell(new Paragraph(new Run(j.Value))));
-            }
-
-            var rg = new TableRowGroup();
-            rg.Rows.Add(headersRow);
-
-            foreach (var j in data)
-            {
-                var row = new TableRow();
-                foreach (var k in headers)
+                if (style.Background != null)
                 {
-                    var val = j.GetType().GetProperty(k.Key)?.GetMethod.Invoke(j, new object[] { }).ToString();
-                    row.Cells.Add(new TableCell(new Paragraph(new Run(val))));
+                    cell.Background = (odd ? style.OddBackground : null) ?? style.Background;
                 }
+                if (style.Foreground != null)
+                    cell.Foreground = style.Foreground;
+                if (style.BorderBrush != null)
+                    cell.BorderBrush = style.BorderBrush;
+                if (style.BorderThickness != null)
+                    cell.BorderThickness = style.BorderThickness.Value;
 
-                rg.Rows.Add(row);
+                cell.TextAlignment = style.Alignment;
+
             }
-
-            tbl.RowGroups.Add(rg);
-            fd.Blocks.Add(tbl);
-            return fd;
+            return cell;
         }
 
-        public static FlowDocument MakeTable<T>(this FlowDocument fd, IEnumerable<TableSelector<T>> columns,
-            IEnumerable<T> data)
+        /// <summary>
+        ///     Agrega una nueva celda con el contenido textual especificado.
+        /// </summary>
+        /// <param name="cells">
+        ///     Colección de celdas en la cual agregar una nueva celda con el
+        ///     contenido especificado.
+        /// </param>
+        /// <param name="content">
+        ///     Contenido textual a incluir en la celda.
+        /// </param>
+        /// <returns>
+        ///     Una referencia a la nueva celda creada.
+        /// </returns>
+        public static TableCell Add(this TableCellCollection cells, string content)
+        {
+            return Add(cells, new Run(content));
+        }
+
+        /// <summary>
+        ///     Agrega una nueva celda con el contenido especificado.
+        /// </summary>
+        /// <param name="cells">
+        ///     Colección de celdas en la cual agregar una nueva celda con el
+        ///     contenido especificado.
+        /// </param>
+        /// <param name="content">
+        ///     Contenido a incluir en la celda.
+        /// </param>
+        /// <returns>
+        ///     Una referencia a la nueva celda creada.
+        /// </returns>
+        public static TableCell Add(this TableCellCollection cells, Inline content)
+        {
+            var c = new TableCell(new Paragraph(content));
+            cells.Add(c);
+            return c;
+        }
+
+        /// <summary>
+        ///     Construye una tabla a partir de una enumeración de datos y una colección de descriptores de columnas.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de elementos a incluir en la tabla.
+        /// </typeparam>
+        /// <param name="fd">
+        ///     <see cref="FlowDocument"/> en el cual se agregará la tabla creada.
+        /// </param>
+        /// <param name="columns">
+        ///     Colección de columnas a incluir en la tabla.
+        /// </param>
+        /// <param name="data">
+        ///     Enumeración de datos a incluir en la tabla.
+        /// </param>
+        /// <returns>
+        ///     <paramref name="fd"/>, lo que permite utilizar esta función
+        ///     con sintaxis Fluent.
+        /// </returns>
+        public static Table MakeTable<T>(this FlowDocument fd, IEnumerable<IColumnBuilder<T>> columns, IEnumerable<T> data) => MakeTable(fd, columns, data, null);
+
+        /// <summary>
+        ///     Construye una tabla a partir de una enumeración de datos y una colección de descriptores de columnas.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de elementos a incluir en la tabla.
+        /// </typeparam>
+        /// <param name="fd">
+        ///     <see cref="FlowDocument"/> en el cual se agregará la tabla creada.
+        /// </param>
+        /// <param name="columns">
+        ///     Colección de columnas a incluir en la tabla.
+        /// </param>
+        /// <param name="data">
+        ///     Enumeración de datos a incluir en la tabla.
+        /// </param>
+        /// <param name="headersStyle">
+        ///     Estilo opcional a aplicar a los encabezados de la tabla.
+        /// </param>
+        /// <returns>
+        ///     <paramref name="fd"/>, lo que permite utilizar esta función
+        ///     con sintaxis Fluent.
+        /// </returns>
+        public static Table MakeTable<T>(this FlowDocument fd, IEnumerable<IColumnBuilder<T>> columns, IEnumerable<T> data, ICellStyle? headersStyle)
         {
             var tbl = new Table();
+            var rg = new TableRowGroup();
 
-            var headersRow = new TableRow {FontWeight = FontWeights.Bold};
-            var namedSelectors = columns.ToList();
-            foreach (var j in namedSelectors)
+            var headersRow = new TableRow { FontWeight = FontWeights.Bold };
+            var c = columns.ToList();
+            foreach (var j in c)
             {
                 tbl.Columns.Add(new TableColumn());
-                headersRow.Cells.Add(new TableCell(new Paragraph(new Run(j.Header))));
+                headersRow.Cells.Add(j.Header).ApplyStyle(headersStyle);
             }
-
-            var rg = new TableRowGroup();
             rg.Rows.Add(headersRow);
 
+            var odd = true;
             foreach (var j in data)
             {
                 var row = new TableRow();
-                foreach (var k in namedSelectors) row.Cells.Add(new TableCell(new Paragraph(new Run(k.Selector(j)))));
+                foreach (var k in c)
+                {
+                    row.Cells.Add(k.Content(j)).ApplyStyle(k.Style(j));
+                }
                 rg.Rows.Add(row);
+                odd = !odd;
             }
 
-            tbl.RowGroups.Add(rg);
-            fd.Blocks.Add(tbl);
-            return fd;
-        }
-
-        public static Table MakeTable(this FlowDocument fd, IEnumerable<string> headers)
-        {
-            var tbl = new Table();
-
-            var headersRow = new TableRow {FontWeight = FontWeights.Bold};
-            foreach (var j in headers)
-            {
-                tbl.Columns.Add(new TableColumn());
-                headersRow.Cells.Add(new TableCell(new Paragraph(new Run(j))));
-            }
-
-            var rg = new TableRowGroup();
-            rg.Rows.Add(headersRow);
             tbl.RowGroups.Add(rg);
             fd.Blocks.Add(tbl);
             return tbl;
         }
+
+        /// <summary>
+        ///     Construye una nueva tabla con los encabezados especificados.
+        /// </summary>
+        /// <param name="fd">
+        ///     <see cref="FlowDocument"/> en el cual se agregará la tabla creada.
+        /// </param>
+        /// <param name="headers">
+        ///     Encabezados a agregar a la tabla.
+        /// </param>
+        /// <returns>
+        ///     Una referencia a un nuevo <see cref="TableRowGroup"/> dentro de
+        ///     la tabla creada.
+        /// </returns>
+        public static TableRowGroup MakeTable(this FlowDocument fd, IEnumerable<string> headers) => MakeTable(fd, headers, null);
+
+        /// <summary>
+        ///     Construye una nueva tabla con los encabezados especificados.
+        /// </summary>
+        /// <param name="fd">
+        ///     <see cref="FlowDocument"/> en el cual se agregará la tabla creada.
+        /// </param>
+        /// <param name="headers">
+        ///     Encabezados a agregar a la tabla.
+        /// </param>
+        /// <param name="headersStyle">
+        ///     Estilo opcional a aplicar a los encabezados de la tabla.
+        /// </param>
+        /// <returns>
+        ///     Una referencia a un nuevo <see cref="TableRowGroup"/> dentro de
+        ///     la tabla creada.
+        /// </returns>
+        public static TableRowGroup MakeTable(this FlowDocument fd, IEnumerable<string> headers, ICellStyle? headersStyle)
+        {
+            var tbl = new Table();
+            var rg = new TableRowGroup();
+
+            var headersRow = new TableRow {FontWeight = FontWeights.Bold};
+            foreach (var j in headers)
+            {
+                tbl.Columns.Add(new TableColumn());
+                headersRow.Cells.Add(j).ApplyStyle(headersStyle);
+            }
+
+            rg.Rows.Add(headersRow);
+            tbl.RowGroups.Add(rg);
+            fd.Blocks.Add(tbl);
+            return rg;
+        }
+
+#nullable disable
+
+#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible públicamente
 
         public static Paragraph Paragraph(this FlowDocument fd)
         {
