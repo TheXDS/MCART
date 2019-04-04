@@ -1,5 +1,5 @@
 ﻿/*
-INameable.cs
+Events.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,19 +22,31 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Describe una serie de miembros a implementar por una clase o
-    ///     estructura que expone un nombre para su identificación.
+    /// Contiene información para el evento <see cref="ExtendedList{T}.ListUpdating"/>.
     /// </summary>
-    public interface INameable
+    /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
+    public class ListUpdatingEventArgs<T> : CancelEventArgs
     {
         /// <summary>
-        ///     Obtiene el nombre del elemento.
+        /// Elementos afectados por la actualización.
         /// </summary>
-        string Name { get; }
+        public IReadOnlyCollection<T> AffectedItems { get; }
+        /// <summary>
+        /// TIpo de actualización a realizar en el <see cref="ExtendedList{T}"/> que
+        /// generó el evento.
+        /// </summary>
+        public ListUpdateType UpdateType { get; }
+        internal ListUpdatingEventArgs(ListUpdateType updateType, IEnumerable<T> affectedItems)
+        {
+            UpdateType = updateType;
+            AffectedItems = affectedItems?.ToList().AsReadOnly();
+        }
     }
 }

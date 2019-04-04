@@ -563,15 +563,17 @@ namespace TheXDS.MCART.Annotations
     ///     which should not be removed and so is treated as used.
     /// </summary>
     [MeansImplicitUse(ImplicitUseTargetFlags.WithMembers)]
-    public sealed class PublicAPIAttribute : Attribute
+    public sealed class PublicAPIAttribute : Attribute, IValueAttribute<string?>
     {
-        [CanBeNull] public string Comment { get; }
+        public string? Comment { get; }
+
+        string? IValueAttribute<string?>.Value => Comment;
 
         public PublicAPIAttribute()
         {
         }
 
-        public PublicAPIAttribute([NotNull] string comment)
+        public PublicAPIAttribute(string comment)
         {
             Comment = comment;
         }
@@ -611,15 +613,17 @@ namespace TheXDS.MCART.Annotations
     ///     Indicates that the return value of method invocation must be used.
     /// </summary>
     [AttributeUsage(Method)]
-    public sealed class MustUseReturnValueAttribute : Attribute
+    public sealed class MustUseReturnValueAttribute : Attribute, IValueAttribute<string?>
     {
-        [CanBeNull] public string Justification { get; }
+        public string? Justification { get; }
+
+        string? IValueAttribute<string?>.Value => Justification;
 
         public MustUseReturnValueAttribute()
         {
         }
 
-        public MustUseReturnValueAttribute([NotNull] string justification)
+        public MustUseReturnValueAttribute(string justification)
         {
             Justification = justification;
         }
@@ -655,15 +659,17 @@ namespace TheXDS.MCART.Annotations
     ///     Path can be relative or absolute, starting from web root (~).
     /// </summary>
     [AttributeUsage(Parameter)]
-    public sealed class PathReferenceAttribute : Attribute
+    public sealed class PathReferenceAttribute : Attribute, IValueAttribute<string?>
     {
-        [CanBeNull] public string BasePath { get; }
+        public string? BasePath { get; }
+
+        string? IValueAttribute<string?>.Value => BasePath;
 
         public PathReferenceAttribute()
         {
         }
 
-        public PathReferenceAttribute([NotNull] [PathReference] string basePath)
+        public PathReferenceAttribute([PathReference] string basePath)
         {
             BasePath = basePath;
         }
@@ -748,23 +754,21 @@ namespace TheXDS.MCART.Annotations
         ///     Allows specifying a macro that will be executed for a <see cref="SourceTemplateAttribute">source template</see>
         ///     parameter when the template is expanded.
         /// </summary>
-        [CanBeNull]
-        public string Expression { get; set; }
+        public string? Expression { get; set; }
 
         /// <summary>
         ///     Identifies the target parameter of a <see cref="SourceTemplateAttribute">source template</see> if the
         ///     <see cref="MacroAttribute" /> is applied on a template method.
         /// </summary>
-        [CanBeNull]
-        public string Target { get; set; }
+        public string? Target { get; set; }
     }
 
     [AttributeUsage(Assembly | Field | Property, AllowMultiple = true)]
     public sealed class AspMvcAreaMasterLocationFormatAttribute : Attribute
     {
-        [NotNull] public string Format { get; }
+        public string Format { get; }
 
-        public AspMvcAreaMasterLocationFormatAttribute([NotNull] string format)
+        public AspMvcAreaMasterLocationFormatAttribute(string format)
         {
             Format = format;
         }
@@ -773,9 +777,9 @@ namespace TheXDS.MCART.Annotations
     [AttributeUsage(Assembly | Field | Property, AllowMultiple = true)]
     public sealed class AspMvcAreaPartialViewLocationFormatAttribute : Attribute
     {
-        [NotNull] public string Format { get; }
+        public string Format { get; }
 
-        public AspMvcAreaPartialViewLocationFormatAttribute([NotNull] string format)
+        public AspMvcAreaPartialViewLocationFormatAttribute(string format)
         {
             Format = format;
         }
@@ -784,9 +788,9 @@ namespace TheXDS.MCART.Annotations
     [AttributeUsage(Assembly | Field | Property, AllowMultiple = true)]
     public sealed class AspMvcAreaViewLocationFormatAttribute : Attribute
     {
-        [NotNull] public string Format { get; }
+        public string Format { get; }
 
-        public AspMvcAreaViewLocationFormatAttribute([NotNull] string format)
+        public AspMvcAreaViewLocationFormatAttribute(string format)
         {
             Format = format;
         }
@@ -795,9 +799,9 @@ namespace TheXDS.MCART.Annotations
     [AttributeUsage(Assembly | Field | Property, AllowMultiple = true)]
     public sealed class AspMvcMasterLocationFormatAttribute : Attribute
     {
-        [NotNull] public string Format { get; }
+        public string Format { get; }
 
-        public AspMvcMasterLocationFormatAttribute([NotNull] string format)
+        public AspMvcMasterLocationFormatAttribute(string format)
         {
             Format = format;
         }
@@ -806,9 +810,9 @@ namespace TheXDS.MCART.Annotations
     [AttributeUsage(Assembly | Field | Property, AllowMultiple = true)]
     public sealed class AspMvcPartialViewLocationFormatAttribute : Attribute
     {
-        [NotNull] public string Format { get; }
+        public string Format { get; }
 
-        public AspMvcPartialViewLocationFormatAttribute([NotNull] string format)
+        public AspMvcPartialViewLocationFormatAttribute(string format)
         {
             Format = format;
         }
@@ -817,9 +821,9 @@ namespace TheXDS.MCART.Annotations
     [AttributeUsage(Assembly | Field | Property, AllowMultiple = true)]
     public sealed class AspMvcViewLocationFormatAttribute : Attribute
     {
-        [NotNull] public string Format { get; }
+        public string Format { get; }
 
-        public AspMvcViewLocationFormatAttribute([NotNull] string format)
+        public AspMvcViewLocationFormatAttribute(string format)
         {
             Format = format;
         }
@@ -833,15 +837,17 @@ namespace TheXDS.MCART.Annotations
     ///     <c>System.Web.Mvc.Html.ChildActionExtensions.RenderAction(HtmlHelper, String)</c>.
     /// </summary>
     [AttributeUsage(Parameter | Method)]
-    public sealed class AspMvcActionAttribute : Attribute
+    public sealed class AspMvcActionAttribute : Attribute, IValueAttribute<string?>
     {
-        [CanBeNull] public string AnonymousProperty { get; }
+        public string? AnonymousProperty { get; }
+
+        string? IValueAttribute<string?>.Value => AnonymousProperty;
 
         public AspMvcActionAttribute()
         {
         }
 
-        public AspMvcActionAttribute([NotNull] string anonymousProperty)
+        public AspMvcActionAttribute(string anonymousProperty)
         {
             AnonymousProperty = anonymousProperty;
         }
@@ -854,15 +860,17 @@ namespace TheXDS.MCART.Annotations
     ///     <c>System.Web.Mvc.Html.ChildActionExtensions.RenderAction(HtmlHelper, String)</c>.
     /// </summary>
     [AttributeUsage(Parameter)]
-    public sealed class AspMvcAreaAttribute : Attribute
+    public sealed class AspMvcAreaAttribute : Attribute, IValueAttribute<string?>
     {
-        [CanBeNull] public string AnonymousProperty { get; }
+        public string? AnonymousProperty { get; }
+
+        string? IValueAttribute<string?>.Value => AnonymousProperty;
 
         public AspMvcAreaAttribute()
         {
         }
 
-        public AspMvcAreaAttribute([NotNull] string anonymousProperty)
+        public AspMvcAreaAttribute(string anonymousProperty)
         {
             AnonymousProperty = anonymousProperty;
         }
@@ -876,15 +884,17 @@ namespace TheXDS.MCART.Annotations
     ///     <c>System.Web.Mvc.Html.ChildActionExtensions.RenderAction(HtmlHelper, String, String)</c>.
     /// </summary>
     [AttributeUsage(Parameter | Method)]
-    public sealed class AspMvcControllerAttribute : Attribute
+    public sealed class AspMvcControllerAttribute : Attribute, IValueAttribute<string?>
     {
-        [CanBeNull] public string AnonymousProperty { get; }
+        public string? AnonymousProperty { get; }
+
+        string? IValueAttribute<string?>.Value => AnonymousProperty;
 
         public AspMvcControllerAttribute()
         {
         }
 
-        public AspMvcControllerAttribute([NotNull] string anonymousProperty)
+        public AspMvcControllerAttribute(string anonymousProperty)
         {
             AnonymousProperty = anonymousProperty;
         }
@@ -1016,26 +1026,50 @@ namespace TheXDS.MCART.Annotations
     }
 
     [AttributeUsage(Parameter | Property | Field)]
-    public sealed class HtmlElementAttributesAttribute : Attribute, INameable
+    public sealed class HtmlElementAttributesAttribute : Attribute, INameable, IValueAttribute<string?>
     {
-        [CanBeNull] public string Name { get; }
+        public string? Name { get; }
 
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="HtmlElementAttributesAttribute"/>.
+        /// </summary>
         public HtmlElementAttributesAttribute()
         {
         }
 
-        public HtmlElementAttributesAttribute([NotNull] string name)
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="HtmlElementAttributesAttribute"/>.
+        /// </summary>
+        /// <param name="name">
+        ///     Valor a aisgnar a la propiedad <see cref="Name"/>.
+        /// </param>
+        public HtmlElementAttributesAttribute(string name)
         {
             Name = name;
         }
+
+        string INameable.Name => Name ?? string.Empty;
+
+        string? IValueAttribute<string?>.Value => Name;
     }
 
     [AttributeUsage(Parameter | Field | Property)]
-    public sealed class HtmlAttributeValueAttribute : Attribute, INameable
+    public sealed class HtmlAttributeValueAttribute : Attribute, INameable, IValueAttribute<string>
     {
-        [NotNull] public string Name { get; }
+        public string Name { get; }
 
-        public HtmlAttributeValueAttribute([NotNull] string name)
+        string IValueAttribute<string>.Value => Name;
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="HtmlAttributeValueAttribute"/>.
+        /// </summary>
+        /// <param name="name">
+        ///     Valor a aisgnar a la propiedad <see cref="Name"/>.
+        /// </param>
+        public HtmlAttributeValueAttribute(string name)
         {
             Name = name;
         }
@@ -1212,11 +1246,11 @@ namespace TheXDS.MCART.Annotations
     [AttributeUsage(Class, AllowMultiple = true)]
     public sealed class AspChildControlTypeAttribute : Attribute
     {
-        [NotNull] public Type ControlType { get; }
+        public Type ControlType { get; }
 
-        [NotNull] public string TagName { get; }
+        public string TagName { get; }
 
-        public AspChildControlTypeAttribute([NotNull] string tagName, [NotNull] Type controlType)
+        public AspChildControlTypeAttribute(string tagName, Type controlType)
         {
             TagName = tagName;
             ControlType = controlType;
@@ -1241,9 +1275,9 @@ namespace TheXDS.MCART.Annotations
     [AttributeUsage(Class, AllowMultiple = true)]
     public sealed class AspRequiredAttributeAttribute : Attribute
     {
-        [NotNull] public string Attribute { get; }
+        public string Attribute { get; }
 
-        public AspRequiredAttributeAttribute([NotNull] string attribute)
+        public AspRequiredAttributeAttribute(string attribute)
         {
             Attribute = attribute;
         }
@@ -1263,9 +1297,9 @@ namespace TheXDS.MCART.Annotations
     [AttributeUsage(Assembly, AllowMultiple = true)]
     public sealed class RazorImportNamespaceAttribute : Attribute, INameable
     {
-        [NotNull] public string Name { get; }
+        public string Name { get; }
 
-        public RazorImportNamespaceAttribute([NotNull] string name)
+        public RazorImportNamespaceAttribute(string name)
         {
             Name = name;
         }
@@ -1274,11 +1308,11 @@ namespace TheXDS.MCART.Annotations
     [AttributeUsage(Assembly, AllowMultiple = true)]
     public sealed class RazorInjectionAttribute : Attribute
     {
-        [NotNull] public string FieldName { get; }
+        public string FieldName { get; }
 
-        [NotNull] public string Type { get; }
+        public string Type { get; }
 
-        public RazorInjectionAttribute([NotNull] string type, [NotNull] string fieldName)
+        public RazorInjectionAttribute(string type, string fieldName)
         {
             Type = type;
             FieldName = fieldName;
@@ -1288,9 +1322,9 @@ namespace TheXDS.MCART.Annotations
     [AttributeUsage(Assembly, AllowMultiple = true)]
     public sealed class RazorDirectiveAttribute : Attribute
     {
-        [NotNull] public string Directive { get; }
+        public string Directive { get; }
 
-        public RazorDirectiveAttribute([NotNull] string directive)
+        public RazorDirectiveAttribute(string directive)
         {
             Directive = directive;
         }
@@ -1299,15 +1333,15 @@ namespace TheXDS.MCART.Annotations
     [AttributeUsage(Assembly, AllowMultiple = true)]
     public sealed class RazorPageBaseTypeAttribute : Attribute
     {
-        [NotNull] public string BaseType { get; }
-        [CanBeNull] public string PageName { get; }
+        public string BaseType { get; }
+        public string? PageName { get; }
 
-        public RazorPageBaseTypeAttribute([NotNull] string baseType)
+        public RazorPageBaseTypeAttribute(string baseType)
         {
             BaseType = baseType;
         }
 
-        public RazorPageBaseTypeAttribute([NotNull] string baseType, string pageName)
+        public RazorPageBaseTypeAttribute(string baseType, string? pageName)
         {
             BaseType = baseType;
             PageName = pageName;

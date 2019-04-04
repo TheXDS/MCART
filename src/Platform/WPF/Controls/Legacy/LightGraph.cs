@@ -36,6 +36,7 @@ using System.Windows.Shapes;
 using MC = TheXDS.MCART.Resources.Colors;
 using ISt = TheXDS.MCART.Resources.InternalStrings;
 using TheXDS.MCART.Math;
+using TheXDS.MCART.Types;
 
 // ReSharper disable UnusedMember.Global
 
@@ -236,7 +237,7 @@ namespace TheXDS.MCART.Controls
         /// Esta no es una propiedad de dependencia, debido a algunas
         /// complicaciones de eventos.
         /// </remarks>
-        public List<double> Graph { get; set; } = new List<double>();
+        public ExtendedList<double> Graph { get; set; } = new ExtendedList<double>();
         /// <summary>
         /// Obtiene o establece los elementos de la gráfica secundaria.
         /// </summary>
@@ -244,7 +245,7 @@ namespace TheXDS.MCART.Controls
         /// Esta no es una propiedad de dependencia, debido a algunas 
         /// complicaciones de eventos.
         /// </remarks>
-        public List<double> Graph2 { get; set; } = new List<double>();
+        public ExtendedList<double> Graph2 { get; set; } = new ExtendedList<double>();
         /// <summary>
         /// Determina el modo de dibujo del gráfico.
         /// </summary>
@@ -329,7 +330,7 @@ namespace TheXDS.MCART.Controls
         /// Esta no es una propiedad de dependencia, debido a algunas 
         /// complicaciones de eventos.
         /// </remarks>
-        public List<string> XLabels { get; set; } = new List<string>();
+        public ExtendedList<string> XLabels { get; set; } = new ExtendedList<string>();
         /// <summary>
         /// Obtiene o establece el período de la rejilla mayor del eje X.
         /// </summary>
@@ -450,7 +451,7 @@ namespace TheXDS.MCART.Controls
                 }
             }
         }
-        void PlotGrp(Polyline grp, List<double> lst, TextBlock mx, TextBlock mn, double max, double min, CheckBox chk)
+        void PlotGrp(Polyline grp, ExtendedList<double> lst, TextBlock mx, TextBlock mn, double max, double min, CheckBox chk)
         {
             if (!AmIValid()) return;
             ClearGrp(grp, mx, mn);
@@ -466,9 +467,9 @@ namespace TheXDS.MCART.Controls
             {
                 if (j.IsValid())
                 {
-                    var p = new Point(k, (GrdGraph.ActualHeight - j * GrdGraph.ActualHeight));
+                    var p = new System.Windows.Point(k, (GrdGraph.ActualHeight - j * GrdGraph.ActualHeight));
                     grp.Points.Add(p);
-                    if ((GraphDrawMode & EnumGraphDrawMode.Bars) != 0) grp.Points.Add(new Point(p.X + l, p.Y));
+                    if ((GraphDrawMode & EnumGraphDrawMode.Bars) != 0) grp.Points.Add(new System.Windows.Point(p.X + l, p.Y));
                 }
                 k += l;
                 a += 1;
@@ -476,16 +477,16 @@ namespace TheXDS.MCART.Controls
             if ((GraphDrawMode & EnumGraphDrawMode.Filled) != 0)
             {
                 if ((GraphDrawMode & EnumGraphDrawMode.Bars) != 0)
-                    grp.Points.Add(new Point(k, GrdGraph.ActualHeight + GraphThickness * 2));
+                    grp.Points.Add(new System.Windows.Point(k, GrdGraph.ActualHeight + GraphThickness * 2));
                 else
-                    grp.Points.Add(new Point(k - l, GrdGraph.ActualHeight + GraphThickness * 2));
-                grp.Points.Add(new Point(0, GrdGraph.ActualHeight + GraphThickness * 2));
+                    grp.Points.Add(new System.Windows.Point(k - l, GrdGraph.ActualHeight + GraphThickness * 2));
+                grp.Points.Add(new System.Windows.Point(0, GrdGraph.ActualHeight + GraphThickness * 2));
                 var _with2 = ((SolidColorBrush)grp.Stroke).Color;
-                var x = Color.FromArgb((byte)(_with2.A / 2), _with2.R, _with2.G, _with2.B);
+                var x = System.Windows.Media.Color.FromArgb((byte)(_with2.A / 2), _with2.R, _with2.G, _with2.B);
                 grp.Fill = new SolidColorBrush(x);
             }
         }
-        void PlotSpotLabels(Polyline Ps, List<double> grp, Grid g)
+        void PlotSpotLabels(Polyline Ps, ExtendedList<double> grp, Grid g)
         {
             if (!AmIValid()) return;
             g.Children.Clear();

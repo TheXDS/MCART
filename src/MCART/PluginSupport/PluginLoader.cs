@@ -853,6 +853,7 @@ namespace TheXDS.MCART.PluginSupport
                 foreach (var j in LoadAll<T>(a, predicate)) yield return j;
             }
         }
+
         /// <summary>
         ///     Carga todos los plugins de todos los ensamblados en el directorio.
         /// </summary>
@@ -894,7 +895,99 @@ namespace TheXDS.MCART.PluginSupport
             return r;
         }
 
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        /// <param name="pluginsPath">
+        ///     Ruta del directorio que contiene los archivos a cargar.
+        /// </param>
+        /// <param name="search">Modo de búsqueda.</param>
+        /// <typeparam name="T">
+        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        /// </typeparam>
+        public Task<IEnumerable<T>> LoadEverythingAsync<T>(string pluginsPath, SearchOption search) where T : class
+        {
+            return LoadEverythingAsync<T>(pluginsPath, search, null);
+        }
 
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        /// <param name="pluginsPath">
+        ///     Ruta del directorio que contiene los archivos a cargar.
+        /// </param>
+        /// <param name="search">Modo de búsqueda.</param>
+        /// <typeparam name="T">
+        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        /// </typeparam>
+        public Task<IEnumerable<T>> LoadEverythingAsync<T>(string pluginsPath) where T : class
+        {
+            return LoadEverythingAsync<T>(pluginsPath, SearchOption.TopDirectoryOnly, null);
+        }
+
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        /// <typeparam name="T">
+        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        /// </typeparam>
+        public Task<IEnumerable<T>> LoadEverythingAsync<T>() where T : class
+        {
+            return LoadEverythingAsync<T>(Environment.CurrentDirectory, SearchOption.TopDirectoryOnly, null);
+        }
+
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        /// <param name="predicate">
+        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
+        /// </param>
+        /// <typeparam name="T">
+        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        /// </typeparam>
+        public Task<IEnumerable<T>> LoadEverythingAsync<T>(Func<Type, bool> predicate)
+            where T : class
+        {
+            return LoadEverythingAsync<T>(Environment.CurrentDirectory, SearchOption.TopDirectoryOnly, predicate);
+        }
+
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        /// <param name="pluginsPath">
+        ///     Ruta del directorio que contiene los archivos a cargar.
+        /// </param>
+        /// <param name="predicate">
+        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
+        /// </param>
+        /// <typeparam name="T">
+        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        /// </typeparam>
+        public Task<IEnumerable<T>> LoadEverythingAsync<T>(string pluginsPath, Func<Type, bool> predicate)
+            where T : class
+        {
+            return LoadEverythingAsync<T>(pluginsPath, SearchOption.TopDirectoryOnly, predicate);
+        }
 
         /// <summary>
         ///     Carga cualquier <see cref="IPlugin" /> disponible.

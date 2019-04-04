@@ -1,5 +1,5 @@
 ﻿/*
-List.cs
+ExtendedList.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -27,8 +27,10 @@ using System.Collections.Generic;
 using System.Linq;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Types.Extensions;
+using System.ComponentModel;
 
-namespace TheXDS.MCART.Types.Extensions
+namespace TheXDS.MCART.Types
 {
     /// <inheritdoc cref="T:System.Collections.Generic.List`1"/>
     /// <summary>
@@ -45,13 +47,63 @@ namespace TheXDS.MCART.Types.Extensions
     /// <see cref="T:System.Collections.ObjectModel.ObservableCollection`1" />
     /// con numerosos eventos adicionales y otras extensiones.
     /// </remarks>
-    public partial class List<T> : System.Collections.Generic.List<T>, ICloneable
+    public class ExtendedList<T> : List<T>, ICloneable
     {
+        /// <summary>
+        /// Se produce cuando se agregará un elemento a la lista.
+        /// </summary>
+        public event EventHandler<AddingItemEventArgs<T>> AddingItem;
+        /// <summary>
+        /// Se produce cuando se insertará un elemento en la lista.
+        /// </summary>
+        public event EventHandler<InsertingItemEventArgs<T>> InsertingItem;
+        /// <summary>
+        /// Se produce cuando se modificará un elemento de la lista
+        /// </summary>
+        public event EventHandler<ModifyingItemEventArgs<T>> ModifyingItem;
+        /// <summary>
+        /// Se produce cuando se eliminará un elemento de la lista.
+        /// </summary>
+        public event EventHandler<RemovingItemEventArgs<T>> RemovingItem;
+        /// <summary>
+        /// Se produce cuando la lista será actualizada.
+        /// </summary>
+        public event EventHandler<ListUpdatingEventArgs<T>> ListUpdating;
+        /// <summary>
+        /// Se produce cuando se ha agregado un elemento a la lista.
+        /// </summary>
+        public event EventHandler<AddedItemEventArgs<T>> AddedItem;
+        /// <summary>
+        /// Se produce cuando se ha insertado un elemento en la lista.
+        /// </summary>
+        public event EventHandler<InsertedItemEventArgs<T>> InsertedItem;
+        /// <summary>
+        /// Se produce cuando se ha modificado un elemento de la lista.
+        /// </summary>
+        public event EventHandler<ItemModifiedEventArgs<T>> ModifiedItem;
+        /// <summary>
+        /// Se produce cuando se ha quitado un elemento de la lista.
+        /// </summary>
+        public event EventHandler<RemovedItemEventArgs<T>> RemovedItem;
+        /// <summary>
+        /// Se produce cuando la lista será vaciada por medio de 
+        /// <see cref="Clear"/>.
+        /// </summary>
+        public event EventHandler<CancelEventArgs> ListClearing;
+        /// <summary>
+        /// Se produce cuando la lista ha sido vaciada por medio de 
+        /// <see cref="Clear"/>.
+        /// </summary>
+        public event EventHandler ListCleared;
+        /// <summary>
+        /// Se produce cuando la lista ha sido actualizada.
+        /// </summary>
+        public event EventHandler<ListUpdatedEventArgs<T>> ListUpdated;
         /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Types.Extensions.List`1" />.
         /// </summary>
-        public List() { }
+        public ExtendedList() { }
         /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Types.Extensions.List`1" />.
@@ -59,7 +111,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="collection">
         /// Colección incial de este <see cref="T:TheXDS.MCART.Types.Extensions.List`1" />.
         /// </param>
-        public List(IEnumerable<T> collection) : base(collection) { }
+        public ExtendedList(IEnumerable<T> collection) : base(collection) { }
         /// <summary>
         /// Activa o desactiva la generación de eventos.
         /// </summary>
@@ -88,10 +140,10 @@ namespace TheXDS.MCART.Types.Extensions
             }
         }
         /// <summary>
-        /// Añade un objeto al final de la <see cref="List{T}"/>.
+        /// Añade un objeto al final de la <see cref="ExtendedList{T}"/>.
         /// </summary>
         /// <param name="item">
-        /// El objeto a ser añadido al final de la <see cref="List{T}"/>. El
+        /// El objeto a ser añadido al final de la <see cref="ExtendedList{T}"/>. El
         /// valor puede ser <see langword="null"/> para tipos de referencia.
         /// </param>
         public new void Add(T item)
@@ -110,7 +162,7 @@ namespace TheXDS.MCART.Types.Extensions
         }
         /// <summary>
         /// Agrega todos los elementos de una colección al final de la 
-        /// <see cref="List{T}"/>.
+        /// <see cref="ExtendedList{T}"/>.
         /// </summary>
         /// <param name="collection">Colección a añadir.</param>
         public new void AddRange(IEnumerable<T> collection)
@@ -163,7 +215,7 @@ namespace TheXDS.MCART.Types.Extensions
         }
         /// <summary>
         /// Quita la primera aparición de un objeto específico del 
-        /// <see cref="List{T}"/>.
+        /// <see cref="ExtendedList{T}"/>.
         /// </summary>
         /// <param name="item">
         /// Objeto de tipo <typeparamref name="T"/> a remover de la colección.
@@ -185,7 +237,7 @@ namespace TheXDS.MCART.Types.Extensions
             else { base.Remove(item); }
         }
         /// <summary>
-        /// Quita el elemento situado en el índice especificado del <see cref="List{T}"/>
+        /// Quita el elemento situado en el índice especificado del <see cref="ExtendedList{T}"/>
         /// </summary>
         /// <param name="index">Índice del elemento a remover</param>
         /// <exception cref="IndexOutOfRangeException">
@@ -239,7 +291,7 @@ namespace TheXDS.MCART.Types.Extensions
             return retVal;
         }
         /// <summary>
-        /// Invierte el orden de los elementos en este <see cref="List{T}"/> completo.
+        /// Invierte el orden de los elementos en este <see cref="ExtendedList{T}"/> completo.
         /// </summary>
         public new void Reverse()
         {
@@ -276,21 +328,21 @@ namespace TheXDS.MCART.Types.Extensions
         }
         /// <summary>
         /// Devuelve una versión inversa del orden de los elementos de este 
-        /// <see cref="List{T}"/> sin alterar la colección original.
+        /// <see cref="ExtendedList{T}"/> sin alterar la colección original.
         /// </summary>
         /// <returns>
         /// Una versión inversa del orden de los elementos de este 
-        /// <see cref="List{T}"/>.
+        /// <see cref="ExtendedList{T}"/>.
         /// </returns>
         public IEnumerable<T> Reversed()
         {
-            var tmp = (List<T>)this.Copy();
+            var tmp = (ExtendedList<T>)this.Copy();
             tmp.Reverse();
             return tmp;
         }
         /// <summary>
         /// Devuelve una versión inversa del orden de los elementos de este 
-        /// <see cref="List{T}"/> sin alterar la colección original.
+        /// <see cref="ExtendedList{T}"/> sin alterar la colección original.
         /// </summary>
         /// <param name="index">
         /// Índice inicial de base cero del intervalo que se va a invertir.
@@ -300,24 +352,24 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         /// <returns>
         /// Una versión inversa del orden de los elementos de este 
-        /// <see cref="List{T}"/>.
+        /// <see cref="ExtendedList{T}"/>.
         /// </returns>
         public IEnumerable<T> Reversed(int index, int count)
         {
-            var tmp = (List<T>)this.Copy();
+            var tmp = (ExtendedList<T>)this.Copy();
             tmp.Reverse(index, count);
             return tmp;
         }
         /// <summary>
-        /// Quita el último elemento de la <see cref="List{T}"/>
+        /// Quita el último elemento de la <see cref="ExtendedList{T}"/>
         /// </summary>
         [Sugar] public void RemoveLast() => Remove(this.Last());
         /// <summary>
-        /// Quita el primer elemento de la <see cref="List{T}"/>
+        /// Quita el primer elemento de la <see cref="ExtendedList{T}"/>
         /// </summary>
         [Sugar] public void RemoveFirst() => Remove(this.First());
         /// <summary>
-        /// Remueve todos los elementos de la <see cref="List{T}"/>
+        /// Remueve todos los elementos de la <see cref="ExtendedList{T}"/>
         /// </summary>
         public new void Clear()
         {
@@ -332,7 +384,7 @@ namespace TheXDS.MCART.Types.Extensions
             else { base.Clear(); }
         }
         /// <summary>
-        /// Ordena los elementos de todo el <see cref="List{T}"/> utilizando el
+        /// Ordena los elementos de todo el <see cref="ExtendedList{T}"/> utilizando el
         /// comparador predeterminado.
         /// </summary>
         public new void Sort()
@@ -348,7 +400,7 @@ namespace TheXDS.MCART.Types.Extensions
             else { base.Sort(); }
         }
         /// <summary>
-        /// Ordena los elementos de todo el <see cref="List{T}"/> utilizando el
+        /// Ordena los elementos de todo el <see cref="ExtendedList{T}"/> utilizando el
         /// <see cref="Comparison{T}"/> especificado.
         /// </summary>
         /// <param name="comparsion">
@@ -368,7 +420,7 @@ namespace TheXDS.MCART.Types.Extensions
             else { base.Sort(comparsion); }
         }
         /// <summary>
-        /// Ordena los elementos de todo el <see cref="List{T}"/> utilizando el
+        /// Ordena los elementos de todo el <see cref="ExtendedList{T}"/> utilizando el
         /// <see cref="IComparer{T}"/> especificado.
         /// </summary>
         /// <param name="comparer">
@@ -390,7 +442,7 @@ namespace TheXDS.MCART.Types.Extensions
         }
         /// <summary>
         /// Ordena los elementos en un intevalo especificado del 
-        /// <see cref="List{T}"/> utilizando el comparador especificado.
+        /// <see cref="ExtendedList{T}"/> utilizando el comparador especificado.
         /// </summary>
         /// <param name="index">
         /// Índice inicial de base cero del intervalo que se va a ordenar.
@@ -421,9 +473,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>Una copia de esta instancia.</returns>
         [Sugar] public object Clone() => this.Copy();
         /// <summary>
-        /// Devuelve el tipo de elementos de <see cref="List{T}"/>
+        /// Devuelve el tipo de elementos de <see cref="ExtendedList{T}"/>
         /// </summary>
         /// <returns></returns>
-        public Type GetListType => typeof(T);
+        public Type ItemType => typeof(T);
     }
 }

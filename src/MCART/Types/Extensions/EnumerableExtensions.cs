@@ -200,7 +200,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </typeparam>
         public static IEnumerable<T> Copy<T>(this IEnumerable<T> c)
         {
-            var tmp = new List<T>();
+            var tmp = new ExtendedList<T>();
             tmp.AddRange(c);
             return tmp;
         }
@@ -455,17 +455,17 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Crea un <see cref="List{T}"/> a partir de un <see cref="IEnumerable{T}"/>.
+        ///     Crea un <see cref="ExtendedList{T}"/> a partir de un <see cref="IEnumerable{T}"/>.
         /// </summary>
         /// <param name="c">Colección a convertir</param>
         /// <typeparam name="T">Tipo de la colección.</typeparam>
         /// <returns>
-        ///     Un <see cref="List{T}" /> extendido del espacio de nombres
+        ///     Un <see cref="ExtendedList{T}" /> extendido del espacio de nombres
         ///     <see cref="Extensions" />.
         /// </returns>
-        public static List<T> ToExtendedList<T>(this IEnumerable<T> c)
+        public static ExtendedList<T> ToExtendedList<T>(this IEnumerable<T> c)
         {
-            return new List<T>(c);
+            return new ExtendedList<T>(c);
         }
 
         /// <summary>
@@ -482,14 +482,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Crea un <see cref="List{T}"/> a partir de un <see cref="IEnumerable{T}"/> de forma asíncrona.
+        ///     Crea un <see cref="ExtendedList{T}"/> a partir de un <see cref="IEnumerable{T}"/> de forma asíncrona.
         /// </summary>
         /// <typeparam name="T">Tipo de la colección.</typeparam>
         /// <param name="enumerable"></param>
         /// <returns>
         /// Una tarea que puede utilizarse para monitorear la operación.
         /// </returns>
-        public static async Task<List<T>> ToExtendedListAsync<T>(this IEnumerable<T> enumerable)
+        public static async Task<ExtendedList<T>> ToExtendedListAsync<T>(this IEnumerable<T> enumerable)
         {
             return await Task.Run(enumerable.ToExtendedList);
         }
@@ -524,7 +524,7 @@ namespace TheXDS.MCART.Types.Extensions
                 }
                 else if (steps < 0)
                 {
-                    var c = new List<T>();
+                    var c = new ExtendedList<T>();
 
                     // HACK: La implementación para IList<T> es funcional, y no requiere de trucos inusuales para rotar.
                     while (e.MoveNext()) c.Add(e.Current);
@@ -559,7 +559,7 @@ namespace TheXDS.MCART.Types.Extensions
                 }
                 else if (steps < 0)
                 {
-                    var c = new List<T>();
+                    var c = new ExtendedList<T>();
 
                     // HACK: Enumeración manual
                     while(e.MoveNext()) c.Add(e.Current);

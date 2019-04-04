@@ -81,7 +81,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="encoding"><see cref="Encoding"/> a utilizar.</param>
         public static string ReadString(this Stream fs, int count, Encoding encoding)
         {
-            var retVal = new List<char>();
+            var retVal = new ExtendedList<char>();
             var br = new BinaryReader(fs, encoding);
             while (retVal.Count < count) retVal.Add(br.ReadChar());
             return new string(retVal.ToArray());

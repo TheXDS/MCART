@@ -47,7 +47,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         {
             var c = new[] {1, 2, 3}.ToExtendedList();
 
-            Assert.IsType<TheXDS.MCART.Types.Extensions.List<int>>(c);
+            Assert.IsType<TheXDS.MCART.Types.ExtendedList<int>>(c);
             Assert.Equal(3, c.Count);
         }
 
@@ -56,6 +56,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         {
             var c = new[] { 1, 2, 3, 4, 5 };
 
+            Assert.Equal(new[] { 1, 2, 3, 4, 5 }, c.Shift(0));
             Assert.Equal(new[] { 2, 3, 4, 5, 0 }, c.Shift(1));
             Assert.Equal(new[] { 3, 4, 5, 0, 0 }, c.Shift(2));
             Assert.Equal(new[] { 0, 1, 2, 3, 4 }, c.Shift(-1));
@@ -67,6 +68,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         {
             var c = new[] { 1, 2, 3, 4, 5 };
 
+            Assert.Equal(new[] { 1, 2, 3, 4, 5 }, c.Rotate(0));
             Assert.Equal(new[] { 2, 3, 4, 5, 1 }, c.Rotate(1));
             Assert.Equal(new[] { 3, 4, 5, 1, 2 }, c.Rotate(2));
             Assert.Equal(new[] { 5, 1, 2, 3, 4 }, c.Rotate(-1));

@@ -1,5 +1,5 @@
 ﻿/*
-Enums.cs
+ListUpdateType.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,7 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types.Extensions
+namespace TheXDS.MCART.Types
 {
     /// <summary>
     /// Tipo de actualización de la lista

@@ -1,5 +1,5 @@
 ﻿/*
-INameable.cs
+Events.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,19 +22,28 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
+using System.ComponentModel;
 
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Describe una serie de miembros a implementar por una clase o
-    ///     estructura que expone un nombre para su identificación.
+    /// Contiene información para el evento <see cref="ExtendedList{T}.AddingItem"/>.
     /// </summary>
-    public interface INameable
+    /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
+    public class AddingItemEventArgs<T> : CancelEventArgs
     {
         /// <summary>
-        ///     Obtiene el nombre del elemento.
+        /// Obtiene el objeto que se agregará al <see cref="ExtendedList{T}"/>.
         /// </summary>
-        string Name { get; }
+        public T NewItem { get; }
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="AddingItemEventArgs{T}"/>.
+        /// </summary>
+        /// <param name="newItem">
+        /// Objeto a ser agregado al <see cref="ExtendedList{T}"/> que generó el 
+        /// evento.
+        /// </param>
+        internal AddingItemEventArgs(T newItem) { NewItem = newItem; }
     }
 }
