@@ -44,8 +44,11 @@ namespace TheXDS.MCART.Types
         ///     Obtiene un punto que no representa ninguna posición. Este campo es
         ///     de solo lectura.
         /// </summary>
-        /// <value>The nowhere.</value>
-        public static Point Nowhere => new Point(double.NaN, double.NaN);
+        /// <value>
+        ///     Un <see cref="Point" /> con sus coordenadas establecidas en
+        ///     <see cref="double.NaN"/>.
+        /// </value>
+        public static readonly Point Nowhere = new Point(double.NaN, double.NaN);
 
         /// <summary>
         ///     Obtiene un punto en el orígen. Este campo es de solo lectura.
@@ -53,7 +56,7 @@ namespace TheXDS.MCART.Types
         /// <value>
         ///     Un <see cref="Point" /> con sus coordenadas en el orígen.
         /// </value>
-        public static Point Origin => new Point(0, 0);
+        public static readonly Point Origin = new Point(0, 0);
 
         /// <summary>
         ///     Realiza una operación de suma sobre los puntos.
@@ -438,7 +441,6 @@ namespace TheXDS.MCART.Types
         ///     formado, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="size">Tamaño del rectángulo.</param>
-        /// <param name="topLeft">Coordenadas de esquina superior izquierda</param>
         public bool WithinBox(Size size)
         {
             return WithinBox(size, Origin);

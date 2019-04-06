@@ -35,15 +35,7 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Resources;
 
-#region Configuración de ReSharper
-
-// ReSharper disable IntroduceOptionalParameters.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable UnusedMember.Global
-
-#endregion
+#nullable enable
 
 namespace TheXDS.MCART.Types.Extensions
 {
@@ -123,7 +115,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     <see langword="struct" />, o <see langword="null" /> si es una
         ///     <see langword="class" />.
         /// </returns>
-        public static object Default(this Type t)
+        public static object? Default(this Type t)
         {
             return t.IsValueType ? Activator.CreateInstance(t) : null;
         }
@@ -319,7 +311,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         [DebuggerStepThrough]
         [Sugar]
-        public static object New(this Type type, params object[] parameters)
+        public static object New(this Type type, params object?[] parameters)
         {
             return type.New<object>(parameters);
         }
@@ -343,7 +335,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     solicitado.
         /// </exception>
         [DebuggerStepThrough]
-        public static T New<T>(this Type type, params object[] parameters)
+        public static T New<T>(this Type type, params object?[] parameters)
         {
             return New<T>(type, true, parameters);
         }
@@ -375,8 +367,10 @@ namespace TheXDS.MCART.Types.Extensions
         [DebuggerStepThrough]
         public static T New<T>(this Type type, bool throwOnFail, IEnumerable parameters)
         {
+#pragma warning disable CS8600, CS8602, CS8603
             if (type is null)
             {
+
 #if PreferExceptions
                 throw new ArgumentNullException(nameof(type));
 #else
@@ -390,7 +384,11 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 return (T) type.GetConstructor(parameters.ToTypes().ToArray())?.Invoke(parameters.ToGeneric().ToArray());
             }
-            catch (Exception e) { return throwOnFail ? throw new TypeLoadException(InternalStrings.ErrorXClassNotInstantiableWithArgs(type.Name), e) : (T)default; }
+            catch (Exception e)
+            {
+                return throwOnFail ? throw new TypeLoadException(InternalStrings.ErrorXClassNotInstantiableWithArgs(type.Name), e) : (T)default;
+            }
+#pragma warning restore CS8600, CS8602, CS8603
         }
 
         /// <summary>
@@ -402,10 +400,30 @@ namespace TheXDS.MCART.Types.Extensions
         ///     <paramref name="t"/> si el tipo no es nulable.
         /// </returns>
         [DebuggerStepThrough]
-        public static Type NotNullable(this Type t)
+        public static Type NotNullable(this Type? t)
         {
             if (t == null) throw new ArgumentNullException(nameof(t));
             return Nullable.GetUnderlyingType(t) ?? t;
+        }
+
+        /// <summary>
+        ///     Se asegura de devolver un tipo definido en tiempo de
+        ///     compilación.
+        /// </summary>
+        /// <param name="t">
+        ///     Tipo a comprobar.
+        /// </param>
+        /// <returns>
+        ///     <paramref name="t"/>, si se trata de un tipo definido en tiempo
+        ///     de compilación, o un tipo base que lo sea. Se devolverá
+        ///     <see langword="null"/> si no hay un tipo base definido, como en
+        ///     las interfaces.
+        /// </returns>
+        public static Type? ResolveToDefinedType(this Type? t)
+        {
+#pragma warning disable CS8602
+            return (t?.Assembly?.IsDynamic ?? false) ? ResolveToDefinedType(t.BaseType) : t;
+#pragma warning restore CS8602
         }
     }
 }

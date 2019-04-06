@@ -35,14 +35,22 @@ namespace TheXDS.MCART.Types
     public struct Size : IEquatable<Size>
     {
         /// <summary>
-        ///     Obtiene un valor que representa un tamaño nulo.
+        ///     Obtiene un valor que no representa ningún tamaño. Este campo es
+        ///     de solo lectura.
         /// </summary>
-        public static Size Zero => new Size(0, 0);
-        
+        public static readonly Size Nothing = new Size(double.NaN, double.NaN);
+
         /// <summary>
-        ///     Obtiene un valor que representa un tamaño infinito.
+        ///     Obtiene un valor que representa un tamaño nulo. Este campo es
+        ///     de solo lectura.
         /// </summary>
-        public static Size Infinity => new Size(double.PositiveInfinity, double.PositiveInfinity);
+        public static readonly Size Zero = new Size(0, 0);
+
+        /// <summary>
+        ///     Obtiene un valor que representa un tamaño infinito. Este campo
+        ///     es de solo lectura.
+        /// </summary>
+        public static readonly Size Infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
         
         /// <summary>
         ///     Compara la igualdad entre dos instancias de <see cref="Size"/>.

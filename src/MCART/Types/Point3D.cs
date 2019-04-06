@@ -53,8 +53,11 @@ namespace TheXDS.MCART.Types
         ///     Obtiene un punto que no representa ninguna posición. Este campo es
         ///     de solo lectura.
         /// </summary>
-        /// <value>The nowhere.</value>
-        public static Point3D Nowhere => new Point3D(double.NaN, double.NaN, double.NaN);
+        /// <value>
+        ///     Un <see cref="Point3D" /> con sus coordenadas establecidas en
+        ///     <see cref="double.NaN"/>.
+        /// </value>
+        public static readonly Point3D Nowhere = new Point3D(double.NaN, double.NaN, double.NaN);
 
         /// <summary>
         ///     Obtiene un punto en el orígen. Este campo es de solo lectura.
@@ -62,7 +65,7 @@ namespace TheXDS.MCART.Types
         /// <value>
         ///     Un <see cref="Point3D" /> con sus coordenadas en el orígen.
         /// </value>
-        public static Point3D Origin => new Point3D(0, 0, 0);
+        public static readonly Point3D Origin = new Point3D(0, 0, 0);
 
         /// <summary>
         ///     Realiza una operación de suma sobre los puntos.
@@ -95,7 +98,7 @@ namespace TheXDS.MCART.Types
         /// <param name="l">Punto 1.</param>
         /// <param name="r">Punto 2.</param>
         /// <returns>La resta de los vectores de los puntos.</returns>
-        public static Point3D operator -(Point3D l, Point3D r)
+        public static Point3D operator -(Point3D l, I3DVector r)
         {
             return new Point3D(l.X - r.X, l.Y - r.Y, l.Z - r.Z);
         }
@@ -120,7 +123,7 @@ namespace TheXDS.MCART.Types
         /// <param name="l">Punto 1.</param>
         /// <param name="r">Punto 2.</param>
         /// <returns>La multiplicación de los vectores de los puntos.</returns>
-        public static Point3D operator *(Point3D l, Point3D r)
+        public static Point3D operator *(Point3D l, I3DVector r)
         {
             return new Point3D(l.X * r.X, l.Y * r.Y, l.Z * r.Z);
         }
@@ -145,7 +148,7 @@ namespace TheXDS.MCART.Types
         /// <param name="l">Punto 1.</param>
         /// <param name="r">Punto 2.</param>
         /// <returns>La división de los vectores de los puntos.</returns>
-        public static Point3D operator /(Point3D l, Point3D r)
+        public static Point3D operator /(Point3D l, I3DVector r)
         {
             return new Point3D(l.X / r.X, l.Y / r.Y, l.Z / r.Z);
         }
@@ -170,7 +173,7 @@ namespace TheXDS.MCART.Types
         /// <param name="l">Punto 1.</param>
         /// <param name="r">Punto 2.</param>
         /// <returns>El resíduo de los vectores de los puntos.</returns>
-        public static Point3D operator %(Point3D l, Point3D r)
+        public static Point3D operator %(Point3D l, I3DVector r)
         {
             return new Point3D(l.X % r.X, l.Y % r.Y, l.Z % r.Z);
         }
@@ -244,7 +247,7 @@ namespace TheXDS.MCART.Types
         ///     <see langword="true" /> si todos los vectores de ambos puntos son iguales;
         ///     de lo contrario, <see langword="false" />.
         /// </returns>
-        public static bool operator ==(Point3D l, Point3D r)
+        public static bool operator ==(Point3D l, I3DVector r)
         {
             return l.X == r.X && l.Y == r.Y && l.Z == r.Z;
         }
@@ -258,7 +261,7 @@ namespace TheXDS.MCART.Types
         ///     <see langword="true" /> si los vectores de ambos puntos son diferentes;  de lo
         ///     contrario, <see langword="false" />.
         /// </returns>
-        public static bool operator !=(Point3D l, Point3D r)
+        public static bool operator !=(Point3D l, I3DVector r)
         {
             return l.X != r.X && l.Y != r.Y && l.Z != r.Z;
         }
