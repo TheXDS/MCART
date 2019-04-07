@@ -1,5 +1,5 @@
 ﻿/*
-IExposeInfo.cs
+ExposedInfo.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -25,47 +25,67 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #nullable enable
 
 using System;
-using System.Diagnostics.CodeAnalysis;
-using TheXDS.MCART.Types;
 
 namespace TheXDS.MCART.Component
 {
     /// <summary>
-    ///     Define una serie de miembros a implementar para una clase que
-    ///     exponga diversa información de identificación.
+    ///     Expone de manera aislada la información de un objeto
+    ///     <see cref="IExposeInfo"/>.
     /// </summary>
-    public partial interface IExposeInfo : INameable, IDescriptible
+    public class ExposedInfo : IExposeInfo
     {
+        private readonly IExposeInfo _source;
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="ExposedInfo"/>
+        /// </summary>
+        /// <param name="source"></param>
+        public ExposedInfo(IExposeInfo source)
+        {
+            _source = source;
+        }
+
         /// <summary>
         ///     Obtiene el autor del <see cref="IExposeInfo"/>.
         /// </summary>
-        string? Author { get; }
+        public string? Author => _source.Author;
 
         /// <summary>
         ///     Obtiene el Copyright del <see cref="IExposeInfo"/>
         /// </summary>
-        string? Copyright { get; }
+        public string? Copyright => _source.Copyright;
 
         /// <summary>
         ///     Obtiene la licencia del <see cref="IExposeInfo"/>
         /// </summary>
-        string? License { get; }
+        public string? License => _source.License;
 
         /// <summary>
         ///     Obtiene la versión del <see cref="IExposeInfo"/>
         /// </summary>
-        Version? Version { get; }
+        public Version? Version => _source.Version;
 
         /// <summary>
         ///     Obtiene un valor que indica si este <see cref="IExposeInfo"/>
         ///     contiene información de licencia.
         /// </summary>
-        bool HasLicense { get; }
+        public bool HasLicense => _source.HasLicense;
 
         /// <summary>
         ///     Obtiene un valor que indica si este <see cref="IExposeInfo"/>
         ///     cumple con el Common Language Standard (CLS).
         /// </summary>
-        bool ClsCompliant { get; }
+        public bool ClsCompliant => _source.ClsCompliant;
+
+        /// <summary>
+        ///     Obtiene el nombre del elemento.
+        /// </summary>
+        public string Name => _source.Name;
+
+        /// <summary>
+        ///     Obtiene la descripción del elemento.
+        /// </summary>
+        public string Description => _source.Description;                
     }
 }

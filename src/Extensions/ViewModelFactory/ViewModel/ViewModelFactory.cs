@@ -78,35 +78,47 @@ namespace TheXDS.MCART.ViewModel
         {
             switch (value)
             {
-                case Enum _:
-                    LoadConstant(ilGen, ((Enum)value).ToUnderlyingType());
+                case Enum e:
+                    LoadConstant(ilGen, e.ToUnderlyingType());
                     break;
-                case byte _:
-                case sbyte _:
-                case char _:
-                    ilGen.Emit(Ldc_I4_S, unchecked((int)value));
+                case byte b:
+                    ilGen.Emit(Ldc_I4_S, b);
+                    break;
+                case sbyte sb:
+                    ilGen.Emit(Ldc_I4_S, sb);
+                    break;
+                case char ch:
+                    ilGen.Emit(Ldc_I8, unchecked((short)ch));
                     break;
                 case bool b:
                     ilGen.Emit(b ? Ldc_I4_1 : Ldc_I4_0);
                     break;
-                case short _:
-                case ushort _:
-                case int _:
-                case uint _:
-                    ilGen.Emit(Ldc_I4, unchecked((int)value));
+                case short sh:
+                    ilGen.Emit(Ldc_I4, sh);
                     break;
-                case long _:
-                case ulong _:
-                    ilGen.Emit(Ldc_I8, unchecked((long)value));
+                case ushort ush:
+                    ilGen.Emit(Ldc_I8, unchecked((short)ush));
                     break;
-                case float _:
-                    ilGen.Emit(Ldc_R4, (float)value);
+                case int i:
+                    ilGen.Emit(Ldc_I4, i);
                     break;
-                case double _:
-                    ilGen.Emit(Ldc_R8, (double)value);
+                case uint ui:
+                    ilGen.Emit(Ldc_I8, unchecked((int)ui));
                     break;
-                case decimal _:
-                    foreach (var j in decimal.GetBits((decimal)value))
+                case long l:
+                    ilGen.Emit(Ldc_I8, l);
+                    break;
+                case ulong ul:
+                    ilGen.Emit(Ldc_I8, unchecked((long)ul));
+                    break;
+                case float f:
+                    ilGen.Emit(Ldc_R4, f);
+                    break;
+                case double d:
+                    ilGen.Emit(Ldc_R8, d);
+                    break;
+                case decimal de:
+                    foreach (var j in decimal.GetBits(de))
                     {
                         ilGen.Emit(Ldc_I4, j);
                     }
@@ -121,10 +133,10 @@ namespace TheXDS.MCART.ViewModel
                     break;
                 case string s:
                     if (s is null) ilGen.Emit(Ldnull);                    
-                    else ilGen.Emit(Ldstr, (string)value);
+                    else ilGen.Emit(Ldstr, s);
                     break;
-                case Type _:
-                    ilGen.Emit(Ldtoken, (Type)value);
+                case Type t:
+                    ilGen.Emit(Ldtoken, t);
                     ilGen.Emit(Call, typeof(Type).GetMethod("GetTypeFromHandle"));
                     break;
                 default:

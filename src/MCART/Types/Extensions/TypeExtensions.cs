@@ -249,6 +249,23 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
+        ///     Obtiene un valor que determina si el tipo es un tipo de valor
+        ///     no primitivo.
+        /// </summary>
+        /// <param name="type">
+        ///     Tipo a comprobar.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> si el tipo es un tipo de valor no 
+        ///     primitivo, <see langword="false"/> en caso contrario.
+        /// </returns>
+        [Sugar]
+        public static bool IsStruct(this Type type)
+        {
+            return type.IsValueType && !type.IsPrimitive && type.IsInstantiable();
+        }
+
+        /// <summary>
         ///     Obtiene un valor que determina si el tipo es instanciable
         ///     utilizando un contrustor que acepte los parámetros
         ///     especificados.

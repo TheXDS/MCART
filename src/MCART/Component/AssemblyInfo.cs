@@ -26,7 +26,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Reflection;
-using TheXDS.MCART.Annotations;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Misc;
 
