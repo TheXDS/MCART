@@ -497,10 +497,13 @@ namespace TheXDS.MCART.ViewModel
             getEntityIl.Emit(Ldfld, entity);
             getEntityIl.Emit(Ret);
 
-            var loc0 = setEntityIl.DeclareLocal(modelType);
+            var loc0 = setEntityIl.DeclareLocal(typeof(object));
             var loc1 = setEntityIl.DeclareLocal(typeof(bool));
             var efb1 = setEntityIl.DefineLabel();
+            var lObj = setEntityIl.DefineLabel();
             var ret = setEntityIl.DefineLabel();
+
+
             setEntityIl.Emit(Ldarg_0);
             setEntityIl.Emit(Ldarg_0);
             setEntityIl.Emit(Ldflda, entity);
@@ -513,6 +516,11 @@ namespace TheXDS.MCART.ViewModel
             setEntityIl.Emit(Stfld, updatingObservables);
             setEntityIl.Emit(Ldarg_0);
             setEntityIl.Emit(Call, getEntity);
+            setEntityIl.Emit(Dup);
+            setEntityIl.Emit(Brtrue_S, lObj);
+            setEntityIl.Emit(Pop);
+            setEntityIl.Emit(Newobj, typeof(object).GetConstructor(Type.EmptyTypes));
+            setEntityIl.MarkLabel(lObj);
             setEntityIl.Emit(Stloc_0);
             setEntityIl.Emit(Ldc_I4_0);
             setEntityIl.Emit(Stloc_1);

@@ -84,7 +84,8 @@ namespace VmBuilder
     {
         public void Testtest()
         {
-            lock (Entity)
+            var o = new object();
+            lock (Entity ?? o)
             {
                 Entity.Elements.Clear();
                 Entity.Elements.Clear();
