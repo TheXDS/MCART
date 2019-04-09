@@ -53,6 +53,7 @@ namespace TheXDS.MCART.Types.Extensions
             ilGen.LoadConstant(value);
             ilGen.Emit(Stfld, field);
         }
+
         /// <summary>
         ///     Inicializa un campo dentro del generador de código especificado.
         /// </summary>
@@ -71,10 +72,8 @@ namespace TheXDS.MCART.Types.Extensions
         public static void InitField(this FieldBuilder field, ILGenerator ilGen, Type instanceType, params object[] args)
         {
             if (instanceType.IsAbstract) throw new InvalidTypeException(instanceType);
-            var c = instanceType.GetConstructor(args.ToTypes().ToArray()) ?? throw new TypeLoadException();
             ilGen.Emit(Ldarg_0);
             ilGen.NewObject(instanceType, args);
-            ilGen.Emit(Newobj, c);
             ilGen.Emit(Stfld, field);
         }
     }

@@ -84,13 +84,10 @@ namespace VmBuilder
     {
         public void Testtest()
         {
-            try
+            lock (Entity)
             {
                 Entity.Elements.Clear();
-            }
-            catch
-            {
-                /* nada */
+                Entity.Elements.Clear();
             }
         }
         private string _newPhone;

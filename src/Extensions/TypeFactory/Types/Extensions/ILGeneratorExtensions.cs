@@ -26,6 +26,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Reflection.Emit;
 using TheXDS.MCART.Exceptions;
 using static System.Reflection.Emit.OpCodes;
@@ -39,6 +40,10 @@ namespace TheXDS.MCART.Types.Extensions
     public static class ILGeneratorExtensions
     {
         private static readonly HashSet<IConstantLoader> _constantLoaders;
+
+        /// <summary>
+        ///     Inicializa la clase <see cref="ILGeneratorExtensions"/>.
+        /// </summary>
         static ILGeneratorExtensions()
         {
             _constantLoaders = new HashSet<IConstantLoader>(new ConstantLoaderComparer());
@@ -95,21 +100,89 @@ namespace TheXDS.MCART.Types.Extensions
             }
         }
 
+        /// <summary>
+        ///     Inserta la instanciación de un objeto en la secuencia del
+        ///     lenguaje intermedio (MSIL) de Microsoft®.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de objeto a instanciar.
+        /// </typeparam>
+        /// <param name="ilGen">
+        ///     Secuencia de instrucciones en la cual insertar la instanciación
+        ///     del objeto.
+        /// </param>
+        /// <exception cref="T:TheXDS.MCART.Exceptions.ClassNotInstantiableException">
+        ///     Se produce si la clase no es instanciable, o si no existe un 
+        ///     constructor que acepte los argumentos especificados.
+        ///     También puede producirse si uno de los parámetros es un objeto,
+        ///     y no contiene un constructor predeterminado sin argumentos, en
+        ///     cuyo caso, la excepción indicará el tipo que no puede
+        ///     instanciarse.
+        /// </exception>
         public static void NewObject<T>(this ILGenerator ilGen) => NewObject(ilGen, typeof(T));
+
+        /// <summary>
+        ///     Inserta la instanciación de un objeto en la secuencia del
+        ///     lenguaje intermedio (MSIL) de Microsoft®.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de objeto a instanciar.
+        /// </typeparam>
+        /// <param name="ilGen">
+        ///     Secuencia de instrucciones en la cual insertar la instanciación
+        ///     del objeto.
+        /// </param>
+        /// <param name="args">
+        ///     Argumentos a pasar al constructor del objeto.
+        /// </param>
+        /// <exception cref="T:TheXDS.MCART.Exceptions.ClassNotInstantiableException">
+        ///     Se produce si la clase no es instanciable, o si no existe un 
+        ///     constructor que acepte los argumentos especificados.
+        ///     También puede producirse si uno de los parámetros es un objeto,
+        ///     y no contiene un constructor predeterminado sin argumentos, en
+        ///     cuyo caso, la excepción indicará el tipo que no puede
+        ///     instanciarse.
+        /// </exception>
         public static void NewObject<T>(this ILGenerator ilGen, IEnumerable args) => NewObject(ilGen, typeof(T), args);
+
+        /// <summary>
+        ///     Inserta la instanciación de un objeto en la secuencia del
+        ///     lenguaje intermedio (MSIL) de Microsoft®.
+        /// </summary>
+        /// <param name="type">
+        ///     Tipo de objeto a instanciar.
+        /// </param>
+        /// <param name="ilGen">
+        ///     Secuencia de instrucciones en la cual insertar la instanciación
+        ///     del objeto.
+        /// </param>
+        /// <exception cref="T:TheXDS.MCART.Exceptions.ClassNotInstantiableException">
+        ///     Se produce si la clase no es instanciable, o si no existe un 
+        ///     constructor que acepte los argumentos especificados.
+        ///     También puede producirse si uno de los parámetros es un objeto,
+        ///     y no contiene un constructor predeterminado sin argumentos, en
+        ///     cuyo caso, la excepción indicará el tipo que no puede
+        ///     instanciarse.
+        /// </exception>
         public static void NewObject(this ILGenerator ilGen, Type type)
         {
             NewObject(ilGen, type, new object[0]);
         }
 
         /// <summary>
-        ///     Crea un nuevo objeto del tipo especificado.
+        ///     Inserta la instanciación de un objeto en la secuencia del
+        ///     lenguaje intermedio (MSIL) de Microsoft®.
         /// </summary>
-        /// <param name="ilGen">
-        ///     Generador de código en el cual se instanciará el nuevo objeto.
+        /// <param name="type">
+        ///     Tipo de objeto a instanciar.
         /// </param>
-        /// <param name="type">Tipo a instanciar.</param>
-        /// <param name="args">Argumentos del constructor a utilizar.</param>
+        /// <param name="ilGen">
+        ///     Secuencia de instrucciones en la cual insertar la instanciación
+        ///     del objeto.
+        /// </param>
+        /// <param name="args">
+        ///     Argumentos a pasar al constructor del objeto.
+        /// </param>
         /// <exception cref="T:TheXDS.MCART.Exceptions.ClassNotInstantiableException">
         ///     Se produce si la clase no es instanciable, o si no existe un 
         ///     constructor que acepte los argumentos especificados.
@@ -120,7 +193,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </exception>
         public static void NewObject(this ILGenerator ilGen, Type type, IEnumerable args)
         {
-            if (type.GetConstructor(args.ToTypes().ToArray()) is null)
+            if (!(type.GetConstructor(args.ToTypes().ToArray()) is ConstructorInfo c))
                 throw new ClassNotInstantiableException(type);
             foreach (var j in args)
             {
@@ -129,6 +202,7 @@ namespace TheXDS.MCART.Types.Extensions
                 else
                     LoadConstant(ilGen, j);
             }
+            ilGen.Emit(Newobj, c);
         }
     }
 }
