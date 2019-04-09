@@ -515,11 +515,11 @@ namespace TheXDS.MCART.ViewModel
             setEntityIl.LoadConstant(true);
             setEntityIl.Emit(Stfld, updatingObservables);
             setEntityIl.Emit(Ldarg_0);
-            setEntityIl.Emit(Call, getEntity);
+            setEntityIl.Emit(Ldfld, entity);
             setEntityIl.Emit(Dup);
             setEntityIl.Emit(Brtrue_S, lObj);
             setEntityIl.Emit(Pop);
-            setEntityIl.Emit(Newobj, typeof(object).GetConstructor(Type.EmptyTypes));
+            setEntityIl.Emit(Ldarg_0); //HACK: hacer lock en this
             setEntityIl.MarkLabel(lObj);
             setEntityIl.Emit(Stloc_0);
             setEntityIl.Emit(Ldc_I4_0);
