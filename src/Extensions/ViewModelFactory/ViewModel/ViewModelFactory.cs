@@ -41,8 +41,6 @@ using static System.Reflection.MethodAttributes;
 using static TheXDS.MCART.Types.Extensions.EnumExtensions;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
-// ReSharper disable StaticMemberInGenericType
-
 namespace TheXDS.MCART.ViewModel
 {
     /// <summary>
