@@ -442,5 +442,52 @@ namespace TheXDS.MCART.Types.Extensions
             return (t?.Assembly?.IsDynamic ?? false) ? ResolveToDefinedType(t.BaseType) : t;
 #pragma warning restore CS8602
         }
+
+        /// <summary>
+        ///     Determina si el tipo hace referencia a un tipo de colección.
+        /// </summary>
+        /// <param name="type">Tipo a comprobar.</param>
+        /// <returns>
+        ///     <see langword="true"/> si el tipo es un tipo de colección,
+        ///     <see langword="false"/> en caso contrario.
+        /// </returns>
+        [Sugar]
+        public static bool IsCollectionType(this Type type) => type.Implements<IEnumerable>();
+
+        /// <summary>
+        ///     Obtiene el tipo de elementos contenidos por el tipo de
+        ///     colección.
+        /// </summary>
+        /// <param name="collectionType">
+        ///     Tipo de colección del cual obtener el tipo de elementos.
+        /// </param>
+        /// <returns>
+        ///     El tipo de elementos contenidos por la colección.
+        /// </returns>
+        public static Type GetCollectionType(this Type collectionType)
+        {
+            if (!collectionType.IsCollectionType()) throw new InvalidTypeException(InternalStrings.ErrorEnumerableTypeExpected, collectionType);
+            return (collectionType.GenericTypeArguments?.Count()) switch
+            {
+                0 => typeof(object),
+                1 => collectionType.GenericTypeArguments.Single(),
+                2 => collectionType.GenericTypeArguments.Last(),
+                _ => typeof(object)
+            };
+        }
+
+        /// <summary>
+        ///     Resuelve un tipo de colección al tipo de sus elementos.
+        /// </summary>
+        /// <param name="type">
+        ///     Tipo a comprobar.
+        /// </param>
+        /// <returns>
+        ///     El tipo de elementos de la colección del tipo
+        ///     <paramref name="type"/>, o <paramref name="type"/> si el mismo
+        ///     no es un tipo de colección.
+        /// </returns>
+        [Sugar]
+        public static Type ResolveCollectionType(this Type type) => type.IsCollectionType() ? type.GetCollectionType() : type;
     }
 }

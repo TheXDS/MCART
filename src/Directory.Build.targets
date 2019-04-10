@@ -40,12 +40,12 @@
     <IncludeSymbols>false</IncludeSymbols>
   </PropertyGroup>
   <PropertyGroup Condition="'$(GeneratePackageOnBuild)'=='true'">
-    <ActualPackage>$(PackageOutputPath)$(PackageId).$(Version).nupkg</ActualPackage>
-    <ActualPackageSymbols>$(PackageOutputPath)$(PackageId).$(Version).symbols.nupkg</ActualPackageSymbols>
+    <ActualPackage>$(PackageOutputPath)$(PackageId).$(PackageVersion).nupkg</ActualPackage>
+    <ActualPackageSymbols>$(PackageOutputPath)$(PackageId).$(PackageVersion).symbols.nupkg</ActualPackageSymbols>
   </PropertyGroup>
   <Target 
     Name="PostPackage"
-    Condition="'$(Configuration)'=='Debug' And '$(GeneratePackageOnBuild)'=='true' And '$(IsPackable)'=='true' And Exists(@(d:\NuGet))"
+    Condition="'$(Configuration)'=='Debug' And '$(GeneratePackageOnBuild)'=='true' And '$(IsPackable)'=='true'"
     AfterTargets="Pack">
     <Exec Command="nuget add $(ActualPackage) -source d:\NuGet&#xD;&#xA;nuget add $(ActualPackageSymbols) -source d:\NuGet" />
   </Target>
