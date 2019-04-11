@@ -23,6 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 //#define IncludeLockBlock
+#define AltClearMethod
 
 using System;
 using System.Collections;
@@ -46,10 +47,36 @@ using static TheXDS.MCART.Types.Extensions.StringExtensions;
 namespace TheXDS.MCART.ViewModel
 {
     /// <summary>
+    ///     Repositorio de funciones comunes ejecutadas desde un
+    ///     <see cref="IDynamicViewModel"/> compilado en runtime en un contexto
+    ///     controlado.
+    /// </summary>
+    public static class ControlledContextOperations
+    {
+        /// <summary>
+        ///     Limpia una colección en un contexto controlado.
+        /// </summary>
+        /// <param name="collection">
+        ///     Colección a limpiar.
+        /// </param>
+        public static void Clear<T>(ICollection<T> collection)
+        {
+            lock(collection) collection.Clear();
+        }
+
+        internal static MethodInfo Call(string method, params Type[] genericArgs)
+        {
+            var m = typeof(ControlledContextOperations).GetMethod(method, BindingFlags.Public | BindingFlags.Static);
+            return genericArgs.Any() ? m.MakeGenericMethod(genericArgs) : m;
+        }
+    }
+
+    /// <summary>
     ///     Fábrica de tipos para implementaciones ViewModel dinámicas.
     /// </summary>
     public static class ViewModelFactory
     {
+
         private const MethodAttributes _gsArgs = MethodAttributes.Public | SpecialName | HideBySig;
         private const string _namespace = "TheXDS.MCART.ViewModel._Generated";
         private static readonly ModuleBuilder _mBuilder = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName(_namespace), AssemblyBuilderAccess.Run).DefineDynamicModule(_namespace);
@@ -408,9 +435,15 @@ namespace TheXDS.MCART.ViewModel
                 var il71 = setEntityIl.DefineLabel();
                 var enumerator = setEntityIl.DeclareLocal(typeof(IEnumerator));
                 var disposable = setEntityIl.DeclareLocal(typeof(IDisposable));
+
                 setEntityIl.Emit(Ldarg_0);
                 setEntityIl.Emit(Call, thisProp.GetMethod);
+#if AltClearMethod
+                setEntityIl.Emit(Call, ControlledContextOperations.Call("Clear", listType));
+#else
                 setEntityIl.Emit(Callvirt, thisProp.PropertyType.GetMethod("Clear"));
+#endif
+
                 setEntityIl.Emit(Ldarg_0);
                 setEntityIl.Emit(Callvirt, entity);
                 setEntityIl.Emit(Dup);
@@ -506,8 +539,6 @@ namespace TheXDS.MCART.ViewModel
 #endif
 
             var ret = setEntityIl.DefineLabel();
-
-
             setEntityIl.Emit(Ldarg_0);
             setEntityIl.Emit(Ldarg_0);
             setEntityIl.Emit(Ldflda, entity);
@@ -820,9 +851,9 @@ namespace TheXDS.MCART.ViewModel
             return retVal;
         }
 
-        #endregion
+#endregion
 
-        #region Constructores de Modelos
+#region Constructores de Modelos
 
         /// <summary>
         ///     Compila y genera un nuevo tipo que puede utilizarse como modelo
@@ -878,6 +909,6 @@ namespace TheXDS.MCART.ViewModel
             return retVal;
         }
 
-        #endregion
+#endregion
     }
 }

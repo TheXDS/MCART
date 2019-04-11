@@ -22,6 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System.Collections.Generic;
 using TheXDS.MCART.Annotations;
 
 namespace TheXDS.MCART.ViewModel
@@ -57,7 +58,8 @@ namespace TheXDS.MCART.ViewModel
             get => Entity;
             set
             {
-                lock(value ?? _locker) Entity = value as T;
+                //lock(value ?? _locker)
+                Entity = value as T;
             }
         }
     }
