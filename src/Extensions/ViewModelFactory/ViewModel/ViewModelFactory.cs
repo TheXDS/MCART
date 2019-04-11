@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+//#define IncludeLockBlock
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -495,10 +497,14 @@ namespace TheXDS.MCART.ViewModel
             getEntityIl.Emit(Ldfld, entity);
             getEntityIl.Emit(Ret);
 
+#if IncludeLockBlock
+            // Bloque lock() - 1a
             var loc0 = setEntityIl.DeclareLocal(typeof(object));
             var loc1 = setEntityIl.DeclareLocal(typeof(bool));
             var efb1 = setEntityIl.DefineLabel();
             var lObj = setEntityIl.DefineLabel();
+#endif
+
             var ret = setEntityIl.DefineLabel();
 
 
@@ -512,6 +518,9 @@ namespace TheXDS.MCART.ViewModel
             setEntityIl.Emit(Ldarg_0);
             setEntityIl.LoadConstant(true);
             setEntityIl.Emit(Stfld, updatingObservables);
+
+#if IncludeLockBlock
+            // Bloque lock() - 1b
             setEntityIl.Emit(Ldarg_0);
             setEntityIl.Emit(Ldfld, entity);
             setEntityIl.Emit(Dup);
@@ -526,6 +535,8 @@ namespace TheXDS.MCART.ViewModel
             setEntityIl.Emit(Ldloc_0);
             setEntityIl.Emit(Ldloca_S, loc1);
             setEntityIl.Emit(Call, typeof(System.Threading.Monitor).GetMethod("Enter", new[] { typeof(object), typeof(bool).MakeByRefType() }));
+#endif
+
             foreach (var j in modelProps)
             {
                 refreshIl.Emit(Ldarg_0);
@@ -536,6 +547,9 @@ namespace TheXDS.MCART.ViewModel
                 else                
                     AddEntityProp(tb, editIl, j, Infer(j.PropertyType), out var prop);                
             }
+
+#if IncludeLockBlock
+            // Bloque lock() - 1c
             setEntityIl.BeginFinallyBlock();
             setEntityIl.Emit(Ldloc_1);
             setEntityIl.Emit(Brfalse, efb1);
@@ -543,6 +557,8 @@ namespace TheXDS.MCART.ViewModel
             setEntityIl.Emit(Call, typeof(System.Threading.Monitor).GetMethod("Exit", new[] { typeof(object) }));
             setEntityIl.MarkLabel(efb1);
             setEntityIl.EndExceptionBlock();
+#endif
+
             ctor.Emit(Ret);
             setEntityIl.Emit(Ldarg_0);
             LoadConstant(setEntityIl, false);

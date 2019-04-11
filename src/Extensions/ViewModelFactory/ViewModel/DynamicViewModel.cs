@@ -31,6 +31,7 @@ namespace TheXDS.MCART.ViewModel
     /// </summary>
     public abstract class DynamicViewModel<T> : ViewModelBase, IDynamicViewModel<T> where T : class
     {
+        private readonly object _locker = new object();
         /// <summary>
         ///     Entidad subyacente que funciona como campo de almacenamiento
         ///     para los datos de este ViewModel.
@@ -54,7 +55,10 @@ namespace TheXDS.MCART.ViewModel
         object IDynamicViewModel.Entity
         {
             get => Entity;
-            set => Entity = value as T;
+            set
+            {
+                lock(value ?? _locker) Entity = value as T;
+            }
         }
     }
 }
