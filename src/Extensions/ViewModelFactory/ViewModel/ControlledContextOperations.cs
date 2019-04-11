@@ -1,5 +1,5 @@
 ﻿/*
-GeneratedViewModel.cs
+ViewModelFactory.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,39 +22,38 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using TheXDS.MCART.Annotations;
+//#define IncludeLockBlock
+#define AltClearMethod
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace TheXDS.MCART.ViewModel
 {
     /// <summary>
-    ///     Clase base para un ViewModel dinámico.
+    ///     Repositorio de funciones comunes ejecutadas desde un
+    ///     <see cref="IDynamicViewModel"/> compilado en runtime en un contexto
+    ///     controlado.
     /// </summary>
-    public abstract class DynamicViewModel<T> : ViewModelBase, IDynamicViewModel<T> where T : class
+    public static class ControlledContextOperations
     {
         /// <summary>
-        ///     Entidad subyacente que funciona como campo de almacenamiento
-        ///     para los datos de este ViewModel.
+        ///     Limpia una colección en un contexto controlado.
         /// </summary>
-        public abstract T Entity { get; set; }
-
-        /// <summary>
-        ///     Edita la instancia de <typeparamref name="T"/> expuesta por
-        ///     este ViewModel.
-        /// </summary>
-        /// <param name="entity">
-        ///     Instancia de <typeparamref name="T"/> con los valores a
-        ///     establecer.
+        /// <param name="collection">
+        ///     Colección a limpiar.
         /// </param>
-        public abstract void Edit([NotNull] T entity);
-
-        /// <summary>
-        ///     Entidad subyacente que funciona como campo de almacenamiento
-        ///     para los datos de este ViewModel.
-        /// </summary>
-        object IDynamicViewModel.Entity
+        public static void Clear<T>(ICollection<T> collection)
         {
-            get => Entity;
-            set => Entity = value as T;
+            lock(collection) collection.Clear();
+        }
+
+        internal static MethodInfo Call(string method, params Type[] genericArgs)
+        {
+            var m = typeof(ControlledContextOperations).GetMethod(method, BindingFlags.Public | BindingFlags.Static);
+            return genericArgs.Any() ? m.MakeGenericMethod(genericArgs) : m;
         }
     }
 }

@@ -47,31 +47,6 @@ using static TheXDS.MCART.Types.Extensions.StringExtensions;
 namespace TheXDS.MCART.ViewModel
 {
     /// <summary>
-    ///     Repositorio de funciones comunes ejecutadas desde un
-    ///     <see cref="IDynamicViewModel"/> compilado en runtime en un contexto
-    ///     controlado.
-    /// </summary>
-    public static class ControlledContextOperations
-    {
-        /// <summary>
-        ///     Limpia una colección en un contexto controlado.
-        /// </summary>
-        /// <param name="collection">
-        ///     Colección a limpiar.
-        /// </param>
-        public static void Clear<T>(ICollection<T> collection)
-        {
-            lock(collection) collection.Clear();
-        }
-
-        internal static MethodInfo Call(string method, params Type[] genericArgs)
-        {
-            var m = typeof(ControlledContextOperations).GetMethod(method, BindingFlags.Public | BindingFlags.Static);
-            return genericArgs.Any() ? m.MakeGenericMethod(genericArgs) : m;
-        }
-    }
-
-    /// <summary>
     ///     Fábrica de tipos para implementaciones ViewModel dinámicas.
     /// </summary>
     public static class ViewModelFactory
@@ -853,7 +828,7 @@ namespace TheXDS.MCART.ViewModel
 
 #endregion
 
-#region Constructores de Modelos
+        #region Constructores de Modelos
 
         /// <summary>
         ///     Compila y genera un nuevo tipo que puede utilizarse como modelo
@@ -909,6 +884,6 @@ namespace TheXDS.MCART.ViewModel
             return retVal;
         }
 
-#endregion
+        #endregion
     }
 }
