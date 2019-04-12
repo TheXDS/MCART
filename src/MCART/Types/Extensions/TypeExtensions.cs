@@ -132,6 +132,10 @@ namespace TheXDS.MCART.Types.Extensions
         public static bool Implements(this Type type, Type baseType)
         {
             if (!baseType.ContainsGenericParameters) return baseType.IsAssignableFrom(type);
+
+            if (!baseType.GenericTypeArguments.Any())            
+                return type.IsConstructedGenericType && type.GetGenericTypeDefinition() == baseType;            
+
             var gt = baseType.MakeGenericType(type);
             return !gt.ContainsGenericParameters && gt.IsAssignableFrom(type);
         }

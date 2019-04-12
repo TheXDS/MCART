@@ -55,5 +55,20 @@ namespace TheXDS.MCART.Types.Extensions
             }
             return false;
         }
+
+        /// <summary>
+        ///     Comprueba la existencia de referencias circulares en un
+        ///     diccionario de objetos.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dictionary"></param>
+        /// <param name="element"></param>
+        /// <returns></returns>
+        public static bool CheckCircularRef<T>(this IEnumerable<KeyValuePair<T, IEnumerable<T>>> dictionary, T element)
+        {
+            var d = new Dictionary<T, IEnumerable<T>>();
+            foreach (var j in dictionary) d.Add(j.Key, j.Value);
+            return BranchScanFails(element, element, d, new HashSet<T>());
+        }
     }
 }

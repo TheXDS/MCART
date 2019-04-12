@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +32,7 @@ using St = TheXDS.MCART.Resources.Strings;
 using Ist = TheXDS.MCART.Resources.InternalStrings;
 using static TheXDS.MCART.Types.Extensions.DictionaryExtensions;
 using System.Collections.ObjectModel;
+using System.Linq.Expressions;
 
 namespace TheXDS.MCART.Types.Base
 {
@@ -40,8 +43,8 @@ namespace TheXDS.MCART.Types.Base
     /// </summary>
     public abstract class NotifyPropertyChangeBase
     {
-        private readonly IDictionary<string, IEnumerable<string>> _observeRegistry
-            = new Dictionary<string, IEnumerable<string>>();
+        private readonly IDictionary<PropertyInfo, IEnumerable<string>> _observeRegistry
+            = new Dictionary<PropertyInfo, IEnumerable<string>>();
 
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
@@ -49,27 +52,30 @@ namespace TheXDS.MCART.Types.Base
         /// </summary>
         protected NotifyPropertyChangeBase()
         {
-             ObserveRegistry= new ReadOnlyDictionary<string, IEnumerable<string>>(_observeRegistry);
+             ObserveRegistry = new ReadOnlyDictionary<PropertyInfo, IEnumerable<string>>(_observeRegistry);
         }
+
         /// <summary>
         ///     Registra un Broadcast de notificación de cambio de propiedad.
         /// </summary>
         /// <param name="property">
         ///     Propiedad a registrar.
         /// </param>
-        /// <param name="affectedProperties">
+        /// <param name="updatePaths">
         ///     Colección de propiedades a notificar cuando se cambie el valor
         ///     de esta propiedad.
         /// </param>
-        protected void RegisterPropertyChangeBroadcast(string property, params string[] affectedProperties)
+        protected void RegisterPropertyChangeBroadcast(string property, params string[] updatePaths)
         {
-            if (_observeRegistry.ContainsKey(property))
+            var prop = GetType().GetProperty(property) ?? throw new MemberAccessException();
+
+            if (_observeRegistry.ContainsKey(prop))
                 throw new InvalidOperationException(Ist.ErrorXAlreadyRegistered(St.XYQuotes(St.TheProperty,property)));
             
-            if (_observeRegistry.CheckCircularRef(property))
+            if (_observeRegistry.Select(p=>new KeyValuePair<string,IEnumerable<string>>(p.Key.Name,p.Value)).CheckCircularRef(prop.Name))
                 throw new InvalidOperationException(Ist.ErrorCircularOperationDetected);
 
-            _observeRegistry.Add(property, affectedProperties);
+            _observeRegistry.Add(prop, updatePaths);
         }
 
         /// <summary>
@@ -87,6 +93,40 @@ namespace TheXDS.MCART.Types.Base
             RegisterPropertyChangeBroadcast(property, affectedProperties.ToArray());
         }
 
+
+        /// <summary>
+        ///     Registra un Broadcast de notificación de cambio de propiedad.
+        /// </summary>
+        /// <param name="property">
+        ///     Propiedad a registrar.
+        /// </param>
+        /// <param name="affectedProperties">
+        ///     Colección de propiedades a notificar cuando se cambie el valor
+        ///     de esta propiedad.
+        /// </param>
+        protected void RegisterPropertyChangeBroadcast(Expression<Func<object?>> property, params Expression<Func<object?>>[] affectedProperties)
+        {
+            var prop = (ReflectionHelpers.GetMember(property) as PropertyInfo)?.Name ?? throw new Exceptions.InvalidArgumentException(nameof(property));
+            var afctds = affectedProperties.Select(p => (ReflectionHelpers.GetMember(p) as PropertyInfo)?.Name ?? throw new Exceptions.InvalidArgumentException(nameof(affectedProperties)));
+            RegisterPropertyChangeBroadcast(prop, afctds);
+        }
+
+        /// <summary>
+        ///     Registra un Broadcast de notificación de cambio de propiedad.
+        /// </summary>
+        /// <param name="property">
+        ///     Propiedad a registrar.
+        /// </param>
+        /// <param name="affectedProperties">
+        ///     Colección de propiedades a notificar cuando se cambie el valor
+        ///     de esta propiedad.
+        /// </param>
+        protected void RegisterPropertyChangeBroadcast(Expression<Func<object?>> property, IEnumerable<Expression<Func<object?>>> affectedProperties)
+        {
+            RegisterPropertyChangeBroadcast(property, affectedProperties.ToArray());
+        }
+
+
         /// <summary>
         ///     Quita una entrada del registro de Broadcast de notificación de
         ///     cambio de propiedad.
@@ -101,10 +141,24 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
+        ///     Quita una entrada del registro de Broadcast de notificación de
+        ///     cambio de propiedad.
+        /// </summary>
+        /// <param name="property">
+        ///     Entrada a quitar del registro de Broadcast.
+        /// </param>
+        protected void UnregisterPropertyChangeBroadcast(Expression<Func<object?>> property)
+        {
+            var prop = (ReflectionHelpers.GetMember(property) as PropertyInfo)?.Name ?? throw new Exceptions.InvalidArgumentException(nameof(property));
+            if (_observeRegistry.ContainsKey(prop))
+                _observeRegistry.Remove(prop);
+        }
+
+        /// <summary>
         ///     Obtiene el registro de broadcast de notificaciones de cambio de
         ///     propiedad.
         /// </summary>
-        protected IReadOnlyDictionary<string, IEnumerable<string>> ObserveRegistry { get; }
+        protected IReadOnlyDictionary<PropertyInfo, IEnumerable<string>> ObserveRegistry { get; }
 
         /// <summary>
         ///     Notifica desde un punto externo el cambio en el valor de una propiedad.

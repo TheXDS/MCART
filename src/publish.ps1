@@ -5,6 +5,7 @@
     [string]$Repository="https://nuget.org",
     [System.Version]$Version,
     [string]$PrVersion=[String]::Empty,
+	[switch]$List,
     [switch]$Help
 )
 
@@ -21,6 +22,7 @@ if ($Help)
     " -Repository <repositorio>  Publica los paquetes en el repositorio especificado."
     " -Version <versión>         Publica una versión específica de los paquetes."
     " -PrVersion <versión>       Agrega un subfijo de versión preeliminar a la búsqueda."
+    " -List                      Listar la operación a realizar en lugar de ejecutar NuGet."
     " -Help                      Muestra esta ayuda."
     ""
     "Ejemplos:"
@@ -37,7 +39,7 @@ if ($PrVersion)
 
 if ($Debug)
 {
-    $Folder = "Debug"    
+    $Folder = "Debug"
     if ($Symbols)
     {
         $Subfix += ".symbols"
@@ -66,11 +68,19 @@ if (![System.IO.Directory]::Exists("..\build\$Folder"))
     dotnet build -p:Configuration=$Folder
 }
 
-foreach ($j in ls ..\build\$Folder\*$Subfix.nupkg)
+foreach ($j in Get-ChildItem ..\build\$Folder\*$Subfix.nupkg)
 {
     if (!$Symbols -and $j.FullName.EndsWith(".symbols.nupkg"))
     {
         continue
     }
-    echo nuget push $j.FullName -Source $Repository
+
+	if ($List)
+	{
+		Write-Output $j.FullName
+	}
+	else
+	{
+		nuget push $j.FullName -Source $Repository
+	}
 }
