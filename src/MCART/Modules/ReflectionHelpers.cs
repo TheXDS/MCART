@@ -8,7 +8,7 @@ Este archivo contiene funciones de manipulación de objetos,
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright (c) 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2019 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -148,6 +148,24 @@ namespace TheXDS.MCART
             if (memberSelector.Body is UnaryExpression UnExp && UnExp.Operand is MemberExpression)                
                 return ((MemberExpression)UnExp.Operand).Member;
             else if (memberSelector.Body is MemberExpression)            
+                return ((MemberExpression)memberSelector.Body).Member;
+            throw new ArgumentException();
+        }
+        /// <summary>
+        ///     Obtiene un miembro a partir de una expresión.
+        /// </summary>
+        /// <param name="memberSelector">
+        ///     Expresión que indica qué miembro debe devolverse.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="MemberInfo"/> que representa al miembro
+        ///     seleccionado en la expresión.
+        /// </returns>
+        public static MemberInfo GetMember(Expression<Func<object>> memberSelector)
+        {
+            if (memberSelector.Body is UnaryExpression UnExp && UnExp.Operand is MemberExpression)
+                return ((MemberExpression)UnExp.Operand).Member;
+            else if (memberSelector.Body is MemberExpression)
                 return ((MemberExpression)memberSelector.Body).Member;
             throw new ArgumentException();
         }
