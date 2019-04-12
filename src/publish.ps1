@@ -30,8 +30,14 @@ if ($Help)
     "$($MyInvocation.MyCommand.Name) -Debug -Symbols Publicar los paquetes Debug con símbolos en nuget."
     Return
 }
-
-$Subfix = $Version.ToString()
+if ($Version -eq $NULL)
+{
+	$Subfix = [String]::Empty
+}
+else
+{
+	$Subfix = $Version.ToString()
+}
 if ($PrVersion)
 {
     $Subfix += "-" + $PrVersion
