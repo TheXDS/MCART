@@ -2616,4 +2616,83 @@ namespace System.Windows.Converters
             return value is BlurEffect;
         }
     }
+
+    /// <summary>
+    ///     Convierte valores desde y hacia objetos de tipo
+    ///     <see cref="TheXDS.MCART.Types.Color"/>.
+    /// </summary>
+    public sealed class McartColorConverter : IValueConverter
+    {
+        /// <inheritdoc />
+        /// <summary>
+        ///     Convierte un <see cref="TheXDS.MCART.Types.Color"/> en un valor
+        ///     compatible con el campo de destino.
+        /// </summary>
+        /// <param name="value">Objeto a convertir.</param>
+        /// <param name="targetType">Tipo del destino.</param>
+        /// <param name="parameter">
+        ///     Parámetros personalizados para este <see cref="T:System.Windows.Data.IValueConverter" />.
+        /// </param>
+        /// <param name="culture">
+        ///     <see cref="T:System.Globalization.CultureInfo" /> a utilizar para la conversión.
+        /// </param>
+        /// <returns>
+        ///     Un valor compatible con el campo de destino, o
+        ///     <see langword="null"/> si no es posible realizar la conversión.
+        /// </returns>
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo? culture)
+        {
+            if (!(value is TheXDS.MCART.Types.Color c)) return null;
+            if (targetType == typeof(TheXDS.MCART.Types.Color))
+            {
+                return c;
+            }
+            if (targetType == typeof(Color))
+            {
+                return WpfColorExtensions.Color(c);
+            }
+            if (targetType == typeof(Brush))
+            {
+                return WpfColorExtensions.Brush(c);
+            }
+            if (targetType == typeof(Drawing.Color))
+            {
+                return (Drawing.Color)c;
+            }
+            return null;
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Convierte un objeto en un 
+        ///     <see cref="TheXDS.MCART.Types.Color"/>.
+        /// </summary>
+        /// <param name="value">Objeto a convertir.</param>
+        /// <param name="targetType">Tipo del destino.</param>
+        /// <param name="parameter">
+        ///     Parámetros personalizados para este <see cref="T:System.Windows.Data.IValueConverter" />.
+        /// </param>
+        /// <param name="culture">
+        ///     <see cref="T:System.Globalization.CultureInfo" /> a utilizar para la conversión.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="TheXDS.MCART.Types.Color"/> creado a partir del
+        ///     valor del objeto, o <see langword="null"/> si no es posible
+        ///     realizar la conversión.
+        /// </returns>
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo? culture)
+        {
+            if (targetType != typeof(TheXDS.MCART.Types.Color)) return null;
+            return value switch
+            {
+                TheXDS.MCART.Types.Color c => c,
+                Color c => c.ToMcartColor(),
+                SolidColorBrush b => b.Color.ToMcartColor(),
+                GradientBrush g => g.Blend(),
+                Drawing.Color d => (TheXDS.MCART.Types.Color)d,
+                int i => new TheXDS.MCART.Types.Color.ABGR32().From(i),
+                _ => default
+            };
+        }
+    }
 }

@@ -1,5 +1,5 @@
 ﻿/*
-Color.cs
+WpfColorExtensions.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -27,6 +27,7 @@ using System.Windows.Media;
 using B = System.Windows.Media.Brush;
 using D = System.Windows.Media.Color;
 using C = TheXDS.MCART.Types.Color;
+using System.Linq;
 
 namespace TheXDS.MCART.Types.Extensions
 {
@@ -45,6 +46,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             return D.FromScRgb(c.ScA, c.ScR, c.ScG, c.ScB);
         }
+
         /// <summary>
         ///     Convierte una estructura <see cref="D"/> en un
         ///     <see cref="C"/>.
@@ -60,6 +62,21 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
+        ///     Convierte un <see cref="SolidColorBrush"/> en un
+        ///     <see cref="C"/>.
+        /// </summary>
+        /// <param name="c"><see cref="D"/> a convertir.</param>
+        public static C ToMcartColor(this SolidColorBrush c)
+        {
+            return new C(
+                c.Color.ScR.Clamp(0.0f, 1.0f),
+                c.Color.ScG.Clamp(0.0f, 1.0f),
+                c.Color.ScB.Clamp(0.0f, 1.0f),
+                c.Color.ScA.Clamp(0.0f, 1.0f));
+        }
+
+
+        /// <summary>
         ///     Convierte una estructura <see cref="C"/> en un
         ///     <see cref="B"/>.
         /// </summary>
@@ -72,5 +89,20 @@ namespace TheXDS.MCART.Types.Extensions
         {
             return new SolidColorBrush(Color(c));
         }
+
+        /// <summary>
+        ///     Mezcla todos los colores de un <see cref="GradientBrush"/> en
+        ///     un <see cref="C"/>.
+        /// </summary>
+        /// <param name="g"></param>
+        /// <returns>
+        ///     Un <see cref="C"/> que es la mezcla de todos los colores del
+        ///     <see cref="GradientBrush"/>.
+        /// </returns>
+        public static C Blend(this GradientBrush g)
+        {
+            return C.Blend(g.GradientStops.Select(p => ToMcartColor(p.Color)));
+        }
+
     }
 }
