@@ -1,0 +1,11 @@
+{
+  "solution": {
+    "path": "MCART.sln",
+    "projects": [
+      "Lib\\MCART-UI\\MCART-UI.csproj",
+      "Lib\\MCART-Windows\\MCART-Windows.csproj",
+      "MCART\\MCART.csproj",
+      "Platform\\WPF\\WPF.csproj"
+    ]
+  }
+}

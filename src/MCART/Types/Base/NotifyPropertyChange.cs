@@ -30,6 +30,7 @@ using TheXDS.MCART.Annotations;
 using System.Linq;
 using TheXDS.MCART.Exceptions;
 using System;
+using System.IO;
 
 namespace TheXDS.MCART.Types.Base
 {

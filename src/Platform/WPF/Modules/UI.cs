@@ -43,6 +43,7 @@ using C = TheXDS.MCART.Math.Geometry;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 using static TheXDS.MCART.Types.Extensions.WpfColorExtensions;
+using TheXDS.MCART.Types.Base;
 
 // ReSharper disable MemberCanBePrivate.Global
 
@@ -58,7 +59,6 @@ namespace TheXDS.MCART
     /// </summary>
     public static class WpfUi
     {
-        [SuppressMessage("ReSharper", "InconsistentNaming")]
         private enum WindowCompositionAttribute
         {
             // ...
@@ -66,7 +66,6 @@ namespace TheXDS.MCART
             // ...
         }
 
-        [SuppressMessage("ReSharper", "InconsistentNaming")]
         private enum AccentState
         {
             ACCENT_DISABLED = 0,
@@ -111,8 +110,6 @@ namespace TheXDS.MCART
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        [SuppressMessage("ReSharper", "MemberCanBePrivate.Local")]
-        [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
         private struct AccentPolicy
         {
             public AccentState AccentState;
@@ -218,6 +215,7 @@ namespace TheXDS.MCART
         }
 
         private static readonly List<OrigControlColor> _origctrls = new List<OrigControlColor>();
+        //private static readonly List<StreamUriParser> _uriParsers = Objects.FindAllObjects<StreamUriParser>().ToList();
 
         /// <summary>
         ///     Enlaza una propiedad de dependencia de un <see cref="DependencyObject" /> a un <see cref="FrameworkElement" />.
@@ -572,11 +570,15 @@ namespace TheXDS.MCART
         /// </returns>
         public static BitmapImage GetBitmap(Uri uri)
         {
+            
+
             if (uri.IsFile)
                 using (var fs = new FileStream(uri.AbsolutePath, FileMode.Open))
                 {
                     return GetBitmap(fs);
                 }
+
+
 
             using (var ms = new MemoryStream())
             {
