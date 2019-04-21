@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -215,7 +217,7 @@ namespace TheXDS.MCART
         }
 
         private static readonly List<OrigControlColor> _origctrls = new List<OrigControlColor>();
-        //private static readonly List<StreamUriParser> _uriParsers = Objects.FindAllObjects<StreamUriParser>().ToList();
+        private static readonly List<StreamUriParser> _uriParsers = Objects.FindAllObjects<StreamUriParser>().ToList();
 
         /// <summary>
         ///     Enlaza una propiedad de dependencia de un <see cref="DependencyObject" /> a un <see cref="FrameworkElement" />.
@@ -568,23 +570,17 @@ namespace TheXDS.MCART
         /// <returns>
         ///     La imagen que ha sido leída desde el <see cref="Stream" />.
         /// </returns>
-        public static BitmapImage GetBitmap(Uri uri)
+        public static BitmapImage? GetBitmap(Uri uri)
         {
-            
-
-            if (uri.IsFile)
-                using (var fs = new FileStream(uri.AbsolutePath, FileMode.Open))
-                {
-                    return GetBitmap(fs);
-                }
-
-
-
-            using (var ms = new MemoryStream())
+            foreach (var j in _uriParsers)
             {
-                DownloadHelper.DownloadHttp(uri, ms);
-                return GetBitmap(ms);
+                if (!j.Handles(uri)) continue;
+                using (var s = j.GetStream(uri))
+                {
+                    return GetBitmap(s);
+                }
             }
+            return null;
         }
 
         /// <summary>
@@ -614,19 +610,17 @@ namespace TheXDS.MCART
         /// <returns>
         ///     La imagen que ha sido leída desde el <see cref="Stream" />.
         /// </returns>
-        public static async Task<BitmapImage> GetBitmapAsync(Uri uri)
+        public static async Task<BitmapImage?> GetBitmapAsync(Uri uri)
         {
-            if (uri.IsFile)
-                using (var fs = new FileStream(uri.AbsolutePath, FileMode.Open))
-                {
-                    return GetBitmap(fs);
-                }
-
-            using (var ms = new MemoryStream())
+            foreach(var j in _uriParsers)
             {
-                await DownloadHelper.DownloadHttpAsync(uri, ms);
-                return GetBitmap(ms);
+                if (!j.Handles(uri)) continue;
+                using (var s = await j.GetStreamAsync(uri))
+                {
+                    return GetBitmap(s);
+                }
             }
+            return null;
         }
 
         /// <summary>
@@ -1022,7 +1016,7 @@ namespace TheXDS.MCART
         /// <param name="ttip">
         ///     <see cref="ToolTip" /> con un mensaje de error para mostrar.
         /// </param>
-        public static void Warn(this Control c, string ttip)
+        public static void Warn(this Control c, string? ttip)
         {
             if (c.IsWarned()) c.ClearWarn();
             _origctrls.Add(new OrigControlColor

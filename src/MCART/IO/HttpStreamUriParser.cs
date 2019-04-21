@@ -29,6 +29,8 @@ using System.Collections.Generic;
 using System.IO;
 using TheXDS.MCART.Types.Base;
 using System.Net;
+using System.Threading.Tasks;
+using TheXDS.MCART.Networking;
 
 namespace TheXDS.MCART.IO
 {
@@ -65,6 +67,15 @@ namespace TheXDS.MCART.IO
             var req = WebRequest.Create(uri);
             req.Timeout = 10000;
             return req.GetResponse().GetResponseStream();
+        }
+
+        public override bool PreferFullTransfer => true;
+
+        public override async Task<Stream> OpenFullTransferAsync(Uri uri)
+        {
+            var ms = new MemoryStream();
+            await DownloadHelper.DownloadHttpAsync(uri, ms);
+            return ms;
         }
     }
 }
