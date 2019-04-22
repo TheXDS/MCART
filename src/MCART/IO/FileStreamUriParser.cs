@@ -80,9 +80,10 @@ namespace TheXDS.MCART.IO
         ///     Se produce si la longitud de la ruta de archivo excede los
         ///     límites permitidos por el sistema operativo.
         /// </exception>
-        public override Stream Open(Uri uri)
+        public override Stream? Open(Uri uri)
         {
-            return new FileStream(uri.AbsolutePath, FileMode.Open);
+            if (!File.Exists(uri.OriginalString)) return null;
+            return new FileStream(uri.OriginalString, FileMode.Open);
         }
     }
 }

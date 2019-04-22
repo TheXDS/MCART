@@ -40,7 +40,6 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Networking;
 using C = TheXDS.MCART.Math.Geometry;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
@@ -551,8 +550,9 @@ namespace TheXDS.MCART
         /// <returns>
         ///     La imagen que ha sido leída desde el <see cref="Stream" />.
         /// </returns>
-        public static BitmapImage GetBitmap(Stream stream)
+        public static BitmapImage? GetBitmap(Stream? stream)
         {
+            if (stream is null) return null;
             var retVal = new BitmapImage();
             retVal.BeginInit();
             stream.Seek(0, SeekOrigin.Begin);
@@ -575,10 +575,12 @@ namespace TheXDS.MCART
             foreach (var j in _uriParsers)
             {
                 if (!j.Handles(uri)) continue;
-                using (var s = j.GetStream(uri))
-                {
+                var s = j.OpenFullTransfer(uri);
+                if (s is null) break;
+                //using (s)
+                //{
                     return GetBitmap(s);
-                }
+                //}
             }
             return null;
         }
@@ -592,7 +594,7 @@ namespace TheXDS.MCART
         /// <returns>
         ///     La imagen que ha sido leída desde el <see cref="Stream" />.
         /// </returns>
-        public static BitmapImage GetBitmap(string path)
+        public static BitmapImage? GetBitmap(string path)
         {
             using (var fs = new FileStream(path, FileMode.Open))
             {
@@ -615,10 +617,12 @@ namespace TheXDS.MCART
             foreach(var j in _uriParsers)
             {
                 if (!j.Handles(uri)) continue;
-                using (var s = await j.GetStreamAsync(uri))
-                {
+                var s = await j.OpenFullTransferAsync(uri);
+                if (s is null) break;
+                //using (s)
+                //{
                     return GetBitmap(s);
-                }
+                //}
             }
             return null;
         }

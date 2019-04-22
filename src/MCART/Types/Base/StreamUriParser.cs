@@ -65,7 +65,7 @@ namespace TheXDS.MCART.Types.Base
         ///     Un <see cref="Stream"/> desde el cual puede leerse el recurso
         ///     apuntado por el <see cref="Uri"/> especificado.
         /// </returns>
-        public abstract Stream Open(Uri uri);
+        public abstract Stream? Open(Uri uri);
 
         /// <summary>
         ///     Abre el <see cref="Stream"/> desde el <see cref="Uri"/>
@@ -79,10 +79,12 @@ namespace TheXDS.MCART.Types.Base
         ///     Un <see cref="Stream"/> desde el cual puede leerse el recurso
         ///     apuntado por el <see cref="Uri"/> especificado.
         /// </returns>
-        public virtual async Task<Stream> OpenFullTransferAsync(Uri uri)
+        public virtual async Task<Stream?> OpenFullTransferAsync(Uri uri)
         {
             var ms = new MemoryStream();
-            using (var j = Open(uri))
+            var j = Open(uri);
+            if (j is null) return null;
+            using (j)
             {
                 await j.CopyToAsync(ms);
                 return ms;
@@ -101,10 +103,12 @@ namespace TheXDS.MCART.Types.Base
         ///     Un <see cref="Stream"/> desde el cual puede leerse el recurso
         ///     apuntado por el <see cref="Uri"/> especificado.
         /// </returns>
-        public virtual Stream OpenFullTransfer(Uri uri)
+        public virtual Stream? OpenFullTransfer(Uri uri)
         {
             var ms = new MemoryStream();
-            using (var j = Open(uri))
+            var j = Open(uri);
+            if (j is null) return null;
+            using (j)
             {
                 j.CopyTo(ms);
                 return ms;
@@ -130,7 +134,7 @@ namespace TheXDS.MCART.Types.Base
         ///     Un <see cref="Stream"/> desde el cual puede leerse el recurso
         ///     apuntado por el <see cref="Uri"/> especificado.
         /// </returns>
-        public async Task<Stream> GetStreamAsync(Uri uri)
+        public async Task<Stream?> GetStreamAsync(Uri uri)
         {
             return PreferFullTransfer ? (await OpenFullTransferAsync(uri)) : Open(uri);
         }
@@ -147,7 +151,7 @@ namespace TheXDS.MCART.Types.Base
         ///     Un <see cref="Stream"/> desde el cual puede leerse el recurso
         ///     apuntado por el <see cref="Uri"/> especificado.
         /// </returns>
-        public Stream GetStream(Uri uri)
+        public Stream? GetStream(Uri uri)
         {
             return PreferFullTransfer ? OpenFullTransfer(uri) : Open(uri);
         }

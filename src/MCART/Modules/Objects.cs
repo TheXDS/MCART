@@ -809,8 +809,26 @@ namespace TheXDS.MCART
         /// </remarks>
         public static IEnumerable<Type> GetTypes<T>(this IEnumerable<Assembly> assemblies)
         {
-            return assemblies.SelectMany(s => s.GetTypes()
-                .Where(p => typeof(T).IsAssignableFrom(p))).AsEnumerable();
+            var retval = new List<Type>();
+            foreach (var j in assemblies)
+            {
+                try
+                {
+                    foreach(var k in j.GetTypes())
+                    {
+                        try
+                        {
+                            if (typeof(T).IsAssignableFrom(k)) retval.Add(k);
+                        }
+                        catch { /* Ignorar, el tipo no puede ser cargado */ }
+                    }
+                }
+                catch { /* Ignorar, el ensamblado no puede ser cargado */ }
+            }
+            return retval;
+
+            //return assemblies.SelectMany(s => s.GetTypes()
+            //    .Where(p => typeof(T).IsAssignableFrom(p))).AsEnumerable();
         }
 
         /// <summary>
@@ -869,7 +887,7 @@ namespace TheXDS.MCART
         // ReSharper disable once IdentifierTypo
         public static IEnumerable<Type> GetTypes<T>(this AppDomain domain, in bool instantiablesOnly)
         {
-            return GetTypes<T>(domain.GetAssemblies(),instantiablesOnly);
+            return GetTypes<T>(domain.GetAssemblies(), instantiablesOnly);
         }
 
         /// <summary>
@@ -901,12 +919,26 @@ namespace TheXDS.MCART
         // ReSharper disable once IdentifierTypo
         public static IEnumerable<Type> GetTypes<T>(this IEnumerable<Assembly> assemblies, bool instantiablesOnly)
         {
-            return assemblies.SelectMany(s => s.GetTypes()
-                .Where(p => typeof(T).IsAssignableFrom(p))
-                .Where(p => !instantiablesOnly
-                            || !(p.IsInterface
-                                 || p.IsAbstract
-                                 || !p.GetConstructors().Any()))).AsEnumerable();
+            var retval = new List<Type>();
+            foreach (var j in assemblies)
+            {
+                try
+                {
+                    foreach (var k in j.GetTypes())
+                    {
+                        try
+                        {
+                            if (!typeof(T).IsAssignableFrom(k)) continue;
+                            
+                            if (!instantiablesOnly || !(k.IsInterface || k.IsAbstract || !k.GetConstructors().Any()))
+                                retval.Add(k);
+                        }
+                        catch { /* Ignorar, el tipo no puede ser cargado */ }
+                    }
+                }
+                catch { /* Ignorar, el ensamblado no puede ser cargado */ }
+            }
+            return retval;
         }
 
         /// <summary>
