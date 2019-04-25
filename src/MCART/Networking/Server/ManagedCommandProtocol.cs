@@ -40,16 +40,22 @@ namespace TheXDS.MCART.Networking.Server
     /// <summary>
     ///     Describe un protocolo de comandos administrado por MCART.
     /// </summary>
-    /// <typeparam name="TClient"></typeparam>
-    /// <typeparam name="TCommand"></typeparam>
-    /// <typeparam name="TResult"></typeparam>
+    /// <typeparam name="TClient">
+    ///     Tipo de clientes a atender por el servidor.
+    /// </typeparam>
+    /// <typeparam name="TCommand">
+    ///     <see cref="Enum"/> con los comandos aceptados.
+    /// </typeparam>
+    /// <typeparam name="TResult">
+    ///     <see cref="Enum"/> con las respuestas generadas.
+    /// </typeparam>
     public abstract class ManagedCommandProtocol<TClient, TCommand, TResult> : ServerProtocol<TClient> where TClient : Client where TCommand : struct, Enum where TResult : struct, Enum
     {
         /// <summary>
         ///     Describe la solicitud realizada por un cliente que está siendo
         ///     atendida por este protocolo.
         /// </summary>
-        public class Request
+        protected class Request
         {
             private byte[] MkResp(TResult resp, bool withGuid = true)
             {
@@ -769,7 +775,7 @@ namespace TheXDS.MCART.Networking.Server
         /// <summary>
         ///     Describe la firma de un comando del protocolo.
         /// </summary>
-        public delegate void CommandCallback(Request request);
+        protected delegate void CommandCallback(Request request);
 
         private static readonly Func<TResult, byte[]> _toResponse;
         private static readonly TResult? _errResponse;
@@ -917,7 +923,7 @@ namespace TheXDS.MCART.Networking.Server
                     var c = ReadCommand(br);
 
                     if (!Enum.IsDefined(typeof(TCommand), c))
-                        client.Send(_toResponse(_unkResponse ?? throw new InvalidOperationException()));
+                        client.Send(_toResponse(_unkResponse ?? throw new InvalidOperationException()).Concat(c.ToBytes()));
 
                     if (_commands.ContainsKey(c))
                     {
@@ -925,7 +931,7 @@ namespace TheXDS.MCART.Networking.Server
                     }
                     else
                     {
-                        client.Send(_toResponse(_notMappedResponse ?? throw new InvalidOperationException()));
+                        client.Send(_toResponse(_notMappedResponse ?? throw new InvalidOperationException()).Concat(c.ToBytes()));
                     }
                 }
                 catch

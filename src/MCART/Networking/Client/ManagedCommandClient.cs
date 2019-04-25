@@ -35,65 +35,138 @@ using System.Net.Sockets;
 using System.Reflection;
 using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Events;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Networking.Client
 {
+    /// <summary>
+    ///     Describe un cliente de comandos administrado por MCART.
+    /// </summary>
+    /// <typeparam name="TCommand">
+    ///     <see cref="Enum"/> con los comandos generados.
+    /// </typeparam>
+    /// <typeparam name="TResult">
+    ///     <see cref="Enum"/> con las respuestas aceptadas.
+    /// </typeparam>
     public abstract class ManagedCommandClient<TCommand, TResult> : ActiveClient where TCommand : struct, Enum where TResult : struct, Enum
     {
-        public class Response
-        {
-            public Response(TResult result, BinaryReader reader, ManagedCommandClient<TCommand, TResult> instance)
-            {
-                Result = result;
-                Reader = reader ?? throw new ArgumentNullException(nameof(reader));
-                Instance = instance ?? throw new ArgumentNullException(nameof(instance));
-            }
-            public TResult Result { get; }
-            public BinaryReader Reader { get; }
-            public ManagedCommandClient<TCommand, TResult> Instance { get; }
-        }
-
         private static byte[] MkResp(TCommand cmd)
         {
             return MkResp(cmd, out _);
         }
-
         private static byte[] MkResp(TCommand cmd, out Guid guid)
         {
             guid = Guid.NewGuid();
             return guid.ToByteArray().Concat(_toCommand(cmd)).ToArray();
         }
 
+        /// <summary>
+        ///     Envía un comando al servidor.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a enviar.
+        /// </param>
         protected void Send(TCommand command)
         {
             TalkToServer(MkResp(command));
         }
+
+        /// <summary>
+        ///     Envía un comando al servidor, y ejecuta una acción al recibir
+        ///     la respuesta.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a enviar.
+        /// </param>
+        /// <param name="callback">
+        ///     Llamada a realizar cuando el servidor responda.
+        /// </param>
         protected void Send(TCommand command, ResponseCallback callback)
         {
             var d = MkResp(command, out var guid);
             EnqueueRequest(guid, callback);
             TalkToServer(d);
         }
+
+        /// <summary>
+        ///     Envía un comando al servidor.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a enviar.
+        /// </param>
+        /// <param name="rawData">
+        ///     Datos a enviar al servidor.
+        /// </param>
         protected void Send(TCommand command, IEnumerable<byte> rawData)
         {
             TalkToServer(MkResp(command).Concat(rawData).ToArray());
         }
+
+        /// <summary>
+        ///     Envía un comando al servidor, y ejecuta una acción al recibir
+        ///     la respuesta.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a enviar.
+        /// </param>
+        /// <param name="rawData">
+        ///     Datos a enviar al servidor.
+        /// </param>
+        /// <param name="callback">
+        ///     Llamada a realizar cuando el servidor responda.
+        /// </param>
         protected void Send(TCommand command, IEnumerable<byte> rawData, ResponseCallback callback)
         {
             var d = MkResp(command, out var guid);
             EnqueueRequest(guid, callback);
             TalkToServer(d.Concat(rawData).ToArray());
         }
+
+        /// <summary>
+        ///     Envía un comando al servidor, y ejecuta una acción al recibir
+        ///     la respuesta.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a enviar.
+        /// </param>
+        /// <param name="data">
+        ///     Datos a enviar al servidor.
+        /// </param>
         protected void Send(TCommand command, MemoryStream data)
         {
             Send(command, data.ToArray());
         }
+
+        /// <summary>
+        ///     Envía un comando al servidor, y ejecuta una acción al recibir
+        ///     la respuesta.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a enviar.
+        /// </param>
+        /// <param name="data">
+        ///     Datos a enviar al servidor.
+        /// </param>
+        /// <param name="callback">
+        ///     Llamada a realizar cuando el servidor responda.
+        /// </param>
         protected void Send(TCommand command, MemoryStream data, ResponseCallback callback)
         {
             Send(command, data.ToArray(), callback);
         }
+
+        /// <summary>
+        ///     Envía un comando al servidor, y ejecuta una acción al recibir
+        ///     la respuesta.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a enviar.
+        /// </param>
+        /// <param name="dataStream">
+        ///     Datos a enviar al servidor.
+        /// </param>
         protected void Send(TCommand command, Stream dataStream)
         {
             if (!dataStream.CanRead) throw new InvalidOperationException();
@@ -111,6 +184,20 @@ namespace TheXDS.MCART.Networking.Client
                 Send(command, ms);
             }
         }
+
+        /// <summary>
+        ///     Envía un comando al servidor, y ejecuta una acción al recibir
+        ///     la respuesta.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a enviar.
+        /// </param>
+        /// <param name="dataStream">
+        ///     Datos a enviar al servidor.
+        /// </param>
+        /// <param name="callback">
+        ///     Llamada a realizar cuando el servidor responda.
+        /// </param>
         protected void Send(TCommand command, Stream dataStream, ResponseCallback callback)
         {
             if (!dataStream.CanRead) throw new InvalidOperationException();
@@ -128,6 +215,17 @@ namespace TheXDS.MCART.Networking.Client
                 Send(command, ms,callback);
             }
         }
+
+        /// <summary>
+        ///     Envía un comando al servidor, y ejecuta una acción al recibir
+        ///     la respuesta.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a enviar.
+        /// </param>
+        /// <param name="data">
+        ///     Datos a enviar al servidor.
+        /// </param>
         protected void Send(TCommand command, IEnumerable<string> data)
         {
             using (var ms = new MemoryStream())
@@ -137,6 +235,20 @@ namespace TheXDS.MCART.Networking.Client
                 Send(command, ms);
             }
         }
+
+        /// <summary>
+        ///     Envía un comando al servidor, y ejecuta una acción al recibir
+        ///     la respuesta.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a enviar.
+        /// </param>
+        /// <param name="data">
+        ///     Datos a enviar al servidor.
+        /// </param>
+        /// <param name="callback">
+        ///     Llamada a realizar cuando el servidor responda.
+        /// </param>
         protected void Send(TCommand command, IEnumerable<string> data, ResponseCallback callback)
         {
             using (var ms = new MemoryStream())
@@ -146,42 +258,168 @@ namespace TheXDS.MCART.Networking.Client
                 Send(command, ms, callback);
             }
         }
+
+        /// <summary>
+        ///     Envía un comando al servidor, y ejecuta una acción al recibir
+        ///     la respuesta.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a enviar.
+        /// </param>
+        /// <param name="data">
+        ///     Datos a enviar al servidor.
+        /// </param>
         protected void Send(TCommand command, string data)
         {
             Send(command, new[] { data });
         }
+
+        /// <summary>
+        ///     Envía un comando al servidor, y ejecuta una acción al recibir
+        ///     la respuesta.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a enviar.
+        /// </param>
+        /// <param name="data">
+        ///     Datos a enviar al servidor.
+        /// </param>
+        /// <param name="callback">
+        ///     Llamada a realizar cuando el servidor responda.
+        /// </param>
         protected void Send(TCommand command, string data, ResponseCallback callback)
         {
             Send(command, new[] { data }, callback);
         }
+
+        /// <summary>
+        /// Envía un comando al servidor de forma asíncrona.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a enviar.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
+        ///     estado de la operación.
+        /// </returns>
         protected Task SendAsync(TCommand command)
         {
             return TalkToServerAsync(MkResp(command));
         }
+
+        /// <summary>
+        /// Envía un comando al servidor de forma asíncrona.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a enviar.
+        /// </param>
+        /// <param name="callback">
+        ///     Llamada a realizar cuando el servidor responda.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
+        ///     estado de la operación.
+        /// </returns>
         protected Task SendAsync(TCommand command, ResponseCallback callback)
         {
             var d = MkResp(command, out var guid);
             EnqueueRequest(guid, callback);
             return TalkToServerAsync(d);
         }
+
+        /// <summary>
+        /// Envía un comando al servidor de forma asíncrona.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a enviar.
+        /// </param>
+        /// <param name="rawData">
+        ///     Datos a enviar al servidor.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
+        ///     estado de la operación.
+        /// </returns>
         protected Task SendAsync(TCommand command, IEnumerable<byte> rawData)
         {
             return TalkToServerAsync(MkResp(command).Concat(rawData).ToArray());
         }
+
+        /// <summary>
+        /// Envía un comando al servidor de forma asíncrona.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a enviar.
+        /// </param>
+        /// <param name="rawData">
+        ///     Datos a enviar al servidor.
+        /// </param>
+        /// <param name="callback">
+        ///     Llamada a realizar cuando el servidor responda.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
+        ///     estado de la operación.
+        /// </returns>
         protected Task SendAsync(TCommand command, IEnumerable<byte> rawData, ResponseCallback callback)
         {
             var d = MkResp(command, out var guid);
             EnqueueRequest(guid, callback);
             return TalkToServerAsync(d.Concat(rawData).ToArray());
         }
+
+        /// <summary>
+        /// Envía un comando al servidor de forma asíncrona.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a enviar.
+        /// </param>
+        /// <param name="data">
+        ///     Datos a enviar al servidor.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
+        ///     estado de la operación.
+        /// </returns>
         protected Task SendAsync(TCommand command, MemoryStream data)
         {
             return SendAsync(command, data.ToArray());
         }
+
+        /// <summary>
+        /// Envía un comando al servidor de forma asíncrona.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a enviar.
+        /// </param>
+        /// <param name="data">
+        ///     Datos a enviar al servidor.
+        /// </param>
+        /// <param name="callback">
+        ///     Llamada a realizar cuando el servidor responda.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
+        ///     estado de la operación.
+        /// </returns>
         protected Task SendAsync(TCommand command, MemoryStream data, ResponseCallback callback)
         {
             return SendAsync(command, data.ToArray(), callback);
         }
+
+        /// <summary>
+        /// Envía un comando al servidor de forma asíncrona.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a enviar.
+        /// </param>
+        /// <param name="dataStream">
+        ///     Datos a enviar al servidor.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
+        ///     estado de la operación.
+        /// </returns>
         protected Task SendAsync(TCommand command, Stream dataStream)
         {
             if (!dataStream.CanRead) throw new InvalidOperationException();
@@ -198,6 +436,23 @@ namespace TheXDS.MCART.Networking.Client
                 return SendAsync(command, ms);
             }
         }
+
+        /// <summary>
+        /// Envía un comando al servidor de forma asíncrona.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a enviar.
+        /// </param>
+        /// <param name="dataStream">
+        ///     Datos a enviar al servidor.
+        /// </param>
+        /// <param name="callback">
+        ///     Llamada a realizar cuando el servidor responda.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
+        ///     estado de la operación.
+        /// </returns>
         protected Task SendAsync(TCommand command, Stream dataStream, ResponseCallback callback)
         {
             if (!dataStream.CanRead) throw new InvalidOperationException();
@@ -214,6 +469,20 @@ namespace TheXDS.MCART.Networking.Client
                 return SendAsync(command, ms, callback);
             }
         }
+
+        /// <summary>
+        /// Envía un comando al servidor de forma asíncrona.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a enviar.
+        /// </param>
+        /// <param name="data">
+        ///     Datos a enviar al servidor.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
+        ///     estado de la operación.
+        /// </returns>
         protected Task SendAsync(TCommand command, IEnumerable<string> data)
         {
             using (var ms = new MemoryStream())
@@ -223,6 +492,23 @@ namespace TheXDS.MCART.Networking.Client
                 return SendAsync(command, ms);
             }
         }
+
+        /// <summary>
+        /// Envía un comando al servidor de forma asíncrona.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a enviar.
+        /// </param>
+        /// <param name="data">
+        ///     Datos a enviar al servidor.
+        /// </param>
+        /// <param name="callback">
+        ///     Llamada a realizar cuando el servidor responda.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
+        ///     estado de la operación.
+        /// </returns>
         protected Task SendAsync(TCommand command, IEnumerable<string> data, ResponseCallback callback)
         {
             using (var ms = new MemoryStream())
@@ -232,10 +518,41 @@ namespace TheXDS.MCART.Networking.Client
                 return SendAsync(command, ms, callback);
             }
         }
+
+        /// <summary>
+        /// Envía un comando al servidor de forma asíncrona.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a enviar.
+        /// </param>
+        /// <param name="data">
+        ///     Datos a enviar al servidor.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
+        ///     estado de la operación.
+        /// </returns>
         protected Task SendAsync(TCommand command, string data)
         {
             return SendAsync(command, new[] { data });
         }
+
+        /// <summary>
+        /// Envía un comando al servidor de forma asíncrona.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a enviar.
+        /// </param>
+        /// <param name="data">
+        ///     Datos a enviar al servidor.
+        /// </param>
+        /// <param name="callback">
+        ///     Llamada a realizar cuando el servidor responda.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
+        ///     estado de la operación.
+        /// </returns>
         protected Task SendAsync(TCommand command, string data, ResponseCallback callback)
         {
             return SendAsync(command, new[] { data }, callback);
@@ -413,17 +730,45 @@ namespace TheXDS.MCART.Networking.Client
                         {
                             response.Invoke(c, br);
                         }
+                        else if (_notMappedResponse.Equals(c))
+                        {
+                            NotMappedCommandIssued?.Invoke(this, br.ReadEnum<TCommand>());
+                        }
+                        else if (_unkResponse.Equals(c))
+                        {
+                            UnknownCommandIssued?.Invoke(this, br.ReadEnum<TCommand>());
+                        }
+                        else if (_errResponse.Equals(c))
+                        {
+                            ServerError?.Invoke(this, EventArgs.Empty);
+                        }
                         else
                         {
                             AttendServer(br.ReadBytes((int)(ms.Length - ms.Position)));
-                        }
-                        
+                        }                        
                     }
-
                 }
                 catch { RaiseConnectionLost(); }
             }
         }
+        /// <summary>
+        ///     Ocurre cuando el servidor informa de un comando válido que no
+        ///     pudo ser manejado debido a que no se configuró una función de
+        ///     control para el comando.
+        /// </summary>
+        public event EventHandler<ValueEventArgs<TCommand>> NotMappedCommandIssued;
+
+        /// <summary>
+        ///     Ocurre cuando el servidor informa que se ha enviado un comando
+        ///     desconocido.
+        /// </summary>
+        public event EventHandler<ValueEventArgs<TCommand>> UnknownCommandIssued;
+
+        /// <summary>
+        ///     Ocurre cuando el servidor ha encontrado un error general.
+        /// </summary>
+        public event EventHandler ServerError;
+
 
         private readonly Dictionary<Guid, ResponseCallback> _requests = new Dictionary<Guid, ResponseCallback>();
 
