@@ -1,0 +1,446 @@
+﻿/*
+ManagedCommandClient.cs
+
+This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Author(s):
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+
+Copyright © 2011 - 2019 César Andrés Morgan
+
+Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#nullable enable
+
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Linq;
+using System.Net.Sockets;
+using System.Reflection;
+using System.Threading.Tasks;
+using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Types.Extensions;
+
+namespace TheXDS.MCART.Networking.Client
+{
+    public abstract class ManagedCommandClient<TCommand, TResult> : ActiveClient where TCommand : struct, Enum where TResult : struct, Enum
+    {
+        public class Response
+        {
+            public Response(TResult result, BinaryReader reader, ManagedCommandClient<TCommand, TResult> instance)
+            {
+                Result = result;
+                Reader = reader ?? throw new ArgumentNullException(nameof(reader));
+                Instance = instance ?? throw new ArgumentNullException(nameof(instance));
+            }
+            public TResult Result { get; }
+            public BinaryReader Reader { get; }
+            public ManagedCommandClient<TCommand, TResult> Instance { get; }
+        }
+
+        private static byte[] MkResp(TCommand cmd)
+        {
+            return MkResp(cmd, out _);
+        }
+
+        private static byte[] MkResp(TCommand cmd, out Guid guid)
+        {
+            guid = Guid.NewGuid();
+            return guid.ToByteArray().Concat(_toCommand(cmd)).ToArray();
+        }
+
+        protected void Send(TCommand command)
+        {
+            TalkToServer(MkResp(command));
+        }
+        protected void Send(TCommand command, ResponseCallback callback)
+        {
+            var d = MkResp(command, out var guid);
+            EnqueueRequest(guid, callback);
+            TalkToServer(d);
+        }
+        protected void Send(TCommand command, IEnumerable<byte> rawData)
+        {
+            TalkToServer(MkResp(command).Concat(rawData).ToArray());
+        }
+        protected void Send(TCommand command, IEnumerable<byte> rawData, ResponseCallback callback)
+        {
+            var d = MkResp(command, out var guid);
+            EnqueueRequest(guid, callback);
+            TalkToServer(d.Concat(rawData).ToArray());
+        }
+        protected void Send(TCommand command, MemoryStream data)
+        {
+            Send(command, data.ToArray());
+        }
+        protected void Send(TCommand command, MemoryStream data, ResponseCallback callback)
+        {
+            Send(command, data.ToArray(), callback);
+        }
+        protected void Send(TCommand command, Stream dataStream)
+        {
+            if (!dataStream.CanRead) throw new InvalidOperationException();
+            if (dataStream.CanSeek)
+            {
+                using (var sr = new BinaryReader(dataStream))
+                {
+                    Send(command, sr.ReadBytes((int)dataStream.Length));
+                    return;
+                }
+            }
+            using (var ms = new MemoryStream())
+            {
+                dataStream.CopyTo(ms);
+                Send(command, ms);
+            }
+        }
+        protected void Send(TCommand command, Stream dataStream, ResponseCallback callback)
+        {
+            if (!dataStream.CanRead) throw new InvalidOperationException();
+            if (dataStream.CanSeek)
+            {
+                using (var sr = new BinaryReader(dataStream))
+                {
+                    Send(command, sr.ReadBytes((int)dataStream.Length), callback);
+                    return;
+                }
+            }
+            using (var ms = new MemoryStream())
+            {
+                dataStream.CopyTo(ms);
+                Send(command, ms,callback);
+            }
+        }
+        protected void Send(TCommand command, IEnumerable<string> data)
+        {
+            using (var ms = new MemoryStream())
+            using (var bw = new BinaryWriter(ms))
+            {
+                foreach (var j in data) bw.Write(j);
+                Send(command, ms);
+            }
+        }
+        protected void Send(TCommand command, IEnumerable<string> data, ResponseCallback callback)
+        {
+            using (var ms = new MemoryStream())
+            using (var bw = new BinaryWriter(ms))
+            {
+                foreach (var j in data) bw.Write(j);
+                Send(command, ms, callback);
+            }
+        }
+        protected void Send(TCommand command, string data)
+        {
+            Send(command, new[] { data });
+        }
+        protected void Send(TCommand command, string data, ResponseCallback callback)
+        {
+            Send(command, new[] { data }, callback);
+        }
+        protected Task SendAsync(TCommand command)
+        {
+            return TalkToServerAsync(MkResp(command));
+        }
+        protected Task SendAsync(TCommand command, ResponseCallback callback)
+        {
+            var d = MkResp(command, out var guid);
+            EnqueueRequest(guid, callback);
+            return TalkToServerAsync(d);
+        }
+        protected Task SendAsync(TCommand command, IEnumerable<byte> rawData)
+        {
+            return TalkToServerAsync(MkResp(command).Concat(rawData).ToArray());
+        }
+        protected Task SendAsync(TCommand command, IEnumerable<byte> rawData, ResponseCallback callback)
+        {
+            var d = MkResp(command, out var guid);
+            EnqueueRequest(guid, callback);
+            return TalkToServerAsync(d.Concat(rawData).ToArray());
+        }
+        protected Task SendAsync(TCommand command, MemoryStream data)
+        {
+            return SendAsync(command, data.ToArray());
+        }
+        protected Task SendAsync(TCommand command, MemoryStream data, ResponseCallback callback)
+        {
+            return SendAsync(command, data.ToArray(), callback);
+        }
+        protected Task SendAsync(TCommand command, Stream dataStream)
+        {
+            if (!dataStream.CanRead) throw new InvalidOperationException();
+            if (dataStream.CanSeek)
+            {
+                using (var sr = new BinaryReader(dataStream))
+                {
+                    return SendAsync(command, sr.ReadBytes((int)dataStream.Length));
+                }
+            }
+            using (var ms = new MemoryStream())
+            {
+                dataStream.CopyTo(ms);
+                return SendAsync(command, ms);
+            }
+        }
+        protected Task SendAsync(TCommand command, Stream dataStream, ResponseCallback callback)
+        {
+            if (!dataStream.CanRead) throw new InvalidOperationException();
+            if (dataStream.CanSeek)
+            {
+                using (var sr = new BinaryReader(dataStream))
+                {
+                    return SendAsync(command, sr.ReadBytes((int)dataStream.Length), callback);
+                }
+            }
+            using (var ms = new MemoryStream())
+            {
+                dataStream.CopyTo(ms);
+                return SendAsync(command, ms, callback);
+            }
+        }
+        protected Task SendAsync(TCommand command, IEnumerable<string> data)
+        {
+            using (var ms = new MemoryStream())
+            using (var bw = new BinaryWriter(ms))
+            {
+                foreach (var j in data) bw.Write(j);
+                return SendAsync(command, ms);
+            }
+        }
+        protected Task SendAsync(TCommand command, IEnumerable<string> data, ResponseCallback callback)
+        {
+            using (var ms = new MemoryStream())
+            using (var bw = new BinaryWriter(ms))
+            {
+                foreach (var j in data) bw.Write(j);
+                return SendAsync(command, ms, callback);
+            }
+        }
+        protected Task SendAsync(TCommand command, string data)
+        {
+            return SendAsync(command, new[] { data });
+        }
+        protected Task SendAsync(TCommand command, string data, ResponseCallback callback)
+        {
+            return SendAsync(command, new[] { data }, callback);
+        }
+
+        /// <summary>
+        ///     Describe la firma de una respuesta del protocolo.
+        /// </summary>
+        public delegate void ResponseCallback(TResult response, BinaryReader br);
+
+        private static readonly Func<TCommand, byte[]> _toCommand;
+        private static readonly TResult? _errResponse;
+        private static readonly TResult? _notMappedResponse;
+        private static readonly TResult? _unkResponse;
+        private static readonly MethodInfo _readResp;
+
+        /// <summary>
+        ///     Inicializa la clase
+        ///     <see cref="ManagedCommandClient{TCommand, TResponse}"/>.
+        /// </summary>
+        static ManagedCommandClient()
+        {
+            _toCommand = EnumExtensions.ToBytes<TCommand>();
+            _readResp = BinaryReaderExtensions.GetBinaryReadMethod(typeof(TResult).GetEnumUnderlyingType());
+
+            var vals = Enum.GetValues(typeof(TResult)).OfType<TResult?>().ToArray();
+            _errResponse = vals.FirstOrDefault(p => p.HasAttr<ErrorResponseAttribute>());
+            _unkResponse = vals.FirstOrDefault(p => p.HasAttr<UnknownResponseAttribute>()) ?? _errResponse;
+            _notMappedResponse = vals.FirstOrDefault(p => p.HasAttr<NotMappedResponseAttribute>()) ?? _unkResponse;
+        }
+
+        /// <summary>
+        ///     Activa o desactiva el escaneo del tipo de instancia a construir
+        ///     en busca de funciones de manejo de comandos del protocolo.
+        /// </summary>
+        public static bool ScanTypeOnCtor { get; set; } = true;
+
+        /// <summary>
+        ///     Activa o desactiva el mapeo de funciones por convención de
+        ///     nombres para el manejo de comandos del protocolo.
+        /// </summary>
+        public static bool EnableMapByName { get; set; } = true;
+
+        /// <summary>
+        ///     Activa o desactiva el salto de comandos mapeados, efectivamente
+        ///     causando el efecto inverso en el mecanismo de protección anti
+        ///     mapeo duplicado.
+        /// </summary>
+        public static bool SkipMapped { get; set; } = true;
+
+        private static IEnumerable<ResponseCallback> ScanType(ManagedCommandClient<TCommand, TResult> instance)
+        {
+            return instance.GetType().GetMethods().WithSignature<ResponseCallback>()
+                .Concat(instance.PropertiesOf<ResponseCallback>())
+                .Concat(instance.FieldsOf<ResponseCallback>());
+        }
+
+        private static TResult ReadResponse(BinaryReader br)
+        {
+            return (TResult)Enum.ToObject(typeof(TResult), _readResp.Invoke(br, new object[0]));
+        }
+
+        private readonly Dictionary<TResult, ResponseCallback> _responses = new Dictionary<TResult, ResponseCallback>();
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="ManagedCommandClient{TCommand, TResponse}"/>.
+        /// </summary>
+        protected ManagedCommandClient()
+        {
+            if (!ScanTypeOnCtor) return;
+            foreach (var j in ScanType(this))
+            {
+                var attrs = j.Method.GetCustomAttributes(false).OfType<IValueAttribute<TResult>>().ToList();
+                if (attrs.Any()) // Mapeo por configuración
+                {
+                    foreach (var k in attrs)
+                    {
+                        if (_responses.ContainsKey(k.Value)) throw new DataAlreadyExistsException();
+                        WireUp(k.Value, j);
+                    }
+                }
+                else if (EnableMapByName) // Mapeo por convención
+                {
+                    if (!Enum.TryParse(j.Method.Name, out TResult k)) continue;
+                    WireUp(k, j);
+                }
+            }
+            foreach (var l in WireUp())
+            {
+                WireUp(l.Key, l.Value);
+            }
+        }
+
+        /// <summary>
+        ///     Cuando se invalida, permite obtener una colección con los
+        ///     métodos que serán llamados al recibir la respuesta
+        ///     especificada.
+        /// </summary>
+        /// <returns>
+        ///     Una enumeración de <see cref="KeyValuePair{TKey, TValue}"/>
+        ///     cuya llave es una respuesta y cuyo valor es el 
+        ///     <see cref="ResponseCallback"/> a ejecutar al recibir dicha
+        ///     respuesta.
+        /// </returns>
+        protected virtual IEnumerable<KeyValuePair<TResult, ResponseCallback>> WireUp()
+        {
+            yield break;
+        }
+
+        /// <summary>
+        ///     Conecta manualmente una respuesta con un
+        ///     <see cref="ResponseCallback"/> de atención.
+        /// </summary>
+        /// <param name="command">
+        ///     Respuesta a conectar.
+        /// </param>
+        /// <param name="action">
+        ///     Acción a ejecutar al recibir la respuesta.
+        /// </param>
+        protected void WireUp(TResult command, ResponseCallback action)
+        {
+            if (_responses.ContainsKey(command))
+            {
+                if (SkipMapped) return;
+                throw new DataAlreadyExistsException();
+            }
+            _responses.Add(command, action);
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Atiende una solicitud realizada por el servidor cuando no
+        ///     existe un método mapeado a la respuesta recibida.
+        /// </summary>
+        /// <param name="data">Datos recibidos desde el servidor.</param>
+        /// <remarks>
+        ///     De forma predeterminada, este método no realiza ninguna acción.
+        ///     Invalide este método en caso de que la implementación no mapee
+        ///     todas las respuestas que el servidor podría enviar, en cuyo
+        ///     caso, serán atendidas aquí.
+        /// </remarks>
+        public override void AttendServer(byte[] data)
+        {
+            /* No realizar ninguna acción. */
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicia la escucha activa del servidor.
+        /// </summary>
+        protected override async sealed void PostConnection()
+        {
+            while (GetStream() is NetworkStream ns)
+            {
+                try
+                {
+                    var data = await GetDataAsync(ns);
+                    using (var ms = new MemoryStream(data))
+                    using (var br = new BinaryReader(ms))
+                    {
+                        if (br.ReadBoolean())
+                        {
+                            var guid = br.ReadGuid();
+                            if (_requests.TryGetValue(guid, out var callback))
+                            {
+                                callback.Invoke(ReadResponse(br), br);
+                                _requests.Remove(guid);
+                                continue;
+                            }
+                        }
+                       
+                        var c = ReadResponse(br);
+                        if (_responses.TryGetValue(c, out var response))
+                        {
+                            response.Invoke(c, br);
+                        }
+                        else
+                        {
+                            AttendServer(br.ReadBytes((int)(ms.Length - ms.Position)));
+                        }
+                        
+                    }
+
+                }
+                catch { RaiseConnectionLost(); }
+            }
+        }
+
+        private readonly Dictionary<Guid, ResponseCallback> _requests = new Dictionary<Guid, ResponseCallback>();
+
+        /// <summary>
+        ///     Agrega un manejador de respuesta de un comando enviado con el 
+        ///     <see cref="Guid"/> especificado.
+        /// </summary>
+        /// <param name="guid">
+        ///     Guid de la respuesta esperada.
+        /// </param>
+        /// <param name="callback">
+        ///     Método a llamar al recibir la respuesta esperada.
+        /// </param>
+        protected void EnqueueRequest(Guid guid, ResponseCallback callback)
+        {
+            if (!_requests.ContainsKey(guid))
+                _requests.Add(guid, callback);
+        }
+    }
+}

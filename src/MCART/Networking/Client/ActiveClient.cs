@@ -22,21 +22,14 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using TheXDS.MCART.Annotations;
-
-#region Configuración de ReSharper
-
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable EventNeverSubscribedTo.Global
-
-#endregion
 
 namespace TheXDS.MCART.Networking.Client
 {
@@ -109,27 +102,42 @@ namespace TheXDS.MCART.Networking.Client
         /// </summary>
         protected override async void PostConnection()
         {
-            while (!(Connection?.Disposed ?? true) && Connection.GetStream() is NetworkStream ns)
+            while (GetStream() is NetworkStream ns)
             {
                 try
                 {
-                    var outp = new List<byte>();
-                    do
-                    {
-                        var buff = new byte[Connection.ReceiveBufferSize];
-                        var sze = await ns.ReadAsync(buff, 0, buff.Length);
-                        if (sze < Connection.ReceiveBufferSize) Array.Resize(ref buff, sze);
-                        outp.AddRange(buff);
-                    } while (ns.DataAvailable);
-                    AttendServer(outp.ToArray());
+                    AttendServer(await GetDataAsync(ns));
                 }
                 catch { RaiseConnectionLost(); }
             }
         }
 
         /// <summary>
+        ///     Obtiene de forma segura una referencia al flujo de datos de la
+        ///     conexión activa.
+        /// </summary>
+        /// <returns>
+        ///     El <see cref="NetworkStream"/> utilizado para enviar y recibir
+        ///     información, o <see langword="null"/> si no es posible
+        ///     obtenerlo.
+        /// </returns>
+        protected NetworkStream? GetStream()
+        {
+            try
+            {
+                return Connection.GetStream();
+            }
+            catch
+            {
+                RaiseConnectionLost();
+                return null;
+            }
+        }
+
+
+        /// <summary>
         /// Genera el evento <see cref="ConnectionLost"/>.
         /// </summary>
-        protected void RaiseConnectionLost()=> ConnectionLost?.Invoke(this, EventArgs.Empty);
+        protected void RaiseConnectionLost() => ConnectionLost?.Invoke(this, EventArgs.Empty);
     }
 }

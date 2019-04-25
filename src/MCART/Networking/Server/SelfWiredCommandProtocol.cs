@@ -22,24 +22,16 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
-
-#region Configuración de ReSharper
-
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable EventNeverSubscribedTo.Global
-
-#endregion
 
 namespace TheXDS.MCART.Networking.Server
 {
@@ -57,7 +49,6 @@ namespace TheXDS.MCART.Networking.Server
     ///     Tipo de la enumeración de las respuestas que este protocolo
     ///     devolverá a los clientes conectados.
     /// </typeparam>
-    [SuppressMessage("ReSharper", "StaticMemberInGenericType")]
     public abstract class SelfWiredCommandProtocol<TClient, TCommand, TResponse> : ServerProtocol<TClient>
         where TClient : Client where TCommand : struct, Enum where TResponse : struct, Enum
     {
@@ -66,10 +57,10 @@ namespace TheXDS.MCART.Networking.Server
         /// </summary>
         public delegate void CommandCallback(object instance, BinaryReader br, TClient client, Server<TClient> server);
 
-        private static readonly TResponse? ErrResponse;
-        private static readonly TResponse? NotMappedResponse;
-        private static readonly MethodInfo ReadCmd;
-        private static readonly TResponse? UnkResponse;
+        private static readonly TResponse? _errResponse;
+        private static readonly TResponse? _notMappedResponse;
+        private static readonly MethodInfo _readCmd;
+        private static readonly TResponse? _unkResponse;
 
         private readonly Dictionary<TCommand, CommandCallback> _commands =
             new Dictionary<TCommand, CommandCallback>();
@@ -93,15 +84,15 @@ namespace TheXDS.MCART.Networking.Server
             ToResponse = EnumExtensions.ToBytes<TResponse>();
 
             var tCmd = typeof(TCommand).GetEnumUnderlyingType();
-            ReadCmd = typeof(BinaryReader).GetMethods().FirstOrDefault(p =>
+            _readCmd = typeof(BinaryReader).GetMethods().FirstOrDefault(p =>
                           p.Name.StartsWith("Read")
                           && p.GetParameters().Length == 0
                           && p.ReturnType == tCmd)
                       ?? throw new PlatformNotSupportedException();
             var vals = Enum.GetValues(typeof(TResponse)).OfType<TResponse?>().ToArray();
-            ErrResponse = vals.FirstOrDefault(p => p.HasAttr<ErrorResponseAttribute>());
-            UnkResponse = vals.FirstOrDefault(p => p.HasAttr<UnknownResponseAttribute>());
-            NotMappedResponse = vals.FirstOrDefault(p => p.HasAttr<NotMappedResponseAttribute>());
+            _errResponse = vals.FirstOrDefault(p => p.HasAttr<ErrorResponseAttribute>());
+            _unkResponse = vals.FirstOrDefault(p => p.HasAttr<UnknownResponseAttribute>());
+            _notMappedResponse = vals.FirstOrDefault(p => p.HasAttr<NotMappedResponseAttribute>());
         }
 
         /// <summary>
@@ -272,7 +263,7 @@ namespace TheXDS.MCART.Networking.Server
         /// </returns>
         public static TCommand ReadCommand(BinaryReader br)
         {
-            return (TCommand) Enum.ToObject(typeof(TCommand), ReadCmd.Invoke(br, new object[0]));
+            return (TCommand) Enum.ToObject(typeof(TCommand), _readCmd.Invoke(br, new object[0]));
         }
 
         /// <inheritdoc />
@@ -293,7 +284,7 @@ namespace TheXDS.MCART.Networking.Server
                 var c = ReadCommand(br);
 
                 if (!Enum.IsDefined(typeof(TCommand), c))
-                    client.Send(ToResponse(UnkResponse ?? ErrResponse ?? throw new InvalidOperationException()));
+                    client.Send(ToResponse(_unkResponse ?? _errResponse ?? throw new InvalidOperationException()));
 
                 if (_commands.ContainsKey(c))
                     try
@@ -302,11 +293,11 @@ namespace TheXDS.MCART.Networking.Server
                     }
                     catch
                     {
-                        client.Send(ToResponse(ErrResponse ?? throw new InvalidOperationException()));
+                        client.Send(ToResponse(_errResponse ?? throw new InvalidOperationException()));
                     }
                 else
                     client.Send(
-                        ToResponse(NotMappedResponse ?? ErrResponse ?? throw new InvalidOperationException()));
+                        ToResponse(_notMappedResponse ?? _errResponse ?? throw new InvalidOperationException()));
             }
         }
     }

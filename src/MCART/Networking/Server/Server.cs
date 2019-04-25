@@ -24,6 +24,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -34,15 +36,6 @@ using System.Threading.Tasks;
 using TheXDS.MCART.Events;
 using TheXDS.MCART.Exceptions;
 using static TheXDS.MCART.Networking.Common;
-
-#region Configuración de ReSharper
-
-// ReSharper disable EventNeverSubscribedTo.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable UnusedMember.Global
-
-#endregion
 
 namespace TheXDS.MCART.Networking.Server
 {
@@ -123,6 +116,62 @@ namespace TheXDS.MCART.Networking.Server
         ///     este servidor.
         /// </summary>
         public new IEnumerable<TClient> Clients => base.Clients.OfType<TClient>();
+
+        /// <summary>
+        ///     Envía un mensaje a todos los clientes, excepto el especificado.
+        /// </summary>
+        /// <param name="data">Mensaje a enviar a los clientes.</param>
+        /// <param name="client">Cliente que envía los datos.</param>
+        public void Broadcast(byte[] data, TClient client)
+        {
+            Multicast(data, client.IsNot);
+        }
+
+        /// <summary>
+        ///     Envía un mensaje a todos los clientes que satisfacen la
+        ///     condición especificada por <paramref name="condition" />.
+        /// </summary>
+        /// <param name="data">Mensaje a enviar a los clientes.</param>
+        /// <param name="condition">
+        ///     Condición que determina a los clientes que recibirán el mensaje.
+        /// </param>
+        public void Multicast(byte[] data, Predicate<TClient> condition)
+        {
+            foreach (var j in Clients) if (condition(j)) j.Send(data);
+        }
+
+        /// <summary>
+        ///     Envía un mensaje a todos los clientes, excepto el especificado.
+        /// </summary>
+        /// <returns>
+        ///     Un <see cref="Task" /> que representa esta tarea.
+        /// </returns>
+        /// <param name="data">Mensaje a enviar a los clientes.</param>
+        /// <param name="client">Cliente que envía los datos.</param>
+        public Task BroadcastAsync(byte[] data, TClient client)
+        {
+            return MulticastAsync(data, client.IsNot);
+        }
+
+        /// <summary>
+        ///     Envía un mensaje a todos los clientes que satisfacen la
+        ///     condición especificada por <paramref name="condition" />.
+        /// </summary>
+        /// <returns>
+        ///     Un <see cref="Task" /> que representa esta tarea.
+        /// </returns>
+        /// <param name="data">Mensaje a enviar a los clientes.</param>
+        /// <param name="condition">
+        ///     Condición que determina a los clientes que recibirán el mensaje.
+        /// </param>
+        public Task MulticastAsync(byte[] data, Predicate<TClient> condition)
+        {
+            var w = new HashSet<Task>();
+            foreach (var j in Clients)
+                if (condition(j))
+                    w.Add(j.SendAsync(data));
+            return Task.WhenAll(w);
+        }
     }
 
     /// <summary>
@@ -227,7 +276,7 @@ namespace TheXDS.MCART.Networking.Server
         /// <exception cref="ArgumentNullException">
         ///     Se produce si <paramref name="protocol" /> es <see langword="null" />.
         /// </exception>
-        public Server(IProtocol protocol, IPEndPoint ep)
+        public Server(IProtocol protocol, IPEndPoint? ep)
         {
             Protocol = protocol ?? throw new ArgumentNullException(nameof(protocol));
             if (Protocol is IServerProtocol p) p.MyServer = this;
@@ -367,7 +416,7 @@ namespace TheXDS.MCART.Networking.Server
         ///     El <see cref="TcpClient" /> conectado. Si el servidor se detiene, se
         ///     devuelve <see langword="null" />.
         /// </returns>
-        private async Task<TcpClient> GetClient()
+        private async Task<TcpClient?> GetClient()
         {
             //Necesario para poder detener el lambda
             //de espera sin matar al servidor.
@@ -487,9 +536,9 @@ namespace TheXDS.MCART.Networking.Server
         /// </summary>
         /// <param name="data">Mensaje a enviar a los clientes.</param>
         /// <param name="client">Cliente que envía los datos.</param>
-        public void Broadcast(byte[] data, Client client)
+        public void Broadcast(byte[] data, Client? client)
         {
-            Multicast(data, client.IsNot);
+            Multicast(data, c => c?.IsNot(client) ?? true);
         }
 
         /// <summary>
@@ -527,9 +576,9 @@ namespace TheXDS.MCART.Networking.Server
         /// </returns>
         /// <param name="data">Mensaje a enviar a los clientes.</param>
         /// <param name="client">Cliente que envía los datos.</param>
-        public Task BroadcastAsync(byte[] data, Client client)
+        public Task BroadcastAsync(byte[] data, Client? client)
         {
-            return MulticastAsync(data, client.IsNot);
+            return MulticastAsync(data, c => c?.IsNot(client) ?? true);
         }
 
         /// <summary>

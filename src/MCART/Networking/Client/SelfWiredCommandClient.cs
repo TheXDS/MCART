@@ -36,15 +36,6 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
 
-#region Configuración de ReSharper
-
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable EventNeverSubscribedTo.Global
-
-#endregion
-
 namespace TheXDS.MCART.Networking.Client
 {
     /// <inheritdoc />
@@ -300,7 +291,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <summary>
         ///     Inicia la escucha activa del servidor.
         /// </summary>
-        protected override async void PostConnection()
+        protected override async sealed void PostConnection()
         {
             while (GetNs() is NetworkStream ns)
             {

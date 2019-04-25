@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,14 +32,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
-
-#region Configuración de ReSharper
-
-// ReSharper disable UnusedMember.Global
-// ReSharper disable ClassNeverInstantiated.Global
-// ReSharper disable MemberCanBePrivate.Global
-
-#endregion
 
 namespace TheXDS.MCART.Networking.Server
 {
@@ -57,7 +51,7 @@ namespace TheXDS.MCART.Networking.Server
         ///     el cliente remoto, o <see langword="null"/> si no existe una
         ///     conexión activa válida.
         /// </returns>
-        protected NetworkStream NwStream()
+        protected NetworkStream? NwStream()
         {
             try
             {
@@ -87,7 +81,7 @@ namespace TheXDS.MCART.Networking.Server
         /// <summary>
         ///     Obtiene el <see cref="IPEndPoint" /> remoto del cliente.
         /// </summary>
-        public IPEndPoint EndPoint
+        public IPEndPoint? EndPoint
         {
             get
             {
@@ -332,7 +326,7 @@ namespace TheXDS.MCART.Networking.Server
         /// </returns>
         public Task SendAsync(byte[] data)
         {
-            return NwStream()?.WriteAsync(data, 0, data.Length);
+            return NwStream()?.WriteAsync(data, 0, data.Length) ?? Task.CompletedTask;
         }
 
         /// <summary>
@@ -348,7 +342,7 @@ namespace TheXDS.MCART.Networking.Server
         /// </returns>
         public Task SendAsync(byte[] data, CancellationToken cancellationToken)
         {
-            return NwStream()?.WriteAsync(data, 0, data.Length, cancellationToken);
+            return NwStream()?.WriteAsync(data, 0, data.Length, cancellationToken) ?? Task.CompletedTask;
         }
     }
 
@@ -362,6 +356,7 @@ namespace TheXDS.MCART.Networking.Server
     /// </typeparam>
     public class Client<T> : Client
     {
+#nullable disable
         /// <summary>
         ///     Contiene un objeto de estado personalizado asociado a esta
         ///     instancia de la clase <see cref="Client{T}" />.
@@ -379,5 +374,6 @@ namespace TheXDS.MCART.Networking.Server
         public Client(TcpClient connection) : base(connection)
         {
         }
+#nullable enable
     }
 }
