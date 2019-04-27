@@ -9,6 +9,8 @@
     [switch]$Help
 )
 
+$roth = Split-Path $MyInvocation.MyCommand.Path -Parent | Write-Output
+
 if ($Help)
 {
     "Herramineta de publicación en NuGet de MCART"
@@ -60,21 +62,21 @@ else
     }
 }
 
-if ($Clean -and [System.IO.Directory]::Exists("..\build\$Folder"))
+if ($Clean -and [System.IO.Directory]::Exists("$roth\..\build\$Folder"))
 {
     if ($Version)
     {
         Write-Warning "No debería utilizar el switch -Version junto con -Clean."
     }
-    Remove-Item ..\build\$Folder -Force -Recurse
+    Remove-Item $roth\..\build\$Folder -Force -Recurse
 }
 
-if (![System.IO.Directory]::Exists("..\build\$Folder"))
+if (![System.IO.Directory]::Exists("$roth\..\build\$Folder"))
 {
     dotnet build -p:Configuration=$Folder
 }
 
-foreach ($j in Get-ChildItem ..\build\$Folder\*$Subfix.nupkg)
+foreach ($j in Get-ChildItem $roth\..\build\$Folder\*$Subfix.nupkg)
 {
     if (!$Symbols -and $j.FullName.EndsWith(".symbols.nupkg"))
     {
