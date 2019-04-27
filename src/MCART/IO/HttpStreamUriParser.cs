@@ -27,10 +27,10 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.IO;
-using TheXDS.MCART.Types.Base;
 using System.Net;
 using System.Threading.Tasks;
 using TheXDS.MCART.Networking;
+using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.IO
 {
@@ -62,16 +62,31 @@ namespace TheXDS.MCART.IO
         ///     Un <see cref="Stream"/> que permite obtener el recurso apuntado
         ///     por el <see cref="Uri"/> especificado.
         /// </returns>
-        public override Stream Open(Uri uri)
+        public override Stream? Open(Uri uri)
         {
             var req = WebRequest.Create(uri);
             req.Timeout = 10000;
-            return req.GetResponse().GetResponseStream();
+            return req.GetResponse()?.GetResponseStream();
         }
 
+        /// <summary>
+        ///     Obtiene un valor que indica si este objeto prefiere
+        ///     transferencias completas a la hora de exponer un 
+        ///     <see cref="Stream"/>.
+        /// </summary>
         public override bool PreferFullTransfer => true;
 
-        public override async Task<Stream> OpenFullTransferAsync(Uri uri)
+        /// <summary>
+        ///     Abre un <see cref="Stream"/> desde el <see cref="Uri"/>
+        ///     especificado, haciendo una transferencia completa a la memoria
+        ///     del equipo.
+        /// </summary>
+        /// <param name="uri">Dirección web a resolver.</param>
+        /// <returns>
+        ///     Un <see cref="Stream"/> que permite obtener el recurso apuntado
+        ///     por el <see cref="Uri"/> especificado.
+        /// </returns>
+        public new async Task<MemoryStream> OpenFullTransferAsync(Uri uri)
         {
             var ms = new MemoryStream();
             await DownloadHelper.DownloadHttpAsync(uri, ms);

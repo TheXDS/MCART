@@ -50,8 +50,22 @@ namespace TheXDS.MCART.Types.Extensions
             return member.GetAttr<NameAttribute>()?.Value ?? member.Name;
         }
     }
+
+    /// <summary>
+    ///     Contiene extensiones para la clase <see cref="MethodInfo"/>.
+    /// </summary>
     public static class MethodInfoExtensions
     {
+        /// <summary>
+        ///     Crea un delegado del tipo especificado a partir del método.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de delegado a obtener.
+        /// </typeparam>
+        /// <param name="m">Método del cual obtener un delegado.</param>
+        /// <returns>
+        ///     Un delegado del tipo especificado a partir del método.
+        /// </returns>
         public static T ToDelegate<T>(this MethodInfo m) where T : Delegate
         {
             if (m.IsSignatureCompatible<Func<object, bool>>())

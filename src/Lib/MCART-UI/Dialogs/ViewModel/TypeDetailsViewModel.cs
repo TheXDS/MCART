@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,10 +33,17 @@ using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Dialogs.ViewModel
 {
+    /// <summary>
+    ///     Contiene la lógica de control básica para la ventana de detalles de
+    ///     tipos.
+    /// </summary>
     public class TypeDetailsViewModel : NotifyPropertyChanged
     {
-        private Type _type;
+        private Type? _type;
 
+        /// <summary>
+        ///     Obtiene los tipos base del tipo especificado.
+        /// </summary>
         public IEnumerable<Type> BaseTypes
         {
             get
@@ -48,29 +57,66 @@ namespace TheXDS.MCART.Dialogs.ViewModel
             }
         }
 
-        public static TypeDetailsViewModel Create => new TypeDetailsViewModel(null);
+        /// <summary>
+        ///     Crea una nueva instancia de la clase
+        ///     <see cref="TypeDetailsViewModel"/>.
+        /// </summary>
+        public static TypeDetailsViewModel Create => new TypeDetailsViewModel();
 
+        /// <summary>
+        ///     Obtiene una representación como cadena del valor predeterminado
+        ///     del tipo para el cual se están mostrando los detalles.
+        /// </summary>
         public string DefaultValue => Type?.Default()?.ToString() ?? "null";
 
-        public IEnumerable<Type> Inheritances => Type?.GetInterfaces();
+        /// <summary>
+        ///     Enumera todas las interfaces implementadas o heredadas del tipo
+        ///     para el cual se están mostrando los detalles.
+        /// </summary>
+        public IEnumerable<Type>? Inheritances => Type?.GetInterfaces();
 
-        public IEnumerable<TypeDetailsViewModel> InheritancesVm
-            => Inheritances?.Select(p => new TypeDetailsViewModel(p));
+        /// <summary>
+        ///     Enumera las interfaces heredadas del tipo para el cual se están
+        ///     mostrando los detalles dentro de una nueva instancia de la
+        ///     clase <see cref="TypeDetailsViewModel"/>.
+        /// </summary>
+        public IEnumerable<TypeDetailsViewModel>? InheritancesVm => Inheritances?.Select(p => new TypeDetailsViewModel(p));
 
-        public bool Instantiable => Type.IsInstantiable();
+        /// <summary>
+        ///     Obtiene un valor que indica si el tipo es instanciable con un
+        ///     constructor público sin argumentos.
+        /// </summary>
+        public bool Instantiable => Type?.IsInstantiable() ?? false;
 
-        public bool IsDynamic => Type.Assembly.IsDynamic;
+        /// <summary>
+        ///     Obtiene un valor que indica si el tipo ha sido definido dentro
+        ///     de un ensamblado dinámico.
+        /// </summary>
+        public bool IsDynamic => Type?.Assembly.IsDynamic ??  false;
 
-        public bool IsStatic => Type.IsAbstract && Type.IsSealed;
+        /// <summary>
+        ///     Obtiene un valor que indica si el tipo es estático, es decir si
+        ///     es abstracto y sellado a la vez.
+        /// </summary>
+        public bool IsStatic => Type is null ? false : Type.IsAbstract && Type.IsSealed;
 
-        public IEnumerable<IGrouping<MemberTypes, MemberInfo>> MemberTree
-        {
-            get { return Type?.GetMembers().GroupBy(p => p.MemberType); }
-        }
+        /// <summary>
+        ///     Enumera de forma agrupara el árbol de miembros definidos dentro
+        ///     del tipo para el cual se están mostrando los detalles.
+        /// </summary>
+        public IEnumerable<IGrouping<MemberTypes, MemberInfo>>? MemberTree => Type?.GetMembers().GroupBy(p => p.MemberType);
 
-        public object NewValue => Type.IsInstantiable() ? Type.New() : null;
+        /// <summary>
+        ///     Obtiene un valor instanciado sin argumentos del tipo para el
+        ///     cual se están mostrando los detalles.
+        /// </summary>
+        public object? NewValue => (Type?.IsInstantiable() ?? false) ? Type?.New() : null;
 
-        public Type Type
+        /// <summary>
+        ///     Obtiene o establece el tipo para el cual se están mostrando los
+        ///     detalles.
+        /// </summary>
+        public Type? Type
         {
             get => _type;
             set
@@ -90,11 +136,22 @@ namespace TheXDS.MCART.Dialogs.ViewModel
             }
         }
 
-        public TypeDetailsViewModel()
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase 
+        ///     <see cref="TypeDetailsViewModel"/>.
+        /// </summary>
+        public TypeDetailsViewModel() : this(null)
         {
         }
 
-        public TypeDetailsViewModel(Type type)
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase 
+        ///     <see cref="TypeDetailsViewModel"/>.
+        /// </summary>
+        /// <param name="type">
+        ///     Tipo para el cual se mostrarán los detalles.
+        /// </param>
+        public TypeDetailsViewModel(Type? type)
         {
             Type = type;
         }

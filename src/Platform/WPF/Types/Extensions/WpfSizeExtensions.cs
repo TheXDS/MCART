@@ -24,12 +24,39 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 namespace TheXDS.MCART.Types.Extensions
 {
+    /// <summary>
+    ///     Extensiones de la clase <see cref="Size"/> para WPF.
+    /// </summary>
     public static class WpfSizeExtensions
     {
+        /// <summary>
+        ///     Convierte un <see cref="Size"/> en un
+        ///     <see cref="System.Windows.Size"/>.
+        /// </summary>
+        /// <param name="size">
+        ///     <see cref="Size"/> a convertir.
+        /// </param>
+        /// <returns>
+        ///     Un nuevo <see cref="System.Windows.Size"/> creado a partir del
+        ///     <see cref="Size"/> especificado.
+        /// </returns>
         public static System.Windows.Size ToWinSize(this Size size)
         {
             return new System.Windows.Size(size.Width, size.Height);
         }
+
+        /// <summary>
+        ///     Convierte un <see cref="System.Windows.Size"/> en un
+        ///     <see cref="Size"/>.
+        /// </summary>
+        /// <param name="size">
+        ///     <see cref="System.Windows.Size"/> a convertir.
+        /// </param>
+        /// <returns>
+        ///     Un nuevo <see cref="Size"/> creado a partir del
+        ///     <see cref="System.Windows.Size"/> especificado.
+        /// </returns>
+
         public static Size FromWinSize(this System.Windows.Size size)
         {
             return new Size(size.Width, size.Height);

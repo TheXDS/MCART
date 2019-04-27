@@ -50,7 +50,7 @@ namespace TheXDS.MCART.PluginSupport
     /// </summary>
     public class PluginLoader : IPluginLoader
     {
-        private const string DefaultPluginExtension = ".dll";
+        private const string _defaultPluginExtension = ".dll";
         private readonly IPluginChecker _checker;
         private readonly string _extension;
 
@@ -60,7 +60,7 @@ namespace TheXDS.MCART.PluginSupport
         ///     <see cref="T:TheXDS.MCART.PluginSupport.PluginLoader" /> utilizando el verificador
         ///     predeterminado.
         /// </summary>
-        public PluginLoader() : this(new DefaultPluginChecker(), DefaultPluginExtension)
+        public PluginLoader() : this(new DefaultPluginChecker(), _defaultPluginExtension)
         {
         }
 
@@ -90,7 +90,7 @@ namespace TheXDS.MCART.PluginSupport
         ///     compatibilidad de los plugins.
         /// </param>
         public PluginLoader(IPluginChecker pluginChecker) : this(pluginChecker, SanityChecks.Default,
-            DefaultPluginExtension)
+            _defaultPluginExtension)
         {
         }
 
@@ -149,7 +149,7 @@ namespace TheXDS.MCART.PluginSupport
         ///     Se produce si <paramref name="pluginChecker" /> es <see langword="null" />.
         /// </exception>
         public PluginLoader(IPluginChecker pluginChecker, SanityChecks sanityChecks) : this(pluginChecker, sanityChecks,
-            DefaultPluginExtension)
+            _defaultPluginExtension)
         {
         }
 
@@ -511,16 +511,17 @@ namespace TheXDS.MCART.PluginSupport
         }
 
         /// <summary>
-        ///     Carga todos los <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" /> contenidos en el ensamblado.
+        ///     Carga todos los <see cref="IPlugin" /> contenidos en el
+        ///     ensamblado.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="T:System.Collections.Generic.IEnumerable`1" /> con los
-        ///     <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />
+        ///     Un <see cref="IEnumerable{T}" /> con los <see cref="IPlugin" />
         ///     encontrados.
         /// </returns>
-        /// <param name="assembly"><see cref="T:System.Reflection.Assembly" /> a cargar.</param>
+        /// <param name="assembly"><see cref="Assembly" /> a cargar.</param>
         /// <param name="predicate">
-        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
+        ///     Función que evalúa si un tipo que implementa
+        ///     <see cref="IPlugin" /> debería ser cargado o no.
         /// </param>
 #if PreferExceptions
         /// <exception cref="NotPluginException">
@@ -530,10 +531,7 @@ namespace TheXDS.MCART.PluginSupport
 #endif
         public IEnumerable<IPlugin> LoadAll(Assembly assembly, Func<Type, bool> predicate)
         {
-            bool IsTypeCompatible(Type p)
-            {
-                return _checker.IsValid(p) && (_checker.IsCompatible(p) ?? false) && (predicate?.Invoke(p) ?? true);
-            }
+            bool IsTypeCompatible(Type p) => _checker.IsValid(p) && (_checker.IsCompatible(p) ?? false) && (predicate?.Invoke(p) ?? true);
 #if PreferExceptions
             if (!checker.IsVaild(assembly)) throw new NotPluginException(assembly);
 #else
@@ -543,21 +541,45 @@ namespace TheXDS.MCART.PluginSupport
                     yield return j.New() as IPlugin;
         }
 
+        /// <summary>
+        ///     Carga todos los <see cref="IPlugin" /> contenidos en el
+        ///     ensamblado de forma asíncrona.
+        /// </summary>
+        /// <returns>
+        ///     Un <see cref="IEnumerable{T}" /> con los <see cref="IPlugin" />
+        ///     encontrados.
+        /// </returns>
+        /// <param name="assembly"><see cref="Assembly" /> a cargar.</param>
+        /// <param name="predicate">
+        ///     Función que evalúa si un tipo que implementa
+        ///     <see cref="IPlugin" /> debería ser cargado o no.
+        /// </param>
         public async Task<IEnumerable<IPlugin>> LoadAllAsync(Assembly assembly, Func<Type, bool> predicate)
         {
-            bool IsTypeCompatible(Type p)
-            {
-                return _checker.IsValid(p) && (_checker.IsCompatible(p) ?? false) && (predicate?.Invoke(p) ?? true);
-            }
+            bool IsTypeCompatible(Type p) => _checker.IsValid(p) && (_checker.IsCompatible(p) ?? false) && (predicate?.Invoke(p) ?? true);
             if (await Task.Run(() => _checker.IsVaild(assembly)))
             {
-                return assembly.GetTypes().Where(IsTypeCompatible).Select(p=>p.New<IPlugin>());
+                return assembly.GetTypes().Where(IsTypeCompatible).Select(p => p.New<IPlugin>());
             }
 #if PreferExceptions
             else { throw new NotPluginException(assembly); }
 #endif
             return new IPlugin[0];
         }
+
+        /// <summary>
+        ///     Carga todos los <see cref="IPlugin" /> contenidos en el
+        ///     ensamblado de forma asíncrona.
+        /// </summary>
+        /// <returns>
+        ///     Un <see cref="IEnumerable{T}" /> con los <see cref="IPlugin" />
+        ///     encontrados.
+        /// </returns>
+        /// <param name="assembly"><see cref="Assembly" /> a cargar.</param>
+        /// <param name="predicate">
+        ///     Función que evalúa si un tipo que implementa
+        ///     <see cref="IPlugin" /> debería ser cargado o no.
+        /// </param>
         public async Task<IEnumerable<T>> LoadAllAsync<T>(Assembly assembly, Func<Type, bool> predicate) where T : class
         {
             return (await LoadAllAsync(assembly, predicate)).OfType<T>();
@@ -688,7 +710,7 @@ namespace TheXDS.MCART.PluginSupport
         {
             return LoadEverything<IPlugin>(pluginsPath, search, predicate);
         }
-        
+
         /// <summary>
         ///     Carga todos los plugins de todos los ensamblados en el directorio.
         /// </summary>
@@ -701,7 +723,7 @@ namespace TheXDS.MCART.PluginSupport
         /// </typeparam>
         public IEnumerable<T> LoadEverything<T>() where T : class
         {
-            return LoadEverything<T>((Func<Type, bool>) null);
+            return LoadEverything<T>((Func<Type, bool>)null);
         }
 
         /// <summary>
@@ -881,7 +903,7 @@ namespace TheXDS.MCART.PluginSupport
                 Assembly a = null;
                 try
                 {
-                    a = await Task.Run(()=>Assembly.LoadFrom(f.FullName));
+                    a = await Task.Run(() => Assembly.LoadFrom(f.FullName));
                 }
                 catch
                 {
@@ -924,7 +946,6 @@ namespace TheXDS.MCART.PluginSupport
         /// <param name="pluginsPath">
         ///     Ruta del directorio que contiene los archivos a cargar.
         /// </param>
-        /// <param name="search">Modo de búsqueda.</param>
         /// <typeparam name="T">
         ///     Tipo de <see cref="IPlugin" /> a cargar.
         /// </typeparam>

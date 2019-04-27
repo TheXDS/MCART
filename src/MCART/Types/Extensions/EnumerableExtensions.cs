@@ -92,8 +92,8 @@ namespace TheXDS.MCART.Types.Extensions
         {
             bool Compare(T value)
             {
-                return value.GetType().Default() == null 
-                    ? value.IsNeither(exclusions.AsEnumerable()) 
+                return value.GetType().Default() == null
+                    ? value.IsNeither(exclusions.AsEnumerable())
                     : !exclusions.Contains(value);
             }
 
@@ -562,10 +562,10 @@ namespace TheXDS.MCART.Types.Extensions
                     var c = new ExtendedList<T>();
 
                     // HACK: Enumeración manual
-                    while(e.MoveNext()) c.Add(e.Current);
+                    while (e.MoveNext()) c.Add(e.Current);
                     while (j-- > steps) yield return default;
                     j += c.Count;
-                    while (j-->=0) yield return c.PopFirst();
+                    while (j-- >= 0) yield return c.PopFirst();
                 }
             }
         }
@@ -594,6 +594,21 @@ namespace TheXDS.MCART.Types.Extensions
             return !eb.MoveNext();
         }
 
+        /// <summary>
+        ///     Comprueba si la enumeración <paramref name="a"/> contiene a 
+        ///     todos los elementos de la enumeración <paramref name="b"/>.
+        /// </summary>
+        /// <param name="a">
+        ///     Enumeración a comprobar.
+        /// </param>
+        /// <param name="b">
+        ///     Elementos que deben existir en <paramref name="a"/>.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> si <paramref name="a"/> contiene a todos
+        ///     los elementos de <paramref name="b"/>, <see langword="false"/>
+        ///     en caso contrario.
+        /// </returns>
         public static bool ContainsAll(this IEnumerable<object> a, IEnumerable b)
         {
             foreach (var j in b)
@@ -602,10 +617,43 @@ namespace TheXDS.MCART.Types.Extensions
             }
             return true;
         }
+
+        /// <summary>
+        ///     Comprueba si la enumeración <paramref name="a"/> contiene a 
+        ///     todos los elementos de la enumeración <paramref name="b"/>.
+        /// </summary>
+        /// <param name="a">
+        ///     Enumeración a comprobar.
+        /// </param>
+        /// <param name="b">
+        ///     Elementos que deben existir en <paramref name="a"/>.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> si <paramref name="a"/> contiene a todos
+        ///     los elementos de <paramref name="b"/>, <see langword="false"/>
+        ///     en caso contrario.
+        /// </returns>
         public static bool ContainsAll(this IEnumerable<object> a, params object[] b)
         {
             return ContainsAll(a, b.AsEnumerable());
         }
+
+        /// <summary>
+        ///     Comprueba si la enumeración <paramref name="a"/> contiene a 
+        ///     cualquiera de los elementos de la enumeración
+        ///     <paramref name="b"/>.
+        /// </summary>
+        /// <param name="a">
+        ///     Enumeración a comprobar.
+        /// </param>
+        /// <param name="b">
+        ///     Elementos que deben existir en <paramref name="a"/>.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> si <paramref name="a"/> contiene a
+        ///     cualquiera de los elementos de <paramref name="b"/>,
+        ///     <see langword="false"/> en caso contrario.
+        /// </returns>
         public static bool ContainsAny(this IEnumerable<object> a, IEnumerable b)
         {
             foreach (var j in b)
@@ -614,10 +662,26 @@ namespace TheXDS.MCART.Types.Extensions
             }
             return false;
         }
+
+        /// <summary>
+        ///     Comprueba si la enumeración <paramref name="a"/> contiene a 
+        ///     cualquiera de los elementos de la enumeración
+        ///     <paramref name="b"/>.
+        /// </summary>
+        /// <param name="a">
+        ///     Enumeración a comprobar.
+        /// </param>
+        /// <param name="b">
+        ///     Elementos que deben existir en <paramref name="a"/>.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> si <paramref name="a"/> contiene a
+        ///     cualquiera de los elementos de <paramref name="b"/>,
+        ///     <see langword="false"/> en caso contrario.
+        /// </returns>
         public static bool ContainsAny(this IEnumerable<object> a, params object[] b)
         {
             return ContainsAny(a, b.AsEnumerable());
         }
-
     }
 }

@@ -53,6 +53,18 @@ namespace TheXDS.MCART.ViewModel
         /// </remarks>
         new T Entity { get; set; }
     }
+
+    /// <summary>
+    ///     Define una serie de miembros a implementar por una clase que
+    ///     permita establecer u obtener un modelo de datos a la cual poder
+    ///     manipular.
+    /// </summary>
+    /// <remarks>
+    ///     Se recomienda que esta interfaz sea implementada de forma
+    ///     abstracta, ya que la clase <see cref="ViewModelFactory"/> invalidará
+    ///     estos miembros, por lo que las implementaciones directas de estos
+    ///     miembros en la clase base se ignorarán por medio de Shadowing.
+    /// </remarks>
     public interface IDynamicViewModel : IRefreshable, INotifyPropertyChanged
     {
         /// <summary>

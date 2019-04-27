@@ -42,38 +42,102 @@ namespace TheXDS.MCART.Dialogs
             SizeToContent = SizeToContent.WidthAndHeight;
             Content = page;
         }
+
+        /// <summary>
+        ///     Muestra un cuadro de diálogo con información sobre la
+        ///     aplicación de WPF especificada.
+        /// </summary>
+        /// <param name="app">
+        ///     Aplicación sobre la cual mostrar información.
+        /// </param>
         public static void Show(Application app)
         {
             Show(app.GetType().Assembly);
         }
+
+        /// <summary>
+        ///     Muestra un cuadro de diálogo modal con información sobre la
+        ///     aplicación de WPF especificada.
+        /// </summary>
+        /// <param name="app">
+        ///     Aplicación sobre la cual mostrar información.
+        /// </param>
         public static void ShowDialog(Application app)
         {
             ShowDialog(app.GetType().Assembly);
         }
 
+        /// <summary>
+        ///     Muestra un cuadro de diálogo con información sobre el
+        ///     ensamblado especificado.
+        /// </summary>
+        /// <param name="assembly">
+        ///     Ensamblado sobre el cual mostrar información.
+        /// </param>
         public static void Show(Assembly assembly)
         {
             new AboutBox(new AboutPage(assembly)).Show();
         }
+
+        /// <summary>
+        ///     Muestra un cuadro de diálogo modal con información sobre el
+        ///     ensamblado especificado.
+        /// </summary>
+        /// <param name="assembly">
+        ///     Ensamblado sobre el cual mostrar información.
+        /// </param>
         public static void ShowDialog(Assembly assembly)
         {
             new AboutBox(new AboutPage(assembly)).ShowDialog();
         }
 
+        /// <summary>
+        ///     Muestra un cuadro de diálogo con información sobre el
+        ///     <see cref="ApplicationInfo"/> especificado.
+        /// </summary>
+        /// <param name="appInfo">
+        ///     <see cref="ApplicationInfo"/> sobre el cual mostrar
+        ///     información.
+        /// </param>
         public static void Show(ApplicationInfo appInfo)
         {
             new AboutBox(new AboutPage(appInfo)).Show();
         }
+
+        /// <summary>
+        ///     Muestra un cuadro de diálogo modal con información sobre el
+        ///     <see cref="ApplicationInfo"/> especificado.
+        /// </summary>
+        /// <param name="appInfo">
+        ///     <see cref="ApplicationInfo"/> sobre el cual mostrar
+        ///     información.
+        /// </param>
         public static void ShowDialog(ApplicationInfo appInfo)
         {
             new AboutBox(new AboutPage(appInfo)).ShowDialog();
         }
 
-
+        /// <summary>
+        ///     Muestra un cuadro de diálogo con información sobre el
+        ///     <see cref="IExposeInfo"/> especificado.
+        /// </summary>
+        /// <param name="info">
+        ///     <see cref="IExposeInfo"/> sobre el cual mostrar
+        ///     información.
+        /// </param>
         public static void Show(IExposeAssembly info)
         {
             new AboutBox(new AboutPage(info.Assembly)).Show();
         }
+
+        /// <summary>
+        ///     Muestra un cuadro de diálogo modal con información sobre el
+        ///     <see cref="IExposeInfo"/> especificado.
+        /// </summary>
+        /// <param name="info">
+        ///     <see cref="IExposeInfo"/> sobre el cual mostrar
+        ///     información.
+        /// </param>
         public static void ShowDialog(IExposeAssembly info)
         {
             new AboutBox(new AboutPage(info.Assembly)).ShowDialog();

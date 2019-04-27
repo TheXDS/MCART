@@ -22,17 +22,26 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System.Collections.Generic;
 using TheXDS.MCART.PluginSupport;
 using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Dialogs.ViewModel
 {
+    /// <summary>
+    ///     Implementa la lógica de presentación de una ventana que permite ver
+    ///     detalles sobre los plugins encontrados en el directorio.
+    /// </summary>
     public class PluginBrowserViewModel : NotifyPropertyChanged
     {
-        private object _selection;
+        private object? _selection;
         private bool _showPlugins = true;
 
+        /// <summary>
+        ///     Enumera los plugins encontrados en el directorio actual.
+        /// </summary>
         public Dictionary<string, IEnumerable<IPlugin>> Plugins
         {
             get
@@ -49,7 +58,10 @@ namespace TheXDS.MCART.Dialogs.ViewModel
             }
         }
 
-        public object Selection
+        /// <summary>
+        ///     Obtiene o establece el plugin actualmente seleccionado.
+        /// </summary>
+        public object? Selection
         {
             get => _selection;
             set
@@ -61,6 +73,10 @@ namespace TheXDS.MCART.Dialogs.ViewModel
             }
         }
 
+        /// <summary>
+        ///     Obtiene o establece un valor que indica si el árbol de plugins
+        ///     debe ser visible.
+        /// </summary>
         public bool ShowPlugins
         {
             get => _showPlugins;

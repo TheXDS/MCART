@@ -22,24 +22,29 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
 
 using System.Linq;
 using System.Windows;
-using TheXDS.MCART.Exceptions;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using TheXDS.MCART.Component;
+using TheXDS.MCART.Exceptions;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
 namespace TheXDS.MCART.PluginSupport
 {
-    public abstract class WpfPlugin : Plugin, IWpfPlugin, IExposeInfo<UIElement>
+    /// <summary>
+    ///     <see cref="Plugin"/> específico para Windows Presentation
+    ///     Framework.
+    /// </summary>
+    public abstract class WpfPlugin : Plugin, IWpfPlugin, IExposeInfo<UIElement?>
     {
         /// <inheritdoc />
         /// <summary>
         ///     Obtiene un ícono opcional a mostrar que describe al elemento.
         /// </summary>
-        public virtual UIElement Icon => null;
+        public virtual UIElement? Icon => null;
 
         /// <summary>
         /// Genera un <see cref="MenuItem"/> a partir de las interacciones del
@@ -64,6 +69,7 @@ namespace TheXDS.MCART.PluginSupport
                 mnu.Items.Add(j.AsMenuItem());
             return mnu;
         }
+
         /// <summary>
         /// Obtiene la Interfaz de interacción de un <see cref="IPlugin"/> como
         /// un <typeparamref name="TPanel"/> cuyas acciones son controles de
@@ -90,6 +96,7 @@ namespace TheXDS.MCART.PluginSupport
                 pnl.Children.Add(j.AsButton<T>());
             return pnl;
         }
+
         /// <summary>
         /// Convierte el <see cref="IPlugin.PluginInteractions"/> en un
         /// <see cref="MenuItem"/>.
@@ -99,6 +106,7 @@ namespace TheXDS.MCART.PluginSupport
         /// <see cref="Menu"/> de Windows Presentation Framework.
         /// </value>
         public MenuItem UiMenu => GetUiMenu(this);
+
         /// <summary>
         /// Convierte el <see cref="IPlugin.PluginInteractions"/> en un
         /// <see cref="Panel"/>, especificando el tipo de controles a

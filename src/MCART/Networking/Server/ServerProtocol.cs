@@ -128,7 +128,6 @@ namespace TheXDS.MCART.Networking.Server
         /// <summary>
         ///     Obtiene una referencia al servidor activo de esta instancia.
         /// </summary>
-        /// <typeparam name="T">Tipo de clientes que el servidor atiende.</typeparam>
         protected Server<T> Server => ((IServerProtocol)this).MyServer as Server<T>;
 
         /// <inheritdoc />

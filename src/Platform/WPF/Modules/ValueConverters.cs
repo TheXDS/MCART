@@ -369,6 +369,7 @@ namespace System.Windows.Converters
         /// </summary>
         public T True { get; set; }
 
+#nullable disable
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="BoolFlagConverter{T}" />.
@@ -382,6 +383,8 @@ namespace System.Windows.Converters
             if (!typeof(T).IsEnum) throw new InvalidOperationException();
             True = (T)typeof(T).Default();
         }
+#nullable enable
+
 
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
@@ -538,7 +541,7 @@ namespace System.Windows.Converters
                     currentValue = tin;
                     break;
                 case string str:
-                    TypeConverter typeConverter;
+                    TypeConverter? typeConverter;
 
                     if (parameter.GetType().HasAttr(out TypeConverterAttribute tc))
                     {
@@ -548,7 +551,7 @@ namespace System.Windows.Converters
                     }
                     else { typeConverter = Common.FindConverter<string, TIn>(); }
 
-                    if (typeConverter is null) throw new ArgumentException(string.Empty, nameof(parameter));
+                    if (typeConverter is null) throw new InvalidCastException();//ArgumentException(string.Empty, nameof(parameter));
 
                     try
                     {
@@ -1687,7 +1690,7 @@ namespace System.Windows.Converters
         ///     Un <see cref="T:System.Windows.Thickness" /> uniforme cuyos valores de grosor son
         ///     iguales al valor especificado.
         /// </returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var f = parameter as Func<double, double>;
             return value is double v ? (object) new Thickness(f?.Invoke(v) ?? v) : null;
@@ -1709,7 +1712,7 @@ namespace System.Windows.Converters
         ///     Un <see cref="T:System.Double" /> cuyo valor es el promedio del grosor
         ///     establecido en el <see cref="T:System.Windows.Thickness" /> especificado.
         /// </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value is Thickness v ? (object) ((v.Top + v.Bottom + v.Left + v.Right) / 4.0) : null;
         }
@@ -1758,7 +1761,7 @@ namespace System.Windows.Converters
         ///     <c>-1</c> si <paramref name="value" /> es <see langword="true" />, <c>0</c> en
         ///     caso contrario.
         /// </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value is bool b ? (object) (b ? -1 : 0) : null;
         }
@@ -1987,7 +1990,7 @@ namespace System.Windows.Converters
         ///     Un nuevo <see cref="T:System.Windows.Media.Brush" /> con la opacidad establecida en este
         ///     <see cref="T:System.Windows.Converters.BrushOpacityAdjust" />.
         /// </returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (!(value is Brush brush)) return null;
             if (!(parameter is double opacity || !double.TryParse(value as string, out opacity)))
@@ -2013,7 +2016,7 @@ namespace System.Windows.Converters
         /// <returns>
         ///     Un nuevo <see cref="T:System.Windows.Media.Brush" /> con la opacidad al 100%.
         /// </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (!(value is Brush brush)) return null;
             var b = brush.Clone();
@@ -2546,7 +2549,7 @@ namespace System.Windows.Converters
         ///     Referencia cultural que se va a usar en el convertidor.
         /// </param>
         /// <returns></returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             double radius;
             switch (parameter)

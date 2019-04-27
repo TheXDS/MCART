@@ -62,7 +62,7 @@ namespace TheXDS.MCART.Component
         /// <summary>
         ///     Devuelve el nombre del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// </summary>
-        public string? Name => Assembly.GetAttr<NameAttribute>()?.Value ?? Assembly.GetAttr<AssemblyTitleAttribute>()?.Title;
+        public string Name => Assembly.GetAttr<NameAttribute>()?.Value ?? Assembly.GetAttr<AssemblyTitleAttribute>()?.Title ?? Assembly.GetName().FullName;
 
         /// <inheritdoc />
         /// <summary>

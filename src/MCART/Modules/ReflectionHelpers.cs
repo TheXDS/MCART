@@ -195,19 +195,30 @@ namespace TheXDS.MCART
             throw new ArgumentException();
         }
 
+        /// <summary>
+        ///     Infiere las <see cref="BindingFlags"/> utilizadas en la
+        ///     definición del método.
+        /// </summary>
+        /// <param name="method">
+        ///     Método para el cual inferir las <see cref="BindingFlags"/>.
+        /// </param>
+        /// <returns>
+        ///     Las <see cref="BindingFlags"/> inferidas basadas en las
+        ///     propiedades del método.
+        /// </returns>
         public static BindingFlags GetBindingFlags(this MethodBase method)
         {
             var retVal = BindingFlags.Default;
 
-            if ((method.Attributes & MethodAttributes.Public) != 0)
+            if (method.Attributes.HasFlag(MethodAttributes.Public))
             {
                 retVal |= BindingFlags.Public;
             }
-            if ((method.Attributes & MethodAttributes.Private) != 0)
+            if (method.Attributes.HasFlag(MethodAttributes.Private))
             {
                 retVal |= BindingFlags.NonPublic;
             }
-            if ((method.Attributes & MethodAttributes.Static) != 0)
+            if (method.Attributes.HasFlag(MethodAttributes.Static))
             {
                 retVal |= BindingFlags.Static;
             }

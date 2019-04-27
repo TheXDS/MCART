@@ -35,32 +35,39 @@ using static TheXDS.MCART.WpfUi;
 
 namespace TheXDS.MCART.Controls
 {
+    /// <summary>
+    ///     Control que presenta visualmente el progreso de una operación.
+    /// </summary>
     public partial class ProgressRing : UserControl
     {
         #region Miembros estáticos
-        static void Updt(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void Updt(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ((ProgressRing)d).Draw();
         }
-        static void Updt2(DependencyObject d, DependencyPropertyChangedEventArgs e)
+
+        private static void Updt2(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var p = (ProgressRing)d;
             p.SetValue(IsIndeterminateProperty, !p.Value.IsBetween(p.Minimum, p.Maximum));
             p.BgDraw();
             p.Draw();
         }
-        static void Updt3(DependencyObject d, DependencyPropertyChangedEventArgs e)
+
+        private static void Updt3(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var p = (ProgressRing)d;
             p.BgDraw();
             p.Draw();
         }
-        static void TxtFmt(DependencyObject d, DependencyPropertyChangedEventArgs e)
+
+        private static void TxtFmt(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var p = (ProgressRing)d;
-            p.TxtPercent.Text = string.Format(p.TextFormat, p.Value);
+            p._txtPercent.Text = string.Format(p.TextFormat, p.Value);
         }
         #endregion
+
         #region Propiedades de dependencia
         /// <summary>
         /// Identifica a la propiedad de dependencia <see cref="Angle"/>.
@@ -172,25 +179,27 @@ namespace TheXDS.MCART.Controls
             nameof(Value), typeof(double), typeof(ProgressRing),
             new PropertyMetadata(0.0, Updt2));
         #endregion
+
         #region Campos privados
-        bool amIAnimated = false;
-        Path ellBg = new Path();
-        Path redlinePath = new Path() { Stroke = new Types.Color(255, 0, 0, 192).Brush() };
-        Path pth = new Path()
+        private bool _amIAnimated = false;
+        private readonly Path _ellBg = new Path();
+        private readonly Path _redlinePath = new Path() { Stroke = new Types.Color(255, 0, 0, 192).Brush() };
+        private readonly Path _pth = new Path()
         {
             RenderTransform = new RotateTransform(),
             RenderTransformOrigin = new Point(0.5, 0.5)
         };
-        DoubleAnimationUsingKeyFrames spin = new DoubleAnimationUsingKeyFrames()
+        private readonly DoubleAnimationUsingKeyFrames _spin = new DoubleAnimationUsingKeyFrames()
         {
             RepeatBehavior = RepeatBehavior.Forever
         };
-        TextBlock TxtPercent = new TextBlock()
+        private readonly TextBlock _txtPercent = new TextBlock()
         {
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
         };
         #endregion
+
         #region Propiedades
         /// <summary>
         /// Obtiene o establece el ángulo desde el que se empezará a dibujar el
@@ -317,83 +326,87 @@ namespace TheXDS.MCART.Controls
             set => SetValue(ValueProperty, value);
         }
         #endregion
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="ProgressRing"/>.
         /// </summary>
         public ProgressRing()
         {
-            ellBg.SetBinding(Shape.StrokeThicknessProperty, new Binding(nameof(Thickness)) { Source = this });
-            ellBg.SetBinding(Shape.StrokeProperty, new Binding(nameof(RingStroke)) { Source = this });
-            redlinePath.SetBinding(Shape.StrokeThicknessProperty, new Binding(nameof(Thickness)) { Source = this });
-            redlinePath.SetBinding(Shape.StrokeProperty, new Binding(nameof(RedlineBrush)) { Source = this });
-            pth.SetBinding(Shape.StrokeThicknessProperty, new Binding(nameof(Thickness)) { Source = this });
-            pth.SetBinding(Shape.StrokeProperty, new Binding(nameof(Fill)) { Source = this });
-            spin.KeyFrames.Add(new EasingDoubleKeyFrame()
+            _ellBg.SetBinding(Shape.StrokeThicknessProperty, new Binding(nameof(Thickness)) { Source = this });
+            _ellBg.SetBinding(Shape.StrokeProperty, new Binding(nameof(RingStroke)) { Source = this });
+            _redlinePath.SetBinding(Shape.StrokeThicknessProperty, new Binding(nameof(Thickness)) { Source = this });
+            _redlinePath.SetBinding(Shape.StrokeProperty, new Binding(nameof(RedlineBrush)) { Source = this });
+            _pth.SetBinding(Shape.StrokeThicknessProperty, new Binding(nameof(Thickness)) { Source = this });
+            _pth.SetBinding(Shape.StrokeProperty, new Binding(nameof(Fill)) { Source = this });
+            _spin.KeyFrames.Add(new EasingDoubleKeyFrame()
             {
                 KeyTime = KeyTime.FromTimeSpan(new TimeSpan(0, 0, 1)),
                 Value = 360.0
             });
             var a = new Grid { Width = 100 };
             a.SetBinding(HeightProperty, new Binding(nameof(Width)) { Source = a, Mode = BindingMode.TwoWay });
-            a.Children.Add(ellBg);
-            a.Children.Add(pth);
-            a.Children.Add(redlinePath);
-            TxtPercent.SetBinding(TextBlock.FontSizeProperty, new Binding(nameof(TextSize)) { Source = this });
-            a.Children.Add(TxtPercent);
+            a.Children.Add(_ellBg);
+            a.Children.Add(_pth);
+            a.Children.Add(_redlinePath);
+            _txtPercent.SetBinding(TextBlock.FontSizeProperty, new Binding(nameof(TextSize)) { Source = this });
+            a.Children.Add(_txtPercent);
             Content = new Viewbox() { Child = a };
             Loaded += OnLoaded;
         }
+
         #region Métodos privados
-        void BgDraw()
+        private void BgDraw()
         {
             var radius = 50 - Thickness / 2;
             double fullAngle = FullAngle.Clamp(0f, 359.999f);
             if (!IsIndeterminate)
-                ellBg.Data = GetCircleArc(radius, Angle, Angle + fullAngle, Thickness);
+                _ellBg.Data = GetCircleArc(radius, Angle, Angle + fullAngle, Thickness);
             else
-                ellBg.Data = GetCircleArc(radius, 0, 359.999, Thickness);
+                _ellBg.Data = GetCircleArc(radius, 0, 359.999, Thickness);
 
             if (!double.IsNaN(Redline))
             {
-                redlinePath.Data = GetCircleArc(radius, (((Redline - Minimum) / (Maximum - Minimum)) * FullAngle) + Angle, Angle + FullAngle, Thickness);
+                _redlinePath.Data = GetCircleArc(radius, (((Redline - Minimum) / (Maximum - Minimum)) * FullAngle) + Angle, Angle + FullAngle, Thickness);
             }
             else
-                redlinePath.Data = null;
+                _redlinePath.Data = null;
         }
-        void Draw()
+
+        private void Draw()
         {
             var radius = 50 - Thickness / 2;
-            if (!pth.IsLoaded) return;
-            var x = (RotateTransform)pth.RenderTransform;
+            if (!_pth.IsLoaded) return;
+            var x = (RotateTransform)_pth.RenderTransform;
             if (!IsIndeterminate)
             {
-                amIAnimated = false;
+                _amIAnimated = false;
                 x.BeginAnimation(RotateTransform.AngleProperty, null);
                 switch (Sweep)
                 {
                     case SweepDirection.Clockwise:
-                        pth.Data = GetCircleArc(radius, Angle, Angle + (((Value - Minimum) / (Maximum - Minimum)) * FullAngle).Clamp(0, 359.999), Thickness);
+                        _pth.Data = GetCircleArc(radius, Angle, Angle + (((Value - Minimum) / (Maximum - Minimum)) * FullAngle).Clamp(0, 359.999), Thickness);
                         break;
                     case SweepDirection.CounterClockwise:
-                        pth.Data = GetCircleArc(radius, Angle + (((Maximum-(Value - Minimum)) / (Maximum - Minimum)) * FullAngle).Clamp(0, 359.999), Angle + FullAngle, Thickness);
+                        _pth.Data = GetCircleArc(radius, Angle + (((Maximum - (Value - Minimum)) / (Maximum - Minimum)) * FullAngle).Clamp(0, 359.999), Angle + FullAngle, Thickness);
                         break;
                     default:
                         break;
                 }
 
 
-                TxtPercent.Text = string.Format(TextFormat, Value);
+                _txtPercent.Text = string.Format(TextFormat, Value);
             }
-            else if (!amIAnimated)
+            else if (!_amIAnimated)
             {
-                pth.Data = GetCircleArc(radius, 90, Thickness);
-                amIAnimated = true;
-                x.BeginAnimation(RotateTransform.AngleProperty, spin);
-                TxtPercent.Text = "...";
+                _pth.Data = GetCircleArc(radius, 90, Thickness);
+                _amIAnimated = true;
+                x.BeginAnimation(RotateTransform.AngleProperty, _spin);
+                _txtPercent.Text = "...";
             }
         }
-        void OnLoaded(object sender, RoutedEventArgs e)
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
         {
             BgDraw();
             Draw();
