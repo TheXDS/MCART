@@ -123,5 +123,24 @@ namespace TheXDS.MCART.Types.Extensions
             collection.Add(value);
             return value;
         }
+
+        /// <summary>
+        ///     Alternativa a <see cref="ICollection{T}.Add(T)"/> con soporte
+        ///     para sintáxis fluent.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de elementos contenidos en el <see cref="ICollection{T}" />.
+        /// </typeparam>
+        /// <param name="collection">
+        ///     Colección a la cual agregar el nuevo elemento.
+        /// </param>
+        /// <returns>
+        ///     Una nueva instancia de <typeparamref name="T"/> q fue agregada
+        ///     a la colección.
+        /// </returns>
+        public static T Push<T>(this ICollection<T> collection) where T : new()
+        {
+            return Push(collection, new T());
+        }
     }
 }

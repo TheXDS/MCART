@@ -905,7 +905,7 @@ namespace TheXDS.MCART.Networking.Server
         /// <returns>
         ///     Un arreglo de bytes con la respuesta generada.
         /// </returns>
-        public byte[] MakeResponse(TResult resp) => _toResponse(resp);
+        public byte[] MakeResponse(TResult resp) => new byte[1].Concat(_toResponse(resp)).ToArray();
 
         /// <summary>
         ///     Atiende al cliente.
@@ -923,7 +923,7 @@ namespace TheXDS.MCART.Networking.Server
                     var c = ReadCommand(br);
 
                     if (!Enum.IsDefined(typeof(TCommand), c))
-                        client.Send(_toResponse(_unkResponse ?? throw new InvalidOperationException()).Concat(c.ToBytes()));
+                        client.Send(MakeResponse(_unkResponse ?? throw new InvalidOperationException()).Concat(c.ToBytes()));
 
                     if (_commands.ContainsKey(c))
                     {
@@ -931,14 +931,15 @@ namespace TheXDS.MCART.Networking.Server
                     }
                     else
                     {
-                        client.Send(_toResponse(_notMappedResponse ?? throw new InvalidOperationException()).Concat(c.ToBytes()));
+                        client.Send(MakeResponse(_notMappedResponse ?? throw new InvalidOperationException()).Concat(c.ToBytes()));
                     }
                 }
                 catch
                 {
-                    client.Send(_toResponse(_errResponse ?? throw new InvalidOperationException()));
+                    client.Send(MakeResponse(_errResponse ?? throw new InvalidOperationException()));
                 }
             }
         }
+
     }
 }

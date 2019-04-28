@@ -55,6 +55,7 @@ namespace TheXDS.MCART.Networking.Client
             guid = Guid.NewGuid();
             return guid.ToByteArray().Concat(_toCommand(cmd)).ToArray();
         }
+        private readonly HashSet<ManualResetEventSlim> _cmdWaiters = new HashSet<ManualResetEventSlim>();
 
         /// <summary>
         ///     Envía un comando al servidor.
@@ -157,7 +158,7 @@ namespace TheXDS.MCART.Networking.Client
         protected T Send<T>(TCommand command, IEnumerable<byte> rawData, Func<TResult, BinaryReader, T> callback)
         {
             var d = MkResp(command, out var guid);
-            var waiting = new ManualResetEventSlim();
+            var waiting = _cmdWaiters.Push(new ManualResetEventSlim());
             T retVal = default;
             EnqueueRequest(guid, (r, br) =>
             {
@@ -166,6 +167,7 @@ namespace TheXDS.MCART.Networking.Client
             });
             TalkToServer(d.Concat(rawData).ToArray());
             waiting.Wait();
+            _cmdWaiters.Remove(waiting);
             return retVal;
         }
 
@@ -895,6 +897,16 @@ namespace TheXDS.MCART.Networking.Client
             {
                 WireUp(l.Key, l.Value);
             }
+            ServerError += (_, e) => AbortCommands();
+        }
+
+        /// <summary>
+        ///     Cancela todos los hilos de espera de los comandos enviados al
+        ///     servidor.
+        /// </summary>
+        protected void AbortCommands()
+        {
+            foreach (var j in _cmdWaiters) j.Set();
         }
 
         /// <summary>
@@ -1011,6 +1023,7 @@ namespace TheXDS.MCART.Networking.Client
                 catch { ServerError?.Invoke(this, EventArgs.Empty); }
             }
         }
+
         /// <summary>
         ///     Ocurre cuando el servidor informa de un comando válido que no
         ///     pudo ser manejado debido a que no se configuró una función de
