@@ -39,6 +39,7 @@ test-results/
 *.userosscache
 *.sln.docstates
 *.DotSettings
+**/.buildconfig
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
