@@ -960,7 +960,17 @@ namespace TheXDS.MCART.Networking.Client
             {
                 try
                 {
-                    var data = await GetDataAsync(ns);
+                    byte[] data = new byte[0];
+                    try
+                    {
+                        data = await GetDataAsync(ns);
+                    }
+                    catch
+                    {
+                        RaiseConnectionLost();
+                        break;
+                    }
+
                     using (var ms = new MemoryStream(data))
                     using (var br = new BinaryReader(ms))
                     {
@@ -998,7 +1008,7 @@ namespace TheXDS.MCART.Networking.Client
                         }
                     }
                 }
-                catch { RaiseConnectionLost(); }
+                catch { ServerError?.Invoke(this, EventArgs.Empty); }
             }
         }
         /// <summary>
