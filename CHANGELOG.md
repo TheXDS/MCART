@@ -218,3 +218,29 @@
 * Mejorado: Sistema de generación de contraseñas parcialmente rescrito.
 * Mejorado: Rescritura parcial de la clase ```ClientBase```.
 * Corregido: Problemas de confiabilidad del protocolo ```LightChat```.
+
+## MCART 0.10 Series
+### HightLights
+- Se ha reescrito una gran porción del código de MCART, además de reorganizar
+  todos los archivos del proyecto.
+- MCART ahora utiliza C# 8.0
+- MCART ahora utiliza el `Microsoft.NET.Sdk` para compilar.
+- MCART contiene múltiples Framework objetivo.
+### Cambios
+* Nuevo: Numerosos módulos de extensión de tipos.
+* Nuevo: Concepto de extensiones de MCART (requisitos de dependencias
+  relajados para los mismos)
+* Nuevo: Funcionalidad básica de creación de ViewModels importada desde
+  `TheXDS.Tritón`
+* Nuevo: Múltiples clases auxiliares para trabajar bajo paradigmas MVVM
+* Nuevo: Arquitectura de información de aplicaciones y ensamblados reescrita
+  bajo principios SOLID.
+* Nuevo: Conversión parcial del código a C# 8.0.
+* Nuevo: Extensiones para FlowDocument.
+* Nuevo: Script especial de publicación en NuGet.
+* Nuevo: Clientes de red administrados para comandos.
+* Nuevo: Clases de apertura de `Stream` a aprtir de un `System.Uri`.
+* Mejorado: Reorganización total del directorio del proyecto.
+* Mejorado: Cambios de Versioning
+* Mejorado: Limpieza y actualización de archivos de proyecto.
+* Corregido: Múltiples problemas de confiabilidad misceláneos.

@@ -4,6 +4,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.28527.54
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{1AF1EDA3-FEAD-4702-8541-26B364AD0C4E}"
+	ProjectSection(SolutionItems) = preProject
+		..\AUTHORS = ..\AUTHORS
+		..\BUGS.md = ..\BUGS.md
+		..\CHANGELOG.md = ..\CHANGELOG.md
+		..\CONTRIBUTING.md = ..\CONTRIBUTING.md
+		..\LICENSE = ..\LICENSE
+		..\README.md = ..\README.md
+		..\ROADMAP.md = ..\ROADMAP.md
+		..\TECHINFO.md = ..\TECHINFO.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platform", "Platform", "{DB2C9D58-DF3F-4361-ACE4-EF1219AD1810}"
 EndProject
@@ -60,11 +70,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismLike", "Extensions\Pri
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LightChat", "LightChat", "{3D07E538-7047-49F5-AE93-07C85E20581A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightChatServer", "..\Examples\LightChat\LightChatServer\LightChatServer.csproj", "{0A814BF9-E7FB-4BA6-BC90-61B1AA78E638}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LightChatServer", "..\Examples\LightChat\LightChatServer\LightChatServer.csproj", "{0A814BF9-E7FB-4BA6-BC90-61B1AA78E638}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Common", "..\Examples\LightChat\Common\Common.shproj", "{1459CF01-8F9B-47B1-A3F2-57E1F84D9D0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightChatClient", "..\Examples\LightChat\LightChatClient\LightChatClient.csproj", "{8F93307C-81D3-4308-A8F5-24940290572D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LightChatClient", "..\Examples\LightChat\LightChatClient\LightChatClient.csproj", "{8F93307C-81D3-4308-A8F5-24940290572D}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
