@@ -29,7 +29,7 @@ using System.Windows.Input;
 
 namespace TheXDS.MCART.Pages
 {
-    /// <inheritdoc cref="System.Windows.Controls.Page"/>
+    /// <inheritdoc cref="Page"/>
     /// <summary>
     /// Página de detalles de plugins.
     /// </summary>

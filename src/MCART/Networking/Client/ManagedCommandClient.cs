@@ -983,6 +983,12 @@ namespace TheXDS.MCART.Networking.Client
                         break;
                     }
 
+                    if (data.Length == 0)
+                    {
+                        CloseConnection();
+                        break;
+                    }
+
                     using (var ms = new MemoryStream(data))
                     using (var br = new BinaryReader(ms))
                     {

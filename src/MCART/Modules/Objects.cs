@@ -33,6 +33,7 @@ using System.Runtime.InteropServices;
 using TheXDS.MCART.Attributes;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
+using TheXDS.MCART.Types;
 
 #region Configuración de ReSharper
 
@@ -1570,15 +1571,15 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si el tipo <paramref name="T" /> es de un tipo numérico
+        ///     Determina si el tipo <paramref name="t" /> es de un tipo numérico
         /// </summary>
-        /// <param name="T">Tipo a comprobar</param>
+        /// <param name="t">Tipo a comprobar</param>
         /// <returns>
-        ///     <see langword="true" /> si <paramref name="T" /> es un tipo numérico; de
+        ///     <see langword="true" /> si <paramref name="t" /> es un tipo numérico; de
         ///     lo contrario, <see langword="false" />.
         /// </returns>
         [Stub]
-        public static bool IsNumericType(Type T)
+        public static bool IsNumericType(Type t)
         {
             return new[]
             {
@@ -1593,7 +1594,7 @@ namespace TheXDS.MCART
                 typeof(decimal),
                 typeof(float),
                 typeof(double)
-            }.Contains(T);
+            }.Contains(t);
         }
 
         /// <summary>
@@ -1719,8 +1720,6 @@ namespace TheXDS.MCART
             }
             finally
             {
-                // ReSharper disable once RedundantAssignment
-                obj = null;
                 GC.Collect();
             }
         }
@@ -1942,5 +1941,16 @@ namespace TheXDS.MCART
                 return false;
             }
         }
+
+        /// <summary>
+        ///     Obtiene el nombre de un objeto.
+        /// </summary>
+        /// <param name="o">
+        ///     Objeto del cual obtener el nombre.
+        /// </param>
+        /// <returns>
+        ///     El nombre del objeto.
+        /// </returns>
+        public static string NameOf(this object o) => (o as INameable)?.Name ?? Types.Extensions.MemberInfoExtensions.NameOf(o.GetType());
     }
 }

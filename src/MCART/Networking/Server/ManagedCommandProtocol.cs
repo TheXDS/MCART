@@ -32,6 +32,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Events;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
 
@@ -922,24 +923,33 @@ namespace TheXDS.MCART.Networking.Server
                     var commandGuid = br.ReadGuid();                    
                     var c = ReadCommand(br);
 
-                    if (!Enum.IsDefined(typeof(TCommand), c))
-                        client.Send(MakeResponse(_unkResponse ?? throw new InvalidOperationException()).Concat(c.ToBytes()));
-
                     if (_commands.ContainsKey(c))
                     {
                         _commands[c](new Request(commandGuid, br, client, Server, c));
                     }
                     else
                     {
-                        client.Send(MakeResponse(_notMappedResponse ?? throw new InvalidOperationException()).Concat(c.ToBytes()));
+                        NotMappedCommand?.Invoke(this, c);
+                        if (!(_notMappedResponse is null)) client.Send(MakeResponse(_notMappedResponse.Value));
+                        else if (!(_errResponse is null)) client.Send(MakeResponse(_errResponse.Value));
                     }
                 }
                 catch
-                {
-                    client.Send(MakeResponse(_errResponse ?? throw new InvalidOperationException()));
+                {                    
+                    ServerError?.Invoke(this, EventArgs.Empty);
+                    if (!(_errResponse is null)) client.Send(MakeResponse(_errResponse.Value));
                 }
             }
         }
 
+        /// <summary>
+        ///     Ocurre cuando un cliente envía un comando para el cual no existe un manejador.
+        /// </summary>
+        public event EventHandler<ValueEventArgs<TCommand>> NotMappedCommand;
+
+        /// <summary>
+        ///     Ocurre cuando el servidor encuentra un error.
+        /// </summary>
+        public event EventHandler ServerError;
     }
 }
