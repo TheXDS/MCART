@@ -196,6 +196,28 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
+        ///     Obtiene un miembro de una clase a partir de una expresión.
+        /// </summary>
+        /// <typeparam name="TValue">
+        ///     Tipo del miembro obtenido.
+        /// </typeparam>
+        /// <param name="memberSelector">
+        ///     Expresión que indica qué miembro de la clase debe devolverse.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="MemberInfo"/> que representa al miembro
+        ///     seleccionado en la expresión.
+        /// </returns>
+        public static MemberInfo GetMember<TValue>(Expression<Func<TValue>> memberSelector)
+        {
+            if (memberSelector.Body is UnaryExpression UnExp && UnExp.Operand is MemberExpression)
+                return ((MemberExpression)UnExp.Operand).Member;
+            else if (memberSelector.Body is MemberExpression)
+                return ((MemberExpression)memberSelector.Body).Member;
+            throw new ArgumentException();
+        }
+
+        /// <summary>
         ///     Infiere las <see cref="BindingFlags"/> utilizadas en la
         ///     definición del método.
         /// </summary>

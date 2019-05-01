@@ -40,8 +40,8 @@ namespace TheXDS.MCART.Types.Base
     /// </summary>
     public abstract class NotifyPropertyChangeBase
     {
-        private readonly IDictionary<string, IEnumerable<string>> _observeRegistry
-            = new Dictionary<string, IEnumerable<string>>();
+        private readonly IDictionary<string, ICollection<string>> _observeRegistry
+            = new Dictionary<string, ICollection<string>>();
 
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
@@ -49,8 +49,9 @@ namespace TheXDS.MCART.Types.Base
         /// </summary>
         protected NotifyPropertyChangeBase()
         {
-             ObserveRegistry= new ReadOnlyDictionary<string, IEnumerable<string>>(_observeRegistry);
+             ObserveRegistry = new ReadOnlyDictionary<string, ICollection<string>>(_observeRegistry);
         }
+
         /// <summary>
         ///     Registra un Broadcast de notificación de cambio de propiedad.
         /// </summary>
@@ -62,14 +63,31 @@ namespace TheXDS.MCART.Types.Base
         ///     de esta propiedad.
         /// </param>
         protected void RegisterPropertyChangeBroadcast(string property, params string[] affectedProperties)
-        {
-            if (_observeRegistry.ContainsKey(property))
-                throw new InvalidOperationException(Ist.ErrorXAlreadyRegistered(St.XYQuotes(St.TheProperty,property)));
-            
+        {            
             if (_observeRegistry.CheckCircularRef(property))
                 throw new InvalidOperationException(Ist.ErrorCircularOperationDetected);
 
-            _observeRegistry.Add(property, affectedProperties);
+            if (_observeRegistry.ContainsKey(property))
+            {
+                foreach (var j in affectedProperties)
+                    _observeRegistry[property].Add(j);
+            }
+            else
+                _observeRegistry.Add(property, new HashSet<string>(affectedProperties));
+        }
+
+        /// <summary>
+        ///     Registra la escucha de propiedades para notificar el cambio de otra.
+        /// </summary>
+        /// <param name="property">
+        ///     Propiedad a notificar.
+        /// </param>
+        /// <param name="listenedProperties">
+        ///     Propiedades a escuchar.
+        /// </param>
+        protected void RegisterPropertyChangeTrigger(string property, params string[] listenedProperties)
+        {
+            foreach (var j in listenedProperties) RegisterPropertyChangeBroadcast(j, property);
         }
 
         /// <summary>
@@ -104,7 +122,7 @@ namespace TheXDS.MCART.Types.Base
         ///     Obtiene el registro de broadcast de notificaciones de cambio de
         ///     propiedad.
         /// </summary>
-        protected IReadOnlyDictionary<string, IEnumerable<string>> ObserveRegistry { get; }
+        protected IReadOnlyDictionary<string, ICollection<string>> ObserveRegistry { get; }
 
         /// <summary>
         ///     Notifica desde un punto externo el cambio en el valor de una propiedad.

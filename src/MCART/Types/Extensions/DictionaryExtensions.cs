@@ -43,17 +43,9 @@ namespace TheXDS.MCART.Types.Extensions
         {
             return BranchScanFails(element, element, dictionary, new HashSet<T>());
         }
-        private static bool BranchScanFails<T>(T a, T b, IDictionary<T, IEnumerable<T>> tree, ICollection<T> keysChecked)
+        public static bool CheckCircularRef<T>(this IDictionary<T, ICollection<T>> dictionary, T element)
         {
-            if (!tree.ContainsKey(b)) return false;
-            foreach (var j in tree[b])
-            {
-                if (keysChecked.Contains(j)) return false;
-                keysChecked.Add(j);
-                if (j.Equals(a)) return true;
-                if (BranchScanFails(a, j, tree, keysChecked)) return true;
-            }
-            return false;
+            return BranchScanFails(element, element, dictionary, new HashSet<T>());
         }
 
         /// <summary>
@@ -69,6 +61,39 @@ namespace TheXDS.MCART.Types.Extensions
             var d = new Dictionary<T, IEnumerable<T>>();
             foreach (var j in dictionary) d.Add(j.Key, j.Value);
             return BranchScanFails(element, element, d, new HashSet<T>());
+        }
+
+        public static bool CheckCircularRef<T>(this IEnumerable<KeyValuePair<T, ICollection<T>>> dictionary, T element)
+        {
+            var d = new Dictionary<T, IEnumerable<T>>();
+            foreach (var j in dictionary) d.Add(j.Key, j.Value);
+            return BranchScanFails(element, element, d, new HashSet<T>());
+        }
+
+        private static bool BranchScanFails<T>(T a, T b, IDictionary<T, IEnumerable<T>> tree, ICollection<T> keysChecked)
+        {
+            if (!tree.ContainsKey(b)) return false;
+            foreach (var j in tree[b])
+            {
+                if (keysChecked.Contains(j)) return false;
+                keysChecked.Add(j);
+                if (j.Equals(a)) return true;
+                if (BranchScanFails(a, j, tree, keysChecked)) return true;
+            }
+            return false;
+        }
+
+        private static bool BranchScanFails<T>(T a, T b, IDictionary<T, ICollection<T>> tree, ICollection<T> keysChecked)
+        {
+            if (!tree.ContainsKey(b)) return false;
+            foreach (var j in tree[b])
+            {
+                if (keysChecked.Contains(j)) return false;
+                keysChecked.Add(j);
+                if (j.Equals(a)) return true;
+                if (BranchScanFails(a, j, tree, keysChecked)) return true;
+            }
+            return false;
         }
     }
 }
