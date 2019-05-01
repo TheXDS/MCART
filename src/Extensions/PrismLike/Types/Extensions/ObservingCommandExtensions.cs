@@ -70,10 +70,6 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Indica que un <see cref="ObservingCommand"/> escuchará los
         ///     cambios anunciados de la propiedad seleccionada.
         /// </summary>
-        /// <typeparam name="T">
-        ///     Tipo de objeto para el cual seleccionar una propiedad.
-        ///     Generalmente, se trata de la referencia <see langword="this"/>.
-        /// </typeparam>
         /// <param name="command">
         ///     Comando para el cual se configurará la escucha.
         /// </param>
@@ -123,23 +119,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </exception>
         public static ObservingCommand ListensToCanExecute<T>(this ObservingCommand command, Expression<Func<T, bool>> selector)
         {
-            var m = GetMember(selector);
-            switch (m)
-            {
-                case PropertyInfo pi:
-                    command.SetCanExecute(_ => (bool)pi.GetValue(command.ObservedSource));
-                    break;
-                case MethodInfo mi:
-                    if (mi.ToDelegate<Func<object, bool>>() is var oFunc)
-                        command.SetCanExecute(oFunc);
-                    else if (mi.ToDelegate<Func<bool>>() is var func)
-                        command.SetCanExecute(func);
-                    else
-                        throw new InvalidArgumentException(nameof(selector));
-                    break;
-            }
-            command.RegisterObservedProperty(m.Name);
-            return command;
+            return RegisterCanExecute(command, GetMember(selector));
         }
 
         /// <summary>
@@ -165,11 +145,16 @@ namespace TheXDS.MCART.Types.Extensions
         /// </exception>
         public static ObservingCommand ListensToCanExecute(this ObservingCommand command, Expression<Func<bool>> selector)
         {
-            var m = GetMember(selector);
+            return RegisterCanExecute(command, GetMember(selector));
+        }
+
+        private static ObservingCommand RegisterCanExecute(this ObservingCommand command, MemberInfo m)
+        {
             switch (m)
             {
                 case PropertyInfo pi:
                     command.SetCanExecute(_ => (bool)pi.GetValue(command.ObservedSource));
+                    command.RegisterObservedProperty(m.Name);
                     break;
                 case MethodInfo mi:
                     if (mi.ToDelegate<Func<object, bool>>() is var oFunc)
@@ -177,10 +162,9 @@ namespace TheXDS.MCART.Types.Extensions
                     else if (mi.ToDelegate<Func<bool>>() is var func)
                         command.SetCanExecute(func);
                     else
-                        throw new InvalidArgumentException(nameof(selector));
+                        throw new InvalidArgumentException(@"selector");
                     break;
             }
-            command.RegisterObservedProperty(m.Name);
             return command;
         }
     }
