@@ -64,13 +64,12 @@ namespace TheXDS.MCART.Types.Extensions
         /// </typeparam>
         /// <param name="m">Método del cual obtener un delegado.</param>
         /// <returns>
-        ///     Un delegado del tipo especificado a partir del método.
+        ///     Un delegado del tipo especificado a partir del método, o
+        ///     <see langword="null"/> si no es posible realizar la conversión.
         /// </returns>
         public static T ToDelegate<T>(this MethodInfo m) where T : Delegate
         {
-            if (m.IsSignatureCompatible<Func<object, bool>>())
-                return (T)Delegate.CreateDelegate(typeof(T), m);
-            return null;
+            return m.IsSignatureCompatible<T>() ? (T)Delegate.CreateDelegate(typeof(T), m) : null;
         }
     }
 }
