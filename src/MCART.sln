@@ -20,6 +20,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{D74BF4B6-D008-4124-B4F5-DAEA45272A78}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{19EC529F-C50D-4A09-8B2A-70E21B642109}"
+	ProjectSection(SolutionItems) = preProject
+		Tests\Directory.Build.targets = Tests\Directory.Build.targets
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{B75874BF-E600-41EF-B756-93A12CCCABA5}"
 EndProject
