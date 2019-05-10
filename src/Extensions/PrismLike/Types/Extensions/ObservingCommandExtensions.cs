@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Linq.Expressions;
 using TheXDS.MCART.ViewModel;
@@ -157,7 +159,7 @@ namespace TheXDS.MCART.Types.Extensions
                     command.RegisterObservedProperty(m.Name);
                     break;
                 case MethodInfo mi:
-                    if (mi.ToDelegate<Func<object, bool>>() is var oFunc)
+                    if (mi.ToDelegate<Func<object?, bool>>() is var oFunc)
                         command.SetCanExecute(oFunc);
                     else if (mi.ToDelegate<Func<bool>>() is var func)
                         command.SetCanExecute(func);

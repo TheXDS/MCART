@@ -56,7 +56,7 @@ namespace TheXDS.MCART.Types
         ///     El contenido en formato de cadena a colocar dentro de la celda 
         ///     correspondiente a esta columna en la fila actual.
         /// </returns>
-        public string Content(TObject obj) => Selector?.Invoke(obj)?.ToString() ?? obj.ToString();
+        public string Content(TObject obj) => Selector?.Invoke(obj)?.ToString() ?? obj?.ToString() ?? string.Empty;
 
         /// <summary>
         ///     Obtiene un estilo a utilizar sobre la celda en esta columna de la fila actual.

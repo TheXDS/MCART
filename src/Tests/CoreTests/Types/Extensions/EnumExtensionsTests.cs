@@ -25,8 +25,10 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #pragma warning disable CS1591
 
 using System;
+using System.Linq;
 using Xunit;
 using static TheXDS.MCART.Types.Extensions.EnumExtensions;
+using static TheXDS.MCART.Types.Extensions.NamedObjectExtensions;
 
 namespace Common.Types.Extensions
 {
@@ -70,6 +72,19 @@ namespace Common.Types.Extensions
             Zero,
             One,
             Two
+        }
+    }
+    public class NamedObjectExtensionsTests
+    {
+        [Fact]
+        public void AsNamedEnumTest()
+        {
+            var e = typeof(DayOfWeek).AsNamedEnum();
+
+            foreach (var j in e)
+            {
+                Assert.Equal(j.Value.ToString(), j.Name);
+            }
         }
     }
 }

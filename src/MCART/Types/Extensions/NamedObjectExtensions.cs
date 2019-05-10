@@ -78,7 +78,7 @@ namespace TheXDS.MCART.Types.Extensions
             if (t == null) throw new ArgumentNullException(nameof(t));
             var q = t.IsEnum ? t : Nullable.GetUnderlyingType(t);
             if (!q.IsEnum) throw new InvalidTypeException(t);
-            return q.GetEnumValues().OfType<Enum>().Select(p => (NamedObject<Enum>)p);
+            return q.GetEnumValues().OfType<Enum>().Select(p => new NamedObject<Enum>(p, p.NameOf()));
         }
     }
 }

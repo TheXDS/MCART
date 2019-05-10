@@ -2,7 +2,7 @@
 
 <!-- Más información sobre este archivo en TECHINFO.md -->
 
-<Project  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <DefineConstants>DynamicLoading;McartAsPlugin;NativeNumbers;FloatDoubleSpecial;BufferedIO;ExtrasBuiltIn;StrictMCARTVersioning;SaferPasswords;CheckDanger;CLSCompliance;AntiFreeze</DefineConstants>
   </PropertyGroup>

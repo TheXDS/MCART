@@ -34,6 +34,25 @@ namespace TheXDS.MCART.Tests.Math
         [Fact]
         public void IsPrimeTest()
         {
+            Assert.False(1.IsPrime());
+            Assert.True(2.IsPrime());
+            Assert.True(3.IsPrime());
+            Assert.False(4.IsPrime());
+            Assert.True(5.IsPrime());
+            Assert.False(6.IsPrime());
+            Assert.True(7.IsPrime());
+            Assert.False(8.IsPrime());
+            Assert.False(9.IsPrime());
+            Assert.False(10.IsPrime());
+            Assert.True(11.IsPrime());
+            Assert.False(12.IsPrime());
+            Assert.True(13.IsPrime());
+            Assert.False(14.IsPrime());
+            Assert.False(15.IsPrime());
+            Assert.False(16.IsPrime());
+            Assert.True(17.IsPrime());
+            Assert.False(18.IsPrime());
+            Assert.True(19.IsPrime());
             Assert.True(29.IsPrime());
             Assert.False(39.IsPrime());
         }

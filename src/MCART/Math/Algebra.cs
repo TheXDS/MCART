@@ -46,10 +46,10 @@ namespace TheXDS.MCART.Math
         /// <param name="number">Número a comprobar.</param>
         public static bool IsPrime(this in long number)
         {
-            var s = number / 2;
-            for (long j = 3; j < s; j += 2)
-                if (number % j == 0)
-                    return false;
+            var l = (int)System.Math.Sqrt(number);
+            if (number == 2) return true;
+            if (number == 1 || number % 2 == 0) return false;
+            for (int k = 3; k <= l; k += 2) if (number % k == 0) return false; 
             return true;
         }
 

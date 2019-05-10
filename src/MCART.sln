@@ -56,10 +56,16 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfTests", "Tests\WpfTests\WpfTests.csproj", "{F18128DA-4581-4F17-A1B5-56A527A4D785}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{0E7DB819-72E6-4549-BF37-DBE9F453683C}"
+	ProjectSection(SolutionItems) = preProject
+		..\Examples\Directory.Build.targets = ..\Examples\Directory.Build.targets
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VmBuilder", "..\Examples\VmBuilder\VmBuilder.csproj", "{0F84621D-1376-46E5-A989-494D09E56F5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VmBuilder", "..\Examples\VmBuilder\VmBuilder.csproj", "{0F84621D-1376-46E5-A989-494D09E56F5D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{D62BF4A9-E484-4F39-B40F-7103D5AEABA8}"
+	ProjectSection(SolutionItems) = preProject
+		Extensions\Directory.Build.targets = Extensions\Directory.Build.targets
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModelFactory", "Extensions\ViewModelFactory\ViewModelFactory.csproj", "{F1A220EC-F4B8-4703-907B-F8BF9B26154E}"
 EndProject
@@ -67,7 +73,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeFactory", "Extensions\T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EchoServer", "..\Examples\EchoServer\EchoServer.csproj", "{95F1DD43-C18D-4F30-B25C-173C936A38A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PictVGA", "..\Examples\PictVGA\PictVGA.csproj", "{5CFED774-9D55-4268-8FFE-F560982EB620}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PictVGA", "..\Examples\PictVGA\PictVGA.csproj", "{5CFED774-9D55-4268-8FFE-F560982EB620}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismLike", "Extensions\PrismLike\PrismLike.csproj", "{6F9B8B04-7ECA-4657-AF02-EC2199295DF8}"
 EndProject

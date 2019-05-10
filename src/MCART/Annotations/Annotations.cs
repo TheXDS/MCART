@@ -357,14 +357,39 @@ namespace TheXDS.MCART.Annotations
     [AttributeUsage(Method, AllowMultiple = true)]
     public sealed class ContractAnnotationAttribute : Attribute
     {
+        /// <summary>
+        ///     Obtiene la expresión que representa el contrato del método.
+        /// </summary>
         public string Contract { get; }
 
+        /// <summary>
+        ///     Obtiene un valor que indica si debe forzarse el estado completo
+        ///     al evaluar la expresión.
+        /// </summary>
         public bool ForceFullStates { get; }
 
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="ContractAnnotationAttribute"/>.
+        /// </summary>
+        /// <param name="contract">
+        ///     Expresión de contrato del método.
+        /// </param>
         public ContractAnnotationAttribute(string contract) : this(contract, false)
         {
         }
 
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="ContractAnnotationAttribute"/>.
+        /// </summary>
+        /// <param name="contract">
+        ///     Expresión de contrato del método.
+        /// </param>
+        /// <param name="forceFullStates">
+        ///     Valor que indica si debe forzarse el estado completo al evaluar
+        ///     la expresión.
+        /// </param>
         public ContractAnnotationAttribute(string contract, bool forceFullStates)
         {
             Contract = contract;
@@ -385,14 +410,28 @@ namespace TheXDS.MCART.Annotations
     /// </code>
     /// </example>
     [AttributeUsage(All)]
-    public sealed class LocalizationRequiredAttribute : Attribute
+    public sealed class LocalizationRequiredAttribute : Attribute, IValueAttribute<bool>
     {
+        /// <summary>
+        ///     Indica si el elemento marcado debe ser localizado o no.
+        /// </summary>
         public bool Required { get; }
 
+        bool IValueAttribute<bool>.Value => Required;
+
+        /// <summary>
+        ///     Marca un elemento como localizable.
+        /// </summary>
         public LocalizationRequiredAttribute() : this(true)
         {
         }
 
+        /// <summary>
+        ///     OPermite marcar a un elemento como localizable o no.
+        /// </summary>
+        /// <param name="required">
+        ///     Valor que indica si el elemento debe ser localizado o no.
+        /// </param>
         public LocalizationRequiredAttribute(bool required)
         {
             Required = required;
@@ -441,10 +480,22 @@ namespace TheXDS.MCART.Annotations
     /// </example>
     [AttributeUsage(Class, AllowMultiple = true)]
     [BaseTypeRequired(typeof(Attribute))]
-    public sealed class BaseTypeRequiredAttribute : Attribute
+    public sealed class BaseTypeRequiredAttribute : Attribute, IValueAttribute<Type>
     {
+        /// <summary>
+        ///     Indica el tipo base a implementar por las clases derivadas.
+        /// </summary>
         public Type BaseType { get; }
 
+        Type IValueAttribute<Type>.Value => BaseType;
+
+        /// <summary>
+        ///     Indica que las clases derivadas de esta deben implementar un
+        ///     tipo específico.
+        /// </summary>
+        /// <param name="baseType">
+        ///     Tipo que las clases derivadas deben implementar.
+        /// </param>
         public BaseTypeRequiredAttribute(Type baseType)
         {
             BaseType = baseType;

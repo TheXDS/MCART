@@ -515,7 +515,7 @@ namespace TheXDS.MCART.Types.Extensions
                             }
                             else
                             {
-                                if (j == t.Length - 1) reversedWordIndex = reversedWordIndex + t.Length;
+                                if (j == t.Length - 1) reversedWordIndex += t.Length;
                             }
                         }
 
@@ -584,7 +584,7 @@ namespace TheXDS.MCART.Types.Extensions
                             }
                             else
                             {
-                                if (j == t.Length - 1) reversedWordIndex = reversedWordIndex + t.Length;
+                                if (j == t.Length - 1) reversedWordIndex += t.Length;
                             }
                         }
 

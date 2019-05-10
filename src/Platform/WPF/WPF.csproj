@@ -7,7 +7,6 @@
     <OutputType>Library</OutputType>
     <TargetFrameworks>netcoreapp3.0;net47</TargetFrameworks>
     <UseWPF>true</UseWPF>
-    <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Resources\Icons\MCART_Xml.deflate" />

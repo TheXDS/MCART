@@ -3,12 +3,10 @@
     <TargetFrameworks>netcoreapp3.0;net47</TargetFrameworks>
     <Description>Prism-Like syntax extensions for MCART ViewModels</Description>
     <AssemblyName>MCART.Ext.PrismLike</AssemblyName>
-    <OutputType>Library</OutputType>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Lib\MCART-UI\MCART-UI.csproj" />
-    <ProjectReference Include="..\..\Lib\MCART-Windows\MCART-Windows.csproj" />
-    <ProjectReference Include="..\..\MCART\MCART.csproj" />
-    <ProjectReference Include="..\..\Platform\WPF\WPF.csproj" />
+    <ProjectReference Include="$(SolutionDir)\Lib\MCART-UI\MCART-UI.csproj" />
+    <ProjectReference Include="$(SolutionDir)\Lib\MCART-Windows\MCART-Windows.csproj" />
+    <ProjectReference Include="$(SolutionDir)\Platform\WPF\WPF.csproj" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Roth)'==''">
+    <Roth>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\'))</Roth>
+  </PropertyGroup>  
+  <PropertyGroup Condition="'$(SolutionDir)'==''">
+    <SolutionDir>$(MSBuildThisFileDirectory)\src</SolutionDir>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\CompileOptions.targets" Label="Opciones de compilación" />
+  <Import Project="$(SolutionDir)\PackageInfo.targets" Label="Información de paquete" />
+  <PropertyGroup Condition="'$(MSBuildProjectExtension)'=='.csproj'">
+    <RootNamespace>TheXDS.MCART.Examples.$(AssemblyName)</RootNamespace>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <Deterministic>true</Deterministic>
+    <DocumentationFile>$(OutDir)$(AssemblyName).xml</DocumentationFile>
+    <PackageId>TheXDS.$(AssemblyName)</PackageId>
+    <Title>$(AssemblyTitle)</Title>
+    <PackageDescription>$(Description)</PackageDescription>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageOutputPath>$(Roth)build\$(Configuration)\</PackageOutputPath>
+    <LangVersion>preview</LangVersion>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <DefineConstants>$(DefineConstants)DEBUG;TRACE</DefineConstants>
+    <IncludeSymbols>true</IncludeSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <DebugSymbols>false</DebugSymbols>
+    <IncludeSymbols>false</IncludeSymbols>
+  </PropertyGroup>
+  <Import Condition="'$(MSBuildProjectExtension)'=='.csproj'" Project="$(SolutionDir)Shared\AssemblyInfo\AssemblyInfo.projitems" Label="Shared" />
+  <ItemGroup>
+    <ProjectReference Include="$(SolutionDir)\MCART\MCART.csproj">
+      <Project>{d39b543e-571d-4ea5-b8a2-9f6729c8e689}</Project>
+      <Name>MCART</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

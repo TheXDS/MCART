@@ -3,10 +3,8 @@
     <TargetFrameworks>netcoreapp3.0;netcoreapp2.1;netcoreapp2.2;net47</TargetFrameworks>
     <Description>ViewModelFactory Extension for MCART</Description>
     <AssemblyName>MCART.Ext.ViewModelFactory</AssemblyName>
-    <OutputType>Library</OutputType>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Lib\MCART-UI\MCART-UI.csproj" />
-    <ProjectReference Include="..\..\MCART\MCART.csproj" />
+    <ProjectReference Include="$(SolutionDir)\Lib\MCART-UI\MCART-UI.csproj" />
   </ItemGroup>
 </Project>
