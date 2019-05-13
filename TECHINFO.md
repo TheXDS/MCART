@@ -2,65 +2,33 @@
 En este archivo, se detallan algunas consideraciones técnicas al trabajar en
 MCART. Para un eficiente flujo de trabajo, por favor, lee todo este documento.
 
-### Creando nuevos proyectos
-Los proyectos comparten un conjunto de constantes de compilación. Debido a
-algunas limitaciones presentadas por Visual Studio, no existe un editor visual
-de estas configuraciones, y no existe un mecanismo elegante para administrar
-las configuraciones globales. Por ende, es necesario agregar el siguiente nodo
-a la definición de cada proyecto:
+### Estructura de directorios de solución
+La solución contiene una estructura de directorios organizados para el tipo de
+proyecto, de acuerdo al alcance de soporte del mismo. Por ejemplo, para
+librerías de soporte a una plataforma de UI específica, existe la carpeta
+`Platforms`, donde actualmente existe el proyecto `WPF`, *MCART para WPF.*
 
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<Project>
-  <!-- 
-  ... 
-  Definiciones del proyecto
-   ...
-   -->  
-  <PropertyGroup Condition="'$(SolutionDir)' == '' or '$(SolutionDir)' == '*undefined*'">
-    <SolutionDir>..\..\</SolutionDir>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)CommonSettings.targets" />
-</Project>
-```
+La siguiente tabla lista los directorios actualmente definidos:
 
-Al agregar este bloque de código a los proyectos, es posible cambiar las
-constantes de compilación globales editando el archivo
-`CommonSettings.targets`.
+Directorio          | Contenido del directorio
+---                 | ---
+./build             | Versiones compiladas y empaquetadas de las librerías distribuibles de MCART.
+./Examples          | Varios ejemplos sobre el uso de MCART.
+./src/Documentation | Toda la documentación pertinente de MCART.
+./src/Extensions    | Extensiones especiales con funcionalidad muy específica y/o posibilidad de referencias externas.
+./src/Lib           | Librerías auxiliares genéricas de MCART para la creación de ensamblados para distintas plataformas.
+./src/MCART         | Proyecto principal.
+./src/Platform      | Proyectos de plataforma de UI.
+./src/Shared        | Proyectos de código compartido.
+./src/Tests         | Pruebas unitarias y de integración.
+./src/Utils         | Utilerías de desarrollo varias.
+./vs-snippets       | Snippets de código para instalar en Visual Studio.
 
-**Nota:** las constantes aplicables al proyecto deben definirse antes de
-agregar este nodo a la definición del proyecto, para evitar que Visual Studio
-copie las constantes globales localmente al archivo del proyecto.
-
-Debido a recientes actualizaciones en Visual Studio, además del nuevo nodo para
-soporte de configuración de compilación global, si existe el siguiente nodo en
-la definición del proyecto: `<Deterministic>true</Deterministic>` debe
-cambiarse su valor a: `<Deterministic>false</Deterministic>` para soportar la
-compilación con números de versión con *Wildcards*.
 
 ### Números de versión
-La información genérica de los ensamblados de MCART se encuentra en el proyecto
-compartido *AssemblyInfo*, el cual contiene únicamente un archivo con las
-respectivas definiciones de atributos de versión, copyright, compañía,
-trademark y nombre del producto. Al crear nuevos proyectos, es necesario
-incluir una referencia a este proyecto para evitar mantener copias innecesarias
-de los atributos, y centralizar la información de versiones y de
-identificación.
-
-Durante la fase Pre-release de MCART, la versión mayor tendrá un valor de cero,
-siendo necesario referirse al componente menor para evaluar el estado de avance
-del proyecto. Eventualmente, al existir un Release, el comportamiento de los
-distintos números que componen la versión pasará a representar el estado de
-manera normal.
-
-Luego de ocurrir un Release final, los últimos componentes pasarán a ser la
-fecha codificada de compilación de los ensamblados.
-
-**Notas adicionales para NetStandard:**
-Debido a la forma en la que dichos atributos se encuentran almacenados en un
-proyecto de este tipo, será necesario actualizar manualmente la información de
-ensamblado de *NetStandard* al compilar. Por favor, no olvides realizar estos
-cambios y recompilar *NetStandard* por separado.
+MCART sigue los estándares de números de versión de NuGet, utilizando una
+cadena de versión Major.Minor.Revision.Build, adjuntando para pas versiones
+pre-release un subfijo
 
 ### Constantes globales de compilación
 El archivo `CommonSettings.targets` contiene un conjunto de constantes de
