@@ -1,6 +1,5 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\Directory.Build.targets" Label="Información de paquete" />
-
   <PropertyGroup>
     <OutputType>Library</OutputType>
   </PropertyGroup>
