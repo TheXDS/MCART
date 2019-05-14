@@ -35,17 +35,29 @@ namespace TheXDS.MCART.Resources
         public enum IconId
         {
             /// <summary>
-            /// Ícono principal de MCART.
+            ///     Ícono principal de MCART.
             /// </summary>
             MCART,
+
             /// <summary>
-            /// Etiqueta de MCART.
+            ///     Ícono de plugin de MCART.
             /// </summary>
-            MCARTBadge,
+            Plugin,
+
             /// <summary>
-            /// Ícono de plugin de MCART.
+            ///     Ícono de archivo incorrecto.
             /// </summary>
-            MCARTPlugin
+            BadFile,
+
+            /// <summary>
+            ///     Ícono de archivo no encontrado.
+            /// </summary>
+            FileMissing,
+
+            /// <summary>
+            ///     Ícono de problema con archivo.
+            /// </summary>
+            FileWarning
         }
     }
 }

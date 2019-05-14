@@ -41,8 +41,8 @@ namespace TheXDS.MCART.Resources
     {
         private const string DefaultExt = "png";
 
-        private static readonly ImageUnpacker Imgs = new ImageUnpacker(RtInfo.CoreRtAssembly, typeof(Icons).FullName);
-        private static readonly StringUnpacker Strs = new StringUnpacker(RtInfo.CoreRtAssembly, typeof(Icons).FullName);
+        private static readonly ImageUnpacker _imgs = new ImageUnpacker(RtInfo.CoreRtAssembly, typeof(Icons).FullName);
+        private static readonly StringUnpacker _strs = new StringUnpacker(RtInfo.CoreRtAssembly, typeof(Icons).FullName);
 
         /// <summary>
         ///     Obtiene un ícono desde los recursos incrustados del ensamblado
@@ -50,7 +50,7 @@ namespace TheXDS.MCART.Resources
         /// </summary>
         /// <param name="icon">Ícono que se desea obtener.</param>
         /// <returns>El ícono de recurso incrustado solicitado.</returns>
-        public static ImageSource GetIcon(Icons.IconId icon) => Imgs.Unpack(
+        public static ImageSource GetIcon(Icons.IconId icon) => _imgs.Unpack(
             $"{icon.ToString()}.{(icon.HasAttr<IdentifierAttribute>(out var attr) ? attr.Value : DefaultExt)}");
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace TheXDS.MCART.Resources
         /// <returns>El ícono de recurso incrustado solicitado.</returns>
         public static UIElement GetXamlIcon(Icons.IconId icon)
         {
-            using (var sr = new StringReader(Strs.Unpack($"{icon.ToString()}_Xml", new DeflateGetter())))
+            using (var sr = new StringReader(_strs.Unpack($"{icon.ToString()}_Xml", new DeflateGetter())))
             {
                 var xx = XmlReader.Create(sr);
                 return XamlReader.Load(xx) as UIElement;

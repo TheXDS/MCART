@@ -86,10 +86,10 @@ namespace TheXDS.MCART.IO
         ///     Un <see cref="Stream"/> que permite obtener el recurso apuntado
         ///     por el <see cref="Uri"/> especificado.
         /// </returns>
-        public new async Task<MemoryStream> OpenFullTransferAsync(Uri uri)
+        public new async Task<MemoryStream?> OpenFullTransferAsync(Uri uri)
         {
             var ms = new MemoryStream();
-            await DownloadHelper.DownloadHttpAsync(uri, ms);
+            if (await DownloadHelper.DownloadHttpAsync(uri, ms) != HttpStatusCode.OK) return null;
             return ms;
         }
     }

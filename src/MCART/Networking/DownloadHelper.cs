@@ -48,9 +48,9 @@ namespace TheXDS.MCART.Networking
 		/// <param name="stream">
 		///     <see cref="Stream" /> en el cual se almacenará el archivo.
 		/// </param>
-		public static void DownloadHttp(string url, Stream stream)
+		public static HttpStatusCode DownloadHttp(string url, Stream stream)
 		{
-			DownloadHttp(new Uri(url), stream);
+			return DownloadHttp(new Uri(url), stream);
 		}
 
 		/// <summary>
@@ -63,16 +63,17 @@ namespace TheXDS.MCART.Networking
 		/// <param name="stream">
 		///     <see cref="Stream" /> en el cual se almacenará el archivo.
 		/// </param>
-		public static void DownloadHttp(Uri uri, Stream stream)
+		public static HttpStatusCode DownloadHttp(Uri uri, Stream stream)
 		{
 #if RatherDRY
             DownloadHttpAsync(uri, stream).GetAwaiter().GetResult();
 #else
 			var wr = WebRequest.Create(uri);
 			wr.Timeout = 10000;
-			using (var r = wr.GetResponse())
+			using (var r = (HttpWebResponse)wr.GetResponse())
 			{
-				r.GetResponseStream()?.CopyTo(stream);
+                if (r.StatusCode == HttpStatusCode.OK) r.GetResponseStream()?.CopyTo(stream);
+                return r.StatusCode;
 			}
 #endif
 		}
@@ -90,9 +91,9 @@ namespace TheXDS.MCART.Networking
 		/// <returns>
 		///     Un <see cref="Task" /> que representa a la tarea en ejecución.
 		/// </returns>
-		public static async Task DownloadHttpAsync(string url, Stream stream)
+		public static Task<HttpStatusCode> DownloadHttpAsync(string url, Stream stream)
 		{
-			await DownloadHttpAsync(new Uri(url), stream, null, 0);
+			return DownloadHttpAsync(new Uri(url), stream, null, 0);
 		}
 
 		/// <summary>
@@ -108,9 +109,9 @@ namespace TheXDS.MCART.Networking
 		/// <returns>
 		///     Un <see cref="Task" /> que representa a la tarea en ejecución.
 		/// </returns>
-		public static async Task DownloadHttpAsync(Uri uri, Stream stream)
+		public static Task<HttpStatusCode> DownloadHttpAsync(Uri uri, Stream stream)
 		{
-			await DownloadHttpAsync(uri, stream, null, 0);
+			return DownloadHttpAsync(uri, stream, null, 0);
 		}
 
 		/// <summary>
@@ -134,9 +135,9 @@ namespace TheXDS.MCART.Networking
 		/// <returns>
 		///     Un <see cref="Task" /> que representa a la tarea en ejecución.
 		/// </returns>
-		public static async Task DownloadHttpAsync(string url, Stream stream, ReportCallBack reportCallback)
+		public static Task<HttpStatusCode> DownloadHttpAsync(string url, Stream stream, ReportCallBack reportCallback)
 		{
-			await DownloadHttpAsync(new Uri(url), stream, reportCallback);
+			return DownloadHttpAsync(new Uri(url), stream, reportCallback);
 		}
 
 		/// <summary>
@@ -160,9 +161,9 @@ namespace TheXDS.MCART.Networking
 		/// <returns>
 		///     Un <see cref="Task" /> que representa a la tarea en ejecución.
 		/// </returns>
-		public static async Task DownloadHttpAsync(Uri uri, Stream stream, ReportCallBack reportCallback)
+		public static Task<HttpStatusCode> DownloadHttpAsync(Uri uri, Stream stream, ReportCallBack reportCallback)
 		{
-			await DownloadHttpAsync(uri, stream, reportCallback, 100);
+			return DownloadHttpAsync(uri, stream, reportCallback, 100);
 		}
 
 		/// <summary>
@@ -189,78 +190,84 @@ namespace TheXDS.MCART.Networking
 		/// <returns>
 		///     Un <see cref="Task" /> que representa a la tarea en ejecución.
 		/// </returns>
-		public static async Task DownloadHttpAsync(string url, Stream stream, ReportCallBack reportCallback,
+		public static Task<HttpStatusCode> DownloadHttpAsync(string url, Stream stream, ReportCallBack reportCallback,
 			int polling)
 		{
-			await DownloadHttpAsync(new Uri(url), stream, reportCallback, polling);
+			return DownloadHttpAsync(new Uri(url), stream, reportCallback, polling);
 		}
 
-		/// <summary>
-		///     Descarga un archivo por medio de http y lo almacena en el
-		///     <see cref="Stream" /> provisto de forma asíncrona.
-		/// </summary>
-		/// <param name="uri">
-		///     Url del archivo. Debe ser una ruta http válida.
-		/// </param>
-		/// <param name="stream">
-		///     <see cref="Stream" /> en el cual se almacenará el archivo.
-		/// </param>
-		/// <param name="reportCallback">
-		///     Delegado que permite reportar el estado de esta tarea. El primer
-		///     parámetro devolverá la cantidad de bytes recibidos, o <see langword="null" />
-		///     si <paramref name="stream" /> no es capaz de reportar su tamaño
-		///     actual. El segundo parámetro devolverá la longitud total de la
-		///     solicitud, o <c>-1</c> si el servidor no reportó el tamaño de los
-		///     datos a recibir.
-		/// </param>
-		/// <param name="polling">
-		///     Intervalo en milisegundos para reportar el estado de la descarga.
-		/// </param>
-		/// <returns>
-		///     Un <see cref="Task" /> que representa a la tarea en ejecución.
-		/// </returns>
-		public static async Task DownloadHttpAsync(Uri uri, Stream stream, ReportCallBack reportCallback,
-			int polling)
-		{
-			var wr = WebRequest.Create(uri);
-			wr.Timeout = 10000;
-		    WebResponse r;
-		    CancellationTokenSource ct;
+        /// <summary>
+        ///     Descarga un archivo por medio de http y lo almacena en el
+        ///     <see cref="Stream" /> provisto de forma asíncrona.
+        /// </summary>
+        /// <param name="uri">
+        ///     Url del archivo. Debe ser una ruta http válida.
+        /// </param>
+        /// <param name="stream">
+        ///     <see cref="Stream" /> en el cual se almacenará el archivo.
+        /// </param>
+        /// <param name="reportCallback">
+        ///     Delegado que permite reportar el estado de esta tarea. El primer
+        ///     parámetro devolverá la cantidad de bytes recibidos, o <see langword="null" />
+        ///     si <paramref name="stream" /> no es capaz de reportar su tamaño
+        ///     actual. El segundo parámetro devolverá la longitud total de la
+        ///     solicitud, o <c>-1</c> si el servidor no reportó el tamaño de los
+        ///     datos a recibir.
+        /// </param>
+        /// <param name="polling">
+        ///     Intervalo en milisegundos para reportar el estado de la descarga.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="Task" /> que representa a la tarea en ejecución.
+        /// </returns>
+        public static async Task<HttpStatusCode> DownloadHttpAsync(Uri uri, Stream stream, ReportCallBack reportCallback, int polling)
+        {
+            var wr = WebRequest.Create(uri);
+            wr.Timeout = 10000;
+            HttpWebResponse r;
+            CancellationTokenSource ct;
 
-			using (r = await wr.GetResponseAsync())
-			using (var rStream = r.GetResponseStream())
-			using (ct = new CancellationTokenSource())
-			using (var downloadTask = rStream?.CopyToAsync(stream))
-			using (var reportTask = new Task(() =>
-			{
-				if (reportCallback is null) return;
-				var t = r.ContentLength > 0 ? r.ContentLength : (long?)null;
-				var spd = 0L;
-				while (!ct?.IsCancellationRequested ?? false)
-				{
-					if (stream.CanSeek)
-					{
-						var l = stream.Length;
-						reportCallback.Invoke(l, t, (l - spd) * 1000 / polling);
-						spd = l;
-					}
-					else reportCallback.Invoke(null, t, null);
-					Thread.Sleep(polling);
-				}
+            using (r = (HttpWebResponse)await wr.GetResponseAsync())
+            {
+                if (r.StatusCode != HttpStatusCode.OK)
+                {
+                    return r.StatusCode;
+                }
+                using (var rStream = r.GetResponseStream())
+                using (ct = new CancellationTokenSource())
+                using (var downloadTask = rStream?.CopyToAsync(stream))
+                using (var reportTask = new Task(() =>
+                {
+                    if (reportCallback is null) return;
+                    var t = r.ContentLength > 0 ? r.ContentLength : (long?)null;
+                    var spd = 0L;
+                    while (!ct?.IsCancellationRequested ?? false)
+                    {
+                        if (stream.CanSeek)
+                        {
+                            var l = stream.Length;
+                            reportCallback.Invoke(l, t, (l - spd) * 1000 / polling);
+                            spd = l;
+                        }
+                        else reportCallback.Invoke(null, t, null);
+                        Thread.Sleep(polling);
+                    }
 
-				if (stream.CanSeek)
-				{
-					spd = stream.Length - spd;
-					reportCallback.Invoke(stream.Length, t, spd * 1000 / polling);
-				}
-				else reportCallback.Invoke(null, t, null);
-			}, ct.Token))
-			{
-				reportTask.Start();
-				if (downloadTask != null) await downloadTask;
-				ct.Cancel();
-				await reportTask;
-			}
+                    if (stream.CanSeek)
+                    {
+                        spd = stream.Length - spd;
+                        reportCallback.Invoke(stream.Length, t, spd * 1000 / polling);
+                    }
+                    else reportCallback.Invoke(null, t, null);
+                }, ct.Token))
+                {
+                    reportTask.Start();
+                    if (downloadTask != null) await downloadTask;
+                    ct.Cancel();
+                    await reportTask;
+                }            
+            }
+            return HttpStatusCode.OK;
 		}
 
 		/// <summary>

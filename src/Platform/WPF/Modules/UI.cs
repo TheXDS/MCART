@@ -618,11 +618,8 @@ namespace TheXDS.MCART
             {
                 if (!j.Handles(uri)) continue;
                 var s = await j.OpenFullTransferAsync(uri);
-                if (s is null) break;
-                //using (s)
-                //{
-                    return GetBitmap(s);
-                //}
+                if (s is null) return Render(Resources.WpfIcons.GetXamlIcon(Resources.Icons.IconId.FileMissing), new Size(256,256), 96).ToImage();
+                return GetBitmap(s);
             }
             return null;
         }
@@ -857,7 +854,7 @@ namespace TheXDS.MCART
         ///     Un objeto <see cref="RenderTargetBitmap" /> que contiene una imagen
         ///     renderizada de <paramref name="f" />.
         /// </returns>
-        public static RenderTargetBitmap Render(this FrameworkElement f, Size size, int dpi)
+        public static RenderTargetBitmap Render(this Visual f, Size size, int dpi)
         {
             var bmp = new RenderTargetBitmap(
                 (int) size.Width,
@@ -867,6 +864,7 @@ namespace TheXDS.MCART
             bmp.Render(f);
             return bmp;
         }
+
 
         /// <summary>
         ///     Crea un mapa de bits de un <see cref="FrameworkElement" />

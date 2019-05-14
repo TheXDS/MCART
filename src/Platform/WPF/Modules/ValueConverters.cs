@@ -1993,7 +1993,7 @@ namespace System.Windows.Converters
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (!(value is Brush brush)) return null;
-            if (!(parameter is double opacity || !double.TryParse(value as string, out opacity)))
+            if (!(parameter is double opacity || !double.TryParse(value.ToString(), out opacity)))
                 throw new ArgumentException(string.Empty, nameof(parameter));
             if (!opacity.IsBetween(0, 1)) throw new ArgumentOutOfRangeException(nameof(opacity));
             var b = brush.Clone();
