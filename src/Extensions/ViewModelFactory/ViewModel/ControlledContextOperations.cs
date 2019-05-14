@@ -50,6 +50,20 @@ namespace TheXDS.MCART.ViewModel
             lock(collection) collection.Clear();
         }
 
+        /// <summary>
+        ///     Limpia una colección en un contexto controlado.
+        /// </summary>
+        /// <param name="collection">
+        ///     Colección a limpiar.
+        /// </param>
+        /// <param name="item">
+        ///     Elemento a agregar a la colección.
+        /// </param>
+        public static void Add<T>(ICollection<T> collection, T item)
+        {
+            lock (collection) collection.Add(item);
+        }
+
         internal static MethodInfo Call(string method, params Type[] genericArgs)
         {
             var m = typeof(ControlledContextOperations).GetMethod(method, BindingFlags.Public | BindingFlags.Static);

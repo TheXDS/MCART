@@ -23,7 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 //#define IncludeLockBlock
-#define AltClearMethod
+#define AltMethods
 
 using System;
 using System.Collections;
@@ -413,7 +413,7 @@ namespace TheXDS.MCART.ViewModel
 
                 setEntityIl.Emit(Ldarg_0);
                 setEntityIl.Emit(Call, thisProp.GetMethod);
-#if AltClearMethod
+#if AltMethods
                 setEntityIl.Emit(Call, ControlledContextOperations.Call("Clear", listType));
 #else
                 setEntityIl.Emit(Callvirt, thisProp.PropertyType.GetMethod("Clear"));
@@ -445,7 +445,11 @@ namespace TheXDS.MCART.ViewModel
                 setEntityIl.Emit(Call, thisProp.GetMethod);
                 setEntityIl.Emit(Ldloc, enumerator);
                 setEntityIl.Emit(Callvirt, typeof(IEnumerator).GetMethod("get_Current"));
+#if AltMethods
+                setEntityIl.Emit(Call, ControlledContextOperations.Call("Add", listType));
+#else
                 setEntityIl.Emit(Callvirt, thisProp.PropertyType.GetMethod("Add"));
+#endif
 
                 setEntityIl.MarkLabel(il5d);
                 setEntityIl.Emit(Ldloc, enumerator);
