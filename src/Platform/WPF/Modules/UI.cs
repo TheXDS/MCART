@@ -552,13 +552,20 @@ namespace TheXDS.MCART
         /// </returns>
         public static BitmapImage? GetBitmap(Stream? stream)
         {
-            if (stream is null) return null;
-            var retVal = new BitmapImage();
-            retVal.BeginInit();
-            stream.Seek(0, SeekOrigin.Begin);
-            retVal.StreamSource = stream;
-            retVal.EndInit();
-            return retVal;
+            if (stream is null || (stream.CanSeek && stream.Length == 0)) return null;
+            try
+            {
+                var retVal = new BitmapImage();
+                retVal.BeginInit();
+                stream.Seek(0, SeekOrigin.Begin);
+                retVal.StreamSource = stream;
+                retVal.EndInit();
+                return retVal;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         /// <summary>
