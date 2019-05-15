@@ -297,3 +297,6 @@ paket-files/
 __pycache__/
 *.pyc
 **/.vscode
+
+# MCART specific files
+**/netcoreapp3.0

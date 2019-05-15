@@ -85,6 +85,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Common", "..\Examples\Light
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LightChatClient", "..\Examples\LightChat\LightChatClient\LightChatClient.csproj", "{8F93307C-81D3-4308-A8F5-24940290572D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlArt", "Utils\XamlArt\XamlArt.csproj", "{0BB0A1D0-9579-491F-8874-F86514C2BCC0}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\Examples\LightChat\Common\Common.projitems*{1459cf01-8f9b-47b1-a3f2-57e1f84d9d0e}*SharedItemsImports = 13
@@ -157,6 +159,10 @@ Global
 		{8F93307C-81D3-4308-A8F5-24940290572D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F93307C-81D3-4308-A8F5-24940290572D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F93307C-81D3-4308-A8F5-24940290572D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BB0A1D0-9579-491F-8874-F86514C2BCC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BB0A1D0-9579-491F-8874-F86514C2BCC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BB0A1D0-9579-491F-8874-F86514C2BCC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BB0A1D0-9579-491F-8874-F86514C2BCC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -181,6 +187,7 @@ Global
 		{0A814BF9-E7FB-4BA6-BC90-61B1AA78E638} = {3D07E538-7047-49F5-AE93-07C85E20581A}
 		{1459CF01-8F9B-47B1-A3F2-57E1F84D9D0E} = {3D07E538-7047-49F5-AE93-07C85E20581A}
 		{8F93307C-81D3-4308-A8F5-24940290572D} = {3D07E538-7047-49F5-AE93-07C85E20581A}
+		{0BB0A1D0-9579-491F-8874-F86514C2BCC0} = {B75874BF-E600-41EF-B756-93A12CCCABA5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A16C9D23-2B39-4202-8A15-4A3536784E27}

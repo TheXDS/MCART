@@ -49,5 +49,5 @@
     AfterTargets="Pack">
     <Exec Command="nuget add $(ActualPackage) -source d:\NuGet&#xD;&#xA;nuget add $(ActualPackageSymbols) -source d:\NuGet" />
   </Target>
-  <Import Condition="'$(MSBuildProjectExtension)'=='.csproj'" Project="$(SolutionDir)Shared\AssemblyInfo\AssemblyInfo.projitems" Label="Shared" />
+  <Import Condition="'$(MSBuildProjectExtension)'=='.csproj' And '$(NoAsmInfo)'!='true'" Project="$(SolutionDir)Shared\AssemblyInfo\AssemblyInfo.projitems" Label="Shared" />
 </Project>

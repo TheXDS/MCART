@@ -13,26 +13,18 @@
     <EmbeddedResource Remove="Art\**" />
     <None Remove="Art\**" />
     <Page Remove="Art\**" />
+    <None Remove="Resources\Icons\BadFile_Xml.deflate"/>
+    <EmbeddedResource Include="Resources\Icons\BadFile_Xml.deflate"/>
+    <None Remove="Resources\Icons\FileMissing_Xml.deflate"/>
+    <EmbeddedResource Include="Resources\Icons\FileMissing_Xml.deflate"/>
+    <None Remove="Resources\Icons\FileWarning_Xml.deflate"/>
+    <EmbeddedResource Include="Resources\Icons\FileWarning_Xml.deflate"/>
+    <None Remove="Resources\Icons\MCART_Xml.deflate"/>
+    <EmbeddedResource Include="Resources\Icons\MCART_Xml.deflate"/>
+    <None Remove="Resources\Icons\Plugin_Xml.deflate"/>
+    <EmbeddedResource Include="Resources\Icons\Plugin_Xml.deflate"/>
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Resources\Icons\BadFile.xaml" />
-    <None Remove="Resources\Icons\BadFile_Xml.deflate" />
-    <None Remove="Resources\Icons\FileMissing.xaml" />
-    <None Remove="Resources\Icons\FileMissing_Xml.deflate" />
-    <None Remove="Resources\Icons\FileWarning.xaml" />
-    <None Remove="Resources\Icons\FileWarning_Xml.deflate" />
-    <None Remove="Resources\Icons\MCART_Xml.deflate" />
-    <None Remove="Resources\Icons\Plugin.xaml" />
-    <None Remove="Resources\Icons\Plugin_Xml.deflate" />
-    <Page Remove="Resources\Icons\BadFile.xaml" />
-    <Page Remove="Resources\Icons\FileMissing.xaml" />
-    <Page Remove="Resources\Icons\FileWarning.xaml" />
-    <Page Remove="Resources\Icons\Plugin.xaml" />
-    <EmbeddedResource Include="Resources\Icons\BadFile_Xml.deflate" />
-    <EmbeddedResource Include="Resources\Icons\FileMissing_Xml.deflate" />
-    <EmbeddedResource Include="Resources\Icons\FileWarning_Xml.deflate" />
-    <EmbeddedResource Include="Resources\Icons\MCART_Xml.deflate" />
-    <EmbeddedResource Include="Resources\Icons\Plugin_Xml.deflate" />
     <ProjectReference Include="..\..\Lib\MCART-UI\MCART-UI.csproj" />
     <ProjectReference Include="..\..\Lib\MCART-Windows\MCART-Windows.csproj" />
     <ProjectReference Include="..\..\MCART\MCART.csproj">
