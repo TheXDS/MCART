@@ -70,6 +70,7 @@ namespace TheXDS.MCART.Types.Base
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             NotifyRegistroir(propertyName);
+            foreach (var j in _forwardings) j.Notify(propertyName);
         }
 
         /// <summary>

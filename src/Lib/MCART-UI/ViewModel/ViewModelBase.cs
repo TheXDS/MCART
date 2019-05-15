@@ -22,8 +22,10 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading.Tasks;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
 
@@ -63,6 +65,71 @@ namespace TheXDS.MCART.ViewModel
         /// <param name="property"></param>
         protected virtual void SelfObserve(PropertyInfo property) { }
 
+        /// <summary>
+        ///     Ejecuta una acción controlando automáticamente el estado de
+        ///     'ocupado' de este ViewModel.
+        /// </summary>
+        /// <param name="action">Acción a ejecutar.</param>
+        protected void BusyOp(Action action)
+        {
+            IsBusy = true;
+            action.Invoke();
+            IsBusy = false;
+        }
+
+        /// <summary>
+        ///     Ejecuta una tearea controlando automáticamente el estado de
+        ///     'ocupado' de este ViewModel.
+        /// </summary>
+        /// <param name="task">Tarea a ejecutar.</param>
+        /// <returns>
+        ///     Un <see cref="Task"/> que puede utilizarse para monitorear la
+        ///     operación asíncrona.
+        /// </returns>
+        protected async Task BusyOp(Task task)
+        {
+            IsBusy = true;
+            await task;
+            IsBusy = false;
+        }
+
+        /// <summary>
+        ///     Ejecuta una función controlando automáticamente el estado de
+        ///     'ocupado' de este ViewModel
+        /// </summary>
+        /// <typeparam name="T">Tipo de resultado de la función.</typeparam>
+        /// <param name="func">Función a ejecutar.</param>
+        /// <returns>
+        ///     El resultado de ejecutar la función especificada.
+        /// </returns>
+        protected T BusyOp<T>(Func<T> func)
+        {
+            IsBusy = true;
+            var result = func.Invoke();
+            IsBusy = false;
+            return result;
+        }
+
+        /// <summary>
+        ///     Ejecuta una tarea que devuelve un resultado controlando
+        ///     automáticamente el estado de 'ocupado' de este ViewModel.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de resultado devuelto por la tarea.
+        /// </typeparam>
+        /// <param name="task">Tarea a ejecutar.</param>
+        /// <returns>
+        ///     Un <see cref="Task"/> que puede utilizarse para monitorear la
+        ///     operación asíncrona.
+        /// </returns>
+        protected async Task<T> BusyOp<T>(Task<T> task)
+        {
+            IsBusy = true;
+            var result = await task;
+            IsBusy = false;
+            return result;
+        }
+
         private bool _isBusy;
 
         /// <summary>
@@ -84,5 +151,4 @@ namespace TheXDS.MCART.ViewModel
             PropertyChanged -= ViewModelBase_PropertyChanged;
         }
     }
-
 }

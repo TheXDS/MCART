@@ -38,7 +38,7 @@ namespace TheXDS.MCART.Types.Base
     ///     de las interfaces de notificación de propiedades disponibles en
     ///     .Net Framework / .Net Core.
     /// </summary>
-    public abstract class NotifyPropertyChangeBase
+    public abstract class NotifyPropertyChangeBase : INotifyPropertyChangeBase
     {
         private readonly IDictionary<string, ICollection<string>> _observeRegistry
             = new Dictionary<string, ICollection<string>>();
@@ -49,7 +49,7 @@ namespace TheXDS.MCART.Types.Base
         /// </summary>
         protected NotifyPropertyChangeBase()
         {
-             ObserveRegistry = new ReadOnlyDictionary<string, ICollection<string>>(_observeRegistry);
+            ObserveRegistry = new ReadOnlyDictionary<string, ICollection<string>>(_observeRegistry);
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace TheXDS.MCART.Types.Base
         ///     de esta propiedad.
         /// </param>
         protected void RegisterPropertyChangeBroadcast(string property, params string[] affectedProperties)
-        {            
+        {
             if (_observeRegistry.CheckCircularRef(property))
                 throw new InvalidOperationException(Ist.ErrorCircularOperationDetected);
 
@@ -182,6 +182,33 @@ namespace TheXDS.MCART.Types.Base
         public virtual void Refresh()
         {
             Notify(GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanRead));
+        }
+
+        private protected HashSet<INotifyPropertyChangeBase> _forwardings = new HashSet<INotifyPropertyChangeBase>();
+
+        /// <summary>
+        ///     Agrega un objeto al cual reenviar los eventos de cambio de
+        ///     valor de propiedad.
+        /// </summary>
+        /// <param name="source">
+        ///     Objeto a registrar para el reenvío de eventos de cambio de
+        ///     valor de propiedad.
+        /// </param>
+        public void ForwardChange(INotifyPropertyChangeBase source)
+        {
+            _forwardings.Add(source);
+        }
+
+        /// <summary>
+        ///     Quita un objeto de la lista de reenvíos de eventos de cambio de
+        ///     valor de propiedad.
+        /// </summary>
+        /// <param name="source">
+        ///     Elemento a quitar de la lista de reenvío.
+        /// </param>
+        public void RemoveForwardChange(INotifyPropertyChangeBase source)
+        {
+            _forwardings.Remove(source);
         }
     }
 }

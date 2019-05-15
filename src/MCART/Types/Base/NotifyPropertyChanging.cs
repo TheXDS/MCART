@@ -47,6 +47,7 @@ namespace TheXDS.MCART.Types.Base
         {
             PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
             NotifyRegistroir(propertyName);
+            foreach (var j in _forwardings) j.Notify(propertyName);
         }
 
         /// <summary>
