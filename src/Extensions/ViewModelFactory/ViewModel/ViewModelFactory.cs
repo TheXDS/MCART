@@ -51,6 +51,18 @@ namespace TheXDS.MCART.ViewModel
     /// </summary>
     public static class ViewModelFactory
     {
+        /// <summary>
+        ///     Contiene una lista de atributos de exclusión a la hora de
+        ///     generar ViewModels.
+        /// </summary>
+        public static HashSet<Type> AttributeExclusionList { get; } = new HashSet<Type>();
+
+        /// <summary>
+        ///     Marca una propiedad para ser excluída a la hora de generar un
+        ///     <see cref="DynamicViewModel{T}"/>.
+        /// </summary>
+        [AttributeUsage(AttributeTargets.Property, Inherited = true, AllowMultiple = false)]
+        public sealed class ExcludeAttribute : Attribute { }
 
         private const MethodAttributes _gsArgs = MethodAttributes.Public | SpecialName | HideBySig;
         private const string _namespace = "TheXDS.MCART.ViewModel._Generated";
@@ -161,6 +173,11 @@ namespace TheXDS.MCART.ViewModel
         private static TypeBuilder NewType(string name, Type baseType, params Type[] interfaces) => _mBuilder.DefineType($"{_namespace}.{name}_{Guid.NewGuid().ToString().Replace("-", "")}", TypeAttributes.Public | TypeAttributes.Class, baseType, interfaces);
         private static Type GetListType(Type listType) => listType.GenericTypeArguments?.Count() == 1 ? listType.GenericTypeArguments.Single() : typeof(object);
         
+        private static bool CanMap(PropertyInfo p)
+        {
+            return p.CanRead && !p.HasAttr<ExcludeAttribute>() && AttributeExclusionList.All(q => p.GetCustomAttribute(q) is null);
+        }
+
         #endregion
 
         #region Construcción de campos
@@ -487,7 +504,7 @@ namespace TheXDS.MCART.ViewModel
 
         private static void BuildViewModel(TypeBuilder tb, Type modelType)
         {
-            var modelProps = modelType.GetProperties(BindingFlags.Public | Instance).Where(p => p.CanRead);
+            var modelProps = modelType.GetProperties(BindingFlags.Public | Instance).Where(CanMap);
             var ctor = tb.DefineConstructor(MethodAttributes.Public, CallingConventions.Standard, Type.EmptyTypes).GetILGenerator();
             var updatingObservables = tb.DefineField("updatingObservables", typeof(bool), FieldAttributes.Private);
             var entity = tb.DefineField("_entity", modelType, FieldAttributes.Private);
