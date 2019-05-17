@@ -30,6 +30,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
@@ -193,6 +194,151 @@ namespace TheXDS.MCART.ViewModel
         /// </param>
         public ObservingCommand(INotifyPropertyChanged observedSource, Action action, Func<object?, bool>? canExecute, IEnumerable<Expression<Func<object?>>>? propsToListen)
             : this(observedSource, _ => action(), canExecute, propsToListen) { }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        /// </summary>
+        /// <param name="observedSource">Origen de datos observado.</param>
+        /// <param name="task">Tarea a ejecutar.</param>
+        public ObservingCommand(INotifyPropertyChanged observedSource, Task task) : this(observedSource, _ => task.GetAwaiter().GetResult()) { }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        /// </summary>
+        /// <param name="observedSource">Origen de datos observado.</param>
+        /// <param name="task">Tarea a ejecutar.</param>
+        /// <param name="canExecute">
+        ///     Función que determina si el comando puede ejecutarse o no.
+        /// </param>
+        /// <param name="propsToListen">
+        ///     Lista de propiedades a escuchar. Si no se establece ningún
+        ///     valor, se escuchará el cambio de todas las propiedades.
+        /// </param>
+        public ObservingCommand(INotifyPropertyChanged observedSource, Task task, Func<object?, bool>? canExecute, params string[] propsToListen)
+            : this(observedSource, _ => task.GetAwaiter().GetResult(), canExecute, propsToListen.AsEnumerable()) { }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        /// </summary>
+        /// <param name="observedSource">Origen de datos observado.</param>
+        /// <param name="task">Tarea a ejecutar.</param>
+        /// <param name="canExecute">
+        ///     Función que determina si el comando puede ejecutarse o no.
+        /// </param>
+        /// <param name="propsToListen">
+        ///     Lista de propiedades a escuchar. Si no se establece ningún
+        ///     valor, se escuchará el cambio de todas las propiedades.
+        /// </param>
+        public ObservingCommand(INotifyPropertyChanged observedSource, Task task, Func<bool>? canExecute, params string[] propsToListen)
+            : this(observedSource, _ => task.GetAwaiter().GetResult(), canExecute, propsToListen.AsEnumerable()) { }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        /// </summary>
+        /// <param name="observedSource">Origen de datos observado.</param>
+        /// <param name="task">Tarea a ejecutar.</param>
+        /// <param name="canExecute">
+        ///     Función que determina si el comando puede ejecutarse o no.
+        /// </param>
+        /// <param name="propsToListen">
+        ///     Lista de propiedades a escuchar. Si no se establece ningún
+        ///     valor, se escuchará el cambio de todas las propiedades.
+        /// </param>
+        public ObservingCommand(INotifyPropertyChanged observedSource, Task task, Func<bool>? canExecute, IEnumerable<string>? propsToListen)
+            : this(observedSource, _ => task.GetAwaiter().GetResult(), canExecute, propsToListen) { }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        /// </summary>
+        /// <param name="observedSource">Origen de datos observado.</param>
+        /// <param name="task">Tarea a ejecutar.</param>
+        /// <param name="canExecute">
+        ///     Función que determina si el comando puede ejecutarse o no.
+        /// </param>
+        /// <param name="propsToListen">
+        ///     Lista de propiedades a escuchar. Si no se establece ningún
+        ///     valor, se escuchará el cambio de todas las propiedades.
+        /// </param>
+        public ObservingCommand(INotifyPropertyChanged observedSource, Task task, Func<object?, bool>? canExecute, IEnumerable<string>? propsToListen)
+            : this(observedSource, _ => task.GetAwaiter().GetResult(), canExecute, propsToListen) { }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        /// </summary>
+        /// <param name="observedSource">Origen de datos observado.</param>
+        /// <param name="task">Tarea a ejecutar.</param>
+        /// <param name="canExecute">
+        ///     Función que determina si el comando puede ejecutarse o no.
+        /// </param>
+        /// <param name="propsToListen">
+        ///     Lista de propiedades a escuchar. Si no se establece ningún
+        ///     valor, se escuchará el cambio de todas las propiedades.
+        /// </param>
+        public ObservingCommand(INotifyPropertyChanged observedSource, Task task, Func<object?, bool>? canExecute, params Expression<Func<object?>>[] propsToListen)
+            : this(observedSource, _ => task.GetAwaiter().GetResult(), canExecute, propsToListen.AsEnumerable()) { }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        /// </summary>
+        /// <param name="observedSource">Origen de datos observado.</param>
+        /// <param name="task">Tarea a ejecutar.</param>
+        /// <param name="canExecute">
+        ///     Función que determina si el comando puede ejecutarse o no.
+        /// </param>
+        /// <param name="propsToListen">
+        ///     Lista de propiedades a escuchar. Si no se establece ningún
+        ///     valor, se escuchará el cambio de todas las propiedades.
+        /// </param>
+        public ObservingCommand(INotifyPropertyChanged observedSource, Task task, Func<bool> canExecute, params Expression<Func<object?>>[] propsToListen)
+            : this(observedSource, _ => task.GetAwaiter().GetResult(), _ => canExecute(), propsToListen.AsEnumerable()) { }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        /// </summary>
+        /// <param name="observedSource">Origen de datos observado.</param>
+        /// <param name="task">Tarea a ejecutar.</param>
+        /// <param name="canExecute">
+        ///     Función que determina si el comando puede ejecutarse o no.
+        /// </param>
+        /// <param name="propsToListen">
+        ///     Lista de propiedades a escuchar. Si no se establece ningún
+        ///     valor, se escuchará el cambio de todas las propiedades.
+        /// </param>
+        public ObservingCommand(INotifyPropertyChanged observedSource, Task task, Func<bool> canExecute, IEnumerable<Expression<Func<object?>>>? propsToListen)
+            : this(observedSource, _ => task.GetAwaiter().GetResult(), _ => canExecute(), propsToListen) { }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        /// </summary>
+        /// <param name="observedSource">Origen de datos observado.</param>
+        /// <param name="task">Tarea a ejecutar.</param>
+        /// <param name="canExecute">
+        ///     Función que determina si el comando puede ejecutarse o no.
+        /// </param>
+        /// <param name="propsToListen">
+        ///     Lista de propiedades a escuchar. Si no se establece ningún
+        ///     valor, se escuchará el cambio de todas las propiedades.
+        /// </param>
+        public ObservingCommand(INotifyPropertyChanged observedSource, Task task, Func<object?, bool>? canExecute, IEnumerable<Expression<Func<object?>>>? propsToListen)
+            : this(observedSource, _ => task.GetAwaiter().GetResult(), canExecute, propsToListen) { }
 
         /// <inheritdoc />
         /// <summary>

@@ -29,6 +29,10 @@ using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types.Extensions;
 using System.ComponentModel;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using TheXDS.MCART.Types.Base;
+using System.Collections;
 
 namespace TheXDS.MCART.Types
 {
