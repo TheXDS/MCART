@@ -4,8 +4,9 @@
 MCART
 </h1>
 </div>
-[![NuGet Badge](https://buildstats.info/nuget/TheXDS.MCART)](https://www.nuget.org/packages/TheXDS.MCART/)
-[![NuGet Development](https://buildstats.info/nuget/TheXDS.MCART?includePreReleases=true)](https://www.nuget.org/packages/TheXDS.MCART/)
+
+[![Versión estable](https://buildstats.info/nuget/TheXDS.MCART)](https://www.nuget.org/packages/TheXDS.MCART/)
+[![Versión de desarrollo](https://buildstats.info/nuget/TheXDS.MCART?includePreReleases=true)](https://www.nuget.org/packages/TheXDS.MCART/)
 
 ## Introducción
 MCART es un conjunto de funciones, extensiones y módulos que he encontrado
