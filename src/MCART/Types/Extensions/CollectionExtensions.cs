@@ -142,5 +142,42 @@ namespace TheXDS.MCART.Types.Extensions
         {
             return Push(collection, new T());
         }
+
+        /// <summary>
+        ///     Alternativa a <see cref="ICollection{T}.Add(T)"/> con soporte
+        ///     para sintáxis fluent.
+        /// </summary>
+        /// <typeparam name="TItem">
+        ///     Tipo de elemento a agregar a la colección.
+        /// </typeparam>
+        /// <typeparam name="TCollection">
+        ///     Tipo de elementos contenidos en el <see cref="ICollection{T}" />.
+        /// </typeparam>
+        /// <param name="collection">
+        ///     Colección a la cual agregar el nuevo elemento.
+        /// </param>
+        /// <param name="value">Valor a agregar a la colección.</param>
+        /// <returns>El objeto agregado a la colección.</returns>
+        public static TItem Push<TItem, TCollection>(this TItem value, ICollection<TCollection> collection) where TItem : TCollection
+        {
+            collection.Add(value);
+            return value;
+        }
+
+        /// <summary>
+        ///     Alternativa a <see cref="ICollection{T}.Add(T)"/> con soporte
+        ///     para sintáxis fluent.
+        /// </summary>
+        /// <typeparam name="TItem">
+        ///     Tipo de elemento a agregar a la colección.
+        /// </typeparam>
+        /// <typeparam name="TCollection">
+        ///     Tipo de elementos contenidos en el <see cref="ICollection{T}" />.
+        /// </typeparam>
+        /// <param name="collection">
+        ///     Colección a la cual agregar el nuevo elemento.
+        /// </param>
+        /// <returns>Una nueva instancia de tipo <typeparamref name="TItem"/> agregada a la colección.</returns>
+        public static TItem Push<TItem, TCollection>(this ICollection<TCollection> collection) where TItem : TCollection, new() => Push(new TItem(), collection);
     }
 }

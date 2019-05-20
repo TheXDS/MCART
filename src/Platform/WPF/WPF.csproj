@@ -13,16 +13,17 @@
     <EmbeddedResource Remove="Art\**" />
     <None Remove="Art\**" />
     <Page Remove="Art\**" />
-    <None Remove="Resources\Icons\BadFile_Xml.deflate"/>
-    <EmbeddedResource Include="Resources\Icons\BadFile_Xml.deflate"/>
-    <None Remove="Resources\Icons\FileMissing_Xml.deflate"/>
-    <EmbeddedResource Include="Resources\Icons\FileMissing_Xml.deflate"/>
-    <None Remove="Resources\Icons\FileWarning_Xml.deflate"/>
-    <EmbeddedResource Include="Resources\Icons\FileWarning_Xml.deflate"/>
-    <None Remove="Resources\Icons\MCART_Xml.deflate"/>
-    <EmbeddedResource Include="Resources\Icons\MCART_Xml.deflate"/>
-    <None Remove="Resources\Icons\Plugin_Xml.deflate"/>
-    <EmbeddedResource Include="Resources\Icons\Plugin_Xml.deflate"/>
+    <None Remove="Resources\BusyContainerTemplate.xaml" />    
+    <None Remove="Resources\Icons\BadFile_Xml.deflate" />
+    <None Remove="Resources\Icons\FileMissing_Xml.deflate" />
+    <None Remove="Resources\Icons\FileWarning_Xml.deflate" />
+    <None Remove="Resources\Icons\MCART_Xml.deflate" />
+    <None Remove="Resources\Icons\Plugin_Xml.deflate" />
+    <EmbeddedResource Include="Resources\Icons\BadFile_Xml.deflate" />
+    <EmbeddedResource Include="Resources\Icons\FileMissing_Xml.deflate" />
+    <EmbeddedResource Include="Resources\Icons\FileWarning_Xml.deflate" />
+    <EmbeddedResource Include="Resources\Icons\MCART_Xml.deflate" />
+    <EmbeddedResource Include="Resources\Icons\Plugin_Xml.deflate" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Lib\MCART-UI\MCART-UI.csproj" />

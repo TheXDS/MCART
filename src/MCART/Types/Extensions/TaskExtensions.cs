@@ -23,6 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -134,6 +135,22 @@ namespace TheXDS.MCART.Types.Extensions
         {
             await task;
             if (task.IsFaulted) throw task.Exception ?? new AggregateException();
+        }
+
+        /// <summary>
+        ///     Pone en cola una tarea.
+        /// </summary>
+        /// <typeparam name="T">Tipo de la tarea.</typeparam>
+        /// <param name="task">Tarea a agregar a la cola.</param>
+        /// <param name="tasks">Cola de tareas.</param>
+        /// <returns>
+        ///     <paramref name="task"/>, lo cual permite realizar llamadas con
+        ///     sintaxis Fluent.
+        /// </returns>
+        public static T Enqueue<T>(this T task, ICollection<Task> tasks) where T : Task
+        {
+            tasks.Add(task);
+            return task;
         }
     }
 }
