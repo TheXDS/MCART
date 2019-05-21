@@ -440,6 +440,10 @@ namespace TheXDS.MCART
             SetWindowEffect(window, new AccentPolicy {AccentState = AccentState.ACCENT_DISABLED});
         }
 
+        [DllImport("gdi32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool DeleteObject(IntPtr value);
+
         [DllImport("dwmapi.dll")]
         private static extern int DwmExtendFrameIntoClientArea(IntPtr hWnd, ref Margins pMargins);
 
@@ -1006,6 +1010,59 @@ namespace TheXDS.MCART
                 bi.EndInit();
                 ms.Close();
                 return bi;
+            }
+        }
+
+        /// <summary>
+        ///     Convierte un <see cref="System.Drawing.Image" /> en un
+        ///     <see cref="BitmapImage" />.
+        /// </summary>
+        /// <param name="bs"><see cref="BitmapSource" /> a convertir.</param>
+        /// <returns>
+        ///     Un <see cref="BitmapImage" /> que contiene la imagen obtenida desde
+        ///     un <see cref="System.Drawing.Image" />.
+        /// </returns>
+        public static BitmapImage ToImage(this System.Drawing.Image bs)
+        {
+            using (var ms = new MemoryStream())
+            {
+                var bi = new BitmapImage();
+                bs.Save(ms,System.Drawing.Imaging.ImageFormat.Png);
+                ms.Position = 0;
+                bi.BeginInit();
+                bi.CacheOption = BitmapCacheOption.OnLoad;
+                bi.StreamSource = ms;
+                bi.EndInit();
+                ms.Close();
+                return bi;
+            }
+        }
+
+        /// <summary>
+        ///     Convierte un <see cref="System.Drawing.Image" /> en un
+        ///     <see cref="BitmapImage" />.
+        /// </summary>
+        /// <param name="bs"><see cref="BitmapSource" /> a convertir.</param>
+        /// <returns>
+        ///     Un <see cref="BitmapImage" /> que contiene la imagen obtenida desde
+        ///     un <see cref="System.Drawing.Image" />.
+        /// </returns>
+        public static BitmapSource ToSource(this System.Drawing.Image bs)
+        {
+            using (var ms = new MemoryStream())
+            {
+                var bitmap = new System.Drawing.Bitmap(bs);
+                var bmpPt = bitmap.GetHbitmap();
+                var bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(
+                    bmpPt,
+                    IntPtr.Zero,
+                    Int32Rect.Empty,
+                    BitmapSizeOptions.FromEmptyOptions());
+
+                bitmapSource.Freeze();
+                DeleteObject(bmpPt);
+
+                return bitmapSource;
             }
         }
 
