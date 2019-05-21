@@ -2698,4 +2698,17 @@ namespace System.Windows.Converters
             };
         }
     }
+
+    public sealed class BooleanToObjectConverter : IValueConverter
+    {
+        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return (value is bool b && b && targetType.IsInstanceOfType(parameter)) ? parameter : null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return !(value is null);
+        }
+    }
 }

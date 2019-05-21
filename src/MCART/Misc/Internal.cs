@@ -84,5 +84,6 @@ namespace TheXDS.MCART.Misc
             return source.GetFields(flags).Where(f => f.FieldType.Implements<TField>())
                 .Select(p => new NamedObject<TField>((TField)p.GetValue(instance)));
         }
+
     }
 }

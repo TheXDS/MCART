@@ -38,8 +38,9 @@ namespace TheXDS.MCART.Resources
     /// <typeparam name="T">Tipo de recursos a extraer.</typeparam>
     public abstract class AssemblyUnpacker<T> : IUnpacker<T>
     {
-        readonly string path;
-        readonly Assembly assembly;
+        readonly string _path;
+        readonly Assembly _assembly;
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="AssemblyUnpacker{T}"/>.
@@ -54,11 +55,12 @@ namespace TheXDS.MCART.Resources
         /// </param>
         protected AssemblyUnpacker(Assembly assembly, string path)
         {
-            this.assembly = assembly ?? throw new ArgumentNullException(nameof(assembly));
+            this._assembly = assembly ?? throw new ArgumentNullException(nameof(assembly));
 
             // TODO: verificar validez de path
-            this.path = path ?? throw new ArgumentNullException(nameof(path));
+            this._path = path ?? throw new ArgumentNullException(nameof(path));
         }
+
         /// <summary>
         /// Obtiene un <see cref="Stream"/> desde el cual leer un recurso
         /// incrustado.
@@ -74,8 +76,9 @@ namespace TheXDS.MCART.Resources
         protected Stream UnpackStream(string id)
         {
             if (id.IsEmpty()) throw new ArgumentNullException(nameof(id));
-            return assembly.GetManifestResourceStream($"{path}.{id}");
+            return _assembly.GetManifestResourceStream($"{_path}.{id}");
         }
+
         /// <summary>
         /// Obtiene un <see cref="Stream"/> desde el cual extraer un recurso
         /// incrustado comprimido.
@@ -99,6 +102,7 @@ namespace TheXDS.MCART.Resources
         {
             return UnpackStream(id, Objects.FindType<ICompressorGetter>(compressorId)?.New<ICompressorGetter>() ?? new NullGetter());
         }
+
         /// <summary>
         /// Obtiene un <see cref="Stream"/> desde el cual extraer un recurso
         /// incrustado comprimido.
@@ -120,8 +124,9 @@ namespace TheXDS.MCART.Resources
         {
             var c = compressor ?? new NullGetter();
             if (id.IsEmpty()) throw new ArgumentNullException(nameof(id));
-            return c.GetCompressor(assembly.GetManifestResourceStream($"{path}.{id}{c.Extension}"));
+            return c.GetCompressor(_assembly.GetManifestResourceStream($"{_path}.{id}{c.Extension}"));
         }
+
         /// <inheritdoc />
         /// <summary>
         /// Obtiene un recurso identificable.
@@ -129,6 +134,7 @@ namespace TheXDS.MCART.Resources
         /// <param name="id">Identificador del recurso.</param>
         /// <returns>Un recurso de tipo <typeparamref name="T" />.</returns>
         public abstract T Unpack(string id);
+
         /// <inheritdoc />
         /// <summary>
         /// Extrae un recurso comprimido utilizando el compresor con el
@@ -142,6 +148,7 @@ namespace TheXDS.MCART.Resources
         /// Un recurso sin comprimir de tipo <typeparamref name="T" />.
         /// </returns>
         public abstract T Unpack(string id, string compressorId);
+
         /// <inheritdoc />
         /// <summary>
         /// Extrae un recurso comprimido utilizando el compresor con el

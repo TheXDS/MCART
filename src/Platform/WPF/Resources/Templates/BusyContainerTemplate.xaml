@@ -3,7 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:local="clr-namespace:TheXDS.MCART.Resources"
     xmlns:controls="clr-namespace:TheXDS.MCART.Controls"
     xmlns:converters="clr-namespace:System.Windows.Converters"
     mc:Ignorable="d">
@@ -15,10 +14,12 @@
                         <Grid.Resources>
                             <BooleanToVisibilityConverter x:Key="BoolVis"/>
                             <converters:BooleanInverter x:Key="BoolInv"/>
+                            <converters:BooleanToBlurEffectConverter x:Key="BoolEff"/>
                         </Grid.Resources>
                         <ContentPresenter
                             IsEnabled="{TemplateBinding IsBusy, Converter={StaticResource BoolInv}}"
                             Content="{TemplateBinding ContentControl.Content}"
+                            Effect="{TemplateBinding CurrentBusyEffect}"
                             ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"
                             ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}" />
                         <ContentPresenter

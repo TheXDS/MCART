@@ -22,8 +22,12 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System.Reflection;
 using System.Windows.Media.Imaging;
+using System.Windows.Markup;
+using System.Xml;
 
 namespace TheXDS.MCART.Resources
 {
@@ -33,7 +37,7 @@ namespace TheXDS.MCART.Resources
     ///     extrae recursos de imagen como un
     ///     <see cref="T:System.Windows.Media.Imaging.BitmapImage" />.
     /// </summary>
-    public class ImageUnpacker : AssemblyUnpacker<BitmapImage>
+    public class ImageUnpacker : AssemblyUnpacker<BitmapImage?>
     {
         /// <inheritdoc />
         /// <summary>
@@ -48,6 +52,7 @@ namespace TheXDS.MCART.Resources
         /// incrustados.
         /// </param>
         public ImageUnpacker(Assembly assembly, string path) : base(assembly, path) { }
+
         /// <inheritdoc />
         /// <summary>
         /// Obtiene un <see cref="T:System.Windows.Media.Imaging.BitmapImage" /> desde los recursos incrustados
@@ -58,7 +63,8 @@ namespace TheXDS.MCART.Resources
         /// Un <see cref="T:System.Windows.Media.Imaging.BitmapImage" /> extraído desde los recursos
         /// incrustados del ensamblado.
         /// </returns>
-        public override BitmapImage Unpack(string id) => WpfUi.GetBitmap(UnpackStream(id));
+        public override BitmapImage? Unpack(string id) => WpfUi.GetBitmap(UnpackStream(id));
+
         /// <inheritdoc />
         /// <summary>
         /// Obtiene un <see cref="T:System.Windows.Media.Imaging.BitmapImage" /> desde los recursos incrustados
@@ -72,7 +78,8 @@ namespace TheXDS.MCART.Resources
         /// Un <see cref="T:System.Windows.Media.Imaging.BitmapImage" /> extraído desde los recursos
         /// incrustados comprimidos del ensamblado.
         /// </returns>
-        public override BitmapImage Unpack(string id, string compressorId) => WpfUi.GetBitmap(UnpackStream(id, compressorId));
+        public override BitmapImage? Unpack(string id, string compressorId) => WpfUi.GetBitmap(UnpackStream(id, compressorId));
+        
         /// <inheritdoc />
         /// <summary>
         /// Obtiene un <see cref="T:System.Windows.Media.Imaging.BitmapImage" /> desde los recursos incrustados
@@ -87,6 +94,6 @@ namespace TheXDS.MCART.Resources
         /// Un <see cref="T:System.Windows.Media.Imaging.BitmapImage" /> extraído desde los recursos
         /// incrustados comprimidos del ensamblado.
         /// </returns>
-        public override BitmapImage Unpack(string id, ICompressorGetter compressor) => WpfUi.GetBitmap(UnpackStream(id, compressor));
+        public override BitmapImage? Unpack(string id, ICompressorGetter compressor) => WpfUi.GetBitmap(UnpackStream(id, compressor));
     }
 }

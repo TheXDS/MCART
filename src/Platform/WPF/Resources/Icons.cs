@@ -39,10 +39,10 @@ namespace TheXDS.MCART.Resources
     /// </summary>
     public static class WpfIcons
     {
-        private const string DefaultExt = "png";
+        private const string _defaultExt = "png";
 
         private static readonly ImageUnpacker _imgs = new ImageUnpacker(RtInfo.CoreRtAssembly, typeof(Icons).FullName);
-        private static readonly StringUnpacker _strs = new StringUnpacker(RtInfo.CoreRtAssembly, typeof(Icons).FullName);
+        private static readonly XamlUnpacker _xaml = new XamlUnpacker(RtInfo.CoreRtAssembly, typeof(Icons).FullName);
 
         /// <summary>
         ///     Obtiene un ícono desde los recursos incrustados del ensamblado
@@ -51,7 +51,7 @@ namespace TheXDS.MCART.Resources
         /// <param name="icon">Ícono que se desea obtener.</param>
         /// <returns>El ícono de recurso incrustado solicitado.</returns>
         public static ImageSource GetIcon(Icons.IconId icon) => _imgs.Unpack(
-            $"{icon.ToString()}.{(icon.HasAttr<IdentifierAttribute>(out var attr) ? attr.Value : DefaultExt)}");
+            $"{icon.ToString()}.{(icon.HasAttr<IdentifierAttribute>(out var attr) ? attr.Value : _defaultExt)}");
 
         /// <summary>
         ///     Obtiene un ícono desde los recursos incrustados del ensamblado
@@ -61,11 +61,7 @@ namespace TheXDS.MCART.Resources
         /// <returns>El ícono de recurso incrustado solicitado.</returns>
         public static UIElement GetXamlIcon(Icons.IconId icon)
         {
-            using (var sr = new StringReader(_strs.Unpack($"{icon.ToString()}_Xml", new DeflateGetter())))
-            {
-                var xx = XmlReader.Create(sr);
-                return XamlReader.Load(xx) as UIElement;
-            }
+            return _xaml.Unpack($"{icon.ToString()}_Xml", new DeflateGetter()) as UIElement;
         }
     }
 }
