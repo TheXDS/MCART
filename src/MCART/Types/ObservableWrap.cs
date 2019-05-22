@@ -158,5 +158,14 @@ namespace TheXDS.MCART.Types
         {
             return UnderlyingCollection.GetEnumerator();
         }
+
+        /// <summary>
+        ///     Obliga a notificar un cambio en la colección.
+        /// </summary>
+        public override void Refresh()
+        {
+            base.Refresh();
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, (IList)UnderlyingCollection, (IList)UnderlyingCollection));
+        }
     }
 }

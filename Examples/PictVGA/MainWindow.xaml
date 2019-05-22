@@ -9,7 +9,7 @@
         d:DataContext="{d:DesignInstance local:PictureViewModel}"
         Title="{Binding Title}"
         Height="450" Width="800">
-    <controls:BusyContainer IsBusy="True">
+    <controls:BusyContainer>
         <Grid>            
             <Grid.Background>
                 <DrawingBrush TileMode="Tile" Viewport="0,0,16,16" ViewportUnits="Absolute">

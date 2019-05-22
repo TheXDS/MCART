@@ -1040,7 +1040,7 @@ namespace TheXDS.MCART
 
         /// <summary>
         ///     Convierte un <see cref="System.Drawing.Image" /> en un
-        ///     <see cref="BitmapImage" />.
+        ///     <see cref="BitmapSource" />.
         /// </summary>
         /// <param name="bs"><see cref="BitmapSource" /> a convertir.</param>
         /// <returns>

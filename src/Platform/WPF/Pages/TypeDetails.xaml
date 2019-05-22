@@ -7,7 +7,8 @@
     xmlns:resources="clr-namespace:TheXDS.MCART.Resources;assembly=MCART"
     xmlns:converters="clr-namespace:System.Windows.Converters"
     xmlns:viewModel="clr-namespace:TheXDS.MCART.Dialogs.ViewModel;assembly=MCART.UI"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    d:DesignWidth="300" d:DesignHeight="300">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="Bool2Vis"/>
         <converters:TypeVisibilityConverter x:Key="Conv"/>
