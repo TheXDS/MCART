@@ -50,8 +50,8 @@ namespace TheXDS.MCART.Tests.Types.Base
         public void OnPropertyChangedTest()
         {
             var x = new TestClass();
-            PropertyChangedEventHandler handler=null; 
-            
+            PropertyChangedEventHandler handler = null;
+
             var evt = Assert.Raises<PropertyChangedEventArgs>(
                 h =>
                 {

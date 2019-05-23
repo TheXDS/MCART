@@ -54,12 +54,12 @@ namespace TheXDS.MCART.Types
         {
             UnderlyingCollection = underlyingCollection;            
         }
-
+        
         /// <summary>
         ///     Obtiene acceso directo a la colección subyacente envuelta por
         ///     este <see cref="ObservableWrap{T}"/>.
         /// </summary>
-        public ICollection<T> UnderlyingCollection { get; }
+        public ICollection<T> UnderlyingCollection { get; private set; }
 
         /// <summary>
         ///     Obtiene la cuenta de elementos contenidos dentro de la
@@ -165,7 +165,22 @@ namespace TheXDS.MCART.Types
         public override void Refresh()
         {
             base.Refresh();
-            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, (IList)UnderlyingCollection, (IList)UnderlyingCollection));
+
+            Substitute(UnderlyingCollection);
+        }
+
+        /// <summary>
+        ///     Sustituye la colección subyacente por una nueva.
+        /// </summary>
+        /// <param name="newCollection">
+        ///     Colección a establecer como la colección subyacente.
+        /// </param>
+        public void Substitute(ICollection<T> newCollection)
+        {
+            UnderlyingCollection = new T[0];
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            UnderlyingCollection = newCollection;
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, (IList)UnderlyingCollection));
         }
     }
 }
