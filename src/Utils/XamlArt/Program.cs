@@ -26,6 +26,7 @@ using System;
 using System.IO;
 using System.IO.Compression;
 using System.Xml;
+using System.Linq;
 
 namespace xamlArt
 {
@@ -53,19 +54,13 @@ namespace xamlArt
         {
             foreach (XmlNode node in itemGroup.ChildNodes)
             {
-                if (node.Name != kind) continue;                
-                foreach (XmlAttribute nnattr in node.Attributes)
-                {
-                    if (nnattr.Name == op && nnattr.Value.EndsWith(ResName(fileName)))
-                    {
-                        return true;
-                    }
-                }
+                if (node.Name != kind) continue;
+                if (node.Attributes.OfType<XmlAttribute>().Any(p => p.Name == op && p.Value.EndsWith(ResName(fileName)))) return false;
             }            
             var newNode = xmlPrj.CreateElement(kind);
             newNode.SetAttribute(op, ResName(fileName));
             itemGroup.AppendChild(newNode);
-            return false;
+            return true;
         }
         private static string PackResource(FileInfo file)
         {
@@ -89,7 +84,7 @@ namespace xamlArt
             foreach (var j in new DirectoryInfo(Environment.CurrentDirectory).EnumerateFiles("*.xaml"))
             {
                 var f = PackResource(j);
-                changes |= !GetRemove(xmlPrj, ig, f) | !GetEmbeed(xmlPrj, ig, f);
+                changes |= GetRemove(xmlPrj, ig, f) | GetEmbeed(xmlPrj, ig, f);
             }
 
             if (changes)
