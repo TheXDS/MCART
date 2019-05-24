@@ -26,6 +26,8 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using TheXDS.MCART.Types.Base;
 using System.Collections;
+using System;
+using System.Diagnostics;
 
 namespace TheXDS.MCART.Types
 {
@@ -36,151 +38,120 @@ namespace TheXDS.MCART.Types
     /// <typeparam name="T">
     ///     Tipo de elementos contenidos dentro de la colección.
     /// </typeparam>
-    public class ObservableWrap<T> : NotifyPropertyChanged, INotifyCollectionChanged, ICollection<T>
+    public class ObservableCollectionWrap<T> : ObservableWrap<T, ICollection<T>>
     {
-        /// <summary>
-        ///     Se produce al ocurrir un cambio en la colección.
-        /// </summary>
+    }
+
+
+    public class ObservableListWrap : NotifyPropertyChanged, IList, INotifyCollectionChanged
+    {
+        public IList UnderlyingList { get; private set; }
+
+        public object this[int index]
+        {
+            get => UnderlyingList[index];
+            set
+            {
+                var oldItem = UnderlyingList[index];
+                UnderlyingList[index] = value;
+                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, value, oldItem));
+            }
+        }
+
+        public bool IsFixedSize => UnderlyingList.IsFixedSize;
+
+        public bool IsReadOnly => UnderlyingList.IsReadOnly;
+
+        public int Count => UnderlyingList.Count;
+
+        public bool IsSynchronized => UnderlyingList.IsSynchronized;
+
+        public object SyncRoot => UnderlyingList.SyncRoot;
+
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-        /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ObservableWrap{T}"/>.
-        /// </summary>
-        /// <param name="underlyingCollection">
-        ///     Colección a la cual hacer observable.
-        /// </param>
-        public ObservableWrap(ICollection<T> underlyingCollection)
+        public int Add(object value)
         {
-            UnderlyingCollection = underlyingCollection;            
-        }
-        
-        /// <summary>
-        ///     Obtiene acceso directo a la colección subyacente envuelta por
-        ///     este <see cref="ObservableWrap{T}"/>.
-        /// </summary>
-        public ICollection<T> UnderlyingCollection { get; private set; }
-
-        /// <summary>
-        ///     Obtiene la cuenta de elementos contenidos dentro de la
-        ///     colección.
-        /// </summary>
-        public int Count => UnderlyingCollection.Count;
-
-        /// <summary>
-        ///     Obtiene un valor que indica si la colección es de solo lectura.
-        /// </summary>
-        public bool IsReadOnly => UnderlyingCollection.IsReadOnly;
-
-        /// <summary>
-        ///     Agrega un nuevo elemento al final de la colección.
-        /// </summary>
-        /// <param name="item">Elemento a agregar.</param>
-        public void Add(T item)
-        {
-            UnderlyingCollection.Add(item);
-            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item));
+            var returnValue = UnderlyingList.Add(value);
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, value));
             Notify(nameof(Count));
+            return returnValue;
         }
 
-        /// <summary>
-        ///     Limpia la colección.
-        /// </summary>
         public void Clear()
         {
-            UnderlyingCollection.Clear();
+            UnderlyingList.Clear();
             CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
             Notify(nameof(Count));
         }
 
-        /// <summary>
-        ///     Obtiene un valor que determina si el elemento existe en la
-        ///     colección.
-        /// </summary>
-        /// <param name="item">Elemento a comprobar.</param>
-        /// <returns>
-        ///     <see langword="true"/> si el elemento existe dentro de la
-        ///     colección, <see langword="false"/> en caso contrario.
-        /// </returns>
-        public bool Contains(T item)
+        public bool Contains(object value)
         {
-            return UnderlyingCollection.Contains(item);
+            return UnderlyingList.Contains(value);
         }
 
-        /// <summary>
-        ///     Copia el contenido de esta colección sobre un arreglo.
-        /// </summary>
-        /// <param name="array">Destino de la copia.</param>
-        /// <param name="arrayIndex">
-        ///     Índice donde empezar a copiar elementos.
-        /// </param>
-        public void CopyTo(T[] array, int arrayIndex)
+        public void CopyTo(Array array, int index)
         {
-            UnderlyingCollection.CopyTo(array, arrayIndex);
+            UnderlyingList.CopyTo(array, index);
         }
 
-        /// <summary>
-        ///     Quita un elemento de la colección.
-        /// </summary>
-        /// <param name="item">Elemento a quitar.</param>
-        /// <returns>
-        ///     <see langword="true"/> si el elemento ha sido quitado
-        ///     exitosamente de la colección, <see langword="false"/> en caso
-        ///     contrario. También se devuelve <see langword="false"/> si el
-        ///     elemento no existía en la <see cref="ICollection{T}"/>
-        ///     original.
-        /// </returns>
-        public bool Remove(T item)
+        public IEnumerator GetEnumerator()
         {
-            var result = UnderlyingCollection.Remove(item);
+            return UnderlyingList.GetEnumerator();
+        }
 
-            if (result)
+        public int IndexOf(object value)
+        {
+            return UnderlyingList.IndexOf(value);
+        }
+
+        public void Insert(int index, object value)
+        {
+            UnderlyingList.Insert(index, value);
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, value));
+            Notify(nameof(Count));
+        }
+
+        public void Remove(object value)
+        {
+            if (UnderlyingList.Contains(value))
             {
-                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item));
+                UnderlyingList.Remove(value);
+                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, value));
                 Notify(nameof(Count));
             }
+        }
 
-            return result;
+        [DebuggerStepThrough]
+        public void RemoveAt(int index)
+        {
+            var item = UnderlyingList[index];
+            UnderlyingList.RemoveAt(index);
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item));
+            Notify(nameof(Count));
         }
 
         /// <summary>
-        ///     Obtiene un enumerador que itera sobre la colección.
-        /// </summary>
-        /// <returns>
-        ///     Un enumerador que puede ser utilizado para iterar sobre la colección.
-        /// </returns>
-        public IEnumerator<T> GetEnumerator()
-        {
-            return UnderlyingCollection.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return UnderlyingCollection.GetEnumerator();
-        }
-
-        /// <summary>
-        ///     Obliga a notificar un cambio en la colección.
+        ///     Obliga a notificar un cambio en la lista.
         /// </summary>
         public override void Refresh()
         {
             base.Refresh();
-
-            Substitute(UnderlyingCollection);
+            Substitute(UnderlyingList);
         }
 
         /// <summary>
-        ///     Sustituye la colección subyacente por una nueva.
+        ///     Sustituye la lista subyacente por una nueva.
         /// </summary>
-        /// <param name="newCollection">
-        ///     Colección a establecer como la colección subyacente.
+        /// <param name="newList">
+        ///     Lista a establecer como la lista subyacente.
         /// </param>
-        public void Substitute(ICollection<T> newCollection)
+        public void Substitute(IList newList)
         {
-            UnderlyingCollection = new T[0];
+            UnderlyingList = new object[0];
             CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-            UnderlyingCollection = newCollection;
-            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, (IList)UnderlyingCollection));
+            UnderlyingList = newList;
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, newList));
         }
     }
 }

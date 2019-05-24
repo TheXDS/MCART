@@ -181,22 +181,22 @@ namespace TheXDS.MCART.Types.Extensions
         public static TItem Push<TItem, TCollection>(this ICollection<TCollection> collection) where TItem : TCollection, new() => Push(new TItem(), collection);
 
         /// <summary>
-        ///     Obtiene un <see cref="ObservableWrap{T}"/> que envuelve a la
+        ///     Obtiene un <see cref="ObservableCollectionWrap{T}"/> que envuelve a la
         ///     colección especificada.
         /// </summary>
         /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
         /// <param name="collection">
         ///     Colección a envolver dentro del
-        ///     <see cref="ObservableWrap{T}"/>.
+        ///     <see cref="ObservableCollectionWrap{T}"/>.
         /// </param>
         /// <returns>
-        ///     Un <see cref="ObservableWrap{T}"/> que envuelve a la colección
+        ///     Un <see cref="ObservableCollectionWrap{T}"/> que envuelve a la colección
         ///     para brindar notificaciones de cambio por medio de la interfaz
         ///     <see cref="System.Collections.Specialized.INotifyCollectionChanged"/>.
         /// </returns>
-        public static ObservableWrap<T> ToObservable<T>(this ICollection<T> collection)
+        public static ObservableCollectionWrap<T> ToObservable<T>(this ICollection<T> collection)
         {
-            return new ObservableWrap<T>(collection);
+            return new ObservableCollectionWrap<T>(collection);
         }
     }
 }

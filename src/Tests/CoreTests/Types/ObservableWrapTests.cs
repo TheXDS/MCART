@@ -39,7 +39,7 @@ namespace TheXDS.MCART.Tests.Types
         public void InstanceTest()
         {
             var c = new List<string> { "1", "2", "3" };
-            var o = new ObservableWrap<string>(c);
+            var o = new ObservableCollectionWrap<string>(c);
             Assert.Equal(c, o.UnderlyingCollection);
             Assert.Equal(3, o.Count);
         }
@@ -47,7 +47,7 @@ namespace TheXDS.MCART.Tests.Types
         [Fact]
         public void AddTest()
         {
-            var c = new ObservableWrap<string>(new List<string> { "1", "2", "3" });
+            var c = new ObservableCollectionWrap<string>(new List<string> { "1", "2", "3" });
             EventTest(c, () => c.Add("4"), Add, out var evt);
             Assert.Equal("4", (string)evt.Arguments.NewItems[0]);
             Assert.Contains("4", c);
@@ -56,7 +56,7 @@ namespace TheXDS.MCART.Tests.Types
         [Fact]
         public void ClearTest()
         {
-            var c = new ObservableWrap<string>(new List<string> { "1", "2", "3" });
+            var c = new ObservableCollectionWrap<string>(new List<string> { "1", "2", "3" });
             EventTest(c, c.Clear, Reset, out _);
             Assert.Empty(c);
         }
@@ -64,7 +64,7 @@ namespace TheXDS.MCART.Tests.Types
         [Fact]
         public void RemoveTest()
         {
-            var c = new ObservableWrap<string>(new List<string> { "1", "2", "3" });
+            var c = new ObservableCollectionWrap<string>(new List<string> { "1", "2", "3" });
             EventTest(c, () => c.Remove("2"), Remove, out var evt);
             Assert.Equal("2", (string)evt.Arguments.OldItems[0]);
             Assert.DoesNotContain("2", c);
@@ -74,13 +74,13 @@ namespace TheXDS.MCART.Tests.Types
         public void RefreshTest()
         {
             var l = new List<string> { "1", "2", "3" };
-            var c = new ObservableWrap<string>(l);
+            var c = new ObservableCollectionWrap<string>(l);
             Assert.ThrowsAny<Xunit.Sdk.RaisesException>(() => EventTest(c, () => l.Add("4"), Add, out _));
             Assert.Contains("4", c);
             EventTest(c, c.Refresh, Add, out _);
         }
 
-        private void EventTest<T>(ObservableWrap<T> c, Action action, NotifyCollectionChangedAction nAction, out Assert.RaisedEvent<NotifyCollectionChangedEventArgs> evt)
+        private void EventTest<T>(ObservableCollectionWrap<T> c, Action action, NotifyCollectionChangedAction nAction, out Assert.RaisedEvent<NotifyCollectionChangedEventArgs> evt)
         {
             NotifyCollectionChangedEventHandler handler = null;
 
