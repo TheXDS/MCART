@@ -27,8 +27,10 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Reflection;
+using static TheXDS.MCART.Types.Extensions.CollectionExtensions;
 
 namespace TheXDS.MCART.ViewModel
 {
@@ -47,7 +49,7 @@ namespace TheXDS.MCART.ViewModel
         /// </param>
         public static void Clear<T>(ICollection<T> collection)
         {
-            lock(collection) collection.Clear();
+            collection.Locked(c => c.Clear());
         }
 
         /// <summary>
@@ -61,7 +63,7 @@ namespace TheXDS.MCART.ViewModel
         /// </param>
         public static void Add<T>(ICollection<T> collection, T item)
         {
-            lock (collection) collection.Add(item);
+            collection.Locked(c => c.Add(item));
         }
 
         internal static MethodInfo Call(string method, params Type[] genericArgs)

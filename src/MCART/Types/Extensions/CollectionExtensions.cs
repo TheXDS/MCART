@@ -24,6 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 
 namespace TheXDS.MCART.Types.Extensions
@@ -197,6 +198,31 @@ namespace TheXDS.MCART.Types.Extensions
         public static ObservableCollectionWrap<T> ToObservable<T>(this ICollection<T> collection)
         {
             return new ObservableCollectionWrap<T>(collection);
+        }
+
+        /// <summary>
+        ///     Ejecuta una operación de colección en un contexto bloqueado.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de elementos de la colección.
+        /// </typeparam>
+        /// <param name="collection">
+        ///     Colección sobre la cual ejecutar una operación bloqueada.
+        /// </param>
+        /// <param name="action">
+        ///     Acción a ejecutar sobre la colección.
+        /// </param>
+        public static void Locked<T>(this ICollection<T> collection, Action<ICollection<T>> action)
+        {
+            if (collection is ICollection c)
+            {
+                if (c.IsSynchronized) action(collection);
+                else lock (c.SyncRoot) action(collection);
+            }
+            else
+            {
+                lock (collection) action(collection);
+            }
         }
     }
 }
