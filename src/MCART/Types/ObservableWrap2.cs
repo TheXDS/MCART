@@ -33,34 +33,87 @@ using TheXDS.MCART.Exceptions;
 
 namespace TheXDS.MCART.Types
 {
+    /// <summary>
+    ///     Define una serie de miembros a implementar por una clase que defina
+    ///     un envoltorio observable sobre un <see cref="IList"/>.
+    /// </summary>
     public interface IObservableListWrap : IList, INotifyCollectionChanged, IRefreshable
     {
+        /// <summary>
+        ///     Obtiene una referencia a la lista subyacente de este envoltorio
+        ///     observable.
+        /// </summary>
         IList UnderlyingList { get; }
+
+        /// <summary>
+        ///     Sustituye la lista subyacente por una nueva.
+        /// </summary>
+        /// <param name="newCollection">
+        ///     Lista a establecer como la lista subyacente.
+        /// </param>
         void Substitute(IList newCollection);
     }
 
+    /// <summary>
+    ///     Define una serie de miembros a implementar por una clase que defina
+    ///     un envoltorio observable sobre un <see cref="ICollection{T}"/>.
+    /// </summary>
     public interface IObservableCollectionWrap<T> : INotifyCollectionChanged, ICollection<T>, IRefreshable
     {
+        /// <summary>
+        ///     Obtiene una referencia a la colección subyacente de este
+        ///     envoltorio observable.
+        /// </summary>
         ICollection<T> UnderlyingCollection { get; }
+
+        /// <summary>
+        ///     Sustituye la colección subyacente por una nueva.
+        /// </summary>
+        /// <param name="newCollection">
+        ///     Colección a establecer como la colección subyacente.
+        /// </param>
         void Substitute(ICollection<T> newCollection);
     }
 
+    /// <summary>
+    ///     Define una serie de miembros a implementar por una clase que defina
+    ///     un envoltorio observable sobre un <see cref="IList{T}"/>.
+    /// </summary>
     public interface IObservableListWrap<T> : INotifyCollectionChanged, IList<T>, IRefreshable
     {
+        /// <summary>
+        ///     Obtiene una referencia a la lista subyacente de este envoltorio
+        ///     observable.
+        /// </summary>
         IList<T> UnderlyingList { get; }
+
+        /// <summary>
+        ///     Sustituye la lista subyacente por una nueva.
+        /// </summary>
+        /// <param name="newCollection">
+        ///     Lista a establecer como la lista subyacente.
+        /// </param>
         void Substitute(IList<T> newCollection);
     }
 
 
-
-    public abstract class ObservableWrap<T, TCollection> : NotifyPropertyChanged, INotifyCollectionChanged, IEnumerable<T> where TCollection : ICollection<T>
+    /// <summary>
+    ///     Clase base para los envoltorios observables de colecciones.
+    /// </summary>
+    /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
+    /// <typeparam name="TCollection">Tipo de colección.</typeparam>
+    public abstract class ObservableWrap<T, TCollection> : NotifyPropertyChanged, INotifyCollectionChanged, ICollection<T> where TCollection : ICollection<T>
     {
         /// <summary>
         ///     Se produce al ocurrir un cambio en la colección.
         /// </summary>
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-        public ObservableWrap(TCollection collection)
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase <see cref="ObservableWrap{T, TCollection}"/>
+        /// </summary>
+        /// <param name="collection"></param>
+        protected ObservableWrap(TCollection collection)
         {
             UnderlyingCollection = collection;
         }

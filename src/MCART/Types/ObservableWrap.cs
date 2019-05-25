@@ -40,8 +40,17 @@ namespace TheXDS.MCART.Types
     /// </typeparam>
     public class ObservableCollectionWrap<T> : ObservableWrap<T, ICollection<T>>
     {
+        public ObservableCollectionWrap(ICollection<T> collection) : base(collection)
+        {
+        }
     }
 
+    public class ObservableListWrap<T> : ObservableWrap<T, IList<T>>
+    {
+        public ObservableListWrap(IList<T> collection) : base(collection)
+        {
+        }
+    }
 
     public class ObservableListWrap : NotifyPropertyChanged, IList, INotifyCollectionChanged
     {
