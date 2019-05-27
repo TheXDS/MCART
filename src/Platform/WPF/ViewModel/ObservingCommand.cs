@@ -561,6 +561,7 @@ namespace TheXDS.MCART.ViewModel
             if (property.IsEmpty()) throw new ArgumentException();
             _properties.Add(property);
         }
+
         /// <summary>
         ///     Registra una nueva propiedad a observar en este comando.
         /// </summary>

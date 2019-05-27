@@ -43,12 +43,21 @@ namespace TheXDS.MCART.Types.Base
     public abstract class ObservableWrap<T, TCollection> : ObservableWrapBase, INotifyCollectionChanged, ICollection<T> where TCollection : ICollection<T>
     {
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="ObservableWrap{T, TCollection}"/>
+        ///     Inicializa una nueva instancia de la clase 
+        ///     <see cref="ObservableWrap{T, TCollection}"/>.
         /// </summary>
         /// <param name="collection"></param>
         protected ObservableWrap(TCollection collection)
         {
             UnderlyingCollection = collection;
+        }
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="ObservableWrap{T, TCollection}"/>.
+        /// </summary>
+        protected ObservableWrap()
+        {
         }
 
         /// <summary>
@@ -180,6 +189,5 @@ namespace TheXDS.MCART.Types.Base
             UnderlyingCollection = newCollection;
             RaiseCollectionChanged(new NcchEa(Nccha.Add, (IList)UnderlyingCollection));
         }
-
     }
 }

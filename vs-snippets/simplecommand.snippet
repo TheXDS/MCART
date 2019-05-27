@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>Comando simple de MCART</Title>
+            <Shortcut>scstatic</Shortcut>
+            <Description>Fragmento de código para agregar un nuevo comando simple para un ViewModel de MCART.</Description>
+            <Author>César Andrés Morgan</Author>
+            <SnippetTypes>
+                <SnippetType>Expansion</SnippetType>
+            </SnippetTypes>
+        </Header>
+        <Snippet>			
+            <Declarations>
+                <Literal>
+                    <ID>name</ID>
+                    <ToolTip>Nombre del comando.</ToolTip>
+                    <Default>DoSomething</Default>
+                </Literal>
+                <Literal>
+					<Literal Editable="false">
+                    <ID>SimpleCommand</ID> 
+                    <Function>SimpleTypeName(global::TheXDS.MCART.ViewModel.SimpleCommand)</Function> 
+                </Literal>
+				</Literal>
+            </Declarations>
+			<Imports>
+			    <Import>
+			       <Namespace>TheXDS.MCART.ViewModel</Namespace>
+			    </Import>
+			</Imports>
+            <Code Language="csharp" Kind="method decl">
+                <![CDATA[
+/// <summary>
+///     Obtiene el comando relacionado a la acción $name$.
+/// </summary>
+/// <returns>El comando $name$.</returns>
+public SimpleCommand $name$Command { get; } = new SimpleCommand(On$name$);
+
+private static void On$name$()
+{
+	$end$
+}
+]]>
+            </Code>
+        </Snippet>
+    </CodeSnippet>
+	<CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>Comando simple de MCART</Title>
+            <Shortcut>simplecommand</Shortcut>
+            <Description>Fragmento de código para agregar un nuevo comando simple para un ViewModel de MCART.</Description>
+            <Author>César Andrés Morgan</Author>
+            <SnippetTypes>
+                <SnippetType>Expansion</SnippetType>
+            </SnippetTypes>
+        </Header>
+        <Snippet>			
+            <Declarations>
+                <Literal>
+                    <ID>name</ID>
+                    <ToolTip>Nombre del comando.</ToolTip>
+                    <Default>DoSomething</Default>
+                </Literal>
+                <Literal>
+					<Literal Editable="false">
+                    <ID>SimpleCommand</ID> 
+                    <Function>SimpleTypeName(global::TheXDS.MCART.ViewModel.SimpleCommand)</Function> 
+                </Literal>
+				</Literal>
+            </Declarations>
+			<Imports>
+			    <Import>
+			       <Namespace>TheXDS.MCART.ViewModel</Namespace>
+			    </Import>
+			</Imports>
+            <Code Language="csharp" Kind="method decl">
+                <![CDATA[
+/// <summary>
+///     Obtiene el comando relacionado a la acción $name$.
+/// </summary>
+/// <returns>El comando $name$.</returns>
+public SimpleCommand $name$Command { get; }
+$end$
+]]>
+            </Code>
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>

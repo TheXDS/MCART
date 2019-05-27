@@ -100,6 +100,26 @@ namespace TheXDS.MCART.Types
         public object SyncRoot => UnderlyingList.SyncRoot;
 
         /// <summary>
+        ///     Inicializa una nueva instancia de la clase 
+        ///     <see cref="ObservableListWrap"/>.
+        /// </summary>
+        public ObservableListWrap()
+        {
+        }
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase 
+        ///     <see cref="ObservableListWrap"/>.
+        /// </summary>
+        /// <param name="list">
+        ///     Lista a establecer como la lista subyacente.
+        /// </param>
+        public ObservableListWrap(IList list)
+        {
+            UnderlyingList = list;
+        }
+
+        /// <summary>
         ///     Agrega un elemento a este <see cref="ObservableListWrap"/>.
         /// </summary>
         /// <param name="value">
@@ -272,6 +292,14 @@ namespace TheXDS.MCART.Types
         /// </summary>
         /// <param name="collection"></param>
         public ObservableListWrap(IList<T> collection) : base(collection)
+        {
+        }
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="ObservableListWrap{T}"/>.
+        /// </summary>
+        public ObservableListWrap()
         {
         }
 

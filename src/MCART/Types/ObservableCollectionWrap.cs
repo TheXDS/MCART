@@ -36,7 +36,22 @@ namespace TheXDS.MCART.Types
     /// </typeparam>
     public class ObservableCollectionWrap<T> : ObservableWrap<T, ICollection<T>>
     {
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="ObservableCollectionWrap{T}"/>.
+        /// </summary>
+        /// <param name="collection">
+        ///     Colección a establecer com ola colección subyacente.
+        ///     </param>
         public ObservableCollectionWrap(ICollection<T> collection) : base(collection)
+        {
+        }
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase 
+        ///     <see cref="ObservableCollectionWrap{T}"/>.
+        /// </summary>
+        public ObservableCollectionWrap()
         {
         }
     }
