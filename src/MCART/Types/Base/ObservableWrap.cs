@@ -150,7 +150,13 @@ namespace TheXDS.MCART.Types.Base
             return result;
         }
 
-        IEnumerator<T> IEnumerable<T>.GetEnumerator()
+        /// <summary>
+        ///     Obtiene un enumerador que itera sobre la colección.
+        /// </summary>
+        /// <returns>
+        ///     Un enumerador que puede ser utilizado para iterar sobre la colección.
+        /// </returns>
+        public IEnumerator<T> GetEnumerator()
         {
             return UnderlyingCollection?.GetEnumerator() ?? new List<T>().GetEnumerator();
         }
@@ -161,7 +167,7 @@ namespace TheXDS.MCART.Types.Base
         /// <returns>
         ///     Un enumerador que puede ser utilizado para iterar sobre la colección.
         /// </returns>
-        public override IEnumerator GetEnumerator()
+        protected override IEnumerator OnGetEnumerator()
         {
             return UnderlyingCollection?.GetEnumerator() ?? new T[0].GetEnumerator();
         }

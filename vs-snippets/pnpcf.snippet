@@ -49,6 +49,26 @@ public $type$ $property$
     }
 }]]>
             </Code>
+            <Code Language="vb">
+                <![CDATA[
+Private _$property$ As $type$ = $defaultvalue$
+''' <summary>
+'''     Obtiene o establece el valor $property$.
+''' </summary>
+''' <returns>El valor de $property$.</returns>
+Public Property $property$() as $type$
+    Get
+        Return _$property$
+    End Get
+    Set
+        If Change_$property$, value) Then        
+            'TODO: ejecutar acciones adicionales.
+            $end$
+        End If
+    End Set
+End Property
+]]>
+            </Code>
         </Snippet>
     </CodeSnippet>
 </CodeSnippets>

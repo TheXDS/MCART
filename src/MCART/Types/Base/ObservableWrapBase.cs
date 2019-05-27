@@ -23,7 +23,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System.Collections.Specialized;
-using TheXDS.MCART.Types.Base;
 using System.Collections;
 using System.Diagnostics;
 using NcchEa = System.Collections.Specialized.NotifyCollectionChangedEventArgs;
@@ -50,12 +49,14 @@ namespace TheXDS.MCART.Types.Base
             CollectionChanged?.Invoke(this, eventArgs);
         }
 
+        IEnumerator IEnumerable.GetEnumerator() => OnGetEnumerator();
+
         /// <summary>
         ///     Obtiene un enumerador que itera sobre la colección.
         /// </summary>
         /// <returns>
         ///     Un enumerador que puede ser utilizado para iterar sobre la colección.
         /// </returns>
-        public abstract IEnumerator GetEnumerator();
+        protected abstract IEnumerator OnGetEnumerator();
     }
 }

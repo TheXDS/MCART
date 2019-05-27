@@ -184,7 +184,7 @@ namespace TheXDS.MCART.Types
         /// <returns>
         ///     Un enumerador que puede ser utilizado para iterar sobre la colección.
         /// </returns>
-        public override IEnumerator GetEnumerator()
+        protected override IEnumerator OnGetEnumerator()
         {
             return UnderlyingList.GetEnumerator();
         }

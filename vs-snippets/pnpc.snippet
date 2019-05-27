@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
     <CodeSnippet Format="1.0.0">
         <Header>
@@ -30,12 +30,31 @@ private $type$ _$property$;
 /// <summary>
 ///     Obtiene o establece el valor $property$.
 /// </summary>
-/// <returns>El valor de $property$.</returns>
+/// <value>El valor de $property$.</value>
 public $type$ $property$
 {
     get => _$property$;
     set => Change(ref _$property$, value);
 }
+$end$
+]]>
+            </Code>
+	    <Code Language="vb">
+                <![CDATA[
+Private _$property$ as $type$
+
+''' <summary>
+'''     Obtiene o establece el valor $property$.
+''' </summary>
+''' <value>El valor de $property$.</value>
+Public Property $property$() As $type$
+    Get
+       Return _$property$
+    End Get
+    Set
+        Change(ByRef _$property$, value)
+    End Set
+End Property
 $end$
 ]]>
             </Code>
