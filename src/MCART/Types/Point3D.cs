@@ -36,6 +36,7 @@ using CI = System.Globalization.CultureInfo;
 using St = TheXDS.MCART.Resources.Strings;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using TheXDS.MCART.Math;
+using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Types
 {

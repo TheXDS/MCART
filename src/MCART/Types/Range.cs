@@ -28,6 +28,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.ComponentModel;
 using System.Linq;
+using TheXDS.MCART.Types.Base;
 
 // ReSharper disable UnusedMember.Global
 
@@ -37,8 +38,49 @@ namespace TheXDS.MCART.Types
     ///     Define un rango de valores.
     /// </summary>
     /// <typeparam name="T">Tipo base del rango de valores.</typeparam>
-    public struct Range<T> where T : IComparable<T>
+    public struct Range<T> : IRange<T> where T : IComparable<T>
     {
+        private T _minimum;
+        private T _maximum;
+
+        /// <summary>
+        ///     Valor mínimo del rango.
+        /// </summary>
+        public T Minimum
+        {
+            get => _minimum;
+            set
+            {
+                if (value.CompareTo(Maximum) > 0) throw new ArgumentOutOfRangeException(nameof(value));
+                _minimum = value;
+            }
+        }
+
+        /// <summary>
+        ///     Valor máximo del rango.
+        /// </summary>
+        public T Maximum
+        {
+            get => _maximum;
+            set
+            {
+                if (value.CompareTo(Minimum) < 0) throw new ArgumentOutOfRangeException(nameof(value));
+                _maximum = value;
+            }
+        }
+
+        /// <summary>
+        ///     Obtiene o establece un valor que determina si el valor mínimo
+        ///     es parte del rango.
+        /// </summary>
+        public bool MinInclusive { get; set; }
+
+        /// <summary>
+        ///     Obtiene o establece un valor que determina si el valor mínimo
+        ///     es parte del rango.
+        /// </summary>
+        public bool MaxInclusive { get; set; }
+
         /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la estructura <see cref="T:TheXDS.MCART.Types.Range`1" />
@@ -105,47 +147,6 @@ namespace TheXDS.MCART.Types
             MinInclusive = minInclusive;
             MaxInclusive = maxInclusive;
         }
-
-        private T _minimum;
-        private T _maximum;
-
-        /// <summary>
-        /// Valor mínimo del rango, inclusive.
-        /// </summary>
-        public T Minimum
-        {
-            get => _minimum;
-            set
-            {
-                if (value.CompareTo(Maximum) > 0) throw new ArgumentOutOfRangeException(nameof(value));
-                _minimum = value;
-            }
-        }
-
-        /// <summary>
-        /// Valor máximo del rango, inclusive.
-        /// </summary>
-        public T Maximum
-        {
-            get => _maximum;
-            set
-            {
-                if (value.CompareTo(Minimum) < 0) throw new ArgumentOutOfRangeException(nameof(value));
-                _maximum = value;
-            }
-        }
-
-        /// <summary>
-        ///     Obtiene o establece un valor que determina si el valor mínimo
-        ///     es parte del rango.
-        /// </summary>
-        public bool MinInclusive { get; set; }
-
-        /// <summary>
-        ///     Obtiene o establece un valor que determina si el valor mínimo
-        ///     es parte del rango.
-        /// </summary>
-        public bool MaxInclusive { get; set; }
 
         /// <summary>
         /// Convierte este <see cref="Range{T}"/> en su representación como una cadena.
@@ -221,14 +222,14 @@ namespace TheXDS.MCART.Types
             {
                 foreach (var j in separators)
                 {
-                    var l = value.Split(new[] {j}, StringSplitOptions.RemoveEmptyEntries);
+                    var l = value.Split(new[] { j }, StringSplitOptions.RemoveEmptyEntries);
                     if (l.Length != 2) continue;
 
                     try
                     {
                         range = new Range<T>(
-                            (T) t.ConvertTo(l[0].Trim(), typeof(T)),
-                            (T) t.ConvertTo(l[1].Trim(), typeof(T)));
+                            (T)t.ConvertTo(l[0].Trim(), typeof(T)),
+                            (T)t.ConvertTo(l[1].Trim(), typeof(T)));
                         return true;
                     }
                     catch
@@ -247,9 +248,9 @@ namespace TheXDS.MCART.Types
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
-        public Range<T> Join(Range<T> other)
+        public Range<T> Join(IRange<T> other)
         {
-            return new Range<T>(new[]{Minimum, other.Minimum}.Min(),new[]{Maximum, other.Maximum}.Max());
+            return new Range<T>(new[] { Minimum, other.Minimum }.Min(), new[] { Maximum, other.Maximum }.Max());
         }
 
         /// <summary>
@@ -259,7 +260,7 @@ namespace TheXDS.MCART.Types
         /// <returns>
         ///     La intersección entre este rango y <paramref name="other"/>.
         /// </returns>
-        public Range<T> Intersect(Range<T> other)
+        public Range<T> Intersect(IRange<T> other)
         {
             return new Range<T>(new[] { Minimum, other.Minimum }.Max(), new[] { Maximum, other.Maximum }.Min());
         }
@@ -273,9 +274,9 @@ namespace TheXDS.MCART.Types
         ///     este <see cref="Range{T}"/>, <see langword="false"/> en caso
         ///     contrario.
         /// </returns>
-        public bool Intersects(Range<T> other)
+        public bool Intersects(IRange<T> other)
         {
-            return other.IsWithin(Maximum) || other.IsWithin(Minimum);
+            return IsWithin(other.Maximum) || IsWithin(other.Minimum);
         }
 
         /// <summary>

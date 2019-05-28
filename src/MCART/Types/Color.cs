@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using TheXDS.MCART.Math;
+using TheXDS.MCART.Types.Base;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using CI = System.Globalization.CultureInfo;
 
@@ -34,7 +35,7 @@ namespace TheXDS.MCART.Types
     /// Estructura universal que describe un color en sus componentes alfa,
     /// rojo, verde y azul.
     /// </summary>
-    public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color>
+    public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color>, IColor
     {
         /// <summary>
         /// Mezcla un color de temperatura basado en el porcentaje.
@@ -87,7 +88,7 @@ namespace TheXDS.MCART.Types
             float r = 0f, g = 0f, b = 0f, a = 0f;
             var c = 0;
 
-            foreach(var j in colors)
+            foreach (var j in colors)
             {
                 r += j.ScR;
                 g += j.ScG;
@@ -113,7 +114,7 @@ namespace TheXDS.MCART.Types
         /// <param name="color1">Primer <see cref="Color"/> a comparar.</param>
         /// <param name="color2">Segundo Color a comparar.</param>
         public static bool AreClose(in Color color1, in Color color2) => AreClose(color1, color2, 0.95f);
-      
+
         /// <summary>
         /// Determina si los colores son lo suficientemente similares.
         /// </summary>
@@ -131,7 +132,7 @@ namespace TheXDS.MCART.Types
             if (!delta.IsBetween(0.0f, 1.0f)) throw new ArgumentOutOfRangeException(nameof(delta));
             return Similarity(color1, color2) <= delta;
         }
-    
+
         /// <summary>
         /// Determina el porcentaje de similitud entre dos colores.
         /// </summary>
@@ -142,7 +143,7 @@ namespace TheXDS.MCART.Types
         /// <param name="c1">Primer <see cref="Color"/> a comparar.</param>
         /// <param name="c2">Segundo Color a comparar.</param>
         public static float Similarity(in Color c1, in Color c2) => 1.0f - (c1.ScA - c2.ScA + (c1.ScR - c2.ScR) + (c1.ScG - c2.ScG) + (c1.ScB - c2.ScB));
-     
+
         /// <summary>
         /// Intenta crear un <see cref="Color"/> a partir de la cadena
         /// especificada.
@@ -188,7 +189,7 @@ namespace TheXDS.MCART.Types
             color = default;
             return false;
         }
-    
+
         /// <summary>
         /// Crea un nuevo <see cref="Color"/> a partir de la cadena
         /// especificada.
@@ -206,7 +207,7 @@ namespace TheXDS.MCART.Types
             if (TryParse(from, out var color)) return color;
             throw new FormatException();
         }
-    
+
         /// <summary>
         /// Convierte una estructura compatible en un <see cref="Color"/>.
         /// </summary>
@@ -219,7 +220,7 @@ namespace TheXDS.MCART.Types
         /// Un <see cref="Color"/> creado a partir del valor especificado.
         /// </returns>
         public static Color From<T, TParser>(in T from) where T : struct where TParser : IColorParser<T>, new() => (new TParser()).From(from);
-  
+
         /// <summary>
         /// Convierte un <see cref="Color"/> en un valor de tipo
         /// <typeparamref name="T"/>, utilizando el
@@ -235,7 +236,7 @@ namespace TheXDS.MCART.Types
         /// <see cref="Color"/>.
         /// </returns>
         public static T To<T, TParser>(in Color from) where T : struct where TParser : IColorParser<T>, new() => (new TParser()).To(from);
-    
+
         /// <summary>
         /// Adds a <see cref="Color"/> to a <see cref="Color"/>, yielding a new
         /// <see cref="Color"/>.
@@ -260,7 +261,7 @@ namespace TheXDS.MCART.Types
 #endif
             );
         }
-   
+
         /// <summary>
         /// Sustrae un <see cref="Color"/> de un <see cref="Color"/>, dando
         /// como resultado un <see cref="Color"/>.
@@ -291,7 +292,7 @@ namespace TheXDS.MCART.Types
 #endif
             );
         }
-  
+
         /// <summary>
         /// Computes the product of <paramref name="left"/> and 
         /// <paramref name="right"/>, yielding a new <see cref="Color"/>.
@@ -318,7 +319,7 @@ namespace TheXDS.MCART.Types
 #endif
             );
         }
-   
+
         /// <summary>
         /// Realiza una mezcla entre los colores especificados.
         /// </summary>
@@ -344,16 +345,16 @@ namespace TheXDS.MCART.Types
 #endif
             );
         }
-    
+
         /// <summary>
         /// Determina si dos instancias de <see cref="Color"/> son iguales.
         /// </summary>
-		/// <param name="left">
+        /// <param name="left">
         /// El primer <see cref="Color"/> a comprobar.
         /// </param>
-		/// <param name="right">
-		/// El segundo <see cref="Color"/> a comprobar.
-		/// </param>
+        /// <param name="right">
+        /// El segundo <see cref="Color"/> a comprobar.
+        /// </param>
         /// <returns>
         /// <see langword="true"/> ambas instancias de <see cref="Color"/> son iguales,
         /// <see langword="false"/> en caso contrario.
@@ -377,7 +378,7 @@ namespace TheXDS.MCART.Types
         public static bool operator !=(in Color left, in Color right) => !left.Equals(right);
 
         float _r, _g, _b, _a;
-   
+
         /// <summary>
         /// Obtiene o establece el valor RGB del canal rojo del color.
         /// </summary>

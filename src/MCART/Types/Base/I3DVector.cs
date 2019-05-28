@@ -1,5 +1,5 @@
 ﻿/*
-I2DVector.cs
+I3DVector.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,27 +22,19 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-
-namespace TheXDS.MCART.Types
+namespace TheXDS.MCART.Types.Base
 {
     /// <summary>
     ///     Interfaz que define propiedades comunes para estructuras de datos
     ///     que describen coordenadas, vectores, magnitudes y tamaños en un
-    ///     espacio de dos dimensiones.
+    ///     espacio de tres dimensiones.
     /// </summary>
-    public interface I2DVector: IEquatable<I2DVector>
+    public interface I3DVector : I2DVector
     {
         /// <summary>
-        ///     Obtiene el componente horizontal (eje X) representado por este
-        ///     <see cref="I2DVector"/>.
+        ///     Obtiene el componente del eje Z representado por este
+        ///     <see cref="I3DVector"/>.
         /// </summary>
-        double X { get; }
-
-        /// <summary>
-        ///     Obtiene el componente vertical (eje Y) representado por este
-        ///     <see cref="I2DVector"/>.
-        /// </summary>
-        double Y { get; }
+        double Z { get; }
     }
 }

@@ -87,6 +87,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LightChatClient", "..\Examp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamlArt", "Utils\XamlArt\XamlArt.csproj", "{0BB0A1D0-9579-491F-8874-F86514C2BCC0}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComplexTypes", "Extensions\ComplexTypes\ComplexTypes.csproj", "{C757E24B-73F9-419D-9DBF-58111F5B9570}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\Examples\LightChat\Common\Common.projitems*{1459cf01-8f9b-47b1-a3f2-57e1f84d9d0e}*SharedItemsImports = 13
@@ -231,6 +233,14 @@ Global
 		{0BB0A1D0-9579-491F-8874-F86514C2BCC0}.Debug-PublishLocal|Any CPU.Build.0 = Debug-PublishLocal|Any CPU
 		{0BB0A1D0-9579-491F-8874-F86514C2BCC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BB0A1D0-9579-491F-8874-F86514C2BCC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C757E24B-73F9-419D-9DBF-58111F5B9570}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C757E24B-73F9-419D-9DBF-58111F5B9570}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C757E24B-73F9-419D-9DBF-58111F5B9570}.Debug-Publish|Any CPU.ActiveCfg = Debug-Publish|Any CPU
+		{C757E24B-73F9-419D-9DBF-58111F5B9570}.Debug-Publish|Any CPU.Build.0 = Debug-Publish|Any CPU
+		{C757E24B-73F9-419D-9DBF-58111F5B9570}.Debug-PublishLocal|Any CPU.ActiveCfg = Debug-PublishLocal|Any CPU
+		{C757E24B-73F9-419D-9DBF-58111F5B9570}.Debug-PublishLocal|Any CPU.Build.0 = Debug-PublishLocal|Any CPU
+		{C757E24B-73F9-419D-9DBF-58111F5B9570}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C757E24B-73F9-419D-9DBF-58111F5B9570}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -256,6 +266,7 @@ Global
 		{1459CF01-8F9B-47B1-A3F2-57E1F84D9D0E} = {3D07E538-7047-49F5-AE93-07C85E20581A}
 		{8F93307C-81D3-4308-A8F5-24940290572D} = {3D07E538-7047-49F5-AE93-07C85E20581A}
 		{0BB0A1D0-9579-491F-8874-F86514C2BCC0} = {B75874BF-E600-41EF-B756-93A12CCCABA5}
+		{C757E24B-73F9-419D-9DBF-58111F5B9570} = {D62BF4A9-E484-4F39-B40F-7103D5AEABA8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A16C9D23-2B39-4202-8A15-4A3536784E27}

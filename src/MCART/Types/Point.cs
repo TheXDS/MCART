@@ -27,6 +27,7 @@ using static System.Math;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using St = TheXDS.MCART.Resources.Strings;
 using CI = System.Globalization.CultureInfo;
+using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Types
 {
@@ -38,7 +39,7 @@ namespace TheXDS.MCART.Types
     ///     implementación de MCART definir métodos para convertir a la clase
     ///     correspondiente para los diferentes tipos de UI disponibles.
     /// </remarks>
-    public partial struct Point : IFormattable, IEquatable<Point>, I2DVector
+    public partial struct Point : I2DVector, IFormattable, IEquatable<Point>
     {
         /// <summary>
         ///     Obtiene un punto que no representa ninguna posición. Este campo es
@@ -546,6 +547,19 @@ namespace TheXDS.MCART.Types
             }
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Convierte este objeto en su representación como una cadena.
+        /// </summary>
+        /// <param name="format">Formato a utilizar.</param>
+        /// <returns>
+        ///     Una representación en forma de <see cref="T:System.String" /> de este objeto.
+        /// </returns>
+        public string ToString(string format)
+        {
+            return ToString(format, CI.CurrentCulture);
+        }
+
         /// <summary>
         ///     Indica si esta instancia y un objeto especificado son iguales.
         /// </summary>
@@ -558,7 +572,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public override bool Equals(object obj)
         {
-            if (!(obj is Point p)) return false;
+            if (!(obj is I2DVector p)) return false;
             return this == p;
         }
 
@@ -579,7 +593,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public override string ToString()
         {
-            return ToString(null, CI.CurrentCulture);
+            return ToString(null);
         }
 
         /// <inheritdoc />

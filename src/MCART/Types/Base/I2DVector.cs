@@ -1,5 +1,5 @@
 ﻿/*
-IObservableCollectionWrap.cs
+I2DVector.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,29 +22,27 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Collections.Specialized;
-using System.Collections.Generic;
+using System;
 
-namespace TheXDS.MCART.Types
+namespace TheXDS.MCART.Types.Base
 {
     /// <summary>
-    ///     Define una serie de miembros a implementar por una clase que defina
-    ///     un envoltorio observable sobre un <see cref="ICollection{T}"/>.
+    ///     Interfaz que define propiedades comunes para estructuras de datos
+    ///     que describen coordenadas, vectores, magnitudes y tamaños en un
+    ///     espacio de dos dimensiones.
     /// </summary>
-    public interface IObservableCollectionWrap<T> : INotifyCollectionChanged, ICollection<T>, IRefreshable
+    public interface I2DVector : IEquatable<I2DVector>
     {
         /// <summary>
-        ///     Obtiene una referencia a la colección subyacente de este
-        ///     envoltorio observable.
+        ///     Obtiene el componente horizontal (eje X) representado por este
+        ///     <see cref="I2DVector"/>.
         /// </summary>
-        ICollection<T> UnderlyingCollection { get; }
+        double X { get; }
 
         /// <summary>
-        ///     Sustituye la colección subyacente por una nueva.
+        ///     Obtiene el componente vertical (eje Y) representado por este
+        ///     <see cref="I2DVector"/>.
         /// </summary>
-        /// <param name="newCollection">
-        ///     Colección a establecer como la colección subyacente.
-        /// </param>
-        void Substitute(ICollection<T> newCollection);
+        double Y { get; }
     }
 }

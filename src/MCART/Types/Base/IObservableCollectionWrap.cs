@@ -1,5 +1,5 @@
 ﻿/*
-I3DVector.cs
+IObservableCollectionWrap.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,29 +22,29 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#region Configuración de ReSharper
+using System.Collections.Specialized;
+using System.Collections.Generic;
 
-// ReSharper disable CompareOfFloatsByEqualityOperator
-// ReSharper disable PartialTypeWithSinglePart
-// ReSharper disable UnusedMember.Global
-// ReSharper disable MemberCanBePrivate.Global
-
-#endregion
-
-
-namespace TheXDS.MCART.Types
+namespace TheXDS.MCART.Types.Base
 {
     /// <summary>
-    ///     Interfaz que define propiedades comunes para estructuras de datos
-    ///     que describen coordenadas, vectores, magnitudes y tamaños en un
-    ///     espacio de tres dimensiones.
+    ///     Define una serie de miembros a implementar por una clase que defina
+    ///     un envoltorio observable sobre un <see cref="ICollection{T}"/>.
     /// </summary>
-    public interface I3DVector : I2DVector
+    public interface IObservableCollectionWrap<T> : INotifyCollectionChanged, ICollection<T>, IRefreshable
     {
         /// <summary>
-        ///     Obtiene el componente del eje Z representado por este
-        ///     <see cref="I3DVector"/>.
+        ///     Obtiene una referencia a la colección subyacente de este
+        ///     envoltorio observable.
         /// </summary>
-        double Z { get; }
+        ICollection<T> UnderlyingCollection { get; }
+
+        /// <summary>
+        ///     Sustituye la colección subyacente por una nueva.
+        /// </summary>
+        /// <param name="newCollection">
+        ///     Colección a establecer como la colección subyacente.
+        /// </param>
+        void Substitute(ICollection<T> newCollection);
     }
 }

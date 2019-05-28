@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using TheXDS.MCART.Math;
+using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Types
 {
