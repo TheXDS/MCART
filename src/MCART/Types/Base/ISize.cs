@@ -1,5 +1,5 @@
 ﻿/*
-IColor.cs
+ISize.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -25,29 +25,19 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.Types.Base
 {
     /// <summary>
-    /// Define una serie de métodos a implementar por un tipo que exponga
-    /// información de color utilizando espacios de color de 8 bits por canal.
+    ///     Define una serie de miembros a implementar por un tipo que
+    ///     represente tamaño en dos dimensiones.
     /// </summary>
-    public interface IColor
+    public interface ISize
     {
         /// <summary>
-        ///     Componente Alfa del color.
+        ///     Obtiene el componente de altura del tamaño.
         /// </summary>
-        byte A { get; set; }
+        double Height { get; set; }
 
         /// <summary>
-        ///  Componente Azul del color.
+        ///     Obtiene el componente de ancho del tamaño.
         /// </summary>
-        byte B { get; set; }
-
-        /// <summary>
-        ///  Componente Verde del color.
-        /// </summary>
-        byte G { get; set; }
-
-        /// <summary>
-        ///  Componente Rojo del color.
-        /// </summary>
-        byte R { get; set; }
+        double Width { get; set; }
     }
 }

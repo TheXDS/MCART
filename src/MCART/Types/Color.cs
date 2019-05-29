@@ -35,7 +35,7 @@ namespace TheXDS.MCART.Types
     /// Estructura universal que describe un color en sus componentes alfa,
     /// rojo, verde y azul.
     /// </summary>
-    public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color>, IColor
+    public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color>, IColor, IScColor
     {
         /// <summary>
         /// Mezcla un color de temperatura basado en el porcentaje.

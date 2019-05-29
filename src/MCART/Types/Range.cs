@@ -26,7 +26,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.ComponentModel;
 using System.Linq;
 using TheXDS.MCART.Types.Base;
 
@@ -76,7 +75,7 @@ namespace TheXDS.MCART.Types
         public bool MinInclusive { get; set; }
 
         /// <summary>
-        ///     Obtiene o establece un valor que determina si el valor mínimo
+        ///     Obtiene o establece un valor que determina si el valor máximo
         ///     es parte del rango.
         /// </summary>
         public bool MaxInclusive { get; set; }

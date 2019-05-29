@@ -1,5 +1,5 @@
 ﻿/*
-IColor.cs
+IScColor.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -26,28 +26,28 @@ namespace TheXDS.MCART.Types.Base
 {
     /// <summary>
     /// Define una serie de métodos a implementar por un tipo que exponga
-    /// información de color utilizando espacios de color de 8 bits por canal.
+    /// información de color utilizando números de punto flotante.
     /// </summary>
-    public interface IColor
+    public interface IScColor
     {
         /// <summary>
         ///     Componente Alfa del color.
         /// </summary>
-        byte A { get; set; }
+        float ScA { get; set; }
 
         /// <summary>
         ///  Componente Azul del color.
         /// </summary>
-        byte B { get; set; }
+        float ScB { get; set; }
 
         /// <summary>
         ///  Componente Verde del color.
         /// </summary>
-        byte G { get; set; }
+        float ScG { get; set; }
 
         /// <summary>
         ///  Componente Rojo del color.
         /// </summary>
-        byte R { get; set; }
+        float ScR { get; set; }
     }
 }

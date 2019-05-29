@@ -33,7 +33,7 @@ namespace TheXDS.MCART.Types
     ///     Estructura universal que describe el tamaño de un objeto en ancho y
     ///     alto en un espacio de dos dimensiones.
     /// </summary>
-    public struct Size : IEquatable<Size>
+    public struct Size : IEquatable<Size>, ISize
     {
         /// <summary>
         ///     Obtiene un valor que no representa ningún tamaño. Este campo es
@@ -52,7 +52,7 @@ namespace TheXDS.MCART.Types
         ///     es de solo lectura.
         /// </summary>
         public static readonly Size Infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
-        
+
         /// <summary>
         ///     Compara la igualdad entre dos instancias de <see cref="Size"/>.
         /// </summary>

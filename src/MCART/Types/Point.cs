@@ -582,7 +582,14 @@ namespace TheXDS.MCART.Types
         /// <returns>El código Hash de esta instancia.</returns>
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+#if NETCOREAPP3_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETSTANDARD2_1
+            return HashCode.Combine(X, Y);
+#else
+            var hashCode = 1861411795;
+            hashCode = hashCode * -1521134295 + X.GetHashCode();
+            hashCode = hashCode * -1521134295 + Y.GetHashCode();
+            return hashCode;
+#endif
         }
 
         /// <summary>

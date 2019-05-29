@@ -40,7 +40,7 @@ namespace TheXDS.MCART.Types.Entity
     ///     correspondiente para los diferentes tipos de UI disponibles.
     /// </remarks>
     [ComplexType]
-    public sealed class Point : I2DVector, IFormattable, IEquatable<Point>
+    public class Point : I2DVector, IFormattable, IEquatable<Point>
     {
         /// <summary>
         ///     Coordenada X.
@@ -169,6 +169,22 @@ namespace TheXDS.MCART.Types.Entity
         public string ToString(string format)
         {
             return ToString(format, CI.CurrentCulture);
+        }
+
+        /// <summary>
+        ///     Devuelve el código Hash de esta instancia.
+        /// </summary>
+        /// <returns>El código Hash de esta instancia.</returns>
+        public override int GetHashCode()
+        {
+#if NETCOREAPP3_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETSTANDARD2_1
+            return HashCode.Combine(X, Y);
+#else
+            var hashCode = 1861411795;
+            hashCode = hashCode * -1521134295 + X.GetHashCode();
+            hashCode = hashCode * -1521134295 + Y.GetHashCode();
+            return hashCode;
+#endif
         }
 
         /// <summary>
