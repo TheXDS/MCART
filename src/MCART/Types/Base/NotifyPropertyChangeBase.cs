@@ -125,7 +125,8 @@ namespace TheXDS.MCART.Types.Base
         protected IReadOnlyDictionary<string, ICollection<string>> ObserveRegistry { get; }
 
         /// <summary>
-        ///     Notifica desde un punto externo el cambio en el valor de una propiedad.
+        ///     Notifica desde un punto externo el cambio en el valor de un
+        ///     conjunto de propiedades.
         /// </summary>
         /// <param name="properties">
         ///     Colección con los nombres de las propiedades a notificar.
@@ -160,7 +161,8 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Notifica desde un punto externo el cambio en el valor de una propiedad.
+        ///     Notifica desde un punto externo el cambio en el valor de un
+        ///     conjunto de propiedades.
         /// </summary>
         /// <param name="properties">
         ///     Enumeración con los nombres de las propiedades a notificar.
@@ -168,7 +170,8 @@ namespace TheXDS.MCART.Types.Base
         public void Notify(IEnumerable<string> properties) => Notify(properties.ToArray());
 
         /// <summary>
-        ///     Notifica desde un punto externo el cambio en el valor de una propiedad.
+        ///     Notifica desde un punto externo el cambio en el valor de un
+        ///     conjunto de propiedades.
         /// </summary>
         /// <param name="properties">
         ///     Colección con las propiedades a notificar.

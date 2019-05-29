@@ -22,6 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Collections;
 using System.Diagnostics;
@@ -35,6 +36,8 @@ namespace TheXDS.MCART.Types.Base
     [DebuggerStepThrough]
     public abstract class ObservableWrapBase : NotifyPropertyChanged, INotifyCollectionChanged, IEnumerable
     {
+        private readonly IDictionary<NotifyPropertyChangeBase, HashSet<string>> _notifyRegistroir = new Dictionary<NotifyPropertyChangeBase, HashSet<string>>();
+
         /// <summary>
         ///     Se produce al ocurrir un cambio en la colección.
         /// </summary>
@@ -47,6 +50,10 @@ namespace TheXDS.MCART.Types.Base
         protected void RaiseCollectionChanged(NcchEa eventArgs)
         {
             CollectionChanged?.Invoke(this, eventArgs);
+            foreach (var j in _notifyRegistroir)
+            {
+                j.Key.Notify(j.Value);
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator() => OnGetEnumerator();
@@ -58,5 +65,28 @@ namespace TheXDS.MCART.Types.Base
         ///     Un enumerador que puede ser utilizado para iterar sobre la colección.
         /// </returns>
         protected abstract IEnumerator OnGetEnumerator();
+
+        /// <summary>
+        ///     Envía notificaciones adicionales de cambio de propiedad al
+        ///     ocurrir un cambio en esta colección.
+        /// </summary>
+        /// <param name="target">
+        ///     Objetivo de notificación.
+        /// </param>
+        /// <param name="properties">
+        ///     Propiedades a notificar.
+        /// </param>
+        public void ForwardNotify(NotifyPropertyChangeBase target, params string[] properties)
+        {
+            if (!_notifyRegistroir.ContainsKey(target))
+                _notifyRegistroir.Add(target, new HashSet<string>(properties));
+            else
+            {
+                foreach (var j in properties)
+                {
+                    _notifyRegistroir[target].Add(j);
+                }
+            }
+        }
     }
 }
