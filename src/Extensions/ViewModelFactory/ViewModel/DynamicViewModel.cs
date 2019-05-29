@@ -1,5 +1,5 @@
 ﻿/*
-GeneratedViewModel.cs
+DynamicViewModel.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -55,6 +55,18 @@ namespace TheXDS.MCART.ViewModel
         {
             get => Entity;
             set => Entity = value as T;
+        }
+
+        /// <summary>
+        ///     Convierte implícitamente un <see cref="DynamicViewModel{T}"/>
+        ///     en un <typeparamref name="T"/>.
+        /// </summary>
+        /// <param name="vm">
+        ///     <see cref="DynamicViewModel{T}"/> a convertir.
+        ///     </param>
+        public static implicit operator T(DynamicViewModel<T> vm)
+        {
+            return vm.Entity;
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿/*
-IEntityViewModel.cs
+INewEntityViewModel.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,9 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using TheXDS.MCART.Types;
-using System.ComponentModel;
-
 namespace TheXDS.MCART.ViewModel
 {
     /// <summary>
@@ -34,11 +31,11 @@ namespace TheXDS.MCART.ViewModel
     /// <typeparam name="T">
     ///     Tipo de entidad a controlar.
     /// </typeparam>
-    public interface IEntityViewModel<T> : IRefreshable, INotifyPropertyChanged
+    public interface INewEntityViewModel<T> : IEntityViewModel<T> where T : new()
     {
         /// <summary>
-        ///     Instancia de la entidad controlada por este ViewModel.
+        ///     Instancia un nuevo <typeparamref name="T"/> en este ViewModel.
         /// </summary>
-        T Entity { get; }
+        void New();
     }
 }

@@ -34,8 +34,11 @@ namespace TheXDS.MCART.ViewModel
     ///     Clase base para un <see cref="ViewModelBase"/> cuyos campos de
     ///     almacenamiento sean parte de un modelo de entidad.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public abstract class ViewModel<T> : ViewModelBase, IEntityViewModel<T>, ISetteableViewModel<T> where T : new()
+    /// <typeparam name="T">
+    ///     Tipo de entidad a utilizar como almacenamiento interno de este
+    ///     ViewModel.
+    /// </typeparam>
+    public abstract class ViewModel<T> : ViewModelBase, IEntityViewModel<T>, ISetteableViewModel<T>
     {
         private static readonly HashSet<PropertyInfo> _modelProperties = new HashSet<PropertyInfo>();
         private static IEnumerable<PropertyInfo> WrittableProperties => _modelProperties.Where(p => p.CanWrite);
@@ -54,16 +57,7 @@ namespace TheXDS.MCART.ViewModel
         /// <summary>
         ///     Instancia de la entidad controlada por este ViewModel.
         /// </summary>
-        public T Entity { get; private set; }
-
-        /// <summary>
-        ///     Instancia un nuevo <typeparamref name="T"/> en este ViewModel.
-        /// </summary>
-        public void New()
-        {
-            Entity = new T();
-            Refresh();
-        }
+        public T Entity { get; protected set; }
 
         /// <summary>
         ///     Edita la instancia de <typeparamref name="T"/> dentro de este
@@ -85,7 +79,6 @@ namespace TheXDS.MCART.ViewModel
         /// </summary>
         public ViewModel()
         {
-            New();
         }
 
         /// <summary>
@@ -98,6 +91,18 @@ namespace TheXDS.MCART.ViewModel
             {
                 Notify(_modelProperties.Select(p => p.Name));
             }
+        }
+
+        /// <summary>
+        ///     Convierte implícitamente un <see cref="ViewModel{T}"/>
+        ///     en un <typeparamref name="T"/>.
+        /// </summary>
+        /// <param name="vm">
+        ///     <see cref="ViewModel{T}"/> a convertir.
+        ///     </param>
+        public static implicit operator T(ViewModel<T> vm)
+        {
+            return vm.Entity;
         }
     }
 }

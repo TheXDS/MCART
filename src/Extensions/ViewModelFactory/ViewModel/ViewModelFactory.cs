@@ -602,8 +602,7 @@ namespace TheXDS.MCART.ViewModel
             }
             refreshIl.Emit(Ret);
             editIl.Emit(Ret);
-                       
-            MethodAttributes Infer(Type propType)
+            static MethodAttributes Infer(Type propType)
             {
                 var rv = Virtual | NewSlot;
                 if (!propType.IsClass || propType == typeof(string))
