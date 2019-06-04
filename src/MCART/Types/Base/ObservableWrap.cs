@@ -33,7 +33,6 @@ using NcchEa = System.Collections.Specialized.NotifyCollectionChangedEventArgs;
 
 namespace TheXDS.MCART.Types.Base
 {
-
     /// <summary>
     ///     Clase base para los envoltorios observables de colecciones.
     /// </summary>
@@ -62,7 +61,7 @@ namespace TheXDS.MCART.Types.Base
 
         /// <summary>
         ///     Obtiene acceso directo a la colección subyacente envuelta por
-        ///     este <see cref="ObservableCollectionWrap{T}"/>.
+        ///     este <see cref="ObservableWrap{T, TCollection}"/>.
         /// </summary>
         public TCollection UnderlyingCollection { get; private set; }
 
