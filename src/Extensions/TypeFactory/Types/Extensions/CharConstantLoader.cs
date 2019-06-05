@@ -29,6 +29,6 @@ namespace TheXDS.MCART.Types.Extensions
 {
     public class CharConstantLoader : ConstantLoader<char>
     {
-        public override void Emit(ILGenerator il, char value) => il.Emit(Ldc_I8, unchecked((short)value));
+        public override void Emit(ILGenerator il, char value) => il.Emit(Ldc_I4, unchecked(value));
     }
 }

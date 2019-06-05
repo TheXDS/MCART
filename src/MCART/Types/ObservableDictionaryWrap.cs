@@ -71,7 +71,7 @@ namespace TheXDS.MCART.Types
         {
             get => UnderlyingCollection[key];
             set
-            {
+            {                
                 var oldValue = UnderlyingCollection[key];
                 UnderlyingCollection[key] = value;
                 RaiseCollectionChanged(new NcchEa(NotifyCollectionChangedAction.Replace, oldValue, value));
@@ -113,7 +113,7 @@ namespace TheXDS.MCART.Types
         ///     <see langword="true"/> si el índice existe dentro del
         ///     diccionario, <see langword="false"/> en caso contrario.
         /// </returns>
-        public bool ContainsKey(TKey key) => UnderlyingCollection.ContainsKey(key);
+        public bool ContainsKey(TKey key) => UnderlyingCollection?.ContainsKey(key) ?? false;
 
         /// <summary>
         ///     Quita al elemento con el índice especificado del diccionario.
@@ -127,6 +127,7 @@ namespace TheXDS.MCART.Types
         ///     no existía en el diccionario o si ocurre otro problema al
         ///     intentar realizar la operación.
         /// </returns>
+        /// 
         public bool Remove(TKey key)
         {
             if (!UnderlyingCollection.ContainsKey(key)) return false;

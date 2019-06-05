@@ -31,6 +31,6 @@ namespace TheXDS.MCART.Types.Extensions
     [CLSCompliant(false)]
     public class UIntConstantLoader : ConstantLoader<uint>
     {
-        public override void Emit(ILGenerator il, uint value) => il.Emit(Ldc_I8, unchecked((int)value));
+        public override void Emit(ILGenerator il, uint value) => il.Emit(Ldc_I4, unchecked((int)value));
     }
 }

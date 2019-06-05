@@ -101,23 +101,23 @@ namespace TheXDS.MCART.ViewModel
                 case sbyte sb:
                     ilGen.Emit(Ldc_I4_S, sb);
                     break;
-                case char ch:
-                    ilGen.Emit(Ldc_I8, unchecked((short)ch));
-                    break;
                 case bool b:
                     ilGen.Emit(b ? Ldc_I4_1 : Ldc_I4_0);
                     break;
+                case char ch:
+                    ilGen.Emit(Ldc_I4, unchecked(ch));
+                    break;
                 case short sh:
-                    ilGen.Emit(Ldc_I4, sh);
+                    ilGen.Emit(Ldc_I4, unchecked((int)sh));
                     break;
                 case ushort ush:
-                    ilGen.Emit(Ldc_I8, unchecked((short)ush));
+                    ilGen.Emit(Ldc_I4, unchecked(ush));
                     break;
                 case int i:
                     ilGen.Emit(Ldc_I4, i);
                     break;
                 case uint ui:
-                    ilGen.Emit(Ldc_I8, unchecked((int)ui));
+                    ilGen.Emit(Ldc_I4, unchecked((int)ui));
                     break;
                 case long l:
                     ilGen.Emit(Ldc_I8, l);
