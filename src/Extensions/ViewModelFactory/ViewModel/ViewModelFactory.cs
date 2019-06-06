@@ -341,10 +341,18 @@ namespace TheXDS.MCART.ViewModel
             refresh.Emit(Ldfld, fld);
             refresh.Emit(Callvirt, ot.GetMethod("Refresh", Type.EmptyTypes));
 
+            var L003c = entitySetter.DefineLabel();
+            var L0042 = entitySetter.DefineLabel();
             entitySetter.Emit(Ldarg_0);
             entitySetter.Emit(Ldfld, fld);
+            entitySetter.Emit(Ldarg_1);            
+            entitySetter.Emit(Brtrue_S,L003c);
+            entitySetter.Emit(Ldnull);
+            entitySetter.Emit(Br_S,L0042);
+            entitySetter.MarkLabel(L003c);
             entitySetter.Emit(Ldarg_1);
             entitySetter.Emit(Callvirt, prop.GetMethod);
+            entitySetter.MarkLabel(L0042);
             entitySetter.Emit(Callvirt, ot.GetMethod("Substitute", new Type[] { ct }));
         }
 

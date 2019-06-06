@@ -274,7 +274,7 @@ namespace TheXDS.MCART.Types
             UnderlyingList = new object[0];
             RaiseCollectionChanged(new NcchEa(Reset));
             UnderlyingList = newList;
-            RaiseCollectionChanged(new NcchEa(Nccha.Add, newList));
+            if (!(newList is null)) RaiseCollectionChanged(new NcchEa(Nccha.Add, newList));
         }
     }
 

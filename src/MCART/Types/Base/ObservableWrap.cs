@@ -193,7 +193,7 @@ namespace TheXDS.MCART.Types.Base
             UnderlyingCollection = default;
             RaiseCollectionChanged(new NcchEa(Reset));
             UnderlyingCollection = newCollection;
-            RaiseCollectionChanged(new NcchEa(Nccha.Add, (IList)UnderlyingCollection));
+            if (!(newCollection is null)) RaiseCollectionChanged(new NcchEa(Nccha.Add, (IList)UnderlyingCollection));
             Notify(nameof(Count));
         }
 

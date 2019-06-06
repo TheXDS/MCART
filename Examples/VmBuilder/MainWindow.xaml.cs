@@ -52,6 +52,8 @@ namespace VmBuilder
             Vm.Entity = new Test();
 
             Vm.GetType().GetProperty("Name").SetValue(Vm, "Test");
+
+            Vm.Entity = null;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -162,9 +164,9 @@ namespace VmBuilder
             {
                 if (Change(ref _entity, value))
                 {
-                    _elements.Substitute(value.Elements);
-                    _elements.Substitute(value.Elements);
-                    _elements.Substitute(value.Elements);
+                    _elements.Substitute(value?.Elements);
+                    _elements.Substitute(value?.Elements);
+                    _elements.Substitute(value?.Elements);
                     Refresh();
                 }
             }
