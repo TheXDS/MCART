@@ -42,21 +42,24 @@ namespace VmBuilder
     public partial class MainWindow : Window
     {
         private TestViewModel Vm => DataContext as TestViewModel;
-        private readonly TestContext _db = new TestContext();
+        //private readonly TestContext _db = new TestContext();
         public MainWindow()
         {
             //InitializeComponent();
             //_db.Database.CreateIfNotExists();
             DataContext = ViewModelFactory.BuildViewModel(typeof(TestViewModel),typeof(Test)).New();
-            lst1.ItemsSource = _db.Tests.ToList();
+            //lst1.ItemsSource = _db.Tests.ToList();
+            Vm.Entity = new Test();
+
+            Vm.GetType().GetProperty("Name").SetValue(Vm, "Test");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (Vm.Entity.Id == 0) _db.Tests.Add(Vm.Entity);
-            _db.SaveChanges();
-            lst1.ItemsSource = null;
-            lst1.ItemsSource = _db.Tests.ToList();
+            //if (Vm.Entity.Id == 0) _db.Tests.Add(Vm.Entity);
+            //_db.SaveChanges();
+            //lst1.ItemsSource = null;
+            //lst1.ItemsSource = _db.Tests.ToList();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e) => Vm.Entity = new Test();
@@ -133,6 +136,7 @@ namespace VmBuilder
         public abstract Test Entity { get; set; }
         public abstract void Edit(Test entity);
     }
+
     public class TestContext : DbContext
     {
         public DbSet<Test> Tests { get; set; }
@@ -143,6 +147,8 @@ namespace VmBuilder
     {
         public TestViewModel_8e106e3fc1a64e369f50b019eef60abf()
         {
+            _elements = new ObservableCollectionWrap<Number>();
+            _elements = new ObservableCollectionWrap<Number>();
             _elements = new ObservableCollectionWrap<Number>();
         }
 
@@ -156,7 +162,9 @@ namespace VmBuilder
             {
                 if (Change(ref _entity, value))
                 {
-                    _elements.Substitute(Entity.Elements);
+                    _elements.Substitute(value.Elements);
+                    _elements.Substitute(value.Elements);
+                    _elements.Substitute(value.Elements);
                     Refresh();
                 }
             }
@@ -166,6 +174,8 @@ namespace VmBuilder
         {
             Email = A_1.Email;
             _elements.Replace(A_1.Elements);
+            _elements.Replace(A_1.Elements);
+            _elements.Replace(A_1.Elements);
         }
 
         public override void Refresh()
@@ -174,7 +184,8 @@ namespace VmBuilder
             OnPropertyChanged("Name");
             OnPropertyChanged("LastName");
             OnPropertyChanged("Email");
-            OnPropertyChanged("Elements");
+            //OnPropertyChanged("Elements");
+            _elements.Refresh();
         }
 
         public string Email
@@ -184,7 +195,7 @@ namespace VmBuilder
                 return Entity?.Email;
             }
             set
-            {   
+            {
                 if (Entity != null && !Equals(Entity.Email, value))
                 {
                     Entity.Email = value;
