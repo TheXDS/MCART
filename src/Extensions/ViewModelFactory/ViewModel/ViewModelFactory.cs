@@ -297,6 +297,7 @@ namespace TheXDS.MCART.ViewModel
             setter.Emit(Ldarg_0);
             setter.Emit(Ldfld, entity);
             setter.Emit(Ldarg_1);
+
             setter.Emit(Callvirt, prop.SetMethod);
             setter.Emit(Ldarg_0);
             setter.Emit(Ldstr, prop.Name);
@@ -364,7 +365,7 @@ namespace TheXDS.MCART.ViewModel
             {
                 if (typeof(ICollection<>).MakeGenericType(j.PropertyType.ResolveCollectionType()).IsAssignableFrom(j.PropertyType))
                     tb.AddEntityCollection(j, ctor, editIl, refreshIl, setter);
-                else
+                else if (j.CanWrite)
                     tb.AddEntityProp(j, entityFld, editIl, refreshIl);
             }
             ctor.Emit(Ret);
