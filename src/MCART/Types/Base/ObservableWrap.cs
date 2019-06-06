@@ -27,6 +27,7 @@ using System.Collections.Specialized;
 using System.Collections;
 using System;
 using System.Diagnostics;
+using TheXDS.MCART.Types.Extensions;
 using Nccha = System.Collections.Specialized.NotifyCollectionChangedAction;
 using static System.Collections.Specialized.NotifyCollectionChangedAction;
 using NcchEa = System.Collections.Specialized.NotifyCollectionChangedEventArgs;
@@ -193,6 +194,30 @@ namespace TheXDS.MCART.Types.Base
             RaiseCollectionChanged(new NcchEa(Reset));
             UnderlyingCollection = newCollection;
             RaiseCollectionChanged(new NcchEa(Nccha.Add, (IList)UnderlyingCollection));
+            Notify(nameof(Count));
+        }
+
+        /// <summary>
+        ///     Elimina todos los elementos de la colección subyacente y los
+        ///     reemplaza con los elementos de la colección especificada.
+        /// </summary>
+        /// <param name="newCollection">
+        ///     Colección con los elementos a agregar a la colección
+        ///     subyacente.
+        /// </param>
+        public void Replace(TCollection newCollection)
+        {
+            UnderlyingCollection.Locked(c =>
+            {
+                c.Clear();
+                if (newCollection is null) return;
+                foreach (var j in newCollection)
+                {
+                    UnderlyingCollection.Add(j);
+                }
+                RaiseCollectionChanged(new NcchEa(Nccha.Add, (IList)newCollection));
+                Notify(nameof(Count));
+            });
         }
     }
 }

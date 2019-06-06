@@ -506,7 +506,6 @@ namespace TheXDS.MCART.ViewModel
         {
             var modelProps = modelType.GetProperties(BindingFlags.Public | Instance).Where(CanMap);
             var ctor = tb.DefineConstructor(MethodAttributes.Public, CallingConventions.Standard, Type.EmptyTypes).GetILGenerator();
-            var updatingObservables = tb.DefineField("updatingObservables", typeof(bool), FieldAttributes.Private);
             var entity = tb.DefineField("_entity", modelType, FieldAttributes.Private);
             var entityProp = tb.DefineProperty("Entity", PropertyAttributes.HasDefault, modelType, null);
             var getEntity = tb.DefineMethod($"get_Entity", _gsArgs | Virtual, modelType, null);

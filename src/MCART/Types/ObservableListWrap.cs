@@ -321,7 +321,7 @@ namespace TheXDS.MCART.Types
             {
                 var oldItem = UnderlyingCollection[index];
                 UnderlyingCollection[index] = value;
-                RaiseCollectionChanged(new NcchEa(Replace, value, oldItem));
+                RaiseCollectionChanged(new NcchEa(Nccha.Replace, value, oldItem));
             }
         }
 

@@ -23,13 +23,16 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.ViewModel;
@@ -42,8 +45,8 @@ namespace VmBuilder
         private readonly TestContext _db = new TestContext();
         public MainWindow()
         {
-            InitializeComponent();
-            _db.Database.CreateIfNotExists();
+            //InitializeComponent();
+            //_db.Database.CreateIfNotExists();
             DataContext = ViewModelFactory.BuildViewModel(typeof(TestViewModel),typeof(Test)).New();
             lst1.ItemsSource = _db.Tests.ToList();
         }
@@ -133,5 +136,66 @@ namespace VmBuilder
     public class TestContext : DbContext
     {
         public DbSet<Test> Tests { get; set; }
+    }
+
+
+    public class TestViewModel_8e106e3fc1a64e369f50b019eef60abf : TestViewModel, IDynamicViewModel<Test>
+    {
+        public TestViewModel_8e106e3fc1a64e369f50b019eef60abf()
+        {
+            _elements = new ObservableCollectionWrap<Number>();
+        }
+
+        public override Test Entity
+        {
+            get
+            {
+                return _entity;
+            }
+            set
+            {
+                if (Change(ref _entity, value))
+                {
+                    _elements.Substitute(Entity.Elements);
+                    Refresh();
+                }
+            }
+        }
+
+        public override void Edit(Test A_1)
+        {
+            Email = A_1.Email;
+            _elements.Replace(A_1.Elements);
+        }
+
+        public override void Refresh()
+        {
+            OnPropertyChanged("Id");
+            OnPropertyChanged("Name");
+            OnPropertyChanged("LastName");
+            OnPropertyChanged("Email");
+            OnPropertyChanged("Elements");
+        }
+
+        public string Email
+        {
+            get
+            {
+                return Entity?.Email;
+            }
+            set
+            {   
+                if (Entity != null && !Equals(Entity.Email, value))
+                {
+                    Entity.Email = value;
+                    base.OnPropertyChanged("Email");
+                }
+            }
+        }
+
+        public ICollection<Number> Elements => _elements;
+
+        private Test _entity;
+        private readonly ObservableCollectionWrap<Number> _elements;
     }
 }
