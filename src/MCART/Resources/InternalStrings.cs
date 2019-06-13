@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
+
 namespace TheXDS.MCART.Resources
 {
 #pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible públicamente
@@ -115,5 +117,7 @@ namespace TheXDS.MCART.Resources
         public static string ErrorXAlreadyRegistered(string x) => $"{x} ya ha sido registrado(a).";
         public static string ErrorXClassNotInstantiableWithArgs(string x) => $"La clase '{x}' no pudo ser instanciada con los parámetros de constructor especificados.";
         public static string UnkErrLoadingRes(string res, string ex) => $"Error desconocido al cargar recurso {res}\n{ex}";
+
+        public static string ErrorDeclMustHaveGuidAttr(Type o) => $"la declaración del tipo {o.Name} requiere un atributo de Guid.";
     }
 }
