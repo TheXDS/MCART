@@ -140,7 +140,6 @@ namespace TheXDS.MCART.Types.Base
         public bool Remove(T item)
         {
             var result = UnderlyingCollection?.Remove(item) ?? false;
-
             if (result)
             {
                 RaiseCollectionChanged(new NcchEa(Nccha.Remove, item));

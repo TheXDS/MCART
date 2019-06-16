@@ -233,8 +233,9 @@ namespace TheXDS.MCART.Types
         {
             if (UnderlyingList.Contains(value))
             {
+                var index = UnderlyingList.IndexOf(value);
                 UnderlyingList.Remove(value);
-                RaiseCollectionChanged(new NcchEa(Nccha.Remove, value));
+                RaiseCollectionChanged(new NcchEa(Nccha.Remove, value, index));
                 Notify(nameof(Count));
             }
         }
@@ -250,7 +251,7 @@ namespace TheXDS.MCART.Types
         {
             var item = UnderlyingList[index];
             UnderlyingList.RemoveAt(index);
-            RaiseCollectionChanged(new NcchEa(Nccha.Remove, item));
+            RaiseCollectionChanged(new NcchEa(Nccha.Remove, item, index));
             Notify(nameof(Count));
         }
 
@@ -365,7 +366,7 @@ namespace TheXDS.MCART.Types
         {
             var item = UnderlyingCollection[index];
             UnderlyingCollection.RemoveAt(index);
-            RaiseCollectionChanged(new NcchEa(Nccha.Remove, item));
+            RaiseCollectionChanged(new NcchEa(Nccha.Remove, item, index));
             Notify(nameof(Count));
         }
     }
