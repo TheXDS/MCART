@@ -80,6 +80,51 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
+        ///     Separa en líneas de hasta 80 caracteres el contenido de una
+        ///     cadena larga.
+        /// </summary>
+        /// <param name="str">Cadena a separar.</param>
+        /// <returns>
+        ///     Un arreglo de cadenas con el contenido de la cadena original 
+        ///     separado en filas de hasta 80 caracteres.
+        /// </returns>
+        public static string[] TextWrap(string str) => TextWrap(str, 80);
+
+        /// <summary>
+        ///     Separa en líneas el contenido de una cadena larga.
+        /// </summary>
+        /// <param name="str">Cadena a separar.</param>
+        /// <param name="width">
+        ///     Cantidad de caracteres admitidos por fila. de forma
+        ///     predeterminada, es de 80 caracteres por columna.
+        /// </param>
+        /// <returns>
+        ///     Un arreglo de cadenas con el contenido de la cadena original 
+        ///     separado en filas.
+        /// </returns>
+        public static string[] TextWrap(string str, int width)
+        {
+            var l = new List<string>
+            {
+                string.Empty
+            };
+
+            foreach (var j in str.Split(' '))
+            {
+                if (string.IsNullOrEmpty(j)) continue;
+                if (l.Last().Length + j.Length > width)
+                {
+                    l.Add($"{j} ");
+                }
+                else
+                {
+                    l[l.Count - 1] += $"{j} ";
+                }
+            }
+            return l.ToArray();
+        }
+
+        /// <summary>
         ///     Determina si la cadena contiene a cualquiera de los caracteres
         ///     especificados.
         /// </summary>
@@ -850,7 +895,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             if (!length.IsBetween(0, @string.Length))
                 throw new ArgumentOutOfRangeException(nameof(length));
-            return @string.Substring(length, @string.Length - length);
+            return @string[length..];
         }
 
         /// <summary>
