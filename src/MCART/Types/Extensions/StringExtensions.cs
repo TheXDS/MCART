@@ -895,7 +895,11 @@ namespace TheXDS.MCART.Types.Extensions
         {
             if (!length.IsBetween(0, @string.Length))
                 throw new ArgumentOutOfRangeException(nameof(length));
+#if NETCOREAPP3_0 || NETSTANDARD2_1
             return @string[length..];
+#else
+            return @string.Substring(length, @string.Length - length);
+#endif
         }
 
         /// <summary>
