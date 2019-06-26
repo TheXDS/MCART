@@ -26,7 +26,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -56,7 +55,7 @@ namespace TheXDS.MCART.Networking.Server
         ///     Describe la solicitud realizada por un cliente que está siendo
         ///     atendida por este protocolo.
         /// </summary>
-        protected class Request
+        public class Request
         {
             private byte[] MkResp(TResult resp, bool withGuid = true)
             {
@@ -174,17 +173,13 @@ namespace TheXDS.MCART.Networking.Server
                 if (!dataStream.CanRead) throw new InvalidOperationException();
                 if (dataStream.CanSeek)
                 {
-                    using (var sr = new BinaryReader(dataStream))
-                    {
-                        Respond(response, sr.ReadBytes((int)dataStream.Length));
-                        return;
-                    }
+                    using var sr = new BinaryReader(dataStream);
+                    Respond(response, sr.ReadBytes((int)dataStream.Length));
+                    return;
                 }
-                using (var ms = new MemoryStream())
-                {
-                    dataStream.CopyTo(ms);
-                    Respond(response, ms);
-                }
+                using var ms = new MemoryStream();
+                dataStream.CopyTo(ms);
+                Respond(response, ms);
             }
 
             /// <summary>
@@ -198,12 +193,10 @@ namespace TheXDS.MCART.Networking.Server
             /// </param>
             public void Respond(TResult response, IEnumerable<string> data)
             {
-                using (var ms = new MemoryStream())
-                using (var bw = new BinaryWriter(ms))
-                {
-                    foreach (var j in data) bw.Write(j);
-                    Respond(response, ms);
-                }
+                using var ms = new MemoryStream();
+                using var bw = new BinaryWriter(ms);
+                foreach (var j in data) bw.Write(j);
+                Respond(response, ms);
             }
 
             /// <summary>
@@ -277,17 +270,13 @@ namespace TheXDS.MCART.Networking.Server
                 if (!dataStream.CanRead) throw new InvalidOperationException();
                 if (dataStream.CanSeek)
                 {
-                    using (var sr = new BinaryReader(dataStream))
-                    {
-                        Broadcast(response, sr.ReadBytes((int)dataStream.Length));
-                        return;
-                    }
+                    using var sr = new BinaryReader(dataStream);
+                    Broadcast(response, sr.ReadBytes((int)dataStream.Length));
+                    return;
                 }
-                using (var ms = new MemoryStream())
-                {
-                    dataStream.CopyTo(ms);
-                    Broadcast(response, ms);
-                }
+                using var ms = new MemoryStream();
+                dataStream.CopyTo(ms);
+                Broadcast(response, ms);
             }
 
             /// <summary>
@@ -302,12 +291,10 @@ namespace TheXDS.MCART.Networking.Server
             /// </param>
             public void Broadcast(TResult response, IEnumerable<string> data)
             {
-                using (var ms = new MemoryStream())
-                using (var bw = new BinaryWriter(ms))
-                {
-                    foreach (var j in data) bw.Write(j);
-                    Broadcast(response, ms);
-                }
+                using var ms = new MemoryStream();
+                using var bw = new BinaryWriter(ms);
+                foreach (var j in data) bw.Write(j);
+                Broadcast(response, ms);
             }
 
             /// <summary>
@@ -372,17 +359,13 @@ namespace TheXDS.MCART.Networking.Server
                 if (!dataStream.CanRead) throw new InvalidOperationException();
                 if (dataStream.CanSeek)
                 {
-                    using (var sr = new BinaryReader(dataStream))
-                    {
-                        Multicast(response, sr.ReadBytes((int)dataStream.Length), condition);
-                        return;
-                    }
+                    using var sr = new BinaryReader(dataStream);
+                    Multicast(response, sr.ReadBytes((int)dataStream.Length), condition);
+                    return;
                 }
-                using (var ms = new MemoryStream())
-                {
-                    dataStream.CopyTo(ms);
-                    Multicast(response, ms, condition);
-                }
+                using var ms = new MemoryStream();
+                dataStream.CopyTo(ms);
+                Multicast(response, ms, condition);
             }
 
             /// <summary>
@@ -394,12 +377,10 @@ namespace TheXDS.MCART.Networking.Server
             /// <param name="condition">Condición a evaluar.</param>
             public void Multicast(TResult response, IEnumerable<string> data, Predicate<TClient> condition)
             {
-                using (var ms = new MemoryStream())
-                using (var bw = new BinaryWriter(ms))
-                {
-                    foreach (var j in data) bw.Write(j);
-                    Multicast(response, ms,condition);
-                }
+                using var ms = new MemoryStream();
+                using var bw = new BinaryWriter(ms);
+                foreach (var j in data) bw.Write(j);
+                Multicast(response, ms, condition);
             }
 
             /// <summary>
@@ -491,16 +472,12 @@ namespace TheXDS.MCART.Networking.Server
                 if (!dataStream.CanRead) throw new InvalidOperationException();
                 if (dataStream.CanSeek)
                 {
-                    using (var sr = new BinaryReader(dataStream))
-                    {
-                        return RespondAsync(response, sr.ReadBytes((int)dataStream.Length));
-                    }
+                    using var sr = new BinaryReader(dataStream);
+                    return RespondAsync(response, sr.ReadBytes((int)dataStream.Length));
                 }
-                using (var ms = new MemoryStream())
-                {
-                    dataStream.CopyTo(ms);
-                    return RespondAsync(response, ms);
-                }
+                using var ms = new MemoryStream();
+                dataStream.CopyTo(ms);
+                return RespondAsync(response, ms);
             }
 
             /// <summary>
@@ -517,12 +494,10 @@ namespace TheXDS.MCART.Networking.Server
             /// </returns>
             public Task RespondAsync(TResult response, IEnumerable<string> data)
             {
-                using (var ms = new MemoryStream())
-                using (var bw = new BinaryWriter(ms))
-                {
-                    foreach (var j in data) bw.Write(j);
-                    return RespondAsync(response, ms);
-                }
+                using var ms = new MemoryStream();
+                using var bw = new BinaryWriter(ms);
+                foreach (var j in data) bw.Write(j);
+                return RespondAsync(response, ms);
             }
 
             /// <summary>
@@ -611,16 +586,12 @@ namespace TheXDS.MCART.Networking.Server
                 if (!dataStream.CanRead) throw new InvalidOperationException();
                 if (dataStream.CanSeek)
                 {
-                    using (var sr = new BinaryReader(dataStream))
-                    {
-                        return BroadcastAsync(response, sr.ReadBytes((int)dataStream.Length));
-                    }
+                    using var sr = new BinaryReader(dataStream);
+                    return BroadcastAsync(response, sr.ReadBytes((int)dataStream.Length));
                 }
-                using (var ms = new MemoryStream())
-                {
-                    dataStream.CopyTo(ms);
-                    return BroadcastAsync(response, ms);
-                }
+                using var ms = new MemoryStream();
+                dataStream.CopyTo(ms);
+                return BroadcastAsync(response, ms);
             }
 
             /// <summary>
@@ -638,12 +609,10 @@ namespace TheXDS.MCART.Networking.Server
             /// </returns>
             public Task BroadcastAsync(TResult response, IEnumerable<string> data)
             {
-                using (var ms = new MemoryStream())
-                using (var bw = new BinaryWriter(ms))
-                {
-                    foreach (var j in data) bw.Write(j);
-                    return BroadcastAsync(response, ms);
-                }
+                using var ms = new MemoryStream();
+                using var bw = new BinaryWriter(ms);
+                foreach (var j in data) bw.Write(j);
+                return BroadcastAsync(response, ms);
             }
 
             /// <summary>
@@ -723,16 +692,12 @@ namespace TheXDS.MCART.Networking.Server
                 if (!dataStream.CanRead) throw new InvalidOperationException();
                 if (dataStream.CanSeek)
                 {
-                    using (var sr = new BinaryReader(dataStream))
-                    {
-                        return MulticastAsync(response, sr.ReadBytes((int)dataStream.Length), condition);
-                    }
+                    using var sr = new BinaryReader(dataStream);
+                    return MulticastAsync(response, sr.ReadBytes((int)dataStream.Length), condition);
                 }
-                using (var ms = new MemoryStream())
-                {
-                    dataStream.CopyTo(ms);
-                    return MulticastAsync(response, ms, condition);
-                }
+                using var ms = new MemoryStream();
+                dataStream.CopyTo(ms);
+                return MulticastAsync(response, ms, condition);
             }
 
             /// <summary>
@@ -747,12 +712,10 @@ namespace TheXDS.MCART.Networking.Server
             /// </returns>
             public Task MulticastAsync(TResult response, IEnumerable<string> data, Predicate<TClient> condition)
             {
-                using (var ms = new MemoryStream())
-                using (var bw = new BinaryWriter(ms))
-                {
-                    foreach (var j in data) bw.Write(j);
-                    return MulticastAsync(response, ms, condition);
-                }
+                using var ms = new MemoryStream();
+                using var bw = new BinaryWriter(ms);
+                foreach (var j in data) bw.Write(j);
+                return MulticastAsync(response, ms, condition);
             }
 
             /// <summary>
@@ -915,30 +878,28 @@ namespace TheXDS.MCART.Networking.Server
         /// <param name="data">bytes RAW de la solicitud.</param>
         public override sealed void ClientAttendant(TClient client, byte[] data)
         {
-            using (var ms = new MemoryStream(data))
-            using (var br = new BinaryReader(ms))
+            using var ms = new MemoryStream(data);
+            using var br = new BinaryReader(ms);
+            try
             {
-                try
-                {
-                    var commandGuid = br.ReadGuid();                    
-                    var c = ReadCommand(br);
+                var commandGuid = br.ReadGuid();
+                var c = ReadCommand(br);
 
-                    if (_commands.ContainsKey(c))
-                    {
-                        _commands[c](new Request(commandGuid, br, client, Server, c));
-                    }
-                    else
-                    {
-                        NotMappedCommand?.Invoke(this, c);
-                        if (!(_notMappedResponse is null)) client.Send(MakeResponse(_notMappedResponse.Value));
-                        else if (!(_errResponse is null)) client.Send(MakeResponse(_errResponse.Value));
-                    }
+                if (_commands.ContainsKey(c))
+                {
+                    _commands[c](new Request(commandGuid, br, client, Server, c));
                 }
-                catch
-                {                    
-                    ServerError?.Invoke(this, EventArgs.Empty);
-                    if (!(_errResponse is null)) client.Send(MakeResponse(_errResponse.Value));
+                else
+                {
+                    NotMappedCommand?.Invoke(this, c);
+                    if (!(_notMappedResponse is null)) client.Send(MakeResponse(_notMappedResponse.Value));
+                    else if (!(_errResponse is null)) client.Send(MakeResponse(_errResponse.Value));
                 }
+            }
+            catch
+            {
+                ServerError?.Invoke(this, EventArgs.Empty);
+                if (!(_errResponse is null)) client.Send(MakeResponse(_errResponse.Value));
             }
         }
 
