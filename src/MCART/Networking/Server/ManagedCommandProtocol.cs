@@ -110,6 +110,20 @@ namespace TheXDS.MCART.Networking.Server
             /// </summary>
             public BinaryReader Reader { get; }
 
+            /// <summary>
+            ///     Obtiene el contenido del Payload de esta solicitud.
+            /// </summary>
+            /// <returns></returns>
+            public byte[] GetPayload()
+            {
+                var ms = Reader.BaseStream as MemoryStream ?? throw new TamperException();
+                var pos = ms.Position;
+                var toEnd = (int)(ms.Length - pos);
+                var data = Reader.ReadBytes(toEnd);
+                ms.Position = pos;
+                return data;
+            }
+
             #region Helpers
 
             /// <summary>
@@ -739,7 +753,7 @@ namespace TheXDS.MCART.Networking.Server
         /// <summary>
         ///     Describe la firma de un comando del protocolo.
         /// </summary>
-        protected delegate void CommandCallback(Request request);
+        public delegate void CommandCallback(Request request);
 
         private static readonly Func<TResult, byte[]> _toResponse;
         private static readonly TResult? _errResponse;
@@ -849,7 +863,7 @@ namespace TheXDS.MCART.Networking.Server
         /// <param name="action">
         ///     Acción a ejecutar al recibir el comando.
         /// </param>
-        protected void WireUp(TCommand command, CommandCallback action)
+        public void WireUp(TCommand command, CommandCallback action)
         {
             if (_commands.ContainsKey(command))
             {
@@ -859,6 +873,33 @@ namespace TheXDS.MCART.Networking.Server
             _commands.Add(command, action);
         }
 
+        /// <summary>
+        ///     Retransmite todos los datos recibidos por el comando
+        ///     especificado.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a recibir para la retransmisión de datos.
+        /// </param>
+        /// <param name="requestResult">
+        ///     Resultado a enviar al cliente que inició la solicitud.
+        /// </param>
+        /// <param name="relayResult">
+        ///     Resultado a enviar a los demás clientes al retransmitir la
+        ///     información.
+        /// </param>
+        public void Relay(TCommand command, TResult requestResult, TResult relayResult)
+        {
+            WireUp(command, request => 
+            {
+                request.Respond(requestResult);
+                //var ms = request.Reader.BaseStream as MemoryStream ?? throw new TamperException();
+                //var toEnd = (int)(ms.Length - ms.Position);
+                //var data = request.Reader.ReadBytes(toEnd);
+                var data = request.GetPayload();
+                request.Broadcast(relayResult, data);
+            });
+        }
+        
         /// <summary>
         ///     Crea una respuesta a partir del valor
         ///     <typeparamref name="TResult"/> especificado.
