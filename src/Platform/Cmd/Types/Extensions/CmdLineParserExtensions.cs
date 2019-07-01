@@ -27,12 +27,24 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Linq;
 using TheXDS.MCART.Component;
-
+using static TheXDS.MCART.Resources.CmdStrings;
 
 namespace TheXDS.MCART.Types.Extensions
 {
+    /// <summary>
+    ///     Extensiones para administrar un <see cref="CmdLineParser"/> bajo la
+    ///     interfaz de terminal/consola.
+    /// </summary>
     public static class CmdLineParserExtensions
     {
+        /// <summary>
+        ///     Genera una pantalla de ayuda con los argumentos registrados en
+        ///     el <see cref="CmdLineParser"/> especificado.
+        /// </summary>
+        /// <param name="args">
+        ///     Instancia de <see cref="CmdLineParser"/> desde la cual extraer
+        ///     la información de ayuda de los argumentos.
+        /// </param>
         public static void PrintHelp(this CmdLineParser args)
         {
             IExposeInfo nfo = new AssemblyInfo(ReflectionHelpers.GetEntryPoint().DeclaringType.Assembly);
@@ -55,5 +67,59 @@ namespace TheXDS.MCART.Types.Extensions
                 Console.WriteLine();
             }
         }
+
+        /// <summary>
+        ///     Ejecuta automáticamente las tareas asociadas a una lista de
+        ///     argumentos.
+        /// </summary>
+        /// <param name="args">
+        ///     Instancia de <see cref="CmdLineParser"/> con los argumentos a
+        ///     ejecutar.
+        /// </param>
+        /// <param name="exitIfInvalidArgs">
+        ///     Si se establece en <see langword="true"/>, la aplicación será
+        ///     finalizada si existen argumentos inválidos, faltan argumentos
+        ///     requeridos o si ocurre un error en una de las operaciones.
+        /// </param>
+        public static void AutoRun(this CmdLineParser args, bool exitIfInvalidArgs)
+        {
+            if (args.Invalid.Any())
+            {
+                foreach (var j in args.Invalid)
+                    Console.WriteLine(InvalidArg(j));
+                args.PrintHelp();
+                if (exitIfInvalidArgs) Environment.Exit(1);
+            }
+            if (args.Missing.Any())
+            {
+                foreach (var j in args.Missing)
+                    Console.WriteLine(MissingArg(j.LongName));
+                args.PrintHelp();
+                if (exitIfInvalidArgs) Environment.Exit(1);
+            }
+            Cmd.Helpers.About();
+            foreach (var j in args.Present)
+            {
+                try
+                {
+                    j.Run(args);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    if (exitIfInvalidArgs) Environment.Exit(ex.HResult);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Ejecuta automáticamente las tareas asociadas a una lista de
+        ///     argumentos.
+        /// </summary>
+        /// <param name="args">
+        ///     Instancia de <see cref="CmdLineParser"/> con los argumentos a
+        ///     ejecutar.
+        /// </param>
+        public static void AutoRun(this CmdLineParser args) => AutoRun(args, true);
     }
 }

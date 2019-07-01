@@ -39,7 +39,7 @@ namespace TheXDS.MCART.Component
     /// </summary>
     public sealed class CmdLineParser
     {
-        private readonly ICollection<Argument> _arguments;
+        private static readonly List<Argument> _allArguments = Objects.FindAllObjects<Argument>().ToList();
         private readonly HashSet<Argument> _args = new HashSet<Argument>(new TypeComparer());
         private readonly List<string> _commands = new List<string>();
         private readonly List<string> _invalid = new List<string>();
@@ -69,7 +69,7 @@ namespace TheXDS.MCART.Component
             {
                 var tokens = j.Split(new[] { '=', ':' }, 2);
                 var arg = tokens[0].Substring(marker.Length).ToLower();
-                if (_arguments.FirstOrDefault(p => p.LongName.ToLower() == arg) is Argument v)
+                if (AvailableArguments.FirstOrDefault(p => p.LongName.ToLower() == arg) is Argument v)
                 {
                     return Append(v, tokens.Length == 2 ? tokens[1] : null);
                 }
@@ -80,7 +80,7 @@ namespace TheXDS.MCART.Component
         {
             if (j.StartsWith(marker) && j.Length > 1)
             {
-                foreach (var p in _arguments)
+                foreach (var p in AvailableArguments)
                 {
                     if (p.ShortName.HasValue && (p.Kind == Argument.ValueKind.Flag || p.Kind == Argument.ValueKind.Optional) && j.Contains(p.ShortName.Value))
                     {
@@ -96,7 +96,7 @@ namespace TheXDS.MCART.Component
         {
             if (j.StartsWith(marker) && j.Length > 1)
             {
-                if (_arguments.FirstOrDefault(p => p.ShortName == j[1]) is Argument v)
+                if (AvailableArguments.FirstOrDefault(p => p.ShortName == j[1]) is Argument v)
                 {
                     return Append(v, j.Length > 2 ? j.Substring(2) : null);
                 }
@@ -130,7 +130,7 @@ namespace TheXDS.MCART.Component
         /// <param name="args">
         ///     Argumentos de lanzamiento de la aplicación.
         /// </param>
-        public CmdLineParser(string[] args) : this(Objects.FindAllObjects<Argument>(), args)
+        public CmdLineParser(string[] args) : this(_allArguments.AsReadOnly(), args)
         {
         }
 
@@ -146,7 +146,7 @@ namespace TheXDS.MCART.Component
         /// </param>
         public CmdLineParser(IEnumerable<Argument> arguments, string[] args)
         {
-            _arguments = arguments.ToList();
+            AvailableArguments = arguments;
             foreach (var j in args)
             {
                 var l =
@@ -172,9 +172,9 @@ namespace TheXDS.MCART.Component
         /// <typeparam name="T">
         ///     Tipo de argumento a registrar.
         /// </typeparam>
-        public void Register<T>() where T : Argument, new()
+        public static void Register<T>() where T : Argument, new()
         {
-            _arguments.Add(new T());
+            _allArguments.Add(new T());
         }
 
         /// <summary>
@@ -189,7 +189,7 @@ namespace TheXDS.MCART.Component
         ///     la línea de comandos, <see langword="false"/> en caso
         ///     contrario.
         /// </returns>
-        public bool Present<T>() where T : Argument, new()
+        public bool IsPresent<T>() where T : Argument, new()
         {
             return _args.Any(p => p.GetType() == typeof(T));
         }
@@ -226,7 +226,7 @@ namespace TheXDS.MCART.Component
         {
             get
             {
-                foreach (var j in _arguments.Where(p => p.Kind == Argument.ValueKind.Required))
+                foreach (var j in AvailableArguments.Where(p => p.Kind == Argument.ValueKind.Required))
                 {
                     if (!_args.Any(p => p.GetType() == j.GetType()))
                     {
@@ -240,12 +240,12 @@ namespace TheXDS.MCART.Component
         ///     Enumera todos los argumentos disponibles para ser procesados
         ///     por este <see cref="CmdLineParser"/>.
         /// </summary>
-        public IEnumerable<Argument> AvailableArguments => _arguments;
+        public IEnumerable<Argument> AvailableArguments { get; private set; }
 
         /// <summary>
         ///     Enumera los argumentos presentes en la línea de comandos.
         /// </summary>
-        public IEnumerable<Argument> PresentArguments => _args;
+        public IEnumerable<Argument> Present => _args;
 
         /// <summary>
         ///     Convierte implícitamente un arreglo de <see cref="string"/> en
@@ -255,6 +255,5 @@ namespace TheXDS.MCART.Component
         ///     Argumentos de línea de comandos pasados a la aplicación.
         /// </param>
         public static implicit operator CmdLineParser(string[] args) => new CmdLineParser(args);
-
     }
 }

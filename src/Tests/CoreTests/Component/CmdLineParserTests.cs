@@ -70,9 +70,9 @@ namespace TheXDS.MCART.Tests.Component
         {
             var parser = new CmdLineParser(cmdLine);
 
-            Assert.True(parser.Present<Recursive>());
-            Assert.True(parser.Present<Force>());
-            Assert.False(parser.Present<Verbose>());
+            Assert.True(parser.IsPresent<Recursive>());
+            Assert.True(parser.IsPresent<Force>());
+            Assert.False(parser.IsPresent<Verbose>());
         }
 
         [Fact]
@@ -88,7 +88,7 @@ namespace TheXDS.MCART.Tests.Component
         public void ReadValueTest(char separator)
         {
             var parser = new CmdLineParser($"--Filesystem{separator}FAT --force");
-            Assert.True(parser.Present<FileSystem>());
+            Assert.True(parser.IsPresent<FileSystem>());
             Assert.Equal("FAT", parser.Value<FileSystem>());
             Assert.Equal("yes", parser.Value<Force>());
 

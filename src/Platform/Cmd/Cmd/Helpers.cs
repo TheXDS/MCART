@@ -32,6 +32,7 @@ using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
 namespace TheXDS.MCART.Cmd
 {
+
     /// <summary>
     ///     Funciones auxiliares de consola.
     /// </summary>
