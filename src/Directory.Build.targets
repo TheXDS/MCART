@@ -69,4 +69,5 @@
     <Exec Command="nuget push $(ActualPackageFile) -Source https://nuget.org" />
   </Target>
   <Import Condition="'$(MSBuildProjectExtension)'=='.csproj' And '$(NoAsmInfo)'!='true'" Project="$(SolutionDir)Shared\AssemblyInfo\AssemblyInfo.projitems" Label="Shared" />
+  <Import Condition="'$(MSBuildProjectExtension)'=='.csproj' And '$(NoInternals)'!='true'" Project="$(SolutionDir)Shared\Internals\Internals.projitems" Label="Internals" />
 </Project>

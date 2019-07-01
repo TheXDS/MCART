@@ -161,6 +161,22 @@ namespace TheXDS.MCART.Resources
         }
 
         /// <summary>
+        ///     Comprueba si el ensamblado especificado es MCART o uno de sus 
+        ///     componentes.
+        /// </summary>
+        /// <param name="assembly">
+        ///     Ensamblado a comprobar.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> si el ensamblado es MCART o uno de sus
+        ///     componentes, <see langword="false"/> en caso contrario.
+        /// </returns>
+        public bool IsMcart(Assembly assembly)
+        {
+            return assembly.HasAttr<McartComponentAttribute>();
+        }
+
+        /// <summary>
         ///     Obtiene la referencia del ensamblado principal de MCART
         /// </summary>
         /// <returns>

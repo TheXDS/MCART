@@ -1,5 +1,5 @@
 ﻿/*
-Internal.cs
+PrivateInternals.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -35,7 +35,7 @@ using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Misc
 {
-    internal static class Internal
+    internal static class PrivateInternals
     {
         public static string? ReadLicense(object asm, bool returnNull = true)
         {

@@ -43,7 +43,7 @@ namespace TheXDS.MCART.Security.Password
             get
             {
 #if DynamicLoading
-                return Misc.Internal.List<IPasswordEvaluator>(typeof(PasswordEvaluators));
+                return Misc.PrivateInternals.List<IPasswordEvaluator>(typeof(PasswordEvaluators));
 #else
                 yield return new KeyValuePair<string, IPasswordEvaluator>(St2.SafePw, CommonEvaluator);
                 yield return new KeyValuePair<string, IPasswordEvaluator>(St2.SafePw, SaferEvaluator);

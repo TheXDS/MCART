@@ -27,7 +27,6 @@ using TheXDS.MCART.Math;
 
 namespace TheXDS.MCART.Networking.Reporters
 {
-#if ExtrasBuiltIn
     /// <summary>
     ///     Contiene funciones auxiliares de reporte de progreso que se muestra
     ///     en la consola.
@@ -59,6 +58,7 @@ namespace TheXDS.MCART.Networking.Reporters
             Console.Write(text);
             Console.CursorLeft = col;
         }
+
         /// <summary>
         ///     Muestra el progreso de una operación realizada en pasos,
         ///     ocupando el ancho total de la consola.
@@ -82,5 +82,4 @@ namespace TheXDS.MCART.Networking.Reporters
             if ((speed ?? 0) != 0) Console.Write($", -{TimeSpan.FromSeconds((total - current ?? 0) / speed ?? 1)}");
         }
     }
-#endif
 }

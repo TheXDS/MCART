@@ -5,6 +5,7 @@
     <NoPack>true</NoPack>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <NoAsmInfo>true</NoAsmInfo>
+    <NoInternals>true</NoInternals>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>$(SolutionDir)\Platform\WPF\Art\</OutputPath>

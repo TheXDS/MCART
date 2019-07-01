@@ -29,7 +29,7 @@ using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Component;
-using static TheXDS.MCART.Misc.Internal;
+using static TheXDS.MCART.Misc.PrivateInternals;
 using St = TheXDS.MCART.Resources.Strings;
 using St2 = TheXDS.MCART.Resources.InternalStrings;
 

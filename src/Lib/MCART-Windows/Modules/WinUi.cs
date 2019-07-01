@@ -36,6 +36,13 @@ namespace TheXDS.MCART
     /// </summary>
     public static class WinUi
     {
+        [DllImport("kernel32.dll")] static extern IntPtr GetConsoleWindow();
+
+        /// <summary>
+        ///     Obtiene un valor que indica si la aplicación tiene acceso a la consola.
+        /// </summary>
+        public static bool HasConsole => GetConsoleWindow() != IntPtr.Zero;
+
         /// <summary>
         /// Abre una consola para la aplicación.
         /// </summary>
@@ -45,6 +52,7 @@ namespace TheXDS.MCART
         /// Windows®.
         /// </remarks>
         [DllImport("kernel32.dll")] public static extern bool AllocConsole();
+
         /// <summary>
         /// Libera la consola de la aplicación.
         /// </summary>
@@ -54,6 +62,7 @@ namespace TheXDS.MCART
         /// Windows®.
         /// </remarks>
         [DllImport("kernel32.dll")] public static extern bool FreeConsole();
+
         /// <summary>
         /// Obtiene la información física del contexto del dispositivo gráfico
         /// especificado.
@@ -68,6 +77,7 @@ namespace TheXDS.MCART
         /// Windows®.
         /// </remarks>
         [DllImport("gdi32.dll")] public static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
+
         /// <summary>
         /// Obtiene el factor de escala de la interfaz gráfica.
         /// </summary>
@@ -76,21 +86,23 @@ namespace TheXDS.MCART
         /// utilizado para dibujar la interfaz gráfica del sistema.
         /// </returns>
         [Sugar] public static float GetScalingFactor() => GetScalingFactor(IntPtr.Zero);
+
         /// <summary>
         /// Obtiene el factor de escala de la ventana especificada por
-        /// el <see cref="IntPtr"/> <paramref name="Hwnd"/>.
+        /// el <see cref="IntPtr"/> <paramref name="hwnd"/>.
         /// </summary>
-        /// <param name="Hwnd">Identificador de ventana a verificar.</param>
+        /// <param name="hwnd">Identificador de ventana a verificar.</param>
         /// <returns>
         /// Un valor <see cref="float"/> que representa el factor de escala
         /// utilizado para dibujar la ventana especificada por 
-        /// <paramref name="Hwnd"/>.
+        /// <paramref name="hwnd"/>.
         /// </returns>
-        public static float GetScalingFactor(IntPtr Hwnd)
+        public static float GetScalingFactor(IntPtr hwnd)
         {
-            var h = Graphics.FromHwnd(Hwnd).GetHdc();
+            var h = Graphics.FromHwnd(hwnd).GetHdc();
             return (float)GetDeviceCaps(h, 10) / GetDeviceCaps(h, 117);
         }
+
         /// <summary>
         /// Obtiene la resolución horizontal de la pantalla en DPI.
         /// </summary>
@@ -99,6 +111,7 @@ namespace TheXDS.MCART
         /// en Puntos Por Pulgada (DPI).
         /// </returns>
         [Sugar] public static int GetXDpi() => GetXDpi(IntPtr.Zero);
+
         /// <summary>
         /// Obtiene la resolución vertical de la pantalla en DPI.
         /// </summary>
@@ -107,37 +120,41 @@ namespace TheXDS.MCART
         /// Puntos Por Pulgada (DPI).
         /// </returns>
         [Sugar] public static int GetYDpi() => GetXDpi(IntPtr.Zero);
+
         /// <summary>
         /// Obtiene la resolución horizontal de la ventana en DPI.
         /// </summary>
-        /// <param name="Hwnd">Identificador de ventana a verificar.</param>
+        /// <param name="hwnd">Identificador de ventana a verificar.</param>
         /// <returns>
         /// Un valor entero que indica la resolución horizontal de la ventana 
         /// en Puntos Por Pulgada (DPI).
         /// </returns>
-        public static int GetXDpi(IntPtr Hwnd) => GetDeviceCaps(Graphics.FromHwnd(Hwnd).GetHdc(), 88);
+        public static int GetXDpi(IntPtr hwnd) => GetDeviceCaps(Graphics.FromHwnd(hwnd).GetHdc(), 88);
+
         /// <summary>
         /// Obtiene la resolución vertical de la ventana en DPI.
         /// </summary>
-        /// <param name="Hwnd">Identificador de ventana a verificar.</param>
+        /// <param name="hwnd">Identificador de ventana a verificar.</param>
         /// <returns>
         /// Un valor entero que indica la resolución vertical de la ventana en
         /// Puntos Por Pulgada (DPI).
         /// </returns>
-        public static int GetYDpi(IntPtr Hwnd) => GetDeviceCaps(Graphics.FromHwnd(Hwnd).GetHdc(), 90);
+        public static int GetYDpi(IntPtr hwnd) => GetDeviceCaps(Graphics.FromHwnd(hwnd).GetHdc(), 90);
+
         /// <summary>
         /// Obtiene las resolución horizontal y vertical de la ventana en DPI.
         /// </summary>
-        /// <param name="Hwnd">Identificador de ventana a verificar.</param>
+        /// <param name="hwnd">Identificador de ventana a verificar.</param>
         /// <returns>
         /// Un <see cref="Point"/> que indica la resolución de
         /// la ventana en Puntos Por Pulgada (DPI).
         /// </returns>
-        public static Point GetDpi(IntPtr Hwnd)
+        public static Point GetDpi(IntPtr hwnd)
         {
-            var h = Graphics.FromHwnd(Hwnd).GetHdc();
+            var h = Graphics.FromHwnd(hwnd).GetHdc();
             return new Point(GetDeviceCaps(h, 88), GetDeviceCaps(h, 90));
         }
+
         /// <summary>
         /// Obtiene las resolución horizontal y vertical de la pantalla en DPI.
         /// </summary>

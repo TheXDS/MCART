@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -35,8 +37,6 @@ using System.Threading;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using St = TheXDS.MCART.Resources.Strings;
-
-// ReSharper disable UnusedMember.Global
 
 namespace TheXDS.MCART.Types.Extensions
 {
@@ -88,7 +88,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Un arreglo de cadenas con el contenido de la cadena original 
         ///     separado en filas de hasta 80 caracteres.
         /// </returns>
-        public static string[] TextWrap(string str) => TextWrap(str, 80);
+        public static string[] TextWrap(this string str) => TextWrap(str, 80);
 
         /// <summary>
         ///     Separa en líneas el contenido de una cadena larga.
@@ -102,7 +102,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Un arreglo de cadenas con el contenido de la cadena original 
         ///     separado en filas.
         /// </returns>
-        public static string[] TextWrap(string str, int width)
+        public static string[] TextWrap(this string str, int width)
         {
             var l = new List<string>
             {
@@ -666,7 +666,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         /// <param name="stringToCheck">Cadena a comprobar.</param>
         [Sugar]
-        public static bool IsEmpty(this string stringToCheck)
+        public static bool IsEmpty(this string? stringToCheck)
         {
             return string.IsNullOrWhiteSpace(stringToCheck);
         }
@@ -823,7 +823,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static string OrEmpty(this string str)
         {
-            return OrX(str, string.Empty);
+            return OrX(str, string.Empty) ?? string.Empty;
         }
 
         /// <summary>
@@ -852,7 +852,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>
         ///     La cadena, o <see langword="null" /> si la cadena está vacía.
         /// </returns>
-        public static string OrNull(this string str)
+        public static string? OrNull(this string str)
         {
             return OrX(str, null);
         }
@@ -869,12 +869,12 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>
         ///     La cadena, o <see langword="null" /> si la cadena está vacía.
         /// </returns>
-        public static string OrNull(this string str, string notNullFormat)
+        public static string? OrNull(this string str, string notNullFormat)
         {
             return !str.IsEmpty() ? string.Format(notNullFormat, str) : null;
         }
 
-        private static string OrX(string source, string emptyRetVal)
+        private static string? OrX(string? source, string? emptyRetVal)
         {
             return !source.IsEmpty() ? source : emptyRetVal;
         }

@@ -30,6 +30,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 
@@ -80,6 +81,18 @@ namespace TheXDS.MCART
             if (checked(nCaller++) < 1) throw new ArgumentOutOfRangeException(nameof(nCaller));
             var frames = new StackTrace().GetFrames();
             return frames?.Length >= nCaller ? frames[nCaller].GetMethod() : null;
+        }
+
+        /// <summary>
+        ///     Obtiene el punto de entrada de la aplicación en ejecución.
+        /// </summary>
+        /// <returns>
+        ///     El método del punto de entrada de la aplicación actual.
+        /// </returns>
+        [Sugar]
+        public static MethodBase GetEntryPoint()
+        {
+            return new StackTrace().GetFrames().Last().GetMethod();
         }
 
         /// <summary>

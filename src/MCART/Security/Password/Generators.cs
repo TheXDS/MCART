@@ -46,7 +46,7 @@ namespace TheXDS.MCART.Security.Password
             get
             {
 #if DynamicLoading
-                return Misc.Internal.List<IPasswordGenerator>(typeof(Generators));
+                return Misc.PrivateInternals.List<IPasswordGenerator>(typeof(Generators));
 #else
                 yield return new KeyValuePair<string, IPasswordGenerator>(Ist.SafePw, Safe);
                 yield return new KeyValuePair<string, IPasswordGenerator>(Ist.ComplexPw, VeryComplex);
