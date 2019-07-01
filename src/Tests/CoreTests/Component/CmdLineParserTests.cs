@@ -34,25 +34,25 @@ namespace TheXDS.MCART.Tests.Component
     {
         private class Recursive : Argument
         {
-            protected override string LongName => "recursive";
-            protected override char? ShortName => 'r';
+            public override string LongName => "recursive";
+            public override char? ShortName => 'r';
         }
         private class Force : Argument
         {
-            protected override ValueKind Kind => ValueKind.Optional;
-            protected override string LongName => "force";
-            protected override char? ShortName => 'f';
-            protected override string Default => "yes";
+            public override ValueKind Kind => ValueKind.Optional;
+            public override string LongName => "force";
+            public override char? ShortName => 'f';
+            public override string Default => "yes";
         }
         private class Verbose : Argument
         {
-            protected override string LongName => "Verbose";
-            protected override char? ShortName => 'v';
+            public override string LongName => "Verbose";
+            public override char? ShortName => 'v';
         }
         private class FileSystem : Argument
         {
-            protected override ValueKind Kind => ValueKind.Required;
-            protected override string LongName => "FileSystem";
+            public override ValueKind Kind => ValueKind.Required;
+            public override string LongName => "FileSystem";
         }
 
         [InlineData("-rf")]
