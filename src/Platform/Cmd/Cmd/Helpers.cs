@@ -78,6 +78,7 @@ namespace TheXDS.MCART.Cmd
         {
             Console.WriteLine(info.Name);
             Console.WriteLine(info.Version?.ToString());
+            if (!info.Copyright.IsEmpty()) Console.WriteLine(info.Copyright);
             Console.WriteLine();
             if (!info.Description.IsEmpty() && info.Description != info.Name)
             {

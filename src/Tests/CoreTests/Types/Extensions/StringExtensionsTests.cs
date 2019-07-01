@@ -182,7 +182,7 @@ namespace Common.Types.Extensions
             Assert.Throws<ArgumentOutOfRangeException>(() => "Test".Right(-1));
         }
         [Fact]
-        public void IsFormattedTest()
+        public void IsFormattedAsTest()
         {
             Assert.False("XYZ-ABCD".IsFormattedAs("A0"));
 
@@ -236,6 +236,14 @@ namespace Common.Types.Extensions
             Assert.True("TEST".StartsWithAny(new List<string> { "ta", "te" }, StringComparison.OrdinalIgnoreCase));
             Assert.False("TEST".StartsWithAny(new List<string> { "ta", "ti" }, StringComparison.OrdinalIgnoreCase));
         }
+
+        [Fact]
+        public void ChopTest()
+        {
+            var str = "TestTestStringTestTest";
+            Assert.Equal("TestStringTest", str.Chop("Test"));
+        }
+
         [Fact]
         public void OrNullTest()
         {

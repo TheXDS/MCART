@@ -53,13 +53,13 @@ namespace TheXDS.MCART.Types.Extensions
             var width = args.AvailableArguments.Max(p => p.LongName.Length);
             foreach (var j in args.AvailableArguments)
             {
-                Console.Write($"  /{j.LongName}  - ");
+                Console.Write($"  /{j.LongName.PadRight(width)}  - ");
                 var _1st = false;
-                foreach (var k in (j.Summary ?? string.Empty).TextWrap(Console.BufferWidth - width))
+                foreach (var k in (j.Summary ?? string.Empty).TextWrap(Console.BufferWidth - (width + 7)))
                 {
                     if (_1st)
                     {
-                        Console.Write(new string(' ', width + 6));
+                        Console.Write(new string(' ', width + 7));
                     }
                     _1st = true;
                     Console.WriteLine(k);
@@ -97,7 +97,6 @@ namespace TheXDS.MCART.Types.Extensions
                 args.PrintHelp();
                 if (exitIfInvalidArgs) Environment.Exit(1);
             }
-            Cmd.Helpers.About();
             foreach (var j in args.Present)
             {
                 try

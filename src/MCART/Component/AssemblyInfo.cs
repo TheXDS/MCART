@@ -28,6 +28,7 @@ using System;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Misc;
+using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Component
 {
@@ -62,7 +63,7 @@ namespace TheXDS.MCART.Component
         /// <summary>
         ///     Devuelve el nombre del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// </summary>
-        public string Name => Assembly.GetAttr<NameAttribute>()?.Value ?? Assembly.GetAttr<AssemblyTitleAttribute>()?.Title ?? Assembly.GetName().FullName;
+        public string Name => Assembly.GetAttr<NameAttribute>()?.Value ?? Assembly.GetAttr<AssemblyTitleAttribute>()?.Title ?? Assembly.GetName().Name.OrNull() ?? Assembly.GetName().FullName;
 
         /// <inheritdoc />
         /// <summary>

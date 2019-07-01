@@ -45,6 +45,16 @@ namespace TheXDS.MCART.Cmd
         public override sealed char? ShortName => '?';
 
         /// <summary>
+        ///     Obtiene el tipo de este argumento.
+        /// </summary>
+        public override sealed ValueKind Kind => ValueKind.Flag;
+
+        /// <summary>
+        ///     Obtiene el valor predeterminado de este argumento.
+        /// </summary>
+        public override sealed string? Default => null;
+
+        /// <summary>
         ///     Ejecuta la operación asociada a este argumento.
         /// </summary>
         /// <param name="args">
@@ -55,5 +65,10 @@ namespace TheXDS.MCART.Cmd
         {
             args.PrintHelp();
         }
+
+        /// <summary>
+        ///     Describe a este argumento.
+        /// </summary>
+        public override string? Summary => Resources.CmdStrings.HelpArgSummary;
     }
 }

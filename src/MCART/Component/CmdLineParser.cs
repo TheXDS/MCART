@@ -215,6 +215,19 @@ namespace TheXDS.MCART.Component
         }
 
         /// <summary>
+        ///     Obtiene uns instancia presente de argumento.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Argumento a obtener.
+        /// </typeparam>
+        /// <returns>
+        ///     Una instancia de argumento especificado en la línea de
+        ///     comandos, o <see langword="null"/> si el argumento no ha sido
+        ///     especificado.
+        /// </returns>
+        public T Arg<T>() where T : Argument, new() => _args.OfType<T>().FirstOrDefault();
+
+        /// <summary>
         ///     Enumera las opciones inválidas especificadas.
         /// </summary>
         public IReadOnlyCollection<string> Invalid => _invalid.AsReadOnly();
@@ -246,6 +259,11 @@ namespace TheXDS.MCART.Component
         ///     Enumera los argumentos presentes en la línea de comandos.
         /// </summary>
         public IEnumerable<Argument> Present => _args;
+
+        /// <summary>
+        ///     Enumera los comandos que han sido pasados como argumentos.
+        /// </summary>
+        public IEnumerable<string> Commands => _commands.AsReadOnly();
 
         /// <summary>
         ///     Convierte implícitamente un arreglo de <see cref="string"/> en

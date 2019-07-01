@@ -25,12 +25,15 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #nullable enable
 
 
+using TheXDS.MCART.Types;
+using TheXDS.MCART.Types.Extensions;
+
 namespace TheXDS.MCART.Component
 {
     /// <summary>
     ///     Clase base que permite describir argumentos aceptados por la aplicación.
     /// </summary>
-    public abstract class Argument
+    public abstract class Argument : INameable, IDescriptible
     {
         /// <summary>
         ///     Indica el tipo de argumento.
@@ -63,7 +66,7 @@ namespace TheXDS.MCART.Component
         /// <summary>
         ///     Obtiene el nombre largo de este argumento.
         /// </summary>
-        public abstract string LongName { get; }
+        public virtual string LongName => GetType().Name.ChopEndAny("Argument", "Arg");
 
         /// <summary>
         ///     Obtiene el nombre corto de este argumento.
@@ -92,5 +95,9 @@ namespace TheXDS.MCART.Component
         ///     especificado en la línea de comandos.
         /// </summary>
         public string? Value { get; internal set; }
+
+        string INameable.Name => LongName;
+
+        string IDescriptible.Description => Summary ?? LongName;
     }
 }

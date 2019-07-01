@@ -80,6 +80,99 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
+        ///     Elimina una ocurrencia de una cadena a los extremos de otra.
+        /// </summary>
+        /// <param name="str">Cadena a comprobar.</param>
+        /// <param name="toChop">Valor a cortar.</param>
+        /// <returns>
+        ///     Una cadena que no empiece ni termine en
+        ///     <paramref name="toChop"/>.
+        /// </returns>
+        public static string Chop(this string str, string toChop)
+        {
+            return str.ChopStart(toChop).ChopEnd(toChop);
+        }
+
+        /// <summary>
+        ///     Elimina una ocurrencia de una cadena a los extremos de otra.
+        /// </summary>
+        /// <param name="str">Cadena a comprobar.</param>
+        /// <param name="toChop">Valor a cortar.</param>
+        /// <returns>
+        ///     Una cadena que no empiece ni termine en
+        ///     <paramref name="toChop"/>.
+        /// </returns>
+        public static string ChopAny(this string str, params string[] toChop)
+        {
+            foreach (var j in toChop)
+            {
+                if (str.StartsWith(j)) return str.Remove(0, j.Length);
+                if (str.EndsWith(j)) return str.Remove(str.Length - j.Length, j.Length);
+            }
+            return str;
+        }
+
+        /// <summary>
+        ///     Elimina una ocurrencia de una cadena al final de otra.
+        /// </summary>
+        /// <param name="str">Cadena a comprobar.</param>
+        /// <param name="toChop">Valor a cortar.</param>
+        /// <returns>
+        ///     Una cadena que no termine en <paramref name="toChop"/>.
+        /// </returns>
+        public static string ChopEnd(this string str, string toChop)
+        {
+            return str.EndsWith(toChop) ? str.Remove(str.Length - toChop.Length, toChop.Length) : str;
+        }
+
+        /// <summary>
+        ///     Elimina una ocurrencia de una cadena al final de otra.
+        /// </summary>
+        /// <param name="str">Cadena a comprobar.</param>
+        /// <param name="toChop">Valores a cortar.</param>
+        /// <returns>
+        ///     Una cadena que no termine en <paramref name="toChop"/>.
+        /// </returns>
+        public static string ChopEndAny(this string str, params string[] toChop)
+        {
+            foreach (var j in toChop)
+            {
+                if (str.EndsWith(j)) return str.Remove(str.Length - j.Length, j.Length);
+            }
+            return str;
+        }
+
+        /// <summary>
+        ///     Elimina una ocurrencia de una cadena al principio de otra.
+        /// </summary>
+        /// <param name="str">Cadena a comprobar.</param>
+        /// <param name="toChop">Valor a cortar.</param>
+        /// <returns>
+        ///     Una cadena que no empiece en <paramref name="toChop"/>.
+        /// </returns>
+        public static string ChopStart(this string str, string toChop)
+        {
+            return str.StartsWith(toChop) ? str.Remove(0, toChop.Length) : str;
+        }
+
+        /// <summary>
+        ///     Elimina una ocurrencia de una cadena al principio de otra.
+        /// </summary>
+        /// <param name="str">Cadena a comprobar.</param>
+        /// <param name="toChop">Valores a cortar.</param>
+        /// <returns>
+        ///     Una cadena que no empiece en <paramref name="toChop"/>.
+        /// </returns>
+        public static string ChopStartAny(this string str, params string[] toChop)
+        {
+            foreach (var j in toChop)
+            {
+                if (str.StartsWith(j)) return str.Remove(0, j.Length);
+            }
+            return str;
+        }
+
+        /// <summary>
         ///     Separa en líneas de hasta 80 caracteres el contenido de una
         ///     cadena larga.
         /// </summary>
@@ -114,11 +207,11 @@ namespace TheXDS.MCART.Types.Extensions
                 if (string.IsNullOrEmpty(j)) continue;
                 if (l.Last().Length + j.Length > width)
                 {
-                    l.Add($"{j} ");
+                    l.Add(j);
                 }
                 else
                 {
-                    l[l.Count - 1] += $"{j} ";
+                    l[l.Count - 1] += l[l.Count - 1].IsEmpty() ? j : $" {j}";
                 }
             }
             return l.ToArray();
