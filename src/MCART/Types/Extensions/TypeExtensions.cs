@@ -31,6 +31,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Resources;
@@ -493,5 +494,35 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         [Sugar]
         public static Type ResolveCollectionType(this Type type) => type.IsCollectionType() ? type.GetCollectionType() : type;
+
+        public static IEnumerable<Type> Derivates(this Type type)
+        {
+            return Derivates(type, AppDomain.CurrentDomain);
+        }
+        public static IEnumerable<Type> Derivates(this Type type, AppDomain domain)
+        {
+            return Derivates(type, domain.GetAssemblies());
+        }
+
+        public static IEnumerable<Type> Derivates(this Type type, IEnumerable<Assembly> assemblies)
+        {
+            var retval = new List<Type>();
+            foreach (var j in assemblies)
+            {
+                try
+                {
+                    foreach (var k in j.GetTypes())
+                    {
+                        try
+                        {
+                            if (type.IsAssignableFrom(k)) retval.Add(k);
+                        }
+                        catch { /* Ignorar, el tipo no puede ser cargado */ }
+                    }
+                }
+                catch { /* Ignorar, el ensamblado no puede ser cargado */ }
+            }
+            return retval;
+        }
     }
 }

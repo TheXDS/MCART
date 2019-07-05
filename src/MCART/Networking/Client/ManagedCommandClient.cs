@@ -260,17 +260,13 @@ namespace TheXDS.MCART.Networking.Client
             if (!dataStream.CanRead) throw new InvalidOperationException();
             if (dataStream.CanSeek)
             {
-                using (var sr = new BinaryReader(dataStream))
-                {
-                    Send(command, sr.ReadBytes((int)dataStream.Length), callback);
-                    return;
-                }
+                using var sr = new BinaryReader(dataStream);
+                Send(command, sr.ReadBytes((int)dataStream.Length), callback);
+                return;
             }
-            using (var ms = new MemoryStream())
-            {
-                dataStream.CopyTo(ms);
-                Send(command, ms, callback);
-            }
+            using var ms = new MemoryStream();
+            dataStream.CopyTo(ms);
+            Send(command, ms, callback);
         }
 
         /// <summary>
@@ -294,16 +290,12 @@ namespace TheXDS.MCART.Networking.Client
             if (!dataStream.CanRead) throw new InvalidOperationException();
             if (dataStream.CanSeek)
             {
-                using (var sr = new BinaryReader(dataStream))
-                {
-                    return Send(command, sr.ReadBytes((int)dataStream.Length), callback);
-                }
+                using var sr = new BinaryReader(dataStream);
+                return Send(command, sr.ReadBytes((int)dataStream.Length), callback);
             }
-            using (var ms = new MemoryStream())
-            {
-                dataStream.CopyTo(ms);
-                return Send(command, ms, callback);
-            }
+            using var ms = new MemoryStream();
+            dataStream.CopyTo(ms);
+            return Send(command, ms, callback);
         }
 
         /// <summary>
@@ -336,12 +328,10 @@ namespace TheXDS.MCART.Networking.Client
         /// </param>
         protected void Send(TCommand command, IEnumerable<string> data, ResponseCallback? callback)
         {
-            using (var ms = new MemoryStream())
-            using (var bw = new BinaryWriter(ms))
-            {
-                foreach (var j in data) bw.Write(j);
-                Send(command, ms, callback);
-            }
+            using var ms = new MemoryStream();
+            using var bw = new BinaryWriter(ms);
+            foreach (var j in data) bw.Write(j);
+            Send(command, ms, callback);
         }
 
         /// <summary>
@@ -362,12 +352,10 @@ namespace TheXDS.MCART.Networking.Client
         /// </returns>
         protected T Send<T>(TCommand command, IEnumerable<string> data, Func<TResult, BinaryReader, T> callback)
         {
-            using (var ms = new MemoryStream())
-            using (var bw = new BinaryWriter(ms))
-            {
-                foreach (var j in data) bw.Write(j);
-                return Send(command, ms, callback);
-            }
+            using var ms = new MemoryStream();
+            using var bw = new BinaryWriter(ms);
+            foreach (var j in data) bw.Write(j);
+            return Send(command, ms, callback);
         }
 
         /// <summary>
@@ -635,16 +623,12 @@ namespace TheXDS.MCART.Networking.Client
             if (!dataStream.CanRead) throw new InvalidOperationException();
             if (dataStream.CanSeek)
             {
-                using (var sr = new BinaryReader(dataStream))
-                {
-                    return SendAsync(command, sr.ReadBytes((int)dataStream.Length), callback);
-                }
+                using var sr = new BinaryReader(dataStream);
+                return SendAsync(command, sr.ReadBytes((int)dataStream.Length), callback);
             }
-            using (var ms = new MemoryStream())
-            {
-                dataStream.CopyTo(ms);
-                return SendAsync(command, ms, callback);
-            }
+            using var ms = new MemoryStream();
+            dataStream.CopyTo(ms);
+            return SendAsync(command, ms, callback);
         }
 
         /// <summary>
@@ -668,16 +652,12 @@ namespace TheXDS.MCART.Networking.Client
             if (!dataStream.CanRead) throw new InvalidOperationException();
             if (dataStream.CanSeek)
             {
-                using (var sr = new BinaryReader(dataStream))
-                {
-                    return SendAsync(command, sr.ReadBytes((int)dataStream.Length), callback);
-                }
+                using var sr = new BinaryReader(dataStream);
+                return SendAsync(command, sr.ReadBytes((int)dataStream.Length), callback);
             }
-            using (var ms = new MemoryStream())
-            {
-                dataStream.CopyTo(ms);
-                return SendAsync(command, ms, callback);
-            }
+            using var ms = new MemoryStream();
+            dataStream.CopyTo(ms);
+            return SendAsync(command, ms, callback);
         }
 
         /// <summary>
@@ -716,12 +696,10 @@ namespace TheXDS.MCART.Networking.Client
         /// </returns>
         protected Task SendAsync(TCommand command, IEnumerable<string> data, ResponseCallback? callback)
         {
-            using (var ms = new MemoryStream())
-            using (var bw = new BinaryWriter(ms))
-            {
-                foreach (var j in data) bw.Write(j);
-                return SendAsync(command, ms, callback);
-            }
+            using var ms = new MemoryStream();
+            using var bw = new BinaryWriter(ms);
+            foreach (var j in data) bw.Write(j);
+            return SendAsync(command, ms, callback);
         }
 
         /// <summary>
@@ -742,12 +720,10 @@ namespace TheXDS.MCART.Networking.Client
         /// </returns>
         protected Task<T> SendAsync<T>(TCommand command, IEnumerable<string> data, Func<TResult, BinaryReader, T> callback)
         {
-            using (var ms = new MemoryStream())
-            using (var bw = new BinaryWriter(ms))
-            {
-                foreach (var j in data) bw.Write(j);
-                return SendAsync(command, ms, callback);
-            }
+            using var ms = new MemoryStream();
+            using var bw = new BinaryWriter(ms);
+            foreach (var j in data) bw.Write(j);
+            return SendAsync(command, ms, callback);
         }
 
         /// <summary>
@@ -989,44 +965,42 @@ namespace TheXDS.MCART.Networking.Client
                         break;
                     }
 
-                    using (var ms = new MemoryStream(data))
-                    using (var br = new BinaryReader(ms))
+                    using var ms = new MemoryStream(data);
+                    using var br = new BinaryReader(ms);
+                    if (br.ReadBoolean())
                     {
-                        if (br.ReadBoolean())
+                        var guid = br.ReadGuid();
+                        if (_requests.TryGetValue(guid, out var callback))
                         {
-                            var guid = br.ReadGuid();
-                            if (_requests.TryGetValue(guid, out var callback))
-                            {
-                                callback.Invoke(ReadResponse(br), br);
-                                _requests.Remove(guid);
-                                continue;
-                            }
-                        }
-
-                        var c = ReadResponse(br);
-                        if (_responses.TryGetValue(c, out var response))
-                        {
-                            response.Invoke(c, br);
-                        }
-                        else if (_notMappedResponse.Equals(c))
-                        {
-                            NotMappedCommandIssued?.Invoke(this, br.ReadEnum<TCommand>());
-                        }
-                        else if (_unkResponse.Equals(c))
-                        {
-                            UnknownCommandIssued?.Invoke(this, br.ReadEnum<TCommand>());
-                        }
-                        else if (_errResponse.Equals(c))
-                        {
-                            ServerError?.Invoke(this, EventArgs.Empty);
-                        }
-                        else
-                        {
-                            AttendServer(br.ReadBytes((int)(ms.Length - ms.Position)));
+                            callback.Invoke(ReadResponse(br), br);
+                            _requests.Remove(guid);
+                            continue;
                         }
                     }
+
+                    var c = ReadResponse(br);
+                    if (_responses.TryGetValue(c, out var response))
+                    {
+                        response.Invoke(c, br);
+                    }
+                    else if (_notMappedResponse.Equals(c))
+                    {
+                        NotMappedCommandIssued?.Invoke(this, br.ReadEnum<TCommand>());
+                    }
+                    else if (_unkResponse.Equals(c))
+                    {
+                        UnknownCommandIssued?.Invoke(this, br.ReadEnum<TCommand>());
+                    }
+                    else if (_errResponse.Equals(c))
+                    {
+                        ServerError?.Invoke(this, new ExceptionEventArgs());
+                    }
+                    else
+                    {
+                        AttendServer(br.ReadBytes((int)(ms.Length - ms.Position)));
+                    }
                 }
-                catch { ServerError?.Invoke(this, EventArgs.Empty); }
+                catch (Exception ex) { ServerError?.Invoke(this, ex); }
             }
         }
 
@@ -1046,7 +1020,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <summary>
         ///     Ocurre cuando el servidor ha encontrado un error general.
         /// </summary>
-        public event EventHandler ServerError;
+        public event EventHandler<ExceptionEventArgs> ServerError;
 
         private readonly Dictionary<Guid, ResponseCallback> _requests = new Dictionary<Guid, ResponseCallback>();
 

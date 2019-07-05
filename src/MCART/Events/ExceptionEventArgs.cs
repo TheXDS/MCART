@@ -33,8 +33,17 @@ namespace TheXDS.MCART.Events
     ///     Incluye información de evento para cualquier clase con eventos de
     ///     excepción.
     /// </summary>
-    public class ExceptionEventArgs : ValueEventArgs<Exception>
+    public class ExceptionEventArgs : ValueEventArgs<Exception?>
     {
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de este objeto sin especificar
+        ///     una excepción producida.
+        /// </summary>
+        public ExceptionEventArgs():base(null)
+        {
+        }
+
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de este objeto con la excepción
@@ -43,8 +52,18 @@ namespace TheXDS.MCART.Events
         /// <param name="ex">
         ///     <see cref="T:System.Exception" /> que se ha producido en el código.
         /// </param>
-        public ExceptionEventArgs(Exception ex) : base(ex)
+        public ExceptionEventArgs(Exception? ex) : base(ex)
         {
         }
+
+        /// <summary>
+        ///     Convierte implícitamente un <see cref="Exception"/> en un
+        ///     <see cref="ExceptionEventArgs"/>.
+        /// </summary>
+        /// <param name="ex">
+        ///     <see cref="Exception"/> a partir de la cual crear el nuevo
+        ///     <see cref="ExceptionEventArgs"/>.
+        /// </param>
+        public static implicit operator ExceptionEventArgs(Exception ex) => new ExceptionEventArgs(ex);
     }
 }

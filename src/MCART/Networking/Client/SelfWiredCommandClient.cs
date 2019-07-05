@@ -26,7 +26,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
@@ -68,7 +67,7 @@ namespace TheXDS.MCART.Networking.Client
     ///     <code language="vb" source="..\..\Documentation\Examples\Networking\Client\SelfWiredCommandClient.vb"
     ///         region="example1" />
     /// </example>
-    [SuppressMessage("ReSharper", "StaticMemberInGenericType")]
+    [Obsolete(Resources.InternalStrings.LegacyComponent)]
     public abstract class SelfWiredCommandClient<TCommand, TResponse> : ActiveClient
         where TCommand : struct, Enum where TResponse : struct, Enum
     {
@@ -77,9 +76,9 @@ namespace TheXDS.MCART.Networking.Client
         /// </summary>
         public delegate void ResponseCallBack(object instance, BinaryReader br);
 
-        private static readonly TResponse? ErrResponse;
-        private static readonly MethodInfo ReadRsp;
-        private static readonly TResponse? UnkResponse;
+        private static readonly TResponse? _errResponse;
+        private static readonly MethodInfo _readRsp;
+        private static readonly TResponse? _unkResponse;
 
         private readonly ConcurrentQueue<ResponseCallBack> _interrupts =
             new ConcurrentQueue<ResponseCallBack>();
@@ -103,15 +102,15 @@ namespace TheXDS.MCART.Networking.Client
             ToCommand = EnumExtensions.ToBytes<TCommand>();
 
             var tRsp = typeof(TResponse).GetEnumUnderlyingType();
-            ReadRsp = typeof(BinaryReader).GetMethods().FirstOrDefault(p =>
+            _readRsp = typeof(BinaryReader).GetMethods().FirstOrDefault(p =>
                           p.Name.StartsWith("Read")
                           && p.GetParameters().Length == 0
                           && p.ReturnType == tRsp)
                       ?? throw new PlatformNotSupportedException();
 
             var vals = Enum.GetValues(typeof(TResponse)).OfType<TResponse?>().ToArray();
-            ErrResponse = vals.FirstOrDefault(p => p.HasAttr<ErrorResponseAttribute>());
-            UnkResponse = vals.FirstOrDefault(p => p.HasAttr<UnknownResponseAttribute>());
+            _errResponse = vals.FirstOrDefault(p => p.HasAttr<ErrorResponseAttribute>());
+            _unkResponse = vals.FirstOrDefault(p => p.HasAttr<UnknownResponseAttribute>());
         }
 
         /// <summary>
@@ -213,12 +212,10 @@ namespace TheXDS.MCART.Networking.Client
         /// </returns>
         public static byte[] MakeCommand(TCommand command, IEnumerable<string> data)
         {
-            using (var ms = new MemoryStream())
-            using (var bw = new BinaryWriter(ms))
-            {
-                foreach (var j in data) bw.Write(j);
-                return MakeCommand(command, ms);
-            }
+            using var ms = new MemoryStream();
+            using var bw = new BinaryWriter(ms);
+            foreach (var j in data) bw.Write(j);
+            return MakeCommand(command, ms);
         }
 
         /// <summary>
@@ -258,16 +255,14 @@ namespace TheXDS.MCART.Networking.Client
         {
             if (!data.CanRead) throw new InvalidOperationException();
             if (data.CanSeek)
-                using (var sr = new BinaryReader(data))
-                {
-                    return MakeCommand(command, sr.ReadBytes((int) data.Length));
-                }
-
-            using (var ms = new MemoryStream())
             {
-                data.CopyTo(ms);
-                return MakeCommand(command, ms.ToArray());
+                using var sr = new BinaryReader(data);
+                return MakeCommand(command, sr.ReadBytes((int)data.Length));
             }
+
+            using var ms = new MemoryStream();
+            data.CopyTo(ms);
+            return MakeCommand(command, ms.ToArray());
         }
 
         /// <inheritdoc />
@@ -312,8 +307,8 @@ namespace TheXDS.MCART.Networking.Client
                 else
                 {
                     var cmd = ReadResponse(br);
-                    if (ErrResponse.Equals(cmd)) ServerError?.Invoke(this, EventArgs.Empty);
-                    if (UnkResponse.Equals(cmd)) UnknownCommandIssued?.Invoke(this, EventArgs.Empty);
+                    if (_errResponse.Equals(cmd)) ServerError?.Invoke(this, EventArgs.Empty);
+                    if (_unkResponse.Equals(cmd)) UnknownCommandIssued?.Invoke(this, EventArgs.Empty);
                     if (_responses.ContainsKey(cmd))
                     {
 #pragma warning disable 4014
@@ -368,7 +363,7 @@ namespace TheXDS.MCART.Networking.Client
         public TResponse ReadResponse(BinaryReader br)
         {
             if (br.BaseStream.CanSeek && br.BaseStream.Length == 0) return default;
-            return (TResponse) Enum.ToObject(typeof(TResponse), ReadRsp.Invoke(br, new object[0]));
+            return (TResponse) Enum.ToObject(typeof(TResponse), _readRsp.Invoke(br, new object[0]));
         }
 
         /// <summary>

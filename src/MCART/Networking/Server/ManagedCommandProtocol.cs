@@ -937,9 +937,9 @@ namespace TheXDS.MCART.Networking.Server
                     else if (!(_errResponse is null)) client.Send(MakeResponse(_errResponse.Value));
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                ServerError?.Invoke(this, EventArgs.Empty);
+                ServerError?.Invoke(this, ex);
                 if (!(_errResponse is null)) client.Send(MakeResponse(_errResponse.Value));
             }
         }
@@ -952,6 +952,6 @@ namespace TheXDS.MCART.Networking.Server
         /// <summary>
         ///     Ocurre cuando el servidor encuentra un error.
         /// </summary>
-        public event EventHandler ServerError;
+        public event EventHandler<ExceptionEventArgs> ServerError;
     }
 }

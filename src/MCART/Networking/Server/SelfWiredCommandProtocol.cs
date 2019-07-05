@@ -49,6 +49,7 @@ namespace TheXDS.MCART.Networking.Server
     ///     Tipo de la enumeración de las respuestas que este protocolo
     ///     devolverá a los clientes conectados.
     /// </typeparam>
+    [Obsolete(Resources.InternalStrings.LegacyComponent)]
     public abstract class SelfWiredCommandProtocol<TClient, TCommand, TResponse> : ServerProtocol<TClient>
         where TClient : Client where TCommand : struct, Enum where TResponse : struct, Enum
     {
@@ -139,7 +140,7 @@ namespace TheXDS.MCART.Networking.Server
         ///     Un arreglo de bytes con la respuesta, al cual se pueden
         ///     concatenar más datos.
         /// </returns>
-        public static byte[] MakeResponse(TResponse response)
+        public static byte[]? MakeResponse(TResponse response)
         {
             return ToResponse?.Invoke(response);
         }
@@ -158,7 +159,7 @@ namespace TheXDS.MCART.Networking.Server
         ///     Un arreglo de bytes con la respuesta, al cual se pueden
         ///     concatenar más datos.
         /// </returns>
-        public static byte[] MakeResponse(TResponse response, IEnumerable<byte> data)
+        public static byte[]? MakeResponse(TResponse response, IEnumerable<byte> data)
         {
             return MakeResponse(response)?.Concat(data).ToArray();
         }
@@ -176,7 +177,7 @@ namespace TheXDS.MCART.Networking.Server
         ///     Un arreglo de bytes con la respuesta, al cual se pueden
         ///     concatenar más datos.
         /// </returns>
-        public static byte[] MakeResponse(TResponse response, string data)
+        public static byte[]? MakeResponse(TResponse response, string data)
         {
             return MakeResponse(response, new[] {data});
         }
@@ -195,14 +196,12 @@ namespace TheXDS.MCART.Networking.Server
         ///     Un arreglo de bytes con la respuesta, al cual se pueden
         ///     concatenar más datos.
         /// </returns>
-        public static byte[] MakeResponse(TResponse response, IEnumerable<string> data)
+        public static byte[]? MakeResponse(TResponse response, IEnumerable<string> data)
         {
-            using (var ms = new MemoryStream())
-            using (var bw = new BinaryWriter(ms))
-            {
-                foreach (var j in data) bw.Write(j);
-                return MakeResponse(response, ms);
-            }
+            using var ms = new MemoryStream();
+            using var bw = new BinaryWriter(ms);
+            foreach (var j in data) bw.Write(j);
+            return MakeResponse(response, ms);
         }
 
         /// <summary>
@@ -219,7 +218,7 @@ namespace TheXDS.MCART.Networking.Server
         ///     Un arreglo de bytes con la respuesta, al cual se pueden
         ///     concatenar más datos.
         /// </returns>
-        public static byte[] MakeResponse(TResponse response, MemoryStream data)
+        public static byte[]? MakeResponse(TResponse response, MemoryStream data)
         {
             return MakeResponse(response, data.ToArray());
         }
@@ -238,7 +237,7 @@ namespace TheXDS.MCART.Networking.Server
         ///     Un arreglo de bytes con la respuesta, al cual se pueden
         ///     concatenar más datos.
         /// </returns>
-        public static byte[] MakeResponse(TResponse response, Stream data)
+        public static byte[]? MakeResponse(TResponse response, Stream data)
         {
             if (!data.CanRead) throw new InvalidOperationException();
             if (data.CanSeek)
@@ -247,11 +246,9 @@ namespace TheXDS.MCART.Networking.Server
                     return MakeResponse(response, sr.ReadBytes((int) data.Length));
                 }
 
-            using (var ms = new MemoryStream())
-            {
-                data.CopyTo(ms);
-                return MakeResponse(response, ms.ToArray());
-            }
+            using var ms = new MemoryStream();
+            data.CopyTo(ms);
+            return MakeResponse(response, ms.ToArray());
         }
 
         /// <summary>
@@ -279,26 +276,24 @@ namespace TheXDS.MCART.Networking.Server
         /// </exception>
         public override void ClientAttendant(TClient client, byte[] data)
         {
-            using (var br = new BinaryReader(new MemoryStream(data)))
-            {
-                var c = ReadCommand(br);
+            using var br = new BinaryReader(new MemoryStream(data));
+            var c = ReadCommand(br);
 
-                if (!Enum.IsDefined(typeof(TCommand), c))
-                    client.Send(ToResponse(_unkResponse ?? _errResponse ?? throw new InvalidOperationException()));
+            if (!Enum.IsDefined(typeof(TCommand), c))
+                client.Send(ToResponse(_unkResponse ?? _errResponse ?? throw new InvalidOperationException()));
 
-                if (_commands.ContainsKey(c))
-                    try
-                    {
-                        _commands[c](this, br, client, Server);
-                    }
-                    catch
-                    {
-                        client.Send(ToResponse(_errResponse ?? throw new InvalidOperationException()));
-                    }
-                else
-                    client.Send(
-                        ToResponse(_notMappedResponse ?? _errResponse ?? throw new InvalidOperationException()));
-            }
+            if (_commands.ContainsKey(c))
+                try
+                {
+                    _commands[c](this, br, client, Server);
+                }
+                catch
+                {
+                    client.Send(ToResponse(_errResponse ?? throw new InvalidOperationException()));
+                }
+            else
+                client.Send(
+                    ToResponse(_notMappedResponse ?? _errResponse ?? throw new InvalidOperationException()));
         }
     }
 }

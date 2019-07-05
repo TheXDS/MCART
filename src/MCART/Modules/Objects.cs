@@ -756,7 +756,7 @@ namespace TheXDS.MCART
         /// </remarks>
         public static IEnumerable<Type> GetTypes<T>()
         {
-            return GetTypes<T>(AppDomain.CurrentDomain);
+            return typeof(T).Derivates();
         }
 
         /// <summary>
@@ -780,9 +780,10 @@ namespace TheXDS.MCART
         ///     <see cref="PublicTypes{T}()"/> o
         ///     <see cref="PublicTypes{T}(AppDomain)"/>.
         /// </remarks>
+        [Sugar]
         public static IEnumerable<Type> GetTypes<T>(this AppDomain domain)
         {
-            return GetTypes<T>(domain.GetAssemblies());
+            return typeof(T).Derivates(domain);
         }
 
         /// <summary>
@@ -808,28 +809,10 @@ namespace TheXDS.MCART
         ///     <see cref="PublicTypes{T}()"/> o
         ///     <see cref="PublicTypes{T}(AppDomain)"/>.
         /// </remarks>
+        [Sugar]
         public static IEnumerable<Type> GetTypes<T>(this IEnumerable<Assembly> assemblies)
         {
-            var retval = new List<Type>();
-            foreach (var j in assemblies)
-            {
-                try
-                {
-                    foreach(var k in j.GetTypes())
-                    {
-                        try
-                        {
-                            if (typeof(T).IsAssignableFrom(k)) retval.Add(k);
-                        }
-                        catch { /* Ignorar, el tipo no puede ser cargado */ }
-                    }
-                }
-                catch { /* Ignorar, el ensamblado no puede ser cargado */ }
-            }
-            return retval;
-
-            //return assemblies.SelectMany(s => s.GetTypes()
-            //    .Where(p => typeof(T).IsAssignableFrom(p))).AsEnumerable();
+            return typeof(T).Derivates(assemblies);
         }
 
         /// <summary>
@@ -854,7 +837,6 @@ namespace TheXDS.MCART
         ///     <see cref="PublicTypes{T}()"/> o
         ///     <see cref="PublicTypes{T}(AppDomain)"/>.
         /// </remarks>
-        // ReSharper disable once IdentifierTypo
         public static IEnumerable<Type> GetTypes<T>(bool instantiablesOnly)
         {
             return GetTypes<T>(AppDomain.CurrentDomain, instantiablesOnly);
@@ -885,7 +867,6 @@ namespace TheXDS.MCART
         ///     <see cref="PublicTypes{T}()"/> o
         ///     <see cref="PublicTypes{T}(AppDomain)"/>.
         /// </remarks>
-        // ReSharper disable once IdentifierTypo
         public static IEnumerable<Type> GetTypes<T>(this AppDomain domain, in bool instantiablesOnly)
         {
             return GetTypes<T>(domain.GetAssemblies(), instantiablesOnly);
@@ -917,7 +898,6 @@ namespace TheXDS.MCART
         ///     <see cref="PublicTypes{T}()"/> o
         ///     <see cref="PublicTypes{T}(AppDomain)"/>.
         /// </remarks>
-        // ReSharper disable once IdentifierTypo
         public static IEnumerable<Type> GetTypes<T>(this IEnumerable<Assembly> assemblies, bool instantiablesOnly)
         {
             var retval = new List<Type>();

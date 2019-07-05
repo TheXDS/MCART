@@ -2,8 +2,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(MSBuildProjectExtension)'=='.csproj'">
     <Company>TheXDS! non-Corp.</Company>
-    <Version>0.10.0.12</Version>
-    <!--<PrVersion>a63</PrVersion>-->
+    <Version>0.10.0.13</Version>
+    <PrVersion>a003</PrVersion>
     <FileVersion>$(Version)</FileVersion>
     <AssemblyVersion>$(Version)</AssemblyVersion>
     <Product>Morgan's CLR Advanced Runtime</Product>
