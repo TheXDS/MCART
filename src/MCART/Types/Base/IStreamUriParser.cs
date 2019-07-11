@@ -1,5 +1,5 @@
 ﻿/*
-StreamUriParser.cs
+IStreamUriParser.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -26,66 +26,23 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace TheXDS.MCART.Types.Base
 {
     /// <summary>
-    ///     Clase base para un objeto que permite crear un <see cref="Stream"/>
-    ///     a partir de una <see cref="Uri"/>.
+    ///     Define una serie de miembros a implementar por un tipo que permita
+    ///     interpretar un <see cref="Uri"/> y obtener un <see cref="Stream"/>
+    ///     a partir del mismo.
     /// </summary>
-    public abstract class StreamUriParser : IStreamUriParser
+    public interface IStreamUriParser
     {
-        /// <summary>
-        ///     Obtiene el <see cref="StreamUriParser"/> apropiado para manejar
-        ///     al <see cref="Uri"/> especificado.
-        /// </summary>
-        /// <param name="uri">
-        ///     <see cref="Uri"/> a partir del cual crear un
-        ///     <see cref="Stream"/>.
-        /// </param>
-        /// <returns>
-        ///     Un <see cref="StreamUriParser"/> que puede crear un
-        ///     <see cref="Stream"/> a partir del <see cref="Uri"/>
-        ///     especificado, o <see langword="null"/> si no existe un
-        ///     <see cref="StreamUriParser"/> capaz de manejar el 
-        ///     <see cref="Uri"/>.
-        /// </returns>
-        public static StreamUriParser Get(Uri uri)
-        {
-            return Get<StreamUriParser>(uri);
-        }
-
-        /// <summary>
-        ///     Obtiene el <see cref="StreamUriParser"/> apropiado para manejar
-        ///     al <see cref="Uri"/> especificado.
-        /// </summary>
-        /// <typeparam name="T">
-        ///     Tipo de <see cref="StreamUriParser"/> especializado a obtener.
-        /// </typeparam>
-        /// <param name="uri">
-        ///     <see cref="Uri"/> a partir del cual crear un
-        ///     <see cref="Stream"/>.
-        /// </param>
-        /// <returns>
-        ///     Un <see cref="StreamUriParser"/> que puede crear un
-        ///     <see cref="Stream"/> a partir del <see cref="Uri"/>
-        ///     especificado, o <see langword="null"/> si no existe un
-        ///     <see cref="StreamUriParser"/> capaz de manejar el 
-        ///     <see cref="Uri"/>.
-        /// </returns>
-        public static T Get<T>(Uri uri) where T : class, IStreamUriParser
-        {
-            return Objects.FindAllObjects<T>().FirstOrDefault(p => p.Handles(uri));
-        }
-
         /// <summary>
         ///     Obtiene un valor que determina si el <see cref="Stream"/>
         ///     producido por este objeto requiere ser cargado por completo en
         ///     un búffer de lectura en memoria.
         /// </summary>
-        public virtual bool PreferFullTransfer { get; } = false;
+        bool PreferFullTransfer { get; }
 
         /// <summary>
         ///     Obtiene un <see cref="Stream"/> que enlaza al recurso
@@ -99,10 +56,7 @@ namespace TheXDS.MCART.Types.Base
         ///     Un <see cref="Stream"/> desde el cual puede leerse el recurso
         ///     apuntado por el <see cref="Uri"/> especificado.
         /// </returns>
-        public Stream? GetStream(Uri uri)
-        {
-            return PreferFullTransfer ? OpenFullTransfer(uri) : Open(uri);
-        }
+        Stream? GetStream(Uri uri);
 
         /// <summary>
         ///     Obtiene un <see cref="Stream"/> que enlaza al recurso
@@ -116,13 +70,10 @@ namespace TheXDS.MCART.Types.Base
         ///     Un <see cref="Stream"/> desde el cual puede leerse el recurso
         ///     apuntado por el <see cref="Uri"/> especificado.
         /// </returns>
-        public async Task<Stream?> GetStreamAsync(Uri uri)
-        {
-            return PreferFullTransfer ? (await OpenFullTransferAsync(uri)) : Open(uri);
-        }
+        Task<Stream?> GetStreamAsync(Uri uri);
 
         /// <summary>
-        ///     Determina si este <see cref="StreamUriParser"/> puede crear un
+        ///     Determina si este <see cref="IStreamUriParser"/> puede crear un
         ///     <see cref="Stream"/> a partir del <see cref="Uri"/>
         ///     especificado.
         /// </summary>
@@ -130,12 +81,12 @@ namespace TheXDS.MCART.Types.Base
         ///     <see cref="Uri"/> a comprobar.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si este <see cref="StreamUriParser"/>
+        ///     <see langword="true"/> si este <see cref="IStreamUriParser"/>
         ///     puede crear un <see cref="Stream"/> a partir del
         ///     <see cref="Uri"/> especificado, <see langword="false"/> en caso
         ///     contrario.
         /// </returns>
-        public abstract bool Handles(Uri uri);
+        bool Handles(Uri uri);
 
         /// <summary>
         ///     Abre un <see cref="Stream"/> desde el <see cref="Uri"/>
@@ -148,7 +99,21 @@ namespace TheXDS.MCART.Types.Base
         ///     Un <see cref="Stream"/> desde el cual puede leerse el recurso
         ///     apuntado por el <see cref="Uri"/> especificado.
         /// </returns>
-        public abstract Stream? Open(Uri uri);
+        Stream? Open(Uri uri);
+
+        /// <summary>
+        ///     Abre el <see cref="Stream"/> desde el <see cref="Uri"/>
+        ///     especificado, y lo carga completamente en un nuevo
+        ///     <see cref="Stream"/> intermedio antes de devolverlo.
+        /// </summary>
+        /// <param name="uri">
+        ///     <see cref="Uri"/> a abrir para lectura.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="Stream"/> desde el cual puede leerse el recurso
+        ///     apuntado por el <see cref="Uri"/> especificado.
+        /// </returns>
+        Stream? OpenFullTransfer(Uri uri);
 
         /// <summary>
         ///     Abre el <see cref="Stream"/> desde el <see cref="Uri"/>
@@ -163,40 +128,6 @@ namespace TheXDS.MCART.Types.Base
         ///     Un <see cref="Stream"/> desde el cual puede leerse el recurso
         ///     apuntado por el <see cref="Uri"/> especificado.
         /// </returns>
-        public virtual Stream? OpenFullTransfer(Uri uri)
-        {
-            var ms = new MemoryStream();
-            var j = Open(uri);
-            if (j is null) return null;
-            using (j)
-            {
-                j.CopyTo(ms);
-                return ms;
-            }
-        }
-
-        /// <summary>
-        ///     Abre el <see cref="Stream"/> desde el <see cref="Uri"/>
-        ///     especificado, y lo carga completamente en un nuevo
-        ///     <see cref="Stream"/> intermedio antes de devolverlo.
-        /// </summary>
-        /// <param name="uri">
-        ///     <see cref="Uri"/> a abrir para lectura.
-        /// </param>
-        /// <returns>
-        ///     Un <see cref="Stream"/> desde el cual puede leerse el recurso
-        ///     apuntado por el <see cref="Uri"/> especificado.
-        /// </returns>
-        public virtual async Task<Stream?> OpenFullTransferAsync(Uri uri)
-        {
-            var ms = new MemoryStream();
-            var j = Open(uri);
-            if (j is null) return null;
-            using (j)
-            {
-                await j.CopyToAsync(ms);
-                return ms;
-            }
-        }
+        Task<Stream?> OpenFullTransferAsync(Uri uri);
     }
 }

@@ -25,12 +25,10 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Math;
-using St = TheXDS.MCART.Resources.InternalStrings;
-
-// ReSharper disable ClassNeverInstantiated.Global
 
 namespace TheXDS.MCART.Networking
 {
@@ -43,7 +41,7 @@ namespace TheXDS.MCART.Networking
         /// <summary>
         ///     Puerto predeterminado para todos los objetos de red.
         /// </summary>
-        public const int DefaultPort = 51220;
+        public const int DefaultPort = 51200;
 
         /// <summary>
         ///     Tiempo de espera en milisegundos antes de realizar una

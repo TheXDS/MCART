@@ -88,7 +88,6 @@ namespace TheXDS.MCART.Networking.Server
                 try
                 {
                     return Connection.Client.RemoteEndPoint as IPEndPoint;
-
                 }
                 catch
                 {
@@ -152,11 +151,9 @@ namespace TheXDS.MCART.Networking.Server
 #else
                 return new byte[] { };
 #endif
-            using (var ms = new MemoryStream())
-            {
-                ns.CopyTo(ms);
-                return ms.ToArray();
-            }
+            using var ms = new MemoryStream();
+            ns.CopyTo(ms);
+            return ms.ToArray();
         }
 
         /// <summary>
@@ -226,11 +223,9 @@ namespace TheXDS.MCART.Networking.Server
 #else
                 return new byte[] { };
 #endif
-            using (var ms = new MemoryStream())
-            {
-                await ns.CopyToAsync(ms, Connection.ReceiveBufferSize, cancellationToken);
-                return ms.ToArray();
-            }
+            using var ms = new MemoryStream();
+            await ns.CopyToAsync(ms, Connection.ReceiveBufferSize, cancellationToken);
+            return ms.ToArray();
         }
 
         /// <summary>
@@ -266,11 +261,9 @@ namespace TheXDS.MCART.Networking.Server
         /// <param name="data">Mensaje a enviar.</param>
         public void Send(Stream data)
         {
-            using (var reader = new MemoryStream())
-            {
-                data.CopyTo(reader);
-                Send(reader.ToArray());
-            }
+            using var reader = new MemoryStream();
+            data.CopyTo(reader);
+            Send(reader.ToArray());
         }
 
         /// <summary>
@@ -296,11 +289,9 @@ namespace TheXDS.MCART.Networking.Server
         /// </returns>
         public async Task SendAsync(Stream data)
         {
-            using (var reader = new MemoryStream())
-            {
-                await data.CopyToAsync(reader);
-                await SendAsync(reader.ToArray());
-            }
+            using var reader = new MemoryStream();
+            await data.CopyToAsync(reader);
+            await SendAsync(reader.ToArray());
         }
 
         /// <summary>

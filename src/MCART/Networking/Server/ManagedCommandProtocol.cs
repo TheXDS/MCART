@@ -228,6 +228,117 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
+            ///     Responde al cliente.
+            /// </summary>
+            /// <param name="client">
+            ///     Cliente al cual enviar una respuesta.
+            /// </param>
+            /// <param name="response">
+            ///     Respuesta a enviar.
+            /// </param>
+            public void Send(TClient client, TResult response)
+            {
+                client.Send(MkResp(response, false));
+            }
+
+            /// <summary>
+            ///     Responde al cliente.
+            /// </summary>
+            /// <param name="client">
+            ///     Cliente al cual enviar una respuesta.
+            /// </param>
+            /// <param name="response">
+            ///     Respuesta a enviar.
+            /// </param>
+            /// <param name="rawData">
+            ///     Datos a enviar.
+            /// </param>
+            public void Send(TClient client, TResult response, IEnumerable<byte> rawData)
+            {
+                client.Send(MkResp(response,false).Concat(rawData));
+            }
+
+            /// <summary>
+            ///     Responde al cliente.
+            /// </summary>
+            /// <param name="client">
+            ///     Cliente al cual enviar una respuesta.
+            /// </param>
+            /// <param name="response">
+            ///     Respuesta a enviar.
+            /// </param>
+            /// <param name="data">
+            ///     Datos a enviar.
+            /// </param>
+            public void Send(TClient client, TResult response, MemoryStream data)
+            {
+                Send(client, response, data.ToArray());
+            }
+
+            /// <summary>
+            ///     Responde al cliente.
+            /// </summary>
+            /// <param name="client">
+            ///     Cliente al cual enviar una respuesta.
+            /// </param>
+            /// <param name="response">
+            ///     Respuesta a enviar.
+            /// </param>
+            /// <param name="dataStream">
+            ///     Datos a enviar.
+            /// </param>
+            public void Send(TClient client, TResult response, Stream dataStream)
+            {
+                if (!dataStream.CanRead) throw new InvalidOperationException();
+                if (dataStream.CanSeek)
+                {
+                    using var sr = new BinaryReader(dataStream);
+                    Send(client, response, sr.ReadBytes((int)dataStream.Length));
+                    return;
+                }
+                using var ms = new MemoryStream();
+                dataStream.CopyTo(ms);
+                Send(client, response, ms);
+            }
+
+            /// <summary>
+            ///     Responde al cliente.
+            /// </summary>
+            /// <param name="client">
+            ///     Cliente al cual enviar una respuesta.
+            /// </param>
+            /// <param name="response">
+            ///     Respuesta a enviar.
+            /// </param>
+            /// <param name="data">
+            ///     Datos a enviar.
+            /// </param>
+            public void Send(TClient client, TResult response, IEnumerable<string> data)
+            {
+                using var ms = new MemoryStream();
+                using var bw = new BinaryWriter(ms);
+                foreach (var j in data) bw.Write(j);
+                Send(client, response, ms);
+            }
+
+            /// <summary>
+            ///     Responde al cliente.
+            /// </summary>
+            /// <param name="client">
+            ///     Cliente al cual enviar una respuesta.
+            /// </param>
+            /// <param name="response">
+            ///     Respuesta a enviar.
+            /// </param>
+            /// <param name="data">
+            ///     Datos a enviar.
+            /// </param>
+            public void Send(TClient client, TResult response, string data)
+            {
+                Send(client, response, new[] { data });
+            }
+
+            /// <summary>
             ///     Envía una respuesta sin Guid a todos los demás clientes
             ///     conectados al servidor.
             /// </summary>
@@ -529,6 +640,134 @@ namespace TheXDS.MCART.Networking.Server
             public Task RespondAsync(TResult response, string data)
             {
                 return RespondAsync(response, new[] { data });
+            }
+
+            /// <summary>
+            ///     Responde al cliente de forma asíncrona.
+            /// </summary>
+            /// <param name="client">
+            ///     Cliente al cual enviar una respuesta.
+            /// </param>
+            /// <param name="response">
+            ///     Respuesta a enviar.
+            /// </param>
+            /// <returns>
+            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// </returns>
+            public Task SendAsync(TClient client,TResult response)
+            {
+                return client.SendAsync(MkResp(response, false));
+            }
+
+            /// <summary>
+            ///     Responde al cliente de forma asíncrona.
+            /// </summary>
+            /// <param name="client">
+            ///     Cliente al cual enviar una respuesta.
+            /// </param>
+            /// <param name="response">
+            ///     Respuesta a enviar.
+            /// </param>
+            /// <param name="rawData">
+            ///     Datos a enviar.
+            /// </param>
+            /// <returns>
+            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// </returns>
+            public Task SendAsync(TClient client, TResult response, IEnumerable<byte> rawData)
+            {
+                return client.SendAsync(MkResp(response, false).Concat(rawData));
+            }
+
+            /// <summary>
+            ///     Responde al cliente de forma asíncrona.
+            /// </summary>
+            /// <param name="client">
+            ///     Cliente al cual enviar una respuesta.
+            /// </param>
+            /// <param name="response">
+            ///     Respuesta a enviar.
+            /// </param>
+            /// <param name="data">
+            ///     Datos a enviar.
+            /// </param>
+            /// <returns>
+            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// </returns>
+            public Task SendAsync(TClient client, TResult response, MemoryStream data)
+            {
+                return SendAsync(client, response, data.ToArray());
+            }
+
+            /// <summary>
+            ///     Responde al cliente de forma asíncrona.
+            /// </summary>
+            /// <param name="client">
+            ///     Cliente al cual enviar una respuesta.
+            /// </param>
+            /// <param name="response">
+            ///     Respuesta a enviar.
+            /// </param>
+            /// <param name="dataStream">
+            ///     Datos a enviar.
+            /// </param>
+            /// <returns>
+            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// </returns>
+            public Task SendAsync(TClient client, TResult response, Stream dataStream)
+            {
+                if (!dataStream.CanRead) throw new InvalidOperationException();
+                if (dataStream.CanSeek)
+                {
+                    using var sr = new BinaryReader(dataStream);
+                    return SendAsync(client, response, sr.ReadBytes((int)dataStream.Length));
+                }
+                using var ms = new MemoryStream();
+                dataStream.CopyTo(ms);
+                return SendAsync(client, response, ms);
+            }
+
+            /// <summary>
+            ///     Responde al cliente de forma asíncrona.
+            /// </summary>
+            /// <param name="client">
+            ///     Cliente al cual enviar una respuesta.
+            /// </param>
+            /// <param name="response">
+            ///     Respuesta a enviar.
+            /// </param>
+            /// <param name="data">
+            ///     Datos a enviar.
+            /// </param>
+            /// <returns>
+            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// </returns>
+            public Task SendAsync(TClient client, TResult response, IEnumerable<string> data)
+            {
+                using var ms = new MemoryStream();
+                using var bw = new BinaryWriter(ms);
+                foreach (var j in data) bw.Write(j);
+                return SendAsync(client, response, ms);
+            }
+
+            /// <summary>
+            ///     Responde al cliente de forma asíncrona.
+            /// </summary>
+            /// <param name="client">
+            ///     Cliente al cual enviar una respuesta.
+            /// </param>
+            /// <param name="response">
+            ///     Respuesta a enviar.
+            /// </param>
+            /// <param name="data">
+            ///     Datos a enviar.
+            /// </param>
+            /// <returns>
+            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// </returns>
+            public Task SendAsync(TClient client, TResult response, string data)
+            {
+                return SendAsync(client, response, new[] { data });
             }
 
             /// <summary>

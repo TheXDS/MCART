@@ -143,7 +143,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static IEnumerable<T> NonDefaults<T>(this IEnumerable<T> collection)
         {
-            return collection.Where(p => !(Equals(p, default(T))));
+            return collection.Where(p => !Equals(p, default(T)));
         }
 
         /// <summary>
@@ -169,21 +169,19 @@ namespace TheXDS.MCART.Types.Extensions
         /// </exception>
         public static IEnumerable<T> Range<T>(this IEnumerable<T> from, int index, int count)
         {
-            using (var e = from.GetEnumerator())
+            using var e = from.GetEnumerator();
+            e.Reset();
+            e.MoveNext();
+            var c = 0;
+            while (c++ < index)
             {
-                e.Reset();
-                e.MoveNext();
-                var c = 0;
-                while (c++ < index)
-                {
-                    if (!e.MoveNext()) throw new IndexOutOfRangeException();
-                }
-                c = 0;
-                while (c++ < count)
-                {
-                    yield return e.Current;
-                    if (!e.MoveNext()) yield break;
-                }
+                if (!e.MoveNext()) throw new IndexOutOfRangeException();
+            }
+            c = 0;
+            while (c++ < count)
+            {
+                yield return e.Current;
+                if (!e.MoveNext()) yield break;
             }
         }
 
@@ -194,138 +192,31 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Copia de esta lista. Los elementos de la copia representan la misma
         ///     instancia del objeto original.
         /// </returns>
-        /// <param name="c">Colección a copiar.</param>
+        /// <param name="collection">Colección a copiar.</param>
         /// <typeparam name="T">
         ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
         /// </typeparam>
-        public static IEnumerable<T> Copy<T>(this IEnumerable<T> c)
+        public static IEnumerable<T> Copy<T>(this IEnumerable<T> collection)
         {
-            var tmp = new ExtendedList<T>();
-            tmp.AddRange(c);
+            var tmp = new List<T>();
+            tmp.AddRange(collection);
             return tmp;
         }
 
         /// <summary>
-        ///     Desordena los elementos de un <see cref="IEnumerable{T}" />.
-        /// </summary>
-        /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
-        /// </typeparam>
-        /// <param name="c"><see cref="IEnumerable{T}" /> a desordenar.</param>
-        /// <exception cref="ArgumentNullException">
-        ///     Se produce si <paramref name="c" /> es <see langword="null" />.
-        /// </exception>
-        /// <exception cref="EmptyCollectionException">
-        ///     Se produce si <paramref name="c" /> hace referencia a una colección
-        ///     vacía.
-        /// </exception>
-        public static void Shuffle<T>(this IEnumerable<T> c)
-        {
-            Shuffle(c, 1);
-        }
-
-        /// <summary>
-        ///     Desordena los elementos de un <see cref="IEnumerable{T}" />.
-        /// </summary>
-        /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
-        /// </typeparam>
-        /// <param name="c"><see cref="IEnumerable{T}" /> a desordenar.</param>
-        /// <param name="deepness">
-        ///     Profundidad del desorden. 1 es el valor más alto.
-        /// </param>
-        /// <exception cref="ArgumentNullException">
-        ///     Se produce si <paramref name="c" /> es <see langword="null" />.
-        /// </exception>
-        /// <exception cref="EmptyCollectionException">
-        ///     Se produce si <paramref name="c" /> hace referencia a una colección
-        ///     vacía.
-        /// </exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        ///     Se produce si <paramref name="deepness" /> es inferior a 1, o
-        ///     superior a la cuenta de elementos de la colección a desordenar.
-        /// </exception>
-        public static void Shuffle<T>(this IEnumerable<T> c, in int deepness)
-        {
-            var enumerable = c.ToList();
-            Shuffle(enumerable, 0, enumerable.Count - 1, deepness);
-        }
-
-        /// <summary>
-        ///     Desordena los elementos del intervalo especificado de un
-        ///     <see cref="IEnumerable{T}" />.
-        /// </summary>
-        /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
-        /// </typeparam>
-        /// <param name="c"><see cref="IEnumerable{T}" /> a desordenar.</param>
-        /// <param name="firstIdx">Índice inicial del intervalo.</param>
-        /// <param name="lastIdx">Índice inicial del intervalo.</param>
-        public static void Shuffle<T>(this IEnumerable<T> c, in int firstIdx, in int lastIdx)
-        {
-            Shuffle(c, firstIdx, lastIdx, 1);
-        }
-
-        /// <summary>
-        ///     Desordena los elementos del intervalo especificado de un
-        ///     <see cref="IEnumerable{T}" />.
-        /// </summary>
-        /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
-        /// </typeparam>
-        /// <param name="toShuffle"><see cref="IEnumerable{T}" /> a desordenar.</param>
-        /// <param name="deepness">Profundidad del desorden. 1 es el más alto.</param>
-        /// <param name="firstIdx">Índice inicial del intervalo.</param>
-        /// <param name="lastIdx">Índice inicial del intervalo.</param>
-        public static void Shuffle<T>(this IEnumerable<T> toShuffle, in int firstIdx, in int lastIdx, in int deepness)
-        {
-            Shuffle(toShuffle, firstIdx, lastIdx, deepness, RandomExtensions.Rnd);
-        }
-
-        /// <summary>
-        ///     Desordena los elementos del intervalo especificado de un
-        ///     <see cref="IEnumerable{T}" />.
-        /// </summary>
-        /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
-        /// </typeparam>
-        /// <param name="toShuffle"><see cref="IEnumerable{T}" /> a desordenar.</param>
-        /// <param name="deepness">Profundidad del desorden. 1 es el más alto.</param>
-        /// <param name="firstIdx">Índice inicial del intervalo.</param>
-        /// <param name="lastIdx">Índice inicial del intervalo.</param>
-        /// <param name="random">Generador de números aleatorios a utilizar.</param>
-        public static void Shuffle<T>(this IEnumerable<T> toShuffle, int firstIdx, int lastIdx, int deepness, Random random)
-        {
-            if (toShuffle is null) throw new ArgumentNullException(nameof(toShuffle));
-            if (random is null) random = RandomExtensions.Rnd;
-            var c = toShuffle as T[] ?? toShuffle.ToArray();
-            if (!c.Any()) throw new EmptyCollectionException(c);
-            if (!firstIdx.IsBetween(0, c.Length)) throw new IndexOutOfRangeException();
-            if (!lastIdx.IsBetween(0, c.Length - 1)) throw new IndexOutOfRangeException();
-            if (!deepness.IsBetween(1, lastIdx - firstIdx)) throw new ArgumentOutOfRangeException(nameof(deepness));
-            if (firstIdx > lastIdx) Common.Swap(ref firstIdx, ref lastIdx);
-            var a = c.ToArray();
-            lastIdx++;
-            for (var j = firstIdx; j < lastIdx; j += deepness)
-                Common.Swap(ref a[j], ref a[random.Next(firstIdx, lastIdx)]);
-            c.ToList().Clear();
-            c.ToList().AddRange(a);
-        }
-
-        /// <summary>
         ///     Devuelve una versión desordenada del <see cref="IEnumerable{T}" />
         ///     sin alterar la colección original.
         /// </summary>
         /// <typeparam name="T">
         ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
         /// </typeparam>
-        /// <param name="c"><see cref="IEnumerable{T}" /> a desordenar.</param>
+        /// <param name="collection"><see cref="IEnumerable{T}" /> a desordenar.</param>
         /// <returns>
         ///     Una versión desordenada del <see cref="IEnumerable{T}" />.
         /// </returns>
-        public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> c)
+        public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> collection)
         {
-            return Shuffled(c, 1);
+            return Shuffled(collection, 1);
         }
 
         /// <summary>
@@ -335,16 +226,16 @@ namespace TheXDS.MCART.Types.Extensions
         /// <typeparam name="T">
         ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
         /// </typeparam>
-        /// <param name="c"><see cref="IEnumerable{T}" /> a desordenar.</param>
+        /// <param name="collection"><see cref="IEnumerable{T}" /> a desordenar.</param>
         /// <param name="deepness">
         ///     Profundidad del desorden. 1 es el más alto.
         /// </param>
         /// <returns>
         ///     Una versión desordenada del <see cref="IEnumerable{T}" />.
         /// </returns>
-        public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> c, in int deepness)
+        public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> collection, in int deepness)
         {
-            var enumerable = c.ToList();
+            var enumerable = collection.ToList();
             return Shuffled(enumerable, 0, enumerable.Count - 1, deepness, RandomExtensions.Rnd);
         }
 
@@ -356,16 +247,16 @@ namespace TheXDS.MCART.Types.Extensions
         /// <typeparam name="T">
         ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
         /// </typeparam>
-        /// <param name="c"><see cref="IEnumerable{T}" /> a desordenar.</param>
+        /// <param name="collection"><see cref="IEnumerable{T}" /> a desordenar.</param>
         /// <param name="firstIdx">Índice inicial del intervalo.</param>
         /// <param name="lastIdx">Índice inicial del intervalo.</param>
         /// <returns>
         ///     Una versión desordenada del intervalo especificado de elementos del
         ///     <see cref="IEnumerable{T}" />.
         /// </returns>
-        public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> c, in int firstIdx, in int lastIdx)
+        public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> collection, in int firstIdx, in int lastIdx)
         {
-            return Shuffled(c, firstIdx, lastIdx, 1, RandomExtensions.Rnd);
+            return Shuffled(collection, firstIdx, lastIdx, 1, RandomExtensions.Rnd);
         }
 
         /// <summary>
@@ -376,7 +267,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <typeparam name="T">
         ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
         /// </typeparam>
-        /// <param name="c"><see cref="IEnumerable{T}" /> a desordenar.</param>
+        /// <param name="collection"><see cref="IEnumerable{T}" /> a desordenar.</param>
         /// <param name="firstIdx">Índice inicial del intervalo.</param>
         /// <param name="lastIdx">Índice inicial del intervalo.</param>
         /// <param name="deepness">
@@ -387,9 +278,9 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Una versión desordenada del intervalo especificado de elementos del
         ///     <see cref="IEnumerable{T}" />.
         /// </returns>
-        public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> c, in int firstIdx, in int lastIdx, in int deepness, in Random random)
+        public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> collection, in int firstIdx, in int lastIdx, in int deepness, in Random random)
         {
-            var tmp = new System.Collections.Generic.List<T>(c);
+            var tmp = new List<T>(collection);
             tmp.Shuffle(firstIdx, lastIdx, deepness, random);
             return tmp;
         }
@@ -457,15 +348,15 @@ namespace TheXDS.MCART.Types.Extensions
         /// <summary>
         ///     Crea un <see cref="ExtendedList{T}"/> a partir de un <see cref="IEnumerable{T}"/>.
         /// </summary>
-        /// <param name="c">Colección a convertir</param>
+        /// <param name="collection">Colección a convertir</param>
         /// <typeparam name="T">Tipo de la colección.</typeparam>
         /// <returns>
         ///     Un <see cref="ExtendedList{T}" /> extendido del espacio de nombres
         ///     <see cref="Extensions" />.
         /// </returns>
-        public static ExtendedList<T> ToExtendedList<T>(this IEnumerable<T> c)
+        public static ExtendedList<T> ToExtendedList<T>(this IEnumerable<T> collection)
         {
-            return new ExtendedList<T>(c);
+            return new ExtendedList<T>(collection);
         }
 
         /// <summary>
@@ -495,7 +386,7 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>Rota los elementos de un arreglo, lista o colección.</summary>
-        /// <param name="a">Arreglo a rotar</param>
+        /// <param name="collection">Arreglo a rotar</param>
         /// <param name="steps">Dirección y unidades de rotación.</param>
         /// <remarks>
         ///     Si <paramref name="steps" /> es positivo, la rotación ocurre de forma
@@ -504,38 +395,40 @@ namespace TheXDS.MCART.Types.Extensions
         /// <typeparam name="T">
         ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
         /// </typeparam>
-        public static IEnumerable<T> Rotate<T>(this IEnumerable<T> a, int steps)
+        public static IEnumerable<T> Rotate<T>(this IEnumerable<T> collection, int steps)
         {
-            using (var e = a.GetEnumerator())
+            using var e = collection.GetEnumerator();
+            e.Reset();
+            var j = 0;
+
+            if (steps > 0)
             {
+                while (j++ < steps) e.MoveNext();
+                while (e.MoveNext()) yield return e.Current;
                 e.Reset();
-                var j = 0;
-
-                if (steps > 0)
+                while (--j > 0)
                 {
-                    while (j++ < steps) e.MoveNext();
-                    while (e.MoveNext()) yield return e.Current;
-                    e.Reset();
-                    while (--j > 0)
-                    {
-                        e.MoveNext();
-                        yield return e.Current;
-                    }
+                    e.MoveNext();
+                    yield return e.Current;
                 }
-                else if (steps < 0)
-                {
-                    var c = new ExtendedList<T>();
+            }
+            else if (steps < 0)
+            {
+                var c = new List<T>();
 
-                    // HACK: La implementación para IList<T> es funcional, y no requiere de trucos inusuales para rotar.
-                    while (e.MoveNext()) c.Add(e.Current);
-                    c.ApplyRotate(steps);
-                    foreach (var i in c) yield return i;
-                }
+                // HACK: La implementación para IList<T> es funcional, y no requiere de trucos inusuales para rotar.
+                while (e.MoveNext()) c.Add(e.Current);
+                c.ApplyRotate(steps);
+                foreach (var i in c) yield return i;
+            }
+            else
+            {
+                foreach (var i in collection) yield return i;
             }
         }
 
         /// <summary>Desplaza los elementos de un arreglo, lista o colección.</summary>
-        /// <param name="a">Arreglo a desplazar</param>
+        /// <param name="collection">Arreglo a desplazar</param>
         /// <param name="steps">Dirección y unidades de desplazamiento.</param>
         /// <remarks>
         ///     Si <paramref name="steps" /> es positivo, la rotación ocurre de forma
@@ -544,49 +437,51 @@ namespace TheXDS.MCART.Types.Extensions
         /// <typeparam name="T">
         ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
         /// </typeparam>
-        public static IEnumerable<T> Shift<T>(this IEnumerable<T> a, int steps)
+        public static IEnumerable<T> Shift<T>(this IEnumerable<T> collection, int steps)
         {
-            using (var e = a.GetEnumerator())
+            using var e = collection.GetEnumerator();
+            e.Reset();
+            var j = 0;
+
+            if (steps > 0)
             {
-                e.Reset();
-                var j = 0;
+                while (j++ < steps) e.MoveNext();
+                while (e.MoveNext()) yield return e.Current;
+                while (--j > 0) yield return default;
+            }
+            else if (steps < 0)
+            {
+                var c = new List<T>();
 
-                if (steps > 0)
-                {
-                    while (j++ < steps) e.MoveNext();
-                    while (e.MoveNext()) yield return e.Current;
-                    while (--j > 0) yield return default;
-                }
-                else if (steps < 0)
-                {
-                    var c = new ExtendedList<T>();
-
-                    // HACK: Enumeración manual
-                    while (e.MoveNext()) c.Add(e.Current);
-                    while (j-- > steps) yield return default;
-                    j += c.Count;
-                    while (j-- >= 0) yield return c.PopFirst();
-                }
+                // HACK: Enumeración manual
+                while (e.MoveNext()) c.Add(e.Current);
+                while (j-- > steps) yield return default;
+                j += c.Count;
+                while (j-- >= 0) yield return c.PopFirst();
+            }
+            else
+            {
+                foreach (var i in collection) yield return i;
             }
         }
 
         /// <summary>
         ///     Compara dos colecciones y determina si sus elementos son iguales.
         /// </summary>
-        /// <param name="a">
+        /// <param name="collection">
         ///     Enumeración a comprobar.
         /// </param>
-        /// <param name="b">
+        /// <param name="items">
         ///     Enumeración contra la cual comprobar.
         /// </param>
         /// <returns>
         ///     <see langword="true"/> si los elementos de ambas colecciones
         ///     son iguales, <see langword="false"/> en caso contrario.
         /// </returns>
-        public static bool ItemsEqual(this IEnumerable a, IEnumerable b)
+        public static bool ItemsEqual(this IEnumerable collection, IEnumerable items)
         {
-            var ea = a.GetEnumerator();
-            var eb = b.GetEnumerator();
+            var ea = collection.GetEnumerator();
+            var eb = items.GetEnumerator();
             while (ea.MoveNext())
             {
                 if (!eb.MoveNext() || (ea.Current?.Equals(eb.Current) ?? false)) return false;
@@ -595,93 +490,112 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Comprueba si la enumeración <paramref name="a"/> contiene a 
-        ///     todos los elementos de la enumeración <paramref name="b"/>.
+        ///     Comprueba si la enumeración <paramref name="collection"/> contiene a 
+        ///     todos los elementos de la enumeración <paramref name="items"/>.
         /// </summary>
-        /// <param name="a">
+        /// <param name="collection">
         ///     Enumeración a comprobar.
         /// </param>
-        /// <param name="b">
-        ///     Elementos que deben existir en <paramref name="a"/>.
+        /// <param name="items">
+        ///     Elementos que deben existir en <paramref name="collection"/>.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si <paramref name="a"/> contiene a todos
-        ///     los elementos de <paramref name="b"/>, <see langword="false"/>
+        ///     <see langword="true"/> si <paramref name="collection"/> contiene a todos
+        ///     los elementos de <paramref name="items"/>, <see langword="false"/>
         ///     en caso contrario.
         /// </returns>
-        public static bool ContainsAll(this IEnumerable<object> a, IEnumerable b)
+        public static bool ContainsAll(this IEnumerable collection, IEnumerable items)
         {
-            foreach (var j in b)
+            foreach (var j in items)
             {
-                if (!a.Contains(j)) return false;
+                if (!collection.Contains(j)) return false;
             }
             return true;
         }
 
         /// <summary>
-        ///     Comprueba si la enumeración <paramref name="a"/> contiene a 
-        ///     todos los elementos de la enumeración <paramref name="b"/>.
+        ///     Comprueba si la enumeración <paramref name="collection"/> contiene a 
+        ///     todos los elementos de la enumeración <paramref name="items"/>.
         /// </summary>
-        /// <param name="a">
+        /// <param name="collection">
         ///     Enumeración a comprobar.
         /// </param>
-        /// <param name="b">
-        ///     Elementos que deben existir en <paramref name="a"/>.
+        /// <param name="items">
+        ///     Elementos que deben existir en <paramref name="collection"/>.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si <paramref name="a"/> contiene a todos
-        ///     los elementos de <paramref name="b"/>, <see langword="false"/>
+        ///     <see langword="true"/> si <paramref name="collection"/> contiene a todos
+        ///     los elementos de <paramref name="items"/>, <see langword="false"/>
         ///     en caso contrario.
         /// </returns>
-        public static bool ContainsAll(this IEnumerable<object> a, params object[] b)
+        public static bool ContainsAll(this IEnumerable collection, params object[] items)
         {
-            return ContainsAll(a, b.AsEnumerable());
+            return ContainsAll(collection, items.AsEnumerable());
         }
 
         /// <summary>
-        ///     Comprueba si la enumeración <paramref name="a"/> contiene a 
+        ///     Comprueba si la enumeración <paramref name="collection"/> contiene a 
         ///     cualquiera de los elementos de la enumeración
-        ///     <paramref name="b"/>.
+        ///     <paramref name="items"/>.
         /// </summary>
-        /// <param name="a">
+        /// <param name="collection">
         ///     Enumeración a comprobar.
         /// </param>
-        /// <param name="b">
-        ///     Elementos que deben existir en <paramref name="a"/>.
+        /// <param name="items">
+        ///     Elementos que deben existir en <paramref name="collection"/>.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si <paramref name="a"/> contiene a
-        ///     cualquiera de los elementos de <paramref name="b"/>,
+        ///     <see langword="true"/> si <paramref name="collection"/> contiene a
+        ///     cualquiera de los elementos de <paramref name="items"/>,
         ///     <see langword="false"/> en caso contrario.
         /// </returns>
-        public static bool ContainsAny(this IEnumerable<object> a, IEnumerable b)
+        public static bool ContainsAny(this IEnumerable collection, IEnumerable items)
         {
-            foreach (var j in b)
+            foreach (var j in items)
             {
-                if (a.Contains(j)) return true;
+                if (collection.Contains(j)) return true;
             }
             return false;
         }
 
         /// <summary>
-        ///     Comprueba si la enumeración <paramref name="a"/> contiene a 
+        ///     Comprueba si la enumeración <paramref name="collection"/> contiene a 
         ///     cualquiera de los elementos de la enumeración
-        ///     <paramref name="b"/>.
+        ///     <paramref name="items"/>.
         /// </summary>
-        /// <param name="a">
+        /// <param name="collection">
         ///     Enumeración a comprobar.
         /// </param>
-        /// <param name="b">
-        ///     Elementos que deben existir en <paramref name="a"/>.
+        /// <param name="items">
+        ///     Elementos que deben existir en <paramref name="collection"/>.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si <paramref name="a"/> contiene a
-        ///     cualquiera de los elementos de <paramref name="b"/>,
+        ///     <see langword="true"/> si <paramref name="collection"/> contiene a
+        ///     cualquiera de los elementos de <paramref name="items"/>,
         ///     <see langword="false"/> en caso contrario.
         /// </returns>
-        public static bool ContainsAny(this IEnumerable<object> a, params object[] b)
+        public static bool ContainsAny(this IEnumerable collection, params object[] items)
         {
-            return ContainsAny(a, b.AsEnumerable());
+            return ContainsAny(collection, items.AsEnumerable());
+        }
+
+        /// <summary>
+        ///     Versión no-genérica de la función
+        ///     <see cref="Enumerable.Contains{TSource}(IEnumerable{TSource}, TSource)"/>.
+        /// </summary>
+        /// <param name="enumerable">Colección a comprobar.</param>
+        /// <param name="obj">Objeto a buscar dentro de la colección.</param>
+        /// <returns>
+        ///     <see langword="true"/> si la colección contiene al objeto
+        ///     especificado, <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool Contains(this IEnumerable enumerable, object obj)
+        {
+            foreach (var j in enumerable)
+            {
+                if (j.Equals(obj)) return true;
+            }
+            return false;
         }
     }
 }

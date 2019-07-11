@@ -224,5 +224,22 @@ namespace TheXDS.MCART.Types.Extensions
                 lock (collection) action(collection);
             }
         }
+
+        /// <summary>
+        ///     Añade un conjunto de elementos al <see cref="ICollection{T}"/>.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipode elementos de la colección.
+        /// </typeparam>
+        /// <param name="collection">
+        ///     Colección a la cual agregar los elementos.
+        /// </param>
+        /// <param name="items">
+        ///     Elementos a agregar a la colección.
+        /// </param>
+        public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
+        {
+            foreach (var j in items) collection.Add(j);
+        }
     }
 }

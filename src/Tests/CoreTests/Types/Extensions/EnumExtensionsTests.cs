@@ -25,7 +25,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #pragma warning disable CS1591
 
 using System;
-using System.Linq;
 using Xunit;
 using static TheXDS.MCART.Types.Extensions.EnumExtensions;
 using static TheXDS.MCART.Types.Extensions.NamedObjectExtensions;

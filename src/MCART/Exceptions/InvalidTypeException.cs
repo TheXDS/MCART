@@ -22,14 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#region Configuración de ReSharper
-
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-
-#endregion
+#nullable enable
 
 using System;
 using System.Runtime.Serialization;
@@ -40,13 +33,13 @@ namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Excepción que se produce al hacer referencia a un tipo inválido
+    ///     Excepción que se produce al hacer referencia a un tipo inválido.
     /// </summary>
     [Serializable]
     public class InvalidTypeException : OffendingException<Type>
     {
-        private static string Msg()=> Strings.XIsInvalid(Strings.TheType);
-        private static string Msg([NotNull]Type type) => Strings.XIsInvalid(Strings.XYQuotes(Strings.TheType, type.FullName) );
+        private static string Msg() => Strings.XIsInvalid(Strings.TheType);
+        private static string Msg(Type type) => Strings.XIsInvalid(Strings.XYQuotes(Strings.TheType, type.FullName) );
 
         /// <inheritdoc />
         /// <summary>

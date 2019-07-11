@@ -25,6 +25,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TheXDS.MCART.Exceptions;
 
 namespace TheXDS.MCART.Types.Extensions
 {
@@ -96,6 +98,141 @@ namespace TheXDS.MCART.Types.Extensions
         {
             if (list.IsSynchronized) action(list);
             else lock (list.SyncRoot) action(list);
+        }
+
+        /// <summary>
+        ///     Desordena los elementos de un <see cref="IList{T}" />.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de elementos contenidos en el <see cref="IList{T}" />.
+        /// </typeparam>
+        /// <param name="c"><see cref="IList{T}" /> a desordenar.</param>
+        /// <exception cref="ArgumentNullException">
+        ///     Se produce si <paramref name="c" /> es <see langword="null" />.
+        /// </exception>
+        /// <exception cref="EmptyCollectionException">
+        ///     Se produce si <paramref name="c" /> hace referencia a una colección
+        ///     vacía.
+        /// </exception>
+        public static void Shuffle<T>(this IList<T> c)
+        {
+            Shuffle(c, 1);
+        }
+
+        /// <summary>
+        ///     Desordena los elementos de un <see cref="IList{T}" />.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de elementos contenidos en el <see cref="IList{T}" />.
+        /// </typeparam>
+        /// <param name="c"><see cref="IList{T}" /> a desordenar.</param>
+        /// <param name="deepness">
+        ///     Profundidad del desorden. 1 es el valor más alto.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///     Se produce si <paramref name="c" /> es <see langword="null" />.
+        /// </exception>
+        /// <exception cref="EmptyCollectionException">
+        ///     Se produce si <paramref name="c" /> hace referencia a una colección
+        ///     vacía.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     Se produce si <paramref name="deepness" /> es inferior a 1, o
+        ///     superior a la cuenta de elementos de la colección a desordenar.
+        /// </exception>
+        public static void Shuffle<T>(this IList<T> c, in int deepness)
+        {
+            var enumerable = c.ToList();
+            Shuffle(enumerable, 0, enumerable.Count - 1, deepness);
+        }
+
+        /// <summary>
+        ///     Desordena los elementos del intervalo especificado de un
+        ///     <see cref="IList{T}" />.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de elementos contenidos en el <see cref="IList{T}" />.
+        /// </typeparam>
+        /// <param name="c"><see cref="IList{T}" /> a desordenar.</param>
+        /// <param name="firstIdx">Índice inicial del intervalo.</param>
+        /// <param name="lastIdx">Índice inicial del intervalo.</param>
+        public static void Shuffle<T>(this IList<T> c, in int firstIdx, in int lastIdx)
+        {
+            Shuffle(c, firstIdx, lastIdx, 1);
+        }
+
+        /// <summary>
+        ///     Desordena los elementos del intervalo especificado de un
+        ///     <see cref="IList{T}" />.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de elementos contenidos en el <see cref="IList{T}" />.
+        /// </typeparam>
+        /// <param name="toShuffle"><see cref="IList{T}" /> a desordenar.</param>
+        /// <param name="deepness">Profundidad del desorden. 1 es el más alto.</param>
+        /// <param name="firstIdx">Índice inicial del intervalo.</param>
+        /// <param name="lastIdx">Índice inicial del intervalo.</param>
+        public static void Shuffle<T>(this IList<T> toShuffle, in int firstIdx, in int lastIdx, in int deepness)
+        {
+            Shuffle(toShuffle, firstIdx, lastIdx, deepness, RandomExtensions.Rnd);
+        }
+
+        /// <summary>
+        ///     Desordena los elementos del intervalo especificado de un
+        ///     <see cref="IList{T}" />.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de elementos contenidos en el <see cref="IList{T}" />.
+        /// </typeparam>
+        /// <param name="toShuffle"><see cref="IList{T}" /> a desordenar.</param>
+        /// <param name="deepness">Profundidad del desorden. 1 es el más alto.</param>
+        /// <param name="firstIdx">Índice inicial del intervalo.</param>
+        /// <param name="lastIdx">Índice inicial del intervalo.</param>
+        /// <param name="random">Generador de números aleatorios a utilizar.</param>
+        public static void Shuffle<T>(this IList<T> toShuffle, int firstIdx, int lastIdx, int deepness, Random random)
+        {
+            if (toShuffle is null) throw new ArgumentNullException(nameof(toShuffle));
+            if (random is null) random = RandomExtensions.Rnd;
+            if (!toShuffle.Any()) throw new EmptyCollectionException(toShuffle);
+            if (!firstIdx.IsBetween(0, toShuffle.Count)) throw new IndexOutOfRangeException();
+            if (!lastIdx.IsBetween(0, toShuffle.Count - 1)) throw new IndexOutOfRangeException();
+            if (!deepness.IsBetween(1, lastIdx - firstIdx)) throw new ArgumentOutOfRangeException(nameof(deepness));
+            if (firstIdx > lastIdx) Common.Swap(ref firstIdx, ref lastIdx);
+
+            lastIdx++;
+            for (var j = firstIdx; j < lastIdx; j += deepness)
+            {
+                toShuffle.Swap(j, random.Next(firstIdx, lastIdx));
+            }
+        }
+
+        /// <summary>
+        ///     Intercambia la posición de dos elementos dentro de un <see cref="IList{T}"/>.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="collection">Colección sobre la cual intercambiar la posición de dos elementos.</param>
+        /// <param name="indexA">Índice del primer elemento.</param>
+        /// <param name="indexB">Índice del segundo elemento.</param>
+        public static void Swap<T>(this IList<T> collection, int indexA, int indexB)
+        {
+            if (indexA == indexB) return;
+            var tmp = collection[indexB];
+            collection[indexB] = collection[indexA];
+            collection[indexA] = tmp;
+        }
+
+        /// <summary>
+        ///     Intercambia la posición de dos elementos dentro de un <see cref="IList{T}"/>.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="collection">Colección sobre la cual intercambiar la posición de dos elementos.</param>
+        /// <param name="a">Índice del primer elemento.</param>
+        /// <param name="b">Índice del segundo elemento.</param>
+        public static void Swap<T>(this IList<T> collection, T a, T b)
+        {
+            
+            if (!collection.ContainsAll(a, b)) throw new Exception();
+            Swap(collection, collection.IndexOf(a), collection.IndexOf(b));
         }
     }
 }

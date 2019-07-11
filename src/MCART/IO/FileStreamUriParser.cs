@@ -82,8 +82,22 @@ namespace TheXDS.MCART.IO
         /// </exception>
         public override Stream? Open(Uri uri)
         {
-            if (!File.Exists(uri.OriginalString)) return null;
-            return new FileStream(uri.OriginalString, FileMode.Open);
+            if (uri.OriginalString.StartsWith("file://"))
+            {
+                try
+                {
+                    return System.Net.WebRequest.Create(uri).GetResponse().GetResponseStream();
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                if (!File.Exists(uri.OriginalString)) return null;
+                return new FileStream(uri.OriginalString, FileMode.Open);
+            }
         }
     }
 }

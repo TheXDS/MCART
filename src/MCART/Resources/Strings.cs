@@ -605,6 +605,7 @@ namespace TheXDS.MCART.Resources
         public const string TheTask = "La tarea";
         public const string TheType = "El tipo";
         public const string TheUid = "El Uid";
+        public const string TheUri = "El Uri";
         public const string TheUsr = "El usuario";
         public const string TheValue = "El valor";
         public const string Timeout = "Se ha agotado el tiempo de espera.";

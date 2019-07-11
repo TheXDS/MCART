@@ -1,5 +1,5 @@
 ﻿/*
-HttpStreamUriParser.cs
+IWebUriParser.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -25,30 +25,37 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #nullable enable
 
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Net;
+using System.Threading.Tasks;
+using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.IO
 {
-
     /// <summary>
-    ///     Obtiene un <see cref="Stream"/> a partir de un <see cref="Uri"/>
-    ///     que apunta a un recurso web.
+    ///     Define una serie de miembros a implementar por un tipo que permita
+    ///     interpretar un <see cref="Uri"/> y obtener una respuesta desde un
+    ///     servicio web.
     /// </summary>
-    public class HttpStreamUriParser : WebStreamUriParser<HttpWebResponse>
+    public interface IWebUriParser : IStreamUriParser
     {
         /// <summary>
-        ///     Enumera los protocolos soportados por este
-        ///     <see cref="HttpStreamUriParser"/>.
+        ///     Obtiene una respuesta Web a partir del <see cref="Uri"/>
+        ///     especificado.
         /// </summary>
-        protected override IEnumerable<string> SchemeList
-        {
-            get
-            {
-                yield return "http";
-                yield return "https";
-            }
-        }
+        /// <param name="uri">Dirección web a resolver.</param>
+        /// <returns>
+        ///     La respuesta enviada por un servidor web.
+        /// </returns>
+        WebResponse GetResponse(Uri uri);
+
+        /// <summary>
+        ///     Obtiene una respuesta Web a partir del <see cref="Uri"/>
+        ///     especificado de forma asíncrona.
+        /// </summary>
+        /// <param name="uri">Dirección web a resolver.</param>
+        /// <returns>
+        ///     La respuesta enviada por un servidor web.
+        /// </returns>
+        Task<WebResponse> GetResponseAsync(Uri uri);
     }
 }

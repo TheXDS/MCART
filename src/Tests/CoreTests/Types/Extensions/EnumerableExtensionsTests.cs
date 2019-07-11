@@ -25,8 +25,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #pragma warning disable CS1591
 
 using System.Linq;
-using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
 using Xunit;
+using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
 
 namespace TheXDS.MCART.Tests.Types.Extensions
 {
@@ -56,11 +56,11 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         {
             var c = new[] { 1, 2, 3, 4, 5 };
 
-            Assert.Equal(new[] { 1, 2, 3, 4, 5 }, c.Shift(0));
-            Assert.Equal(new[] { 2, 3, 4, 5, 0 }, c.Shift(1));
-            Assert.Equal(new[] { 3, 4, 5, 0, 0 }, c.Shift(2));
-            Assert.Equal(new[] { 0, 1, 2, 3, 4 }, c.Shift(-1));
-            Assert.Equal(new[] { 0, 0, 1, 2, 3 }, c.Shift(-2));
+            Assert.Equal(new[] { 1, 2, 3, 4, 5 }, c.Shift(0).ToArray());
+            Assert.Equal(new[] { 2, 3, 4, 5, 0 }, c.Shift(1).ToArray());
+            Assert.Equal(new[] { 3, 4, 5, 0, 0 }, c.Shift(2).ToArray());
+            Assert.Equal(new[] { 0, 1, 2, 3, 4 }, c.Shift(-1).ToArray());
+            Assert.Equal(new[] { 0, 0, 1, 2, 3 }, c.Shift(-2).ToArray());
         }
 
         [Fact]
@@ -68,11 +68,11 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         {
             var c = new[] { 1, 2, 3, 4, 5 };
 
-            Assert.Equal(new[] { 1, 2, 3, 4, 5 }, c.Rotate(0));
-            Assert.Equal(new[] { 2, 3, 4, 5, 1 }, c.Rotate(1));
-            Assert.Equal(new[] { 3, 4, 5, 1, 2 }, c.Rotate(2));
-            Assert.Equal(new[] { 5, 1, 2, 3, 4 }, c.Rotate(-1));
-            Assert.Equal(new[] { 4, 5, 1, 2, 3 }, c.Rotate(-2));
+            Assert.Equal(new[] { 1, 2, 3, 4, 5 }, c.Rotate(0).ToArray());
+            Assert.Equal(new[] { 2, 3, 4, 5, 1 }, c.Rotate(1).ToArray());
+            Assert.Equal(new[] { 3, 4, 5, 1, 2 }, c.Rotate(2).ToArray());
+            Assert.Equal(new[] { 5, 1, 2, 3, 4 }, c.Rotate(-1).ToArray());
+            Assert.Equal(new[] { 4, 5, 1, 2, 3 }, c.Rotate(-2).ToArray());
         }
         [Fact]
         public void ExceptForTest_WithValues()
