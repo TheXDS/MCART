@@ -27,6 +27,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
+using System.Threading.Tasks;
 using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.IO
@@ -35,7 +37,7 @@ namespace TheXDS.MCART.IO
     ///     Obtiene un <see cref="Stream"/> a partir de la ruta de archivo
     ///     especificada por un <see cref="Uri"/>.
     /// </summary>
-    public class FileStreamUriParser : SimpleStreamUriParser
+    public class FileStreamUriParser : SimpleStreamUriParser, IWebUriParser
     {
         /// <summary>
         ///     Enumera los esquemas soportados por este
@@ -47,6 +49,31 @@ namespace TheXDS.MCART.IO
             {
                 yield return "file";
             }
+        }
+
+        ///     Obtiene una respuesta Web a partir del <see cref="Uri"/>
+        ///     especificado.
+        /// </summary>
+        /// <param name="uri">Dirección web a resolver.</param>
+        /// <returns>
+        ///     La respuesta enviada por un servidor web.
+        /// </returns>
+        public WebResponse GetResponse(Uri uri)
+        {
+            return WebRequest.Create(uri).GetResponse();
+        }
+
+        /// <summary>
+        ///     Obtiene una respuesta Web a partir del <see cref="Uri"/>
+        ///     especificado de forma asíncrona.
+        /// </summary>
+        /// <param name="uri">Dirección web a resolver.</param>
+        /// <returns>
+        ///     La respuesta enviada por un servidor web.
+        /// </returns>
+        public Task<WebResponse> GetResponseAsync(Uri uri)
+        {
+            return WebRequest.Create(uri).GetResponseAsync();
         }
 
         /// <summary>
@@ -86,7 +113,7 @@ namespace TheXDS.MCART.IO
             {
                 try
                 {
-                    return System.Net.WebRequest.Create(uri).GetResponse().GetResponseStream();
+                    return WebRequest.Create(uri).GetResponse().GetResponseStream();
                 }
                 catch
                 {
