@@ -1162,7 +1162,7 @@ namespace TheXDS.MCART.Networking.Server
             using var br = new BinaryReader(ms);
             try
             {
-                var commandGuid = br.ReadGuid();
+                var commandGuid = ms.Length > 16 ? br.ReadGuid() : Guid.NewGuid();
                 var c = ReadCommand(br);
 
                 if (_commands.ContainsKey(c))
