@@ -24,6 +24,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 #nullable enable
 
+using System;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using TheXDS.MCART.Types.Extensions;
@@ -36,6 +38,28 @@ namespace TheXDS.MCART.Security.Cryptography
     /// </summary>
     public class RSACryptoTransform : ICryptoTransform
     {
+        /// <summary>
+        ///     Instancia un nuevo <see cref="CryptoStream"/> utilizando la
+        ///     instancia de <see cref="RSACryptoServiceProvider"/> para crear
+        ///     un nuevo <see cref="RSACryptoTransform"/>.
+        /// </summary>
+        /// <param name="stream">
+        ///     Flujo sobre el cual escribir los datos encriptados.
+        /// </param>
+        /// <param name="rsa">
+        ///     Instancia de <see cref="RSACryptoServiceProvider"/> a utilizar
+        ///     para construir el nuevo <see cref="RSACryptoTransform"/>
+        /// </param>
+        /// <returns>
+        ///     Un nuevo <see cref="CryptoStream"/> con el destino y el objeto
+        ///     de transformación especificados.
+        /// </returns>
+        public static CryptoStream ToStream(Stream stream, RSACryptoServiceProvider rsa)
+        {
+            if (!stream.CanWrite) throw new NotSupportedException();
+            return new CryptoStream(stream, new RSACryptoTransform(rsa), CryptoStreamMode.Write);
+        }
+
         private readonly RSACryptoServiceProvider _rsa;
 
         /// <summary>
@@ -77,6 +101,15 @@ namespace TheXDS.MCART.Security.Cryptography
         /// </summary>
         public RSACryptoTransform() : this(4096)
         {
+        }
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="RSACryptoTransform"/>.
+        /// </summary>
+        public RSACryptoTransform(RSACryptoServiceProvider rsa)
+        {
+            _rsa = rsa;
         }
 
         /// <summary>

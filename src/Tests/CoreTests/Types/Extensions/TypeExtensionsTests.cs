@@ -28,9 +28,30 @@ using System;
 using System.Linq;
 using Xunit;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
+using static TheXDS.MCART.Types.Extensions.TaskExtensions;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace TheXDS.MCART.Tests.Types.Extensions
 {
+    public class TaskExtensionsTest
+    {
+        [Fact]
+        public async Task WithCancellationTest()
+        {
+            var t = new System.Diagnostics.Stopwatch();
+            
+            t.Start();
+            await Assert.ThrowsAsync<TaskCanceledException>(() => Task.Delay(1000).WithCancellation(new CancellationTokenSource(500).Token));
+            t.Stop();
+
+            Assert.True(t.ElapsedMilliseconds < 1000);
+        }
+    }
+
+
+
+
     public class TypeExtensionsTests
     {
         [Fact]

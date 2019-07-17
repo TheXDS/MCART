@@ -32,6 +32,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 using System.Threading.Tasks;
 using TheXDS.MCART.Events;
 using TheXDS.MCART.Exceptions;
@@ -180,6 +181,8 @@ namespace TheXDS.MCART.Networking.Server
     /// </summary>
     public class Server
     {
+        private readonly CancellationTokenSource _cancellation = new CancellationTokenSource();
+
         /// <summary>
         ///     Lista de clientes conectados.
         /// </summary>
@@ -200,6 +203,26 @@ namespace TheXDS.MCART.Networking.Server
         ///     sirviendo a clientes (vivo)
         /// </summary>
         private bool _isAlive;
+
+        private void Kill()
+        {
+            _listener.Stop();
+            _isAlive = false;
+            _cancellation.Cancel();
+            ServerStopped?.Invoke(this, DateTime.Now);
+        }
+
+        private void PurgeClients()
+        {
+            while (_clients.Count > 0)
+            {
+                try
+                {
+                    _clients.FirstOrDefault()?.Disconnect();
+                }
+                catch { /* Silenciar la excepción */ }
+            }
+        }
 
         /// <summary>
         ///     Lista de objetos <see cref="Client" /> conectados a este servidor.
@@ -316,16 +339,10 @@ namespace TheXDS.MCART.Networking.Server
                 _clients.Add(client);
                 while (client.IsAlive)
                 {
-                    var ts = client.RecieveAsync();
-                    var waitData = true;
-                    if (Task.WaitAny(ts, Task.Run(() =>
+                    var r = GetResponse(client.RecieveAsync(_cancellation.Token));
+
+                    if (!_cancellation.IsCancellationRequested)
                     {
-                        // ReSharper disable once AccessToModifiedClosure
-                        // ReSharper disable once EmptyEmbeddedStatement
-                        while (_isAlive && waitData) ;
-                    })) == 0)
-                    {
-                        var r = GetResponse(ts);
                         if (r.Any())
                         {
                             Protocol.ClientAttendant(client, r);
@@ -342,12 +359,10 @@ namespace TheXDS.MCART.Networking.Server
                              * hilos, el cliente no desecha correctamente 
                              */
                             client.Disconnect();
-                            waitData = false;
                             break;
                         }
                     }
 
-                    waitData = false;
                     if (!client.Disconnecting) continue;
                     ClientFarewell?.Invoke(this, client);
                     Protocol.ClientBye(client);
@@ -358,11 +373,11 @@ namespace TheXDS.MCART.Networking.Server
             else if (client?.IsAlive ?? false)
             {
                 ClientRejected?.Invoke(this, client);
-                try { client.Disconnect(); }
+                try { client?.Disconnect(); }
                 catch { /* Silenciar excepción */ }
             }
 
-            if (_clients.Contains(client)) _clients.Remove(client);
+            if (!(client is null) && _clients.Contains(client)) _clients.Remove(client);
         }
 
         /// <summary>
@@ -401,12 +416,12 @@ namespace TheXDS.MCART.Networking.Server
         /// <summary>
         ///     Ocurre cuando un cliente se desconecta inesperadamente.
         /// </summary>
-        public event EventHandler<ValueEventArgs<Client>> ClientLost;
+        public event EventHandler<ValueEventArgs<Client?>> ClientLost;
 
         /// <summary>
         ///     Ocurre cuando el protocolo rechaza al nuevo cliente.
         /// </summary>
-        public event EventHandler<ValueEventArgs<Client>> ClientRejected;
+        public event EventHandler<ValueEventArgs<Client?>> ClientRejected;
 
         /// <summary>
         ///     Encapsula <see cref="TcpListener.AcceptTcpClientAsync" /> para
@@ -418,31 +433,15 @@ namespace TheXDS.MCART.Networking.Server
         /// </returns>
         private async Task<TcpClient?> GetClient()
         {
-            //Necesario para poder detener el lambda
-            //de espera sin matar al servidor.
-            var bewaiting = true;
             try
             {
-                var t = _listener.AcceptTcpClientAsync();
-                // ReSharper disable once AccessToModifiedClosure
-                // ReSharper disable once EmptyEmbeddedStatement
-                if (t == await Task.WhenAny(t, Task.Run(() =>
-                    {
-                        while (_isAlive && bewaiting) ;
-                    })))
-                    //devolver al cliente que se obtenga del hilo de aceptación...
-                    return await t;
+                return await _listener.AcceptTcpClientAsync();
             }
-#if PreferExceptions
-				catch { throw; }
-#endif
-            finally
+            catch
             {
-                bewaiting = false;
-            } //detener el lambda de espera...
-
-            // Devolver null. BeAlive() se encarga de manejar correctamente esto
-            return null;
+                // Devolver null. BeAlive() se encarga de manejar correctamente esto
+                return null;
+            }
         }
 
         /// <summary>
@@ -480,19 +479,9 @@ namespace TheXDS.MCART.Networking.Server
         /// </summary>
         public void Stop()
         {
-            _listener.Stop();
-            _isAlive = false;
-            ServerStopped?.Invoke(this, DateTime.Now);
+            Kill();
             Task.WhenAll(_clientThreads).Wait(DisconnectionTimeout);
-
-            while (_clients.Count > 0)
-            {
-                try
-                {
-                    _clients.FirstOrDefault()?.Disconnect();
-                }
-                catch { /* Silenciar la excepción */ }
-            }
+            PurgeClients();
         }
 
         /// <summary>
@@ -504,20 +493,9 @@ namespace TheXDS.MCART.Networking.Server
         /// </returns>
         public async Task StopAsync()
         {
-            _listener.Stop();
-            _isAlive = false;
-            ServerStopped?.Invoke(this, DateTime.Now);
-            await Task.WhenAny(
-                Task.WhenAll(_clientThreads),
-                Task.Delay(DisconnectionTimeout));
-            while (Clients.Any())
-            {
-                try
-                {
-                    Clients.FirstOrDefault()?.Disconnect();
-                }
-                catch { /* Silenciar la excepción */ }
-            }
+            Kill();
+            await Task.WhenAny(Task.WhenAll(_clientThreads), Task.Delay(DisconnectionTimeout));
+            PurgeClients();
         }
 
         #region Helpers

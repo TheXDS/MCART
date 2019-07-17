@@ -27,24 +27,27 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 #nullable enable
 
+using System;
+
 namespace TheXDS.MCART.Networking
 {
-
+    /// <inheritdoc />
     /// <summary>
-    ///     Contiene definiciones y objetos predeterminados a utilizar en el
-    ///     espacio de nombres <see cref="Networking"/>.
+    ///     Atributo que se establece en el miembro de una enumeración a ser
+    ///     utilizado como la respuesta en caso de encontrar un comando
+    ///     que no ha sido mapeado a una función de un protocolo derivado de la
+    ///     clase
+    ///     <see cref="T:TheXDS.MCART.Networking.Server.SelfWiredCommandProtocol`3" />
     /// </summary>
-    public static class Common
+    /// <remarks>
+    ///     Si ningún miembro de la enumeración se marca con este atributo, en
+    ///     caso de no existir una función que esté mapeada al comando de la
+    ///     solicitud, se devolverá el valor que sea marcado con el atributo
+    ///     <see cref="T:TheXDS.MCART.Networking.ErrorResponseAttribute" />, o en su defecto se lanzará
+    ///     una excepción que el servidor deberá manejar.
+    /// </remarks>
+    [AttributeUsage(AttributeTargets.Field)]
+    public sealed class NotMappedResponseAttribute : Attribute
     {
-        /// <summary>
-        ///     Puerto predeterminado para todos los objetos de red.
-        /// </summary>
-        public const int DefaultPort = 51200;
-
-        /// <summary>
-        ///     Tiempo de espera en milisegundos antes de realizar una
-        ///     desconexión forzada.
-        /// </summary>
-        public const int DisconnectionTimeout = 15000;
     }
 }

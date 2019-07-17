@@ -60,25 +60,30 @@ namespace TheXDS.MCART.Networking.Server
             private byte[] MkResp(TResult resp, bool withGuid = true)
             {
                 var l = new List<byte>();
-                if (withGuid)
+
+                if (Parent.AppendGuid)
                 {
-                    l.AddRange(BitConverter.GetBytes(true));
-                    l.AddRange(CommandGuid.ToByteArray());
-                }
-                else
-                {
-                    l.AddRange(BitConverter.GetBytes(false));
+                    if (withGuid)
+                    {
+                        l.AddRange(BitConverter.GetBytes(true));
+                        l.AddRange(CommandGuid.ToByteArray());
+                    }
+                    else
+                    {
+                        l.AddRange(BitConverter.GetBytes(false));
+                    }
                 }
                 return l.Concat(_toResponse(resp)).ToArray();
             }
 
-            internal Request(Guid comnandGuid, BinaryReader reader, TClient client, Server<TClient> server, TCommand command)
+            internal Request(Guid comnandGuid, BinaryReader reader, TClient client, Server<TClient> server, TCommand command, ManagedCommandProtocol<TClient, TCommand, TResult> parent)
             {
                 CommandGuid = comnandGuid;
                 Reader = reader ?? throw new ArgumentNullException(nameof(reader));
                 Client = client ?? throw new ArgumentNullException(nameof(client));
                 Server = server ?? throw new ArgumentNullException(nameof(server));
                 Command = command;
+                Parent = parent;
             }
 
             /// <summary>
@@ -109,6 +114,11 @@ namespace TheXDS.MCART.Networking.Server
             ///     de la solicitud.
             /// </summary>
             public BinaryReader Reader { get; }
+
+            /// <summary>
+            ///     Obtiene al protocolo padre de esta solicitud.
+            /// </summary>
+            public ManagedCommandProtocol<TClient, TCommand, TResult> Parent { get; }
 
             /// <summary>
             ///     Obtiene el contenido del Payload de esta solicitud.
@@ -1048,6 +1058,13 @@ namespace TheXDS.MCART.Networking.Server
         private readonly Dictionary<TCommand, CommandCallback> _commands = new Dictionary<TCommand, CommandCallback>();
 
         /// <summary>
+        ///     Obtiene o establece un valor que indica si el protocolo
+        ///     adjuntará automáticamente el Guid de respuesta al comando
+        ///     enviado por un cliente.
+        /// </summary>
+        protected bool AppendGuid { get; set; } = true;
+
+        /// <summary>
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="ManagedCommandProtocol{TClient, TCommand, TResponse}"/>.
         /// </summary>
@@ -1167,7 +1184,7 @@ namespace TheXDS.MCART.Networking.Server
 
                 if (_commands.ContainsKey(c))
                 {
-                    _commands[c](new Request(commandGuid, br, client, Server, c));
+                    _commands[c](new Request(commandGuid, br, client, Server, c, this));
                 }
                 else
                 {

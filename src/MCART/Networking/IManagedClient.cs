@@ -27,24 +27,36 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 #nullable enable
 
+using System;
+
 namespace TheXDS.MCART.Networking
 {
-
     /// <summary>
-    ///     Contiene definiciones y objetos predeterminados a utilizar en el
-    ///     espacio de nombres <see cref="Networking"/>.
+    ///     Define una serie de miembros a implementar por un tipo que
+    ///     represente a un cliente de red administrado. 
     /// </summary>
-    public static class Common
+    public interface IManagedClient
     {
         /// <summary>
-        ///     Puerto predeterminado para todos los objetos de red.
+        ///     Obtiene un valor que indica que esta conexión está encriptada.
         /// </summary>
-        public const int DefaultPort = 51200;
+        bool Encrypted { get; }
+        
+        /// <summary>
+        ///     Obtiene un valor que indica si la conexión utiliza compresión.
+        /// </summary>
+        bool Compressed { get; }
 
         /// <summary>
-        ///     Tiempo de espera en milisegundos antes de realizar una
-        ///     desconexión forzada.
+        ///     Obtiene un valor que indica si el cliente espera la bandera de
+        ///     presencia de Guid, y el Guid correspondiente.
         /// </summary>
-        public const int DisconnectionTimeout = 15000;
+        bool ExpectsGuid { get; }
+
+        /// <summary>
+        ///     Obtiene un valor que indica si el cliente envía comandos junto
+        ///     con un <see cref="Guid"/> de identificación.
+        /// </summary>
+        bool SendsGuid { get; }
     }
 }

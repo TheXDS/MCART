@@ -34,8 +34,68 @@ namespace TheXDS.MCART.Types.Extensions
     /// <summary>
     ///     Extensiones para la clase <see cref="Task"/>.
     /// </summary>
+    [DebuggerStepThrough]
     public static class TaskExtensions
     {
+        /// <summary>
+        ///     Agrega soporte de cancelación a las tareas que no admiten el
+        ///     uso de un <see cref="CancellationToken"/> de forma nativa.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de resultado devuelto por la tarea.
+        /// </typeparam>
+        /// <param name="task">
+        ///     Tarea a ejecutar.
+        /// </param>
+        /// <param name="cancellationToken">
+        ///     Token de cancelación.
+        /// </param>
+        /// <returns>
+        ///     El resutlado de la operación asíncrona.
+        /// </returns>
+        /// <exception cref="TaskCanceledException">
+        ///     Se produce cuando la tarea es cancelada por medio de
+        ///     <paramref name="cancellationToken"/> antes de finalizar.
+        /// </exception>
+        public static Task<T> WithCancellation<T>(this Task<T> task, CancellationToken cancellationToken)
+        {
+            return task.IsCompleted
+                ? task
+                : task.ContinueWith(
+                    completedTask => completedTask.GetAwaiter().GetResult(),
+                    cancellationToken,
+                    TaskContinuationOptions.ExecuteSynchronously,
+                    TaskScheduler.Default);
+        }
+
+        /// <summary>
+        ///     Agrega soporte de cancelación a las tareas que no admiten el
+        ///     uso de un <see cref="CancellationToken"/> de forma nativa.
+        /// </summary>
+        /// <param name="task">
+        ///     Tarea a ejecutar.
+        /// </param>
+        /// <param name="cancellationToken">
+        ///     Token de cancelación.
+        /// </param>
+        /// <returns>
+        ///     El resutlado de la operación asíncrona.
+        /// </returns>
+        /// <exception cref="TaskCanceledException">
+        ///     Se produce cuando la tarea es cancelada por medio de
+        ///     <paramref name="cancellationToken"/> antes de finalizar.
+        /// </exception>
+        public static Task WithCancellation(this Task task, CancellationToken cancellationToken)
+        {
+            return task.IsCompleted
+                ? task
+                : task.ContinueWith(
+                    completedTask => completedTask.GetAwaiter().GetResult(),
+                    cancellationToken,
+                    TaskContinuationOptions.ExecuteSynchronously,
+                    TaskScheduler.Default);
+        }
+
         /// <summary>
         ///     Espera la finalización de una tarea y devuelve su resultado.
         /// </summary>
@@ -44,11 +104,11 @@ namespace TheXDS.MCART.Types.Extensions
         /// </typeparam>
         /// <param name="task">Tarea a esperar.</param>
         /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
-        [DebuggerStepThrough, Sugar]
+        [Sugar]
         public static T Yield<T>(this Task<T> task)
         {
-            task.Wait();
-            return task.Result;
+            //task.Wait();
+            return task.GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -60,7 +120,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="task">Tarea a esperar.</param>
         /// <param name="ct">Token de cancelación de la tarea.</param>
         /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
-        [DebuggerStepThrough, Sugar]
+        [Sugar]
         public static T Yield<T>(this Task<T> task, CancellationToken ct)
         {
             task.Wait(ct);
@@ -79,7 +139,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     abortarla forzosamente.
         /// </param>
         /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
-        [DebuggerStepThrough, Sugar]
+        [Sugar]
         public static T Yield<T>(this Task<T> task, TimeSpan timeout)
         {
             task.Wait(timeout);
@@ -98,7 +158,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     finalice antes de abortarla forzosamente.
         /// </param>
         /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
-        [DebuggerStepThrough, Sugar]
+        [Sugar]
         public static T Yield<T>(this Task<T> task, int msTimeout)
         {
             task.Wait(msTimeout);
@@ -118,10 +178,10 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         /// <param name="ct">Token de cancelación de la tarea.</param>
         /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
-        [DebuggerStepThrough, Sugar]
+        [Sugar]
         public static T Yield<T>(this Task<T> task, int msTimeout, CancellationToken ct)
         {
-            task.Wait(msTimeout,ct);
+            task.Wait(msTimeout, ct);
             return task.Result;
         }
 
@@ -138,6 +198,19 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
+        ///     Ejecuta una tarea en un contexto que arrojará cualquier
+        ///     excepción producida durante su ejecución.
+        /// </summary>
+        /// <param name="task">Tarea a ejecutar.</param>
+        /// <returns>Una tarea que permite observar la operación actual.</returns>
+        public static async Task<T> Throwable<T>(this Task<T> task)
+        {
+            var r = await task;
+            if (task.IsFaulted) throw task.Exception ?? new AggregateException();
+            return r;
+        }
+
+        /// <summary>
         ///     Pone en cola una tarea.
         /// </summary>
         /// <typeparam name="T">Tipo de la tarea.</typeparam>
@@ -147,6 +220,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     <paramref name="task"/>, lo cual permite realizar llamadas con
         ///     sintaxis Fluent.
         /// </returns>
+        [Sugar]
         public static T Enqueue<T>(this T task, ICollection<Task> tasks) where T : Task
         {
             tasks.Add(task);

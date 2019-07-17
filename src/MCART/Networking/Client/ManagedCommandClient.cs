@@ -30,12 +30,15 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Events;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
+using System.IO.Compression;
+using TheXDS.MCART.Security.Cryptography;
 
 namespace TheXDS.MCART.Networking.Client
 {
@@ -48,14 +51,28 @@ namespace TheXDS.MCART.Networking.Client
     /// <typeparam name="TResult">
     ///     <see cref="Enum"/> con las respuestas aceptadas.
     /// </typeparam>
-    public abstract class ManagedCommandClient<TCommand, TResult> : ActiveClient where TCommand : struct, Enum where TResult : struct, Enum
+    public abstract class ManagedCommandClient<TCommand, TResult> : ActiveClient, IManagedClient where TCommand : struct, Enum where TResult : struct, Enum
     {
-        private static byte[] MkResp(TCommand cmd, out Guid guid)
+        private RSACryptoServiceProvider _rsa;
+        private DeflateStream _zip;
+
+        private byte[] MkResp(TCommand cmd, out Guid guid)
         {
+            if (!SendsGuid)
+            {
+                guid = default;
+                return _toCommand(cmd).ToArray();
+            }
             guid = Guid.NewGuid();
             return guid.ToByteArray().Concat(_toCommand(cmd)).ToArray();
         }
         private readonly HashSet<ManualResetEventSlim> _cmdWaiters = new HashSet<ManualResetEventSlim>();
+
+        /// <summary>
+        ///     Obtiene o establece un valor que indica si el cliente espera
+        ///     que las respuestas del servidor incluyan un Guid
+        /// </summary>
+        protected bool IncludesGuid { get; set; } = true;
 
         /// <summary>
         ///     Envía un comando al servidor.
@@ -130,11 +147,12 @@ namespace TheXDS.MCART.Networking.Client
         /// </param>
         protected void Send(TCommand command, IEnumerable<byte> rawData, ResponseCallback? callback)
         {
-            var d = MkResp(command, out var guid);
+            var d = MkResp(command, out var guid).Concat(rawData).ToArray();
             if (!(callback is null))
                 EnqueueRequest(guid, callback);
 
-            TalkToServer(d.Concat(rawData).ToArray());
+            //TODO: implementar compresión/encriptado
+            TalkToServer(d);
         }
 
 #nullable disable
@@ -831,6 +849,14 @@ namespace TheXDS.MCART.Networking.Client
         /// </summary>
         public static bool SkipMapped { get; set; } = true;
 
+        public bool Encrypted { get; protected set; }
+
+        public bool Compressed { get; protected set; }
+
+        public bool ExpectsGuid { get; protected set; } = true;
+
+        public bool SendsGuid { get; protected set; } = true;
+
         private static IEnumerable<ResponseCallback> ScanType(ManagedCommandClient<TCommand, TResult> instance)
         {
             return instance.GetType().GetMethods().WithSignature<ResponseCallback>()
@@ -967,7 +993,7 @@ namespace TheXDS.MCART.Networking.Client
 
                     using var ms = new MemoryStream(data);
                     using var br = new BinaryReader(ms);
-                    if (br.ReadBoolean())
+                    if (IncludesGuid && ms.Length > 17 && br.ReadBoolean())
                     {
                         var guid = br.ReadGuid();
                         if (_requests.TryGetValue(guid, out var callback))
@@ -1038,6 +1064,25 @@ namespace TheXDS.MCART.Networking.Client
         {
             if (!_requests.ContainsKey(guid))
                 _requests.Add(guid, callback);
+        }
+
+        private void DoSend(IEnumerable<byte> data)
+        {
+            var d = data.ToArray();
+            if (Compressed)
+            {
+                using var ms = new MemoryStream();
+                using var ds = new DeflateStream(ms,CompressionLevel.Optimal);
+                ds.Write(d, 0, d.Length);
+                d = ms.ToArray();
+            }
+            if (Encrypted)
+            {
+                using var ms = new MemoryStream();
+
+                using var cs = RSACryptoTransform.ToStream(ms, _rsa);
+
+            }
         }
     }
 }

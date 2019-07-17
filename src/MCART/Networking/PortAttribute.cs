@@ -27,24 +27,29 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 #nullable enable
 
+using System;
+using TheXDS.MCART.Attributes;
+
 namespace TheXDS.MCART.Networking
 {
-
+    /// <inheritdoc />
     /// <summary>
-    ///     Contiene definiciones y objetos predeterminados a utilizar en el
-    ///     espacio de nombres <see cref="Networking"/>.
+    ///     Atributo que establece un número de puerto que un
+    ///     <see cref="T:TheXDS.MCART.Networking.Server.Server`1" /> debería utilizar al escuchar
+    ///     conexiones entrantes.
     /// </summary>
-    public static class Common
+    [AttributeUsage(AttributeTargets.Class)]
+    public sealed class PortAttribute : IntAttribute
     {
+        /// <inheritdoc />
         /// <summary>
-        ///     Puerto predeterminado para todos los objetos de red.
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.Networking.PortAttribute" />.
         /// </summary>
-        public const int DefaultPort = 51200;
-
-        /// <summary>
-        ///     Tiempo de espera en milisegundos antes de realizar una
-        ///     desconexión forzada.
-        /// </summary>
-        public const int DisconnectionTimeout = 15000;
+        /// <param name="portNumber">Número de puerto a utilizar.</param>
+        public PortAttribute(int portNumber) : base(portNumber)
+        {
+            if (!portNumber.IsBetween(1, 65535)) throw new ArgumentOutOfRangeException(nameof(portNumber));
+        }
     }
 }

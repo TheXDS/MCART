@@ -269,9 +269,9 @@ namespace TheXDS.MCART.Networking.Client
                 ex => new ConnectionFailureEventArgs(ex, server, port));
         }
 
-        private async Task<bool> ConnectAsync([NotNull] Func<TcpClient, Task> connect,
-            [NotNull] Func<HostConnectionInfoEventArgs> connected,
-            [NotNull] Func<Exception, ConnectionFailureEventArgs> failure)
+        private async Task<bool> ConnectAsync(Func<TcpClient, Task> connect,
+            Func<HostConnectionInfoEventArgs> connected,
+            Func<Exception, ConnectionFailureEventArgs> failure)
         {
             try
             {

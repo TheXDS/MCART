@@ -32,6 +32,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
+using static TheXDS.MCART.Types.Extensions.TaskExtensions;
 
 namespace TheXDS.MCART.Networking.Server
 {
@@ -181,15 +182,22 @@ namespace TheXDS.MCART.Networking.Server
         /// <returns></returns>
         protected async Task<byte[]> GetDataAsync(NetworkStream ns)
         {
-            var outp = new List<byte>();
-            do
+            try
             {
-                var buff = new byte[Connection.ReceiveBufferSize];
-                var sze = await ns.ReadAsync(buff, 0, buff.Length);
-                if (sze < Connection.ReceiveBufferSize) Array.Resize(ref buff, sze);
-                outp.AddRange(buff);
-            } while (ns.DataAvailable);
-            return outp.ToArray();
+                var outp = new List<byte>();
+                do
+                {
+                    var buff = new byte[Connection.ReceiveBufferSize];
+                    var sze = await ns.ReadAsync(buff, 0, buff.Length);
+                    if (sze < Connection.ReceiveBufferSize) Array.Resize(ref buff, sze);
+                    outp.AddRange(buff);
+                } while (ns.DataAvailable);
+                return outp.ToArray();
+            }
+            catch (ObjectDisposedException)
+            {
+                return new byte[0];
+            }
         }
 
         /// <summary>
@@ -201,11 +209,10 @@ namespace TheXDS.MCART.Networking.Server
             var ns = NwStream();
             if (ns is null)
 #if PreferExceptions
-				throw new ArgumentNullException();
+            				throw new ArgumentNullException();
 #else
-                return new byte[] { };
+                return new byte[0];
 #endif
-
             return await GetDataAsync(ns);
         }
 
@@ -214,18 +221,21 @@ namespace TheXDS.MCART.Networking.Server
         /// </summary>
         /// <param name="cancellationToken">Token de cancelación de tarea.</param>
         /// <returns>Un arreglo de <see cref="byte" /> con la información recibida desde el servidor.</returns>
-        public async Task<byte[]> RecieveAsync(CancellationToken cancellationToken)
+        public Task<byte[]> RecieveAsync(CancellationToken cancellationToken)
         {
             var ns = NwStream();
-            if (ns is null)
-#if PreferExceptions
-				throw new ArgumentNullException();
-#else
-                return new byte[] { };
-#endif
-            using var ms = new MemoryStream();
-            await ns.CopyToAsync(ms, Connection.ReceiveBufferSize, cancellationToken);
-            return ms.ToArray();
+            if (ns is null) return Task.FromResult(new byte[0]);
+            try
+            {
+                //using var ms = new MemoryStream();
+                //await ns.CopyToAsync(ms, Connection.ReceiveBufferSize, cancellationToken);
+                //return !cancellationToken.IsCancellationRequested ? ms.ToArray() : new byte[0];
+                return GetDataAsync(ns).WithCancellation(cancellationToken);
+            }
+            catch
+            {
+                return Task.FromResult(new byte[0]);
+            }
         }
 
         /// <summary>
