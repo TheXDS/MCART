@@ -53,26 +53,150 @@ namespace TheXDS.MCART.Networking.Client
     /// </typeparam>
     public abstract class ManagedCommandClient<TCommand, TResult> : ActiveClient, IManagedClient where TCommand : struct, Enum where TResult : struct, Enum
     {
-        private RSACryptoServiceProvider _rsa;
-        private DeflateStream _zip;
+        /// <summary>
+        ///     Describe la firma de una respuesta del protocolo.
+        /// </summary>
+        public delegate void ResponseCallback(TResult response, BinaryReader br);
 
-        private byte[] MkResp(TCommand cmd, out Guid guid)
+        private static readonly Func<TCommand, byte[]> _toCommand;
+        private static readonly TResult? _errResponse;
+        private static readonly TResult? _notMappedResponse;
+        private static readonly TResult? _unkResponse;
+        private static readonly MethodInfo _readResp;
+
+        /// <summary>
+        ///     Activa o desactiva el escaneo del tipo de instancia a construir
+        ///     en busca de funciones de manejo de comandos del protocolo.
+        /// </summary>
+        public static bool ScanTypeOnCtor { get; set; } = true;
+
+        /// <summary>
+        ///     Activa o desactiva el mapeo de funciones por convención de
+        ///     nombres para el manejo de comandos del protocolo.
+        /// </summary>
+        public static bool EnableMapByName { get; set; } = true;
+
+        /// <summary>
+        ///     Activa o desactiva el salto de comandos mapeados, efectivamente
+        ///     causando el efecto inverso en el mecanismo de protección anti
+        ///     mapeo duplicado.
+        /// </summary>
+        public static bool SkipMapped { get; set; } = true;
+
+        /// <summary>
+        ///     Inicializa la clase
+        ///     <see cref="ManagedCommandClient{TCommand, TResponse}"/>.
+        /// </summary>
+        static ManagedCommandClient()
         {
-            if (!SendsGuid)
-            {
-                guid = default;
-                return _toCommand(cmd).ToArray();
-            }
-            guid = Guid.NewGuid();
-            return guid.ToByteArray().Concat(_toCommand(cmd)).ToArray();
+            _toCommand = EnumExtensions.ToBytes<TCommand>();
+            _readResp = BinaryReaderExtensions.GetBinaryReadMethod(typeof(TResult).GetEnumUnderlyingType());
+
+            var vals = Enum.GetValues(typeof(TResult)).OfType<TResult?>().ToArray();
+            _errResponse = vals.FirstOrDefault(p => p.HasAttr<ErrorResponseAttribute>());
+            _unkResponse = vals.FirstOrDefault(p => p.HasAttr<UnknownResponseAttribute>()) ?? _errResponse;
+            _notMappedResponse = vals.FirstOrDefault(p => p.HasAttr<NotMappedResponseAttribute>()) ?? _unkResponse;
         }
+
         private readonly HashSet<ManualResetEventSlim> _cmdWaiters = new HashSet<ManualResetEventSlim>();
+        private readonly Dictionary<Guid, ResponseCallback> _requests = new Dictionary<Guid, ResponseCallback>();
+        private readonly Dictionary<TResult, ResponseCallback> _responses = new Dictionary<TResult, ResponseCallback>();
+        private RSACryptoServiceProvider? _rsa = null;
+
+        private static IEnumerable<ResponseCallback> ScanType(ManagedCommandClient<TCommand, TResult> instance)
+        {
+            return instance.GetType().GetMethods().WithSignature<ResponseCallback>()
+                .Concat(instance.PropertiesOf<ResponseCallback>())
+                .Concat(instance.FieldsOf<ResponseCallback>());
+        }
+        private static TResult ReadResponse(BinaryReader br)
+        {
+            return (TResult)Enum.ToObject(typeof(TResult), _readResp.Invoke(br, new object[0]));
+        }
+
+        /// <summary>
+        ///     Ocurre cuando el servidor informa de un comando válido que no
+        ///     pudo ser manejado debido a que no se configuró una función de
+        ///     control para el comando.
+        /// </summary>
+        public event EventHandler<ValueEventArgs<TCommand>> NotMappedCommandIssued;
+
+        /// <summary>
+        ///     Ocurre cuando el servidor informa que se ha enviado un comando
+        ///     desconocido.
+        /// </summary>
+        public event EventHandler<ValueEventArgs<TCommand>> UnknownCommandIssued;
+
+        /// <summary>
+        ///     Ocurre cuando el servidor ha encontrado un error general.
+        /// </summary>
+        public event EventHandler<ExceptionEventArgs> ServerError;
+
+        /// <summary>
+        ///     Obtiene un valor que indica si esta conexión está encriptada.
+        /// </summary>
+        public bool Encrypted => !(_rsa is null);
+
+        /// <summary>
+        ///     Obtiene la clave pública de esta conexión encriptada.
+        /// </summary>
+        public byte[] PubKey => _rsa?.ExportCspBlob(false) ?? new byte[0];
+
+        /// <summary>
+        ///     Obtiene un valor que indica si la conexión utilizará
+        ///     compresión.
+        /// </summary>
+        public bool Compressed { get; protected set; }
+
+        /// <summary>
+        ///     Obtiene un valor que indica si este cliente espera que las
+        ///     respuestas enviadas por el servidor a los comandos enviados por
+        ///     este cliente incluyan un <see cref="Guid"/> de identificación.
+        /// </summary>
+        public bool ExpectsGuid { get; protected set; } = true;
+
+        /// <summary>
+        ///     Obtiene un valor que indica si este cliente envía comandos con
+        ///     un <see cref="Guid"/> de identificación al servidor.
+        /// </summary>
+        public bool SendsGuid { get; protected set; } = true;
 
         /// <summary>
         ///     Obtiene o establece un valor que indica si el cliente espera
         ///     que las respuestas del servidor incluyan un Guid
         /// </summary>
         protected bool IncludesGuid { get; set; } = true;
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="ManagedCommandClient{TCommand, TResponse}"/>.
+        /// </summary>
+        protected ManagedCommandClient()
+        {
+            if (!ScanTypeOnCtor) return;
+            foreach (var j in ScanType(this))
+            {
+                var attrs = j.Method.GetCustomAttributes(false).OfType<IValueAttribute<TResult>>().ToList();
+                if (attrs.Any()) // Mapeo por configuración
+                {
+                    foreach (var k in attrs)
+                    {
+                        if (_responses.ContainsKey(k.Value)) throw new DataAlreadyExistsException();
+                        WireUp(k.Value, j);
+                    }
+                }
+                else if (EnableMapByName) // Mapeo por convención
+                {
+                    if (!Enum.TryParse(j.Method.Name, out TResult k)) continue;
+                    WireUp(k, j);
+                }
+            }
+            foreach (var l in WireUp())
+            {
+                WireUp(l.Key, l.Value);
+            }
+            ServerError += (_, e) => AbortCommands();
+        }
 
         /// <summary>
         ///     Envía un comando al servidor.
@@ -151,11 +275,8 @@ namespace TheXDS.MCART.Networking.Client
             if (!(callback is null))
                 EnqueueRequest(guid, callback);
 
-            //TODO: implementar compresión/encriptado
-            TalkToServer(d);
+            DoSend(d);
         }
-
-#nullable disable
 
         /// <summary>
         ///     Envía un comando al servidor, y ejecuta una acción al recibir
@@ -177,19 +298,19 @@ namespace TheXDS.MCART.Networking.Client
         {
             var d = MkResp(command, out var guid);
             var waiting = _cmdWaiters.Push(new ManualResetEventSlim());
+#pragma warning disable CS8653
             T retVal = default;
+#pragma warning restore CS8653
             EnqueueRequest(guid, (r, br) =>
             {
                 retVal = callback(r, br);
                 waiting.Set();
             });
-            TalkToServer(d.Concat(rawData).ToArray());
+            DoSend(d.Concat(rawData).ToArray());
             waiting.Wait();
             _cmdWaiters.Remove(waiting);
             return retVal;
         }
-
-#nullable enable
 
         /// <summary>
         ///     Envía un comando al servidor, y ejecuta una acción al recibir
@@ -459,7 +580,7 @@ namespace TheXDS.MCART.Networking.Client
         {
             var d = MkResp(command, out var guid);
             if (!(callback is null)) EnqueueRequest(guid, callback);
-            return TalkToServerAsync(d);
+            return DoSendAsync(d);
         }
 
         /// <summary>
@@ -518,7 +639,7 @@ namespace TheXDS.MCART.Networking.Client
         {
             var d = MkResp(command, out var guid);
             if (!(callback is null)) EnqueueRequest(guid, callback);
-            return TalkToServerAsync(d.Concat(rawData).ToArray());
+            return DoSendAsync(d.Concat(rawData).ToArray());
         }
 
         /// <summary>
@@ -805,101 +926,11 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Describe la firma de una respuesta del protocolo.
+        ///     Indica al cliente que debe encriptar la conexión.
         /// </summary>
-        public delegate void ResponseCallback(TResult response, BinaryReader br);
-
-        private static readonly Func<TCommand, byte[]> _toCommand;
-        private static readonly TResult? _errResponse;
-        private static readonly TResult? _notMappedResponse;
-        private static readonly TResult? _unkResponse;
-        private static readonly MethodInfo _readResp;
-
-        /// <summary>
-        ///     Inicializa la clase
-        ///     <see cref="ManagedCommandClient{TCommand, TResponse}"/>.
-        /// </summary>
-        static ManagedCommandClient()
+        protected void GoEncrypted()
         {
-            _toCommand = EnumExtensions.ToBytes<TCommand>();
-            _readResp = BinaryReaderExtensions.GetBinaryReadMethod(typeof(TResult).GetEnumUnderlyingType());
-
-            var vals = Enum.GetValues(typeof(TResult)).OfType<TResult?>().ToArray();
-            _errResponse = vals.FirstOrDefault(p => p.HasAttr<ErrorResponseAttribute>());
-            _unkResponse = vals.FirstOrDefault(p => p.HasAttr<UnknownResponseAttribute>()) ?? _errResponse;
-            _notMappedResponse = vals.FirstOrDefault(p => p.HasAttr<NotMappedResponseAttribute>()) ?? _unkResponse;
-        }
-
-        /// <summary>
-        ///     Activa o desactiva el escaneo del tipo de instancia a construir
-        ///     en busca de funciones de manejo de comandos del protocolo.
-        /// </summary>
-        public static bool ScanTypeOnCtor { get; set; } = true;
-
-        /// <summary>
-        ///     Activa o desactiva el mapeo de funciones por convención de
-        ///     nombres para el manejo de comandos del protocolo.
-        /// </summary>
-        public static bool EnableMapByName { get; set; } = true;
-
-        /// <summary>
-        ///     Activa o desactiva el salto de comandos mapeados, efectivamente
-        ///     causando el efecto inverso en el mecanismo de protección anti
-        ///     mapeo duplicado.
-        /// </summary>
-        public static bool SkipMapped { get; set; } = true;
-
-        public bool Encrypted { get; protected set; }
-
-        public bool Compressed { get; protected set; }
-
-        public bool ExpectsGuid { get; protected set; } = true;
-
-        public bool SendsGuid { get; protected set; } = true;
-
-        private static IEnumerable<ResponseCallback> ScanType(ManagedCommandClient<TCommand, TResult> instance)
-        {
-            return instance.GetType().GetMethods().WithSignature<ResponseCallback>()
-                .Concat(instance.PropertiesOf<ResponseCallback>())
-                .Concat(instance.FieldsOf<ResponseCallback>());
-        }
-
-        private static TResult ReadResponse(BinaryReader br)
-        {
-            return (TResult)Enum.ToObject(typeof(TResult), _readResp.Invoke(br, new object[0]));
-        }
-
-        private readonly Dictionary<TResult, ResponseCallback> _responses = new Dictionary<TResult, ResponseCallback>();
-
-        /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ManagedCommandClient{TCommand, TResponse}"/>.
-        /// </summary>
-        protected ManagedCommandClient()
-        {
-            if (!ScanTypeOnCtor) return;
-            foreach (var j in ScanType(this))
-            {
-                var attrs = j.Method.GetCustomAttributes(false).OfType<IValueAttribute<TResult>>().ToList();
-                if (attrs.Any()) // Mapeo por configuración
-                {
-                    foreach (var k in attrs)
-                    {
-                        if (_responses.ContainsKey(k.Value)) throw new DataAlreadyExistsException();
-                        WireUp(k.Value, j);
-                    }
-                }
-                else if (EnableMapByName) // Mapeo por convención
-                {
-                    if (!Enum.TryParse(j.Method.Name, out TResult k)) continue;
-                    WireUp(k, j);
-                }
-            }
-            foreach (var l in WireUp())
-            {
-                WireUp(l.Key, l.Value);
-            }
-            ServerError += (_, e) => AbortCommands();
+            _rsa = new RSACryptoServiceProvider();
         }
 
         /// <summary>
@@ -1031,26 +1062,6 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Ocurre cuando el servidor informa de un comando válido que no
-        ///     pudo ser manejado debido a que no se configuró una función de
-        ///     control para el comando.
-        /// </summary>
-        public event EventHandler<ValueEventArgs<TCommand>> NotMappedCommandIssued;
-
-        /// <summary>
-        ///     Ocurre cuando el servidor informa que se ha enviado un comando
-        ///     desconocido.
-        /// </summary>
-        public event EventHandler<ValueEventArgs<TCommand>> UnknownCommandIssued;
-
-        /// <summary>
-        ///     Ocurre cuando el servidor ha encontrado un error general.
-        /// </summary>
-        public event EventHandler<ExceptionEventArgs> ServerError;
-
-        private readonly Dictionary<Guid, ResponseCallback> _requests = new Dictionary<Guid, ResponseCallback>();
-
-        /// <summary>
         ///     Agrega un manejador de respuesta de un comando enviado con el 
         ///     <see cref="Guid"/> especificado.
         /// </summary>
@@ -1079,10 +1090,40 @@ namespace TheXDS.MCART.Networking.Client
             if (Encrypted)
             {
                 using var ms = new MemoryStream();
-
-                using var cs = RSACryptoTransform.ToStream(ms, _rsa);
-
+                using var cs = RSACryptoTransform.ToStream(ms, _rsa ?? throw new TamperException());
+                cs.Write(d, 0, d.Length);
+                d = ms.ToArray();
             }
+            TalkToServer(d);
+        }
+        private async Task DoSendAsync(IEnumerable<byte> data)
+        {
+            var d = data.ToArray();
+            if (Compressed)
+            {
+                using var ms = new MemoryStream();
+                using var ds = new DeflateStream(ms, CompressionLevel.Optimal);
+                await ds.WriteAsync(d, 0, d.Length);
+                d = ms.ToArray();
+            }
+            if (Encrypted)
+            {
+                using var ms = new MemoryStream();
+                using var cs = RSACryptoTransform.ToStream(ms, _rsa ?? throw new TamperException());
+                await cs.WriteAsync(d, 0, d.Length);
+                d = ms.ToArray();
+            }
+            await TalkToServerAsync(d);
+        }
+        private byte[] MkResp(TCommand cmd, out Guid guid)
+        {
+            if (!SendsGuid)
+            {
+                guid = default;
+                return _toCommand(cmd).ToArray();
+            }
+            guid = Guid.NewGuid();
+            return guid.ToByteArray().Concat(_toCommand(cmd)).ToArray();
         }
     }
 }

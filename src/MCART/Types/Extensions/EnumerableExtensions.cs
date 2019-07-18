@@ -30,9 +30,6 @@ using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 
-// ReSharper disable UnusedMember.Global
-// ReSharper disable MemberCanBePrivate.Global
-
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
@@ -54,6 +51,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             foreach (var j in collection) yield return j;
         }
+        
         /// <summary>
         ///     Obtiene al primer elemento del tipo solicitado dentro de una
         ///     colección.
