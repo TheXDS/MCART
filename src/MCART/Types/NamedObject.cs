@@ -29,7 +29,6 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
 using System.Linq;
-// ReSharper disable MemberCanBePrivate.Global
 
 namespace TheXDS.MCART.Types
 {
@@ -101,8 +100,9 @@ namespace TheXDS.MCART.Types
         public static string Infer(T o)
         {
             return
-                (o as MemberInfo)?.NameOf() ??
-                (o as Enum)?.NameOf() ??
+                (o as INameable)?.Name ??
+                (o is MemberInfo mi ? MemberInfoExtensions.NameOf(mi) : null) ??
+                (o is Enum en ? EnumExtensions.NameOf(en) : null) ??
                 o.GetAttr<NameAttribute>()?.Value ??
                 o.ToString();
         }
