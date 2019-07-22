@@ -101,7 +101,7 @@ namespace TheXDS.MCART.Types
         {
             return
                 (o as INameable)?.Name ??
-                (o is MemberInfo mi ? MemberInfoExtensions.NameOf(mi) : null) ??
+                (o is MemberInfo mi ? TheXDS.MCART.Types.Extensions.MemberInfoExtensions.NameOf(mi) : null) ??
                 (o is Enum en ? EnumExtensions.NameOf(en) : null) ??
                 o.GetAttr<NameAttribute>()?.Value ??
                 o.ToString();
