@@ -945,7 +945,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>
         ///     La cadena, o <see langword="null" /> si la cadena está vacía.
         /// </returns>
-        public static string? OrNull(this string str)
+        public static string? OrNull(this string? str)
         {
             return OrX(str, null);
         }
@@ -962,7 +962,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>
         ///     La cadena, o <see langword="null" /> si la cadena está vacía.
         /// </returns>
-        public static string? OrNull(this string str, string notNullFormat)
+        public static string? OrNull(this string? str, string notNullFormat)
         {
             return !str.IsEmpty() ? string.Format(notNullFormat, str) : null;
         }

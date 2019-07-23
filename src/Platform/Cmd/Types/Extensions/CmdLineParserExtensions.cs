@@ -38,6 +38,16 @@ namespace TheXDS.MCART.Types.Extensions
     public static class CmdLineParserExtensions
     {
         /// <summary>
+        ///     Obtiene el nombre a mostrar del argumento.
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <returns></returns>
+        public static string HelpArgName(this Argument arg)
+        {
+            return arg.ShortName.HasValue ? $"--{arg.LongName}, -{arg.ShortName}" : $"--{arg.LongName}";
+        }
+
+        /// <summary>
         ///     Genera una pantalla de ayuda con los argumentos registrados en
         ///     el <see cref="CmdLineParser"/> especificado.
         /// </summary>
@@ -47,19 +57,25 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         public static void PrintHelp(this CmdLineParser args)
         {
+            var tl = string.Format(HelpArgTemplate, string.Empty).Length;
+            var bw = int.MaxValue;
+            try
+            {
+                bw = Console.BufferWidth;
+            }
+            catch { /* Silenciar excepción */ }
             IExposeInfo nfo = new AssemblyInfo(ReflectionHelpers.GetEntryPoint().DeclaringType.Assembly);
             Cmd.Helpers.About(nfo);
-
-            var width = args.AvailableArguments.Max(p => p.LongName.Length);
+            var width = args.AvailableArguments.Max(p => p.HelpArgName().Length);
             foreach (var j in args.AvailableArguments)
             {
-                Console.Write($"  /{j.LongName.PadRight(width)}  - ");
+                Console.Write(string.Format(HelpArgTemplate, j.HelpArgName().PadRight(width)));
                 var _1st = false;
-                foreach (var k in (j.Summary ?? string.Empty).TextWrap(Console.BufferWidth - (width + 8)))
+                foreach (var k in (j.Summary.OrNull() ?? NoArgHelp).TextWrap(bw - (width + tl + 1)))
                 {
                     if (_1st)
                     {
-                        Console.Write(new string(' ', width + 7));
+                        Console.Write(new string(' ', width + tl));
                     }
                     _1st = true;
                     Console.WriteLine(k);

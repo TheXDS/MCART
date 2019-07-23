@@ -29,5 +29,7 @@ namespace TheXDS.MCART.Resources
         public static string InvalidArg(string x) => $"Argumento inválido: {x}";
         public static string MissingArg(string x) => $"Parámetro requerido {x} no especificado.";
         public const string HelpArgSummary = "Muestra la ayuda sobre esta aplicación.";
+        public const string HelpArgTemplate = "  {0}  - ";
+        public static string NoArgHelp => Strings.Warn("No existe ayuda para este argumento.");
     }
 }
