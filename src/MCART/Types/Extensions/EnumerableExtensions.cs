@@ -26,9 +26,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Exceptions;
 
 namespace TheXDS.MCART.Types.Extensions
 {
@@ -594,6 +594,66 @@ namespace TheXDS.MCART.Types.Extensions
                 if (j.Equals(obj)) return true;
             }
             return false;
+        }
+
+        /// <summary>
+        ///     Ordena una secuencia de elementos de acuerdo a su prioridad
+        ///     indicada por el atributo <see cref="PriorityAttribute"/>.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+        /// </typeparam>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        [Sugar]
+        public static IOrderedEnumerable<T> Prioritized<T>(this IEnumerable<T> c)
+        {
+            return Ordered<T, PriorityAttribute>(c);
+        }
+
+        /// <summary>
+        ///     Ordena una secuencia de elementos de acuerdo a un valor de
+        ///     atributo especificado.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+        /// </typeparam>
+        /// <typeparam name="TAttr">
+        ///     Tipo de atributo del cual obtener el valor de orden.
+        /// </typeparam>
+        /// <typeparam name="TAttrValue">Tipo de valor de orden.</typeparam>
+        /// <param name="c">Colección a ordenar.</param>
+        /// <returns>
+        ///     Una enumeración con los elementos de la secuencia especificada
+        ///     ordenados de acuerdo al valor del atributo especificado.
+        /// </returns>
+        public static IOrderedEnumerable<T> Ordered<T, TAttr, TAttrValue>(this IEnumerable<T> c)
+            where TAttrValue : struct
+            where TAttr : Attribute, IValueAttribute<TAttrValue>
+        {
+            var t = typeof(TAttrValue);
+            var d = t.GetField(@"MaxValue", BindingFlags.Public | BindingFlags.Static) is FieldInfo f ? (TAttrValue)f.GetValue(null) : default;
+            return c.OrderBy(p => p.GetAttr<TAttr>()?.Value ?? d);
+        }
+
+        /// <summary>
+        ///     Ordena una secuencia de elementos de acuerdo a un valor de
+        ///     atributo especificado.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+        /// </typeparam>
+        /// <typeparam name="TAttr">
+        ///     Tipo de atributo del cual obtener el valor de orden.
+        /// </typeparam>
+        /// <param name="c">Colección a ordenar.</param>
+        /// <returns>
+        ///     Una enumeración con los elementos de la secuencia especificada
+        ///     ordenados de acuerdo al valor del atributo especificado.
+        /// </returns>
+        public static IOrderedEnumerable<T> Ordered<T, TAttr>(this IEnumerable<T> c) where TAttr : Attribute, IValueAttribute<int>
+        {
+            return c.OrderBy(p => p.GetAttr<TAttr>()?.Value ?? int.MaxValue);
         }
     }
 }

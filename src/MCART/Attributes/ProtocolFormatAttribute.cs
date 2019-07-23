@@ -29,10 +29,11 @@ using static System.AttributeTargets;
 
 namespace TheXDS.MCART.Attributes
 {
+
     /// <inheritdoc cref="Attribute"/>
     /// <summary>
-    /// Establece un formato de protocolo para abrir un vínculo por medio del 
-    /// sistema operativo.
+    ///     Establece un formato de protocolo para abrir un vínculo por medio
+    ///     del sistema operativo.
     /// </summary>
     [AttributeUsage(Property | Field)]
     [Serializable]

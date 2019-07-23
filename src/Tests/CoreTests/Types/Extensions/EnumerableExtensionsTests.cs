@@ -93,6 +93,5 @@ namespace TheXDS.MCART.Tests.Types.Extensions
 
             Assert.Equal(result, array.ExceptFor(exclusions).ToArray());
         }
-
     }
 }
