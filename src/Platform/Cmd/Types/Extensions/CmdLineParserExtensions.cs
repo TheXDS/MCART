@@ -55,7 +55,7 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 Console.Write($"  /{j.LongName.PadRight(width)}  - ");
                 var _1st = false;
-                foreach (var k in (j.Summary ?? string.Empty).TextWrap(Console.BufferWidth - (width + 7)))
+                foreach (var k in (j.Summary ?? string.Empty).TextWrap(Console.BufferWidth - (width + 8)))
                 {
                     if (_1st)
                     {
