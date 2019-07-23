@@ -36,6 +36,28 @@ namespace TheXDS.MCART.Types.Extensions
     public static class ListExtensions
     {
         /// <summary>
+        ///     Quita todos los elementos del tipo especificado de la
+        ///     colección.
+        /// </summary>
+        /// <typeparam name="T">Tipo de elementos a remover.</typeparam>
+        /// <param name="c">Colección de la cual remover los elementos.</param>
+        public static void RemoveOf<T>(this IList c)
+        {
+            var i = 0;
+            while (i < c.Count)
+            {
+                if (typeof(T).IsInstanceOfType(c[i]))
+                {
+                    c.RemoveAt(i);
+                }
+                else
+                {
+                    i++;
+                }
+            }
+        }
+
+        /// <summary>
         /// Aplica una operación de rotación sobre el <see cref="IList{T}"/>.
         /// </summary>
         /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>

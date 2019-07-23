@@ -38,6 +38,38 @@ namespace TheXDS.MCART.Types.Extensions
     public static class EnumerableExtensions
     {
         /// <summary>
+        ///     Obtiene la cuenta de elementos nulos dentro de una secuencia.
+        /// </summary>
+        /// <param name="c">
+        ///     Secuencia desde la cual obtener la cuenta de elementos nulos.
+        /// </param>
+        /// <returns>
+        ///     La cuenta de elementos nulos dentro de la colección.
+        /// </returns>
+        public static int NullCount(this IEnumerable c)
+        {
+            var count = 0;
+            foreach (var j in c)
+            {
+                if (j is null) count++;
+            }
+            return count;
+        }
+
+        /// <summary>
+        ///     Agrupa una secuencia de elementos de acuerdo al tipo de los
+        ///     mismos.
+        /// </summary>
+        /// <param name="c">Colección a agrupar.</param>
+        /// <returns>
+        ///     Una secuencia de elementos agrupados de acuerdo a su tipo.
+        /// </returns>
+        public static IEnumerable<IGrouping<Type, object>> GroupByType(this IEnumerable c)
+        {
+            return c.ToGeneric().NotNull().GroupBy(p => p?.GetType());
+        }
+
+        /// <summary>
         ///     Enumera una colección no genérica como una genérica.
         /// </summary>
         /// <param name="collection">

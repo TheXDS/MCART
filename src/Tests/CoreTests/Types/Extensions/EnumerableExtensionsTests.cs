@@ -24,14 +24,38 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma warning disable CS1591
 
+using System;
 using System.Linq;
 using Xunit;
 using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
 
 namespace TheXDS.MCART.Tests.Types.Extensions
 {
+
     public class EnumerableExtensionsTests
     {
+        [Fact]
+        public void GroupByTypeTest()
+        {
+            var c = new object[]
+            {
+                1, 2,
+                "Test", "Test2",
+                null, null
+            };
+            var g = c.GroupByType().ToList();
+
+            Assert.Equal(typeof(int), g[0].Key);
+            Assert.Contains(1, g[0]);
+            Assert.Contains(2, g[0]);
+
+            Assert.Equal(typeof(string), g[1].Key);
+            Assert.Contains("Test", g[1]);
+            Assert.Contains("Test2", g[1]);
+
+            Assert.Equal(2, g.Count);
+        }
+
         [Fact]
         public void RangeTest()
         {
