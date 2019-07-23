@@ -35,6 +35,8 @@ namespace TheXDS.MCART.Types.Extensions
     /// </summary>
     public static class ListExtensions
     {
+
+
         /// <summary>
         ///     Quita todos los elementos del tipo especificado de la
         ///     colección.

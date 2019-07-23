@@ -38,6 +38,32 @@ namespace TheXDS.MCART.Types.Extensions
     public static class EnumerableExtensions
     {
         /// <summary>
+        ///     Ejecuta una operación sobre una secuencia en un contexto
+        ///     bloqueado.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de elementos de la secuencia.
+        /// </typeparam>
+        /// <param name="collection">
+        ///     Secuencia sobre la cual ejecutar una operación bloqueada.
+        /// </param>
+        /// <param name="action">
+        ///     Acción a ejecutar sobre la secuencia.
+        /// </param>
+        public static void Locked<T>(this T collection, Action<T> action) where T : IEnumerable
+        {
+            if (collection is ICollection c)
+            {
+                if (c.IsSynchronized) action(collection);
+                else lock (c.SyncRoot) action(collection);
+            }
+            else
+            {
+                lock (collection) action(collection);
+            }
+        }
+
+        /// <summary>
         ///     Obtiene la cuenta de elementos nulos dentro de una secuencia.
         /// </summary>
         /// <param name="c">

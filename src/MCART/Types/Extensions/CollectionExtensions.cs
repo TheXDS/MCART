@@ -221,31 +221,6 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Ejecuta una operación de colección en un contexto bloqueado.
-        /// </summary>
-        /// <typeparam name="T">
-        ///     Tipo de elementos de la colección.
-        /// </typeparam>
-        /// <param name="collection">
-        ///     Colección sobre la cual ejecutar una operación bloqueada.
-        /// </param>
-        /// <param name="action">
-        ///     Acción a ejecutar sobre la colección.
-        /// </param>
-        public static void Locked<T>(this ICollection<T> collection, Action<ICollection<T>> action)
-        {
-            if (collection is ICollection c)
-            {
-                if (c.IsSynchronized) action(collection);
-                else lock (c.SyncRoot) action(collection);
-            }
-            else
-            {
-                lock (collection) action(collection);
-            }
-        }
-
-        /// <summary>
         ///     Añade un conjunto de elementos al <see cref="ICollection{T}"/>.
         /// </summary>
         /// <typeparam name="T">
