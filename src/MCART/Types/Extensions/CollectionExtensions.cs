@@ -35,6 +35,26 @@ namespace TheXDS.MCART.Types.Extensions
     public static class CollectionExtensions
     {
         /// <summary>
+        ///     Quita todos los elementos del tipo especificado de la
+        ///     colección.
+        /// </summary>
+        /// <typeparam name="TItem">
+        ///     Tipo de elementos contenidos en la colección.
+        /// </typeparam>
+        /// <typeparam name="TRemove">Tipo de elementos a remover.</typeparam>
+        /// <param name="collection">Colección de la cual remover los elementos.</param>
+        public static void RemoveOf<TItem, TRemove>(this ICollection<TItem> collection)
+            where TRemove : TItem
+        {
+            var lst = collection.ToList();
+            foreach (var j in lst)
+            {
+                if (!(j is TRemove)) continue;
+                collection.Remove(j);
+            }
+        }
+
+        /// <summary>
         ///     Elimina todos los elementos de una colección que cumplen con una condición.
         /// </summary>
         /// <typeparam name="T">Tipo de elementos en la colección.</typeparam>

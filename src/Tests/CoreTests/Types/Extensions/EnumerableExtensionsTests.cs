@@ -31,7 +31,6 @@ using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
 
 namespace TheXDS.MCART.Tests.Types.Extensions
 {
-
     public class EnumerableExtensionsTests
     {
         [Fact]
