@@ -31,6 +31,7 @@ using System.Collections;
 using System.Linq;
 using System.Reflection;
 using static TheXDS.MCART.Types.Extensions.CollectionExtensions;
+using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.ViewModel
 {

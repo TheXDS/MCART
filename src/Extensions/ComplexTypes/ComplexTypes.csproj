@@ -5,6 +5,6 @@
     <AssemblyName>MCART.Ext.ComplexTypes</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.6.0-preview5.19224.8" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.6.0-preview7.19362.9" />
   </ItemGroup>
 </Project>
