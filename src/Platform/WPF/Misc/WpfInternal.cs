@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #nullable enable
 
 using System;
+using System.Reflection;
 
 namespace TheXDS.MCART.Misc
 {
@@ -32,13 +33,26 @@ namespace TheXDS.MCART.Misc
     {
         internal static Uri MakePackUri(string path)
         {
-            var a = ReflectionHelpers.GetCallingMethod().DeclaringType.Assembly.GetName().Name;
-            return new Uri($"pack://application:,,,/{a};component/{path}");
+            return MakePackUri(path, ReflectionHelpers.GetCallingMethod().DeclaringType?.Assembly ?? throw new InvalidOperationException());
         }
         internal static Uri MkTemplateUri()
         {
-            var t = ReflectionHelpers.GetCallingMethod().DeclaringType;
-            return new Uri($"pack://application:,,,/{t.Assembly.GetName().Name};component/Resources/Templates/{t.Name}Template.xaml");
+            var t = ReflectionHelpers.GetCallingMethod().DeclaringType ?? throw new InvalidOperationException();
+            return MkTemplateUri(t.Name, t.Assembly);
+        }
+
+        internal static Uri MakePackUri(string path, Assembly asm)
+        {
+            return new Uri($"pack://application:,,,/{asm.GetName().Name};component/{path}");
+        }
+
+        internal static Uri MkTemplateUri(string template, Assembly asm)
+        {
+            return MakePackUri($"Resources/Templates/{template}Template.xaml", asm);
+        }
+        internal static Uri MkTemplateUri<T>()
+        {
+            return MakePackUri($"Resources/Templates/{typeof(T).Name}Template.xaml", typeof(T).Assembly);
         }
     }
 }

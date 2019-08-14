@@ -56,7 +56,7 @@ namespace TheXDS.MCART.Controls
         /// </summary>
         static BusyContainer()
         {
-            var d = new ResourceDictionary { Source = WpfInternal.MkTemplateUri() };
+            var d = new ResourceDictionary { Source = WpfInternal.MkTemplateUri<BusyContainer>() };
             Application.Current?.Resources.MergedDictionaries.Add(d);
         }
 
