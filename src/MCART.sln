@@ -93,7 +93,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cmd", "Platform\Cmd\Cmd.csp
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Internals", "Shared\Internals\Internals.shproj", "{F7B14AEA-6C0A-4343-81AE-FB06DCD9C69C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consoleer", "..\Examples\Consoleer\Consoleer.csproj", "{AA5DAAB0-20AF-4967-B592-E494124276E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consoleer", "..\Examples\Consoleer\Consoleer.csproj", "{AA5DAAB0-20AF-4967-B592-E494124276E2}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

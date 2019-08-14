@@ -22,10 +22,14 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using TheXDS.MCART.Math;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Types.Base;
+using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Types
 {
@@ -52,6 +56,68 @@ namespace TheXDS.MCART.Types
         ///     es de solo lectura.
         /// </summary>
         public static readonly Size Infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
+
+
+        /// <summary>
+        ///     Intenta crear un <see cref="Size"/> a partir de una cadena.
+        /// </summary>
+        /// <param name="value">
+        ///     Valor a partir del cual crear un <see cref="Size"/>.
+        /// </param>
+        /// <param name="size">
+        ///     <see cref="Size"/> que ha sido creado.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> si la conversión ha tenido éxito,
+        ///     <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool TryParse(string value, out Size size)
+        {
+            switch (value)
+            {
+                case nameof(Nothing):
+                case null:
+                    size = Nothing;
+                    break;
+                case nameof(Zero):
+                case "0":
+                    size = Zero;
+                    break;
+                default:
+                    var separators = new[]
+                    {
+                        ", ",
+                        "; ",
+                        " - ",
+                        " : ",
+                        " | ",
+                        " ",
+                        ",",
+                        ";",
+                        ":",
+                        "|",
+                    };
+                    return PrivateInternals.TryParseValues<double, Size>(separators, value.Without("()[]{}".ToCharArray()),2, l=> new Size(l[0],l[1]), out size);
+            }
+            return true;
+        }
+
+        /// <summary>
+        ///     Crea un <see cref="Size"/> a partir de una cadena.
+        /// </summary>
+        /// <param name="value">
+        ///     Valor a partir del cual crear un <see cref="Size"/>.
+        /// </param>
+        /// <exception cref="FormatException">
+        ///     Se produce si la conversión ha fallado.
+        /// </exception>
+        /// <returns><see cref="Size"/> que ha sido creado.</returns>
+        public static Size Parse(string value)
+        {
+            if (TryParse(value, out var retval)) return retval;
+            throw new FormatException();
+        }
+
 
         /// <summary>
         ///     Compara la igualdad entre dos instancias de <see cref="Size"/>.
@@ -185,7 +251,9 @@ namespace TheXDS.MCART.Types
         /// <summary>
         ///     Devuelve el código hash generado para esta instancia.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        ///     Un código hash que representa a esta instancia.
+        /// </returns>
         public override int GetHashCode()
         {
             var hashCode = -642398537;

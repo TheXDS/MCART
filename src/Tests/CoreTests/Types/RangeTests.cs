@@ -90,4 +90,16 @@ namespace TheXDS.MCART.Tests.Types
             Assert.Equal(expected, a.Intersects(b));
         }
     }
+
+    public class PointTests
+    {
+        [Theory]
+        [InlineData("1,1", 1, 1)]
+        public void TryParseTest(string value, double x, double y)
+        {
+            Assert.True(Point.TryParse(value, out var p));
+            Assert.Equal(x, p.X);
+            Assert.Equal(y, p.Y);
+        }
+    }
 }

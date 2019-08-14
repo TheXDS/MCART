@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using TheXDS.MCART.Types;
+using TheXDS.MCART.Dialogs;
+using TheXDS.MCART.ViewModel;
 
 namespace TheXDS.MCART.Samples.PictVGA
 {
-    class PictureViewModel : ViewModel.WpfWindowViewModel
+    class PictureViewModel : WpfWindowViewModel
     {
         private string _inputPicture;
         private IEffectProcessor _selectedFilter;
@@ -29,6 +27,7 @@ namespace TheXDS.MCART.Samples.PictVGA
         }
 
         public ICommand BrowseCommand { get; }
+        public ICommand AboutCommand { get; }
         public BitmapImage SourceImage
         {
             get => _sourceImage;
@@ -56,58 +55,15 @@ namespace TheXDS.MCART.Samples.PictVGA
             RegisterPropertyChangeBroadcast(nameof(SourceImage), nameof(DestImage));
             RegisterPropertyChangeBroadcast(nameof(SelectedFilter), nameof(DestImage));
 
+            AboutCommand = new SimpleCommand(OnAbout);
+
             AvailableFilters = Objects.FindAllObjects<IEffectProcessor>();
             WindowSize = new Types.Size(800, 450);
         }
-    }
-    public interface IEffectProcessor : INameable
-    {
-        BitmapSource Process(BitmapImage input);
-    }
-    public class NoiseProcessor : IEffectProcessor
-    {
-        public string Name => "Agrega ruido a una imagen";
 
-        public BitmapSource Process(BitmapImage input)
+        private void OnAbout()
         {
-            var wb = new WriteableBitmap(input);
-            try
-            {
-                // Reserve the back buffer for updates.
-                wb.Lock();
-                var r = new Random();
-                for(int j = 0; j < 32768; j++)
-                {
-
-                    int column = r.Next((int)wb.Width);
-                    int row = r.Next((int)wb.Height);
-                    unsafe
-                    {
-                        // Get a pointer to the back buffer.
-                        int pBackBuffer = (int)wb.BackBuffer;
-
-                        // Find the address of the pixel to draw.
-                        pBackBuffer += row * wb.BackBufferStride;
-                        pBackBuffer += column * 4;
-
-                        // Compute the pixel's color.
-                        int color_data = 255 << 16; // R
-                        color_data |= 128 << 8;   // G
-                        color_data |= 255 << 0;   // B
-
-                        // Assign the color data to the pixel.
-                        *((int*)pBackBuffer) = color_data;
-                    }
-
-                    // Specify the area of the bitmap that changed.
-                    wb.AddDirtyRect(new Int32Rect(column, row, 1, 1));
-                }
-            }
-            finally
-            {
-                wb.Unlock();
-            }
-            return wb;
+            AboutBox.ShowDialog(Application.Current);
         }
     }
 }

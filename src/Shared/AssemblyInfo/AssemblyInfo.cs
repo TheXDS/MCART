@@ -25,7 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Resources;
 
-[assembly: EmbeddedLicense("GPLv3", "TheXDS.MCART.Resources.License", typeof(DeflateGetter))]
+[assembly: EmbeddedLicense("GPLv3", "TheXDS.MCART", typeof(DeflateGetter))]
 #if CLSCompliance
 [assembly: System.CLSCompliant(true)]
 #endif

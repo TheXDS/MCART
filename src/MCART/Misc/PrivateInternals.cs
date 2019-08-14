@@ -85,5 +85,47 @@ namespace TheXDS.MCART.Misc
                 .Select(p => new NamedObject<TField>((TField)p.GetValue(instance)));
         }
 
+        public static bool TryParseValues<TValue, TResult>(string[] separators, string value, byte items, Func<TValue[], TResult> instancer, out TResult result)
+        {
+#if DEBUG
+            if (separators is null || !separators.Any())
+                throw new ArgumentNullException(nameof(separators));
+            if (string.IsNullOrEmpty(value))
+                throw new ArgumentNullException(nameof(value));
+            if (instancer is null)
+                throw new ArgumentNullException(nameof(instancer));
+            if (items > 2)
+                throw new ArgumentOutOfRangeException(nameof(items));
+#endif
+
+            var t = Common.FindConverter<TValue>();
+            if (!(t is null))
+            {
+                foreach (var j in separators)
+                {
+                    var l = value.Split(new[] { j }, StringSplitOptions.RemoveEmptyEntries);
+                    if (l.Length != items) continue;
+                    try
+                    {
+                        var n = new List<TValue>();
+                        var c = 0;
+                        foreach (var k in l)
+                        {
+                            n.Add((TValue)t.ConvertTo(l[c++].Trim(), typeof(TValue)));
+                        }
+                        result = instancer(n.ToArray());
+                        return true;
+                    }
+                    catch
+                    {
+                        break;
+                    }
+                }
+            }
+
+            result = default;
+            return false;
+        }
+
     }
 }

@@ -22,11 +22,14 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System.Windows;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Pages;
+using TheXDS.MCART.Component;
+using TheXDS.MCART.Dialogs;
 
-[assembly:McartComponent(TheXDS.MCART.Resources.RtInfo.ComponentKind.PlatformTarget)]
+[assembly: McartComponent(TheXDS.MCART.Resources.RtInfo.ComponentKind.PlatformTarget)]
 
 namespace TheXDS.MCART.Resources
 {
@@ -53,11 +56,7 @@ namespace TheXDS.MCART.Resources
         /// </summary>
         public static void Show()
         {
-            var w = new Window {
-                Content = new AboutPage(typeof(WpfRtInfo).Assembly)
-            };
-
-            //AboutBox.ShowDialog(GetInfo());
+            AboutBox.ShowDialog(new WpfRtInfo());
         }
 
         /// <inheritdoc />

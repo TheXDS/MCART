@@ -41,8 +41,8 @@ namespace TheXDS.MCART.Resources
     {
         private const string _defaultExt = "png";
 
-        private static readonly ImageUnpacker _imgs = new ImageUnpacker(RtInfo.CoreRtAssembly, typeof(Icons).FullName);
-        private static readonly XamlUnpacker _xaml = new XamlUnpacker(RtInfo.CoreRtAssembly, typeof(Icons).FullName);
+        private static readonly ImageUnpacker _imgs = new ImageUnpacker(typeof(WpfIcons).Assembly, typeof(Icons).FullName);
+        private static readonly XamlUnpacker _xaml = new XamlUnpacker(typeof(WpfIcons).Assembly, typeof(Icons).FullName);
 
         /// <summary>
         ///     Obtiene un ícono desde los recursos incrustados del ensamblado

@@ -25,28 +25,28 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Component;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.ViewModel;
 
-// ReSharper disable UnusedMember.Global
-// ReSharper disable MemberCanBePrivate.Global
+#nullable enable
 
 namespace TheXDS.MCART.Dialogs.ViewModel
 {
     internal class AboutPageViewModel : AboutPageViewModelBase<ApplicationInfo>
     {
-        public UIElement Icon => Element?.Icon;
-
         protected override void OnElementChanged()
         {
             OnPropertyChanged(nameof(Icon));
-            IsMcart = Element?.Assembly == RtInfo.CoreRtAssembly;
-            AboutMcartCommand.SetCanExecute(IsMcart);
+            IsMcart = Element?.Assembly?.HasAttr<McartComponentAttribute>() ?? false;
+            AboutMcartCommand.SetCanExecute(!IsMcart);
             PluginInfoCommand.SetCanExecute(ShowPluginInfo);
             LicenseCommand.SetCanExecute(HasLicense);
         }
 
+        public UIElement? Icon => IsMcart ? WpfIcons.GetXamlIcon(Icons.IconId.MCART) : Element?.Icon;
+        public string? McartComponentKind => Element?.Assembly?.GetAttr<McartComponentAttribute>()?.Kind.NameOf();
         public SimpleCommand AboutMcartCommand { get; }
         public SimpleCommand PluginInfoCommand { get; }
         public SimpleCommand LicenseCommand { get; }
@@ -85,13 +85,11 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         private void OnPluginInfo()
         {
             new PluginBrowser().ShowDialog();
-
         }
 
         private void OnAboutMcart()
         {
             WpfRtInfo.Show();
-
         }
     }
 }

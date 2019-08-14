@@ -41,13 +41,13 @@
                 <controls:StretchyWrapPanel>
                     <Button
                         Visibility="{Binding HasLicense, Converter={StaticResource B2VConv}}"
-                        Click="BtnLicense_OnClick" Content="{x:Static resources:Strings.SeeLicense}"/>
+                        Command="{Binding LicenseCommand}" Content="{x:Static resources:Strings.SeeLicense}"/>
                     <Button
                         Visibility="{Binding ShowPluginInfo, Converter={StaticResource B2VConv}}"
-                        Click="BtnPluginInfo_OnClick" Content="{x:Static resources:Strings.PluginDetails}"/>
+                        Command="{Binding PluginInfoCommand}" Content="{x:Static resources:Strings.PluginDetails}"/>
                     <Button
                         Visibility="{Binding ShowAboutMcart, Converter={StaticResource B2VConv}}"
-                        Click="BtnAboutMCART_OnClick" Content="{x:Static resources:Strings.AboutMCART}"/>
+                        Command="{Binding AboutMcartCommand}" Content="{x:Static resources:Strings.AboutMCART}"/>
                 </controls:StretchyWrapPanel>
             </StackPanel>
         </controls:StretchyWrapPanel>

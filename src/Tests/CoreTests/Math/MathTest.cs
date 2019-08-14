@@ -67,6 +67,13 @@ namespace TheXDS.MCART.Tests.Math
             Assert.Equal(15f, 4f.Wrap(5, 15));
             Assert.Equal(14f, 3f.Wrap(5, 15));
             Assert.Equal(8f, 8f.Wrap(5, 15));
+
+            Assert.Equal(5, 16.Wrap(5, 15));
+            Assert.Equal(6, 17.Wrap(5, 15));
+            Assert.Equal(15, 4.Wrap(5, 15));
+            Assert.Equal(14, 3.Wrap(5, 15));
+            Assert.Equal(8, 8.Wrap(5, 15));
+
         }
     }
 }

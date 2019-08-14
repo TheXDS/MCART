@@ -22,12 +22,15 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using static System.Math;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using St = TheXDS.MCART.Resources.Strings;
 using CI = System.Globalization.CultureInfo;
 using TheXDS.MCART.Types.Base;
+using TheXDS.MCART.Misc;
 
 namespace TheXDS.MCART.Types
 {
@@ -58,6 +61,67 @@ namespace TheXDS.MCART.Types
         ///     Un <see cref="Point" /> con sus coordenadas en el orígen.
         /// </value>
         public static readonly Point Origin = new Point(0, 0);
+
+        /// <summary>
+        ///     Intenta crear un <see cref="Point"/> a partir de una cadena.
+        /// </summary>
+        /// <param name="value">
+        ///     Valor a partir del cual crear un <see cref="Point"/>.
+        /// </param>
+        /// <param name="point">
+        ///     <see cref="Point"/> que ha sido creado.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> si la conversión ha tenido éxito,
+        ///     <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool TryParse(string value, out Point point)
+        {
+            switch (value)
+            {
+                case nameof(Nowhere):
+                case null:
+                    point = Nowhere;
+                    break;
+                case nameof(Origin):
+                case "0":
+                case "+":
+                    point = Origin;
+                    break;
+                default:
+                    var separators = new[]
+                    {
+                        ", ",
+                        "; ",
+                        " - ",
+                        " : ",
+                        " | ",
+                        " ",
+                        ",",
+                        ";",
+                        ":",
+                        "|",
+                    };
+                    return PrivateInternals.TryParseValues<double, Point>(separators, value.Without("()[]{}".ToCharArray()), 2, l => new Point(l[0], l[1]), out point);
+            }
+            return true;
+        }
+
+        /// <summary>
+        ///     Crea un <see cref="Point"/> a partir de una cadena.
+        /// </summary>
+        /// <param name="value">
+        ///     Valor a partir del cual crear un <see cref="Point"/>.
+        /// </param>
+        /// <exception cref="FormatException">
+        ///     Se produce si la conversión ha fallado.
+        /// </exception>
+        /// <returns><see cref="Point"/> que ha sido creado.</returns>
+        public static Point Parse(string value)
+        {
+            if (TryParse(value, out var retval)) return retval;
+            throw new FormatException();
+        }
 
         /// <summary>
         ///     Realiza una operación de suma sobre los puntos.
@@ -534,17 +598,19 @@ namespace TheXDS.MCART.Types
         /// <returns>
         ///     Una representación en forma de <see cref="T:System.String" /> de este objeto.
         /// </returns>
-        public string ToString(string format, IFormatProvider formatProvider)
+        public string ToString(string? format, IFormatProvider formatProvider)
         {
             if (format.IsEmpty()) format = "C";
-            switch (format.ToUpperInvariant()[0])
+#pragma warning disable CS8602
+            return format.ToUpperInvariant()[0] switch
+#pragma warning restore CS8602
             {
-                case 'C': return $"{X}, {Y}";
-                case 'B': return $"[{X}, {Y}]";
-                case 'V': return $"X: {X}, Y: {Y}";
-                case 'N': return $"X: {X}\nY: {Y}";
-                default: throw new FormatException(St.FormatNotSupported(format));
-            }
+                'C' => $"{X}, {Y}",
+                'B' => $"[{X}, {Y}]",
+                'V' => $"X: {X}, Y: {Y}",
+                'N' => $"X: {X}\nY: {Y}",
+                _ => throw new FormatException(St.FormatNotSupported(format)),
+            };
         }
 
         /// <inheritdoc />
@@ -555,7 +621,7 @@ namespace TheXDS.MCART.Types
         /// <returns>
         ///     Una representación en forma de <see cref="T:System.String" /> de este objeto.
         /// </returns>
-        public string ToString(string format)
+        public string ToString(string? format)
         {
             return ToString(format, CI.CurrentCulture);
         }

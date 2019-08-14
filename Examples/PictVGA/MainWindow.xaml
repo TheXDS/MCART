@@ -30,6 +30,7 @@
             <DockPanel>
                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
                     <Button MinWidth="24">...</Button>
+                    <Button Command="{Binding AboutCommand, Mode=OneWay}">?</Button>
                 </StackPanel>
                 <TextBox Text="{Binding InputPicture}"/>
             </DockPanel>

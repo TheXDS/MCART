@@ -349,10 +349,24 @@ namespace TheXDS.MCART
         {
             return domain.GetAssemblies()
                 .Where(p => !p.IsDynamic) // Los ensamblados dinámicos no soportan el método GetExportedTypes().
-                .SelectMany(p => p.GetExportedTypes())
+                .SelectMany(SafeGetExportedTypes)
                 .Where(t.IsAssignableFrom);
         }
 
+        private static IEnumerable<Type> SafeGetExportedTypes(Assembly arg)
+        {
+            Type[] types;
+            try
+            {
+                types = arg.GetExportedTypes();
+            }
+            catch
+            {
+                types = new Type[0];
+            }
+            return types;
+        }
+        
         /// <summary>
         ///     Determina si todos los objetos son <see langword="null" />.
         /// </summary>

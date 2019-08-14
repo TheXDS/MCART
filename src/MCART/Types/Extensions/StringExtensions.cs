@@ -1270,6 +1270,46 @@ namespace TheXDS.MCART.Types.Extensions
             return ToStream(@string, Encoding.UTF8);
         }
 
+        /// <summary>
+        ///     Devuelve una nueva cadena sin los caracteres especificados.
+        /// </summary>
+        /// <param name="string">
+        ///     Cadena a procesar.
+        /// </param>
+        /// <param name="chars">
+        ///     Caracteres a remover.
+        /// </param>
+        /// <returns>
+        ///     Una cadena que no contiene ninguno de los caracteres
+        ///     especificados.
+        /// </returns>
+        public static string Without(this string @string, params char[] chars)
+        {
+            return @string.Without(chars.Select(p=>p.ToString()).ToArray());
+        }
+
+        /// <summary>
+        ///     Devuelve una nueva cadena sin las cadenas especificadas.
+        /// </summary>
+        /// <param name="string">
+        ///     Cadena a procesar.
+        /// </param>
+        /// <param name="strings">
+        ///     Cadenas a remover.
+        /// </param>
+        /// <returns>
+        ///     Una cadena que no contiene ninguno de las cadenas
+        ///     especificadas.
+        /// </returns>
+        public static string Without(this string @string, params string[] strings)
+        {
+            foreach (var j in strings)
+            {
+                @string = @string.Replace(j, string.Empty);
+            }
+            return @string;
+        }
+
         private static string WildCardToRegular(string value)
         {
             return "^" + Regex.Escape(value).Replace("\\?", ".").Replace("\\*", ".*") + "$";

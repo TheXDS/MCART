@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Constructor de clase</Title>
+      <Shortcut>cctor</Shortcut>
+      <Description>Fragmento de código para generar un constructor de clase.</Description>
+      <Author>César Andrés Morgan</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="false">
+          <ID>classname</ID>
+          <ToolTip>Class name</ToolTip>
+          <Function>ClassName()</Function>
+          <Default>ClassNamePlaceholder</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp">
+  <![CDATA[
+/// <summary>
+///     Inicializa la clase <see cref="$classname$"/>
+/// </summary>
+static $classname$()
+{
+    $end$
+}
+      ]]></Code>
+	    <Code Language="vb">
+  <![CDATA[
+''' <summary>   
+'''     Inicializa la clase <see cref="$classname$"/>
+''' </summary>
+Shared Sub New()
+    $end$
+End Sub
+      ]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

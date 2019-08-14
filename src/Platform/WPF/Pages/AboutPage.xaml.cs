@@ -58,7 +58,7 @@ namespace TheXDS.MCART.Pages
         ///     <param name="element">Ensamblado del cual se desea mostrar la
         ///     información.
         /// </param>
-        public AboutPage(Assembly element):this(new ApplicationInfo(element, true))
+        public AboutPage(Assembly element) : this(new ApplicationInfo(element, true))
         {
         }
         /// <inheritdoc />
@@ -70,43 +70,9 @@ namespace TheXDS.MCART.Pages
         ///     <see cref="T:TheXDS.MCART.Component.IExposeInfo" /> a utilizar para exponer la
         ///     información a mostrar.
         /// </param>
-        public AboutPage(ApplicationInfo element):this()
+        public AboutPage(ApplicationInfo element) : this()
         {
             Vm.Element = element;
-        }
-
-        private void BtnLicense_OnClick(object sender, RoutedEventArgs e)
-        {
-            var w = new Window
-            {
-                SizeToContent = SizeToContent.Width,
-                MaxWidth = 640,
-                MaxHeight = 480,
-                Content = new ScrollViewer
-                {
-                    Content = new TextBox
-                    {
-                        VerticalAlignment = VerticalAlignment.Stretch,
-                        HorizontalAlignment = HorizontalAlignment.Stretch,
-                        FontFamily = new FontFamily("Consolas"),
-                        Text=Vm.License,
-                        AcceptsReturn=true,
-                        IsReadOnly = true,
-                        TextWrapping = TextWrapping.WrapWithOverflow
-                    }
-                }
-            };
-            w.ShowDialog();
-        }
-
-        private void BtnAboutMCART_OnClick(object sender, RoutedEventArgs e)
-        {
-            WpfRtInfo.Show();
-        }
-
-        private void BtnPluginInfo_OnClick(object sender, RoutedEventArgs e)
-        {
-            new PluginBrowser().ShowDialog();
         }
     }
 }

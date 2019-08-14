@@ -58,6 +58,7 @@ namespace TheXDS.MCART.Tests.Component
         [InlineData("-rf")]
         [InlineData("-r --Force")]
         [InlineData("--recursive --Force")]
+        [InlineData("--recursive -f")]
         [InlineData("-r -f")]
         [InlineData("/r /Force")]
         [InlineData("/r --Force")]

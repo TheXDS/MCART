@@ -22,14 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#region Configuración de ReSharper
-
-// ReSharper disable CompareOfFloatsByEqualityOperator
-// ReSharper disable PartialTypeWithSinglePart
-// ReSharper disable UnusedMember.Global
-// ReSharper disable MemberCanBePrivate.Global
-
-#endregion
+#nullable enable
 
 using System;
 using CI = System.Globalization.CultureInfo;
@@ -37,6 +30,7 @@ using St = TheXDS.MCART.Resources.Strings;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Types.Base;
+using TheXDS.MCART.Misc;
 
 namespace TheXDS.MCART.Types
 {
@@ -67,6 +61,79 @@ namespace TheXDS.MCART.Types
         ///     Un <see cref="Point3D" /> con sus coordenadas en el orígen.
         /// </value>
         public static readonly Point3D Origin = new Point3D(0, 0, 0);
+
+        /// <summary>
+        ///     Obtiene un punto en el orígen. Este campo es de solo lectura.
+        /// </summary>
+        /// <value>
+        ///     Un <see cref="Point3D" /> con sus coordenadas en el orígen 
+        ///     bidimensional.
+        /// </value>
+        public static readonly Point3D Origin2D = new Point3D(0, 0, double.NaN);
+
+        /// <summary>
+        ///     Intenta crear un <see cref="Point3D"/> a partir de una cadena.
+        /// </summary>
+        /// <param name="value">
+        ///     Valor a partir del cual crear un <see cref="Point3D"/>.
+        /// </param>
+        /// <param name="point">
+        ///     <see cref="Point3D"/> que ha sido creado.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> si la conversión ha tenido éxito,
+        ///     <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool TryParse(string value, out Point3D point)
+        {
+            switch (value)
+            {
+                case nameof(Nowhere):
+                case null:
+                    point = Nowhere;
+                    break;
+                case nameof(Origin):
+                case "0":
+                case "+":
+                    point = Origin;
+                    break;
+                case nameof(Origin2D):
+                    point = Origin2D;
+                    break;
+                default:
+                    var separators = new[]
+                    {
+                        ", ",
+                        "; ",
+                        " - ",
+                        " : ",
+                        " | ",
+                        " ",
+                        ",",
+                        ";",
+                        ":",
+                        "|",
+                    };
+                    return PrivateInternals.TryParseValues<double, Point3D>(separators, value.Without("()[]{}".ToCharArray()), 3, l => new Point3D(l[0], l[1], l[2]), out point);
+            }
+            return true;
+        }
+
+        /// <summary>
+        ///     Crea un <see cref="Point3D"/> a partir de una cadena.
+        /// </summary>
+        /// <param name="value">
+        ///     Valor a partir del cual crear un <see cref="Point"/>.
+        /// </param>
+        /// <exception cref="FormatException">
+        ///     Se produce si la conversión ha fallado.
+        /// </exception>
+        /// <returns><see cref="Point3D"/> que ha sido creado.</returns>
+        public static Point3D Parse(string value)
+        {
+            if (TryParse(value, out var retval)) return retval;
+            throw new FormatException();
+        }
 
         /// <summary>
         ///     Realiza una operación de suma sobre los puntos.
@@ -416,17 +483,19 @@ namespace TheXDS.MCART.Types
         /// <returns>
         ///     Una representación en forma de <see cref="T:System.String" /> de este objeto.
         /// </returns>
-        public string ToString(string format, IFormatProvider formatProvider)
+        public string ToString(string? format, IFormatProvider formatProvider)
         {
             if (format.IsEmpty()) format = "C";
-            switch (format.ToUpperInvariant()[0])
+#pragma warning disable CS8602
+            return format.ToUpperInvariant()[0] switch
+#pragma warning restore CS8602
             {
-                case 'C': return $"{X}, {Y}, {Z}";
-                case 'B': return $"[{X}, {Y}, {Z}]";
-                case 'V': return $"X: {X}, Y: {Y}, Z: {Z}";
-                case 'N': return $"X: {X}\nY: {Y}\nZ: {Z}";
-                default: throw new FormatException(St.FormatNotSupported(format));
-            }
+                'C' => $"{X}, {Y}, {Z}",
+                'B' => $"[{X}, {Y}, {Z}]",
+                'V' => $"X: {X}, Y: {Y}, Z: {Z}",
+                'N' => $"X: {X}\nY: {Y}\nZ: {Z}",
+                _ => throw new FormatException(St.FormatNotSupported(format)),
+            };
         }
 
         /// <summary>
@@ -462,7 +531,20 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public override string ToString()
         {
-            return ToString(null, CI.CurrentCulture);
+            return ToString(null);
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Convierte este objeto en su representación como una cadena.
+        /// </summary>
+        /// <param name="format">Formato a utilizar.</param>
+        /// <returns>
+        ///     Una representación en forma de <see cref="T:System.String" /> de este objeto.
+        /// </returns>
+        public string ToString(string? format)
+        {
+            return ToString(format, CI.CurrentCulture);
         }
 
         /// <summary>

@@ -27,9 +27,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Linq;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Types.Base;
-
-// ReSharper disable UnusedMember.Global
 
 namespace TheXDS.MCART.Types
 {
@@ -207,39 +206,23 @@ namespace TheXDS.MCART.Types
                 ", ",
                 "...",
                 " - ",
+                "; ",
+                " : ",
+                " | ",
                 " ",
+                ",",
                 ";",
                 ":",
                 "|",
+                " .. ",
                 "..",
+                " => ",
+                "=>",
+                " a ",
                 " to ",
-                " a "
             };
 
-            var t = Common.FindConverter<T>();
-            if (!(t is null))
-            {
-                foreach (var j in separators)
-                {
-                    var l = value.Split(new[] { j }, StringSplitOptions.RemoveEmptyEntries);
-                    if (l.Length != 2) continue;
-
-                    try
-                    {
-                        range = new Range<T>(
-                            (T)t.ConvertTo(l[0].Trim(), typeof(T)),
-                            (T)t.ConvertTo(l[1].Trim(), typeof(T)));
-                        return true;
-                    }
-                    catch
-                    {
-                        break;
-                    }
-                }
-            }
-
-            range = default;
-            return false;
+            return PrivateInternals.TryParseValues<T, Range<T>>(separators, value, 2, l => new Range<T>(l[0], l[1]), out range);
         }
 
         /// <summary>

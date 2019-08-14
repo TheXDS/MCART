@@ -97,7 +97,7 @@ namespace TheXDS.MCART.Component
         /// <summary>
         ///     Devuelve la licencia del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         /// </summary>
-        public string? License => Misc.PrivateInternals.ReadLicense(Assembly);
+        public string? License => PrivateInternals.ReadLicense(Assembly);
 
         /// <inheritdoc />
         /// <summary>
@@ -110,7 +110,7 @@ namespace TheXDS.MCART.Component
         ///     Obtiene un valor que determina si este <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
         ///     contiene información de licencia.
         /// </summary>
-        public bool HasLicense => Misc.PrivateInternals.HasLicense(Assembly);
+        public bool HasLicense => PrivateInternals.HasLicense(Assembly);
 
         /// <inheritdoc />
         /// <summary>

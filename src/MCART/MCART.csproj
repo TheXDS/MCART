@@ -3,7 +3,4 @@
     <TargetFrameworks>netstandard2.1;netstandard2.0;netcoreapp3.0;netcoreapp2.2;netcoreapp2.1;net47</TargetFrameworks>
     <Description>MCART Core Library</Description>
   </PropertyGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\License\GPLv3.deflate" />
-  </ItemGroup>
 </Project>
