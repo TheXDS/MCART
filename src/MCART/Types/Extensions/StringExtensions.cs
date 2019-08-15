@@ -37,13 +37,27 @@ using System.Threading;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using St = TheXDS.MCART.Resources.Strings;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security;
+using System.Text;
+using TheXDS.MCART.Annotations;
+using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Math;
+using TheXDS.MCART.Types;
+using TheXDS.MCART.Types.Extensions;
+using St2 = TheXDS.MCART.Resources.InternalStrings;
 
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
     ///     Extensiones de la clase <see cref="string" />.
     /// </summary>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public static class StringExtensions
     {
         /// <summary>
@@ -551,7 +565,6 @@ namespace TheXDS.MCART.Types.Extensions
         ///         </item>
         ///     </list>
         /// </remarks>
-        // ReSharper disable once CyclomaticComplexity
         public static bool EqualsWildcard(this string text, string wildcardString)
         {
             var isLike = true;
@@ -846,7 +859,6 @@ namespace TheXDS.MCART.Types.Extensions
         ///     ser interpretado como un número hexadecimal,
         ///     <see langword="false" /> en caso contrario.
         /// </returns>
-        [SuppressMessage("ReSharper", "StringLiteralTypo")]
         public static bool IsHex(this string str)
         {
             if (str.StartsWith("0x") || str.StartsWith("&h", true, CultureInfo.CurrentCulture)) str = str.Substring(2);
@@ -1314,5 +1326,132 @@ namespace TheXDS.MCART.Types.Extensions
         {
             return "^" + Regex.Escape(value).Replace("\\?", ".").Replace("\\*", ".*") + "$";
         }
+    }
+
+    /// <summary>
+    ///     Extensiones de la clase <see cref="SecureString" />.
+    /// </summary>
+    public static class SecureStringExtensions
+    {
+        #pragma warning disable XS0001
+        /* -= NOTA =-
+		 * Oops! Algunas API de Mono parecen no estar completas, esta directiva
+		 * deshabilita la advertencia al compilar desde MonoDevelop.
+		 * 
+		 * SecureString no provee de funcionalidad de encriptado en Mono, lo que
+		 * podría ser inseguro.
+         */
+
+        /// <summary>
+        ///     Convierte un <see cref="SecureString" /> en un
+        ///     <see cref="string" />.
+        /// </summary>
+        /// <param name="value">
+        ///     <see cref="SecureString" /> a convertir.
+        /// </param>
+        /// <returns>Un <see cref="string" /> de código administrado.</returns>
+        /// <remarks>
+        ///     El uso de este método NO ESTÁ RECOMENDADO, ya que la conversión al
+        ///     tipo <see cref="string" /> vence el propósito original de
+        ///     <see cref="SecureString" />, y se provee como una
+        ///     alternativa sencilla, en casos en los que el programa no dependa de
+        ///     que la confidencialidad de una cadena en particular se deba
+        ///     mantener durante la ejecución.
+        /// </remarks>
+        [Dangerous]
+        public static string Read(this SecureString value)
+        {
+            var valuePtr = IntPtr.Zero;
+            try
+            {
+                valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
+                return Marshal.PtrToStringUni(valuePtr, value.Length);
+            }
+            finally
+            {
+                Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
+            }
+        }
+
+        /// <summary>
+        ///     Convierte un <see cref="SecureString" /> en un
+        ///     arreglo de <see cref="short" />.
+        /// </summary>
+        /// <param name="value">
+        ///     <see cref="SecureString" /> a convertir.
+        /// </param>
+        /// <returns>
+        ///     Un arreglo de <see cref="short" /> de código administrado.
+        /// </returns>
+        public static short[] ReadInt16(this SecureString value)
+        {
+            const int sz = sizeof(short);
+            var outp = new List<short>();
+            var valuePtr = IntPtr.Zero;
+            try
+            {
+                valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
+                for (var i = 0; i < value.Length * sz; i += sz) outp.Add(Marshal.ReadInt16(valuePtr, i));
+                return outp.ToArray();
+            }
+            finally
+            {
+                Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
+            }
+        }
+
+        /// <summary>
+        ///     Convierte un <see cref="SecureString" /> en un
+        ///     arreglo de <see cref="char" />.
+        /// </summary>
+        /// <param name="value">
+        ///     <see cref="SecureString" /> a convertir.
+        /// </param>
+        /// <returns>
+        ///     Un arreglo de <see cref="char" /> de código administrado.
+        /// </returns>
+        public static char[] ReadChars(this SecureString value)
+        {
+            const int sz = sizeof(char);
+            var outp = new List<char>();
+            var valuePtr = IntPtr.Zero;
+            try
+            {
+                valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
+                for (var i = 0; i < value.Length * sz; i += sz) outp.Add((char) Marshal.ReadInt16(valuePtr, i));
+                return outp.ToArray();
+            }
+            finally
+            {
+                Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
+            }
+        }
+
+        /// <summary>
+        ///     Convierte un <see cref="SecureString" /> en un
+        ///     arreglo de <see cref="byte" />.
+        /// </summary>
+        /// <param name="value">
+        ///     <see cref="SecureString" /> a convertir.
+        /// </param>
+        /// <returns>
+        ///     Un arreglo de <see cref="byte" /> de código administrado.
+        /// </returns>
+        public static byte[] ReadBytes(this SecureString value)
+        {
+            var outp = new List<byte>();
+            var valuePtr = IntPtr.Zero;
+            try
+            {
+                valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
+                for (var i = 0; i < value.Length * 2; i++) outp.Add(Marshal.ReadByte(valuePtr, i));
+                return outp.ToArray();
+            }
+            finally
+            {
+                Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
+            }
+        }
+        #pragma warning restore XS0001
     }
 }
