@@ -72,26 +72,6 @@ namespace TheXDS.MCART.Types
         /// <summary>
         ///     Obliga a refrescar el estado de un elemento dentro de la lista.
         /// </summary>
-        /// <param name="item">
-        ///     Elemento a refrescar.
-        /// </param>
-        public void RefreshItem(object item)
-        {
-            if (!UnderlyingList.Contains(item)) return;
-            switch (item)
-            {
-                case IRefreshable refreshable:
-                    refreshable.Refresh();
-                    break;
-                default:
-                    RaiseCollectionChanged(new NcchEa(Replace, item, item));
-                    break;
-            }
-        }
-
-        /// <summary>
-        ///     Obliga a refrescar el estado de un elemento dentro de la lista.
-        /// </summary>
         /// <param name="index">Índice del elemento a refrescar.</param>
         public void RefreshAt(int index)
         {
@@ -188,7 +168,7 @@ namespace TheXDS.MCART.Types
         ///     contiene el valor especificado, <see langword="false"/> en caso
         ///     contrario.
         /// </returns>
-        public bool Contains(object value)
+        public override bool Contains(object value)
         {
             return UnderlyingList.Contains(value);
         }
@@ -230,7 +210,7 @@ namespace TheXDS.MCART.Types
         ///     El índice del elemento dentro de este
         ///     <see cref="ObservableListWrap"/>.
         /// </returns>
-        public int IndexOf(object value)
+        public override int IndexOf(object value)
         {
             return UnderlyingList.IndexOf(value);
         }
@@ -366,6 +346,19 @@ namespace TheXDS.MCART.Types
         ///     El índice del elemento especificado.
         /// </returns>
         public int IndexOf(T item) => UnderlyingCollection.IndexOf(item);
+
+        /// <summary>
+        ///     Determina si la secuencia subyacente contiene al elemento
+        ///     especificado.
+        /// </summary>
+        /// <param name="item">
+        ///     Elemento a buscar dentro de la secuencia.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> si la secuencia contiene al elemento
+        ///     especificado, <see langword="false"/> en caso contrario.
+        /// </returns>
+        public override bool Contains(T item) => UnderlyingCollection.Contains(item);
 
         /// <summary>
         ///     Inserta un elemento dentro de este

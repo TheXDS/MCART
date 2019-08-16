@@ -102,20 +102,6 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Obtiene un valor que determina si el elemento existe en la
-        ///     colección.
-        /// </summary>
-        /// <param name="item">Elemento a comprobar.</param>
-        /// <returns>
-        ///     <see langword="true"/> si el elemento existe dentro de la
-        ///     colección, <see langword="false"/> en caso contrario.
-        /// </returns>
-        public bool Contains(T item)
-        {
-            return UnderlyingCollection?.Contains(item) ?? false;
-        }
-
-        /// <summary>
         ///     Copia el contenido de esta colección sobre un arreglo.
         /// </summary>
         /// <param name="array">Destino de la copia.</param>
@@ -182,27 +168,6 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Obliga a refrescar el estado de un elemento dentro de la
-        ///     colección.
-        /// </summary>
-        /// <param name="item">
-        ///     Elemento a refrescar.
-        /// </param>
-        public void RefreshItem(T item)
-        {
-            if (!UnderlyingCollection.Contains(item)) return;
-            switch (item)
-            {
-                case IRefreshable refreshable:
-                    refreshable.Refresh();
-                    break;
-                default:
-                    RaiseCollectionChanged(new NcchEa(Nccha.Replace, item, item));
-                    break;
-            }
-        }
-
-        /// <summary>
         ///     Sustituye la colección subyacente por una nueva.
         /// </summary>
         /// <param name="newCollection">
@@ -239,5 +204,18 @@ namespace TheXDS.MCART.Types.Base
                 Notify(nameof(Count));
             });
         }
+        
+        /// <summary>
+        ///     Determina si la secuencia subyacente contiene al elemento
+        ///     especificado.
+        /// </summary>
+        /// <param name="item">
+        ///     Elemento a buscar dentro de la secuencia.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> si la secuencia contiene al elemento
+        ///     especificado, <see langword="false"/> en caso contrario.
+        /// </returns>
+        public virtual bool Contains(T item) => UnderlyingCollection.Contains(item);
     }
 }
