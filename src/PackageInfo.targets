@@ -3,7 +3,7 @@
   <PropertyGroup Condition="'$(MSBuildProjectExtension)'=='.csproj'">
     <Company>TheXDS! non-Corp.</Company>
     <Version>0.10.0.14</Version>
-    <PrVersion>a001</PrVersion>
+    <PrVersion>a003</PrVersion>
     <FileVersion>$(Version)</FileVersion>
     <AssemblyVersion>$(Version)</AssemblyVersion>
     <Product>Morgan's CLR Advanced Runtime</Product>

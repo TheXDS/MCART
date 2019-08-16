@@ -29,6 +29,7 @@ using System.Linq;
 using TheXDS.MCART.Math;
 using St = TheXDS.MCART.Resources.Strings;
 using St2 = TheXDS.MCART.Resources.InternalStrings;
+using static TheXDS.MCART.Types.Extensions.SecureStringExtensions;
 
 namespace TheXDS.MCART.Security.Password
 {

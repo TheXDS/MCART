@@ -29,6 +29,7 @@ using System.Security;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
+using static TheXDS.MCART.Types.Extensions.SecureStringExtensions;
 
 namespace TheXDS.MCART.Security.Password
 {
@@ -54,9 +55,9 @@ namespace TheXDS.MCART.Security.Password
         */
 
         #region Constantes
-        private const short SaltBytes = 24;
-        private const short HashBytes = 18;
-        private const int Pbkdf2Iterations = 64000;
+        private const short _saltBytes = 24;
+        private const short _hashBytes = 18;
+        private const int _pbkdf2Iterations = 64000;
         #endregion
 
         private static byte[] Pbkdf2(SecureString password, byte[] salt, int iterations, int outputBytes)
@@ -86,22 +87,20 @@ namespace TheXDS.MCART.Security.Password
         /// <returns></returns>
         public static byte[] CreateHash(SecureString password)
         {
-            var salt = new byte[SaltBytes];
+            var salt = new byte[_saltBytes];
             using (var csprng = new RNGCryptoServiceProvider())
                 csprng.GetBytes(salt);
 
-            var hash = Pbkdf2(password, salt, Pbkdf2Iterations, HashBytes);
+            var hash = Pbkdf2(password, salt, _pbkdf2Iterations, _hashBytes);
 
-            using (var ms = new MemoryStream())
-            using (var bw = new BinaryWriter(ms))
-            {
-                bw.Write(Pbkdf2Iterations);
-                bw.Write((short)salt.Length);
-                bw.Write(salt);
-                bw.Write((short)hash.Length);
-                bw.Write(hash);
-                return ms.ToArray();
-            }
+            using var ms = new MemoryStream();
+            using var bw = new BinaryWriter(ms);
+            bw.Write(_pbkdf2Iterations);
+            bw.Write((short)salt.Length);
+            bw.Write(salt);
+            bw.Write((short)hash.Length);
+            bw.Write(hash);
+            return ms.ToArray();
         }
         /// <summary>
         /// Verifica una contraseña.
@@ -122,16 +121,14 @@ namespace TheXDS.MCART.Security.Password
         {
             try
             {
-                using (var ms = new MemoryStream(goodHash))
-                using (var br = new BinaryReader(ms))
-                {
-                    var iterations = br.ReadInt32();
-                    var salt = br.ReadBytes(br.ReadInt16());
-                    var hash = br.ReadBytes(br.ReadInt16());
+                using var ms = new MemoryStream(goodHash);
+                using var br = new BinaryReader(ms);
+                var iterations = br.ReadInt32();
+                var salt = br.ReadBytes(br.ReadInt16());
+                var hash = br.ReadBytes(br.ReadInt16());
 
-                    var testHash = Pbkdf2(password, salt, iterations, hash.Length);
-                    return CheckEquals(hash, testHash);
-                }
+                var testHash = Pbkdf2(password, salt, iterations, hash.Length);
+                return CheckEquals(hash, testHash);
 #if !PreferExceptions
             }
             catch { return null; }

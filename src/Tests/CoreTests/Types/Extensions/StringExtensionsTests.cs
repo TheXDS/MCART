@@ -30,7 +30,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Text;
-using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using Xunit;
 using System.Globalization;
 using System.Linq;
@@ -38,6 +37,8 @@ using System.Security;
 using System.Threading.Tasks;
 using TheXDS.MCART;
 using TheXDS.MCART.Types;
+using static TheXDS.MCART.Types.Extensions.StringExtensions;
+using static TheXDS.MCART.Types.Extensions.SecureStringExtensions;
 
 namespace Common.Types.Extensions
 {

@@ -34,6 +34,7 @@ using System.Security;
 using TheXDS.MCART.Types;
 using Xunit;
 using static TheXDS.MCART.Common;
+using static TheXDS.MCART.Types.Extensions.SecureStringExtensions;
 
 namespace TheXDS.MCART.Tests.Modules
 {

@@ -26,6 +26,7 @@ using System.Security;
 using System.Threading.Tasks;
 using TheXDS.MCART.Security.Password;
 using TheXDS.MCART.ViewModel;
+using static TheXDS.MCART.Types.Extensions.SecureStringExtensions;
 
 namespace TheXDS.MCART.Dialogs.ViewModel
 {
