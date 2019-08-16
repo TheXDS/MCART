@@ -70,6 +70,35 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
+        ///     Obliga a refrescar el estado de un elemento dentro de la lista.
+        /// </summary>
+        /// <param name="item">
+        ///     Elemento a refrescar.
+        /// </param>
+        public void RefreshItem(object item)
+        {
+            if (!UnderlyingList.Contains(item)) return;
+            switch (item)
+            {
+                case IRefreshable refreshable:
+                    refreshable.Refresh();
+                    break;
+                default:
+                    RaiseCollectionChanged(new NcchEa(Replace, item, item));
+                    break;
+            }
+        }
+
+        /// <summary>
+        ///     Obliga a refrescar el estado de un elemento dentro de la lista.
+        /// </summary>
+        /// <param name="index">Índice del elemento a refrescar.</param>
+        public void RefreshAt(int index)
+        {
+            RefreshItem(this[index]);
+        }
+
+        /// <summary>
         ///     Obtiene un valor que determina si esta lista es de tamaño fijo.
         /// </summary>
         public bool IsFixedSize => UnderlyingList.IsFixedSize;

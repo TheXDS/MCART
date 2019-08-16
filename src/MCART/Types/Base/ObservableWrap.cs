@@ -31,6 +31,7 @@ using TheXDS.MCART.Types.Extensions;
 using Nccha = System.Collections.Specialized.NotifyCollectionChangedAction;
 using static System.Collections.Specialized.NotifyCollectionChangedAction;
 using NcchEa = System.Collections.Specialized.NotifyCollectionChangedEventArgs;
+using System.ComponentModel;
 
 namespace TheXDS.MCART.Types.Base
 {
@@ -177,8 +178,28 @@ namespace TheXDS.MCART.Types.Base
         public override void Refresh()
         {
             base.Refresh();
-
             Substitute(UnderlyingCollection);
+        }
+
+        /// <summary>
+        ///     Obliga a refrescar el estado de un elemento dentro de la
+        ///     colección.
+        /// </summary>
+        /// <param name="item">
+        ///     Elemento a refrescar.
+        /// </param>
+        public void RefreshItem(T item)
+        {
+            if (!UnderlyingCollection.Contains(item)) return;
+            switch (item)
+            {
+                case IRefreshable refreshable:
+                    refreshable.Refresh();
+                    break;
+                default:
+                    RaiseCollectionChanged(new NcchEa(Nccha.Replace, item, item));
+                    break;
+            }
         }
 
         /// <summary>
