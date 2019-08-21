@@ -226,6 +226,7 @@
 - MCART ahora utiliza C# 8.0
 - MCART ahora utiliza el `Microsoft.NET.Sdk` para compilar.
 - MCART contiene múltiples Framework objetivo.
+- MCART soporta oficialmente .Net Core 3
 ### Cambios
 * Nuevo: Numerosos módulos de extensión de tipos.
 * Nuevo: Concepto de extensiones de MCART (requisitos de dependencias
@@ -240,7 +241,13 @@
 * Nuevo: Script especial de publicación en NuGet.
 * Nuevo: Clientes de red administrados para comandos.
 * Nuevo: Clases de apertura de `Stream` a aprtir de un `System.Uri`.
+* Nuevo: Envoltorios observables para todo tipo de colecciones.
+* Nuevo: Algunos controles adicionales.
+* Nuevo: Clases auxiliares para el manejo de argumentos de línea de comandos.
 * Mejorado: Reorganización total del directorio del proyecto.
 * Mejorado: Cambios de Versioning
+* Mejorado: Respeto estricto de SOLID/MVVM.
 * Mejorado: Limpieza y actualización de archivos de proyecto.
+* Mejorado: Cambios internos, mejoras y expansioens al Stack de redes.
+* Mejorado: Reducción de complejidad ciclomática en varias funciones de MCART.
 * Corregido: Múltiples problemas de confiabilidad misceláneos.

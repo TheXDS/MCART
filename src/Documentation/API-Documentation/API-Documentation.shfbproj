@@ -13,7 +13,7 @@
     <RootNamespace>API_Documentation</RootNamespace>
     <Name>API_Documentation</Name>
     <!-- SHFB properties -->
-    <FrameworkVersion>.NET Framework 4.6.1</FrameworkVersion>
+    <FrameworkVersion>.NET Framework 4.7</FrameworkVersion>
     <OutputPath>..\..\..\docs\</OutputPath>
     <HtmlHelpName>API_Documentation</HtmlHelpName>
     <Language>es-ES</Language>
@@ -40,7 +40,7 @@
     <HelpFileVersion>1.0.0.0</HelpFileVersion>
     <MaximumGroupParts>2</MaximumGroupParts>
     <NamespaceGrouping>False</NamespaceGrouping>
-    <SyntaxFilters>C#, Visual Basic</SyntaxFilters>
+    <SyntaxFilters>C#, Visual Basic, Visual Basic Usage, F#</SyntaxFilters>
     <SdkLinkTarget>Top</SdkLinkTarget>
     <RootNamespaceContainer>False</RootNamespaceContainer>
     <PresentationStyle>VS2013</PresentationStyle>
@@ -94,6 +94,15 @@
       </ComponentConfig>
     </ComponentConfigurations>
     <DocumentationSources>
+      <DocumentationSource sourceFile="..\..\Extensions\ComplexTypes\ComplexTypes.csproj" />
+      <DocumentationSource sourceFile="..\..\Extensions\PrismLike\PrismLike.csproj" />
+      <DocumentationSource sourceFile="..\..\Extensions\TypeFactory\TypeFactory.csproj" />
+      <DocumentationSource sourceFile="..\..\Extensions\ViewModelFactory\ViewModelFactory.csproj" />
+      <DocumentationSource sourceFile="..\..\Lib\MCART-UI\MCART-UI.csproj" />
+      <DocumentationSource sourceFile="..\..\Lib\MCART-Windows\MCART-Windows.csproj" />
+      <DocumentationSource sourceFile="..\..\MCART\MCART.csproj" />
+      <DocumentationSource sourceFile="..\..\Platform\Cmd\Cmd.csproj" />
+      <DocumentationSource sourceFile="..\..\Platform\WPF\WPF.csproj" />
     </DocumentationSources>
     <NamespaceSummaries>
       <NamespaceSummaryItem name="System.Windows.Converters" isDocumented="True">Este espacio de nombres contiene clases de conversión de valores utilizadas en propiedades de dependencia en Windows Presentation Framework.</NamespaceSummaryItem>
@@ -116,7 +125,7 @@
       <NamespaceSummaryItem name="TheXDS.MCART.Types" isDocumented="True">Este espacio de nombres contiene las definiciones de nuevos tipos, así como también de extensiones de tipos existentes.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="TheXDS.MCART.Types.Extensions" isDocumented="True">Este espacio de nombres contiene extensiones de tipos.</NamespaceSummaryItem>
     </NamespaceSummaries>
-    <CopyrightText>Copyright &amp;#169%3b 2011-2018 C&amp;#233%3bsar Andr&amp;#233%3bs Morgan</CopyrightText>
+    <CopyrightText>Copyright &amp;#169%3b 2011-2019 C&amp;#233%3bsar Andr&amp;#233%3bs Morgan</CopyrightText>
     <SourceCodeBasePath>..\..\</SourceCodeBasePath>
     <FeedbackEMailAddress>xds_xps_ivx%40hotmail.com</FeedbackEMailAddress>
     <FeedbackEMailLinkText>Sugerencias%3f</FeedbackEMailLinkText>
@@ -150,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\Topics\TechInfo.aml" />
+    <None Include="Content\VersionHistory\0.10.aml" />
     <None Include="Content\VersionHistory\0.6.aml" />
     <None Include="Content\VersionHistory\0.7.aml" />
     <None Include="Content\VersionHistory\0.8.aml" />

@@ -24,9 +24,14 @@
         <HelpKeyword index="K" term="version, 0.8" />
       </HelpKeywords>
     </Topic>
-    <Topic id="85493125-4169-4dbb-aab3-c5fb293e44ad" visible="True" isSelected="true" title="MCART 0.9 Series">
+    <Topic id="85493125-4169-4dbb-aab3-c5fb293e44ad" visible="True" title="MCART 0.9 Series">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.9" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="d20d3821-dac9-4d3d-950e-8c51b0d61ca3" visible="True" title="MCART 0.10 Series">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 0.10" />
       </HelpKeywords>
     </Topic>
   </Topic>
@@ -40,5 +45,5 @@
       </HelpKeywords>
     </Topic>
   </Topic>
-  <Topic id="8e4ca775-621e-4350-ba47-40c623732add" visible="True" title="Información técnica" />
+  <Topic id="8e4ca775-621e-4350-ba47-40c623732add" visible="True" isSelected="true" title="Información técnica" />
 </Topics>

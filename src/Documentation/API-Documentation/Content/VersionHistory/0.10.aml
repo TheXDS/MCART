@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="d20d3821-dac9-4d3d-950e-8c51b0d61ca3" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>
+        MCART 0.10 tuvo su último Milestone (0.10.0.14) el miércoles, 21 de agosto de 2019.
+      </para>
+    </introduction>
+    <section>
+      <title>Notas generales</title>
+      <content>
+        <list class="bullet">
+          <listItem>
+            <para>
+              Se ha reescrito una gran porción del código de MCART, además de reorganizar
+              todos los archivos del proyecto.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              MCART ahora utiliza C# 8.0
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              MCART ahora utiliza el <b>Microsoft.NET.Sdk</b> para compilar.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              MCART contiene múltiples Framework objetivo.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              MCART soporta oficialmente .Net Core 3
+            </para>
+          </listItem>
+        </list>
+      </content>
+    </section>
+    <section>
+      <title>Cambios en esta versión</title>
+      <content>
+        <list class="nobullet">
+          <listItem>
+            <para>
+              Nuevo: Numerosos módulos de extensión de tipos.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Nuevo: Concepto de extensiones de MCART (requisitos de dependencias
+              relajados para los mismos)
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Nuevo: Funcionalidad básica de creación de ViewModels importada desde
+              <b>TheXDS.Tritón</b>.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Nuevo: Múltiples clases auxiliares para trabajar bajo paradigmas MVVM
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Nuevo: Arquitectura de información de aplicaciones y ensamblados reescrita bajo principios SOLID.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Nuevo: Conversión parcial del código a C# 8.0.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Nuevo: Extensiones para FlowDocument.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Nuevo: Script especial de publicación en NuGet.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Nuevo: Clientes de red administrados para comandos.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Nuevo: Clases de apertura de `Stream` a aprtir de un `System.Uri`.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Nuevo: Envoltorios observables para todo tipo de colecciones.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Nuevo: Algunos controles adicionales.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Nuevo: Clases auxiliares para el manejo de argumentos de línea de comandos.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Mejorado: Reorganización total del directorio del proyecto.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Mejorado: Cambios de Versioning
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Mejorado: Respeto estricto de SOLID/MVVM.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Mejorado: Limpieza y actualización de archivos de proyecto.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Mejorado: Cambios internos, mejoras y expansioens al Stack de redes.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Mejorado: Reducción de complejidad ciclomática en varias funciones de MCART.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Corregido: Múltiples problemas de confiabilidad misceláneos.
+            </para>
+          </listItem>
+        </list>
+      </content>
+    </section>
+    <relatedTopics>
+      <link xlink:href="a43a94b2-1336-49d7-b56e-160b8ed4dd09" />
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>
