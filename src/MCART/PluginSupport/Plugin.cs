@@ -138,7 +138,7 @@ namespace TheXDS.MCART.PluginSupport
         /// <summary>
         ///     Obtiene la versión informacional de este <see cref="Plugin"/>.
         /// </summary>
-        public string? InformationalVersion => GetType().GetAttrAlt<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
+        public string? InformationalVersion => GetType().GetAttrAlt<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? Version?.ToString();
         
         /// <inheritdoc />
         /// <summary>

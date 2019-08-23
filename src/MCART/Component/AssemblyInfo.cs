@@ -128,6 +128,6 @@ namespace TheXDS.MCART.Component
         /// <summary>
         ///     Obtiene la versión informacional del <see cref="IExposeInfo"/>.
         /// </summary>
-        public string? InformationalVersion => Assembly.GetAttr<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
+        public string? InformationalVersion => Assembly.GetAttr<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? Version?.ToString();
     }
 }

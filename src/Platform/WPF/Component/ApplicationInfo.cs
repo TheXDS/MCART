@@ -190,6 +190,6 @@ namespace TheXDS.MCART.Component
         ///     Obtiene la versión informacional de este
         ///     <see cref="IExposeInfo"/>.
         /// </summary>
-        public string? InformationalVersion => _infoExposer.InformationalVersion;
+        public string? InformationalVersion => _infoExposer.InformationalVersion ?? Version?.ToString();
     }
 }
