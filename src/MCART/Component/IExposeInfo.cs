@@ -57,6 +57,11 @@ namespace TheXDS.MCART.Component
         Version? Version { get; }
 
         /// <summary>
+        ///     Obtiene la versión informacional del <see cref="IExposeInfo"/>.
+        /// </summary>
+        string? InformationalVersion { get; }
+
+        /// <summary>
         ///     Obtiene un valor que indica si este <see cref="IExposeInfo"/>
         ///     contiene información de licencia.
         /// </summary>

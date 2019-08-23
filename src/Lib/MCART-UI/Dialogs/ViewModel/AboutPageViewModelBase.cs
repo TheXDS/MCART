@@ -41,9 +41,9 @@ namespace TheXDS.MCART.Dialogs.ViewModel
     public abstract class AboutPageViewModelBase<T> : ViewModelBase, INameable, IDescriptible where T : IExposeInfo
     {
 
-#pragma warning disable CS8625
+#nullable disable
         private T _element = default;
-#pragma warning restore CS8625
+#nullable enable
 
         private bool _showAboutMcart = true;
         private bool _showPluginInfo;
@@ -82,7 +82,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         ///     Obtiene la descripción del <see cref="IExposeInfo"/> para el
         ///     cual se presentan los detalles.
         /// </summary>
-        public string Description => Element?.Description;
+        public string? Description => Element?.Description;
 
         /// <summary>
         ///     Obtiene o establece el <see cref="IExposeInfo"/> para el cual
@@ -134,7 +134,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         ///     Obtiene el nombrer del <see cref="IExposeInfo"/> para el cual
         ///     se presentan los detalles.
         /// </summary>
-        public string Name => Element?.Name;
+        public string Name => Element?.Name ?? string.Empty;
 
         /// <summary>
         ///     Obtiene o establece un valor que indica si debe mostrarse un
@@ -161,5 +161,11 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         ///     se presentan los detalles.
         /// </summary>
         public Version? Version => Element?.Version;
+
+        /// <summary>
+        ///     Obtiene la versión informacional de este
+        ///     <see cref="IExposeInfo"/>.
+        /// </summary>
+        public string? InformationalVersion => Element?.InformationalVersion;
     }
 }

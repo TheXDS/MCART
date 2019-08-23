@@ -134,6 +134,12 @@ namespace TheXDS.MCART.PluginSupport
         /// contiene a este <see cref="T:TheXDS.MCART.PluginSupport.Plugin" />.
         /// </value>
         public virtual Version Version => GetType().GetAttrAlt<VersionAttribute>()?.Value ?? Assembly.GetName().Version;
+
+        /// <summary>
+        ///     Obtiene la versión informacional de este <see cref="Plugin"/>.
+        /// </summary>
+        public string? InformationalVersion => GetType().GetAttrAlt<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
+        
         /// <inheritdoc />
         /// <summary>
         /// Obtiene la descripción de este <see cref="T:TheXDS.MCART.PluginSupport.Plugin" />.

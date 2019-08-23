@@ -36,18 +36,22 @@
                     TextAlignment="Center">
                     <Run Text="{Binding Name, Mode=OneWay}"/> v<Run Text="{Binding Version, Mode=OneWay}" />
                 </TextBlock>
-                <TextBlock Text="{Binding Description}" />
-                <TextBlock Text="{Binding Copyright}" />
+                <TextBlock>
+                    <Run Text="{x:Static resources:Strings.Ver}"/>
+                    <Run Text="{Binding InformationalVersion, Mode=OneWay}"/>
+                </TextBlock>
+                <TextBlock Text="{Binding Description, Mode=OneWay}" />
+                <TextBlock Text="{Binding Copyright, Mode=OneWay}" />
                 <controls:StretchyWrapPanel>
                     <Button
                         Visibility="{Binding HasLicense, Converter={StaticResource B2VConv}}"
-                        Command="{Binding LicenseCommand}" Content="{x:Static resources:Strings.SeeLicense}"/>
+                        Command="{Binding LicenseCommand, Mode=OneWay}" Content="{x:Static resources:Strings.SeeLicense}"/>
                     <Button
                         Visibility="{Binding ShowPluginInfo, Converter={StaticResource B2VConv}}"
-                        Command="{Binding PluginInfoCommand}" Content="{x:Static resources:Strings.PluginDetails}"/>
+                        Command="{Binding PluginInfoCommand, Mode=OneWay}" Content="{x:Static resources:Strings.PluginDetails}"/>
                     <Button
                         Visibility="{Binding ShowAboutMcart, Converter={StaticResource B2VConv}}"
-                        Command="{Binding AboutMcartCommand}" Content="{x:Static resources:Strings.AboutMCART}"/>
+                        Command="{Binding AboutMcartCommand, Mode=OneWay}" Content="{x:Static resources:Strings.AboutMCART}"/>
                 </controls:StretchyWrapPanel>
             </StackPanel>
         </controls:StretchyWrapPanel>

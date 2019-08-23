@@ -86,6 +86,11 @@ namespace TheXDS.MCART.Component
         /// <summary>
         ///     Obtiene la descripción del elemento.
         /// </summary>
-        public string Description => _source.Description;                
+        public string Description => _source.Description;
+
+        /// <summary>
+        ///     Obtiene la versión informacional del <see cref="IExposeInfo"/>.
+        /// </summary>
+        public string? InformationalVersion => _source.InformationalVersion;
     }
 }

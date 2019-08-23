@@ -31,15 +31,16 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART
 {
     /// <summary>
-    /// Módulo de funciones universales de UI para sistemas operativos
-    /// Microsoft® Windows®.
+    ///     Módulo de funciones universales de UI para sistemas operativos
+    ///     Microsoft® Windows®.
     /// </summary>
     public static class WinUi
     {
         [DllImport("kernel32.dll")] static extern IntPtr GetConsoleWindow();
 
         /// <summary>
-        ///     Obtiene un valor que indica si la aplicación tiene acceso a la consola.
+        ///     Obtiene un valor que indica si la aplicación tiene acceso a la
+        ///     consola.
         /// </summary>
         public static bool HasConsole => GetConsoleWindow() != IntPtr.Zero;
 
@@ -104,11 +105,11 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        /// Obtiene la resolución horizontal de la pantalla en DPI.
+        ///     Obtiene la resolución horizontal de la pantalla en DPI.
         /// </summary>
         /// <returns>
-        /// Un valor entero que indica la resolución horizontal de la pantalla 
-        /// en Puntos Por Pulgada (DPI).
+        ///     Un valor entero que indica la resolución horizontal de la
+        ///     pantalla en Puntos Por Pulgada (DPI).
         /// </returns>
         [Sugar] public static int GetXDpi() => GetXDpi(IntPtr.Zero);
 
@@ -116,38 +117,39 @@ namespace TheXDS.MCART
         /// Obtiene la resolución vertical de la pantalla en DPI.
         /// </summary>
         /// <returns>
-        /// Un valor entero que indica la resolución vertical de la pantalla en
-        /// Puntos Por Pulgada (DPI).
+        ///     Un valor entero que indica la resolución vertical de la
+        ///     pantalla en Puntos Por Pulgada (DPI).
         /// </returns>
         [Sugar] public static int GetYDpi() => GetXDpi(IntPtr.Zero);
 
         /// <summary>
-        /// Obtiene la resolución horizontal de la ventana en DPI.
+        ///     Obtiene la resolución horizontal de la ventana en DPI.
         /// </summary>
         /// <param name="hwnd">Identificador de ventana a verificar.</param>
         /// <returns>
-        /// Un valor entero que indica la resolución horizontal de la ventana 
-        /// en Puntos Por Pulgada (DPI).
+        ///     Un valor entero que indica la resolución horizontal de la
+        ///     ventana  en Puntos Por Pulgada (DPI).
         /// </returns>
         public static int GetXDpi(IntPtr hwnd) => GetDeviceCaps(Graphics.FromHwnd(hwnd).GetHdc(), 88);
 
         /// <summary>
-        /// Obtiene la resolución vertical de la ventana en DPI.
+        ///     Obtiene la resolución vertical de la ventana en DPI.
         /// </summary>
         /// <param name="hwnd">Identificador de ventana a verificar.</param>
         /// <returns>
-        /// Un valor entero que indica la resolución vertical de la ventana en
-        /// Puntos Por Pulgada (DPI).
+        ///     Un valor entero que indica la resolución vertical de la ventana
+        ///     en Puntos Por Pulgada (DPI).
         /// </returns>
         public static int GetYDpi(IntPtr hwnd) => GetDeviceCaps(Graphics.FromHwnd(hwnd).GetHdc(), 90);
 
         /// <summary>
-        /// Obtiene las resolución horizontal y vertical de la ventana en DPI.
+        ///     Obtiene las resolución horizontal y vertical de la ventana en 
+        ///     DPI.
         /// </summary>
         /// <param name="hwnd">Identificador de ventana a verificar.</param>
         /// <returns>
-        /// Un <see cref="Point"/> que indica la resolución de
-        /// la ventana en Puntos Por Pulgada (DPI).
+        ///     Un <see cref="Point"/> que indica la resolución de la ventana
+        ///     en Puntos Por Pulgada (DPI).
         /// </returns>
         public static Point GetDpi(IntPtr hwnd)
         {
@@ -156,19 +158,20 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        /// Obtiene las resolución horizontal y vertical de la pantalla en DPI.
+        ///     Obtiene las resolución horizontal y vertical de la pantalla en
+        ///     DPI.
         /// </summary>
         /// <returns>
-        /// Un <see cref="Point"/> que indica la resolución de
-        /// la pantalla en Puntos Por Pulgada (DPI).
+        ///     Un <see cref="Point"/> que indica la resolución de la pantalla
+        ///     en Puntos Por Pulgada (DPI).
         /// </returns>
         [Sugar] public static Point GetDpi() => GetDpi(IntPtr.Zero);
 
         /// <summary>
-        /// Devuelve un <see cref="Brush"/> aleatorio.
+        ///     Devuelve un <see cref="Brush"/> aleatorio.
         /// </summary>
         /// <returns>
-        /// Un <see cref="Brush"/> seleccionado aleatoriamente.
+        ///     Un <see cref="Brush"/> seleccionado aleatoriamente.
         /// </returns>
         public static Brush PickDrawingBrush()
         {

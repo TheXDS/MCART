@@ -185,5 +185,11 @@ namespace TheXDS.MCART.Component
         ///     Referencia al ensamblado del cual se expone la información.
         /// </summary>
         public Assembly Assembly => _infoExposer.Assembly;
+
+        /// <summary>
+        ///     Obtiene la versión informacional de este
+        ///     <see cref="IExposeInfo"/>.
+        /// </summary>
+        public string? InformationalVersion => _infoExposer.InformationalVersion;
     }
 }

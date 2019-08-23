@@ -138,6 +138,8 @@ namespace TheXDS.MCART.Component
 
         public bool ClsCompliant => false;
 
+        public string? InformationalVersion => $"{Version.ToString()}-{BuildLabEx}";
+
         private T GetFromWmi<T>([CallerMemberName]string property = "")
         {
             return _managementObject[property] is T v ? v : default;

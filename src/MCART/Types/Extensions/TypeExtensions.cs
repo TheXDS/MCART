@@ -32,6 +32,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Resources;
@@ -381,36 +382,172 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Parámetros a pasar al constructor. Se buscará
         ///     un constructor compatible para poder crear la instancia.
         /// </param>
-        /// <returns>Una nueva instancia del tipo especificado.</returns>
+        /// <returns>
+        ///     Una nueva instancia del tipo especificado, o
+        ///     <see langword="null"/> si ocurre un problema al instanciar el
+        ///     tipo y <paramref name="throwOnFail"/> es
+        ///     <see langword="false"/>.
+        /// </returns>
         /// <exception cref="TypeLoadException">
         ///     Se produce si no es posible instanciar una clase del tipo
         ///     solicitado.
         /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     Se produce si <paramref name="type"/> es <see langword="null"/>
+        ///     y <paramref name="throwOnFail"/> es <see langword="true"/>.
+        /// </exception>
+        /// <exception cref="ClassNotInstantiableException">
+        ///     Se produce si el tipo <paramref name="type"/> no puede ser
+        ///     instanciado utilizando un constructor público que acepte los
+        ///     parámetros especificados en <paramref name="parameters"/> y
+        ///     <paramref name="throwOnFail"/> es <see langword="true"/>.
+        /// </exception>
         [DebuggerStepThrough]
         public static T New<T>(this Type type, bool throwOnFail, IEnumerable parameters)
         {
-#pragma warning disable CS8600, CS8602, CS8603
+#nullable disable
             if (type is null)
             {
-
-#if PreferExceptions
-                throw new ArgumentNullException(nameof(type));
-#else
                 return throwOnFail ? throw new ArgumentNullException(nameof(type)) : (T)default;
-#endif
             }
+
             if (!type.IsInstantiable(parameters.ToTypes()))
-                return throwOnFail ? throw new ClassNotInstantiableException(type) : (T) default;
+            {
+                return throwOnFail ? throw new ClassNotInstantiableException(type) : (T)default;
+            }
 
             try
             {
-                return (T) type.GetConstructor(parameters.ToTypes().ToArray())?.Invoke(parameters.ToGeneric().ToArray());
+                return (T)type.GetConstructor(parameters.ToTypes().ToArray())?.Invoke(parameters.ToGeneric().ToArray());
             }
             catch (Exception e)
             {
                 return throwOnFail ? throw new TypeLoadException(InternalStrings.ErrorXClassNotInstantiableWithArgs(type.Name), e) : (T)default;
             }
-#pragma warning restore CS8600, CS8602, CS8603
+#nullable enable
+        }
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de un objeto de forma asíncrona 
+        ///     con un constructor que acepte los argumentos provistos.
+        /// </summary>
+        /// <param name="type">Tipo a instanciar.</param>
+        /// <param name="throwOnFail">
+        ///     Si se establece en <see langword="true"/>, se producirá una
+        ///     excepción en caso que el tipo no pueda instanciarse con la
+        ///     información provista, o se devolverá <see langword="null"/> si
+        ///     se establece en <see langword="false"/>
+        /// </param>
+        /// <param name="async">
+        ///     Si se establece en <see langword="true"/>, el constructor
+        ///     también se ejecutará asíncronamente. Esto puede ser
+        ///     problemático si la ejecución normal del programa depende de qué
+        ///     hilo es el propietario del objeto, por ejemplo al instanciar
+        ///     elementos de UI.
+        /// </param>
+        /// <param name="parameters">
+        ///     Parámetros a pasar al constructor. Se buscará
+        ///     un constructor compatible para poder crear la instancia.
+        /// </param>
+        /// <returns>
+        ///     Una nueva instancia del tipo especificado, o
+        ///     <see langword="null"/> si ocurre un problema al instanciar el
+        ///     tipo y <paramref name="throwOnFail"/> es
+        ///     <see langword="false"/>.
+        /// </returns>
+        /// <exception cref="TypeLoadException">
+        ///     Se produce si no es posible instanciar una clase del tipo
+        ///     solicitado.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     Se produce si <paramref name="type"/> es <see langword="null"/>
+        ///     y <paramref name="throwOnFail"/> es <see langword="true"/>.
+        /// </exception>
+        /// <exception cref="ClassNotInstantiableException">
+        ///     Se produce si el tipo <paramref name="type"/> no puede ser
+        ///     instanciado utilizando un constructor público que acepte los
+        ///     parámetros especificados en <paramref name="parameters"/> y
+        ///     <paramref name="throwOnFail"/> es <see langword="true"/>.
+        /// </exception>
+        [DebuggerStepThrough]
+        public static async Task<object?> NewAsync(this Type type, bool throwOnFail, bool @async, IEnumerable parameters)
+        {
+            if (type is null)
+            {
+                return throwOnFail ? throw new ArgumentNullException(nameof(type)) : (object?)null;
+            }
+
+            var pTypes = await Task.Run(parameters.ToTypes().ToArray);
+
+            if (!type.IsInstantiable(pTypes))
+            {
+                return throwOnFail ? throw new ClassNotInstantiableException(type) : (object?)null;
+            }
+
+            try
+            {
+                var @params = await Task.Run(parameters.ToGeneric().ToArray);
+                var ctor = type.GetConstructor(pTypes);
+                return @async ? (await Task.Run(() => ctor?.Invoke(@params))) : ctor?.Invoke(@params);
+            }
+            catch (Exception e)
+            {
+                return throwOnFail ? throw new TypeLoadException(InternalStrings.ErrorXClassNotInstantiableWithArgs(type.Name), e) : (object?)null;
+            }
+        }
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de un objeto de forma asíncrona 
+        ///     con un constructor que acepte los argumentos provistos.
+        /// </summary>
+        /// <typeparam name="T">Tipo de instancia a devolver.</typeparam>
+        /// <param name="type">
+        ///     Tipo a instanciar. Debe ser, heredar o implementar
+        ///     el tipo especificado en <typeparamref name="T" />.
+        /// </param>
+        /// <param name="throwOnFail">
+        ///     Si se establece en <see langword="true"/>, se producirá una
+        ///     excepción en caso que el tipo no pueda instanciarse con la
+        ///     información provista, o se devolverá <see langword="null"/> si
+        ///     se establece en <see langword="false"/>
+        /// </param>
+        /// <param name="async">
+        ///     Si se establece en <see langword="true"/>, el constructor
+        ///     también se ejecutará asíncronamente. Esto puede ser
+        ///     problemático si la ejecución normal del programa depende de qué
+        ///     hilo es el propietario del objeto, por ejemplo al instanciar
+        ///     elementos de UI.
+        /// </param>
+        /// <param name="parameters">
+        ///     Parámetros a pasar al constructor. Se buscará
+        ///     un constructor compatible para poder crear la instancia.
+        /// </param>
+        /// <returns>
+        ///     Una nueva instancia del tipo especificado, o
+        ///     <see langword="null"/> si ocurre un problema al instanciar el
+        ///     tipo y <paramref name="throwOnFail"/> es
+        ///     <see langword="false"/>.
+        /// </returns>
+        /// <exception cref="TypeLoadException">
+        ///     Se produce si no es posible instanciar una clase del tipo
+        ///     solicitado.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     Se produce si <paramref name="type"/> es <see langword="null"/>
+        ///     y <paramref name="throwOnFail"/> es <see langword="true"/>.
+        /// </exception>
+        /// <exception cref="ClassNotInstantiableException">
+        ///     Se produce si el tipo <paramref name="type"/> no puede ser
+        ///     instanciado utilizando un constructor público que acepte los
+        ///     parámetros especificados en <paramref name="parameters"/> y
+        ///     <paramref name="throwOnFail"/> es <see langword="true"/>.
+        /// </exception>
+        [DebuggerStepThrough]
+        public static async Task<T> NewAsync<T>(this Type type, bool throwOnFail, bool @async, IEnumerable parameters)
+        {
+            var r = await NewAsync(type, throwOnFail, async, parameters);
+            if (r is T v) return v;
+            return throwOnFail ? throw new InvalidCastException() : (T)default;
         }
 
         /// <summary>
