@@ -2,12 +2,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(MSBuildProjectExtension)'=='.csproj'">
     <Company>TheXDS! non-Corp.</Company>
-    <Version>0.10.0.15</Version>
-    <PrVersion>a003</PrVersion>
-    <VersionPrefix>$(Version)</VersionPrefix>
-    <VersionSuffix>$(PrVersion)</VersionSuffix>
-    <FileVersion>$(Version)</FileVersion>
-    <AssemblyVersion>$(Version)</AssemblyVersion>
     <Product>Morgan's CLR Advanced Runtime</Product>
     <AssemblyTitle>$(Description)</AssemblyTitle>
     <Authors>César Andrés Morgan</Authors>
@@ -19,11 +13,11 @@
     <RepositoryType>git</RepositoryType>
     <Description>MCART es un conjunto de funciones, extensiones y módulos que he encontrado útiles a lo largo de mis años de experiencia con lenguajes .Net, particularmente con Visual Basic. Trata de añadir características que no se encuentran fácilmente disponibles en .Net Framework, y además añade controles, ventanas, recursos y otros objetos de utilidad.</Description>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(PrVersion)'==''">
-    <PackageVersion>$(Version)</PackageVersion>
+  <PropertyGroup Condition="'$(VersionSuffix)'==''">
+    <ActualPkgVersion>$(VersionPrefix)</ActualPkgVersion>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(PrVersion)'!=''">
-    <PackageVersion>$(Version)-$(PrVersion)</PackageVersion>
+  <PropertyGroup Condition="'$(VersionSuffix)'!=''">
+    <ActualPkgVersion>$(VersionPrefix)-$(VersionSuffix)</ActualPkgVersion>
     <PackageReleaseNotes>Este paquete es una versión Pre-Release de MCART, por lo que se recomienda que su uso se limite a pruebas y demostraciones de la API, ya que no se puede garantizar la estabilidad de la misma. Para más detalles, vea la documentación que acompaña a MCART.</PackageReleaseNotes>
   </PropertyGroup>
 </Project>

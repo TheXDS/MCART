@@ -35,6 +35,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{B80D3805-8722-4877-AF4E-C7763C850A9E}"
 	ProjectSection(SolutionItems) = preProject
 		CompileOptions.targets = CompileOptions.targets
+		Directory.Build.props = Directory.Build.props
 		Directory.Build.targets = Directory.Build.targets
 		PackageInfo.targets = PackageInfo.targets
 	EndProjectSection

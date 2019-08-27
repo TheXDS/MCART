@@ -52,7 +52,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(GeneratePackageOnBuild)'=='true'">
     <NuGetRoot>d:\NuGet</NuGetRoot>
-    <ActualPackage>$(PackageOutputPath)$(PackageId).$(PackageVersion)</ActualPackage>
+    <ActualPackage>$(PackageOutputPath)$(PackageId).$(ActualPkgVersion)</ActualPackage>
     <ActualPackageFile>$(ActualPackage).nupkg</ActualPackageFile>
     <ActualPackageSymbols>$(ActualPackage).symbols.nupkg</ActualPackageSymbols>
   </PropertyGroup>
