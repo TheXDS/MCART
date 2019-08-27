@@ -24,6 +24,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,19 +33,10 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Exceptions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
 using TheXDS.MCART.Types;
-
-#region Configuración de ReSharper
-
-// ReSharper disable IntroduceOptionalParameters.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable UnusedMember.Global
-
-#endregion
 
 namespace TheXDS.MCART
 {
@@ -80,7 +73,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static IEnumerable<T> FindAllObjects<T>(IEnumerable ctorArgs) where T : class
         {
-            return GetTypes<T>(true).Select(p => p?.New<T>(false, ctorArgs));
+            return GetTypes<T>(true).NotNull().Select(p => p.New<T>(false, ctorArgs));
         }
 
         /// <summary>
@@ -117,7 +110,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static IEnumerable<T> FindAllObjects<T>(IEnumerable ctorArgs, Func<Type, bool> typeFilter) where T : class
         {
-            return GetTypes<T>(true).Where(typeFilter).Select(p => p?.New<T>(false, ctorArgs));
+            return GetTypes<T>(true).NotNull().Where(typeFilter).Select(p => p.New<T>(false, ctorArgs));
         }
 
         /// <summary>
@@ -130,7 +123,7 @@ namespace TheXDS.MCART
         ///     <see langword="null"/> si no se encuentra ningún tipo
         ///     coincidente.
         /// </returns>
-        public static T FindSingleObject<T>() where T : class
+        public static T? FindSingleObject<T>() where T : class
         {
             return FindSingleObject<T>(new object[0]);
         }
@@ -148,9 +141,9 @@ namespace TheXDS.MCART
         ///     <see langword="null"/> si no se encuentra ningún tipo
         ///     coincidente.
         /// </returns>
-        public static T FindSingleObject<T>(IEnumerable ctorArgs) where T : class
+        public static T? FindSingleObject<T>(IEnumerable ctorArgs) where T : class
         {
-            return GetTypes<T>(true).SingleOrDefault()?.New<T>(false, ctorArgs);
+            return GetTypes<T>(true).NotNull().SingleOrDefault()?.New<T>(false, ctorArgs);
         }
 
         /// <summary>
@@ -166,7 +159,7 @@ namespace TheXDS.MCART
         ///     <see langword="null"/> si no se encuentra ningún tipo
         ///     coincidente.
         /// </returns>
-        public static T FindSingleObject<T>(Func<Type,bool> typeFilter) where T : class
+        public static T? FindSingleObject<T>(Func<Type,bool> typeFilter) where T : class
         {
             return FindSingleObject<T>(new object[0], typeFilter);
         }
@@ -187,9 +180,9 @@ namespace TheXDS.MCART
         ///     <see langword="null"/> si no se encuentra ningún tipo
         ///     coincidente.
         /// </returns>
-        public static T FindSingleObject<T>(IEnumerable ctorArgs, Func<Type, bool> typeFilter) where T : class
+        public static T? FindSingleObject<T>(IEnumerable ctorArgs, Func<Type, bool> typeFilter) where T : class
         {
-            return GetTypes<T>(true).SingleOrDefault(typeFilter)?.New<T>(false, ctorArgs);
+            return GetTypes<T>(true).NotNull().SingleOrDefault(typeFilter)?.New<T>(false, ctorArgs);
         }
 
         /// <summary>
@@ -202,7 +195,7 @@ namespace TheXDS.MCART
         ///     <see langword="null"/> si no se encuentra ningún tipo
         ///     coincidente.
         /// </returns>
-        public static T FindFirstObject<T>() where T : class
+        public static T? FindFirstObject<T>() where T : class
         {
             return FindFirstObject<T>(new object[0]);
         }
@@ -220,9 +213,9 @@ namespace TheXDS.MCART
         ///     <see langword="null"/> si no se encuentra ningún tipo
         ///     coincidente.
         /// </returns>
-        public static T FindFirstObject<T>(IEnumerable ctorArgs) where T : class
+        public static T? FindFirstObject<T>(IEnumerable ctorArgs) where T : class
         {
-            return GetTypes<T>(true).FirstOrDefault()?.New<T>(false, ctorArgs);
+            return GetTypes<T>(true).NotNull().FirstOrDefault()?.New<T>(false, ctorArgs);
         }
 
         /// <summary>
@@ -238,7 +231,7 @@ namespace TheXDS.MCART
         ///     <see langword="null"/> si no se encuentra ningún tipo
         ///     coincidente.
         /// </returns>
-        public static T FindFirstObject<T>(Func<Type, bool> typeFilter) where T : class
+        public static T? FindFirstObject<T>(Func<Type, bool> typeFilter) where T : class
         {
             return FindFirstObject<T>(new object[0],typeFilter);
         }
@@ -259,9 +252,9 @@ namespace TheXDS.MCART
         ///     <see langword="null"/> si no se encuentra ningún tipo
         ///     coincidente.
         /// </returns>
-        public static T FindFirstObject<T>(IEnumerable ctorArgs, Func<Type, bool> typeFilter) where T : class
+        public static T? FindFirstObject<T>(IEnumerable ctorArgs, Func<Type, bool> typeFilter) where T : class
         {
-            return GetTypes<T>(true).FirstOrDefault(typeFilter)?.New<T>(false, ctorArgs);
+            return GetTypes<T>(true).NotNull().FirstOrDefault(typeFilter)?.New<T>(false, ctorArgs);
         }
 
         /// <summary>
@@ -347,10 +340,52 @@ namespace TheXDS.MCART
         /// </remarks>
         public static IEnumerable<Type> PublicTypes(Type t, AppDomain domain)
         {
+            return PublicTypes(domain).Where(t.IsAssignableFrom);
+        }
+
+        /// <summary>
+        ///     Obtiene todos los tipos públicos que estén dentro del
+        ///     <see cref="AppDomain"/> especificado.
+        /// </summary>
+        /// <param name="domain">
+        ///     Dominio de aplicación dentro del cual buscar tipos.
+        /// </param>
+        /// <returns>
+        ///     Una enumeración con todos los tipos públicos encontrados en el
+        ///     dominio especificado.
+        /// </returns>
+        /// <remarks>
+        ///     Esta función obtiene todos los tipos públicos exportados del
+        ///     dominio especificado, obviando los ensamblados dinámicos
+        ///     (generados por medio del espacio de nombres
+        ///     <see cref="System.Reflection.Emit"/>). Para obtener una lista
+        ///     indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
+        /// </remarks>
+        public static IEnumerable<Type> PublicTypes(AppDomain domain)
+        {
             return domain.GetAssemblies()
-                .Where(p => !p.IsDynamic) // Los ensamblados dinámicos no soportan el método GetExportedTypes().
-                .SelectMany(SafeGetExportedTypes)
-                .Where(t.IsAssignableFrom);
+                .Where(p => !p.IsDynamic)
+                .SelectMany(SafeGetExportedTypes);
+        }
+
+        /// <summary>
+        ///     Obtiene todos los tipos públicos que estén dentro del
+        ///     <see cref="AppDomain"/> actual.
+        /// </summary>
+        /// <returns>
+        ///     Una enumeración con todos los tipos públicos encontrados en el
+        ///     dominio actual.
+        /// </returns>
+        /// <remarks>
+        ///     Esta función obtiene todos los tipos públicos exportados del
+        ///     dominio actual, obviando los ensamblados dinámicos (generados
+        ///     por medio del espacio de nombres
+        ///     <see cref="System.Reflection.Emit"/>). Para obtener una lista
+        ///     indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
+        /// </remarks>
+        public static IEnumerable<Type> PublicTypes()
+        {
+            return PublicTypes(AppDomain.CurrentDomain);
         }
 
         private static IEnumerable<Type> SafeGetExportedTypes(Assembly arg)
@@ -408,7 +443,7 @@ namespace TheXDS.MCART
         ///     Una enumeración de todos los valores de tipo
         ///     <typeparamref name="T" /> de la instancia.
         /// </returns>
-        public static IEnumerable<T> FieldsOf<T>(this IEnumerable<FieldInfo> fields, object instance)
+        public static IEnumerable<T> FieldsOf<T>(this IEnumerable<FieldInfo> fields, object? instance)
         {
             return
                 from j in fields.Where(p => p.IsPublic)
@@ -549,9 +584,9 @@ namespace TheXDS.MCART
         ///     de no encontrarse el atributo especificado.
         /// </returns>
         [Sugar]
-        public static T GetAttr<T>(this Assembly assembly) where T : Attribute
+        public static T? GetAttr<T>(this Assembly assembly) where T : Attribute
         {
-            HasAttr(assembly, out T attr);
+            HasAttr(assembly, out T? attr);
             return attr;
         }
 
@@ -593,9 +628,9 @@ namespace TheXDS.MCART
         ///     no encontrarse el atributo especificado.
         /// </returns>
         [Sugar]
-        public static T GetAttr<T>(this MemberInfo member) where T : Attribute
+        public static T? GetAttr<T>(this MemberInfo member) where T : Attribute
         {
-            HasAttr(member, out T attr);
+            HasAttr(member, out T? attr);
             return attr;
         }
 
@@ -634,9 +669,9 @@ namespace TheXDS.MCART
          ///     encontrarse el atributo especificado.
          /// </returns>
         [Sugar]
-        public static T GetAttr<T>(this object obj) where T : Attribute
+        public static T? GetAttr<T>(this object obj) where T : Attribute
         {
-            HasAttr(obj, out T attr);
+            HasAttr(obj, out T? attr);
             return attr;
         }
 
@@ -656,9 +691,9 @@ namespace TheXDS.MCART
         ///     de no encontrarse el atributo especificado.
         /// </returns>
         [Sugar]
-        public static IEnumerable<T> GetAttrs<T>(this object member) where T : Attribute
+        public static IEnumerable<T>? GetAttrs<T>(this object member) where T : Attribute
         {
-            HasAttrs(member, out IEnumerable<T> attr);
+            HasAttrs(member, out IEnumerable<T>? attr);
             return attr;
         }
 
@@ -681,7 +716,7 @@ namespace TheXDS.MCART
 /// </exception>
         [CLSCompliant(false)]
 #endif
-        public static T GetAttr<T>(this Enum enumValue) where T : Attribute
+        public static T? GetAttr<T>(this Enum enumValue) where T : Attribute
         {
             HasAttr<T>(enumValue, out var retval);
             return retval;
@@ -703,9 +738,9 @@ namespace TheXDS.MCART
         ///     de no encontrarse el atributo especificado.
         /// </returns>
         [Sugar]
-        public static IEnumerable<T> GetAttrs<T>(this Enum enumValue) where T : Attribute
+        public static IEnumerable<T>? GetAttrs<T>(this Enum enumValue) where T : Attribute
         {
-            HasAttrs(enumValue, out IEnumerable<T> attr);
+            HasAttrs(enumValue, out IEnumerable<T>? attr);
             return attr;
         }
 
@@ -725,9 +760,9 @@ namespace TheXDS.MCART
         ///     asociados en la declaración del tipo.
         /// </returns>
         [Sugar]
-        public static T GetAttr<T, TIt>() where T : Attribute
+        public static T? GetAttr<T, TIt>() where T : Attribute
         {
-            HasAttr(typeof(TIt), out T attr);
+            HasAttr(typeof(TIt), out T? attr);
             return attr;
         }
 
@@ -744,7 +779,7 @@ namespace TheXDS.MCART
         ///     asociados en la declaración del tipo; o <see langword="null" /> en caso de no
         ///     encontrarse el atributo especificado.
         /// </returns>
-        public static T GetAttrAlt<T>(this Type type) where T : Attribute
+        public static T? GetAttrAlt<T>(this Type type) where T : Attribute
         {
             return (Attribute.GetCustomAttribute(type, typeof(T))
                     ?? Attribute.GetCustomAttribute(type.Assembly, typeof(T))) as T;
@@ -955,7 +990,7 @@ namespace TheXDS.MCART
         ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
         ///     en caso contrario.
         /// </returns>
-        public static bool HasAttr<T>(this Assembly assembly, out T attribute) where T : Attribute
+        public static bool HasAttr<T>(this Assembly assembly, out T? attribute) where T : Attribute
         {
             var retVal = HasAttrs<T>(assembly, out var attrs);
             attribute = attrs.FirstOrDefault();
@@ -1057,7 +1092,7 @@ namespace TheXDS.MCART
         ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
         ///     en caso contrario.
         /// </returns>
-        public static bool HasAttr<T>(this MemberInfo member, out T attribute) where T : Attribute
+        public static bool HasAttr<T>(this MemberInfo member, out T? attribute) where T : Attribute
         {
             var retVal = HasAttrs<T>(member, out var attrs);
             attribute = attrs.FirstOrDefault();
@@ -1159,7 +1194,7 @@ namespace TheXDS.MCART
         ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
         ///     en caso contrario.
         /// </returns>
-        public static bool HasAttr<T>(this object obj, out T attribute) where T : Attribute
+        public static bool HasAttr<T>(this object obj, out T? attribute) where T : Attribute
         {
             switch (obj)
             {
@@ -1255,7 +1290,7 @@ namespace TheXDS.MCART
         ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
         ///     en caso contrario.
         /// </returns>
-        public static bool HasAttrs<T>(this object obj, out IEnumerable<T> attribute) where T : Attribute
+        public static bool HasAttrs<T>(this object obj, out IEnumerable<T>? attribute) where T : Attribute
         {
             switch (obj)
             {
@@ -1319,7 +1354,7 @@ namespace TheXDS.MCART
 /// </exception>
         [CLSCompliant(false)]
 #endif
-        public static bool HasAttr<T>(this Enum enumValue, out T attribute) where T : Attribute
+        public static bool HasAttr<T>(this Enum enumValue, out T? attribute) where T : Attribute
         {
             var type = enumValue.GetType();
             attribute = null;
@@ -1362,7 +1397,9 @@ namespace TheXDS.MCART
             where TAttribute : Attribute, IValueAttribute<TValue>
         {
             var retVal = HasAttr<TAttribute>(enumValue, out var attr);
+#pragma warning disable CS8602
             value = retVal ? attr.Value : default;
+#pragma warning restore CS8602
             return retVal;
         }
         /// <summary>
@@ -1391,7 +1428,7 @@ namespace TheXDS.MCART
 /// </exception>
         [CLSCompliant(false)]
 #endif
-        public static bool HasAttrs<T>(this Enum enumValue, out IEnumerable<T> attribute) where T : Attribute
+        public static bool HasAttrs<T>(this Enum enumValue, out IEnumerable<T>? attribute) where T : Attribute
         {
             var type = enumValue.GetType();
             attribute = null;
@@ -1425,7 +1462,7 @@ namespace TheXDS.MCART
         ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
         ///     en caso contrario.
         /// </returns>
-        public static bool HasAttrAlt<T>(this Type type, out T attribute) where T : Attribute
+        public static bool HasAttrAlt<T>(this Type type, out T? attribute) where T : Attribute
         {
             attribute = (Attribute.GetCustomAttributes(type, typeof(T)).FirstOrDefault()
                          ?? Attribute.GetCustomAttributes(type.Assembly, typeof(T)).FirstOrDefault()) as T;
@@ -1461,7 +1498,7 @@ namespace TheXDS.MCART
         ///     que <paramref name="obj2" />, <see langword="false" /> en caso contrario.
         /// </returns>
         [Sugar]
-        public static bool Is(this object obj1, object obj2)
+        public static bool Is(this object? obj1, object? obj2)
         {
             return ReferenceEquals(obj1, obj2);
         }
@@ -1503,7 +1540,7 @@ namespace TheXDS.MCART
         /// <param name="objs">Lista de objetos a comparar.</param>
         public static bool IsEither<T>(this T obj, params T[] objs)
         {
-            return objs.Any(p => p.Is(obj));
+            return objs.Any(p => p?.Is(obj) ?? obj is null);
         }
 
         /// <summary>
@@ -1660,7 +1697,7 @@ namespace TheXDS.MCART
         ///     Una enumeración de todos los valores de tipo
         ///     <typeparamref name="T" /> de la instancia.
         /// </returns>
-        public static IEnumerable<T> PropertiesOf<T>(this IEnumerable<PropertyInfo> properties, object instance)
+        public static IEnumerable<T> PropertiesOf<T>(this IEnumerable<PropertyInfo> properties, object? instance)
         {
             return
                 from j in properties.Where(p => p.CanRead)
@@ -1830,7 +1867,7 @@ namespace TheXDS.MCART
             foreach (var j in methods)
             {
                 if (TryCreateDelegate<T>(j, out var d))
-                    yield return d;
+                    yield return d ?? throw new TamperException();
             }
         }
 
@@ -1856,7 +1893,7 @@ namespace TheXDS.MCART
         {
                 foreach (var j in methods)
                     if (TryCreateDelegate<T>(j, instance, out var d))
-                        yield return d;
+                        yield return d ?? throw new TamperException();
         }
 
         /// <summary>
@@ -1884,7 +1921,7 @@ namespace TheXDS.MCART
         ///     es posible enlazar un método a un delegado si el método
         ///     contiene parámetros genéricos.
         /// </remarks>
-        public static bool TryCreateDelegate<T>(MethodInfo method, out T @delegate) where T : Delegate
+        public static bool TryCreateDelegate<T>(MethodInfo method, out T? @delegate) where T : Delegate
         {
             try
             {
@@ -1922,7 +1959,7 @@ namespace TheXDS.MCART
         ///     es posible enlazar un método a un delegado si el método
         ///     contiene parámetros genéricos.
         /// </remarks>
-        public static bool TryCreateDelegate<T>(MethodInfo method, object instance, out T @delegate) where T : Delegate
+        public static bool TryCreateDelegate<T>(MethodInfo method, object instance, out T? @delegate) where T : Delegate
         {
             try
             {
