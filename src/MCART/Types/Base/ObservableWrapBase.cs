@@ -83,6 +83,7 @@ namespace TheXDS.MCART.Types.Base
             foreach (var j in this)
             {
                 if (j?.Equals(item) ?? item is null) return c;
+                c++;
             }
             return -1;
         }

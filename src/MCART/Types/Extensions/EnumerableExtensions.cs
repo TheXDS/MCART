@@ -423,7 +423,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>
         /// Una tarea que puede utilizarse para monitorear la operación.
         /// </returns>
-        public static async Task<System.Collections.Generic.List<T>> ToListAsync<T>(this IEnumerable<T> enumerable)
+        public static async Task<List<T>> ToListAsync<T>(this IEnumerable<T> enumerable)
         {
             return await Task.Run(enumerable.ToList);
         }
