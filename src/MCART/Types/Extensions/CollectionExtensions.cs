@@ -24,7 +24,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
-using System.Collections;
 using System.Linq;
 
 namespace TheXDS.MCART.Types.Extensions
@@ -223,9 +222,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <summary>
         ///     Añade un conjunto de elementos al <see cref="ICollection{T}"/>.
         /// </summary>
-        /// <typeparam name="T">
-        ///     Tipode elementos de la colección.
-        /// </typeparam>
+        /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
         /// <param name="collection">
         ///     Colección a la cual agregar los elementos.
         /// </param>
@@ -235,6 +232,37 @@ namespace TheXDS.MCART.Types.Extensions
         public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
         {
             foreach (var j in items) collection.Add(j);
+        }
+
+        /// <summary>
+        ///     Añade una copia de un conjunto de elementos al
+        ///     <see cref="ICollection{T}"/>.
+        /// </summary>
+        /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
+        /// <param name="collection">
+        ///     Colección a la cual agregar los elementos.
+        /// </param>
+        /// <param name="source">
+        ///     Elementos a agregar a la colección.
+        /// </param>
+        public static void AddClones<T>(this ICollection<T> collection, IEnumerable<T> source) where T : ICloneable
+        {
+            collection.AddRange(source.Select(p => (T)p?.Clone()));
+        }
+
+        /// <summary>
+        ///     Clona un elemento y agrega la copia a una colección.
+        /// </summary>
+        /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
+        /// <param name="collection">
+        ///     Colección a la cual agregar los elementos.
+        /// </param>
+        /// <param name="item">
+        ///     Elemento a copiar y agregar a la colección.
+        /// </param>
+        public static void AddClone<T>(this ICollection<T> collection, T item) where T : ICloneable
+        {
+            collection.Add((T)item?.Clone());
         }
     }
 }

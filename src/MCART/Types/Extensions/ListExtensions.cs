@@ -251,8 +251,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="a">Índice del primer elemento.</param>
         /// <param name="b">Índice del segundo elemento.</param>
         public static void Swap<T>(this IList<T> collection, T a, T b)
-        {
-            
+        {            
             if (!collection.ContainsAll(a, b)) throw new Exception();
             Swap(collection, collection.IndexOf(a), collection.IndexOf(b));
         }
