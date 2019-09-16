@@ -22,9 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-// ReSharper disable UnusedMember.Global
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable MemberCanBePrivate.Global
+#nullable enable
 
 using System;
 using System.Reflection;
@@ -39,41 +37,39 @@ namespace TheXDS.MCART.Component
     /// <summary>
     ///     Expone la información de ensamblado de una aplicación de WPF.
     /// </summary>
-    public class ApplicationInfo : IExposeInfo<UIElement>
+    public class ApplicationInfo : IExposeInfo<UIElement?>
     {
         private readonly AssemblyInfo _infoExposer;
 
-        private static UIElement InferIcon([NotNull]Assembly asm)
+        private static UIElement InferIcon(Assembly asm)
         {
-            var uri = new UriBuilder(asm.CodeBase);
+            var uri = new UriBuilder(asm.CodeBase ?? string.Empty);
             var path = Uri.UnescapeDataString(uri.Path);
-            using (var sysicon = System.Drawing.Icon.ExtractAssociatedIcon(path) ?? throw new Exception())
+            using var sysicon = System.Drawing.Icon.ExtractAssociatedIcon(path) ?? throw new Exception();
+            return new Image
             {
-                return new Image
-                {
-                    Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
-                        sysicon.Handle,
-                        Int32Rect.Empty,
-                        BitmapSizeOptions.FromEmptyOptions())
-                };
-            }
+                Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
+                    sysicon.Handle,
+                    Int32Rect.Empty,
+                    BitmapSizeOptions.FromEmptyOptions())
+            };
         }
 
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Component.ApplicationInfo" />.
+        ///     <see cref="ApplicationInfo" />.
         /// </summary>
         /// <param name="application">
         ///     Aplicación de la cual se mostrará la información.
         /// </param>
-        public ApplicationInfo([NotNull] Application application) 
+        public ApplicationInfo(Application application) 
             : this(application, null) { }
 
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Component.ApplicationInfo" />.
+        ///     <see cref="ApplicationInfo" />.
         /// </summary>
         /// <param name="application">
         ///     Aplicación de la cual se mostrará la información.
@@ -93,8 +89,8 @@ namespace TheXDS.MCART.Component
         ///     Aplicación de la cual se mostrará la información.
         /// </param>
         /// <param name="icon">Ícono a mostrar de la aplicación.</param>
-        public ApplicationInfo([NotNull] Application application, UIElement icon)
-            : this(application.GetType().Assembly,icon) { }
+        public ApplicationInfo(Application application, UIElement? icon)
+            : this(application.GetType().Assembly, icon) { }
 
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
@@ -104,7 +100,7 @@ namespace TheXDS.MCART.Component
         ///     Ensamblado del cual se mostrará la información.
         /// </param>
         /// <param name="icon">Ícono a mostrar del ensamblado.</param>
-        public ApplicationInfo([NotNull] Assembly assembly, UIElement icon)
+        public ApplicationInfo(Assembly assembly, UIElement? icon)
         {
             _infoExposer = new AssemblyInfo(assembly);
             Icon = icon;
@@ -113,7 +109,7 @@ namespace TheXDS.MCART.Component
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Component.ApplicationInfo" />.
+        ///     <see cref="ApplicationInfo" />.
         /// </summary>
         /// <param name="assembly">
         ///     Ensamblado del cual se mostrará la información.
@@ -136,47 +132,47 @@ namespace TheXDS.MCART.Component
         /// <summary>
         ///     Obtiene la descripción del elemento.
         /// </summary>
-        public string Description => _infoExposer.Description;
+        public string Description => _infoExposer.Description ?? string.Empty;
 
         /// <summary>
         ///     Obtiene un ícono opcional a mostrar que describe al elemento.
         /// </summary>
-        public UIElement Icon { get; }
+        public UIElement? Icon { get; }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Devuelve el autor del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
+        ///     Devuelve el autor del <see cref="IExposeInfo" />
         /// </summary>
-        public string Author => _infoExposer.Author;
+        public string? Author => _infoExposer.Author;
 
         /// <inheritdoc />
         /// <summary>
-        ///     Devuelve el Copyright del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
+        ///     Devuelve el Copyright del <see cref="IExposeInfo" />
         /// </summary>
-        public string Copyright => _infoExposer.Copyright;
+        public string? Copyright => _infoExposer.Copyright;
 
         /// <inheritdoc />
         /// <summary>
-        ///     Devuelve la licencia del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
+        ///     Devuelve la licencia del <see cref="IExposeInfo" />
         /// </summary>
-        public string License => _infoExposer.License;
+        public string? License => _infoExposer.License;
 
         /// <inheritdoc />
         /// <summary>
-        ///     Devuelve la versión del <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
+        ///     Devuelve la versión del <see cref="IExposeInfo" />
         /// </summary>
-        public Version Version => _infoExposer.Version;
+        public Version? Version => _infoExposer.Version;
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene un valor que determina si este <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
+        ///     Obtiene un valor que determina si este <see cref="IExposeInfo" />
         ///     contiene información de licencia.
         /// </summary>
         public bool HasLicense => _infoExposer.HasLicense;
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene un valor que indica si este <see cref="T:TheXDS.MCART.Component.IExposeInfo" />
+        ///     Obtiene un valor que indica si este <see cref="IExposeInfo" />
         ///     cumple con el Common Language Standard (CLS)
         /// </summary>
         public bool ClsCompliant => _infoExposer.ClsCompliant;
