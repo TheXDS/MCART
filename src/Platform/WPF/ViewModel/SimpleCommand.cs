@@ -36,7 +36,7 @@ namespace TheXDS.MCART.ViewModel
     /// </summary>
     public class SimpleCommand : NotifyPropertyChanged, ICommand
     {
-        private readonly Action _action;
+        private readonly Action<object> _action;
         private bool _canExecute;
 
         /// <inheritdoc />
@@ -59,6 +59,31 @@ namespace TheXDS.MCART.ViewModel
         ///     inmediatamente después de instanciar esta clase.
         /// </param>
         public SimpleCommand(Action action, bool canExecute)
+        {
+            _action = _=> action();
+            _canExecute = canExecute;
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="T:TheXDS.MCART.ViewModel.SimpleCommand" />.
+        /// </summary>
+        /// <param name="action">Acción a ejecutar.</param>
+        public SimpleCommand(Action<object> action) : this(action, true)
+        {
+        }
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="SimpleCommand"/>.
+        /// </summary>
+        /// <param name="action">Acción a ejecutar.</param>
+        /// <param name="canExecute">
+        ///     Valor que indica si el comando puede ser ejecutado
+        ///     inmediatamente después de instanciar esta clase.
+        /// </param>
+        public SimpleCommand(Action<object> action, bool canExecute)
         {
             _action = action;
             _canExecute = canExecute;
@@ -112,7 +137,7 @@ namespace TheXDS.MCART.ViewModel
         /// </param>
         public void Execute(object parameter)
         {
-            _action();
+            _action(parameter);
         }
 
         /// <summary>
