@@ -26,9 +26,10 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using TheXDS.MCART.Resources;
 
@@ -37,7 +38,6 @@ namespace TheXDS.MCART.Types.Extensions
     /// <summary>
     /// Contiene extensiones útiles de la estructura <see cref="TimeSpan"/>.
     /// </summary>
-    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public static class TimeSpanExtensions
     {
         /// <summary>
@@ -69,7 +69,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>Una cadena que representa una hora.</returns>
         public static string AsTime(this in TimeSpan timeSpan)
         {
-            return AsTime(timeSpan,CultureInfo.CurrentCulture);
+            return AsTime(timeSpan, CultureInfo.CurrentCulture);
         }
 
         /// <summary>

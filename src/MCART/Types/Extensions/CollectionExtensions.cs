@@ -45,11 +45,10 @@ namespace TheXDS.MCART.Types.Extensions
         public static void RemoveOf<TItem, TRemove>(this ICollection<TItem> collection)
             where TRemove : TItem
         {
-            var lst = collection.ToList();
+            var lst = collection.ToArray();
             foreach (var j in lst)
             {
-                if (!(j is TRemove)) continue;
-                collection.Remove(j);
+                if (j is TRemove) collection.Remove(j);
             }
         }
 

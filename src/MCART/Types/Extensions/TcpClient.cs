@@ -22,21 +22,18 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#region Configuración de ReSharper
+#nullable enable
 
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable MemberCanBePrivate.Global
-
-#endregion
+using System.Net.Sockets;
 
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Extensión de la clase <see cref="T:System.Net.Sockets.TcpClient" />
+    ///     Extensión de la clase <see cref="TcpClient" />
     ///     que implementa observación del estado de deshecho del objeto.
     /// </summary>
-    public class TcpClient : System.Net.Sockets.TcpClient
+    public class ExtendedTcpClient : TcpClient
     {
         /// <summary>
         ///     Obtiene un valor que indica si la instancia actual ha sido
@@ -47,7 +44,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <inheritdoc />
         /// <summary>
         ///     Libera los recursos no administrados que usa
-        ///     <see cref="T:System.Net.Sockets.TcpClient" /> y libera los
+        ///     <see cref="TcpClient" /> y libera los
         ///     recursos administrados de forma opcional.
         /// </summary>
         /// <param name="disposing">
@@ -58,6 +55,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         protected override void Dispose(bool disposing)
         {
+            if (Disposed) return;
             Disposed = true;
             base.Dispose(disposing);
         }

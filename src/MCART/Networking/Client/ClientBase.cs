@@ -33,7 +33,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using TheXDS.MCART.Annotations;
 using TheXDS.MCART.Types.Extensions;
-using TcpClient = TheXDS.MCART.Types.Extensions.TcpClient;
+using ExtendedTcpClient = TheXDS.MCART.Types.Extensions.ExtendedTcpClient;
 
 #region Configuración de ReSharper
 
@@ -66,7 +66,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <summary>
         ///     Conexión al servidor
         /// </summary>
-        private protected TcpClient Connection { get; private set; } = new TcpClient();
+        private protected ExtendedTcpClient Connection { get; private set; } = new ExtendedTcpClient();
 
         private int DefaultPort => GetType().GetAttr<PortAttribute>()?.Value ?? Common.DefaultPort;
 
@@ -182,13 +182,13 @@ namespace TheXDS.MCART.Networking.Client
                 ex => new ConnectionFailureEventArgs(ex, server, port));
         }
 
-        private bool Connect([NotNull] Action<TcpClient> connect, [NotNull] Func<HostConnectionInfoEventArgs> connected,
+        private bool Connect([NotNull] Action<ExtendedTcpClient> connect, [NotNull] Func<HostConnectionInfoEventArgs> connected,
             [NotNull] Func<Exception, ConnectionFailureEventArgs> failure)
         {
             try
             {
                 CloseConnection();
-                Connection = new TcpClient();
+                Connection = new ExtendedTcpClient();
                 connect(Connection);
                 Connected?.Invoke(this, connected());
                 _worker = new Thread(PostConnection);
@@ -269,14 +269,14 @@ namespace TheXDS.MCART.Networking.Client
                 ex => new ConnectionFailureEventArgs(ex, server, port));
         }
 
-        private async Task<bool> ConnectAsync(Func<TcpClient, Task> connect,
+        private async Task<bool> ConnectAsync(Func<ExtendedTcpClient, Task> connect,
             Func<HostConnectionInfoEventArgs> connected,
             Func<Exception, ConnectionFailureEventArgs> failure)
         {
             try
             {
                 CloseConnection();
-                Connection = new TcpClient();
+                Connection = new ExtendedTcpClient();
                 await connect(Connection);
                 Connected?.Invoke(this, connected());
                 _worker = new Thread(PostConnection);

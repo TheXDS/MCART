@@ -1,5 +1,5 @@
 ﻿/*
-MemberInfoExtensions.cs
+MethodInfoExtensions.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -24,30 +24,28 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Reflection;
-using TheXDS.MCART.Attributes;
 
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Extensiones varias para objetos <see cref="MemberInfo" />.
+    ///     Contiene extensiones para la clase <see cref="MethodInfo"/>.
     /// </summary>
-    public static class MemberInfoExtensions
+    public static class MethodInfoExtensions
     {
         /// <summary>
-        ///     Obtiene un nombre personalizado para un miembro.
+        ///     Crea un delegado del tipo especificado a partir del método.
         /// </summary>
-        /// <param name="member">
-        ///     <see cref="MemberInfo" /> del cual obtener el nombre.
-        /// </param>
+        /// <typeparam name="T">
+        ///     Tipo de delegado a obtener.
+        /// </typeparam>
+        /// <param name="m">Método del cual obtener un delegado.</param>
         /// <returns>
-        ///     Un nombre amigable para <paramref name="member" />, o el nombre
-        ///     definido para <paramref name="member" /> si no se ha definido
-        ///     un nombre amigable por medio del atributo
-        ///     <see cref="NameAttribute"/>.
+        ///     Un delegado del tipo especificado a partir del método, o
+        ///     <see langword="null"/> si no es posible realizar la conversión.
         /// </returns>
-        public static string NameOf(this MemberInfo member)
+        public static T ToDelegate<T>(this MethodInfo m) where T : Delegate
         {
-            return member.GetAttr<NameAttribute>()?.Value ?? member.Name;
+            return m.IsSignatureCompatible<T>() ? (T)Delegate.CreateDelegate(typeof(T), m) : null;
         }
     }
 }

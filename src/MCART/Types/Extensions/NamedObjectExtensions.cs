@@ -32,16 +32,6 @@ using System.Linq;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 
-#region Configuración de ReSharper
-
-// ReSharper disable IntroduceOptionalParameters.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable UnusedMember.Global
-
-#endregion
-
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>

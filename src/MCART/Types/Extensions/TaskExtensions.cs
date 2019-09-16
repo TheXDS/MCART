@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -107,7 +109,6 @@ namespace TheXDS.MCART.Types.Extensions
         [Sugar]
         public static T Yield<T>(this Task<T> task)
         {
-            //task.Wait();
             return task.GetAwaiter().GetResult();
         }
 

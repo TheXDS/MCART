@@ -61,8 +61,26 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static T ReadEnum<T>(this BinaryReader br) where T : struct, Enum
         {
-            var t = typeof(T).GetEnumUnderlyingType();
-            return (T)Enum.ToObject(typeof(T), GetBinaryReadMethod(t).Invoke(br, new object[0]));
+            return (T)ReadEnum(br, typeof(T));
+        }
+
+        /// <summary>
+        ///     Lee un valor de enumeración.
+        /// </summary>
+        /// <param name="br">
+        ///     <see cref="BinaryReader"/> desde el cual obtener.
+        /// </param>
+        /// <param name="enumType">
+        ///     Tipo de valor de enumeración a leer.
+        /// </param>
+        /// <returns>
+        ///     Valor de enumeración obtenido desde el
+        ///     <see cref="BinaryReader"/>.
+        /// </returns>
+        public static Enum ReadEnum(this BinaryReader br, Type enumType)
+        {
+            var t = enumType.GetEnumUnderlyingType();
+            return (Enum)Enum.ToObject(enumType, GetBinaryReadMethod(t).Invoke(br, new object[0]));
         }
 
         /// <summary>
