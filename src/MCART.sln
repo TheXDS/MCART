@@ -34,10 +34,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART", "MCART\MCART.csproj
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{B80D3805-8722-4877-AF4E-C7763C850A9E}"
 	ProjectSection(SolutionItems) = preProject
-		CompileOptions.targets = CompileOptions.targets
 		Directory.Build.props = Directory.Build.props
 		Directory.Build.targets = Directory.Build.targets
-		PackageInfo.targets = PackageInfo.targets
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF", "Platform\WPF\WPF.csproj", "{77706828-80BE-4BAC-A97C-072E101D01DE}"
@@ -58,13 +56,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfTests", "Tests\WpfTests\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{0E7DB819-72E6-4549-BF37-DBE9F453683C}"
 	ProjectSection(SolutionItems) = preProject
-		..\Examples\Directory.Build.targets = ..\Examples\Directory.Build.targets
+		Examples\Directory.Build.props = Examples\Directory.Build.props
+		Examples\Directory.Build.targets = Examples\Directory.Build.targets
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VmBuilder", "..\Examples\VmBuilder\VmBuilder.csproj", "{0F84621D-1376-46E5-A989-494D09E56F5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VmBuilder", "Examples\VmBuilder\VmBuilder.csproj", "{0F84621D-1376-46E5-A989-494D09E56F5D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{D62BF4A9-E484-4F39-B40F-7103D5AEABA8}"
 	ProjectSection(SolutionItems) = preProject
+		Extensions\Directory.Build.props = Extensions\Directory.Build.props
 		Extensions\Directory.Build.targets = Extensions\Directory.Build.targets
 	EndProjectSection
 EndProject
@@ -72,19 +72,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModelFactory", "Extensi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeFactory", "Extensions\TypeFactory\TypeFactory.csproj", "{F51B9E79-4EAB-4F7C-9575-18F574DD6FD1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EchoServer", "..\Examples\EchoServer\EchoServer.csproj", "{95F1DD43-C18D-4F30-B25C-173C936A38A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EchoServer", "Examples\EchoServer\EchoServer.csproj", "{95F1DD43-C18D-4F30-B25C-173C936A38A9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PictVGA", "..\Examples\PictVGA\PictVGA.csproj", "{5CFED774-9D55-4268-8FFE-F560982EB620}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PictVGA", "Examples\PictVGA\PictVGA.csproj", "{5CFED774-9D55-4268-8FFE-F560982EB620}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismLike", "Extensions\PrismLike\PrismLike.csproj", "{6F9B8B04-7ECA-4657-AF02-EC2199295DF8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LightChat", "LightChat", "{3D07E538-7047-49F5-AE93-07C85E20581A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LightChatServer", "..\Examples\LightChat\LightChatServer\LightChatServer.csproj", "{0A814BF9-E7FB-4BA6-BC90-61B1AA78E638}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LightChatServer", "Examples\LightChat\LightChatServer\LightChatServer.csproj", "{0A814BF9-E7FB-4BA6-BC90-61B1AA78E638}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Common", "..\Examples\LightChat\Common\Common.shproj", "{1459CF01-8F9B-47B1-A3F2-57E1F84D9D0E}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Common", "Examples\LightChat\Common\Common.shproj", "{1459CF01-8F9B-47B1-A3F2-57E1F84D9D0E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LightChatClient", "..\Examples\LightChat\LightChatClient\LightChatClient.csproj", "{8F93307C-81D3-4308-A8F5-24940290572D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LightChatClient", "Examples\LightChat\LightChatClient\LightChatClient.csproj", "{8F93307C-81D3-4308-A8F5-24940290572D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamlArt", "Utils\XamlArt\XamlArt.csproj", "{0BB0A1D0-9579-491F-8874-F86514C2BCC0}"
 EndProject
@@ -94,11 +94,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cmd", "Platform\Cmd\Cmd.csp
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Internals", "Shared\Internals\Internals.shproj", "{F7B14AEA-6C0A-4343-81AE-FB06DCD9C69C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consoleer", "..\Examples\Consoleer\Consoleer.csproj", "{AA5DAAB0-20AF-4967-B592-E494124276E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consoleer", "Examples\Consoleer\Consoleer.csproj", "{AA5DAAB0-20AF-4967-B592-E494124276E2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Targets", "Targets", "{75E18028-6D7C-47CC-B8C2-9BB5A0151523}"
+	ProjectSection(SolutionItems) = preProject
+		Targets\BuildPaths.props = Targets\BuildPaths.props
+		Targets\CompileOptions.targets = Targets\CompileOptions.targets
+		Targets\GlobalDirectives.targets = Targets\GlobalDirectives.targets
+		Targets\PackageInfo.props = Targets\PackageInfo.props
+		Targets\PackageVersion.props = Targets\PackageVersion.props
+		Targets\Publish.targets = Targets\Publish.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\Examples\LightChat\Common\Common.projitems*{1459cf01-8f9b-47b1-a3f2-57e1f84d9d0e}*SharedItemsImports = 13
+		Examples\LightChat\Common\Common.projitems*{1459cf01-8f9b-47b1-a3f2-57e1f84d9d0e}*SharedItemsImports = 13
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{77706828-80be-4bac-a97c-072e101d01de}*SharedItemsImports = 4
 		Documentation\Snippets\Snippets.projitems*{913db390-bcf2-478d-996e-1b7248425597}*SharedItemsImports = 13
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{967afaa3-ded3-4ec0-9401-7193b318fce8}*SharedItemsImports = 13
@@ -294,6 +304,7 @@ Global
 		{DFC56490-E51A-4DFF-ACDB-D27C37BE66E1} = {DB2C9D58-DF3F-4361-ACE4-EF1219AD1810}
 		{F7B14AEA-6C0A-4343-81AE-FB06DCD9C69C} = {D74BF4B6-D008-4124-B4F5-DAEA45272A78}
 		{AA5DAAB0-20AF-4967-B592-E494124276E2} = {0E7DB819-72E6-4549-BF37-DBE9F453683C}
+		{75E18028-6D7C-47CC-B8C2-9BB5A0151523} = {B80D3805-8722-4877-AF4E-C7763C850A9E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A16C9D23-2B39-4202-8A15-4A3536784E27}

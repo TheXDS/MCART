@@ -1,14 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
-
   <Import Project="..\Common\Common.projitems" Label="Shared" />
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\src\MCART\MCART.csproj" />
-  </ItemGroup>
-
 </Project>

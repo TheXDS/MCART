@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(MSBuildProjectExtension)'=='.csproj'">
+    <Configurations>Debug;Release;Debug-Publish;Debug-PublishLocal</Configurations>
+    <RootNamespace>TheXDS.MCART</RootNamespace>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <Deterministic>true</Deterministic>
+    <DocumentationFile>$(OutDir)$(AssemblyName).xml</DocumentationFile>
+    <PackageId>TheXDS.$(AssemblyName)</PackageId>
+    <Title>$(AssemblyTitle)</Title>
+    <PackageDescription>$(Description)</PackageDescription>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <LangVersion>preview</LangVersion>
+    <Nullable>enable</Nullable>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Debug-Publish'">
+    <DebugType>embedded</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Debug-PublishLocal'">
+    <DebugType>portable</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <DebugSymbols>false</DebugSymbols>    
+  </PropertyGroup>
+</Project>

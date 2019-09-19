@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(NoPack)'!='true'">
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(NoPack)'=='true'">
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <IncludeSymbols>true</IncludeSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Debug-Publish'">
+    <IncludeSymbols>true</IncludeSymbols>
+    <PublishLocalSymbols>true</PublishLocalSymbols>
+    <PublishToNuGet>true</PublishToNuGet>    
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Debug-PublishLocal'">
+    <IncludeSymbols>true</IncludeSymbols>
+    <PublishLocalSymbols>true</PublishLocalSymbols>
+    <PublishToNuGet>false</PublishToNuGet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <IncludeSymbols>false</IncludeSymbols>
+    <PublishLocalSymbols>false</PublishLocalSymbols>
+    <PublishToNuGet>true</PublishToNuGet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(GeneratePackageOnBuild)'=='true'">
+    <NuGetRoot>$(Root)Publish</NuGetRoot>
+    <ActualPackage>$(PackageOutputPath)$(PackageId).$(ActualPkgVersion)</ActualPackage>
+    <ActualPackageFile>$(ActualPackage).nupkg</ActualPackageFile>
+    <ActualPackageSymbols>$(ActualPackage).symbols.nupkg</ActualPackageSymbols>
+  </PropertyGroup>
+  <Target 
+    Name="PostPackageSymbols"
+    Condition="'$(PublishLocalSymbols)'=='true' And '$(GeneratePackageOnBuild)'=='true' And '$(IsPackable)'=='true'"
+    AfterTargets="Pack">
+    <Exec Command="nuget add $(ActualPackageSymbols) -Source $(NuGetRoot)" />
+  </Target>
+  <Target
+    Name="PostPackage"
+    Condition="'$(PublishToNuGet)'=='true' And '$(GeneratePackageOnBuild)'=='true' And '$(IsPackable)'=='true'"
+    AfterTargets="Pack">
+    <Exec Command="nuget push $(ActualPackageFile) -Source https://nuget.org" />
+  </Target>
+</Project>

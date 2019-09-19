@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(MSBuildProjectExtension)'=='.csproj'">
     <Company>TheXDS! non-Corp.</Company>
@@ -11,13 +11,13 @@
     <PackageTags>mcart runtime extension helper async network security</PackageTags>
     <RepositoryUrl>https://github.com/TheXDS/MCART</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Description>MCART es un conjunto de funciones, extensiones y módulos que he encontrado útiles a lo largo de mis años de experiencia con lenguajes .Net, particularmente con Visual Basic. Trata de añadir características que no se encuentran fácilmente disponibles en .Net Framework, y además añade controles, ventanas, recursos y otros objetos de utilidad.</Description>
+    <Description>$(Product) es un conjunto de funciones, extensiones y módulos que he encontrado útiles a lo largo de mis años de experiencia con lenguajes .Net, particularmente con Visual Basic. Trata de añadir características que no se encuentran fácilmente disponibles en .Net Framework, y además añade controles, ventanas, recursos y otros objetos de utilidad.</Description>
   </PropertyGroup>
   <PropertyGroup Condition="'$(VersionSuffix)'==''">
     <ActualPkgVersion>$(VersionPrefix)</ActualPkgVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(VersionSuffix)'!=''">
     <ActualPkgVersion>$(VersionPrefix)-$(VersionSuffix)</ActualPkgVersion>
-    <PackageReleaseNotes>Este paquete es una versión Pre-Release de MCART, por lo que se recomienda que su uso se limite a pruebas y demostraciones de la API, ya que no se puede garantizar la estabilidad de la misma. Para más detalles, vea la documentación que acompaña a MCART.</PackageReleaseNotes>
+    <PackageReleaseNotes>Este paquete es una versión Pre-Release de $(Product), por lo que se recomienda que su uso se limite a pruebas y demostraciones de la API, ya que no se puede garantizar la estabilidad de la misma. Para más detalles, vea la documentación que acompaña a $(Product).</PackageReleaseNotes>
   </PropertyGroup>
 </Project>

@@ -1,16 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
-
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFrameworks>netcoreapp3.0;net47</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Lib\MCART-UI\MCART-UI.csproj" />
-    <ProjectReference Include="..\..\src\Lib\MCART-Windows\MCART-Windows.csproj" />
-    <ProjectReference Include="..\..\src\Platform\WPF\WPF.csproj" />
+    <ProjectReference Include="$(SolutionDir)Lib\MCART-UI\MCART-UI.csproj" />
+    <ProjectReference Include="$(SolutionDir)Lib\MCART-Windows\MCART-Windows.csproj" />
+    <ProjectReference Include="$(SolutionDir)Platform\WPF\WPF.csproj" />
   </ItemGroup>
-
 </Project>
