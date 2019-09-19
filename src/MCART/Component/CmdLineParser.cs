@@ -33,11 +33,13 @@ using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
 namespace TheXDS.MCART.Component
 {
+
+
     /// <summary>
     ///     Clase que permite administrar y exponer de forma intuitiva las
     ///     opciones de línea de comandos con las que se inicia una aplicación.
     /// </summary>
-    public sealed class CmdLineParser
+    public sealed class CmdLineParser: ICmdLineParser
     {
         private static readonly List<Argument> _allArguments = Objects.FindAllObjects<Argument>().ToList();
         private readonly HashSet<Argument> _args = new HashSet<Argument>(new TypeComparer());
@@ -85,7 +87,7 @@ namespace TheXDS.MCART.Component
                     if (p.ShortName.HasValue && (p.Kind == Argument.ValueKind.Flag || p.Kind == Argument.ValueKind.Optional) && j.Contains(p.ShortName.Value))
                     {
                         _args.Add(p);
-                        j.Replace(p.ShortName.ToString(), string.Empty);
+                        j = j.Replace(p.ShortName.ToString(), string.Empty);
                     }
                 }
                 return j.Length == 0;
@@ -225,12 +227,12 @@ namespace TheXDS.MCART.Component
         ///     comandos, o <see langword="null"/> si el argumento no ha sido
         ///     especificado.
         /// </returns>
-        public T Arg<T>() where T : Argument, new() => _args.OfType<T>().FirstOrDefault();
+        public T? Arg<T>() where T : Argument, new() => _args.OfType<T>().FirstOrDefault();
 
         /// <summary>
         ///     Enumera las opciones inválidas especificadas.
         /// </summary>
-        public IReadOnlyCollection<string> Invalid => _invalid.AsReadOnly();
+        public IEnumerable<string> Invalid => _invalid.AsReadOnly();
 
         /// <summary>
         ///     Enumera los argumentos obligatorios que hagan falta en la línea de comandos.

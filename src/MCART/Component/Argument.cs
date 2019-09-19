@@ -63,10 +63,12 @@ namespace TheXDS.MCART.Component
         /// </summary>
         public virtual ValueKind Kind => ValueKind.Flag;
 
+
+
         /// <summary>
         ///     Obtiene el nombre largo de este argumento.
         /// </summary>
-        public virtual string LongName => GetType().Name.ChopEndAny("Argument", "Arg");
+        public virtual string LongName => GetType().Name.ChopEndAny(nameof(Argument), "Arg");
 
         /// <summary>
         ///     Obtiene el nombre corto de este argumento.
