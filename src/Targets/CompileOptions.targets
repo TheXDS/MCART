@@ -17,7 +17,7 @@
     <DefineTrace>true</DefineTrace>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Debug-Publish'">
-    <DebugType>embedded</DebugType>
+    <DebugType>portable</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
   </PropertyGroup>
