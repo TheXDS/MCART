@@ -496,7 +496,7 @@ namespace TheXDS.MCART.ViewModel
             }
             if (toListen.AnyEmpty(out int index)) throw new InvalidEnumArgumentException(nameof(propsToListen),index,typeof(string));
 #endif
-            _properties = toListen?.Any() ?? false ? new HashSet<string>(toListen) : new HashSet<string>();
+            _properties = toListen?.Any() ?? false ? new HashSet<string>(toListen!) : new HashSet<string>();
             if (_canExecute is null) return;
             observedSource.PropertyChanged += RaiseCanExecuteChanged;
         }

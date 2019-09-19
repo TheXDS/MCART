@@ -22,13 +22,14 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Component;
 using static TheXDS.MCART.Misc.PrivateInternals;
 using St = TheXDS.MCART.Resources.Strings;
 using St2 = TheXDS.MCART.Resources.InternalStrings;
@@ -133,7 +134,7 @@ namespace TheXDS.MCART.PluginSupport
         /// establecer el atributo, se devolverá la versión del ensamblado que
         /// contiene a este <see cref="T:TheXDS.MCART.PluginSupport.Plugin" />.
         /// </value>
-        public virtual Version Version => GetType().GetAttrAlt<VersionAttribute>()?.Value ?? Assembly.GetName().Version;
+        public virtual Version? Version => GetType().GetAttrAlt<VersionAttribute>()?.Value ?? Assembly.GetName().Version;
 
         /// <summary>
         ///     Obtiene la versión informacional de este <see cref="Plugin"/>.
@@ -150,7 +151,7 @@ namespace TheXDS.MCART.PluginSupport
         /// atributo, se devolverá la descripción del ensamblado que contiene a
         /// este <see cref="T:TheXDS.MCART.PluginSupport.Plugin" />, o <see langword="null" /> en caso de no existir.
         /// </value>
-        public virtual string Description => GetType().GetAttrAlt<DescriptionAttribute>()?.Value
+        public virtual string? Description => GetType().GetAttrAlt<DescriptionAttribute>()?.Value
             ?? (Attribute.GetCustomAttribute(Assembly, typeof(AssemblyDescriptionAttribute)) as AssemblyDescriptionAttribute)?.Description;
         /// <inheritdoc />
         /// <summary>
@@ -162,7 +163,7 @@ namespace TheXDS.MCART.PluginSupport
         /// se devolverá el nombre de la compañía del ensamblado que contiene a
         /// este <see cref="T:TheXDS.MCART.PluginSupport.Plugin" />, o <see langword="null" /> en caso de no existir.
         /// </value>
-        public virtual string Author => GetType().GetAttrAlt<AuthorAttribute>()?.Value
+        public virtual string? Author => GetType().GetAttrAlt<AuthorAttribute>()?.Value
             ?? (Attribute.GetCustomAttribute(Assembly, typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute)?.Company;
         /// <inheritdoc />
         /// <summary>
@@ -174,7 +175,7 @@ namespace TheXDS.MCART.PluginSupport
         /// se devolverá el nombre de la compañía del ensamblado que contiene a
         /// este <see cref="T:TheXDS.MCART.PluginSupport.Plugin" />, o <see langword="null" /> en caso de no existir.
         /// </value>
-        public virtual string Copyright => GetType().GetAttrAlt<CopyrightAttribute>()?.Value
+        public virtual string? Copyright => GetType().GetAttrAlt<CopyrightAttribute>()?.Value
             ?? (Attribute.GetCustomAttribute(Assembly, typeof(AssemblyCopyrightAttribute)) as AssemblyCopyrightAttribute)?.Copyright;
         /// <inheritdoc />
         /// <summary>
@@ -195,7 +196,7 @@ namespace TheXDS.MCART.PluginSupport
         /// encontrado.
         /// </note>
         /// </value>
-        public virtual string License =>
+        public virtual string? License =>
             ReadLicense(this) ??
             ReadLicense(Assembly,false);
 
@@ -222,7 +223,7 @@ namespace TheXDS.MCART.PluginSupport
         /// <see cref="T:TheXDS.MCART.Attributes.MinMCARTVersionAttribute" /> en la clase o en el 
         /// ensamblado, se devolverá <see cref="P:TheXDS.MCART.PluginSupport.Plugin.TargetMCARTVersion" />.
         /// </remarks>
-        public virtual Version MinMcartVersion => GetType().GetAttrAlt<MinMcartVersionAttribute>()?.Value ?? TargetMcartVersion;
+        public virtual Version? MinMcartVersion => GetType().GetAttrAlt<MinMcartVersionAttribute>()?.Value ?? TargetMcartVersion;
         /// <inheritdoc />
         /// <summary>
         /// Determina la versión objetivo de MCART para este 
@@ -246,7 +247,7 @@ namespace TheXDS.MCART.PluginSupport
         /// MCART.
         /// </note>
         /// </remarks>
-        public virtual Version TargetMcartVersion => GetType().GetAttrAlt<TargetMCARTVersionAttribute>()?.Value;
+        public virtual Version? TargetMcartVersion => GetType().GetAttrAlt<TargetMCARTVersionAttribute>()?.Value;
 
         /// <summary>
         ///     Obtiene un valor que determina si el <see cref="Plugin"/> es compatible con esta versión de MCART.
@@ -320,7 +321,7 @@ namespace TheXDS.MCART.PluginSupport
         /// Contiene un objeto de libre uso para almacenamiento de cualquier
         /// instancia que el usuario desee asociar a este <see cref="T:TheXDS.MCART.PluginSupport.Plugin" />.
         /// </summary>
-        public object Tag { get; set; }
+        public object? Tag { get; set; }
 
         #endregion
         #region Eventos y señales
@@ -368,7 +369,7 @@ namespace TheXDS.MCART.PluginSupport
         /// mínima de MCART, <see langword="false"/> en caso contrario.
         /// </returns>
         [Sugar]
-        public bool MinRtVersion(out Version minVersion)
+        public bool MinRtVersion(out Version? minVersion)
         {
             minVersion = MinMcartVersion;
             return !(minVersion is null);
@@ -383,7 +384,7 @@ namespace TheXDS.MCART.PluginSupport
         /// objetivo de MCART, <see langword="false"/> en caso contrario.
         /// </returns>
         [Sugar]
-        public bool TargetRtVersion(out Version tgtVersion)
+        public bool TargetRtVersion(out Version? tgtVersion)
         {
             tgtVersion = TargetMcartVersion;
             return !(tgtVersion is null);

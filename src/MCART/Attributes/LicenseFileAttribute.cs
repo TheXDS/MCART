@@ -61,9 +61,10 @@ namespace TheXDS.MCART.Attributes
         {
             try
             {
-                using (var fs = new FileStream(Value, FileMode.Open))
-                using (var sr = new StreamReader(fs))
-                    return sr.ReadToEnd();
+                if (Value is null) return Warn(UnspecLicense);
+                using var fs = new FileStream(Value, FileMode.Open);
+                using var sr = new StreamReader(fs);
+                return sr.ReadToEnd();
             }
             catch
             {

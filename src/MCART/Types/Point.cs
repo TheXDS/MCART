@@ -598,12 +598,10 @@ namespace TheXDS.MCART.Types
         /// <returns>
         ///     Una representación en forma de <see cref="T:System.String" /> de este objeto.
         /// </returns>
-        public string ToString(string? format, IFormatProvider formatProvider)
+        public string ToString(string? format, IFormatProvider? formatProvider)
         {
             if (format.IsEmpty()) format = "C";
-#pragma warning disable CS8602
-            return format.ToUpperInvariant()[0] switch
-#pragma warning restore CS8602
+            return format!.ToUpperInvariant()[0] switch
             {
                 'C' => $"{X}, {Y}",
                 'B' => $"[{X}, {Y}]",
@@ -636,7 +634,7 @@ namespace TheXDS.MCART.Types
         ///     <see langword="true" /> si esta instancia y <paramref name="obj" /> son iguales;
         ///     de lo contrario, <see langword="false" />.
         /// </returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (!(obj is I2DVector p)) return false;
             return this == p;

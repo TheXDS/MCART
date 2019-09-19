@@ -242,7 +242,7 @@ namespace TheXDS.MCART.Types
         ///     <see langword="true" /> si esta instancia y <paramref name="obj" /> son iguales;
         ///     de lo contrario, <see langword="false" />.
         /// </returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (!(obj is Size p)) return false;
             return this == p;
@@ -260,7 +260,7 @@ namespace TheXDS.MCART.Types
             hashCode = hashCode * -1521134295 + Height.GetHashCode();
             hashCode = hashCode * -1521134295 + Width.GetHashCode();
             hashCode = hashCode * -1521134295 + SquareArea.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<bool?>.Default.GetHashCode(IsZero);
+            if (!(IsZero is null)) hashCode = hashCode * -1521134295 + EqualityComparer<bool?>.Default.GetHashCode(IsZero);
             return hashCode;
         }
 

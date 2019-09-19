@@ -28,7 +28,13 @@ using static System.Reflection.Emit.OpCodes;
 
 namespace TheXDS.MCART.Types.Extensions
 {
+    /// <summary>
+    ///     Carga un valor constante <see cref="ushort"/> en la secuencia de
+    ///     instrucciones MSIL.
+    /// </summary>
+#if ClsCompliance
     [CLSCompliant(false)]
+#endif
     public class UShortConstantLoader : ConstantLoader<ushort>
     {
         public override void Emit(ILGenerator il, ushort value) => il.Emit(Ldc_I4, unchecked(value));

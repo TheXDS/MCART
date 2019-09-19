@@ -90,7 +90,7 @@ namespace TheXDS.MCART.Networking.Server
                           && p.GetParameters().Length == 0
                           && p.ReturnType == tCmd)
                       ?? throw new PlatformNotSupportedException();
-            var vals = Enum.GetValues(typeof(TResponse)).OfType<TResponse?>().ToArray();
+            var vals = Enum.GetValues(typeof(TResponse)).OfType<TResponse>().ToArray();
             _errResponse = vals.FirstOrDefault(p => p.HasAttr<ErrorResponseAttribute>());
             _unkResponse = vals.FirstOrDefault(p => p.HasAttr<UnknownResponseAttribute>());
             _notMappedResponse = vals.FirstOrDefault(p => p.HasAttr<NotMappedResponseAttribute>());
@@ -260,7 +260,7 @@ namespace TheXDS.MCART.Networking.Server
         /// </returns>
         public static TCommand ReadCommand(BinaryReader br)
         {
-            return (TCommand) Enum.ToObject(typeof(TCommand), _readCmd.Invoke(br, new object[0]));
+            return (TCommand) Enum.ToObject(typeof(TCommand), _readCmd.Invoke(br, new object[0])!);
         }
 
         /// <inheritdoc />

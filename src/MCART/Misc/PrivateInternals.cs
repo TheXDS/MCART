@@ -82,7 +82,7 @@ namespace TheXDS.MCART.Misc
         private static IEnumerable<NamedObject<TField>> List<TField>(IReflect source, BindingFlags flags, object? instance)
         {
             return source.GetFields(flags).Where(f => f.FieldType.Implements<TField>())
-                .Select(p => new NamedObject<TField>((TField)p.GetValue(instance)));
+                .Select(p => new NamedObject<TField>((TField)p.GetValue(instance)!));
         }
 
         public static bool TryParseValues<TValue, TResult>(string[] separators, string value, byte items, Func<TValue[], TResult> instancer, out TResult result)
@@ -123,7 +123,7 @@ namespace TheXDS.MCART.Misc
                 }
             }
 
-            result = default;
+            result = default!;
             return false;
         }
 

@@ -28,7 +28,9 @@ using static System.Reflection.Emit.OpCodes;
 
 namespace TheXDS.MCART.Types.Extensions
 {
+#if ClsCompliance
     [CLSCompliant(false)]
+#endif
     public class ULongConstantLoader : ConstantLoader<ulong>
     {
         public override void Emit(ILGenerator il, ulong value) => il.Emit(Ldc_I8, unchecked((long)value));

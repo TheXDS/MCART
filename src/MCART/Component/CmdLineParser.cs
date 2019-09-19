@@ -87,7 +87,7 @@ namespace TheXDS.MCART.Component
                     if (p.ShortName.HasValue && (p.Kind == Argument.ValueKind.Flag || p.Kind == Argument.ValueKind.Optional) && j.Contains(p.ShortName.Value))
                     {
                         _args.Add(p);
-                        j = j.Replace(p.ShortName.ToString(), string.Empty);
+                        j = j.Replace(p.ShortName.Value.ToString()!, string.Empty);
                     }
                 }
                 return j.Length == 0;

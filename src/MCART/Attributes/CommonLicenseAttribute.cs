@@ -53,10 +53,8 @@ namespace TheXDS.MCART.Attributes
 
         public LicenseId Id { get; }
 
-        public string Name { get; }
+        public string Name { get; } = string.Empty;
 
         public bool FsfLibre { get; set; }
-
-
     }
 }

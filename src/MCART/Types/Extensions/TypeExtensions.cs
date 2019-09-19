@@ -547,7 +547,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             var r = await NewAsync(type, throwOnFail, async, parameters);
             if (r is T v) return v;
-            return throwOnFail ? throw new InvalidCastException() : (T)default;
+            return throwOnFail ? throw new InvalidCastException() : (T)default!;
         }
 
         /// <summary>
@@ -632,15 +632,55 @@ namespace TheXDS.MCART.Types.Extensions
         [Sugar]
         public static Type ResolveCollectionType(this Type type) => type.IsCollectionType() ? type.GetCollectionType() : type;
 
+        /// <summary>
+        ///     Enumera a los tipos descendientes del tipo especificado.
+        /// </summary>
+        /// <param name="type">
+        ///     Tipo del cual buscar descendientes.
+        /// </param>
+        /// <returns>
+        ///     Una secuencia con todos los tipos descendientes del tipo
+        ///     especificado.
+        /// </returns>
         public static IEnumerable<Type> Derivates(this Type type)
         {
             return Derivates(type, AppDomain.CurrentDomain);
         }
+
+        /// <summary>
+        ///     Enumera a los tipos descendientes del tipo dentro del dominio
+        ///     especificado.
+        /// </summary>
+        /// <param name="type">
+        ///     Tipo del cual buscar descendientes.
+        /// </param>
+        /// <param name="domain">
+        ///     Dominio sobre el cual realizar la búsqueda.
+        /// </param>
+        /// <returns>
+        ///     Una secuencia con todos los tipos descendientes del tipo
+        ///     especificado.
+        /// </returns>
         public static IEnumerable<Type> Derivates(this Type type, AppDomain domain)
         {
             return Derivates(type, domain.GetAssemblies());
         }
 
+        /// <summary>
+        ///     Enumera a los tipos descendientes del tipo dentro de los
+        ///     ensamblados especificados.
+        /// </summary>
+        /// <param name="type">
+        ///     Tipo del cual buscar descendientes.
+        /// </param>
+        /// <param name="assemblies">
+        ///     Secuencia que contiene un listado de los ensamblados en los
+        ///     cuales realizar la búsqueda.
+        /// </param>
+        /// <returns>
+        ///     Una secuencia con todos los tipos descendientes del tipo
+        ///     especificado.
+        /// </returns>
         public static IEnumerable<Type> Derivates(this Type type, IEnumerable<Assembly> assemblies)
         {
             var retval = new List<Type>();

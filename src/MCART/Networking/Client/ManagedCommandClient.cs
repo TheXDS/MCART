@@ -92,10 +92,10 @@ namespace TheXDS.MCART.Networking.Client
             _toCommand = EnumExtensions.ToBytes<TCommand>();
             _readResp = BinaryReaderExtensions.GetBinaryReadMethod(typeof(TResult).GetEnumUnderlyingType());
 
-            var vals = Enum.GetValues(typeof(TResult)).OfType<TResult?>().ToArray();
+            var vals = Enum.GetValues(typeof(TResult)).OfType<TResult>().ToArray();
             _errResponse = vals.FirstOrDefault(p => p.HasAttr<ErrorResponseAttribute>());
-            _unkResponse = vals.FirstOrDefault(p => p.HasAttr<UnknownResponseAttribute>()) ?? _errResponse;
-            _notMappedResponse = vals.FirstOrDefault(p => p.HasAttr<NotMappedResponseAttribute>()) ?? _unkResponse;
+            _unkResponse = (TResult?)vals.FirstOrDefault(p => p.HasAttr<UnknownResponseAttribute>()) ?? _errResponse;
+            _notMappedResponse = (TResult?)vals.FirstOrDefault(p => p.HasAttr<NotMappedResponseAttribute>()) ?? _unkResponse;
         }
 
         private readonly HashSet<ManualResetEventSlim> _cmdWaiters = new HashSet<ManualResetEventSlim>();
@@ -111,7 +111,7 @@ namespace TheXDS.MCART.Networking.Client
         }
         private static TResult ReadResponse(BinaryReader br)
         {
-            return (TResult)Enum.ToObject(typeof(TResult), _readResp.Invoke(br, new object[0]));
+            return (TResult)Enum.ToObject(typeof(TResult), _readResp.Invoke(br, new object[0])!);
         }
 
         /// <summary>

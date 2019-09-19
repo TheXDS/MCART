@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #nullable enable
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -77,10 +78,11 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Valor de enumeración obtenido desde el
         ///     <see cref="BinaryReader"/>.
         /// </returns>
+        [DebuggerStepThrough]
         public static Enum ReadEnum(this BinaryReader br, Type enumType)
         {
             var t = enumType.GetEnumUnderlyingType();
-            return (Enum)Enum.ToObject(enumType, GetBinaryReadMethod(t).Invoke(br, new object[0]));
+            return (Enum)Enum.ToObject(enumType, GetBinaryReadMethod(t).Invoke(br, new object[0])!);
         }
 
         /// <summary>

@@ -1019,10 +1019,10 @@ namespace TheXDS.MCART.Networking.Server
             _toResponse = EnumExtensions.ToBytes<TResult>();
             _readCmd = BinaryReaderExtensions.GetBinaryReadMethod(typeof(TCommand).GetEnumUnderlyingType());
 
-            var vals = Enum.GetValues(typeof(TResult)).OfType<TResult?>().ToArray();
+            var vals = Enum.GetValues(typeof(TResult)).OfType<TResult>().ToArray();
             _errResponse = vals.FirstOrDefault(p => p.HasAttr<ErrorResponseAttribute>());
-            _unkResponse = vals.FirstOrDefault(p => p.HasAttr<UnknownResponseAttribute>()) ?? _errResponse;
-            _notMappedResponse = vals.FirstOrDefault(p => p.HasAttr<NotMappedResponseAttribute>()) ?? _unkResponse;
+            _unkResponse = (TResult?)vals.FirstOrDefault(p => p.HasAttr<UnknownResponseAttribute>()) ?? _errResponse;
+            _notMappedResponse = (TResult?)vals.FirstOrDefault(p => p.HasAttr<NotMappedResponseAttribute>()) ?? _unkResponse;
         }
 
         /// <summary>
@@ -1052,7 +1052,7 @@ namespace TheXDS.MCART.Networking.Server
         }
         private static TCommand ReadCommand(BinaryReader br)
         {
-            return (TCommand)Enum.ToObject(typeof(TCommand), _readCmd.Invoke(br, new object[0]));
+            return (TCommand)Enum.ToObject(typeof(TCommand), _readCmd.Invoke(br, new object[0])!);
         }
 
         private readonly Dictionary<TCommand, CommandCallback> _commands = new Dictionary<TCommand, CommandCallback>();

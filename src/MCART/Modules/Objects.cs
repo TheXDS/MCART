@@ -448,7 +448,7 @@ namespace TheXDS.MCART
             return
                 from j in fields.Where(p => p.IsPublic)
                 where j.FieldType == typeof(T)
-                select (T) j.GetValue(instance);
+                select (T)j.GetValue(instance)!;
         }
 
         /// <summary>
@@ -1364,9 +1364,9 @@ namespace TheXDS.MCART
 #else
                 return false;
 #endif
-
-            attribute = type.GetMember(type.GetEnumName(enumValue))[0].GetCustomAttributes(typeof(T), false)
-                .FirstOrDefault() as T;
+            var n = type.GetEnumName(enumValue);
+            if (n is null) return false;
+            attribute = type.GetMember(n)[0].GetCustomAttributes(typeof(T), false).FirstOrDefault() as T;
             return !(attribute is null);
         }
         /// <summary>
@@ -1438,8 +1438,9 @@ namespace TheXDS.MCART
 #else
                 return false;
 #endif
-
-            attribute = type.GetMember(type.GetEnumName(enumValue))[0].GetCustomAttributes(typeof(T), false).OfType<T>();
+            var n = type.GetEnumName(enumValue);
+            if (n is null) return false;
+            attribute = type.GetMember(n)[0].GetCustomAttributes(typeof(T), false).OfType<T>();
             return attribute.Any();
         }
 
@@ -1596,7 +1597,7 @@ namespace TheXDS.MCART
         ///     misma que <paramref name="obj2" />, <see langword="false" /> en caso contrario.
         /// </returns>
         [Sugar]
-        public static bool IsNot(this object obj1, object obj2)
+        public static bool IsNot(this object? obj1, object? obj2)
         {
             return !ReferenceEquals(obj1, obj2);
         }
@@ -1702,7 +1703,7 @@ namespace TheXDS.MCART
             return
                 from j in properties.Where(p => p.CanRead)
                 where j.PropertyType == typeof(T)
-                select (T) j.GetMethod.Invoke(instance, new object[0]);
+                select (T)j.GetMethod!.Invoke(instance, new object[0])!;
         }
 
         /// <summary>
@@ -1766,7 +1767,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static IEnumerable<Type> ToTypes(this IEnumerable objects)
         {
-            foreach (var j in objects) yield return j.GetType();
+            foreach (var j in objects) if (!(j is null)) yield return j.GetType();
         }
 
         /// <summary>

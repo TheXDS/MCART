@@ -51,6 +51,7 @@ namespace TheXDS.MCART.IO
             }
         }
 
+        /// <summary>
         ///     Obtiene una respuesta Web a partir del <see cref="Uri"/>
         ///     especificado.
         /// </summary>
