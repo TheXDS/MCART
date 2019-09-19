@@ -1764,7 +1764,7 @@ namespace TheXDS.MCART
         /// <returns>
         ///     Una lista compuesta por los tipos de los objetos provistos.
         /// </returns>
-        public static IEnumerable<Type> ToTypes(this System.Collections.IEnumerable objects)
+        public static IEnumerable<Type> ToTypes(this IEnumerable objects)
         {
             foreach (var j in objects) yield return j.GetType();
         }

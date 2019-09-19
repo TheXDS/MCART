@@ -95,7 +95,7 @@ namespace TheXDS.MCART.Resources
 #if StrictMCARTVersioning
                 return null;
 #else
-                return RTVersion == tt?.Value;
+                return CoreRtVersion == tt?.Value;
 #endif
             return CoreRtVersion.IsBetween(mt?.Value, tt?.Value);
         }
@@ -141,7 +141,7 @@ namespace TheXDS.MCART.Resources
 #if StrictMCARTVersioning
                 return null;
 #else
-                return RTVersion == tt?.Value;
+                return CoreRtVersion == tt?.Value;
 #endif
             return CoreRtVersion.IsBetween(mt?.Value, tt?.Value);
         }

@@ -26,10 +26,10 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -37,21 +37,6 @@ using System.Threading;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using St = TheXDS.MCART.Resources.Strings;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Security;
-using System.Text;
-using TheXDS.MCART.Annotations;
-using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Math;
-using TheXDS.MCART.Types;
-using TheXDS.MCART.Types.Extensions;
-using St2 = TheXDS.MCART.Resources.InternalStrings;
 
 namespace TheXDS.MCART.Types.Extensions
 {

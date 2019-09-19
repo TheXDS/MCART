@@ -3,15 +3,12 @@
   <PropertyGroup Condition="'$(MSBuildProjectExtension)'=='.csproj'">
     <Configurations>Debug;Release;Debug-Publish;Debug-PublishLocal</Configurations>
     <RootNamespace>TheXDS.MCART</RootNamespace>
-    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     <Deterministic>true</Deterministic>
     <DocumentationFile>$(OutDir)$(AssemblyName).xml</DocumentationFile>
     <PackageId>TheXDS.$(AssemblyName)</PackageId>
     <Title>$(AssemblyTitle)</Title>
-    <PackageDescription>$(Description)</PackageDescription>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <LangVersion>preview</LangVersion>
-    <Nullable>enable</Nullable>
+    <!--<Nullable>enable</Nullable>-->
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">

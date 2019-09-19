@@ -99,7 +99,7 @@ namespace TheXDS.MCART.Tests.Component
         public void InvalidArgsTest()
         {
             var parser = new CmdLineParser("--Filesystem --verbose=yes");
-            Assert.Equal(2, parser.Invalid.Count);
+            Assert.Equal(2, parser.Invalid.Count());
         }
 
         [Fact]

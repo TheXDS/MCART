@@ -4,7 +4,7 @@
     <Root>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\'))</Root>
   </PropertyGroup>
   <PropertyGroup Condition="'$(SolutionDir)'==''">
-    <SolutionDir>$(Root)src</SolutionDir>
+    <SolutionDir>$(Root)src\</SolutionDir>
   </PropertyGroup>
   <Import Project="$(SolutionDir)Targets\PackageInfo.props"/>
   <Import Project="$(SolutionDir)Targets\PackageVersion.props"/>
