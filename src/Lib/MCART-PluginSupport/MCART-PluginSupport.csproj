@@ -6,6 +6,6 @@
     <OutputType>Library</OutputType>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="$(SolutionDir)MCART\MCART.csproj"/>
+    <ProjectReference Include="$(SolutionDir)MCART\MCART.csproj" />
   </ItemGroup>
 </Project>
