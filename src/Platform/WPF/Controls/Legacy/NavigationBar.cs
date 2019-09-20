@@ -46,7 +46,7 @@ namespace TheXDS.MCART.Controls
     /// <inheritdoc />
     /// <remarks>
     /// Este control es especialmente útil para controlar un objeto 
-    /// <see cref="T:System.Windows.Data.CollectionView" /> provisto por las conexiones de bases de 
+    /// <see cref="Windows.Data.CollectionView" /> provisto por las conexiones de bases de 
     /// datos, en efecto, cumpliendo las funciones de un controlador en el
     /// paradigma Model-View-Controller (MVC).
     /// </remarks>

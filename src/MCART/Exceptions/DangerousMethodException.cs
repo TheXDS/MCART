@@ -41,7 +41,7 @@ namespace TheXDS.MCART.Exceptions
     /// <inheritdoc />
     /// <summary>
     ///     Excepción que se produce cuando un método ha sido marcado con el atributo
-    ///     <see cref="T:TheXDS.MCART.Attributes.DangerousAttribute" />.
+    ///     <see cref="DangerousAttribute" />.
     /// </summary>
 #if NETFX_CORE
     [DataContract]
@@ -54,14 +54,14 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.DangerousMethodException" />.
+        ///     <see cref="DangerousMethodException" />.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="T:System.Runtime.Serialization.StreamingContext" /> que contiene información
+        ///     El <see cref="StreamingContext" /> que contiene información
         ///     contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="T:System.Runtime.Serialization.SerializationInfo" /> que contiene la información
+        ///     El <see cref="SerializationInfo" /> que contiene la información
         ///     serializada del objeto acerca de la excepción que está siendo
         ///     lanzada.
         /// </param>
@@ -72,20 +72,20 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.DangerousMethodException" />.
+        ///     <see cref="DangerousMethodException" />.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="T:System.Runtime.Serialization.StreamingContext" /> que contiene información
+        ///     El <see cref="StreamingContext" /> que contiene información
         ///     contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="T:System.Runtime.Serialization.SerializationInfo" /> que contiene la información
+        ///     El <see cref="SerializationInfo" /> que contiene la información
         ///     serializada del objeto acerca de la excepción que está siendo
         ///     lanzada.
         /// </param>
         /// <param name="offendingMethod">
         ///     Método marcado con el atributo
-        ///     <see cref="T:TheXDS.MCART.Attributes.DangerousAttribute" />.
+        ///     <see cref="DangerousAttribute" />.
         /// </param>
         protected DangerousMethodException(SerializationInfo info, StreamingContext context, MethodInfo offendingMethod)
             : base(info, context, offendingMethod)
@@ -96,7 +96,7 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.DangerousMethodException" />.
+        ///     <see cref="DangerousMethodException" />.
         /// </summary>
         public DangerousMethodException() : base(Msg())
         {
@@ -105,11 +105,11 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.DangerousMethodException" />.
+        ///     <see cref="DangerousMethodException" />.
         /// </summary>
         /// <param name="offendingMethod">
         ///     Método marcado con el atributo
-        ///     <see cref="T:TheXDS.MCART.Attributes.DangerousAttribute" />.
+        ///     <see cref="DangerousAttribute" />.
         /// </param>
         public DangerousMethodException(MethodInfo offendingMethod) : base(Msg(offendingMethod), offendingMethod)
         {
@@ -117,10 +117,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.DangerousMethodException" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="DangerousMethodException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="T:System.String" /> que describe a la excepción.
+        ///     Un <see cref="string" /> que describe a la excepción.
         /// </param>
         public DangerousMethodException(string message) : base(message)
         {
@@ -128,14 +128,14 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.DangerousMethodException" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="DangerousMethodException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="T:System.String" /> que describe a la excepción.
+        ///     Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="offendingMethod">
         ///     Método marcado con el atributo
-        ///     <see cref="T:TheXDS.MCART.Attributes.DangerousAttribute" />.
+        ///     <see cref="DangerousAttribute" />.
         /// </param>
         public DangerousMethodException(string message, MethodInfo offendingMethod) : base(message, offendingMethod)
         {
@@ -143,10 +143,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.DangerousMethodException" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="DangerousMethodException" />.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="T:System.Exception" /> que es la causa de esta excepción.
+        ///     <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public DangerousMethodException(Exception inner) : base(Msg(), inner)
         {
@@ -154,14 +154,14 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.DangerousMethodException" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="DangerousMethodException" />.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="T:System.Exception" /> que es la causa de esta excepción.
+        ///     <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="offendingMethod">
         ///     Método marcado con el atributo
-        ///     <see cref="T:TheXDS.MCART.Attributes.DangerousAttribute" />.
+        ///     <see cref="DangerousAttribute" />.
         /// </param>
         public DangerousMethodException(Exception inner, MethodInfo offendingMethod) : base(Msg(offendingMethod), inner,
             offendingMethod)
@@ -170,13 +170,13 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.DangerousMethodException" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="DangerousMethodException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="T:System.String" /> que describe a la excepción.
+        ///     Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="T:System.Exception" /> que es la causa de esta excepción.
+        ///     <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public DangerousMethodException(string message, Exception inner) : base(message, inner)
         {
@@ -184,17 +184,17 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.DangerousMethodException" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="DangerousMethodException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="T:System.String" /> que describe a la excepción.
+        ///     Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="T:System.Exception" /> que es la causa de esta excepción.
+        ///     <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="offendingMethod">
         ///     Método marcado con el atributo
-        ///     <see cref="T:TheXDS.MCART.Attributes.DangerousAttribute" />.
+        ///     <see cref="DangerousAttribute" />.
         /// </param>
         public DangerousMethodException(string message, Exception inner, MethodInfo offendingMethod) : base(message,
             inner, offendingMethod)

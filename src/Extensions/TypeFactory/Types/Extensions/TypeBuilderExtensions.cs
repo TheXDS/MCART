@@ -115,12 +115,44 @@ namespace TheXDS.MCART.Types.Extensions
             AddAutoProp(tb, name, type, access, writtable, false, out prop, out field);
         }
 
+        /// <summary>
+        ///     Agrega una propiedad automática al tipo.
+        /// </summary>
+        /// <param name="tb">
+        ///     Constructor del tipo en el cual crear la nueva propiedad
+        ///     automática.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <param name="type">Tipo de la nueva propiedad.</param>
+        /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+        /// <param name="writtable">
+        ///     Si se establece en <see langword="true"/>, la propiedad podrá
+        ///     ser escrita, es decir, tendrá un 'setter'.
+        /// </param>
+        /// <returns>
+        ///     Una referencia al campo construido para la propiedad
+        ///     automática.
+        /// </returns>
         public static FieldBuilder AddAutoProp(this TypeBuilder tb, string name, Type type, MemberAccess access, bool writtable)
         {
             AddAutoProp(tb, name, type, access, writtable, out _, out var field);
             return field;
         }
 
+        /// <summary>
+        ///     Agrega una propiedad automática al tipo.
+        /// </summary>
+        /// <param name="tb">
+        ///     Constructor del tipo en el cual crear la nueva propiedad
+        ///     automática.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <param name="type">Tipo de la nueva propiedad.</param>
+        /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+        /// <returns>
+        ///     Una referencia a la propiedad automática que ha sido
+        ///     construida.
+        /// </returns>
         public static PropertyBuilder AddAutoProp(this TypeBuilder tb, string name, Type type, MemberAccess access)
         {
             AddAutoProp(tb, name, type, access, true, out var prop, out _);
@@ -138,19 +170,15 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="access">Nivel de acceso deseado para el método.</param>
         private static MethodAttributes Access(MemberAccess access)
         {
-            switch (access)
+            return access switch
             {
-                case MemberAccess.Private:
-                    return MethodAttributes.Private;
-                case MemberAccess.Protected:
-                    return MethodAttributes.Family;
-                case MemberAccess.Internal:
-                    return MethodAttributes.Assembly;
-                case MemberAccess.Public:
-                    return MethodAttributes.Public;
-            }
+                MemberAccess.Private => Private,
+                MemberAccess.Protected => Family,
+                MemberAccess.Internal => MethodAttributes.Assembly,
+                MemberAccess.Public => Public,
 #pragma warning disable RECS0083 // Intencional.
-            throw new NotImplementedException();
+                _ => throw new NotImplementedException(),
+            };
 #pragma warning restore RECS0083
         }
     }

@@ -35,7 +35,7 @@ namespace TheXDS.MCART.Networking
     /// <inheritdoc />
     /// <summary>
     ///     Atributo que establece un número de puerto que un
-    ///     <see cref="T:TheXDS.MCART.Networking.Server.Server`1" /> debería utilizar al escuchar
+    ///     <see cref="Server`1" /> debería utilizar al escuchar
     ///     conexiones entrantes.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
@@ -44,7 +44,7 @@ namespace TheXDS.MCART.Networking
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Networking.PortAttribute" />.
+        ///     <see cref="PortAttribute" />.
         /// </summary>
         /// <param name="portNumber">Número de puerto a utilizar.</param>
         public PortAttribute(int portNumber) : base(portNumber)

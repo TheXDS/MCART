@@ -43,7 +43,7 @@ namespace TheXDS.MCART.Attributes
         /// <inheritdoc />
         /// <summary>
         ///     Crea una nueva isntancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Attributes.ObjectAttribute" />.
+        ///     <see cref="ObjectAttribute" />.
         /// </summary>
         /// <param name="attributeValue">Valor de este atributo.</param>
         protected ObjectAttribute(object? attributeValue)

@@ -60,7 +60,7 @@ namespace TheXDS.MCART.Exceptions
         ///     <see cref="ClassNotInstantiableException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="T:System.String" /> que describe a la excepción.
+        ///     Un <see cref="string" /> que describe a la excepción.
         /// </param>
         public ClassNotInstantiableException(string message) : base(message) { }
         /// <summary>
@@ -68,7 +68,7 @@ namespace TheXDS.MCART.Exceptions
         ///     <see cref="ClassNotInstantiableException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="T:System.String" /> que describe a la excepción.
+        ///     Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="offendingType">
         ///     Tipo que es la causa de esta excepción.
@@ -79,7 +79,7 @@ namespace TheXDS.MCART.Exceptions
         ///     <see cref="ClassNotInstantiableException" />.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="T:System.Exception" /> secundaria producida por esta excepción.
+        ///     <see cref="Exception" /> secundaria producida por esta excepción.
         /// </param>
         public ClassNotInstantiableException(Exception inner) : base(DefaultMessage(), inner) { }
         /// <summary>
@@ -87,7 +87,7 @@ namespace TheXDS.MCART.Exceptions
         ///     <see cref="ClassNotInstantiableException" />.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="T:System.Exception" /> secundaria producida por esta excepción.
+        ///     <see cref="Exception" /> secundaria producida por esta excepción.
         /// </param>
         /// <param name="offendingType">
         ///     Tipo que es la causa de esta excepción.
@@ -98,10 +98,10 @@ namespace TheXDS.MCART.Exceptions
         ///     <see cref="ClassNotInstantiableException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="T:System.String" /> que describe a la excepción.
+        ///     Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="T:System.Exception" /> secundaria producida por esta excepción.
+        ///     <see cref="Exception" /> secundaria producida por esta excepción.
         /// </param>
         public ClassNotInstantiableException(string message, Exception inner) : base(message,inner) { }
         /// <summary>
@@ -109,10 +109,10 @@ namespace TheXDS.MCART.Exceptions
         ///     <see cref="ClassNotInstantiableException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="T:System.String" /> que describe a la excepción.
+        ///     Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="T:System.Exception" /> secundaria producida por esta excepción.
+        ///     <see cref="Exception" /> secundaria producida por esta excepción.
         /// </param>
         /// <param name="offendingType">
         ///     Tipo que es la causa de esta excepción.
@@ -121,14 +121,14 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.ClassNotInstantiableException" /> con datos serializados.
+        ///     <see cref="ClassNotInstantiableException" /> con datos serializados.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="T:System.Runtime.Serialization.StreamingContext" /> que contiene información
+        ///     El <see cref="StreamingContext" /> que contiene información
         ///     contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="T:System.Runtime.Serialization.SerializationInfo" /> que contiene la información
+        ///     El <see cref="SerializationInfo" /> que contiene la información
         ///     serializada del objeto acerca de la excepción que está siendo
         ///     lanzada.
         /// </param>

@@ -143,7 +143,7 @@ namespace TheXDS.MCART.Types.Entity
         ///     se utilizará <see cref="P:System.Globalization.CultureInfo.CurrentCulture" />.
         /// </param>
         /// <returns>
-        ///     Una representación en forma de <see cref="T:System.String" /> de este objeto.
+        ///     Una representación en forma de <see cref="string" /> de este objeto.
         /// </returns>
         public string ToString(string format, IFormatProvider formatProvider)
         {
@@ -164,7 +164,7 @@ namespace TheXDS.MCART.Types.Entity
         /// </summary>
         /// <param name="format">Formato a utilizar.</param>
         /// <returns>
-        ///     Una representación en forma de <see cref="T:System.String" /> de este objeto.
+        ///     Una representación en forma de <see cref="string" /> de este objeto.
         /// </returns>
         public string ToString(string format)
         {

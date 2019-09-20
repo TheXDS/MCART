@@ -41,35 +41,110 @@ namespace TheXDS.MCART.Exceptions
         private static string Msg() => Strings.XIsInvalid(Strings.TheUri);
         private static string Msg(Uri uri) => Strings.XIsInvalid(Strings.XYQuotes(Strings.TheUri, uri.ToString()));
 
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase 
+        ///     <see cref="InvalidUriException"/>.
+        /// </summary>
         public InvalidUriException() : base(Msg())
         {
         }
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase 
+        ///     <see cref="InvalidUriException"/>.
+        /// </summary>
+        /// <param name="offendingUri">
+        ///     <see cref="Uri"/> que apunta a un recurso inválido.
+        /// </param>
         public InvalidUriException(Uri offendingUri) : base(Msg(offendingUri), offendingUri)
         {
         }
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase 
+        ///     <see cref="InvalidUriException"/>.
+        /// </summary>
+        /// <param name="message">
+        ///     Un <see cref="string" /> que describe a la excepción.
+        /// </param>
         public InvalidUriException(string message) : base(message)
         {
         }
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase 
+        ///     <see cref="InvalidUriException"/>.
+        /// </summary>
+        /// <param name="message">
+        ///     Un <see cref="string" /> que describe a la excepción.
+        /// </param>
+        /// <param name="offendingUri">
+        ///     <see cref="Uri"/> que apunta a un recurso inválido.
+        /// </param>
         public InvalidUriException(string message, Uri offendingUri) : base(message, offendingUri)
         {
         }
-        public InvalidUriException(Exception inner):base(inner)
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase 
+        ///     <see cref="InvalidUriException"/>.
+        /// </summary>
+        /// <param name="inner">
+        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// </param>
+        public InvalidUriException(Exception inner) : base(inner)
         {
         }
-        public InvalidUriException(string message, Exception inner):base(message, inner)
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase 
+        ///     <see cref="InvalidUriException"/>.
+        /// </summary>
+        /// <param name="message">
+        ///     Un <see cref="string" /> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// </param>
+        public InvalidUriException(string message, Exception inner) : base(message, inner)
         {
         }
-        public InvalidUriException(Exception inner, Uri offendingUri):base(inner, offendingUri)
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase 
+        ///     <see cref="InvalidUriException"/>.
+        /// </summary>
+        /// <param name="inner">
+        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="offendingUri">
+        ///     <see cref="Uri"/> que apunta a un recurso inválido.
+        /// </param>
+        public InvalidUriException(Exception inner, Uri offendingUri) : base(inner, offendingUri)
         {
         }
-        public InvalidUriException(string message, Exception inner, Uri offendingUri):base(message, inner, offendingUri)
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase 
+        ///     <see cref="InvalidUriException"/>.
+        /// </summary>
+        /// <param name="message">
+        ///     Un <see cref="string" /> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// </param>
+        /// <param name="offendingUri">
+        ///     <see cref="Uri"/> que apunta a un recurso inválido.
+        /// </param>
+        public InvalidUriException(string message, Exception inner, Uri offendingUri) : base(message, inner, offendingUri)
         {
         }
 
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.InvalidUriException" />.
+        ///     <see cref="InvalidUriException" />.
         /// </summary>
         /// <param name="info">
         ///     El objeto que contiene la información de serialización.

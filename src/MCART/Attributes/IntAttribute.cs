@@ -35,7 +35,7 @@ namespace TheXDS.MCART.Attributes
         /// <inheritdoc />
         /// <summary>
         ///     Crea una nueva isntancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Attributes.IntAttribute" />.
+        ///     <see cref="IntAttribute" />.
         /// </summary>
         /// <param name="attributeValue">Valor de este atributo.</param>
         protected IntAttribute(int attributeValue)

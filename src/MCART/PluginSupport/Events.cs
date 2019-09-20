@@ -71,13 +71,13 @@ namespace TheXDS.MCART.PluginSupport
         /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
-        /// <see cref="T:TheXDS.MCART.PluginSupport.PluginFinalizingEventArgs" />.
+        /// <see cref="PluginFinalizingEventArgs" />.
         /// </summary>
         internal PluginFinalizingEventArgs() : this(FinalizingReason.Shutdown) { }
         /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
-        /// <see cref="T:TheXDS.MCART.PluginSupport.PluginFinalizingEventArgs" />.
+        /// <see cref="PluginFinalizingEventArgs" />.
         /// </summary>
         /// <param name="reason">
         /// Establece la cual se está finalizando este plugin.
@@ -99,7 +99,7 @@ namespace TheXDS.MCART.PluginSupport
         /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
-        /// <see cref="T:TheXDS.MCART.PluginSupport.UiChangedEventArgs" />.
+        /// <see cref="UiChangedEventArgs" />.
         /// </summary>
         /// <param name="newUi">Nueva interfaz de usuario solicitada.</param>
         internal UiChangedEventArgs(IList<InteractionItem> newUi)

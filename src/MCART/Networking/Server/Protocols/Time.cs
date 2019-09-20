@@ -88,10 +88,10 @@ namespace TheXDS.MCART.Networking.Server.Protocols
         ///     Inicializa un nuevo cliente manejado por este protocolo.
         /// </summary>
         /// <param name="tcpClient">
-        ///     <see cref="T:System.Net.Sockets.TcpClient" /> de la conexión con el host remoto.
+        ///     <see cref="Net.Sockets.TcpClient" /> de la conexión con el host remoto.
         /// </param>
         /// <returns>
-        ///     Un nuevo <see cref="T:TheXDS.MCART.Networking.Server.Client" />.
+        ///     Un nuevo <see cref="Client" />.
         /// </returns>
         public Client CreateClient(System.Net.Sockets.TcpClient tcpClient)
         {

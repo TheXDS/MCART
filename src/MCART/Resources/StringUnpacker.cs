@@ -77,7 +77,7 @@ namespace TheXDS.MCART.Resources
         /// </summary>
         /// <param name="id">Identificador del recurso.</param>
         /// <returns>
-        /// Un <see cref="T:System.String" /> con el contenido del archivo de texto
+        /// Un <see cref="string" /> con el contenido del archivo de texto
         /// incrustado en el ensamblado.
         /// </returns>
         public override string Unpack(string id) => Read(new StreamReader(UnpackStream(id)));
@@ -91,7 +91,7 @@ namespace TheXDS.MCART.Resources
         /// Identificador del compresor a utilizar para extraer al recurso.
         /// </param>
         /// <returns>
-        /// Un <see cref="T:System.String" /> con el contenido del archivo de texto
+        /// Un <see cref="string" /> con el contenido del archivo de texto
         /// incrustado en el ensamblado.
         /// </returns>
         public override string Unpack(string id, string compressorId) => Read(GetStream(id, compressorId));
@@ -105,7 +105,7 @@ namespace TheXDS.MCART.Resources
         /// <see cref="T:TheXDS.MCART.Resources.ICompressorGetter" /> a utilizar para extraer al recurso.
         /// </param>
         /// <returns>
-        /// Un <see cref="T:System.String" /> con el contenido del archivo de texto
+        /// Un <see cref="string" /> con el contenido del archivo de texto
         /// incrustado en el ensamblado.
         /// </returns>
         public override string Unpack(string id, ICompressorGetter compressor) => Read(GetStream(id, compressor));
@@ -115,7 +115,7 @@ namespace TheXDS.MCART.Resources
         /// </summary>
         /// <param name="id">Identificador del recurso.</param>
         /// <returns>
-        /// Un <see cref="T:System.String" /> con el contenido del archivo de texto
+        /// Un <see cref="string" /> con el contenido del archivo de texto
         /// incrustado en el ensamblado.
         /// </returns>
         public async Task<string> UnpackAsync(string id) => await ReadAsync(new StreamReader(UnpackStream(id)));
@@ -129,7 +129,7 @@ namespace TheXDS.MCART.Resources
         /// Identificador del compresor a utilizar para extraer al recurso.
         /// </param>
         /// <returns>
-        /// Un <see cref="T:System.String" /> con el contenido del archivo de texto
+        /// Un <see cref="string" /> con el contenido del archivo de texto
         /// incrustado en el ensamblado.
         /// </returns>
         public async Task<string> UnpackAsync(string id, string compressorId) => await ReadAsync(GetStream(id, compressorId));
@@ -143,7 +143,7 @@ namespace TheXDS.MCART.Resources
         /// <see cref="T:TheXDS.MCART.Resources.ICompressorGetter" /> a utilizar para extraer al recurso.
         /// </param>
         /// <returns>
-        /// Un <see cref="T:System.String" /> con el contenido del archivo de texto
+        /// Un <see cref="string" /> con el contenido del archivo de texto
         /// incrustado en el ensamblado.
         /// </returns>
         public async Task<string> UnpackAsync(string id, ICompressorGetter compressor) => await ReadAsync(GetStream(id, compressor));

@@ -41,7 +41,7 @@ namespace TheXDS.MCART.Networking.Client
     /// <summary>
     ///     Clase base para clientes auto-cableados de atención a protocolos de
     ///     comandos simples basados en la clase
-    ///     <see cref="T:TheXDS.MCART.Networking.Server.SelfWiredCommandProtocol`3" />.
+    ///     <see cref="SelfWiredCommandProtocol`3" />.
     /// </summary>
     /// <typeparam name="TCommand">
     ///     Tipo de enumeración de los comandos enviados por este cliente.
@@ -53,11 +53,11 @@ namespace TheXDS.MCART.Networking.Client
     ///     Debido a las limitaciones actuales de C#, para poder implementar
     ///     este protocolo es necesario crear un atributo aplicable a los
     ///     métodos miembros de la clase que derive de
-    ///     <see cref="T:TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2" />, dicho
-    ///     atributo deberá implementar <see cref="T:TheXDS.MCART.Attributes.IValueAttribute`1" /> y ser
+    ///     <see cref="SelfWiredCommandClient`2" />, dicho
+    ///     atributo deberá implementar <see cref="IValueAttribute`1" /> y ser
     ///     aplicado a cada método que pueda manejar respuestas del servidor.
     ///     Tales métodos deberán a su vez, ser compatibles con el delegado
-    ///     <see cref="T:TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.ResponseCallBack" />.
+    ///     <see cref="SelfWiredCommandClient`2.ResponseCallBack" />.
     ///     Los comandos y las respuestas son enumeraciones comunes.
     /// </remarks>
     /// <example>

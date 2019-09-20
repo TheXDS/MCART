@@ -36,7 +36,7 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.IncompleteTypeException" />.
+        ///     <see cref="IncompleteTypeException" />.
         /// </summary>
         public IncompleteTypeException()
         {
@@ -45,7 +45,7 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.IncompleteTypeException" />.
+        ///     <see cref="IncompleteTypeException" />.
         /// </summary>
         /// <param name="offendingObject">
         ///     Tipo que ha producido la excepción.
@@ -57,10 +57,10 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.IncompleteTypeException" />.
+        ///     <see cref="IncompleteTypeException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="T:System.String" /> que describe a la excepción.
+        ///     Un <see cref="string" /> que describe a la excepción.
         /// </param>
         public IncompleteTypeException(string message) : base(message)
         {
@@ -68,9 +68,9 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.IncompleteTypeException" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="IncompleteTypeException" />.
         /// </summary>
-        /// <param name="inner"><see cref="T:System.Exception" /> que es la causa de esta excepción.</param>
+        /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
         public IncompleteTypeException(Exception inner) : base(inner)
         {
         }
@@ -78,10 +78,10 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.IncompleteTypeException" />.
+        ///     <see cref="IncompleteTypeException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="T:System.String" /> que describe a la excepción.
+        ///     Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="offendingObject">
         ///     Tipo que ha producido la excepción.
@@ -92,9 +92,9 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.IncompleteTypeException" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="IncompleteTypeException" />.
         /// </summary>
-        /// <param name="inner"><see cref="T:System.Exception" /> que es la causa de esta excepción.</param>
+        /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
         /// <param name="offendingObject">
         ///     Tipo que ha producido la excepción.
         /// </param>
@@ -104,20 +104,20 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.IncompleteTypeException" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="IncompleteTypeException" />.
         /// </summary>
-        /// <param name="message">Un <see cref="T:System.String" /> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="T:System.Exception" /> que es la causa de esta excepción.</param>
+        /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
+        /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
         public IncompleteTypeException(string message, Exception inner) : base(message, inner)
         {
         }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.IncompleteTypeException" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="IncompleteTypeException" />.
         /// </summary>
-        /// <param name="message">Un <see cref="T:System.String" /> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="T:System.Exception" /> que es la causa de esta excepción.</param>
+        /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
+        /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
         /// <param name="offendingObject">
         ///     Tipo que ha producido la excepción.
         /// </param>
@@ -128,7 +128,7 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.IncompleteTypeException" />.
+        ///     <see cref="IncompleteTypeException" />.
         /// </summary>
         /// <param name="info">
         ///     El objeto que contiene la información de serialización.
@@ -143,7 +143,7 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.IncompleteTypeException" />.
+        ///     <see cref="IncompleteTypeException" />.
         /// </summary>
         /// <param name="info">
         ///     El objeto que contiene la información de serialización.

@@ -34,7 +34,7 @@ namespace TheXDS.MCART.Dialogs
     /// <inheritdoc cref="Window"/>
     /// <summary>
     ///     Diálogo que permite mostrar información acerca de los
-    ///     <see cref="T:TheXDS.MCART.PluginSupport.Plugin" /> cargables por MCART.
+    ///     <see cref="Plugin" /> cargables por MCART.
     /// </summary>
     public partial class PluginBrowser
     {

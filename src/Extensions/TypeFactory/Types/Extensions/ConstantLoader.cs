@@ -1,5 +1,5 @@
 ﻿/*
-ILGeneratorExtensions.cs
+ConstantLoader.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -54,7 +54,6 @@ namespace TheXDS.MCART.Types.Extensions
         {
             Emit(il, (T)value);
         }
-
 
         /// <summary>
         ///     Carga un valor constante en la secuencia de instrucciones MSIL.

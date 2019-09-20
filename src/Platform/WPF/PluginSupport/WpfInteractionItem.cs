@@ -52,19 +52,19 @@ namespace TheXDS.MCART.PluginSupport
         /// <inheritdoc />
         /// <summary>
         /// Crea una nueva entrada de interacción con el delegado
-        /// <see cref="T:System.EventHandler" /> especificado.
+        /// <see cref="EventHandler" /> especificado.
         /// </summary>
         /// <param name="text">Nombre del comando.</param>
         /// <param name="description">
         /// Descripción larga del comando. útil para aplicar a Tooltips.
         /// </param>
         /// <param name="action">
-        /// <see cref="T:System.EventHandler" /> que se utilizará para controlar la
-        /// activación de este <see cref="T:TheXDS.MCART.PluginSupport.InteractionItem" />.
+        /// <see cref="EventHandler" /> que se utilizará para controlar la
+        /// activación de este <see cref="InteractionItem" />.
         /// </param>
         /// <param name="icon">
-        /// <see cref="T:System.Windows.Media.Imaging.BitmapSource" /> con el ícono para este 
-        /// <see cref="T:TheXDS.MCART.PluginSupport.InteractionItem" />.
+        /// <see cref="Windows.Media.Imaging.BitmapSource" /> con el ícono para este 
+        /// <see cref="InteractionItem" />.
         /// </param>
         public WpfInteractionItem(EventHandler action, string text, string description, BitmapSource icon)
             : base(action, text, description)

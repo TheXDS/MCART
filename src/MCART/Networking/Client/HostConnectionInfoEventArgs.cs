@@ -60,7 +60,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Networking.Client.HostConnectionInfoEventArgs" />.
+        ///     <see cref="HostConnectionInfoEventArgs" />.
         /// </summary>
         /// <param name="remoteEndpoint">
         ///     Punto de acceso remoto del servidor.
@@ -76,7 +76,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Networking.Client.HostConnectionInfoEventArgs" />.
+        ///     <see cref="HostConnectionInfoEventArgs" />.
         /// </summary>
         /// <param name="host">Nombre del host remoto.</param>
         /// <param name="remoteEndpoint">
@@ -95,7 +95,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Networking.Client.HostConnectionInfoEventArgs" />.
+        ///     <see cref="HostConnectionInfoEventArgs" />.
         /// </summary>
         /// <param name="client">
         ///     Cliente TCP utilizado para establecer la conexión.
@@ -108,7 +108,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Networking.Client.HostConnectionInfoEventArgs" />.
+        ///     <see cref="HostConnectionInfoEventArgs" />.
         /// </summary>
         /// <param name="host">Nombre del host remoto.</param>
         /// <param name="client">

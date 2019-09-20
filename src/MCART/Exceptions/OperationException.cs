@@ -47,14 +47,14 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.OperationException" />.
+        ///     <see cref="OperationException" />.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="T:System.Runtime.Serialization.StreamingContext" /> que contiene información
+        ///     El <see cref="StreamingContext" /> que contiene información
         ///     contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="T:System.Runtime.Serialization.SerializationInfo" /> que contiene la información
+        ///     El <see cref="SerializationInfo" /> que contiene la información
         ///     serializada del objeto acerca de la excepción que está siendo
         ///     lanzada.
         /// </param>
@@ -65,14 +65,14 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.OperationException" />.
+        ///     <see cref="OperationException" />.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="T:System.Runtime.Serialization.StreamingContext" /> que contiene información
+        ///     El <see cref="StreamingContext" /> que contiene información
         ///     contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="T:System.Runtime.Serialization.SerializationInfo" /> que contiene la información
+        ///     El <see cref="SerializationInfo" /> que contiene la información
         ///     serializada del objeto acerca de la excepción que está siendo
         ///     lanzada.
         /// </param>
@@ -85,7 +85,7 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.OperationException" />.
+        ///     <see cref="OperationException" />.
         /// </summary>
         public OperationException() : base(Msg())
         {
@@ -94,7 +94,7 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.OperationException" />.
+        ///     <see cref="OperationException" />.
         /// </summary>
         /// <param name="offendingOperation">Delegado de operación en donde se ha producido la excepción.</param>
         public OperationException(Delegate offendingOperation) : base(Msg(offendingOperation), offendingOperation)
@@ -103,10 +103,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.OperationException" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="OperationException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="T:System.String" /> que describe a la excepción.
+        ///     Un <see cref="string" /> que describe a la excepción.
         /// </param>
         public OperationException(string message) : base(message)
         {
@@ -114,10 +114,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.OperationException" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="OperationException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="T:System.String" /> que describe a la excepción.
+        ///     Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="offendingOperation">Delegado de operación en donde se ha producido la excepción.</param>
         public OperationException(string message, Delegate offendingOperation) : base(message, offendingOperation)
@@ -126,10 +126,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.OperationException" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="OperationException" />.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="T:System.Exception" /> que es la causa de esta excepción.
+        ///     <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public OperationException(Exception inner) : base(Msg(), inner)
         {
@@ -137,10 +137,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.OperationException" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="OperationException" />.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="T:System.Exception" /> que es la causa de esta excepción.
+        ///     <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="offendingOperation">Delegado de operación en donde se ha producido la excepción.</param>
         public OperationException(Exception inner, Delegate offendingOperation) : base(Msg(offendingOperation), inner,
@@ -150,13 +150,13 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.OperationException" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="OperationException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="T:System.String" /> que describe a la excepción.
+        ///     Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="T:System.Exception" /> que es la causa de esta excepción.
+        ///     <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public OperationException(string message, Exception inner) : base(message, inner)
         {
@@ -164,13 +164,13 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Exceptions.OperationException" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="OperationException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="T:System.String" /> que describe a la excepción.
+        ///     Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="T:System.Exception" /> que es la causa de esta excepción.
+        ///     <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="offendingOperation">Delegado de operación en donde se ha producido la excepción.</param>
         public OperationException(string message, Exception inner, Delegate offendingOperation) : base(message, inner,

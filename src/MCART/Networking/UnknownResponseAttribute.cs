@@ -36,13 +36,13 @@ namespace TheXDS.MCART.Networking
     ///     Atributo que se establece en el miembro de una enumeración a ser
     ///     utilizado como la respuesta en caso de encontrar un comando
     ///     desconocido que enviará un protocolo derivado de la clase
-    ///     <see cref="T:TheXDS.MCART.Networking.Server.SelfWiredCommandProtocol`3" />
+    ///     <see cref="SelfWiredCommandProtocol`3" />
     /// </summary>
     /// <remarks>
     ///     Si ningún miembro de la enumeración se marca con este atributo, en
     ///     caso de no existir el comando de la solicitud, se devolverá el
     ///     valor que sea marcado con el atributo
-    ///     <see cref="T:TheXDS.MCART.Networking.ErrorResponseAttribute" />, o en su defecto se lanzará
+    ///     <see cref="ErrorResponseAttribute" />, o en su defecto se lanzará
     ///     una excepción que el servidor deberá manejar.
     /// </remarks>
     [AttributeUsage(AttributeTargets.Field)]

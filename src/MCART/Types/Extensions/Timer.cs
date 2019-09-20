@@ -29,7 +29,7 @@ namespace TheXDS.MCART.Types.Extensions
 {
     /// <inheritdoc />
     /// <summary>
-    /// Extensión de la clase <see cref="T:System.Timers.Timer" />. provee de toda
+    /// Extensión de la clase <see cref="Timers.Timer" />. provee de toda
     /// la funcionalidad previamente disponible, e incluye algunas extensiones
     /// útiles.
     /// </summary>

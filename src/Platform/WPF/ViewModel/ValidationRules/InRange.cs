@@ -55,7 +55,7 @@ namespace TheXDS.MCART.ViewModel.ValidationRules
         ///   Referencia cultural que usará en esta regla.
         /// </param>
         /// <returns>
-        ///   Objeto <see cref="T:System.Windows.Controls.ValidationResult" />.
+        ///   Objeto <see cref="Windows.Controls.ValidationResult" />.
         /// </returns>
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {

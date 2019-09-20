@@ -22,62 +22,110 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
 using System.Reflection.Emit;
-using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Types.Base;
-using TheXDS.MCART.Types.Extensions;
-using static System.Reflection.BindingFlags;
-using static System.Reflection.Emit.OpCodes;
-using static System.Reflection.MethodAttributes;
-using static TheXDS.MCART.Types.Extensions.EnumExtensions;
-using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
 namespace TheXDS.MCART.Types
 {
+    /// <summary>
+    ///     Fábrica de tipos. Permite compilar nuevos tipos en Runtime.
+    /// </summary>
     public abstract class TypeFactory
     {
+        /// <summary>
+        ///     Define la estructura de una propiedad construida.
+        /// </summary>
         protected class PropertyBuilderInfo
         {
+            /// <summary>
+            ///     Obtiene propiedades importantes de la propiedad.
+            /// </summary>
             [Flags]
             public enum PropertyFlags
             {
-                None,
-                Readable,
-                Writtable,
-                ReadWrite,
-                Notifies,
-
-
+                /// <summary>
+                ///     La propiedad puede ser leída.
+                /// </summary>
+                Readable = 1,
+                /// <summary>
+                ///     La propiedad puede ser escrita.
+                /// </summary>
+                Writtable = 2,
+                /// <summary>
+                ///     La propiedad puede ser leída o escrita.
+                /// </summary>
+                ReadWrite = Readable | Writtable,
+                /// <summary>
+                ///     La propiedad incorpora notificación de cambios.
+                /// </summary>
+                Notifies = 4 | Writtable,
+                /// <summary>
+                ///     La propiedad utiliza un campo como almacenamiento
+                ///     del valor actual.
+                /// </summary>
+                BackingFiled = 8,
             }
+
+            /// <summary>
+            ///     Obtiene una referencia al objeto que construye la propiedad.
+            /// </summary>
             public readonly PropertyBuilder Builder;
-            public readonly FieldBuilder BackingField;
-            public readonly ILGenerator Getter;
-            public readonly ILGenerator Setter;
-            public readonly MethodBuilder GetterBuilder;
-            public readonly MethodBuilder SetterBuilder;
+
+            /// <summary>
+            ///     Obtiene una referencia al constructor del campo de almacenamiento de la propiedad.
+            /// </summary>
+            public readonly FieldBuilder? BackingField;
+
+            /// <summary>
+            ///     Obtiene una referencia al generador de IL del método que 
+            ///     obtiene el valor de la propiedad.
+            /// </summary>
+            public readonly ILGenerator? Getter;
+
+            /// <summary>
+            ///     Obtiene una referencia al generador de IL del método que 
+            ///     establece el valor de la propiedad.
+            /// </summary>
+            public readonly ILGenerator? Setter;
+
+            /// <summary>
+            ///     Obtiene una referencia al constructor de método que obtiene
+            ///     el valor de la propiedad.
+            /// </summary>
+            public readonly MethodBuilder? GetterBuilder;
+
+            /// <summary>
+            ///     Obtiene una referencia al constructor de método que
+            ///     establece el valor de la propiedad.
+            /// </summary>
+            public readonly MethodBuilder? SetterBuilder;
+
+            /// <summary>
+            ///     Obtiene las banderas definidas para esta propiedad.
+            /// </summary>
             public readonly PropertyFlags Flags;
+
+            /// <summary>
+            ///     Inicializa una nueva instancia de la clase 
+            ///     <see cref="PropertyBuilderInfo"/>.
+            /// </summary>
+            /// <param name="builder">
+            ///     Constructor de propiedad.
+            /// </param>
+            /// <param name="backingField">
+            ///     Constructor que representa al campo de almacenamiento.
+            /// </param>
             private PropertyBuilderInfo(PropertyBuilder builder, FieldBuilder backingField)
             {
-
+                Builder = builder;
+                BackingField = backingField;
             }
         }
 
-
-
         private readonly HashSet<PropertyBuilder> _declaredProperties = new HashSet<PropertyBuilder>();
         private readonly HashSet<FieldBuilder> _declaredFields = new HashSet<FieldBuilder>();
-
-
     }
-
-    
 }

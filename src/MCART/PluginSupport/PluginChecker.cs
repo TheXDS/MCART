@@ -42,10 +42,10 @@ namespace TheXDS.MCART.PluginSupport
         /// </summary>
         /// <returns>
         /// <see langword="true" /> si el ensamblado contiene al menos una clase de tipo
-        /// <typeparamref name="T" /> cargable como <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />, 
+        /// <typeparamref name="T" /> cargable como <see cref="IPlugin" />, 
         /// <see langword="false" /> en caso contrario.
         /// </returns>
-        /// <param name="assembly"><see cref="T:System.Reflection.Assembly" /> a comprobar.</param>
+        /// <param name="assembly"><see cref="Reflection.Assembly" /> a comprobar.</param>
         /// <typeparam name="T">Tipo a buscar.</typeparam>
         public bool Has<T>(Assembly assembly) => assembly.IsNeither(RtInfo.CoreRtAssembly, null) && assembly.GetTypes().Any((arg) => IsValid(arg) && typeof(T).IsAssignableFrom(arg));
         /// <inheritdoc />
@@ -62,14 +62,14 @@ namespace TheXDS.MCART.PluginSupport
         public abstract bool? IsCompatible(Type type);
         /// <inheritdoc />
         /// <summary>
-        /// Comprueba si un <see cref="T:System.Reflection.Assembly" /> contiene clases cargables 
-        /// como <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />.
+        /// Comprueba si un <see cref="Reflection.Assembly" /> contiene clases cargables 
+        /// como <see cref="IPlugin" />.
         /// </summary>
         /// <returns>
         /// <see langword="true" /> si el ensamblado contiene clases cargables como
-        /// <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />, <see langword="false" /> en caso contrario.
+        /// <see cref="IPlugin" />, <see langword="false" /> en caso contrario.
         /// </returns>
-        /// <param name="assembly"><see cref="T:System.Reflection.Assembly" /> a comprobar.</param>
+        /// <param name="assembly"><see cref="Reflection.Assembly" /> a comprobar.</param>
         public bool IsVaild(Assembly assembly)
         {
             try
@@ -88,11 +88,11 @@ namespace TheXDS.MCART.PluginSupport
         /// <inheritdoc />
         /// <summary>
         /// Determina si un tipo es válido para ser cargado como un
-        /// <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />.
+        /// <see cref="IPlugin" />.
         /// </summary>
         /// <returns>
         /// <see langword="true" />, si el tipo puede ser cagado como un 
-        /// <see cref="T:TheXDS.MCART.PluginSupport.Plugin" />, <see langword="false" /> en caso contrario.
+        /// <see cref="Plugin" />, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="type">Tipo a comprobar.</param>
         public abstract bool IsValid(Type type);

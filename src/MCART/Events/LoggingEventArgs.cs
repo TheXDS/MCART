@@ -36,7 +36,7 @@ namespace TheXDS.MCART.Events
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Events.LoggingEventArgs" />, sin definir un objeto relacionado.
+        ///     <see cref="LoggingEventArgs" />, sin definir un objeto relacionado.
         /// </summary>
         /// <param name="message">Mensaje de esta entrada de log.</param>
         public LoggingEventArgs(string message) : base(message)
@@ -46,7 +46,7 @@ namespace TheXDS.MCART.Events
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Events.LoggingEventArgs" />, definiendo un objeto relacionado.
+        ///     <see cref="LoggingEventArgs" />, definiendo un objeto relacionado.
         /// </summary>
         /// <param name="subject">Objeto relacionado a esta entrada de log.</param>
         /// <param name="message">Mensaje de esta entrada de log.</param>

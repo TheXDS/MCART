@@ -1,5 +1,5 @@
 ﻿/*
-ILGeneratorExtensions.cs
+UInt32ConstantLoader.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -29,14 +29,22 @@ using static System.Reflection.Emit.OpCodes;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Carga un valor constante <see cref="ushort"/> en la secuencia de
+    ///     Carga un valor constante <see cref="sbyte"/> en la secuencia de
     ///     instrucciones MSIL.
     /// </summary>
-#if ClsCompliance
+#if CLSCompliance
     [CLSCompliant(false)]
 #endif
-    public class UShortConstantLoader : ConstantLoader<ushort>
+    public class UInt32ConstantLoader : ConstantLoader<uint>
     {
-        public override void Emit(ILGenerator il, ushort value) => il.Emit(Ldc_I4, unchecked(value));
+        /// <summary>
+        ///     Carga un valor constante <see cref="uint"/> en la secuencia de
+        ///     instrucciones MSIL.
+        /// </summary>
+        /// <param name="il">Generador de IL a utilizar.</param>
+        /// <param name="value">
+        ///     Valor constante a cargar en la secuencia de instrucciones.
+        /// </param>
+        public override void Emit(ILGenerator il, uint value) => il.Emit(Ldc_I4, unchecked((int)value));
     }
 }

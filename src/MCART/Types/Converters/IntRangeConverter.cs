@@ -33,9 +33,9 @@ namespace TheXDS.MCART.Types.Converters
     /// <inheritdoc />
     /// <summary>
     ///     Permite realizar la conversión entre tipos
-    ///     <see cref="T:System.String" /> y
+    ///     <see cref="String" /> y
     ///     <see cref="T:TheXDS.MCART.Types.Range`1" /> para rangos de tipo
-    ///     <see cref="T:System.SByte" />.
+    ///     <see cref="SByte" />.
     /// </summary>
     public class SByteRangeConverter : RangeConverter<sbyte>
     {
@@ -43,9 +43,9 @@ namespace TheXDS.MCART.Types.Converters
     /// <inheritdoc />
     /// <summary>
     ///     Permite realizar la conversión entre tipos
-    ///     <see cref="T:System.String" /> y
+    ///     <see cref="String" /> y
     ///     <see cref="T:TheXDS.MCART.Types.Range`1" /> para rangos de tipo
-    ///     <see cref="T:System.UInt16" />.
+    ///     <see cref="UInt16" />.
     /// </summary>
     public class UShortRangeConverter : RangeConverter<ushort>
     {
@@ -53,9 +53,9 @@ namespace TheXDS.MCART.Types.Converters
     /// <inheritdoc />
     /// <summary>
     ///     Permite realizar la conversión entre tipos
-    ///     <see cref="T:System.String" /> y
+    ///     <see cref="String" /> y
     ///     <see cref="T:TheXDS.MCART.Types.Range`1" /> para rangos de tipo
-    ///     <see cref="T:System.UInt32" />.
+    ///     <see cref="UInt32" />.
     /// </summary>
     public class UIntRangeConverter : RangeConverter<uint>
     {
@@ -63,9 +63,9 @@ namespace TheXDS.MCART.Types.Converters
     /// <inheritdoc />
     /// <summary>
     ///     Permite realizar la conversión entre tipos
-    ///     <see cref="T:System.String" /> y
+    ///     <see cref="String" /> y
     ///     <see cref="T:TheXDS.MCART.Types.Range`1" /> para rangos de tipo
-    ///     <see cref="T:System.UInt64" />.
+    ///     <see cref="UInt64" />.
     /// </summary>
     public class ULongRangeConverter : RangeConverter<ulong>
     {
@@ -74,9 +74,9 @@ namespace TheXDS.MCART.Types.Converters
     /// <inheritdoc />
     /// <summary>
     ///     Permite realizar la conversión entre tipos
-    ///     <see cref="T:System.String" /> y
+    ///     <see cref="string" /> y
     ///     <see cref="T:TheXDS.MCART.Types.Range`1" /> para rangos de tipo
-    ///     <see cref="T:System.Byte" />.
+    ///     <see cref="byte" />.
     /// </summary>
     public class ByteRangeConverter : RangeConverter<byte>
     {
@@ -84,9 +84,9 @@ namespace TheXDS.MCART.Types.Converters
     /// <inheritdoc />
     /// <summary>
     ///     Permite realizar la conversión entre tipos
-    ///     <see cref="T:System.String" /> y
+    ///     <see cref="string" /> y
     ///     <see cref="T:TheXDS.MCART.Types.Range`1" /> para rangos de tipo
-    ///     <see cref="T:System.Int16" />.
+    ///     <see cref="short" />.
     /// </summary>
     public class ShortRangeConverter : RangeConverter<short>
     {
@@ -94,9 +94,9 @@ namespace TheXDS.MCART.Types.Converters
     /// <inheritdoc />
     /// <summary>
     ///     Permite realizar la conversión entre tipos
-    ///     <see cref="T:System.String" /> y
+    ///     <see cref="string" /> y
     ///     <see cref="T:TheXDS.MCART.Types.Range`1" /> para rangos de tipo
-    ///     <see cref="T:System.Int32" />.
+    ///     <see cref="int" />.
     /// </summary>
     public class IntRangeConverter : RangeConverter<int>
     {
@@ -104,9 +104,9 @@ namespace TheXDS.MCART.Types.Converters
     /// <inheritdoc />
     /// <summary>
     ///     Permite realizar la conversión entre tipos
-    ///     <see cref="T:System.String" /> y
+    ///     <see cref="string" /> y
     ///     <see cref="T:TheXDS.MCART.Types.Range`1" /> para rangos de tipo
-    ///     <see cref="T:System.Int64" />.
+    ///     <see cref="long" />.
     /// </summary>
     public class LongRangeConverter : RangeConverter<long>
     {
@@ -114,9 +114,9 @@ namespace TheXDS.MCART.Types.Converters
     /// <inheritdoc />
     /// <summary>
     ///     Permite realizar la conversión entre tipos
-    ///     <see cref="T:System.String" /> y
+    ///     <see cref="string" /> y
     ///     <see cref="T:TheXDS.MCART.Types.Range`1" /> para rangos de tipo
-    ///     <see cref="T:System.Single" />.
+    ///     <see cref="float" />.
     /// </summary>
     public class SingleRangeConverter : RangeConverter<float>
     {
@@ -124,9 +124,9 @@ namespace TheXDS.MCART.Types.Converters
     /// <inheritdoc />
     /// <summary>
     ///     Permite realizar la conversión entre tipos
-    ///     <see cref="T:System.String" /> y
+    ///     <see cref="string" /> y
     ///     <see cref="T:TheXDS.MCART.Types.Range`1" /> para rangos de tipo
-    ///     <see cref="T:System.Double" />.
+    ///     <see cref="double" />.
     /// </summary>
     public class DoubleRangeConverter : RangeConverter<double>
     {
@@ -134,9 +134,9 @@ namespace TheXDS.MCART.Types.Converters
     /// <inheritdoc />
     /// <summary>
     ///     Permite realizar la conversión entre tipos
-    ///     <see cref="T:System.String" /> y
+    ///     <see cref="string" /> y
     ///     <see cref="T:TheXDS.MCART.Types.Range`1" /> para rangos de tipo
-    ///     <see cref="T:System.Decimal" />.
+    ///     <see cref="decimal" />.
     /// </summary>
     public class DecimalRangeConverter : RangeConverter<decimal>
     {
@@ -144,9 +144,9 @@ namespace TheXDS.MCART.Types.Converters
     /// <inheritdoc />
     /// <summary>
     ///     Permite realizar la conversión entre tipos
-    ///     <see cref="T:System.String" /> y
+    ///     <see cref="string" /> y
     ///     <see cref="T:TheXDS.MCART.Types.Range`1" /> para rangos de tipo
-    ///     <see cref="T:System.Char" />.
+    ///     <see cref="char" />.
     /// </summary>
     public class CharRangeConverter : RangeConverter<char>
     {
@@ -155,9 +155,9 @@ namespace TheXDS.MCART.Types.Converters
     /// <inheritdoc />
     /// <summary>
     ///     Permite realizar la conversión entre tipos
-    ///     <see cref="T:System.String" /> y
+    ///     <see cref="string" /> y
     ///     <see cref="T:TheXDS.MCART.Types.Range`1" /> para rangos de tipo
-    ///     <see cref="T:System.String" />.
+    ///     <see cref="string" />.
     /// </summary>
     public class StringRangeConverter : RangeConverter<string>
     {
@@ -165,9 +165,9 @@ namespace TheXDS.MCART.Types.Converters
     /// <inheritdoc />
     /// <summary>
     ///     Permite realizar la conversión entre tipos
-    ///     <see cref="T:System.String" /> y
+    ///     <see cref="string" /> y
     ///     <see cref="T:TheXDS.MCART.Types.Range`1" /> para rangos de tipo
-    ///     <see cref="T:System.DateTime" />.
+    ///     <see cref="DateTime" />.
     /// </summary>
     public class DateTimeRangeConverter : RangeConverter<DateTime>
     {
@@ -175,9 +175,9 @@ namespace TheXDS.MCART.Types.Converters
     /// <inheritdoc />
     /// <summary>
     ///     Permite realizar la conversión entre tipos
-    ///     <see cref="T:System.String" /> y
+    ///     <see cref="string" /> y
     ///     <see cref="T:TheXDS.MCART.Types.Range`1" /> para rangos de tipo
-    ///     <see cref="T:System.TimeSpan" />.
+    ///     <see cref="TimeSpan" />.
     /// </summary>
     public class TimeSpanRangeConverter : RangeConverter<TimeSpan>
     {

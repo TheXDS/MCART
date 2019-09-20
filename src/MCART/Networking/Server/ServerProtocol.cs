@@ -90,10 +90,10 @@ namespace TheXDS.MCART.Networking.Server
         ///     Inicializa un nuevo cliente manejado por este protocolo.
         /// </summary>
         /// <param name="tcpClient">
-        ///     <see cref="T:System.Net.Sockets.TcpClient" /> de la conexión con el host remoto.
+        ///     <see cref="Net.Sockets.TcpClient" /> de la conexión con el host remoto.
         /// </param>
         /// <returns>
-        ///     Un nuevo <see cref="T:TheXDS.MCART.Networking.Server.Client" />.
+        ///     Un nuevo <see cref="Client" />.
         /// </returns>
         public virtual Client CreateClient(TcpClient tcpClient) => new Client(tcpClient);
 
@@ -203,10 +203,10 @@ namespace TheXDS.MCART.Networking.Server
         ///     Inicializa un nuevo cliente manejado por este protocolo.
         /// </summary>
         /// <param name="tcpClient">
-        ///     <see cref="T:System.Net.Sockets.TcpClient" /> de la conexión con el host remoto.
+        ///     <see cref="Net.Sockets.TcpClient" /> de la conexión con el host remoto.
         /// </param>
         /// <returns>
-        ///     Un nuevo <see cref="T:TheXDS.MCART.Networking.Server.Client" />.
+        ///     Un nuevo <see cref="Client" />.
         /// </returns>
         /// <exception cref="InvalidTypeException">
         ///     Se produce si no es posible crear una nueva instancia del

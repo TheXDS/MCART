@@ -194,7 +194,7 @@ namespace TheXDS.MCART.Annotations
     /// <summary>
     ///     Indicates that the function argument should be string literal and match one
     ///     of the parameters of the caller function. For example, ReSharper annotates
-    ///     the parameter of <see cref="T:System.ArgumentNullException" />.
+    ///     the parameter of <see cref="ArgumentNullException" />.
     /// </summary>
     /// <example>
     ///     <code>
@@ -736,7 +736,7 @@ namespace TheXDS.MCART.Annotations
     ///     Template method body can contain valid source code and/or special comments starting with '$'.
     ///     Text inside these comments is added as source code when the template is applied. Template parameters
     ///     can be used either as additional method parameters or as identifiers wrapped in two '$' signs.
-    ///     Use the <see cref="T:TheXDS.MCART.Annotations.MacroAttribute" /> attribute to specify macros for parameters.
+    ///     Use the <see cref="MacroAttribute" /> attribute to specify macros for parameters.
     /// </remarks>
     /// <example>
     ///     In this example, the 'forEach' method is a source template available over all values
@@ -758,7 +758,7 @@ namespace TheXDS.MCART.Annotations
     /// <inheritdoc />
     /// <summary>
     ///     Allows specifying a macro for a parameter of a
-    ///     <see cref="T:TheXDS.MCART.Annotations.SourceTemplateAttribute">source template</see>.
+    ///     <see cref="SourceTemplateAttribute">source template</see>.
     /// </summary>
     /// <remarks>
     ///     You can apply the attribute on the whole method or on any of its additional parameters. The macro expression
@@ -1173,7 +1173,7 @@ namespace TheXDS.MCART.Annotations
     /// <summary>
     ///     Indicates that the marked method is assertion method, i.e. it halts control flow if
     ///     one of the conditions is satisfied. To set the condition, mark one of the parameters with
-    ///     <see cref="T:TheXDS.MCART.Annotations.AssertionConditionAttribute" /> attribute.
+    ///     <see cref="AssertionConditionAttribute" /> attribute.
     /// </summary>
     [AttributeUsage(Method)]
     public sealed class AssertionMethodAttribute : Attribute
@@ -1183,7 +1183,7 @@ namespace TheXDS.MCART.Annotations
     /// <inheritdoc />
     /// <summary>
     ///     Indicates the condition parameter of the assertion method. The method itself should be
-    ///     marked by <see cref="T:TheXDS.MCART.Annotations.AssertionMethodAttribute" /> attribute. The mandatory argument of
+    ///     marked by <see cref="AssertionMethodAttribute" /> attribute. The mandatory argument of
     ///     the attribute is the assertion type.
     /// </summary>
     [AttributeUsage(Parameter)]
@@ -1287,7 +1287,7 @@ namespace TheXDS.MCART.Annotations
     /// </summary>
     /// <remarks>
     ///     Property should have the tree ancestor of the <c>ItemsControl</c> type or
-    ///     marked with the <see cref="T:TheXDS.MCART.Annotations.XamlItemsControlAttribute" /> attribute.
+    ///     marked with the <see cref="XamlItemsControlAttribute" /> attribute.
     /// </remarks>
     [AttributeUsage(Property)]
     public sealed class XamlItemBindingOfItemsControlAttribute : Attribute

@@ -1,5 +1,5 @@
 ﻿/*
-ILGeneratorExtensions.cs
+IConstantLoader.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -27,9 +27,26 @@ using System.Reflection.Emit;
 
 namespace TheXDS.MCART.Types.Extensions
 {
+    /// <summary>
+    ///     Define una serie de miembros a implementar por un tipo que permita
+    ///     cargar valores constantes en una secuencia de instrucciones MSIL.
+    /// </summary>
     public interface IConstantLoader
     {
+        /// <summary>
+        ///     Carga un valor constante en la secuencia de instrucciones MSIL.
+        /// </summary>
+        /// <param name="il">Generador de IL a utilizar.</param>
+        /// <param name="value">
+        ///     Valor constante a cargar en la secuencia de instrucciones.
+        /// </param>
         void Emit(ILGenerator il, object value);
+
+        /// <summary>
+        ///     Obtiene el tipo de constante que este 
+        ///     <see cref="IConstantLoader"/> es capaz de cargar en la
+        ///     secuencia de instrucciones MSIL.
+        /// </summary>
         Type ConstantType { get; }
     }
 }

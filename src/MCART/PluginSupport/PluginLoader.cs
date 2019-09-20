@@ -39,7 +39,7 @@ namespace TheXDS.MCART.PluginSupport
     /// <inheritdoc />
     /// <summary>
     ///     Permite cargar clases que implementen la interfaz
-    ///     <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />.
+    ///     <see cref="IPlugin" />.
     /// </summary>
     public class PluginLoader : IPluginLoader
     {
@@ -50,7 +50,7 @@ namespace TheXDS.MCART.PluginSupport
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.PluginSupport.PluginLoader" /> utilizando el verificador
+        ///     <see cref="PluginLoader" /> utilizando el verificador
         ///     predeterminado.
         /// </summary>
         public PluginLoader() : this(new DefaultPluginChecker(), _defaultPluginExtension)
@@ -60,7 +60,7 @@ namespace TheXDS.MCART.PluginSupport
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.PluginSupport.PluginLoader" /> utilizando el verificador
+        ///     <see cref="PluginLoader" /> utilizando el verificador
         ///     predeterminado.
         /// </summary>
         /// <param name="pluginExtension">
@@ -74,12 +74,12 @@ namespace TheXDS.MCART.PluginSupport
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.PluginSupport.PluginLoader" /> utilizando el
-        ///     <see cref="T:TheXDS.MCART.PluginSupport.IPluginChecker" /> y la extensión de plugins
+        ///     <see cref="PluginLoader" /> utilizando el
+        ///     <see cref="IPluginChecker" /> y la extensión de plugins
         ///     especificada.
         /// </summary>
         /// <param name="pluginChecker">
-        ///     <see cref="T:TheXDS.MCART.PluginSupport.IPluginChecker" /> a utilizar para comprobar la
+        ///     <see cref="IPluginChecker" /> a utilizar para comprobar la
         ///     compatibilidad de los plugins.
         /// </param>
         public PluginLoader(IPluginChecker pluginChecker) : this(pluginChecker, SanityChecks.Default,
@@ -90,12 +90,12 @@ namespace TheXDS.MCART.PluginSupport
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.PluginSupport.PluginLoader" /> utilizando el
-        ///     <see cref="T:TheXDS.MCART.PluginSupport.IPluginChecker" /> y la extensión de plugins
+        ///     <see cref="PluginLoader" /> utilizando el
+        ///     <see cref="IPluginChecker" /> y la extensión de plugins
         ///     especificada.
         /// </summary>
         /// <param name="pluginChecker">
-        ///     <see cref="T:TheXDS.MCART.PluginSupport.IPluginChecker" /> a utilizar para comprobar la
+        ///     <see cref="IPluginChecker" /> a utilizar para comprobar la
         ///     compatibilidad de los plugins.
         /// </param>
         /// <param name="pluginExtension">
@@ -110,33 +110,33 @@ namespace TheXDS.MCART.PluginSupport
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.PluginSupport.PluginLoader" /> utilizando el
-        ///     <see cref="T:TheXDS.MCART.PluginSupport.IPluginChecker" /> y la extensión de plugins
+        ///     <see cref="PluginLoader" /> utilizando el
+        ///     <see cref="IPluginChecker" /> y la extensión de plugins
         ///     especificada.
         /// </summary>
         /// <param name="pluginChecker">
-        ///     <see cref="T:TheXDS.MCART.PluginSupport.IPluginChecker" /> a utilizar para comprobar la
+        ///     <see cref="IPluginChecker" /> a utilizar para comprobar la
         ///     compatibilidad de los plugins.
         /// </param>
         /// <param name="sanityChecks">
         ///     Omite las comprobaciones de peligrosidad de los
-        ///     <see cref="T:TheXDS.MCART.PluginSupport.Plugin" /> y sus miembros.
+        ///     <see cref="Plugin" /> y sus miembros.
         /// </param>
         /// <exception cref="T:TheXDS.MCART.Exceptions.DangerousMethodException">
         ///     Se produce si <paramref name="sanityChecks" /> contiene un valor que
-        ///     ha sido marcado con el atributo <see cref="T:TheXDS.MCART.Attributes.DangerousAttribute" />.
+        ///     ha sido marcado con el atributo <see cref="DangerousAttribute" />.
         /// </exception>
         /// <exception cref="T:TheXDS.MCART.Exceptions.DangerousTypeException">
         ///     Se produce si <paramref name="sanityChecks" /> no contiene la
         ///     bandera <see cref="F:TheXDS.MCART.SanityChecks.IgnoreDanger" /> y el
         ///     <paramref name="pluginChecker" /> a utilizar fue marcado en su
-        ///     declaración con el atributo <see cref="T:TheXDS.MCART.Attributes.DangerousAttribute" />.
+        ///     declaración con el atributo <see cref="DangerousAttribute" />.
         /// </exception>
         /// <exception cref="T:TheXDS.MCART.Exceptions.UnusableObjectException">
         ///     Se produce si <paramref name="sanityChecks" /> no contiene la
         ///     bandera <see cref="F:TheXDS.MCART.SanityChecks.IgnoreUnusable" /> y el
         ///     <paramref name="pluginChecker" /> a utilizar fue marcado en su
-        ///     declaración con el atributo <see cref="T:TheXDS.MCART.Attributes.UnusableAttribute" />.
+        ///     declaración con el atributo <see cref="UnusableAttribute" />.
         /// </exception>
         /// <exception cref="T:System.ArgumentNullException">
         ///     Se produce si <paramref name="pluginChecker" /> es <see langword="null" />.
@@ -202,13 +202,13 @@ namespace TheXDS.MCART.PluginSupport
         ///     ensamblado especificado.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" /> de tipo <typeparamref name="T" />.
+        ///     Un <see cref="IPlugin" /> de tipo <typeparamref name="T" />.
         /// </returns>
-        /// <param name="assembly"><see cref="T:System.Reflection.Assembly" /> a cargar.</param>
+        /// <param name="assembly"><see cref="Reflection.Assembly" /> a cargar.</param>
         /// <typeparam name="T">Clase a cargar.</typeparam>
         /// <exception cref="T:TheXDS.MCART.Exceptions.NotPluginException">
         ///     Se produce si el ensamblado no contiene ninguna clase cargable como
-        ///     <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />.
+        ///     <see cref="IPlugin" />.
         /// </exception>
         /// <exception cref="T:TheXDS.MCART.Exceptions.PluginClassNotFoundException">
         ///     Se produce si el ensamblado no contiene ninguna clase cargable como
@@ -226,20 +226,20 @@ namespace TheXDS.MCART.PluginSupport
 
         /// <inheritdoc />
         /// <summary>
-        ///     Carga todos los <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" /> contenidos en el ensamblado.
+        ///     Carga todos los <see cref="IPlugin" /> contenidos en el ensamblado.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="T:System.Collections.Generic.IEnumerable`1" /> con los
-        ///     <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />
+        ///     Un <see cref="Collections.Generic.IEnumerable`1" /> con los
+        ///     <see cref="IPlugin" />
         ///     encontrados.
         /// </returns>
-        /// <param name="assembly"><see cref="T:System.Reflection.Assembly" /> a cargar.</param>
+        /// <param name="assembly"><see cref="Reflection.Assembly" /> a cargar.</param>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" /> a cargar.
+        ///     Tipo de <see cref="IPlugin" /> a cargar.
         /// </typeparam>
         /// <exception cref="T:TheXDS.MCART.Exceptions.NotPluginException">
         ///     Se produce si <paramref name="assembly" /> no contiene clases cargables
-        ///     como <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />.
+        ///     como <see cref="IPlugin" />.
         /// </exception>
         public IEnumerable<T> LoadAll<T>(Assembly assembly) where T : class
         {
@@ -248,14 +248,14 @@ namespace TheXDS.MCART.PluginSupport
 
         /// <inheritdoc />
         /// <summary>
-        ///     Carga todos los <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" /> contenidos en el ensamblado.
+        ///     Carga todos los <see cref="IPlugin" /> contenidos en el ensamblado.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="T:System.Collections.Generic.IEnumerable`1" /> con los
-        ///     <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />
+        ///     Un <see cref="Collections.Generic.IEnumerable`1" /> con los
+        ///     <see cref="IPlugin" />
         ///     encontrados.
         /// </returns>
-        /// <param name="assembly"><see cref="T:System.Reflection.Assembly" /> a cargar.</param>
+        /// <param name="assembly"><see cref="Reflection.Assembly" /> a cargar.</param>
 #if PreferExceptions
         /// <exception cref="NotPluginException">
         /// Se produce si <paramref name="assembly"/> no contiene clases cargables
@@ -480,23 +480,23 @@ namespace TheXDS.MCART.PluginSupport
         }
 
         /// <summary>
-        ///     Carga todos los <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" /> contenidos en el ensamblado.
+        ///     Carga todos los <see cref="IPlugin" /> contenidos en el ensamblado.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="T:System.Collections.Generic.IEnumerable`1" /> con los
-        ///     <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />
+        ///     Un <see cref="Collections.Generic.IEnumerable`1" /> con los
+        ///     <see cref="IPlugin" />
         ///     encontrados.
         /// </returns>
-        /// <param name="assembly"><see cref="T:System.Reflection.Assembly" /> a cargar.</param>
+        /// <param name="assembly"><see cref="Reflection.Assembly" /> a cargar.</param>
         /// <param name="predicate">
         ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
         /// </param>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" /> a cargar.
+        ///     Tipo de <see cref="IPlugin" /> a cargar.
         /// </typeparam>
         /// <exception cref="T:TheXDS.MCART.Exceptions.NotPluginException">
         ///     Se produce si <paramref name="assembly" /> no contiene clases cargables
-        ///     como <see cref="T:TheXDS.MCART.PluginSupport.IPlugin" />.
+        ///     como <see cref="IPlugin" />.
         /// </exception>
         public IEnumerable<T> LoadAll<T>(Assembly assembly, Func<Type, bool> predicate) where T : class
         {

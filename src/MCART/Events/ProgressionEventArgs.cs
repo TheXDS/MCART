@@ -41,7 +41,7 @@ namespace TheXDS.MCART.Events
         ///     provistos.
         /// </summary>
         /// <param name="progress">
-        ///     Valor de progreso. Debe ser un <see cref="T:System.Double" /> entre
+        ///     Valor de progreso. Debe ser un <see cref="double" /> entre
         ///     <c>0.0</c> y <c>1.0</c>, o los valores <see cref="F:System.Double.NaN" />,
         ///     <see cref="F:System.Double.PositiveInfinity" /> o
         ///     <see cref="F:System.Double.NegativeInfinity" />.
@@ -65,7 +65,7 @@ namespace TheXDS.MCART.Events
         ///     provistos.
         /// </summary>
         /// <param name="progress">
-        ///     Valor de progreso. Debe ser un <see cref="T:System.Double" /> entre
+        ///     Valor de progreso. Debe ser un <see cref="double" /> entre
         ///     <c>0.0</c> y <c>1.0</c>, o los valores <see cref="F:System.Double.NaN" />,
         ///     <see cref="F:System.Double.PositiveInfinity" /> o
         ///     <see cref="F:System.Double.NegativeInfinity" />.

@@ -40,7 +40,7 @@ namespace TheXDS.MCART.Attributes
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Attributes.McartComponentAttribute" />.
+        ///     <see cref="McartComponentAttribute" />.
         /// </summary>
         /// <param name="kind">
         ///     Tipo de componente que este ensamblado es.

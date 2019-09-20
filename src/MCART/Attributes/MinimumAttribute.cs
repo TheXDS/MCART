@@ -38,7 +38,7 @@ namespace TheXDS.MCART.Attributes
         /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia del atributo
-        /// <see cref="T:TheXDS.MCART.Attributes.MinimumAttribute" /> estableciendo el valor mínimo a
+        /// <see cref="MinimumAttribute" /> estableciendo el valor mínimo a
         /// representar.
         /// </summary>
         /// <param name="attributeValue">Valor del atributo.</param>

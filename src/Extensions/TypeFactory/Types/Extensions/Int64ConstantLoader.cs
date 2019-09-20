@@ -1,5 +1,5 @@
 ﻿/*
-ILGeneratorExtensions.cs
+Int64ConstantLoader.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,17 +22,25 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
 using System.Reflection.Emit;
 using static System.Reflection.Emit.OpCodes;
 
 namespace TheXDS.MCART.Types.Extensions
 {
-#if ClsCompliance
-    [CLSCompliant(false)]
-#endif
-    public class ULongConstantLoader : ConstantLoader<ulong>
+    /// <summary>
+    ///     Carga un valor constante <see cref="long"/> en la secuencia de
+    ///     instrucciones MSIL.
+    /// </summary>
+    public class Int64ConstantLoader : ConstantLoader<long>
     {
-        public override void Emit(ILGenerator il, ulong value) => il.Emit(Ldc_I8, unchecked((long)value));
+        /// <summary>
+        ///     Carga un valor constante <see cref="long"/> en la secuencia de
+        ///     instrucciones MSIL.
+        /// </summary>
+        /// <param name="il">Generador de IL a utilizar.</param>
+        /// <param name="value">
+        ///     Valor constante a cargar en la secuencia de instrucciones.
+        /// </param>
+        public override void Emit(ILGenerator il, long value) => il.Emit(Ldc_I8, value);
     }
 }

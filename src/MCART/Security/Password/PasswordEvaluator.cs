@@ -41,7 +41,7 @@ namespace TheXDS.MCART.Security.Password
     {
         /// <inheritdoc />
         /// <summary>
-        /// Obtiene un <see cref="T:System.Collections.Generic.List`1" /> con las reglas de
+        /// Obtiene un <see cref="Collections.Generic.List`1" /> con las reglas de
         /// evaluación activas en este objeto.
         /// </summary>
         /// <value>Reglas de evaluación a incluir.</value>

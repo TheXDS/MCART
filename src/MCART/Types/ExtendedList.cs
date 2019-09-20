@@ -39,7 +39,7 @@ namespace TheXDS.MCART.Types
     /// <inheritdoc cref="T:System.Collections.Generic.List`1"/>
     /// <summary>
     /// Extensión observable de la clase 
-    /// <see cref="T:System.Collections.Generic.List`1"/>. Provee de toda la
+    /// <see cref="Collections.Generic.List`1"/>. Provee de toda la
     /// funcionalidad previamente disponible, e incluye algunas extensiones
     /// útiles.
     /// </summary>
@@ -48,7 +48,7 @@ namespace TheXDS.MCART.Types
     /// </typeparam>
     /// <remarks>
     /// Esta clase puede considerarse como una alternativa más completa a 
-    /// <see cref="T:System.Collections.ObjectModel.ObservableCollection`1" />
+    /// <see cref="Collections.ObjectModel.ObservableCollection`1" />
     /// con numerosos eventos adicionales y otras extensiones.
     /// </remarks>
     public class ExtendedList<T> : List<T>, ICloneable

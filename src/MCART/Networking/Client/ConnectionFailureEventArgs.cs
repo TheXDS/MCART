@@ -39,7 +39,7 @@ namespace TheXDS.MCART.Networking.Client
     /// <summary>
     ///     Contiene información de evento para las fallas de conexión
     ///     producidas en un
-    ///     <see cref="T:TheXDS.MCART.Networking.Client.ClientBase" />.
+    ///     <see cref="ClientBase" />.
     /// </summary>
     public class ConnectionFailureEventArgs : EventArgs
     {
@@ -70,7 +70,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Networking.Client.ConnectionFailureEventArgs" />.
+        ///     <see cref="ConnectionFailureEventArgs" />.
         /// </summary>
         /// <param name="exception">
         ///     Excepción producida durante la falla de conexión.
@@ -94,7 +94,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Networking.Client.ConnectionFailureEventArgs" />.
+        ///     <see cref="ConnectionFailureEventArgs" />.
         /// </summary>
         /// <param name="exception">
         ///     Excepción producida durante la falla de conexión.
@@ -114,7 +114,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Networking.Client.ConnectionFailureEventArgs" />.
+        ///     <see cref="ConnectionFailureEventArgs" />.
         /// </summary>
         /// <param name="exception">
         ///     Excepción producida durante la falla de conexión.

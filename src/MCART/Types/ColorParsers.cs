@@ -622,10 +622,10 @@ namespace TheXDS.MCART.Types
             /// <inheritdoc />
             /// <summary>
             ///     Convierte un <see cref="T:TheXDS.MCART.Types.Color" /> en su representación como un
-            ///     <see cref="T:System.Byte" /> de atributo VGA.
+            ///     <see cref="Byte" /> de atributo VGA.
             /// </summary>
             /// <returns>
-            ///     Un <see cref="T:System.Byte" /> con la representación binaria de este
+            ///     Un <see cref="Byte" /> con la representación binaria de este
             ///     <see cref="T:TheXDS.MCART.Types.Color" />, en formato BGRI de 4 bits.
             ///     El byte de atributo no incluirá color de fondo ni bit de
             ///     Blinker.

@@ -179,7 +179,7 @@ namespace TheXDS.MCART.Controls
 
         /// <inheritdoc />
         /// <summary>
-        ///   Si se reemplaza en una clase derivada, coloca los elementos secundarios y determina un tamaño para una clase derivada <see cref="T:System.Windows.FrameworkElement" />.
+        ///   Si se reemplaza en una clase derivada, coloca los elementos secundarios y determina un tamaño para una clase derivada <see cref="Windows.FrameworkElement" />.
         /// </summary>
         /// <param name="finalSize">
         ///   Área final dentro del elemento primario que este elemento debe usar para organizarse a sí mismo y a sus elementos secundarios.
@@ -256,7 +256,7 @@ namespace TheXDS.MCART.Controls
 
         /// <inheritdoc />
         /// <summary>
-        ///   Si se reemplaza en una clase derivada, mide el tamaño del diseño necesario para los elementos secundarios y determina un tamaño para la clase derivada <see cref="T:System.Windows.FrameworkElement" />.
+        ///   Si se reemplaza en una clase derivada, mide el tamaño del diseño necesario para los elementos secundarios y determina un tamaño para la clase derivada <see cref="Windows.FrameworkElement" />.
         /// </summary>
         /// <param name="constraint">
         ///   Tamaño disponible que este elemento puede otorgar a los elementos secundarios.

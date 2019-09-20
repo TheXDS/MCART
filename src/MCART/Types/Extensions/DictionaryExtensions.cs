@@ -33,16 +33,45 @@ namespace TheXDS.MCART.Types.Extensions
     {
         /// <summary>
         ///     Comprueba la existencia de referencias circulares en un
-        ///     diccionario de objetos.
+        ///     diccionario de objetos en forma de árbol.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="dictionary"></param>
-        /// <param name="element"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">
+        ///     Tipo de elementos contenidos en el diccionario.
+        /// </typeparam>
+        /// <param name="dictionary">
+        ///     Diccionario en el cual realizar la comprobación.
+        /// </param>
+        /// <param name="element">
+        ///     Elemento a comprobar.
+        /// </param>
+        /// <returns>
+        ///     <see langword="false"/> si no existen referencias circulares 
+        ///     dentro del diccionario, <see langword="true"/> en caso 
+        ///     contrario.
+        /// </returns>
         public static bool CheckCircularRef<T>(this IDictionary<T, IEnumerable<T>> dictionary, T element)
         {
             return BranchScanFails(element, element, dictionary, new HashSet<T>());
         }
+
+        /// <summary>
+        ///     Comprueba la existencia de referencias circulares en un
+        ///     diccionario de objetos.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de elementos contenidos en el diccionario.
+        /// </typeparam>
+        /// <param name="dictionary">
+        ///     Diccionario en el cual realizar la comprobación.
+        /// </param>
+        /// <param name="element">
+        ///     Elemento a comprobar.
+        /// </param>
+        /// <returns>
+        ///     <see langword="false"/> si no existen referencias circulares 
+        ///     dentro del diccionario, <see langword="true"/> en caso 
+        ///     contrario.
+        /// </returns>
         public static bool CheckCircularRef<T>(this IDictionary<T, ICollection<T>> dictionary, T element)
         {
             return BranchScanFails(element, element, dictionary, new HashSet<T>());
@@ -52,10 +81,20 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Comprueba la existencia de referencias circulares en un
         ///     diccionario de objetos.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="dictionary"></param>
-        /// <param name="element"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">
+        ///     Tipo de elementos contenidos en el diccionario.
+        /// </typeparam>
+        /// <param name="dictionary">
+        ///     Diccionario en el cual realizar la comprobación.
+        /// </param>
+        /// <param name="element">
+        ///     Elemento a comprobar.
+        /// </param>
+        /// <returns>
+        ///     <see langword="false"/> si no existen referencias circulares 
+        ///     dentro del diccionario, <see langword="true"/> en caso 
+        ///     contrario.
+        /// </returns>
         public static bool CheckCircularRef<T>(this IEnumerable<KeyValuePair<T, IEnumerable<T>>> dictionary, T element)
         {
             var d = new Dictionary<T, IEnumerable<T>>();
@@ -63,6 +102,24 @@ namespace TheXDS.MCART.Types.Extensions
             return BranchScanFails(element, element, d, new HashSet<T>());
         }
 
+        /// <summary>
+        ///     Comprueba la existencia de referencias circulares en un
+        ///     diccionario de objetos.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     Tipo de elementos contenidos en el diccionario.
+        /// </typeparam>
+        /// <param name="dictionary">
+        ///     Diccionario en el cual realizar la comprobación.
+        /// </param>
+        /// <param name="element">
+        ///     Elemento a comprobar.
+        /// </param>
+        /// <returns>
+        ///     <see langword="false"/> si no existen referencias circulares 
+        ///     dentro del diccionario, <see langword="true"/> en caso 
+        ///     contrario.
+        /// </returns>
         public static bool CheckCircularRef<T>(this IEnumerable<KeyValuePair<T, ICollection<T>>> dictionary, T element)
         {
             var d = new Dictionary<T, IEnumerable<T>>();

@@ -682,7 +682,7 @@ namespace TheXDS.MCART
         ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
         /// <param name="member">
-        ///     <see cref="Object" /> del cual se extraerá el
+        ///     <see cref="object" /> del cual se extraerá el
         ///     atributo.
         /// </param>
         /// <returns>

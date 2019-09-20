@@ -48,14 +48,14 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.InvalidReturnValueException" />.
+        ///     <see cref="InvalidReturnValueException" />.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="T:System.Runtime.Serialization.StreamingContext" /> que contiene información
+        ///     El <see cref="StreamingContext" /> que contiene información
         ///     contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="T:System.Runtime.Serialization.SerializationInfo" /> que contiene la información
+        ///     El <see cref="SerializationInfo" /> que contiene la información
         ///     serializada del objeto acerca de la excepción que está siendo
         ///     lanzada.
         /// </param>
@@ -66,7 +66,7 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.InvalidReturnValueException" />.
+        ///     <see cref="InvalidReturnValueException" />.
         /// </summary>
         public InvalidReturnValueException() : base(Strings.XReturnedInvalid(Strings.TheFunc))
         {
@@ -75,11 +75,11 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.InvalidReturnValueException" /> especificando el delegado
+        ///     <see cref="InvalidReturnValueException" /> especificando el delegado
         ///     que causó esta excepción.
         /// </summary>
         /// <param name="call">
-        ///     <see cref="T:System.Delegate" /> cuyo resultado causó la excepción.
+        ///     <see cref="Delegate" /> cuyo resultado causó la excepción.
         /// </param>
         public InvalidReturnValueException(Delegate call) : base(
             Strings.XReturnedInvalid(Strings.XYQuotes(Strings.TheFunc, call.Method.Name)))
@@ -91,7 +91,7 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.InvalidReturnValueException" /> especificando el delegado
+        ///     <see cref="InvalidReturnValueException" /> especificando el delegado
         ///     que causó esta excepción.
         /// </summary>
         /// <param name="methodName">
@@ -106,11 +106,11 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.InvalidReturnValueException" /> especificando el delegado
+        ///     <see cref="InvalidReturnValueException" /> especificando el delegado
         ///     que causó esta excepción.
         /// </summary>
         /// <param name="call">
-        ///     <see cref="T:System.Delegate" /> cuyo resultado causó la excepción.
+        ///     <see cref="Delegate" /> cuyo resultado causó la excepción.
         /// </param>
         /// <param name="returnValue">
         ///     Valor inválido devuelto por <paramref name="call" />.
@@ -126,7 +126,7 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.InvalidReturnValueException" /> especificando el delegado
+        ///     <see cref="InvalidReturnValueException" /> especificando el delegado
         ///     que causó esta excepción.
         /// </summary>
         /// <param name="methodName">
@@ -145,13 +145,13 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.InvalidReturnValueException" />.
+        ///     <see cref="InvalidReturnValueException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="T:System.String" /> que describe a la excepción.
+        ///     Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="T:System.Exception" /> que es la causa de esta excepción.
+        ///     <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public InvalidReturnValueException(string message, Exception inner) : base(message, inner)
         {
@@ -160,17 +160,17 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.InvalidReturnValueException" /> especificando el delegado
+        ///     <see cref="InvalidReturnValueException" /> especificando el delegado
         ///     que causó esta excepción.
         /// </summary>
         /// <param name="call">
-        ///     <see cref="T:System.Delegate" /> cuyo resultado causó la excepción.
+        ///     <see cref="Delegate" /> cuyo resultado causó la excepción.
         /// </param>
         /// <param name="returnValue">
         ///     Valor inválido devuelto por <paramref name="call" />.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="T:System.Exception" /> que es la causa de esta excepción.
+        ///     <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public InvalidReturnValueException(Delegate call, object returnValue, Exception inner) : base(
             Strings.XReturnedInvalid(Strings.XYQuotes(Strings.TheFunc, call.Method.Name)), inner)
@@ -183,7 +183,7 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.InvalidReturnValueException" /> especificando el delegado
+        ///     <see cref="InvalidReturnValueException" /> especificando el delegado
         ///     que causó esta excepción.
         /// </summary>
         /// <param name="methodName">
@@ -193,7 +193,7 @@ namespace TheXDS.MCART.Exceptions
         ///     Valor inválido devuelto por el método.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="T:System.Exception" /> que es la causa de esta excepción.
+        ///     <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public InvalidReturnValueException(string methodName, object returnValue, Exception inner) : base(
             Strings.XReturnedInvalid(Strings.XYQuotes(Strings.TheFunc, methodName)), inner)

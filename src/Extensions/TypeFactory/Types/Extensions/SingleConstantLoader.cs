@@ -1,5 +1,5 @@
 ﻿/*
-ILGeneratorExtensions.cs
+SingleConstantLoader.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -27,8 +27,20 @@ using static System.Reflection.Emit.OpCodes;
 
 namespace TheXDS.MCART.Types.Extensions
 {
+    /// <summary>
+    ///     Carga un valor constante <see cref="float"/> en la secuencia de
+    ///     instrucciones MSIL.
+    /// </summary>
     public class SingleConstantLoader : ConstantLoader<float>
     {
+        /// <summary>
+        ///     Carga un valor constante <see cref="float"/> en la secuencia de
+        ///     instrucciones MSIL.
+        /// </summary>
+        /// <param name="il">Generador de IL a utilizar.</param>
+        /// <param name="value">
+        ///     Valor constante a cargar en la secuencia de instrucciones.
+        /// </param>
         public override void Emit(ILGenerator il, float value) => il.Emit(Ldc_R4, value);
     }
 }

@@ -40,7 +40,7 @@ namespace TheXDS.MCART.Resources
         /// <see cref="T:TheXDS.MCART.Resources.AssemblyUnpacker`1" />.
         /// </summary>
         /// <param name="assembly">
-        /// <see cref="T:System.Reflection.Assembly" /> desde donde se extraerán los recursos
+        /// <see cref="Reflection.Assembly" /> desde donde se extraerán los recursos
         /// incrustados.
         /// </param>
         /// <param name="path">

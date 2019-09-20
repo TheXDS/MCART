@@ -67,7 +67,7 @@ namespace TheXDS.MCART.Pages
         ///     <see cref="T:TheXDS.MCART.Pages.AboutPage" />.
         /// </summary>
         /// <param name="element">
-        ///     <see cref="T:TheXDS.MCART.Component.IExposeInfo" /> a utilizar para exponer la
+        ///     <see cref="IExposeInfo" /> a utilizar para exponer la
         ///     información a mostrar.
         /// </param>
         public AboutPage(ApplicationInfo element) : this()

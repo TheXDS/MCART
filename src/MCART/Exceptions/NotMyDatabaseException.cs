@@ -48,7 +48,7 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.NotMyDatabaseException" />.
+        ///     <see cref="NotMyDatabaseException" />.
         /// </summary>
         /// <param name="info">
         ///     El objeto que contiene la información de serialización.
@@ -62,7 +62,7 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.NotMyDatabaseException" />.
+        ///     <see cref="NotMyDatabaseException" />.
         /// </summary>
         public NotMyDatabaseException() : base(Strings.DBDoesntBelong)
         {
@@ -70,10 +70,10 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.NotMyDatabaseException" />.
+        ///     <see cref="NotMyDatabaseException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="T:System.String" /> que describe a la excepción.
+        ///     Un <see cref="string" /> que describe a la excepción.
         /// </param>
         public NotMyDatabaseException(string message) : base(message)
         {
@@ -81,13 +81,13 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.NotMyDatabaseException"/>.
+        ///     <see cref="NotMyDatabaseException"/>.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="T:System.String" /> que describe a la excepción.
+        ///     Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="T:System.Exception" /> que es la causa de esta
+        ///     <see cref="Exception" /> que es la causa de esta
         ///     excepción.
         /// </param>
         public NotMyDatabaseException(string message, Exception inner) : base(message, inner)
@@ -96,10 +96,10 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Exceptions.NotMyDatabaseException"/>.
+        ///     <see cref="NotMyDatabaseException"/>.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="T:System.Exception"/> que es la causa de esta
+        ///     <see cref="Exception"/> que es la causa de esta
         ///     excepción.
         /// </param>
         public NotMyDatabaseException(Exception inner) : base(Strings.DBDoesntBelong,inner)

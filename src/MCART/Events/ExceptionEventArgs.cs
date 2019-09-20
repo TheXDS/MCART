@@ -50,7 +50,7 @@ namespace TheXDS.MCART.Events
         ///     especificada.
         /// </summary>
         /// <param name="ex">
-        ///     <see cref="T:System.Exception" /> que se ha producido en el código.
+        ///     <see cref="Exception" /> que se ha producido en el código.
         /// </param>
         public ExceptionEventArgs(Exception? ex) : base(ex)
         {

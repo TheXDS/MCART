@@ -59,7 +59,7 @@ namespace TheXDS.MCART.Networking.Server
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Networking.Server.Server`1" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="Server{T}" />.
         /// </summary>
         /// <param name="protocol">
         ///     Conjunto de protocolos a utilizar para este servidor.
@@ -75,7 +75,7 @@ namespace TheXDS.MCART.Networking.Server
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Networking.Server.Server`1" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="Server{T}" />.
         /// </summary>
         /// <param name="protocol">
         ///     Conjunto de protocolos a utilizar para este servidor.
@@ -92,15 +92,15 @@ namespace TheXDS.MCART.Networking.Server
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Networking.Server.Server" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="Server" />.
         /// </summary>
         /// <param name="protocol">
         ///     Conjunto de protocolos a utilizar para este servidor.
         /// </param>
         /// <param name="ep">
-        ///     <see cref="T:System.Net.IPEndPoint" /> local a escuchar. Si se establece en
+        ///     <see cref="IPEndPoint" /> local a escuchar. Si se establece en
         ///     <see langword="null" />, se escuchará al puerto predeterminado del
-        ///     protocolo (indicado por el atributo <see cref="T:TheXDS.MCART.Networking.PortAttribute" />) o
+        ///     protocolo (indicado por el atributo <see cref="PortAttribute" />) o
         ///     <see cref="F:TheXDS.MCART.Networking.Common.DefaultPort" /> de todas las direcciones IP del servidor.
         /// </param>
         /// <exception cref="T:System.ArgumentNullException">
@@ -257,7 +257,7 @@ namespace TheXDS.MCART.Networking.Server
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Networking.Server.Server`1" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="Server{T}" />.
         /// </summary>
         /// <param name="protocol">
         ///     Conjunto de protocolos a utilizar para este servidor.
@@ -271,7 +271,7 @@ namespace TheXDS.MCART.Networking.Server
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Networking.Server.Server`1" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="Server{T}" />.
         /// </summary>
         /// <param name="protocol">
         ///     Conjunto de protocolos a utilizar para este servidor.

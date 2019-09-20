@@ -39,7 +39,7 @@ namespace TheXDS.MCART.ViewModel
     /// <inheritdoc />
     /// <summary>
     ///     Describe un comando que observa a un objeto que implemente
-    ///     <see cref="T:System.ComponentModel.INotifyPropertyChanged" /> y
+    ///     <see cref="ComponentModel.INotifyPropertyChanged" /> y
     ///     escucha cualquier cambio ocurrido en el valor de sus propiedades
     ///     para habilitar o deshabilitar automáticamente la ejecución del
     ///     comando.

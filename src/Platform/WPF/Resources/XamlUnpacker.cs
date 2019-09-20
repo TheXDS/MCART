@@ -50,28 +50,59 @@ namespace TheXDS.MCART.Resources
         {
         }
 
+        /// <summary>
+        ///     Extrae un recurso XAML con el id especificado.
+        /// </summary>
+        /// <param name="id">
+        ///     Id del recurso XAML a extraer.
+        /// </param>
+        /// <returns>
+        ///     Un objeto que ha sido descrito a partir del XAML con el id
+        ///     especificado.
+        /// </returns>
         public override object Unpack(string id)
         {
-            using (var sr = UnpackStream(id))
-            {
-                return XamlReader.Load(XmlReader.Create(sr));
-            }
+            using var sr = UnpackStream(id);
+            return XamlReader.Load(XmlReader.Create(sr));
         }
 
+        /// <summary>
+        ///     Extrae un recurso XAML con el id especificado.
+        /// </summary>
+        /// <param name="id">
+        ///     Id del recurso XAML a extraer.
+        /// </param>
+        /// <param name="compressorId">
+        ///     Id del compresor a utilizar para extraer el recurso XAML.
+        /// </param>
+        /// <returns>
+        ///     Un objeto que ha sido descrito a partir del XAML con el id
+        ///     especificado.
+        /// </returns>
         public override object Unpack(string id, string compressorId)
         {
-            using (var sr = UnpackStream(id, compressorId))
-            {
-                return XamlReader.Load(XmlReader.Create(sr));
-            }
+            using var sr = UnpackStream(id, compressorId);
+            return XamlReader.Load(XmlReader.Create(sr));
         }
 
+        /// <summary>
+        ///     Extrae un recurso XAML con el id especificado.
+        /// </summary>
+        /// <param name="id">
+        ///     Id del recurso XAML a extraer.
+        /// </param>
+        /// <param name="compressor">
+        ///     <see cref="ICompressorGetter"/> a utilizar para extraer el
+        ///     recurso XAML.
+        /// </param>
+        /// <returns>
+        ///     Un objeto que ha sido descrito a partir del XAML con el id
+        ///     especificado.
+        /// </returns>
         public override object Unpack(string id, ICompressorGetter compressor)
         {
-            using (var sr = UnpackStream(id, compressor))
-            {
-                return XamlReader.Load(XmlReader.Create(sr));
-            }
+            using var sr = UnpackStream(id, compressor);
+            return XamlReader.Load(XmlReader.Create(sr));
         }
     }
 }
