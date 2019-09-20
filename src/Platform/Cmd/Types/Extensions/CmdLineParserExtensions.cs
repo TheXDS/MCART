@@ -64,7 +64,9 @@ namespace TheXDS.MCART.Types.Extensions
                 bw = Console.BufferWidth;
             }
             catch { /* Silenciar excepción */ }
-            IExposeInfo nfo = new AssemblyInfo(ReflectionHelpers.GetEntryPoint().DeclaringType.Assembly);
+
+            var ent = ReflectionHelpers.GetEntryPoint();
+            IExposeInfo nfo = new AssemblyInfo(ent.DeclaringType?.Assembly ?? ent.Module.Assembly);
             Cmd.Helpers.About(nfo);
             var width = args.AvailableArguments.Max(p => p.HelpArgName().Length);
             foreach (var j in args.AvailableArguments)

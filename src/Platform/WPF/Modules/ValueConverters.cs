@@ -543,10 +543,10 @@ namespace System.Windows.Converters
                 case string str:
                     TypeConverter? typeConverter;
 
-                    if (parameter.GetType().HasAttr(out TypeConverterAttribute tc))
+                    if (parameter.GetType().HasAttr(out TypeConverterAttribute? tc))
                     {
                         var converters = Objects.PublicTypes<TypeConverter>().Where(TypeExtensions.IsInstantiable);
-                        typeConverter = converters.FirstOrDefault(p => p.AssemblyQualifiedName == tc.ConverterTypeName)
+                        typeConverter = converters.FirstOrDefault(p => p.AssemblyQualifiedName == tc!.ConverterTypeName)
                             .New<TypeConverter>();
                     }
                     else { typeConverter = Common.FindConverter<string, TIn>(); }
@@ -569,24 +569,19 @@ namespace System.Windows.Converters
                     throw new ArgumentException(string.Empty, nameof(parameter));
             }
 
-            switch (value)
+            return value switch
             {
-                case TIn v:
-                    switch (v.CompareTo(currentValue))
-                    {
-                        case -1:
-                            return BelowValue;
-                        case 0:
-                            return AtValue ?? BelowValue;
-                        case 1:
-                            return AboveValue;
-                        default: throw new InvalidReturnValueException(nameof(IComparable<TIn>.CompareTo));
-                    }
-                case null:
-                    throw new ArgumentNullException(nameof(value));
-            }
+                TIn v => v.CompareTo(currentValue) switch
+                {
+                    -1 => BelowValue,
+                    0 => AtValue ?? BelowValue,
+                    1 => AboveValue,
+                    _ => throw new InvalidReturnValueException(nameof(IComparable<TIn>.CompareTo)),
+                },
+                null => throw new ArgumentNullException(nameof(value)),
 
-            throw new ArgumentException(nameof(value));
+                _ => throw new ArgumentException(nameof(value)),
+            };
         }
 
         /// <inheritdoc />
@@ -1496,14 +1491,12 @@ namespace System.Windows.Converters
         /// </returns>
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            switch (value)
+            return value switch
             {
-                case bool b:
-                    return b ? True : False;
-                case null:
-                    return Null;
-            }
-            return null;
+                bool b => b ? True : False,
+                null => Null,
+                _ => default!,
+            };
         }
 
         /// <inheritdoc />
@@ -1556,7 +1549,7 @@ namespace System.Windows.Converters
         /// <returns>
         ///     Un <see cref="T:System.String" /> que representa al objeto.
         /// </returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value?.ToString();
         }
@@ -1645,7 +1638,7 @@ namespace System.Windows.Converters
         /// <returns>
         ///     Un <see cref="T:System.String" /> que representa al objeto.
         /// </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value?.ToString();
         }
@@ -1796,9 +1789,7 @@ namespace System.Windows.Converters
                 (long b1, long b2) => b1 + b2,
                 (float b1, float b2) => b1 + b2,
                 (double b1, double b2) => b1 + b2,
-                (object _, object _) => 0,
-                (object _, null) => 0,
-                (null, null) => 0,
+                _=> double.NaN
             };
         }
 
@@ -1828,9 +1819,7 @@ namespace System.Windows.Converters
                 (long b1, long b2) => b1 - b2,
                 (float b1, float b2) => b1 - b2,
                 (double b1, double b2) => b1 - b2,
-                (object _, object _) => 0,
-                (object _, null) => 0,
-                (null, null) => 0,
+                _ => double.NaN,
             };
         }
     }
@@ -1863,9 +1852,7 @@ namespace System.Windows.Converters
                 (long b1,   long b2)    => b1 * b2,
                 (float b1,  float b2)   => b1 * b2,
                 (double b1, double b2)  => b1 * b2,
-                (object _,  object _)   => 0,
-                (object _,  null)       => 0,
-                (null,      null)       => 0,
+                _ => double.NaN,
             };
         }
 
@@ -1894,9 +1881,7 @@ namespace System.Windows.Converters
                 (long b1, long b2) => b1 / b2,
                 (float b1, float b2) => b1 / b2,
                 (double b1, double b2) => b1 / b2,
-                (object _, object _) => 0,
-                (object _, null) => 0,
-                (null, null) => 0,
+                _ => double.NaN,
             };
         }
     }
@@ -1955,15 +1940,12 @@ namespace System.Windows.Converters
         /// </returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            switch (value)
+            return value switch
             {
-                case double v:
-                    return v;
-                case string s:
-                    return double.TryParse(s, out var r) ? r : 0.0;
-            }
-
-            throw new InvalidCastException();
+                double v => v,
+                string s => double.TryParse(s, out var r) ? r : 0.0,
+                _ => throw new InvalidCastException(),
+            };
         }
     }
 

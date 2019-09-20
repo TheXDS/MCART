@@ -43,7 +43,8 @@ namespace TheXDS.MCART.Cmd
         /// </summary>
         public static void About()
         {
-            About(ReflectionHelpers.GetEntryPoint().DeclaringType.Assembly);
+            var ent = ReflectionHelpers.GetEntryPoint();
+            About(ent.DeclaringType?.Assembly ?? ent.Module.Assembly);
         }
 
         /// <summary>

@@ -104,11 +104,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Targets", "Targets", "{75E1
 		Targets\PackageInfo.props = Targets\PackageInfo.props
 		Targets\PackageVersion.props = Targets\PackageVersion.props
 		Targets\Publish.targets = Targets\Publish.targets
+		Targets\Shared.targets = Targets\Shared.targets
 	EndProjectSection
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Examples\LightChat\Common\Common.projitems*{1459cf01-8f9b-47b1-a3f2-57e1f84d9d0e}*SharedItemsImports = 13
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{77706828-80be-4bac-a97c-072e101d01de}*SharedItemsImports = 4
 		Documentation\Snippets\Snippets.projitems*{913db390-bcf2-478d-996e-1b7248425597}*SharedItemsImports = 13
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{967afaa3-ded3-4ec0-9401-7193b318fce8}*SharedItemsImports = 13

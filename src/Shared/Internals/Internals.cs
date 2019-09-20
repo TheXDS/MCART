@@ -24,15 +24,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 #nullable enable
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Types;
-using TheXDS.MCART.Types.Extensions;
-using St = TheXDS.MCART.Resources.Strings;
-using System.Text;
 
 namespace TheXDS.MCART.Misc
 {
@@ -41,8 +34,8 @@ namespace TheXDS.MCART.Misc
         internal static MethodBase GetCallOutsideMcart()
         {
             var c = 2;
-            MethodBase? m = ReflectionHelpers.GetCallingMethod();
-            while (m.DeclaringType.Assembly.HasAttr<McartComponentAttribute>())
+            var m = ReflectionHelpers.GetCallingMethod();
+            while (m.DeclaringType!.Assembly.HasAttr<McartComponentAttribute>())
             {
                 m = ReflectionHelpers.GetCallingMethod(c++) ?? throw new Exceptions.StackUnderflowException();
             }

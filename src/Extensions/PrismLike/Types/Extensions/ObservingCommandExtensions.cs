@@ -155,7 +155,7 @@ namespace TheXDS.MCART.Types.Extensions
             switch (m)
             {
                 case PropertyInfo pi:
-                    command.SetCanExecute(_ => (bool)pi.GetValue(command.ObservedSource));
+                    command.SetCanExecute(_ => (bool)pi.GetValue(command.ObservedSource)!);
                     command.RegisterObservedProperty(m.Name);
                     break;
                 case MethodInfo mi:
