@@ -48,7 +48,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     IP y el número de puerto del host al cual se intentó realizar
         ///     la conexión.
         /// </summary>
-        public IPEndPoint Address { get; }
+        public IPEndPoint? Address { get; }
 
         /// <summary>
         ///     Obtiene la excepción producida durante el intento de conexión.

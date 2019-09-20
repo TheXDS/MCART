@@ -1,5 +1,5 @@
 ﻿/*
-IPluginChecker.cs
+ILegacyPluginChecker.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -30,37 +30,37 @@ namespace TheXDS.MCART.PluginSupport
     /// <summary>
     /// Define una serie de métodos y propiedades a implementar por una clase
     /// que pueda utilizarse para verificar la validez de los 
-    /// <see cref="IPlugin"/> que se intenten cargar.
+    /// <see cref="ILegacyPlugin"/> que se intenten cargar.
     /// </summary>
-    public interface IPluginChecker
+    public interface ILegacyPluginChecker
     {
         /// <summary>
         /// Comprueba si un ensamblado contiene clases cargables como
-        /// <see cref="IPlugin"/>.
+        /// <see cref="ILegacyPlugin"/>.
         /// </summary>
         /// <returns>
         /// <see langword="true"/> si el ensamblado contiene clases cargables como
-        /// <see cref="IPlugin"/>, <see langword="false"/> en caso contrario.
+        /// <see cref="ILegacyPlugin"/>, <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="assembly"><see cref="Assembly"/> a comprobar.</param>
         bool IsVaild(Assembly assembly);
         /// <summary>
         /// Comprueba si un tipo es una clase cargable como
-        /// <see cref="IPlugin"/>.
+        /// <see cref="ILegacyPlugin"/>.
         /// </summary>
         /// <returns>
         /// <see langword="true"/> si el tipo contiene clases cargables como
-        /// <see cref="IPlugin"/>, <see langword="false"/> en caso contrario.
+        /// <see cref="ILegacyPlugin"/>, <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="type"><see cref="Type"/> a comprobar.</param>
         bool IsValid(Type type);
         /// <summary>
-        /// Comprueba si un ensamblado contiene un <see cref="IPlugin"/> del
+        /// Comprueba si un ensamblado contiene un <see cref="ILegacyPlugin"/> del
         /// tipo especificado.
         /// </summary>
         /// <returns>
         /// <see langword="true"/> si el ensamblado contiene al menos una clase de tipo
-        /// <typeparamref name="T"/> cargable como <see cref="IPlugin"/>, 
+        /// <typeparamref name="T"/> cargable como <see cref="ILegacyPlugin"/>, 
         /// <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="assembly"><see cref="Assembly"/> a comprobar.</param>

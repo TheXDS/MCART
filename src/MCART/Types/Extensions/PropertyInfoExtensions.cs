@@ -26,6 +26,8 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using static TheXDS.MCART.Resources.InternalStrings;
+using static TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Types.Extensions
 {
@@ -39,13 +41,21 @@ namespace TheXDS.MCART.Types.Extensions
         /// </summary>
         /// <param name="property">Propiedad a restablecer.</param>
         /// <param name="instance">Instancia del objeto que contiene la propiedad.</param>
-        public static void Default(this PropertyInfo property, object instance)
+        public static void Default(this PropertyInfo property, object? instance)
         {
             if (instance is null || instance.GetType().GetProperties().Any(p => Objects.Is(p, property)))
-                property.SetMethod?.Invoke(instance,
-                    new[] { property.GetAttr<DefaultValueAttribute>()?.Value ?? property.PropertyType.Default() });
+            {
+                if (property.SetMethod is null)
+                {
+                    throw new InvalidOperationException(ErrorXIsReadOnly(XYQuotes(TheProperty, property.Name)));
+                }
+                property.SetMethod.Invoke(instance, new[] { property.GetAttr<DefaultValueAttribute>()?.Value ?? property.PropertyType.Default() });
+            }
+
             else
+            {
                 throw new MissingMemberException(instance.GetType().Name, property.Name);
+            }
         }
 
         /// <summary>

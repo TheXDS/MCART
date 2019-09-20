@@ -69,7 +69,7 @@ namespace TheXDS.MCART.Controls
         /// <summary>
         /// Obtiene o establece si se mostrará el cuadro de búsqueda
         /// </summary>
-        /// <returns><see langword="true"/> si el cuadro de búsqueda es visible; de lo contrario, <c>False</c></returns>
+        /// <returns><see langword="true"/> si el cuadro de búsqueda es visible; de lo contrario, <see langword="false" /></returns>
         public bool HasSearch
         {
             get => (bool)GetValue(HasSearchProperty); set => SetValue(HasSearchProperty, value);

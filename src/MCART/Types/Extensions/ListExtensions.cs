@@ -94,13 +94,13 @@ namespace TheXDS.MCART.Types.Extensions
                 for (var j = 0; j < steps; j++)
                 {
                     c.PopFirst();
-                    c.Add(default);
+                    c.Add(default!);
                 }
             else if (steps < 0)
                 for (var j = 0; j > steps; j--)
                 {
                     c.Pop();
-                    c.Insert(0, default);
+                    c.Insert(0, default!);
                 }
         }
 

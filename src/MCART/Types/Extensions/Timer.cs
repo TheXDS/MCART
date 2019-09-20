@@ -29,7 +29,7 @@ namespace TheXDS.MCART.Types.Extensions
 {
     /// <inheritdoc />
     /// <summary>
-    /// Extensión de la clase <see cref="Timers.Timer" />. provee de toda
+    /// Extensión de la clase <see cref="Timer" />. provee de toda
     /// la funcionalidad previamente disponible, e incluye algunas extensiones
     /// útiles.
     /// </summary>
@@ -91,12 +91,12 @@ namespace TheXDS.MCART.Types.Extensions
         public void Reset() { Stop(); Start(); }
         /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Types.Extensions.Timer" />.
+        /// Inicializa una nueva instancia de la clase <see cref="Extensions.Timer" />.
         /// </summary>
         public Timer() { Elapsed += Tmr_Elapsed; }
         /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Types.Extensions.Timer" /> y 
+        /// Inicializa una nueva instancia de la clase <see cref="Extensions.Timer" /> y 
         /// establece la propiedad <see cref="P:System.Timers.Timer.Interval" />
         /// en el número de milisegundos especificado.
         /// </summary>

@@ -208,7 +208,7 @@ namespace TheXDS.MCART.Security.Password
         /// Si se establece en <see langword="true"/>, la regla se marcará como
         /// puntos adicionales.
         /// </param>
-        public static PasswordEvaluationRule ContentionRuleFactory(string charset, string ruleName, string ruleDescription, PonderationLevel ponderation, bool defaultEnable, bool isExtra)
+        public static PasswordEvaluationRule ContentionRuleFactory(string charset, string ruleName, string? ruleDescription, PonderationLevel ponderation, bool defaultEnable, bool isExtra)
         {
             // Factor base de contención de caracteres.
             // En teoría:

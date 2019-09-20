@@ -42,7 +42,7 @@ namespace TheXDS.MCART.Exceptions
     /// <inheritdoc />
     /// <summary>
     ///     Excepción que se produce cuando se intenta cargar plugins desde un ensamblado que no contiene ninguna clase
-    ///     cargable como <see cref="IPlugin" />.
+    ///     cargable como <see cref="ILegacyPlugin" />.
     /// </summary>
     [Serializable]
     public class NotPluginException : OffendingException<Assembly>
@@ -81,7 +81,7 @@ namespace TheXDS.MCART.Exceptions
         /// </param>
         /// <param name="assembly">
         ///     <see cref="Assembly" /> desde el cual se intentó cargar un
-        ///     <see cref="IPlugin" />.
+        ///     <see cref="ILegacyPlugin" />.
         /// </param>
         protected NotPluginException(SerializationInfo info, StreamingContext context, Assembly assembly) : base(info,
             context, assembly)
@@ -104,7 +104,7 @@ namespace TheXDS.MCART.Exceptions
         /// </summary>
         /// <param name="assembly">
         ///     <see cref="Assembly" /> desde el cual se intentó cargar un
-        ///     <see cref="IPlugin" />.
+        ///     <see cref="ILegacyPlugin" />.
         /// </param>
         public NotPluginException(Assembly assembly) : base(Msg(assembly), assembly)
         {
@@ -130,7 +130,7 @@ namespace TheXDS.MCART.Exceptions
         /// </param>
         /// <param name="assembly">
         ///     <see cref="Assembly" /> desde el cual se intentó cargar un
-        ///     <see cref="IPlugin" />.
+        ///     <see cref="ILegacyPlugin" />.
         /// </param>
         public NotPluginException(string message, Assembly assembly) : base(message, assembly)
         {
@@ -156,7 +156,7 @@ namespace TheXDS.MCART.Exceptions
         /// </param>
         /// <param name="assembly">
         ///     <see cref="Assembly" /> desde el cual se intentó cargar un
-        ///     <see cref="IPlugin" />.
+        ///     <see cref="ILegacyPlugin" />.
         /// </param>
         public NotPluginException(Exception inner, Assembly assembly) : base(Msg(assembly), inner, assembly)
         {
@@ -188,7 +188,7 @@ namespace TheXDS.MCART.Exceptions
         /// </param>
         /// <param name="assembly">
         ///     <see cref="Assembly" /> desde el cual se intentó cargar un
-        ///     <see cref="IPlugin" />.
+        ///     <see cref="ILegacyPlugin" />.
         /// </param>
         public NotPluginException(string message, Exception inner, Assembly assembly) : base(message, inner, assembly)
         {

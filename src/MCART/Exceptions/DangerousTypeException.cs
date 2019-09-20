@@ -33,6 +33,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Runtime.Serialization;
+using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Exceptions

@@ -1,5 +1,5 @@
 ﻿/*
-IPlugin.cs
+ILegacyPlugin.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -40,51 +40,51 @@ namespace TheXDS.MCART.PluginSupport
     ///     Define una interfaz básica para crear Plugins administrados por
     ///     MCART.
     /// </summary>
-    public interface IPlugin: IExposeInfo, IExposeAssembly
+    public interface ILegacyPlugin: IExposeInfo, IExposeAssembly
     {
         /// <summary>
-        /// Se produce cuando un <see cref="IPlugin"/> solicita la actualización
+        /// Se produce cuando un <see cref="ILegacyPlugin"/> solicita la actualización
         /// de su interfaz gráfica.
         /// </summary>
         event EventHandler<UiChangedEventArgs> UiChanged;
         /// <summary>
-        /// Se produce cuando un <see cref="IPlugin"/> está por ser desechado.
+        /// Se produce cuando un <see cref="ILegacyPlugin"/> está por ser desechado.
         /// </summary>
         event EventHandler<PluginFinalizingEventArgs> PluginFinalizing;
         /// <summary>
-        /// Determina la versión mínima de MCART necesaria para este <see cref="IPlugin"/>
+        /// Determina la versión mínima de MCART necesaria para este <see cref="ILegacyPlugin"/>
         /// </summary>
-        Version MinMcartVersion { get; }
+        Version? MinMcartVersion { get; }
         /// <summary>
-        /// Determina la versión objetivo de MCART para este <see cref="IPlugin"/>
+        /// Determina la versión objetivo de MCART para este <see cref="ILegacyPlugin"/>
         /// </summary>
-        Version TargetMcartVersion { get; }
+        Version? TargetMcartVersion { get; }
         /// <summary>
         /// Devuelve <see langword="true"/> si el plugin es Beta
         /// </summary>
-        /// <returns><see langword="true"/> si el plugin ha sido marcado como versión Beta; de lo contrario, <c>False</c></returns>
+        /// <returns><see langword="true"/> si el plugin ha sido marcado como versión Beta; de lo contrario, <see langword="false" /></returns>
         bool IsBeta { get; }
         /// <summary>
         /// Determina si el plugin es inseguro
         /// </summary>
-        /// <returns><see langword="true"/> si el plugin ha sido marcado como inseguro; de lo contrario, <c>False</c></returns>
+        /// <returns><see langword="true"/> si el plugin ha sido marcado como inseguro; de lo contrario, <see langword="false" /></returns>
         bool IsUnmanaged { get; }
         /// <summary>
         /// Determina si el plugin es inseguro
         /// </summary>
-        /// <returns><see langword="true"/> si el plugin ha sido marcado como inseguro; de lo contrario, <c>False</c></returns>
+        /// <returns><see langword="true"/> si el plugin ha sido marcado como inseguro; de lo contrario, <see langword="false" /></returns>
         bool IsUnstable { get; }
         /// <summary>
-        /// Devuelve la lista de interfaces que este <see cref="IPlugin"/>
+        /// Devuelve la lista de interfaces que este <see cref="ILegacyPlugin"/>
         /// implementa.
         /// </summary>
         /// <returns>Una lista de las interfaces implementadas por este
-        /// <see cref="IPlugin"/>.</returns>
+        /// <see cref="ILegacyPlugin"/>.</returns>
         /// <remarks>
-        /// Para que este <see cref="IPlugin"/> sea útil de alguna forma, se
+        /// Para que este <see cref="ILegacyPlugin"/> sea útil de alguna forma, se
         /// debe implementar una interfaz para la cual desee desarrollar un
-        /// <see cref="Plugin"/>. Además, se ignoran las interfaces
-        /// <see cref="IPlugin"/> y <see cref="IDisposable"/>.
+        /// <see cref="LegacyPlugin"/>. Además, se ignoran las interfaces
+        /// <see cref="ILegacyPlugin"/> y <see cref="IDisposable"/>.
         /// </remarks>
         IEnumerable<Type> Interfaces { get; }
         /// <summary>
@@ -92,17 +92,17 @@ namespace TheXDS.MCART.PluginSupport
         /// </summary>
         /// <returns>
         /// Un <see cref="ReadOnlyCollection{InteractionItem}"/> con los
-        /// elementos de interacción del <see cref="IPlugin"/>.
+        /// elementos de interacción del <see cref="ILegacyPlugin"/>.
         /// </returns>
         /// <remarks>
         /// Si utiliza la implementación predeterminada de la interfaz 
-        /// <see cref="IPlugin"/> incluida en MCART (<see cref="Plugin"/>),
+        /// <see cref="ILegacyPlugin"/> incluida en MCART (<see cref="LegacyPlugin"/>),
         /// puede agregar nuevos elementos <see cref="InteractionItem"/> a la
-        /// colección <see cref="Plugin.InteractionItems"/>.
+        /// colección <see cref="LegacyPlugin.InteractionItems"/>.
         /// </remarks>
         ReadOnlyCollection<InteractionItem> PluginInteractions { get; }
         /// <summary>
-        /// Devuelve <see langword="true"/> si el <see cref="Plugin"/> contiene interacciones
+        /// Devuelve <see langword="true"/> si el <see cref="LegacyPlugin"/> contiene interacciones
         /// </summary>
         bool HasInteractions { get; }
         /// <summary>
@@ -111,24 +111,24 @@ namespace TheXDS.MCART.PluginSupport
         /// <returns>
         /// Información determinada por el usuario relacionada a este plugin.
         /// </returns>
-        object Tag { get; set; }
+        object? Tag { get; set; }
         /// <summary>
-        /// Determina la versión mínima de MCART necesaria para este <see cref="IPlugin"/>
+        /// Determina la versión mínima de MCART necesaria para este <see cref="ILegacyPlugin"/>
         /// </summary>
         /// <param name="minVersion">Versión mínima de MCART.</param>
         /// <returns>
         /// <see langword="true"/> si fue posible obtener información sobre la versión 
         /// mínima de MCART, <see langword="false"/> en caso contrario.
         /// </returns>
-        bool MinRtVersion(out Version minVersion);
+        bool MinRtVersion(out Version? minVersion);
         /// <summary>
-        /// Determina la versión objetivo de MCART necesaria para este <see cref="IPlugin"/>
+        /// Determina la versión objetivo de MCART necesaria para este <see cref="ILegacyPlugin"/>
         /// </summary>
         /// <param name="tgtVersion">Versión objetivo de MCART.</param>
         /// <returns>
         /// <see langword="true"/> si fue posible obtener información sobre la versión 
         /// objetivo de MCART, <see langword="false"/> en caso contrario.
         /// </returns>
-        bool TargetRtVersion(out Version tgtVersion);
+        bool TargetRtVersion(out Version? tgtVersion);
     }
 }

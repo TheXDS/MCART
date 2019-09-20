@@ -37,7 +37,7 @@ namespace TheXDS.MCART.Types
     /// <typeparam name="TValue">
     ///     Tipo del valor contenido en este diccionario.
     /// </typeparam>
-    public class AutoDictionary<Tkey, TValue> : Dictionary<Tkey, TValue> where TValue : new()
+    public class AutoDictionary<Tkey, TValue> : Dictionary<Tkey, TValue> where Tkey : notnull where TValue : new()
     {
         /// <summary>
         ///     Obtiene o establece el valor asociado con la llave

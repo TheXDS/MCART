@@ -95,9 +95,9 @@ namespace TheXDS.MCART.Types.Base
         /// <param name="item">
         ///     Elemento a refrescar.
         /// </param>
-        public void RefreshItem(object item)
+        public void RefreshItem(object? item)
         {
-            if (!Contains(item)) return;
+            if (item is null || !Contains(item)) return;
             switch (item)
             {
                 case IRefreshable refreshable:

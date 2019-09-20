@@ -131,10 +131,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     Un <typeparamref name="T" /> cuyo valor es el inverso de
@@ -154,10 +154,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     Un <typeparamref name="T" /> cuyo valor es el inverso de
@@ -173,8 +173,8 @@ namespace System.Windows.Converters
 
     /// <inheritdoc />
     /// <summary>
-    ///     Clase base para convertidores de valores que tomen un valor <see cref="Windows.Size" /> para determinar un
-    ///     valor de tipo <see cref="Windows.Visibility" /> basado en un umbral.
+    ///     Clase base para convertidores de valores que tomen un valor <see cref="Size" /> para determinar un
+    ///     valor de tipo <see cref="Visibility" /> basado en un umbral.
     /// </summary>
     public abstract class SizeVisibilityConverter : IValueConverter
     {
@@ -199,10 +199,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     El valor de <see cref="Visibility" /> calculado a partir del tamaño especificado.
@@ -237,28 +237,26 @@ namespace System.Windows.Converters
                     throw new ArgumentException(string.Empty, nameof(parameter));
             }
 
-            switch (value)
+            return value switch
             {
-                case FrameworkElement f:
-                    return f.ActualWidth < size.Width && f.ActualHeight < size.Height ? _below : _above;
-                case Size sz:
-                    return sz.Width < size.Width && sz.Height < size.Height ? _below : _above;
-            }
+                FrameworkElement f => f.ActualWidth < size.Width && f.ActualHeight < size.Height ? _below : _above,
+                Size sz => sz.Width < size.Width && sz.Height < size.Height ? _below : _above,
 
-            return _above;
+                _ => _above,
+            };
         }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Infiere un valor basado en el <see cref="Windows.Visibility" /> provisto.
+        ///     Infiere un valor basado en el <see cref="Visibility" /> provisto.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     Un valor de <see cref="Size" /> inferido a partir del valor de entrada.
@@ -314,10 +312,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     <see cref="P:System.Windows.Converters.BooleanConverter`1.True" />, si el objeto es de tipo
@@ -338,10 +336,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     <see langword="true" /> si el objeto es igual a <see cref="P:System.Windows.Converters.BooleanConverter`1.True" />;
@@ -409,10 +407,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     Si no se ha establecido un valor para <see cref="P:System.Windows.Converters.BoolFlagConverter`1.True" />, se
@@ -432,15 +430,15 @@ namespace System.Windows.Converters
         /// <inheritdoc />
         /// <summary>
         ///     Convierte un <see cref="bool" /> al tipo establecido para este
-        ///     <see cref="Windows.Converters.BoolFlagConverter`1" />.
+        ///     <see cref="BoolFlagConverter{T}" />.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     Si <paramref name="value" /> es <see langword="true" />, se devuelve la(s)
@@ -460,10 +458,10 @@ namespace System.Windows.Converters
     ///     arbitrario de entrada.
     /// </summary>
     /// <typeparam name="TIn">
-    ///     Tipo de valores de entrada del <see cref="Windows.Data.IValueConverter" />.
+    ///     Tipo de valores de entrada del <see cref="IValueConverter" />.
     /// </typeparam>
     /// <typeparam name="TOut">
-    ///     Tipo de valores de salida del <see cref="Windows.Data.IValueConverter" />.
+    ///     Tipo de valores de salida del <see cref="IValueConverter" />.
     /// </typeparam>
     public class ThresholdConverter<TIn, TOut> : IValueConverter where TIn : IComparable<TIn> where TOut : struct
     {
@@ -484,7 +482,7 @@ namespace System.Windows.Converters
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="Windows.Converters.ThresholdConverter`2" />
+        ///     Inicializa una nueva instancia de la clase <see cref="ThresholdConverter{TIn, TOut}" />
         /// </summary>
         /// <param name="belowValue">
         ///     Valor a devolver cuando el valor de entrada sea menor o igual al
@@ -591,10 +589,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <exception cref="InvalidCastException">
         ///     Se produce si <paramref name="value" /> no es un <see cref="Visibility" />.
@@ -617,7 +615,7 @@ namespace System.Windows.Converters
 
     /// <inheritdoc cref="FloatConverterBase"/>
     /// <summary>
-    ///     Obtiene un <see cref="Windows.Media.Brush" /> correspondiente a la salud expresada
+    ///     Obtiene un <see cref="Brush" /> correspondiente a la salud expresada
     ///     com porcentaje.
     /// </summary>
     public sealed class HealthBrushConverter : FloatConverterBase, IValueConverter
@@ -669,7 +667,7 @@ namespace System.Windows.Converters
 
     /// <inheritdoc cref="FloatConverterBase"/>
     /// <summary>
-    ///     Obtiene un <see cref="Windows.Media.Brush" /> correspondiente a la salud expresada
+    ///     Obtiene un <see cref="Brush" /> correspondiente a la salud expresada
     ///     com porcentaje.
     /// </summary>
     public sealed class HeatBrushConverter : FloatConverterBase, IValueConverter
@@ -721,7 +719,7 @@ namespace System.Windows.Converters
 
     /// <inheritdoc />
     /// <summary>
-    ///     Convierte un valor <see cref="int" />  a <see cref="Windows.Visibility" />
+    ///     Convierte un valor <see cref="int" />  a <see cref="Visibility" />
     /// </summary>
     public sealed class CountVisibilityConverter : IValueConverter
     {
@@ -740,7 +738,7 @@ namespace System.Windows.Converters
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="Windows.Converters.CountVisibilityConverter" />.
+        ///     <see cref="CountVisibilityConverter" />.
         /// </summary>
         public CountVisibilityConverter() : this(Visibility.Visible, Visibility.Collapsed)
         {
@@ -749,10 +747,10 @@ namespace System.Windows.Converters
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="Windows.Converters.CountVisibilityConverter" />.
+        ///     <see cref="CountVisibilityConverter" />.
         /// </summary>
         /// <param name="withItems">
-        ///     <see cref="Windows.Visibility" /> a utilizar en caso de que la cuenta sea
+        ///     <see cref="Visibility" /> a utilizar en caso de que la cuenta sea
         ///     mayor a cero.
         /// </param>
         public CountVisibilityConverter(Visibility withItems = Visibility.Visible) : this(withItems,
@@ -780,15 +778,15 @@ namespace System.Windows.Converters
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene un <see cref="Windows.Visibility" /> a partir de un valor de cuenta.
+        ///     Obtiene un <see cref="Visibility" /> a partir de un valor de cuenta.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     <see cref="P:System.Windows.Converters.CountVisibilityConverter.WithItems" /> si <paramref name="value" /> es mayor
@@ -803,15 +801,15 @@ namespace System.Windows.Converters
 
         /// <inheritdoc />
         /// <summary>
-        ///     Infiere una cuenta de elementos basado en el <see cref="Windows.Visibility" /> provisto.
+        ///     Infiere una cuenta de elementos basado en el <see cref="Visibility" /> provisto.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     <c>1</c> si <paramref name="value" /> es igual a
@@ -826,7 +824,7 @@ namespace System.Windows.Converters
 
     /// <inheritdoc />
     /// <summary>
-    ///     Convierte un valor <see cref="double" /> a <see cref="Windows.Visibility" />.
+    ///     Convierte un valor <see cref="double" /> a <see cref="Visibility" />.
     /// </summary>
     public sealed class DoubleVisibilityConverter : IValueConverter
     {
@@ -845,7 +843,7 @@ namespace System.Windows.Converters
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="Windows.Converters.DoubleVisibilityConverter" />.
+        ///     <see cref="DoubleVisibilityConverter" />.
         /// </summary>
         public DoubleVisibilityConverter() : this(Visibility.Visible, Visibility.Collapsed)
         {
@@ -854,10 +852,10 @@ namespace System.Windows.Converters
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="Windows.Converters.DoubleVisibilityConverter" />.
+        ///     <see cref="DoubleVisibilityConverter" />.
         /// </summary>
         /// <param name="positives">
-        ///     <see cref="Windows.Visibility" /> a utilizar para valores positivos.
+        ///     <see cref="Visibility" /> a utilizar para valores positivos.
         /// </param>
         public DoubleVisibilityConverter(Visibility positives) : this(positives, Visibility.Collapsed)
         {
@@ -881,15 +879,15 @@ namespace System.Windows.Converters
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene un <see cref="Windows.Visibility" /> a partir del valor.
+        ///     Obtiene un <see cref="Visibility" /> a partir del valor.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     <see cref="P:System.Windows.Converters.DoubleVisibilityConverter.Positives" /> si <paramref name="value" /> es
@@ -904,15 +902,15 @@ namespace System.Windows.Converters
 
         /// <inheritdoc />
         /// <summary>
-        ///     Infiere un valor basado en el <see cref="Windows.Visibility" /> provisto.
+        ///     Infiere un valor basado en el <see cref="Visibility" /> provisto.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     <c>1.0</c> si <paramref name="value" /> es igual a
@@ -927,7 +925,7 @@ namespace System.Windows.Converters
 
     /// <inheritdoc />
     /// <summary>
-    ///     Convierte un valor <see cref="float" /> a <see cref="Windows.Visibility" />.
+    ///     Convierte un valor <see cref="float" /> a <see cref="Visibility" />.
     /// </summary>
     public sealed class FloatVisibilityConverter : IValueConverter
     {
@@ -946,7 +944,7 @@ namespace System.Windows.Converters
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="Windows.Converters.FloatVisibilityConverter" />.
+        ///     <see cref="FloatVisibilityConverter" />.
         /// </summary>
         public FloatVisibilityConverter() : this(Visibility.Visible, Visibility.Collapsed)
         {
@@ -955,10 +953,10 @@ namespace System.Windows.Converters
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="Windows.Converters.FloatVisibilityConverter" />.
+        ///     <see cref="FloatVisibilityConverter" />.
         /// </summary>
         /// <param name="positives">
-        ///     <see cref="Windows.Visibility" /> a utilizar para valores positivos.
+        ///     <see cref="Visibility" /> a utilizar para valores positivos.
         /// </param>
         public FloatVisibilityConverter(Visibility positives) : this(positives, Visibility.Visible)
         {
@@ -982,15 +980,15 @@ namespace System.Windows.Converters
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene un <see cref="Windows.Visibility" /> a partir del valor.
+        ///     Obtiene un <see cref="Visibility" /> a partir del valor.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     <see cref="P:System.Windows.Converters.FloatVisibilityConverter.Positives" /> si <paramref name="value" /> es mayor
@@ -1005,15 +1003,15 @@ namespace System.Windows.Converters
 
         /// <inheritdoc />
         /// <summary>
-        ///     Infiere un valor basado en el <see cref="Windows.Visibility" /> provisto.
+        ///     Infiere un valor basado en el <see cref="Visibility" /> provisto.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     <c>1.0f</c> si <paramref name="value" /> es igual a
@@ -1028,7 +1026,7 @@ namespace System.Windows.Converters
 
     /// <inheritdoc />
     /// <summary>
-    ///     Convierte un <see cref="string" /> a un <see cref="Windows.Visibility" />.
+    ///     Convierte un <see cref="string" /> a un <see cref="Visibility" />.
     /// </summary>
     public sealed class StringVisibilityConverter : IValueConverter
     {
@@ -1047,10 +1045,10 @@ namespace System.Windows.Converters
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="Windows.Converters.StringVisibilityConverter" />.
+        ///     <see cref="StringVisibilityConverter" />.
         /// </summary>
         /// <param name="empty">
-        ///     <see cref="Windows.Visibility" /> a devolver cuando la cadena esté vacía.
+        ///     <see cref="Visibility" /> a devolver cuando la cadena esté vacía.
         /// </param>
         public StringVisibilityConverter(Visibility empty) : this(empty, Visibility.Visible)
         {
@@ -1105,15 +1103,15 @@ namespace System.Windows.Converters
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene un <see cref="Windows.Visibility" /> a partir del valor.
+        ///     Obtiene un <see cref="Visibility" /> a partir del valor.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     <see cref="P:System.Windows.Converters.StringVisibilityConverter.Empty" /> si <paramref name="value" /> es una
@@ -1127,15 +1125,15 @@ namespace System.Windows.Converters
 
         /// <inheritdoc />
         /// <summary>
-        ///     Infiere un valor basado en el <see cref="Windows.Visibility" /> provisto.
+        ///     Infiere un valor basado en el <see cref="Visibility" /> provisto.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     <c>value.ToString()</c> si <paramref name="value" /> no es una
@@ -1157,15 +1155,15 @@ namespace System.Windows.Converters
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene un <see cref="Windows.Visibility" /> a partir del valor.
+        ///     Obtiene un <see cref="Visibility" /> a partir del valor.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     <see cref="Visibility.Visible" /> si el elemento es
@@ -1184,10 +1182,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <exception cref="InvalidCastException">
         ///     Se produce si <paramref name="value" /> no es un <see cref="Visibility" />.
@@ -1216,15 +1214,15 @@ namespace System.Windows.Converters
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene un <see cref="Windows.Visibility" /> a partir del valor.
+        ///     Obtiene un <see cref="Visibility" /> a partir del valor.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     <see cref="Visibility.Collapsed" /> si el elemento es
@@ -1243,10 +1241,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <exception cref="InvalidCastException">
         ///     Se produce si <paramref name="value" /> no es un <see cref="Visibility" />.
@@ -1274,15 +1272,15 @@ namespace System.Windows.Converters
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene un <see cref="Windows.Visibility" /> a partir del valor.
+        ///     Obtiene un <see cref="Visibility" /> a partir del valor.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     <see cref="Visibility.Visible" /> si el elemento es
@@ -1301,10 +1299,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <exception cref="InvalidCastException">
         ///     Se produce si <paramref name="value" /> no es un <see cref="bool" />.
@@ -1332,15 +1330,15 @@ namespace System.Windows.Converters
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene un <see cref="Windows.Visibility" /> a partir del valor.
+        ///     Obtiene un <see cref="Visibility" /> a partir del valor.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     <see cref="Visibility.Collapsed" /> si el elemento es
@@ -1359,10 +1357,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <exception cref="InvalidCastException">
         ///     Se produce si <paramref name="value" /> no es un <see cref="bool" />.
@@ -1384,14 +1382,14 @@ namespace System.Windows.Converters
 
     /// <inheritdoc />
     /// <summary>
-    ///     Invierte un valor de <see cref="Windows.Visibility" />.
+    ///     Invierte un valor de <see cref="Visibility" />.
     /// </summary>
     public sealed class VisibilityInverter : Inverter<Visibility>
     {
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="Windows.Converters.VisibilityInverter" />.
+        ///     <see cref="VisibilityInverter" />.
         /// </summary>
         public VisibilityInverter() : base(Visibility.Visible, Visibility.Collapsed)
         {
@@ -1400,14 +1398,14 @@ namespace System.Windows.Converters
 
     /// <inheritdoc />
     /// <summary>
-    ///     Inverso de <see cref="Windows.Controls.BooleanToVisibilityConverter" />
+    ///     Inverso de <see cref="BooleanToVisibilityConverter" />
     /// </summary>
     public sealed class BooleanToInvVisibilityConverter : BooleanConverter<Visibility>
     {
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="Windows.Converters.BooleanToInvVisibilityConverter" />.
+        ///     <see cref="BooleanToInvVisibilityConverter" />.
         /// </summary>
         public BooleanToInvVisibilityConverter() : base(Visibility.Collapsed)
         {
@@ -1471,15 +1469,15 @@ namespace System.Windows.Converters
 
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte un valor a <see cref="Nullable`1" />.
+        ///     Convierte un valor a <see cref="Nullable{T}" />.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     <see cref="P:System.Windows.Converters.NullBoolConverter`1.True" /> si <paramref name="value" /> es
@@ -1502,15 +1500,15 @@ namespace System.Windows.Converters
         /// <inheritdoc />
         /// <summary>
         ///     Convierte un <see cref="bool" /> al tipo establecido para este
-        ///     <see cref="Windows.Converters.BooleanConverter`1" />.
+        ///     <see cref="BooleanConverter{T}" />.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     <see langword="true" /> si <paramref name="value" /> es
@@ -1541,10 +1539,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     Un <see cref="string" /> que representa al objeto.
@@ -1562,10 +1560,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     Si la conversión desde <see cref="string" /> tuvo éxito, se
@@ -1600,10 +1598,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     Si la conversión desde <see cref="string" /> tuvo éxito, se
@@ -1630,10 +1628,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     Un <see cref="string" /> que representa al objeto.
@@ -1652,7 +1650,7 @@ namespace System.Windows.Converters
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="Windows.Converters.BooleanInverter" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="BooleanInverter" />.
         /// </summary>
         public BooleanInverter() : base(true, false)
         {
@@ -1661,26 +1659,26 @@ namespace System.Windows.Converters
 
     /// <inheritdoc />
     /// <summary>
-    ///     Convierte un <see cref="double" /> en un <see cref="Windows.Thickness" />.
+    ///     Convierte un <see cref="double" /> en un <see cref="Thickness" />.
     /// </summary>
     public sealed class DoubleMarginConverter : IValueConverter
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte un <see cref="double" /> en un <see cref="Windows.Thickness" />.
+        ///     Convierte un <see cref="double" /> en un <see cref="Thickness" />.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
         ///     Función opcional de transformación de valor. Debe ser de tipo
-        ///     <see cref="Func`2" /> donde el tipo de argumento y el
+        ///     <see cref="Func{T, TResult}" /> donde el tipo de argumento y el
         ///     tipo devuelto sean ambos <see cref="double" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Windows.Thickness" /> uniforme cuyos valores de grosor son
+        ///     Un <see cref="Thickness" /> uniforme cuyos valores de grosor son
         ///     iguales al valor especificado.
         /// </returns>
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -1699,11 +1697,11 @@ namespace System.Windows.Converters
         ///     Función opcional de transformación de valor.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     Un <see cref="double" /> cuyo valor es el promedio del grosor
-        ///     establecido en el <see cref="Windows.Thickness" /> especificado.
+        ///     establecido en el <see cref="Thickness" /> especificado.
         /// </returns>
         public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -1724,10 +1722,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     <see langword="true" /> si <paramref name="value" /> es distinto de cero,
@@ -1745,10 +1743,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     <c>-1</c> si <paramref name="value" /> es <see langword="true" />, <c>0</c> en
@@ -1775,7 +1773,7 @@ namespace System.Windows.Converters
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">Segundo operando de la suma.</param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <exception cref="ArgumentException">Se produce si no es posible realizar la suma.</exception>
         /// <returns>La suma de <paramref name="value" /> y el operando especificado.</returns>
@@ -1800,10 +1798,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <exception cref="ArgumentException">Se produce si no es posible realizar la resta.</exception>
         /// <returns>
@@ -1839,7 +1837,7 @@ namespace System.Windows.Converters
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">Segundo operando de la multiplicación.</param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>La multiplicación de <paramref name="value" /> y el operando especificado.</returns>
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -1863,10 +1861,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     El valor de <paramref name="value" /> antes de la suma.
@@ -1904,10 +1902,10 @@ namespace System.Windows.Converters
         ///     Etiqueta a mostrar en caso que el valor sea inferior a cero.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Windows.Thickness" /> uniforme cuyos valores de grosor son
+        ///     Un <see cref="Thickness" /> uniforme cuyos valores de grosor son
         ///     iguales al valor especificado.
         /// </returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -1932,11 +1930,11 @@ namespace System.Windows.Converters
         ///     Función opcional de transformación de valor.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     Un <see cref="double" /> cuyo valor es el promedio del grosor
-        ///     establecido en el <see cref="Windows.Thickness" /> especificado.
+        ///     establecido en el <see cref="Thickness" /> especificado.
         /// </returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -1951,26 +1949,26 @@ namespace System.Windows.Converters
 
     /// <inheritdoc />
     /// <summary>
-    ///     Permite compartir un recurso de <see cref="Windows.Media.Brush" /> entre controles,
+    ///     Permite compartir un recurso de <see cref="Brush" /> entre controles,
     ///     ajustando la opacidad del enlace de datos.
     /// </summary>
     public sealed class BrushOpacityAdjust : IValueConverter
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Aplica la nueva opacidad al <see cref="Windows.Media.Brush" />.
+        ///     Aplica la nueva opacidad al <see cref="Brush" />.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
-        ///     Un nuevo <see cref="Windows.Media.Brush" /> con la opacidad establecida en este
-        ///     <see cref="Windows.Converters.BrushOpacityAdjust" />.
+        ///     Un nuevo <see cref="Brush" /> con la opacidad establecida en este
+        ///     <see cref="BrushOpacityAdjust" />.
         /// </returns>
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -1985,18 +1983,18 @@ namespace System.Windows.Converters
 
         /// <inheritdoc />
         /// <summary>
-        ///     Devuelve un <see cref="Windows.Media.Brush" /> con 100% opacidad.
+        ///     Devuelve un <see cref="Brush" /> con 100% opacidad.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
-        ///     Un nuevo <see cref="Windows.Media.Brush" /> con la opacidad al 100%.
+        ///     Un nuevo <see cref="Brush" /> con la opacidad al 100%.
         /// </returns>
         public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -2009,7 +2007,7 @@ namespace System.Windows.Converters
 
     /// <inheritdoc />
     /// <summary>
-    ///     Para un <see cref="Windows.Controls.ContentControl" /> o un <see cref="Windows.Controls.Panel" />
+    ///     Para un <see cref="ContentControl" /> o un <see cref="Panel" />
     ///     , obtiene
     ///     un valor <see cref="F:System.Windows.Visibility.Visible" /> si al menos un control hijo
     ///     directo es visible.
@@ -2024,10 +2022,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     Un nuevo <see cref="F:System.Windows.Visibility.Visible" /> si al
@@ -2112,10 +2110,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <exception cref="InvalidCastException">
         ///     Se produce si <paramref name="value" /> no es un <see cref="Visibility" />.
@@ -2174,10 +2172,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <exception cref="InvalidCastException">
         ///     Se produce si <paramref name="value" /> no es un <see cref="Visibility" />.
@@ -2236,10 +2234,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <exception cref="InvalidCastException">
         ///     Se produce si <paramref name="value" /> no es un <see cref="Visibility" />.
@@ -2298,10 +2296,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <exception cref="InvalidCastException">
         ///     Se produce si <paramref name="value" /> no es un <see cref="Visibility" />.
@@ -2322,13 +2320,13 @@ namespace System.Windows.Converters
 
     /// <inheritdoc />
     /// <summary>
-    ///     Convierte un valor <see cref="double" /> en un <see cref="Windows.Visibility" />
+    ///     Convierte un valor <see cref="double" /> en un <see cref="Visibility" />
     /// </summary>
     public sealed class MinValueVisibilityConverter : ThresholdConverter<double, Visibility>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="Windows.Converters.MinSizeVisibilityConverter" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="MinSizeVisibilityConverter" />.
         /// </summary>
         public MinValueVisibilityConverter() : base(Visibility.Collapsed, Visibility.Visible, Visibility.Visible)
         {
@@ -2337,13 +2335,13 @@ namespace System.Windows.Converters
 
     /// <inheritdoc />
     /// <summary>
-    ///     Convierte un valor <see cref="double" /> en un <see cref="Windows.Visibility" />
+    ///     Convierte un valor <see cref="double" /> en un <see cref="Visibility" />
     /// </summary>
     public sealed class MaxValueVisibilityConverter : ThresholdConverter<double, Visibility>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="Windows.Converters.MaxSizeVisibilityConverter" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="MaxSizeVisibilityConverter" />.
         /// </summary>
         public MaxValueVisibilityConverter() : base(Visibility.Visible, Visibility.Collapsed)
         {
@@ -2359,7 +2357,7 @@ namespace System.Windows.Converters
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="Windows.Converters.MinSizeVisibilityConverter" />.
+        ///     <see cref="MinSizeVisibilityConverter" />.
         /// </summary>
         public MinSizeVisibilityConverter() : base(Visibility.Collapsed, Visibility.Visible)
         {
@@ -2375,7 +2373,7 @@ namespace System.Windows.Converters
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="Windows.Converters.MaxSizeVisibilityConverter" />.
+        ///     <see cref="MaxSizeVisibilityConverter" />.
         /// </summary>
         public MaxSizeVisibilityConverter() : base(Visibility.Visible, Visibility.Collapsed)
         {
@@ -2428,10 +2426,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetTypes">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     Este método siempre genera un <see cref="InvalidOperationException" />.
@@ -2490,10 +2488,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetTypes">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     Este método siempre genera un <see cref="InvalidOperationException" />.
@@ -2587,10 +2585,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     <see langword="true" /> si el valor es un <see cref="BlurEffect" />,
@@ -2616,10 +2614,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     Un valor compatible con el campo de destino, o
@@ -2655,10 +2653,10 @@ namespace System.Windows.Converters
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="targetType">Tipo del destino.</param>
         /// <param name="parameter">
-        ///     Parámetros personalizados para este <see cref="Windows.Data.IValueConverter" />.
+        ///     Parámetros personalizados para este <see cref="IValueConverter" />.
         /// </param>
         /// <param name="culture">
-        ///     <see cref="Globalization.CultureInfo" /> a utilizar para la conversión.
+        ///     <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
         ///     Un <see cref="TheXDS.MCART.Types.Color"/> creado a partir del

@@ -56,8 +56,9 @@ namespace TheXDS.MCART.Types.Base
         /// <summary>
         ///     Notifica a los clientes que el valor de una propiedad cambiará.
         /// </summary>
-        protected virtual void OnPropertyChanging([CallerMemberName] string propertyName = null)
+        protected virtual void OnPropertyChanging([CallerMemberName] string? propertyName = null)
         {
+            if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
             PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
         }
 
@@ -66,8 +67,9 @@ namespace TheXDS.MCART.Types.Base
         ///     cambiado.
         /// </summary>
         [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
+            if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             NotifyRegistroir(propertyName);
             foreach (var j in _forwardings) j.Notify(propertyName);
@@ -96,20 +98,20 @@ namespace TheXDS.MCART.Types.Base
             field = value;
 
             var rm = new HashSet<WeakReference<PropertyChangeObserver>>();
-            foreach (var j in ObserveSubscriptions)
+            foreach (var j in _observeSubscriptions)
             {
                 if (j.TryGetTarget(out var t)) t?.Invoke(this, p);
                 else rm.Add(j);
             }
             foreach (var j in rm)
             {
-                ObserveSubscriptions.Remove(j);
+                _observeSubscriptions.Remove(j);
             }
             OnPropertyChanged(p.Name);
             return true;
         }
 
-        private HashSet<WeakReference<PropertyChangeObserver>> ObserveSubscriptions = new HashSet<WeakReference<PropertyChangeObserver>>();
+        private readonly HashSet<WeakReference<PropertyChangeObserver>> _observeSubscriptions = new HashSet<WeakReference<PropertyChangeObserver>>();
 
         /// <summary>
         ///     Suscribe a un delegado para observar el cambio de una propiedad.
@@ -117,7 +119,7 @@ namespace TheXDS.MCART.Types.Base
         /// <param name="callback">Delegado a suscribir.</param>
         public void Subscribe(PropertyChangeObserver callback)
         {
-            ObserveSubscriptions.Add(new WeakReference<PropertyChangeObserver>(callback));
+            _observeSubscriptions.Add(new WeakReference<PropertyChangeObserver>(callback));
         }
 
         /// <summary>
@@ -127,8 +129,8 @@ namespace TheXDS.MCART.Types.Base
         /// <param name="callback">Delegado a quitar.</param>
         public void Unsubscribe(PropertyChangeObserver callback)
         {
-            var rm = ObserveSubscriptions.FirstOrDefault(p => p.TryGetTarget(out var t) && t == callback);
-            if (!(rm is null)) ObserveSubscriptions.Remove(rm);
+            var rm = _observeSubscriptions.FirstOrDefault(p => p.TryGetTarget(out var t) && t == callback);
+            if (!(rm is null)) _observeSubscriptions.Remove(rm);
         }
 
         /// <summary>

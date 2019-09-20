@@ -38,7 +38,7 @@ using TheXDS.MCART.Resources;
 namespace TheXDS.MCART.Exceptions
 {
     /// <summary>
-    ///     Excepción que se produce cuando se llama a un método de un <see cref="PluginSupport.Plugin" /> sin inicializar
+    ///     Excepción que se produce cuando se llama a un método de un <see cref="PluginSupport.LegacyPlugin" /> sin inicializar
     /// </summary>
     [Serializable]
     public class PluginNotInitializedException : Exception

@@ -183,7 +183,7 @@ namespace TheXDS.MCART.Types
             var cName = typeof(Resources.Colors).GetProperty(from, typeof(Color));
             if (!(cName is null))
             {
-                color = (Color)cName.GetValue(null);
+                color = (Color)cName.GetValue(null)!;
                 return true;
             }
             color = default;
@@ -526,15 +526,15 @@ namespace TheXDS.MCART.Types
 
         /// <inheritdoc />
         /// <summary>
-        /// Determina si el <see cref="T:TheXDS.MCART.Types.Color" /> especificado es igual al
-        /// <see cref="T:TheXDS.MCART.Types.Color" /> actual.
+        /// Determina si el <see cref="Color" /> especificado es igual al
+        /// <see cref="Color" /> actual.
         /// </summary>
         /// <param name="other">
-        /// El <see cref="T:TheXDS.MCART.Types.Color" /> a comparar contra este <see cref="T:TheXDS.MCART.Types.Color" />.
+        /// El <see cref="Color" /> a comparar contra este <see cref="Color" />.
         /// </param>
         /// <returns>
-        /// <see langword="true" /> si el <see cref="T:TheXDS.MCART.Types.Color" /> especificado es igual al
-        /// <see cref="T:TheXDS.MCART.Types.Color" /> actual, <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si el <see cref="Color" /> especificado es igual al
+        /// <see cref="Color" /> actual, <see langword="false" /> en caso contrario.
         /// </returns>
         public bool Equals(Color other)
         {
@@ -551,11 +551,11 @@ namespace TheXDS.MCART.Types
         /// </returns>
         /// <param name="format">Format.</param>
         /// <param name="formatProvider">Format provider.</param>
-        public string ToString(string format, IFormatProvider formatProvider)
+        public string ToString(string? format, IFormatProvider? formatProvider)
         {
             if (format.IsEmpty()) format = "#AARRGGBB";
             if (formatProvider is null) formatProvider = CI.CurrentCulture;
-            return (format) switch
+            return (format!) switch
             {
                 "H" => $"#{(new byte[] { A, R, G, B }).ToHex()}",
                 "h" => $"#{(new byte[] { A, R, G, B }).ToHex().ToLower((CI)formatProvider)}",
@@ -563,15 +563,15 @@ namespace TheXDS.MCART.Types
                 "b" => $"a:{A} r:{R} g:{G} b:{B}",
                 "F" => $"A:{_a} R:{_r} G:{_g} B:{_b}",
                 "f" => $"a:{_a} r:{_r} g:{_g} b:{_b}",
-                _ => CustomFormat(format, (CI)formatProvider)
+                _ => CustomFormat(format!, (CI)formatProvider)
             };
         }
 
         /// <inheritdoc />
         /// <summary>
-        /// Compara este <see cref="T:TheXDS.MCART.Types.Color" /> contra otro.
+        /// Compara este <see cref="Color" /> contra otro.
         /// </summary>
-        /// <param name="other"><see cref="T:TheXDS.MCART.Types.Color" /> a comparar.</param>
+        /// <param name="other"><see cref="Color" /> a comparar.</param>
         /// <returns>
         /// Un valor que determina la posición ordinal de este color con
         /// respecto al otro.
@@ -588,7 +588,7 @@ namespace TheXDS.MCART.Types
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return base.Equals(obj);
         }

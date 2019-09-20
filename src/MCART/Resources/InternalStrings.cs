@@ -113,8 +113,9 @@ namespace TheXDS.MCART.Resources
         public const string LegacyComponent = "Este es un componente legado.";
         public const string ErrorCircularOperationDetected = "Operación circular detectada.";
         public const string ErrorEnumerableTypeExpected = "Se esperaba un tipo de colección enumerable.";
-        
+
         public static string ErrorXAlreadyRegistered(string x) => $"{x} ya ha sido registrado(a).";
+        public static string ErrorXIsReadOnly(string x) => $"{x} es de sólo lectura.";
         public static string ErrorXClassNotInstantiableWithArgs(string x) => $"La clase '{x}' no pudo ser instanciada con los parámetros de constructor especificados.";
         public static string UnkErrLoadingRes(string res, string ex) => $"Error desconocido al cargar recurso {res}\n{ex}";
 

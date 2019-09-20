@@ -22,15 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#region Configuración de ReSharper
-
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-
-#endregion
-
 using System;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -41,7 +32,7 @@ namespace TheXDS.MCART.Exceptions
     /// <inheritdoc />
     /// <summary>
     ///     Excepción que se produce cuando la firma de un método representado en un
-    ///     <see cref="Reflection.MethodInfo" /> no es válida.
+    ///     <see cref="MethodInfo" /> no es válida.
     /// </summary>
     [Serializable]
     public class InvalidMethodSignatureException : OffendingException<MethodInfo>

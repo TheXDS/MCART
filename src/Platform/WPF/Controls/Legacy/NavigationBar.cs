@@ -46,7 +46,7 @@ namespace TheXDS.MCART.Controls
     /// <inheritdoc />
     /// <remarks>
     /// Este control es especialmente útil para controlar un objeto 
-    /// <see cref="Windows.Data.CollectionView" /> provisto por las conexiones de bases de 
+    /// <see cref="CollectionView" /> provisto por las conexiones de bases de 
     /// datos, en efecto, cumpliendo las funciones de un controlador en el
     /// paradigma Model-View-Controller (MVC).
     /// </remarks>
@@ -56,11 +56,11 @@ namespace TheXDS.MCART.Controls
         #region ValueConverters privados para controles.
         class Editvalconv : IValueConverter
         {
-            NavigationBarEditMode f;
-            internal Editvalconv(NavigationBarEditMode flg) { f = flg; }
+            readonly NavigationBarEditMode _f;
+            internal Editvalconv(NavigationBarEditMode flg) { _f = flg; }
             object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
             {
-                return (((NavigationBarEditMode)value & f) != 0) ? Visibility.Visible : Visibility.Collapsed;
+                return (((NavigationBarEditMode)value & _f) != 0) ? Visibility.Visible : Visibility.Collapsed;
             }
             object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             {
@@ -69,11 +69,11 @@ namespace TheXDS.MCART.Controls
         }
         class Editvalconv2 : IValueConverter
         {
-            NavigationBarEditMode f;
-            internal Editvalconv2(NavigationBarEditMode flg) { f = flg; }
+            readonly NavigationBarEditMode _f;
+            internal Editvalconv2(NavigationBarEditMode flg) { _f = flg; }
             object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
             {
-                return ((NavigationBarEditMode)value & f) != 0;
+                return ((NavigationBarEditMode)value & _f) != 0;
             }
             object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             {
@@ -86,47 +86,44 @@ namespace TheXDS.MCART.Controls
         /// <summary>
         /// Anchura predeterminada de los botones.
         /// </summary>
-        const double btnW = 24;
-        /// <summary>
-        /// Altura predeterminada de los botones.
-        /// </summary>
-        const double btnH = 20;
+        const double _btnW = 24;
+
         /// <summary>
         /// <see cref="Thickness"/> predeterminado para algunos controles.
         /// </summary>
-        static Thickness thk1 = new Thickness(5, 5, 5, 0);
-        DockPanel pnlNav = new DockPanel()
+        static Thickness _thk1 = new Thickness(5, 5, 5, 0);
+
+        readonly DockPanel _pnlNav = new DockPanel()
         {
             VerticalAlignment = VerticalAlignment.Center
         };
-        TextBlock lblInfo = new TextBlock()
+        readonly TextBlock _lblInfo = new TextBlock()
         {
             Text = St.Of,
             Margin = new Thickness(5, 0, 5, 0)
         };
-        Button btnFirst = new Button()
+        readonly Button _btnFirst = new Button()
         {
-            Width = btnW,
+            Width = _btnW,
             Content = (char)9198
         };
-        Button btnPrev = new Button()
+        readonly Button _btnPrev = new Button()
         {
-            Width = btnW,
+            Width = _btnW,
             Content = (char)9664
         };
-        Button btnNext = new Button()
+        readonly Button _btnNext = new Button()
         {
-            Width = btnW,
+            Width = _btnW,
             Content = (char)9654
         };
-        Button btnLast = new Button()
+        readonly Button _btnLast = new Button()
         {
-            Width = btnW,
+            Width = _btnW,
             Content = (char)9197
         };
-
         // TODO: Reemplazar por un posible nuevo control compatible con marca de agua.
-        TextBox txtSearch = new TextBox()
+        readonly TextBox _txtSearch = new TextBox()
         {
             Width = 100,
 
@@ -135,164 +132,190 @@ namespace TheXDS.MCART.Controls
             // marca de agua.            
             Background = null
         };
-        Button btnClseSearch = new Button()
+        readonly Button _btnClseSearch = new Button()
         {
-            Width = btnW,
+            Width = _btnW,
             Content = "X"
         };
-        Button btnNew = new Button()
+        readonly Button _btnNew = new Button()
         {
             Height = 20,
             Content = St.BtnNew,
             HorizontalAlignment = HorizontalAlignment.Center,
-            Margin = thk1
+            Margin = _thk1
         };
-        Button btnEdit = new Button()
+        readonly Button _btnEdit = new Button()
         {
             Height = 20,
             Content = St.BtnEdit,
             HorizontalAlignment = HorizontalAlignment.Center,
-            Margin = thk1
+            Margin = _thk1
         };
-        Button btnDel = new Button()
+        readonly Button _btnDel = new Button()
         {
             Height = 20,
             Content = St.BtnDel,
             HorizontalAlignment = HorizontalAlignment.Center,
-            Margin = thk1
+            Margin = _thk1
         };
-        Button btnSave = new Button()
+        readonly Button _btnSave = new Button()
         {
             Height = 20,
             Content = St.BtnSave,
             HorizontalAlignment = HorizontalAlignment.Center,
-            Margin = thk1,
+            Margin = _thk1,
             Visibility = Visibility.Collapsed
         };
-        Button btnCncl = new Button()
+        readonly Button _btnCncl = new Button()
         {
             Height = 20,
             Content = St.Cancel,
             HorizontalAlignment = HorizontalAlignment.Center,
-            Margin = thk1,
+            Margin = _thk1,
             Visibility = Visibility.Collapsed
         };
-        TextBox txtPos = new TextBox()
+        readonly TextBox _txtPos = new TextBox()
         {
             Width = 40
         };
-        TextBlock lblTot = new TextBlock();
+        readonly TextBlock _lblTot = new TextBlock();
+
         #endregion
 
         #region Miembros privados
+
         /// <summary>
         /// Lista a ser controlada de manera opcional.
         /// </summary>
-        BindingListCollectionView view = null;
-        /// <summary>
-        /// Lista de filtros de búsqueda.
-        /// </summary>
-        List<string> flts = new List<string>();
+        BindingListCollectionView _view = null;
+
         /// <summary>
         /// Lista de controles con Binding de datos a controlar.
         /// </summary>
-        List<UIElement> ctrls = new List<UIElement>();
-        bool wasNewPressed;
+        readonly List<UIElement> _ctrls = new List<UIElement>();
+
+        bool _wasNewPressed;
+
         #endregion
 
         #region Propiedades de dependencia
-        static Type T = typeof(NavigationBar);
+
+        static readonly Type _t = typeof(NavigationBar);
+
         /// <summary>
         /// Clave de propiedad de dependencia <see cref="HasItemsProperty"/>.
         /// </summary>
-        protected static DependencyPropertyKey HasItemsPropertyKey = DependencyProperty.RegisterReadOnly(nameof(HasItems), typeof(bool), T, new PropertyMetadata(true));
+        protected static DependencyPropertyKey HasItemsPropertyKey = DependencyProperty.RegisterReadOnly(nameof(HasItems), typeof(bool), _t, new PropertyMetadata(true));
+        
         /// <summary>
         /// Identifica la propiedad de dependencia de sólo lectura <see cref="HasItems"/>.
         /// </summary>
         public static DependencyProperty HasItemsProperty = HasItemsPropertyKey.DependencyProperty;
+        
         /// <summary>
         /// Clave de propiedad de dependencia <see cref="IsEditingProperty"/>.
         /// </summary>
-        public static DependencyPropertyKey IsEditingPropertyKey = DependencyProperty.RegisterReadOnly(nameof(IsEditing), typeof(bool), T, new PropertyMetadata(false));
+        public static DependencyPropertyKey IsEditingPropertyKey = DependencyProperty.RegisterReadOnly(nameof(IsEditing), typeof(bool), _t, new PropertyMetadata(false));
+        
         /// <summary>
         /// Identifica la propiedad de dependencia de sólo lectura <see cref="IsEditing"/>.
         /// </summary>
         public static DependencyProperty IsEditingProperty = IsEditingPropertyKey.DependencyProperty;
+        
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="ButtonWidth"/>.
         /// </summary>
-        public static DependencyProperty ButtonWidthProperty = DependencyProperty.Register(nameof(ButtonWidth), typeof(double), T, new PropertyMetadata(Convert.ToDouble(80)));
+        public static DependencyProperty ButtonWidthProperty = DependencyProperty.Register(nameof(ButtonWidth), typeof(double), _t, new PropertyMetadata(Convert.ToDouble(80)));
+        
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="Mode"/>.
         /// </summary>
-        public static DependencyProperty ModeProperty = DependencyProperty.Register(nameof(Mode), typeof(NavigationBarEditMode), T, new PropertyMetadata(NavigationBarEditMode.ReadOnly), (a) => typeof(NavigationBarEditMode).IsEnumDefined(a));
+        public static DependencyProperty ModeProperty = DependencyProperty.Register(nameof(Mode), typeof(NavigationBarEditMode), _t, new PropertyMetadata(NavigationBarEditMode.ReadOnly), (a) => typeof(NavigationBarEditMode).IsEnumDefined(a));
+        
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="HasSearch"/>.
         /// </summary>
-        public static DependencyProperty HasSearchProperty = DependencyProperty.Register(nameof(HasSearch), typeof(bool), T, new PropertyMetadata(true));
+        public static DependencyProperty HasSearchProperty = DependencyProperty.Register(nameof(HasSearch), typeof(bool), _t, new PropertyMetadata(true));
+        
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="Search"/>.
         /// </summary>
-        public static DependencyProperty SearchProperty = DependencyProperty.Register(nameof(Search), typeof(string), T, new PropertyMetadata(string.Empty));
+        public static DependencyProperty SearchProperty = DependencyProperty.Register(nameof(Search), typeof(string), _t, new PropertyMetadata(string.Empty));
+        
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="SearchWatermark"/>.
         /// </summary>
-        public static DependencyProperty SearchWatermarkProperty = DependencyProperty.Register(nameof(SearchWatermark), typeof(string), T, new PropertyMetadata(St.Search));
+        public static DependencyProperty SearchWatermarkProperty = DependencyProperty.Register(nameof(SearchWatermark), typeof(string), _t, new PropertyMetadata(St.Search));
+        
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="Max"/>.
         /// </summary>
-        public static DependencyProperty MaxProperty = DependencyProperty.Register(nameof(Max), typeof(int), T, new PropertyMetadata(0, UpdtLayout), a => (int)a >= 0);
+        public static DependencyProperty MaxProperty = DependencyProperty.Register(nameof(Max), typeof(int), _t, new PropertyMetadata(0, UpdtLayout), a => (int)a >= 0);
+        
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="Position"/>.
         /// </summary>
-        public static DependencyProperty PositionProperty = DependencyProperty.Register(nameof(Position), typeof(int), T, new PropertyMetadata(1, UpdtLayout), a => (int)a >= 1);
+        public static DependencyProperty PositionProperty = DependencyProperty.Register(nameof(Position), typeof(int), _t, new PropertyMetadata(1, UpdtLayout), a => (int)a >= 1);
+       
         #endregion
 
         #region Propiedades
+
         /// <summary>
         /// Obtiene un valor que indica si la lista de la barra de navegación está vacía
         /// </summary>
         public bool HasItems => (bool)GetValue(HasItemsProperty);
+
         /// <summary>
         /// Obtiene un valor que indica si actualmente el control se encuentra en modo de edición
         /// </summary>        
         public bool IsEditing => (bool)GetValue(IsEditingProperty);
+
         /// <summary>
         /// Obtiene o establece el ancho de los botones de edición de este control
         /// </summary>        
         public double ButtonWidth
         {
-            get => (double)GetValue(ButtonWidthProperty); set => SetValue(ButtonWidthProperty, value);
+            get => (double)GetValue(ButtonWidthProperty);
+            set => SetValue(ButtonWidthProperty, value);
         }
+
         /// <summary>
         /// Obtiene o establece los modos de edición disponibles para este control
         /// </summary>        
         public NavigationBarEditMode Mode
         {
-            get => (NavigationBarEditMode)GetValue(ModeProperty); set => SetValue(ModeProperty, value);
+            get => (NavigationBarEditMode)GetValue(ModeProperty);
+            set => SetValue(ModeProperty, value);
         }
         /// <summary>
         /// Obtiene o establece si se mostrará el cuadro de búsqueda
         /// </summary>
-        /// <returns><see langword="true"/> si el cuadro de búsqueda es visible; de lo contrario, <c>False</c></returns>
+        /// <returns><see langword="true"/> si el cuadro de búsqueda es visible; de lo contrario, <see langword="false" /></returns>
         public bool HasSearch
         {
-            get => (bool)GetValue(HasSearchProperty); set => SetValue(HasSearchProperty, value);
+            get => (bool)GetValue(HasSearchProperty);
+            set => SetValue(HasSearchProperty, value);
         }
+
         /// <summary>
         /// Obtiene o establece el valor actual del cuadro de búsqueda.
         /// </summary>        
         public string Search
         {
-            get => (string)GetValue(SearchProperty); set => txtSearch.Text = value;
+            get => (string)GetValue(SearchProperty);
+            set => _txtSearch.Text = value;
         }
+
         /// <summary>
         /// Obtiene o establece la marca de agua a mostrar en el cuadro de búsqueda
         /// </summary>        
         public string SearchWatermark
         {
-            get => (string)GetValue(SearchWatermarkProperty); set => SetValue(SearchWatermarkProperty, value);
+            get => (string)GetValue(SearchWatermarkProperty);
+            set => SetValue(SearchWatermarkProperty, value);
         }
+
         /// <summary>
         /// Obtiene o establece el valor máximo de la barra de navegación
         /// </summary>
@@ -301,136 +324,169 @@ namespace TheXDS.MCART.Controls
         {
             get => (int)GetValue(MaxProperty); set => SetValue(MaxProperty, value);
         }
+
         /// <summary>
         /// Obtiene o establece el valor actual de la barra de navegación
         /// </summary>
         /// <returns>El elemento actual al que el usuario accedió por medio de la barra</returns>
         public int Position
         {
-            get => (int)GetValue(PositionProperty); set => SetValue(PositionProperty, value);
+            get => (int)GetValue(PositionProperty);
+            set => SetValue(PositionProperty, value);
         }
+
         /// <summary>
         /// Obtiene el listado de campos para realizar búsquedas
         /// </summary>
-        public List<string> Filters => flts;
+        public List<string> Filters { get; } = new List<string>();
+
         /// <summary>
         /// Determina si este control administra un <see cref="CollectionView"/>
         /// </summary>
         /// <returns><see langword="true"/> si este control actualmente administra un <see cref="CollectionView"/>, <see langword="false"/> en caso contrario.</returns>
-        public bool HasViewAttached => view != null;
+        public bool HasViewAttached => _view != null;
+
         /// <summary>
-        /// Devuelve el <see cref="CollectionView"/> actualmente administrado por este control
+        /// Devuelve el <see cref="CollectionView"/> actualmente administrado por este control.
         /// </summary>
         /// <returns>El <see cref="CollectionView"/> actualmente administrado por este control en caso de haberse establecido; de lo contrario, <c>Nothing</c></returns>
-        public CollectionView AttachedView => view;
+        public CollectionView AttachedView => _view;
+
         /// <summary>
         /// Determina si este control administra el estado de otros controles
         /// </summary>
-        /// <returns><see langword="true"/> si este control administra el estado de otros controles; de lo contario, <c>False</c>.</returns>
-        public bool HasAttachedControls => ctrls.Any();
+        /// <returns><see langword="true"/> si este control administra el estado de otros controles; de lo contario, <see langword="false" />.</returns>
+        public bool HasAttachedControls => _ctrls.Any();
+
         /// <summary>
-        /// Devuelve un <see cref="ReadOnlyCollection{T}"/> de los controles administrados por este control
+        /// Devuelve un <see cref="ReadOnlyCollection{T}"/> de los controles administrados por este control.
         /// </summary>
         /// <returns>Un <see cref="ReadOnlyCollection{T}"/> de los controles administrados por este control</returns>
-        public ReadOnlyCollection<UIElement> AttachedControls => ctrls.AsReadOnly();
+        public ReadOnlyCollection<UIElement> AttachedControls => _ctrls.AsReadOnly();
+
         #endregion
 
         #region Eventos
+
         /// <summary>
         /// Se produce cuando se ha conectado a un <see cref="CollectionView"/>.
         /// </summary>
         public event EventHandler<ValueEventArgs<CollectionView>> AttachedToView;
+
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación al primer elemento.
         /// </summary>
         public event EventHandler<DependencyPropertyChangingEventArgs> MovingToFirst;
+
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación al elemento anterior.
         /// </summary>
         public event EventHandler<DependencyPropertyChangingEventArgs> MovingToPrev;
+
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación al elemento siguiente.
         /// </summary>
         public event EventHandler<DependencyPropertyChangingEventArgs> MovingToNext;
+
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación al último elemento.
         /// </summary>
         public event EventHandler<DependencyPropertyChangingEventArgs> MovingToLast;
+
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación a un elemento en particular.
         /// </summary>
         public event EventHandler<DependencyPropertyChangingEventArgs> MovingToPosition;
+
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación al primer elemento.
         /// </summary>
         public event EventHandler<DependencyPropertyChangedEventArgs> MovedToFirst;
+
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación al elemento anterior.
         /// </summary>
         public event EventHandler<DependencyPropertyChangedEventArgs> MovedToPrev;
+
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación al elemento siguiente.
         /// </summary>
         public event EventHandler<DependencyPropertyChangedEventArgs> MovedToNext;
+
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación al último elemento.
         /// </summary>
         public event EventHandler<DependencyPropertyChangedEventArgs> MovedToLast;
+
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación a un elemento en particular.
         /// </summary>
         public event EventHandler<DependencyPropertyChangedEventArgs> MovedToPosition;
+
         /// <summary>
         /// Se produce cuando se ha introducido texto en el cuadro de búsqueda.
         /// </summary>
         public event EventHandler<ValueEventArgs<string>> SearchEntered;
+
         /// <summary>
         /// Se produce cuando se ha cerrado la búsqueda.
         /// </summary>
         public event EventHandler SearchClosed;
+
         /// <summary>
         /// Se produce cuando se ha solicitado la creación de un elemento nuevo.
         /// </summary>
         public event EventHandler<CancelEventArgs> CreatingNew;
+
         /// <summary>
         /// Se produce cuando se ha solicitado la edición del elemento actual.
         /// </summary>
         public event EventHandler<CancelEventArgs> Editing;
+
         /// <summary>
         /// Se produce cuando se ha solicitado la eliminación del elemento actual.
         /// </summary>
         public event EventHandler<CancelEventArgs> Deleting;
+
         /// <summary>
         /// Se produce cuando se ha presionado el botón Guardar al editar o crear un nuevo elemento.
         /// </summary>
         public event EventHandler<ItemCreatingEventArgs<object>> Saving;
+
         /// <summary>
         /// Se produce cuando se ha presionado el botón Cancelar al editar o crear un nuevo elemento.
         /// </summary>
         public event EventHandler<CancelEventArgs> Cancelling;
+
         /// <summary>
         /// Se produce cuando se ha creado un elemento nuevo.
         /// </summary>
         public event EventHandler NewCreated;
+
         /// <summary>
         /// Se produce cuando se ha entrado en modo de edición.
         /// </summary>
         public event EventHandler EditEntered;
+
         /// <summary>
         /// Se produce cuando se ha eliminado un elemento.
         /// </summary>
         public event EventHandler ItemDeleted;
+
         /// <summary>
         /// Se produce cuando se ha guardado un elemento
         /// </summary>
         public event EventHandler<ItemCreatedEventArgs<object>> ItemSaved;
+
         /// <summary>
         /// Se produce cuando se ha cancelado la creación/edición de un elemento
         /// </summary>
         public event EventHandler Cancelled;
+
         #endregion
 
         #region Métodos privados
+
         static void UpdtLayout(DependencyObject dd, DependencyPropertyChangedEventArgs e)
         {
             var d = (NavigationBar)dd;
@@ -447,57 +503,64 @@ namespace TheXDS.MCART.Controls
                 // Si la posición se intenta establecer en un valor superior al máximo...
                 if ((int)e.NewValue > max) throw new ArgumentOutOfRangeException(nameof(Position));
             }
-            DisableControls(d.btnFirst, d.btnPrev, d.btnNext, d.btnLast, d.txtPos);
-            d.btnEdit.Visibility = max > 0 ? Visibility.Visible : Visibility.Collapsed;
-            if (max > 1) d.txtPos.IsEnabled = true;
-            if (pos > 1) EnableControls(d.btnFirst, d.btnPrev);
-            if (pos < max) EnableControls(d.btnNext, d.btnLast);
+            DisableControls(d._btnFirst, d._btnPrev, d._btnNext, d._btnLast, d._txtPos);
+            d._btnEdit.Visibility = max > 0 ? Visibility.Visible : Visibility.Collapsed;
+            if (max > 1) d._txtPos.IsEnabled = true;
+            if (pos > 1) EnableControls(d._btnFirst, d._btnPrev);
+            if (pos < max) EnableControls(d._btnNext, d._btnLast);
         }
+
         void GotoNormalMode()
         {
-            ShowControls(lblTot, txtPos);
-            if (Max > 0) btnEdit.Visibility = Visibility.Visible;
+            ShowControls(_lblTot, _txtPos);
+            if (Max > 0) _btnEdit.Visibility = Visibility.Visible;
             SetValue(IsEditingProperty, false);
-            lblInfo.Text = St.Of;
-            ctrls.DisableControls();
-            wasNewPressed = false;
+            _lblInfo.Text = St.Of;
+            _ctrls.DisableControls();
+            _wasNewPressed = false;
         }
+
         void GotoNavigationBarEditMode()
         {
-            btnEdit.Visibility = Visibility.Collapsed;
+            _btnEdit.Visibility = Visibility.Collapsed;
             SetValue(IsEditingProperty, true);
-            lblInfo.Text = St.Of;
-            ctrls.EnableControls();
+            _lblInfo.Text = St.Of;
+            _ctrls.EnableControls();
         }
+
         string GenFilters(string s)
         {
             var x = new StringBuilder();
-            foreach (var j in flts)
+            foreach (var j in Filters)
             {
                 if (!x.ToString().IsEmpty()) x.Append(" OR ");
                 x.Append($"{j} LIKE '%{s}%'");
             }
             return x.ToString();
         }
+
         #endregion
 
         #region Botones
+
         void CnclSrch(object sender, RoutedEventArgs e)
         {
-            txtSearch.Clear();
+            _txtSearch.Clear();
         }
+
         void BtnCncl_Click(object sender, RoutedEventArgs e)
         {
             var ev = new CancelEventArgs();
             Cancelling?.Invoke(this, ev);
             if (!ev.Cancel)
             {
-                if ((bool)view?.IsAddingNew) view.CancelNew();
-                else if ((bool)view?.IsEditingItem) view.CancelEdit();
+                if ((bool)_view?.IsAddingNew) _view.CancelNew();
+                else if ((bool)_view?.IsEditingItem) _view.CancelEdit();
                 GotoNormalMode();
                 Cancelled?.Invoke(this, EventArgs.Empty);
             }
         }
+
         void First(object sender, RoutedEventArgs e)
         {
             var ev = new DependencyPropertyChangingEventArgs(PositionProperty, Position, 1);
@@ -505,10 +568,11 @@ namespace TheXDS.MCART.Controls
             if (!ev.Cancel)
             {
                 Position = 1;
-                view?.MoveCurrentToFirst();
+                _view?.MoveCurrentToFirst();
                 MovedToFirst?.Invoke(this, ev);
             }
         }
+
         void Prev(object sender, RoutedEventArgs e)
         {
             var cp = Position;
@@ -517,10 +581,11 @@ namespace TheXDS.MCART.Controls
             if (!ev.Cancel)
             {
                 Position = cp - 1;
-                view?.MoveCurrentToPrevious();
+                _view?.MoveCurrentToPrevious();
                 MovedToPrev?.Invoke(this, ev);
             }
         }
+
         void Nxt(object sender, RoutedEventArgs e)
         {
             var cp = Position;
@@ -529,10 +594,11 @@ namespace TheXDS.MCART.Controls
             if (!ev.Cancel)
             {
                 Position = cp + 1;
-                view?.MoveCurrentToNext();
+                _view?.MoveCurrentToNext();
                 MovedToNext?.Invoke(this, ev);
             }
         }
+
         void Last(object sender, RoutedEventArgs e)
         {
             var cp = Max;
@@ -541,10 +607,11 @@ namespace TheXDS.MCART.Controls
             if (!ev.Cancel)
             {
                 Position = cp < 1 ? 1 : cp;
-                view?.MoveCurrentToLast();
+                _view?.MoveCurrentToLast();
                 MovedToLast?.Invoke(this, ev);
             }
         }
+
         void TxtPos_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!int.TryParse(e.Text, out var v)) return;
@@ -556,110 +623,117 @@ namespace TheXDS.MCART.Controls
                 if (!ev.Cancel)
                 {
                     Position = v;
-                    view?.MoveCurrentToPosition(v);
+                    _view?.MoveCurrentToPosition(v);
                     MovedToPosition?.Invoke(this, ev);
                 }
-                txtPos.SelectAll();
+                _txtPos.SelectAll();
             }
         }
+
         void TxtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (txtSearch.Text.IsEmpty())
+            if (_txtSearch.Text.IsEmpty())
             {
-                if (view != null)
+                if (_view != null)
                 {
-                    if (view.CanCustomFilter) view.CustomFilter = string.Empty;
-                    view.Refresh();
-                    view.MoveCurrentToFirst();
+                    if (_view.CanCustomFilter) _view.CustomFilter = string.Empty;
+                    _view.Refresh();
+                    _view.MoveCurrentToFirst();
                     Position = 1;
-                    Max = view.Count;
+                    Max = _view.Count;
                 }
                 SearchClosed?.Invoke(this, EventArgs.Empty);
             }
             else
             {
-                if (view != null && flts.Count > 0)
+                if (_view != null && Filters.Count > 0)
                 {
-                    if (view.CanCustomFilter) view.CustomFilter = GenFilters(txtSearch.Text);
-                    view.Refresh();
-                    view.MoveCurrentToFirst();
+                    if (_view.CanCustomFilter) _view.CustomFilter = GenFilters(_txtSearch.Text);
+                    _view.Refresh();
+                    _view.MoveCurrentToFirst();
                     Position = 1;
-                    Max = view.Count;
+                    Max = _view.Count;
                 }
-                SearchEntered?.Invoke(this, new ValueEventArgs<string>(txtSearch.Text));
+                SearchEntered?.Invoke(this, new ValueEventArgs<string>(_txtSearch.Text));
             }
         }
+
         void BtnNew_Click(object sender, RoutedEventArgs e)
         {
             var ev = new CancelEventArgs();
             CreatingNew?.Invoke(this, ev);
             if (!ev.Cancel)
             {
-                wasNewPressed = true;
-                view?.AddNew();
-                CollapseControls(txtPos, lblTot);
-                lblInfo.Text = St.NewReg;
+                _wasNewPressed = true;
+                _view?.AddNew();
+                CollapseControls(_txtPos, _lblTot);
+                _lblInfo.Text = St.NewReg;
                 GotoNavigationBarEditMode();
                 NewCreated?.Invoke(this, EventArgs.Empty);
             }
         }
+
         void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
             var ev = new CancelEventArgs();
             Editing?.Invoke(this, ev);
             if (!ev.Cancel)
             {
-                view?.EditItem(view.CurrentItem);
+                _view?.EditItem(_view.CurrentItem);
                 GotoNavigationBarEditMode();
                 EditEntered?.Invoke(this, EventArgs.Empty);
             }
         }
+
         void BtnDel_Click(object sender, RoutedEventArgs e)
         {
             var ev = new CancelEventArgs();
             Deleting?.Invoke(this, ev);
-            if (view != null && !ev.Cancel)
+            if (_view != null && !ev.Cancel)
             {
-                view.Remove(view.CurrentItem);
+                _view.Remove(_view.CurrentItem);
                 if (Position >= Max && Max > 1)
                 {
                     Position = Max - 1;
-                    view.MoveCurrentToLast();
+                    _view.MoveCurrentToLast();
                 }
-                else if (Position < view.Count)
-                    view.MoveCurrentToPosition(Position);
+                else if (Position < _view.Count)
+                    _view.MoveCurrentToPosition(Position);
                 Max -= 1;
             }
             ItemDeleted?.Invoke(this, EventArgs.Empty);
         }
+
         void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            var ev = new ItemCreatingEventArgs<object>(view.CurrentAddItem, wasNewPressed);
+            var ev = new ItemCreatingEventArgs<object>(_view.CurrentAddItem, _wasNewPressed);
             Saving?.Invoke(this, ev);
             if (!ev.Cancel)
             {
-                if (view != null)
+                if (_view != null)
                 {
-                    if (view.IsAddingNew)
+                    if (_view.IsAddingNew)
                     {
-                        var i = view.CurrentAddItem;
-                        view.CommitNew();
-                        view.MoveCurrentTo(i);
+                        var i = _view.CurrentAddItem;
+                        _view.CommitNew();
+                        _view.MoveCurrentTo(i);
                         Max += 1;
-                        Position = view.IndexOf(i) + 1;
+                        Position = _view.IndexOf(i) + 1;
                     }
-                    else if (view.IsEditingItem)
+                    else if (_view.IsEditingItem)
                     {
-                        view.CommitEdit();
+                        _view.CommitEdit();
                     }
                 }
                 GotoNormalMode();
                 ItemSaved?.Invoke(this, ev);
             }
         }
+
         #endregion
 
         #region Métodos públicos
+
         /// <summary>
         /// Conecta un <see cref="BindingListCollectionView"/> para ser
         /// controlado automáticamente por este control.
@@ -673,48 +747,52 @@ namespace TheXDS.MCART.Controls
         /// </param>
         public void AttachView(BindingListCollectionView cv, string[] searchFields = null)
         {
-            if (!(view is null)) flts.Clear();
-            if (HasSearch && !(searchFields is null)) flts.AddRange(searchFields);
-            view = cv ?? throw new ArgumentNullException(nameof(cv));
-            Max = view.Count;
-            view.MoveCurrentToFirst();
+            if (!(_view is null)) Filters.Clear();
+            if (HasSearch && !(searchFields is null)) Filters.AddRange(searchFields);
+            _view = cv ?? throw new ArgumentNullException(nameof(cv));
+            Max = _view.Count;
+            _view.MoveCurrentToFirst();
             Position = 1;
-            txtSearch.Text = string.Empty;
+            _txtSearch.Text = string.Empty;
             AttachedToView?.Invoke(this, new ValueEventArgs<CollectionView>(cv));
         }
+
         /// <summary>
         /// Libera la conexión de <see cref="BindingListCollectionView"/>
         /// </summary>
         public void DetachView()
         {
-            view = null;
-            flts.Clear();
+            _view = null;
+            Filters.Clear();
             Max = 0;
             Position = 1;
-            txtSearch.Clear();
+            _txtSearch.Clear();
         }
+
         /// <summary>
         /// Agrega una colección de controles para que su estado sea
         /// administrado automáticamente por este control.
         /// </summary>
-        /// <param name="C">Colección de controles a administrar.</param>
-        public void AttachControls(params UIElement[] C)
+        /// <param name="controls">Colección de controles a administrar.</param>
+        public void AttachControls(params UIElement[] controls)
         {
-            if (C is null || !C.Any()) throw new ArgumentNullException();
-            if (btnCncl.IsVisible) throw new InvalidOperationException();
-            ctrls.Clear();
-            ctrls.AddRange(C);
-            ctrls.DisableControls();
+            if (controls is null || !controls.Any()) throw new ArgumentNullException();
+            if (_btnCncl.IsVisible) throw new InvalidOperationException();
+            _ctrls.Clear();
+            _ctrls.AddRange(controls);
+            _ctrls.DisableControls();
         }
+
         /// <summary>
         /// Libera a los controles administrados por este control
         /// </summary>
         public void DetachControls()
         {
-            if (btnCncl.IsVisible) throw new InvalidOperationException();
-            ctrls.EnableControls();
-            ctrls.Clear();
+            if (_btnCncl.IsVisible) throw new InvalidOperationException();
+            _ctrls.EnableControls();
+            _ctrls.Clear();
         }
+
         /// <summary>
         /// Inicializa una nueva instancia de este control
         /// </summary>
@@ -724,7 +802,7 @@ namespace TheXDS.MCART.Controls
             var roth = new StackPanel { MinWidth = 96 };
             var grdedit = new WrapPanel { HorizontalAlignment = HorizontalAlignment.Center };
             var b = new WrapPanel();
-            SetBinding(TextBox.TextProperty, new Binding(nameof(txtSearch.Text)) { Source = txtSearch });
+            SetBinding(TextBox.TextProperty, new Binding(nameof(_txtSearch.Text)) { Source = _txtSearch });
             SetBinding(HasItemsProperty, new Binding(nameof(Max))
             {
                 Source = this,
@@ -754,58 +832,58 @@ namespace TheXDS.MCART.Controls
                 Source = this,
                 Converter = new StringVisibilityConverter()
             });
-            btnClseSearch.SetBinding(VisibilityProperty, new Binding(nameof(Search))
+            _btnClseSearch.SetBinding(VisibilityProperty, new Binding(nameof(Search))
             {
                 Source = this,
                 Converter = new StringVisibilityConverter(true)
             });
-            txtPos.SetBinding(TextBox.TextProperty, new Binding(nameof(Position))
+            _txtPos.SetBinding(TextBox.TextProperty, new Binding(nameof(Position))
             {
                 Source = this,
                 Converter = new ToStringConverter()
             });
-            lblTot.SetBinding(TextBlock.TextProperty, new Binding(nameof(Max))
+            _lblTot.SetBinding(TextBlock.TextProperty, new Binding(nameof(Max))
             {
                 Source = this,
                 Converter = new ToStringConverter()
             });
-            btnNew.SetBinding(IsEnabledProperty, new Binding(nameof(Mode))
+            _btnNew.SetBinding(IsEnabledProperty, new Binding(nameof(Mode))
             {
                 Source = this,
                 Converter = new Editvalconv2(NavigationBarEditMode.Newable)
             });
-            btnEdit.SetBinding(IsEnabledProperty, new Binding(nameof(Mode))
+            _btnEdit.SetBinding(IsEnabledProperty, new Binding(nameof(Mode))
             {
                 Source = this,
                 Converter = new Editvalconv2(NavigationBarEditMode.Editable)
             });
-            btnDel.SetBinding(IsEnabledProperty, new Binding(nameof(Mode))
+            _btnDel.SetBinding(IsEnabledProperty, new Binding(nameof(Mode))
             {
                 Source = this,
                 Converter = new Editvalconv2(NavigationBarEditMode.Deletable)
             });
-            btnNew.SetBinding(WidthProperty, new Binding(nameof(ButtonWidth)) { Source = this });
-            btnEdit.SetBinding(WidthProperty, new Binding(nameof(ButtonWidth)) { Source = this });
-            btnDel.SetBinding(WidthProperty, new Binding(nameof(ButtonWidth)) { Source = this });
-            btnSave.SetBinding(WidthProperty, new Binding(nameof(ButtonWidth)) { Source = this });
-            btnCncl.SetBinding(WidthProperty, new Binding(nameof(ButtonWidth)) { Source = this });
-            btnNew.SetBinding(VisibilityProperty, new Binding(nameof(IsEditing))
+            _btnNew.SetBinding(WidthProperty, new Binding(nameof(ButtonWidth)) { Source = this });
+            _btnEdit.SetBinding(WidthProperty, new Binding(nameof(ButtonWidth)) { Source = this });
+            _btnDel.SetBinding(WidthProperty, new Binding(nameof(ButtonWidth)) { Source = this });
+            _btnSave.SetBinding(WidthProperty, new Binding(nameof(ButtonWidth)) { Source = this });
+            _btnCncl.SetBinding(WidthProperty, new Binding(nameof(ButtonWidth)) { Source = this });
+            _btnNew.SetBinding(VisibilityProperty, new Binding(nameof(IsEditing))
             {
                 Source = this,
                 Converter = new BooleanToInvVisibilityConverter()
             });
-            btnDel.SetBinding(VisibilityProperty, new Binding(nameof(btnEdit.Visibility)) { Source = btnEdit });
-            btnSave.SetBinding(VisibilityProperty, new Binding(nameof(IsEditing))
+            _btnDel.SetBinding(VisibilityProperty, new Binding(nameof(_btnEdit.Visibility)) { Source = _btnEdit });
+            _btnSave.SetBinding(VisibilityProperty, new Binding(nameof(IsEditing))
             {
                 Source = this,
                 Converter = new BooleanToVisibilityConverter()
             });
-            btnCncl.SetBinding(VisibilityProperty, new Binding(nameof(IsEditing))
+            _btnCncl.SetBinding(VisibilityProperty, new Binding(nameof(IsEditing))
             {
                 Source = this,
                 Converter = new BooleanToVisibilityConverter()
             });
-            pnlNav.SetBinding(IsEnabledProperty, new Binding(nameof(IsEditing))
+            _pnlNav.SetBinding(IsEnabledProperty, new Binding(nameof(IsEditing))
             {
                 Source = this,
                 Converter = new BooleanConverter<bool>(false, true)
@@ -816,21 +894,21 @@ namespace TheXDS.MCART.Controls
                 Converter = new Editvalconv(NavigationBarEditMode.All)
             });
             DockPanel.SetDock(b, Dock.Left);
-            b.Children.Add(btnFirst);
-            b.Children.Add(btnPrev);
-            pnlNav.Children.Add(b);
+            b.Children.Add(_btnFirst);
+            b.Children.Add(_btnPrev);
+            _pnlNav.Children.Add(b);
             b = new WrapPanel { Height = 20 };
             DockPanel.SetDock(b, Dock.Right);
-            b.Children.Add(btnNext);
-            b.Children.Add(btnLast);
+            b.Children.Add(_btnNext);
+            b.Children.Add(_btnLast);
             var a = new Rectangle();
-            a.SetBinding(Shape.FillProperty, new Binding(nameof(Background)) { Source = txtPos });
+            a.SetBinding(Shape.FillProperty, new Binding(nameof(Background)) { Source = _txtPos });
             c.Children.Add(a);
             c.Children.Add(d);
-            c.Children.Add(txtSearch);
+            c.Children.Add(_txtSearch);
             b.Children.Add(c);
-            b.Children.Add(btnClseSearch);
-            pnlNav.Children.Add(b);
+            b.Children.Add(_btnClseSearch);
+            _pnlNav.Children.Add(b);
             b = new WrapPanel
             {
                 Height = 20,
@@ -841,32 +919,33 @@ namespace TheXDS.MCART.Controls
                 Source = this,
                 Converter = new BooleanToVisibilityConverter()
             });
-            b.Children.Add(txtPos);
-            b.Children.Add(lblInfo);
-            b.Children.Add(lblTot);
-            pnlNav.Children.Add(b);
+            b.Children.Add(_txtPos);
+            b.Children.Add(_lblInfo);
+            b.Children.Add(_lblTot);
+            _pnlNav.Children.Add(b);
             var _with1 = grdedit.Children;
-            _with1.Add(btnNew);
-            _with1.Add(btnEdit);
-            _with1.Add(btnDel);
-            _with1.Add(btnSave);
-            _with1.Add(btnCncl);
-            roth.Children.Add(pnlNav);
+            _with1.Add(_btnNew);
+            _with1.Add(_btnEdit);
+            _with1.Add(_btnDel);
+            _with1.Add(_btnSave);
+            _with1.Add(_btnCncl);
+            roth.Children.Add(_pnlNav);
             roth.Children.Add(grdedit);
             Content = roth;
             UpdtLayout(this, new DependencyPropertyChangedEventArgs());
-            btnClseSearch.Click += CnclSrch;
-            btnCncl.Click += BtnCncl_Click;
-            btnFirst.Click += First;
-            btnPrev.Click += Prev;
-            btnLast.Click += Last;
-            txtPos.PreviewTextInput += TxtPos_PreviewTextInput;
-            txtSearch.TextChanged += TxtSearch_TextChanged;
-            btnNew.Click += BtnNew_Click;
-            btnEdit.Click += BtnEdit_Click;
-            btnDel.Click += BtnDel_Click;
-            btnSave.Click += BtnSave_Click;
+            _btnClseSearch.Click += CnclSrch;
+            _btnCncl.Click += BtnCncl_Click;
+            _btnFirst.Click += First;
+            _btnPrev.Click += Prev;
+            _btnLast.Click += Last;
+            _txtPos.PreviewTextInput += TxtPos_PreviewTextInput;
+            _txtSearch.TextChanged += TxtSearch_TextChanged;
+            _btnNew.Click += BtnNew_Click;
+            _btnEdit.Click += BtnEdit_Click;
+            _btnDel.Click += BtnDel_Click;
+            _btnSave.Click += BtnSave_Click;
         }
+
         #endregion
     }
 }

@@ -62,7 +62,7 @@ namespace TheXDS.MCART.Resources
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Resources.WpfRtInfo" />.
+        ///     <see cref="WpfRtInfo" />.
         /// </summary>
         public WpfRtInfo() : base(typeof(WpfRtInfo).Assembly) { }
     }

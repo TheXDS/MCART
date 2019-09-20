@@ -89,7 +89,7 @@ namespace TheXDS.MCART.Security.Password
         ///     Calidad evaluada de la contraseña, expresado como un valor
         ///     porcentual entre 0.0f y 100.0f.
         /// </param>
-        public UserData(string username, SecureString password, string hint, float? quality)
+        public UserData(string username, SecureString password, string? hint, float? quality)
         {
             if (quality.HasValue && !quality.Value.IsBetween(0f,100f))
                 throw new ArgumentOutOfRangeException(nameof(quality));
@@ -115,7 +115,7 @@ namespace TheXDS.MCART.Security.Password
         /// <summary>
         ///     Obtiene un indicio de contraseña asociada a este <see cref="UserData"/>.
         /// </summary>
-        public string Hint { get; }
+        public string? Hint { get; }
 
         /// <summary>
         ///     Obtiene un valor que representa la calidad de la contraseña

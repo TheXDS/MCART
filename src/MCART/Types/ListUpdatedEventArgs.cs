@@ -46,13 +46,13 @@ namespace TheXDS.MCART.Types
         /// Elementos que fueron afectados por la actualización del 
         /// <see cref="ExtendedList{T}"/> que generó el evento.
         /// </summary>
-        public IReadOnlyCollection<T> AffectedItems { get; }
+        public IReadOnlyCollection<T>? AffectedItems { get; }
         /// <summary>
         /// Tipo de actualización ocurrida en el <see cref="ExtendedList{T}"/> que
         /// generó el evento.
         /// </summary>
         public readonly ListUpdateType UpdateType;
-        internal ListUpdatedEventArgs(ListUpdateType updateType, IEnumerable<T> affectedItems)
+        internal ListUpdatedEventArgs(ListUpdateType updateType, IEnumerable<T>? affectedItems)
         {
             UpdateType = updateType;
             AffectedItems = affectedItems?.ToList().AsReadOnly();

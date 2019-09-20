@@ -36,10 +36,10 @@ using System.Collections;
 
 namespace TheXDS.MCART.Types
 {
-    /// <inheritdoc cref="T:System.Collections.Generic.List`1"/>
+    /// <inheritdoc cref="List{T}" />
     /// <summary>
     /// Extensión observable de la clase 
-    /// <see cref="Collections.Generic.List`1"/>. Provee de toda la
+    /// <see cref="List{T}" />. Provee de toda la
     /// funcionalidad previamente disponible, e incluye algunas extensiones
     /// útiles.
     /// </summary>
@@ -48,7 +48,7 @@ namespace TheXDS.MCART.Types
     /// </typeparam>
     /// <remarks>
     /// Esta clase puede considerarse como una alternativa más completa a 
-    /// <see cref="Collections.ObjectModel.ObservableCollection`1" />
+    /// <see cref="ObservableCollection{T}" />
     /// con numerosos eventos adicionales y otras extensiones.
     /// </remarks>
     public class ExtendedList<T> : List<T>, ICloneable
@@ -105,15 +105,15 @@ namespace TheXDS.MCART.Types
         public event EventHandler<ListUpdatedEventArgs<T>> ListUpdated;
         /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Types.Extensions.List`1" />.
+        /// Inicializa una nueva instancia de la clase <see cref="ExtendedList{T}" />.
         /// </summary>
         public ExtendedList() { }
         /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Types.Extensions.List`1" />.
+        /// Inicializa una nueva instancia de la clase <see cref="ExtendedList{T}" />.
         /// </summary>
         /// <param name="collection">
-        /// Colección incial de este <see cref="T:TheXDS.MCART.Types.Extensions.List`1" />.
+        /// Colección incial de este <see cref="ExtendedList{T}" />.
         /// </param>
         public ExtendedList(IEnumerable<T> collection) : base(collection) { }
         /// <summary>

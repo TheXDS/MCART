@@ -113,6 +113,6 @@ namespace TheXDS.MCART.Resources
         ///     recurso comprimido utilizando este
         ///     <see cref="ICompressorGetter"/>.
         /// </summary>
-        public string Extension => null;
+        public string? Extension => null;
     }
 }

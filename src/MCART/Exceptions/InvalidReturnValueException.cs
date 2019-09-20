@@ -209,7 +209,7 @@ namespace TheXDS.MCART.Exceptions
         ///     Un <see cref="Delegate" /> que representa un método cuyo valor
         ///     devuelto causó la excepción.
         /// </returns>
-        public Delegate OffendingFunction { get; }
+        public Delegate? OffendingFunction { get; }
 
         /// <summary>
         ///     Obtiene el nombre del método que ha causado la excepción.
@@ -217,7 +217,7 @@ namespace TheXDS.MCART.Exceptions
         /// <returns>
         ///     El nombre de la función cuyo resultado causó la excepción.
         /// </returns>
-        public string OffendingFunctionName { get; }
+        public string? OffendingFunctionName { get; }
 
         /// <summary>
         ///     Obtiene el valor devuelto que ha causado la excepción.
@@ -225,6 +225,6 @@ namespace TheXDS.MCART.Exceptions
         /// <returns>
         ///     El valor inválido devuelto por método, causante de la excepción.
         /// </returns>
-        public object OffendingReturnValue { get; }
+        public object? OffendingReturnValue { get; }
     }
 }

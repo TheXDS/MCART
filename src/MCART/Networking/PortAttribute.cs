@@ -29,13 +29,14 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Networking.Server;
 
 namespace TheXDS.MCART.Networking
 {
     /// <inheritdoc />
     /// <summary>
     ///     Atributo que establece un número de puerto que un
-    ///     <see cref="Server`1" /> debería utilizar al escuchar
+    ///     <see cref="Server{TClient}" /> debería utilizar al escuchar
     ///     conexiones entrantes.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]

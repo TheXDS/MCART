@@ -81,14 +81,14 @@ namespace TheXDS.MCART.Types
 
         /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la estructura <see cref="T:TheXDS.MCART.Types.Range`1" />
+        /// Inicializa una nueva instancia de la estructura <see cref="Range{T}" />
         /// </summary>
         /// <param name="maximum">Valor máximo del rango, inclusive.</param>
-        public Range(T maximum) : this(default, maximum, true, true) { }
+        public Range(T maximum) : this(default!, maximum, true, true) { }
 
         /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la estructura <see cref="T:TheXDS.MCART.Types.Range`1" />
+        /// Inicializa una nueva instancia de la estructura <see cref="Range{T}" />
         /// </summary>
         /// <param name="minimum">Valor mínimo del rango, inclusive.</param>
         /// <param name="maximum">Valor máximo del rango, inclusive.</param>
@@ -97,21 +97,21 @@ namespace TheXDS.MCART.Types
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la estructura
-        ///     <see cref="T:TheXDS.MCART.Types.Range`1" />
+        ///     <see cref="Range{T}" />
         /// </summary>
         /// <param name="maximum">Valor máximo del rango.</param>
         /// <param name="inclusive">
         ///     Si se establece en <see langword="true"/>, el valor máximo será
         ///     incluido dentro del rango.
         /// </param>
-        public Range(T maximum, bool inclusive) : this(default, maximum, inclusive, inclusive)
+        public Range(T maximum, bool inclusive) : this(default!, maximum, inclusive, inclusive)
         {
         }
 
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la estructura
-        ///     <see cref="T:TheXDS.MCART.Types.Range`1" />
+        ///     <see cref="Range{T}" />
         /// </summary>
         /// <param name="minimum">Valor mínimo del rango.</param>
         /// <param name="maximum">Valor máximo del rango.</param>

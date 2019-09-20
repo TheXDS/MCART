@@ -156,7 +156,7 @@ namespace TheXDS.MCART.Resources
         /// </summary>
         /// <param name="id">Identificador del recurso.</param>
         /// <param name="compressor">
-        /// <see cref="T:TheXDS.MCART.Resources.ICompressorGetter" /> a utilizar para extraer al recurso.
+        /// <see cref="ICompressorGetter" /> a utilizar para extraer al recurso.
         /// </param>
         /// <returns>
         /// Un recurso sin comprimir de tipo <typeparamref name="T" />.

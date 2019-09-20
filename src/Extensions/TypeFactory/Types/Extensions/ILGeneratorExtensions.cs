@@ -111,7 +111,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Secuencia de instrucciones en la cual insertar la instanciación
         ///     del objeto.
         /// </param>
-        /// <exception cref="T:TheXDS.MCART.Exceptions.ClassNotInstantiableException">
+        /// <exception cref="ClassNotInstantiableException">
         ///     Se produce si la clase no es instanciable, o si no existe un 
         ///     constructor que acepte los argumentos especificados.
         ///     También puede producirse si uno de los parámetros es un objeto,
@@ -135,7 +135,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="args">
         ///     Argumentos a pasar al constructor del objeto.
         /// </param>
-        /// <exception cref="T:TheXDS.MCART.Exceptions.ClassNotInstantiableException">
+        /// <exception cref="ClassNotInstantiableException">
         ///     Se produce si la clase no es instanciable, o si no existe un 
         ///     constructor que acepte los argumentos especificados.
         ///     También puede producirse si uno de los parámetros es un objeto,
@@ -156,7 +156,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Secuencia de instrucciones en la cual insertar la instanciación
         ///     del objeto.
         /// </param>
-        /// <exception cref="T:TheXDS.MCART.Exceptions.ClassNotInstantiableException">
+        /// <exception cref="ClassNotInstantiableException">
         ///     Se produce si la clase no es instanciable, o si no existe un 
         ///     constructor que acepte los argumentos especificados.
         ///     También puede producirse si uno de los parámetros es un objeto,
@@ -183,7 +183,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="args">
         ///     Argumentos a pasar al constructor del objeto.
         /// </param>
-        /// <exception cref="T:TheXDS.MCART.Exceptions.ClassNotInstantiableException">
+        /// <exception cref="ClassNotInstantiableException">
         ///     Se produce si la clase no es instanciable, o si no existe un 
         ///     constructor que acepte los argumentos especificados.
         ///     También puede producirse si uno de los parámetros es un objeto,

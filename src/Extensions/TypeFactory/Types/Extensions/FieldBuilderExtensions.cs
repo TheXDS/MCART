@@ -66,7 +66,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="args">
         ///     Argumentos a pasar al constructor del tipo especificado.
         /// </param>
-        /// <exception cref="T:TheXDS.MCART.Exceptions.InvalidTypeException">
+        /// <exception cref="InvalidTypeException">
         ///     Se produce si el tipo no es instanciable.
         /// </exception>
         public static void InitField(this FieldBuilder field, ILGenerator ilGen, Type instanceType, params object[] args)

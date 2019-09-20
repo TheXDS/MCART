@@ -39,7 +39,7 @@ namespace TheXDS.MCART.Events
         ///     recibidos.
         /// </summary>
         /// <param name="data">
-        ///     Colección de <see cref="Byte" /> con los datos recibidos.
+        ///     Colección de <see cref="byte" /> con los datos recibidos.
         /// </param>
         public IncommingDataEventArgs(byte[] data) : base(data)
         {

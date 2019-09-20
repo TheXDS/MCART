@@ -39,7 +39,7 @@ namespace TheXDS.MCART.Types
     /// <typeparam name="TValue">
     ///     Tipo de elementos contenidos dentro del diccionario.
     /// </typeparam>
-    public class ObservableDictionaryWrap<TKey, TValue> : ObservableWrap<KeyValuePair<TKey, TValue>, IDictionary<TKey, TValue>>, IDictionary<TKey, TValue>
+    public class ObservableDictionaryWrap<TKey, TValue> : ObservableWrap<KeyValuePair<TKey, TValue>, IDictionary<TKey, TValue>>, IDictionary<TKey, TValue> where TKey : notnull
     {
         /// <summary>
         ///     Inicializa una nueva instancia de la clase 

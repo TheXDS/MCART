@@ -43,7 +43,7 @@ namespace TheXDS.MCART.Exceptions
     ///     Excepción que se produce cuando un plugin no pudo inicializarse.
     /// </summary>
     [Serializable]
-    public class PluginInitializationException : OffendingException<IPlugin>
+    public class PluginInitializationException : OffendingException<ILegacyPlugin>
     {
         /// <inheritdoc />
         /// <summary>
@@ -77,8 +77,8 @@ namespace TheXDS.MCART.Exceptions
         ///     serializada del objeto acerca de la excepción que está siendo
         ///     lanzada.
         /// </param>
-        /// <param name="plugin"><see cref="IPlugin" /> que no pudo inicializarse.</param>
-        protected PluginInitializationException(SerializationInfo info, StreamingContext context, IPlugin plugin) :
+        /// <param name="plugin"><see cref="ILegacyPlugin" /> que no pudo inicializarse.</param>
+        protected PluginInitializationException(SerializationInfo info, StreamingContext context, ILegacyPlugin plugin) :
             base(info, context, plugin)
         {
         }
@@ -97,8 +97,8 @@ namespace TheXDS.MCART.Exceptions
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="PluginInitializationException" />.
         /// </summary>
-        /// <param name="plugin"><see cref="IPlugin" /> que no pudo inicializarse.</param>
-        public PluginInitializationException(IPlugin plugin) : base(Strings.PluginDidntInit, plugin)
+        /// <param name="plugin"><see cref="ILegacyPlugin" /> que no pudo inicializarse.</param>
+        public PluginInitializationException(ILegacyPlugin plugin) : base(Strings.PluginDidntInit, plugin)
         {
         }
 
@@ -120,8 +120,8 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="message">
         ///     Un <see cref="string" /> que describe a la excepción.
         /// </param>
-        /// <param name="plugin"><see cref="IPlugin" /> que no pudo inicializarse.</param>
-        public PluginInitializationException(string message, IPlugin plugin) : base(message, plugin)
+        /// <param name="plugin"><see cref="ILegacyPlugin" /> que no pudo inicializarse.</param>
+        public PluginInitializationException(string message, ILegacyPlugin plugin) : base(message, plugin)
         {
         }
 
@@ -143,8 +143,8 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="inner">
         ///     <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
-        /// <param name="plugin"><see cref="IPlugin" /> que no pudo inicializarse.</param>
-        public PluginInitializationException(Exception inner, IPlugin plugin) : base(Strings.PluginDidntInit, inner, plugin)
+        /// <param name="plugin"><see cref="ILegacyPlugin" /> que no pudo inicializarse.</param>
+        public PluginInitializationException(Exception inner, ILegacyPlugin plugin) : base(Strings.PluginDidntInit, inner, plugin)
         {
         }
 
@@ -172,8 +172,8 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="inner">
         ///     <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
-        /// <param name="plugin"><see cref="IPlugin" /> que no pudo inicializarse.</param>
-        public PluginInitializationException(string message, Exception inner, IPlugin plugin) : base(message, inner,
+        /// <param name="plugin"><see cref="ILegacyPlugin" /> que no pudo inicializarse.</param>
+        public PluginInitializationException(string message, Exception inner, ILegacyPlugin plugin) : base(message, inner,
             plugin)
         {
         }

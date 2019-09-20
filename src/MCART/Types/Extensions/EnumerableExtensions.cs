@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -92,7 +94,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static IEnumerable<IGrouping<Type, object>> GroupByType(this IEnumerable c)
         {
-            return c.ToGeneric().NotNull().GroupBy(p => p?.GetType());
+            return c.ToGeneric().NotNull().GroupBy(p => p.GetType());
         }
 
         /// <summary>
@@ -105,7 +107,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Una enumeración con el contenido de la enumeración no genérica
         ///     expuesta como una genérica.
         /// </returns>
-        public static IEnumerable<object> ToGeneric(this IEnumerable collection)
+        public static IEnumerable<object?> ToGeneric(this IEnumerable collection)
         {
             foreach (var j in collection) yield return j;
         }
@@ -148,7 +150,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             bool Compare(T value)
             {
-                return value.GetType().Default() == null
+                return value?.GetType().Default() == null
                     ? value.IsNeither(exclusions.AsEnumerable())
                     : !exclusions.Contains(value);
             }
@@ -165,9 +167,39 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Una enumeración con los elementos de la colección, omitiendo
         ///     aquellos que sean <see langword="null"/>.
         /// </returns>
-        public static IEnumerable<T> NotNull<T>(this IEnumerable<T> collection) where T : class
+        public static IEnumerable<T> NotNull<T>(this IEnumerable<T?> collection) where T : class
         {
-            return collection.Where(p => !(p is null));
+            return collection.Where(p => !(p is null)).Select(p => (p!));
+        }
+
+        /// <summary>
+        ///     Enumera los elementos no nulos de una colección.
+        /// </summary>
+        /// <param name="collection">Colección a enumerar.</param>
+        /// <returns>
+        ///     Una enumeración con los elementos de la colección, omitiendo
+        ///     aquellos que sean <see langword="null"/>.
+        /// </returns>
+        public static IEnumerable NotNull(this IEnumerable collection)
+        {
+            foreach (var j in collection)
+            {
+                if (!(j is null)) yield return j;
+            }
+        }
+
+        /// <summary>
+        ///     Enumera los elementos no nulos de una colección.
+        /// </summary>
+        /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
+        /// <param name="collection">Colección a enumerar.</param>
+        /// <returns>
+        ///     Una enumeración con los elementos de la colección, omitiendo
+        ///     aquellos que sean <see langword="null"/>.
+        /// </returns>
+        public static IEnumerable<T> NotNull<T>(this IEnumerable<T?> collection) where T : struct
+        {
+            return collection.Where(p => !(p is null)).Select(p=>p!.Value);
         }
 
         /// <summary>
@@ -180,7 +212,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Una enumeración con los elementos de la colección, o
         ///     <see langword="null"/> si la colección no contiene elementos.
         /// </returns>
-        public static IEnumerable<T> OrNull<T>(this IEnumerable<T> collection)
+        public static IEnumerable<T>? OrNull<T>(this IEnumerable<T> collection)
         {
             var c = collection.ToArray();
             return c.Any() ? c : null;
@@ -199,7 +231,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static IEnumerable<T> NonDefaults<T>(this IEnumerable<T> collection)
         {
-            return collection.Where(p => !Equals(p, default(T)));
+            return collection.Where(p => !Equals(p, default(T)!));
         }
 
         /// <summary>
@@ -503,7 +535,7 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 while (j++ < steps) e.MoveNext();
                 while (e.MoveNext()) yield return e.Current;
-                while (--j > 0) yield return default;
+                while (--j > 0) yield return default!;
             }
             else if (steps < 0)
             {
@@ -511,7 +543,7 @@ namespace TheXDS.MCART.Types.Extensions
 
                 // HACK: Enumeración manual
                 while (e.MoveNext()) c.Add(e.Current);
-                while (j-- > steps) yield return default;
+                while (j-- > steps) yield return default!;
                 j += c.Count;
                 while (j-- >= 0) yield return c.PopFirst();
             }
@@ -584,7 +616,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     los elementos de <paramref name="items"/>, <see langword="false"/>
         ///     en caso contrario.
         /// </returns>
-        public static bool ContainsAll(this IEnumerable collection, params object[] items)
+        public static bool ContainsAll(this IEnumerable collection, params object?[] items)
         {
             return ContainsAll(collection, items.AsEnumerable());
         }
@@ -645,11 +677,11 @@ namespace TheXDS.MCART.Types.Extensions
         ///     <see langword="true"/> si la colección contiene al objeto
         ///     especificado, <see langword="false"/> en caso contrario.
         /// </returns>
-        public static bool Contains(this IEnumerable enumerable, object obj)
+        public static bool Contains(this IEnumerable enumerable, object? obj)
         {
             foreach (var j in enumerable)
             {
-                if (j.Equals(obj)) return true;
+                if (j?.Equals(obj) ?? obj is null) return true;
             }
             return false;
         }
@@ -690,8 +722,8 @@ namespace TheXDS.MCART.Types.Extensions
             where TAttr : Attribute, IValueAttribute<TAttrValue>
         {
             var t = typeof(TAttrValue);
-            var d = t.GetField(@"MaxValue", BindingFlags.Public | BindingFlags.Static) is FieldInfo f ? (TAttrValue)f.GetValue(null) : default;
-            return c.OrderBy(p => p.GetAttr<TAttr>()?.Value ?? d);
+            var d = t.GetField(@"MaxValue", BindingFlags.Public | BindingFlags.Static) is FieldInfo f ? (TAttrValue)f.GetValue(null)! : default;
+            return c.OrderBy(p => p?.GetAttr<TAttr>()?.Value ?? d);
         }
 
         /// <summary>
@@ -711,7 +743,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static IOrderedEnumerable<T> Ordered<T, TAttr>(this IEnumerable<T> c) where TAttr : Attribute, IValueAttribute<int>
         {
-            return c.OrderBy(p => p.GetAttr<TAttr>()?.Value ?? int.MaxValue);
+            return c.OrderBy(p => p?.GetAttr<TAttr>()?.Value ?? int.MaxValue);
         }
     }
 }

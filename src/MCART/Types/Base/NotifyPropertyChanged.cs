@@ -22,6 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -49,8 +50,9 @@ namespace TheXDS.MCART.Types.Base
         ///     cambiado.
         /// </summary>
         [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
+            if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             NotifyRegistroir(propertyName);
             foreach (var j in _forwardings) j.Notify(propertyName);
@@ -71,8 +73,9 @@ namespace TheXDS.MCART.Types.Base
         ///     <see langword="true"/> si el valor de la propiedad ha
         ///     cambiado, <see langword="false"/> en caso contrario.
         /// </returns>
-        protected bool Change<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        protected bool Change<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
         {
+            if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
             if (field?.Equals(value) ?? Objects.AreAllNull(field, value)) return false;
             field = value;
             OnPropertyChanged(propertyName);

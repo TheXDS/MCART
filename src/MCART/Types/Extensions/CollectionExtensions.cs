@@ -23,6 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -59,7 +60,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="check">Función que verifica si un elemento cumple con una condición.</param>
         /// <param name="beforeDelete">Acción a ejecutar antes de borrar a un elemento en particular.</param>
-        public static void RemoveAll<T>(this ICollection<T> collection, in Predicate<T> check, in Action<T> beforeDelete)
+        public static void RemoveAll<T>(this ICollection<T> collection, in Predicate<T>? check, in Action<T>? beforeDelete)
         {
             var lst = collection.ToList();
             foreach (var j in lst)
@@ -246,7 +247,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         public static void AddClones<T>(this ICollection<T> collection, IEnumerable<T> source) where T : ICloneable
         {
-            collection.AddRange(source.Select(p => (T)p?.Clone()));
+            collection.AddRange(source.Select(p => p?.Clone()).NotNull().OfType<T>());
         }
 
         /// <summary>
@@ -261,7 +262,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         public static void AddClone<T>(this ICollection<T> collection, T item) where T : ICloneable
         {
-            collection.Add((T)item?.Clone());
+            if (item is null) throw new ArgumentNullException(nameof(item));
+            collection.Add((T)item.Clone());
         }
     }
 }

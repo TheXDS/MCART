@@ -28,14 +28,6 @@ using TheXDS.MCART.Exceptions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 using St=TheXDS.MCART.Resources.Strings;
 
-#region Configuración de ReSharper
-
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable VirtualMemberNeverOverridden.Global
-// ReSharper disable UnusedParameter.Global
-
-#endregion
-
 namespace TheXDS.MCART.Networking.Server
 {
     /// <inheritdoc cref="IProtocol"/>
@@ -90,14 +82,14 @@ namespace TheXDS.MCART.Networking.Server
         ///     Inicializa un nuevo cliente manejado por este protocolo.
         /// </summary>
         /// <param name="tcpClient">
-        ///     <see cref="Net.Sockets.TcpClient" /> de la conexión con el host remoto.
+        ///     <see cref="TcpClient" /> de la conexión con el host remoto.
         /// </param>
         /// <returns>
         ///     Un nuevo <see cref="Client" />.
         /// </returns>
         public virtual Client CreateClient(TcpClient tcpClient) => new Client(tcpClient);
 
-        Server IServerProtocol.MyServer{get;set;}
+        Server IServerProtocol.MyServer { get; set; }
 
         /// <summary>
         ///     Obtiene una referencia al servidor activo de esta instancia.
@@ -203,7 +195,7 @@ namespace TheXDS.MCART.Networking.Server
         ///     Inicializa un nuevo cliente manejado por este protocolo.
         /// </summary>
         /// <param name="tcpClient">
-        ///     <see cref="Net.Sockets.TcpClient" /> de la conexión con el host remoto.
+        ///     <see cref="TcpClient" /> de la conexión con el host remoto.
         /// </param>
         /// <returns>
         ///     Un nuevo <see cref="Client" />.

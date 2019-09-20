@@ -22,15 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#region Configuración de ReSharper
-
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-
-#endregion
-
 using System;
 using System.Net;
 using System.Runtime.Serialization;
@@ -42,11 +33,7 @@ namespace TheXDS.MCART.Exceptions
     /// <summary>
     ///     Excepción que se produce cuando no se puede realizar la conexión
     /// </summary>
-#if NETFX_CORE
-    [DataContract]
-#else
     [Serializable]
-#endif
     public class CouldNotConnectException : Exception
     {
         /// <inheritdoc />
@@ -126,9 +113,8 @@ namespace TheXDS.MCART.Exceptions
         /// <summary>
         ///     <see cref="IPEndPoint" /> que fue la causa de esta excepción.
         /// </summary>
-        public IPEndPoint OffendingEndPoint { get; }
+        public IPEndPoint? OffendingEndPoint { get; }
 
-#if !NETFX_CORE
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="CouldNotConnectException" />.
@@ -142,6 +128,5 @@ namespace TheXDS.MCART.Exceptions
         protected CouldNotConnectException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
-#endif
     }
 }

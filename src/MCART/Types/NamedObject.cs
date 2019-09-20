@@ -28,6 +28,7 @@ using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
+using static TheXDS.MCART.Types.Extensions.MemberInfoExtensions;
 using System.Linq;
 
 namespace TheXDS.MCART.Types
@@ -66,7 +67,7 @@ namespace TheXDS.MCART.Types
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la estructura
-        ///     <see cref="T:TheXDS.MCART.Types.NamedObject`1" /> estableciendo un valor junto a una
+        ///     <see cref="NamedObject{T}" /> estableciendo un valor junto a una
         ///     etiqueta auto-generada a partir de
         ///     <see cref="M:System.Object.ToString" />.
         /// </summary>
@@ -91,20 +92,22 @@ namespace TheXDS.MCART.Types
         /// <summary>
         ///     Infiere la etiqueta de un objeto.
         /// </summary>
-        /// <param name="o">Objeto para el cual inferir una etiqueta.</param>
+        /// <param name="obj">Objeto para el cual inferir una etiqueta.</param>
         /// <returns>
         ///     El nombre inferido del objeto, o
         ///     <see cref="object.ToString()" /> de no poderse inferir una
         ///     etiqueta adecuada.
         /// </returns>
-        public static string Infer(T o)
+        public static string Infer(T obj)
         {
-            return
-                (o as INameable)?.Name ??
-                (o is MemberInfo mi ? TheXDS.MCART.Types.Extensions.MemberInfoExtensions.NameOf(mi) : null) ??
-                (o is Enum en ? EnumExtensions.NameOf(en) : null) ??
-                o.GetAttr<NameAttribute>()?.Value ??
-                o.ToString();
+            return obj switch
+            {
+                INameable n => n.Name,
+                MemberInfo m => Extensions.MemberInfoExtensions.NameOf(m),
+                Enum e => EnumExtensions.NameOf(e),
+                null => throw new ArgumentNullException(nameof(obj)),
+                _ => obj!.GetAttr<NameAttribute>()?.Value ?? obj!.ToString() ?? obj.NameOf()
+            };
         }
 
         /// <summary>

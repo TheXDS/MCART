@@ -32,6 +32,7 @@ using System.Reflection;
 using System.Text;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 
 namespace TheXDS.MCART
@@ -51,7 +52,7 @@ namespace TheXDS.MCART
         ///     método desde el punto de entrada de la aplicación (generalmente
         ///     la función <c>Main()</c>).
         /// </returns>
-        public static MethodBase GetCallingMethod()
+        public static MethodBase? GetCallingMethod()
         {
             return GetCallingMethod(2);
         }
@@ -76,11 +77,11 @@ namespace TheXDS.MCART
         ///     Se produce si <paramref name="nCaller"/> + 1 produce un error
         ///     de sobreflujo.
         /// </exception>
-        public static MethodBase GetCallingMethod(int nCaller)
+        public static MethodBase? GetCallingMethod(int nCaller)
         {
             if (checked(nCaller++) < 1) throw new ArgumentOutOfRangeException(nameof(nCaller));
             var frames = new StackTrace().GetFrames();
-            return frames?.Length >= nCaller ? frames[nCaller].GetMethod() : null;
+            return frames?.Length >= nCaller ? frames![nCaller]?.GetMethod() : null;
         }
 
         /// <summary>
@@ -90,9 +91,9 @@ namespace TheXDS.MCART
         ///     El método del punto de entrada de la aplicación actual.
         /// </returns>
         [Sugar]
-        public static MethodBase GetEntryPoint()
+        public static MethodBase? GetEntryPoint()
         {
-            return new StackTrace().GetFrames().Last().GetMethod();
+            return new StackTrace().GetFrames()?.Last()?.GetMethod();
         }
 
         /// <summary>
@@ -117,10 +118,9 @@ namespace TheXDS.MCART
         /// <returns></returns>
         public static bool IsOverriden(this MethodBase method, object thisInstance)
         {
-            if (method is null) throw new ArgumentNullException(nameof(method));
+            if (method?.DeclaringType is null) throw new ArgumentNullException(nameof(method));
             var t = thisInstance?.GetType() ?? throw new ArgumentNullException(nameof(thisInstance));
             if (!t.Implements(method.DeclaringType)) throw new InvalidTypeException(t);
-
             var m = t.GetMethod(method.Name, GetBindingFlags(method), null,
                 method.GetParameters().Select(p => p.ParameterType).ToArray(), null) 
                 ?? throw new TamperException(new MissingMethodException(thisInstance.GetType().Name, method.Name));
@@ -134,7 +134,11 @@ namespace TheXDS.MCART
         public static string FullName(this MethodInfo method)
         {
             var s = new StringBuilder();
-            s.Append($"{method.DeclaringType.Namespace}.{method.DeclaringType.Name}.{method.Name}");
+            if (method.DeclaringType != null)
+            {
+                s.Append($"{method.DeclaringType.Namespace.OrNull("{0}.") ?? "global::"}{method.DeclaringType.Name.OrNull("{0}.")}");
+            }
+            s.Append(method.Name);
             if (method.IsGenericMethod)
             {
                 s.Append($"<{string.Join(", ", method.GetGenericArguments().Select(q => q.Name))}>");

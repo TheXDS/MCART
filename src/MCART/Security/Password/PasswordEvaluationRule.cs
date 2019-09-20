@@ -59,7 +59,7 @@ namespace TheXDS.MCART.Security.Password
         /// <summary>
         /// Obtiene una descripción de esta regla de evaluación.
         /// </summary>
-        public string Description { get; }
+        public string? Description { get; }
         /// <summary>
         /// Obtiene o establece el valor de ponderación de la regla.
         /// </summary>
@@ -124,7 +124,7 @@ namespace TheXDS.MCART.Security.Password
         /// <param name="name">Nombre de la regla.</param>
         /// <param name="ponderation">Ponderación a aplicar.</param>
         /// <param name="description">Descripción de la regla.</param>
-        public PasswordEvaluationRule(PwEvalFunc evalFunc, string name, string description, in PonderationLevel ponderation) : this(evalFunc, name, description, ponderation, true, false) { }
+        public PasswordEvaluationRule(PwEvalFunc evalFunc, string name, string? description, in PonderationLevel ponderation) : this(evalFunc, name, description, ponderation, true, false) { }
         /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
@@ -238,7 +238,7 @@ namespace TheXDS.MCART.Security.Password
         /// Si se establece en <see langword="true"/>, el resultado de esta regla se
         /// tomará en cuenta como puntos extra.
         /// </param>
-        public PasswordEvaluationRule(PwEvalFunc evalFunc, string name, string description, in PonderationLevel ponderation, in bool defaultEnable, in bool isExtra)
+        public PasswordEvaluationRule(PwEvalFunc evalFunc, string name, string? description, in PonderationLevel ponderation, in bool defaultEnable, in bool isExtra)
         {
             if (!typeof(PonderationLevel).IsEnumDefined(ponderation))
                 throw new ArgumentOutOfRangeException(
@@ -391,15 +391,15 @@ namespace TheXDS.MCART.Security.Password
         /// Si se establece en <see langword="true"/>, el resultado de esta regla se
         /// tomará en cuenta como puntos extra.
         /// </param>
-        public PasswordEvaluationRule(PwEvalFunc evalFunc, in NameAttribute name, in DescriptionAttribute description, in PonderationAttribute ponderation, in DefaultEnableAttribute defaultEnable, in ExtraPointsAttribute isExtra)
+        public PasswordEvaluationRule(PwEvalFunc evalFunc, in NameAttribute? name, in DescriptionAttribute? description, in PonderationAttribute? ponderation, in DefaultEnableAttribute? defaultEnable, in ExtraPointsAttribute? isExtra)
         {
-            if (!typeof(PonderationLevel).IsEnumDefined(ponderation.Value))
+            if (!(ponderation is null || typeof(PonderationLevel).IsEnumDefined(ponderation.Value)))
                 throw new ArgumentOutOfRangeException(
                     nameof(ponderation),
                     St.XCannotBeY(nameof(ponderation), ((PonderationLevel)ponderation.Value).ToString()));
             _func = evalFunc ?? throw new ArgumentNullException(nameof(evalFunc));
             Name = name?.Value ?? _func.Method.Name;
-            _pond = (PonderationLevel)ponderation.Value;
+            _pond = (PonderationLevel?)ponderation?.Value ?? PonderationLevel.Normal;
             Description = description?.Value ?? string.Empty;
             Enable = defaultEnable?.Value ?? true;
             IsExtraPoints = !(isExtra is null);

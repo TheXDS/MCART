@@ -34,7 +34,7 @@ namespace TheXDS.MCART.Resources
 {
     /// <inheritdoc cref="AssemblyUnpacker{T}"/>
     /// <summary>
-    /// <see cref="T:TheXDS.MCART.Resources.AssemblyUnpacker`1" /> que permite extraer archivos de texto
+    /// <see cref="AssemblyUnpacker{T}" /> que permite extraer archivos de texto
     /// incrustados en un ensamblado como una cadena.
     /// </summary>
     public class StringUnpacker : AssemblyUnpacker<string>, IAsyncUnpacker<string>
@@ -102,7 +102,7 @@ namespace TheXDS.MCART.Resources
         /// </summary>
         /// <param name="id">Identificador del recurso.</param>
         /// <param name="compressor">
-        /// <see cref="T:TheXDS.MCART.Resources.ICompressorGetter" /> a utilizar para extraer al recurso.
+        /// <see cref="ICompressorGetter" /> a utilizar para extraer al recurso.
         /// </param>
         /// <returns>
         /// Un <see cref="string" /> con el contenido del archivo de texto
@@ -140,7 +140,7 @@ namespace TheXDS.MCART.Resources
         /// </summary>
         /// <param name="id">Identificador del recurso.</param>
         /// <param name="compressor">
-        /// <see cref="T:TheXDS.MCART.Resources.ICompressorGetter" /> a utilizar para extraer al recurso.
+        /// <see cref="ICompressorGetter" /> a utilizar para extraer al recurso.
         /// </param>
         /// <returns>
         /// Un <see cref="string" /> con el contenido del archivo de texto

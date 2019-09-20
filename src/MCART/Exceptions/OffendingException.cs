@@ -40,7 +40,7 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="OffendingException`1" />.
+        ///     <see cref="OffendingException{T}" />.
         /// </summary>
         public OffendingException() : base(Strings.XIsInvalid(Strings.TheObj))
         {
@@ -49,7 +49,7 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="OffendingException`1" />.
+        ///     <see cref="OffendingException{T}" />.
         /// </summary>
         /// <param name="offendingObject">
         ///     Objeto que es la causa de esta excepción.
@@ -62,7 +62,7 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="OffendingException`1" />.
+        ///     <see cref="OffendingException{T}" />.
         /// </summary>
         /// <param name="message">
         ///     Un <see cref="string" /> que describe a la excepción.
@@ -74,7 +74,7 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="OffendingException`1" />.
+        ///     <see cref="OffendingException{T}" />.
         /// </summary>
         /// <param name="message">
         ///     Un <see cref="string" /> que describe a la excepción.
@@ -90,7 +90,7 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="OffendingException`1" />.
+        ///     <see cref="OffendingException{T}" />.
         /// </summary>
         /// <param name="inner">
         ///     <see cref="Exception" /> que es la causa de esta excepción.
@@ -102,7 +102,7 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="OffendingException`1" />.
+        ///     <see cref="OffendingException{T}" />.
         /// </summary>
         /// <param name="inner">
         ///     <see cref="Exception" /> que es la causa de esta excepción.
@@ -118,7 +118,7 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="OffendingException`1" />.
+        ///     <see cref="OffendingException{T}" />.
         /// </summary>
         /// <param name="message">
         ///     Un <see cref="string" /> que describe a la excepción.
@@ -133,7 +133,7 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="OffendingException`1" />.
+        ///     <see cref="OffendingException{T}" />.
         /// </summary>
         /// <param name="message">
         ///     Un <see cref="string" /> que describe a la excepción.
@@ -152,7 +152,7 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="OffendingException`1" /> con datos serializados.
+        ///     <see cref="OffendingException{T}" /> con datos serializados.
         /// </summary>
         /// <param name="context">
         ///     El <see cref="StreamingContext" /> que contiene información
@@ -170,7 +170,7 @@ namespace TheXDS.MCART.Exceptions
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="OffendingException`1" /> con datos serializados.
+        ///     <see cref="OffendingException{T}" /> con datos serializados.
         /// </summary>
         /// <param name="context">
         ///     El <see cref="StreamingContext" /> que contiene información

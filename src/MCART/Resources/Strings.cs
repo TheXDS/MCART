@@ -152,14 +152,14 @@ namespace TheXDS.MCART.Resources
         public static string InvalidParameterX(string text) => $"El parámetro {text} es inválido.";
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} no es
-        /// una clase de Plugin válida.".
+        /// una clase de LegacyPlugin válida.".
         /// </summary>
         /// <param name="text">Texto a formatear.</param>
         /// <returns>
         /// Una cadena con el texto "{<paramref name="text"/>} no es una clase
-        /// de Plugin válida.".
+        /// de LegacyPlugin válida.".
         /// </returns>
-        public static string InvalidPluginClassX(string text) => $"{text} no es una clase de Plugin válida.";
+        public static string InvalidPluginClassX(string text) => $"{text} no es una clase de LegacyPlugin válida.";
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} no
         /// tiene una firma válida.".
@@ -229,13 +229,13 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public static string PluginHasNoInters(string plg) => $"El plugin {plg} no contiene interacciones.";
         /// <summary>
-        /// Devuelve una cadena con el texto "Se necesita un Plugin de tipo {<paramref name="plg"/>}".
+        /// Devuelve una cadena con el texto "Se necesita un LegacyPlugin de tipo {<paramref name="plg"/>}".
         /// </summary>
         /// <param name="plg">Nombre del plugin.</param>
         /// <returns>
-        /// Una cadena con el texto "Se necesita un Plugin de tipo {<paramref name="plg"/>}".
+        /// Una cadena con el texto "Se necesita un LegacyPlugin de tipo {<paramref name="plg"/>}".
         /// </returns>
-        public static string PluginXNeeded(string plg) => $"Se necesita un Plugin de tipo {plg}";
+        public static string PluginXNeeded(string plg) => $"Se necesita un LegacyPlugin de tipo {plg}";
         /// <summary>
         /// Devuelve una cadena con el texto "Establecer {<paramref name="text"/>}".
         /// </summary>
@@ -529,7 +529,7 @@ namespace TheXDS.MCART.Resources
         public const string InvalidDB = "La base de datos no es válida";
         public const string InvalidInfo = "La información no es válida.";
         public const string InvalidPassword = "La contraseña no es válida.";
-        public const string InvalidPluginClass = "La clase no es un Plugin válido.";
+        public const string InvalidPluginClass = "La clase no es un LegacyPlugin válido.";
         public const string InvalidValue = "Valor inválido.";
         public const string IsBeta = "Versión Beta";
         public const string IsUnsafe = "Inseguro (NO UTILIZAR)";
@@ -558,7 +558,7 @@ namespace TheXDS.MCART.Resources
         public const string PluginInfo2 = "El plugin es compatible con esta versión de MCART.";
         public const string PluginInfo3 = "El plugin NO es compatible con esta versión de MCART.";
         public const string PluginInfo4 = "No se pudo determinar la compatibilidad del plugin.";
-        public const string PluginNeeded = "Se necesita un Plugin";
+        public const string PluginNeeded = "Se necesita un LegacyPlugin";
         public const string PluginsInfo = "Información de plugins";
         public const string Plugins = "Plugins";
         public const string PlWait = "Por favor, espere...";
@@ -597,7 +597,7 @@ namespace TheXDS.MCART.Resources
         public const string TheListener = "El escucha";
         public const string TheMethod = "El método";
         public const string TheObj = "El objeto";
-        public const string ThePlugin = "El Plugin";
+        public const string ThePlugin = "El LegacyPlugin";
         public const string TheProtocol = "El protocolo";
         public const string TheProperty = "La propiedad";
         public const string TheResource = "El recurso";

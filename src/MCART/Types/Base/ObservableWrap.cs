@@ -175,7 +175,7 @@ namespace TheXDS.MCART.Types.Base
         /// </param>
         public void Substitute(TCollection newCollection)
         {
-            UnderlyingCollection = default;
+            UnderlyingCollection = default!;
             RaiseCollectionChanged(new NcchEa(Reset));
             UnderlyingCollection = newCollection;
             if (!(newCollection is null)) RaiseCollectionChanged(new NcchEa(Nccha.Add, (IList)UnderlyingCollection));

@@ -107,8 +107,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Targets", "Targets", "{75E1
 		Targets\Shared.targets = Targets\Shared.targets
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART-PluginSupport", "Lib\MCART-PluginSupport\MCART-PluginSupport.csproj", "{C5C467B9-4510-4AC0-BAEF-B9E92CEFFC69}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Examples\LightChat\Common\Common.projitems*{1459cf01-8f9b-47b1-a3f2-57e1f84d9d0e}*SharedItemsImports = 13
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{77706828-80be-4bac-a97c-072e101d01de}*SharedItemsImports = 4
 		Documentation\Snippets\Snippets.projitems*{913db390-bcf2-478d-996e-1b7248425597}*SharedItemsImports = 13
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{967afaa3-ded3-4ec0-9401-7193b318fce8}*SharedItemsImports = 13
@@ -275,6 +278,14 @@ Global
 		{AA5DAAB0-20AF-4967-B592-E494124276E2}.Debug-PublishLocal|Any CPU.Build.0 = Debug|Any CPU
 		{AA5DAAB0-20AF-4967-B592-E494124276E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA5DAAB0-20AF-4967-B592-E494124276E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5C467B9-4510-4AC0-BAEF-B9E92CEFFC69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5C467B9-4510-4AC0-BAEF-B9E92CEFFC69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5C467B9-4510-4AC0-BAEF-B9E92CEFFC69}.Debug-Publish|Any CPU.ActiveCfg = Debug-Publish|Any CPU
+		{C5C467B9-4510-4AC0-BAEF-B9E92CEFFC69}.Debug-Publish|Any CPU.Build.0 = Debug-Publish|Any CPU
+		{C5C467B9-4510-4AC0-BAEF-B9E92CEFFC69}.Debug-PublishLocal|Any CPU.ActiveCfg = Debug-PublishLocal|Any CPU
+		{C5C467B9-4510-4AC0-BAEF-B9E92CEFFC69}.Debug-PublishLocal|Any CPU.Build.0 = Debug-PublishLocal|Any CPU
+		{C5C467B9-4510-4AC0-BAEF-B9E92CEFFC69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5C467B9-4510-4AC0-BAEF-B9E92CEFFC69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -305,6 +316,7 @@ Global
 		{F7B14AEA-6C0A-4343-81AE-FB06DCD9C69C} = {D74BF4B6-D008-4124-B4F5-DAEA45272A78}
 		{AA5DAAB0-20AF-4967-B592-E494124276E2} = {0E7DB819-72E6-4549-BF37-DBE9F453683C}
 		{75E18028-6D7C-47CC-B8C2-9BB5A0151523} = {B80D3805-8722-4877-AF4E-C7763C850A9E}
+		{C5C467B9-4510-4AC0-BAEF-B9E92CEFFC69} = {8D80435C-F7CE-46FE-82F0-58F0D5282344}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A16C9D23-2B39-4202-8A15-4A3536784E27}

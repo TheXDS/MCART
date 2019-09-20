@@ -35,10 +35,10 @@ using static TheXDS.MCART.Types.Extensions.StringExtensions;
 namespace TheXDS.MCART.PluginSupport
 {
     /// <summary>
-    ///     <see cref="Plugin"/> específico para Windows Presentation
+    ///     <see cref="LegacyPlugin"/> específico para Windows Presentation
     ///     Framework.
     /// </summary>
-    public abstract class WpfPlugin : Plugin, IWpfPlugin, IExposeInfo<UIElement?>
+    public abstract class WpfPlugin : LegacyPlugin, IWpfPlugin, IExposeInfo<UIElement?>
     {
         /// <inheritdoc />
         /// <summary>
@@ -48,18 +48,18 @@ namespace TheXDS.MCART.PluginSupport
 
         /// <summary>
         /// Genera un <see cref="MenuItem"/> a partir de las interacciones del
-        /// <see cref="IPlugin"/>.
+        /// <see cref="ILegacyPlugin"/>.
         /// </summary>
         /// <returns>
         /// Un <see cref="MenuItem"/> que contiene las interacciones contenidas
-        /// por el <see cref="IPlugin"/>, en la propiedad
-        /// <see cref="IPlugin.PluginInteractions"/>.
+        /// por el <see cref="ILegacyPlugin"/>, en la propiedad
+        /// <see cref="ILegacyPlugin.PluginInteractions"/>.
         /// </returns>
         /// <param name="plugin">
-        /// <see cref="IPlugin"/> a partir del cual se generará el
+        /// <see cref="ILegacyPlugin"/> a partir del cual se generará el
         /// <see cref="MenuItem"/>.
         /// </param>
-        public static MenuItem GetUiMenu(IPlugin plugin)
+        public static MenuItem GetUiMenu(ILegacyPlugin plugin)
         {
             if (!plugin.HasInteractions) throw new FeatureNotAvailableException();
             var mnu = new MenuItem() { Header = plugin.Name };
@@ -71,7 +71,7 @@ namespace TheXDS.MCART.PluginSupport
         }
 
         /// <summary>
-        /// Obtiene la Interfaz de interacción de un <see cref="IPlugin"/> como
+        /// Obtiene la Interfaz de interacción de un <see cref="ILegacyPlugin"/> como
         /// un <typeparamref name="TPanel"/> cuyas acciones son controles de
         /// tipo <typeparamref name="T"/>.
         /// </summary>
@@ -81,14 +81,14 @@ namespace TheXDS.MCART.PluginSupport
         /// </typeparam>
         /// <typeparam name="TPanel">Tipo de panel a devolver.</typeparam>
         /// <param name="plugin">
-        /// <see cref="IPlugin"/> a partir del cual se generará el panel.
+        /// <see cref="ILegacyPlugin"/> a partir del cual se generará el panel.
         /// </param>
         /// <returns>
         /// Un <typeparamref name="TPanel"/> que contiene las interacciones
-        /// contenidas por el <see cref="IPlugin"/>, en la propiedad
-        /// <see cref="IPlugin.PluginInteractions"/>.
+        /// contenidas por el <see cref="ILegacyPlugin"/>, en la propiedad
+        /// <see cref="ILegacyPlugin.PluginInteractions"/>.
         /// </returns>
-        public static TPanel GetUiPanel<T, TPanel>(IPlugin plugin)
+        public static TPanel GetUiPanel<T, TPanel>(ILegacyPlugin plugin)
             where T : ButtonBase, new() where TPanel : Panel, new()
         {
             var pnl = new TPanel();
@@ -98,7 +98,7 @@ namespace TheXDS.MCART.PluginSupport
         }
 
         /// <summary>
-        /// Convierte el <see cref="IPlugin.PluginInteractions"/> en un
+        /// Convierte el <see cref="ILegacyPlugin.PluginInteractions"/> en un
         /// <see cref="MenuItem"/>.
         /// </summary>
         /// <value>
@@ -108,7 +108,7 @@ namespace TheXDS.MCART.PluginSupport
         public MenuItem UiMenu => GetUiMenu(this);
 
         /// <summary>
-        /// Convierte el <see cref="IPlugin.PluginInteractions"/> en un
+        /// Convierte el <see cref="ILegacyPlugin.PluginInteractions"/> en un
         /// <see cref="Panel"/>, especificando el tipo de controles a
         /// contener para cada <see cref="InteractionItem"/>.
         /// </summary>
@@ -118,7 +118,7 @@ namespace TheXDS.MCART.PluginSupport
         /// </value>
         /// <typeparam name="T">
         /// Tipo de controles que serán generados por cada
-        /// <see cref="InteractionItem"/> que el <see cref="Plugin"/>
+        /// <see cref="InteractionItem"/> que el <see cref="LegacyPlugin"/>
         /// contiene.
         /// </typeparam>
         /// <typeparam name="PanelT">
@@ -126,8 +126,8 @@ namespace TheXDS.MCART.PluginSupport
         /// </typeparam>
         /// <returns>
         /// Un <typeparamref name="PanelT"/> que contiene las interacciones
-        /// contenidas por el <see cref="IPlugin"/>, en la propiedad
-        /// <see cref="IPlugin.PluginInteractions"/>.
+        /// contenidas por el <see cref="ILegacyPlugin"/>, en la propiedad
+        /// <see cref="ILegacyPlugin.PluginInteractions"/>.
         /// </returns>
         public PanelT UiPanel<T, PanelT>()
             where T : ButtonBase, new() where PanelT : Panel, new()

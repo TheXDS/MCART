@@ -366,10 +366,10 @@ namespace TheXDS.MCART.Networking.Server
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="Client`1" />.
+        ///     Inicializa una nueva instancia de la clase <see cref="Client{T}" />.
         /// </summary>
         /// <param name="connection">
-        ///     <see cref="Net.Sockets.TcpClient" /> a utilizar para las comunicaciones con el
+        ///     <see cref="TcpClient" /> a utilizar para las comunicaciones con el
         ///     cliente.
         /// </param>
         public Client(TcpClient connection) : base(connection)

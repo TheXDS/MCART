@@ -77,7 +77,7 @@ namespace TheXDS.MCART.Types.Entity
         ///     Compara la igualdad de los vectores.
         /// </summary>
         /// <param name="other">
-        ///     <see cref="T:TheXDS.MCART.Types.I2DVector" /> contra el cual comparar.
+        ///     <see cref="I2DVector" /> contra el cual comparar.
         /// </param>
         /// <returns>
         ///     <see langword="true" /> si todos los vectores de ambos objetos
@@ -93,7 +93,7 @@ namespace TheXDS.MCART.Types.Entity
         ///     Compara la igualdad de los vectores de los puntos.
         /// </summary>
         /// <param name="other">
-        ///     <see cref="T:TheXDS.MCART.Types.Point" /> contra el cual comparar.
+        ///     <see cref="Point" /> contra el cual comparar.
         /// </param>
         /// <returns>
         ///     <see langword="true" /> si todos los vectores de ambos puntos son iguales;

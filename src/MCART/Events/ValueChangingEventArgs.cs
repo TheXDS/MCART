@@ -41,7 +41,7 @@ namespace TheXDS.MCART.Events
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ValueChangingEventArgs`1" /> con el valor provisto.
+        ///     <see cref="ValueChangingEventArgs{T}" /> con el valor provisto.
         /// </summary>
         /// <param name="oldValue">
         ///     Valor original asociado al evento generado.
@@ -99,7 +99,7 @@ namespace TheXDS.MCART.Events
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ValueChangingEventArgs`1" /> con el valor provisto.
+        ///     <see cref="ValueChangingEventArgs{T}" /> con el valor provisto.
         /// </summary>
         /// <param name="oldValue">
         ///     Valor original asociado al evento generado.

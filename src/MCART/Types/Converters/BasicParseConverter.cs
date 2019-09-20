@@ -34,13 +34,13 @@ namespace TheXDS.MCART.Types.Converters
     /// <inheritdoc />
     /// <summary>
     ///     Clase base para un
-    ///     <see cref="ComponentModel.TypeConverter" /> básico que
+    ///     <see cref="TypeConverter" /> básico que
     ///     permita transformar un valor de <see cref="string" /> en
     ///     un <typeparamref name="T" />.
     /// </summary>
     /// <typeparam name="T">
     ///     Tipo de elemento de salida de este
-    ///     <see cref="ComponentModel.TypeConverter" />.
+    ///     <see cref="TypeConverter" />.
     /// </typeparam>
     public abstract class BasicParseConverter<T> : TypeConverter
     {
@@ -49,7 +49,7 @@ namespace TheXDS.MCART.Types.Converters
         ///   Devuelve si este convertidor puede convertir un objeto del tipo especificado al tipo de este convertidor, mediante el contexto especificado.
         /// </summary>
         /// <param name="context">
-        ///   <see cref="ComponentModel.ITypeDescriptorContext" /> que ofrece un contexto de formato.
+        ///   <see cref="ITypeDescriptorContext" /> que ofrece un contexto de formato.
         /// </param>
         /// <param name="sourceType">
         ///   Un <see cref="Type" /> que representa el tipo que desea convertir.
@@ -67,7 +67,7 @@ namespace TheXDS.MCART.Types.Converters
         ///   Devuelve si este convertidor puede convertir el objeto al tipo especificado, con el contexto especificado.
         /// </summary>
         /// <param name="context">
-        ///   Interfaz <see cref="ComponentModel.ITypeDescriptorContext" /> que ofrece un contexto de formato.
+        ///   Interfaz <see cref="ITypeDescriptorContext" /> que ofrece un contexto de formato.
         /// </param>
         /// <param name="destinationType">
         ///   <see cref="Type" /> que representa el tipo al que se quiere convertir.
@@ -85,10 +85,10 @@ namespace TheXDS.MCART.Types.Converters
         ///   Convierte el objeto determinado al tipo de este convertidor usando el contexto especificado y la información de referencia cultural.
         /// </summary>
         /// <param name="context">
-        ///   <see cref="ComponentModel.ITypeDescriptorContext" /> que ofrece un contexto de formato.
+        ///   <see cref="ITypeDescriptorContext" /> que ofrece un contexto de formato.
         /// </param>
         /// <param name="culture">
-        ///   <see cref="Globalization.CultureInfo" /> que se va a usar como referencia cultural actual.
+        ///   <see cref="CultureInfo" /> que se va a usar como referencia cultural actual.
         /// </param>
         /// <param name="value">
         ///   <see cref="object" /> que se va a convertir.
@@ -99,7 +99,7 @@ namespace TheXDS.MCART.Types.Converters
         /// <exception cref="T:System.NotSupportedException">
         ///   No se puede realizar la conversión.
         /// </exception>
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        public override object? ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             return ConvertFrom(value?.ToString());
         }
@@ -110,17 +110,17 @@ namespace TheXDS.MCART.Types.Converters
         /// <returns>
         ///     Un valor de tipo <typeparamref name="T"/> creado a partir de la cadena especificada.
         /// </returns>
-        protected abstract T ConvertFrom(string value);
+        protected abstract T ConvertFrom(string? value);
 
         /// <inheritdoc />
         /// <summary>
         ///   Convierte el objeto de valor determinado al tipo especificado usando el contexto y la información de referencia cultural especificados.
         /// </summary>
         /// <param name="context">
-        ///   <see cref="ComponentModel.ITypeDescriptorContext" /> que proporciona un contexto de formato.
+        ///   <see cref="ITypeDescriptorContext" /> que proporciona un contexto de formato.
         /// </param>
         /// <param name="culture">
-        ///   Objeto <see cref="Globalization.CultureInfo" />.
+        ///   Objeto <see cref="CultureInfo" />.
         ///    Si se pasa <see langword="null" />, se supone que se va a usar la referencia cultural actual.
         /// </param>
         /// <param name="value">
@@ -138,7 +138,7 @@ namespace TheXDS.MCART.Types.Converters
         /// <exception cref="T:System.NotSupportedException">
         ///   No se puede realizar la conversión.
         /// </exception>
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        public override object? ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (value is T v) return ConvertTo(v);
             return base.ConvertTo(context,culture,value,destinationType);
@@ -151,9 +151,9 @@ namespace TheXDS.MCART.Types.Converters
         /// <returns>
         ///     La representación como cadena del objeto especificado.
         /// </returns>
-        protected virtual string ConvertTo(T value)
+        protected virtual string? ConvertTo(T value)
         {
-            return value.ToString();
+            return value?.ToString();
         }
     }
 }

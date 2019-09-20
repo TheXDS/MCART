@@ -36,13 +36,13 @@ namespace TheXDS.MCART.PluginSupport
     /// <inheritdoc />
     /// <summary>
     /// Incluye información adicional del evento 
-    /// <see cref="E:TheXDS.MCART.PluginSupport.IPlugin.PluginFinalizing" />.
+    /// <see cref="E:TheXDS.MCART.PluginSupport.ILegacyPlugin.PluginFinalizing" />.
     /// </summary>
     [Serializable]
     public sealed class PluginFinalizingEventArgs : CancelEventArgs
     {
         /// <summary>
-        /// Determina el motivo de finalización del <see cref="IPlugin"/>.
+        /// Determina el motivo de finalización del <see cref="ILegacyPlugin"/>.
         /// </summary>
         public enum FinalizingReason
         {
@@ -65,7 +65,7 @@ namespace TheXDS.MCART.PluginSupport
         }
         /// <summary>
         /// Indica la razón por la cual se está finalizando el 
-        /// <see cref="IPlugin"/>.
+        /// <see cref="ILegacyPlugin"/>.
         /// </summary>
         public FinalizingReason Reason { get; }
         /// <inheritdoc />
@@ -87,12 +87,12 @@ namespace TheXDS.MCART.PluginSupport
     /// <inheritdoc />
     /// <summary>
     /// Incluye información adicional del evento 
-    /// <see cref="E:TheXDS.MCART.PluginSupport.IPlugin.UiChanged" />
+    /// <see cref="E:TheXDS.MCART.PluginSupport.ILegacyPlugin.UiChanged" />
     /// </summary>
     public sealed class UiChangedEventArgs : EventArgs
     {
         /// <summary>
-        /// Obtiene la nueva interfaz que el <see cref="IPlugin"/> ha 
+        /// Obtiene la nueva interfaz que el <see cref="ILegacyPlugin"/> ha 
         /// solicitado.
         /// </summary>
         public ReadOnlyCollection<InteractionItem> NewUi { get; }

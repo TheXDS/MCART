@@ -34,7 +34,7 @@ namespace TheXDS.MCART.PluginSupport
     /// <summary>
     /// Esta clase realiza diferentes verificaciones de compatibilidad de plugins.
     /// </summary>
-    public abstract class PluginChecker : IPluginChecker
+    public abstract class PluginChecker : ILegacyPluginChecker
     {
         /// <inheritdoc />
         /// <summary>
@@ -42,10 +42,10 @@ namespace TheXDS.MCART.PluginSupport
         /// </summary>
         /// <returns>
         /// <see langword="true" /> si el ensamblado contiene al menos una clase de tipo
-        /// <typeparamref name="T" /> cargable como <see cref="IPlugin" />, 
+        /// <typeparamref name="T" /> cargable como <see cref="ILegacyPlugin" />, 
         /// <see langword="false" /> en caso contrario.
         /// </returns>
-        /// <param name="assembly"><see cref="Reflection.Assembly" /> a comprobar.</param>
+        /// <param name="assembly"><see cref="Assembly" /> a comprobar.</param>
         /// <typeparam name="T">Tipo a buscar.</typeparam>
         public bool Has<T>(Assembly assembly) => assembly.IsNeither(RtInfo.CoreRtAssembly, null) && assembly.GetTypes().Any((arg) => IsValid(arg) && typeof(T).IsAssignableFrom(arg));
         /// <inheritdoc />
@@ -62,14 +62,14 @@ namespace TheXDS.MCART.PluginSupport
         public abstract bool? IsCompatible(Type type);
         /// <inheritdoc />
         /// <summary>
-        /// Comprueba si un <see cref="Reflection.Assembly" /> contiene clases cargables 
-        /// como <see cref="IPlugin" />.
+        /// Comprueba si un <see cref="Assembly" /> contiene clases cargables 
+        /// como <see cref="ILegacyPlugin" />.
         /// </summary>
         /// <returns>
         /// <see langword="true" /> si el ensamblado contiene clases cargables como
-        /// <see cref="IPlugin" />, <see langword="false" /> en caso contrario.
+        /// <see cref="ILegacyPlugin" />, <see langword="false" /> en caso contrario.
         /// </returns>
-        /// <param name="assembly"><see cref="Reflection.Assembly" /> a comprobar.</param>
+        /// <param name="assembly"><see cref="Assembly" /> a comprobar.</param>
         public bool IsVaild(Assembly assembly)
         {
             try
@@ -88,11 +88,11 @@ namespace TheXDS.MCART.PluginSupport
         /// <inheritdoc />
         /// <summary>
         /// Determina si un tipo es válido para ser cargado como un
-        /// <see cref="IPlugin" />.
+        /// <see cref="ILegacyPlugin" />.
         /// </summary>
         /// <returns>
         /// <see langword="true" />, si el tipo puede ser cagado como un 
-        /// <see cref="Plugin" />, <see langword="false" /> en caso contrario.
+        /// <see cref="LegacyPlugin" />, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="type">Tipo a comprobar.</param>
         public abstract bool IsValid(Type type);

@@ -26,6 +26,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Net.Sockets;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Networking.Server.Protocols
@@ -88,7 +89,7 @@ namespace TheXDS.MCART.Networking.Server.Protocols
         ///     Inicializa un nuevo cliente manejado por este protocolo.
         /// </summary>
         /// <param name="tcpClient">
-        ///     <see cref="Net.Sockets.TcpClient" /> de la conexión con el host remoto.
+        ///     <see cref="TcpClient" /> de la conexión con el host remoto.
         /// </param>
         /// <returns>
         ///     Un nuevo <see cref="Client" />.

@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:pluginSupport="clr-namespace:TheXDS.MCART.PluginSupport;assembly=MCART"
-      d:DataContext="{d:DesignInstance pluginSupport:Plugin}"
+      d:DataContext="{d:DesignInstance pluginSupport:LegacyPlugin}"
       mc:Ignorable="d">
     <UserControl.Resources>
         <Thickness x:Key="Mrg">5</Thickness>

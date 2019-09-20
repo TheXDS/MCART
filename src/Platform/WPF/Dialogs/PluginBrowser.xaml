@@ -36,7 +36,7 @@
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Value, Mode=OneWay}">
                     <HierarchicalDataTemplate.ItemTemplate>
-                        <DataTemplate DataType="pluginSupport:IPlugin">
+                        <DataTemplate DataType="pluginSupport:ILegacyPlugin">
                             <TextBlock Text="{Binding Name, Mode=OneWay}"/>
                         </DataTemplate>
                     </HierarchicalDataTemplate.ItemTemplate>

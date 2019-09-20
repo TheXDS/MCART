@@ -33,6 +33,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Networking.Server;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Networking.Client
@@ -41,7 +42,7 @@ namespace TheXDS.MCART.Networking.Client
     /// <summary>
     ///     Clase base para clientes auto-cableados de atención a protocolos de
     ///     comandos simples basados en la clase
-    ///     <see cref="SelfWiredCommandProtocol`3" />.
+    ///     <see cref="SelfWiredCommandProtocol{TClient, TCommand, TResponse}" />.
     /// </summary>
     /// <typeparam name="TCommand">
     ///     Tipo de enumeración de los comandos enviados por este cliente.
@@ -53,11 +54,11 @@ namespace TheXDS.MCART.Networking.Client
     ///     Debido a las limitaciones actuales de C#, para poder implementar
     ///     este protocolo es necesario crear un atributo aplicable a los
     ///     métodos miembros de la clase que derive de
-    ///     <see cref="SelfWiredCommandClient`2" />, dicho
-    ///     atributo deberá implementar <see cref="IValueAttribute`1" /> y ser
+    ///     <see cref="SelfWiredCommandClient{TCommand, TResponse}" />, dicho
+    ///     atributo deberá implementar <see cref="IValueAttribute{T}" /> y ser
     ///     aplicado a cada método que pueda manejar respuestas del servidor.
     ///     Tales métodos deberán a su vez, ser compatibles con el delegado
-    ///     <see cref="SelfWiredCommandClient`2.ResponseCallBack" />.
+    ///     <see cref="SelfWiredCommandClient{TCommand, TResponse}.ResponseCallBack" />.
     ///     Los comandos y las respuestas son enumeraciones comunes.
     /// </remarks>
     /// <example>
@@ -109,8 +110,8 @@ namespace TheXDS.MCART.Networking.Client
                       ?? throw new PlatformNotSupportedException();
 
             var vals = Enum.GetValues(typeof(TResponse)).OfType<TResponse?>().ToArray();
-            _errResponse = vals.FirstOrDefault(p => p.HasAttr<ErrorResponseAttribute>());
-            _unkResponse = vals.FirstOrDefault(p => p.HasAttr<UnknownResponseAttribute>());
+            _errResponse = vals.NotNull().FirstOrDefault(p => p.HasAttr<ErrorResponseAttribute>());
+            _unkResponse = vals.NotNull().FirstOrDefault(p => p.HasAttr<UnknownResponseAttribute>());
         }
 
         /// <summary>
@@ -156,7 +157,7 @@ namespace TheXDS.MCART.Networking.Client
         /// </returns>
         public static byte[] MakeCommand(TCommand command)
         {
-            return ToCommand?.Invoke(command);
+            return ToCommand.Invoke(command);
         }
 
         /// <summary>
@@ -175,7 +176,7 @@ namespace TheXDS.MCART.Networking.Client
         /// </returns>
         public static byte[] MakeCommand(TCommand command, IEnumerable<byte> data)
         {
-            return MakeCommand(command)?.Concat(data).ToArray();
+            return MakeCommand(command).Concat(data).ToArray();
         }
 
         /// <summary>
@@ -335,7 +336,7 @@ namespace TheXDS.MCART.Networking.Client
             }
         }
 
-        private NetworkStream GetNs()
+        private NetworkStream? GetNs()
         {
             try
             {
@@ -363,7 +364,7 @@ namespace TheXDS.MCART.Networking.Client
         public TResponse ReadResponse(BinaryReader br)
         {
             if (br.BaseStream.CanSeek && br.BaseStream.Length == 0) return default;
-            return (TResponse) Enum.ToObject(typeof(TResponse), _readRsp.Invoke(br, new object[0]));
+            return (TResponse) Enum.ToObject(typeof(TResponse), _readRsp.Invoke(br, new object[0])!);
         }
 
         /// <summary>

@@ -45,7 +45,7 @@ namespace TheXDS.MCART.Security.Password
         /// Detalles que el <see cref="PasswordEvaluator"/> ha colocado sobre la
         /// evaluación de la contraseña.
         /// </summary>
-        public string Details;
+        public string? Details;
         /// <summary>
         /// Inicializa una nueva instancia de la estructura
         /// <see cref="PwEvalResult"/>.
@@ -58,7 +58,7 @@ namespace TheXDS.MCART.Security.Password
         /// </summary>
         /// <param name="r">Resultado de la evaluación.</param>
         /// <param name="d">Detalles de la evaluación.</param>
-        public PwEvalResult(float r, string d) : this(r, d, false) { }
+        public PwEvalResult(float r, string? d) : this(r, d, false) { }
         /// <summary>
         /// Inicializa una nueva instancia de la estructura
         /// <see cref="PwEvalResult"/>.
@@ -69,7 +69,7 @@ namespace TheXDS.MCART.Security.Password
         /// Criticalidad de la evaluación. Si se establece en <see langword="true"/>, la
         /// contraseña no seguirá siendo evaluada, ya que es inválida.
         /// </param>
-        public PwEvalResult(float r, string d, bool c)
+        public PwEvalResult(float r, string? d, bool c)
         {
             Result = r;
             Critical = c;
@@ -99,7 +99,7 @@ namespace TheXDS.MCART.Security.Password
         /// <see langword="true"/> si ambos objetos son iguales, <see langword="false"/> en caso
         /// contrario.
         /// </returns>
-        public override bool Equals(object obj) => base.Equals(obj);
+        public override bool Equals(object? obj) => base.Equals(obj);
         /// <summary>
         /// Devuelve el código Hash para esta instancia.
         /// </summary>

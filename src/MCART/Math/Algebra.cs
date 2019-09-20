@@ -322,7 +322,7 @@ namespace TheXDS.MCART.Math
         ///     Determina si un <see cref="double" /> es un número entero.
         /// </summary>
         /// <param name="value">Valor a comprobar.</param>
-        /// <returns><see langword="true" /> si el valor es entero; de lo contrario, <c>False</c></returns>
+        /// <returns><see langword="true" /> si el valor es entero; de lo contrario, <see langword="false" /></returns>
         public static bool IsWhole(this in double value)
         {
             return !value.ToString(CultureInfo.InvariantCulture).Contains(".");

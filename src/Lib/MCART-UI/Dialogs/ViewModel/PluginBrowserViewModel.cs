@@ -42,18 +42,18 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// <summary>
         ///     Enumera los plugins encontrados en el directorio actual.
         /// </summary>
-        public Dictionary<string, IEnumerable<IPlugin>> Plugins
+        public Dictionary<string, IEnumerable<ILegacyPlugin>> Plugins
         {
             get
             {
-                if (!ShowPlugins) return new Dictionary<string, IEnumerable<IPlugin>>(0);
+                if (!ShowPlugins) return new Dictionary<string, IEnumerable<ILegacyPlugin>>(0);
                 try
                 {
                     return new PluginLoader(new RelaxedPluginChecker(), SanityChecks.IgnoreDanger).PluginTree();
                 }
                 catch
                 {
-                    return new Dictionary<string, IEnumerable<IPlugin>>(0);
+                    return new Dictionary<string, IEnumerable<ILegacyPlugin>>(0);
                 }
             }
         }
@@ -66,7 +66,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
             get => _selection;
             set
             {
-                if (!(value is IPlugin)) value = null;
+                if (!(value is ILegacyPlugin)) value = null;
                 if (Equals(value, _selection)) return;
                 _selection = value;
                 OnPropertyChanged();

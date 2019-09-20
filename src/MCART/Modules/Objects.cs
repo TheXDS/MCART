@@ -410,7 +410,7 @@ namespace TheXDS.MCART
         ///     <see langword="false" />.
         /// </returns>
         /// <param name="x">Objetos a comprobar.</param>
-        public static bool AreAllNull(this IEnumerable<object> x)
+        public static bool AreAllNull(this IEnumerable<object?> x)
         {
             return x.All(p => p is null);
         }
@@ -423,7 +423,7 @@ namespace TheXDS.MCART
         ///     <see langword="false" />.
         /// </returns>
         /// <param name="x">Objetos a comprobar.</param>
-        public static bool AreAllNull(params object[] x)
+        public static bool AreAllNull(params object?[] x)
         {
             return x.AreAllNull();
         }

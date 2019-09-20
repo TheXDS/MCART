@@ -90,14 +90,15 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public static bool? RtSupport<T>(T obj)
         {
-            if (!obj.HasAttr(out TargetMCARTVersionAttribute tt)) return null;
-            if (!obj.HasAttr(out MinMcartVersionAttribute mt))
+            TargetMCARTVersionAttribute? tt = null;
+            if (!obj?.HasAttr(out tt) ?? true) return null;
+            if (!obj!.HasAttr(out MinMcartVersionAttribute? mt))
 #if StrictMCARTVersioning
                 return null;
 #else
                 return CoreRtVersion == tt?.Value;
 #endif
-            return CoreRtVersion.IsBetween(mt?.Value, tt?.Value);
+            return CoreRtVersion.IsBetween(mt!.Value, tt!.Value);
         }
 
         /// <summary>
@@ -136,14 +137,14 @@ namespace TheXDS.MCART.Resources
              * la función HasAttr<T>(object, T) en lugar de HasAttr(Type, T),
              * lo cual no es la implementación intencionada.
              */
-            if (!type.HasAttr(out TargetMCARTVersionAttribute tt)) return null;
-            if (!type.HasAttr(out MinMcartVersionAttribute mt))
+            if (!type.HasAttr(out TargetMCARTVersionAttribute? tt)) return null;
+            if (!type.HasAttr(out MinMcartVersionAttribute? mt))
 #if StrictMCARTVersioning
                 return null;
 #else
                 return CoreRtVersion == tt?.Value;
 #endif
-            return CoreRtVersion.IsBetween(mt?.Value, tt?.Value);
+            return CoreRtVersion.IsBetween(mt!.Value, tt!.Value);
         }
 
         private static ComponentKind GetKind(Assembly mcartAssembly)
@@ -191,7 +192,7 @@ namespace TheXDS.MCART.Resources
         ///     Un <see cref="Version" /> con la información de versión de
         ///     <see cref="MCART" />.
         /// </returns>
-        public static Version CoreRtVersion => CoreRtAssembly.GetName().Version;
+        public static Version CoreRtVersion => CoreRtAssembly.GetName().Version!;
 
         /// <summary>
         ///     Obtiene el tipo de componente de MCART que este ensamblado es.
@@ -201,7 +202,7 @@ namespace TheXDS.MCART.Resources
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Resources.RtInfo" />.
+        ///     <see cref="RtInfo" />.
         /// </summary>
         public RtInfo() : this(CoreRtAssembly)
         {

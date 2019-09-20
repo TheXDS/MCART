@@ -58,7 +58,7 @@ namespace TheXDS.MCART.Types
         ///     El elemento encontrado en el índice especificado dentro de la
         ///     colección.
         /// </returns>
-        public object this[int index]
+        public object? this[int index]
         {
             get => UnderlyingList[index];
             set
@@ -114,6 +114,7 @@ namespace TheXDS.MCART.Types
         /// </summary>
         public ObservableListWrap()
         {
+            UnderlyingList = new List<object>();
         }
 
         /// <summary>
@@ -137,7 +138,7 @@ namespace TheXDS.MCART.Types
         /// <returns>
         ///     El índice en el cual ha sido agregado el elemento.
         /// </returns>
-        public int Add(object value)
+        public int Add(object? value)
         {
             var returnValue = UnderlyingList.Add(value);
             RaiseCollectionChanged(new NcchEa(Nccha.Add, value));
@@ -168,7 +169,7 @@ namespace TheXDS.MCART.Types
         ///     contiene el valor especificado, <see langword="false"/> en caso
         ///     contrario.
         /// </returns>
-        public override bool Contains(object value)
+        public override bool Contains(object? value)
         {
             return UnderlyingList.Contains(value);
         }
@@ -210,7 +211,7 @@ namespace TheXDS.MCART.Types
         ///     El índice del elemento dentro de este
         ///     <see cref="ObservableListWrap"/>.
         /// </returns>
-        public override int IndexOf(object value)
+        public override int IndexOf(object? value)
         {
             return UnderlyingList.IndexOf(value);
         }
@@ -225,7 +226,7 @@ namespace TheXDS.MCART.Types
         /// <param name="value">
         ///     Valor a insertar en este <see cref="ObservableListWrap"/>.
         /// </param>
-        public void Insert(int index, object value)
+        public void Insert(int index, object? value)
         {
             UnderlyingList.Insert(index, value);
             RaiseCollectionChanged(new NcchEa(Nccha.Add, value));
@@ -238,7 +239,7 @@ namespace TheXDS.MCART.Types
         /// <param name="value">
         ///     valor a quitar de este <see cref="ObservableListWrap"/>.
         /// </param>
-        public void Remove(object value)
+        public void Remove(object? value)
         {
             if (UnderlyingList.Contains(value))
             {

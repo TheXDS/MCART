@@ -51,16 +51,16 @@ namespace TheXDS.MCART.PluginSupport
         /// <inheritdoc />
         /// <summary>
         /// Determina si un tipo es válido para ser cargado como un
-        /// <see cref="IPlugin" />.
+        /// <see cref="ILegacyPlugin" />.
         /// </summary>
         /// <returns>
         /// <see langword="true" />, si el tipo puede ser cagado como un 
-        /// <see cref="Plugin" />, <see langword="false" /> en caso contrario.
+        /// <see cref="LegacyPlugin" />, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="type">Tipo a comprobar.</param>
         public override bool IsValid(Type type)
         {
-            return typeof(IPlugin).IsAssignableFrom(type) && !(
+            return typeof(ILegacyPlugin).IsAssignableFrom(type) && !(
                 type.IsInterface
                 || type.IsAbstract
                 || type.HasAttr<UnusableAttribute>(out _)
@@ -103,14 +103,14 @@ namespace TheXDS.MCART.PluginSupport
         /// <inheritdoc />
         /// <summary>
         /// Determina si un tipo es válido para ser cargado como un
-        /// <see cref="IPlugin" />.
+        /// <see cref="ILegacyPlugin" />.
         /// </summary>
         /// <returns>
         /// <see langword="true" />, si el tipo puede ser cagado como un 
-        /// <see cref="Plugin" />, <see langword="false" /> en caso contrario.
+        /// <see cref="LegacyPlugin" />, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="type">Tipo a comprobar.</param>
-        public override bool IsValid(Type type) => type.Implements<IPlugin>() && type.IsInstantiable((IEnumerable<Type>)null);
-        //public override bool IsValid(Type type) => !(type.IsInterface || type.IsAbstract) && typeof(IPlugin).IsAssignableFrom(type);
+        public override bool IsValid(Type type) => type.Implements<ILegacyPlugin>() && type.IsInstantiable((IEnumerable<Type>)null);
+        //public override bool IsValid(Type type) => !(type.IsInterface || type.IsAbstract) && typeof(ILegacyPlugin).IsAssignableFrom(type);
     }
 }

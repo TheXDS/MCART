@@ -33,6 +33,6 @@ namespace TheXDS.MCART.Types
         /// <summary>
         ///     Obtiene la descripción del elemento.
         /// </summary>
-        string Description { get; }
+        string? Description { get; }
     }
 }

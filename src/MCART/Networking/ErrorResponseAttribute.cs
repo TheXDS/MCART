@@ -28,6 +28,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #nullable enable
 
 using System;
+using TheXDS.MCART.Networking.Server;
 
 namespace TheXDS.MCART.Networking
 {
@@ -36,7 +37,7 @@ namespace TheXDS.MCART.Networking
     ///     Atributo que se establece en el miembro de una enumeración a ser
     ///     utilizado como la respuesta en caso de error que enviará un
     ///     protocolo derivado de la clase
-    ///     <see cref="SelfWiredCommandProtocol`3" />
+    ///     <see cref="SelfWiredCommandProtocol{TClient, TCommand, TResponse}" />
     /// </summary>
     /// <remarks>
     ///     Si ningún miembro de la enumeración se marca con este atributo, en

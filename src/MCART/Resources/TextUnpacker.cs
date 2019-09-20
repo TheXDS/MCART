@@ -29,7 +29,7 @@ namespace TheXDS.MCART.Resources
 {
     /// <inheritdoc />
     /// <summary>
-    ///     <see cref="T:TheXDS.MCART.Resources.AssemblyUnpacker`1" /> que
+    ///     <see cref="AssemblyUnpacker{T}" /> que
     ///     extrae recursos de texto.
     /// </summary>
     public class TextUnpacker : AssemblyUnpacker<string>
@@ -37,10 +37,10 @@ namespace TheXDS.MCART.Resources
         /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
-        /// <see cref="T:TheXDS.MCART.Resources.AssemblyUnpacker`1" />.
+        /// <see cref="AssemblyUnpacker{T}" />.
         /// </summary>
         /// <param name="assembly">
-        /// <see cref="Reflection.Assembly" /> desde donde se extraerán los recursos
+        /// <see cref="Assembly" /> desde donde se extraerán los recursos
         /// incrustados.
         /// </param>
         /// <param name="path">
@@ -61,8 +61,8 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public override string Unpack(string id)
         {
-            using (var sr = new StreamReader(UnpackStream(id)))
-                return sr.ReadToEnd();
+            using var sr = new StreamReader(UnpackStream(id));
+            return sr.ReadToEnd();
         }
 
         /// <inheritdoc />
@@ -79,8 +79,8 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public override string Unpack(string id, string compressorId)
         {
-            using (var sr = new StreamReader(UnpackStream(id,compressorId)))
-                return sr.ReadToEnd();
+            using var sr = new StreamReader(UnpackStream(id, compressorId));
+            return sr.ReadToEnd();
         }
 
         /// <inheritdoc />
@@ -98,8 +98,8 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public override string Unpack(string id, ICompressorGetter compressor)
         {
-            using (var sr = new StreamReader(UnpackStream(id,compressor)))
-                return sr.ReadToEnd();
+            using var sr = new StreamReader(UnpackStream(id, compressor));
+            return sr.ReadToEnd();
         }
     }
 }

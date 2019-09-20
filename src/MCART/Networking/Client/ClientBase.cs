@@ -51,7 +51,7 @@ namespace TheXDS.MCART.Networking.Client
     /// </summary>
     public abstract class ClientBase
     {
-        private Thread _worker;
+        private Thread? _worker;
 
         /// <summary>
         ///     Obtiene un valor que indica si la conexión con el servidor se
@@ -112,7 +112,7 @@ namespace TheXDS.MCART.Networking.Client
             if (!IsAlive && !force) return;
             try
             {
-                if (_worker.IsAlive) _worker.Abort();
+                if (_worker?.IsAlive ?? false) _worker!.Abort();
                 NwStream()?.Dispose();
                 Connection?.Close();
             }
@@ -363,7 +363,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     el servidor remoto, o <see langword="null" /> si no existe una
         ///     conexión activa válida.
         /// </returns>
-        [CanBeNull] protected NetworkStream NwStream()
+        [CanBeNull] protected NetworkStream? NwStream()
         {
             try
             {

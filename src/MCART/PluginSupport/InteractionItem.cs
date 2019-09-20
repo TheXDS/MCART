@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
@@ -48,7 +50,7 @@ namespace TheXDS.MCART.PluginSupport
         /// Esta propiedad puede ser utilizada mostrándose en un Tooltip, o un 
         /// menú descriptivo.
         /// </remarks>
-        public string Description { get; }
+        public string? Description { get; }
         /// <summary>
         /// Obtiene un delegado con la acción a realizar por este 
         /// <see cref="InteractionItem"/>.
@@ -113,13 +115,13 @@ namespace TheXDS.MCART.PluginSupport
         }
         /// <summary>
         /// Crea una una nueva entrada de interacción utilizando el método
-        /// especificado asociado a una instancia de <see cref="IPlugin"/>.
+        /// especificado asociado a una instancia de <see cref="ILegacyPlugin"/>.
         /// </summary>
         /// <param name="method">Método a llamar.</param>
         /// <param name="parentInstance">
         /// Instancia padre de este <see cref="InteractionItem"/>.
         /// </param>
-        public InteractionItem(MethodInfo method, IPlugin parentInstance)
+        public InteractionItem(MethodInfo method, ILegacyPlugin parentInstance)
         {
             Action = Delegate.CreateDelegate(typeof(EventHandler), parentInstance, method, false) as EventHandler
                 ?? throw new Exceptions.InvalidMethodSignatureException(method);

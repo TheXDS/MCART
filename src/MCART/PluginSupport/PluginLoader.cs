@@ -39,12 +39,12 @@ namespace TheXDS.MCART.PluginSupport
     /// <inheritdoc />
     /// <summary>
     ///     Permite cargar clases que implementen la interfaz
-    ///     <see cref="IPlugin" />.
+    ///     <see cref="ILegacyPlugin" />.
     /// </summary>
-    public class PluginLoader : IPluginLoader
+    public class PluginLoader : ILegacyPluginLoader
     {
         private const string _defaultPluginExtension = ".dll";
-        private readonly IPluginChecker _checker;
+        private readonly ILegacyPluginChecker _checker;
         private readonly string _extension;
 
         /// <inheritdoc />
@@ -75,14 +75,14 @@ namespace TheXDS.MCART.PluginSupport
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="PluginLoader" /> utilizando el
-        ///     <see cref="IPluginChecker" /> y la extensión de plugins
+        ///     <see cref="ILegacyPluginChecker" /> y la extensión de plugins
         ///     especificada.
         /// </summary>
         /// <param name="pluginChecker">
-        ///     <see cref="IPluginChecker" /> a utilizar para comprobar la
+        ///     <see cref="ILegacyPluginChecker" /> a utilizar para comprobar la
         ///     compatibilidad de los plugins.
         /// </param>
-        public PluginLoader(IPluginChecker pluginChecker) : this(pluginChecker, SanityChecks.Default,
+        public PluginLoader(ILegacyPluginChecker pluginChecker) : this(pluginChecker, SanityChecks.Default,
             _defaultPluginExtension)
         {
         }
@@ -91,18 +91,18 @@ namespace TheXDS.MCART.PluginSupport
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="PluginLoader" /> utilizando el
-        ///     <see cref="IPluginChecker" /> y la extensión de plugins
+        ///     <see cref="ILegacyPluginChecker" /> y la extensión de plugins
         ///     especificada.
         /// </summary>
         /// <param name="pluginChecker">
-        ///     <see cref="IPluginChecker" /> a utilizar para comprobar la
+        ///     <see cref="ILegacyPluginChecker" /> a utilizar para comprobar la
         ///     compatibilidad de los plugins.
         /// </param>
         /// <param name="pluginExtension">
         ///     Parámetro opcional. Extensión de los archivos que contienen
         ///     plugins.
         /// </param>
-        public PluginLoader(IPluginChecker pluginChecker, string pluginExtension) : this(pluginChecker,
+        public PluginLoader(ILegacyPluginChecker pluginChecker, string pluginExtension) : this(pluginChecker,
             SanityChecks.Default, pluginExtension)
         {
         }
@@ -111,28 +111,28 @@ namespace TheXDS.MCART.PluginSupport
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="PluginLoader" /> utilizando el
-        ///     <see cref="IPluginChecker" /> y la extensión de plugins
+        ///     <see cref="ILegacyPluginChecker" /> y la extensión de plugins
         ///     especificada.
         /// </summary>
         /// <param name="pluginChecker">
-        ///     <see cref="IPluginChecker" /> a utilizar para comprobar la
+        ///     <see cref="ILegacyPluginChecker" /> a utilizar para comprobar la
         ///     compatibilidad de los plugins.
         /// </param>
         /// <param name="sanityChecks">
         ///     Omite las comprobaciones de peligrosidad de los
-        ///     <see cref="Plugin" /> y sus miembros.
+        ///     <see cref="LegacyPlugin" /> y sus miembros.
         /// </param>
-        /// <exception cref="T:TheXDS.MCART.Exceptions.DangerousMethodException">
+        /// <exception cref="DangerousMethodException">
         ///     Se produce si <paramref name="sanityChecks" /> contiene un valor que
         ///     ha sido marcado con el atributo <see cref="DangerousAttribute" />.
         /// </exception>
-        /// <exception cref="T:TheXDS.MCART.Exceptions.DangerousTypeException">
+        /// <exception cref="DangerousTypeException">
         ///     Se produce si <paramref name="sanityChecks" /> no contiene la
         ///     bandera <see cref="F:TheXDS.MCART.SanityChecks.IgnoreDanger" /> y el
         ///     <paramref name="pluginChecker" /> a utilizar fue marcado en su
         ///     declaración con el atributo <see cref="DangerousAttribute" />.
         /// </exception>
-        /// <exception cref="T:TheXDS.MCART.Exceptions.UnusableObjectException">
+        /// <exception cref="UnusableObjectException">
         ///     Se produce si <paramref name="sanityChecks" /> no contiene la
         ///     bandera <see cref="F:TheXDS.MCART.SanityChecks.IgnoreUnusable" /> y el
         ///     <paramref name="pluginChecker" /> a utilizar fue marcado en su
@@ -141,7 +141,7 @@ namespace TheXDS.MCART.PluginSupport
         /// <exception cref="T:System.ArgumentNullException">
         ///     Se produce si <paramref name="pluginChecker" /> es <see langword="null" />.
         /// </exception>
-        public PluginLoader(IPluginChecker pluginChecker, SanityChecks sanityChecks) : this(pluginChecker, sanityChecks,
+        public PluginLoader(ILegacyPluginChecker pluginChecker, SanityChecks sanityChecks) : this(pluginChecker, sanityChecks,
             _defaultPluginExtension)
         {
         }
@@ -149,16 +149,16 @@ namespace TheXDS.MCART.PluginSupport
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="PluginLoader" /> utilizando el
-        ///     <see cref="IPluginChecker" /> y la extensión de plugins
+        ///     <see cref="ILegacyPluginChecker" /> y la extensión de plugins
         ///     especificada.
         /// </summary>
         /// <param name="pluginChecker">
-        ///     <see cref="IPluginChecker" /> a utilizar para comprobar la
+        ///     <see cref="ILegacyPluginChecker" /> a utilizar para comprobar la
         ///     compatibilidad de los plugins.
         /// </param>
         /// <param name="sanityChecks">
         ///     Omite las comprobaciones de peligrosidad de los
-        ///     <see cref="Plugin" /> y sus miembros.
+        ///     <see cref="LegacyPlugin" /> y sus miembros.
         /// </param>
         /// <param name="pluginExtension">
         ///     Parámetro opcional. Extensión de los archivos que contienen
@@ -183,7 +183,7 @@ namespace TheXDS.MCART.PluginSupport
         /// <exception cref="ArgumentNullException">
         ///     Se produce si <paramref name="pluginChecker" /> es <see langword="null" />.
         /// </exception>
-        public PluginLoader(IPluginChecker pluginChecker, SanityChecks sanityChecks, string pluginExtension)
+        public PluginLoader(ILegacyPluginChecker pluginChecker, SanityChecks sanityChecks, string pluginExtension)
         {
 #if CheckDanger
             if (sanityChecks.HasAttr<DangerousAttribute>()) throw new DangerousMethodException();
@@ -202,15 +202,15 @@ namespace TheXDS.MCART.PluginSupport
         ///     ensamblado especificado.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="IPlugin" /> de tipo <typeparamref name="T" />.
+        ///     Un <see cref="ILegacyPlugin" /> de tipo <typeparamref name="T" />.
         /// </returns>
-        /// <param name="assembly"><see cref="Reflection.Assembly" /> a cargar.</param>
+        /// <param name="assembly"><see cref="Assembly" /> a cargar.</param>
         /// <typeparam name="T">Clase a cargar.</typeparam>
-        /// <exception cref="T:TheXDS.MCART.Exceptions.NotPluginException">
+        /// <exception cref="NotPluginException">
         ///     Se produce si el ensamblado no contiene ninguna clase cargable como
-        ///     <see cref="IPlugin" />.
+        ///     <see cref="ILegacyPlugin" />.
         /// </exception>
-        /// <exception cref="T:TheXDS.MCART.Exceptions.PluginClassNotFoundException">
+        /// <exception cref="PluginClassNotFoundException">
         ///     Se produce si el ensamblado no contiene ninguna clase cargable como
         ///     <typeparamref name="T" />.
         /// </exception>
@@ -226,20 +226,20 @@ namespace TheXDS.MCART.PluginSupport
 
         /// <inheritdoc />
         /// <summary>
-        ///     Carga todos los <see cref="IPlugin" /> contenidos en el ensamblado.
+        ///     Carga todos los <see cref="ILegacyPlugin" /> contenidos en el ensamblado.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="Collections.Generic.IEnumerable`1" /> con los
-        ///     <see cref="IPlugin" />
+        ///     Un <see cref="IEnumerable{T}" /> con los
+        ///     <see cref="ILegacyPlugin" />
         ///     encontrados.
         /// </returns>
-        /// <param name="assembly"><see cref="Reflection.Assembly" /> a cargar.</param>
+        /// <param name="assembly"><see cref="Assembly" /> a cargar.</param>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        ///     Tipo de <see cref="ILegacyPlugin" /> a cargar.
         /// </typeparam>
-        /// <exception cref="T:TheXDS.MCART.Exceptions.NotPluginException">
+        /// <exception cref="NotPluginException">
         ///     Se produce si <paramref name="assembly" /> no contiene clases cargables
-        ///     como <see cref="IPlugin" />.
+        ///     como <see cref="ILegacyPlugin" />.
         /// </exception>
         public IEnumerable<T> LoadAll<T>(Assembly assembly) where T : class
         {
@@ -248,21 +248,21 @@ namespace TheXDS.MCART.PluginSupport
 
         /// <inheritdoc />
         /// <summary>
-        ///     Carga todos los <see cref="IPlugin" /> contenidos en el ensamblado.
+        ///     Carga todos los <see cref="ILegacyPlugin" /> contenidos en el ensamblado.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="Collections.Generic.IEnumerable`1" /> con los
-        ///     <see cref="IPlugin" />
+        ///     Un <see cref="IEnumerable{T}" /> con los
+        ///     <see cref="ILegacyPlugin" />
         ///     encontrados.
         /// </returns>
-        /// <param name="assembly"><see cref="Reflection.Assembly" /> a cargar.</param>
+        /// <param name="assembly"><see cref="Assembly" /> a cargar.</param>
 #if PreferExceptions
         /// <exception cref="NotPluginException">
         /// Se produce si <paramref name="assembly"/> no contiene clases cargables
-        /// como <see cref="IPlugin"/>. 
+        /// como <see cref="ILegacyPlugin"/>. 
         /// </exception>
 #endif
-        public IEnumerable<IPlugin> LoadAll(Assembly assembly)
+        public IEnumerable<ILegacyPlugin> LoadAll(Assembly assembly)
         {
             return LoadAll(assembly, null);
         }
@@ -272,7 +272,7 @@ namespace TheXDS.MCART.PluginSupport
         ///     <typeparamref name="T" />.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        ///     Tipo de <see cref="ILegacyPlugin" /> a cargar.
         /// </typeparam>
         /// <returns>
         ///     Un enumerador de <see cref="FileInfo" /> de los archivos que
@@ -291,7 +291,7 @@ namespace TheXDS.MCART.PluginSupport
         ///     Ruta del directorio que contiene los archivos a cargar.
         /// </param>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        ///     Tipo de <see cref="ILegacyPlugin" /> a cargar.
         /// </typeparam>
         /// <returns>
         ///     Un enumerador de <see cref="FileInfo" /> de los archivos que
@@ -308,7 +308,7 @@ namespace TheXDS.MCART.PluginSupport
         /// </summary>
         /// <param name="search">Modo de búsqueda.</param>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        ///     Tipo de <see cref="ILegacyPlugin" /> a cargar.
         /// </typeparam>
         /// <returns>
         ///     Un enumerador de <see cref="FileInfo" /> de los archivos que
@@ -328,7 +328,7 @@ namespace TheXDS.MCART.PluginSupport
         /// </param>
         /// <param name="search">Modo de búsqueda.</param>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        ///     Tipo de <see cref="ILegacyPlugin" /> a cargar.
         /// </typeparam>
         /// <returns>
         ///     Un enumerador de <see cref="FileInfo" /> de los archivos que
@@ -355,50 +355,50 @@ namespace TheXDS.MCART.PluginSupport
 
         /// <summary>
         ///     Enumera todos los archivos que contienen clases cargables como
-        ///     <see cref="IPlugin" />.
+        ///     <see cref="ILegacyPlugin" />.
         /// </summary>
         /// <returns>
         ///     Un enumerador de <see cref="FileInfo" /> de los archivos que
-        ///     contienen clases cargables como <see cref="IPlugin" />.
+        ///     contienen clases cargables como <see cref="ILegacyPlugin" />.
         /// </returns>
         public IEnumerable<FileInfo> Dir()
         {
-            return Dir<IPlugin>(Environment.CurrentDirectory, SearchOption.TopDirectoryOnly);
+            return Dir<ILegacyPlugin>(Environment.CurrentDirectory, SearchOption.TopDirectoryOnly);
         }
 
         /// <summary>
         ///     Enumera todos los archivos que contienen clases cargables como
-        ///     <see cref="IPlugin" />.
+        ///     <see cref="ILegacyPlugin" />.
         /// </summary>
         /// <param name="pluginsPath">
         ///     Ruta del directorio que contiene los archivos a cargar.
         /// </param>
         /// <returns>
         ///     Un enumerador de <see cref="FileInfo" /> de los archivos que
-        ///     contienen clases cargables como <see cref="IPlugin" />.
+        ///     contienen clases cargables como <see cref="ILegacyPlugin" />.
         /// </returns>
         public IEnumerable<FileInfo> Dir(string pluginsPath)
         {
-            return Dir<IPlugin>(pluginsPath, SearchOption.TopDirectoryOnly);
+            return Dir<ILegacyPlugin>(pluginsPath, SearchOption.TopDirectoryOnly);
         }
 
         /// <summary>
         ///     Enumera todos los archivos que contienen clases cargables como
-        ///     <see cref="IPlugin" />.
+        ///     <see cref="ILegacyPlugin" />.
         /// </summary>
         /// <param name="search">Modo de búsqueda.</param>
         /// <returns>
         ///     Un enumerador de <see cref="FileInfo" /> de los archivos que
-        ///     contienen clases cargables como <see cref="IPlugin" />.
+        ///     contienen clases cargables como <see cref="ILegacyPlugin" />.
         /// </returns>
         public IEnumerable<FileInfo> Dir(SearchOption search)
         {
-            return Dir<IPlugin>(Environment.CurrentDirectory, search);
+            return Dir<ILegacyPlugin>(Environment.CurrentDirectory, search);
         }
 
         /// <summary>
         ///     Enumera todos los archivos que contienen clases cargables como
-        ///     <see cref="IPlugin" />.
+        ///     <see cref="ILegacyPlugin" />.
         /// </summary>
         /// <param name="pluginsPath">
         ///     Ruta del directorio que contiene los archivos a cargar.
@@ -406,11 +406,11 @@ namespace TheXDS.MCART.PluginSupport
         /// <param name="search">Modo de búsqueda.</param>
         /// <returns>
         ///     Un enumerador de <see cref="FileInfo" /> de los archivos que
-        ///     contienen clases cargables como <see cref="IPlugin" />.
+        ///     contienen clases cargables como <see cref="ILegacyPlugin" />.
         /// </returns>
         public IEnumerable<FileInfo> Dir(string pluginsPath, SearchOption search)
         {
-            return Dir<IPlugin>(pluginsPath, search);
+            return Dir<ILegacyPlugin>(pluginsPath, search);
         }
 
         /// <summary>
@@ -418,7 +418,7 @@ namespace TheXDS.MCART.PluginSupport
         ///     ensamblado especificado.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="IPlugin" /> de tipo <typeparamref name="T" />.
+        ///     Un <see cref="ILegacyPlugin" /> de tipo <typeparamref name="T" />.
         /// </returns>
         /// <param name="asmPath">Ruta del ensamblado a cargar.</param>
         /// <typeparam name="T">Clase a cargar.</typeparam>
@@ -449,7 +449,7 @@ namespace TheXDS.MCART.PluginSupport
         /// </exception>
         /// <exception cref="NotPluginException">
         ///     Se produce si el ensamblado no contiene ninguna clase cargable como
-        ///     <see cref="IPlugin" />.
+        ///     <see cref="ILegacyPlugin" />.
         /// </exception>
         /// <exception cref="PluginClassNotFoundException">
         ///     Se produce si el ensamblado no contiene ninguna clase cargable como
@@ -461,15 +461,15 @@ namespace TheXDS.MCART.PluginSupport
         }
 
         /// <summary>
-        ///     Carga todos los <see cref="IPlugin" /> contenidos en el ensamblado.
+        ///     Carga todos los <see cref="ILegacyPlugin" /> contenidos en el ensamblado.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="IEnumerable{T}" /> con los <see cref="IPlugin" />
+        ///     Un <see cref="IEnumerable{T}" /> con los <see cref="ILegacyPlugin" />
         ///     encontrados.
         /// </returns>
         /// <param name="asmPath">Ruta del ensamblado a cargar.</param>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        ///     Tipo de <see cref="ILegacyPlugin" /> a cargar.
         /// </typeparam>
         /// <exception cref="FileNotFoundException">
         ///     Se produce si el archivo del ensamblado no ha sido encontrado.
@@ -480,49 +480,49 @@ namespace TheXDS.MCART.PluginSupport
         }
 
         /// <summary>
-        ///     Carga todos los <see cref="IPlugin" /> contenidos en el ensamblado.
+        ///     Carga todos los <see cref="ILegacyPlugin" /> contenidos en el ensamblado.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="Collections.Generic.IEnumerable`1" /> con los
-        ///     <see cref="IPlugin" />
+        ///     Un <see cref="IEnumerable{T}" /> con los
+        ///     <see cref="ILegacyPlugin" />
         ///     encontrados.
         /// </returns>
-        /// <param name="assembly"><see cref="Reflection.Assembly" /> a cargar.</param>
+        /// <param name="assembly"><see cref="Assembly" /> a cargar.</param>
         /// <param name="predicate">
-        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
+        ///     Función que evalúa si un tipo que implementa <see cref="ILegacyPlugin" /> debería ser cargado o no.
         /// </param>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        ///     Tipo de <see cref="ILegacyPlugin" /> a cargar.
         /// </typeparam>
-        /// <exception cref="T:TheXDS.MCART.Exceptions.NotPluginException">
+        /// <exception cref="NotPluginException">
         ///     Se produce si <paramref name="assembly" /> no contiene clases cargables
-        ///     como <see cref="IPlugin" />.
+        ///     como <see cref="ILegacyPlugin" />.
         /// </exception>
-        public IEnumerable<T> LoadAll<T>(Assembly assembly, Func<Type, bool> predicate) where T : class
+        public IEnumerable<T> LoadAll<T>(Assembly assembly, Func<Type, bool>? predicate) where T : class
         {
             return LoadAll(assembly, predicate).OfType<T>();
         }
 
         /// <summary>
-        ///     Carga todos los <see cref="IPlugin" /> contenidos en el
+        ///     Carga todos los <see cref="ILegacyPlugin" /> contenidos en el
         ///     ensamblado.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="IEnumerable{T}" /> con los <see cref="IPlugin" />
+        ///     Un <see cref="IEnumerable{T}" /> con los <see cref="ILegacyPlugin" />
         ///     encontrados.
         /// </returns>
         /// <param name="assembly"><see cref="Assembly" /> a cargar.</param>
         /// <param name="predicate">
         ///     Función que evalúa si un tipo que implementa
-        ///     <see cref="IPlugin" /> debería ser cargado o no.
+        ///     <see cref="ILegacyPlugin" /> debería ser cargado o no.
         /// </param>
 #if PreferExceptions
         /// <exception cref="NotPluginException">
         /// Se produce si <paramref name="assembly"/> no contiene clases cargables
-        /// como <see cref="IPlugin"/>. 
+        /// como <see cref="ILegacyPlugin"/>. 
         /// </exception>
 #endif
-        public IEnumerable<IPlugin> LoadAll(Assembly assembly, Func<Type, bool> predicate)
+        public IEnumerable<ILegacyPlugin> LoadAll(Assembly assembly, Func<Type, bool>? predicate)
         {
             bool IsTypeCompatible(Type p) => _checker.IsValid(p) && (_checker.IsCompatible(p) ?? false) && (predicate?.Invoke(p) ?? true);
 #if PreferExceptions
@@ -531,49 +531,49 @@ namespace TheXDS.MCART.PluginSupport
             if (_checker.IsVaild(assembly))
 #endif
                 foreach (var j in assembly.GetTypes().Where(IsTypeCompatible))
-                    yield return j.New() as IPlugin;
+                    yield return j.New<ILegacyPlugin>();
         }
 
         /// <summary>
-        ///     Carga todos los <see cref="IPlugin" /> contenidos en el
+        ///     Carga todos los <see cref="ILegacyPlugin" /> contenidos en el
         ///     ensamblado de forma asíncrona.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="IEnumerable{T}" /> con los <see cref="IPlugin" />
+        ///     Un <see cref="IEnumerable{T}" /> con los <see cref="ILegacyPlugin" />
         ///     encontrados.
         /// </returns>
         /// <param name="assembly"><see cref="Assembly" /> a cargar.</param>
         /// <param name="predicate">
         ///     Función que evalúa si un tipo que implementa
-        ///     <see cref="IPlugin" /> debería ser cargado o no.
+        ///     <see cref="ILegacyPlugin" /> debería ser cargado o no.
         /// </param>
-        public async Task<IEnumerable<IPlugin>> LoadAllAsync(Assembly assembly, Func<Type, bool> predicate)
+        public async Task<IEnumerable<ILegacyPlugin>> LoadAllAsync(Assembly assembly, Func<Type, bool>? predicate)
         {
             bool IsTypeCompatible(Type p) => _checker.IsValid(p) && (_checker.IsCompatible(p) ?? false) && (predicate?.Invoke(p) ?? true);
             if (await Task.Run(() => _checker.IsVaild(assembly)))
             {
-                return assembly.GetTypes().Where(IsTypeCompatible).Select(p => p.New<IPlugin>());
+                return assembly.GetTypes().Where(IsTypeCompatible).Select(p => p.New<ILegacyPlugin>());
             }
 #if PreferExceptions
             else { throw new NotPluginException(assembly); }
 #endif
-            return new IPlugin[0];
+            return new ILegacyPlugin[0];
         }
 
         /// <summary>
-        ///     Carga todos los <see cref="IPlugin" /> contenidos en el
+        ///     Carga todos los <see cref="ILegacyPlugin" /> contenidos en el
         ///     ensamblado de forma asíncrona.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="IEnumerable{T}" /> con los <see cref="IPlugin" />
+        ///     Un <see cref="IEnumerable{T}" /> con los <see cref="ILegacyPlugin" />
         ///     encontrados.
         /// </returns>
         /// <param name="assembly"><see cref="Assembly" /> a cargar.</param>
         /// <param name="predicate">
         ///     Función que evalúa si un tipo que implementa
-        ///     <see cref="IPlugin" /> debería ser cargado o no.
+        ///     <see cref="ILegacyPlugin" /> debería ser cargado o no.
         /// </param>
-        public async Task<IEnumerable<T>> LoadAllAsync<T>(Assembly assembly, Func<Type, bool> predicate) where T : class
+        public async Task<IEnumerable<T>> LoadAllAsync<T>(Assembly assembly, Func<Type, bool>? predicate) where T : class
         {
             return (await LoadAllAsync(assembly, predicate)).OfType<T>();
         }
@@ -583,136 +583,136 @@ namespace TheXDS.MCART.PluginSupport
         ///     Carga todos los plugins de todos los ensamblados en el directorio.
         /// </summary>
         /// <returns>
-        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     Un enumerador que itera sobre todos los <see cref="ILegacyPlugin" /> que
         ///     pueden ser cargados.
         /// </returns>
-        public IEnumerable<IPlugin> LoadEverything()
+        public IEnumerable<ILegacyPlugin> LoadEverything()
         {
-            return LoadEverything<IPlugin>(Environment.CurrentDirectory, SearchOption.TopDirectoryOnly);
+            return LoadEverything<ILegacyPlugin>(Environment.CurrentDirectory, SearchOption.TopDirectoryOnly);
         }
 
         /// <summary>
         ///     Carga todos los plugins de todos los ensamblados en el directorio.
         /// </summary>
         /// <returns>
-        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
-        ///     pueden ser cargados.
-        /// </returns>
-        /// <param name="pluginsPath">
-        ///     Ruta del directorio que contiene los archivos a cargar.
-        /// </param>
-        public IEnumerable<IPlugin> LoadEverything(string pluginsPath)
-        {
-            return LoadEverything<IPlugin>(pluginsPath, SearchOption.TopDirectoryOnly);
-        }
-
-        /// <summary>
-        ///     Carga todos los plugins de todos los ensamblados en el directorio.
-        /// </summary>
-        /// <returns>
-        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
-        ///     pueden ser cargados.
-        /// </returns>
-        /// <param name="search">Modo de búsqueda.</param>
-        public IEnumerable<IPlugin> LoadEverything(SearchOption search)
-        {
-            return LoadEverything<IPlugin>(Environment.CurrentDirectory, search);
-        }
-
-        /// <summary>
-        ///     Carga todos los plugins de todos los ensamblados en el directorio.
-        /// </summary>
-        /// <returns>
-        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     Un enumerador que itera sobre todos los <see cref="ILegacyPlugin" /> que
         ///     pueden ser cargados.
         /// </returns>
         /// <param name="pluginsPath">
         ///     Ruta del directorio que contiene los archivos a cargar.
         /// </param>
-        /// <param name="search">Modo de búsqueda.</param>
-        public IEnumerable<IPlugin> LoadEverything(string pluginsPath, SearchOption search)
+        public IEnumerable<ILegacyPlugin> LoadEverything(string pluginsPath)
         {
-            return LoadEverything<IPlugin>(pluginsPath, search);
-        }
-
-
-        /// <summary>
-        ///     Carga todos los plugins de todos los ensamblados en el directorio.
-        /// </summary>
-        /// <returns>
-        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
-        ///     pueden ser cargados.
-        /// </returns>
-        /// <param name="predicate">
-        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
-        /// </param>
-        public IEnumerable<IPlugin> LoadEverything(Func<Type, bool> predicate)
-        {
-            return LoadEverything<IPlugin>(Environment.CurrentDirectory, SearchOption.TopDirectoryOnly, predicate);
+            return LoadEverything<ILegacyPlugin>(pluginsPath, SearchOption.TopDirectoryOnly);
         }
 
         /// <summary>
         ///     Carga todos los plugins de todos los ensamblados en el directorio.
         /// </summary>
         /// <returns>
-        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
-        ///     pueden ser cargados.
-        /// </returns>
-        /// <param name="pluginsPath">
-        ///     Ruta del directorio que contiene los archivos a cargar.
-        /// </param>
-        /// <param name="predicate">
-        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
-        /// </param>
-        public IEnumerable<IPlugin> LoadEverything(string pluginsPath, Func<Type, bool> predicate)
-        {
-            return LoadEverything<IPlugin>(pluginsPath, SearchOption.TopDirectoryOnly, predicate);
-        }
-
-        /// <summary>
-        ///     Carga todos los plugins de todos los ensamblados en el directorio.
-        /// </summary>
-        /// <returns>
-        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     Un enumerador que itera sobre todos los <see cref="ILegacyPlugin" /> que
         ///     pueden ser cargados.
         /// </returns>
         /// <param name="search">Modo de búsqueda.</param>
-        /// <param name="predicate">
-        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
-        /// </param>
-        public IEnumerable<IPlugin> LoadEverything(SearchOption search, Func<Type, bool> predicate)
+        public IEnumerable<ILegacyPlugin> LoadEverything(SearchOption search)
         {
-            return LoadEverything<IPlugin>(Environment.CurrentDirectory, search, predicate);
+            return LoadEverything<ILegacyPlugin>(Environment.CurrentDirectory, search);
         }
 
         /// <summary>
         ///     Carga todos los plugins de todos los ensamblados en el directorio.
         /// </summary>
-        /// <param name="predicate">
-        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
-        /// </param>
         /// <returns>
-        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     Un enumerador que itera sobre todos los <see cref="ILegacyPlugin" /> que
         ///     pueden ser cargados.
         /// </returns>
         /// <param name="pluginsPath">
         ///     Ruta del directorio que contiene los archivos a cargar.
         /// </param>
         /// <param name="search">Modo de búsqueda.</param>
-        public IEnumerable<IPlugin> LoadEverything(string pluginsPath, SearchOption search, Func<Type, bool> predicate)
+        public IEnumerable<ILegacyPlugin> LoadEverything(string pluginsPath, SearchOption search)
         {
-            return LoadEverything<IPlugin>(pluginsPath, search, predicate);
+            return LoadEverything<ILegacyPlugin>(pluginsPath, search);
+        }
+
+
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="ILegacyPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        /// <param name="predicate">
+        ///     Función que evalúa si un tipo que implementa <see cref="ILegacyPlugin" /> debería ser cargado o no.
+        /// </param>
+        public IEnumerable<ILegacyPlugin> LoadEverything(Func<Type, bool> predicate)
+        {
+            return LoadEverything<ILegacyPlugin>(Environment.CurrentDirectory, SearchOption.TopDirectoryOnly, predicate);
         }
 
         /// <summary>
         ///     Carga todos los plugins de todos los ensamblados en el directorio.
         /// </summary>
         /// <returns>
-        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     Un enumerador que itera sobre todos los <see cref="ILegacyPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        /// <param name="pluginsPath">
+        ///     Ruta del directorio que contiene los archivos a cargar.
+        /// </param>
+        /// <param name="predicate">
+        ///     Función que evalúa si un tipo que implementa <see cref="ILegacyPlugin" /> debería ser cargado o no.
+        /// </param>
+        public IEnumerable<ILegacyPlugin> LoadEverything(string pluginsPath, Func<Type, bool> predicate)
+        {
+            return LoadEverything<ILegacyPlugin>(pluginsPath, SearchOption.TopDirectoryOnly, predicate);
+        }
+
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="ILegacyPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        /// <param name="search">Modo de búsqueda.</param>
+        /// <param name="predicate">
+        ///     Función que evalúa si un tipo que implementa <see cref="ILegacyPlugin" /> debería ser cargado o no.
+        /// </param>
+        public IEnumerable<ILegacyPlugin> LoadEverything(SearchOption search, Func<Type, bool> predicate)
+        {
+            return LoadEverything<ILegacyPlugin>(Environment.CurrentDirectory, search, predicate);
+        }
+
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <param name="predicate">
+        ///     Función que evalúa si un tipo que implementa <see cref="ILegacyPlugin" /> debería ser cargado o no.
+        /// </param>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="ILegacyPlugin" /> que
+        ///     pueden ser cargados.
+        /// </returns>
+        /// <param name="pluginsPath">
+        ///     Ruta del directorio que contiene los archivos a cargar.
+        /// </param>
+        /// <param name="search">Modo de búsqueda.</param>
+        public IEnumerable<ILegacyPlugin> LoadEverything(string pluginsPath, SearchOption search, Func<Type, bool> predicate)
+        {
+            return LoadEverything<ILegacyPlugin>(pluginsPath, search, predicate);
+        }
+
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados en el directorio.
+        /// </summary>
+        /// <returns>
+        ///     Un enumerador que itera sobre todos los <see cref="ILegacyPlugin" /> que
         ///     pueden ser cargados.
         /// </returns>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        ///     Tipo de <see cref="ILegacyPlugin" /> a cargar.
         /// </typeparam>
         public IEnumerable<T> LoadEverything<T>() where T : class
         {
@@ -723,16 +723,16 @@ namespace TheXDS.MCART.PluginSupport
         ///     Carga todos los plugins de todos los ensamblados en el directorio.
         /// </summary>
         /// <returns>
-        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     Un enumerador que itera sobre todos los <see cref="ILegacyPlugin" /> que
         ///     pueden ser cargados.
         /// </returns>
         /// <param name="predicate">
-        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
+        ///     Función que evalúa si un tipo que implementa <see cref="ILegacyPlugin" /> debería ser cargado o no.
         /// </param>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        ///     Tipo de <see cref="ILegacyPlugin" /> a cargar.
         /// </typeparam>
-        public IEnumerable<T> LoadEverything<T>(Func<Type, bool> predicate) where T : class
+        public IEnumerable<T> LoadEverything<T>(Func<Type, bool>? predicate) where T : class
         {
             return LoadEverything<T>(Environment.CurrentDirectory, SearchOption.TopDirectoryOnly, predicate);
         }
@@ -741,14 +741,14 @@ namespace TheXDS.MCART.PluginSupport
         ///     Carga todos los plugins de todos los ensamblados en el directorio.
         /// </summary>
         /// <returns>
-        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     Un enumerador que itera sobre todos los <see cref="ILegacyPlugin" /> que
         ///     pueden ser cargados.
         /// </returns>
         /// <param name="pluginsPath">
         ///     Ruta del directorio que contiene los archivos a cargar.
         /// </param>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        ///     Tipo de <see cref="ILegacyPlugin" /> a cargar.
         /// </typeparam>
         public IEnumerable<T> LoadEverything<T>(string pluginsPath) where T : class
         {
@@ -759,17 +759,17 @@ namespace TheXDS.MCART.PluginSupport
         ///     Carga todos los plugins de todos los ensamblados en el directorio.
         /// </summary>
         /// <returns>
-        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     Un enumerador que itera sobre todos los <see cref="ILegacyPlugin" /> que
         ///     pueden ser cargados.
         /// </returns>
         /// <param name="pluginsPath">
         ///     Ruta del directorio que contiene los archivos a cargar.
         /// </param>
         /// <param name="predicate">
-        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
+        ///     Función que evalúa si un tipo que implementa <see cref="ILegacyPlugin" /> debería ser cargado o no.
         /// </param>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        ///     Tipo de <see cref="ILegacyPlugin" /> a cargar.
         /// </typeparam>
         public IEnumerable<T> LoadEverything<T>(string pluginsPath, Func<Type, bool> predicate) where T : class
         {
@@ -780,12 +780,12 @@ namespace TheXDS.MCART.PluginSupport
         ///     Carga todos los plugins de todos los ensamblados en el directorio.
         /// </summary>
         /// <returns>
-        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     Un enumerador que itera sobre todos los <see cref="ILegacyPlugin" /> que
         ///     pueden ser cargados.
         /// </returns>
         /// <param name="search">Modo de búsqueda.</param>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        ///     Tipo de <see cref="ILegacyPlugin" /> a cargar.
         /// </typeparam>
         public IEnumerable<T> LoadEverything<T>(SearchOption search) where T : class
         {
@@ -796,15 +796,15 @@ namespace TheXDS.MCART.PluginSupport
         ///     Carga todos los plugins de todos los ensamblados en el directorio.
         /// </summary>
         /// <param name="predicate">
-        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
+        ///     Función que evalúa si un tipo que implementa <see cref="ILegacyPlugin" /> debería ser cargado o no.
         /// </param>
         /// <returns>
-        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     Un enumerador que itera sobre todos los <see cref="ILegacyPlugin" /> que
         ///     pueden ser cargados.
         /// </returns>
         /// <param name="search">Modo de búsqueda.</param>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        ///     Tipo de <see cref="ILegacyPlugin" /> a cargar.
         /// </typeparam>
         public IEnumerable<T> LoadEverything<T>(SearchOption search, Func<Type, bool> predicate) where T : class
         {
@@ -815,7 +815,7 @@ namespace TheXDS.MCART.PluginSupport
         ///     Carga todos los plugins de todos los ensamblados en el directorio.
         /// </summary>
         /// <returns>
-        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     Un enumerador que itera sobre todos los <see cref="ILegacyPlugin" /> que
         ///     pueden ser cargados.
         /// </returns>
         /// <param name="pluginsPath">
@@ -823,7 +823,7 @@ namespace TheXDS.MCART.PluginSupport
         /// </param>
         /// <param name="search">Modo de búsqueda.</param>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        ///     Tipo de <see cref="ILegacyPlugin" /> a cargar.
         /// </typeparam>
         public IEnumerable<T> LoadEverything<T>(string pluginsPath, SearchOption search) where T : class
         {
@@ -834,7 +834,7 @@ namespace TheXDS.MCART.PluginSupport
         ///     Carga todos los plugins de todos los ensamblados en el directorio.
         /// </summary>
         /// <returns>
-        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     Un enumerador que itera sobre todos los <see cref="ILegacyPlugin" /> que
         ///     pueden ser cargados.
         /// </returns>
         /// <param name="pluginsPath">
@@ -842,18 +842,18 @@ namespace TheXDS.MCART.PluginSupport
         /// </param>
         /// <param name="search">Modo de búsqueda.</param>
         /// <param name="predicate">
-        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
+        ///     Función que evalúa si un tipo que implementa <see cref="ILegacyPlugin" /> debería ser cargado o no.
         /// </param>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        ///     Tipo de <see cref="ILegacyPlugin" /> a cargar.
         /// </typeparam>
-        public IEnumerable<T> LoadEverything<T>(string pluginsPath, SearchOption search, Func<Type, bool> predicate)
+        public IEnumerable<T> LoadEverything<T>(string pluginsPath, SearchOption search, Func<Type, bool>? predicate)
             where T : class
         {
             if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
             foreach (var f in new DirectoryInfo(pluginsPath).GetFiles($"*{_extension}", search))
             {
-                Assembly a = null;
+                Assembly? a = null;
                 try
                 {
                     a = Assembly.LoadFrom(f.FullName);
@@ -873,7 +873,7 @@ namespace TheXDS.MCART.PluginSupport
         ///     Carga todos los plugins de todos los ensamblados en el directorio.
         /// </summary>
         /// <returns>
-        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     Un enumerador que itera sobre todos los <see cref="ILegacyPlugin" /> que
         ///     pueden ser cargados.
         /// </returns>
         /// <param name="pluginsPath">
@@ -881,19 +881,19 @@ namespace TheXDS.MCART.PluginSupport
         /// </param>
         /// <param name="search">Modo de búsqueda.</param>
         /// <param name="predicate">
-        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
+        ///     Función que evalúa si un tipo que implementa <see cref="ILegacyPlugin" /> debería ser cargado o no.
         /// </param>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        ///     Tipo de <see cref="ILegacyPlugin" /> a cargar.
         /// </typeparam>
-        public async Task<IEnumerable<T>> LoadEverythingAsync<T>(string pluginsPath, SearchOption search, Func<Type, bool> predicate)
+        public async Task<IEnumerable<T>> LoadEverythingAsync<T>(string pluginsPath, SearchOption search, Func<Type, bool>? predicate)
             where T : class
         {
             if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
             var r = new List<T>();
             foreach (var f in await Task.Run(() => new DirectoryInfo(pluginsPath).GetFiles($"*{_extension}", search)))
             {
-                Assembly a = null;
+                Assembly? a = null;
                 try
                 {
                     a = await Task.Run(() => Assembly.LoadFrom(f.FullName));
@@ -914,7 +914,7 @@ namespace TheXDS.MCART.PluginSupport
         ///     Carga todos los plugins de todos los ensamblados en el directorio.
         /// </summary>
         /// <returns>
-        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     Un enumerador que itera sobre todos los <see cref="ILegacyPlugin" /> que
         ///     pueden ser cargados.
         /// </returns>
         /// <param name="pluginsPath">
@@ -922,7 +922,7 @@ namespace TheXDS.MCART.PluginSupport
         /// </param>
         /// <param name="search">Modo de búsqueda.</param>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        ///     Tipo de <see cref="ILegacyPlugin" /> a cargar.
         /// </typeparam>
         public Task<IEnumerable<T>> LoadEverythingAsync<T>(string pluginsPath, SearchOption search) where T : class
         {
@@ -933,14 +933,14 @@ namespace TheXDS.MCART.PluginSupport
         ///     Carga todos los plugins de todos los ensamblados en el directorio.
         /// </summary>
         /// <returns>
-        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     Un enumerador que itera sobre todos los <see cref="ILegacyPlugin" /> que
         ///     pueden ser cargados.
         /// </returns>
         /// <param name="pluginsPath">
         ///     Ruta del directorio que contiene los archivos a cargar.
         /// </param>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        ///     Tipo de <see cref="ILegacyPlugin" /> a cargar.
         /// </typeparam>
         public Task<IEnumerable<T>> LoadEverythingAsync<T>(string pluginsPath) where T : class
         {
@@ -951,11 +951,11 @@ namespace TheXDS.MCART.PluginSupport
         ///     Carga todos los plugins de todos los ensamblados en el directorio.
         /// </summary>
         /// <returns>
-        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     Un enumerador que itera sobre todos los <see cref="ILegacyPlugin" /> que
         ///     pueden ser cargados.
         /// </returns>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        ///     Tipo de <see cref="ILegacyPlugin" /> a cargar.
         /// </typeparam>
         public Task<IEnumerable<T>> LoadEverythingAsync<T>() where T : class
         {
@@ -966,14 +966,14 @@ namespace TheXDS.MCART.PluginSupport
         ///     Carga todos los plugins de todos los ensamblados en el directorio.
         /// </summary>
         /// <returns>
-        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     Un enumerador que itera sobre todos los <see cref="ILegacyPlugin" /> que
         ///     pueden ser cargados.
         /// </returns>
         /// <param name="predicate">
-        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
+        ///     Función que evalúa si un tipo que implementa <see cref="ILegacyPlugin" /> debería ser cargado o no.
         /// </param>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        ///     Tipo de <see cref="ILegacyPlugin" /> a cargar.
         /// </typeparam>
         public Task<IEnumerable<T>> LoadEverythingAsync<T>(Func<Type, bool> predicate)
             where T : class
@@ -985,17 +985,17 @@ namespace TheXDS.MCART.PluginSupport
         ///     Carga todos los plugins de todos los ensamblados en el directorio.
         /// </summary>
         /// <returns>
-        ///     Un enumerador que itera sobre todos los <see cref="IPlugin" /> que
+        ///     Un enumerador que itera sobre todos los <see cref="ILegacyPlugin" /> que
         ///     pueden ser cargados.
         /// </returns>
         /// <param name="pluginsPath">
         ///     Ruta del directorio que contiene los archivos a cargar.
         /// </param>
         /// <param name="predicate">
-        ///     Función que evalúa si un tipo que implementa <see cref="IPlugin" /> debería ser cargado o no.
+        ///     Función que evalúa si un tipo que implementa <see cref="ILegacyPlugin" /> debería ser cargado o no.
         /// </param>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        ///     Tipo de <see cref="ILegacyPlugin" /> a cargar.
         /// </typeparam>
         public Task<IEnumerable<T>> LoadEverythingAsync<T>(string pluginsPath, Func<Type, bool> predicate)
             where T : class
@@ -1004,13 +1004,13 @@ namespace TheXDS.MCART.PluginSupport
         }
 
         /// <summary>
-        ///     Carga cualquier <see cref="IPlugin" /> disponible.
+        ///     Carga cualquier <see cref="ILegacyPlugin" /> disponible.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="IPlugin" /> de tipo <typeparamref name="T" />.
+        ///     Un <see cref="ILegacyPlugin" /> de tipo <typeparamref name="T" />.
         /// </returns>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        ///     Tipo de <see cref="ILegacyPlugin" /> a cargar.
         /// </typeparam>
         public T LoadWhatever<T>() where T : class
         {
@@ -1018,16 +1018,16 @@ namespace TheXDS.MCART.PluginSupport
         }
 
         /// <summary>
-        ///     Carga cualquier <see cref="IPlugin" /> disponible.
+        ///     Carga cualquier <see cref="ILegacyPlugin" /> disponible.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="IPlugin" /> de tipo <typeparamref name="T" />.
+        ///     Un <see cref="ILegacyPlugin" /> de tipo <typeparamref name="T" />.
         /// </returns>
         /// <param name="pluginsPath">
         ///     Ruta del directorio que contiene los archivos a cargar.
         /// </param>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        ///     Tipo de <see cref="ILegacyPlugin" /> a cargar.
         /// </typeparam>
         public T LoadWhatever<T>(string pluginsPath) where T : class
         {
@@ -1035,14 +1035,14 @@ namespace TheXDS.MCART.PluginSupport
         }
 
         /// <summary>
-        ///     Carga cualquier <see cref="IPlugin" /> disponible.
+        ///     Carga cualquier <see cref="ILegacyPlugin" /> disponible.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="IPlugin" /> de tipo <typeparamref name="T" />.
+        ///     Un <see cref="ILegacyPlugin" /> de tipo <typeparamref name="T" />.
         /// </returns>
         /// <param name="search">Modo de búsqueda.</param>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        ///     Tipo de <see cref="ILegacyPlugin" /> a cargar.
         /// </typeparam>
         public T LoadWhatever<T>(SearchOption search) where T : class
         {
@@ -1050,17 +1050,17 @@ namespace TheXDS.MCART.PluginSupport
         }
 
         /// <summary>
-        ///     Carga cualquier <see cref="IPlugin" /> disponible.
+        ///     Carga cualquier <see cref="ILegacyPlugin" /> disponible.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="IPlugin" /> de tipo <typeparamref name="T" />.
+        ///     Un <see cref="ILegacyPlugin" /> de tipo <typeparamref name="T" />.
         /// </returns>
         /// <param name="pluginsPath">
         ///     Ruta del directorio que contiene los archivos a cargar.
         /// </param>
         /// <param name="search">Modo de búsqueda.</param>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="IPlugin" /> a cargar.
+        ///     Tipo de <see cref="ILegacyPlugin" /> a cargar.
         /// </typeparam>
         public T LoadWhatever<T>(string pluginsPath, SearchOption search) where T : class
         {
@@ -1206,9 +1206,9 @@ namespace TheXDS.MCART.PluginSupport
         ///     Un <see cref="Dictionary{TKey, TValue}" /> con los ensamblados y
         ///     sus correspondientes plugins.
         /// </returns>
-        public Dictionary<string, IEnumerable<IPlugin>> PluginTree()
+        public Dictionary<string, IEnumerable<ILegacyPlugin>> PluginTree()
         {
-            return PluginTree<IPlugin>(Environment.CurrentDirectory, "*", SearchOption.TopDirectoryOnly);
+            return PluginTree<ILegacyPlugin>(Environment.CurrentDirectory, "*", SearchOption.TopDirectoryOnly);
         }
 
         /// <summary>
@@ -1222,63 +1222,9 @@ namespace TheXDS.MCART.PluginSupport
         ///     Un <see cref="Dictionary{TKey, TValue}" /> con los ensamblados y
         ///     sus correspondientes plugins.
         /// </returns>
-        public Dictionary<string, IEnumerable<IPlugin>> PluginTree(string pluginsPath)
+        public Dictionary<string, IEnumerable<ILegacyPlugin>> PluginTree(string pluginsPath)
         {
-            return PluginTree<IPlugin>(pluginsPath, "*", SearchOption.TopDirectoryOnly);
-        }
-
-        /// <summary>
-        ///     Carga todos los plugins de todos los ensamblados que coincidan con
-        ///     el patrón como una estructura de árbol.
-        /// </summary>
-        /// <param name="pluginsPath">
-        ///     Ruta de búsqueda. Debe ser un directorio.
-        /// </param>
-        /// <param name="searchPattern">
-        ///     Patrón de búsqueda de ensamblados.
-        /// </param>
-        /// <returns>
-        ///     Un <see cref="Dictionary{TKey, TValue}" /> con los ensamblados y
-        ///     sus correspondientes plugins.
-        /// </returns>
-        public Dictionary<string, IEnumerable<IPlugin>> PluginTree(string pluginsPath, string searchPattern)
-        {
-            return PluginTree<IPlugin>(pluginsPath, searchPattern, SearchOption.TopDirectoryOnly);
-        }
-
-        /// <summary>
-        ///     Carga todos los plugins de todos los ensamblados que coincidan con
-        ///     el patrón como una estructura de árbol.
-        /// </summary>
-        /// <param name="search">
-        ///     <see cref="SearchOption" /> con las opciones de búsqueda.
-        /// </param>
-        /// <returns>
-        ///     Un <see cref="Dictionary{TKey, TValue}" /> con los ensamblados y
-        ///     sus correspondientes plugins.
-        /// </returns>
-        public Dictionary<string, IEnumerable<IPlugin>> PluginTree(SearchOption search)
-        {
-            return PluginTree<IPlugin>(Environment.CurrentDirectory, "*", search);
-        }
-
-        /// <summary>
-        ///     Carga todos los plugins de todos los ensamblados que coincidan con
-        ///     el patrón como una estructura de árbol.
-        /// </summary>
-        /// <param name="pluginsPath">
-        ///     Ruta de búsqueda. Debe ser un directorio.
-        /// </param>
-        /// <param name="search">
-        ///     <see cref="SearchOption" /> con las opciones de búsqueda.
-        /// </param>
-        /// <returns>
-        ///     Un <see cref="Dictionary{TKey, TValue}" /> con los ensamblados y
-        ///     sus correspondientes plugins.
-        /// </returns>
-        public Dictionary<string, IEnumerable<IPlugin>> PluginTree(string pluginsPath, SearchOption search)
-        {
-            return PluginTree<IPlugin>(pluginsPath, "*", search);
+            return PluginTree<ILegacyPlugin>(pluginsPath, "*", SearchOption.TopDirectoryOnly);
         }
 
         /// <summary>
@@ -1291,6 +1237,19 @@ namespace TheXDS.MCART.PluginSupport
         /// <param name="searchPattern">
         ///     Patrón de búsqueda de ensamblados.
         /// </param>
+        /// <returns>
+        ///     Un <see cref="Dictionary{TKey, TValue}" /> con los ensamblados y
+        ///     sus correspondientes plugins.
+        /// </returns>
+        public Dictionary<string, IEnumerable<ILegacyPlugin>> PluginTree(string pluginsPath, string searchPattern)
+        {
+            return PluginTree<ILegacyPlugin>(pluginsPath, searchPattern, SearchOption.TopDirectoryOnly);
+        }
+
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados que coincidan con
+        ///     el patrón como una estructura de árbol.
+        /// </summary>
         /// <param name="search">
         ///     <see cref="SearchOption" /> con las opciones de búsqueda.
         /// </param>
@@ -1298,10 +1257,51 @@ namespace TheXDS.MCART.PluginSupport
         ///     Un <see cref="Dictionary{TKey, TValue}" /> con los ensamblados y
         ///     sus correspondientes plugins.
         /// </returns>
-        public Dictionary<string, IEnumerable<IPlugin>> PluginTree(string pluginsPath, string searchPattern,
+        public Dictionary<string, IEnumerable<ILegacyPlugin>> PluginTree(SearchOption search)
+        {
+            return PluginTree<ILegacyPlugin>(Environment.CurrentDirectory, "*", search);
+        }
+
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados que coincidan con
+        ///     el patrón como una estructura de árbol.
+        /// </summary>
+        /// <param name="pluginsPath">
+        ///     Ruta de búsqueda. Debe ser un directorio.
+        /// </param>
+        /// <param name="search">
+        ///     <see cref="SearchOption" /> con las opciones de búsqueda.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="Dictionary{TKey, TValue}" /> con los ensamblados y
+        ///     sus correspondientes plugins.
+        /// </returns>
+        public Dictionary<string, IEnumerable<ILegacyPlugin>> PluginTree(string pluginsPath, SearchOption search)
+        {
+            return PluginTree<ILegacyPlugin>(pluginsPath, "*", search);
+        }
+
+        /// <summary>
+        ///     Carga todos los plugins de todos los ensamblados que coincidan con
+        ///     el patrón como una estructura de árbol.
+        /// </summary>
+        /// <param name="pluginsPath">
+        ///     Ruta de búsqueda. Debe ser un directorio.
+        /// </param>
+        /// <param name="searchPattern">
+        ///     Patrón de búsqueda de ensamblados.
+        /// </param>
+        /// <param name="search">
+        ///     <see cref="SearchOption" /> con las opciones de búsqueda.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="Dictionary{TKey, TValue}" /> con los ensamblados y
+        ///     sus correspondientes plugins.
+        /// </returns>
+        public Dictionary<string, IEnumerable<ILegacyPlugin>> PluginTree(string pluginsPath, string searchPattern,
             SearchOption search)
         {
-            return PluginTree<IPlugin>(pluginsPath, searchPattern, search);
+            return PluginTree<ILegacyPlugin>(pluginsPath, searchPattern, search);
         }
     }
 }

@@ -98,6 +98,7 @@ namespace TheXDS.MCART.Attributes
         /// </returns>
         public string ReadLicense(Assembly origin)
         {
+            if (Value is null) return Strings.UnspecLicense;
             return new StringUnpacker(origin, Path).Unpack(Value, CompressorType.New<ICompressorGetter>());
         }
     }

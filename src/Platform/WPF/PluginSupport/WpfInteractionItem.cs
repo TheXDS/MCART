@@ -63,7 +63,7 @@ namespace TheXDS.MCART.PluginSupport
         /// activación de este <see cref="InteractionItem" />.
         /// </param>
         /// <param name="icon">
-        /// <see cref="Windows.Media.Imaging.BitmapSource" /> con el ícono para este 
+        /// <see cref="BitmapSource" /> con el ícono para este 
         /// <see cref="InteractionItem" />.
         /// </param>
         public WpfInteractionItem(EventHandler action, string text, string description, BitmapSource icon)

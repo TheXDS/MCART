@@ -22,16 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#region Configuración de ReSharper
-
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-
-#endregion
-
 using System;
+using System.Reflection;
 using System.Runtime.Serialization;
 using TheXDS.MCART.Resources;
 
@@ -39,7 +31,7 @@ namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Excepción que se produce cuando un <see cref="Reflection.Assembly" /> no contiene la clase especificada.
+    ///     Excepción que se produce cuando un <see cref="Assembly" /> no contiene la clase especificada.
     /// </summary>
     [Serializable]
     public class PluginClassNotFoundException : OffendingException<Type>

@@ -70,7 +70,7 @@ namespace TheXDS.MCART.Networking.Server
         ///     Inicializa un nuevo cliente manejado por este protocolo.
         /// </summary>
         /// <param name="tcpClient">
-        ///     <see cref="Net.Sockets.TcpClient" /> de la conexión
+        ///     <see cref="TcpClient" /> de la conexión
         ///     con el host remoto.
         /// </param>
         /// <returns>

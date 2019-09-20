@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Reflection;
 
@@ -43,7 +45,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Un delegado del tipo especificado a partir del método, o
         ///     <see langword="null"/> si no es posible realizar la conversión.
         /// </returns>
-        public static T ToDelegate<T>(this MethodInfo m) where T : Delegate
+        public static T? ToDelegate<T>(this MethodInfo m) where T : Delegate
         {
             return m.IsSignatureCompatible<T>() ? (T)Delegate.CreateDelegate(typeof(T), m) : null;
         }

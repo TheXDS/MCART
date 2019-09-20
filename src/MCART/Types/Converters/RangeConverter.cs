@@ -32,7 +32,7 @@ namespace TheXDS.MCART.Types.Converters
     /// <inheritdoc />
     /// <summary>
     ///     Clase base para los convertidores de valor que permitan obtener
-    ///     objetos de tipo <see cref="T:TheXDS.MCART.Types.Range`1" /> a partir de una cadena.
+    ///     objetos de tipo <see cref="Range{T}" /> a partir de una cadena.
     /// </summary>
     /// <typeparam name="T">
     ///     Tipo del rango a obtener.
@@ -42,7 +42,7 @@ namespace TheXDS.MCART.Types.Converters
         /// <inheritdoc />
         /// <summary>
         ///     Ejecuta la conversión de la cadena al tipo de este
-        ///     <see cref="T:TheXDS.MCART.Types.Converters.BasicParseConverter`1"/>.
+        ///     <see cref="BasicParseConverter{T}" />.
         /// </summary>
         /// <param name="value">Cadena a convertir.</param>
         /// <returns>

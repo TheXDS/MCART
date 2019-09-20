@@ -51,7 +51,7 @@ namespace TheXDS.MCART.Controls
         {
             internal UvSize(Orientation orientation, double width, double height)
             {
-                U = V = 0d;
+                _u = _v = 0d;
                 _orientation = orientation;
                 Width = width;
                 Height = height;
@@ -59,35 +59,35 @@ namespace TheXDS.MCART.Controls
 
             internal UvSize(Orientation orientation)
             {
-                U = V = 0d;
+                _u = _v = 0d;
                 _orientation = orientation;
             }
 
-            internal double U;
-            internal double V;
+            internal double _u;
+            internal double _v;
             private readonly Orientation _orientation;
 
             internal double Width
             {
-                get => _orientation == Orientation.Horizontal ? U : V;
+                get => _orientation == Orientation.Horizontal ? _u : _v;
                 private set
                 {
                     if (_orientation == Orientation.Horizontal)
-                        U = value;
+                        _u = value;
                     else
-                        V = value;
+                        _v = value;
                 }
             }
 
             internal double Height
             {
-                get => _orientation == Orientation.Horizontal ? V : U;
+                get => _orientation == Orientation.Horizontal ? _v : _u;
                 private set
                 {
                     if (_orientation == Orientation.Horizontal)
-                        V = value;
+                        _v = value;
                     else
-                        U = value;
+                        _u = value;
                 }
             }
         }
@@ -179,7 +179,7 @@ namespace TheXDS.MCART.Controls
 
         /// <inheritdoc />
         /// <summary>
-        ///   Si se reemplaza en una clase derivada, coloca los elementos secundarios y determina un tamaño para una clase derivada <see cref="Windows.FrameworkElement" />.
+        ///   Si se reemplaza en una clase derivada, coloca los elementos secundarios y determina un tamaño para una clase derivada <see cref="FrameworkElement" />.
         /// </summary>
         /// <param name="finalSize">
         ///   Área final dentro del elemento primario que este elemento debe usar para organizarse a sí mismo y a sus elementos secundarios.
@@ -207,28 +207,28 @@ namespace TheXDS.MCART.Controls
 
                 var sz = new UvSize(Orientation, itemWidthSet ? itemWidth : child.DesiredSize.Width,
                     itemHeightSet ? itemHeight : child.DesiredSize.Height);
-                if (curLineSize.U + sz.U > uvFinalSize.U)
+                if (curLineSize._u + sz._u > uvFinalSize._u)
                 {
                     // Need to switch to another line
                     if (!useItemU && StretchProportionally)
-                        ArrangeLineProportionally(accumulatedV, curLineSize.V, firstInLine, i, uvFinalSize.Width);
+                        ArrangeLineProportionally(accumulatedV, curLineSize._v, firstInLine, i, uvFinalSize.Width);
                     else
-                        ArrangeLine(accumulatedV, curLineSize.V, firstInLine, i, true,
+                        ArrangeLine(accumulatedV, curLineSize._v, firstInLine, i, true,
                             useItemU ? itemU : uvFinalSize.Width / System.Math.Max(1, i - firstInLine));
 
-                    accumulatedV += curLineSize.V;
+                    accumulatedV += curLineSize._v;
                     curLineSize = sz;
 
-                    if (sz.U > uvFinalSize.U)
+                    if (sz._u > uvFinalSize._u)
                     {
                         // The element is wider then the constraint - give it a separate line     
                         // Switch to next line which only contain one element
                         if (!useItemU && StretchProportionally)
-                            ArrangeLineProportionally(accumulatedV, sz.V, i, ++i, uvFinalSize.Width);
+                            ArrangeLineProportionally(accumulatedV, sz._v, i, ++i, uvFinalSize.Width);
                         else
-                            ArrangeLine(accumulatedV, sz.V, i, ++i, true, useItemU ? itemU : uvFinalSize.Width);
+                            ArrangeLine(accumulatedV, sz._v, i, ++i, true, useItemU ? itemU : uvFinalSize.Width);
 
-                        accumulatedV += sz.V;
+                        accumulatedV += sz._v;
                         curLineSize = new UvSize(Orientation);
                     }
 
@@ -237,18 +237,18 @@ namespace TheXDS.MCART.Controls
                 else
                 {
                     // Continue to accumulate a line
-                    curLineSize.U += sz.U;
-                    curLineSize.V = System.Math.Max(sz.V, curLineSize.V);
+                    curLineSize._u += sz._u;
+                    curLineSize._v = System.Math.Max(sz._v, curLineSize._v);
                 }
             }
 
             // Arrange the last line, if any
             if (firstInLine < children.Count)
                 if (!useItemU && StretchProportionally)
-                    ArrangeLineProportionally(accumulatedV, curLineSize.V, firstInLine, children.Count,
+                    ArrangeLineProportionally(accumulatedV, curLineSize._v, firstInLine, children.Count,
                         uvFinalSize.Width);
                 else
-                    ArrangeLine(accumulatedV, curLineSize.V, firstInLine, children.Count, true,
+                    ArrangeLine(accumulatedV, curLineSize._v, firstInLine, children.Count, true,
                         useItemU ? itemU : uvFinalSize.Width / System.Math.Max(1, children.Count - firstInLine));
 
             return finalSize;
@@ -256,7 +256,7 @@ namespace TheXDS.MCART.Controls
 
         /// <inheritdoc />
         /// <summary>
-        ///   Si se reemplaza en una clase derivada, mide el tamaño del diseño necesario para los elementos secundarios y determina un tamaño para la clase derivada <see cref="Windows.FrameworkElement" />.
+        ///   Si se reemplaza en una clase derivada, mide el tamaño del diseño necesario para los elementos secundarios y determina un tamaño para la clase derivada <see cref="FrameworkElement" />.
         /// </summary>
         /// <param name="constraint">
         ///   Tamaño disponible que este elemento puede otorgar a los elementos secundarios.
@@ -293,30 +293,30 @@ namespace TheXDS.MCART.Controls
                     itemWidthSet ? itemWidth : child.DesiredSize.Width,
                     itemHeightSet ? itemHeight : child.DesiredSize.Height);
 
-                if (curLineSize.U + sz.U > uvConstraint.U)
+                if (curLineSize._u + sz._u > uvConstraint._u)
                 {
                     // Need to switch to another line
-                    panelSize.U = System.Math.Max(curLineSize.U, panelSize.U);
-                    panelSize.V += curLineSize.V;
+                    panelSize._u = System.Math.Max(curLineSize._u, panelSize._u);
+                    panelSize._v += curLineSize._v;
                     curLineSize = sz;
 
-                    if (!(sz.U > uvConstraint.U)) continue;
+                    if (!(sz._u > uvConstraint._u)) continue;
                     // The element is wider then the constraint - give it a separate line             
-                    panelSize.U = System.Math.Max(sz.U, panelSize.U);
-                    panelSize.V += sz.V;
+                    panelSize._u = System.Math.Max(sz._u, panelSize._u);
+                    panelSize._v += sz._v;
                     curLineSize = new UvSize(Orientation);
                 }
                 else
                 {
                     // Continue to accumulate a line
-                    curLineSize.U += sz.U;
-                    curLineSize.V = System.Math.Max(sz.V, curLineSize.V);
+                    curLineSize._u += sz._u;
+                    curLineSize._v = System.Math.Max(sz._v, curLineSize._v);
                 }
             }
 
             // The last line size, if any should be added
-            panelSize.U = System.Math.Max(curLineSize.U, panelSize.U);
-            panelSize.V += curLineSize.V;
+            panelSize._u = System.Math.Max(curLineSize._u, panelSize._u);
+            panelSize._v += curLineSize._v;
 
             // Go from UV space to W/H space
             return new Size(panelSize.Width, panelSize.Height);
@@ -333,7 +333,7 @@ namespace TheXDS.MCART.Controls
                 var child = children[i];
                 if (child == null) continue;
                 var childSize = new UvSize(Orientation, child.DesiredSize.Width, child.DesiredSize.Height);
-                var layoutSlotU = useItemU ? itemU : childSize.U;
+                var layoutSlotU = useItemU ? itemU : childSize._u;
                 child.Arrange(new Rect(horizontal ? u : v, horizontal ? v : u,
                     horizontal ? layoutSlotU : lineV, horizontal ? lineV : layoutSlotU));
                 u += layoutSlotU;
@@ -356,7 +356,7 @@ namespace TheXDS.MCART.Controls
                 var child = children[i];
                 if (child == null) continue;
                 var childSize = new UvSize(Orientation, child.DesiredSize.Width, child.DesiredSize.Height);
-                var layoutSlotU = childSize.U * uMultipler;
+                var layoutSlotU = childSize._u * uMultipler;
                 child.Arrange(new Rect(horizontal ? u : v, horizontal ? v : u,
                     horizontal ? layoutSlotU : lineV, horizontal ? lineV : layoutSlotU));
                 u += layoutSlotU;

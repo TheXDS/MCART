@@ -30,13 +30,13 @@ namespace TheXDS.MCART.PluginSupport
     /// <inheritdoc />
     /// <summary>
     ///     Describe una serie de miembros a implementar por una clase que
-    ///     represente a un <see cref="IPlugin" /> con extensiones para Windows
+    ///     represente a un <see cref="ILegacyPlugin" /> con extensiones para Windows
     ///     Presentation Framework.
     /// </summary>
-    public interface IWpfPlugin : IPlugin
+    public interface IWpfPlugin : ILegacyPlugin
     {
         /// <summary>
-        /// Convierte el <see cref="IPlugin.PluginInteractions"/> en un 
+        /// Convierte el <see cref="ILegacyPlugin.PluginInteractions"/> en un 
         /// <see cref="MenuItem"/>.
         /// </summary>
         /// <returns>
@@ -45,7 +45,7 @@ namespace TheXDS.MCART.PluginSupport
         /// </returns>
         MenuItem UiMenu { get; }
         /// <summary>
-        /// Convierte el <see cref="IPlugin.PluginInteractions"/> en un 
+        /// Convierte el <see cref="ILegacyPlugin.PluginInteractions"/> en un 
         /// <see cref="Panel"/>.
         /// </summary>
         /// <returns>
