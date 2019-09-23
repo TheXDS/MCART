@@ -32,7 +32,7 @@ using TheXDS.MCART.Component;
 using TheXDS.MCART.Exceptions;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
-namespace TheXDS.MCART.PluginSupport
+namespace TheXDS.MCART.PluginSupport.Legacy
 {
     /// <summary>
     ///     <see cref="Plugin"/> específico para Windows Presentation

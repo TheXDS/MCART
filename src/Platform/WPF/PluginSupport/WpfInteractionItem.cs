@@ -33,7 +33,7 @@ using static TheXDS.MCART.Types.Extensions.StringExtensions;
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global
 
-namespace TheXDS.MCART.PluginSupport
+namespace TheXDS.MCART.PluginSupport.Legacy
 {
     /// <inheritdoc />
     /// <summary>

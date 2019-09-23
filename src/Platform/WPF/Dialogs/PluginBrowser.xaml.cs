@@ -27,7 +27,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using TheXDS.MCART.Component;
 using TheXDS.MCART.Dialogs.ViewModel;
-using TheXDS.MCART.PluginSupport;
+using TheXDS.MCART.PluginSupport.Legacy;
 
 namespace TheXDS.MCART.Dialogs
 {
