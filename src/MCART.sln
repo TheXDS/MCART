@@ -3,18 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28527.54
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{1AF1EDA3-FEAD-4702-8541-26B364AD0C4E}"
-	ProjectSection(SolutionItems) = preProject
-		..\AUTHORS = ..\AUTHORS
-		..\BUGS.md = ..\BUGS.md
-		..\CHANGELOG.md = ..\CHANGELOG.md
-		..\CONTRIBUTING.md = ..\CONTRIBUTING.md
-		..\LICENSE = ..\LICENSE
-		..\README.md = ..\README.md
-		..\ROADMAP.md = ..\ROADMAP.md
-		..\TECHINFO.md = ..\TECHINFO.md
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platform", "Platform", "{DB2C9D58-DF3F-4361-ACE4-EF1219AD1810}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{D74BF4B6-D008-4124-B4F5-DAEA45272A78}"
@@ -25,8 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{19EC529F
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{B75874BF-E600-41EF-B756-93A12CCCABA5}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Snippets", "Documentation\Snippets\Snippets.shproj", "{913DB390-BCF2-478D-996E-1B7248425597}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART", "MCART\MCART.csproj", "{D39B543E-571D-4EA5-B8A2-9F6729C8E689}"
 EndProject
@@ -117,7 +103,6 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Examples\LightChat\Common\Common.projitems*{1459cf01-8f9b-47b1-a3f2-57e1f84d9d0e}*SharedItemsImports = 13
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{77706828-80be-4bac-a97c-072e101d01de}*SharedItemsImports = 4
-		Documentation\Snippets\Snippets.projitems*{913db390-bcf2-478d-996e-1b7248425597}*SharedItemsImports = 13
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{967afaa3-ded3-4ec0-9401-7193b318fce8}*SharedItemsImports = 13
 		Shared\Internals\Internals.projitems*{f7b14aea-6c0a-4343-81ae-fb06dcd9c69c}*SharedItemsImports = 13
 	EndGlobalSection
@@ -296,8 +281,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution		
-		{913DB390-BCF2-478D-996E-1B7248425597} = {1AF1EDA3-FEAD-4702-8541-26B364AD0C4E}
+	GlobalSection(NestedProjects) = preSolution
 		{77706828-80BE-4BAC-A97C-072E101D01DE} = {DB2C9D58-DF3F-4361-ACE4-EF1219AD1810}
 		{620E1805-E9FA-48A5-A9C6-C9E6D35E464D} = {8D80435C-F7CE-46FE-82F0-58F0D5282344}
 		{967AFAA3-DED3-4EC0-9401-7193B318FCE8} = {D74BF4B6-D008-4124-B4F5-DAEA45272A78}
