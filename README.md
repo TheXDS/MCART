@@ -1,6 +1,6 @@
 <div align="center">
 <h1>
-<img src="https://raw.githubusercontent.com/TheXDS/MCART/master/CoreComponents/Core-GUI/Resources/Icons/MCART.png" alt="MCART" align="middle" heigth="64px" width="64px">
+<img src="https://raw.githubusercontent.com/TheXDS/MCART/master/Art/MCART.png" alt="MCART" align="middle" heigth="64px" width="64px">
 MCART
 </h1>
 </div>
