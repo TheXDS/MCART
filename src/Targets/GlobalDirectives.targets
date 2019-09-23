@@ -4,6 +4,6 @@
 
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup Condition="'$(MSBuildProjectExtension)'=='.csproj'">
-        <DefineConstants>DynamicLoading;McartAsPlugin;NativeNumbers;FloatDoubleSpecial;BufferedIO;ExtrasBuiltIn;StrictMCARTVersioning;SaferPasswords;CheckDanger;CLSCompliance;AntiFreeze</DefineConstants>
+        <DefineConstants>McartAsPlugin;NativeNumbers;FloatDoubleSpecial;BufferedIO;ExtrasBuiltIn;StrictMCARTVersioning;SaferPasswords;CheckDanger;CLSCompliance;AntiFreeze</DefineConstants>
   </PropertyGroup>
 </Project>

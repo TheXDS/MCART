@@ -33,7 +33,7 @@
 
 #Region "uiMenu1"
 Public Class MyPlugin
-    Inherits ILegacyPlugin
+    Inherits IPlugin
 
     ' Este es un elemento de interacción que MCART cableará automáticamente.
     <Name("Interacción 1")>
@@ -57,7 +57,7 @@ Public Class MyPlugin
     End Sub
 
     ''' <summary>
-    ''' Constructor del LegacyPlugin.
+    ''' Constructor del Plugin.
     ''' </summary>
     Public Sub New()
         ' la primera interacción es configurada y añadida de forma automática

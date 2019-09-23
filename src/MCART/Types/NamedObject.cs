@@ -106,7 +106,7 @@ namespace TheXDS.MCART.Types
                 MemberInfo m => Extensions.MemberInfoExtensions.NameOf(m),
                 Enum e => EnumExtensions.NameOf(e),
                 null => throw new ArgumentNullException(nameof(obj)),
-                _ => obj!.GetAttr<NameAttribute>()?.Value ?? obj!.ToString() ?? obj.NameOf()
+                _ => obj!.GetAttr<NameAttribute>()?.Value ?? obj!.ToString() ?? obj.GetType().NameOf()
             };
         }
 

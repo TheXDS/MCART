@@ -28,7 +28,7 @@ using System;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 
-namespace TheXDS.MCART.PluginSupport
+namespace TheXDS.MCART.PluginSupport.Legacy
 {
     /// <summary>
     /// Esta clase define a un elemento de interacción.
@@ -115,13 +115,13 @@ namespace TheXDS.MCART.PluginSupport
         }
         /// <summary>
         /// Crea una una nueva entrada de interacción utilizando el método
-        /// especificado asociado a una instancia de <see cref="ILegacyPlugin"/>.
+        /// especificado asociado a una instancia de <see cref="IPlugin"/>.
         /// </summary>
         /// <param name="method">Método a llamar.</param>
         /// <param name="parentInstance">
         /// Instancia padre de este <see cref="InteractionItem"/>.
         /// </param>
-        public InteractionItem(MethodInfo method, ILegacyPlugin parentInstance)
+        public InteractionItem(MethodInfo method, IPlugin parentInstance)
         {
             Action = Delegate.CreateDelegate(typeof(EventHandler), parentInstance, method, false) as EventHandler
                 ?? throw new Exceptions.InvalidMethodSignatureException(method);

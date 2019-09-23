@@ -3,18 +3,10 @@
     <TargetFrameworks>netcoreapp3.0;net47</TargetFrameworks>
     <Description>MCART for Windows</Description>
     <AssemblyName>MCART.Windows</AssemblyName>
-    <ProjectGuid>{620e1805-e9fa-48a5-a9c6-c9e6d35e464d}</ProjectGuid>
-    <OutputType>Library</OutputType>
   </PropertyGroup>  
   <ItemGroup>
     <PackageReference Include="Microsoft.Win32.Registry" Version="4.6.0-preview7.19362.9" />
     <PackageReference Include="System.Drawing.Common" Version="4.6.0-preview7.19362.9" />
     <PackageReference Include="System.Management" Version="4.6.0-preview7.19362.9" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\MCART\MCART.csproj">
-      <Project>{d39b543e-571d-4ea5-b8a2-9f6729c8e689}</Project>
-      <Name>MCART</Name>
-    </ProjectReference>
   </ItemGroup>
 </Project>

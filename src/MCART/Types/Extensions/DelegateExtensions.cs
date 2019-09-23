@@ -1,7 +1,11 @@
 ﻿/*
-ColorExtensions.cs
+DelegateExtensions.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Este archivo contiene numerosas extensiones para el tipo System.DateTime del
+CLR, supliéndolo de nueva funcionalidad previamente no existente, o de
+invocación compleja.
 
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
@@ -22,33 +26,33 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using D = System.Drawing.Color;
+#nullable enable
+
+using System;
+using TheXDS.MCART.Attributes;
 
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Extensiones de conversión de colores de MCART en
-    ///     <see cref="D"/>.
+    ///     Contiene extensiones para objetos de tipo <see cref="Delegate"/>.
     /// </summary>
-    public static class ColorExtensions
+    public static class DelegateExtensions
     {
         /// <summary>
-        ///     Convierte una estructura <see cref="Color"/> en un
-        ///     <see cref="D"/>.
+        ///     Obtiene un nombre descriptivo para un <see cref="Delegate"/>.
         /// </summary>
-        /// <param name="c"><see cref="Color"/> a convertir.</param>
-        public static D FromMcartColor(this Color c)
+        /// <param name="d">
+        ///     <see cref="Delegate"/> para el cual obtener un nombre
+        ///     descriptivo.
+        /// </param>
+        /// <returns>
+        ///     Un nombre descriptivo para un <see cref="Delegate"/>, o el
+        ///     nombre del método representado por el delegado si este no 
+        ///     contiene un atributo <see cref="NameAttribute"/>.
+        /// </returns>
+        public static string NameOf(this Delegate d)
         {
-            return D.FromArgb(c.A, c.R, c.G, c.B);
-        }
-        /// <summary>
-        ///     Convierte una estructura <see cref="D"/> en un
-        ///     <see cref="Color"/>.
-        /// </summary>
-        /// <param name="c"><see cref="D"/> a convertir.</param>
-        public static Color ToMcartColor(this D c)
-        {
-            return new Color(c.R, c.G, c.B, c.A);
+            return d.GetAttr<NameAttribute>()?.Value ?? d.Method.NameOf();
         }
     }
 }

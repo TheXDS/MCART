@@ -9,7 +9,6 @@
     <PackageReference Include="EntityFramework" Version="6.3.0-preview7-19363-02" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="$(SolutionDir)\Lib\MCART-UI\MCART-UI.csproj" />
     <ProjectReference Include="$(SolutionDir)\Lib\MCART-Windows\MCART-Windows.csproj" />
     <ProjectReference Include="$(SolutionDir)\Platform\WPF\WPF.csproj" />
     <ProjectReference Include="$(SolutionDir)\Extensions\ViewModelFactory\ViewModelFactory.csproj" />

@@ -1,5 +1,5 @@
 ﻿/*
-Attributes.cs
+IPlugin.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,21 +22,22 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
+#nullable enable
 
-namespace TheXDS.MCART.PluginSupport.Legacy
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Reflection;
+using TheXDS.MCART.Component;
+using System.Text;
+
+namespace TheXDS.MCART.PluginSupport.Base
 {
-    /// <summary>
-    /// Marca un método como un elemento de interacción a ser cargado
-    /// automáticamente.
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Method)]
-    public sealed class InteractionItemAttribute : Attribute
+    public interface IPlugin : IExposeInfo, IExposeAssembly
     {
-        /// <summary>
-        /// Marca un método como un elemento de interacción a ser cargado
-        /// automáticamente.
-        /// </summary>
-        public InteractionItemAttribute() { }
+        Version ApiVersion { get; }
+
+
     }
+
 }

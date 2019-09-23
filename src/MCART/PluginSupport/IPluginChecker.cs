@@ -1,5 +1,5 @@
 ﻿/*
-ILegacyPluginChecker.cs
+IPluginChecker.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -25,42 +25,42 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Reflection;
 
-namespace TheXDS.MCART.PluginSupport
+namespace TheXDS.MCART.PluginSupport.Legacy
 {
     /// <summary>
     /// Define una serie de métodos y propiedades a implementar por una clase
     /// que pueda utilizarse para verificar la validez de los 
-    /// <see cref="ILegacyPlugin"/> que se intenten cargar.
+    /// <see cref="IPlugin"/> que se intenten cargar.
     /// </summary>
-    public interface ILegacyPluginChecker
+    public interface IPluginChecker
     {
         /// <summary>
         /// Comprueba si un ensamblado contiene clases cargables como
-        /// <see cref="ILegacyPlugin"/>.
+        /// <see cref="IPlugin"/>.
         /// </summary>
         /// <returns>
         /// <see langword="true"/> si el ensamblado contiene clases cargables como
-        /// <see cref="ILegacyPlugin"/>, <see langword="false"/> en caso contrario.
+        /// <see cref="IPlugin"/>, <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="assembly"><see cref="Assembly"/> a comprobar.</param>
         bool IsVaild(Assembly assembly);
         /// <summary>
         /// Comprueba si un tipo es una clase cargable como
-        /// <see cref="ILegacyPlugin"/>.
+        /// <see cref="IPlugin"/>.
         /// </summary>
         /// <returns>
         /// <see langword="true"/> si el tipo contiene clases cargables como
-        /// <see cref="ILegacyPlugin"/>, <see langword="false"/> en caso contrario.
+        /// <see cref="IPlugin"/>, <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="type"><see cref="Type"/> a comprobar.</param>
         bool IsValid(Type type);
         /// <summary>
-        /// Comprueba si un ensamblado contiene un <see cref="ILegacyPlugin"/> del
+        /// Comprueba si un ensamblado contiene un <see cref="IPlugin"/> del
         /// tipo especificado.
         /// </summary>
         /// <returns>
         /// <see langword="true"/> si el ensamblado contiene al menos una clase de tipo
-        /// <typeparamref name="T"/> cargable como <see cref="ILegacyPlugin"/>, 
+        /// <typeparamref name="T"/> cargable como <see cref="IPlugin"/>, 
         /// <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="assembly"><see cref="Assembly"/> a comprobar.</param>

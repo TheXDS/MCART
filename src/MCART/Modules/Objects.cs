@@ -1974,15 +1974,39 @@ namespace TheXDS.MCART
             }
         }
 
+#if DynamicLoading
         /// <summary>
         ///     Obtiene el nombre de un objeto.
         /// </summary>
-        /// <param name="o">
+        /// <param name="obj">
         ///     Objeto del cual obtener el nombre.
         /// </param>
         /// <returns>
         ///     El nombre del objeto.
         /// </returns>
-        public static string NameOf(this object o) => (o as INameable)?.Name ?? Types.Extensions.MemberInfoExtensions.NameOf(o.GetType());
+        public static string NameOf(this object obj)
+        {
+            if (obj is null) throw new ArgumentNullException(nameof(obj));
+            return (obj as INameable)?.Name
+                ?? (string?)ScanNameMethod(obj.GetType())?.Invoke(null, new[] { obj })
+                ?? Types.Extensions.MemberInfoExtensions.NameOf(obj.GetType());
+        }
+
+        private static MethodInfo? ScanNameMethod(Type fromType)
+        {
+            foreach (var j in SafeGetExportedTypes(typeof(Objects).Assembly))
+            {
+                foreach (var k in j.GetMethods(BindingFlags.Static | BindingFlags.Public))
+                {
+                    if (k.Name != "NameOf" || k.ReturnType != typeof(string)) continue;
+                    var pars = k.GetParameters();
+                    if (pars.Length != 1 || !pars[0].ParameterType.IsAssignableFrom(fromType)) continue;
+                    return k;
+                }
+            }
+            return null;
+        }
+#endif
+
     }
 }

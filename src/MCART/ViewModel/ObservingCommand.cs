@@ -53,7 +53,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        ///     <see cref="ObservingCommand" />.
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="action">Acción a ejecutar.</param>
@@ -62,7 +62,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        ///     <see cref="ObservingCommand" />.
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="action">Acción a ejecutar.</param>
@@ -79,7 +79,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        ///     <see cref="ObservingCommand" />.
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="action">Acción a ejecutar.</param>
@@ -96,7 +96,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        ///     <see cref="ObservingCommand" />.
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="action">Acción a ejecutar.</param>
@@ -113,7 +113,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        ///     <see cref="ObservingCommand" />.
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="action">Acción a ejecutar.</param>
@@ -130,7 +130,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        ///     <see cref="ObservingCommand" />.
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="action">Acción a ejecutar.</param>
@@ -147,7 +147,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        ///     <see cref="ObservingCommand" />.
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="action">Acción a ejecutar.</param>
@@ -164,7 +164,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        ///     <see cref="ObservingCommand" />.
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="action">Acción a ejecutar.</param>
@@ -181,7 +181,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        ///     <see cref="ObservingCommand" />.
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="action">Acción a ejecutar.</param>
@@ -198,7 +198,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        ///     <see cref="ObservingCommand" />.
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="task">Tarea a ejecutar.</param>
@@ -207,7 +207,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        ///     <see cref="ObservingCommand" />.
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="task">Tarea a ejecutar.</param>
@@ -224,7 +224,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        ///     <see cref="ObservingCommand" />.
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="task">Tarea a ejecutar.</param>
@@ -241,7 +241,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        ///     <see cref="ObservingCommand" />.
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="task">Tarea a ejecutar.</param>
@@ -258,7 +258,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        ///     <see cref="ObservingCommand" />.
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="task">Tarea a ejecutar.</param>
@@ -275,7 +275,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        ///     <see cref="ObservingCommand" />.
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="task">Tarea a ejecutar.</param>
@@ -292,7 +292,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        ///     <see cref="ObservingCommand" />.
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="task">Tarea a ejecutar.</param>
@@ -309,7 +309,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        ///     <see cref="ObservingCommand" />.
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="task">Tarea a ejecutar.</param>
@@ -326,7 +326,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        ///     <see cref="ObservingCommand" />.
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="task">Tarea a ejecutar.</param>
@@ -343,7 +343,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        ///     <see cref="ObservingCommand" />.
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="action">Acción a ejecutar.</param>
@@ -352,7 +352,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        ///     <see cref="ObservingCommand" />.
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="action">Acción a ejecutar.</param>
@@ -369,7 +369,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        ///     <see cref="ObservingCommand" />.
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="action">Acción a ejecutar.</param>
@@ -386,7 +386,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        ///     <see cref="ObservingCommand" />.
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="action">Acción a ejecutar.</param>
@@ -403,7 +403,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        ///     <see cref="ObservingCommand" />.
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="action">Acción a ejecutar.</param>
@@ -420,7 +420,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.ObservingCommand" />.
+        ///     <see cref="ObservingCommand" />.
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="action">Acción a ejecutar.</param>

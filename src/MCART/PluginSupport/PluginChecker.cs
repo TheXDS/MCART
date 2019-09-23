@@ -28,13 +28,13 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace TheXDS.MCART.PluginSupport
+namespace TheXDS.MCART.PluginSupport.Legacy
 {
     /// <inheritdoc />
     /// <summary>
     /// Esta clase realiza diferentes verificaciones de compatibilidad de plugins.
     /// </summary>
-    public abstract class PluginChecker : ILegacyPluginChecker
+    public abstract class PluginChecker : IPluginChecker
     {
         /// <inheritdoc />
         /// <summary>
@@ -42,7 +42,7 @@ namespace TheXDS.MCART.PluginSupport
         /// </summary>
         /// <returns>
         /// <see langword="true" /> si el ensamblado contiene al menos una clase de tipo
-        /// <typeparamref name="T" /> cargable como <see cref="ILegacyPlugin" />, 
+        /// <typeparamref name="T" /> cargable como <see cref="IPlugin" />, 
         /// <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="assembly"><see cref="Assembly" /> a comprobar.</param>
@@ -63,11 +63,11 @@ namespace TheXDS.MCART.PluginSupport
         /// <inheritdoc />
         /// <summary>
         /// Comprueba si un <see cref="Assembly" /> contiene clases cargables 
-        /// como <see cref="ILegacyPlugin" />.
+        /// como <see cref="IPlugin" />.
         /// </summary>
         /// <returns>
         /// <see langword="true" /> si el ensamblado contiene clases cargables como
-        /// <see cref="ILegacyPlugin" />, <see langword="false" /> en caso contrario.
+        /// <see cref="IPlugin" />, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="assembly"><see cref="Assembly" /> a comprobar.</param>
         public bool IsVaild(Assembly assembly)
@@ -88,11 +88,11 @@ namespace TheXDS.MCART.PluginSupport
         /// <inheritdoc />
         /// <summary>
         /// Determina si un tipo es válido para ser cargado como un
-        /// <see cref="ILegacyPlugin" />.
+        /// <see cref="IPlugin" />.
         /// </summary>
         /// <returns>
         /// <see langword="true" />, si el tipo puede ser cagado como un 
-        /// <see cref="LegacyPlugin" />, <see langword="false" /> en caso contrario.
+        /// <see cref="Plugin" />, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="type">Tipo a comprobar.</param>
         public abstract bool IsValid(Type type);

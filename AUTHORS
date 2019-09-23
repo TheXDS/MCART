@@ -28,8 +28,8 @@ CoreComponents/Core/Networking/Server/Server.cs						César Andrés Morgan
 CoreComponents/Core/Networking/Server/Protocols/Echo.cs				César Andrés Morgan
 CoreComponents/Core/PluginSupport/Events.cs							César Andrés Morgan
 CoreComponents/Core/PluginSupport/InteractionItem.cs				César Andrés Morgan
-CoreComponents/Core/PluginSupport/ILegacyPlugin.cs						César Andrés Morgan
-CoreComponents/Core/PluginSupport/ILegacyPlugin.cs							César Andrés Morgan
+CoreComponents/Core/PluginSupport/IPlugin.cs						César Andrés Morgan
+CoreComponents/Core/PluginSupport/IPlugin.cs							César Andrés Morgan
 CoreComponents/Core/PluginSupport/PluginStatic.cs					César Andrés Morgan
 CoreComponents/Core/Properties/AssemblyInfo.cs						César Andrés Morgan
 CoreComponents/Core/Resources/Colors.cs								César Andrés Morgan
@@ -37,10 +37,10 @@ CoreComponents/Core/Resources/RTInfo.cs								César Andrés Morgan
 CoreComponents/Core/Resources/SpecificStrings.cs					César Andrés Morgan
 CoreComponents/Core/Resources/Strings.cs							César Andrés Morgan
 CoreComponents/Core/Security/Checksum/IEasyChecksum.cs				César Andrés Morgan
-CoreComponents/Core/Security/Checksum/ILegacyPlugin.cs						César Andrés Morgan
+CoreComponents/Core/Security/Checksum/IPlugin.cs						César Andrés Morgan
 CoreComponents/Core/Security/Encryption/EasyCrypto.cs				César Andrés Morgan
 CoreComponents/Core/Security/Encryption/IEasyCrypto.cs				César Andrés Morgan
-CoreComponents/Core/Security/Encryption/ILegacyPlugin.cs					César Andrés Morgan
+CoreComponents/Core/Security/Encryption/IPlugin.cs					César Andrés Morgan
 CoreComponents/Core/Security/Password/Attributes.cs					César Andrés Morgan
 CoreComponents/Core/Security/Password/Generators.cs					César Andrés Morgan
 CoreComponents/Core/Security/Password/IPwEvaluator.cs				César Andrés Morgan
@@ -120,8 +120,8 @@ MCART/Gtk/Forms/PluginBrowser.cs									César Andrés Morgan
 MCART/Gtk/gtk-gui/gui.stetic										César Andrés Morgan
 MCART/Gtk/Modules/UI.cs												César Andrés Morgan
 MCART/Gtk/PluginSupport/InteractionItem.cs							César Andrés Morgan
-MCART/Gtk/PluginSupport/ILegacyPlugin.cs									César Andrés Morgan
-MCART/Gtk/PluginSupport/ILegacyPlugin.cs									César Andrés Morgan
+MCART/Gtk/PluginSupport/IPlugin.cs									César Andrés Morgan
+MCART/Gtk/PluginSupport/IPlugin.cs									César Andrés Morgan
 MCART/Gtk/Properties/AssemblyInfo.cs								César Andrés Morgan
 MCART/Gtk/Security/Password/PwDialogResult.cs						César Andrés Morgan
 MCART/Gtk/Types/Color.cs											César Andrés Morgan
@@ -138,8 +138,8 @@ MCART/Win32/Forms/PluginBrowser.cs									César Andrés Morgan
 MCART/Win32/Forms/PluginBrowser.Designer.cs							César Andrés Morgan
 MCART/Win32/Modules/UI.cs											César Andrés Morgan
 MCART/Win32/PluginSupport/InteractionItem.cs						César Andrés Morgan
-MCART/Win32/PluginSupport/ILegacyPlugin.cs								César Andrés Morgan
-MCART/Win32/PluginSupport/ILegacyPlugin.cs									César Andrés Morgan
+MCART/Win32/PluginSupport/IPlugin.cs								César Andrés Morgan
+MCART/Win32/PluginSupport/IPlugin.cs									César Andrés Morgan
 MCART/Win32/Properties/AssemblyInfo.cs								César Andrés Morgan
 MCART/Win32/Resources/Icons.cs										César Andrés Morgan
 MCART/Win32/Resources/IconResources.resx							César Andrés Morgan
@@ -158,8 +158,8 @@ MCART/WPF/Misc/Events.cs											César Andrés Morgan
 MCART/WPF/Modules/UI.cs												César Andrés Morgan
 MCART/WPF/Modules/ValueConverters.cs								César Andrés Morgan
 MCART/WPF/PluginSupport/InteractionItem.cs							César Andrés Morgan
-MCART/WPF/PluginSupport/ILegacyPlugin.cs									César Andrés Morgan
-MCART/WPF/PluginSupport/ILegacyPlugin.cs									César Andrés Morgan
+MCART/WPF/PluginSupport/IPlugin.cs									César Andrés Morgan
+MCART/WPF/PluginSupport/IPlugin.cs									César Andrés Morgan
 MCART/WPF/Properties/AssemblyInfo.cs								César Andrés Morgan
 MCART/WPF/Resources/Icons.cs										César Andrés Morgan
 MCART/WPF/Security/Password/PwDialogResult.cs						César Andrés Morgan

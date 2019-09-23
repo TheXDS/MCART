@@ -1,5 +1,5 @@
 ﻿/*
-PointExtensions.cs
+IExposeInfo.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,32 +22,30 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using P = System.Drawing.Point;
-using M = TheXDS.MCART.Types.Point;
+#nullable enable
 
-namespace TheXDS.MCART.Types.Extensions
+
+namespace TheXDS.MCART.Component
 {
     /// <summary>
-    ///     Extensiones de conversión de estructuras <see cref="M"/> en
-    ///     <see cref="P"/>.
+    ///     Define una serie de miembros a implementar para un tipo que exponga
+    ///     información de identificación extendida.
     /// </summary>
-    public static class PointExtensions
+    public interface IExposeExtendedInfo : IExposeInfo
     {
         /// <summary>
-        ///     Convierte un <see cref="M"/> en un <see cref="P"/>.
+        ///     Obtiene un valor que indica si este 
+        ///     <see cref="IExposeExtendedInfo"/> es considerado una versión
+        ///     beta.
         /// </summary>
-        /// <param name="x"><see cref="M"/> a convertir.</param>
-        /// <returns>
-        ///     Un <see cref="P"/> equivalente al <see cref="M"/> especificado.
-        /// </returns>
-        public static P Point(M x) => new P((int)x.X,(int) x.Y);
+        bool Beta { get; }
+
         /// <summary>
-        ///     Convierte un <see cref="P"/> en un <see cref="M"/>.
+        ///     Obtiene un valor que indica si este
+        ///     <see cref="IExposeExtendedInfo"/> podría contener código
+        ///     utilizado en contexto inseguro.
         /// </summary>
-        /// <param name="x"><see cref="P"/> a convertir.</param>
-        /// <returns>
-        ///     Un <see cref="M"/> equivalente al <see cref="P"/> especificado.
-        /// </returns>
-        public static M ToMcartPoint(P x) => new M(x.X, x.Y);
+        bool Unsafe { get; }
+
     }
 }

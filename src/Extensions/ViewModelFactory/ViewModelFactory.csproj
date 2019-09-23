@@ -4,7 +4,4 @@
     <Description>ViewModelFactory Extension for MCART</Description>
     <AssemblyName>MCART.Ext.ViewModelFactory</AssemblyName>
   </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="$(SolutionDir)\Lib\MCART-UI\MCART-UI.csproj" />
-  </ItemGroup>
 </Project>

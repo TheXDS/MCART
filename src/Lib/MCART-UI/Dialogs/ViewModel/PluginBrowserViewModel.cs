@@ -25,7 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #nullable enable
 
 using System.Collections.Generic;
-using TheXDS.MCART.PluginSupport;
+using TheXDS.MCART.PluginSupport.Legacy;
 using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Dialogs.ViewModel
@@ -42,18 +42,18 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// <summary>
         ///     Enumera los plugins encontrados en el directorio actual.
         /// </summary>
-        public Dictionary<string, IEnumerable<ILegacyPlugin>> Plugins
+        public Dictionary<string, IEnumerable<IPlugin>> Plugins
         {
             get
             {
-                if (!ShowPlugins) return new Dictionary<string, IEnumerable<ILegacyPlugin>>(0);
+                if (!ShowPlugins) return new Dictionary<string, IEnumerable<IPlugin>>(0);
                 try
                 {
                     return new PluginLoader(new RelaxedPluginChecker(), SanityChecks.IgnoreDanger).PluginTree();
                 }
                 catch
                 {
-                    return new Dictionary<string, IEnumerable<ILegacyPlugin>>(0);
+                    return new Dictionary<string, IEnumerable<IPlugin>>(0);
                 }
             }
         }
@@ -66,7 +66,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
             get => _selection;
             set
             {
-                if (!(value is ILegacyPlugin)) value = null;
+                if (!(value is IPlugin)) value = null;
                 if (Equals(value, _selection)) return;
                 _selection = value;
                 OnPropertyChanged();

@@ -32,14 +32,29 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.Loader;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace TheXDS.MCART.PluginSupport
 {
+
+    public class PluginDomain : IDisposable
+    {
+        private readonly HashSet<PluginAssembly> _loadedAssemblies = new HashSet<PluginAssembly>();
+
+        public void Dispose()
+        {
+            if (!_loadedAssemblies.Any()) return;
+            Parallel.ForEach(_loadedAssemblies, p => p.Dispose());
+        }
+
+
+    }
+
     /// <summary>
     ///     Define un contexto que permite alojar plugins cargables desde
     ///     ensamblados.
     /// </summary>
-    public class PluginContext : IDisposable
+    public class PluginAssembly : IDisposable
     {
         private class PluginAssemblyLoadContext : AssemblyLoadContext
         {
@@ -60,10 +75,11 @@ namespace TheXDS.MCART.PluginSupport
 
         private readonly PluginAssemblyLoadContext _context;
 
-        public PluginContext(FileInfo assembly)
+        public PluginAssembly(FileInfo assembly)
         {
             if (!assembly.Exists) throw new FileNotFoundException(null, assembly.FullName);
             _context = new PluginAssemblyLoadContext(assembly);
+            _context.LoadFromAssemblyPath(assembly.FullName);
         }
 
 

@@ -1,5 +1,5 @@
 ﻿/*
-ILegacyPluginLoader.cs
+IPluginLoader.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -26,53 +26,53 @@ using TheXDS.MCART.Exceptions;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace TheXDS.MCART.PluginSupport
+namespace TheXDS.MCART.PluginSupport.Legacy
 {
     /// <summary>
     /// Define una serie de métodos y propiedades a implementar por una clase
     /// que pueda utilizarse para cargar clases que implementen la interfaz 
-    /// <see cref="ILegacyPlugin"/>.
+    /// <see cref="IPlugin"/>.
     /// </summary>
-    public interface ILegacyPluginLoader
+    public interface IPluginLoader
     {
         /// <summary>
         /// Carga una clase de tipo <typeparamref name="T"/> contenida en el
         /// ensamblado especificado.
         /// </summary>
         /// <returns>
-        /// Un <see cref="ILegacyPlugin"/> de tipo <typeparamref name="T"/>.
+        /// Un <see cref="IPlugin"/> de tipo <typeparamref name="T"/>.
         /// </returns>
         /// <param name="assembly"><see cref="Assembly"/> a cargar.</param>
         /// <typeparam name="T">Clase a cargar.</typeparam>
         T Load<T>(Assembly assembly) where T : class;
         /// <summary>
-        /// Carga todos los <see cref="ILegacyPlugin"/> contenidos en el ensamblado.
+        /// Carga todos los <see cref="IPlugin"/> contenidos en el ensamblado.
         /// </summary>
         /// <returns>
-        /// Un <see cref="IEnumerable{T}"/> con los <see cref="ILegacyPlugin"/>
+        /// Un <see cref="IEnumerable{T}"/> con los <see cref="IPlugin"/>
         /// encontrados.
         /// </returns>
         /// <param name="assembly"><see cref="Assembly"/> a cargar.</param>
         /// <typeparam name="T">
-        /// Tipo de <see cref="ILegacyPlugin"/> a cargar.
+        /// Tipo de <see cref="IPlugin"/> a cargar.
         /// </typeparam>
         /// <exception cref="NotPluginException">
         /// Se produce si <paramref name="assembly"/> no contiene clases cargables
-        /// como <see cref="ILegacyPlugin"/>. 
+        /// como <see cref="IPlugin"/>. 
         /// </exception>
         IEnumerable<T> LoadAll<T>(Assembly assembly) where T : class;
         /// <summary>
-        /// Carga todos los <see cref="ILegacyPlugin"/> contenidos en el ensamblado.
+        /// Carga todos los <see cref="IPlugin"/> contenidos en el ensamblado.
         /// </summary>
         /// <returns>
-        /// Un <see cref="IEnumerable{T}"/> con los <see cref="ILegacyPlugin"/>
+        /// Un <see cref="IEnumerable{T}"/> con los <see cref="IPlugin"/>
         /// encontrados.
         /// </returns>
         /// <param name="assembly"><see cref="Assembly"/> a cargar.</param>
         /// <exception cref="NotPluginException">
         /// Se produce si <paramref name="assembly"/> no contiene clases cargables
-        /// como <see cref="ILegacyPlugin"/>. 
+        /// como <see cref="IPlugin"/>. 
         /// </exception>
-        IEnumerable<ILegacyPlugin> LoadAll(Assembly assembly);
+        IEnumerable<IPlugin> LoadAll(Assembly assembly);
     }
 }

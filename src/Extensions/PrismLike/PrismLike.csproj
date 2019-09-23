@@ -5,7 +5,6 @@
     <AssemblyName>MCART.Ext.PrismLike</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="$(SolutionDir)\Lib\MCART-UI\MCART-UI.csproj" />
     <ProjectReference Include="$(SolutionDir)\Lib\MCART-Windows\MCART-Windows.csproj" />
     <ProjectReference Include="$(SolutionDir)\Platform\WPF\WPF.csproj" />
   </ItemGroup>

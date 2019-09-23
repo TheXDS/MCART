@@ -26,17 +26,17 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
 namespace TheXDS.MCART.Types.Extensions
 {
+
     /// <summary>
     /// Contiene extensiones útiles de la estructura <see cref="DateTime"/>.
     /// </summary>
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public static class DateTimeExtensions
     {
         /// <summary>
@@ -222,7 +222,6 @@ namespace TheXDS.MCART.Types.Extensions
         {
             if (!month.IsBetween(1,12)) throw new ArgumentOutOfRangeException(nameof(month));
             var t = DateTime.Now;
-            // ReSharper disable once StringLiteralTypo
             return new DateTime(t.Year,month,t.Day).ToString("MMMM");
         }
 
@@ -240,7 +239,6 @@ namespace TheXDS.MCART.Types.Extensions
         {
             if (!month.IsBetween(1, 12)) throw new ArgumentOutOfRangeException(nameof(month));
             var t = DateTime.Now;
-            // ReSharper disable once StringLiteralTypo
             return new DateTime(t.Year, month, t.Day).ToString("MMMM",culture);
         }
     }

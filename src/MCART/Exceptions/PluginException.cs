@@ -22,28 +22,19 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#region Configuración de ReSharper
-
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-
-#endregion
-
 using System;
 using System.Runtime.Serialization;
-using TheXDS.MCART.PluginSupport;
+using TheXDS.MCART.PluginSupport.Legacy;
 using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Excepción que se produce cuando un <see cref="ILegacyPlugin" /> encuentra un error.
+    ///     Excepción que se produce cuando un <see cref="IPlugin" /> encuentra un error.
     /// </summary>
     [Serializable]
-    public class PluginException : OffendingException<ILegacyPlugin>
+    public class PluginException : OffendingException<IPlugin>
     {
         /// <inheritdoc />
         /// <summary>
@@ -77,8 +68,8 @@ namespace TheXDS.MCART.Exceptions
         ///     serializada del objeto acerca de la excepción que está siendo
         ///     lanzada.
         /// </param>
-        /// <param name="plugin"><see cref="ILegacyPlugin" /> donde se ha generado la excepción.</param>
-        protected PluginException(SerializationInfo info, StreamingContext context, ILegacyPlugin plugin) : base(info,
+        /// <param name="plugin"><see cref="IPlugin" /> donde se ha generado la excepción.</param>
+        protected PluginException(SerializationInfo info, StreamingContext context, IPlugin plugin) : base(info,
             context, plugin)
         {
         }
@@ -97,8 +88,8 @@ namespace TheXDS.MCART.Exceptions
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="PluginException" />.
         /// </summary>
-        /// <param name="plugin"><see cref="ILegacyPlugin" /> donde se ha generado la excepción.</param>
-        public PluginException(ILegacyPlugin plugin) : base(Msg(plugin), plugin)
+        /// <param name="plugin"><see cref="IPlugin" /> donde se ha generado la excepción.</param>
+        public PluginException(IPlugin plugin) : base(Msg(plugin), plugin)
         {
         }
 
@@ -120,8 +111,8 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="message">
         ///     Un <see cref="string" /> que describe a la excepción.
         /// </param>
-        /// <param name="plugin"><see cref="ILegacyPlugin" /> donde se ha generado la excepción.</param>
-        public PluginException(string message, ILegacyPlugin plugin) : base(message, plugin)
+        /// <param name="plugin"><see cref="IPlugin" /> donde se ha generado la excepción.</param>
+        public PluginException(string message, IPlugin plugin) : base(message, plugin)
         {
         }
 
@@ -143,8 +134,8 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="inner">
         ///     <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
-        /// <param name="plugin"><see cref="ILegacyPlugin" /> donde se ha generado la excepción.</param>
-        public PluginException(Exception inner, ILegacyPlugin plugin) : base(Msg(plugin), inner, plugin)
+        /// <param name="plugin"><see cref="IPlugin" /> donde se ha generado la excepción.</param>
+        public PluginException(Exception inner, IPlugin plugin) : base(Msg(plugin), inner, plugin)
         {
         }
 
@@ -172,8 +163,8 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="inner">
         ///     <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
-        /// <param name="plugin"><see cref="ILegacyPlugin" /> donde se ha generado la excepción.</param>
-        public PluginException(string message, Exception inner, ILegacyPlugin plugin) : base(message, inner, plugin)
+        /// <param name="plugin"><see cref="IPlugin" /> donde se ha generado la excepción.</param>
+        public PluginException(string message, Exception inner, IPlugin plugin) : base(message, inner, plugin)
         {
         }
 
@@ -182,7 +173,7 @@ namespace TheXDS.MCART.Exceptions
             return Strings.XFoundError(Strings.ThePlugin);
         }
 
-        private static string Msg(ILegacyPlugin plugin)
+        private static string Msg(IPlugin plugin)
         {
             return Strings.XFoundError(Strings.XYQuotes(Strings.ThePlugin, plugin.Name));
         }

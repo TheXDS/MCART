@@ -1,5 +1,5 @@
 /*
-ILegacyPlugin.cs
+IPlugin.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -32,7 +32,7 @@ el desarrollador podrá aprender a utilizar la librería y crear su propio
 código.
  */
 #region uiMenu1
-public class MyPlugin : ILegacyPlugin
+public class MyPlugin : IPlugin
 {
     // Este es un elemento de interacción que MCART cableará automáticamente.
     [Name("Interacción 1")]
@@ -59,7 +59,7 @@ public class MyPlugin : ILegacyPlugin
     }
 
     /// <summary>
-    /// Constructor del ILegacyPlugin.
+    /// Constructor del IPlugin.
     /// </summary>
     public MyPlugin()
     {

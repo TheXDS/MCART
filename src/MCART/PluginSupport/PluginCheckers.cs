@@ -29,7 +29,7 @@ using System;
 using System.Collections.Generic;
 using TheXDS.MCART.Types.Extensions;
 
-namespace TheXDS.MCART.PluginSupport
+namespace TheXDS.MCART.PluginSupport.Legacy
 {
     /// <summary>
     /// <see cref="PluginChecker"/> con reglas de compatibilidad estrictas.
@@ -51,16 +51,16 @@ namespace TheXDS.MCART.PluginSupport
         /// <inheritdoc />
         /// <summary>
         /// Determina si un tipo es válido para ser cargado como un
-        /// <see cref="ILegacyPlugin" />.
+        /// <see cref="IPlugin" />.
         /// </summary>
         /// <returns>
         /// <see langword="true" />, si el tipo puede ser cagado como un 
-        /// <see cref="LegacyPlugin" />, <see langword="false" /> en caso contrario.
+        /// <see cref="Plugin" />, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="type">Tipo a comprobar.</param>
         public override bool IsValid(Type type)
         {
-            return typeof(ILegacyPlugin).IsAssignableFrom(type) && !(
+            return typeof(IPlugin).IsAssignableFrom(type) && !(
                 type.IsInterface
                 || type.IsAbstract
                 || type.HasAttr<UnusableAttribute>(out _)
@@ -103,14 +103,14 @@ namespace TheXDS.MCART.PluginSupport
         /// <inheritdoc />
         /// <summary>
         /// Determina si un tipo es válido para ser cargado como un
-        /// <see cref="ILegacyPlugin" />.
+        /// <see cref="IPlugin" />.
         /// </summary>
         /// <returns>
         /// <see langword="true" />, si el tipo puede ser cagado como un 
-        /// <see cref="LegacyPlugin" />, <see langword="false" /> en caso contrario.
+        /// <see cref="Plugin" />, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="type">Tipo a comprobar.</param>
-        public override bool IsValid(Type type) => type.Implements<ILegacyPlugin>() && type.IsInstantiable((IEnumerable<Type>)null);
-        //public override bool IsValid(Type type) => !(type.IsInterface || type.IsAbstract) && typeof(ILegacyPlugin).IsAssignableFrom(type);
+        public override bool IsValid(Type type) => type.Implements<IPlugin>() && type.IsInstantiable((IEnumerable<Type>)null);
+        //public override bool IsValid(Type type) => !(type.IsInterface || type.IsAbstract) && typeof(IPlugin).IsAssignableFrom(type);
     }
 }

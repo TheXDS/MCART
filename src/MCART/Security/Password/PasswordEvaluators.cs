@@ -57,19 +57,19 @@ namespace TheXDS.MCART.Security.Password
         /// <summary>
         ///     Obtiene un evaluador de contraseñas con reglas comunes.
         /// </summary>
-        [Name(InternalStrings.CommonEvaluator), Description(InternalStrings.CommonEvaluatorDesc)]
+        [Name(St2.CommonEvaluator), Description(St2.CommonEvaluatorDesc)]
         public static readonly IPasswordEvaluator CommonEvaluator = new PasswordEvaluator(RuleSets.CommonComplexityRuleSet());
 
         /// <summary>
         ///     Obtiene un evaluador de contraseñas con reglas seguras.
         /// </summary>
-        [Name(InternalStrings.ExtendedEvaluator)]
+        [Name(St2.ExtendedEvaluator)]
         public static readonly IPasswordEvaluator SaferEvaluator = new PasswordEvaluator(RuleSets.ExtendedRuleSet());
 #if SaferPasswords
         /// <summary>
         /// Obtiene un evaluador de contraseñas con reglas adicionales de complejidad.
         /// </summary>
-        [Name(InternalStrings.ComplexEvaluator)]
+        [Name(St2.ComplexEvaluator)]
         public static readonly IPasswordEvaluator ComplexEvaluator = new PasswordEvaluator(RuleSets.ComplexRuleSet());
 #endif
     }

@@ -32,7 +32,7 @@ namespace TheXDS.MCART.ViewModel
     /// <inheritdoc cref="ICommand"/>
     /// <summary>
     ///     Describe un comando simple que puede ser declarado dentro de un
-    ///     <see cref="N:TheXDS.MCART.ViewModel" />.
+    ///     <see cref="ViewModelBase" />.
     /// </summary>
     public class SimpleCommand : NotifyPropertyChanged, ICommand
     {
@@ -42,7 +42,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.SimpleCommand" />.
+        ///     <see cref="SimpleCommand" />.
         /// </summary>
         /// <param name="action">Acción a ejecutar.</param>
         public SimpleCommand(Action action) : this(action, true)
@@ -67,7 +67,7 @@ namespace TheXDS.MCART.ViewModel
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.ViewModel.SimpleCommand" />.
+        ///     <see cref="SimpleCommand" />.
         /// </summary>
         /// <param name="action">Acción a ejecutar.</param>
         public SimpleCommand(Action<object> action) : this(action, true)
@@ -116,7 +116,6 @@ namespace TheXDS.MCART.ViewModel
         {
             _canExecute = canExecute;
             CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-            OnPropertyChanged(nameof(Visibility));
         }
 
         /// <inheritdoc />
@@ -139,10 +138,5 @@ namespace TheXDS.MCART.ViewModel
         {
             _action(parameter);
         }
-
-        /// <summary>
-        ///     Atajo especial que permite mostrar u ocultar un control de acuerdo al estado de este <see cref="SimpleCommand"/>.
-        /// </summary>
-        public Visibility Visibility => _canExecute ? Visibility.Visible : Visibility.Collapsed;
     }
 }

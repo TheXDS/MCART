@@ -26,23 +26,19 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable UnusedAutoPropertyAccessor.Global
 
-// ReSharper disable UnusedMember.Global
-
-namespace TheXDS.MCART.PluginSupport
+namespace TheXDS.MCART.PluginSupport.Legacy
 {
     /// <inheritdoc />
     /// <summary>
     /// Incluye información adicional del evento 
-    /// <see cref="E:TheXDS.MCART.PluginSupport.ILegacyPlugin.PluginFinalizing" />.
+    /// <see cref="E:TheXDS.MCART.PluginSupport.IPlugin.PluginFinalizing" />.
     /// </summary>
     [Serializable]
     public sealed class PluginFinalizingEventArgs : CancelEventArgs
     {
         /// <summary>
-        /// Determina el motivo de finalización del <see cref="ILegacyPlugin"/>.
+        /// Determina el motivo de finalización del <see cref="IPlugin"/>.
         /// </summary>
         public enum FinalizingReason
         {
@@ -65,7 +61,7 @@ namespace TheXDS.MCART.PluginSupport
         }
         /// <summary>
         /// Indica la razón por la cual se está finalizando el 
-        /// <see cref="ILegacyPlugin"/>.
+        /// <see cref="IPlugin"/>.
         /// </summary>
         public FinalizingReason Reason { get; }
         /// <inheritdoc />
@@ -87,12 +83,12 @@ namespace TheXDS.MCART.PluginSupport
     /// <inheritdoc />
     /// <summary>
     /// Incluye información adicional del evento 
-    /// <see cref="E:TheXDS.MCART.PluginSupport.ILegacyPlugin.UiChanged" />
+    /// <see cref="E:TheXDS.MCART.PluginSupport.IPlugin.UiChanged" />
     /// </summary>
     public sealed class UiChangedEventArgs : EventArgs
     {
         /// <summary>
-        /// Obtiene la nueva interfaz que el <see cref="ILegacyPlugin"/> ha 
+        /// Obtiene la nueva interfaz que el <see cref="IPlugin"/> ha 
         /// solicitado.
         /// </summary>
         public ReadOnlyCollection<InteractionItem> NewUi { get; }

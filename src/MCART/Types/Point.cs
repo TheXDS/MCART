@@ -682,5 +682,21 @@ namespace TheXDS.MCART.Types
         {
             return this == other;
         }
-    }
+
+        /// <summary>
+        ///     Convierte un <see cref="Point"/> en un <see cref="System.Drawing.Point"/>.
+        /// </summary>
+        /// <param name="x"><see cref="Point"/> a convertir.</param>
+        /// <returns>
+        ///     Un <see cref="System.Drawing.Point"/> equivalente al <see cref="Point"/> especificado.
+        /// </returns>
+        public static implicit operator System.Drawing.Point(Point x) => new System.Drawing.Point((int)x.X, (int)x.Y);
+        /// <summary>
+        ///     Convierte un <see cref="System.Drawing.Point"/> en un <see cref="Point"/>.
+        /// </summary>
+        /// <param name="x"><see cref="System.Drawing.Point"/> a convertir.</param>
+        /// <returns>
+        ///     Un <see cref="Point"/> equivalente al <see cref="System.Drawing.Point"/> especificado.
+        /// </returns>
+        public static implicit operator Point(System.Drawing.Point x) => new Point(x.X, x.Y);}
 }
