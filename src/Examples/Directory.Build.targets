@@ -9,7 +9,7 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="$(SolutionDir)\MCART\MCART.csproj">
+    <ProjectReference Include="$(SolutionDir)MCART\MCART.csproj">
       <Project>{d39b543e-571d-4ea5-b8a2-9f6729c8e689}</Project>
       <Name>MCART</Name>
     </ProjectReference>

@@ -26,8 +26,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{19EC529F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{B75874BF-E600-41EF-B756-93A12CCCABA5}"
 EndProject
-Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "API-Documentation", "Documentation\API-Documentation\API-Documentation.shfbproj", "{14A05F92-BF65-4801-95A7-48EE59C72159}"
-EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Snippets", "Documentation\Snippets\Snippets.shproj", "{913DB390-BCF2-478D-996E-1B7248425597}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART", "MCART\MCART.csproj", "{D39B543E-571D-4EA5-B8A2-9F6729C8E689}"
@@ -130,12 +128,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{14A05F92-BF65-4801-95A7-48EE59C72159}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{14A05F92-BF65-4801-95A7-48EE59C72159}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{14A05F92-BF65-4801-95A7-48EE59C72159}.Debug-Publish|Any CPU.ActiveCfg = Debug|Any CPU
-		{14A05F92-BF65-4801-95A7-48EE59C72159}.Debug-PublishLocal|Any CPU.ActiveCfg = Debug|Any CPU
-		{14A05F92-BF65-4801-95A7-48EE59C72159}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{14A05F92-BF65-4801-95A7-48EE59C72159}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D39B543E-571D-4EA5-B8A2-9F6729C8E689}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D39B543E-571D-4EA5-B8A2-9F6729C8E689}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D39B543E-571D-4EA5-B8A2-9F6729C8E689}.Debug-Publish|Any CPU.ActiveCfg = Debug-Publish|Any CPU
@@ -304,8 +296,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{14A05F92-BF65-4801-95A7-48EE59C72159} = {1AF1EDA3-FEAD-4702-8541-26B364AD0C4E}
+	GlobalSection(NestedProjects) = preSolution		
 		{913DB390-BCF2-478D-996E-1B7248425597} = {1AF1EDA3-FEAD-4702-8541-26B364AD0C4E}
 		{77706828-80BE-4BAC-A97C-072E101D01DE} = {DB2C9D58-DF3F-4361-ACE4-EF1219AD1810}
 		{620E1805-E9FA-48A5-A9C6-C9E6D35E464D} = {8D80435C-F7CE-46FE-82F0-58F0D5282344}
