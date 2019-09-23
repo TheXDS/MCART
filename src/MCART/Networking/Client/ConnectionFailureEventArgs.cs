@@ -22,16 +22,10 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Net;
-
-#region Configuración de ReSharper
-
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable UnusedMember.Global
-
-#endregion
 
 namespace TheXDS.MCART.Networking.Client
 {

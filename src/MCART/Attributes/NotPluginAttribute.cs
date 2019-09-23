@@ -30,8 +30,8 @@ namespace TheXDS.MCART.Attributes
     /// <inheritdoc />
     /// <summary>
     ///     Marca una clase para no ser cargada como
-    ///     <see cref="PluginSupport.IPlugin" />, a pesar de implementar
-    ///     <see cref="PluginSupport.IPlugin" />.
+    ///     <see cref="PluginSupport.Legacy.IPlugin" />, a pesar de implementar
+    ///     <see cref="PluginSupport.Legacy.IPlugin" />.
     /// </summary>
     [AttributeUsage(Interface | Class)]
     [Serializable]

@@ -26,23 +26,14 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
-using TheXDS.MCART.Annotations;
 using TheXDS.MCART.Types.Extensions;
-using ExtendedTcpClient = TheXDS.MCART.Types.Extensions.ExtendedTcpClient;
-
-#region Configuración de ReSharper
-
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable EventNeverSubscribedTo.Global
-
-#endregion
 
 namespace TheXDS.MCART.Networking.Client
 {
@@ -182,8 +173,7 @@ namespace TheXDS.MCART.Networking.Client
                 ex => new ConnectionFailureEventArgs(ex, server, port));
         }
 
-        private bool Connect([NotNull] Action<ExtendedTcpClient> connect, [NotNull] Func<HostConnectionInfoEventArgs> connected,
-            [NotNull] Func<Exception, ConnectionFailureEventArgs> failure)
+        private bool Connect(Action<ExtendedTcpClient> connect, Func<HostConnectionInfoEventArgs> connected, Func<Exception, ConnectionFailureEventArgs> failure)
         {
             try
             {
@@ -363,7 +353,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     el servidor remoto, o <see langword="null" /> si no existe una
         ///     conexión activa válida.
         /// </returns>
-        [CanBeNull] protected NetworkStream? NwStream()
+        protected NetworkStream? NwStream()
         {
             try
             {

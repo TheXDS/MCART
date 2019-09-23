@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -289,6 +291,8 @@ namespace TheXDS.MCART.Networking.Client
         /// </summary>
         protected override async sealed void PostConnection()
         {
+#pragma warning disable IDE0068
+#pragma warning disable 4014
             while (GetNs() is NetworkStream ns)
             {
                 var outp = await GetDataAsync(ns);
@@ -296,14 +300,12 @@ namespace TheXDS.MCART.Networking.Client
                 var br = new BinaryReader(ms);
                 if (_interrupts.TryDequeue(out var callback))
                 {
-#pragma warning disable 4014
                     Task.Run(() =>
                     {
                         callback.Invoke(this, br);
                         br.Dispose();
                         ms.Dispose();
                     });
-#pragma warning restore 4014
                 }
                 else
                 {
@@ -312,7 +314,6 @@ namespace TheXDS.MCART.Networking.Client
                     if (_unkResponse.Equals(cmd)) UnknownCommandIssued?.Invoke(this, EventArgs.Empty);
                     if (_responses.ContainsKey(cmd))
                     {
-#pragma warning disable 4014
                         Task.Run(() =>
                         {
                             _responses[cmd](this, br);
@@ -320,7 +321,6 @@ namespace TheXDS.MCART.Networking.Client
                             ms.Dispose();
                         });
                     }
-#pragma warning restore 4014
                     else if (outp.Any())
                     {
                         br.Dispose();
@@ -334,6 +334,8 @@ namespace TheXDS.MCART.Networking.Client
                     }
                 }
             }
+#pragma warning restore IDE0068
+#pragma warning restore 4014
         }
 
         private NetworkStream? GetNs()

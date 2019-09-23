@@ -34,7 +34,7 @@ namespace TheXDS.MCART.Misc
         internal static MethodBase GetCallOutsideMcart()
         {
             var c = 2;
-            var m = ReflectionHelpers.GetCallingMethod();
+            var m = ReflectionHelpers.GetCallingMethod()!;
             while (m.DeclaringType!.Assembly.HasAttr<McartComponentAttribute>())
             {
                 m = ReflectionHelpers.GetCallingMethod(c++) ?? throw new Exceptions.StackUnderflowException();

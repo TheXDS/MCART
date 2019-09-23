@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -339,7 +341,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
             if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
             foreach (var f in new DirectoryInfo(pluginsPath).GetFiles($"*{_extension}", search))
             {
-                Assembly a = null;
+                Assembly? a = null;
                 try
                 {
                     a = Assembly.LoadFrom(f.FullName);
@@ -716,7 +718,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// </typeparam>
         public IEnumerable<T> LoadEverything<T>() where T : class
         {
-            return LoadEverything<T>((Func<Type, bool>)null);
+            return LoadEverything<T>((Func<Type, bool>?)null);
         }
 
         /// <summary>
@@ -771,7 +773,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// <typeparam name="T">
         ///     Tipo de <see cref="IPlugin" /> a cargar.
         /// </typeparam>
-        public IEnumerable<T> LoadEverything<T>(string pluginsPath, Func<Type, bool> predicate) where T : class
+        public IEnumerable<T> LoadEverything<T>(string pluginsPath, Func<Type, bool>? predicate) where T : class
         {
             return LoadEverything<T>(pluginsPath, SearchOption.TopDirectoryOnly, predicate);
         }
@@ -806,7 +808,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// <typeparam name="T">
         ///     Tipo de <see cref="IPlugin" /> a cargar.
         /// </typeparam>
-        public IEnumerable<T> LoadEverything<T>(SearchOption search, Func<Type, bool> predicate) where T : class
+        public IEnumerable<T> LoadEverything<T>(SearchOption search, Func<Type, bool>? predicate) where T : class
         {
             return LoadEverything<T>(Environment.CurrentDirectory, search, predicate);
         }
@@ -861,6 +863,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
                 catch
                 {
                     Debug.Print(St.Warn(St.XIsInvalid(St.XYQuotes(St.TheAssembly, f.Name))));
+                    continue;
                 }
 #if PreferExceptions
                 if (checker.IsVaild(a))
@@ -901,6 +904,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
                 catch
                 {
                     Debug.Print(St.Warn(St.XIsInvalid(St.XYQuotes(St.TheAssembly, f.Name))));
+                    continue;
                 }
 #if PreferExceptions
                 if (checker.IsVaild(a))

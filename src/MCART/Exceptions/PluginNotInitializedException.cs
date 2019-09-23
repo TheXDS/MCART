@@ -22,14 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#region Configuración de ReSharper
-
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-
-#endregion
+#nullable enable
 
 using System;
 using System.Runtime.Serialization;
@@ -38,7 +31,7 @@ using TheXDS.MCART.Resources;
 namespace TheXDS.MCART.Exceptions
 {
     /// <summary>
-    ///     Excepción que se produce cuando se llama a un método de un <see cref="PluginSupport.Plugin" /> sin inicializar
+    ///     Excepción que se produce cuando se llama a un método de un <see cref="PluginSupport.Legacy.Plugin" /> sin inicializar
     /// </summary>
     [Serializable]
     public class PluginNotInitializedException : Exception

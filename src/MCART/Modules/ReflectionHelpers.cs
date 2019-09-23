@@ -162,7 +162,7 @@ namespace TheXDS.MCART
         ///     Un <see cref="MemberInfo"/> que representa al miembro
         ///     seleccionado en la expresión.
         /// </returns>
-        public static MemberInfo GetMember<T>(Expression<Func<T, object>> memberSelector)
+        public static MemberInfo GetMember<T>(Expression<Func<T, object?>> memberSelector)
         {
             if (memberSelector.Body is UnaryExpression UnExp && UnExp.Operand is MemberExpression)                
                 return ((MemberExpression)UnExp.Operand).Member;
@@ -170,6 +170,7 @@ namespace TheXDS.MCART
                 return ((MemberExpression)memberSelector.Body).Member;
             throw new ArgumentException();
         }
+
         /// <summary>
         ///     Obtiene un miembro a partir de una expresión.
         /// </summary>
@@ -180,7 +181,7 @@ namespace TheXDS.MCART
         ///     Un <see cref="MemberInfo"/> que representa al miembro
         ///     seleccionado en la expresión.
         /// </returns>
-        public static MemberInfo GetMember(Expression<Func<object>> memberSelector)
+        public static MemberInfo GetMember(Expression<Func<object?>> memberSelector)
         {
             if (memberSelector.Body is UnaryExpression UnExp && UnExp.Operand is MemberExpression)
                 return ((MemberExpression)UnExp.Operand).Member;
