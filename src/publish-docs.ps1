@@ -1,6 +1,5 @@
 ﻿#! /bin/pwsh
 docfx ..\docs\docfx.json
-
 SOURCE_DIR = $PWD
 TEMP_REPO_DIR = $env:TMP\mcart-gh-pages
 if (!(Test-Path $TEMP_REPO_DIR)) {
