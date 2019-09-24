@@ -1,0 +1,1177 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class SelfWiredCommandClient&lt;TCommand, TResponse&gt;
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class SelfWiredCommandClient&lt;TCommand, TResponse&gt;
+   ">
+    <meta name="generator" content="docfx 2.45.1.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2">
+  
+  
+  <h1 id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2" class="text-break">Class SelfWiredCommandClient&lt;TCommand, TResponse&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>Clase base para clientes auto-cableados de atención a protocolos de
+comandos simples basados en la clase
+<a class="xref" href="TheXDS.MCART.Networking.Server.SelfWiredCommandProtocol-3.html">SelfWiredCommandProtocol&lt;TClient, TCommand, TResponse&gt;</a>.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><a class="xref" href="TheXDS.MCART.Networking.Client.ClientBase.html">ClientBase</a></div>
+    <div class="level2"><a class="xref" href="TheXDS.MCART.Networking.Client.ActiveClient.html">ActiveClient</a></div>
+    <div class="level3"><span class="xref">SelfWiredCommandClient&lt;TCommand, TResponse&gt;</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Client.ActiveClient.html#TheXDS_MCART_Networking_Client_ActiveClient_ConnectionLost">ActiveClient.ConnectionLost</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Client.ActiveClient.html#TheXDS_MCART_Networking_Client_ActiveClient_TalkToServer_System_Collections_Generic_IEnumerable_System_Byte__">ActiveClient.TalkToServer(IEnumerable&lt;Byte&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Client.ActiveClient.html#TheXDS_MCART_Networking_Client_ActiveClient_TalkToServerAsync_System_Collections_Generic_IEnumerable_System_Byte__">ActiveClient.TalkToServerAsync(IEnumerable&lt;Byte&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Client.ActiveClient.html#TheXDS_MCART_Networking_Client_ActiveClient_GetStream">ActiveClient.GetStream()</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Client.ActiveClient.html#TheXDS_MCART_Networking_Client_ActiveClient_RaiseConnectionLost">ActiveClient.RaiseConnectionLost()</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Client.ClientBase.html#TheXDS_MCART_Networking_Client_ClientBase_IsAlive">ClientBase.IsAlive</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Client.ClientBase.html#TheXDS_MCART_Networking_Client_ClientBase_CloseConnection">ClientBase.CloseConnection()</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Client.ClientBase.html#TheXDS_MCART_Networking_Client_ClientBase_CloseConnection_System_Boolean_">ClientBase.CloseConnection(Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Client.ClientBase.html#TheXDS_MCART_Networking_Client_ClientBase_Connect_System_String_">ClientBase.Connect(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Client.ClientBase.html#TheXDS_MCART_Networking_Client_ClientBase_Connect_System_Net_IPEndPoint_">ClientBase.Connect(IPEndPoint)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Client.ClientBase.html#TheXDS_MCART_Networking_Client_ClientBase_Connect_System_Net_IPAddress_">ClientBase.Connect(IPAddress)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Client.ClientBase.html#TheXDS_MCART_Networking_Client_ClientBase_Connect_System_Net_IPAddress_System_Int32_">ClientBase.Connect(IPAddress, Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Client.ClientBase.html#TheXDS_MCART_Networking_Client_ClientBase_Connect_System_String_System_Int32_">ClientBase.Connect(String, Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Client.ClientBase.html#TheXDS_MCART_Networking_Client_ClientBase_ConnectAsync_System_String_">ClientBase.ConnectAsync(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Client.ClientBase.html#TheXDS_MCART_Networking_Client_ClientBase_ConnectAsync_System_Net_IPEndPoint_">ClientBase.ConnectAsync(IPEndPoint)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Client.ClientBase.html#TheXDS_MCART_Networking_Client_ClientBase_ConnectAsync_System_Net_IPAddress_">ClientBase.ConnectAsync(IPAddress)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Client.ClientBase.html#TheXDS_MCART_Networking_Client_ClientBase_ConnectAsync_System_Net_IPAddress_System_Int32_">ClientBase.ConnectAsync(IPAddress, Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Client.ClientBase.html#TheXDS_MCART_Networking_Client_ClientBase_ConnectAsync_System_String_System_Int32_">ClientBase.ConnectAsync(String, Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Client.ClientBase.html#TheXDS_MCART_Networking_Client_ClientBase_Connected">ClientBase.Connected</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Client.ClientBase.html#TheXDS_MCART_Networking_Client_ClientBase_ConnectionFailed">ClientBase.ConnectionFailed</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Client.ClientBase.html#TheXDS_MCART_Networking_Client_ClientBase_GetData_System_Net_Sockets_NetworkStream_">ClientBase.GetData(NetworkStream)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Client.ClientBase.html#TheXDS_MCART_Networking_Client_ClientBase_GetDataAsync_System_Net_Sockets_NetworkStream_">ClientBase.GetDataAsync(NetworkStream)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Client.ClientBase.html#TheXDS_MCART_Networking_Client_ClientBase_NwStream">ClientBase.NwStream()</a>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="TheXDS.MCART.Networking.Client.html">TheXDS.MCART.Networking.Client</a></h6>
+  <h6><strong>Assembly</strong>: MCART.dll</h6>
+  <h5 id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Este es un componente legado.&quot;)]
+public abstract class SelfWiredCommandClient&lt;TCommand, TResponse&gt; : ActiveClient where TCommand : struct, Enum where TResponse : struct, Enum</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TCommand</span></td>
+        <td><p>Tipo de enumeración de los comandos enviados por este cliente.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TResponse</span></td>
+        <td><p>Tipo de enumeración de las respuestas manejadas por este cliente.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>Debido a las limitaciones actuales de C#, para poder implementar
+este protocolo es necesario crear un atributo aplicable a los
+métodos miembros de la clase que derive de
+<a class="xref" href="TheXDS.MCART.Networking.Client.SelfWiredCommandClient-2.html">SelfWiredCommandClient&lt;TCommand, TResponse&gt;</a>, dicho
+atributo deberá implementar <a class="xref" href="TheXDS.MCART.Attributes.IValueAttribute-1.html">IValueAttribute&lt;T&gt;</a> y ser
+aplicado a cada método que pueda manejar respuestas del servidor.
+Tales métodos deberán a su vez, ser compatibles con el delegado
+<a class="xref" href="TheXDS.MCART.Networking.Client.SelfWiredCommandClient-2.ResponseCallBack.html">SelfWiredCommandClient&lt;TCommand, TResponse&gt;.ResponseCallBack</a>.
+Los comandos y las respuestas son enumeraciones comunes.</p>
+</div>
+  <h5 id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_examples"><strong>Examples</strong></h5>
+  <p>Este ejemplo define un protocolo sencillo que imprime mensajes enviados por el servidor.</p>
+<pre><code class="lang-cs" source="..\..\Documentation\Examples\Networking\Client\SelfWiredCommandClient.cs" region="example1"></code></pre>
+<pre><code class="lang-vb" source="..\..\Documentation\Examples\Networking\Client\SelfWiredCommandClient.vb" region="example1"></code></pre>
+
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2__ctor.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Client.SelfWiredCommandClient%602.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Client/SelfWiredCommandClient.cs/#L123">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2__ctor_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.#ctor*"></a>
+  <h4 id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2__ctor" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.#ctor">SelfWiredCommandClient()</h4>
+  <div class="markdown level1 summary"><p>Inicializa una nueva instancia de la clase
+<a class="xref" href="TheXDS.MCART.Networking.Client.SelfWiredCommandClient-2.html">SelfWiredCommandClient&lt;TCommand, TResponse&gt;</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected SelfWiredCommandClient()</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_AttendServer_System_Byte___.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Client.SelfWiredCommandClient%602.AttendServer(System.Byte%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Client/SelfWiredCommandClient.cs/#L283">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_AttendServer_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.AttendServer*"></a>
+  <h4 id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_AttendServer_System_Byte___" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.AttendServer(System.Byte[])">AttendServer(Byte[])</h4>
+  <div class="markdown level1 summary"><p>Atiende una solicitud realizada por el servidor cuando no
+existe un método mapeado a la respuesta recibida.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void AttendServer(byte[] data)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="parametername">data</span></td>
+        <td><p>Datos recibidos desde el servidor.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="TheXDS.MCART.Networking.Client.ActiveClient.html#TheXDS_MCART_Networking_Client_ActiveClient_AttendServer_System_Byte___">ActiveClient.AttendServer(Byte[])</a></div>
+  <h5 id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_AttendServer_System_Byte____remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>De forma predeterminada, este método no realiza ninguna acción.
+Invalide este método en caso de que la implementación no mapee
+todas las respuestas que el servidor podría enviar, en cuyo
+caso, serán atendidas aquí.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_MakeCommand__0_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Client.SelfWiredCommandClient%602.MakeCommand(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Client/SelfWiredCommandClient.cs/#L160">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_MakeCommand_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.MakeCommand*"></a>
+  <h4 id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_MakeCommand__0_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.MakeCommand(`0)">MakeCommand(TCommand)</h4>
+  <div class="markdown level1 summary"><p>Genera un arreglo de bytes con la solicitud de este cliente.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] MakeCommand(TCommand command)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TCommand</span></td>
+        <td><span class="parametername">command</span></td>
+        <td><p>Valor a partir del cual generar la solicitud.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><p>Un arreglo de bytes con la solicitud, al cual se pueden
+concatenar más datos.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_MakeCommand__0_System_Collections_Generic_IEnumerable_System_Byte__.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Client.SelfWiredCommandClient%602.MakeCommand(%600%2CSystem.Collections.Generic.IEnumerable%7BSystem.Byte%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Client/SelfWiredCommandClient.cs/#L179">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_MakeCommand_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.MakeCommand*"></a>
+  <h4 id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_MakeCommand__0_System_Collections_Generic_IEnumerable_System_Byte__" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.MakeCommand(`0,System.Collections.Generic.IEnumerable{System.Byte})">MakeCommand(TCommand, IEnumerable&lt;Byte&gt;)</h4>
+  <div class="markdown level1 summary"><p>Genera un arreglo de bytes con la solicitud de este cliente.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] MakeCommand(TCommand command, IEnumerable&lt;byte&gt; data)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TCommand</span></td>
+        <td><span class="parametername">command</span></td>
+        <td><p>Valor a partir del cual generar la solicitud.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Byte</span>&gt;</td>
+        <td><span class="parametername">data</span></td>
+        <td><p>Arreglo de bytes con datos adicionales a adjuntar al datagrama
+de respuesta.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><p>Un arreglo de bytes con la solicitud, al cual se pueden
+concatenar más datos.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_MakeCommand__0_System_Collections_Generic_IEnumerable_System_String__.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Client.SelfWiredCommandClient%602.MakeCommand(%600%2CSystem.Collections.Generic.IEnumerable%7BSystem.String%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Client/SelfWiredCommandClient.cs/#L216">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_MakeCommand_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.MakeCommand*"></a>
+  <h4 id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_MakeCommand__0_System_Collections_Generic_IEnumerable_System_String__" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.MakeCommand(`0,System.Collections.Generic.IEnumerable{System.String})">MakeCommand(TCommand, IEnumerable&lt;String&gt;)</h4>
+  <div class="markdown level1 summary"><p>Genera un arreglo de bytes con la solicitud de este cliente.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] MakeCommand(TCommand command, IEnumerable&lt;string&gt; data)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TCommand</span></td>
+        <td><span class="parametername">command</span></td>
+        <td><p>Valor a partir del cual generar la solicitud.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td><span class="parametername">data</span></td>
+        <td><p>Enumeración con múltiples cadenas de texto adicionales a
+adjuntar al datagrama de solicitud.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><p>Un arreglo de bytes con la solicitud, al cual se pueden
+concatenar más datos.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_MakeCommand__0_System_IO_MemoryStream_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Client.SelfWiredCommandClient%602.MakeCommand(%600%2CSystem.IO.MemoryStream)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Client/SelfWiredCommandClient.cs/#L238">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_MakeCommand_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.MakeCommand*"></a>
+  <h4 id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_MakeCommand__0_System_IO_MemoryStream_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.MakeCommand(`0,System.IO.MemoryStream)">MakeCommand(TCommand, MemoryStream)</h4>
+  <div class="markdown level1 summary"><p>Genera un arreglo de bytes con la solicitud de este cliente.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] MakeCommand(TCommand command, MemoryStream data)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TCommand</span></td>
+        <td><span class="parametername">command</span></td>
+        <td><p>Valor a partir del cual generar la solicitud.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.IO.MemoryStream</span></td>
+        <td><span class="parametername">data</span></td>
+        <td><p>Flujo de datos que contiene la información a adjuntar al
+datagrama de solicitud.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><p>Un arreglo de bytes con la solicitud, al cual se pueden
+concatenar más datos.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_MakeCommand__0_System_IO_Stream_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Client.SelfWiredCommandClient%602.MakeCommand(%600%2CSystem.IO.Stream)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Client/SelfWiredCommandClient.cs/#L257">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_MakeCommand_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.MakeCommand*"></a>
+  <h4 id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_MakeCommand__0_System_IO_Stream_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.MakeCommand(`0,System.IO.Stream)">MakeCommand(TCommand, Stream)</h4>
+  <div class="markdown level1 summary"><p>Genera un arreglo de bytes con la solicitud de este cliente.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] MakeCommand(TCommand command, Stream data)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TCommand</span></td>
+        <td><span class="parametername">command</span></td>
+        <td><p>Valor a partir del cual generar la solicitud.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.IO.Stream</span></td>
+        <td><span class="parametername">data</span></td>
+        <td><p>Flujo de datos que contiene la información a adjuntar al
+datagrama de solicitud.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><p>Un arreglo de bytes con la solicitud, al cual se pueden
+concatenar más datos.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_MakeCommand__0_System_String_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Client.SelfWiredCommandClient%602.MakeCommand(%600%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Client/SelfWiredCommandClient.cs/#L197">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_MakeCommand_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.MakeCommand*"></a>
+  <h4 id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_MakeCommand__0_System_String_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.MakeCommand(`0,System.String)">MakeCommand(TCommand, String)</h4>
+  <div class="markdown level1 summary"><p>Genera un arreglo de bytes con la solicitud de este cliente.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static byte[] MakeCommand(TCommand command, string data)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TCommand</span></td>
+        <td><span class="parametername">command</span></td>
+        <td><p>Valor a partir del cual generar la solicitud.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">data</span></td>
+        <td><p>Cadena de texto a adjuntar al datagrama de solicitud.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><p>Un arreglo de bytes con la solicitud, al cual se pueden
+concatenar más datos.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_PostConnection.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Client.SelfWiredCommandClient%602.PostConnection%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Client/SelfWiredCommandClient.cs/#L292">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_PostConnection_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.PostConnection*"></a>
+  <h4 id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_PostConnection" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.PostConnection">PostConnection()</h4>
+  <div class="markdown level1 summary"><p>Inicia la escucha activa del servidor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override sealed void PostConnection()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="TheXDS.MCART.Networking.Client.ActiveClient.html#TheXDS_MCART_Networking_Client_ActiveClient_PostConnection">ActiveClient.PostConnection()</a></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_ReadResponse_System_IO_BinaryReader_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Client.SelfWiredCommandClient%602.ReadResponse(System.IO.BinaryReader)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Client/SelfWiredCommandClient.cs/#L366">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_ReadResponse_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.ReadResponse*"></a>
+  <h4 id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_ReadResponse_System_IO_BinaryReader_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.ReadResponse(System.IO.BinaryReader)">ReadResponse(BinaryReader)</h4>
+  <div class="markdown level1 summary"><p>Obtiene una respuesta a partir de un <span class="xref">System.IO.BinaryReader</span>
+activo.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TResponse ReadResponse(BinaryReader br)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.IO.BinaryReader</span></td>
+        <td><span class="parametername">br</span></td>
+        <td><p><span class="xref">System.IO.BinaryReader</span> desde el cual se obtendrá la
+información.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TResponse</span></td>
+        <td><p>Un <code data-dev-comment-type="typeparamref" class="typeparamref">TResponse</code> con la respuesta enviada
+por el servidor.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_TalkToServer__0_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Client.SelfWiredCommandClient%602.TalkToServer(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Client/SelfWiredCommandClient.cs/#L432">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_TalkToServer_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.TalkToServer*"></a>
+  <h4 id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_TalkToServer__0_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.TalkToServer(`0)">TalkToServer(TCommand)</h4>
+  <div class="markdown level1 summary"><p>Envía un comando al servidor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void TalkToServer(TCommand command)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TCommand</span></td>
+        <td><span class="parametername">command</span></td>
+        <td><p>Comando a enviar al servidor.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><p>Se produce cuando se intenta enviar un comando a un servidor
+cuando la conexión está cerrada.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_TalkToServer__0_TheXDS_MCART_Networking_Client_SelfWiredCommandClient__0__1__ResponseCallBack_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Client.SelfWiredCommandClient%602.TalkToServer(%600%2CTheXDS.MCART.Networking.Client.SelfWiredCommandClient%7B%600%2C%601%7D.ResponseCallBack)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Client/SelfWiredCommandClient.cs/#L414">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_TalkToServer_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.TalkToServer*"></a>
+  <h4 id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_TalkToServer__0_TheXDS_MCART_Networking_Client_SelfWiredCommandClient__0__1__ResponseCallBack_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.TalkToServer(`0,TheXDS.MCART.Networking.Client.SelfWiredCommandClient{`0,`1}.ResponseCallBack)">TalkToServer(TCommand, SelfWiredCommandClient&lt;TCommand, TResponse&gt;.ResponseCallBack)</h4>
+  <div class="markdown level1 summary"><p>Envía un comando al servidor, y ejecuta un método de atención
+cuando el servidor responda, evitando el hilo de atención
+normal.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void TalkToServer(TCommand command, SelfWiredCommandClient&lt;TCommand, TResponse&gt;.ResponseCallBack callback)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TCommand</span></td>
+        <td><span class="parametername">command</span></td>
+        <td><p>Comando a enviar al servidor.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Networking.Client.SelfWiredCommandClient-2.ResponseCallBack.html">SelfWiredCommandClient.ResponseCallBack</a>&lt;&gt;</td>
+        <td><span class="parametername">callback</span></td>
+        <td><p>Llamada a ejecutar cuando el servidor responda.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><p>Se produce cuando se intenta enviar un comando a un servidor
+cuando la conexión está cerrada.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p>Se produce si <code data-dev-comment-type="paramref" class="paramref">callback</code> es <span class="xref">null</span>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_TalkToServer_System_Byte___TheXDS_MCART_Networking_Client_SelfWiredCommandClient__0__1__ResponseCallBack_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Client.SelfWiredCommandClient%602.TalkToServer(System.Byte%5B%5D%2CTheXDS.MCART.Networking.Client.SelfWiredCommandClient%7B%600%2C%601%7D.ResponseCallBack)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Client/SelfWiredCommandClient.cs/#L389">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_TalkToServer_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.TalkToServer*"></a>
+  <h4 id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_TalkToServer_System_Byte___TheXDS_MCART_Networking_Client_SelfWiredCommandClient__0__1__ResponseCallBack_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.TalkToServer(System.Byte[],TheXDS.MCART.Networking.Client.SelfWiredCommandClient{`0,`1}.ResponseCallBack)">TalkToServer(Byte[], SelfWiredCommandClient&lt;TCommand, TResponse&gt;.ResponseCallBack)</h4>
+  <div class="markdown level1 summary"><p>Envía un comando al servidor, y ejecuta un método de atención
+cuando el servidor responda, evitando el hilo de atención
+normal.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void TalkToServer(byte[] data, SelfWiredCommandClient&lt;TCommand, TResponse&gt;.ResponseCallBack callback)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="parametername">data</span></td>
+        <td><p>Datos adicionales a concatenar a la solicitud.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Networking.Client.SelfWiredCommandClient-2.ResponseCallBack.html">SelfWiredCommandClient.ResponseCallBack</a>&lt;&gt;</td>
+        <td><span class="parametername">callback</span></td>
+        <td><p>Llamada a ejecutar cuando el servidor responda.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_TalkToServerAsync__0_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Client.SelfWiredCommandClient%602.TalkToServerAsync(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Client/SelfWiredCommandClient.cs/#L493">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_TalkToServerAsync_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.TalkToServerAsync*"></a>
+  <h4 id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_TalkToServerAsync__0_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.TalkToServerAsync(`0)">TalkToServerAsync(TCommand)</h4>
+  <div class="markdown level1 summary"><p>Envía un comando al servidor de forma asíncrona.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task TalkToServerAsync(TCommand command)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TCommand</span></td>
+        <td><span class="parametername">command</span></td>
+        <td><p>Comando a enviar al servidor.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td><p>Un <span class="xref">System.Threading.Tasks.Task</span> que permite monitorear la operación.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_TalkToServerAsync__0_TheXDS_MCART_Networking_Client_SelfWiredCommandClient__0__1__ResponseCallBack_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Client.SelfWiredCommandClient%602.TalkToServerAsync(%600%2CTheXDS.MCART.Networking.Client.SelfWiredCommandClient%7B%600%2C%601%7D.ResponseCallBack)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Client/SelfWiredCommandClient.cs/#L477">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_TalkToServerAsync_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.TalkToServerAsync*"></a>
+  <h4 id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_TalkToServerAsync__0_TheXDS_MCART_Networking_Client_SelfWiredCommandClient__0__1__ResponseCallBack_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.TalkToServerAsync(`0,TheXDS.MCART.Networking.Client.SelfWiredCommandClient{`0,`1}.ResponseCallBack)">TalkToServerAsync(TCommand, SelfWiredCommandClient&lt;TCommand, TResponse&gt;.ResponseCallBack)</h4>
+  <div class="markdown level1 summary"><p>Envía un comando al servidor de forma asíncrona, y ejecuta un
+método de atención cuando el servidor responda, evitando el
+hilo de atención normal.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task TalkToServerAsync(TCommand command, SelfWiredCommandClient&lt;TCommand, TResponse&gt;.ResponseCallBack callback)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TCommand</span></td>
+        <td><span class="parametername">command</span></td>
+        <td><p>Comando a enviar al servidor.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Networking.Client.SelfWiredCommandClient-2.ResponseCallBack.html">SelfWiredCommandClient.ResponseCallBack</a>&lt;&gt;</td>
+        <td><span class="parametername">callback</span></td>
+        <td><p>Llamada a ejecutar cuando el servidor responda.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td><p>Un <span class="xref">System.Threading.Tasks.Task</span> que permite monitorear la operación.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_TalkToServerAsync_System_Byte___TheXDS_MCART_Networking_Client_SelfWiredCommandClient__0__1__ResponseCallBack_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Client.SelfWiredCommandClient%602.TalkToServerAsync(System.Byte%5B%5D%2CTheXDS.MCART.Networking.Client.SelfWiredCommandClient%7B%600%2C%601%7D.ResponseCallBack)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Client/SelfWiredCommandClient.cs/#L454">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_TalkToServerAsync_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.TalkToServerAsync*"></a>
+  <h4 id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_TalkToServerAsync_System_Byte___TheXDS_MCART_Networking_Client_SelfWiredCommandClient__0__1__ResponseCallBack_" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.TalkToServerAsync(System.Byte[],TheXDS.MCART.Networking.Client.SelfWiredCommandClient{`0,`1}.ResponseCallBack)">TalkToServerAsync(Byte[], SelfWiredCommandClient&lt;TCommand, TResponse&gt;.ResponseCallBack)</h4>
+  <div class="markdown level1 summary"><p>Envía un comando al servidor de forma asíncrona, y ejecuta un
+método de atención cuando el servidor responda, evitando el
+hilo de atención normal.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task TalkToServerAsync(byte[] data, SelfWiredCommandClient&lt;TCommand, TResponse&gt;.ResponseCallBack callback)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="parametername">data</span></td>
+        <td><p>Datos adicionales a concatenar a la solicitud.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Networking.Client.SelfWiredCommandClient-2.ResponseCallBack.html">SelfWiredCommandClient.ResponseCallBack</a>&lt;&gt;</td>
+        <td><span class="parametername">callback</span></td>
+        <td><p>Llamada a ejecutar cuando el servidor responda.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td><p>Un <span class="xref">System.Threading.Tasks.Task</span> que permite monitorear la operación.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="events">Events
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_ServerError.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Client.SelfWiredCommandClient%602.ServerError%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Client/SelfWiredCommandClient.cs/#L376">View Source</a>
+  </span>
+  <h4 id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_ServerError" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.ServerError">ServerError</h4>
+  <div class="markdown level1 summary"><p>Se produce cuando el servidor envía un mensaje indicando estado
+de error.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler ServerError</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.EventHandler</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_UnknownCommandIssued.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Client.SelfWiredCommandClient%602.UnknownCommandIssued%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Client/SelfWiredCommandClient.cs/#L504">View Source</a>
+  </span>
+  <h4 id="TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2_UnknownCommandIssued" data-uid="TheXDS.MCART.Networking.Client.SelfWiredCommandClient`2.UnknownCommandIssued">UnknownCommandIssued</h4>
+  <div class="markdown level1 summary"><p>Se produce cuando el servidor envía un mensaje indicando que no
+reconoce al comando que se le ha enviado.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler UnknownCommandIssued</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.EventHandler</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_FieldsOf__1_System_Object_">Objects.FieldsOf&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_GetAttr__1_System_Object_">Objects.GetAttr&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_GetAttrs__1_System_Object_">Objects.GetAttrs&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_HasAttr__1_System_Object_System_Nullable___0___">Objects.HasAttr&lt;T&gt;(Object, out Nullable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_HasAttrValue__2_System_Object___1__">Objects.HasAttrValue&lt;TAttribute, TValue&gt;(Object, out TValue)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_HasAttr__1_System_Object_">Objects.HasAttr&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_HasAttrs__1_System_Object_System_Nullable_System_Collections_Generic_IEnumerable___0____">Objects.HasAttrs&lt;T&gt;(Object, out Nullable&lt;IEnumerable&lt;T&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_IsEither__1___0___0___">Objects.IsEither&lt;T&gt;(T, T[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_IsEither__1___0_System_Collections_Generic_IEnumerable___0__">Objects.IsEither&lt;T&gt;(T, IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_IsNeither__1___0___0___">Objects.IsNeither&lt;T&gt;(T, T[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_IsNeither__1___0_System_Collections_Generic_IEnumerable___0__">Objects.IsNeither&lt;T&gt;(T, IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_Itself__1___0_">Objects.Itself&lt;T&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_PropertiesOf__1_System_Object_">Objects.PropertiesOf&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_WhichAre_System_Object_System_Collections_Generic_IEnumerable_System_Object__">Objects.WhichAre(Object, IEnumerable&lt;Object&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_WhichAre_System_Object_System_Object___">Objects.WhichAre(Object, Object[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.CollectionExtensions.html#TheXDS_MCART_Types_Extensions_CollectionExtensions_Push__2___0_System_Collections_Generic_ICollection___1__">CollectionExtensions.Push&lt;TItem, TCollection&gt;(TItem, ICollection&lt;TCollection&gt;)</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Client_SelfWiredCommandClient_2.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Client.SelfWiredCommandClient%602%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Client/SelfWiredCommandClient.cs/#L73" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

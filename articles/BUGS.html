@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Informaci&#243;n de errores conocidos </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Informaci&#243;n de errores conocidos ">
+    <meta name="generator" content="docfx 2.45.1.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="información-de-errores-conocidos">Información de errores conocidos</h1>
+
+<p>En la siguiente sección se describen los errores conocidos (y en algunos casos,
+un workaround para los mismos) que existen dentro de MCART. Cuando el proyecto
+finalmente vea un release, este archivo será eliminado, y se utilizará el
+sistema de control de problemas existente en el servicio Git en donde el
+proyecto se encuentre alojado; excepto si el servicio no incluye tal
+característica.</p>
+<p>La decisión de crear este archivo obedece a cuatro factores:</p>
+<ol>
+<li>Actualmente, no existen contribuyentes a parte de su creador</li>
+<li>Mientras el proyecto está en fase pre-alpha, no vale la pena congestionar el
+repositorio con tickets de problemas.</li>
+<li>Los problemas descritos aquí podrían llegar a permanecer a largo plazo
+durante el desarrollo de MCART.</li>
+<li>Hay una enorme cantidad de <em>quirks</em>, lo cual generaría muchos tickets.</li>
+</ol>
+<p>Por lo general, únicamente los programadores de este proyecto aportarán
+información de problemas conocidos a través de este archivo, ya que la
+plataforma de tickets tiene como propósito brindarle esa posibilidad a
+cualquier persona que no esté involucrada en este proyecto a un nivel tan
+profundo.</p>
+<p>Los elementos contenidos en este arhivo seguirán el siguiente formato estándar
+en Markdown:</p>
+<pre><code class="lang-md">### (Título del fallo conocido)
+Desde: MCART (versión)
+Tipo: (Tipo de fallo)
+######
+#### Problema:
+(Descripción corta del problema)
+#### Detalles técnicos (en caso de existir):
+(Descripción técnica del problema)
+#### Workaround (en caso de existir):
+(Descripción del workaround)
+#### Comentarios(en caso de existir):
+(Comentarios sobre el problema)
+</code></pre>
+<h1 id="errores-conocidos">Errores conocidos</h1>
+<h3 id="ringgraph-no-funciona-correctamente"><code>RingGraph</code> no funciona correctamente.</h3>
+<p>Desde: MCART 0.8 series<br>
+Tipo: Fallo de fiabilidad/estabilidad</p>
+<h4 id="problema">Problema:</h4>
+<p>El control de gráfico de anillos, <code>RingGraph</code>, no funciona más allá de lo
+que la aplicación de demostración permite observar.</p>
+<h4 id="detalles-técnicos">Detalles técnicos:</h4>
+<p>Hay enormes problemas con las rutinas de dibujado y de escala de los
+sub-elementos. El refresco parece no funcionar tampoco, y no es posible agregar
+más de 3 o 4 puntos de datos a la gráfica sin que WPF enloquezca y cause un
+<em>crash</em>.</p>
+<h4 id="comentarios">Comentarios:</h4>
+<p>Todo el subsistema de gráficos está pasando por un proceso de análisis de
+viabilidad, y es posible que sea removido totalmente de MCART en un futuro.
+Todos estos elementos posiblemente encuentren un nuevo hogar en un proyecto
+totalmente independiente, que se centre en este tipo de controles para WPF.</p>
+<p>Si este fuera el caso, cabrá la posibilidad que regresen los proyectos de MCART
+para GTK# y Win32 para la serie 0.12 del Runtime, especialmente ahora que para
+la serie 0.9 se pretende mudar todo el código de cuadros de diálogo y de UI en
+general al esquema MVVM.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/articles/BUGS.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

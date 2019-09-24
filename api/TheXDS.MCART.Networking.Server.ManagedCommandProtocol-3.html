@@ -1,0 +1,699 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class ManagedCommandProtocol&lt;TClient, TCommand, TResult&gt;
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class ManagedCommandProtocol&lt;TClient, TCommand, TResult&gt;
+   ">
+    <meta name="generator" content="docfx 2.45.1.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="TheXDS.MCART.Networking.Server.ManagedCommandProtocol`3">
+  
+  
+  <h1 id="TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3" data-uid="TheXDS.MCART.Networking.Server.ManagedCommandProtocol`3" class="text-break">Class ManagedCommandProtocol&lt;TClient, TCommand, TResult&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>Describe un protocolo de comandos administrado por MCART.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><a class="xref" href="TheXDS.MCART.Networking.Server.ServerProtocol-1.html">ServerProtocol</a>&lt;TClient&gt;</div>
+    <div class="level2"><span class="xref">ManagedCommandProtocol&lt;TClient, TCommand, TResult&gt;</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="TheXDS.MCART.Networking.Server.IProtocol.html">IProtocol</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Server.ServerProtocol-1.html#TheXDS_MCART_Networking_Server_ServerProtocol_1_Server">ServerProtocol&lt;TClient&gt;.Server</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Server.ServerProtocol-1.html#TheXDS_MCART_Networking_Server_ServerProtocol_1_ClientBye_TheXDS_MCART_Networking_Server_Client_">ServerProtocol&lt;TClient&gt;.ClientBye(Client)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Server.ServerProtocol-1.html#TheXDS_MCART_Networking_Server_ServerProtocol_1_ClientBye__0_">ServerProtocol&lt;TClient&gt;.ClientBye(TClient)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Server.ServerProtocol-1.html#TheXDS_MCART_Networking_Server_ServerProtocol_1_ClientDisconnect_TheXDS_MCART_Networking_Server_Client_">ServerProtocol&lt;TClient&gt;.ClientDisconnect(Client)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Server.ServerProtocol-1.html#TheXDS_MCART_Networking_Server_ServerProtocol_1_ClientDisconnect__0_">ServerProtocol&lt;TClient&gt;.ClientDisconnect(TClient)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Server.ServerProtocol-1.html#TheXDS_MCART_Networking_Server_ServerProtocol_1_ClientWelcome_TheXDS_MCART_Networking_Server_Client_">ServerProtocol&lt;TClient&gt;.ClientWelcome(Client)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Server.ServerProtocol-1.html#TheXDS_MCART_Networking_Server_ServerProtocol_1_ClientWelcome__0_">ServerProtocol&lt;TClient&gt;.ClientWelcome(TClient)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Server.ServerProtocol-1.html#TheXDS_MCART_Networking_Server_ServerProtocol_1_ClientAttendant_TheXDS_MCART_Networking_Server_Client_System_Byte___">ServerProtocol&lt;TClient&gt;.ClientAttendant(Client, Byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Server.ServerProtocol-1.html#TheXDS_MCART_Networking_Server_ServerProtocol_1_CreateClient_System_Net_Sockets_TcpClient_">ServerProtocol&lt;TClient&gt;.CreateClient(TcpClient)</a>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="TheXDS.MCART.Networking.Server.html">TheXDS.MCART.Networking.Server</a></h6>
+  <h6><strong>Assembly</strong>: MCART.dll</h6>
+  <h5 id="TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class ManagedCommandProtocol&lt;TClient, TCommand, TResult&gt; : ServerProtocol&lt;TClient&gt;, IProtocol, IServerProtocol where TClient : Client where TCommand : struct, Enum where TResult : struct, Enum</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TClient</span></td>
+        <td><p>Tipo de clientes a atender por el servidor.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TCommand</span></td>
+        <td><p><span class="xref">System.Enum</span> con los comandos aceptados.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TResult</span></td>
+        <td><p><span class="xref">System.Enum</span> con las respuestas generadas.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3__ctor.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Server.ManagedCommandProtocol%603.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Server/ManagedCommandProtocol.cs/#L1071">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3__ctor_" data-uid="TheXDS.MCART.Networking.Server.ManagedCommandProtocol`3.#ctor*"></a>
+  <h4 id="TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3__ctor" data-uid="TheXDS.MCART.Networking.Server.ManagedCommandProtocol`3.#ctor">ManagedCommandProtocol()</h4>
+  <div class="markdown level1 summary"><p>Inicializa una nueva instancia de la clase
+<a class="xref" href="TheXDS.MCART.Networking.Server.ManagedCommandProtocol-3.html">ManagedCommandProtocol&lt;TClient, TCommand, TResult&gt;</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ManagedCommandProtocol()</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_AppendGuid.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Server.ManagedCommandProtocol%603.AppendGuid%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Server/ManagedCommandProtocol.cs/#L1065">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_AppendGuid_" data-uid="TheXDS.MCART.Networking.Server.ManagedCommandProtocol`3.AppendGuid*"></a>
+  <h4 id="TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_AppendGuid" data-uid="TheXDS.MCART.Networking.Server.ManagedCommandProtocol`3.AppendGuid">AppendGuid</h4>
+  <div class="markdown level1 summary"><p>Obtiene o establece un valor que indica si el protocolo
+adjuntará automáticamente el Guid de respuesta al comando
+enviado por un cliente.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool AppendGuid { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_EnableMapByName.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Server.ManagedCommandProtocol%603.EnableMapByName%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Server/ManagedCommandProtocol.cs/#L1038">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_EnableMapByName_" data-uid="TheXDS.MCART.Networking.Server.ManagedCommandProtocol`3.EnableMapByName*"></a>
+  <h4 id="TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_EnableMapByName" data-uid="TheXDS.MCART.Networking.Server.ManagedCommandProtocol`3.EnableMapByName">EnableMapByName</h4>
+  <div class="markdown level1 summary"><p>Activa o desactiva el mapeo de funciones por convención de
+nombres para el manejo de comandos del protocolo.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool EnableMapByName { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_ScanTypeOnCtor.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Server.ManagedCommandProtocol%603.ScanTypeOnCtor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Server/ManagedCommandProtocol.cs/#L1032">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_ScanTypeOnCtor_" data-uid="TheXDS.MCART.Networking.Server.ManagedCommandProtocol`3.ScanTypeOnCtor*"></a>
+  <h4 id="TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_ScanTypeOnCtor" data-uid="TheXDS.MCART.Networking.Server.ManagedCommandProtocol`3.ScanTypeOnCtor">ScanTypeOnCtor</h4>
+  <div class="markdown level1 summary"><p>Activa o desactiva el escaneo del tipo de instancia a construir
+en busca de funciones de manejo de comandos del protocolo.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool ScanTypeOnCtor { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_SkipMapped.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Server.ManagedCommandProtocol%603.SkipMapped%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Server/ManagedCommandProtocol.cs/#L1045">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_SkipMapped_" data-uid="TheXDS.MCART.Networking.Server.ManagedCommandProtocol`3.SkipMapped*"></a>
+  <h4 id="TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_SkipMapped" data-uid="TheXDS.MCART.Networking.Server.ManagedCommandProtocol`3.SkipMapped">SkipMapped</h4>
+  <div class="markdown level1 summary"><p>Activa o desactiva el salto de comandos mapeados, efectivamente
+causando el efecto inverso en el mecanismo de protección anti
+mapeo duplicado.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool SkipMapped { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_ClientAttendant__0_System_Byte___.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Server.ManagedCommandProtocol%603.ClientAttendant(%600%2CSystem.Byte%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Server/ManagedCommandProtocol.cs/#L1176">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_ClientAttendant_" data-uid="TheXDS.MCART.Networking.Server.ManagedCommandProtocol`3.ClientAttendant*"></a>
+  <h4 id="TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_ClientAttendant__0_System_Byte___" data-uid="TheXDS.MCART.Networking.Server.ManagedCommandProtocol`3.ClientAttendant(`0,System.Byte[])">ClientAttendant(TClient, Byte[])</h4>
+  <div class="markdown level1 summary"><p>Atiende al cliente.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override sealed void ClientAttendant(TClient client, byte[] data)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TClient</span></td>
+        <td><span class="parametername">client</span></td>
+        <td><p>Cliente a atender.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="parametername">data</span></td>
+        <td><p>bytes RAW de la solicitud.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">TheXDS.MCART.Networking.Server.ServerProtocol&lt;TClient&gt;.ClientAttendant(TClient, System.Byte[])</span></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_MakeResponse__2_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Server.ManagedCommandProtocol%603.MakeResponse(%602)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Server/ManagedCommandProtocol.cs/#L1169">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_MakeResponse_" data-uid="TheXDS.MCART.Networking.Server.ManagedCommandProtocol`3.MakeResponse*"></a>
+  <h4 id="TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_MakeResponse__2_" data-uid="TheXDS.MCART.Networking.Server.ManagedCommandProtocol`3.MakeResponse(`2)">MakeResponse(TResult)</h4>
+  <div class="markdown level1 summary"><p>Crea una respuesta a partir del valor
+<code data-dev-comment-type="typeparamref" class="typeparamref">TResult</code> especificado.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public byte[] MakeResponse(TResult resp)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TResult</span></td>
+        <td><span class="parametername">resp</span></td>
+        <td><p>Valor a partir del cual crear la respuesta.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><p>Un arreglo de bytes con la respuesta generada.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_Relay__1__2__2_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Server.ManagedCommandProtocol%603.Relay(%601%2C%602%2C%602)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Server/ManagedCommandProtocol.cs/#L1146">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_Relay_" data-uid="TheXDS.MCART.Networking.Server.ManagedCommandProtocol`3.Relay*"></a>
+  <h4 id="TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_Relay__1__2__2_" data-uid="TheXDS.MCART.Networking.Server.ManagedCommandProtocol`3.Relay(`1,`2,`2)">Relay(TCommand, TResult, TResult)</h4>
+  <div class="markdown level1 summary"><p>Retransmite todos los datos recibidos por el comando
+especificado.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Relay(TCommand command, TResult requestResult, TResult relayResult)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TCommand</span></td>
+        <td><span class="parametername">command</span></td>
+        <td><p>Comando a recibir para la retransmisión de datos.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TResult</span></td>
+        <td><span class="parametername">requestResult</span></td>
+        <td><p>Resultado a enviar al cliente que inició la solicitud.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TResult</span></td>
+        <td><span class="parametername">relayResult</span></td>
+        <td><p>Resultado a enviar a los demás clientes al retransmitir la
+información.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_WireUp.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Server.ManagedCommandProtocol%603.WireUp%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Server/ManagedCommandProtocol.cs/#L1107">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_WireUp_" data-uid="TheXDS.MCART.Networking.Server.ManagedCommandProtocol`3.WireUp*"></a>
+  <h4 id="TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_WireUp" data-uid="TheXDS.MCART.Networking.Server.ManagedCommandProtocol`3.WireUp">WireUp()</h4>
+  <div class="markdown level1 summary"><p>Cuando se invalida, permite obtener una colección con los
+métodos que serán llamados al recibir el comando especificado.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual IEnumerable&lt;KeyValuePair&lt;TCommand, ManagedCommandProtocol&lt;TClient, TCommand, TResult&gt;.CommandCallback&gt;&gt; WireUp()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Collections.Generic.KeyValuePair</span>&lt;TCommand, <a class="xref" href="TheXDS.MCART.Networking.Server.ManagedCommandProtocol-3.CommandCallback.html">ManagedCommandProtocol.CommandCallback</a>&lt;&gt;&gt;&gt;</td>
+        <td><p>Una enumeración de <span class="xref">System.Collections.Generic.KeyValuePair&lt;TKey, TValue&gt;</span>
+cuya llave es un comando y cuyo valor es el
+<a class="xref" href="TheXDS.MCART.Networking.Server.ManagedCommandProtocol-3.CommandCallback.html">ManagedCommandProtocol&lt;TClient, TCommand, TResult&gt;.CommandCallback</a> a ejecutar al recibir dicho
+comando.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_WireUp__1_TheXDS_MCART_Networking_Server_ManagedCommandProtocol__0__1__2__CommandCallback_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Server.ManagedCommandProtocol%603.WireUp(%601%2CTheXDS.MCART.Networking.Server.ManagedCommandProtocol%7B%600%2C%601%2C%602%7D.CommandCallback)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Server/ManagedCommandProtocol.cs/#L1122">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_WireUp_" data-uid="TheXDS.MCART.Networking.Server.ManagedCommandProtocol`3.WireUp*"></a>
+  <h4 id="TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_WireUp__1_TheXDS_MCART_Networking_Server_ManagedCommandProtocol__0__1__2__CommandCallback_" data-uid="TheXDS.MCART.Networking.Server.ManagedCommandProtocol`3.WireUp(`1,TheXDS.MCART.Networking.Server.ManagedCommandProtocol{`0,`1,`2}.CommandCallback)">WireUp(TCommand, ManagedCommandProtocol&lt;TClient, TCommand, TResult&gt;.CommandCallback)</h4>
+  <div class="markdown level1 summary"><p>Conecta manualmente un comando con un
+<a class="xref" href="TheXDS.MCART.Networking.Server.ManagedCommandProtocol-3.CommandCallback.html">ManagedCommandProtocol&lt;TClient, TCommand, TResult&gt;.CommandCallback</a> de atención.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void WireUp(TCommand command, ManagedCommandProtocol&lt;TClient, TCommand, TResult&gt;.CommandCallback action)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TCommand</span></td>
+        <td><span class="parametername">command</span></td>
+        <td><p>Comando a conectar.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Networking.Server.ManagedCommandProtocol-3.CommandCallback.html">ManagedCommandProtocol.CommandCallback</a>&lt;&gt;</td>
+        <td><span class="parametername">action</span></td>
+        <td><p>Acción a ejecutar al recibir el comando.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="events">Events
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_NotMappedCommand.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Server.ManagedCommandProtocol%603.NotMappedCommand%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Server/ManagedCommandProtocol.cs/#L1206">View Source</a>
+  </span>
+  <h4 id="TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_NotMappedCommand" data-uid="TheXDS.MCART.Networking.Server.ManagedCommandProtocol`3.NotMappedCommand">NotMappedCommand</h4>
+  <div class="markdown level1 summary"><p>Ocurre cuando un cliente envía un comando para el cual no existe un manejador.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ValueEventArgs&lt;TCommand&gt;&gt; NotMappedCommand</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="TheXDS.MCART.Events.ValueEventArgs-1.html">ValueEventArgs</a>&lt;TCommand&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_ServerError.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Server.ManagedCommandProtocol%603.ServerError%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Server/ManagedCommandProtocol.cs/#L1211">View Source</a>
+  </span>
+  <h4 id="TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3_ServerError" data-uid="TheXDS.MCART.Networking.Server.ManagedCommandProtocol`3.ServerError">ServerError</h4>
+  <div class="markdown level1 summary"><p>Ocurre cuando el servidor encuentra un error.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ExceptionEventArgs&gt; ServerError</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="TheXDS.MCART.Events.ExceptionEventArgs.html">ExceptionEventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Server.IProtocol.html">IProtocol</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_FieldsOf__1_System_Object_">Objects.FieldsOf&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_GetAttr__1_System_Object_">Objects.GetAttr&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_GetAttrs__1_System_Object_">Objects.GetAttrs&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_HasAttr__1_System_Object_System_Nullable___0___">Objects.HasAttr&lt;T&gt;(Object, out Nullable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_HasAttrValue__2_System_Object___1__">Objects.HasAttrValue&lt;TAttribute, TValue&gt;(Object, out TValue)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_HasAttr__1_System_Object_">Objects.HasAttr&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_HasAttrs__1_System_Object_System_Nullable_System_Collections_Generic_IEnumerable___0____">Objects.HasAttrs&lt;T&gt;(Object, out Nullable&lt;IEnumerable&lt;T&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_IsEither__1___0___0___">Objects.IsEither&lt;T&gt;(T, T[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_IsEither__1___0_System_Collections_Generic_IEnumerable___0__">Objects.IsEither&lt;T&gt;(T, IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_IsNeither__1___0___0___">Objects.IsNeither&lt;T&gt;(T, T[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_IsNeither__1___0_System_Collections_Generic_IEnumerable___0__">Objects.IsNeither&lt;T&gt;(T, IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_Itself__1___0_">Objects.Itself&lt;T&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_PropertiesOf__1_System_Object_">Objects.PropertiesOf&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_WhichAre_System_Object_System_Collections_Generic_IEnumerable_System_Object__">Objects.WhichAre(Object, IEnumerable&lt;Object&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_WhichAre_System_Object_System_Object___">Objects.WhichAre(Object, Object[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.CollectionExtensions.html#TheXDS_MCART_Types_Extensions_CollectionExtensions_Push__2___0_System_Collections_Generic_ICollection___1__">CollectionExtensions.Push&lt;TItem, TCollection&gt;(TItem, ICollection&lt;TCollection&gt;)</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_Networking_Server_ManagedCommandProtocol_3.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Server.ManagedCommandProtocol%603%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/MCART/Networking/Server/ManagedCommandProtocol.cs/#L52" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

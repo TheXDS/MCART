@@ -1,0 +1,416 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class WindowViewModel
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class WindowViewModel
+   ">
+    <meta name="generator" content="docfx 2.45.1.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="TheXDS.MCART.ViewModel.WindowViewModel">
+  
+  
+  <h1 id="TheXDS_MCART_ViewModel_WindowViewModel" data-uid="TheXDS.MCART.ViewModel.WindowViewModel" class="text-break">Class WindowViewModel
+  </h1>
+  <div class="markdown level0 summary"><p>ViewModel con propiedades básicas de gestión de la ventana.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html">NotifyPropertyChangeBase</a></div>
+    <div class="level2"><a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChanged.html">NotifyPropertyChanged</a></div>
+    <div class="level3"><a class="xref" href="TheXDS.MCART.ViewModel.ViewModelBase.html">ViewModelBase</a></div>
+    <div class="level4"><span class="xref">WindowViewModel</span></div>
+      <div class="level5"><a class="xref" href="TheXDS.MCART.ViewModel.WpfWindowViewModel.html">WpfWindowViewModel</a></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="TheXDS.MCART.Types.Base.INotifyPropertyChangeBase.html">INotifyPropertyChangeBase</a></div>
+    <div><a class="xref" href="TheXDS.MCART.Types.IRefreshable.html">IRefreshable</a></div>
+    <div><span class="xref">System.ComponentModel.INotifyPropertyChanged</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="TheXDS.MCART.ViewModel.ViewModelBase.html#TheXDS_MCART_ViewModel_ViewModelBase_SelfObserve_System_Reflection_PropertyInfo_">ViewModelBase.SelfObserve(PropertyInfo)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.ViewModel.ViewModelBase.html#TheXDS_MCART_ViewModel_ViewModelBase_BusyOp_System_Action_">ViewModelBase.BusyOp(Action)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.ViewModel.ViewModelBase.html#TheXDS_MCART_ViewModel_ViewModelBase_BusyOp_System_Threading_Tasks_Task_">ViewModelBase.BusyOp(Task)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.ViewModel.ViewModelBase.html#TheXDS_MCART_ViewModel_ViewModelBase_BusyOp__1_System_Func___0__">ViewModelBase.BusyOp&lt;T&gt;(Func&lt;T&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.ViewModel.ViewModelBase.html#TheXDS_MCART_ViewModel_ViewModelBase_BusyOp__1_System_Threading_Tasks_Task___0__">ViewModelBase.BusyOp&lt;T&gt;(Task&lt;T&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.ViewModel.ViewModelBase.html#TheXDS_MCART_ViewModel_ViewModelBase_IsBusy">ViewModelBase.IsBusy</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChanged.html#TheXDS_MCART_Types_Base_NotifyPropertyChanged_PropertyChanged">NotifyPropertyChanged.PropertyChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChanged.html#TheXDS_MCART_Types_Base_NotifyPropertyChanged_OnPropertyChanged_System_Nullable_System_String__">NotifyPropertyChanged.OnPropertyChanged(Nullable&lt;String&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChanged.html#TheXDS_MCART_Types_Base_NotifyPropertyChanged_Change__1___0____0_System_Nullable_System_String__">NotifyPropertyChanged.Change&lt;T&gt;(T, T, Nullable&lt;String&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChanged.html#TheXDS_MCART_Types_Base_NotifyPropertyChanged_Notify_System_String_">NotifyPropertyChanged.Notify(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html#TheXDS_MCART_Types_Base_NotifyPropertyChangeBase_RegisterPropertyChangeBroadcast_System_String_System_String___">NotifyPropertyChangeBase.RegisterPropertyChangeBroadcast(String, String[])</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html#TheXDS_MCART_Types_Base_NotifyPropertyChangeBase_RegisterPropertyChangeTrigger_System_String_System_String___">NotifyPropertyChangeBase.RegisterPropertyChangeTrigger(String, String[])</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html#TheXDS_MCART_Types_Base_NotifyPropertyChangeBase_RegisterPropertyChangeBroadcast_System_String_System_Collections_Generic_IEnumerable_System_String__">NotifyPropertyChangeBase.RegisterPropertyChangeBroadcast(String, IEnumerable&lt;String&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html#TheXDS_MCART_Types_Base_NotifyPropertyChangeBase_UnregisterPropertyChangeBroadcast_System_String_">NotifyPropertyChangeBase.UnregisterPropertyChangeBroadcast(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html#TheXDS_MCART_Types_Base_NotifyPropertyChangeBase_ObserveRegistry">NotifyPropertyChangeBase.ObserveRegistry</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html#TheXDS_MCART_Types_Base_NotifyPropertyChangeBase_Notify_System_String___">NotifyPropertyChangeBase.Notify(String[])</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html#TheXDS_MCART_Types_Base_NotifyPropertyChangeBase_NotifyRegistroir_System_String_">NotifyPropertyChangeBase.NotifyRegistroir(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html#TheXDS_MCART_Types_Base_NotifyPropertyChangeBase_Notify_System_Collections_Generic_IEnumerable_System_String__">NotifyPropertyChangeBase.Notify(IEnumerable&lt;String&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html#TheXDS_MCART_Types_Base_NotifyPropertyChangeBase_Notify_System_Collections_Generic_IEnumerable_System_Reflection_PropertyInfo__">NotifyPropertyChangeBase.Notify(IEnumerable&lt;PropertyInfo&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html#TheXDS_MCART_Types_Base_NotifyPropertyChangeBase_Refresh">NotifyPropertyChangeBase.Refresh()</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html#TheXDS_MCART_Types_Base_NotifyPropertyChangeBase_ForwardChange_TheXDS_MCART_Types_Base_INotifyPropertyChangeBase_">NotifyPropertyChangeBase.ForwardChange(INotifyPropertyChangeBase)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html#TheXDS_MCART_Types_Base_NotifyPropertyChangeBase_RemoveForwardChange_TheXDS_MCART_Types_Base_INotifyPropertyChangeBase_">NotifyPropertyChangeBase.RemoveForwardChange(INotifyPropertyChangeBase)</a>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="TheXDS.MCART.ViewModel.html">TheXDS.MCART.ViewModel</a></h6>
+  <h6><strong>Assembly</strong>: MCART.GUI.dll</h6>
+  <h5 id="TheXDS_MCART_ViewModel_WindowViewModel_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class WindowViewModel : ViewModelBase, INotifyPropertyChangeBase, IRefreshable, INotifyPropertyChanged</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_ViewModel_WindowViewModel_Title.md&amp;value=---%0Auid%3A%20TheXDS.MCART.ViewModel.WindowViewModel.Title%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/Lib/MCART-GUI/ViewModel/WindowViewModel.cs/#L40">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_ViewModel_WindowViewModel_Title_" data-uid="TheXDS.MCART.ViewModel.WindowViewModel.Title*"></a>
+  <h4 id="TheXDS_MCART_ViewModel_WindowViewModel_Title" data-uid="TheXDS.MCART.ViewModel.WindowViewModel.Title">Title</h4>
+  <div class="markdown level1 summary"><p>Obtiene o establece el título de la ventana.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Title { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_ViewModel_WindowViewModel_WindowHeight.md&amp;value=---%0Auid%3A%20TheXDS.MCART.ViewModel.WindowViewModel.WindowHeight%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/Lib/MCART-GUI/ViewModel/WindowViewModel.cs/#L49">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_ViewModel_WindowViewModel_WindowHeight_" data-uid="TheXDS.MCART.ViewModel.WindowViewModel.WindowHeight*"></a>
+  <h4 id="TheXDS_MCART_ViewModel_WindowViewModel_WindowHeight" data-uid="TheXDS.MCART.ViewModel.WindowViewModel.WindowHeight">WindowHeight</h4>
+  <div class="markdown level1 summary"><p>Obtiene o establece la altura deseada de la ventana.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double WindowHeight { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Double</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_ViewModel_WindowViewModel_WindowSize.md&amp;value=---%0Auid%3A%20TheXDS.MCART.ViewModel.WindowViewModel.WindowSize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/Lib/MCART-GUI/ViewModel/WindowViewModel.cs/#L77">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_ViewModel_WindowViewModel_WindowSize_" data-uid="TheXDS.MCART.ViewModel.WindowViewModel.WindowSize*"></a>
+  <h4 id="TheXDS_MCART_ViewModel_WindowViewModel_WindowSize" data-uid="TheXDS.MCART.ViewModel.WindowViewModel.WindowSize">WindowSize</h4>
+  <div class="markdown level1 summary"><p>Obtiene o establece el tamaño deseado de la ventana.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Size WindowSize { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Types.Size.html">Size</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_ViewModel_WindowViewModel_WindowWidth.md&amp;value=---%0Auid%3A%20TheXDS.MCART.ViewModel.WindowViewModel.WindowWidth%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/Lib/MCART-GUI/ViewModel/WindowViewModel.cs/#L63">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_ViewModel_WindowViewModel_WindowWidth_" data-uid="TheXDS.MCART.ViewModel.WindowViewModel.WindowWidth*"></a>
+  <h4 id="TheXDS_MCART_ViewModel_WindowViewModel_WindowWidth" data-uid="TheXDS.MCART.ViewModel.WindowViewModel.WindowWidth">WindowWidth</h4>
+  <div class="markdown level1 summary"><p>Obtiene o establece el ancho deseado de la ventana.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double WindowWidth { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Double</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.INotifyPropertyChangeBase.html">INotifyPropertyChangeBase</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.IRefreshable.html">IRefreshable</a>
+  </div>
+  <div>
+      <span class="xref">System.ComponentModel.INotifyPropertyChanged</span>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_FieldsOf__1_System_Object_">Objects.FieldsOf&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_GetAttr__1_System_Object_">Objects.GetAttr&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_GetAttrs__1_System_Object_">Objects.GetAttrs&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_HasAttr__1_System_Object_System_Nullable___0___">Objects.HasAttr&lt;T&gt;(Object, out Nullable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_HasAttrValue__2_System_Object___1__">Objects.HasAttrValue&lt;TAttribute, TValue&gt;(Object, out TValue)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_HasAttr__1_System_Object_">Objects.HasAttr&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_HasAttrs__1_System_Object_System_Nullable_System_Collections_Generic_IEnumerable___0____">Objects.HasAttrs&lt;T&gt;(Object, out Nullable&lt;IEnumerable&lt;T&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_IsEither__1___0___0___">Objects.IsEither&lt;T&gt;(T, T[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_IsEither__1___0_System_Collections_Generic_IEnumerable___0__">Objects.IsEither&lt;T&gt;(T, IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_IsNeither__1___0___0___">Objects.IsNeither&lt;T&gt;(T, T[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_IsNeither__1___0_System_Collections_Generic_IEnumerable___0__">Objects.IsNeither&lt;T&gt;(T, IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_Itself__1___0_">Objects.Itself&lt;T&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_PropertiesOf__1_System_Object_">Objects.PropertiesOf&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_WhichAre_System_Object_System_Collections_Generic_IEnumerable_System_Object__">Objects.WhichAre(Object, IEnumerable&lt;Object&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Objects.html#TheXDS_MCART_Objects_WhichAre_System_Object_System_Object___">Objects.WhichAre(Object, Object[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.CollectionExtensions.html#TheXDS_MCART_Types_Extensions_CollectionExtensions_Push__2___0_System_Collections_Generic_ICollection___1__">CollectionExtensions.Push&lt;TItem, TCollection&gt;(TItem, ICollection&lt;TCollection&gt;)</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/TheXDS/MCART/new/core-rewrite/apiSpec/new?filename=TheXDS_MCART_ViewModel_WindowViewModel.md&amp;value=---%0Auid%3A%20TheXDS.MCART.ViewModel.WindowViewModel%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/TheXDS/MCART/blob/core-rewrite/docs/src/Lib/MCART-GUI/ViewModel/WindowViewModel.cs/#L32" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
