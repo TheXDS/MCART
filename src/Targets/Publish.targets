@@ -31,15 +31,21 @@
     <ActualPackageSymbols>$(ActualPackage).symbols.nupkg</ActualPackageSymbols>
   </PropertyGroup>
   <Target 
-    Name="PostPackageSymbols"
+    Name="PublishLocal"
     Condition="'$(PublishLocalSymbols)'=='true' And '$(GeneratePackageOnBuild)'=='true' And '$(IsPackable)'=='true'"
     AfterTargets="Pack">
     <Exec Command="nuget add $(ActualPackageSymbols) -Source $(NuGetRoot)" />
   </Target>
   <Target
-    Name="PostPackage"
+    Name="PublishToNuGet"
     Condition="'$(PublishToNuGet)'=='true' And '$(GeneratePackageOnBuild)'=='true' And '$(IsPackable)'=='true'"
     AfterTargets="Pack">
     <Exec Command="nuget push $(ActualPackageFile) -Source https://nuget.org" />
+  </Target>
+  <Target
+    Name="PublishToGitHub"
+    Condition="'$(PublishToNuGet)'=='true' And '$(GeneratePackageOnBuild)'=='true' And '$(IsPackable)'=='true'"
+    AfterTargets="Pack">
+    <Exec Command="nuget push $(ActualPackageFile) -Source GitHub" />
   </Target>
 </Project>
