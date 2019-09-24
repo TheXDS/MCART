@@ -506,7 +506,7 @@ namespace TheXDS.MCART.ViewModel
         ///     Se produce cuando hay cambios que influyen en si el comando
         ///     debería ejecutarse o no.
         /// </summary>
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler? CanExecuteChanged;
 
         /// <summary>
         ///     Referencia al origen de datos observado por este <see cref="ObservingCommand"/>.
@@ -555,21 +555,31 @@ namespace TheXDS.MCART.ViewModel
         ///     Registra una nueva propiedad a observar en este comando.
         /// </summary>
         /// <param name="property">Nombre de la propiedad a observar.</param>
-        public void RegisterObservedProperty(string property)
+        /// <returns>
+        ///     Esta misma instancia, lo que permite usar esta función con
+        ///     sintaxis fluent.
+        /// </returns>
+        public ObservingCommand RegisterObservedProperty(string property)
         {
             if (property is null) throw new ArgumentNullException(nameof(property));
             if (property.IsEmpty()) throw new ArgumentException();
             _properties.Add(property);
+            return this;
         }
 
         /// <summary>
         ///     Registra una nueva propiedad a observar en este comando.
         /// </summary>
         /// <param name="property">Nombre de la propiedad a observar.</param>
-        public void RegisterObservedProperty(Expression<Func<object?>> property)
+        /// <returns>
+        ///     Esta misma instancia, lo que permite usar esta función con
+        ///     sintaxis fluent.
+        /// </returns>
+        public ObservingCommand RegisterObservedProperty(Expression<Func<object?>> property)
         {
             var prop = (ReflectionHelpers.GetMember(property) as PropertyInfo) ?? throw new ArgumentException();
             RegisterObservedProperty(prop.Name);
+            return this;
         }
 
         /// <summary>
@@ -580,7 +590,11 @@ namespace TheXDS.MCART.ViewModel
         ///     Función a ejecutar para determinar la posibilidad de ejecutar
         ///     el comando.
         /// </param>
-        public void SetCanExecute(Func<object?, bool>? canExecute)
+        /// <returns>
+        ///     Esta misma instancia, lo que permite usar esta función con
+        ///     sintaxis fluent.
+        /// </returns>
+        public ObservingCommand SetCanExecute(Func<object?, bool>? canExecute)
         {
             if (canExecute is null)
             {
@@ -590,8 +604,8 @@ namespace TheXDS.MCART.ViewModel
             {
                 ObservedSource.PropertyChanged += RaiseCanExecuteChanged;
             }
-
             _canExecute = canExecute;
+            return this;
         }
 
         /// <summary>
@@ -602,10 +616,15 @@ namespace TheXDS.MCART.ViewModel
         ///     Función a ejecutar para determinar la posibilidad de ejecutar
         ///     el comando.
         /// </param>
-        public void SetCanExecute(Func<bool> canExecute)
+        /// <returns>
+        ///     Esta misma instancia, lo que permite usar esta función con
+        ///     sintaxis fluent.
+        /// </returns>
+        public ObservingCommand SetCanExecute(Func<bool> canExecute)
         {
             if (canExecute is null) throw new ArgumentNullException();
             SetCanExecute(_ => canExecute());
+            return this;
         }
 
         /// <summary>
