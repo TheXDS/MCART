@@ -26,6 +26,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -40,6 +41,51 @@ using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Types.Extensions
 {
+    /// <summary>
+    ///     Extensiones de la clase <see cref="StringBuilder"/>.
+    /// </summary>
+    public static class StringBuilderFluentExtensions
+    {
+        /// <summary>
+        ///     Concatena el texto especificado seguido del terminador de línea
+        ///     predeterminado al final de esta instancia solamente si la
+        ///     cadena no es <see langword="null"/>.
+        /// </summary>
+        /// <param name="sb">
+        ///     Instancia de <see cref="StringBuilder"/> sobre la cual realizar
+        ///     la operación.
+        /// </param>
+        /// <param name="text">
+        ///     Texto a concatenar. Si es <see langword="null"/>, no se
+        ///     realizará ninguna acción.
+        /// </param>
+        /// <returns>
+        ///     La misma instancia que <paramref name="sb"/>.
+        /// </returns>
+        public static StringBuilder AppendLineIfNotNull(this StringBuilder sb, string? text)
+        {
+            if (text is { }) sb.AppendLine(text);
+            return sb;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sb"></param>
+        /// <param name="text"></param>
+        /// <param name="width"></param>
+        /// <returns></returns>
+        public static StringBuilder AppendAndWrap(this StringBuilder sb, string? text, int width)
+        {
+#pragma warning disable CS8606
+            foreach (var j in text?.TextWrap(width) ?? new string?[] { null })            
+                sb.AppendLine(j);            
+
+            return sb;
+#pragma warning restore CS8606
+        }
+    }
+
     /// <summary>
     ///     Extensiones de la clase <see cref="string" />.
     /// </summary>
@@ -77,7 +123,7 @@ namespace TheXDS.MCART.Types.Extensions
             /// </summary>
             WildCard = 4
         }
-
+        
         /// <summary>
         ///     Elimina una ocurrencia de una cadena a los extremos de otra.
         /// </summary>
@@ -757,7 +803,11 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         /// <param name="stringToCheck">Cadena a comprobar.</param>
         [Sugar]
+#if NETCOREAPP3_0 || NETSTANDARD2_1
+        public static bool IsEmpty([NotNullWhen(false)]this string? stringToCheck)
+#else
         public static bool IsEmpty(this string? stringToCheck)
+#endif
         {
             return string.IsNullOrWhiteSpace(stringToCheck);
         }
@@ -942,7 +992,12 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>
         ///     La cadena, o <see langword="null" /> si la cadena está vacía.
         /// </returns>
+
+#if NETCOREAPP3_0 || NETSTANDARD2_1
+        public static string? OrNull([NotNullIfNotNull("str")]this string? str)
+#else
         public static string? OrNull(this string? str)
+#endif
         {
             return OrX(str, null);
         }
@@ -1311,132 +1366,5 @@ namespace TheXDS.MCART.Types.Extensions
         {
             return "^" + Regex.Escape(value).Replace("\\?", ".").Replace("\\*", ".*") + "$";
         }
-    }
-
-    /// <summary>
-    ///     Extensiones de la clase <see cref="SecureString" />.
-    /// </summary>
-    public static class SecureStringExtensions
-    {
-        #pragma warning disable XS0001
-        /* -= NOTA =-
-		 * Oops! Algunas API de Mono parecen no estar completas, esta directiva
-		 * deshabilita la advertencia al compilar desde MonoDevelop.
-		 * 
-		 * SecureString no provee de funcionalidad de encriptado en Mono, lo que
-		 * podría ser inseguro.
-         */
-
-        /// <summary>
-        ///     Convierte un <see cref="SecureString" /> en un
-        ///     <see cref="string" />.
-        /// </summary>
-        /// <param name="value">
-        ///     <see cref="SecureString" /> a convertir.
-        /// </param>
-        /// <returns>Un <see cref="string" /> de código administrado.</returns>
-        /// <remarks>
-        ///     El uso de este método NO ESTÁ RECOMENDADO, ya que la conversión al
-        ///     tipo <see cref="string" /> vence el propósito original de
-        ///     <see cref="SecureString" />, y se provee como una
-        ///     alternativa sencilla, en casos en los que el programa no dependa de
-        ///     que la confidencialidad de una cadena en particular se deba
-        ///     mantener durante la ejecución.
-        /// </remarks>
-        [Dangerous]
-        public static string Read(this SecureString value)
-        {
-            var valuePtr = IntPtr.Zero;
-            try
-            {
-                valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
-                return Marshal.PtrToStringUni(valuePtr, value.Length);
-            }
-            finally
-            {
-                Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
-            }
-        }
-
-        /// <summary>
-        ///     Convierte un <see cref="SecureString" /> en un
-        ///     arreglo de <see cref="short" />.
-        /// </summary>
-        /// <param name="value">
-        ///     <see cref="SecureString" /> a convertir.
-        /// </param>
-        /// <returns>
-        ///     Un arreglo de <see cref="short" /> de código administrado.
-        /// </returns>
-        public static short[] ReadInt16(this SecureString value)
-        {
-            const int sz = sizeof(short);
-            var outp = new List<short>();
-            var valuePtr = IntPtr.Zero;
-            try
-            {
-                valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
-                for (var i = 0; i < value.Length * sz; i += sz) outp.Add(Marshal.ReadInt16(valuePtr, i));
-                return outp.ToArray();
-            }
-            finally
-            {
-                Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
-            }
-        }
-
-        /// <summary>
-        ///     Convierte un <see cref="SecureString" /> en un
-        ///     arreglo de <see cref="char" />.
-        /// </summary>
-        /// <param name="value">
-        ///     <see cref="SecureString" /> a convertir.
-        /// </param>
-        /// <returns>
-        ///     Un arreglo de <see cref="char" /> de código administrado.
-        /// </returns>
-        public static char[] ReadChars(this SecureString value)
-        {
-            const int sz = sizeof(char);
-            var outp = new List<char>();
-            var valuePtr = IntPtr.Zero;
-            try
-            {
-                valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
-                for (var i = 0; i < value.Length * sz; i += sz) outp.Add((char) Marshal.ReadInt16(valuePtr, i));
-                return outp.ToArray();
-            }
-            finally
-            {
-                Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
-            }
-        }
-
-        /// <summary>
-        ///     Convierte un <see cref="SecureString" /> en un
-        ///     arreglo de <see cref="byte" />.
-        /// </summary>
-        /// <param name="value">
-        ///     <see cref="SecureString" /> a convertir.
-        /// </param>
-        /// <returns>
-        ///     Un arreglo de <see cref="byte" /> de código administrado.
-        /// </returns>
-        public static byte[] ReadBytes(this SecureString value)
-        {
-            var outp = new List<byte>();
-            var valuePtr = IntPtr.Zero;
-            try
-            {
-                valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
-                for (var i = 0; i < value.Length * 2; i++) outp.Add(Marshal.ReadByte(valuePtr, i));
-                return outp.ToArray();
-            }
-            finally
-            {
-                Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
-            }
-        }
-        #pragma warning restore XS0001
     }
 }

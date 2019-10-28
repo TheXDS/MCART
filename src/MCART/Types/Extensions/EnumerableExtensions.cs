@@ -745,5 +745,50 @@ namespace TheXDS.MCART.Types.Extensions
         {
             return c.OrderBy(p => p?.GetAttr<TAttr>()?.Value ?? int.MaxValue);
         }
+
+        /// <summary>
+        ///     Versión no-genérica de la función
+        ///     <see cref="Enumerable.Count{TSource}(IEnumerable{TSource})"/>.
+        ///     Obtiene la cantidad de elementos de una secuencia.
+        /// </summary>
+        /// <param name="e">
+        ///     Secuencia a comprobar. La misma será enumerada.
+        /// </param>
+        /// <returns>
+        ///     La cantidad de elementos dentro de la secuencia.
+        /// </returns>
+        public static int Count(this IEnumerable e)
+        {
+            if (e is null) throw new ArgumentNullException(nameof(e));
+
+#if DynamicLoading
+            if (e.GetType().GetProperty("Count") is PropertyInfo p && p.CanRead && p.PropertyType == typeof(int))
+            {
+                return (int)p.GetValue(e, null)!;
+            }
+            if (e.GetType().GetMethod("Count", BindingFlags.Public | BindingFlags.Instance, null, Type.EmptyTypes, null) is MethodInfo m && m.ReturnType == typeof(int) && !m.ContainsGenericParameters)
+            {
+                return (int)m.Invoke(e, new object[0])!;
+            }
+            return CountEnumerable(e);
+#else
+            return e switch
+            {
+                string s => s.Length,
+                Array a => a.Length,
+                ICollection c => c.Count,
+                _ => CountEnumerable(e)
+            };
+#endif
+        }
+
+        private static int CountEnumerable(IEnumerable e)
+        {
+            var n = e.GetEnumerator();
+            var c = 0;
+            while (n.MoveNext()) c++;
+            (n as IDisposable)?.Dispose();
+            return c;
+        }
     }
 }
