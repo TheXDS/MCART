@@ -113,6 +113,5 @@ namespace TheXDS.MCART.Resources
         ///     recurso.
         /// </param>        
         bool TryUnpack(string id, ICompressorGetter compressor, out T result);
-        bool TryUnpack(string id, string compressorId, out string data);
     }
 }
