@@ -90,6 +90,7 @@ namespace TheXDS.MCART.Resources
         public const string IsClass = "Es una clase";
         public const string IsEnum = "Es una enumeración";
         public const string NewInstance = "Valor de nueva instancia";
+        public const string NoInfoExposed = "La aplicación actual no expone información de identificación.";
 
         public const string Bytes = "Bytes";
         public const string KB = "KB";

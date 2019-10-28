@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.IO;
 using System.Reflection;
@@ -55,10 +57,10 @@ namespace TheXDS.MCART.Resources
         /// </param>
         protected AssemblyUnpacker(Assembly assembly, string path)
         {
-            this._assembly = assembly ?? throw new ArgumentNullException(nameof(assembly));
+            _assembly = assembly ?? throw new ArgumentNullException(nameof(assembly));
 
             // TODO: verificar validez de path
-            this._path = path ?? throw new ArgumentNullException(nameof(path));
+            _path = path ?? throw new ArgumentNullException(nameof(path));
         }
 
         /// <summary>
@@ -73,7 +75,7 @@ namespace TheXDS.MCART.Resources
         /// Se produce si <paramref name="id"/> es una cadena vacía o
         /// <see langword="null"/>.
         /// </exception>
-        protected Stream UnpackStream(string id)
+        protected Stream? UnpackStream(string id)
         {
             if (id.IsEmpty()) throw new ArgumentNullException(nameof(id));
             return _assembly.GetManifestResourceStream($"{_path}.{id}");
@@ -124,7 +126,7 @@ namespace TheXDS.MCART.Resources
         {
             var c = compressor ?? new NullGetter();
             if (id.IsEmpty()) throw new ArgumentNullException(nameof(id));
-            return c.GetCompressor(_assembly.GetManifestResourceStream($"{_path}.{id}{c.Extension}"));
+            return c.GetCompressor(_assembly?.GetManifestResourceStream($"{_path}.{id}{c.Extension}") ?? throw new InvalidDataException());
         }
 
         /// <inheritdoc />
@@ -162,5 +164,121 @@ namespace TheXDS.MCART.Resources
         /// Un recurso sin comprimir de tipo <typeparamref name="T" />.
         /// </returns>
         public abstract T Unpack(string id, ICompressorGetter compressor);
+
+#if !RatherDRY
+        private bool InternalTryUnpack(Func<T> function, out T result)
+        {
+            try
+            {
+                result = function();
+                return true;
+            }
+            catch
+            {
+                result = default!;
+                return false;
+            }
+        }
+
+        /// <summary>
+        ///     Intenta obtener un recurso identificable.
+        /// </summary>
+        /// <param name="id">Identificador del recurso.</param>
+        /// <param name="result">
+        ///     Parámetro de salida. Un recurso de tipo 
+        ///     <typeparamref name="T"/>.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> si el recurso se extrajo 
+        ///     satisfactoriamente, <see langword="false"/> en caso contrario.
+        /// </returns>
+        public virtual bool TryUnpack(string id, out T result)
+        {
+            return InternalTryUnpack(() => Unpack(id), out result);
+        }
+
+        /// <summary>
+        ///     Intenta obtener un recurso identificable.
+        /// </summary>
+        /// <param name="id">Identificador del recurso.</param>
+        /// <param name="result">
+        ///     Parámetro de salida. Un recurso de tipo 
+        ///     <typeparamref name="T"/>.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> si el recurso se extrajo 
+        ///     satisfactoriamente, <see langword="false"/> en caso contrario.
+        /// </returns>
+        /// <param name="compressorId">
+        ///     Identificador del compresor a utilizar para extraer el recurso.
+        /// </param>
+        public virtual bool TryUnpack(string id, string compressorId, out T result)
+        {
+            return InternalTryUnpack(() => Unpack(id, compressorId), out result);
+        }
+
+        /// <summary>
+        ///     Intenta obtener un recurso identificable.
+        /// </summary>
+        /// <param name="id">Identificador del recurso.</param>
+        /// <param name="result">
+        ///     Parámetro de salida. Un recurso de tipo 
+        ///     <typeparamref name="T"/>.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> si el recurso se extrajo 
+        ///     satisfactoriamente, <see langword="false"/> en caso contrario.
+        /// </returns>
+        /// <param name="compressor">
+        ///     <see cref="ICompressorGetter"/> a utilizar para extraer el
+        ///     recurso.
+        /// </param>        
+        public virtual bool TryUnpack(string id, ICompressorGetter compressor, out T result)
+        {
+            return InternalTryUnpack(() => Unpack(id, compressor), out result);
+        }
+#else
+        public virtual bool TryUnpack(string id, out T result)
+        {
+            try
+            {
+                result = Unpack(id);
+                return true;
+            }
+            catch
+            {
+                result = default!;
+                return false;
+            }
+        }
+
+        public virtual bool TryUnpack(string id, string compressorId, out T result)
+        {
+            try
+            {
+                result = Unpack(id, compressorId);
+                return true;
+            }
+            catch
+            {
+                result = default!;
+                return false;
+            }
+        }
+
+        public virtual bool TryUnpack(string id, ICompressorGetter compressor, out T result)
+        {
+            try
+            {
+                result = Unpack(id, compressor);
+                return true;
+            }
+            catch
+            {
+                result = default!;
+                return false;
+            }
+        }
+#endif
     }
 }
