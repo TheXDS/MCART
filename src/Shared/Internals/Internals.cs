@@ -31,14 +31,20 @@ namespace TheXDS.MCART.Misc
 {
     internal static class Internals
     {
-        internal static MethodBase GetCallOutsideMcart()
+        internal static MethodBase? GetCallOutsideMcart(bool @throw = true)
         {
-            var c = 2;
-            var m = ReflectionHelpers.GetCallingMethod()!;
-            while (m.DeclaringType!.Assembly.HasAttr<McartComponentAttribute>())
+            MethodBase? m;
+            var c = 1;
+            do
             {
-                m = ReflectionHelpers.GetCallingMethod(c++) ?? throw new Exceptions.StackUnderflowException();
-            }
+                m = ReflectionHelpers.GetCallingMethod(++c);
+                if (m is null)
+                {
+                    if (@throw) throw new Exceptions.StackUnderflowException();
+                    else break;
+                }
+            } while (m!.DeclaringType!.Assembly.HasAttr<McartComponentAttribute>());
+
             return m;
         }
     }
