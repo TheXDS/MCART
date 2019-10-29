@@ -67,6 +67,94 @@ namespace TheXDS.MCART
         {
             return BitConverter.ToUInt64(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
         }
+
+        /// <summary>
+        ///     Convierte un <see cref="ulong"/> en una colección de bits.
+        /// </summary>
+        /// <param name="value">
+        ///     Valor a convertir.
+        /// </param>
+        /// <returns>
+        ///     Una colección de los bits que componen al valor.
+        /// </returns>
+        public static IEnumerable<bool> ToBits(this in ulong value) => ToBits(value, 64);
+
+        /// <summary>
+        ///     Convierte un <see cref="uint"/> en una colección de bits.
+        /// </summary>
+        /// <param name="value">
+        ///     Valor a convertir.
+        /// </param>
+        /// <returns>
+        ///     Una colección de los bits que componen al valor.
+        /// </returns>
+        public static IEnumerable<bool> ToBits(this in uint value) => ToBits(value, 32);
+
+        /// <summary>
+        ///     Convierte un <see cref="ushort"/> en una colección de bits.
+        /// </summary>
+        /// <param name="value">
+        ///     Valor a convertir.
+        /// </param>
+        /// <returns>
+        ///     Una colección de los bits que componen al valor.
+        /// </returns>
+        public static IEnumerable<bool> ToBits(this in ushort value) => ToBits(value, 16);
+
+        /// <summary>
+        ///     Convierte un <see cref="sbyte"/> en una colección de bits.
+        /// </summary>
+        /// <param name="value">
+        ///     Valor a convertir.
+        /// </param>
+        /// <returns>
+        ///     Una colección de los bits que componen al valor.
+        /// </returns>
+        public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)value,8);
+
+        /// <summary>
+        ///     Obtiene la cuenta de bits que conforman el valor.
+        /// </summary>
+        /// <param name="value">
+        ///     Valor a procesar.
+        /// </param>
+        /// <returns>
+        ///     La cantidad de bits establecidos en 1 del valor.
+        /// </returns>
+        public static byte BitCount(this in ulong value) => BitCount(value, 64);
+
+        /// <summary>
+        ///     Obtiene la cuenta de bits que conforman el valor.
+        /// </summary>
+        /// <param name="value">
+        ///     Valor a procesar.
+        /// </param>
+        /// <returns>
+        ///     La cantidad de bits establecidos en 1 del valor.
+        /// </returns>
+        public static byte BitCount(this in uint value) => BitCount(value, 32);
+
+        /// <summary>
+        ///     Obtiene la cuenta de bits que conforman el valor.
+        /// </summary>
+        /// <param name="value">
+        ///     Valor a procesar.
+        /// </param>
+        /// <returns>
+        ///     La cantidad de bits establecidos en 1 del valor.
+        /// </returns>
+        public static byte BitCount(this in ushort value) => BitCount(value, 16);
+
+        /// <summary>
+        ///     Obtiene la cuenta de bits que conforman el valor.
+        /// </summary>
+        /// <param name="value">
+        ///     Valor a procesar.
+        /// </param>
+        /// <returns>
+        ///     La cantidad de bits establecidos en 1 del valor.
+        /// </returns>
+        public static byte BitCount(this in sbyte value) => BitCount((ulong)value,8);
     }
 }
 #endif

@@ -33,7 +33,7 @@ namespace TheXDS.MCART.Attributes
     /// Establece un valor mínimo al cual se deben limitar los campos y propiedades.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
-    public class MinimumAttribute : ObjectAttribute
+    public sealed class MinimumAttribute : ObjectAttribute
     {
         /// <inheritdoc />
         /// <summary>

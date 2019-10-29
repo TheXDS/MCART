@@ -43,7 +43,7 @@ namespace TheXDS.MCART.Math
         /// <returns>
         ///     El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
-        public static T Clamp<T>(this T expression, T min, T max) where T : IComparable<T>
+        public static T Clamp<T>(this T expression, in T min, in T max) where T : IComparable<T>
         {
             if (expression.CompareTo(max) > 0) return max;
             if (expression.CompareTo(min) < 0) return min;
@@ -60,7 +60,7 @@ namespace TheXDS.MCART.Math
         ///     El valor evaluado que se encuentra entre 0 y
         ///     <paramref name="max" />.
         /// </returns>
-        public static T Clamp<T>(this T expression, T max) where T : struct, IComparable<T>
+        public static T Clamp<T>(this T expression, in T max) where T : struct, IComparable<T>
         {
             return Clamp(expression, default, max);
         }

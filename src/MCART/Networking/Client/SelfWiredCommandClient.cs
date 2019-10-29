@@ -98,12 +98,10 @@ namespace TheXDS.MCART.Networking.Client
         ///     comando, a partir del cual se pueden concatenar más datos para
         ///     construir una solicitud completa.
         /// </returns>
-        private static Func<TCommand, byte[]> ToCommand { get; }
+        private static Func<TCommand, byte[]> ToCommand { get; } = EnumExtensions.ToBytes<TCommand>();
 
         static SelfWiredCommandClient()
-        {
-            ToCommand = EnumExtensions.ToBytes<TCommand>();
-
+        {            
             var tRsp = typeof(TResponse).GetEnumUnderlyingType();
             _readRsp = typeof(BinaryReader).GetMethods().FirstOrDefault(p =>
                           p.Name.StartsWith("Read")
@@ -157,7 +155,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     Un arreglo de bytes con la solicitud, al cual se pueden
         ///     concatenar más datos.
         /// </returns>
-        public static byte[] MakeCommand(TCommand command)
+        public static byte[] MakeCommand(in TCommand command)
         {
             return ToCommand.Invoke(command);
         }
@@ -176,7 +174,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     Un arreglo de bytes con la solicitud, al cual se pueden
         ///     concatenar más datos.
         /// </returns>
-        public static byte[] MakeCommand(TCommand command, IEnumerable<byte> data)
+        public static byte[] MakeCommand(in TCommand command, IEnumerable<byte> data)
         {
             return MakeCommand(command).Concat(data).ToArray();
         }
@@ -194,7 +192,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     Un arreglo de bytes con la solicitud, al cual se pueden
         ///     concatenar más datos.
         /// </returns>
-        public static byte[] MakeCommand(TCommand command, string data)
+        public static byte[] MakeCommand(in TCommand command, string data)
         {
             return MakeCommand(command, new[] {data});
         }
@@ -213,7 +211,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     Un arreglo de bytes con la solicitud, al cual se pueden
         ///     concatenar más datos.
         /// </returns>
-        public static byte[] MakeCommand(TCommand command, IEnumerable<string> data)
+        public static byte[] MakeCommand(in TCommand command, IEnumerable<string> data)
         {
             using var ms = new MemoryStream();
             using var bw = new BinaryWriter(ms);
@@ -235,7 +233,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     Un arreglo de bytes con la solicitud, al cual se pueden
         ///     concatenar más datos.
         /// </returns>
-        public static byte[] MakeCommand(TCommand command, MemoryStream data)
+        public static byte[] MakeCommand(in TCommand command, MemoryStream data)
         {
             return MakeCommand(command, data.ToArray());
         }
@@ -254,7 +252,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     Un arreglo de bytes con la solicitud, al cual se pueden
         ///     concatenar más datos.
         /// </returns>
-        public static byte[] MakeCommand(TCommand command, Stream data)
+        public static byte[] MakeCommand(in TCommand command, Stream data)
         {
             if (!data.CanRead) throw new InvalidOperationException();
             if (data.CanSeek)
@@ -412,7 +410,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     Se produce si <paramref name="callback" /> es <see langword="null" />.
         /// </exception>
         [DebuggerStepThrough]
-        public void TalkToServer(TCommand command, ResponseCallBack callback)
+        public void TalkToServer(in TCommand command, ResponseCallBack callback)
         {
             if (callback is null) throw new ArgumentNullException(nameof(callback));
             var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
@@ -430,7 +428,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     cuando la conexión está cerrada.
         /// </exception>
         [DebuggerStepThrough]
-        public void TalkToServer(TCommand command)
+        public void TalkToServer(in TCommand command)
         {
             var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
             var msg = MakeCommand(command);
@@ -490,7 +488,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <returns>
         ///     Un <see cref="Task" /> que permite monitorear la operación.
         /// </returns>
-        public Task TalkToServerAsync(TCommand command)
+        public Task TalkToServerAsync(in TCommand command)
         {
             var msg = MakeCommand(command).ToArray();
             var ns = Connection?.GetStream() ?? throw new InvalidOperationException();

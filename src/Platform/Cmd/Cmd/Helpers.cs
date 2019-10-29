@@ -85,7 +85,7 @@ namespace TheXDS.MCART.Cmd
             {
                 try
                 {
-                    foreach (var j in info.Description.TextWrap(Console.BufferWidth))
+                    foreach (var j in info.Description!.TextWrap(Console.BufferWidth))
                     {
                         Console.WriteLine(j);
                     }

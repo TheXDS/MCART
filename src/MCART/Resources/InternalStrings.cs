@@ -119,7 +119,9 @@ namespace TheXDS.MCART.Resources
         public static string ErrorXIsReadOnly(string x) => $"{x} es de sólo lectura.";
         public static string ErrorXClassNotInstantiableWithArgs(string x) => $"La clase '{x}' no pudo ser instanciada con los parámetros de constructor especificados.";
         public static string UnkErrLoadingRes(string res, string ex) => $"Error desconocido al cargar recurso {res}\n{ex}";
-
         public static string ErrorDeclMustHaveGuidAttr(Type o) => $"la declaración del tipo {o.Name} requiere un atributo de Guid.";
+
+        public static string LegacyComponentUseInstead(object alternative) => $"{LegacyComponent} Utilice en su lugar {alternative.ToString()}";
+        public static string LegacyComponentUseInstead<T>() => LegacyComponentUseInstead(typeof(T));
     }
 }

@@ -34,9 +34,8 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
-using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
-using TheXDS.MCART.Types;
+using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 
 namespace TheXDS.MCART
 {

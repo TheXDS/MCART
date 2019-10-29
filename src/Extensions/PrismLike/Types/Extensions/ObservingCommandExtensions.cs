@@ -61,7 +61,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Se produce si el elemento seleccionado por medio de
         ///     <paramref name="propertySelector"/> no es una propiedad.
         /// </exception>
-        public static ObservingCommand ListensToProperty<T>(this ObservingCommand command, Expression<Func<T, object>> propertySelector)
+        public static ObservingCommand ListensToProperty<T>(this ObservingCommand command, Expression<Func<T, object?>> propertySelector)
         {
             var m = GetMember(propertySelector) as PropertyInfo ?? throw new InvalidArgumentException();
             command.RegisterObservedProperty(m.Name);
@@ -86,7 +86,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Se produce si el elemento seleccionado por medio de
         ///     <paramref name="propertySelector"/> no es una propiedad.
         /// </exception>
-        public static ObservingCommand ListensToProperty(this ObservingCommand command, Expression<Func<object>> propertySelector)
+        public static ObservingCommand ListensToProperty(this ObservingCommand command, Expression<Func<object?>> propertySelector)
         {
             var m = GetMember(propertySelector) as PropertyInfo ?? throw new InvalidArgumentException();
             command.RegisterObservedProperty(m.Name);

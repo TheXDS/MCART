@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #nullable enable
 
 using System;
+using System.Runtime.Serialization;
 
 namespace TheXDS.MCART.Attributes
 {
@@ -34,7 +35,6 @@ namespace TheXDS.MCART.Attributes
     ///     los atributos que describan un valor <see cref="Version" /> para un
     ///     elemento.
     /// </summary>
-    [Serializable]
     public abstract class VersionAttributeBase : Attribute, IValueAttribute<Version>
     {
         /// <inheritdoc />

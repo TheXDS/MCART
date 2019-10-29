@@ -33,11 +33,11 @@ namespace TheXDS.MCART.Misc
     {
         internal static Uri MakePackUri(string path)
         {
-            return MakePackUri(path, ReflectionHelpers.GetCallingMethod().DeclaringType?.Assembly ?? throw new InvalidOperationException());
+            return MakePackUri(path, ReflectionHelpers.GetCallingMethod()?.DeclaringType?.Assembly ?? throw new InvalidOperationException());
         }
         internal static Uri MkTemplateUri()
         {
-            var t = ReflectionHelpers.GetCallingMethod().DeclaringType ?? throw new InvalidOperationException();
+            var t = ReflectionHelpers.GetCallingMethod()?.DeclaringType ?? throw new InvalidOperationException();
             return MkTemplateUri(t.Name, t.Assembly);
         }
 

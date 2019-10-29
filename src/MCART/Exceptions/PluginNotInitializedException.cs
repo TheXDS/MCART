@@ -31,7 +31,8 @@ using TheXDS.MCART.Resources;
 namespace TheXDS.MCART.Exceptions
 {
     /// <summary>
-    ///     Excepción que se produce cuando se llama a un método de un <see cref="PluginSupport.Legacy.Plugin" /> sin inicializar
+    ///     Excepción que se produce cuando se llama a un método de un
+    ///     <see cref="PluginSupport.Legacy.Plugin" /> sin inicializar
     /// </summary>
     [Serializable]
     public class PluginNotInitializedException : Exception
@@ -51,25 +52,34 @@ namespace TheXDS.MCART.Exceptions
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="PluginNotInitializedException" />.
+        ///     Inicializa una nueva instancia de la clase 
+        ///     <see cref="PluginNotInitializedException" />.
         /// </summary>
         public PluginNotInitializedException() : base(Strings.XNotInit(Strings.ThePlugin))
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="PluginNotInitializedException" />.
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="PluginNotInitializedException" />.
         /// </summary>
-        /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
+        /// <param name="message">
+        ///     Un <see cref="string" /> que describe a la excepción.
+        /// </param>
         public PluginNotInitializedException(string message) : base(message)
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="PluginNotInitializedException" />.
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="PluginNotInitializedException" />.
         /// </summary>
-        /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
+        /// <param name="message">
+        ///     Un <see cref="string" /> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// </param>
         public PluginNotInitializedException(string message, Exception inner) : base(message, inner)
         {
         }

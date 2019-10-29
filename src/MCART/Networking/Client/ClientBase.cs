@@ -98,7 +98,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <param name="force">
         ///     Ignora el estado de la conexión e intenta cerrarla de todas formas.
         /// </param>
-        public void CloseConnection(bool force)
+        public void CloseConnection(in bool force)
         {
             if (!IsAlive && !force) return;
             try

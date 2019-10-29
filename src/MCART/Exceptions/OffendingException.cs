@@ -22,7 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable disable
+#nullable enable
 
 using System;
 using System.Runtime.Serialization;
@@ -195,6 +195,6 @@ namespace TheXDS.MCART.Exceptions
         /// </summary>
         // ReSharper disable once MemberCanBePrivate.Global
         // ReSharper disable once UnusedAutoPropertyAccessor.Global
-        public T OffendingObject { get; }
+        public T OffendingObject { get; } = default!;
     }
 }

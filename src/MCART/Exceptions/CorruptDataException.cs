@@ -22,14 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#region Configuración de ReSharper
-
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-
-#endregion
+#nullable enable
 
 using System;
 using System.Runtime.Serialization;
@@ -41,14 +34,9 @@ namespace TheXDS.MCART.Exceptions
     /// <summary>
     ///     Excepción que se produce cuando se reciben datos corruptos
     /// </summary>
-#if NETFX_CORE
-    [DataContract]
-#else
     [Serializable]
-#endif
     public class CorruptDataException : Exception
     {
-#if !NETFX_CORE
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
@@ -63,8 +51,6 @@ namespace TheXDS.MCART.Exceptions
         protected CorruptDataException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
-#endif
-
 
         /// <inheritdoc />
         /// <summary>

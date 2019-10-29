@@ -37,10 +37,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Security;
 using System.Text;
-using TheXDS.MCART.Annotations;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Types;
@@ -371,48 +368,7 @@ namespace TheXDS.MCART
         ///     Una colección de los bits que componen al valor.
         /// </returns>
         public static IEnumerable<bool> ToBits(this in byte value) => ToBits(value, 8);
-#if !CLSCompliance
-        /// <summary>
-        ///     Convierte un <see cref="ulong"/> en una colección de bits.
-        /// </summary>
-        /// <param name="value">
-        ///     Valor a convertir.
-        /// </param>
-        /// <returns>
-        ///     Una colección de los bits que componen al valor.
-        /// </returns>
-public static IEnumerable<bool> ToBits(this in ulong value) => ToBits(value, 64);
-                /// <summary>
-        ///     Convierte un <see cref="uint"/> en una colección de bits.
-        /// </summary>
-        /// <param name="value">
-        ///     Valor a convertir.
-        /// </param>
-        /// <returns>
-        ///     Una colección de los bits que componen al valor.
-        /// </returns>
-public static IEnumerable<bool> ToBits(this in uint value) => ToBits(value, 32);
-                /// <summary>
-        ///     Convierte un <see cref="ushort"/> en una colección de bits.
-        /// </summary>
-        /// <param name="value">
-        ///     Valor a convertir.
-        /// </param>
-        /// <returns>
-        ///     Una colección de los bits que componen al valor.
-        /// </returns>
-public static IEnumerable<bool> ToBits(this in ushort value) => ToBits(value, 16);
-                /// <summary>
-        ///     Convierte un <see cref="sbyte"/> en una colección de bits.
-        /// </summary>
-        /// <param name="value">
-        ///     Valor a convertir.
-        /// </param>
-        /// <returns>
-        ///     Una colección de los bits que componen al valor.
-        /// </returns>
-public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)value,8);
-#endif
+
         private static byte BitCount(this ulong value, in byte maxBits)
         {
             byte c = 0;
@@ -469,52 +425,6 @@ public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)val
         /// </returns>
         public static byte BitCount(this in byte value) => BitCount(value, 8);
 
-#if !CLSCompliance
-        /// <summary>
-        ///     Obtiene la cuenta de bits que conforman el valor.
-        /// </summary>
-        /// <param name="value">
-        ///     Valor a procesar.
-        /// </param>
-        /// <returns>
-        ///     La cantidad de bits establecidos en 1 del valor.
-        /// </returns>
-        public static byte BitCount(this in ulong value) => BitCount(value, 64);
-
-        /// <summary>
-        ///     Obtiene la cuenta de bits que conforman el valor.
-        /// </summary>
-        /// <param name="value">
-        ///     Valor a procesar.
-        /// </param>
-        /// <returns>
-        ///     La cantidad de bits establecidos en 1 del valor.
-        /// </returns>
-        public static byte BitCount(this in uint value) => BitCount(value, 32);
-
-        /// <summary>
-        ///     Obtiene la cuenta de bits que conforman el valor.
-        /// </summary>
-        /// <param name="value">
-        ///     Valor a procesar.
-        /// </param>
-        /// <returns>
-        ///     La cantidad de bits establecidos en 1 del valor.
-        /// </returns>
-        public static byte BitCount(this in ushort value) => BitCount(value, 16);
-
-        /// <summary>
-        ///     Obtiene la cuenta de bits que conforman el valor.
-        /// </summary>
-        /// <param name="value">
-        ///     Valor a procesar.
-        /// </param>
-        /// <returns>
-        ///     La cantidad de bits establecidos en 1 del valor.
-        /// </returns>
-        public static byte BitCount(this in sbyte value) => BitCount((ulong)value,8);
-#endif
-
         /// <summary>
         ///     Comprueba que el valor se encuentre en el rango especificado.
         /// </summary>
@@ -526,7 +436,7 @@ public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)val
         /// <param name="min">Mínimo del rango de valores, inclusive.</param>
         /// <param name="max">Máximo del rango de valores, inclusive.</param>
         /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
-        public static bool IsBetween<T>(this T value, T min, T max) where T : IComparable<T>
+        public static bool IsBetween<T>(this T value, in T min, in T max) where T : IComparable<T>
         {
             return IsBetween(value, min, max, true);
         }
@@ -543,7 +453,7 @@ public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)val
         /// <param name="max">Máximo del rango de valores.</param>
         /// <param name="inclusive">Inclusividad. de forma predeterminada, la comprobación es inclusive.</param>
         /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
-        public static bool IsBetween<T>(this T value, T min, T max, in bool inclusive) where T : IComparable<T>
+        public static bool IsBetween<T>(this T value, in T min, in T max, in bool inclusive) where T : IComparable<T>
         {
             return IsBetween(value, min, max, inclusive, inclusive);
         }
@@ -561,7 +471,7 @@ public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)val
         /// <param name="minInclusive">Inclusividad del valor mínimo. de forma predeterminada, la comprobación es inclusive.</param>
         /// <param name="maxInclusive">Inclusividad del valor máximo. de forma predeterminada, la comprobación es inclusive.</param>
         /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
-        public static bool IsBetween<T>(this T value, T min, T max, in bool minInclusive, in bool maxInclusive) where T : IComparable<T>
+        public static bool IsBetween<T>(this T value, in T min, in T max, in bool minInclusive, in bool maxInclusive) where T : IComparable<T>
         {
             return (minInclusive ? value.CompareTo(min) >= 0 : value.CompareTo(min) > 0) 
                 && (maxInclusive ? value.CompareTo(max) <= 0 : value.CompareTo(max) < 0);

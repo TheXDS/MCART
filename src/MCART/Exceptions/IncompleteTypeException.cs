@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Runtime.Serialization;
 
@@ -31,6 +33,7 @@ namespace TheXDS.MCART.Exceptions
     /// <summary>
     ///     Excepción que se produce cuando un tipo requerido no está completo.
     /// </summary>
+    [Serializable]
     public class IncompleteTypeException : OffendingException<Type>
     {
         /// <inheritdoc />

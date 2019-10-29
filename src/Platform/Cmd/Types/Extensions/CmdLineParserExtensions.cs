@@ -65,7 +65,7 @@ namespace TheXDS.MCART.Types.Extensions
             }
             catch { /* Silenciar excepción */ }
 
-            var ent = ReflectionHelpers.GetEntryPoint();
+            var ent = ReflectionHelpers.GetEntryPoint() ?? throw new InvalidOperationException();
             IExposeInfo nfo = new AssemblyInfo(ent.DeclaringType?.Assembly ?? ent.Module.Assembly);
             Cmd.Helpers.About(nfo);
             var width = args.AvailableArguments.Max(p => p.HelpArgName().Length);

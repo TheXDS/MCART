@@ -34,7 +34,7 @@ namespace TheXDS.MCART.Attributes
     ///     propiedades.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
-    public class MaximumAttribute : ObjectAttribute
+    public sealed class MaximumAttribute : ObjectAttribute
     {
         /// <inheritdoc />
         /// <summary>

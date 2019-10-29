@@ -22,14 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#region Configuración de ReSharper
-
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-
-#endregion
+#nullable enable
 
 using System;
 using System.Reflection;
@@ -44,14 +37,9 @@ namespace TheXDS.MCART.Exceptions
     ///     Excepción que se produce cuando un método ha sido marcado con el atributo
     ///     <see cref="DangerousAttribute" />.
     /// </summary>
-#if NETFX_CORE
-    [DataContract]
-#else
     [Serializable]
-#endif
     public class DangerousMethodException : OffendingException<MethodInfo>
     {
-#if !NETFX_CORE
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
@@ -92,7 +80,6 @@ namespace TheXDS.MCART.Exceptions
             : base(info, context, offendingMethod)
         {
         }
-#endif
 
         /// <inheritdoc />
         /// <summary>

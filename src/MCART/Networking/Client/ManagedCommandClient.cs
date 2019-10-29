@@ -58,11 +58,11 @@ namespace TheXDS.MCART.Networking.Client
         /// </summary>
         public delegate void ResponseCallback(TResult response, BinaryReader br);
 
-        private static readonly Func<TCommand, byte[]> _toCommand;
+        private static readonly Func<TCommand, byte[]> _toCommand = EnumExtensions.ToBytes<TCommand>();
         private static readonly TResult? _errResponse;
         private static readonly TResult? _notMappedResponse;
         private static readonly TResult? _unkResponse;
-        private static readonly MethodInfo _readResp;
+        private static readonly MethodInfo _readResp = BinaryReaderExtensions.GetBinaryReadMethod(typeof(TResult).GetEnumUnderlyingType());
 
         /// <summary>
         ///     Activa o desactiva el escaneo del tipo de instancia a construir
@@ -89,9 +89,6 @@ namespace TheXDS.MCART.Networking.Client
         /// </summary>
         static ManagedCommandClient()
         {
-            _toCommand = EnumExtensions.ToBytes<TCommand>();
-            _readResp = BinaryReaderExtensions.GetBinaryReadMethod(typeof(TResult).GetEnumUnderlyingType());
-
             var vals = Enum.GetValues(typeof(TResult)).OfType<TResult>().ToArray();
             _errResponse = vals.FirstOrDefault(p => p.HasAttr<ErrorResponseAttribute>());
             _unkResponse = (TResult?)vals.FirstOrDefault(p => p.HasAttr<UnknownResponseAttribute>()) ?? _errResponse;
@@ -204,7 +201,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <param name="command">
         ///     Comando a enviar.
         /// </param>
-        protected void Send(TCommand command)
+        protected void Send(in TCommand command)
         {
             Send(command, (ResponseCallback?)null);
         }
@@ -219,7 +216,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <param name="callback">
         ///     Llamada a realizar cuando el servidor responda.
         /// </param>
-        protected void Send(TCommand command, ResponseCallback? callback)
+        protected void Send(in TCommand command, ResponseCallback? callback)
         {
             Send(command, Array.Empty<byte>(), callback);
         }
@@ -237,7 +234,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <returns>
         ///     El valor producido por la función <paramref name="callback"/>.
         /// </returns>
-        protected T Send<T>(TCommand command, Func<TResult, BinaryReader, T> callback)
+        protected T Send<T>(in TCommand command, Func<TResult, BinaryReader, T> callback)
         {
             return Send(command, Array.Empty<byte>(), callback);
         }
@@ -251,7 +248,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <param name="rawData">
         ///     Datos a enviar al servidor.
         /// </param>
-        protected void Send(TCommand command, IEnumerable<byte> rawData)
+        protected void Send(in TCommand command, IEnumerable<byte> rawData)
         {
             Send(command, rawData, null);
         }
@@ -269,7 +266,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <param name="callback">
         ///     Llamada a realizar cuando el servidor responda.
         /// </param>
-        protected void Send(TCommand command, IEnumerable<byte> rawData, ResponseCallback? callback)
+        protected void Send(in TCommand command, IEnumerable<byte> rawData, ResponseCallback? callback)
         {
             var d = MkResp(command, out var guid).Concat(rawData).ToArray();
             if (!(callback is null))
@@ -294,7 +291,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <returns>
         ///     El valor producido por la función <paramref name="callback"/>.
         /// </returns>
-        protected T Send<T>(TCommand command, IEnumerable<byte> rawData, Func<TResult, BinaryReader, T> callback)
+        protected T Send<T>(in TCommand command, IEnumerable<byte> rawData, Func<TResult, BinaryReader, T> callback)
         {
             var d = MkResp(command, out var guid);
             var waiting = _cmdWaiters.Push(new ManualResetEventSlim());
@@ -328,7 +325,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <returns>
         ///     El valor producido por la función <paramref name="callback"/>.
         /// </returns>
-        protected T Send<T>(TCommand command, MemoryStream data, Func<TResult, BinaryReader, T> callback)
+        protected T Send<T>(in TCommand command, MemoryStream data, Func<TResult, BinaryReader, T> callback)
         {
             return Send(command, data.ToArray(), callback);
         }
@@ -343,7 +340,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <param name="data">
         ///     Datos a enviar al servidor.
         /// </param>
-        protected void Send(TCommand command, MemoryStream data)
+        protected void Send(in TCommand command, MemoryStream data)
         {
             Send(command, data.ToArray());
         }
@@ -361,7 +358,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <param name="callback">
         ///     Llamada a realizar cuando el servidor responda.
         /// </param>
-        protected void Send(TCommand command, MemoryStream data, ResponseCallback? callback)
+        protected void Send(in TCommand command, MemoryStream data, ResponseCallback? callback)
         {
             Send(command, data.ToArray(), callback);
         }
@@ -376,7 +373,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <param name="dataStream">
         ///     Datos a enviar al servidor.
         /// </param>
-        protected void Send(TCommand command, Stream dataStream)
+        protected void Send(in TCommand command, Stream dataStream)
         {
             Send(command, dataStream, null);
         }
@@ -394,7 +391,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <param name="callback">
         ///     Llamada a realizar cuando el servidor responda.
         /// </param>
-        protected void Send(TCommand command, Stream dataStream, ResponseCallback? callback)
+        protected void Send(in TCommand command, Stream dataStream, ResponseCallback? callback)
         {
             if (!dataStream.CanRead) throw new InvalidOperationException();
             if (dataStream.CanSeek)
@@ -424,7 +421,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <returns>
         ///     El valor producido por la función <paramref name="callback"/>.
         /// </returns>
-        protected T Send<T>(TCommand command, Stream dataStream, Func<TResult, BinaryReader, T> callback)
+        protected T Send<T>(in TCommand command, Stream dataStream, Func<TResult, BinaryReader, T> callback)
         {
             if (!dataStream.CanRead) throw new InvalidOperationException();
             if (dataStream.CanSeek)
@@ -447,7 +444,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <param name="data">
         ///     Datos a enviar al servidor.
         /// </param>
-        protected void Send(TCommand command, IEnumerable<string> data)
+        protected void Send(in TCommand command, IEnumerable<string> data)
         {
             Send(command, data, null);
         }
@@ -465,7 +462,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <param name="callback">
         ///     Llamada a realizar cuando el servidor responda.
         /// </param>
-        protected void Send(TCommand command, IEnumerable<string> data, ResponseCallback? callback)
+        protected void Send(in TCommand command, IEnumerable<string> data, ResponseCallback? callback)
         {
             using var ms = new MemoryStream();
             using var bw = new BinaryWriter(ms);
@@ -489,7 +486,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <returns>
         ///     El valor producido por la función <paramref name="callback"/>.
         /// </returns>
-        protected T Send<T>(TCommand command, IEnumerable<string> data, Func<TResult, BinaryReader, T> callback)
+        protected T Send<T>(in TCommand command, IEnumerable<string> data, Func<TResult, BinaryReader, T> callback)
         {
             using var ms = new MemoryStream();
             using var bw = new BinaryWriter(ms);
@@ -507,7 +504,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <param name="data">
         ///     Datos a enviar al servidor.
         /// </param>
-        protected void Send(TCommand command, string data)
+        protected void Send(in TCommand command, string data)
         {
             Send(command, new[] { data });
         }
@@ -525,7 +522,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <param name="callback">
         ///     Llamada a realizar cuando el servidor responda.
         /// </param>
-        protected void Send(TCommand command, string data, ResponseCallback callback)
+        protected void Send(in TCommand command, string data, ResponseCallback callback)
         {
             Send(command, new[] { data }, callback);
         }
@@ -543,7 +540,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <param name="callback">
         ///     Llamada a realizar cuando el servidor responda.
         /// </param>
-        protected T Send<T>(TCommand command, string data, Func<TResult, BinaryReader, T> callback)
+        protected T Send<T>(in TCommand command, string data, Func<TResult, BinaryReader, T> callback)
         {
             return Send(command, new[] { data }, callback);
         }
@@ -558,7 +555,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
         ///     estado de la operación.
         /// </returns>
-        protected Task SendAsync(TCommand command)
+        protected Task SendAsync(in TCommand command)
         {
             return SendAsync(command);
         }
@@ -576,7 +573,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
         ///     estado de la operación.
         /// </returns>
-        protected Task SendAsync(TCommand command, ResponseCallback? callback)
+        protected Task SendAsync(in TCommand command, ResponseCallback? callback)
         {
             var d = MkResp(command, out var guid);
             if (!(callback is null)) EnqueueRequest(guid, callback);
@@ -614,7 +611,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
         ///     estado de la operación.
         /// </returns>
-        protected Task SendAsync(TCommand command, IEnumerable<byte> rawData)
+        protected Task SendAsync(in TCommand command, IEnumerable<byte> rawData)
         {
             return SendAsync(command, rawData, null);
         }
@@ -635,7 +632,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
         ///     estado de la operación.
         /// </returns>
-        protected Task SendAsync(TCommand command, IEnumerable<byte> rawData, ResponseCallback? callback)
+        protected Task SendAsync(in TCommand command, IEnumerable<byte> rawData, ResponseCallback? callback)
         {
             var d = MkResp(command, out var guid);
             if (!(callback is null)) EnqueueRequest(guid, callback);
@@ -676,7 +673,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
         ///     estado de la operación.
         /// </returns>
-        protected Task SendAsync(TCommand command, MemoryStream data)
+        protected Task SendAsync(in TCommand command, MemoryStream data)
         {
             return SendAsync(command, data, null);
         }
@@ -697,7 +694,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
         ///     estado de la operación.
         /// </returns>
-        protected Task SendAsync(TCommand command, MemoryStream data, ResponseCallback? callback)
+        protected Task SendAsync(in TCommand command, MemoryStream data, ResponseCallback? callback)
         {
             return SendAsync(command, data.ToArray(), callback);
         }
@@ -718,7 +715,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
         ///     estado de la operación.
         /// </returns>
-        protected Task<T> SendAsync<T>(TCommand command, MemoryStream data, Func<TResult, BinaryReader, T> callback)
+        protected Task<T> SendAsync<T>(in TCommand command, MemoryStream data, Func<TResult, BinaryReader, T> callback)
         {
             return SendAsync(command, data.ToArray(), callback);
         }
@@ -736,7 +733,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
         ///     estado de la operación.
         /// </returns>
-        protected Task SendAsync(TCommand command, Stream dataStream)
+        protected Task SendAsync(in TCommand command, Stream dataStream)
         {
             return SendAsync(command, dataStream, null);
         }
@@ -757,7 +754,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
         ///     estado de la operación.
         /// </returns>
-        protected Task SendAsync(TCommand command, Stream dataStream, ResponseCallback? callback)
+        protected Task SendAsync(in TCommand command, Stream dataStream, ResponseCallback? callback)
         {
             if (!dataStream.CanRead) throw new InvalidOperationException();
             if (dataStream.CanSeek)
@@ -786,7 +783,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
         ///     estado de la operación.
         /// </returns>
-        protected Task<T> SendAsync<T>(TCommand command, Stream dataStream, Func<TResult, BinaryReader, T> callback)
+        protected Task<T> SendAsync<T>(in TCommand command, Stream dataStream, Func<TResult, BinaryReader, T> callback)
         {
             if (!dataStream.CanRead) throw new InvalidOperationException();
             if (dataStream.CanSeek)
@@ -812,7 +809,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
         ///     estado de la operación.
         /// </returns>
-        protected Task SendAsync(TCommand command, IEnumerable<string> data)
+        protected Task SendAsync(in TCommand command, IEnumerable<string> data)
         {
             return SendAsync(command, data, null);
         }
@@ -833,7 +830,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
         ///     estado de la operación.
         /// </returns>
-        protected Task SendAsync(TCommand command, IEnumerable<string> data, ResponseCallback? callback)
+        protected Task SendAsync(in TCommand command, IEnumerable<string> data, ResponseCallback? callback)
         {
             using var ms = new MemoryStream();
             using var bw = new BinaryWriter(ms);
@@ -857,7 +854,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
         ///     estado de la operación.
         /// </returns>
-        protected Task<T> SendAsync<T>(TCommand command, IEnumerable<string> data, Func<TResult, BinaryReader, T> callback)
+        protected Task<T> SendAsync<T>(in TCommand command, IEnumerable<string> data, Func<TResult, BinaryReader, T> callback)
         {
             using var ms = new MemoryStream();
             using var bw = new BinaryWriter(ms);
@@ -878,7 +875,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
         ///     estado de la operación.
         /// </returns>
-        protected Task SendAsync(TCommand command, string data)
+        protected Task SendAsync(in TCommand command, string data)
         {
             return SendAsync(command, data, null);
         }
@@ -899,7 +896,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
         ///     estado de la operación.
         /// </returns>
-        protected Task SendAsync(TCommand command, string data, ResponseCallback? callback)
+        protected Task SendAsync(in TCommand command, string data, ResponseCallback? callback)
         {
             return SendAsync(command, new[] { data }, callback);
         }
@@ -920,7 +917,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
         ///     estado de la operación.
         /// </returns>
-        protected Task<T> SendAsync<T>(TCommand command, string data, Func<TResult, BinaryReader, T> callback)
+        protected Task<T> SendAsync<T>(in TCommand command, string data, Func<TResult, BinaryReader, T> callback)
         {
             return SendAsync(command, new[] { data }, callback);
         }
@@ -968,7 +965,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <param name="action">
         ///     Acción a ejecutar al recibir la respuesta.
         /// </param>
-        protected void WireUp(TResult command, ResponseCallback action)
+        protected void WireUp(in TResult command, ResponseCallback action)
         {
             if (_responses.ContainsKey(command))
             {
@@ -1071,7 +1068,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <param name="callback">
         ///     Método a llamar al recibir la respuesta esperada.
         /// </param>
-        protected void EnqueueRequest(Guid guid, ResponseCallback callback)
+        protected void EnqueueRequest(in Guid guid, ResponseCallback callback)
         {
             if (!_requests.ContainsKey(guid))
                 _requests.Add(guid, callback);
@@ -1115,7 +1112,7 @@ namespace TheXDS.MCART.Networking.Client
             }
             await TalkToServerAsync(d);
         }
-        private byte[] MkResp(TCommand cmd, out Guid guid)
+        private byte[] MkResp(in TCommand cmd, out Guid guid)
         {
             if (!SendsGuid)
             {

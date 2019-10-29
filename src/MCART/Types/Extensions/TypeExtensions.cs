@@ -26,6 +26,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -37,11 +39,8 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Resources;
 
-#nullable enable
-
 namespace TheXDS.MCART.Types.Extensions
 {
-
     /// <summary>
     ///     Extensiones para todos los elementos de tipo <see cref="Type"/>.
     /// </summary>
@@ -457,17 +456,20 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         /// <exception cref="TypeLoadException">
         ///     Se produce si no es posible instanciar una clase del tipo
-        ///     solicitado.
+        ///     solicitado y <paramref name="throwOnFail"/> se establece en
+        ///     <see langword="true"/>.
         /// </exception>
         /// <exception cref="ArgumentNullException">
         ///     Se produce si <paramref name="type"/> es <see langword="null"/>
-        ///     y <paramref name="throwOnFail"/> es <see langword="true"/>.
+        ///     y <paramref name="throwOnFail"/> se establece en
+        ///     <see langword="true"/>.
         /// </exception>
         /// <exception cref="ClassNotInstantiableException">
         ///     Se produce si el tipo <paramref name="type"/> no puede ser
         ///     instanciado utilizando un constructor público que acepte los
         ///     parámetros especificados en <paramref name="parameters"/> y
-        ///     <paramref name="throwOnFail"/> es <see langword="true"/>.
+        ///     <paramref name="throwOnFail"/> se establece en
+        ///     <see langword="true"/>.
         /// </exception>
         [DebuggerStepThrough]
         public static async Task<object?> NewAsync(this Type type, bool throwOnFail, bool @async, IEnumerable parameters)
@@ -530,17 +532,20 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         /// <exception cref="TypeLoadException">
         ///     Se produce si no es posible instanciar una clase del tipo
-        ///     solicitado.
+        ///     solicitado y <paramref name="throwOnFail"/> se establece en
+        ///     <see langword="true"/>.
         /// </exception>
         /// <exception cref="ArgumentNullException">
         ///     Se produce si <paramref name="type"/> es <see langword="null"/>
-        ///     y <paramref name="throwOnFail"/> es <see langword="true"/>.
+        ///     y <paramref name="throwOnFail"/> se establece en
+        ///     <see langword="true"/>.
         /// </exception>
         /// <exception cref="ClassNotInstantiableException">
         ///     Se produce si el tipo <paramref name="type"/> no puede ser
         ///     instanciado utilizando un constructor público que acepte los
         ///     parámetros especificados en <paramref name="parameters"/> y
-        ///     <paramref name="throwOnFail"/> es <see langword="true"/>.
+        ///     <paramref name="throwOnFail"/> se establece en
+        ///     <see langword="true"/>.
         /// </exception>
         [DebuggerStepThrough]
         public static async Task<T> NewAsync<T>(this Type type, bool throwOnFail, bool @async, IEnumerable parameters)
@@ -559,7 +564,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     <paramref name="t"/> si el tipo no es nulable.
         /// </returns>
         [DebuggerStepThrough]
-        public static Type NotNullable(this Type? t)
+        public static Type NotNullable(this Type t)
         {
             if (t == null) throw new ArgumentNullException(nameof(t));
             return Nullable.GetUnderlyingType(t) ?? t;
@@ -578,11 +583,9 @@ namespace TheXDS.MCART.Types.Extensions
         ///     <see langword="null"/> si no hay un tipo base definido, como en
         ///     las interfaces.
         /// </returns>
-        public static Type? ResolveToDefinedType(this Type? t)
+        public static Type? ResolveToDefinedType(this Type t)
         {
-#pragma warning disable CS8602
-            return (t?.Assembly?.IsDynamic ?? false) ? ResolveToDefinedType(t.BaseType) : t;
-#pragma warning restore CS8602
+            return (t.Assembly?.IsDynamic ?? false) ? ResolveToDefinedType(t.BaseType!) : t;
         }
 
         /// <summary>

@@ -76,7 +76,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     Puerto de destino del host al cual se intentó realizar la
         ///     conexión.
         /// </param>
-        public ConnectionFailureEventArgs(Exception exception, string host, int port)
+        public ConnectionFailureEventArgs(Exception exception, string host, in int port)
         {
             Exception = exception;
             Host = host;
@@ -120,7 +120,7 @@ namespace TheXDS.MCART.Networking.Client
         ///     Puerto de destino del host al cual se intentó realizar la
         ///     conexión.
         /// </param>
-        public ConnectionFailureEventArgs(Exception exception, IPAddress host, int port)
+        public ConnectionFailureEventArgs(Exception exception, IPAddress host, in int port)
         {
             Exception = exception;
             Host = host.ToString();

@@ -85,7 +85,7 @@ namespace TheXDS.MCART.Misc
                 .Select(p => new NamedObject<TField>((TField)p.GetValue(instance)!));
         }
 
-        public static bool TryParseValues<TValue, TResult>(string[] separators, string value, byte items, Func<TValue[], TResult> instancer, out TResult result)
+        public static bool TryParseValues<TValue, TResult>(string[] separators, string value, in byte items, Func<TValue[], TResult> instancer, out TResult result)
         {
 #if DEBUG
             if (separators is null || !separators.Any())

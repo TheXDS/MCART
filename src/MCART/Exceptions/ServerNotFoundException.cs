@@ -22,14 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#region Configuración de ReSharper
-
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable UnusedMember.Global
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-
-#endregion
+#nullable enable
 
 using System;
 using System.Runtime.Serialization;
@@ -39,7 +32,8 @@ namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Excepción que se produce cuando no se puede resolver un nombre DNS, o no se encuentra el servidor especificado.
+    ///     Excepción que se produce cuando no se puede resolver un nombre DNS,
+    ///     o no se encuentra el servidor especificado.
     /// </summary>
     [Serializable]
     public class ServerNotFoundException : Exception
@@ -59,33 +53,45 @@ namespace TheXDS.MCART.Exceptions
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="ServerNotFoundException" />.
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="ServerNotFoundException" />.
         /// </summary>
         public ServerNotFoundException() : base(Strings.XNotFound(Strings.TheSrv))
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="ServerNotFoundException" />.
+        ///     Inicializa una nueva instancia de la clase 
+        ///     <see cref="ServerNotFoundException" />.
         /// </summary>
-        /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
+        /// <param name="message">
+        ///     Un <see cref="string" /> que describe a la excepción.
+        /// </param>
         public ServerNotFoundException(string message) : base(message)
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="ServerNotFoundException" />.
+        ///     Inicializa una nueva instancia de la clase 
+        ///     <see cref="ServerNotFoundException" />.
         /// </summary>
-        /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
+        /// <param name="message">
+        ///     Un <see cref="string" /> que describe a la excepción.
+        /// </param>
+        /// <param name="inner">
+        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// </param>
         public ServerNotFoundException(string message, Exception inner) : base(message, inner)
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="ServerNotFoundException" />.
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="ServerNotFoundException" />.
         /// </summary>
-        /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
+        /// <param name="inner">
+        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// </param>
         public ServerNotFoundException(Exception inner) : base(Strings.XNotFound(Strings.TheSrv), inner)
         {
         }

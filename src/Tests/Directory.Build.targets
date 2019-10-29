@@ -2,7 +2,10 @@
 <Project  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <IsPackable>false</IsPackable>
+    <NoInternals>true</NoInternals>
   </PropertyGroup>
+  <Import Project="$(SolutionDir)Targets\GlobalDirectives.targets"/>
+  <Import Project="$(SolutionDir)Targets\Shared.targets"/>
   <ItemGroup>
     <PackageReference Update="Microsoft.NET.Test.Sdk" Version="16.2.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
