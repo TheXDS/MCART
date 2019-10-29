@@ -212,7 +212,7 @@ namespace TheXDS.MCART.Tests.Modules
             Assert.Equal(new[] { 0, 1, 2 }, i2);
 
             Assert.False(AnyEmpty(out var i3, "T", "e", "s", "t"));
-            Assert.Equal(new int[] { }, i3);
+            Assert.Equal(Array.Empty<int>(), i3);
         }
 
         [Fact]

@@ -328,12 +328,12 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// Se produce cuando un <see cref="Plugin" /> solicita que se actualice
         /// su interfaz gráfica, en caso de contenerla.
         /// </summary>
-        public event EventHandler<UiChangedEventArgs> UiChanged;
+        public event EventHandler<UiChangedEventArgs>? UiChanged;
         /// <inheritdoc />
         /// <summary>
         /// Se produce cuando un <see cref="Plugin" /> va a ser finalizado.
         /// </summary>
-        public event EventHandler<PluginFinalizingEventArgs> PluginFinalizing;
+        public event EventHandler<PluginFinalizingEventArgs>? PluginFinalizing;
         /// <summary>
         /// Genera el evento <see cref="UiChanged"/>.
         /// </summary>

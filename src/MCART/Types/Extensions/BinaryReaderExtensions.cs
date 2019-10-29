@@ -82,7 +82,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static Enum ReadEnum(this BinaryReader br, Type enumType)
         {
             var t = enumType.GetEnumUnderlyingType();
-            return (Enum)Enum.ToObject(enumType, GetBinaryReadMethod(t).Invoke(br, new object[0])!);
+            return (Enum)Enum.ToObject(enumType, GetBinaryReadMethod(t).Invoke(br, Array.Empty<object>())!);
         }
 
         /// <summary>

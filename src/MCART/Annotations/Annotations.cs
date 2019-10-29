@@ -504,31 +504,74 @@ namespace TheXDS.MCART.Annotations
 
     /// <inheritdoc />
     /// <summary>
-    ///     Indicates that the marked symbol is used implicitly (e.g. via reflection, in external library),
-    ///     so this symbol will not be marked as unused (as well as by other usage inspections).
+    ///     Indica que el símbolo marcado es usado implícitamente (p. ej. vía
+    ///     reflexión, en una librería externa), por lo que este símbolo no
+    ///     será marcado como sin usar (así como otras inspecciones de uso).
     /// </summary>
     [AttributeUsage(All)]
     public sealed class UsedImplicitlyAttribute : Attribute
     {
+        /// <summary>
+        ///     Indica el objetivo afectado por este atributo.
+        /// </summary>
         public ImplicitUseTargetFlags TargetFlags { get; }
 
+        /// <summary>
+        ///     Indica el tipo de uso implícito con el cual se ha marcado al
+        ///     elemento.
+        /// </summary>
         public ImplicitUseKindFlags UseKindFlags { get; }
 
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="UsedImplicitlyAttribute"/>, indicando opciones
+        ///     predeterminadas de marcado del elemento.
+        /// </summary>
         public UsedImplicitlyAttribute()
             : this(ImplicitUseKindFlags.Default, ImplicitUseTargetFlags.Default)
         {
         }
 
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase 
+        ///     <see cref="UsedImplicitlyAttribute"/>, especificando el tipo de
+        ///     uso implícito que se de ha dado al elemento marcado.
+        /// </summary>
+        /// <param name="useKindFlags">
+        ///     Valor que indica el tipo de uso implícito que se le ha dado al
+        ///     elemento.
+        /// </param>
         public UsedImplicitlyAttribute(ImplicitUseKindFlags useKindFlags)
             : this(useKindFlags, ImplicitUseTargetFlags.Default)
         {
         }
 
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="UsedImplicitlyAttribute"/>, especificando el objetivo de
+        /// marcado del atributo.
+        /// </summary>
+        /// <param name="targetFlags">
+        ///     Valor que indica qué elementos serán afectados por este
+        ///     atributo.
+        /// </param>
         public UsedImplicitlyAttribute(ImplicitUseTargetFlags targetFlags)
             : this(ImplicitUseKindFlags.Default, targetFlags)
         {
         }
 
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="UsedImplicitlyAttribute"/>.
+        /// </summary>
+        /// <param name="useKindFlags">
+        ///     Valor que indica el tipo de uso implícito que se le ha dado al
+        ///     elemento.
+        /// </param>
+        /// <param name="targetFlags">
+        ///     Valor que indica qué elementos serán afectados por este
+        ///     atributo.
+        /// </param>
         public UsedImplicitlyAttribute(ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags)
         {
             UseKindFlags = useKindFlags;
@@ -570,9 +613,15 @@ namespace TheXDS.MCART.Annotations
         }
     }
 
+    /// <summary>
+    ///     Indica el tipo de uso implícito con el cual marcar a un elemento.
+    /// </summary>
     [Flags]
     public enum ImplicitUseKindFlags
     {
+        /// <summary>
+        ///     Uso predetermiando.
+        /// </summary>
         Default = Access | Assign | InstantiatedWithFixedConstructorSignature,
 
         /// <summary>Only entity marked with attribute considered used.</summary>
@@ -598,13 +647,20 @@ namespace TheXDS.MCART.Annotations
     [Flags]
     public enum ImplicitUseTargetFlags
     {
+        /// <summary>
+        ///     Comportamiento predeterminado.
+        /// </summary>
         Default = Itself,
+
+        /// <summary>
+        ///     La entidad marcada se considerará como utilizada.
+        /// </summary>
         Itself = 1,
 
-        /// <summary>Members of entity marked with attribute are considered used.</summary>
+        /// <summary>Los miembros de la entidad marcada se considerarán como utilizados.</summary>
         Members = 2,
 
-        /// <summary>Entity marked with attribute and all its members considered used.</summary>
+        /// <summary>La entidad marcada, así como sus miembros serán considerados como utilizados.</summary>
         WithMembers = Itself | Members
     }
 
@@ -1145,14 +1201,27 @@ namespace TheXDS.MCART.Annotations
     [AttributeUsage(Method | Constructor | Property)]
     public sealed class CollectionAccessAttribute : Attribute
     {
+        /// <summary>
+        ///     Indica el tipo de acceso realizado a una colección por el método marcado.
+        /// </summary>
         public CollectionAccessType CollectionAccessType { get; }
 
+        /// <summary>
+        ///  Inicializa una nueva instancia de la clase
+        ///  <see cref="CollectionAccessAttribute"/>.
+        /// </summary>
+        /// <param name="collectionAccessType">
+        ///     Tipo de acceso realizado a una colección por el método marcado.
+        /// </param>
         public CollectionAccessAttribute(CollectionAccessType collectionAccessType)
         {
             CollectionAccessType = collectionAccessType;
         }
     }
 
+    /// <summary>
+    ///     Indica el tipo de acceso realizado a una colección.
+    /// </summary>
     [Flags]
     public enum CollectionAccessType
     {

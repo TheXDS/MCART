@@ -44,7 +44,7 @@ namespace TheXDS.MCART.Types.Base
         /// <summary>
         ///     Se produce al ocurrir un cambio en la colección.
         /// </summary>
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
+        public event NotifyCollectionChangedEventHandler? CollectionChanged;
 
         /// <summary>
         ///     Genera el evento <see cref="CollectionChanged"/>.

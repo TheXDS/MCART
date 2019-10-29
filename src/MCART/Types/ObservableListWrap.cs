@@ -291,7 +291,7 @@ namespace TheXDS.MCART.Types
         /// </param>
         public void Substitute(IList newList)
         {
-            UnderlyingList = new object[0];
+            UnderlyingList = Array.Empty<object>();
             RaiseCollectionChanged(new NcchEa(Reset));
             UnderlyingList = newList;
             if (!(newList is null)) RaiseCollectionChanged(new NcchEa(Nccha.Add, newList));

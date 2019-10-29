@@ -1,5 +1,5 @@
 ﻿/*
-IPlugin.cs
+CompactHelpPresenter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -24,21 +24,20 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 #nullable enable
 
-using System;
 using TheXDS.MCART.Component;
+using TheXDS.MCART.Cmd.Base;
 
-namespace TheXDS.MCART.PluginSupport.Base
+namespace TheXDS.MCART.Cmd
 {
-    /// <summary>
-    ///     Define una serie de miembros a implementar por un tipo que describa
-    ///     a un Plugin de MCART.
-    /// </summary>
-    public interface IPlugin : IExposeInfo, IExposeAssembly
+    public class CompactHelpPresenter : HelpPresenter
     {
-        /// <summary>
-        ///     Indica la versión de API de MCART requerida por el 
-        ///     <see cref="IPlugin"/>.
-        /// </summary>
-        Version ApiVersion { get; }
+        public CompactHelpPresenter(CmdLineParser parser) : base(parser)
+        {
+        }
+
+        protected override string GetFormattedName(Argument arg)
+        {
+            return arg.ShortName.HasValue ? $"--{arg.LongName}, -{arg.ShortName}" : $"--{arg.LongName}";
+        }
     }
 }

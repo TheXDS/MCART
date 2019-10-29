@@ -92,7 +92,7 @@ namespace TheXDS.MCART.Types.Extensions
             }
             else if (!t.IsStruct())
             {
-                ilGen.Emit(Newobj, t.GetConstructor(new Type[0]));
+                ilGen.Emit(Newobj, t.GetConstructor(Array.Empty<Type>()));
             }
             else
             {
@@ -166,7 +166,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </exception>
         public static void NewObject(this ILGenerator ilGen, Type type)
         {
-            NewObject(ilGen, type, new object[0]);
+            NewObject(ilGen, type, Array.Empty<object>());
         }
 
         /// <summary>

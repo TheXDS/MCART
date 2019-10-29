@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using TheXDS.MCART.Annotations;
 
 namespace TheXDS.MCART.ViewModel
@@ -29,13 +31,13 @@ namespace TheXDS.MCART.ViewModel
     /// <summary>
     ///     Clase base para un ViewModel dinámico.
     /// </summary>
-    public abstract class DynamicViewModel<T> : ViewModelBase, IDynamicViewModel<T> where T : class
+    public abstract class DynamicViewModel<T> : ViewModelBase, IDynamicViewModel<T?> where T : class
     {
         /// <summary>
         ///     Entidad subyacente que funciona como campo de almacenamiento
         ///     para los datos de este ViewModel.
         /// </summary>
-        public abstract T Entity { get; set; }
+        public abstract T? Entity { get; set; }
 
         /// <summary>
         ///     Edita la instancia de <typeparamref name="T"/> expuesta por
@@ -45,13 +47,13 @@ namespace TheXDS.MCART.ViewModel
         ///     Instancia de <typeparamref name="T"/> con los valores a
         ///     establecer.
         /// </param>
-        public abstract void Edit([NotNull] T entity);
+        public abstract void Edit(T? entity);
 
         /// <summary>
         ///     Entidad subyacente que funciona como campo de almacenamiento
         ///     para los datos de este ViewModel.
         /// </summary>
-        object IDynamicViewModel.Entity
+        object? IDynamicViewModel.Entity
         {
             get => Entity;
             set => Entity = value as T;
@@ -64,7 +66,7 @@ namespace TheXDS.MCART.ViewModel
         /// <param name="vm">
         ///     <see cref="DynamicViewModel{T}"/> a convertir.
         ///     </param>
-        public static implicit operator T(DynamicViewModel<T> vm)
+        public static implicit operator T?(DynamicViewModel<T> vm)
         {
             return vm.Entity;
         }

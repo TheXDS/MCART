@@ -22,10 +22,11 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TheXDS.MCART.Annotations;
 using static System.Reflection.BindingFlags;
 
 namespace TheXDS.MCART.ViewModel
@@ -40,31 +41,20 @@ namespace TheXDS.MCART.ViewModel
     /// </typeparam>
     public abstract class ViewModel<T> : ViewModelBase, IEntityViewModel<T>, ISetteableViewModel<T>
     {
-        private static readonly HashSet<PropertyInfo> _modelProperties = new HashSet<PropertyInfo>();
+        private static readonly HashSet<PropertyInfo> _modelProperties = new HashSet<PropertyInfo>(typeof(T).GetProperties(Public | Instance).Where(p => p.CanRead));
         private static IEnumerable<PropertyInfo> WrittableProperties => _modelProperties.Where(p => p.CanWrite);
-
-        /// <summary>
-        ///     Inicializa la clase <see cref="ViewModel{T}"/>.
-        /// </summary>
-        static ViewModel()
-        {
-            _modelProperties = new HashSet<PropertyInfo>(
-                typeof(T)
-                .GetProperties(Public | Instance)
-                .Where(p => p.CanRead));
-        }
 
         /// <summary>
         ///     Instancia de la entidad controlada por este ViewModel.
         /// </summary>
-        public T Entity { get; protected set; }
+        public T Entity { get; protected set; } = default!;
 
         /// <summary>
         ///     Edita la instancia de <typeparamref name="T"/> dentro de este
         ///     ViewModel.
         /// </summary>
         /// <param name="entity"></param>
-        public void Edit([NotNull]T entity)
+        public void Edit(T entity)
         {
             foreach (var j in WrittableProperties)
             {
@@ -77,7 +67,7 @@ namespace TheXDS.MCART.ViewModel
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="ViewModel{T}"/>.
         /// </summary>
-        public ViewModel()
+        protected ViewModel()
         {
         }
 
@@ -87,7 +77,13 @@ namespace TheXDS.MCART.ViewModel
         /// </summary>
         public override void Refresh()
         {
+#if PreferExceptions
+            lock (Entity ?? throw new InvalidOperationException())
+#else
+            if (Entity is null) return;
             lock (Entity)
+#endif
+
             {
                 Notify(_modelProperties.Select(p => p.Name));
             }

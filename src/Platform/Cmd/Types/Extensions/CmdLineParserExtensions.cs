@@ -69,6 +69,7 @@ namespace TheXDS.MCART.Types.Extensions
             IExposeInfo nfo = new AssemblyInfo(ent.DeclaringType?.Assembly ?? ent.Module.Assembly);
             Cmd.Helpers.About(nfo);
             var width = args.AvailableArguments.Max(p => p.HelpArgName().Length);
+            
             foreach (var j in args.AvailableArguments)
             {
                 Console.Write(string.Format(HelpArgTemplate, j.HelpArgName().PadRight(width)));

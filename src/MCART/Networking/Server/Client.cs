@@ -150,7 +150,7 @@ namespace TheXDS.MCART.Networking.Server
 #if PreferExceptions
 				throw new ArgumentNullException();
 #else
-                return new byte[] { };
+                return Array.Empty<byte>();
 #endif
             using var ms = new MemoryStream();
             ns.CopyTo(ms);
@@ -196,7 +196,7 @@ namespace TheXDS.MCART.Networking.Server
             }
             catch (ObjectDisposedException)
             {
-                return new byte[0];
+                return Array.Empty<byte>();
             }
         }
 
@@ -211,7 +211,7 @@ namespace TheXDS.MCART.Networking.Server
 #if PreferExceptions
             				throw new ArgumentNullException();
 #else
-                return new byte[0];
+                return Array.Empty<byte>();
 #endif
             return await GetDataAsync(ns);
         }
@@ -224,7 +224,7 @@ namespace TheXDS.MCART.Networking.Server
         public Task<byte[]> RecieveAsync(CancellationToken cancellationToken)
         {
             var ns = NwStream();
-            if (ns is null) return Task.FromResult(new byte[0]);
+            if (ns is null) return Task.FromResult(Array.Empty<byte>());
             try
             {
                 //using var ms = new MemoryStream();
@@ -234,7 +234,7 @@ namespace TheXDS.MCART.Networking.Server
             }
             catch
             {
-                return Task.FromResult(new byte[0]);
+                return Task.FromResult(Array.Empty<byte>());
             }
         }
 

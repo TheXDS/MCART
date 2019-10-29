@@ -250,7 +250,7 @@ namespace TheXDS.MCART
             {
                 return Objects.PublicTypes<TypeConverter>()
                     .Where(TypeExtensions.IsInstantiable)
-                    .Select(j => j.New<TypeConverter>(false, new object[0]))
+                    .Select(j => j.New<TypeConverter>(false, Array.Empty<object>()))
                     .FirstOrDefault(t => !(t is null) && t.CanConvertFrom(source) && t.CanConvertTo(target));
             }
             finally { GC.Collect(); }

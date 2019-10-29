@@ -46,18 +46,18 @@ namespace TheXDS.MCART.Types.Base
         /// <summary>
         ///     Se produce cuando se cambiará el valor de una propiedad.
         /// </summary>
-        public event PropertyChangingEventHandler PropertyChanging;
+        public event PropertyChangingEventHandler? PropertyChanging;
 
         /// <inheritdoc />
         /// <summary>
         ///     Ocurre cuando el valor de una propiedad ha cambiado.
         /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
         ///     Notifica a los clientes que el valor de una propiedad cambiará.
         /// </summary>
-        protected virtual void OnPropertyChanging([CallerMemberName] string? propertyName = null)
+        protected virtual void OnPropertyChanging([CallerMemberName] string propertyName = null!)
         {
             if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
             PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
@@ -68,7 +68,7 @@ namespace TheXDS.MCART.Types.Base
         ///     cambiado.
         /// </summary>
         [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null!)
         {
             if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

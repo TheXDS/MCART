@@ -1248,7 +1248,7 @@ namespace TheXDS.MCART.Types.Extensions
                 {
                     if (!(k.DisplayMemberBinding is Binding b)) continue;
                     var o = b.Path.Path.Split('.').Aggregate(j,
-                        (current, i) => current?.GetType().GetProperty(i)?.GetMethod?.Invoke(j, new object[] { }));
+                        (current, i) => current?.GetType().GetProperty(i)?.GetMethod?.Invoke(j, Array.Empty<object>()));
                     if (!(o is null)) row.AddCell(o.ToString());
                 }
             }

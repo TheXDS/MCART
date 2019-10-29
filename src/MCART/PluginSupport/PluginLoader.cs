@@ -559,7 +559,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
 #if PreferExceptions
             else { throw new NotPluginException(assembly); }
 #endif
-            return new IPlugin[0];
+            return global::System.Array.Empty<global::TheXDS.MCART.PluginSupport.Legacy.IPlugin>();
         }
 
         /// <summary>

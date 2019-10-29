@@ -111,7 +111,7 @@ namespace TheXDS.MCART.Networking.Client
         }
         private static TResult ReadResponse(BinaryReader br)
         {
-            return (TResult)Enum.ToObject(typeof(TResult), _readResp.Invoke(br, new object[0])!);
+            return (TResult)Enum.ToObject(typeof(TResult), _readResp.Invoke(br, Array.Empty<object>())!);
         }
 
         /// <summary>
@@ -119,18 +119,18 @@ namespace TheXDS.MCART.Networking.Client
         ///     pudo ser manejado debido a que no se configuró una función de
         ///     control para el comando.
         /// </summary>
-        public event EventHandler<ValueEventArgs<TCommand>> NotMappedCommandIssued;
+        public event EventHandler<ValueEventArgs<TCommand>>? NotMappedCommandIssued;
 
         /// <summary>
         ///     Ocurre cuando el servidor informa que se ha enviado un comando
         ///     desconocido.
         /// </summary>
-        public event EventHandler<ValueEventArgs<TCommand>> UnknownCommandIssued;
+        public event EventHandler<ValueEventArgs<TCommand>>? UnknownCommandIssued;
 
         /// <summary>
         ///     Ocurre cuando el servidor ha encontrado un error general.
         /// </summary>
-        public event EventHandler<ExceptionEventArgs> ServerError;
+        public event EventHandler<ExceptionEventArgs>? ServerError;
 
         /// <summary>
         ///     Obtiene un valor que indica si esta conexión está encriptada.
@@ -140,7 +140,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <summary>
         ///     Obtiene la clave pública de esta conexión encriptada.
         /// </summary>
-        public byte[] PubKey => _rsa?.ExportCspBlob(false) ?? new byte[0];
+        public byte[] GetPubKey() => _rsa?.ExportCspBlob(false) ?? Array.Empty<byte>();
 
         /// <summary>
         ///     Obtiene un valor que indica si la conexión utilizará
@@ -221,7 +221,7 @@ namespace TheXDS.MCART.Networking.Client
         /// </param>
         protected void Send(TCommand command, ResponseCallback? callback)
         {
-            Send(command, new byte[0], callback);
+            Send(command, Array.Empty<byte>(), callback);
         }
 
         /// <summary>
@@ -239,7 +239,7 @@ namespace TheXDS.MCART.Networking.Client
         /// </returns>
         protected T Send<T>(TCommand command, Func<TResult, BinaryReader, T> callback)
         {
-            return Send(command, new byte[0], callback);
+            return Send(command, Array.Empty<byte>(), callback);
         }
 
         /// <summary>
@@ -598,7 +598,7 @@ namespace TheXDS.MCART.Networking.Client
         /// </returns>
         protected Task<T> SendAsync<T>(TCommand command, Func<TResult, BinaryReader, T> callback)
         {
-            return Task.Run(() => Send(command, new byte[0], callback));
+            return Task.Run(() => Send(command, Array.Empty<byte>(), callback));
         }
 
         /// <summary>
@@ -1005,7 +1005,7 @@ namespace TheXDS.MCART.Networking.Client
             {
                 try
                 {
-                    byte[] data = new byte[0];
+                    byte[] data = Array.Empty<byte>();
                     try
                     {
                         data = await GetDataAsync(ns);

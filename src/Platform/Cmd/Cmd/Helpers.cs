@@ -43,7 +43,7 @@ namespace TheXDS.MCART.Cmd
         /// </summary>
         public static void About()
         {
-            var ent = ReflectionHelpers.GetEntryPoint();
+            var ent = ReflectionHelpers.GetEntryPoint() ?? throw new InvalidOperationException();
             About(ent.DeclaringType?.Assembly ?? ent.Module.Assembly);
         }
 
@@ -85,12 +85,10 @@ namespace TheXDS.MCART.Cmd
             {
                 try
                 {
-#pragma warning disable CS8604 // Posible argumento de referencia nulo
                     foreach (var j in info.Description.TextWrap(Console.BufferWidth))
                     {
                         Console.WriteLine(j);
                     }
-#pragma warning restore CS8604
                 }
                 catch
                 {

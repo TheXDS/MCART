@@ -42,7 +42,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <summary>
         /// Se produce cuando se pierde la conexión con el servidor inesperadamente.
         /// </summary>
-        public event EventHandler ConnectionLost;
+        public event EventHandler? ConnectionLost;
 
         /// <summary>
         ///     Envía una solicitud al servidor.
@@ -50,7 +50,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <param name="data">
         ///     Datos a enviar al servidor.
         /// </param>
-        public void TalkToServer([CanBeNull]IEnumerable<byte> data)
+        public void TalkToServer(IEnumerable<byte>? data)
         {
             var d = data?.ToArray();
             if (!(d?.Length > 0))
@@ -72,7 +72,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <returns>
         ///     Un objeto <see cref="Task"/> para monitorear la operación asíncrona.
         /// </returns>
-        public Task TalkToServerAsync([CanBeNull]IEnumerable<byte> data)
+        public Task TalkToServerAsync(IEnumerable<byte>? data)
         {
             var d = data?.ToArray();
             if (!(d?.Length > 0))

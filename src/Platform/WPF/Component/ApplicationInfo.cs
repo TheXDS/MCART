@@ -27,7 +27,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Reflection;
 using System.Windows;
-using TheXDS.MCART.Annotations;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
@@ -78,7 +77,7 @@ namespace TheXDS.MCART.Component
         ///     <see langword="true"/> para intentar determinar el ícono de la
         ///     aplicación, <see langword="false"/> para no mostrar un ícono.
         /// </param>
-        public ApplicationInfo([NotNull] Application application, bool inferIcon)
+        public ApplicationInfo(Application application, bool inferIcon)
             : this(application,inferIcon ? InferIcon(application.GetType().Assembly) : null) { }
 
         /// <summary>
@@ -118,7 +117,7 @@ namespace TheXDS.MCART.Component
         ///     <see langword="true"/> para intentar determinar el ícono del
         ///     ensamblado, <see langword="false"/> para no mostrar un ícono.
         /// </param>
-        public ApplicationInfo([NotNull] Assembly assembly, bool inferIcon)
+        public ApplicationInfo(Assembly assembly, bool inferIcon)
             : this(assembly, inferIcon ? InferIcon(assembly) : null) { }
 
 

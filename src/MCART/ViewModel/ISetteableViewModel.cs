@@ -22,8 +22,9 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System.ComponentModel;
-using TheXDS.MCART.Annotations;
 using TheXDS.MCART.Types;
 
 namespace TheXDS.MCART.ViewModel
@@ -43,6 +44,6 @@ namespace TheXDS.MCART.ViewModel
         /// <param name="entity">
         ///     Entidad desde la cual extraer información.
         /// </param>
-        void Edit([NotNull] T entity);
+        void Edit(T entity);
     }
 }

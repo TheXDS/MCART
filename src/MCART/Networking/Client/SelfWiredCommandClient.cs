@@ -366,14 +366,14 @@ namespace TheXDS.MCART.Networking.Client
         public TResponse ReadResponse(BinaryReader br)
         {
             if (br.BaseStream.CanSeek && br.BaseStream.Length == 0) return default;
-            return (TResponse) Enum.ToObject(typeof(TResponse), _readRsp.Invoke(br, new object[0])!);
+            return (TResponse) Enum.ToObject(typeof(TResponse), _readRsp.Invoke(br, Array.Empty<object>())!);
         }
 
         /// <summary>
         ///     Se produce cuando el servidor envía un mensaje indicando estado
         ///     de error.
         /// </summary>
-        public event EventHandler ServerError;
+        public event EventHandler? ServerError;
 
         /// <summary>
         ///     Envía un comando al servidor, y ejecuta un método de atención
@@ -501,6 +501,6 @@ namespace TheXDS.MCART.Networking.Client
         ///     Se produce cuando el servidor envía un mensaje indicando que no
         ///     reconoce al comando que se le ha enviado.
         /// </summary>
-        public event EventHandler UnknownCommandIssued;
+        public event EventHandler? UnknownCommandIssued;
     }
 }

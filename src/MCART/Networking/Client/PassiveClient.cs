@@ -52,7 +52,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <returns>
         ///     La respuesta obtenida del servidor luego de hacer la solicitud.
         /// </returns>
-        public byte[] TalkToServer() => TalkToServer(new byte[0]);
+        public byte[] TalkToServer() => TalkToServer(System.Array.Empty<byte>());
 
         /// <summary>
         ///     Envía una solicitud al servidor, y espera la respuesta del
@@ -81,7 +81,7 @@ namespace TheXDS.MCART.Networking.Client
         /// <returns>
         ///     La respuesta obtenida del servidor luego de hacer la solicitud.
         /// </returns>
-        public Task<byte[]> TalkToServerAsync() => TalkToServerAsync(new byte[0]);
+        public Task<byte[]> TalkToServerAsync() => TalkToServerAsync(System.Array.Empty<byte>());
 
         /// <summary>
         ///     Envía una solicitud al servidor, y espera la respuesta del

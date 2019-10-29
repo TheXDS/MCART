@@ -232,7 +232,7 @@ namespace TheXDS.MCART.Tests.Modules
         [Fact]
         public void WhichAreNullTest()
         {
-            Assert.Equal(new int[] { }, WhichAreNull(new object(), new object()).ToArray());
+            Assert.Equal(Array.Empty<int>(), WhichAreNull(new object(), new object()).ToArray());
             Assert.Equal(new[] {1}, WhichAreNull(new object(), null, new object(), new object()).ToArray());
             Assert.Equal(new[] {2, 3}, WhichAreNull(new object(), new object(), null, null).ToArray());
         }
@@ -241,7 +241,7 @@ namespace TheXDS.MCART.Tests.Modules
         public void WhichAreTest()
         {
             var x = new object();
-            Assert.Equal(new int[] { }, x.WhichAre(new object(), 1, 0.0f).ToArray());
+            Assert.Equal(Array.Empty<int>(), x.WhichAre(new object(), 1, 0.0f).ToArray());
             Assert.Equal(new[] {2}, x.WhichAre(new object(), 1, x).ToArray());
             Assert.Equal(new[] {1, 3}, x.WhichAre(new object(), x, 0, x).ToArray());
         }

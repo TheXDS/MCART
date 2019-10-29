@@ -232,7 +232,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static bool IsInstantiable(this Type type)
         {
-            return IsInstantiable(type, new Type[0]);
+            return IsInstantiable(type, global::System.Array.Empty<global::System.Type>());
         }
 
         /// <summary>
@@ -302,7 +302,7 @@ namespace TheXDS.MCART.Types.Extensions
         [Sugar]
         public static object New(this Type type)
         {
-            return type.New<object>(new object[] { });
+            return type.New<object>(Array.Empty<object>());
         }
 
         /// <summary>
@@ -319,7 +319,7 @@ namespace TheXDS.MCART.Types.Extensions
         [Sugar]
         public static T New<T>(this Type type)
         {
-            return type.New<T>(new object[0]);
+            return type.New<T>(Array.Empty<object>());
         }
 
         /// <summary>

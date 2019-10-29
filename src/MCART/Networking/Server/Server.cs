@@ -321,7 +321,7 @@ namespace TheXDS.MCART.Networking.Server
             }
             catch (AggregateException)
             {
-                return new byte[0];
+                return Array.Empty<byte>();
             }
         }
 
@@ -396,32 +396,32 @@ namespace TheXDS.MCART.Networking.Server
         /// <summary>
         ///     Ocurre cuando el protocolo ha aceptado al nuevo cliente.
         /// </summary>
-        public event EventHandler<ValueEventArgs<Client>> ClientAccepted;
+        public event EventHandler<ValueEventArgs<Client>>? ClientAccepted;
 
         /// <summary>
         ///     Ocurre cuando un nuevo cliente se conecta al servidor.
         /// </summary>
-        public event EventHandler<ValueEventArgs<Client>> ClientConnected;
+        public event EventHandler<ValueEventArgs<Client>>? ClientConnected;
 
         /// <summary>
         ///     Ocurre cuando un cliente se desconecta correctamente.
         /// </summary>
-        public event EventHandler<ValueEventArgs<Client>> ClientDisconnected;
+        public event EventHandler<ValueEventArgs<Client>>? ClientDisconnected;
 
         /// <summary>
         ///     Ocurre cuando el protocolo despide a un cliente.
         /// </summary>
-        public event EventHandler<ValueEventArgs<Client>> ClientFarewell;
+        public event EventHandler<ValueEventArgs<Client>>? ClientFarewell;
 
         /// <summary>
         ///     Ocurre cuando un cliente se desconecta inesperadamente.
         /// </summary>
-        public event EventHandler<ValueEventArgs<Client?>> ClientLost;
+        public event EventHandler<ValueEventArgs<Client?>>? ClientLost;
 
         /// <summary>
         ///     Ocurre cuando el protocolo rechaza al nuevo cliente.
         /// </summary>
-        public event EventHandler<ValueEventArgs<Client?>> ClientRejected;
+        public event EventHandler<ValueEventArgs<Client?>>? ClientRejected;
 
         /// <summary>
         ///     Encapsula <see cref="TcpListener.AcceptTcpClientAsync" /> para
@@ -447,12 +447,12 @@ namespace TheXDS.MCART.Networking.Server
         /// <summary>
         ///     Ocurre cuando el servidor es iniciado.
         /// </summary>
-        public event EventHandler<ValueEventArgs<DateTime>> ServerStarted;
+        public event EventHandler<ValueEventArgs<DateTime>>? ServerStarted;
 
         /// <summary>
         ///     Ocurre cuando el servidor es detenido.
         /// </summary>
-        public event EventHandler<ValueEventArgs<DateTime>> ServerStopped;
+        public event EventHandler<ValueEventArgs<DateTime>>? ServerStopped;
 
         /// <summary>
         ///     Crea un hilo de ejecución que da servicio a los clientes

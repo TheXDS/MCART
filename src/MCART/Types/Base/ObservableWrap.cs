@@ -155,7 +155,7 @@ namespace TheXDS.MCART.Types.Base
         /// </returns>
         protected override IEnumerator OnGetEnumerator()
         {
-            return UnderlyingCollection?.GetEnumerator() ?? new T[0].GetEnumerator();
+            return UnderlyingCollection?.GetEnumerator() ?? Array.Empty<T>().GetEnumerator();
         }
 
         /// <summary>

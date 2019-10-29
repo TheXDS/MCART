@@ -284,12 +284,12 @@ namespace TheXDS.MCART.Networking.Client
         /// <summary>
         ///     Se produce cuando ocurre una conexión de manera satisfactoria.
         /// </summary>
-        public event EventHandler<HostConnectionInfoEventArgs> Connected;
+        public event EventHandler<HostConnectionInfoEventArgs>? Connected;
 
         /// <summary>
         ///     Se produce si la conexión con el servidor ha fallado.
         /// </summary>
-        public event EventHandler<ConnectionFailureEventArgs> ConnectionFailed;
+        public event EventHandler<ConnectionFailureEventArgs>? ConnectionFailed;
 
         /// <summary>
         ///     Obtiene un paquete completo de datos desde el servidor.

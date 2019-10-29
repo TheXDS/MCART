@@ -56,7 +56,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static IEnumerable<T> FindAllObjects<T>() where T : class
         {
-            return FindAllObjects<T>(new object[0]);
+            return FindAllObjects<T>(Array.Empty<object>());
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static IEnumerable<T> FindAllObjects<T>(Func<Type, bool> typeFilter) where T : class
         {
-            return FindAllObjects<T>(new object[0], typeFilter);
+            return FindAllObjects<T>(Array.Empty<object>(), typeFilter);
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static T? FindSingleObject<T>() where T : class
         {
-            return FindSingleObject<T>(new object[0]);
+            return FindSingleObject<T>(Array.Empty<object>());
         }
 
         /// <summary>
@@ -161,7 +161,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static T? FindSingleObject<T>(Func<Type,bool> typeFilter) where T : class
         {
-            return FindSingleObject<T>(new object[0], typeFilter);
+            return FindSingleObject<T>(Array.Empty<object>(), typeFilter);
         }
 
         /// <summary>
@@ -197,7 +197,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static T? FindFirstObject<T>() where T : class
         {
-            return FindFirstObject<T>(new object[0]);
+            return FindFirstObject<T>(Array.Empty<object>());
         }
 
         /// <summary>
@@ -233,7 +233,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static T? FindFirstObject<T>(Func<Type, bool> typeFilter) where T : class
         {
-            return FindFirstObject<T>(new object[0],typeFilter);
+            return FindFirstObject<T>(Array.Empty<object>(), typeFilter);
         }
 
         /// <summary>
@@ -397,7 +397,7 @@ namespace TheXDS.MCART
             }
             catch
             {
-                types = new Type[0];
+                types = global::System.Array.Empty<global::System.Type>();
             }
             return types;
         }
@@ -1703,7 +1703,7 @@ namespace TheXDS.MCART
             return
                 from j in properties.Where(p => p.CanRead)
                 where j.PropertyType == typeof(T)
-                select (T)j.GetMethod!.Invoke(instance, new object[0])!;
+                select (T)j.GetMethod!.Invoke(instance, Array.Empty<object>())!;
         }
 
         /// <summary>

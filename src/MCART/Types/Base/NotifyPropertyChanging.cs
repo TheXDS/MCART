@@ -41,7 +41,7 @@ namespace TheXDS.MCART.Types.Base
         /// <summary>
         ///     Se produce cuando cambia el valor de una propiedad.
         /// </summary>
-        public event PropertyChangingEventHandler PropertyChanging;
+        public event PropertyChangingEventHandler? PropertyChanging;
 
         /// <summary>
         ///     Notifica a los clientes que el valor de una propiedad cambiará.

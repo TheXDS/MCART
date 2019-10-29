@@ -260,7 +260,7 @@ namespace TheXDS.MCART.Networking.Server
         /// </returns>
         public static TCommand ReadCommand(BinaryReader br)
         {
-            return (TCommand) Enum.ToObject(typeof(TCommand), _readCmd.Invoke(br, new object[0])!);
+            return (TCommand) Enum.ToObject(typeof(TCommand), _readCmd.Invoke(br, Array.Empty<object>())!);
         }
 
         /// <inheritdoc />

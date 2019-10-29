@@ -1052,7 +1052,7 @@ namespace TheXDS.MCART.Networking.Server
         }
         private static TCommand ReadCommand(BinaryReader br)
         {
-            return (TCommand)Enum.ToObject(typeof(TCommand), _readCmd.Invoke(br, new object[0])!);
+            return (TCommand)Enum.ToObject(typeof(TCommand), _readCmd.Invoke(br, Array.Empty<object>())!);
         }
 
         private readonly Dictionary<TCommand, CommandCallback> _commands = new Dictionary<TCommand, CommandCallback>();
@@ -1203,11 +1203,11 @@ namespace TheXDS.MCART.Networking.Server
         /// <summary>
         ///     Ocurre cuando un cliente envía un comando para el cual no existe un manejador.
         /// </summary>
-        public event EventHandler<ValueEventArgs<TCommand>> NotMappedCommand;
+        public event EventHandler<ValueEventArgs<TCommand>>? NotMappedCommand;
 
         /// <summary>
         ///     Ocurre cuando el servidor encuentra un error.
         /// </summary>
-        public event EventHandler<ExceptionEventArgs> ServerError;
+        public event EventHandler<ExceptionEventArgs>? ServerError;
     }
 }
