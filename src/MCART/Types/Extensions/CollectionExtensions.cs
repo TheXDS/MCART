@@ -162,7 +162,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static T Push<T>(this ICollection<T> collection) where T : new()
         {
-            return Push(collection, new T());
+            return new T().PushInto(collection);
         }
 
         /// <summary>
@@ -180,7 +180,27 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         /// <param name="value">Valor a agregar a la colección.</param>
         /// <returns>El objeto agregado a la colección.</returns>
-        public static TItem Push<TItem, TCollection>(this TItem value, ICollection<TCollection> collection) where TItem : TCollection
+        public static TItem PushInto<TItem, TCollection>(this TItem value, ICollection<TCollection> collection) where TItem : TCollection
+        {
+            return collection.Push(value);
+        }
+
+        /// <summary>
+        ///     Alternativa a <see cref="ICollection{T}.Add(T)"/> con soporte
+        ///     para sintáxis fluent.
+        /// </summary>
+        /// <typeparam name="TItem">
+        ///     Tipo de elemento a agregar a la colección.
+        /// </typeparam>
+        /// <typeparam name="TCollection">
+        ///     Tipo de elementos contenidos en el <see cref="ICollection{T}" />.
+        /// </typeparam>
+        /// <param name="collection">
+        ///     Colección a la cual agregar el nuevo elemento.
+        /// </param>
+        /// <param name="value">Valor a agregar a la colección.</param>
+        /// <returns>El objeto agregado a la colección.</returns>
+        public static TItem Push<TItem, TCollection>(this ICollection<TCollection> collection, TItem value) where TItem : TCollection
         {
             collection.Add(value);
             return value;
@@ -200,7 +220,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Colección a la cual agregar el nuevo elemento.
         /// </param>
         /// <returns>Una nueva instancia de tipo <typeparamref name="TItem"/> agregada a la colección.</returns>
-        public static TItem Push<TItem, TCollection>(this ICollection<TCollection> collection) where TItem : TCollection, new() => Push(new TItem(), collection);
+        public static TItem Push<TItem, TCollection>(this ICollection<TCollection> collection) where TItem : TCollection, new() => Push(collection, new TItem());
 
         /// <summary>
         ///     Obtiene un <see cref="ObservableCollectionWrap{T}"/> que envuelve a la
