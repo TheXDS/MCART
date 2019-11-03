@@ -1,5 +1,5 @@
 ﻿/*
-IGuidExposer.cs
+ExposeGuidImplementor.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -27,8 +27,9 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Types.Base;
 
-namespace TheXDS.MCART.Types.Base
+namespace TheXDS.MCART.Types
 {
     /// <summary>
     ///     Implementa directamente <see cref="IExposeGuid"/>.
