@@ -23,8 +23,10 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #nullable enable
+#pragma warning disable CA1063 // IDisposable se implementa explícitamente de esa forma para simplificar la declaración de clases desechables.
 
 using System;
+using static System.Reflection.BindingFlags;
 
 namespace TheXDS.MCART.Types.Base
 {
@@ -46,7 +48,7 @@ namespace TheXDS.MCART.Types.Base
         /// <param name="disposing">
         ///     Indica si deben liberarse los recursos administrados.
         /// </param>
-        protected virtual void Dispose(bool disposing)
+        protected void Dispose(bool disposing)
         {
             if (Disposed) return;
             
@@ -60,9 +62,12 @@ namespace TheXDS.MCART.Types.Base
         /// <summary>
         ///     Desecha los objetos desechables detectados de esta instancia.
         /// </summary>
+        /// <remarks>
+        ///     De forma predeterminada, este método obtiene un listado de objetos desechables desde los campos privados del objeto para desechar. Si requiere una lógica personalizada para desechar objetos, reemplaze este método.
+        /// </remarks>
         protected virtual void OnDispose()
         {
-            foreach (var j in this.FieldsOf<IDisposable>())
+            foreach (var j in GetType().GetFields(NonPublic | Instance).FieldsOf<IDisposable>(this))
             {
                 try
                 {

@@ -2,6 +2,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(MSBuildProjectExtension)'=='.csproj'">
     <VersionPrefix>0.11.0</VersionPrefix>
-    <VersionSuffix>a003</VersionSuffix>
+    <VersionSuffix>a005</VersionSuffix>
   </PropertyGroup>
 </Project>
