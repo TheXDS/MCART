@@ -26,9 +26,10 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.IO;
+using System.Threading.Tasks;
+using TheXDS.MCART.Types.Base;
 using static System.AttributeTargets;
 using static TheXDS.MCART.Resources.Strings;
-using Ist = TheXDS.MCART.Resources.InternalStrings;
 
 namespace TheXDS.MCART.Attributes
 {
@@ -36,20 +37,26 @@ namespace TheXDS.MCART.Attributes
     /// <summary>
     ///     Establece un archivo de licencia externo a asociar con el elemento.
     /// </summary>
-    [AttributeUsage(Class | Module | Assembly), Obsolete(Ist.UseLicUriInstead)]
-    public sealed class LicenseFileAttribute : TextAttribute
+    [AttributeUsage(Class | Module | Assembly | Field)]
+    public sealed class LicenseUriAttribute : TextAttribute
     {
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="LicenseFileAttribute" />.
         /// </summary>
-        /// <param name="licenseFile">
-        ///     Ruta del archivo de licencia adjunto.
+        /// <param name="licenseUri">
+        ///     Ruta Uri de la licencia.
         /// </param>
-        public LicenseFileAttribute(string licenseFile) : base(licenseFile)
+        public LicenseUriAttribute(string licenseUri) : base(licenseUri)
         {
+            Uri = new Uri(licenseUri);
         }
+
+        /// <summary>
+        ///     Obtiene la ruta de almacenamiento de la licencia.
+        /// </summary>
+        public Uri Uri { get; }
 
         /// <summary>
         ///     Lee el archivo de licencia especificado por este atributo.
@@ -60,15 +67,31 @@ namespace TheXDS.MCART.Attributes
         public string ReadLicense()
         {
             try
-            {
-                if (Value is null) return Warn(UnspecLicense);
-                using var fs = new FileStream(Value, FileMode.Open);
-                using var sr = new StreamReader(fs);
+            {                
+                using var sr = new StreamReader(StreamUriParser.Get(Uri)!);
                 return sr.ReadToEnd();
             }
             catch
             {
                 return Warn(UnspecLicense);
+            }
+        }
+        /// <summary>
+        ///     Lee el archivo de licencia especificado por este atributo.
+        /// </summary>
+        /// <returns>
+        ///     El contenido del archivo de licencia especificado.
+        /// </returns>
+        public Task<string> ReadLicenseAsync()
+        {
+            try
+            {
+                using var sr = new StreamReader(StreamUriParser.Get(Uri)!);
+                return sr.ReadToEndAsync();
+            }
+            catch
+            {
+                return Task.FromResult(Warn(UnspecLicense));
             }
         }
     }

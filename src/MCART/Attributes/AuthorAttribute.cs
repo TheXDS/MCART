@@ -33,7 +33,7 @@ namespace TheXDS.MCART.Attributes
     /// <summary>
     ///     Establece el autor del elemento.
     /// </summary>
-    [AttributeUsage(Property | Method | Constructor | Class | Module | Assembly)]
+    [AttributeUsage(Property | Method | Constructor | Class | Module | Assembly, AllowMultiple = true)]
     [Serializable]
     public sealed class AuthorAttribute : TextAttribute
     {
