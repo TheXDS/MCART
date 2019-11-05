@@ -26,17 +26,19 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #pragma warning disable CA1063 // IDisposable se implementa explícitamente de esa forma para simplificar la declaración de clases desechables.
 
 using System;
+using System.Runtime.CompilerServices;
 using static System.Reflection.BindingFlags;
 
 namespace TheXDS.MCART.Types.Base
 {
     /// <summary>
     ///     Clase base que simplifica la implementación de la interfaz
-    ///     <see cref="IDisposable"/> para los casos en los que no es necesario
-    ///     finalizar recursos no administrados.
+    ///     <see cref="IDisposable"/>.
     /// </summary>
     public abstract class Disposable : IDisposable
     {
+        private bool ShouldFinalize() => GetType().GetMethod(nameof(OnFinalize), Instance | NonPublic)!.IsOverride();
+
         /// <summary>
         ///     Obtiene un valor que indica si este objeto ha sido desechado.
         /// </summary>
@@ -56,26 +58,21 @@ namespace TheXDS.MCART.Types.Base
             {
                 OnDispose();
             }
+            OnFinalize();
             Disposed = true;            
         }
 
         /// <summary>
-        ///     Desecha los objetos desechables detectados de esta instancia.
+        ///     Realiza operaciones de limpieza para objetos no administrados.
         /// </summary>
-        /// <remarks>
-        ///     De forma predeterminada, este método obtiene un listado de objetos desechables desde los campos privados del objeto para desechar. Si requiere una lógica personalizada para desechar objetos, reemplaze este método.
-        /// </remarks>
-        protected virtual void OnDispose()
-        {
-            foreach (var j in GetType().GetFields(NonPublic | Instance).FieldsOf<IDisposable>(this))
-            {
-                try
-                {
-                    j.Dispose();
-                }
-                catch { }
-            }
-        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected virtual void OnFinalize() { }
+
+        /// <summary>
+        ///     Realiza las operaciones de limpieza de objetos administrados
+        ///     desechables de esta instancia.
+        /// </summary>
+        protected abstract void OnDispose();
 
         /// <summary>
         ///     Libera los recursos utilizados por esta instancia.
@@ -83,6 +80,15 @@ namespace TheXDS.MCART.Types.Base
         public void Dispose()
         {
             Dispose(true);
+            if (ShouldFinalize()) GC.SuppressFinalize(this);            
+        }
+
+        /// <summary>
+        ///     Destruye esta instancia de la clase <see cref="Disposable"/>.
+        /// </summary>
+        ~Disposable()
+        {
+            if (ShouldFinalize()) Dispose(false);            
         }
     }
 }
