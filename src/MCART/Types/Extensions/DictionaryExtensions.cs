@@ -31,6 +31,18 @@ namespace TheXDS.MCART.Types.Extensions
     /// </summary>
     public static class DictionaryExtensions
     {
+        public static TValue Push<TKey, TValue>(this IDictionary<TKey,TValue> dictionary, TKey key, TValue value)
+        {
+            dictionary.Add(key, value);
+            return value;
+        }
+
+        public static TValue PushInto<TKey, TValue>(this TValue value, TKey key, IDictionary<TKey, TValue> dictionary)
+        {
+            dictionary.Add(key, value);
+            return value;
+        }
+
         /// <summary>
         ///     Comprueba la existencia de referencias circulares en un
         ///     diccionario de objetos en forma de árbol.
