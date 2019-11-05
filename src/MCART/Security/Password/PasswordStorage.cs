@@ -42,7 +42,7 @@ namespace TheXDS.MCART.Security.Password
     ///     Implementación de referencia de algunos componentes de autoría
     ///     original por Taylor Hornby bajo licencia MIT.
     /// </remarks>
-    [ThirdParty]
+    [ThirdParty, SpdxLicense(Resources.SpdxLicenseId.MIT)]
     public static class PasswordStorage
     {
         /* Cambios respecto a la implementación de referencia:

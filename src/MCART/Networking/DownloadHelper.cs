@@ -108,7 +108,7 @@ namespace TheXDS.MCART.Networking
         public static void Download(Uri uri, Stream stream)
         {
             if (!stream.CanWrite) throw new NotSupportedException();
-            using var response = StreamUriParser.Get<IWebUriParser>(uri).GetResponse(uri);
+            using var response = StreamUriParser.Infer<IWebUriParser>(uri).GetResponse(uri);
             Copy(response, stream);
         }
         
@@ -152,7 +152,7 @@ namespace TheXDS.MCART.Networking
         public static async Task DownloadAsync(Uri uri, Stream stream, ReportCallBack? reportCallback, int polling)
         {
             if (!stream.CanWrite) throw new NotSupportedException();
-            using var response = await StreamUriParser.Get<IWebUriParser>(uri).GetResponseAsync(uri);
+            using var response = await StreamUriParser.Infer<IWebUriParser>(uri).GetResponseAsync(uri);
             await CopyAsync(response, stream, reportCallback, polling);
         }
 

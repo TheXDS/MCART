@@ -28,6 +28,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using TheXDS.MCART.Attributes;
 
 namespace TheXDS.MCART.Types.Base
 {
@@ -52,10 +53,41 @@ namespace TheXDS.MCART.Types.Base
         ///     <see cref="StreamUriParser"/> capaz de manejar el 
         ///     <see cref="Uri"/>.
         /// </returns>
-        public static StreamUriParser Get(Uri uri)
+        public static StreamUriParser Infer(Uri uri)
         {
-            return Get<StreamUriParser>(uri);
+            return Infer<StreamUriParser>(uri);
         }
+
+        /// <summary>
+        ///     Abre directamente un <see cref="Stream"/> desde el cual leer el
+        ///     contenido del <paramref name="uri"/>.
+        /// </summary>
+        /// <param name="uri">Identificador del recurso a localizar.</param>
+        /// <returns>
+        ///     Un <see cref="Stream"/> desde el cual leer el contenido del
+        ///     <paramref name="uri"/>.
+        /// </returns>
+        [Sugar]
+        public static Stream? Get(Uri uri)
+        {
+            return Infer(uri).GetStream(uri);
+        }
+
+        /// <summary>
+        ///     Abre directamente de forma asíncrona un <see cref="Stream"/>
+        ///     desde el cual leer el contenido del <paramref name="uri"/>.
+        /// </summary>
+        /// <param name="uri">Identificador del recurso a localizar.</param>
+        /// <returns>
+        ///     Un <see cref="Stream"/> desde el cual leer el contenido del
+        ///     <paramref name="uri"/>.
+        /// </returns>
+        [Sugar]
+        public static Task<Stream?> GetAsync(Uri uri)
+        {
+            return Infer(uri).GetStreamAsync(uri);
+        }
+
 
         /// <summary>
         ///     Obtiene el <see cref="StreamUriParser"/> apropiado para manejar
@@ -75,7 +107,7 @@ namespace TheXDS.MCART.Types.Base
         ///     <see cref="StreamUriParser"/> capaz de manejar el 
         ///     <see cref="Uri"/>.
         /// </returns>
-        public static T Get<T>(Uri uri) where T : class, IStreamUriParser
+        public static T Infer<T>(Uri uri) where T : class, IStreamUriParser
         {
             return Objects.FindAllObjects<T>().FirstOrDefault(p => p.Handles(uri));
         }
@@ -165,9 +197,9 @@ namespace TheXDS.MCART.Types.Base
         /// </returns>
         public virtual Stream? OpenFullTransfer(Uri uri)
         {
-            var ms = new MemoryStream();
             var j = Open(uri);
             if (j is null) return null;
+            var ms = new MemoryStream();
             using (j)
             {
                 j.CopyTo(ms);
@@ -189,9 +221,9 @@ namespace TheXDS.MCART.Types.Base
         /// </returns>
         public virtual async Task<Stream?> OpenFullTransferAsync(Uri uri)
         {
-            var ms = new MemoryStream();
             var j = Open(uri);
             if (j is null) return null;
+            var ms = new MemoryStream();
             using (j)
             {
                 await j.CopyToAsync(ms);

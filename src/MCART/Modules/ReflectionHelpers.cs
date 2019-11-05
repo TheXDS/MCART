@@ -108,7 +108,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static bool IsOverride(this MethodInfo method)
         {
-            return method.GetBaseDefinition() != method;
+            return method.GetBaseDefinition().DeclaringType != method.DeclaringType;
         }
 
         /// <summary>
@@ -123,11 +123,11 @@ namespace TheXDS.MCART
             if (method?.DeclaringType is null) throw new ArgumentNullException(nameof(method));
             var t = thisInstance?.GetType() ?? throw new ArgumentNullException(nameof(thisInstance));
             if (!t.Implements(method.DeclaringType)) throw new InvalidTypeException(t);
-            var m = t.GetMethod(method.Name, GetBindingFlags(method), null,
-                method.GetParameters().Select(p => p.ParameterType).ToArray(), null) 
+
+            var m = t.GetMethod(method.Name, GetBindingFlags(method), null, method.GetParameters().Select(p => p.ParameterType).ToArray(), null) 
                 ?? throw new TamperException(new MissingMethodException(thisInstance.GetType().Name, method.Name));
 
-            return method != m;
+            return method.DeclaringType != m.DeclaringType;
         }
 
         /// <summary>Obtiene un nombre completo para un método.</summary>
@@ -256,7 +256,7 @@ namespace TheXDS.MCART
             {
                 retVal |= BindingFlags.Public;
             }
-            if (method.Attributes.HasFlag(MethodAttributes.Private))
+            if (method.Attributes.HasFlag(MethodAttributes.Private) || method.Attributes.HasFlag(MethodAttributes.Family))
             {
                 retVal |= BindingFlags.NonPublic;
             }
