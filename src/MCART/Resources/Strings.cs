@@ -335,6 +335,12 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public static string XFoundError(string text) => $"{text} ha encontrado un error.";
         /// <summary>
+        /// Devuelve una cadena con el texto "Se ha producido un error cargando {<paramref name="text"/>}.".
+        /// </summary>
+        /// <param name="text">Texto a formatear.</param>
+        /// <returns>Una cadena con el texto "Se ha producido un error cargando {<paramref name="text"/>}.".</returns>
+        public static string ErrorLoadingX(string text) => $"Se ha producido un error cargando {text}.";
+        /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} se encuentra en fase beta.".
         /// </summary>
         /// <param name="text">Texto a formatear.</param>
@@ -535,6 +541,7 @@ namespace TheXDS.MCART.Resources
         public const string IsUnsafe = "Inseguro (NO UTILIZAR)";
         public const string ItsLong = "Es muy larga";
         public const string LatinChars = "áéíóúüñäåöàèìòùç";
+        public const string LicenseNotFound = "La licencia no ha sido encontrada.";
         public const string LstEmpty = "La lista está vacía";
         public const string MandatoryField = "Este campo es obligatorio";
         public const string Menu = "Menú";        
@@ -544,8 +551,9 @@ namespace TheXDS.MCART.Resources
         public const string Needed = "necesario";
         public const string NewReg = "* Nuevo registro";
         public const string Nme = "Nombre";
+        public const string NoContent = "Sin contenido.";
         public const string NoData = "No hay datos";
-        public const string NoLicense = "(sin licencia)";
+        public const string NoLicense = "Sin licencia.";
         public const string NoRules = "No hay reglas activas";
         public const string NotEnoughData = "Los datos son insuficientes";
         public const string NotImplemented = "Función no implementada";
@@ -576,6 +584,7 @@ namespace TheXDS.MCART.Resources
         public const string Search = "Buscar...";
         public const string Security = "Seguridad";
         public const string SeeLicense = "Ver licencia...";
+        public const string See3rdPartyLicenses = "Ver licencias de terceros...";
         public const string SlctAPlugin = "Seleccione un elemento de la lista para ver más información.";
         public const string Specified = "especificado";
         public const string StackUnderflow = "Subflujo de pila";
@@ -614,7 +623,7 @@ namespace TheXDS.MCART.Resources
         public const string Total = "Total:";
         public const string Unk = "Desconocido";
         public const string UnknownType = "Tipo de objeto desconocido.";
-        public const string UnspecLicense = "No se ha especificado una licencia, o la misma no ha sido incluída.";
+        public const string UnspecifiedLicense = "No se ha especificado una licencia, o la misma no ha sido incluída.";
         public const string UnsupportedVer = "Versión no soportada.";
         public const string UnusableObject = "El objeto no puede ser utilizado.";
         public const string Updt = "Actualizar";

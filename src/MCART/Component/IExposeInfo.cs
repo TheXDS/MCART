@@ -25,7 +25,9 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #nullable enable
 
 using System;
-using System.Diagnostics.CodeAnalysis;
+using System.Collections.Generic;
+using System.Linq;
+using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types;
 
 namespace TheXDS.MCART.Component
@@ -39,7 +41,7 @@ namespace TheXDS.MCART.Component
         /// <summary>
         ///     Obtiene el autor del <see cref="IExposeInfo"/>.
         /// </summary>
-        string? Author { get; }
+        IEnumerable<string>? Authors { get; }
 
         /// <summary>
         ///     Obtiene el Copyright del <see cref="IExposeInfo"/>
@@ -49,13 +51,37 @@ namespace TheXDS.MCART.Component
         /// <summary>
         ///     Obtiene la licencia del <see cref="IExposeInfo"/>
         /// </summary>
-        string? License { get; }
+        License? License { get; }
 
         /// <summary>
         ///     Obtiene la versión del <see cref="IExposeInfo"/>
         /// </summary>
         Version? Version { get; }
 
+        /// <summary>
+        ///     Obtiene una colección con el contenido de licencias de terceros
+        ///     para el objeto.
+        /// </summary>
+        IEnumerable<License>? ThirdPartyLicenses { get; }
+
+#if NETCOREAPP3_0 || NETSTANDARD2_1
+        /// <summary>
+        ///     Obtiene la versión informacional del <see cref="IExposeInfo"/>.
+        /// </summary>
+        string? InformationalVersion => Version?.ToString();
+
+        /// <summary>
+        ///     Obtiene un valor que indica si este <see cref="IExposeInfo"/>
+        ///     contiene información de licencia.
+        /// </summary>
+        bool HasLicense => License is { };
+
+        /// <summary>
+        ///     Obtiene un valor que indica si este <see cref="IExposeInfo"/>
+        ///     contiene información de licencias de terceros.
+        /// </summary>
+        bool Has3rdPartyLicense => ThirdPartyLicenses?.Any() ?? false;
+#else
         /// <summary>
         ///     Obtiene la versión informacional del <see cref="IExposeInfo"/>.
         /// </summary>
@@ -66,11 +92,12 @@ namespace TheXDS.MCART.Component
         ///     contiene información de licencia.
         /// </summary>
         bool HasLicense { get; }
-
+        
         /// <summary>
         ///     Obtiene un valor que indica si este <see cref="IExposeInfo"/>
-        ///     cumple con el Common Language Standard (CLS).
+        ///     contiene información de licencias de terceros.
         /// </summary>
-        bool ClsCompliant { get; }
+        bool Has3rdPartyLicense { get; }
+#endif
     }
 }

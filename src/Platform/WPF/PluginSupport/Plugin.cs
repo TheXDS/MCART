@@ -38,7 +38,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
     ///     <see cref="Plugin"/> específico para Windows Presentation
     ///     Framework.
     /// </summary>
-    public abstract class WpfPlugin : Plugin, IWpfPlugin, IExposeInfo<UIElement?>
+    public abstract class WpfPlugin : Plugin, IWpfPlugin, IExposeGuiInfo<UIElement?>
     {
         /// <inheritdoc />
         /// <summary>

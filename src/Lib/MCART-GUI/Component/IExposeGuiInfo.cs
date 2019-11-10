@@ -1,5 +1,5 @@
 ﻿/*
-IExposeInfo.cs
+IExposeGuiInfo.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -29,7 +29,7 @@ namespace TheXDS.MCART.Component
     ///     Extensión de la interfaz <see cref="IExposeInfo" /> que permite establecer un ícono.
     /// </summary>
     /// <typeparam name="TIcon">Tipo del ícono a exponer.</typeparam>
-    public interface IExposeInfo<out TIcon> : IExposeInfo
+    public interface IExposeGuiInfo<out TIcon> : IExposeInfo
     {
         /// <summary>
         /// Obtiene el ícono establecido del elemento.

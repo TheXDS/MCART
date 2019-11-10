@@ -30,6 +30,8 @@ using TheXDS.MCART.Component;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.ViewModel;
 using TheXDS.MCART.Types.Extensions;
+using System.Diagnostics;
+using System;
 
 #nullable enable
 
@@ -37,60 +39,54 @@ namespace TheXDS.MCART.Dialogs.ViewModel
 {
     internal class AboutPageViewModel : AboutPageViewModelBase<ApplicationInfo>
     {
-        protected override void OnElementChanged()
-        {
-            OnPropertyChanged(nameof(Icon));
-            IsMcart = Element?.Assembly?.HasAttr<McartComponentAttribute>() ?? false;
-            AboutMcartCommand.SetCanExecute(!IsMcart);
-            PluginInfoCommand.SetCanExecute(ShowPluginInfo);
-            LicenseCommand.SetCanExecute(HasLicense);
-        }
-
         public UIElement? Icon => IsMcart ? WpfIcons.GetXamlIcon(Icons.IconId.MCART) : Element?.Icon;
-        public string? McartComponentKind => Element?.Assembly?.GetAttr<McartComponentAttribute>()?.Kind.NameOf();
-        public SimpleCommand AboutMcartCommand { get; }
-        public SimpleCommand PluginInfoCommand { get; }
-        public SimpleCommand LicenseCommand { get; }
 
-        public AboutPageViewModel()
+        public AboutPageViewModel() : base()
         {
-            AboutMcartCommand = new SimpleCommand(OnAboutMcart, false);
-            PluginInfoCommand = new SimpleCommand(OnPluginInfo, false);
-            LicenseCommand = new SimpleCommand(OnLicense, false);
+            RegisterPropertyChangeTrigger(nameof(Icon), nameof(Element));
         }
 
-        private void OnLicense()
+        protected override void OnLicense()
         {
-            var w = new Window
+            if (License is { LicenseUri: Uri uri }) Process.Start(uri.ToString());
+            else if (License is { LicenseContent: var content })
             {
-                SizeToContent = SizeToContent.Width,
-                MaxWidth = 640,
-                MaxHeight = 480,
-                Content = new ScrollViewer
+                var w = new Window
                 {
-                    Content = new TextBox
+                    SizeToContent = SizeToContent.Width,
+                    MaxWidth = 640,
+                    MaxHeight = 480,
+                    Content = new ScrollViewer
                     {
-                        VerticalAlignment = VerticalAlignment.Stretch,
-                        HorizontalAlignment = HorizontalAlignment.Stretch,
-                        FontFamily = new FontFamily("Consolas"),
-                        Text = License,
-                        AcceptsReturn = true,
-                        IsReadOnly = true,
-                        TextWrapping = TextWrapping.WrapWithOverflow
+                        Content = new TextBox
+                        {
+                            VerticalAlignment = VerticalAlignment.Stretch,
+                            HorizontalAlignment = HorizontalAlignment.Stretch,
+                            FontFamily = new FontFamily("Consolas"),
+                            Text = content,
+                            AcceptsReturn = true,
+                            IsReadOnly = true,
+                            TextWrapping = TextWrapping.WrapWithOverflow
+                        }
                     }
-                }
-            };
-            w.ShowDialog();
+                };
+                w.ShowDialog();
+            }
         }
 
-        private void OnPluginInfo()
+        protected override void OnPluginInfo()
         {
             new PluginBrowser().ShowDialog();
         }
 
-        private void OnAboutMcart()
+        protected override void OnAboutMcart()
         {
             WpfRtInfo.Show();
+        }
+
+        protected override void On3rdPartyLicenses()
+        {
+            
         }
     }
 }

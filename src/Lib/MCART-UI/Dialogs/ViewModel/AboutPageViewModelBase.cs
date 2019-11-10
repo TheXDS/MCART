@@ -25,8 +25,12 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #nullable enable
 
 using System;
+using System.Collections.Generic;
+using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Component;
+using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types;
+using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.ViewModel;
 
 namespace TheXDS.MCART.Dialogs.ViewModel
@@ -38,32 +42,79 @@ namespace TheXDS.MCART.Dialogs.ViewModel
     /// <typeparam name="T">
     ///     Tipo de elemento para el cual mostrar detalles.
     /// </typeparam>
-    public abstract class AboutPageViewModelBase<T> : ViewModelBase, INameable, IDescriptible where T : IExposeInfo
+    public abstract class AboutPageViewModelBase<T> : ViewModelBase, IExposeExtendedInfo, INameable, IDescriptible where T : IExposeExtendedInfo, IExposeAssembly
     {
-
-#nullable disable
-        private T _element = default;
-#nullable enable
-
+        private T _element = default!;
         private bool _showAboutMcart = true;
         private bool _showPluginInfo;
-        private bool _isMcart;
 
         /// <summary>
         ///     Obtiene o establece un valor que indica si el
         ///     <see cref="IExposeInfo"/> presentado es MCART.
         /// </summary>
-        public bool IsMcart
+        public bool IsMcart => Element?.Assembly?.HasAttr<McartComponentAttribute>() ?? false;
+
+        /// <summary>
+        ///     Obtiene un comando a ejecutar cuando el usuario desea obtener
+        ///     más información sobre MCART.
+        /// </summary>
+        public SimpleCommand AboutMcartCommand { get; }
+
+        /// <summary>
+        ///     Obtiene un comando a ejecutar cuando el usuario desea obtener
+        ///     más información sobre los plugins de la aplicación.
+        /// </summary>
+        public SimpleCommand PluginInfoCommand { get; }
+
+        /// <summary>
+        ///     Obtiene un comando a ejecutar cuando el usuario desea obtener
+        ///     información sobre la licencia del programa.
+        /// </summary>
+        public SimpleCommand LicenseCommand { get; }
+
+        /// <summary>
+        ///     Obtiene un comando a ejecutar cuando el usuario desea obtener
+        ///     más información sobre las licencias de terceros incluidas en la
+        ///     aplicación.
+        /// </summary>
+        public SimpleCommand ThidPartiLicensesCommand { get; }
+
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="AboutPageViewModelBase{T}"/>.
+        /// </summary>
+        protected AboutPageViewModelBase()
         {
-            get => _isMcart;
-            protected set => Change(ref _isMcart, value);
+            AboutMcartCommand = new SimpleCommand(OnAboutMcart, false);
+            PluginInfoCommand = new SimpleCommand(OnPluginInfo, false);
+            LicenseCommand = new SimpleCommand(OnLicense, false);
+            ThidPartiLicensesCommand = new SimpleCommand(On3rdPartyLicenses, false);
+            RegisterPropertyChangeBroadcast(nameof(Element), new[] {
+                    nameof(Authors),
+                    nameof(ClsCompliant),
+                    nameof(Copyright),
+                    nameof(Description),
+                    nameof(HasLicense),
+                    nameof(IsMcart),
+                    nameof(License),
+                    nameof(McartComponentKind),
+                    nameof(Name),
+                    nameof(ShowAboutMcart),
+                    nameof(ShowPluginInfo),
+                    nameof(Version),
+                    nameof(InformationalVersion),
+                    nameof(ThirdPartyLicenses),
+                    nameof(Beta),
+                    nameof(Unmanaged)
+                });
         }
+
 
         /// <summary>
         ///     Obtiene al autor del <see cref="IExposeInfo"/> para el cual se
         ///     presentan los detalles.
         /// </summary>
-        public string? Author => Element?.Author;
+        public IEnumerable<string>? Authors => Element?.Authors;
 
         /// <summary>
         ///     Obtiene un valor que determina si el <see cref="IExposeInfo"/>
@@ -93,21 +144,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
             get => _element;
             set
             {
-                if (!Change(ref _element, value)) return;
-                Notify(new[]{
-                    nameof(Author),
-                    nameof(ClsCompliant),
-                    nameof(Copyright),
-                    nameof(Description),
-                    nameof(HasLicense),
-                    nameof(IsMcart),
-                    nameof(License),
-                    nameof(Name),
-                    nameof(ShowAboutMcart),
-                    nameof(ShowPluginInfo),
-                    nameof(Version)
-                });
-                OnElementChanged();
+                if (Change(ref _element, value)) OnElementChanged();
             }
         }
 
@@ -122,13 +159,19 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         ///     <see cref="IExposeInfo"/> para el cual se presentan los
         ///     detalles.
         /// </summary>
-        protected abstract void OnElementChanged();
+        protected virtual void OnElementChanged()
+        {
+            AboutMcartCommand.SetCanExecute(!IsMcart);
+            PluginInfoCommand.SetCanExecute(ShowPluginInfo);
+            LicenseCommand.SetCanExecute(HasLicense);
+            ThidPartiLicensesCommand.SetCanExecute(Has3rdPartyLicense);
+        }
 
         /// <summary>
         ///     Obtiene la licencia del <see cref="IExposeInfo"/> para el cual
         ///     se presentan los detalles.
         /// </summary>
-        public string? License => Element?.License;
+        public License? License => Element?.License;
 
         /// <summary>
         ///     Obtiene el nombrer del <see cref="IExposeInfo"/> para el cual
@@ -163,9 +206,63 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         public Version? Version => Element?.Version;
 
         /// <summary>
+        ///     Obtiene una cadena que describe el tipo de componente que un ensamblado de MCART es.
+        /// </summary>
+        public string? McartComponentKind => Element?.Assembly?.GetAttr<McartComponentAttribute>()?.Kind.NameOf();
+
+
+        /// <summary>
         ///     Obtiene la versión informacional de este
         ///     <see cref="IExposeInfo"/>.
         /// </summary>
         public string? InformationalVersion => Element?.InformationalVersion;
+
+        /// <summary>
+        ///     Obtiene una colección de licencias de terceros.
+        /// </summary>
+        public IEnumerable<License>? ThirdPartyLicenses => Element?.ThirdPartyLicenses;
+
+        /// <summary>
+        ///     Obtiene un valor que indica si este 
+        ///     <see cref="IExposeExtendedInfo"/> es considerado una versión
+        ///     beta.
+        /// </summary>
+        public bool Beta => Element?.Beta ?? false;
+
+        /// <summary>
+        ///     Obtiene un valor que indica si este
+        ///     <see cref="IExposeExtendedInfo"/> podría contener código
+        ///     utilizado en contexto inseguro.
+        /// </summary>
+        public bool Unmanaged => Element?.Unmanaged ?? false;
+
+        /// <summary>
+        ///     Obtiene un valor que indica si el elemento contiene licencias
+        ///     de terceros.
+        /// </summary>
+        public bool Has3rdPartyLicense => Element?.Has3rdPartyLicense ?? false;
+
+        /// <summary>
+        ///     Ejecuta la acción de mostrar información adicional sobre la
+        ///     licencia del programa.
+        /// </summary>
+        protected abstract void OnLicense();
+
+        /// <summary>
+        ///     Ejecuta la acción de mostrar información adicional sobre los
+        ///     plugins de la aplicación.
+        /// </summary>
+        protected abstract void OnPluginInfo();
+
+        /// <summary>
+        ///     Ejecuta la acción de mostrar más información sobre MCART.
+        /// </summary>
+        protected abstract void OnAboutMcart();
+        
+        /// <summary>
+        ///     Ejecuta la acción de mostrar más información sobre licencias de
+        ///     terceros incluidas en la aplicación.
+        /// </summary>
+        protected abstract void On3rdPartyLicenses();
     }
 }

@@ -1,5 +1,5 @@
 ﻿/*
-IExposeInfo.cs
+IExposeExtendedInfo.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -24,7 +24,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 #nullable enable
 
-
 namespace TheXDS.MCART.Component
 {
     /// <summary>
@@ -45,7 +44,12 @@ namespace TheXDS.MCART.Component
         ///     <see cref="IExposeExtendedInfo"/> podría contener código
         ///     utilizado en contexto inseguro.
         /// </summary>
-        bool Unsafe { get; }
+        bool Unmanaged { get; }
 
+        /// <summary>
+        ///     Obtiene un valor que indica si este <see cref="IExposeInfo"/>
+        ///     cumple con el Common Language Standard (CLS).
+        /// </summary>
+        bool ClsCompliant { get; }
     }
 }

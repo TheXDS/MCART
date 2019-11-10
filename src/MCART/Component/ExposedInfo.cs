@@ -25,6 +25,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #nullable enable
 
 using System;
+using System.Collections.Generic;
+using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Component
 {
@@ -49,7 +51,7 @@ namespace TheXDS.MCART.Component
         /// <summary>
         ///     Obtiene el autor del <see cref="IExposeInfo"/>.
         /// </summary>
-        public string? Author => _source.Author;
+        public IEnumerable<string>? Authors => _source.Authors;
 
         /// <summary>
         ///     Obtiene el Copyright del <see cref="IExposeInfo"/>
@@ -59,7 +61,7 @@ namespace TheXDS.MCART.Component
         /// <summary>
         ///     Obtiene la licencia del <see cref="IExposeInfo"/>
         /// </summary>
-        public string? License => _source.License;
+        public License? License => _source.License;
 
         /// <summary>
         ///     Obtiene la versión del <see cref="IExposeInfo"/>
@@ -67,16 +69,10 @@ namespace TheXDS.MCART.Component
         public Version? Version => _source.Version;
 
         /// <summary>
-        ///     Obtiene un valor que indica si este <see cref="IExposeInfo"/>
-        ///     contiene información de licencia.
+        ///     Obtiene una colección con el contenido de licencias de terceros
+        ///     para el objeto.
         /// </summary>
-        public bool HasLicense => _source.HasLicense;
-
-        /// <summary>
-        ///     Obtiene un valor que indica si este <see cref="IExposeInfo"/>
-        ///     cumple con el Common Language Standard (CLS).
-        /// </summary>
-        public bool ClsCompliant => _source.ClsCompliant;
+        public IEnumerable<License>? ThirdPartyLicenses => _source.ThirdPartyLicenses;
 
         /// <summary>
         ///     Obtiene el nombre del elemento.
@@ -91,6 +87,18 @@ namespace TheXDS.MCART.Component
         /// <summary>
         ///     Obtiene la versión informacional del <see cref="IExposeInfo"/>.
         /// </summary>
-        public string? InformationalVersion => _source.InformationalVersion ?? Version?.ToString();
+        public string? InformationalVersion => _source.InformationalVersion;
+
+        /// <summary>
+        ///     Obtiene un valor que indica si este <see cref="IExposeInfo"/>
+        ///     contiene información de licencia.
+        /// </summary>
+        public bool HasLicense => _source.HasLicense;
+
+        /// <summary>
+        ///     Obtiene un valor que indica si este <see cref="IExposeInfo"/>
+        ///     contiene información de licencias de terceros.
+        /// </summary>
+        public bool Has3rdPartyLicense => _source.Has3rdPartyLicense;
     }
 }

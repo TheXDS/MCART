@@ -61,14 +61,14 @@ namespace TheXDS.MCART.Attributes
         {
             try
             {
-                if (Value is null) return Warn(UnspecLicense);
+                if (Value is null) return Warn(UnspecifiedLicense);
                 using var fs = new FileStream(Value, FileMode.Open);
                 using var sr = new StreamReader(fs);
                 return sr.ReadToEnd();
             }
             catch
             {
-                return Warn(UnspecLicense);
+                return Warn(UnspecifiedLicense);
             }
         }
     }

@@ -30,6 +30,8 @@ using System.Linq;
 using Microsoft.Win32;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Types;
+using TheXDS.MCART.Resources;
+using System.Collections.Generic;
 
 namespace TheXDS.MCART.Component
 {
@@ -439,7 +441,7 @@ namespace TheXDS.MCART.Component
         /// <summary>
         ///     Obtiene al fabricante del sistema operativo.
         /// </summary>
-        public string Author => Manufacturer;
+        public IEnumerable<string> Authors => new[] { Manufacturer };
 
         /// <summary>
         ///     Obtiene la nota de copyright asociada a Windows.
@@ -449,12 +451,12 @@ namespace TheXDS.MCART.Component
         /// <summary>
         ///     Obtiene el texto de licencia asociado a Windows.
         /// </summary>
-        public string License => string.Empty;
+        public License License => new License("Microsoft Windows EULA", new Uri(@"C:\Windows\System32\license.rtf"));
 
         /// <summary>
         ///     Obtiene un valor que determina si Windows incluye un CLUF
         /// </summary>
-        public bool HasLicense => false;
+        public bool HasLicense => System.IO.File.Exists(@"C:\Windows\System32\license.rtf");
 
         /// <summary>
         ///     Obtiene un valor que indica si Windows cumple con el CLS.
@@ -469,6 +471,10 @@ namespace TheXDS.MCART.Component
         ///     Obtiene la versión descriptiva informacional de Windows.
         /// </summary>
         public string? InformationalVersion => $"{Version.ToString()}-{BuildLabEx}";
+
+        public IEnumerable<License>? ThirdPartyLicenses => null;
+
+        public bool Has3rdPartyLicense => false;
 
         private T GetFromWmi<T>([CallerMemberName]string property = "")
         {

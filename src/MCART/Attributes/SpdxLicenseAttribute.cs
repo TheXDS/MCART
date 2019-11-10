@@ -36,10 +36,9 @@ namespace TheXDS.MCART.Attributes
     ///     Marca un elemento con la licencia Open-Source correspondiente.
     /// </summary>
     [AttributeUsage(Class | Module | Assembly)]
-    public sealed class SpdxLicenseAttribute : Attribute
+    public sealed class SpdxLicenseAttribute : LicenseAttributeBase
     {
         private static readonly Dictionary<string, SpdxLicense> _licenses = new Dictionary<string, SpdxLicense>();
-        private readonly string _customId;
 
         /// <summary>
         ///     Obtiene el nombre corto de la licencia.
@@ -52,11 +51,10 @@ namespace TheXDS.MCART.Attributes
         /// <param name="license">
         ///     Licencia con la cual marcar al elemento.
         /// </param>
-        public SpdxLicenseAttribute(SpdxLicenseId license)
+        public SpdxLicenseAttribute(SpdxLicenseId license) : base(license.GetAttr<NameAttribute>()?.Value ?? license.ToString())
         {
             if (!System.Enum.IsDefined(typeof(SpdxLicenseId), license)) throw new ArgumentOutOfRangeException(nameof(license));
             Id = license;
-            _customId = license.GetAttr<NameAttribute>()?.Value ?? license.ToString();
         }
 
         /// <summary>
@@ -65,38 +63,33 @@ namespace TheXDS.MCART.Attributes
         /// <param name="spdxShortIdentifier">
         ///     Identificador de licencia según el estándar SPDX.
         /// </param>
-        public SpdxLicenseAttribute(string spdxShortIdentifier)
+        public SpdxLicenseAttribute(string spdxShortIdentifier) : base(spdxShortIdentifier)
         {
             if (System.Enum.TryParse<SpdxLicenseId>(spdxShortIdentifier, false, out var id)) Id = id;
-            _customId = spdxShortIdentifier;
         }
 
         /// <summary>
         ///     Obtiene una instancia de la licencia representada por este atributo.
         /// </summary>
-        public SpdxLicense License
+        public override License GetLicense(object _)
         {
-            get
+            var n = Id?.GetAttr<NameAttribute>()?.Value;
+
+            if (n is null)
             {
-                var n = Id?.GetAttr<NameAttribute>()?.Value;
-
-                if (n is null)
+                var id = Id.ToString() ?? Value!;
+                for (byte i = 0; i <= 9; i++)
                 {
-                    var id = Id.ToString() ?? _customId;
-                    for (byte i = 0; i <= 9; i++)
-                    {
-                        id = id.Replace(i.ToString(), $"-{i}-");
-                    }
-                    n = id.Replace("-_-", ".").Replace("--", "").Replace('_','-').Replace("--", "-").Trim('-');
+                    id = id.Replace(i.ToString(), $"-{i}-");
                 }
-
-                if (_licenses.ContainsKey(n)) return _licenses[n];
-                var d = Id?.GetAttr<DescriptionAttribute>()?.Value ?? (n.Contains(' ') ? n : $"{n} License");
-                var u = Id?.GetAttr<LicenseUriAttribute>()?.Uri ?? new Uri($"https://spdx.org/licenses/{n}.html");
-
-                return new SpdxLicense(n, d, u).PushInto(n, _licenses);
+                n = id.Replace("-_-", ".").Replace("--", "").Replace('_','-').Replace("--", "-").Trim('-');
             }
+
+            if (_licenses.ContainsKey(n)) return _licenses[n];
+            var d = Id?.GetAttr<DescriptionAttribute>()?.Value ?? $"{n} License";
+            var u = Id?.GetAttr<LicenseUriAttribute>()?.Uri ?? new Uri($"https://spdx.org/licenses/{n}.html");
+
+            return new SpdxLicense(n, d, u).PushInto(n, _licenses);
         }
     }
-
 }

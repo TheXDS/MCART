@@ -26,7 +26,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Diagnostics.CodeAnalysis;
-using TheXDS.MCART.Types;
 
 namespace TheXDS.MCART.Resources
 {
@@ -34,28 +33,16 @@ namespace TheXDS.MCART.Resources
     ///     Representa una licencia registrada dentro de los estándares de
     ///     Software Package Data Exchange (SPDX).
     /// </summary>
-    public class SpdxLicense : INameable, IEquatable<SpdxLicense>
+    public class SpdxLicense : License, IEquatable<SpdxLicense>
     {
-        /// <summary>
-        ///     Obtiene el nombre descriptivo de la licencia.
-        /// </summary>
-        public string Name { get; }
-
-        /// <summary>
-        ///     Obtiene la URL de la licencia.
-        /// </summary>
-        public Uri LicenseUrl { get; }
-
         /// <summary>
         ///     Obtiene el identificador corto de la licencia.
         /// </summary>
         public string SpdxShortName { get; }
 
-        internal SpdxLicense(string id, string? name, Uri url)
+        internal SpdxLicense(string id, string? name, Uri url) : base(name ?? id, url)
         {
             SpdxShortName = id;
-            Name = name ?? id;
-            LicenseUrl = url;
         }
 
         /// <summary>

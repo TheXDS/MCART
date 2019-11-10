@@ -25,10 +25,12 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #nullable enable
 
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Component
 {
@@ -36,7 +38,7 @@ namespace TheXDS.MCART.Component
     /// <summary>
     ///     Expone la información de ensamblado de una aplicación de WPF.
     /// </summary>
-    public class ApplicationInfo : IExposeInfo<UIElement?>
+    public class ApplicationInfo : IExposeGuiInfo<UIElement?>, IExposeExtendedInfo, IExposeAssembly
     {
         private readonly AssemblyInfo _infoExposer;
 
@@ -142,7 +144,7 @@ namespace TheXDS.MCART.Component
         /// <summary>
         ///     Devuelve el autor del <see cref="IExposeInfo" />
         /// </summary>
-        public string? Author => _infoExposer.Author;
+        public IEnumerable<string>? Authors => _infoExposer.Authors;
 
         /// <inheritdoc />
         /// <summary>
@@ -154,7 +156,7 @@ namespace TheXDS.MCART.Component
         /// <summary>
         ///     Devuelve la licencia del <see cref="IExposeInfo" />
         /// </summary>
-        public string? License => _infoExposer.License;
+        public License? License => _infoExposer.License;
 
         /// <inheritdoc />
         /// <summary>
@@ -186,5 +188,31 @@ namespace TheXDS.MCART.Component
         ///     <see cref="IExposeInfo"/>.
         /// </summary>
         public string? InformationalVersion => _infoExposer.InformationalVersion ?? Version?.ToString();
+
+        /// <summary>
+        ///     Obtiene un valor que indica si este 
+        ///     <see cref="IExposeExtendedInfo"/> es considerado una versión
+        ///     beta.
+        /// </summary>
+        public bool Beta => _infoExposer.Beta;
+
+        /// <summary>
+        ///     Obtiene un valor que indica si este
+        ///     <see cref="IExposeExtendedInfo"/> podría contener código
+        ///     utilizado en contexto inseguro.
+        /// </summary>
+        public bool Unmanaged => _infoExposer.Unmanaged;
+
+        /// <summary>
+        ///     Obtiene una colección con el contenido de licencias de terceros
+        ///     para el objeto.
+        /// </summary>
+        public IEnumerable<License>? ThirdPartyLicenses => _infoExposer.ThirdPartyLicenses;
+
+        /// <summary>
+        ///     Obtiene un valor que indica si este <see cref="IExposeInfo"/>
+        ///     contiene información de licencias de terceros.
+        /// </summary>
+        public bool Has3rdPartyLicense => _infoExposer.Has3rdPartyLicense;
     }
 }

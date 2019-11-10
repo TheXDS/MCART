@@ -1,5 +1,5 @@
 ﻿/*
-IPlugin.cs
+TextLicense.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -24,21 +24,30 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 #nullable enable
 
-using System;
-using TheXDS.MCART.Component;
 
-namespace TheXDS.MCART.PluginSupport.Base
+namespace TheXDS.MCART.Resources
 {
     /// <summary>
-    ///     Define una serie de miembros a implementar por un tipo que describa
-    ///     a un Plugin de MCART.
+    ///     Licencia cuyo contenido se ha especificado directamente.
     /// </summary>
-    public interface IPlugin : IExposeExtendedInfo, IExposeAssembly
+    public sealed class TextLicense : License
     {
+        private readonly string? _content;
+
         /// <summary>
-        ///     Indica la versión de API de MCART requerida por el 
-        ///     <see cref="IPlugin"/>.
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="TextLicense"/>.
         /// </summary>
-        Version ApiVersion { get; }
+        /// <param name="name"></param>
+        /// <param name="content"></param>
+        public TextLicense(string name, string? content) : base(name, null)
+        {
+            _content = content;
+        }
+
+        /// <summary>
+        ///     Obtiene el contenido de la licencia.
+        /// </summary>
+        public override string LicenseContent => _content ?? base.LicenseContent;
     }
 }

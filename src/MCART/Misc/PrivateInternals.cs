@@ -37,28 +37,15 @@ namespace TheXDS.MCART.Misc
 {
     internal static class PrivateInternals
     {
-        public static string? ReadLicense(object asm, bool returnNull = true)
+        public static IEnumerable<Type> SafeGetTypes(this Assembly asm)
         {
             try
             {
-                return asm.GetAttr<LicenseTextAttribute>()?
-                           .Value.OrNull() ??
-                       asm.GetAttr<EmbeddedLicenseAttribute>()?
-                           .ReadLicense((asm as Assembly ?? (asm as Type)?.Assembly) ??
-                                         throw new InvalidOperationException())
-                           .OrNull() ??
-                       asm.GetAttr<LicenseFileAttribute>()?
-                           .ReadLicense()
-                           .OrNull() ??
-                       (returnNull
-                           ? null
-                           : St.Warn(St.UnspecLicense));
+                return asm.GetTypes();
             }
-            catch (Exception e)
+            catch
             {
-                return returnNull 
-                    ? null 
-                    : $"{e.Message}\n-------------------------\n{e.StackTrace}";
+                return Type.EmptyTypes;
             }
         }
 
@@ -66,7 +53,7 @@ namespace TheXDS.MCART.Misc
         {
             return obj.HasAttr<LicenseTextAttribute>()
                    || obj.HasAttr<EmbeddedLicenseAttribute>()
-                   || obj.HasAttr<LicenseFileAttribute>();
+                   || obj.HasAttr<LicenseUriAttribute>();
         }
 
         public static IEnumerable<NamedObject<TField>> List<TField>(Type source, object instance)

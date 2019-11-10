@@ -25,26 +25,51 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #nullable enable
 
 using System;
+using TheXDS.MCART.Resources;
 using static System.AttributeTargets;
 
 namespace TheXDS.MCART.Attributes
 {
+
     /// <inheritdoc />
     /// <summary>
     ///     Establece el texto de licencia a asociar con el elemento.
     /// </summary>
     [AttributeUsage(Class | Module | Assembly)]
-    [Serializable]
-    public sealed class LicenseTextAttribute : TextAttribute
+    public sealed class LicenseTextAttribute : LicenseAttributeBase
     {
+        private readonly string _title;
+        
+        /// <inheritdoc />
+        /// <summary>
+        ///     Inicializa una nueva instancia de la clase
+        ///     <see cref="LicenseTextAttribute" />.
+        /// </summary>
+        /// <param name="title">Título de la licencia</param>
+        /// <param name="licenseText">Texto de la licencia.</param>
+        public LicenseTextAttribute(string title, string licenseText) : base(licenseText)
+        {
+            if (licenseText is null) throw new ArgumentNullException(nameof(licenseText));
+            _title = title;
+        }
+
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="LicenseTextAttribute" />.
         /// </summary>
         /// <param name="licenseText">Texto de la licencia.</param>
-        public LicenseTextAttribute(string licenseText) : base(licenseText)
+        public LicenseTextAttribute(string licenseText): this(licenseText.Split('\n')[0].Trim(), licenseText)
         {
+        }
+
+        /// <summary>
+        ///     Obtiene el contenido de la licencia.
+        /// </summary>
+        /// <returns>El contenido de la licencia.</returns>
+        public override License GetLicense(object _)
+        {
+            return new TextLicense(_title, Value!);
         }
     }
 }

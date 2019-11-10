@@ -26,19 +26,18 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.IO;
-using System.Threading.Tasks;
-using TheXDS.MCART.Types.Base;
+using TheXDS.MCART.Resources;
 using static System.AttributeTargets;
-using static TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Attributes
 {
+
     /// <inheritdoc />
     /// <summary>
     ///     Establece un archivo de licencia externo a asociar con el elemento.
     /// </summary>
     [AttributeUsage(Class | Module | Assembly | Field)]
-    public sealed class LicenseUriAttribute : TextAttribute
+    public sealed class LicenseUriAttribute : LicenseAttributeBase
     {
         /// <inheritdoc />
         /// <summary>
@@ -59,40 +58,16 @@ namespace TheXDS.MCART.Attributes
         public Uri Uri { get; }
 
         /// <summary>
-        ///     Lee el archivo de licencia especificado por este atributo.
+        ///     Obtiene una licencia a partir del <see cref="Uri"/>
+        ///     especificado para este atributo.
         /// </summary>
         /// <returns>
-        ///     El contenido del archivo de licencia especificado.
+        ///     Una licencia a partir del <see cref="Uri"/> especificado para
+        ///     este atributo.
         /// </returns>
-        public string ReadLicense()
+        public override License GetLicense(object _)
         {
-            try
-            {                
-                using var sr = new StreamReader(StreamUriParser.Get(Uri)!);
-                return sr.ReadToEnd();
-            }
-            catch
-            {
-                return Warn(UnspecLicense);
-            }
-        }
-        /// <summary>
-        ///     Lee el archivo de licencia especificado por este atributo.
-        /// </summary>
-        /// <returns>
-        ///     El contenido del archivo de licencia especificado.
-        /// </returns>
-        public Task<string> ReadLicenseAsync()
-        {
-            try
-            {
-                using var sr = new StreamReader(StreamUriParser.Get(Uri)!);
-                return sr.ReadToEndAsync();
-            }
-            catch
-            {
-                return Task.FromResult(Warn(UnspecLicense));
-            }
+            return new License(Path.GetFileNameWithoutExtension(Uri.LocalPath), Uri);
         }
     }
 }

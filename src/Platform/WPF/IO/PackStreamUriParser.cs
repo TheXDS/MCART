@@ -1,5 +1,5 @@
 ﻿/*
-IPlugin.cs
+FileStreamUriParser.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -25,20 +25,38 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #nullable enable
 
 using System;
-using TheXDS.MCART.Component;
+using System.Collections.Generic;
+using System.IO;
+using System.IO.Packaging;
+using System.Windows;
+using TheXDS.MCART.Types.Base;
 
-namespace TheXDS.MCART.PluginSupport.Base
+namespace TheXDS.MCART.IO
 {
-    /// <summary>
-    ///     Define una serie de miembros a implementar por un tipo que describa
-    ///     a un Plugin de MCART.
-    /// </summary>
-    public interface IPlugin : IExposeExtendedInfo, IExposeAssembly
+    public class PackStreamUriParser : SimpleStreamUriParser
     {
         /// <summary>
-        ///     Indica la versión de API de MCART requerida por el 
-        ///     <see cref="IPlugin"/>.
+        ///     Inicializa la clase <see cref="PackStreamUriParser"/>
         /// </summary>
-        Version ApiVersion { get; }
+        static PackStreamUriParser()
+        {
+            if (!UriParser.IsKnownScheme(PackUriHelper.UriSchemePack))
+            {
+                UriParser.Register(new GenericUriParser(GenericUriParserOptions.GenericAuthority), PackUriHelper.UriSchemePack, -1);
+            }
+        }
+
+        protected override IEnumerable<string> SchemeList
+        {
+            get
+            {
+                yield return PackUriHelper.UriSchemePack;
+            }
+        }
+
+        public override Stream? Open(Uri uri)
+        {
+            return Application.GetResourceStream(uri).Stream;
+        }
     }
 }

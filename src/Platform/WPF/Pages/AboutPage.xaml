@@ -53,6 +53,12 @@
                         Visibility="{Binding ShowAboutMcart, Converter={StaticResource B2VConv}}"
                         Command="{Binding AboutMcartCommand, Mode=OneWay}" Content="{x:Static resources:Strings.AboutMCART}"/>
                 </controls:StretchyWrapPanel>
+                <TextBlock Visibility="{Binding Has3rdPartyLicense, Converter={StaticResource B2VConv}}">                    
+                    <Hyperlink Command="{Binding LicenseCommand, Mode=OneWay}">
+                        <Run Text="{x:Static resources:Strings.See3rdPartyLicenses}"/>
+                    </Hyperlink>
+                </TextBlock>
+
             </StackPanel>
         </controls:StretchyWrapPanel>
         <TextBlock VerticalAlignment="Bottom" Foreground="Gray" FontSize="9">Powered by MCART</TextBlock>

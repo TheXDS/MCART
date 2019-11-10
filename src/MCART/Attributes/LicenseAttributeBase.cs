@@ -1,5 +1,5 @@
 ﻿/*
-IPlugin.cs
+LicenseAttributeBase.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -24,21 +24,33 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 #nullable enable
 
-using System;
-using TheXDS.MCART.Component;
+using TheXDS.MCART.Resources;
 
-namespace TheXDS.MCART.PluginSupport.Base
+namespace TheXDS.MCART.Attributes
 {
     /// <summary>
-    ///     Define una serie de miembros a implementar por un tipo que describa
-    ///     a un Plugin de MCART.
+    ///     Define una serie de miembros a implementar por un tipo que obtenga
+    ///     licencias a partir del valor de un atributo.
     /// </summary>
-    public interface IPlugin : IExposeExtendedInfo, IExposeAssembly
+    public abstract class LicenseAttributeBase : TextAttribute
     {
         /// <summary>
-        ///     Indica la versión de API de MCART requerida por el 
-        ///     <see cref="IPlugin"/>.
+        ///     Inicializa una nueva instancia de la clase <see cref="LicenseAttributeBase"/>
         /// </summary>
-        Version ApiVersion { get; }
+        /// <param name="text"></param>
+        protected LicenseAttributeBase(string text) : base(text)
+        {
+        }
+
+        /// <summary>
+        ///     Obtiene una licencia asociada a este atributo.
+        /// </summary>
+        /// <param name="context">
+        ///     Objeto del cual se ha extraído este atributo.
+        /// </param>
+        /// <returns>
+        ///     Una licencia asociada a este atributo.
+        /// </returns>
+        public abstract License GetLicense(object context);
     }
 }

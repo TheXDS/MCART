@@ -39,7 +39,7 @@ namespace TheXDS.MCART.Attributes
     /// </summary>
     [AttributeUsage(Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     [Serializable]
-    public sealed class EmbeddedLicenseAttribute : TextAttribute
+    public sealed class EmbeddedLicenseAttribute : LicenseAttributeBase
     {
         /// <summary>
         ///     Ruta del archivo embebido de licencia dentro del ensamblado.
@@ -89,17 +89,26 @@ namespace TheXDS.MCART.Attributes
         /// <summary>
         ///     Lee el contenido de la licencia embebida dentro del ensamblado.
         /// </summary>
-        /// <param name="origin">
-        ///     Ensamblado que contiene el archivo de licencia como un recurso
-        ///     embebido.
+        /// <param name="context">
+        ///     Objeto a partir del cual se ha obtenido este atributo.
         /// </param>
         /// <returns>
-        ///     El contenido de la licencia
+        ///     El contenido de la licencia.
         /// </returns>
-        public string ReadLicense(Assembly origin)
+        public override License GetLicense(object context)
         {
-            if (Value is null) return Strings.UnspecLicense;
-            return new StringUnpacker(origin, Path).Unpack(Value, CompressorType.New<ICompressorGetter>());
+            var origin = context switch
+            {
+                Assembly a => a,
+                Type t => t.Assembly,
+                MemberInfo m => m.DeclaringType?.Assembly!,
+                null => throw new ArgumentNullException(nameof(context)),
+                _ => context.GetType().Assembly
+            };
+
+            if (Value is null) return License.Unspecified;
+            var content = new StringUnpacker(origin, Path).Unpack(Value, CompressorType.New<ICompressorGetter>());
+            return new TextLicense(content.Split('\n')[0].Trim(' ', '\n', '\r'), content);
         }
     }
 }

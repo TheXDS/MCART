@@ -31,6 +31,7 @@ using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Component;
+using TheXDS.MCART.Resources;
 using static TheXDS.MCART.Misc.PrivateInternals;
 using St = TheXDS.MCART.Resources.Strings;
 using St2 = TheXDS.MCART.Resources.InternalStrings;
@@ -87,6 +88,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// </example>
         /// <seealso cref="InteractionItem"/>
         protected ObservableCollection<InteractionItem> InteractionItems { get; } = new ObservableCollection<InteractionItem>();
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="Plugin"/>.
         /// </summary>
@@ -111,7 +113,9 @@ namespace TheXDS.MCART.PluginSupport.Legacy
             }
             InteractionItems.CollectionChanged += (sender, e) => OnUiChanged();
         }
+
         #region Propiedades de identificación
+
         /// <inheritdoc />
         /// <summary>
         /// Obtiene el nombre de este <see cref="Plugin" />.
@@ -122,6 +126,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// se devolverá el nombre del tipo de este <see cref="Plugin" />.
         /// </value>
         public virtual string Name => GetType().GetAttrAlt<NameAttribute>()?.Value ?? GetType().Name;
+
         /// <inheritdoc />
         /// <summary>
         /// Obtiene la versión de este <see cref="Plugin" />.
@@ -151,6 +156,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// </value>
         public virtual string? Description => GetType().GetAttrAlt<DescriptionAttribute>()?.Value
             ?? (Attribute.GetCustomAttribute(Assembly, typeof(AssemblyDescriptionAttribute)) as AssemblyDescriptionAttribute)?.Description;
+
         /// <inheritdoc />
         /// <summary>
         /// Obtiene el autor de este <see cref="Plugin" />.
@@ -161,8 +167,9 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// se devolverá el nombre de la compañía del ensamblado que contiene a
         /// este <see cref="Plugin" />, o <see langword="null" /> en caso de no existir.
         /// </value>
-        public virtual string? Author => GetType().GetAttrAlt<AuthorAttribute>()?.Value
-            ?? (Attribute.GetCustomAttribute(Assembly, typeof(AssemblyCompanyAttribute)) as AssemblyCompanyAttribute)?.Company;
+        public virtual IEnumerable<string>? Authors => GetType().GetAttrs<AuthorAttribute>()?.Select(p => p.Value!)
+            ?? new[] { Assembly.GetAttr<AssemblyCompanyAttribute>()?.Company };
+
         /// <inheritdoc />
         /// <summary>
         /// Obtiene la cadena de Copyright de este <see cref="Plugin" />.
@@ -175,6 +182,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// </value>
         public virtual string? Copyright => GetType().GetAttrAlt<CopyrightAttribute>()?.Value
             ?? (Attribute.GetCustomAttribute(Assembly, typeof(AssemblyCopyrightAttribute)) as AssemblyCopyrightAttribute)?.Copyright;
+
         /// <inheritdoc />
         /// <summary>
         /// Obtiene el texto de la licencia de este <see cref="Plugin" />.
@@ -194,10 +202,8 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// encontrado.
         /// </note>
         /// </value>
-        public virtual string? License =>
-            ReadLicense(this) ??
-            ReadLicense(Assembly,false);
-
+        public virtual License? License => this.GetAttr<LicenseAttributeBase>()?.GetLicense(this);
+        
         /// <inheritdoc />
         /// <summary>
         /// Obtiene un valor que determina si este <see cref="IExposeInfo" />
@@ -257,12 +263,14 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// Determina si este <see cref="Plugin" /> es una versión Beta.
         /// </summary>
         public bool IsBeta => GetType().HasAttrAlt<BetaAttribute>();
+
         /// <inheritdoc />
         /// <summary>
         /// Determina si este <see cref="Plugin" /> contiene código no
         /// administrado.
         /// </summary>
         public bool IsUnmanaged => GetType().HasAttrAlt<UnmanagedAttribute>();
+
         /// <inheritdoc />
         /// <summary>
         /// Determina si este <see cref="Plugin" /> es considerado como 
@@ -278,6 +286,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         public bool ClsCompliant => GetType().HasAttrAlt<CLSCompliantAttribute>();
 
         #endregion
+        
         #region Propiedades
 
         /// <inheritdoc />
@@ -294,6 +303,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
                         yield return j;
             }
         }
+
         /// <inheritdoc />
         /// <summary>
         /// Obtiene la referencia al ensamblado que contiene a este 
@@ -303,17 +313,20 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// Ensamblado en el cual se declara este <see cref="Plugin" />.
         /// </value>
         [Sugar] public Assembly Assembly => GetType().Assembly;
+
         /// <inheritdoc />
         /// <summary>
         /// Contiene una lista de interacciones que este <see cref="Plugin" />.
         /// provee para incluir en una interfaz gráfica.
         /// </summary>
         public ReadOnlyCollection<InteractionItem> PluginInteractions => new ReadOnlyCollection<InteractionItem>(InteractionItems);
+
         /// <inheritdoc />
         /// <summary>
         /// Indica si este <see cref="Plugin" /> contiene o no interacciones.
         /// </summary>        
         public bool HasInteractions => InteractionItems.Any();
+
         /// <inheritdoc />
         /// <summary>
         /// Contiene un objeto de libre uso para almacenamiento de cualquier
@@ -321,33 +334,62 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// </summary>
         public object? Tag { get; set; }
 
+        /// <summary>
+        ///     Obtiene una colección con el contenido de licencias de terceros
+        ///     para el objeto.
+        /// </summary>
+        public IEnumerable<License>? ThirdPartyLicenses
+        {
+            get
+            {
+                foreach (var j in GetType().GetNestedTypes().Cast<MemberInfo>().Concat(GetType().GetRuntimeMethods()))
+                {
+                    if (!j.HasAttr<ThirdPartyAttribute>()) continue;
+                    if (j.HasAttr<LicenseAttributeBase>(out var lic)) yield return lic!.GetLicense(j);
+                }
+            }            
+        }
+
+        /// <summary>
+        ///     Obtiene un valor que indica si este <see cref="IExposeInfo"/>
+        ///     contiene información de licencias de terceros.
+        /// </summary>
+        public bool Has3rdPartyLicense => ThirdPartyLicenses?.Any() ?? false;
+
         #endregion
+
         #region Eventos y señales
+
         /// <inheritdoc />
         /// <summary>
         /// Se produce cuando un <see cref="Plugin" /> solicita que se actualice
         /// su interfaz gráfica, en caso de contenerla.
         /// </summary>
         public event EventHandler<UiChangedEventArgs>? UiChanged;
+
         /// <inheritdoc />
         /// <summary>
         /// Se produce cuando un <see cref="Plugin" /> va a ser finalizado.
         /// </summary>
         public event EventHandler<PluginFinalizingEventArgs>? PluginFinalizing;
+
         /// <summary>
         /// Genera el evento <see cref="UiChanged"/>.
         /// </summary>
         /// <param name="e">Argumentos del evento.</param>
         protected virtual void OnUiChanged(UiChangedEventArgs e) => UiChanged?.Invoke(this, e);
+
         /// <summary>
         /// Genera el evento <see cref="UiChanged"/>.
         /// </summary>
         protected void OnUiChanged() => OnUiChanged(new UiChangedEventArgs(PluginInteractions));
+
         /// <summary>
         /// Genera el evento <see cref="PluginFinalizing"/>.
         /// </summary>
         /// <param name="e">Argumentos del evento.</param>
         protected virtual void OnPluginFinalizing(PluginFinalizingEventArgs e) => PluginFinalizing?.Invoke(this, e);
+
         /// <summary>
         /// Genera el evento <see cref="PluginFinalizing"/>.
         /// </summary>
@@ -355,8 +397,11 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// Parámetro opcional. Razón por la que el plugin va a finalizar.
         /// </param>
         protected void OnPluginFinalizing(PluginFinalizingEventArgs.FinalizingReason reason = PluginFinalizingEventArgs.FinalizingReason.Shutdown) => OnPluginFinalizing(new PluginFinalizingEventArgs(reason));
+        
         #endregion
+
         #region Métodos públicos
+        
         /// <summary>
         /// Determina la versión mínima de MCART necesaria para este 
         /// <see cref="Plugin"/>.
@@ -372,6 +417,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
             minVersion = MinMcartVersion;
             return !(minVersion is null);
         }
+        
         /// <summary>
         /// Determina la versión objetivo de MCART necesaria para este 
         /// <see cref="Plugin"/>.
@@ -387,6 +433,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
             tgtVersion = TargetMcartVersion;
             return !(tgtVersion is null);
         }
+        
         #endregion
     }
 }
