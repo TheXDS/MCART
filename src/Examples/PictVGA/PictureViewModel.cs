@@ -63,7 +63,7 @@ namespace TheXDS.MCART.Samples.PictVGA
 
         private void OnAbout()
         {
-            AboutBox.ShowDialog(Application.Current);
+            AboutBox.ShowDialog(new Component.ApplicationInfo(Application.Current, Resources.WpfIcons.GetXamlIcon(Resources.Icons.IconId.FileWarning)));
         }
     }
 }

@@ -22,42 +22,33 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
+using System.Drawing;
+using System.Runtime.CompilerServices;
+
 namespace TheXDS.MCART.Resources
 {
     /// <summary>
     /// Contiene íconos y otras imágenes para utilizar en cualquier aplicación.
     /// </summary>
-    public static partial class Icons
+    public sealed class Icons : McartIconLibrary<Bitmap>
     {
+        private static readonly BitmapUnpacker _imgs = new BitmapUnpacker(typeof(Icons).Assembly, typeof(Icons).FullName!);
+
         /// <summary>
-        /// Determina el ícono a obtener.
+        ///     Implementa el método de obtención del ícono basado en el nombre
+        ///     del ícono solicitado.
         /// </summary>
-        public enum IconId
+        /// <param name="id">
+        ///     Id del ícono solicitado.
+        /// </param>
+        /// <returns>
+        ///     El ícono solicitado.
+        /// </returns>
+        protected override sealed Bitmap GetIcon([CallerMemberName] string? id = null)
         {
-            /// <summary>
-            ///     Ícono principal de MCART.
-            /// </summary>
-            MCART,
-
-            /// <summary>
-            ///     Ícono de plugin de MCART.
-            /// </summary>
-            Plugin,
-
-            /// <summary>
-            ///     Ícono de archivo incorrecto.
-            /// </summary>
-            BadFile,
-
-            /// <summary>
-            ///     Ícono de archivo no encontrado.
-            /// </summary>
-            FileMissing,
-
-            /// <summary>
-            ///     Ícono de problema con archivo.
-            /// </summary>
-            FileWarning
+            return _imgs.Unpack($"{id}.png", new NullGetter());
         }
     }
 }

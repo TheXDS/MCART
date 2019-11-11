@@ -25,6 +25,7 @@
                     <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                         <Setter Property="TextAlignment" Value="Center"/>
                         <Setter Property="Margin" Value="5,10"/>
+                        <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
                     </Style>
                     <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
                         <Setter Property="Margin" Value="{StaticResource M5}"/>
@@ -33,14 +34,12 @@
                 </StackPanel.Resources>
                 <TextBlock 
                     FontSize="24"
-                    TextAlignment="Center">
-                    <Run Text="{Binding Name, Mode=OneWay}"/> v<Run Text="{Binding Version, Mode=OneWay}" />
-                </TextBlock>
+                    Text="{Binding Name, Mode=OneWay}"/>
                 <TextBlock>
                     <Run Text="{x:Static resources:Strings.Ver}"/>
                     <Run Text="{Binding InformationalVersion, Mode=OneWay}"/>
                 </TextBlock>
-                <TextBlock Text="{Binding Description, Mode=OneWay}" />
+                <TextBlock Text="{Binding Description, Mode=OneWay}"/>
                 <TextBlock Text="{Binding Copyright, Mode=OneWay}" />
                 <controls:StretchyWrapPanel>
                     <Button
@@ -58,7 +57,6 @@
                         <Run Text="{x:Static resources:Strings.See3rdPartyLicenses}"/>
                     </Hyperlink>
                 </TextBlock>
-
             </StackPanel>
         </controls:StretchyWrapPanel>
         <TextBlock VerticalAlignment="Bottom" Foreground="Gray" FontSize="9">Powered by MCART</TextBlock>

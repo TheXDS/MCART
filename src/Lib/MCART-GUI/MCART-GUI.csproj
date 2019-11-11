@@ -8,10 +8,10 @@
     <None Remove="Resources\Icons\MCART.png" />
     <None Remove="Resources\Icons\MCARTBadge.png" />
     <None Remove="Resources\Icons\MCARTPlugin.png" />
-  </ItemGroup>  
-  <ItemGroup>
     <EmbeddedResource Include="Resources\Icons\MCART.png" />
     <EmbeddedResource Include="Resources\Icons\MCARTBadge.png" />
     <EmbeddedResource Include="Resources\Icons\MCARTPlugin.png" />
+    <PackageReference Include="System.Drawing.Common" Version="4.0.1.0" />
+
   </ItemGroup>
 </Project>

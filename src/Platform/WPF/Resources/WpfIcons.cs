@@ -1,5 +1,5 @@
 ﻿/*
-Icons.cs
+WpfIcons.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,6 +32,7 @@ using System.Xml;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using TheXDS.MCART.Attributes;
+using System.Runtime.CompilerServices;
 
 namespace TheXDS.MCART.Resources
 {
@@ -37,31 +40,24 @@ namespace TheXDS.MCART.Resources
     /// Contiene íconos y otras imágenes para utilizar en aplicaciones de
     /// Windows Presentation Framework.
     /// </summary>
-    public static class WpfIcons
+    public sealed class WpfIcons : McartIconLibrary<UIElement>
     {
-        private const string _defaultExt = "png";
-
-        private static readonly ImageUnpacker _imgs = new ImageUnpacker(typeof(WpfIcons).Assembly, typeof(Icons).FullName);
-        private static readonly XamlUnpacker _xaml = new XamlUnpacker(typeof(WpfIcons).Assembly, typeof(Icons).FullName);
-
+        private static readonly XamlUnpacker _xaml = new XamlUnpacker(typeof(WpfIcons).Assembly, typeof(Icons).FullName!);
+        
         /// <summary>
-        ///     Obtiene un ícono desde los recursos incrustados del ensamblado
-        ///     de MCART.
+        ///     Implementa el método de obtención del ícono basado en el nombre
+        ///     del ícono solicitado.
         /// </summary>
-        /// <param name="icon">Ícono que se desea obtener.</param>
-        /// <returns>El ícono de recurso incrustado solicitado.</returns>
-        public static ImageSource GetIcon(Icons.IconId icon) => _imgs.Unpack(
-            $"{icon.ToString()}.{(icon.HasAttr<IdentifierAttribute>(out var attr) ? attr.Value : _defaultExt)}");
-
-        /// <summary>
-        ///     Obtiene un ícono desde los recursos incrustados del ensamblado
-        ///     de MCART.
-        /// </summary>
-        /// <param name="icon">Ícono que se desea obtener.</param>
-        /// <returns>El ícono de recurso incrustado solicitado.</returns>
-        public static UIElement GetXamlIcon(Icons.IconId icon)
+        /// <param name="id">
+        ///     Id del ícono solicitado.
+        /// </param>
+        /// <returns>
+        ///     El ícono solicitado.
+        /// </returns>
+        protected override sealed UIElement GetIcon([CallerMemberName] string? id = null!)
         {
-            return _xaml.Unpack($"{icon.ToString()}_Xml", new DeflateGetter()) as UIElement;
+            return _xaml.Unpack($"{id}_Xml", new DeflateGetter()) as UIElement ?? new TextBlock { Text="?", FontSize = 256, Foreground = Brushes.DarkRed };
         }
+
     }
 }
