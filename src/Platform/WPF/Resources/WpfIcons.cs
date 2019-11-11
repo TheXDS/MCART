@@ -24,15 +24,10 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 #nullable enable
 
-using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Markup;
-using System.Xml;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using TheXDS.MCART.Attributes;
-using System.Runtime.CompilerServices;
 
 namespace TheXDS.MCART.Resources
 {

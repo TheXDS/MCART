@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #nullable enable
+#pragma warning disable CA1401 // P/Invokes should not be visible
 
 using System;
 using System.Collections.Generic;
@@ -607,10 +608,8 @@ namespace TheXDS.MCART
         /// </returns>
         public static BitmapImage? GetBitmap(string path)
         {
-            using (var fs = new FileStream(path, FileMode.Open))
-            {
-                return GetBitmap(fs);
-            }
+            using var fs = new FileStream(path, FileMode.Open);
+            return GetBitmap(fs);
         }
 
         /// <summary>
@@ -629,7 +628,7 @@ namespace TheXDS.MCART
             {
                 if (!j.Handles(uri)) continue;
                 var s = await j.OpenFullTransferAsync(uri);
-                if (s is null) return Render(Resources.WpfIcons.GetXamlIcon(Resources.Icons.IconId.FileMissing), new Size(256,256), 96).ToImage();
+                if (s is null) return Render(Resources.WpfIcons.FileMissing, new Size(256,256), 96).ToImage();
                 return GetBitmap(s);
             }
             return null;
@@ -999,18 +998,16 @@ namespace TheXDS.MCART
         public static BitmapImage ToImage(this BitmapSource bs)
         {
             var ec = new PngBitmapEncoder();
-            using (var ms = new MemoryStream())
-            {
-                var bi = new BitmapImage();
-                ec.Frames.Add(BitmapFrame.Create(bs));
-                ec.Save(ms);
-                ms.Position = 0;
-                bi.BeginInit();
-                bi.StreamSource = ms;
-                bi.EndInit();
-                ms.Close();
-                return bi;
-            }
+            using var ms = new MemoryStream();
+            var bi = new BitmapImage();
+            ec.Frames.Add(BitmapFrame.Create(bs));
+            ec.Save(ms);
+            ms.Position = 0;
+            bi.BeginInit();
+            bi.StreamSource = ms;
+            bi.EndInit();
+            ms.Close();
+            return bi;
         }
 
         /// <summary>
@@ -1024,18 +1021,16 @@ namespace TheXDS.MCART
         /// </returns>
         public static BitmapImage ToImage(this System.Drawing.Image bs)
         {
-            using (var ms = new MemoryStream())
-            {
-                var bi = new BitmapImage();
-                bs.Save(ms,System.Drawing.Imaging.ImageFormat.Png);
-                ms.Position = 0;
-                bi.BeginInit();
-                bi.CacheOption = BitmapCacheOption.OnLoad;
-                bi.StreamSource = ms;
-                bi.EndInit();
-                ms.Close();
-                return bi;
-            }
+            using var ms = new MemoryStream();
+            var bi = new BitmapImage();
+            bs.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+            ms.Position = 0;
+            bi.BeginInit();
+            bi.CacheOption = BitmapCacheOption.OnLoad;
+            bi.StreamSource = ms;
+            bi.EndInit();
+            ms.Close();
+            return bi;
         }
 
         /// <summary>
@@ -1049,21 +1044,19 @@ namespace TheXDS.MCART
         /// </returns>
         public static BitmapSource ToSource(this System.Drawing.Image bs)
         {
-            using (var ms = new MemoryStream())
-            {
-                var bitmap = new System.Drawing.Bitmap(bs);
-                var bmpPt = bitmap.GetHbitmap();
-                var bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(
-                    bmpPt,
-                    IntPtr.Zero,
-                    Int32Rect.Empty,
-                    BitmapSizeOptions.FromEmptyOptions());
+            using var ms = new MemoryStream();
+            var bitmap = new System.Drawing.Bitmap(bs);
+            var bmpPt = bitmap.GetHbitmap();
+            var bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(
+                bmpPt,
+                IntPtr.Zero,
+                Int32Rect.Empty,
+                BitmapSizeOptions.FromEmptyOptions());
 
-                bitmapSource.Freeze();
-                DeleteObject(bmpPt);
+            bitmapSource.Freeze();
+            DeleteObject(bmpPt);
 
-                return bitmapSource;
-            }
+            return bitmapSource;
         }
 
         /// <summary>

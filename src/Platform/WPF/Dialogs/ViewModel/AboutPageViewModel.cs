@@ -22,16 +22,13 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Component;
 using TheXDS.MCART.Resources;
-using TheXDS.MCART.ViewModel;
-using TheXDS.MCART.Types.Extensions;
-using System.Diagnostics;
-using System;
 
 #nullable enable
 
@@ -39,7 +36,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
 {
     internal class AboutPageViewModel : AboutPageViewModelBase<ApplicationInfo>
     {
-        public UIElement? Icon => IsMcart ? WpfIcons.GetXamlIcon(Icons.IconId.MCART) : Element?.Icon;
+        public UIElement? Icon => IsMcart ? WpfIcons.MCART : Element?.Icon;
 
         public AboutPageViewModel() : base()
         {
