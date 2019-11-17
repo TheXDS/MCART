@@ -102,14 +102,11 @@ namespace TheXDS.MCART.Dialogs
                 {
                     if (!await Vm.ValidateAsync() ?? true) return;
                 }
-                catch (Exception exception)
+                catch
                 {
 #if PreferExceptions
                     throw;
 #else
-#if DEBUG
-                    System.Diagnostics.Debug.Print(exception.Message);
-#endif
                     DialogResult = false;
                     Close();
                     return;

@@ -24,6 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma warning disable CS1591
 
+using System;
 using System.Linq;
 using TheXDS.MCART.Component;
 using Xunit;
@@ -55,6 +56,9 @@ namespace TheXDS.MCART.Tests.Component
             public override string LongName => "FileSystem";
         }
 
+#if CLSCompliance
+        [CLSCompliant(false)]
+#endif
         [InlineData("-rf")]
         [InlineData("-r --Force")]
         [InlineData("--recursive --Force")]
@@ -83,6 +87,9 @@ namespace TheXDS.MCART.Tests.Component
             Assert.True(parser.Invalid.Any());
         }
 
+#if CLSCompliance
+        [CLSCompliant(false)]
+#endif
         [InlineData('=')]
         [InlineData(':')]
         [Theory]

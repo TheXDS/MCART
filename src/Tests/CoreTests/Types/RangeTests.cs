@@ -24,6 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma warning disable CS1591
 
+using System;
 using TheXDS.MCART.Types;
 using Xunit;
 
@@ -31,6 +32,9 @@ namespace TheXDS.MCART.Tests.Types
 {
     public class RangeTests
     {
+#if CLSCompliance
+        [CLSCompliant(false)]
+#endif
         [Theory]
         [InlineData("1 - 5")]
         [InlineData("1 5")]
@@ -77,6 +81,9 @@ namespace TheXDS.MCART.Tests.Types
             Assert.Equal(5, r.Maximum);
         }
 
+#if CLSCompliance
+        [CLSCompliant(false)]
+#endif
         [Theory]
         [InlineData(1, 3, 2, 5, true, false)]
         [InlineData(1, 2, 3, 4, false, false)]
@@ -93,6 +100,9 @@ namespace TheXDS.MCART.Tests.Types
 
     public class PointTests
     {
+#if CLSCompliance
+        [CLSCompliant(false)]
+#endif
         [Theory]
         [InlineData("1,1", 1, 1)]
         public void TryParseTest(string value, double x, double y)

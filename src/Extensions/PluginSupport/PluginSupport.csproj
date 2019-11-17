@@ -5,7 +5,4 @@
     <AssemblyName>MCART.PluginSupport</AssemblyName>    
     <OutputType>Library</OutputType>
   </PropertyGroup>  
-  <ItemGroup>
-    <ProjectReference Include="..\..\Lib\MCART-UI\MCART-UI.csproj" />
-  </ItemGroup>
 </Project>
