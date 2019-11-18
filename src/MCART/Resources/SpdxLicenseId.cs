@@ -1270,547 +1270,547 @@ namespace TheXDS.MCART.Resources
         /// <summary>
         ///     Noweb License
         /// </summary>
-        [Description("Noweb License"), LicenseUri("https://spdx.org/licenses/Noweb.html"), Name("Noweb")] Noweb,
+        Noweb,
 
         /// <summary>
         ///     Netscape Public License v1.0
         /// </summary>
-        [Description("Netscape Public License v1.0"), LicenseUri("https://spdx.org/licenses/NPL-1.0.html"), Name("NPL-1.0")] NPL_1_0,
+        [Description("Netscape Public License v1.0"), LicenseUri("https://website-archive.mozilla.org/www.mozilla.org/mpl/mpl/npl/1.0/")] NPL_1_0,
 
         /// <summary>
         ///     Netscape Public License v1.1
         /// </summary>
-        [Description("Netscape Public License v1.1"), LicenseUri("https://spdx.org/licenses/NPL-1.1.html"), Name("NPL-1.1")] NPL_1_1,
+        [Description("Netscape Public License v1.1"), LicenseUri("https://website-archive.mozilla.org/www.mozilla.org/mpl/mpl/npl/1.1/")] NPL_1_1,
 
         /// <summary>
         ///     Non-Profit Open Software License 3.0
         /// </summary>
-        [Description("Non-Profit Open Software License 3.0"), LicenseUri("https://spdx.org/licenses/NPOSL-3.0.html"), Name("NPOSL-3.0")] NPOSL_3_0,
+        [Description("Non-Profit Open Software License 3.0")] NPOSL_3_0,
 
         /// <summary>
         ///     NRL License
         /// </summary>
-        [Description("NRL License"), LicenseUri("https://spdx.org/licenses/NRL.html"), Name("NRL")] NRL,
+        [LicenseUri("http://web.mit.edu/network/isakmp/nrllicense.html")] NRL,
 
         /// <summary>
         ///     NTP License
         /// </summary>
-        [Description("NTP License"), LicenseUri("https://spdx.org/licenses/NTP.html"), Name("NTP")] NTP,
+        NTP,
 
         /// <summary>
         ///     Open CASCADE Technology Public License
         /// </summary>
-        [Description("Open CASCADE Technology Public License"), LicenseUri("https://spdx.org/licenses/OCCT-PL.html"), Name("OCCT-PL")] OCCT_PL,
+        [Description("Open CASCADE Technology Public License"), LicenseUri("https://www.opencascade.com/content/occt-public-license")] OCCT_PL,
 
         /// <summary>
         ///     OCLC Research Public License 2.0
         /// </summary>
-        [Description("OCLC Research Public License 2.0"), LicenseUri("https://spdx.org/licenses/OCLC-2.0.html"), Name("OCLC-2.0")] OCLC_2_0,
+        [Description("OCLC Research Public License 2.0")] OCLC_2_0,
 
         /// <summary>
         ///     ODC Open Database License v1.0
         /// </summary>
-        [Description("ODC Open Database License v1.0"), LicenseUri("https://spdx.org/licenses/ODbL-1.0.html"), Name("ODbL-1.0")] ODbL_1_0,
+        [Description("ODC Open Database License v1.0"), LicenseUri("https://www.opendatacommons.org/licenses/odbl/1.0/")] ODbL_1_0,
 
         /// <summary>
         ///     Open Data Commons Attribution License v1.0
         /// </summary>
-        [Description("Open Data Commons Attribution License v1.0"), LicenseUri("https://spdx.org/licenses/ODC-By-1.0.html"), Name("ODC-By-1.0")] ODC_By_1_0,
+        [Description("Open Data Commons Attribution License v1.0"), LicenseUri("https://opendatacommons.org/files/2018/02/odc_by_1.0_public_text.txt")] ODC_By_1_0,
 
         /// <summary>
         ///     SIL Open Font License 1.0
         /// </summary>
-        [Description("SIL Open Font License 1.0"), LicenseUri("https://spdx.org/licenses/OFL-1.0.html"), Name("OFL-1.0")] OFL_1_0,
+        [Description("SIL Open Font License 1.0"), LicenseUri("https://scripts.sil.org/OFL10_web")] OFL_1_0,
 
         /// <summary>
         ///     SIL Open Font License 1.1
         /// </summary>
-        [Description("SIL Open Font License 1.1"), LicenseUri("https://spdx.org/licenses/OFL-1.1.html"), Name("OFL-1.1")] OFL_1_1,
+        [Description("SIL Open Font License 1.1"), LicenseUri("https://scripts.sil.org/OFL_web")] OFL_1_1,
 
         /// <summary>
         ///     Open Government Licence - Canada
         /// </summary>
-        [Description("Open Government Licence - Canada"), LicenseUri("https://spdx.org/licenses/OGL-Canada-2.0.html"), Name("OGL-Canada-2.0")] OGL_Canada_2_0,
+        [Description("Open Government Licence - Canada"), LicenseUri("https://open.canada.ca/en/open-government-licence-canada")] OGL_Canada_2_0,
 
         /// <summary>
         ///     Open Government Licence v1.0
         /// </summary>
-        [Description("Open Government Licence v1.0"), LicenseUri("https://spdx.org/licenses/OGL-UK-1.0.html"), Name("OGL-UK-1.0")] OGL_UK_1_0,
+        [Description("Open Government Licence v1.0"), LicenseUri("http://www.nationalarchives.gov.uk/doc/open-government-licence/version/1/")] OGL_UK_1_0,
 
         /// <summary>
         ///     Open Government Licence v2.0
         /// </summary>
-        [Description("Open Government Licence v2.0"), LicenseUri("https://spdx.org/licenses/OGL-UK-2.0.html"), Name("OGL-UK-2.0")] OGL_UK_2_0,
+        [Description("Open Government Licence v2.0"), LicenseUri("http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2/")] OGL_UK_2_0,
 
         /// <summary>
         ///     Open Government Licence v3.0
         /// </summary>
-        [Description("Open Government Licence v3.0"), LicenseUri("https://spdx.org/licenses/OGL-UK-3.0.html"), Name("OGL-UK-3.0")] OGL_UK_3_0,
+        [Description("Open Government Licence v3.0"), LicenseUri("http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/")] OGL_UK_3_0,
 
         /// <summary>
         ///     Open Group Test Suite License
         /// </summary>
-        [Description("Open Group Test Suite License"), LicenseUri("https://spdx.org/licenses/OGTSL.html"), Name("OGTSL")] OGTSL,
+        [Description("Open Group Test Suite License"), LicenseUri("http://www.opengroup.org/testing/downloads/The_Open_Group_TSL.txt")] OGTSL,
 
         /// <summary>
         ///     Open LDAP Public License v1.1
         /// </summary>
-        [Description("Open LDAP Public License v1.1"), LicenseUri("https://spdx.org/licenses/OLDAP-1.1.html"), Name("OLDAP-1.1")] OLDAP_1_1,
+        [Description("Open LDAP Public License v1.1"), LicenseUri("http://www.openldap.org/devel/gitweb.cgi?p=openldap.git;a=blob_plain;f=LICENSE;hb=806557a5ad59804ef3a44d5abfbe91d706b0791f")] OLDAP_1_1,
 
         /// <summary>
         ///     Open LDAP Public License v1.2
         /// </summary>
-        [Description("Open LDAP Public License v1.2"), LicenseUri("https://spdx.org/licenses/OLDAP-1.2.html"), Name("OLDAP-1.2")] OLDAP_1_2,
+        [Description("Open LDAP Public License v1.2"), LicenseUri("http://www.openldap.org/devel/gitweb.cgi?p=openldap.git;a=blob_plain;f=LICENSE;hb=42b0383c50c299977b5893ee695cf4e486fb0dc7")] OLDAP_1_2,
 
         /// <summary>
         ///     Open LDAP Public License v1.3
         /// </summary>
-        [Description("Open LDAP Public License v1.3"), LicenseUri("https://spdx.org/licenses/OLDAP-1.3.html"), Name("OLDAP-1.3")] OLDAP_1_3,
+        [Description("Open LDAP Public License v1.3"), LicenseUri("http://www.openldap.org/devel/gitweb.cgi?p=openldap.git;a=blob_plain;f=LICENSE;hb=e5f8117f0ce088d0bd7a8e18ddf37eaa40eb09b1")] OLDAP_1_3,
 
         /// <summary>
         ///     Open LDAP Public License v1.4
         /// </summary>
-        [Description("Open LDAP Public License v1.4"), LicenseUri("https://spdx.org/licenses/OLDAP-1.4.html"), Name("OLDAP-1.4")] OLDAP_1_4,
+        [Description("Open LDAP Public License v1.4"), LicenseUri("http://www.openldap.org/devel/gitweb.cgi?p=openldap.git;a=blob_plain;f=LICENSE;hb=c9f95c2f3f2ffb5e0ae55fe7388af75547660941")] OLDAP_1_4,
 
         /// <summary>
         ///     Open LDAP Public License v2.0 (or possibly 2.0A and 2.0B)
         /// </summary>
-        [Description("Open LDAP Public License v2.0 (or possibly 2.0A and 2.0B)"), LicenseUri("https://spdx.org/licenses/OLDAP-2.0.html"), Name("OLDAP-2.0")] OLDAP_2_0,
+        [Description("Open LDAP Public License v2.0"), LicenseUri("http://www.openldap.org/devel/gitweb.cgi?p=openldap.git;a=blob_plain;f=LICENSE;hb=cbf50f4e1185a21abd4c0a54d3f4341fe28f36ea")] OLDAP_2_0,
 
         /// <summary>
         ///     Open LDAP Public License v2.0.1
         /// </summary>
-        [Description("Open LDAP Public License v2.0.1"), LicenseUri("https://spdx.org/licenses/OLDAP-2.0.1.html"), Name("OLDAP-2.0.1")] OLDAP_2_0_1,
+        [Description("Open LDAP Public License v2.0.1"), LicenseUri("http://www.openldap.org/devel/gitweb.cgi?p=openldap.git;a=blob_plain;f=LICENSE;hb=b6d68acd14e51ca3aab4428bf26522aa74873f0e")] OLDAP_2_0_1,
 
         /// <summary>
         ///     Open LDAP Public License v2.1
         /// </summary>
-        [Description("Open LDAP Public License v2.1"), LicenseUri("https://spdx.org/licenses/OLDAP-2.1.html"), Name("OLDAP-2.1")] OLDAP_2_1,
+        [Description("Open LDAP Public License v2.1"), LicenseUri("http://www.openldap.org/devel/gitweb.cgi?p=openldap.git;a=blob_plain;f=LICENSE;hb=b0d176738e96a0d3b9f85cb51e140a86f21be715")] OLDAP_2_1,
 
         /// <summary>
         ///     Open LDAP Public License v2.2
         /// </summary>
-        [Description("Open LDAP Public License v2.2"), LicenseUri("https://spdx.org/licenses/OLDAP-2.2.html"), Name("OLDAP-2.2")] OLDAP_2_2,
+        [Description("Open LDAP Public License v2.2"), LicenseUri("http://www.openldap.org/devel/gitweb.cgi?p=openldap.git;a=blob_plain;f=LICENSE;hb=470b0c18ec67621c85881b2733057fecf4a1acc3")] OLDAP_2_2,
 
         /// <summary>
         ///     Open LDAP Public License v2.2.1
         /// </summary>
-        [Description("Open LDAP Public License v2.2.1"), LicenseUri("https://spdx.org/licenses/OLDAP-2.2.1.html"), Name("OLDAP-2.2.1")] OLDAP_2_2_1,
+        [Description("Open LDAP Public License v2.2.1"), LicenseUri("http://www.openldap.org/devel/gitweb.cgi?p=openldap.git;a=blob_plain;f=LICENSE;hb=4bc786f34b50aa301be6f5600f58a980070f481e")] OLDAP_2_2_1,
 
         /// <summary>
         ///     Open LDAP Public License 2.2.2
         /// </summary>
-        [Description("Open LDAP Public License 2.2.2"), LicenseUri("https://spdx.org/licenses/OLDAP-2.2.2.html"), Name("OLDAP-2.2.2")] OLDAP_2_2_2,
+        [Description("Open LDAP Public License 2.2.2"), LicenseUri("http://www.openldap.org/devel/gitweb.cgi?p=openldap.git;a=blob_plain;f=LICENSE;hb=df2cc1e21eb7c160695f5b7cffd6296c151ba188")] OLDAP_2_2_2,
 
         /// <summary>
         ///     Open LDAP Public License v2.3
         /// </summary>
-        [Description("Open LDAP Public License v2.3"), LicenseUri("https://spdx.org/licenses/OLDAP-2.3.html"), Name("OLDAP-2.3")] OLDAP_2_3,
+        [Description("Open LDAP Public License v2.3"), LicenseUri("http://www.openldap.org/devel/gitweb.cgi?p=openldap.git;a=blob_plain;f=LICENSE;hb=d32cf54a32d581ab475d23c810b0a7fbaf8d63c3")] OLDAP_2_3,
 
         /// <summary>
         ///     Open LDAP Public License v2.4
         /// </summary>
-        [Description("Open LDAP Public License v2.4"), LicenseUri("https://spdx.org/licenses/OLDAP-2.4.html"), Name("OLDAP-2.4")] OLDAP_2_4,
+        [Description("Open LDAP Public License v2.4"), LicenseUri("http://www.openldap.org/devel/gitweb.cgi?p=openldap.git;a=blob_plain;f=LICENSE;hb=cd1284c4a91a8a380d904eee68d1583f989ed386")] OLDAP_2_4,
 
         /// <summary>
         ///     Open LDAP Public License v2.5
         /// </summary>
-        [Description("Open LDAP Public License v2.5"), LicenseUri("https://spdx.org/licenses/OLDAP-2.5.html"), Name("OLDAP-2.5")] OLDAP_2_5,
+        [Description("Open LDAP Public License v2.5"), LicenseUri("http://www.openldap.org/devel/gitweb.cgi?p=openldap.git;a=blob_plain;f=LICENSE;hb=6852b9d90022e8593c98205413380536b1b5a7cf")] OLDAP_2_5,
 
         /// <summary>
         ///     Open LDAP Public License v2.6
         /// </summary>
-        [Description("Open LDAP Public License v2.6"), LicenseUri("https://spdx.org/licenses/OLDAP-2.6.html"), Name("OLDAP-2.6")] OLDAP_2_6,
+        [Description("Open LDAP Public License v2.6"), LicenseUri("http://www.openldap.org/devel/gitweb.cgi?p=openldap.git;a=blob_plain;f=LICENSE;hb=1cae062821881f41b73012ba816434897abf4205")] OLDAP_2_6,
 
         /// <summary>
         ///     Open LDAP Public License v2.7
         /// </summary>
-        [Description("Open LDAP Public License v2.7"), LicenseUri("https://spdx.org/licenses/OLDAP-2.7.html"), Name("OLDAP-2.7")] OLDAP_2_7,
+        [Description("Open LDAP Public License v2.7"), LicenseUri("http://www.openldap.org/devel/gitweb.cgi?p=openldap.git;a=blob_plain;f=LICENSE;hb=47c2415c1df81556eeb39be6cad458ef87c534a2")] OLDAP_2_7,
 
         /// <summary>
         ///     Open LDAP Public License v2.8
         /// </summary>
-        [Description("Open LDAP Public License v2.8"), LicenseUri("https://spdx.org/licenses/OLDAP-2.8.html"), Name("OLDAP-2.8")] OLDAP_2_8,
+        [Description("Open LDAP Public License v2.8"), LicenseUri("http://www.openldap.org/software/release/license.html")] OLDAP_2_8,
 
         /// <summary>
         ///     Open Market License
         /// </summary>
-        [Description("Open Market License"), LicenseUri("https://spdx.org/licenses/OML.html"), Name("OML")] OML,
+        [Description("Open Market License")] OML,
 
         /// <summary>
         ///     OpenSSL License
         /// </summary>
-        [Description("OpenSSL License"), LicenseUri("https://spdx.org/licenses/OpenSSL.html"), Name("OpenSSL")] OpenSSL,
+        [Description("OpenSSL License"), LicenseUri("https://www.openssl.org/source/license.html")] OpenSSL,
 
         /// <summary>
         ///     Open Public License v1.0
         /// </summary>
-        [Description("Open Public License v1.0"), LicenseUri("https://spdx.org/licenses/OPL-1.0.html"), Name("OPL-1.0")] OPL_1_0,
+        [Description("Open Public License v1.0")] OPL_1_0,
 
         /// <summary>
         ///     OSET Public License version 2.1
         /// </summary>
-        [Description("OSET Public License version 2.1"), LicenseUri("https://spdx.org/licenses/OSET-PL-2.1.html"), Name("OSET-PL-2.1")] OSET_PL_2_1,
+        [Description("OSET Public License version 2.1"), LicenseUri("https://www.osetfoundation.org/public-license")] OSET_PL_2_1,
 
         /// <summary>
         ///     Open Software License 1.0
         /// </summary>
-        [Description("Open Software License 1.0"), LicenseUri("https://spdx.org/licenses/OSL-1.0.html"), Name("OSL-1.0")] OSL_1_0,
+        [Description("Open Software License 1.0")] OSL_1_0,
 
         /// <summary>
         ///     Open Software License 1.1
         /// </summary>
-        [Description("Open Software License 1.1"), LicenseUri("https://spdx.org/licenses/OSL-1.1.html"), Name("OSL-1.1")] OSL_1_1,
+        [Description("Open Software License 1.1")] OSL_1_1,
 
         /// <summary>
         ///     Open Software License 2.0
         /// </summary>
-        [Description("Open Software License 2.0"), LicenseUri("https://spdx.org/licenses/OSL-2.0.html"), Name("OSL-2.0")] OSL_2_0,
+        [Description("Open Software License 2.0")] OSL_2_0,
 
         /// <summary>
         ///     Open Software License 2.1
         /// </summary>
-        [Description("Open Software License 2.1"), LicenseUri("https://spdx.org/licenses/OSL-2.1.html"), Name("OSL-2.1")] OSL_2_1,
+        [Description("Open Software License 2.1")] OSL_2_1,
 
         /// <summary>
         ///     Open Software License 3.0
         /// </summary>
-        [Description("Open Software License 3.0"), LicenseUri("https://spdx.org/licenses/OSL-3.0.html"), Name("OSL-3.0")] OSL_3_0,
+        [Description("Open Software License 3.0"), LicenseUri("https://web.archive.org/web/20120101081418/http://rosenlaw.com:80/OSL3.0.htm")] OSL_3_0,
 
         /// <summary>
         ///     The Parity Public License 6.0.0
         /// </summary>
-        [Description("The Parity Public License 6.0.0"), LicenseUri("https://spdx.org/licenses/Parity-6.0.0.html"), Name("Parity-6.0.0")] Parity_6_0_0,
+        [Description("The Parity Public License 6.0.0"), LicenseUri("https://paritylicense.com/versions/6.0.0.html")] Parity_6_0_0,
 
         /// <summary>
         ///     ODC Public Domain Dedication &amp; License 1.0
         /// </summary>
-        [Description("ODC Public Domain Dedication & License 1.0"), LicenseUri("https://spdx.org/licenses/PDDL-1.0.html"), Name("PDDL-1.0")] PDDL_1_0,
+        [Description("ODC Public Domain Dedication & License 1.0"), LicenseUri("https://opendatacommons.org/licenses/pddl/1.0/")] PDDL_1_0,
 
         /// <summary>
         ///     PHP License v3.0
         /// </summary>
-        [Description("PHP License v3.0"), LicenseUri("https://spdx.org/licenses/PHP-3.0.html"), Name("PHP-3.0")] PHP_3_0,
+        [Description("PHP License v3.0"), LicenseUri("https://www.php.net/license/3_0.txt")] PHP_3_0,
 
         /// <summary>
         ///     PHP License v3.01
         /// </summary>
-        [Description("PHP License v3.01"), LicenseUri("https://spdx.org/licenses/PHP-3.01.html"), Name("PHP-3.01")] PHP_3_01,
+        [Description("PHP License v3.01"), LicenseUri("https://www.php.net/license/3_01.txt")] PHP_3_01,
 
         /// <summary>
         ///     Plexus Classworlds License
         /// </summary>
-        [Description("Plexus Classworlds License"), LicenseUri("https://spdx.org/licenses/Plexus.html"), Name("Plexus")] Plexus,
+        [Description("Plexus Classworlds License")] Plexus,
 
         /// <summary>
         ///     PostgreSQL License
         /// </summary>
-        [Description("PostgreSQL License"), LicenseUri("https://spdx.org/licenses/PostgreSQL.html"), Name("PostgreSQL")] PostgreSQL,
+        [Description("PostgreSQL License"), LicenseUri("https://www.postgresql.org/about/licence/")] PostgreSQL,
 
         /// <summary>
         ///     psfrag License
         /// </summary>
-        [Description("psfrag License"), LicenseUri("https://spdx.org/licenses/psfrag.html"), Name("psfrag")] psfrag,
+        psfrag,
 
         /// <summary>
         ///     psutils License
         /// </summary>
-        [Description("psutils License"), LicenseUri("https://spdx.org/licenses/psutils.html"), Name("psutils")] psutils,
+        psutils,
 
         /// <summary>
         ///     Python License 2.0
         /// </summary>
-        [Description("Python License 2.0"), LicenseUri("https://spdx.org/licenses/Python-2.0.html"), Name("Python-2.0")] Python_2_0,
+        [Description("Python License 2.0")] Python_2_0,
 
         /// <summary>
         ///     Qhull License
         /// </summary>
-        [Description("Qhull License"), LicenseUri("https://spdx.org/licenses/Qhull.html"), Name("Qhull")] Qhull,
+        Qhull,
 
         /// <summary>
         ///     Q Public License 1.0
         /// </summary>
-        [Description("Q Public License 1.0"), LicenseUri("https://spdx.org/licenses/QPL-1.0.html"), Name("QPL-1.0")] QPL_1_0,
+        [Description("Q Public License 1.0")] QPL_1_0,
 
         /// <summary>
         ///     Rdisc License
         /// </summary>
-        [Description("Rdisc License"), LicenseUri("https://spdx.org/licenses/Rdisc.html"), Name("Rdisc")] Rdisc,
+        Rdisc,
 
         /// <summary>
         ///     Red Hat eCos Public License v1.1
         /// </summary>
-        [Description("Red Hat eCos Public License v1.1"), LicenseUri("https://spdx.org/licenses/RHeCos-1.1.html"), Name("RHeCos-1.1")] RHeCos_1_1,
+        [Description("Red Hat eCos Public License v1.1"), LicenseUri("http://ecos.sourceware.org/old-license.html")] RHeCos_1_1,
 
         /// <summary>
         ///     Reciprocal Public License 1.1
         /// </summary>
-        [Description("Reciprocal Public License 1.1"), LicenseUri("https://spdx.org/licenses/RPL-1.1.html"), Name("RPL-1.1")] RPL_1_1,
+        [Description("Reciprocal Public License 1.1")] RPL_1_1,
 
         /// <summary>
         ///     Reciprocal Public License 1.5
         /// </summary>
-        [Description("Reciprocal Public License 1.5"), LicenseUri("https://spdx.org/licenses/RPL-1.5.html"), Name("RPL-1.5")] RPL_1_5,
+        [Description("Reciprocal Public License 1.5")] RPL_1_5,
 
         /// <summary>
         ///     RealNetworks Public Source License v1.0
         /// </summary>
-        [Description("RealNetworks Public Source License v1.0"), LicenseUri("https://spdx.org/licenses/RPSL-1.0.html"), Name("RPSL-1.0")] RPSL_1_0,
+        [Description("RealNetworks Public Source License v1.0")] RPSL_1_0,
 
         /// <summary>
         ///     RSA Message-Digest License 
         /// </summary>
-        [Description("RSA Message-Digest License "), LicenseUri("https://spdx.org/licenses/RSA-MD.html"), Name("RSA-MD")] RSA_MD,
+        [Description("RSA Message-Digest License ")] RSA_MD,
 
         /// <summary>
         ///     Ricoh Source Code Public License
         /// </summary>
-        [Description("Ricoh Source Code Public License"), LicenseUri("https://spdx.org/licenses/RSCPL.html"), Name("RSCPL")] RSCPL,
+        [Description("Ricoh Source Code Public License")] RSCPL,
 
         /// <summary>
         ///     Ruby License
         /// </summary>
-        [Description("Ruby License"), LicenseUri("https://spdx.org/licenses/Ruby.html"), Name("Ruby")] Ruby,
+        [LicenseUri("http://www.ruby-lang.org/en/about/license.txt")] Ruby,
 
         /// <summary>
         ///     Sax Public Domain Notice
         /// </summary>
-        [Description("Sax Public Domain Notice"), LicenseUri("https://spdx.org/licenses/SAX-PD.html"), Name("SAX-PD")] SAX_PD,
+        [Description("Sax Public Domain Notice"), LicenseUri("http://www.saxproject.org/copying.html")] SAX_PD,
 
         /// <summary>
         ///     Saxpath License
         /// </summary>
-        [Description("Saxpath License"), LicenseUri("https://spdx.org/licenses/Saxpath.html"), Name("Saxpath")] Saxpath,
+        Saxpath,
 
         /// <summary>
         ///     SCEA Shared Source License
         /// </summary>
-        [Description("SCEA Shared Source License"), LicenseUri("https://spdx.org/licenses/SCEA.html"), Name("SCEA")] SCEA,
+        [Description("SCEA Shared Source License")] SCEA,
 
         /// <summary>
         ///     Sendmail License
         /// </summary>
-        [Description("Sendmail License"), LicenseUri("https://spdx.org/licenses/Sendmail.html"), Name("Sendmail")] Sendmail,
+        [LicenseUri("http://www.sendmail.com/pdfs/open_source/sendmail_license.pdf")] Sendmail,
 
         /// <summary>
         ///     Sendmail License 8.23
         /// </summary>
-        [Description("Sendmail License 8.23"), LicenseUri("https://spdx.org/licenses/Sendmail-8.23.html"), Name("Sendmail-8.23")] Sendmail_8_23,
+        [Description("Sendmail License 8.23"), LicenseUri("https://www.proofpoint.com/sites/default/files/sendmail-license.pdf")] Sendmail_8_23,
 
         /// <summary>
         ///     SGI Free Software License B v1.0
         /// </summary>
-        [Description("SGI Free Software License B v1.0"), LicenseUri("https://spdx.org/licenses/SGI-B-1.0.html"), Name("SGI-B-1.0")] SGI_B_1_0,
+        [Description("SGI Free Software License B v1.0")] SGI_B_1_0,
 
         /// <summary>
         ///     SGI Free Software License B v1.1
         /// </summary>
-        [Description("SGI Free Software License B v1.1"), LicenseUri("https://spdx.org/licenses/SGI-B-1.1.html"), Name("SGI-B-1.1")] SGI_B_1_1,
+        [Description("SGI Free Software License B v1.1")] SGI_B_1_1,
 
         /// <summary>
         ///     SGI Free Software License B v2.0
         /// </summary>
-        [Description("SGI Free Software License B v2.0"), LicenseUri("https://spdx.org/licenses/SGI-B-2.0.html"), Name("SGI-B-2.0")] SGI_B_2_0,
+        [Description("SGI Free Software License B v2.0")] SGI_B_2_0,
 
         /// <summary>
         ///     Solderpad Hardware License v0.5
         /// </summary>
-        [Description("Solderpad Hardware License v0.5"), LicenseUri("https://spdx.org/licenses/SHL-0.5.html"), Name("SHL-0.5")] SHL_0_5,
+        [Description("Solderpad Hardware License v0.5"), LicenseUri("https://solderpad.org/licenses/SHL-0.5/")] SHL_0_5,
 
         /// <summary>
         ///     Solderpad Hardware License, Version 0.51
         /// </summary>
-        [Description("Solderpad Hardware License, Version 0.51"), LicenseUri("https://spdx.org/licenses/SHL-0.51.html"), Name("SHL-0.51")] SHL_0_51,
+        [Description("Solderpad Hardware License, Version 0.51"), LicenseUri("https://solderpad.org/licenses/SHL-0.51/")] SHL_0_51,
 
         /// <summary>
         ///     Simple Public License 2.0
         /// </summary>
-        [Description("Simple Public License 2.0"), LicenseUri("https://spdx.org/licenses/SimPL-2.0.html"), Name("SimPL-2.0")] SimPL_2_0,
+        [Description("Simple Public License 2.0")] SimPL_2_0,
 
         /// <summary>
         ///     Sun Industry Standards Source License v1.1
         /// </summary>
-        [Description("Sun Industry Standards Source License v1.1"), LicenseUri("https://spdx.org/licenses/SISSL.html"), Name("SISSL")] SISSL,
+        [Description("Sun Industry Standards Source License v1.1"), LicenseUri("http://www.openoffice.org/licenses/sissl_license.html")] SISSL,
 
         /// <summary>
         ///     Sun Industry Standards Source License v1.2
         /// </summary>
-        [Description("Sun Industry Standards Source License v1.2"), LicenseUri("https://spdx.org/licenses/SISSL-1.2.html"), Name("SISSL-1.2")] SISSL_1_2,
+        [Description("Sun Industry Standards Source License v1.2"), LicenseUri("http://gridscheduler.sourceforge.net/Gridengine_SISSL_license.html")] SISSL_1_2,
 
         /// <summary>
         ///     Sleepycat License
         /// </summary>
-        [Description("Sleepycat License"), LicenseUri("https://spdx.org/licenses/Sleepycat.html"), Name("Sleepycat")] Sleepycat,
+        Sleepycat,
 
         /// <summary>
         ///     Standard ML of New Jersey License
         /// </summary>
-        [Description("Standard ML of New Jersey License"), LicenseUri("https://spdx.org/licenses/SMLNJ.html"), Name("SMLNJ")] SMLNJ,
+        [Description("Standard ML of New Jersey License"), LicenseUri("https://www.smlnj.org/license.html")] SMLNJ,
 
         /// <summary>
         ///     Secure Messaging Protocol Public License
         /// </summary>
-        [Description("Secure Messaging Protocol Public License"), LicenseUri("https://spdx.org/licenses/SMPPL.html"), Name("SMPPL")] SMPPL,
+        [Description("Secure Messaging Protocol Public License"), LicenseUri("https://raw.githubusercontent.com/dcblake/SMP/master/Documentation/License.txt")] SMPPL,
 
         /// <summary>
         ///     SNIA Public License 1.1
         /// </summary>
-        [Description("SNIA Public License 1.1"), LicenseUri("https://spdx.org/licenses/SNIA.html"), Name("SNIA")] SNIA,
+        [Description("SNIA Public License 1.1")] SNIA,
 
         /// <summary>
         ///     Spencer License 86
         /// </summary>
-        [Description("Spencer License 86"), LicenseUri("https://spdx.org/licenses/Spencer-86.html"), Name("Spencer-86")] Spencer_86,
+        [Description("Spencer License 86"), Name("Spencer-86")] Spencer_86,
 
         /// <summary>
         ///     Spencer License 94
         /// </summary>
-        [Description("Spencer License 94"), LicenseUri("https://spdx.org/licenses/Spencer-94.html"), Name("Spencer-94")] Spencer_94,
+        [Description("Spencer License 94"), Name("Spencer-94")] Spencer_94,
 
         /// <summary>
         ///     Spencer License 99
         /// </summary>
-        [Description("Spencer License 99"), LicenseUri("https://spdx.org/licenses/Spencer-99.html"), Name("Spencer-99")] Spencer_99,
+        [Description("Spencer License 99"), Name("Spencer-99")] Spencer_99,
 
         /// <summary>
         ///     Sun Public License v1.0
         /// </summary>
-        [Description("Sun Public License v1.0"), LicenseUri("https://spdx.org/licenses/SPL-1.0.html"), Name("SPL-1.0")] SPL_1_0,
+        [Description("Sun Public License v1.0")] SPL_1_0,
 
         /// <summary>
         ///     SSH OpenSSH license
         /// </summary>
-        [Description("SSH OpenSSH license"), LicenseUri("https://spdx.org/licenses/SSH-OpenSSH.html"), Name("SSH-OpenSSH")] SSH_OpenSSH,
+        [Description("SSH OpenSSH license"), LicenseUri("https://raw.githubusercontent.com/openssh/openssh-portable/1b11ea7c58cd5c59838b5fa574cd456d6047b2d4/LICENCE")] SSH_OpenSSH,
 
         /// <summary>
         ///     SSH short notice
         /// </summary>
-        [Description("SSH short notice"), LicenseUri("https://spdx.org/licenses/SSH-short.html"), Name("SSH-short")] SSH_short,
+        [Description("SSH short notice")] SSH_short,
 
         /// <summary>
         ///     Server Side Public License, v 1
         /// </summary>
-        [Description("Server Side Public License, v 1"), LicenseUri("https://spdx.org/licenses/SSPL-1.0.html"), Name("SSPL-1.0")] SSPL_1_0,
+        [Description("Server Side Public License, v 1"), LicenseUri("https://www.mongodb.com/licensing/server-side-public-license")] SSPL_1_0,
 
         /// <summary>
         ///     SugarCRM Public License v1.1.3
         /// </summary>
-        [Description("SugarCRM Public License v1.1.3"), LicenseUri("https://spdx.org/licenses/SugarCRM-1.1.3.html"), Name("SugarCRM-1.1.3")] SugarCRM_1_1_3,
+        [Description("SugarCRM Public License v1.1.3")] SugarCRM_1_1_3,
 
         /// <summary>
         ///     Scheme Widget Library (SWL) Software License Agreement
         /// </summary>
-        [Description("Scheme Widget Library (SWL) Software License Agreement"), LicenseUri("https://spdx.org/licenses/SWL.html"), Name("SWL")] SWL,
+        [Description("Scheme Widget Library (SWL) Software License Agreement")] SWL,
 
         /// <summary>
         ///     TAPR Open Hardware License v1.0
         /// </summary>
-        [Description("TAPR Open Hardware License v1.0"), LicenseUri("https://spdx.org/licenses/TAPR-OHL-1.0.html"), Name("TAPR-OHL-1.0")] TAPR_OHL_1_0,
+        [Description("TAPR Open Hardware License v1.0"), LicenseUri("https://www.tapr.org/TAPR_Open_Hardware_License_v1.0.txt")] TAPR_OHL_1_0,
 
         /// <summary>
         ///     TCL/TK License
         /// </summary>
-        [Description("TCL/TK License"), LicenseUri("https://spdx.org/licenses/TCL.html"), Name("TCL")] TCL,
+        [Description("TCL/TK License"), LicenseUri("http://www.tcl.tk/software/tcltk/license.html")] TCL,
 
         /// <summary>
         ///     TCP Wrappers License
         /// </summary>
-        [Description("TCP Wrappers License"), LicenseUri("https://spdx.org/licenses/TCP-wrappers.html"), Name("TCP-wrappers")] TCP_wrappers,
+        [Description("TCP Wrappers License")] TCP_wrappers,
 
         /// <summary>
         ///     TMate Open Source License
         /// </summary>
-        [Description("TMate Open Source License"), LicenseUri("https://spdx.org/licenses/TMate.html"), Name("TMate")] TMate,
+        [Description("TMate Open Source License"), LicenseUri("https://svnkit.com/license.html")] TMate,
 
         /// <summary>
         ///     TORQUE v2.5+ Software License v1.1
         /// </summary>
-        [Description("TORQUE v2.5+ Software License v1.1"), LicenseUri("https://spdx.org/licenses/TORQUE-1.1.html"), Name("TORQUE-1.1")] TORQUE_1_1,
+        [Description("TORQUE v2.5+ Software License v1.1")] TORQUE_1_1,
 
         /// <summary>
         ///     Trusster Open Source License
         /// </summary>
-        [Description("Trusster Open Source License"), LicenseUri("https://spdx.org/licenses/TOSL.html"), Name("TOSL")] TOSL,
+        [Description("Trusster Open Source License")] TOSL,
 
         /// <summary>
         ///     Technische Universitaet Berlin License 1.0
         /// </summary>
-        [Description("Technische Universitaet Berlin License 1.0"), LicenseUri("https://spdx.org/licenses/TU-Berlin-1.0.html"), Name("TU-Berlin-1.0")] TU_Berlin_1_0,
+        [Description("Technische Universitaet Berlin License 1.0"), LicenseUri("https://raw.githubusercontent.com/swh/ladspa/7bf6f3799fdba70fda297c2d8fd9f526803d9680/gsm/COPYRIGHT")] TU_Berlin_1_0,
 
         /// <summary>
         ///     Technische Universitaet Berlin License 2.0
         /// </summary>
-        [Description("Technische Universitaet Berlin License 2.0"), LicenseUri("https://spdx.org/licenses/TU-Berlin-2.0.html"), Name("TU-Berlin-2.0")] TU_Berlin_2_0,
+        [Description("Technische Universitaet Berlin License 2.0"), LicenseUri("https://raw.githubusercontent.com/CorsixTH/deps/fd339a9f526d1d9c9f01ccf39e438a015da50035/licences/libgsm.txt")] TU_Berlin_2_0,
 
         /// <summary>
         ///     Upstream Compatibility License v1.0
         /// </summary>
-        [Description("Upstream Compatibility License v1.0"), LicenseUri("https://spdx.org/licenses/UCL-1.0.html"), Name("UCL-1.0")] UCL_1_0,
+        [Description("Upstream Compatibility License v1.0")] UCL_1_0,
 
         /// <summary>
         ///     Unicode License Agreement - Data Files and Software (2015)
         /// </summary>
-        [Description("Unicode License Agreement - Data Files and Software (2015)"), LicenseUri("https://spdx.org/licenses/Unicode-DFS-2015.html"), Name("Unicode-DFS-2015")] Unicode_DFS_2015,
+        [Description("Unicode License Agreement - Data Files and Software (2015)"), LicenseUri("http://www.unicode.org/copyright.html")] Unicode_DFS_2015,
 
         /// <summary>
         ///     Unicode License Agreement - Data Files and Software (2016)
         /// </summary>
-        [Description("Unicode License Agreement - Data Files and Software (2016)"), LicenseUri("https://spdx.org/licenses/Unicode-DFS-2016.html"), Name("Unicode-DFS-2016")] Unicode_DFS_2016,
+        [Description("Unicode License Agreement - Data Files and Software (2016)"), LicenseUri("http://www.unicode.org/copyright.html")] Unicode_DFS_2016,
 
         /// <summary>
         ///     Unicode Terms of Use
         /// </summary>
-        [Description("Unicode Terms of Use"), LicenseUri("https://spdx.org/licenses/Unicode-TOU.html"), Name("Unicode-TOU")] Unicode_TOU,
+        [Description("Unicode Terms of Use"), LicenseUri("http://www.unicode.org/copyright.html")] Unicode_TOU,
 
         /// <summary>
         ///     The Unlicense
         /// </summary>
-        [Description("The Unlicense"), LicenseUri("https://spdx.org/licenses/Unlicense.html"), Name("Unlicense")] Unlicense,
+        [Description("The Unlicense"), LicenseUri("https://unlicense.org/")] Unlicense,
 
         /// <summary>
         ///     Universal Permissive License v1.0
         /// </summary>
-        [Description("Universal Permissive License v1.0"), LicenseUri("https://spdx.org/licenses/UPL-1.0.html"), Name("UPL-1.0")] UPL_1_0,
+        [Description("Universal Permissive License v1.0")] UPL_1_0,
 
         /// <summary>
         ///     Vim License
         /// </summary>
-        [Description("Vim License"), LicenseUri("https://spdx.org/licenses/Vim.html"), Name("Vim")] Vim,
+        [LicenseUri("http://vimdoc.sourceforge.net/htmldoc/uganda.html")] Vim,
 
         /// <summary>
         ///     VOSTROM Public License for Open Source
         /// </summary>
-        [Description("VOSTROM Public License for Open Source"), LicenseUri("https://spdx.org/licenses/VOSTROM.html"), Name("VOSTROM")] VOSTROM,
+        [Description("VOSTROM Public License for Open Source")] VOSTROM,
 
         /// <summary>
         ///     Vovida Software License v1.0
         /// </summary>
-        [Description("Vovida Software License v1.0"), LicenseUri("https://spdx.org/licenses/VSL-1.0.html"), Name("VSL-1.0")] VSL_1_0,
+        [Description("Vovida Software License v1.0")] VSL_1_0,
 
         /// <summary>
         ///     W3C Software Notice and License (2002-12-31)
         /// </summary>
-        [Description("W3C Software Notice and License (2002-12-31)"), LicenseUri("https://spdx.org/licenses/W3C.html"), Name("W3C")] W3C,
+        [Description("W3C Software Notice and License (2002-12-31)"), LicenseUri("https://www.w3.org/Consortium/Legal/2002/copyright-software-20021231.html"), Name("W3C")] W3C,
 
         /// <summary>
         ///     W3C Software Notice and License (1998-07-20)
         /// </summary>
-        [Description("W3C Software Notice and License (1998-07-20)"), LicenseUri("https://spdx.org/licenses/W3C-19980720.html"), Name("W3C-19980720")] W3C_19980720,
+        [Description("W3C Software Notice and License (1998-07-20)"), LicenseUri("https://www.w3.org/Consortium/Legal/copyright-software-19980720.html"), Name("W3C-19980720")] W3C_19980720,
 
         /// <summary>
         ///     W3C Software Notice and Document License (2015-05-13)
         /// </summary>
-        [Description("W3C Software Notice and Document License (2015-05-13)"), LicenseUri("https://spdx.org/licenses/W3C-20150513.html"), Name("W3C-20150513")] W3C_20150513,
+        [Description("W3C Software Notice and Document License (2015-05-13)"), LicenseUri("https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document"), Name("W3C-20150513")] W3C_20150513,
 
         /// <summary>
         ///     Sybase Open Watcom Public License 1.0
         /// </summary>
-        [Description("Sybase Open Watcom Public License 1.0"), LicenseUri("https://spdx.org/licenses/Watcom-1.0.html"), Name("Watcom-1.0")] Watcom_1_0,
+        [Description("Sybase Open Watcom Public License 1.0")] Watcom_1_0,
 
         /// <summary>
         ///     Wsuipa License
         /// </summary>
-        [Description("Wsuipa License"), LicenseUri("https://spdx.org/licenses/Wsuipa.html"), Name("Wsuipa")] Wsuipa,
+        Wsuipa,
 
         /// <summary>
         ///     Do What The F*ck You Want To Public License
@@ -1825,86 +1825,86 @@ namespace TheXDS.MCART.Resources
         /// <summary>
         ///     Xerox License
         /// </summary>
-        [Description("Xerox License"), LicenseUri("https://spdx.org/licenses/Xerox.html"), Name("Xerox")] Xerox,
+        Xerox,
 
         /// <summary>
         ///     XFree86 License 1.1
         /// </summary>
-        [Description("XFree86 License 1.1"), LicenseUri("https://spdx.org/licenses/XFree86-1.1.html"), Name("XFree86-1.1")] XFree86_1_1,
+        [Description("XFree86 License 1.1"), LicenseUri("http://www.xfree86.org/current/LICENSE4.html")] XFree86_1_1,
 
         /// <summary>
         ///     xinetd License
         /// </summary>
-        [Description("xinetd License"), LicenseUri("https://spdx.org/licenses/xinetd.html"), Name("xinetd")] xinetd,
+        xinetd,
 
         /// <summary>
         ///     X.Net License
         /// </summary>
-        [Description("X.Net License"), LicenseUri("https://spdx.org/licenses/Xnet.html"), Name("Xnet")] Xnet,
+        [Description("X.Net License")] Xnet,
 
         /// <summary>
         ///     XPP License
         /// </summary>
-        [Description("XPP License"), LicenseUri("https://spdx.org/licenses/xpp.html"), Name("xpp")] xpp,
+        [Description("XPP License")] xpp,
 
         /// <summary>
         ///     XSkat License
         /// </summary>
-        [Description("XSkat License"), LicenseUri("https://spdx.org/licenses/XSkat.html"), Name("XSkat")] XSkat,
+        XSkat,
 
         /// <summary>
         ///     Yahoo! Public License v1.0
         /// </summary>
-        [Description("Yahoo! Public License v1.0"), LicenseUri("https://spdx.org/licenses/YPL-1.0.html"), Name("YPL-1.0")] YPL_1_0,
+        [Description("Yahoo! Public License v1.0")] YPL_1_0,
 
         /// <summary>
         ///     Yahoo! Public License v1.1
         /// </summary>
-        [Description("Yahoo! Public License v1.1"), LicenseUri("https://spdx.org/licenses/YPL-1.1.html"), Name("YPL-1.1")] YPL_1_1,
+        [Description("Yahoo! Public License v1.1")] YPL_1_1,
 
         /// <summary>
         ///     Zed License
         /// </summary>
-        [Description("Zed License"), LicenseUri("https://spdx.org/licenses/Zed.html"), Name("Zed")] Zed,
+        Zed,
 
         /// <summary>
         ///     Zend License v2.0
         /// </summary>
-        [Description("Zend License v2.0"), LicenseUri("https://spdx.org/licenses/Zend-2.0.html"), Name("Zend-2.0")] Zend_2_0,
+        [Description("Zend License v2.0")] Zend_2_0,
 
         /// <summary>
         ///     Zimbra Public License v1.3
         /// </summary>
-        [Description("Zimbra Public License v1.3"), LicenseUri("https://spdx.org/licenses/Zimbra-1.3.html"), Name("Zimbra-1.3")] Zimbra_1_3,
+        [Description("Zimbra Public License v1.3")] Zimbra_1_3,
 
         /// <summary>
         ///     Zimbra Public License v1.4
         /// </summary>
-        [Description("Zimbra Public License v1.4"), LicenseUri("https://spdx.org/licenses/Zimbra-1.4.html"), Name("Zimbra-1.4")] Zimbra_1_4,
+        [Description("Zimbra Public License v1.4"), LicenseUri("https://www.zimbra.com/legal/zimbra-public-license-1-4/")] Zimbra_1_4,
 
         /// <summary>
         ///     zlib License
         /// </summary>
-        [Description("zlib License"), LicenseUri("https://spdx.org/licenses/Zlib.html"), Name("Zlib")] Zlib,
+        [Description("zlib License"), LicenseUri("http://www.zlib.net/zlib_license.html")] Zlib,
 
         /// <summary>
         ///     zlib/libpng License with Acknowledgement
         /// </summary>
-        [Description("zlib/libpng License with Acknowledgement"), LicenseUri("https://spdx.org/licenses/zlib-acknowledgement.html"), Name("zlib-acknowledgement")] zlib_acknowledgement,
+        [Description("zlib/libpng License with Acknowledgement")] zlib_acknowledgement,
 
         /// <summary>
         ///     Zope Public License 1.1
         /// </summary>
-        [Description("Zope Public License 1.1"), LicenseUri("https://spdx.org/licenses/ZPL-1.1.html"), Name("ZPL-1.1")] ZPL_1_1,
+        [Description("Zope Public License 1.1"), LicenseUri("http://old.zope.org/Resources/License/ZPL-1.1")] ZPL_1_1,
 
         /// <summary>
         ///     Zope Public License 2.0
         /// </summary>
-        [Description("Zope Public License 2.0"), LicenseUri("https://spdx.org/licenses/ZPL-2.0.html"), Name("ZPL-2.0")] ZPL_2_0,
+        [Description("Zope Public License 2.0"), LicenseUri("http://old.zope.org/Resources/License/ZPL-2.0")] ZPL_2_0,
 
         /// <summary>
         ///     Zope Public License 2.1
         /// </summary>
-        [Description("Zope Public License 2.1"), LicenseUri("https://spdx.org/licenses/ZPL-2.1.html"), Name("ZPL-2.1")] ZPL_2_1,
+        [Description("Zope Public License 2.1"), LicenseUri("http://old.zope.org/Resources/ZPL/")] ZPL_2_1,
     }
 }
