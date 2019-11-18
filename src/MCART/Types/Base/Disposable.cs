@@ -31,11 +31,12 @@ using static System.Reflection.BindingFlags;
 
 namespace TheXDS.MCART.Types.Base
 {
+
     /// <summary>
     ///     Clase base que simplifica la implementación de la interfaz
     ///     <see cref="IDisposable"/>.
     /// </summary>
-    public abstract class Disposable : IDisposable
+    public abstract class Disposable : IDisposableEx
     {
         private bool ShouldFinalize() => GetType().GetMethod(nameof(OnFinalize), Instance | NonPublic)!.IsOverride();
 
