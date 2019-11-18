@@ -26,6 +26,9 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using TheXDS.MCART.Types.Base;
 using Xunit;
+using System;
+using System.Runtime.CompilerServices;
+using static System.Reflection.BindingFlags;
 
 namespace TheXDS.MCART.Tests.Types.Base
 {
@@ -35,8 +38,10 @@ namespace TheXDS.MCART.Tests.Types.Base
         {
             protected override void OnDispose()
             {
-                /* No hacer nada. */
+                DidOnDisposeRun = true;
             }
+            public bool ShouldFinalize => GetType().GetMethod(nameof(OnFinalize), Instance | NonPublic).IsOverride();
+            public bool DidOnDisposeRun { get; private set; }
         }
 
         private class DisposableTwo : Disposable
@@ -50,6 +55,21 @@ namespace TheXDS.MCART.Tests.Types.Base
             {
                 /* No hacer nada. */
             }
+            public bool ShouldFinalize => GetType().GetMethod(nameof(OnFinalize), Instance | NonPublic).IsOverride();
+
+        }
+
+        [Fact]
+        public void OnDisposeExecutionTest()
+        {
+            var m1 = new DisposableOne();
+            using (m1)
+            {
+                Assert.False(m1.DidOnDisposeRun);
+            }
+            Assert.True(m1.Disposed);
+            Assert.True(m1.DidOnDisposeRun);
+
         }
 
         [Fact]
@@ -59,6 +79,7 @@ namespace TheXDS.MCART.Tests.Types.Base
             using (m1)
             {
                 Assert.False(m1.Disposed);
+                Assert.False(m1.ShouldFinalize);
             }
             Assert.True(m1.Disposed);
 
@@ -66,6 +87,7 @@ namespace TheXDS.MCART.Tests.Types.Base
             using (m2)
             {
                 Assert.False(m2.Disposed);
+                Assert.True(m2.ShouldFinalize);
             }
             Assert.True(m2.Disposed);
         }
