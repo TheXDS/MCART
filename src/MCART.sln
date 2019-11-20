@@ -99,8 +99,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART-GUI", "Lib\MCART-GUI\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART-UI", "Lib\MCART-UI\MCART-UI.csproj", "{DC106299-465B-48B7-8373-125D496856DE}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Globals", "Shared\Globals\Globals.shproj", "{0AEB6508-6179-44E8-96E6-6535659AE85D}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Shared\Globals\Globals.projitems*{0aeb6508-6179-44e8-96e6-6535659ae85d}*SharedItemsImports = 13
 		Examples\LightChat\Common\Common.projitems*{1459cf01-8f9b-47b1-a3f2-57e1f84d9d0e}*SharedItemsImports = 13
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{77706828-80be-4bac-a97c-072e101d01de}*SharedItemsImports = 4
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{967afaa3-ded3-4ec0-9401-7193b318fce8}*SharedItemsImports = 13
@@ -307,6 +310,7 @@ Global
 		{A044B63B-DAFE-4E49-967A-56C0F0A50282} = {D62BF4A9-E484-4F39-B40F-7103D5AEABA8}
 		{254A30EF-4F08-44AC-BA7B-04C2D05AEB23} = {8D80435C-F7CE-46FE-82F0-58F0D5282344}
 		{DC106299-465B-48B7-8373-125D496856DE} = {8D80435C-F7CE-46FE-82F0-58F0D5282344}
+		{0AEB6508-6179-44E8-96E6-6535659AE85D} = {D74BF4B6-D008-4124-B4F5-DAEA45272A78}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A16C9D23-2B39-4202-8A15-4A3536784E27}

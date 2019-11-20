@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System.Linq;
 using System.Collections.Generic;
 
@@ -71,7 +73,6 @@ namespace TheXDS.MCART.Types
         public Grouping(TKey key, IEnumerable<TElement> collection) : base(collection)
         {
             Key = key;
-
         }
 
         /// <summary>

@@ -237,7 +237,7 @@ namespace TheXDS.MCART.Controls
         /// Esta no es una propiedad de dependencia, debido a algunas
         /// complicaciones de eventos.
         /// </remarks>
-        public ExtendedList<double> Graph { get; set; } = new ExtendedList<double>();
+        public ListEx<double> Graph { get; set; } = new ListEx<double>();
         /// <summary>
         /// Obtiene o establece los elementos de la gráfica secundaria.
         /// </summary>
@@ -245,7 +245,7 @@ namespace TheXDS.MCART.Controls
         /// Esta no es una propiedad de dependencia, debido a algunas 
         /// complicaciones de eventos.
         /// </remarks>
-        public ExtendedList<double> Graph2 { get; set; } = new ExtendedList<double>();
+        public ListEx<double> Graph2 { get; set; } = new ListEx<double>();
         /// <summary>
         /// Determina el modo de dibujo del gráfico.
         /// </summary>
@@ -330,7 +330,7 @@ namespace TheXDS.MCART.Controls
         /// Esta no es una propiedad de dependencia, debido a algunas 
         /// complicaciones de eventos.
         /// </remarks>
-        public ExtendedList<string> XLabels { get; set; } = new ExtendedList<string>();
+        public ListEx<string> XLabels { get; set; } = new ListEx<string>();
         /// <summary>
         /// Obtiene o establece el período de la rejilla mayor del eje X.
         /// </summary>
@@ -451,7 +451,7 @@ namespace TheXDS.MCART.Controls
                 }
             }
         }
-        void PlotGrp(Polyline grp, ExtendedList<double> lst, TextBlock mx, TextBlock mn, double max, double min, CheckBox chk)
+        void PlotGrp(Polyline grp, ListEx<double> lst, TextBlock mx, TextBlock mn, double max, double min, CheckBox chk)
         {
             if (!AmIValid()) return;
             ClearGrp(grp, mx, mn);
@@ -486,7 +486,7 @@ namespace TheXDS.MCART.Controls
                 grp.Fill = new SolidColorBrush(x);
             }
         }
-        void PlotSpotLabels(Polyline Ps, ExtendedList<double> grp, Grid g)
+        void PlotSpotLabels(Polyline Ps, ListEx<double> grp, Grid g)
         {
             if (!AmIValid()) return;
             g.Children.Clear();

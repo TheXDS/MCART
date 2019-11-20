@@ -33,6 +33,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
+using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Networking.Client
@@ -52,12 +53,12 @@ namespace TheXDS.MCART.Networking.Client
         ///     <see langword="true" /> si la conexión se encuentra activa,
         ///     <see langword="false" /> en caso contrario.
         /// </value>
-        public bool IsAlive => !(Connection?.Disposed ?? true) && !(NwStream() is null);
+        public bool IsAlive => !(Connection?.IsDisposed ?? true) && !(NwStream() is null);
 
         /// <summary>
         ///     Conexión al servidor
         /// </summary>
-        private protected ExtendedTcpClient Connection { get; private set; } = new ExtendedTcpClient();
+        private protected TcpClientEx Connection { get; private set; } = new TcpClientEx();
 
         private int DefaultPort => GetType().GetAttr<PortAttribute>()?.Value ?? Common.DefaultPort;
 
@@ -173,12 +174,12 @@ namespace TheXDS.MCART.Networking.Client
                 ex => new ConnectionFailureEventArgs(ex, server, port));
         }
 
-        private bool Connect(Action<ExtendedTcpClient> connect, Func<HostConnectionInfoEventArgs> connected, Func<Exception, ConnectionFailureEventArgs> failure)
+        private bool Connect(Action<TcpClientEx> connect, Func<HostConnectionInfoEventArgs> connected, Func<Exception, ConnectionFailureEventArgs> failure)
         {
             try
             {
                 CloseConnection();
-                Connection = new ExtendedTcpClient();
+                Connection = new TcpClientEx();
                 connect(Connection);
                 Connected?.Invoke(this, connected());
                 _worker = new Thread(PostConnection);
@@ -259,14 +260,14 @@ namespace TheXDS.MCART.Networking.Client
                 ex => new ConnectionFailureEventArgs(ex, server, port));
         }
 
-        private async Task<bool> ConnectAsync(Func<ExtendedTcpClient, Task> connect,
+        private async Task<bool> ConnectAsync(Func<TcpClientEx, Task> connect,
             Func<HostConnectionInfoEventArgs> connected,
             Func<Exception, ConnectionFailureEventArgs> failure)
         {
             try
             {
                 CloseConnection();
-                Connection = new ExtendedTcpClient();
+                Connection = new TcpClientEx();
                 await connect(Connection);
                 Connected?.Invoke(this, connected());
                 _worker = new Thread(PostConnection);

@@ -43,7 +43,7 @@ namespace TheXDS.MCART.Types.Base
         /// <summary>
         ///     Obtiene un valor que indica si este objeto ha sido desechado.
         /// </summary>
-        public bool Disposed { get; private set; } = false;
+        public bool IsDisposed { get; private set; } = false;
 
         /// <summary>
         ///     Libera los recursos utilizados por esta instancia.
@@ -53,14 +53,14 @@ namespace TheXDS.MCART.Types.Base
         /// </param>
         protected void Dispose(bool disposing)
         {
-            if (Disposed) return;
+            if (IsDisposed) return;
             
             if (disposing)
             {
                 OnDispose();
             }
             OnFinalize();
-            Disposed = true;            
+            IsDisposed = true;            
         }
 
         /// <summary>

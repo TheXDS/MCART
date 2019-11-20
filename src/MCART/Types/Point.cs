@@ -25,12 +25,12 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #nullable enable
 
 using System;
+using TheXDS.MCART.Misc;
+using TheXDS.MCART.Types.Base;
 using static System.Math;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
-using St = TheXDS.MCART.Resources.Strings;
 using CI = System.Globalization.CultureInfo;
-using TheXDS.MCART.Types.Base;
-using TheXDS.MCART.Misc;
+using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Types
 {
@@ -80,6 +80,7 @@ namespace TheXDS.MCART.Types
             switch (value)
             {
                 case nameof(Nowhere):
+                case "":
                 case null:
                     point = Nowhere;
                     break;
@@ -350,11 +351,11 @@ namespace TheXDS.MCART.Types
         /// <summary>
         ///     Compara la igualdad de los vectores de los puntos.
         /// </summary>
-        /// <param name="l">Punto 1.</param>
-        /// <param name="r">Punto 2.</param>
+        /// <param name="l">Objeto a comparar</param>
+        /// <param name="r">Objeto contra el cual comparar.</param>
         /// <returns>
-        ///     <see langword="true" /> si todos los vectores de ambos puntos son iguales;
-        ///     de lo contrario, <see langword="false" />.
+        ///     <see langword="true" /> si ambas instancias son iguales,
+        ///     <see langword="false" /> en caso contrario.
         /// </returns>
         public static bool operator ==(Point l, Point r)
         {
@@ -631,8 +632,9 @@ namespace TheXDS.MCART.Types
         ///     Objeto que se va a compara con la instancia actual.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si esta instancia y <paramref name="obj" /> son iguales;
-        ///     de lo contrario, <see langword="false" />.
+        ///     <see langword="true" /> si esta instancia y
+        ///     <paramref name="obj" /> son iguales, <see langword="false" />
+        ///     en caso contrario.
         /// </returns>
         public override bool Equals(object? obj)
         {
@@ -691,6 +693,7 @@ namespace TheXDS.MCART.Types
         ///     Un <see cref="System.Drawing.Point"/> equivalente al <see cref="Point"/> especificado.
         /// </returns>
         public static implicit operator System.Drawing.Point(Point x) => new System.Drawing.Point((int)x.X, (int)x.Y);
+
         /// <summary>
         ///     Convierte un <see cref="System.Drawing.Point"/> en un <see cref="Point"/>.
         /// </summary>

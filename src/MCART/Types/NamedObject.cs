@@ -22,14 +22,16 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Types.Extensions.MemberInfoExtensions;
-using System.Linq;
 
 namespace TheXDS.MCART.Types
 {
@@ -159,6 +161,75 @@ namespace TheXDS.MCART.Types
         public static implicit operator NamedObject<T>(KeyValuePair<string, T> keyValuePair)
         {
             return new NamedObject<T>(keyValuePair.Value, keyValuePair.Key);
+        }
+
+        /// <summary>
+        ///     Compara la igualdad entre este <see cref="NamedObject{T}"/> y
+        ///     otro objeto.
+        /// </summary>
+        /// <param name="obj">
+        ///     Objeto contra el cual comparar esta instancia.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> si ambas instancias son consideradas
+        ///     iguales, <see langword="false"/> en caso contrario.
+        /// </returns>
+        public override bool Equals(object? obj)
+        {
+            return obj switch
+            {
+                NamedObject<T> other => Equals(other.Value),
+                T other => Value?.Equals(other) ?? false,
+                null => Value is null,
+                _ => false
+            };
+        }
+
+        /// <summary>
+        ///     Obtiene el código Hash para esta instancia.
+        /// </summary>
+        /// <returns>El código Hash para esta instancia.</returns>
+        public override int GetHashCode()
+        {
+            return Value?.GetHashCode() ?? base.GetHashCode();
+        }
+
+        /// <summary>
+        ///     Compara la igualdad entre dos instancias de
+        ///     <see cref="NamedObject{T}"/>.
+        /// </summary>
+        /// <param name="left">
+        ///     Objeto a comparar.
+        /// </param>
+        /// <param name="right">
+        ///     Objeto contra el cual comparar.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> si ambas instancias son consideradas
+        ///     iguales, <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool operator ==(NamedObject<T> left, NamedObject<T> right)
+        {
+            return left.Equals(right);
+        }
+
+        /// <summary>
+        ///     Comprueba si ambas instancias de <see cref="NamedObject{T}"/>
+        ///     son consideradas distintas.
+        /// </summary>
+        /// <param name="left">
+        ///     Objeto a comparar.
+        /// </param>
+        /// <param name="right">
+        ///     Objeto contra el cual comparar.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> si ambas instancias son consideradas
+        ///     distintas, <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool operator !=(NamedObject<T> left, NamedObject<T> right)
+        {
+            return !(left == right);
         }
     }
 }

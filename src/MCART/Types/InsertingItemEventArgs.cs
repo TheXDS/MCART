@@ -1,5 +1,5 @@
 ﻿/*
-Events.cs
+InsertingItemEventArgs.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,35 +22,30 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System.ComponentModel;
 
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    /// Contiene información para el evento <see cref="ExtendedList{T}.InsertingItem"/>.
+    ///     Contiene información para el evento
+    ///     <see cref="ListEx{T}.InsertingItem"/>.
     /// </summary>
     /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
     public class InsertingItemEventArgs<T> : CancelEventArgs
     {
         /// <summary>
-        /// Obtiene el objeto que se insertará en el <see cref="ExtendedList{T}"/>.
+        ///     Obtiene el objeto que se insertará en el
+        ///     <see cref="ListEx{T}"/>.
         /// </summary>
         public T InsertedItem { get; }
+
         /// <summary>
-        /// Obtiene el índice en el cual el objeto será insertado.
+        ///     Obtiene el índice en el cual el objeto será insertado.
         /// </summary>
         public int Index { get; }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InsertingItemEventArgs{T}"/>.
-        /// </summary>
-        /// <param name="index">
-        /// Índice en el cual se insertará el objeto.
-        /// </param>
-        /// <param name="insertedItem">
-        /// Objeto que se insertará en el <see cref="ExtendedList{T}"/> que generó el
-        /// evento.
-        /// </param>
+
         internal InsertingItemEventArgs(int index, T insertedItem)
         {
             Index = index;

@@ -1,5 +1,5 @@
 ﻿/*
-Events.cs
+ItemModifiedEventArgs.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,34 +22,41 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    /// Contiene información para el evento <see cref="ExtendedList{T}.ModifiedItem"/>.
+    ///     Contiene información para el evento
+    ///     <see cref="ListEx{T}.ModifiedItem"/>.
     /// </summary>
     /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
     public class ItemModifiedEventArgs<T> : EventArgs
     {
         /// <summary>
-        /// convierte explícitamente un <see cref="ModifyingItemEventArgs{T}"/>
-        /// en un <see cref="ItemModifiedEventArgs{T}"/>.
+        ///     Convierte implícitamente un 
+        ///     <see cref="ModifyingItemEventArgs{T}"/> en un
+        ///     <see cref="ItemModifiedEventArgs{T}"/>.
         /// </summary>
         /// <param name="from">
         /// <see cref="ModifyingItemEventArgs{T}"/> a convertir.
         /// </param>
-        public static explicit operator ItemModifiedEventArgs<T>(ModifyingItemEventArgs<T> from) => new ItemModifiedEventArgs<T>(from.Index, from.NewValue);
+        public static implicit operator ItemModifiedEventArgs<T>(ModifyingItemEventArgs<T> from) => new ItemModifiedEventArgs<T>(from.Index, from.NewValue);
+
         /// <summary>
-        /// Objeto que ha sido modificado dentro del <see cref="ExtendedList{T}"/> que
-        /// generó el evento.
+        ///     Objeto que ha sido modificado dentro del
+        ///     <see cref="ListEx{T}"/> que generó el evento.
         /// </summary>
         public T Item { get; }
+
         /// <summary>
-        /// Índice del objeto modificado dentro del <see cref="ExtendedList{T}"/> que
-        /// generó el evento.
+        ///     Índice del objeto modificado dentro del <see cref="ListEx{T}"/>
+        ///     que generó el evento.
         /// </summary>
         public int Index { get; }
+
         internal ItemModifiedEventArgs(int index, T item)
         {
             Item = item;

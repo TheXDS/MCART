@@ -70,7 +70,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         {
             var c = new[] {1, 2, 3}.ToExtendedList();
 
-            Assert.IsType<TheXDS.MCART.Types.ExtendedList<int>>(c);
+            Assert.IsType<TheXDS.MCART.Types.ListEx<int>>(c);
             Assert.Equal(3, c.Count);
         }
 

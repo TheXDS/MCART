@@ -1,5 +1,5 @@
 ﻿/*
-Events.cs
+ListUpdatingEventArgs.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -31,20 +31,22 @@ using System.Linq;
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    /// Contiene información para el evento <see cref="ExtendedList{T}.ListUpdating"/>.
+    ///     Contiene información para el evento 
+    ///     <see cref="ListEx{T}.ListUpdating"/>.
     /// </summary>
     /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
     public class ListUpdatingEventArgs<T> : CancelEventArgs
     {
         /// <summary>
-        /// Elementos afectados por la actualización.
+        ///     Elementos afectados por la actualización.
         /// </summary>
         public IReadOnlyCollection<T>? AffectedItems { get; }
         /// <summary>
-        /// TIpo de actualización a realizar en el <see cref="ExtendedList{T}"/> que
-        /// generó el evento.
+        ///     Tipo de actualización a realizar en el
+        ///     <see cref="ListEx{T}"/> que generó el evento.
         /// </summary>
         public ListUpdateType UpdateType { get; }
+
         internal ListUpdatingEventArgs(ListUpdateType updateType, IEnumerable<T>? affectedItems)
         {
             UpdateType = updateType;

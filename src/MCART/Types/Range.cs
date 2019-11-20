@@ -25,6 +25,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 using System.Linq;
 using TheXDS.MCART.Misc;
@@ -36,7 +38,7 @@ namespace TheXDS.MCART.Types
     ///     Define un rango de valores.
     /// </summary>
     /// <typeparam name="T">Tipo base del rango de valores.</typeparam>
-    public struct Range<T> : IRange<T> where T : IComparable<T>
+    public struct Range<T> : IRange<T>, IEquatable<IRange<T>> where T : IComparable<T>
     {
         private T _minimum;
         private T _maximum;
@@ -273,6 +275,86 @@ namespace TheXDS.MCART.Types
         public static Range<T> operator +(Range<T> left, Range<T> right)
         {
             return left.Join(right);
+        }
+
+        /// <summary>
+        ///     Indica si esta instancia y un objeto especificado son iguales.
+        /// </summary>
+        /// <param name="obj">
+        ///     Objeto que se va a compara con la instancia actual.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true" /> si esta instancia y
+        ///     <paramref name="obj" /> son iguales, <see langword="false" />
+        ///     en caso contrario.
+        /// </returns>
+        public override bool Equals(object? obj)
+        {
+            return Equals(obj as IRange<T>);
+        }
+
+        /// <summary>
+        ///     Devuelve el código Hash de esta instancia.
+        /// </summary>
+        /// <returns>El código Hash de esta instancia.</returns>
+        public override int GetHashCode()
+        {
+            return
+                Minimum.GetHashCode() ^
+                Maximum.GetHashCode() ^
+                MinInclusive.GetHashCode() ^
+                MaxInclusive.GetHashCode();            
+        }
+
+        /// <summary>
+        ///     Indica si esta instancia y un objeto especificado son iguales.
+        /// </summary>
+        /// <param name="other">
+        ///     Objeto que se va a compara con la instancia actual.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true" /> si esta instancia y
+        ///     <paramref name="other" /> son iguales, <see langword="false" />
+        ///     en caso contrario.
+        /// </returns>
+        public bool Equals(IRange<T>? other)
+        {
+            if (other is null) return false;
+            return
+                Minimum.CompareTo(other.Minimum) == 0 &&
+                Maximum.CompareTo(other.Maximum) == 0 &&
+                MinInclusive == other.MinInclusive &&
+                MaxInclusive == other.MaxInclusive;
+        }
+
+        /// <summary>
+        ///     Compara la igualdad entre dos instancias de
+        ///     <see cref="Range{T}"/>.
+        /// </summary>
+        /// <param name="left">Objeto a comparar</param>
+        /// <param name="right">Objeto contra el cual comparar.</param>
+        /// <returns>
+        ///     <see langword="true" /> si ambas instancias son iguales,
+        ///     <see langword="false" /> en caso contrario.
+        /// </returns>
+        public static bool operator ==(Range<T> left, Range<T> right)
+        {
+            return left.Equals(right);
+        }
+
+        /// <summary>
+        ///     Compara dos instancias de <see cref="Range{T}"/>, y devuelve
+        ///     <see langword="true"/> si son distintas la una de la otra.
+        /// </summary>
+        /// <param name="left">Objeto a comparar</param>
+        /// <param name="right">Objeto contra el cual comparar.</param>
+        /// <returns>
+        ///     <see langword="true" /> si ambas instancias son distintas,
+        ///     <see langword="false" /> en caso contrario.
+        /// </returns>
+        public static bool operator !=(Range<T> left, Range<T> right)
+        {
+            return !(left == right);
         }
     }
 }

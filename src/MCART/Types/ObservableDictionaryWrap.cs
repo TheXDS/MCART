@@ -22,10 +22,12 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using NcchEa = System.Collections.Specialized.NotifyCollectionChangedEventArgs;
 using TheXDS.MCART.Types.Base;
+using NcchEa = System.Collections.Specialized.NotifyCollectionChangedEventArgs;
 
 namespace TheXDS.MCART.Types
 {

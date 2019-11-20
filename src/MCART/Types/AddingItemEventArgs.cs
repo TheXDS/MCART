@@ -1,5 +1,5 @@
 ﻿/*
-Events.cs
+AddingItemEventArgs.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -27,13 +27,13 @@ using System.ComponentModel;
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    /// Contiene información para el evento <see cref="ExtendedList{T}.AddingItem"/>.
+    /// Contiene información para el evento <see cref="ListEx{T}.AddingItem"/>.
     /// </summary>
     /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
     public class AddingItemEventArgs<T> : CancelEventArgs
     {
         /// <summary>
-        /// Obtiene el objeto que se agregará al <see cref="ExtendedList{T}"/>.
+        /// Obtiene el objeto que se agregará al <see cref="ListEx{T}"/>.
         /// </summary>
         public T NewItem { get; }
         /// <summary>
@@ -41,7 +41,7 @@ namespace TheXDS.MCART.Types
         /// <see cref="AddingItemEventArgs{T}"/>.
         /// </summary>
         /// <param name="newItem">
-        /// Objeto a ser agregado al <see cref="ExtendedList{T}"/> que generó el 
+        /// Objeto a ser agregado al <see cref="ListEx{T}"/> que generó el 
         /// evento.
         /// </param>
         internal AddingItemEventArgs(T newItem) { NewItem = newItem; }

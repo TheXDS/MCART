@@ -1,5 +1,5 @@
 ﻿/*
-Timer.cs
+TimerEx.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -24,30 +24,36 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Timers;
+using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <inheritdoc />
     /// <summary>
-    /// Extensión de la clase <see cref="Timer" />. provee de toda
+    /// Extensión de la clase <see cref="TimerEx" />. provee de toda
     /// la funcionalidad previamente disponible, e incluye algunas extensiones
     /// útiles.
     /// </summary>
-    public class Timer : System.Timers.Timer
+    public class TimerEx : Timer, IDisposableEx
     {
         private void Tmr_Elapsed(object sender, ElapsedEventArgs e)
         {
             if (AutoReset) StartTime = DateTime.Now;
         }
+        private void TimerEx_Disposed(object sender, EventArgs e)
+        {
+            IsDisposed = true;
+        }
+
         /// <summary>
-        /// Indica el momento de inicio de este <see cref="Timer"/>.
+        /// Indica el momento de inicio de este <see cref="TimerEx"/>.
         /// </summary>
         public DateTime? StartTime { get; private set; }
 
         /// <summary>
         /// Indica la cantidad de tiempo disponible antes de cumplir con el 
         /// intervalo establecido en 
-        /// <see cref="System.Timers.Timer.Interval"/>.
+        /// <see cref="Timer.Interval"/>.
         /// </summary>
         public TimeSpan? TimeLeft
         {
@@ -57,22 +63,29 @@ namespace TheXDS.MCART.Types.Extensions
                 return null;
             }
         }
+
         /// <summary>
-        /// Obtiene o establece un valor que indica si este <see cref="Timer"/>
-        /// debe generar el evento <see cref="System.Timers.Timer.Elapsed"/>.
+        /// Obtiene o establece un valor que indica si este <see cref="TimerEx"/>
+        /// debe generar el evento <see cref="Timer.Elapsed"/>.
         /// </summary>
         public new bool Enabled
         {
-            get=> base.Enabled;
+            get => base.Enabled;
             set
             {
                 StartTime = value ? (DateTime?)DateTime.Now : null;
                 base.Enabled = value;
             }
         }
+
+        /// <summary>
+        ///     Obtiene un valor que indica si este objeto ha sido desechado.
+        /// </summary>
+        public bool IsDisposed { get; private set; }
+
         /// <summary>
         /// Empieza a generar el evento 
-        /// <see cref="System.Timers.Timer.Elapsed"/> al establecer 
+        /// <see cref="Timer.Elapsed"/> al establecer 
         /// <see cref="Enabled"/> en <see langword="true"/>.
         /// </summary>
         public new void Start()
@@ -80,23 +93,39 @@ namespace TheXDS.MCART.Types.Extensions
             StartTime = DateTime.Now;
             base.Start();
         }
+
         /// <summary>
-        /// Deja de generar el evento <see cref="System.Timers.Timer.Elapsed"/>
+        /// Deja de generar el evento <see cref="Timer.Elapsed"/>
         /// al establecer <see cref="Enabled"/> en <see langword="false"/>.
         /// </summary>
-        public new void Stop() { StartTime = null; base.Stop(); }
+        public new void Stop()
+        { 
+            StartTime = null;
+            base.Stop();
+        }
+
         /// <summary>
-        /// Reinicia este <see cref="Timer"/>.
+        /// Reinicia este <see cref="TimerEx"/>.
         /// </summary>
-        public void Reset() { Stop(); Start(); }
+        public void Reset()
+        { 
+            Stop();
+            Start();
+        }
+
         /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="Extensions.Timer" />.
+        /// Inicializa una nueva instancia de la clase <see cref="TimerEx" />.
         /// </summary>
-        public Timer() { Elapsed += Tmr_Elapsed; }
+        public TimerEx() 
+        { 
+            Elapsed += Tmr_Elapsed;
+            Disposed += TimerEx_Disposed;
+        }
+
         /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="Extensions.Timer" /> y 
+        /// Inicializa una nueva instancia de la clase <see cref="TimerEx" /> y 
         /// establece la propiedad <see cref="P:System.Timers.Timer.Interval" />
         /// en el número de milisegundos especificado.
         /// </summary>
@@ -104,6 +133,6 @@ namespace TheXDS.MCART.Types.Extensions
         /// Tiempo, en milisegundos, entre eventos. Este valor debe ser mayor
         /// que cero y menor que <see cref="F:System.Int32.MaxValue" />.
         /// </param>
-        public Timer(double interval) : base(interval) { }
+        public TimerEx(double interval) : base(interval) { }
     }
 }

@@ -38,6 +38,6 @@ namespace TheXDS.MCART.Types.Base
         /// <summary>
         ///     Obtiene un valor que indica si este objeto ha sido desechado.
         /// </summary>
-        bool Disposed { get; }
+        bool IsDisposed { get; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿/*
-TcpClient.cs
+TcpClientEx.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -25,21 +25,22 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #nullable enable
 
 using System.Net.Sockets;
+using TheXDS.MCART.Types.Base;
 
-namespace TheXDS.MCART.Types.Extensions
+namespace TheXDS.MCART.Types
 {
     /// <inheritdoc />
     /// <summary>
     ///     Extensión de la clase <see cref="TcpClient" />
     ///     que implementa observación del estado de deshecho del objeto.
     /// </summary>
-    public class ExtendedTcpClient : TcpClient
+    public class TcpClientEx : TcpClient, IDisposableEx
     {
         /// <summary>
         ///     Obtiene un valor que indica si la instancia actual ha sido
         ///     desechada.
         /// </summary>
-        public bool Disposed { get; private set; }
+        public bool IsDisposed { get; private set; }
 
         /// <inheritdoc />
         /// <summary>
@@ -55,8 +56,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         protected override void Dispose(bool disposing)
         {
-            if (Disposed) return;
-            Disposed = true;
+            if (IsDisposed) return;
+            IsDisposed = true;
             base.Dispose(disposing);
         }
     }

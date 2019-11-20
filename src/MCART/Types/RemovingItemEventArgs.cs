@@ -1,5 +1,5 @@
 ﻿/*
-Events.cs
+RemovingItemEventArgs.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,38 +22,31 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System.ComponentModel;
 
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    /// Contiene información para el evento <see cref="ExtendedList{T}.RemovingItem"/>.
+    ///     Contiene información para el evento 
+    ///     <see cref="ListEx{T}.RemovingItem"/>.
     /// </summary>
     /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
     public class RemovingItemEventArgs<T> : CancelEventArgs
     {
         /// <summary>
-        /// Objeto que será removido del <see cref="ExtendedList{T}"/> que generó el
-        /// evento.
+        ///     Objeto que será removido del <see cref="ListEx{T}"/> que generó
+        ///     el evento.
         /// </summary>
         public T RemovedItem { get; }
+
         /// <summary>
-        /// Índice del elemento que será removido del <see cref="ExtendedList{T}"/> que
-        /// generó el evento.
+        ///     Índice del elemento que será removido del
+        ///     <see cref="ListEx{T}"/> que generó el evento.
         /// </summary>
         public int Index { get; }
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="RemovingItemEventArgs{T}"/>.
-        /// </summary>
-        /// <param name="index">
-        /// Índice del elemento que será removido del <see cref="ExtendedList{T}"/> que
-        /// generó el evento.
-        /// </param>
-        /// <param name="removedItem">
-        /// Objeto que será removido del <see cref="ExtendedList{T}"/> que generó el
-        /// evento.
-        /// </param>
+
         internal RemovingItemEventArgs(int index, T removedItem)
         {
             RemovedItem = removedItem;

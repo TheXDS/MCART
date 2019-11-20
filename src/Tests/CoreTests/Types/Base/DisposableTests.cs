@@ -67,7 +67,7 @@ namespace TheXDS.MCART.Tests.Types.Base
             {
                 Assert.False(m1.DidOnDisposeRun);
             }
-            Assert.True(m1.Disposed);
+            Assert.True(m1.IsDisposed);
             Assert.True(m1.DidOnDisposeRun);
 
         }
@@ -78,18 +78,18 @@ namespace TheXDS.MCART.Tests.Types.Base
             var m1 = new DisposableOne();
             using (m1)
             {
-                Assert.False(m1.Disposed);
+                Assert.False(m1.IsDisposed);
                 Assert.False(m1.ShouldFinalize);
             }
-            Assert.True(m1.Disposed);
+            Assert.True(m1.IsDisposed);
 
             var m2 = new DisposableTwo();
             using (m2)
             {
-                Assert.False(m2.Disposed);
+                Assert.False(m2.IsDisposed);
                 Assert.True(m2.ShouldFinalize);
             }
-            Assert.True(m2.Disposed);
+            Assert.True(m2.IsDisposed);
         }
     }
 }

@@ -2673,7 +2673,7 @@ namespace System.Windows.Converters
                 SolidColorBrush b => b.Color.ToMcartColor(),
                 GradientBrush g => g.Blend(),
                 Drawing.Color d => (TheXDS.MCART.Types.Color)d,
-                int i => new TheXDS.MCART.Types.Color.ABGR32().From(i),
+                int i => new TheXDS.MCART.Types.ABGR32().From(i),
                 _ => default
             };
         }

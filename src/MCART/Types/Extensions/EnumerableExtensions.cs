@@ -34,8 +34,10 @@ using TheXDS.MCART.Attributes;
 
 namespace TheXDS.MCART.Types.Extensions
 {
+
     /// <summary>
-    ///     Extensiones para todos los elementos de tipo <see cref="IEnumerable{T}" />.
+    ///     Extensiones para todos los elementos de tipo
+    ///     <see cref="IEnumerable{T}" />.
     /// </summary>
     public static class EnumerableExtensions
     {
@@ -434,17 +436,17 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Crea un <see cref="ExtendedList{T}"/> a partir de un <see cref="IEnumerable{T}"/>.
+        ///     Crea un <see cref="ListEx{T}"/> a partir de un <see cref="IEnumerable{T}"/>.
         /// </summary>
         /// <param name="collection">Colección a convertir</param>
         /// <typeparam name="T">Tipo de la colección.</typeparam>
         /// <returns>
-        ///     Un <see cref="ExtendedList{T}" /> extendido del espacio de nombres
+        ///     Un <see cref="ListEx{T}" /> extendido del espacio de nombres
         ///     <see cref="Extensions" />.
         /// </returns>
-        public static ExtendedList<T> ToExtendedList<T>(this IEnumerable<T> collection)
+        public static ListEx<T> ToExtendedList<T>(this IEnumerable<T> collection)
         {
-            return new ExtendedList<T>(collection);
+            return new ListEx<T>(collection);
         }
 
         /// <summary>
@@ -461,14 +463,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Crea un <see cref="ExtendedList{T}"/> a partir de un <see cref="IEnumerable{T}"/> de forma asíncrona.
+        ///     Crea un <see cref="ListEx{T}"/> a partir de un <see cref="IEnumerable{T}"/> de forma asíncrona.
         /// </summary>
         /// <typeparam name="T">Tipo de la colección.</typeparam>
         /// <param name="enumerable"></param>
         /// <returns>
         /// Una tarea que puede utilizarse para monitorear la operación.
         /// </returns>
-        public static async Task<ExtendedList<T>> ToExtendedListAsync<T>(this IEnumerable<T> enumerable)
+        public static async Task<ListEx<T>> ToExtendedListAsync<T>(this IEnumerable<T> enumerable)
         {
             return await Task.Run(enumerable.ToExtendedList);
         }

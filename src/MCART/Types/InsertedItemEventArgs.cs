@@ -1,5 +1,5 @@
 ﻿/*
-Events.cs
+InsertedItemEventArgs.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,34 +22,41 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#nullable enable
+
 using System;
 
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    /// Contiene información para el evento <see cref="ExtendedList{T}.InsertedItem"/>.
+    ///     Contiene información para el evento 
+    ///     <see cref="ListEx{T}.InsertedItem"/>.
     /// </summary>
     /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
     public class InsertedItemEventArgs<T> : EventArgs
     {
         /// <summary>
-        /// Convierte implícitamente un <see cref="InsertingItemEventArgs{T}"/>
-        /// en un <see cref="InsertedItemEventArgs{T}"/>.
+        ///     Convierte implícitamente un 
+        ///     <see cref="InsertingItemEventArgs{T}"/> en un
+        ///     <see cref="InsertedItemEventArgs{T}"/>.
         /// </summary>
         /// <param name="from">
         /// <see cref="InsertingItemEventArgs{T}"/> a convertir.
         /// </param>
         public static implicit operator InsertedItemEventArgs<T>(InsertingItemEventArgs<T> from) => new InsertedItemEventArgs<T>(from.Index, from.InsertedItem);
+        
         /// <summary>
-        /// Elemento que fue insertado en el <see cref="ExtendedList{T}"/> que generó
-        /// el evento.
+        ///     Elemento que fue insertado en el <see cref="ListEx{T}"/> que
+        ///     generó el evento.
         /// </summary>
         public T InsertedItem { get; }
+        
         /// <summary>
-        /// Índice del objeto dentro del <see cref="ExtendedList{T}"/> que generó el
-        /// evento.
+        ///     Índice del objeto dentro del <see cref="ListEx{T}"/> que generó
+        ///     el evento.
         /// </summary>
         public int Index { get; }
+
         internal InsertedItemEventArgs(int index, T insertedItem)
         {
             Index = index;

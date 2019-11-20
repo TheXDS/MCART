@@ -606,7 +606,7 @@ namespace TheXDS.MCART.Types.Extensions
             var lastCheckedHeadIndex = 0;
             var lastCheckedTailIndex = 0;
             var reversedWordIndex = 0;
-            var reversedPatterns = new ExtendedList<char[]>();
+            var reversedPatterns = new ListEx<char[]>();
 
             if (text == null || wildcardString == null) return false;
 

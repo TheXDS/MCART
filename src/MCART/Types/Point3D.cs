@@ -63,7 +63,8 @@ namespace TheXDS.MCART.Types
         public static readonly Point3D Origin = new Point3D(0, 0, 0);
 
         /// <summary>
-        ///     Obtiene un punto en el orígen. Este campo es de solo lectura.
+        ///     Obtiene un punto en el orígen bidimensional. Este campo es de
+        ///     solo lectura.
         /// </summary>
         /// <value>
         ///     Un <see cref="Point3D" /> con sus coordenadas en el orígen 
@@ -89,6 +90,7 @@ namespace TheXDS.MCART.Types
             switch (value)
             {
                 case nameof(Nowhere):
+                case "":
                 case null:
                     point = Nowhere;
                     break;
