@@ -28,7 +28,7 @@ using System.Linq;
 using Xunit;
 using static TheXDS.MCART.Math.Series;
 
-namespace Common.Math
+namespace TheXDS.MCART.Tests.Math
 {
     public class SeriesTests
     {

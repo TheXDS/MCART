@@ -27,10 +27,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using TheXDS.MCART.Math;
 using Xunit;
 
-#if FloatDoubleSpecial
-
-#endif
-
 namespace TheXDS.MCART.Tests.Math
 {
     public class MathTests

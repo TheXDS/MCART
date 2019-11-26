@@ -24,6 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma warning disable CS1591
 
+using TheXDS.MCART.Math;
 using Xunit;
 using static TheXDS.MCART.Math.Algebra;
 

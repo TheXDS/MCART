@@ -50,7 +50,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>
         ///     Una cadena de texto aleatorio con la longitud especificada.
         /// </returns>
-        public static string RndText(this Random r, int length)
+        public static string RndText(this Random r, in int length)
         {
             var x = string.Empty;
             while (x.Length < length) x += Text[r.Next(0, Text.Length)];
@@ -71,7 +71,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Un número entero aleatorio que se encuentra dentro del rango
         ///     especificado.
         /// </returns>
-        public static int Next(this Random r, Range<int> range)
+        public static int Next(this Random r, in Range<int> range)
         {
             return r.Next(range.Minimum, range.Maximum);
         }
