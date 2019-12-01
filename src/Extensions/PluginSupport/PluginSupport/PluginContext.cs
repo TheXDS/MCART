@@ -32,6 +32,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using System.Threading.Tasks;
+using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.PluginSupport
 {
@@ -104,7 +105,7 @@ namespace TheXDS.MCART.PluginSupport
     ///     Define un contexto que permite alojar plugins cargables desde
     ///     ensamblados. Esta clase no puede heredarse.
     /// </summary>
-    public sealed class PluginAssembly : IDisposable
+    public sealed class PluginAssembly : Disposable
     {
         private class PluginAssemblyLoadContext : AssemblyLoadContext
         {
@@ -150,14 +151,9 @@ namespace TheXDS.MCART.PluginSupport
 
 
 
-        public bool Disposed { get; private set; }
-
-        public void Dispose()
+        protected override void OnDispose()
         {
-            if (Disposed) return;
-            Disposed = true;
-            _context.Unload();
+            _context.Unload();            
         }
-    }
-    
+    }    
 }
