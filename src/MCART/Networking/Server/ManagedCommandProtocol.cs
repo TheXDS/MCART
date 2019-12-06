@@ -1004,6 +1004,12 @@ namespace TheXDS.MCART.Networking.Server
         /// </summary>
         public delegate void CommandCallback(Request request);
 
+        /// <summary>
+        ///     Describe la firma de un comando del protocolo que puede
+        ///     ejecutarse asíncronamente.
+        /// </summary>
+        public delegate Task AsyncCommandCallback(Request request);
+
         private static readonly Func<TResult, byte[]> _toResponse;
         private static readonly TResult? _errResponse;
         private static readonly TResult? _notMappedResponse;
@@ -1127,6 +1133,26 @@ namespace TheXDS.MCART.Networking.Server
                 throw new DataAlreadyExistsException();
             }
             _commands.Add(command, action);
+        }
+
+        /// <summary>
+        ///     Conecta manualmente un comando con un
+        ///     <see cref="AsyncCommandCallback"/> de atención.
+        /// </summary>
+        /// <param name="command">
+        ///     Comando a conectar.
+        /// </param>
+        /// <param name="action">
+        ///     Acción asíncrona a ejecutar al recibir el comando.
+        /// </param>
+        public void WireUp(TCommand command, AsyncCommandCallback action)
+        {
+            if (_commands.ContainsKey(command))
+            {
+                if (SkipMapped) return;
+                throw new DataAlreadyExistsException();
+            }
+            _commands.Add(command, async o => await action(o));
         }
 
         /// <summary>

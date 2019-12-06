@@ -183,31 +183,18 @@ namespace TheXDS.MCART.Networking.Server
     {
         private readonly CancellationTokenSource _cancellation = new CancellationTokenSource();
 
-        /// <summary>
-        ///     Lista de clientes conectados.
-        /// </summary>
         private readonly HashSet<Client> _clients = new HashSet<Client>();
 
-        /// <summary>
-        ///     Lista de hilos atendiendo a clientes.
-        /// </summary>
         private readonly HashSet<Task> _clientThreads = new HashSet<Task>();
 
-        /// <summary>
-        ///     Escucha de conexiones entrantes.
-        /// </summary>
         private readonly TcpListener _listener;
 
-        /// <summary>
-        ///     campo que determina si el servidor está escuchando conexiones y
-        ///     sirviendo a clientes (vivo)
-        /// </summary>
-        private bool _isAlive;
+        private Task? _aliveTask;
 
         private void Kill()
         {
             _listener.Stop();
-            _isAlive = false;
+            _aliveTask = null;
             _cancellation.Cancel();
             ServerStopped?.Invoke(this, DateTime.Now);
         }
@@ -236,11 +223,11 @@ namespace TheXDS.MCART.Networking.Server
         /// <value><see langword="true" /> si está vivo; sino, <see langword="false" />.</value>
         public bool IsAlive
         {
-            get => _isAlive;
+            get => _aliveTask is { };
             set
             {
-                if (!_isAlive && value) Start();
-                if (_isAlive && !value) Stop();
+                if (_aliveTask is null && value) Start();
+                if (IsAlive && !value) Stop();
             }
         }
 
@@ -325,11 +312,6 @@ namespace TheXDS.MCART.Networking.Server
             }
         }
 
-        /// <summary>
-        ///     Atiende al cliente.
-        /// </summary>
-        /// <returns>Un <see cref="Task" /> que atiende al cliente.</returns>
-        /// <param name="client">Cliente a atender.</param>
         private void AttendClient(Client client)
         {
             ClientConnected?.Invoke(this, client);
@@ -380,12 +362,9 @@ namespace TheXDS.MCART.Networking.Server
             if (!(client is null) && _clients.Contains(client)) _clients.Remove(client);
         }
 
-        /// <summary>
-        ///     Hilo de escucha y atención del servidor.
-        /// </summary>
-        private async void BeAlive()
+        private async Task BeAlive()
         {
-            while (_isAlive)
+            while (IsAlive)
             {
                 var c = await GetClient();
                 if (c is null) continue;
@@ -457,23 +436,14 @@ namespace TheXDS.MCART.Networking.Server
         /// <summary>
         ///     Crea un hilo de ejecución que da servicio a los clientes
         /// </summary>
-        public void Start()
+        public Task Start()
         {
-            if (_isAlive)
-            {
-#if PreferExceptions
-				throw new InvalidOperationException(St.XAlreadyStarted(St.TheSrv));
-#else
-                return;
-#endif
-            }
-
-            _isAlive = true;
+            if (IsAlive) return _aliveTask!;            
             _listener.Start();
             ServerStarted?.Invoke(this, DateTime.Now);
-            BeAlive();
+            return _aliveTask = BeAlive();
         }
-
+        
         /// <summary>
         ///     Detiene al servidor.
         /// </summary>
