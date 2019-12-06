@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -295,9 +293,7 @@ namespace TheXDS.MCART.Networking.Client
         {
             var d = MkResp(command, out var guid);
             var waiting = _cmdWaiters.Push(new ManualResetEventSlim());
-#pragma warning disable CS8653
-            T retVal = default;
-#pragma warning restore CS8653
+            T retVal = default!;
             EnqueueRequest(guid, (r, br) =>
             {
                 retVal = callback(r, br);

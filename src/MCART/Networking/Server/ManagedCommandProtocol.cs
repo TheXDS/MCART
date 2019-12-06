@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -1174,9 +1172,6 @@ namespace TheXDS.MCART.Networking.Server
             WireUp(command, request => 
             {
                 request.Respond(requestResult);
-                //var ms = request.Reader.BaseStream as MemoryStream ?? throw new TamperException();
-                //var toEnd = (int)(ms.Length - ms.Position);
-                //var data = request.Reader.ReadBytes(toEnd);
                 var data = request.GetPayload();
                 request.Broadcast(relayResult, data);
             });

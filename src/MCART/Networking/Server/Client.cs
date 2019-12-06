@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -209,7 +207,7 @@ namespace TheXDS.MCART.Networking.Server
             var ns = NwStream();
             if (ns is null)
 #if PreferExceptions
-            				throw new ArgumentNullException();
+            	throw new ArgumentNullException();
 #else
                 return Array.Empty<byte>();
 #endif
@@ -357,12 +355,11 @@ namespace TheXDS.MCART.Networking.Server
     /// </typeparam>
     public class Client<T> : Client
     {
-#nullable disable
         /// <summary>
         ///     Contiene un objeto de estado personalizado asociado a esta
         ///     instancia de la clase <see cref="Client{T}" />.
         /// </summary>
-        public T ClientData { get; set; }
+        public T ClientData { get; set; } = default!;
 
         /// <inheritdoc />
         /// <summary>
@@ -375,6 +372,5 @@ namespace TheXDS.MCART.Networking.Server
         public Client(TcpClient connection) : base(connection)
         {
         }
-#nullable enable
     }
 }

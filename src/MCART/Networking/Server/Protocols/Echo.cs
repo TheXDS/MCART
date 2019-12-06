@@ -24,8 +24,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 #if ExtrasBuiltIn
 
-using System.Diagnostics.CodeAnalysis;
-
 namespace TheXDS.MCART.Networking.Server.Protocols
 {
     /// <inheritdoc />
@@ -36,7 +34,6 @@ namespace TheXDS.MCART.Networking.Server.Protocols
     ///     Este protocolo utiliza TCP/IP, no IGMP.
     /// </remarks>
     [Port(7)]
-    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class Echo : SimpleProtocol
     {
         /// <inheritdoc />

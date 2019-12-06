@@ -22,14 +22,11 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Threading.Tasks;
-using TheXDS.MCART.Annotations;
 
 namespace TheXDS.MCART.Networking.Client
 {
@@ -79,12 +76,7 @@ namespace TheXDS.MCART.Networking.Client
 #if PreferExceptions
                 throw new ArgumentNullException();
 #else
-#if Lite
-                //HACK: Debido a quirks inusuales del framework, la propiedad Task.CompletedTask no es pública.
-                return Task.Run(() => { });
-#else
                 return Task.CompletedTask;
-#endif
 #endif
             var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
             return ns.WriteAsync(d, 0, d.Length);

@@ -25,7 +25,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #if ExtrasBuiltIn
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace TheXDS.MCART.Networking.Server.Protocols
 {
@@ -35,7 +34,6 @@ namespace TheXDS.MCART.Networking.Server.Protocols
     ///     una cadena ASCII con la fecha y hora actuales.
     /// </summary>
     [Port(13)]
-    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class Daytime : SimpleProtocol
     {
         /// <inheritdoc />
@@ -51,5 +49,4 @@ namespace TheXDS.MCART.Networking.Server.Protocols
         }
     }
 }
-
 #endif

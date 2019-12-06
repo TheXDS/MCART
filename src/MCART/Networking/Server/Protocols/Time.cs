@@ -25,7 +25,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #if ExtrasBuiltIn
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Net.Sockets;
 using TheXDS.MCART.Types.Extensions;
 
@@ -36,7 +35,6 @@ namespace TheXDS.MCART.Networking.Server.Protocols
     ///     Protocolo de sincronización de hora basado en el estándar RFC 868.
     /// </summary>
     [Port(37)]
-    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class Time : IProtocol
     {
         /// <inheritdoc />
@@ -94,7 +92,7 @@ namespace TheXDS.MCART.Networking.Server.Protocols
         /// <returns>
         ///     Un nuevo <see cref="Client" />.
         /// </returns>
-        public Client CreateClient(System.Net.Sockets.TcpClient tcpClient)
+        public Client CreateClient(TcpClient tcpClient)
         {
             return new Client(tcpClient);
         }

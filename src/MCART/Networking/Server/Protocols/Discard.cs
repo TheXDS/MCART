@@ -24,8 +24,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 #if ExtrasBuiltIn
 
-using System.Diagnostics.CodeAnalysis;
-
 namespace TheXDS.MCART.Networking.Server.Protocols
 {
     /// <inheritdoc />
@@ -34,7 +32,6 @@ namespace TheXDS.MCART.Networking.Server.Protocols
     ///     RFC 863.
     /// </summary>
     [Port(9)]
-    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class Discard : SimpleProtocol
     {
         /// <inheritdoc />
