@@ -1,5 +1,5 @@
 ﻿/*
-CmdLineParser.cs
+Argument.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -21,8 +21,6 @@ Public License for more details.
 You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
-
-#nullable enable
 
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
@@ -61,8 +59,6 @@ namespace TheXDS.MCART.Component
         ///     Obtiene el tipo de este argumento.
         /// </summary>
         public virtual ValueKind Kind => ValueKind.Flag;
-
-
 
         /// <summary>
         ///     Obtiene el nombre largo de este argumento.

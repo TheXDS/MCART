@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 
 namespace TheXDS.MCART.Math
@@ -31,7 +29,7 @@ namespace TheXDS.MCART.Math
     /// <summary>
     ///     Contiene métodos de manipulación matemática estándar.
     /// </summary>
-    public static class Common
+    public static partial class Common
     {
         /// <summary>
         ///     Establece límites de sobreflujo para evaluar una expresión.
@@ -145,7 +143,6 @@ namespace TheXDS.MCART.Math
         {
             return (float) Clamp((double) expression, min, max);
         }
-
 #else
         /// <summary>
         ///     Establece límites de sobreflujo para evaluar una expresión.
@@ -330,72 +327,6 @@ namespace TheXDS.MCART.Math
             if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
             return expression;
         }
-
-#if !CLSCompliance
-        /// <summary>
-        ///     Establece puntos de sobreflujo intencional para evaluar una expresión.
-        /// </summary>
-        /// <param name="expression">Expresión a evaluar.</param>
-        /// <param name="max">Límite superior de salida, inclusive.</param>
-        /// <param name="min">Límite inferior de salida, inclusive.</param>
-        /// <returns>
-        ///     El valor evaluado que se encuentra dentro del rango especificado.
-        /// </returns>
-        public static int Wrap(this in sbyte expression, in sbyte min, in sbyte max)
-        {
-            if (expression.CompareTo(max) > 0) return (expression - (1 + max - min)).Wrap(min, max);
-            if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
-            return expression;
-        }
-
-        /// <summary>
-        ///     Establece puntos de sobreflujo intencional para evaluar una expresión.
-        /// </summary>
-        /// <param name="expression">Expresión a evaluar.</param>
-        /// <param name="max">Límite superior de salida, inclusive.</param>
-        /// <param name="min">Límite inferior de salida, inclusive.</param>
-        /// <returns>
-        ///     El valor evaluado que se encuentra dentro del rango especificado.
-        /// </returns>
-        public static int Wrap(this in ushort expression, in ushort min, in ushort max)
-        {
-            if (expression.CompareTo(max) > 0) return (expression - (1 + max - min)).Wrap(min, max);
-            if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
-            return expression;
-        }
-
-        /// <summary>
-        ///     Establece puntos de sobreflujo intencional para evaluar una expresión.
-        /// </summary>
-        /// <param name="expression">Expresión a evaluar.</param>
-        /// <param name="max">Límite superior de salida, inclusive.</param>
-        /// <param name="min">Límite inferior de salida, inclusive.</param>
-        /// <returns>
-        ///     El valor evaluado que se encuentra dentro del rango especificado.
-        /// </returns>
-        public static uint Wrap(this in uint expression, in uint min, in uint max)
-        {
-            if (expression.CompareTo(max) > 0) return (expression - (1 + max - min)).Wrap(min, max);
-            if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
-            return expression;
-        }
-
-        /// <summary>
-        ///     Establece puntos de sobreflujo intencional para evaluar una expresión.
-        /// </summary>
-        /// <param name="expression">Expresión a evaluar.</param>
-        /// <param name="max">Límite superior de salida, inclusive.</param>
-        /// <param name="min">Límite inferior de salida, inclusive.</param>
-        /// <returns>
-        ///     El valor evaluado que se encuentra dentro del rango especificado.
-        /// </returns>
-        public static ulong Wrap(this in ulong expression, in ulong min, in ulong max)
-        {
-            if (expression.CompareTo(max) > 0) return (expression - (1 + max - min)).Wrap(min, max);
-            if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
-            return expression;
-        }        
-#endif
 #endif
     }
 }

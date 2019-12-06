@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Runtime.Serialization;
 using TheXDS.MCART.Resources;
@@ -47,6 +45,7 @@ namespace TheXDS.MCART.Exceptions
         ///     <see cref="ClassNotInstantiableException" />.
         /// </summary>
         public ClassNotInstantiableException() : base(DefaultMessage()) { }
+
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="ClassNotInstantiableException" />.
@@ -55,6 +54,7 @@ namespace TheXDS.MCART.Exceptions
         ///     Tipo que es la causa de esta excepción.
         /// </param>
         public ClassNotInstantiableException(Type? offendingType) : base(DefaultMessage(offendingType), offendingType) { }
+
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="ClassNotInstantiableException" />.
@@ -63,6 +63,7 @@ namespace TheXDS.MCART.Exceptions
         ///     Un <see cref="string" /> que describe a la excepción.
         /// </param>
         public ClassNotInstantiableException(string message) : base(message) { }
+
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="ClassNotInstantiableException" />.
@@ -74,6 +75,7 @@ namespace TheXDS.MCART.Exceptions
         ///     Tipo que es la causa de esta excepción.
         /// </param>
         public ClassNotInstantiableException(string message, Type? offendingType) : base(message, offendingType) { }
+
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="ClassNotInstantiableException" />.
@@ -82,6 +84,7 @@ namespace TheXDS.MCART.Exceptions
         ///     <see cref="Exception" /> secundaria producida por esta excepción.
         /// </param>
         public ClassNotInstantiableException(Exception inner) : base(DefaultMessage(), inner) { }
+
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="ClassNotInstantiableException" />.
@@ -93,6 +96,7 @@ namespace TheXDS.MCART.Exceptions
         ///     Tipo que es la causa de esta excepción.
         /// </param>
         public ClassNotInstantiableException(Exception inner, Type? offendingType) : base(DefaultMessage(offendingType),inner,offendingType) { }
+
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="ClassNotInstantiableException" />.
@@ -104,6 +108,7 @@ namespace TheXDS.MCART.Exceptions
         ///     <see cref="Exception" /> secundaria producida por esta excepción.
         /// </param>
         public ClassNotInstantiableException(string message, Exception inner) : base(message,inner) { }
+
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
         ///     <see cref="ClassNotInstantiableException" />.
@@ -118,6 +123,7 @@ namespace TheXDS.MCART.Exceptions
         ///     Tipo que es la causa de esta excepción.
         /// </param>
         public ClassNotInstantiableException(string message, Exception inner, Type? offendingType) : base(message,inner,offendingType) { }
+
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
@@ -132,8 +138,6 @@ namespace TheXDS.MCART.Exceptions
         ///     serializada del objeto acerca de la excepción que está siendo
         ///     lanzada.
         /// </param>
-        protected ClassNotInstantiableException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
+        protected ClassNotInstantiableException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 }

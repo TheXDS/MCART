@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -35,7 +33,7 @@ namespace TheXDS.MCART.Math
     /// <summary>
     ///     Contiene series, operaciones, ecuaciones y constantes matemáticas adicionales.
     /// </summary>
-    public static class Algebra
+    public static partial class Algebra
     {
         /// <summary>
         ///     Comprueba si un número es primo mediante prueba y error.
@@ -65,16 +63,7 @@ namespace TheXDS.MCART.Math
         {
             return ((long) number).IsPrime();
         }
-#if !CLSCompliance
-        /// <summary>
-        /// Comprueba si un número es primo.
-        /// </summary>
-        /// <returns>
-        /// <see langword="true"/>si el número es primo, <see langword="false"/> en caso contrario.
-        /// </returns>
-        /// <param name="number">Número a comprobar.</param>
-        [Thunk] public static bool IsPrime(this in uint number) => ((long)number).IsPrime();
-#endif
+
         /// <summary>
         ///     Comprueba si un número es primo.
         /// </summary>
@@ -87,25 +76,7 @@ namespace TheXDS.MCART.Math
         {
             return ((long) number).IsPrime();
         }
-#if !CLSCompliance
-        /// <summary>
-        /// Comprueba si un número es primo.
-        /// </summary>
-        /// <returns>
-        /// <see langword="true"/>si el número es primo, <see langword="false"/> en caso contrario.
-        /// </returns>
-        /// <param name="number">Número a comprobar.</param>
-        
-        [Thunk] public static bool IsPrime(this in ushort number) => ((long)number).IsPrime();
-        /// <summary>
-        /// Comprueba si un número es primo.
-        /// </summary>
-        /// <returns>
-        /// <see langword="true"/>si el número es primo, <see langword="false"/> en caso contrario.
-        /// </returns>
-        /// <param name="number">Número a comprobar.</param>
-        [Thunk] public static bool IsPrime(this in sbyte number) => ((long)number).IsPrime();
-#endif
+
         /// <summary>
         ///     Comprueba si un número es primo.
         /// </summary>
@@ -170,48 +141,6 @@ namespace TheXDS.MCART.Math
         ///     <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool IsTwoPow(in long value) => (value & ~1).BitCount() == 1;
-
-#if !CLSCompliance
-        /// <summary>
-        ///     Determina si el valor es una potencia de 2.
-        /// </summary>
-        /// <param name="value">Valor a comprobar.</param>
-        /// <returns>
-        ///     <see langword="true"/> si el valor es una potencia de 2,
-        ///     <see langword="false"/> en caso contrario.
-        /// </returns>
-        public static bool IsTwoPow(in sbyte value) => (value & ~1).BitCount() == 1;
-
-        /// <summary>
-        ///     Determina si el valor es una potencia de 2.
-        /// </summary>
-        /// <param name="value">Valor a comprobar.</param>
-        /// <returns>
-        ///     <see langword="true"/> si el valor es una potencia de 2,
-        ///     <see langword="false"/> en caso contrario.
-        /// </returns>
-        public static bool IsTwoPow(in ushort value) => (value & ~1).BitCount() == 1;
-
-        /// <summary>
-        ///     Determina si el valor es una potencia de 2.
-        /// </summary>
-        /// <param name="value">Valor a comprobar.</param>
-        /// <returns>
-        ///     <see langword="true"/> si el valor es una potencia de 2,
-        ///     <see langword="false"/> en caso contrario.
-        /// </returns>
-        public static bool IsTwoPow(in uint value) => (value & ~1).BitCount() == 1;
-
-        /// <summary>
-        ///     Determina si el valor es una potencia de 2.
-        /// </summary>
-        /// <param name="value">Valor a comprobar.</param>
-        /// <returns>
-        ///     <see langword="true"/> si el valor es una potencia de 2,
-        ///     <see langword="false"/> en caso contrario.
-        /// </returns>
-        public static bool IsTwoPow(in ulong value) => (value & ~1UL).BitCount() == 1;
-#endif
 
         /// <summary>
         ///     Devuelve el primer múltiplo de <paramref name="multiplier" /> que es mayor que <paramref name="value" />

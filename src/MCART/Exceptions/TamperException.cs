@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Runtime.Serialization;
 using TheXDS.MCART.Resources;
@@ -32,21 +30,32 @@ namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    /// Se produce cuando una función soportada detecta una de las siguientes situaciones:
-    /// <list type="bullet">
-    /// <item>
-    /// <description>Valores de retorno alterados inesperadamente.</description> 
-    /// </item>
-    /// <item>
-    /// <description>Valor de retorno fuera del rango conocido esperado de una función.</description>
-    /// </item>
-    /// <item>
-    /// <description>Corrupción de memoria no capturada por CLR.</description>
-    /// </item>
-    /// <item>
-    /// <description>Modificación externa de valores internos protegidos de la aplicación.</description>
-    /// </item>
-    /// </list>
+    ///     Se produce cuando una función soportada detecta una de las 
+    ///     siguientes situaciones:
+    ///     <list type="bullet">
+    ///         <item>
+    ///             <description>
+    ///                 Valores de retorno alterados inesperadamente.
+    ///             </description> 
+    ///         </item>
+    ///         <item>
+    ///             <description>
+    ///                 Valor de retorno fuera del rango conocido esperado de
+    ///                 una función.
+    ///             </description>
+    ///         </item>
+    ///         <item>
+    ///             <description>
+    ///                 Corrupción de memoria no capturada por CLR.
+    ///             </description>
+    ///         </item>
+    ///         <item>
+    ///             <description>
+    ///                 Modificación externa de valores internos protegidos de
+    ///                 la aplicación.
+    ///             </description>
+    ///         </item>
+    ///     </list>
     /// </summary>
     [Serializable]
     public class TamperException : Exception
@@ -59,6 +68,7 @@ namespace TheXDS.MCART.Exceptions
         public TamperException():base(Strings.TamperDetected)
         {
         }
+
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
@@ -70,6 +80,7 @@ namespace TheXDS.MCART.Exceptions
         public TamperException(string message) : base(message)
         {
         }
+
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
@@ -81,6 +92,7 @@ namespace TheXDS.MCART.Exceptions
         public TamperException(Exception inner) : this(Strings.TamperDetected, inner)
         {
         }
+
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase
@@ -95,6 +107,7 @@ namespace TheXDS.MCART.Exceptions
         public TamperException(string message, Exception inner) : base(message, inner)
         {
         }
+
         /// <inheritdoc />
         /// <summary>
         ///     Inicializa una nueva instancia de la clase

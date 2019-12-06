@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Net;
 using System.Runtime.Serialization;
@@ -106,8 +104,7 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="offendingEndPoint">End point.</param>
         /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
         /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
-        public CouldNotConnectException(IPEndPoint offendingEndPoint, string message, Exception inner) : base(message,
-            inner)
+        public CouldNotConnectException(IPEndPoint offendingEndPoint, string message, Exception inner) : base(message, inner)
         {
             OffendingEndPoint = offendingEndPoint;
         }

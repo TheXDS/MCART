@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,8 +31,6 @@ using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
 namespace TheXDS.MCART.Component
 {
-
-
     /// <summary>
     ///     Clase que permite administrar y exponer de forma intuitiva las
     ///     opciones de línea de comandos con las que se inicia una aplicación.

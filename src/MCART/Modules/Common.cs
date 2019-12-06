@@ -29,8 +29,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -56,7 +54,6 @@ namespace TheXDS.MCART
     ///     lo que para ser llamadas únicamente es necesario importar el espacio de
     ///     nombres <see cref="MCART" /> y utilizar sintaxis de instancia.
     /// </remarks>
-    [SuppressMessage("ReSharper", "PartialTypeWithSinglePart")]
     public static partial class Common
     {        
         /// <summary>

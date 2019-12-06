@@ -22,16 +22,10 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
-using System;
-using System.Reflection;
+using System.Text;
 using TheXDS.MCART.Component;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Types.Extensions;
-using System.Collections.Generic;
-using System.Text;
-using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using Ist = TheXDS.MCART.Resources.InternalStrings;
 
 namespace TheXDS.MCART.Cmd.Base

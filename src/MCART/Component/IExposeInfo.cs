@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,7 +62,6 @@ namespace TheXDS.MCART.Component
         /// </summary>
         IEnumerable<License>? ThirdPartyLicenses { get; }
 
-#if NETCOREAPP3_0 || NETSTANDARD2_1
         /// <summary>
         ///     Obtiene la versión informacional del <see cref="IExposeInfo"/>.
         /// </summary>
@@ -81,23 +78,5 @@ namespace TheXDS.MCART.Component
         ///     contiene información de licencias de terceros.
         /// </summary>
         bool Has3rdPartyLicense => ThirdPartyLicenses?.Any() ?? false;
-#else
-        /// <summary>
-        ///     Obtiene la versión informacional del <see cref="IExposeInfo"/>.
-        /// </summary>
-        string? InformationalVersion { get; }
-
-        /// <summary>
-        ///     Obtiene un valor que indica si este <see cref="IExposeInfo"/>
-        ///     contiene información de licencia.
-        /// </summary>
-        bool HasLicense { get; }
-        
-        /// <summary>
-        ///     Obtiene un valor que indica si este <see cref="IExposeInfo"/>
-        ///     contiene información de licencias de terceros.
-        /// </summary>
-        bool Has3rdPartyLicense { get; }
-#endif
     }
 }
