@@ -1,5 +1,5 @@
 ﻿/*
-MemberInfoExtensions.cs
+NameAttribute.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,31 +22,31 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Reflection;
-using TheXDS.MCART.Attributes;
-
-namespace TheXDS.MCART.Types.Extensions
+namespace TheXDS.MCART.Networking.Mrpc
 {
     /// <summary>
-    ///     Extensiones varias para objetos <see cref="MemberInfo" />.
+    ///     Define una serie de miembros a implementar por un tipo que provea
+    ///     de un túnel de comunicación entre la aplicación local y un servicio
+    ///     remoto de Mrpc.
     /// </summary>
-    public static class MemberInfoExtensions
+    public interface IMrpcChannel
     {
         /// <summary>
-        ///     Obtiene un nombre personalizado para un miembro.
+        ///     Envía los datos a un servicio remoto.
         /// </summary>
-        /// <param name="member">
-        ///     <see cref="MemberInfo" /> del cual obtener el nombre.
+        /// <param name="payload">
+        ///     Paquete de bytes a enviar.
         /// </param>
         /// <returns>
-        ///     Un nombre amigable para <paramref name="member" />, o el nombre
-        ///     definido para <paramref name="member" /> si no se ha definido
-        ///     un nombre amigable por medio del atributo
-        ///     <see cref="NameAttribute"/>.
+        ///     <see langword="true"/> si los datos se enviaron correctamente,
+        ///     <see langword="false"/> en caso contrario.
         /// </returns>
-        public static string NameOf(this MemberInfo member)
-        {
-            return member.GetAttr<NameAttribute>()?.Value ?? member.Name;
-        }
+        bool Send(byte[] payload);
+
+        /// <summary>
+        ///     Obtiene una referencia al objetivo de mensajes que está a la
+        ///     espera de datos provenientes del servicio remoto.
+        /// </summary>
+        IMessageTarget MessageTarget { get; internal set; }
     }
 }

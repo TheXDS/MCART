@@ -22,13 +22,12 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace TheXDS.MCART.Types.Extensions
 {
@@ -38,13 +37,12 @@ namespace TheXDS.MCART.Types.Extensions
     /// </summary>
     public static class BinaryReaderExtensions
     {
-        internal static MethodInfo GetBinaryReadMethod(Type t)
+        internal static MethodInfo? GetBinaryReadMethod(Type t)
         {
             return typeof(BinaryReader).GetMethods().FirstOrDefault(p =>
                p.Name.StartsWith("Read")
                && p.GetParameters().Length == 0
-               && p.ReturnType == t)
-                ?? throw new PlatformNotSupportedException();
+               && p.ReturnType == t);
         }
 
         /// <summary>
@@ -82,7 +80,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static Enum ReadEnum(this BinaryReader br, Type enumType)
         {
             var t = enumType.GetEnumUnderlyingType();
-            return (Enum)Enum.ToObject(enumType, GetBinaryReadMethod(t).Invoke(br, Array.Empty<object>())!);
+            return (Enum)Enum.ToObject(enumType, GetBinaryReadMethod(t)!.Invoke(br, Array.Empty<object>())!);
         }
 
         /// <summary>
@@ -98,6 +96,55 @@ namespace TheXDS.MCART.Types.Extensions
         public static Guid ReadGuid(this BinaryReader br)
         {
             return new Guid(br.ReadBytes(16));
+        }
+
+        public static DateTime ReadDateTime(this BinaryReader br)
+        {
+            return DateTime.FromBinary(br.ReadInt64());
+        }
+
+        public static TimeSpan ReadTimeSpan(this BinaryReader br)
+        {
+            return TimeSpan.FromTicks(br.ReadInt64());
+        }
+
+        /// <summary>
+        ///     Lee un valor del tipo especificado desde el
+        ///     <paramref name="reader"/>.
+        /// </summary>
+        /// <typeparam name="T">Tipo de valor a leer.</typeparam>
+        /// <param name="reader">
+        ///     Instancia de <see cref="BinaryReader"/> desde la cual realizar
+        ///     la lectura.
+        /// </param>
+        /// <returns>
+        ///     El valor leído desde <paramref name="reader"/>.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">
+        ///     Se produce si no existe un método de lectura que pueda ser
+        ///     utilizado para leer el valor del tipo especificado.
+        /// </exception>
+        public static T Read<T>(this BinaryReader reader)
+        {
+            if (typeof(T).IsEnum) return (T)Enum.ToObject(typeof(T),ReadEnum(reader, typeof(T)));
+            if (typeof(T).Implements<ISerializable>())
+            {
+                var d = new DataContractSerializer(typeof(T));
+                return (T)d.ReadObject(reader.ReadString().ToStream());
+            }
+
+            return (T)(GetBinaryReadMethod(typeof(T))?.Invoke(reader, Array.Empty<object>())
+                ?? LookupExMethod(typeof(T))?.Invoke(null, new object[] { reader }) 
+                ?? throw new InvalidOperationException());
+        }
+
+        private static MethodInfo LookupExMethod(Type t)
+        {
+            return typeof(BinaryReaderExtensions).GetMethods().FirstOrDefault(p =>
+               p.Name.StartsWith("Read")
+               && p.GetParameters().Length == 1
+               && p.GetParameters().Single().ParameterType == typeof(BinaryReader)
+               && p.ReturnType == t);
         }
     }
 }

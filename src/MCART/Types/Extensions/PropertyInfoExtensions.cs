@@ -22,12 +22,11 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using TheXDS.MCART.Attributes;
 using static TheXDS.MCART.Resources.InternalStrings;
 using static TheXDS.MCART.Resources.Strings;
 
@@ -67,6 +66,23 @@ namespace TheXDS.MCART.Types.Extensions
         public static void Default(this PropertyInfo property)
         {
             Default(property, null);
+        }
+
+        /// <summary>
+        ///     Obtiene un valor que determina si la propiedad admite lectura y
+        ///     escritura.
+        /// </summary>
+        /// <param name="property">
+        ///     Propiedad a comprobar.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> si la propiedad admite lectura y
+        ///     escritura, <see langword="false"/> en caso contrario.
+        /// </returns>
+        [Sugar]
+        public static bool IsReadWrite(this PropertyInfo property)
+        {
+            return property.CanRead && property.CanWrite;
         }
     }
 }

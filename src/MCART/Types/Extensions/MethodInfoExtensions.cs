@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Reflection;
 
@@ -47,7 +45,23 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static T? ToDelegate<T>(this MethodInfo m) where T : Delegate
         {
+            if (m is null) throw new ArgumentNullException(nameof(m));
             return m.IsSignatureCompatible<T>() ? (T)Delegate.CreateDelegate(typeof(T), m) : null;
+        }
+
+        /// <summary>
+        ///     Obtiene un valor que determina si el método no devuelve valores
+        ///     (si es <see cref="void"/>).
+        /// </summary>
+        /// <param name="m">Método a comprobar.</param>
+        /// <returns>
+        ///     <see langword="true"/> si el método no devuelve valores, 
+        ///     <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool IsVoid(this MethodInfo m)
+        {
+            if (m is null) throw new ArgumentNullException(nameof(m));
+            return m.ReturnType == typeof(void);
         }
     }
 }

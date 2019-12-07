@@ -113,9 +113,18 @@ namespace TheXDS.MCART
         ///     Determina si el método especificado ha sido invalidado en la
         ///     instancia provista.
         /// </summary>
-        /// <param name="method"></param>
-        /// <param name="thisInstance"></param>
-        /// <returns></returns>
+        /// <param name="method">
+        ///     Método a comprobar.
+        /// </param>
+        /// <param name="thisInstance">
+        ///     Instancia en la cual se debe realizar la comprobación.
+        ///     Generalmente, este argumento debe ser <see langword="this"/>.
+        /// </param>
+        /// <returns>
+        ///     <see langword="true"/> si el método ha sido invalidado en la
+        ///     instancia especificada, <see langword="false"/> en caso 
+        ///     contrario.
+        /// </returns>
         public static bool IsOverriden(this MethodBase method, object thisInstance)
         {
             if (method?.DeclaringType is null) throw new ArgumentNullException(nameof(method));
@@ -128,10 +137,18 @@ namespace TheXDS.MCART
             return method.DeclaringType != m.DeclaringType;
         }
 
-        /// <summary>Obtiene un nombre completo para un método.</summary>
-        /// <param name="method">Método del cual obtener el nombre.</param>
-        /// <returns>El nombre completo del método.</returns>
-        public static string FullName(this MethodInfo method)
+        /// <summary>
+        ///     Obtiene un nombre completo para un método, incluyendo el tipo y
+        ///     el espacio de nombres donde el mismo ha sido definido.
+        /// </summary>
+        /// <param name="method">
+        ///     Método del cual obtener el nombre completo.
+        /// </param>
+        /// <returns>
+        ///     El nombre completo del método, incluyendo el tipo y el espacio
+        ///     de nombres donde el mismo ha sido definido.
+        /// </returns>
+        public static string FullName(this MethodBase method)
         {
             var s = new StringBuilder();
             if (method.DeclaringType != null)
@@ -141,7 +158,7 @@ namespace TheXDS.MCART
             s.Append(method.Name);
             if (method.IsGenericMethod)
             {
-                s.Append($"<{string.Join(", ", method.GetGenericArguments().Select(q => q.Name))}>");
+                s.Append($"<{string.Join(", ", method.GetGenericArguments().Select(q => q.FullName))}>");
             }
             s.Append($"({string.Join(", ", method.GetParameters().Select(q => q.ParameterType.FullName))})");
             return s.ToString();

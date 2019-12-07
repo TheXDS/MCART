@@ -1,5 +1,5 @@
 ﻿/*
-MemberInfoExtensions.cs
+NameAttribute.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,31 +22,21 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Reflection;
-using TheXDS.MCART.Attributes;
-
-namespace TheXDS.MCART.Types.Extensions
+namespace TheXDS.MCART.Networking.Mrpc
 {
     /// <summary>
-    ///     Extensiones varias para objetos <see cref="MemberInfo" />.
+    ///     Define una serie de miembros a implementar por una tipo que provea
+    ///     de métodos por medio de los cuales se pueda notificar a la
+    ///     instancia sobre la recepción de mensajes desde un servicio remoto.
     /// </summary>
-    public static class MemberInfoExtensions
+    public interface IMessageTarget
     {
         /// <summary>
-        ///     Obtiene un nombre personalizado para un miembro.
+        ///     Notifica a esta instancia sobre la recepción de un mensaje.
         /// </summary>
-        /// <param name="member">
-        ///     <see cref="MemberInfo" /> del cual obtener el nombre.
+        /// <param name="data">
+        ///     Mensaje que ha sido enviado por el servicio remoto.
         /// </param>
-        /// <returns>
-        ///     Un nombre amigable para <paramref name="member" />, o el nombre
-        ///     definido para <paramref name="member" /> si no se ha definido
-        ///     un nombre amigable por medio del atributo
-        ///     <see cref="NameAttribute"/>.
-        /// </returns>
-        public static string NameOf(this MemberInfo member)
-        {
-            return member.GetAttr<NameAttribute>()?.Value ?? member.Name;
-        }
+        void Recieve(byte[] data);
     }
 }
