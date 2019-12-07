@@ -29,7 +29,7 @@ namespace TheXDS.MCART.Networking.Mrpc
     ///     de métodos por medio de los cuales se pueda notificar a la
     ///     instancia sobre la recepción de mensajes desde un servicio remoto.
     /// </summary>
-    public interface IMessageTarget
+    internal interface IMessageTarget
     {
         /// <summary>
         ///     Notifica a esta instancia sobre la recepción de un mensaje.

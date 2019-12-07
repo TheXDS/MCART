@@ -36,12 +36,12 @@ using System.Linq;
 using System.Collections;
 using System.Threading;
 using System.Threading.Tasks;
+using TheXDS.MCART.Networking.Mrpc.Serializers;
+using System.Reflection;
+using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Networking.Mrpc
 {
-
-
-
     public class MrpcService<T> where T : class
     {
         private IPEndPoint _endpoint;
@@ -64,13 +64,47 @@ namespace TheXDS.MCART.Networking.Mrpc
         Out // Seguido de otro tipo de argumento
     }
 
+    /// <summary>
+    ///     Contiene información sobre una llamada específica a un procedimiento remoto.
+    /// </summary>
+    public class CallLock
+    {
+        internal CallLock(MethodBase method)
+        {
+            Method = method.FullName();
+        }
+
+        internal TaskCompletionSource<byte[]> Waiter { get; } = new TaskCompletionSource<byte[]>();
+
+        /// <summary>
+        ///     Obtiene el nombre completo del método que ha sido llamado.
+        /// </summary>
+        public string Method { get; }
+
+        /// <summary>
+        ///     Obtiene la marca de tiempo que indica el momento en el que se
+        ///     ha realizado una llamada al método remoto.
+        /// </summary>
+        public DateTime Timestamp { get; } = DateTime.Now;
+
+        /// <summary>
+        ///     Cancela la llamada remota.
+        /// </summary>
+        public void Abort()
+        {
+            Waiter.SetResult(Array.Empty<byte>());
+        }
+    }
+
     [System.Diagnostics.DebuggerNonUserCode]
-    public abstract class MrpcCaller //internal
+    public abstract class MrpcCaller : IMessageTarget //internal
     {
         private delegate bool SerializationMethod(object obj, BinaryWriter writer, List<object> processed);
+        //private delegate bool DeserializationMethod(Type type, BinaryReader reader, List<object> processed);
 
         private static readonly List<IDataSerializer> _serializers = Objects.FindAllObjects<IDataSerializer>().ToList();
         private static readonly List<SerializationMethod> _serializationFuncs = new List<SerializationMethod>();
+        //private static readonly List<DeserializationMethod> _deserializationFuncs = new List<DeserializationMethod>();
 
         static MrpcCaller()
         {
@@ -133,6 +167,11 @@ namespace TheXDS.MCART.Networking.Mrpc
             return true;
         }
 
+
+
+
+
+
         private static void Serialize(object j, BinaryWriter bw, List<object> processed)
         {
             if (_serializationFuncs.Any(p => p(j, bw, processed))) return;
@@ -142,38 +181,124 @@ namespace TheXDS.MCART.Networking.Mrpc
 
 
 
+        private readonly Dictionary<Guid, CallLock> _callPool = new Dictionary<Guid, CallLock>();
+        private readonly IMrpcChannel _channel;
 
-        protected T RemoteCall<T>(params object?[] args)
+        public MrpcCaller(IMrpcChannel channel)
         {
-            var callee = ReflectionHelpers.GetCallingMethod()!;
+            _channel = channel;
+        }
+
+
+
+
+
+
+
+        private MemoryStream BuildPayload(MethodInfo callee, object?[] args, out Guid? guid)
+        {
+            var payload = new MemoryStream();
+
+            using var bw = new BinaryWriter(payload);
+            guid = WriteHeader(bw, callee, args);
+            WriteArgs(bw, callee, args);
+
+            return payload;
+        }
+
+        private Guid? WriteHeader(BinaryWriter bw, MethodInfo callee, object?[] args)
+        {
+            Guid? guid = null;
+            if (!callee.IsVoid())
+            {
+                bw.Write(true);
+                guid = Guid.NewGuid();
+                bw.Write(guid.Value);
+            }
+            else
+            {
+                bw.Write(false);
+            }
+
+            bw.Write(callee.FullName());
+            bw.Write(args.Length);
+            return guid;
+        }
+
+        private void WriteArgs(BinaryWriter bw, MethodInfo callee, object?[] args)
+        {
             var refArgs = callee.GetParameters().Select(p => p.IsRetval ? true : (p.IsOut ? (bool?)false : null)).ToArray();
             var c = 0;
-            var guid = Guid.NewGuid();
-            using var payload = new MemoryStream();
-            using var bw = new BinaryWriter(payload);
-
-            bw.Write(guid);
-            bw.Write(callee.FullName());
-
-            bw.Write(args.Length);
             foreach (var j in args)
             {
                 if (refArgs[c] == false)
-                { 
+                {
                     bw.Write(ObjectKind.Out);
                     continue;
                 }
 
                 if (refArgs[c].HasValue) bw.Write(ObjectKind.Ref);
                 Serialize(j!, bw, new List<object>());
+                c++;
             }
-
-            MakeCall(guid).Wait();
-
-
         }
 
 
+        protected void RemoteCall(params object?[] args)
+        {
+            InternalRemoteCall<object?>(args).GetAwaiter().GetResult();
+        }
+
+        protected T RemoteCall<T>(params object?[] args)
+        {
+            return InternalRemoteCall<T>(args).GetAwaiter().GetResult();
+        }
+
+        protected Task RemoteCallAsync(params object?[] args)
+        {
+            return InternalRemoteCall<object?>(args);
+        }
+
+        protected Task<T> RemoteCallAsync<T>(params object?[] args)
+        {
+            return InternalRemoteCall<T>(args);
+        }
+
+
+
+
+
+
+
+        private async Task<T> InternalRemoteCall<T>(object?[] args)
+        {
+            var callee = ReflectionHelpers.GetCallingMethod(2)!;
+            var payload = BuildPayload(callee, args, out var guid);
+            
+            if (guid is { } g) 
+            { 
+                var l = new CallLock(callee);
+                _callPool.Add(g, l);
+                _channel.Send(payload.ToArray());
+
+                var result = await l.Waiter.Task;
+                if (result.Length == 0) return default!;
+
+
+
+
+            }
+            else
+            {
+                _channel.Send(payload.ToArray());
+                return default!;
+            }
+        }
+
+        void IMessageTarget.Recieve(byte[] data)
+        {
+            
+        }
     }
 
     /// <summary>
@@ -182,7 +307,7 @@ namespace TheXDS.MCART.Networking.Mrpc
     /// <typeparam name="T">
     ///     Interfaz que describe el contrato remoto de funciones disponibles.
     /// </typeparam>
-    public class MrpcClient<T> : IMessageTarget
+    public class MrpcClient<T>
     {
         /// <summary>
         ///     Inicializa la clase <see cref="MrpcClient{T}"/>
@@ -191,8 +316,6 @@ namespace TheXDS.MCART.Networking.Mrpc
         {
             if (!typeof(T).IsInterface) throw new InvalidTypeException(string.Format(MrpcStrings.ErrInterfaceExpected, typeof(T).Name), typeof(T));
         }
-
-        private readonly IMrpcChannel _channel;
 
         /// <summary>
         ///     Inicializa una nueva instancia de la clase 
@@ -210,12 +333,9 @@ namespace TheXDS.MCART.Networking.Mrpc
             Call = default!;
         }
 
-
+        /// <summary>
+        ///     Expone el contrato de métodos remotos que pueden ser llamados utilizando esta instancia.
+        /// </summary>
         public T Call { get; }
-
-        public void Recieve(byte[] data)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

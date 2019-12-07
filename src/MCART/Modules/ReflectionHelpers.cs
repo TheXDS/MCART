@@ -52,7 +52,7 @@ namespace TheXDS.MCART
         ///     método desde el punto de entrada de la aplicación (generalmente
         ///     la función <c>Main()</c>).
         /// </returns>
-        public static MethodBase? GetCallingMethod()
+        public static MethodInfo? GetCallingMethod()
         {
             return GetCallingMethod(2);
         }
@@ -77,11 +77,11 @@ namespace TheXDS.MCART
         ///     Se produce si <paramref name="nCaller"/> + 1 produce un error
         ///     de sobreflujo.
         /// </exception>
-        public static MethodBase? GetCallingMethod(int nCaller)
+        public static MethodInfo? GetCallingMethod(int nCaller)
         {
             if (checked(nCaller++) < 1) throw new ArgumentOutOfRangeException(nameof(nCaller));
             var frames = new StackTrace().GetFrames();
-            return frames?.Length >= nCaller ? frames![nCaller]?.GetMethod() : null;
+            return frames?.Length >= nCaller ? (MethodInfo?)frames![nCaller]?.GetMethod() : null;
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace TheXDS.MCART
         ///     El método del punto de entrada de la aplicación actual.
         /// </returns>
         [Sugar]
-        public static MethodBase? GetEntryPoint()
+        public static MethodInfo? GetEntryPoint()
         {
             return new StackTrace().GetFrames()?.Last()?.GetMethod();
         }

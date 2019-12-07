@@ -57,7 +57,6 @@ namespace TheXDS.MCART.Types
         /// </summary>
         public static readonly Size Infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
 
-
         /// <summary>
         ///     Intenta crear un <see cref="Size"/> a partir de una cadena.
         /// </summary>
@@ -117,7 +116,6 @@ namespace TheXDS.MCART.Types
             if (TryParse(value, out var retval)) return retval;
             throw new FormatException();
         }
-
 
         /// <summary>
         ///     Compara la igualdad entre dos instancias de <see cref="Size"/>.
@@ -256,12 +254,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public override int GetHashCode()
         {
-            var hashCode = -642398537;
-            hashCode = hashCode * -1521134295 + Height.GetHashCode();
-            hashCode = hashCode * -1521134295 + Width.GetHashCode();
-            hashCode = hashCode * -1521134295 + SquareArea.GetHashCode();
-            if (!(IsZero is null)) hashCode = hashCode * -1521134295 + EqualityComparer<bool?>.Default.GetHashCode(IsZero);
-            return hashCode;
+            return HashCode.Combine(Height, Width);
         }
 
         /// <summary>
