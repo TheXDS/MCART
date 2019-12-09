@@ -34,6 +34,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
@@ -703,6 +704,41 @@ namespace TheXDS.MCART.Types.Extensions
                 catch { /* Ignorar, el ensamblado no puede ser cargado */ }
             }
             return retval;
+        }
+
+        /// <summary>
+        ///     Obtiene el nombre del tipo tal cual se declaría en C#.
+        /// </summary>
+        /// <param name="type">
+        ///     Tipo del cual obtener la cadena de declaración.
+        /// </param>
+        /// <returns>
+        ///     Una cadena que representa la declaración del tipo utilizando 
+        ///     sintaxis de C#.
+        /// </returns>
+        public static string CSharpName(this Type type)
+        {
+            return new StringBuilder()
+                .Append(CleanFullName(type))
+                .Append(string.Join(", ", type.GenericTypeArguments.Select(CSharpName)).OrNull("<{0}>"))
+                .ToString();
+        }
+
+        /// <summary>
+        ///     Obtiene el nombre completo del tipo, sin incluir la anotación
+        ///     de cantidad de argumentos genéricos.
+        /// </summary>
+        /// <param name="type">
+        ///     Tipo del cual obtener el nombre limpio.
+        /// </param>
+        /// <returns>
+        ///     El nombre completo de tipo, incluyendo su espacio de nombres,
+        ///     pero no su ensamblado ni su anotación de cantidad de argumentos
+        ///     genéricos en caso de poseer una.
+        /// </returns>
+        public static string CleanFullName(this Type type)
+        {
+            return type.FullName.Contains('`') ? type.FullName.Substring(0, type.FullName.IndexOf('`')) : type.FullName;
         }
     }
 }

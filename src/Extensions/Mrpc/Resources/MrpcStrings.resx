@@ -120,6 +120,9 @@
   <data name="ErrInterfaceExpected" xml:space="preserve">
     <value>El tipo {0} es inválido. Se esperaba una interfaz.</value>
   </data>
+  <data name="ErrInvalidArgumentType" xml:space="preserve">
+    <value>El argumento '{0}' no es válido. No se puede convertir de '{1}' al tipo necesario '{2}'.</value>
+  </data>
   <data name="ErrUntransmittableObj" xml:space="preserve">
     <value>No es posible transmitir un objeto{0}: No se trata de un tipo primitivo, serializable ni simple, no existe una representación de las propiedades del objeto ni una conversión a System.String que se pueda utilizar para transmitir el objeto.</value>
   </data>

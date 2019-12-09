@@ -28,7 +28,6 @@ using System.Net;
 using System.Text;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
-using static TheXDS.MCART.Types.Extensions.PropertyInfoExtensions;
 using TheXDS.MCART.Resources;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -39,6 +38,8 @@ using System.Threading.Tasks;
 using TheXDS.MCART.Networking.Mrpc.Serializers;
 using System.Reflection;
 using TheXDS.MCART.Types.Base;
+using static TheXDS.MCART.Types.Extensions.PropertyInfoExtensions;
+using PIE = TheXDS.MCART.Types.Extensions.PropertyInfoExtensions;
 
 namespace TheXDS.MCART.Networking.Mrpc
 {
@@ -54,131 +55,152 @@ namespace TheXDS.MCART.Networking.Mrpc
         }
     }
 
-    internal enum ObjectKind
-    {
-        Null,
-        Simple,
-        Array,
-        CircPointer,
-        Ref, // Seguido de otro tipo de argumento.
-        Out // Seguido de otro tipo de argumento
-    }
-
-    /// <summary>
-    ///     Contiene información sobre una llamada específica a un procedimiento remoto.
-    /// </summary>
-    public class CallLock
-    {
-        internal CallLock(MethodBase method)
-        {
-            Method = method.FullName();
-        }
-
-        internal TaskCompletionSource<byte[]> Waiter { get; } = new TaskCompletionSource<byte[]>();
-
-        /// <summary>
-        ///     Obtiene el nombre completo del método que ha sido llamado.
-        /// </summary>
-        public string Method { get; }
-
-        /// <summary>
-        ///     Obtiene la marca de tiempo que indica el momento en el que se
-        ///     ha realizado una llamada al método remoto.
-        /// </summary>
-        public DateTime Timestamp { get; } = DateTime.Now;
-
-        /// <summary>
-        ///     Cancela la llamada remota.
-        /// </summary>
-        public void Abort()
-        {
-            Waiter.SetResult(Array.Empty<byte>());
-        }
-    }
 
     [System.Diagnostics.DebuggerNonUserCode]
     public abstract class MrpcCaller : IMessageTarget //internal
     {
-        private delegate bool SerializationMethod(object obj, BinaryWriter writer, List<object> processed);
-        //private delegate bool DeserializationMethod(Type type, BinaryReader reader, List<object> processed);
-
         private static readonly List<IDataSerializer> _serializers = Objects.FindAllObjects<IDataSerializer>().ToList();
-        private static readonly List<SerializationMethod> _serializationFuncs = new List<SerializationMethod>();
-        //private static readonly List<DeserializationMethod> _deserializationFuncs = new List<DeserializationMethod>();
 
-        static MrpcCaller()
-        {
-            _serializationFuncs.AddRange(new SerializationMethod[]
-            { 
-                SerializeNull,
-                SerializeCircularRef,
-                SerializeWithIDataSerializer,
-                SerializeCollections,
-                SerializeModels
-            });
-        }
 
         private static bool SerializeModels(object obj, BinaryWriter writer, List<object> processed)
         {
             var t = obj.GetType();
-            if (!t.GetProperties().Any(PropertyInfoExtensions.IsReadWrite)) return false;
+            if (!t.GetProperties().Any(PIE.IsReadWrite)) return false;
             
             processed.Add(obj);
-            foreach (var p in t.GetProperties().Where(PropertyInfoExtensions.IsReadWrite))
+            foreach (var p in t.GetProperties().Where(PIE.IsReadWrite))
             {
-                Serialize(p.GetValue(obj), writer, processed);
+                Serialize(p.GetValue(obj)!, writer, processed);
             }
             return true;
         }
 
-        private static bool SerializeCollections(object obj, BinaryWriter writer, List<object> processed)
-        {
-            if (!(obj is IEnumerable e)) return false;
-
-            var en = e.GetEnumerator();
-            writer.Write(ObjectKind.Array);
-            while (en.MoveNext()) Serialize(en.Current, writer, processed);
-            return true;
-        }
 
         private static bool SerializeWithIDataSerializer(object obj, BinaryWriter writer, List<object> processed)
         {
             var t = obj.GetType();
             if (!(_serializers.FirstOrDefault(p => p.Handles(t)) is { } s)) return false;
             
-            writer.Write(ObjectKind.Simple);
+            processed.Add(obj);
+            writer.Write(ObjectKind.Blob);
             s.Write(obj, writer);
             return true;
         }
 
-        private static bool SerializeCircularRef(object obj, BinaryWriter writer, List<object> processed)
+
+
+
+
+        private static void SerializeArray(Array obj, BinaryWriter writer, List<object> processed)
         {
-            if (!processed.Contains(obj)) return false;
-            
-            writer.Write(ObjectKind.CircPointer);
-            writer.Write(processed.IndexOf(obj));
-            return true;
+            processed.Add(obj);
+            writer.Write(ObjectKind.Array);
+            writer.Write(obj.Rank);
+            var indices = new int[obj.Rank];
+            for (var j = 0; j < obj.Rank; j++)
+            {
+                writer.Write(obj.GetLowerBound(j));
+                writer.Write(obj.GetUpperBound(j));
+
+                for (var k = obj.GetLowerBound(j); k <= obj.GetUpperBound(j); k++)
+                {
+                    indices[j] = k;
+                    Serialize(obj.GetValue(indices), writer, processed);
+                }
+            }
         }
-
-        private static bool SerializeNull(object? obj, BinaryWriter writer, List<object> processed)
-        {
-            if (!(obj is null)) return false;            
-            writer.Write(ObjectKind.Null);
-            return true;
-        }
-
-
-
-
 
 
         private static void Serialize(object j, BinaryWriter bw, List<object> processed)
         {
+            switch (j)
+            {
+                case null:
+                    bw.Write(ObjectKind.Null);
+                    break;
+                case Array arr:
+                    SerializeArray(arr, bw, processed);
+                    break;
+                default:
+                    if (processed.Contains(j))
+                    {
+                        bw.Write(ObjectKind.Pointer);
+                        bw.Write(processed.IndexOf(j));
+                        break;
+                    }
+
+                    break;
+            }
+
+
+
+
+
             if (_serializationFuncs.Any(p => p(j, bw, processed))) return;
             throw new UntransmittableObjectException(j);
         }
 
+        private static object? Deserialize(Type t, BinaryReader br, List<object> processed)
+        {
+            switch (br.ReadEnum<ObjectKind>())
+            {
+                case ObjectKind.Null:
+                    return t.Default();
+                case ObjectKind.Blob:
+                    if (_serializers.FirstOrDefault(p => p.Handles(t)) is { } s)
+                        return s.Read(br).PushInto(processed);
+                    
+                    var obj = t.New().PushInto(processed);
 
+                    foreach (var p in t.GetProperties().Where(PIE.IsReadWrite))                    
+                        p.SetValue(obj, Deserialize(p.PropertyType, br, processed));
+                    
+                    return obj;
+                case ObjectKind.Array:
+                    var count = br.ReadInt32();
+                    var l = new List<object?>();                    
+                    for (var j = 0; j < count; j++)
+                    {
+                        l.Add(Deserialize(t.ResolveCollectionType(), br, processed));
+                    }
+                    return l.ToArray().PushInto(processed);
+                case ObjectKind.Pointer:
+                    return processed[br.ReadInt32()];
+                case ObjectKind.Ref:
+                case ObjectKind.Out:
+                    return Deserialize(t, br, processed);
+                default: throw new NotImplementedException();
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+        private void WriteTypeTree(BinaryWriter bw, Type t)
+        {
+            bw.Write(t.CleanFullName());
+            bw.Write(t.GenericTypeArguments.Length);
+            foreach (var j in t.GenericTypeArguments)
+                WriteTypeTree(bw, j);
+        }
+
+        private TypeExpressionTree ReadTypeTree(BinaryReader br)
+        {
+            var t = new TypeExpressionTree(br.ReadString());
+            var c = br.ReadInt32();
+            for (int j = 0; j < c; j++)
+            {
+                t.GenericArgs.Add(ReadTypeTree(br));
+            }
+            return t;
+        }
 
 
         private readonly Dictionary<Guid, CallLock> _callPool = new Dictionary<Guid, CallLock>();
@@ -186,42 +208,45 @@ namespace TheXDS.MCART.Networking.Mrpc
 
         public MrpcCaller(IMrpcChannel channel)
         {
-            _channel = channel;
+            (_channel = channel).MessageTarget = this;
         }
-
-
-
-
-
-
 
         private MemoryStream BuildPayload(MethodInfo callee, object?[] args, out Guid? guid)
         {
             var payload = new MemoryStream();
 
             using var bw = new BinaryWriter(payload);
-            guid = WriteHeader(bw, callee, args);
+            guid = WriteHeader(bw, callee);
             WriteArgs(bw, callee, args);
 
             return payload;
         }
 
-        private Guid? WriteHeader(BinaryWriter bw, MethodInfo callee, object?[] args)
+        private Guid? WriteHeader(BinaryWriter bw, MethodInfo callee)
         {
             Guid? guid = null;
-            if (!callee.IsVoid())
+            if (callee.IsVoid())
+            {
+                bw.Write(false);
+            }
+            else
             {
                 bw.Write(true);
                 guid = Guid.NewGuid();
                 bw.Write(guid.Value);
             }
-            else
-            {
-                bw.Write(false);
-            }
 
-            bw.Write(callee.FullName());
-            bw.Write(args.Length);
+            // Nombre del método
+            bw.Write(callee.Name);            
+
+            // Argumentos genéricos
+            bw.Write(callee.GetGenericArguments().Length);
+            foreach (var j in callee.GetGenericArguments()) WriteTypeTree(bw, j);
+
+            // Parámetros
+            bw.Write(callee.GetParameters().Length);
+            foreach (var j in callee.GetParameters()) WriteTypeTree(bw, j.ParameterType);
+
             return guid;
         }
 
@@ -231,13 +256,6 @@ namespace TheXDS.MCART.Networking.Mrpc
             var c = 0;
             foreach (var j in args)
             {
-                if (refArgs[c] == false)
-                {
-                    bw.Write(ObjectKind.Out);
-                    continue;
-                }
-
-                if (refArgs[c].HasValue) bw.Write(ObjectKind.Ref);
                 Serialize(j!, bw, new List<object>());
                 c++;
             }
@@ -338,4 +356,6 @@ namespace TheXDS.MCART.Networking.Mrpc
         /// </summary>
         public T Call { get; }
     }
+
+
 }

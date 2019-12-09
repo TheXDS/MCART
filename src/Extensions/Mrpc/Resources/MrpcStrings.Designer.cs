@@ -70,6 +70,15 @@ namespace TheXDS.MCART.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a El argumento &apos;{0}&apos; no es válido. No se puede convertir de &apos;{1}&apos; al tipo necesario &apos;{2}&apos;..
+        /// </summary>
+        internal static string ErrInvalidArgumentType {
+            get {
+                return ResourceManager.GetString("ErrInvalidArgumentType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a No es posible transmitir un objeto{0}: No se trata de un tipo primitivo, serializable ni simple, no existe una representación de las propiedades del objeto ni una conversión a System.String que se pueda utilizar para transmitir el objeto..
         /// </summary>
         internal static string ErrUntransmittableObj {

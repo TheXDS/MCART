@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
@@ -93,7 +94,7 @@ namespace TheXDS.MCART
         [Sugar]
         public static MethodInfo? GetEntryPoint()
         {
-            return new StackTrace().GetFrames()?.Last()?.GetMethod();
+            return new StackTrace().GetFrames()?.Last()?.GetMethod() as MethodInfo;
         }
 
         /// <summary>
@@ -151,16 +152,13 @@ namespace TheXDS.MCART
         public static string FullName(this MethodBase method)
         {
             var s = new StringBuilder();
-            if (method.DeclaringType != null)
-            {
-                s.Append($"{method.DeclaringType.Namespace.OrNull("{0}.") ?? "global::"}{method.DeclaringType.Name.OrNull("{0}.")}");
-            }
+            s.Append(method.DeclaringType?.CSharpName().OrNull("{0}."));
             s.Append(method.Name);
             if (method.IsGenericMethod)
             {
-                s.Append($"<{string.Join(", ", method.GetGenericArguments().Select(q => q.FullName))}>");
+                s.Append(string.Join(", ", method.GetGenericArguments().Select(TypeExtensions.CSharpName)).OrNull("<{0}>"));
             }
-            s.Append($"({string.Join(", ", method.GetParameters().Select(q => q.ParameterType.FullName))})");
+            s.Append($"({string.Join(", ", method.GetParameters().Select(q => q.ParameterType.CSharpName()))})");
             return s.ToString();
         }
 
@@ -285,6 +283,51 @@ namespace TheXDS.MCART
             }
 
             return retVal;
+        }
+
+
+
+
+
+        public static Type ResolveCSharpType(string decl)
+        {
+
+            var f = decl.IndexOf('<');
+            var c = 0;
+            var t = new TypeExpressionTree(decl.Substring(0, f));
+            decl = decl.Substring(f + 1);
+
+            while (decl.Length > 0)
+            {
+                f = decl.IndexOf('<');
+
+            }
+
+
+
+
+
+            return t.Resolve();
+        }
+        private class TypeExpressionTree
+        {
+            public string TypeName;
+            public readonly List<TypeExpressionTree> GenericArgs = new List<TypeExpressionTree>();
+            public TypeExpressionTree(string typeName)
+            {
+                TypeName = typeName;
+            }
+            public Type Resolve()
+            {
+                return (GenericArgs.Any()
+                    ? SearchTypeByName($"{TypeName}`{GenericArgs.Count}")?.MakeGenericType(GenericArgs.Select(p => p.Resolve()).ToArray())
+                    : SearchTypeByName(TypeName)) ?? throw new MissingTypeException();
+            }
+
+            private static Type? SearchTypeByName(string name)
+            {
+                return Objects.GetTypes<object>().NotNull().FirstOrDefault(p => p.FullName == name);
+            }
         }
     }
 }
