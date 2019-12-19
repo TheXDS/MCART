@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">  
-  <PropertyGroup>  
-    <TargetFrameworks>netcoreapp3.0;net47</TargetFrameworks>
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     <Description>MCART for Windows</Description>
     <AssemblyName>MCART.Windows</AssemblyName>
   </PropertyGroup>  
   <ItemGroup>
-    <PackageReference Include="Microsoft.Win32.Registry" Version="4.6.0-preview7.19362.9" />
-    <PackageReference Include="System.Drawing.Common" Version="4.6.0-preview7.19362.9" />
-    <PackageReference Include="System.Management" Version="4.6.0-preview7.19362.9" />
+    <PackageReference Include="Microsoft.Win32.Registry" Version="4.7.0" />
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+    <PackageReference Include="System.Management" Version="4.7.0" />
   </ItemGroup>
 </Project>

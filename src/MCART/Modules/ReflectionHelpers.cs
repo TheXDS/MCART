@@ -156,7 +156,7 @@ namespace TheXDS.MCART
             s.Append(method.Name);
             if (method.IsGenericMethod)
             {
-                s.Append(string.Join(", ", method.GetGenericArguments().Select(TypeExtensions.CSharpName)).OrNull("<{0}>"));
+                s.Append(string.Join(", ", method.GetGenericArguments().Select(Types.Extensions.TypeExtensions.CSharpName)).OrNull("<{0}>"));
             }
             s.Append($"({string.Join(", ", method.GetParameters().Select(q => q.ParameterType.CSharpName()))})");
             return s.ToString();
