@@ -143,6 +143,19 @@ namespace Common.Types.Extensions
         }
 
         [Fact]
+        public void TruncateTest()
+        {
+            Assert.Equal("Test", "Test".Truncate(10));
+            Assert.Equal("Test", "Test".Truncate(4));
+            Assert.Equal("Test...", "TestTestTestTest".Truncate(7));
+            Assert.Equal("T...", "TestTestTestTest".Truncate(4));
+            Assert.Equal("Tes", "TestTestTestTest".Truncate(3));
+            Assert.Equal("Te", "TestTestTestTest".Truncate(2));
+            Assert.Equal("T", "TestTestTestTest".Truncate(1));
+            Assert.Equal("length", Assert.Throws<ArgumentOutOfRangeException>(() => "Test".Truncate(0)).ParamName);
+        }
+
+        [Fact]
         public void CountCharsTest()
         {
             Assert.Equal(5, "This is a test".CountChars('i', ' '));

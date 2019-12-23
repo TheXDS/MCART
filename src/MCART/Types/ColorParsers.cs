@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 namespace TheXDS.MCART.Types
 {
     /// <inheritdoc />
@@ -576,10 +574,10 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public Color From(byte value)
         {
-            var i = (byte) (((value >> 3) | 1) == 1 ? 255 : 128);
-            var r = (byte) (((value >> 2) | 1) * i);
-            var g = (byte) (((value >> 1) | 1) * i);
-            var b = (byte) ((value | 1) * i);
+            var i = (byte) (((value >> 3) & 1) == 1 ? 255 : 128);
+            var r = (byte) (((value >> 2) & 1) * i);
+            var g = (byte) (((value >> 1) & 1) * i);
+            var b = (byte) ((value & 1) * i);
             return new Color(r, g, b);
         }
 

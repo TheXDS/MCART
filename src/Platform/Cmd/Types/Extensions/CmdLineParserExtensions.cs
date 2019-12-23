@@ -31,6 +31,14 @@ using static TheXDS.MCART.Resources.CmdStrings;
 
 namespace TheXDS.MCART.Types.Extensions
 {
+    public static class CmdColorExtensions
+    {
+        public static ConsoleColor ToConsoleColor(this Color color)
+        {
+            return (ConsoleColor)(Color.To<byte, VGAAttributeByte>(color) & 15);
+        }
+    }
+
     /// <summary>
     ///     Extensiones para administrar un <see cref="CmdLineParser"/> bajo la
     ///     interfaz de terminal/consola.

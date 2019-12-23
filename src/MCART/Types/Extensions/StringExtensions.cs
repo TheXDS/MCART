@@ -22,15 +22,12 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -41,51 +38,6 @@ using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Types.Extensions
 {
-    /// <summary>
-    ///     Extensiones de la clase <see cref="StringBuilder"/>.
-    /// </summary>
-    public static class StringBuilderFluentExtensions
-    {
-        /// <summary>
-        ///     Concatena el texto especificado seguido del terminador de línea
-        ///     predeterminado al final de esta instancia solamente si la
-        ///     cadena no es <see langword="null"/>.
-        /// </summary>
-        /// <param name="sb">
-        ///     Instancia de <see cref="StringBuilder"/> sobre la cual realizar
-        ///     la operación.
-        /// </param>
-        /// <param name="text">
-        ///     Texto a concatenar. Si es <see langword="null"/>, no se
-        ///     realizará ninguna acción.
-        /// </param>
-        /// <returns>
-        ///     La misma instancia que <paramref name="sb"/>.
-        /// </returns>
-        public static StringBuilder AppendLineIfNotNull(this StringBuilder sb, string? text)
-        {
-            if (text is { }) sb.AppendLine(text);
-            return sb;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sb"></param>
-        /// <param name="text"></param>
-        /// <param name="width"></param>
-        /// <returns></returns>
-        public static StringBuilder AppendAndWrap(this StringBuilder sb, string? text, int width)
-        {
-#pragma warning disable CS8606
-            foreach (var j in text?.TextWrap(width) ?? new string?[] { null })            
-                sb.AppendLine(j);            
-
-            return sb;
-#pragma warning restore CS8606
-        }
-    }
-
     /// <summary>
     ///     Extensiones de la clase <see cref="string" />.
     /// </summary>
@@ -215,6 +167,17 @@ namespace TheXDS.MCART.Types.Extensions
                 if (str.StartsWith(j)) return str.Remove(0, j.Length);
             }
             return str;
+        }
+
+        public static string Truncate(this string str, int length)
+        {
+            if (length < 1) throw new ArgumentOutOfRangeException(nameof(length));
+            return
+                length <= 3 
+                ? str.Length > length ? str[0..length] : str
+                : str.Length > length 
+                    ? $"{str[0..(length-3)]}..." 
+                    : str;
         }
 
         /// <summary>
@@ -803,11 +766,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         /// <param name="stringToCheck">Cadena a comprobar.</param>
         [Sugar]
-#if NETCOREAPP3_0 || NETSTANDARD2_1
         public static bool IsEmpty([NotNullWhen(false)]this string? stringToCheck)
-#else
-        public static bool IsEmpty(this string? stringToCheck)
-#endif
         {
             return string.IsNullOrWhiteSpace(stringToCheck);
         }
