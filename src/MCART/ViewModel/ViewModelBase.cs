@@ -56,7 +56,7 @@ namespace TheXDS.MCART.ViewModel
 
         private void ViewModelBase_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            SelfObserve(GetType().GetProperty(e.PropertyName));
+            SelfObserve(GetType().GetProperty(e.PropertyName)!);
         }
 
         /// <summary>

@@ -169,6 +169,13 @@ namespace TheXDS.MCART.Types.Extensions
             return str;
         }
 
+        /// <summary>
+        ///     Trunca la longitud de una cadena a un máximo de
+        ///     <paramref name="length"/> caracteres.
+        /// </summary>
+        /// <param name="str">Cadena a truncar.</param>
+        /// <param name="length">Longitud máxima de la cadena.</param>
+        /// <returns></returns>
         public static string Truncate(this string str, int length)
         {
             if (length < 1) throw new ArgumentOutOfRangeException(nameof(length));
@@ -999,11 +1006,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             if (!length.IsBetween(0, @string.Length))
                 throw new ArgumentOutOfRangeException(nameof(length));
-#if NETCOREAPP3_0 || NETSTANDARD2_1
             return @string[length..];
-#else
-            return @string.Substring(length, @string.Length - length);
-#endif
         }
 
         /// <summary>

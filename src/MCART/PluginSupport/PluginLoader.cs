@@ -341,15 +341,12 @@ namespace TheXDS.MCART.PluginSupport.Legacy
             if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
             foreach (var f in new DirectoryInfo(pluginsPath).GetFiles($"*{_extension}", search))
             {
-                Assembly? a = null;
+                Assembly? a;
                 try
                 {
                     a = Assembly.LoadFrom(f.FullName);
                 }
-                catch
-                {
-                    /* Ignorar el error, el archivo no es un ensamblado válido. */
-                }
+                catch { continue; }
 
                 if (_checker.Has<T>(a)) yield return f;
             }

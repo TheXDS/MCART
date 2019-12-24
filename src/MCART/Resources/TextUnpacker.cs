@@ -24,6 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.IO;
 using System.Reflection;
+using TheXDS.MCART.Exceptions;
 
 namespace TheXDS.MCART.Resources
 {
@@ -61,7 +62,7 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public override string Unpack(string id)
         {
-            using var sr = new StreamReader(UnpackStream(id));
+            using var sr = new StreamReader(UnpackStream(id) ?? throw new MissingResourceException(id));
             return sr.ReadToEnd();
         }
 

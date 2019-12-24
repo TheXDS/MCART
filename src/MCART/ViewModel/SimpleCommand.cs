@@ -123,7 +123,7 @@ namespace TheXDS.MCART.ViewModel
         ///     Se produce cuando hay cambios que influyen en si el comando
         ///     debería ejecutarse o no.
         /// </summary>
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler? CanExecuteChanged;
 
         /// <inheritdoc />
         /// <summary>

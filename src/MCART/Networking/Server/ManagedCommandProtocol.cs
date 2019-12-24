@@ -1021,7 +1021,7 @@ namespace TheXDS.MCART.Networking.Server
         static ManagedCommandProtocol()
         {
             _toResponse = EnumExtensions.ToBytes<TResult>();
-            _readCmd = BinaryReaderExtensions.GetBinaryReadMethod(typeof(TCommand).GetEnumUnderlyingType());
+            _readCmd = BinaryReaderExtensions.GetBinaryReadMethod(typeof(TCommand).GetEnumUnderlyingType())!;
 
             var vals = Enum.GetValues(typeof(TResult)).OfType<TResult>().ToArray();
             _errResponse = vals.FirstOrDefault(p => p.HasAttr<ErrorResponseAttribute>());

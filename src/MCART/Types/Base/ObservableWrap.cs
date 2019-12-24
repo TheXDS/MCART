@@ -65,7 +65,7 @@ namespace TheXDS.MCART.Types.Base
         ///     Obtiene acceso directo a la colección subyacente envuelta por
         ///     este <see cref="ObservableWrap{T, TCollection}"/>.
         /// </summary>
-        public TCollection UnderlyingCollection { get; private set; }
+        public TCollection UnderlyingCollection { get; private set; } = default!;
 
         /// <summary>
         ///     Obtiene la cuenta de elementos contenidos dentro de la

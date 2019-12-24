@@ -49,9 +49,9 @@ namespace TheXDS.MCART.Types.Converters
         ///     Un valor de tipo <see cref="Range{T}"/> creado a partir de la
         ///     cadena especificada.
         /// </returns>
-        protected override Range<T> ConvertFrom(string value)
+        protected override Range<T> ConvertFrom(string? value)
         {
-            return Range<T>.Parse(value);
+            return Range<T>.Parse(value ?? throw new ArgumentNullException(nameof(value)));
         }
     }
 }

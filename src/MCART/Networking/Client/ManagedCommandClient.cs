@@ -60,7 +60,7 @@ namespace TheXDS.MCART.Networking.Client
         private static readonly TResult? _errResponse;
         private static readonly TResult? _notMappedResponse;
         private static readonly TResult? _unkResponse;
-        private static readonly MethodInfo _readResp = BinaryReaderExtensions.GetBinaryReadMethod(typeof(TResult).GetEnumUnderlyingType());
+        private static readonly MethodInfo _readResp = BinaryReaderExtensions.GetBinaryReadMethod(typeof(TResult).GetEnumUnderlyingType())!;
 
         /// <summary>
         ///     Activa o desactiva el escaneo del tipo de instancia a construir

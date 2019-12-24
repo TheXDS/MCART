@@ -38,7 +38,7 @@ namespace TheXDS.MCART.Resources
         /// <returns>
         /// Un <see cref="Color"/> seleccionado aleatoriamente.
         /// </returns>
-        public static Color Pick() => (Color)typeof(Colors).GetProperties().Pick().GetValue(null);
+        public static Color Pick() => (Color)typeof(Colors).GetProperties().Pick().GetValue(null)!;
 #pragma warning disable CS1591 // TODO: agregar comentarios XML para los colores.
         public static Color AliceBlue => new Color(240, 248, 255);
         public static Color AntiqueWhite1 => new Color(255, 239, 219);

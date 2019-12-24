@@ -104,7 +104,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static byte[] ToBytes(this Enum value)
         {
             return (byte[]) ByteConversionMethodInternal(value.GetType())
-                .Invoke(null, new object[] {value});
+                .Invoke(null, new object[] {value})!;
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static Func<T, byte[]> ToBytes<T>() where T : struct, Enum
         {
             return (Func<T, byte[]>) Delegate.CreateDelegate(typeof(Func<T, byte[]>),
-                ByteConversionMethodInternal(typeof(T)), true);
+                ByteConversionMethodInternal(typeof(T)), true)!;
         }
 
         /// <summary>

@@ -285,30 +285,6 @@ namespace TheXDS.MCART
             return retVal;
         }
 
-
-
-
-
-        public static Type ResolveCSharpType(string decl)
-        {
-
-            var f = decl.IndexOf('<');
-            var c = 0;
-            var t = new TypeExpressionTree(decl.Substring(0, f));
-            decl = decl.Substring(f + 1);
-
-            while (decl.Length > 0)
-            {
-                f = decl.IndexOf('<');
-
-            }
-
-
-
-
-
-            return t.Resolve();
-        }
         private class TypeExpressionTree
         {
             public string TypeName;

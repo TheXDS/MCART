@@ -110,7 +110,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// <see cref="Plugin" />, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="type">Tipo a comprobar.</param>
-        public override bool IsValid(Type type) => type.Implements<IPlugin>() && type.IsInstantiable((IEnumerable<Type>)null);
+        public override bool IsValid(Type type) => type.Implements<IPlugin>() && type.IsInstantiable((IEnumerable<Type>?)null);
         //public override bool IsValid(Type type) => !(type.IsInterface || type.IsAbstract) && typeof(IPlugin).IsAssignableFrom(type);
     }
 }

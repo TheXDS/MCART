@@ -477,7 +477,7 @@ namespace TheXDS.MCART.Resources
         /// Una cadena con el texto "{<paramref name="unquoted"/>}
         /// '{<paramref name="quoted"/>}'".
         /// </returns>
-        public static string XYQuotes(string unquoted, string quoted) => $"{unquoted} '{quoted}'";
+        public static string XYQuotes(string unquoted, string? quoted) => $"{unquoted} '{quoted}'";
 
         /// <summary>
         ///     Devuelve una cadena con el texto "El valor se encuentra fuera

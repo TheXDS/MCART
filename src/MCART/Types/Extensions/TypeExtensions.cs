@@ -248,7 +248,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     un constructor con los parámetros del tipo especificado,
         ///     <see langword="false" /> en caso contrario.
         /// </returns>
-        public static bool IsInstantiable(this Type type, IEnumerable<Type> constructorArgs)
+        public static bool IsInstantiable(this Type type, IEnumerable<Type>? constructorArgs)
         {
             if (constructorArgs is null) return !(type.IsAbstract || type.IsInterface) && type.GetConstructors().Any();
             return !(type.IsAbstract || type.IsInterface) && !(type.GetConstructor(constructorArgs.ToArray()) is null);
@@ -738,6 +738,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static string CleanFullName(this Type type)
         {
+            if (type.FullName is null) throw new InvalidOperationException();
             return type.FullName.Contains('`') ? type.FullName.Substring(0, type.FullName.IndexOf('`')) : type.FullName;
         }
     }

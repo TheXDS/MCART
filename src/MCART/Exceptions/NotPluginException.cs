@@ -192,7 +192,7 @@ namespace TheXDS.MCART.Exceptions
 
         private static string Msg(Assembly assembly)
         {
-            return Strings.XIsInvalid(Strings.XYQuotes(Strings.TheAssembly, assembly.FullName));
+            return Strings.XIsInvalid(Strings.XYQuotes(Strings.TheAssembly, assembly.FullName!));
         }
     }
 }

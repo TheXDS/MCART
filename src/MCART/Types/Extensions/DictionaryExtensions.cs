@@ -31,13 +31,45 @@ namespace TheXDS.MCART.Types.Extensions
     /// </summary>
     public static class DictionaryExtensions
     {
-        public static TValue Push<TKey, TValue>(this IDictionary<TKey,TValue> dictionary, TKey key, TValue value)
+        /// <summary>
+        ///     Agrega un valor al diccionario.
+        /// </summary>
+        /// <typeparam name="TKey">
+        ///     Tipo de llave a utilizar para identificar al valor.
+        /// </typeparam>
+        /// <typeparam name="TValue">Tipo de valor a agregar.</typeparam>
+        /// <param name="dictionary">
+        ///     Diccionario al cual agregar el nuevo valor.
+        /// </param>
+        /// <param name="key">Llave para identificar al nuevo valor.</param>
+        /// <param name="value">Valor a agregar.</param>
+        /// <returns>
+        ///     La misma instancia que <paramref name="value"/>, permitiendo
+        ///     utilizar sintáxis Fluent.
+        /// </returns>
+        public static TValue Push<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue value) where TKey : notnull
         {
             dictionary.Add(key, value);
             return value;
         }
 
-        public static TValue PushInto<TKey, TValue>(this TValue value, TKey key, IDictionary<TKey, TValue> dictionary)
+        /// <summary>
+        ///     Agrega un valor al diccionario especificado.
+        /// </summary>
+        /// <typeparam name="TKey">
+        ///     Tipo de llave a utilizar para identificar al valor.
+        /// </typeparam>
+        /// <typeparam name="TValue">Tipo de valor a agregar.</typeparam>
+        /// <param name="dictionary">
+        ///     Diccionario al cual agregar el nuevo valor.
+        /// </param>
+        /// <param name="key">Llave para identificar al nuevo valor.</param>
+        /// <param name="value">Valor a agregar.</param>
+        /// <returns>
+        ///     La misma instancia que <paramref name="value"/>, permitiendo
+        ///     utilizar sintáxis Fluent.
+        /// </returns>
+        public static TValue PushInto<TKey, TValue>(this TValue value, TKey key, IDictionary<TKey, TValue> dictionary) where TKey : notnull
         {
             dictionary.Add(key, value);
             return value;
@@ -55,7 +87,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         /// <param name="element">
         ///     Elemento a comprobar.
-        /// </param>
+        /// </param>r
         /// <returns>
         ///     <see langword="false"/> si no existen referencias circulares 
         ///     dentro del diccionario, <see langword="true"/> en caso 

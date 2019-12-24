@@ -40,7 +40,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             if (AutoReset) StartTime = DateTime.Now;
         }
-        private void TimerEx_Disposed(object sender, EventArgs e)
+        private void TimerEx_Disposed(object? sender, EventArgs e)
         {
             IsDisposed = true;
         }
