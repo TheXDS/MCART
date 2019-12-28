@@ -31,8 +31,23 @@ using static TheXDS.MCART.Resources.CmdStrings;
 
 namespace TheXDS.MCART.Types.Extensions
 {
+    /// <summary>
+    ///     Extensiones adicionales para el tipo <see cref="Color"/>.
+    /// </summary>
     public static class CmdColorExtensions
     {
+        /// <summary>
+        ///     Obtiene un color de consola a partir del <see cref="Color"/>
+        ///     especificado.
+        /// </summary>
+        /// <param name="color">
+        ///     Color a partir del cual obtener el color de consola 
+        ///     equivalente.
+        /// </param>
+        /// <returns>
+        ///     Un <see cref="ConsoleColor"/> aproximado equivalente al color
+        ///     especificado.
+        /// </returns>
         public static ConsoleColor ToConsoleColor(this Color color)
         {
             return (ConsoleColor)(Color.To<byte, VGAAttributeByte>(color) & 15);

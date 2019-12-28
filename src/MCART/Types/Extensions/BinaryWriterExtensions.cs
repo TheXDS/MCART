@@ -36,26 +36,76 @@ namespace TheXDS.MCART.Types.Extensions
     /// </summary>
     public static class BinaryWriterExtensions
     {
+        /// <summary>
+        ///     Escribe un <see cref="Guid"/> en el <see cref="BinaryWriter"/>
+        ///     especificado.
+        /// </summary>
+        /// <param name="bw">
+        ///     Instancia sobre la cual realizar la escritura.
+        /// </param>
+        /// <param name="value">
+        ///     Valor a escribir.
+        /// </param>
         public static void Write(this BinaryWriter bw, Guid value)
         {
             bw.Write(value.ToByteArray());
         }
 
+        /// <summary>
+        ///     Escribe un <see cref="DateTime"/> en el
+        ///     <see cref="BinaryWriter"/> especificado.
+        /// </summary>
+        /// <param name="bw">
+        ///     Instancia sobre la cual realizar la escritura.
+        /// </param>
+        /// <param name="value">
+        ///     Valor a escribir.
+        /// </param>
         public static void Write(this BinaryWriter bw, DateTime value)
         {
             bw.Write(value.ToBinary());
         }
 
+        /// <summary>
+        ///     Escribe un <see cref="TimeSpan"/> en el
+        ///     <see cref="BinaryWriter"/> especificado.
+        /// </summary>
+        /// <param name="bw">
+        ///     Instancia sobre la cual realizar la escritura.
+        /// </param>
+        /// <param name="value">
+        ///     Valor a escribir.
+        /// </param>
         public static void Write(this BinaryWriter bw, TimeSpan value)
         {
             bw.Write(value.Ticks);
         }
 
+        /// <summary>
+        ///     Escribe un valor <see cref="Enum"/> en el
+        ///     <see cref="BinaryWriter"/> especificado.
+        /// </summary>
+        /// <param name="bw">
+        ///     Instancia sobre la cual realizar la escritura.
+        /// </param>
+        /// <param name="value">
+        ///     Valor a escribir.
+        /// </param>
         public static void Write(this BinaryWriter bw, Enum value)
         {
             bw.Write(value.ToBytes());
         }
 
+        /// <summary>
+        ///     Escribe un objeto serialziable en el
+        ///     <see cref="BinaryWriter"/> especificado.
+        /// </summary>
+        /// <param name="bw">
+        ///     Instancia sobre la cual realizar la escritura.
+        /// </param>
+        /// <param name="value">
+        ///     Objeto serializable a escribir.
+        /// </param>
         public static void Write(this BinaryWriter bw, ISerializable value)
         {
             var d = new DataContractSerializer(value.GetType());
@@ -64,6 +114,16 @@ namespace TheXDS.MCART.Types.Extensions
             bw.Write(BitConverter.ToString(ms.ToArray()));
         }
 
+        /// <summary>
+        ///     Realiza una escritura del objeto especificado, determinando
+        ///     dinámicamente el método apropiado de escritura a utilizar.
+        /// </summary>
+        /// <param name="bw">
+        ///     Instancia sobre la cual realizar la escritura.
+        /// </param>
+        /// <param name="value">
+        ///     Objeto a escribir.
+        /// </param>
         public static void DynamicWrite(this BinaryWriter bw, object value)
         {
             var t = value.GetType();

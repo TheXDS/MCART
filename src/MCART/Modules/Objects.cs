@@ -1023,7 +1023,7 @@ namespace TheXDS.MCART
         {
             var retVal = HasAttrs<TAttribute>(assembly, out var attrs);
             var a = attrs.FirstOrDefault();
-            value = !(a is null) ? a.Value : default;
+            value = !(a is null) ? a.Value : default!;
             return retVal;
         }
 
@@ -1125,7 +1125,7 @@ namespace TheXDS.MCART
         {
             var retVal = HasAttrs<TAttribute>(member, out var attrs);
             var a = attrs.FirstOrDefault();
-            value = !(a is null) ? a.Value : default;
+            value = !(a is null) ? a.Value : default!;
             return retVal;
         }
         
@@ -1245,7 +1245,7 @@ namespace TheXDS.MCART
                 default:
                     var retVal = HasAttrs<TAttribute>(obj, out var attrs);
                     var attr = attrs.FirstOrDefault();
-                    value = !(attr is null) ? attr.Value : default;
+                    value = !(attr is null) ? attr.Value : default!;
                     return retVal;
             }
         }
@@ -1394,9 +1394,7 @@ namespace TheXDS.MCART
             where TAttribute : Attribute, IValueAttribute<TValue>
         {
             var retVal = HasAttr<TAttribute>(enumValue, out var attr);
-#pragma warning disable CS8602
-            value = retVal ? attr.Value : default;
-#pragma warning restore CS8602
+            value = retVal ? attr!.Value : default!;
             return retVal;
         }
         /// <summary>
@@ -1509,9 +1507,9 @@ namespace TheXDS.MCART
         ///     contrario, <see langword="false" />.
         /// </returns>
         /// <param name="x">Objetos a comprobar.</param>
-        public static bool IsAnyNull(this IEnumerable<object> x)
+        public static bool IsAnyNull(this IEnumerable<object?>? x)
         {
-            return x.Any(p => p is null);
+            return x?.Any(p => p is null) ?? true;
         }
 
         /// <summary>
@@ -1522,7 +1520,7 @@ namespace TheXDS.MCART
         ///     contrario, <see langword="false" />.
         /// </returns>
         /// <param name="x">Objetos a comprobar.</param>
-        public static bool IsAnyNull(params object[] x)
+        public static bool IsAnyNull(params object?[] x)
         {
             return x.IsAnyNull();
         }

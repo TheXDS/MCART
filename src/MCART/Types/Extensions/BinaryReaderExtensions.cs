@@ -98,11 +98,31 @@ namespace TheXDS.MCART.Types.Extensions
             return new Guid(br.ReadBytes(16));
         }
 
+        /// <summary>
+        ///     Lee un <see cref="DateTime"/>.
+        /// </summary>
+        /// <param name="br">
+        ///     <see cref="BinaryReader"/> desde el cual obtener.
+        /// </param>
+        /// <returns>
+        ///     <see cref="DateTime"/> obtenido desde el
+        ///     <see cref="BinaryReader"/>.
+        /// </returns>
         public static DateTime ReadDateTime(this BinaryReader br)
         {
             return DateTime.FromBinary(br.ReadInt64());
         }
 
+        /// <summary>
+        ///     Lee un <see cref="TimeSpan"/>.
+        /// </summary>
+        /// <param name="br">
+        ///     <see cref="BinaryReader"/> desde el cual obtener.
+        /// </param>
+        /// <returns>
+        ///     <see cref="TimeSpan"/> obtenido desde el
+        ///     <see cref="BinaryReader"/>.
+        /// </returns>
         public static TimeSpan ReadTimeSpan(this BinaryReader br)
         {
             return TimeSpan.FromTicks(br.ReadInt64());

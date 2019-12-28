@@ -28,6 +28,7 @@ using System.Linq;
 using System.Security;
 using System.Text;
 using TheXDS.MCART.Math;
+using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using St = TheXDS.MCART.Resources.Strings;
 
@@ -80,7 +81,7 @@ namespace TheXDS.MCART.Security.Password
         public PasswordEvaluator(params PasswordEvaluationRule[] evalRules)
         {
             if (!evalRules?.Any() ?? true) throw new ArgumentNullException(nameof(evalRules));
-            Rules = new HashSet<PasswordEvaluationRule>(evalRules);
+            Rules = new HashSet<PasswordEvaluationRule>(evalRules!.NotNull());
         }
 
         /// <inheritdoc />

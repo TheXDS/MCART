@@ -46,8 +46,8 @@ MCART requiere de un compilador compatible con C# 8.0, debido a ciertas
 características especiales del lenguaje que ayudan a disminuir la
 complejidad del código.
 
-MCART también requiere que [.Net SDK](https://www.microsoft.com/net/core) 2.1,
-2.2 y 3.0 estén instalados en el sistema.
+MCART también requiere que [.Net SDK](https://www.microsoft.com/net/core) 3.1
+esté instalado en el sistema.
 
 #### Componentes adicionales
 [.Net SDK Getting Started (todas las plataformas)](https://www.microsoft.com/net/core)  

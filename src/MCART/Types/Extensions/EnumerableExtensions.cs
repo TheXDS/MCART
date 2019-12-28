@@ -410,7 +410,7 @@ namespace TheXDS.MCART.Types.Extensions
             if (!c.Any()) throw new EmptyCollectionException(c);
             return c.ElementAt(RandomExtensions.Rnd.Next(0, c.Count));
 #else
-            return !c.Any() ? default : c.ElementAt(random.Next(0, c.Count));
+            return !c.Any() ? default! : c.ElementAt(random.Next(0, c.Count));
 #endif
         }
 
@@ -431,7 +431,7 @@ namespace TheXDS.MCART.Types.Extensions
             if (!c.Any()) throw new EmptyCollectionException(c);
             return c.ElementAt(RandomExtensions.Rnd.Next(0, c.Count));
 #else
-            return !c.Any() ? default : c.ElementAt(RandomExtensions.Rnd.Next(0, c.Count));
+            return !c.Any() ? default! : c.ElementAt(RandomExtensions.Rnd.Next(0, c.Count));
 #endif
         }
 
