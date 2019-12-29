@@ -26,7 +26,7 @@ using System;
 using System.Net.Sockets;
 using TheXDS.MCART.Networking.Server;
 
-namespace EchoServer
+namespace TheXDS.MCART.Examples.EchoServer
 {
     internal static class Program
     {
@@ -67,11 +67,11 @@ namespace EchoServer
 
             /// <inheritdoc />
             /// <summary>
-            /// Protocolo de bienvenida del cliente.
+            ///     Protocolo de bienvenida del cliente.
             /// </summary>
             /// <returns>
-            /// <see langword="true" /> si el cliente fue aceptado por el protocolo,
-            /// <see langword="false" /> en caso contrario.
+            ///     <see langword="true" /> si el cliente fue aceptado por el
+            ///     protocolo, <see langword="false" /> en caso contrario.
             /// </returns>
             /// <param name="client">Cliente que será atendido.</param>
             public bool ClientWelcome(Client client)
@@ -85,10 +85,10 @@ namespace EchoServer
             ///     Inicializa un nuevo cliente manejado por este protocolo.
             /// </summary>
             /// <param name="tcpClient">
-            ///     <see cref="T:System.Net.Sockets.TcpClient" /> de la conexión con el host remoto.
+            ///     <see cref="TcpClient" /> de la conexión con el host remoto.
             /// </param>
             /// <returns>
-            ///     Un nuevo <see cref="T:TheXDS.MCART.Networking.Server.Client" />.
+            ///     Un nuevo <see cref="Client" />.
             /// </returns>
             public Client CreateClient(TcpClient tcpClient)
             {
@@ -98,7 +98,7 @@ namespace EchoServer
 
         private static void Main()
         {
-            var srv = new Server(new EchoProt(), 51200);
+            var srv = new Server(new EchoProt(), 9);
             srv.Start();
             if (!srv.IsAlive)
             {
@@ -109,7 +109,6 @@ namespace EchoServer
             Console.ReadKey();
             srv.Stop();
             Console.WriteLine("El servidor de eco se ha detenido.");
-
         }
     }
 }

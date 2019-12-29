@@ -1,6 +1,27 @@
 {
   "profiles": {
-    "Consoleer": {
+    "Version": {
+      "commandName": "Project",
+      "commandLineArgs": "-v"
+    },
+    "Help": {
+      "commandName": "Project",
+      "commandLineArgs": "--Help"
+    },
+    "Detail1": {
+      "commandName": "Project",
+      "commandLineArgs": "--Detail:ALot"
+    },
+    "Detail2": {
+      "commandName": "Project",
+      "commandLineArgs": "--Detail=Little"
+    }, 
+    "Detail3": {
+      "commandName": "Project",
+      "commandLineArgs": "--Detail"
+    },
+
+    "NoArgs": {
       "commandName": "Project"
     }
   }

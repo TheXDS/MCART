@@ -3,13 +3,19 @@ using TheXDS.MCART.Cmd;
 using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.Component;
 
-namespace Consoleer
+namespace TheXDS.MCART.Examples.Consoleer
 {
-    class Program
+    internal static class Program
     {
         private class HelpArgument : HelpArgumentBase
         {
+            public override void Run(CmdLineParser args)
+            {
+                base.Run(args);
+                Environment.Exit(0);
+            }
         }
+        
         private class DetailArgument : Argument
         {
             public override string Summary => "Establece el nivel de detalle de la salida. Los valores válidos son: Little, ALot. Si no se establece un valor, se utilizará una longitud media.";
@@ -26,12 +32,12 @@ namespace Consoleer
             }
         }
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var a = new CmdLineParser(args);
             a.AutoRun();
 
-            switch (a.Value<DetailArgument>().ToLower())
+            switch (a.Value<DetailArgument>()?.ToLower())
             {
                 case "little":
                     Console.WriteLine("Hola");

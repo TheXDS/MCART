@@ -37,22 +37,22 @@ namespace TheXDS.MCART.Cmd
         /// <summary>
         ///     Obtiene el nombre largo de este argumento.
         /// </summary>
-        public override sealed string LongName => @"Help";
+        public sealed override string LongName => @"Help";
 
         /// <summary>
         ///     Obtiene el nombre corto de este argumento.
         /// </summary>
-        public override sealed char? ShortName => '?';
+        public sealed override char? ShortName => '?';
 
         /// <summary>
         ///     Obtiene el tipo de este argumento.
         /// </summary>
-        public override sealed ValueKind Kind => ValueKind.Flag;
+        public sealed override ValueKind Kind => ValueKind.Flag;
 
         /// <summary>
         ///     Obtiene el valor predeterminado de este argumento.
         /// </summary>
-        public override sealed string? Default => null;
+        public sealed override string? Default => null;
 
         /// <summary>
         ///     Ejecuta la operación asociada a este argumento.
@@ -61,7 +61,7 @@ namespace TheXDS.MCART.Cmd
         ///     Instancia de <see cref="CmdLineParser"/> en la cual se ha
         ///     establecido y desde la cual se ejecuta este argumento.
         /// </param>
-        public override sealed void Run(CmdLineParser args)
+        public override void Run(CmdLineParser args)
         {
             args.PrintHelp();
         }

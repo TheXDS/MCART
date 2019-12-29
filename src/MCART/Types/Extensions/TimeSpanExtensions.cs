@@ -4,13 +4,13 @@ TimeSpanExtensions.cs
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Este archivo contiene numerosas extensiones para el tipo System.DateTime del
-CLR, supliéndolo de nueva funcionalidad previamente no existente, o de
-invocación compleja.
+CLR, supliÃ©ndolo de nueva funcionalidad previamente no existente, o de
+invocaciÃ³n compleja.
 
 Author(s):
-     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+     CÃ©sar AndrÃ©s Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright Â© 2011 - 2019 CÃ©sar AndrÃ©s Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -26,8 +26,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -36,7 +34,7 @@ using TheXDS.MCART.Resources;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    /// Contiene extensiones útiles de la estructura <see cref="TimeSpan"/>.
+    /// Contiene extensiones Ãºtiles de la estructura <see cref="TimeSpan"/>.
     /// </summary>
     public static class TimeSpanExtensions
     {
@@ -45,7 +43,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </summary>
         /// <param name="timeSpan">Valor a humanizar.</param>
         /// <returns>
-        ///     Una cadena amigable que indica los componentes de días, horas,
+        ///     Una cadena amigable que indica los componentes de dÃ­as, horas,
         ///     minutos y segundos de <paramref name="timeSpan"/>.
         /// </returns>
         public static string Verbose(this in TimeSpan timeSpan)
@@ -63,7 +61,7 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        /// Convierte un <see cref="TimeSpan"/> en una representación de hora.
+        /// Convierte un <see cref="TimeSpan"/> en una representaciÃ³n de hora.
         /// </summary>
         /// <param name="timeSpan">Valor a convertir.</param>
         /// <returns>Una cadena que representa una hora.</returns>
@@ -73,7 +71,7 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        /// Convierte un <see cref="TimeSpan"/> en una representación de hora.
+        /// Convierte un <see cref="TimeSpan"/> en una representaciÃ³n de hora.
         /// </summary>
         /// <param name="timeSpan">Valor a convertir.</param>
         /// <param name="culture">Cultura a utilizar para el formato de hora.</param>
