@@ -31,19 +31,19 @@ using System.Linq;
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Contiene información para el evento 
-    ///     <see cref="ListEx{T}.ListUpdating"/>.
+    /// Contiene información para el evento 
+    /// <see cref="ListEx{T}.ListUpdating"/>.
     /// </summary>
     /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
     public class ListUpdatingEventArgs<T> : CancelEventArgs
     {
         /// <summary>
-        ///     Elementos afectados por la actualización.
+        /// Elementos afectados por la actualización.
         /// </summary>
         public IReadOnlyCollection<T>? AffectedItems { get; }
         /// <summary>
-        ///     Tipo de actualización a realizar en el
-        ///     <see cref="ListEx{T}"/> que generó el evento.
+        /// Tipo de actualización a realizar en el
+        /// <see cref="ListEx{T}"/> que generó el evento.
         /// </summary>
         public ListUpdateType UpdateType { get; }
 

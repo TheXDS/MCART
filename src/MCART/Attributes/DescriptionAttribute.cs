@@ -28,7 +28,7 @@ namespace TheXDS.MCART.Attributes
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Establece una descripción larga para este elemento.
+    /// Establece una descripción larga para este elemento.
     /// </summary>
     [AttributeUsage(AttributeTargets.All)]
     [Serializable]
@@ -36,8 +36,8 @@ namespace TheXDS.MCART.Attributes
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="DescriptionAttribute" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="DescriptionAttribute" />.
         /// </summary>
         /// <param name="description">Valor del atributo.</param>
         public DescriptionAttribute(string description) : base(description)

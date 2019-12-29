@@ -31,20 +31,20 @@ namespace TheXDS.MCART.Security.Password
 {
     /// <inheritdoc cref="ICredential"/>
     /// <summary>
-    ///     Contiene información de creación de una credencial de seguridad,
-    ///     junto con datos sobre un indicio de contraseña y calidad evaluada
-    ///     de la misma.
+    /// Contiene información de creación de una credencial de seguridad,
+    /// junto con datos sobre un indicio de contraseña y calidad evaluada
+    /// de la misma.
     /// </summary>
     public struct UserData : ICredential
     {
         /// <summary>
-        ///     Obtiene una credencial vacía. Este campo es de solo lectura.
+        /// Obtiene una credencial vacía. Este campo es de solo lectura.
         /// </summary>
         public static readonly UserData Null = new UserData();
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la estructura
+        /// Inicializa una nueva instancia de la estructura
         /// <see cref="T:TheXDS.MCART.Security.Password.UserData" />.
         /// </summary>
         /// <param name="username">Nombre de usuario.</param>
@@ -55,7 +55,7 @@ namespace TheXDS.MCART.Security.Password
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la estructura
+        /// Inicializa una nueva instancia de la estructura
         /// <see cref="T:TheXDS.MCART.Security.Password.UserData" />.
         /// </summary>
         /// <param name="username">Nombre de usuario.</param>
@@ -67,29 +67,29 @@ namespace TheXDS.MCART.Security.Password
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la estructura
+        /// Inicializa una nueva instancia de la estructura
         /// <see cref="UserData"/>.
         /// </summary>
         /// <param name="username">Nombre de usuario.</param>
         /// <param name="password">Contraseña.</param>
         /// <param name="quality">
-        ///     Calidad evaluada de la contraseña, expresado como un valor
-        ///     porcentual entre 0.0f y 1.0f.
+        /// Calidad evaluada de la contraseña, expresado como un valor
+        /// porcentual entre 0.0f y 1.0f.
         /// </param>
         public UserData(string username, SecureString password, float? quality) : this(username, password, null, quality)
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la estructura
+        /// Inicializa una nueva instancia de la estructura
         /// <see cref="UserData"/>.
         /// </summary>
         /// <param name="username">Nombre de usuario.</param>
         /// <param name="password">Contraseña.</param>
         /// <param name="hint">Indicio de contraseña.</param>
         /// <param name="quality">
-        ///     Calidad evaluada de la contraseña, expresado como un valor
-        ///     porcentual entre 0.0f y 100.0f.
+        /// Calidad evaluada de la contraseña, expresado como un valor
+        /// porcentual entre 0.0f y 100.0f.
         /// </param>
         public UserData(string username, SecureString password, string? hint, float? quality)
         {
@@ -104,25 +104,25 @@ namespace TheXDS.MCART.Security.Password
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene el nombre de usuario de este <see cref="T:TheXDS.MCART.Security.Password.ICredential" />.
+        /// Obtiene el nombre de usuario de este <see cref="T:TheXDS.MCART.Security.Password.ICredential" />.
         /// </summary>
         public string Username { get; }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene la contraseña asociada a este <see cref="T:TheXDS.MCART.Security.Password.ICredential" />.
+        /// Obtiene la contraseña asociada a este <see cref="T:TheXDS.MCART.Security.Password.ICredential" />.
         /// </summary>
         public SecureString Password { get; }
 
         /// <summary>
-        ///     Obtiene un indicio de contraseña asociada a este <see cref="UserData"/>.
+        /// Obtiene un indicio de contraseña asociada a este <see cref="UserData"/>.
         /// </summary>
         public string? Hint { get; }
 
         /// <summary>
-        ///     Obtiene un valor que representa la calidad de la contraseña
-        ///     determinada por un <see cref="IPasswordEvaluator"/>, o
-        ///     <see langword="null"/> si la misma no ha sido evaluada.
+        /// Obtiene un valor que representa la calidad de la contraseña
+        /// determinada por un <see cref="IPasswordEvaluator"/>, o
+        /// <see langword="null"/> si la misma no ha sido evaluada.
         /// </summary>
         public float? Quality { get; }
     }

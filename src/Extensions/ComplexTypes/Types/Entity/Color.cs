@@ -28,14 +28,14 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.Types.Entity
 {
     /// <summary>
-    ///     Estructura universal que describe un color en sus componentes alfa,
-    ///     rojo, verde y azul.
+    /// Estructura universal que describe un color en sus componentes alfa,
+    /// rojo, verde y azul.
     /// </summary>
     [ComplexType]
     public class Color : IColor
     {
         /// <summary>
-        ///     Componente Alfa del color.
+        /// Componente Alfa del color.
         /// </summary>
         public byte A { get; set; }
 
@@ -55,11 +55,11 @@ namespace TheXDS.MCART.Types.Entity
         public byte R { get; set; }
 
         /// <summary>
-        ///     Convierte implcitamente un <see cref="Types.Color"/> en un
-        ///     <see cref="Color"/>.
+        /// Convierte implcitamente un <see cref="Types.Color"/> en un
+        /// <see cref="Color"/>.
         /// </summary>
         /// <param name="color">
-        ///     <see cref="Types.Color"/> a convertir.
+        /// <see cref="Types.Color"/> a convertir.
         /// </param>
         public static implicit operator Color(Types.Color color)
         {
@@ -73,11 +73,11 @@ namespace TheXDS.MCART.Types.Entity
         }
 
         /// <summary>
-        ///     Convierte implcitamente un <see cref="Color"/> en un
-        ///     <see cref="Types.Color"/>.
+        /// Convierte implcitamente un <see cref="Color"/> en un
+        /// <see cref="Types.Color"/>.
         /// </summary>
         /// <param name="color">
-        ///     <see cref="Color"/> a convertir.
+        /// <see cref="Color"/> a convertir.
         /// </param>
         public static implicit operator Types.Color(Color color)
         {

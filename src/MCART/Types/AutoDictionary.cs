@@ -30,28 +30,28 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Diccionario con soporte para instanciación automática de claves no
-    ///     existentes.
+    /// Diccionario con soporte para instanciación automática de claves no
+    /// existentes.
     /// </summary>
     /// <typeparam name="Tkey">Tipo de llave a utilizar.</typeparam>
     /// <typeparam name="TValue">
-    ///     Tipo del valor contenido en este diccionario.
+    /// Tipo del valor contenido en este diccionario.
     /// </typeparam>
     public class AutoDictionary<Tkey, TValue> : Dictionary<Tkey, TValue> where Tkey : notnull where TValue : new()
     {
         /// <summary>
-        ///     Obtiene o establece el valor asociado con la llave
-        ///     especificada, instanciando un nuevo valor si la misma no
-        ///     existe.
+        /// Obtiene o establece el valor asociado con la llave
+        /// especificada, instanciando un nuevo valor si la misma no
+        /// existe.
         /// </summary>
         /// <param name="key">
-        ///     Llave del valor a obtener o establecer.
-        ///     Se creará un nuevo valor si la llave no existe.
+        /// Llave del valor a obtener o establecer.
+        /// Se creará un nuevo valor si la llave no existe.
         /// </param>
         /// <returns>
-        ///     Valor asociado a la clave especificada. Si no se encuentra la
-        ///     clave especificada, se creará un nuevo elemento con dicha
-        ///     clave.
+        /// Valor asociado a la clave especificada. Si no se encuentra la
+        /// clave especificada, se creará un nuevo elemento con dicha
+        /// clave.
         /// </returns>
         public new TValue this[Tkey key]
         {

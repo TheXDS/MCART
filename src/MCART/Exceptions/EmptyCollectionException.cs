@@ -31,24 +31,24 @@ namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Excepción que se produce cuando una colección está vacía.
+    /// Excepción que se produce cuando una colección está vacía.
     /// </summary>
     [Serializable]
     public class EmptyCollectionException : OffendingException<IEnumerable>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="EmptyCollectionException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="EmptyCollectionException" />.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="StreamingContext" /> que contiene información
-        ///     contextual acerca del origen o el destino.
+        /// El <see cref="StreamingContext" /> que contiene información
+        /// contextual acerca del origen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="SerializationInfo" /> que contiene la información
-        ///     serializada del objeto acerca de la excepción que está siendo
-        ///     lanzada.
+        /// El <see cref="SerializationInfo" /> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
         protected EmptyCollectionException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
@@ -56,17 +56,17 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="EmptyCollectionException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="EmptyCollectionException" />.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="StreamingContext" /> que contiene información
-        ///     contextual acerca del origen o el destino.
+        /// El <see cref="StreamingContext" /> que contiene información
+        /// contextual acerca del origen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="SerializationInfo" /> que contiene la información
-        ///     serializada del objeto acerca de la excepción que está siendo
-        ///     lanzada.
+        /// El <see cref="SerializationInfo" /> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
         /// <param name="offendingCollection">Colección vacía que ha generado la excepción.</param>
         protected EmptyCollectionException(SerializationInfo info, StreamingContext context,
@@ -76,8 +76,8 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="EmptyCollectionException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="EmptyCollectionException" />.
         /// </summary>
         public EmptyCollectionException() : base(Strings.LstEmpty)
         {
@@ -85,8 +85,8 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="EmptyCollectionException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="EmptyCollectionException" />.
         /// </summary>
         /// <param name="offendingCollection">Colección vacía que ha generado la excepción.</param>
         public EmptyCollectionException(IEnumerable offendingCollection) : base(Strings.LstEmpty, offendingCollection)
@@ -95,10 +95,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         public EmptyCollectionException(string message) : base(message)
         {
@@ -106,10 +106,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="offendingCollection">Colección vacía que ha generado la excepción.</param>
         public EmptyCollectionException(string message, IEnumerable offendingCollection) : base(message,
@@ -119,10 +119,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException" />.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public EmptyCollectionException(Exception inner) : base(Strings.LstEmpty, inner)
         {
@@ -130,10 +130,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException" />.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="offendingCollection">Colección vacía que ha generado la excepción.</param>
         public EmptyCollectionException(Exception inner, IEnumerable offendingCollection) : base(Strings.LstEmpty, inner,
@@ -143,13 +143,13 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public EmptyCollectionException(string message, Exception inner) : base(message, inner)
         {
@@ -157,13 +157,13 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="offendingCollection">Colección vacía que ha generado la excepción.</param>
         public EmptyCollectionException(string message, Exception inner, IEnumerable offendingCollection) : base(

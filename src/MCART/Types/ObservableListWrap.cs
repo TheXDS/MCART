@@ -37,28 +37,28 @@ using NcchEa = System.Collections.Specialized.NotifyCollectionChangedEventArgs;
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Envuelve una lista para proveerla de notificación de cambios en el
-    ///     contenido de la colección.
+    /// Envuelve una lista para proveerla de notificación de cambios en el
+    /// contenido de la colección.
     /// </summary>
     [DebuggerStepThrough]
     public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionChanged
     {
         /// <summary>
-        ///     Obtiene acceso directo a la lista subyacente controlada por
-        ///     este <see cref="ObservableListWrap"/>.
+        /// Obtiene acceso directo a la lista subyacente controlada por
+        /// este <see cref="ObservableListWrap"/>.
         /// </summary>
         public IList UnderlyingList { get; private set; }
 
         /// <summary>
-        ///     Permite acceder de forma indexada al contenido de este
-        ///     <see cref="ObservableListWrap"/>.
+        /// Permite acceder de forma indexada al contenido de este
+        /// <see cref="ObservableListWrap"/>.
         /// </summary>
         /// <param name="index">
-        ///     Índice del elemento a obtener o establecer.
+        /// Índice del elemento a obtener o establecer.
         /// </param>
         /// <returns>
-        ///     El elemento encontrado en el índice especificado dentro de la
-        ///     colección.
+        /// El elemento encontrado en el índice especificado dentro de la
+        /// colección.
         /// </returns>
         public object? this[int index]
         {
@@ -72,7 +72,7 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Obliga a refrescar el estado de un elemento dentro de la lista.
+        /// Obliga a refrescar el estado de un elemento dentro de la lista.
         /// </summary>
         /// <param name="index">Índice del elemento a refrescar.</param>
         public void RefreshAt(int index)
@@ -81,38 +81,38 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Obtiene un valor que determina si esta lista es de tamaño fijo.
+        /// Obtiene un valor que determina si esta lista es de tamaño fijo.
         /// </summary>
         public bool IsFixedSize => UnderlyingList.IsFixedSize;
 
         /// <summary>
-        ///     Obtiene un valor que determina si esta lista es de solo
-        ///     lectura.
+        /// Obtiene un valor que determina si esta lista es de solo
+        /// lectura.
         /// </summary>
         public bool IsReadOnly => UnderlyingList.IsReadOnly;
 
         /// <summary>
-        ///     Obtiene la cuenta de elementos contenidos dentro de la
-        ///     colección.
+        /// Obtiene la cuenta de elementos contenidos dentro de la
+        /// colección.
         /// </summary>
         public int Count => UnderlyingList.Count;
 
         /// <summary>
-        ///     Obtiene un valor que indica si el acceso a esta
-        ///     <see cref="ICollection"/> es sincronizado (seguro para
-        ///     multihilo).
+        /// Obtiene un valor que indica si el acceso a esta
+        /// <see cref="ICollection"/> es sincronizado (seguro para
+        /// multihilo).
         /// </summary>
         public bool IsSynchronized => UnderlyingList.IsSynchronized;
 
         /// <summary>
-        ///     Obtiene un objeto que puede ser utilizado para sincronizar el
-        ///     acceso al <see cref="ICollection"/>.
+        /// Obtiene un objeto que puede ser utilizado para sincronizar el
+        /// acceso al <see cref="ICollection"/>.
         /// </summary>
         public object SyncRoot => UnderlyingList.SyncRoot;
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase 
-        ///     <see cref="ObservableListWrap"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="ObservableListWrap"/>.
         /// </summary>
         public ObservableListWrap()
         {
@@ -120,11 +120,11 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase 
-        ///     <see cref="ObservableListWrap"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="ObservableListWrap"/>.
         /// </summary>
         /// <param name="list">
-        ///     Lista a establecer como la lista subyacente.
+        /// Lista a establecer como la lista subyacente.
         /// </param>
         public ObservableListWrap(IList list)
         {
@@ -132,13 +132,13 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Agrega un elemento a este <see cref="ObservableListWrap"/>.
+        /// Agrega un elemento a este <see cref="ObservableListWrap"/>.
         /// </summary>
         /// <param name="value">
-        ///     Valor a agregar a este <see cref="ObservableListWrap"/>.
+        /// Valor a agregar a este <see cref="ObservableListWrap"/>.
         /// </param>
         /// <returns>
-        ///     El índice en el cual ha sido agregado el elemento.
+        /// El índice en el cual ha sido agregado el elemento.
         /// </returns>
         public int Add(object? value)
         {
@@ -149,8 +149,8 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Quita todos los elementos de este
-        ///     <see cref="ObservableListWrap"/>.
+        /// Quita todos los elementos de este
+        /// <see cref="ObservableListWrap"/>.
         /// </summary>
         public void Clear()
         {
@@ -160,16 +160,16 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Determina si este <see cref="ObservableListWrap"/> contiene un
-        ///     valor especificado.
+        /// Determina si este <see cref="ObservableListWrap"/> contiene un
+        /// valor especificado.
         /// </summary>
         /// <param name="value">
-        ///     Valor a comprobar.
+        /// Valor a comprobar.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si este <see cref="ObservableListWrap"/>
-        ///     contiene el valor especificado, <see langword="false"/> en caso
-        ///     contrario.
+        /// <see langword="true"/> si este <see cref="ObservableListWrap"/>
+        /// contiene el valor especificado, <see langword="false"/> en caso
+        /// contrario.
         /// </returns>
         public override bool Contains(object? value)
         {
@@ -177,13 +177,13 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Copia el contenido de este <see cref="ObservableListWrap"/> a
-        ///     un arreglo, iniciando en un índice en particular dentro del
-        ///     arreglo.
+        /// Copia el contenido de este <see cref="ObservableListWrap"/> a
+        /// un arreglo, iniciando en un índice en particular dentro del
+        /// arreglo.
         /// </summary>
         /// <param name="array">Arreglo de destino de la copia.</param>
         /// <param name="index">
-        ///     Índice dentro del arreglo desde el cual iniciar a copiar.
+        /// Índice dentro del arreglo desde el cual iniciar a copiar.
         /// </param>
         public void CopyTo(Array array, int index)
         {
@@ -191,10 +191,10 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Obtiene un enumerador que itera sobre la colección.
+        /// Obtiene un enumerador que itera sobre la colección.
         /// </summary>
         /// <returns>
-        ///     Un enumerador que puede ser utilizado para iterar sobre la colección.
+        /// Un enumerador que puede ser utilizado para iterar sobre la colección.
         /// </returns>
         protected override IEnumerator OnGetEnumerator()
         {
@@ -202,16 +202,16 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Obtiene el índice de un elemento específico dentro de este
-        ///     <see cref="ObservableListWrap"/>.
+        /// Obtiene el índice de un elemento específico dentro de este
+        /// <see cref="ObservableListWrap"/>.
         /// </summary>
         /// <param name="value">
-        ///     Valor del cual obtener el índice dentro de este
-        ///     <see cref="ObservableListWrap"/>.
+        /// Valor del cual obtener el índice dentro de este
+        /// <see cref="ObservableListWrap"/>.
         /// </param>
         /// <returns>
-        ///     El índice del elemento dentro de este
-        ///     <see cref="ObservableListWrap"/>.
+        /// El índice del elemento dentro de este
+        /// <see cref="ObservableListWrap"/>.
         /// </returns>
         public override int IndexOf(object? value)
         {
@@ -219,14 +219,14 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Inserta un elemento dentro de este
-        ///     <see cref="ObservableListWrap"/> en el índice especificado.
+        /// Inserta un elemento dentro de este
+        /// <see cref="ObservableListWrap"/> en el índice especificado.
         /// </summary>
         /// <param name="index">
-        ///     Índice en el cual realizar la inserción.
+        /// Índice en el cual realizar la inserción.
         /// </param>
         /// <param name="value">
-        ///     Valor a insertar en este <see cref="ObservableListWrap"/>.
+        /// Valor a insertar en este <see cref="ObservableListWrap"/>.
         /// </param>
         public void Insert(int index, object? value)
         {
@@ -236,10 +236,10 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Quita un elemento de este <see cref="ObservableListWrap"/>.
+        /// Quita un elemento de este <see cref="ObservableListWrap"/>.
         /// </summary>
         /// <param name="value">
-        ///     valor a quitar de este <see cref="ObservableListWrap"/>.
+        /// valor a quitar de este <see cref="ObservableListWrap"/>.
         /// </param>
         public void Remove(object? value)
         {
@@ -254,11 +254,11 @@ namespace TheXDS.MCART.Types
 
 
         /// <summary>
-        ///     Quita el elemento en el íncide especificado de este
-        ///     <see cref="ObservableListWrap"/>.
+        /// Quita el elemento en el íncide especificado de este
+        /// <see cref="ObservableListWrap"/>.
         /// </summary>
         /// <param name="index">
-        ///     Índice del elemento a remover.
+        /// Índice del elemento a remover.
         /// </param>
         public void RemoveAt(int index)
         {
@@ -269,7 +269,7 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Obliga a notificar un cambio en la lista.
+        /// Obliga a notificar un cambio en la lista.
         /// </summary>
         public override void Refresh()
         {
@@ -278,10 +278,10 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Sustituye la lista subyacente por una nueva.
+        /// Sustituye la lista subyacente por una nueva.
         /// </summary>
         /// <param name="newList">
-        ///     Lista a establecer como la lista subyacente.
+        /// Lista a establecer como la lista subyacente.
         /// </param>
         public void Substitute(IList newList)
         {
@@ -293,16 +293,16 @@ namespace TheXDS.MCART.Types
     }
 
     /// <summary>
-    ///     Envuelve una lista genérica para proveerla de notificación de
-    ///     cambios en el contenido de la colección.
+    /// Envuelve una lista genérica para proveerla de notificación de
+    /// cambios en el contenido de la colección.
     /// </summary>
     /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
     [DebuggerStepThrough]
     public class ObservableListWrap<T> : ObservableWrap<T, IList<T>>, IList<T>
     {
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ObservableListWrap{T}"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ObservableListWrap{T}"/>.
         /// </summary>
         /// <param name="collection"></param>
         public ObservableListWrap(IList<T> collection) : base(collection)
@@ -310,23 +310,23 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ObservableListWrap{T}"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ObservableListWrap{T}"/>.
         /// </summary>
         public ObservableListWrap()
         {
         }
 
         /// <summary>
-        ///     Permite acceder de forma indexada al contenido de este
-        ///     <see cref="ObservableListWrap{T}"/>.
+        /// Permite acceder de forma indexada al contenido de este
+        /// <see cref="ObservableListWrap{T}"/>.
         /// </summary>
         /// <param name="index">
-        ///     Índice del elemento a obtener o establecer.
+        /// Índice del elemento a obtener o establecer.
         /// </param>
         /// <returns>
-        ///     El elemento encontrado en el índice especificado dentro de la
-        ///     colección.
+        /// El elemento encontrado en el índice especificado dentro de la
+        /// colección.
         /// </returns>
         public T this[int index]
         {
@@ -340,39 +340,39 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Determina el índice de un elemento específico dentro del
-        ///     <see cref="ObservableListWrap{T}"/>.
+        /// Determina el índice de un elemento específico dentro del
+        /// <see cref="ObservableListWrap{T}"/>.
         /// </summary>
         /// <param name="item">
-        ///     Elemento del cual obtener el índice.
+        /// Elemento del cual obtener el índice.
         /// </param>
         /// <returns>
-        ///     El índice del elemento especificado.
+        /// El índice del elemento especificado.
         /// </returns>
         public int IndexOf(T item) => UnderlyingCollection.IndexOf(item);
 
         /// <summary>
-        ///     Determina si la secuencia subyacente contiene al elemento
-        ///     especificado.
+        /// Determina si la secuencia subyacente contiene al elemento
+        /// especificado.
         /// </summary>
         /// <param name="item">
-        ///     Elemento a buscar dentro de la secuencia.
+        /// Elemento a buscar dentro de la secuencia.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si la secuencia contiene al elemento
-        ///     especificado, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si la secuencia contiene al elemento
+        /// especificado, <see langword="false"/> en caso contrario.
         /// </returns>
         public override bool Contains(T item) => UnderlyingCollection.Contains(item);
 
         /// <summary>
-        ///     Inserta un elemento dentro de este
-        ///     <see cref="ObservableListWrap{T}"/> en un índice específico.
+        /// Inserta un elemento dentro de este
+        /// <see cref="ObservableListWrap{T}"/> en un índice específico.
         /// </summary>
         /// <param name="index">
-        ///     Posición en la cual insertar el nuevo elemento.
+        /// Posición en la cual insertar el nuevo elemento.
         /// </param>
         /// <param name="item">
-        ///     Elemento a insertar en el índice especificado.
+        /// Elemento a insertar en el índice especificado.
         /// </param>
         public void Insert(int index, T item)
         {
@@ -382,11 +382,11 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Quita el elemento de este <see cref="ObservableListWrap{T}"/>
-        ///     en el índice especificado.
+        /// Quita el elemento de este <see cref="ObservableListWrap{T}"/>
+        /// en el índice especificado.
         /// </summary>
         /// <param name="index">
-        ///     Índice del elemento a remover.
+        /// Índice del elemento a remover.
         /// </param>
         public void RemoveAt(int index)
         {

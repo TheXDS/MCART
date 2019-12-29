@@ -26,15 +26,15 @@ namespace TheXDS.MCART.Events
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Contiene información de evento para cualquier clase con eventos donde
-    ///     se guardó información.
+    /// Contiene información de evento para cualquier clase con eventos donde
+    /// se guardó información.
     /// </summary>
     public class ItemCreatedEventArgs<T> : ValueEventArgs<T>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de esta clase con la información de
-        ///     evento provista.
+        /// Inicializa una nueva instancia de esta clase con la información de
+        /// evento provista.
         /// </summary>
         /// <param name="item">Objeto que ha sido guardado.</param>
         public ItemCreatedEventArgs(T item) : base(item)

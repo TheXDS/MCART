@@ -30,8 +30,8 @@ namespace TheXDS.MCART.Attributes
 
     /// <inheritdoc cref="Attribute"/>
     /// <summary>
-    ///     Establece un formato de protocolo para abrir un vínculo por medio
-    ///     del sistema operativo.
+    /// Establece un formato de protocolo para abrir un vínculo por medio
+    /// del sistema operativo.
     /// </summary>
     [AttributeUsage(Property | Field)]
     [Serializable]
@@ -59,11 +59,11 @@ namespace TheXDS.MCART.Attributes
         }
 
         /// <summary>
-        ///     Abre un url con este protocolo formateado.
+        /// Abre un url con este protocolo formateado.
         /// </summary>
         /// <param name="url">
-        ///     URL del recurso a abrir por medio del protocolo definido por
-        ///     este atributo.
+        /// URL del recurso a abrir por medio del protocolo definido por
+        /// este atributo.
         /// </param>
         public void Open(string url)
         {

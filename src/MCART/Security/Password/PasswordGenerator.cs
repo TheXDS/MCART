@@ -31,7 +31,7 @@ namespace TheXDS.MCART.Security.Password
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Clase base para un generador de contraseña de caracteres aleatorios.
+    /// Clase base para un generador de contraseña de caracteres aleatorios.
     /// </summary>
     public class PasswordGenerator : IPasswordGenerator
     {
@@ -39,16 +39,16 @@ namespace TheXDS.MCART.Security.Password
         private readonly int _length;
 
         /// <summary>
-        ///     Genera una contraseña aleatoria utilizando los parámetros
-        ///     especificados.
+        /// Genera una contraseña aleatoria utilizando los parámetros
+        /// especificados.
         /// </summary>
         /// <param name="validChars">
-        ///     Caracteres a incluir en la contraseña.
+        /// Caracteres a incluir en la contraseña.
         /// </param>
         /// <param name="length">Longitud deseada de la contraseña.</param>
         /// <returns>
-        ///     Un <see cref="SecureString"/> que contiene la contraseña
-        ///     generada.
+        /// Un <see cref="SecureString"/> que contiene la contraseña
+        /// generada.
         /// </returns>
         public static SecureString GenerateRandomPassword(string validChars, int length)
         {
@@ -62,11 +62,11 @@ namespace TheXDS.MCART.Security.Password
 
         /// <inheritdoc />
         /// <summary>
-        ///     Genera una contraseña utilizando este generador.
+        /// Genera una contraseña utilizando este generador.
         /// </summary>
         /// <returns>
-        ///     Una contraseña generada por este
-        ///     <see cref="IPasswordGenerator"/>.
+        /// Una contraseña generada por este
+        /// <see cref="IPasswordGenerator"/>.
         /// </returns>
         public SecureString Generate()
         {
@@ -74,7 +74,7 @@ namespace TheXDS.MCART.Security.Password
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="PasswordGenerator"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="PasswordGenerator"/>.
         /// </summary>
         /// <param name="chars">Caracteres a incluir en la contraseña generada.</param>
         /// <param name="length">Longitud deseada de la contraseña generada.</param>
@@ -86,14 +86,14 @@ namespace TheXDS.MCART.Security.Password
 
         /// <inheritdoc />
         /// <summary>
-        ///     Genera una contraseña utilizando este generador.
+        /// Genera una contraseña utilizando este generador.
         /// </summary>
         /// <paramref name="length">
-        ///     Longitud deseada de la contraseña a generar.
+        /// Longitud deseada de la contraseña a generar.
         /// </paramref>
         /// <returns>
-        ///     Una contraseña generada por este
-        ///     <see cref="T:TheXDS.MCART.Security.Password.IPasswordGenerator" />.
+        /// Una contraseña generada por este
+        /// <see cref="T:TheXDS.MCART.Security.Password.IPasswordGenerator" />.
         /// </returns>
         public SecureString Generate(int length)
         {
@@ -101,8 +101,8 @@ namespace TheXDS.MCART.Security.Password
         }
         
         /// <summary>
-        ///     Convierte implícitamente un <see cref="PasswordGenerator"/> en
-        ///     un <see cref="SecureString"/>.
+        /// Convierte implícitamente un <see cref="PasswordGenerator"/> en
+        /// un <see cref="SecureString"/>.
         /// </summary>
         /// <param name="pwGen">Generador de contraseñas a convertir.</param>
         public static implicit operator SecureString(PasswordGenerator pwGen)
@@ -111,8 +111,8 @@ namespace TheXDS.MCART.Security.Password
         }
 
         /// <summary>
-        ///     Convierte implícitamente un <see cref="PasswordGenerator"/> en
-        ///     un <see cref="SecureString"/>.
+        /// Convierte implícitamente un <see cref="PasswordGenerator"/> en
+        /// un <see cref="SecureString"/>.
         /// </summary>
         /// <param name="pwGen">Generador de contraseñas a convertir.</param>
         public static implicit operator Func<int, SecureString>(PasswordGenerator pwGen)

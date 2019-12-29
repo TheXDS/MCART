@@ -31,7 +31,7 @@ using static TheXDS.MCART.Types.Extensions.DictionaryExtensions;
 namespace TheXDS.MCART.Attributes
 {
     /// <summary>
-    ///     Marca un elemento con la licencia Open-Source correspondiente.
+    /// Marca un elemento con la licencia Open-Source correspondiente.
     /// </summary>
     [AttributeUsage(Class | Module | Assembly)]
     public sealed class SpdxLicenseAttribute : LicenseAttributeBase
@@ -39,15 +39,15 @@ namespace TheXDS.MCART.Attributes
         private static readonly Dictionary<string, SpdxLicense> _licenses = new Dictionary<string, SpdxLicense>();
 
         /// <summary>
-        ///     Obtiene el nombre corto de la licencia.
+        /// Obtiene el nombre corto de la licencia.
         /// </summary>
         public SpdxLicenseId? Id { get; }
 
         /// <summary>
-        ///     Marca al elemento con una licencia SPDX específica.
+        /// Marca al elemento con una licencia SPDX específica.
         /// </summary>
         /// <param name="license">
-        ///     Licencia con la cual marcar al elemento.
+        /// Licencia con la cual marcar al elemento.
         /// </param>
         public SpdxLicenseAttribute(SpdxLicenseId license) : base(license.GetAttr<NameAttribute>()?.Value ?? license.ToString())
         {
@@ -56,10 +56,10 @@ namespace TheXDS.MCART.Attributes
         }
 
         /// <summary>
-        ///     Marca al elemento con una expresión SPDX de licencia personalizada.
+        /// Marca al elemento con una expresión SPDX de licencia personalizada.
         /// </summary>
         /// <param name="spdxShortIdentifier">
-        ///     Identificador de licencia según el estándar SPDX.
+        /// Identificador de licencia según el estándar SPDX.
         /// </param>
         public SpdxLicenseAttribute(string spdxShortIdentifier) : base(spdxShortIdentifier)
         {
@@ -67,7 +67,7 @@ namespace TheXDS.MCART.Attributes
         }
 
         /// <summary>
-        ///     Obtiene una instancia de la licencia representada por este atributo.
+        /// Obtiene una instancia de la licencia representada por este atributo.
         /// </summary>
         public override License GetLicense(object _)
         {

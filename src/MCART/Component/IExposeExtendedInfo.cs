@@ -25,28 +25,28 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.Component
 {
     /// <summary>
-    ///     Define una serie de miembros a implementar para un tipo que exponga
-    ///     información de identificación extendida.
+    /// Define una serie de miembros a implementar para un tipo que exponga
+    /// información de identificación extendida.
     /// </summary>
     public interface IExposeExtendedInfo : IExposeInfo
     {
         /// <summary>
-        ///     Obtiene un valor que indica si este 
-        ///     <see cref="IExposeExtendedInfo"/> es considerado una versión
-        ///     beta.
+        /// Obtiene un valor que indica si este 
+        /// <see cref="IExposeExtendedInfo"/> es considerado una versión
+        /// beta.
         /// </summary>
         bool Beta { get; }
 
         /// <summary>
-        ///     Obtiene un valor que indica si este
-        ///     <see cref="IExposeExtendedInfo"/> podría contener código
-        ///     utilizado en contexto inseguro.
+        /// Obtiene un valor que indica si este
+        /// <see cref="IExposeExtendedInfo"/> podría contener código
+        /// utilizado en contexto inseguro.
         /// </summary>
         bool Unmanaged { get; }
 
         /// <summary>
-        ///     Obtiene un valor que indica si este <see cref="IExposeInfo"/>
-        ///     cumple con el Common Language Standard (CLS).
+        /// Obtiene un valor que indica si este <see cref="IExposeInfo"/>
+        /// cumple con el Common Language Standard (CLS).
         /// </summary>
         bool ClsCompliant { get; }
     }

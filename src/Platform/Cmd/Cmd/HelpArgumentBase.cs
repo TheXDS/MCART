@@ -30,36 +30,36 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Cmd
 {
     /// <summary>
-    ///     Clase base para crear argumentos de ayuda.
+    /// Clase base para crear argumentos de ayuda.
     /// </summary>
     public abstract class HelpArgumentBase : Argument
     {
         /// <summary>
-        ///     Obtiene el nombre largo de este argumento.
+        /// Obtiene el nombre largo de este argumento.
         /// </summary>
         public sealed override string LongName => @"Help";
 
         /// <summary>
-        ///     Obtiene el nombre corto de este argumento.
+        /// Obtiene el nombre corto de este argumento.
         /// </summary>
         public sealed override char? ShortName => '?';
 
         /// <summary>
-        ///     Obtiene el tipo de este argumento.
+        /// Obtiene el tipo de este argumento.
         /// </summary>
         public sealed override ValueKind Kind => ValueKind.Flag;
 
         /// <summary>
-        ///     Obtiene el valor predeterminado de este argumento.
+        /// Obtiene el valor predeterminado de este argumento.
         /// </summary>
         public sealed override string? Default => null;
 
         /// <summary>
-        ///     Ejecuta la operación asociada a este argumento.
+        /// Ejecuta la operación asociada a este argumento.
         /// </summary>
         /// <param name="args">
-        ///     Instancia de <see cref="CmdLineParser"/> en la cual se ha
-        ///     establecido y desde la cual se ejecuta este argumento.
+        /// Instancia de <see cref="CmdLineParser"/> en la cual se ha
+        /// establecido y desde la cual se ejecuta este argumento.
         /// </param>
         public override void Run(CmdLineParser args)
         {
@@ -67,7 +67,7 @@ namespace TheXDS.MCART.Cmd
         }
 
         /// <summary>
-        ///     Describe a este argumento.
+        /// Describe a este argumento.
         /// </summary>
         public override string? Summary => Resources.CmdStrings.HelpArgSummary;
     }

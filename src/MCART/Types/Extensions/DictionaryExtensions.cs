@@ -27,25 +27,25 @@ using System.Collections.Generic;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Extensiones para todos los elementos de tipo <see cref="IDictionary{TKey, TValue}" />.
+    /// Extensiones para todos los elementos de tipo <see cref="IDictionary{TKey, TValue}" />.
     /// </summary>
     public static class DictionaryExtensions
     {
         /// <summary>
-        ///     Agrega un valor al diccionario.
+        /// Agrega un valor al diccionario.
         /// </summary>
         /// <typeparam name="TKey">
-        ///     Tipo de llave a utilizar para identificar al valor.
+        /// Tipo de llave a utilizar para identificar al valor.
         /// </typeparam>
         /// <typeparam name="TValue">Tipo de valor a agregar.</typeparam>
         /// <param name="dictionary">
-        ///     Diccionario al cual agregar el nuevo valor.
+        /// Diccionario al cual agregar el nuevo valor.
         /// </param>
         /// <param name="key">Llave para identificar al nuevo valor.</param>
         /// <param name="value">Valor a agregar.</param>
         /// <returns>
-        ///     La misma instancia que <paramref name="value"/>, permitiendo
-        ///     utilizar sintáxis Fluent.
+        /// La misma instancia que <paramref name="value"/>, permitiendo
+        /// utilizar sintáxis Fluent.
         /// </returns>
         public static TValue Push<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue value) where TKey : notnull
         {
@@ -54,20 +54,20 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrega un valor al diccionario especificado.
+        /// Agrega un valor al diccionario especificado.
         /// </summary>
         /// <typeparam name="TKey">
-        ///     Tipo de llave a utilizar para identificar al valor.
+        /// Tipo de llave a utilizar para identificar al valor.
         /// </typeparam>
         /// <typeparam name="TValue">Tipo de valor a agregar.</typeparam>
         /// <param name="dictionary">
-        ///     Diccionario al cual agregar el nuevo valor.
+        /// Diccionario al cual agregar el nuevo valor.
         /// </param>
         /// <param name="key">Llave para identificar al nuevo valor.</param>
         /// <param name="value">Valor a agregar.</param>
         /// <returns>
-        ///     La misma instancia que <paramref name="value"/>, permitiendo
-        ///     utilizar sintáxis Fluent.
+        /// La misma instancia que <paramref name="value"/>, permitiendo
+        /// utilizar sintáxis Fluent.
         /// </returns>
         public static TValue PushInto<TKey, TValue>(this TValue value, TKey key, IDictionary<TKey, TValue> dictionary) where TKey : notnull
         {
@@ -76,22 +76,22 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Comprueba la existencia de referencias circulares en un
-        ///     diccionario de objetos en forma de árbol.
+        /// Comprueba la existencia de referencias circulares en un
+        /// diccionario de objetos en forma de árbol.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el diccionario.
+        /// Tipo de elementos contenidos en el diccionario.
         /// </typeparam>
         /// <param name="dictionary">
-        ///     Diccionario en el cual realizar la comprobación.
+        /// Diccionario en el cual realizar la comprobación.
         /// </param>
         /// <param name="element">
-        ///     Elemento a comprobar.
+        /// Elemento a comprobar.
         /// </param>r
         /// <returns>
-        ///     <see langword="false"/> si no existen referencias circulares 
-        ///     dentro del diccionario, <see langword="true"/> en caso 
-        ///     contrario.
+        /// <see langword="false"/> si no existen referencias circulares 
+        /// dentro del diccionario, <see langword="true"/> en caso 
+        /// contrario.
         /// </returns>
         public static bool CheckCircularRef<T>(this IDictionary<T, IEnumerable<T>> dictionary, T element) where T : notnull
         {
@@ -99,22 +99,22 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Comprueba la existencia de referencias circulares en un
-        ///     diccionario de objetos.
+        /// Comprueba la existencia de referencias circulares en un
+        /// diccionario de objetos.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el diccionario.
+        /// Tipo de elementos contenidos en el diccionario.
         /// </typeparam>
         /// <param name="dictionary">
-        ///     Diccionario en el cual realizar la comprobación.
+        /// Diccionario en el cual realizar la comprobación.
         /// </param>
         /// <param name="element">
-        ///     Elemento a comprobar.
+        /// Elemento a comprobar.
         /// </param>
         /// <returns>
-        ///     <see langword="false"/> si no existen referencias circulares 
-        ///     dentro del diccionario, <see langword="true"/> en caso 
-        ///     contrario.
+        /// <see langword="false"/> si no existen referencias circulares 
+        /// dentro del diccionario, <see langword="true"/> en caso 
+        /// contrario.
         /// </returns>
         public static bool CheckCircularRef<T>(this IDictionary<T, ICollection<T>> dictionary, T element) where T : notnull
         {
@@ -122,22 +122,22 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Comprueba la existencia de referencias circulares en un
-        ///     diccionario de objetos.
+        /// Comprueba la existencia de referencias circulares en un
+        /// diccionario de objetos.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el diccionario.
+        /// Tipo de elementos contenidos en el diccionario.
         /// </typeparam>
         /// <param name="dictionary">
-        ///     Diccionario en el cual realizar la comprobación.
+        /// Diccionario en el cual realizar la comprobación.
         /// </param>
         /// <param name="element">
-        ///     Elemento a comprobar.
+        /// Elemento a comprobar.
         /// </param>
         /// <returns>
-        ///     <see langword="false"/> si no existen referencias circulares 
-        ///     dentro del diccionario, <see langword="true"/> en caso 
-        ///     contrario.
+        /// <see langword="false"/> si no existen referencias circulares 
+        /// dentro del diccionario, <see langword="true"/> en caso 
+        /// contrario.
         /// </returns>
         public static bool CheckCircularRef<T>(this IEnumerable<KeyValuePair<T, IEnumerable<T>>> dictionary, T element) where T : notnull
         {
@@ -147,22 +147,22 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Comprueba la existencia de referencias circulares en un
-        ///     diccionario de objetos.
+        /// Comprueba la existencia de referencias circulares en un
+        /// diccionario de objetos.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el diccionario.
+        /// Tipo de elementos contenidos en el diccionario.
         /// </typeparam>
         /// <param name="dictionary">
-        ///     Diccionario en el cual realizar la comprobación.
+        /// Diccionario en el cual realizar la comprobación.
         /// </param>
         /// <param name="element">
-        ///     Elemento a comprobar.
+        /// Elemento a comprobar.
         /// </param>
         /// <returns>
-        ///     <see langword="false"/> si no existen referencias circulares 
-        ///     dentro del diccionario, <see langword="true"/> en caso 
-        ///     contrario.
+        /// <see langword="false"/> si no existen referencias circulares 
+        /// dentro del diccionario, <see langword="true"/> en caso 
+        /// contrario.
         /// </returns>
         public static bool CheckCircularRef<T>(this IEnumerable<KeyValuePair<T, ICollection<T>>> dictionary, T element) where T : notnull
         {

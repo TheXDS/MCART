@@ -35,7 +35,7 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Define un rango de valores.
+    /// Define un rango de valores.
     /// </summary>
     /// <typeparam name="T">Tipo base del rango de valores.</typeparam>
     public struct Range<T> : IRange<T>, IEquatable<IRange<T>> where T : IComparable<T>
@@ -44,7 +44,7 @@ namespace TheXDS.MCART.Types
         private T _maximum;
 
         /// <summary>
-        ///     Valor mínimo del rango.
+        /// Valor mínimo del rango.
         /// </summary>
         public T Minimum
         {
@@ -57,7 +57,7 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Valor máximo del rango.
+        /// Valor máximo del rango.
         /// </summary>
         public T Maximum
         {
@@ -70,14 +70,14 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Obtiene o establece un valor que determina si el valor mínimo
-        ///     es parte del rango.
+        /// Obtiene o establece un valor que determina si el valor mínimo
+        /// es parte del rango.
         /// </summary>
         public bool MinInclusive { get; set; }
 
         /// <summary>
-        ///     Obtiene o establece un valor que determina si el valor máximo
-        ///     es parte del rango.
+        /// Obtiene o establece un valor que determina si el valor máximo
+        /// es parte del rango.
         /// </summary>
         public bool MaxInclusive { get; set; }
 
@@ -98,13 +98,13 @@ namespace TheXDS.MCART.Types
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la estructura
-        ///     <see cref="Range{T}" />
+        /// Inicializa una nueva instancia de la estructura
+        /// <see cref="Range{T}" />
         /// </summary>
         /// <param name="maximum">Valor máximo del rango.</param>
         /// <param name="inclusive">
-        ///     Si se establece en <see langword="true"/>, el valor máximo será
-        ///     incluido dentro del rango.
+        /// Si se establece en <see langword="true"/>, el valor máximo será
+        /// incluido dentro del rango.
         /// </param>
         public Range(T maximum, bool inclusive) : this(default!, maximum, inclusive, inclusive)
         {
@@ -112,32 +112,32 @@ namespace TheXDS.MCART.Types
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la estructura
-        ///     <see cref="Range{T}" />
+        /// Inicializa una nueva instancia de la estructura
+        /// <see cref="Range{T}" />
         /// </summary>
         /// <param name="minimum">Valor mínimo del rango.</param>
         /// <param name="maximum">Valor máximo del rango.</param>
         /// <param name="inclusive">
-        ///     Si se establece en <see langword="true" />, los valores mínimo y
-        ///     máximo serán incluidos dentro del rango.
+        /// Si se establece en <see langword="true" />, los valores mínimo y
+        /// máximo serán incluidos dentro del rango.
         /// </param>
         public Range(T minimum, T maximum, bool inclusive) : this(minimum, maximum, inclusive, inclusive)
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la estructura
-        ///     <see cref="Range{T}"/>
+        /// Inicializa una nueva instancia de la estructura
+        /// <see cref="Range{T}"/>
         /// </summary>
         /// <param name="minimum">Valor mínimo del rango.</param>
         /// <param name="maximum">Valor máximo del rango.</param>
         /// <param name="minInclusive">
-        ///     Si se establece en <see langword="true"/>, el valor mínimo será
-        ///     incluido dentro del rango.
+        /// Si se establece en <see langword="true"/>, el valor mínimo será
+        /// incluido dentro del rango.
         /// </param>
         /// <param name="maxInclusive">
-        ///     Si se establece en <see langword="true"/>, el valor máximo será
-        ///     incluido dentro del rango.
+        /// Si se establece en <see langword="true"/>, el valor máximo será
+        /// incluido dentro del rango.
         /// </param>
         public Range(T minimum, T maximum, bool minInclusive, bool maxInclusive)
         {
@@ -173,13 +173,13 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Crea un <see cref="Range{T}"/> a partir de una cadena.
+        /// Crea un <see cref="Range{T}"/> a partir de una cadena.
         /// </summary>
         /// <param name="value">
-        ///     Valor a partir del cual crear un <see cref="Range{T}"/>.
+        /// Valor a partir del cual crear un <see cref="Range{T}"/>.
         /// </param>
         /// <exception cref="FormatException">
-        ///     Se produce si la conversión ha fallado.
+        /// Se produce si la conversión ha fallado.
         /// </exception>
         /// <returns><see cref="Range{T}"/> que ha sido creado.</returns>
         public static Range<T> Parse(string value)
@@ -189,17 +189,17 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Intenta crear un <see cref="Range{T}"/> a partir de una cadena.
+        /// Intenta crear un <see cref="Range{T}"/> a partir de una cadena.
         /// </summary>
         /// <param name="value">
-        ///     Valor a partir del cual crear un <see cref="Range{T}"/>.
+        /// Valor a partir del cual crear un <see cref="Range{T}"/>.
         /// </param>
         /// <param name="range">
-        ///     <see cref="Range{T}"/> que ha sido creado.
+        /// <see cref="Range{T}"/> que ha sido creado.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si la conversión ha tenido éxito,
-        ///     <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si la conversión ha tenido éxito,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool TryParse(string value, out Range<T> range)
         {
@@ -238,11 +238,11 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Obtiene un rango de intersección a partir de este y otro rango especificado.
+        /// Obtiene un rango de intersección a partir de este y otro rango especificado.
         /// </summary>
         /// <param name="other">Rango a intersectar.</param>
         /// <returns>
-        ///     La intersección entre este rango y <paramref name="other"/>.
+        /// La intersección entre este rango y <paramref name="other"/>.
         /// </returns>
         public Range<T> Intersect(IRange<T> other)
         {
@@ -250,13 +250,13 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Determina si un <see cref="Range{T}"/> intersecta a este.
+        /// Determina si un <see cref="Range{T}"/> intersecta a este.
         /// </summary>
         /// <param name="other">Rango a comprobar.</param>
         /// <returns>
-        ///     <see langword="true"/> si <paramref name="other"/> intersecta a
-        ///     este <see cref="Range{T}"/>, <see langword="false"/> en caso
-        ///     contrario.
+        /// <see langword="true"/> si <paramref name="other"/> intersecta a
+        /// este <see cref="Range{T}"/>, <see langword="false"/> en caso
+        /// contrario.
         /// </returns>
         public bool Intersects(IRange<T> other)
         {
@@ -264,13 +264,13 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Une dos rangos de valores.
+        /// Une dos rangos de valores.
         /// </summary>
         /// <param name="left">Operador de la izquierda.</param>
         /// <param name="right">Operador de la derecha.</param>
         /// <returns>
-        ///     La unión de ambos <see cref="Range{T}"/>. Si los rangos no
-        ///     intersectan, se incluirán todos los valores faltantes.
+        /// La unión de ambos <see cref="Range{T}"/>. Si los rangos no
+        /// intersectan, se incluirán todos los valores faltantes.
         /// </returns>
         public static Range<T> operator +(Range<T> left, Range<T> right)
         {
@@ -278,15 +278,15 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Indica si esta instancia y un objeto especificado son iguales.
+        /// Indica si esta instancia y un objeto especificado son iguales.
         /// </summary>
         /// <param name="obj">
-        ///     Objeto que se va a compara con la instancia actual.
+        /// Objeto que se va a compara con la instancia actual.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si esta instancia y
-        ///     <paramref name="obj" /> son iguales, <see langword="false" />
-        ///     en caso contrario.
+        /// <see langword="true" /> si esta instancia y
+        /// <paramref name="obj" /> son iguales, <see langword="false" />
+        /// en caso contrario.
         /// </returns>
         public override bool Equals(object? obj)
         {
@@ -294,7 +294,7 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Devuelve el código Hash de esta instancia.
+        /// Devuelve el código Hash de esta instancia.
         /// </summary>
         /// <returns>El código Hash de esta instancia.</returns>
         public override int GetHashCode()
@@ -307,15 +307,15 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Indica si esta instancia y un objeto especificado son iguales.
+        /// Indica si esta instancia y un objeto especificado son iguales.
         /// </summary>
         /// <param name="other">
-        ///     Objeto que se va a compara con la instancia actual.
+        /// Objeto que se va a compara con la instancia actual.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si esta instancia y
-        ///     <paramref name="other" /> son iguales, <see langword="false" />
-        ///     en caso contrario.
+        /// <see langword="true" /> si esta instancia y
+        /// <paramref name="other" /> son iguales, <see langword="false" />
+        /// en caso contrario.
         /// </returns>
         public bool Equals(IRange<T>? other)
         {
@@ -328,14 +328,14 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Compara la igualdad entre dos instancias de
-        ///     <see cref="Range{T}"/>.
+        /// Compara la igualdad entre dos instancias de
+        /// <see cref="Range{T}"/>.
         /// </summary>
         /// <param name="left">Objeto a comparar</param>
         /// <param name="right">Objeto contra el cual comparar.</param>
         /// <returns>
-        ///     <see langword="true" /> si ambas instancias son iguales,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si ambas instancias son iguales,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         public static bool operator ==(Range<T> left, Range<T> right)
         {
@@ -343,14 +343,14 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Compara dos instancias de <see cref="Range{T}"/>, y devuelve
-        ///     <see langword="true"/> si son distintas la una de la otra.
+        /// Compara dos instancias de <see cref="Range{T}"/>, y devuelve
+        /// <see langword="true"/> si son distintas la una de la otra.
         /// </summary>
         /// <param name="left">Objeto a comparar</param>
         /// <param name="right">Objeto contra el cual comparar.</param>
         /// <returns>
-        ///     <see langword="true" /> si ambas instancias son distintas,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si ambas instancias son distintas,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         public static bool operator !=(Range<T> left, Range<T> right)
         {

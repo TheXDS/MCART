@@ -35,20 +35,20 @@ using static TheXDS.MCART.Types.Extensions.TaskExtensions;
 namespace TheXDS.MCART.Networking.Server
 {
     /// <summary>
-    ///     Representa a un cliente que no requiere datos de estado que se ha
-    ///     conectado al servidor.
+    /// Representa a un cliente que no requiere datos de estado que se ha
+    /// conectado al servidor.
     /// </summary>
     public class Client
     {
         /// <summary>
-        ///     Obtiene de forma segura la instancia del
-        ///     <see cref="NetworkStream"/> utilizada para la conexión con el
-        ///     cliente remoto.
+        /// Obtiene de forma segura la instancia del
+        /// <see cref="NetworkStream"/> utilizada para la conexión con el
+        /// cliente remoto.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="NetworkStream"/> utilizado para la conexión con
-        ///     el cliente remoto, o <see langword="null"/> si no existe una
-        ///     conexión activa válida.
+        /// Un <see cref="NetworkStream"/> utilizado para la conexión con
+        /// el cliente remoto, o <see langword="null"/> si no existe una
+        /// conexión activa válida.
         /// </returns>
         protected NetworkStream? NwStream()
         {
@@ -63,22 +63,22 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Define los métodos a implementar por una clase que represente a un
-        ///     cliente conectado al servidor.
+        /// Define los métodos a implementar por una clase que represente a un
+        /// cliente conectado al servidor.
         /// </summary>
         public bool Disconnecting { get; private set; }
     
         /// <summary>
-        ///     Obtiene un valor que indica si hay datos disponibles para leer.
+        /// Obtiene un valor que indica si hay datos disponibles para leer.
         /// </summary>
         /// <value>
-        ///     <see langword="true" /> si hay datos disponibles,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si hay datos disponibles,
+        /// <see langword="false" /> en caso contrario.
         /// </value>
         public bool DataAvailable => NwStream()?.DataAvailable ?? false;
 
         /// <summary>
-        ///     Obtiene el <see cref="IPEndPoint" /> remoto del cliente.
+        /// Obtiene el <see cref="IPEndPoint" /> remoto del cliente.
         /// </summary>
         public IPEndPoint? EndPoint
         {
@@ -96,28 +96,28 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Indica si esta instancia de <see cref="Client" /> se encuentra
-        ///     conectada a un servidor.
+        /// Indica si esta instancia de <see cref="Client" /> se encuentra
+        /// conectada a un servidor.
         /// </summary>
         /// <value>
-        ///     <see langword="true" /> si esta instancia de <see cref="Client" /> se
-        ///     encuentra conectada a un servidor, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si esta instancia de <see cref="Client" /> se
+        /// encuentra conectada a un servidor, <see langword="false" /> en caso
+        /// contrario.
         /// </value>
         public bool IsAlive => !(NwStream() is null);
 
         /// <summary>
-        ///     Obtiene la conexión <see cref="System.Net.Sockets.TcpClient" /> asociada a esta instancia.
+        /// Obtiene la conexión <see cref="System.Net.Sockets.TcpClient" /> asociada a esta instancia.
         /// </summary>
         /// <value>My connection.</value>
         private TcpClient Connection { get; }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="Client" />.
+        /// Inicializa una nueva instancia de la clase <see cref="Client" />.
         /// </summary>
         /// <param name="connection">
-        ///     <see cref="System.Net.Sockets.TcpClient" /> a utilizar para las
-        ///     comunicaciones con el cliente.
+        /// <see cref="System.Net.Sockets.TcpClient" /> a utilizar para las
+        /// comunicaciones con el cliente.
         /// </param>
         public Client(TcpClient connection)
         {
@@ -125,7 +125,7 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Inicia el proceso de desconexión del cliente.
+        /// Inicia el proceso de desconexión del cliente.
         /// </summary>
         public void Bye()
         {
@@ -133,12 +133,12 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Desconecta al cliente del servidor.
+        /// Desconecta al cliente del servidor.
         /// </summary>
         public void Disconnect() => Connection.Close();
 
         /// <summary>
-        ///     Devuelve los datos que el cliente envía.
+        /// Devuelve los datos que el cliente envía.
         /// </summary>
         /// <returns>Un arreglo de <see cref="byte" /> con la información recibida desde el servidor.</returns>
         public byte[] Recieve()
@@ -199,7 +199,7 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Devuelve los datos recibidos una vez que el cliente los envía.
+        /// Devuelve los datos recibidos una vez que el cliente los envía.
         /// </summary>
         /// <returns>Un arreglo de <see cref="byte" /> con la información recibida desde el servidor.</returns>
         public async Task<byte[]> RecieveAsync()
@@ -215,7 +215,7 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Devuelve los datos recibidos una vez que el cliente los envía.
+        /// Devuelve los datos recibidos una vez que el cliente los envía.
         /// </summary>
         /// <param name="cancellationToken">Token de cancelación de tarea.</param>
         /// <returns>Un arreglo de <see cref="byte" /> con la información recibida desde el servidor.</returns>
@@ -237,7 +237,7 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Envía un mensaje al cliente.
+        /// Envía un mensaje al cliente.
         /// </summary>
         /// <param name="data">Mensaje a enviar.</param>
         public void Send(byte[] data)
@@ -246,7 +246,7 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Envía un mensaje al cliente.
+        /// Envía un mensaje al cliente.
         /// </summary>
         /// <param name="data">Mensaje a enviar.</param>
         public void Send(IEnumerable<byte> data)
@@ -255,7 +255,7 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Envía un mensaje al cliente.
+        /// Envía un mensaje al cliente.
         /// </summary>
         /// <param name="data">Mensaje a enviar.</param>
         public void Send(MemoryStream data)
@@ -264,7 +264,7 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Envía un mensaje al cliente.
+        /// Envía un mensaje al cliente.
         /// </summary>
         /// <param name="data">Mensaje a enviar.</param>
         public void Send(Stream data)
@@ -275,12 +275,12 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Envía un mensaje al cliente de forma asíncrona.
+        /// Envía un mensaje al cliente de forma asíncrona.
         /// </summary>
         /// <param name="data">Mensaje a enviar.</param>
         /// <returns>
-        ///     Un <see cref="Task"/> que puede utilizarse para monitorear la
-        ///     operación asíncrona.
+        /// Un <see cref="Task"/> que puede utilizarse para monitorear la
+        /// operación asíncrona.
         /// </returns>
         public Task SendAsync(IEnumerable<byte> data)
         {
@@ -288,12 +288,12 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Envía un mensaje al cliente de forma asíncrona.
+        /// Envía un mensaje al cliente de forma asíncrona.
         /// </summary>
         /// <param name="data">Mensaje a enviar.</param>
         /// <returns>
-        ///     Un <see cref="Task"/> que puede utilizarse para monitorear la
-        ///     operación asíncrona.
+        /// Un <see cref="Task"/> que puede utilizarse para monitorear la
+        /// operación asíncrona.
         /// </returns>
         public async Task SendAsync(Stream data)
         {
@@ -303,12 +303,12 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Envía un mensaje al cliente de forma asíncrona.
+        /// Envía un mensaje al cliente de forma asíncrona.
         /// </summary>
         /// <param name="data">Mensaje a enviar.</param>
         /// <returns>
-        ///     Un <see cref="Task"/> que puede utilizarse para monitorear la
-        ///     operación asíncrona.
+        /// Un <see cref="Task"/> que puede utilizarse para monitorear la
+        /// operación asíncrona.
         /// </returns>
         public Task SendAsync(MemoryStream data)
         {
@@ -316,12 +316,12 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Envía un mensaje al cliente de forma asíncrona.
+        /// Envía un mensaje al cliente de forma asíncrona.
         /// </summary>
         /// <param name="data">Mensaje a enviar.</param>
         /// <returns>
-        ///     Un <see cref="Task"/> que puede utilizarse para monitorear la
-        ///     operación asíncrona.
+        /// Un <see cref="Task"/> que puede utilizarse para monitorear la
+        /// operación asíncrona.
         /// </returns>
         public Task SendAsync(byte[] data)
         {
@@ -329,15 +329,15 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Envía un mensaje al cliente de forma asíncrona.
+        /// Envía un mensaje al cliente de forma asíncrona.
         /// </summary>
         /// <param name="data">Mensaje a enviar.</param>
         /// <param name="cancellationToken">
-        ///     Token de cancelación de tarea.
+        /// Token de cancelación de tarea.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Task"/> que puede utilizarse para monitorear la
-        ///     operación asíncrona.
+        /// Un <see cref="Task"/> que puede utilizarse para monitorear la
+        /// operación asíncrona.
         /// </returns>
         public Task SendAsync(byte[] data, CancellationToken cancellationToken)
         {
@@ -347,27 +347,27 @@ namespace TheXDS.MCART.Networking.Server
 
     /// <inheritdoc />
     /// <summary>
-    ///     Representa un cliente que requiere datos de estado asociados que se ha
-    ///     conectado al servidor.
+    /// Representa un cliente que requiere datos de estado asociados que se ha
+    /// conectado al servidor.
     /// </summary>
     /// <typeparam name="T">
-    ///     Tipo de datos asociados de cliente requeridos.
+    /// Tipo de datos asociados de cliente requeridos.
     /// </typeparam>
     public class Client<T> : Client
     {
         /// <summary>
-        ///     Contiene un objeto de estado personalizado asociado a esta
-        ///     instancia de la clase <see cref="Client{T}" />.
+        /// Contiene un objeto de estado personalizado asociado a esta
+        /// instancia de la clase <see cref="Client{T}" />.
         /// </summary>
         public T ClientData { get; set; } = default!;
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="Client{T}" />.
+        /// Inicializa una nueva instancia de la clase <see cref="Client{T}" />.
         /// </summary>
         /// <param name="connection">
-        ///     <see cref="TcpClient" /> a utilizar para las comunicaciones con el
-        ///     cliente.
+        /// <see cref="TcpClient" /> a utilizar para las comunicaciones con el
+        /// cliente.
         /// </param>
         public Client(TcpClient connection) : base(connection)
         {

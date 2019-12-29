@@ -27,79 +27,79 @@ using System.Collections.Generic;
 namespace TheXDS.MCART.Component
 {
     /// <summary>
-    ///     Define una serie de miembros a implementar por un tipo que permita
-    ///     exponer la línea de comandos de la aplicación como abstracciones de
-    ///     objetos.
+    /// Define una serie de miembros a implementar por un tipo que permita
+    /// exponer la línea de comandos de la aplicación como abstracciones de
+    /// objetos.
     /// </summary>
     public interface ICmdLineParser
     {
         /// <summary>
-        ///     Obtiene una colección de comandos o archivos incluidos en la
-        ///     línea de comandos.
+        /// Obtiene una colección de comandos o archivos incluidos en la
+        /// línea de comandos.
         /// </summary>
         IEnumerable<string> Commands { get; }
 
         /// <summary>
-        ///     Obtiene una colección con todos los argumentos disponibles para
-        ///     utilizar en la línea de comandos.
+        /// Obtiene una colección con todos los argumentos disponibles para
+        /// utilizar en la línea de comandos.
         /// </summary>
         IEnumerable<Argument> AvailableArguments { get; }
 
         /// <summary>
-        ///     Obtiene una colección con todos los argumentos especificados en
-        ///     la línea de comandos.
+        /// Obtiene una colección con todos los argumentos especificados en
+        /// la línea de comandos.
         /// </summary>
         IEnumerable<Argument> Present { get; }
 
         /// <summary>
-        ///     Obtiene una colección con todos los argumentos requeridos que
-        ///     no han sido incluidos en la línea de comandos.
+        /// Obtiene una colección con todos los argumentos requeridos que
+        /// no han sido incluidos en la línea de comandos.
         /// </summary>
         IEnumerable<Argument> Missing { get; }
 
         /// <summary>
-        ///     Obtiene una colección de argumentos que no tienen una
-        ///     definición establecida, o que se encuentran malformados.
+        /// Obtiene una colección de argumentos que no tienen una
+        /// definición establecida, o que se encuentran malformados.
         /// </summary>
         IEnumerable<string> Invalid { get; }
 
         /// <summary>
-        ///     Obtiene una referencia al argumento especificado en la línea de
-        ///     comandos.
+        /// Obtiene una referencia al argumento especificado en la línea de
+        /// comandos.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de argumento a obtener.
+        /// Tipo de argumento a obtener.
         /// </typeparam>
         /// <returns>
-        ///     El argumento especificado en la ínea de comandos, o 
-        ///     <see langword="null"/> si el mismo no ha sido especificado.
+        /// El argumento especificado en la ínea de comandos, o 
+        /// <see langword="null"/> si el mismo no ha sido especificado.
         /// </returns>
         T? Arg<T>() where T : Argument, new();
 
         /// <summary>
-        ///     Obtiene un valor que indica si el argumento del tipo 
-        ///     especificado se encuentra presente en la línea de comandos.
+        /// Obtiene un valor que indica si el argumento del tipo 
+        /// especificado se encuentra presente en la línea de comandos.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de argumento a comprobar.
+        /// Tipo de argumento a comprobar.
         /// </typeparam>
         /// <returns>
-        ///     <see langword="true"/> si el argumento se encuentra presente en
-        ///     la línea de comandos, <see langword="false"/> en caso
-        ///     contrario.
+        /// <see langword="true"/> si el argumento se encuentra presente en
+        /// la línea de comandos, <see langword="false"/> en caso
+        /// contrario.
         /// </returns>
         bool IsPresent<T>() where T : Argument, new();
 
         /// <summary>
-        ///     Obtiene el valor de un argumento especificado en la línea de
-        ///     comandos.
+        /// Obtiene el valor de un argumento especificado en la línea de
+        /// comandos.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de argumento del cual obtener el valor.
+        /// Tipo de argumento del cual obtener el valor.
         /// </typeparam>
         /// <returns>
-        ///     El valor establecido del argumento, o <see langword="null"/> si
-        ///     el mismo no ha sido especificado.
+        /// El valor establecido del argumento, o <see langword="null"/> si
+        /// el mismo no ha sido especificado.
         /// </returns>
         string? Value<T>() where T : Argument, new();
     }

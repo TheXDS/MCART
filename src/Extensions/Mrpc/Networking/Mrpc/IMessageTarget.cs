@@ -25,17 +25,17 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.Networking.Mrpc
 {
     /// <summary>
-    ///     Define una serie de miembros a implementar por una tipo que provea
-    ///     de métodos por medio de los cuales se pueda notificar a la
-    ///     instancia sobre la recepción de mensajes desde un servicio remoto.
+    /// Define una serie de miembros a implementar por una tipo que provea
+    /// de métodos por medio de los cuales se pueda notificar a la
+    /// instancia sobre la recepción de mensajes desde un servicio remoto.
     /// </summary>
-    internal interface IMessageTarget
+    public interface IMessageTarget
     {
         /// <summary>
-        ///     Notifica a esta instancia sobre la recepción de un mensaje.
+        /// Notifica a esta instancia sobre la recepción de un mensaje.
         /// </summary>
         /// <param name="data">
-        ///     Mensaje que ha sido enviado por el servicio remoto.
+        /// Mensaje que ha sido enviado por el servicio remoto.
         /// </param>
         void Recieve(byte[] data);
     }

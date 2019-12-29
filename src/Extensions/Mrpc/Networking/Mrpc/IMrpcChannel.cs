@@ -25,27 +25,27 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.Networking.Mrpc
 {
     /// <summary>
-    ///     Define una serie de miembros a implementar por un tipo que provea
-    ///     de un túnel de comunicación entre la aplicación local y un servicio
-    ///     remoto de Mrpc.
+    /// Define una serie de miembros a implementar por un tipo que provea
+    /// de un túnel de comunicación entre la aplicación local y un servicio
+    /// remoto de Mrpc.
     /// </summary>
     public interface IMrpcChannel
     {
         /// <summary>
-        ///     Envía los datos a un servicio remoto.
+        /// Envía los datos a un servicio remoto.
         /// </summary>
         /// <param name="payload">
-        ///     Paquete de bytes a enviar.
+        /// Paquete de bytes a enviar.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si los datos se enviaron correctamente,
-        ///     <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si los datos se enviaron correctamente,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         bool Send(byte[] payload);
 
         /// <summary>
-        ///     Obtiene una referencia al objetivo de mensajes que está a la
-        ///     espera de datos provenientes del servicio remoto.
+        /// Obtiene una referencia al objetivo de mensajes que está a la
+        /// espera de datos provenientes del servicio remoto.
         /// </summary>
         IMessageTarget MessageTarget { get; internal set; }
     }

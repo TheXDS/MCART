@@ -32,14 +32,14 @@ namespace TheXDS.MCART.Networking.Server.Protocols
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Protocolo de sincronización de hora basado en el estándar RFC 868.
+    /// Protocolo de sincronización de hora basado en el estándar RFC 868.
     /// </summary>
     [Port(37)]
     public class Time : IProtocol
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Atiende al cliente (en caso de una conexión UDP)
+        /// Atiende al cliente (en caso de una conexión UDP)
         /// </summary>
         /// <param name="client">Cliente que será atendido.</param>
         /// <param name="data">Datos recibidos desde el cliente.</param>
@@ -50,7 +50,7 @@ namespace TheXDS.MCART.Networking.Server.Protocols
 
         /// <inheritdoc />
         /// <summary>
-        ///     Protocolo de desconexión del cliente.
+        /// Protocolo de desconexión del cliente.
         /// </summary>
         /// <param name="client">Cliente que será atendido.</param>
         public void ClientBye(Client client)
@@ -59,7 +59,7 @@ namespace TheXDS.MCART.Networking.Server.Protocols
 
         /// <inheritdoc />
         /// <summary>
-        ///     Protocolo de desconexión inesperada del cliente.
+        /// Protocolo de desconexión inesperada del cliente.
         /// </summary>
         /// <param name="client">Cliente que se ha desconectado.</param>
         public void ClientDisconnect(Client client)
@@ -68,12 +68,12 @@ namespace TheXDS.MCART.Networking.Server.Protocols
 
         /// <inheritdoc />
         /// <summary>
-        ///     Protocolo de bienvenida del cliente.
+        /// Protocolo de bienvenida del cliente.
         /// </summary>
         /// <returns>
-        ///     Esta implementación siempre devuelve <see langword="false" />,
-        ///     lo cual cerrará la conexión luego de enviada la respuesta, tal
-        ///     como lo dicta el estándar RFC 868.
+        /// Esta implementación siempre devuelve <see langword="false" />,
+        /// lo cual cerrará la conexión luego de enviada la respuesta, tal
+        /// como lo dicta el estándar RFC 868.
         /// </returns>
         /// <param name="client">Cliente que será atendido.</param>
         public bool ClientWelcome(Client client)
@@ -84,13 +84,13 @@ namespace TheXDS.MCART.Networking.Server.Protocols
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa un nuevo cliente manejado por este protocolo.
+        /// Inicializa un nuevo cliente manejado por este protocolo.
         /// </summary>
         /// <param name="tcpClient">
-        ///     <see cref="TcpClient" /> de la conexión con el host remoto.
+        /// <see cref="TcpClient" /> de la conexión con el host remoto.
         /// </param>
         /// <returns>
-        ///     Un nuevo <see cref="Client" />.
+        /// Un nuevo <see cref="Client" />.
         /// </returns>
         public Client CreateClient(TcpClient tcpClient)
         {

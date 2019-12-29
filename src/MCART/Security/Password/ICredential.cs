@@ -27,17 +27,17 @@ using System.Security;
 namespace TheXDS.MCART.Security.Password
 {
     /// <summary>
-    ///     Define una serie de miembros a implementar por una estructura que
-    ///     represente información de credenciales de inicio de sesión.
+    /// Define una serie de miembros a implementar por una estructura que
+    /// represente información de credenciales de inicio de sesión.
     /// </summary>
     public interface ICredential
     {
         /// <summary>
-        ///     Obtiene el nombre de usuario de este <see cref="ICredential"/>.
+        /// Obtiene el nombre de usuario de este <see cref="ICredential"/>.
         /// </summary>
         string Username { get; }
         /// <summary>
-        ///     Obtiene la contraseña asociada a este <see cref="ICredential"/>.
+        /// Obtiene la contraseña asociada a este <see cref="ICredential"/>.
         /// </summary>
         SecureString Password { get; }
     }

@@ -28,20 +28,20 @@ using System.Reflection;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Contiene extensiones para la clase <see cref="MethodInfo"/>.
+    /// Contiene extensiones para la clase <see cref="MethodInfo"/>.
     /// </summary>
     public static class MethodInfoExtensions
     {
         /// <summary>
-        ///     Crea un delegado del tipo especificado a partir del método.
+        /// Crea un delegado del tipo especificado a partir del método.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de delegado a obtener.
+        /// Tipo de delegado a obtener.
         /// </typeparam>
         /// <param name="m">Método del cual obtener un delegado.</param>
         /// <returns>
-        ///     Un delegado del tipo especificado a partir del método, o
-        ///     <see langword="null"/> si no es posible realizar la conversión.
+        /// Un delegado del tipo especificado a partir del método, o
+        /// <see langword="null"/> si no es posible realizar la conversión.
         /// </returns>
         public static T? ToDelegate<T>(this MethodInfo m) where T : Delegate
         {
@@ -50,13 +50,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Obtiene un valor que determina si el método no devuelve valores
-        ///     (si es <see cref="void"/>).
+        /// Obtiene un valor que determina si el método no devuelve valores
+        /// (si es <see cref="void"/>).
         /// </summary>
         /// <param name="m">Método a comprobar.</param>
         /// <returns>
-        ///     <see langword="true"/> si el método no devuelve valores, 
-        ///     <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si el método no devuelve valores, 
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool IsVoid(this MethodInfo m)
         {

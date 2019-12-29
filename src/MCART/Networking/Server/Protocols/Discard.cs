@@ -28,15 +28,15 @@ namespace TheXDS.MCART.Networking.Server.Protocols
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Protocolo simple de descarte de datos definido según el estándar
-    ///     RFC 863.
+    /// Protocolo simple de descarte de datos definido según el estándar
+    /// RFC 863.
     /// </summary>
     [Port(9)]
     public class Discard : SimpleProtocol
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Atiende al cliente
+        /// Atiende al cliente
         /// </summary>
         /// <param name="client">Cliente que será atendido.</param>
         /// <param name="data">Datos recibidos desde el cliente.</param>

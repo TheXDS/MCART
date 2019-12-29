@@ -29,20 +29,20 @@ namespace TheXDS.MCART.Attributes
 {
     /// <inheritdoc cref="Attribute"/>
     /// <summary>
-    ///     Marca un elemento con un valor de prioridad.
+    /// Marca un elemento con un valor de prioridad.
     /// </summary>
     [AttributeUsage(Assembly | Class | Module | Event | GenericParameter | Interface | Method | Module | Parameter | Property | Struct)]
     [Serializable]
     public sealed class PriorityAttribute : Attribute, IValueAttribute<int>
     {
         /// <summary>
-        ///     Obtiene el valor de prioridad asociado al elemento.
+        /// Obtiene el valor de prioridad asociado al elemento.
         /// </summary>
         public int Value { get; }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="PriorityAttribute"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="PriorityAttribute"/>.
         /// </summary>
         /// <param name="priority">Valor de prioridad a asociar.</param>
         public PriorityAttribute(int priority)

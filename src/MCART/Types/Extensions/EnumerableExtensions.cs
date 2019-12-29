@@ -36,23 +36,23 @@ namespace TheXDS.MCART.Types.Extensions
 {
 
     /// <summary>
-    ///     Extensiones para todos los elementos de tipo
-    ///     <see cref="IEnumerable{T}" />.
+    /// Extensiones para todos los elementos de tipo
+    /// <see cref="IEnumerable{T}" />.
     /// </summary>
     public static class EnumerableExtensions
     {
         /// <summary>
-        ///     Ejecuta una operación sobre una secuencia en un contexto
-        ///     bloqueado.
+        /// Ejecuta una operación sobre una secuencia en un contexto
+        /// bloqueado.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de elementos de la secuencia.
+        /// Tipo de elementos de la secuencia.
         /// </typeparam>
         /// <param name="collection">
-        ///     Secuencia sobre la cual ejecutar una operación bloqueada.
+        /// Secuencia sobre la cual ejecutar una operación bloqueada.
         /// </param>
         /// <param name="action">
-        ///     Acción a ejecutar sobre la secuencia.
+        /// Acción a ejecutar sobre la secuencia.
         /// </param>
         public static void Locked<T>(this T collection, Action<T> action) where T : IEnumerable
         {
@@ -68,13 +68,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Obtiene la cuenta de elementos nulos dentro de una secuencia.
+        /// Obtiene la cuenta de elementos nulos dentro de una secuencia.
         /// </summary>
         /// <param name="c">
-        ///     Secuencia desde la cual obtener la cuenta de elementos nulos.
+        /// Secuencia desde la cual obtener la cuenta de elementos nulos.
         /// </param>
         /// <returns>
-        ///     La cuenta de elementos nulos dentro de la colección.
+        /// La cuenta de elementos nulos dentro de la colección.
         /// </returns>
         public static int NullCount(this IEnumerable c)
         {
@@ -87,12 +87,12 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrupa una secuencia de elementos de acuerdo al tipo de los
-        ///     mismos.
+        /// Agrupa una secuencia de elementos de acuerdo al tipo de los
+        /// mismos.
         /// </summary>
         /// <param name="c">Colección a agrupar.</param>
         /// <returns>
-        ///     Una secuencia de elementos agrupados de acuerdo a su tipo.
+        /// Una secuencia de elementos agrupados de acuerdo a su tipo.
         /// </returns>
         public static IEnumerable<IGrouping<Type, object>> GroupByType(this IEnumerable c)
         {
@@ -100,14 +100,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Enumera una colección no genérica como una genérica.
+        /// Enumera una colección no genérica como una genérica.
         /// </summary>
         /// <param name="collection">
-        ///     Colección a enumerar.
+        /// Colección a enumerar.
         /// </param>
         /// <returns>
-        ///     Una enumeración con el contenido de la enumeración no genérica
-        ///     expuesta como una genérica.
+        /// Una enumeración con el contenido de la enumeración no genérica
+        /// expuesta como una genérica.
         /// </returns>
         public static IEnumerable<object?> ToGeneric(this IEnumerable collection)
         {
@@ -115,19 +115,19 @@ namespace TheXDS.MCART.Types.Extensions
         }
         
         /// <summary>
-        ///     Obtiene al primer elemento del tipo solicitado dentro de una
-        ///     colección.
+        /// Obtiene al primer elemento del tipo solicitado dentro de una
+        /// colección.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de elemento a buscar.
+        /// Tipo de elemento a buscar.
         /// </typeparam>
         /// <param name="collection">
-        ///     Colección sobre la cual realizar la búsqueda.
+        /// Colección sobre la cual realizar la búsqueda.
         /// </param>
         /// <returns>
-        ///     El primer elemento de tipo <typeparamref name="T"/> que sea
-        ///     encontrado en la colección, o <see langword="null"/> si no se
-        ///     encuentra ningún elemento del tipo especificado.
+        /// El primer elemento de tipo <typeparamref name="T"/> que sea
+        /// encontrado en la colección, o <see langword="null"/> si no se
+        /// encuentra ningún elemento del tipo especificado.
         /// </returns>
         [Sugar]
         public static T FirstOf<T>(this IEnumerable collection)
@@ -136,17 +136,17 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Enumera todos los elementos de la colección, omitiendo los
-        ///     especificados.
+        /// Enumera todos los elementos de la colección, omitiendo los
+        /// especificados.
         /// </summary>
         /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
         /// <param name="collection">Colección a enumerar.</param>
         /// <param name="exclusions">
-        ///     Elementos a excluir de la colección.
+        /// Elementos a excluir de la colección.
         /// </param>
         /// <returns>
-        ///     Una enumeración con los elementos de la colección, omitiendo
-        ///     las exclusiones especificadas.
+        /// Una enumeración con los elementos de la colección, omitiendo
+        /// las exclusiones especificadas.
         /// </returns>
 		public static IEnumerable<T> ExceptFor<T>(this IEnumerable<T> collection, params T[] exclusions)
         {
@@ -161,13 +161,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Enumera los elementos no nulos de una colección.
+        /// Enumera los elementos no nulos de una colección.
         /// </summary>
         /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
         /// <param name="collection">Colección a enumerar.</param>
         /// <returns>
-        ///     Una enumeración con los elementos de la colección, omitiendo
-        ///     aquellos que sean <see langword="null"/>.
+        /// Una enumeración con los elementos de la colección, omitiendo
+        /// aquellos que sean <see langword="null"/>.
         /// </returns>
         public static IEnumerable<T> NotNull<T>(this IEnumerable<T?> collection) where T : class
         {
@@ -175,12 +175,12 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Enumera los elementos no nulos de una colección.
+        /// Enumera los elementos no nulos de una colección.
         /// </summary>
         /// <param name="collection">Colección a enumerar.</param>
         /// <returns>
-        ///     Una enumeración con los elementos de la colección, omitiendo
-        ///     aquellos que sean <see langword="null"/>.
+        /// Una enumeración con los elementos de la colección, omitiendo
+        /// aquellos que sean <see langword="null"/>.
         /// </returns>
         public static IEnumerable NotNull(this IEnumerable collection)
         {
@@ -191,13 +191,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Enumera los elementos no nulos de una colección.
+        /// Enumera los elementos no nulos de una colección.
         /// </summary>
         /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
         /// <param name="collection">Colección a enumerar.</param>
         /// <returns>
-        ///     Una enumeración con los elementos de la colección, omitiendo
-        ///     aquellos que sean <see langword="null"/>.
+        /// Una enumeración con los elementos de la colección, omitiendo
+        /// aquellos que sean <see langword="null"/>.
         /// </returns>
         public static IEnumerable<T> NotNull<T>(this IEnumerable<T?> collection) where T : struct
         {
@@ -205,14 +205,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Enumera la colección, y devuelve <see langword="null"/> si la
-        ///     colección no contiene elementos.
+        /// Enumera la colección, y devuelve <see langword="null"/> si la
+        /// colección no contiene elementos.
         /// </summary>
         /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
         /// <param name="collection">Colección a enumerar.</param>
         /// <returns>
-        ///     Una enumeración con los elementos de la colección, o
-        ///     <see langword="null"/> si la colección no contiene elementos.
+        /// Una enumeración con los elementos de la colección, o
+        /// <see langword="null"/> si la colección no contiene elementos.
         /// </returns>
         public static IEnumerable<T>? OrNull<T>(this IEnumerable<T> collection)
         {
@@ -221,15 +221,15 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Enumera los elementos que sean distintos de su valor
-        ///     predeterminado dentro de una colección.
+        /// Enumera los elementos que sean distintos de su valor
+        /// predeterminado dentro de una colección.
         /// </summary>
         /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
         /// <param name="collection">Colección a enumerar.</param>
         /// <returns>
-        ///     Una enumeración con los elementos de la colección, omitiendo
-        ///     aquellos que sean iguales a su valor predeterminado, o en el
-        ///     caso de tipos de referencia, <see langword="null"/>.
+        /// Una enumeración con los elementos de la colección, omitiendo
+        /// aquellos que sean iguales a su valor predeterminado, o en el
+        /// caso de tipos de referencia, <see langword="null"/>.
         /// </returns>
         public static IEnumerable<T> NonDefaults<T>(this IEnumerable<T> collection)
         {
@@ -237,25 +237,25 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Obtiene un sub-rango de valores dentro de este
-        ///     <see cref="IEnumerable{T}" />.
+        /// Obtiene un sub-rango de valores dentro de este
+        /// <see cref="IEnumerable{T}" />.
         /// </summary>
         /// <param name="from">
-        ///     <see cref="IEnumerable{T}" /> desde el cual extraer la secuencia.
+        /// <see cref="IEnumerable{T}" /> desde el cual extraer la secuencia.
         /// </param>
         /// <param name="index">
-        ///     Índice a partir del cual obtener el sub-rango.
+        /// Índice a partir del cual obtener el sub-rango.
         /// </param>
         /// <param name="count">
-        ///     Cantidad de elementos a obtener.
+        /// Cantidad de elementos a obtener.
         /// </param>
         /// <returns>
-        ///     Un <see cref="IEnumerable{T}" /> que contiene el sub-rango
-        ///     especificado.
+        /// Un <see cref="IEnumerable{T}" /> que contiene el sub-rango
+        /// especificado.
         /// </returns>
         /// <exception cref="IndexOutOfRangeException">
-        ///     Se produce si <paramref name="index"/> está fuera del rango de
-        ///     la colección.
+        /// Se produce si <paramref name="index"/> está fuera del rango de
+        /// la colección.
         /// </exception>
         public static IEnumerable<T> Range<T>(this IEnumerable<T> from, int index, int count)
         {
@@ -276,15 +276,15 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Obtiene una copia de los elementos de este <see cref="IEnumerable{T}" />
+        /// Obtiene una copia de los elementos de este <see cref="IEnumerable{T}" />
         /// </summary>
         /// <returns>
-        ///     Copia de esta lista. Los elementos de la copia representan la misma
-        ///     instancia del objeto original.
+        /// Copia de esta lista. Los elementos de la copia representan la misma
+        /// instancia del objeto original.
         /// </returns>
         /// <param name="collection">Colección a copiar.</param>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+        /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
         /// </typeparam>
         public static IEnumerable<T> Copy<T>(this IEnumerable<T> collection)
         {
@@ -294,15 +294,15 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Devuelve una versión desordenada del <see cref="IEnumerable{T}" />
-        ///     sin alterar la colección original.
+        /// Devuelve una versión desordenada del <see cref="IEnumerable{T}" />
+        /// sin alterar la colección original.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+        /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
         /// </typeparam>
         /// <param name="collection"><see cref="IEnumerable{T}" /> a desordenar.</param>
         /// <returns>
-        ///     Una versión desordenada del <see cref="IEnumerable{T}" />.
+        /// Una versión desordenada del <see cref="IEnumerable{T}" />.
         /// </returns>
         public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> collection)
         {
@@ -310,18 +310,18 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Devuelve una versión desordenada del <see cref="IEnumerable{T}" />
-        ///     sin alterar la colección original.
+        /// Devuelve una versión desordenada del <see cref="IEnumerable{T}" />
+        /// sin alterar la colección original.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+        /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
         /// </typeparam>
         /// <param name="collection"><see cref="IEnumerable{T}" /> a desordenar.</param>
         /// <param name="deepness">
-        ///     Profundidad del desorden. 1 es el más alto.
+        /// Profundidad del desorden. 1 es el más alto.
         /// </param>
         /// <returns>
-        ///     Una versión desordenada del <see cref="IEnumerable{T}" />.
+        /// Una versión desordenada del <see cref="IEnumerable{T}" />.
         /// </returns>
         public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> collection, in int deepness)
         {
@@ -330,19 +330,19 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Devuelve una versión desordenada del intervalo especificado de
-        ///     elementos del <see cref="IEnumerable{T}" /> sin alterar la colección
-        ///     original.
+        /// Devuelve una versión desordenada del intervalo especificado de
+        /// elementos del <see cref="IEnumerable{T}" /> sin alterar la colección
+        /// original.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+        /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
         /// </typeparam>
         /// <param name="collection"><see cref="IEnumerable{T}" /> a desordenar.</param>
         /// <param name="firstIdx">Índice inicial del intervalo.</param>
         /// <param name="lastIdx">Índice inicial del intervalo.</param>
         /// <returns>
-        ///     Una versión desordenada del intervalo especificado de elementos del
-        ///     <see cref="IEnumerable{T}" />.
+        /// Una versión desordenada del intervalo especificado de elementos del
+        /// <see cref="IEnumerable{T}" />.
         /// </returns>
         public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> collection, in int firstIdx, in int lastIdx)
         {
@@ -350,23 +350,23 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Devuelve una versión desordenada del intervalo especificado de
-        ///     elementos del <see cref="IEnumerable{T}" /> sin alterar la colección
-        ///     original.
+        /// Devuelve una versión desordenada del intervalo especificado de
+        /// elementos del <see cref="IEnumerable{T}" /> sin alterar la colección
+        /// original.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+        /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
         /// </typeparam>
         /// <param name="collection"><see cref="IEnumerable{T}" /> a desordenar.</param>
         /// <param name="firstIdx">Índice inicial del intervalo.</param>
         /// <param name="lastIdx">Índice inicial del intervalo.</param>
         /// <param name="deepness">
-        ///     Profundidad del desorden. 1 es el más alto.
+        /// Profundidad del desorden. 1 es el más alto.
         /// </param>
         /// <param name="random">Generador de números aleatorios a utilizar.</param>
         /// <returns>
-        ///     Una versión desordenada del intervalo especificado de elementos del
-        ///     <see cref="IEnumerable{T}" />.
+        /// Una versión desordenada del intervalo especificado de elementos del
+        /// <see cref="IEnumerable{T}" />.
         /// </returns>
         public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> collection, in int firstIdx, in int lastIdx, in int deepness, in Random random)
         {
@@ -376,15 +376,15 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Selecciona un elemento aleatorio de la colección.
+        /// Selecciona un elemento aleatorio de la colección.
         /// </summary>
         /// <returns>Un objeto aleatorio de la colección.</returns>
         /// <param name="collection">Colección desde la cual seleccionar.</param>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+        /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
         /// </typeparam>
         /// <returns>
-        ///     Un elemento aleatorio de la colección.
+        /// Un elemento aleatorio de la colección.
         /// </returns>
         public static T Pick<T>(this IEnumerable<T> collection)
         {
@@ -392,16 +392,16 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Selecciona un elemento aleatorio de la colección.
+        /// Selecciona un elemento aleatorio de la colección.
         /// </summary>
         /// <returns>Un objeto aleatorio de la colección.</returns>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+        /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
         /// </typeparam>
         /// <param name="collection">Colección desde la cual seleccionar.</param>
         /// <param name="random">Generador de números aleatorios a utilizar.</param>
         /// <returns>
-        ///     Un elemento aleatorio de la colección.
+        /// Un elemento aleatorio de la colección.
         /// </returns>
         public static T Pick<T>(this IEnumerable<T> collection, in Random random)
         {
@@ -415,14 +415,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Selecciona un elemento aleatorio de la colección de forma asíncrona.
+        /// Selecciona un elemento aleatorio de la colección de forma asíncrona.
         /// </summary>
         /// <returns>Un objeto aleatorio de la colección.</returns>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+        /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
         /// </typeparam>
         /// <returns>
-        ///     Una tarea que puede utilizarse para monitorear la operación.
+        /// Una tarea que puede utilizarse para monitorear la operación.
         /// </returns>
         public static async Task<T> PickAsync<T>(this IEnumerable<T> collection)
         {
@@ -436,13 +436,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Crea un <see cref="ListEx{T}"/> a partir de un <see cref="IEnumerable{T}"/>.
+        /// Crea un <see cref="ListEx{T}"/> a partir de un <see cref="IEnumerable{T}"/>.
         /// </summary>
         /// <param name="collection">Colección a convertir</param>
         /// <typeparam name="T">Tipo de la colección.</typeparam>
         /// <returns>
-        ///     Un <see cref="ListEx{T}" /> extendido del espacio de nombres
-        ///     <see cref="Extensions" />.
+        /// Un <see cref="ListEx{T}" /> extendido del espacio de nombres
+        /// <see cref="Extensions" />.
         /// </returns>
         public static ListEx<T> ToExtendedList<T>(this IEnumerable<T> collection)
         {
@@ -450,7 +450,7 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Crea un <see cref="System.Collections.Generic.List{T}"/> a partir de un <see cref="IEnumerable{T}"/> de forma asíncrona.
+        /// Crea un <see cref="System.Collections.Generic.List{T}"/> a partir de un <see cref="IEnumerable{T}"/> de forma asíncrona.
         /// </summary>
         /// <typeparam name="T">Tipo de la colección.</typeparam>
         /// <param name="enumerable"></param>
@@ -463,7 +463,7 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Crea un <see cref="ListEx{T}"/> a partir de un <see cref="IEnumerable{T}"/> de forma asíncrona.
+        /// Crea un <see cref="ListEx{T}"/> a partir de un <see cref="IEnumerable{T}"/> de forma asíncrona.
         /// </summary>
         /// <typeparam name="T">Tipo de la colección.</typeparam>
         /// <param name="enumerable"></param>
@@ -479,11 +479,11 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="collection">Arreglo a rotar</param>
         /// <param name="steps">Dirección y unidades de rotación.</param>
         /// <remarks>
-        ///     Si <paramref name="steps" /> es positivo, la rotación ocurre de forma
-        ///     ascendente; en caso contrario, descendente.
+        /// Si <paramref name="steps" /> es positivo, la rotación ocurre de forma
+        /// ascendente; en caso contrario, descendente.
         /// </remarks>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+        /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
         /// </typeparam>
         public static IEnumerable<T> Rotate<T>(this IEnumerable<T> collection, int steps)
         {
@@ -521,11 +521,11 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="collection">Arreglo a desplazar</param>
         /// <param name="steps">Dirección y unidades de desplazamiento.</param>
         /// <remarks>
-        ///     Si <paramref name="steps" /> es positivo, la rotación ocurre de forma
-        ///     ascendente; en caso contrario, descendente.
+        /// Si <paramref name="steps" /> es positivo, la rotación ocurre de forma
+        /// ascendente; en caso contrario, descendente.
         /// </remarks>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+        /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
         /// </typeparam>
         public static IEnumerable<T> Shift<T>(this IEnumerable<T> collection, int steps)
         {
@@ -556,17 +556,17 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Compara dos colecciones y determina si sus elementos son iguales.
+        /// Compara dos colecciones y determina si sus elementos son iguales.
         /// </summary>
         /// <param name="collection">
-        ///     Enumeración a comprobar.
+        /// Enumeración a comprobar.
         /// </param>
         /// <param name="items">
-        ///     Enumeración contra la cual comprobar.
+        /// Enumeración contra la cual comprobar.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si los elementos de ambas colecciones
-        ///     son iguales, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si los elementos de ambas colecciones
+        /// son iguales, <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool ItemsEqual(this IEnumerable collection, IEnumerable items)
         {
@@ -580,19 +580,19 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Comprueba si la enumeración <paramref name="collection"/> contiene a 
-        ///     todos los elementos de la enumeración <paramref name="items"/>.
+        /// Comprueba si la enumeración <paramref name="collection"/> contiene a 
+        /// todos los elementos de la enumeración <paramref name="items"/>.
         /// </summary>
         /// <param name="collection">
-        ///     Enumeración a comprobar.
+        /// Enumeración a comprobar.
         /// </param>
         /// <param name="items">
-        ///     Elementos que deben existir en <paramref name="collection"/>.
+        /// Elementos que deben existir en <paramref name="collection"/>.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si <paramref name="collection"/> contiene a todos
-        ///     los elementos de <paramref name="items"/>, <see langword="false"/>
-        ///     en caso contrario.
+        /// <see langword="true"/> si <paramref name="collection"/> contiene a todos
+        /// los elementos de <paramref name="items"/>, <see langword="false"/>
+        /// en caso contrario.
         /// </returns>
         public static bool ContainsAll(this IEnumerable collection, IEnumerable items)
         {
@@ -604,19 +604,19 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Comprueba si la enumeración <paramref name="collection"/> contiene a 
-        ///     todos los elementos de la enumeración <paramref name="items"/>.
+        /// Comprueba si la enumeración <paramref name="collection"/> contiene a 
+        /// todos los elementos de la enumeración <paramref name="items"/>.
         /// </summary>
         /// <param name="collection">
-        ///     Enumeración a comprobar.
+        /// Enumeración a comprobar.
         /// </param>
         /// <param name="items">
-        ///     Elementos que deben existir en <paramref name="collection"/>.
+        /// Elementos que deben existir en <paramref name="collection"/>.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si <paramref name="collection"/> contiene a todos
-        ///     los elementos de <paramref name="items"/>, <see langword="false"/>
-        ///     en caso contrario.
+        /// <see langword="true"/> si <paramref name="collection"/> contiene a todos
+        /// los elementos de <paramref name="items"/>, <see langword="false"/>
+        /// en caso contrario.
         /// </returns>
         public static bool ContainsAll(this IEnumerable collection, params object?[] items)
         {
@@ -624,20 +624,20 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Comprueba si la enumeración <paramref name="collection"/> contiene a 
-        ///     cualquiera de los elementos de la enumeración
-        ///     <paramref name="items"/>.
+        /// Comprueba si la enumeración <paramref name="collection"/> contiene a 
+        /// cualquiera de los elementos de la enumeración
+        /// <paramref name="items"/>.
         /// </summary>
         /// <param name="collection">
-        ///     Enumeración a comprobar.
+        /// Enumeración a comprobar.
         /// </param>
         /// <param name="items">
-        ///     Elementos que deben existir en <paramref name="collection"/>.
+        /// Elementos que deben existir en <paramref name="collection"/>.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si <paramref name="collection"/> contiene a
-        ///     cualquiera de los elementos de <paramref name="items"/>,
-        ///     <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si <paramref name="collection"/> contiene a
+        /// cualquiera de los elementos de <paramref name="items"/>,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool ContainsAny(this IEnumerable collection, IEnumerable items)
         {
@@ -649,20 +649,20 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Comprueba si la enumeración <paramref name="collection"/> contiene a 
-        ///     cualquiera de los elementos de la enumeración
-        ///     <paramref name="items"/>.
+        /// Comprueba si la enumeración <paramref name="collection"/> contiene a 
+        /// cualquiera de los elementos de la enumeración
+        /// <paramref name="items"/>.
         /// </summary>
         /// <param name="collection">
-        ///     Enumeración a comprobar.
+        /// Enumeración a comprobar.
         /// </param>
         /// <param name="items">
-        ///     Elementos que deben existir en <paramref name="collection"/>.
+        /// Elementos que deben existir en <paramref name="collection"/>.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si <paramref name="collection"/> contiene a
-        ///     cualquiera de los elementos de <paramref name="items"/>,
-        ///     <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si <paramref name="collection"/> contiene a
+        /// cualquiera de los elementos de <paramref name="items"/>,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool ContainsAny(this IEnumerable collection, params object[] items)
         {
@@ -670,14 +670,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Versión no-genérica de la función
-        ///     <see cref="Enumerable.Contains{TSource}(IEnumerable{TSource}, TSource)"/>.
+        /// Versión no-genérica de la función
+        /// <see cref="Enumerable.Contains{TSource}(IEnumerable{TSource}, TSource)"/>.
         /// </summary>
         /// <param name="enumerable">Colección a comprobar.</param>
         /// <param name="obj">Objeto a buscar dentro de la colección.</param>
         /// <returns>
-        ///     <see langword="true"/> si la colección contiene al objeto
-        ///     especificado, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si la colección contiene al objeto
+        /// especificado, <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool Contains(this IEnumerable enumerable, object? obj)
         {
@@ -689,11 +689,11 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Ordena una secuencia de elementos de acuerdo a su prioridad
-        ///     indicada por el atributo <see cref="PriorityAttribute"/>.
+        /// Ordena una secuencia de elementos de acuerdo a su prioridad
+        /// indicada por el atributo <see cref="PriorityAttribute"/>.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+        /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
         /// </typeparam>
         /// <param name="c"></param>
         /// <returns></returns>
@@ -704,20 +704,20 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Ordena una secuencia de elementos de acuerdo a un valor de
-        ///     atributo especificado.
+        /// Ordena una secuencia de elementos de acuerdo a un valor de
+        /// atributo especificado.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+        /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
         /// </typeparam>
         /// <typeparam name="TAttr">
-        ///     Tipo de atributo del cual obtener el valor de orden.
+        /// Tipo de atributo del cual obtener el valor de orden.
         /// </typeparam>
         /// <typeparam name="TAttrValue">Tipo de valor de orden.</typeparam>
         /// <param name="c">Colección a ordenar.</param>
         /// <returns>
-        ///     Una enumeración con los elementos de la secuencia especificada
-        ///     ordenados de acuerdo al valor del atributo especificado.
+        /// Una enumeración con los elementos de la secuencia especificada
+        /// ordenados de acuerdo al valor del atributo especificado.
         /// </returns>
         public static IOrderedEnumerable<T> Ordered<T, TAttr, TAttrValue>(this IEnumerable<T> c)
             where TAttrValue : struct
@@ -729,19 +729,19 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Ordena una secuencia de elementos de acuerdo a un valor de
-        ///     atributo especificado.
+        /// Ordena una secuencia de elementos de acuerdo a un valor de
+        /// atributo especificado.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+        /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
         /// </typeparam>
         /// <typeparam name="TAttr">
-        ///     Tipo de atributo del cual obtener el valor de orden.
+        /// Tipo de atributo del cual obtener el valor de orden.
         /// </typeparam>
         /// <param name="c">Colección a ordenar.</param>
         /// <returns>
-        ///     Una enumeración con los elementos de la secuencia especificada
-        ///     ordenados de acuerdo al valor del atributo especificado.
+        /// Una enumeración con los elementos de la secuencia especificada
+        /// ordenados de acuerdo al valor del atributo especificado.
         /// </returns>
         public static IOrderedEnumerable<T> Ordered<T, TAttr>(this IEnumerable<T> c) where TAttr : Attribute, IValueAttribute<int>
         {
@@ -749,15 +749,15 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Versión no-genérica de la función
-        ///     <see cref="Enumerable.Count{TSource}(IEnumerable{TSource})"/>.
-        ///     Obtiene la cantidad de elementos de una secuencia.
+        /// Versión no-genérica de la función
+        /// <see cref="Enumerable.Count{TSource}(IEnumerable{TSource})"/>.
+        /// Obtiene la cantidad de elementos de una secuencia.
         /// </summary>
         /// <param name="e">
-        ///     Secuencia a comprobar. La misma será enumerada.
+        /// Secuencia a comprobar. La misma será enumerada.
         /// </param>
         /// <returns>
-        ///     La cantidad de elementos dentro de la secuencia.
+        /// La cantidad de elementos dentro de la secuencia.
         /// </returns>
         public static int Count(this IEnumerable e)
         {

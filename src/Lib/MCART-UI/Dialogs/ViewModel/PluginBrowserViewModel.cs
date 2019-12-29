@@ -31,8 +31,8 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.Dialogs.ViewModel
 {
     /// <summary>
-    ///     Implementa la lógica de presentación de una ventana que permite ver
-    ///     detalles sobre los plugins encontrados en el directorio.
+    /// Implementa la lógica de presentación de una ventana que permite ver
+    /// detalles sobre los plugins encontrados en el directorio.
     /// </summary>
     public class PluginBrowserViewModel : NotifyPropertyChanged
     {
@@ -40,7 +40,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         private bool _showPlugins = true;
 
         /// <summary>
-        ///     Enumera los plugins encontrados en el directorio actual.
+        /// Enumera los plugins encontrados en el directorio actual.
         /// </summary>
         public Dictionary<string, IEnumerable<IPlugin>> Plugins
         {
@@ -59,7 +59,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         }
 
         /// <summary>
-        ///     Obtiene o establece el plugin actualmente seleccionado.
+        /// Obtiene o establece el plugin actualmente seleccionado.
         /// </summary>
         public object? Selection
         {
@@ -74,8 +74,8 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         }
 
         /// <summary>
-        ///     Obtiene o establece un valor que indica si el árbol de plugins
-        ///     debe ser visible.
+        /// Obtiene o establece un valor que indica si el árbol de plugins
+        /// debe ser visible.
         /// </summary>
         public bool ShowPlugins
         {

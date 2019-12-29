@@ -30,21 +30,21 @@ namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Excepción que se produce al hacer referencia a un tipo desconocido
+    /// Excepción que se produce al hacer referencia a un tipo desconocido
     /// </summary>
     [Serializable]
     public class UnknownTypeException : Exception
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="UnknownTypeException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="UnknownTypeException" />.
         /// </summary>
         /// <param name="info">
-        ///     El objeto que contiene la información de serialización.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
-        ///     La información contextual acerca del origen o el destino.
+        /// La información contextual acerca del origen o el destino.
         /// </param>
         protected UnknownTypeException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
@@ -52,7 +52,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="UnknownTypeException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="UnknownTypeException" />.
         /// </summary>
         public UnknownTypeException() : base(Strings.UnknownType)
         {
@@ -60,7 +60,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="UnknownTypeException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="UnknownTypeException" />.
         /// </summary>
         /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
         public UnknownTypeException(string message) : base(message)
@@ -69,7 +69,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="UnknownTypeException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="UnknownTypeException" />.
         /// </summary>
         /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
         public UnknownTypeException(Exception inner) : base(Strings.UnknownType, inner)
@@ -78,7 +78,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="UnknownTypeException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="UnknownTypeException" />.
         /// </summary>
         /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
         /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>

@@ -29,7 +29,7 @@ namespace TheXDS.MCART.Attributes
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Establece el autor del elemento.
+    /// Establece el autor del elemento.
     /// </summary>
     [AttributeUsage(Property | Method | Constructor | Class | Module | Assembly, AllowMultiple = true)]
     [Serializable]
@@ -37,8 +37,8 @@ namespace TheXDS.MCART.Attributes
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="DescriptionAttribute" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="DescriptionAttribute" />.
         /// </summary>
         /// <param name="attrValue">Valor del atributo.</param>
         public AuthorAttribute(string attrValue) : base(attrValue)

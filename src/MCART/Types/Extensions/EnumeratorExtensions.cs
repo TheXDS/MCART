@@ -31,25 +31,25 @@ using System.Collections;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Extensiones para todos los tipos que implementen 
-    ///     <see cref="IEnumerator"/>.
+    /// Extensiones para todos los tipos que implementen 
+    /// <see cref="IEnumerator"/>.
     /// </summary>
     public static class EnumeratorExtensions
     {
         /// <summary>
-        ///     Desplaza el enumerador una cantidad específica de elementos.
+        /// Desplaza el enumerador una cantidad específica de elementos.
         /// </summary>
         /// <param name="enumerator">
-        ///     Enumerador a recorrer.
+        /// Enumerador a recorrer.
         /// </param>
         /// <param name="steps">
-        ///     Número de elementos a saltar.
+        /// Número de elementos a saltar.
         /// </param>
         /// <returns>
-        ///     La cantidad de elementos saltados exitosamente.
+        /// La cantidad de elementos saltados exitosamente.
         /// </returns>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///     Se produce si <paramref name="steps"/> es inferior a cero.
+        /// Se produce si <paramref name="steps"/> es inferior a cero.
         /// </exception>
         public static int Skip(this IEnumerator enumerator, int steps)
         {

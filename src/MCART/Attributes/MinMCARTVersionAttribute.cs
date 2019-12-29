@@ -29,15 +29,15 @@ namespace TheXDS.MCART.Attributes
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Especifica la versión mínima de MCART requerida por el elemento.
+    /// Especifica la versión mínima de MCART requerida por el elemento.
     /// </summary>
     [AttributeUsage(Method | Class | Module | Assembly)]
     public sealed class MinMcartVersionAttribute : VersionAttributeBase
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="MinMcartVersionAttribute" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="MinMcartVersionAttribute" />.
         /// </summary>
         /// <param name="major">Número de versión mayor.</param>
         /// <param name="minor">Número de versión menor.</param>
@@ -47,8 +47,8 @@ namespace TheXDS.MCART.Attributes
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="MinMcartVersionAttribute" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="MinMcartVersionAttribute" />.
         /// </summary>
         /// <param name="major">Número de versión mayor.</param>
         /// <param name="minor">Número de versión menor.</param>

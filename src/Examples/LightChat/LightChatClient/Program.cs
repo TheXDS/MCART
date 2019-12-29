@@ -24,7 +24,7 @@ namespace TheXDS.MCART.Examples.LightChat
         private bool _logged;
 
         /// <summary>
-        ///     Inicializa la clase <see cref="LightChatClient"/>.
+        /// Inicializa la clase <see cref="LightChatClient"/>.
         /// </summary>
         static LightChatClient()
         {

@@ -28,51 +28,51 @@ using System.IO;
 namespace TheXDS.MCART.Networking.Mrpc.Serializers
 {
     /// <summary>
-    ///     Serializador de datos que opera sobre objetos de tipo
-    ///     <see cref="string"/>.
+    /// Serializador de datos que opera sobre objetos de tipo
+    /// <see cref="string"/>.
     /// </summary>
     public sealed class StringSerializer : IDataSerializer
     {
         /// <summary>
-        ///     Obtiene un valor que indica si el
-        ///     <see cref="StringSerializer"/> puede manejar objetos del tipo
-        ///     especificado.
+        /// Obtiene un valor que indica si el
+        /// <see cref="StringSerializer"/> puede manejar objetos del tipo
+        /// especificado.
         /// </summary>
         /// <param name="type">
-        ///     Tipo de objeto a comprobar.
+        /// Tipo de objeto a comprobar.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si <paramref name="type"/> es igual al
-        ///     tipo <see cref="string"/>, <see langword="false"/> en caso
-        ///     contrario.
+        /// <see langword="true"/> si <paramref name="type"/> es igual al
+        /// tipo <see cref="string"/>, <see langword="false"/> en caso
+        /// contrario.
         /// </returns>
         public bool Handles(Type type) => type == typeof(string);
 
         /// <summary>
-        ///     Obtiene un <see cref="string"/> desde el
-        ///     <see cref="BinaryReader"/> especificado.
+        /// Obtiene un <see cref="string"/> desde el
+        /// <see cref="BinaryReader"/> especificado.
         /// </summary>
         /// <param name="reader">
-        ///     <see cref="BinaryReader"/> desde el cual obtener un
-        ///     <see cref="string"/>.
+        /// <see cref="BinaryReader"/> desde el cual obtener un
+        /// <see cref="string"/>.
         /// </param>
         /// <returns>
-        ///     El <see cref="string"/> que se ha reconstruido con la
-        ///     información binaria leída desde el <see cref="BinaryReader"/>
-        ///     especificado.
+        /// El <see cref="string"/> que se ha reconstruido con la
+        /// información binaria leída desde el <see cref="BinaryReader"/>
+        /// especificado.
         /// </returns>
         public object Read(BinaryReader reader) => reader.ReadString();
 
         /// <summary>
-        ///     Serializa un <see cref="string"/> en formato binario y lo
-        ///     escribe por medio del <see cref="BinaryWriter"/> especificado.
+        /// Serializa un <see cref="string"/> en formato binario y lo
+        /// escribe por medio del <see cref="BinaryWriter"/> especificado.
         /// </summary>
         /// <param name="value">
-        ///     Valor <see cref="string"/> a serializar.
+        /// Valor <see cref="string"/> a serializar.
         /// </param>
         /// <param name="writer">
-        ///     <see cref="BinaryWriter"/> a utilizar para escribir los datos
-        ///     binarios serializados.
+        /// <see cref="BinaryWriter"/> a utilizar para escribir los datos
+        /// binarios serializados.
         /// </param>
         public void Write(object value, BinaryWriter writer) => writer.Write((string)value);
     }

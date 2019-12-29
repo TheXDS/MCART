@@ -35,16 +35,16 @@ namespace TheXDS.MCART.Component
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Expone la información de identificación de un ensamblado.
+    /// Expone la información de identificación de un ensamblado.
     /// </summary>
     public class AssemblyInfo : IExposeExtendedInfo, IExposeAssembly
     {
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="AssemblyInfo"/>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="AssemblyInfo"/>
         /// </summary>
         /// <param name="assembly">
-        ///     Ensamblado del cual se mostrará la información.
+        /// Ensamblado del cual se mostrará la información.
         /// </param>
         public AssemblyInfo(Assembly assembly)
         {
@@ -52,8 +52,8 @@ namespace TheXDS.MCART.Component
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="AssemblyInfo"/>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="AssemblyInfo"/>
         /// </summary>
         public AssemblyInfo()
         {
@@ -62,92 +62,92 @@ namespace TheXDS.MCART.Component
 
         /// <inheritdoc />
         /// <summary>
-        ///     Devuelve el nombre del <see cref="IExposeInfo" />
+        /// Devuelve el nombre del <see cref="IExposeInfo" />
         /// </summary>
         public string Name => Assembly.GetAttr<NameAttribute>()?.Value ?? Assembly.GetAttr<AssemblyTitleAttribute>()?.Title ?? Assembly.GetName().Name.OrNull() ?? Assembly.GetName().FullName;
 
         /// <inheritdoc />
         /// <summary>
-        ///     Devuelve el Copyright del <see cref="IExposeInfo" />
+        /// Devuelve el Copyright del <see cref="IExposeInfo" />
         /// </summary>
         public string? Copyright => Assembly.GetAttr<CopyrightAttribute>()?.Value ?? Assembly.GetAttr<AssemblyCopyrightAttribute>()?.Copyright;
 
         /// <inheritdoc />
         /// <summary>
-        ///     Devuelve una descripción del <see cref="IExposeInfo" />
+        /// Devuelve una descripción del <see cref="IExposeInfo" />
         /// </summary>
         public string? Description => Assembly.GetAttr<DescriptionAttribute>()?.Value ?? Assembly.GetAttr<AssemblyDescriptionAttribute>()?.Description;
 
         /// <inheritdoc />
         /// <summary>
-        ///     Devuelve el autor del <see cref="IExposeInfo" />
+        /// Devuelve el autor del <see cref="IExposeInfo" />
         /// </summary>
         public IEnumerable<string>? Authors => Assembly.GetAttrs<AuthorAttribute>()?.Select(p=>p.Value!) ?? new[] { Assembly.GetAttr<AssemblyCompanyAttribute>()?.Company };
 
         /// <summary>
-        ///     Devuelve la marca comercial del <see cref="Assembly" />
+        /// Devuelve la marca comercial del <see cref="Assembly" />
         /// </summary>
         public string? Trademark => Assembly.GetAttr<AssemblyTrademarkAttribute>()?.Trademark;
 
         /// <summary>
-        ///     Devuelve el autor del <see cref="Assembly" />
+        /// Devuelve el autor del <see cref="Assembly" />
         /// </summary>
         public string? Product => Assembly.GetAttr<AssemblyProductAttribute>()?.Product;
 
         /// <inheritdoc />
         /// <summary>
-        ///     Devuelve la licencia del <see cref="IExposeInfo" />
+        /// Devuelve la licencia del <see cref="IExposeInfo" />
         /// </summary>
         public License? License => Assembly.GetAttrs<LicenseAttributeBase>()?.FirstOrDefault().GetLicense(Assembly);
 
         /// <inheritdoc />
         /// <summary>
-        ///     Devuelve la versión del <see cref="IExposeInfo" />
+        /// Devuelve la versión del <see cref="IExposeInfo" />
         /// </summary>
         public Version? Version => Assembly.GetName().Version;
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene un valor que determina si este <see cref="IExposeInfo" />
-        ///     contiene información de licencia.
+        /// Obtiene un valor que determina si este <see cref="IExposeInfo" />
+        /// contiene información de licencia.
         /// </summary>
         public bool HasLicense => PrivateInternals.HasLicense(Assembly);
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene un valor que indica si este <see cref="IExposeInfo" />
-        ///     cumple con el Common Language Standard (CLS)
+        /// Obtiene un valor que indica si este <see cref="IExposeInfo" />
+        /// cumple con el Common Language Standard (CLS)
         /// </summary>
         public bool ClsCompliant => Assembly.HasAttr<CLSCompliantAttribute>();
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene una referencia al ensamblado del cual se expone la información.
+        /// Obtiene una referencia al ensamblado del cual se expone la información.
         /// </summary>
         public Assembly Assembly { get; }
 
         /// <summary>
-        ///     Obtiene la versión informacional del <see cref="IExposeInfo"/>.
+        /// Obtiene la versión informacional del <see cref="IExposeInfo"/>.
         /// </summary>
         public string? InformationalVersion => Assembly.GetAttr<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? Version?.ToString();
 
         /// <summary>
-        ///     Obtiene un valor que indica si este 
-        ///     <see cref="IExposeExtendedInfo"/> es considerado una versión
-        ///     beta.
+        /// Obtiene un valor que indica si este 
+        /// <see cref="IExposeExtendedInfo"/> es considerado una versión
+        /// beta.
         /// </summary>
         public bool Beta => Assembly.HasAttr<BetaAttribute>();
 
         /// <summary>
-        ///     Obtiene un valor que indica si este
-        ///     <see cref="IExposeExtendedInfo"/> podría contener código
-        ///     utilizado en contexto inseguro.
+        /// Obtiene un valor que indica si este
+        /// <see cref="IExposeExtendedInfo"/> podría contener código
+        /// utilizado en contexto inseguro.
         /// </summary>
         public bool Unmanaged => Assembly.HasAttr<UnmanagedAttribute>();
 
         /// <summary>
-        ///     Obtiene una colección con el contenido de licencias de terceros
-        ///     para el objeto.
+        /// Obtiene una colección con el contenido de licencias de terceros
+        /// para el objeto.
         /// </summary>
         public IEnumerable<License>? ThirdPartyLicenses
         {
@@ -162,8 +162,8 @@ namespace TheXDS.MCART.Component
         }
 
         /// <summary>
-        ///     Obtiene un valor que indica si este <see cref="IExposeInfo"/>
-        ///     contiene información de licencias de terceros.
+        /// Obtiene un valor que indica si este <see cref="IExposeInfo"/>
+        /// contiene información de licencias de terceros.
         /// </summary>
         public bool Has3rdPartyLicense => ThirdPartyLicenses?.Any() ?? false;
     }

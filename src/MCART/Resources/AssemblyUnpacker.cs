@@ -181,16 +181,16 @@ namespace TheXDS.MCART.Resources
         }
 
         /// <summary>
-        ///     Intenta obtener un recurso identificable.
+        /// Intenta obtener un recurso identificable.
         /// </summary>
         /// <param name="id">Identificador del recurso.</param>
         /// <param name="result">
-        ///     Parámetro de salida. Un recurso de tipo 
-        ///     <typeparamref name="T"/>.
+        /// Parámetro de salida. Un recurso de tipo 
+        /// <typeparamref name="T"/>.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si el recurso se extrajo 
-        ///     satisfactoriamente, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si el recurso se extrajo 
+        /// satisfactoriamente, <see langword="false"/> en caso contrario.
         /// </returns>
         public virtual bool TryUnpack(string id, out T result)
         {
@@ -198,19 +198,19 @@ namespace TheXDS.MCART.Resources
         }
 
         /// <summary>
-        ///     Intenta obtener un recurso identificable.
+        /// Intenta obtener un recurso identificable.
         /// </summary>
         /// <param name="id">Identificador del recurso.</param>
         /// <param name="result">
-        ///     Parámetro de salida. Un recurso de tipo 
-        ///     <typeparamref name="T"/>.
+        /// Parámetro de salida. Un recurso de tipo 
+        /// <typeparamref name="T"/>.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si el recurso se extrajo 
-        ///     satisfactoriamente, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si el recurso se extrajo 
+        /// satisfactoriamente, <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="compressorId">
-        ///     Identificador del compresor a utilizar para extraer el recurso.
+        /// Identificador del compresor a utilizar para extraer el recurso.
         /// </param>
         public virtual bool TryUnpack(string id, string compressorId, out T result)
         {
@@ -218,20 +218,20 @@ namespace TheXDS.MCART.Resources
         }
 
         /// <summary>
-        ///     Intenta obtener un recurso identificable.
+        /// Intenta obtener un recurso identificable.
         /// </summary>
         /// <param name="id">Identificador del recurso.</param>
         /// <param name="result">
-        ///     Parámetro de salida. Un recurso de tipo 
-        ///     <typeparamref name="T"/>.
+        /// Parámetro de salida. Un recurso de tipo 
+        /// <typeparamref name="T"/>.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si el recurso se extrajo 
-        ///     satisfactoriamente, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si el recurso se extrajo 
+        /// satisfactoriamente, <see langword="false"/> en caso contrario.
         /// </returns>
         /// <param name="compressor">
-        ///     <see cref="ICompressorGetter"/> a utilizar para extraer el
-        ///     recurso.
+        /// <see cref="ICompressorGetter"/> a utilizar para extraer el
+        /// recurso.
         /// </param>        
         public virtual bool TryUnpack(string id, ICompressorGetter compressor, out T result)
         {

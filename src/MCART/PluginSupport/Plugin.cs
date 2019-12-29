@@ -40,14 +40,14 @@ namespace TheXDS.MCART.PluginSupport.Legacy
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Clase base para todos los plugins que puedan ser construidos y
-    ///     administrador por MCART.
+    /// Clase base para todos los plugins que puedan ser construidos y
+    /// administrador por MCART.
     /// </summary>
     public abstract class Plugin : IPlugin
     {
         /// <summary>
-        ///     Muestra información básica sobre el <see cref="IPlugin"/> en la
-        ///     consola del sistema.
+        /// Muestra información básica sobre el <see cref="IPlugin"/> en la
+        /// consola del sistema.
         /// </summary>
         /// <param name="p"></param>
         public static void About(IPlugin p)
@@ -140,7 +140,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         public virtual Version? Version => GetType().GetAttrAlt<VersionAttribute>()?.Value ?? Assembly.GetName().Version;
 
         /// <summary>
-        ///     Obtiene la versión informacional de este <see cref="Plugin"/>.
+        /// Obtiene la versión informacional de este <see cref="Plugin"/>.
         /// </summary>
         public string? InformationalVersion => GetType().GetAttrAlt<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? Version?.ToString();
         
@@ -254,7 +254,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         public virtual Version? TargetMcartVersion => GetType().GetAttrAlt<TargetMCARTVersionAttribute>()?.Value;
 
         /// <summary>
-        ///     Obtiene un valor que determina si el <see cref="Plugin"/> es compatible con esta versión de MCART.
+        /// Obtiene un valor que determina si el <see cref="Plugin"/> es compatible con esta versión de MCART.
         /// </summary>
         public bool? IsSupported => Resources.RtInfo.RtSupport(GetType());
 
@@ -280,8 +280,8 @@ namespace TheXDS.MCART.PluginSupport.Legacy
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene un valor que indica si este <see cref="IExposeInfo" />
-        ///     cumple con el Common Language Standard (CLS)
+        /// Obtiene un valor que indica si este <see cref="IExposeInfo" />
+        /// cumple con el Common Language Standard (CLS)
         /// </summary>
         public bool ClsCompliant => GetType().HasAttrAlt<CLSCompliantAttribute>();
 
@@ -335,8 +335,8 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         public object? Tag { get; set; }
 
         /// <summary>
-        ///     Obtiene una colección con el contenido de licencias de terceros
-        ///     para el objeto.
+        /// Obtiene una colección con el contenido de licencias de terceros
+        /// para el objeto.
         /// </summary>
         public IEnumerable<License>? ThirdPartyLicenses
         {
@@ -351,8 +351,8 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         }
 
         /// <summary>
-        ///     Obtiene un valor que indica si este <see cref="IExposeInfo"/>
-        ///     contiene información de licencias de terceros.
+        /// Obtiene un valor que indica si este <see cref="IExposeInfo"/>
+        /// contiene información de licencias de terceros.
         /// </summary>
         public bool Has3rdPartyLicense => ThirdPartyLicenses?.Any() ?? false;
 

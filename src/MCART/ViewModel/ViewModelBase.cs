@@ -32,20 +32,20 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.ViewModel
 {
     /// <summary>
-    ///     Clase base para la creación de ViewModels.
+    /// Clase base para la creación de ViewModels.
     /// </summary>
     public abstract class ViewModelBase : NotifyPropertyChanged
     {
 
         /// <summary>
-        ///     Inicialica una nueva instancia de la clase 
-        ///     <see cref="ViewModelBase"/>.
+        /// Inicialica una nueva instancia de la clase 
+        /// <see cref="ViewModelBase"/>.
         /// </summary>
         public ViewModelBase() { }
 
         /// <summary>
-        ///     Inicialica una nueva instancia de la clase 
-        ///     <see cref="ViewModelBase"/>.
+        /// Inicialica una nueva instancia de la clase 
+        /// <see cref="ViewModelBase"/>.
         /// </summary>
         /// <param name="observeSelf"></param>
         public ViewModelBase(bool observeSelf)
@@ -60,14 +60,14 @@ namespace TheXDS.MCART.ViewModel
         }
 
         /// <summary>
-        ///     Método invalidable que permite observar cambios en los valores de las propiedades de esta instancia.
+        /// Método invalidable que permite observar cambios en los valores de las propiedades de esta instancia.
         /// </summary>
         /// <param name="property"></param>
         protected virtual void SelfObserve(PropertyInfo property) { }
 
         /// <summary>
-        ///     Ejecuta una acción controlando automáticamente el estado de
-        ///     'ocupado' de este ViewModel.
+        /// Ejecuta una acción controlando automáticamente el estado de
+        /// 'ocupado' de este ViewModel.
         /// </summary>
         /// <param name="action">Acción a ejecutar.</param>
         protected void BusyOp(Action action)
@@ -78,13 +78,13 @@ namespace TheXDS.MCART.ViewModel
         }
 
         /// <summary>
-        ///     Ejecuta una tearea controlando automáticamente el estado de
-        ///     'ocupado' de este ViewModel.
+        /// Ejecuta una tearea controlando automáticamente el estado de
+        /// 'ocupado' de este ViewModel.
         /// </summary>
         /// <param name="task">Tarea a ejecutar.</param>
         /// <returns>
-        ///     Un <see cref="Task"/> que puede utilizarse para monitorear la
-        ///     operación asíncrona.
+        /// Un <see cref="Task"/> que puede utilizarse para monitorear la
+        /// operación asíncrona.
         /// </returns>
         protected async Task BusyOp(Task task)
         {
@@ -94,13 +94,13 @@ namespace TheXDS.MCART.ViewModel
         }
 
         /// <summary>
-        ///     Ejecuta una función controlando automáticamente el estado de
-        ///     'ocupado' de este ViewModel
+        /// Ejecuta una función controlando automáticamente el estado de
+        /// 'ocupado' de este ViewModel
         /// </summary>
         /// <typeparam name="T">Tipo de resultado de la función.</typeparam>
         /// <param name="func">Función a ejecutar.</param>
         /// <returns>
-        ///     El resultado de ejecutar la función especificada.
+        /// El resultado de ejecutar la función especificada.
         /// </returns>
         protected T BusyOp<T>(Func<T> func)
         {
@@ -111,16 +111,16 @@ namespace TheXDS.MCART.ViewModel
         }
 
         /// <summary>
-        ///     Ejecuta una tarea que devuelve un resultado controlando
-        ///     automáticamente el estado de 'ocupado' de este ViewModel.
+        /// Ejecuta una tarea que devuelve un resultado controlando
+        /// automáticamente el estado de 'ocupado' de este ViewModel.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de resultado devuelto por la tarea.
+        /// Tipo de resultado devuelto por la tarea.
         /// </typeparam>
         /// <param name="task">Tarea a ejecutar.</param>
         /// <returns>
-        ///     Un <see cref="Task"/> que puede utilizarse para monitorear la
-        ///     operación asíncrona.
+        /// Un <see cref="Task"/> que puede utilizarse para monitorear la
+        /// operación asíncrona.
         /// </returns>
         protected async Task<T> BusyOp<T>(Task<T> task)
         {
@@ -133,8 +133,8 @@ namespace TheXDS.MCART.ViewModel
         private bool _isBusy;
 
         /// <summary>
-        ///     Obtiene un valor que indica si este <see cref="ViewModelBase"/>
-        ///     está ocupado.
+        /// Obtiene un valor que indica si este <see cref="ViewModelBase"/>
+        /// está ocupado.
         /// </summary>
         public bool IsBusy
         {
@@ -143,8 +143,8 @@ namespace TheXDS.MCART.ViewModel
         }
 
         /// <summary>
-        ///     Destruye esta instancia de la clase 
-        ///     <see cref="ViewModelBase"/>.
+        /// Destruye esta instancia de la clase 
+        /// <see cref="ViewModelBase"/>.
         /// </summary>
         ~ViewModelBase()
         {

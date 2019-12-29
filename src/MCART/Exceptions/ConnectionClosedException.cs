@@ -30,21 +30,21 @@ namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Excepción que se produce cuando la conexión se encontraba cerrada al intentar enviar o recibir datos
+    /// Excepción que se produce cuando la conexión se encontraba cerrada al intentar enviar o recibir datos
     /// </summary>
     [Serializable]
     public class ConnectionClosedException : Exception
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ConnectionClosedException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ConnectionClosedException" />.
         /// </summary>
         /// <param name="info">
-        ///     El objeto que contiene la información de serialización.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
-        ///     La información contextual acerca del orígen o el destino.
+        /// La información contextual acerca del orígen o el destino.
         /// </param>
         protected ConnectionClosedException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
@@ -52,7 +52,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="ConnectionClosedException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="ConnectionClosedException" />.
         /// </summary>
         public ConnectionClosedException() : base(Strings.ClosdConn)
         {
@@ -60,7 +60,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="ConnectionClosedException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="ConnectionClosedException" />.
         /// </summary>
         /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
         public ConnectionClosedException(string message) : base(message)
@@ -69,7 +69,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="ConnectionClosedException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="ConnectionClosedException" />.
         /// </summary>
         /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
         public ConnectionClosedException(Exception inner) : base(Strings.ClosdConn, inner)
@@ -78,7 +78,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="ConnectionClosedException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="ConnectionClosedException" />.
         /// </summary>
         /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
         /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>

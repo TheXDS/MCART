@@ -29,12 +29,12 @@ namespace TheXDS.MCART.Attributes
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Indica que un elemento es un proveedor de Thunking (facilita la
-    ///     llamada a otros entornos o Frameworks).
+    /// Indica que un elemento es un proveedor de Thunking (facilita la
+    /// llamada a otros entornos o Frameworks).
     /// </summary>
     /// <remarks>
-    ///     Este atributo no debería aplicarse a sobrecargas de un método que
-    ///     no sea en sí mismo un método de Thunking.
+    /// Este atributo no debería aplicarse a sobrecargas de un método que
+    /// no sea en sí mismo un método de Thunking.
     /// </remarks>
     [AttributeUsage(Property | Method | Class | Module | Assembly)]
     [Serializable]

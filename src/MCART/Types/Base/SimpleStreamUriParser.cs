@@ -32,32 +32,32 @@ using System.Linq;
 namespace TheXDS.MCART.Types.Base
 {
     /// <summary>
-    ///     Clase base para un <see cref="StreamUriParser"/> simple cuya lógica
-    ///     de comprobación de <see cref="Uri"/> requiere únicamente una lista
-    ///     de esquemas o protocolos compatibles.
+    /// Clase base para un <see cref="StreamUriParser"/> simple cuya lógica
+    /// de comprobación de <see cref="Uri"/> requiere únicamente una lista
+    /// de esquemas o protocolos compatibles.
     /// </summary>
     public abstract class SimpleStreamUriParser : StreamUriParser
     {
         /// <summary>
-        ///     Enumera los protocolos aceptados de <see cref="Uri"/> para la
-        ///     apertura de un nuevo <see cref="Stream"/> para la lectura del
-        ///     recurso.
+        /// Enumera los protocolos aceptados de <see cref="Uri"/> para la
+        /// apertura de un nuevo <see cref="Stream"/> para la lectura del
+        /// recurso.
         /// </summary>
         protected abstract IEnumerable<string> SchemeList { get; }
 
         /// <summary>
-        ///     Determina si este <see cref="StreamUriParser"/> puede crear un
-        ///     <see cref="Stream"/> a partir del <see cref="Uri"/>
-        ///     especificado.
+        /// Determina si este <see cref="StreamUriParser"/> puede crear un
+        /// <see cref="Stream"/> a partir del <see cref="Uri"/>
+        /// especificado.
         /// </summary>
         /// <param name="uri">
-        ///     <see cref="Uri"/> a comprobar.
+        /// <see cref="Uri"/> a comprobar.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si este <see cref="StreamUriParser"/>
-        ///     puede crear un <see cref="Stream"/> a partir del
-        ///     <see cref="Uri"/> especificado, <see langword="false"/> en caso
-        ///     contrario.
+        /// <see langword="true"/> si este <see cref="StreamUriParser"/>
+        /// puede crear un <see cref="Stream"/> a partir del
+        /// <see cref="Uri"/> especificado, <see langword="false"/> en caso
+        /// contrario.
         /// </returns>
         public override bool Handles(Uri uri)
         {

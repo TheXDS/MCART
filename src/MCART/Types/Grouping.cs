@@ -30,29 +30,29 @@ using System.Collections.Generic;
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Representa una colección fuertemente tipeada de elementos que
-    ///     comparten una llave única.
+    /// Representa una colección fuertemente tipeada de elementos que
+    /// comparten una llave única.
     /// </summary>
     /// <typeparam name="TKey">
-    ///     Tipo de llave a utilizar.
+    /// Tipo de llave a utilizar.
     /// </typeparam>
     /// <typeparam name="TElement">
-    ///     Tipo de elementos de la colección.
+    /// Tipo de elementos de la colección.
     /// </typeparam>
     public class Grouping<TKey, TElement> : List<TElement>, IGrouping<TKey, TElement>
     {
         /// <summary>
-        ///     Llave asociada a este grupo de elementos.
+        /// Llave asociada a este grupo de elementos.
         /// </summary>
         public TKey Key { get; }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase 
-        ///     <see cref="Grouping{TKey, TElement}"/>, estableciendo la llave a
-        ///     utilizar.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="Grouping{TKey, TElement}"/>, estableciendo la llave a
+        /// utilizar.
         /// </summary>
         /// <param name="key">
-        ///     Llave asociada a este grupo de elementos.
+        /// Llave asociada a este grupo de elementos.
         /// </param>
         public Grouping(TKey key)
         {
@@ -60,15 +60,15 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase 
-        ///     <see cref="Grouping{TKey, TElement}"/>, estableciendo la llave a
-        ///     utilizar para identificar a los elementos especificados.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="Grouping{TKey, TElement}"/>, estableciendo la llave a
+        /// utilizar para identificar a los elementos especificados.
         /// </summary>
         /// <param name="key">
-        ///     Llave asociada a este grupo de elementos.
+        /// Llave asociada a este grupo de elementos.
         /// </param>
         /// <param name="collection">
-        ///     Colección a la cual asociar la llave especificada.
+        /// Colección a la cual asociar la llave especificada.
         /// </param>
         public Grouping(TKey key, IEnumerable<TElement> collection) : base(collection)
         {
@@ -76,15 +76,15 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase 
-        ///     <see cref="Grouping{TKey, TElement}"/>, estableciendo la llave a
-        ///     utilizar, además de definir la capacidad de la colección.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="Grouping{TKey, TElement}"/>, estableciendo la llave a
+        /// utilizar, además de definir la capacidad de la colección.
         /// </summary>
         /// <param name="key">
-        ///     Llave asociada a este grupo de elementos.
+        /// Llave asociada a este grupo de elementos.
         /// </param>
         /// <param name="capacity">
-        ///     Capacidad inicial de la colección subyacente.
+        /// Capacidad inicial de la colección subyacente.
         /// </param>
         public Grouping(TKey key, int capacity) : base(capacity)
         {
@@ -92,9 +92,9 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Convierte implícitamente un
-        ///     <see cref="Grouping{TKey, TElement}"/> en un
-        ///     <see cref="KeyValuePair{TKey, TValue}"/>.
+        /// Convierte implícitamente un
+        /// <see cref="Grouping{TKey, TElement}"/> en un
+        /// <see cref="KeyValuePair{TKey, TValue}"/>.
         /// </summary>
         /// <param name="grouping">Objeto a convertir.</param>
         public static implicit operator KeyValuePair<TKey, IEnumerable<TElement>>(Grouping<TKey, TElement> grouping)

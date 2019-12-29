@@ -28,18 +28,18 @@ namespace TheXDS.MCART.Security.Password
 {
     /// <inheritdoc cref="ICredential"/>
     /// <summary>
-    ///     Estructura básica que representa una credencial de inicio de
-    ///     sesión.
+    /// Estructura básica que representa una credencial de inicio de
+    /// sesión.
     /// </summary>
     public struct Credential : ICredential
     {
         /// <summary>
-        ///     Crea una instancia de la estructura <see cref="Credential"/> a
-        ///     partir del objeto <see cref="ICredential"/> especificado.
+        /// Crea una instancia de la estructura <see cref="Credential"/> a
+        /// partir del objeto <see cref="ICredential"/> especificado.
         /// </summary>
         /// <param name="origin">
-        ///     <see cref="ICredential"/> a partir del cual crear el nuevo
-        ///     <see cref="Credential"/>.
+        /// <see cref="ICredential"/> a partir del cual crear el nuevo
+        /// <see cref="Credential"/>.
         /// </param>
         /// <returns></returns>
         public static Credential From(ICredential origin)
@@ -48,12 +48,12 @@ namespace TheXDS.MCART.Security.Password
         }
 
         /// <summary>
-        ///     Obtiene una credencial vacía. Este campo es de solo lectura.
+        /// Obtiene una credencial vacía. Este campo es de solo lectura.
         /// </summary>
         public static readonly Credential Null = new Credential();
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la estructura
+        /// Inicializa una nueva instancia de la estructura
         /// <see cref="Credential"/>.
         /// </summary>
         /// <param name="username">Nombre de usuario.</param>
@@ -66,13 +66,13 @@ namespace TheXDS.MCART.Security.Password
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene el nombre de usuario de este <see cref="T:TheXDS.MCART.Security.Password.ICredential" />
+        /// Obtiene el nombre de usuario de este <see cref="T:TheXDS.MCART.Security.Password.ICredential" />
         /// </summary>
         public string Username { get; }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene la contraseña asociada a este <see cref="T:TheXDS.MCART.Security.Password.ICredential" />.
+        /// Obtiene la contraseña asociada a este <see cref="T:TheXDS.MCART.Security.Password.ICredential" />.
         /// </summary>
         public SecureString Password { get; }
 

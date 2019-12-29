@@ -48,9 +48,9 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         Stream GetCompressor(Stream inputStream);
         /// <summary>
-        ///     Obtiene la extensión utilizada de forma predeterminada para un
-        ///     recurso comprimido utilizando este
-        ///     <see cref="ICompressorGetter"/>.
+        /// Obtiene la extensión utilizada de forma predeterminada para un
+        /// recurso comprimido utilizando este
+        /// <see cref="ICompressorGetter"/>.
         /// </summary>
         string? Extension { get; }
     }

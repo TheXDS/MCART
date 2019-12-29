@@ -29,10 +29,10 @@ using System.IO;
 namespace TheXDS.MCART.Networking.Mrpc.Serializers
 {
     /// <summary>
-    ///     Clase base que describe un serializador de tipo específico.
+    /// Clase base que describe un serializador de tipo específico.
     /// </summary>
     /// <typeparam name="T">
-    ///     Tipo de la estructura a serializar.
+    /// Tipo de la estructura a serializar.
     /// </typeparam>
     public abstract class DataSerializer<T> : IDataSerializer where T : struct
     {
@@ -44,16 +44,16 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
         }
 
         /// <summary>
-        ///     Obtiene un objeto de tipo <typeparamref name="T"/> desde el
-        ///     <see cref="BinaryReader"/> especificado.
+        /// Obtiene un objeto de tipo <typeparamref name="T"/> desde el
+        /// <see cref="BinaryReader"/> especificado.
         /// </summary>
         /// <param name="reader">
-        ///     <see cref="BinaryReader"/> desde el cual obtener un objeto.
+        /// <see cref="BinaryReader"/> desde el cual obtener un objeto.
         /// </param>
         /// <returns>
-        ///     El objeto de tipo <typeparamref name="T"/> que se ha
-        ///     reconstruido con la información binaria leída desde el
-        ///     <see cref="BinaryReader"/> especificado.
+        /// El objeto de tipo <typeparamref name="T"/> que se ha
+        /// reconstruido con la información binaria leída desde el
+        /// <see cref="BinaryReader"/> especificado.
         /// </returns>
         protected abstract T Read(BinaryReader reader);
 
@@ -63,16 +63,16 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
         }
 
         /// <summary>
-        ///     Serializa un objeto de tipo <typeparamref name="T"/> en formato
-        ///     binario y lo escribe por medio del <see cref="BinaryWriter"/>
-        ///     especificado.
+        /// Serializa un objeto de tipo <typeparamref name="T"/> en formato
+        /// binario y lo escribe por medio del <see cref="BinaryWriter"/>
+        /// especificado.
         /// </summary>
         /// <param name="value">
-        ///     Objeto de tipo <typeparamref name="T"/> a serializar.
+        /// Objeto de tipo <typeparamref name="T"/> a serializar.
         /// </param>
         /// <param name="writer">
-        ///     <see cref="BinaryWriter"/> a utilizar para escribir los datos
-        ///     binarios serializados.
+        /// <see cref="BinaryWriter"/> a utilizar para escribir los datos
+        /// binarios serializados.
         /// </param>
         protected abstract void Write(T value, BinaryWriter writer);
     }

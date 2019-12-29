@@ -28,15 +28,15 @@ namespace TheXDS.MCART.Events
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Contiene información de evento para cualquier clase con eventos donde
-    ///     se guardará información.
+    /// Contiene información de evento para cualquier clase con eventos donde
+    /// se guardará información.
     /// </summary>
     public class ItemCreatingEventArgs<T> : CancelEventArgs
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de esta clase con la información de
-        ///     evento provista.
+        /// Inicializa una nueva instancia de esta clase con la información de
+        /// evento provista.
         /// </summary>
         /// <param name="item">Objeto que ha sido guardado.</param>
         public ItemCreatingEventArgs(T item) : this(item, false)
@@ -45,12 +45,12 @@ namespace TheXDS.MCART.Events
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de esta clase con la información de
-        ///     evento provista.
+        /// Inicializa una nueva instancia de esta clase con la información de
+        /// evento provista.
         /// </summary>
         /// <param name="item">Objeto que ha sido guardado.</param>
         /// <param name="cancel">
-        ///     Determina si este evento se cancelará de forma predeterminada.
+        /// Determina si este evento se cancelará de forma predeterminada.
         /// </param>
         public ItemCreatingEventArgs(T item, bool cancel) : base(cancel)
         {
@@ -58,21 +58,21 @@ namespace TheXDS.MCART.Events
         }
 
         /// <summary>
-        ///     Obtiene el elemento que ha sido creado/editado.
+        /// Obtiene el elemento que ha sido creado/editado.
         /// </summary>
         /// <returns>
-        ///     Una referencia de instancia al objeto creado/editado.
+        /// Una referencia de instancia al objeto creado/editado.
         /// </returns>
         public T Item { get; }
 
         /// <summary>
-        ///     Convierte explícitamente un <see cref="ItemCreatingEventArgs{T}" /> en un
-        ///     <see cref="ItemCreatedEventArgs{T}" />.
+        /// Convierte explícitamente un <see cref="ItemCreatingEventArgs{T}" /> en un
+        /// <see cref="ItemCreatedEventArgs{T}" />.
         /// </summary>
         /// <param name="fromValue">Objeto a convertir.</param>
         /// <returns>
-        ///     Un <see cref="ItemCreatedEventArgs{T}" /> con la misma información de
-        ///     evento que el <see cref="ItemCreatingEventArgs{T}" /> especificado.
+        /// Un <see cref="ItemCreatedEventArgs{T}" /> con la misma información de
+        /// evento que el <see cref="ItemCreatingEventArgs{T}" /> especificado.
         /// </returns>
         public static implicit operator ItemCreatedEventArgs<T>(ItemCreatingEventArgs<T> fromValue)
         {

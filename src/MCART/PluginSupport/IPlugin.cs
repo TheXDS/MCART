@@ -34,8 +34,8 @@ namespace TheXDS.MCART.PluginSupport.Legacy
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Define una interfaz básica para crear Plugins administrados por
-    ///     MCART.
+    /// Define una interfaz básica para crear Plugins administrados por
+    /// MCART.
     /// </summary>
     public interface IPlugin: IExposeInfo, IExposeAssembly
     {

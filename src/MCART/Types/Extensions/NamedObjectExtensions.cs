@@ -35,19 +35,19 @@ using TheXDS.MCART.Exceptions;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Funciones misceláneas y extensiones para todos los elementos de
-    ///     tipo <see cref="NamedObject{T}"/>.
+    /// Funciones misceláneas y extensiones para todos los elementos de
+    /// tipo <see cref="NamedObject{T}"/>.
     /// </summary>
     public static class NamedObjectExtensions
     {
         /// <summary>
-        ///     Enumera todos los valores de enumeración del tipo especificado
-        ///     como <see cref="NamedObject{T}"/>.
+        /// Enumera todos los valores de enumeración del tipo especificado
+        /// como <see cref="NamedObject{T}"/>.
         /// </summary>
         /// <typeparam name="T">Tipo de enumeración a convertir.</typeparam>
         /// <returns>
-        ///     Una enumeración de <see cref="NamedObject{T}"/> a partir de los
-        ///     valores de enumeración del tipo especificado.
+        /// Una enumeración de <see cref="NamedObject{T}"/> a partir de los
+        /// valores de enumeración del tipo especificado.
         /// </returns>
         [Sugar]
         public static IEnumerable<NamedObject<T>> AsNamedObject<T>() where T : Enum
@@ -55,13 +55,13 @@ namespace TheXDS.MCART.Types.Extensions
             return NamedObject<T>.FromEnum();
         }
         /// <summary>
-        ///     Enumera todos los valores de enumeración del tipo especificado
-        ///     como <see cref="NamedObject{T}"/>.
+        /// Enumera todos los valores de enumeración del tipo especificado
+        /// como <see cref="NamedObject{T}"/>.
         /// </summary>
         /// <param name="t">Tipo de enumeración a convertir.</param>
         /// <returns>
-        ///     Una enumeración de <see cref="NamedObject{T}"/> a partir de los
-        ///     valores de enumeración del tipo especificado.
+        /// Una enumeración de <see cref="NamedObject{T}"/> a partir de los
+        /// valores de enumeración del tipo especificado.
         /// </returns>
         public static IEnumerable<NamedObject<Enum>> AsNamedEnum(this Type t)
         {

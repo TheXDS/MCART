@@ -27,35 +27,35 @@ using System.IO;
 namespace TheXDS.MCART.Networking.Mrpc.Serializers
 {
     /// <summary>
-    ///     Serializador de datos que opera sobre objetos de tipo
-    ///     <see cref="char"/>.
+    /// Serializador de datos que opera sobre objetos de tipo
+    /// <see cref="char"/>.
     /// </summary>
     public sealed class CharSerializer : DataSerializer<char>
     {
         /// <summary>
-        ///     Obtiene un <see cref="char"/> desde el
-        ///     <see cref="BinaryReader"/> especificado.
+        /// Obtiene un <see cref="char"/> desde el
+        /// <see cref="BinaryReader"/> especificado.
         /// </summary>
         /// <param name="reader">
-        ///     <see cref="BinaryReader"/> desde el cual obtener un
-        ///     <see cref="char"/>.
+        /// <see cref="BinaryReader"/> desde el cual obtener un
+        /// <see cref="char"/>.
         /// </param>
         /// <returns>
-        ///     El <see cref="char"/> que se ha reconstruido con la información
-        ///     binaria leída desde el <see cref="BinaryReader"/> especificado.
+        /// El <see cref="char"/> que se ha reconstruido con la información
+        /// binaria leída desde el <see cref="BinaryReader"/> especificado.
         /// </returns>
         protected override char Read(BinaryReader reader) => reader.ReadChar();
 
         /// <summary>
-        ///     Serializa un <see cref="char"/> en formato binario y lo escribe
-        ///     por medio del <see cref="BinaryWriter"/> especificado.
+        /// Serializa un <see cref="char"/> en formato binario y lo escribe
+        /// por medio del <see cref="BinaryWriter"/> especificado.
         /// </summary>
         /// <param name="value">
-        ///     Valor <see cref="char"/> a serializar.
+        /// Valor <see cref="char"/> a serializar.
         /// </param>
         /// <param name="writer">
-        ///     <see cref="BinaryWriter"/> a utilizar para escribir los datos
-        ///     binarios serializados.
+        /// <see cref="BinaryWriter"/> a utilizar para escribir los datos
+        /// binarios serializados.
         /// </param>
         protected override void Write(char value, BinaryWriter writer) => writer.Write(value);
     }

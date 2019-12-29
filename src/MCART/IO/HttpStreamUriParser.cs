@@ -31,14 +31,14 @@ namespace TheXDS.MCART.IO
 {
 
     /// <summary>
-    ///     Obtiene un <see cref="Stream"/> a partir de un <see cref="Uri"/>
-    ///     que apunta a un recurso web.
+    /// Obtiene un <see cref="Stream"/> a partir de un <see cref="Uri"/>
+    /// que apunta a un recurso web.
     /// </summary>
     public class HttpStreamUriParser : WebStreamUriParser<HttpWebResponse>
     {
         /// <summary>
-        ///     Enumera los protocolos soportados por este
-        ///     <see cref="HttpStreamUriParser"/>.
+        /// Enumera los protocolos soportados por este
+        /// <see cref="HttpStreamUriParser"/>.
         /// </summary>
         protected override IEnumerable<string> SchemeList
         {

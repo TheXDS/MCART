@@ -30,25 +30,25 @@ namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Excepción que se produce al intentar utilizar una característica no
-    ///     disponible.
+    /// Excepción que se produce al intentar utilizar una característica no
+    /// disponible.
     /// </summary>
     [Serializable]
     public class FeatureNotAvailableException : Exception
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="FeatureNotAvailableException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="FeatureNotAvailableException" />.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="StreamingContext" /> que contiene información
-        ///     contextual acerca del orígen o el destino.
+        /// El <see cref="StreamingContext" /> que contiene información
+        /// contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="SerializationInfo" /> que contiene la información
-        ///     serializada del objeto acerca de la excepción que está siendo
-        ///     lanzada.
+        /// El <see cref="SerializationInfo" /> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
         protected FeatureNotAvailableException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
@@ -56,8 +56,8 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="FeatureNotAvailableException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="FeatureNotAvailableException" />.
         /// </summary>
         public FeatureNotAvailableException() : base(Strings.FeatNotAvailable)
         {
@@ -65,11 +65,11 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="FeatureNotAvailableException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="FeatureNotAvailableException" />.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public FeatureNotAvailableException(Exception inner) : base(Strings.FeatNotAvailable, inner)
         {
@@ -77,11 +77,11 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="FeatureNotAvailableException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="FeatureNotAvailableException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         public FeatureNotAvailableException(string message) : base(message)
         {
@@ -89,13 +89,13 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="FeatureNotAvailableException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="FeatureNotAvailableException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public FeatureNotAvailableException(string message, Exception inner) : base(message, inner)
         {

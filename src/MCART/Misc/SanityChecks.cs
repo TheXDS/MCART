@@ -28,29 +28,29 @@ using TheXDS.MCART.Attributes;
 namespace TheXDS.MCART
 {
     /// <summary>
-    ///     Enumera las distintas opciones de comprobación de sanidad al instanciar
-    ///     tipos.
+    /// Enumera las distintas opciones de comprobación de sanidad al instanciar
+    /// tipos.
     /// </summary>
     [Flags]
     public enum SanityChecks : byte
     {
         /// <summary>
-        ///     Realizar todas las comprobaciones de sanidad.
+        /// Realizar todas las comprobaciones de sanidad.
         /// </summary>
         Default,
 
         /// <summary>
-        ///     Ignorar la presencia del atributo <see cref="DangerousAttribute" />.
+        /// Ignorar la presencia del atributo <see cref="DangerousAttribute" />.
         /// </summary>
         IgnoreDanger,
 
         /// <summary>
-        ///     Ignorar la presencia del atributo <see cref="UnusableAttribute" />.
+        /// Ignorar la presencia del atributo <see cref="UnusableAttribute" />.
         /// </summary>
         IgnoreUnusable,
 
         /// <summary>
-        ///     Omite todas las comprobaciones de seguridad.
+        /// Omite todas las comprobaciones de seguridad.
         /// </summary>
         [Dangerous] IgnoreAll = 255
     }

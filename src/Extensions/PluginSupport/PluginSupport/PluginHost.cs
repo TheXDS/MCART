@@ -53,11 +53,11 @@ namespace TheXDS.MCART.PluginSupport
 
 
         /// <summary>
-        ///     Finaliza los plugins cargados en este host, y los descarga.
+        /// Finaliza los plugins cargados en este host, y los descarga.
         /// </summary>
         /// <remarks>
-        ///     Luego de llamar a este método, se esperará a que los
-        ///     finalizadores pendientes en el <see cref="GC"/> se ejecuten.
+        /// Luego de llamar a este método, se esperará a que los
+        /// finalizadores pendientes en el <see cref="GC"/> se ejecuten.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Unload()

@@ -79,7 +79,7 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Obtiene un valor que indica si este objeto ha sido desechado.
+        /// Obtiene un valor que indica si este objeto ha sido desechado.
         /// </summary>
         public bool IsDisposed { get; private set; }
 

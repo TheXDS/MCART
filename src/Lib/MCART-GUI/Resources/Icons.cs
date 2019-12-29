@@ -37,14 +37,14 @@ namespace TheXDS.MCART.Resources
         private static readonly BitmapUnpacker _imgs = new BitmapUnpacker(typeof(Icons).Assembly, typeof(Icons).FullName!);
 
         /// <summary>
-        ///     Implementa el método de obtención del ícono basado en el nombre
-        ///     del ícono solicitado.
+        /// Implementa el método de obtención del ícono basado en el nombre
+        /// del ícono solicitado.
         /// </summary>
         /// <param name="id">
-        ///     Id del ícono solicitado.
+        /// Id del ícono solicitado.
         /// </param>
         /// <returns>
-        ///     El ícono solicitado.
+        /// El ícono solicitado.
         /// </returns>
         protected override sealed Bitmap GetIcon([CallerMemberName] string? id = null)
         {

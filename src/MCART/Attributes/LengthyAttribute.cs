@@ -29,7 +29,7 @@ namespace TheXDS.MCART.Attributes
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Indica que un elemento podría tardar en ejecutarse.
+    /// Indica que un elemento podría tardar en ejecutarse.
     /// </summary>
     [AttributeUsage(Method | AttributeTargets.Delegate)]
     [Serializable]

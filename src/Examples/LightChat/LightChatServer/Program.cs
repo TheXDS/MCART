@@ -24,7 +24,7 @@ namespace TheXDS.MCART.Examples.LightChat
         public Dictionary<string, UserDetails> Users = new Dictionary<string, UserDetails>();
 
         /// <summary>
-        ///     Inicializa la clase <see cref="LightChatProtocol"/>.
+        /// Inicializa la clase <see cref="LightChatProtocol"/>.
         /// </summary>
         static LightChatProtocol()
         {
@@ -32,8 +32,8 @@ namespace TheXDS.MCART.Examples.LightChat
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="LightChatProtocol"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="LightChatProtocol"/>.
         /// </summary>
         public LightChatProtocol()
         {

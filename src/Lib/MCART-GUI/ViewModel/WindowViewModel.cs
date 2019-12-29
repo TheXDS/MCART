@@ -27,7 +27,7 @@ using TheXDS.MCART.Types;
 namespace TheXDS.MCART.ViewModel
 {
     /// <summary>
-    ///     ViewModel con propiedades básicas de gestión de la ventana.
+    /// ViewModel con propiedades básicas de gestión de la ventana.
     /// </summary>
     public abstract class WindowViewModel : ViewModelBase
     {
@@ -35,7 +35,7 @@ namespace TheXDS.MCART.ViewModel
         private Size _size;
 
         /// <summary>
-        ///     Obtiene o establece el título de la ventana.
+        /// Obtiene o establece el título de la ventana.
         /// </summary>
         public string Title
         {
@@ -44,7 +44,7 @@ namespace TheXDS.MCART.ViewModel
         }
 
         /// <summary>
-        ///     Obtiene o establece la altura deseada de la ventana.
+        /// Obtiene o establece la altura deseada de la ventana.
         /// </summary>
         public double WindowHeight
         {
@@ -58,7 +58,7 @@ namespace TheXDS.MCART.ViewModel
         }
 
         /// <summary>
-        ///     Obtiene o establece el ancho deseado de la ventana.
+        /// Obtiene o establece el ancho deseado de la ventana.
         /// </summary>
         public double WindowWidth
         {
@@ -72,7 +72,7 @@ namespace TheXDS.MCART.ViewModel
         }
 
         /// <summary>
-        ///     Obtiene o establece el tamaño deseado de la ventana.
+        /// Obtiene o establece el tamaño deseado de la ventana.
         /// </summary>
         public Size WindowSize
         {

@@ -28,15 +28,15 @@ namespace TheXDS.MCART.Events
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Incluye información de evento para cualquier clase con eventos de
-    ///     excepción.
+    /// Incluye información de evento para cualquier clase con eventos de
+    /// excepción.
     /// </summary>
     public class ExceptionEventArgs : ValueEventArgs<Exception?>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de este objeto sin especificar
-        ///     una excepción producida.
+        /// Inicializa una nueva instancia de este objeto sin especificar
+        /// una excepción producida.
         /// </summary>
         public ExceptionEventArgs():base(null)
         {
@@ -44,23 +44,23 @@ namespace TheXDS.MCART.Events
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de este objeto con la excepción
-        ///     especificada.
+        /// Inicializa una nueva instancia de este objeto con la excepción
+        /// especificada.
         /// </summary>
         /// <param name="ex">
-        ///     <see cref="Exception" /> que se ha producido en el código.
+        /// <see cref="Exception" /> que se ha producido en el código.
         /// </param>
         public ExceptionEventArgs(Exception? ex) : base(ex)
         {
         }
 
         /// <summary>
-        ///     Convierte implícitamente un <see cref="Exception"/> en un
-        ///     <see cref="ExceptionEventArgs"/>.
+        /// Convierte implícitamente un <see cref="Exception"/> en un
+        /// <see cref="ExceptionEventArgs"/>.
         /// </summary>
         /// <param name="ex">
-        ///     <see cref="Exception"/> a partir de la cual crear el nuevo
-        ///     <see cref="ExceptionEventArgs"/>.
+        /// <see cref="Exception"/> a partir de la cual crear el nuevo
+        /// <see cref="ExceptionEventArgs"/>.
         /// </param>
         public static implicit operator ExceptionEventArgs(Exception ex) => new ExceptionEventArgs(ex);
     }

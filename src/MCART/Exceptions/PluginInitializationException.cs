@@ -31,24 +31,24 @@ namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Excepción que se produce cuando un plugin no pudo inicializarse.
+    /// Excepción que se produce cuando un plugin no pudo inicializarse.
     /// </summary>
     [Serializable]
     public class PluginInitializationException : OffendingException<IPlugin>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="PluginInitializationException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="PluginInitializationException" />.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="StreamingContext" /> que contiene información
-        ///     contextual acerca del orígen o el destino.
+        /// El <see cref="StreamingContext" /> que contiene información
+        /// contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="SerializationInfo" /> que contiene la información
-        ///     serializada del objeto acerca de la excepción que está siendo
-        ///     lanzada.
+        /// El <see cref="SerializationInfo" /> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
         protected PluginInitializationException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
@@ -56,17 +56,17 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="PluginInitializationException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="PluginInitializationException" />.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="StreamingContext" /> que contiene información
-        ///     contextual acerca del orígen o el destino.
+        /// El <see cref="StreamingContext" /> que contiene información
+        /// contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="SerializationInfo" /> que contiene la información
-        ///     serializada del objeto acerca de la excepción que está siendo
-        ///     lanzada.
+        /// El <see cref="SerializationInfo" /> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
         /// <param name="plugin"><see cref="IPlugin" /> que no pudo inicializarse.</param>
         protected PluginInitializationException(SerializationInfo info, StreamingContext context, IPlugin plugin) :
@@ -76,8 +76,8 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="PluginInitializationException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="PluginInitializationException" />.
         /// </summary>
         public PluginInitializationException() : base(Strings.PluginDidntInit)
         {
@@ -85,8 +85,8 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="PluginInitializationException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="PluginInitializationException" />.
         /// </summary>
         /// <param name="plugin"><see cref="IPlugin" /> que no pudo inicializarse.</param>
         public PluginInitializationException(IPlugin plugin) : base(Strings.PluginDidntInit, plugin)
@@ -95,10 +95,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="PluginInitializationException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="PluginInitializationException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         public PluginInitializationException(string message) : base(message)
         {
@@ -106,10 +106,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="PluginInitializationException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="PluginInitializationException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="plugin"><see cref="IPlugin" /> que no pudo inicializarse.</param>
         public PluginInitializationException(string message, IPlugin plugin) : base(message, plugin)
@@ -118,10 +118,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="PluginInitializationException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="PluginInitializationException" />.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public PluginInitializationException(Exception inner) : base(Strings.PluginDidntInit, inner)
         {
@@ -129,10 +129,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="PluginInitializationException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="PluginInitializationException" />.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="plugin"><see cref="IPlugin" /> que no pudo inicializarse.</param>
         public PluginInitializationException(Exception inner, IPlugin plugin) : base(Strings.PluginDidntInit, inner, plugin)
@@ -141,13 +141,13 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="PluginInitializationException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="PluginInitializationException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public PluginInitializationException(string message, Exception inner) : base(message, inner)
         {
@@ -155,13 +155,13 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="PluginInitializationException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="PluginInitializationException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="plugin"><see cref="IPlugin" /> que no pudo inicializarse.</param>
         public PluginInitializationException(string message, Exception inner, IPlugin plugin) : base(message, inner,

@@ -34,18 +34,18 @@ namespace TheXDS.MCART.Networking
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Atributo que se establece en el miembro de una enumeración a ser
-    ///     utilizado como la respuesta en caso de encontrar un comando
-    ///     que no ha sido mapeado a una función de un protocolo derivado de la
-    ///     clase
-    ///     <see cref="SelfWiredCommandProtocol{TClient, TCommand, TResponse}" />
+    /// Atributo que se establece en el miembro de una enumeración a ser
+    /// utilizado como la respuesta en caso de encontrar un comando
+    /// que no ha sido mapeado a una función de un protocolo derivado de la
+    /// clase
+    /// <see cref="SelfWiredCommandProtocol{TClient, TCommand, TResponse}" />
     /// </summary>
     /// <remarks>
-    ///     Si ningún miembro de la enumeración se marca con este atributo, en
-    ///     caso de no existir una función que esté mapeada al comando de la
-    ///     solicitud, se devolverá el valor que sea marcado con el atributo
-    ///     <see cref="ErrorResponseAttribute" />, o en su defecto se lanzará
-    ///     una excepción que el servidor deberá manejar.
+    /// Si ningún miembro de la enumeración se marca con este atributo, en
+    /// caso de no existir una función que esté mapeada al comando de la
+    /// solicitud, se devolverá el valor que sea marcado con el atributo
+    /// <see cref="ErrorResponseAttribute" />, o en su defecto se lanzará
+    /// una excepción que el servidor deberá manejar.
     /// </remarks>
     [AttributeUsage(AttributeTargets.Field)]
     public sealed class NotMappedResponseAttribute : Attribute

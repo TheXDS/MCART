@@ -30,24 +30,24 @@ namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Excepción que se produce cuando falta un argumento.
+    /// Excepción que se produce cuando falta un argumento.
     /// </summary>
     [Serializable]
     public class MissingArgumentException : ArgumentException
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="MissingArgumentException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="MissingArgumentException" />.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="StreamingContext" /> que contiene información
-        ///     contextual acerca del orígen o el destino.
+        /// El <see cref="StreamingContext" /> que contiene información
+        /// contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="SerializationInfo" /> que contiene la información
-        ///     serializada del objeto acerca de la excepción que está siendo
-        ///     lanzada.
+        /// El <see cref="SerializationInfo" /> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
         protected MissingArgumentException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
@@ -55,8 +55,8 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="MissingArgumentException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="MissingArgumentException" />.
         /// </summary>
         public MissingArgumentException() : base(Strings.MissingArgument(Strings.Needed))
         {
@@ -64,8 +64,8 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="MissingArgumentException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="MissingArgumentException" />.
         /// </summary>
         /// <param name="argumentName">Nombre del argumento faltante.</param>
         public MissingArgumentException(string argumentName) : base(Strings.MissingArgument(argumentName))
@@ -74,11 +74,11 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="MissingArgumentException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="MissingArgumentException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="argumentName">Nombre del argumento faltante.</param>
         public MissingArgumentException(string message, string argumentName) : base(message, argumentName)
@@ -87,10 +87,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="MissingArgumentException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="MissingArgumentException" />.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public MissingArgumentException(Exception inner) : base(Strings.MissingArgument(Strings.Needed), inner)
         {
@@ -98,14 +98,14 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="MissingArgumentException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="MissingArgumentException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public MissingArgumentException(string message, Exception inner) : base(message, inner)
         {
@@ -113,13 +113,13 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="MissingArgumentException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="MissingArgumentException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="argumentName">Nombre del argumento faltante.</param>
         public MissingArgumentException(string message, string argumentName, Exception inner) : base(message,

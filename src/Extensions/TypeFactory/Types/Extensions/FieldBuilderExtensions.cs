@@ -31,21 +31,21 @@ using static System.Reflection.Emit.OpCodes;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Contiene extensiones útiles para la manipulación de constructores de
-    ///     campos por medio de la clase <see cref="FieldBuilder"/>.
+    /// Contiene extensiones útiles para la manipulación de constructores de
+    /// campos por medio de la clase <see cref="FieldBuilder"/>.
     /// </summary>
     public static class FieldBuilderExtensions
     {
         /// <summary>
-        ///     Inicializa un campo dentro del generador de código especificado.
+        /// Inicializa un campo dentro del generador de código especificado.
         /// </summary>
         /// <param name="field">Campo a inicializar.</param>
         /// <param name="ilGen">
-        ///     Generador de código a utilizar para inicializar el campo.
-        ///     Generalmente, debe tratarse de un constructor de clase.
+        /// Generador de código a utilizar para inicializar el campo.
+        /// Generalmente, debe tratarse de un constructor de clase.
         /// </param>
         /// <param name="value">
-        ///     Valor constante con el cual debe inicializarse el campo.
+        /// Valor constante con el cual debe inicializarse el campo.
         /// </param>
         public static void InitField(this FieldBuilder field, ILGenerator ilGen, object value)
         {
@@ -55,19 +55,19 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Inicializa un campo dentro del generador de código especificado.
+        /// Inicializa un campo dentro del generador de código especificado.
         /// </summary>
         /// <param name="field">Campo a inicializar.</param>
         /// <param name="ilGen">
-        ///     Generador de código a utilizar para inicializar el campo.
-        ///     Generalmente, debe tratarse de un constructor de clase.
+        /// Generador de código a utilizar para inicializar el campo.
+        /// Generalmente, debe tratarse de un constructor de clase.
         /// </param>
         /// <param name="instanceType">Tipo de objeto a instanciar.</param>
         /// <param name="args">
-        ///     Argumentos a pasar al constructor del tipo especificado.
+        /// Argumentos a pasar al constructor del tipo especificado.
         /// </param>
         /// <exception cref="InvalidTypeException">
-        ///     Se produce si el tipo no es instanciable.
+        /// Se produce si el tipo no es instanciable.
         /// </exception>
         public static void InitField(this FieldBuilder field, ILGenerator ilGen, Type instanceType, params object[] args)
         {

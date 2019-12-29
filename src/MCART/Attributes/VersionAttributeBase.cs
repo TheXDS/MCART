@@ -28,16 +28,16 @@ namespace TheXDS.MCART.Attributes
 {
     /// <inheritdoc cref="Attribute"/>
     /// <summary>
-    ///     Especifica la versión de un elemento, además de ser la clase base para
-    ///     los atributos que describan un valor <see cref="Version" /> para un
-    ///     elemento.
+    /// Especifica la versión de un elemento, además de ser la clase base para
+    /// los atributos que describan un valor <see cref="Version" /> para un
+    /// elemento.
     /// </summary>
     public abstract class VersionAttributeBase : Attribute, IValueAttribute<Version>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="VersionAttributeBase" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="VersionAttributeBase" />.
         /// </summary>
         /// <param name="major">Número de versión mayor.</param>
         /// <param name="minor">Número de versión menor.</param>
@@ -50,7 +50,7 @@ namespace TheXDS.MCART.Attributes
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene el valor asociado a este atributo.
+        /// Obtiene el valor asociado a este atributo.
         /// </summary>
         /// <value>El valor de este atributo.</value>
         public Version Value { get; }

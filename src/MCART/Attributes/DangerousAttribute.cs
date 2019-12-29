@@ -28,7 +28,7 @@ namespace TheXDS.MCART.Attributes
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Indica que el uso de un elemento es peligroso.
+    /// Indica que el uso de un elemento es peligroso.
     /// </summary>
     [AttributeUsage(AttributeTargets.All)]
     [Serializable]

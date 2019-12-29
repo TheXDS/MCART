@@ -25,8 +25,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.Controls
 {
     /// <summary>
-    ///     Enumera los diferentes valores de enumeración que indican el
-    ///     sentido en el que un objeto gráfico avanza.
+    /// Enumera los diferentes valores de enumeración que indican el
+    /// sentido en el que un objeto gráfico avanza.
     /// </summary>
     public enum SweepDirection : short
     {

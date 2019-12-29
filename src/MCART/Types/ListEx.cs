@@ -37,108 +37,108 @@ namespace TheXDS.MCART.Types
 {
     /// <inheritdoc cref="List{T}" />
     /// <summary>
-    ///     Extensión observable de la clase 
+    /// Extensión observable de la clase 
     /// <see cref="List{T}" />. Provee de toda la
-    ///     funcionalidad previamente disponible, e incluye algunas extensiones
-    ///     útiles.
+    /// funcionalidad previamente disponible, e incluye algunas extensiones
+    /// útiles.
     /// </summary>
     /// <typeparam name="T">
-    ///     Tipo de los elementos que contendrá esta lista.
+    /// Tipo de los elementos que contendrá esta lista.
     /// </typeparam>
     /// <remarks>
-    ///     Esta clase puede considerarse como una alternativa más completa a 
-    ///     <see cref="ObservableCollection{T}" /> con numerosos eventos
-    ///     adicionales y otras extensiones.
+    /// Esta clase puede considerarse como una alternativa más completa a 
+    /// <see cref="ObservableCollection{T}" /> con numerosos eventos
+    /// adicionales y otras extensiones.
     /// </remarks>
     public class ListEx<T> : List<T>, ICloneable
     {
         /// <summary>
-        ///     Se produce cuando se agregará un elemento a la lista.
+        /// Se produce cuando se agregará un elemento a la lista.
         /// </summary>
         public event EventHandler<AddingItemEventArgs<T>>? AddingItem;
 
         /// <summary>
-        ///     Se produce cuando se insertará un elemento en la lista.
+        /// Se produce cuando se insertará un elemento en la lista.
         /// </summary>
         public event EventHandler<InsertingItemEventArgs<T>>? InsertingItem;
 
         /// <summary>
-        ///     Se produce cuando se modificará un elemento de la lista
+        /// Se produce cuando se modificará un elemento de la lista
         /// </summary>
         public event EventHandler<ModifyingItemEventArgs<T>>? ModifyingItem;
 
         /// <summary>
-        ///     Se produce cuando se eliminará un elemento de la lista.
+        /// Se produce cuando se eliminará un elemento de la lista.
         /// </summary>
         public event EventHandler<RemovingItemEventArgs<T>>? RemovingItem;
 
         /// <summary>
-        ///     Se produce cuando la lista será actualizada.
+        /// Se produce cuando la lista será actualizada.
         /// </summary>
         public event EventHandler<ListUpdatingEventArgs<T>>? ListUpdating;
 
         /// <summary>
-        ///     Se produce cuando se ha agregado un elemento a la lista.
+        /// Se produce cuando se ha agregado un elemento a la lista.
         /// </summary>
         public event EventHandler<AddedItemEventArgs<T>>? AddedItem;
 
         /// <summary>
-        ///     Se produce cuando se ha insertado un elemento en la lista.
+        /// Se produce cuando se ha insertado un elemento en la lista.
         /// </summary>
         public event EventHandler<InsertedItemEventArgs<T>>? InsertedItem;
 
         /// <summary>
-        ///     Se produce cuando se ha modificado un elemento de la lista.
+        /// Se produce cuando se ha modificado un elemento de la lista.
         /// </summary>
         public event EventHandler<ItemModifiedEventArgs<T>>? ModifiedItem;
 
         /// <summary>
-        ///     Se produce cuando se ha quitado un elemento de la lista.
+        /// Se produce cuando se ha quitado un elemento de la lista.
         /// </summary>
         public event EventHandler<RemovedItemEventArgs<T>>? RemovedItem;
 
         /// <summary>
-        ///     Se produce cuando la lista será vaciada por medio de 
-        ///     <see cref="Clear"/>.
+        /// Se produce cuando la lista será vaciada por medio de 
+        /// <see cref="Clear"/>.
         /// </summary>
         public event EventHandler<CancelEventArgs>? ListClearing;
 
         /// <summary>
-        ///     Se produce cuando la lista ha sido vaciada por medio de 
-        ///     <see cref="Clear"/>.
+        /// Se produce cuando la lista ha sido vaciada por medio de 
+        /// <see cref="Clear"/>.
         /// </summary>
         public event EventHandler? ListCleared;
 
         /// <summary>
-        ///     Se produce cuando la lista ha sido actualizada.
+        /// Se produce cuando la lista ha sido actualizada.
         /// </summary>
         public event EventHandler<ListUpdatedEventArgs<T>>? ListUpdated;
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase 
-        ///     <see cref="ListEx{T}" />.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="ListEx{T}" />.
         /// </summary>
         public ListEx() { }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ListEx{T}" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ListEx{T}" />.
         /// </summary>
         /// <param name="collection">
-        ///     Colección incial de este <see cref="ListEx{T}" />.
+        /// Colección incial de este <see cref="ListEx{T}" />.
         /// </param>
         public ListEx(IEnumerable<T> collection) : base(collection) { }
 
         /// <summary>
-        ///     Activa o desactiva la generación de eventos.
+        /// Activa o desactiva la generación de eventos.
         /// </summary>
         public bool TriggerEvents { get; set; } = true;
         
         /// <summary>
-        ///     Obtiene o establece el elemento ubicado en el íncide
-        ///     especificado.
+        /// Obtiene o establece el elemento ubicado en el íncide
+        /// especificado.
         /// </summary>
         /// <param name="index">Índice del elemento.</param>
         /// <returns>El elemento en la posición especificada.</returns>
@@ -162,12 +162,12 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Añade un objeto al final de la <see cref="ListEx{T}"/>.
+        /// Añade un objeto al final de la <see cref="ListEx{T}"/>.
         /// </summary>
         /// <param name="item">
-        ///     El objeto a ser añadido al final de la <see cref="ListEx{T}"/>.
-        ///     El valor puede ser <see langword="null"/> para tipos de
-        ///     referencia.
+        /// El objeto a ser añadido al final de la <see cref="ListEx{T}"/>.
+        /// El valor puede ser <see langword="null"/> para tipos de
+        /// referencia.
         /// </param>
         public new void Add(T item)
         {
@@ -185,8 +185,8 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Agrega todos los elementos de una colección al final de la 
-        ///     <see cref="ListEx{T}"/>.
+        /// Agrega todos los elementos de una colección al final de la 
+        /// <see cref="ListEx{T}"/>.
         /// </summary>
         /// <param name="collection">Colección a añadir.</param>
         public new void AddRange(IEnumerable<T> collection)
@@ -206,7 +206,7 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Inserta un elemento en el índice especificado.
+        /// Inserta un elemento en el índice especificado.
         /// </summary>
         /// <param name="index">Índice de destino del nuevo elemento.</param>
         /// <param name="item">Elemento a insertar.</param>
@@ -226,8 +226,8 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Inserta una colección de elementos a partir del índice
-        ///     especificado.
+        /// Inserta una colección de elementos a partir del índice
+        /// especificado.
         /// </summary>
         /// <param name="index">Índice de destino para la inserción.</param>
         /// <param name="collection">Colección de elementos a insertar.</param>
@@ -248,15 +248,15 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Quita la primera aparición de un objeto específico del 
-        ///     <see cref="ListEx{T}"/>.
+        /// Quita la primera aparición de un objeto específico del 
+        /// <see cref="ListEx{T}"/>.
         /// </summary>
         /// <param name="item">
-        ///     Objeto de tipo <typeparamref name="T"/> a remover de la
-        ///     colección.
+        /// Objeto de tipo <typeparamref name="T"/> a remover de la
+        /// colección.
         /// </param>
         /// <exception cref="IndexOutOfRangeException">
-        ///     Se produce si esta lista está vacía.
+        /// Se produce si esta lista está vacía.
         /// </exception>
         public new void Remove(T item)
         {
@@ -275,13 +275,13 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Quita el elemento situado en el índice especificado del 
-        ///     <see cref="ListEx{T}"/>.
+        /// Quita el elemento situado en el índice especificado del 
+        /// <see cref="ListEx{T}"/>.
         /// </summary>
         /// <param name="index">Índice del elemento a remover.</param>
         /// <exception cref="IndexOutOfRangeException">
-        ///     Se produce si esta lista está vacía, o si se intenta remover un
-        ///     elemento de un índice que no existe.
+        /// Se produce si esta lista está vacía, o si se intenta remover un
+        /// elemento de un índice que no existe.
         /// </exception>
         public new void RemoveAt(int index)
         {
@@ -300,19 +300,19 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Quita todos los elementos que cumplen con las condiciones
-        ///     definidas por el predicado especificado.
+        /// Quita todos los elementos que cumplen con las condiciones
+        /// definidas por el predicado especificado.
         /// </summary>
         /// <param name="match">
-        ///     Delegado <see cref="Predicate{T}"/> que define las condiciones
-        ///     de los elementos que se van a quitar.
+        /// Delegado <see cref="Predicate{T}"/> que define las condiciones
+        /// de los elementos que se van a quitar.
         /// </param>
         /// <exception cref="ArgumentNullException">
-        ///     Se produce si <paramref name="match"/> es <see langword="null"/>.
+        /// Se produce si <paramref name="match"/> es <see langword="null"/>.
         /// </exception>
 #if PreferExceptions
 		/// <exception cref="EmptyCollectionException">
-        ///     Se produce si esta lista está vacía.
+        /// Se produce si esta lista está vacía.
         /// </exception>
 #endif
         public new int RemoveAll(Predicate<T> match)
@@ -335,8 +335,8 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Invierte el orden de todos los elementos en este 
-        ///     <see cref="ListEx{T}"/>.
+        /// Invierte el orden de todos los elementos en este 
+        /// <see cref="ListEx{T}"/>.
         /// </summary>
         public new void Reverse()
         {
@@ -354,14 +354,14 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Invierte el orden de los elementos en el intervalo
-        ///     especificado.
+        /// Invierte el orden de los elementos en el intervalo
+        /// especificado.
         /// </summary>
         /// <param name="index">
-        ///     Índice inicial de base cero del intervalo que se va a invertir.
+        /// Índice inicial de base cero del intervalo que se va a invertir.
         /// </param>
         /// <param name="count">
-        ///     Número de elementos del intervalo que se va a invertir.
+        /// Número de elementos del intervalo que se va a invertir.
         /// </param>
         public new void Reverse(int index, int count)
         {
@@ -379,12 +379,12 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Devuelve una copia invertida de los elementos de este 
-        ///     <see cref="ListEx{T}"/> sin alterar la colección original.
+        /// Devuelve una copia invertida de los elementos de este 
+        /// <see cref="ListEx{T}"/> sin alterar la colección original.
         /// </summary>
         /// <returns>
-        ///     Una copia inversa de los elementos de este 
-        ///     <see cref="ListEx{T}"/>.
+        /// Una copia inversa de los elementos de este 
+        /// <see cref="ListEx{T}"/>.
         /// </returns>
         public IEnumerable<T> Reversed()
         {
@@ -394,18 +394,18 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Devuelve una copia invertida de los elementos de este 
-        ///     <see cref="ListEx{T}"/> sin alterar la colección original.
+        /// Devuelve una copia invertida de los elementos de este 
+        /// <see cref="ListEx{T}"/> sin alterar la colección original.
         /// </summary>
         /// <param name="index">
-        ///     Índice inicial de base cero del intervalo que se va a invertir.
+        /// Índice inicial de base cero del intervalo que se va a invertir.
         /// </param>
         /// <param name="count">
-        ///     Número de elementos del intervalo que se va a invertir.
+        /// Número de elementos del intervalo que se va a invertir.
         /// </param>
         /// <returns>
-        ///     Una copia inversa de los elementos de este 
-        ///     <see cref="ListEx{T}"/>.
+        /// Una copia inversa de los elementos de este 
+        /// <see cref="ListEx{T}"/>.
         /// </returns>
         public IEnumerable<T> Reversed(int index, int count)
         {
@@ -415,17 +415,17 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Quita el último elemento de este <see cref="ListEx{T}"/>.
+        /// Quita el último elemento de este <see cref="ListEx{T}"/>.
         /// </summary>
         [Sugar] public void RemoveLast() => Remove(this.Last());
 
         /// <summary>
-        ///     Quita el primer elemento de este <see cref="ListEx{T}"/>.
+        /// Quita el primer elemento de este <see cref="ListEx{T}"/>.
         /// </summary>
         [Sugar] public void RemoveFirst() => Remove(this.First());
 
         /// <summary>
-        ///     Quita todos los elementos de este <see cref="ListEx{T}"/>.
+        /// Quita todos los elementos de este <see cref="ListEx{T}"/>.
         /// </summary>
         public new void Clear()
         {
@@ -443,8 +443,8 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Ordena los elementos de todo el <see cref="ListEx{T}"/>
-        ///     utilizando el comparador predeterminado.
+        /// Ordena los elementos de todo el <see cref="ListEx{T}"/>
+        /// utilizando el comparador predeterminado.
         /// </summary>
         public new void Sort()
         {
@@ -462,12 +462,12 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Ordena los elementos de todo el <see cref="ListEx{T}"/>
-        ///     utilizando el <see cref="Comparison{T}"/> especificado.
+        /// Ordena los elementos de todo el <see cref="ListEx{T}"/>
+        /// utilizando el <see cref="Comparison{T}"/> especificado.
         /// </summary>
         /// <param name="comparsion">
-        ///     <see cref="Comparison{T}"/> que se va a utilizar al comparar 
-        ///     elementos.
+        /// <see cref="Comparison{T}"/> que se va a utilizar al comparar 
+        /// elementos.
         /// </param>
         public new void Sort(Comparison<T> comparsion)
         {
@@ -485,13 +485,13 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Ordena los elementos de todo el <see cref="ListEx{T}"/>
-        ///     utilizando el <see cref="IComparer{T}"/> especificado.
+        /// Ordena los elementos de todo el <see cref="ListEx{T}"/>
+        /// utilizando el <see cref="IComparer{T}"/> especificado.
         /// </summary>
         /// <param name="comparer">
-        ///     Implementación de <see cref="IComparer{T}"/> que se va a
-        ///     utilizar al comparar elementos, o <see langword="null"/> para
-        ///     utilizar el comparador predeterminado.
+        /// Implementación de <see cref="IComparer{T}"/> que se va a
+        /// utilizar al comparar elementos, o <see langword="null"/> para
+        /// utilizar el comparador predeterminado.
         /// </param>
         public new void Sort(IComparer<T> comparer)
         {
@@ -509,19 +509,19 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Ordena los elementos en un intevalo especificado del 
-        ///     <see cref="ListEx{T}"/> utilizando el comparador especificado.
+        /// Ordena los elementos en un intevalo especificado del 
+        /// <see cref="ListEx{T}"/> utilizando el comparador especificado.
         /// </summary>
         /// <param name="index">
-        ///     Índice inicial de base cero del intervalo que se va a ordenar.
+        /// Índice inicial de base cero del intervalo que se va a ordenar.
         /// </param>
         /// <param name="count">
-        ///     Longitud del intervalo que se va a ordernar.
+        /// Longitud del intervalo que se va a ordernar.
         /// </param>
         /// <param name="comparer">
-        ///     Implementación de <see cref="IComparer{T}"/> que se va a
-        ///     utilizar al comparar elementos, o <see langword="null"/> para
-        ///     utilizar el comparador predeterminado.
+        /// Implementación de <see cref="IComparer{T}"/> que se va a
+        /// utilizar al comparar elementos, o <see langword="null"/> para
+        /// utilizar el comparador predeterminado.
         /// </param>
         public new void Sort(int index, int count, IComparer<T> comparer)
         {
@@ -539,17 +539,17 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Implementa la interfaz <see cref="ICloneable"/>.
+        /// Implementa la interfaz <see cref="ICloneable"/>.
         /// </summary>
         /// <returns>Una copia de esta instancia.</returns>
         public object Clone() => this.Copy();
 
         /// <summary>
-        ///     Devuelve el tipo de elementos de <see cref="ListEx{T}"/>.
+        /// Devuelve el tipo de elementos de <see cref="ListEx{T}"/>.
         /// </summary>
         /// <returns>
-        ///     El tipo de elementos que este <see cref="ListEx{T}"/> puede
-        ///     contener.
+        /// El tipo de elementos que este <see cref="ListEx{T}"/> puede
+        /// contener.
         /// </returns>
         public Type ItemType => typeof(T);
     }

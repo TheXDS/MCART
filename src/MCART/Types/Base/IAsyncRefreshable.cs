@@ -27,13 +27,13 @@ using System.Threading.Tasks;
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Describe una serie de miembros a implementar por una clase o
-    ///     estructura que permite refrescarse de forma asíncrona.
+    /// Describe una serie de miembros a implementar por una clase o
+    /// estructura que permite refrescarse de forma asíncrona.
     /// </summary>
     public interface IAsyncRefreshable : IRefreshable
     {
         /// <summary>
-        ///     Refresca el estado de este objeto de forma asíncrona.
+        /// Refresca el estado de este objeto de forma asíncrona.
         /// </summary>
         Task RefreshAsync();
     }

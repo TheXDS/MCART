@@ -27,29 +27,29 @@ using System.Security;
 namespace TheXDS.MCART.Security.Password
 {
     /// <summary>
-    ///     Define una serie de miembros a implementar por una clase que
-    ///     permita generar contraseñas.
+    /// Define una serie de miembros a implementar por una clase que
+    /// permita generar contraseñas.
     /// </summary>
     public interface IPasswordGenerator
     {
         /// <summary>
-        ///     Genera una contraseña utilizando este generador.
+        /// Genera una contraseña utilizando este generador.
         /// </summary>
         /// <returns>
-        ///     Una contraseña generada por este
-        ///     <see cref="IPasswordGenerator"/>.
+        /// Una contraseña generada por este
+        /// <see cref="IPasswordGenerator"/>.
         /// </returns>
         SecureString Generate();
 
         /// <summary>
-        ///     Genera una contraseña utilizando este generador.
+        /// Genera una contraseña utilizando este generador.
         /// </summary>
         /// <paramref name="length">
-        ///     Longitud deseada de la contraseña a generar.
+        /// Longitud deseada de la contraseña a generar.
         /// </paramref>
         /// <returns>
-        ///     Una contraseña generada por este
-        ///     <see cref="IPasswordGenerator"/>.
+        /// Una contraseña generada por este
+        /// <see cref="IPasswordGenerator"/>.
         /// </returns>
         SecureString Generate(int length);
     }

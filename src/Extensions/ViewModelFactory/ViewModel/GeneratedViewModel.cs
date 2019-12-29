@@ -25,16 +25,16 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.ViewModel
 {
     /// <summary>
-    ///     Clase base para un ViewModel autogenerado.
+    /// Clase base para un ViewModel autogenerado.
     /// </summary>
     /// <typeparam name="T">
-    ///     Tipo de interfaz de acceso.
+    /// Tipo de interfaz de acceso.
     /// </typeparam>
     public abstract class GeneratedViewModel<T> : DynamicViewModel<T>, IGeneratedViewModel<T> where T : class
     {
         /// <summary>
-        ///     Expone a los campos auto generados para este ViewModel por
-        ///     medio de la interfaz <typeparamref name="T"/>.
+        /// Expone a los campos auto generados para este ViewModel por
+        /// medio de la interfaz <typeparamref name="T"/>.
         /// </summary>
         public abstract T Self { get; }
     }

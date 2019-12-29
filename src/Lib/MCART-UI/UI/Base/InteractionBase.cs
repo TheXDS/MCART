@@ -30,43 +30,43 @@ using TheXDS.MCART.Types;
 namespace TheXDS.MCART.UI.Base
 {
     /// <summary>
-    ///     Clase base para todos los objetos que describan una interacción
-    ///     disponible dentro de un sistema de menús.
+    /// Clase base para todos los objetos que describan una interacción
+    /// disponible dentro de un sistema de menús.
     /// </summary>
     public abstract class InteractionBase : INameable, IDescriptible
     {
         /// <summary>
-        ///     Obtiene el nombre a mostrar para esta interacción.
+        /// Obtiene el nombre a mostrar para esta interacción.
         /// </summary>
         public string Name { get; }
 
         /// <summary>
-        ///     Obtiene una descripción para esta interacción.
+        /// Obtiene una descripción para esta interacción.
         /// </summary>
         public string? Description { get; }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="InteractionBase"/>, estableciendo un nombre
-        ///     descriptivo a mostrar.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InteractionBase"/>, estableciendo un nombre
+        /// descriptivo a mostrar.
         /// </summary>
         /// <param name="name">
-        ///     Nombre descriptivo a mostrar.
+        /// Nombre descriptivo a mostrar.
         /// </param>
         protected InteractionBase(string name) : this(name, null)
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="InteractionBase"/>, estableciendo un nombre
-        ///     y una descripción a mostrar.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InteractionBase"/>, estableciendo un nombre
+        /// y una descripción a mostrar.
         /// </summary>
         /// <param name="name">
-        ///     Nombre descriptivo a mostrar.
+        /// Nombre descriptivo a mostrar.
         /// </param>
         /// <param name="description">
-        ///     Descripción del elemento.
+        /// Descripción del elemento.
         /// </param>
         protected InteractionBase(string name, string? description)
         {

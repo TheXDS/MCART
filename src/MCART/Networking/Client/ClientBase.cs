@@ -37,46 +37,46 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Networking.Client
 {
     /// <summary>
-    ///     Clase base para implementar protocolos del lado del cliente.
+    /// Clase base para implementar protocolos del lado del cliente.
     /// </summary>
     public abstract class ClientBase
     {
         private Thread? _worker;
 
         /// <summary>
-        ///     Obtiene un valor que indica si la conexión con el servidor se
-        ///     encuentra activa.
+        /// Obtiene un valor que indica si la conexión con el servidor se
+        /// encuentra activa.
         /// </summary>
         /// <value>
-        ///     <see langword="true" /> si la conexión se encuentra activa,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si la conexión se encuentra activa,
+        /// <see langword="false" /> en caso contrario.
         /// </value>
         public bool IsAlive => !(Connection?.IsDisposed ?? true) && !(NwStream() is null);
 
         /// <summary>
-        ///     Conexión al servidor
+        /// Conexión al servidor
         /// </summary>
         private protected TcpClientEx Connection { get; private set; } = new TcpClientEx();
 
         private int DefaultPort => GetType().GetAttr<PortAttribute>()?.Value ?? Common.DefaultPort;
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ClientBase" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ClientBase" />.
         /// </summary>
         private protected ClientBase()
         {
         }
 
         /// <summary>
-        ///     Método invalidable que es ejecutado inmediatamente después de
-        ///     establecer una conexión con el servidor satisfactoriamente.
+        /// Método invalidable que es ejecutado inmediatamente después de
+        /// establecer una conexión con el servidor satisfactoriamente.
         /// </summary>
         protected abstract void PostConnection();
 
         /// <summary>
-        ///     Realiza algunas tareas de limpieza antes de finalizar esta
-        ///     instancia de la clase <see cref="ClientBase" />.
+        /// Realiza algunas tareas de limpieza antes de finalizar esta
+        /// instancia de la clase <see cref="ClientBase" />.
         /// </summary>
         ~ClientBase()
         {
@@ -84,7 +84,7 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Se asegura de cerrar la conexión.
+        /// Se asegura de cerrar la conexión.
         /// </summary>
         public void CloseConnection()
         {
@@ -92,10 +92,10 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Se asegura de cerrar la conexión.
+        /// Se asegura de cerrar la conexión.
         /// </summary>
         /// <param name="force">
-        ///     Ignora el estado de la conexión e intenta cerrarla de todas formas.
+        /// Ignora el estado de la conexión e intenta cerrarla de todas formas.
         /// </param>
         public void CloseConnection(in bool force)
         {
@@ -113,7 +113,7 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Establece una conexión con el servidor.
+        /// Establece una conexión con el servidor.
         /// </summary>
         /// <param name="server">Servidor al cual conectarse.</param>
         public bool Connect(string server)
@@ -122,7 +122,7 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Establece una conexión con el servidor.
+        /// Establece una conexión con el servidor.
         /// </summary>
         /// <param name="server">Servidor al cual conectarse.</param>
         public bool Connect(IPEndPoint server)
@@ -131,7 +131,7 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Establece una conexión con el servidor.
+        /// Establece una conexión con el servidor.
         /// </summary>
         /// <param name="server">Servidor al cual conectarse.</param>
         public bool Connect(IPAddress server)
@@ -140,12 +140,12 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Establece una conexión con el servidor.
+        /// Establece una conexión con el servidor.
         /// </summary>
         /// <param name="server">Servidor al cual conectarse.</param>
         /// <param name="port">
-        ///     Opcional. Puerto del servidor. Si se omite, se conectará al puerto
-        ///     predeterminado.
+        /// Opcional. Puerto del servidor. Si se omite, se conectará al puerto
+        /// predeterminado.
         /// </param>
         public bool Connect(IPAddress server, int port)
         {
@@ -156,12 +156,12 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Establece una conexión con el servidor.
+        /// Establece una conexión con el servidor.
         /// </summary>
         /// <param name="server">Servidor al cual conectarse.</param>
         /// <param name="port">
-        ///     Opcional. Puerto del servidor. Si se omite, se conectará al puerto
-        ///     predeterminado.
+        /// Opcional. Puerto del servidor. Si se omite, se conectará al puerto
+        /// predeterminado.
         /// </param>
         public bool Connect(string server, int port)
         {
@@ -193,7 +193,7 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Establece una conexión con el servidor de forma asíncrona.
+        /// Establece una conexión con el servidor de forma asíncrona.
         /// </summary>
         /// <returns>Un <see cref="Task" /> que representa la tarea.</returns>
         /// <param name="server">Servidor al cual conectarse.</param>
@@ -203,7 +203,7 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Establece una conexión con el servidor de forma asíncrona.
+        /// Establece una conexión con el servidor de forma asíncrona.
         /// </summary>
         /// <returns>Un <see cref="Task" /> que representa la tarea.</returns>
         /// <param name="server">Servidor al cual conectarse.</param>
@@ -213,7 +213,7 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Establece una conexión con el servidor de forma asíncrona.
+        /// Establece una conexión con el servidor de forma asíncrona.
         /// </summary>
         /// <returns>Un <see cref="Task" /> que representa la tarea.</returns>
         /// <param name="server">Servidor al cual conectarse.</param>
@@ -223,13 +223,13 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Establece una conexión con el servidor de forma asíncrona.
+        /// Establece una conexión con el servidor de forma asíncrona.
         /// </summary>
         /// <returns>Un <see cref="Task" /> que representa la tarea.</returns>
         /// <param name="server">Servidor al cual conectarse.</param>
         /// <param name="port">
-        ///     Opcional. Puerto del servidor. Si se omite, se conectará al puerto
-        ///     predeterminado.
+        /// Opcional. Puerto del servidor. Si se omite, se conectará al puerto
+        /// predeterminado.
         /// </param>
         public Task<bool> ConnectAsync(IPAddress server, int port)
         {
@@ -240,13 +240,13 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Establece una conexión con el servidor de forma asíncrona.
+        /// Establece una conexión con el servidor de forma asíncrona.
         /// </summary>
         /// <returns>Un <see cref="Task" /> que representa la tarea.</returns>
         /// <param name="server">Servidor al cual conectarse.</param>
         /// <param name="port">
-        ///     Opcional. Puerto del servidor. Si se omite, se conectará al puerto
-        ///     predeterminado.
+        /// Opcional. Puerto del servidor. Si se omite, se conectará al puerto
+        /// predeterminado.
         /// </param>
         public Task<bool> ConnectAsync(string server, int port)
         {
@@ -281,17 +281,17 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Se produce cuando ocurre una conexión de manera satisfactoria.
+        /// Se produce cuando ocurre una conexión de manera satisfactoria.
         /// </summary>
         public event EventHandler<HostConnectionInfoEventArgs>? Connected;
 
         /// <summary>
-        ///     Se produce si la conexión con el servidor ha fallado.
+        /// Se produce si la conexión con el servidor ha fallado.
         /// </summary>
         public event EventHandler<ConnectionFailureEventArgs>? ConnectionFailed;
 
         /// <summary>
-        ///     Obtiene un paquete completo de datos desde el servidor.
+        /// Obtiene un paquete completo de datos desde el servidor.
         /// </summary>
         /// <param name="ns"></param>
         /// <returns></returns>
@@ -317,7 +317,7 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Obtiene un paquete completo de datos desde el servidor.
+        /// Obtiene un paquete completo de datos desde el servidor.
         /// </summary>
         /// <param name="ns"></param>
         /// <returns></returns>
@@ -343,14 +343,14 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Obtiene de forma segura la instancia del
-        ///     <see cref="NetworkStream" /> utilizada para la conexión con el
-        ///     servidor remoto.
+        /// Obtiene de forma segura la instancia del
+        /// <see cref="NetworkStream" /> utilizada para la conexión con el
+        /// servidor remoto.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="NetworkStream" /> utilizado para la conexión con
-        ///     el servidor remoto, o <see langword="null" /> si no existe una
-        ///     conexión activa válida.
+        /// Un <see cref="NetworkStream" /> utilizado para la conexión con
+        /// el servidor remoto, o <see langword="null" /> si no existe una
+        /// conexión activa válida.
         /// </returns>
         protected NetworkStream? NwStream()
         {

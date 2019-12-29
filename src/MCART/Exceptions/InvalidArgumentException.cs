@@ -30,24 +30,24 @@ namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Se produce cuando un argumento contiene un valor inválido.
+    /// Se produce cuando un argumento contiene un valor inválido.
     /// </summary>
     [Serializable]
     public class InvalidArgumentException : ArgumentException
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="InvalidArgumentException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidArgumentException" />.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="StreamingContext" /> que contiene información
-        ///     contextual acerca del origen o el destino.
+        /// El <see cref="StreamingContext" /> que contiene información
+        /// contextual acerca del origen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="SerializationInfo" /> que contiene la información
-        ///     serializada del objeto acerca de la excepción que está siendo
-        ///     lanzada.
+        /// El <see cref="SerializationInfo" /> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
         protected InvalidArgumentException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
@@ -55,8 +55,8 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="InvalidArgumentException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidArgumentException" />.
         /// </summary>
         public InvalidArgumentException() : base(Strings.InvalidParameterX(Strings.Specified))
         {
@@ -64,8 +64,8 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="InvalidArgumentException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidArgumentException" />.
         /// </summary>
         /// <param name="argumentName">Nombre del argumento inválido.</param>
         public InvalidArgumentException(string argumentName) : base(Strings.InvalidParameterX(argumentName))
@@ -74,11 +74,11 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="InvalidArgumentException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidArgumentException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="argumentName">Nombre del argumento inválido.</param>
         public InvalidArgumentException(string message, string argumentName) : base(message, argumentName)
@@ -87,10 +87,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="InvalidArgumentException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidArgumentException" />.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public InvalidArgumentException(Exception inner) : base(Strings.InvalidParameterX(Strings.Specified), inner)
         {
@@ -98,10 +98,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="InvalidArgumentException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidArgumentException" />.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="argumentName">Nombre del argumento inválido.</param>
         public InvalidArgumentException(Exception inner, string argumentName) : base(Strings.InvalidParameterX(argumentName), inner)
@@ -110,14 +110,14 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="InvalidArgumentException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidArgumentException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public InvalidArgumentException(string message, Exception inner) : base(message, inner)
         {
@@ -125,13 +125,13 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="InvalidArgumentException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidArgumentException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="argumentName">Nombre del argumento faltante.</param>
         public InvalidArgumentException(string message, Exception inner, string argumentName) : base(message,

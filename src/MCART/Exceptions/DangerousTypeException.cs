@@ -31,25 +31,25 @@ namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Excepción que se produce cuando se intenta utilizar una clase marcada con el atributo
-    ///     <see cref="DangerousAttribute" />.
+    /// Excepción que se produce cuando se intenta utilizar una clase marcada con el atributo
+    /// <see cref="DangerousAttribute" />.
     /// </summary>
     [Serializable]
     public class DangerousTypeException : OffendingException<Type>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="DangerousTypeException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="DangerousTypeException" />.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="StreamingContext" /> que contiene información
-        ///     contextual acerca del orígen o el destino.
+        /// El <see cref="StreamingContext" /> que contiene información
+        /// contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="SerializationInfo" /> que contiene la información
-        ///     serializada del objeto acerca de la excepción que está siendo
-        ///     lanzada.
+        /// El <see cref="SerializationInfo" /> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
         protected DangerousTypeException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
@@ -57,17 +57,17 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="DangerousTypeException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="DangerousTypeException" />.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="StreamingContext" /> que contiene información
-        ///     contextual acerca del orígen o el destino.
+        /// El <see cref="StreamingContext" /> que contiene información
+        /// contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="SerializationInfo" /> que contiene la información
-        ///     serializada del objeto acerca de la excepción que está siendo
-        ///     lanzada.
+        /// El <see cref="SerializationInfo" /> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
         /// <param name="dangerousType">Clase marcada con el atributo <see cref="DangerousAttribute" />.</param>
         protected DangerousTypeException(SerializationInfo info, StreamingContext context, Type dangerousType) : base(
@@ -77,8 +77,8 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="DangerousTypeException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="DangerousTypeException" />.
         /// </summary>
         public DangerousTypeException() : base(Msg())
         {
@@ -86,8 +86,8 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="DangerousTypeException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="DangerousTypeException" />.
         /// </summary>
         /// <param name="dangerousType">Clase marcada con el atributo <see cref="DangerousAttribute" />.</param>
         public DangerousTypeException(Type dangerousType) : base(Msg(dangerousType), dangerousType)
@@ -96,10 +96,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="DangerousTypeException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="DangerousTypeException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         public DangerousTypeException(string message) : base(message)
         {
@@ -107,10 +107,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="DangerousTypeException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="DangerousTypeException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="dangerousType">Clase marcada con el atributo <see cref="DangerousAttribute" />.</param>
         public DangerousTypeException(string message, Type dangerousType) : base(message, dangerousType)
@@ -119,10 +119,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="DangerousTypeException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="DangerousTypeException" />.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public DangerousTypeException(Exception inner) : base(Msg(), inner)
         {
@@ -130,10 +130,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="DangerousTypeException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="DangerousTypeException" />.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="dangerousType">Clase marcada con el atributo <see cref="DangerousAttribute" />.</param>
         public DangerousTypeException(Exception inner, Type dangerousType) : base(Msg(dangerousType), inner,
@@ -143,13 +143,13 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="DangerousTypeException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="DangerousTypeException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public DangerousTypeException(string message, Exception inner) : base(message, inner)
         {
@@ -157,13 +157,13 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="DangerousTypeException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="DangerousTypeException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="dangerousType">Clase marcada con el atributo <see cref="DangerousAttribute" />.</param>
         public DangerousTypeException(string message, Exception inner, Type dangerousType) : base(message, inner,

@@ -35,24 +35,24 @@ namespace TheXDS.MCART.Networking.Server
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Clase base para crear protocolos simples con bytes de comandos.
+    /// Clase base para crear protocolos simples con bytes de comandos.
     /// </summary>
     /// <typeparam name="TClient">
-    ///     Tipo de clientes a atender.
+    /// Tipo de clientes a atender.
     /// </typeparam>
     /// <typeparam name="TCommand">
-    ///     Tipo de la enumeración de comandos que el protocolo aceptará.
+    /// Tipo de la enumeración de comandos que el protocolo aceptará.
     /// </typeparam>
     /// <typeparam name="TResponse">
-    ///     Tipo de la enumeración de las respuestas que este protocolo
-    ///     devolverá a los clientes conectados.
+    /// Tipo de la enumeración de las respuestas que este protocolo
+    /// devolverá a los clientes conectados.
     /// </typeparam>
     [Obsolete(Resources.InternalStrings.LegacyComponent)]
     public abstract class SelfWiredCommandProtocol<TClient, TCommand, TResponse> : ServerProtocol<TClient>
         where TClient : Client where TCommand : struct, Enum where TResponse : struct, Enum
     {
         /// <summary>
-        ///     Describe la firma de un comando del protocolo.
+        /// Describe la firma de un comando del protocolo.
         /// </summary>
         public delegate void CommandCallback(object instance, BinaryReader br, TClient client, Server<TClient> server);
 
@@ -67,16 +67,16 @@ namespace TheXDS.MCART.Networking.Server
         private static Func<TResponse, byte[]> ToResponse { get; }
 
         /// <summary>
-        ///     Inicializa la clase
-        ///     <see cref="SelfWiredCommandProtocol{TClient,TCommand,TResponse}" />.
+        /// Inicializa la clase
+        /// <see cref="SelfWiredCommandProtocol{TClient,TCommand,TResponse}" />.
         /// </summary>
         /// <remarks>
-        ///     Este método realiza inicializaciones especiales, como
-        ///     determinar el método a utilizar para leer y escribir valores de
-        ///     enumeración desde y hacia un <see cref="Stream" /> o un arreglo
-        ///     de bytes. Además, inicializa respuestas predeterminadas si las
-        ///     mismas se encuentran definidas en la enumeración de respuestas
-        ///     de <typeparamref name="TResponse" />.
+        /// Este método realiza inicializaciones especiales, como
+        /// determinar el método a utilizar para leer y escribir valores de
+        /// enumeración desde y hacia un <see cref="Stream" /> o un arreglo
+        /// de bytes. Además, inicializa respuestas predeterminadas si las
+        /// mismas se encuentran definidas en la enumeración de respuestas
+        /// de <typeparamref name="TResponse" />.
         /// </remarks>
         static SelfWiredCommandProtocol()
         {
@@ -95,11 +95,11 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="SelfWiredCommandProtocol{TClient,TCommand,TResponse}" />
+        /// Inicializa una nueva instancia de la clase <see cref="SelfWiredCommandProtocol{TClient,TCommand,TResponse}" />
         /// </summary>
         /// <remarks>
-        ///     En este método se realiza el mapeo entre comandos aceptados por
-        ///     el protocolo y sus respectivos métodos de atención.
+        /// En este método se realiza el mapeo entre comandos aceptados por
+        /// el protocolo y sus respectivos métodos de atención.
         /// </remarks>
         protected SelfWiredCommandProtocol()
         {
@@ -129,14 +129,14 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Genera un arreglo de bytes con la respuesta de este servidor.
+        /// Genera un arreglo de bytes con la respuesta de este servidor.
         /// </summary>
         /// <param name="response">
-        ///     Valor a partir del cual generar la respuesta.
+        /// Valor a partir del cual generar la respuesta.
         /// </param>
         /// <returns>
-        ///     Un arreglo de bytes con la respuesta, al cual se pueden
-        ///     concatenar más datos.
+        /// Un arreglo de bytes con la respuesta, al cual se pueden
+        /// concatenar más datos.
         /// </returns>
         public static byte[]? MakeResponse(TResponse response)
         {
@@ -144,18 +144,18 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Genera un arreglo de bytes con la respuesta de este servidor.
+        /// Genera un arreglo de bytes con la respuesta de este servidor.
         /// </summary>
         /// <param name="response">
-        ///     Valor a partir del cual generar la respuesta.
+        /// Valor a partir del cual generar la respuesta.
         /// </param>
         /// <param name="data">
-        ///     Arreglo de bytes con datos adicionales a adjuntar al datagrama
-        ///     de respuesta.
+        /// Arreglo de bytes con datos adicionales a adjuntar al datagrama
+        /// de respuesta.
         /// </param>
         /// <returns>
-        ///     Un arreglo de bytes con la respuesta, al cual se pueden
-        ///     concatenar más datos.
+        /// Un arreglo de bytes con la respuesta, al cual se pueden
+        /// concatenar más datos.
         /// </returns>
         public static byte[]? MakeResponse(TResponse response, IEnumerable<byte> data)
         {
@@ -163,17 +163,17 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Genera un arreglo de bytes con la respuesta de este servidor.
+        /// Genera un arreglo de bytes con la respuesta de este servidor.
         /// </summary>
         /// <param name="response">
-        ///     Valor a partir del cual generar la respuesta.
+        /// Valor a partir del cual generar la respuesta.
         /// </param>
         /// <param name="data">
-        ///     Cadena de texto a adjuntar al datagrama de respuesta.
+        /// Cadena de texto a adjuntar al datagrama de respuesta.
         /// </param>
         /// <returns>
-        ///     Un arreglo de bytes con la respuesta, al cual se pueden
-        ///     concatenar más datos.
+        /// Un arreglo de bytes con la respuesta, al cual se pueden
+        /// concatenar más datos.
         /// </returns>
         public static byte[]? MakeResponse(TResponse response, string data)
         {
@@ -181,18 +181,18 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Genera un arreglo de bytes con la respuesta de este servidor.
+        /// Genera un arreglo de bytes con la respuesta de este servidor.
         /// </summary>
         /// <param name="response">
-        ///     Valor a partir del cual generar la respuesta.
+        /// Valor a partir del cual generar la respuesta.
         /// </param>
         /// <param name="data">
-        ///     Enumeración con múltiples cadenas de texto adicionales a
-        ///     adjuntar al datagrama de respuesta.
+        /// Enumeración con múltiples cadenas de texto adicionales a
+        /// adjuntar al datagrama de respuesta.
         /// </param>
         /// <returns>
-        ///     Un arreglo de bytes con la respuesta, al cual se pueden
-        ///     concatenar más datos.
+        /// Un arreglo de bytes con la respuesta, al cual se pueden
+        /// concatenar más datos.
         /// </returns>
         public static byte[]? MakeResponse(TResponse response, IEnumerable<string> data)
         {
@@ -203,18 +203,18 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Genera un arreglo de bytes con la respuesta de este servidor.
+        /// Genera un arreglo de bytes con la respuesta de este servidor.
         /// </summary>
         /// <param name="response">
-        ///     Valor a partir del cual generar la respuesta.
+        /// Valor a partir del cual generar la respuesta.
         /// </param>
         /// <param name="data">
-        ///     Flujo de datos que contiene la información a adjuntar al
-        ///     datagrama de respuesta.
+        /// Flujo de datos que contiene la información a adjuntar al
+        /// datagrama de respuesta.
         /// </param>
         /// <returns>
-        ///     Un arreglo de bytes con la respuesta, al cual se pueden
-        ///     concatenar más datos.
+        /// Un arreglo de bytes con la respuesta, al cual se pueden
+        /// concatenar más datos.
         /// </returns>
         public static byte[]? MakeResponse(TResponse response, MemoryStream data)
         {
@@ -222,18 +222,18 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Genera un arreglo de bytes con la respuesta de este servidor.
+        /// Genera un arreglo de bytes con la respuesta de este servidor.
         /// </summary>
         /// <param name="response">
-        ///     Valor a partir del cual generar la respuesta.
+        /// Valor a partir del cual generar la respuesta.
         /// </param>
         /// <param name="data">
-        ///     Flujo de datos que contiene la información a adjuntar al
-        ///     datagrama de respuesta.
+        /// Flujo de datos que contiene la información a adjuntar al
+        /// datagrama de respuesta.
         /// </param>
         /// <returns>
-        ///     Un arreglo de bytes con la respuesta, al cual se pueden
-        ///     concatenar más datos.
+        /// Un arreglo de bytes con la respuesta, al cual se pueden
+        /// concatenar más datos.
         /// </returns>
         public static byte[]? MakeResponse(TResponse response, Stream data)
         {
@@ -250,11 +250,11 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Lee un comando desde el <see cref="BinaryReader" /> especificado.
+        /// Lee un comando desde el <see cref="BinaryReader" /> especificado.
         /// </summary>
         /// <param name="br"><see cref="BinaryReader" /> desde el cual leer la información.</param>
         /// <returns>
-        ///     Un comando leído desde el <see cref="BinaryReader" /> especificado.
+        /// Un comando leído desde el <see cref="BinaryReader" /> especificado.
         /// </returns>
         public static TCommand ReadCommand(BinaryReader br)
         {
@@ -263,14 +263,14 @@ namespace TheXDS.MCART.Networking.Server
 
         /// <inheritdoc />
         /// <summary>
-        ///     Protocolo de atención al cliente
+        /// Protocolo de atención al cliente
         /// </summary>
         /// <param name="client">Cliente que será atendido.</param>
         /// <param name="data">Datos recibidos desde el cliente.</param>
         /// <exception cref="InvalidOperationException">
-        ///     Se produce cuando el servidor encuentra un problema y no
-        ///     existen respuestas mapeadas de error, comando inválido o
-        ///     comando no mapeado.
+        /// Se produce cuando el servidor encuentra un problema y no
+        /// existen respuestas mapeadas de error, comando inválido o
+        /// comando no mapeado.
         /// </exception>
         public override void ClientAttendant(TClient client, byte[] data)
         {

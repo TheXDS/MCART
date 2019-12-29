@@ -34,21 +34,21 @@ using TheXDS.MCART.Attributes;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Contiene extensiones para objetos de tipo <see cref="Delegate"/>.
+    /// Contiene extensiones para objetos de tipo <see cref="Delegate"/>.
     /// </summary>
     public static class DelegateExtensions
     {
         /// <summary>
-        ///     Obtiene un nombre descriptivo para un <see cref="Delegate"/>.
+        /// Obtiene un nombre descriptivo para un <see cref="Delegate"/>.
         /// </summary>
         /// <param name="d">
-        ///     <see cref="Delegate"/> para el cual obtener un nombre
-        ///     descriptivo.
+        /// <see cref="Delegate"/> para el cual obtener un nombre
+        /// descriptivo.
         /// </param>
         /// <returns>
-        ///     Un nombre descriptivo para un <see cref="Delegate"/>, o el
-        ///     nombre del método representado por el delegado si este no 
-        ///     contiene un atributo <see cref="NameAttribute"/>.
+        /// Un nombre descriptivo para un <see cref="Delegate"/>, o el
+        /// nombre del método representado por el delegado si este no 
+        /// contiene un atributo <see cref="NameAttribute"/>.
         /// </returns>
         public static string NameOf(this Delegate d)
         {

@@ -25,13 +25,13 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.Types.Base
 {
     /// <summary>
-    ///     Define una serie de miembros a implementar por un tipo que
-    ///     represente tamaño en tres dimensiones.
+    /// Define una serie de miembros a implementar por un tipo que
+    /// represente tamaño en tres dimensiones.
     /// </summary>
     public interface ISize3D : ISize
     {
         /// <summary>
-        ///     Obtiene el componente de profundidad del tamaño.
+        /// Obtiene el componente de profundidad del tamaño.
         /// </summary>
         double Depth { get; set; }
     }

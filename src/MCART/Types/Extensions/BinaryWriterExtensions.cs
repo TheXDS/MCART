@@ -31,20 +31,20 @@ using System.Runtime.Serialization;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Contiene extensiones útiles para la clase
-    ///     <see cref="BinaryWriter"/>.
+    /// Contiene extensiones útiles para la clase
+    /// <see cref="BinaryWriter"/>.
     /// </summary>
     public static class BinaryWriterExtensions
     {
         /// <summary>
-        ///     Escribe un <see cref="Guid"/> en el <see cref="BinaryWriter"/>
-        ///     especificado.
+        /// Escribe un <see cref="Guid"/> en el <see cref="BinaryWriter"/>
+        /// especificado.
         /// </summary>
         /// <param name="bw">
-        ///     Instancia sobre la cual realizar la escritura.
+        /// Instancia sobre la cual realizar la escritura.
         /// </param>
         /// <param name="value">
-        ///     Valor a escribir.
+        /// Valor a escribir.
         /// </param>
         public static void Write(this BinaryWriter bw, Guid value)
         {
@@ -52,14 +52,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Escribe un <see cref="DateTime"/> en el
-        ///     <see cref="BinaryWriter"/> especificado.
+        /// Escribe un <see cref="DateTime"/> en el
+        /// <see cref="BinaryWriter"/> especificado.
         /// </summary>
         /// <param name="bw">
-        ///     Instancia sobre la cual realizar la escritura.
+        /// Instancia sobre la cual realizar la escritura.
         /// </param>
         /// <param name="value">
-        ///     Valor a escribir.
+        /// Valor a escribir.
         /// </param>
         public static void Write(this BinaryWriter bw, DateTime value)
         {
@@ -67,14 +67,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Escribe un <see cref="TimeSpan"/> en el
-        ///     <see cref="BinaryWriter"/> especificado.
+        /// Escribe un <see cref="TimeSpan"/> en el
+        /// <see cref="BinaryWriter"/> especificado.
         /// </summary>
         /// <param name="bw">
-        ///     Instancia sobre la cual realizar la escritura.
+        /// Instancia sobre la cual realizar la escritura.
         /// </param>
         /// <param name="value">
-        ///     Valor a escribir.
+        /// Valor a escribir.
         /// </param>
         public static void Write(this BinaryWriter bw, TimeSpan value)
         {
@@ -82,14 +82,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Escribe un valor <see cref="Enum"/> en el
-        ///     <see cref="BinaryWriter"/> especificado.
+        /// Escribe un valor <see cref="Enum"/> en el
+        /// <see cref="BinaryWriter"/> especificado.
         /// </summary>
         /// <param name="bw">
-        ///     Instancia sobre la cual realizar la escritura.
+        /// Instancia sobre la cual realizar la escritura.
         /// </param>
         /// <param name="value">
-        ///     Valor a escribir.
+        /// Valor a escribir.
         /// </param>
         public static void Write(this BinaryWriter bw, Enum value)
         {
@@ -97,14 +97,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Escribe un objeto serialziable en el
-        ///     <see cref="BinaryWriter"/> especificado.
+        /// Escribe un objeto serialziable en el
+        /// <see cref="BinaryWriter"/> especificado.
         /// </summary>
         /// <param name="bw">
-        ///     Instancia sobre la cual realizar la escritura.
+        /// Instancia sobre la cual realizar la escritura.
         /// </param>
         /// <param name="value">
-        ///     Objeto serializable a escribir.
+        /// Objeto serializable a escribir.
         /// </param>
         public static void Write(this BinaryWriter bw, ISerializable value)
         {
@@ -115,14 +115,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Realiza una escritura del objeto especificado, determinando
-        ///     dinámicamente el método apropiado de escritura a utilizar.
+        /// Realiza una escritura del objeto especificado, determinando
+        /// dinámicamente el método apropiado de escritura a utilizar.
         /// </summary>
         /// <param name="bw">
-        ///     Instancia sobre la cual realizar la escritura.
+        /// Instancia sobre la cual realizar la escritura.
         /// </param>
         /// <param name="value">
-        ///     Objeto a escribir.
+        /// Objeto a escribir.
         /// </param>
         public static void DynamicWrite(this BinaryWriter bw, object value)
         {

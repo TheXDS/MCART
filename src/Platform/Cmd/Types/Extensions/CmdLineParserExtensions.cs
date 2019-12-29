@@ -32,21 +32,21 @@ using static TheXDS.MCART.Resources.CmdStrings;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Extensiones adicionales para el tipo <see cref="Color"/>.
+    /// Extensiones adicionales para el tipo <see cref="Color"/>.
     /// </summary>
     public static class CmdColorExtensions
     {
         /// <summary>
-        ///     Obtiene un color de consola a partir del <see cref="Color"/>
-        ///     especificado.
+        /// Obtiene un color de consola a partir del <see cref="Color"/>
+        /// especificado.
         /// </summary>
         /// <param name="color">
-        ///     Color a partir del cual obtener el color de consola 
-        ///     equivalente.
+        /// Color a partir del cual obtener el color de consola 
+        /// equivalente.
         /// </param>
         /// <returns>
-        ///     Un <see cref="ConsoleColor"/> aproximado equivalente al color
-        ///     especificado.
+        /// Un <see cref="ConsoleColor"/> aproximado equivalente al color
+        /// especificado.
         /// </returns>
         public static ConsoleColor ToConsoleColor(this Color color)
         {
@@ -55,13 +55,13 @@ namespace TheXDS.MCART.Types.Extensions
     }
 
     /// <summary>
-    ///     Extensiones para administrar un <see cref="CmdLineParser"/> bajo la
-    ///     interfaz de terminal/consola.
+    /// Extensiones para administrar un <see cref="CmdLineParser"/> bajo la
+    /// interfaz de terminal/consola.
     /// </summary>
     public static class CmdLineParserExtensions
     {
         /// <summary>
-        ///     Obtiene el nombre a mostrar del argumento.
+        /// Obtiene el nombre a mostrar del argumento.
         /// </summary>
         /// <param name="arg"></param>
         /// <returns></returns>
@@ -71,12 +71,12 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Genera una pantalla de ayuda con los argumentos registrados en
-        ///     el <see cref="CmdLineParser"/> especificado.
+        /// Genera una pantalla de ayuda con los argumentos registrados en
+        /// el <see cref="CmdLineParser"/> especificado.
         /// </summary>
         /// <param name="args">
-        ///     Instancia de <see cref="CmdLineParser"/> desde la cual extraer
-        ///     la información de ayuda de los argumentos.
+        /// Instancia de <see cref="CmdLineParser"/> desde la cual extraer
+        /// la información de ayuda de los argumentos.
         /// </param>
         public static void PrintHelp(this CmdLineParser args)
         {
@@ -111,17 +111,17 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Ejecuta automáticamente las tareas asociadas a una lista de
-        ///     argumentos.
+        /// Ejecuta automáticamente las tareas asociadas a una lista de
+        /// argumentos.
         /// </summary>
         /// <param name="args">
-        ///     Instancia de <see cref="CmdLineParser"/> con los argumentos a
-        ///     ejecutar.
+        /// Instancia de <see cref="CmdLineParser"/> con los argumentos a
+        /// ejecutar.
         /// </param>
         /// <param name="exitIfInvalidArgs">
-        ///     Si se establece en <see langword="true"/>, la aplicación será
-        ///     finalizada si existen argumentos inválidos, faltan argumentos
-        ///     requeridos o si ocurre un error en una de las operaciones.
+        /// Si se establece en <see langword="true"/>, la aplicación será
+        /// finalizada si existen argumentos inválidos, faltan argumentos
+        /// requeridos o si ocurre un error en una de las operaciones.
         /// </param>
         public static void AutoRun(this CmdLineParser args, bool exitIfInvalidArgs)
         {
@@ -154,12 +154,12 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Ejecuta automáticamente las tareas asociadas a una lista de
-        ///     argumentos.
+        /// Ejecuta automáticamente las tareas asociadas a una lista de
+        /// argumentos.
         /// </summary>
         /// <param name="args">
-        ///     Instancia de <see cref="CmdLineParser"/> con los argumentos a
-        ///     ejecutar.
+        /// Instancia de <see cref="CmdLineParser"/> con los argumentos a
+        /// ejecutar.
         /// </param>
         public static void AutoRun(this CmdLineParser args) => AutoRun(args, true);
     }

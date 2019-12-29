@@ -40,40 +40,40 @@ namespace TheXDS.MCART.Networking.Client
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Clase base para clientes auto-cableados de atención a protocolos de
-    ///     comandos simples basados en la clase
-    ///     <see cref="SelfWiredCommandProtocol{TClient, TCommand, TResponse}" />.
+    /// Clase base para clientes auto-cableados de atención a protocolos de
+    /// comandos simples basados en la clase
+    /// <see cref="SelfWiredCommandProtocol{TClient, TCommand, TResponse}" />.
     /// </summary>
     /// <typeparam name="TCommand">
-    ///     Tipo de enumeración de los comandos enviados por este cliente.
+    /// Tipo de enumeración de los comandos enviados por este cliente.
     /// </typeparam>
     /// <typeparam name="TResponse">
-    ///     Tipo de enumeración de las respuestas manejadas por este cliente.
+    /// Tipo de enumeración de las respuestas manejadas por este cliente.
     /// </typeparam>
     /// <remarks>
-    ///     Debido a las limitaciones actuales de C#, para poder implementar
-    ///     este protocolo es necesario crear un atributo aplicable a los
-    ///     métodos miembros de la clase que derive de
-    ///     <see cref="SelfWiredCommandClient{TCommand, TResponse}" />, dicho
-    ///     atributo deberá implementar <see cref="IValueAttribute{T}" /> y ser
-    ///     aplicado a cada método que pueda manejar respuestas del servidor.
-    ///     Tales métodos deberán a su vez, ser compatibles con el delegado
-    ///     <see cref="SelfWiredCommandClient{TCommand, TResponse}.ResponseCallBack" />.
-    ///     Los comandos y las respuestas son enumeraciones comunes.
+    /// Debido a las limitaciones actuales de C#, para poder implementar
+    /// este protocolo es necesario crear un atributo aplicable a los
+    /// métodos miembros de la clase que derive de
+    /// <see cref="SelfWiredCommandClient{TCommand, TResponse}" />, dicho
+    /// atributo deberá implementar <see cref="IValueAttribute{T}" /> y ser
+    /// aplicado a cada método que pueda manejar respuestas del servidor.
+    /// Tales métodos deberán a su vez, ser compatibles con el delegado
+    /// <see cref="SelfWiredCommandClient{TCommand, TResponse}.ResponseCallBack" />.
+    /// Los comandos y las respuestas son enumeraciones comunes.
     /// </remarks>
     /// <example>
-    ///     Este ejemplo define un protocolo sencillo que imprime mensajes enviados por el servidor.
-    ///     <code language="cs" source="..\..\Documentation\Examples\Networking\Client\SelfWiredCommandClient.cs"
-    ///         region="example1" />
-    ///     <code language="vb" source="..\..\Documentation\Examples\Networking\Client\SelfWiredCommandClient.vb"
-    ///         region="example1" />
+    /// Este ejemplo define un protocolo sencillo que imprime mensajes enviados por el servidor.
+    /// <code language="cs" source="..\..\Documentation\Examples\Networking\Client\SelfWiredCommandClient.cs"
+    ///     region="example1" />
+    /// <code language="vb" source="..\..\Documentation\Examples\Networking\Client\SelfWiredCommandClient.vb"
+    ///     region="example1" />
     /// </example>
     [Obsolete(Resources.InternalStrings.LegacyComponent)]
     public abstract class SelfWiredCommandClient<TCommand, TResponse> : ActiveClient
         where TCommand : struct, Enum where TResponse : struct, Enum
     {
         /// <summary>
-        ///     Describe la firma de una respuesta del protocolo.
+        /// Describe la firma de una respuesta del protocolo.
         /// </summary>
         public delegate void ResponseCallBack(object instance, BinaryReader br);
 
@@ -88,13 +88,13 @@ namespace TheXDS.MCART.Networking.Client
             new Dictionary<TResponse, ResponseCallBack>();
 
         /// <summary>
-        ///     Genera un arreglo de bytes de comando al servidor a partir del
-        ///     valor especificado.
+        /// Genera un arreglo de bytes de comando al servidor a partir del
+        /// valor especificado.
         /// </summary>
         /// <returns>
-        ///     Un arreglo de bytes que contiene los bytes que representan al
-        ///     comando, a partir del cual se pueden concatenar más datos para
-        ///     construir una solicitud completa.
+        /// Un arreglo de bytes que contiene los bytes que representan al
+        /// comando, a partir del cual se pueden concatenar más datos para
+        /// construir una solicitud completa.
         /// </returns>
         private static Func<TCommand, byte[]> ToCommand { get; } = EnumExtensions.ToBytes<TCommand>();
 
@@ -113,8 +113,8 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="SelfWiredCommandClient{TCommand,TResponse}" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="SelfWiredCommandClient{TCommand,TResponse}" />.
         /// </summary>
         protected SelfWiredCommandClient()
         {
@@ -144,14 +144,14 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Genera un arreglo de bytes con la solicitud de este cliente.
+        /// Genera un arreglo de bytes con la solicitud de este cliente.
         /// </summary>
         /// <param name="command">
-        ///     Valor a partir del cual generar la solicitud.
+        /// Valor a partir del cual generar la solicitud.
         /// </param>
         /// <returns>
-        ///     Un arreglo de bytes con la solicitud, al cual se pueden
-        ///     concatenar más datos.
+        /// Un arreglo de bytes con la solicitud, al cual se pueden
+        /// concatenar más datos.
         /// </returns>
         public static byte[] MakeCommand(in TCommand command)
         {
@@ -159,18 +159,18 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Genera un arreglo de bytes con la solicitud de este cliente.
+        /// Genera un arreglo de bytes con la solicitud de este cliente.
         /// </summary>
         /// <param name="command">
-        ///     Valor a partir del cual generar la solicitud.
+        /// Valor a partir del cual generar la solicitud.
         /// </param>
         /// <param name="data">
-        ///     Arreglo de bytes con datos adicionales a adjuntar al datagrama
-        ///     de respuesta.
+        /// Arreglo de bytes con datos adicionales a adjuntar al datagrama
+        /// de respuesta.
         /// </param>
         /// <returns>
-        ///     Un arreglo de bytes con la solicitud, al cual se pueden
-        ///     concatenar más datos.
+        /// Un arreglo de bytes con la solicitud, al cual se pueden
+        /// concatenar más datos.
         /// </returns>
         public static byte[] MakeCommand(in TCommand command, IEnumerable<byte> data)
         {
@@ -178,17 +178,17 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Genera un arreglo de bytes con la solicitud de este cliente.
+        /// Genera un arreglo de bytes con la solicitud de este cliente.
         /// </summary>
         /// <param name="command">
-        ///     Valor a partir del cual generar la solicitud.
+        /// Valor a partir del cual generar la solicitud.
         /// </param>
         /// <param name="data">
-        ///     Cadena de texto a adjuntar al datagrama de solicitud.
+        /// Cadena de texto a adjuntar al datagrama de solicitud.
         /// </param>
         /// <returns>
-        ///     Un arreglo de bytes con la solicitud, al cual se pueden
-        ///     concatenar más datos.
+        /// Un arreglo de bytes con la solicitud, al cual se pueden
+        /// concatenar más datos.
         /// </returns>
         public static byte[] MakeCommand(in TCommand command, string data)
         {
@@ -196,18 +196,18 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Genera un arreglo de bytes con la solicitud de este cliente.
+        /// Genera un arreglo de bytes con la solicitud de este cliente.
         /// </summary>
         /// <param name="command">
-        ///     Valor a partir del cual generar la solicitud.
+        /// Valor a partir del cual generar la solicitud.
         /// </param>
         /// <param name="data">
-        ///     Enumeración con múltiples cadenas de texto adicionales a
-        ///     adjuntar al datagrama de solicitud.
+        /// Enumeración con múltiples cadenas de texto adicionales a
+        /// adjuntar al datagrama de solicitud.
         /// </param>
         /// <returns>
-        ///     Un arreglo de bytes con la solicitud, al cual se pueden
-        ///     concatenar más datos.
+        /// Un arreglo de bytes con la solicitud, al cual se pueden
+        /// concatenar más datos.
         /// </returns>
         public static byte[] MakeCommand(in TCommand command, IEnumerable<string> data)
         {
@@ -218,18 +218,18 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Genera un arreglo de bytes con la solicitud de este cliente.
+        /// Genera un arreglo de bytes con la solicitud de este cliente.
         /// </summary>
         /// <param name="command">
-        ///     Valor a partir del cual generar la solicitud.
+        /// Valor a partir del cual generar la solicitud.
         /// </param>
         /// <param name="data">
-        ///     Flujo de datos que contiene la información a adjuntar al
-        ///     datagrama de solicitud.
+        /// Flujo de datos que contiene la información a adjuntar al
+        /// datagrama de solicitud.
         /// </param>
         /// <returns>
-        ///     Un arreglo de bytes con la solicitud, al cual se pueden
-        ///     concatenar más datos.
+        /// Un arreglo de bytes con la solicitud, al cual se pueden
+        /// concatenar más datos.
         /// </returns>
         public static byte[] MakeCommand(in TCommand command, MemoryStream data)
         {
@@ -237,18 +237,18 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Genera un arreglo de bytes con la solicitud de este cliente.
+        /// Genera un arreglo de bytes con la solicitud de este cliente.
         /// </summary>
         /// <param name="command">
-        ///     Valor a partir del cual generar la solicitud.
+        /// Valor a partir del cual generar la solicitud.
         /// </param>
         /// <param name="data">
-        ///     Flujo de datos que contiene la información a adjuntar al
-        ///     datagrama de solicitud.
+        /// Flujo de datos que contiene la información a adjuntar al
+        /// datagrama de solicitud.
         /// </param>
         /// <returns>
-        ///     Un arreglo de bytes con la solicitud, al cual se pueden
-        ///     concatenar más datos.
+        /// Un arreglo de bytes con la solicitud, al cual se pueden
+        /// concatenar más datos.
         /// </returns>
         public static byte[] MakeCommand(in TCommand command, Stream data)
         {
@@ -266,15 +266,15 @@ namespace TheXDS.MCART.Networking.Client
 
         /// <inheritdoc />
         /// <summary>
-        ///     Atiende una solicitud realizada por el servidor cuando no
-        ///     existe un método mapeado a la respuesta recibida.
+        /// Atiende una solicitud realizada por el servidor cuando no
+        /// existe un método mapeado a la respuesta recibida.
         /// </summary>
         /// <param name="data">Datos recibidos desde el servidor.</param>
         /// <remarks>
-        ///     De forma predeterminada, este método no realiza ninguna acción.
-        ///     Invalide este método en caso de que la implementación no mapee
-        ///     todas las respuestas que el servidor podría enviar, en cuyo
-        ///     caso, serán atendidas aquí.
+        /// De forma predeterminada, este método no realiza ninguna acción.
+        /// Invalide este método en caso de que la implementación no mapee
+        /// todas las respuestas que el servidor podría enviar, en cuyo
+        /// caso, serán atendidas aquí.
         /// </remarks>
         public override void AttendServer(byte[] data)
         {
@@ -283,7 +283,7 @@ namespace TheXDS.MCART.Networking.Client
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicia la escucha activa del servidor.
+        /// Inicia la escucha activa del servidor.
         /// </summary>
         protected override async sealed void PostConnection()
         {
@@ -348,16 +348,16 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Obtiene una respuesta a partir de un <see cref="BinaryReader" />
-        ///     activo.
+        /// Obtiene una respuesta a partir de un <see cref="BinaryReader" />
+        /// activo.
         /// </summary>
         /// <param name="br">
-        ///     <see cref="BinaryReader" /> desde el cual se obtendrá la
-        ///     información.
+        /// <see cref="BinaryReader" /> desde el cual se obtendrá la
+        /// información.
         /// </param>
         /// <returns>
-        ///     Un <typeparamref name="TResponse" /> con la respuesta enviada
-        ///     por el servidor.
+        /// Un <typeparamref name="TResponse" /> con la respuesta enviada
+        /// por el servidor.
         /// </returns>
         public TResponse ReadResponse(BinaryReader br)
         {
@@ -366,21 +366,21 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Se produce cuando el servidor envía un mensaje indicando estado
-        ///     de error.
+        /// Se produce cuando el servidor envía un mensaje indicando estado
+        /// de error.
         /// </summary>
         public event EventHandler? ServerError;
 
         /// <summary>
-        ///     Envía un comando al servidor, y ejecuta un método de atención
-        ///     cuando el servidor responda, evitando el hilo de atención
-        ///     normal.
+        /// Envía un comando al servidor, y ejecuta un método de atención
+        /// cuando el servidor responda, evitando el hilo de atención
+        /// normal.
         /// </summary>
         /// <param name="data">
-        ///     Datos adicionales a concatenar a la solicitud.
+        /// Datos adicionales a concatenar a la solicitud.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a ejecutar cuando el servidor responda.
+        /// Llamada a ejecutar cuando el servidor responda.
         /// </param>
         public void TalkToServer(byte[] data, ResponseCallBack callback)
         {
@@ -392,20 +392,20 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía un comando al servidor, y ejecuta un método de atención
-        ///     cuando el servidor responda, evitando el hilo de atención
-        ///     normal.
+        /// Envía un comando al servidor, y ejecuta un método de atención
+        /// cuando el servidor responda, evitando el hilo de atención
+        /// normal.
         /// </summary>
         /// <param name="command">Comando a enviar al servidor.</param>
         /// <param name="callback">
-        ///     Llamada a ejecutar cuando el servidor responda.
+        /// Llamada a ejecutar cuando el servidor responda.
         /// </param>
         /// <exception cref="InvalidOperationException">
-        ///     Se produce cuando se intenta enviar un comando a un servidor
-        ///     cuando la conexión está cerrada.
+        /// Se produce cuando se intenta enviar un comando a un servidor
+        /// cuando la conexión está cerrada.
         /// </exception>
         /// <exception cref="ArgumentNullException">
-        ///     Se produce si <paramref name="callback" /> es <see langword="null" />.
+        /// Se produce si <paramref name="callback" /> es <see langword="null" />.
         /// </exception>
         [DebuggerStepThrough]
         public void TalkToServer(in TCommand command, ResponseCallBack callback)
@@ -418,12 +418,12 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía un comando al servidor.
+        /// Envía un comando al servidor.
         /// </summary>
         /// <param name="command">Comando a enviar al servidor.</param>
         /// <exception cref="InvalidOperationException">
-        ///     Se produce cuando se intenta enviar un comando a un servidor
-        ///     cuando la conexión está cerrada.
+        /// Se produce cuando se intenta enviar un comando a un servidor
+        /// cuando la conexión está cerrada.
         /// </exception>
         [DebuggerStepThrough]
         public void TalkToServer(in TCommand command)
@@ -434,18 +434,18 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía un comando al servidor de forma asíncrona, y ejecuta un
-        ///     método de atención cuando el servidor responda, evitando el
-        ///     hilo de atención normal.
+        /// Envía un comando al servidor de forma asíncrona, y ejecuta un
+        /// método de atención cuando el servidor responda, evitando el
+        /// hilo de atención normal.
         /// </summary>
         /// <param name="data">
-        ///     Datos adicionales a concatenar a la solicitud.
+        /// Datos adicionales a concatenar a la solicitud.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a ejecutar cuando el servidor responda.
+        /// Llamada a ejecutar cuando el servidor responda.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Task" /> que permite monitorear la operación.
+        /// Un <see cref="Task" /> que permite monitorear la operación.
         /// </returns>
         [DebuggerStepThrough]
         public async Task TalkToServerAsync(byte[] data, ResponseCallBack callback)
@@ -459,16 +459,16 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía un comando al servidor de forma asíncrona, y ejecuta un
-        ///     método de atención cuando el servidor responda, evitando el
-        ///     hilo de atención normal.
+        /// Envía un comando al servidor de forma asíncrona, y ejecuta un
+        /// método de atención cuando el servidor responda, evitando el
+        /// hilo de atención normal.
         /// </summary>
         /// <param name="command">Comando a enviar al servidor.</param>
         /// <param name="callback">
-        ///     Llamada a ejecutar cuando el servidor responda.
+        /// Llamada a ejecutar cuando el servidor responda.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Task" /> que permite monitorear la operación.
+        /// Un <see cref="Task" /> que permite monitorear la operación.
         /// </returns>
         public async Task TalkToServerAsync(TCommand command, ResponseCallBack callback)
         {
@@ -480,11 +480,11 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía un comando al servidor de forma asíncrona.
+        /// Envía un comando al servidor de forma asíncrona.
         /// </summary>
         /// <param name="command">Comando a enviar al servidor.</param>
         /// <returns>
-        ///     Un <see cref="Task" /> que permite monitorear la operación.
+        /// Un <see cref="Task" /> que permite monitorear la operación.
         /// </returns>
         public Task TalkToServerAsync(in TCommand command)
         {
@@ -494,8 +494,8 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Se produce cuando el servidor envía un mensaje indicando que no
-        ///     reconoce al comando que se le ha enviado.
+        /// Se produce cuando el servidor envía un mensaje indicando que no
+        /// reconoce al comando que se le ha enviado.
         /// </summary>
         public event EventHandler? UnknownCommandIssued;
     }

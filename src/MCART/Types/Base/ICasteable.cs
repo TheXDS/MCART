@@ -27,46 +27,46 @@ using System;
 namespace TheXDS.MCART.Types.Base
 {
     /// <summary>
-    ///     Define una serie de miembros a implementar por un objeto que
-    ///     permita realizar conversiones desde su tipo hacia otro.
+    /// Define una serie de miembros a implementar por un objeto que
+    /// permita realizar conversiones desde su tipo hacia otro.
     /// </summary>
     public interface ICasteable : ICasteable<object>
     {
         /// <summary>
-        ///     Obtiene una referencia al tipo de destino de conversión para
-        ///     este objeto.
+        /// Obtiene una referencia al tipo de destino de conversión para
+        /// este objeto.
         /// </summary>
         Type TargetType { get; }
     }
 
     /// <summary>
-    ///     Define una serie de miembros a implementar por un objeto que
-    ///     permita realizar conversiones desde su tipo hacia otro.
+    /// Define una serie de miembros a implementar por un objeto que
+    /// permita realizar conversiones desde su tipo hacia otro.
     /// </summary>
     /// <typeparam name="T">
-    ///     Tipo de destino para la conversión.
+    /// Tipo de destino para la conversión.
     /// </typeparam>
     public interface ICasteable<T>
     {
         /// <summary>
-        ///     Convierte la instancia actual a un objeto de tipo
-        ///     <typeparamref name="T"/>.
+        /// Convierte la instancia actual a un objeto de tipo
+        /// <typeparamref name="T"/>.
         /// </summary>
         /// <returns>
-        ///     Un objeto de tipo <typeparamref name="T"/>.
+        /// Un objeto de tipo <typeparamref name="T"/>.
         /// </returns>
         T Cast();
 
         /// <summary>
-        ///     Intenta realizar una operación de conversión de la instancia
-        ///     actual a un objeto de tipo <typeparamref name="T"/>.
+        /// Intenta realizar una operación de conversión de la instancia
+        /// actual a un objeto de tipo <typeparamref name="T"/>.
         /// </summary>
         /// <param name="result">
-        ///     Resultado de la conversión.
+        /// Resultado de la conversión.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si la conversión ha sido exitosa,
-        ///     <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si la conversión ha sido exitosa,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         bool TryCast(out T result);
     }

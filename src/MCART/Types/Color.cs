@@ -80,7 +80,7 @@ namespace TheXDS.MCART.Types
         public static Color Blend(in Color left, in Color right) => left / right;
 
         /// <summary>
-        ///     Realiza una mezcla entre los colores especificados.
+        /// Realiza una mezcla entre los colores especificados.
         /// </summary>
         /// <param name="colors">colección de colores a mezclar.
         /// </param>
@@ -618,8 +618,8 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Convierte implícitamente un <see cref="Color"/> en un
-        ///     <see cref="System.Drawing.Color"/>.
+        /// Convierte implícitamente un <see cref="Color"/> en un
+        /// <see cref="System.Drawing.Color"/>.
         /// </summary>
         /// <param name="color"></param>
         public static implicit operator System.Drawing.Color(in Color color)
@@ -628,8 +628,8 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Convierte implícitamente un <see cref="System.Drawing.Color"/> en un
-        ///     <see cref="Color"/>.
+        /// Convierte implícitamente un <see cref="System.Drawing.Color"/> en un
+        /// <see cref="Color"/>.
         /// </summary>
         /// <param name="color"></param>
         public static implicit operator Color(in System.Drawing.Color color)

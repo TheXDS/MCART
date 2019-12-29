@@ -36,17 +36,17 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.ViewModel
 {
     /// <summary>
-    ///     Repositorio de funciones comunes ejecutadas desde un
-    ///     <see cref="IDynamicViewModel"/> compilado en runtime en un contexto
-    ///     controlado.
+    /// Repositorio de funciones comunes ejecutadas desde un
+    /// <see cref="IDynamicViewModel"/> compilado en runtime en un contexto
+    /// controlado.
     /// </summary>
     public static class ControlledContextOperations
     {
         /// <summary>
-        ///     Limpia una colección en un contexto controlado.
+        /// Limpia una colección en un contexto controlado.
         /// </summary>
         /// <param name="collection">
-        ///     Colección a limpiar.
+        /// Colección a limpiar.
         /// </param>
         public static void Clear<T>(ICollection<T> collection)
         {
@@ -54,13 +54,13 @@ namespace TheXDS.MCART.ViewModel
         }
 
         /// <summary>
-        ///     Limpia una colección en un contexto controlado.
+        /// Limpia una colección en un contexto controlado.
         /// </summary>
         /// <param name="collection">
-        ///     Colección a limpiar.
+        /// Colección a limpiar.
         /// </param>
         /// <param name="item">
-        ///     Elemento a agregar a la colección.
+        /// Elemento a agregar a la colección.
         /// </param>
         public static void Add<T>(ICollection<T> collection, T item)
         {

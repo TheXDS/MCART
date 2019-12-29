@@ -39,7 +39,7 @@ using static TheXDS.MCART.Types.Extensions.SecureStringExtensions;
 namespace TheXDS.MCART.Tests.Modules
 {
     /// <summary>
-    ///     Contiene pruebas para la clase estática <see cref="Common" />.
+    /// Contiene pruebas para la clase estática <see cref="Common" />.
     /// </summary>
     public class CommonTest
     {

@@ -25,13 +25,13 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Describe una serie de miembros a implementar por una clase o
-    ///     estructura que permite refrescarse.
+    /// Describe una serie de miembros a implementar por una clase o
+    /// estructura que permite refrescarse.
     /// </summary>
     public interface IRefreshable
     {
         /// <summary>
-        ///     Refresca el estado de este objeto.
+        /// Refresca el estado de este objeto.
         /// </summary>
         void Refresh();
     }

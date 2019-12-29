@@ -30,13 +30,13 @@ using System.Diagnostics.CodeAnalysis;
 namespace TheXDS.MCART.Resources
 {
     /// <summary>
-    ///     Representa una licencia registrada dentro de los estándares de
-    ///     Software Package Data Exchange (SPDX).
+    /// Representa una licencia registrada dentro de los estándares de
+    /// Software Package Data Exchange (SPDX).
     /// </summary>
     public class SpdxLicense : License, IEquatable<SpdxLicense>
     {
         /// <summary>
-        ///     Obtiene el identificador corto de la licencia.
+        /// Obtiene el identificador corto de la licencia.
         /// </summary>
         public string SpdxShortName { get; }
 
@@ -46,12 +46,12 @@ namespace TheXDS.MCART.Resources
         }
 
         /// <summary>
-        ///     Comprueba la igualdad entre dos instancias de la clase <see cref="SpdxLicense"/>.
+        /// Comprueba la igualdad entre dos instancias de la clase <see cref="SpdxLicense"/>.
         /// </summary>
         /// <param name="other">El otro objeto a comparar.</param>
         /// <returns>
-        ///     <see langword="true"/> si ambas instancias son consideradas
-        ///     iguales, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si ambas instancias son consideradas
+        /// iguales, <see langword="false"/> en caso contrario.
         /// </returns>
 #if NETCOREAPP3_0 || NETSTANDARD2_1
         public bool Equals([AllowNull] SpdxLicense other)

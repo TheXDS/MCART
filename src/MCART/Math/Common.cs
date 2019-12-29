@@ -27,19 +27,19 @@ using System;
 namespace TheXDS.MCART.Math
 {
     /// <summary>
-    ///     Contiene métodos de manipulación matemática estándar.
+    /// Contiene métodos de manipulación matemática estándar.
     /// </summary>
     public static partial class Common
     {
         /// <summary>
-        ///     Establece límites de sobreflujo para evaluar una expresión.
+        /// Establece límites de sobreflujo para evaluar una expresión.
         /// </summary>
         /// <typeparam name="T"> Tipo de expresión a limitar. </typeparam>
         /// <param name="expression">Expresión a evaluar.</param>
         /// <param name="max">Límite superior de salida, inclusive.</param>
         /// <param name="min">Límite inferior de salida, inclusive.</param>
         /// <returns>
-        ///     El valor evaluado que se encuentra dentro del rango especificado.
+        /// El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
         public static T Clamp<T>(this T expression, in T min, in T max) where T : IComparable<T>
         {
@@ -49,14 +49,14 @@ namespace TheXDS.MCART.Math
         }
 
         /// <summary>
-        ///     Establece límites de sobreflujo para evaluar una expresión.
+        /// Establece límites de sobreflujo para evaluar una expresión.
         /// </summary>
         /// <typeparam name="T"> Tipo de expresión a limitar. </typeparam>
         /// <param name="expression">Expresión a evaluar.</param>
         /// <param name="max">Límite superior de salida, inclusive.</param>
         /// <returns>
-        ///     El valor evaluado que se encuentra entre 0 y
-        ///     <paramref name="max" />.
+        /// El valor evaluado que se encuentra entre 0 y
+        /// <paramref name="max" />.
         /// </returns>
         public static T Clamp<T>(this T expression, in T max) where T : struct, IComparable<T>
         {
@@ -66,18 +66,18 @@ namespace TheXDS.MCART.Math
 #if FloatDoubleSpecial
 
         /// <summary>
-        ///     Establece límites de sobreflujo para evaluar una expresión.
+        /// Establece límites de sobreflujo para evaluar una expresión.
         /// </summary>
         /// <param name="expression">Expresión a evaluar.</param>
         /// <param name="min">Límite inferior de salida, inclusive.</param>
         /// <param name="max">Límite superior de salida, inclusive.</param>
         /// <returns>
-        ///     El valor evaluado que se encuentra dentro del rango especificado.
+        /// El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
         /// <remarks>
-        ///     Esta implementación se incluye para permitir parámetros de tipo
-        ///     <see cref="double.NaN" />, <see cref="double.NegativeInfinity" /> y
-        ///     <see cref="double.PositiveInfinity" />.
+        /// Esta implementación se incluye para permitir parámetros de tipo
+        /// <see cref="double.NaN" />, <see cref="double.NegativeInfinity" /> y
+        /// <see cref="double.PositiveInfinity" />.
         /// </remarks>
         public static double Clamp(this in double expression, in double min, in double max)
         {
@@ -88,17 +88,17 @@ namespace TheXDS.MCART.Math
         }
 
         /// <summary>
-        ///     Establece límites de sobreflujo para evaluar una expresión.
+        /// Establece límites de sobreflujo para evaluar una expresión.
         /// </summary>
         /// <param name="expression">Expresión a evaluar.</param>
         /// <param name="max">Límite superior de salida, inclusive.</param>
         /// <returns>
-        ///     El valor evaluado que se encuentra dentro del rango especificado.
+        /// El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
         /// <remarks>
-        ///     Esta implementación se incluye para permitir parámetros de tipo
-        ///     <see cref="double.NaN" />, <see cref="double.NegativeInfinity" /> y
-        ///     <see cref="double.PositiveInfinity" />.
+        /// Esta implementación se incluye para permitir parámetros de tipo
+        /// <see cref="double.NaN" />, <see cref="double.NegativeInfinity" /> y
+        /// <see cref="double.PositiveInfinity" />.
         /// </remarks>
         public static double Clamp(this in double expression, in double max)
         {
@@ -106,17 +106,17 @@ namespace TheXDS.MCART.Math
         }
 
         /// <summary>
-        ///     Establece límites de sobreflujo para evaluar una expresión.
+        /// Establece límites de sobreflujo para evaluar una expresión.
         /// </summary>
         /// <param name="expression">Expresión a evaluar.</param>
         /// <param name="max">Límite superior de salida, inclusive.</param>
         /// <returns>
-        ///     El valor evaluado que se encuentra dentro del rango especificado.
+        /// El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
         /// <remarks>
-        ///     Esta implementación se incluye para permitir parámetros de tipo
-        ///     <see cref="float.NaN" />, <see cref="float.NegativeInfinity" /> y
-        ///     <see cref="float.PositiveInfinity" />.
+        /// Esta implementación se incluye para permitir parámetros de tipo
+        /// <see cref="float.NaN" />, <see cref="float.NegativeInfinity" /> y
+        /// <see cref="float.PositiveInfinity" />.
         /// </remarks>
         public static float Clamp(this in float expression, in float max)
         {
@@ -126,18 +126,18 @@ namespace TheXDS.MCART.Math
 #if RatherDRY
 
         /// <summary>
-        ///     Establece límites de sobreflujo para evaluar una expresión.
+        /// Establece límites de sobreflujo para evaluar una expresión.
         /// </summary>
         /// <param name="expression">Expresión a evaluar.</param>
         /// <param name="min">Límite inferior de salida, inclusive.</param>
         /// <param name="max">Límite superior de salida, inclusive.</param>
         /// <returns>
-        ///     El valor evaluado que se encuentra dentro del rango especificado.
+        /// El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
         /// <remarks>
-        ///     Esta implementación se incluye para permitir parámetros de tipo
-        ///     <see cref="float.NaN" />, <see cref="float.NegativeInfinity" /> y
-        ///     <see cref="float.PositiveInfinity" />.
+        /// Esta implementación se incluye para permitir parámetros de tipo
+        /// <see cref="float.NaN" />, <see cref="float.NegativeInfinity" /> y
+        /// <see cref="float.PositiveInfinity" />.
         /// </remarks>
         public static float Clamp(this in float expression, in float min, in float max)
         {
@@ -145,18 +145,18 @@ namespace TheXDS.MCART.Math
         }
 #else
         /// <summary>
-        ///     Establece límites de sobreflujo para evaluar una expresión.
+        /// Establece límites de sobreflujo para evaluar una expresión.
         /// </summary>
         /// <param name="expression">Expresión a evaluar.</param>
         /// <param name="min">Límite inferior de salida, inclusive.</param>
         /// <param name="max">Límite superior de salida, inclusive.</param>
         /// <returns>
-        ///     El valor evaluado que se encuentra dentro del rango especificado.
+        /// El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
         /// <remarks>
-        ///     Esta implementación se incluye para permitir parámetros de tipo
-        ///     <see cref="float.NaN" />, <see cref="float.NegativeInfinity" /> y
-        ///     <see cref="float.PositiveInfinity" />.
+        /// Esta implementación se incluye para permitir parámetros de tipo
+        /// <see cref="float.NaN" />, <see cref="float.NegativeInfinity" /> y
+        /// <see cref="float.PositiveInfinity" />.
         /// </remarks>
         public static float Clamp(this in float expression, in float min, in float max)
         {
@@ -173,14 +173,14 @@ namespace TheXDS.MCART.Math
 
 #if RatherDRY
         /// <summary>
-        ///     Establece puntos de sobreflujo intencional para evaluar una expresión.
+        /// Establece puntos de sobreflujo intencional para evaluar una expresión.
         /// </summary>
         /// <typeparam name="T"> Tipo de expresión a evaluar. </typeparam>
         /// <param name="expression">Expresión a evaluar.</param>
         /// <param name="max">Límite superior de salida, inclusive.</param>
         /// <param name="min">Límite inferior de salida, inclusive.</param>
         /// <returns>
-        ///     El valor evaluado que se encuentra dentro del rango especificado.
+        /// El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
         public static T Wrap<T>(this T expression, T min, T max) where T : IComparable<T>
         {
@@ -195,13 +195,13 @@ namespace TheXDS.MCART.Math
 #else
 
         /// <summary>
-        ///     Establece puntos de sobreflujo intencional para evaluar una expresión.
+        /// Establece puntos de sobreflujo intencional para evaluar una expresión.
         /// </summary>
         /// <param name="expression">Expresión a evaluar.</param>
         /// <param name="max">Límite superior de salida, inclusive.</param>
         /// <param name="min">Límite inferior de salida, inclusive.</param>
         /// <returns>
-        ///     El valor evaluado que se encuentra dentro del rango especificado.
+        /// El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
         public static byte Wrap(this in byte expression, in byte min, in byte max)
         {
@@ -214,13 +214,13 @@ namespace TheXDS.MCART.Math
         }
 
         /// <summary>
-        ///     Establece puntos de sobreflujo intencional para evaluar una expresión.
+        /// Establece puntos de sobreflujo intencional para evaluar una expresión.
         /// </summary>
         /// <param name="expression">Expresión a evaluar.</param>
         /// <param name="max">Límite superior de salida, inclusive.</param>
         /// <param name="min">Límite inferior de salida, inclusive.</param>
         /// <returns>
-        ///     El valor evaluado que se encuentra dentro del rango especificado.
+        /// El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
         public static int Wrap(this in short expression, in short min, in short max)
         {
@@ -230,13 +230,13 @@ namespace TheXDS.MCART.Math
         }
 
         /// <summary>
-        ///     Establece puntos de sobreflujo intencional para evaluar una expresión.
+        /// Establece puntos de sobreflujo intencional para evaluar una expresión.
         /// </summary>
         /// <param name="expression">Expresión a evaluar.</param>
         /// <param name="max">Límite superior de salida, inclusive.</param>
         /// <param name="min">Límite inferior de salida, inclusive.</param>
         /// <returns>
-        ///     El valor evaluado que se encuentra dentro del rango especificado.
+        /// El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
         public static int Wrap(this in char expression, in char min, in char max)
         {
@@ -247,13 +247,13 @@ namespace TheXDS.MCART.Math
 
 
         /// <summary>
-        ///     Establece puntos de sobreflujo intencional para evaluar una expresión.
+        /// Establece puntos de sobreflujo intencional para evaluar una expresión.
         /// </summary>
         /// <param name="expression">Expresión a evaluar.</param>
         /// <param name="max">Límite superior de salida, inclusive.</param>
         /// <param name="min">Límite inferior de salida, inclusive.</param>
         /// <returns>
-        ///     El valor evaluado que se encuentra dentro del rango especificado.
+        /// El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
         public static int Wrap(this in int expression, in int min, in int max)
         {
@@ -263,13 +263,13 @@ namespace TheXDS.MCART.Math
         }
 
         /// <summary>
-        ///     Establece puntos de sobreflujo intencional para evaluar una expresión.
+        /// Establece puntos de sobreflujo intencional para evaluar una expresión.
         /// </summary>
         /// <param name="expression">Expresión a evaluar.</param>
         /// <param name="max">Límite superior de salida, inclusive.</param>
         /// <param name="min">Límite inferior de salida, inclusive.</param>
         /// <returns>
-        ///     El valor evaluado que se encuentra dentro del rango especificado.
+        /// El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
         public static long Wrap(this in long expression, in long min, in long max)
         {
@@ -279,13 +279,13 @@ namespace TheXDS.MCART.Math
         }
 
         /// <summary>
-        ///     Establece puntos de sobreflujo intencional para evaluar una expresión.
+        /// Establece puntos de sobreflujo intencional para evaluar una expresión.
         /// </summary>
         /// <param name="expression">Expresión a evaluar.</param>
         /// <param name="max">Límite superior de salida, inclusive.</param>
         /// <param name="min">Límite inferior de salida, inclusive.</param>
         /// <returns>
-        ///     El valor evaluado que se encuentra dentro del rango especificado.
+        /// El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
         public static decimal Wrap(this in decimal expression, in decimal min, in decimal max)
         {
@@ -295,13 +295,13 @@ namespace TheXDS.MCART.Math
         }
 
         /// <summary>
-        ///     Establece puntos de sobreflujo intencional para evaluar una expresión.
+        /// Establece puntos de sobreflujo intencional para evaluar una expresión.
         /// </summary>
         /// <param name="expression">Expresión a evaluar.</param>
         /// <param name="max">Límite superior de salida, inclusive.</param>
         /// <param name="min">Límite inferior de salida, inclusive.</param>
         /// <returns>
-        ///     El valor evaluado que se encuentra dentro del rango especificado.
+        /// El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
         public static double Wrap(this in double expression, in double min, in double max)
         {
@@ -312,13 +312,13 @@ namespace TheXDS.MCART.Math
         }
 
         /// <summary>
-        ///     Establece puntos de sobreflujo intencional para evaluar una expresión.
+        /// Establece puntos de sobreflujo intencional para evaluar una expresión.
         /// </summary>
         /// <param name="expression">Expresión a evaluar.</param>
         /// <param name="max">Límite superior de salida, inclusive.</param>
         /// <param name="min">Límite inferior de salida, inclusive.</param>
         /// <returns>
-        ///     El valor evaluado que se encuentra dentro del rango especificado.
+        /// El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
         public static float Wrap(this in float expression, in float min, in float max)
         {

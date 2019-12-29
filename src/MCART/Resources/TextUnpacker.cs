@@ -30,8 +30,8 @@ namespace TheXDS.MCART.Resources
 {
     /// <inheritdoc />
     /// <summary>
-    ///     <see cref="AssemblyUnpacker{T}" /> que
-    ///     extrae recursos de texto.
+    /// <see cref="AssemblyUnpacker{T}" /> que
+    /// extrae recursos de texto.
     /// </summary>
     public class TextUnpacker : AssemblyUnpacker<string>
     {
@@ -54,11 +54,11 @@ namespace TheXDS.MCART.Resources
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene un recurso identificable.
+        /// Obtiene un recurso identificable.
         /// </summary>
         /// <param name="id">Identificador del recurso.</param>
         /// <returns>
-        ///     Una cadena con el contenido total del recurso.
+        /// Una cadena con el contenido total del recurso.
         /// </returns>
         public override string Unpack(string id)
         {
@@ -68,15 +68,15 @@ namespace TheXDS.MCART.Resources
 
         /// <inheritdoc />
         /// <summary>
-        ///     Extrae un recurso comprimido utilizando el compresor con el
-        ///     identificador especificado.
+        /// Extrae un recurso comprimido utilizando el compresor con el
+        /// identificador especificado.
         /// </summary>
         /// <param name="id">Identificador del recurso.</param>
         /// <param name="compressorId">
-        ///     Identificador del compresor a utilizar para extraer al recurso.
+        /// Identificador del compresor a utilizar para extraer al recurso.
         /// </param>
         /// <returns>
-        ///     Un recurso sin comprimir como una cadena.
+        /// Un recurso sin comprimir como una cadena.
         /// </returns>
         public override string Unpack(string id, string compressorId)
         {
@@ -86,16 +86,16 @@ namespace TheXDS.MCART.Resources
 
         /// <inheritdoc />
         /// <summary>
-        ///     Extrae un recurso comprimido utilizando el compresor con el
-        ///     identificador especificado.
+        /// Extrae un recurso comprimido utilizando el compresor con el
+        /// identificador especificado.
         /// </summary>
         /// <param name="id">Identificador del recurso.</param>
         /// <param name="compressor">
-        ///     <see cref="ICompressorGetter" /> a utilizar para extraer al
-        ///     recurso.
+        /// <see cref="ICompressorGetter" /> a utilizar para extraer al
+        /// recurso.
         /// </param>
         /// <returns>
-        ///     Un recurso sin comprimir como una cadena.
+        /// Un recurso sin comprimir como una cadena.
         /// </returns>
         public override string Unpack(string id, ICompressorGetter compressor)
         {

@@ -31,23 +31,23 @@ namespace TheXDS.MCART.Types.Converters
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Clase base para los convertidores de valor que permitan obtener
-    ///     objetos de tipo <see cref="Range{T}" /> a partir de una cadena.
+    /// Clase base para los convertidores de valor que permitan obtener
+    /// objetos de tipo <see cref="Range{T}" /> a partir de una cadena.
     /// </summary>
     /// <typeparam name="T">
-    ///     Tipo del rango a obtener.
+    /// Tipo del rango a obtener.
     /// </typeparam>
     public abstract class RangeConverter<T> : BasicParseConverter<Range<T>> where T : IComparable<T>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Ejecuta la conversión de la cadena al tipo de este
-        ///     <see cref="BasicParseConverter{T}" />.
+        /// Ejecuta la conversión de la cadena al tipo de este
+        /// <see cref="BasicParseConverter{T}" />.
         /// </summary>
         /// <param name="value">Cadena a convertir.</param>
         /// <returns>
-        ///     Un valor de tipo <see cref="Range{T}"/> creado a partir de la
-        ///     cadena especificada.
+        /// Un valor de tipo <see cref="Range{T}"/> creado a partir de la
+        /// cadena especificada.
         /// </returns>
         protected override Range<T> ConvertFrom(string? value)
         {

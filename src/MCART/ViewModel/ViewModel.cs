@@ -32,12 +32,12 @@ using static System.Reflection.BindingFlags;
 namespace TheXDS.MCART.ViewModel
 {
     /// <summary>
-    ///     Clase base para un <see cref="ViewModelBase"/> cuyos campos de
-    ///     almacenamiento sean parte de un modelo de entidad.
+    /// Clase base para un <see cref="ViewModelBase"/> cuyos campos de
+    /// almacenamiento sean parte de un modelo de entidad.
     /// </summary>
     /// <typeparam name="T">
-    ///     Tipo de entidad a utilizar como almacenamiento interno de este
-    ///     ViewModel.
+    /// Tipo de entidad a utilizar como almacenamiento interno de este
+    /// ViewModel.
     /// </typeparam>
     public abstract class ViewModel<T> : ViewModelBase, IEntityViewModel<T>, ISetteableViewModel<T>
     {
@@ -45,13 +45,13 @@ namespace TheXDS.MCART.ViewModel
         private static IEnumerable<PropertyInfo> WrittableProperties => _modelProperties.Where(p => p.CanWrite);
 
         /// <summary>
-        ///     Instancia de la entidad controlada por este ViewModel.
+        /// Instancia de la entidad controlada por este ViewModel.
         /// </summary>
         public T Entity { get; protected set; } = default!;
 
         /// <summary>
-        ///     Edita la instancia de <typeparamref name="T"/> dentro de este
-        ///     ViewModel.
+        /// Edita la instancia de <typeparamref name="T"/> dentro de este
+        /// ViewModel.
         /// </summary>
         /// <param name="entity"></param>
         public void Edit(T entity)
@@ -64,16 +64,16 @@ namespace TheXDS.MCART.ViewModel
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ViewModel{T}"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ViewModel{T}"/>.
         /// </summary>
         protected ViewModel()
         {
         }
 
         /// <summary>
-        ///     Notifica al sistema que las propiedades de este
-        ///     <see cref="ViewModel{T}"/> han cambiado.
+        /// Notifica al sistema que las propiedades de este
+        /// <see cref="ViewModel{T}"/> han cambiado.
         /// </summary>
         public override void Refresh()
         {
@@ -90,12 +90,12 @@ namespace TheXDS.MCART.ViewModel
         }
 
         /// <summary>
-        ///     Convierte implícitamente un <see cref="ViewModel{T}"/>
-        ///     en un <typeparamref name="T"/>.
+        /// Convierte implícitamente un <see cref="ViewModel{T}"/>
+        /// en un <typeparamref name="T"/>.
         /// </summary>
         /// <param name="vm">
-        ///     <see cref="ViewModel{T}"/> a convertir.
-        ///     </param>
+        /// <see cref="ViewModel{T}"/> a convertir.
+        /// </param>
         public static implicit operator T(ViewModel<T> vm)
         {
             return vm.Entity;

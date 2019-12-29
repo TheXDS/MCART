@@ -29,9 +29,9 @@ namespace TheXDS.MCART.Attributes
 {
     /// <inheritdoc cref="Attribute"/>
     /// <summary>
-    ///     Agrega un elemento de tipo a un elemento, además de ser la
-    ///     clase base para los atributos que describan un valor representable como
-    ///     <see cref="Type" /> para un elemento.
+    /// Agrega un elemento de tipo a un elemento, además de ser la
+    /// clase base para los atributos que describan un valor representable como
+    /// <see cref="Type" /> para un elemento.
     /// </summary>
     [AttributeUsage(All)]
     [Serializable]
@@ -39,8 +39,8 @@ namespace TheXDS.MCART.Attributes
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="TypeAttribute" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="TypeAttribute" />.
         /// </summary>
         /// <param name="type">Valor de este atributo.</param>
         protected TypeAttribute(Type type)
@@ -50,7 +50,7 @@ namespace TheXDS.MCART.Attributes
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene el valor asociado a este atributo.
+        /// Obtiene el valor asociado a este atributo.
         /// </summary>
         /// <value>El valor de este atributo.</value>
         public Type Value { get; }

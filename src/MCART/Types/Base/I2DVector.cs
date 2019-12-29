@@ -27,21 +27,21 @@ using System;
 namespace TheXDS.MCART.Types.Base
 {
     /// <summary>
-    ///     Interfaz que define propiedades comunes para estructuras de datos
-    ///     que describen coordenadas, vectores, magnitudes y tamaños en un
-    ///     espacio de dos dimensiones.
+    /// Interfaz que define propiedades comunes para estructuras de datos
+    /// que describen coordenadas, vectores, magnitudes y tamaños en un
+    /// espacio de dos dimensiones.
     /// </summary>
     public interface I2DVector : IEquatable<I2DVector>
     {
         /// <summary>
-        ///     Obtiene el componente horizontal (eje X) representado por este
-        ///     <see cref="I2DVector"/>.
+        /// Obtiene el componente horizontal (eje X) representado por este
+        /// <see cref="I2DVector"/>.
         /// </summary>
         double X { get; }
 
         /// <summary>
-        ///     Obtiene el componente vertical (eje Y) representado por este
-        ///     <see cref="I2DVector"/>.
+        /// Obtiene el componente vertical (eje Y) representado por este
+        /// <see cref="I2DVector"/>.
         /// </summary>
         double Y { get; }
     }

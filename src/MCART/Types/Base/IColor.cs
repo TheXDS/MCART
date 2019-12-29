@@ -31,7 +31,7 @@ namespace TheXDS.MCART.Types.Base
     public interface IColor
     {
         /// <summary>
-        ///     Componente Alfa del color.
+        /// Componente Alfa del color.
         /// </summary>
         byte A { get; set; }
 

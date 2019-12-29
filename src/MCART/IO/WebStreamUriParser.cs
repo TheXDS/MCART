@@ -33,19 +33,19 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.IO
 {
     /// <summary>
-    ///     Obtiene un <see cref="Stream"/> a partir de un <see cref="Uri"/>
-    ///     que apunta a un recurso web.
+    /// Obtiene un <see cref="Stream"/> a partir de un <see cref="Uri"/>
+    /// que apunta a un recurso web.
     /// </summary>
     public abstract class WebStreamUriParser<T> : SimpleStreamUriParser, IWebUriParser where T : WebResponse
     {
         /// <summary>
-        ///     Abre un <see cref="Stream"/> desde el <see cref="Uri"/>
-        ///     especificado.
+        /// Abre un <see cref="Stream"/> desde el <see cref="Uri"/>
+        /// especificado.
         /// </summary>
         /// <param name="uri">Dirección web a resolver.</param>
         /// <returns>
-        ///     Un <see cref="Stream"/> que permite obtener el recurso apuntado
-        ///     por el <see cref="Uri"/> especificado.
+        /// Un <see cref="Stream"/> que permite obtener el recurso apuntado
+        /// por el <see cref="Uri"/> especificado.
         /// </returns>
         public override sealed Stream? Open(Uri uri)
         {
@@ -53,12 +53,12 @@ namespace TheXDS.MCART.IO
         }
 
         /// <summary>
-        ///     Obtiene una respuesta Web a partir del <see cref="Uri"/>
-        ///     especificado.
+        /// Obtiene una respuesta Web a partir del <see cref="Uri"/>
+        /// especificado.
         /// </summary>
         /// <param name="uri">Dirección web a resolver.</param>
         /// <returns>
-        ///     La respuesta enviada por un servidor web.
+        /// La respuesta enviada por un servidor web.
         /// </returns>
         public WebResponse GetResponse(Uri uri)
         {
@@ -68,12 +68,12 @@ namespace TheXDS.MCART.IO
         }
 
         /// <summary>
-        ///     Obtiene una respuesta Web a partir del <see cref="Uri"/>
-        ///     especificado de forma asíncrona.
+        /// Obtiene una respuesta Web a partir del <see cref="Uri"/>
+        /// especificado de forma asíncrona.
         /// </summary>
         /// <param name="uri">Dirección web a resolver.</param>
         /// <returns>
-        ///     La respuesta enviada por un servidor web.
+        /// La respuesta enviada por un servidor web.
         /// </returns>
         public async Task<WebResponse> GetResponseAsync(Uri uri)
         {
@@ -83,21 +83,21 @@ namespace TheXDS.MCART.IO
         }
 
         /// <summary>
-        ///     Obtiene un valor que indica si este objeto prefiere
-        ///     transferencias completas a la hora de exponer un 
-        ///     <see cref="Stream"/>.
+        /// Obtiene un valor que indica si este objeto prefiere
+        /// transferencias completas a la hora de exponer un 
+        /// <see cref="Stream"/>.
         /// </summary>
         public override bool PreferFullTransfer => true;
 
         /// <summary>
-        ///     Abre un <see cref="Stream"/> desde el <see cref="Uri"/>
-        ///     especificado, haciendo una transferencia completa a la memoria
-        ///     del equipo.
+        /// Abre un <see cref="Stream"/> desde el <see cref="Uri"/>
+        /// especificado, haciendo una transferencia completa a la memoria
+        /// del equipo.
         /// </summary>
         /// <param name="uri">Dirección web a resolver.</param>
         /// <returns>
-        ///     Un <see cref="Stream"/> que permite obtener el recurso apuntado
-        ///     por el <see cref="Uri"/> especificado.
+        /// Un <see cref="Stream"/> que permite obtener el recurso apuntado
+        /// por el <see cref="Uri"/> especificado.
         /// </returns>
         public override async Task<Stream?> OpenFullTransferAsync(Uri uri)
         {

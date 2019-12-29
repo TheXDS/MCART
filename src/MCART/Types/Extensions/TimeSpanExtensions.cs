@@ -39,12 +39,12 @@ namespace TheXDS.MCART.Types.Extensions
     public static class TimeSpanExtensions
     {
         /// <summary>
-        ///     Humaniza un <see cref="TimeSpan"/> a un valor amigable.
+        /// Humaniza un <see cref="TimeSpan"/> a un valor amigable.
         /// </summary>
         /// <param name="timeSpan">Valor a humanizar.</param>
         /// <returns>
-        ///     Una cadena amigable que indica los componentes de días, horas,
-        ///     minutos y segundos de <paramref name="timeSpan"/>.
+        /// Una cadena amigable que indica los componentes de días, horas,
+        /// minutos y segundos de <paramref name="timeSpan"/>.
         /// </returns>
         public static string Verbose(this in TimeSpan timeSpan)
         {

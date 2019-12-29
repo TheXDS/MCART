@@ -31,8 +31,8 @@ namespace TheXDS.MCART.ViewModel
 {
     /// <inheritdoc cref="ICommand"/>
     /// <summary>
-    ///     Describe un comando simple que puede ser declarado dentro de un
-    ///     <see cref="ViewModelBase" />.
+    /// Describe un comando simple que puede ser declarado dentro de un
+    /// <see cref="ViewModelBase" />.
     /// </summary>
     public class SimpleCommand : NotifyPropertyChanged, ICommand
     {
@@ -41,8 +41,8 @@ namespace TheXDS.MCART.ViewModel
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="SimpleCommand" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="SimpleCommand" />.
         /// </summary>
         /// <param name="action">Acción a ejecutar.</param>
         public SimpleCommand(Action action) : this(action, true)
@@ -50,13 +50,13 @@ namespace TheXDS.MCART.ViewModel
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="SimpleCommand"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="SimpleCommand"/>.
         /// </summary>
         /// <param name="action">Acción a ejecutar.</param>
         /// <param name="canExecute">
-        ///     Valor que indica si el comando puede ser ejecutado
-        ///     inmediatamente después de instanciar esta clase.
+        /// Valor que indica si el comando puede ser ejecutado
+        /// inmediatamente después de instanciar esta clase.
         /// </param>
         public SimpleCommand(Action action, bool canExecute)
         {
@@ -66,8 +66,8 @@ namespace TheXDS.MCART.ViewModel
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="SimpleCommand" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="SimpleCommand" />.
         /// </summary>
         /// <param name="action">Acción a ejecutar.</param>
         public SimpleCommand(Action<object> action) : this(action, true)
@@ -75,13 +75,13 @@ namespace TheXDS.MCART.ViewModel
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="SimpleCommand"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="SimpleCommand"/>.
         /// </summary>
         /// <param name="action">Acción a ejecutar.</param>
         /// <param name="canExecute">
-        ///     Valor que indica si el comando puede ser ejecutado
-        ///     inmediatamente después de instanciar esta clase.
+        /// Valor que indica si el comando puede ser ejecutado
+        /// inmediatamente después de instanciar esta clase.
         /// </param>
         public SimpleCommand(Action<object> action, bool canExecute)
         {
@@ -91,17 +91,17 @@ namespace TheXDS.MCART.ViewModel
 
         /// <inheritdoc />
         /// <summary>
-        ///     Define el método que determina si el comando puede ejecutarse
-        ///     en su estado actual.
+        /// Define el método que determina si el comando puede ejecutarse
+        /// en su estado actual.
         /// </summary>
         /// <param name="parameter">
-        ///     Datos que usa el comando. Si el comando no exige pasar los
-        ///     datos, se puede establecer este objeto en
-        ///     <see langword="null" />.
+        /// Datos que usa el comando. Si el comando no exige pasar los
+        /// datos, se puede establecer este objeto en
+        /// <see langword="null" />.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si se puede ejecutar este comando; de
-        ///     lo contrario, <see langword="false" />.
+        /// <see langword="true" /> si se puede ejecutar este comando; de
+        /// lo contrario, <see langword="false" />.
         /// </returns>
         public bool CanExecute(object parameter)
         {
@@ -109,7 +109,7 @@ namespace TheXDS.MCART.ViewModel
         }
 
         /// <summary>
-        ///     Establece manualmente si este comando puede ser ejecutado.
+        /// Establece manualmente si este comando puede ser ejecutado.
         /// </summary>
         /// <param name="canExecute"></param>
         public void SetCanExecute(bool canExecute)
@@ -120,19 +120,19 @@ namespace TheXDS.MCART.ViewModel
 
         /// <inheritdoc />
         /// <summary>
-        ///     Se produce cuando hay cambios que influyen en si el comando
-        ///     debería ejecutarse o no.
+        /// Se produce cuando hay cambios que influyen en si el comando
+        /// debería ejecutarse o no.
         /// </summary>
         public event EventHandler? CanExecuteChanged;
 
         /// <inheritdoc />
         /// <summary>
-        ///     Define el método al que se llamará cuando se invoque el comando.
+        /// Define el método al que se llamará cuando se invoque el comando.
         /// </summary>
         /// <param name="parameter">
-        ///     Datos que usa el comando. Si el comando no exige pasar los
-        ///     datos, se puede establecer este objeto en
-        ///     <see langword="null" />.
+        /// Datos que usa el comando. Si el comando no exige pasar los
+        /// datos, se puede establecer este objeto en
+        /// <see langword="null" />.
         /// </param>
         public void Execute(object parameter)
         {

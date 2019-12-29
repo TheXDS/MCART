@@ -31,31 +31,31 @@ using System.Linq;
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Contiene información para el evento
-    ///     <see cref="ListEx{T}.ListUpdated"/>.
+    /// Contiene información para el evento
+    /// <see cref="ListEx{T}.ListUpdated"/>.
     /// </summary>
     /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
     public class ListUpdatedEventArgs<T> : EventArgs
     {
         /// <summary>
-        ///     Convierte implícitamente un
-        ///     <see cref="ListUpdatingEventArgs{T}"/> en un
-        ///     <see cref="ListUpdatedEventArgs{T}"/>
+        /// Convierte implícitamente un
+        /// <see cref="ListUpdatingEventArgs{T}"/> en un
+        /// <see cref="ListUpdatedEventArgs{T}"/>
         /// </summary>
         /// <param name="from">
-        ///     <see cref="ListUpdatingEventArgs{T}"/> a convertir.
+        /// <see cref="ListUpdatingEventArgs{T}"/> a convertir.
         /// </param>
         public static implicit operator ListUpdatedEventArgs<T>(ListUpdatingEventArgs<T> from)=> new ListUpdatedEventArgs<T>(from.UpdateType,from.AffectedItems);
 
         /// <summary>
-        ///     Elementos que fueron afectados por la actualización del 
-        ///     <see cref="ListEx{T}"/> que generó el evento.
+        /// Elementos que fueron afectados por la actualización del 
+        /// <see cref="ListEx{T}"/> que generó el evento.
         /// </summary>
         public IReadOnlyCollection<T>? AffectedItems { get; }
 
         /// <summary>
-        ///     Tipo de actualización ocurrida en el <see cref="ListEx{T}"/>
-        ///     que generó el evento.
+        /// Tipo de actualización ocurrida en el <see cref="ListEx{T}"/>
+        /// que generó el evento.
         /// </summary>
         public readonly ListUpdateType UpdateType;
 

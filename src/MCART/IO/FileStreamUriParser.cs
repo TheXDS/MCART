@@ -32,14 +32,14 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.IO
 {
     /// <summary>
-    ///     Obtiene un <see cref="Stream"/> a partir de la ruta de archivo
-    ///     especificada por un <see cref="Uri"/>.
+    /// Obtiene un <see cref="Stream"/> a partir de la ruta de archivo
+    /// especificada por un <see cref="Uri"/>.
     /// </summary>
     public class FileStreamUriParser : SimpleStreamUriParser, IWebUriParser
     {
         /// <summary>
-        ///     Enumera los esquemas soportados por este
-        ///     <see cref="StreamUriParser"/>.
+        /// Enumera los esquemas soportados por este
+        /// <see cref="StreamUriParser"/>.
         /// </summary>
         protected override IEnumerable<string> SchemeList
         {
@@ -50,12 +50,12 @@ namespace TheXDS.MCART.IO
         }
 
         /// <summary>
-        ///     Obtiene una respuesta Web a partir del <see cref="Uri"/>
-        ///     especificado.
+        /// Obtiene una respuesta Web a partir del <see cref="Uri"/>
+        /// especificado.
         /// </summary>
         /// <param name="uri">Dirección web a resolver.</param>
         /// <returns>
-        ///     La respuesta enviada por un servidor web.
+        /// La respuesta enviada por un servidor web.
         /// </returns>
         public WebResponse GetResponse(Uri uri)
         {
@@ -63,12 +63,12 @@ namespace TheXDS.MCART.IO
         }
 
         /// <summary>
-        ///     Obtiene una respuesta Web a partir del <see cref="Uri"/>
-        ///     especificado de forma asíncrona.
+        /// Obtiene una respuesta Web a partir del <see cref="Uri"/>
+        /// especificado de forma asíncrona.
         /// </summary>
         /// <param name="uri">Dirección web a resolver.</param>
         /// <returns>
-        ///     La respuesta enviada por un servidor web.
+        /// La respuesta enviada por un servidor web.
         /// </returns>
         public Task<WebResponse> GetResponseAsync(Uri uri)
         {
@@ -76,35 +76,35 @@ namespace TheXDS.MCART.IO
         }
 
         /// <summary>
-        ///     Abre un <see cref="Stream"/> desde el <see cref="Uri"/>
-        ///     especificado.
+        /// Abre un <see cref="Stream"/> desde el <see cref="Uri"/>
+        /// especificado.
         /// </summary>
         /// <param name="uri">
-        ///     <see cref="Uri"/> a abrir para lectura.
+        /// <see cref="Uri"/> a abrir para lectura.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Stream"/> desde el cual puede leerse el recurso
-        ///     apuntado por el <see cref="Uri"/> especificado.
+        /// Un <see cref="Stream"/> desde el cual puede leerse el recurso
+        /// apuntado por el <see cref="Uri"/> especificado.
         /// </returns>
         /// <exception cref="FileNotFoundException">
-        ///     Se produce si el recurso apuntado por <paramref name="uri"/> no
-        ///     existe.
+        /// Se produce si el recurso apuntado por <paramref name="uri"/> no
+        /// existe.
         /// </exception>
         /// <exception cref="System.Security.SecurityException">
-        ///     Se procude si no se tienen los permisos suficientes para
-        ///     realizar esta operación.
+        /// Se procude si no se tienen los permisos suficientes para
+        /// realizar esta operación.
         /// </exception>
         /// <exception cref="IOException">
-        ///     Se produce si hay un problema de entrada/salida al abrir el
-        ///     recurso apuntado por <paramref name="uri"/>.
+        /// Se produce si hay un problema de entrada/salida al abrir el
+        /// recurso apuntado por <paramref name="uri"/>.
         /// </exception>
         /// <exception cref="DirectoryNotFoundException">
-        ///     Se produce si el directorio apuntado en la ruta de
-        ///     <paramref name="uri"/> no existe.
+        /// Se produce si el directorio apuntado en la ruta de
+        /// <paramref name="uri"/> no existe.
         /// </exception>
         /// <exception cref="PathTooLongException">
-        ///     Se produce si la longitud de la ruta de archivo excede los
-        ///     límites permitidos por el sistema operativo.
+        /// Se produce si la longitud de la ruta de archivo excede los
+        /// límites permitidos por el sistema operativo.
         /// </exception>
         public override Stream? Open(Uri uri)
         {

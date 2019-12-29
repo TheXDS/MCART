@@ -29,12 +29,12 @@ using System;
 namespace TheXDS.MCART
 {
     /// <summary>
-    ///     Aplicación de compresión de recursos "BinUtil"
+    /// Aplicación de compresión de recursos "BinUtil"
     /// </summary>
     public static class Program
     {
         /// <summary>
-        ///     Punto de entrada principal de la aplicación.
+        /// Punto de entrada principal de la aplicación.
         /// </summary>
         public static void Main()
         {

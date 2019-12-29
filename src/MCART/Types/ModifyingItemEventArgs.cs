@@ -29,35 +29,35 @@ using System.ComponentModel;
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Contiene información para el evento
-    ///     <see cref="ListEx{T}.ModifyingItem"/>.
+    /// Contiene información para el evento
+    /// <see cref="ListEx{T}.ModifyingItem"/>.
     /// </summary>
     /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
     public class ModifyingItemEventArgs<T> : CancelEventArgs
     {
         /// <summary>
-        ///     Obtiene el nuevo valor del objeto.
+        /// Obtiene el nuevo valor del objeto.
         /// </summary>
         public T NewValue { get; }
 
         /// <summary>
-        ///     Obtiene el valor actual del objeto.
+        /// Obtiene el valor actual del objeto.
         /// </summary>
         public T OldValue { get; }
 
         /// <summary>
-        ///     Obtiene el índice del objeto dentro del <see cref="ListEx{T}"/>
-        ///     que generó el evento.
+        /// Obtiene el índice del objeto dentro del <see cref="ListEx{T}"/>
+        /// que generó el evento.
         /// </summary>
         public int Index { get; }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase 
-        ///     <see cref="ModifyingItemEventArgs{T}"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="ModifyingItemEventArgs{T}"/>.
         /// </summary>
         /// <param name="index">
-        ///     Índice del objeto en el <see cref="ListEx{T}"/> que generó el
-        ///     evento.
+        /// Índice del objeto en el <see cref="ListEx{T}"/> que generó el
+        /// evento.
         /// </param>
         /// <param name="oldValue">Valor original del objeto.</param>
         /// <param name="newValue">Nuevo valor del objeto.</param>

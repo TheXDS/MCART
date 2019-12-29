@@ -39,7 +39,7 @@ namespace TheXDS.MCART.Security.Password
 	public static class Generators
     {
         /// <summary>
-        ///     Obtiene un listado de todos los generadores de contraseña disponibles.
+        /// Obtiene un listado de todos los generadores de contraseña disponibles.
         /// </summary>
         public static IEnumerable<NamedObject<IPasswordGenerator>> List
         {

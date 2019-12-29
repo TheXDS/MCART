@@ -30,21 +30,21 @@ namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Excepción que se produce al intentar remover un objeto de una pila vacía
+    /// Excepción que se produce al intentar remover un objeto de una pila vacía
     /// </summary>
     [Serializable]
     public class StackUnderflowException : Exception
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="StackUnderflowException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="StackUnderflowException" />.
         /// </summary>
         /// <param name="info">
-        ///     El objeto que contiene la información de serialización.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
-        ///     La información contextual acerca del orígen o el destino.
+        /// La información contextual acerca del orígen o el destino.
         /// </param>
         protected StackUnderflowException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
@@ -52,7 +52,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="StackUnderflowException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="StackUnderflowException" />.
         /// </summary>
         public StackUnderflowException() : base(Strings.StackUnderflow)
         {
@@ -60,7 +60,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="StackUnderflowException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="StackUnderflowException" />.
         /// </summary>
         /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
         public StackUnderflowException(string message) : base(message)
@@ -69,7 +69,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="StackUnderflowException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="StackUnderflowException" />.
         /// </summary>
         /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
         public StackUnderflowException(Exception inner) : base(Strings.StackUnderflow, inner)
@@ -78,7 +78,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="StackUnderflowException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="StackUnderflowException" />.
         /// </summary>
         /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
         /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>

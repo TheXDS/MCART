@@ -28,28 +28,28 @@ using TheXDS.MCART.Types;
 namespace TheXDS.MCART.ViewModel
 {
     /// <summary>
-    ///     Define una serie de miembros a implementar por una clase que
-    ///     contenga una propiedad de acceso de instancia dinámicamente
-    ///     generado a partir de una interfaz.
+    /// Define una serie de miembros a implementar por una clase que
+    /// contenga una propiedad de acceso de instancia dinámicamente
+    /// generado a partir de una interfaz.
     /// </summary>
     /// <typeparam name="T">
-    ///     Tipo de interfaz de acceso a implementar.
+    /// Tipo de interfaz de acceso a implementar.
     /// </typeparam>
     /// <remarks>
-    ///     Se recomienda que esta interfaz sea implementada de forma
-    ///     abstracta, ya que la clase <see cref="ViewModelFactory"/> invalidará
-    ///     estos miembros, por lo que las implementaciones directas de estos
-    ///     miembros en la clase base se ignorarán por medio de Shadowing.
+    /// Se recomienda que esta interfaz sea implementada de forma
+    /// abstracta, ya que la clase <see cref="ViewModelFactory"/> invalidará
+    /// estos miembros, por lo que las implementaciones directas de estos
+    /// miembros en la clase base se ignorarán por medio de Shadowing.
     /// </remarks>
     public interface IGeneratedViewModel<T> : IDynamicViewModel<T> where T : class
     {
         /// <summary>
-        ///     Expone a los campos auto generados para este ViewModel por
-        ///     medio de la interfaz <typeparamref name="T"/>.
+        /// Expone a los campos auto generados para este ViewModel por
+        /// medio de la interfaz <typeparamref name="T"/>.
         /// </summary>
         /// <remarks>
-        ///     La implementación de este campo debe ser abstracta para
-        ///     permitir al constructor de ViewModels invalidarla.
+        /// La implementación de este campo debe ser abstracta para
+        /// permitir al constructor de ViewModels invalidarla.
         /// </remarks>
         T Self { get; }
     }

@@ -29,7 +29,7 @@ namespace TheXDS.MCART.Attributes
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Marca un elemento como versión Beta.
+    /// Marca un elemento como versión Beta.
     /// </summary>
     [AttributeUsage(Method | Class | Module | Assembly)]
     [Serializable]

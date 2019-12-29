@@ -29,53 +29,53 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.Types.Entity
 {
     /// <summary>
-    ///     Define un rango de valores.
+    /// Define un rango de valores.
     /// </summary>
     /// <typeparam name="T">Tipo base del rango de valores.</typeparam>
     [ComplexType]
     public class Range<T> : IRange<T> where T : IComparable<T>
     {
         /// <summary>
-        ///     Valor máximo del rango.
+        /// Valor máximo del rango.
         /// </summary>
         public T Maximum { get; set; }
 
         /// <summary>
-        ///     Obtiene o establece un valor que determina si el valor máximo
-        ///     es parte del rango.
+        /// Obtiene o establece un valor que determina si el valor máximo
+        /// es parte del rango.
         /// </summary>
         public bool MaxInclusive { get; set; }
 
         /// <summary>
-        ///     Valor mínimo del rango.
+        /// Valor mínimo del rango.
         /// </summary>
         public T Minimum { get; set; }
 
         /// <summary>
-        ///     Obtiene o establece un valor que determina si el valor mínimo
-        ///     es parte del rango.
+        /// Obtiene o establece un valor que determina si el valor mínimo
+        /// es parte del rango.
         /// </summary>
         public bool MinInclusive { get; set; }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la estructura
-        ///     <see cref="Range{T}" />.
+        /// Inicializa una nueva instancia de la estructura
+        /// <see cref="Range{T}" />.
         /// </summary>
         public Range() : this(default, default, true, true) { }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la estructura
-        ///     <see cref="Range{T}" />.
+        /// Inicializa una nueva instancia de la estructura
+        /// <see cref="Range{T}" />.
         /// </summary>
         /// <param name="maximum">Valor máximo del rango, inclusive.</param>
         public Range(T maximum) : this(default, maximum, true, true) { }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la estructura
-        ///     <see cref="Range{T}" />.
+        /// Inicializa una nueva instancia de la estructura
+        /// <see cref="Range{T}" />.
         /// </summary>
         /// <param name="minimum">Valor mínimo del rango, inclusive.</param>
         /// <param name="maximum">Valor máximo del rango, inclusive.</param>
@@ -83,13 +83,13 @@ namespace TheXDS.MCART.Types.Entity
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la estructura
-        ///     <see cref="Range{T}" />.
+        /// Inicializa una nueva instancia de la estructura
+        /// <see cref="Range{T}" />.
         /// </summary>
         /// <param name="maximum">Valor máximo del rango.</param>
         /// <param name="inclusive">
-        ///     Si se establece en <see langword="true"/>, el valor máximo será
-        ///     incluido dentro del rango.
+        /// Si se establece en <see langword="true"/>, el valor máximo será
+        /// incluido dentro del rango.
         /// </param>
         public Range(T maximum, bool inclusive) : this(default, maximum, inclusive, inclusive)
         {
@@ -97,32 +97,32 @@ namespace TheXDS.MCART.Types.Entity
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la estructura
-        ///     <see cref="Range{T}" />.
+        /// Inicializa una nueva instancia de la estructura
+        /// <see cref="Range{T}" />.
         /// </summary>
         /// <param name="minimum">Valor mínimo del rango.</param>
         /// <param name="maximum">Valor máximo del rango.</param>
         /// <param name="inclusive">
-        ///     Si se establece en <see langword="true" />, los valores mínimo y
-        ///     máximo serán incluidos dentro del rango.
+        /// Si se establece en <see langword="true" />, los valores mínimo y
+        /// máximo serán incluidos dentro del rango.
         /// </param>
         public Range(T minimum, T maximum, bool inclusive) : this(minimum, maximum, inclusive, inclusive)
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la estructura
-        ///     <see cref="Range{T}"/>
+        /// Inicializa una nueva instancia de la estructura
+        /// <see cref="Range{T}"/>
         /// </summary>
         /// <param name="minimum">Valor mínimo del rango.</param>
         /// <param name="maximum">Valor máximo del rango.</param>
         /// <param name="minInclusive">
-        ///     Si se establece en <see langword="true"/>, el valor mínimo será
-        ///     incluido dentro del rango.
+        /// Si se establece en <see langword="true"/>, el valor mínimo será
+        /// incluido dentro del rango.
         /// </param>
         /// <param name="maxInclusive">
-        ///     Si se establece en <see langword="true"/>, el valor máximo será
-        ///     incluido dentro del rango.
+        /// Si se establece en <see langword="true"/>, el valor máximo será
+        /// incluido dentro del rango.
         /// </param>
         public Range(T minimum, T maximum, bool minInclusive, bool maxInclusive)
         {
@@ -134,13 +134,13 @@ namespace TheXDS.MCART.Types.Entity
         }
 
         /// <summary>
-        ///     Determina si un <see cref="Range{T}"/> intersecta a este.
+        /// Determina si un <see cref="Range{T}"/> intersecta a este.
         /// </summary>
         /// <param name="other">Rango a comprobar.</param>
         /// <returns>
-        ///     <see langword="true"/> si <paramref name="other"/> intersecta a
-        ///     este <see cref="Range{T}"/>, <see langword="false"/> en caso
-        ///     contrario.
+        /// <see langword="true"/> si <paramref name="other"/> intersecta a
+        /// este <see cref="Range{T}"/>, <see langword="false"/> en caso
+        /// contrario.
         /// </returns>
         public bool Intersects(IRange<T> other)
         {
@@ -161,11 +161,11 @@ namespace TheXDS.MCART.Types.Entity
         }
 
         /// <summary>
-        ///     Convierte implcitamente un <see cref="Types.Range{T}"/> en un
-        ///     <see cref="Range{T}"/>.
+        /// Convierte implcitamente un <see cref="Types.Range{T}"/> en un
+        /// <see cref="Range{T}"/>.
         /// </summary>
         /// <param name="value">
-        ///     <see cref="Types.Range{T}"/> a convertir.
+        /// <see cref="Types.Range{T}"/> a convertir.
         /// </param>
         public static implicit operator Range<T>(Types.Range<T> value)
         {
@@ -173,11 +173,11 @@ namespace TheXDS.MCART.Types.Entity
         }
 
         /// <summary>
-        ///     Convierte implcitamente un <see cref="Range{T}"/> en un
-        ///     <see cref="Types.Range{T}"/>.
+        /// Convierte implcitamente un <see cref="Range{T}"/> en un
+        /// <see cref="Types.Range{T}"/>.
         /// </summary>
         /// <param name="value">
-        ///     <see cref="Range{T}"/> a convertir.
+        /// <see cref="Range{T}"/> a convertir.
         /// </param>
         public static implicit operator Types.Range<T>(Range<T> value)
         {

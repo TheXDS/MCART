@@ -32,42 +32,42 @@ using System;
 namespace TheXDS.MCART.Types.Base
 {
     /// <summary>
-    ///     Interfaz que define un rango de valores.
+    /// Interfaz que define un rango de valores.
     /// </summary>
     /// <typeparam name="T">Tipo base del rango de valores.</typeparam>
     public interface IRange<T> where T : IComparable<T>
     {
         /// <summary>
-        ///     Valor máximo del rango.
+        /// Valor máximo del rango.
         /// </summary>
         T Maximum { get; set; }
 
         /// <summary>
-        ///     Obtiene o establece un valor que determina si el valor máximo
-        ///     es parte del rango.
+        /// Obtiene o establece un valor que determina si el valor máximo
+        /// es parte del rango.
         /// </summary>
         /// 
         bool MaxInclusive { get; set; }
 
         /// <summary>
-        ///     Valor mínimo del rango.
+        /// Valor mínimo del rango.
         /// </summary>
         T Minimum { get; set; }
 
         /// <summary>
-        ///     Obtiene o establece un valor que determina si el valor mínimo
-        ///     es parte del rango.
+        /// Obtiene o establece un valor que determina si el valor mínimo
+        /// es parte del rango.
         /// </summary>
         bool MinInclusive { get; set; }
 
         /// <summary>
-        ///     Determina si un <see cref="IRange{T}"/> intersecta a este.
+        /// Determina si un <see cref="IRange{T}"/> intersecta a este.
         /// </summary>
         /// <param name="other">Rango a comprobar.</param>
         /// <returns>
-        ///     <see langword="true"/> si <paramref name="other"/> intersecta a
-        ///     este <see cref="IRange{T}"/>, <see langword="false"/> en caso
-        ///     contrario.
+        /// <see langword="true"/> si <paramref name="other"/> intersecta a
+        /// este <see cref="IRange{T}"/>, <see langword="false"/> en caso
+        /// contrario.
         /// </returns>
 #if !NETCOREAPP3_0
         bool Intersects(IRange<T> other);
@@ -76,14 +76,14 @@ namespace TheXDS.MCART.Types.Base
 #endif
 
         /// <summary>
-        ///     Comprueba si un valor <typeparamref name="T"/> se encuentra
-        ///     dentro de este <see cref="IRange{T}"/>.
+        /// Comprueba si un valor <typeparamref name="T"/> se encuentra
+        /// dentro de este <see cref="IRange{T}"/>.
         /// </summary>
         /// <param name="value">Valor a comporbar.</param>
         /// <returns>
-        ///     <see langword="true"/> si el valor se encuentra dentro de este
-        ///     <see cref="IRange{T}"/>, <see langword="false"/> en caso
-        ///     contrario.
+        /// <see langword="true"/> si el valor se encuentra dentro de este
+        /// <see cref="IRange{T}"/>, <see langword="false"/> en caso
+        /// contrario.
         /// </returns>
 #if !NETCOREAPP3_0
         bool IsWithin(T value);

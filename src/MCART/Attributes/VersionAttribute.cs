@@ -29,7 +29,7 @@ namespace TheXDS.MCART.Attributes
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Especifica la versión del elemento.
+    /// Especifica la versión del elemento.
     /// </summary>
     [AttributeUsage(Method | Class | Module | Assembly)]
     [Serializable]
@@ -37,8 +37,8 @@ namespace TheXDS.MCART.Attributes
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="VersionAttribute" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="VersionAttribute" />.
         /// </summary>
         /// <param name="major">Número de versión mayor.</param>
         /// <param name="minor">Número de versión menor.</param>
@@ -48,8 +48,8 @@ namespace TheXDS.MCART.Attributes
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="VersionAttribute" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="VersionAttribute" />.
         /// </summary>
         /// <param name="major">Número de versión mayor.</param>
         /// <param name="minor">Número de versión menor.</param>

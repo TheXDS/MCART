@@ -30,10 +30,10 @@ namespace TheXDS.MCART.Attributes
 {
     /// <inheritdoc cref="Attribute"/>
     /// <summary>
-    ///     Atributo que define la ruta de un servidor.
+    /// Atributo que define la ruta de un servidor.
     /// </summary>
     /// <remarks>
-    ///     Es posible establecer este atributo más de una vez en un mismo elemento.
+    /// Es posible establecer este atributo más de una vez en un mismo elemento.
     /// </remarks>
     [AttributeUsage(All, AllowMultiple = true)]
     [Serializable]
@@ -41,22 +41,22 @@ namespace TheXDS.MCART.Attributes
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ServerAttribute" /> estableciendo el servidor y el puerto
-        ///     al cual este atributo hará referencia.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ServerAttribute" /> estableciendo el servidor y el puerto
+        /// al cual este atributo hará referencia.
         /// </summary>
         /// <param name="server">Nombre del servidor / Dirección IP.</param>
         /// <param name="port">Número de puerto del servidor.</param>
         /// <remarks>
-        ///     Si se define un número de puerto en <paramref name="server" />, el
-        ///     valor del parámetro <paramref name="port" /> tomará precedencia.
+        /// Si se define un número de puerto en <paramref name="server" />, el
+        /// valor del parámetro <paramref name="port" /> tomará precedencia.
         /// </remarks>
         /// <exception cref="ArgumentException">
-        ///     Se produce si el servidor es una ruta malformada.
+        /// Se produce si el servidor es una ruta malformada.
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///     Se produce si <paramref name="port" /> es inferior a 1, o superior
-        ///     a 65535.
+        /// Se produce si <paramref name="port" /> es inferior a 1, o superior
+        /// a 65535.
         /// </exception>
         public ServerAttribute(string server, int port)
         {
@@ -67,24 +67,24 @@ namespace TheXDS.MCART.Attributes
         }
 
         /// <summary>
-        ///     Obtiene el servidor.
+        /// Obtiene el servidor.
         /// </summary>
         /// <value>
-        ///     La ruta del servidor a la cual este atributo apunta.
+        /// La ruta del servidor a la cual este atributo apunta.
         /// </value>
         public string Server { get; }
 
         /// <summary>
-        ///     Obtiene o establece el puerto de conexión del servidor.
+        /// Obtiene o establece el puerto de conexión del servidor.
         /// </summary>
         /// <value>
-        ///     Un valor entre 1 y 65535 que establece el número de puerto a
-        ///     apuntar.
+        /// Un valor entre 1 y 65535 que establece el número de puerto a
+        /// apuntar.
         /// </value>
         public int Port { get; }
 
         /// <summary>
-        ///     Devuelve una cadena que representa al objeto actual.
+        /// Devuelve una cadena que representa al objeto actual.
         /// </summary>
         /// <returns>Una cadena que representa al objeto actual.</returns>
         public override string ToString()
@@ -94,7 +94,7 @@ namespace TheXDS.MCART.Attributes
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene el valor de este atributo.
+        /// Obtiene el valor de este atributo.
         /// </summary>
         public string Value => ToString();
     }

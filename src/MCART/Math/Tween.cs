@@ -27,15 +27,15 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.Math
 {
     /// <summary>
-    ///     Contiene diversas fórmulas de suavizado.
+    /// Contiene diversas fórmulas de suavizado.
     /// </summary>
     public static class Tween
     {
         /// <summary>
-        ///     Describe una función que aplica una transformación de suavizado.
+        /// Describe una función que aplica una transformación de suavizado.
         /// </summary>
         /// <returns>
-        ///     Un valor correspondiente al suavizado aplicado.
+        /// Un valor correspondiente al suavizado aplicado.
         /// </returns>
         /// <param name="position">
         /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
@@ -43,10 +43,10 @@ namespace TheXDS.MCART.Math
         public delegate double TweenFunction(in double position);
 
         /// <summary>
-        ///     Realiza un suavizado lineal de un valor.
+        /// Realiza un suavizado lineal de un valor.
         /// </summary>
         /// <returns>
-        ///     Un valor correspondiente al suavizado aplicado.
+        /// Un valor correspondiente al suavizado aplicado.
         /// </returns>
         /// <param name="position">
         /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
@@ -54,10 +54,10 @@ namespace TheXDS.MCART.Math
         public static double Linear(in double position) => position;
 
         /// <summary>
-        ///     Realiza un suavizado cuadrático de un valor.
+        /// Realiza un suavizado cuadrático de un valor.
         /// </summary>
         /// <returns>
-        ///     Un valor correspondiente al suavizado aplicado.
+        /// Un valor correspondiente al suavizado aplicado.
         /// </returns>
         /// <param name="position">
         /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
@@ -69,10 +69,10 @@ namespace TheXDS.MCART.Math
         }
 
         /// <summary>
-        ///     Realiza un suavizado cúbico de un valor.
+        /// Realiza un suavizado cúbico de un valor.
         /// </summary>
         /// <returns>
-        ///     Un valor correspondiente al suavizado aplicado.
+        /// Un valor correspondiente al suavizado aplicado.
         /// </returns>
         /// <param name="position">
         /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
@@ -83,10 +83,10 @@ namespace TheXDS.MCART.Math
         }
 
         /// <summary>
-        ///     Realiza un suavizado cuártico de un valor.
+        /// Realiza un suavizado cuártico de un valor.
         /// </summary>
         /// <returns>
-        ///     Un valor correspondiente al suavizado aplicado.
+        /// Un valor correspondiente al suavizado aplicado.
         /// </returns>
         /// <param name="position">
         /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
@@ -97,10 +97,10 @@ namespace TheXDS.MCART.Math
         }
 
         /// <summary>
-        ///     Realiza un suavizado con sacudida de un valor.
+        /// Realiza un suavizado con sacudida de un valor.
         /// </summary>
         /// <returns>
-        ///     Un valor correspondiente al suavizado aplicado.
+        /// Un valor correspondiente al suavizado aplicado.
         /// </returns>
         /// <param name="position">
         /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
@@ -108,10 +108,10 @@ namespace TheXDS.MCART.Math
         public static double Shaky(in double position) => Shaky(position, 10);
 
         /// <summary>
-        ///     Realiza un suavizado con sacudida de un valor.
+        /// Realiza un suavizado con sacudida de un valor.
         /// </summary>
         /// <returns>
-        ///     Un valor correspondiente al suavizado aplicado.
+        /// Un valor correspondiente al suavizado aplicado.
         /// </returns>
         /// <param name="position">
         /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
@@ -123,10 +123,10 @@ namespace TheXDS.MCART.Math
         }
 
         /// <summary>
-        ///     Realiza un suavizado con rebote de un valor.
+        /// Realiza un suavizado con rebote de un valor.
         /// </summary>
         /// <returns>
-        ///     Un valor correspondiente al suavizado aplicado.
+        /// Un valor correspondiente al suavizado aplicado.
         /// </returns>
         /// <param name="position">
         /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
@@ -134,10 +134,10 @@ namespace TheXDS.MCART.Math
         public static double Bouncy(in double position) => Bouncy(position, 10, 8);
 
         /// <summary>
-        ///     Realiza un suavizado con rebote de un valor.
+        /// Realiza un suavizado con rebote de un valor.
         /// </summary>
         /// <returns>
-        ///     Un valor correspondiente al suavizado aplicado.
+        /// Un valor correspondiente al suavizado aplicado.
         /// </returns>
         /// <param name="position">
         /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
@@ -146,10 +146,10 @@ namespace TheXDS.MCART.Math
         public static double Bouncy(in double position, in int bounces) => Bouncy(position, bounces, 8);
 
         /// <summary>
-        ///     Realiza un suavizado con rebote de un valor.
+        /// Realiza un suavizado con rebote de un valor.
         /// </summary>
         /// <returns>
-        ///     Un valor correspondiente al suavizado aplicado.
+        /// Un valor correspondiente al suavizado aplicado.
         /// </returns>
         /// <param name="position">
         /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.

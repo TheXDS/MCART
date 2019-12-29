@@ -34,12 +34,12 @@ namespace TheXDS.MCART.Cmd
 {
 
     /// <summary>
-    ///     Funciones auxiliares de consola.
+    /// Funciones auxiliares de consola.
     /// </summary>
     public static class Helpers
     {
         /// <summary>
-        ///     Muestra información sobre la aplicación actual.
+        /// Muestra información sobre la aplicación actual.
         /// </summary>
         public static void About()
         {
@@ -48,10 +48,10 @@ namespace TheXDS.MCART.Cmd
         }
 
         /// <summary>
-        ///     Muestra información sobre el ensamblado especificado.
+        /// Muestra información sobre el ensamblado especificado.
         /// </summary>
         /// <param name="assembly">
-        ///     Ensamblado sobre el cual mostrar información.
+        /// Ensamblado sobre el cual mostrar información.
         /// </param>
         public static void About(Assembly assembly)
         {
@@ -59,10 +59,10 @@ namespace TheXDS.MCART.Cmd
         }
 
         /// <summary>
-        ///     Muestra información sobre el ensamblado especificado.
+        /// Muestra información sobre el ensamblado especificado.
         /// </summary>
         /// <param name="assembly">
-        ///     Ensamblado sobre el cual mostrar información.
+        /// Ensamblado sobre el cual mostrar información.
         /// </param>
         public static void About(IExposeAssembly assembly)
         {
@@ -70,10 +70,10 @@ namespace TheXDS.MCART.Cmd
         }
 
         /// <summary>
-        ///     Muestra información sobre el elemento especificado.
+        /// Muestra información sobre el elemento especificado.
         /// </summary>
         /// <param name="info">
-        ///     <see cref="IExposeInfo"/> del cual mostrar información.
+        /// <see cref="IExposeInfo"/> del cual mostrar información.
         /// </param>
         public static void About(IExposeInfo info)
         {

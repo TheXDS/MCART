@@ -29,20 +29,20 @@ using System.ComponentModel;
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Contiene información para el evento
-    ///     <see cref="ListEx{T}.InsertingItem"/>.
+    /// Contiene información para el evento
+    /// <see cref="ListEx{T}.InsertingItem"/>.
     /// </summary>
     /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
     public class InsertingItemEventArgs<T> : CancelEventArgs
     {
         /// <summary>
-        ///     Obtiene el objeto que se insertará en el
-        ///     <see cref="ListEx{T}"/>.
+        /// Obtiene el objeto que se insertará en el
+        /// <see cref="ListEx{T}"/>.
         /// </summary>
         public T InsertedItem { get; }
 
         /// <summary>
-        ///     Obtiene el índice en el cual el objeto será insertado.
+        /// Obtiene el índice en el cual el objeto será insertado.
         /// </summary>
         public int Index { get; }
 

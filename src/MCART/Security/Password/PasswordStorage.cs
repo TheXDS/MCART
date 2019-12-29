@@ -34,13 +34,13 @@ using static TheXDS.MCART.Types.Extensions.SecureStringExtensions;
 namespace TheXDS.MCART.Security.Password
 {
     /// <summary>
-    ///     Contiene métodos para crear Salty Hashes de contraseñas que son
-    ///     seguros para ser almacenados, así como también comprobar la validez
-    ///     de una contraseña.
+    /// Contiene métodos para crear Salty Hashes de contraseñas que son
+    /// seguros para ser almacenados, así como también comprobar la validez
+    /// de una contraseña.
     /// </summary>
     /// <remarks>
-    ///     Implementación de referencia de algunos componentes de autoría
-    ///     original por Taylor Hornby bajo licencia MIT.
+    /// Implementación de referencia de algunos componentes de autoría
+    /// original por Taylor Hornby bajo licencia MIT.
     /// </remarks>
     [ThirdParty, SpdxLicense(Resources.SpdxLicenseId.MIT)]
     public static class PasswordStorage

@@ -25,15 +25,15 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.Types.Base
 {
     /// <summary>
-    ///     Interfaz que define propiedades comunes para estructuras de datos
-    ///     que describen coordenadas, vectores, magnitudes y tamaños en un
-    ///     espacio de tres dimensiones.
+    /// Interfaz que define propiedades comunes para estructuras de datos
+    /// que describen coordenadas, vectores, magnitudes y tamaños en un
+    /// espacio de tres dimensiones.
     /// </summary>
     public interface I3DVector : I2DVector
     {
         /// <summary>
-        ///     Obtiene el componente del eje Z representado por este
-        ///     <see cref="I3DVector"/>.
+        /// Obtiene el componente del eje Z representado por este
+        /// <see cref="I3DVector"/>.
         /// </summary>
         double Z { get; }
     }

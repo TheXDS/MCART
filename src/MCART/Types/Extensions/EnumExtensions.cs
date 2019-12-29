@@ -4,9 +4,9 @@ EnumExtensions.cs
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
-     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+     Cï¿½sar Andrï¿½s Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright ï¿½ 2011 - 2019 Cï¿½sar Andrï¿½s Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -33,21 +33,21 @@ using St = TheXDS.MCART.Resources.Strings;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Contiene extensiones útiles para la clase <see cref="Enum" />.
+    /// Contiene extensiones ï¿½tiles para la clase <see cref="Enum" />.
     /// </summary>
     public static class EnumExtensions
     {
         private static byte[] BypassByte(byte b) => new[] {b};
 
         /// <summary>
-        ///     Obtiene un <see cref="MethodInfo" /> para un método que permita
-        ///     realizar la conversión de <typeparamref name="T" /> a un arreglo
-        ///     de bytes.
+        /// Obtiene un <see cref="MethodInfo" /> para un mï¿½todo que permita
+        /// realizar la conversiï¿½n de <typeparamref name="T" /> a un arreglo
+        /// de bytes.
         /// </summary>
-        /// <typeparam name="T">Tipo de la enumeración a convertir.</typeparam>
+        /// <typeparam name="T">Tipo de la enumeraciï¿½n a convertir.</typeparam>
         /// <returns>
-        ///     Un <see cref="MethodInfo" /> para un método que convierte desde
-        ///     el tipo base de la enumeración a un arreglo de bytes.
+        /// Un <see cref="MethodInfo" /> para un mï¿½todo que convierte desde
+        /// el tipo base de la enumeraciï¿½n a un arreglo de bytes.
         /// </returns>
         [DebuggerStepThrough]
         public static MethodInfo ByteConversionMethod<T>() where T : struct, Enum
@@ -56,14 +56,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Obtiene un <see cref="MethodInfo" /> para un método que permita
-        ///     realizar la conversión del tipo de la enumeración a un arreglo
-        ///     de bytes.
+        /// Obtiene un <see cref="MethodInfo" /> para un mï¿½todo que permita
+        /// realizar la conversiï¿½n del tipo de la enumeraciï¿½n a un arreglo
+        /// de bytes.
         /// </summary>
-        /// <param name="enumType">Tipo de la enumeración a convertir.</param>
+        /// <param name="enumType">Tipo de la enumeraciï¿½n a convertir.</param>
         /// <returns>
-        ///     Un <see cref="MethodInfo" /> para un método que convierte desde
-        ///     el tipo base de la enumeración a un arreglo de bytes.
+        /// Un <see cref="MethodInfo" /> para un mï¿½todo que convierte desde
+        /// el tipo base de la enumeraciï¿½n a un arreglo de bytes.
         /// </returns>
         [DebuggerStepThrough]
         public static MethodInfo ByteConversionMethod(in Type enumType)
@@ -88,17 +88,17 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Convierte un valor de enumeración a su representación en bytes.
+        /// Convierte un valor de enumeraciï¿½n a su representaciï¿½n en bytes.
         /// </summary>
-        /// <param name="value">Valor de enumeración a convertir.</param>
+        /// <param name="value">Valor de enumeraciï¿½n a convertir.</param>
         /// <returns>
-        ///     Un arreglo de bytes con la representación del valor de
-        ///     enumeración.
+        /// Un arreglo de bytes con la representaciï¿½n del valor de
+        /// enumeraciï¿½n.
         /// </returns>
         /// <exception cref="PlatformNotSupportedException">
-        ///     Se produce en caso que la plataforma no sea soportada, y que el
-        ///     <see cref="Enum" /> utilice un tipo base inusual para el cual no
-        ///     sea posible obtener un convertidor a bytes.
+        /// Se produce en caso que la plataforma no sea soportada, y que el
+        /// <see cref="Enum" /> utilice un tipo base inusual para el cual no
+        /// sea posible obtener un convertidor a bytes.
         /// </exception>
         [DebuggerStepThrough]
         public static byte[] ToBytes(this Enum value)
@@ -108,13 +108,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Crea un delegado que convierte un valor de enumeración del tipo
-        ///     especificado en un arreglo de bytes.
+        /// Crea un delegado que convierte un valor de enumeraciï¿½n del tipo
+        /// especificado en un arreglo de bytes.
         /// </summary>
-        /// <typeparam name="T">Tipo de la enumeración a convertir.</typeparam>
+        /// <typeparam name="T">Tipo de la enumeraciï¿½n a convertir.</typeparam>
         /// <returns>
-        ///     Un delegado que convierte un valor de enumeración del tipo
-        ///     especificado en un arreglo de bytes.
+        /// Un delegado que convierte un valor de enumeraciï¿½n del tipo
+        /// especificado en un arreglo de bytes.
         /// </returns>
         [DebuggerStepThrough]
         public static Func<T, byte[]> ToBytes<T>() where T : struct, Enum
@@ -124,16 +124,16 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Obtiene un nombre personalizado para un valor de enumeración.
+        /// Obtiene un nombre personalizado para un valor de enumeraciï¿½n.
         /// </summary>
         /// <param name="value">
-        ///     <see cref="Enum" /> del cual obtener el nombre.
+        /// <see cref="Enum" /> del cual obtener el nombre.
         /// </param>
         /// <returns>
-        ///     Un nombre amigable para <paramref name="value" />, o el nombre
-        ///     compilado de <paramref name="value" /> si no se ha definido un
-        ///     nombre amigable por medio del atributo
-        ///     <see cref="NameAttribute"/>.
+        /// Un nombre amigable para <paramref name="value" />, o el nombre
+        /// compilado de <paramref name="value" /> si no se ha definido un
+        /// nombre amigable por medio del atributo
+        /// <see cref="NameAttribute"/>.
         /// </returns>
         public static string NameOf(this Enum value)
         {
@@ -141,13 +141,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Expone los valores de un <see cref="Enum"/> como una colección
-        ///     de <see cref="NamedObject{T}"/>.
+        /// Expone los valores de un <see cref="Enum"/> como una colecciï¿½n
+        /// de <see cref="NamedObject{T}"/>.
         /// </summary>
-        /// <typeparam name="T">Tipo de la enumeración a obtener.</typeparam>
+        /// <typeparam name="T">Tipo de la enumeraciï¿½n a obtener.</typeparam>
         /// <returns>
-        ///     Un enumerador que expone los valores del <see cref="Enum"/>
-        ///     como una colección de <see cref="NamedObject{T}"/>.
+        /// Un enumerador que expone los valores del <see cref="Enum"/>
+        /// como una colecciï¿½n de <see cref="NamedObject{T}"/>.
         /// </returns>
         public static IEnumerable<NamedObject<T>> NamedEnums<T>() where T : Enum
         {
@@ -156,12 +156,12 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Conveirte un valor de enumeración a su tipo base.
+        /// Conveirte un valor de enumeraciï¿½n a su tipo base.
         /// </summary>
-        /// <typeparam name="T">Tipo de la enumeración.</typeparam>
-        /// <param name="value">Valor de enumeración a convertir.</param>
+        /// <typeparam name="T">Tipo de la enumeraciï¿½n.</typeparam>
+        /// <param name="value">Valor de enumeraciï¿½n a convertir.</param>
         /// <returns>
-        ///     Un valor primitivo igual al valor de enumeración.
+        /// Un valor primitivo igual al valor de enumeraciï¿½n.
         /// </returns>
         public static object ToUnderlyingType<T>(this T value) where T : struct, Enum
         {
@@ -169,11 +169,11 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Conveirte un valor de enumeración a su tipo base.
+        /// Conveirte un valor de enumeraciï¿½n a su tipo base.
         /// </summary>
-        /// <param name="value">Valor de enumeración a convertir.</param>
+        /// <param name="value">Valor de enumeraciï¿½n a convertir.</param>
         /// <returns>
-        ///     Un valor primitivo igual al valor de enumeración.
+        /// Un valor primitivo igual al valor de enumeraciï¿½n.
         /// </returns>
         public static object ToUnderlyingType(this Enum value)
         {

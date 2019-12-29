@@ -29,16 +29,16 @@ using TheXDS.MCART.Resources;
 namespace TheXDS.MCART.Component
 {
     /// <summary>
-    ///     Expone de manera aislada la información de un objeto
-    ///     <see cref="IExposeInfo"/>.
+    /// Expone de manera aislada la información de un objeto
+    /// <see cref="IExposeInfo"/>.
     /// </summary>
     public class ExposedInfo : IExposeInfo
     {
         private readonly IExposeInfo _source;
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ExposedInfo"/>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ExposedInfo"/>
         /// </summary>
         /// <param name="source"></param>
         public ExposedInfo(IExposeInfo source)
@@ -47,55 +47,55 @@ namespace TheXDS.MCART.Component
         }
 
         /// <summary>
-        ///     Obtiene el autor del <see cref="IExposeInfo"/>.
+        /// Obtiene el autor del <see cref="IExposeInfo"/>.
         /// </summary>
         public IEnumerable<string>? Authors => _source.Authors;
 
         /// <summary>
-        ///     Obtiene el Copyright del <see cref="IExposeInfo"/>
+        /// Obtiene el Copyright del <see cref="IExposeInfo"/>
         /// </summary>
         public string? Copyright => _source.Copyright;
 
         /// <summary>
-        ///     Obtiene la licencia del <see cref="IExposeInfo"/>
+        /// Obtiene la licencia del <see cref="IExposeInfo"/>
         /// </summary>
         public License? License => _source.License;
 
         /// <summary>
-        ///     Obtiene la versión del <see cref="IExposeInfo"/>
+        /// Obtiene la versión del <see cref="IExposeInfo"/>
         /// </summary>
         public Version? Version => _source.Version;
 
         /// <summary>
-        ///     Obtiene una colección con el contenido de licencias de terceros
-        ///     para el objeto.
+        /// Obtiene una colección con el contenido de licencias de terceros
+        /// para el objeto.
         /// </summary>
         public IEnumerable<License>? ThirdPartyLicenses => _source.ThirdPartyLicenses;
 
         /// <summary>
-        ///     Obtiene el nombre del elemento.
+        /// Obtiene el nombre del elemento.
         /// </summary>
         public string Name => _source.Name;
 
         /// <summary>
-        ///     Obtiene la descripción del elemento.
+        /// Obtiene la descripción del elemento.
         /// </summary>
         public string? Description => _source.Description;
 
         /// <summary>
-        ///     Obtiene la versión informacional del <see cref="IExposeInfo"/>.
+        /// Obtiene la versión informacional del <see cref="IExposeInfo"/>.
         /// </summary>
         public string? InformationalVersion => _source.InformationalVersion;
 
         /// <summary>
-        ///     Obtiene un valor que indica si este <see cref="IExposeInfo"/>
-        ///     contiene información de licencia.
+        /// Obtiene un valor que indica si este <see cref="IExposeInfo"/>
+        /// contiene información de licencia.
         /// </summary>
         public bool HasLicense => _source.HasLicense;
 
         /// <summary>
-        ///     Obtiene un valor que indica si este <see cref="IExposeInfo"/>
-        ///     contiene información de licencias de terceros.
+        /// Obtiene un valor que indica si este <see cref="IExposeInfo"/>
+        /// contiene información de licencias de terceros.
         /// </summary>
         public bool Has3rdPartyLicense => _source.Has3rdPartyLicense;
     }

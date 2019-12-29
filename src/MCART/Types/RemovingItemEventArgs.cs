@@ -29,21 +29,21 @@ using System.ComponentModel;
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Contiene información para el evento 
-    ///     <see cref="ListEx{T}.RemovingItem"/>.
+    /// Contiene información para el evento 
+    /// <see cref="ListEx{T}.RemovingItem"/>.
     /// </summary>
     /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
     public class RemovingItemEventArgs<T> : CancelEventArgs
     {
         /// <summary>
-        ///     Objeto que será removido del <see cref="ListEx{T}"/> que generó
-        ///     el evento.
+        /// Objeto que será removido del <see cref="ListEx{T}"/> que generó
+        /// el evento.
         /// </summary>
         public T RemovedItem { get; }
 
         /// <summary>
-        ///     Índice del elemento que será removido del
-        ///     <see cref="ListEx{T}"/> que generó el evento.
+        /// Índice del elemento que será removido del
+        /// <see cref="ListEx{T}"/> que generó el evento.
         /// </summary>
         public int Index { get; }
 

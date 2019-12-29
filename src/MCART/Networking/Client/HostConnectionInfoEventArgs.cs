@@ -30,36 +30,36 @@ namespace TheXDS.MCART.Networking.Client
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Contiene información de evento que describe un evento de conexión
-    ///     satisfactorio.
+    /// Contiene información de evento que describe un evento de conexión
+    /// satisfactorio.
     /// </summary>
     public class HostConnectionInfoEventArgs : EventArgs
     {
         /// <summary>
-        ///     Nomrbe del host remoto.
+        /// Nomrbe del host remoto.
         /// </summary>
         public string Host { get; }
 
         /// <summary>
-        ///     Punto de red local utilizado para realizar la conexión.
+        /// Punto de red local utilizado para realizar la conexión.
         /// </summary>
         public IPEndPoint LocalEndPoint { get; }
 
         /// <summary>
-        ///     Punto de red del host remoto.
+        /// Punto de red del host remoto.
         /// </summary>
         public IPEndPoint RemoteEndpoint { get; }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="HostConnectionInfoEventArgs" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="HostConnectionInfoEventArgs" />.
         /// </summary>
         /// <param name="remoteEndpoint">
-        ///     Punto de acceso remoto del servidor.
+        /// Punto de acceso remoto del servidor.
         /// </param>
         /// <param name="localEndPoint">
-        ///     Punto de acceso local utilizado para realizar la conexión.
+        /// Punto de acceso local utilizado para realizar la conexión.
         /// </param>
         public HostConnectionInfoEventArgs(IPEndPoint remoteEndpoint, IPEndPoint localEndPoint) : this(
             remoteEndpoint.Address.ToString(), remoteEndpoint, localEndPoint)
@@ -68,15 +68,15 @@ namespace TheXDS.MCART.Networking.Client
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="HostConnectionInfoEventArgs" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="HostConnectionInfoEventArgs" />.
         /// </summary>
         /// <param name="host">Nombre del host remoto.</param>
         /// <param name="remoteEndpoint">
-        ///     Punto de acceso remoto del servidor.
+        /// Punto de acceso remoto del servidor.
         /// </param>
         /// <param name="localEndPoint">
-        ///     Punto de acceso local utilizado para realizar la conexión.
+        /// Punto de acceso local utilizado para realizar la conexión.
         /// </param>
         public HostConnectionInfoEventArgs(string host, IPEndPoint remoteEndpoint, IPEndPoint localEndPoint)
         {
@@ -87,11 +87,11 @@ namespace TheXDS.MCART.Networking.Client
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="HostConnectionInfoEventArgs" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="HostConnectionInfoEventArgs" />.
         /// </summary>
         /// <param name="client">
-        ///     Cliente TCP utilizado para establecer la conexión.
+        /// Cliente TCP utilizado para establecer la conexión.
         /// </param>
         public HostConnectionInfoEventArgs(TcpClient client) : this((IPEndPoint) client.Client.RemoteEndPoint,
             (IPEndPoint) client.Client.LocalEndPoint)
@@ -100,12 +100,12 @@ namespace TheXDS.MCART.Networking.Client
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="HostConnectionInfoEventArgs" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="HostConnectionInfoEventArgs" />.
         /// </summary>
         /// <param name="host">Nombre del host remoto.</param>
         /// <param name="client">
-        ///     Cliente TCP utilizado para establecer la conexión.
+        /// Cliente TCP utilizado para establecer la conexión.
         /// </param>
         public HostConnectionInfoEventArgs(string host, TcpClient client) : this(host,
             (IPEndPoint) client.Client.RemoteEndPoint, (IPEndPoint) client.Client.LocalEndPoint)

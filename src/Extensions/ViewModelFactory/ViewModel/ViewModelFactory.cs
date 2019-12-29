@@ -46,19 +46,19 @@ using static TheXDS.MCART.Types.Extensions.StringExtensions;
 namespace TheXDS.MCART.ViewModel
 {
     /// <summary>
-    ///     Fábrica de tipos para implementaciones ViewModel dinámicas.
+    /// Fábrica de tipos para implementaciones ViewModel dinámicas.
     /// </summary>
     public static class ViewModelFactory
     {
         /// <summary>
-        ///     Contiene una lista de atributos de exclusión a la hora de
-        ///     generar ViewModels.
+        /// Contiene una lista de atributos de exclusión a la hora de
+        /// generar ViewModels.
         /// </summary>
         public static HashSet<Type> AttributeExclusionList { get; } = new HashSet<Type>();
 
         /// <summary>
-        ///     Marca una propiedad para ser excluída a la hora de generar un
-        ///     <see cref="DynamicViewModel{T}"/>.
+        /// Marca una propiedad para ser excluída a la hora de generar un
+        /// <see cref="DynamicViewModel{T}"/>.
         /// </summary>
         [AttributeUsage(AttributeTargets.Property, Inherited = true, AllowMultiple = false)]
         public sealed class ExcludeAttribute : Attribute { }
@@ -392,99 +392,99 @@ namespace TheXDS.MCART.ViewModel
         }
 
         /// <summary>
-        ///     Compila y genera un nuevo ViewModel con los tipos de herencia y
-        ///     de interfaz especificados, y devuelve una nueva instancia del
-        ///     mismo.
+        /// Compila y genera un nuevo ViewModel con los tipos de herencia y
+        /// de interfaz especificados, y devuelve una nueva instancia del
+        /// mismo.
         /// </summary>
         /// <typeparam name="TViewModel">
-        ///     Tipo base del ViewModel. Este tipo podrá contener todas las
-        ///     definiciones adicionales necesarias que no son auto-generadas,
-        ///     como ser los campos calculados, comandos, y campos auxiliares.
-        ///     Si se omite, se creará un ViewModel que hereda de la clase
-        ///     <see cref="GeneratedViewModel{T}"/>.
+        /// Tipo base del ViewModel. Este tipo podrá contener todas las
+        /// definiciones adicionales necesarias que no son auto-generadas,
+        /// como ser los campos calculados, comandos, y campos auxiliares.
+        /// Si se omite, se creará un ViewModel que hereda de la clase
+        /// <see cref="GeneratedViewModel{T}"/>.
         /// </typeparam>
         /// <typeparam name="TInterface">
-        ///     Interfaz que describe los campos expuestos por este ViewModel.
+        /// Interfaz que describe los campos expuestos por este ViewModel.
         /// </typeparam>
         /// <returns>
-        ///     Una nueva instancia del ViewModel solicitado.
+        /// Una nueva instancia del ViewModel solicitado.
         /// </returns>
         [Sugar]
         public static TViewModel NewSelfViewModel<TViewModel, TInterface>() where TViewModel : IGeneratedViewModel<TInterface> where TInterface : class => BuildSelfViewModel(typeof(TViewModel), typeof(TInterface)).New<TViewModel>();
 
         /// <summary>
-        ///     Compila y genera un nuevo ViewModel con el tipo de interfaz
-        ///     especificado, y devuelve una nueva instancia del mismo.
+        /// Compila y genera un nuevo ViewModel con el tipo de interfaz
+        /// especificado, y devuelve una nueva instancia del mismo.
         /// </summary>
         /// <typeparam name="TInterface">
-        ///     Interfaz que describe los campos expuestos por este ViewModel.
+        /// Interfaz que describe los campos expuestos por este ViewModel.
         /// </typeparam>
         /// <returns>
-        ///     Una nueva instancia del ViewModel solicitado.
+        /// Una nueva instancia del ViewModel solicitado.
         /// </returns>
         [Sugar]
         public static GeneratedViewModel<TInterface> NewSelfViewModel<TInterface>() where TInterface : class => BuildSelfViewModel(typeof(TInterface)).New<GeneratedViewModel<TInterface>>();
 
         /// <summary>
-        ///     Compila y genera un nuevo tipo que puede utilizarse como un
-        ///     ViewModel.
+        /// Compila y genera un nuevo tipo que puede utilizarse como un
+        /// ViewModel.
         /// </summary>
         /// <typeparam name="TViewModel">
-        ///     Tipo base del ViewModel. Este tipo podrá contener todas las
-        ///     definiciones adicionales necesarias que no son auto-generadas,
-        ///     como ser los campos calculados, comandos, y campos auxiliares.
-        ///     Si se omite, se creará un ViewModel que hereda de la clase
-        ///     <see cref="GeneratedViewModel{T}"/>.
+        /// Tipo base del ViewModel. Este tipo podrá contener todas las
+        /// definiciones adicionales necesarias que no son auto-generadas,
+        /// como ser los campos calculados, comandos, y campos auxiliares.
+        /// Si se omite, se creará un ViewModel que hereda de la clase
+        /// <see cref="GeneratedViewModel{T}"/>.
         /// </typeparam>
         /// <typeparam name="TInterface">
-        ///     Interfaz que describe los campos expuestos por este ViewModel.
+        /// Interfaz que describe los campos expuestos por este ViewModel.
         /// </typeparam>
         /// <returns></returns>
         public static Type BuildSelfViewModel<TViewModel, TInterface>() where TViewModel : IGeneratedViewModel<TInterface> where TInterface : class => BuildSelfViewModel(typeof(TViewModel), typeof(TInterface));
 
         /// <summary>
-        ///     Compila y genera un nuevo tipo que puede utilizarse como un
-        ///     ViewModel.
+        /// Compila y genera un nuevo tipo que puede utilizarse como un
+        /// ViewModel.
         /// </summary>
         /// <typeparam name="T">
-        ///     Interfaz que describe los campos expuestos por este ViewModel.
+        /// Interfaz que describe los campos expuestos por este ViewModel.
         /// </typeparam>
         /// <returns>
-        ///     Un nuevo tipo compilado en runtimeque expone propiedades para
-        ///     cada una de mas mismas definidas en la interfaz especificada.
+        /// Un nuevo tipo compilado en runtimeque expone propiedades para
+        /// cada una de mas mismas definidas en la interfaz especificada.
         /// </returns>
         public static Type BuildSelfViewModel<T>() where T : class => BuildSelfViewModel(typeof(T));
 
         /// <summary>
-        ///     Compila y genera un nuevo tipo que puede utilizarse como un
-        ///     ViewModel.
+        /// Compila y genera un nuevo tipo que puede utilizarse como un
+        /// ViewModel.
         /// </summary>
         /// <param name="interfaceType">
-        ///     Interfaz que describe los campos expuestos por este ViewModel.
+        /// Interfaz que describe los campos expuestos por este ViewModel.
         /// </param>
         /// <returns>
-        ///     Un nuevo tipo compilado en runtimeque expone propiedades para
-        ///     cada una de mas mismas definidas en la interfaz especificada.
+        /// Un nuevo tipo compilado en runtimeque expone propiedades para
+        /// cada una de mas mismas definidas en la interfaz especificada.
         /// </returns>
         public static Type BuildSelfViewModel(Type interfaceType) => BuildSelfViewModel(typeof(GeneratedViewModel<>).MakeGenericType(interfaceType), interfaceType);
 
         /// <summary>
-        ///     Compila y genera un nuevo tipo que puede utilizarse como un
-        ///     ViewModel.
+        /// Compila y genera un nuevo tipo que puede utilizarse como un
+        /// ViewModel.
         /// </summary>
         /// <param name="baseType">
-        ///     Tipo base del ViewModel. Este tipo podrá contener todas las
-        ///     definiciones adicionales necesarias que no son auto-generadas,
-        ///     como ser los campos calculados, comandos, y campos auxiliares.
-        ///     Si se omite, se creará un ViewModel que hereda de la clase
-        ///     <see cref="GeneratedViewModel{T}"/>.
+        /// Tipo base del ViewModel. Este tipo podrá contener todas las
+        /// definiciones adicionales necesarias que no son auto-generadas,
+        /// como ser los campos calculados, comandos, y campos auxiliares.
+        /// Si se omite, se creará un ViewModel que hereda de la clase
+        /// <see cref="GeneratedViewModel{T}"/>.
         /// </param>
         /// <param name="interfaceType">
-        ///     Interfaz que describe los campos expuestos por este ViewModel.
+        /// Interfaz que describe los campos expuestos por este ViewModel.
         /// </param>
         /// <returns>
-        ///     Un nuevo tipo compilado en runtime que expone propiedades para
-        ///     cada una de mas mismas definidas en la interfaz especificada.
+        /// Un nuevo tipo compilado en runtime que expone propiedades para
+        /// cada una de mas mismas definidas en la interfaz especificada.
         /// </returns>
         public static Type BuildSelfViewModel(Type baseType, Type interfaceType)
         {
@@ -512,101 +512,101 @@ namespace TheXDS.MCART.ViewModel
         }
 
         /// <summary>
-        ///     Compila y genera un nuevo ViewModel con los tipos de herencia y
-        ///     de modelo especificados, y devuelve una nueva instancia del
-        ///     mismo.
+        /// Compila y genera un nuevo ViewModel con los tipos de herencia y
+        /// de modelo especificados, y devuelve una nueva instancia del
+        /// mismo.
         /// </summary>
         /// <typeparam name="TModel">
-        ///     Modelo de datos que será editable por medio de este ViewModel.
+        /// Modelo de datos que será editable por medio de este ViewModel.
         /// </typeparam>
         /// <returns>
-        ///     Una nueva instancia del ViewModel solicitado.
+        /// Una nueva instancia del ViewModel solicitado.
         /// </returns>
         public static DynamicViewModel<TModel> NewViewModel<TModel>() where TModel : class, new() => NewViewModel<DynamicViewModel<TModel>,TModel>();
 
         /// <summary>
-        ///     Compila y genera un nuevo ViewModel con los tipos de herencia y
-        ///     de modelo especificados, y devuelve una nueva instancia del
-        ///     mismo.
+        /// Compila y genera un nuevo ViewModel con los tipos de herencia y
+        /// de modelo especificados, y devuelve una nueva instancia del
+        /// mismo.
         /// </summary>
         /// <typeparam name="TViewModel">
-        ///     Tipo base del ViewModel. Este tipo podrá contener todas las
-        ///     definiciones adicionales necesarias que no son auto-generadas,
-        ///     como ser los campos calculados, comandos, y campos auxiliares.
-        ///     Si se omite, se creará un ViewModel que hereda de la clase
-        ///     <see cref="DynamicViewModel{T}"/>.
+        /// Tipo base del ViewModel. Este tipo podrá contener todas las
+        /// definiciones adicionales necesarias que no son auto-generadas,
+        /// como ser los campos calculados, comandos, y campos auxiliares.
+        /// Si se omite, se creará un ViewModel que hereda de la clase
+        /// <see cref="DynamicViewModel{T}"/>.
         /// </typeparam>
         /// <typeparam name="TModel">
-        ///     Modelo de datos que será editable por medio de este ViewModel.
+        /// Modelo de datos que será editable por medio de este ViewModel.
         /// </typeparam>
         /// <returns>
-        ///     Una nueva instancia del ViewModel solicitado.
+        /// Una nueva instancia del ViewModel solicitado.
         /// </returns>
         public static TViewModel NewViewModel<TViewModel, TModel>() where TViewModel : IDynamicViewModel<TModel> where TModel : class, new() => BuildViewModel<TViewModel,TModel>().New<TViewModel>();
 
         /// <summary>
-        ///     Compila y genera un nuevo tipo que puede utilizarse como un
-        ///     ViewModel.
+        /// Compila y genera un nuevo tipo que puede utilizarse como un
+        /// ViewModel.
         /// </summary>
         /// <typeparam name="TModel">
-        ///     Modelo de datos que será editable por medio de este ViewModel.
+        /// Modelo de datos que será editable por medio de este ViewModel.
         /// </typeparam>
         /// <returns>
-        ///     Un nuevo tipo compilado en runtime que permite editar una
-        ///     entidad por medio de MVVM.
+        /// Un nuevo tipo compilado en runtime que permite editar una
+        /// entidad por medio de MVVM.
         /// </returns>
         public static Type BuildViewModel<TModel>() where TModel : class, new() => BuildViewModel<DynamicViewModel<TModel>, TModel>();
 
         /// <summary>
-        ///     Compila y genera un nuevo tipo que puede utilizarse como un
-        ///     ViewModel.
+        /// Compila y genera un nuevo tipo que puede utilizarse como un
+        /// ViewModel.
         /// </summary>
         /// <typeparam name="TViewModel">
-        ///     Tipo base del ViewModel. Este tipo podrá contener todas las
-        ///     definiciones adicionales necesarias que no son auto-generadas,
-        ///     como ser los campos calculados, comandos, y campos auxiliares.
-        ///     Si se omite, se creará un ViewModel que hereda de la clase
-        ///     <see cref="DynamicViewModel{T}"/>.
+        /// Tipo base del ViewModel. Este tipo podrá contener todas las
+        /// definiciones adicionales necesarias que no son auto-generadas,
+        /// como ser los campos calculados, comandos, y campos auxiliares.
+        /// Si se omite, se creará un ViewModel que hereda de la clase
+        /// <see cref="DynamicViewModel{T}"/>.
         /// </typeparam>
         /// <typeparam name="TModel">
-        ///     Modelo de datos que será editable por medio de este ViewModel.
+        /// Modelo de datos que será editable por medio de este ViewModel.
         /// </typeparam>
         /// <returns>
-        ///     Un nuevo tipo compilado en runtime que permite editar una
-        ///     entidad por medio de MVVM.
+        /// Un nuevo tipo compilado en runtime que permite editar una
+        /// entidad por medio de MVVM.
         /// </returns>
         public static Type BuildViewModel<TViewModel, TModel>() where TViewModel : IDynamicViewModel<TModel> where TModel : class,new() => BuildViewModel(typeof(TViewModel), typeof(TModel));
   
         /// <summary>
-        ///     Compila y genera un nuevo tipo que puede utilizarse como un
-        ///     ViewModel.
+        /// Compila y genera un nuevo tipo que puede utilizarse como un
+        /// ViewModel.
         /// </summary>
         /// <param name="modelType">
-        ///     Modelo de datos que será editable por medio de este ViewModel.
+        /// Modelo de datos que será editable por medio de este ViewModel.
         /// </param>
         /// <returns>
-        ///     Un nuevo tipo compilado en runtime que permite editar una
-        ///     entidad por medio de MVVM.
+        /// Un nuevo tipo compilado en runtime que permite editar una
+        /// entidad por medio de MVVM.
         /// </returns>
         public static Type BuildViewModel(Type modelType) => BuildViewModel(typeof(DynamicViewModel<>).MakeGenericType(modelType), modelType);
 
         /// <summary>
-        ///     Compila y genera un nuevo tipo que puede utilizarse como un
-        ///     ViewModel.
+        /// Compila y genera un nuevo tipo que puede utilizarse como un
+        /// ViewModel.
         /// </summary>
         /// <param name="baseType">
-        ///     Tipo base del ViewModel. Este tipo podrá contener todas las
-        ///     definiciones adicionales necesarias que no son auto-generadas,
-        ///     como ser los campos calculados, comandos, y campos auxiliares.
-        ///     Si se omite, se creará un ViewModel que hereda de la clase
-        ///     <see cref="DynamicViewModel{T}"/>.
+        /// Tipo base del ViewModel. Este tipo podrá contener todas las
+        /// definiciones adicionales necesarias que no son auto-generadas,
+        /// como ser los campos calculados, comandos, y campos auxiliares.
+        /// Si se omite, se creará un ViewModel que hereda de la clase
+        /// <see cref="DynamicViewModel{T}"/>.
         /// </param>
         /// <param name="modelType">
-        ///     Modelo de datos que será editable por medio de este ViewModel.
+        /// Modelo de datos que será editable por medio de este ViewModel.
         /// </param>
         /// <returns>
-        ///     Un nuevo tipo compilado en runtime que permite editar una
-        ///     entidad por medio de MVVM.
+        /// Un nuevo tipo compilado en runtime que permite editar una
+        /// entidad por medio de MVVM.
         /// </returns>
         public static Type BuildViewModel(Type baseType,Type modelType)
         {
@@ -629,28 +629,28 @@ namespace TheXDS.MCART.ViewModel
         #region Constructores de Modelos
 
         /// <summary>
-        ///     Compila y genera un nuevo tipo que puede utilizarse como modelo
-        ///     simple de datos.
+        /// Compila y genera un nuevo tipo que puede utilizarse como modelo
+        /// simple de datos.
         /// </summary>
         /// <typeparam name="T">
-        ///     Interfaz que describe los campos expuestos por este modelo.
+        /// Interfaz que describe los campos expuestos por este modelo.
         /// </typeparam>
         /// <returns>
-        ///     Un nuevo tipo compilado en runtimeque expone propiedades para
-        ///     cada una de mas mismas definidas en la interfaz especificada.
+        /// Un nuevo tipo compilado en runtimeque expone propiedades para
+        /// cada una de mas mismas definidas en la interfaz especificada.
         /// </returns>
         public static Type BuildModel<T>() where T : class => BuildModel(typeof(T));
 
         /// <summary>
-        ///     Compila y genera un nuevo tipo que puede utilizarse como modelo
-        ///     simple de datos.
+        /// Compila y genera un nuevo tipo que puede utilizarse como modelo
+        /// simple de datos.
         /// </summary>
         /// <param name="interfaceType">
-        ///     Interfaz que describe los campos expuestos por este modelo.
+        /// Interfaz que describe los campos expuestos por este modelo.
         /// </param>
         /// <returns>
-        ///     Un nuevo tipo compilado en runtimeque expone propiedades para
-        ///     cada una de mas mismas definidas en la interfaz especificada.
+        /// Un nuevo tipo compilado en runtimeque expone propiedades para
+        /// cada una de mas mismas definidas en la interfaz especificada.
         /// </returns>
         public static Type BuildModel(Type interfaceType)
         {

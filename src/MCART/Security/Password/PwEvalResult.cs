@@ -83,8 +83,8 @@ namespace TheXDS.MCART.Security.Password
         /// </summary>
         public static readonly PwEvalResult Null = new PwEvalResult(float.NaN);
         /// <summary>
-        ///     Obtiene un <see cref="PwEvalResult"/> que representa una
-        ///     contraseña vacía. Este campo es de solo lectura.
+        /// Obtiene un <see cref="PwEvalResult"/> que representa una
+        /// contraseña vacía. Este campo es de solo lectura.
         /// </summary>
         public static readonly PwEvalResult Empty = new PwEvalResult(float.NaN, Ist.EmptyPassword);
         /// <summary>

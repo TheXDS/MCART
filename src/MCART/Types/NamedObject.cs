@@ -36,18 +36,18 @@ using static TheXDS.MCART.Types.Extensions.MemberInfoExtensions;
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Estructura que permite asignarle una etiqueta a cualquier objeto.
+    /// Estructura que permite asignarle una etiqueta a cualquier objeto.
     /// </summary>
     /// <typeparam name="T">Tipo de objeto.</typeparam>
     public struct NamedObject<T> : INameable
     {
         /// <summary>
-        ///     Enumera a todos los miembros de la enumeración como objetos
-        ///     nombrables.
+        /// Enumera a todos los miembros de la enumeración como objetos
+        /// nombrables.
         /// </summary>
         /// <returns>
-        ///     Una enumeración de <see cref="NamedObject{T}"/> de todos los
-        ///     valores de enumeración.
+        /// Una enumeración de <see cref="NamedObject{T}"/> de todos los
+        /// valores de enumeración.
         /// </returns>
         public static IEnumerable<NamedObject<T>> FromEnum()
         {
@@ -56,22 +56,22 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Valor del objeto.
+        /// Valor del objeto.
         /// </summary>
         public T Value { get; }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Etiqueta del objeto.
+        /// Etiqueta del objeto.
         /// </summary>
         public string Name { get; }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la estructura
-        ///     <see cref="NamedObject{T}" /> estableciendo un valor junto a una
-        ///     etiqueta auto-generada a partir de
-        ///     <see cref="M:System.Object.ToString" />.
+        /// Inicializa una nueva instancia de la estructura
+        /// <see cref="NamedObject{T}" /> estableciendo un valor junto a una
+        /// etiqueta auto-generada a partir de
+        /// <see cref="M:System.Object.ToString" />.
         /// </summary>
         /// <param name="value">Objeto a etiquetar.</param>
         public NamedObject(T value) : this(value, Infer(value))
@@ -79,9 +79,9 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la estructura
-        ///     <see cref="NamedObject{T}" /> estableciendo un valor y una
-        ///     etiqueta para el mismo.
+        /// Inicializa una nueva instancia de la estructura
+        /// <see cref="NamedObject{T}" /> estableciendo un valor y una
+        /// etiqueta para el mismo.
         /// </summary>
         /// <param name="value">Objeto a etiquetar.</param>
         /// <param name="name">Etiqueta del objeto.</param>
@@ -92,13 +92,13 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Infiere la etiqueta de un objeto.
+        /// Infiere la etiqueta de un objeto.
         /// </summary>
         /// <param name="obj">Objeto para el cual inferir una etiqueta.</param>
         /// <returns>
-        ///     El nombre inferido del objeto, o
-        ///     <see cref="object.ToString()" /> de no poderse inferir una
-        ///     etiqueta adecuada.
+        /// El nombre inferido del objeto, o
+        /// <see cref="object.ToString()" /> de no poderse inferir una
+        /// etiqueta adecuada.
         /// </returns>
         public static string Infer(T obj)
         {
@@ -113,8 +113,8 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Convierte implícitamente un <typeparamref name="T" /> en un
-        ///     <see cref="NamedObject{T}" />.
+        /// Convierte implícitamente un <typeparamref name="T" /> en un
+        /// <see cref="NamedObject{T}" />.
         /// </summary>
         /// <param name="obj">Objeto a convertir.</param>
         public static implicit operator NamedObject<T>(T obj)
@@ -123,8 +123,8 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Convierte implícitamente un <see cref="NamedObject{T}" /> en un
-        ///     <typeparamref name="T" />.
+        /// Convierte implícitamente un <see cref="NamedObject{T}" /> en un
+        /// <typeparamref name="T" />.
         /// </summary>
         /// <param name="namedObj">Objeto a convertir.</param>
         public static implicit operator T(NamedObject<T> namedObj)
@@ -133,8 +133,8 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Convierte implícitamente un <see cref="NamedObject{T}" /> en un
-        ///     <see cref="string" />.
+        /// Convierte implícitamente un <see cref="NamedObject{T}" /> en un
+        /// <see cref="string" />.
         /// </summary>
         /// <param name="namedObj">Objeto a convertir.</param>
         public static implicit operator string(NamedObject<T> namedObj)
@@ -143,8 +143,8 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Convierte implícitamente un <see cref="NamedObject{T}" /> en un
-        ///     <see cref="KeyValuePair{TKey,TValue}" />.
+        /// Convierte implícitamente un <see cref="NamedObject{T}" /> en un
+        /// <see cref="KeyValuePair{TKey,TValue}" />.
         /// </summary>
         /// <param name="namedObj">Objeto a convertir.</param>
         public static implicit operator KeyValuePair<string, T>(NamedObject<T> namedObj)
@@ -153,9 +153,9 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Convierte implícitamente un
-        ///     <see cref="KeyValuePair{TKey,TValue}" /> en un
-        ///     <see cref="NamedObject{T}" />.
+        /// Convierte implícitamente un
+        /// <see cref="KeyValuePair{TKey,TValue}" /> en un
+        /// <see cref="NamedObject{T}" />.
         /// </summary>
         /// <param name="keyValuePair">Objeto a convertir.</param>
         public static implicit operator NamedObject<T>(KeyValuePair<string, T> keyValuePair)
@@ -164,15 +164,15 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Compara la igualdad entre este <see cref="NamedObject{T}"/> y
-        ///     otro objeto.
+        /// Compara la igualdad entre este <see cref="NamedObject{T}"/> y
+        /// otro objeto.
         /// </summary>
         /// <param name="obj">
-        ///     Objeto contra el cual comparar esta instancia.
+        /// Objeto contra el cual comparar esta instancia.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si ambas instancias son consideradas
-        ///     iguales, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si ambas instancias son consideradas
+        /// iguales, <see langword="false"/> en caso contrario.
         /// </returns>
         public override bool Equals(object? obj)
         {
@@ -186,7 +186,7 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Obtiene el código Hash para esta instancia.
+        /// Obtiene el código Hash para esta instancia.
         /// </summary>
         /// <returns>El código Hash para esta instancia.</returns>
         public override int GetHashCode()
@@ -195,18 +195,18 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Compara la igualdad entre dos instancias de
-        ///     <see cref="NamedObject{T}"/>.
+        /// Compara la igualdad entre dos instancias de
+        /// <see cref="NamedObject{T}"/>.
         /// </summary>
         /// <param name="left">
-        ///     Objeto a comparar.
+        /// Objeto a comparar.
         /// </param>
         /// <param name="right">
-        ///     Objeto contra el cual comparar.
+        /// Objeto contra el cual comparar.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si ambas instancias son consideradas
-        ///     iguales, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si ambas instancias son consideradas
+        /// iguales, <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool operator ==(NamedObject<T> left, NamedObject<T> right)
         {
@@ -214,18 +214,18 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Comprueba si ambas instancias de <see cref="NamedObject{T}"/>
-        ///     son consideradas distintas.
+        /// Comprueba si ambas instancias de <see cref="NamedObject{T}"/>
+        /// son consideradas distintas.
         /// </summary>
         /// <param name="left">
-        ///     Objeto a comparar.
+        /// Objeto a comparar.
         /// </param>
         /// <param name="right">
-        ///     Objeto contra el cual comparar.
+        /// Objeto contra el cual comparar.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si ambas instancias son consideradas
-        ///     distintas, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si ambas instancias son consideradas
+        /// distintas, <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool operator !=(NamedObject<T> left, NamedObject<T> right)
         {

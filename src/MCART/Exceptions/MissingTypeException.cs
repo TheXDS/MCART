@@ -36,8 +36,8 @@ namespace TheXDS.MCART.Exceptions
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="MissingTypeException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="MissingTypeException" />.
         /// </summary>
         public MissingTypeException()
         {
@@ -45,11 +45,11 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="MissingTypeException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="MissingTypeException" />.
         /// </summary>
         /// <param name="offendingObject">
-        ///     Tipo que ha producido la excepción.
+        /// Tipo que ha producido la excepción.
         /// </param>
         public MissingTypeException(Type offendingObject) : base(offendingObject)
         {
@@ -57,11 +57,11 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="MissingTypeException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="MissingTypeException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         public MissingTypeException(string message) : base(message)
         {
@@ -69,7 +69,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="MissingTypeException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="MissingTypeException" />.
         /// </summary>
         /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
         public MissingTypeException(Exception inner) : base(inner)
@@ -78,14 +78,14 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="MissingTypeException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="MissingTypeException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="offendingObject">
-        ///     Tipo que ha producido la excepción.
+        /// Tipo que ha producido la excepción.
         /// </param>
         public MissingTypeException(string message, Type offendingObject) : base(message, offendingObject)
         {
@@ -93,11 +93,11 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="MissingTypeException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="MissingTypeException" />.
         /// </summary>
         /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
         /// <param name="offendingObject">
-        ///     Tipo que ha producido la excepción.
+        /// Tipo que ha producido la excepción.
         /// </param>
         public MissingTypeException(Exception inner, Type offendingObject) : base(inner, offendingObject)
         {
@@ -105,7 +105,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="MissingTypeException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="MissingTypeException" />.
         /// </summary>
         /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
         /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
@@ -115,12 +115,12 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="MissingTypeException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="MissingTypeException" />.
         /// </summary>
         /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
         /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
         /// <param name="offendingObject">
-        ///     Tipo que ha producido la excepción.
+        /// Tipo que ha producido la excepción.
         /// </param>
         public MissingTypeException(string message, Exception inner, Type offendingObject) : base(message, inner, offendingObject)
         {
@@ -128,14 +128,14 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="MissingTypeException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="MissingTypeException" />.
         /// </summary>
         /// <param name="info">
-        ///     El objeto que contiene la información de serialización.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
-        ///     La información contextual acerca del orígen o el destino.
+        /// La información contextual acerca del orígen o el destino.
         /// </param>
         protected MissingTypeException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
@@ -143,17 +143,17 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="MissingTypeException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="MissingTypeException" />.
         /// </summary>
         /// <param name="info">
-        ///     El objeto que contiene la información de serialización.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
-        ///     La información contextual acerca del orígen o el destino.
+        /// La información contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="offendingObject">
-        ///     Tipo que ha producido la excepción.
+        /// Tipo que ha producido la excepción.
         /// </param>
         protected MissingTypeException(SerializationInfo info, StreamingContext context, Type offendingObject) : base(info, context, offendingObject)
         {

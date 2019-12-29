@@ -32,8 +32,8 @@ using static TheXDS.MCART.Types.Extensions.StringExtensions;
 namespace TheXDS.MCART.Component
 {
     /// <summary>
-    ///     Clase que permite administrar y exponer de forma intuitiva las
-    ///     opciones de línea de comandos con las que se inicia una aplicación.
+    /// Clase que permite administrar y exponer de forma intuitiva las
+    /// opciones de línea de comandos con las que se inicia una aplicación.
     /// </summary>
     public sealed class CmdLineParser: ICmdLineParser
     {
@@ -103,44 +103,44 @@ namespace TheXDS.MCART.Component
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="CmdLineParser"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="CmdLineParser"/>.
         /// </summary>
         public CmdLineParser() : this(Environment.GetCommandLineArgs())
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="CmdLineParser"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="CmdLineParser"/>.
         /// </summary>
         /// <param name="cmdLine">
-        ///     Argumentos de lanzamiento de la aplicación.
+        /// Argumentos de lanzamiento de la aplicación.
         /// </param>
         public CmdLineParser(string cmdLine) : this(cmdLine.Split(' '))
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="CmdLineParser"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="CmdLineParser"/>.
         /// </summary>
         /// <param name="args">
-        ///     Argumentos de lanzamiento de la aplicación.
+        /// Argumentos de lanzamiento de la aplicación.
         /// </param>
         public CmdLineParser(string[] args) : this(_allArguments.AsReadOnly(), args)
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="CmdLineParser"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="CmdLineParser"/>.
         /// </summary>
         /// <param name="arguments">
-        ///     Colección de argumentos aceptados.
+        /// Colección de argumentos aceptados.
         /// </param>
         /// <param name="args">
-        ///     Argumentos de lanzamiento de la aplicación.
+        /// Argumentos de lanzamiento de la aplicación.
         /// </param>
         public CmdLineParser(IEnumerable<Argument> arguments, string[] args)
         {
@@ -164,11 +164,11 @@ namespace TheXDS.MCART.Component
         }
 
         /// <summary>
-        ///     Registra un nuevo argumento para obtener desde los argumentos
-        ///     de la línea de comandos de esta aplicación.
+        /// Registra un nuevo argumento para obtener desde los argumentos
+        /// de la línea de comandos de esta aplicación.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de argumento a registrar.
+        /// Tipo de argumento a registrar.
         /// </typeparam>
         public static void Register<T>() where T : Argument, new()
         {
@@ -176,16 +176,16 @@ namespace TheXDS.MCART.Component
         }
 
         /// <summary>
-        ///     Obtiene un valor que indica si un argumento ha sido
-        ///     especificado.
+        /// Obtiene un valor que indica si un argumento ha sido
+        /// especificado.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo que describe al argumento.
+        /// Tipo que describe al argumento.
         /// </typeparam>
         /// <returns>
-        ///     <see langword="true"/> si el argumento ha sido especificado en
-        ///     la línea de comandos, <see langword="false"/> en caso
-        ///     contrario.
+        /// <see langword="true"/> si el argumento ha sido especificado en
+        /// la línea de comandos, <see langword="false"/> en caso
+        /// contrario.
         /// </returns>
         public bool IsPresent<T>() where T : Argument, new()
         {
@@ -193,17 +193,17 @@ namespace TheXDS.MCART.Component
         }
 
         /// <summary>
-        ///     Obtiene el valor especificado en la línea de comandos para el
-        ///     argumento.
+        /// Obtiene el valor especificado en la línea de comandos para el
+        /// argumento.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo que describe al argumento para el cual se obtendrá el
-        ///     valor especificado en la línea de comandos.
+        /// Tipo que describe al argumento para el cual se obtendrá el
+        /// valor especificado en la línea de comandos.
         /// </typeparam>
         /// <returns>
-        ///     El valor del argumento, <see cref="string.Empty"/> si el
-        ///     argumento no expone un valor, o <see langword="null"/>  si el
-        ///     argumento no fue especificado en la línea de comandos.
+        /// El valor del argumento, <see cref="string.Empty"/> si el
+        /// argumento no expone un valor, o <see langword="null"/>  si el
+        /// argumento no fue especificado en la línea de comandos.
         /// </returns>
         public string? Value<T>() where T : Argument, new()
         {
@@ -213,25 +213,25 @@ namespace TheXDS.MCART.Component
         }
 
         /// <summary>
-        ///     Obtiene uns instancia presente de argumento.
+        /// Obtiene uns instancia presente de argumento.
         /// </summary>
         /// <typeparam name="T">
-        ///     Argumento a obtener.
+        /// Argumento a obtener.
         /// </typeparam>
         /// <returns>
-        ///     Una instancia de argumento especificado en la línea de
-        ///     comandos, o <see langword="null"/> si el argumento no ha sido
-        ///     especificado.
+        /// Una instancia de argumento especificado en la línea de
+        /// comandos, o <see langword="null"/> si el argumento no ha sido
+        /// especificado.
         /// </returns>
         public T? Arg<T>() where T : Argument, new() => _args.OfType<T>().FirstOrDefault();
 
         /// <summary>
-        ///     Enumera las opciones inválidas especificadas.
+        /// Enumera las opciones inválidas especificadas.
         /// </summary>
         public IEnumerable<string> Invalid => _invalid.AsReadOnly();
 
         /// <summary>
-        ///     Enumera los argumentos obligatorios que hagan falta en la línea de comandos.
+        /// Enumera los argumentos obligatorios que hagan falta en la línea de comandos.
         /// </summary>
         public IEnumerable<Argument> Missing
         {
@@ -248,27 +248,27 @@ namespace TheXDS.MCART.Component
         }
 
         /// <summary>
-        ///     Enumera todos los argumentos disponibles para ser procesados
-        ///     por este <see cref="CmdLineParser"/>.
+        /// Enumera todos los argumentos disponibles para ser procesados
+        /// por este <see cref="CmdLineParser"/>.
         /// </summary>
         public IEnumerable<Argument> AvailableArguments { get; private set; }
 
         /// <summary>
-        ///     Enumera los argumentos presentes en la línea de comandos.
+        /// Enumera los argumentos presentes en la línea de comandos.
         /// </summary>
         public IEnumerable<Argument> Present => _args;
 
         /// <summary>
-        ///     Enumera los comandos que han sido pasados como argumentos.
+        /// Enumera los comandos que han sido pasados como argumentos.
         /// </summary>
         public IEnumerable<string> Commands => _commands.AsReadOnly();
 
         /// <summary>
-        ///     Convierte implícitamente un arreglo de <see cref="string"/> en
-        ///     un <see cref="CmdLineParser"/>.
+        /// Convierte implícitamente un arreglo de <see cref="string"/> en
+        /// un <see cref="CmdLineParser"/>.
         /// </summary>
         /// <param name="args">
-        ///     Argumentos de línea de comandos pasados a la aplicación.
+        /// Argumentos de línea de comandos pasados a la aplicación.
         /// </param>
         public static implicit operator CmdLineParser(string[] args) => new CmdLineParser(args);
     }

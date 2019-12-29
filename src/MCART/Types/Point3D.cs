@@ -35,55 +35,55 @@ using TheXDS.MCART.Misc;
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Tipo universal para un conjunto de coordenadas tridimensionales.
+    /// Tipo universal para un conjunto de coordenadas tridimensionales.
     /// </summary>
     /// <remarks>
-    ///     Esta estructura se declara como parcial, para permitir a cada
-    ///     implementación de MCART definir métodos para convertir a la clase
-    ///     correspondiente para los diferentes tipos de UI disponibles.
+    /// Esta estructura se declara como parcial, para permitir a cada
+    /// implementación de MCART definir métodos para convertir a la clase
+    /// correspondiente para los diferentes tipos de UI disponibles.
     /// </remarks>
     public partial struct Point3D : IFormattable, IEquatable<Point3D>, I3DVector
     {
         /// <summary>
-        ///     Obtiene un punto que no representa ninguna posición. Este campo es
-        ///     de solo lectura.
+        /// Obtiene un punto que no representa ninguna posición. Este campo es
+        /// de solo lectura.
         /// </summary>
         /// <value>
-        ///     Un <see cref="Point3D" /> con sus coordenadas establecidas en
-        ///     <see cref="double.NaN"/>.
+        /// Un <see cref="Point3D" /> con sus coordenadas establecidas en
+        /// <see cref="double.NaN"/>.
         /// </value>
         public static readonly Point3D Nowhere = new Point3D(double.NaN, double.NaN, double.NaN);
 
         /// <summary>
-        ///     Obtiene un punto en el orígen. Este campo es de solo lectura.
+        /// Obtiene un punto en el orígen. Este campo es de solo lectura.
         /// </summary>
         /// <value>
-        ///     Un <see cref="Point3D" /> con sus coordenadas en el orígen.
+        /// Un <see cref="Point3D" /> con sus coordenadas en el orígen.
         /// </value>
         public static readonly Point3D Origin = new Point3D(0, 0, 0);
 
         /// <summary>
-        ///     Obtiene un punto en el orígen bidimensional. Este campo es de
-        ///     solo lectura.
+        /// Obtiene un punto en el orígen bidimensional. Este campo es de
+        /// solo lectura.
         /// </summary>
         /// <value>
-        ///     Un <see cref="Point3D" /> con sus coordenadas en el orígen 
-        ///     bidimensional.
+        /// Un <see cref="Point3D" /> con sus coordenadas en el orígen 
+        /// bidimensional.
         /// </value>
         public static readonly Point3D Origin2D = new Point3D(0, 0, double.NaN);
 
         /// <summary>
-        ///     Intenta crear un <see cref="Point3D"/> a partir de una cadena.
+        /// Intenta crear un <see cref="Point3D"/> a partir de una cadena.
         /// </summary>
         /// <param name="value">
-        ///     Valor a partir del cual crear un <see cref="Point3D"/>.
+        /// Valor a partir del cual crear un <see cref="Point3D"/>.
         /// </param>
         /// <param name="point">
-        ///     <see cref="Point3D"/> que ha sido creado.
+        /// <see cref="Point3D"/> que ha sido creado.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si la conversión ha tenido éxito,
-        ///     <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si la conversión ha tenido éxito,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool TryParse(string value, out Point3D point)
         {
@@ -122,13 +122,13 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Crea un <see cref="Point3D"/> a partir de una cadena.
+        /// Crea un <see cref="Point3D"/> a partir de una cadena.
         /// </summary>
         /// <param name="value">
-        ///     Valor a partir del cual crear un <see cref="Point"/>.
+        /// Valor a partir del cual crear un <see cref="Point"/>.
         /// </param>
         /// <exception cref="FormatException">
-        ///     Se produce si la conversión ha fallado.
+        /// Se produce si la conversión ha fallado.
         /// </exception>
         /// <returns><see cref="Point3D"/> que ha sido creado.</returns>
         public static Point3D Parse(string value)
@@ -138,7 +138,7 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Realiza una operación de suma sobre los puntos.
+        /// Realiza una operación de suma sobre los puntos.
         /// </summary>
         /// <param name="l">Punto 1.</param>
         /// <param name="r">Punto 2.</param>
@@ -149,13 +149,13 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Realiza una operación de suma sobre el punto.
+        /// Realiza una operación de suma sobre el punto.
         /// </summary>
         /// <param name="l">Punto 1.</param>
         /// <param name="r">Operando de suma.</param>
         /// <returns>
-        ///     Un nuevo <see cref="Point3D" /> cuyos vectores son la suma de los
-        ///     vectores originales + <paramref name="r" />.
+        /// Un nuevo <see cref="Point3D" /> cuyos vectores son la suma de los
+        /// vectores originales + <paramref name="r" />.
         /// </returns>
         public static Point3D operator +(Point3D l, double r)
         {
@@ -163,7 +163,7 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Realiza una operación de resta sobre los puntos.
+        /// Realiza una operación de resta sobre los puntos.
         /// </summary>
         /// <param name="l">Punto 1.</param>
         /// <param name="r">Punto 2.</param>
@@ -174,13 +174,13 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Realiza una operación de resta sobre el punto.
+        /// Realiza una operación de resta sobre el punto.
         /// </summary>
         /// <param name="l">Punto 1.</param>
         /// <param name="r">Operando de resta.</param>
         /// <returns>
-        ///     Un nuevo <see cref="Point3D" /> cuyos vectores son la resta de los
-        ///     vectores originales - <paramref name="r" />.
+        /// Un nuevo <see cref="Point3D" /> cuyos vectores son la resta de los
+        /// vectores originales - <paramref name="r" />.
         /// </returns>
         public static Point3D operator -(Point3D l, double r)
         {
@@ -188,7 +188,7 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Realiza una operación de multiplicación sobre los puntos.
+        /// Realiza una operación de multiplicación sobre los puntos.
         /// </summary>
         /// <param name="l">Punto 1.</param>
         /// <param name="r">Punto 2.</param>
@@ -199,13 +199,13 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Realiza una operación de multiplicación sobre el punto.
+        /// Realiza una operación de multiplicación sobre el punto.
         /// </summary>
         /// <param name="l">Punto 1.</param>
         /// <param name="r">Operando de multiplicación.</param>
         /// <returns>
-        ///     Un nuevo <see cref="Point3D" /> cuyos vectores son la multiplicación
-        ///     de los vectores originales * <paramref name="r" />.
+        /// Un nuevo <see cref="Point3D" /> cuyos vectores son la multiplicación
+        /// de los vectores originales * <paramref name="r" />.
         /// </returns>
         public static Point3D operator *(Point3D l, double r)
         {
@@ -213,7 +213,7 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Realiza una operación de división sobre los puntos.
+        /// Realiza una operación de división sobre los puntos.
         /// </summary>
         /// <param name="l">Punto 1.</param>
         /// <param name="r">Punto 2.</param>
@@ -224,13 +224,13 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Realiza una operación de división sobre el punto.
+        /// Realiza una operación de división sobre el punto.
         /// </summary>
         /// <param name="l">Punto 1.</param>
         /// <param name="r">Operando de división.</param>
         /// <returns>
-        ///     Un nuevo <see cref="Point3D" /> cuyos vectores son la división de
-        ///     los vectores originales / <paramref name="r" />.
+        /// Un nuevo <see cref="Point3D" /> cuyos vectores son la división de
+        /// los vectores originales / <paramref name="r" />.
         /// </returns>
         public static Point3D operator /(Point3D l, double r)
         {
@@ -238,7 +238,7 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Realiza una operación de resíduo sobre los puntos.
+        /// Realiza una operación de resíduo sobre los puntos.
         /// </summary>
         /// <param name="l">Punto 1.</param>
         /// <param name="r">Punto 2.</param>
@@ -249,13 +249,13 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Realiza una operación de resíduo sobre el punto.
+        /// Realiza una operación de resíduo sobre el punto.
         /// </summary>
         /// <param name="l">Punto 1.</param>
         /// <param name="r">Operando de resíduo.</param>
         /// <returns>
-        ///     Un nuevo <see cref="Point3D" /> cuyos vectores son el resíduo de los
-        ///     vectores originales % <paramref name="r" />.
+        /// Un nuevo <see cref="Point3D" /> cuyos vectores son el resíduo de los
+        /// vectores originales % <paramref name="r" />.
         /// </returns>
         public static Point3D operator %(Point3D l, double r)
         {
@@ -263,7 +263,7 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Incrementa en 1 los vectores del punto.
+        /// Incrementa en 1 los vectores del punto.
         /// </summary>
         /// <param name="p">Punto a incrementar.</param>
         /// <returns>Un punto con sus vectores incrementados en 1.</returns>
@@ -276,7 +276,7 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Decrementa en 1 los vectores del punto.
+        /// Decrementa en 1 los vectores del punto.
         /// </summary>
         /// <param name="p">Punto a decrementar.</param>
         /// <returns>Un punto con sus vectores decrementados en 1.</returns>
@@ -289,7 +289,7 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Convierte a positivos los vectores del punto.
+        /// Convierte a positivos los vectores del punto.
         /// </summary>
         /// <param name="p">Punto a operar.</param>
         /// <returns>Un punto con sus vectores positivos.</returns>
@@ -299,7 +299,7 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Invierte el signo de los vectores del punto.
+        /// Invierte el signo de los vectores del punto.
         /// </summary>
         /// <param name="p">Punto a operar.</param>
         /// <returns>Un punto con el signo de sus vectores invertido.</returns>
@@ -309,13 +309,13 @@ namespace TheXDS.MCART.Types
         }
 #pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
         /// <summary>
-        ///     Compara la igualdad de los vectores de los puntos.
+        /// Compara la igualdad de los vectores de los puntos.
         /// </summary>
         /// <param name="l">Punto 1.</param>
         /// <param name="r">Punto 2.</param>
         /// <returns>
-        ///     <see langword="true" /> si todos los vectores de ambos puntos son iguales;
-        ///     de lo contrario, <see langword="false" />.
+        /// <see langword="true" /> si todos los vectores de ambos puntos son iguales;
+        /// de lo contrario, <see langword="false" />.
         /// </returns>
         public static bool operator ==(Point3D l, I3DVector r)
         {
@@ -323,13 +323,13 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Compara la diferencia de los vectores de los puntos.
+        /// Compara la diferencia de los vectores de los puntos.
         /// </summary>
         /// <param name="l">Punto 1.</param>
         /// <param name="r">Punto 2.</param>
         /// <returns>
-        ///     <see langword="true" /> si los vectores de ambos puntos son diferentes;  de lo
-        ///     contrario, <see langword="false" />.
+        /// <see langword="true" /> si los vectores de ambos puntos son diferentes;  de lo
+        /// contrario, <see langword="false" />.
         /// </returns>
         public static bool operator !=(Point3D l, I3DVector r)
         {
@@ -337,23 +337,23 @@ namespace TheXDS.MCART.Types
         }
 #pragma warning restore RECS0018
         /// <summary>
-        ///     Coordenada X.
+        /// Coordenada X.
         /// </summary>
         public double X { get; set; }
 
         /// <summary>
-        ///     Coordenada Y.
+        /// Coordenada Y.
         /// </summary>
         public double Y { get; set; }
 
         /// <summary>
-        ///     Coordenada Z.
+        /// Coordenada Z.
         /// </summary>
         public double Z { get; set; }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la estructura
-        ///     <see cref="Point3D" />.
+        /// Inicializa una nueva instancia de la estructura
+        /// <see cref="Point3D" />.
         /// </summary>
         /// <param name="x">Coordenada X.</param>
         /// <param name="y">Coordenada Y.</param>
@@ -366,14 +366,14 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Compara la igualdad de los vectores de los puntos.
+        /// Compara la igualdad de los vectores de los puntos.
         /// </summary>
         /// <param name="other">
-        ///     <see cref="Point3D" /> contra el cual comparar.
+        /// <see cref="Point3D" /> contra el cual comparar.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si todos los vectores de ambos puntos son iguales;
-        ///     de lo contrario, <see langword="false" />.
+        /// <see langword="true" /> si todos los vectores de ambos puntos son iguales;
+        /// de lo contrario, <see langword="false" />.
         /// </returns>
         public bool Equals(Point3D other)
         {
@@ -381,12 +381,12 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Determina si el punto se encuentra dentro del cubo formado por los
-        ///     puntos tridimensionales especificados.
+        /// Determina si el punto se encuentra dentro del cubo formado por los
+        /// puntos tridimensionales especificados.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si el punto se encuentra dentro del cubo formado,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si el punto se encuentra dentro del cubo formado,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="p1">Punto 1.</param>
         /// <param name="p2">Punto 2.</param>
@@ -396,12 +396,12 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Determina si el punto se encuentra dentro del cubo formado por los
-        ///     puntos tridimensionales especificados.
+        /// Determina si el punto se encuentra dentro del cubo formado por los
+        /// puntos tridimensionales especificados.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si el punto se encuentra dentro del cubo formado,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si el punto se encuentra dentro del cubo formado,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="x1">La primer coordenada x.</param>
         /// <param name="y1">La primer coordenada y.</param>
@@ -415,13 +415,13 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Determina si el punto se encuentra dentro de la esfera especificada.
+        /// Determina si el punto se encuentra dentro de la esfera especificada.
         /// </summary>
         /// <param name="center">Punto central de la esfera.</param>
         /// <param name="radius">Radio del círculo.</param>
         /// <returns>
-        ///     <see langword="true" /> si el punto se encuentra dentro de la esfera,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si el punto se encuentra dentro de la esfera,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         public bool WithinSphere(Point3D center, double radius)
         {
@@ -429,10 +429,10 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Calcula la magnitud de las coordenadas.
+        /// Calcula la magnitud de las coordenadas.
         /// </summary>
         /// <returns>
-        ///     La magnitud resultante entre el punto y el orígen.
+        /// La magnitud resultante entre el punto y el orígen.
         /// </returns>
         public double Magnitude()
         {
@@ -440,13 +440,13 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Calcula la magnitud de las coordenadas desde el punto
-        ///     especificado.
+        /// Calcula la magnitud de las coordenadas desde el punto
+        /// especificado.
         /// </summary>
         /// <returns>La magnitud resultante entre ambos puntos.</returns>
         /// <param name="fromPoint">
-        ///     Punto de referencia para calcular la
-        ///     magnitud.
+        /// Punto de referencia para calcular la
+        /// magnitud.
         /// </param>
         public double Magnitude(Point3D fromPoint)
         {
@@ -455,12 +455,12 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Calcula la magnitud de las coordenadas desde el punto
-        ///     especificado.
+        /// Calcula la magnitud de las coordenadas desde el punto
+        /// especificado.
         /// </summary>
         /// <returns>
-        ///     La magnitud resultante entre el punto y las coordenadas
-        ///     especificadas.
+        /// La magnitud resultante entre el punto y las coordenadas
+        /// especificadas.
         /// </returns>
         /// <param name="fromX">Coordenada X de orígen.</param>
         /// <param name="fromY">Coordenada Y de orígen.</param>
@@ -473,17 +473,17 @@ namespace TheXDS.MCART.Types
 
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte este objeto en su representación como una cadena.
+        /// Convierte este objeto en su representación como una cadena.
         /// </summary>
         /// <param name="format">Formato a utilizar.</param>
         /// <param name="formatProvider">
-        ///     Parámetro opcional.
-        ///     Proveedor de formato de la cultura a utilizar para dar formato a
-        ///     la representación como una cadena de este objeto. Si se omite,
-        ///     se utilizará <see cref="P:System.Globalization.CultureInfo.CurrentCulture" />.
+        /// Parámetro opcional.
+        /// Proveedor de formato de la cultura a utilizar para dar formato a
+        /// la representación como una cadena de este objeto. Si se omite,
+        /// se utilizará <see cref="P:System.Globalization.CultureInfo.CurrentCulture" />.
         /// </param>
         /// <returns>
-        ///     Una representación en forma de <see cref="string" /> de este objeto.
+        /// Una representación en forma de <see cref="string" /> de este objeto.
         /// </returns>
         public string ToString(string? format, IFormatProvider? formatProvider)
         {
@@ -499,14 +499,14 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Indica si esta instancia y un objeto especificado son iguales.
+        /// Indica si esta instancia y un objeto especificado son iguales.
         /// </summary>
         /// <param name="obj">
-        ///     Objeto que se va a compara con la instancia actual.
+        /// Objeto que se va a compara con la instancia actual.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si esta instancia y <paramref name="obj" /> son iguales;
-        ///     de lo contrario, <see langword="false" />.
+        /// <see langword="true" /> si esta instancia y <paramref name="obj" /> son iguales;
+        /// de lo contrario, <see langword="false" />.
         /// </returns>
         public override bool Equals(object? obj)
         {
@@ -515,7 +515,7 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Devuelve el código Hash de esta instancia.
+        /// Devuelve el código Hash de esta instancia.
         /// </summary>
         /// <returns>El código Hash de esta instancia.</returns>
         public override int GetHashCode()
@@ -524,10 +524,10 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Convierte este objeto en su representación como una cadena.
+        /// Convierte este objeto en su representación como una cadena.
         /// </summary>
         /// <returns>
-        ///     Una representación en forma de <see cref="string" /> de este objeto.
+        /// Una representación en forma de <see cref="string" /> de este objeto.
         /// </returns>
         public override string ToString()
         {
@@ -536,11 +536,11 @@ namespace TheXDS.MCART.Types
 
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte este objeto en su representación como una cadena.
+        /// Convierte este objeto en su representación como una cadena.
         /// </summary>
         /// <param name="format">Formato a utilizar.</param>
         /// <returns>
-        ///     Una representación en forma de <see cref="string" /> de este objeto.
+        /// Una representación en forma de <see cref="string" /> de este objeto.
         /// </returns>
         public string ToString(string? format)
         {
@@ -548,14 +548,14 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Indica si esta instancia y un objeto especificado son iguales.
+        /// Indica si esta instancia y un objeto especificado son iguales.
         /// </summary>
         /// <param name="other">
-        ///     Objeto que se va a compara con la instancia actual.
+        /// Objeto que se va a compara con la instancia actual.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si esta instancia y <paramref name="other" /> son iguales;
-        ///     de lo contrario, <see langword="false" />.
+        /// <see langword="true" /> si esta instancia y <paramref name="other" /> son iguales;
+        /// de lo contrario, <see langword="false" />.
         /// </returns>
         public bool Equals(I2DVector other) => X == other.X && Y == other.Y && !Z.IsValid();
     }

@@ -29,14 +29,14 @@ using System;
 namespace TheXDS.MCART.Types.Base
 {
     /// <summary>
-    ///     Extensión de la interfaz <see cref="IDisposable"/>. Provee de toda
-    ///     la funcionalidad previamente disponible, e incluye algunas
-    ///     extensiones útiles.
+    /// Extensión de la interfaz <see cref="IDisposable"/>. Provee de toda
+    /// la funcionalidad previamente disponible, e incluye algunas
+    /// extensiones útiles.
     /// </summary>
     public interface IDisposableEx : IDisposable
     {
         /// <summary>
-        ///     Obtiene un valor que indica si este objeto ha sido desechado.
+        /// Obtiene un valor que indica si este objeto ha sido desechado.
         /// </summary>
         bool IsDisposed { get; }
     }

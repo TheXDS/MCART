@@ -29,7 +29,7 @@ namespace TheXDS.MCART.Attributes
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Indica que un elemento contiene código no administrado.
+    /// Indica que un elemento contiene código no administrado.
     /// </summary>
     [AttributeUsage(Property | Method | Constructor | Class | Module | Assembly)]
     [Serializable]

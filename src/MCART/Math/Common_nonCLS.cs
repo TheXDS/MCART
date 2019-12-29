@@ -28,18 +28,18 @@ using System;
 namespace TheXDS.MCART.Math
 {
     /// <summary>
-    ///     Contiene métodos de manipulación matemática estándar.
+    /// Contiene métodos de manipulación matemática estándar.
     /// </summary>
     public static partial class Common
     {
         /// <summary>
-        ///     Establece puntos de sobreflujo intencional para evaluar una expresión.
+        /// Establece puntos de sobreflujo intencional para evaluar una expresión.
         /// </summary>
         /// <param name="expression">Expresión a evaluar.</param>
         /// <param name="max">Límite superior de salida, inclusive.</param>
         /// <param name="min">Límite inferior de salida, inclusive.</param>
         /// <returns>
-        ///     El valor evaluado que se encuentra dentro del rango especificado.
+        /// El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
         public static int Wrap(this in sbyte expression, in sbyte min, in sbyte max)
         {
@@ -49,13 +49,13 @@ namespace TheXDS.MCART.Math
         }
 
         /// <summary>
-        ///     Establece puntos de sobreflujo intencional para evaluar una expresión.
+        /// Establece puntos de sobreflujo intencional para evaluar una expresión.
         /// </summary>
         /// <param name="expression">Expresión a evaluar.</param>
         /// <param name="max">Límite superior de salida, inclusive.</param>
         /// <param name="min">Límite inferior de salida, inclusive.</param>
         /// <returns>
-        ///     El valor evaluado que se encuentra dentro del rango especificado.
+        /// El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
         public static int Wrap(this in ushort expression, in ushort min, in ushort max)
         {
@@ -65,13 +65,13 @@ namespace TheXDS.MCART.Math
         }
 
         /// <summary>
-        ///     Establece puntos de sobreflujo intencional para evaluar una expresión.
+        /// Establece puntos de sobreflujo intencional para evaluar una expresión.
         /// </summary>
         /// <param name="expression">Expresión a evaluar.</param>
         /// <param name="max">Límite superior de salida, inclusive.</param>
         /// <param name="min">Límite inferior de salida, inclusive.</param>
         /// <returns>
-        ///     El valor evaluado que se encuentra dentro del rango especificado.
+        /// El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
         public static uint Wrap(this in uint expression, in uint min, in uint max)
         {
@@ -81,13 +81,13 @@ namespace TheXDS.MCART.Math
         }
 
         /// <summary>
-        ///     Establece puntos de sobreflujo intencional para evaluar una expresión.
+        /// Establece puntos de sobreflujo intencional para evaluar una expresión.
         /// </summary>
         /// <param name="expression">Expresión a evaluar.</param>
         /// <param name="max">Límite superior de salida, inclusive.</param>
         /// <param name="min">Límite inferior de salida, inclusive.</param>
         /// <returns>
-        ///     El valor evaluado que se encuentra dentro del rango especificado.
+        /// El valor evaluado que se encuentra dentro del rango especificado.
         /// </returns>
         public static ulong Wrap(this in ulong expression, in ulong min, in ulong max)
         {

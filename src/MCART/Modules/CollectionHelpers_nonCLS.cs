@@ -31,20 +31,20 @@ using System.Linq;
 namespace TheXDS.MCART
 {
     /// <summary>
-    ///     Funciones auxiliares para trabajar con colecciones y enumeraciones.
+    /// Funciones auxiliares para trabajar con colecciones y enumeraciones.
     /// </summary>
     public static partial class CollectionHelpers
     {
         /// <summary>
-        ///     Aplica un operador OR a una colección de valores
-        ///     <see cref="sbyte"/>.
+        /// Aplica un operador OR a una colección de valores
+        /// <see cref="sbyte"/>.
         /// </summary>
         /// <param name="collection">
-        ///     Colección a procesar.
+        /// Colección a procesar.
         /// </param>
         /// <returns>
-        ///     El resultado de aplicar el operador OR a todos los bits de la 
-        ///     colección.
+        /// El resultado de aplicar el operador OR a todos los bits de la 
+        /// colección.
         /// </returns>
         public static sbyte Or(this IEnumerable<sbyte> collection)
         {
@@ -52,15 +52,15 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Aplica un operador OR a una colección de valores
-        ///     <see cref="ushort"/>.
+        /// Aplica un operador OR a una colección de valores
+        /// <see cref="ushort"/>.
         /// </summary>
         /// <param name="collection">
-        ///     Colección a procesar.
+        /// Colección a procesar.
         /// </param>
         /// <returns>
-        ///     El resultado de aplicar el operador OR a todos los bits de la 
-        ///     colección.
+        /// El resultado de aplicar el operador OR a todos los bits de la 
+        /// colección.
         /// </returns>
         public static ushort Or(this IEnumerable<ushort> collection)
         {
@@ -68,15 +68,15 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Aplica un operador OR a una colección de valores
-        ///     <see cref="uint"/>.
+        /// Aplica un operador OR a una colección de valores
+        /// <see cref="uint"/>.
         /// </summary>
         /// <param name="collection">
-        ///     Colección a procesar.
+        /// Colección a procesar.
         /// </param>
         /// <returns>
-        ///     El resultado de aplicar el operador OR a todos los bits de la 
-        ///     colección.
+        /// El resultado de aplicar el operador OR a todos los bits de la 
+        /// colección.
         /// </returns>
         public static uint Or(this IEnumerable<uint> collection)
         {
@@ -84,15 +84,15 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Aplica un operador OR a una colección de valores
-        ///     <see cref="ulong"/>.
+        /// Aplica un operador OR a una colección de valores
+        /// <see cref="ulong"/>.
         /// </summary>
         /// <param name="collection">
-        ///     Colección a procesar.
+        /// Colección a procesar.
         /// </param>
         /// <returns>
-        ///     El resultado de aplicar el operador OR a todos los bits de la 
-        ///     colección.
+        /// El resultado de aplicar el operador OR a todos los bits de la 
+        /// colección.
         /// </returns>
         public static ulong Or(this IEnumerable<ulong> collection)
         {
@@ -100,15 +100,15 @@ namespace TheXDS.MCART
         }
         
         /// <summary>
-        ///     Aplica un operador And a una colección de valores
-        ///     <see cref="sbyte"/>.
+        /// Aplica un operador And a una colección de valores
+        /// <see cref="sbyte"/>.
         /// </summary>
         /// <param name="collection">
-        ///     Colección a procesar.
+        /// Colección a procesar.
         /// </param>
         /// <returns>
-        ///     El resultado de aplicar el operador And a todos los bits de la 
-        ///     colección.
+        /// El resultado de aplicar el operador And a todos los bits de la 
+        /// colección.
         /// </returns>
         public static sbyte And(this IEnumerable<sbyte> collection)
         {
@@ -116,15 +116,15 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Aplica un operador And a una colección de valores
-        ///     <see cref="ushort"/>.
+        /// Aplica un operador And a una colección de valores
+        /// <see cref="ushort"/>.
         /// </summary>
         /// <param name="collection">
-        ///     Colección a procesar.
+        /// Colección a procesar.
         /// </param>
         /// <returns>
-        ///     El resultado de aplicar el operador And a todos los bits de la 
-        ///     colección.
+        /// El resultado de aplicar el operador And a todos los bits de la 
+        /// colección.
         /// </returns>
         public static ushort And(this IEnumerable<ushort> collection)
         {
@@ -132,15 +132,15 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Aplica un operador And a una colección de valores
-        ///     <see cref="uint"/>.
+        /// Aplica un operador And a una colección de valores
+        /// <see cref="uint"/>.
         /// </summary>
         /// <param name="collection">
-        ///     Colección a procesar.
+        /// Colección a procesar.
         /// </param>
         /// <returns>
-        ///     El resultado de aplicar el operador And a todos los bits de la 
-        ///     colección.
+        /// El resultado de aplicar el operador And a todos los bits de la 
+        /// colección.
         /// </returns>
         public static uint And(this IEnumerable<uint> collection)
         {
@@ -148,15 +148,15 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Aplica un operador And a una colección de valores
-        ///     <see cref="ulong"/>.
+        /// Aplica un operador And a una colección de valores
+        /// <see cref="ulong"/>.
         /// </summary>
         /// <param name="collection">
-        ///     Colección a procesar.
+        /// Colección a procesar.
         /// </param>
         /// <returns>
-        ///     El resultado de aplicar el operador And a todos los bits de la 
-        ///     colección.
+        /// El resultado de aplicar el operador And a todos los bits de la 
+        /// colección.
         /// </returns>
         public static ulong And(this IEnumerable<ulong> collection)
         {
@@ -164,15 +164,15 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Aplica un operador Xor a una colección de valores
-        ///     <see cref="sbyte"/>.
+        /// Aplica un operador Xor a una colección de valores
+        /// <see cref="sbyte"/>.
         /// </summary>
         /// <param name="collection">
-        ///     Colección a procesar.
+        /// Colección a procesar.
         /// </param>
         /// <returns>
-        ///     El resultado de aplicar el operador Xor a todos los bits de la 
-        ///     colección.
+        /// El resultado de aplicar el operador Xor a todos los bits de la 
+        /// colección.
         /// </returns>
         public static sbyte Xor(this IEnumerable<sbyte> collection)
         {
@@ -180,15 +180,15 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Aplica un operador Xor a una colección de valores
-        ///     <see cref="ushort"/>.
+        /// Aplica un operador Xor a una colección de valores
+        /// <see cref="ushort"/>.
         /// </summary>
         /// <param name="collection">
-        ///     Colección a procesar.
+        /// Colección a procesar.
         /// </param>
         /// <returns>
-        ///     El resultado de aplicar el operador Xor a todos los bits de la 
-        ///     colección.
+        /// El resultado de aplicar el operador Xor a todos los bits de la 
+        /// colección.
         /// </returns>
         public static ushort Xor(this IEnumerable<ushort> collection)
         {
@@ -196,15 +196,15 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Aplica un operador Xor a una colección de valores
-        ///     <see cref="uint"/>.
+        /// Aplica un operador Xor a una colección de valores
+        /// <see cref="uint"/>.
         /// </summary>
         /// <param name="collection">
-        ///     Colección a procesar.
+        /// Colección a procesar.
         /// </param>
         /// <returns>
-        ///     El resultado de aplicar el operador Xor a todos los bits de la 
-        ///     colección.
+        /// El resultado de aplicar el operador Xor a todos los bits de la 
+        /// colección.
         /// </returns>
         public static uint Xor(this IEnumerable<uint> collection)
         {
@@ -212,15 +212,15 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Aplica un operador Xor a una colección de valores
-        ///     <see cref="ulong"/>.
+        /// Aplica un operador Xor a una colección de valores
+        /// <see cref="ulong"/>.
         /// </summary>
         /// <param name="collection">
-        ///     Colección a procesar.
+        /// Colección a procesar.
         /// </param>
         /// <returns>
-        ///     El resultado de aplicar el operador Xor a todos los bits de la 
-        ///     colección.
+        /// El resultado de aplicar el operador Xor a todos los bits de la 
+        /// colección.
         /// </returns>
         public static ulong Xor(this IEnumerable<ulong> collection)
         {

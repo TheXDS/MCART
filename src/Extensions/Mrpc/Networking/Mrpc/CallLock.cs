@@ -29,7 +29,7 @@ using System.Reflection;
 namespace TheXDS.MCART.Networking.Mrpc
 {
     /// <summary>
-    ///     Contiene información sobre una llamada específica a un procedimiento remoto.
+    /// Contiene información sobre una llamada específica a un procedimiento remoto.
     /// </summary>
     public class CallLock
     {
@@ -41,18 +41,18 @@ namespace TheXDS.MCART.Networking.Mrpc
         internal TaskCompletionSource<byte[]> Waiter { get; } = new TaskCompletionSource<byte[]>();
 
         /// <summary>
-        ///     Obtiene el nombre completo del método que ha sido llamado.
+        /// Obtiene el nombre completo del método que ha sido llamado.
         /// </summary>
         public string Method { get; }
 
         /// <summary>
-        ///     Obtiene la marca de tiempo que indica el momento en el que se
-        ///     ha realizado una llamada al método remoto.
+        /// Obtiene la marca de tiempo que indica el momento en el que se
+        /// ha realizado una llamada al método remoto.
         /// </summary>
         public DateTime Timestamp { get; } = DateTime.Now;
 
         /// <summary>
-        ///     Cancela la llamada remota.
+        /// Cancela la llamada remota.
         /// </summary>
         public void Abort()
         {

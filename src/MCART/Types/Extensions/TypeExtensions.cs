@@ -43,19 +43,19 @@ using TheXDS.MCART.Resources;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Extensiones para todos los elementos de tipo <see cref="Type"/>.
+    /// Extensiones para todos los elementos de tipo <see cref="Type"/>.
     /// </summary>
     public static class TypeExtensions
     {
         /// <summary>
-        ///     Comprueba si todos los tipos son asignables a partir del tipo
-        ///     <paramref name="source" />.
+        /// Comprueba si todos los tipos son asignables a partir del tipo
+        /// <paramref name="source" />.
         /// </summary>
         /// <param name="types">Lista de tipos a comprobar.</param>
         /// <param name="source">Tipo que desea asignarse.</param>
         /// <returns>
-        ///     <see langword="true" /> si todos los tipos son asignables a partir de
-        ///     <paramref name="source" />, <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si todos los tipos son asignables a partir de
+        /// <paramref name="source" />, <see langword="false" /> en caso contrario.
         /// </returns>
         public static bool AreAllAssignable(this Type source, IEnumerable<Type> types)
         {
@@ -63,14 +63,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Comprueba si todos los tipos son asignables a partir del tipo
-        ///     <paramref name="source" />.
+        /// Comprueba si todos los tipos son asignables a partir del tipo
+        /// <paramref name="source" />.
         /// </summary>
         /// <param name="types">Lista de tipos a comprobar.</param>
         /// <param name="source">Tipo que desea asignarse.</param>
         /// <returns>
-        ///     <see langword="true" /> si todos los tipos son asignables a partir de
-        ///     <paramref name="source" />, <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si todos los tipos son asignables a partir de
+        /// <paramref name="source" />, <see langword="false" /> en caso contrario.
         /// </returns>
         public static bool AreAllAssignable(this Type source, params Type[] types)
         {
@@ -78,13 +78,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Enumera los tipos asignables a partir de <paramref name="source" />.
+        /// Enumera los tipos asignables a partir de <paramref name="source" />.
         /// </summary>
         /// <param name="types">Lista de tipos a comprobar.</param>
         /// <param name="source">Tipo que desea asignarse.</param>
         /// <returns>
-        ///     Un enumerador con los tipos que pueden ser asignados a partir de
-        ///     <paramref name="source" />.
+        /// Un enumerador con los tipos que pueden ser asignados a partir de
+        /// <paramref name="source" />.
         /// </returns>
         public static IEnumerable<Type> Assignables(this Type source, IEnumerable<Type> types)
         {
@@ -92,13 +92,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Enumera los tipos asignables a partir de <paramref name="source" />.
+        /// Enumera los tipos asignables a partir de <paramref name="source" />.
         /// </summary>
         /// <param name="types">Lista de tipos a comprobar.</param>
         /// <param name="source">Tipo que desea asignarse.</param>
         /// <returns>
-        ///     Un enumerador con los tipos que pueden ser asignados a partir de
-        ///     <paramref name="source" />.
+        /// Un enumerador con los tipos que pueden ser asignados a partir de
+        /// <paramref name="source" />.
         /// </returns>
         public static IEnumerable<Type> Assignables(this Type source, params Type[] types)
         {
@@ -106,16 +106,16 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Equivalente programático de <see langword="default" />, obtiene
-        ///     el valor predeterminado del tipo.
+        /// Equivalente programático de <see langword="default" />, obtiene
+        /// el valor predeterminado del tipo.
         /// </summary>
         /// <param name="t">
-        ///     <see cref="Type" /> del cual obtener el valor predeterminado.
+        /// <see cref="Type" /> del cual obtener el valor predeterminado.
         /// </param>
         /// <returns>
-        ///     Una nueva instancia del tipo si el mismo es un
-        ///     <see langword="struct" />, o <see langword="null" /> si es una
-        ///     <see langword="class" />.
+        /// Una nueva instancia del tipo si el mismo es un
+        /// <see langword="struct" />, o <see langword="null" /> si es una
+        /// <see langword="class" />.
         /// </returns>
         public static object? Default(this Type t)
         {
@@ -123,13 +123,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Determina si el tipo implementa a <paramref name="baseType" />.
+        /// Determina si el tipo implementa a <paramref name="baseType" />.
         /// </summary>
         /// <param name="type">Tipo a comprobar</param>
         /// <param name="baseType">Herencia de tipo a verificar.</param>
         /// <returns>
-        ///     <see langword="true" /> si <paramref name="type" /> implementa a <paramref name="baseType" />,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si <paramref name="type" /> implementa a <paramref name="baseType" />,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         public static bool Implements(this Type type, Type baseType)
         {
@@ -143,14 +143,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Determina si el tipo implementa a <paramref name="baseType" /> con los argumentos de tipo genérico especificados.
+        /// Determina si el tipo implementa a <paramref name="baseType" /> con los argumentos de tipo genérico especificados.
         /// </summary>
         /// <param name="type">Tipo a comprobar</param>
         /// <param name="baseType">Herencia de tipo a verificar.</param>
         /// <param name="typeArgs">Tipos de argumentos genéricos a utilizar para crear el tipo genérico a comprobar.</param>
         /// <returns>
-        ///     <see langword="true" /> si <paramref name="type"/> implementa a <paramref name="baseType" />,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si <paramref name="type"/> implementa a <paramref name="baseType" />,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         public static bool Implements(this Type type, Type baseType, params Type[] typeArgs)
         {
@@ -160,13 +160,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Determina si el tipo implementa a <typeparamref name="T" />.
+        /// Determina si el tipo implementa a <typeparamref name="T" />.
         /// </summary>
         /// <param name="type">Tipo a comprobar</param>
         /// <typeparam name="T">Herencia de tipo a verificar.</typeparam>
         /// <returns>
-        ///     <see langword="true" /> si <paramref name="type" /> implementa a <typeparamref name="T" />,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si <paramref name="type" /> implementa a <typeparamref name="T" />,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         public static bool Implements<T>(this Type type)
         {
@@ -174,17 +174,17 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Determina si el tipo implementa a todos los tipos especificados.
+        /// Determina si el tipo implementa a todos los tipos especificados.
         /// </summary>
         /// <param name="type">Tipo a comprobar</param>
         /// <param name="baseTypes">
-        ///     Colección de tipos a comprobar que <paramref name="type"/>
-        ///     herede.
+        /// Colección de tipos a comprobar que <paramref name="type"/>
+        /// herede.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si <paramref name="type" /> implementa
-        ///     a todos los tipos especificados, <see langword="false" /> en
-        ///     caso contrario.
+        /// <see langword="true" /> si <paramref name="type" /> implementa
+        /// a todos los tipos especificados, <see langword="false" /> en
+        /// caso contrario.
         /// </returns>
         public static bool Implements(this Type type, IEnumerable<Type> baseTypes)
         {
@@ -192,14 +192,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Comprueba si alguno de los tipos especificados es asignable a partir
-        ///     del tipo <paramref name="source" />.
+        /// Comprueba si alguno de los tipos especificados es asignable a partir
+        /// del tipo <paramref name="source" />.
         /// </summary>
         /// <param name="types">Lista de tipos a comprobar.</param>
         /// <param name="source">Tipo que desea asignarse.</param>
         /// <returns>
-        ///     <see langword="true" /> si el tipo <paramref name="source" /> puede ser asignado
-        ///     a uno de los tipos especificados, <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si el tipo <paramref name="source" /> puede ser asignado
+        /// a uno de los tipos especificados, <see langword="false" /> en caso contrario.
         /// </returns>
         public static bool IsAnyAssignable(this Type source, IEnumerable<Type> types)
         {
@@ -207,14 +207,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Comprueba si alguno de los tipos especificados es asignable a partir
-        ///     del tipo <paramref name="source" />.
+        /// Comprueba si alguno de los tipos especificados es asignable a partir
+        /// del tipo <paramref name="source" />.
         /// </summary>
         /// <param name="types">Lista de tipos a comprobar.</param>
         /// <param name="source">Tipo que desea asignarse.</param>
         /// <returns>
-        ///     <see langword="true" /> si el tipo <paramref name="source" /> puede ser asignado
-        ///     a uno de los tipos especificados, <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si el tipo <paramref name="source" /> puede ser asignado
+        /// a uno de los tipos especificados, <see langword="false" /> en caso contrario.
         /// </returns>
         public static bool IsAnyAssignable(this Type source, params Type[] types)
         {
@@ -222,13 +222,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Obtiene un valor que determina si el tipo es instanciable.
+        /// Obtiene un valor que determina si el tipo es instanciable.
         /// </summary>
         /// <param name="type">Tipo a comprobar.</param>
         /// <returns>
-        ///     <see langword="true" /> si el tipo es instanciable por medio de
-        ///     un constructor sin parámetros, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si el tipo es instanciable por medio de
+        /// un constructor sin parámetros, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool IsInstantiable(this Type type)
         {
@@ -236,17 +236,17 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Obtiene un valor que determina si el tipo es instanciable.
+        /// Obtiene un valor que determina si el tipo es instanciable.
         /// </summary>
         /// <param name="type">Tipo a comprobar.</param>
         /// <param name="constructorArgs">
-        ///     Colección con los tipos de argumentos que el constructor a
-        ///     buscar debe contener.
+        /// Colección con los tipos de argumentos que el constructor a
+        /// buscar debe contener.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el tipo es instanciable por medio de
-        ///     un constructor con los parámetros del tipo especificado,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si el tipo es instanciable por medio de
+        /// un constructor con los parámetros del tipo especificado,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         public static bool IsInstantiable(this Type type, IEnumerable<Type>? constructorArgs)
         {
@@ -255,15 +255,15 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Obtiene un valor que determina si el tipo es un tipo de valor
-        ///     no primitivo.
+        /// Obtiene un valor que determina si el tipo es un tipo de valor
+        /// no primitivo.
         /// </summary>
         /// <param name="type">
-        ///     Tipo a comprobar.
+        /// Tipo a comprobar.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si el tipo es un tipo de valor no 
-        ///     primitivo, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si el tipo es un tipo de valor no 
+        /// primitivo, <see langword="false"/> en caso contrario.
         /// </returns>
         [Sugar]
         public static bool IsStruct(this Type type)
@@ -272,19 +272,19 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Obtiene un valor que determina si el tipo es instanciable
-        ///     utilizando un contrustor que acepte los parámetros
-        ///     especificados.
+        /// Obtiene un valor que determina si el tipo es instanciable
+        /// utilizando un contrustor que acepte los parámetros
+        /// especificados.
         /// </summary>
         /// <param name="type">Tipo a comprobar.</param>
         /// <param name="constructorArgs">
-        ///     Colección con los tipos de argumentos que el constructor a
-        ///     buscar debe contener.
+        /// Colección con los tipos de argumentos que el constructor a
+        /// buscar debe contener.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el tipo es instanciable por medio de
-        ///     un constructor con los parámetros del tipo especificado,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si el tipo es instanciable por medio de
+        /// un constructor con los parámetros del tipo especificado,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         [DebuggerStepThrough]
         [Sugar] 
@@ -294,7 +294,7 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia del tipo en runtime especificado.
+        /// Inicializa una nueva instancia del tipo en runtime especificado.
         /// </summary>
         /// <returns>La nueva instancia del tipo especificado.</returns>
         /// <param name="type">Tipo a instanciar.</param>
@@ -306,13 +306,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia del tipo dinámico especificado,
-        ///     devolviéndola como un <typeparamref name="T" />.
+        /// Inicializa una nueva instancia del tipo dinámico especificado,
+        /// devolviéndola como un <typeparamref name="T" />.
         /// </summary>
         /// <returns>La nueva instancia del tipo especificado.</returns>
         /// <param name="type">
-        ///     Tipo a instanciar. Debe ser, heredar o implementar
-        ///     el tipo especificado en <typeparamref name="T" />
+        /// Tipo a instanciar. Debe ser, heredar o implementar
+        /// el tipo especificado en <typeparamref name="T" />
         /// </param>
         /// <typeparam name="T">Tipo de instancia a devolver.</typeparam>
         [DebuggerStepThrough]
@@ -323,14 +323,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de un objeto con un constructor que
-        ///     acepte los argumentos provistos.
+        /// Inicializa una nueva instancia de un objeto con un constructor que
+        /// acepte los argumentos provistos.
         /// </summary>
         /// <returns>La nueva instancia del tipo especificado.</returns>
         /// <param name="type">Tipo a instanciar.</param>
         /// <param name="parameters">
-        ///     Parámetros a pasar al constructor. Se buscará
-        ///     un constructor compatible para poder crear la instancia.
+        /// Parámetros a pasar al constructor. Se buscará
+        /// un constructor compatible para poder crear la instancia.
         /// </param>
         [DebuggerStepThrough]
         [Sugar]
@@ -340,22 +340,22 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de un objeto con un constructor que
-        ///     acepte los argumentos provistos.
+        /// Inicializa una nueva instancia de un objeto con un constructor que
+        /// acepte los argumentos provistos.
         /// </summary>
         /// <typeparam name="T">Tipo de instancia a devolver.</typeparam>
         /// <param name="type">
-        ///     Tipo a instanciar. Debe ser, heredar o implementar
-        ///     el tipo especificado en <typeparamref name="T" />.
+        /// Tipo a instanciar. Debe ser, heredar o implementar
+        /// el tipo especificado en <typeparamref name="T" />.
         /// </param>
         /// <param name="parameters">
-        ///     Parámetros a pasar al constructor. Se buscará
-        ///     un constructor compatible para poder crear la instancia.
+        /// Parámetros a pasar al constructor. Se buscará
+        /// un constructor compatible para poder crear la instancia.
         /// </param>
         /// <returns>Una nueva instancia del tipo especificado.</returns>
         /// <exception cref="TypeLoadException">
-        ///     Se produce si no es posible instanciar una clase del tipo
-        ///     solicitado.
+        /// Se produce si no es posible instanciar una clase del tipo
+        /// solicitado.
         /// </exception>
         [DebuggerStepThrough]
         public static T New<T>(this Type type, params object?[] parameters)
@@ -364,43 +364,43 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de un objeto con un constructor que
-        ///     acepte los argumentos provistos.
+        /// Inicializa una nueva instancia de un objeto con un constructor que
+        /// acepte los argumentos provistos.
         /// </summary>
         /// <typeparam name="T">Tipo de instancia a devolver.</typeparam>
         /// <param name="type">
-        ///     Tipo a instanciar. Debe ser, heredar o implementar
-        ///     el tipo especificado en <typeparamref name="T" />.
+        /// Tipo a instanciar. Debe ser, heredar o implementar
+        /// el tipo especificado en <typeparamref name="T" />.
         /// </param>
         /// <param name="throwOnFail">
-        ///     Si se establece en <see langword="true"/>, se producirá una
-        ///     excepción en caso que el tipo no pueda instanciarse con la
-        ///     información provista, o se devolverá <see langword="null"/> si
-        ///     se establece en <see langword="false"/>
+        /// Si se establece en <see langword="true"/>, se producirá una
+        /// excepción en caso que el tipo no pueda instanciarse con la
+        /// información provista, o se devolverá <see langword="null"/> si
+        /// se establece en <see langword="false"/>
         /// </param>
         /// <param name="parameters">
-        ///     Parámetros a pasar al constructor. Se buscará
-        ///     un constructor compatible para poder crear la instancia.
+        /// Parámetros a pasar al constructor. Se buscará
+        /// un constructor compatible para poder crear la instancia.
         /// </param>
         /// <returns>
-        ///     Una nueva instancia del tipo especificado, o
-        ///     <see langword="null"/> si ocurre un problema al instanciar el
-        ///     tipo y <paramref name="throwOnFail"/> es
-        ///     <see langword="false"/>.
+        /// Una nueva instancia del tipo especificado, o
+        /// <see langword="null"/> si ocurre un problema al instanciar el
+        /// tipo y <paramref name="throwOnFail"/> es
+        /// <see langword="false"/>.
         /// </returns>
         /// <exception cref="TypeLoadException">
-        ///     Se produce si no es posible instanciar una clase del tipo
-        ///     solicitado.
+        /// Se produce si no es posible instanciar una clase del tipo
+        /// solicitado.
         /// </exception>
         /// <exception cref="ArgumentNullException">
-        ///     Se produce si <paramref name="type"/> es <see langword="null"/>
-        ///     y <paramref name="throwOnFail"/> es <see langword="true"/>.
+        /// Se produce si <paramref name="type"/> es <see langword="null"/>
+        /// y <paramref name="throwOnFail"/> es <see langword="true"/>.
         /// </exception>
         /// <exception cref="ClassNotInstantiableException">
-        ///     Se produce si el tipo <paramref name="type"/> no puede ser
-        ///     instanciado utilizando un constructor público que acepte los
-        ///     parámetros especificados en <paramref name="parameters"/> y
-        ///     <paramref name="throwOnFail"/> es <see langword="true"/>.
+        /// Se produce si el tipo <paramref name="type"/> no puede ser
+        /// instanciado utilizando un constructor público que acepte los
+        /// parámetros especificados en <paramref name="parameters"/> y
+        /// <paramref name="throwOnFail"/> es <see langword="true"/>.
         /// </exception>
         [DebuggerStepThrough]
         public static T New<T>(this Type type, bool throwOnFail, IEnumerable parameters)
@@ -428,49 +428,49 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de un objeto de forma asíncrona 
-        ///     con un constructor que acepte los argumentos provistos.
+        /// Inicializa una nueva instancia de un objeto de forma asíncrona 
+        /// con un constructor que acepte los argumentos provistos.
         /// </summary>
         /// <param name="type">Tipo a instanciar.</param>
         /// <param name="throwOnFail">
-        ///     Si se establece en <see langword="true"/>, se producirá una
-        ///     excepción en caso que el tipo no pueda instanciarse con la
-        ///     información provista, o se devolverá <see langword="null"/> si
-        ///     se establece en <see langword="false"/>
+        /// Si se establece en <see langword="true"/>, se producirá una
+        /// excepción en caso que el tipo no pueda instanciarse con la
+        /// información provista, o se devolverá <see langword="null"/> si
+        /// se establece en <see langword="false"/>
         /// </param>
         /// <param name="async">
-        ///     Si se establece en <see langword="true"/>, el constructor
-        ///     también se ejecutará asíncronamente. Esto puede ser
-        ///     problemático si la ejecución normal del programa depende de qué
-        ///     hilo es el propietario del objeto, por ejemplo al instanciar
-        ///     elementos de UI.
+        /// Si se establece en <see langword="true"/>, el constructor
+        /// también se ejecutará asíncronamente. Esto puede ser
+        /// problemático si la ejecución normal del programa depende de qué
+        /// hilo es el propietario del objeto, por ejemplo al instanciar
+        /// elementos de UI.
         /// </param>
         /// <param name="parameters">
-        ///     Parámetros a pasar al constructor. Se buscará
-        ///     un constructor compatible para poder crear la instancia.
+        /// Parámetros a pasar al constructor. Se buscará
+        /// un constructor compatible para poder crear la instancia.
         /// </param>
         /// <returns>
-        ///     Una nueva instancia del tipo especificado, o
-        ///     <see langword="null"/> si ocurre un problema al instanciar el
-        ///     tipo y <paramref name="throwOnFail"/> es
-        ///     <see langword="false"/>.
+        /// Una nueva instancia del tipo especificado, o
+        /// <see langword="null"/> si ocurre un problema al instanciar el
+        /// tipo y <paramref name="throwOnFail"/> es
+        /// <see langword="false"/>.
         /// </returns>
         /// <exception cref="TypeLoadException">
-        ///     Se produce si no es posible instanciar una clase del tipo
-        ///     solicitado y <paramref name="throwOnFail"/> se establece en
-        ///     <see langword="true"/>.
+        /// Se produce si no es posible instanciar una clase del tipo
+        /// solicitado y <paramref name="throwOnFail"/> se establece en
+        /// <see langword="true"/>.
         /// </exception>
         /// <exception cref="ArgumentNullException">
-        ///     Se produce si <paramref name="type"/> es <see langword="null"/>
-        ///     y <paramref name="throwOnFail"/> se establece en
-        ///     <see langword="true"/>.
+        /// Se produce si <paramref name="type"/> es <see langword="null"/>
+        /// y <paramref name="throwOnFail"/> se establece en
+        /// <see langword="true"/>.
         /// </exception>
         /// <exception cref="ClassNotInstantiableException">
-        ///     Se produce si el tipo <paramref name="type"/> no puede ser
-        ///     instanciado utilizando un constructor público que acepte los
-        ///     parámetros especificados en <paramref name="parameters"/> y
-        ///     <paramref name="throwOnFail"/> se establece en
-        ///     <see langword="true"/>.
+        /// Se produce si el tipo <paramref name="type"/> no puede ser
+        /// instanciado utilizando un constructor público que acepte los
+        /// parámetros especificados en <paramref name="parameters"/> y
+        /// <paramref name="throwOnFail"/> se establece en
+        /// <see langword="true"/>.
         /// </exception>
         [DebuggerStepThrough]
         public static async Task<object?> NewAsync(this Type type, bool throwOnFail, bool @async, IEnumerable parameters)
@@ -500,53 +500,53 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de un objeto de forma asíncrona 
-        ///     con un constructor que acepte los argumentos provistos.
+        /// Inicializa una nueva instancia de un objeto de forma asíncrona 
+        /// con un constructor que acepte los argumentos provistos.
         /// </summary>
         /// <typeparam name="T">Tipo de instancia a devolver.</typeparam>
         /// <param name="type">
-        ///     Tipo a instanciar. Debe ser, heredar o implementar
-        ///     el tipo especificado en <typeparamref name="T" />.
+        /// Tipo a instanciar. Debe ser, heredar o implementar
+        /// el tipo especificado en <typeparamref name="T" />.
         /// </param>
         /// <param name="throwOnFail">
-        ///     Si se establece en <see langword="true"/>, se producirá una
-        ///     excepción en caso que el tipo no pueda instanciarse con la
-        ///     información provista, o se devolverá <see langword="null"/> si
-        ///     se establece en <see langword="false"/>
+        /// Si se establece en <see langword="true"/>, se producirá una
+        /// excepción en caso que el tipo no pueda instanciarse con la
+        /// información provista, o se devolverá <see langword="null"/> si
+        /// se establece en <see langword="false"/>
         /// </param>
         /// <param name="async">
-        ///     Si se establece en <see langword="true"/>, el constructor
-        ///     también se ejecutará asíncronamente. Esto puede ser
-        ///     problemático si la ejecución normal del programa depende de qué
-        ///     hilo es el propietario del objeto, por ejemplo al instanciar
-        ///     elementos de UI.
+        /// Si se establece en <see langword="true"/>, el constructor
+        /// también se ejecutará asíncronamente. Esto puede ser
+        /// problemático si la ejecución normal del programa depende de qué
+        /// hilo es el propietario del objeto, por ejemplo al instanciar
+        /// elementos de UI.
         /// </param>
         /// <param name="parameters">
-        ///     Parámetros a pasar al constructor. Se buscará
-        ///     un constructor compatible para poder crear la instancia.
+        /// Parámetros a pasar al constructor. Se buscará
+        /// un constructor compatible para poder crear la instancia.
         /// </param>
         /// <returns>
-        ///     Una nueva instancia del tipo especificado, o
-        ///     <see langword="null"/> si ocurre un problema al instanciar el
-        ///     tipo y <paramref name="throwOnFail"/> es
-        ///     <see langword="false"/>.
+        /// Una nueva instancia del tipo especificado, o
+        /// <see langword="null"/> si ocurre un problema al instanciar el
+        /// tipo y <paramref name="throwOnFail"/> es
+        /// <see langword="false"/>.
         /// </returns>
         /// <exception cref="TypeLoadException">
-        ///     Se produce si no es posible instanciar una clase del tipo
-        ///     solicitado y <paramref name="throwOnFail"/> se establece en
-        ///     <see langword="true"/>.
+        /// Se produce si no es posible instanciar una clase del tipo
+        /// solicitado y <paramref name="throwOnFail"/> se establece en
+        /// <see langword="true"/>.
         /// </exception>
         /// <exception cref="ArgumentNullException">
-        ///     Se produce si <paramref name="type"/> es <see langword="null"/>
-        ///     y <paramref name="throwOnFail"/> se establece en
-        ///     <see langword="true"/>.
+        /// Se produce si <paramref name="type"/> es <see langword="null"/>
+        /// y <paramref name="throwOnFail"/> se establece en
+        /// <see langword="true"/>.
         /// </exception>
         /// <exception cref="ClassNotInstantiableException">
-        ///     Se produce si el tipo <paramref name="type"/> no puede ser
-        ///     instanciado utilizando un constructor público que acepte los
-        ///     parámetros especificados en <paramref name="parameters"/> y
-        ///     <paramref name="throwOnFail"/> se establece en
-        ///     <see langword="true"/>.
+        /// Se produce si el tipo <paramref name="type"/> no puede ser
+        /// instanciado utilizando un constructor público que acepte los
+        /// parámetros especificados en <paramref name="parameters"/> y
+        /// <paramref name="throwOnFail"/> se establece en
+        /// <see langword="true"/>.
         /// </exception>
         [DebuggerStepThrough]
         public static async Task<T> NewAsync<T>(this Type type, bool throwOnFail, bool @async, IEnumerable parameters)
@@ -557,12 +557,12 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Se asegura de devolver un tipo no nulable para las estructuras.
+        /// Se asegura de devolver un tipo no nulable para las estructuras.
         /// </summary>
         /// <param name="t">Tipo a devolver</param>
         /// <returns>
-        ///     El tipo subyacente de un <see cref="Nullable{T}"/>, o
-        ///     <paramref name="t"/> si el tipo no es nulable.
+        /// El tipo subyacente de un <see cref="Nullable{T}"/>, o
+        /// <paramref name="t"/> si el tipo no es nulable.
         /// </returns>
         [DebuggerStepThrough]
         public static Type NotNullable(this Type t)
@@ -572,17 +572,17 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Se asegura de devolver un tipo definido en tiempo de
-        ///     compilación.
+        /// Se asegura de devolver un tipo definido en tiempo de
+        /// compilación.
         /// </summary>
         /// <param name="t">
-        ///     Tipo a comprobar.
+        /// Tipo a comprobar.
         /// </param>
         /// <returns>
-        ///     <paramref name="t"/>, si se trata de un tipo definido en tiempo
-        ///     de compilación, o un tipo base que lo sea. Se devolverá
-        ///     <see langword="null"/> si no hay un tipo base definido, como en
-        ///     las interfaces.
+        /// <paramref name="t"/>, si se trata de un tipo definido en tiempo
+        /// de compilación, o un tipo base que lo sea. Se devolverá
+        /// <see langword="null"/> si no hay un tipo base definido, como en
+        /// las interfaces.
         /// </returns>
         public static Type? ResolveToDefinedType(this Type t)
         {
@@ -590,25 +590,25 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Determina si el tipo hace referencia a un tipo de colección.
+        /// Determina si el tipo hace referencia a un tipo de colección.
         /// </summary>
         /// <param name="type">Tipo a comprobar.</param>
         /// <returns>
-        ///     <see langword="true"/> si el tipo es un tipo de colección,
-        ///     <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si el tipo es un tipo de colección,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         [Sugar]
         public static bool IsCollectionType(this Type type) => type.Implements<IEnumerable>();
 
         /// <summary>
-        ///     Obtiene el tipo de elementos contenidos por el tipo de
-        ///     colección.
+        /// Obtiene el tipo de elementos contenidos por el tipo de
+        /// colección.
         /// </summary>
         /// <param name="collectionType">
-        ///     Tipo de colección del cual obtener el tipo de elementos.
+        /// Tipo de colección del cual obtener el tipo de elementos.
         /// </param>
         /// <returns>
-        ///     El tipo de elementos contenidos por la colección.
+        /// El tipo de elementos contenidos por la colección.
         /// </returns>
         public static Type GetCollectionType(this Type collectionType)
         {
@@ -623,28 +623,28 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Resuelve un tipo de colección al tipo de sus elementos.
+        /// Resuelve un tipo de colección al tipo de sus elementos.
         /// </summary>
         /// <param name="type">
-        ///     Tipo a comprobar.
+        /// Tipo a comprobar.
         /// </param>
         /// <returns>
-        ///     El tipo de elementos de la colección del tipo
-        ///     <paramref name="type"/>, o <paramref name="type"/> si el mismo
-        ///     no es un tipo de colección.
+        /// El tipo de elementos de la colección del tipo
+        /// <paramref name="type"/>, o <paramref name="type"/> si el mismo
+        /// no es un tipo de colección.
         /// </returns>
         [Sugar]
         public static Type ResolveCollectionType(this Type type) => type.IsCollectionType() ? type.GetCollectionType() : type;
 
         /// <summary>
-        ///     Enumera a los tipos descendientes del tipo especificado.
+        /// Enumera a los tipos descendientes del tipo especificado.
         /// </summary>
         /// <param name="type">
-        ///     Tipo del cual buscar descendientes.
+        /// Tipo del cual buscar descendientes.
         /// </param>
         /// <returns>
-        ///     Una secuencia con todos los tipos descendientes del tipo
-        ///     especificado.
+        /// Una secuencia con todos los tipos descendientes del tipo
+        /// especificado.
         /// </returns>
         public static IEnumerable<Type> Derivates(this Type type)
         {
@@ -652,18 +652,18 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Enumera a los tipos descendientes del tipo dentro del dominio
-        ///     especificado.
+        /// Enumera a los tipos descendientes del tipo dentro del dominio
+        /// especificado.
         /// </summary>
         /// <param name="type">
-        ///     Tipo del cual buscar descendientes.
+        /// Tipo del cual buscar descendientes.
         /// </param>
         /// <param name="domain">
-        ///     Dominio sobre el cual realizar la búsqueda.
+        /// Dominio sobre el cual realizar la búsqueda.
         /// </param>
         /// <returns>
-        ///     Una secuencia con todos los tipos descendientes del tipo
-        ///     especificado.
+        /// Una secuencia con todos los tipos descendientes del tipo
+        /// especificado.
         /// </returns>
         public static IEnumerable<Type> Derivates(this Type type, AppDomain domain)
         {
@@ -671,19 +671,19 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Enumera a los tipos descendientes del tipo dentro de los
-        ///     ensamblados especificados.
+        /// Enumera a los tipos descendientes del tipo dentro de los
+        /// ensamblados especificados.
         /// </summary>
         /// <param name="type">
-        ///     Tipo del cual buscar descendientes.
+        /// Tipo del cual buscar descendientes.
         /// </param>
         /// <param name="assemblies">
-        ///     Secuencia que contiene un listado de los ensamblados en los
-        ///     cuales realizar la búsqueda.
+        /// Secuencia que contiene un listado de los ensamblados en los
+        /// cuales realizar la búsqueda.
         /// </param>
         /// <returns>
-        ///     Una secuencia con todos los tipos descendientes del tipo
-        ///     especificado.
+        /// Una secuencia con todos los tipos descendientes del tipo
+        /// especificado.
         /// </returns>
         public static IEnumerable<Type> Derivates(this Type type, IEnumerable<Assembly> assemblies)
         {
@@ -707,14 +707,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Obtiene el nombre del tipo tal cual se declaría en C#.
+        /// Obtiene el nombre del tipo tal cual se declaría en C#.
         /// </summary>
         /// <param name="type">
-        ///     Tipo del cual obtener la cadena de declaración.
+        /// Tipo del cual obtener la cadena de declaración.
         /// </param>
         /// <returns>
-        ///     Una cadena que representa la declaración del tipo utilizando 
-        ///     sintaxis de C#.
+        /// Una cadena que representa la declaración del tipo utilizando 
+        /// sintaxis de C#.
         /// </returns>
         public static string CSharpName(this Type type)
         {
@@ -725,16 +725,16 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Obtiene el nombre completo del tipo, sin incluir la anotación
-        ///     de cantidad de argumentos genéricos.
+        /// Obtiene el nombre completo del tipo, sin incluir la anotación
+        /// de cantidad de argumentos genéricos.
         /// </summary>
         /// <param name="type">
-        ///     Tipo del cual obtener el nombre limpio.
+        /// Tipo del cual obtener el nombre limpio.
         /// </param>
         /// <returns>
-        ///     El nombre completo de tipo, incluyendo su espacio de nombres,
-        ///     pero no su ensamblado ni su anotación de cantidad de argumentos
-        ///     genéricos en caso de poseer una.
+        /// El nombre completo de tipo, incluyendo su espacio de nombres,
+        /// pero no su ensamblado ni su anotación de cantidad de argumentos
+        /// genéricos en caso de poseer una.
         /// </returns>
         public static string CleanFullName(this Type type)
         {

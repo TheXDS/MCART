@@ -31,11 +31,11 @@ using System.Collections;
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Clase que representa una colección genérica que puede contener
-    ///     elementos de cola al final de la misma.
+    /// Clase que representa una colección genérica que puede contener
+    /// elementos de cola al final de la misma.
     /// </summary>
     /// <typeparam name="T">
-    ///     El tipo de elementos de la colección.
+    /// El tipo de elementos de la colección.
     /// </typeparam>
     public class OpenList<T> : IList<T>
     {
@@ -43,28 +43,28 @@ namespace TheXDS.MCART.Types
         private readonly List<T> _tail = new List<T>();
         
         /// <summary>
-        ///     Obtiene el número de elementos incluidos en este
-        ///     <see cref="OpenList{T}"/>.
+        /// Obtiene el número de elementos incluidos en este
+        /// <see cref="OpenList{T}"/>.
         /// </summary>
         public int Count => _head.Count + _tail.Count;
 
         /// <summary>
-        ///     Obtiene un valor que indica si esta implementación de la
-        ///     interfaz <see cref="ICollection{T}"/> es de solo lectura.
+        /// Obtiene un valor que indica si esta implementación de la
+        /// interfaz <see cref="ICollection{T}"/> es de solo lectura.
         /// </summary>
         /// <value>
-        ///     Para la clase <see cref="OpenList{T}"/>, esta propiedad
-        ///     siempre devuelve <see langword="false"/>.
+        /// Para la clase <see cref="OpenList{T}"/>, esta propiedad
+        /// siempre devuelve <see langword="false"/>.
         /// </value>
         public bool IsReadOnly => false;
 
         /// <summary>
-        ///     Agrega un objeto a este <see cref="OpenList{T}"/>.
+        /// Agrega un objeto a este <see cref="OpenList{T}"/>.
         /// </summary>
         /// <param name="item">
-        ///     Objeto que se va a agregar a este
-        ///     <see cref="OpenList{T}"/>. El valor puede ser 
-        ///     <see langword="null"/> para los tipos de referencia.
+        /// Objeto que se va a agregar a este
+        /// <see cref="OpenList{T}"/>. El valor puede ser 
+        /// <see langword="null"/> para los tipos de referencia.
         /// </param>
         public void Add(T item)
         {
@@ -72,15 +72,15 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Agrega un objeto al final de este
-        ///     <see cref="OpenList{T}"/>, garantizando que futuras
-        ///     adiciones por medio del método <see cref="Add(T)"/> no
-        ///     agregarán elementos después de este.
+        /// Agrega un objeto al final de este
+        /// <see cref="OpenList{T}"/>, garantizando que futuras
+        /// adiciones por medio del método <see cref="Add(T)"/> no
+        /// agregarán elementos después de este.
         /// </summary>
         /// <param name="item">
-        ///     Objeto que se va a agregar al final de este
-        ///     <see cref="OpenList{T}"/>. El valor puede ser 
-        ///     <see langword="null"/> para los tipos de referencia.
+        /// Objeto que se va a agregar al final de este
+        /// <see cref="OpenList{T}"/>. El valor puede ser 
+        /// <see langword="null"/> para los tipos de referencia.
         /// </param>
         public void AddTail(T item)
         {
@@ -88,8 +88,8 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Quita todos los elementos de este 
-        ///     <see cref="OpenList{T}"/>.
+        /// Quita todos los elementos de este 
+        /// <see cref="OpenList{T}"/>.
         /// </summary>
         public void Clear()
         {
@@ -98,7 +98,7 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Mueve todos los elementos de la cola a la cabeza de la colección.
+        /// Mueve todos los elementos de la cola a la cabeza de la colección.
         /// </summary>
         public void JoinTail()
         {
@@ -107,11 +107,11 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Separa la colección de elementos en una cabeza y una cola en el
-        ///     índice especificado.
+        /// Separa la colección de elementos en una cabeza y una cola en el
+        /// índice especificado.
         /// </summary>
         /// <param name="index">
-        ///     Índice del elemento que será el principio de la cola.
+        /// Índice del elemento que será el principio de la cola.
         /// </param>
         public void SplitTail(int index)
         {
@@ -122,37 +122,37 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Obtiene un valor que indica si este <see cref="OpenList{T}"/>
-        ///     contiene una cola de elementos al final.
+        /// Obtiene un valor que indica si este <see cref="OpenList{T}"/>
+        /// contiene una cola de elementos al final.
         /// </summary>
         public bool HasTail => _tail.Any();
 
         /// <summary>
-        ///     Enumera todos los elementos de la cabeza de este
-        ///     <see cref="OpenList{T}"/>.
+        /// Enumera todos los elementos de la cabeza de este
+        /// <see cref="OpenList{T}"/>.
         /// </summary>
         public IEnumerable<T> Head => _head.ToArray();
 
         /// <summary>
-        ///     Enumera todos los elementos de la cola de este
-        ///     <see cref="OpenList{T}"/>.
+        /// Enumera todos los elementos de la cola de este
+        /// <see cref="OpenList{T}"/>.
         /// </summary>
         public IEnumerable<T> Tail => _tail.ToArray();
 
         /// <summary>
-        ///     Obtiene o establece el elemento en el índice especificado.
+        /// Obtiene o establece el elemento en el índice especificado.
         /// </summary>
         /// <param name="index">
-        ///     Índice del elemento que se va a obtener o a establecer. Un 
-        ///     índice negativo hace referencia a un elemento en la cola del
-        ///     <see cref="OpenList{T}"/>.
+        /// Índice del elemento que se va a obtener o a establecer. Un 
+        /// índice negativo hace referencia a un elemento en la cola del
+        /// <see cref="OpenList{T}"/>.
         /// </param>
         /// <returns>
-        ///     El elemento en el índice especificado.
+        /// El elemento en el índice especificado.
         /// </returns>
         /// <exception cref="System.ArgumentOutOfRangeException">
-        ///     Se produce si <paramref name="index"/> no hace referencia a un
-        ///     elemento válido dentro de este <see cref="OpenList{T}"/>.
+        /// Se produce si <paramref name="index"/> no hace referencia a un
+        /// elemento válido dentro de este <see cref="OpenList{T}"/>.
         /// </exception>
         public T this[int index]
         {
@@ -175,18 +175,18 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Determina si un elemento se encuentra en este
-        ///     <see cref="OpenList{T}"/>.
+        /// Determina si un elemento se encuentra en este
+        /// <see cref="OpenList{T}"/>.
         /// </summary>
         /// <param name="item">
-        ///     Objeto que se va a buscar en este <see cref="OpenList{T}"/>. El
-        ///     valor puede ser <see langword="null"/> para los tipos de
-        ///     referencia.
+        /// Objeto que se va a buscar en este <see cref="OpenList{T}"/>. El
+        /// valor puede ser <see langword="null"/> para los tipos de
+        /// referencia.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si item se encuentra en este 
-        ///     <see cref="OpenList{T}"/>; en caso contrario, 
-        ///     <see langword="false"/>.
+        /// <see langword="true"/> si item se encuentra en este 
+        /// <see cref="OpenList{T}"/>; en caso contrario, 
+        /// <see langword="false"/>.
         /// </returns>
         public bool Contains(T item)
         {
@@ -194,31 +194,31 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Copia la totalidad de este <see cref="OpenList{T}"/> en una
-        ///     matriz <see cref="System.Array"/> unidimensional compatible,
-        ///     comenzando en el índice especificado de la matriz de destino.
+        /// Copia la totalidad de este <see cref="OpenList{T}"/> en una
+        /// matriz <see cref="System.Array"/> unidimensional compatible,
+        /// comenzando en el índice especificado de la matriz de destino.
         /// </summary>
         /// <param name="array">
-        ///     <see cref="System.Array"/> unidimensional que constituye el
-        ///     destino de los elementos copiados de este
-        ///     <see cref="OpenList{T}"/>. La matriz <see cref="System.Array"/>
-        ///     debe tener una indización de base cero.
+        /// <see cref="System.Array"/> unidimensional que constituye el
+        /// destino de los elementos copiados de este
+        /// <see cref="OpenList{T}"/>. La matriz <see cref="System.Array"/>
+        /// debe tener una indización de base cero.
         /// </param>
         /// <param name="arrayIndex">
-        ///     Índice de base cero en <paramref name="array"/> donde comienza
-        ///     la copia.
+        /// Índice de base cero en <paramref name="array"/> donde comienza
+        /// la copia.
         /// </param>
         /// <exception cref="System.ArgumentNullException">
-        ///     El valor de <paramref name="array"/> es <see langword="null"/>.
+        /// El valor de <paramref name="array"/> es <see langword="null"/>.
         /// </exception>
         /// <exception cref="System.ArgumentOutOfRangeException">
-        ///     <paramref name="arrayIndex"/> es menor que cero.
+        /// <paramref name="arrayIndex"/> es menor que cero.
         /// </exception>
         /// <exception cref="System.ArgumentException">
-        ///     El número de elementos de este <see cref="OpenList{T}"/> de
-        ///     origen es mayor que el espacio disponible desde
-        ///     <paramref name="arrayIndex"/> hasta el final de el 
-        ///     <paramref name="array"/> de destino.
+        /// El número de elementos de este <see cref="OpenList{T}"/> de
+        /// origen es mayor que el espacio disponible desde
+        /// <paramref name="arrayIndex"/> hasta el final de el 
+        /// <paramref name="array"/> de destino.
         /// </exception>
         public void CopyTo(T[] array, int arrayIndex)
         {
@@ -226,12 +226,12 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Devuelve un enumerador que recorre en iteración este
-        ///     <see cref="OpenList{T}"/>.
+        /// Devuelve un enumerador que recorre en iteración este
+        /// <see cref="OpenList{T}"/>.
         /// </summary>
         /// <returns>
-        ///     Estructura <see cref="IEnumerator{T}"/> para este
-        ///     <see cref="OpenList{T}"/>.
+        /// Estructura <see cref="IEnumerator{T}"/> para este
+        /// <see cref="OpenList{T}"/>.
         /// </returns>
         public IEnumerator<T> GetEnumerator()
         {
@@ -239,20 +239,20 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Quita la primera aparición de un objeto específico de este
-        ///     <see cref="OpenList{T}"/>.
+        /// Quita la primera aparición de un objeto específico de este
+        /// <see cref="OpenList{T}"/>.
         /// </summary>
         /// <param name="item">
-        ///     Objeto que se va a quitar de este <see cref="OpenList{T}"/>. El
-        ///     valor puede ser <see langword="null"/> para los tipos de
-        ///     referencia.
+        /// Objeto que se va a quitar de este <see cref="OpenList{T}"/>. El
+        /// valor puede ser <see langword="null"/> para los tipos de
+        /// referencia.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si <paramref name="item"/> se quita
-        ///     correctamente; en caso contrario, <see langword="false"/>. Este
-        ///     método también devuelve <see langword="false"/> si no se
-        ///     encontró <paramref name="item"/> en este
-        ///     <see cref="OpenList{T}"/>.
+        /// <see langword="true"/> si <paramref name="item"/> se quita
+        /// correctamente; en caso contrario, <see langword="false"/>. Este
+        /// método también devuelve <see langword="false"/> si no se
+        /// encontró <paramref name="item"/> en este
+        /// <see cref="OpenList{T}"/>.
         /// </returns>
         public bool Remove(T item)
         {
@@ -260,11 +260,11 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Devuelve un enumerador que recorre en iteración una colección.
+        /// Devuelve un enumerador que recorre en iteración una colección.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="IEnumerator"/> que puede usarse para recorrer en 
-        ///     iteración la colección.
+        /// Un <see cref="IEnumerator"/> que puede usarse para recorrer en 
+        /// iteración la colección.
         /// </returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
@@ -272,19 +272,19 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Inserta un elemento en este <see cref="OpenList{T}"/>, en el
-        ///     índice especificado.
+        /// Inserta un elemento en este <see cref="OpenList{T}"/>, en el
+        /// índice especificado.
         /// </summary>
         /// <param name="index">
-        ///     Índice en el que debe insertarse <paramref name="item"/>.
+        /// Índice en el que debe insertarse <paramref name="item"/>.
         /// </param>
         /// <param name="item">
-        ///     Objeto que se va a insertar. El valor puede ser
-        ///     <see langword="null"/> para los tipos de referencia.
+        /// Objeto que se va a insertar. El valor puede ser
+        /// <see langword="null"/> para los tipos de referencia.
         /// </param>
         /// <exception cref="System.ArgumentOutOfRangeException">
-        ///     Se produce si <paramref name="index"/> no hace referencia a un
-        ///     elemento válido dentro de este <see cref="OpenList{T}"/>.
+        /// Se produce si <paramref name="index"/> no hace referencia a un
+        /// elemento válido dentro de este <see cref="OpenList{T}"/>.
         /// </exception>
         public void Insert(int index, T item)
         {
@@ -299,15 +299,15 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Quita el elemento situado en el índice especificado de este
-        ///     <see cref="OpenList{T}"/>.
+        /// Quita el elemento situado en el índice especificado de este
+        /// <see cref="OpenList{T}"/>.
         /// </summary>
         /// <param name="index">
-        ///     Índice del elemento que se va a quitar.
+        /// Índice del elemento que se va a quitar.
         /// </param>
         /// <exception cref="System.ArgumentOutOfRangeException">
-        ///     Se produce si <paramref name="index"/> no hace referencia a un
-        ///     elemento válido dentro de este <see cref="OpenList{T}"/>.
+        /// Se produce si <paramref name="index"/> no hace referencia a un
+        /// elemento válido dentro de este <see cref="OpenList{T}"/>.
         /// </exception>
         public void RemoveAt(int index)
         {
@@ -322,15 +322,15 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Determina el índice de base cero de un elemento específico 
-        ///     dentro de el <see cref="IList{T}"/>.
+        /// Determina el índice de base cero de un elemento específico 
+        /// dentro de el <see cref="IList{T}"/>.
         /// </summary>
         /// <param name="item">
-        ///     Objeto que se va a buscar en el <see cref="IList{T}"/>.
+        /// Objeto que se va a buscar en el <see cref="IList{T}"/>.
         /// </param>
         /// <returns>
-        ///     El índice de <paramref name="item"/> si se encuentra en la
-        ///     lista; de lo contrario, devuelve -1.
+        /// El índice de <paramref name="item"/> si se encuentra en la
+        /// lista; de lo contrario, devuelve -1.
         /// </returns>
         public int IndexOf(T item)
         {

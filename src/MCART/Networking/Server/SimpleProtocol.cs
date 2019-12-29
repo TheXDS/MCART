@@ -28,13 +28,13 @@ namespace TheXDS.MCART.Networking.Server
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Define un protocolo sumamente simple.
+    /// Define un protocolo sumamente simple.
     /// </summary>
     public abstract class SimpleProtocol : IProtocol
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Atiende al cliente
+        /// Atiende al cliente
         /// </summary>
         /// <param name="client">Cliente que será atendido.</param>
         /// <param name="data">Datos recibidos desde el cliente.</param>
@@ -42,39 +42,39 @@ namespace TheXDS.MCART.Networking.Server
 
         /// <inheritdoc />
         /// <summary>
-        ///     Protocolo de desconexión del cliente.
+        /// Protocolo de desconexión del cliente.
         /// </summary>
         /// <param name="client">Cliente que será atendido.</param>
         public void ClientBye(Client client) { }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Protocolo de desconexión inesperada del cliente.
+        /// Protocolo de desconexión inesperada del cliente.
         /// </summary>
         /// <param name="client">Cliente que se ha desconectado.</param>
         public void ClientDisconnect(Client client) { }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Protocolo de bienvenida del cliente.
+        /// Protocolo de bienvenida del cliente.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si el cliente fue aceptado por el
-        ///     protocolo, <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si el cliente fue aceptado por el
+        /// protocolo, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="client">Cliente que será atendido.</param>
         public bool ClientWelcome(Client client) => true;
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa un nuevo cliente manejado por este protocolo.
+        /// Inicializa un nuevo cliente manejado por este protocolo.
         /// </summary>
         /// <param name="tcpClient">
-        ///     <see cref="TcpClient" /> de la conexión
-        ///     con el host remoto.
+        /// <see cref="TcpClient" /> de la conexión
+        /// con el host remoto.
         /// </param>
         /// <returns>
-        ///     Un nuevo <see cref="Client" />.
+        /// Un nuevo <see cref="Client" />.
         /// </returns>
         public Client CreateClient(TcpClient tcpClient) => new Client(tcpClient);
     }

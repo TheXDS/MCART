@@ -34,13 +34,13 @@ using TheXDS.MCART.Exceptions;
 namespace TheXDS.MCART.Types.Base
 {
     /// <summary>
-    ///     Define una serie de métodos a implementar por un tipo que exponga
-    ///     un <see cref="Guid"/>.
+    /// Define una serie de métodos a implementar por un tipo que exponga
+    /// un <see cref="Guid"/>.
     /// </summary>
     public interface IExposeGuid
     {
         /// <summary>
-        ///     Obtiene el <see cref="Guid"/> asociado a este objeto.
+        /// Obtiene el <see cref="Guid"/> asociado a este objeto.
         /// </summary>
         Guid Guid
         {

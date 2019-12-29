@@ -46,22 +46,22 @@ using St2 = TheXDS.MCART.Resources.InternalStrings;
 namespace TheXDS.MCART
 {
     /// <summary>
-    ///     Contiene operaciones comunes de transformación de datos en los
-    ///     programas, y de algunas comparaciones especiales.
+    /// Contiene operaciones comunes de transformación de datos en los
+    /// programas, y de algunas comparaciones especiales.
     /// </summary>
     /// <remarks>
-    ///     Algunas de estas funciones también se implementan como extensiones, por
-    ///     lo que para ser llamadas únicamente es necesario importar el espacio de
-    ///     nombres <see cref="MCART" /> y utilizar sintaxis de instancia.
+    /// Algunas de estas funciones también se implementan como extensiones, por
+    /// lo que para ser llamadas únicamente es necesario importar el espacio de
+    /// nombres <see cref="MCART" /> y utilizar sintaxis de instancia.
     /// </remarks>
     public static partial class Common
     {        
         /// <summary>
-        ///     Determina si un conjunto de cadenas están vacías.
+        /// Determina si un conjunto de cadenas están vacías.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si las cadenas están vacías o son <see langword="null" />; de lo
-        ///     contrario, <see langword="false" />.
+        /// <see langword="true" /> si las cadenas están vacías o son <see langword="null" />; de lo
+        /// contrario, <see langword="false" />.
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
         [Sugar]
@@ -71,11 +71,11 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si un conjunto de cadenas están vacías.
+        /// Determina si un conjunto de cadenas están vacías.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si las cadenas están vacías o son <see langword="null" />; de lo
-        ///     contrario, <see langword="false" />.
+        /// <see langword="true" /> si las cadenas están vacías o son <see langword="null" />; de lo
+        /// contrario, <see langword="false" />.
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
         [Sugar]
@@ -85,11 +85,11 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si alguna cadena está vacía.
+        /// Determina si alguna cadena está vacía.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si alguna cadena está vacía o es <see langword="null" />; de lo
-        ///     contrario, <see langword="false" />.
+        /// <see langword="true" /> si alguna cadena está vacía o es <see langword="null" />; de lo
+        /// contrario, <see langword="false" />.
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
         [Sugar]
@@ -99,11 +99,11 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si alguna cadena está vacía.
+        /// Determina si alguna cadena está vacía.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si alguna cadena está vacía o es <see langword="null" />; de lo
-        ///     contrario, <see langword="false" />.
+        /// <see langword="true" /> si alguna cadena está vacía o es <see langword="null" />; de lo
+        /// contrario, <see langword="false" />.
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
         [Sugar]
@@ -113,15 +113,15 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si alguna cadena está vacía.
+        /// Determina si alguna cadena está vacía.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si alguna cadena está vacía o es <see langword="null" />; de lo
-        ///     contrario, <see langword="false" />.
+        /// <see langword="true" /> si alguna cadena está vacía o es <see langword="null" />; de lo
+        /// contrario, <see langword="false" />.
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
         /// <param name="index">
-        ///     Argumento de salida. Índices de las cadenas vacías encontradas.
+        /// Argumento de salida. Índices de las cadenas vacías encontradas.
         /// </param>
         public static bool AnyEmpty(out IEnumerable<int> index, params string[] stringArray)
         {
@@ -129,15 +129,15 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si alguna cadena está vacía.
+        /// Determina si alguna cadena está vacía.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si alguna cadena está vacía o es <see langword="null" />; de lo
-        ///     contrario, <see langword="false" />.
+        /// <see langword="true" /> si alguna cadena está vacía o es <see langword="null" />; de lo
+        /// contrario, <see langword="false" />.
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
         /// <param name="index">
-        ///     Argumento de salida. Índices de las cadenas vacías encontradas.
+        /// Argumento de salida. Índices de las cadenas vacías encontradas.
         /// </param>
         public static bool AnyEmpty(this IEnumerable<string> stringArray, out IEnumerable<int> index)
         {
@@ -159,15 +159,15 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si alguna cadena está vacía.
+        /// Determina si alguna cadena está vacía.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si alguna cadena está vacía o es <see langword="null" />; de lo
-        ///     contrario, <see langword="false" />.
+        /// <see langword="true" /> si alguna cadena está vacía o es <see langword="null" />; de lo
+        /// contrario, <see langword="false" />.
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
         /// <param name="firstIndex">
-        ///     Argumento de salida. Índice de la primera cadena vacía encontrada.
+        /// Argumento de salida. Índice de la primera cadena vacía encontrada.
         /// </param>
         public static bool AnyEmpty(this IEnumerable<string> stringArray, out int firstIndex)
         {
@@ -178,16 +178,16 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Busca y obtiene un <see cref="TypeConverter" /> apropiado para
-        ///     realizar la conversión entre <see cref="string" /> y el tipo
-        ///     especificado.
+        /// Busca y obtiene un <see cref="TypeConverter" /> apropiado para
+        /// realizar la conversión entre <see cref="string" /> y el tipo
+        /// especificado.
         /// </summary>
         /// <param name="target">Tipo de datos de destino.</param>
         /// <returns>
-        ///     Un <see cref="TypeConverter" /> capaz de realizar la conversión
-        ///     entre <see cref="string" /> y el tipo especificado, o
-        ///     <see langword="null" /> si no se ha encontrado un convertidor
-        ///     adecuado.
+        /// Un <see cref="TypeConverter" /> capaz de realizar la conversión
+        /// entre <see cref="string" /> y el tipo especificado, o
+        /// <see langword="null" /> si no se ha encontrado un convertidor
+        /// adecuado.
         /// </returns>
         public static TypeConverter? FindConverter(Type target)
         {
@@ -195,16 +195,16 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Busca y obtiene un <see cref="TypeConverter" /> apropiado para
-        ///     realizar la conversión entre <see cref="string" /> y el tipo
-        ///     especificado.
+        /// Busca y obtiene un <see cref="TypeConverter" /> apropiado para
+        /// realizar la conversión entre <see cref="string" /> y el tipo
+        /// especificado.
         /// </summary>
         /// <typeparam name="T">Tipo de datos de destino.</typeparam>
         /// <returns>
-        ///     Un <see cref="TypeConverter" /> capaz de realizar la conversión
-        ///     entre <see cref="string" /> y el tipo especificado, o
-        ///     <see langword="null" /> si no se ha encontrado un convertidor
-        ///     adecuado.
+        /// Un <see cref="TypeConverter" /> capaz de realizar la conversión
+        /// entre <see cref="string" /> y el tipo especificado, o
+        /// <see langword="null" /> si no se ha encontrado un convertidor
+        /// adecuado.
         /// </returns>
         public static TypeConverter? FindConverter<T>()
         {
@@ -212,15 +212,15 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Busca y obtiene un <see cref="TypeConverter" /> apropiado para
-        ///     realizar la conversión entre tipos solicitada.
+        /// Busca y obtiene un <see cref="TypeConverter" /> apropiado para
+        /// realizar la conversión entre tipos solicitada.
         /// </summary>
         /// <typeparam name="TSource">Tipo de datos de origen.</typeparam>
         /// <typeparam name="TTarget">Tipo de datos de destino.</typeparam>
         /// <returns>
-        ///     Un <see cref="TypeConverter" /> capaz de realizar la conversión
-        ///     entre los tipos requeridos, o <see langword="null" /> si no se
-        ///     ha encontrado un convertidor adecuado.
+        /// Un <see cref="TypeConverter" /> capaz de realizar la conversión
+        /// entre los tipos requeridos, o <see langword="null" /> si no se
+        /// ha encontrado un convertidor adecuado.
         /// </returns>
         public static TypeConverter? FindConverter<TSource, TTarget>()
         {
@@ -228,15 +228,15 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Busca y obtiene un <see cref="TypeConverter" /> apropiado para
-        ///     realizar la conversión entre tipos solicitada.
+        /// Busca y obtiene un <see cref="TypeConverter" /> apropiado para
+        /// realizar la conversión entre tipos solicitada.
         /// </summary>
         /// <param name="source">Tipo de datos de origen.</param>
         /// <param name="target">Tipo de datos de destino.</param>
         /// <returns>
-        ///     Un <see cref="TypeConverter" /> capaz de realizar la conversión
-        ///     entre los tipos requeridos, o <see langword="null" /> si no se
-        ///     ha encontrado un convertidor adecuado.
+        /// Un <see cref="TypeConverter" /> capaz de realizar la conversión
+        /// entre los tipos requeridos, o <see langword="null" /> si no se
+        /// ha encontrado un convertidor adecuado.
         /// </returns>
         public static TypeConverter? FindConverter(Type source, Type target)
         {
@@ -251,7 +251,7 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Invierte el Endianess de un valor <see cref="short" />.
+        /// Invierte el Endianess de un valor <see cref="short" />.
         /// </summary>
         /// <param name="value"></param>
         /// <returns>Un <see cref="short" /> cuyo Endianess ha sido invertido.</returns>
@@ -261,7 +261,7 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Invierte el Endianess de un valor <see cref="int" />.
+        /// Invierte el Endianess de un valor <see cref="int" />.
         /// </summary>
         /// <param name="value"></param>
         /// <returns>Un <see cref="int" /> cuyo Endianess ha sido invertido.</returns>
@@ -271,7 +271,7 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Invierte el Endianess de un valor <see cref="long" />.
+        /// Invierte el Endianess de un valor <see cref="long" />.
         /// </summary>
         /// <param name="value"></param>
         /// <returns>Un <see cref="long" /> cuyo Endianess ha sido invertido.</returns>
@@ -281,7 +281,7 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Invierte el Endianess de un valor <see cref="char" />.
+        /// Invierte el Endianess de un valor <see cref="char" />.
         /// </summary>
         /// <param name="value"></param>
         /// <returns>Un <see cref="char" /> cuyo Endianess ha sido invertido.</returns>
@@ -291,7 +291,7 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Invierte el Endianess de un valor <see cref="float" />.
+        /// Invierte el Endianess de un valor <see cref="float" />.
         /// </summary>
         /// <param name="value"></param>
         /// <returns>Un <see cref="float" /> cuyo Endianess ha sido invertido.</returns>
@@ -301,7 +301,7 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Invierte el Endianess de un valor <see cref="double" />.
+        /// Invierte el Endianess de un valor <see cref="double" />.
         /// </summary>
         /// <param name="value"></param>
         /// <returns>Un <see cref="double" /> cuyo Endianess ha sido invertido.</returns>
@@ -323,46 +323,46 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Convierte un <see cref="long"/> en una colección de bits.
+        /// Convierte un <see cref="long"/> en una colección de bits.
         /// </summary>
         /// <param name="value">
-        ///     Valor a convertir.
+        /// Valor a convertir.
         /// </param>
         /// <returns>
-        ///     Una colección de los bits que componen al valor.
+        /// Una colección de los bits que componen al valor.
         /// </returns>
         public static IEnumerable<bool> ToBits(this in long value) => ToBits((ulong)value, 64);
         
         /// <summary>
-        ///     Convierte un <see cref="int"/> en una colección de bits.
+        /// Convierte un <see cref="int"/> en una colección de bits.
         /// </summary>
         /// <param name="value">
-        ///     Valor a convertir.
+        /// Valor a convertir.
         /// </param>
         /// <returns>
-        ///     Una colección de los bits que componen al valor.
+        /// Una colección de los bits que componen al valor.
         /// </returns>
         public static IEnumerable<bool> ToBits(this in int value) => ToBits((ulong)value, 32);
         
         /// <summary>
-        ///     Convierte un <see cref="short"/> en una colección de bits.
+        /// Convierte un <see cref="short"/> en una colección de bits.
         /// </summary>
         /// <param name="value">
-        ///     Valor a convertir.
+        /// Valor a convertir.
         /// </param>
         /// <returns>
-        ///     Una colección de los bits que componen al valor.
+        /// Una colección de los bits que componen al valor.
         /// </returns>
         public static IEnumerable<bool> ToBits(this in short value) => ToBits((ulong)value, 16);
         
         /// <summary>
-        ///     Convierte un <see cref="byte"/> en una colección de bits.
+        /// Convierte un <see cref="byte"/> en una colección de bits.
         /// </summary>
         /// <param name="value">
-        ///     Valor a convertir.
+        /// Valor a convertir.
         /// </param>
         /// <returns>
-        ///     Una colección de los bits que componen al valor.
+        /// Una colección de los bits que componen al valor.
         /// </returns>
         public static IEnumerable<bool> ToBits(this in byte value) => ToBits(value, 8);
 
@@ -379,55 +379,55 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene la cuenta de bits que conforman el valor.
+        /// Obtiene la cuenta de bits que conforman el valor.
         /// </summary>
         /// <param name="value">
-        ///     Valor a procesar.
+        /// Valor a procesar.
         /// </param>
         /// <returns>
-        ///     La cantidad de bits establecidos en 1 del valor.
+        /// La cantidad de bits establecidos en 1 del valor.
         /// </returns>
         public static byte BitCount(this in long value) => BitCount((ulong)value,64);
 
         /// <summary>
-        ///     Obtiene la cuenta de bits que conforman el valor.
+        /// Obtiene la cuenta de bits que conforman el valor.
         /// </summary>
         /// <param name="value">
-        ///     Valor a procesar.
+        /// Valor a procesar.
         /// </param>
         /// <returns>
-        ///     La cantidad de bits establecidos en 1 del valor.
+        /// La cantidad de bits establecidos en 1 del valor.
         /// </returns>
         public static byte BitCount(this in int value) => BitCount((ulong)value,32);
 
         /// <summary>
-        ///     Obtiene la cuenta de bits que conforman el valor.
+        /// Obtiene la cuenta de bits que conforman el valor.
         /// </summary>
         /// <param name="value">
-        ///     Valor a procesar.
+        /// Valor a procesar.
         /// </param>
         /// <returns>
-        ///     La cantidad de bits establecidos en 1 del valor.
+        /// La cantidad de bits establecidos en 1 del valor.
         /// </returns>
         public static byte BitCount(this in short value) => BitCount((ulong)value,16);
 
         /// <summary>
-        ///     Obtiene la cuenta de bits que conforman el valor.
+        /// Obtiene la cuenta de bits que conforman el valor.
         /// </summary>
         /// <param name="value">
-        ///     Valor a procesar.
+        /// Valor a procesar.
         /// </param>
         /// <returns>
-        ///     La cantidad de bits establecidos en 1 del valor.
+        /// La cantidad de bits establecidos en 1 del valor.
         /// </returns>
         public static byte BitCount(this in byte value) => BitCount(value, 8);
 
         /// <summary>
-        ///     Comprueba que el valor se encuentre en el rango especificado.
+        /// Comprueba que el valor se encuentre en el rango especificado.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si el valor se encuentra entre los
-        ///     especificados; de lo contrario, <see langword="false" />.
+        /// <see langword="true" /> si el valor se encuentra entre los
+        /// especificados; de lo contrario, <see langword="false" />.
         /// </returns>
         /// <param name="value">Valor a comprobar.</param>
         /// <param name="min">Mínimo del rango de valores, inclusive.</param>
@@ -439,11 +439,11 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Comprueba que el valor se encuentre en el rango especificado.
+        /// Comprueba que el valor se encuentre en el rango especificado.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si el valor se encuentra entre los
-        ///     especificados; de lo contrario, <see langword="false" />.
+        /// <see langword="true" /> si el valor se encuentra entre los
+        /// especificados; de lo contrario, <see langword="false" />.
         /// </returns>
         /// <param name="value">Valor a comprobar.</param>
         /// <param name="min">Mínimo del rango de valores.</param>
@@ -456,11 +456,11 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Comprueba que el valor se encuentre en el rango especificado.
+        /// Comprueba que el valor se encuentre en el rango especificado.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si el valor se encuentra entre los
-        ///     especificados; de lo contrario, <see langword="false" />.
+        /// <see langword="true" /> si el valor se encuentra entre los
+        /// especificados; de lo contrario, <see langword="false" />.
         /// </returns>
         /// <param name="value">Valor a comprobar.</param>
         /// <param name="min">Mínimo del rango de valores.</param>
@@ -475,14 +475,14 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Comprueba que el valor se encuentre en el rango especificado.
+        /// Comprueba que el valor se encuentre en el rango especificado.
         /// </summary>
         /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
         /// <param name="value">Valor a comprobar.</param>
         /// <param name="range">Rango de valores inclusivos a comprobar.</param>
         /// <returns>
-        ///     <see langword="true" /> si el valor se encuentra entre los
-        ///     especificados; de lo contrario, <see langword="false" />.
+        /// <see langword="true" /> si el valor se encuentra entre los
+        /// especificados; de lo contrario, <see langword="false" />.
         /// </returns>
         public static bool IsBetween<T>(this T value, in Range<T> range) where T : IComparable<T>
         {
@@ -490,11 +490,11 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Comprueba que el valor se encuentre en el rango especificado.
+        /// Comprueba que el valor se encuentre en el rango especificado.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si el valor se encuentra entre los
-        ///     especificados; de lo contrario, <see langword="false" />.
+        /// <see langword="true" /> si el valor se encuentra entre los
+        /// especificados; de lo contrario, <see langword="false" />.
         /// </returns>
         /// <param name="value">Valor a comprobar.</param>
         /// <param name="min">Mínimo del rango de valores, inclusive.</param>
@@ -506,11 +506,11 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Comprueba que el valor se encuentre en el rango especificado.
+        /// Comprueba que el valor se encuentre en el rango especificado.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si el valor se encuentra entre los
-        ///     especificados; de lo contrario, <see langword="false" />.
+        /// <see langword="true" /> si el valor se encuentra entre los
+        /// especificados; de lo contrario, <see langword="false" />.
         /// </returns>
         /// <param name="value">Valor a comprobar.</param>
         /// <param name="min">Mínimo del rango de valores.</param>
@@ -523,11 +523,11 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Comprueba que el valor se encuentre en el rango especificado.
+        /// Comprueba que el valor se encuentre en el rango especificado.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si el valor se encuentra entre los
-        ///     especificados; de lo contrario, <see langword="false" />.
+        /// <see langword="true" /> si el valor se encuentra entre los
+        /// especificados; de lo contrario, <see langword="false" />.
         /// </returns>
         /// <param name="value">Valor a comprobar.</param>
         /// <param name="min">Mínimo del rango de valores.</param>
@@ -544,14 +544,14 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Comprueba que el valor se encuentre en el rango especificado.
+        /// Comprueba que el valor se encuentre en el rango especificado.
         /// </summary>
         /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
         /// <param name="value">Valor a comprobar.</param>
         /// <param name="range">Rango de valores inclusivos a comprobar.</param>
         /// <returns>
-        ///     <see langword="true" /> si el valor se encuentra entre los
-        ///     especificados; de lo contrario, <see langword="false" />.
+        /// <see langword="true" /> si el valor se encuentra entre los
+        /// especificados; de lo contrario, <see langword="false" />.
         /// </returns>
         public static bool IsBetween<T>(this T? value, in Range<T> range) where T : struct, IComparable<T>
         {
@@ -559,15 +559,15 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Condensa una lista en una <see cref="string" />
+        /// Condensa una lista en una <see cref="string" />
         /// </summary>
         /// <returns>
-        ///     Una cadena en formato de lista cuyos miembros están separados por
-        ///     el separador de línea predeterminado del sistema.
+        /// Una cadena en formato de lista cuyos miembros están separados por
+        /// el separador de línea predeterminado del sistema.
         /// </returns>
         /// <param name="collection">
-        ///     Lista a condensar. Sus elementos deben ser del
-        ///     tipo <see cref="string" />.
+        /// Lista a condensar. Sus elementos deben ser del
+        /// tipo <see cref="string" />.
         /// </param>
         public static string Listed(this IEnumerable<string> collection)
         {
@@ -581,10 +581,10 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Genera una secuencia de números en el rango especificado.
+        /// Genera una secuencia de números en el rango especificado.
         /// </summary>
         /// <returns>
-        ///     Una lista de enteros con la secuencia generada.
+        /// Una lista de enteros con la secuencia generada.
         /// </returns>
         /// <param name="top">Valor más alto.</param>
         [Sugar]
@@ -594,10 +594,10 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Genera una secuencia de números en el rango especificado.
+        /// Genera una secuencia de números en el rango especificado.
         /// </summary>
         /// <returns>
-        ///     Una lista de enteros con la secuencia generada.
+        /// Una lista de enteros con la secuencia generada.
         /// </returns>
         /// <param name="floor">Valor más bajo.</param>
         /// <param name="top">Valor más alto.</param>
@@ -608,10 +608,10 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Genera una secuencia de números en el rango especificado.
+        /// Genera una secuencia de números en el rango especificado.
         /// </summary>
         /// <returns>
-        ///     Una lista de enteros con la secuencia generada.
+        /// Una lista de enteros con la secuencia generada.
         /// </returns>
         /// <param name="floor">Valor más bajo.</param>
         /// <param name="top">Valor más alto.</param>
@@ -624,13 +624,13 @@ namespace TheXDS.MCART
         }
         
         /// <summary>
-        ///     Intercambia el valor de los objetos especificados.
+        /// Intercambia el valor de los objetos especificados.
         /// </summary>
         /// <param name="a">Objeto A.</param>
         /// <param name="b">Objeto B.</param>
         /// <typeparam name="T">
-        ///     Tipo de los argumentos. Puede omitirse con
-        ///     seguridad.
+        /// Tipo de los argumentos. Puede omitirse con
+        /// seguridad.
         /// </typeparam>
         public static void Swap<T>(ref T a, ref T b)
         {
@@ -640,11 +640,11 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Atajo de <see cref="BitConverter.ToString(byte[])" /> que no
-        ///     incluye guiones.
+        /// Atajo de <see cref="BitConverter.ToString(byte[])" /> que no
+        /// incluye guiones.
         /// </summary>
         /// <returns>
-        ///     La representación hexadecimal del arreglo de <see cref="byte" />.
+        /// La representación hexadecimal del arreglo de <see cref="byte" />.
         /// </returns>
         /// <param name="arr">Arreglo de bytes a convertir.</param>
         [Sugar]
@@ -654,10 +654,10 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Convierte un <see cref="byte" /> en su representación hexadecimal.
+        /// Convierte un <see cref="byte" /> en su representación hexadecimal.
         /// </summary>
         /// <returns>
-        ///     La representación hexadecimal de <paramref name="byte" />.
+        /// La representación hexadecimal de <paramref name="byte" />.
         /// </returns>
         /// <param name="byte">El <see cref="byte" /> a convertir.</param>
         [Sugar]
@@ -667,12 +667,12 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Convierte los valores de una colección de elementos
-        ///     <see cref="float" /> a porcentajes.
+        /// Convierte los valores de una colección de elementos
+        /// <see cref="float" /> a porcentajes.
         /// </summary>
         /// <returns>
-        ///     Una colección de <see cref="float" /> con sus valores
-        ///     expresados en porcentaje.
+        /// Una colección de <see cref="float" /> con sus valores
+        /// expresados en porcentaje.
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
         [Sugar]
@@ -683,18 +683,18 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Convierte los valores de una colección de elementos
-        ///     <see cref="float" /> a porcentajes.
+        /// Convierte los valores de una colección de elementos
+        /// <see cref="float" /> a porcentajes.
         /// </summary>
         /// <returns>
-        ///     Una colección de <see cref="float" /> con sus valores
-        ///     expresados en porcentaje.
+        /// Una colección de <see cref="float" /> con sus valores
+        /// expresados en porcentaje.
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="baseZero">
-        ///     Si es <see langword="true" />, la base de
-        ///     porcentaje es cero; de lo contrario, se utilizará el valor mínimo
-        ///     dentro de la colección.
+        /// Si es <see langword="true" />, la base de
+        /// porcentaje es cero; de lo contrario, se utilizará el valor mínimo
+        /// dentro de la colección.
         /// </param>
         [Sugar]
         public static IEnumerable<float> ToPercent(this IEnumerable<float> collection, in bool baseZero)
@@ -704,12 +704,12 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Convierte los valores de una colección de elementos
-        ///     <see cref="float" /> a porcentajes.
+        /// Convierte los valores de una colección de elementos
+        /// <see cref="float" /> a porcentajes.
         /// </summary>
         /// <returns>
-        ///     Una colección de <see cref="float" /> con sus valores
-        ///     expresados en porcentaje.
+        /// Una colección de <see cref="float" /> con sus valores
+        /// expresados en porcentaje.
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="max">Valor que representará 100%.</param>
@@ -720,12 +720,12 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Convierte los valores de una colección de elementos
-        ///     <see cref="float" /> a porcentajes.
+        /// Convierte los valores de una colección de elementos
+        /// <see cref="float" /> a porcentajes.
         /// </summary>
         /// <returns>
-        ///     Una colección de <see cref="float" /> con sus valores
-        ///     expresados en porcentaje.
+        /// Una colección de <see cref="float" /> con sus valores
+        /// expresados en porcentaje.
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="min">Valor que representará 0%.</param>
@@ -746,12 +746,12 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Convierte los valores de una colección de elementos
-        ///     <see cref="double" /> a porcentajes.
+        /// Convierte los valores de una colección de elementos
+        /// <see cref="double" /> a porcentajes.
         /// </summary>
         /// <returns>
-        ///     Una colección de <see cref="double" /> con sus valores
-        ///     expresados en porcentaje.
+        /// Una colección de <see cref="double" /> con sus valores
+        /// expresados en porcentaje.
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
         [Sugar]
@@ -762,18 +762,18 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Convierte los valores de una colección de elementos
-        ///     <see cref="double" /> a porcentajes.
+        /// Convierte los valores de una colección de elementos
+        /// <see cref="double" /> a porcentajes.
         /// </summary>
         /// <returns>
-        ///     Una colección de <see cref="double" /> con sus valores
-        ///     expresados en porcentaje.
+        /// Una colección de <see cref="double" /> con sus valores
+        /// expresados en porcentaje.
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="baseZero">
-        ///     Si es <see langword="true" />, la base de
-        ///     porcentaje es cero; de lo contrario, se utilizará el valor mínimo
-        ///     dentro de la colección.
+        /// Si es <see langword="true" />, la base de
+        /// porcentaje es cero; de lo contrario, se utilizará el valor mínimo
+        /// dentro de la colección.
         /// </param>
         [Sugar]
         public static IEnumerable<double> ToPercent(this IEnumerable<double> collection, in bool baseZero)
@@ -783,12 +783,12 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Convierte los valores de una colección de elementos
-        ///     <see cref="double" /> a porcentajes.
+        /// Convierte los valores de una colección de elementos
+        /// <see cref="double" /> a porcentajes.
         /// </summary>
         /// <returns>
-        ///     Una colección de <see cref="double" /> con sus valores
-        ///     expresados en porcentaje.
+        /// Una colección de <see cref="double" /> con sus valores
+        /// expresados en porcentaje.
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="max">Valor que representará 100%.</param>
@@ -799,12 +799,12 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Convierte los valores de una colección de elementos
-        ///     <see cref="double" /> a porcentajes.
+        /// Convierte los valores de una colección de elementos
+        /// <see cref="double" /> a porcentajes.
         /// </summary>
         /// <returns>
-        ///     Una colección de <see cref="double" /> con sus valores
-        ///     expresados en porcentaje.
+        /// Una colección de <see cref="double" /> con sus valores
+        /// expresados en porcentaje.
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="min">Valor que representará 0%.</param>
@@ -825,12 +825,12 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Convierte los valores de una colección de elementos
-        ///     <see cref="int" /> a porcentajes.
+        /// Convierte los valores de una colección de elementos
+        /// <see cref="int" /> a porcentajes.
         /// </summary>
         /// <returns>
-        ///     Una colección de <see cref="double" /> con sus valores
-        ///     expresados en porcentaje.
+        /// Una colección de <see cref="double" /> con sus valores
+        /// expresados en porcentaje.
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
         [Sugar]
@@ -841,18 +841,18 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Convierte los valores de una colección de elementos
-        ///     <see cref="int" /> a porcentajes.
+        /// Convierte los valores de una colección de elementos
+        /// <see cref="int" /> a porcentajes.
         /// </summary>
         /// <returns>
-        ///     Una colección de <see cref="double" /> con sus valores
-        ///     expresados en porcentaje.
+        /// Una colección de <see cref="double" /> con sus valores
+        /// expresados en porcentaje.
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="baseZero">
-        ///     Opcional. si es <see langword="true" />, la base de
-        ///     porcentaje es cero; de lo contrario, se utilizará el valor mínimo
-        ///     dentro de la colección.
+        /// Opcional. si es <see langword="true" />, la base de
+        /// porcentaje es cero; de lo contrario, se utilizará el valor mínimo
+        /// dentro de la colección.
         /// </param>
         [Sugar]
         public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, in bool baseZero)
@@ -862,12 +862,12 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Convierte los valores de una colección de elementos
-        ///     <see cref="int" /> a porcentajes.
+        /// Convierte los valores de una colección de elementos
+        /// <see cref="int" /> a porcentajes.
         /// </summary>
         /// <returns>
-        ///     Una colección de <see cref="double" /> con sus valores
-        ///     expresados en porcentaje.
+        /// Una colección de <see cref="double" /> con sus valores
+        /// expresados en porcentaje.
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="max">Valor que representará 100%.</param>
@@ -878,12 +878,12 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Convierte los valores de una colección de elementos
-        ///     <see cref="int" /> a porcentajes.
+        /// Convierte los valores de una colección de elementos
+        /// <see cref="int" /> a porcentajes.
         /// </summary>
         /// <returns>
-        ///     Una colección de <see cref="double" /> con sus valores
-        ///     expresados en porcentaje.
+        /// Una colección de <see cref="double" /> con sus valores
+        /// expresados en porcentaje.
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="min">Valor que representará 0%.</param>
@@ -895,12 +895,12 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Convierte los valores de una colección de elementos
-        ///     <see cref="int" /> a porcentajes de precisión simple.
+        /// Convierte los valores de una colección de elementos
+        /// <see cref="int" /> a porcentajes de precisión simple.
         /// </summary>
         /// <returns>
-        ///     Una colección de <see cref="float" /> con sus valores
-        ///     expresados en porcentaje.
+        /// Una colección de <see cref="float" /> con sus valores
+        /// expresados en porcentaje.
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
         [Sugar]
@@ -911,18 +911,18 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Convierte los valores de una colección de elementos
-        ///     <see cref="int" /> a porcentajes de precisión simple.
+        /// Convierte los valores de una colección de elementos
+        /// <see cref="int" /> a porcentajes de precisión simple.
         /// </summary>
         /// <returns>
-        ///     Una colección de <see cref="float" /> con sus valores
-        ///     expresados en porcentaje.
+        /// Una colección de <see cref="float" /> con sus valores
+        /// expresados en porcentaje.
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="baseZero">
-        ///     Opcional. si es <see langword="true" />, la base de
-        ///     porcentaje es cero; de lo contrario, se utilizará el valor mínimo
-        ///     dentro de la colección.
+        /// Opcional. si es <see langword="true" />, la base de
+        /// porcentaje es cero; de lo contrario, se utilizará el valor mínimo
+        /// dentro de la colección.
         /// </param>
         [Sugar]
         public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, in bool baseZero)
@@ -932,12 +932,12 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Convierte los valores de una colección de elementos
-        ///     <see cref="int" /> a porcentajes de precisión simple.
+        /// Convierte los valores de una colección de elementos
+        /// <see cref="int" /> a porcentajes de precisión simple.
         /// </summary>
         /// <returns>
-        ///     Una colección de <see cref="float" /> con sus valores
-        ///     expresados en porcentaje.
+        /// Una colección de <see cref="float" /> con sus valores
+        /// expresados en porcentaje.
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="max">Valor que representará 100%.</param>
@@ -948,12 +948,12 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Convierte los valores de una colección de elementos
-        ///     <see cref="int" /> a porcentajes de precisión simple.
+        /// Convierte los valores de una colección de elementos
+        /// <see cref="int" /> a porcentajes de precisión simple.
         /// </summary>
         /// <returns>
-        ///     Una colección de <see cref="float" /> con sus valores
-        ///     expresados en porcentaje.
+        /// Una colección de <see cref="float" /> con sus valores
+        /// expresados en porcentaje.
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="min">Valor que representará 0%.</param>
@@ -1027,17 +1027,17 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Enumera los tipos de unidades que se pueden utilizar para
-        ///     representar grandes cantidades de bytes.
+        /// Enumera los tipos de unidades que se pueden utilizar para
+        /// representar grandes cantidades de bytes.
         /// </summary>
         public enum ByteUnitType : byte
         {
             /// <summary>
-            ///     Numeración binaria. Cada orden de magnitud equivale a 1024 de su inferior.
+            /// Numeración binaria. Cada orden de magnitud equivale a 1024 de su inferior.
             /// </summary>
             Binary,
             /// <summary>
-            ///     Numeración decimal. Cada orden de magnitud equivale a 1000 de su inferior. 
+            /// Numeración decimal. Cada orden de magnitud equivale a 1000 de su inferior. 
             /// </summary>
             Decimal
         }

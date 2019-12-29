@@ -41,18 +41,18 @@ using TheXDS.MCART.Security.Cryptography;
 namespace TheXDS.MCART.Networking.Client
 {
     /// <summary>
-    ///     Describe un cliente de comandos administrado por MCART.
+    /// Describe un cliente de comandos administrado por MCART.
     /// </summary>
     /// <typeparam name="TCommand">
-    ///     <see cref="Enum"/> con los comandos generados.
+    /// <see cref="Enum"/> con los comandos generados.
     /// </typeparam>
     /// <typeparam name="TResult">
-    ///     <see cref="Enum"/> con las respuestas aceptadas.
+    /// <see cref="Enum"/> con las respuestas aceptadas.
     /// </typeparam>
     public abstract class ManagedCommandClient<TCommand, TResult> : ActiveClient, IManagedClient where TCommand : struct, Enum where TResult : struct, Enum
     {
         /// <summary>
-        ///     Describe la firma de una respuesta del protocolo.
+        /// Describe la firma de una respuesta del protocolo.
         /// </summary>
         public delegate void ResponseCallback(TResult response, BinaryReader br);
 
@@ -63,27 +63,27 @@ namespace TheXDS.MCART.Networking.Client
         private static readonly MethodInfo _readResp = BinaryReaderExtensions.GetBinaryReadMethod(typeof(TResult).GetEnumUnderlyingType())!;
 
         /// <summary>
-        ///     Activa o desactiva el escaneo del tipo de instancia a construir
-        ///     en busca de funciones de manejo de comandos del protocolo.
+        /// Activa o desactiva el escaneo del tipo de instancia a construir
+        /// en busca de funciones de manejo de comandos del protocolo.
         /// </summary>
         public static bool ScanTypeOnCtor { get; set; } = true;
 
         /// <summary>
-        ///     Activa o desactiva el mapeo de funciones por convención de
-        ///     nombres para el manejo de comandos del protocolo.
+        /// Activa o desactiva el mapeo de funciones por convención de
+        /// nombres para el manejo de comandos del protocolo.
         /// </summary>
         public static bool EnableMapByName { get; set; } = true;
 
         /// <summary>
-        ///     Activa o desactiva el salto de comandos mapeados, efectivamente
-        ///     causando el efecto inverso en el mecanismo de protección anti
-        ///     mapeo duplicado.
+        /// Activa o desactiva el salto de comandos mapeados, efectivamente
+        /// causando el efecto inverso en el mecanismo de protección anti
+        /// mapeo duplicado.
         /// </summary>
         public static bool SkipMapped { get; set; } = true;
 
         /// <summary>
-        ///     Inicializa la clase
-        ///     <see cref="ManagedCommandClient{TCommand, TResponse}"/>.
+        /// Inicializa la clase
+        /// <see cref="ManagedCommandClient{TCommand, TResponse}"/>.
         /// </summary>
         static ManagedCommandClient()
         {
@@ -110,61 +110,61 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Ocurre cuando el servidor informa de un comando válido que no
-        ///     pudo ser manejado debido a que no se configuró una función de
-        ///     control para el comando.
+        /// Ocurre cuando el servidor informa de un comando válido que no
+        /// pudo ser manejado debido a que no se configuró una función de
+        /// control para el comando.
         /// </summary>
         public event EventHandler<ValueEventArgs<TCommand>>? NotMappedCommandIssued;
 
         /// <summary>
-        ///     Ocurre cuando el servidor informa que se ha enviado un comando
-        ///     desconocido.
+        /// Ocurre cuando el servidor informa que se ha enviado un comando
+        /// desconocido.
         /// </summary>
         public event EventHandler<ValueEventArgs<TCommand>>? UnknownCommandIssued;
 
         /// <summary>
-        ///     Ocurre cuando el servidor ha encontrado un error general.
+        /// Ocurre cuando el servidor ha encontrado un error general.
         /// </summary>
         public event EventHandler<ExceptionEventArgs>? ServerError;
 
         /// <summary>
-        ///     Obtiene un valor que indica si esta conexión está encriptada.
+        /// Obtiene un valor que indica si esta conexión está encriptada.
         /// </summary>
         public bool Encrypted => !(_rsa is null);
 
         /// <summary>
-        ///     Obtiene la clave pública de esta conexión encriptada.
+        /// Obtiene la clave pública de esta conexión encriptada.
         /// </summary>
         public byte[] GetPubKey() => _rsa?.ExportCspBlob(false) ?? Array.Empty<byte>();
 
         /// <summary>
-        ///     Obtiene un valor que indica si la conexión utilizará
-        ///     compresión.
+        /// Obtiene un valor que indica si la conexión utilizará
+        /// compresión.
         /// </summary>
         public bool Compressed { get; protected set; }
 
         /// <summary>
-        ///     Obtiene un valor que indica si este cliente espera que las
-        ///     respuestas enviadas por el servidor a los comandos enviados por
-        ///     este cliente incluyan un <see cref="Guid"/> de identificación.
+        /// Obtiene un valor que indica si este cliente espera que las
+        /// respuestas enviadas por el servidor a los comandos enviados por
+        /// este cliente incluyan un <see cref="Guid"/> de identificación.
         /// </summary>
         public bool ExpectsGuid { get; protected set; } = true;
 
         /// <summary>
-        ///     Obtiene un valor que indica si este cliente envía comandos con
-        ///     un <see cref="Guid"/> de identificación al servidor.
+        /// Obtiene un valor que indica si este cliente envía comandos con
+        /// un <see cref="Guid"/> de identificación al servidor.
         /// </summary>
         public bool SendsGuid { get; protected set; } = true;
 
         /// <summary>
-        ///     Obtiene o establece un valor que indica si el cliente espera
-        ///     que las respuestas del servidor incluyan un Guid
+        /// Obtiene o establece un valor que indica si el cliente espera
+        /// que las respuestas del servidor incluyan un Guid
         /// </summary>
         protected bool IncludesGuid { get; set; } = true;
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ManagedCommandClient{TCommand, TResponse}"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ManagedCommandClient{TCommand, TResponse}"/>.
         /// </summary>
         protected ManagedCommandClient()
         {
@@ -194,10 +194,10 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía un comando al servidor.
+        /// Envía un comando al servidor.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         protected void Send(in TCommand command)
         {
@@ -205,14 +205,14 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía un comando al servidor, y ejecuta una acción al recibir
-        ///     la respuesta.
+        /// Envía un comando al servidor, y ejecuta una acción al recibir
+        /// la respuesta.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a realizar cuando el servidor responda.
+        /// Llamada a realizar cuando el servidor responda.
         /// </param>
         protected void Send(in TCommand command, ResponseCallback? callback)
         {
@@ -220,17 +220,17 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía un comando al servidor, y ejecuta una acción al recibir
-        ///     la respuesta.
+        /// Envía un comando al servidor, y ejecuta una acción al recibir
+        /// la respuesta.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a realizar cuando el servidor responda.
+        /// Llamada a realizar cuando el servidor responda.
         /// </param>
         /// <returns>
-        ///     El valor producido por la función <paramref name="callback"/>.
+        /// El valor producido por la función <paramref name="callback"/>.
         /// </returns>
         protected T Send<T>(in TCommand command, Func<TResult, BinaryReader, T> callback)
         {
@@ -238,13 +238,13 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía un comando al servidor.
+        /// Envía un comando al servidor.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="rawData">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         protected void Send(in TCommand command, IEnumerable<byte> rawData)
         {
@@ -252,17 +252,17 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía un comando al servidor, y ejecuta una acción al recibir
-        ///     la respuesta.
+        /// Envía un comando al servidor, y ejecuta una acción al recibir
+        /// la respuesta.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="rawData">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a realizar cuando el servidor responda.
+        /// Llamada a realizar cuando el servidor responda.
         /// </param>
         protected void Send(in TCommand command, IEnumerable<byte> rawData, ResponseCallback? callback)
         {
@@ -274,20 +274,20 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía un comando al servidor, y ejecuta una acción al recibir
-        ///     la respuesta.
+        /// Envía un comando al servidor, y ejecuta una acción al recibir
+        /// la respuesta.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="rawData">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a realizar cuando el servidor responda.
+        /// Llamada a realizar cuando el servidor responda.
         /// </param>
         /// <returns>
-        ///     El valor producido por la función <paramref name="callback"/>.
+        /// El valor producido por la función <paramref name="callback"/>.
         /// </returns>
         protected T Send<T>(in TCommand command, IEnumerable<byte> rawData, Func<TResult, BinaryReader, T> callback)
         {
@@ -306,20 +306,20 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía un comando al servidor, y ejecuta una acción al recibir
-        ///     la respuesta.
+        /// Envía un comando al servidor, y ejecuta una acción al recibir
+        /// la respuesta.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="data">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a realizar cuando el servidor responda.
+        /// Llamada a realizar cuando el servidor responda.
         /// </param>
         /// <returns>
-        ///     El valor producido por la función <paramref name="callback"/>.
+        /// El valor producido por la función <paramref name="callback"/>.
         /// </returns>
         protected T Send<T>(in TCommand command, MemoryStream data, Func<TResult, BinaryReader, T> callback)
         {
@@ -327,14 +327,14 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía un comando al servidor, y ejecuta una acción al recibir
-        ///     la respuesta.
+        /// Envía un comando al servidor, y ejecuta una acción al recibir
+        /// la respuesta.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="data">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         protected void Send(in TCommand command, MemoryStream data)
         {
@@ -342,17 +342,17 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía un comando al servidor, y ejecuta una acción al recibir
-        ///     la respuesta.
+        /// Envía un comando al servidor, y ejecuta una acción al recibir
+        /// la respuesta.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="data">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a realizar cuando el servidor responda.
+        /// Llamada a realizar cuando el servidor responda.
         /// </param>
         protected void Send(in TCommand command, MemoryStream data, ResponseCallback? callback)
         {
@@ -360,14 +360,14 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía un comando al servidor, y ejecuta una acción al recibir
-        ///     la respuesta.
+        /// Envía un comando al servidor, y ejecuta una acción al recibir
+        /// la respuesta.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="dataStream">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         protected void Send(in TCommand command, Stream dataStream)
         {
@@ -375,17 +375,17 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía un comando al servidor, y ejecuta una acción al recibir
-        ///     la respuesta.
+        /// Envía un comando al servidor, y ejecuta una acción al recibir
+        /// la respuesta.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="dataStream">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a realizar cuando el servidor responda.
+        /// Llamada a realizar cuando el servidor responda.
         /// </param>
         protected void Send(in TCommand command, Stream dataStream, ResponseCallback? callback)
         {
@@ -402,20 +402,20 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía un comando al servidor, y ejecuta una acción al recibir
-        ///     la respuesta.
+        /// Envía un comando al servidor, y ejecuta una acción al recibir
+        /// la respuesta.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="dataStream">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a realizar cuando el servidor responda.
+        /// Llamada a realizar cuando el servidor responda.
         /// </param>
         /// <returns>
-        ///     El valor producido por la función <paramref name="callback"/>.
+        /// El valor producido por la función <paramref name="callback"/>.
         /// </returns>
         protected T Send<T>(in TCommand command, Stream dataStream, Func<TResult, BinaryReader, T> callback)
         {
@@ -431,14 +431,14 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía un comando al servidor, y ejecuta una acción al recibir
-        ///     la respuesta.
+        /// Envía un comando al servidor, y ejecuta una acción al recibir
+        /// la respuesta.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="data">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         protected void Send(in TCommand command, IEnumerable<string> data)
         {
@@ -446,17 +446,17 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía un comando al servidor, y ejecuta una acción al recibir
-        ///     la respuesta.
+        /// Envía un comando al servidor, y ejecuta una acción al recibir
+        /// la respuesta.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="data">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a realizar cuando el servidor responda.
+        /// Llamada a realizar cuando el servidor responda.
         /// </param>
         protected void Send(in TCommand command, IEnumerable<string> data, ResponseCallback? callback)
         {
@@ -467,20 +467,20 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía un comando al servidor, y ejecuta una acción al recibir
-        ///     la respuesta.
+        /// Envía un comando al servidor, y ejecuta una acción al recibir
+        /// la respuesta.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="data">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a realizar cuando el servidor responda.
+        /// Llamada a realizar cuando el servidor responda.
         /// </param>
         /// <returns>
-        ///     El valor producido por la función <paramref name="callback"/>.
+        /// El valor producido por la función <paramref name="callback"/>.
         /// </returns>
         protected T Send<T>(in TCommand command, IEnumerable<string> data, Func<TResult, BinaryReader, T> callback)
         {
@@ -491,14 +491,14 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía un comando al servidor, y ejecuta una acción al recibir
-        ///     la respuesta.
+        /// Envía un comando al servidor, y ejecuta una acción al recibir
+        /// la respuesta.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="data">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         protected void Send(in TCommand command, string data)
         {
@@ -506,17 +506,17 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía un comando al servidor, y ejecuta una acción al recibir
-        ///     la respuesta.
+        /// Envía un comando al servidor, y ejecuta una acción al recibir
+        /// la respuesta.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="data">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a realizar cuando el servidor responda.
+        /// Llamada a realizar cuando el servidor responda.
         /// </param>
         protected void Send(in TCommand command, string data, ResponseCallback callback)
         {
@@ -524,17 +524,17 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía un comando al servidor, y ejecuta una acción al recibir
-        ///     la respuesta.
+        /// Envía un comando al servidor, y ejecuta una acción al recibir
+        /// la respuesta.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="data">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a realizar cuando el servidor responda.
+        /// Llamada a realizar cuando el servidor responda.
         /// </param>
         protected T Send<T>(in TCommand command, string data, Func<TResult, BinaryReader, T> callback)
         {
@@ -545,11 +545,11 @@ namespace TheXDS.MCART.Networking.Client
         /// Envía un comando al servidor de forma asíncrona.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
-        ///     estado de la operación.
+        /// Un <see cref="Task"/> que puede utilizarse para vigilar el
+        /// estado de la operación.
         /// </returns>
         protected Task SendAsync(in TCommand command)
         {
@@ -560,14 +560,14 @@ namespace TheXDS.MCART.Networking.Client
         /// Envía un comando al servidor de forma asíncrona.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a realizar cuando el servidor responda.
+        /// Llamada a realizar cuando el servidor responda.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
-        ///     estado de la operación.
+        /// Un <see cref="Task"/> que puede utilizarse para vigilar el
+        /// estado de la operación.
         /// </returns>
         protected Task SendAsync(in TCommand command, ResponseCallback? callback)
         {
@@ -580,14 +580,14 @@ namespace TheXDS.MCART.Networking.Client
         /// Envía un comando al servidor de forma asíncrona.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a realizar cuando el servidor responda.
+        /// Llamada a realizar cuando el servidor responda.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
-        ///     estado de la operación.
+        /// Un <see cref="Task"/> que puede utilizarse para vigilar el
+        /// estado de la operación.
         /// </returns>
         protected Task<T> SendAsync<T>(TCommand command, Func<TResult, BinaryReader, T> callback)
         {
@@ -598,14 +598,14 @@ namespace TheXDS.MCART.Networking.Client
         /// Envía un comando al servidor de forma asíncrona.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="rawData">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
-        ///     estado de la operación.
+        /// Un <see cref="Task"/> que puede utilizarse para vigilar el
+        /// estado de la operación.
         /// </returns>
         protected Task SendAsync(in TCommand command, IEnumerable<byte> rawData)
         {
@@ -616,17 +616,17 @@ namespace TheXDS.MCART.Networking.Client
         /// Envía un comando al servidor de forma asíncrona.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="rawData">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a realizar cuando el servidor responda.
+        /// Llamada a realizar cuando el servidor responda.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
-        ///     estado de la operación.
+        /// Un <see cref="Task"/> que puede utilizarse para vigilar el
+        /// estado de la operación.
         /// </returns>
         protected Task SendAsync(in TCommand command, IEnumerable<byte> rawData, ResponseCallback? callback)
         {
@@ -639,17 +639,17 @@ namespace TheXDS.MCART.Networking.Client
         /// Envía un comando al servidor de forma asíncrona.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="rawData">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a realizar cuando el servidor responda.
+        /// Llamada a realizar cuando el servidor responda.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
-        ///     estado de la operación.
+        /// Un <see cref="Task"/> que puede utilizarse para vigilar el
+        /// estado de la operación.
         /// </returns>
         protected Task<T> SendAsync<T>(TCommand command, IEnumerable<byte> rawData, Func<TResult, BinaryReader, T> callback)
         {
@@ -660,14 +660,14 @@ namespace TheXDS.MCART.Networking.Client
         /// Envía un comando al servidor de forma asíncrona.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="data">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
-        ///     estado de la operación.
+        /// Un <see cref="Task"/> que puede utilizarse para vigilar el
+        /// estado de la operación.
         /// </returns>
         protected Task SendAsync(in TCommand command, MemoryStream data)
         {
@@ -678,17 +678,17 @@ namespace TheXDS.MCART.Networking.Client
         /// Envía un comando al servidor de forma asíncrona.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="data">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a realizar cuando el servidor responda.
+        /// Llamada a realizar cuando el servidor responda.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
-        ///     estado de la operación.
+        /// Un <see cref="Task"/> que puede utilizarse para vigilar el
+        /// estado de la operación.
         /// </returns>
         protected Task SendAsync(in TCommand command, MemoryStream data, ResponseCallback? callback)
         {
@@ -699,17 +699,17 @@ namespace TheXDS.MCART.Networking.Client
         /// Envía un comando al servidor de forma asíncrona.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="data">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a realizar cuando el servidor responda.
+        /// Llamada a realizar cuando el servidor responda.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
-        ///     estado de la operación.
+        /// Un <see cref="Task"/> que puede utilizarse para vigilar el
+        /// estado de la operación.
         /// </returns>
         protected Task<T> SendAsync<T>(in TCommand command, MemoryStream data, Func<TResult, BinaryReader, T> callback)
         {
@@ -720,14 +720,14 @@ namespace TheXDS.MCART.Networking.Client
         /// Envía un comando al servidor de forma asíncrona.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="dataStream">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
-        ///     estado de la operación.
+        /// Un <see cref="Task"/> que puede utilizarse para vigilar el
+        /// estado de la operación.
         /// </returns>
         protected Task SendAsync(in TCommand command, Stream dataStream)
         {
@@ -738,17 +738,17 @@ namespace TheXDS.MCART.Networking.Client
         /// Envía un comando al servidor de forma asíncrona.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="dataStream">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a realizar cuando el servidor responda.
+        /// Llamada a realizar cuando el servidor responda.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
-        ///     estado de la operación.
+        /// Un <see cref="Task"/> que puede utilizarse para vigilar el
+        /// estado de la operación.
         /// </returns>
         protected Task SendAsync(in TCommand command, Stream dataStream, ResponseCallback? callback)
         {
@@ -767,17 +767,17 @@ namespace TheXDS.MCART.Networking.Client
         /// Envía un comando al servidor de forma asíncrona.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="dataStream">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a realizar cuando el servidor responda.
+        /// Llamada a realizar cuando el servidor responda.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
-        ///     estado de la operación.
+        /// Un <see cref="Task"/> que puede utilizarse para vigilar el
+        /// estado de la operación.
         /// </returns>
         protected Task<T> SendAsync<T>(in TCommand command, Stream dataStream, Func<TResult, BinaryReader, T> callback)
         {
@@ -796,14 +796,14 @@ namespace TheXDS.MCART.Networking.Client
         /// Envía un comando al servidor de forma asíncrona.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="data">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
-        ///     estado de la operación.
+        /// Un <see cref="Task"/> que puede utilizarse para vigilar el
+        /// estado de la operación.
         /// </returns>
         protected Task SendAsync(in TCommand command, IEnumerable<string> data)
         {
@@ -814,17 +814,17 @@ namespace TheXDS.MCART.Networking.Client
         /// Envía un comando al servidor de forma asíncrona.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="data">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a realizar cuando el servidor responda.
+        /// Llamada a realizar cuando el servidor responda.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
-        ///     estado de la operación.
+        /// Un <see cref="Task"/> que puede utilizarse para vigilar el
+        /// estado de la operación.
         /// </returns>
         protected Task SendAsync(in TCommand command, IEnumerable<string> data, ResponseCallback? callback)
         {
@@ -838,17 +838,17 @@ namespace TheXDS.MCART.Networking.Client
         /// Envía un comando al servidor de forma asíncrona.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="data">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a realizar cuando el servidor responda.
+        /// Llamada a realizar cuando el servidor responda.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
-        ///     estado de la operación.
+        /// Un <see cref="Task"/> que puede utilizarse para vigilar el
+        /// estado de la operación.
         /// </returns>
         protected Task<T> SendAsync<T>(in TCommand command, IEnumerable<string> data, Func<TResult, BinaryReader, T> callback)
         {
@@ -862,14 +862,14 @@ namespace TheXDS.MCART.Networking.Client
         /// Envía un comando al servidor de forma asíncrona.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="data">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
-        ///     estado de la operación.
+        /// Un <see cref="Task"/> que puede utilizarse para vigilar el
+        /// estado de la operación.
         /// </returns>
         protected Task SendAsync(in TCommand command, string data)
         {
@@ -880,17 +880,17 @@ namespace TheXDS.MCART.Networking.Client
         /// Envía un comando al servidor de forma asíncrona.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="data">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a realizar cuando el servidor responda.
+        /// Llamada a realizar cuando el servidor responda.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
-        ///     estado de la operación.
+        /// Un <see cref="Task"/> que puede utilizarse para vigilar el
+        /// estado de la operación.
         /// </returns>
         protected Task SendAsync(in TCommand command, string data, ResponseCallback? callback)
         {
@@ -901,17 +901,17 @@ namespace TheXDS.MCART.Networking.Client
         /// Envía un comando al servidor de forma asíncrona.
         /// </summary>
         /// <param name="command">
-        ///     Comando a enviar.
+        /// Comando a enviar.
         /// </param>
         /// <param name="data">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <param name="callback">
-        ///     Llamada a realizar cuando el servidor responda.
+        /// Llamada a realizar cuando el servidor responda.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Task"/> que puede utilizarse para vigilar el
-        ///     estado de la operación.
+        /// Un <see cref="Task"/> que puede utilizarse para vigilar el
+        /// estado de la operación.
         /// </returns>
         protected Task<T> SendAsync<T>(in TCommand command, string data, Func<TResult, BinaryReader, T> callback)
         {
@@ -919,7 +919,7 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Indica al cliente que debe encriptar la conexión.
+        /// Indica al cliente que debe encriptar la conexión.
         /// </summary>
         protected void GoEncrypted()
         {
@@ -927,8 +927,8 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Cancela todos los hilos de espera de los comandos enviados al
-        ///     servidor.
+        /// Cancela todos los hilos de espera de los comandos enviados al
+        /// servidor.
         /// </summary>
         protected void AbortCommands()
         {
@@ -936,15 +936,15 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Cuando se invalida, permite obtener una colección con los
-        ///     métodos que serán llamados al recibir la respuesta
-        ///     especificada.
+        /// Cuando se invalida, permite obtener una colección con los
+        /// métodos que serán llamados al recibir la respuesta
+        /// especificada.
         /// </summary>
         /// <returns>
-        ///     Una enumeración de <see cref="KeyValuePair{TKey, TValue}"/>
-        ///     cuya llave es una respuesta y cuyo valor es el 
-        ///     <see cref="ResponseCallback"/> a ejecutar al recibir dicha
-        ///     respuesta.
+        /// Una enumeración de <see cref="KeyValuePair{TKey, TValue}"/>
+        /// cuya llave es una respuesta y cuyo valor es el 
+        /// <see cref="ResponseCallback"/> a ejecutar al recibir dicha
+        /// respuesta.
         /// </returns>
         protected virtual IEnumerable<KeyValuePair<TResult, ResponseCallback>> WireUp()
         {
@@ -952,14 +952,14 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Conecta manualmente una respuesta con un
-        ///     <see cref="ResponseCallback"/> de atención.
+        /// Conecta manualmente una respuesta con un
+        /// <see cref="ResponseCallback"/> de atención.
         /// </summary>
         /// <param name="command">
-        ///     Respuesta a conectar.
+        /// Respuesta a conectar.
         /// </param>
         /// <param name="action">
-        ///     Acción a ejecutar al recibir la respuesta.
+        /// Acción a ejecutar al recibir la respuesta.
         /// </param>
         protected void WireUp(in TResult command, ResponseCallback action)
         {
@@ -973,15 +973,15 @@ namespace TheXDS.MCART.Networking.Client
 
         /// <inheritdoc />
         /// <summary>
-        ///     Atiende una solicitud realizada por el servidor cuando no
-        ///     existe un método mapeado a la respuesta recibida.
+        /// Atiende una solicitud realizada por el servidor cuando no
+        /// existe un método mapeado a la respuesta recibida.
         /// </summary>
         /// <param name="data">Datos recibidos desde el servidor.</param>
         /// <remarks>
-        ///     De forma predeterminada, este método no realiza ninguna acción.
-        ///     Invalide este método en caso de que la implementación no mapee
-        ///     todas las respuestas que el servidor podría enviar, en cuyo
-        ///     caso, serán atendidas aquí.
+        /// De forma predeterminada, este método no realiza ninguna acción.
+        /// Invalide este método en caso de que la implementación no mapee
+        /// todas las respuestas que el servidor podría enviar, en cuyo
+        /// caso, serán atendidas aquí.
         /// </remarks>
         public override void AttendServer(byte[] data)
         {
@@ -990,7 +990,7 @@ namespace TheXDS.MCART.Networking.Client
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicia la escucha activa del servidor.
+        /// Inicia la escucha activa del servidor.
         /// </summary>
         protected sealed override async void PostConnection()
         {
@@ -1055,14 +1055,14 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Agrega un manejador de respuesta de un comando enviado con el 
-        ///     <see cref="Guid"/> especificado.
+        /// Agrega un manejador de respuesta de un comando enviado con el 
+        /// <see cref="Guid"/> especificado.
         /// </summary>
         /// <param name="guid">
-        ///     Guid de la respuesta esperada.
+        /// Guid de la respuesta esperada.
         /// </param>
         /// <param name="callback">
-        ///     Método a llamar al recibir la respuesta esperada.
+        /// Método a llamar al recibir la respuesta esperada.
         /// </param>
         protected void EnqueueRequest(in Guid guid, ResponseCallback callback)
         {

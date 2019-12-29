@@ -35,8 +35,8 @@ using System.Linq;
 namespace TheXDS.MCART.Security.Cryptography
 {
     /// <summary>
-    ///     Implementa un flujo que lee y escribe información encriptada en RSA
-    ///     sobre un <see cref="Stream"/> especificado.
+    /// Implementa un flujo que lee y escribe información encriptada en RSA
+    /// sobre un <see cref="Stream"/> especificado.
     /// </summary>
     public class RSACryptoStream : Stream, IDisposable
     {
@@ -44,28 +44,28 @@ namespace TheXDS.MCART.Security.Cryptography
         private readonly RSACryptoServiceProvider _rsa;
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="RSACryptoStream"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="RSACryptoStream"/>.
         /// </summary>
         /// <param name="underlyingStream">
-        ///     <see cref="Stream"/> subyacente sobre el cual realizar las
-        ///     operaciones de lectura/escritura.
+        /// <see cref="Stream"/> subyacente sobre el cual realizar las
+        /// operaciones de lectura/escritura.
         /// </param>
         public RSACryptoStream(Stream underlyingStream) : this(underlyingStream, new RSACryptoServiceProvider())
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="RSACryptoStream"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="RSACryptoStream"/>.
         /// </summary>
         /// <param name="underlyingStream">
-        ///     <see cref="Stream"/> subyacente sobre el cual realizar las
-        ///     operaciones de lectura/escritura.
+        /// <see cref="Stream"/> subyacente sobre el cual realizar las
+        /// operaciones de lectura/escritura.
         /// </param>
         /// <param name="rsa">
-        ///     Instancia de <see cref="RSACryptoServiceProvider"/> a utilizar
-        ///     para realizar las operaciones de encriptado/desencriptado.
+        /// Instancia de <see cref="RSACryptoServiceProvider"/> a utilizar
+        /// para realizar las operaciones de encriptado/desencriptado.
         /// </param>
         public RSACryptoStream(Stream underlyingStream, RSACryptoServiceProvider rsa)
         {
@@ -74,30 +74,30 @@ namespace TheXDS.MCART.Security.Cryptography
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="RSACryptoStream"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="RSACryptoStream"/>.
         /// </summary>
         /// <param name="underlyingStream">
-        ///     <see cref="Stream"/> subyacente sobre el cual realizar las
-        ///     operaciones de lectura/escritura.
+        /// <see cref="Stream"/> subyacente sobre el cual realizar las
+        /// operaciones de lectura/escritura.
         /// </param>
         /// <param name="keySize">
-        ///     Tamaño de la clave a generar para el RSA.
+        /// Tamaño de la clave a generar para el RSA.
         /// </param>
         public RSACryptoStream(Stream underlyingStream, int keySize) : this(underlyingStream, new RSACryptoServiceProvider(keySize))
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="RSACryptoStream"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="RSACryptoStream"/>.
         /// </summary>
         /// <param name="underlyingStream">
-        ///     <see cref="Stream"/> subyacente sobre el cual realizar las
-        ///     operaciones de lectura/escritura.
+        /// <see cref="Stream"/> subyacente sobre el cual realizar las
+        /// operaciones de lectura/escritura.
         /// </param>
         /// <param name="keyBlob">
-        ///     Blob binario con las claves a utilizar en el RSA.
+        /// Blob binario con las claves a utilizar en el RSA.
         /// </param>
         public RSACryptoStream(Stream underlyingStream, byte[] keyBlob) : this(underlyingStream, new RSACryptoServiceProvider())
         {
@@ -105,15 +105,15 @@ namespace TheXDS.MCART.Security.Cryptography
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="RSACryptoStream"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="RSACryptoStream"/>.
         /// </summary>
         /// <param name="underlyingStream">
-        ///     <see cref="Stream"/> subyacente sobre el cual realizar las
-        ///     operaciones de lectura/escritura.
+        /// <see cref="Stream"/> subyacente sobre el cual realizar las
+        /// operaciones de lectura/escritura.
         /// </param>
         /// <param name="parameters">
-        ///     Parámetros de configuración a utilizar para el RSA.
+        /// Parámetros de configuración a utilizar para el RSA.
         /// </param>
         public RSACryptoStream(Stream underlyingStream, RSAParameters parameters) : this(underlyingStream, new RSACryptoServiceProvider())
         {
@@ -121,71 +121,71 @@ namespace TheXDS.MCART.Security.Cryptography
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="RSACryptoStream"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="RSACryptoStream"/>.
         /// </summary>
         /// <param name="underlyingStream">
-        ///     <see cref="Stream"/> subyacente sobre el cual realizar las
-        ///     operaciones de lectura/escritura.
+        /// <see cref="Stream"/> subyacente sobre el cual realizar las
+        /// operaciones de lectura/escritura.
         /// </param>
         /// <param name="parameters">
-        ///     Parámetros de configuración a utilizar para el RSA.
+        /// Parámetros de configuración a utilizar para el RSA.
         /// </param>
         public RSACryptoStream(Stream underlyingStream, CspParameters parameters) : this(underlyingStream, new RSACryptoServiceProvider(parameters))
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="RSACryptoStream"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="RSACryptoStream"/>.
         /// </summary>
         /// <param name="underlyingStream">
-        ///     <see cref="Stream"/> subyacente sobre el cual realizar las
-        ///     operaciones de lectura/escritura.
+        /// <see cref="Stream"/> subyacente sobre el cual realizar las
+        /// operaciones de lectura/escritura.
         /// </param>
         /// <param name="dwKeySize">
-        ///     Longitud de las llaves a generar para el RSA.
+        /// Longitud de las llaves a generar para el RSA.
         /// </param>
         /// <param name="parameters">
-        ///     Parámetros de configuración a utilizar para el RSA.
+        /// Parámetros de configuración a utilizar para el RSA.
         /// </param>
         public RSACryptoStream(Stream underlyingStream, int dwKeySize, CspParameters parameters) : this(underlyingStream, new RSACryptoServiceProvider(dwKeySize, parameters))
         {
         }
 
         /// <summary>
-        ///     Obtiene un valor que indica si este <see cref="Stream"/> puede 
-        ///     ser leído.
+        /// Obtiene un valor que indica si este <see cref="Stream"/> puede 
+        /// ser leído.
         /// </summary>
         public override bool CanRead => _stream.CanRead && !_rsa.PublicOnly;
 
         /// <summary>
-        ///     Obtiene un valor que indica si este <see cref="Stream"/>
-        ///     permite desplazarse por el contenido del mismo.
+        /// Obtiene un valor que indica si este <see cref="Stream"/>
+        /// permite desplazarse por el contenido del mismo.
         /// </summary>
         public override bool CanSeek => false;
 
         /// <summary>
-        ///     Obtiene un valor que indica si se puede escribir sobre este
-        ///     <see cref="Stream"/>.
+        /// Obtiene un valor que indica si se puede escribir sobre este
+        /// <see cref="Stream"/>.
         /// </summary>
         public override bool CanWrite => _stream.CanWrite;
 
         /// <summary>
-        ///     Obtiene la longitud de este <see cref="Stream"/>.
+        /// Obtiene la longitud de este <see cref="Stream"/>.
         /// </summary>
         public override long Length => throw new NotSupportedException();
 
         /// <summary>
-        ///     Obtiene o establece la posición del cursor dentro de este
-        ///     <see cref="Stream"/>.
+        /// Obtiene o establece la posición del cursor dentro de este
+        /// <see cref="Stream"/>.
         /// </summary>
         public override long Position { get => throw new NotSupportedException(); set => throw new NotSupportedException(); }
 
         /// <summary>
-        ///     Vacía los búferes de escritura de este <see cref="Stream"/>
-        ///     causando que la información del mismo sea escrita en el
-        ///     dispositivo subyacente.
+        /// Vacía los búferes de escritura de este <see cref="Stream"/>
+        /// causando que la información del mismo sea escrita en el
+        /// dispositivo subyacente.
         /// </summary>
         public override void Flush()
         {
@@ -193,13 +193,13 @@ namespace TheXDS.MCART.Security.Cryptography
         }
 
         /// <summary>
-        ///     Lee la totalidad de los datos de este <see cref="Stream"/>.
+        /// Lee la totalidad de los datos de este <see cref="Stream"/>.
         /// </summary>
         /// <param name="buffer">Búfer de salida de datos.</param>
         /// <param name="offset">Offset sobre el cual empezar a escribir datos.</param>
         /// <param name="count">Cantidad máxima de bytes a escribir en el búfer de salida.</param>
         /// <returns>
-        ///     La cantidad de bytes escritos en el búfer de salida.
+        /// La cantidad de bytes escritos en el búfer de salida.
         /// </returns>
         public override int Read(byte[] buffer, int offset, int count)
         {
@@ -209,10 +209,10 @@ namespace TheXDS.MCART.Security.Cryptography
         }
 
         /// <summary>
-        ///     Lee todo el contenido de este <see cref="Stream"/>.
+        /// Lee todo el contenido de este <see cref="Stream"/>.
         /// </summary>
         /// <returns>
-        ///     El contenido leído de este <see cref="Stream"/>.
+        /// El contenido leído de este <see cref="Stream"/>.
         /// </returns>
         public byte[] ReadToEnd()
         {
@@ -241,16 +241,16 @@ namespace TheXDS.MCART.Security.Cryptography
         }
 
         /// <summary>
-        ///     Desplaza el cursor del lectura dentro de este <see cref="Stream"/>.
+        /// Desplaza el cursor del lectura dentro de este <see cref="Stream"/>.
         /// </summary>
         /// <param name="offset">
-        ///     Número de posiciones a desplazar el cursor.
+        /// Número de posiciones a desplazar el cursor.
         /// </param>
         /// <param name="origin">
-        ///     Punto de origen del desplazamiento.
+        /// Punto de origen del desplazamiento.
         /// </param>
         /// <returns>
-        ///     La cantidad de bytes que el cursor se ha desplazado.
+        /// La cantidad de bytes que el cursor se ha desplazado.
         /// </returns>
         public override long Seek(long offset, SeekOrigin origin)
         {
@@ -258,7 +258,7 @@ namespace TheXDS.MCART.Security.Cryptography
         }
 
         /// <summary>
-        ///     Establece la longitud de este <see cref="Stream"/>.
+        /// Establece la longitud de este <see cref="Stream"/>.
         /// </summary>
         /// <param name="value"></param>
         public override void SetLength(long value)
@@ -267,16 +267,16 @@ namespace TheXDS.MCART.Security.Cryptography
         }
 
         /// <summary>
-        ///     Escribe una secuencia de datos en este <see cref="Stream"/>.
+        /// Escribe una secuencia de datos en este <see cref="Stream"/>.
         /// </summary>
         /// <param name="buffer">
-        ///     Búfer de datos a escribir.
+        /// Búfer de datos a escribir.
         /// </param>
         /// <param name="offset">
-        ///     Offset desde el cual leer los datos a escribir.
+        /// Offset desde el cual leer los datos a escribir.
         /// </param>
         /// <param name="count">
-        ///     Cantidad de bytes a escribir.
+        /// Cantidad de bytes a escribir.
         /// </param>
         public override void Write(byte[] buffer, int offset, int count)
         {

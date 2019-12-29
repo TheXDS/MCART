@@ -25,16 +25,16 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.Attributes
 {
     /// <summary>
-    ///     Define una interfaz para los atributos que expongan valores por
-    ///     medio de la propiedad <see cref="Value"/>.
+    /// Define una interfaz para los atributos que expongan valores por
+    /// medio de la propiedad <see cref="Value"/>.
     /// </summary>
     /// <typeparam name="T">
-    ///     Tipo del valor expuesto por este atributo.
+    /// Tipo del valor expuesto por este atributo.
     /// </typeparam>
     public interface IValueAttribute<out T>
     {
         /// <summary>
-        ///     Obtiene el valor de este atributo.
+        /// Obtiene el valor de este atributo.
         /// </summary>
         T Value { get; }
     }

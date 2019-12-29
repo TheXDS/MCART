@@ -28,24 +28,24 @@ namespace TheXDS.MCART.Events
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Incluye información para cualquier evento que incluya tipos de valor y
-    ///     puedan ser cancelados.
+    /// Incluye información para cualquier evento que incluya tipos de valor y
+    /// puedan ser cancelados.
     /// </summary>
     /// <typeparam name="T">
-    ///     Tipo del valor almacenado por esta instancia.
+    /// Tipo del valor almacenado por esta instancia.
     /// </typeparam>
     public class ValueChangingEventArgs<T> : CancelEventArgs
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ValueChangingEventArgs{T}" /> con el valor provisto.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ValueChangingEventArgs{T}" /> con el valor provisto.
         /// </summary>
         /// <param name="oldValue">
-        ///     Valor original asociado al evento generado.
+        /// Valor original asociado al evento generado.
         /// </param>
         /// <param name="newValue">
-        ///     Nuevo valor asociado al evento generado.
+        /// Nuevo valor asociado al evento generado.
         /// </param>
         public ValueChangingEventArgs(T oldValue, T newValue)
         {
@@ -54,32 +54,32 @@ namespace TheXDS.MCART.Events
         }
 
         /// <summary>
-        ///     Devuelve el valor original asociado a este evento.
+        /// Devuelve el valor original asociado a este evento.
         /// </summary>
         /// <returns>
-        ///     Un valor de tipo <typeparamref name="T" /> con el valor asociado al
-        ///     evento.
+        /// Un valor de tipo <typeparamref name="T" /> con el valor asociado al
+        /// evento.
         /// </returns>
         public T OldValue { get; }
 
         /// <summary>
-        ///     Devuelve el nuevo valor asociado a este evento.
+        /// Devuelve el nuevo valor asociado a este evento.
         /// </summary>
         /// <returns>
-        ///     Un valor de tipo <typeparamref name="T" /> con el valor asociado al
-        ///     evento.
+        /// Un valor de tipo <typeparamref name="T" /> con el valor asociado al
+        /// evento.
         /// </returns>
         public T NewValue { get; }
 
         /// <summary>
-        ///     Convierte explícitamente este
-        ///     <see cref="ValueChangingEventArgs{T}" /> en un
-        ///     <see cref="ValueEventArgs{T}" />.
+        /// Convierte explícitamente este
+        /// <see cref="ValueChangingEventArgs{T}" /> en un
+        /// <see cref="ValueEventArgs{T}" />.
         /// </summary>
         /// <param name="fromValue">Objeto a convertir.</param>
         /// <returns>
-        ///     Un <see cref="ValueEventArgs{T}" /> con la información pertinente
-        ///     del <see cref="ValueChangingEventArgs{T}" /> especificado.
+        /// Un <see cref="ValueEventArgs{T}" /> con la información pertinente
+        /// del <see cref="ValueChangingEventArgs{T}" /> especificado.
         /// </returns>
         public static explicit operator ValueEventArgs<T>(ValueChangingEventArgs<T> fromValue)
         {
@@ -89,21 +89,21 @@ namespace TheXDS.MCART.Events
 
     /// <inheritdoc />
     /// <summary>
-    ///     Incluye información para cualquier evento que incluya tipos de valor y
-    ///     puedan ser cancelados.
+    /// Incluye información para cualquier evento que incluya tipos de valor y
+    /// puedan ser cancelados.
     /// </summary>
     public class ValueChangingEventArgs : ValueChangingEventArgs<object?>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ValueChangingEventArgs{T}" /> con el valor provisto.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ValueChangingEventArgs{T}" /> con el valor provisto.
         /// </summary>
         /// <param name="oldValue">
-        ///     Valor original asociado al evento generado.
+        /// Valor original asociado al evento generado.
         /// </param>
         /// <param name="newValue">
-        ///     Nuevo valor asociado al evento generado.
+        /// Nuevo valor asociado al evento generado.
         /// </param>
         public ValueChangingEventArgs(object? oldValue, object? newValue) : base(oldValue, newValue)
         {

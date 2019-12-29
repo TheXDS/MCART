@@ -31,22 +31,22 @@ using static System.Reflection.MethodAttributes;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Contiene extensiones útiles para la generación de miembros por medio
-    ///     de la clase <see cref="TypeBuilder"/>.
+    /// Contiene extensiones útiles para la generación de miembros por medio
+    /// de la clase <see cref="TypeBuilder"/>.
     /// </summary>
     public static class TypeBuilderExtensions
     {
         /// <summary>
-        ///     Determina si el método es reemplazable.
+        /// Determina si el método es reemplazable.
         /// </summary>
         /// <returns>
-        ///     <see langword="true"/> si el método es reemplazable
-        ///     <see langword="false"/> en caso contrario, o
-        ///     <see langword="null"/> si el método no existe en la clase base
-        ///     del constructor de tipos.
+        /// <see langword="true"/> si el método es reemplazable
+        /// <see langword="false"/> en caso contrario, o
+        /// <see langword="null"/> si el método no existe en la clase base
+        /// del constructor de tipos.
         /// </returns>
         /// <param name="tb">
-        ///     Constructor de tipo sobre el cual ejecutar la consulta.
+        /// Constructor de tipo sobre el cual ejecutar la consulta.
         /// </param>
         /// <param name="method">Nombre del método a buscar.</param>
         /// <param name="args">Tipo de argumentos del método a buscar.</param>
@@ -58,31 +58,31 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrega una propiedad automática al tipo.
+        /// Agrega una propiedad automática al tipo.
         /// </summary>
         /// <param name="tb">
-        ///     Constructor del tipo en el cual crear la nueva propiedad
-        ///     automática.
+        /// Constructor del tipo en el cual crear la nueva propiedad
+        /// automática.
         /// </param>
         /// <param name="name">Nombre de la nueva propiedad.</param>
         /// <param name="type">Tipo de la nueva propiedad.</param>
         /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
         /// <param name="writtable">
-        ///     Si se establece en <see langword="true"/>, la propiedad podrá
-        ///     ser escrita, es decir, tendrá un 'setter'.
+        /// Si se establece en <see langword="true"/>, la propiedad podrá
+        /// ser escrita, es decir, tendrá un 'setter'.
         /// </param>
         /// <param name="virtual">
-        ///     Si se establece en <see langword="true"/>, la propiedad será
-        ///     definida como virtual, por lo que podrá ser reemplazada en una
-        ///     clase derivada. 
+        /// Si se establece en <see langword="true"/>, la propiedad será
+        /// definida como virtual, por lo que podrá ser reemplazada en una
+        /// clase derivada. 
         /// </param>
         /// <param name="prop">
-        ///     Parámetro de salida. Referencia al constructor de propiedad
-        ///     generado.
+        /// Parámetro de salida. Referencia al constructor de propiedad
+        /// generado.
         /// </param>
         /// <param name="field">
-        ///     parámetro de salida. Referencia al campo de almacenamiento de la
-        ///     propiedad.
+        /// parámetro de salida. Referencia al campo de almacenamiento de la
+        /// propiedad.
         /// </param>
         private static void AddAutoProp(this TypeBuilder tb, string name, Type type, MemberAccess access, bool writtable, bool @virtual, out PropertyBuilder prop, out FieldBuilder field)
         {
@@ -116,22 +116,22 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrega una propiedad automática al tipo.
+        /// Agrega una propiedad automática al tipo.
         /// </summary>
         /// <param name="tb">
-        ///     Constructor del tipo en el cual crear la nueva propiedad
-        ///     automática.
+        /// Constructor del tipo en el cual crear la nueva propiedad
+        /// automática.
         /// </param>
         /// <param name="name">Nombre de la nueva propiedad.</param>
         /// <param name="type">Tipo de la nueva propiedad.</param>
         /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
         /// <param name="writtable">
-        ///     Si se establece en <see langword="true"/>, la propiedad podrá
-        ///     ser escrita, es decir, tendrá un 'setter'.
+        /// Si se establece en <see langword="true"/>, la propiedad podrá
+        /// ser escrita, es decir, tendrá un 'setter'.
         /// </param>
         /// <returns>
-        ///     Una referencia al campo construido para la propiedad
-        ///     automática.
+        /// Una referencia al campo construido para la propiedad
+        /// automática.
         /// </returns>
         public static FieldBuilder AddAutoProp(this TypeBuilder tb, string name, Type type, MemberAccess access, bool writtable)
         {
@@ -140,18 +140,18 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrega una propiedad automática al tipo.
+        /// Agrega una propiedad automática al tipo.
         /// </summary>
         /// <param name="tb">
-        ///     Constructor del tipo en el cual crear la nueva propiedad
-        ///     automática.
+        /// Constructor del tipo en el cual crear la nueva propiedad
+        /// automática.
         /// </param>
         /// <param name="name">Nombre de la nueva propiedad.</param>
         /// <param name="type">Tipo de la nueva propiedad.</param>
         /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
         /// <returns>
-        ///     Una referencia a la propiedad automática que ha sido
-        ///     construida.
+        /// Una referencia a la propiedad automática que ha sido
+        /// construida.
         /// </returns>
         public static PropertyBuilder AddAutoProp(this TypeBuilder tb, string name, Type type, MemberAccess access)
         {
@@ -161,11 +161,11 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Obtiene un atributo de método a partir del valor de acceso
-        ///     especificado.
+        /// Obtiene un atributo de método a partir del valor de acceso
+        /// especificado.
         /// </summary>
         /// <returns>
-        ///     Un atributo de método con el nivel de acceso especificado.
+        /// Un atributo de método con el nivel de acceso especificado.
         /// </returns>
         /// <param name="access">Nivel de acceso deseado para el método.</param>
         private static MethodAttributes Access(MemberAccess access)

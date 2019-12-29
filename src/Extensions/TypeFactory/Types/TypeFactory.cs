@@ -31,92 +31,92 @@ using System.Reflection.Emit;
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Fábrica de tipos. Permite compilar nuevos tipos en Runtime.
+    /// Fábrica de tipos. Permite compilar nuevos tipos en Runtime.
     /// </summary>
     public abstract class TypeFactory
     {
         /// <summary>
-        ///     Define la estructura de una propiedad construida.
+        /// Define la estructura de una propiedad construida.
         /// </summary>
         protected class PropertyBuilderInfo
         {
             /// <summary>
-            ///     Obtiene propiedades importantes de la propiedad.
+            /// Obtiene propiedades importantes de la propiedad.
             /// </summary>
             [Flags]
             public enum PropertyFlags
             {
                 /// <summary>
-                ///     La propiedad puede ser leída.
+                /// La propiedad puede ser leída.
                 /// </summary>
                 Readable = 1,
                 /// <summary>
-                ///     La propiedad puede ser escrita.
+                /// La propiedad puede ser escrita.
                 /// </summary>
                 Writtable = 2,
                 /// <summary>
-                ///     La propiedad puede ser leída o escrita.
+                /// La propiedad puede ser leída o escrita.
                 /// </summary>
                 ReadWrite = Readable | Writtable,
                 /// <summary>
-                ///     La propiedad incorpora notificación de cambios.
+                /// La propiedad incorpora notificación de cambios.
                 /// </summary>
                 Notifies = 4 | Writtable,
                 /// <summary>
-                ///     La propiedad utiliza un campo como almacenamiento
-                ///     del valor actual.
+                /// La propiedad utiliza un campo como almacenamiento
+                /// del valor actual.
                 /// </summary>
                 BackingFiled = 8,
             }
 
             /// <summary>
-            ///     Obtiene una referencia al objeto que construye la propiedad.
+            /// Obtiene una referencia al objeto que construye la propiedad.
             /// </summary>
             public readonly PropertyBuilder Builder;
 
             /// <summary>
-            ///     Obtiene una referencia al constructor del campo de almacenamiento de la propiedad.
+            /// Obtiene una referencia al constructor del campo de almacenamiento de la propiedad.
             /// </summary>
             public readonly FieldBuilder? BackingField;
 
             /// <summary>
-            ///     Obtiene una referencia al generador de IL del método que 
-            ///     obtiene el valor de la propiedad.
+            /// Obtiene una referencia al generador de IL del método que 
+            /// obtiene el valor de la propiedad.
             /// </summary>
             public readonly ILGenerator? Getter;
 
             /// <summary>
-            ///     Obtiene una referencia al generador de IL del método que 
-            ///     establece el valor de la propiedad.
+            /// Obtiene una referencia al generador de IL del método que 
+            /// establece el valor de la propiedad.
             /// </summary>
             public readonly ILGenerator? Setter;
 
             /// <summary>
-            ///     Obtiene una referencia al constructor de método que obtiene
-            ///     el valor de la propiedad.
+            /// Obtiene una referencia al constructor de método que obtiene
+            /// el valor de la propiedad.
             /// </summary>
             public readonly MethodBuilder? GetterBuilder;
 
             /// <summary>
-            ///     Obtiene una referencia al constructor de método que
-            ///     establece el valor de la propiedad.
+            /// Obtiene una referencia al constructor de método que
+            /// establece el valor de la propiedad.
             /// </summary>
             public readonly MethodBuilder? SetterBuilder;
 
             /// <summary>
-            ///     Obtiene las banderas definidas para esta propiedad.
+            /// Obtiene las banderas definidas para esta propiedad.
             /// </summary>
             public readonly PropertyFlags Flags;
 
             /// <summary>
-            ///     Inicializa una nueva instancia de la clase 
-            ///     <see cref="PropertyBuilderInfo"/>.
+            /// Inicializa una nueva instancia de la clase 
+            /// <see cref="PropertyBuilderInfo"/>.
             /// </summary>
             /// <param name="builder">
-            ///     Constructor de propiedad.
+            /// Constructor de propiedad.
             /// </param>
             /// <param name="backingField">
-            ///     Constructor que representa al campo de almacenamiento.
+            /// Constructor que representa al campo de almacenamiento.
             /// </param>
             private PropertyBuilderInfo(PropertyBuilder builder, FieldBuilder backingField)
             {

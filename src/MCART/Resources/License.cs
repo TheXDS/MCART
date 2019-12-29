@@ -33,7 +33,7 @@ using static TheXDS.MCART.Resources.Strings;
 namespace TheXDS.MCART.Resources
 {
     /// <summary>
-    ///     Describe una licencia.
+    /// Describe una licencia.
     /// </summary>
     public class License : INameable
     {
@@ -42,33 +42,33 @@ namespace TheXDS.MCART.Resources
         private static License? _unspec;
 
         /// <summary>
-        ///     Obtiene una referencia a una licencia no encontrada.
+        /// Obtiene una referencia a una licencia no encontrada.
         /// </summary>
         public static License MissingLicense => _missing ?? (_missing = new License(LicenseNotFound, null));
 
         /// <summary>
-        ///     Obtiene una referencia a un objeto sin licencia.
+        /// Obtiene una referencia a un objeto sin licencia.
         /// </summary>
         public static License NoLicense => _noLicense ?? (_noLicense = new License(Strings.NoLicense, null));
         
         /// <summary>
-        ///     Obtiene una referencia a un objeto con licencia no definida.
+        /// Obtiene una referencia a un objeto con licencia no definida.
         /// </summary>
         public static License Unspecified => _unspec ?? (_unspec = new License(UnspecifiedLicense, null));
 
 
         /// <summary>
-        ///     Obtiene el nombre descriptivo de la licencia.
+        /// Obtiene el nombre descriptivo de la licencia.
         /// </summary>
         public string Name { get; }
 
         /// <summary>
-        ///     Obtiene la URL de la licencia.
+        /// Obtiene la URL de la licencia.
         /// </summary>
         public Uri? LicenseUri { get; }
 
         /// <summary>
-        ///     Obtiene el contenido de la licencia.
+        /// Obtiene el contenido de la licencia.
         /// </summary>
         public virtual string LicenseContent
         {
@@ -88,7 +88,7 @@ namespace TheXDS.MCART.Resources
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="License"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="License"/>.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="uri"></param>

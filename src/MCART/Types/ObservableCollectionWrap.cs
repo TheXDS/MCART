@@ -30,28 +30,28 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Envuelve una colección para proveerla de eventos de notificación de
-    ///     cambio de propiedad y contenido.
+    /// Envuelve una colección para proveerla de eventos de notificación de
+    /// cambio de propiedad y contenido.
     /// </summary>
     /// <typeparam name="T">
-    ///     Tipo de elementos contenidos dentro de la colección.
+    /// Tipo de elementos contenidos dentro de la colección.
     /// </typeparam>
     public class ObservableCollectionWrap<T> : ObservableWrap<T, ICollection<T>>
     {
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ObservableCollectionWrap{T}"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ObservableCollectionWrap{T}"/>.
         /// </summary>
         /// <param name="collection">
-        ///     Colección a establecer com ola colección subyacente.
-        ///     </param>
+        /// Colección a establecer com ola colección subyacente.
+        /// </param>
         public ObservableCollectionWrap(ICollection<T> collection) : base(collection)
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase 
-        ///     <see cref="ObservableCollectionWrap{T}"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="ObservableCollectionWrap{T}"/>.
         /// </summary>
         public ObservableCollectionWrap()
         {

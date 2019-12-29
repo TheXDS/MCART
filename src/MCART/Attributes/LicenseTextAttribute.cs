@@ -31,7 +31,7 @@ namespace TheXDS.MCART.Attributes
 
     /// <inheritdoc />
     /// <summary>
-    ///     Establece el texto de licencia a asociar con el elemento.
+    /// Establece el texto de licencia a asociar con el elemento.
     /// </summary>
     [AttributeUsage(Class | Module | Assembly)]
     public sealed class LicenseTextAttribute : LicenseAttributeBase
@@ -40,8 +40,8 @@ namespace TheXDS.MCART.Attributes
         
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="LicenseTextAttribute" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="LicenseTextAttribute" />.
         /// </summary>
         /// <param name="title">Título de la licencia</param>
         /// <param name="licenseText">Texto de la licencia.</param>
@@ -53,8 +53,8 @@ namespace TheXDS.MCART.Attributes
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="LicenseTextAttribute" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="LicenseTextAttribute" />.
         /// </summary>
         /// <param name="licenseText">Texto de la licencia.</param>
         public LicenseTextAttribute(string licenseText): this(licenseText.Split('\n')[0].Trim(), licenseText)
@@ -62,7 +62,7 @@ namespace TheXDS.MCART.Attributes
         }
 
         /// <summary>
-        ///     Obtiene el contenido de la licencia.
+        /// Obtiene el contenido de la licencia.
         /// </summary>
         /// <returns>El contenido de la licencia.</returns>
         public override License GetLicense(object _)

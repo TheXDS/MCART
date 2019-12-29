@@ -30,14 +30,14 @@ using TheXDS.MCART.Component;
 namespace TheXDS.MCART.PluginSupport.Base
 {
     /// <summary>
-    ///     Define una serie de miembros a implementar por un tipo que describa
-    ///     a un Plugin de MCART.
+    /// Define una serie de miembros a implementar por un tipo que describa
+    /// a un Plugin de MCART.
     /// </summary>
     public interface IPlugin : IExposeExtendedInfo, IExposeAssembly
     {
         /// <summary>
-        ///     Indica la versión de API de MCART requerida por el 
-        ///     <see cref="IPlugin"/>.
+        /// Indica la versión de API de MCART requerida por el 
+        /// <see cref="IPlugin"/>.
         /// </summary>
         Version ApiVersion { get; }
     }

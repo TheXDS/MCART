@@ -28,23 +28,23 @@ using TheXDS.MCART.Types;
 namespace TheXDS.MCART.Networking.Mrpc.Serializers
 {
     /// <summary>
-    ///     Serializador de datos que opera sobre objetos de tipo
-    ///     <see cref="Size"/>.
+    /// Serializador de datos que opera sobre objetos de tipo
+    /// <see cref="Size"/>.
     /// </summary>
     public sealed class SizeSerializer : DataSerializer<Size>
     {
         /// <summary>
-        ///     Obtiene un <see cref="Size"/> desde el
-        ///     <see cref="BinaryReader"/> especificado.
+        /// Obtiene un <see cref="Size"/> desde el
+        /// <see cref="BinaryReader"/> especificado.
         /// </summary>
         /// <param name="reader">
-        ///     <see cref="BinaryReader"/> desde el cual obtener un
-        ///     <see cref="Size"/>.
+        /// <see cref="BinaryReader"/> desde el cual obtener un
+        /// <see cref="Size"/>.
         /// </param>
         /// <returns>
-        ///     El <see cref="Size"/> que se ha reconstruido con la
-        ///     información binaria leída desde el <see cref="BinaryReader"/>
-        ///     especificado.
+        /// El <see cref="Size"/> que se ha reconstruido con la
+        /// información binaria leída desde el <see cref="BinaryReader"/>
+        /// especificado.
         /// </returns>
         protected override Size Read(BinaryReader reader)
         {
@@ -52,15 +52,15 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
         }
 
         /// <summary>
-        ///     Serializa un <see cref="Size"/> en formato binario y lo
-        ///     escribe por medio del <see cref="BinaryWriter"/> especificado.
+        /// Serializa un <see cref="Size"/> en formato binario y lo
+        /// escribe por medio del <see cref="BinaryWriter"/> especificado.
         /// </summary>
         /// <param name="value">
-        ///     Valor <see cref="Size"/> a serializar.
+        /// Valor <see cref="Size"/> a serializar.
         /// </param>
         /// <param name="writer">
-        ///     <see cref="BinaryWriter"/> a utilizar para escribir los datos
-        ///     binarios serializados.
+        /// <see cref="BinaryWriter"/> a utilizar para escribir los datos
+        /// binarios serializados.
         /// </param>
         protected override void Write(Size value, BinaryWriter writer)
         {

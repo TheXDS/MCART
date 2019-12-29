@@ -34,9 +34,9 @@ using System.Collections.ObjectModel;
 namespace TheXDS.MCART.Types.Base
 {
     /// <summary>
-    ///     Clase base abstracta para todas las clases que implementen alguna
-    ///     de las interfaces de notificación de propiedades disponibles en
-    ///     .Net Framework / .Net Core.
+    /// Clase base abstracta para todas las clases que implementen alguna
+    /// de las interfaces de notificación de propiedades disponibles en
+    /// .Net Framework / .Net Core.
     /// </summary>
     public abstract class NotifyPropertyChangeBase : INotifyPropertyChangeBase
     {
@@ -44,8 +44,8 @@ namespace TheXDS.MCART.Types.Base
             = new Dictionary<string, ICollection<string>>();
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="NotifyPropertyChangeBase"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="NotifyPropertyChangeBase"/>.
         /// </summary>
         protected NotifyPropertyChangeBase()
         {
@@ -53,14 +53,14 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Registra un Broadcast de notificación de cambio de propiedad.
+        /// Registra un Broadcast de notificación de cambio de propiedad.
         /// </summary>
         /// <param name="property">
-        ///     Propiedad a registrar.
+        /// Propiedad a registrar.
         /// </param>
         /// <param name="affectedProperties">
-        ///     Colección de propiedades a notificar cuando se cambie el valor
-        ///     de esta propiedad.
+        /// Colección de propiedades a notificar cuando se cambie el valor
+        /// de esta propiedad.
         /// </param>
         protected void RegisterPropertyChangeBroadcast(string property, params string[] affectedProperties)
         {
@@ -77,13 +77,13 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Registra la escucha de propiedades para notificar el cambio de otra.
+        /// Registra la escucha de propiedades para notificar el cambio de otra.
         /// </summary>
         /// <param name="property">
-        ///     Propiedad a notificar.
+        /// Propiedad a notificar.
         /// </param>
         /// <param name="listenedProperties">
-        ///     Propiedades a escuchar.
+        /// Propiedades a escuchar.
         /// </param>
         protected void RegisterPropertyChangeTrigger(string property, params string[] listenedProperties)
         {
@@ -91,14 +91,14 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Registra un Broadcast de notificación de cambio de propiedad.
+        /// Registra un Broadcast de notificación de cambio de propiedad.
         /// </summary>
         /// <param name="property">
-        ///     Propiedad a registrar.
+        /// Propiedad a registrar.
         /// </param>
         /// <param name="affectedProperties">
-        ///     Colección de propiedades a notificar cuando se cambie el valor
-        ///     de esta propiedad.
+        /// Colección de propiedades a notificar cuando se cambie el valor
+        /// de esta propiedad.
         /// </param>
         protected void RegisterPropertyChangeBroadcast(string property, IEnumerable<string> affectedProperties)
         {
@@ -106,11 +106,11 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Quita una entrada del registro de Broadcast de notificación de
-        ///     cambio de propiedad.
+        /// Quita una entrada del registro de Broadcast de notificación de
+        /// cambio de propiedad.
         /// </summary>
         /// <param name="property">
-        ///     Entrada a quitar del registro de Broadcast.
+        /// Entrada a quitar del registro de Broadcast.
         /// </param>
         protected void UnregisterPropertyChangeBroadcast(string property)
         {
@@ -119,17 +119,17 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Obtiene el registro de broadcast de notificaciones de cambio de
-        ///     propiedad.
+        /// Obtiene el registro de broadcast de notificaciones de cambio de
+        /// propiedad.
         /// </summary>
         protected IReadOnlyDictionary<string, ICollection<string>> ObserveRegistry { get; }
 
         /// <summary>
-        ///     Notifica desde un punto externo el cambio en el valor de un
-        ///     conjunto de propiedades.
+        /// Notifica desde un punto externo el cambio en el valor de un
+        /// conjunto de propiedades.
         /// </summary>
         /// <param name="properties">
-        ///     Colección con los nombres de las propiedades a notificar.
+        /// Colección con los nombres de las propiedades a notificar.
         /// </param>
         public void Notify(params string[] properties)
         {
@@ -137,16 +137,16 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Notifica el cambio en el valor de una propiedad.
+        /// Notifica el cambio en el valor de una propiedad.
         /// </summary>
         /// <param name="property">
-        ///     Propiedad a notificar.
+        /// Propiedad a notificar.
         /// </param>
         protected abstract void Notify(string property);
 
         /// <summary>
-        ///     Ejecuta una propagación de notificación según el registro
-        ///     integrado de notificaciones suscritas.
+        /// Ejecuta una propagación de notificación según el registro
+        /// integrado de notificaciones suscritas.
         /// </summary>
         /// <param name="property"></param>
         protected void NotifyRegistroir(string property)
@@ -161,26 +161,26 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Notifica desde un punto externo el cambio en el valor de un
-        ///     conjunto de propiedades.
+        /// Notifica desde un punto externo el cambio en el valor de un
+        /// conjunto de propiedades.
         /// </summary>
         /// <param name="properties">
-        ///     Enumeración con los nombres de las propiedades a notificar.
+        /// Enumeración con los nombres de las propiedades a notificar.
         /// </param>
         public void Notify(IEnumerable<string> properties) => Notify(properties.ToArray());
 
         /// <summary>
-        ///     Notifica desde un punto externo el cambio en el valor de un
-        ///     conjunto de propiedades.
+        /// Notifica desde un punto externo el cambio en el valor de un
+        /// conjunto de propiedades.
         /// </summary>
         /// <param name="properties">
-        ///     Colección con las propiedades a notificar.
+        /// Colección con las propiedades a notificar.
         /// </param>
         public void Notify(IEnumerable<PropertyInfo> properties) => Notify(properties.Select(p => p.Name));
 
         /// <summary>
-        ///     Obliga a notificar que todas las propiedades de este objeto han
-        ///     cambiado y necesitan refrescarse.
+        /// Obliga a notificar que todas las propiedades de este objeto han
+        /// cambiado y necesitan refrescarse.
         /// </summary>
         public virtual void Refresh()
         {
@@ -190,12 +190,12 @@ namespace TheXDS.MCART.Types.Base
         private protected HashSet<INotifyPropertyChangeBase> _forwardings = new HashSet<INotifyPropertyChangeBase>();
 
         /// <summary>
-        ///     Agrega un objeto al cual reenviar los eventos de cambio de
-        ///     valor de propiedad.
+        /// Agrega un objeto al cual reenviar los eventos de cambio de
+        /// valor de propiedad.
         /// </summary>
         /// <param name="source">
-        ///     Objeto a registrar para el reenvío de eventos de cambio de
-        ///     valor de propiedad.
+        /// Objeto a registrar para el reenvío de eventos de cambio de
+        /// valor de propiedad.
         /// </param>
         public void ForwardChange(INotifyPropertyChangeBase source)
         {
@@ -203,11 +203,11 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Quita un objeto de la lista de reenvíos de eventos de cambio de
-        ///     valor de propiedad.
+        /// Quita un objeto de la lista de reenvíos de eventos de cambio de
+        /// valor de propiedad.
         /// </summary>
         /// <param name="source">
-        ///     Elemento a quitar de la lista de reenvío.
+        /// Elemento a quitar de la lista de reenvío.
         /// </param>
         public void RemoveForwardChange(INotifyPropertyChangeBase source)
         {

@@ -32,10 +32,10 @@ namespace TheXDS.MCART.Networking.Client.Protocols
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Implementa el cliente pasivo del protocolo de Echo.
+    /// Implementa el cliente pasivo del protocolo de Echo.
     /// </summary>
     /// <remarks>
-    ///     Este protocolo utiliza TCP/IP, no IGMP.
+    /// Este protocolo utiliza TCP/IP, no IGMP.
     /// </remarks>
     [Port(7)]
     public class Echo : PassiveClient
@@ -45,8 +45,8 @@ namespace TheXDS.MCART.Networking.Client.Protocols
         /// </summary>
         /// <param name="str">Cadena a enviar al servidor.</param>
         /// <returns>
-        ///     La respuesta del servidor, la cual para este protocolo debe ser
-        ///     igual a la cadena enviada.
+        /// La respuesta del servidor, la cual para este protocolo debe ser
+        /// igual a la cadena enviada.
         /// </returns>
         public string Send(string str)
         {
@@ -58,11 +58,11 @@ namespace TheXDS.MCART.Networking.Client.Protocols
         /// </summary>
         /// <param name="str">Cadena a enviar al servidor.</param>
         /// <param name="encoding">
-        ///     Codificación a utilizar para convertir la cadena a bytes.
+        /// Codificación a utilizar para convertir la cadena a bytes.
         /// </param>
         /// <returns>
-        ///     La respuesta del servidor, la cual para este protocolo debe ser
-        ///     igual a la cadena enviada.
+        /// La respuesta del servidor, la cual para este protocolo debe ser
+        /// igual a la cadena enviada.
         /// </returns>
         public string Send(string str, Encoding encoding)
         {
@@ -73,8 +73,8 @@ namespace TheXDS.MCART.Networking.Client.Protocols
         /// Comprueba el funcionamiento del protocolo Echo.
         /// </summary>
         /// <returns>
-        ///     <see langword="true"/> si el protocolo de Echo funciona
-        ///     correctamente, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si el protocolo de Echo funciona
+        /// correctamente, <see langword="false"/> en caso contrario.
         /// </returns>
         public bool Check()
         {
@@ -83,13 +83,13 @@ namespace TheXDS.MCART.Networking.Client.Protocols
         }
 
         /// <summary>
-        ///     Envía un paquete de echo al servidor, y devuelve su respuesta
-        ///     de forma asíncrona.
+        /// Envía un paquete de echo al servidor, y devuelve su respuesta
+        /// de forma asíncrona.
         /// </summary>
         /// <param name="str">Cadena a enviar al servidor.</param>
         /// <returns>
-        ///     La respuesta del servidor, la cual para este protocolo debe ser
-        ///     igual a la cadena enviada.
+        /// La respuesta del servidor, la cual para este protocolo debe ser
+        /// igual a la cadena enviada.
         /// </returns>
         public Task<string> SendAsync(string str)
         {
@@ -97,16 +97,16 @@ namespace TheXDS.MCART.Networking.Client.Protocols
         }
 
         /// <summary>
-        ///     Envía un paquete de echo al servidor, y devuelve su respuesta
-        ///     de forma asíncrona.
+        /// Envía un paquete de echo al servidor, y devuelve su respuesta
+        /// de forma asíncrona.
         /// </summary>
         /// <param name="str">Cadena a enviar al servidor.</param>
         /// <param name="encoding">
-        ///     Codificación a utilizar para convertir la cadena a bytes.
+        /// Codificación a utilizar para convertir la cadena a bytes.
         /// </param>
         /// <returns>
-        ///     La respuesta del servidor, la cual para este protocolo debe ser
-        ///     igual a la cadena enviada.
+        /// La respuesta del servidor, la cual para este protocolo debe ser
+        /// igual a la cadena enviada.
         /// </returns>
         public async Task<string> SendAsync(string str, Encoding encoding)
         {
@@ -117,8 +117,8 @@ namespace TheXDS.MCART.Networking.Client.Protocols
         /// Comprueba el funcionamiento del protocolo Echo de forma asíncrona.
         /// </summary>
         /// <returns>
-        ///     <see langword="true"/> si el protocolo de Echo funciona
-        ///     correctamente, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si el protocolo de Echo funciona
+        /// correctamente, <see langword="false"/> en caso contrario.
         /// </returns>
         public async Task<bool> CheckAsync()
         {

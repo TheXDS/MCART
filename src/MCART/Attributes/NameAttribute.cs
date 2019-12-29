@@ -29,7 +29,7 @@ namespace TheXDS.MCART.Attributes
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Establece un nombre personalizado para describir este elemento.
+    /// Establece un nombre personalizado para describir este elemento.
     /// </summary>
     [AttributeUsage(All)]
     [Serializable]
@@ -37,8 +37,8 @@ namespace TheXDS.MCART.Attributes
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="NameAttribute" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="NameAttribute" />.
         /// </summary>
         /// <param name="name">Valor del atributo.</param>
         public NameAttribute(string name) : base(name)

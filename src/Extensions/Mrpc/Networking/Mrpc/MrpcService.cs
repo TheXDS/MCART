@@ -166,9 +166,6 @@ namespace TheXDS.MCART.Networking.Mrpc
                     return l.ToArray().PushInto(processed);
                 case ObjectKind.Pointer:
                     return processed[br.ReadInt32()];
-                case ObjectKind.Ref:
-                case ObjectKind.Out:
-                    return Deserialize(t, br, processed);
                 default: throw new NotImplementedException();
             }
         }
@@ -320,15 +317,15 @@ namespace TheXDS.MCART.Networking.Mrpc
     }
 
     /// <summary>
-    ///     Cliente de llamada a procedimiento remoto (RPC) de MCART.
+    /// Cliente de llamada a procedimiento remoto (RPC) de MCART.
     /// </summary>
     /// <typeparam name="T">
-    ///     Interfaz que describe el contrato remoto de funciones disponibles.
+    /// Interfaz que describe el contrato remoto de funciones disponibles.
     /// </typeparam>
     public class MrpcClient<T>
     {
         /// <summary>
-        ///     Inicializa la clase <see cref="MrpcClient{T}"/>
+        /// Inicializa la clase <see cref="MrpcClient{T}"/>
         /// </summary>
         static MrpcClient()
         {
@@ -336,12 +333,12 @@ namespace TheXDS.MCART.Networking.Mrpc
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase 
-        ///     <see cref="MrpcClient{T}"/>, especificando el canal de 
-        ///     comunicación a utilizar.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="MrpcClient{T}"/>, especificando el canal de 
+        /// comunicación a utilizar.
         /// </summary>
         /// <param name="channel">
-        ///     Canal de comunicación a utilizar.
+        /// Canal de comunicación a utilizar.
         /// </param>
         public MrpcClient(IMrpcChannel channel)
         {
@@ -352,7 +349,7 @@ namespace TheXDS.MCART.Networking.Mrpc
         }
 
         /// <summary>
-        ///     Expone el contrato de métodos remotos que pueden ser llamados utilizando esta instancia.
+        /// Expone el contrato de métodos remotos que pueden ser llamados utilizando esta instancia.
         /// </summary>
         public T Call { get; }
     }

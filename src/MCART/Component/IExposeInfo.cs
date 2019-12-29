@@ -31,51 +31,51 @@ using TheXDS.MCART.Types;
 namespace TheXDS.MCART.Component
 {
     /// <summary>
-    ///     Define una serie de miembros a implementar para un tipo que exponga
-    ///     diversa información de identificación.
+    /// Define una serie de miembros a implementar para un tipo que exponga
+    /// diversa información de identificación.
     /// </summary>
     public partial interface IExposeInfo : INameable, IDescriptible
     {
         /// <summary>
-        ///     Obtiene el autor del <see cref="IExposeInfo"/>.
+        /// Obtiene el autor del <see cref="IExposeInfo"/>.
         /// </summary>
         IEnumerable<string>? Authors { get; }
 
         /// <summary>
-        ///     Obtiene el Copyright del <see cref="IExposeInfo"/>
+        /// Obtiene el Copyright del <see cref="IExposeInfo"/>
         /// </summary>
         string? Copyright { get; }
 
         /// <summary>
-        ///     Obtiene la licencia del <see cref="IExposeInfo"/>
+        /// Obtiene la licencia del <see cref="IExposeInfo"/>
         /// </summary>
         License? License { get; }
 
         /// <summary>
-        ///     Obtiene la versión del <see cref="IExposeInfo"/>
+        /// Obtiene la versión del <see cref="IExposeInfo"/>
         /// </summary>
         Version? Version { get; }
 
         /// <summary>
-        ///     Obtiene una colección con el contenido de licencias de terceros
-        ///     para el objeto.
+        /// Obtiene una colección con el contenido de licencias de terceros
+        /// para el objeto.
         /// </summary>
         IEnumerable<License>? ThirdPartyLicenses { get; }
 
         /// <summary>
-        ///     Obtiene la versión informacional del <see cref="IExposeInfo"/>.
+        /// Obtiene la versión informacional del <see cref="IExposeInfo"/>.
         /// </summary>
         string? InformationalVersion => Version?.ToString();
 
         /// <summary>
-        ///     Obtiene un valor que indica si este <see cref="IExposeInfo"/>
-        ///     contiene información de licencia.
+        /// Obtiene un valor que indica si este <see cref="IExposeInfo"/>
+        /// contiene información de licencia.
         /// </summary>
         bool HasLicense => License is { };
 
         /// <summary>
-        ///     Obtiene un valor que indica si este <see cref="IExposeInfo"/>
-        ///     contiene información de licencias de terceros.
+        /// Obtiene un valor que indica si este <see cref="IExposeInfo"/>
+        /// contiene información de licencias de terceros.
         /// </summary>
         bool Has3rdPartyLicense => ThirdPartyLicenses?.Any() ?? false;
     }

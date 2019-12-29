@@ -28,8 +28,8 @@ using TheXDS.MCART.Types;
 namespace TheXDS.MCART.Resources
 {
     /// <summary>
-    ///     Contiene cadenas de texto genéricas, además de funciones de
-    ///     composición de texto.
+    /// Contiene cadenas de texto genéricas, además de funciones de
+    /// composición de texto.
     /// </summary>
     public static class Strings
     {
@@ -40,7 +40,7 @@ namespace TheXDS.MCART.Resources
         /// </summary>
         /// <param name="days">Texto a formatear.</param>
         /// <returns>
-        ///     Una cadena con el texto "{<paramref name="days"/>} días".
+        /// Una cadena con el texto "{<paramref name="days"/>} días".
         /// </returns>
         public static string Days(int days) => $"{days} días";
         /// <summary>
@@ -48,7 +48,7 @@ namespace TheXDS.MCART.Resources
         /// </summary>
         /// <param name="hours">Texto a formatear.</param>
         /// <returns>
-        ///     Una cadena con el texto "{<paramref name="hours"/>} horas".
+        /// Una cadena con el texto "{<paramref name="hours"/>} horas".
         /// </returns>
         public static string Hours(int hours) => $"{hours} horas";
         /// <summary>
@@ -56,7 +56,7 @@ namespace TheXDS.MCART.Resources
         /// </summary>
         /// <param name="minutes">Texto a formatear.</param>
         /// <returns>
-        ///     Una cadena con el texto "{<paramref name="minutes"/>} minutos".
+        /// Una cadena con el texto "{<paramref name="minutes"/>} minutos".
         /// </returns>
         public static string Minutes(int minutes) => $"{minutes} minutos";
         /// <summary>
@@ -64,7 +64,7 @@ namespace TheXDS.MCART.Resources
         /// </summary>
         /// <param name="seconds">Texto a formatear.</param>
         /// <returns>
-        ///     Una cadena con el texto "{<paramref name="seconds"/>} segundos".
+        /// Una cadena con el texto "{<paramref name="seconds"/>} segundos".
         /// </returns>
         public static string Seconds(int seconds) => $"{seconds} segundos";
         /// <summary>
@@ -480,17 +480,17 @@ namespace TheXDS.MCART.Resources
         public static string XYQuotes(string unquoted, string? quoted) => $"{unquoted} '{quoted}'";
 
         /// <summary>
-        ///     Devuelve una cadena con el texto "El valor se encuentra fuera
-        ///     del rango válido. Debe ser {(range.MinInclusive ? ">=" : ">")}
-        ///     {range.Minimum} y {(range.MaxInclusive ? "&lt;=" : "&lt;")}
-        ///     {range.Maximum}".
+        /// Devuelve una cadena con el texto "El valor se encuentra fuera
+        /// del rango válido. Debe ser {(range.MinInclusive ? ">=" : ">")}
+        /// {range.Minimum} y {(range.MaxInclusive ? "&lt;=" : "&lt;")}
+        /// {range.Maximum}".
         /// </summary>
         /// <param name="range">Rango de valores válidos.</param>
         /// <returns>
-        ///     Una cadena con el texto "El valor se encuentra fuera
-        ///     del rango válido. Debe ser {(range.MinInclusive ? ">=" : ">")}
-        ///     {range.Minimum} y {(range.MaxInclusive ? "&lt;=" : "&lt;")}
-        ///     {range.Maximum}".
+        /// Una cadena con el texto "El valor se encuentra fuera
+        /// del rango válido. Debe ser {(range.MinInclusive ? ">=" : ">")}
+        /// {range.Minimum} y {(range.MaxInclusive ? "&lt;=" : "&lt;")}
+        /// {range.Maximum}".
         /// </returns>
         public static string ValueMustBeBetween<T>(Range<T> range) where T:IComparable<T>
         {

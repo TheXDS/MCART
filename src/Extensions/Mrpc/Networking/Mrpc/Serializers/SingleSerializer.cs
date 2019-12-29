@@ -27,36 +27,36 @@ using System.IO;
 namespace TheXDS.MCART.Networking.Mrpc.Serializers
 {
     /// <summary>
-    ///     Serializador de datos que opera sobre objetos de tipo
-    ///     <see cref="float"/>.
+    /// Serializador de datos que opera sobre objetos de tipo
+    /// <see cref="float"/>.
     /// </summary>
     public sealed class SingleSerializer : DataSerializer<float>
     {
         /// <summary>
-        ///     Obtiene un <see cref="float"/> desde el
-        ///     <see cref="BinaryReader"/> especificado.
+        /// Obtiene un <see cref="float"/> desde el
+        /// <see cref="BinaryReader"/> especificado.
         /// </summary>
         /// <param name="reader">
-        ///     <see cref="BinaryReader"/> desde el cual obtener un
-        ///     <see cref="float"/>.
+        /// <see cref="BinaryReader"/> desde el cual obtener un
+        /// <see cref="float"/>.
         /// </param>
         /// <returns>
-        ///     El <see cref="float"/> que se ha reconstruido con la
-        ///     información binaria leída desde el <see cref="BinaryReader"/>
-        ///     especificado.
+        /// El <see cref="float"/> que se ha reconstruido con la
+        /// información binaria leída desde el <see cref="BinaryReader"/>
+        /// especificado.
         /// </returns>
         protected override float Read(BinaryReader reader) => reader.ReadSingle();
 
         /// <summary>
-        ///     Serializa un <see cref="float"/> en formato binario y lo
-        ///     escribe por medio del <see cref="BinaryWriter"/> especificado.
+        /// Serializa un <see cref="float"/> en formato binario y lo
+        /// escribe por medio del <see cref="BinaryWriter"/> especificado.
         /// </summary>
         /// <param name="value">
-        ///     Valor <see cref="float"/> a serializar.
+        /// Valor <see cref="float"/> a serializar.
         /// </param>
         /// <param name="writer">
-        ///     <see cref="BinaryWriter"/> a utilizar para escribir los datos
-        ///     binarios serializados.
+        /// <see cref="BinaryWriter"/> a utilizar para escribir los datos
+        /// binarios serializados.
         /// </param>
         protected override void Write(float value, BinaryWriter writer) => writer.Write(value);
     }

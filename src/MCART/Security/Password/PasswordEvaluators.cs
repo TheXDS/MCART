@@ -31,12 +31,12 @@ using St2 = TheXDS.MCART.Resources.InternalStrings;
 namespace TheXDS.MCART.Security.Password
 {
     /// <summary>
-    ///     Colección de evaluadores de contraseña definidos.
+    /// Colección de evaluadores de contraseña definidos.
     /// </summary>
     public static class PasswordEvaluators
     {
         /// <summary>
-        ///     Lista los evaluadores de contraseña integrados en esta clase.
+        /// Lista los evaluadores de contraseña integrados en esta clase.
         /// </summary>
         public static IEnumerable<NamedObject<IPasswordEvaluator>> List
         {
@@ -55,13 +55,13 @@ namespace TheXDS.MCART.Security.Password
         }
 
         /// <summary>
-        ///     Obtiene un evaluador de contraseñas con reglas comunes.
+        /// Obtiene un evaluador de contraseñas con reglas comunes.
         /// </summary>
         [Name(St2.CommonEvaluator), Description(St2.CommonEvaluatorDesc)]
         public static readonly IPasswordEvaluator CommonEvaluator = new PasswordEvaluator(RuleSets.CommonComplexityRuleSet());
 
         /// <summary>
-        ///     Obtiene un evaluador de contraseñas con reglas seguras.
+        /// Obtiene un evaluador de contraseñas con reglas seguras.
         /// </summary>
         [Name(St2.ExtendedEvaluator)]
         public static readonly IPasswordEvaluator SaferEvaluator = new PasswordEvaluator(RuleSets.ExtendedRuleSet());

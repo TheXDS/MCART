@@ -38,18 +38,18 @@ using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 namespace TheXDS.MCART
 {
     /// <summary>
-    ///     Funciones de manipulación de objetos.
+    /// Funciones de manipulación de objetos.
     /// </summary>
     public static class Objects
     {
         /// <summary>
-        ///     Instancia todos los objetos del tipo especificado,
-        ///     devolviéndolos en una enumeración.
+        /// Instancia todos los objetos del tipo especificado,
+        /// devolviéndolos en una enumeración.
         /// </summary>
         /// <typeparam name="T">Tipo de objetos a buscar.</typeparam>
         /// <returns>
-        ///     Una enumeración de todas las instancias de objeto de tipo
-        ///     <typeparamref name="T"/> encontradas.
+        /// Una enumeración de todas las instancias de objeto de tipo
+        /// <typeparamref name="T"/> encontradas.
         /// </returns>
         public static IEnumerable<T> FindAllObjects<T>() where T : class
         {
@@ -57,16 +57,16 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Instancia todos los objetos del tipo especificado,
-        ///     devolviéndolos en una enumeración.
+        /// Instancia todos los objetos del tipo especificado,
+        /// devolviéndolos en una enumeración.
         /// </summary>
         /// <typeparam name="T">Tipo de objetos a buscar.</typeparam>
         /// <param name="ctorArgs">
-        ///     Argumentos a pasar al constructor de instancia de la clase.
+        /// Argumentos a pasar al constructor de instancia de la clase.
         /// </param>
         /// <returns>
-        ///     Una enumeración de todas las instancias de objeto de tipo
-        ///     <typeparamref name="T"/> encontradas.
+        /// Una enumeración de todas las instancias de objeto de tipo
+        /// <typeparamref name="T"/> encontradas.
         /// </returns>
         public static IEnumerable<T> FindAllObjects<T>(IEnumerable ctorArgs) where T : class
         {
@@ -74,16 +74,16 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Instancia todos los objetos del tipo especificado,
-        ///     devolviéndolos en una enumeración.
+        /// Instancia todos los objetos del tipo especificado,
+        /// devolviéndolos en una enumeración.
         /// </summary>
         /// <typeparam name="T">Tipo de objetos a buscar.</typeparam>
         /// <param name="typeFilter">
-        ///     Función de filtro a aplicar a los tipos coincidientes.
+        /// Función de filtro a aplicar a los tipos coincidientes.
         /// </param>
         /// <returns>
-        ///     Una enumeración de todas las instancias de objeto de tipo
-        ///     <typeparamref name="T"/> encontradas.
+        /// Una enumeración de todas las instancias de objeto de tipo
+        /// <typeparamref name="T"/> encontradas.
         /// </returns>
         public static IEnumerable<T> FindAllObjects<T>(Func<Type, bool> typeFilter) where T : class
         {
@@ -91,19 +91,19 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Instancia todos los objetos del tipo especificado,
-        ///     devolviéndolos en una enumeración.
+        /// Instancia todos los objetos del tipo especificado,
+        /// devolviéndolos en una enumeración.
         /// </summary>
         /// <typeparam name="T">Tipo de objetos a buscar.</typeparam>
         /// <param name="ctorArgs">
-        ///     Argumentos a pasar al constructor de instancia de la clase.
+        /// Argumentos a pasar al constructor de instancia de la clase.
         /// </param>
         /// <param name="typeFilter">
-        ///     Función de filtro a aplicar a los tipos coincidientes.
+        /// Función de filtro a aplicar a los tipos coincidientes.
         /// </param>
         /// <returns>
-        ///     Una enumeración de todas las instancias de objeto de tipo
-        ///     <typeparamref name="T"/> encontradas.
+        /// Una enumeración de todas las instancias de objeto de tipo
+        /// <typeparamref name="T"/> encontradas.
         /// </returns>
         public static IEnumerable<T> FindAllObjects<T>(IEnumerable ctorArgs, Func<Type, bool> typeFilter) where T : class
         {
@@ -111,14 +111,14 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene un único objeto que coincida con el tipo base
-        ///     especificado.
+        /// Obtiene un único objeto que coincida con el tipo base
+        /// especificado.
         /// </summary>
         /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
         /// <returns>
-        ///     Una nueva instancia del objeto solicitado, o
-        ///     <see langword="null"/> si no se encuentra ningún tipo
-        ///     coincidente.
+        /// Una nueva instancia del objeto solicitado, o
+        /// <see langword="null"/> si no se encuentra ningún tipo
+        /// coincidente.
         /// </returns>
         public static T? FindSingleObject<T>() where T : class
         {
@@ -126,17 +126,17 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene un único objeto que coincida con el tipo base
-        ///     especificado.
+        /// Obtiene un único objeto que coincida con el tipo base
+        /// especificado.
         /// </summary>
         /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
         /// <param name="ctorArgs">
-        ///     Argumentos a pasar al constructor de instancia de la clase.
+        /// Argumentos a pasar al constructor de instancia de la clase.
         /// </param>
         /// <returns>
-        ///     Una nueva instancia del objeto solicitado, o
-        ///     <see langword="null"/> si no se encuentra ningún tipo
-        ///     coincidente.
+        /// Una nueva instancia del objeto solicitado, o
+        /// <see langword="null"/> si no se encuentra ningún tipo
+        /// coincidente.
         /// </returns>
         public static T? FindSingleObject<T>(IEnumerable ctorArgs) where T : class
         {
@@ -144,17 +144,17 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene un único objeto que coincida con el tipo base
-        ///     especificado.
+        /// Obtiene un único objeto que coincida con el tipo base
+        /// especificado.
         /// </summary>
         /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
         /// <param name="typeFilter">
-        ///     Función de filtro a aplicar a los tipos coincidientes.
+        /// Función de filtro a aplicar a los tipos coincidientes.
         /// </param>
         /// <returns>
-        ///     Una nueva instancia del objeto solicitado, o
-        ///     <see langword="null"/> si no se encuentra ningún tipo
-        ///     coincidente.
+        /// Una nueva instancia del objeto solicitado, o
+        /// <see langword="null"/> si no se encuentra ningún tipo
+        /// coincidente.
         /// </returns>
         public static T? FindSingleObject<T>(Func<Type,bool> typeFilter) where T : class
         {
@@ -162,20 +162,20 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene un único objeto que coincida con el tipo base
-        ///     especificado.
+        /// Obtiene un único objeto que coincida con el tipo base
+        /// especificado.
         /// </summary>
         /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
         /// <param name="ctorArgs">
-        ///     Argumentos a pasar al constructor de instancia de la clase.
+        /// Argumentos a pasar al constructor de instancia de la clase.
         /// </param>
         /// <param name="typeFilter">
-        ///     Función de filtro a aplicar a los tipos coincidientes.
+        /// Función de filtro a aplicar a los tipos coincidientes.
         /// </param>
         /// <returns>
-        ///     Una nueva instancia del objeto solicitado, o
-        ///     <see langword="null"/> si no se encuentra ningún tipo
-        ///     coincidente.
+        /// Una nueva instancia del objeto solicitado, o
+        /// <see langword="null"/> si no se encuentra ningún tipo
+        /// coincidente.
         /// </returns>
         public static T? FindSingleObject<T>(IEnumerable ctorArgs, Func<Type, bool> typeFilter) where T : class
         {
@@ -183,14 +183,14 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene al primer objeto que coincida con el tipo base
-        ///     especificado.
+        /// Obtiene al primer objeto que coincida con el tipo base
+        /// especificado.
         /// </summary>
         /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
         /// <returns>
-        ///     Una nueva instancia del objeto solicitado, o
-        ///     <see langword="null"/> si no se encuentra ningún tipo
-        ///     coincidente.
+        /// Una nueva instancia del objeto solicitado, o
+        /// <see langword="null"/> si no se encuentra ningún tipo
+        /// coincidente.
         /// </returns>
         public static T? FindFirstObject<T>() where T : class
         {
@@ -198,17 +198,17 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene al primer objeto que coincida con el tipo base
-        ///     especificado.
+        /// Obtiene al primer objeto que coincida con el tipo base
+        /// especificado.
         /// </summary>
         /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
         /// <param name="ctorArgs">
-        ///     Argumentos a pasar al constructor de instancia de la clase.
+        /// Argumentos a pasar al constructor de instancia de la clase.
         /// </param>
         /// <returns>
-        ///     Una nueva instancia del objeto solicitado, o
-        ///     <see langword="null"/> si no se encuentra ningún tipo
-        ///     coincidente.
+        /// Una nueva instancia del objeto solicitado, o
+        /// <see langword="null"/> si no se encuentra ningún tipo
+        /// coincidente.
         /// </returns>
         public static T? FindFirstObject<T>(IEnumerable ctorArgs) where T : class
         {
@@ -216,17 +216,17 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene al primer objeto que coincida con el tipo base
-        ///     especificado.
+        /// Obtiene al primer objeto que coincida con el tipo base
+        /// especificado.
         /// </summary>
         /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
         /// <param name="typeFilter">
-        ///     Función de filtro a aplicar a los tipos coincidientes.
+        /// Función de filtro a aplicar a los tipos coincidientes.
         /// </param>
         /// <returns>
-        ///     Una nueva instancia del objeto solicitado, o
-        ///     <see langword="null"/> si no se encuentra ningún tipo
-        ///     coincidente.
+        /// Una nueva instancia del objeto solicitado, o
+        /// <see langword="null"/> si no se encuentra ningún tipo
+        /// coincidente.
         /// </returns>
         public static T? FindFirstObject<T>(Func<Type, bool> typeFilter) where T : class
         {
@@ -234,20 +234,20 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene al primer objeto que coincida con el tipo base
-        ///     especificado.
+        /// Obtiene al primer objeto que coincida con el tipo base
+        /// especificado.
         /// </summary>
         /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
         /// <param name="ctorArgs">
-        ///     Argumentos a pasar al constructor de instancia de la clase.
+        /// Argumentos a pasar al constructor de instancia de la clase.
         /// </param>
         /// <param name="typeFilter">
-        ///     Función de filtro a aplicar a los tipos coincidientes.
+        /// Función de filtro a aplicar a los tipos coincidientes.
         /// </param>
         /// <returns>
-        ///     Una nueva instancia del objeto solicitado, o
-        ///     <see langword="null"/> si no se encuentra ningún tipo
-        ///     coincidente.
+        /// Una nueva instancia del objeto solicitado, o
+        /// <see langword="null"/> si no se encuentra ningún tipo
+        /// coincidente.
         /// </returns>
         public static T? FindFirstObject<T>(IEnumerable ctorArgs, Func<Type, bool> typeFilter) where T : class
         {
@@ -255,21 +255,21 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene todos los tipos públicos que implementan al tipo especificado.
+        /// Obtiene todos los tipos públicos que implementan al tipo especificado.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de objetos a obtener.
+        /// Tipo de objetos a obtener.
         /// </typeparam>
         /// <returns>
-        ///     Una enumeración con todos los tipos que heredan o implementan el
-        ///     tipo especificado.
+        /// Una enumeración con todos los tipos que heredan o implementan el
+        /// tipo especificado.
         /// </returns>
         /// <remarks>
-        ///     Esta función obtiene todos los tipos públicos exportados del
-        ///     dominio especificado, obviando los ensamblados dinámicos
-        ///     (generados por medio del espacio de nombres
-        ///     <see cref="System.Reflection.Emit"/>). Para obtener una lista
-        ///     indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
+        /// Esta función obtiene todos los tipos públicos exportados del
+        /// dominio especificado, obviando los ensamblados dinámicos
+        /// (generados por medio del espacio de nombres
+        /// <see cref="System.Reflection.Emit"/>). Para obtener una lista
+        /// indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
         /// </remarks>
         public static IEnumerable<Type> PublicTypes<T>()
         {
@@ -277,22 +277,22 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene todos los tipos públicos que implementan al tipo especificado.
+        /// Obtiene todos los tipos públicos que implementan al tipo especificado.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de objetos a obtener.
+        /// Tipo de objetos a obtener.
         /// </typeparam>
         /// <param name="domain">Dominio de aplicación dentro del cual buscar tipos.</param>
         /// <returns>
-        ///     Una enumeración con todos los tipos que heredan o implementan el
-        ///     tipo especificado.
+        /// Una enumeración con todos los tipos que heredan o implementan el
+        /// tipo especificado.
         /// </returns>
         /// <remarks>
-        ///     Esta función obtiene todos los tipos públicos exportados del
-        ///     dominio especificado, obviando los ensamblados dinámicos
-        ///     (generados por medio del espacio de nombres
-        ///     <see cref="System.Reflection.Emit"/>). Para obtener una lista
-        ///     indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
+        /// Esta función obtiene todos los tipos públicos exportados del
+        /// dominio especificado, obviando los ensamblados dinámicos
+        /// (generados por medio del espacio de nombres
+        /// <see cref="System.Reflection.Emit"/>). Para obtener una lista
+        /// indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
         /// </remarks>
         public static IEnumerable<Type> PublicTypes<T>(AppDomain domain)
         {
@@ -300,19 +300,19 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene todos los tipos públicos que implementan al tipo especificado.
+        /// Obtiene todos los tipos públicos que implementan al tipo especificado.
         /// </summary>
         /// <param name="t">Tipo a obtener.</param>
         /// <returns>
-        ///     Una enumeración con todos los tipos que heredan o implementan el
-        ///     tipo especificado.
+        /// Una enumeración con todos los tipos que heredan o implementan el
+        /// tipo especificado.
         /// </returns>
         /// <remarks>
-        ///     Esta función obtiene todos los tipos públicos exportados del
-        ///     dominio actual, obviando los ensamblados dinámicos (generados
-        ///     por medio del espacio de nombres
-        ///     <see cref="System.Reflection.Emit"/>). Para obtener una lista
-        ///     indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
+        /// Esta función obtiene todos los tipos públicos exportados del
+        /// dominio actual, obviando los ensamblados dinámicos (generados
+        /// por medio del espacio de nombres
+        /// <see cref="System.Reflection.Emit"/>). Para obtener una lista
+        /// indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
         /// </remarks>
         public static IEnumerable<Type> PublicTypes(Type t)
         {
@@ -320,20 +320,20 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene todos los tipos públicos que implementan al tipo especificado.
+        /// Obtiene todos los tipos públicos que implementan al tipo especificado.
         /// </summary>
         /// <param name="t">Tipo a obtener.</param>
         /// <param name="domain">Dominio de aplicación dentro del cual buscar tipos.</param>
         /// <returns>
-        ///     Una enumeración con todos los tipos que heredan o implementan el
-        ///     tipo especificado.
+        /// Una enumeración con todos los tipos que heredan o implementan el
+        /// tipo especificado.
         /// </returns>
         /// <remarks>
-        ///     Esta función obtiene todos los tipos públicos exportados del
-        ///     dominio especificado, obviando los ensamblados dinámicos
-        ///     (generados por medio del espacio de nombres
-        ///     <see cref="System.Reflection.Emit"/>). Para obtener una lista
-        ///     indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
+        /// Esta función obtiene todos los tipos públicos exportados del
+        /// dominio especificado, obviando los ensamblados dinámicos
+        /// (generados por medio del espacio de nombres
+        /// <see cref="System.Reflection.Emit"/>). Para obtener una lista
+        /// indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
         /// </remarks>
         public static IEnumerable<Type> PublicTypes(Type t, AppDomain domain)
         {
@@ -341,22 +341,22 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene todos los tipos públicos que estén dentro del
-        ///     <see cref="AppDomain"/> especificado.
+        /// Obtiene todos los tipos públicos que estén dentro del
+        /// <see cref="AppDomain"/> especificado.
         /// </summary>
         /// <param name="domain">
-        ///     Dominio de aplicación dentro del cual buscar tipos.
+        /// Dominio de aplicación dentro del cual buscar tipos.
         /// </param>
         /// <returns>
-        ///     Una enumeración con todos los tipos públicos encontrados en el
-        ///     dominio especificado.
+        /// Una enumeración con todos los tipos públicos encontrados en el
+        /// dominio especificado.
         /// </returns>
         /// <remarks>
-        ///     Esta función obtiene todos los tipos públicos exportados del
-        ///     dominio especificado, obviando los ensamblados dinámicos
-        ///     (generados por medio del espacio de nombres
-        ///     <see cref="System.Reflection.Emit"/>). Para obtener una lista
-        ///     indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
+        /// Esta función obtiene todos los tipos públicos exportados del
+        /// dominio especificado, obviando los ensamblados dinámicos
+        /// (generados por medio del espacio de nombres
+        /// <see cref="System.Reflection.Emit"/>). Para obtener una lista
+        /// indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
         /// </remarks>
         public static IEnumerable<Type> PublicTypes(AppDomain domain)
         {
@@ -366,19 +366,19 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene todos los tipos públicos que estén dentro del
-        ///     <see cref="AppDomain"/> actual.
+        /// Obtiene todos los tipos públicos que estén dentro del
+        /// <see cref="AppDomain"/> actual.
         /// </summary>
         /// <returns>
-        ///     Una enumeración con todos los tipos públicos encontrados en el
-        ///     dominio actual.
+        /// Una enumeración con todos los tipos públicos encontrados en el
+        /// dominio actual.
         /// </returns>
         /// <remarks>
-        ///     Esta función obtiene todos los tipos públicos exportados del
-        ///     dominio actual, obviando los ensamblados dinámicos (generados
-        ///     por medio del espacio de nombres
-        ///     <see cref="System.Reflection.Emit"/>). Para obtener una lista
-        ///     indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
+        /// Esta función obtiene todos los tipos públicos exportados del
+        /// dominio actual, obviando los ensamblados dinámicos (generados
+        /// por medio del espacio de nombres
+        /// <see cref="System.Reflection.Emit"/>). Para obtener una lista
+        /// indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
         /// </remarks>
         public static IEnumerable<Type> PublicTypes()
         {
@@ -400,11 +400,11 @@ namespace TheXDS.MCART
         }
         
         /// <summary>
-        ///     Determina si todos los objetos son <see langword="null" />.
+        /// Determina si todos los objetos son <see langword="null" />.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" />, si todos los objetos son <see langword="null" />; de lo contrario,
-        ///     <see langword="false" />.
+        /// <see langword="true" />, si todos los objetos son <see langword="null" />; de lo contrario,
+        /// <see langword="false" />.
         /// </returns>
         /// <param name="x">Objetos a comprobar.</param>
         public static bool AreAllNull(this IEnumerable<object?> x)
@@ -413,11 +413,11 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si todos los objetos son <see langword="null" />.
+        /// Determina si todos los objetos son <see langword="null" />.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" />, si todos los objetos son <see langword="null" />; de lo contrario,
-        ///     <see langword="false" />.
+        /// <see langword="true" />, si todos los objetos son <see langword="null" />; de lo contrario,
+        /// <see langword="false" />.
         /// </returns>
         /// <param name="x">Objetos a comprobar.</param>
         public static bool AreAllNull(params object?[] x)
@@ -426,19 +426,19 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Enumera el valor de todas los campos que devuelvan valores de tipo
-        ///     <typeparamref name="T" />.
+        /// Enumera el valor de todas los campos que devuelvan valores de tipo
+        /// <typeparamref name="T" />.
         /// </summary>
         /// <typeparam name="T">Tipo de campos a obtener.</typeparam>
         /// <param name="fields">
-        ///     Colección de campos a analizar.
+        /// Colección de campos a analizar.
         /// </param>
         /// <param name="instance">
-        ///     Instancia desde la cual obtener los campos.
+        /// Instancia desde la cual obtener los campos.
         /// </param>
         /// <returns>
-        ///     Una enumeración de todos los valores de tipo
-        ///     <typeparamref name="T" /> de la instancia.
+        /// Una enumeración de todos los valores de tipo
+        /// <typeparamref name="T" /> de la instancia.
         /// </returns>
         public static IEnumerable<T> FieldsOf<T>(this IEnumerable<FieldInfo> fields, object? instance)
         {
@@ -449,16 +449,16 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Enumera el valor de todas los campos que devuelvan valores de
-        ///     tipo <typeparamref name="T" /> del objeto especificado.
+        /// Enumera el valor de todas los campos que devuelvan valores de
+        /// tipo <typeparamref name="T" /> del objeto especificado.
         /// </summary>
         /// <typeparam name="T">Tipo de campos a obtener.</typeparam>
         /// <param name="instance">
-        ///     Instancia desde la cual obtener los campos.
+        /// Instancia desde la cual obtener los campos.
         /// </param>
         /// <returns>
-        ///     Una enumeración de todos los valores de tipo
-        ///     <typeparamref name="T" /> del objeto.
+        /// Una enumeración de todos los valores de tipo
+        /// <typeparamref name="T" /> del objeto.
         /// </returns>
         public static IEnumerable<T> FieldsOf<T>(this object instance)
         {
@@ -466,16 +466,16 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Enumera el valor de todas los campos que devuelvan valores de
-        ///     tipo <typeparamref name="T" /> del objeto especificado.
+        /// Enumera el valor de todas los campos que devuelvan valores de
+        /// tipo <typeparamref name="T" /> del objeto especificado.
         /// </summary>
         /// <typeparam name="T">Tipo de campos a obtener.</typeparam>
         /// <param name="type">
-        ///     Tipo desde el cual obtener los campos.
+        /// Tipo desde el cual obtener los campos.
         /// </param>
         /// <returns>
-        ///     Una enumeración de todos los valores de tipo
-        ///     <typeparamref name="T" /> del objeto.
+        /// Una enumeración de todos los valores de tipo
+        /// <typeparamref name="T" /> del objeto.
         /// </returns>
         public static IEnumerable<T> FieldsOf<T>(this Type type)
         {
@@ -483,16 +483,16 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Enumera el valor de todas los campos estáticos que devuelvan
-        ///     valores de tipo <typeparamref name="T" />.
+        /// Enumera el valor de todas los campos estáticos que devuelvan
+        /// valores de tipo <typeparamref name="T" />.
         /// </summary>
         /// <typeparam name="T">Tipo de campos a obtener.</typeparam>
         /// <param name="fields">
-        ///     Colección de campos a analizar.
+        /// Colección de campos a analizar.
         /// </param>
         /// <returns>
-        ///     Una enumeración de todos los valores de tipo
-        ///     <typeparamref name="T" />.
+        /// Una enumeración de todos los valores de tipo
+        /// <typeparamref name="T" />.
         /// </returns>
         public static IEnumerable<T> FieldsOf<T>(this IEnumerable<FieldInfo> fields)
         {
@@ -500,13 +500,13 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Busca en el <see cref="AppDomain" /> actual un tipo que contenga el
-        ///     <see cref="IdentifierAttribute" /> especificado.
+        /// Busca en el <see cref="AppDomain" /> actual un tipo que contenga el
+        /// <see cref="IdentifierAttribute" /> especificado.
         /// </summary>
         /// <param name="identifier">Identificador a buscar.</param>
         /// <returns>
-        ///     Un tipo que ha sido etiquetado con el identificador especificado,
-        ///     o <see langword="null" /> si ningún tipo contiene el identificador.
+        /// Un tipo que ha sido etiquetado con el identificador especificado,
+        /// o <see langword="null" /> si ningún tipo contiene el identificador.
         /// </returns>
         [Sugar]
         public static Type FindType(string identifier)
@@ -515,14 +515,14 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Busca en el <see cref="AppDomain" /> actual un tipo que contenga el
-        ///     <see cref="IdentifierAttribute" /> especificado.
+        /// Busca en el <see cref="AppDomain" /> actual un tipo que contenga el
+        /// <see cref="IdentifierAttribute" /> especificado.
         /// </summary>
         /// <typeparam name="T">Restringir búsqueda a estos tipos.</typeparam>
         /// <param name="identifier">Identificador a buscar.</param>
         /// <returns>
-        ///     Un tipo que ha sido etiquetado con el identificador especificado,
-        ///     o <see langword="null" /> si ningún tipo contiene el identificador.
+        /// Un tipo que ha sido etiquetado con el identificador especificado,
+        /// o <see langword="null" /> si ningún tipo contiene el identificador.
         /// </returns>
         [Sugar]
         public static Type FindType<T>(string identifier)
@@ -531,14 +531,14 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Busca en el <see cref="AppDomain" /> especificado un tipo que
-        ///     contenga el <see cref="IdentifierAttribute" /> especificado.
+        /// Busca en el <see cref="AppDomain" /> especificado un tipo que
+        /// contenga el <see cref="IdentifierAttribute" /> especificado.
         /// </summary>
         /// <param name="identifier">Identificador a buscar.</param>
         /// <param name="domain">Dominio en el cual buscar.</param>
         /// <returns>
-        ///     Un tipo que ha sido etiquetado con el identificador especificado,
-        ///     o <see langword="null" /> si ningún tipo contiene el identificador.
+        /// Un tipo que ha sido etiquetado con el identificador especificado,
+        /// o <see langword="null" /> si ningún tipo contiene el identificador.
         /// </returns>
         [Sugar]
         public static Type FindType(string identifier, AppDomain domain)
@@ -547,15 +547,15 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Busca en el <see cref="AppDomain" /> especificado un tipo que
-        ///     contenga el <see cref="IdentifierAttribute" /> especificado.
+        /// Busca en el <see cref="AppDomain" /> especificado un tipo que
+        /// contenga el <see cref="IdentifierAttribute" /> especificado.
         /// </summary>
         /// <typeparam name="T">Restringir búsqueda a estos tipos.</typeparam>
         /// <param name="identifier">Identificador a buscar.</param>
         /// <param name="domain">Dominio en el cual buscar.</param>
         /// <returns>
-        ///     Un tipo que ha sido etiquetado con el identificador especificado,
-        ///     o <see langword="null" /> si ningún tipo contiene el identificador.
+        /// Un tipo que ha sido etiquetado con el identificador especificado,
+        /// o <see langword="null" /> si ningún tipo contiene el identificador.
         /// </returns>
         public static Type FindType<T>(string identifier, AppDomain domain)
         {
@@ -566,19 +566,19 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Devuelve el atributo asociado al ensamblado especificado.
+        /// Devuelve el atributo asociado al ensamblado especificado.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
         /// <param name="assembly">
-        ///     <see cref="Assembly" /> del cual se extraerá el
-        ///     atributo.
+        /// <see cref="Assembly" /> del cual se extraerá el
+        /// atributo.
         /// </param>
         /// <returns>
-        ///     Un atributo del tipo <typeparamref name="T" /> con los datos
-        ///     asociados en la declaración del ensamblado; o <see langword="null" /> en caso
-        ///     de no encontrarse el atributo especificado.
+        /// Un atributo del tipo <typeparamref name="T" /> con los datos
+        /// asociados en la declaración del ensamblado; o <see langword="null" /> en caso
+        /// de no encontrarse el atributo especificado.
         /// </returns>
         [Sugar]
         public static T? GetAttr<T>(this Assembly assembly) where T : Attribute
@@ -588,19 +588,19 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Devuelve el atributo asociado al ensamblado especificado.
+        /// Devuelve el atributo asociado al ensamblado especificado.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
         /// <param name="assembly">
-        ///     <see cref="Assembly" /> del cual se extraerá el
-        ///     atributo.
+        /// <see cref="Assembly" /> del cual se extraerá el
+        /// atributo.
         /// </param>
         /// <returns>
-        ///     Un atributo del tipo <typeparamref name="T" /> con los datos
-        ///     asociados en la declaración del ensamblado; o <see langword="null" /> en caso
-        ///     de no encontrarse el atributo especificado.
+        /// Un atributo del tipo <typeparamref name="T" /> con los datos
+        /// asociados en la declaración del ensamblado; o <see langword="null" /> en caso
+        /// de no encontrarse el atributo especificado.
         /// </returns>
         [Sugar]
         public static IEnumerable<T> GetAttrs<T>(this Assembly assembly) where T : Attribute
@@ -610,19 +610,19 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Devuelve el atributo asociado a la declaración del objeto
-        ///     especificado.
+        /// Devuelve el atributo asociado a la declaración del objeto
+        /// especificado.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
         /// <param name="member">
-        ///     Miembro del cual se extraerá el atributo.
+        /// Miembro del cual se extraerá el atributo.
         /// </param>
         /// <returns>
-        ///     Un atributo del tipo <typeparamref name="T" /> con los datos
-        ///     asociados en la declaración del miembro; o <see langword="null" /> en caso de
-        ///     no encontrarse el atributo especificado.
+        /// Un atributo del tipo <typeparamref name="T" /> con los datos
+        /// asociados en la declaración del miembro; o <see langword="null" /> en caso de
+        /// no encontrarse el atributo especificado.
         /// </returns>
         [Sugar]
         public static T? GetAttr<T>(this MemberInfo member) where T : Attribute
@@ -632,19 +632,19 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Devuelve el atributo asociado al ensamblado especificado.
+        /// Devuelve el atributo asociado al ensamblado especificado.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
         /// <param name="member">
-        ///     <see cref="MemberInfo" /> del cual se extraerá el
-        ///     atributo.
+        /// <see cref="MemberInfo" /> del cual se extraerá el
+        /// atributo.
         /// </param>
         /// <returns>
-        ///     Un atributo del tipo <typeparamref name="T" /> con los datos
-        ///     asociados en la declaración del ensamblado; o <see langword="null" /> en caso
-        ///     de no encontrarse el atributo especificado.
+        /// Un atributo del tipo <typeparamref name="T" /> con los datos
+        /// asociados en la declaración del ensamblado; o <see langword="null" /> en caso
+        /// de no encontrarse el atributo especificado.
         /// </returns>
         [Sugar]
         public static IEnumerable<T> GetAttrs<T>(this MemberInfo member) where T : Attribute
@@ -654,16 +654,16 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-         ///     Devuelve el atributo asociado a la declaración del objeto especificado.
+         /// Devuelve el atributo asociado a la declaración del objeto especificado.
          /// </summary>
          /// <typeparam name="T">
-         ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+         /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
          /// </typeparam>
          /// <param name="obj">Objeto del cual se extraerá el atributo.</param>
          /// <returns>
-         ///     Un atributo del tipo <typeparamref name="T" /> con los datos
-         ///     asociados en la declaración del objeto; o <see langword="null" /> en caso de no
-         ///     encontrarse el atributo especificado.
+         /// Un atributo del tipo <typeparamref name="T" /> con los datos
+         /// asociados en la declaración del objeto; o <see langword="null" /> en caso de no
+         /// encontrarse el atributo especificado.
          /// </returns>
         [Sugar]
         public static T? GetAttr<T>(this object obj) where T : Attribute
@@ -673,19 +673,19 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Devuelve el atributo asociado al ensamblado especificado.
+        /// Devuelve el atributo asociado al ensamblado especificado.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
         /// <param name="member">
-        ///     <see cref="object" /> del cual se extraerá el
-        ///     atributo.
+        /// <see cref="object" /> del cual se extraerá el
+        /// atributo.
         /// </param>
         /// <returns>
-        ///     Un atributo del tipo <typeparamref name="T" /> con los datos
-        ///     asociados en la declaración del ensamblado; o <see langword="null" /> en caso
-        ///     de no encontrarse el atributo especificado.
+        /// Un atributo del tipo <typeparamref name="T" /> con los datos
+        /// asociados en la declaración del ensamblado; o <see langword="null" /> en caso
+        /// de no encontrarse el atributo especificado.
         /// </returns>
         [Sugar]
         public static IEnumerable<T>? GetAttrs<T>(this object member) where T : Attribute
@@ -695,16 +695,16 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Devuelve el atributo asociado a la declaración del valor de
-        ///     enumeración.
+        /// Devuelve el atributo asociado a la declaración del valor de
+        /// enumeración.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de atributo a devolver. Debe heredar
-        ///     <see cref="Attribute" />.
+        /// Tipo de atributo a devolver. Debe heredar
+        /// <see cref="Attribute" />.
         /// </typeparam>
         /// <returns>
-        ///     Un atributo del tipo <typeparamref name="T" /> con los datos
-        ///     asociados en la declaración del valor de enumeración.
+        /// Un atributo del tipo <typeparamref name="T" /> con los datos
+        /// asociados en la declaración del valor de enumeración.
         /// </returns>
 #if !CLSCompliance && PreferExceptions
 /// <exception cref="ArgumentOutOfRangeException">
@@ -720,19 +720,19 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Devuelve el atributo asociado al ensamblado especificado.
+        /// Devuelve el atributo asociado al ensamblado especificado.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
         /// <param name="enumValue">
-        ///     <see cref="Enum" /> del cual se extraerá el
-        ///     atributo.
+        /// <see cref="Enum" /> del cual se extraerá el
+        /// atributo.
         /// </param>
         /// <returns>
-        ///     Un atributo del tipo <typeparamref name="T" /> con los datos
-        ///     asociados en la declaración del ensamblado; o <see langword="null" /> en caso
-        ///     de no encontrarse el atributo especificado.
+        /// Un atributo del tipo <typeparamref name="T" /> con los datos
+        /// asociados en la declaración del ensamblado; o <see langword="null" /> en caso
+        /// de no encontrarse el atributo especificado.
         /// </returns>
         [Sugar]
         public static IEnumerable<T>? GetAttrs<T>(this Enum enumValue) where T : Attribute
@@ -742,19 +742,19 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Devuelve el atributo asociado a la declaración del tipo
-        ///     especificado.
+        /// Devuelve el atributo asociado a la declaración del tipo
+        /// especificado.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de atributo a devolver. Debe heredar
-        ///     <see cref="Attribute" />.
+        /// Tipo de atributo a devolver. Debe heredar
+        /// <see cref="Attribute" />.
         /// </typeparam>
         /// <typeparam name="TIt">
-        ///     Tipo del cual se extraerá el atributo.
+        /// Tipo del cual se extraerá el atributo.
         /// </typeparam>
         /// <returns>
-        ///     Un atributo del tipo <typeparamref name="T" /> con los datos
-        ///     asociados en la declaración del tipo.
+        /// Un atributo del tipo <typeparamref name="T" /> con los datos
+        /// asociados en la declaración del tipo.
         /// </returns>
         [Sugar]
         public static T? GetAttr<T, TIt>() where T : Attribute
@@ -764,17 +764,17 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Devuelve el atributo asociado a la declaración del tipo
-        ///     especificado, o en su defecto, del ensamblado que lo contiene.
+        /// Devuelve el atributo asociado a la declaración del tipo
+        /// especificado, o en su defecto, del ensamblado que lo contiene.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
         /// <param name="type">Objeto del cual se extraerá el atributo.</param>
         /// <returns>
-        ///     Un atributo del tipo <typeparamref name="T" /> con los datos
-        ///     asociados en la declaración del tipo; o <see langword="null" /> en caso de no
-        ///     encontrarse el atributo especificado.
+        /// Un atributo del tipo <typeparamref name="T" /> con los datos
+        /// asociados en la declaración del tipo; o <see langword="null" /> en caso de no
+        /// encontrarse el atributo especificado.
         /// </returns>
         public static T? GetAttrAlt<T>(this Type type) where T : Attribute
         {
@@ -783,22 +783,22 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene una lista de tipos asignables a partir de la interfaz o clase base
-        ///     especificada.
+        /// Obtiene una lista de tipos asignables a partir de la interfaz o clase base
+        /// especificada.
         /// </summary>
         /// <typeparam name="T">Interfaz o clase base a buscar.</typeparam>
         /// <returns>
-        ///     Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
-        ///     <typeparamref name="T" /> dentro de <see cref="AppDomain.CurrentDomain" />.
+        /// Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
+        /// <typeparamref name="T" /> dentro de <see cref="AppDomain.CurrentDomain" />.
         /// </returns>
         /// <remarks>
-        ///     Esta función obtiene todos los tipos (privados y públicos)
-        ///     definidos dentro de todos ls ensamblados dentro del dominio
-        ///     actual. Para obtener únicamente aquellos tipos exportados
-        ///     públicamente, utilice <see cref="PublicTypes(Type)"/>,
-        ///     <see cref="PublicTypes(Type, AppDomain)"/>,
-        ///     <see cref="PublicTypes{T}()"/> o
-        ///     <see cref="PublicTypes{T}(AppDomain)"/>.
+        /// Esta función obtiene todos los tipos (privados y públicos)
+        /// definidos dentro de todos ls ensamblados dentro del dominio
+        /// actual. Para obtener únicamente aquellos tipos exportados
+        /// públicamente, utilice <see cref="PublicTypes(Type)"/>,
+        /// <see cref="PublicTypes(Type, AppDomain)"/>,
+        /// <see cref="PublicTypes{T}()"/> o
+        /// <see cref="PublicTypes{T}(AppDomain)"/>.
         /// </remarks>
         public static IEnumerable<Type> GetTypes<T>()
         {
@@ -806,25 +806,25 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene una lista de tipos asignables a partir de la interfaz o clase base
-        ///     especificada dentro del <see cref="AppDomain" /> especificado.
+        /// Obtiene una lista de tipos asignables a partir de la interfaz o clase base
+        /// especificada dentro del <see cref="AppDomain" /> especificado.
         /// </summary>
         /// <typeparam name="T">Interfaz o clase base a buscar.</typeparam>
         /// <param name="domain">
-        ///     <see cref="AppDomain" /> en el cual realizar la búsqueda.
+        /// <see cref="AppDomain" /> en el cual realizar la búsqueda.
         /// </param>
         /// <returns>
-        ///     Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
-        ///     <typeparamref name="T" /> dentro del <paramref name="domain" />.
+        /// Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
+        /// <typeparamref name="T" /> dentro del <paramref name="domain" />.
         /// </returns>
         /// <remarks>
-        ///     Esta función obtiene todos los tipos (privados y públicos)
-        ///     definidos dentro de todos ls ensamblados dentro del dominio
-        ///     especificado. Para obtener únicamente aquellos tipos exportados
-        ///     públicamente, utilice <see cref="PublicTypes(Type)"/>,
-        ///     <see cref="PublicTypes(Type, AppDomain)"/>,
-        ///     <see cref="PublicTypes{T}()"/> o
-        ///     <see cref="PublicTypes{T}(AppDomain)"/>.
+        /// Esta función obtiene todos los tipos (privados y públicos)
+        /// definidos dentro de todos ls ensamblados dentro del dominio
+        /// especificado. Para obtener únicamente aquellos tipos exportados
+        /// públicamente, utilice <see cref="PublicTypes(Type)"/>,
+        /// <see cref="PublicTypes(Type, AppDomain)"/>,
+        /// <see cref="PublicTypes{T}()"/> o
+        /// <see cref="PublicTypes{T}(AppDomain)"/>.
         /// </remarks>
         [Sugar]
         public static IEnumerable<Type> GetTypes<T>(this AppDomain domain)
@@ -833,27 +833,27 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene una lista de tipos asignables a partir de la interfaz o clase base
-        ///     especificada dentro del <see cref="AppDomain" /> especificado.
+        /// Obtiene una lista de tipos asignables a partir de la interfaz o clase base
+        /// especificada dentro del <see cref="AppDomain" /> especificado.
         /// </summary>
         /// <typeparam name="T">Interfaz o clase base a buscar.</typeparam>
         /// <param name="assemblies">
-        ///     Colección de ensamblados en la cual realizar la búsqueda.
+        /// Colección de ensamblados en la cual realizar la búsqueda.
         /// </param>
         /// <returns>
-        ///     Una lista de tipos de las clases que implementan a la interfaz
-        ///     o que heredan a la clase base <typeparamref name="T" /> dentro
-        ///     de <paramref name="assemblies" />.
+        /// Una lista de tipos de las clases que implementan a la interfaz
+        /// o que heredan a la clase base <typeparamref name="T" /> dentro
+        /// de <paramref name="assemblies" />.
         /// </returns>
         /// <remarks>
-        ///     Esta función obtiene todos los tipos (privados y públicos)
-        ///     definidos dentro de todos los ensamblados dentro de la
-        ///     colección especificada. Para obtener únicamente aquellos tipos
-        ///     exportados públicamente, utilice
-        ///     <see cref="PublicTypes(Type)"/>,
-        ///     <see cref="PublicTypes(Type, AppDomain)"/>,
-        ///     <see cref="PublicTypes{T}()"/> o
-        ///     <see cref="PublicTypes{T}(AppDomain)"/>.
+        /// Esta función obtiene todos los tipos (privados y públicos)
+        /// definidos dentro de todos los ensamblados dentro de la
+        /// colección especificada. Para obtener únicamente aquellos tipos
+        /// exportados públicamente, utilice
+        /// <see cref="PublicTypes(Type)"/>,
+        /// <see cref="PublicTypes(Type, AppDomain)"/>,
+        /// <see cref="PublicTypes{T}()"/> o
+        /// <see cref="PublicTypes{T}(AppDomain)"/>.
         /// </remarks>
         [Sugar]
         public static IEnumerable<Type> GetTypes<T>(this IEnumerable<Assembly> assemblies)
@@ -862,26 +862,26 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene una lista de tipos asignables a partir de la interfaz o clase base
-        ///     especificada.
+        /// Obtiene una lista de tipos asignables a partir de la interfaz o clase base
+        /// especificada.
         /// </summary>
         /// <typeparam name="T">Interfaz o clase base a buscar.</typeparam>
         /// <param name="instantiablesOnly">
-        ///     Si se establece en <see langword="true" />, únicamente se incluirán aquellos tipos instanciables.
-        ///     <see langword="false" /> hará que se devuelvan todos los tipos coincidientes.
+        /// Si se establece en <see langword="true" />, únicamente se incluirán aquellos tipos instanciables.
+        /// <see langword="false" /> hará que se devuelvan todos los tipos coincidientes.
         /// </param>
         /// <returns>
-        ///     Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
-        ///     <typeparamref name="T" /> dentro de <see cref="AppDomain.CurrentDomain" />.
+        /// Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
+        /// <typeparamref name="T" /> dentro de <see cref="AppDomain.CurrentDomain" />.
         /// </returns>
         /// <remarks>
-        ///     Esta función obtiene todos los tipos (privados y públicos)
-        ///     definidos dentro de todos ls ensamblados dentro del dominio
-        ///     actual. Para obtener únicamente aquellos tipos exportados
-        ///     públicamente, utilice <see cref="PublicTypes(Type)"/>,
-        ///     <see cref="PublicTypes(Type, AppDomain)"/>,
-        ///     <see cref="PublicTypes{T}()"/> o
-        ///     <see cref="PublicTypes{T}(AppDomain)"/>.
+        /// Esta función obtiene todos los tipos (privados y públicos)
+        /// definidos dentro de todos ls ensamblados dentro del dominio
+        /// actual. Para obtener únicamente aquellos tipos exportados
+        /// públicamente, utilice <see cref="PublicTypes(Type)"/>,
+        /// <see cref="PublicTypes(Type, AppDomain)"/>,
+        /// <see cref="PublicTypes{T}()"/> o
+        /// <see cref="PublicTypes{T}(AppDomain)"/>.
         /// </remarks>
         public static IEnumerable<Type> GetTypes<T>(bool instantiablesOnly)
         {
@@ -889,29 +889,29 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene una lista de tipos asignables a partir de la interfaz o clase base
-        ///     especificada dentro del <see cref="AppDomain" /> especificado.
+        /// Obtiene una lista de tipos asignables a partir de la interfaz o clase base
+        /// especificada dentro del <see cref="AppDomain" /> especificado.
         /// </summary>
         /// <typeparam name="T">Interfaz o clase base a buscar.</typeparam>
         /// <param name="domain">
-        ///     <see cref="AppDomain" /> en el cual realizar la búsqueda.
+        /// <see cref="AppDomain" /> en el cual realizar la búsqueda.
         /// </param>
         /// <param name="instantiablesOnly">
-        ///     Si se establece en <see langword="true" />, únicamente se incluirán aquellos tipos instanciables.
-        ///     <see langword="false" /> hará que se devuelvan todos los tipos coincidientes.
+        /// Si se establece en <see langword="true" />, únicamente se incluirán aquellos tipos instanciables.
+        /// <see langword="false" /> hará que se devuelvan todos los tipos coincidientes.
         /// </param>
         /// <returns>
-        ///     Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
-        ///     <typeparamref name="T" /> dentro del <paramref name="domain" />.
+        /// Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
+        /// <typeparamref name="T" /> dentro del <paramref name="domain" />.
         /// </returns>
         /// <remarks>
-        ///     Esta función obtiene todos los tipos (privados y públicos)
-        ///     definidos dentro de todos los ensamblados dentro del dominio
-        ///     especificado. Para obtener únicamente aquellos tipos exportados
-        ///     públicamente, utilice <see cref="PublicTypes(Type)"/>,
-        ///     <see cref="PublicTypes(Type, AppDomain)"/>,
-        ///     <see cref="PublicTypes{T}()"/> o
-        ///     <see cref="PublicTypes{T}(AppDomain)"/>.
+        /// Esta función obtiene todos los tipos (privados y públicos)
+        /// definidos dentro de todos los ensamblados dentro del dominio
+        /// especificado. Para obtener únicamente aquellos tipos exportados
+        /// públicamente, utilice <see cref="PublicTypes(Type)"/>,
+        /// <see cref="PublicTypes(Type, AppDomain)"/>,
+        /// <see cref="PublicTypes{T}()"/> o
+        /// <see cref="PublicTypes{T}(AppDomain)"/>.
         /// </remarks>
         public static IEnumerable<Type> GetTypes<T>(this AppDomain domain, in bool instantiablesOnly)
         {
@@ -919,30 +919,30 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene una lista de tipos asignables a partir de la interfaz o clase base
-        ///     especificada dentro del <see cref="AppDomain" /> especificado.
+        /// Obtiene una lista de tipos asignables a partir de la interfaz o clase base
+        /// especificada dentro del <see cref="AppDomain" /> especificado.
         /// </summary>
         /// <typeparam name="T">Interfaz o clase base a buscar.</typeparam>
         /// <param name="assemblies">
-        ///     Colección de ensamblados en la cual realizar la búsqueda.
+        /// Colección de ensamblados en la cual realizar la búsqueda.
         /// </param>
         /// <param name="instantiablesOnly">
-        ///     Si se establece en <see langword="true" />, únicamente se incluirán aquellos tipos instanciables.
-        ///     <see langword="false" /> hará que se devuelvan todos los tipos coincidientes.
+        /// Si se establece en <see langword="true" />, únicamente se incluirán aquellos tipos instanciables.
+        /// <see langword="false" /> hará que se devuelvan todos los tipos coincidientes.
         /// </param>
         /// <returns>
-        ///     Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
-        ///     <typeparamref name="T" /> dentro del dominio predeterminado.
+        /// Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
+        /// <typeparamref name="T" /> dentro del dominio predeterminado.
         /// </returns>
         /// <remarks>
-        ///     Esta función obtiene todos los tipos (privados y públicos)
-        ///     definidos dentro de todos los ensamblados dentro de la
-        ///     colección especificada. Para obtener únicamente aquellos tipos
-        ///     exportados públicamente, utilice
-        ///     <see cref="PublicTypes(Type)"/>,
-        ///     <see cref="PublicTypes(Type, AppDomain)"/>,
-        ///     <see cref="PublicTypes{T}()"/> o
-        ///     <see cref="PublicTypes{T}(AppDomain)"/>.
+        /// Esta función obtiene todos los tipos (privados y públicos)
+        /// definidos dentro de todos los ensamblados dentro de la
+        /// colección especificada. Para obtener únicamente aquellos tipos
+        /// exportados públicamente, utilice
+        /// <see cref="PublicTypes(Type)"/>,
+        /// <see cref="PublicTypes(Type, AppDomain)"/>,
+        /// <see cref="PublicTypes{T}()"/> o
+        /// <see cref="PublicTypes{T}(AppDomain)"/>.
         /// </remarks>
         public static IEnumerable<Type> GetTypes<T>(this IEnumerable<Assembly> assemblies, bool instantiablesOnly)
         {
@@ -969,23 +969,23 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si un miembro posee un atributo definido.
+        /// Determina si un miembro posee un atributo definido.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
         /// <param name="assembly">
-        ///     Miembro del cual se extraerá el atributo.
+        /// Miembro del cual se extraerá el atributo.
         /// </param>
         /// <param name="attribute">
-        ///     Parámetro de salida. Si un atributo de tipo
-        ///     <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
-        ///     Se devolverá <see langword="null" /> si el miembro no posee el atributo
-        ///     especificado.
+        /// Parámetro de salida. Si un atributo de tipo
+        /// <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
+        /// Se devolverá <see langword="null" /> si el miembro no posee el atributo
+        /// especificado.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-        ///     en caso contrario.
+        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        /// en caso contrario.
         /// </returns>
         public static bool HasAttr<T>(this Assembly assembly, out T? attribute) where T : Attribute
         {
@@ -995,28 +995,28 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si un miembro posee un atributo definido.
+        /// Determina si un miembro posee un atributo definido.
         /// </summary>
         /// <typeparam name="TValue">
-        ///     Tipo de valor a devolver.
+        /// Tipo de valor a devolver.
         /// </typeparam>
         /// <typeparam name="TAttribute">
-        ///     Tipo de atributo a buscar. Debe heredar de
-        ///     <see cref="Attribute"/> y de <see cref="IValueAttribute{T}"/>.
+        /// Tipo de atributo a buscar. Debe heredar de
+        /// <see cref="Attribute"/> y de <see cref="IValueAttribute{T}"/>.
         /// </typeparam>
         /// <param name="assembly">
-        ///     Miembro del cual se extraerá el atributo.
+        /// Miembro del cual se extraerá el atributo.
         /// </param>
         /// <param name="value">
-        ///     Parámetro de salida. Si un atributo de tipo
-        ///     <typeparamref name="TAttribute" /> ha sido encontrado, el valor
-        ///     del mismo es devuelto.
-        ///     Se devolverá <see langword="default" /> si el miembro no posee el atributo
-        ///     especificado.
+        /// Parámetro de salida. Si un atributo de tipo
+        /// <typeparamref name="TAttribute" /> ha sido encontrado, el valor
+        /// del mismo es devuelto.
+        /// Se devolverá <see langword="default" /> si el miembro no posee el atributo
+        /// especificado.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-        ///     en caso contrario.
+        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        /// en caso contrario.
         /// </returns>
         public static bool HasAttrValue<TAttribute, TValue>(this Assembly assembly, out TValue value)
             where TAttribute : Attribute, IValueAttribute<TValue>
@@ -1028,17 +1028,17 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si un miembro posee un atributo definido.
+        /// Determina si un miembro posee un atributo definido.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
         /// <param name="assembly">
-        ///     Miembro del cual se extraerá el atributo.
+        /// Miembro del cual se extraerá el atributo.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-        ///     en caso contrario.
+        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        /// en caso contrario.
         /// </returns>
         public static bool HasAttr<T>(this Assembly assembly) where T : Attribute
         {
@@ -1046,23 +1046,23 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si un miembro posee un atributo definido.
+        /// Determina si un miembro posee un atributo definido.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
         /// <param name="member">
-        ///     Miembro del cual se extraerá el atributo.
+        /// Miembro del cual se extraerá el atributo.
         /// </param>
         /// <param name="attribute">
-        ///     Parámetro de salida. Si un atributo de tipo
-        ///     <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
-        ///     Se devolverá <see langword="null" /> si el miembro no posee el atributo
-        ///     especificado.
+        /// Parámetro de salida. Si un atributo de tipo
+        /// <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
+        /// Se devolverá <see langword="null" /> si el miembro no posee el atributo
+        /// especificado.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-        ///     en caso contrario.
+        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        /// en caso contrario.
         /// </returns>
         public static bool HasAttrs<T>(this Assembly member, out IEnumerable<T> attribute) where T : Attribute
         {
@@ -1071,23 +1071,23 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si un miembro posee un atributo definido.
+        /// Determina si un miembro posee un atributo definido.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
         /// <param name="member">
-        ///     Miembro del cual se extraerá el atributo.
+        /// Miembro del cual se extraerá el atributo.
         /// </param>
         /// <param name="attribute">
-        ///     Parámetro de salida. Si un atributo de tipo
-        ///     <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
-        ///     Se devolverá <see langword="null" /> si el miembro no posee el atributo
-        ///     especificado.
+        /// Parámetro de salida. Si un atributo de tipo
+        /// <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
+        /// Se devolverá <see langword="null" /> si el miembro no posee el atributo
+        /// especificado.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-        ///     en caso contrario.
+        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        /// en caso contrario.
         /// </returns>
         public static bool HasAttr<T>(this MemberInfo member, out T? attribute) where T : Attribute
         {
@@ -1097,28 +1097,28 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si un miembro posee un atributo definido.
+        /// Determina si un miembro posee un atributo definido.
         /// </summary>
         /// <typeparam name="TValue">
-        ///     Tipo de valor a devolver.
+        /// Tipo de valor a devolver.
         /// </typeparam>
         /// <typeparam name="TAttribute">
-        ///     Tipo de atributo a buscar. Debe heredar de
-        ///     <see cref="Attribute"/> y de <see cref="IValueAttribute{T}"/>.
+        /// Tipo de atributo a buscar. Debe heredar de
+        /// <see cref="Attribute"/> y de <see cref="IValueAttribute{T}"/>.
         /// </typeparam>
         /// <param name="member">
-        ///     Miembro del cual se extraerá el atributo.
+        /// Miembro del cual se extraerá el atributo.
         /// </param>
         /// <param name="value">
-        ///     Parámetro de salida. Si un atributo de tipo
-        ///     <typeparamref name="TAttribute" /> ha sido encontrado, el valor
-        ///     del mismo es devuelto.
-        ///     Se devolverá <see langword="default" /> si el miembro no posee el atributo
-        ///     especificado.
+        /// Parámetro de salida. Si un atributo de tipo
+        /// <typeparamref name="TAttribute" /> ha sido encontrado, el valor
+        /// del mismo es devuelto.
+        /// Se devolverá <see langword="default" /> si el miembro no posee el atributo
+        /// especificado.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-        ///     en caso contrario.
+        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        /// en caso contrario.
         /// </returns>
         public static bool HasAttrValue<TAttribute, TValue>(this MemberInfo member, out TValue value)
             where TAttribute : Attribute, IValueAttribute<TValue>
@@ -1130,17 +1130,17 @@ namespace TheXDS.MCART
         }
         
         /// <summary>
-        ///     Determina si un miembro posee un atributo definido.
+        /// Determina si un miembro posee un atributo definido.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
         /// <param name="member">
-        ///     Miembro del cual se extraerá el atributo.
+        /// Miembro del cual se extraerá el atributo.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-        ///     en caso contrario.
+        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        /// en caso contrario.
         /// </returns>
         public static bool HasAttr<T>(this MemberInfo member) where T : Attribute
         {
@@ -1148,23 +1148,23 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si un miembro posee un atributo definido.
+        /// Determina si un miembro posee un atributo definido.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
         /// <param name="member">
-        ///     Miembro del cual se extraerá el atributo.
+        /// Miembro del cual se extraerá el atributo.
         /// </param>
         /// <param name="attribute">
-        ///     Parámetro de salida. Si un atributo de tipo
-        ///     <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
-        ///     Se devolverá <see langword="null" /> si el miembro no posee el atributo
-        ///     especificado.
+        /// Parámetro de salida. Si un atributo de tipo
+        /// <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
+        /// Se devolverá <see langword="null" /> si el miembro no posee el atributo
+        /// especificado.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-        ///     en caso contrario.
+        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        /// en caso contrario.
         /// </returns>
         public static bool HasAttrs<T>(this MemberInfo member, out IEnumerable<T> attribute) where T : Attribute
         {
@@ -1173,23 +1173,23 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si un miembro posee un atributo definido.
+        /// Determina si un miembro posee un atributo definido.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
         /// <param name="obj">
-        ///     Miembro del cual se extraerá el atributo.
+        /// Miembro del cual se extraerá el atributo.
         /// </param>
         /// <param name="attribute">
-        ///     Parámetro de salida. Si un atributo de tipo
-        ///     <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
-        ///     Se devolverá <see langword="null" /> si el miembro no posee el atributo
-        ///     especificado.
+        /// Parámetro de salida. Si un atributo de tipo
+        /// <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
+        /// Se devolverá <see langword="null" /> si el miembro no posee el atributo
+        /// especificado.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-        ///     en caso contrario.
+        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        /// en caso contrario.
         /// </returns>
         public static bool HasAttr<T>(this object obj, out T? attribute) where T : Attribute
         {
@@ -1208,28 +1208,28 @@ namespace TheXDS.MCART
             }
         }
         /// <summary>
-        ///     Determina si un miembro posee un atributo definido.
+        /// Determina si un miembro posee un atributo definido.
         /// </summary>
         /// <typeparam name="TValue">
-        ///     Tipo de valor a devolver.
+        /// Tipo de valor a devolver.
         /// </typeparam>
         /// <typeparam name="TAttribute">
-        ///     Tipo de atributo a buscar. Debe heredar de
-        ///     <see cref="Attribute"/> y de <see cref="IValueAttribute{T}"/>.
+        /// Tipo de atributo a buscar. Debe heredar de
+        /// <see cref="Attribute"/> y de <see cref="IValueAttribute{T}"/>.
         /// </typeparam>
         /// <param name="obj">
-        ///     Miembro del cual se extraerá el atributo.
+        /// Miembro del cual se extraerá el atributo.
         /// </param>
         /// <param name="value">
-        ///     Parámetro de salida. Si un atributo de tipo
-        ///     <typeparamref name="TAttribute" /> ha sido encontrado, el valor
-        ///     del mismo es devuelto.
-        ///     Se devolverá <see langword="default" /> si el miembro no posee el atributo
-        ///     especificado.
+        /// Parámetro de salida. Si un atributo de tipo
+        /// <typeparamref name="TAttribute" /> ha sido encontrado, el valor
+        /// del mismo es devuelto.
+        /// Se devolverá <see langword="default" /> si el miembro no posee el atributo
+        /// especificado.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-        ///     en caso contrario.
+        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        /// en caso contrario.
         /// </returns>
         public static bool HasAttrValue<TAttribute, TValue>(this object obj, out TValue value)
             where TAttribute : Attribute, IValueAttribute<TValue>
@@ -1251,17 +1251,17 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si un miembro posee un atributo definido.
+        /// Determina si un miembro posee un atributo definido.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
         /// <param name="obj">
-        ///     Miembro del cual se extraerá el atributo.
+        /// Miembro del cual se extraerá el atributo.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-        ///     en caso contrario.
+        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        /// en caso contrario.
         /// </returns>
         public static bool HasAttr<T>(this object obj) where T : Attribute
         {
@@ -1269,23 +1269,23 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si un miembro posee un atributo definido.
+        /// Determina si un miembro posee un atributo definido.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
         /// <param name="obj">
-        ///     Miembro del cual se extraerá el atributo.
+        /// Miembro del cual se extraerá el atributo.
         /// </param>
         /// <param name="attribute">
-        ///     Parámetro de salida. Si un atributo de tipo
-        ///     <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
-        ///     Se devolverá <see langword="null" /> si el miembro no posee el atributo
-        ///     especificado.
+        /// Parámetro de salida. Si un atributo de tipo
+        /// <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
+        /// Se devolverá <see langword="null" /> si el miembro no posee el atributo
+        /// especificado.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-        ///     en caso contrario.
+        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        /// en caso contrario.
         /// </returns>
         public static bool HasAttrs<T>(this object obj, out IEnumerable<T>? attribute) where T : Attribute
         {
@@ -1304,17 +1304,17 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si un valor de enumeración posee un atributo definido.
+        /// Determina si un valor de enumeración posee un atributo definido.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
         /// <param name="enumValue">
-        ///     Valor de enumeración del cual se extraerá el atributo.
+        /// Valor de enumeración del cual se extraerá el atributo.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el valor de enumeración posee el atributo,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si el valor de enumeración posee el atributo,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
 #if !CLSCompliance && PreferExceptions
 /// <exception cref="ArgumentOutOfRangeException">
@@ -1326,23 +1326,23 @@ namespace TheXDS.MCART
         public static bool HasAttr<T>(this Enum enumValue) where T : Attribute => HasAttr<T>(enumValue, out _);
 
         /// <summary>
-        ///     Determina si un valor de enumeración posee un atributo definido.
+        /// Determina si un valor de enumeración posee un atributo definido.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
         /// <param name="enumValue">
-        ///     Valor de enumeración del cual se extraerá el atributo.
+        /// Valor de enumeración del cual se extraerá el atributo.
         /// </param>
         /// <param name="attribute">
-        ///     Parámetro de salida. Si un atributo de tipo
-        ///     <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
-        ///     Se devolverá <see langword="null" /> si el miembro no posee el atributo
-        ///     especificado.
+        /// Parámetro de salida. Si un atributo de tipo
+        /// <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
+        /// Se devolverá <see langword="null" /> si el miembro no posee el atributo
+        /// especificado.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el valor de enumeración posee el atributo,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si el valor de enumeración posee el atributo,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
 #if !CLSCompliance && PreferExceptions
 /// <exception cref="ArgumentOutOfRangeException">
@@ -1367,28 +1367,28 @@ namespace TheXDS.MCART
             return !(attribute is null);
         }
         /// <summary>
-        ///     Determina si un miembro posee un atributo definido.
+        /// Determina si un miembro posee un atributo definido.
         /// </summary>
         /// <typeparam name="TValue">
-        ///     Tipo de valor a devolver.
+        /// Tipo de valor a devolver.
         /// </typeparam>
         /// <typeparam name="TAttribute">
-        ///     Tipo de atributo a buscar. Debe heredar de
-        ///     <see cref="Attribute"/> y de <see cref="IValueAttribute{T}"/>.
+        /// Tipo de atributo a buscar. Debe heredar de
+        /// <see cref="Attribute"/> y de <see cref="IValueAttribute{T}"/>.
         /// </typeparam>
         /// <param name="enumValue">
-        ///     Miembro del cual se extraerá el atributo.
+        /// Miembro del cual se extraerá el atributo.
         /// </param>
         /// <param name="value">
-        ///     Parámetro de salida. Si un atributo de tipo
-        ///     <typeparamref name="TAttribute" /> ha sido encontrado, el valor
-        ///     del mismo es devuelto.
-        ///     Se devolverá <see langword="default" /> si el miembro no posee el atributo
-        ///     especificado.
+        /// Parámetro de salida. Si un atributo de tipo
+        /// <typeparamref name="TAttribute" /> ha sido encontrado, el valor
+        /// del mismo es devuelto.
+        /// Se devolverá <see langword="default" /> si el miembro no posee el atributo
+        /// especificado.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-        ///     en caso contrario.
+        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        /// en caso contrario.
         /// </returns>
         public static bool HasAttrValue<TAttribute, TValue>(this Enum enumValue, out TValue value)
             where TAttribute : Attribute, IValueAttribute<TValue>
@@ -1398,23 +1398,23 @@ namespace TheXDS.MCART
             return retVal;
         }
         /// <summary>
-        ///     Determina si un miembro posee un atributo definido.
+        /// Determina si un miembro posee un atributo definido.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
         /// <param name="enumValue">
-        ///     Miembro del cual se extraerá el atributo.
+        /// Miembro del cual se extraerá el atributo.
         /// </param>
         /// <param name="attribute">
-        ///     Parámetro de salida. Si un atributo de tipo
-        ///     <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
-        ///     Se devolverá <see langword="null" /> si el miembro no posee el atributo
-        ///     especificado.
+        /// Parámetro de salida. Si un atributo de tipo
+        /// <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
+        /// Se devolverá <see langword="null" /> si el miembro no posee el atributo
+        /// especificado.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-        ///     en caso contrario.
+        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        /// en caso contrario.
         /// </returns>
 #if !CLSCompliance && PreferExceptions
 /// <exception cref="ArgumentOutOfRangeException">
@@ -1440,23 +1440,23 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si un miembro o su ensamblado contenedor posee un atributo definido.
+        /// Determina si un miembro o su ensamblado contenedor posee un atributo definido.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
         /// <param name="type">
-        ///     Miembro del cual se extraerá el atributo.
+        /// Miembro del cual se extraerá el atributo.
         /// </param>
         /// <param name="attribute">
-        ///     Parámetro de salida. Si un atributo de tipo
-        ///     <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
-        ///     Se devolverá <see langword="null" /> si el miembro no posee el atributo
-        ///     especificado.
+        /// Parámetro de salida. Si un atributo de tipo
+        /// <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
+        /// Se devolverá <see langword="null" /> si el miembro no posee el atributo
+        /// especificado.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-        ///     en caso contrario.
+        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        /// en caso contrario.
         /// </returns>
         public static bool HasAttrAlt<T>(this Type type, out T? attribute) where T : Attribute
         {
@@ -1466,17 +1466,17 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si un miembro o su ensamblado contenedor posee un atributo definido.
+        /// Determina si un miembro o su ensamblado contenedor posee un atributo definido.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
         /// <param name="type">
-        ///     Miembro del cual se extraerá el atributo.
+        /// Miembro del cual se extraerá el atributo.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-        ///     en caso contrario.
+        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        /// en caso contrario.
         /// </returns>
         public static bool HasAttrAlt<T>(this Type type) where T : Attribute
         {
@@ -1484,14 +1484,14 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si <paramref name="obj1" /> es la misma instancia en
-        ///     <paramref name="obj2" />.
+        /// Determina si <paramref name="obj1" /> es la misma instancia en
+        /// <paramref name="obj2" />.
         /// </summary>
         /// <param name="obj1">Objeto a comprobar.</param>
         /// <param name="obj2">Objeto contra el cual comparar.</param>
         /// <returns>
-        ///     <see langword="true" /> si la instancia de <paramref name="obj1" /> es la misma
-        ///     que <paramref name="obj2" />, <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si la instancia de <paramref name="obj1" /> es la misma
+        /// que <paramref name="obj2" />, <see langword="false" /> en caso contrario.
         /// </returns>
         [Sugar]
         public static bool Is(this object? obj1, object? obj2)
@@ -1500,11 +1500,11 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si cualquiera de los objetos es <see langword="null" />.
+        /// Determina si cualquiera de los objetos es <see langword="null" />.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" />, si cualquiera de los objetos es <see langword="null" />; de lo
-        ///     contrario, <see langword="false" />.
+        /// <see langword="true" />, si cualquiera de los objetos es <see langword="null" />; de lo
+        /// contrario, <see langword="false" />.
         /// </returns>
         /// <param name="x">Objetos a comprobar.</param>
         public static bool IsAnyNull(this IEnumerable<object?>? x)
@@ -1513,11 +1513,11 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si cualquiera de los objetos es <see langword="null" />.
+        /// Determina si cualquiera de los objetos es <see langword="null" />.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" />, si cualquiera de los objetos es <see langword="null" />; de lo
-        ///     contrario, <see langword="false" />.
+        /// <see langword="true" />, si cualquiera de los objetos es <see langword="null" />; de lo
+        /// contrario, <see langword="false" />.
         /// </returns>
         /// <param name="x">Objetos a comprobar.</param>
         public static bool IsAnyNull(params object?[] x)
@@ -1526,11 +1526,11 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si un objeto es cualquiera de los indicados.
+        /// Determina si un objeto es cualquiera de los indicados.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" />si <paramref name="obj" /> es cualquiera de los
-        ///     objetos especificados, <see langword="false" /> en caso contrario.
+        /// <see langword="true" />si <paramref name="obj" /> es cualquiera de los
+        /// objetos especificados, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="obj">Objeto a comprobar.</param>
         /// <param name="objs">Lista de objetos a comparar.</param>
@@ -1540,11 +1540,11 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si un objeto es cualquiera de los indicados.
+        /// Determina si un objeto es cualquiera de los indicados.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" />si <paramref name="obj" /> es cualquiera de los
-        ///     objetos especificados, <see langword="false" /> en caso contrario.
+        /// <see langword="true" />si <paramref name="obj" /> es cualquiera de los
+        /// objetos especificados, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="obj">Objeto a comprobar.</param>
         /// <param name="objs">Lista de objetos a comparar.</param>
@@ -1554,11 +1554,11 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si un objeto no es ninguno de los indicados.
+        /// Determina si un objeto no es ninguno de los indicados.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" />si <paramref name="obj" /> no es ninguno de los
-        ///     objetos especificados, <see langword="false" /> en caso contrario.
+        /// <see langword="true" />si <paramref name="obj" /> no es ninguno de los
+        /// objetos especificados, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="obj">Objeto a comprobar.</param>
         /// <param name="objs">Lista de objetos a comparar.</param>
@@ -1568,11 +1568,11 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si un objeto no es ninguno de los indicados.
+        /// Determina si un objeto no es ninguno de los indicados.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" />si <paramref name="obj" /> no es ninguno de los
-        ///     objetos especificados, <see langword="false" /> en caso contrario.
+        /// <see langword="true" />si <paramref name="obj" /> no es ninguno de los
+        /// objetos especificados, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="obj">Objeto a comprobar.</param>
         /// <param name="objs">Lista de objetos a comparar.</param>
@@ -1582,14 +1582,14 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si <paramref name="obj1" /> es una instancia diferente a
-        ///     <paramref name="obj2" />.
+        /// Determina si <paramref name="obj1" /> es una instancia diferente a
+        /// <paramref name="obj2" />.
         /// </summary>
         /// <param name="obj1">Objeto a comprobar.</param>
         /// <param name="obj2">Objeto contra el cual comparar.</param>
         /// <returns>
-        ///     <see langword="true" /> si la instancia de <paramref name="obj1" /> no es la
-        ///     misma que <paramref name="obj2" />, <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si la instancia de <paramref name="obj1" /> no es la
+        /// misma que <paramref name="obj2" />, <see langword="false" /> en caso contrario.
         /// </returns>
         [Sugar]
         public static bool IsNot(this object? obj1, object? obj2)
@@ -1598,12 +1598,12 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si el tipo <paramref name="t" /> es de un tipo numérico
+        /// Determina si el tipo <paramref name="t" /> es de un tipo numérico
         /// </summary>
         /// <param name="t">Tipo a comprobar</param>
         /// <returns>
-        ///     <see langword="true" /> si <paramref name="t" /> es un tipo numérico; de
-        ///     lo contrario, <see langword="false" />.
+        /// <see langword="true" /> si <paramref name="t" /> es un tipo numérico; de
+        /// lo contrario, <see langword="false" />.
         /// </returns>
         [Stub]
         public static bool IsNumericType(Type t)
@@ -1625,18 +1625,18 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Comprueba que la firma de un método sea compatible con el delegado
-        ///     especificado.
+        /// Comprueba que la firma de un método sea compatible con el delegado
+        /// especificado.
         /// </summary>
         /// <param name="methodInfo">
-        ///     <see cref="MethodInfo" /> a comprobar.
+        /// <see cref="MethodInfo" /> a comprobar.
         /// </param>
         /// <param name="delegate">
-        ///     <see cref="Type" /> del <see cref="Delegate" /> a comprobar.
+        /// <see cref="Type" /> del <see cref="Delegate" /> a comprobar.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el método es compatible con la firma del
-        ///     delegado especificado, <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si el método es compatible con la firma del
+        /// delegado especificado, <see langword="false" /> en caso contrario.
         /// </returns>
         public static bool IsSignatureCompatible(this MethodInfo methodInfo, Type @delegate)
         {
@@ -1644,18 +1644,18 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Comprueba que la firma de un método sea compatible con el delegado
-        ///     especificado.
+        /// Comprueba que la firma de un método sea compatible con el delegado
+        /// especificado.
         /// </summary>
         /// <param name="methodInfo">
-        ///     <see cref="MethodInfo" /> a comprobar.
+        /// <see cref="MethodInfo" /> a comprobar.
         /// </param>
         /// <typeparam name="T">
-        ///     Tipo del <see cref="Delegate" /> a comprobar.
+        /// Tipo del <see cref="Delegate" /> a comprobar.
         /// </typeparam>
         /// <returns>
-        ///     <see langword="true" /> si el método es compatible con la firma del
-        ///     delegado especificado, <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si el método es compatible con la firma del
+        /// delegado especificado, <see langword="false" /> en caso contrario.
         /// </returns>
         public static bool IsSignatureCompatible<T>(this MethodInfo methodInfo) where T : Delegate
         {
@@ -1663,14 +1663,14 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Devuelve una referencia circular a este mismo objeto.
+        /// Devuelve una referencia circular a este mismo objeto.
         /// </summary>
         /// <returns>Este objeto.</returns>
         /// <param name="obj">Objeto.</param>
         /// <typeparam name="T">Tipo de este objeto.</typeparam>
         /// <remarks>
-        ///     Esta función únicamente es únicamente útil al utilizar Visual
-        ///     Basic en conjunto con la estructura <c lang="VB">With</c>.
+        /// Esta función únicamente es únicamente útil al utilizar Visual
+        /// Basic en conjunto con la estructura <c lang="VB">With</c>.
         /// </remarks>
         [Sugar]
         public static T Itself<T>(this T obj)
@@ -1679,19 +1679,19 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Enumera el valor de todas las propiedades que devuelvan valores de
-        ///     tipo <typeparamref name="T" />.
+        /// Enumera el valor de todas las propiedades que devuelvan valores de
+        /// tipo <typeparamref name="T" />.
         /// </summary>
         /// <typeparam name="T">Tipo de propiedades a obtener.</typeparam>
         /// <param name="properties">
-        ///     Colección de propiedades a analizar.
+        /// Colección de propiedades a analizar.
         /// </param>
         /// <param name="instance">
-        ///     Instancia desde la cual obtener las propiedades.
+        /// Instancia desde la cual obtener las propiedades.
         /// </param>
         /// <returns>
-        ///     Una enumeración de todos los valores de tipo
-        ///     <typeparamref name="T" /> de la instancia.
+        /// Una enumeración de todos los valores de tipo
+        /// <typeparamref name="T" /> de la instancia.
         /// </returns>
         public static IEnumerable<T> PropertiesOf<T>(this IEnumerable<PropertyInfo> properties, object? instance)
         {
@@ -1702,16 +1702,16 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Enumera el valor de todas las propiedades que devuelvan valores de
-        ///     tipo <typeparamref name="T" /> del objeto especificado.
+        /// Enumera el valor de todas las propiedades que devuelvan valores de
+        /// tipo <typeparamref name="T" /> del objeto especificado.
         /// </summary>
         /// <typeparam name="T">Tipo de propiedades a obtener.</typeparam>
         /// <param name="instance">
-        ///     Instancia desde la cual obtener las propiedades.
+        /// Instancia desde la cual obtener las propiedades.
         /// </param>
         /// <returns>
-        ///     Una enumeración de todos los valores de tipo
-        ///     <typeparamref name="T" /> del objeto.
+        /// Una enumeración de todos los valores de tipo
+        /// <typeparamref name="T" /> del objeto.
         /// </returns>
         public static IEnumerable<T> PropertiesOf<T>(this object instance)
         {
@@ -1719,16 +1719,16 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Enumera el valor de todas las propiedades estáticas que devuelvan
-        ///     valores de tipo <typeparamref name="T" />.
+        /// Enumera el valor de todas las propiedades estáticas que devuelvan
+        /// valores de tipo <typeparamref name="T" />.
         /// </summary>
         /// <typeparam name="T">Tipo de propiedades a obtener.</typeparam>
         /// <param name="properties">
-        ///     Colección de propiedades a analizar.
+        /// Colección de propiedades a analizar.
         /// </param>
         /// <returns>
-        ///     Una enumeración de todos los valores de tipo
-        ///     <typeparamref name="T" />.
+        /// Una enumeración de todos los valores de tipo
+        /// <typeparamref name="T" />.
         /// </returns>
         public static IEnumerable<T> PropertiesOf<T>(this IEnumerable<PropertyInfo> properties)
         {
@@ -1736,7 +1736,7 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Libera un objeto COM.
+        /// Libera un objeto COM.
         /// </summary>
         /// <param name="obj">Objeto COM a liberar.</param>
         public static void ReleaseComObject(object obj)
@@ -1752,13 +1752,13 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene una lista de los tipos de los objetos especificados.
+        /// Obtiene una lista de los tipos de los objetos especificados.
         /// </summary>
         /// <param name="objects">
-        ///     Objetos a partir de los cuales generar la colección de tipos.
+        /// Objetos a partir de los cuales generar la colección de tipos.
         /// </param>
         /// <returns>
-        ///     Una lista compuesta por los tipos de los objetos provistos.
+        /// Una lista compuesta por los tipos de los objetos provistos.
         /// </returns>
         public static IEnumerable<Type> ToTypes(this IEnumerable objects)
         {
@@ -1766,13 +1766,13 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene una lista de los tipos de los objetos especificados.
+        /// Obtiene una lista de los tipos de los objetos especificados.
         /// </summary>
         /// <param name="objects">
-        ///     Objetos a partir de los cuales generar la colección de tipos.
+        /// Objetos a partir de los cuales generar la colección de tipos.
         /// </param>
         /// <returns>
-        ///     Una lista compuesta por los tipos de los objetos provistos.
+        /// Una lista compuesta por los tipos de los objetos provistos.
         /// </returns>
         public static IEnumerable<Type> ToTypes(params object[] objects)
         {
@@ -1780,12 +1780,12 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si cualquiera de los objetos es la misma instancia que
-        ///     <paramref name="obj" />.
+        /// Determina si cualquiera de los objetos es la misma instancia que
+        /// <paramref name="obj" />.
         /// </summary>
         /// <returns>
-        ///     Un enumerador con los índices de los objetos que son la misma
-        ///     instancia que <paramref name="obj" />.
+        /// Un enumerador con los índices de los objetos que son la misma
+        /// instancia que <paramref name="obj" />.
         /// </returns>
         /// <param name="obj">Objeto a comprobar.</param>
         /// <param name="collection">Colección de objetos a comprobar.</param>
@@ -1800,12 +1800,12 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si cualquiera de los objetos es la misma instancia que
-        ///     <paramref name="obj" />.
+        /// Determina si cualquiera de los objetos es la misma instancia que
+        /// <paramref name="obj" />.
         /// </summary>
         /// <returns>
-        ///     Un enumerador con los índices de los objetos que son la misma
-        ///     instancia que <paramref name="obj" />.
+        /// Un enumerador con los índices de los objetos que son la misma
+        /// instancia que <paramref name="obj" />.
         /// </returns>
         /// <param name="obj">Objeto a comprobar.</param>
         /// <param name="collection">Colección de objetos a comprobar.</param>
@@ -1815,10 +1815,10 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si cualquiera de los objetos es <see langword="null" />.
+        /// Determina si cualquiera de los objetos es <see langword="null" />.
         /// </summary>
         /// <returns>
-        ///     Un enumerador con los índices de los objetos que son <see langword="null" />.
+        /// Un enumerador con los índices de los objetos que son <see langword="null" />.
         /// </returns>
         /// <param name="collection">Colección de objetos a comprobar.</param>
         public static IEnumerable<int> WhichAreNull(this IEnumerable<object> collection)
@@ -1832,10 +1832,10 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si cualquiera de los objetos es <see langword="null" />.
+        /// Determina si cualquiera de los objetos es <see langword="null" />.
         /// </summary>
         /// <returns>
-        ///     Un enumerador con los índices de los objetos que son <see langword="null" />.
+        /// Un enumerador con los índices de los objetos que son <see langword="null" />.
         /// </returns>
         /// <param name="collection">Colección de objetos a comprobar.</param>
         public static IEnumerable<int> WhichAreNull(params object[] collection)
@@ -1844,18 +1844,18 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene todos los métodos estáticos con firma compatible con el
-        ///     delegado especificado.
+        /// Obtiene todos los métodos estáticos con firma compatible con el
+        /// delegado especificado.
         /// </summary>
         /// <typeparam name="T">
-        ///     Delegado a utilizar como firma a comprobar.
+        /// Delegado a utilizar como firma a comprobar.
         /// </typeparam>
         /// <param name="methods">
-        ///     Colección de métodos en la cual realizar la búsqueda.
+        /// Colección de métodos en la cual realizar la búsqueda.
         /// </param>
         /// <returns>
-        ///     Una enumeración de todos los métodos que tienen una firma
-        ///     compatible con <typeparamref name="T" />.
+        /// Una enumeración de todos los métodos que tienen una firma
+        /// compatible con <typeparamref name="T" />.
         /// </returns>
         public static IEnumerable<T> WithSignature<T>(this IEnumerable<MethodInfo> methods)
             where T : Delegate
@@ -1868,21 +1868,21 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene todos los métodos de instancia con firma compatible con el
-        ///     delegado especificado.
+        /// Obtiene todos los métodos de instancia con firma compatible con el
+        /// delegado especificado.
         /// </summary>
         /// <typeparam name="T">
-        ///     Delegado a utilizar como firma a comprobar.
+        /// Delegado a utilizar como firma a comprobar.
         /// </typeparam>
         /// <param name="methods">
-        ///     Colección de métodos en la cual realizar la búsqueda.
+        /// Colección de métodos en la cual realizar la búsqueda.
         /// </param>
         /// <param name="instance">
-        ///     Instancia del objeto sobre el cual construir los delegados.
+        /// Instancia del objeto sobre el cual construir los delegados.
         /// </param>
         /// <returns>
-        ///     Una enumeración de todos los métodos que tienen una firma
-        ///     compatible con <typeparamref name="T" />.
+        /// Una enumeración de todos los métodos que tienen una firma
+        /// compatible con <typeparamref name="T" />.
         /// </returns>
         public static IEnumerable<T> WithSignature<T>(this IEnumerable<MethodInfo> methods, object instance)
             where T : Delegate
@@ -1893,29 +1893,29 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Versión segura de <see cref="Delegate.CreateDelegate(Type, MethodInfo, bool)"/>
+        /// Versión segura de <see cref="Delegate.CreateDelegate(Type, MethodInfo, bool)"/>
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo del delegado a crear.
+        /// Tipo del delegado a crear.
         /// </typeparam>
         /// <param name="method">
-        ///     Método desde el cual se creará el delegado.
+        /// Método desde el cual se creará el delegado.
         /// </param>
         /// <param name="delegate">
-        ///     Delegado que ha sido creado. <see langword="null"/> si no fue
-        ///     posible crear el delegado especificado.
+        /// Delegado que ha sido creado. <see langword="null"/> si no fue
+        /// posible crear el delegado especificado.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si se ha creado el delegado de forma
-        ///     satisfactoria, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si se ha creado el delegado de forma
+        /// satisfactoria, <see langword="false"/> en caso contrario.
         /// </returns>
         /// <remarks>
-        ///     Este método se creó debido a un Quirk de funcionamiento del
-        ///     método
-        ///     <see cref="Delegate.CreateDelegate(Type, MethodInfo, bool)"/>,
-        ///     en el cual el mismo aún podría arrojar una excepción cuando no
-        ///     es posible enlazar un método a un delegado si el método
-        ///     contiene parámetros genéricos.
+        /// Este método se creó debido a un Quirk de funcionamiento del
+        /// método
+        /// <see cref="Delegate.CreateDelegate(Type, MethodInfo, bool)"/>,
+        /// en el cual el mismo aún podría arrojar una excepción cuando no
+        /// es posible enlazar un método a un delegado si el método
+        /// contiene parámetros genéricos.
         /// </remarks>
         public static bool TryCreateDelegate<T>(MethodInfo method, out T? @delegate) where T : Delegate
         {
@@ -1932,28 +1932,28 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Encapsula <see cref="Delegate.CreateDelegate(Type, object, string, bool, bool)"/>
-        ///     para garantizar la captura de todas las excepciones posibles.
+        /// Encapsula <see cref="Delegate.CreateDelegate(Type, object, string, bool, bool)"/>
+        /// para garantizar la captura de todas las excepciones posibles.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo del delegado a crear.
+        /// Tipo del delegado a crear.
         /// </typeparam>
         /// <param name="method">
-        ///     Método desde el cual se creará el delegado.
+        /// Método desde el cual se creará el delegado.
         /// </param>
         /// <param name="instance">Instancia hacia la cual enlazar el delegado a crear.</param>
         /// <param name="delegate">Delegado que ha sido creado. <see langword="null"/> si no fue posible crear el delegado especificado.</param>
         /// <returns>
-        ///     <see langword="true"/> si se ha creado el delegado de forma
-        ///     satisfactoria, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si se ha creado el delegado de forma
+        /// satisfactoria, <see langword="false"/> en caso contrario.
         /// </returns>
         /// <remarks>
-        ///     Este método se creó debido a un Quirk de funcionamiento del
-        ///     método
-        ///     <see cref="Delegate.CreateDelegate(Type, object, string, bool, bool)"/>,
-        ///     en el cual el mismo aún podría arrojar una excepción cuando no
-        ///     es posible enlazar un método a un delegado si el método
-        ///     contiene parámetros genéricos.
+        /// Este método se creó debido a un Quirk de funcionamiento del
+        /// método
+        /// <see cref="Delegate.CreateDelegate(Type, object, string, bool, bool)"/>,
+        /// en el cual el mismo aún podría arrojar una excepción cuando no
+        /// es posible enlazar un método a un delegado si el método
+        /// contiene parámetros genéricos.
         /// </remarks>
         public static bool TryCreateDelegate<T>(MethodInfo method, object instance, out T? @delegate) where T : Delegate
         {
@@ -1971,13 +1971,13 @@ namespace TheXDS.MCART
 
 #if DynamicLoading
         /// <summary>
-        ///     Obtiene el nombre de un objeto.
+        /// Obtiene el nombre de un objeto.
         /// </summary>
         /// <param name="obj">
-        ///     Objeto del cual obtener el nombre.
+        /// Objeto del cual obtener el nombre.
         /// </param>
         /// <returns>
-        ///     El nombre del objeto.
+        /// El nombre del objeto.
         /// </returns>
         public static string NameOf(this object obj)
         {

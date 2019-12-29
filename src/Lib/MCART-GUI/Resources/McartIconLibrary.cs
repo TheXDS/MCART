@@ -30,18 +30,18 @@ using TheXDS.MCART.Exceptions;
 namespace TheXDS.MCART.Resources
 {
     /// <summary>
-    ///     Clase base interna para exponer íconos incrustados en los 
-    ///     ensamblados de MCART.
+    /// Clase base interna para exponer íconos incrustados en los 
+    /// ensamblados de MCART.
     /// </summary>
     /// <typeparam name="T">
-    ///     Tipo de ícono a obtener.
+    /// Tipo de ícono a obtener.
     /// </typeparam>
     public abstract class McartIconLibrary<T>
     {
         private static readonly McartIconLibrary<T> _staticInstance = Objects.FindFirstObject<McartIconLibrary<T>>() ?? throw new MissingTypeException(typeof(McartIconLibrary<T>));
 
         /// <summary>
-        ///     Inicializa la clase <see cref="McartIconLibrary{T}"/>
+        /// Inicializa la clase <see cref="McartIconLibrary{T}"/>
         /// </summary>
         static McartIconLibrary()
         {
@@ -49,39 +49,39 @@ namespace TheXDS.MCART.Resources
         }
 
         /// <summary>
-        ///     Implementa el método de obtención del ícono basado en el nombre
-        ///     del ícono solicitado.
+        /// Implementa el método de obtención del ícono basado en el nombre
+        /// del ícono solicitado.
         /// </summary>
         /// <param name="id">
-        ///     Id del ícono solicitado.
+        /// Id del ícono solicitado.
         /// </param>
         /// <returns>
-        ///     El ícono solicitado.
+        /// El ícono solicitado.
         /// </returns>
         protected abstract T GetIcon([CallerMemberName] string? id = null!);
 
         /// <summary>
-        ///     Ícono principal de MCART.
+        /// Ícono principal de MCART.
         /// </summary>
         public static T MCART => _staticInstance.GetIcon();
 
         /// <summary>
-        ///     Ícono de plugin de MCART.
+        /// Ícono de plugin de MCART.
         /// </summary>
         public static T Plugin => _staticInstance.GetIcon();
 
         /// <summary>
-        ///     Ícono de archivo incorrecto.
+        /// Ícono de archivo incorrecto.
         /// </summary>
         public static T BadFile => _staticInstance.GetIcon();
 
         /// <summary>
-        ///     Ícono de archivo no encontrado.
+        /// Ícono de archivo no encontrado.
         /// </summary>
         public static T FileMissing => _staticInstance.GetIcon();
 
         /// <summary>
-        ///     Ícono de problema con archivo.
+        /// Ícono de problema con archivo.
         /// </summary>
         public static T FileWarning => _staticInstance.GetIcon();
     }

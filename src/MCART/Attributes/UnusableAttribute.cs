@@ -29,7 +29,7 @@ namespace TheXDS.MCART.Attributes
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Marca un elemento como no utilizable.
+    /// Marca un elemento como no utilizable.
     /// </summary>
     [AttributeUsage(All)]
     [Serializable]

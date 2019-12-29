@@ -31,8 +31,8 @@ using static TheXDS.MCART.Types.Extensions.SecureStringExtensions;
 namespace TheXDS.MCART.Dialogs.ViewModel
 {
     /// <summary>
-    ///     ViewModel básico para un cuadro de diálogo para inicio de sesión y
-    ///     administración de contraseñas y credenciales.
+    /// ViewModel básico para un cuadro de diálogo para inicio de sesión y
+    /// administración de contraseñas y credenciales.
     /// </summary>
     public abstract class PasswordDialogViewModelBase : ViewModelBase
     {
@@ -51,7 +51,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         private int? _maxTries;
 
         /// <summary>
-        ///     Ejecuta una acción de evaluación de la contraseña.
+        /// Ejecuta una acción de evaluación de la contraseña.
         /// </summary>
         public void OnEvaluate()
         {
@@ -60,7 +60,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         }
 
         /// <summary>
-        ///     Ejecuta una acción de generación de contraseñas.
+        /// Ejecuta una acción de generación de contraseñas.
         /// </summary>
         public void OnGenerate()
         {
@@ -72,49 +72,49 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         }
 
         /// <summary>
-        ///     Indica si el cuadro de confirmación está visible.
+        /// Indica si el cuadro de confirmación está visible.
         /// </summary>
         public bool IsConfirmVisible => Mode.HasFlag(PasswordDialogMode.Confirm);
 
         /// <summary>
-        ///     Indica si el generador de contraseñas está visible.
+        /// Indica si el generador de contraseñas está visible.
         /// </summary>
         public bool IsGeneratorVisible => Mode.HasFlag(PasswordDialogMode.Generator);
 
         /// <summary>
-        ///     Indica si el cuadro de pista para contraseña está visible.
+        /// Indica si el cuadro de pista para contraseña está visible.
         /// </summary>
         public bool IsHintVisible => Mode.HasFlag(PasswordDialogMode.Hint);
 
         /// <summary>
-        ///     Indica si la contraseña ha sido evaluada como inválida.
+        /// Indica si la contraseña ha sido evaluada como inválida.
         /// </summary>
         public bool IsInvalid => Result.Critical;
 
         /// <summary>
-        ///     Indica si el indicador de calidad de contraseña está visible.
+        /// Indica si el indicador de calidad de contraseña está visible.
         /// </summary>
         public bool IsQualityVisible => Mode.HasFlag(PasswordDialogMode.PwQuality);
 
         /// <summary>
-        ///     Indica si el cuadro de usuario está visible.
+        /// Indica si el cuadro de usuario está visible.
         /// </summary>
         public bool IsUserVisible => Mode.HasFlag(PasswordDialogMode.User);
 
         /// <summary>
-        ///     Obtiene mensajes adicionales sobre la evaluación de una
-        ///     contraseña.
+        /// Obtiene mensajes adicionales sobre la evaluación de una
+        /// contraseña.
         /// </summary>
         public string MorInfo => Result.Details;
 
         /// <summary>
-        ///     Obtiene un porcentaje evaluado de calidad de contraseña.
+        /// Obtiene un porcentaje evaluado de calidad de contraseña.
         /// </summary>
         public float PasswordQuality => Result.Result * 100;
 
         /// <summary>
-        ///     Obtiene o establece la contraseña introducida en el cuadro de
-        ///     confirmación.
+        /// Obtiene o establece la contraseña introducida en el cuadro de
+        /// confirmación.
         /// </summary>
         public SecureString Confirm
         {
@@ -123,8 +123,8 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         }
 
         /// <summary>
-        ///     Obtiene o establece un <see cref="IPasswordEvaluator"/> a
-        ///     utilizar para comprobar la calidad de una contraseña.
+        /// Obtiene o establece un <see cref="IPasswordEvaluator"/> a
+        /// utilizar para comprobar la calidad de una contraseña.
         /// </summary>
         public IPasswordEvaluator Evaluator
         {
@@ -136,7 +136,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         }
 
         /// <summary>
-        ///     Obtiene una contraseña generada por este ViewModel.
+        /// Obtiene una contraseña generada por este ViewModel.
         /// </summary>
         public string GeneratedPassword
         {
@@ -145,8 +145,8 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         }
 
         /// <summary>
-        ///     Obtiene o establece un <see cref="IPasswordGenerator"/> a 
-        ///     utilizar para generar contraseñas.
+        /// Obtiene o establece un <see cref="IPasswordGenerator"/> a 
+        /// utilizar para generar contraseñas.
         /// </summary>
         public IPasswordGenerator Generator
         {
@@ -158,7 +158,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         }
 
         /// <summary>
-        ///     Obtiene o establece un indicio de contraseña.
+        /// Obtiene o establece un indicio de contraseña.
         /// </summary>
         public string Hint
         {
@@ -167,9 +167,9 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         }
 
         /// <summary>
-        ///     Número máximo de intentos permitidos. Si se establece en
-        ///     <see langword="null"/>, no se establecerá un límite de
-        ///     intentos.
+        /// Número máximo de intentos permitidos. Si se establece en
+        /// <see langword="null"/>, no se establecerá un límite de
+        /// intentos.
         /// </summary>
         public int? MaxTries
         {
@@ -178,7 +178,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         }
 
         /// <summary>
-        ///     Obtiene o establece el modo de funcionamiento de este ViewModel.
+        /// Obtiene o establece el modo de funcionamiento de este ViewModel.
         /// </summary>
         public PasswordDialogMode Mode
         {
@@ -195,7 +195,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         }
 
         /// <summary>
-        ///     Obtiene o establece la contraseña.
+        /// Obtiene o establece la contraseña.
         /// </summary>
         public SecureString Password
         {
@@ -207,7 +207,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         }
 
         /// <summary>
-        ///     Obtiene el resultado de la evaluación de la contraseña.
+        /// Obtiene el resultado de la evaluación de la contraseña.
         /// </summary>
         public PwEvalResult Result
         {
@@ -222,7 +222,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         }
 
         /// <summary>
-        ///     Obtiene o establce el título de este ViewModel.
+        /// Obtiene o establce el título de este ViewModel.
         /// </summary>
         public string Title
         {
@@ -231,8 +231,8 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         }
 
         /// <summary>
-        ///     Obtiene la cantidad de intentos de inicio de sesión actualmente
-        ///     realizados.
+        /// Obtiene la cantidad de intentos de inicio de sesión actualmente
+        /// realizados.
         /// </summary>
         public int TriesCount
         {
@@ -241,7 +241,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         }
 
         /// <summary>
-        ///     Obtiene o establece el nombre de usuario.
+        /// Obtiene o establece el nombre de usuario.
         /// </summary>
         public string User
         {
@@ -250,8 +250,8 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         }
 
         /// <summary>
-        ///     Obtiene o establece un validador de inicio de sesión a utilizar
-        ///     al presionar el botón de continuar.
+        /// Obtiene o establece un validador de inicio de sesión a utilizar
+        /// al presionar el botón de continuar.
         /// </summary>
         public LoginValidator Validator
         {
@@ -260,13 +260,13 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         }
 
         /// <summary>
-        ///     Realiza una validación de inicio de sesión de forma asíncrona.
+        /// Realiza una validación de inicio de sesión de forma asíncrona.
         /// </summary>
         /// <returns>
-        ///     <see langword="true"/> si la validación se ha realizado con
-        ///     éxito, <see langword="false"/> si la validación ha fallado, o
-        ///     <see langword="null"/> si no se ha establecido una función de
-        ///     validación.
+        /// <see langword="true"/> si la validación se ha realizado con
+        /// éxito, <see langword="false"/> si la validación ha fallado, o
+        /// <see langword="null"/> si no se ha establecido una función de
+        /// validación.
         /// </returns>
         public async Task<bool?> ValidateAsync()
         {

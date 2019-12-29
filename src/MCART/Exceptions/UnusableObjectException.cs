@@ -31,25 +31,25 @@ namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Excepción que se produce cuando se intenta utilizar un objeto marcado con el atributo
-    ///     <see cref="UnusableAttribute" />.
+    /// Excepción que se produce cuando se intenta utilizar un objeto marcado con el atributo
+    /// <see cref="UnusableAttribute" />.
     /// </summary>
     [Serializable]
     public class UnusableObjectException : OffendingException<object>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="UnusableObjectException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="UnusableObjectException" />.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="StreamingContext" /> que contiene información
-        ///     contextual acerca del orígen o el destino.
+        /// El <see cref="StreamingContext" /> que contiene información
+        /// contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="SerializationInfo" /> que contiene la información
-        ///     serializada del objeto acerca de la excepción que está siendo
-        ///     lanzada.
+        /// El <see cref="SerializationInfo" /> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
         protected UnusableObjectException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
@@ -57,17 +57,17 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="UnusableObjectException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="UnusableObjectException" />.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="StreamingContext" /> que contiene información
-        ///     contextual acerca del orígen o el destino.
+        /// El <see cref="StreamingContext" /> que contiene información
+        /// contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="SerializationInfo" /> que contiene la información
-        ///     serializada del objeto acerca de la excepción que está siendo
-        ///     lanzada.
+        /// El <see cref="SerializationInfo" /> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
         /// <param name="unusableObject">Objeto inutilizable que es la causa de esta excepción.</param>
         protected UnusableObjectException(SerializationInfo info, StreamingContext context, object unusableObject) :
@@ -77,8 +77,8 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="UnusableObjectException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="UnusableObjectException" />.
         /// </summary>
         public UnusableObjectException() : base(Strings.UnusableObject)
         {
@@ -86,8 +86,8 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="UnusableObjectException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="UnusableObjectException" />.
         /// </summary>
         /// <param name="unusableObject">Objeto inutilizable que es la causa de esta excepción.</param>
         public UnusableObjectException(object unusableObject) : base(Strings.UnusableObject, unusableObject)
@@ -96,10 +96,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="UnusableObjectException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="UnusableObjectException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         public UnusableObjectException(string message) : base(message)
         {
@@ -107,10 +107,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="UnusableObjectException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="UnusableObjectException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="unusableObject">Objeto inutilizable que es la causa de esta excepción.</param>
         public UnusableObjectException(string message, object unusableObject) : base(message, unusableObject)
@@ -119,10 +119,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="UnusableObjectException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="UnusableObjectException" />.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public UnusableObjectException(Exception inner) : base(Strings.UnusableObject, inner)
         {
@@ -130,10 +130,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="UnusableObjectException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="UnusableObjectException" />.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="unusableObject">Objeto inutilizable que es la causa de esta excepción.</param>
         public UnusableObjectException(Exception inner, object unusableObject) : base(Strings.UnusableObject, inner,
@@ -143,13 +143,13 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="UnusableObjectException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="UnusableObjectException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public UnusableObjectException(string message, Exception inner) : base(message, inner)
         {
@@ -157,13 +157,13 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="UnusableObjectException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="UnusableObjectException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="unusableObject">Objeto inutilizable que es la causa de esta excepción.</param>
         public UnusableObjectException(string message, Exception inner, object unusableObject) : base(message, inner,

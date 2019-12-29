@@ -42,10 +42,10 @@ namespace TheXDS.MCART.Networking.Client
         public event EventHandler? ConnectionLost;
 
         /// <summary>
-        ///     Envía una solicitud al servidor.
+        /// Envía una solicitud al servidor.
         /// </summary>
         /// <param name="data">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         public void TalkToServer(IEnumerable<byte>? data)
         {
@@ -61,13 +61,13 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía una solicitud al servidor de forma asíncrona.
+        /// Envía una solicitud al servidor de forma asíncrona.
         /// </summary>
         /// <param name="data">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <returns>
-        ///     Un objeto <see cref="Task"/> para monitorear la operación asíncrona.
+        /// Un objeto <see cref="Task"/> para monitorear la operación asíncrona.
         /// </returns>
         public Task TalkToServerAsync(IEnumerable<byte>? data)
         {
@@ -90,7 +90,7 @@ namespace TheXDS.MCART.Networking.Client
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicia la escucha activa del servidor.
+        /// Inicia la escucha activa del servidor.
         /// </summary>
         protected override async void PostConnection()
         {
@@ -105,13 +105,13 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Obtiene de forma segura una referencia al flujo de datos de la
-        ///     conexión activa.
+        /// Obtiene de forma segura una referencia al flujo de datos de la
+        /// conexión activa.
         /// </summary>
         /// <returns>
-        ///     El <see cref="NetworkStream"/> utilizado para enviar y recibir
-        ///     información, o <see langword="null"/> si no es posible
-        ///     obtenerlo.
+        /// El <see cref="NetworkStream"/> utilizado para enviar y recibir
+        /// información, o <see langword="null"/> si no es posible
+        /// obtenerlo.
         /// </returns>
         protected NetworkStream? GetStream()
         {

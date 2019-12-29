@@ -29,19 +29,19 @@ namespace TheXDS.MCART.Networking
 {
 
     /// <summary>
-    ///     Contiene definiciones y objetos predeterminados a utilizar en el
-    ///     espacio de nombres <see cref="Networking"/>.
+    /// Contiene definiciones y objetos predeterminados a utilizar en el
+    /// espacio de nombres <see cref="Networking"/>.
     /// </summary>
     public static class Common
     {
         /// <summary>
-        ///     Puerto predeterminado para todos los objetos de red.
+        /// Puerto predeterminado para todos los objetos de red.
         /// </summary>
         public const int DefaultPort = 51200;
 
         /// <summary>
-        ///     Tiempo de espera en milisegundos antes de realizar una
-        ///     desconexión forzada.
+        /// Tiempo de espera en milisegundos antes de realizar una
+        /// desconexión forzada.
         /// </summary>
         public const int DisconnectionTimeout = 15000;
     }

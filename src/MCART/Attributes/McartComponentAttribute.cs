@@ -29,18 +29,18 @@ namespace TheXDS.MCART.Attributes
 {
     /// <inheritdoc cref="Attribute"/>
     /// <summary>
-    ///     Marca un ensamblado como un componente de MCART.
+    /// Marca un ensamblado como un componente de MCART.
     /// </summary>
     [AttributeUsage(AttributeTargets.Assembly)]
     public sealed class McartComponentAttribute : Attribute, IValueAttribute<RtInfo.ComponentKind>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="McartComponentAttribute" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="McartComponentAttribute" />.
         /// </summary>
         /// <param name="kind">
-        ///     Tipo de componente que este ensamblado es.
+        /// Tipo de componente que este ensamblado es.
         /// </param>
         public McartComponentAttribute(RtInfo.ComponentKind kind)
         {
@@ -48,13 +48,13 @@ namespace TheXDS.MCART.Attributes
         }
 
         /// <summary>
-        ///     Obtiene el tipo de componente que es este ensamblado de MCART.
+        /// Obtiene el tipo de componente que es este ensamblado de MCART.
         /// </summary>
         public RtInfo.ComponentKind Kind { get; }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene el valor de este atributo.
+        /// Obtiene el valor de este atributo.
         /// </summary>
         RtInfo.ComponentKind IValueAttribute<RtInfo.ComponentKind>.Value => Kind;
     }

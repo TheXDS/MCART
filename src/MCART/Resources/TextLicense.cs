@@ -28,15 +28,15 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.Resources
 {
     /// <summary>
-    ///     Licencia cuyo contenido se ha especificado directamente.
+    /// Licencia cuyo contenido se ha especificado directamente.
     /// </summary>
     public sealed class TextLicense : License
     {
         private readonly string? _content;
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="TextLicense"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="TextLicense"/>.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="content"></param>
@@ -46,7 +46,7 @@ namespace TheXDS.MCART.Resources
         }
 
         /// <summary>
-        ///     Obtiene el contenido de la licencia.
+        /// Obtiene el contenido de la licencia.
         /// </summary>
         public override string LicenseContent => _content ?? base.LicenseContent;
     }

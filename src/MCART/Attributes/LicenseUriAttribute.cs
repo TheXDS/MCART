@@ -32,18 +32,18 @@ namespace TheXDS.MCART.Attributes
 
     /// <inheritdoc />
     /// <summary>
-    ///     Establece un archivo de licencia externo a asociar con el elemento.
+    /// Establece un archivo de licencia externo a asociar con el elemento.
     /// </summary>
     [AttributeUsage(Class | Module | Assembly | Field)]
     public sealed class LicenseUriAttribute : LicenseAttributeBase
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="LicenseFileAttribute" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="LicenseFileAttribute" />.
         /// </summary>
         /// <param name="licenseUri">
-        ///     Ruta Uri de la licencia.
+        /// Ruta Uri de la licencia.
         /// </param>
         public LicenseUriAttribute(string licenseUri) : base(licenseUri)
         {
@@ -51,17 +51,17 @@ namespace TheXDS.MCART.Attributes
         }
 
         /// <summary>
-        ///     Obtiene la ruta de almacenamiento de la licencia.
+        /// Obtiene la ruta de almacenamiento de la licencia.
         /// </summary>
         public Uri Uri { get; }
 
         /// <summary>
-        ///     Obtiene una licencia a partir del <see cref="Uri"/>
-        ///     especificado para este atributo.
+        /// Obtiene una licencia a partir del <see cref="Uri"/>
+        /// especificado para este atributo.
         /// </summary>
         /// <returns>
-        ///     Una licencia a partir del <see cref="Uri"/> especificado para
-        ///     este atributo.
+        /// Una licencia a partir del <see cref="Uri"/> especificado para
+        /// este atributo.
         /// </returns>
         public override License GetLicense(object _)
         {

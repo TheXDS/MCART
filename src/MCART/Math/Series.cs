@@ -29,7 +29,7 @@ using System.Collections.Generic;
 namespace TheXDS.MCART.Math
 {
     /// <summary>
-    ///     Esta clase contiene funciones de enumeración de series matemáticas.
+    /// Esta clase contiene funciones de enumeración de series matemáticas.
     /// </summary>
     public static class Series
     {
@@ -48,39 +48,39 @@ namespace TheXDS.MCART.Math
          */
 
         /// <summary>
-        ///     Expone un enumerador que contiene la secuencia completa de
-        ///     Fibonacci.
+        /// Expone un enumerador que contiene la secuencia completa de
+        /// Fibonacci.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="IEnumerable{T}" /> con la secuencia infinita de
-        ///     Fibonacci.
+        /// Un <see cref="IEnumerable{T}" /> con la secuencia infinita de
+        /// Fibonacci.
         /// </returns>
         /// <remarks>
-        ///     Las series utilizan enumeradores para exponer las series
-        ///     completas de una manera infinita. Es necesario recalcar que, si
-        ///     se utilizan estas funciones de manera incorrecta, el programa
-        ///     fallará con un error de sobreflujo o de pila, o bien, el
-        ///     programa podría dejar de responder durante un período de tiempo
-        ///     prolongado.
+        /// Las series utilizan enumeradores para exponer las series
+        /// completas de una manera infinita. Es necesario recalcar que, si
+        /// se utilizan estas funciones de manera incorrecta, el programa
+        /// fallará con un error de sobreflujo o de pila, o bien, el
+        /// programa podría dejar de responder durante un período de tiempo
+        /// prolongado.
         /// </remarks>
         /// <seealso cref="System.Linq.Enumerable.Take{TSource}(IEnumerable{TSource}, int)"/>
         public static IEnumerable<long> Fibonacci() => MakeSeriesAdditive(0, 1);
 
         /// <summary>
-        ///     Expone un enumerador que contiene la secuencia completa de
-        ///     Lucas.
+        /// Expone un enumerador que contiene la secuencia completa de
+        /// Lucas.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="IEnumerable{T}" /> con la secuencia infinita de
-        ///     Lucas.
+        /// Un <see cref="IEnumerable{T}" /> con la secuencia infinita de
+        /// Lucas.
         /// </returns>
         /// <remarks>
-        ///     Las series utilizan enumeradores para exponer las series
-        ///     completas de una manera infinita. Es necesario recalcar que, si
-        ///     se utilizan estas funciones de manera incorrecta, el programa
-        ///     fallará con un error de sobreflujo o de pila, o bien, el
-        ///     programa podría dejar de responder durante un período de tiempo
-        ///     prolongado.
+        /// Las series utilizan enumeradores para exponer las series
+        /// completas de una manera infinita. Es necesario recalcar que, si
+        /// se utilizan estas funciones de manera incorrecta, el programa
+        /// fallará con un error de sobreflujo o de pila, o bien, el
+        /// programa podría dejar de responder durante un período de tiempo
+        /// prolongado.
         /// </remarks>
         /// <seealso cref="System.Linq.Enumerable.Take{TSource}(IEnumerable{TSource}, int)"/>
         public static IEnumerable<long> Lucas() => MakeSeriesAdditive(2, 1);

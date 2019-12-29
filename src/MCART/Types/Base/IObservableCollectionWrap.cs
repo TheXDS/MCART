@@ -28,22 +28,22 @@ using System.Collections.Generic;
 namespace TheXDS.MCART.Types.Base
 {
     /// <summary>
-    ///     Define una serie de miembros a implementar por una clase que defina
-    ///     un envoltorio observable sobre un <see cref="ICollection{T}"/>.
+    /// Define una serie de miembros a implementar por una clase que defina
+    /// un envoltorio observable sobre un <see cref="ICollection{T}"/>.
     /// </summary>
     public interface IObservableCollectionWrap<T> : INotifyCollectionChanged, ICollection<T>, IRefreshable
     {
         /// <summary>
-        ///     Obtiene una referencia a la colección subyacente de este
-        ///     envoltorio observable.
+        /// Obtiene una referencia a la colección subyacente de este
+        /// envoltorio observable.
         /// </summary>
         ICollection<T> UnderlyingCollection { get; }
 
         /// <summary>
-        ///     Sustituye la colección subyacente por una nueva.
+        /// Sustituye la colección subyacente por una nueva.
         /// </summary>
         /// <param name="newCollection">
-        ///     Colección a establecer como la colección subyacente.
+        /// Colección a establecer como la colección subyacente.
         /// </param>
         void Substitute(ICollection<T> newCollection);
     }

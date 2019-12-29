@@ -32,16 +32,16 @@ using System.Linq;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Extensiones para todos los elementos de tipo <see cref="ICollection{T}" />.
+    /// Extensiones para todos los elementos de tipo <see cref="ICollection{T}" />.
     /// </summary>
     public static class CollectionExtensions
     {
         /// <summary>
-        ///     Quita todos los elementos del tipo especificado de la
-        ///     colección.
+        /// Quita todos los elementos del tipo especificado de la
+        /// colección.
         /// </summary>
         /// <typeparam name="TItem">
-        ///     Tipo de elementos contenidos en la colección.
+        /// Tipo de elementos contenidos en la colección.
         /// </typeparam>
         /// <typeparam name="TRemove">Tipo de elementos a remover.</typeparam>
         /// <param name="collection">Colección de la cual remover los elementos.</param>
@@ -56,7 +56,7 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Elimina todos los elementos de una colección que cumplen con una condición.
+        /// Elimina todos los elementos de una colección que cumplen con una condición.
         /// </summary>
         /// <typeparam name="T">Tipo de elementos en la colección.</typeparam>
         /// <param name="collection">Colección a procesar.</param>
@@ -74,7 +74,7 @@ namespace TheXDS.MCART.Types.Extensions
         }
        
         /// <summary>
-        ///     Elimina todos los elementos de una colección.
+        /// Elimina todos los elementos de una colección.
         /// </summary>
         /// <typeparam name="T">Tipo de elementos en la colección.</typeparam>
         /// <param name="collection">Colección a procesar.</param>
@@ -83,7 +83,7 @@ namespace TheXDS.MCART.Types.Extensions
             RemoveAll(collection, null, beforeDelete);
         
         /// <summary>
-        ///     Elimina todos los elementos de una colección que cumplen con una condición.
+        /// Elimina todos los elementos de una colección que cumplen con una condición.
         /// </summary>
         /// <typeparam name="T">Tipo de elementos en la colección.</typeparam>
         /// <param name="collection">Colección a procesar.</param>
@@ -92,19 +92,19 @@ namespace TheXDS.MCART.Types.Extensions
             RemoveAll(collection, check, null);
 
         /// <summary>
-        ///     Elimina todos los elementos de una colección.
+        /// Elimina todos los elementos de una colección.
         /// </summary>
         /// <typeparam name="T">Tipo de elementos en la colección.</typeparam>
         /// <param name="collection">Colección a procesar.</param>
         public static void RemoveAll<T>(this ICollection<T> collection) => RemoveAll(collection, null, null);
 
         /// <summary>
-        ///     Devuelve el último elemento en la lista, quitándole.
+        /// Devuelve el último elemento en la lista, quitándole.
         /// </summary>
         /// <returns>El último elemento en la lista.</returns>
         /// <param name="a">Lista de la cual obtener el elemento.</param>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="ICollection{T}" />.
+        /// Tipo de elementos contenidos en el <see cref="ICollection{T}" />.
         /// </typeparam>
         public static T Pop<T>(this ICollection<T> a)
         {
@@ -114,12 +114,12 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Devuelve el primer elemento en la lista, quitándole.
+        /// Devuelve el primer elemento en la lista, quitándole.
         /// </summary>
         /// <returns>El primer elemento en la lista.</returns>
         /// <param name="a">Lista de la cual obtener el elemento.</param>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="ICollection{T}" />.
+        /// Tipo de elementos contenidos en el <see cref="ICollection{T}" />.
         /// </typeparam>
         public static T PopFirst<T>(this ICollection<T> a)
         {
@@ -129,18 +129,18 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Alternativa a <see cref="ICollection{T}.Add(T)"/> con soporte
-        ///     para sintáxis fluent.
+        /// Alternativa a <see cref="ICollection{T}.Add(T)"/> con soporte
+        /// para sintáxis fluent.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="ICollection{T}" />.
+        /// Tipo de elementos contenidos en el <see cref="ICollection{T}" />.
         /// </typeparam>
         /// <param name="collection">
-        ///     Colección a la cual agregar el nuevo elemento.
+        /// Colección a la cual agregar el nuevo elemento.
         /// </param>
         /// <returns>
-        ///     Una nueva instancia de <typeparamref name="T"/> q fue agregada
-        ///     a la colección.
+        /// Una nueva instancia de <typeparamref name="T"/> q fue agregada
+        /// a la colección.
         /// </returns>
         public static T Push<T>(this ICollection<T> collection) where T : new()
         {
@@ -148,17 +148,17 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Alternativa a <see cref="ICollection{T}.Add(T)"/> con soporte
-        ///     para sintáxis fluent.
+        /// Alternativa a <see cref="ICollection{T}.Add(T)"/> con soporte
+        /// para sintáxis fluent.
         /// </summary>
         /// <typeparam name="TItem">
-        ///     Tipo de elemento a agregar a la colección.
+        /// Tipo de elemento a agregar a la colección.
         /// </typeparam>
         /// <typeparam name="TCollection">
-        ///     Tipo de elementos contenidos en el <see cref="ICollection{T}" />.
+        /// Tipo de elementos contenidos en el <see cref="ICollection{T}" />.
         /// </typeparam>
         /// <param name="collection">
-        ///     Colección a la cual agregar el nuevo elemento.
+        /// Colección a la cual agregar el nuevo elemento.
         /// </param>
         /// <param name="value">Valor a agregar a la colección.</param>
         /// <returns>El objeto agregado a la colección.</returns>
@@ -168,17 +168,17 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Alternativa a <see cref="ICollection{T}.Add(T)"/> con soporte
-        ///     para sintáxis fluent.
+        /// Alternativa a <see cref="ICollection{T}.Add(T)"/> con soporte
+        /// para sintáxis fluent.
         /// </summary>
         /// <typeparam name="TItem">
-        ///     Tipo de elemento a agregar a la colección.
+        /// Tipo de elemento a agregar a la colección.
         /// </typeparam>
         /// <typeparam name="TCollection">
-        ///     Tipo de elementos contenidos en el <see cref="ICollection{T}" />.
+        /// Tipo de elementos contenidos en el <see cref="ICollection{T}" />.
         /// </typeparam>
         /// <param name="collection">
-        ///     Colección a la cual agregar el nuevo elemento.
+        /// Colección a la cual agregar el nuevo elemento.
         /// </param>
         /// <param name="value">Valor a agregar a la colección.</param>
         /// <returns>El objeto agregado a la colección.</returns>
@@ -189,34 +189,34 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Alternativa a <see cref="ICollection{T}.Add(T)"/> con soporte
-        ///     para sintáxis fluent.
+        /// Alternativa a <see cref="ICollection{T}.Add(T)"/> con soporte
+        /// para sintáxis fluent.
         /// </summary>
         /// <typeparam name="TItem">
-        ///     Tipo de elemento a agregar a la colección.
+        /// Tipo de elemento a agregar a la colección.
         /// </typeparam>
         /// <typeparam name="TCollection">
-        ///     Tipo de elementos contenidos en el <see cref="ICollection{T}" />.
+        /// Tipo de elementos contenidos en el <see cref="ICollection{T}" />.
         /// </typeparam>
         /// <param name="collection">
-        ///     Colección a la cual agregar el nuevo elemento.
+        /// Colección a la cual agregar el nuevo elemento.
         /// </param>
         /// <returns>Una nueva instancia de tipo <typeparamref name="TItem"/> agregada a la colección.</returns>
         public static TItem Push<TItem, TCollection>(this ICollection<TCollection> collection) where TItem : TCollection, new() => Push(collection, new TItem());
 
         /// <summary>
-        ///     Obtiene un <see cref="ObservableCollectionWrap{T}"/> que envuelve a la
-        ///     colección especificada.
+        /// Obtiene un <see cref="ObservableCollectionWrap{T}"/> que envuelve a la
+        /// colección especificada.
         /// </summary>
         /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
         /// <param name="collection">
-        ///     Colección a envolver dentro del
-        ///     <see cref="ObservableCollectionWrap{T}"/>.
+        /// Colección a envolver dentro del
+        /// <see cref="ObservableCollectionWrap{T}"/>.
         /// </param>
         /// <returns>
-        ///     Un <see cref="ObservableCollectionWrap{T}"/> que envuelve a la colección
-        ///     para brindar notificaciones de cambio por medio de la interfaz
-        ///     <see cref="System.Collections.Specialized.INotifyCollectionChanged"/>.
+        /// Un <see cref="ObservableCollectionWrap{T}"/> que envuelve a la colección
+        /// para brindar notificaciones de cambio por medio de la interfaz
+        /// <see cref="System.Collections.Specialized.INotifyCollectionChanged"/>.
         /// </returns>
         public static ObservableCollectionWrap<T> ToObservable<T>(this ICollection<T> collection)
         {
@@ -224,14 +224,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Añade un conjunto de elementos al <see cref="ICollection{T}"/>.
+        /// Añade un conjunto de elementos al <see cref="ICollection{T}"/>.
         /// </summary>
         /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
         /// <param name="collection">
-        ///     Colección a la cual agregar los elementos.
+        /// Colección a la cual agregar los elementos.
         /// </param>
         /// <param name="items">
-        ///     Elementos a agregar a la colección.
+        /// Elementos a agregar a la colección.
         /// </param>
         public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
         {
@@ -239,15 +239,15 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Añade una copia de un conjunto de elementos al
-        ///     <see cref="ICollection{T}"/>.
+        /// Añade una copia de un conjunto de elementos al
+        /// <see cref="ICollection{T}"/>.
         /// </summary>
         /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
         /// <param name="collection">
-        ///     Colección a la cual agregar los elementos.
+        /// Colección a la cual agregar los elementos.
         /// </param>
         /// <param name="source">
-        ///     Elementos a agregar a la colección.
+        /// Elementos a agregar a la colección.
         /// </param>
         public static void AddClones<T>(this ICollection<T> collection, IEnumerable<T> source) where T : ICloneable
         {
@@ -255,14 +255,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Clona un elemento y agrega la copia a una colección.
+        /// Clona un elemento y agrega la copia a una colección.
         /// </summary>
         /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
         /// <param name="collection">
-        ///     Colección a la cual agregar los elementos.
+        /// Colección a la cual agregar los elementos.
         /// </param>
         /// <param name="item">
-        ///     Elemento a copiar y agregar a la colección.
+        /// Elemento a copiar y agregar a la colección.
         /// </param>
         public static void AddClone<T>(this ICollection<T> collection, T item) where T : ICloneable
         {

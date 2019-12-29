@@ -33,12 +33,12 @@ using static TheXDS.MCART.Resources.Strings;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Extensiones varias para objetos <see cref="PropertyInfo" />.
+    /// Extensiones varias para objetos <see cref="PropertyInfo" />.
     /// </summary>
     public static class PropertyInfoExtensions
     {
         /// <summary>
-        ///     Establece el valor de la propiedad de un objeto a su valor predeterminado.
+        /// Establece el valor de la propiedad de un objeto a su valor predeterminado.
         /// </summary>
         /// <param name="property">Propiedad a restablecer.</param>
         /// <param name="instance">Instancia del objeto que contiene la propiedad.</param>
@@ -60,7 +60,7 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Establece el valor de una propiedad estática a su valor predeterminado.
+        /// Establece el valor de una propiedad estática a su valor predeterminado.
         /// </summary>
         /// <param name="property">Propiedad a restablecer.</param>
         public static void Default(this PropertyInfo property)
@@ -69,15 +69,15 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Obtiene un valor que determina si la propiedad admite lectura y
-        ///     escritura.
+        /// Obtiene un valor que determina si la propiedad admite lectura y
+        /// escritura.
         /// </summary>
         /// <param name="property">
-        ///     Propiedad a comprobar.
+        /// Propiedad a comprobar.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si la propiedad admite lectura y
-        ///     escritura, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si la propiedad admite lectura y
+        /// escritura, <see langword="false"/> en caso contrario.
         /// </returns>
         [Sugar]
         public static bool IsReadWrite(this PropertyInfo property)

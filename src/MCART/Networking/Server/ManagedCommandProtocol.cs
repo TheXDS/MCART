@@ -36,22 +36,22 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Networking.Server
 {
     /// <summary>
-    ///     Describe un protocolo de comandos administrado por MCART.
+    /// Describe un protocolo de comandos administrado por MCART.
     /// </summary>
     /// <typeparam name="TClient">
-    ///     Tipo de clientes a atender por el servidor.
+    /// Tipo de clientes a atender por el servidor.
     /// </typeparam>
     /// <typeparam name="TCommand">
-    ///     <see cref="Enum"/> con los comandos aceptados.
+    /// <see cref="Enum"/> con los comandos aceptados.
     /// </typeparam>
     /// <typeparam name="TResult">
-    ///     <see cref="Enum"/> con las respuestas generadas.
+    /// <see cref="Enum"/> con las respuestas generadas.
     /// </typeparam>
     public abstract class ManagedCommandProtocol<TClient, TCommand, TResult> : ServerProtocol<TClient> where TClient : Client where TCommand : struct, Enum where TResult : struct, Enum
     {
         /// <summary>
-        ///     Describe la solicitud realizada por un cliente que está siendo
-        ///     atendida por este protocolo.
+        /// Describe la solicitud realizada por un cliente que está siendo
+        /// atendida por este protocolo.
         /// </summary>
         public class Request
         {
@@ -85,41 +85,41 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Obtiene una referencia al servidor que atiende a este
-            ///     protocolo.
+            /// Obtiene una referencia al servidor que atiende a este
+            /// protocolo.
             /// </summary>
             public Server<TClient> Server { get; }
 
             /// <summary>
-            ///     Obtiene una referencia al cliente que ha realizado la
-            ///     solicitud.
+            /// Obtiene una referencia al cliente que ha realizado la
+            /// solicitud.
             /// </summary>
             public TClient Client { get; }
 
             /// <summary>
-            ///     Obtiene el identificador único del comando enviado por el
-            ///     cliente.
+            /// Obtiene el identificador único del comando enviado por el
+            /// cliente.
             /// </summary>
             public Guid CommandGuid { get; }
 
             /// <summary>
-            ///     Obtiene el comando enviado por el cliente.
+            /// Obtiene el comando enviado por el cliente.
             /// </summary>
             public TCommand Command { get; }
 
             /// <summary>
-            ///     Obtiene un lector binario de datos para extraer información
-            ///     de la solicitud.
+            /// Obtiene un lector binario de datos para extraer información
+            /// de la solicitud.
             /// </summary>
             public BinaryReader Reader { get; }
 
             /// <summary>
-            ///     Obtiene al protocolo padre de esta solicitud.
+            /// Obtiene al protocolo padre de esta solicitud.
             /// </summary>
             public ManagedCommandProtocol<TClient, TCommand, TResult> Parent { get; }
 
             /// <summary>
-            ///     Obtiene el contenido del Payload de esta solicitud.
+            /// Obtiene el contenido del Payload de esta solicitud.
             /// </summary>
             /// <returns></returns>
             public byte[] GetPayload()
@@ -135,7 +135,7 @@ namespace TheXDS.MCART.Networking.Server
             #region Helpers
 
             /// <summary>
-            ///     Responde con un error.
+            /// Responde con un error.
             /// </summary>
             public void Failure()
             {
@@ -143,10 +143,10 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Responde al cliente.
+            /// Responde al cliente.
             /// </summary>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             public void Respond(TResult response)
             {
@@ -154,13 +154,13 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Responde al cliente.
+            /// Responde al cliente.
             /// </summary>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="rawData">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             public void Respond(TResult response, IEnumerable<byte> rawData)
             {
@@ -168,13 +168,13 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Responde al cliente.
+            /// Responde al cliente.
             /// </summary>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="data">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             public void Respond(TResult response, MemoryStream data)
             {
@@ -182,13 +182,13 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Responde al cliente.
+            /// Responde al cliente.
             /// </summary>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="dataStream">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             public void Respond(TResult response, Stream dataStream)
             {
@@ -205,13 +205,13 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Responde al cliente.
+            /// Responde al cliente.
             /// </summary>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="data">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             public void Respond(TResult response, IEnumerable<string> data)
             {
@@ -222,13 +222,13 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Responde al cliente.
+            /// Responde al cliente.
             /// </summary>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="data">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             public void Respond(TResult response, string data)
             {
@@ -236,13 +236,13 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Responde al cliente.
+            /// Responde al cliente.
             /// </summary>
             /// <param name="client">
-            ///     Cliente al cual enviar una respuesta.
+            /// Cliente al cual enviar una respuesta.
             /// </param>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             public void Send(TClient client, TResult response)
             {
@@ -250,16 +250,16 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Responde al cliente.
+            /// Responde al cliente.
             /// </summary>
             /// <param name="client">
-            ///     Cliente al cual enviar una respuesta.
+            /// Cliente al cual enviar una respuesta.
             /// </param>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="rawData">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             public void Send(TClient client, TResult response, IEnumerable<byte> rawData)
             {
@@ -267,16 +267,16 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Responde al cliente.
+            /// Responde al cliente.
             /// </summary>
             /// <param name="client">
-            ///     Cliente al cual enviar una respuesta.
+            /// Cliente al cual enviar una respuesta.
             /// </param>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="data">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             public void Send(TClient client, TResult response, MemoryStream data)
             {
@@ -284,16 +284,16 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Responde al cliente.
+            /// Responde al cliente.
             /// </summary>
             /// <param name="client">
-            ///     Cliente al cual enviar una respuesta.
+            /// Cliente al cual enviar una respuesta.
             /// </param>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="dataStream">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             public void Send(TClient client, TResult response, Stream dataStream)
             {
@@ -310,16 +310,16 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Responde al cliente.
+            /// Responde al cliente.
             /// </summary>
             /// <param name="client">
-            ///     Cliente al cual enviar una respuesta.
+            /// Cliente al cual enviar una respuesta.
             /// </param>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="data">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             public void Send(TClient client, TResult response, IEnumerable<string> data)
             {
@@ -330,16 +330,16 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Responde al cliente.
+            /// Responde al cliente.
             /// </summary>
             /// <param name="client">
-            ///     Cliente al cual enviar una respuesta.
+            /// Cliente al cual enviar una respuesta.
             /// </param>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="data">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             public void Send(TClient client, TResult response, string data)
             {
@@ -347,11 +347,11 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Envía una respuesta sin Guid a todos los demás clientes
-            ///     conectados al servidor.
+            /// Envía una respuesta sin Guid a todos los demás clientes
+            /// conectados al servidor.
             /// </summary>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             public void Broadcast(TResult response)
             {
@@ -359,14 +359,14 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Envía una respuesta sin Guid a todos los demás clientes
-            ///     conectados al servidor.
+            /// Envía una respuesta sin Guid a todos los demás clientes
+            /// conectados al servidor.
             /// </summary>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="rawData">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             public void Broadcast(TResult response, IEnumerable<byte> rawData)
             {
@@ -374,14 +374,14 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Envía una respuesta sin Guid a todos los demás clientes
-            ///     conectados al servidor.
+            /// Envía una respuesta sin Guid a todos los demás clientes
+            /// conectados al servidor.
             /// </summary>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="data">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             public void Broadcast(TResult response, MemoryStream data)
             {
@@ -389,14 +389,14 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Envía una respuesta sin Guid a todos los demás clientes
-            ///     conectados al servidor.
+            /// Envía una respuesta sin Guid a todos los demás clientes
+            /// conectados al servidor.
             /// </summary>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="dataStream">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             public void Broadcast(TResult response, Stream dataStream)
             {
@@ -413,14 +413,14 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Envía una respuesta sin Guid a todos los demás clientes
-            ///     conectados al servidor.
+            /// Envía una respuesta sin Guid a todos los demás clientes
+            /// conectados al servidor.
             /// </summary>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="data">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             public void Broadcast(TResult response, IEnumerable<string> data)
             {
@@ -431,14 +431,14 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Envía una respuesta sin Guid a todos los demás clientes
-            ///     conectados al servidor.
+            /// Envía una respuesta sin Guid a todos los demás clientes
+            /// conectados al servidor.
             /// </summary>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="data">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             public void Broadcast(TResult response, string data)
             {
@@ -446,8 +446,8 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Envía una respuesta sin Guid a todos los clientes que
-            ///     cumplan con una condición.
+            /// Envía una respuesta sin Guid a todos los clientes que
+            /// cumplan con una condición.
             /// </summary>
             /// <param name="response">Respuesta a enviar.</param>
             /// <param name="condition">Condición a evaluar.</param>
@@ -457,8 +457,8 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Envía una respuesta sin Guid a todos los clientes que
-            ///     cumplan con una condición.
+            /// Envía una respuesta sin Guid a todos los clientes que
+            /// cumplan con una condición.
             /// </summary>
             /// <param name="response">Respuesta a enviar.</param>
             /// <param name="rawData">Datos a enviar.</param>
@@ -469,8 +469,8 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Envía una respuesta sin Guid a todos los clientes que
-            ///     cumplan con una condición.
+            /// Envía una respuesta sin Guid a todos los clientes que
+            /// cumplan con una condición.
             /// </summary>
             /// <param name="response">Respuesta a enviar.</param>
             /// <param name="data">Datos a enviar.</param>
@@ -481,8 +481,8 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Envía una respuesta sin Guid a todos los clientes que
-            ///     cumplan con una condición.
+            /// Envía una respuesta sin Guid a todos los clientes que
+            /// cumplan con una condición.
             /// </summary>
             /// <param name="response">Respuesta a enviar.</param>
             /// <param name="dataStream">Datos a enviar.</param>
@@ -502,8 +502,8 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Envía una respuesta sin Guid a todos los clientes que
-            ///     cumplan con una condición.
+            /// Envía una respuesta sin Guid a todos los clientes que
+            /// cumplan con una condición.
             /// </summary>
             /// <param name="response">Respuesta a enviar.</param>
             /// <param name="data">Datos a enviar.</param>
@@ -517,8 +517,8 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Envía una respuesta sin Guid a todos los clientes que
-            ///     cumplan con una condición.
+            /// Envía una respuesta sin Guid a todos los clientes que
+            /// cumplan con una condición.
             /// </summary>
             /// <param name="response">Respuesta a enviar.</param>
             /// <param name="data">Datos a enviar.</param>
@@ -529,10 +529,10 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Responde con un error de forma asíncrona.
+            /// Responde con un error de forma asíncrona.
             /// </summary>
             /// <returns>
-            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
             public Task FailureAsync()
             {
@@ -540,13 +540,13 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Responde al cliente de forma asíncrona.
+            /// Responde al cliente de forma asíncrona.
             /// </summary>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <returns>
-            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
             public Task RespondAsync(TResult response)
             {
@@ -555,16 +555,16 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Responde al cliente de forma asíncrona.
+            /// Responde al cliente de forma asíncrona.
             /// </summary>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="rawData">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             /// <returns>
-            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
             public Task RespondAsync(TResult response, IEnumerable<byte> rawData)
             {
@@ -572,16 +572,16 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Responde al cliente de forma asíncrona.
+            /// Responde al cliente de forma asíncrona.
             /// </summary>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="data">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             /// <returns>
-            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
             public Task RespondAsync(TResult response, MemoryStream data)
             {
@@ -589,16 +589,16 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Responde al cliente de forma asíncrona.
+            /// Responde al cliente de forma asíncrona.
             /// </summary>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="dataStream">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             /// <returns>
-            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
             public Task RespondAsync(TResult response, Stream dataStream)
             {
@@ -614,16 +614,16 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Responde al cliente de forma asíncrona.
+            /// Responde al cliente de forma asíncrona.
             /// </summary>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="data">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             /// <returns>
-            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
             public Task RespondAsync(TResult response, IEnumerable<string> data)
             {
@@ -634,16 +634,16 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Responde al cliente de forma asíncrona.
+            /// Responde al cliente de forma asíncrona.
             /// </summary>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="data">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             /// <returns>
-            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
             public Task RespondAsync(TResult response, string data)
             {
@@ -651,16 +651,16 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Responde al cliente de forma asíncrona.
+            /// Responde al cliente de forma asíncrona.
             /// </summary>
             /// <param name="client">
-            ///     Cliente al cual enviar una respuesta.
+            /// Cliente al cual enviar una respuesta.
             /// </param>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <returns>
-            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
             public Task SendAsync(TClient client,TResult response)
             {
@@ -668,19 +668,19 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Responde al cliente de forma asíncrona.
+            /// Responde al cliente de forma asíncrona.
             /// </summary>
             /// <param name="client">
-            ///     Cliente al cual enviar una respuesta.
+            /// Cliente al cual enviar una respuesta.
             /// </param>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="rawData">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             /// <returns>
-            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
             public Task SendAsync(TClient client, TResult response, IEnumerable<byte> rawData)
             {
@@ -688,19 +688,19 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Responde al cliente de forma asíncrona.
+            /// Responde al cliente de forma asíncrona.
             /// </summary>
             /// <param name="client">
-            ///     Cliente al cual enviar una respuesta.
+            /// Cliente al cual enviar una respuesta.
             /// </param>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="data">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             /// <returns>
-            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
             public Task SendAsync(TClient client, TResult response, MemoryStream data)
             {
@@ -708,19 +708,19 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Responde al cliente de forma asíncrona.
+            /// Responde al cliente de forma asíncrona.
             /// </summary>
             /// <param name="client">
-            ///     Cliente al cual enviar una respuesta.
+            /// Cliente al cual enviar una respuesta.
             /// </param>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="dataStream">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             /// <returns>
-            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
             public Task SendAsync(TClient client, TResult response, Stream dataStream)
             {
@@ -736,19 +736,19 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Responde al cliente de forma asíncrona.
+            /// Responde al cliente de forma asíncrona.
             /// </summary>
             /// <param name="client">
-            ///     Cliente al cual enviar una respuesta.
+            /// Cliente al cual enviar una respuesta.
             /// </param>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="data">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             /// <returns>
-            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
             public Task SendAsync(TClient client, TResult response, IEnumerable<string> data)
             {
@@ -759,19 +759,19 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Responde al cliente de forma asíncrona.
+            /// Responde al cliente de forma asíncrona.
             /// </summary>
             /// <param name="client">
-            ///     Cliente al cual enviar una respuesta.
+            /// Cliente al cual enviar una respuesta.
             /// </param>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="data">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             /// <returns>
-            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
             public Task SendAsync(TClient client, TResult response, string data)
             {
@@ -779,14 +779,14 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Envía una respuesta sin Guid a todos los demás clientes
-            ///     conectados al servidor de forma asíncrona.
+            /// Envía una respuesta sin Guid a todos los demás clientes
+            /// conectados al servidor de forma asíncrona.
             /// </summary>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <returns>
-            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
             public Task BroadcastAsync(TResult response)
             {
@@ -794,17 +794,17 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Envía una respuesta sin Guid a todos los demás clientes
-            ///     conectados al servidor de forma asíncrona.
+            /// Envía una respuesta sin Guid a todos los demás clientes
+            /// conectados al servidor de forma asíncrona.
             /// </summary>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="rawData">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             /// <returns>
-            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
             public Task BroadcastAsync(TResult response, IEnumerable<byte> rawData)
             {
@@ -812,17 +812,17 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Envía una respuesta sin Guid a todos los demás clientes
-            ///     conectados al servidor de forma asíncrona.
+            /// Envía una respuesta sin Guid a todos los demás clientes
+            /// conectados al servidor de forma asíncrona.
             /// </summary>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="data">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             /// <returns>
-            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
             public Task BroadcastAsync(TResult response, MemoryStream data)
             {
@@ -830,17 +830,17 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Envía una respuesta sin Guid a todos los demás clientes
-            ///     conectados al servidor de forma asíncrona.
+            /// Envía una respuesta sin Guid a todos los demás clientes
+            /// conectados al servidor de forma asíncrona.
             /// </summary>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="dataStream">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             /// <returns>
-            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
             public Task BroadcastAsync(TResult response, Stream dataStream)
             {
@@ -856,17 +856,17 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Envía una respuesta sin Guid a todos los demás clientes
-            ///     conectados al servidor de forma asíncrona.
+            /// Envía una respuesta sin Guid a todos los demás clientes
+            /// conectados al servidor de forma asíncrona.
             /// </summary>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="data">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             /// <returns>
-            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
             public Task BroadcastAsync(TResult response, IEnumerable<string> data)
             {
@@ -877,17 +877,17 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Envía una respuesta sin Guid a todos los demás clientes
-            ///     conectados al servidor de forma asíncrona.
+            /// Envía una respuesta sin Guid a todos los demás clientes
+            /// conectados al servidor de forma asíncrona.
             /// </summary>
             /// <param name="response">
-            ///     Respuesta a enviar.
+            /// Respuesta a enviar.
             /// </param>
             /// <param name="data">
-            ///     Datos a enviar.
+            /// Datos a enviar.
             /// </param>
             /// <returns>
-            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
             public Task BroadcastAsync(TResult response, string data)
             {
@@ -895,13 +895,13 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Envía una respuesta sin Guid de forma asíncrona a todos los
-            ///     clientes que cumplan con una condición.
+            /// Envía una respuesta sin Guid de forma asíncrona a todos los
+            /// clientes que cumplan con una condición.
             /// </summary>
             /// <param name="response">Respuesta a enviar.</param>
             /// <param name="condition">Condición a evaluar.</param>
             /// <returns>
-            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
             public Task MulticastAsync(TResult response, Predicate<TClient> condition)
             {
@@ -909,14 +909,14 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Envía una respuesta sin Guid de forma asíncrona a todos los
-            ///     clientes que cumplan con una condición.
+            /// Envía una respuesta sin Guid de forma asíncrona a todos los
+            /// clientes que cumplan con una condición.
             /// </summary>
             /// <param name="response">Respuesta a enviar.</param>
             /// <param name="rawData">Datos a enviar.</param>
             /// <param name="condition">Condición a evaluar.</param>
             /// <returns>
-            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
             public Task MulticastAsync(TResult response, IEnumerable<byte> rawData, Predicate<TClient> condition)
             {
@@ -924,14 +924,14 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Envía una respuesta sin Guid de forma asíncrona a todos los
-            ///     clientes que cumplan con una condición.
+            /// Envía una respuesta sin Guid de forma asíncrona a todos los
+            /// clientes que cumplan con una condición.
             /// </summary>
             /// <param name="response">Respuesta a enviar.</param>
             /// <param name="data">Datos a enviar.</param>
             /// <param name="condition">Condición a evaluar.</param>
             /// <returns>
-            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
             public Task MulticastAsync(TResult response, MemoryStream data, Predicate<TClient> condition)
             {
@@ -939,14 +939,14 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Envía una respuesta sin Guid de forma asíncrona a todos los
-            ///     clientes que cumplan con una condición.
+            /// Envía una respuesta sin Guid de forma asíncrona a todos los
+            /// clientes que cumplan con una condición.
             /// </summary>
             /// <param name="response">Respuesta a enviar.</param>
             /// <param name="dataStream">Datos a enviar.</param>
             /// <param name="condition">Condición a evaluar.</param>
             /// <returns>
-            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
             public Task MulticastAsync(TResult response, Stream dataStream, Predicate<TClient> condition)
             {
@@ -962,14 +962,14 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Envía una respuesta sin Guid de forma asíncrona a todos los
-            ///     clientes que cumplan con una condición.
+            /// Envía una respuesta sin Guid de forma asíncrona a todos los
+            /// clientes que cumplan con una condición.
             /// </summary>
             /// <param name="response">Respuesta a enviar.</param>
             /// <param name="data">Datos a enviar.</param>
             /// <param name="condition">Condición a evaluar.</param>
             /// <returns>
-            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
             public Task MulticastAsync(TResult response, IEnumerable<string> data, Predicate<TClient> condition)
             {
@@ -980,14 +980,14 @@ namespace TheXDS.MCART.Networking.Server
             }
 
             /// <summary>
-            ///     Envía una respuesta sin Guid de forma asíncrona a todos los
-            ///     clientes que cumplan con una condición.
+            /// Envía una respuesta sin Guid de forma asíncrona a todos los
+            /// clientes que cumplan con una condición.
             /// </summary>
             /// <param name="response">Respuesta a enviar.</param>
             /// <param name="data">Datos a enviar.</param>
             /// <param name="condition">Condición a evaluar.</param>
             /// <returns>
-            ///     Un <see cref="Task"/> que permite monitorear la operación.
+            /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
             public Task MulticastAsync(TResult response, string data, Predicate<TClient> condition)
             {
@@ -998,13 +998,13 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Describe la firma de un comando del protocolo.
+        /// Describe la firma de un comando del protocolo.
         /// </summary>
         public delegate void CommandCallback(Request request);
 
         /// <summary>
-        ///     Describe la firma de un comando del protocolo que puede
-        ///     ejecutarse asíncronamente.
+        /// Describe la firma de un comando del protocolo que puede
+        /// ejecutarse asíncronamente.
         /// </summary>
         public delegate Task AsyncCommandCallback(Request request);
 
@@ -1015,8 +1015,8 @@ namespace TheXDS.MCART.Networking.Server
         private static readonly MethodInfo _readCmd;
 
         /// <summary>
-        ///     Inicializa la clase
-        ///     <see cref="ManagedCommandProtocol{TClient, TCommand, TResponse}"/>.
+        /// Inicializa la clase
+        /// <see cref="ManagedCommandProtocol{TClient, TCommand, TResponse}"/>.
         /// </summary>
         static ManagedCommandProtocol()
         {
@@ -1030,21 +1030,21 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Activa o desactiva el escaneo del tipo de instancia a construir
-        ///     en busca de funciones de manejo de comandos del protocolo.
+        /// Activa o desactiva el escaneo del tipo de instancia a construir
+        /// en busca de funciones de manejo de comandos del protocolo.
         /// </summary>
         public static bool ScanTypeOnCtor { get; set; } = true;
 
         /// <summary>
-        ///     Activa o desactiva el mapeo de funciones por convención de
-        ///     nombres para el manejo de comandos del protocolo.
+        /// Activa o desactiva el mapeo de funciones por convención de
+        /// nombres para el manejo de comandos del protocolo.
         /// </summary>
         public static bool EnableMapByName { get; set; } = true;
 
         /// <summary>
-        ///     Activa o desactiva el salto de comandos mapeados, efectivamente
-        ///     causando el efecto inverso en el mecanismo de protección anti
-        ///     mapeo duplicado.
+        /// Activa o desactiva el salto de comandos mapeados, efectivamente
+        /// causando el efecto inverso en el mecanismo de protección anti
+        /// mapeo duplicado.
         /// </summary>
         public static bool SkipMapped { get; set; } = true;
 
@@ -1062,15 +1062,15 @@ namespace TheXDS.MCART.Networking.Server
         private readonly Dictionary<TCommand, CommandCallback> _commands = new Dictionary<TCommand, CommandCallback>();
 
         /// <summary>
-        ///     Obtiene o establece un valor que indica si el protocolo
-        ///     adjuntará automáticamente el Guid de respuesta al comando
-        ///     enviado por un cliente.
+        /// Obtiene o establece un valor que indica si el protocolo
+        /// adjuntará automáticamente el Guid de respuesta al comando
+        /// enviado por un cliente.
         /// </summary>
         protected bool AppendGuid { get; set; } = true;
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ManagedCommandProtocol{TClient, TCommand, TResponse}"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ManagedCommandProtocol{TClient, TCommand, TResponse}"/>.
         /// </summary>
         protected ManagedCommandProtocol()
         {
@@ -1099,14 +1099,14 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Cuando se invalida, permite obtener una colección con los
-        ///     métodos que serán llamados al recibir el comando especificado.
+        /// Cuando se invalida, permite obtener una colección con los
+        /// métodos que serán llamados al recibir el comando especificado.
         /// </summary>
         /// <returns>
-        ///     Una enumeración de <see cref="KeyValuePair{TKey, TValue}"/>
-        ///     cuya llave es un comando y cuyo valor es el 
-        ///     <see cref="CommandCallback"/> a ejecutar al recibir dicho
-        ///     comando.
+        /// Una enumeración de <see cref="KeyValuePair{TKey, TValue}"/>
+        /// cuya llave es un comando y cuyo valor es el 
+        /// <see cref="CommandCallback"/> a ejecutar al recibir dicho
+        /// comando.
         /// </returns>
         protected virtual IEnumerable<KeyValuePair<TCommand, CommandCallback>> WireUp()
         {
@@ -1114,14 +1114,14 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Conecta manualmente un comando con un
-        ///     <see cref="CommandCallback"/> de atención.
+        /// Conecta manualmente un comando con un
+        /// <see cref="CommandCallback"/> de atención.
         /// </summary>
         /// <param name="command">
-        ///     Comando a conectar.
+        /// Comando a conectar.
         /// </param>
         /// <param name="action">
-        ///     Acción a ejecutar al recibir el comando.
+        /// Acción a ejecutar al recibir el comando.
         /// </param>
         public void WireUp(TCommand command, CommandCallback action)
         {
@@ -1134,14 +1134,14 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Conecta manualmente un comando con un
-        ///     <see cref="AsyncCommandCallback"/> de atención.
+        /// Conecta manualmente un comando con un
+        /// <see cref="AsyncCommandCallback"/> de atención.
         /// </summary>
         /// <param name="command">
-        ///     Comando a conectar.
+        /// Comando a conectar.
         /// </param>
         /// <param name="action">
-        ///     Acción asíncrona a ejecutar al recibir el comando.
+        /// Acción asíncrona a ejecutar al recibir el comando.
         /// </param>
         public void WireUp(TCommand command, AsyncCommandCallback action)
         {
@@ -1154,18 +1154,18 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Retransmite todos los datos recibidos por el comando
-        ///     especificado.
+        /// Retransmite todos los datos recibidos por el comando
+        /// especificado.
         /// </summary>
         /// <param name="command">
-        ///     Comando a recibir para la retransmisión de datos.
+        /// Comando a recibir para la retransmisión de datos.
         /// </param>
         /// <param name="requestResult">
-        ///     Resultado a enviar al cliente que inició la solicitud.
+        /// Resultado a enviar al cliente que inició la solicitud.
         /// </param>
         /// <param name="relayResult">
-        ///     Resultado a enviar a los demás clientes al retransmitir la
-        ///     información.
+        /// Resultado a enviar a los demás clientes al retransmitir la
+        /// información.
         /// </param>
         public void Relay(TCommand command, TResult requestResult, TResult relayResult)
         {
@@ -1178,19 +1178,19 @@ namespace TheXDS.MCART.Networking.Server
         }
         
         /// <summary>
-        ///     Crea una respuesta a partir del valor
-        ///     <typeparamref name="TResult"/> especificado.
+        /// Crea una respuesta a partir del valor
+        /// <typeparamref name="TResult"/> especificado.
         /// </summary>
         /// <param name="resp">
-        ///     Valor a partir del cual crear la respuesta.
+        /// Valor a partir del cual crear la respuesta.
         /// </param>
         /// <returns>
-        ///     Un arreglo de bytes con la respuesta generada.
+        /// Un arreglo de bytes con la respuesta generada.
         /// </returns>
         public byte[] MakeResponse(TResult resp) => new byte[1].Concat(_toResponse(resp)).ToArray();
 
         /// <summary>
-        ///     Atiende al cliente.
+        /// Atiende al cliente.
         /// </summary>
         /// <param name="client">Cliente a atender.</param>
         /// <param name="data">bytes RAW de la solicitud.</param>
@@ -1222,12 +1222,12 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Ocurre cuando un cliente envía un comando para el cual no existe un manejador.
+        /// Ocurre cuando un cliente envía un comando para el cual no existe un manejador.
         /// </summary>
         public event EventHandler<ValueEventArgs<TCommand>>? NotMappedCommand;
 
         /// <summary>
-        ///     Ocurre cuando el servidor encuentra un error.
+        /// Ocurre cuando el servidor encuentra un error.
         /// </summary>
         public event EventHandler<ExceptionEventArgs>? ServerError;
     }

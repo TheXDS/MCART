@@ -32,30 +32,30 @@ using TheXDS.MCART.Attributes;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Extensiones para la clase <see cref="Task"/>.
+    /// Extensiones para la clase <see cref="Task"/>.
     /// </summary>
     [DebuggerStepThrough]
     public static class TaskExtensions
     {
         /// <summary>
-        ///     Agrega soporte de cancelación a las tareas que no admiten el
-        ///     uso de un <see cref="CancellationToken"/> de forma nativa.
+        /// Agrega soporte de cancelación a las tareas que no admiten el
+        /// uso de un <see cref="CancellationToken"/> de forma nativa.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de resultado devuelto por la tarea.
+        /// Tipo de resultado devuelto por la tarea.
         /// </typeparam>
         /// <param name="task">
-        ///     Tarea a ejecutar.
+        /// Tarea a ejecutar.
         /// </param>
         /// <param name="cancellationToken">
-        ///     Token de cancelación.
+        /// Token de cancelación.
         /// </param>
         /// <returns>
-        ///     El resutlado de la operación asíncrona.
+        /// El resutlado de la operación asíncrona.
         /// </returns>
         /// <exception cref="TaskCanceledException">
-        ///     Se produce cuando la tarea es cancelada por medio de
-        ///     <paramref name="cancellationToken"/> antes de finalizar.
+        /// Se produce cuando la tarea es cancelada por medio de
+        /// <paramref name="cancellationToken"/> antes de finalizar.
         /// </exception>
         public static Task<T> WithCancellation<T>(this Task<T> task, CancellationToken cancellationToken)
         {
@@ -69,21 +69,21 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrega soporte de cancelación a las tareas que no admiten el
-        ///     uso de un <see cref="CancellationToken"/> de forma nativa.
+        /// Agrega soporte de cancelación a las tareas que no admiten el
+        /// uso de un <see cref="CancellationToken"/> de forma nativa.
         /// </summary>
         /// <param name="task">
-        ///     Tarea a ejecutar.
+        /// Tarea a ejecutar.
         /// </param>
         /// <param name="cancellationToken">
-        ///     Token de cancelación.
+        /// Token de cancelación.
         /// </param>
         /// <returns>
-        ///     El resutlado de la operación asíncrona.
+        /// El resutlado de la operación asíncrona.
         /// </returns>
         /// <exception cref="TaskCanceledException">
-        ///     Se produce cuando la tarea es cancelada por medio de
-        ///     <paramref name="cancellationToken"/> antes de finalizar.
+        /// Se produce cuando la tarea es cancelada por medio de
+        /// <paramref name="cancellationToken"/> antes de finalizar.
         /// </exception>
         public static Task WithCancellation(this Task task, CancellationToken cancellationToken)
         {
@@ -97,10 +97,10 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Espera la finalización de una tarea y devuelve su resultado.
+        /// Espera la finalización de una tarea y devuelve su resultado.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
+        /// Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
         /// </typeparam>
         /// <param name="task">Tarea a esperar.</param>
         /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
@@ -111,10 +111,10 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Espera la finalización de una tarea y devuelve su resultado.
+        /// Espera la finalización de una tarea y devuelve su resultado.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
+        /// Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
         /// </typeparam>
         /// <param name="task">Tarea a esperar.</param>
         /// <param name="ct">Token de cancelación de la tarea.</param>
@@ -127,15 +127,15 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Espera la finalización de una tarea y devuelve su resultado.
+        /// Espera la finalización de una tarea y devuelve su resultado.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
+        /// Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
         /// </typeparam>
         /// <param name="task">Tarea a esperar.</param>
         /// <param name="timeout">
-        ///     Cantidad de tiempo a esperar a que la tarea finalice antes de
-        ///     abortarla forzosamente.
+        /// Cantidad de tiempo a esperar a que la tarea finalice antes de
+        /// abortarla forzosamente.
         /// </param>
         /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
         [Sugar]
@@ -146,15 +146,15 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Espera la finalización de una tarea y devuelve su resultado.
+        /// Espera la finalización de una tarea y devuelve su resultado.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
+        /// Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
         /// </typeparam>
         /// <param name="task">Tarea a esperar.</param>
         /// <param name="msTimeout">
-        ///     Cantidad de tiempo en milisegundos a esperar a que la tarea
-        ///     finalice antes de abortarla forzosamente.
+        /// Cantidad de tiempo en milisegundos a esperar a que la tarea
+        /// finalice antes de abortarla forzosamente.
         /// </param>
         /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
         [Sugar]
@@ -165,15 +165,15 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Espera la finalización de una tarea y devuelve su resultado.
+        /// Espera la finalización de una tarea y devuelve su resultado.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
+        /// Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
         /// </typeparam>
         /// <param name="task">Tarea a esperar.</param>
         /// <param name="msTimeout">
-        ///     Cantidad de tiempo en milisegundos a esperar a que la tarea
-        ///     finalice antes de abortarla forzosamente.
+        /// Cantidad de tiempo en milisegundos a esperar a que la tarea
+        /// finalice antes de abortarla forzosamente.
         /// </param>
         /// <param name="ct">Token de cancelación de la tarea.</param>
         /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
@@ -185,8 +185,8 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Ejecuta una tarea en un contexto que arrojará cualquier
-        ///     excepción producida durante su ejecución.
+        /// Ejecuta una tarea en un contexto que arrojará cualquier
+        /// excepción producida durante su ejecución.
         /// </summary>
         /// <param name="task">Tarea a ejecutar.</param>
         /// <returns>Una tarea que permite observar la operación actual.</returns>
@@ -197,8 +197,8 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Ejecuta una tarea en un contexto que arrojará cualquier
-        ///     excepción producida durante su ejecución.
+        /// Ejecuta una tarea en un contexto que arrojará cualquier
+        /// excepción producida durante su ejecución.
         /// </summary>
         /// <param name="task">Tarea a ejecutar.</param>
         /// <returns>Una tarea que permite observar la operación actual.</returns>
@@ -210,14 +210,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Pone en cola una tarea.
+        /// Pone en cola una tarea.
         /// </summary>
         /// <typeparam name="T">Tipo de la tarea.</typeparam>
         /// <param name="task">Tarea a agregar a la cola.</param>
         /// <param name="tasks">Cola de tareas.</param>
         /// <returns>
-        ///     <paramref name="task"/>, lo cual permite realizar llamadas con
-        ///     sintaxis Fluent.
+        /// <paramref name="task"/>, lo cual permite realizar llamadas con
+        /// sintaxis Fluent.
         /// </returns>
         [Sugar]
         public static T Enqueue<T>(this T task, ICollection<Task> tasks) where T : Task

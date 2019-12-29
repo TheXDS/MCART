@@ -24,54 +24,95 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.IO;
+using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Networking.Mrpc.Serializers
 {
     /// <summary>
-    ///     Define una serie de miembros a implementar por un tipo que permita
-    ///     serializar datos de un tipo específico en forma binaria dentro de
-    ///     un <see cref="Stream"/>.
+    /// Define una serie de miembros a implementar por un tipo que permita
+    /// serializar datos de un objeto en forma binaria dentro de un
+    /// <see cref="Stream"/>.
     /// </summary>
     public interface IDataSerializer
     {
         /// <summary>
-        ///     Obtiene un valor que indica si el <see cref="IDataSerializer"/>
-        ///     puede manejar objetos del tipo especificado.
+        /// Obtiene un valor que indica si el <see cref="IDataSerializer"/>
+        /// puede manejar objetos del tipo especificado.
         /// </summary>
         /// <param name="type">
-        ///     Tipo a comprobar.
+        /// Tipo a comprobar.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si el <see cref="IDataSerializer"/>
-        ///     puede serializar objetos del tipo especificado,
-        ///     <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si el <see cref="IDataSerializer"/>
+        /// puede serializar objetos del tipo especificado,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         bool Handles(Type type);
 
         /// <summary>
-        ///     Obtiene un objeto desde el <see cref="BinaryReader"/>
-        ///     especificado.
+        /// Obtiene un objeto desde el <see cref="BinaryReader"/>
+        /// especificado.
         /// </summary>
         /// <param name="reader">
-        ///     <see cref="BinaryReader"/> desde el cual obtener un objeto.
+        /// <see cref="BinaryReader"/> desde el cual obtener un objeto.
         /// </param>
         /// <returns>
-        ///     El objeto que se ha reconstruido con la información binaria
-        ///     leída desde el <see cref="BinaryReader"/> especificado.
+        /// El objeto que se ha reconstruido con la información binaria
+        /// leída desde el <see cref="BinaryReader"/> especificado.
         /// </returns>
         object Read(BinaryReader reader);
 
         /// <summary>
-        ///     Serializa un objeto en formato binario y lo escribe por medio
-        ///     del <see cref="BinaryWriter"/> especificado.
+        /// Serializa un objeto en formato binario y lo escribe por medio
+        /// del <see cref="BinaryWriter"/> especificado.
         /// </summary>
         /// <param name="value">
-        ///     Objeto a serializar.
+        /// Objeto a serializar.
         /// </param>
         /// <param name="writer">
-        ///     <see cref="BinaryWriter"/> a utilizar para escribir los datos
-        ///     binarios serializados.
+        /// <see cref="BinaryWriter"/> a utilizar para escribir los datos
+        /// binarios serializados.
         /// </param>
         void Write(object value, BinaryWriter writer);
+    }
+
+    /// <summary>
+    /// Define una serie de miembros a implementar por un tipo que permita
+    /// serializar datos de un tipo específico en forma binaria dentro de
+    /// un <see cref="Stream"/>.
+    /// </summary>
+    public interface IDataSerializer<T> : IDataSerializer
+    {
+        /// <summary>
+        /// Obtiene un objeto de tipo <typeparamref name="T"/> desde el
+        /// <see cref="BinaryReader"/> especificado.
+        /// </summary>
+        /// <param name="reader">
+        /// <see cref="BinaryReader"/> desde el cual obtener un objeto de
+        /// tipo <typeparamref name="T"/>.
+        /// </param>
+        /// <returns>
+        /// El objeto de tipo <typeparamref name="T"/> que se ha
+        /// reconstruido con la información binaria leída desde el
+        /// <see cref="BinaryReader"/> especificado.
+        /// </returns>
+        new T Read(BinaryReader reader);
+        
+        /// <summary>
+        /// Serializa un objeto de tipo <typeparamref name="T"/> en formato
+        /// binario y lo escribe por medio del <see cref="BinaryWriter"/> especificado.
+        /// </summary>
+        /// <param name="value">
+        /// Objeto a serializar.
+        /// </param>
+        /// <param name="writer">
+        /// <see cref="BinaryWriter"/> a utilizar para escribir los datos
+        /// binarios serializados.
+        /// </param>
+        void Write(T value, BinaryWriter writer);
+        
+        bool IDataSerializer.Handles(Type t) => t.Implements<T>();
+        object IDataSerializer.Read(BinaryReader reader) => Read(reader);
+        void IDataSerializer.Write(object value, BinaryWriter writer) => Write((T) value, writer);
     }
 }

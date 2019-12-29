@@ -31,14 +31,14 @@ namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Excepción que se produce cuando no se puede realizar la conexión
+    /// Excepción que se produce cuando no se puede realizar la conexión
     /// </summary>
     [Serializable]
     public class CouldNotConnectException : Exception
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
         /// </summary>
         public CouldNotConnectException() : base(Strings.CldntConnect(Strings.TheSrv.ToLower()))
         {
@@ -46,7 +46,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
         /// </summary>
         /// <param name="offendingEndPoint">End point.</param>
         public CouldNotConnectException(IPEndPoint offendingEndPoint) : base(
@@ -57,7 +57,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
         /// </summary>
         /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
         public CouldNotConnectException(string message) : base(message)
@@ -66,7 +66,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
         /// </summary>
         /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
         /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
@@ -76,7 +76,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
         /// </summary>
         /// <param name="offendingEndPoint">End point.</param>
         /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
@@ -87,7 +87,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
         /// </summary>
         /// <param name="offendingEndPoint">End point.</param>
         /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
@@ -99,7 +99,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
         /// </summary>
         /// <param name="offendingEndPoint">End point.</param>
         /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
@@ -110,19 +110,19 @@ namespace TheXDS.MCART.Exceptions
         }
 
         /// <summary>
-        ///     <see cref="IPEndPoint" /> que fue la causa de esta excepción.
+        /// <see cref="IPEndPoint" /> que fue la causa de esta excepción.
         /// </summary>
         public IPEndPoint? OffendingEndPoint { get; }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="CouldNotConnectException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="CouldNotConnectException" />.
         /// </summary>
         /// <param name="info">
-        ///     El objeto que contiene la información de serialización.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
-        ///     La información contextual acerca del orígen o el destino.
+        /// La información contextual acerca del orígen o el destino.
         /// </param>
         protected CouldNotConnectException(SerializationInfo info, StreamingContext context) : base(info, context)
         {

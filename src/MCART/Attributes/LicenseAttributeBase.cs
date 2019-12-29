@@ -27,13 +27,13 @@ using TheXDS.MCART.Resources;
 namespace TheXDS.MCART.Attributes
 {
     /// <summary>
-    ///     Define una serie de miembros a implementar por un tipo que obtenga
-    ///     licencias a partir del valor de un atributo.
+    /// Define una serie de miembros a implementar por un tipo que obtenga
+    /// licencias a partir del valor de un atributo.
     /// </summary>
     public abstract class LicenseAttributeBase : TextAttribute
     {
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="LicenseAttributeBase"/>
+        /// Inicializa una nueva instancia de la clase <see cref="LicenseAttributeBase"/>
         /// </summary>
         /// <param name="text"></param>
         protected LicenseAttributeBase(string text) : base(text)
@@ -41,13 +41,13 @@ namespace TheXDS.MCART.Attributes
         }
 
         /// <summary>
-        ///     Obtiene una licencia asociada a este atributo.
+        /// Obtiene una licencia asociada a este atributo.
         /// </summary>
         /// <param name="context">
-        ///     Objeto del cual se ha extraído este atributo.
+        /// Objeto del cual se ha extraído este atributo.
         /// </param>
         /// <returns>
-        ///     Una licencia asociada a este atributo.
+        /// Una licencia asociada a este atributo.
         /// </returns>
         public abstract License GetLicense(object context);
     }

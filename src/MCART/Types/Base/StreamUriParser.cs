@@ -33,25 +33,25 @@ using TheXDS.MCART.Attributes;
 namespace TheXDS.MCART.Types.Base
 {
     /// <summary>
-    ///     Clase base para un objeto que permite crear un <see cref="Stream"/>
-    ///     a partir de una <see cref="Uri"/>.
+    /// Clase base para un objeto que permite crear un <see cref="Stream"/>
+    /// a partir de una <see cref="Uri"/>.
     /// </summary>
     public abstract class StreamUriParser : IStreamUriParser
     {
         /// <summary>
-        ///     Obtiene el <see cref="StreamUriParser"/> apropiado para manejar
-        ///     al <see cref="Uri"/> especificado.
+        /// Obtiene el <see cref="StreamUriParser"/> apropiado para manejar
+        /// al <see cref="Uri"/> especificado.
         /// </summary>
         /// <param name="uri">
-        ///     <see cref="Uri"/> a partir del cual crear un
-        ///     <see cref="Stream"/>.
+        /// <see cref="Uri"/> a partir del cual crear un
+        /// <see cref="Stream"/>.
         /// </param>
         /// <returns>
-        ///     Un <see cref="StreamUriParser"/> que puede crear un
-        ///     <see cref="Stream"/> a partir del <see cref="Uri"/>
-        ///     especificado, o <see langword="null"/> si no existe un
-        ///     <see cref="StreamUriParser"/> capaz de manejar el 
-        ///     <see cref="Uri"/>.
+        /// Un <see cref="StreamUriParser"/> que puede crear un
+        /// <see cref="Stream"/> a partir del <see cref="Uri"/>
+        /// especificado, o <see langword="null"/> si no existe un
+        /// <see cref="StreamUriParser"/> capaz de manejar el 
+        /// <see cref="Uri"/>.
         /// </returns>
         public static StreamUriParser Infer(Uri uri)
         {
@@ -59,13 +59,13 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Abre directamente un <see cref="Stream"/> desde el cual leer el
-        ///     contenido del <paramref name="uri"/>.
+        /// Abre directamente un <see cref="Stream"/> desde el cual leer el
+        /// contenido del <paramref name="uri"/>.
         /// </summary>
         /// <param name="uri">Identificador del recurso a localizar.</param>
         /// <returns>
-        ///     Un <see cref="Stream"/> desde el cual leer el contenido del
-        ///     <paramref name="uri"/>.
+        /// Un <see cref="Stream"/> desde el cual leer el contenido del
+        /// <paramref name="uri"/>.
         /// </returns>
         [Sugar]
         public static Stream? Get(Uri uri)
@@ -74,13 +74,13 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Abre directamente de forma asíncrona un <see cref="Stream"/>
-        ///     desde el cual leer el contenido del <paramref name="uri"/>.
+        /// Abre directamente de forma asíncrona un <see cref="Stream"/>
+        /// desde el cual leer el contenido del <paramref name="uri"/>.
         /// </summary>
         /// <param name="uri">Identificador del recurso a localizar.</param>
         /// <returns>
-        ///     Un <see cref="Stream"/> desde el cual leer el contenido del
-        ///     <paramref name="uri"/>.
+        /// Un <see cref="Stream"/> desde el cual leer el contenido del
+        /// <paramref name="uri"/>.
         /// </returns>
         [Sugar]
         public static Task<Stream?> GetAsync(Uri uri)
@@ -90,22 +90,22 @@ namespace TheXDS.MCART.Types.Base
 
 
         /// <summary>
-        ///     Obtiene el <see cref="StreamUriParser"/> apropiado para manejar
-        ///     al <see cref="Uri"/> especificado.
+        /// Obtiene el <see cref="StreamUriParser"/> apropiado para manejar
+        /// al <see cref="Uri"/> especificado.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de <see cref="StreamUriParser"/> especializado a obtener.
+        /// Tipo de <see cref="StreamUriParser"/> especializado a obtener.
         /// </typeparam>
         /// <param name="uri">
-        ///     <see cref="Uri"/> a partir del cual crear un
-        ///     <see cref="Stream"/>.
+        /// <see cref="Uri"/> a partir del cual crear un
+        /// <see cref="Stream"/>.
         /// </param>
         /// <returns>
-        ///     Un <see cref="StreamUriParser"/> que puede crear un
-        ///     <see cref="Stream"/> a partir del <see cref="Uri"/>
-        ///     especificado, o <see langword="null"/> si no existe un
-        ///     <see cref="StreamUriParser"/> capaz de manejar el 
-        ///     <see cref="Uri"/>.
+        /// Un <see cref="StreamUriParser"/> que puede crear un
+        /// <see cref="Stream"/> a partir del <see cref="Uri"/>
+        /// especificado, o <see langword="null"/> si no existe un
+        /// <see cref="StreamUriParser"/> capaz de manejar el 
+        /// <see cref="Uri"/>.
         /// </returns>
         public static T Infer<T>(Uri uri) where T : class, IStreamUriParser
         {
@@ -113,23 +113,23 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Obtiene un valor que determina si el <see cref="Stream"/>
-        ///     producido por este objeto requiere ser cargado por completo en
-        ///     un búffer de lectura en memoria.
+        /// Obtiene un valor que determina si el <see cref="Stream"/>
+        /// producido por este objeto requiere ser cargado por completo en
+        /// un búffer de lectura en memoria.
         /// </summary>
         public virtual bool PreferFullTransfer { get; } = false;
 
         /// <summary>
-        ///     Obtiene un <see cref="Stream"/> que enlaza al recurso
-        ///     solicitado, seleccionando el método más apropiado para obtener
-        ///     dicho flujo de datos.
+        /// Obtiene un <see cref="Stream"/> que enlaza al recurso
+        /// solicitado, seleccionando el método más apropiado para obtener
+        /// dicho flujo de datos.
         /// </summary>
         /// <param name="uri">
-        ///     <see cref="Uri"/> a abrir para lectura.
+        /// <see cref="Uri"/> a abrir para lectura.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Stream"/> desde el cual puede leerse el recurso
-        ///     apuntado por el <see cref="Uri"/> especificado.
+        /// Un <see cref="Stream"/> desde el cual puede leerse el recurso
+        /// apuntado por el <see cref="Uri"/> especificado.
         /// </returns>
         public Stream? GetStream(Uri uri)
         {
@@ -137,16 +137,16 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Obtiene un <see cref="Stream"/> que enlaza al recurso
-        ///     solicitado, seleccionando el método más apropiado para obtener
-        ///     dicho flujo de datos.
+        /// Obtiene un <see cref="Stream"/> que enlaza al recurso
+        /// solicitado, seleccionando el método más apropiado para obtener
+        /// dicho flujo de datos.
         /// </summary>
         /// <param name="uri">
-        ///     <see cref="Uri"/> a abrir para lectura.
+        /// <see cref="Uri"/> a abrir para lectura.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Stream"/> desde el cual puede leerse el recurso
-        ///     apuntado por el <see cref="Uri"/> especificado.
+        /// Un <see cref="Stream"/> desde el cual puede leerse el recurso
+        /// apuntado por el <see cref="Uri"/> especificado.
         /// </returns>
         public async Task<Stream?> GetStreamAsync(Uri uri)
         {
@@ -154,46 +154,46 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Determina si este <see cref="StreamUriParser"/> puede crear un
-        ///     <see cref="Stream"/> a partir del <see cref="Uri"/>
-        ///     especificado.
+        /// Determina si este <see cref="StreamUriParser"/> puede crear un
+        /// <see cref="Stream"/> a partir del <see cref="Uri"/>
+        /// especificado.
         /// </summary>
         /// <param name="uri">
-        ///     <see cref="Uri"/> a comprobar.
+        /// <see cref="Uri"/> a comprobar.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si este <see cref="StreamUriParser"/>
-        ///     puede crear un <see cref="Stream"/> a partir del
-        ///     <see cref="Uri"/> especificado, <see langword="false"/> en caso
-        ///     contrario.
+        /// <see langword="true"/> si este <see cref="StreamUriParser"/>
+        /// puede crear un <see cref="Stream"/> a partir del
+        /// <see cref="Uri"/> especificado, <see langword="false"/> en caso
+        /// contrario.
         /// </returns>
         public abstract bool Handles(Uri uri);
 
         /// <summary>
-        ///     Abre un <see cref="Stream"/> desde el <see cref="Uri"/>
-        ///     especificado.
+        /// Abre un <see cref="Stream"/> desde el <see cref="Uri"/>
+        /// especificado.
         /// </summary>
         /// <param name="uri">
-        ///     <see cref="Uri"/> a abrir para lectura.
+        /// <see cref="Uri"/> a abrir para lectura.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Stream"/> desde el cual puede leerse el recurso
-        ///     apuntado por el <see cref="Uri"/> especificado.
+        /// Un <see cref="Stream"/> desde el cual puede leerse el recurso
+        /// apuntado por el <see cref="Uri"/> especificado.
         /// </returns>
         public abstract Stream? Open(Uri uri);
 
         /// <summary>
-        ///     Abre el <see cref="Stream"/> desde el <see cref="Uri"/>
-        ///     especificado, y lo carga completamente en un nuevo
-        ///     <see cref="Stream"/> intermedio de forma asíncrona antes de
-        ///     devolverlo.
+        /// Abre el <see cref="Stream"/> desde el <see cref="Uri"/>
+        /// especificado, y lo carga completamente en un nuevo
+        /// <see cref="Stream"/> intermedio de forma asíncrona antes de
+        /// devolverlo.
         /// </summary>
         /// <param name="uri">
-        ///     <see cref="Uri"/> a abrir para lectura.
+        /// <see cref="Uri"/> a abrir para lectura.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Stream"/> desde el cual puede leerse el recurso
-        ///     apuntado por el <see cref="Uri"/> especificado.
+        /// Un <see cref="Stream"/> desde el cual puede leerse el recurso
+        /// apuntado por el <see cref="Uri"/> especificado.
         /// </returns>
         public virtual Stream? OpenFullTransfer(Uri uri)
         {
@@ -208,16 +208,16 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Abre el <see cref="Stream"/> desde el <see cref="Uri"/>
-        ///     especificado, y lo carga completamente en un nuevo
-        ///     <see cref="Stream"/> intermedio antes de devolverlo.
+        /// Abre el <see cref="Stream"/> desde el <see cref="Uri"/>
+        /// especificado, y lo carga completamente en un nuevo
+        /// <see cref="Stream"/> intermedio antes de devolverlo.
         /// </summary>
         /// <param name="uri">
-        ///     <see cref="Uri"/> a abrir para lectura.
+        /// <see cref="Uri"/> a abrir para lectura.
         /// </param>
         /// <returns>
-        ///     Un <see cref="Stream"/> desde el cual puede leerse el recurso
-        ///     apuntado por el <see cref="Uri"/> especificado.
+        /// Un <see cref="Stream"/> desde el cual puede leerse el recurso
+        /// apuntado por el <see cref="Uri"/> especificado.
         /// </returns>
         public virtual async Task<Stream?> OpenFullTransferAsync(Uri uri)
         {

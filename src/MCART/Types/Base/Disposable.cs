@@ -33,23 +33,23 @@ namespace TheXDS.MCART.Types.Base
 {
 
     /// <summary>
-    ///     Clase base que simplifica la implementación de la interfaz
-    ///     <see cref="IDisposable"/>.
+    /// Clase base que simplifica la implementación de la interfaz
+    /// <see cref="IDisposable"/>.
     /// </summary>
     public abstract class Disposable : IDisposableEx
     {
         private bool ShouldFinalize() => GetType().GetMethod(nameof(OnFinalize), Instance | NonPublic)!.IsOverride();
 
         /// <summary>
-        ///     Obtiene un valor que indica si este objeto ha sido desechado.
+        /// Obtiene un valor que indica si este objeto ha sido desechado.
         /// </summary>
         public bool IsDisposed { get; private set; } = false;
 
         /// <summary>
-        ///     Libera los recursos utilizados por esta instancia.
+        /// Libera los recursos utilizados por esta instancia.
         /// </summary>
         /// <param name="disposing">
-        ///     Indica si deben liberarse los recursos administrados.
+        /// Indica si deben liberarse los recursos administrados.
         /// </param>
         protected void Dispose(bool disposing)
         {
@@ -64,19 +64,19 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Realiza operaciones de limpieza para objetos no administrados.
+        /// Realiza operaciones de limpieza para objetos no administrados.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected virtual void OnFinalize() { }
 
         /// <summary>
-        ///     Realiza las operaciones de limpieza de objetos administrados
-        ///     desechables de esta instancia.
+        /// Realiza las operaciones de limpieza de objetos administrados
+        /// desechables de esta instancia.
         /// </summary>
         protected abstract void OnDispose();
 
         /// <summary>
-        ///     Libera los recursos utilizados por esta instancia.
+        /// Libera los recursos utilizados por esta instancia.
         /// </summary>
         public void Dispose()
         {
@@ -85,7 +85,7 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Destruye esta instancia de la clase <see cref="Disposable"/>.
+        /// Destruye esta instancia de la clase <see cref="Disposable"/>.
         /// </summary>
         ~Disposable()
         {

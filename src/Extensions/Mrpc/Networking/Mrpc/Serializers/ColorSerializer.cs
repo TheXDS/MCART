@@ -28,23 +28,23 @@ using TheXDS.MCART.Types;
 namespace TheXDS.MCART.Networking.Mrpc.Serializers
 {
     /// <summary>
-    ///     Serializador de datos que opera sobre objetos de tipo
-    ///     <see cref="Color"/>.
+    /// Serializador de datos que opera sobre objetos de tipo
+    /// <see cref="Color"/>.
     /// </summary>
     public sealed class ColorSerializer : DataSerializer<Color>
     {
         /// <summary>
-        ///     Obtiene un <see cref="Color"/> desde el
-        ///     <see cref="BinaryReader"/> especificado.
+        /// Obtiene un <see cref="Color"/> desde el
+        /// <see cref="BinaryReader"/> especificado.
         /// </summary>
         /// <param name="reader">
-        ///     <see cref="BinaryReader"/> desde el cual obtener un
-        ///     <see cref="Color"/>.
+        /// <see cref="BinaryReader"/> desde el cual obtener un
+        /// <see cref="Color"/>.
         /// </param>
         /// <returns>
-        ///     El <see cref="Color"/> que se ha reconstruido con la
-        ///     información binaria leída desde el <see cref="BinaryReader"/>
-        ///     especificado.
+        /// El <see cref="Color"/> que se ha reconstruido con la
+        /// información binaria leída desde el <see cref="BinaryReader"/>
+        /// especificado.
         /// </returns>
         protected override Color Read(BinaryReader reader)
         {
@@ -52,15 +52,15 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
         }
 
         /// <summary>
-        ///     Serializa un <see cref="Color"/> en formato binario y lo
-        ///     escribe por medio del <see cref="BinaryWriter"/> especificado.
+        /// Serializa un <see cref="Color"/> en formato binario y lo
+        /// escribe por medio del <see cref="BinaryWriter"/> especificado.
         /// </summary>
         /// <param name="value">
-        ///     Valor <see cref="Color"/> a serializar.
+        /// Valor <see cref="Color"/> a serializar.
         /// </param>
         /// <param name="writer">
-        ///     <see cref="BinaryWriter"/> a utilizar para escribir los datos
-        ///     binarios serializados.
+        /// <see cref="BinaryWriter"/> a utilizar para escribir los datos
+        /// binarios serializados.
         /// </param>
         protected override void Write(Color value, BinaryWriter writer)
         {

@@ -4,9 +4,9 @@ ListExtensions.cs
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
-     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+     Cï¿½sar Andrï¿½s Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright ï¿½ 2011 - 2019 Cï¿½sar Andrï¿½s Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -31,16 +31,16 @@ using TheXDS.MCART.Exceptions;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Extensiones para todos los elementos de tipo <see cref="IList{T}" />.
+    /// Extensiones para todos los elementos de tipo <see cref="IList{T}" />.
     /// </summary>
     public static class ListExtensions
     {
         /// <summary>
-        ///     Quita todos los elementos del tipo especificado de la
-        ///     colección.
+        /// Quita todos los elementos del tipo especificado de la
+        /// colecciï¿½n.
         /// </summary>
         /// <typeparam name="T">Tipo de elementos a remover.</typeparam>
-        /// <param name="c">Colección de la cual remover los elementos.</param>
+        /// <param name="c">Colecciï¿½n de la cual remover los elementos.</param>
         public static void RemoveOf<T>(this IList c)
         {
             var i = 0;
@@ -58,13 +58,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        /// Aplica una operación de rotación sobre el <see cref="IList{T}"/>.
+        /// Aplica una operaciï¿½n de rotaciï¿½n sobre el <see cref="IList{T}"/>.
         /// </summary>
-        /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
-        /// <param name="c">Colección a rotar.</param>
+        /// <typeparam name="T">Tipo de elementos de la colecciï¿½n.</typeparam>
+        /// <param name="c">Colecciï¿½n a rotar.</param>
         /// <param name="steps">
-        /// Pasos de rotación. Un valor positivo rotará los elementos hacia la
-        /// izquierda, y uno negativo los rotará hacia la derecha.
+        /// Pasos de rotaciï¿½n. Un valor positivo rotarï¿½ los elementos hacia la
+        /// izquierda, y uno negativo los rotarï¿½ hacia la derecha.
         /// </param>
         public static void ApplyRotate<T>(this IList<T> c, int steps)
         {
@@ -77,16 +77,16 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        /// Aplica una operación de desplazamiento sobre el
+        /// Aplica una operaciï¿½n de desplazamiento sobre el
         /// <see cref="IList{T}"/>.
         /// </summary>
-        /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
-        /// <param name="c">Colección a desplazar.</param>
+        /// <typeparam name="T">Tipo de elementos de la colecciï¿½n.</typeparam>
+        /// <param name="c">Colecciï¿½n a desplazar.</param>
         /// <param name="steps">
-        /// Pasos de desplazamiento. Un valor positivo desplazará los elementos
-        /// hacia la izquierda, y uno negativo los desplazará hacia la derecha,
-        /// en ambos casos rellenando con valores predeterminados cada posición
-        /// vacía resultante.
+        /// Pasos de desplazamiento. Un valor positivo desplazarï¿½ los elementos
+        /// hacia la izquierda, y uno negativo los desplazarï¿½ hacia la derecha,
+        /// en ambos casos rellenando con valores predeterminados cada posiciï¿½n
+        /// vacï¿½a resultante.
         /// </param>
         public static void ApplyShift<T>(this IList<T> c, int steps)
         {
@@ -105,16 +105,16 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Ejecuta una operación de lista en un contexto bloqueado.
+        /// Ejecuta una operaciï¿½n de lista en un contexto bloqueado.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de elementos de la colección.
+        /// Tipo de elementos de la colecciï¿½n.
         /// </typeparam>
         /// <param name="list">
-        ///     Lista sobre la cual ejecutar una operación bloqueada.
+        /// Lista sobre la cual ejecutar una operaciï¿½n bloqueada.
         /// </param>
         /// <param name="action">
-        ///     Acción a ejecutar sobre la lista.
+        /// Acciï¿½n a ejecutar sobre la lista.
         /// </param>
         public static void Locked<T>(this IList list, Action<IList> action)
         {
@@ -123,18 +123,18 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Desordena los elementos de un <see cref="IList{T}" />.
+        /// Desordena los elementos de un <see cref="IList{T}" />.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IList{T}" />.
+        /// Tipo de elementos contenidos en el <see cref="IList{T}" />.
         /// </typeparam>
         /// <param name="c"><see cref="IList{T}" /> a desordenar.</param>
         /// <exception cref="ArgumentNullException">
-        ///     Se produce si <paramref name="c" /> es <see langword="null" />.
+        /// Se produce si <paramref name="c" /> es <see langword="null" />.
         /// </exception>
         /// <exception cref="EmptyCollectionException">
-        ///     Se produce si <paramref name="c" /> hace referencia a una colección
-        ///     vacía.
+        /// Se produce si <paramref name="c" /> hace referencia a una colecciï¿½n
+        /// vacï¿½a.
         /// </exception>
         public static void Shuffle<T>(this IList<T> c)
         {
@@ -142,25 +142,25 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Desordena los elementos de un <see cref="IList{T}" />.
+        /// Desordena los elementos de un <see cref="IList{T}" />.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IList{T}" />.
+        /// Tipo de elementos contenidos en el <see cref="IList{T}" />.
         /// </typeparam>
         /// <param name="c"><see cref="IList{T}" /> a desordenar.</param>
         /// <param name="deepness">
-        ///     Profundidad del desorden. 1 es el valor más alto.
+        /// Profundidad del desorden. 1 es el valor mï¿½s alto.
         /// </param>
         /// <exception cref="ArgumentNullException">
-        ///     Se produce si <paramref name="c" /> es <see langword="null" />.
+        /// Se produce si <paramref name="c" /> es <see langword="null" />.
         /// </exception>
         /// <exception cref="EmptyCollectionException">
-        ///     Se produce si <paramref name="c" /> hace referencia a una colección
-        ///     vacía.
+        /// Se produce si <paramref name="c" /> hace referencia a una colecciï¿½n
+        /// vacï¿½a.
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///     Se produce si <paramref name="deepness" /> es inferior a 1, o
-        ///     superior a la cuenta de elementos de la colección a desordenar.
+        /// Se produce si <paramref name="deepness" /> es inferior a 1, o
+        /// superior a la cuenta de elementos de la colecciï¿½n a desordenar.
         /// </exception>
         public static void Shuffle<T>(this IList<T> c, in int deepness)
         {
@@ -169,48 +169,48 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Desordena los elementos del intervalo especificado de un
-        ///     <see cref="IList{T}" />.
+        /// Desordena los elementos del intervalo especificado de un
+        /// <see cref="IList{T}" />.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IList{T}" />.
+        /// Tipo de elementos contenidos en el <see cref="IList{T}" />.
         /// </typeparam>
         /// <param name="c"><see cref="IList{T}" /> a desordenar.</param>
-        /// <param name="firstIdx">Índice inicial del intervalo.</param>
-        /// <param name="lastIdx">Índice inicial del intervalo.</param>
+        /// <param name="firstIdx">ï¿½ndice inicial del intervalo.</param>
+        /// <param name="lastIdx">ï¿½ndice inicial del intervalo.</param>
         public static void Shuffle<T>(this IList<T> c, in int firstIdx, in int lastIdx)
         {
             Shuffle(c, firstIdx, lastIdx, 1);
         }
 
         /// <summary>
-        ///     Desordena los elementos del intervalo especificado de un
-        ///     <see cref="IList{T}" />.
+        /// Desordena los elementos del intervalo especificado de un
+        /// <see cref="IList{T}" />.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IList{T}" />.
+        /// Tipo de elementos contenidos en el <see cref="IList{T}" />.
         /// </typeparam>
         /// <param name="toShuffle"><see cref="IList{T}" /> a desordenar.</param>
-        /// <param name="deepness">Profundidad del desorden. 1 es el más alto.</param>
-        /// <param name="firstIdx">Índice inicial del intervalo.</param>
-        /// <param name="lastIdx">Índice inicial del intervalo.</param>
+        /// <param name="deepness">Profundidad del desorden. 1 es el mï¿½s alto.</param>
+        /// <param name="firstIdx">ï¿½ndice inicial del intervalo.</param>
+        /// <param name="lastIdx">ï¿½ndice inicial del intervalo.</param>
         public static void Shuffle<T>(this IList<T> toShuffle, in int firstIdx, in int lastIdx, in int deepness)
         {
             Shuffle(toShuffle, firstIdx, lastIdx, deepness, RandomExtensions.Rnd);
         }
 
         /// <summary>
-        ///     Desordena los elementos del intervalo especificado de un
-        ///     <see cref="IList{T}" />.
+        /// Desordena los elementos del intervalo especificado de un
+        /// <see cref="IList{T}" />.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de elementos contenidos en el <see cref="IList{T}" />.
+        /// Tipo de elementos contenidos en el <see cref="IList{T}" />.
         /// </typeparam>
         /// <param name="toShuffle"><see cref="IList{T}" /> a desordenar.</param>
-        /// <param name="deepness">Profundidad del desorden. 1 es el más alto.</param>
-        /// <param name="firstIdx">Índice inicial del intervalo.</param>
-        /// <param name="lastIdx">Índice inicial del intervalo.</param>
-        /// <param name="random">Generador de números aleatorios a utilizar.</param>
+        /// <param name="deepness">Profundidad del desorden. 1 es el mï¿½s alto.</param>
+        /// <param name="firstIdx">ï¿½ndice inicial del intervalo.</param>
+        /// <param name="lastIdx">ï¿½ndice inicial del intervalo.</param>
+        /// <param name="random">Generador de nï¿½meros aleatorios a utilizar.</param>
         public static void Shuffle<T>(this IList<T> toShuffle, int firstIdx, int lastIdx, int deepness, Random random)
         {
             if (toShuffle is null) throw new ArgumentNullException(nameof(toShuffle));
@@ -229,12 +229,12 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Intercambia la posición de dos elementos dentro de un <see cref="IList{T}"/>.
+        /// Intercambia la posiciï¿½n de dos elementos dentro de un <see cref="IList{T}"/>.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="collection">Colección sobre la cual intercambiar la posición de dos elementos.</param>
-        /// <param name="indexA">Índice del primer elemento.</param>
-        /// <param name="indexB">Índice del segundo elemento.</param>
+        /// <param name="collection">Colecciï¿½n sobre la cual intercambiar la posiciï¿½n de dos elementos.</param>
+        /// <param name="indexA">ï¿½ndice del primer elemento.</param>
+        /// <param name="indexB">ï¿½ndice del segundo elemento.</param>
         public static void Swap<T>(this IList<T> collection, int indexA, int indexB)
         {
             if (indexA == indexB) return;
@@ -244,12 +244,12 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Intercambia la posición de dos elementos dentro de un <see cref="IList{T}"/>.
+        /// Intercambia la posiciï¿½n de dos elementos dentro de un <see cref="IList{T}"/>.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="collection">Colección sobre la cual intercambiar la posición de dos elementos.</param>
-        /// <param name="a">Índice del primer elemento.</param>
-        /// <param name="b">Índice del segundo elemento.</param>
+        /// <param name="collection">Colecciï¿½n sobre la cual intercambiar la posiciï¿½n de dos elementos.</param>
+        /// <param name="a">ï¿½ndice del primer elemento.</param>
+        /// <param name="b">ï¿½ndice del segundo elemento.</param>
         public static void Swap<T>(this IList<T> collection, T a, T b)
         {            
             if (!collection.ContainsAll(a, b)) throw new Exception();

@@ -29,29 +29,29 @@ using TheXDS.MCART.Annotations;
 namespace TheXDS.MCART.ViewModel
 {
     /// <summary>
-    ///     Clase base para un ViewModel dinámico.
+    /// Clase base para un ViewModel dinámico.
     /// </summary>
     public abstract class DynamicViewModel<T> : ViewModelBase, IDynamicViewModel<T?> where T : class
     {
         /// <summary>
-        ///     Entidad subyacente que funciona como campo de almacenamiento
-        ///     para los datos de este ViewModel.
+        /// Entidad subyacente que funciona como campo de almacenamiento
+        /// para los datos de este ViewModel.
         /// </summary>
         public abstract T? Entity { get; set; }
 
         /// <summary>
-        ///     Edita la instancia de <typeparamref name="T"/> expuesta por
-        ///     este ViewModel.
+        /// Edita la instancia de <typeparamref name="T"/> expuesta por
+        /// este ViewModel.
         /// </summary>
         /// <param name="entity">
-        ///     Instancia de <typeparamref name="T"/> con los valores a
-        ///     establecer.
+        /// Instancia de <typeparamref name="T"/> con los valores a
+        /// establecer.
         /// </param>
         public abstract void Edit(T? entity);
 
         /// <summary>
-        ///     Entidad subyacente que funciona como campo de almacenamiento
-        ///     para los datos de este ViewModel.
+        /// Entidad subyacente que funciona como campo de almacenamiento
+        /// para los datos de este ViewModel.
         /// </summary>
         object? IDynamicViewModel.Entity
         {
@@ -60,12 +60,12 @@ namespace TheXDS.MCART.ViewModel
         }
 
         /// <summary>
-        ///     Convierte implícitamente un <see cref="DynamicViewModel{T}"/>
-        ///     en un <typeparamref name="T"/>.
+        /// Convierte implícitamente un <see cref="DynamicViewModel{T}"/>
+        /// en un <typeparamref name="T"/>.
         /// </summary>
         /// <param name="vm">
-        ///     <see cref="DynamicViewModel{T}"/> a convertir.
-        ///     </param>
+        /// <see cref="DynamicViewModel{T}"/> a convertir.
+        /// </param>
         public static implicit operator T?(DynamicViewModel<T> vm)
         {
             return vm.Entity;

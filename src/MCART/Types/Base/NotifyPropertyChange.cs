@@ -36,26 +36,26 @@ using TheXDS.MCART.Exceptions;
 namespace TheXDS.MCART.Types.Base
 {
     /// <summary>
-    ///     Clase base para los objetos que puedan notificar sobre el cambio
-    ///     del valor de una de sus propiedades, tanto antes como después de
-    ///     haber ocurrido dicho cambio.
+    /// Clase base para los objetos que puedan notificar sobre el cambio
+    /// del valor de una de sus propiedades, tanto antes como después de
+    /// haber ocurrido dicho cambio.
     /// </summary>
     public abstract class NotifyPropertyChange : NotifyPropertyChangeBase, INotifyPropertyChanging, INotifyPropertyChanged
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Se produce cuando se cambiará el valor de una propiedad.
+        /// Se produce cuando se cambiará el valor de una propiedad.
         /// </summary>
         public event PropertyChangingEventHandler? PropertyChanging;
 
         /// <inheritdoc />
         /// <summary>
-        ///     Ocurre cuando el valor de una propiedad ha cambiado.
+        /// Ocurre cuando el valor de una propiedad ha cambiado.
         /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
-        ///     Notifica a los clientes que el valor de una propiedad cambiará.
+        /// Notifica a los clientes que el valor de una propiedad cambiará.
         /// </summary>
         protected virtual void OnPropertyChanging([CallerMemberName] string propertyName = null!)
         {
@@ -64,8 +64,8 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Notifica a los clientes que el valor de una propiedad ha
-        ///     cambiado.
+        /// Notifica a los clientes que el valor de una propiedad ha
+        /// cambiado.
         /// </summary>
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null!)
@@ -77,15 +77,15 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Cambia el valor de un campo, y genera los eventos de
-        ///     notificación correspondientes.
+        /// Cambia el valor de un campo, y genera los eventos de
+        /// notificación correspondientes.
         /// </summary>
         /// <typeparam name="T">Tipo de valores a procesar.</typeparam>
         /// <param name="field">Campo a actualizar.</param>
         /// <param name="value">Nuevo valor del campo.</param>
         /// <returns>
-        ///     <see langword="true"/> si el valor de la propiedad ha
-        ///     cambiado, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si el valor de la propiedad ha
+        /// cambiado, <see langword="false"/> en caso contrario.
         /// </returns>
         protected bool Change<T>(ref T field, T value)
         {
@@ -115,7 +115,7 @@ namespace TheXDS.MCART.Types.Base
         private readonly HashSet<WeakReference<PropertyChangeObserver>> _observeSubscriptions = new HashSet<WeakReference<PropertyChangeObserver>>();
 
         /// <summary>
-        ///     Suscribe a un delegado para observar el cambio de una propiedad.
+        /// Suscribe a un delegado para observar el cambio de una propiedad.
         /// </summary>
         /// <param name="callback">Delegado a suscribir.</param>
         public void Subscribe(PropertyChangeObserver callback)
@@ -124,8 +124,8 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Quita al delegado previamente suscrito de la lista de
-        ///     suscripciones de notificación de cambios de propiedad.
+        /// Quita al delegado previamente suscrito de la lista de
+        /// suscripciones de notificación de cambios de propiedad.
         /// </summary>
         /// <param name="callback">Delegado a quitar.</param>
         public void Unsubscribe(PropertyChangeObserver callback)
@@ -135,10 +135,10 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Notifica el cambio en el valor de una propiedad.
+        /// Notifica el cambio en el valor de una propiedad.
         /// </summary>
         /// <param name="property">
-        ///     Propiedad a notificar.
+        /// Propiedad a notificar.
         /// </param>
         protected override void Notify(string property)
         {
@@ -146,14 +146,14 @@ namespace TheXDS.MCART.Types.Base
         }
     }
     /// <summary>
-    ///     Delegado que define un método para observar y procesar cambios en
-    ///     el valor de una propiedad asociada a un objeto.
+    /// Delegado que define un método para observar y procesar cambios en
+    /// el valor de una propiedad asociada a un objeto.
     /// </summary>
     /// <param name="instance">
-    ///     Instancia del objeto a observar.
+    /// Instancia del objeto a observar.
     /// </param>
     /// <param name="property">
-    ///     Propiedad observada.
+    /// Propiedad observada.
     /// </param>
     public delegate void PropertyChangeObserver(object instance, PropertyInfo property);
 }

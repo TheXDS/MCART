@@ -28,24 +28,24 @@ namespace TheXDS.MCART.Networking.Server.Protocols
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Protocolo simple de eco definido según el estándar RFC 862.
+    /// Protocolo simple de eco definido según el estándar RFC 862.
     /// </summary>
     /// <remarks>
-    ///     Este protocolo utiliza TCP/IP, no IGMP.
+    /// Este protocolo utiliza TCP/IP, no IGMP.
     /// </remarks>
     [Port(7)]
     public class Echo : SimpleProtocol
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Protocolo de atención normal.
+        /// Protocolo de atención normal.
         /// </summary>
         /// <param name="client">
-        ///     Cliente que está siendo atendido debido a una solicitud.
+        /// Cliente que está siendo atendido debido a una solicitud.
         /// </param>
         /// <param name="data">
-        ///     Datos que <paramref name="client" /> ha enviado como parte de la
-        ///     solicitud de atención.
+        /// Datos que <paramref name="client" /> ha enviado como parte de la
+        /// solicitud de atención.
         /// </param>
         public override void ClientAttendant(Client client, byte[] data)
         {

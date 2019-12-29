@@ -36,7 +36,7 @@ using System.ComponentModel;
 namespace TheXDS.MCART.Types.Base
 {
     /// <summary>
-    ///     Clase base para los envoltorios observables de colecciones.
+    /// Clase base para los envoltorios observables de colecciones.
     /// </summary>
     /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
     /// <typeparam name="TCollection">Tipo de colección.</typeparam>
@@ -44,8 +44,8 @@ namespace TheXDS.MCART.Types.Base
     public abstract class ObservableWrap<T, TCollection> : ObservableWrapBase, INotifyCollectionChanged, ICollection<T> where TCollection : ICollection<T>
     {
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase 
-        ///     <see cref="ObservableWrap{T, TCollection}"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="ObservableWrap{T, TCollection}"/>.
         /// </summary>
         /// <param name="collection"></param>
         protected ObservableWrap(TCollection collection)
@@ -54,32 +54,32 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ObservableWrap{T, TCollection}"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ObservableWrap{T, TCollection}"/>.
         /// </summary>
         protected ObservableWrap()
         {
         }
 
         /// <summary>
-        ///     Obtiene acceso directo a la colección subyacente envuelta por
-        ///     este <see cref="ObservableWrap{T, TCollection}"/>.
+        /// Obtiene acceso directo a la colección subyacente envuelta por
+        /// este <see cref="ObservableWrap{T, TCollection}"/>.
         /// </summary>
         public TCollection UnderlyingCollection { get; private set; } = default!;
 
         /// <summary>
-        ///     Obtiene la cuenta de elementos contenidos dentro de la
-        ///     colección.
+        /// Obtiene la cuenta de elementos contenidos dentro de la
+        /// colección.
         /// </summary>
         public int Count => UnderlyingCollection?.Count ?? 0;
 
         /// <summary>
-        ///     Obtiene un valor que indica si la colección es de solo lectura.
+        /// Obtiene un valor que indica si la colección es de solo lectura.
         /// </summary>
         public bool IsReadOnly => UnderlyingCollection?.IsReadOnly ?? false;
 
         /// <summary>
-        ///     Agrega un nuevo elemento al final de la colección.
+        /// Agrega un nuevo elemento al final de la colección.
         /// </summary>
         /// <param name="item">Elemento a agregar.</param>
         public void Add(T item)
@@ -91,7 +91,7 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Limpia la colección.
+        /// Limpia la colección.
         /// </summary>
         public void Clear()
         {
@@ -102,11 +102,11 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Copia el contenido de esta colección sobre un arreglo.
+        /// Copia el contenido de esta colección sobre un arreglo.
         /// </summary>
         /// <param name="array">Destino de la copia.</param>
         /// <param name="arrayIndex">
-        ///     Índice donde empezar a copiar elementos.
+        /// Índice donde empezar a copiar elementos.
         /// </param>
         public void CopyTo(T[] array, int arrayIndex)
         {
@@ -114,15 +114,15 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Quita un elemento de la colección.
+        /// Quita un elemento de la colección.
         /// </summary>
         /// <param name="item">Elemento a quitar.</param>
         /// <returns>
-        ///     <see langword="true"/> si el elemento ha sido quitado
-        ///     exitosamente de la colección, <see langword="false"/> en caso
-        ///     contrario. También se devuelve <see langword="false"/> si el
-        ///     elemento no existía en la <see cref="ICollection{T}"/>
-        ///     original.
+        /// <see langword="true"/> si el elemento ha sido quitado
+        /// exitosamente de la colección, <see langword="false"/> en caso
+        /// contrario. También se devuelve <see langword="false"/> si el
+        /// elemento no existía en la <see cref="ICollection{T}"/>
+        /// original.
         /// </returns>
         public bool Remove(T item)
         {
@@ -137,10 +137,10 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Obtiene un enumerador que itera sobre la colección.
+        /// Obtiene un enumerador que itera sobre la colección.
         /// </summary>
         /// <returns>
-        ///     Un enumerador que puede ser utilizado para iterar sobre la colección.
+        /// Un enumerador que puede ser utilizado para iterar sobre la colección.
         /// </returns>
         public IEnumerator<T> GetEnumerator()
         {
@@ -148,10 +148,10 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Obtiene un enumerador que itera sobre la colección.
+        /// Obtiene un enumerador que itera sobre la colección.
         /// </summary>
         /// <returns>
-        ///     Un enumerador que puede ser utilizado para iterar sobre la colección.
+        /// Un enumerador que puede ser utilizado para iterar sobre la colección.
         /// </returns>
         protected override IEnumerator OnGetEnumerator()
         {
@@ -159,7 +159,7 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Obliga a notificar un cambio en la colección.
+        /// Obliga a notificar un cambio en la colección.
         /// </summary>
         public override void Refresh()
         {
@@ -168,10 +168,10 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Sustituye la colección subyacente por una nueva.
+        /// Sustituye la colección subyacente por una nueva.
         /// </summary>
         /// <param name="newCollection">
-        ///     Colección a establecer como la colección subyacente.
+        /// Colección a establecer como la colección subyacente.
         /// </param>
         public void Substitute(TCollection newCollection)
         {
@@ -183,12 +183,12 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Elimina todos los elementos de la colección subyacente y los
-        ///     reemplaza con los elementos de la colección especificada.
+        /// Elimina todos los elementos de la colección subyacente y los
+        /// reemplaza con los elementos de la colección especificada.
         /// </summary>
         /// <param name="newCollection">
-        ///     Colección con los elementos a agregar a la colección
-        ///     subyacente.
+        /// Colección con los elementos a agregar a la colección
+        /// subyacente.
         /// </param>
         public void Replace(TCollection newCollection)
         {
@@ -206,15 +206,15 @@ namespace TheXDS.MCART.Types.Base
         }
         
         /// <summary>
-        ///     Determina si la secuencia subyacente contiene al elemento
-        ///     especificado.
+        /// Determina si la secuencia subyacente contiene al elemento
+        /// especificado.
         /// </summary>
         /// <param name="item">
-        ///     Elemento a buscar dentro de la secuencia.
+        /// Elemento a buscar dentro de la secuencia.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si la secuencia contiene al elemento
-        ///     especificado, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si la secuencia contiene al elemento
+        /// especificado, <see langword="false"/> en caso contrario.
         /// </returns>
         public virtual bool Contains(T item) => UnderlyingCollection.Contains(item);
     }

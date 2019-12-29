@@ -29,25 +29,25 @@ using System;
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Contiene información para el evento
-    ///     <see cref="ListEx{T}.RemovedItem"/>.
+    /// Contiene información para el evento
+    /// <see cref="ListEx{T}.RemovedItem"/>.
     /// </summary>
     /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
     public class RemovedItemEventArgs<T> : EventArgs
     {
         /// <summary>
-        ///     Convierte implícitamente un
-        ///     <see cref="RemovingItemEventArgs{T}"/> en un
-        ///     <see cref="RemovedItemEventArgs{T}"/>.
+        /// Convierte implícitamente un
+        /// <see cref="RemovingItemEventArgs{T}"/> en un
+        /// <see cref="RemovedItemEventArgs{T}"/>.
         /// </summary>
         /// <param name="from">
-        ///     <see cref="RemovingItemEventArgs{T}"/> a convertir.
+        /// <see cref="RemovingItemEventArgs{T}"/> a convertir.
         /// </param>
         public static implicit operator RemovedItemEventArgs<T>(RemovingItemEventArgs<T> from)=> new RemovedItemEventArgs<T>(from.RemovedItem);
 
         /// <summary>
-        ///     Objeto que fue quitado del <see cref="ListEx{T}"/> que generó
-        ///     el evento.
+        /// Objeto que fue quitado del <see cref="ListEx{T}"/> que generó
+        /// el evento.
         /// </summary>
         public T RemovedItem { get; }
 

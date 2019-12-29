@@ -28,14 +28,14 @@ namespace TheXDS.MCART.Attributes
 {
     /// <inheritdoc cref="Attribute"/>
     /// <summary>
-    ///     Clase base para los atributos basados en números flotantes.
+    /// Clase base para los atributos basados en números flotantes.
     /// </summary>
     public abstract class FloatAttribute : Attribute, IValueAttribute<float>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Crea una nueva isntancia de la clase
-        ///     <see cref="FloatAttribute" />.
+        /// Crea una nueva isntancia de la clase
+        /// <see cref="FloatAttribute" />.
         /// </summary>
         /// <param name="attributeValue">Valor de este atributo.</param>
         protected FloatAttribute(float attributeValue)
@@ -45,7 +45,7 @@ namespace TheXDS.MCART.Attributes
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene el valor asociado a este atributo.
+        /// Obtiene el valor asociado a este atributo.
         /// </summary>
         public float Value { get; }
     }

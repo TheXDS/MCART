@@ -32,42 +32,42 @@ using NcchEa = System.Collections.Specialized.NotifyCollectionChangedEventArgs;
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Envuelve un diccionario para proveerlo de eventos de notificación
-    ///     de cambio de propiedad y contenido.
+    /// Envuelve un diccionario para proveerlo de eventos de notificación
+    /// de cambio de propiedad y contenido.
     /// </summary>
     /// <typeparam name="TKey">
-    ///     Tipo de índice del diccionario.
+    /// Tipo de índice del diccionario.
     /// </typeparam>
     /// <typeparam name="TValue">
-    ///     Tipo de elementos contenidos dentro del diccionario.
+    /// Tipo de elementos contenidos dentro del diccionario.
     /// </typeparam>
     public class ObservableDictionaryWrap<TKey, TValue> : ObservableWrap<KeyValuePair<TKey, TValue>, IDictionary<TKey, TValue>>, IDictionary<TKey, TValue> where TKey : notnull
     {
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase 
-        ///     <see cref="ObservableDictionaryWrap{TKey, TValue}"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="ObservableDictionaryWrap{TKey, TValue}"/>.
         /// </summary>
         public ObservableDictionaryWrap() { }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase 
-        ///     <see cref="ObservableDictionaryWrap{TKey, TValue}"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="ObservableDictionaryWrap{TKey, TValue}"/>.
         /// </summary>
         /// <param name="collection">
-        ///     Colección a utilizar como el diccionario sunyacente.
+        /// Colección a utilizar como el diccionario sunyacente.
         /// </param>
         public ObservableDictionaryWrap(IDictionary<TKey, TValue> collection) : base(collection) { }
 
         /// <summary>
-        ///     Obtiene o establece el valor del objeto en el índice
-        ///     especificado dentro del diccionario.
+        /// Obtiene o establece el valor del objeto en el índice
+        /// especificado dentro del diccionario.
         /// </summary>
         /// <param name="key">
-        ///     Índice del valor a obtener/establecer.
+        /// Índice del valor a obtener/establecer.
         /// </param>
         /// <returns>
-        ///     El valor encontrado en el índice especificado dentro del
-        ///     diccionario.
+        /// El valor encontrado en el índice especificado dentro del
+        /// diccionario.
         /// </returns>
         public TValue this[TKey key]
         {
@@ -81,23 +81,23 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Obtiene una colección con todas las llaves del diccionario.
+        /// Obtiene una colección con todas las llaves del diccionario.
         /// </summary>
         public ICollection<TKey> Keys => UnderlyingCollection.Keys;
 
         /// <summary>
-        ///     Obtiene una colección con todos los valores del diccionario.
+        /// Obtiene una colección con todos los valores del diccionario.
         /// </summary>
         public ICollection<TValue> Values => UnderlyingCollection.Values;
 
         /// <summary>
-        ///     Agrega un valor a este diccionario en el índice especificado.
+        /// Agrega un valor a este diccionario en el índice especificado.
         /// </summary>
         /// <param name="key">
-        ///     Índice a utilizar.
+        /// Índice a utilizar.
         /// </param>
         /// <param name="value">
-        ///     Valor a agregar al diccionario.
+        /// Valor a agregar al diccionario.
         /// </param>
         public void Add(TKey key, TValue value)
         {
@@ -106,28 +106,28 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Determina si el índice existe en el diccionario.
+        /// Determina si el índice existe en el diccionario.
         /// </summary>
         /// <param name="key">
-        ///     Índice a buscar dentro del diccionario.
+        /// Índice a buscar dentro del diccionario.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si el índice existe dentro del
-        ///     diccionario, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si el índice existe dentro del
+        /// diccionario, <see langword="false"/> en caso contrario.
         /// </returns>
         public bool ContainsKey(TKey key) => UnderlyingCollection?.ContainsKey(key) ?? false;
 
         /// <summary>
-        ///     Quita al elemento con el índice especificado del diccionario.
+        /// Quita al elemento con el índice especificado del diccionario.
         /// </summary>
         /// <param name="key">
-        ///     Índice a quitar.
+        /// Índice a quitar.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si se ha quitado el índice del
-        ///     diccionario exitosamente, <see langword="false"/> si el índice
-        ///     no existía en el diccionario o si ocurre otro problema al
-        ///     intentar realizar la operación.
+        /// <see langword="true"/> si se ha quitado el índice del
+        /// diccionario exitosamente, <see langword="false"/> si el índice
+        /// no existía en el diccionario o si ocurre otro problema al
+        /// intentar realizar la operación.
         /// </returns>
         /// 
         public bool Remove(TKey key)
@@ -140,18 +140,18 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Intenta obtener un valor dentro del diccionario.
+        /// Intenta obtener un valor dentro del diccionario.
         /// </summary>
         /// <param name="key">Índice del valor a obtener.</param>
         /// <param name="value">
-        ///     Parámetro de salida. Valor obtenido del diccionario en el
-        ///     índice especificado.
+        /// Parámetro de salida. Valor obtenido del diccionario en el
+        /// índice especificado.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si se ha obtenido el valor del
-        ///     diccionario correctamente, <see langword="false"/> si el índice
-        ///     no existía en el diccionario o si ocurre otro problema
-        ///     obteniendo el valor.
+        /// <see langword="true"/> si se ha obtenido el valor del
+        /// diccionario correctamente, <see langword="false"/> si el índice
+        /// no existía en el diccionario o si ocurre otro problema
+        /// obteniendo el valor.
         /// </returns>
         public bool TryGetValue(TKey key, out TValue value) => UnderlyingCollection.TryGetValue(key, out value);
     }

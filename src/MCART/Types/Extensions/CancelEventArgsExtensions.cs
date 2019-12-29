@@ -30,31 +30,31 @@ using System.ComponentModel;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Extensiones para todos los elementos de tipo
-    ///     <see cref="CancelEventArgs" />.
+    /// Extensiones para todos los elementos de tipo
+    /// <see cref="CancelEventArgs" />.
     /// </summary>
     public static class CancelEventArgsExtensions
     {
         /// <summary>
-        ///     Ejecuta un controlador de eventos con estos argumentos, y 
-        ///     continúa con otra llamada si el evento no ha sido cancelado.
+        /// Ejecuta un controlador de eventos con estos argumentos, y 
+        /// continúa con otra llamada si el evento no ha sido cancelado.
         /// </summary>
         /// <typeparam name="TCancelEventArgs">
-        ///     Tipo que deriva de <see cref="CancelEventArgs"/> para el cual
-        ///     este método es una extensión.
+        /// Tipo que deriva de <see cref="CancelEventArgs"/> para el cual
+        /// este método es una extensión.
         /// </typeparam>
         /// <param name="evtArgs">
-        ///     Argumentos a utilizar en la llamada del evento cancelable.
+        /// Argumentos a utilizar en la llamada del evento cancelable.
         /// </param>
         /// <param name="handler">
-        ///     Evento cancelable a ejecutar.
+        /// Evento cancelable a ejecutar.
         /// </param>
         /// <param name="sender">
-        ///     Objeto que es el origen del evento a generar.
+        /// Objeto que es el origen del evento a generar.
         /// </param>
         /// <param name="continuation">
-        ///     Llamada de continuación en caso que el evento no haya sido 
-        ///     cancelado.
+        /// Llamada de continuación en caso que el evento no haya sido 
+        /// cancelado.
         /// </param>
         public static void Attempt<TCancelEventArgs>(this TCancelEventArgs evtArgs, EventHandler<TCancelEventArgs>? handler, object? sender, Action<TCancelEventArgs> continuation) where TCancelEventArgs : CancelEventArgs
         {

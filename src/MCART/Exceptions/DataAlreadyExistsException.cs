@@ -30,21 +30,21 @@ namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Excepción que se produce al intentar crear nueva información dentro de
-    ///     una base de datos con un identificador que ya existe.
+    /// Excepción que se produce al intentar crear nueva información dentro de
+    /// una base de datos con un identificador que ya existe.
     /// </summary>
     [Serializable]
     public class DataAlreadyExistsException : Exception
     {
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="DataAlreadyExistsException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="DataAlreadyExistsException" />.
         /// </summary>
         public DataAlreadyExistsException() : base(Strings.XAlreadyExists(Strings.TheUid))
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="DataAlreadyExistsException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="DataAlreadyExistsException" />.
         /// </summary>
         /// <param name="uid">Uid.</param>
         public DataAlreadyExistsException(string uid) : base(Strings.XAlreadyExists(Strings.XYQuotes(Strings.TheUid, uid)))
@@ -52,7 +52,7 @@ namespace TheXDS.MCART.Exceptions
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="DataAlreadyExistsException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="DataAlreadyExistsException" />.
         /// </summary>
         /// <param name="uid">Uid.</param>
         /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
@@ -62,14 +62,14 @@ namespace TheXDS.MCART.Exceptions
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="DataAlreadyExistsException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="DataAlreadyExistsException" />.
         /// </summary>
         /// <param name="info">
-        ///     El objeto que contiene la información de serialización.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
-        ///     La información contextual acerca del orígen o el destino.
+        /// La información contextual acerca del orígen o el destino.
         /// </param>
         protected DataAlreadyExistsException(SerializationInfo info, StreamingContext context) : base(info, context)
         {

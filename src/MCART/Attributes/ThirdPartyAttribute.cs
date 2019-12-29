@@ -29,11 +29,11 @@ namespace TheXDS.MCART.Attributes
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Indica que un elemento proviene de orígenes de terceros.
+    /// Indica que un elemento proviene de orígenes de terceros.
     /// </summary>
     /// <remarks>
-    ///     Es recomendable que al aplicar este atributo, también se aplique un
-    ///     atributo que indique la licencia del mismo.
+    /// Es recomendable que al aplicar este atributo, también se aplique un
+    /// atributo que indique la licencia del mismo.
     /// </remarks>
     [AttributeUsage(Method | Class | Module | Assembly)]
     [Serializable]

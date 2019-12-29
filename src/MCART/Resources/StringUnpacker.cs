@@ -36,8 +36,8 @@ namespace TheXDS.MCART.Resources
 {
     /// <inheritdoc cref="AssemblyUnpacker{T}"/>
     /// <summary>
-    ///     <see cref="AssemblyUnpacker{T}" /> que permite extraer archivos de
-    ///     texto incrustados en un ensamblado como una cadena.
+    /// <see cref="AssemblyUnpacker{T}" /> que permite extraer archivos de
+    /// texto incrustados en un ensamblado como una cadena.
     /// </summary>
     public class StringUnpacker : AssemblyUnpacker<string>, IAsyncUnpacker<string>
     {
@@ -57,19 +57,19 @@ namespace TheXDS.MCART.Resources
         }
 
         /// <summary>
-        ///     Obtiene un <see cref="StreamReader"/> a partir del
-        ///     <paramref name="id"/> y del <paramref name="compressor"/>
-        ///     especificados.
+        /// Obtiene un <see cref="StreamReader"/> a partir del
+        /// <paramref name="id"/> y del <paramref name="compressor"/>
+        /// especificados.
         /// </summary>
         /// <param name="id">
-        ///     Id del <see cref="Stream"/> del recurso incrustado a obtener.
+        /// Id del <see cref="Stream"/> del recurso incrustado a obtener.
         /// </param>
         /// <param name="compressor">
-        ///     Compresor específico a utilizar para leer el recurso.
+        /// Compresor específico a utilizar para leer el recurso.
         /// </param>
         /// <returns>
-        ///     Un <see cref="StreamReader"/> que permite leer la secuencia 
-        ///     subyacente del recurso incrustado.
+        /// Un <see cref="StreamReader"/> que permite leer la secuencia 
+        /// subyacente del recurso incrustado.
         /// </returns>
         protected StreamReader GetStream(string id, ICompressorGetter compressor)
         {
@@ -77,15 +77,15 @@ namespace TheXDS.MCART.Resources
         }
 
         /// <summary>
-        ///     Obtiene un <see cref="StreamReader"/> a partir del
-        ///     <paramref name="id"/> especificado.
+        /// Obtiene un <see cref="StreamReader"/> a partir del
+        /// <paramref name="id"/> especificado.
         /// </summary>
         /// <param name="id">
-        ///     Id del <see cref="Stream"/> del recurso incrustado a obtener.
+        /// Id del <see cref="Stream"/> del recurso incrustado a obtener.
         /// </param>
         /// <returns>
-        ///     Un <see cref="StreamReader"/> que permite leer la secuencia 
-        ///     subyacente del recurso incrustado.
+        /// Un <see cref="StreamReader"/> que permite leer la secuencia 
+        /// subyacente del recurso incrustado.
         /// </returns>
         protected StreamReader GetStream(string id)
         {
@@ -93,24 +93,24 @@ namespace TheXDS.MCART.Resources
         }
 
         /// <summary>
-        ///     Intenta obtiener un <see cref="StreamReader"/> a partir del
-        ///     <paramref name="id"/> y del <paramref name="compressor"/>
-        ///     especificados.
+        /// Intenta obtiener un <see cref="StreamReader"/> a partir del
+        /// <paramref name="id"/> y del <paramref name="compressor"/>
+        /// especificados.
         /// </summary>
         /// <param name="id">
-        ///     Id del <see cref="Stream"/> del recurso incrustado a obtener.
+        /// Id del <see cref="Stream"/> del recurso incrustado a obtener.
         /// </param>
         /// <param name="compressor">
-        ///     Compresor específico a utilizar para leer el recurso.
+        /// Compresor específico a utilizar para leer el recurso.
         /// </param>
         /// <param name="reader">
-        ///     Parámetro de salida. Un <see cref="StreamReader"/> que permite
-        ///     leer la secuencia subyacente del recurso incrustado.
+        /// Parámetro de salida. Un <see cref="StreamReader"/> que permite
+        /// leer la secuencia subyacente del recurso incrustado.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si se ha creado un
-        ///     <see cref="StreamReader"/> de forma satisfactoria para el
-        ///     recurso, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si se ha creado un
+        /// <see cref="StreamReader"/> de forma satisfactoria para el
+        /// recurso, <see langword="false"/> en caso contrario.
         /// </returns>
         protected bool TryGetStream(string id, ICompressorGetter compressor, out StreamReader reader)
         {
@@ -127,20 +127,20 @@ namespace TheXDS.MCART.Resources
         }
 
         /// <summary>
-        ///     Intenta obtiener un <see cref="StreamReader"/> a partir del
-        ///     <paramref name="id"/> especificado.
+        /// Intenta obtiener un <see cref="StreamReader"/> a partir del
+        /// <paramref name="id"/> especificado.
         /// </summary>
         /// <param name="id">
-        ///     Id del <see cref="Stream"/> del recurso incrustado a obtener.
+        /// Id del <see cref="Stream"/> del recurso incrustado a obtener.
         /// </param>
         /// <param name="reader">
-        ///     Parámetro de salida. Un <see cref="StreamReader"/> que permite
-        ///     leer la secuencia subyacente del recurso incrustado.
+        /// Parámetro de salida. Un <see cref="StreamReader"/> que permite
+        /// leer la secuencia subyacente del recurso incrustado.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si se ha creado un
-        ///     <see cref="StreamReader"/> de forma satisfactoria para el
-        ///     recurso, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si se ha creado un
+        /// <see cref="StreamReader"/> de forma satisfactoria para el
+        /// recurso, <see langword="false"/> en caso contrario.
         /// </returns>
         protected bool TryGetStream(string id, out StreamReader reader)
         {
@@ -157,19 +157,19 @@ namespace TheXDS.MCART.Resources
         }
 
         /// <summary>
-        ///     Obtiene un <see cref="StreamReader"/> a partir del
-        ///     <paramref name="id"/> y del <paramref name="compressorId"/>
-        ///     especificados.
+        /// Obtiene un <see cref="StreamReader"/> a partir del
+        /// <paramref name="id"/> y del <paramref name="compressorId"/>
+        /// especificados.
         /// </summary>
         /// <param name="id">
-        ///     Id del <see cref="Stream"/> del recurso incrustado a obtener.
+        /// Id del <see cref="Stream"/> del recurso incrustado a obtener.
         /// </param>
         /// <param name="compressorId">
-        ///     Id del compresor específico a utilizar para leer el recurso.
+        /// Id del compresor específico a utilizar para leer el recurso.
         /// </param>
         /// <returns>
-        ///     Un <see cref="StreamReader"/> que permite leer la secuencia 
-        ///     subyacente del recurso incrustado.
+        /// Un <see cref="StreamReader"/> que permite leer la secuencia 
+        /// subyacente del recurso incrustado.
         /// </returns>
         protected StreamReader GetStream(string id, string compressorId)
         {
@@ -177,24 +177,24 @@ namespace TheXDS.MCART.Resources
         }
 
         /// <summary>
-        ///     Intenta obtiener un <see cref="StreamReader"/> a partir del
-        ///     <paramref name="id"/> y del <paramref name="compressorId"/>
-        ///     especificados.
+        /// Intenta obtiener un <see cref="StreamReader"/> a partir del
+        /// <paramref name="id"/> y del <paramref name="compressorId"/>
+        /// especificados.
         /// </summary>
         /// <param name="id">
-        ///     Id del <see cref="Stream"/> del recurso incrustado a obtener.
+        /// Id del <see cref="Stream"/> del recurso incrustado a obtener.
         /// </param>
         /// <param name="compressorId">
-        ///     Id del compresor específico a utilizar para leer el recurso.
+        /// Id del compresor específico a utilizar para leer el recurso.
         /// </param>
         /// <param name="reader">
-        ///     Parámetro de salida. Un <see cref="StreamReader"/> que permite
-        ///     leer la secuencia subyacente del recurso incrustado.
+        /// Parámetro de salida. Un <see cref="StreamReader"/> que permite
+        /// leer la secuencia subyacente del recurso incrustado.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si se ha creado un
-        ///     <see cref="StreamReader"/> de forma satisfactoria para el
-        ///     recurso, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si se ha creado un
+        /// <see cref="StreamReader"/> de forma satisfactoria para el
+        /// recurso, <see langword="false"/> en caso contrario.
         /// </returns>
         protected bool TryGetStream(string id, string compressorId, out StreamReader reader)
         {
@@ -211,73 +211,73 @@ namespace TheXDS.MCART.Resources
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase 
-        ///     <see cref="StringUnpacker"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="StringUnpacker"/>.
         /// </summary>
         /// <param name="assembly">
-        ///     <see cref="Assembly"/> desde donde se extraerán los recursos
-        ///     incrustados.
+        /// <see cref="Assembly"/> desde donde se extraerán los recursos
+        /// incrustados.
         /// </param>
         /// <param name="path">
-        ///     Ruta (en formato de espacio de nombre) donde se ubicarán los
-        ///     recursos incrustados.
+        /// Ruta (en formato de espacio de nombre) donde se ubicarán los
+        /// recursos incrustados.
         /// </param>
         public StringUnpacker(Assembly assembly, string path) : base(assembly, path) { }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene un recurso identificable.
+        /// Obtiene un recurso identificable.
         /// </summary>
-        ///     <param name="id">Identificador del recurso.</param>
+        /// <param name="id">Identificador del recurso.</param>
         /// <returns>
-        ///     Un <see cref="string" /> con el contenido del archivo de texto
-        ///     incrustado en el ensamblado.
+        /// Un <see cref="string" /> con el contenido del archivo de texto
+        /// incrustado en el ensamblado.
         /// </returns>
         public override string Unpack(string id) => Read(GetStream(id));
 
         /// <inheritdoc />
         /// <summary>
-        ///     Extrae un recurso comprimido utilizando el compresor con el
-        ///     identificador especificado.
+        /// Extrae un recurso comprimido utilizando el compresor con el
+        /// identificador especificado.
         /// </summary>
         /// <param name="id">Identificador del recurso.</param>
         /// <param name="compressorId">
-        ///     Identificador del compresor a utilizar para extraer el recurso.
+        /// Identificador del compresor a utilizar para extraer el recurso.
         /// </param>
         /// <returns>
-        ///     Un <see cref="string" /> con el contenido del archivo de texto
-        ///     incrustado en el ensamblado.
+        /// Un <see cref="string" /> con el contenido del archivo de texto
+        /// incrustado en el ensamblado.
         /// </returns>
         public override string Unpack(string id, string compressorId) => Read(GetStream(id, compressorId));
 
         /// <inheritdoc />
         /// <summary>
-        ///     Extrae un recurso comprimido utilizando el compresor con el
-        ///     identificador especificado.
+        /// Extrae un recurso comprimido utilizando el compresor con el
+        /// identificador especificado.
         /// </summary>
         /// <param name="id">Identificador del recurso.</param>
         /// <param name="compressor">
-        ///     <see cref="ICompressorGetter" /> a utilizar para extraer el
-        ///     recurso.
+        /// <see cref="ICompressorGetter" /> a utilizar para extraer el
+        /// recurso.
         /// </param>
         /// <returns>
-        ///     Un <see cref="string" /> con el contenido del archivo de texto
-        ///     incrustado en el ensamblado.
+        /// Un <see cref="string" /> con el contenido del archivo de texto
+        /// incrustado en el ensamblado.
         /// </returns>
         public override string Unpack(string id, ICompressorGetter compressor) => Read(GetStream(id, compressor));
 
         /// <inheritdoc />
         /// <summary>
-        ///     Intenta obtener un recurso identificable.
+        /// Intenta obtener un recurso identificable.
         /// </summary>
-        ///     <param name="id">Identificador del recurso.</param>
+        /// <param name="id">Identificador del recurso.</param>
         /// <param name="data">
-        ///     Parámetro de salida. Cadena que ha sido devuelta por la
-        ///     operación de lectura del recurso.
+        /// Parámetro de salida. Cadena que ha sido devuelta por la
+        /// operación de lectura del recurso.
         /// </param>
         /// <returns>
-        ///     Un <see cref="string" /> con el contenido del archivo de texto
-        ///     incrustado en el ensamblado.
+        /// Un <see cref="string" /> con el contenido del archivo de texto
+        /// incrustado en el ensamblado.
         /// </returns>
         public override bool TryUnpack(string id, out string data)
         {
@@ -288,20 +288,20 @@ namespace TheXDS.MCART.Resources
 
         /// <inheritdoc />
         /// <summary>
-        ///     Extrae un recurso comprimido utilizando el compresor con el
-        ///     identificador especificado.
+        /// Extrae un recurso comprimido utilizando el compresor con el
+        /// identificador especificado.
         /// </summary>
         /// <param name="id">Identificador del recurso.</param>
         /// <param name="compressorId">
-        ///     Identificador del compresor a utilizar para extraer el recurso.
+        /// Identificador del compresor a utilizar para extraer el recurso.
         /// </param>
         /// <param name="data">
-        ///     Parámetro de salida. Cadena que ha sido devuelta por la
-        ///     operación de lectura del recurso.
+        /// Parámetro de salida. Cadena que ha sido devuelta por la
+        /// operación de lectura del recurso.
         /// </param>
         /// <returns>
-        ///     Un <see cref="string" /> con el contenido del archivo de texto
-        ///     incrustado en el ensamblado.
+        /// Un <see cref="string" /> con el contenido del archivo de texto
+        /// incrustado en el ensamblado.
         /// </returns>
         public override bool TryUnpack(string id, string compressorId, out string data)
         {
@@ -312,21 +312,21 @@ namespace TheXDS.MCART.Resources
 
         /// <inheritdoc />
         /// <summary>
-        ///     Extrae un recurso comprimido utilizando el compresor con el
-        ///     identificador especificado.
+        /// Extrae un recurso comprimido utilizando el compresor con el
+        /// identificador especificado.
         /// </summary>
         /// <param name="id">Identificador del recurso.</param>
         /// <param name="compressor">
-        ///     <see cref="ICompressorGetter" /> a utilizar para extraer el
-        ///     recurso.
+        /// <see cref="ICompressorGetter" /> a utilizar para extraer el
+        /// recurso.
         /// </param>
         /// <param name="data">
-        ///     Parámetro de salida. Cadena que ha sido devuelta por la
-        ///     operación de lectura del recurso.
+        /// Parámetro de salida. Cadena que ha sido devuelta por la
+        /// operación de lectura del recurso.
         /// </param>
         /// <returns>
-        ///     Un <see cref="string" /> con el contenido del archivo de texto
-        ///     incrustado en el ensamblado.
+        /// Un <see cref="string" /> con el contenido del archivo de texto
+        /// incrustado en el ensamblado.
         /// </returns>
         public override bool TryUnpack(string id, ICompressorGetter compressor, out string data)
         {
@@ -337,43 +337,43 @@ namespace TheXDS.MCART.Resources
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene un recurso identificable de forma asíncrona.
+        /// Obtiene un recurso identificable de forma asíncrona.
         /// </summary>
         /// <param name="id">Identificador del recurso.</param>
         /// <returns>
-        ///     Un <see cref="string" /> con el contenido del archivo de texto
-        ///     incrustado en el ensamblado.
+        /// Un <see cref="string" /> con el contenido del archivo de texto
+        /// incrustado en el ensamblado.
         /// </returns>
         public Task<string> UnpackAsync(string id) => ReadAsync(new StreamReader(UnpackStream(id) ?? throw new InvalidDataException()));
 
         /// <inheritdoc />
         /// <summary>
-        ///     Extrae un recurso comprimido utilizando el compresor con el
-        ///     identificador especificado de forma asíncrona.
+        /// Extrae un recurso comprimido utilizando el compresor con el
+        /// identificador especificado de forma asíncrona.
         /// </summary>
         /// <param name="id">Identificador del recurso.</param>
         /// <param name="compressorId">
-        ///     Identificador del compresor a utilizar para extraer el recurso.
+        /// Identificador del compresor a utilizar para extraer el recurso.
         /// </param>
         /// <returns>
-        ///     Un <see cref="string" /> con el contenido del archivo de texto
-        ///     incrustado en el ensamblado.
+        /// Un <see cref="string" /> con el contenido del archivo de texto
+        /// incrustado en el ensamblado.
         /// </returns>
         public Task<string> UnpackAsync(string id, string compressorId) => ReadAsync(GetStream(id, compressorId));
 
         /// <inheritdoc />
         /// <summary>
-        ///     Extrae un recurso comprimido utilizando el compresor con el
-        ///     identificador especificado de forma asíncrona.
+        /// Extrae un recurso comprimido utilizando el compresor con el
+        /// identificador especificado de forma asíncrona.
         /// </summary>
         /// <param name="id">Identificador del recurso.</param>
         /// <param name="compressor">
-        ///     <see cref="ICompressorGetter" /> a utilizar para extraer el
-        ///     recurso.
+        /// <see cref="ICompressorGetter" /> a utilizar para extraer el
+        /// recurso.
         /// </param>
         /// <returns>
-        ///     Un <see cref="string" /> con el contenido del archivo de texto
-        ///     incrustado en el ensamblado.
+        /// Un <see cref="string" /> con el contenido del archivo de texto
+        /// incrustado en el ensamblado.
         /// </returns>
         public Task<string> UnpackAsync(string id, ICompressorGetter compressor) => ReadAsync(GetStream(id, compressor));
     }

@@ -27,28 +27,28 @@ using System;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Extensiones para la clase <see cref="Random" />
+    /// Extensiones para la clase <see cref="Random" />
     /// </summary>
     public static class RandomExtensions
     {
         private const string Text = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
         /// <summary>
-        ///     Necesario para evitar que las funciones que requieren de números
-        ///     aleatorios generen objetos <see cref="Random" /> con el mismo
-        ///     número de semilla basada en tiempo.
+        /// Necesario para evitar que las funciones que requieren de números
+        /// aleatorios generen objetos <see cref="Random" /> con el mismo
+        /// número de semilla basada en tiempo.
         /// </summary>
         public static Random Rnd { get; } = new Random();
 
         /// <summary>
-        ///     Obtiene una cadena de texto aleatorio.
+        /// Obtiene una cadena de texto aleatorio.
         /// </summary>
         /// <param name="r">
-        ///     Instancia del objeto <see cref="Random" /> a utilizar.
+        /// Instancia del objeto <see cref="Random" /> a utilizar.
         /// </param>
         /// <param name="length">Longitud de la cadena a generar.</param>
         /// <returns>
-        ///     Una cadena de texto aleatorio con la longitud especificada.
+        /// Una cadena de texto aleatorio con la longitud especificada.
         /// </returns>
         public static string RndText(this Random r, in int length)
         {
@@ -58,18 +58,18 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Devuelve un número entero aleatorio que se encuentra dentro del 
-        ///     rango especificado.
+        /// Devuelve un número entero aleatorio que se encuentra dentro del 
+        /// rango especificado.
         /// </summary>
         /// <param name="r">
-        ///     Instancia del objeto <see cref="Random" /> a utilizar.
+        /// Instancia del objeto <see cref="Random" /> a utilizar.
         /// </param>
         /// <param name="range">
-        ///     <see cref="Range{T}" /> de números a seleccionar.
+        /// <see cref="Range{T}" /> de números a seleccionar.
         /// </param>
         /// <returns>
-        ///     Un número entero aleatorio que se encuentra dentro del rango
-        ///     especificado.
+        /// Un número entero aleatorio que se encuentra dentro del rango
+        /// especificado.
         /// </returns>
         public static int Next(this Random r, in Range<int> range)
         {
@@ -77,15 +77,15 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Obtiene aleatoriamente un valor <see langword="true"/> o
-        ///     <see langword="false"/>.
+        /// Obtiene aleatoriamente un valor <see langword="true"/> o
+        /// <see langword="false"/>.
         /// </summary>
         /// <returns>
-        ///     <see langword="true"/> o <see langword="false"/>, de manera
-        ///     aleatoria.
+        /// <see langword="true"/> o <see langword="false"/>, de manera
+        /// aleatoria.
         /// </returns>
         /// <param name="r">
-        ///     Instancia del objeto <see cref="Random" /> a utilizar.
+        /// Instancia del objeto <see cref="Random" /> a utilizar.
         /// </param>
         public static bool CoinFlip(this Random r)
         {

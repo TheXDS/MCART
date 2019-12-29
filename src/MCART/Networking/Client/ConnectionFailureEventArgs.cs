@@ -29,50 +29,50 @@ namespace TheXDS.MCART.Networking.Client
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Contiene información de evento para las fallas de conexión
-    ///     producidas en un
-    ///     <see cref="ClientBase" />.
+    /// Contiene información de evento para las fallas de conexión
+    /// producidas en un
+    /// <see cref="ClientBase" />.
     /// </summary>
     public class ConnectionFailureEventArgs : EventArgs
     {
         /// <summary>
-        ///     Obtiene un <see cref="IPEndPoint" /> que representa la dirección
-        ///     IP y el número de puerto del host al cual se intentó realizar
-        ///     la conexión.
+        /// Obtiene un <see cref="IPEndPoint" /> que representa la dirección
+        /// IP y el número de puerto del host al cual se intentó realizar
+        /// la conexión.
         /// </summary>
         public IPEndPoint? Address { get; }
 
         /// <summary>
-        ///     Obtiene la excepción producida durante el intento de conexión.
+        /// Obtiene la excepción producida durante el intento de conexión.
         /// </summary>
         public Exception Exception { get; }
 
         /// <summary>
-        ///     Obtiene el nombre del host al cual se intentó realizar la
-        ///     conexión.
+        /// Obtiene el nombre del host al cual se intentó realizar la
+        /// conexión.
         /// </summary>
         public string Host { get; }
 
         /// <summary>
-        ///     Obtiene el número de puerto del host al cual se intentó
-        ///     realizar la conexión.
+        /// Obtiene el número de puerto del host al cual se intentó
+        /// realizar la conexión.
         /// </summary>
         public int Port { get; }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ConnectionFailureEventArgs" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ConnectionFailureEventArgs" />.
         /// </summary>
         /// <param name="exception">
-        ///     Excepción producida durante la falla de conexión.
+        /// Excepción producida durante la falla de conexión.
         /// </param>
         /// <param name="host">
-        ///     Host al cual se intentó realizar la conexión.
+        /// Host al cual se intentó realizar la conexión.
         /// </param>
         /// <param name="port">
-        ///     Puerto de destino del host al cual se intentó realizar la
-        ///     conexión.
+        /// Puerto de destino del host al cual se intentó realizar la
+        /// conexión.
         /// </param>
         public ConnectionFailureEventArgs(Exception exception, string host, in int port)
         {
@@ -85,15 +85,15 @@ namespace TheXDS.MCART.Networking.Client
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ConnectionFailureEventArgs" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ConnectionFailureEventArgs" />.
         /// </summary>
         /// <param name="exception">
-        ///     Excepción producida durante la falla de conexión.
+        /// Excepción producida durante la falla de conexión.
         /// </param>
         /// <param name="address">
-        ///     Dirección IP/puerto de destino del host al cual se intentó
-        ///     realizar la conexión.
+        /// Dirección IP/puerto de destino del host al cual se intentó
+        /// realizar la conexión.
         /// </param>
         public ConnectionFailureEventArgs(Exception exception, IPEndPoint address)
         {
@@ -105,18 +105,18 @@ namespace TheXDS.MCART.Networking.Client
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ConnectionFailureEventArgs" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ConnectionFailureEventArgs" />.
         /// </summary>
         /// <param name="exception">
-        ///     Excepción producida durante la falla de conexión.
+        /// Excepción producida durante la falla de conexión.
         /// </param>
         /// <param name="host">
-        ///     Dirección IP del host al cual se intentó realizar la conexión.
+        /// Dirección IP del host al cual se intentó realizar la conexión.
         /// </param>
         /// <param name="port">
-        ///     Puerto de destino del host al cual se intentó realizar la
-        ///     conexión.
+        /// Puerto de destino del host al cual se intentó realizar la
+        /// conexión.
         /// </param>
         public ConnectionFailureEventArgs(Exception exception, IPAddress host, in int port)
         {

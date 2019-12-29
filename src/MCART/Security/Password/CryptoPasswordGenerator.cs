@@ -30,18 +30,18 @@ namespace TheXDS.MCART.Security.Password
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Generador de contraseñas seguras que utiliza todos los caracteres
-    ///     de UTF-16, tanto caracteres definidos como no definidos.
+    /// Generador de contraseñas seguras que utiliza todos los caracteres
+    /// de UTF-16, tanto caracteres definidos como no definidos.
     /// </summary>
     public sealed class CryptoPasswordGenerator : IPasswordGenerator
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Genera una contraseña utilizando este generador.
+        /// Genera una contraseña utilizando este generador.
         /// </summary>
         /// <returns>
-        ///     Una contraseña generada por este
-        ///     <see cref="T:TheXDS.MCART.Security.Password.IPasswordGenerator" />.
+        /// Una contraseña generada por este
+        /// <see cref="T:TheXDS.MCART.Security.Password.IPasswordGenerator" />.
         /// </returns>
         public SecureString Generate()
         {
@@ -50,14 +50,14 @@ namespace TheXDS.MCART.Security.Password
 
         /// <inheritdoc />
         /// <summary>
-        ///     Genera una contraseña utilizando este generador.
+        /// Genera una contraseña utilizando este generador.
         /// </summary>
         /// <paramref name="length">
-        ///     Longitud deseada de la contraseña a generar.
+        /// Longitud deseada de la contraseña a generar.
         /// </paramref>
         /// <returns>
-        ///     Una contraseña generada por este
-        ///     <see cref="T:TheXDS.MCART.Security.Password.IPasswordGenerator" />.
+        /// Una contraseña generada por este
+        /// <see cref="T:TheXDS.MCART.Security.Password.IPasswordGenerator" />.
         /// </returns>
         public SecureString Generate(int length)
         {
@@ -71,8 +71,8 @@ namespace TheXDS.MCART.Security.Password
         }
 
         /// <summary>
-        ///     Convierte implícitamente un <see cref="CryptoPasswordGenerator"/> en
-        ///     un <see cref="SecureString"/>.
+        /// Convierte implícitamente un <see cref="CryptoPasswordGenerator"/> en
+        /// un <see cref="SecureString"/>.
         /// </summary>
         /// <param name="pwGen">Generador de contraseñas a convertir.</param>
         public static implicit operator SecureString(CryptoPasswordGenerator pwGen)
@@ -81,8 +81,8 @@ namespace TheXDS.MCART.Security.Password
         }
 
         /// <summary>
-        ///     Convierte implícitamente un <see cref="CryptoPasswordGenerator"/> en
-        ///     un <see cref="SecureString"/>.
+        /// Convierte implícitamente un <see cref="CryptoPasswordGenerator"/> en
+        /// un <see cref="SecureString"/>.
         /// </summary>
         /// <param name="pwGen">Generador de contraseñas a convertir.</param>
         public static implicit operator Func<int, SecureString>(CryptoPasswordGenerator pwGen)

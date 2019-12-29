@@ -31,24 +31,24 @@ namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Excepción que se produce cuando un <see cref="Assembly" /> no contiene la clase especificada.
+    /// Excepción que se produce cuando un <see cref="Assembly" /> no contiene la clase especificada.
     /// </summary>
     [Serializable]
     public class PluginClassNotFoundException : OffendingException<Type>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="PluginClassNotFoundException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="PluginClassNotFoundException" />.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="StreamingContext" /> que contiene información
-        ///     contextual acerca del orígen o el destino.
+        /// El <see cref="StreamingContext" /> que contiene información
+        /// contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="SerializationInfo" /> que contiene la información
-        ///     serializada del objeto acerca de la excepción que está siendo
-        ///     lanzada.
+        /// El <see cref="SerializationInfo" /> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
         protected PluginClassNotFoundException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
@@ -56,17 +56,17 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="PluginClassNotFoundException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="PluginClassNotFoundException" />.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="StreamingContext" /> que contiene información
-        ///     contextual acerca del orígen o el destino.
+        /// El <see cref="StreamingContext" /> que contiene información
+        /// contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="SerializationInfo" /> que contiene la información
-        ///     serializada del objeto acerca de la excepción que está siendo
-        ///     lanzada.
+        /// El <see cref="SerializationInfo" /> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
         /// <param name="requiredType">Tipo que fue requerido.</param>
         protected PluginClassNotFoundException(SerializationInfo info, StreamingContext context, Type requiredType) :
@@ -76,8 +76,8 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="PluginClassNotFoundException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="PluginClassNotFoundException" />.
         /// </summary>
         public PluginClassNotFoundException() : base(Msg())
         {
@@ -85,8 +85,8 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="PluginClassNotFoundException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="PluginClassNotFoundException" />.
         /// </summary>
         /// <param name="requiredType">Tipo que fue requerido.</param>
         public PluginClassNotFoundException(Type requiredType) : base(Msg(requiredType), requiredType)
@@ -95,10 +95,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="PluginClassNotFoundException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="PluginClassNotFoundException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         public PluginClassNotFoundException(string message) : base(message)
         {
@@ -106,10 +106,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="PluginClassNotFoundException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="PluginClassNotFoundException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="requiredType">Tipo que fue requerido.</param>
         public PluginClassNotFoundException(string message, Type requiredType) : base(message, requiredType)
@@ -118,10 +118,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="PluginClassNotFoundException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="PluginClassNotFoundException" />.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public PluginClassNotFoundException(Exception inner) : base(Msg(), inner)
         {
@@ -129,10 +129,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="PluginClassNotFoundException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="PluginClassNotFoundException" />.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="requiredType">Tipo que fue requerido.</param>
         public PluginClassNotFoundException(Exception inner, Type requiredType) : base(Msg(requiredType), inner,
@@ -142,13 +142,13 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="PluginClassNotFoundException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="PluginClassNotFoundException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public PluginClassNotFoundException(string message, Exception inner) : base(message, inner)
         {
@@ -156,13 +156,13 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="PluginClassNotFoundException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="PluginClassNotFoundException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="requiredType">Tipo que fue requerido.</param>
         public PluginClassNotFoundException(string message, Exception inner, Type requiredType) : base(message, inner,

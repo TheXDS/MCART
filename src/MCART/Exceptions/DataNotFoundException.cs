@@ -30,34 +30,34 @@ namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Excepción  que se produce al no encontrar los datos solicitados.
+    /// Excepción  que se produce al no encontrar los datos solicitados.
     /// </summary>
     [Serializable]
     public class DataNotFoundException : Exception
     {
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="DataNotFoundException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="DataNotFoundException" />.
         /// </summary>
         /// <param name="info">
-        ///     El objeto que contiene la información de serialización.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
-        ///     La información contextual acerca del orígen o el destino.
+        /// La información contextual acerca del orígen o el destino.
         /// </param>
         protected DataNotFoundException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="DataNotFoundException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="DataNotFoundException" />.
         /// </summary>
         public DataNotFoundException() : base(Strings.DataNotFound)
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="DataNotFoundException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="DataNotFoundException" />.
         /// </summary>
         /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
         public DataNotFoundException(string message) : base(message)
@@ -65,7 +65,7 @@ namespace TheXDS.MCART.Exceptions
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="DataNotFoundException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="DataNotFoundException" />.
         /// </summary>
         /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
         /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>

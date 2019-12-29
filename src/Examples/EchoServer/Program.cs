@@ -67,11 +67,11 @@ namespace TheXDS.MCART.Examples.EchoServer
 
             /// <inheritdoc />
             /// <summary>
-            ///     Protocolo de bienvenida del cliente.
+            /// Protocolo de bienvenida del cliente.
             /// </summary>
             /// <returns>
-            ///     <see langword="true" /> si el cliente fue aceptado por el
-            ///     protocolo, <see langword="false" /> en caso contrario.
+            /// <see langword="true" /> si el cliente fue aceptado por el
+            /// protocolo, <see langword="false" /> en caso contrario.
             /// </returns>
             /// <param name="client">Cliente que será atendido.</param>
             public bool ClientWelcome(Client client)
@@ -82,13 +82,13 @@ namespace TheXDS.MCART.Examples.EchoServer
 
             /// <inheritdoc />
             /// <summary>
-            ///     Inicializa un nuevo cliente manejado por este protocolo.
+            /// Inicializa un nuevo cliente manejado por este protocolo.
             /// </summary>
             /// <param name="tcpClient">
-            ///     <see cref="TcpClient" /> de la conexión con el host remoto.
+            /// <see cref="TcpClient" /> de la conexión con el host remoto.
             /// </param>
             /// <returns>
-            ///     Un nuevo <see cref="Client" />.
+            /// Un nuevo <see cref="Client" />.
             /// </returns>
             public Client CreateClient(TcpClient tcpClient)
             {

@@ -39,51 +39,51 @@ using St = TheXDS.MCART.Resources.Strings;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Extensiones de la clase <see cref="string" />.
+    /// Extensiones de la clase <see cref="string" />.
     /// </summary>
     public static class StringExtensions
     {
         /// <summary>
-        ///     Describe las opciones de búsqueda para el método
-        ///     <see cref="TokenSearch(string, string, SearchOptions)" />
+        /// Describe las opciones de búsqueda para el método
+        /// <see cref="TokenSearch(string, string, SearchOptions)" />
         /// </summary>
         [Flags]
         public enum SearchOptions
         {
             /// <summary>
-            ///     Modo de búsqueda predeterminado. Se ignorará el Casing y la
-            ///     cadena coincidirá con los términos de búsqueda si contiene al
-            ///     menos uno de los tokens.
+            /// Modo de búsqueda predeterminado. Se ignorará el Casing y la
+            /// cadena coincidirá con los términos de búsqueda si contiene al
+            /// menos uno de los tokens.
             /// </summary>
             Default,
 
             /// <summary>
-            ///     Modo sensible al Casing. La cadena coincidirá con los términos
-            ///     de búsqueda si contiene al menos uno de los tokens.
+            /// Modo sensible al Casing. La cadena coincidirá con los términos
+            /// de búsqueda si contiene al menos uno de los tokens.
             /// </summary>
             CaseSensitive = 1,
 
             /// <summary>
-            ///     Modo de búsqueda estricto. Se ignorará el casing, y la cadena
-            ///     coincidirá con los términos de búsqueda si contiene todos los
-            ///     tokens especificados.
+            /// Modo de búsqueda estricto. Se ignorará el casing, y la cadena
+            /// coincidirá con los términos de búsqueda si contiene todos los
+            /// tokens especificados.
             /// </summary>
             IncludeAll = 2,
 
             /// <summary>
-            ///     Interpretar los tokens por medio del operador Like
+            /// Interpretar los tokens por medio del operador Like
             /// </summary>
             WildCard = 4
         }
         
         /// <summary>
-        ///     Elimina una ocurrencia de una cadena a los extremos de otra.
+        /// Elimina una ocurrencia de una cadena a los extremos de otra.
         /// </summary>
         /// <param name="str">Cadena a comprobar.</param>
         /// <param name="toChop">Valor a cortar.</param>
         /// <returns>
-        ///     Una cadena que no empiece ni termine en
-        ///     <paramref name="toChop"/>.
+        /// Una cadena que no empiece ni termine en
+        /// <paramref name="toChop"/>.
         /// </returns>
         public static string Chop(this string str, string toChop)
         {
@@ -91,13 +91,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Elimina una ocurrencia de una cadena a los extremos de otra.
+        /// Elimina una ocurrencia de una cadena a los extremos de otra.
         /// </summary>
         /// <param name="str">Cadena a comprobar.</param>
         /// <param name="toChop">Valor a cortar.</param>
         /// <returns>
-        ///     Una cadena que no empiece ni termine en
-        ///     <paramref name="toChop"/>.
+        /// Una cadena que no empiece ni termine en
+        /// <paramref name="toChop"/>.
         /// </returns>
         public static string ChopAny(this string str, params string[] toChop)
         {
@@ -110,12 +110,12 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Elimina una ocurrencia de una cadena al final de otra.
+        /// Elimina una ocurrencia de una cadena al final de otra.
         /// </summary>
         /// <param name="str">Cadena a comprobar.</param>
         /// <param name="toChop">Valor a cortar.</param>
         /// <returns>
-        ///     Una cadena que no termine en <paramref name="toChop"/>.
+        /// Una cadena que no termine en <paramref name="toChop"/>.
         /// </returns>
         public static string ChopEnd(this string str, string toChop)
         {
@@ -123,12 +123,12 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Elimina una ocurrencia de una cadena al final de otra.
+        /// Elimina una ocurrencia de una cadena al final de otra.
         /// </summary>
         /// <param name="str">Cadena a comprobar.</param>
         /// <param name="toChop">Valores a cortar.</param>
         /// <returns>
-        ///     Una cadena que no termine en <paramref name="toChop"/>.
+        /// Una cadena que no termine en <paramref name="toChop"/>.
         /// </returns>
         public static string ChopEndAny(this string str, params string[] toChop)
         {
@@ -140,12 +140,12 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Elimina una ocurrencia de una cadena al principio de otra.
+        /// Elimina una ocurrencia de una cadena al principio de otra.
         /// </summary>
         /// <param name="str">Cadena a comprobar.</param>
         /// <param name="toChop">Valor a cortar.</param>
         /// <returns>
-        ///     Una cadena que no empiece en <paramref name="toChop"/>.
+        /// Una cadena que no empiece en <paramref name="toChop"/>.
         /// </returns>
         public static string ChopStart(this string str, string toChop)
         {
@@ -153,12 +153,12 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Elimina una ocurrencia de una cadena al principio de otra.
+        /// Elimina una ocurrencia de una cadena al principio de otra.
         /// </summary>
         /// <param name="str">Cadena a comprobar.</param>
         /// <param name="toChop">Valores a cortar.</param>
         /// <returns>
-        ///     Una cadena que no empiece en <paramref name="toChop"/>.
+        /// Una cadena que no empiece en <paramref name="toChop"/>.
         /// </returns>
         public static string ChopStartAny(this string str, params string[] toChop)
         {
@@ -170,8 +170,8 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Trunca la longitud de una cadena a un máximo de
-        ///     <paramref name="length"/> caracteres.
+        /// Trunca la longitud de una cadena a un máximo de
+        /// <paramref name="length"/> caracteres.
         /// </summary>
         /// <param name="str">Cadena a truncar.</param>
         /// <param name="length">Longitud máxima de la cadena.</param>
@@ -188,27 +188,27 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Separa en líneas de hasta 80 caracteres el contenido de una
-        ///     cadena larga.
+        /// Separa en líneas de hasta 80 caracteres el contenido de una
+        /// cadena larga.
         /// </summary>
         /// <param name="str">Cadena a separar.</param>
         /// <returns>
-        ///     Un arreglo de cadenas con el contenido de la cadena original 
-        ///     separado en filas de hasta 80 caracteres.
+        /// Un arreglo de cadenas con el contenido de la cadena original 
+        /// separado en filas de hasta 80 caracteres.
         /// </returns>
         public static string[] TextWrap(this string str) => TextWrap(str, 80);
 
         /// <summary>
-        ///     Separa en líneas el contenido de una cadena larga.
+        /// Separa en líneas el contenido de una cadena larga.
         /// </summary>
         /// <param name="str">Cadena a separar.</param>
         /// <param name="width">
-        ///     Cantidad de caracteres admitidos por fila. de forma
-        ///     predeterminada, es de 80 caracteres por columna.
+        /// Cantidad de caracteres admitidos por fila. de forma
+        /// predeterminada, es de 80 caracteres por columna.
         /// </param>
         /// <returns>
-        ///     Un arreglo de cadenas con el contenido de la cadena original 
-        ///     separado en filas.
+        /// Un arreglo de cadenas con el contenido de la cadena original 
+        /// separado en filas.
         /// </returns>
         public static string[] TextWrap(this string str, int width)
         {
@@ -233,12 +233,12 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Determina si la cadena contiene a cualquiera de los caracteres
-        ///     especificados.
+        /// Determina si la cadena contiene a cualquiera de los caracteres
+        /// especificados.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si la cadena contiene a cualquiera de los caracteres,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si la cadena contiene a cualquiera de los caracteres,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="stringToCheck">Cadena a verificar.</param>
         /// <param name="chars">Caracteres a buscar.</param>
@@ -249,19 +249,19 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Determina si la cadena contiene a cualquiera de los caracteres
-        ///     especificados.
+        /// Determina si la cadena contiene a cualquiera de los caracteres
+        /// especificados.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si la cadena contiene a cualquiera de los caracteres,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si la cadena contiene a cualquiera de los caracteres,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="stringToCheck">Cadena a verificar.</param>
         /// <param name="argNum">
-        ///     Parámetro de salida. Si <paramref name="stringToCheck" /> contiene cualquier
-        ///     carácter especificado en <paramref name="chars" />, se devolverá el
-        ///     índice del argumento contenido; en caso contrario, se devuelve
-        ///     <c>-1</c>.
+        /// Parámetro de salida. Si <paramref name="stringToCheck" /> contiene cualquier
+        /// carácter especificado en <paramref name="chars" />, se devolverá el
+        /// índice del argumento contenido; en caso contrario, se devuelve
+        /// <c>-1</c>.
         /// </param>
         /// <param name="chars">Caracteres a buscar.</param>
         public static bool ContainsAny(this string stringToCheck, out int argNum, params char[] chars)
@@ -270,19 +270,19 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Determina si la cadena contiene a cualquiera de los caracteres
-        ///     especificados.
+        /// Determina si la cadena contiene a cualquiera de los caracteres
+        /// especificados.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si la cadena contiene a cualquiera de los caracteres,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si la cadena contiene a cualquiera de los caracteres,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="stringToCheck">Cadena a verificar.</param>
         /// <param name="argNum">
-        ///     Parámetro de salida. Si <paramref name="stringToCheck" /> contiene cualquier
-        ///     carácter especificado en <paramref name="chars" />, se devolverá el
-        ///     índice del argumento contenido; en caso contrario, se devuelve
-        ///     <c>-1</c>.
+        /// Parámetro de salida. Si <paramref name="stringToCheck" /> contiene cualquier
+        /// carácter especificado en <paramref name="chars" />, se devolverá el
+        /// índice del argumento contenido; en caso contrario, se devuelve
+        /// <c>-1</c>.
         /// </param>
         /// <param name="chars">Caracteres a buscar.</param>
         public static bool ContainsAny(this string stringToCheck, IEnumerable<char> chars, out int argNum)
@@ -299,12 +299,12 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Determina si la cadena contiene a cualquiera de las cadenas
-        ///     especificadas.
+        /// Determina si la cadena contiene a cualquiera de las cadenas
+        /// especificadas.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si la cadena contiene a cualquiera de los caracteres,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si la cadena contiene a cualquiera de los caracteres,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="stringToCheck">Cadena a verificar.</param>
         /// <param name="strings">Cadenas a buscar.</param>
@@ -315,12 +315,12 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Determina si la cadena contiene a cualquiera de las cadenas
-        ///     especificadas.
+        /// Determina si la cadena contiene a cualquiera de las cadenas
+        /// especificadas.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si la cadena contiene a cualquiera de los caracteres,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si la cadena contiene a cualquiera de los caracteres,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="stringToCheck">Cadena a verificar.</param>
         /// <param name="strings">Cadenas a buscar.</param>
@@ -331,19 +331,19 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Determina si la cadena contiene a cualquiera de las cadenas
-        ///     especificadas.
+        /// Determina si la cadena contiene a cualquiera de las cadenas
+        /// especificadas.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si la cadena contiene a cualquiera de los caracteres,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si la cadena contiene a cualquiera de los caracteres,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="stringToCheck">Cadena a verificar.</param>
         /// <param name="argNum">
-        ///     Parámetro de salida. Si <paramref name="stringToCheck" /> contiene cualquier
-        ///     carácter especificado en <paramref name="strings" />, se devolverá
-        ///     el índice del argumento contenido; en caso contrario, se devuelve
-        ///     <c>-1</c>.
+        /// Parámetro de salida. Si <paramref name="stringToCheck" /> contiene cualquier
+        /// carácter especificado en <paramref name="strings" />, se devolverá
+        /// el índice del argumento contenido; en caso contrario, se devuelve
+        /// <c>-1</c>.
         /// </param>
         /// <param name="strings">Cadenas a buscar.</param>
         public static bool ContainsAny(this string stringToCheck, out int argNum, params string[] strings)
@@ -352,19 +352,19 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Determina si la cadena contiene a cualquiera de las cadenas
-        ///     especificadas.
+        /// Determina si la cadena contiene a cualquiera de las cadenas
+        /// especificadas.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si la cadena contiene a cualquiera de los caracteres,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si la cadena contiene a cualquiera de los caracteres,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="stringToCheck">Cadena a verificar.</param>
         /// <param name="argNum">
-        ///     Parámetro de salida. Si <paramref name="stringToCheck" /> contiene cualquier
-        ///     carácter especificado en <paramref name="strings" />, se devolverá
-        ///     el índice del argumento contenido; en caso contrario, se devuelve
-        ///     <c>-1</c>.
+        /// Parámetro de salida. Si <paramref name="stringToCheck" /> contiene cualquier
+        /// carácter especificado en <paramref name="strings" />, se devolverá
+        /// el índice del argumento contenido; en caso contrario, se devuelve
+        /// <c>-1</c>.
         /// </param>
         /// <param name="strings">Cadenas a buscar.</param>
         public static bool ContainsAny(this string stringToCheck, IEnumerable<string> strings, out int argNum)
@@ -381,11 +381,11 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Verifica si la cadena contiene letras.
+        /// Verifica si la cadena contiene letras.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si la cadena contiene letras: de lo contrario,
-        ///     <see langword="false" />.
+        /// <see langword="true" /> si la cadena contiene letras: de lo contrario,
+        /// <see langword="false" />.
         /// </returns>
         /// <param name="stringToCheck">Cadena a comprobar.</param>
         public static bool ContainsLetters(this string stringToCheck)
@@ -394,19 +394,19 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Verifica si la cadena contiene letras.
+        /// Verifica si la cadena contiene letras.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si la cadena contiene letras: de lo contrario,
-        ///     <see langword="false" />.
+        /// <see langword="true" /> si la cadena contiene letras: de lo contrario,
+        /// <see langword="false" />.
         /// </returns>
         /// <param name="stringToCheck">Cadena a comprobar.</param>
         /// <param name="ucase">
-        ///     Opcional. Especifica el tipo de comprobación a realizar. Si es
-        ///     <see langword="true" />, Se tomarán en cuenta únicamente los caracteres en
-        ///     mayúsculas, si es <see langword="false" />, se tomarán en cuenta unicamente  los
-        ///     caracteres en minúsculas. Si se omite o se establece en <see langword="null" />,
-        ///     se tomarán en cuenta ambos casos.
+        /// Opcional. Especifica el tipo de comprobación a realizar. Si es
+        /// <see langword="true" />, Se tomarán en cuenta únicamente los caracteres en
+        /// mayúsculas, si es <see langword="false" />, se tomarán en cuenta unicamente  los
+        /// caracteres en minúsculas. Si se omite o se establece en <see langword="null" />,
+        /// se tomarán en cuenta ambos casos.
         /// </param>
         public static bool ContainsLetters(this string stringToCheck, bool ucase)
         {
@@ -414,11 +414,11 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Comprueba si la cadena contiene números
+        /// Comprueba si la cadena contiene números
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si la cadena contiene números; de lo contrario,
-        ///     <see langword="false" />.
+        /// <see langword="true" /> si la cadena contiene números; de lo contrario,
+        /// <see langword="false" />.
         /// </returns>
         /// <param name="stringToCheck">Cadena a comprobar.</param>
         public static bool ContainsNumbers(this string stringToCheck)
@@ -432,18 +432,18 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Comprueba si un nombre podría tratarse de otro indicado.
+        /// Comprueba si un nombre podría tratarse de otro indicado.
         /// </summary>
         /// <returns>
-        ///     Un valor porcentual que representa la probabilidad de que
-        ///     <paramref name="checkName" /> haga referencia al nombre
-        ///     <paramref name="actualName" />.
+        /// Un valor porcentual que representa la probabilidad de que
+        /// <paramref name="checkName" /> haga referencia al nombre
+        /// <paramref name="actualName" />.
         /// </returns>
         /// <param name="checkName">Nombre a comprobar.</param>
         /// <param name="actualName">Nombre real conocido.</param>
         /// <exception cref="ArgumentNullException">
-        ///     Se produce cuando <paramref name="checkName" /> o
-        ///     <paramref name="actualName" /> son cadenas vacías o <see langword="null" />.
+        /// Se produce cuando <paramref name="checkName" /> o
+        /// <paramref name="actualName" /> son cadenas vacías o <see langword="null" />.
         /// </exception>
         public static float CouldItBe(this string checkName, string actualName)
         {
@@ -451,27 +451,27 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Comprueba si un nombre podría tratarse de otro indicado.
+        /// Comprueba si un nombre podría tratarse de otro indicado.
         /// </summary>
         /// <returns>
-        ///     Un valor que representa la probabilidad de que
-        ///     <paramref name="checkName" /> haga referencia al nombre
-        ///     <paramref name="actualName" />.
+        /// Un valor que representa la probabilidad de que
+        /// <paramref name="checkName" /> haga referencia al nombre
+        /// <paramref name="actualName" />.
         /// </returns>
         /// <param name="checkName">Nombre a comprobar.</param>
         /// <param name="actualName">Nombre real conocido.</param>
         /// <param name="tolerance">
-        ///     Opcional. <see cref="float" /> entre 0.0 y 1.0 que establece el
-        ///     nivel mínimo de similitud aceptado. si no se especifica, se asume
-        ///     75% (0.75).
+        /// Opcional. <see cref="float" /> entre 0.0 y 1.0 que establece el
+        /// nivel mínimo de similitud aceptado. si no se especifica, se asume
+        /// 75% (0.75).
         /// </param>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///     Se produce cuando <paramref name="tolerance" /> no es un valor entre
-        ///     <c>0.0f</c> y <c>1.0f</c>.
+        /// Se produce cuando <paramref name="tolerance" /> no es un valor entre
+        /// <c>0.0f</c> y <c>1.0f</c>.
         /// </exception>
         /// <exception cref="ArgumentNullException">
-        ///     Se produce cuando <paramref name="checkName" /> o
-        ///     <paramref name="actualName" /> son cadenas vacías o <see langword="null" />.
+        /// Se produce cuando <paramref name="checkName" /> o
+        /// <paramref name="actualName" /> son cadenas vacías o <see langword="null" />.
         /// </exception>
         public static float CouldItBe(this string checkName, string actualName, float tolerance)
         {
@@ -490,11 +490,11 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Cuenta los caracteres que contiene una cadena.
+        /// Cuenta los caracteres que contiene una cadena.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="int" /> con la cantidad total de caracteres de
-        ///     <paramref name="chars" /> que aparecen en <paramref name="stringToCheck" />.
+        /// Un <see cref="int" /> con la cantidad total de caracteres de
+        /// <paramref name="chars" /> que aparecen en <paramref name="stringToCheck" />.
         /// </returns>
         /// <param name="stringToCheck">Cadena a comprobar.</param>
         /// <param name="chars">Caracteres a contar.</param>
@@ -504,12 +504,12 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Cuenta los caracteres que contiene una cadena.
+        /// Cuenta los caracteres que contiene una cadena.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="int" /> con la cantidad total de
-        ///     caracteres de <paramref name="chars" /> que aparecen en
-        ///     <paramref name="stringToCheck" />.
+        /// Un <see cref="int" /> con la cantidad total de
+        /// caracteres de <paramref name="chars" /> que aparecen en
+        /// <paramref name="stringToCheck" />.
         /// </returns>
         /// <param name="stringToCheck">Cadena a comprobar.</param>
         /// <param name="chars">Caracteres a contar.</param>
@@ -522,49 +522,49 @@ namespace TheXDS.MCART.Types.Extensions
         /// <author>H.A. Sullivan</author>
         /// <date>04/11/2016</date>
         /// <summary>
-        ///     Comprueba si una cadena coincide con un WildCard especificado.
+        /// Comprueba si una cadena coincide con un WildCard especificado.
         /// </summary>
         /// <license>
-        ///     MIT License
-        ///     Copyright(c) [2016]
-        ///     [H.A. Sullivan]
-        ///     Permission is hereby granted, free of charge, to any person obtaining a copy
-        ///     of this software and associated documentation files (the "Software"), to deal
-        ///     in the Software without restriction, including without limitation the rights
-        ///     to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-        ///     copies of the Software, and to permit persons to whom the Software is
-        ///     furnished to do so, subject to the following conditions:
-        ///     The above copyright notice and this permission notice shall be included in all
-        ///     copies or substantial portions of the Software.
-        ///     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-        ///     IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-        ///     FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
-        ///     AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-        ///     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-        ///     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-        ///     SOFTWARE.
+        /// MIT License
+        /// Copyright(c) [2016]
+        /// [H.A. Sullivan]
+        /// Permission is hereby granted, free of charge, to any person obtaining a copy
+        /// of this software and associated documentation files (the "Software"), to deal
+        /// in the Software without restriction, including without limitation the rights
+        /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        /// copies of the Software, and to permit persons to whom the Software is
+        /// furnished to do so, subject to the following conditions:
+        /// The above copyright notice and this permission notice shall be included in all
+        /// copies or substantial portions of the Software.
+        /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        /// FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+        /// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        /// SOFTWARE.
         /// </license>
         /// <param name="text">
-        ///     Cadena a comprobar.
+        /// Cadena a comprobar.
         /// </param>
         /// <param name="wildcardString">
-        ///     WildCard contra el cual comprobar.
+        /// WildCard contra el cual comprobar.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si la cadena coincide con el Wildcard
-        ///     especificado, <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si la cadena coincide con el Wildcard
+        /// especificado, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <remarks>
-        ///     Versión original del algoritmo por H.A. Sullivan, bajo licencia MIT.
-        ///     <h1>Cambios en esta versión:</h1>
-        ///     <list type="bullet">
-        ///         <item>
-        ///             <description>Optimizaciones sugeridas por ReSharper.</description>
-        ///         </item>
-        ///         <item>
-        ///             <description>Traducción de documentación.</description>
-        ///         </item>
-        ///     </list>
+        /// Versión original del algoritmo por H.A. Sullivan, bajo licencia MIT.
+        /// <h1>Cambios en esta versión:</h1>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <description>Optimizaciones sugeridas por ReSharper.</description>
+        ///     </item>
+        ///     <item>
+        ///         <description>Traducción de documentación.</description>
+        ///     </item>
+        /// </list>
         /// </remarks>
         public static bool EqualsWildcard(this string text, string wildcardString)
         {
@@ -749,13 +749,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Determina si una cadena contiene un valor binario.
+        /// Determina si una cadena contiene un valor binario.
         /// </summary>
         /// <param name="str">cadena a comprobar.</param>
         /// <returns>
-        ///     <see langword="true" /> si la cadena contiene un valor que puede
-        ///     ser interpretado como un número binario,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si la cadena contiene un valor que puede
+        /// ser interpretado como un número binario,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         public static bool IsBinary(this string str)
         {
@@ -765,11 +765,11 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Determina si una cadena está vacía.
+        /// Determina si una cadena está vacía.
         /// </summary>
         /// <returns>
-        ///     <see langword="true" /> si la cadena está vacía o es <see langword="null" />; de lo
-        ///     contrario, <see langword="false" />.
+        /// <see langword="true" /> si la cadena está vacía o es <see langword="null" />; de lo
+        /// contrario, <see langword="false" />.
         /// </returns>
         /// <param name="stringToCheck">Cadena a comprobar.</param>
         [Sugar]
@@ -779,16 +779,16 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Comprueba si la cadena tiene un formato alfanumérico básico igual
-        ///     al especificado.
+        /// Comprueba si la cadena tiene un formato alfanumérico básico igual
+        /// al especificado.
         /// </summary>
         /// <param name="checkString"><see cref="string" /> a comprobar.</param>
         /// <param name="format">
-        ///     Formato alfanumérico básico contra el cual comparar.
+        /// Formato alfanumérico básico contra el cual comparar.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el formato de la cadena es igual al
-        ///     especificado, <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si el formato de la cadena es igual al
+        /// especificado, <see langword="false" /> en caso contrario.
         /// </returns>
         public static bool IsFormattedAs(this string checkString, string format)
         {
@@ -796,20 +796,20 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Comprueba si la cadena tiene un formato alfanumérico básico igual
-        ///     al especificado.
+        /// Comprueba si la cadena tiene un formato alfanumérico básico igual
+        /// al especificado.
         /// </summary>
         /// <param name="checkString"><see cref="string" /> a comprobar.</param>
         /// <param name="format">
-        ///     Formato alfanumérico básico contra el cual comparar.
+        /// Formato alfanumérico básico contra el cual comparar.
         /// </param>
         /// <param name="checkCase">
-        ///     Si se establece en <see langword="true" />, se hará una evaluación
-        ///     sensible al Casing de la cadena.
+        /// Si se establece en <see langword="true" />, se hará una evaluación
+        /// sensible al Casing de la cadena.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el formato de la cadena es igual al
-        ///     especificado, <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si el formato de la cadena es igual al
+        /// especificado, <see langword="false" /> en caso contrario.
         /// </returns>
         public static bool IsFormattedAs(this string checkString, string format, bool checkCase)
         {
@@ -852,13 +852,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Determina si una cadena contiene un valor hexadecimal.
+        /// Determina si una cadena contiene un valor hexadecimal.
         /// </summary>
         /// <param name="str">cadena a comprobar.</param>
         /// <returns>
-        ///     <see langword="true" /> si la cadena contiene un valor que puede
-        ///     ser interpretado como un número hexadecimal,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si la cadena contiene un valor que puede
+        /// ser interpretado como un número hexadecimal,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         public static bool IsHex(this string str)
         {
@@ -867,16 +867,16 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Obtiene una cadena que contenga la cantidad de caracteres
-        ///     especificados desde la izquierda de la cadena.
+        /// Obtiene una cadena que contenga la cantidad de caracteres
+        /// especificados desde la izquierda de la cadena.
         /// </summary>
         /// <param name="string">
-        ///     Instancia de <see cref="string" /> a procesar.
+        /// Instancia de <see cref="string" /> a procesar.
         /// </param>
         /// <param name="length">Longitud de caracteres a obtener.</param>
         /// <returns>
-        ///     Una cadena que contiene los caracteres especificados desde la
-        ///     izquierda de la cadena.
+        /// Una cadena que contiene los caracteres especificados desde la
+        /// izquierda de la cadena.
         /// </returns>
         public static string Left(this string @string, int length)
         {
@@ -886,7 +886,7 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Calcula el porcentaje de similitud entre dos <see cref="string" />.
+        /// Calcula el porcentaje de similitud entre dos <see cref="string" />.
         /// </summary>
         /// <returns>El porcentaje de similitud entre las dos cadenas.</returns>
         /// <param name="ofString">Cadena A a comparar.</param>
@@ -897,15 +897,15 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Calcula el porcentaje de similitud entre dos <see cref="string" />.
+        /// Calcula el porcentaje de similitud entre dos <see cref="string" />.
         /// </summary>
         /// <returns>El porcentaje de similitud entre las dos cadenas.</returns>
         /// <param name="ofString">Cadena A a comparar.</param>
         /// <param name="toString">Cadena B a comparar.</param>
         /// <param name="tolerance">
-        ///     Rango de tolerancia de la comparación. Representa la distancia
-        ///     máxima permitida de cada carácter que todavía hace a las cadenas
-        ///     similares.
+        /// Rango de tolerancia de la comparación. Representa la distancia
+        /// máxima permitida de cada carácter que todavía hace a las cadenas
+        /// similares.
         /// </param>
         public static float Likeness(this string ofString, string toString, int tolerance)
         {
@@ -919,13 +919,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Se asegura de devolver <see cref="string.Empty" /> si la cadena
-        ///     está vacía.
+        /// Se asegura de devolver <see cref="string.Empty" /> si la cadena
+        /// está vacía.
         /// </summary>
         /// <param name="str">Cadena a devolver.</param>
         /// <returns>
-        ///     La cadena, o <see cref="string.Empty" /> si la cadena está
-        ///     vacía.
+        /// La cadena, o <see cref="string.Empty" /> si la cadena está
+        /// vacía.
         /// </returns>
         public static string OrEmpty(this string str)
         {
@@ -933,17 +933,17 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Se asegura de devolver <see cref="string.Empty" /> si la cadena
-        ///     está vacía.
+        /// Se asegura de devolver <see cref="string.Empty" /> si la cadena
+        /// está vacía.
         /// </summary>
         /// <param name="str">Cadena a devolver.</param>
         /// <param name="notEmptyFormat">
-        ///     Formato a aplicar en caso de que la cadena no sea
-        ///     <see cref="string.Empty" />.
+        /// Formato a aplicar en caso de que la cadena no sea
+        /// <see cref="string.Empty" />.
         /// </param>
         /// <returns>
-        ///     La cadena, o <see cref="string.Empty" /> si la cadena está
-        ///     vacía.
+        /// La cadena, o <see cref="string.Empty" /> si la cadena está
+        /// vacía.
         /// </returns>
         public static string OrEmpty(this string str, string notEmptyFormat)
         {
@@ -951,12 +951,12 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Se asegura de devolver <see langword="null" /> si la cadena
-        ///     está vacía.
+        /// Se asegura de devolver <see langword="null" /> si la cadena
+        /// está vacía.
         /// </summary>
         /// <param name="str">Cadena a devolver.</param>
         /// <returns>
-        ///     La cadena, o <see langword="null" /> si la cadena está vacía.
+        /// La cadena, o <see langword="null" /> si la cadena está vacía.
         /// </returns>
 
 #if NETCOREAPP3_0 || NETSTANDARD2_1
@@ -969,16 +969,16 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Se asegura de devolver <see langword="null" /> si la cadena
-        ///     está vacía.
+        /// Se asegura de devolver <see langword="null" /> si la cadena
+        /// está vacía.
         /// </summary>
         /// <param name="str">Cadena a devolver.</param>
         /// <param name="notNullFormat">
-        ///     Formato a aplicar en caso de que la cadena no sea
-        ///     <see langword="null" />.
+        /// Formato a aplicar en caso de que la cadena no sea
+        /// <see langword="null" />.
         /// </param>
         /// <returns>
-        ///     La cadena, o <see langword="null" /> si la cadena está vacía.
+        /// La cadena, o <see langword="null" /> si la cadena está vacía.
         /// </returns>
         public static string? OrNull(this string? str, string notNullFormat)
         {
@@ -991,16 +991,16 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Obtiene una cadena que contenga la cantidad de caracteres
-        ///     especificados desde la izquierda de la cadena.
+        /// Obtiene una cadena que contenga la cantidad de caracteres
+        /// especificados desde la izquierda de la cadena.
         /// </summary>
         /// <param name="string">
-        ///     Instancia de <see cref="string" /> a procesar.
+        /// Instancia de <see cref="string" /> a procesar.
         /// </param>
         /// <param name="length">Longitud de caracteres a obtener.</param>
         /// <returns>
-        ///     Una cadena que contiene los caracteres especificados desde la
-        ///     izquierda de la cadena.
+        /// Una cadena que contiene los caracteres especificados desde la
+        /// izquierda de la cadena.
         /// </returns>
         public static string Right(this string @string, int length)
         {
@@ -1010,14 +1010,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Separa cada carácter de una cadena con el <see cref="char" />
-        ///     especificado.
+        /// Separa cada carácter de una cadena con el <see cref="char" />
+        /// especificado.
         /// </summary>
         /// <param name="str">Cadena a procesar.</param>
         /// <param name="separationChar">Carácter de separación a utilizar.</param>
         /// <returns>
-        ///     Una cadena cuyos caracteres han sido separados con el
-        ///     <see cref="char" /> especificado.
+        /// Una cadena cuyos caracteres han sido separados con el
+        /// <see cref="char" /> especificado.
         /// </returns>
         public static string Separate(this string str, char separationChar)
         {
@@ -1038,11 +1038,11 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Separa cada carácter de una cadena con un espacio en blanco.
+        /// Separa cada carácter de una cadena con un espacio en blanco.
         /// </summary>
         /// <param name="str">Cadena a procesar.</param>
         /// <returns>
-        ///     Una cadena cuyos caracteres han sido separados con un espacio en blanco.
+        /// Una cadena cuyos caracteres han sido separados con un espacio en blanco.
         /// </returns>
         public static string Spell(this string str)
         {
@@ -1050,17 +1050,17 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Determina si la cadena inicia con cualquiera de las cadenas
-        ///     especificadas.
+        /// Determina si la cadena inicia con cualquiera de las cadenas
+        /// especificadas.
         /// </summary>
         /// <param name="str">Cadena a comprobar.</param>
         /// <param name="strings">
-        ///     Colección de cadenas iniciales a determinar.
+        /// Colección de cadenas iniciales a determinar.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si la cadena comienza cun cualquiera de
-        ///     las cadenas especificadas, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si la cadena comienza cun cualquiera de
+        /// las cadenas especificadas, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool StartsWithAny(this string str, IEnumerable<string> strings)
         {
@@ -1068,17 +1068,17 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Determina si la cadena inicia con cualquiera de las cadenas
-        ///     especificadas.
+        /// Determina si la cadena inicia con cualquiera de las cadenas
+        /// especificadas.
         /// </summary>
         /// <param name="str">Cadena a comprobar.</param>
         /// <param name="strings">
-        ///     Colección de cadenas iniciales a determinar.
+        /// Colección de cadenas iniciales a determinar.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si la cadena comienza cun cualquiera de
-        ///     las cadenas especificadas, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si la cadena comienza cun cualquiera de
+        /// las cadenas especificadas, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool StartsWithAny(this string str, params string[] strings)
         {
@@ -1086,23 +1086,23 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Determina si la cadena inicia con cualquiera de las cadenas
-        ///     especificadas.
+        /// Determina si la cadena inicia con cualquiera de las cadenas
+        /// especificadas.
         /// </summary>
         /// <param name="str">Cadena a comprobar.</param>
         /// <param name="strings">
-        ///     Colección de cadenas iniciales a determinar.
+        /// Colección de cadenas iniciales a determinar.
         /// </param>
         /// <param name="ignoreCase">
-        ///     Si se establece en <see langword="true" />, se tomarán en cuenta
-        ///     mayúsculas y minúsculas como iguales, si se establece en
-        ///     <see langword="false" />, se tomará en cuenta el casing de los
-        ///     caracteres de las cadenas.
+        /// Si se establece en <see langword="true" />, se tomarán en cuenta
+        /// mayúsculas y minúsculas como iguales, si se establece en
+        /// <see langword="false" />, se tomará en cuenta el casing de los
+        /// caracteres de las cadenas.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si la cadena comienza cun cualquiera de
-        ///     las cadenas especificadas, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si la cadena comienza cun cualquiera de
+        /// las cadenas especificadas, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool StartsWithAny(this string str, IEnumerable<string> strings, bool ignoreCase)
         {
@@ -1110,26 +1110,26 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Determina si la cadena inicia con cualquiera de las cadenas
-        ///     especificadas.
+        /// Determina si la cadena inicia con cualquiera de las cadenas
+        /// especificadas.
         /// </summary>
         /// <param name="str">Cadena a comprobar.</param>
         /// <param name="strings">
-        ///     Colección de cadenas iniciales a determinar.
+        /// Colección de cadenas iniciales a determinar.
         /// </param>
         /// <param name="ignoreCase">
-        ///     Si se establece en <see langword="true" />, se tomarán en cuenta
-        ///     mayúsculas y minúsculas como iguales, si se establece en
-        ///     <see langword="false" />, se tomará en cuenta el casing de los
-        ///     caracteres de las cadenas.
+        /// Si se establece en <see langword="true" />, se tomarán en cuenta
+        /// mayúsculas y minúsculas como iguales, si se establece en
+        /// <see langword="false" />, se tomará en cuenta el casing de los
+        /// caracteres de las cadenas.
         /// </param>
         /// <param name="culture">
-        ///     Determina la cultura a utilizar para realizar la comprobación.
+        /// Determina la cultura a utilizar para realizar la comprobación.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si la cadena comienza cun cualquiera de
-        ///     las cadenas especificadas, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si la cadena comienza cun cualquiera de
+        /// las cadenas especificadas, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool StartsWithAny(this string str, IEnumerable<string> strings, bool ignoreCase,
             CultureInfo culture)
@@ -1138,21 +1138,21 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Determina si la cadena inicia con cualquiera de las cadenas
-        ///     especificadas.
+        /// Determina si la cadena inicia con cualquiera de las cadenas
+        /// especificadas.
         /// </summary>
         /// <param name="str">Cadena a comprobar.</param>
         /// <param name="strings">
-        ///     Colección de cadenas iniciales a determinar.
+        /// Colección de cadenas iniciales a determinar.
         /// </param>
         /// <param name="comparison">
-        ///     Especifica la cultura, casing y reglas de ordenado a utilizar
-        ///     para realizar la comprobación.
+        /// Especifica la cultura, casing y reglas de ordenado a utilizar
+        /// para realizar la comprobación.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si la cadena comienza cun cualquiera de
-        ///     las cadenas especificadas, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si la cadena comienza cun cualquiera de
+        /// las cadenas especificadas, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool StartsWithAny(this string str, IEnumerable<string> strings, StringComparison comparison)
         {
@@ -1160,18 +1160,18 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Realiza una búsqueda tokenizada sobre la cadena especificada.
+        /// Realiza una búsqueda tokenizada sobre la cadena especificada.
         /// </summary>
         /// <param name="str">
-        ///     Cadena en la cual buscar.
+        /// Cadena en la cual buscar.
         /// </param>
         /// <param name="searchTerms">
-        ///     Términos de búsqueda.
+        /// Términos de búsqueda.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si la cadena coincide con los términos de
-        ///     búsqueda especificados, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si la cadena coincide con los términos de
+        /// búsqueda especificados, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool TokenSearch(this string str, string searchTerms)
         {
@@ -1179,21 +1179,21 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Realiza una búsqueda tokenizada sobre la cadena especificada.
+        /// Realiza una búsqueda tokenizada sobre la cadena especificada.
         /// </summary>
         /// <param name="str">
-        ///     Cadena en la cual buscar.
+        /// Cadena en la cual buscar.
         /// </param>
         /// <param name="searchTerms">
-        ///     Términos de búsqueda.
+        /// Términos de búsqueda.
         /// </param>
         /// <param name="options">
-        ///     Opciones de búsqueda.
+        /// Opciones de búsqueda.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si la cadena coincide con los términos de
-        ///     búsqueda y las opciones especificadas, <see langword="false" /> en
-        ///     caso contrario.
+        /// <see langword="true" /> si la cadena coincide con los términos de
+        /// búsqueda y las opciones especificadas, <see langword="false" /> en
+        /// caso contrario.
         /// </returns>
         public static bool TokenSearch(this string str, string searchTerms, SearchOptions options)
         {
@@ -1201,24 +1201,24 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Realiza una búsqueda tokenizada sobre la cadena especificada.
+        /// Realiza una búsqueda tokenizada sobre la cadena especificada.
         /// </summary>
         /// <param name="str">
-        ///     Cadena en la cual buscar.
+        /// Cadena en la cual buscar.
         /// </param>
         /// <param name="searchTerms">
-        ///     Términos de búsqueda.
+        /// Términos de búsqueda.
         /// </param>
         /// <param name="separator">
-        ///     Separador de tokens.
+        /// Separador de tokens.
         /// </param>
         /// <param name="options">
-        ///     Opciones de búsqueda.
+        /// Opciones de búsqueda.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si la cadena coincide con los términos de
-        ///     búsqueda y las opciones especificadas, <see langword="false" /> en
-        ///     caso contrario.
+        /// <see langword="true" /> si la cadena coincide con los términos de
+        /// búsqueda y las opciones especificadas, <see langword="false" /> en
+        /// caso contrario.
         /// </returns>
         public static bool TokenSearch(this string str, string searchTerms, char separator, SearchOptions options)
         {
@@ -1237,12 +1237,12 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Convierte un <see cref="string" /> en un <see cref="SecureString" />.
+        /// Convierte un <see cref="string" /> en un <see cref="SecureString" />.
         /// </summary>
         /// <param name="string"><see cref="string" /> a convertir.</param>
         /// <returns>
-        ///     Un <see cref="SecureString" /> que contiene todos los caracteres
-        ///     originales de la cadena provista.
+        /// Un <see cref="SecureString" /> que contiene todos los caracteres
+        /// originales de la cadena provista.
         /// </returns>
         public static SecureString ToSecureString(this string @string)
         {
@@ -1252,13 +1252,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Permite obtener el contenido de un <see cref="string" /> como un
-        ///     <see cref="Stream" /> utilizando la codificación especificada.
+        /// Permite obtener el contenido de un <see cref="string" /> como un
+        /// <see cref="Stream" /> utilizando la codificación especificada.
         /// </summary>
         /// <param name="string">Cadena a convertir.</param>
         /// <param name="encoding">Codificación de cadena.</param>
         /// <returns>
-        ///     Un <see cref="Stream" /> con el contenido de la cadena.
+        /// Un <see cref="Stream" /> con el contenido de la cadena.
         /// </returns>
         public static Stream ToStream(this string @string, Encoding encoding)
         {
@@ -1266,18 +1266,18 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Permite obtener el contenido de un <see cref="string" /> como un
-        ///     <see cref="Stream" /> utilizando la codificación UTF8.
+        /// Permite obtener el contenido de un <see cref="string" /> como un
+        /// <see cref="Stream" /> utilizando la codificación UTF8.
         /// </summary>
         /// <param name="string">Cadena a convertir.</param>
         /// <returns>
-        ///     Un <see cref="Stream" /> con el contenido de la cadena.
+        /// Un <see cref="Stream" /> con el contenido de la cadena.
         /// </returns>
         /// <remarks>
-        ///     A pesar de que las cadenas en .Net Framework son UTF16, ciertas
-        ///     funciones comunes prefieren trabajar con cadenas codificadas en
-        ///     UTF8, por lo que este método utiliza dicha codificación para
-        ///     realizar la conversión.
+        /// A pesar de que las cadenas en .Net Framework son UTF16, ciertas
+        /// funciones comunes prefieren trabajar con cadenas codificadas en
+        /// UTF8, por lo que este método utiliza dicha codificación para
+        /// realizar la conversión.
         /// </remarks>
         public static Stream ToStream(this string @string)
         {
@@ -1285,17 +1285,17 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Devuelve una nueva cadena sin los caracteres especificados.
+        /// Devuelve una nueva cadena sin los caracteres especificados.
         /// </summary>
         /// <param name="string">
-        ///     Cadena a procesar.
+        /// Cadena a procesar.
         /// </param>
         /// <param name="chars">
-        ///     Caracteres a remover.
+        /// Caracteres a remover.
         /// </param>
         /// <returns>
-        ///     Una cadena que no contiene ninguno de los caracteres
-        ///     especificados.
+        /// Una cadena que no contiene ninguno de los caracteres
+        /// especificados.
         /// </returns>
         public static string Without(this string @string, params char[] chars)
         {
@@ -1303,17 +1303,17 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Devuelve una nueva cadena sin las cadenas especificadas.
+        /// Devuelve una nueva cadena sin las cadenas especificadas.
         /// </summary>
         /// <param name="string">
-        ///     Cadena a procesar.
+        /// Cadena a procesar.
         /// </param>
         /// <param name="strings">
-        ///     Cadenas a remover.
+        /// Cadenas a remover.
         /// </param>
         /// <returns>
-        ///     Una cadena que no contiene ninguno de las cadenas
-        ///     especificadas.
+        /// Una cadena que no contiene ninguno de las cadenas
+        /// especificadas.
         /// </returns>
         public static string Without(this string @string, params string[] strings)
         {

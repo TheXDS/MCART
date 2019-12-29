@@ -29,54 +29,54 @@ using TheXDS.MCART.Resources;
 namespace TheXDS.MCART.Exceptions
 {
     /// <summary>
-    ///     Excepción que se produce cuando se llama a un método de un
-    ///     <see cref="PluginSupport.Legacy.Plugin" /> sin inicializar
+    /// Excepción que se produce cuando se llama a un método de un
+    /// <see cref="PluginSupport.Legacy.Plugin" /> sin inicializar
     /// </summary>
     [Serializable]
     public class PluginNotInitializedException : Exception
     {
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="PluginNotInitializedException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="PluginNotInitializedException" />.
         /// </summary>
         /// <param name="info">
-        ///     El objeto que contiene la información de serialización.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
-        ///     La información contextual acerca del orígen o el destino.
+        /// La información contextual acerca del orígen o el destino.
         /// </param>
         protected PluginNotInitializedException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase 
-        ///     <see cref="PluginNotInitializedException" />.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="PluginNotInitializedException" />.
         /// </summary>
         public PluginNotInitializedException() : base(Strings.XNotInit(Strings.ThePlugin))
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="PluginNotInitializedException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="PluginNotInitializedException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         public PluginNotInitializedException(string message) : base(message)
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="PluginNotInitializedException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="PluginNotInitializedException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public PluginNotInitializedException(string message, Exception inner) : base(message, inner)
         {

@@ -35,14 +35,14 @@ namespace TheXDS.MCART.Types.Converters
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Clase base para un
-    ///     <see cref="TypeConverter" /> básico que
-    ///     permita transformar un valor de <see cref="string" /> en
-    ///     un <typeparamref name="T" />.
+    /// Clase base para un
+    /// <see cref="TypeConverter" /> básico que
+    /// permita transformar un valor de <see cref="string" /> en
+    /// un <typeparamref name="T" />.
     /// </summary>
     /// <typeparam name="T">
-    ///     Tipo de elemento de salida de este
-    ///     <see cref="TypeConverter" />.
+    /// Tipo de elemento de salida de este
+    /// <see cref="TypeConverter" />.
     /// </typeparam>
     public abstract class BasicParseConverter<T> : TypeConverter
     {
@@ -106,11 +106,11 @@ namespace TheXDS.MCART.Types.Converters
             return ConvertFrom(value?.ToString());
         }
         /// <summary>
-        ///     Ejecuta la conversión de la cadena al tipo de este <see cref="BasicParseConverter{T}"/>.
+        /// Ejecuta la conversión de la cadena al tipo de este <see cref="BasicParseConverter{T}"/>.
         /// </summary>
         /// <param name="value">Cadena a convertir.</param>
         /// <returns>
-        ///     Un valor de tipo <typeparamref name="T"/> creado a partir de la cadena especificada.
+        /// Un valor de tipo <typeparamref name="T"/> creado a partir de la cadena especificada.
         /// </returns>
         protected abstract T ConvertFrom(string? value);
 
@@ -147,11 +147,11 @@ namespace TheXDS.MCART.Types.Converters
         }
 
         /// <summary>
-        ///     Ejecuta la conversión de la cadena al tipo de este <see cref="BasicParseConverter{T}"/>.
+        /// Ejecuta la conversión de la cadena al tipo de este <see cref="BasicParseConverter{T}"/>.
         /// </summary>
         /// <param name="value">Cadena a convertir.</param>
         /// <returns>
-        ///     La representación como cadena del objeto especificado.
+        /// La representación como cadena del objeto especificado.
         /// </returns>
         protected virtual string? ConvertTo(T value)
         {

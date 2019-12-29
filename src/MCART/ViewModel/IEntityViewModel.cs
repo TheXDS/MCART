@@ -28,16 +28,16 @@ using System.ComponentModel;
 namespace TheXDS.MCART.ViewModel
 {
     /// <summary>
-    ///     Define una serie de métodos a implementar por una clase que exponga
-    ///     una entidad dentro de una clase ViewModel del patrón MVVM.
+    /// Define una serie de métodos a implementar por una clase que exponga
+    /// una entidad dentro de una clase ViewModel del patrón MVVM.
     /// </summary>
     /// <typeparam name="T">
-    ///     Tipo de entidad a controlar.
+    /// Tipo de entidad a controlar.
     /// </typeparam>
     public interface IEntityViewModel<T> : IRefreshable, INotifyPropertyChanged
     {
         /// <summary>
-        ///     Instancia de la entidad controlada por este ViewModel.
+        /// Instancia de la entidad controlada por este ViewModel.
         /// </summary>
         T Entity { get; }
     }

@@ -29,7 +29,7 @@ namespace TheXDS.MCART.Attributes
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Establece la información de Copyright del elemento.
+    /// Establece la información de Copyright del elemento.
     /// </summary>
     [AttributeUsage(Method | Class | Module | Assembly)]
     [Serializable]
@@ -37,8 +37,8 @@ namespace TheXDS.MCART.Attributes
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="DescriptionAttribute" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="DescriptionAttribute" />.
         /// </summary>
         /// <param name="copyright">Valor del atributo.</param>
         public CopyrightAttribute(string copyright) : base(copyright)

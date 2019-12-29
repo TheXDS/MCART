@@ -28,14 +28,14 @@ namespace TheXDS.MCART.Attributes
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Indica una cadena que puede utilizarse para identificar a este elemento.
+    /// Indica una cadena que puede utilizarse para identificar a este elemento.
     /// </summary>
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
     public sealed class IdentifierAttribute : TextAttribute
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Indica una cadena que puede utilizarse para identificar a este elemento.
+        /// Indica una cadena que puede utilizarse para identificar a este elemento.
         /// </summary>
         /// <param name="identifier">Identificador a utilizar.</param>
         public IdentifierAttribute(string identifier) : base(identifier)

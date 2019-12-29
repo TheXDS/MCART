@@ -33,31 +33,31 @@ namespace TheXDS.MCART.Attributes
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Establece un archivo incrustado de licencia a asociar con el elemento.
+    /// Establece un archivo incrustado de licencia a asociar con el elemento.
     /// </summary>
     [AttributeUsage(Class | AttributeTargets.Module | AttributeTargets.Assembly)]
     [Serializable]
     public sealed class EmbeddedLicenseAttribute : LicenseAttributeBase
     {
         /// <summary>
-        ///     Ruta del archivo embebido de licencia dentro del ensamblado.
+        /// Ruta del archivo embebido de licencia dentro del ensamblado.
         /// </summary>
         public string Path { get; }
         /// <summary>
-        ///     Compressor utilizado para extraer el recurso incrustado.
+        /// Compressor utilizado para extraer el recurso incrustado.
         /// </summary>
         public Type CompressorType { get; }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="EmbeddedLicenseAttribute" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="EmbeddedLicenseAttribute" />.
         /// </summary>
         /// <param name="value">
-        ///     Archivo incrustado de la licencia.
+        /// Archivo incrustado de la licencia.
         /// </param>
         /// <param name="path">
-        ///     Ruta del archivo embebido de licencia dentro del ensamblado.
+        /// Ruta del archivo embebido de licencia dentro del ensamblado.
         /// </param>
         public EmbeddedLicenseAttribute(string value, string path) : this(value, path, typeof(NullGetter))
         {
@@ -65,17 +65,17 @@ namespace TheXDS.MCART.Attributes
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="EmbeddedLicenseAttribute" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="EmbeddedLicenseAttribute" />.
         /// </summary>
         /// <param name="value">
-        ///     Archivo incrustado de la licencia.
+        /// Archivo incrustado de la licencia.
         /// </param>
         /// <param name="path">
-        ///     Ruta del archivo embebido de licencia dentro del ensamblado.
+        /// Ruta del archivo embebido de licencia dentro del ensamblado.
         /// </param>
         /// <param name="compressorType">
-        ///     Compressor utilizado para extraer el recurso incrustado.
+        /// Compressor utilizado para extraer el recurso incrustado.
         /// </param>
         public EmbeddedLicenseAttribute(string value, string path, Type compressorType) : base(value)
         {
@@ -85,13 +85,13 @@ namespace TheXDS.MCART.Attributes
         }
 
         /// <summary>
-        ///     Lee el contenido de la licencia embebida dentro del ensamblado.
+        /// Lee el contenido de la licencia embebida dentro del ensamblado.
         /// </summary>
         /// <param name="context">
-        ///     Objeto a partir del cual se ha obtenido este atributo.
+        /// Objeto a partir del cual se ha obtenido este atributo.
         /// </param>
         /// <returns>
-        ///     El contenido de la licencia.
+        /// El contenido de la licencia.
         /// </returns>
         public override License GetLicense(object context)
         {

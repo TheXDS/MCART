@@ -97,16 +97,16 @@ namespace TheXDS.MCART.Security.Password
     /// Delegado que permite verificar una contraseña.
     /// </summary>
     /// <param name="credential">
-    ///     Información de credenciales a utilizar para la verificación.
+    /// Información de credenciales a utilizar para la verificación.
     /// </param>
     /// <returns>
-    ///     <see langword="true"/> si la información de inicio de sesión es
-    ///     válida, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> si la información de inicio de sesión es
+    /// válida, <see langword="false"/> en caso contrario.
     /// </returns>
     public delegate System.Threading.Tasks.Task<bool> LoginValidator(ICredential credential);
 
     /// <summary>
-	///     Delegado que define una función que evalúa contraseñas.
+	/// Delegado que define una función que evalúa contraseñas.
 	/// </summary>
 	public delegate PwEvalResult PwEvalFunc(SecureString pwToEval);
 }

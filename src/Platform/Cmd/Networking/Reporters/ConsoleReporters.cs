@@ -28,19 +28,19 @@ using TheXDS.MCART.Math;
 namespace TheXDS.MCART.Networking.Reporters
 {
     /// <summary>
-    ///     Contiene funciones auxiliares de reporte de progreso que se muestra
-    ///     en la consola.
+    /// Contiene funciones auxiliares de reporte de progreso que se muestra
+    /// en la consola.
     /// </summary>
 	public static class ConsoleReporters
 	{
         /// <summary>
-        ///     Muestra el progreso de una operación de descarga, ocupando el
-        ///     ancho total de la consola.
+        /// Muestra el progreso de una operación de descarga, ocupando el
+        /// ancho total de la consola.
         /// </summary>
         /// <param name="current">Bytes actuales.</param>
         /// <param name="total">Bytes totales.</param>
         /// <param name="speed">
-        ///     Velocidad media de descarga, en bytes/s.
+        /// Velocidad media de descarga, en bytes/s.
         /// </param>
 		public static void FullWidth(long? current, long? total, long? speed)
         {
@@ -60,13 +60,13 @@ namespace TheXDS.MCART.Networking.Reporters
         }
 
         /// <summary>
-        ///     Muestra el progreso de una operación realizada en pasos,
-        ///     ocupando el ancho total de la consola.
+        /// Muestra el progreso de una operación realizada en pasos,
+        /// ocupando el ancho total de la consola.
         /// </summary>
         /// <param name="current">Paso actual.</param>
         /// <param name="total">Pasos totales.</param>
         /// <param name="speed">
-        ///     Cantidad de pasos desde el último reporte.
+        /// Cantidad de pasos desde el último reporte.
         /// </param>
 		public static void Simplistic(long? current, long? total, long? speed)
 		{

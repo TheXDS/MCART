@@ -33,7 +33,7 @@ using TheXDS.MCART.Attributes;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Extensiones de la clase <see cref="SecureString" />.
+    /// Extensiones de la clase <see cref="SecureString" />.
     /// </summary>
     public static class SecureStringExtensions
     {
@@ -47,20 +47,20 @@ namespace TheXDS.MCART.Types.Extensions
          */
 
         /// <summary>
-        ///     Convierte un <see cref="SecureString" /> en un
-        ///     <see cref="string" />.
+        /// Convierte un <see cref="SecureString" /> en un
+        /// <see cref="string" />.
         /// </summary>
         /// <param name="value">
-        ///     <see cref="SecureString" /> a convertir.
+        /// <see cref="SecureString" /> a convertir.
         /// </param>
         /// <returns>Un <see cref="string" /> de código administrado.</returns>
         /// <remarks>
-        ///     El uso de este método NO ESTÁ RECOMENDADO, ya que la conversión al
-        ///     tipo <see cref="string" /> vence el propósito original de
-        ///     <see cref="SecureString" />, y se provee como una
-        ///     alternativa sencilla, en casos en los que el programa no dependa de
-        ///     que la confidencialidad de una cadena en particular se deba
-        ///     mantener durante la ejecución.
+        /// El uso de este método NO ESTÁ RECOMENDADO, ya que la conversión al
+        /// tipo <see cref="string" /> vence el propósito original de
+        /// <see cref="SecureString" />, y se provee como una
+        /// alternativa sencilla, en casos en los que el programa no dependa de
+        /// que la confidencialidad de una cadena en particular se deba
+        /// mantener durante la ejecución.
         /// </remarks>
         [Dangerous]
         public static string Read(this SecureString value)
@@ -78,14 +78,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Convierte un <see cref="SecureString" /> en un
-        ///     arreglo de <see cref="short" />.
+        /// Convierte un <see cref="SecureString" /> en un
+        /// arreglo de <see cref="short" />.
         /// </summary>
         /// <param name="value">
-        ///     <see cref="SecureString" /> a convertir.
+        /// <see cref="SecureString" /> a convertir.
         /// </param>
         /// <returns>
-        ///     Un arreglo de <see cref="short" /> de código administrado.
+        /// Un arreglo de <see cref="short" /> de código administrado.
         /// </returns>
         public static short[] ReadInt16(this SecureString value)
         {
@@ -105,14 +105,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Convierte un <see cref="SecureString" /> en un
-        ///     arreglo de <see cref="char" />.
+        /// Convierte un <see cref="SecureString" /> en un
+        /// arreglo de <see cref="char" />.
         /// </summary>
         /// <param name="value">
-        ///     <see cref="SecureString" /> a convertir.
+        /// <see cref="SecureString" /> a convertir.
         /// </param>
         /// <returns>
-        ///     Un arreglo de <see cref="char" /> de código administrado.
+        /// Un arreglo de <see cref="char" /> de código administrado.
         /// </returns>
         public static char[] ReadChars(this SecureString value)
         {
@@ -132,14 +132,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Convierte un <see cref="SecureString" /> en un
-        ///     arreglo de <see cref="byte" />.
+        /// Convierte un <see cref="SecureString" /> en un
+        /// arreglo de <see cref="byte" />.
         /// </summary>
         /// <param name="value">
-        ///     <see cref="SecureString" /> a convertir.
+        /// <see cref="SecureString" /> a convertir.
         /// </param>
         /// <returns>
-        ///     Un arreglo de <see cref="byte" /> de código administrado.
+        /// Un arreglo de <see cref="byte" /> de código administrado.
         /// </returns>
         public static byte[] ReadBytes(this SecureString value)
         {

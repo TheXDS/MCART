@@ -30,16 +30,16 @@ namespace TheXDS.MCART.Networking.Server.Protocols
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Protocolo de prueba definido en el estándar RFC 867 que devuelve
-    ///     una cadena ASCII con la fecha y hora actuales.
+    /// Protocolo de prueba definido en el estándar RFC 867 que devuelve
+    /// una cadena ASCII con la fecha y hora actuales.
     /// </summary>
     [Port(13)]
     public class Daytime : SimpleProtocol
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Atiende al cliente devolviendo la fecha actual formateada según
-        ///     RFC 1123 como una cadena ASCII.
+        /// Atiende al cliente devolviendo la fecha actual formateada según
+        /// RFC 1123 como una cadena ASCII.
         /// </summary>
         /// <param name="client">Cliente que será atendido.</param>
         /// <param name="data">Datos recibidos desde el cliente.</param>

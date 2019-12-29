@@ -32,8 +32,8 @@ using System.Runtime.Serialization;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Contiene extensiones útiles para la clase
-    ///     <see cref="BinaryReader"/>.
+    /// Contiene extensiones útiles para la clase
+    /// <see cref="BinaryReader"/>.
     /// </summary>
     public static class BinaryReaderExtensions
     {
@@ -46,17 +46,17 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Lee un valor de enumeración.
+        /// Lee un valor de enumeración.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de valor de enumeración a leer.
+        /// Tipo de valor de enumeración a leer.
         /// </typeparam>
         /// <param name="br">
-        ///     <see cref="BinaryReader"/> desde el cual obtener.
+        /// <see cref="BinaryReader"/> desde el cual obtener.
         /// </param>
         /// <returns>
-        ///     Valor de enumeración obtenido desde el
-        ///     <see cref="BinaryReader"/>.
+        /// Valor de enumeración obtenido desde el
+        /// <see cref="BinaryReader"/>.
         /// </returns>
         public static T ReadEnum<T>(this BinaryReader br) where T : struct, Enum
         {
@@ -64,17 +64,17 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Lee un valor de enumeración.
+        /// Lee un valor de enumeración.
         /// </summary>
         /// <param name="br">
-        ///     <see cref="BinaryReader"/> desde el cual obtener.
+        /// <see cref="BinaryReader"/> desde el cual obtener.
         /// </param>
         /// <param name="enumType">
-        ///     Tipo de valor de enumeración a leer.
+        /// Tipo de valor de enumeración a leer.
         /// </param>
         /// <returns>
-        ///     Valor de enumeración obtenido desde el
-        ///     <see cref="BinaryReader"/>.
+        /// Valor de enumeración obtenido desde el
+        /// <see cref="BinaryReader"/>.
         /// </returns>
         [DebuggerStepThrough]
         public static Enum ReadEnum(this BinaryReader br, Type enumType)
@@ -84,14 +84,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Lee un <see cref="Guid"/>.
+        /// Lee un <see cref="Guid"/>.
         /// </summary>
         /// <param name="br">
-        ///     <see cref="BinaryReader"/> desde el cual obtener.
+        /// <see cref="BinaryReader"/> desde el cual obtener.
         /// </param>
         /// <returns>
-        ///     <see cref="Guid"/> obtenido desde el
-        ///     <see cref="BinaryReader"/>.
+        /// <see cref="Guid"/> obtenido desde el
+        /// <see cref="BinaryReader"/>.
         /// </returns>
         public static Guid ReadGuid(this BinaryReader br)
         {
@@ -99,14 +99,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Lee un <see cref="DateTime"/>.
+        /// Lee un <see cref="DateTime"/>.
         /// </summary>
         /// <param name="br">
-        ///     <see cref="BinaryReader"/> desde el cual obtener.
+        /// <see cref="BinaryReader"/> desde el cual obtener.
         /// </param>
         /// <returns>
-        ///     <see cref="DateTime"/> obtenido desde el
-        ///     <see cref="BinaryReader"/>.
+        /// <see cref="DateTime"/> obtenido desde el
+        /// <see cref="BinaryReader"/>.
         /// </returns>
         public static DateTime ReadDateTime(this BinaryReader br)
         {
@@ -114,14 +114,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Lee un <see cref="TimeSpan"/>.
+        /// Lee un <see cref="TimeSpan"/>.
         /// </summary>
         /// <param name="br">
-        ///     <see cref="BinaryReader"/> desde el cual obtener.
+        /// <see cref="BinaryReader"/> desde el cual obtener.
         /// </param>
         /// <returns>
-        ///     <see cref="TimeSpan"/> obtenido desde el
-        ///     <see cref="BinaryReader"/>.
+        /// <see cref="TimeSpan"/> obtenido desde el
+        /// <see cref="BinaryReader"/>.
         /// </returns>
         public static TimeSpan ReadTimeSpan(this BinaryReader br)
         {
@@ -129,20 +129,20 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Lee un valor del tipo especificado desde el
-        ///     <paramref name="reader"/>.
+        /// Lee un valor del tipo especificado desde el
+        /// <paramref name="reader"/>.
         /// </summary>
         /// <typeparam name="T">Tipo de valor a leer.</typeparam>
         /// <param name="reader">
-        ///     Instancia de <see cref="BinaryReader"/> desde la cual realizar
-        ///     la lectura.
+        /// Instancia de <see cref="BinaryReader"/> desde la cual realizar
+        /// la lectura.
         /// </param>
         /// <returns>
-        ///     El valor leído desde <paramref name="reader"/>.
+        /// El valor leído desde <paramref name="reader"/>.
         /// </returns>
         /// <exception cref="InvalidOperationException">
-        ///     Se produce si no existe un método de lectura que pueda ser
-        ///     utilizado para leer el valor del tipo especificado.
+        /// Se produce si no existe un método de lectura que pueda ser
+        /// utilizado para leer el valor del tipo especificado.
         /// </exception>
         public static T Read<T>(this BinaryReader reader)
         {

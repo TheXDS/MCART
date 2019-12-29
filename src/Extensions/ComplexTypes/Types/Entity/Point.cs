@@ -32,37 +32,37 @@ using St = TheXDS.MCART.Resources.Strings;
 namespace TheXDS.MCART.Types.Entity
 {
     /// <summary>
-    ///     Tipo universal para un conjunto de coordenadas bidimensionales.
+    /// Tipo universal para un conjunto de coordenadas bidimensionales.
     /// </summary>
     /// <remarks>
-    ///     Esta estructura se declara como parcial, para permitir a cada
-    ///     implementación de MCART definir métodos para convertir a la clase
-    ///     correspondiente para los diferentes tipos de UI disponibles.
+    /// Esta estructura se declara como parcial, para permitir a cada
+    /// implementación de MCART definir métodos para convertir a la clase
+    /// correspondiente para los diferentes tipos de UI disponibles.
     /// </remarks>
     [ComplexType]
     public class Point : I2DVector, IFormattable, IEquatable<Point>
     {
         /// <summary>
-        ///     Coordenada X.
+        /// Coordenada X.
         /// </summary>
         public double X { get; set; }
 
         /// <summary>
-        ///     Coordenada Y.
+        /// Coordenada Y.
         /// </summary>
         public double Y { get; set; }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="Point" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="Point" />.
         /// </summary>
         public Point()
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="Point" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="Point" />.
         /// </summary>
         /// <param name="x">The x coordinate.</param>
         /// <param name="y">The y coordinate.</param>
@@ -74,14 +74,14 @@ namespace TheXDS.MCART.Types.Entity
         
         /// <inheritdoc />
         /// <summary>
-        ///     Compara la igualdad de los vectores.
+        /// Compara la igualdad de los vectores.
         /// </summary>
         /// <param name="other">
-        ///     <see cref="I2DVector" /> contra el cual comparar.
+        /// <see cref="I2DVector" /> contra el cual comparar.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si todos los vectores de ambos objetos
-        ///     son iguales, <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si todos los vectores de ambos objetos
+        /// son iguales, <see langword="false" /> en caso contrario.
         /// </returns>
         public bool Equals(I2DVector other)
         {
@@ -90,14 +90,14 @@ namespace TheXDS.MCART.Types.Entity
 
         /// <inheritdoc />
         /// <summary>
-        ///     Compara la igualdad de los vectores de los puntos.
+        /// Compara la igualdad de los vectores de los puntos.
         /// </summary>
         /// <param name="other">
-        ///     <see cref="Point" /> contra el cual comparar.
+        /// <see cref="Point" /> contra el cual comparar.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si todos los vectores de ambos puntos son iguales;
-        ///     de lo contrario, <see langword="false" />.
+        /// <see langword="true" /> si todos los vectores de ambos puntos son iguales;
+        /// de lo contrario, <see langword="false" />.
         /// </returns>
         public bool Equals(Point other)
         {
@@ -105,14 +105,14 @@ namespace TheXDS.MCART.Types.Entity
         }
 
         /// <summary>
-        ///     Indica si esta instancia y un objeto especificado son iguales.
+        /// Indica si esta instancia y un objeto especificado son iguales.
         /// </summary>
         /// <param name="obj">
-        ///     Objeto que se va a compara con la instancia actual.
+        /// Objeto que se va a compara con la instancia actual.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si esta instancia y <paramref name="obj" /> son iguales;
-        ///     de lo contrario, <see langword="false" />.
+        /// <see langword="true" /> si esta instancia y <paramref name="obj" /> son iguales;
+        /// de lo contrario, <see langword="false" />.
         /// </returns>
         public override bool Equals(object obj)
         {
@@ -121,10 +121,10 @@ namespace TheXDS.MCART.Types.Entity
         }
 
         /// <summary>
-        ///     Convierte este objeto en su representación como una cadena.
+        /// Convierte este objeto en su representación como una cadena.
         /// </summary>
         /// <returns>
-        ///     Una representación en forma de <see cref="string" /> de este objeto.
+        /// Una representación en forma de <see cref="string" /> de este objeto.
         /// </returns>
         public override string ToString()
         {
@@ -133,17 +133,17 @@ namespace TheXDS.MCART.Types.Entity
 
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte este objeto en su representación como una cadena.
+        /// Convierte este objeto en su representación como una cadena.
         /// </summary>
         /// <param name="format">Formato a utilizar.</param>
         /// <param name="formatProvider">
-        ///     Parámetro opcional.
-        ///     Proveedor de formato de la cultura a utilizar para dar formato a
-        ///     la representación como una cadena de este objeto. Si se omite,
-        ///     se utilizará <see cref="P:System.Globalization.CultureInfo.CurrentCulture" />.
+        /// Parámetro opcional.
+        /// Proveedor de formato de la cultura a utilizar para dar formato a
+        /// la representación como una cadena de este objeto. Si se omite,
+        /// se utilizará <see cref="P:System.Globalization.CultureInfo.CurrentCulture" />.
         /// </param>
         /// <returns>
-        ///     Una representación en forma de <see cref="string" /> de este objeto.
+        /// Una representación en forma de <see cref="string" /> de este objeto.
         /// </returns>
         public string ToString(string format, IFormatProvider formatProvider)
         {
@@ -160,11 +160,11 @@ namespace TheXDS.MCART.Types.Entity
 
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte este objeto en su representación como una cadena.
+        /// Convierte este objeto en su representación como una cadena.
         /// </summary>
         /// <param name="format">Formato a utilizar.</param>
         /// <returns>
-        ///     Una representación en forma de <see cref="string" /> de este objeto.
+        /// Una representación en forma de <see cref="string" /> de este objeto.
         /// </returns>
         public string ToString(string format)
         {
@@ -172,7 +172,7 @@ namespace TheXDS.MCART.Types.Entity
         }
 
         /// <summary>
-        ///     Devuelve el código Hash de esta instancia.
+        /// Devuelve el código Hash de esta instancia.
         /// </summary>
         /// <returns>El código Hash de esta instancia.</returns>
         public override int GetHashCode()
@@ -181,13 +181,13 @@ namespace TheXDS.MCART.Types.Entity
         }
 
         /// <summary>
-        ///     Compara la igualdad de los vectores de los puntos.
+        /// Compara la igualdad de los vectores de los puntos.
         /// </summary>
         /// <param name="l">Punto 1.</param>
         /// <param name="r">Punto 2.</param>
         /// <returns>
-        ///     <see langword="true" /> si todos los vectores de ambos puntos son iguales;
-        ///     de lo contrario, <see langword="false" />.
+        /// <see langword="true" /> si todos los vectores de ambos puntos son iguales;
+        /// de lo contrario, <see langword="false" />.
         /// </returns>
         public static bool operator ==(Point l, Point r)
         {
@@ -195,13 +195,13 @@ namespace TheXDS.MCART.Types.Entity
         }
 
         /// <summary>
-        ///     Compara la igualdad de los vectores de los puntos.
+        /// Compara la igualdad de los vectores de los puntos.
         /// </summary>
         /// <param name="l">Punto a comparar.</param>
         /// <param name="r">Vector bidimensional contra el cual comparar.</param>
         /// <returns>
-        ///     <see langword="true" /> si todos los vectores de ambos puntos son iguales;
-        ///     de lo contrario, <see langword="false" />.
+        /// <see langword="true" /> si todos los vectores de ambos puntos son iguales;
+        /// de lo contrario, <see langword="false" />.
         /// </returns>
         public static bool operator ==(Point l, I2DVector r)
         {
@@ -209,13 +209,13 @@ namespace TheXDS.MCART.Types.Entity
         }
 
         /// <summary>
-        ///     Compara la diferencia de los vectores de los puntos.
+        /// Compara la diferencia de los vectores de los puntos.
         /// </summary>
         /// <param name="l">Punto 1.</param>
         /// <param name="r">Punto 2.</param>
         /// <returns>
-        ///     <see langword="true" /> si los vectores de ambos puntos son diferentes;  de lo
-        ///     contrario, <see langword="false" />.
+        /// <see langword="true" /> si los vectores de ambos puntos son diferentes;  de lo
+        /// contrario, <see langword="false" />.
         /// </returns>
         public static bool operator !=(Point l, Point r)
         {
@@ -223,13 +223,13 @@ namespace TheXDS.MCART.Types.Entity
         }
 
         /// <summary>
-        ///     Compara la diferencia de los vectores de los puntos.
+        /// Compara la diferencia de los vectores de los puntos.
         /// </summary>
         /// <param name="l">Punto a comparar.</param>
         /// <param name="r">Vector bidimensional contra el cual comparar.</param>
         /// <returns>
-        ///     <see langword="true" /> si los vectores de ambos puntos son diferentes;  de lo
-        ///     contrario, <see langword="false" />.
+        /// <see langword="true" /> si los vectores de ambos puntos son diferentes;  de lo
+        /// contrario, <see langword="false" />.
         /// </returns>
         public static bool operator !=(Point l, I2DVector r)
         {
@@ -237,11 +237,11 @@ namespace TheXDS.MCART.Types.Entity
         }
 
         /// <summary>
-        ///     Convierte implícitamente un <see cref="Point"/> en un
-        ///     <see cref="Types.Point"/>.
+        /// Convierte implícitamente un <see cref="Point"/> en un
+        /// <see cref="Types.Point"/>.
         /// </summary>
         /// <param name="p">
-        ///     <see cref="Point"/> a convertir.
+        /// <see cref="Point"/> a convertir.
         /// </param>
         public static implicit operator Types.Point(Point p)
         {
@@ -249,11 +249,11 @@ namespace TheXDS.MCART.Types.Entity
         }
 
         /// <summary>
-        ///     Convierte implícitamente un <see cref="Types.Point"/> en un
-        ///     <see cref="Point"/>.
+        /// Convierte implícitamente un <see cref="Types.Point"/> en un
+        /// <see cref="Point"/>.
         /// </summary>
         /// <param name="p">
-        ///     <see cref="Types.Point"/> a convertir.
+        /// <see cref="Types.Point"/> a convertir.
         /// </param>
         public static implicit operator Point(Types.Point p)
         {

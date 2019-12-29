@@ -29,7 +29,7 @@ using TheXDS.MCART.Types;
 namespace TheXDS.MCART.Math
 {
     /// <summary>
-    ///     Contiene funciones de trigonometría y geometría.
+    /// Contiene funciones de trigonometría y geometría.
     /// </summary>
     public static class Geometry
     {
@@ -37,36 +37,36 @@ namespace TheXDS.MCART.Math
         #region Constantes
 
         /// <summary>
-        ///     Representa la proporción de 1 grado DEG sobre PI
+        /// Representa la proporción de 1 grado DEG sobre PI
         /// </summary>
         public const double DegRad = 0.0174532925199433D;
 
         /// <summary>
-        ///     Representa la proporción de la circunferencia entre el diámetro de un círculo.
+        /// Representa la proporción de la circunferencia entre el diámetro de un círculo.
         /// </summary>
         public const double Thau = 6.28318530717959D;
 
         #endregion
 
         /// <summary>
-        ///     Obtiene las cooerdenadas X,Y de una posición específica dentro de un
-        ///     bézier cuadrático
+        /// Obtiene las cooerdenadas X,Y de una posición específica dentro de un
+        /// bézier cuadrático
         /// </summary>
         /// <param name="position">
-        ///     Posición a obtener. Debe ser un <see cref="double" /> entre 0.0 y
-        ///     1.0.
+        /// Posición a obtener. Debe ser un <see cref="double" /> entre 0.0 y
+        /// 1.0.
         /// </param>
         /// <param name="startPoint">
-        ///     Punto inicial del bézier cuadrático.
+        /// Punto inicial del bézier cuadrático.
         /// </param>
         /// <param name="controlPoinr">
-        ///     Punto de control del bézier cuadrático.
+        /// Punto de control del bézier cuadrático.
         /// </param>
         /// <param name="endPoint">Punto final del bézier cuadrático.</param>
         /// <returns>
-        ///     Un <see cref="Point" /> con las coordenadas correspondientes a la
-        ///     posición dentro del bézier cuadrático dado por
-        ///     <paramref name="position" />.
+        /// Un <see cref="Point" /> con las coordenadas correspondientes a la
+        /// posición dentro del bézier cuadrático dado por
+        /// <paramref name="position" />.
         /// </returns>
         public static Point GetQuadBezierPoint(in double position, in Point startPoint, in Point controlPoinr, in Point endPoint)
         {
@@ -81,18 +81,18 @@ namespace TheXDS.MCART.Math
         }
 
         /// <summary>
-        ///     Obtiene las coordenadas de un punto dentro de un arco.
+        /// Obtiene las coordenadas de un punto dentro de un arco.
         /// </summary>
         /// <param name="radius">Radio del arco.</param>
         /// <param name="startAngle">
-        ///     Ángulo inicial del arco; en el sentido de las agujas del reloj.
+        /// Ángulo inicial del arco; en el sentido de las agujas del reloj.
         /// </param>
         /// <param name="endAngle">
-        ///     Ángulo final del arco; en el sentido de las agujas del reloj.
+        /// Ángulo final del arco; en el sentido de las agujas del reloj.
         /// </param>
         /// <param name="position">Posición a obtener dentro del arco.</param>
         /// <returns>
-        ///     Un conjunto de coordenadas con la posición del punto solicitado.
+        /// Un conjunto de coordenadas con la posición del punto solicitado.
         /// </returns>
         public static Point GetArcPoint(in double radius, in double startAngle, in double endAngle, in double position)
         {
@@ -101,12 +101,12 @@ namespace TheXDS.MCART.Math
         }
 
         /// <summary>
-        ///     Obtiene las coordenadas de un punto dentro de un círculo.
+        /// Obtiene las coordenadas de un punto dentro de un círculo.
         /// </summary>
         /// <param name="radius">Radio del círculo.</param>
         /// <param name="position">Posición a obtener dentro del círculo.</param>
         /// <returns>
-        ///     Un conjunto de coordenadas con la posición del punto solicitado.
+        /// Un conjunto de coordenadas con la posición del punto solicitado.
         /// </returns>
         [Sugar]
         public static Point GetCirclePoint(in double radius, in double position)

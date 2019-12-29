@@ -35,8 +35,8 @@ namespace TheXDS.MCART.Networking.Client
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Este método se invalida para implementar
-        ///     <see cref="ClientBase"/> correctamente.
+        /// Este método se invalida para implementar
+        /// <see cref="ClientBase"/> correctamente.
         /// </summary>
         protected override void PostConnection()
         {
@@ -46,23 +46,23 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía una solicitud al servidor, y espera la respuesta del
-        ///     mismo.
+        /// Envía una solicitud al servidor, y espera la respuesta del
+        /// mismo.
         /// </summary>
         /// <returns>
-        ///     La respuesta obtenida del servidor luego de hacer la solicitud.
+        /// La respuesta obtenida del servidor luego de hacer la solicitud.
         /// </returns>
         public byte[] TalkToServer() => TalkToServer(System.Array.Empty<byte>());
 
         /// <summary>
-        ///     Envía una solicitud al servidor, y espera la respuesta del
-        ///     mismo.
+        /// Envía una solicitud al servidor, y espera la respuesta del
+        /// mismo.
         /// </summary>
         /// <param name="data">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <returns>
-        ///     La respuesta obtenida del servidor luego de hacer la solicitud.
+        /// La respuesta obtenida del servidor luego de hacer la solicitud.
         /// </returns>
         public byte[] TalkToServer(byte[] data)
         {
@@ -75,23 +75,23 @@ namespace TheXDS.MCART.Networking.Client
         }
 
         /// <summary>
-        ///     Envía una solicitud al servidor, y espera la respuesta del
-        ///     mismo de forma asíncrona.
+        /// Envía una solicitud al servidor, y espera la respuesta del
+        /// mismo de forma asíncrona.
         /// </summary>
         /// <returns>
-        ///     La respuesta obtenida del servidor luego de hacer la solicitud.
+        /// La respuesta obtenida del servidor luego de hacer la solicitud.
         /// </returns>
         public Task<byte[]> TalkToServerAsync() => TalkToServerAsync(System.Array.Empty<byte>());
 
         /// <summary>
-        ///     Envía una solicitud al servidor, y espera la respuesta del
-        ///     mismo de forma asíncrona.
+        /// Envía una solicitud al servidor, y espera la respuesta del
+        /// mismo de forma asíncrona.
         /// </summary>
         /// <param name="data">
-        ///     Datos a enviar al servidor.
+        /// Datos a enviar al servidor.
         /// </param>
         /// <returns>
-        ///     La respuesta obtenida del servidor luego de hacer la solicitud.
+        /// La respuesta obtenida del servidor luego de hacer la solicitud.
         /// </returns>
         public async Task<byte[]> TalkToServerAsync(byte[] data)
         {

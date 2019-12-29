@@ -33,26 +33,26 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Security.Cryptography
 {
     /// <summary>
-    ///     Implementa una transformación criptográfica para encriptar datos
-    ///     por medio del algoritmo RSA.
+    /// Implementa una transformación criptográfica para encriptar datos
+    /// por medio del algoritmo RSA.
     /// </summary>
     public class RSACryptoTransform : ICryptoTransform
     {
         /// <summary>
-        ///     Instancia un nuevo <see cref="CryptoStream"/> utilizando la
-        ///     instancia de <see cref="RSACryptoServiceProvider"/> para crear
-        ///     un nuevo <see cref="RSACryptoTransform"/>.
+        /// Instancia un nuevo <see cref="CryptoStream"/> utilizando la
+        /// instancia de <see cref="RSACryptoServiceProvider"/> para crear
+        /// un nuevo <see cref="RSACryptoTransform"/>.
         /// </summary>
         /// <param name="stream">
-        ///     Flujo sobre el cual escribir los datos encriptados.
+        /// Flujo sobre el cual escribir los datos encriptados.
         /// </param>
         /// <param name="rsa">
-        ///     Instancia de <see cref="RSACryptoServiceProvider"/> a utilizar
-        ///     para construir el nuevo <see cref="RSACryptoTransform"/>
+        /// Instancia de <see cref="RSACryptoServiceProvider"/> a utilizar
+        /// para construir el nuevo <see cref="RSACryptoTransform"/>
         /// </param>
         /// <returns>
-        ///     Un nuevo <see cref="CryptoStream"/> con el destino y el objeto
-        ///     de transformación especificados.
+        /// Un nuevo <see cref="CryptoStream"/> con el destino y el objeto
+        /// de transformación especificados.
         /// </returns>
         public static CryptoStream ToStream(Stream stream, RSACryptoServiceProvider rsa)
         {
@@ -63,15 +63,15 @@ namespace TheXDS.MCART.Security.Cryptography
         private readonly RSACryptoServiceProvider _rsa;
 
         /// <summary>
-        ///     Obtiene los parámetros RSA para este
-        ///     <see cref="RSACryptoTransform"/>.
+        /// Obtiene los parámetros RSA para este
+        /// <see cref="RSACryptoTransform"/>.
         /// </summary>
         /// <param name="includePrivateParameters">
-        ///     Indica si deben incluirse los parámetros de clave privada en el
-        ///     valor exportado.
+        /// Indica si deben incluirse los parámetros de clave privada en el
+        /// valor exportado.
         /// </param>
         /// <returns>
-        ///     Los parámetros RSA para este <see cref="RSACryptoTransform"/>.
+        /// Los parámetros RSA para este <see cref="RSACryptoTransform"/>.
         /// </returns>
         public RSAParameters GetRSAParameters(bool includePrivateParameters)
         {
@@ -79,15 +79,15 @@ namespace TheXDS.MCART.Security.Cryptography
         }
 
         /// <summary>
-        ///     Obtiene los parámetros RSA para este
-        ///     <see cref="RSACryptoTransform"/>.
+        /// Obtiene los parámetros RSA para este
+        /// <see cref="RSACryptoTransform"/>.
         /// </summary>
         /// <param name="includePrivateParameters">
-        ///     Indica si deben incluirse los parámetros de clave privada en el
-        ///     valor exportado.
+        /// Indica si deben incluirse los parámetros de clave privada en el
+        /// valor exportado.
         /// </param>
         /// <returns>
-        ///     Los parámetros RSA para este <see cref="RSACryptoTransform"/>.
+        /// Los parámetros RSA para este <see cref="RSACryptoTransform"/>.
         /// </returns>
         public byte[] GetRSACspBlob(bool includePrivateParameters)
         {
@@ -95,17 +95,17 @@ namespace TheXDS.MCART.Security.Cryptography
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="RSACryptoTransform"/>, generando una clave RSA de
-        ///     4096 bits.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="RSACryptoTransform"/>, generando una clave RSA de
+        /// 4096 bits.
         /// </summary>
         public RSACryptoTransform() : this(4096)
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="RSACryptoTransform"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="RSACryptoTransform"/>.
         /// </summary>
         public RSACryptoTransform(RSACryptoServiceProvider rsa)
         {
@@ -113,9 +113,9 @@ namespace TheXDS.MCART.Security.Cryptography
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="RSACryptoTransform"/> especificando el tamaño a
-        ///     utilizar para generar las claves RSA.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="RSACryptoTransform"/> especificando el tamaño a
+        /// utilizar para generar las claves RSA.
         /// </summary>
         /// <param name="keySize">Tamaño de la clave RSA a generar.</param>
         public RSACryptoTransform(int keySize)
@@ -124,13 +124,13 @@ namespace TheXDS.MCART.Security.Cryptography
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="RSACryptoTransform"/>, especificando un blob de
-        ///     bytes con el contenido de la configuración a utilizar para
-        ///     inicializar el RSA.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="RSACryptoTransform"/>, especificando un blob de
+        /// bytes con el contenido de la configuración a utilizar para
+        /// inicializar el RSA.
         /// </summary>
         /// <param name="keyBlob">
-        ///     Blob binario de configuración de las claves RSA.
+        /// Blob binario de configuración de las claves RSA.
         /// </param>
         public RSACryptoTransform(byte[] keyBlob)
         {
@@ -139,12 +139,12 @@ namespace TheXDS.MCART.Security.Cryptography
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="RSACryptoTransform"/>, especificando los parámetros
-        ///     de configuración a utilizar para inicializar el RSA.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="RSACryptoTransform"/>, especificando los parámetros
+        /// de configuración a utilizar para inicializar el RSA.
         /// </summary>
         /// <param name="parameters">
-        ///     Parámetros de inicialización del RSA.
+        /// Parámetros de inicialización del RSA.
         /// </param>
         public RSACryptoTransform(RSAParameters parameters)
         {
@@ -153,12 +153,12 @@ namespace TheXDS.MCART.Security.Cryptography
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="RSACryptoTransform"/>, especificando los parámetros
-        ///     de configuración a utilizar para inicializar el RSA.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="RSACryptoTransform"/>, especificando los parámetros
+        /// de configuración a utilizar para inicializar el RSA.
         /// </summary>
         /// <param name="parameters">
-        ///     Parámetros de inicialización del RSA.
+        /// Parámetros de inicialización del RSA.
         /// </param>
         public RSACryptoTransform(CspParameters parameters)
         {
@@ -166,13 +166,13 @@ namespace TheXDS.MCART.Security.Cryptography
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="RSACryptoTransform"/>, especificando los parámetros
-        ///     de configuración a utilizar para inicializar el RSA.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="RSACryptoTransform"/>, especificando los parámetros
+        /// de configuración a utilizar para inicializar el RSA.
         /// </summary>
         /// <param name="dwKeySize">Tamaño de la clave RSA a utilizar.</param>
         /// <param name="parameters">
-        ///     Parámetros de inicialización del RSA.
+        /// Parámetros de inicialización del RSA.
         /// </param>
         public RSACryptoTransform(int dwKeySize, CspParameters parameters)
         {
@@ -180,29 +180,29 @@ namespace TheXDS.MCART.Security.Cryptography
         }
 
         /// <summary>
-        ///     Indica si este <see cref="ICryptoTransform"/> puede ser
-        ///     reutilizado para transformar más de un bloque.
+        /// Indica si este <see cref="ICryptoTransform"/> puede ser
+        /// reutilizado para transformar más de un bloque.
         /// </summary>
         public bool CanReuseTransform => true;
 
         /// <summary>
-        ///     Indica si este <see cref="ICryptoTransform"/> puede transformar
-        ///     múltiples bloques.
+        /// Indica si este <see cref="ICryptoTransform"/> puede transformar
+        /// múltiples bloques.
         /// </summary>
         public bool CanTransformMultipleBlocks => true;
 
         /// <summary>
-        ///     Obtiene el tamaño de entrada del bloque a transformar.
+        /// Obtiene el tamaño de entrada del bloque a transformar.
         /// </summary>
         public int InputBlockSize => (_rsa.KeySize / 8) - 42;
 
         /// <summary>
-        ///     Obtiene el tamaño de salida del bloque.
+        /// Obtiene el tamaño de salida del bloque.
         /// </summary>
         public int OutputBlockSize => _rsa.KeySize / 8;
 
         /// <summary>
-        ///     Libera los recursos utilizados por este objeto.
+        /// Libera los recursos utilizados por este objeto.
         /// </summary>
         public void Dispose()
         {
@@ -210,24 +210,24 @@ namespace TheXDS.MCART.Security.Cryptography
         }
 
         /// <summary>
-        ///     Efectúa la transformación de un bloque de datos.
+        /// Efectúa la transformación de un bloque de datos.
         /// </summary>
         /// <param name="inputBuffer">Búfer de datos a transformar.</param>
         /// <param name="inputOffset">
-        ///     Offset del búfer de entrada a partir del cual tomar datos.
+        /// Offset del búfer de entrada a partir del cual tomar datos.
         /// </param>
         /// <param name="inputCount">
-        ///     Cantidad de bytes del búfer de entrada a tomar para la
-        ///     transformación.
+        /// Cantidad de bytes del búfer de entrada a tomar para la
+        /// transformación.
         /// </param>
         /// <param name="outputBuffer">
-        ///     Búfer de salida de la transformación.
+        /// Búfer de salida de la transformación.
         /// </param>
         /// <param name="outputOffset">
-        ///     Offset del búfer de salida en el cual empezar a escribir datos.
+        /// Offset del búfer de salida en el cual empezar a escribir datos.
         /// </param>
         /// <returns>
-        ///     La cantidad de bytes escritos en el búfer de salida.
+        /// La cantidad de bytes escritos en el búfer de salida.
         /// </returns>
         public int TransformBlock(byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer, int outputOffset)
         {
@@ -237,18 +237,18 @@ namespace TheXDS.MCART.Security.Cryptography
         }
 
         /// <summary>
-        ///     Efectúa la transformación de un bloque de datos.
+        /// Efectúa la transformación de un bloque de datos.
         /// </summary>
         /// <param name="inputBuffer">Búfer de datos a transformar.</param>
         /// <param name="inputOffset">
-        ///     Offset del búfer de entrada a partir del cual tomar datos.
+        /// Offset del búfer de entrada a partir del cual tomar datos.
         /// </param>
         /// <param name="inputCount">
-        ///     Cantidad de bytes del búfer de entrada a tomar para la
-        ///     transformación.
+        /// Cantidad de bytes del búfer de entrada a tomar para la
+        /// transformación.
         /// </param>
         /// <returns>
-        ///     Un bloque de datos con el resultado de la transformación.
+        /// Un bloque de datos con el resultado de la transformación.
         /// </returns>
         public byte[] TransformFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount)
         {

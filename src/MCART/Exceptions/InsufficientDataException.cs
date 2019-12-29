@@ -29,34 +29,34 @@ using St = TheXDS.MCART.Resources.Strings;
 namespace TheXDS.MCART.Exceptions
 {
     /// <summary>
-    ///     Excepción que se produce al no haber suficientes datos
+    /// Excepción que se produce al no haber suficientes datos
     /// </summary>
     [Serializable]
     public class InsufficientDataException : Exception
     {
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="InsufficientDataException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InsufficientDataException" />.
         /// </summary>
         /// <param name="info">
-        ///     El objeto que contiene la información de serialización.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
-        ///     La información contextual acerca del orígen o el destino.
+        /// La información contextual acerca del orígen o el destino.
         /// </param>
         protected InsufficientDataException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="InsufficientDataException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="InsufficientDataException" />.
         /// </summary>
         public InsufficientDataException() : base(St.NotEnoughData)
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="InsufficientDataException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="InsufficientDataException" />.
         /// </summary>
         /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
         public InsufficientDataException(string message) : base(message)
@@ -64,7 +64,7 @@ namespace TheXDS.MCART.Exceptions
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="InsufficientDataException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="InsufficientDataException" />.
         /// </summary>
         /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
         public InsufficientDataException(Exception inner) : base(St.NotEnoughData, inner)
@@ -72,7 +72,7 @@ namespace TheXDS.MCART.Exceptions
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="InsufficientDataException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="InsufficientDataException" />.
         /// </summary>
         /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
         /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>

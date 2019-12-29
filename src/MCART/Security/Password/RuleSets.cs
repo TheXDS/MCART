@@ -390,7 +390,7 @@ namespace TheXDS.MCART.Security.Password
         }
 
         /// <summary>
-        ///     Crea una nueva regla que evita el uso de contraseñas comunes conocidas.
+        /// Crea una nueva regla que evita el uso de contraseñas comunes conocidas.
         /// </summary>
         /// <returns>Un <see cref="PasswordEvaluationRule"/> que evita el uso de contraseñas comunes conocidas.</returns>
         public static PasswordEvaluationRule AvoidCommonPasswords()
@@ -410,7 +410,7 @@ namespace TheXDS.MCART.Security.Password
         }
 
         /// <summary>
-        ///     Crea una nueva regla que evita el uso del año actual como parte de la contraseña.
+        /// Crea una nueva regla que evita el uso del año actual como parte de la contraseña.
         /// </summary>
         /// <returns>Un <see cref="PasswordEvaluationRule"/> que evita el uso del año actual como parte de la contraseña.</returns>
         public static PasswordEvaluationRule AvoidYears()

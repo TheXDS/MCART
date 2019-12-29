@@ -31,28 +31,28 @@ namespace TheXDS.MCART.Types
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Extensión de la clase <see cref="TcpClient" />
-    ///     que implementa observación del estado de deshecho del objeto.
+    /// Extensión de la clase <see cref="TcpClient" />
+    /// que implementa observación del estado de deshecho del objeto.
     /// </summary>
     public class TcpClientEx : TcpClient, IDisposableEx
     {
         /// <summary>
-        ///     Obtiene un valor que indica si la instancia actual ha sido
-        ///     desechada.
+        /// Obtiene un valor que indica si la instancia actual ha sido
+        /// desechada.
         /// </summary>
         public bool IsDisposed { get; private set; }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Libera los recursos no administrados que usa
-        ///     <see cref="TcpClient" /> y libera los
-        ///     recursos administrados de forma opcional.
+        /// Libera los recursos no administrados que usa
+        /// <see cref="TcpClient" /> y libera los
+        /// recursos administrados de forma opcional.
         /// </summary>
         /// <param name="disposing">
-        ///     Se establece en <see langword="true" /> para liberar tanto los
-        ///     recursos administrados como los no administrados; se establece
-        ///     en <see langword="false" /> para liberar únicamente los
-        ///     recursos no administrados.
+        /// Se establece en <see langword="true" /> para liberar tanto los
+        /// recursos administrados como los no administrados; se establece
+        /// en <see langword="false" /> para liberar únicamente los
+        /// recursos no administrados.
         /// </param>
         protected override void Dispose(bool disposing)
         {

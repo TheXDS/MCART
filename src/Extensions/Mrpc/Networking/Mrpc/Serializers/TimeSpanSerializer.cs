@@ -29,36 +29,36 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Networking.Mrpc.Serializers
 {
     /// <summary>
-    ///     Serializador de datos que opera sobre objetos de tipo
-    ///     <see cref="TimeSpan"/>.
+    /// Serializador de datos que opera sobre objetos de tipo
+    /// <see cref="TimeSpan"/>.
     /// </summary>
     public sealed class TimeSpanSerializer : DataSerializer<TimeSpan>
     {
         /// <summary>
-        ///     Obtiene un <see cref="TimeSpan"/> desde el
-        ///     <see cref="BinaryReader"/> especificado.
+        /// Obtiene un <see cref="TimeSpan"/> desde el
+        /// <see cref="BinaryReader"/> especificado.
         /// </summary>
         /// <param name="reader">
-        ///     <see cref="BinaryReader"/> desde el cual obtener un
-        ///     <see cref="TimeSpan"/>.
+        /// <see cref="BinaryReader"/> desde el cual obtener un
+        /// <see cref="TimeSpan"/>.
         /// </param>
         /// <returns>
-        ///     El <see cref="TimeSpan"/> que se ha reconstruido con la
-        ///     información binaria leída desde el <see cref="BinaryReader"/>
-        ///     especificado.
+        /// El <see cref="TimeSpan"/> que se ha reconstruido con la
+        /// información binaria leída desde el <see cref="BinaryReader"/>
+        /// especificado.
         /// </returns>
         protected override TimeSpan Read(BinaryReader reader) => reader.ReadTimeSpan();
 
         /// <summary>
-        ///     Serializa un <see cref="TimeSpan"/> en formato binario y lo
-        ///     escribe por medio del <see cref="BinaryWriter"/> especificado.
+        /// Serializa un <see cref="TimeSpan"/> en formato binario y lo
+        /// escribe por medio del <see cref="BinaryWriter"/> especificado.
         /// </summary>
         /// <param name="value">
-        ///     Valor <see cref="TimeSpan"/> a serializar.
+        /// Valor <see cref="TimeSpan"/> a serializar.
         /// </param>
         /// <param name="writer">
-        ///     <see cref="BinaryWriter"/> a utilizar para escribir los datos
-        ///     binarios serializados.
+        /// <see cref="BinaryWriter"/> a utilizar para escribir los datos
+        /// binarios serializados.
         /// </param>
         protected override void Write(TimeSpan value, BinaryWriter writer) => writer.Write(value);
     }

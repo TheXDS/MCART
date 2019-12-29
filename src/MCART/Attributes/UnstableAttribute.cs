@@ -29,7 +29,7 @@ namespace TheXDS.MCART.Attributes
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Indica que un elemento contiene código que podría ser inestable.
+    /// Indica que un elemento contiene código que podría ser inestable.
     /// </summary>
     [AttributeUsage(Method | Class | Module | Assembly)]
     [Serializable]

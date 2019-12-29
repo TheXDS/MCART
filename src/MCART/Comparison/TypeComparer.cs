@@ -27,18 +27,18 @@ using System.Collections.Generic;
 namespace TheXDS.MCART.Comparison
 {
     /// <summary>
-    ///     Compara el tipo de dos objetos.
+    /// Compara el tipo de dos objetos.
     /// </summary>
     public class TypeComparer : IEqualityComparer<object>
     {
         /// <summary>
-        ///     Determina si los objetos especificados son iguales.
+        /// Determina si los objetos especificados son iguales.
         /// </summary>
         /// <param name="x">Primer objeto a comparar.</param>
         /// <param name="y">Segundo objeto a comparar.</param>
         /// <returns>
-        ///     <see langword="true"/> si el tipo de ambos objetos es el mismo,
-        ///     <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si el tipo de ambos objetos es el mismo,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         public new bool Equals(object x, object y)
         {
@@ -46,13 +46,13 @@ namespace TheXDS.MCART.Comparison
         }
 
         /// <summary>
-        ///     Obtiene el código Hash para el tipo del objeto especificado.
+        /// Obtiene el código Hash para el tipo del objeto especificado.
         /// </summary>
         /// <param name="obj">
-        ///     Objeto para el cual obtener un código Hash.
+        /// Objeto para el cual obtener un código Hash.
         /// </param>
         /// <returns>
-        ///     El código hash para el tipo del objeto especificado.
+        /// El código hash para el tipo del objeto especificado.
         /// </returns>
         public int GetHashCode(object obj)
         {

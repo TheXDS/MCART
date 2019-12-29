@@ -25,16 +25,16 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.ViewModel
 {
     /// <summary>
-    ///     Define una serie de métodos a implementar por una clase que exponga
-    ///     una entidad dentro de una clase ViewModel del patrón MVVM.
+    /// Define una serie de métodos a implementar por una clase que exponga
+    /// una entidad dentro de una clase ViewModel del patrón MVVM.
     /// </summary>
     /// <typeparam name="T">
-    ///     Tipo de entidad a controlar.
+    /// Tipo de entidad a controlar.
     /// </typeparam>
     public interface INewEntityViewModel<T> : IEntityViewModel<T> where T : new()
     {
         /// <summary>
-        ///     Instancia un nuevo <typeparamref name="T"/> en este ViewModel.
+        /// Instancia un nuevo <typeparamref name="T"/> en este ViewModel.
         /// </summary>
         void New();
     }

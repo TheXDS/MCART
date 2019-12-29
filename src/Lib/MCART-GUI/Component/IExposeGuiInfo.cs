@@ -26,7 +26,7 @@ namespace TheXDS.MCART.Component
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Extensión de la interfaz <see cref="IExposeInfo" /> que permite establecer un ícono.
+    /// Extensión de la interfaz <see cref="IExposeInfo" /> que permite establecer un ícono.
     /// </summary>
     /// <typeparam name="TIcon">Tipo del ícono a exponer.</typeparam>
     public interface IExposeGuiInfo<out TIcon> : IExposeInfo

@@ -26,15 +26,15 @@ namespace TheXDS.MCART.Events
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Incluye información de evento para cualquier clase con eventos de
-    ///     logging (bitácora).
+    /// Incluye información de evento para cualquier clase con eventos de
+    /// logging (bitácora).
     /// </summary>
     public class LoggingEventArgs : ValueEventArgs<string>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="LoggingEventArgs" />, sin definir un objeto relacionado.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="LoggingEventArgs" />, sin definir un objeto relacionado.
         /// </summary>
         /// <param name="message">Mensaje de esta entrada de log.</param>
         public LoggingEventArgs(string message) : base(message)
@@ -43,8 +43,8 @@ namespace TheXDS.MCART.Events
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="LoggingEventArgs" />, definiendo un objeto relacionado.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="LoggingEventArgs" />, definiendo un objeto relacionado.
         /// </summary>
         /// <param name="subject">Objeto relacionado a esta entrada de log.</param>
         /// <param name="message">Mensaje de esta entrada de log.</param>
@@ -54,7 +54,7 @@ namespace TheXDS.MCART.Events
         }
 
         /// <summary>
-        ///     Objeto relacionado a esta entrada de log.
+        /// Objeto relacionado a esta entrada de log.
         /// </summary>
         public object? Subject { get; }
     }

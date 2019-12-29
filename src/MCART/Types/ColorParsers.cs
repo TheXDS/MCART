@@ -26,19 +26,19 @@ namespace TheXDS.MCART.Types
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Implementa un <see cref="IColorParser{T}" /> que tiene como formato
-    ///     de color un valor de 32 bits, 8 bits por canal, 8 bits de alfa,
-    ///     ordenados como AABBGGRR.
+    /// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
+    /// de color un valor de 32 bits, 8 bits por canal, 8 bits de alfa,
+    /// ordenados como AABBGGRR.
     /// </summary>
     public class ABGR32 : IColorParser<int>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte una estructura compatible en un <see cref="Color" />.
+        /// Convierte una estructura compatible en un <see cref="Color" />.
         /// </summary>
         /// <param name="value">Valor a convertir.</param>
         /// <returns>
-        ///     Un <see cref="Color" /> creado a partir del valor especificado.
+        /// Un <see cref="Color" /> creado a partir del valor especificado.
         /// </returns>
         public Color From(int value)
         {
@@ -51,12 +51,12 @@ namespace TheXDS.MCART.Types
 
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte un <see cref="Color" /> en un valor, utilizando el
-        ///     <see cref="IColorParser{T}" /> especificado.
+        /// Convierte un <see cref="Color" /> en un valor, utilizando el
+        /// <see cref="IColorParser{T}" /> especificado.
         /// </summary>
         /// <param name="color"><see cref="Color" /> a convertir.</param>
         /// <returns>
-        ///     Un valor creado a partir de este <see cref="Color" />.
+        /// Un valor creado a partir de este <see cref="Color" />.
         /// </returns>
         public int To(Color color)
         {
@@ -66,18 +66,18 @@ namespace TheXDS.MCART.Types
 
     /// <inheritdoc />
     /// <summary>
-    ///     Implementa un <see cref="IColorParser{T}" /> que tiene como formato
-    ///     de color un valor de 24 bits, 8 bits por canal, sin alfa.
+    /// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
+    /// de color un valor de 24 bits, 8 bits por canal, sin alfa.
     /// </summary>
     public class BGR24 : IColorParser<int>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte una estructura compatible en un <see cref="Color" />.
+        /// Convierte una estructura compatible en un <see cref="Color" />.
         /// </summary>
         /// <param name="value">Valor a convertir.</param>
         /// <returns>
-        ///     Un <see cref="Color" /> creado a partir del valor especificado.
+        /// Un <see cref="Color" /> creado a partir del valor especificado.
         /// </returns>
         public Color From(int value)
         {
@@ -89,12 +89,12 @@ namespace TheXDS.MCART.Types
 
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte un <see cref="Color" /> en un valor, utilizando el
-        ///     <see cref="IColorParser{T}" /> especificado.
+        /// Convierte un <see cref="Color" /> en un valor, utilizando el
+        /// <see cref="IColorParser{T}" /> especificado.
         /// </summary>
         /// <param name="color"><see cref="Color" /> a convertir.</param>
         /// <returns>
-        ///     Un valor creado a partir de este <see cref="Color" />.
+        /// Un valor creado a partir de este <see cref="Color" />.
         /// </returns>
         public int To(Color color)
         {
@@ -104,18 +104,18 @@ namespace TheXDS.MCART.Types
 
     /// <inheritdoc />
     /// <summary>
-    ///     Implementa un <see cref="IColorParser{T}" /> que tiene como formato
-    ///     de color un valor de 16 bits, 4 bits por canal, 4 bits de alfa.
+    /// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
+    /// de color un valor de 16 bits, 4 bits por canal, 4 bits de alfa.
     /// </summary>
     public class ABGR4444 : IColorParser<short>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte una estructura compatible en un <see cref="Color" />.
+        /// Convierte una estructura compatible en un <see cref="Color" />.
         /// </summary>
         /// <param name="value">Valor a convertir.</param>
         /// <returns>
-        ///     Un <see cref="Color" /> creado a partir del valor especificado.
+        /// Un <see cref="Color" /> creado a partir del valor especificado.
         /// </returns>
         public Color From(short value)
         {
@@ -128,12 +128,12 @@ namespace TheXDS.MCART.Types
 
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte un <see cref="Color" /> en un valor, utilizando el
-        ///     <see cref="IColorParser{T}" /> especificado.
+        /// Convierte un <see cref="Color" /> en un valor, utilizando el
+        /// <see cref="IColorParser{T}" /> especificado.
         /// </summary>
         /// <param name="color"><see cref="Color" /> a convertir.</param>
         /// <returns>
-        ///     Un valor creado a partir de este <see cref="Color" />.
+        /// Un valor creado a partir de este <see cref="Color" />.
         /// </returns>
         public short To(Color color)
         {
@@ -147,18 +147,18 @@ namespace TheXDS.MCART.Types
 
     /// <inheritdoc />
     /// <summary>
-    ///     Implementa un <see cref="IColorParser{T}" /> que tiene como formato
-    ///     de color un valor de 12 bits, 4 bits por canal, sin alfa.
+    /// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
+    /// de color un valor de 12 bits, 4 bits por canal, sin alfa.
     /// </summary>
     public class BGR12 : IColorParser<short>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte una estructura compatible en un <see cref="Color" />.
+        /// Convierte una estructura compatible en un <see cref="Color" />.
         /// </summary>
         /// <param name="value">Valor a convertir.</param>
         /// <returns>
-        ///     Un <see cref="Color" /> creado a partir del valor especificado.
+        /// Un <see cref="Color" /> creado a partir del valor especificado.
         /// </returns>
         public Color From(short value)
         {
@@ -171,12 +171,12 @@ namespace TheXDS.MCART.Types
 
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte un <see cref="Color" /> en un valor, utilizando el
-        ///     <see cref="IColorParser{T}" /> especificado.
+        /// Convierte un <see cref="Color" /> en un valor, utilizando el
+        /// <see cref="IColorParser{T}" /> especificado.
         /// </summary>
         /// <param name="color"><see cref="Color" /> a convertir.</param>
         /// <returns>
-        ///     Un valor creado a partir de este <see cref="Color" />.
+        /// Un valor creado a partir de este <see cref="Color" />.
         /// </returns>
         public short To(Color color)
         {
@@ -189,18 +189,18 @@ namespace TheXDS.MCART.Types
 
     /// <inheritdoc />
     /// <summary>
-    ///     Implementa un <see cref="IColorParser{T}" /> que tiene como formato
-    ///     de color un valor de 16 bits, 5 bits por canal, 1 bit de alfa.
+    /// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
+    /// de color un valor de 16 bits, 5 bits por canal, 1 bit de alfa.
     /// </summary>
     public class ABGR16 : IColorParser<short>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte una estructura compatible en un <see cref="Color" />.
+        /// Convierte una estructura compatible en un <see cref="Color" />.
         /// </summary>
         /// <param name="value">Valor a convertir.</param>
         /// <returns>
-        ///     Un <see cref="Color" /> creado a partir del valor especificado.
+        /// Un <see cref="Color" /> creado a partir del valor especificado.
         /// </returns>
         public Color From(short value)
         {
@@ -213,12 +213,12 @@ namespace TheXDS.MCART.Types
 
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte un <see cref="Color" /> en un valor, utilizando el
-        ///     <see cref="IColorParser{T}" /> especificado.
+        /// Convierte un <see cref="Color" /> en un valor, utilizando el
+        /// <see cref="IColorParser{T}" /> especificado.
         /// </summary>
         /// <param name="color"><see cref="Color" /> a convertir.</param>
         /// <returns>
-        ///     Un valor creado a partir de este <see cref="Color" />.
+        /// Un valor creado a partir de este <see cref="Color" />.
         /// </returns>
         public short To(Color color)
         {
@@ -232,18 +232,18 @@ namespace TheXDS.MCART.Types
 
     /// <inheritdoc />
     /// <summary>
-    ///     Implementa un <see cref="IColorParser{T}" /> que tiene como formato
-    ///     de color un valor de 15 bits, 5 bits por canal, sin alfa.
+    /// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
+    /// de color un valor de 15 bits, 5 bits por canal, sin alfa.
     /// </summary>
     public class BGR555 : IColorParser<short>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte una estructura compatible en un <see cref="Color" />.
+        /// Convierte una estructura compatible en un <see cref="Color" />.
         /// </summary>
         /// <param name="value">Valor a convertir.</param>
         /// <returns>
-        ///     Un <see cref="Color" /> creado a partir del valor especificado.
+        /// Un <see cref="Color" /> creado a partir del valor especificado.
         /// </returns>
         public Color From(short value)
         {
@@ -256,12 +256,12 @@ namespace TheXDS.MCART.Types
 
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte un <see cref="Color" /> en un valor, utilizando el
-        ///     <see cref="IColorParser{T}" /> especificado.
+        /// Convierte un <see cref="Color" /> en un valor, utilizando el
+        /// <see cref="IColorParser{T}" /> especificado.
         /// </summary>
         /// <param name="color"><see cref="Color" /> a convertir.</param>
         /// <returns>
-        ///     Un valor creado a partir de este <see cref="Color" />.
+        /// Un valor creado a partir de este <see cref="Color" />.
         /// </returns>
         public short To(Color color)
         {
@@ -274,19 +274,19 @@ namespace TheXDS.MCART.Types
 
     /// <inheritdoc />
     /// <summary>
-    ///     Implementa un <see cref="IColorParser{T}" /> que tiene como formato
-    ///     de color un valor de 16 bits, 5 bits para los canales rojo y azul,
-    ///     6 para el canal verde, sin alfa.
+    /// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
+    /// de color un valor de 16 bits, 5 bits para los canales rojo y azul,
+    /// 6 para el canal verde, sin alfa.
     /// </summary>
     public class BGR565 : IColorParser<short>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte una estructura compatible en un <see cref="Color" />.
+        /// Convierte una estructura compatible en un <see cref="Color" />.
         /// </summary>
         /// <param name="value">Valor a convertir.</param>
         /// <returns>
-        ///     Un <see cref="Color" /> creado a partir del valor especificado.
+        /// Un <see cref="Color" /> creado a partir del valor especificado.
         /// </returns>
         public Color From(short value)
         {
@@ -299,12 +299,12 @@ namespace TheXDS.MCART.Types
 
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte un <see cref="Color" /> en un valor, utilizando el
-        ///     <see cref="IColorParser{T}" /> especificado.
+        /// Convierte un <see cref="Color" /> en un valor, utilizando el
+        /// <see cref="IColorParser{T}" /> especificado.
         /// </summary>
         /// <param name="color"><see cref="Color" /> a convertir.</param>
         /// <returns>
-        ///     Un valor creado a partir de este <see cref="Color" />.
+        /// Un valor creado a partir de este <see cref="Color" />.
         /// </returns>
         public short To(Color color)
         {
@@ -317,18 +317,18 @@ namespace TheXDS.MCART.Types
 
     /// <inheritdoc />
     /// <summary>
-    ///     Implementa un <see cref="IColorParser{T}" /> que tiene como formato
-    ///     de color un valor de 8 bits, 2 bits por canal, 2 bits de alfa.
+    /// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
+    /// de color un valor de 8 bits, 2 bits por canal, 2 bits de alfa.
     /// </summary>
     public class ABGR2222 : IColorParser<byte>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte una estructura compatible en un <see cref="Color" />.
+        /// Convierte una estructura compatible en un <see cref="Color" />.
         /// </summary>
         /// <param name="value">Valor a convertir.</param>
         /// <returns>
-        ///     Un <see cref="Color" /> creado a partir del valor especificado.
+        /// Un <see cref="Color" /> creado a partir del valor especificado.
         /// </returns>
         public Color From(byte value)
         {
@@ -341,12 +341,12 @@ namespace TheXDS.MCART.Types
 
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte un <see cref="Color" /> en un valor, utilizando el
-        ///     <see cref="IColorParser{T}" /> especificado.
+        /// Convierte un <see cref="Color" /> en un valor, utilizando el
+        /// <see cref="IColorParser{T}" /> especificado.
         /// </summary>
         /// <param name="color"><see cref="Color" /> a convertir.</param>
         /// <returns>
-        ///     Un valor creado a partir de este <see cref="Color" />.
+        /// Un valor creado a partir de este <see cref="Color" />.
         /// </returns>
         public byte To(Color color)
         {
@@ -360,18 +360,18 @@ namespace TheXDS.MCART.Types
 
     /// <inheritdoc />
     /// <summary>
-    ///     Implementa un <see cref="IColorParser{T}" /> que tiene como formato
-    ///     de color un valor de 6 bits, 2 bits por canal, sin alfa.
+    /// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
+    /// de color un valor de 6 bits, 2 bits por canal, sin alfa.
     /// </summary>
     public class BGR222 : IColorParser<byte>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte una estructura compatible en un <see cref="Color" />.
+        /// Convierte una estructura compatible en un <see cref="Color" />.
         /// </summary>
         /// <param name="value">Valor a convertir.</param>
         /// <returns>
-        ///     Un <see cref="Color" /> creado a partir del valor especificado.
+        /// Un <see cref="Color" /> creado a partir del valor especificado.
         /// </returns>
         public Color From(byte value)
         {
@@ -383,12 +383,12 @@ namespace TheXDS.MCART.Types
 
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte un <see cref="Color" /> en un valor, utilizando el
-        ///     <see cref="IColorParser{T}" /> especificado.
+        /// Convierte un <see cref="Color" /> en un valor, utilizando el
+        /// <see cref="IColorParser{T}" /> especificado.
         /// </summary>
         /// <param name="color"><see cref="Color" /> a convertir.</param>
         /// <returns>
-        ///     Un valor creado a partir de este <see cref="Color" />.
+        /// Un valor creado a partir de este <see cref="Color" />.
         /// </returns>
         public byte To(Color color)
         {
@@ -401,19 +401,19 @@ namespace TheXDS.MCART.Types
 
     /// <inheritdoc />
     /// <summary>
-    ///     Implementa un <see cref="IColorParser{T}" /> que tiene como formato
-    ///     de color un valor de 8 bits, 3 bits para los canales rojo y verde,
-    ///     2 para el canal azul, sin alfa.
+    /// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
+    /// de color un valor de 8 bits, 3 bits para los canales rojo y verde,
+    /// 2 para el canal azul, sin alfa.
     /// </summary>
     public class RGB233 : IColorParser<byte>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte una estructura compatible en un <see cref="Color" />.
+        /// Convierte una estructura compatible en un <see cref="Color" />.
         /// </summary>
         /// <param name="value">Valor a convertir.</param>
         /// <returns>
-        ///     Un <see cref="Color" /> creado a partir del valor especificado.
+        /// Un <see cref="Color" /> creado a partir del valor especificado.
         /// </returns>
         public Color From(byte value)
         {
@@ -425,12 +425,12 @@ namespace TheXDS.MCART.Types
 
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte un <see cref="Color" /> en un valor, utilizando el
-        ///     <see cref="IColorParser{T}" /> especificado.
+        /// Convierte un <see cref="Color" /> en un valor, utilizando el
+        /// <see cref="IColorParser{T}" /> especificado.
         /// </summary>
         /// <param name="color"><see cref="Color" /> a convertir.</param>
         /// <returns>
-        ///     Un valor creado a partir de este <see cref="Color" />.
+        /// Un valor creado a partir de este <see cref="Color" />.
         /// </returns>
         public byte To(Color color)
         {
@@ -443,18 +443,18 @@ namespace TheXDS.MCART.Types
 
     /// <inheritdoc />
     /// <summary>
-    ///     Implementa un <see cref="IColorParser{T}" /> que tiene como formato
-    ///     de color un valor monocromático de 1 bit, sin alfa.
+    /// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
+    /// de color un valor monocromático de 1 bit, sin alfa.
     /// </summary>
     public class Monochrome : IColorParser<bool>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte una estructura compatible en un <see cref="Color" />.
+        /// Convierte una estructura compatible en un <see cref="Color" />.
         /// </summary>
         /// <param name="value">Valor a convertir.</param>
         /// <returns>
-        ///     Un <see cref="Color" /> creado a partir del valor especificado.
+        /// Un <see cref="Color" /> creado a partir del valor especificado.
         /// </returns>
         public Color From(bool value)
         {
@@ -464,12 +464,12 @@ namespace TheXDS.MCART.Types
 
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte un <see cref="Color" /> en un valor, utilizando el
-        ///     <see cref="IColorParser{T}" /> especificado.
+        /// Convierte un <see cref="Color" /> en un valor, utilizando el
+        /// <see cref="IColorParser{T}" /> especificado.
         /// </summary>
         /// <param name="color"><see cref="Color" /> a convertir.</param>
         /// <returns>
-        ///     Un valor creado a partir de este <see cref="Color" />.
+        /// Un valor creado a partir de este <see cref="Color" />.
         /// </returns>
         public bool To(Color color)
         {
@@ -479,19 +479,19 @@ namespace TheXDS.MCART.Types
 
     /// <inheritdoc />
     /// <summary>
-    ///     Implementa un <see cref="IColorParser{T}" /> que tiene como formato
-    ///     de color un valor monocromático de 8 bits (escala de grises) sin
-    ///     alfa, en escala lineal.
+    /// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
+    /// de color un valor monocromático de 8 bits (escala de grises) sin
+    /// alfa, en escala lineal.
     /// </summary>
     public class Grayscale : IColorParser<byte>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte una estructura compatible en un <see cref="Color" />.
+        /// Convierte una estructura compatible en un <see cref="Color" />.
         /// </summary>
         /// <param name="value">Valor a convertir.</param>
         /// <returns>
-        ///     Un <see cref="Color" /> creado a partir del valor especificado.
+        /// Un <see cref="Color" /> creado a partir del valor especificado.
         /// </returns>
         public Color From(byte value)
         {
@@ -500,12 +500,12 @@ namespace TheXDS.MCART.Types
 
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte un <see cref="Color" /> en un valor, utilizando el
-        ///     <see cref="IColorParser{T}" /> especificado.
+        /// Convierte un <see cref="Color" /> en un valor, utilizando el
+        /// <see cref="IColorParser{T}" /> especificado.
         /// </summary>
         /// <param name="color"><see cref="Color" /> a convertir.</param>
         /// <returns>
-        ///     Un valor creado a partir de este <see cref="Color" />.
+        /// Un valor creado a partir de este <see cref="Color" />.
         /// </returns>
         public byte To(Color color)
         {
@@ -515,19 +515,19 @@ namespace TheXDS.MCART.Types
 
     /// <inheritdoc />
     /// <summary>
-    ///     Implementa un <see cref="IColorParser{T}" /> que tiene como formato
-    ///     de color un valor monocromático de 8 bits sin alfa, en el espacio
-    ///     colorimétrico de escala de grises.
+    /// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
+    /// de color un valor monocromático de 8 bits sin alfa, en el espacio
+    /// colorimétrico de escala de grises.
     /// </summary>
     public class ColorimetricGrayscale : IColorParser<byte>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte una estructura compatible en un <see cref="Color" />.
+        /// Convierte una estructura compatible en un <see cref="Color" />.
         /// </summary>
         /// <param name="value">Valor a convertir.</param>
         /// <returns>
-        ///     Un <see cref="Color" /> creado a partir del valor especificado.
+        /// Un <see cref="Color" /> creado a partir del valor especificado.
         /// </returns>
         public Color From(byte value)
         {
@@ -540,12 +540,12 @@ namespace TheXDS.MCART.Types
 
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte un <see cref="Color" /> en un valor, utilizando el
-        ///     <see cref="IColorParser{T}" /> especificado.
+        /// Convierte un <see cref="Color" /> en un valor, utilizando el
+        /// <see cref="IColorParser{T}" /> especificado.
         /// </summary>
         /// <param name="color"><see cref="Color" /> a convertir.</param>
         /// <returns>
-        ///     Un valor creado a partir de este <see cref="Color" />.
+        /// Un valor creado a partir de este <see cref="Color" />.
         /// </returns>
         public byte To(Color color)
         {
@@ -558,19 +558,19 @@ namespace TheXDS.MCART.Types
 
     /// <inheritdoc />
     /// <summary>
-    ///     Implementa un <see cref="IColorParser{T}" /> que tiene como formato
-    ///     de color un byte de atributo VGA con información de color e
-    ///     intensidad, ignorando el color de fondo y el bit de Blink.
+    /// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
+    /// de color un byte de atributo VGA con información de color e
+    /// intensidad, ignorando el color de fondo y el bit de Blink.
     /// </summary>
     public class VGAAttributeByte : IColorParser<byte>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte una estructura compatible en un <see cref="Color" />.
+        /// Convierte una estructura compatible en un <see cref="Color" />.
         /// </summary>
         /// <param name="value">Valor a convertir.</param>
         /// <returns>
-        ///     Un <see cref="Color" /> creado a partir del valor especificado.
+        /// Un <see cref="Color" /> creado a partir del valor especificado.
         /// </returns>
         public Color From(byte value)
         {
@@ -583,14 +583,14 @@ namespace TheXDS.MCART.Types
 
         /// <inheritdoc />
         /// <summary>
-        ///     Convierte un <see cref="Color" /> en su representación como un
-        ///     <see cref="byte" /> de atributo VGA.
+        /// Convierte un <see cref="Color" /> en su representación como un
+        /// <see cref="byte" /> de atributo VGA.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="byte" /> con la representación binaria de este
-        ///     <see cref="Color" />, en formato BGRI de 4 bits.
-        ///     El byte de atributo no incluirá color de fondo ni bit de
-        ///     Blink.
+        /// Un <see cref="byte" /> con la representación binaria de este
+        /// <see cref="Color" />, en formato BGRI de 4 bits.
+        /// El byte de atributo no incluirá color de fondo ni bit de
+        /// Blink.
         /// </returns>
         public byte To(Color color)
         {

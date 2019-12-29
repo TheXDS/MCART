@@ -27,13 +27,13 @@ using System.Reflection;
 namespace TheXDS.MCART.Component
 {
     /// <summary>
-    ///     Define una serie de miembros a implementar por una clase que
-    ///     exponga a un ensamblado como una propiedad.
+    /// Define una serie de miembros a implementar por una clase que
+    /// exponga a un ensamblado como una propiedad.
     /// </summary>
     public interface IExposeAssembly
     {
         /// <summary>
-        ///     Obtiene el ensamblado relacionado a este objeto.
+        /// Obtiene el ensamblado relacionado a este objeto.
         /// </summary>
         Assembly Assembly { get; }
     }

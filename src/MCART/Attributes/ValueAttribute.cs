@@ -29,14 +29,14 @@ namespace TheXDS.MCART.Attributes
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Clase base para los atributos de cualquier tipo.
+    /// Clase base para los atributos de cualquier tipo.
     /// </summary>
     public abstract class ValueAttribute : Attribute
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Crea una nueva isntancia de la clase
-        ///     <see cref="ObjectAttribute" />.
+        /// Crea una nueva isntancia de la clase
+        /// <see cref="ObjectAttribute" />.
         /// </summary>
         /// <param name="attributeValue">Valor de este atributo.</param>
         protected ValueAttribute(dynamic attributeValue)
@@ -45,7 +45,7 @@ namespace TheXDS.MCART.Attributes
         }
 
         /// <summary>
-        ///     Obtiene el valor asociado a este atributo.
+        /// Obtiene el valor asociado a este atributo.
         /// </summary>
         public dynamic Value { get; }
     }

@@ -29,25 +29,25 @@ using System.Text;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Extensiones de la clase <see cref="StringBuilder"/>.
+    /// Extensiones de la clase <see cref="StringBuilder"/>.
     /// </summary>
     public static class StringBuilderFluentExtensions
     {
         /// <summary>
-        ///     Concatena el texto especificado seguido del terminador de línea
-        ///     predeterminado al final de esta instancia solamente si la
-        ///     cadena no es <see langword="null"/>.
+        /// Concatena el texto especificado seguido del terminador de línea
+        /// predeterminado al final de esta instancia solamente si la
+        /// cadena no es <see langword="null"/>.
         /// </summary>
         /// <param name="sb">
-        ///     Instancia de <see cref="StringBuilder"/> sobre la cual realizar
-        ///     la operación.
+        /// Instancia de <see cref="StringBuilder"/> sobre la cual realizar
+        /// la operación.
         /// </param>
         /// <param name="text">
-        ///     Texto a concatenar. Si es <see langword="null"/>, no se
-        ///     realizará ninguna acción.
+        /// Texto a concatenar. Si es <see langword="null"/>, no se
+        /// realizará ninguna acción.
         /// </param>
         /// <returns>
-        ///     La misma instancia que <paramref name="sb"/>.
+        /// La misma instancia que <paramref name="sb"/>.
         /// </returns>
         public static StringBuilder AppendLineIfNotNull(this StringBuilder sb, string? text)
         {

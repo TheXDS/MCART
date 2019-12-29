@@ -30,7 +30,7 @@ namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Excepción que se produce al hacer referencia a un tipo inválido.
+    /// Excepción que se produce al hacer referencia a un tipo inválido.
     /// </summary>
     [Serializable]
     public class InvalidTypeException : OffendingException<Type>
@@ -40,7 +40,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
         /// </summary>
         public InvalidTypeException() : base(Msg())
         {
@@ -48,7 +48,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
         /// </summary>
         /// <param name="offendingType">Tipo que ha causado la excepción.</param>
         public InvalidTypeException(Type offendingType) : base(Msg(offendingType), offendingType)
@@ -57,7 +57,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
         /// </summary>
         /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
         public InvalidTypeException(string message) : base(message)
@@ -66,7 +66,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
         /// </summary>
         /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
         /// <param name="offendingType">Tipo que ha causado la excepción.</param>
@@ -76,7 +76,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
         /// </summary>
         /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
         public InvalidTypeException(Exception inner) : base(Msg(), inner)
@@ -85,7 +85,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
         /// </summary>
         /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
         /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
@@ -95,7 +95,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
         /// </summary>
         /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
         /// <param name="offendingType">Tipo que ha causado la excepción.</param>
@@ -105,7 +105,7 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
         /// </summary>
         /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
         /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
@@ -116,14 +116,14 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="InvalidTypeException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidTypeException" />.
         /// </summary>
         /// <param name="info">
-        ///     El objeto que contiene la información de serialización.
+        /// El objeto que contiene la información de serialización.
         /// </param>
         /// <param name="context">
-        ///     La información contextual acerca del orígen o el destino.
+        /// La información contextual acerca del orígen o el destino.
         /// </param>
         protected InvalidTypeException(SerializationInfo info, StreamingContext context) : base(info, context)
         {

@@ -30,29 +30,29 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.IO
 {
     /// <summary>
-    ///     Define una serie de miembros a implementar por un tipo que permita
-    ///     interpretar un <see cref="Uri"/> y obtener una respuesta desde un
-    ///     servicio web.
+    /// Define una serie de miembros a implementar por un tipo que permita
+    /// interpretar un <see cref="Uri"/> y obtener una respuesta desde un
+    /// servicio web.
     /// </summary>
     public interface IWebUriParser : IStreamUriParser
     {
         /// <summary>
-        ///     Obtiene una respuesta Web a partir del <see cref="Uri"/>
-        ///     especificado.
+        /// Obtiene una respuesta Web a partir del <see cref="Uri"/>
+        /// especificado.
         /// </summary>
         /// <param name="uri">Dirección web a resolver.</param>
         /// <returns>
-        ///     La respuesta enviada por un servidor web.
+        /// La respuesta enviada por un servidor web.
         /// </returns>
         WebResponse GetResponse(Uri uri);
 
         /// <summary>
-        ///     Obtiene una respuesta Web a partir del <see cref="Uri"/>
-        ///     especificado de forma asíncrona.
+        /// Obtiene una respuesta Web a partir del <see cref="Uri"/>
+        /// especificado de forma asíncrona.
         /// </summary>
         /// <param name="uri">Dirección web a resolver.</param>
         /// <returns>
-        ///     La respuesta enviada por un servidor web.
+        /// La respuesta enviada por un servidor web.
         /// </returns>
         Task<WebResponse> GetResponseAsync(Uri uri);
     }

@@ -40,8 +40,8 @@ namespace TheXDS.MCART.Networking.Server
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Controla conexiones entrantes y ejecuta protocolos sobre los clientes
-    ///     que se conecten al servidor.
+    /// Controla conexiones entrantes y ejecuta protocolos sobre los clientes
+    /// que se conecten al servidor.
     /// </summary>
     public class Server<TClient> : Server where TClient : Client
     {
@@ -57,13 +57,13 @@ namespace TheXDS.MCART.Networking.Server
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="Server{T}" />.
+        /// Inicializa una nueva instancia de la clase <see cref="Server{T}" />.
         /// </summary>
         /// <param name="protocol">
-        ///     Conjunto de protocolos a utilizar para este servidor.
+        /// Conjunto de protocolos a utilizar para este servidor.
         /// </param>
         /// <exception cref="T:System.ArgumentNullException">
-        ///     Se produce si <paramref name="protocol" /> es <see langword="null" />.
+        /// Se produce si <paramref name="protocol" /> es <see langword="null" />.
         /// </exception>
         [DebuggerStepThrough]
         public Server(IProtocol protocol) : base(protocol)
@@ -73,14 +73,14 @@ namespace TheXDS.MCART.Networking.Server
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="Server{T}" />.
+        /// Inicializa una nueva instancia de la clase <see cref="Server{T}" />.
         /// </summary>
         /// <param name="protocol">
-        ///     Conjunto de protocolos a utilizar para este servidor.
+        /// Conjunto de protocolos a utilizar para este servidor.
         /// </param>
         /// <param name="port">Puerto local a escuchar.</param>
         /// <exception cref="T:System.ArgumentNullException">
-        ///     Se produce si <paramref name="protocol" /> es <see langword="null" />.
+        /// Se produce si <paramref name="protocol" /> es <see langword="null" />.
         /// </exception>
         [DebuggerStepThrough]
         public Server(IProtocol protocol, int port) : base(protocol, port)
@@ -90,19 +90,19 @@ namespace TheXDS.MCART.Networking.Server
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="Server" />.
+        /// Inicializa una nueva instancia de la clase <see cref="Server" />.
         /// </summary>
         /// <param name="protocol">
-        ///     Conjunto de protocolos a utilizar para este servidor.
+        /// Conjunto de protocolos a utilizar para este servidor.
         /// </param>
         /// <param name="ep">
-        ///     <see cref="IPEndPoint" /> local a escuchar. Si se establece en
-        ///     <see langword="null" />, se escuchará al puerto predeterminado del
-        ///     protocolo (indicado por el atributo <see cref="PortAttribute" />) o
-        ///     <see cref="F:TheXDS.MCART.Networking.Common.DefaultPort" /> de todas las direcciones IP del servidor.
+        /// <see cref="IPEndPoint" /> local a escuchar. Si se establece en
+        /// <see langword="null" />, se escuchará al puerto predeterminado del
+        /// protocolo (indicado por el atributo <see cref="PortAttribute" />) o
+        /// <see cref="F:TheXDS.MCART.Networking.Common.DefaultPort" /> de todas las direcciones IP del servidor.
         /// </param>
         /// <exception cref="T:System.ArgumentNullException">
-        ///     Se produce si <paramref name="protocol" /> es <see langword="null" />.
+        /// Se produce si <paramref name="protocol" /> es <see langword="null" />.
         /// </exception>
         [DebuggerStepThrough]
         public Server(IProtocol protocol, IPEndPoint ep) : base(protocol, ep)
@@ -111,13 +111,13 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Lista de objetos <typeparamref name="TClient"/> conectados a
-        ///     este servidor.
+        /// Lista de objetos <typeparamref name="TClient"/> conectados a
+        /// este servidor.
         /// </summary>
         public new IEnumerable<TClient> Clients => base.Clients.OfType<TClient>();
 
         /// <summary>
-        ///     Envía un mensaje a todos los clientes, excepto el especificado.
+        /// Envía un mensaje a todos los clientes, excepto el especificado.
         /// </summary>
         /// <param name="data">Mensaje a enviar a los clientes.</param>
         /// <param name="client">Cliente que envía los datos.</param>
@@ -127,12 +127,12 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Envía un mensaje a todos los clientes que satisfacen la
-        ///     condición especificada por <paramref name="condition" />.
+        /// Envía un mensaje a todos los clientes que satisfacen la
+        /// condición especificada por <paramref name="condition" />.
         /// </summary>
         /// <param name="data">Mensaje a enviar a los clientes.</param>
         /// <param name="condition">
-        ///     Condición que determina a los clientes que recibirán el mensaje.
+        /// Condición que determina a los clientes que recibirán el mensaje.
         /// </param>
         public void Multicast(byte[] data, Predicate<TClient> condition)
         {
@@ -140,10 +140,10 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Envía un mensaje a todos los clientes, excepto el especificado.
+        /// Envía un mensaje a todos los clientes, excepto el especificado.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="Task" /> que representa esta tarea.
+        /// Un <see cref="Task" /> que representa esta tarea.
         /// </returns>
         /// <param name="data">Mensaje a enviar a los clientes.</param>
         /// <param name="client">Cliente que envía los datos.</param>
@@ -153,15 +153,15 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Envía un mensaje a todos los clientes que satisfacen la
-        ///     condición especificada por <paramref name="condition" />.
+        /// Envía un mensaje a todos los clientes que satisfacen la
+        /// condición especificada por <paramref name="condition" />.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="Task" /> que representa esta tarea.
+        /// Un <see cref="Task" /> que representa esta tarea.
         /// </returns>
         /// <param name="data">Mensaje a enviar a los clientes.</param>
         /// <param name="condition">
-        ///     Condición que determina a los clientes que recibirán el mensaje.
+        /// Condición que determina a los clientes que recibirán el mensaje.
         /// </param>
         public Task MulticastAsync(byte[] data, Predicate<TClient> condition)
         {
@@ -174,8 +174,8 @@ namespace TheXDS.MCART.Networking.Server
     }
 
     /// <summary>
-    ///     Controla conexiones entrantes y ejecuta protocolos sobre los clientes
-    ///     que se conecten al servidor.
+    /// Controla conexiones entrantes y ejecuta protocolos sobre los clientes
+    /// que se conecten al servidor.
     /// </summary>
     public class Server
     {
@@ -210,13 +210,13 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Lista de objetos <see cref="Client" /> conectados a este servidor.
+        /// Lista de objetos <see cref="Client" /> conectados a este servidor.
         /// </summary>
         public IEnumerable<Client> Clients => _clients;
 
         /// <summary>
-        ///     Obtiene o establece un valor que indica si este
-        ///     <see cref="Server" /> está activo (vivo).
+        /// Obtiene o establece un valor que indica si este
+        /// <see cref="Server" /> está activo (vivo).
         /// </summary>
         /// <value><see langword="true" /> si está vivo; sino, <see langword="false" />.</value>
         public bool IsAlive
@@ -230,25 +230,25 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Dirección IP a la cual este servidor escucha.
+        /// Dirección IP a la cual este servidor escucha.
         /// </summary>
         public IPEndPoint ListeningEndPoint { get; }
 
         /// <summary>
-        ///     Instancia de protocolos a utilizar para dar servicio a los
-        ///     clientes que se conecten a este servidor.
+        /// Instancia de protocolos a utilizar para dar servicio a los
+        /// clientes que se conecten a este servidor.
         /// </summary>
         public IProtocol Protocol { get; }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="Server{T}" />.
+        /// Inicializa una nueva instancia de la clase <see cref="Server{T}" />.
         /// </summary>
         /// <param name="protocol">
-        ///     Conjunto de protocolos a utilizar para este servidor.
+        /// Conjunto de protocolos a utilizar para este servidor.
         /// </param>
         /// <exception cref="T:System.ArgumentNullException">
-        ///     Se produce si <paramref name="protocol" /> es <see langword="null" />.
+        /// Se produce si <paramref name="protocol" /> es <see langword="null" />.
         /// </exception>
         public Server(IProtocol protocol) : this(protocol, null)
         {
@@ -256,33 +256,33 @@ namespace TheXDS.MCART.Networking.Server
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="Server{T}" />.
+        /// Inicializa una nueva instancia de la clase <see cref="Server{T}" />.
         /// </summary>
         /// <param name="protocol">
-        ///     Conjunto de protocolos a utilizar para este servidor.
+        /// Conjunto de protocolos a utilizar para este servidor.
         /// </param>
         /// <param name="port">Puerto local a escuchar.</param>
         /// <exception cref="T:System.ArgumentNullException">
-        ///     Se produce si <paramref name="protocol" /> es <see langword="null" />.
+        /// Se produce si <paramref name="protocol" /> es <see langword="null" />.
         /// </exception>
         public Server(IProtocol protocol, int port) : this(protocol, new IPEndPoint(IPAddress.Any, port))
         {
         }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="Server" />.
+        /// Inicializa una nueva instancia de la clase <see cref="Server" />.
         /// </summary>
         /// <param name="protocol">
-        ///     Conjunto de protocolos a utilizar para este servidor.
+        /// Conjunto de protocolos a utilizar para este servidor.
         /// </param>
         /// <param name="ep">
-        ///     <see cref="IPEndPoint" /> local a escuchar. Si se establece en
-        ///     <see langword="null" />, se escuchará al puerto predeterminado del
-        ///     protocolo (indicado por el atributo <see cref="PortAttribute" />) o
-        ///     <see cref="DefaultPort" /> de todas las direcciones IP del servidor.
+        /// <see cref="IPEndPoint" /> local a escuchar. Si se establece en
+        /// <see langword="null" />, se escuchará al puerto predeterminado del
+        /// protocolo (indicado por el atributo <see cref="PortAttribute" />) o
+        /// <see cref="DefaultPort" /> de todas las direcciones IP del servidor.
         /// </param>
         /// <exception cref="ArgumentNullException">
-        ///     Se produce si <paramref name="protocol" /> es <see langword="null" />.
+        /// Se produce si <paramref name="protocol" /> es <see langword="null" />.
         /// </exception>
         public Server(IProtocol protocol, IPEndPoint? ep)
         {
@@ -293,8 +293,8 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Encapsula una tarea para devolver un arreglo de bytes vacío
-        ///     cuando ocurra una excepción.
+        /// Encapsula una tarea para devolver un arreglo de bytes vacío
+        /// cuando ocurra una excepción.
         /// </summary>
         /// <param name="task"></param>
         /// <returns></returns>
@@ -371,42 +371,42 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Ocurre cuando el protocolo ha aceptado al nuevo cliente.
+        /// Ocurre cuando el protocolo ha aceptado al nuevo cliente.
         /// </summary>
         public event EventHandler<ValueEventArgs<Client>>? ClientAccepted;
 
         /// <summary>
-        ///     Ocurre cuando un nuevo cliente se conecta al servidor.
+        /// Ocurre cuando un nuevo cliente se conecta al servidor.
         /// </summary>
         public event EventHandler<ValueEventArgs<Client>>? ClientConnected;
 
         /// <summary>
-        ///     Ocurre cuando un cliente se desconecta correctamente.
+        /// Ocurre cuando un cliente se desconecta correctamente.
         /// </summary>
         public event EventHandler<ValueEventArgs<Client>>? ClientDisconnected;
 
         /// <summary>
-        ///     Ocurre cuando el protocolo despide a un cliente.
+        /// Ocurre cuando el protocolo despide a un cliente.
         /// </summary>
         public event EventHandler<ValueEventArgs<Client>>? ClientFarewell;
 
         /// <summary>
-        ///     Ocurre cuando un cliente se desconecta inesperadamente.
+        /// Ocurre cuando un cliente se desconecta inesperadamente.
         /// </summary>
         public event EventHandler<ValueEventArgs<Client?>>? ClientLost;
 
         /// <summary>
-        ///     Ocurre cuando el protocolo rechaza al nuevo cliente.
+        /// Ocurre cuando el protocolo rechaza al nuevo cliente.
         /// </summary>
         public event EventHandler<ValueEventArgs<Client?>>? ClientRejected;
 
         /// <summary>
-        ///     Encapsula <see cref="TcpListener.AcceptTcpClientAsync" /> para
-        ///     permitir cancelar la tarea cuando el servidor se detenga.
+        /// Encapsula <see cref="TcpListener.AcceptTcpClientAsync" /> para
+        /// permitir cancelar la tarea cuando el servidor se detenga.
         /// </summary>
         /// <returns>
-        ///     El <see cref="TcpClient" /> conectado. Si el servidor se detiene, se
-        ///     devuelve <see langword="null" />.
+        /// El <see cref="TcpClient" /> conectado. Si el servidor se detiene, se
+        /// devuelve <see langword="null" />.
         /// </returns>
         private async Task<TcpClient?> GetClient()
         {
@@ -422,17 +422,17 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Ocurre cuando el servidor es iniciado.
+        /// Ocurre cuando el servidor es iniciado.
         /// </summary>
         public event EventHandler<ValueEventArgs<DateTime>>? ServerStarted;
 
         /// <summary>
-        ///     Ocurre cuando el servidor es detenido.
+        /// Ocurre cuando el servidor es detenido.
         /// </summary>
         public event EventHandler<ValueEventArgs<DateTime>>? ServerStopped;
 
         /// <summary>
-        ///     Crea un hilo de ejecución que da servicio a los clientes
+        /// Crea un hilo de ejecución que da servicio a los clientes
         /// </summary>
         public Task Start()
         {
@@ -443,7 +443,7 @@ namespace TheXDS.MCART.Networking.Server
         }
         
         /// <summary>
-        ///     Detiene al servidor.
+        /// Detiene al servidor.
         /// </summary>
         public void Stop()
         {
@@ -453,11 +453,11 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Detiene al servidor de forma asíncrona.
+        /// Detiene al servidor de forma asíncrona.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="Task" /> que puede utilizarse para monitorear el
-        ///     estado de esta tarea.
+        /// Un <see cref="Task" /> que puede utilizarse para monitorear el
+        /// estado de esta tarea.
         /// </returns>
         public async Task StopAsync()
         {
@@ -469,7 +469,7 @@ namespace TheXDS.MCART.Networking.Server
         #region Helpers
 
         /// <summary>
-        ///     Envía un mensaje a todos los clientes.
+        /// Envía un mensaje a todos los clientes.
         /// </summary>
         /// <param name="data">Mensaje a enviar a los clientes.</param>
         public void Broadcast(byte[] data)
@@ -478,7 +478,7 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Envía un mensaje a todos los clientes, excepto el especificado.
+        /// Envía un mensaje a todos los clientes, excepto el especificado.
         /// </summary>
         /// <param name="data">Mensaje a enviar a los clientes.</param>
         /// <param name="client">Cliente que envía los datos.</param>
@@ -488,12 +488,12 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Envía un mensaje a todos los clientes que satisfacen la
-        ///     condición especificada por <paramref name="condition" />.
+        /// Envía un mensaje a todos los clientes que satisfacen la
+        /// condición especificada por <paramref name="condition" />.
         /// </summary>
         /// <param name="data">Mensaje a enviar a los clientes.</param>
         /// <param name="condition">
-        ///     Condición que determina a los clientes que recibirán el mensaje.
+        /// Condición que determina a los clientes que recibirán el mensaje.
         /// </param>
         public void Multicast(byte[] data, Predicate<Client> condition)
         {
@@ -503,10 +503,10 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Envía un mensaje a todos los clientes.
+        /// Envía un mensaje a todos los clientes.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="Task" /> que representa esta tarea.
+        /// Un <see cref="Task" /> que representa esta tarea.
         /// </returns>
         /// <param name="data">Mensaje a enviar a los clientes.</param>
         public Task BroadcastAsync(byte[] data)
@@ -515,10 +515,10 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Envía un mensaje a todos los clientes, excepto el especificado.
+        /// Envía un mensaje a todos los clientes, excepto el especificado.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="Task" /> que representa esta tarea.
+        /// Un <see cref="Task" /> que representa esta tarea.
         /// </returns>
         /// <param name="data">Mensaje a enviar a los clientes.</param>
         /// <param name="client">Cliente que envía los datos.</param>
@@ -528,15 +528,15 @@ namespace TheXDS.MCART.Networking.Server
         }
 
         /// <summary>
-        ///     Envía un mensaje a todos los clientes que satisfacen la
-        ///     condición especificada por <paramref name="condition" />.
+        /// Envía un mensaje a todos los clientes que satisfacen la
+        /// condición especificada por <paramref name="condition" />.
         /// </summary>
         /// <returns>
-        ///     Un <see cref="Task" /> que representa esta tarea.
+        /// Un <see cref="Task" /> que representa esta tarea.
         /// </returns>
         /// <param name="data">Mensaje a enviar a los clientes.</param>
         /// <param name="condition">
-        ///     Condición que determina a los clientes que recibirán el mensaje.
+        /// Condición que determina a los clientes que recibirán el mensaje.
         /// </param>
         public Task MulticastAsync(byte[] data, Predicate<Client> condition)
         {

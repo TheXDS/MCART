@@ -30,15 +30,15 @@ namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Excepción estándar producida al encontrarse un problema con un objeto.
+    /// Excepción estándar producida al encontrarse un problema con un objeto.
     /// </summary>
     [Serializable]
     public class OffendingException<T> : Exception
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="OffendingException{T}" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="OffendingException{T}" />.
         /// </summary>
         public OffendingException() : base(Strings.XIsInvalid(Strings.TheObj))
         {
@@ -46,11 +46,11 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="OffendingException{T}" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="OffendingException{T}" />.
         /// </summary>
         /// <param name="offendingObject">
-        ///     Objeto que es la causa de esta excepción.
+        /// Objeto que es la causa de esta excepción.
         /// </param>
         public OffendingException(T offendingObject) : this()
         {
@@ -59,11 +59,11 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="OffendingException{T}" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="OffendingException{T}" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         public OffendingException(string message) : base(message)
         {
@@ -71,14 +71,14 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="OffendingException{T}" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="OffendingException{T}" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="offendingObject">
-        ///     Objeto que es la causa de esta excepción.
+        /// Objeto que es la causa de esta excepción.
         /// </param>
         public OffendingException(string message, T offendingObject) : base(message)
         {
@@ -87,11 +87,11 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="OffendingException{T}" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="OffendingException{T}" />.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public OffendingException(Exception inner) : base(Strings.XIsInvalid(Strings.TheType), inner)
         {
@@ -99,14 +99,14 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="OffendingException{T}" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="OffendingException{T}" />.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="offendingObject">
-        ///     Objeto que es la causa de esta excepción.
+        /// Objeto que es la causa de esta excepción.
         /// </param>
         public OffendingException(Exception inner, T offendingObject) : this(inner)
         {
@@ -115,14 +115,14 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="OffendingException{T}" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="OffendingException{T}" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public OffendingException(string message, Exception inner) : base(message, inner)
         {
@@ -130,17 +130,17 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="OffendingException{T}" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="OffendingException{T}" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="offendingObject">
-        ///     Objeto que es la causa de esta excepción.
+        /// Objeto que es la causa de esta excepción.
         /// </param>
         public OffendingException(string message, Exception inner, T offendingObject) : base(message, inner)
         {
@@ -149,17 +149,17 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="OffendingException{T}" /> con datos serializados.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="OffendingException{T}" /> con datos serializados.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="StreamingContext" /> que contiene información
-        ///     contextual acerca del orígen o el destino.
+        /// El <see cref="StreamingContext" /> que contiene información
+        /// contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="SerializationInfo" /> que contiene la información
-        ///     serializada del objeto acerca de la excepción que está siendo
-        ///     lanzada.
+        /// El <see cref="SerializationInfo" /> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
         protected OffendingException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
@@ -167,20 +167,20 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="OffendingException{T}" /> con datos serializados.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="OffendingException{T}" /> con datos serializados.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="StreamingContext" /> que contiene información
-        ///     contextual acerca del orígen o el destino.
+        /// El <see cref="StreamingContext" /> que contiene información
+        /// contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="SerializationInfo" /> que contiene la información
-        ///     serializada del objeto acerca de la excepción que está siendo
-        ///     lanzada.
+        /// El <see cref="SerializationInfo" /> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
         /// <param name="offendingObject">
-        ///     Objeto que es la causa de esta excepción.
+        /// Objeto que es la causa de esta excepción.
         /// </param>
         protected OffendingException(SerializationInfo info, StreamingContext context, T offendingObject) : base(info,
             context)
@@ -189,7 +189,7 @@ namespace TheXDS.MCART.Exceptions
         }
 
         /// <summary>
-        ///     Objeto que ha causado la excepción.
+        /// Objeto que ha causado la excepción.
         /// </summary>
         // ReSharper disable once MemberCanBePrivate.Global
         // ReSharper disable once UnusedAutoPropertyAccessor.Global

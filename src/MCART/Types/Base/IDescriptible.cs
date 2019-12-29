@@ -27,13 +27,13 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Describe una serie de miembros a implementar por una clase o
-    ///     estructura que expone una descripción.
+    /// Describe una serie de miembros a implementar por una clase o
+    /// estructura que expone una descripción.
     /// </summary>
     public interface IDescriptible
     {
         /// <summary>
-        ///     Obtiene la descripción del elemento.
+        /// Obtiene la descripción del elemento.
         /// </summary>
         string? Description { get; }
     }

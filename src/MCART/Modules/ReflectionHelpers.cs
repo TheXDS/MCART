@@ -39,19 +39,19 @@ using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 namespace TheXDS.MCART
 {
     /// <summary>
-    ///     Funciones auxiliares de reflexión.
+    /// Funciones auxiliares de reflexión.
     /// </summary>
     public static class ReflectionHelpers
     {
         /// <summary>
-        ///     Obtiene una referencia al método que ha llamado al método
-        ///     actualmente en ejecución.
+        /// Obtiene una referencia al método que ha llamado al método
+        /// actualmente en ejecución.
         /// </summary>
         /// <returns>
-        ///     El método que ha llamado al método actual en donde se usa esta
-        ///     función. Se devolverá <see langword="null"/> si se llama a este
-        ///     método desde el punto de entrada de la aplicación (generalmente
-        ///     la función <c>Main()</c>).
+        /// El método que ha llamado al método actual en donde se usa esta
+        /// función. Se devolverá <see langword="null"/> si se llama a este
+        /// método desde el punto de entrada de la aplicación (generalmente
+        /// la función <c>Main()</c>).
         /// </returns>
         public static MethodInfo? GetCallingMethod()
         {
@@ -59,24 +59,24 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene una referencia al método que ha llamado al método actual.
+        /// Obtiene una referencia al método que ha llamado al método actual.
         /// </summary>
         /// <param name="nCaller">
-        ///     Número de iteraciones padre del método a devolver. Debe ser un
-        ///     valor mayor o igual a 1.
+        /// Número de iteraciones padre del método a devolver. Debe ser un
+        /// valor mayor o igual a 1.
         /// </param>
         /// <returns>
-        ///     El método que ha llamado al método actual en donde se usa esta
-        ///     función. Se devolverá <see langword="null"/> si al analizar la
-        ///     pila de llamadas se alcanza el punto de entrada de la
-        ///     aplicación (generalmente la función <c>Main()</c>).
+        /// El método que ha llamado al método actual en donde se usa esta
+        /// función. Se devolverá <see langword="null"/> si al analizar la
+        /// pila de llamadas se alcanza el punto de entrada de la
+        /// aplicación (generalmente la función <c>Main()</c>).
         /// </returns>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///     Se produce si <paramref name="nCaller"/> es menor a 1.
+        /// Se produce si <paramref name="nCaller"/> es menor a 1.
         /// </exception>
         /// <exception cref="OverflowException">
-        ///     Se produce si <paramref name="nCaller"/> + 1 produce un error
-        ///     de sobreflujo.
+        /// Se produce si <paramref name="nCaller"/> + 1 produce un error
+        /// de sobreflujo.
         /// </exception>
         public static MethodInfo? GetCallingMethod(int nCaller)
         {
@@ -86,10 +86,10 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene el punto de entrada de la aplicación en ejecución.
+        /// Obtiene el punto de entrada de la aplicación en ejecución.
         /// </summary>
         /// <returns>
-        ///     El método del punto de entrada de la aplicación actual.
+        /// El método del punto de entrada de la aplicación actual.
         /// </returns>
         [Sugar]
         public static MethodInfo? GetEntryPoint()
@@ -98,12 +98,12 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si el método invalida a una definición base.
+        /// Determina si el método invalida a una definición base.
         /// </summary>
         /// <param name="method"></param>
         /// <returns>
-        ///     <see langword="true"/> si el método invalida a una definición
-        ///     base, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si el método invalida a una definición
+        /// base, <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool IsOverride(this MethodInfo method)
         {
@@ -111,20 +111,20 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Determina si el método especificado ha sido invalidado en la
-        ///     instancia provista.
+        /// Determina si el método especificado ha sido invalidado en la
+        /// instancia provista.
         /// </summary>
         /// <param name="method">
-        ///     Método a comprobar.
+        /// Método a comprobar.
         /// </param>
         /// <param name="thisInstance">
-        ///     Instancia en la cual se debe realizar la comprobación.
-        ///     Generalmente, este argumento debe ser <see langword="this"/>.
+        /// Instancia en la cual se debe realizar la comprobación.
+        /// Generalmente, este argumento debe ser <see langword="this"/>.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si el método ha sido invalidado en la
-        ///     instancia especificada, <see langword="false"/> en caso 
-        ///     contrario.
+        /// <see langword="true"/> si el método ha sido invalidado en la
+        /// instancia especificada, <see langword="false"/> en caso 
+        /// contrario.
         /// </returns>
         public static bool IsOverriden(this MethodBase method, object thisInstance)
         {
@@ -139,15 +139,15 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene un nombre completo para un método, incluyendo el tipo y
-        ///     el espacio de nombres donde el mismo ha sido definido.
+        /// Obtiene un nombre completo para un método, incluyendo el tipo y
+        /// el espacio de nombres donde el mismo ha sido definido.
         /// </summary>
         /// <param name="method">
-        ///     Método del cual obtener el nombre completo.
+        /// Método del cual obtener el nombre completo.
         /// </param>
         /// <returns>
-        ///     El nombre completo del método, incluyendo el tipo y el espacio
-        ///     de nombres donde el mismo ha sido definido.
+        /// El nombre completo del método, incluyendo el tipo y el espacio
+        /// de nombres donde el mismo ha sido definido.
         /// </returns>
         public static string FullName(this MethodBase method)
         {
@@ -163,17 +163,17 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene un miembro de una clase a partir de una expresión.
+        /// Obtiene un miembro de una clase a partir de una expresión.
         /// </summary>
         /// <typeparam name="T">
-        ///     Clase desde la cual obtener al miembro.
+        /// Clase desde la cual obtener al miembro.
         /// </typeparam>
         /// <param name="memberSelector">
-        ///     Expresión que indica qué miembro de la clase debe devolverse.
+        /// Expresión que indica qué miembro de la clase debe devolverse.
         /// </param>
         /// <returns>
-        ///     Un <see cref="MemberInfo"/> que representa al miembro
-        ///     seleccionado en la expresión.
+        /// Un <see cref="MemberInfo"/> que representa al miembro
+        /// seleccionado en la expresión.
         /// </returns>
         public static MemberInfo GetMember<T>(Expression<Func<T, object?>> memberSelector)
         {
@@ -185,14 +185,14 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene un miembro a partir de una expresión.
+        /// Obtiene un miembro a partir de una expresión.
         /// </summary>
         /// <param name="memberSelector">
-        ///     Expresión que indica qué miembro debe devolverse.
+        /// Expresión que indica qué miembro debe devolverse.
         /// </param>
         /// <returns>
-        ///     Un <see cref="MemberInfo"/> que representa al miembro
-        ///     seleccionado en la expresión.
+        /// Un <see cref="MemberInfo"/> que representa al miembro
+        /// seleccionado en la expresión.
         /// </returns>
         public static MemberInfo GetMember(Expression<Func<object?>> memberSelector)
         {
@@ -204,20 +204,20 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene un miembro de una clase a partir de una expresión.
+        /// Obtiene un miembro de una clase a partir de una expresión.
         /// </summary>
         /// <typeparam name="T">
-        ///     Clase desde la cual obtener al miembro.
+        /// Clase desde la cual obtener al miembro.
         /// </typeparam>
         /// <typeparam name="TMember">
-        ///     Tipo del miembro obtenido.
+        /// Tipo del miembro obtenido.
         /// </typeparam>
         /// <param name="memberSelector">
-        ///     Expresión que indica qué miembro de la clase debe devolverse.
+        /// Expresión que indica qué miembro de la clase debe devolverse.
         /// </param>
         /// <returns>
-        ///     Un <see cref="MemberInfo"/> que representa al miembro
-        ///     seleccionado en la expresión.
+        /// Un <see cref="MemberInfo"/> que representa al miembro
+        /// seleccionado en la expresión.
         /// </returns>
         public static MemberInfo GetMember<T, TMember>(Expression<Func<T, TMember>> memberSelector)
         {
@@ -229,17 +229,17 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene un miembro de una clase a partir de una expresión.
+        /// Obtiene un miembro de una clase a partir de una expresión.
         /// </summary>
         /// <typeparam name="TValue">
-        ///     Tipo del miembro obtenido.
+        /// Tipo del miembro obtenido.
         /// </typeparam>
         /// <param name="memberSelector">
-        ///     Expresión que indica qué miembro de la clase debe devolverse.
+        /// Expresión que indica qué miembro de la clase debe devolverse.
         /// </param>
         /// <returns>
-        ///     Un <see cref="MemberInfo"/> que representa al miembro
-        ///     seleccionado en la expresión.
+        /// Un <see cref="MemberInfo"/> que representa al miembro
+        /// seleccionado en la expresión.
         /// </returns>
         public static MemberInfo GetMember<TValue>(Expression<Func<TValue>> memberSelector)
         {
@@ -251,15 +251,15 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Infiere las <see cref="BindingFlags"/> utilizadas en la
-        ///     definición del método.
+        /// Infiere las <see cref="BindingFlags"/> utilizadas en la
+        /// definición del método.
         /// </summary>
         /// <param name="method">
-        ///     Método para el cual inferir las <see cref="BindingFlags"/>.
+        /// Método para el cual inferir las <see cref="BindingFlags"/>.
         /// </param>
         /// <returns>
-        ///     Las <see cref="BindingFlags"/> inferidas basadas en las
-        ///     propiedades del método.
+        /// Las <see cref="BindingFlags"/> inferidas basadas en las
+        /// propiedades del método.
         /// </returns>
         public static BindingFlags GetBindingFlags(this MethodBase method)
         {

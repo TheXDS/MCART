@@ -31,25 +31,25 @@ namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Excepción que se produce cuando la firma de un método representado en un
-    ///     <see cref="MethodInfo" /> no es válida.
+    /// Excepción que se produce cuando la firma de un método representado en un
+    /// <see cref="MethodInfo" /> no es válida.
     /// </summary>
     [Serializable]
     public class InvalidMethodSignatureException : OffendingException<MethodInfo>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="InvalidMethodSignatureException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidMethodSignatureException" />.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="StreamingContext" /> que contiene información
-        ///     contextual acerca del orígen o el destino.
+        /// El <see cref="StreamingContext" /> que contiene información
+        /// contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="SerializationInfo" /> que contiene la información
-        ///     serializada del objeto acerca de la excepción que está siendo
-        ///     lanzada.
+        /// El <see cref="SerializationInfo" /> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
         protected InvalidMethodSignatureException(SerializationInfo info, StreamingContext context) : base(info,
             context)
@@ -58,17 +58,17 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="InvalidMethodSignatureException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidMethodSignatureException" />.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="StreamingContext" /> que contiene información
-        ///     contextual acerca del orígen o el destino.
+        /// El <see cref="StreamingContext" /> que contiene información
+        /// contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="SerializationInfo" /> que contiene la información
-        ///     serializada del objeto acerca de la excepción que está siendo
-        ///     lanzada.
+        /// El <see cref="SerializationInfo" /> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
         /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
         protected InvalidMethodSignatureException(SerializationInfo info, StreamingContext context,
@@ -78,8 +78,8 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="InvalidMethodSignatureException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidMethodSignatureException" />.
         /// </summary>
         public InvalidMethodSignatureException() : base(Msg())
         {
@@ -87,8 +87,8 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="InvalidMethodSignatureException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidMethodSignatureException" />.
         /// </summary>
         /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
         public InvalidMethodSignatureException(MethodInfo offendingMethod) : base(Msg(offendingMethod), offendingMethod)
@@ -97,11 +97,11 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="InvalidMethodSignatureException" />
-        ///     .
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidMethodSignatureException" />
+        /// .
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         public InvalidMethodSignatureException(string message) : base(message)
         {
@@ -109,11 +109,11 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="InvalidMethodSignatureException" />
-        ///     .
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidMethodSignatureException" />
+        /// .
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
         public InvalidMethodSignatureException(string message, MethodInfo offendingMethod) : base(message,
@@ -123,11 +123,11 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="InvalidMethodSignatureException" />
-        ///     .
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidMethodSignatureException" />
+        /// .
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public InvalidMethodSignatureException(Exception inner) : base(Msg(), inner)
         {
@@ -135,11 +135,11 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="InvalidMethodSignatureException" />
-        ///     .
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidMethodSignatureException" />
+        /// .
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
         public InvalidMethodSignatureException(Exception inner, MethodInfo offendingMethod) : base(Msg(offendingMethod),
@@ -149,14 +149,14 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="InvalidMethodSignatureException" />
-        ///     .
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidMethodSignatureException" />
+        /// .
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public InvalidMethodSignatureException(string message, Exception inner) : base(message, inner)
         {
@@ -164,14 +164,14 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="InvalidMethodSignatureException" />
-        ///     .
+        /// Inicializa una nueva instancia de la clase <see cref="InvalidMethodSignatureException" />
+        /// .
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
         public InvalidMethodSignatureException(string message, Exception inner, MethodInfo offendingMethod) : base(

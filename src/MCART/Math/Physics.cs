@@ -25,7 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.Math
 {
     /// <summary>
-    ///     Contiene funciones para realizar cálculos de física.
+    /// Contiene funciones para realizar cálculos de física.
     /// </summary>
     public static class Physics
     {

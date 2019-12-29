@@ -28,18 +28,18 @@ using static System.Reflection.Emit.OpCodes;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Carga un valor constante <see cref="string"/> en la secuencia
-    ///     de instrucciones MSIL.
+    /// Carga un valor constante <see cref="string"/> en la secuencia
+    /// de instrucciones MSIL.
     /// </summary>
     public class StringConstantLoader : ConstantLoader<string>
     {
         /// <summary>
-        ///     Carga un valor constante <see cref="string"/> en la secuencia
-        ///     de instrucciones MSIL.
+        /// Carga un valor constante <see cref="string"/> en la secuencia
+        /// de instrucciones MSIL.
         /// </summary>
         /// <param name="il">Generador de IL a utilizar.</param>
         /// <param name="value">
-        ///     Valor constante a cargar en la secuencia de instrucciones.
+        /// Valor constante a cargar en la secuencia de instrucciones.
         /// </param>
         public override void Emit(ILGenerator il, string value)
         {

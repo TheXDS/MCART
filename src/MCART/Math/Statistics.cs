@@ -34,17 +34,17 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Math
 {
     /// <summary>
-    ///     Contiene diversas funciones estadísticas.
+    /// Contiene diversas funciones estadísticas.
     /// </summary>
     public static class Statistics
     {
         /// <summary>
-        ///     Varía un valor de acuerdo a un porcentaje de su delta.
+        /// Varía un valor de acuerdo a un porcentaje de su delta.
         /// </summary>
         /// <param name="value">Valor a variar.</param>
         /// <param name="delta">Delta de varianza.</param>
         /// <returns>
-        ///     Un valor variado aleatoriamente de acuerdo a un delta.
+        /// Un valor variado aleatoriamente de acuerdo a un delta.
         /// </returns>
         public static double Variate(this in double value, in double delta)
         {

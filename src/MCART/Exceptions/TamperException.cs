@@ -30,40 +30,40 @@ namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Se produce cuando una función soportada detecta una de las 
-    ///     siguientes situaciones:
-    ///     <list type="bullet">
-    ///         <item>
-    ///             <description>
-    ///                 Valores de retorno alterados inesperadamente.
-    ///             </description> 
-    ///         </item>
-    ///         <item>
-    ///             <description>
-    ///                 Valor de retorno fuera del rango conocido esperado de
-    ///                 una función.
-    ///             </description>
-    ///         </item>
-    ///         <item>
-    ///             <description>
-    ///                 Corrupción de memoria no capturada por CLR.
-    ///             </description>
-    ///         </item>
-    ///         <item>
-    ///             <description>
-    ///                 Modificación externa de valores internos protegidos de
-    ///                 la aplicación.
-    ///             </description>
-    ///         </item>
-    ///     </list>
+    /// Se produce cuando una función soportada detecta una de las 
+    /// siguientes situaciones:
+    /// <list type="bullet">
+    ///     <item>
+    ///         <description>
+    ///             Valores de retorno alterados inesperadamente.
+    ///         </description> 
+    ///     </item>
+    ///     <item>
+    ///         <description>
+    ///             Valor de retorno fuera del rango conocido esperado de
+    ///             una función.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <description>
+    ///             Corrupción de memoria no capturada por CLR.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <description>
+    ///             Modificación externa de valores internos protegidos de
+    ///             la aplicación.
+    ///         </description>
+    ///     </item>
+    /// </list>
     /// </summary>
     [Serializable]
     public class TamperException : Exception
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="TamperException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="TamperException" />.
         /// </summary>
         public TamperException():base(Strings.TamperDetected)
         {
@@ -71,11 +71,11 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="TamperException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="TamperException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         public TamperException(string message) : base(message)
         {
@@ -83,11 +83,11 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="TamperException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="TamperException" />.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public TamperException(Exception inner) : this(Strings.TamperDetected, inner)
         {
@@ -95,14 +95,14 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="TamperException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="TamperException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public TamperException(string message, Exception inner) : base(message, inner)
         {
@@ -110,17 +110,17 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="TamperException" /> con datos serializados.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="TamperException" /> con datos serializados.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="StreamingContext" /> que contiene información
-        ///     contextual acerca del orígen o el destino.
+        /// El <see cref="StreamingContext" /> que contiene información
+        /// contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="SerializationInfo" /> que contiene la información
-        ///     serializada del objeto acerca de la excepción que está siendo
-        ///     lanzada.
+        /// El <see cref="SerializationInfo" /> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
         protected TamperException(SerializationInfo info,StreamingContext context) : base(info, context)
         {

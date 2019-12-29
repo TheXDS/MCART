@@ -32,30 +32,30 @@ using System;
 namespace TheXDS.MCART.Networking
 {
     /// <summary>
-    ///     Define una serie de miembros a implementar por un tipo que
-    ///     represente a un cliente de red administrado. 
+    /// Define una serie de miembros a implementar por un tipo que
+    /// represente a un cliente de red administrado. 
     /// </summary>
     public interface IManagedClient
     {
         /// <summary>
-        ///     Obtiene un valor que indica que esta conexión está encriptada.
+        /// Obtiene un valor que indica que esta conexión está encriptada.
         /// </summary>
         bool Encrypted { get; }
         
         /// <summary>
-        ///     Obtiene un valor que indica si la conexión utiliza compresión.
+        /// Obtiene un valor que indica si la conexión utiliza compresión.
         /// </summary>
         bool Compressed { get; }
 
         /// <summary>
-        ///     Obtiene un valor que indica si el cliente espera la bandera de
-        ///     presencia de Guid, y el Guid correspondiente.
+        /// Obtiene un valor que indica si el cliente espera la bandera de
+        /// presencia de Guid, y el Guid correspondiente.
         /// </summary>
         bool ExpectsGuid { get; }
 
         /// <summary>
-        ///     Obtiene un valor que indica si el cliente envía comandos junto
-        ///     con un <see cref="Guid"/> de identificación.
+        /// Obtiene un valor que indica si el cliente envía comandos junto
+        /// con un <see cref="Guid"/> de identificación.
         /// </summary>
         bool SendsGuid { get; }
     }

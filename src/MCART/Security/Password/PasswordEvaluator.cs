@@ -36,7 +36,7 @@ namespace TheXDS.MCART.Security.Password
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Define un evaluador de contraseñas. Esta clase no puede heredarse.
+    /// Define un evaluador de contraseñas. Esta clase no puede heredarse.
     /// </summary>
     public sealed class PasswordEvaluator : IPasswordEvaluator
     {

@@ -25,30 +25,30 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.Networking.Mrpc
 {
     /// <summary>
-    ///     Describe los posibles tipos de bloque contenidos en el flujo 
-    ///     binario de datos serializados.
+    /// Describe los posibles tipos de bloque contenidos en el flujo 
+    /// binario de datos serializados.
     /// </summary>
     public enum ObjectKind
     {
         /// <summary>
-        ///     Indica que el bloque representa el valor de
-        ///     <see langword="null"/>.
+        /// Indica que el bloque representa el valor de
+        /// <see langword="null"/>.
         /// </summary>
         Null,
 
         /// <summary>
-        ///     Indica que el bloque contiene un objeto serializado simple.
+        /// Indica que el bloque contiene un objeto serializado simple.
         /// </summary>
         Blob,
 
         /// <summary>
-        ///     Indica que el bloque contiene un arreglo de bloques internos.
+        /// Indica que el bloque contiene un arreglo de bloques internos.
         /// </summary>
         Array,
 
         /// <summary>
-        ///     Indica que el bloque representa un puntero de referencia
-        ///     circular a un objeto previamente procesado.
+        /// Indica que el bloque representa un puntero de referencia
+        /// circular a un objeto previamente procesado.
         /// </summary>
         Pointer
     }

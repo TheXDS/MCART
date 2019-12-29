@@ -28,68 +28,68 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Component
 {
     /// <summary>
-    ///     Clase base que permite describir argumentos aceptados por la aplicación.
+    /// Clase base que permite describir argumentos aceptados por la aplicación.
     /// </summary>
     public abstract class Argument : INameable, IDescriptible
     {
         /// <summary>
-        ///     Indica el tipo de argumento.
+        /// Indica el tipo de argumento.
         /// </summary>
         public enum ValueKind : byte
         {
             /// <summary>
-            ///     El argumento es una bandera.
+            /// El argumento es una bandera.
             /// </summary>
             Flag,
             /// <summary>
-            ///     Cuando se especifica el argumento, el valor es opcional.
+            /// Cuando se especifica el argumento, el valor es opcional.
             /// </summary>
             Optional,
             /// <summary>
-            ///     Cuando se especifica el argumento, el valor es requerido.
+            /// Cuando se especifica el argumento, el valor es requerido.
             /// </summary>
             ValueRequired,
             /// <summary>
-            ///     El argumento y el valor son requeridos.
+            /// El argumento y el valor son requeridos.
             /// </summary>
             Required
         }
 
         /// <summary>
-        ///     Obtiene el tipo de este argumento.
+        /// Obtiene el tipo de este argumento.
         /// </summary>
         public virtual ValueKind Kind => ValueKind.Flag;
 
         /// <summary>
-        ///     Obtiene el nombre largo de este argumento.
+        /// Obtiene el nombre largo de este argumento.
         /// </summary>
         public virtual string LongName => GetType().Name.ChopEndAny(nameof(Argument), "Arg");
 
         /// <summary>
-        ///     Obtiene el nombre corto de este argumento.
+        /// Obtiene el nombre corto de este argumento.
         /// </summary>
         public virtual char? ShortName { get; }
 
         /// <summary>
-        ///     Obtiene una descripción de ayuda sobre este argumento.
+        /// Obtiene una descripción de ayuda sobre este argumento.
         /// </summary>
         public virtual string? Summary { get; }
 
         /// <summary>
-        ///     Para un argumento de tipo <see cref="ValueKind.Optional"/>,
-        ///     obtiene el valor predeterminado de este argumento.
+        /// Para un argumento de tipo <see cref="ValueKind.Optional"/>,
+        /// obtiene el valor predeterminado de este argumento.
         /// </summary>
         public virtual string? Default { get; }
 
         /// <summary>
-        ///     Ejecuta una acción relacionada a este argumento cuando el mismo
-        ///     esté presente en la línea de comandos.
+        /// Ejecuta una acción relacionada a este argumento cuando el mismo
+        /// esté presente en la línea de comandos.
         /// </summary>
         public virtual void Run(CmdLineParser args) { }
 
         /// <summary>
-        ///     Obtiene el valor asociado a este argumento que ha sido
-        ///     especificado en la línea de comandos.
+        /// Obtiene el valor asociado a este argumento que ha sido
+        /// especificado en la línea de comandos.
         /// </summary>
         public string? Value { get; internal set; }
 

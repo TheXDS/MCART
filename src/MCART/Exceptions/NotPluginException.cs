@@ -32,25 +32,25 @@ namespace TheXDS.MCART.Exceptions
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Excepción que se produce cuando se intenta cargar plugins desde un ensamblado que no contiene ninguna clase
-    ///     cargable como <see cref="IPlugin" />.
+    /// Excepción que se produce cuando se intenta cargar plugins desde un ensamblado que no contiene ninguna clase
+    /// cargable como <see cref="IPlugin" />.
     /// </summary>
     [Serializable]
     public class NotPluginException : OffendingException<Assembly>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="NotPluginException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="NotPluginException" />.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="StreamingContext" /> que contiene información
-        ///     contextual acerca del orígen o el destino.
+        /// El <see cref="StreamingContext" /> que contiene información
+        /// contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="SerializationInfo" /> que contiene la información
-        ///     serializada del objeto acerca de la excepción que está siendo
-        ///     lanzada.
+        /// El <see cref="SerializationInfo" /> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
         protected NotPluginException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
@@ -58,21 +58,21 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="NotPluginException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="NotPluginException" />.
         /// </summary>
         /// <param name="context">
-        ///     El <see cref="StreamingContext" /> que contiene información
-        ///     contextual acerca del orígen o el destino.
+        /// El <see cref="StreamingContext" /> que contiene información
+        /// contextual acerca del orígen o el destino.
         /// </param>
         /// <param name="info">
-        ///     El <see cref="SerializationInfo" /> que contiene la información
-        ///     serializada del objeto acerca de la excepción que está siendo
-        ///     lanzada.
+        /// El <see cref="SerializationInfo" /> que contiene la información
+        /// serializada del objeto acerca de la excepción que está siendo
+        /// lanzada.
         /// </param>
         /// <param name="assembly">
-        ///     <see cref="Assembly" /> desde el cual se intentó cargar un
-        ///     <see cref="IPlugin" />.
+        /// <see cref="Assembly" /> desde el cual se intentó cargar un
+        /// <see cref="IPlugin" />.
         /// </param>
         protected NotPluginException(SerializationInfo info, StreamingContext context, Assembly assembly) : base(info,
             context, assembly)
@@ -81,8 +81,8 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="NotPluginException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="NotPluginException" />.
         /// </summary>
         public NotPluginException() : base(Msg())
         {
@@ -90,12 +90,12 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="NotPluginException" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="NotPluginException" />.
         /// </summary>
         /// <param name="assembly">
-        ///     <see cref="Assembly" /> desde el cual se intentó cargar un
-        ///     <see cref="IPlugin" />.
+        /// <see cref="Assembly" /> desde el cual se intentó cargar un
+        /// <see cref="IPlugin" />.
         /// </param>
         public NotPluginException(Assembly assembly) : base(Msg(assembly), assembly)
         {
@@ -103,10 +103,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="NotPluginException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="NotPluginException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         public NotPluginException(string message) : base(message)
         {
@@ -114,14 +114,14 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="NotPluginException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="NotPluginException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="assembly">
-        ///     <see cref="Assembly" /> desde el cual se intentó cargar un
-        ///     <see cref="IPlugin" />.
+        /// <see cref="Assembly" /> desde el cual se intentó cargar un
+        /// <see cref="IPlugin" />.
         /// </param>
         public NotPluginException(string message, Assembly assembly) : base(message, assembly)
         {
@@ -129,10 +129,10 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="NotPluginException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="NotPluginException" />.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public NotPluginException(Exception inner) : base(Msg(), inner)
         {
@@ -140,14 +140,14 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="NotPluginException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="NotPluginException" />.
         /// </summary>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="assembly">
-        ///     <see cref="Assembly" /> desde el cual se intentó cargar un
-        ///     <see cref="IPlugin" />.
+        /// <see cref="Assembly" /> desde el cual se intentó cargar un
+        /// <see cref="IPlugin" />.
         /// </param>
         public NotPluginException(Exception inner, Assembly assembly) : base(Msg(assembly), inner, assembly)
         {
@@ -155,13 +155,13 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="NotPluginException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="NotPluginException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         public NotPluginException(string message, Exception inner) : base(message, inner)
         {
@@ -169,17 +169,17 @@ namespace TheXDS.MCART.Exceptions
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="NotPluginException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="NotPluginException" />.
         /// </summary>
         /// <param name="message">
-        ///     Un <see cref="string" /> que describe a la excepción.
+        /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
         /// <param name="inner">
-        ///     <see cref="Exception" /> que es la causa de esta excepción.
+        /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="assembly">
-        ///     <see cref="Assembly" /> desde el cual se intentó cargar un
-        ///     <see cref="IPlugin" />.
+        /// <see cref="Assembly" /> desde el cual se intentó cargar un
+        /// <see cref="IPlugin" />.
         /// </param>
         public NotPluginException(string message, Exception inner, Assembly assembly) : base(message, inner, assembly)
         {

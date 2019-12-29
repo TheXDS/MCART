@@ -28,21 +28,21 @@ using TheXDS.MCART.Attributes;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Extensiones varias para objetos <see cref="MemberInfo" />.
+    /// Extensiones varias para objetos <see cref="MemberInfo" />.
     /// </summary>
     public static class MemberInfoExtensions
     {
         /// <summary>
-        ///     Obtiene un nombre personalizado para un miembro.
+        /// Obtiene un nombre personalizado para un miembro.
         /// </summary>
         /// <param name="member">
-        ///     <see cref="MemberInfo" /> del cual obtener el nombre.
+        /// <see cref="MemberInfo" /> del cual obtener el nombre.
         /// </param>
         /// <returns>
-        ///     Un nombre amigable para <paramref name="member" />, o el nombre
-        ///     definido para <paramref name="member" /> si no se ha definido
-        ///     un nombre amigable por medio del atributo
-        ///     <see cref="NameAttribute"/>.
+        /// Un nombre amigable para <paramref name="member" />, o el nombre
+        /// definido para <paramref name="member" /> si no se ha definido
+        /// un nombre amigable por medio del atributo
+        /// <see cref="NameAttribute"/>.
         /// </returns>
         public static string NameOf(this MemberInfo member)
         {

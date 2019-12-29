@@ -57,42 +57,42 @@ namespace TheXDS.MCART.Math
         [Thunk] public static bool IsPrime(this in sbyte number) => ((long)number).IsPrime();
     
         /// <summary>
-        ///     Determina si el valor es una potencia de 2.
+        /// Determina si el valor es una potencia de 2.
         /// </summary>
         /// <param name="value">Valor a comprobar.</param>
         /// <returns>
-        ///     <see langword="true"/> si el valor es una potencia de 2,
-        ///     <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si el valor es una potencia de 2,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool IsTwoPow(in sbyte value) => (value & ~1).BitCount() == 1;
 
         /// <summary>
-        ///     Determina si el valor es una potencia de 2.
+        /// Determina si el valor es una potencia de 2.
         /// </summary>
         /// <param name="value">Valor a comprobar.</param>
         /// <returns>
-        ///     <see langword="true"/> si el valor es una potencia de 2,
-        ///     <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si el valor es una potencia de 2,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool IsTwoPow(in ushort value) => (value & ~1).BitCount() == 1;
 
         /// <summary>
-        ///     Determina si el valor es una potencia de 2.
+        /// Determina si el valor es una potencia de 2.
         /// </summary>
         /// <param name="value">Valor a comprobar.</param>
         /// <returns>
-        ///     <see langword="true"/> si el valor es una potencia de 2,
-        ///     <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si el valor es una potencia de 2,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool IsTwoPow(in uint value) => (value & ~1).BitCount() == 1;
 
         /// <summary>
-        ///     Determina si el valor es una potencia de 2.
+        /// Determina si el valor es una potencia de 2.
         /// </summary>
         /// <param name="value">Valor a comprobar.</param>
         /// <returns>
-        ///     <see langword="true"/> si el valor es una potencia de 2,
-        ///     <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si el valor es una potencia de 2,
+        /// <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool IsTwoPow(in ulong value) => unchecked((long)(value & ~1UL)).BitCount() == 1;
     }

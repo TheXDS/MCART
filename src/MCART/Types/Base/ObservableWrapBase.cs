@@ -34,7 +34,7 @@ using NcchEa = System.Collections.Specialized.NotifyCollectionChangedEventArgs;
 namespace TheXDS.MCART.Types.Base
 {
     /// <summary>
-    ///     Clase base para los envoltorios observables de colecciones.
+    /// Clase base para los envoltorios observables de colecciones.
     /// </summary>
     [DebuggerStepThrough]
     public abstract class ObservableWrapBase : NotifyPropertyChanged, INotifyCollectionChanged, IEnumerable
@@ -42,12 +42,12 @@ namespace TheXDS.MCART.Types.Base
         private readonly IDictionary<NotifyPropertyChangeBase, HashSet<string>> _notifyRegistroir = new Dictionary<NotifyPropertyChangeBase, HashSet<string>>();
 
         /// <summary>
-        ///     Se produce al ocurrir un cambio en la colección.
+        /// Se produce al ocurrir un cambio en la colección.
         /// </summary>
         public event NotifyCollectionChangedEventHandler? CollectionChanged;
 
         /// <summary>
-        ///     Genera el evento <see cref="CollectionChanged"/>.
+        /// Genera el evento <see cref="CollectionChanged"/>.
         /// </summary>
         /// <param name="eventArgs">Argumentos del evento.</param>
         protected void RaiseCollectionChanged(NcchEa eventArgs)
@@ -62,22 +62,22 @@ namespace TheXDS.MCART.Types.Base
         IEnumerator IEnumerable.GetEnumerator() => OnGetEnumerator();
 
         /// <summary>
-        ///     Obtiene un enumerador que itera sobre la colección.
+        /// Obtiene un enumerador que itera sobre la colección.
         /// </summary>
         /// <returns>
-        ///     Un enumerador que puede ser utilizado para iterar sobre la colección.
+        /// Un enumerador que puede ser utilizado para iterar sobre la colección.
         /// </returns>
         protected abstract IEnumerator OnGetEnumerator();
 
         /// <summary>
-        ///     Obtiene el índice del elemento especificado.
+        /// Obtiene el índice del elemento especificado.
         /// </summary>
         /// <param name="item">
-        ///     Elemento para el cual buscar el índice.
+        /// Elemento para el cual buscar el índice.
         /// </param>
         /// <returns>
-        ///     El índice del elemento especificado, o <c>-1</c> si el elemento
-        ///     no se encuentra en la colección.
+        /// El índice del elemento especificado, o <c>-1</c> si el elemento
+        /// no se encuentra en la colección.
         /// </returns>
         public virtual int IndexOf(object item)
         {
@@ -91,11 +91,11 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Obliga a refrescar el estado de un elemento dentro de la
-        ///     colección.
+        /// Obliga a refrescar el estado de un elemento dentro de la
+        /// colección.
         /// </summary>
         /// <param name="item">
-        ///     Elemento a refrescar.
+        /// Elemento a refrescar.
         /// </param>
         public void RefreshItem(object? item)
         {
@@ -112,15 +112,15 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Determina si la secuencia subyacente contiene al elemento
-        ///     especificado.
+        /// Determina si la secuencia subyacente contiene al elemento
+        /// especificado.
         /// </summary>
         /// <param name="item">
-        ///     Elemento a buscar dentro de la secuencia.
+        /// Elemento a buscar dentro de la secuencia.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si la secuencia contiene al elemento
-        ///     especificado, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si la secuencia contiene al elemento
+        /// especificado, <see langword="false"/> en caso contrario.
         /// </returns>
         public virtual bool Contains(object item)
         {
@@ -128,14 +128,14 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Envía notificaciones adicionales de cambio de propiedad al
-        ///     ocurrir un cambio en esta colección.
+        /// Envía notificaciones adicionales de cambio de propiedad al
+        /// ocurrir un cambio en esta colección.
         /// </summary>
         /// <param name="target">
-        ///     Objetivo de notificación.
+        /// Objetivo de notificación.
         /// </param>
         /// <param name="properties">
-        ///     Propiedades a notificar.
+        /// Propiedades a notificar.
         /// </param>
         public void ForwardNotify(NotifyPropertyChangeBase target, params string[] properties)
         {

@@ -30,14 +30,14 @@ using System.Net;
 namespace TheXDS.MCART.IO
 {
     /// <summary>
-    ///     Obtiene un <see cref="Stream"/> a partir de un <see cref="Uri"/>
-    ///     que apunta a un recurso web.
+    /// Obtiene un <see cref="Stream"/> a partir de un <see cref="Uri"/>
+    /// que apunta a un recurso web.
     /// </summary>
     public class FtpStreamUriParser : WebStreamUriParser<FtpWebResponse>
     {
         /// <summary>
-        ///     Enumera los protocolos soportados por este
-        ///     <see cref="FtpStreamUriParser"/>.
+        /// Enumera los protocolos soportados por este
+        /// <see cref="FtpStreamUriParser"/>.
         /// </summary>
         protected override IEnumerable<string> SchemeList
         {

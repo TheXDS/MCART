@@ -32,19 +32,19 @@ namespace TheXDS.MCART.Types.Base
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Clase base para los objetos que puedan notificar sobre el cambio
-    ///     del valor de una de sus propiedades.
+    /// Clase base para los objetos que puedan notificar sobre el cambio
+    /// del valor de una de sus propiedades.
     /// </summary>
     public abstract class NotifyPropertyChanging : NotifyPropertyChangeBase, INotifyPropertyChanging
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Se produce cuando cambia el valor de una propiedad.
+        /// Se produce cuando cambia el valor de una propiedad.
         /// </summary>
         public event PropertyChangingEventHandler? PropertyChanging;
 
         /// <summary>
-        ///     Notifica a los clientes que el valor de una propiedad cambiará.
+        /// Notifica a los clientes que el valor de una propiedad cambiará.
         /// </summary>
         protected virtual void OnPropertyChanging([CallerMemberName] string? propertyName = null)
         {
@@ -55,19 +55,19 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Cambia el valor de un campo, y genera los eventos de
-        ///     notificación correspondientes.
+        /// Cambia el valor de un campo, y genera los eventos de
+        /// notificación correspondientes.
         /// </summary>
         /// <typeparam name="T">Tipo de valores a procesar.</typeparam>
         /// <param name="field">Campo a actualizar.</param>
         /// <param name="value">Nuevo valor del campo.</param>
         /// <param name="propertyName">
-        ///     Nombre de la propiedad. Por lo general, este valor debe
-        ///     omitirse.
+        /// Nombre de la propiedad. Por lo general, este valor debe
+        /// omitirse.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> si el valor de la propiedad ha
-        ///     cambiado, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si el valor de la propiedad ha
+        /// cambiado, <see langword="false"/> en caso contrario.
         /// </returns>
         protected bool Change<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
         {
@@ -79,10 +79,10 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
-        ///     Notifica el cambio en el valor de una propiedad.
+        /// Notifica el cambio en el valor de una propiedad.
         /// </summary>
         /// <param name="property">
-        ///     Propiedad a notificar.
+        /// Propiedad a notificar.
         /// </param>
         protected override void Notify(string property)
         {
