@@ -28,6 +28,7 @@ using TheXDS.MCART.Attributes;
 using System;
 using System.Security;
 using TheXDS.MCART.Types;
+using TheXDS.MCART.Types.Base;
 using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Security.Password

@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -31,7 +29,7 @@ using TheXDS.MCART.Annotations;
 
 namespace TheXDS.MCART.Types.Base
 {
-    /// <inheritdoc />
+    /// <inheritdoc cref="INotifyPropertyChanged"/>
     /// <summary>
     /// Clase base para los objetos que puedan notificar sobre el cambio
     /// del valor de una de sus propiedades.

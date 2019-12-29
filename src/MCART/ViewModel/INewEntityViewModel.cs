@@ -31,7 +31,7 @@ namespace TheXDS.MCART.ViewModel
     /// <typeparam name="T">
     /// Tipo de entidad a controlar.
     /// </typeparam>
-    public interface INewEntityViewModel<T> : IEntityViewModel<T> where T : new()
+    public interface INewEntityViewModel<out T> : IEntityViewModel<T> where T : new()
     {
         /// <summary>
         /// Instancia un nuevo <typeparamref name="T"/> en este ViewModel.

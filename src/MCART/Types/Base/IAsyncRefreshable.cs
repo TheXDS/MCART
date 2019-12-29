@@ -24,7 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Threading.Tasks;
 
-namespace TheXDS.MCART.Types
+namespace TheXDS.MCART.Types.Base
 {
     /// <summary>
     /// Describe una serie de miembros a implementar por una clase o

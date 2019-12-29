@@ -25,6 +25,7 @@ SOFTWARE. */
 using System;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types;
+using TheXDS.MCART.Types.Base;
 using static System.AttributeTargets;
 
 namespace TheXDS.MCART.Annotations

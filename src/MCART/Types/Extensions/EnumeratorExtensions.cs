@@ -25,9 +25,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections;
 
-// ReSharper disable UnusedMember.Global
-// ReSharper disable MemberCanBePrivate.Global
-
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>

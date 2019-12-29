@@ -4,9 +4,9 @@ NameAttribute.cs
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
-     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+     CÃ©sar AndrÃ©s Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright Â© 2011 - 2019 CÃ©sar AndrÃ©s Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -89,7 +89,7 @@ namespace TheXDS.MCART.MrpcTests
 
         #endregion
 
-        #region Cliente (compilado dinámicamente)
+        #region Cliente (compilado dinÃ¡micamente)
 
         private class RemoteClient : MrpcCaller, IRemoteContract
         {

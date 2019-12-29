@@ -22,14 +22,13 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Types.Extensions.MemberInfoExtensions;
 

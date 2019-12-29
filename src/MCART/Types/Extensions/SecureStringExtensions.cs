@@ -22,7 +22,14 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
+#pragma warning disable XS0001
+/* -= NOTA =-
+ * Oops! Algunas API de Mono parecen no estar completas, esta directiva
+ * deshabilita la advertencia al compilar desde MonoDevelop.
+ * 
+ * SecureString no provee de funcionalidad de encriptado en Mono, lo que
+ * podría ser inseguro.
+ */
 
 using System;
 using System.Collections.Generic;
@@ -37,15 +44,6 @@ namespace TheXDS.MCART.Types.Extensions
     /// </summary>
     public static class SecureStringExtensions
     {
-#pragma warning disable XS0001
-        /* -= NOTA =-
-		 * Oops! Algunas API de Mono parecen no estar completas, esta directiva
-		 * deshabilita la advertencia al compilar desde MonoDevelop.
-		 * 
-		 * SecureString no provee de funcionalidad de encriptado en Mono, lo que
-		 * podría ser inseguro.
-         */
-
         /// <summary>
         /// Convierte un <see cref="SecureString" /> en un
         /// <see cref="string" />.
@@ -156,6 +154,5 @@ namespace TheXDS.MCART.Types.Extensions
                 Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
             }
         }
-#pragma warning restore XS0001
     }
 }

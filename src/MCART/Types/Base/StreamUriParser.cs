@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.IO;
 using System.Linq;
@@ -224,7 +222,7 @@ namespace TheXDS.MCART.Types.Base
             var j = Open(uri);
             if (j is null) return null;
             var ms = new MemoryStream();
-            using (j)
+            await using (j)
             {
                 await j.CopyToAsync(ms);
                 return ms;

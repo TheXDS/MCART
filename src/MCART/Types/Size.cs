@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Collections.Generic;
 using TheXDS.MCART.Math;
@@ -132,7 +130,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public static bool operator ==(Size size1, Size size2)
         {
-            return (size1.Height == size2.Height && size1.Width == size2.Width);
+            return size1.Height == size2.Height && size1.Width == size2.Width;
         }
 
         /// <summary>
@@ -214,7 +212,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public I2DVector To2DVector()
         {
-            return new _2DVector() { X = Width, Y = Height };
+            return new _2DVector { X = Width, Y = Height };
         }
 
         /// <summary>

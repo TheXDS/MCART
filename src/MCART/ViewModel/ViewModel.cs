@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -83,7 +81,6 @@ namespace TheXDS.MCART.ViewModel
             if (Entity is null) return;
             lock (Entity)
 #endif
-
             {
                 Notify(_modelProperties.Select(p => p.Name));
             }

@@ -23,6 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using TheXDS.MCART.Types;
+using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Component

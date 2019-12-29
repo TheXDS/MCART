@@ -26,9 +26,9 @@ using System;
 using System.Timers;
 using TheXDS.MCART.Types.Base;
 
-namespace TheXDS.MCART.Types.Extensions
+namespace TheXDS.MCART.Types
 {
-    /// <inheritdoc />
+    /// <inheritdoc cref="Timer" />
     /// <summary>
     /// Extensión de la clase <see cref="TimerEx" />. provee de toda
     /// la funcionalidad previamente disponible, e incluye algunas extensiones

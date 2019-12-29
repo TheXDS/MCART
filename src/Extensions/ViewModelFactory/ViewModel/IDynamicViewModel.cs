@@ -23,7 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System.ComponentModel;
-using TheXDS.MCART.Types;
+using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.ViewModel
 {

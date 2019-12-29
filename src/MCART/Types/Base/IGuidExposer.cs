@@ -22,14 +22,9 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
-
-#if NETCOREAPP3_0
 using System.Runtime.InteropServices;
 using TheXDS.MCART.Exceptions;
-#endif
 
 namespace TheXDS.MCART.Types.Base
 {
@@ -44,16 +39,12 @@ namespace TheXDS.MCART.Types.Base
         /// </summary>
         Guid Guid
         {
-#if NETCOREAPP3_0
             get
             {
                 var t = GetType();
                 var g = t.GetAttr<GuidAttribute>() ?? throw new IncompleteTypeException(Resources.InternalStrings.ErrorDeclMustHaveGuidAttr(t),t);
                 return new Guid(g.Value);
             }
-#else
-            get;
-#endif
         }
     }
 }

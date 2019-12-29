@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types;
+using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Component
 {

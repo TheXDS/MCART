@@ -33,11 +33,11 @@ namespace TheXDS.MCART.Types
     /// Diccionario con soporte para instanciación automática de claves no
     /// existentes.
     /// </summary>
-    /// <typeparam name="Tkey">Tipo de llave a utilizar.</typeparam>
+    /// <typeparam name="TKey">Tipo de llave a utilizar.</typeparam>
     /// <typeparam name="TValue">
     /// Tipo del valor contenido en este diccionario.
     /// </typeparam>
-    public class AutoDictionary<Tkey, TValue> : Dictionary<Tkey, TValue> where Tkey : notnull where TValue : new()
+    public class AutoDictionary<TKey, TValue> : Dictionary<TKey, TValue> where TKey : notnull where TValue : new()
     {
         /// <summary>
         /// Obtiene o establece el valor asociado con la llave
@@ -53,7 +53,7 @@ namespace TheXDS.MCART.Types
         /// clave especificada, se creará un nuevo elemento con dicha
         /// clave.
         /// </returns>
-        public new TValue this[Tkey key]
+        public new TValue this[TKey key]
         {
             get
             {

@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Types.Base;
@@ -612,7 +610,6 @@ namespace TheXDS.MCART.Types
             };
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Convierte este objeto en su representación como una cadena.
         /// </summary>
@@ -648,14 +645,7 @@ namespace TheXDS.MCART.Types
         /// <returns>El código Hash de esta instancia.</returns>
         public override int GetHashCode()
         {
-#if NETCOREAPP3_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETSTANDARD2_1
             return HashCode.Combine(X, Y);
-#else
-            var hashCode = 1861411795;
-            hashCode = hashCode * -1521134295 + X.GetHashCode();
-            hashCode = hashCode * -1521134295 + Y.GetHashCode();
-            return hashCode;
-#endif
         }
 
         /// <summary>
@@ -701,5 +691,6 @@ namespace TheXDS.MCART.Types
         /// <returns>
         /// Un <see cref="Point"/> equivalente al <see cref="System.Drawing.Point"/> especificado.
         /// </returns>
-        public static implicit operator Point(System.Drawing.Point x) => new Point(x.X, x.Y);}
+        public static implicit operator Point(System.Drawing.Point x) => new Point(x.X, x.Y);
+    }
 }

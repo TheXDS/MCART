@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -169,9 +167,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// Una enumeración con los elementos de la colección, omitiendo
         /// aquellos que sean <see langword="null"/>.
         /// </returns>
-        public static IEnumerable<T> NotNull<T>(this IEnumerable<T?> collection) where T : class
+        public static IEnumerable<T> NotNull<T>(this IEnumerable<T?>? collection) where T : class
         {
-            return collection.Where(p => !(p is null)).Select(p => (p!));
+            return collection is null ? Array.Empty<T>() : collection.Where(p => !(p is null));//.Select(p => p!);
         }
 
         /// <summary>
@@ -199,9 +197,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// Una enumeración con los elementos de la colección, omitiendo
         /// aquellos que sean <see langword="null"/>.
         /// </returns>
-        public static IEnumerable<T> NotNull<T>(this IEnumerable<T?> collection) where T : struct
+        public static IEnumerable<T> NotNull<T>(this IEnumerable<T?>? collection) where T : struct
         {
-            return collection.Where(p => !(p is null)).Select(p=>p!.Value);
+            return collection is null ? Array.Empty<T>() : collection.Where(p => !(p is null)).Select(p=>p!.Value);
         }
 
         /// <summary>
@@ -724,7 +722,7 @@ namespace TheXDS.MCART.Types.Extensions
             where TAttr : Attribute, IValueAttribute<TAttrValue>
         {
             var t = typeof(TAttrValue);
-            var d = t.GetField(@"MaxValue", BindingFlags.Public | BindingFlags.Static) is FieldInfo f ? (TAttrValue)f.GetValue(null)! : default;
+            var d = t.GetField(@"MaxValue", BindingFlags.Public | BindingFlags.Static) is { } f ? (TAttrValue)f.GetValue(null)! : default;
             return c.OrderBy(p => p?.GetAttr<TAttr>()?.Value ?? d);
         }
 

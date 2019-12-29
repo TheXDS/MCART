@@ -40,11 +40,13 @@ namespace TheXDS.MCART.Types
         /// <see cref="AddingItemEventArgs{T}"/> a convertir.
         /// </param>
         public static implicit operator AddedItemEventArgs<T>(AddingItemEventArgs<T> from) => new AddedItemEventArgs<T>(from.NewItem);
+        
         /// <summary>
         /// Elemento que fue agregado al <see cref="ListEx{T}"/> que generó el
         /// evento.
         /// </summary>
         public T NewItem { get; }
+        
         internal AddedItemEventArgs(T newItem)
         {
             NewItem = newItem;

@@ -22,14 +22,12 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System.Net.Sockets;
 using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Types
 {
-    /// <inheritdoc />
+    /// <inheritdoc cref="TcpClient" />
     /// <summary>
     /// Extensión de la clase <see cref="TcpClient" />
     /// que implementa observación del estado de deshecho del objeto.

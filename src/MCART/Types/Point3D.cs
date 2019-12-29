@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using CI = System.Globalization.CultureInfo;
 using St = TheXDS.MCART.Resources.Strings;
@@ -307,7 +305,7 @@ namespace TheXDS.MCART.Types
         {
             return new Point3D(-p.X, -p.Y, -p.Z);
         }
-#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
+        
         /// <summary>
         /// Compara la igualdad de los vectores de los puntos.
         /// </summary>
@@ -335,7 +333,7 @@ namespace TheXDS.MCART.Types
         {
             return l.X != r.X && l.Y != r.Y && l.Z != r.Z;
         }
-#pragma warning restore RECS0018
+        
         /// <summary>
         /// Coordenada X.
         /// </summary>
@@ -493,7 +491,7 @@ namespace TheXDS.MCART.Types
                 'C' => $"{X}, {Y}, {Z}",
                 'B' => $"[{X}, {Y}, {Z}]",
                 'V' => $"X: {X}, Y: {Y}, Z: {Z}",
-                'N' => $"X: {X}\nY: {Y}\nZ: {Z}",
+                'N' => $"X: {X}{Environment.NewLine}Y: {Y}{Environment.NewLine}Z: {Z}",
                 _ => throw new FormatException(St.FormatNotSupported(format)),
             };
         }
@@ -534,7 +532,6 @@ namespace TheXDS.MCART.Types
             return ToString(null);
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Convierte este objeto en su representación como una cadena.
         /// </summary>

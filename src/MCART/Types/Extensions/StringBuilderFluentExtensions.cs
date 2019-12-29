@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System.Text;
 
 namespace TheXDS.MCART.Types.Extensions
@@ -64,12 +62,10 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns></returns>
         public static StringBuilder AppendAndWrap(this StringBuilder sb, string? text, int width)
         {
-#pragma warning disable CS8606
-            foreach (var j in text?.TextWrap(width) ?? new string?[] { null })            
+            foreach (var j in text?.TextWrap(width).NotNull())            
                 sb.AppendLine(j);            
 
             return sb;
-#pragma warning restore CS8606
         }
     }
 }

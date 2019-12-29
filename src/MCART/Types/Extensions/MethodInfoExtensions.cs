@@ -51,7 +51,7 @@ namespace TheXDS.MCART.Types.Extensions
 
         /// <summary>
         /// Obtiene un valor que determina si el método no devuelve valores
-        /// (si es <see cref="void"/>).
+        /// (si es <see langword="void"/>).
         /// </summary>
         /// <param name="m">Método a comprobar.</param>
         /// <returns>

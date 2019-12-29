@@ -22,10 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System.ComponentModel;
-using TheXDS.MCART.Types;
+using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.ViewModel
 {
@@ -35,7 +33,7 @@ namespace TheXDS.MCART.ViewModel
     /// ViewModel.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface ISetteableViewModel<T> : IRefreshable, INotifyPropertyChanged
+    public interface ISetteableViewModel<in T> : IRefreshable, INotifyPropertyChanged
     {
         /// <summary>
         /// Edita la instancia de <typeparamref name="T"/> dentro de este

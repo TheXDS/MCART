@@ -36,6 +36,7 @@ namespace TheXDS.MCART.Types
         /// Obtiene el objeto que se agregará al <see cref="ListEx{T}"/>.
         /// </summary>
         public T NewItem { get; }
+        
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="AddingItemEventArgs{T}"/>.

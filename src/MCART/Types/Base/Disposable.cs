@@ -22,8 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-#pragma warning disable CA1063 // IDisposable se implementa explícitamente de esa forma para simplificar la declaración de clases desechables.
+#pragma warning disable CA1063 // IDisposable se implementa explícitamente de esta forma para simplificar la declaración de clases desechables.
 
 using System;
 using System.Runtime.CompilerServices;

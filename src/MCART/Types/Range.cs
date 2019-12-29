@@ -25,8 +25,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Linq;
 using TheXDS.MCART.Misc;
@@ -299,11 +297,7 @@ namespace TheXDS.MCART.Types
         /// <returns>El código Hash de esta instancia.</returns>
         public override int GetHashCode()
         {
-            return
-                Minimum.GetHashCode() ^
-                Maximum.GetHashCode() ^
-                MinInclusive.GetHashCode() ^
-                MaxInclusive.GetHashCode();            
+            return HashCode.Combine(Minimum,Maximum);
         }
 
         /// <summary>

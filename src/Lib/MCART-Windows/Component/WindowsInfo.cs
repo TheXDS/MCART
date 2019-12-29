@@ -22,16 +22,15 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Management;
 using System.Linq;
 using Microsoft.Win32;
 using System.Runtime.CompilerServices;
-using TheXDS.MCART.Types;
+using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Resources;
 using System.Collections.Generic;
+using System.IO;
 
 namespace TheXDS.MCART.Component
 {
@@ -456,7 +455,7 @@ namespace TheXDS.MCART.Component
         /// <summary>
         /// Obtiene un valor que determina si Windows incluye un CLUF
         /// </summary>
-        public bool HasLicense => System.IO.File.Exists(@"C:\Windows\System32\license.rtf");
+        public bool HasLicense => System.IO.File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "license.rtf"));
 
         /// <summary>
         /// Obtiene un valor que indica si Windows cumple con el CLS.
@@ -472,6 +471,10 @@ namespace TheXDS.MCART.Component
         /// </summary>
         public string? InformationalVersion => $"{Version.ToString()}-{BuildLabEx}";
 
+        /// <summary>
+        /// Enumera las liciencias de terceros incluidas con el sistema
+        /// operativo.
+        /// </summary>
         public IEnumerable<License>? ThirdPartyLicenses => null;
 
         public bool Has3rdPartyLicense => false;

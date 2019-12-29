@@ -25,8 +25,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 
 namespace TheXDS.MCART.Types.Base
@@ -69,11 +67,7 @@ namespace TheXDS.MCART.Types.Base
         /// este <see cref="IRange{T}"/>, <see langword="false"/> en caso
         /// contrario.
         /// </returns>
-#if !NETCOREAPP3_0
-        bool Intersects(IRange<T> other);
-#else
         bool Intersects(IRange<T> other) => IsWithin(other.Maximum) || IsWithin(other.Minimum);
-#endif
 
         /// <summary>
         /// Comprueba si un valor <typeparamref name="T"/> se encuentra
@@ -85,10 +79,6 @@ namespace TheXDS.MCART.Types.Base
         /// <see cref="IRange{T}"/>, <see langword="false"/> en caso
         /// contrario.
         /// </returns>
-#if !NETCOREAPP3_0
-        bool IsWithin(T value);
-#else
         bool IsWithin(T value) => value.IsBetween(Minimum, Maximum, MinInclusive, MaxInclusive);
-#endif
     }
 }

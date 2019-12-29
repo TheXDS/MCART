@@ -23,10 +23,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
-using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.ViewModel
@@ -36,22 +34,20 @@ namespace TheXDS.MCART.ViewModel
     /// </summary>
     public abstract class ViewModelBase : NotifyPropertyChanged
     {
-
         /// <summary>
         /// Inicialica una nueva instancia de la clase 
         /// <see cref="ViewModelBase"/>.
         /// </summary>
-        public ViewModelBase() { }
+        protected ViewModelBase() { }
 
         /// <summary>
         /// Inicialica una nueva instancia de la clase 
         /// <see cref="ViewModelBase"/>.
         /// </summary>
         /// <param name="observeSelf"></param>
-        public ViewModelBase(bool observeSelf)
+        protected ViewModelBase(bool observeSelf)
         {
-            if (observeSelf)
-            PropertyChanged += ViewModelBase_PropertyChanged;
+            if (observeSelf) PropertyChanged += ViewModelBase_PropertyChanged;
         }
 
         private void ViewModelBase_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
