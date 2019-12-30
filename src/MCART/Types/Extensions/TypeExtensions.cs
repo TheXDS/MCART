@@ -26,8 +26,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -405,26 +403,24 @@ namespace TheXDS.MCART.Types.Extensions
         [DebuggerStepThrough]
         public static T New<T>(this Type type, bool throwOnFail, IEnumerable parameters)
         {
-#nullable disable
             if (type is null)
             {
-                return throwOnFail ? throw new ArgumentNullException(nameof(type)) : (T)default;
+                return throwOnFail ? throw new ArgumentNullException(nameof(type)) : (T)default!;
             }
 
             if (!type.IsInstantiable(parameters.ToTypes()))
             {
-                return throwOnFail ? throw new ClassNotInstantiableException(type) : (T)default;
+                return throwOnFail ? throw new ClassNotInstantiableException(type) : (T)default!;
             }
 
             try
             {
-                return (T)type.GetConstructor(parameters.ToTypes().ToArray())?.Invoke(parameters.ToGeneric().ToArray());
+                return (T)type.GetConstructor(parameters.ToTypes().ToArray())?.Invoke(parameters.ToGeneric().ToArray())!;
             }
             catch (Exception e)
             {
-                return throwOnFail ? throw new TypeLoadException(InternalStrings.ErrorXClassNotInstantiableWithArgs(type.Name), e) : (T)default;
+                return throwOnFail ? throw new TypeLoadException(InternalStrings.ErrorXClassNotInstantiableWithArgs(type.Name), e) : (T)default!;
             }
-#nullable enable
         }
 
         /// <summary>

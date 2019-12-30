@@ -52,6 +52,16 @@ namespace TheXDS.MCART.Math
             return value + (RandomExtensions.Rnd.NextDouble() * d * 2) - d;
         }
 
+        /// <summary>
+        /// Obtiene un rango normalizado para un set de datos dado un margen de
+        /// error.
+        /// </summary>
+        /// <param name="data">Set de datos a normalizar.</param>
+        /// <param name="errorMargin">Margen de error tolerado.</param>
+        /// <returns>
+        /// Una enumeración con los valores normalizados del set de datos de 
+        /// acuerdo a un valor de margen de error.
+        /// </returns>
         public static IEnumerable<Range<double>> Normalize(this IEnumerable<double> data, double errorMargin)
         {
             foreach (var j in data)
@@ -61,6 +71,13 @@ namespace TheXDS.MCART.Math
             }
         }
 
+        /// <summary>
+        /// Calcula la tendencia media de un set de datos.
+        /// </summary>
+        /// <param name="data">
+        /// Set de datos para el cual calcular la tendencia media.
+        /// </param>
+        /// <returns>La tendencia media de un set de datos.</returns>
         public static double MeanTendency(this IEnumerable<double> data)
         {
             var c = new List<double>();
@@ -79,6 +96,13 @@ namespace TheXDS.MCART.Math
             return c.Any() ? c.Average() : 0.0;
         }
 
+        /// <summary>
+        /// Calcula la tendencia geométrica de un set de datos.
+        /// </summary>
+        /// <param name="data">
+        /// Set de datos para el cual calcular la tendencia geométrica.
+        /// </param>
+        /// <returns>La tendencia geométrica de un set de datos.</returns>
         public static double GeometricMean(this IEnumerable<double> data)
         {
             var c = 0.0;
@@ -91,6 +115,13 @@ namespace TheXDS.MCART.Math
             return System.Math.Pow(c, 1.0 / t);
         }
 
+        /// <summary>
+        /// Calcula la tendencia harmómica de un set de datos.
+        /// </summary>
+        /// <param name="data">
+        /// Set de datos para el cual calcular la tendencia harmómica.
+        /// </param>
+        /// <returns>La tendencia harmómica de un set de datos.</returns>
         public static double HarmonicMean(this IEnumerable<double> data)
         {
             var c = 0.0;
@@ -103,6 +134,13 @@ namespace TheXDS.MCART.Math
             return t / c;
         }
 
+        /// <summary>
+        /// Calcula la media de un set de datos.
+        /// </summary>
+        /// <param name="data">
+        /// Set de datos para el cual calcular la media.
+        /// </param>
+        /// <returns>La media de un set de datos.</returns>
         public static double Median(this IEnumerable<double> data)
         {
             var d = data.ToList();
@@ -116,6 +154,13 @@ namespace TheXDS.MCART.Math
 
         }
 
+        /// <summary>
+        /// Calcula la moda de un set de datos.
+        /// </summary>
+        /// <param name="data">
+        /// Set de datos para el cual calcular la moda.
+        /// </param>
+        /// <returns>La moda de un set de datos.</returns>
         public static IEnumerable<double> Mode(this IEnumerable<double> data)
         {
             var d = new Dictionary<double, int>();
@@ -129,18 +174,46 @@ namespace TheXDS.MCART.Math
             return d.Where(p => p.Value == m).Select(p => p.Key);
         }
 
+        /// <summary>
+        /// Calcula la desviación promedio absoluta de un set de datos.
+        /// </summary>
+        /// <param name="data">
+        /// Set de datos para el cual calcular la desviación promedio absoluta.
+        /// </param>
+        /// <returns>
+        /// La desviación promedio absoluta de un set de datos.
+        /// </returns>
         public static double MeanAbsoluteDeviation(this IEnumerable<double> data)
         {
             var d = data.ToList();
             return AbsoluteDeviation(d, d.Average());
         }
 
+        /// <summary>
+        /// Calcula la desviación media absoluta de un set de datos.
+        /// </summary>
+        /// <param name="data">
+        /// Set de datos para el cual calcular la desviación media absoluta.
+        /// </param>
+        /// <returns>La desviación media absoluta de un set de datos.</returns>
         public static double MedianAbsoluteDeviation(this IEnumerable<double> data)
         {
             var d = data.ToList();
             return AbsoluteDeviation(d, d.Median());
         }
 
+        /// <summary>
+        /// Calcula la desviación absoluta de un punto en un set de datos.
+        /// </summary>
+        /// <param name="data">
+        /// Set de datos para el cual calcular la absoluta.
+        /// </param>
+        /// <param name="point">
+        /// Punto para el cual calcular la desviación absoluta.
+        /// </param>
+        /// <returns>
+        /// La desviación absoluta del punto en un set de datos.
+        /// </returns>
         public static double AbsoluteDeviation(this IEnumerable<double> data, double point)
         {
             var d = 0.0;
@@ -154,6 +227,19 @@ namespace TheXDS.MCART.Math
             return d / c;
         }
 
+        /// <summary>
+        /// Calcula el nivel de correlación entre dos sets de datos.
+        /// </summary>
+        /// <param name="dataA">Primer set de datos.</param>
+        /// <param name="dataB">Segundo set de datos.</param>
+        /// <returns>
+        /// <c>1.0</c> para correlación máxima, <c>0.0</c> para correlación
+        /// mínima.
+        /// </returns>
+        /// <exception cref="IndexOutOfRangeException">
+        /// Se produce si cualquiera de los sets tiene una cantidad distinta de
+        /// elementos con respecto al otro.
+        /// </exception>
         public static double Correlation(IEnumerable<double> dataA, IEnumerable<double> dataB)
         {
             var da = dataA.ToList();
@@ -177,6 +263,19 @@ namespace TheXDS.MCART.Math
 
         }
 
+        /// <summary>
+        /// Calcula el nivel de covarianza entre dos sets de datos.
+        /// </summary>
+        /// <param name="dataA">Primer set de datos.</param>
+        /// <param name="dataB">Segundo set de datos.</param>
+        /// <returns>
+        /// <c>1.0</c> para covarianza máxima, <c>0.0</c> para covarianza
+        /// mínima.
+        /// </returns>
+        /// <exception cref="IndexOutOfRangeException">
+        /// Se produce si cualquiera de los sets tiene una cantidad distinta de
+        /// elementos con respecto al otro.
+        /// </exception>
         public static double Covariance(IEnumerable<double> dataA, IEnumerable<double> dataB)
         {
             var da = dataA.ToList();
@@ -197,6 +296,13 @@ namespace TheXDS.MCART.Math
             return sigmaXY / da.Count;
         }
 
+        /// <summary>
+        /// Calcula la desviación cuadrada de un set de datos.
+        /// </summary>
+        /// <param name="data">
+        /// Set de datos para el cual calcular la desviación cuadrada.
+        /// </param>
+        /// <returns>La desviación cuadrada de un set de datos.</returns>
         public static double DeviationSquared(this IEnumerable<double> data)
         {
             var d = data.ToList();
@@ -204,12 +310,39 @@ namespace TheXDS.MCART.Math
             return d.Sum(p => System.Math.Pow(p - avg, 2));
         }
 
+        /// <summary>
+        /// Aplica la transformación de Fisher a un valor discreto.
+        /// </summary>
+        /// <param name="value">
+        /// Valor al cual aplicar la transformación de Fisher.
+        /// </param>
+        /// <returns>
+        /// El resultado de la transformación de Fisher del valor especificado.
+        /// </returns>
         public static double Fisher(this in double value)
         {
             if (!value.IsBetween(-1, 1)) throw new ArgumentOutOfRangeException(nameof(value));
             return System.Math.Log((1 + value) / (1 - value)) / 2;
         }
 
+        /// <summary>
+        /// Dado el valor <paramref name="valueA"/> en el set
+        /// <paramref name="dataA"/>, predice el valor resultante con el set 
+        /// <paramref name="dataB"/>.
+        /// </summary>
+        /// <param name="valueA">
+        /// Valor de salida del set <paramref name="dataA"/>.
+        /// </param>
+        /// <param name="dataA">
+        /// Set de datos que produjo a <paramref name="valueA"/>.
+        /// </param>
+        /// <param name="dataB">
+        /// Set de datos con el cual realizar la predicción.
+        /// </param>
+        /// <returns>
+        /// La predicción del valor de salida dado el set
+        /// <paramref name="dataB"/>.
+        /// </returns>
         public static double Forecast(in double valueA, IEnumerable<double> dataA, IEnumerable<double> dataB)
         {
             var da = dataA.ToList();
@@ -235,6 +368,13 @@ namespace TheXDS.MCART.Math
             return a + b * valueA;
         }
 
+        /// <summary>
+        /// Obtiene la desviación estándar de un set de datos.
+        /// </summary>
+        /// <param name="data">
+        /// Set de datos para le cual calcular la desviación estándar.
+        /// </param>
+        /// <returns>La desviación estándar de un set de datos.</returns>
         public static double StandardDeviation(this IEnumerable<double> data)
         {
             var d = data.ToList();

@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Collections.Generic;
 using TheXDS.MCART.Attributes;
@@ -52,6 +50,7 @@ namespace TheXDS.MCART.Security.Password
         /// <param name="charset">Charset contenido.</param>
         /// <param name="ruleName">Nombre de regla.</param>
         public static PasswordEvaluationRule ContentionRuleFactory(string charset, string ruleName) => ContentionRuleFactory(charset, ruleName, null, PonderationLevel.Normal, true, false);
+
         /// <summary>
         /// Fábrica de reglas de contención de caracteres.
         /// </summary>
@@ -62,6 +61,7 @@ namespace TheXDS.MCART.Security.Password
         /// <param name="ruleName">Nombre de regla.</param>
         /// <param name="ruleDescription">Descripción de la regla.</param>
         public static PasswordEvaluationRule ContentionRuleFactory(string charset, string ruleName, string ruleDescription) => ContentionRuleFactory(charset, ruleName, ruleDescription, PonderationLevel.Normal, true, false);
+
         /// <summary>
         /// Fábrica de reglas de contención de caracteres.
         /// </summary>
@@ -72,6 +72,7 @@ namespace TheXDS.MCART.Security.Password
         /// <param name="ruleName">Nombre de regla.</param>
         /// <param name="ponderation">Ponderación de la regla.</param>
         public static PasswordEvaluationRule ContentionRuleFactory(string charset, string ruleName, PonderationLevel ponderation) => ContentionRuleFactory(charset, ruleName, null, ponderation, true, false);
+        
         /// <summary>
         /// Fábrica de reglas de contención de caracteres.
         /// </summary>
@@ -85,6 +86,7 @@ namespace TheXDS.MCART.Security.Password
         /// forma predeterminada.
         /// </param>
         public static PasswordEvaluationRule ContentionRuleFactory(string charset, string ruleName, bool defaultEnable) => ContentionRuleFactory(charset, ruleName, null, PonderationLevel.Normal, defaultEnable, false);
+        
         /// <summary>
         /// Fábrica de reglas de contención de caracteres.
         /// </summary>
@@ -102,6 +104,7 @@ namespace TheXDS.MCART.Security.Password
         /// puntos adicionales.
         /// </param>
         public static PasswordEvaluationRule ContentionRuleFactory(string charset, string ruleName, bool defaultEnable, bool isExtra) => ContentionRuleFactory(charset, ruleName, null, PonderationLevel.Normal, defaultEnable, isExtra);
+        
         /// <summary>
         /// Fábrica de reglas de contención de caracteres.
         /// </summary>
@@ -113,6 +116,7 @@ namespace TheXDS.MCART.Security.Password
         /// <param name="ruleDescription">Descripción de la regla.</param>
         /// <param name="ponderation">Ponderación de la regla.</param>
         public static PasswordEvaluationRule ContentionRuleFactory(string charset, string ruleName, string ruleDescription, PonderationLevel ponderation) => ContentionRuleFactory(charset, ruleName, ruleDescription, ponderation, true, false);
+        
         /// <summary>
         /// Fábrica de reglas de contención de caracteres.
         /// </summary>
@@ -128,6 +132,7 @@ namespace TheXDS.MCART.Security.Password
         /// forma predeterminada.
         /// </param>
         public static PasswordEvaluationRule ContentionRuleFactory(string charset, string ruleName, string ruleDescription, PonderationLevel ponderation, bool defaultEnable) => ContentionRuleFactory(charset, ruleName, ruleDescription, ponderation, defaultEnable, false);
+        
         /// <summary>
         /// Fábrica de reglas de contención de caracteres.
         /// </summary>
@@ -142,6 +147,7 @@ namespace TheXDS.MCART.Security.Password
         /// forma predeterminada.
         /// </param>
         public static PasswordEvaluationRule ContentionRuleFactory(string charset, string ruleName, string ruleDescription, bool defaultEnable) => ContentionRuleFactory(charset, ruleName, ruleDescription, PonderationLevel.Normal, defaultEnable, false);
+        
         /// <summary>
         /// Fábrica de reglas de contención de caracteres.
         /// </summary>
@@ -160,6 +166,7 @@ namespace TheXDS.MCART.Security.Password
         /// puntos adicionales.
         /// </param>
         public static PasswordEvaluationRule ContentionRuleFactory(string charset, string ruleName, string ruleDescription, bool defaultEnable, bool isExtra) => ContentionRuleFactory(charset, ruleName, ruleDescription, PonderationLevel.Normal, defaultEnable, isExtra);
+        
         /// <summary>
         /// Fábrica de reglas de contención de caracteres.
         /// </summary>
@@ -174,6 +181,7 @@ namespace TheXDS.MCART.Security.Password
         /// forma predeterminada.
         /// </param>
         public static PasswordEvaluationRule ContentionRuleFactory(string charset, string ruleName, PonderationLevel ponderation, bool defaultEnable) => ContentionRuleFactory(charset, ruleName, null, ponderation, defaultEnable, false);
+        
         /// <summary>
         /// Fábrica de reglas de contención de caracteres.
         /// </summary>
@@ -192,6 +200,7 @@ namespace TheXDS.MCART.Security.Password
         /// puntos adicionales.
         /// </param>
         public static PasswordEvaluationRule ContentionRuleFactory(string charset, string ruleName, PonderationLevel ponderation, bool defaultEnable, bool isExtra) => ContentionRuleFactory(charset, ruleName, null, ponderation, defaultEnable, isExtra);
+        
         /// <summary>
         /// Fábrica de reglas de contención de caracteres.
         /// </summary>
@@ -265,6 +274,7 @@ namespace TheXDS.MCART.Security.Password
         }
 
 #if SaferPasswords
+
         /// <summary>
         /// Establece un conjunto de reglas extendidas de complejidad.
         /// </summary>
@@ -280,7 +290,9 @@ namespace TheXDS.MCART.Security.Password
                 PwOtherUtfEvalRule()
             });
         }
+
 #endif
+
         /// <summary>
         /// Crea una regla nula especial para ayudar a balancear los puntajes de evaluación.
         /// </summary>
@@ -293,17 +305,20 @@ namespace TheXDS.MCART.Security.Password
         /// <returns>Regla de evaluación que devuelve valores constantes.</returns>
         /// <param name="ponderation">Ponderation.</param>
         public static PasswordEvaluationRule NullEvalRule(PonderationLevel ponderation) => new PasswordEvaluationRule(p => new PwEvalResult(1), St2.NullPwEvalRule, St2.NullPwEvalRule2, ponderation);
+        
         /// <summary>
         /// Crea una regla de longitud de contraseña.
         /// </summary>
         /// <returns>Un <see cref="PasswordEvaluationRule"/> que verifica la longitud de una contraseña.</returns>
         public static PasswordEvaluationRule PwLengthEvalRule() => PwLengthEvalRule(8, 16, int.MaxValue);
+        
         /// <summary>
         /// Crea una regla de longitud de contraseña.
         /// </summary>
         /// <returns>Un <see cref="PasswordEvaluationRule"/> que verifica la longitud de una contraseña.</returns>
         /// <param name="minLength">Longitud mínima requerida.</param>
         public static PasswordEvaluationRule PwLengthEvalRule(int minLength) => PwLengthEvalRule(minLength, 16, int.MaxValue);
+        
         /// <summary>
         /// Crea una regla de longitud de contraseña.
         /// </summary>
@@ -311,6 +326,7 @@ namespace TheXDS.MCART.Security.Password
         /// <param name="minLength">Longitud mínima requerida.</param>
         /// <param name="idealLength">Longitud ideal de la contraseña.</param>
         public static PasswordEvaluationRule PwLengthEvalRule(int minLength, int idealLength) => PwLengthEvalRule(minLength, idealLength, int.MaxValue);
+        
         /// <summary>
         /// Crea una regla de longitud de contraseña.
         /// </summary>
@@ -332,16 +348,19 @@ namespace TheXDS.MCART.Security.Password
                 return new PwEvalResult(baseScore + ((p.Length - minLength) / (idealLength - minLength) * scoringTo1));
             }, St2.PwLenghtEvalRule, string.Format(St2.PwLenghtEvalRule2, minLength, idealLength), PonderationLevel.Normal);
         }
+        
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene mayúsculas.
         /// </summary>
         /// <returns>Un <see cref="PasswordEvaluationRule"/> que comprueba si la contraseña contiene mayúsculas.</returns>
         [Sugar] public static PasswordEvaluationRule PwUcaseEvalRule() => ContentionRuleFactory(St.Alpha.ToUpper(), St2.PwUcaseEvalRule);
+        
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene minúsculas.
         /// </summary>
         /// <returns>Un <see cref="PasswordEvaluationRule"/> que comprueba si la contraseña contiene minúsculas.</returns>
         [Sugar] public static PasswordEvaluationRule PwLcaseEvalRule() => ContentionRuleFactory(St.Alpha.ToLower(), St2.PwLcaseEvalRule);
+        
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene números.
         /// </summary>
@@ -357,21 +376,25 @@ namespace TheXDS.MCART.Security.Password
 #endif
             , St2.PwNumbersEvalRule);
         }
+        
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene símbolos.
         /// </summary>
         /// <returns>Un <see cref="PasswordEvaluationRule"/> que comprueba si la contraseña contiene símbolos.</returns>
         [Sugar] public static PasswordEvaluationRule PwSymbolsEvalRule() => ContentionRuleFactory(St.Symbols, St2.PwSymbolsEvalRule);
+        
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene caracteres latinos.
         /// </summary>
         /// <returns>Un <see cref="PasswordEvaluationRule"/> que comprueba si la contraseña contiene caracteres latinos.</returns>
         [Sugar] public static PasswordEvaluationRule PwLatinEvalRule() => ContentionRuleFactory(St.LatinChars, St2.PwLatinEvalRule, null, PonderationLevel.Low, true, true);
+        
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene otros símbolos.
         /// </summary>
         /// <returns>Un <see cref="PasswordEvaluationRule"/> que comprueba si la contraseña contiene otros símbolos.</returns>
         [Sugar] public static PasswordEvaluationRule PwOtherSymbsEvalRule() => ContentionRuleFactory(St.MoreSymbs, St2.PwOtherSymbsEvalRule, null, PonderationLevel.High, true, true);
+        
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene otros
         /// caracteres Unicode que no están disponibles en el teclado Inglés

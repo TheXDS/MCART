@@ -30,17 +30,49 @@ using Ist = TheXDS.MCART.Resources.InternalStrings;
 
 namespace TheXDS.MCART.Cmd.Base
 {
+    /// <summary>
+    /// Clase base para un tipo que permita presentar texto de ayuda sobre la
+    /// línea de comandos de una aplicación.
+    /// </summary>
     public abstract class HelpPresenter
     {
+        /// <summary>
+        /// Obtiene una referencia al <see cref="CmdLineParser"/> desde el cual
+        /// se extraerán los argumentos disponibles en la línea de comandos.
+        /// </summary>
         protected CmdLineParser Parser { get; }
 
-        public HelpPresenter(CmdLineParser parser)
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="HelpPresenter"/>.
+        /// </summary>
+        /// <param name="parser">
+        /// <see cref="CmdLineParser"/> desde el
+        /// cual se extraerán los argumentos disponibles en la línea de
+        /// comandos.
+        /// </param>
+        protected HelpPresenter(CmdLineParser parser)
         {
             Parser = parser;
         }
 
+        /// <summary>
+        /// Obtiene el nombre formateado de un argumento.
+        /// </summary>
+        /// <param name="argument">
+        /// Argumento del cual obtener el nombre formateado.
+        /// </param>
+        /// <returns>
+        /// El nombre formateado de un argumento.
+        /// </returns>
         protected abstract string GetFormattedName(Argument argument);
         
+        /// <summary>
+        /// Obtiene el encabezado del texto de ayuda de la aplicación.
+        /// </summary>
+        /// <returns>
+        /// El texto de ayuda de la aplicación.
+        /// </returns>
         protected virtual string GetHeader()
         {
             var ent = ReflectionHelpers.GetEntryPoint() ?? Internals.GetCallOutsideMcart(false);

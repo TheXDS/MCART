@@ -62,10 +62,10 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns></returns>
         public static StringBuilder AppendAndWrap(this StringBuilder sb, string? text, int width)
         {
-            foreach (var j in text?.TextWrap(width).NotNull())            
+            foreach (var j in text?.TextWrap(width)?.NotNull()!)            
                 sb.AppendLine(j);            
 
             return sb;
         }
     }
-}
+}        

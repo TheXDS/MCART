@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Diagnostics.CodeAnalysis;
 
@@ -53,11 +51,7 @@ namespace TheXDS.MCART.Resources
         /// <see langword="true"/> si ambas instancias son consideradas
         /// iguales, <see langword="false"/> en caso contrario.
         /// </returns>
-#if NETCOREAPP3_0 || NETSTANDARD2_1
         public bool Equals([AllowNull] SpdxLicense other)
-#else
-        public bool Equals(SpdxLicense other)
-#endif
         {
             return SpdxShortName == other?.SpdxShortName;
         }

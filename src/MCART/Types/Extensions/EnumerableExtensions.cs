@@ -169,7 +169,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static IEnumerable<T> NotNull<T>(this IEnumerable<T?>? collection) where T : class
         {
-            return collection is null ? Array.Empty<T>() : collection.Where(p => !(p is null));//.Select(p => p!);
+            return collection is null ? Array.Empty<T>() : collection.Where(p => !(p is null)).Select(p => p!);
         }
 
         /// <summary>

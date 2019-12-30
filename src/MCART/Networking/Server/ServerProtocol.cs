@@ -89,7 +89,7 @@ namespace TheXDS.MCART.Networking.Server
         /// </returns>
         public virtual Client CreateClient(TcpClient tcpClient) => new Client(tcpClient);
 
-        Server IServerProtocol.MyServer { get; set; }
+        Server IServerProtocol.MyServer { get; set; } = default!;
 
         /// <summary>
         /// Obtiene una referencia al servidor activo de esta instancia.
@@ -120,14 +120,14 @@ namespace TheXDS.MCART.Networking.Server
         /// <summary>
         /// Obtiene una referencia al servidor activo de esta instancia.
         /// </summary>
-        protected Server<T> Server => ((IServerProtocol)this).MyServer as Server<T>;
+        protected Server<T> Server => (Server<T>)((IServerProtocol)this).MyServer;
 
         /// <inheritdoc />
         /// <summary>
         /// Protocolo de desconexión del cliente.
         /// </summary>
         /// <param name="client">Cliente que será atendido.</param>
-        public void ClientBye(Client client) => ClientBye(client as T);
+        public void ClientBye(Client client) => ClientBye((T)client);
 
         /// <summary>
         /// Protocolo de desconexión del cliente.
@@ -140,7 +140,7 @@ namespace TheXDS.MCART.Networking.Server
         /// Protocolo de desconexión inesperada del cliente.
         /// </summary>
         /// <param name="client">Cliente que se ha desconectado.</param>
-        public void ClientDisconnect(Client client) => ClientDisconnect(client as T);
+        public void ClientDisconnect(Client client) => ClientDisconnect((T)client);
 
         /// <summary>
         /// Protocolo de desconexión inesperada del cliente.
@@ -159,7 +159,7 @@ namespace TheXDS.MCART.Networking.Server
         /// <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="client">Cliente que será atendido.</param>
-        public bool ClientWelcome(Client client) => ClientWelcome(client as T);
+        public bool ClientWelcome(Client client) => ClientWelcome((T)client);
         /// <summary>
         /// Protocolo de bienvenida del cliente.
         /// </summary>
@@ -179,7 +179,7 @@ namespace TheXDS.MCART.Networking.Server
         /// </summary>
         /// <param name="client">Cliente que será atendido.</param>
         /// <param name="data">Datos recibidos desde el cliente.</param>
-        public void ClientAttendant(Client client, byte[] data) => ClientAttendant(client as T, data);
+        public void ClientAttendant(Client client, byte[] data) => ClientAttendant((T)client, data);
         
         /// <summary>
         /// Protocolo de atención al cliente
@@ -188,7 +188,7 @@ namespace TheXDS.MCART.Networking.Server
         /// <param name="data">Datos recibidos desde el cliente.</param>
         public abstract void ClientAttendant(T client, byte[] data);
 
-        Server IServerProtocol.MyServer { get; set; }
+        Server IServerProtocol.MyServer { get; set; } = default!;
 
         /// <inheritdoc />
         /// <summary>

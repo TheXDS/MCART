@@ -30,8 +30,6 @@ using TheXDS.MCART.Types.Extensions;
 using St = TheXDS.MCART.Resources.Strings;
 using St2 = TheXDS.MCART.Resources.InternalStrings;
 
-#nullable enable
-
 namespace TheXDS.MCART.Resources
 {
     /// <inheritdoc cref="AssemblyUnpacker{T}"/>

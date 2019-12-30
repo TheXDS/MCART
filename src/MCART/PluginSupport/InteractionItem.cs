@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
@@ -39,6 +37,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// Obtiene un texto asociado a este <see cref="InteractionItem"/>.
         /// </summary>
         public string Text { get; }
+
         /// <summary>
         /// Obtiene una descripción larga de este <see cref="InteractionItem"/>.
         /// </summary>
@@ -51,6 +50,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// menú descriptivo.
         /// </remarks>
         public string? Description { get; }
+
         /// <summary>
         /// Obtiene un delegado con la acción a realizar por este 
         /// <see cref="InteractionItem"/>.
@@ -66,6 +66,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// RoutedEventHandler.
 		/// </remarks>
         public EventHandler Action { get; }
+
         /// <summary>
         /// Crea una nueva entrada de interacción con el delegado 
         /// <see cref="EventHandler"/> especificado.
@@ -84,6 +85,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
             Text = text ?? action.Method.Name;
             Description = description;
         }
+
         /// <summary>
         /// Crea una nueva entrada de interacción con el delegado 
         /// <see cref="EventHandler"/> especificado.
@@ -99,6 +101,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
             Text = text ?? action.Method.Name;
             Description = action.GetAttr<DescriptionAttribute>()?.Value ?? null;
         }
+
         /// <summary>
         /// Crea una nueva entrada de interacción con el delegado 
         /// <see cref="EventHandler"/> especificado.
@@ -113,6 +116,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
             Text = action.GetAttr<NameAttribute>()?.Value ?? action.Method.Name;
             Description = action.GetAttr<DescriptionAttribute>()?.Value;
         }
+
         /// <summary>
         /// Crea una una nueva entrada de interacción utilizando el método
         /// especificado asociado a una instancia de <see cref="IPlugin"/>.

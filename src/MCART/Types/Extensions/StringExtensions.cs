@@ -959,11 +959,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// La cadena, o <see langword="null" /> si la cadena está vacía.
         /// </returns>
 
-#if NETCOREAPP3_0 || NETSTANDARD2_1
         public static string? OrNull([NotNullIfNotNull("str")]this string? str)
-#else
-        public static string? OrNull(this string? str)
-#endif
         {
             return OrX(str, null);
         }

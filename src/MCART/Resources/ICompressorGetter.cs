@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System.IO;
 
 namespace TheXDS.MCART.Resources
@@ -47,6 +45,7 @@ namespace TheXDS.MCART.Resources
         /// información comprimida desde <paramref name="inputStream"/>.
         /// </returns>
         Stream GetCompressor(Stream inputStream);
+
         /// <summary>
         /// Obtiene la extensión utilizada de forma predeterminada para un
         /// recurso comprimido utilizando este

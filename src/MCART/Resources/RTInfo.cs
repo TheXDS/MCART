@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
@@ -174,7 +172,7 @@ namespace TheXDS.MCART.Resources
         /// <see langword="true"/> si el ensamblado es MCART o uno de sus
         /// componentes, <see langword="false"/> en caso contrario.
         /// </returns>
-        public bool IsMcart(Assembly assembly)
+        public static bool IsMcart(Assembly assembly)
         {
             return assembly.HasAttr<McartComponentAttribute>();
         }

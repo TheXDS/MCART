@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Security;
 
@@ -45,7 +43,7 @@ namespace TheXDS.MCART.Security.Password
         /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la estructura
-        /// <see cref="T:TheXDS.MCART.Security.Password.UserData" />.
+        /// <see cref="UserData" />.
         /// </summary>
         /// <param name="username">Nombre de usuario.</param>
         /// <param name="password">Contraseña.</param>
@@ -56,7 +54,7 @@ namespace TheXDS.MCART.Security.Password
         /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la estructura
-        /// <see cref="T:TheXDS.MCART.Security.Password.UserData" />.
+        /// <see cref="UserData" />.
         /// </summary>
         /// <param name="username">Nombre de usuario.</param>
         /// <param name="password">Contraseña.</param>
@@ -104,13 +102,13 @@ namespace TheXDS.MCART.Security.Password
 
         /// <inheritdoc />
         /// <summary>
-        /// Obtiene el nombre de usuario de este <see cref="T:TheXDS.MCART.Security.Password.ICredential" />.
+        /// Obtiene el nombre de usuario de este <see cref="ICredential" />.
         /// </summary>
         public string Username { get; }
 
         /// <inheritdoc />
         /// <summary>
-        /// Obtiene la contraseña asociada a este <see cref="T:TheXDS.MCART.Security.Password.ICredential" />.
+        /// Obtiene la contraseña asociada a este <see cref="ICredential" />.
         /// </summary>
         public SecureString Password { get; }
 
