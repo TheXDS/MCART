@@ -86,7 +86,7 @@ namespace TheXDS.MCART.Types.Base
         {
             if (UnderlyingCollection is null) throw new InvalidOperationException();
             UnderlyingCollection.Add(item);
-            RaiseCollectionChanged(new NcchEa(Nccha.Add, item));
+            RaiseCollectionChanged(new NcchEa(Nccha.Add, item, UnderlyingCollection?.FindIndexOf(item) ?? -1));
             Notify(nameof(Count));
         }
 
@@ -126,10 +126,11 @@ namespace TheXDS.MCART.Types.Base
         /// </returns>
         public bool Remove(T item)
         {
+            var idx = UnderlyingCollection?.FindIndexOf(item) ?? -1;
             var result = UnderlyingCollection?.Remove(item) ?? false;
             if (result)
             {
-                RaiseCollectionChanged(new NcchEa(Nccha.Remove, item));
+                RaiseCollectionChanged(new NcchEa(Nccha.Remove, item, idx));
                 Notify(nameof(Count));
             }
 
@@ -178,6 +179,7 @@ namespace TheXDS.MCART.Types.Base
             UnderlyingCollection = default!;
             RaiseCollectionChanged(new NcchEa(Reset));
             UnderlyingCollection = newCollection;
+            
             if (!(newCollection is null)) RaiseCollectionChanged(new NcchEa(Nccha.Add, (IList)UnderlyingCollection));
             Notify(nameof(Count));
         }
