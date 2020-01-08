@@ -1,5 +1,5 @@
 ﻿/*
-NameAttribute.cs
+TypeExpressionTree.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -38,6 +38,7 @@ namespace TheXDS.MCART.Networking.Mrpc
         {
             TypeName = typeName;
         }
+
         public Type Resolve()
         {
             return (GenericArgs.Any()

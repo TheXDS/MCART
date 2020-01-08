@@ -23,13 +23,21 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TheXDS.MCART.Comparison
 {
     /// <summary>
     /// Compara el tipo de dos objetos.
     /// </summary>
-    public class TypeComparer : IEqualityComparer<object>
+    public class TypeComparer : TypeComparer<object>
+    {
+    }
+
+    /// <summary>
+    /// Compara el tipo de dos objetos que comparten un tipo base común.
+    /// </summary>
+    public class TypeComparer<T> : IEqualityComparer<T>
     {
         /// <summary>
         /// Determina si los objetos especificados son iguales.
@@ -40,9 +48,9 @@ namespace TheXDS.MCART.Comparison
         /// <see langword="true"/> si el tipo de ambos objetos es el mismo,
         /// <see langword="false"/> en caso contrario.
         /// </returns>
-        public new bool Equals(object x, object y)
+        public bool Equals([AllowNull] T x, [AllowNull] T y)
         {
-            return x.GetType() == y.GetType();
+            return x?.GetType() == y?.GetType();
         }
 
         /// <summary>
@@ -54,9 +62,9 @@ namespace TheXDS.MCART.Comparison
         /// <returns>
         /// El código hash para el tipo del objeto especificado.
         /// </returns>
-        public int GetHashCode(object obj)
+        public int GetHashCode([DisallowNull] T obj)
         {
-            return obj.GetType().GetHashCode();
+            return obj!.GetType().GetHashCode();
         }
     }
 }

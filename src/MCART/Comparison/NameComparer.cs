@@ -23,7 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System.Collections.Generic;
-using TheXDS.MCART.Types;
+using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Comparison
@@ -42,9 +42,9 @@ namespace TheXDS.MCART.Comparison
         /// <see langword="true"/> si el nombre de ambos objetos es el
         /// mismo, <see langword="false"/> en caso contrario.
         /// </returns>
-        public bool Equals(INameable x, INameable y)
+        public bool Equals([AllowNull]INameable x, [AllowNull]INameable y)
         {
-            return x.Name == y.Name;
+            return x?.Name == y?.Name;
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace TheXDS.MCART.Comparison
         /// <returns>
         /// El código hash para el nombre del objeto especificado.
         /// </returns>
-        public int GetHashCode(INameable obj)
+        public int GetHashCode([DisallowNull] INameable obj)
         {
             return obj.Name.GetHashCode();
         }

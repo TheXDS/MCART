@@ -257,8 +257,7 @@ namespace TheXDS.MCART.Networking.Mrpc
                 c++;
             }
         }
-
-
+        
         protected void RemoteCall(params object?[] args)
         {
             InternalRemoteCall<object?>(args).GetAwaiter().GetResult();
@@ -279,12 +278,6 @@ namespace TheXDS.MCART.Networking.Mrpc
             return InternalRemoteCall<T>(args);
         }
 
-
-
-
-
-
-
         private async Task<T> InternalRemoteCall<T>(object?[] args)
         {
             var callee = ReflectionHelpers.GetCallingMethod(2)!;
@@ -299,9 +292,9 @@ namespace TheXDS.MCART.Networking.Mrpc
                 var result = await l.Waiter.Task;
                 if (result.Length == 0) return default!;
 
-
-
-
+                using var ms = new MemoryStream(result);
+                using var br = new BinaryReader(ms);
+                return (T)Deserialize(l.ReturnType!, br, new List<object>())!;
             }
             else
             {
@@ -312,7 +305,17 @@ namespace TheXDS.MCART.Networking.Mrpc
 
         void IMessageTarget.Recieve(byte[] data)
         {
-            
+            using var ms = new MemoryStream(data);
+            using var br = new BinaryReader(ms);
+
+            if (br.ReadBoolean())
+            {
+                var g = br.ReadGuid();
+                if (_callPool.Pop(g, out var l))
+                {
+                    l.Waiter.SetResult(br.ReadBytes((int)ms.RemainingBytes()));
+                }
+            }
         }
     }
 
