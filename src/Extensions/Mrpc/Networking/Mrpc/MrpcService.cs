@@ -55,9 +55,12 @@ namespace TheXDS.MCART.Networking.Mrpc
         }
     }
 
-
+    /// <summary>
+    /// Clase base para una implementación de Mrpc que ejecute llamadas remotas
+    /// desde una aplicación cliente.
+    /// </summary>
     [System.Diagnostics.DebuggerNonUserCode]
-    public abstract class MrpcCaller : IMessageTarget //internal
+    public abstract class MrpcCaller : IMessageTarget
     {
         private static readonly List<IDataSerializer> _serializers = Objects.FindAllObjects<IDataSerializer>().ToList();
 
@@ -258,21 +261,56 @@ namespace TheXDS.MCART.Networking.Mrpc
             }
         }
         
+        /// <summary>
+        /// Ejecuta una llamada remota a la implementación del método
+        /// actualmente en ejecución.
+        /// </summary>
+        /// <param name="args">Argumentos del método.</param>
         protected void RemoteCall(params object?[] args)
         {
             InternalRemoteCall<object?>(args).GetAwaiter().GetResult();
         }
 
+        /// <summary>
+        /// Ejecuta una llamada remota a la implementación del método
+        /// actualmente en ejecución.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de objeto devuelto por el método.
+        /// </typeparam>
+        /// <param name="args">Argumentos del método.</param>
+        /// <returns>
+        /// El resultado del método remoto.
+        /// </returns>
         protected T RemoteCall<T>(params object?[] args)
         {
             return InternalRemoteCall<T>(args).GetAwaiter().GetResult();
         }
 
+        /// <summary>
+        /// Ejecuta una llamada remota a la implementación asíncrona del método
+        /// actualmente en ejecución.
+        /// </summary>
+        /// <param name="args">Argumentos del método.</param>
+        /// <returns>
+        /// Una tarea que esperará al resultado del método asíncrono remoto.
+        /// </returns>
         protected Task RemoteCallAsync(params object?[] args)
         {
             return InternalRemoteCall<object?>(args);
         }
 
+        /// <summary>
+        /// Ejecuta una llamada remota a la implementación asíncrona del método
+        /// actualmente en ejecución.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de objeto devuelto por la tarea.
+        /// </typeparam>
+        /// <param name="args">Argumentos del método.</param>
+        /// <returns>
+        /// Una tarea que esperará al resultado del método asíncrono remoto.
+        /// </returns>
         protected Task<T> RemoteCallAsync<T>(params object?[] args)
         {
             return InternalRemoteCall<T>(args);

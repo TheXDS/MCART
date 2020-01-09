@@ -146,7 +146,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     <paramref name="row" />, lo que permite utilizar esta función
         ///     con sintaxis Fluent.
         /// </returns>
-        public static TableRow AddCell(this TableRow row, string text)
+        public static TableCell AddCell(this TableRow row, string text)
         {
             return AddCell(row, text, FontWeights.Normal);
         }
@@ -163,10 +163,9 @@ namespace TheXDS.MCART.Types.Extensions
         ///     <paramref name="row" />, lo que permite utilizar esta función
         ///     con sintaxis Fluent.
         /// </returns>
-        public static TableRow AddCell(this TableRow row, string text, TextAlignment alignment)
+        public static TableCell AddCell(this TableRow row, string text, TextAlignment alignment)
         {
-            row.Cells.Add(new TableCell(new Paragraph(new Run(text)) { TextAlignment = alignment }));
-            return row;
+            return row.Cells.Push(new TableCell(new Paragraph(new Run(text)) { TextAlignment = alignment }));
         }
 
         /// <summary>
@@ -181,10 +180,9 @@ namespace TheXDS.MCART.Types.Extensions
         ///     <paramref name="row" />, lo que permite utilizar esta función
         ///     con sintaxis Fluent.
         /// </returns>
-        public static TableRow AddCell(this TableRow row, string text, FontWeight weight)
+        public static TableCell AddCell(this TableRow row, string text, FontWeight weight)
         {
-            row.Cells.Add(new TableCell(new Paragraph(new Run(text) { FontWeight = weight })));
-            return row;
+            return row.Cells.Push(new TableCell(new Paragraph(new Run(text) { FontWeight = weight })));
         }
 
         /// <summary>
@@ -202,10 +200,9 @@ namespace TheXDS.MCART.Types.Extensions
         ///     <paramref name="row" />, lo que permite utilizar esta función
         ///     con sintaxis Fluent.
         /// </returns>
-        public static TableRow AddCell(this TableRow row, string text, TextAlignment alignment, FontWeight weight)
+        public static TableCell AddCell(this TableRow row, string text, TextAlignment alignment, FontWeight weight)
         {
-            row.Cells.Add(new TableCell(new Paragraph(new Run(text) { FontWeight = weight }) { TextAlignment = alignment }));
-            return row;
+            return row.Cells.Push(new TableCell(new Paragraph(new Run(text) { FontWeight = weight }) { TextAlignment = alignment }));
         }
 
         /// <summary>
@@ -292,7 +289,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     Una referencia a la nueva fila creada dentro de un nuevo grupo
         ///     de filas de la tabla.
         /// </returns>
-        public static Table AddRow(this Table tbl, IEnumerable<string> values)
+        public static TableRow AddRow(this Table tbl, IEnumerable<string> values)
         {
             var lst = values.ToList();
 
@@ -305,7 +302,7 @@ namespace TheXDS.MCART.Types.Extensions
 
             tbl.RowGroups.Add(rg);
 
-            return tbl;
+            return row;
         }
 
         /// <summary>
@@ -501,7 +498,7 @@ namespace TheXDS.MCART.Types.Extensions
         ///     con sintaxis Fluent.
         /// </returns>
         public static TableRow Borders(this TableRow element, Brush brush, Thickness thickness)
-        {
+        {            
             foreach (var j in element.Cells)
                 j.Border(brush, thickness);
             return element;
