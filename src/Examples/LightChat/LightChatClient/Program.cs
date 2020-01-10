@@ -13,7 +13,7 @@ namespace TheXDS.MCART.Examples.LightChat
         {
             var c = new LightChatClient();
             c.Connect("localhost", 51200);
-            while (!c.Login()) Console.WriteLine("Invalid login.\n");
+            while (!c.Login()) Console.WriteLine("Invalid login.");
             Console.ReadKey();
             c.Logout();
             Console.ReadKey();
