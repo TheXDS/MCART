@@ -782,6 +782,29 @@ namespace TheXDS.MCART.Types.Extensions
 #endif
         }
 
+        public static int FindIndexOf<T>(this IEnumerable<T> e, T item)
+        {
+            return (e, item) switch
+            {
+                (string s, char i) => s.ToCharArray().FindIndexOf(i),
+                (IList<T> l, T i)=> l.IndexOf(i),
+                _ => IndexOfEnumerable(e, item)
+            };
+        }
+
+        private static int IndexOfEnumerable(IEnumerable e, object? i)
+        {
+            var n = e.GetEnumerator();
+            var c = 0;
+            while (n.MoveNext())
+            {
+                if (n.Current == i) return c;
+                c++;
+            }
+            (n as IDisposable)?.Dispose();
+            return -1;
+
+        }
         private static int CountEnumerable(IEnumerable e)
         {
             var n = e.GetEnumerator();

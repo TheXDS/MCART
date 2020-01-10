@@ -76,6 +76,37 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
+        /// Obtiene el elemento con la llave especificada del diccionario,
+        /// quitándolo.
+        /// </summary>
+        /// <typeparam name="TKey">
+        /// Tipo de llave del objeto a obtener.
+        /// </typeparam>
+        /// <typeparam name="TValue">
+        /// Tipo de valor contenido por el diccionario.
+        /// </typeparam>
+        /// <param name="dict">
+        /// Diccionario desde el cual obtener y remover el objeto.
+        /// </param>
+        /// <param name="key">Llave del objeto a obtener.</param>
+        /// <param name="value">Valor obtenido del diccionario.</param>
+        /// <returns>
+        /// <see langword="true"/> si el objeto fue quitado satisfactoriamente
+        /// del diccionario, <see langword="false"/> en caso que el diccionario
+        /// no contuviese a un elemento con la llave especificada.
+        /// </returns>
+        public static bool Pop<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, out TValue value) where TKey : notnull
+        {
+            if (!dict.ContainsKey(key))
+            {
+                value = default!;
+                return false;
+            }
+            value = dict[key];
+            return dict.Remove(key);
+        }
+
+        /// <summary>
         /// Comprueba la existencia de referencias circulares en un
         /// diccionario de objetos en forma de árbol.
         /// </summary>

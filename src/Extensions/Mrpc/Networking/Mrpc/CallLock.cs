@@ -1,5 +1,5 @@
 ﻿/*
-NameAttribute.cs
+CallLock.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Threading.Tasks;
 using System.Reflection;
+using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Networking.Mrpc
 {
@@ -33,9 +34,10 @@ namespace TheXDS.MCART.Networking.Mrpc
     /// </summary>
     public class CallLock
     {
-        internal CallLock(MethodBase method)
+        internal CallLock(MethodInfo method)
         {
             Method = method.FullName();
+            if (!method.IsVoid()) ReturnType = method.ReturnType;
         }
 
         internal TaskCompletionSource<byte[]> Waiter { get; } = new TaskCompletionSource<byte[]>();
@@ -44,6 +46,11 @@ namespace TheXDS.MCART.Networking.Mrpc
         /// Obtiene el nombre completo del método que ha sido llamado.
         /// </summary>
         public string Method { get; }
+
+        /// <summary>
+        /// Obtiene el tipo devuelto por el método.
+        /// </summary>
+        public Type? ReturnType { get; }
 
         /// <summary>
         /// Obtiene la marca de tiempo que indica el momento en el que se
