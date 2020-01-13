@@ -64,9 +64,9 @@ namespace TheXDS.MCART.Networking.Client
     /// <example>
     /// Este ejemplo define un protocolo sencillo que imprime mensajes enviados por el servidor.
     /// <code language="cs" source="..\..\Documentation\Examples\Networking\Client\SelfWiredCommandClient.cs"
-    ///     region="example1" />
+    /// region="example1" />
     /// <code language="vb" source="..\..\Documentation\Examples\Networking\Client\SelfWiredCommandClient.vb"
-    ///     region="example1" />
+    /// region="example1" />
     /// </example>
     [Obsolete(Resources.InternalStrings.LegacyComponent)]
     public abstract class SelfWiredCommandClient<TCommand, TResponse> : ActiveClient

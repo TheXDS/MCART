@@ -34,15 +34,15 @@ namespace TheXDS.MCART.Types
 {
 
     /// <summary>
-    ///     Estilo de elementos de WPF orientado a objetos
-    ///     <see cref="System.Windows.Documents.TableCell"/>.
+    /// Estilo de elementos de WPF orientado a objetos
+    /// <see cref="System.Windows.Documents.TableCell"/>.
     /// </summary>
     public class CellStyle<T> : WpfStyle, ICellStyle
     {
         private Brush? _oddBackground;
 
         /// <summary>
-        ///     <see cref="Brush"/> de fondo a aplicar al elemento para elementos impares.
+        /// <see cref="Brush"/> de fondo a aplicar al elemento para elementos impares.
         /// </summary>
         public Brush? OddBackground
         {
@@ -51,19 +51,19 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        ///     Ancho de la celda.
+        /// Ancho de la celda.
         /// </summary>
         public GridLength? Width { get; set; }
 
         /// <summary>
-        ///     Alineación de texto a utilizar para colocar la información
-        ///     de la celda.
+        /// Alineación de texto a utilizar para colocar la información
+        /// de la celda.
         /// </summary>
         public TextAlignment Alignment { get; set; }
 
         /// <summary>
-        ///     Obtiene o establece la función condicional para aplicar este
-        ///     estilo.
+        /// Obtiene o establece la función condicional para aplicar este
+        /// estilo.
         /// </summary>
         public Func<T, bool>? StyleApplies { get; set; } = _ => true;
     }

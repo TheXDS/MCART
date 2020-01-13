@@ -31,7 +31,7 @@ namespace TheXDS.MCART.ViewModel.ValidationRules
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Regla que verifica que un valor de texto no se encuentre vacío.
+    /// Regla que verifica que un valor de texto no se encuentre vacío.
     /// </summary>
     public class TextNotEmpty : ValidationRule
     {

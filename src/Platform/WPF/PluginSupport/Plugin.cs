@@ -35,14 +35,14 @@ using static TheXDS.MCART.Types.Extensions.StringExtensions;
 namespace TheXDS.MCART.PluginSupport.Legacy
 {
     /// <summary>
-    ///     <see cref="Plugin"/> específico para Windows Presentation
-    ///     Framework.
+    /// <see cref="Plugin"/> específico para Windows Presentation
+    /// Framework.
     /// </summary>
     public abstract class WpfPlugin : Plugin, IWpfPlugin, IExposeGuiInfo<UIElement?>
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene un ícono opcional a mostrar que describe al elemento.
+        /// Obtiene un ícono opcional a mostrar que describe al elemento.
         /// </summary>
         public virtual UIElement? Icon => null;
 

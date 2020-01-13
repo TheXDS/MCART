@@ -30,32 +30,32 @@ using System.Windows.Media;
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Define una serie de miembros a implementar por una clase que
-    ///     describa estilos de elementos para Wpf.
+    /// Define una serie de miembros a implementar por una clase que
+    /// describa estilos de elementos para Wpf.
     /// </summary>
     public interface IWpfStyle
     {
         /// <summary>
-        ///     Obtiene o establece un <see cref="Brush"/> a utilizar para
-        ///     rellenar el fondo de un elemento de Wpf.
+        /// Obtiene o establece un <see cref="Brush"/> a utilizar para
+        /// rellenar el fondo de un elemento de Wpf.
         /// </summary>
         Brush? Background { get; set; }
 
         /// <summary>
-        ///     Obtiene o establece un <see cref="Brush"/> a utilizar para
-        ///     rellenar el frente de un elemento de Wpf.
+        /// Obtiene o establece un <see cref="Brush"/> a utilizar para
+        /// rellenar el frente de un elemento de Wpf.
         /// </summary>
         Brush? Foreground { get; set; }
 
         /// <summary>
-        ///     Obtiene o establece un <see cref="Brush"/> a utilizar para
-        ///     dibujar los bordes de un elemento de Wpf.
+        /// Obtiene o establece un <see cref="Brush"/> a utilizar para
+        /// dibujar los bordes de un elemento de Wpf.
         /// </summary>
         Brush? BorderBrush { get; set; }
 
         /// <summary>
-        ///     Obtiene o establece el grosor de los bordes a dibujar en el
-        ///     elemento de Wpf.
+        /// Obtiene o establece el grosor de los bordes a dibujar en el
+        /// elemento de Wpf.
         /// </summary>
         Thickness? BorderThickness { get; set; }
     }

@@ -62,7 +62,7 @@ namespace TheXDS.MCART.Types.Entity
         /// Inicializa una nueva instancia de la estructura
         /// <see cref="Range{T}" />.
         /// </summary>
-        public Range() : this(default, default, true, true) { }
+        public Range() : this(default!, default!, true, true) { }
 
         /// <inheritdoc />
         /// <summary>
@@ -70,7 +70,7 @@ namespace TheXDS.MCART.Types.Entity
         /// <see cref="Range{T}" />.
         /// </summary>
         /// <param name="maximum">Valor máximo del rango, inclusive.</param>
-        public Range(T maximum) : this(default, maximum, true, true) { }
+        public Range(T maximum) : this(default!, maximum, true, true) { }
 
         /// <inheritdoc />
         /// <summary>
@@ -91,7 +91,7 @@ namespace TheXDS.MCART.Types.Entity
         /// Si se establece en <see langword="true"/>, el valor máximo será
         /// incluido dentro del rango.
         /// </param>
-        public Range(T maximum, bool inclusive) : this(default, maximum, inclusive, inclusive)
+        public Range(T maximum, bool inclusive) : this(default!, maximum, inclusive, inclusive)
         {
         }
 

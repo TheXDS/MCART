@@ -33,9 +33,9 @@ namespace TheXDS.MCART.Resources
 {
     /// <inheritdoc />
     /// <summary>
-    ///     <see cref="AssemblyUnpacker{T}" /> que
-    ///     extrae recursos de imagen como un
-    ///     <see cref="BitmapImage" />.
+    /// <see cref="AssemblyUnpacker{T}" /> que
+    /// extrae recursos de imagen como un
+    /// <see cref="BitmapImage" />.
     /// </summary>
     public class ImageUnpacker : AssemblyUnpacker<BitmapImage?>
     {

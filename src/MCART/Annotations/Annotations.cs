@@ -44,9 +44,9 @@ namespace TheXDS.MCART.Annotations
     /// 8.0 y posteriores cuando no se habilite el soporte de tipos de
     /// referencia nulabes a nivel de lenguaje.
     /// <code language="cs" source="..\..\Documentation\Examples\Annotations\Annotations.cs"
-    ///     region="CanBeNullAttributeExample" />
+    /// region="CanBeNullAttributeExample" />
     /// <code language="vb" source="..\..\Documentation\Examples\Annotations\Annotations.vb"
-    ///     region="CanBeNullAttributeExample" />
+    /// region="CanBeNullAttributeExample" />
     /// </example>
     /// <remarks>
     /// Este atributo puede colocarse en métodos, parámetros, propiedades,
@@ -71,9 +71,9 @@ namespace TheXDS.MCART.Annotations
     /// 8.0 y posteriores cuando no se habilite el soporte de tipos de
     /// referencia nulabes a nivel de lenguaje.
     /// <code language="cs" source="..\..\Documentation\Examples\Annotations\Annotations.cs"
-    ///     region="NotNullAttributeExample" />
+    /// region="NotNullAttributeExample" />
     /// <code language="vb" source="..\..\Documentation\Examples\Annotations\Annotations.vb"
-    ///     region="NotNullAttributeExample" />
+    /// region="NotNullAttributeExample" />
     /// </example>
     /// <remarks>
     /// Este atributo puede colocarse en métodos, parámetros, propiedades,
@@ -131,9 +131,9 @@ namespace TheXDS.MCART.Annotations
     /// Este ejemplo muestra el uso del atributo
     /// <see cref="StringFormatMethodAttribute"/> soportado por ReSharper.
     /// <code language="cs" source="..\..\Documentation\Examples\Annotations\Annotations.cs"
-    ///     region="StringFormatMethodAttributeExample" />
+    /// region="StringFormatMethodAttributeExample" />
     /// <code language="vb" source="..\..\Documentation\Examples\Annotations\Annotations.vb"
-    ///     region="StringFormatMethodAttributeExample" />
+    /// region="StringFormatMethodAttributeExample" />
     /// </example>
     /// <remarks>
     /// Este atributo puede colocarse en constructores, métodos, propiedades y delegados.
@@ -219,21 +219,21 @@ namespace TheXDS.MCART.Annotations
     /// <remarks>
     /// The method should be non-static and conform to one of the supported signatures:
     /// <list>
-    ///     <item>
-    ///         <c>NotifyChanged(string)</c>
-    ///     </item>
-    ///     <item>
-    ///         <c>NotifyChanged(params string[])</c>
-    ///     </item>
-    ///     <item>
-    ///         <c>NotifyChanged{T}(Expression{Func{T}})</c>
-    ///     </item>
-    ///     <item>
-    ///         <c>NotifyChanged{T,U}(Expression{Func{T,U}})</c>
-    ///     </item>
-    ///     <item>
-    ///         <c>SetProperty{T}(ref T, T, string)</c>
-    ///     </item>
+    /// <item>
+    ///     <c>NotifyChanged(string)</c>
+    /// </item>
+    /// <item>
+    ///     <c>NotifyChanged(params string[])</c>
+    /// </item>
+    /// <item>
+    ///     <c>NotifyChanged{T}(Expression{Func{T}})</c>
+    /// </item>
+    /// <item>
+    ///     <c>NotifyChanged{T,U}(Expression{Func{T,U}})</c>
+    /// </item>
+    /// <item>
+    ///     <c>SetProperty{T}(ref T, T, string)</c>
+    /// </item>
     /// </list>
     /// </remarks>
     /// <example>
@@ -251,18 +251,18 @@ namespace TheXDS.MCART.Annotations
     ///  </code>
     /// Examples of generated notifications:
     /// <list>
-    ///     <item>
-    ///         <c>NotifyChanged("Property")</c>
-    ///     </item>
-    ///     <item>
-    ///         <c>NotifyChanged(() =&gt; Property)</c>
-    ///     </item>
-    ///     <item>
-    ///         <c>NotifyChanged((VM x) =&gt; x.Property)</c>
-    ///     </item>
-    ///     <item>
-    ///         <c>SetProperty(ref myField, value, "Property")</c>
-    ///     </item>
+    /// <item>
+    ///     <c>NotifyChanged("Property")</c>
+    /// </item>
+    /// <item>
+    ///     <c>NotifyChanged(() =&gt; Property)</c>
+    /// </item>
+    /// <item>
+    ///     <c>NotifyChanged((VM x) =&gt; x.Property)</c>
+    /// </item>
+    /// <item>
+    ///     <c>SetProperty(ref myField, value, "Property")</c>
+    /// </item>
     /// </list>
     /// </example>
     [AttributeUsage(Method)]
@@ -305,11 +305,11 @@ namespace TheXDS.MCART.Annotations
     /// <syntax>
     /// <p>Function Definition Table syntax:</p>
     /// <list>
-    ///     <item>FDT      ::= FDTRow [;FDTRow]*</item>
-    ///     <item>FDTRow   ::= Input =&gt; Output | Output &lt;= Input</item>
-    ///     <item>Input    ::= ParameterName: Value [, Input]*</item>
-    ///     <item>Output   ::= [ParameterName: Value]* {halt|stop|void|nothing|Value}</item>
-    ///     <item>Value    ::= true | false | null | notnull | canbenull</item>
+    /// <item>FDT      ::= FDTRow [;FDTRow]*</item>
+    /// <item>FDTRow   ::= Input =&gt; Output | Output &lt;= Input</item>
+    /// <item>Input    ::= ParameterName: Value [, Input]*</item>
+    /// <item>Output   ::= [ParameterName: Value]* {halt|stop|void|nothing|Value}</item>
+    /// <item>Value    ::= true | false | null | notnull | canbenull</item>
     /// </list>
     /// If method has single input parameter, it's name could be omitted.<br />
     /// Using <c>halt</c> (or <c>void</c>/<c>nothing</c>, which is the same) for method output
@@ -321,38 +321,38 @@ namespace TheXDS.MCART.Annotations
     /// </syntax>
     /// <examples>
     /// <list>
-    ///     <item>
-    ///         <code>
+    /// <item>
+    ///     <code>
     /// [ContractAnnotation("=&gt; halt")]
     /// public void TerminationMethod()
     /// </code>
-    ///     </item>
-    ///     <item>
-    ///         <code>
+    /// </item>
+    /// <item>
+    ///     <code>
     /// [ContractAnnotation("halt &lt;= condition: false")]
     /// public void Assert(bool condition, string text) // regular assertion method
     /// </code>
-    ///     </item>
-    ///     <item>
-    ///         <code>
+    /// </item>
+    /// <item>
+    ///     <code>
     /// [ContractAnnotation("s:null =&gt; true")]
     /// public bool IsNullOrEmpty(string s) // string.IsNullOrEmpty()
     /// </code>
-    ///     </item>
-    ///     <item>
-    ///         <code>
+    /// </item>
+    /// <item>
+    ///     <code>
     /// // A method that returns null if the parameter is null,
     /// // and not null if the parameter is not null
     /// [ContractAnnotation("null =&gt; null; notnull =&gt; notnull")]
     /// public object Transform(object data) 
     /// </code>
-    ///     </item>
-    ///     <item>
-    ///         <code>
+    /// </item>
+    /// <item>
+    ///     <code>
     /// [ContractAnnotation("=&gt; true, result: notnull; =&gt; false, result: null")]
     /// public bool TryParse(string s, out Person result)
     /// </code>
-    ///     </item>
+    /// </item>
     /// </list>
     /// </examples>
     [AttributeUsage(Method, AllowMultiple = true)]

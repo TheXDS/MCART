@@ -27,38 +27,38 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Clase que describe a un selector de datos para generar una
-    ///     columna de datos dentro de una tabla.
+    /// Clase que describe a un selector de datos para generar una
+    /// columna de datos dentro de una tabla.
     /// </summary>
     /// <typeparam name="TObject">
-    ///     Tipo de objeto desde el cual se extraerá la información de la
-    ///     columna.
+    /// Tipo de objeto desde el cual se extraerá la información de la
+    /// columna.
     /// </typeparam>
     public interface IColumnBuilder<TObject>
     {
         /// <summary>
-        ///     Título de la columna.
+        /// Título de la columna.
         /// </summary>
         string Header { get; }
 
         /// <summary>
-        ///     Contenido de la fila actual a establecer en esta columna.
+        /// Contenido de la fila actual a establecer en esta columna.
         /// </summary>
         /// <param name="obj">Objeto del cual extraer el contenido.</param>
         /// <returns>
-        ///     El contenido en formato de cadena a colocar dentro de la celda 
-        ///     correspondiente a esta columna en la fila actual.
+        /// El contenido en formato de cadena a colocar dentro de la celda 
+        /// correspondiente a esta columna en la fila actual.
         /// </returns>
         string Content(TObject obj);
 
         /// <summary>
-        ///     Obtiene un estilo a utilizar sobre la celda en esta columna de la fila actual.
+        /// Obtiene un estilo a utilizar sobre la celda en esta columna de la fila actual.
         /// </summary>
         /// <param name="item"></param>
         /// <returns>
-        ///     Un estilo a aplicar a la celda generada, o
-        ///     <see langword="null"/> si no es posible obtener un estilo
-        ///     válido.
+        /// Un estilo a aplicar a la celda generada, o
+        /// <see langword="null"/> si no es posible obtener un estilo
+        /// válido.
         /// </returns>
         ICellStyle? Style(object? item);
     }

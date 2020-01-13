@@ -46,6 +46,13 @@ using static TheXDS.MCART.Types.Extensions.StringExtensions;
 namespace TheXDS.MCART.ViewModel
 {
     /// <summary>
+    /// Marca una propiedad para ser excluída a la hora de generar un
+    /// <see cref="DynamicViewModel{T}"/>.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Property, Inherited = true, AllowMultiple = false)]
+    public sealed class ExcludeAttribute : Attribute { }
+
+    /// <summary>
     /// Fábrica de tipos para implementaciones ViewModel dinámicas.
     /// </summary>
     public static class ViewModelFactory
@@ -56,13 +63,6 @@ namespace TheXDS.MCART.ViewModel
         /// </summary>
         public static HashSet<Type> AttributeExclusionList { get; } = new HashSet<Type>();
 
-        /// <summary>
-        /// Marca una propiedad para ser excluída a la hora de generar un
-        /// <see cref="DynamicViewModel{T}"/>.
-        /// </summary>
-        [AttributeUsage(AttributeTargets.Property, Inherited = true, AllowMultiple = false)]
-        public sealed class ExcludeAttribute : Attribute { }
-
         private const MethodAttributes _gsArgs = MethodAttributes.Public | SpecialName | HideBySig;
         private const string _namespace = "TheXDS.MCART.ViewModel._Generated";
         private static readonly ModuleBuilder _mBuilder = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName(_namespace), AssemblyBuilderAccess.Run).DefineDynamicModule(_namespace);
@@ -72,13 +72,13 @@ namespace TheXDS.MCART.ViewModel
 
         #region Helpers
 
-        private static void InitField(ILGenerator ilGen, FieldBuilder field, object value)
+        private static void InitField(ILGenerator ilGen, FieldBuilder field, object? value)
         {
             ilGen.Emit(Ldarg_0);
             LoadConstant(ilGen, value);
             ilGen.Emit(Stfld, field);
         }
-        private static void InitField(ILGenerator ilGen, FieldBuilder field, Type instanceType, params object[] args)
+        private static void InitField(ILGenerator ilGen, FieldBuilder field, Type instanceType, params object?[] args)
         {
             if (instanceType.IsAbstract) throw new InvalidTypeException(instanceType);
             var c = instanceType.GetConstructor(args.ToTypes().ToArray()) ?? throw new TypeLoadException();
@@ -87,7 +87,7 @@ namespace TheXDS.MCART.ViewModel
             ilGen.Emit(Newobj, c);
             ilGen.Emit(Stfld, field);
         }
-        private static void LoadConstant(this ILGenerator ilGen, object value)
+        private static void LoadConstant(this ILGenerator ilGen, object? value)
         {
             switch (value)
             {
@@ -142,7 +142,7 @@ namespace TheXDS.MCART.ViewModel
                         typeof(int),
                         typeof(bool),
                         typeof(byte)
-                    }));
+                    })!);
                     break;
                 case string s:
                     if (s is null) ilGen.Emit(Ldnull);                    
@@ -150,7 +150,7 @@ namespace TheXDS.MCART.ViewModel
                     break;
                 case Type t:
                     ilGen.Emit(Ldtoken, t);
-                    ilGen.Emit(Call, typeof(Type).GetMethod("GetTypeFromHandle"));
+                    ilGen.Emit(Call, typeof(Type).GetMethod("GetTypeFromHandle")!);
                     break;
                 default:
                     ilGen.Emit(Ldnull);
@@ -664,9 +664,9 @@ namespace TheXDS.MCART.ViewModel
             foreach (var j in modelProps)
             {
                 AddAutoProp(tb, j, out var prop, out var field);
-                if (j.HasAttr(out DefaultValueAttribute dva))
+                if (j.HasAttr(out DefaultValueAttribute? dva))
                 {
-                    InitField(ctor, field, dva.Value);
+                    InitField(ctor, field, dva!.Value!);
                 }
                 if (typeof(IEnumerable).IsAssignableFrom(prop.PropertyType) && prop.PropertyType != typeof(string))
                 {

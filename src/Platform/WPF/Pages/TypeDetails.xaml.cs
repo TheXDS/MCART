@@ -35,16 +35,16 @@ namespace TheXDS.MCART.Pages
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Pages.TypeDetails" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="T:TheXDS.MCART.Pages.TypeDetails" />.
         /// </summary>
         public TypeDetails():this(null)
         {
         }
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Pages.TypeDetails" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="T:TheXDS.MCART.Pages.TypeDetails" />.
         /// </summary>
         /// <param name="type">Tipo del cual mostrar información</param>
         public TypeDetails(Type type)

@@ -1,5 +1,5 @@
 ﻿/*
-FileStreamUriParser.cs
+PackStreamUriParser.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -33,10 +31,14 @@ using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.IO
 {
+    /// <summary>
+    /// Traduce un URI de recursos incrustados (pack://) a un
+    /// <see cref="Stream"/> de lectura para el recurso.
+    /// </summary>
     public class PackStreamUriParser : SimpleStreamUriParser
     {
         /// <summary>
-        ///     Inicializa la clase <see cref="PackStreamUriParser"/>
+        /// Inicializa la clase <see cref="PackStreamUriParser"/>
         /// </summary>
         static PackStreamUriParser()
         {
@@ -46,6 +48,10 @@ namespace TheXDS.MCART.IO
             }
         }
 
+        /// <summary>
+        /// Enumera los esquemas de URI soportados por este 
+        /// <see cref="StreamUriParser"/>.
+        /// </summary>
         protected override IEnumerable<string> SchemeList
         {
             get
@@ -54,9 +60,28 @@ namespace TheXDS.MCART.IO
             }
         }
 
+        /// <summary>
+        /// Abre un <see cref="Stream"/> que permita leer el recurso incrustado
+        /// referenciado por el <see cref="Uri"/> especificado.
+        /// </summary>
+        /// <param name="uri">
+        /// <see cref="Uri"/> que indica la ubicación del recurso incrustado.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="Stream"/> desde el cual es posible leer el recurso
+        /// incrustado, o <see langword="null"/> si el <see cref="Uri"/> no
+        /// apunta a un recurso incrustado válido.
+        /// </returns>
         public override Stream? Open(Uri uri)
         {
-            return Application.GetResourceStream(uri).Stream;
+            try
+            {
+                return Application.GetResourceStream(uri).Stream;
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

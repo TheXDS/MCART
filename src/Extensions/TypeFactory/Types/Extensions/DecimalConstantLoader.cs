@@ -55,7 +55,7 @@ namespace TheXDS.MCART.Types.Extensions
                 typeof(int),
                 typeof(bool),
                 typeof(byte)
-            }));
+            })!);
         }
     }
 }

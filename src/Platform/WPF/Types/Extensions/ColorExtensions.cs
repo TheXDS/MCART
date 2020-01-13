@@ -32,14 +32,14 @@ using System.Linq;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Extensiones de conversión de colores de MCART en
-    ///     <see cref="D"/>.
+    /// Extensiones de conversión de colores de MCART en
+    /// <see cref="D"/>.
     /// </summary>
     public static class WpfColorExtensions
     {
         /// <summary>
-        ///     Convierte una estructura <see cref="C"/> en un
-        ///     <see cref="D"/>.
+        /// Convierte una estructura <see cref="C"/> en un
+        /// <see cref="D"/>.
         /// </summary>
         /// <param name="c"><see cref="C"/> a convertir.</param>
         public static D Color(this C c)
@@ -48,8 +48,8 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Convierte una estructura <see cref="D"/> en un
-        ///     <see cref="C"/>.
+        /// Convierte una estructura <see cref="D"/> en un
+        /// <see cref="C"/>.
         /// </summary>
         /// <param name="c"><see cref="D"/> a convertir.</param>
         public static C ToMcartColor(this D c)
@@ -62,8 +62,8 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Convierte un <see cref="SolidColorBrush"/> en un
-        ///     <see cref="C"/>.
+        /// Convierte un <see cref="SolidColorBrush"/> en un
+        /// <see cref="C"/>.
         /// </summary>
         /// <param name="c"><see cref="D"/> a convertir.</param>
         public static C ToMcartColor(this SolidColorBrush c)
@@ -77,13 +77,13 @@ namespace TheXDS.MCART.Types.Extensions
 
 
         /// <summary>
-        ///     Convierte una estructura <see cref="C"/> en un
-        ///     <see cref="B"/>.
+        /// Convierte una estructura <see cref="C"/> en un
+        /// <see cref="B"/>.
         /// </summary>
         /// <param name="c"><see cref="C"/> a convertir.</param>
         /// <returns>
-        ///     Un <see cref="B"/> de color sólido equivalente al
-        ///     <see cref="C"/> original.
+        /// Un <see cref="B"/> de color sólido equivalente al
+        /// <see cref="C"/> original.
         /// </returns>
         public static SolidColorBrush Brush(this C c)
         {
@@ -91,13 +91,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Mezcla todos los colores de un <see cref="GradientBrush"/> en
-        ///     un <see cref="C"/>.
+        /// Mezcla todos los colores de un <see cref="GradientBrush"/> en
+        /// un <see cref="C"/>.
         /// </summary>
         /// <param name="g"></param>
         /// <returns>
-        ///     Un <see cref="C"/> que es la mezcla de todos los colores del
-        ///     <see cref="GradientBrush"/>.
+        /// Un <see cref="C"/> que es la mezcla de todos los colores del
+        /// <see cref="GradientBrush"/>.
         /// </returns>
         public static C Blend(this GradientBrush g)
         {

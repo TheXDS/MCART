@@ -28,25 +28,25 @@ using M = TheXDS.MCART.Types.Point;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Extensiones de conversión de estructuras <see cref="M"/> en
-    ///     <see cref="P"/>.
+    /// Extensiones de conversión de estructuras <see cref="M"/> en
+    /// <see cref="P"/>.
     /// </summary>
     public static class WpfPointExtensions
     {
         /// <summary>
-        ///     Convierte un <see cref="M"/> en un <see cref="P"/>.
+        /// Convierte un <see cref="M"/> en un <see cref="P"/>.
         /// </summary>
         /// <param name="x"><see cref="M"/> a convertir.</param>
         /// <returns>
-        ///     Un <see cref="P"/> equivalente al <see cref="M"/> especificado.
+        /// Un <see cref="P"/> equivalente al <see cref="M"/> especificado.
         /// </returns>
         public static P Poindt(M x) => new P(x.X, x.Y);
         /// <summary>
-        ///     Convierte un <see cref="P"/> en un <see cref="M"/>.
+        /// Convierte un <see cref="P"/> en un <see cref="M"/>.
         /// </summary>
         /// <param name="x"><see cref="P"/> a convertir.</param>
         /// <returns>
-        ///     Un <see cref="M"/> equivalente al <see cref="P"/> especificado.
+        /// Un <see cref="M"/> equivalente al <see cref="P"/> especificado.
         /// </returns>
         public static M ToMcartPoint(P x) => new M(x.X, x.Y);
     }

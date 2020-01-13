@@ -31,34 +31,34 @@ using System.Xml;
 namespace TheXDS.MCART.Resources
 {
     /// <summary>
-    ///     Extrae recursos incrustados Xaml desde el ensamblado especificado.
+    /// Extrae recursos incrustados Xaml desde el ensamblado especificado.
     /// </summary>
     public class XamlUnpacker : AssemblyUnpacker<object>
     {
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase 
-        ///     <see cref="XamlUnpacker"/>.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="XamlUnpacker"/>.
         /// </summary>
         /// <param name="assembly">
-        ///     <see cref="Assembly" /> de orígen de los recursos incrustados.
+        /// <see cref="Assembly" /> de orígen de los recursos incrustados.
         /// </param>
         /// <param name="path">
-        ///     Ruta (como espacio de nombre) donde se ubican los recursos
-        ///     incrustados.
+        /// Ruta (como espacio de nombre) donde se ubican los recursos
+        /// incrustados.
         /// </param>
         public XamlUnpacker(Assembly assembly, string path) : base(assembly, path)
         {
         }
 
         /// <summary>
-        ///     Extrae un recurso XAML con el id especificado.
+        /// Extrae un recurso XAML con el id especificado.
         /// </summary>
         /// <param name="id">
-        ///     Id del recurso XAML a extraer.
+        /// Id del recurso XAML a extraer.
         /// </param>
         /// <returns>
-        ///     Un objeto que ha sido descrito a partir del XAML con el id
-        ///     especificado.
+        /// Un objeto que ha sido descrito a partir del XAML con el id
+        /// especificado.
         /// </returns>
         public override object Unpack(string id)
         {
@@ -67,17 +67,17 @@ namespace TheXDS.MCART.Resources
         }
 
         /// <summary>
-        ///     Extrae un recurso XAML con el id especificado.
+        /// Extrae un recurso XAML con el id especificado.
         /// </summary>
         /// <param name="id">
-        ///     Id del recurso XAML a extraer.
+        /// Id del recurso XAML a extraer.
         /// </param>
         /// <param name="compressorId">
-        ///     Id del compresor a utilizar para extraer el recurso XAML.
+        /// Id del compresor a utilizar para extraer el recurso XAML.
         /// </param>
         /// <returns>
-        ///     Un objeto que ha sido descrito a partir del XAML con el id
-        ///     especificado.
+        /// Un objeto que ha sido descrito a partir del XAML con el id
+        /// especificado.
         /// </returns>
         public override object Unpack(string id, string compressorId)
         {
@@ -86,18 +86,18 @@ namespace TheXDS.MCART.Resources
         }
 
         /// <summary>
-        ///     Extrae un recurso XAML con el id especificado.
+        /// Extrae un recurso XAML con el id especificado.
         /// </summary>
         /// <param name="id">
-        ///     Id del recurso XAML a extraer.
+        /// Id del recurso XAML a extraer.
         /// </param>
         /// <param name="compressor">
-        ///     <see cref="ICompressorGetter"/> a utilizar para extraer el
-        ///     recurso XAML.
+        /// <see cref="ICompressorGetter"/> a utilizar para extraer el
+        /// recurso XAML.
         /// </param>
         /// <returns>
-        ///     Un objeto que ha sido descrito a partir del XAML con el id
-        ///     especificado.
+        /// Un objeto que ha sido descrito a partir del XAML con el id
+        /// especificado.
         /// </returns>
         public override object Unpack(string id, ICompressorGetter compressor)
         {

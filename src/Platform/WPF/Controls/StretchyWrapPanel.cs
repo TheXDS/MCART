@@ -32,12 +32,12 @@ namespace TheXDS.MCART.Controls
 {
     /// <inheritdoc />
     /// <summary>
-    ///     <see cref="Panel" /> que permite organizar los controles como una
-    ///     línea justificada con sobreflujo, opcionalmente aplicando una
-    ///     transformación proporcional a los mismos.
+    /// <see cref="Panel" /> que permite organizar los controles como una
+    /// línea justificada con sobreflujo, opcionalmente aplicando una
+    /// transformación proporcional a los mismos.
     /// </summary>
     /// <remarks>
-    ///     Implementación de referencia original por "Surfin Bird".
+    /// Implementación de referencia original por "Surfin Bird".
     /// </remarks>
     public class StretchyWrapPanel : Panel
     {
@@ -95,14 +95,14 @@ namespace TheXDS.MCART.Controls
         #region Propiedades de dependencia
 
         /// <summary>
-        ///     Identifica a la propiedad de dependencia <see cref="ItemHeight" />
+        /// Identifica a la propiedad de dependencia <see cref="ItemHeight" />
         /// </summary>
         public static readonly DependencyProperty ItemHeightProperty = DependencyProperty.Register(nameof(ItemHeight),
             typeof(double), typeof(StretchyWrapPanel),
             new FrameworkPropertyMetadata(double.NaN, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         /// <summary>
-        ///     Obtiene o establece la altura de los elementos hijos de este <see cref="Panel" />.
+        /// Obtiene o establece la altura de los elementos hijos de este <see cref="Panel" />.
         /// </summary>
         [TypeConverter(typeof(LengthConverter))]
         public double ItemHeight
@@ -112,14 +112,14 @@ namespace TheXDS.MCART.Controls
         }
 
         /// <summary>
-        ///     Identifica a la propiedad de dependencia <see cref="ItemWidth" />.
+        /// Identifica a la propiedad de dependencia <see cref="ItemWidth" />.
         /// </summary>
         public static readonly DependencyProperty ItemWidthProperty = DependencyProperty.Register(nameof(ItemWidth),
             typeof(double), typeof(StretchyWrapPanel),
             new FrameworkPropertyMetadata(double.NaN, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         /// <summary>
-        ///     Obtiene o establece la longitud a aplicar a los elementos hijos de este <see cref="Panel" />.
+        /// Obtiene o establece la longitud a aplicar a los elementos hijos de este <see cref="Panel" />.
         /// </summary>
         [TypeConverter(typeof(LengthConverter))]
         public double ItemWidth
@@ -129,7 +129,7 @@ namespace TheXDS.MCART.Controls
         }
 
         /// <summary>
-        ///     Identifica a la propiedad de dependencia <see cref="Orientation" />
+        /// Identifica a la propiedad de dependencia <see cref="Orientation" />
         /// </summary>
         public static readonly DependencyProperty OrientationProperty = StackPanel.OrientationProperty.AddOwner(
             typeof(StretchyWrapPanel),
@@ -142,7 +142,7 @@ namespace TheXDS.MCART.Controls
         }
 
         /// <summary>
-        ///     Obtiene o establece la orientación de la colocación de elementos en este <see cref="Panel" />.
+        /// Obtiene o establece la orientación de la colocación de elementos en este <see cref="Panel" />.
         /// </summary>
         public Orientation Orientation
         {
@@ -151,7 +151,7 @@ namespace TheXDS.MCART.Controls
         }
 
         /// <summary>
-        ///     Identifica a la propiedad de dependencia <see cref="StretchProportionally" />.
+        /// Identifica a la propiedad de dependencia <see cref="StretchProportionally" />.
         /// </summary>
         public static readonly DependencyProperty StretchProportionallyProperty = DependencyProperty.Register(
             nameof(StretchProportionally), typeof(bool),
@@ -163,7 +163,7 @@ namespace TheXDS.MCART.Controls
         }
 
         /// <summary>
-        ///     Obtiene o establece un valor que indica si los controles hijos se alargarán proporcionalmente entre sí.
+        /// Obtiene o establece un valor que indica si los controles hijos se alargarán proporcionalmente entre sí.
         /// </summary>
         public bool StretchProportionally
         {

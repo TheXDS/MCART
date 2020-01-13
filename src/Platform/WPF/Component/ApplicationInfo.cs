@@ -36,7 +36,7 @@ namespace TheXDS.MCART.Component
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Expone la información de ensamblado de una aplicación de WPF.
+    /// Expone la información de ensamblado de una aplicación de WPF.
     /// </summary>
     public class ApplicationInfo : IExposeGuiInfo<UIElement?>, IExposeExtendedInfo, IExposeAssembly
     {
@@ -58,47 +58,47 @@ namespace TheXDS.MCART.Component
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ApplicationInfo" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ApplicationInfo" />.
         /// </summary>
         /// <param name="application">
-        ///     Aplicación de la cual se mostrará la información.
+        /// Aplicación de la cual se mostrará la información.
         /// </param>
         public ApplicationInfo(Application application) 
             : this(application, null) { }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ApplicationInfo" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ApplicationInfo" />.
         /// </summary>
         /// <param name="application">
-        ///     Aplicación de la cual se mostrará la información.
+        /// Aplicación de la cual se mostrará la información.
         /// </param>
         /// <param name="inferIcon">
-        ///     <see langword="true"/> para intentar determinar el ícono de la
-        ///     aplicación, <see langword="false"/> para no mostrar un ícono.
+        /// <see langword="true"/> para intentar determinar el ícono de la
+        /// aplicación, <see langword="false"/> para no mostrar un ícono.
         /// </param>
         public ApplicationInfo(Application application, bool inferIcon)
             : this(application,inferIcon ? InferIcon(application.GetType().Assembly) : null) { }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ApplicationInfo"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ApplicationInfo"/>.
         /// </summary>
         /// <param name="application">
-        ///     Aplicación de la cual se mostrará la información.
+        /// Aplicación de la cual se mostrará la información.
         /// </param>
         /// <param name="icon">Ícono a mostrar de la aplicación.</param>
         public ApplicationInfo(Application application, UIElement? icon)
             : this(application.GetType().Assembly, icon) { }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ApplicationInfo"/>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ApplicationInfo"/>
         /// </summary>
         /// <param name="assembly">
-        ///     Ensamblado del cual se mostrará la información.
+        /// Ensamblado del cual se mostrará la información.
         /// </param>
         /// <param name="icon">Ícono a mostrar del ensamblado.</param>
         public ApplicationInfo(Assembly assembly, UIElement? icon)
@@ -109,15 +109,15 @@ namespace TheXDS.MCART.Component
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="ApplicationInfo" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ApplicationInfo" />.
         /// </summary>
         /// <param name="assembly">
-        ///     Ensamblado del cual se mostrará la información.
+        /// Ensamblado del cual se mostrará la información.
         /// </param>
         /// <param name="inferIcon">
-        ///     <see langword="true"/> para intentar determinar el ícono del
-        ///     ensamblado, <see langword="false"/> para no mostrar un ícono.
+        /// <see langword="true"/> para intentar determinar el ícono del
+        /// ensamblado, <see langword="false"/> para no mostrar un ícono.
         /// </param>
         public ApplicationInfo(Assembly assembly, bool inferIcon)
             : this(assembly, inferIcon ? InferIcon(assembly) : null) { }
@@ -125,93 +125,93 @@ namespace TheXDS.MCART.Component
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene el nombre del elemento.
+        /// Obtiene el nombre del elemento.
         /// </summary>
         public string Name => _infoExposer.Name;
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene la descripción del elemento.
+        /// Obtiene la descripción del elemento.
         /// </summary>
         public string Description => _infoExposer.Description ?? string.Empty;
 
         /// <summary>
-        ///     Obtiene un ícono opcional a mostrar que describe al elemento.
+        /// Obtiene un ícono opcional a mostrar que describe al elemento.
         /// </summary>
         public UIElement? Icon { get; }
 
         /// <inheritdoc />
         /// <summary>
-        ///     Devuelve el autor del <see cref="IExposeInfo" />
+        /// Devuelve el autor del <see cref="IExposeInfo" />
         /// </summary>
         public IEnumerable<string>? Authors => _infoExposer.Authors;
 
         /// <inheritdoc />
         /// <summary>
-        ///     Devuelve el Copyright del <see cref="IExposeInfo" />
+        /// Devuelve el Copyright del <see cref="IExposeInfo" />
         /// </summary>
         public string? Copyright => _infoExposer.Copyright;
 
         /// <inheritdoc />
         /// <summary>
-        ///     Devuelve la licencia del <see cref="IExposeInfo" />
+        /// Devuelve la licencia del <see cref="IExposeInfo" />
         /// </summary>
         public License? License => _infoExposer.License;
 
         /// <inheritdoc />
         /// <summary>
-        ///     Devuelve la versión del <see cref="IExposeInfo" />
+        /// Devuelve la versión del <see cref="IExposeInfo" />
         /// </summary>
         public Version? Version => _infoExposer.Version;
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene un valor que determina si este <see cref="IExposeInfo" />
-        ///     contiene información de licencia.
+        /// Obtiene un valor que determina si este <see cref="IExposeInfo" />
+        /// contiene información de licencia.
         /// </summary>
         public bool HasLicense => _infoExposer.HasLicense;
 
         /// <inheritdoc />
         /// <summary>
-        ///     Obtiene un valor que indica si este <see cref="IExposeInfo" />
-        ///     cumple con el Common Language Standard (CLS)
+        /// Obtiene un valor que indica si este <see cref="IExposeInfo" />
+        /// cumple con el Common Language Standard (CLS)
         /// </summary>
         public bool ClsCompliant => _infoExposer.ClsCompliant;
 
         /// <summary>
-        ///     Referencia al ensamblado del cual se expone la información.
+        /// Referencia al ensamblado del cual se expone la información.
         /// </summary>
         public Assembly Assembly => _infoExposer.Assembly;
 
         /// <summary>
-        ///     Obtiene la versión informacional de este
-        ///     <see cref="IExposeInfo"/>.
+        /// Obtiene la versión informacional de este
+        /// <see cref="IExposeInfo"/>.
         /// </summary>
         public string? InformationalVersion => _infoExposer.InformationalVersion ?? Version?.ToString();
 
         /// <summary>
-        ///     Obtiene un valor que indica si este 
-        ///     <see cref="IExposeExtendedInfo"/> es considerado una versión
-        ///     beta.
+        /// Obtiene un valor que indica si este 
+        /// <see cref="IExposeExtendedInfo"/> es considerado una versión
+        /// beta.
         /// </summary>
         public bool Beta => _infoExposer.Beta;
 
         /// <summary>
-        ///     Obtiene un valor que indica si este
-        ///     <see cref="IExposeExtendedInfo"/> podría contener código
-        ///     utilizado en contexto inseguro.
+        /// Obtiene un valor que indica si este
+        /// <see cref="IExposeExtendedInfo"/> podría contener código
+        /// utilizado en contexto inseguro.
         /// </summary>
         public bool Unmanaged => _infoExposer.Unmanaged;
 
         /// <summary>
-        ///     Obtiene una colección con el contenido de licencias de terceros
-        ///     para el objeto.
+        /// Obtiene una colección con el contenido de licencias de terceros
+        /// para el objeto.
         /// </summary>
         public IEnumerable<License>? ThirdPartyLicenses => _infoExposer.ThirdPartyLicenses;
 
         /// <summary>
-        ///     Obtiene un valor que indica si este <see cref="IExposeInfo"/>
-        ///     contiene información de licencias de terceros.
+        /// Obtiene un valor que indica si este <see cref="IExposeInfo"/>
+        /// contiene información de licencias de terceros.
         /// </summary>
         public bool Has3rdPartyLicense => _infoExposer.Has3rdPartyLicense;
     }

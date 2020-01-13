@@ -175,7 +175,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static Brush PickDrawingBrush()
         {
-            return (Brush)typeof(Brushes).GetProperties().Pick().GetValue(null);
+            return (Brush)typeof(Brushes).GetProperties().Pick().GetValue(null)!;
         }
     }
 }

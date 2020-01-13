@@ -33,7 +33,7 @@ namespace TheXDS.MCART.ViewModel.ValidationRules
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Comprueba que un valor se encuentre dentro de un rango de valores.
+    /// Comprueba que un valor se encuentre dentro de un rango de valores.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [DefaultProperty(nameof(Range))]

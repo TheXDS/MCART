@@ -32,22 +32,22 @@ namespace TheXDS.MCART.Dialogs.ViewModel
 {
     /// <inheritdoc />
     /// <summary>
-    ///     ViewModel para la gestión de contraseñas y credenciales.
+    /// ViewModel para la gestión de contraseñas y credenciales.
     /// </summary>
     public class PasswordDialogViewModel : PasswordDialogViewModelBase
     {
         /// <summary>
-        ///     Obtiene un comando que permite evaluar la calidad de la contraseña.
+        /// Obtiene un comando que permite evaluar la calidad de la contraseña.
         /// </summary>
         public ObservingCommand EvaluateCommand { get; }
         /// <summary>
-        ///     Obtiene un comando que permite generar una contraseña.
+        /// Obtiene un comando que permite generar una contraseña.
         /// </summary>
         public ObservingCommand GenerateCommand { get; }
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="PasswordDialogViewModel"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="PasswordDialogViewModel"/>.
         /// </summary>
         public PasswordDialogViewModel()
         {

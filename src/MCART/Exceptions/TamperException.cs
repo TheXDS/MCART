@@ -33,28 +33,28 @@ namespace TheXDS.MCART.Exceptions
     /// Se produce cuando una función soportada detecta una de las 
     /// siguientes situaciones:
     /// <list type="bullet">
-    ///     <item>
-    ///         <description>
-    ///             Valores de retorno alterados inesperadamente.
-    ///         </description> 
-    ///     </item>
-    ///     <item>
-    ///         <description>
-    ///             Valor de retorno fuera del rango conocido esperado de
-    ///             una función.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <description>
-    ///             Corrupción de memoria no capturada por CLR.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <description>
-    ///             Modificación externa de valores internos protegidos de
-    ///             la aplicación.
-    ///         </description>
-    ///     </item>
+    /// <item>
+    ///     <description>
+    ///         Valores de retorno alterados inesperadamente.
+    ///     </description> 
+    /// </item>
+    /// <item>
+    ///     <description>
+    ///         Valor de retorno fuera del rango conocido esperado de
+    ///         una función.
+    ///     </description>
+    /// </item>
+    /// <item>
+    ///     <description>
+    ///         Corrupción de memoria no capturada por CLR.
+    ///     </description>
+    /// </item>
+    /// <item>
+    ///     <description>
+    ///         Modificación externa de valores internos protegidos de
+    ///         la aplicación.
+    ///     </description>
+    /// </item>
     /// </list>
     /// </summary>
     [Serializable]

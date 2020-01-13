@@ -558,12 +558,12 @@ namespace TheXDS.MCART.Types.Extensions
         /// Versión original del algoritmo por H.A. Sullivan, bajo licencia MIT.
         /// <h1>Cambios en esta versión:</h1>
         /// <list type="bullet">
-        ///     <item>
-        ///         <description>Optimizaciones sugeridas por ReSharper.</description>
-        ///     </item>
-        ///     <item>
-        ///         <description>Traducción de documentación.</description>
-        ///     </item>
+        /// <item>
+        ///     <description>Optimizaciones sugeridas por ReSharper.</description>
+        /// </item>
+        /// <item>
+        ///     <description>Traducción de documentación.</description>
+        /// </item>
         /// </list>
         /// </remarks>
         public static bool EqualsWildcard(this string text, string wildcardString)

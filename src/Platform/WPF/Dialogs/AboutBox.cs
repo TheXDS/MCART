@@ -31,7 +31,7 @@ namespace TheXDS.MCART.Dialogs
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Diálogo que muestra información sobre un elemento.
+    /// Diálogo que muestra información sobre un elemento.
     /// </summary>
     public sealed class AboutBox : Window
     {
@@ -44,11 +44,11 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Muestra un cuadro de diálogo con información sobre la
-        ///     aplicación de WPF especificada.
+        /// Muestra un cuadro de diálogo con información sobre la
+        /// aplicación de WPF especificada.
         /// </summary>
         /// <param name="app">
-        ///     Aplicación sobre la cual mostrar información.
+        /// Aplicación sobre la cual mostrar información.
         /// </param>
         public static void Show(Application app)
         {
@@ -56,11 +56,11 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Muestra un cuadro de diálogo modal con información sobre la
-        ///     aplicación de WPF especificada.
+        /// Muestra un cuadro de diálogo modal con información sobre la
+        /// aplicación de WPF especificada.
         /// </summary>
         /// <param name="app">
-        ///     Aplicación sobre la cual mostrar información.
+        /// Aplicación sobre la cual mostrar información.
         /// </param>
         public static void ShowDialog(Application app)
         {
@@ -68,11 +68,11 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Muestra un cuadro de diálogo con información sobre el
-        ///     ensamblado especificado.
+        /// Muestra un cuadro de diálogo con información sobre el
+        /// ensamblado especificado.
         /// </summary>
         /// <param name="assembly">
-        ///     Ensamblado sobre el cual mostrar información.
+        /// Ensamblado sobre el cual mostrar información.
         /// </param>
         public static void Show(Assembly assembly)
         {
@@ -80,11 +80,11 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Muestra un cuadro de diálogo modal con información sobre el
-        ///     ensamblado especificado.
+        /// Muestra un cuadro de diálogo modal con información sobre el
+        /// ensamblado especificado.
         /// </summary>
         /// <param name="assembly">
-        ///     Ensamblado sobre el cual mostrar información.
+        /// Ensamblado sobre el cual mostrar información.
         /// </param>
         public static void ShowDialog(Assembly assembly)
         {
@@ -92,12 +92,12 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Muestra un cuadro de diálogo con información sobre el
-        ///     <see cref="ApplicationInfo"/> especificado.
+        /// Muestra un cuadro de diálogo con información sobre el
+        /// <see cref="ApplicationInfo"/> especificado.
         /// </summary>
         /// <param name="appInfo">
-        ///     <see cref="ApplicationInfo"/> sobre el cual mostrar
-        ///     información.
+        /// <see cref="ApplicationInfo"/> sobre el cual mostrar
+        /// información.
         /// </param>
         public static void Show(ApplicationInfo appInfo)
         {
@@ -105,12 +105,12 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Muestra un cuadro de diálogo modal con información sobre el
-        ///     <see cref="ApplicationInfo"/> especificado.
+        /// Muestra un cuadro de diálogo modal con información sobre el
+        /// <see cref="ApplicationInfo"/> especificado.
         /// </summary>
         /// <param name="appInfo">
-        ///     <see cref="ApplicationInfo"/> sobre el cual mostrar
-        ///     información.
+        /// <see cref="ApplicationInfo"/> sobre el cual mostrar
+        /// información.
         /// </param>
         public static void ShowDialog(ApplicationInfo appInfo)
         {
@@ -118,12 +118,12 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Muestra un cuadro de diálogo con información sobre el
-        ///     <see cref="IExposeInfo"/> especificado.
+        /// Muestra un cuadro de diálogo con información sobre el
+        /// <see cref="IExposeInfo"/> especificado.
         /// </summary>
         /// <param name="info">
-        ///     <see cref="IExposeInfo"/> sobre el cual mostrar
-        ///     información.
+        /// <see cref="IExposeInfo"/> sobre el cual mostrar
+        /// información.
         /// </param>
         public static void Show(IExposeAssembly info)
         {
@@ -131,12 +131,12 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Muestra un cuadro de diálogo modal con información sobre el
-        ///     <see cref="IExposeInfo"/> especificado.
+        /// Muestra un cuadro de diálogo modal con información sobre el
+        /// <see cref="IExposeInfo"/> especificado.
         /// </summary>
         /// <param name="info">
-        ///     <see cref="IExposeInfo"/> sobre el cual mostrar
-        ///     información.
+        /// <see cref="IExposeInfo"/> sobre el cual mostrar
+        /// información.
         /// </param>
         public static void ShowDialog(IExposeAssembly info)
         {

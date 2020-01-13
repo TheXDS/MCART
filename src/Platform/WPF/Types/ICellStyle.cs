@@ -30,25 +30,25 @@ using System.Windows.Media;
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Define una serie de miembros a implementar por una clase que
-    ///     describa estilos de objetos
-    ///     <see cref="System.Windows.Documents.TableCell"/>.
+    /// Define una serie de miembros a implementar por una clase que
+    /// describa estilos de objetos
+    /// <see cref="System.Windows.Documents.TableCell"/>.
     /// </summary>
     public interface ICellStyle : IWpfStyle
     {
         /// <summary>
-        ///     Obtiene o establece la anileación de texto a utilizar en la
-        ///     celda.
+        /// Obtiene o establece la anileación de texto a utilizar en la
+        /// celda.
         /// </summary>
         TextAlignment Alignment { get; set; }
         /// <summary>
-        ///     Obtiene o establece un color de fondo para filas de número
-        ///     impar.
+        /// Obtiene o establece un color de fondo para filas de número
+        /// impar.
         /// </summary>
         Brush? OddBackground { get; set; }
 
         /// <summary>
-        ///     Obtiene o establece el ancho de la celda.
+        /// Obtiene o establece el ancho de la celda.
         /// </summary>
         GridLength? Width { get; set; }
     }

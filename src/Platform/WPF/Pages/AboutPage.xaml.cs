@@ -42,8 +42,8 @@ namespace TheXDS.MCART.Pages
         private AboutPageViewModel Vm => DataContext as AboutPageViewModel;
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Pages.AboutPage" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="T:TheXDS.MCART.Pages.AboutPage" />.
         /// </summary>
         public AboutPage()
         {
@@ -52,23 +52,23 @@ namespace TheXDS.MCART.Pages
         }
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Pages.AboutPage" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="T:TheXDS.MCART.Pages.AboutPage" />.
         /// </summary>
-        ///     <param name="element">Ensamblado del cual se desea mostrar la
-        ///     información.
+        /// <param name="element">Ensamblado del cual se desea mostrar la
+        /// información.
         /// </param>
         public AboutPage(Assembly element) : this(new ApplicationInfo(element, true))
         {
         }
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Pages.AboutPage" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="T:TheXDS.MCART.Pages.AboutPage" />.
         /// </summary>
         /// <param name="element">
-        ///     <see cref="IExposeInfo" /> a utilizar para exponer la
-        ///     información a mostrar.
+        /// <see cref="IExposeInfo" /> a utilizar para exponer la
+        /// información a mostrar.
         /// </param>
         public AboutPage(ApplicationInfo element) : this()
         {

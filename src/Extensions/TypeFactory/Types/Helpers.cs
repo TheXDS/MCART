@@ -22,13 +22,12 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
+using TheXDS.MCART.Types.Extensions;
 
-namespace TheXDS.MCART.Types.Extensions
+namespace TheXDS.MCART.Types
 {
-    internal static class Helpers
+    internal static class TypeBuilderHelpers
     {
         internal static string UndName(string name)
         {
@@ -42,5 +41,6 @@ namespace TheXDS.MCART.Types.Extensions
             if (name.IsEmpty()) throw new ArgumentNullException(name);
             return name[0] != 'I' ? $"{name}Implementation" : name.Substring(1);
         }
+
     }
 }

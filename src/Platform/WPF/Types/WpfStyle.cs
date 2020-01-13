@@ -30,27 +30,27 @@ using System.Windows.Media;
 namespace TheXDS.MCART.Types
 {
     /// <summary>
-    ///     Referencia común de estilos para WPF.
+    /// Referencia común de estilos para WPF.
     /// </summary>
     public class WpfStyle : IWpfStyle
     {
         /// <summary>
-        ///     <see cref="Brush"/> de fondo a aplicar al elemento.
+        /// <see cref="Brush"/> de fondo a aplicar al elemento.
         /// </summary>
         public Brush? Background { get; set; }
 
         /// <summary>
-        ///     <see cref="Brush"/> de frente a aplicar al elemento.
+        /// <see cref="Brush"/> de frente a aplicar al elemento.
         /// </summary>
         public Brush? Foreground { get; set; }
 
         /// <summary>
-        ///     <see cref="Brush"/> a aplicar a los bordes del elemento.
+        /// <see cref="Brush"/> a aplicar a los bordes del elemento.
         /// </summary>
         public Brush? BorderBrush { get; set; }
 
         /// <summary>
-        ///     Definición de bordes a aplicar al elemento.
+        /// Definición de bordes a aplicar al elemento.
         /// </summary>
         public Thickness? BorderThickness { get; set; }
     }

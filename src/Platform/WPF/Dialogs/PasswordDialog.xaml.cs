@@ -34,7 +34,7 @@ namespace TheXDS.MCART.Dialogs
 {
     /// <inheritdoc cref="Window"/>
     /// <summary>
-    ///     Lógica de interacción para PasswordDialog.xaml
+    /// Lógica de interacción para PasswordDialog.xaml
     /// </summary>
     public partial class PasswordDialog : Window
     {
@@ -131,13 +131,13 @@ namespace TheXDS.MCART.Dialogs
 #region GetUserData
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool GetUserData(out UserData userData)
         {
@@ -145,14 +145,14 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="knownPassword">Contraseña conocida.</param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool GetUserData(string knownPassword, out UserData userData)
         {
@@ -160,15 +160,15 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="knownUser">Nombre de usuario conocido.</param>
         /// <param name="knownPassword">Contraseña conocida.</param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool GetUserData(string knownUser, string knownPassword, out UserData userData)
         {
@@ -176,16 +176,16 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="knownUser">Nombre de usuario conocido.</param>
         /// <param name="knownPassword">Contraseña conocida.</param>
         /// <param name="knownHint">Indicio de contraseña conocido.</param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool GetUserData(string knownUser, string knownPassword, string knownHint, out UserData userData)
         {
@@ -193,16 +193,16 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="knownUser">Nombre de usuario conocido.</param>
         /// <param name="knownPassword">Contraseña conocida.</param>
         /// <param name="evaluator">Evaluador de contraseña a utilizar.</param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool GetUserData(string knownUser, string knownPassword, IPasswordEvaluator evaluator,
             out UserData userData)
@@ -211,7 +211,7 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="knownUser">Nombre de usuario conocido.</param>
         /// <param name="knownPassword">Contraseña conocida.</param>
@@ -219,9 +219,9 @@ namespace TheXDS.MCART.Dialogs
         /// <param name="evaluator">Evaluador de contraseña a utilizar.</param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool GetUserData(string knownUser, string knownPassword, string knownHint,
             IPasswordEvaluator evaluator, out UserData userData)
@@ -230,19 +230,19 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="knownUser">Nombre de usuario conocido.</param>
         /// <param name="knownPassword">Contraseña conocida.</param>
         /// <param name="evaluator">Evaluador de contraseña a utilizar.</param>
         /// <param name="validator">
-        ///     Función de validación de contraseña.
+        /// Función de validación de contraseña.
         /// </param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool GetUserData(string knownUser, string knownPassword, IPasswordEvaluator evaluator,
             LoginValidator validator, out UserData userData)
@@ -251,20 +251,20 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="knownUser">Nombre de usuario conocido.</param>
         /// <param name="knownPassword">Contraseña conocida.</param>
         /// <param name="knownHint">Indicio de contraseña conocido.</param>
         /// <param name="evaluator">Evaluador de contraseña a utilizar.</param>
         /// <param name="validator">
-        ///     Función de validación de contraseña.
+        /// Función de validación de contraseña.
         /// </param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool GetUserData(string knownUser, string knownPassword, string knownHint,
             IPasswordEvaluator evaluator, LoginValidator validator, out UserData userData)
@@ -273,19 +273,19 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="knownUser">Nombre de usuario conocido.</param>
         /// <param name="knownPassword">Contraseña conocida.</param>
         /// <param name="validator">
-        ///     Función de validación de contraseña.
+        /// Función de validación de contraseña.
         /// </param>
         /// <param name="maxTries">Número máximo de intentos.</param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool GetUserData(string knownUser, string knownPassword, LoginValidator validator, int? maxTries,
             out UserData userData)
@@ -294,20 +294,20 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="knownUser">Nombre de usuario conocido.</param>
         /// <param name="knownPassword">Contraseña conocida.</param>
         /// <param name="knownHint">Indicio de contraseña conocido.</param>
         /// <param name="validator">
-        ///     Función de validación de contraseña.
+        /// Función de validación de contraseña.
         /// </param>
         /// <param name="maxTries">Número máximo de intentos.</param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool GetUserData(string knownUser, string knownPassword, string knownHint,
             LoginValidator validator, int? maxTries, out UserData userData)
@@ -316,20 +316,20 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="knownUser">Nombre de usuario conocido.</param>
         /// <param name="knownPassword">Contraseña conocida.</param>
         /// <param name="evaluator">Evaluador de contraseña a utilizar.</param>
         /// <param name="validator">
-        ///     Función de validación de contraseña.
+        /// Función de validación de contraseña.
         /// </param>
         /// <param name="maxTries">Número máximo de intentos.</param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool GetUserData(string knownUser, string knownPassword, IPasswordEvaluator evaluator,
             LoginValidator validator, int? maxTries, out UserData userData)
@@ -338,25 +338,25 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="knownUser">Nombre de usuario conocido.</param>
         /// <param name="knownPassword">Contraseña conocida.</param>
         /// <param name="knownHint">Indicio de contraseña conocido.</param>
         /// <param name="evaluator">Evaluador de contraseña a utilizar.</param>
         /// <param name="validator">
-        ///     Función de validación de contraseña.
+        /// Función de validación de contraseña.
         /// </param>
         /// <param name="maxTries">Número máximo de intentos.</param>
         /// <param name="userData"></param>
         /// <param name="generator">
-        ///     Si se establece en <see langword="true"/>, se incluye la
-        ///     funcionalidad del generador de contraseñas.
+        /// Si se establece en <see langword="true"/>, se incluye la
+        /// funcionalidad del generador de contraseñas.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool GetUserData(string knownUser, string knownPassword, string knownHint,
             IPasswordEvaluator evaluator, LoginValidator validator, int? maxTries, out UserData userData, bool generator=false)
@@ -366,14 +366,14 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="credential">Credenciales conocidas.</param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool GetUserData(ICredential credential, out UserData userData)
         {
@@ -381,15 +381,15 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="credential">Credenciales conocidas.</param>
         /// <param name="knownHint">Indicio de contraseña conocido.</param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool GetUserData(ICredential credential, string knownHint, out UserData userData)
         {
@@ -397,15 +397,15 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="credential">Credenciales conocidas.</param>
         /// <param name="evaluator">Evaluador de contraseña a utilizar.</param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool GetUserData(ICredential credential, IPasswordEvaluator evaluator, out UserData userData)
         {
@@ -413,16 +413,16 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="credential">Credenciales conocidas.</param>
         /// <param name="knownHint">Indicio de contraseña conocido.</param>
         /// <param name="evaluator">Evaluador de contraseña a utilizar.</param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool GetUserData(ICredential credential, string knownHint, IPasswordEvaluator evaluator,
             out UserData userData)
@@ -431,18 +431,18 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="credential">Credenciales conocidas.</param>
         /// <param name="evaluator">Evaluador de contraseña a utilizar.</param>
         /// <param name="validator">
-        ///     Función de validación de contraseña.
+        /// Función de validación de contraseña.
         /// </param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool GetUserData(ICredential credential, IPasswordEvaluator evaluator, LoginValidator validator,
             out UserData userData)
@@ -451,19 +451,19 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="credential">Credenciales conocidas.</param>
         /// <param name="knownHint">Indicio de contraseña conocido.</param>
         /// <param name="evaluator">Evaluador de contraseña a utilizar.</param>
         /// <param name="validator">
-        ///     Función de validación de contraseña.
+        /// Función de validación de contraseña.
         /// </param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool GetUserData(ICredential credential, string knownHint, IPasswordEvaluator evaluator,
             LoginValidator validator, out UserData userData)
@@ -472,18 +472,18 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="credential">Credenciales conocidas.</param>
         /// <param name="validator">
-        ///     Función de validación de contraseña.
+        /// Función de validación de contraseña.
         /// </param>
         /// <param name="maxTries">Número máximo de intentos.</param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool GetUserData(ICredential credential, LoginValidator validator, int? maxTries,
             out UserData userData)
@@ -492,19 +492,19 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="credential">Credenciales conocidas.</param>
         /// <param name="knownHint">Indicio de contraseña conocido.</param>
         /// <param name="validator">
-        ///     Función de validación de contraseña.
+        /// Función de validación de contraseña.
         /// </param>
         /// <param name="maxTries">Número máximo de intentos.</param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool GetUserData(ICredential credential, string knownHint, LoginValidator validator,
             int? maxTries, out UserData userData)
@@ -513,19 +513,19 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="credential">Credenciales conocidas.</param>
         /// <param name="evaluator">Evaluador de contraseña a utilizar.</param>
         /// <param name="validator">
-        ///     Función de validación de contraseña.
+        /// Función de validación de contraseña.
         /// </param>
         /// <param name="maxTries">Número máximo de intentos.</param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool GetUserData(ICredential credential, IPasswordEvaluator evaluator, LoginValidator validator,
             int? maxTries, out UserData userData)
@@ -534,20 +534,20 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="credential">Credenciales conocidas.</param>
         /// <param name="knownHint">Indicio de contraseña conocido.</param>
         /// <param name="evaluator">Evaluador de contraseña a utilizar.</param>
         /// <param name="validator">
-        ///     Función de validación de contraseña.
+        /// Función de validación de contraseña.
         /// </param>
         /// <param name="maxTries">Número máximo de intentos.</param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool GetUserData(ICredential credential, string knownHint, IPasswordEvaluator evaluator,
             LoginValidator validator, int? maxTries, out UserData userData)
@@ -562,13 +562,13 @@ namespace TheXDS.MCART.Dialogs
 #region ConfirmPassword
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool ConfirmPassword(out UserData userData)
         {
@@ -576,14 +576,14 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="knownPassword">Contraseña conocida.</param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool ConfirmPassword(string knownPassword, out UserData userData)
         {
@@ -591,15 +591,15 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="knownPassword">Contraseña conocida.</param>
         /// <param name="knownHint">Indicio de contraseña conocido.</param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool ConfirmPassword(string knownPassword, string knownHint, out UserData userData)
         {
@@ -607,15 +607,15 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="knownPassword">Contraseña conocida.</param>
         /// <param name="evaluator">Evaluador de contraseña a utilizar.</param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool ConfirmPassword(string knownPassword, IPasswordEvaluator evaluator, out UserData userData)
         {
@@ -623,16 +623,16 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="knownPassword">Contraseña conocida.</param>
         /// <param name="knownHint">Indicio de contraseña conocido.</param>
         /// <param name="evaluator">Evaluador de contraseña a utilizar.</param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool ConfirmPassword(string knownPassword, string knownHint, IPasswordEvaluator evaluator,
             out UserData userData)
@@ -641,18 +641,18 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="knownPassword">Contraseña conocida.</param>
         /// <param name="evaluator">Evaluador de contraseña a utilizar.</param>
         /// <param name="validator">
-        ///     Función de validación de contraseña.
+        /// Función de validación de contraseña.
         /// </param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool ConfirmPassword(string knownPassword, IPasswordEvaluator evaluator, LoginValidator validator,
             out UserData userData)
@@ -661,19 +661,19 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="knownPassword">Contraseña conocida.</param>
         /// <param name="knownHint">Indicio de contraseña conocido.</param>
         /// <param name="evaluator">Evaluador de contraseña a utilizar.</param>
         /// <param name="validator">
-        ///     Función de validación de contraseña.
+        /// Función de validación de contraseña.
         /// </param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool ConfirmPassword(string knownPassword, string knownHint, IPasswordEvaluator evaluator,
             LoginValidator validator, out UserData userData)
@@ -682,19 +682,19 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="knownPassword">Contraseña conocida.</param>
         /// <param name="evaluator">Evaluador de contraseña a utilizar.</param>
         /// <param name="validator">
-        ///     Función de validación de contraseña.
+        /// Función de validación de contraseña.
         /// </param>
         /// <param name="maxTries">Número máximo de intentos.</param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool ConfirmPassword(string knownPassword, IPasswordEvaluator evaluator, LoginValidator validator,
             int? maxTries, out UserData userData)
@@ -703,20 +703,20 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene la información de registro de un usuario.
+        /// Obtiene la información de registro de un usuario.
         /// </summary>
         /// <param name="knownPassword">Contraseña conocida.</param>
         /// <param name="knownHint">Indicio de contraseña conocido.</param>
         /// <param name="evaluator">Evaluador de contraseña a utilizar.</param>
         /// <param name="validator">
-        ///     Función de validación de contraseña.
+        /// Función de validación de contraseña.
         /// </param>
         /// <param name="maxTries">Número máximo de intentos.</param>
         /// <param name="userData"></param>
         /// <returns>
-        ///     <see langword="true" /> si se ha obtenido la información del
-        ///     usuario correctamente, <see langword="false" /> en caso
-        ///     contrario.
+        /// <see langword="true" /> si se ha obtenido la información del
+        /// usuario correctamente, <see langword="false" /> en caso
+        /// contrario.
         /// </returns>
         public static bool ConfirmPassword(string knownPassword, string knownHint, IPasswordEvaluator evaluator,
             LoginValidator validator, int? maxTries, out UserData userData)
@@ -730,16 +730,16 @@ namespace TheXDS.MCART.Dialogs
 #region Login
 
         /// <summary>
-        ///     Obtiene una credencial de inicio de sesión.
+        /// Obtiene una credencial de inicio de sesión.
         /// </summary>
         /// <param name="loginData">
-        ///     Parámetro de salida. Incluye la credencial de inicio de sesión
-        ///     introducida en el cuadro de diálogo.
+        /// Parámetro de salida. Incluye la credencial de inicio de sesión
+        /// introducida en el cuadro de diálogo.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el usuario ha escrito sus
-        ///     credenciales y pulsado 'continuar',
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si el usuario ha escrito sus
+        /// credenciales y pulsado 'continuar',
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         public static bool Login(out ICredential loginData)
         {
@@ -747,19 +747,19 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Obtiene una credencial de inicio de sesión.
+        /// Obtiene una credencial de inicio de sesión.
         /// </summary>
         /// <param name="knownUser">
-        ///     Usuario conocido.
+        /// Usuario conocido.
         /// </param>
         /// <param name="loginData">
-        ///     Parámetro de salida. Incluye la credencial de inicio de sesión
-        ///     introducida en el cuadro de diálogo.
+        /// Parámetro de salida. Incluye la credencial de inicio de sesión
+        /// introducida en el cuadro de diálogo.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el usuario ha escrito sus
-        ///     credenciales y pulsado 'continuar',
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si el usuario ha escrito sus
+        /// credenciales y pulsado 'continuar',
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         public static bool Login(string knownUser, out ICredential loginData)
         {
@@ -769,14 +769,14 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Realiza un inicio de sesión.
+        /// Realiza un inicio de sesión.
         /// </summary>
         /// <param name="validator">
-        ///     Función de validación de contraseña.
+        /// Función de validación de contraseña.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si las credenciales son válidas,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si las credenciales son válidas,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         public static bool Login(LoginValidator validator)
         {
@@ -784,16 +784,16 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Realiza un inicio de sesión.
+        /// Realiza un inicio de sesión.
         /// </summary>
         /// <param name="validator">
-        ///     Función de validación de contraseña.
+        /// Función de validación de contraseña.
         /// </param>
         /// <param name="maxTries">Número máximo de intentos válidos.</param>
         /// <returns>
-        ///     <see langword="true" /> si las credenciales son válidas,
-        ///     <see langword="false" /> en caso contrario o si se excede la
-        ///     cantidad máxima de intentos.
+        /// <see langword="true" /> si las credenciales son válidas,
+        /// <see langword="false" /> en caso contrario o si se excede la
+        /// cantidad máxima de intentos.
         /// </returns>
         public static bool Login(LoginValidator validator, int? maxTries)
         {
@@ -801,17 +801,17 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Realiza un inicio de sesión.
+        /// Realiza un inicio de sesión.
         /// </summary>
         /// <param name="knownUser">
-        ///     Usuario conocido.
+        /// Usuario conocido.
         /// </param>
         /// <param name="validator">
-        ///     Función de validación de contraseña.
+        /// Función de validación de contraseña.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si las credenciales son válidas,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si las credenciales son válidas,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         public static bool Login(string knownUser, LoginValidator validator)
         {
@@ -819,19 +819,19 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Realiza un inicio de sesión.
+        /// Realiza un inicio de sesión.
         /// </summary>
         /// <param name="knownUser">
-        ///     Usuario conocido.
+        /// Usuario conocido.
         /// </param>
         /// <param name="validator">
-        ///     Función de validación de contraseña.
+        /// Función de validación de contraseña.
         /// </param>
         /// <param name="maxTries">Número máximo de intentos válidos.</param>
         /// <returns>
-        ///     <see langword="true" /> si las credenciales son válidas,
-        ///     <see langword="false" /> en caso contrario o si se excede la
-        ///     cantidad máxima de intentos.
+        /// <see langword="true" /> si las credenciales son válidas,
+        /// <see langword="false" /> en caso contrario o si se excede la
+        /// cantidad máxima de intentos.
         /// </returns>
         public static bool Login(string knownUser, LoginValidator validator, int? maxTries)
         {
@@ -844,14 +844,14 @@ namespace TheXDS.MCART.Dialogs
 #region CheckPassword
 
         /// <summary>
-        ///     Permite verificar una contraseña.
+        /// Permite verificar una contraseña.
         /// </summary>
         /// <param name="password">
-        ///     Contraseña introducida por el usuario.
+        /// Contraseña introducida por el usuario.
         /// </param>
         /// <returns>
-        ///     <see langword="true" /> si el usuario ha escrito su contraseña y
-        ///     pulsado 'continuar', <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si el usuario ha escrito su contraseña y
+        /// pulsado 'continuar', <see langword="false" /> en caso contrario.
         /// </returns>
         public static bool CheckPassword(out SecureString password)
         {
@@ -861,12 +861,12 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Permite verificar una contraseña.
+        /// Permite verificar una contraseña.
         /// </summary>
         /// <param name="validator">Función de validación de contraseña.</param>
         /// <returns>
-        ///     <see langword="true" /> si la contraseña es válida,
-        ///     <see langword="false" /> en caso contrario.
+        /// <see langword="true" /> si la contraseña es válida,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         public static bool CheckPassword(LoginValidator validator)
         {
@@ -874,16 +874,16 @@ namespace TheXDS.MCART.Dialogs
         }
 
         /// <summary>
-        ///     Permite verificar una contraseña.
+        /// Permite verificar una contraseña.
         /// </summary>
         /// <param name="validator">
-        ///     Función de validación de contraseña.
+        /// Función de validación de contraseña.
         /// </param>
         /// <param name="maxTries">Número máximo de intentos válidos.</param>
         /// <returns>
-        ///     <see langword="true" /> si la contraseña es válida,
-        ///     <see langword="false" /> en caso contrario o si se excede la
-        ///     cantidad máxima de intentos.
+        /// <see langword="true" /> si la contraseña es válida,
+        /// <see langword="false" /> en caso contrario o si se excede la
+        /// cantidad máxima de intentos.
         /// </returns>
         public static bool CheckPassword(LoginValidator validator, int? maxTries)
         {

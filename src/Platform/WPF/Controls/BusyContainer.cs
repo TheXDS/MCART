@@ -33,8 +33,8 @@ using System.Windows.Media.Effects;
 namespace TheXDS.MCART.Controls
 {
     /// <summary>
-    ///     Contenedor que permite bloquear el contenido mientras la aplicación
-    ///     se encuentre ocupada.
+    /// Contenedor que permite bloquear el contenido mientras la aplicación
+    /// se encuentre ocupada.
     /// </summary>
     public class BusyContainer : ContentControl
     {
@@ -52,7 +52,7 @@ namespace TheXDS.MCART.Controls
         }
 
         /// <summary>
-        ///     Inicializa la clase <see cref="BusyContainer"/>.
+        /// Inicializa la clase <see cref="BusyContainer"/>.
         /// </summary>
         static BusyContainer()
         {
@@ -61,23 +61,23 @@ namespace TheXDS.MCART.Controls
         }
 
         /// <summary>
-        ///     Identifica a la propiedad de dependencia <see cref="IsBusy"/>.
+        /// Identifica a la propiedad de dependencia <see cref="IsBusy"/>.
         /// </summary>
         public static DependencyProperty IsBusyProperty = DependencyProperty.Register(nameof(IsBusy), typeof(bool), typeof(BusyContainer), new PropertyMetadata(false, OnChangeCurrentBusyEffect));
 
         /// <summary>
-        ///     Identifica a la propiedad de dependencia
-        ///     <see cref="BusyContent"/>.
+        /// Identifica a la propiedad de dependencia
+        /// <see cref="BusyContent"/>.
         /// </summary>
         public static DependencyProperty BusyContentProperty = DependencyProperty.Register(nameof(BusyContent), typeof(object), typeof(BusyContainer), new PropertyMetadata(null));
 
         /// <summary>
-        ///     Identifica a la propiedad de dependencia <see cref="BusyContentStringFormat"/>.
+        /// Identifica a la propiedad de dependencia <see cref="BusyContentStringFormat"/>.
         /// </summary>
         public static DependencyProperty BusyContentStringFormatProperty = DependencyProperty.Register(nameof(BusyContentStringFormat), typeof(string), typeof(BusyContainer), new PropertyMetadata(null));
 
         /// <summary>
-        ///     Identifica a la propiedad de dependencia <see cref="BusyEffect"/>.
+        /// Identifica a la propiedad de dependencia <see cref="BusyEffect"/>.
         /// </summary>
         public static DependencyProperty BusyEffectProperty = DependencyProperty.Register(nameof(BusyEffect), typeof(Effect), typeof(BusyContainer), new PropertyMetadata(new BlurEffect() { Radius = 5.0 }, OnChangeCurrentBusyEffect));
         
@@ -87,8 +87,8 @@ namespace TheXDS.MCART.Controls
         public static DependencyProperty CurrentBusyEffectProperty = _currentBusyEffectPropertyKey.DependencyProperty;
 
         /// <summary>
-        ///     Obtiene o establece el efecto a aplicar al contenido cuando
-        ///     este control se encuentre ocupado.
+        /// Obtiene o establece el efecto a aplicar al contenido cuando
+        /// este control se encuentre ocupado.
         /// </summary>
         public Effect BusyEffect
         {
@@ -97,8 +97,8 @@ namespace TheXDS.MCART.Controls
         }
 
         /// <summary>
-        ///     Obtiene o establece el formato a utilizar para mostrar el
-        ///     contenido ocupado de este control.
+        /// Obtiene o establece el formato a utilizar para mostrar el
+        /// contenido ocupado de este control.
         /// </summary>
         public string BusyContentStringFormat
         {
@@ -107,8 +107,8 @@ namespace TheXDS.MCART.Controls
         }
 
         /// <summary>
-        ///     Obtiene o establece el contenido a mostrar cuando el control se
-        ///     encuente ocupado.
+        /// Obtiene o establece el contenido a mostrar cuando el control se
+        /// encuente ocupado.
         /// </summary>
         public object BusyContent
         {
@@ -117,8 +117,8 @@ namespace TheXDS.MCART.Controls
         }
 
         /// <summary>
-        ///     Obtiene o establece un valor que coloca este contenedor en
-        ///     estado de ocupado.
+        /// Obtiene o establece un valor que coloca este contenedor en
+        /// estado de ocupado.
         /// </summary>
         public bool IsBusy
         {
@@ -132,8 +132,8 @@ namespace TheXDS.MCART.Controls
         public Effect CurrentBusyEffect => (Effect)GetValue(CurrentBusyEffectProperty);
 
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="BusyContainer"/>.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="BusyContainer"/>.
         /// </summary>
         public BusyContainer()
         {

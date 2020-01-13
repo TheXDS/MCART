@@ -36,19 +36,19 @@ using System.Windows.Media;
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    ///     Extensiones de tipo Fluent para manipular objetos <see cref="FlowDocument" />
+    /// Extensiones de tipo Fluent para manipular objetos <see cref="FlowDocument" />
     /// </summary>
     public static partial class FlowDocumentExtensions
     {
         /// <summary>
-        ///     Imprime un <see cref="FlowDocument"/> por medio del cuadro de
-        ///     diálogo de impresión del sistema operativo.
+        /// Imprime un <see cref="FlowDocument"/> por medio del cuadro de
+        /// diálogo de impresión del sistema operativo.
         /// </summary>
         /// <param name="fd">
-        ///     <see cref="FlowDocument"/> a imprimir.
+        /// <see cref="FlowDocument"/> a imprimir.
         /// </param>
 		/// <param name="title">
-        ///     Título del documento a imprimir.
+        /// Título del documento a imprimir.
         /// </param>
         public static void Print(this FlowDocument fd, string title)
         {
@@ -62,14 +62,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Imprime directamente un <see cref="FlowDocument"/> sin pasar
-        ///     por el cuadro de diálogo de impresión del sistema operativo.
+        /// Imprime directamente un <see cref="FlowDocument"/> sin pasar
+        /// por el cuadro de diálogo de impresión del sistema operativo.
         /// </summary>
         /// <param name="fd">
-        ///     <see cref="FlowDocument"/> a imprimir.
+        /// <see cref="FlowDocument"/> a imprimir.
         /// </param>
         /// <param name="title">
-        ///     Título del documento a imprimir.
+        /// Título del documento a imprimir.
         /// </param>
         public static void PrintDirect(this FlowDocument fd, string title)
         {
@@ -81,13 +81,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrega una celda vacía de tabla a la fila actual.
+        /// Agrega una celda vacía de tabla a la fila actual.
         /// </summary>
         /// <param name="row">
-        ///     Fila de tabla en la cual se agregará la celda.
+        /// Fila de tabla en la cual se agregará la celda.
         /// </param>
         /// <returns>
-        ///     La celda que ha sido agregada.
+        /// La celda que ha sido agregada.
         /// </returns>
         public static TableCell AddCell(this TableRow row)
         {
@@ -97,16 +97,16 @@ namespace TheXDS.MCART.Types.Extensions
         }
 		
         /// <summary>
-        ///     Agrega una celda vacía de tabla a la fila actual.
+        /// Agrega una celda vacía de tabla a la fila actual.
         /// </summary>
         /// <param name="row">
-        ///     Fila de tabla en la cual se agregará la celda.
+        /// Fila de tabla en la cual se agregará la celda.
         /// </param>
         /// <param name="columnSpan">
-        ///     Cantidad de columnas que la nueva celda podrá ocupar.
+        /// Cantidad de columnas que la nueva celda podrá ocupar.
         /// </param>
         /// <returns>
-        ///     La celda que ha sido agregada.
+        /// La celda que ha sido agregada.
         /// </returns>
         public static TableCell AddCell(this TableRow row, int columnSpan)
         {
@@ -116,19 +116,19 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrega una celda vacía de tabla a la fila actual.
+        /// Agrega una celda vacía de tabla a la fila actual.
         /// </summary>
         /// <param name="row">
-        ///     Fila de tabla en la cual se agregará la celda.
+        /// Fila de tabla en la cual se agregará la celda.
         /// </param>
         /// <param name="rowSpan">
-        ///     Cantidad de filas que la nueva celda podrá ocupar.
+        /// Cantidad de filas que la nueva celda podrá ocupar.
         /// </param>
         /// <param name="columnSpan">
-        ///     Cantidad de columnas que la nueva celda podrá ocupar.
+        /// Cantidad de columnas que la nueva celda podrá ocupar.
         /// </param>
         /// <returns>
-        ///     La celda que ha sido agregada.
+        /// La celda que ha sido agregada.
         /// </returns>
         public static TableCell AddCell(this TableRow row, int rowSpan, int columnSpan)
         {
@@ -138,13 +138,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrega una celda simple con texto a una fila.
+        /// Agrega una celda simple con texto a una fila.
         /// </summary>
         /// <param name="row">Fila a la cual agregar la nueva celda.</param>
         /// <param name="text">Texto de la celda.</param>
         /// <returns>
-        ///     <paramref name="row" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="row" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TableCell AddCell(this TableRow row, string text)
         {
@@ -152,16 +152,16 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrega una celda simple con texto a una fila.
+        /// Agrega una celda simple con texto a una fila.
         /// </summary>
         /// <param name="row">Fila a la cual agregar la nueva celda.</param>
         /// <param name="text">Texto de la celda.</param>
         /// <param name="alignment">
-        ///     Alineación horizontal de texto dentro de la celda.
+        /// Alineación horizontal de texto dentro de la celda.
         /// </param>
         /// <returns>
-        ///     <paramref name="row" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="row" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TableCell AddCell(this TableRow row, string text, TextAlignment alignment)
         {
@@ -169,16 +169,16 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrega una celda simple con texto a una fila.
+        /// Agrega una celda simple con texto a una fila.
         /// </summary>
         /// <param name="row">Fila a la cual agregar la nueva celda.</param>
         /// <param name="text">Texto de la celda.</param>
         /// <param name="weight">
-        ///     Densidad de la fuente a utilizar dentro de la celda.
+        /// Densidad de la fuente a utilizar dentro de la celda.
         /// </param>
         /// <returns>
-        ///     <paramref name="row" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="row" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TableCell AddCell(this TableRow row, string text, FontWeight weight)
         {
@@ -186,19 +186,19 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrega una celda simple con texto a una fila.
+        /// Agrega una celda simple con texto a una fila.
         /// </summary>
         /// <param name="row">Fila a la cual agregar la nueva celda.</param>
         /// <param name="text">Texto de la celda.</param>
         /// <param name="alignment">
-        ///     Alineación horizontal de texto dentro de la celda.
+        /// Alineación horizontal de texto dentro de la celda.
         /// </param>
         /// <param name="weight">
-        ///     Densidad de la fuente a utilizar dentro de la celda.
+        /// Densidad de la fuente a utilizar dentro de la celda.
         /// </param>
         /// <returns>
-        ///     <paramref name="row" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="row" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TableCell AddCell(this TableRow row, string text, TextAlignment alignment, FontWeight weight)
         {
@@ -206,13 +206,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrega un nuevo grupo de filas a la tabla.
+        /// Agrega un nuevo grupo de filas a la tabla.
         /// </summary>
         /// <param name="table">
-        ///     Tabla a la cual agregar el nuevo grupo de filas.
+        /// Tabla a la cual agregar el nuevo grupo de filas.
         /// </param>
         /// <returns>
-        ///     El nuevo grupo de filas que ha sido añadido a la tabla.
+        /// El nuevo grupo de filas que ha sido añadido a la tabla.
         /// </returns>
         public static TableRowGroup AddGroup(this Table table)
         {
@@ -222,17 +222,17 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrega un nuevo grupo de filas a la tabla.
+        /// Agrega un nuevo grupo de filas a la tabla.
         /// </summary>
         /// <param name="table">
-        ///     Tabla a la cual agregar el nuevo grupo de filas.
+        /// Tabla a la cual agregar el nuevo grupo de filas.
         /// </param>
         /// <param name="newGroup">
-        ///     Nueva instancia del grupo de filas a agregar a la tabla.
+        /// Nueva instancia del grupo de filas a agregar a la tabla.
         /// </param>
         /// <returns>
-        ///     <paramref name="newGroup" />, lo que permite utilizar esta
-        ///     función con sintaxis Fluent.
+        /// <paramref name="newGroup" />, lo que permite utilizar esta
+        /// función con sintaxis Fluent.
         /// </returns>
         public static TableRowGroup AddGroup(this Table table, TableRowGroup newGroup)
         {
@@ -241,14 +241,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrega una nueva fila al grupo de filas.
+        /// Agrega una nueva fila al grupo de filas.
         /// </summary>
         /// <param name="group">
-        ///     Grupo de filas al cual agregar la nueva fila.
-        ///     </param>
+        /// Grupo de filas al cual agregar la nueva fila.
+        /// </param>
         /// <returns>
-        ///     Una referencia a la nueva fila creada dentro del grupo de filas
-        ///     de la tabla.
+        /// Una referencia a la nueva fila creada dentro del grupo de filas
+        /// de la tabla.
         /// </returns>
         public static TableRow AddRow(this TableRowGroup group)
         {
@@ -258,15 +258,15 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrega una nueva fila al grupo de filas.
+        /// Agrega una nueva fila al grupo de filas.
         /// </summary>
         /// <param name="rg">
-        ///     Grupo de filas al cual agregar la nueva fila.
+        /// Grupo de filas al cual agregar la nueva fila.
         /// </param>
         /// <param name="values">Valores a agregar a la fila.</param>
         /// <returns>
-        ///     Una referencia a la nueva fila creada dentro del grupo de filas
-        ///     de la tabla.
+        /// Una referencia a la nueva fila creada dentro del grupo de filas
+        /// de la tabla.
         /// </returns>
         public static TableRowGroup AddRow(this TableRowGroup rg, IEnumerable<string> values)
         {
@@ -279,15 +279,15 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrega una nueva fila a la tabla.
+        /// Agrega una nueva fila a la tabla.
         /// </summary>
         /// <param name="tbl">
-        ///     Tabla a la cual agregar la nueva fila.
+        /// Tabla a la cual agregar la nueva fila.
         /// </param>
         /// <param name="values">Valores a agregar a la fila.</param>
         /// <returns>
-        ///     Una referencia a la nueva fila creada dentro de un nuevo grupo
-        ///     de filas de la tabla.
+        /// Una referencia a la nueva fila creada dentro de un nuevo grupo
+        /// de filas de la tabla.
         /// </returns>
         public static TableRow AddRow(this Table tbl, IEnumerable<string> values)
         {
@@ -306,15 +306,15 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrega una nueva fila al grupo de filas.
+        /// Agrega una nueva fila al grupo de filas.
         /// </summary>
         /// <param name="rg">
-        ///     Grupo de filas al cual agregar la nueva fila.
+        /// Grupo de filas al cual agregar la nueva fila.
         /// </param>
         /// <param name="values">Valores a agregar a la fila.</param>
         /// <returns>
-        ///     Una referencia a la nueva fila creada dentro del grupo de filas
-        ///     de la tabla.
+        /// Una referencia a la nueva fila creada dentro del grupo de filas
+        /// de la tabla.
         /// </returns>
         public static TableRowGroup AddRow(this TableRowGroup rg, params string[] values)
         {
@@ -322,15 +322,15 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrega una nueva fila al grupo de filas.
+        /// Agrega una nueva fila al grupo de filas.
         /// </summary>
         /// <param name="rg">
-        ///     Grupo de filas al cual agregar la nueva fila.
+        /// Grupo de filas al cual agregar la nueva fila.
         /// </param>
         /// <param name="cells">Celdas a agregar a la fila.</param>
         /// <returns>
-        ///     Una referencia a la nueva fila creada dentro del grupo de filas
-        ///     de la tabla.
+        /// Una referencia a la nueva fila creada dentro del grupo de filas
+        /// de la tabla.
         /// </returns>
         public static TableRowGroup AddRow(this TableRowGroup rg, IEnumerable<TableCell> cells)
         {
@@ -342,15 +342,15 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrega una nueva fila al grupo de filas.
+        /// Agrega una nueva fila al grupo de filas.
         /// </summary>
         /// <param name="rg">
-        ///     Grupo de filas al cual agregar la nueva fila.
+        /// Grupo de filas al cual agregar la nueva fila.
         /// </param>
         /// <param name="cells">Celdas a agregar a la fila.</param>
         /// <returns>
-        ///     Una referencia a la nueva fila creada dentro del grupo de filas
-        ///     de la tabla.
+        /// Una referencia a la nueva fila creada dentro del grupo de filas
+        /// de la tabla.
         /// </returns>
         public static TableRowGroup AddRow(this TableRowGroup rg, params TableCell[] cells)
         {
@@ -358,15 +358,15 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrega una nueva fila al grupo de filas.
+        /// Agrega una nueva fila al grupo de filas.
         /// </summary>
         /// <param name="rg">
-        ///     Grupo de filas al cual agregar la nueva fila.
+        /// Grupo de filas al cual agregar la nueva fila.
         /// </param>
         /// <param name="values">Valores a agregar a la fila.</param>
         /// <returns>
-        ///     Una referencia a la nueva fila creada dentro del grupo de filas
-        ///     de la tabla.
+        /// Una referencia a la nueva fila creada dentro del grupo de filas
+        /// de la tabla.
         /// </returns>
         public static TableRowGroup AddRow(this TableRowGroup rg, IEnumerable<Block> values)
         {
@@ -379,15 +379,15 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrega una nueva fila al grupo de filas.
+        /// Agrega una nueva fila al grupo de filas.
         /// </summary>
         /// <param name="rg">
-        ///     Grupo de filas al cual agregar la nueva fila.
+        /// Grupo de filas al cual agregar la nueva fila.
         /// </param>
         /// <param name="values">Valores a agregar a la fila.</param>
         /// <returns>
-        ///     Una referencia a la nueva fila creada dentro del grupo de filas
-        ///     de la tabla.
+        /// Una referencia a la nueva fila creada dentro del grupo de filas
+        /// de la tabla.
         /// </returns>
         public static TableRowGroup AddRow(this TableRowGroup rg, params Block[] values)
         {
@@ -395,16 +395,16 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrega una nueva tabla al <see cref="FlowDocument"/> especificado.
+        /// Agrega una nueva tabla al <see cref="FlowDocument"/> especificado.
         /// </summary>
         /// <param name="document">
-        ///     Documento al cual agregar la nueva tabla.
+        /// Documento al cual agregar la nueva tabla.
         /// </param>
         /// <param name="columnWidths">
-        ///     Anchos de columna a establecer.
+        /// Anchos de columna a establecer.
         /// </param>
         /// <returns>
-        ///     Una referencia a la nueva tabla creada.
+        /// Una referencia a la nueva tabla creada.
         /// </returns>
         public static Table AddTable(this FlowDocument document, params GridLength[] columnWidths)
         {
@@ -416,16 +416,16 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrega una nueva tabla al <see cref="FlowDocument"/> especificado.
+        /// Agrega una nueva tabla al <see cref="FlowDocument"/> especificado.
         /// </summary>
         /// <param name="document">
-        ///     Documento al cual agregar la nueva tabla.
+        /// Documento al cual agregar la nueva tabla.
         /// </param>
         /// <param name="columns">
-        ///     Columnas a agregar.
+        /// Columnas a agregar.
         /// </param>
         /// <returns>
-        ///     Una referencia a la nueva tabla creada.
+        /// Una referencia a la nueva tabla creada.
         /// </returns>
         public static Table AddTable(this FlowDocument document, IEnumerable<KeyValuePair<string, GridLength>> columns)
         {
@@ -440,14 +440,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Establece un color de fondo para un <see cref="TextElement" />.
+        /// Establece un color de fondo para un <see cref="TextElement" />.
         /// </summary>
         /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> al cual aplicarle el color de fondo.</typeparam>
         /// <param name="element"><see cref="TextElement" /> al cual aplicarle el color de fondo.</param>
         /// <param name="value">Fondo a aplicar.</param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TElement Background<TElement>(this TElement element, Brush value) where TElement : TextElement
         {
@@ -456,13 +456,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Establece el formato de texto en negrita.
+        /// Establece el formato de texto en negrita.
         /// </summary>
         /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> a manipular.</typeparam>
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TElement Bold<TElement>(this TElement element) where TElement : TextElement
         {
@@ -471,14 +471,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Establece un borde para una celda de una tabla.
+        /// Establece un borde para una celda de una tabla.
         /// </summary>
         /// <param name="element">Celda a procesar.</param>
         /// <param name="brush"><see cref="Brush" /> a utilizar para dibujar el borde.</param>
         /// <param name="thickness">Grosor del borde.</param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TableCell Border(this TableCell element, Brush brush, Thickness thickness)
         {
@@ -488,14 +488,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Establece un borde para todas las celdas de un <see cref="TableRow" />.
+        /// Establece un borde para todas las celdas de un <see cref="TableRow" />.
         /// </summary>
         /// <param name="element"><see cref="TableRow" /> a procesar.</param>
         /// <param name="brush"><see cref="Brush" /> a utilizar para dibujar el borde.</param>
         /// <param name="thickness">Grosor del borde.</param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TableRow Borders(this TableRow element, Brush brush, Thickness thickness)
         {            
@@ -505,14 +505,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Establece un borde para todas las celdas de un <see cref="TableRowGroup" />.
+        /// Establece un borde para todas las celdas de un <see cref="TableRowGroup" />.
         /// </summary>
         /// <param name="element"><see cref="TableRowGroup" /> a procesar.</param>
         /// <param name="brush"><see cref="Brush" /> a utilizar para dibujar el borde.</param>
         /// <param name="thickness">Grosor del borde.</param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TableRowGroup Borders(this TableRowGroup element, Brush brush, Thickness thickness)
         {
@@ -522,13 +522,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Establece la alineación de texto en central.
+        /// Establece la alineación de texto en central.
         /// </summary>
         /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> a manipular.</typeparam>
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TElement Center<TElement>(this TElement element) where TElement : Block
         {
@@ -537,14 +537,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Centra todos los bloques de contenido de una fila.
+        /// Centra todos los bloques de contenido de una fila.
         /// </summary>
         /// <param name="row">
-        ///     Fila a la cual se debe aplicar la operación.
+        /// Fila a la cual se debe aplicar la operación.
         /// </param>
         /// <returns>
-        ///     <paramref name="row" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="row" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TableRow CenterAll(this TableRow row)
         {
@@ -553,14 +553,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Centra todos los bloques de contenido de un grupo de filas.
+        /// Centra todos los bloques de contenido de un grupo de filas.
         /// </summary>
         /// <param name="rowGroup">
-        ///     Grupo de filas a la cual se debe aplicar la operación.
+        /// Grupo de filas a la cual se debe aplicar la operación.
         /// </param>
         /// <returns>
-        ///     <paramref name="rowGroup" />, lo que permite utilizar esta
-        ///     funcióncon sintaxis Fluent.
+        /// <paramref name="rowGroup" />, lo que permite utilizar esta
+        /// funcióncon sintaxis Fluent.
         /// </returns>
         public static TableRowGroup CenterAll(this TableRowGroup rowGroup)
         {
@@ -569,14 +569,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Establece un color de fondo para la columna especificada de la tabla.
+        /// Establece un color de fondo para la columna especificada de la tabla.
         /// </summary>
         /// <param name="table"><see cref="Table" /> a procesar.</param>
         /// <param name="column">Índice de la columna.</param>
         /// <param name="brush"><see cref="Brush" /> a aplicar al dibujar la tabla.</param>
         /// <returns>
-        ///     <paramref name="table" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="table" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static Table ColumnBackground(this Table table, int column, Brush brush)
         {
@@ -585,18 +585,18 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Establece un valor de combinación de columnas a la celda
-        ///     especificada.
+        /// Establece un valor de combinación de columnas a la celda
+        /// especificada.
         /// </summary>
         /// <param name="cell">
-        ///     Celda a combinar.
+        /// Celda a combinar.
         /// </param>
         /// <param name="span">
-        ///     Cantidad de columnas que la celda abarca.
+        /// Cantidad de columnas que la celda abarca.
         /// </param>
         /// <returns>
-        ///     <paramref name="cell" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="cell" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TableCell ColumnSpan(this TableCell cell, int span)
         {
@@ -605,14 +605,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Establece el ancho de una columna para un <see cref="Table" />.
+        /// Establece el ancho de una columna para un <see cref="Table" />.
         /// </summary>
         /// <param name="table"><see cref="Table" /> a procesar.</param>
         /// <param name="column">Índice de la columna.</param>
         /// <param name="width">Ancho de columna a aplicar.</param>
         /// <returns>
-        ///     <paramref name="table" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="table" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static Table ColumnWidth(this Table table, int column, GridLength width)
         {
@@ -621,13 +621,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Establece los anchos de columna para un <see cref="System.Windows.Documents.Table" />.
+        /// Establece los anchos de columna para un <see cref="System.Windows.Documents.Table" />.
         /// </summary>
         /// <param name="table"><see cref="System.Windows.Documents.Table" /> a procesar.</param>
         /// <param name="lengths">Anchos de columna a aplicar.</param>
         /// <returns>
-        ///     <paramref name="table" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="table" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static Table ColumnWidths(this Table table, IEnumerable<double> lengths)
         {
@@ -635,13 +635,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Establece los anchos de columna para un <see cref="System.Windows.Documents.Table" />.
+        /// Establece los anchos de columna para un <see cref="System.Windows.Documents.Table" />.
         /// </summary>
         /// <param name="table"><see cref="System.Windows.Documents.Table" /> a procesar.</param>
         /// <param name="lengths">Anchos de columna a aplicar.</param>
         /// <returns>
-        ///     <paramref name="table" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="table" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static Table ColumnWidths(this Table table, IEnumerable<GridLength> lengths)
         {
@@ -657,14 +657,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Marca el final del contexto de una fila de tabla, devolviendo a
-        ///     su grupo padre de forma compatible con la sintaxis Fluent.
+        /// Marca el final del contexto de una fila de tabla, devolviendo a
+        /// su grupo padre de forma compatible con la sintaxis Fluent.
         /// </summary>
         /// <param name="row">
-        ///     Fila para la cual finalizar el contexto de la sintaxis Fluent.
+        /// Fila para la cual finalizar el contexto de la sintaxis Fluent.
         /// </param>
         /// <returns>
-        ///     El grupo de filas al que esta fila pertenece.
+        /// El grupo de filas al que esta fila pertenece.
         /// </returns>
         public static TableRowGroup Done(this TableRow row)
         {
@@ -672,16 +672,16 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Marca el final del contexto de un grupo de filas de tabla,
-        ///     devolviendo a su tabla padre de forma compatible con la
-        ///     sintaxis Fluent.
+        /// Marca el final del contexto de un grupo de filas de tabla,
+        /// devolviendo a su tabla padre de forma compatible con la
+        /// sintaxis Fluent.
         /// </summary>
         /// <param name="rowGroup">
-        ///     Grupo de filas para el cual finalizar el contexto de la
-        ///     sintaxis Fluent.
+        /// Grupo de filas para el cual finalizar el contexto de la
+        /// sintaxis Fluent.
         /// </param>
         /// <returns>
-        ///     La tabla a las que este grupo de filas pertenece.
+        /// La tabla a las que este grupo de filas pertenece.
         /// </returns>
         public static Table Done(this TableRowGroup rowGroup)
         {
@@ -689,14 +689,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Marca el final del contexto de una celda, devolviendo a su fila
-        ///     padre de forma compatible con la sintaxis Fluent.
+        /// Marca el final del contexto de una celda, devolviendo a su fila
+        /// padre de forma compatible con la sintaxis Fluent.
         /// </summary>
         /// <param name="cell">
-        ///     Celda para la cual finalizar el contexto de la sintaxis Fluent.
+        /// Celda para la cual finalizar el contexto de la sintaxis Fluent.
         /// </param>
         /// <returns>
-        ///     La fila a la que esta celda pertenece.
+        /// La fila a la que esta celda pertenece.
         /// </returns>
         public static TableRow Done(this TableCell cell)
         {
@@ -704,19 +704,19 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     marca el final del contexto de un elemento, devolviendo a su
-        ///     padre.
+        /// marca el final del contexto de un elemento, devolviendo a su
+        /// padre.
         /// </summary>
         /// <typeparam name="T">Tipo de padre a devolver.</typeparam>
         /// <param name="block">
-        ///     bloque del cual obtener al padre.
+        /// bloque del cual obtener al padre.
         /// </param>
         /// <returns>
-        ///     El padre del elemento especificado.
+        /// El padre del elemento especificado.
         /// </returns>
         /// <exception cref="InvalidCastException">
-        ///     Se produce si el padre del elemento no es del tipo
-        ///     <typeparamref name="T"/>.
+        /// Se produce si el padre del elemento no es del tipo
+        /// <typeparamref name="T"/>.
         /// </exception>
         public static T Done<T>(this FrameworkContentElement block) where T : class
         {
@@ -724,14 +724,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Establece un efecto de texto sobre un <see cref="TextElement" />.
+        /// Establece un efecto de texto sobre un <see cref="TextElement" />.
         /// </summary>
         /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> a manipular.</typeparam>
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <param name="effect">Efecto a aplicar al texto.</param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TElement Effect<TElement>(this TElement element, TextEffect effect) where TElement : TextElement
         {
@@ -740,14 +740,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Establece un color principal para un <see cref="TextElement" />.
+        /// Establece un color principal para un <see cref="TextElement" />.
         /// </summary>
         /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> al cual aplicarle el color principal.</typeparam>
         /// <param name="element"><see cref="TextElement" /> al cual aplicarle el color principal.</param>
         /// <param name="value">Color principal a aplicar.</param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TElement Foreground<TElement>(this TElement element, Brush value) where TElement : TextElement
         {
@@ -756,16 +756,16 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Establece el formato de un <see cref="TextElement" />.
+        /// Establece el formato de un <see cref="TextElement" />.
         /// </summary>
         /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> a manipular.</typeparam>
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <param name="fontFamily">
-        ///     Familia de fuentes a utilizar.
+        /// Familia de fuentes a utilizar.
         /// </param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TElement Format<TElement>(this TElement element, FontFamily fontFamily)
             where TElement : TextElement
@@ -775,16 +775,16 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Establece el formato de un <see cref="TextElement" />.
+        /// Establece el formato de un <see cref="TextElement" />.
         /// </summary>
         /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> a manipular.</typeparam>
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <param name="fontWeight">
-        ///     Densidad de la fuente.
+        /// Densidad de la fuente.
         /// </param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TElement Format<TElement>(this TElement element, FontWeight fontWeight)
             where TElement : TextElement
@@ -794,14 +794,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Establece el formato de un <see cref="TextElement" />.
+        /// Establece el formato de un <see cref="TextElement" />.
         /// </summary>
         /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> a manipular.</typeparam>
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <param name="fontSize">Tamaño de la fuente.</param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TElement Format<TElement>(this TElement element, double fontSize) where TElement : TextElement
         {
@@ -810,16 +810,16 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Establece el formato de un <see cref="TextElement" />.
+        /// Establece el formato de un <see cref="TextElement" />.
         /// </summary>
         /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> a manipular.</typeparam>
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <param name="fontStretch">
-        ///     Estiramiento de la fuente.
+        /// Estiramiento de la fuente.
         /// </param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TElement Format<TElement>(this TElement element, FontStretch fontStretch)
             where TElement : TextElement
@@ -829,14 +829,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Establece el formato de un <see cref="TextElement" />.
+        /// Establece el formato de un <see cref="TextElement" />.
         /// </summary>
         /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> a manipular.</typeparam>
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <param name="fontStyle">Estilo de la fuente.</param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TElement Format<TElement>(this TElement element, FontStyle fontStyle) where TElement : TextElement
         {
@@ -845,14 +845,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Establece el formato de un <see cref="TextElement" />.
+        /// Establece el formato de un <see cref="TextElement" />.
         /// </summary>
         /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> a manipular.</typeparam>
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <param name="alignment">Alineación de texto.</param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TElement Format<TElement>(this TElement element, TextAlignment alignment) where TElement : Block
         {
@@ -861,13 +861,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Establece la alineación del texto en justificada.
+        /// Establece la alineación del texto en justificada.
         /// </summary>
         /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> a manipular.</typeparam>
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TElement Justify<TElement>(this TElement element) where TElement : Block
         {
@@ -876,13 +876,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Establece la alineación del texto en izquierda.
+        /// Establece la alineación del texto en izquierda.
         /// </summary>
         /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> a manipular.</typeparam>
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TElement Left<TElement>(this TElement element) where TElement : Block
         {
@@ -891,13 +891,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Aplica un estilo a una celda.
+        /// Aplica un estilo a una celda.
         /// </summary>
         /// <param name="cell">Celda a estilizar.</param>
         /// <param name="style">Estilo a aplicar a la celda.</param>
         /// <returns>
-        ///     <paramref name="cell" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="cell" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TableCell ApplyStyle(this TableCell cell, ICellStyle? style)
         {
@@ -905,16 +905,16 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Aplica un estilo a una celda.
+        /// Aplica un estilo a una celda.
         /// </summary>
         /// <param name="cell">Celda a estilizar.</param>
         /// <param name="style">Estilo a aplicar a la celda.</param>
         /// <param name="odd">
-        ///     Bandera que indica si se trata de una fila impar o no.
+        /// Bandera que indica si se trata de una fila impar o no.
         /// </param>
         /// <returns>
-        ///     <paramref name="cell" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="cell" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TableCell ApplyStyle(this TableCell cell, ICellStyle? style, bool odd)
         {
@@ -938,17 +938,17 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrega una nueva celda con el contenido textual especificado.
+        /// Agrega una nueva celda con el contenido textual especificado.
         /// </summary>
         /// <param name="cells">
-        ///     Colección de celdas en la cual agregar una nueva celda con el
-        ///     contenido especificado.
+        /// Colección de celdas en la cual agregar una nueva celda con el
+        /// contenido especificado.
         /// </param>
         /// <param name="content">
-        ///     Contenido textual a incluir en la celda.
+        /// Contenido textual a incluir en la celda.
         /// </param>
         /// <returns>
-        ///     Una referencia a la nueva celda creada.
+        /// Una referencia a la nueva celda creada.
         /// </returns>
         public static TableCell Add(this TableCellCollection cells, string content)
         {
@@ -956,17 +956,17 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Agrega una nueva celda con el contenido especificado.
+        /// Agrega una nueva celda con el contenido especificado.
         /// </summary>
         /// <param name="cells">
-        ///     Colección de celdas en la cual agregar una nueva celda con el
-        ///     contenido especificado.
+        /// Colección de celdas en la cual agregar una nueva celda con el
+        /// contenido especificado.
         /// </param>
         /// <param name="content">
-        ///     Contenido a incluir en la celda.
+        /// Contenido a incluir en la celda.
         /// </param>
         /// <returns>
-        ///     Una referencia a la nueva celda creada.
+        /// Una referencia a la nueva celda creada.
         /// </returns>
         public static TableCell Add(this TableCellCollection cells, Inline content)
         {
@@ -976,47 +976,47 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Construye una tabla a partir de una enumeración de datos y una colección de descriptores de columnas.
+        /// Construye una tabla a partir de una enumeración de datos y una colección de descriptores de columnas.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de elementos a incluir en la tabla.
+        /// Tipo de elementos a incluir en la tabla.
         /// </typeparam>
         /// <param name="fd">
-        ///     <see cref="FlowDocument"/> en el cual se agregará la tabla creada.
+        /// <see cref="FlowDocument"/> en el cual se agregará la tabla creada.
         /// </param>
         /// <param name="columns">
-        ///     Colección de columnas a incluir en la tabla.
+        /// Colección de columnas a incluir en la tabla.
         /// </param>
         /// <param name="data">
-        ///     Enumeración de datos a incluir en la tabla.
+        /// Enumeración de datos a incluir en la tabla.
         /// </param>
         /// <returns>
-        ///     <paramref name="fd"/>, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="fd"/>, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static Table MakeTable<T>(this FlowDocument fd, IEnumerable<IColumnBuilder<T>> columns, IEnumerable<T> data) => MakeTable(fd, columns, data, null);
 
         /// <summary>
-        ///     Construye una tabla a partir de una enumeración de datos y una colección de descriptores de columnas.
+        /// Construye una tabla a partir de una enumeración de datos y una colección de descriptores de columnas.
         /// </summary>
         /// <typeparam name="T">
-        ///     Tipo de elementos a incluir en la tabla.
+        /// Tipo de elementos a incluir en la tabla.
         /// </typeparam>
         /// <param name="fd">
-        ///     <see cref="FlowDocument"/> en el cual se agregará la tabla creada.
+        /// <see cref="FlowDocument"/> en el cual se agregará la tabla creada.
         /// </param>
         /// <param name="columns">
-        ///     Colección de columnas a incluir en la tabla.
+        /// Colección de columnas a incluir en la tabla.
         /// </param>
         /// <param name="data">
-        ///     Enumeración de datos a incluir en la tabla.
+        /// Enumeración de datos a incluir en la tabla.
         /// </param>
         /// <param name="headersStyle">
-        ///     Estilo opcional a aplicar a los encabezados de la tabla.
+        /// Estilo opcional a aplicar a los encabezados de la tabla.
         /// </param>
         /// <returns>
-        ///     <paramref name="fd"/>, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="fd"/>, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static Table MakeTable<T>(this FlowDocument fd, IEnumerable<IColumnBuilder<T>> columns, IEnumerable<T> data, ICellStyle? headersStyle)
         {
@@ -1050,35 +1050,35 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Construye una nueva tabla con los encabezados especificados.
+        /// Construye una nueva tabla con los encabezados especificados.
         /// </summary>
         /// <param name="fd">
-        ///     <see cref="FlowDocument"/> en el cual se agregará la tabla creada.
+        /// <see cref="FlowDocument"/> en el cual se agregará la tabla creada.
         /// </param>
         /// <param name="headers">
-        ///     Encabezados a agregar a la tabla.
+        /// Encabezados a agregar a la tabla.
         /// </param>
         /// <returns>
-        ///     Una referencia a un nuevo <see cref="TableRowGroup"/> dentro de
-        ///     la tabla creada.
+        /// Una referencia a un nuevo <see cref="TableRowGroup"/> dentro de
+        /// la tabla creada.
         /// </returns>
         public static TableRowGroup MakeTable(this FlowDocument fd, IEnumerable<string> headers) => MakeTable(fd, headers, null);
 
         /// <summary>
-        ///     Construye una nueva tabla con los encabezados especificados.
+        /// Construye una nueva tabla con los encabezados especificados.
         /// </summary>
         /// <param name="fd">
-        ///     <see cref="FlowDocument"/> en el cual se agregará la tabla creada.
+        /// <see cref="FlowDocument"/> en el cual se agregará la tabla creada.
         /// </param>
         /// <param name="headers">
-        ///     Encabezados a agregar a la tabla.
+        /// Encabezados a agregar a la tabla.
         /// </param>
         /// <param name="headersStyle">
-        ///     Estilo opcional a aplicar a los encabezados de la tabla.
+        /// Estilo opcional a aplicar a los encabezados de la tabla.
         /// </param>
         /// <returns>
-        ///     Una referencia a un nuevo <see cref="TableRowGroup"/> dentro de
-        ///     la tabla creada.
+        /// Una referencia a un nuevo <see cref="TableRowGroup"/> dentro de
+        /// la tabla creada.
         /// </returns>
         public static TableRowGroup MakeTable(this FlowDocument fd, IEnumerable<string> headers, ICellStyle? headersStyle)
         {
@@ -1122,13 +1122,13 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Establece la alineación del texto en derecha.
+        /// Establece la alineación del texto en derecha.
         /// </summary>
         /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> a manipular.</typeparam>
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TElement Right<TElement>(this TElement element) where TElement : Block
         {
@@ -1225,12 +1225,12 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Genera un objeto <see cref="System.Windows.Documents.Table" /> a partir de la vista actual de un
-        ///     <see cref="ListView" />.
+        /// Genera un objeto <see cref="System.Windows.Documents.Table" /> a partir de la vista actual de un
+        /// <see cref="ListView" />.
         /// </summary>
         /// <param name="listView"><see cref="ListView" /> a procesar.</param>
         /// <returns>
-        ///     Un <see cref="System.Windows.Documents.Table" /> con el contenido de la vista activa del <see cref="ListView" />.
+        /// Un <see cref="System.Windows.Documents.Table" /> con el contenido de la vista activa del <see cref="ListView" />.
         /// </returns>
         public static Table ToDocumentTable(this ListView listView)
         {
@@ -1254,14 +1254,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Manipula la información tipográfica del <see cref="TextElement" />.
+        /// Manipula la información tipográfica del <see cref="TextElement" />.
         /// </summary>
         /// <typeparam name="TElement">Tipo del <see cref="TextElement" /> a manipular.</typeparam>
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <param name="value">Índice de formato de anotación alternativa.</param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TElement TypographyAnnotationAlternates<TElement>(this TElement element, int value)
             where TElement : TextElement
@@ -1271,17 +1271,17 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Manipula la información tipográfica del <see cref="TextElement" />.
+        /// Manipula la información tipográfica del <see cref="TextElement" />.
         /// </summary>
         /// <typeparam name="TElement">Tipo del <see cref="TextElement" /> a manipular.</typeparam>
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <param name="value">
-        ///     si se establece en <see langword="true" />, se ajustará globalmente el espacio entre glifos en mayúsculas para
-        ///     mejorar la legibilidad.
+        /// si se establece en <see langword="true" />, se ajustará globalmente el espacio entre glifos en mayúsculas para
+        /// mejorar la legibilidad.
         /// </param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TElement TypographyCapitalSpacing<TElement>(this TElement element, bool value)
             where TElement : TextElement
@@ -1291,17 +1291,17 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Manipula la información tipográfica del <see cref="TextElement" />.
+        /// Manipula la información tipográfica del <see cref="TextElement" />.
         /// </summary>
         /// <typeparam name="TElement">Tipo del <see cref="TextElement" /> a manipular.</typeparam>
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <param name="value">
-        ///     Si se establece en <see langword="true" />, se ajustará la posición vertical de los glifos para una mejor alineación
-        ///     con los glifos en mayúsculas.
+        /// Si se establece en <see langword="true" />, se ajustará la posición vertical de los glifos para una mejor alineación
+        /// con los glifos en mayúsculas.
         /// </param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TElement TypographyCaseSensitiveForms<TElement>(this TElement element, bool value)
             where TElement : TextElement
@@ -1311,17 +1311,17 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Manipula la información tipográfica del <see cref="TextElement" />.
+        /// Manipula la información tipográfica del <see cref="TextElement" />.
         /// </summary>
         /// <typeparam name="TElement">Tipo del <see cref="TextElement" /> a manipular.</typeparam>
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <param name="value">
-        ///     Si se establece en <see langword="true" /> se utilizarán glifos personalizados según el contexto del texto que se
-        ///     procesa.
+        /// Si se establece en <see langword="true" /> se utilizarán glifos personalizados según el contexto del texto que se
+        /// procesa.
         /// </param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TElement TypographyContextualAlternates<TElement>(this TElement element, bool value)
             where TElement : TextElement
@@ -1331,16 +1331,16 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Manipula la información tipográfica del <see cref="TextElement" />.
+        /// Manipula la información tipográfica del <see cref="TextElement" />.
         /// </summary>
         /// <typeparam name="TElement">Tipo del <see cref="TextElement" /> a manipular.</typeparam>
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <param name="value">
-        ///     Si se establece en <see langword="true" />, se habilitan las ligaduras contextuales.
+        /// Si se establece en <see langword="true" />, se habilitan las ligaduras contextuales.
         /// </param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TElement TypographyContextualLigatures<TElement>(this TElement element, bool value)
             where TElement : TextElement
@@ -1350,14 +1350,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Manipula la información tipográfica del <see cref="TextElement" />.
+        /// Manipula la información tipográfica del <see cref="TextElement" />.
         /// </summary>
         /// <typeparam name="TElement">Tipo del <see cref="TextElement" /> a manipular.</typeparam>
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <param name="value">Especifica el índice de un formulario de glifos floreados contextuales.</param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TElement TypographyContextualSwashes<TElement>(this TElement element, int value)
             where TElement : TextElement
@@ -1367,16 +1367,16 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Manipula la información tipográfica del <see cref="TextElement" />.
+        /// Manipula la información tipográfica del <see cref="TextElement" />.
         /// </summary>
         /// <typeparam name="TElement">Tipo del <see cref="TextElement" /> a manipular.</typeparam>
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <param name="value">
-        ///     Si se establece en <see langword="true" />, se habilitan las ligaduras discrecionales.
+        /// Si se establece en <see langword="true" />, se habilitan las ligaduras discrecionales.
         /// </param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TElement TypographyDiscretionaryLigatures<TElement>(this TElement element, bool value)
             where TElement : TextElement
@@ -1386,17 +1386,17 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Manipula la información tipográfica del <see cref="TextElement" />.
+        /// Manipula la información tipográfica del <see cref="TextElement" />.
         /// </summary>
         /// <typeparam name="TElement">Tipo del <see cref="TextElement" /> a manipular.</typeparam>
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <param name="value">
-        ///     Si se establece en <see langword="true" />, los formatos de fuente japonesa estándar se reemplazarán por los
-        ///     correspondientes formatos tipográficos preferidos.
+        /// Si se establece en <see langword="true" />, los formatos de fuente japonesa estándar se reemplazarán por los
+        /// correspondientes formatos tipográficos preferidos.
         /// </param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TElement TypographyEastAsianExpertForms<TElement>(this TElement element, bool value)
             where TElement : TextElement
@@ -1406,16 +1406,16 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Manipula la información tipográfica del <see cref="TextElement" />.
+        /// Manipula la información tipográfica del <see cref="TextElement" />.
         /// </summary>
         /// <typeparam name="TElement">Tipo del <see cref="TextElement" /> a manipular.</typeparam>
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <param name="value">
-        ///     Glifos que se utilizarán para un idioma o sistema de escritura en específico para Asia oriental.
+        /// Glifos que se utilizarán para un idioma o sistema de escritura en específico para Asia oriental.
         /// </param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TElement TypographyEastAsianLanguage<TElement>(this TElement element, FontEastAsianLanguage value)
             where TElement : TextElement
@@ -1425,14 +1425,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Manipula la información tipográfica del <see cref="TextElement" />.
+        /// Manipula la información tipográfica del <see cref="TextElement" />.
         /// </summary>
         /// <typeparam name="TElement">Tipo del <see cref="TextElement" /> a manipular.</typeparam>
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <param name="value">Ancho de los caracteres latinos en uan fuente de estilo asiático.</param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TElement TypographyEastAsianWidths<TElement>(this TElement element, FontEastAsianWidths value)
             where TElement : TextElement
@@ -1442,14 +1442,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        ///     Manipula la información tipográfica del <see cref="TextElement" />.
+        /// Manipula la información tipográfica del <see cref="TextElement" />.
         /// </summary>
         /// <typeparam name="TElement">Tipo del <see cref="TextElement" /> a manipular.</typeparam>
         /// <param name="element"><see cref="TextElement" /> a manipular.</param>
         /// <param name="value">Estilo de letra mayúscula para una tipografía.</param>
         /// <returns>
-        ///     <paramref name="element" />, lo que permite utilizar esta función
-        ///     con sintaxis Fluent.
+        /// <paramref name="element" />, lo que permite utilizar esta función
+        /// con sintaxis Fluent.
         /// </returns>
         public static TElement TypographyFontCapitals<TElement>(this TElement element, FontCapitals value)
             where TElement : TextElement

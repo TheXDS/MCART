@@ -56,8 +56,8 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART
 {
     /// <summary>
-    ///     Contiene varias herramientas de UI para utilizar en proyectos de
-    ///     Windows Presentation Framework.
+    /// Contiene varias herramientas de UI para utilizar en proyectos de
+    /// Windows Presentation Framework.
     /// </summary>
     public static class WpfUi
     {
@@ -78,27 +78,27 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Estructura de control de colores originales.
+        /// Estructura de control de colores originales.
         /// </summary>
         private struct OrigControlColor
         {
             /// <summary>
-            ///     Color primario original.
+            /// Color primario original.
             /// </summary>
             internal Brush _fore;
 
             /// <summary>
-            ///     Color de fondo original.
+            /// Color de fondo original.
             /// </summary>
             internal Brush _bacg;
 
             /// <summary>
-            ///     Referencia del control al cual se aplica.
+            /// Referencia del control al cual se aplica.
             /// </summary>
             internal Control _rf;
 
             /// <summary>
-            ///     <see cref="ToolTip" /> original del control.
+            /// <see cref="ToolTip" /> original del control.
             /// </summary>
             internal ToolTip _ttip;
         }
@@ -220,7 +220,7 @@ namespace TheXDS.MCART
         private static readonly List<StreamUriParser> _uriParsers = Objects.FindAllObjects<StreamUriParser>().ToList();
 
         /// <summary>
-        ///     Enlaza una propiedad de dependencia de un <see cref="DependencyObject" /> a un <see cref="FrameworkElement" />.
+        /// Enlaza una propiedad de dependencia de un <see cref="DependencyObject" /> a un <see cref="FrameworkElement" />.
         /// </summary>
         /// <param name="obj">Objeto destino del enlace</param>
         /// <param name="dp">Propiedad de dependencia a enlazar.</param>
@@ -231,7 +231,7 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Enlaza una propiedad de dependencia de un <see cref="DependencyObject" /> a un <see cref="FrameworkElement" />.
+        /// Enlaza una propiedad de dependencia de un <see cref="DependencyObject" /> a un <see cref="FrameworkElement" />.
         /// </summary>
         /// <param name="obj">Objeto destino del enlace</param>
         /// <param name="dp">Propiedad de dependencia a enlazar.</param>
@@ -244,8 +244,8 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Enlaza una propiedad de dependencia de un <see cref="DependencyObject" /> a un
-        ///     <see cref="INotifyPropertyChanged" />.
+        /// Enlaza una propiedad de dependencia de un <see cref="DependencyObject" /> a un
+        /// <see cref="INotifyPropertyChanged" />.
         /// </summary>
         /// <param name="obj">Objeto destino del enlace</param>
         /// <param name="dp">Propiedad de dependencia a enlazar.</param>
@@ -256,8 +256,8 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Enlaza una propiedad de dependencia de un <see cref="INotifyPropertyChanged" /> a un
-        ///     <see cref="FrameworkElement" />.
+        /// Enlaza una propiedad de dependencia de un <see cref="INotifyPropertyChanged" /> a un
+        /// <see cref="FrameworkElement" />.
         /// </summary>
         /// <param name="obj">Objeto destino del enlace</param>
         /// <param name="dp">Propiedad de dependencia a enlazar.</param>
@@ -270,7 +270,7 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Enlaza una propiedad de dependencia de un <see cref="DependencyObject" /> a un <see cref="FrameworkElement" />.
+        /// Enlaza una propiedad de dependencia de un <see cref="DependencyObject" /> a un <see cref="FrameworkElement" />.
         /// </summary>
         /// <param name="obj">Objeto destino del enlace</param>
         /// <param name="targetDp">Propiedad de dependencia de destino del enlace.</param>
@@ -283,7 +283,7 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Enlaza una propiedad de dependencia de un <see cref="DependencyObject" /> a un <see cref="FrameworkElement" />.
+        /// Enlaza una propiedad de dependencia de un <see cref="DependencyObject" /> a un <see cref="FrameworkElement" />.
         /// </summary>
         /// <param name="obj">Objeto destino del enlace</param>
         /// <param name="targetDp">Propiedad de dependencia de destino del enlace.</param>
@@ -297,8 +297,8 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Enlaza una propiedad de dependencia de un <see cref="INotifyPropertyChanged" /> a un
-        ///     <see cref="FrameworkElement" />.
+        /// Enlaza una propiedad de dependencia de un <see cref="INotifyPropertyChanged" /> a un
+        /// <see cref="FrameworkElement" />.
         /// </summary>
         /// <param name="obj">Objeto destino del enlace</param>
         /// <param name="targetDp">Propiedad de dependencia de destino del enlace.</param>
@@ -311,8 +311,8 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Enlaza una propiedad de dependencia de un <see cref="INotifyPropertyChanged" /> a un
-        ///     <see cref="FrameworkElement" />.
+        /// Enlaza una propiedad de dependencia de un <see cref="INotifyPropertyChanged" /> a un
+        /// <see cref="FrameworkElement" />.
         /// </summary>
         /// <param name="obj">Objeto destino del enlace</param>
         /// <param name="targetDp">Propiedad de dependencia de destino del enlace.</param>
@@ -326,7 +326,7 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Enlaza una propiedad de dependencia de un <see cref="object" /> a un <see cref="FrameworkElement" />.
+        /// Enlaza una propiedad de dependencia de un <see cref="object" /> a un <see cref="FrameworkElement" />.
         /// </summary>
         /// <param name="obj">Objeto destino del enlace</param>
         /// <param name="targetDp">Propiedad de dependencia de destino del enlace.</param>
@@ -345,7 +345,7 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Limpia el texto del control.
+        /// Limpia el texto del control.
         /// </summary>
         /// <param name="control">Control a limpiar.</param>
         public static void Clear(this TextBox control)
@@ -354,7 +354,7 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Quita el estado de error de un control.
+        /// Quita el estado de error de un control.
         /// </summary>
         /// <param name="c">Control a limpiar.</param>
         public static void ClearWarn(this Control c)
@@ -372,11 +372,11 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Establece la propiedad <see cref="UIElement.Visibility" /> a
-        ///     <see cref="Visibility.Collapsed" /> a una lista de controles.
+        /// Establece la propiedad <see cref="UIElement.Visibility" /> a
+        /// <see cref="Visibility.Collapsed" /> a una lista de controles.
         /// </summary>
         /// <param name="ctrls">
-        ///     Arreglo de <see cref="UIElement" /> a colapsar.
+        /// Arreglo de <see cref="UIElement" /> a colapsar.
         /// </param>
         public static void CollapseControls(params UIElement[] ctrls)
         {
@@ -384,11 +384,11 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Establece la propiedad <see cref="UIElement.Visibility" /> a
-        ///     <see cref="Visibility.Collapsed" /> a una lista de controles.
+        /// Establece la propiedad <see cref="UIElement.Visibility" /> a
+        /// <see cref="Visibility.Collapsed" /> a una lista de controles.
         /// </summary>
         /// <param name="ctrls">
-        ///     Arreglo de <see cref="UIElement" /> a colapsar.
+        /// Arreglo de <see cref="UIElement" /> a colapsar.
         /// </param>
         [Sugar]
         public static void CollapseControls(this IEnumerable<UIElement> ctrls)
@@ -410,10 +410,10 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Deshabilita una lista de controles.
+        /// Deshabilita una lista de controles.
         /// </summary>
         /// <param name="ctrls">
-        ///     Arreglo de <see cref="UIElement" /> a deshabilitar.
+        /// Arreglo de <see cref="UIElement" /> a deshabilitar.
         /// </param>
         public static void DisableControls(params UIElement[] ctrls)
         {
@@ -421,10 +421,10 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Deshabilita una lista de controles.
+        /// Deshabilita una lista de controles.
         /// </summary>
         /// <param name="ctrls">
-        ///     Arreglo de <see cref="UIElement" /> a deshabilitar.
+        /// Arreglo de <see cref="UIElement" /> a deshabilitar.
         /// </param>
         [Sugar]
         public static void DisableControls(this IEnumerable<UIElement> ctrls)
@@ -433,7 +433,7 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Deshabilita todos los efectos de la ventana de WPF.
+        /// Deshabilita todos los efectos de la ventana de WPF.
         /// </summary>
         /// <param name="window">Instancia de ventana a difuminar.</param>
         public static void DisableEffects(this Window window)
@@ -449,14 +449,14 @@ namespace TheXDS.MCART
         private static extern int DwmExtendFrameIntoClientArea(IntPtr hWnd, ref Margins pMargins);
 
         /// <summary>
-        ///     Establece un valor de marco interno para el recuadro de una
-        ///     ventana de WPF.
+        /// Establece un valor de marco interno para el recuadro de una
+        /// ventana de WPF.
         /// </summary>
         /// <param name="window">
-        ///     Instancia de ventana para la cual configurar el marco interno.
+        /// Instancia de ventana para la cual configurar el marco interno.
         /// </param>
         /// <param name="padding">
-        ///     Grosor de los márgenes del marco interno de la ventana.
+        /// Grosor de los márgenes del marco interno de la ventana.
         /// </param>
         public static void SetFramePadding(this Window window, Thickness padding)
         {
@@ -476,29 +476,29 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene el Handle de la ventana de WPF.
+        /// Obtiene el Handle de la ventana de WPF.
         /// </summary>
         /// <param name="window">
-        ///     Ventana de la cual obtener el Handle.
+        /// Ventana de la cual obtener el Handle.
         /// </param>
         /// <returns>
-        ///     Un <see cref="IntPtr"/> que es el Handle de la ventana.
+        /// Un <see cref="IntPtr"/> que es el Handle de la ventana.
         /// </returns>
         public static IntPtr GetHwnd(this Window window) => new WindowInteropHelper(window).Handle;
 
         /// <summary>
-        ///     Comprueba si la composición de ventanas está disponible en el
-        ///     sistema.
+        /// Comprueba si la composición de ventanas está disponible en el
+        /// sistema.
         /// </summary>
         /// <returns>
-        ///     <see langword="true"/> si la composición de ventanas está
-        ///     disponible, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si la composición de ventanas está
+        /// disponible, <see langword="false"/> en caso contrario.
         /// </returns>
         [DllImport("dwmapi.dll", PreserveSig = false)]
         public static extern bool DwmIsCompositionEnabled();
 
         /// <summary>
-        ///     Habilita los efectos de difuminado de Windows 10 en la ventana de WPF.
+        /// Habilita los efectos de difuminado de Windows 10 en la ventana de WPF.
         /// </summary>
         /// <param name="window">Instancia de ventana a difuminar.</param>
         public static void EnableBlur(this Window window)
@@ -507,10 +507,10 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Habilita una lista de controles.
+        /// Habilita una lista de controles.
         /// </summary>
         /// <param name="ctrls">
-        ///     Arreglo de <see cref="UIElement" /> a habilitar.
+        /// Arreglo de <see cref="UIElement" /> a habilitar.
         /// </param>
         public static void EnableControls(params UIElement[] ctrls)
         {
@@ -518,10 +518,10 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Habilita una lista de controles.
+        /// Habilita una lista de controles.
         /// </summary>
         /// <param name="ctrls">
-        ///     Arreglo de <see cref="UIElement" /> a habilitar.
+        /// Arreglo de <see cref="UIElement" /> a habilitar.
         /// </param>
         [Sugar]
         public static void EnableControls(this IEnumerable<UIElement> ctrls)
@@ -530,8 +530,8 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Ejecuta una animación de destello en un
-        ///     <see cref="SolidColorBrush" />.
+        /// Ejecuta una animación de destello en un
+        /// <see cref="SolidColorBrush" />.
         /// </summary>
         /// <param name="brush"><see cref="SolidColorBrush" /> a animar.</param>
         /// <param name="flashColor"><see cref="System.Windows.Media.Color" /> del destello.</param>
@@ -547,13 +547,13 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene una imagen a partir de un <see cref="Stream" />.
+        /// Obtiene una imagen a partir de un <see cref="Stream" />.
         /// </summary>
         /// <param name="stream">
-        ///     <see cref="Stream" /> con el contenido de la imagen.
+        /// <see cref="Stream" /> con el contenido de la imagen.
         /// </param>
         /// <returns>
-        ///     La imagen que ha sido leída desde el <see cref="Stream" />.
+        /// La imagen que ha sido leída desde el <see cref="Stream" />.
         /// </returns>
         public static BitmapImage? GetBitmap(Stream? stream)
         {
@@ -574,13 +574,13 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene una imagen a partir de un <see cref="Uri" />.
+        /// Obtiene una imagen a partir de un <see cref="Uri" />.
         /// </summary>
         /// <param name="uri">
-        ///     <see cref="Stream" /> con el contenido de la imagen.
+        /// <see cref="Stream" /> con el contenido de la imagen.
         /// </param>
         /// <returns>
-        ///     La imagen que ha sido leída desde el <see cref="Stream" />.
+        /// La imagen que ha sido leída desde el <see cref="Stream" />.
         /// </returns>
         public static BitmapImage? GetBitmap(Uri uri)
         {
@@ -598,13 +598,13 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene una imagen a partir de una ruta especificada.
+        /// Obtiene una imagen a partir de una ruta especificada.
         /// </summary>
         /// <param name="path">
-        ///     <see cref="Stream" /> con el contenido de la imagen.
+        /// <see cref="Stream" /> con el contenido de la imagen.
         /// </param>
         /// <returns>
-        ///     La imagen que ha sido leída desde el <see cref="Stream" />.
+        /// La imagen que ha sido leída desde el <see cref="Stream" />.
         /// </returns>
         public static BitmapImage? GetBitmap(string path)
         {
@@ -613,14 +613,14 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene una imagen a partir de un <see cref="Uri" /> de forma
-        ///     asíncrona.
+        /// Obtiene una imagen a partir de un <see cref="Uri" /> de forma
+        /// asíncrona.
         /// </summary>
         /// <param name="uri">
-        ///     <see cref="Stream" /> con el contenido de la imagen.
+        /// <see cref="Stream" /> con el contenido de la imagen.
         /// </param>
         /// <returns>
-        ///     La imagen que ha sido leída desde el <see cref="Stream" />.
+        /// La imagen que ha sido leída desde el <see cref="Stream" />.
         /// </returns>
         public static async Task<BitmapImage?> GetBitmapAsync(Uri uri)
         {
@@ -635,12 +635,12 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Devuelve una colección de los códecs de mapas de bits disponibles.
-        ///     Soporta cargar códecs desde cualquier ensamblado cargado.
+        /// Devuelve una colección de los códecs de mapas de bits disponibles.
+        /// Soporta cargar códecs desde cualquier ensamblado cargado.
         /// </summary>
         /// <returns>
-        ///     Una lista con una nueva instancia de todos los códecs de mapa de
-        ///     bits disponibles.
+        /// Una lista con una nueva instancia de todos los códecs de mapa de
+        /// bits disponibles.
         /// </returns>
         public static IEnumerable<BitmapEncoder> GetBitmapEncoders()
         {
@@ -648,18 +648,18 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Genera un arco de círculo que puede usarse en Windows Presentation
-        ///     Framework.
+        /// Genera un arco de círculo que puede usarse en Windows Presentation
+        /// Framework.
         /// </summary>
         /// <param name="radius">Radio del arco a generar.</param>
         /// <param name="angle">Ángulo, o tamaño del arco.</param>
         /// <param name="thickness">
-        ///     Grosor del trazo del arco. Ayuda a balancear el grosor del trazo y
-        ///     el radio para lograr un tamaño más consistente.
+        /// Grosor del trazo del arco. Ayuda a balancear el grosor del trazo y
+        /// el radio para lograr un tamaño más consistente.
         /// </param>
         /// <returns>
-        ///     Un <see cref="PathGeometry" /> que contiene el arco generado por
-        ///     esta función.
+        /// Un <see cref="PathGeometry" /> que contiene el arco generado por
+        /// esta función.
         /// </returns>
         public static PathGeometry GetCircleArc(double radius, double angle, double thickness = 0)
         {
@@ -685,19 +685,19 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Genera un arco de círculo que puede usarse en Windows Presentation
-        ///     Framework.
+        /// Genera un arco de círculo que puede usarse en Windows Presentation
+        /// Framework.
         /// </summary>
         /// <param name="radius">Radio del arco a generar.</param>
         /// <param name="startAngle">Ángulo inicial del arco.</param>
         /// <param name="endAngle">Ángulo final del arco.</param>
         /// <param name="thickness">
-        ///     Grosor del trazo del arco. Ayuda a balancear el grosor del trazo y
-        ///     el radio para lograr un tamaño más consistente.
+        /// Grosor del trazo del arco. Ayuda a balancear el grosor del trazo y
+        /// el radio para lograr un tamaño más consistente.
         /// </param>
         /// <returns>
-        ///     Un <see cref="PathGeometry" /> que contiene el arco generado por
-        ///     esta función.
+        /// Un <see cref="PathGeometry" /> que contiene el arco generado por
+        /// esta función.
         /// </returns>
         public static PathGeometry GetCircleArc(double radius, double startAngle, double endAngle, double thickness)
         {
@@ -728,11 +728,11 @@ namespace TheXDS.MCART
         internal static extern uint GetWindowLong(IntPtr hwnd, int index);
 
         /// <summary>
-        ///     Establece la propiedad <see cref="UIElement.Visibility" /> a
-        ///     <see cref="Visibility.Hidden" /> a una lista de controles.
+        /// Establece la propiedad <see cref="UIElement.Visibility" /> a
+        /// <see cref="Visibility.Hidden" /> a una lista de controles.
         /// </summary>
         /// <param name="ctrls">
-        ///     Arreglo de <see cref="UIElement" /> a ocultar.
+        /// Arreglo de <see cref="UIElement" /> a ocultar.
         /// </param>
         public static void HideControls(params UIElement[] ctrls)
         {
@@ -740,11 +740,11 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Establece la propiedad <see cref="UIElement.Visibility" /> a
-        ///     <see cref="Visibility.Hidden" /> a una lista de controles.
+        /// Establece la propiedad <see cref="UIElement.Visibility" /> a
+        /// <see cref="Visibility.Hidden" /> a una lista de controles.
         /// </summary>
         /// <param name="ctrls">
-        ///     Arreglo de <see cref="UIElement" /> a ocultar.
+        /// Arreglo de <see cref="UIElement" /> a ocultar.
         /// </param>
         [Sugar]
         public static void HideControls(this IEnumerable<UIElement> ctrls)
@@ -753,15 +753,15 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Habilita el botón de ayuda de las ventanas de Windows y conecta
-        ///     un manejador de eventos al mismo.
+        /// Habilita el botón de ayuda de las ventanas de Windows y conecta
+        /// un manejador de eventos al mismo.
         /// </summary>
         /// <param name="window">
-        ///     Ventana en la cual habilitar el botón de ayuda.
+        /// Ventana en la cual habilitar el botón de ayuda.
         /// </param>
         /// <param name="handler">
-        ///     Delegado con la acción a ejecutar al hacer clic en el botón de
-        ///     ayuda de la ventana.
+        /// Delegado con la acción a ejecutar al hacer clic en el botón de
+        /// ayuda de la ventana.
         /// </param>
         public static void HookHelp(this Window window, HandledEventHandler handler)
         {
@@ -789,7 +789,7 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Deshabilita y oculta el botón de cerrar de la ventana de Wpf.
+        /// Deshabilita y oculta el botón de cerrar de la ventana de Wpf.
         /// </summary>
         /// <param name="window"></param>
         public static void HideClose(this Window window)
@@ -799,12 +799,12 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Obtiene un valor que determina si el control está advertido.
+        /// Obtiene un valor que determina si el control está advertido.
         /// </summary>
         /// <param name="c">Control a comprobar.</param>
         /// <returns>
-        ///     <see langword="true" /> si el control está mostrando una advertencia;
-        ///     de lo contrario, <see langword="false" />.
+        /// <see langword="true" /> si el control está mostrando una advertencia;
+        /// de lo contrario, <see langword="false" />.
         /// </returns>
         public static bool IsWarned(this Control c)
         {
@@ -816,14 +816,14 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Crea un mapa de bits de un <see cref="FrameworkElement" />.
+        /// Crea un mapa de bits de un <see cref="FrameworkElement" />.
         /// </summary>
         /// <param name="f">
-        ///     <see cref="FrameworkElement" /> a renderizar.
+        /// <see cref="FrameworkElement" /> a renderizar.
         /// </param>
         /// <returns>
-        ///     Un objeto <see cref="RenderTargetBitmap" /> que contiene una imagen
-        ///     renderizada de <paramref name="f" />.
+        /// Un objeto <see cref="RenderTargetBitmap" /> que contiene una imagen
+        /// renderizada de <paramref name="f" />.
         /// </returns>
         public static RenderTargetBitmap Render(this FrameworkElement f)
         {
@@ -831,17 +831,17 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Crea un mapa de bits de un <see cref="FrameworkElement" />.
+        /// Crea un mapa de bits de un <see cref="FrameworkElement" />.
         /// </summary>
         /// <param name="f">
-        ///     <see cref="FrameworkElement" /> a renderizar.
+        /// <see cref="FrameworkElement" /> a renderizar.
         /// </param>
         /// <param name="dpi">
-        ///     Valor de puntos por pulgada a utilizar para crear el mapa de bits.
+        /// Valor de puntos por pulgada a utilizar para crear el mapa de bits.
         /// </param>
         /// <returns>
-        ///     Un objeto <see cref="RenderTargetBitmap" /> que contiene una imagen
-        ///     renderizada de <paramref name="f" />.
+        /// Un objeto <see cref="RenderTargetBitmap" /> que contiene una imagen
+        /// renderizada de <paramref name="f" />.
         /// </returns>
         public static RenderTargetBitmap Render(this FrameworkElement f, int dpi)
         {
@@ -849,20 +849,20 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Crea un mapa de bits de un <see cref="FrameworkElement" />.
+        /// Crea un mapa de bits de un <see cref="FrameworkElement" />.
         /// </summary>
         /// <param name="f">
-        ///     <see cref="FrameworkElement" /> a renderizar.
+        /// <see cref="FrameworkElement" /> a renderizar.
         /// </param>
         /// <param name="size">
-        ///     Tamaño del canvas en donde se renderizará el control.
+        /// Tamaño del canvas en donde se renderizará el control.
         /// </param>
         /// <param name="dpi">
-        ///     Valor de puntos por pulgada a utilizar para crear el mapa de bits.
+        /// Valor de puntos por pulgada a utilizar para crear el mapa de bits.
         /// </param>
         /// <returns>
-        ///     Un objeto <see cref="RenderTargetBitmap" /> que contiene una imagen
-        ///     renderizada de <paramref name="f" />.
+        /// Un objeto <see cref="RenderTargetBitmap" /> que contiene una imagen
+        /// renderizada de <paramref name="f" />.
         /// </returns>
         public static RenderTargetBitmap Render(this Visual f, Size size, int dpi)
         {
@@ -877,25 +877,25 @@ namespace TheXDS.MCART
 
 
         /// <summary>
-        ///     Crea un mapa de bits de un <see cref="FrameworkElement" />
-        ///     estableciendo el tamaño en el cual se dibujará el control, por lo
-        ///     que no necesita haberse mostrado en la interfaz de usuario.
+        /// Crea un mapa de bits de un <see cref="FrameworkElement" />
+        /// estableciendo el tamaño en el cual se dibujará el control, por lo
+        /// que no necesita haberse mostrado en la interfaz de usuario.
         /// </summary>
         /// <param name="f">
-        ///     <see cref="FrameworkElement" /> a renderizar.
+        /// <see cref="FrameworkElement" /> a renderizar.
         /// </param>
         /// <param name="inSize">
-        ///     Tamaño del control a renderizar.
+        /// Tamaño del control a renderizar.
         /// </param>
         /// <param name="outSize">
-        ///     Tamaño del canvas en donde se renderizará el control.
+        /// Tamaño del canvas en donde se renderizará el control.
         /// </param>
         /// <param name="dpi">
-        ///     Valor de puntos por pulgada a utilizar para crear el mapa de bits.
+        /// Valor de puntos por pulgada a utilizar para crear el mapa de bits.
         /// </param>
         /// <returns>
-        ///     Un objeto <see cref="RenderTargetBitmap" /> que contiene una imagen
-        ///     renderizada de <paramref name="f" />.
+        /// Un objeto <see cref="RenderTargetBitmap" /> que contiene una imagen
+        /// renderizada de <paramref name="f" />.
         /// </returns>
         public static RenderTargetBitmap Render(this FrameworkElement f, Size inSize, Size outSize, int dpi)
         {
@@ -937,11 +937,11 @@ namespace TheXDS.MCART
             int height, uint flags);
 
         /// <summary>
-        ///     Establece la propiedad <see cref="UIElement.Visibility" /> a
-        ///     <see cref="Visibility.Visible" /> a una lista de controles.
+        /// Establece la propiedad <see cref="UIElement.Visibility" /> a
+        /// <see cref="Visibility.Visible" /> a una lista de controles.
         /// </summary>
         /// <param name="ctrls">
-        ///     Arreglo de <see cref="UIElement" /> a mostrar.
+        /// Arreglo de <see cref="UIElement" /> a mostrar.
         /// </param>
         public static void ShowControls(params UIElement[] ctrls)
         {
@@ -949,11 +949,11 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Establece la propiedad <see cref="UIElement.Visibility" /> a
-        ///     <see cref="Visibility.Visible" /> a una lista de controles.
+        /// Establece la propiedad <see cref="UIElement.Visibility" /> a
+        /// <see cref="Visibility.Visible" /> a una lista de controles.
         /// </summary>
         /// <param name="ctrls">
-        ///     Arreglo de <see cref="UIElement" /> a mostrar.
+        /// Arreglo de <see cref="UIElement" /> a mostrar.
         /// </param>
         [Sugar]
         public static void ShowControls(this IEnumerable<UIElement> ctrls)
@@ -962,11 +962,11 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Habilita o deshabilita una lista de controles según su estado
-        ///     previo.
+        /// Habilita o deshabilita una lista de controles según su estado
+        /// previo.
         /// </summary>
         /// <param name="ctrls">
-        ///     Arreglo de <see cref="UIElement" /> a habilitar/deshabilitar.
+        /// Arreglo de <see cref="UIElement" /> a habilitar/deshabilitar.
         /// </param>
         public static void ToggleControls(params UIElement[] ctrls)
         {
@@ -974,11 +974,11 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Habilita o deshabilita una lista de controles según su estado
-        ///     previo.
+        /// Habilita o deshabilita una lista de controles según su estado
+        /// previo.
         /// </summary>
         /// <param name="ctrls">
-        ///     Arreglo de <see cref="UIElement" /> a habilitar/deshabilitar.
+        /// Arreglo de <see cref="UIElement" /> a habilitar/deshabilitar.
         /// </param>
         [Sugar]
         public static void ToggleControls(this IEnumerable<UIElement> ctrls)
@@ -987,13 +987,13 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Convierte un <see cref="BitmapSource" /> en un
-        ///     <see cref="BitmapImage" />.
+        /// Convierte un <see cref="BitmapSource" /> en un
+        /// <see cref="BitmapImage" />.
         /// </summary>
         /// <param name="bs"><see cref="BitmapSource" /> a convertir.</param>
         /// <returns>
-        ///     Un <see cref="BitmapImage" /> que contiene la imagen obtenida desde
-        ///     un <see cref="BitmapSource" />.
+        /// Un <see cref="BitmapImage" /> que contiene la imagen obtenida desde
+        /// un <see cref="BitmapSource" />.
         /// </returns>
         public static BitmapImage ToImage(this BitmapSource bs)
         {
@@ -1011,13 +1011,13 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Convierte un <see cref="System.Drawing.Image" /> en un
-        ///     <see cref="BitmapImage" />.
+        /// Convierte un <see cref="System.Drawing.Image" /> en un
+        /// <see cref="BitmapImage" />.
         /// </summary>
         /// <param name="bs"><see cref="BitmapSource" /> a convertir.</param>
         /// <returns>
-        ///     Un <see cref="BitmapImage" /> que contiene la imagen obtenida desde
-        ///     un <see cref="System.Drawing.Image" />.
+        /// Un <see cref="BitmapImage" /> que contiene la imagen obtenida desde
+        /// un <see cref="System.Drawing.Image" />.
         /// </returns>
         public static BitmapImage ToImage(this System.Drawing.Image bs)
         {
@@ -1034,13 +1034,13 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Convierte un <see cref="System.Drawing.Image" /> en un
-        ///     <see cref="BitmapSource" />.
+        /// Convierte un <see cref="System.Drawing.Image" /> en un
+        /// <see cref="BitmapSource" />.
         /// </summary>
         /// <param name="bs"><see cref="BitmapSource" /> a convertir.</param>
         /// <returns>
-        ///     Un <see cref="BitmapImage" /> que contiene la imagen obtenida desde
-        ///     un <see cref="System.Drawing.Image" />.
+        /// Un <see cref="BitmapImage" /> que contiene la imagen obtenida desde
+        /// un <see cref="System.Drawing.Image" />.
         /// </returns>
         public static BitmapSource ToSource(this System.Drawing.Image bs)
         {
@@ -1060,7 +1060,7 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Establece un estado de error para un control.
+        /// Establece un estado de error para un control.
         /// </summary>
         /// <param name="c">Control a advertir.</param>
         public static void Warn(this Control c)
@@ -1069,11 +1069,11 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        ///     Establece un estado de error para un control.
+        /// Establece un estado de error para un control.
         /// </summary>
         /// <param name="c">Control a advertir.</param>
         /// <param name="ttip">
-        ///     <see cref="ToolTip" /> con un mensaje de error para mostrar.
+        /// <see cref="ToolTip" /> con un mensaje de error para mostrar.
         /// </param>
         public static void Warn(this Control c, string? ttip)
         {

@@ -44,7 +44,7 @@ namespace TheXDS.MCART.Controls
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Control de gráficos de histograma ligero.
+    /// Control de gráficos de histograma ligero.
     /// </summary>
     [Obsolete(ISt.LegacyComponent)]
     public class LightGraph : UserControl

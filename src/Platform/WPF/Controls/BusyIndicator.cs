@@ -35,14 +35,14 @@ namespace TheXDS.MCART.Controls
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Control simple que indica al usuario que la aplicación está ocupada.
+    /// Control simple que indica al usuario que la aplicación está ocupada.
     /// </summary>
     public class BusyIndicator : UserControl
     {
         private static readonly Type T = typeof(BusyIndicator);
 
         /// <summary>
-        ///     Identifica a la propiedad de dependencia <see cref="Radius" />.
+        /// Identifica a la propiedad de dependencia <see cref="Radius" />.
         /// </summary>
         public static readonly DependencyProperty RadiusProperty = DependencyProperty.Register(nameof(Radius),
             typeof(double), T,
@@ -55,7 +55,7 @@ namespace TheXDS.MCART.Controls
         }
 
         /// <summary>
-        ///     Obtiene o establece el radio de este control.
+        /// Obtiene o establece el radio de este control.
         /// </summary>
         public double Radius
         {
@@ -64,7 +64,7 @@ namespace TheXDS.MCART.Controls
         }
 
         /// <summary>
-        ///     Identifica a la propiedad de dependencia <see cref="Starting" />.
+        /// Identifica a la propiedad de dependencia <see cref="Starting" />.
         /// </summary>
         public static readonly DependencyProperty StartingProperty =
             DependencyProperty.Register(nameof(Starting), typeof(bool), T, new PropertyMetadata(false, Colorize));
@@ -78,8 +78,8 @@ namespace TheXDS.MCART.Controls
         }
 
         /// <summary>
-        ///     Obtiene o establece un valor que indica si el control se dibujará
-        ///     en su estado secundario.
+        /// Obtiene o establece un valor que indica si el control se dibujará
+        /// en su estado secundario.
         /// </summary>
         public bool Starting
         {
@@ -88,13 +88,13 @@ namespace TheXDS.MCART.Controls
         }
 
         /// <summary>
-        ///     Identifica a la propiedad de dependencia <see cref="Stroke" />.
+        /// Identifica a la propiedad de dependencia <see cref="Stroke" />.
         /// </summary>
         public static readonly DependencyProperty StrokeProperty = DependencyProperty.Register(nameof(Stroke),
             typeof(Brush), T, new PropertyMetadata(SystemColors.HighlightBrush, Colorize));
 
         /// <summary>
-        ///     Obtiene o establece el <see cref="Brush" /> a aplicar al control.
+        /// Obtiene o establece el <see cref="Brush" /> a aplicar al control.
         /// </summary>
         public Brush Stroke
         {
@@ -103,14 +103,14 @@ namespace TheXDS.MCART.Controls
         }
 
         /// <summary>
-        ///     Identifica a la propiedad de dependencia <see cref="Stroke2" />.
+        /// Identifica a la propiedad de dependencia <see cref="Stroke2" />.
         /// </summary>
         public static readonly DependencyProperty Stroke2Property = DependencyProperty.Register(nameof(Stroke2),
             typeof(Brush), T, new PropertyMetadata(SystemColors.ControlDarkBrush, Colorize));
 
         /// <summary>
-        ///     Obtiene o establece el <see cref="Brush" /> a aplicar al estado
-        ///     secundario de el control.
+        /// Obtiene o establece el <see cref="Brush" /> a aplicar al estado
+        /// secundario de el control.
         /// </summary>
         public Brush Stroke2
         {
@@ -119,14 +119,14 @@ namespace TheXDS.MCART.Controls
         }
 
         /// <summary>
-        ///     Identifica a la propiedad de dependencia <see cref="Thickness" />.
+        /// Identifica a la propiedad de dependencia <see cref="Thickness" />.
         /// </summary>
         public static readonly DependencyProperty ThicknessProperty = DependencyProperty.Register(nameof(Thickness),
             typeof(double), T,
             new FrameworkPropertyMetadata(4.0, FrameworkPropertyMetadataOptions.AffectsMeasure, SetControlSize));
 
         /// <summary>
-        ///     Obtiene o establece el grosor de los elementos de este control.
+        /// Obtiene o establece el grosor de los elementos de este control.
         /// </summary>
         public double Thickness
         {
@@ -157,7 +157,7 @@ namespace TheXDS.MCART.Controls
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Controls.BusyIndicator" />.
+        /// Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Controls.BusyIndicator" />.
         /// </summary>
         public BusyIndicator()
         {

@@ -34,7 +34,7 @@ using TheXDS.MCART.Dialogs;
 namespace TheXDS.MCART.Resources
 {
     /// <summary>
-    ///     Expone los detalles de MCART para WPF.
+    /// Expone los detalles de MCART para WPF.
     /// </summary>
     public class WpfRtInfo : RtInfo
     {
@@ -52,7 +52,7 @@ namespace TheXDS.MCART.Resources
         public static bool? RtSupport(Application app) => RtSupport(app);
 
         /// <summary>
-        ///     Muestra la información de identificación de MCART.
+        /// Muestra la información de identificación de MCART.
         /// </summary>
         public static void Show()
         {
@@ -61,8 +61,8 @@ namespace TheXDS.MCART.Resources
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="WpfRtInfo" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="WpfRtInfo" />.
         /// </summary>
         public WpfRtInfo() : base(typeof(WpfRtInfo).Assembly) { }
     }

@@ -33,8 +33,8 @@ namespace TheXDS.MCART.Dialogs
 {
     /// <inheritdoc cref="Window"/>
     /// <summary>
-    ///     Diálogo que permite mostrar información acerca de los
-    ///     <see cref="Plugin" /> cargables por MCART.
+    /// Diálogo que permite mostrar información acerca de los
+    /// <see cref="Plugin" /> cargables por MCART.
     /// </summary>
     public partial class PluginBrowser
     {
@@ -42,8 +42,8 @@ namespace TheXDS.MCART.Dialogs
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Dialogs.PluginBrowser" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="T:TheXDS.MCART.Dialogs.PluginBrowser" />.
         /// </summary>
         public PluginBrowser()
         {
@@ -53,8 +53,8 @@ namespace TheXDS.MCART.Dialogs
 
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Dialogs.PluginBrowser" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="T:TheXDS.MCART.Dialogs.PluginBrowser" />.
         /// </summary>
         /// <param name="plugin">Plugin del cual mostrar información.</param>
         public PluginBrowser(IPlugin plugin) : this()

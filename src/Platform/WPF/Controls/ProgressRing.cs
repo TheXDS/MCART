@@ -36,7 +36,7 @@ using static TheXDS.MCART.WpfUi;
 namespace TheXDS.MCART.Controls
 {
     /// <summary>
-    ///     Control que presenta visualmente el progreso de una operación.
+    /// Control que presenta visualmente el progreso de una operación.
     /// </summary>
     public partial class ProgressRing : UserControl
     {

@@ -37,8 +37,8 @@ namespace TheXDS.MCART.Pages
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Inicializa una nueva instancia de la clase
-        ///     <see cref="T:TheXDS.MCART.Pages.PluginDetails" />.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="T:TheXDS.MCART.Pages.PluginDetails" />.
         /// </summary>
         public PluginDetails()
         {
