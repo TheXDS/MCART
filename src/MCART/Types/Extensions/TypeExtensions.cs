@@ -734,7 +734,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static string CleanFullName(this Type type)
         {
-            if (type.FullName is null) throw new InvalidOperationException();
+            if (type.FullName is null) return type.Name;
             return type.FullName.Contains('`') ? type.FullName.Substring(0, type.FullName.IndexOf('`')) : type.FullName;
         }
     }
