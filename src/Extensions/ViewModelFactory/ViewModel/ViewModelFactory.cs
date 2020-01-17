@@ -152,8 +152,18 @@ namespace TheXDS.MCART.ViewModel
                     ilGen.Emit(Ldtoken, t);
                     ilGen.Emit(Call, typeof(Type).GetMethod("GetTypeFromHandle")!);
                     break;
-                default:
+                case null:
                     ilGen.Emit(Ldnull);
+                    break;
+                default:
+                    if (value.GetType().IsValueType)
+                    {
+                        ilGen.Emit(Newobj, value.GetType().GetConstructor(Type.EmptyTypes)!);
+                    }
+                    else
+                    {
+                        ilGen.Emit(Ldnull);
+                    }
                     break;
             }
         }
@@ -277,7 +287,20 @@ namespace TheXDS.MCART.ViewModel
             getter.Emit(Dup);
             getter.Emit(Brtrue, L000e);
             getter.Emit(Pop);
-            getter.Emit(Ldnull);
+
+
+
+            if (prop.PropertyType.IsValueType)
+            {
+                getter.LoadConstant(prop.PropertyType.Default());
+            }
+            else
+            {
+                getter.Emit(Ldnull);
+            }
+
+
+
             getter.Emit(Br_S, LgetRet);
             getter.MarkLabel(L000e);
             getter.Emit(Call,prop.GetMethod);
