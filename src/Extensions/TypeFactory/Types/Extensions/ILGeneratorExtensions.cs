@@ -83,16 +83,16 @@ namespace TheXDS.MCART.Types.Extensions
         /// Se produce al intentar cargar un valor que no es constante, como
         /// una instancia de objeto.
         /// </exception>
-        public static void LoadConstant(this ILGenerator ilGen, object value)
+        public static void LoadConstant(this ILGenerator ilGen, object? value)
         {
             var t = value?.GetType() ?? typeof(object);
-            if (_constantLoaders.FirstOrDefault(p=>p.ConstantType == t) is IConstantLoader cl)
+            if (_constantLoaders.FirstOrDefault(p => p.ConstantType == t) is IConstantLoader cl)
             {
                 cl.Emit(ilGen, value);
             }
             else if (!t.IsStruct())
             {
-                ilGen.Emit(Newobj, t.GetConstructor(Array.Empty<Type>()));
+                ilGen.Emit(Newobj, t.GetConstructor(Type.EmptyTypes)!);
             }
             else
             {
@@ -197,7 +197,7 @@ namespace TheXDS.MCART.Types.Extensions
                 throw new ClassNotInstantiableException(type);
             foreach (var j in args)
             {
-                if (j.GetType().IsClass)
+                if (j?.GetType().IsClass ?? false)
                     NewObject(ilGen, j.GetType());
                 else
                     LoadConstant(ilGen, j);

@@ -52,6 +52,12 @@ namespace TheXDS.MCART.ViewModel
         /// permitir al constructor de ViewModels invalidarla.
         /// </remarks>
         new T Entity { get; set; }
+
+        object? IDynamicViewModel.Entity
+        {
+            get => Entity;
+            set => Entity = (T)value!;
+        }
     }
 
     /// <summary>
@@ -75,6 +81,6 @@ namespace TheXDS.MCART.ViewModel
         /// La implementación de este campo debe ser abstracta para
         /// permitir al constructor de ViewModels invalidarla.
         /// </remarks>
-        object Entity { get; set; }
+        object? Entity { get; set; }
     }
 }

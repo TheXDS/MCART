@@ -89,7 +89,7 @@ namespace TheXDS.MCART.Types.Extensions
             var flags = Access(access) | SpecialName | HideBySig;
             if (tb.Overridable($"get_{name}") ?? @virtual) flags |= Virtual;
 
-            field = tb.DefineField(Helpers.UndName(name), type, FieldAttributes.Private | (writtable ? 0 : FieldAttributes.InitOnly));
+            field = tb.DefineField(TypeBuilderHelpers.UndName(name), type, FieldAttributes.Private | (writtable ? 0 : FieldAttributes.InitOnly));
             prop = tb.DefineProperty(name, PropertyAttributes.HasDefault, type, null);
             var getM = tb.DefineMethod($"get_{name}", flags, type, null);
             var getIl = getM.GetILGenerator();

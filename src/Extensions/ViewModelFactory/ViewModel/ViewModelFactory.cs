@@ -179,6 +179,7 @@ namespace TheXDS.MCART.ViewModel
             if (name.IsEmpty()) throw new ArgumentNullException(name);
             return name[0] != 'I' ? $"{name}Implementation" : name.Substring(1);
         }
+        
         private static TypeBuilder NewType(string name, Type baseType, params Type[] interfaces) => _mBuilder.DefineType($"{_namespace}.{name}_{Guid.NewGuid().ToString().Replace("-", "")}", TypeAttributes.Public | TypeAttributes.Class, baseType, interfaces);
         private static Type GetListType(Type listType) => listType.GenericTypeArguments?.Count() == 1 ? listType.GenericTypeArguments.Single() : typeof(object);
         private static bool CanMap(PropertyInfo p)
