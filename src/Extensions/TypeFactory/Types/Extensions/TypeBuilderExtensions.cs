@@ -27,6 +27,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using TheXDS.MCART.Annotations;
 using TheXDS.MCART.Types.Base;
 using static System.Reflection.Emit.OpCodes;
 using static System.Reflection.MethodAttributes;
@@ -166,7 +167,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
         /// la propiedad que ha sido construida.
         /// </returns>
-        public static PropertyBuildInfo AddNpcProperty<T>(this TypeBuilder tb, string name)
+        public static PropertyBuildInfo AddNpcProperty<T>(this ITypeBuilder<NotifyPropertyChangeBase> tb, string name)
         {
             return AddNpcProperty(tb, name, typeof(T));
         }
@@ -185,7 +186,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
         /// la propiedad que ha sido construida.
         /// </returns>
-        public static PropertyBuildInfo AddNpcProperty(this TypeBuilder tb, string name, Type type)
+        public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<NotifyPropertyChangeBase> tb, string name, Type type)
         {
             return AddNpcProperty(tb, name, type, MemberAccess.Public);
         }
@@ -205,7 +206,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
         /// la propiedad que ha sido construida.
         /// </returns>
-        public static PropertyBuildInfo AddNpcProperty(this TypeBuilder tb, string name, Type type, MemberAccess access)
+        public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<NotifyPropertyChangeBase> tb, string name, Type type, MemberAccess access)
         {
             return AddNpcProperty(tb, name, type, access, false);
         }
@@ -230,9 +231,106 @@ namespace TheXDS.MCART.Types.Extensions
         /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
         /// la propiedad que ha sido construida.
         /// </returns>
-        public static PropertyBuildInfo AddNpcProperty(this TypeBuilder tb, string name, Type type, MemberAccess access, bool @virtual)
+        public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<NotifyPropertyChangeBase> tb, string name, Type type, MemberAccess access, bool @virtual)
         {
-            return AddNpcProperty(tb, name, type, access, @virtual, null);
+            CheckImplements<NotifyPropertyChangeBase>(tb.SpecificBaseType);
+            var p = AddProperty(tb.Builder, name, type, true, access, @virtual);
+            var field = tb.Builder.DefineField(UndName(name), type, FieldAttributes.Private | FieldAttributes.PrivateScope);
+            p.Getter!.LoadField(field).Return();
+
+            p.Setter!
+                .This()
+                .LoadFieldAddress(field)
+                .LoadArg1()
+                .LoadConstant(name);
+            p.Setter!.Emit(Callvirt, tb.ActualBaseType.GetMethod("Change", BindingFlags.NonPublic | BindingFlags.Instance)!.MakeGenericMethod(new[] { type })!);
+            p.Setter!
+                .Pop()
+                .Return();
+            return new PropertyBuildInfo(p.Property, field);
+        }
+
+        /// <summary>
+        /// Agrega una propiedad pública con soporte para notificación de
+        /// cambios de valor.
+        /// </summary>
+        /// <typeparam name="T">Tipo de la nueva propiedad.</typeparam>
+        /// <param name="tb">
+        /// Constructor del tipo en el cual crear la nueva propiedad con
+        /// soporte para notificación de cambios de valor.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <returns>
+        /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+        /// la propiedad que ha sido construida.
+        /// </returns>
+        public static PropertyBuildInfo AddNpcProperty<T>(this ITypeBuilder<INotifyPropertyChanged> tb, string name)
+        {
+            return AddNpcProperty(tb, name, typeof(T));
+        }
+
+        /// <summary>
+        /// Agrega una propiedad pública con soporte para notificación de
+        /// cambios de valor.
+        /// </summary>
+        /// <param name="tb">
+        /// Constructor del tipo en el cual crear la nueva propiedad con
+        /// soporte para notificación de cambios de valor.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <param name="type">Tipo de la nueva propiedad.</param>
+        /// <returns>
+        /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+        /// la propiedad que ha sido construida.
+        /// </returns>
+        public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<INotifyPropertyChanged> tb, string name, Type type)
+        {
+            return AddNpcProperty(tb, name, type, MemberAccess.Public);
+        }
+
+        /// <summary>
+        /// Agrega una propiedad con soporte para notificación de cambios de
+        /// valor.
+        /// </summary>
+        /// <param name="tb">
+        /// Constructor del tipo en el cual crear la nueva propiedad con
+        /// soporte para notificación de cambios de valor.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <param name="type">Tipo de la nueva propiedad.</param>
+        /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+        /// <returns>
+        /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+        /// la propiedad que ha sido construida.
+        /// </returns>
+        public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<INotifyPropertyChanged> tb, string name, Type type, MemberAccess access)
+        {
+            return AddNpcProperty(tb, name, type, access, false);
+        }
+
+        /// <summary>
+        /// Agrega una propiedad con soporte para notificación de cambios de
+        /// valor.
+        /// </summary>
+        /// <param name="tb">
+        /// Constructor del tipo en el cual crear la nueva propiedad con
+        /// soporte para notificación de cambios de valor.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <param name="type">Tipo de la nueva propiedad.</param>
+        /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+        /// <param name="virtual">
+        /// Si se establece en <see langword="true"/>, la propiedad será
+        /// definida como virtual, por lo que podrá ser reemplazada en una
+        /// clase derivada. 
+        /// </param>
+        /// <returns>
+        /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+        /// la propiedad que ha sido construida.
+        /// </returns>
+        public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<INotifyPropertyChanged> tb, string name, Type type, MemberAccess access, bool @virtual)
+        {
+            return AddNpcProperty(tb, name, type, access, @virtual, (MethodInfo?)null);
         }
 
         /// <summary>
@@ -258,45 +356,229 @@ namespace TheXDS.MCART.Types.Extensions
         /// <see langword="null"/> (<see langword="Nothing"/> en Visual Basic),
         /// se buscará un campo que contenga una referencia a un
         /// <see cref="PropertyChangedEventHandler"/> en el tipo base del tipo
-        /// construido por medio de  <paramref name="tb"/>. Este argumento será
-        /// ignorado si el tipo a construir por medio de <paramref name="tb"/>
-        /// hereda de la clase <see cref="NotifyPropertyChangeBase"/> o una de
-        /// sus clases derivadas.
+        /// construido por medio de  <paramref name="tb"/>.
         /// </param>
         /// <returns>
         /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
         /// la propiedad que ha sido construida.
         /// </returns>
-        public static PropertyBuildInfo AddNpcProperty(this TypeBuilder tb, string name, Type type, MemberAccess access, bool @virtual, FieldInfo? evtHandler)
+        public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<INotifyPropertyChanged> tb, string name, Type type, MemberAccess access, bool @virtual, FieldInfo? evtHandler)
         {
-            (PropertyBuilder prop, ILGenerator setter, FieldBuilder field) AddP()
-            {
-                var p = AddProperty(tb, name, type, true, access, @virtual);
-                var field = tb.DefineField(UndName(name), type, FieldAttributes.Private | FieldAttributes.PrivateScope);
-                p.Getter!.LoadField(field).Return();
-                return (p.Property, p.Setter!, field);
-            }
+            evtHandler ??= tb.SpecificBaseType.GetFields().FirstOrDefault(p => p.FieldType.Implements<PropertyChangedEventHandler>()) ?? throw new MissingFieldException();
+            return AddNpcSetter(tb.Builder, name, type, access,@virtual, (retLabel,setter) => setter
+                .LoadField(evtHandler)
+                .Duplicate()
+                .BranchTrueNewLabel(out var notify)
+                .Pop()
+                .Branch(retLabel)
+                .PutLabel(notify)
+                .This()
+                .LoadConstant(name)
+                .NewObj<PropertyChangedEventArgs>()
+            , ReflectionHelpers.GetMethod<PropertyChangedEventHandler, Action<object, PropertyChangedEventArgs>>(p => p.Invoke));
+        }
 
-            PropertyBuilder prop;
-            ILGenerator setter;
-            FieldBuilder field;
+        /// <summary>
+        /// Agrega una propiedad con soporte para notificación de cambios de
+        /// valor.
+        /// </summary>
+        /// <param name="tb">
+        /// Constructor del tipo en el cual crear la nueva propiedad con
+        /// soporte para notificación de cambios de valor.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <param name="type">Tipo de la nueva propiedad.</param>
+        /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+        /// <param name="virtual">
+        /// Si se establece en <see langword="true"/>, la propiedad será
+        /// definida como virtual, por lo que podrá ser reemplazada en una
+        /// clase derivada. 
+        /// </param>
+        /// <param name="npcInvocator">
+        /// Métod que invoca al manejador de eventos para los tipos construidos
+        /// que implementan directamente <see cref="INotifyPropertyChanged"/>.
+        /// Si se omite o se establece en <see langword="null"/>
+        /// (<see langword="Nothing"/> en Visual Basic), se buscará un campo
+        /// que contenga una referencia a un
+        /// <see cref="PropertyChangedEventHandler"/> en el tipo base del tipo
+        /// construido por medio de  <paramref name="tb"/>.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+        /// la propiedad que ha sido construida.
+        /// </returns>
+        public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<INotifyPropertyChanged> tb, string name, Type type, MemberAccess access, bool @virtual, MethodInfo? npcInvocator)
+        {
+            npcInvocator ??= tb.SpecificBaseType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).First(p => p.IsVoid() && p.GetParameters().Length == 1 && p.GetParameters()[0].ParameterType == typeof(string) && p.HasAttr<NotifyPropertyChangedInvocatorAttribute>());
+            return AddNpcSetter(tb.Builder, name, type, access, @virtual, (_, setter) => setter.This().LoadConstant(name), npcInvocator);
+        }
 
-            if (tb.Implements<NotifyPropertyChangeBase>())
-            {
-                (prop, setter, field) = AddP();
-                AddNpcSetter(tb, name, type, setter, field);
-            }
-            else if (tb.Implements<INotifyPropertyChanged>())
-            {
-                evtHandler ??= tb.BaseType?.GetFields().FirstOrDefault(p => p.FieldType.Implements<PropertyChangedEventHandler>()) ?? throw new MissingFieldException();
-                (prop, setter, field) = AddP();
-                AddNpcSetter(tb, name, type, setter, field, evtHandler);
-            }
-            else
-            {
-                throw Errors.ErrIfaceNotImpl<INotifyPropertyChanged>();
-            }
-            return new PropertyBuildInfo(prop, field);
+        /// <summary>
+        /// Agrega una propiedad con soporte para notificación de cambios de
+        /// valor.
+        /// </summary>
+        /// <param name="tb">
+        /// Constructor del tipo en el cual crear la nueva propiedad con
+        /// soporte para notificación de cambios de valor.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <param name="type">Tipo de la nueva propiedad.</param>
+        /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+        /// <param name="evtHandler">
+        /// Campo que contiene una referencia al manejador de eventos a llamar
+        /// para los tipos construidos que implementan directamente
+        /// <see cref="INotifyPropertyChanged"/>. Si se omite o se establece en
+        /// <see langword="null"/> (<see langword="Nothing"/> en Visual Basic),
+        /// se buscará un campo que contenga una referencia a un
+        /// <see cref="PropertyChangedEventHandler"/> en el tipo base del tipo
+        /// construido por medio de  <paramref name="tb"/>.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+        /// la propiedad que ha sido construida.
+        /// </returns>
+        public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<INotifyPropertyChanged> tb, string name, Type type, MemberAccess access, FieldInfo? evtHandler)
+        {
+            return AddNpcProperty(tb, name, type, access, false, evtHandler);
+        }
+
+        /// <summary>
+        /// Agrega una propiedad con soporte para notificación de cambios de
+        /// valor.
+        /// </summary>
+        /// <param name="tb">
+        /// Constructor del tipo en el cual crear la nueva propiedad con
+        /// soporte para notificación de cambios de valor.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <param name="type">Tipo de la nueva propiedad.</param>
+        /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+        /// <param name="npcInvocator">
+        /// Métod que invoca al manejador de eventos para los tipos construidos
+        /// que implementan directamente <see cref="INotifyPropertyChanged"/>.
+        /// Si se omite o se establece en <see langword="null"/>
+        /// (<see langword="Nothing"/> en Visual Basic), se buscará un campo
+        /// que contenga una referencia a un
+        /// <see cref="PropertyChangedEventHandler"/> en el tipo base del tipo
+        /// construido por medio de  <paramref name="tb"/>.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+        /// la propiedad que ha sido construida.
+        /// </returns>
+        public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<INotifyPropertyChanged> tb, string name, Type type, MemberAccess access, MethodInfo? npcInvocator)
+        {
+            return AddNpcProperty(tb, name, type, access, false, npcInvocator);
+        }
+
+        /// <summary>
+        /// Agrega una propiedad con soporte para notificación de cambios de
+        /// valor.
+        /// </summary>
+        /// <param name="tb">
+        /// Constructor del tipo en el cual crear la nueva propiedad con
+        /// soporte para notificación de cambios de valor.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <param name="type">Tipo de la nueva propiedad.</param>
+        /// <param name="evtHandler">
+        /// Campo que contiene una referencia al manejador de eventos a llamar
+        /// para los tipos construidos que implementan directamente
+        /// <see cref="INotifyPropertyChanged"/>. Si se omite o se establece en
+        /// <see langword="null"/> (<see langword="Nothing"/> en Visual Basic),
+        /// se buscará un campo que contenga una referencia a un
+        /// <see cref="PropertyChangedEventHandler"/> en el tipo base del tipo
+        /// construido por medio de  <paramref name="tb"/>.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+        /// la propiedad que ha sido construida.
+        /// </returns>
+        public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<INotifyPropertyChanged> tb, string name, Type type, FieldInfo? evtHandler)
+        {
+            return AddNpcProperty(tb, name, type, MemberAccess.Public, false, evtHandler);
+        }
+
+        /// <summary>
+        /// Agrega una propiedad con soporte para notificación de cambios de
+        /// valor.
+        /// </summary>
+        /// <param name="tb">
+        /// Constructor del tipo en el cual crear la nueva propiedad con
+        /// soporte para notificación de cambios de valor.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <param name="type">Tipo de la nueva propiedad.</param>
+        /// <param name="npcInvocator">
+        /// Métod que invoca al manejador de eventos para los tipos construidos
+        /// que implementan directamente <see cref="INotifyPropertyChanged"/>.
+        /// Si se omite o se establece en <see langword="null"/>
+        /// (<see langword="Nothing"/> en Visual Basic), se buscará un campo
+        /// que contenga una referencia a un
+        /// <see cref="PropertyChangedEventHandler"/> en el tipo base del tipo
+        /// construido por medio de  <paramref name="tb"/>.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+        /// la propiedad que ha sido construida.
+        /// </returns>
+        public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<INotifyPropertyChanged> tb, string name, Type type, MethodInfo? npcInvocator)
+        {
+            return AddNpcProperty(tb, name, type, MemberAccess.Public, false, npcInvocator);
+        }
+
+        /// <summary>
+        /// Agrega una propiedad con soporte para notificación de cambios de
+        /// valor.
+        /// </summary>
+        /// <param name="tb">
+        /// Constructor del tipo en el cual crear la nueva propiedad con
+        /// soporte para notificación de cambios de valor.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <param name="evtHandler">
+        /// Campo que contiene una referencia al manejador de eventos a llamar
+        /// para los tipos construidos que implementan directamente
+        /// <see cref="INotifyPropertyChanged"/>. Si se omite o se establece en
+        /// <see langword="null"/> (<see langword="Nothing"/> en Visual Basic),
+        /// se buscará un campo que contenga una referencia a un
+        /// <see cref="PropertyChangedEventHandler"/> en el tipo base del tipo
+        /// construido por medio de  <paramref name="tb"/>.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+        /// la propiedad que ha sido construida.
+        /// </returns>
+        public static PropertyBuildInfo AddNpcProperty<T>(this ITypeBuilder<INotifyPropertyChanged> tb, string name, FieldInfo? evtHandler)
+        {
+            return AddNpcProperty(tb, name, typeof(T), MemberAccess.Public, false, evtHandler);
+        }
+
+        /// <summary>
+        /// Agrega una propiedad con soporte para notificación de cambios de
+        /// valor.
+        /// </summary>
+        /// <param name="tb">
+        /// Constructor del tipo en el cual crear la nueva propiedad con
+        /// soporte para notificación de cambios de valor.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <param name="npcInvocator">
+        /// Métod que invoca al manejador de eventos para los tipos construidos
+        /// que implementan directamente <see cref="INotifyPropertyChanged"/>.
+        /// Si se omite o se establece en <see langword="null"/>
+        /// (<see langword="Nothing"/> en Visual Basic), se buscará un campo
+        /// que contenga una referencia a un
+        /// <see cref="PropertyChangedEventHandler"/> en el tipo base del tipo
+        /// construido por medio de  <paramref name="tb"/>.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+        /// la propiedad que ha sido construida.
+        /// </returns>
+        public static PropertyBuildInfo AddNpcProperty<T>(this ITypeBuilder<INotifyPropertyChanged> tb, string name, MethodInfo? npcInvocator)
+        {
+            return AddNpcProperty(tb, name, typeof(T), MemberAccess.Public, false, npcInvocator);
         }
 
         /// <summary>
@@ -447,12 +729,6 @@ namespace TheXDS.MCART.Types.Extensions
         /// Constructor del tipo en el cual crear la nueva propiedad.
         /// </param>
         /// <param name="name">Nombre de la nueva propiedad.</param>
-        /// <param name="writtable">
-        /// <see langword="true"/> para crear una propiedad que contiene
-        /// accesor de escritura (accesor <see langword="set"/>),
-        /// <see langword="false"/> para no incluir un accesor de escritura en
-        /// la propiedad.
-        /// </param>
         /// <returns>
         /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
         /// la propiedad que ha sido construida.
@@ -492,67 +768,76 @@ namespace TheXDS.MCART.Types.Extensions
 
         #region Helpers privados
 
-        private static void AddNpcSetter(TypeBuilder tb, string name, Type t, ILGenerator setter, FieldBuilder field)
+        private static void CheckImplements<T>(Type t)
         {
-            setter
-                .This()
-                .Duplicate()
-                .LoadFieldAddress(field)
-                .LoadArg1()
-                .LoadConstant(name);
-            setter.Emit(Callvirt, tb.BaseType!.GetMethod("Change", BindingFlags.NonPublic | BindingFlags.Instance)!.MakeGenericMethod(new[] { t })!);
-            setter
-                .Pop()
-                .Return();
-        }
-        private static void AddNpcSetter(TypeBuilder tb, string name, Type t, ILGenerator setter, FieldBuilder field, FieldInfo evtHandler)
-        {
-            setter
-                .This()
-                .LoadField(field)
-                .LoadArg1();
-
-            if (!t.IsValueType)
+            if (!t.Implements<T>())
             {
-                setter.Emit(Ceq);
+                throw Errors.ErrIfaceNotImpl<T>();
+            }
+        }
+
+        private static PropertyBuildInfo AddNpcSetter(TypeBuilder tb, string name, Type t, MemberAccess access, bool @virtual, Action<Label,ILGenerator> evtHandler, MethodInfo method)
+        {
+            CheckImplements<INotifyPropertyChanged>(tb.BaseType!);
+
+            var p = AddProperty(tb, name, t, true, access, @virtual);
+            var field = tb.DefineField(UndName(name), t, FieldAttributes.Private | FieldAttributes.PrivateScope);
+            p.Getter!.LoadField(field).Return();
+
+            var setRet = p.Setter!.DefineLabel();
+            p.Setter!
+                .LoadField(field);
+
+            if (t.IsValueType)
+            {
+                p.Setter!.LoadArg1()
+                    .CompareEqual()
+                    .BranchTrue(setRet);
             }
             else
             {
-                setter.Emit(Call, GetEqualsMethod(tb, t));
+                p.Setter!
+                    .BranchFalseNewLabel(out var fieldIsNull)
+                    .LoadField(field)
+                    .LoadArg1()
+                    .Call(GetEqualsMethod(t))
+                    .BranchTrue(setRet)
+                    .BranchNewLabel(out var doSet)
+                    .PutLabel(fieldIsNull)
+                    .LoadArg1()
+                    .BranchFalse(setRet)
+                    .PutLabel(doSet);
             }
-            setter
-                .BranchTrueNewLabel(out var setRet)
+            p.Setter!
                 .This()
                 .LoadArg1()
-                .StoreField(field)
-                .This()
-                .LoadField(evtHandler)
-                .Duplicate()
-                .BranchTrueNewLabel(out var notify)
-                .Pop()
-                .Branch(setRet)
-                .PutLabel(notify)
-                .This()
-                .LoadConstant(name)
-                .NewObject<PropertyChangedEventArgs>()
-                .Call<PropertyChangedEventHandler, Action<object, PropertyChangedEventArgs>>(p => p.Invoke)
+                .StoreField(field);
+
+            evtHandler(setRet, p.Setter!);
+            p.Setter!
+                .Call(method)
                 .Return(setRet);
+            return new PropertyBuildInfo(p.Property, field);
         }
-        private static MethodInfo GetEqualsMethod(TypeBuilder tb, Type type)
+
+        private static MethodInfo GetEqualsMethod(Type type)
         {
-            return tb.GetMethod(nameof(object.Equals), BindingFlags.Public | BindingFlags.Instance, null, new[] { type }, null)
-                ?? tb.GetMethod(nameof(object.Equals), BindingFlags.Public | BindingFlags.Instance, null, new[] { typeof(object) }, null)!;
+            return type.GetMethod(nameof(object.Equals), BindingFlags.Public | BindingFlags.Instance, null, new[] { type }, null)
+                ?? type.GetMethod(nameof(object.Equals), BindingFlags.Public | BindingFlags.Instance, null, new[] { typeof(object) }, null)!;
         }
+
         private static MethodBuilder MkGet(TypeBuilder tb, string name, Type t, MemberAccess a, bool v)
         {
             var n = $"get_{name}";
             return tb.DefineMethod(n, MkPFlags(tb, n, a, v), t, null);
         }
+        
         private static MethodBuilder MkSet(TypeBuilder tb, string name, Type t, MemberAccess a, bool v)
         {
             var n = $"set_{name}";
             return tb.DefineMethod(n, MkPFlags(tb, n, a, v), null, new[] { t });
         }
+        
         private static MethodAttributes MkPFlags(TypeBuilder tb, string n, MemberAccess a, bool v)
         {
             var f = Access(a) | SpecialName | HideBySig | ReuseSlot;

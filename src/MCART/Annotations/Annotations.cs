@@ -210,7 +210,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Indicates that the method is contained in a type that implements
     /// <c>System.ComponentModel.INotifyPropertyChanged</c> interface and this method

@@ -140,6 +140,39 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
+        /// Crea una nueva clase pública.
+        /// </summary>
+        /// <param name="name">Nombre de la nueva clase.</param>
+        /// <typeparam name="T">Tipo base de la nueva clase.</typeparam>
+        /// <param name="interfaces">
+        /// Interfaces a implementar por la nueva clase. Puede establecerse en
+        /// <see langword="null"/> para no implementar ninguna interfaz
+        /// adicional.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="TypeBuilder{T}"/> por medio del cual se podrá definir a
+        /// los miembros de la nueva clase.
+        /// </returns>
+        public TypeBuilder<T> NewClass<T>(string name, IEnumerable<Type>? interfaces)
+        {
+            return new TypeBuilder<T>(_mBuilder.DefineType(GetName(name), TypeAttributes.Public | TypeAttributes.Class, typeof(T), interfaces?.ToArray()));
+        }
+
+        /// <summary>
+        /// Crea una nueva clase pública.
+        /// </summary>
+        /// <param name="name">Nombre de la nueva clase.</param>
+        /// <typeparam name="T">Tipo base de la nueva clase.</typeparam>
+        /// <returns>
+        /// Un <see cref="TypeBuilder{T}"/> por medio del cual se podrá definir a
+        /// los miembros de la nueva clase.
+        /// </returns>
+        public TypeBuilder<T> NewClass<T>(string name)
+        {
+            return NewClass<T>(name, null);
+        }
+
+        /// <summary>
         /// Crea una nueva estructura pública.
         /// </summary>
         /// <param name="name">Nombre de la nueva estructura.</param>

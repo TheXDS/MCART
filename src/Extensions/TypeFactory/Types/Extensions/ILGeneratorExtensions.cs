@@ -1667,6 +1667,20 @@ namespace TheXDS.MCART.Types.Extensions
         public static ILGenerator Pop(this ILGenerator ilGen) => OneLiner(ilGen, Op.Pop);
 
         /// <summary>
+        /// Inserta una operación de carga de la constante
+        /// <see langword="null"/> en la secuencia del lenguaje intermedio de
+        /// Microsoft® (MSIL).
+        /// </summary>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la operación.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
+        public static ILGenerator LoadNull(this ILGenerator ilGen) => OneLiner(ilGen, Ldnull);
+
+        /// <summary>
         /// Inserta una operación de comparación de igualdad entre dos valores en
         /// la parte superior de la pila en la secuencia del lenguaje
         /// intermedio de Microsoft® (MSIL).
@@ -1732,6 +1746,47 @@ namespace TheXDS.MCART.Types.Extensions
         {
             ilGen.MarkLabel(exitLabel);
             ilGen.Emit(Ret);
+        }
+
+        /// <summary>
+        /// Inserta la instanciación de un objeto en la secuencia del
+        /// lenguaje intermedio de Microsoft® (MSIL).
+        /// </summary>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la instanciación
+        /// del objeto.
+        /// </param>
+        /// <param name="newObjectType">
+        /// Tipo de objeto a instanciar.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
+        public static ILGenerator NewObj(this ILGenerator ilGen, Type newObjectType)
+        {
+            ilGen.Emit(Newobj, newObjectType);
+            return ilGen;
+        }
+
+        /// <summary>
+        /// Inserta la instanciación de un objeto en la secuencia del
+        /// lenguaje intermedio de Microsoft® (MSIL).
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de objeto a instanciar.
+        /// </typeparam>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la instanciación
+        /// del objeto.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
+        public static ILGenerator NewObj<T>(this ILGenerator ilGen)
+        {
+            return NewObj(ilGen, typeof(T));
         }
 
         #region Helpers privados
