@@ -177,11 +177,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static MemberInfo GetMember<T>(Expression<Func<T, object?>> memberSelector)
         {
-            if (memberSelector.Body is UnaryExpression UnExp && UnExp.Operand is MemberExpression)                
-                return ((MemberExpression)UnExp.Operand).Member;
-            else if (memberSelector.Body is MemberExpression)            
-                return ((MemberExpression)memberSelector.Body).Member;
-            throw new ArgumentException();
+            return GetMemberInternal(memberSelector);
         }
 
         /// <summary>
@@ -196,20 +192,17 @@ namespace TheXDS.MCART
         /// </returns>
         public static MemberInfo GetMember(Expression<Func<object?>> memberSelector)
         {
-            if (memberSelector.Body is UnaryExpression UnExp && UnExp.Operand is MemberExpression)
-                return ((MemberExpression)UnExp.Operand).Member;
-            else if (memberSelector.Body is MemberExpression)
-                return ((MemberExpression)memberSelector.Body).Member;
-            throw new ArgumentException();
+            return GetMemberInternal(memberSelector);
         }
 
         /// <summary>
-        /// Obtiene un miembro de una clase a partir de una expresión.
+        /// Obtiene un miembro de instancia de una clase a partir de una
+        /// expresión.
         /// </summary>
         /// <typeparam name="T">
         /// Clase desde la cual obtener al miembro.
         /// </typeparam>
-        /// <typeparam name="TMember">
+        /// <typeparam name="TValue">
         /// Tipo del miembro obtenido.
         /// </typeparam>
         /// <param name="memberSelector">
@@ -219,17 +212,13 @@ namespace TheXDS.MCART
         /// Un <see cref="MemberInfo"/> que representa al miembro
         /// seleccionado en la expresión.
         /// </returns>
-        public static MemberInfo GetMember<T, TMember>(Expression<Func<T, TMember>> memberSelector)
+        public static MemberInfo GetMember<T, TValue>(Expression<Func<T, TValue>> memberSelector)
         {
-            if (memberSelector.Body is UnaryExpression UnExp && UnExp.Operand is MemberExpression)
-                return ((MemberExpression)UnExp.Operand).Member;
-            else if (memberSelector.Body is MemberExpression)
-                return ((MemberExpression)memberSelector.Body).Member;
-            throw new ArgumentException();
+            return GetMemberInternal(memberSelector);
         }
 
         /// <summary>
-        /// Obtiene un miembro de una clase a partir de una expresión.
+        /// Obtiene un miembro de clase a partir de una expresión.
         /// </summary>
         /// <typeparam name="TValue">
         /// Tipo del miembro obtenido.
@@ -243,12 +232,76 @@ namespace TheXDS.MCART
         /// </returns>
         public static MemberInfo GetMember<TValue>(Expression<Func<TValue>> memberSelector)
         {
-            if (memberSelector.Body is UnaryExpression UnExp && UnExp.Operand is MemberExpression)
-                return ((MemberExpression)UnExp.Operand).Member;
-            else if (memberSelector.Body is MemberExpression)
-                return ((MemberExpression)memberSelector.Body).Member;
-            throw new ArgumentException();
+            return GetMemberInternal(memberSelector);
         }
+
+        private static MemberInfo GetMemberInternal(LambdaExpression memberSelector)
+        {
+            return memberSelector.Body switch
+            {
+                UnaryExpression { Operand: MemberExpression m } => m.Member,
+                MemberExpression m => m.Member,
+                _ => throw new ArgumentException()
+            };
+        }
+
+        public static TMember GetMember<TMember, TValue>(Expression<Func<TValue>> memberSelector) where TMember : MemberInfo
+        {
+            return GetMemberInternal(memberSelector) as TMember ?? throw new InvalidArgumentException(nameof(memberSelector));
+        }
+       
+        public static TMember GetMember<TMember, T, TValue>(Expression<Func<T, TValue>> memberSelector) where TMember : MemberInfo
+        {
+            return GetMemberInternal(memberSelector) as TMember ?? throw new InvalidArgumentException(nameof(memberSelector));
+        }
+
+        public static MethodInfo GetMethod<TMethod>(Expression<Func<TMethod>> methodSelector) where TMethod : Delegate
+        {
+            return GetMember<MethodInfo, TMethod>(methodSelector);
+        }
+
+        public static MethodInfo GetMethod<T, TMethod>(Expression<Func<T, TMethod>> methodSelector) where TMethod : Delegate
+        {
+            return GetMember<MethodInfo, T, TMethod>(methodSelector);
+        }
+
+        public static MethodInfo GetMethod<T>(Expression<Func<T, Delegate>> methodSelector)
+        {
+            return GetMember<MethodInfo, T, Delegate>(methodSelector);
+        }
+
+        public static PropertyInfo GetProperty<T, TValue>(Expression<Func<T, TValue>> propertySelector)
+        {
+            return GetMember<PropertyInfo, T, TValue>(propertySelector);
+        }
+        
+        public static PropertyInfo GetProperty<TValue>(Expression<Func<TValue>> propertySelector)
+        {
+            return GetMember<PropertyInfo, TValue>(propertySelector);
+        }
+        
+        public static PropertyInfo GetProperty<T>(Expression<Func<T, object?>> propertySelector)
+        {
+            return GetMember<PropertyInfo, T, object?>(propertySelector);
+        }
+
+        public static FieldInfo GetField<T, TValue>(Expression<Func<T, TValue>> fieldSelector)
+        {
+            return GetMember<FieldInfo, T, TValue>(fieldSelector);
+        }
+        
+        public static FieldInfo GetField<TValue>(Expression<Func<TValue>> fieldSelector)
+        {
+            return GetMember<FieldInfo, TValue>(fieldSelector);
+        }
+        
+        public static FieldInfo GetField<T>(Expression<Func<T, object?>> fieldSelector)
+        {
+            return GetMember<FieldInfo, T, object?>(fieldSelector);
+        }
+
+
+
 
         /// <summary>
         /// Infiere las <see cref="BindingFlags"/> utilizadas en la

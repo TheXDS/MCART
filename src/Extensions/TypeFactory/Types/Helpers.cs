@@ -23,11 +23,15 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Reflection.Emit;
 using TheXDS.MCART.Types.Extensions;
+using System.Reflection;
+using static System.Reflection.Emit.OpCodes;
+using static System.Reflection.MethodAttributes;
 
 namespace TheXDS.MCART.Types
 {
-    internal static class TypeBuilderHelpers
+    public static class TypeBuilderHelpers
     {
         internal static string UndName(string name)
         {
@@ -42,5 +46,28 @@ namespace TheXDS.MCART.Types
             return name[0] != 'I' ? $"{name}Implementation" : name.Substring(1);
         }
 
+
+
+
+
+        /// <summary>
+        /// Obtiene un atributo de método a partir del valor de acceso
+        /// especificado.
+        /// </summary>
+        /// <returns>
+        /// Un atributo de método con el nivel de acceso especificado.
+        /// </returns>
+        /// <param name="access">Nivel de acceso deseado para el método.</param>
+        public static MethodAttributes Access(MemberAccess access)
+        {
+            return access switch
+            {
+                MemberAccess.Private => Private,
+                MemberAccess.Protected => Family,
+                MemberAccess.Internal => MethodAttributes.Assembly,
+                MemberAccess.Public => Public,
+                _ => throw new NotImplementedException(),
+            };
+        }
     }
 }

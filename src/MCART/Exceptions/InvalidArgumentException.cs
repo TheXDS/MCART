@@ -28,14 +28,12 @@ using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Exceptions
 {
-    /// <inheritdoc />
     /// <summary>
     /// Se produce cuando un argumento contiene un valor inválido.
     /// </summary>
     [Serializable]
     public class InvalidArgumentException : ArgumentException
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="InvalidArgumentException" />.
@@ -53,7 +51,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="InvalidArgumentException" />.
@@ -62,7 +59,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="InvalidArgumentException" />.
@@ -72,7 +68,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="InvalidArgumentException" />.
@@ -85,7 +80,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidArgumentException" />.
         /// </summary>
@@ -96,7 +90,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidArgumentException" />.
         /// </summary>
@@ -108,7 +101,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="InvalidArgumentException" />.
@@ -123,7 +115,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidArgumentException" />.
         /// </summary>

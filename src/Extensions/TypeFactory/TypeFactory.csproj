@@ -4,4 +4,17 @@
     <Description>TypeFactory Extension for MCART</Description>
     <AssemblyName>MCART.Ext.TypeFactory</AssemblyName>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="Resources\TypeFactoryStrings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TypeFactoryStrings.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\TypeFactoryStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TypeFactoryStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

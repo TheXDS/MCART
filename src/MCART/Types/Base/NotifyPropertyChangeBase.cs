@@ -30,6 +30,7 @@ using St = TheXDS.MCART.Resources.Strings;
 using Ist = TheXDS.MCART.Resources.InternalStrings;
 using static TheXDS.MCART.Types.Extensions.DictionaryExtensions;
 using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
 
 namespace TheXDS.MCART.Types.Base
 {
@@ -213,5 +214,22 @@ namespace TheXDS.MCART.Types.Base
         {
             _forwardings.Remove(source);
         }
+
+        /// <summary>
+        /// Cambia el valor de un campo, y genera los eventos de
+        /// notificación correspondientes.
+        /// </summary>
+        /// <typeparam name="T">Tipo de valores a procesar.</typeparam>
+        /// <param name="field">Campo a actualizar.</param>
+        /// <param name="value">Nuevo valor del campo.</param>
+        /// <param name="propertyName">
+        /// Nombre de la propiedad. Por lo general, este valor debe
+        /// omitirse.
+        /// </param>
+        /// <returns>
+        /// <see langword="true"/> si el valor de la propiedad ha
+        /// cambiado, <see langword="false"/> en caso contrario.
+        /// </returns>
+        protected abstract bool Change<T>(ref T field, T value, [CallerMemberName] string propertyName = null!);
     }
 }
