@@ -23,6 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Reflection;
 using System.Reflection.Emit;
 
 namespace TheXDS.MCART.Types
@@ -75,6 +76,26 @@ namespace TheXDS.MCART.Types
         /// <see langword="set"/>.
         /// </value>
         public ILGenerator? Setter { get; }
+
+        /// <summary>
+        /// Convierte implícitamente un valor <see cref="PropertyBuildInfo"/>
+        /// en un <see cref="PropertyInfo"/>.
+        /// </summary>
+        /// <param name="buildInfo">
+        /// <see cref="PropertyBuildInfo"/> desde el cual extraer el
+        /// <see cref="PropertyInfo"/>.
+        /// </param>
+        public static implicit operator PropertyInfo(PropertyBuildInfo buildInfo) => buildInfo.Property;
+
+        /// <summary>
+        /// Convierte implícitamente un valor <see cref="PropertyBuildInfo"/>
+        /// en un <see cref="FieldInfo"/>.
+        /// </summary>
+        /// <param name="buildInfo">
+        /// <see cref="PropertyBuildInfo"/> desde el cual extraer el
+        /// <see cref="FieldInfo"/>.
+        /// </param>
+        public static implicit operator FieldInfo?(PropertyBuildInfo buildInfo) => buildInfo.Field;
 
         internal PropertyBuildInfo(PropertyBuilder property, FieldBuilder field) : this(property)
         {

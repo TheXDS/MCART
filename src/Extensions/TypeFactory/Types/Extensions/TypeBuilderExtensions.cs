@@ -347,12 +347,148 @@ namespace TheXDS.MCART.Types.Extensions
             return new PropertyBuildInfo(prop, getIl, setIl);
         }
 
+        /// <summary>
+        /// Agrega una propiedad al tipo sin implementaciones de
+        /// <see langword="get"/> ni <see langword="set"/> establecidas.
+        /// </summary>
+        /// <typeparam name="T">Tipo de la nueva propiedad.</typeparam>
+        /// <param name="tb">
+        /// Constructor del tipo en el cual crear la nueva propiedad.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <param name="writtable">
+        /// <see langword="true"/> para crear una propiedad que contiene
+        /// accesor de escritura (accesor <see langword="set"/>),
+        /// <see langword="false"/> para no incluir un accesor de escritura en
+        /// la propiedad.
+        /// </param>
+        /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+        /// <param name="virtual">
+        /// Si se establece en <see langword="true"/>, la propiedad será
+        /// definida como virtual, por lo que podrá ser reemplazada en una
+        /// clase derivada. 
+        /// </param>
+        /// <returns>
+        /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+        /// la propiedad que ha sido construida.
+        /// </returns>
+        /// <remarks>
+        /// La propiedad generada requerirá que se implementen los accesores
+        /// antes de construir el tipo.
+        /// </remarks>
+        public static PropertyBuildInfo AddProperty<T>(this TypeBuilder tb, string name, bool writtable, MemberAccess access, bool @virtual)
+        {
+            return AddProperty(tb, name, typeof(T), writtable, access, @virtual);
+        }
 
+        /// <summary>
+        /// Agrega una propiedad al tipo sin implementaciones de
+        /// <see langword="get"/> ni <see langword="set"/> establecidas.
+        /// </summary>
+        /// <typeparam name="T">Tipo de la nueva propiedad.</typeparam>
+        /// <param name="tb">
+        /// Constructor del tipo en el cual crear la nueva propiedad.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <param name="writtable">
+        /// <see langword="true"/> para crear una propiedad que contiene
+        /// accesor de escritura (accesor <see langword="set"/>),
+        /// <see langword="false"/> para no incluir un accesor de escritura en
+        /// la propiedad.
+        /// </param>
+        /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+        /// <returns>
+        /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+        /// la propiedad que ha sido construida.
+        /// </returns>
+        /// <remarks>
+        /// La propiedad generada requerirá que se implementen los accesores
+        /// antes de construir el tipo.
+        /// </remarks>
+        public static PropertyBuildInfo AddProperty<T>(this TypeBuilder tb, string name, bool writtable, MemberAccess access)
+        {
+            return AddProperty(tb, name, typeof(T), writtable, access, false);
+        }
 
+        /// <summary>
+        /// Agrega una propiedad al tipo sin implementaciones de
+        /// <see langword="get"/> ni <see langword="set"/> establecidas.
+        /// </summary>
+        /// <typeparam name="T">Tipo de la nueva propiedad.</typeparam>
+        /// <param name="tb">
+        /// Constructor del tipo en el cual crear la nueva propiedad.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <param name="writtable">
+        /// <see langword="true"/> para crear una propiedad que contiene
+        /// accesor de escritura (accesor <see langword="set"/>),
+        /// <see langword="false"/> para no incluir un accesor de escritura en
+        /// la propiedad.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+        /// la propiedad que ha sido construida.
+        /// </returns>
+        /// <remarks>
+        /// La propiedad generada requerirá que se implementen los accesores
+        /// antes de construir el tipo.
+        /// </remarks>
+        public static PropertyBuildInfo AddProperty<T>(this TypeBuilder tb, string name, bool writtable)
+        {
+            return AddProperty(tb, name, typeof(T), writtable, MemberAccess.Public, false);
+        }
+        
+        /// <summary>
+        /// Agrega una propiedad al tipo sin implementaciones de
+        /// <see langword="get"/> ni <see langword="set"/> establecidas.
+        /// </summary>
+        /// <typeparam name="T">Tipo de la nueva propiedad.</typeparam>
+        /// <param name="tb">
+        /// Constructor del tipo en el cual crear la nueva propiedad.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <param name="writtable">
+        /// <see langword="true"/> para crear una propiedad que contiene
+        /// accesor de escritura (accesor <see langword="set"/>),
+        /// <see langword="false"/> para no incluir un accesor de escritura en
+        /// la propiedad.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+        /// la propiedad que ha sido construida.
+        /// </returns>
+        /// <remarks>
+        /// La propiedad generada requerirá que se implementen los accesores
+        /// antes de construir el tipo.
+        /// </remarks>
+        public static PropertyBuildInfo AddProperty<T>(this TypeBuilder tb, string name)
+        {
+            return AddProperty(tb, name, typeof(T), true, MemberAccess.Public, false);
+        }
 
-
-
-
+        /// <summary>
+        /// Agrega una propiedad computada al tipo.
+        /// </summary>
+        /// <typeparam name="T">Tipo de la nueva propiedad.</typeparam>
+        /// <param name="tb">
+        /// Constructor del tipo en el cual crear la nueva propiedad.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <param name="getterDefinition">
+        /// Acción que implementará las instrucciones a ejecutar dentro del
+        /// método asociado al accesor <see langword="get"/> de la propiedad 
+        /// computada.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+        /// la propiedad que ha sido construida.
+        /// </returns>
+        public static PropertyBuildInfo AddComputedProperty<T>(this TypeBuilder tb, string name, Action<ILGenerator> getterDefinition)
+        {
+            var prop = AddProperty(tb, name, typeof(T), false, MemberAccess.Public, false);
+            getterDefinition(prop.Getter!);
+            return prop;
+        }
 
         #region Helpers privados
 

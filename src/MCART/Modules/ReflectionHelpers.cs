@@ -239,6 +239,7 @@ namespace TheXDS.MCART
         {
             return memberSelector.Body switch
             {
+                UnaryExpression { Operand: MethodCallExpression { Object: ConstantExpression { Value: MethodInfo m } } } => m,
                 UnaryExpression { Operand: MemberExpression m } => m.Member,
                 MemberExpression m => m.Member,
                 _ => throw new ArgumentException()

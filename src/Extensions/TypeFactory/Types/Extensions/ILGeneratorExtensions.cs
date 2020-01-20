@@ -1288,6 +1288,52 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
+        /// Inserta la carga del valor de una propiedad en la secuencia del
+        /// lenguaje intermedio de Microsoft® (MSIL).
+        /// </summary>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la carga del valor.
+        /// </param>
+        /// <param name="property">
+        /// Propiedad desde la cual cargar el valor.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
+        public static ILGenerator LoadProperty(this ILGenerator ilGen, PropertyInfo property)
+        {
+            var m = property.GetGetMethod()!;
+            if (m.IsStatic)
+            {
+                return ilGen.Call(m);
+            }
+            else
+            {
+                return ilGen.This().Call(m);
+            }
+        }
+
+        /// <summary>
+        /// Inserta la carga del valor de una propiedad en la secuencia del
+        /// lenguaje intermedio de Microsoft® (MSIL).
+        /// </summary>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la carga del valor.
+        /// </param>
+        /// <param name="property">
+        /// Propiedad desde la cual cargar el valor.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
+        public static ILGenerator LoadProperty(this ILGenerator ilGen, PropertyBuildInfo property)
+        {
+            return LoadProperty(ilGen, property.Property);
+        }
+
+        /// <summary>
         /// Inserta un bloque <see langword="try"/>/<see langword="finally"/>
         /// estructurado en la secuencia del lenguaje intermedio de Microsoft®
         /// (MSIL).
