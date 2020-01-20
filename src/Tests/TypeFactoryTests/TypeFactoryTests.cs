@@ -13,7 +13,7 @@ namespace TypeFactoryTests
 {
     public class TypeFactoryTests
     {
-        public abstract class NpcBaseClass : INotifyPropertyChanged
+        private abstract class NpcBaseClass : INotifyPropertyChanged
         {
             public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -23,27 +23,12 @@ namespace TypeFactoryTests
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-        public class TestImpl : NpcBaseClass
-        {
-            private string? _name;
 
-            public string? Name
-            {
-                get => _name;
-                set
-                {
-                    if ((!(_name is null) && _name.Equals(value)) || value is null) return;
-                    _name = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private static TypeFactory factory = new TypeFactory("TheXDS.MCART.Tests._Generated");
+        private static readonly TypeFactory _factory = new TypeFactory("TheXDS.MCART.Tests._Generated");
         [Fact]
         public void BuildSimpleTypeTest()
         {
-            var t = factory.NewClass("GreeterClass");
+            var t = _factory.NewClass("GreeterClass");
             var nameProp = t.AddAutoProperty<string>("Name");            
             var grettingProp = t.AddComputedProperty<string>("Greeting", p => p
                 .LoadConstant("Hello, ")
@@ -63,7 +48,7 @@ namespace TypeFactoryTests
         [Fact]
         public void BuildNpcTypeTest()
         {
-            var t = factory.NewClass<NotifyPropertyChanged>("NpcTestClass");
+            var t = _factory.NewClass<NotifyPropertyChanged>("NpcTestClass");
             ((ITypeBuilder<NotifyPropertyChangeBase>)t).AddNpcProperty<string>("Name");
             var npcTestClass = t.Builder.CreateType()!;
             dynamic npcInstance = npcTestClass.New();
@@ -80,7 +65,7 @@ namespace TypeFactoryTests
         [Fact]
         public void BuildNpcTypeWithBaseClassTest()
         {
-            var t = factory.NewClass<NpcBaseClass>("NpcBaseTestClass");
+            var t = _factory.NewClass<NpcBaseClass>("NpcBaseTestClass");
             t.AddNpcProperty<string>("Name");
             t.AddNpcProperty<int>("Age");
             var npcTestClass = t.Builder.CreateType()!;
