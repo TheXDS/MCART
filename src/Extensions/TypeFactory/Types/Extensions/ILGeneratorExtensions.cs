@@ -1241,7 +1241,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
         /// de sintáxis Fluent.
         /// </returns>
-        public static ILGenerator LoadField(this ILGenerator ilGen, FieldBuilder field)
+        public static ILGenerator LoadField(this ILGenerator ilGen, FieldInfo field)
         {
             return LoadField(ilGen, field, Ldfld);
         }
@@ -1261,7 +1261,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
         /// de sintáxis Fluent.
         /// </returns>
-        public static ILGenerator StoreField(this ILGenerator ilGen, FieldBuilder field)
+        public static ILGenerator StoreField(this ILGenerator ilGen, FieldInfo field)
         {
             ilGen.Emit(Stfld, field);            
             return ilGen;
@@ -1282,7 +1282,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
         /// de sintáxis Fluent.
         /// </returns>
-        public static ILGenerator LoadFieldAddress(this ILGenerator ilGen, FieldBuilder field)
+        public static ILGenerator LoadFieldAddress(this ILGenerator ilGen, FieldInfo field)
         {            
             return LoadField(ilGen, field, Ldflda);
         }
@@ -1493,30 +1493,204 @@ namespace TheXDS.MCART.Types.Extensions
         /// </remarks>
         public static ILGenerator Remainder(this ILGenerator ilGen) => OneLiner(ilGen, Rem);
 
+        /// <summary>
+        /// Inserta la carga de la referencia a la instancia del tipo (el valor
+        /// <see langword="this"/>) en la secuencia del lenguaje intermedio de
+        /// Microsoft® (MSIL).
+        /// </summary>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la operación.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
         public static ILGenerator This(this ILGenerator ilGen) => OneLiner(ilGen, Ldarg_0);
 
+        /// <summary>
+        /// Inserta la carga del primer argumento de un método en la secuencia
+        /// del lenguaje intermedio de Microsoft® (MSIL).
+        /// </summary>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la operación.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
         public static ILGenerator LoadArg1(this ILGenerator ilGen) => OneLiner(ilGen, Ldarg_1);
 
+        /// <summary>
+        /// Inserta la carga del segundo argumento de un método en la secuencia
+        /// del lenguaje intermedio de Microsoft® (MSIL).
+        /// </summary>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la operación.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
         public static ILGenerator LoadArg2(this ILGenerator ilGen) => OneLiner(ilGen, Ldarg_2);
 
+        /// <summary>
+        /// Inserta la carga del tercer argumento de un método en la secuencia
+        /// del lenguaje intermedio de Microsoft® (MSIL).
+        /// </summary>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la operación.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
         public static ILGenerator LoadArg3(this ILGenerator ilGen) => OneLiner(ilGen, Ldarg_3);
 
+        /// <summary>
+        /// Inserta la carga de un argumento en la secuencia del lenguaje
+        /// intermedio de Microsoft® (MSIL).
+        /// </summary>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la operación.
+        /// </param>
+        /// <param name="argIndex">
+        /// Índice del argumento a cargar en la pila. El valor de <c>0</c>
+        /// cargará una referencia a la instancia del tipo actual (el valor
+        /// <see langword="this"/>).
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
         public static ILGenerator LoadArg(this ILGenerator ilGen, short argIndex)
         {
+            if (argIndex < 0) throw new ArgumentOutOfRangeException(nameof(argIndex));
             ilGen.Emit(Ldarg, argIndex);
             return ilGen;
         }
 
+        /// <summary>
+        /// Inserta la carga de la referencia a un argumento en la secuencia
+        /// del lenguaje intermedio de Microsoft® (MSIL).
+        /// </summary>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la operación.
+        /// </param>
+        /// <param name="argIndex">
+        /// Índice del argumento paraa el cual cargar una referencia. El valor
+        /// de <c>0</c> cargará una referencia a la instancia del tipo actual
+        /// (el valor <see langword="this"/>).
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
         public static ILGenerator LoadArgAddress(this ILGenerator ilGen, short argIndex)
         {
+            if (argIndex < 0) throw new ArgumentOutOfRangeException(nameof(argIndex));
             ilGen.Emit(Ldarga, argIndex);
             return ilGen;
         }
 
+        /// <summary>
+        /// Inserta una operación de duplicado del valor en la parte superior
+        /// de la pila en la secuencia del lenguaje intermedio de Microsoft®
+        /// (MSIL).
+        /// </summary>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la operación.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
+        public static ILGenerator Duplicate(this ILGenerator ilGen) => OneLiner(ilGen, Dup);
+
+        /// <summary>
+        /// Inserta una operación de remoción del valor en la parte superior
+        /// de la pila en la secuencia del lenguaje intermedio de Microsoft®
+        /// (MSIL).
+        /// </summary>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la operación.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
+        public static ILGenerator Pop(this ILGenerator ilGen) => OneLiner(ilGen, Op.Pop);
+
+        /// <summary>
+        /// Inserta una operación de comparación de igualdad entre dos valores en
+        /// la parte superior de la pila en la secuencia del lenguaje
+        /// intermedio de Microsoft® (MSIL).
+        /// </summary>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la operación.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
+        public static ILGenerator CompareEqual(this ILGenerator ilGen) => OneLiner(ilGen, Ceq);
+
+        /// <summary>
+        /// Inserta una operación de comparación entre dos valores en la parte
+        /// superior de la pila en la secuencia del lenguaje intermedio de
+        /// Microsoft® (MSIL).
+        /// </summary>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la operación.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
+        public static ILGenerator CompareGreaterThan(this ILGenerator ilGen) => OneLiner(ilGen, Cgt);
+
+        /// <summary>
+        /// Inserta una operación de comparación entre dos valores en la parte
+        /// superior de la pila en la secuencia del lenguaje intermedio de
+        /// Microsoft® (MSIL).
+        /// </summary>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la operación.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
+        public static ILGenerator CompareLessThan(this ILGenerator ilGen) => OneLiner(ilGen, Clt);
+
+        /// <summary>
+        /// Inserta el retorno del método actual en la secuencia del lenguaje
+        /// intermedio de Microsoft® (MSIL).
+        /// </summary>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la operación.
+        /// </param>
+        public static void Return(this ILGenerator ilGen) => ilGen.Emit(Ret);
+
+        /// <summary>
+        /// Inserta el retorno del método actual en la secuencia del lenguaje
+        /// intermedio de Microsoft® (MSIL).
+        /// </summary>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la operación.
+        /// </param>
+        /// <param name="exitLabel">
+        /// Etiqueta opcional creada anteriormente que recibe el control desde
+        /// un salto para salir del método en ejecución.
+        /// </param>
+        public static void Return(this ILGenerator ilGen, Label exitLabel)
+        {
+            ilGen.MarkLabel(exitLabel);
+            ilGen.Emit(Ret);
+        }
 
         #region Helpers privados
 
-        private static ILGenerator LoadField(ILGenerator ilGen, FieldBuilder field, OpCode opCode)
+        private static ILGenerator LoadField(ILGenerator ilGen, FieldInfo field, OpCode opCode)
         {
             if (field.IsStatic)
             {
@@ -1546,7 +1720,6 @@ namespace TheXDS.MCART.Types.Extensions
             ilGen.Emit(op);
             return ilGen;
         }
-
 
         #endregion
     }

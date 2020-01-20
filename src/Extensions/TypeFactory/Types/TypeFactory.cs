@@ -28,83 +28,152 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
-using System.Collections;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Types.Base;
-using TheXDS.MCART.Types.Extensions;
-using static System.Reflection.BindingFlags;
-using static System.Reflection.Emit.OpCodes;
-using static System.Reflection.MethodAttributes;
-using static TheXDS.MCART.Types.Extensions.EnumExtensions;
-using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using TheXDS.MCART.Component;
+using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Types
 {
-
-
-
-
-
-
-
     /// <summary>
     /// Fábrica de tipos. Permite compilar nuevos tipos en Runtime.
     /// </summary>
     public class TypeFactory : IExposeAssembly
     {
+        private static Dictionary<string, ModuleBuilder> _builtModules = new Dictionary<string, ModuleBuilder>();
+        private static Dictionary<string, AssemblyBuilder> _builtAssemblies = new Dictionary<string, AssemblyBuilder>();
+
         private readonly string _namespace;
         private readonly bool _useGuid;
         private readonly ModuleBuilder _mBuilder;
         private readonly AssemblyBuilder _assembly;
-        private readonly IDictionary<string, Type> _builtTypes = new Dictionary<string, Type>();
         
+        /// <summary>
+        /// Obtiene una referencia al ensamblado dinámico generado en el cual 
+        /// se cargarán los tipos construidos por medio de este
+        /// <see cref="TypeFactory"/>.
+        /// </summary>
         public Assembly Assembly => _assembly;
 
-
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="TypeFactory"/>.
+        /// </summary>
         public TypeFactory() : this("TheXDS.MCART.Types._Generated") { }
 
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="TypeFactory"/>.
+        /// </summary>
+        /// <param name="namespace"></param>
         public TypeFactory(string @namespace) : this(@namespace, true) { }
 
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="TypeFactory"/>.
+        /// </summary>
+        /// <param name="namespace">
+        /// Espacio de nombres a utilizar para los tipos a construir.
+        /// </param>
+        /// <param name="useGuid">
+        /// <see langword="true"/> para adjuntar un Guid al final del nombre de
+        /// los tipos generados por medio de este <see cref="TypeFactory"/>.
+        /// </param>
         public TypeFactory(string @namespace, bool useGuid)
         {
             _namespace = @namespace;
             _useGuid = useGuid;
-            _assembly = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName(_namespace), AssemblyBuilderAccess.Run);
-            _mBuilder = _assembly.DefineDynamicModule(_namespace);
+            if (_builtModules.ContainsKey(@namespace))
+            {
+                _mBuilder = _builtModules[@namespace];
+                _assembly = _builtAssemblies[@namespace];
+            }
+            else
+            {
+                _assembly = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName(_namespace), AssemblyBuilderAccess.Run).PushInto(_namespace,_builtAssemblies);
+                _mBuilder = _assembly.DefineDynamicModule(_namespace).PushInto(_namespace, _builtModules);
+            }
         }
 
-
-
-
-
-
+        /// <summary>
+        /// Crea una nueva clase pública.
+        /// </summary>
+        /// <param name="name">Nombre de la nueva clase.</param>
+        /// <returns>
+        /// Un <see cref="TypeBuilder"/> por medio del cual se podrá definir a
+        /// los miembros de la nueva clase.
+        /// </returns>
         public TypeBuilder NewClass(string name)
         {
             return NewClass(name, typeof(object), Type.EmptyTypes);
         }
 
+        /// <summary>
+        /// Crea una nueva clase pública.
+        /// </summary>
+        /// <param name="name">Nombre de la nueva clase.</param>
+        /// <param name="interfaces">
+        /// Interfaces a implementar por la nueva clase.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="TypeBuilder"/> por medio del cual se podrá definir a
+        /// los miembros de la nueva clase.
+        /// </returns>
         public TypeBuilder NewClass(string name, IEnumerable<Type> interfaces)
         {
             return NewClass(name, typeof(object), interfaces);
         }
 
+        /// <summary>
+        /// Crea una nueva clase pública.
+        /// </summary>
+        /// <param name="name">Nombre de la nueva clase.</param>
+        /// <param name="baseType">Tipo base de la nueva clase.</param>
+        /// <param name="interfaces">
+        /// Interfaces a implementar por la nueva clase.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="TypeBuilder"/> por medio del cual se podrá definir a
+        /// los miembros de la nueva clase.
+        /// </returns>
         public TypeBuilder NewClass(string name, Type baseType, IEnumerable<Type> interfaces)
+        {
+            return _mBuilder.DefineType(GetName(name), TypeAttributes.Public | TypeAttributes.Class, baseType, interfaces?.ToArray());
+        }
+
+        /// <summary>
+        /// Crea una nueva estructura pública.
+        /// </summary>
+        /// <param name="name">Nombre de la nueva estructura.</param>
+        /// <param name="interfaces">
+        /// Interfaces a implementar por la nueva estructura.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="TypeBuilder"/> por medio del cual se podrá definir a
+        /// los miembros de la nueva estructura.
+        /// </returns>
+        public TypeBuilder NewStruct(string name, IEnumerable<Type> interfaces)
+        {
+            return _mBuilder.DefineType(GetName(name), TypeAttributes.Public, null, interfaces?.ToArray());
+        }
+
+        /// <summary>
+        /// Crea una nueva estructura pública.
+        /// </summary>
+        /// <param name="name">Nombre de la nueva estructura.</param>
+        /// <returns>
+        /// Un <see cref="TypeBuilder"/> por medio del cual se podrá definir a
+        /// los miembros de la nueva estructura.
+        /// </returns>
+        public TypeBuilder NewStruct(string name)
+        {
+            return _mBuilder.DefineType(GetName(name), TypeAttributes.Public, null, null);
+        }
+
+        private string GetName(string name)
         {
             var nme = new StringBuilder();
             nme.Append($"{_namespace}.{name}");
             if (_useGuid) nme.Append($"_{Guid.NewGuid().ToString().Replace("-", string.Empty)}");
-            return _mBuilder.DefineType(nme.ToString(), TypeAttributes.Public | TypeAttributes.Class, baseType, interfaces?.ToArray());
+            return nme.ToString();
         }
-
-
-
-
-
-
-
     }
 }

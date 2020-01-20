@@ -86,13 +86,13 @@ namespace TheXDS.MCART.Types.Extensions
             var p = AddProperty(tb, name, type, true, access, @virtual);
             var field = tb.DefineField(UndName(name), type, FieldAttributes.Private | FieldAttributes.PrivateScope);
 
-            p.Getter!.LoadField(field);
-            p.Getter!.Emit(Ret);
+            p.Getter!.LoadField(field).Return();
 
-            p.Setter!.Emit(Ldarg_0);
-            p.Setter.Emit(Ldarg_1);
-            p.Setter.StoreField(field);
-            p.Setter.Emit(Ret);
+            p.Setter!
+                .This()
+                .LoadArg1()
+                .StoreField(field)
+                .Return();
 
             return new PropertyBuildInfo(p.Property, field);
         }
@@ -273,8 +273,7 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 var p = AddProperty(tb, name, type, true, access, @virtual);
                 var field = tb.DefineField(UndName(name), type, FieldAttributes.Private | FieldAttributes.PrivateScope);
-                p.Getter!.LoadField(field);
-                p.Getter!.Emit(Ret);
+                p.Getter!.LoadField(field).Return();
                 return (p.Property, p.Setter!, field);
             }
 
@@ -359,23 +358,24 @@ namespace TheXDS.MCART.Types.Extensions
 
         private static void AddNpcSetter(TypeBuilder tb, string name, Type t, ILGenerator setter, FieldBuilder field)
         {
-            setter.Emit(Ldarg_0);
-            setter.Emit(Dup);
-            setter.Emit(Ldflda, field);
-            setter.Emit(Ldarg_1);
-            setter.Emit(Ldstr, name);
+            setter
+                .This()
+                .Duplicate()
+                .LoadFieldAddress(field)
+                .LoadArg1()
+                .LoadConstant(name);
             setter.Emit(Callvirt, tb.BaseType!.GetMethod("Change", BindingFlags.NonPublic | BindingFlags.Instance)!.MakeGenericMethod(new[] { t })!);
-            setter.Emit(Pop);
-            setter.Emit(Ret);
+            setter
+                .Pop()
+                .Return();
         }
         private static void AddNpcSetter(TypeBuilder tb, string name, Type t, ILGenerator setter, FieldBuilder field, FieldInfo evtHandler)
         {
-            var setRet = setter.DefineLabel();
-            var cl = setter.DefineLabel();
+            setter
+                .This()
+                .LoadField(field)
+                .LoadArg1();
 
-            setter.Emit(Ldarg_0);
-            setter.Emit(Ldfld, field);
-            setter.Emit(Ldarg_1);
             if (!t.IsValueType)
             {
                 setter.Emit(Ceq);
@@ -384,23 +384,23 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 setter.Emit(Call, GetEqualsMethod(tb, t));
             }
-            setter.Emit(Brtrue, setRet);
-            setter.Emit(Ldarg_0);
-            setter.Emit(Ldarg_1);
-            setter.Emit(Stfld, field);
-            setter.Emit(Ldarg_0);
-            setter.Emit(Ldfld, evtHandler);
-            setter.Emit(Dup);
-            setter.Emit(Brtrue_S, cl);
-            setter.Emit(Pop);
-            setter.Emit(Br_S, setRet);
-            setter.MarkLabel(cl);
-            setter.Emit(Ldarg_0);
-            setter.LoadConstant(name);
-            setter.NewObject<PropertyChangedEventArgs>();
-            setter.Emit(Callvirt, typeof(PropertyChangedEventHandler).GetMethod(nameof(PropertyChangedEventHandler.Invoke), BindingFlags.Public | BindingFlags.Instance, null, new[] { typeof(object), typeof(PropertyChangedEventArgs) }, null)!);
-            setter.MarkLabel(setRet);
-            setter.Emit(Ret);
+            setter
+                .BranchTrueNewLabel(out var setRet)
+                .This()
+                .LoadArg1()
+                .StoreField(field)
+                .This()
+                .LoadField(evtHandler)
+                .Duplicate()
+                .BranchTrueNewLabel(out var notify)
+                .Pop()
+                .Branch(setRet)
+                .PutLabel(notify)
+                .This()
+                .LoadConstant(name)
+                .NewObject<PropertyChangedEventArgs>()
+                .Call<PropertyChangedEventHandler, Action<object, PropertyChangedEventArgs>>(p => p.Invoke)
+                .Return(setRet);
         }
         private static MethodInfo GetEqualsMethod(TypeBuilder tb, Type type)
         {
