@@ -23,10 +23,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Reflection.Emit;
-using TheXDS.MCART.Types.Extensions;
 using System.Reflection;
-using static System.Reflection.Emit.OpCodes;
+using TheXDS.MCART.Types.Extensions;
 using static System.Reflection.MethodAttributes;
 
 namespace TheXDS.MCART.Types
@@ -68,6 +66,49 @@ namespace TheXDS.MCART.Types
                 MemberAccess.Public => Public,
                 _ => throw new NotImplementedException(),
             };
+        }
+
+        public static TypeAttributes TypeAccess(MemberAccess access)
+        {
+            return access switch
+            {
+                MemberAccess.Private => TypeAttributes.NestedPrivate,                                
+                MemberAccess.Internal => TypeAttributes.NestedAssembly,
+                MemberAccess.Public => TypeAttributes.Public,
+                _ => throw new NotImplementedException(),
+            };
+        }
+
+        public static MemberAccess InferAccess(Type type)
+        {
+            return type.IsPublic ? MemberAccess.Public : MemberAccess.Internal;            
+        }
+
+        public static TypeAttributes InferAttributes(Type type)
+        {
+            var retVal = default(TypeAttributes);
+            retVal |= type.IsClass ? TypeAttributes.Class : 0;
+            if (type.IsNested)
+            {
+                retVal |= InferAccess(type) switch
+                {
+                    MemberAccess.Private => TypeAttributes.NestedPrivate,
+                    MemberAccess.Internal => TypeAttributes.NestedAssembly,
+                    MemberAccess.Public => TypeAttributes.NestedPublic,
+                    _ => throw new NotImplementedException()
+                };
+            }
+            else
+            {
+                retVal |= InferAccess(type) switch
+                {
+                    MemberAccess.Internal => TypeAttributes.NotPublic,
+                    MemberAccess.Public => TypeAttributes.Public,
+                    _ => throw new NotImplementedException()
+                };
+            }
+
+            return retVal;
         }
     }
 }

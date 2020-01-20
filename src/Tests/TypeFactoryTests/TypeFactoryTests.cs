@@ -13,7 +13,7 @@ namespace TypeFactoryTests
 {
     public class TypeFactoryTests
     {
-        private abstract class NpcBaseClass : INotifyPropertyChanged
+        public abstract class NpcBaseClass : INotifyPropertyChanged
         {
             public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -48,7 +48,7 @@ namespace TypeFactoryTests
         [Fact]
         public void BuildNpcTypeTest()
         {
-            var t = _factory.NewClass<NotifyPropertyChanged>("NpcTestClass");
+            var t = _factory.NewType<NotifyPropertyChanged>("NpcTestClass");
             ((ITypeBuilder<NotifyPropertyChangeBase>)t).AddNpcProperty<string>("Name");
             var npcTestClass = t.Builder.CreateType()!;
             dynamic npcInstance = npcTestClass.New();
@@ -62,10 +62,11 @@ namespace TypeFactoryTests
             Assert.Equal("Name", evt.Arguments.PropertyName);
             Assert.Equal("Test", npcInstance.Name);
         }
+
         [Fact]
-        public void BuildNpcTypeWithBaseClassTest()
+        public void BuildNpcTypeWithPublicBaseClassTest()
         {
-            var t = _factory.NewClass<NpcBaseClass>("NpcBaseTestClass");
+            var t = _factory.NewType<NpcBaseClass>("NpcBaseTestClass");
             t.AddNpcProperty<string>("Name");
             t.AddNpcProperty<int>("Age");
             var npcTestClass = t.Builder.CreateType()!;

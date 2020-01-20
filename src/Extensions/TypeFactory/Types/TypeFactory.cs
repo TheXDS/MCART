@@ -97,35 +97,6 @@ namespace TheXDS.MCART.Types
         /// Crea una nueva clase pública.
         /// </summary>
         /// <param name="name">Nombre de la nueva clase.</param>
-        /// <returns>
-        /// Un <see cref="TypeBuilder"/> por medio del cual se podrá definir a
-        /// los miembros de la nueva clase.
-        /// </returns>
-        public TypeBuilder NewClass(string name)
-        {
-            return NewClass(name, typeof(object), Type.EmptyTypes);
-        }
-
-        /// <summary>
-        /// Crea una nueva clase pública.
-        /// </summary>
-        /// <param name="name">Nombre de la nueva clase.</param>
-        /// <param name="interfaces">
-        /// Interfaces a implementar por la nueva clase.
-        /// </param>
-        /// <returns>
-        /// Un <see cref="TypeBuilder"/> por medio del cual se podrá definir a
-        /// los miembros de la nueva clase.
-        /// </returns>
-        public TypeBuilder NewClass(string name, IEnumerable<Type> interfaces)
-        {
-            return NewClass(name, typeof(object), interfaces);
-        }
-
-        /// <summary>
-        /// Crea una nueva clase pública.
-        /// </summary>
-        /// <param name="name">Nombre de la nueva clase.</param>
         /// <param name="baseType">Tipo base de la nueva clase.</param>
         /// <param name="interfaces">
         /// Interfaces a implementar por la nueva clase.
@@ -134,9 +105,9 @@ namespace TheXDS.MCART.Types
         /// Un <see cref="TypeBuilder"/> por medio del cual se podrá definir a
         /// los miembros de la nueva clase.
         /// </returns>
-        public TypeBuilder NewClass(string name, Type baseType, IEnumerable<Type> interfaces)
+        public TypeBuilder NewType(string name, Type baseType, IEnumerable<Type> interfaces)
         {
-            return _mBuilder.DefineType(GetName(name), TypeAttributes.Public | TypeAttributes.Class, baseType, interfaces?.ToArray());
+            return _mBuilder.DefineType(GetName(name), (baseType.Attributes & ~TypeAttributes.VisibilityMask & ~TypeAttributes.Abstract) | TypeAttributes.Public, baseType, interfaces?.ToArray());
         }
 
         /// <summary>
@@ -153,9 +124,9 @@ namespace TheXDS.MCART.Types
         /// Un <see cref="TypeBuilder{T}"/> por medio del cual se podrá definir a
         /// los miembros de la nueva clase.
         /// </returns>
-        public TypeBuilder<T> NewClass<T>(string name, IEnumerable<Type>? interfaces)
+        public TypeBuilder<T> NewType<T>(string name, IEnumerable<Type>? interfaces)
         {
-            return new TypeBuilder<T>(_mBuilder.DefineType(GetName(name), TypeAttributes.Public | TypeAttributes.Class, typeof(T), interfaces?.ToArray()));
+            return new TypeBuilder<T>(_mBuilder.DefineType(GetName(name), (typeof(T).Attributes & ~TypeAttributes.VisibilityMask & ~TypeAttributes.Abstract) | TypeAttributes.Public, typeof(T), interfaces?.ToArray()));
         }
 
         /// <summary>
@@ -167,9 +138,9 @@ namespace TheXDS.MCART.Types
         /// Un <see cref="TypeBuilder{T}"/> por medio del cual se podrá definir a
         /// los miembros de la nueva clase.
         /// </returns>
-        public TypeBuilder<T> NewClass<T>(string name)
+        public TypeBuilder<T> NewType<T>(string name)
         {
-            return NewClass<T>(name, null);
+            return NewType<T>(name, null);
         }
 
         /// <summary>
@@ -199,6 +170,35 @@ namespace TheXDS.MCART.Types
         public TypeBuilder NewStruct(string name)
         {
             return _mBuilder.DefineType(GetName(name), TypeAttributes.Public, null, null);
+        }
+
+        /// <summary>
+        /// Crea una nueva clase pública.
+        /// </summary>
+        /// <param name="name">Nombre de la nueva clase.</param>
+        /// <returns>
+        /// Un <see cref="TypeBuilder"/> por medio del cual se podrá definir a
+        /// los miembros de la nueva clase.
+        /// </returns>
+        public TypeBuilder NewClass(string name)
+        {
+            return NewType(name, typeof(object), Type.EmptyTypes);
+        }
+
+        /// <summary>
+        /// Crea una nueva clase pública.
+        /// </summary>
+        /// <param name="name">Nombre de la nueva clase.</param>
+        /// <param name="interfaces">
+        /// Interfaces a implementar por la nueva clase.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="TypeBuilder"/> por medio del cual se podrá definir a
+        /// los miembros de la nueva clase.
+        /// </returns>
+        public TypeBuilder NewClass(string name, IEnumerable<Type> interfaces)
+        {
+            return NewType(name, typeof(object), interfaces);
         }
 
         private string GetName(string name)
