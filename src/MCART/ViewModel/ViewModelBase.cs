@@ -56,9 +56,10 @@ namespace TheXDS.MCART.ViewModel
         }
 
         /// <summary>
-        /// Método invalidable que permite observar cambios en los valores de las propiedades de esta instancia.
+        /// Método invalidable que permite observar cambios en los valores de
+        /// las propiedades de esta instancia.
         /// </summary>
-        /// <param name="property"></param>
+        /// <param name="property">Propiedad que ha cambiado de valor.</param>
         protected virtual void SelfObserve(PropertyInfo property) { }
 
         /// <summary>

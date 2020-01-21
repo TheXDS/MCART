@@ -37,12 +37,12 @@ namespace TheXDS.MCART.ViewModel
     /// Tipo de entidad a utilizar como almacenamiento interno de este
     /// ViewModel.
     /// </typeparam>
-    public abstract class ViewModel<T> : ViewModelBase, IEntityViewModel<T>, IUpdatableViewModel<T>
+    public class ViewModel<T> : ViewModelBase, IEntityViewModel<T>, IUpdatableViewModel<T>
     {
         private static readonly HashSet<PropertyInfo> _modelProperties = new HashSet<PropertyInfo>(typeof(T).GetProperties(Public | Instance).Where(p => p.CanRead));
-        private T _entity = default!;
-
         private static IEnumerable<PropertyInfo> WrittableProperties => _modelProperties.Where(p => p.CanWrite);
+
+        private T _entity = default!;
 
         /// <summary>
         /// Instancia de la entidad controlada por este ViewModel.
@@ -68,14 +68,6 @@ namespace TheXDS.MCART.ViewModel
                 j.SetValue(Entity, j.GetValue(entity));
             }
             Refresh();
-        }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ViewModel{T}"/>.
-        /// </summary>
-        protected ViewModel()
-        {
         }
 
         /// <summary>
