@@ -1,5 +1,5 @@
 ﻿using System.Windows.Media.Imaging;
-using TheXDS.MCART.Types;
+using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Samples.PictVGA
 {
