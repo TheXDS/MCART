@@ -1,5 +1,5 @@
 ﻿/*
-GeneratedViewModel.cs
+IViewModel.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,20 +22,15 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using TheXDS.MCART.Types.Base;
+using System.ComponentModel;
+
 namespace TheXDS.MCART.ViewModel
 {
     /// <summary>
-    /// Clase base para un ViewModel autogenerado.
+    /// Interfaz base para todos los ViewModel administrables por MCART.
     /// </summary>
-    /// <typeparam name="T">
-    /// Tipo de interfaz de acceso.
-    /// </typeparam>
-    public abstract class GeneratedViewModel<T> : DynamicViewModel<T>, IGeneratedViewModel<T> where T : class
+    public interface IViewModel : IRefreshable, INotifyPropertyChanged
     {
-        /// <summary>
-        /// Expone a los campos auto generados para este ViewModel por
-        /// medio de la interfaz <typeparamref name="T"/>.
-        /// </summary>
-        public abstract T Self { get; }
     }
 }

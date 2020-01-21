@@ -32,8 +32,8 @@ namespace TheXDS.MCART.ViewModel
     /// implemente funcionalidades básicas de edición de entidades de
     /// ViewModel.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public interface ISetteableViewModel<in T> : IRefreshable, INotifyPropertyChanged
+    /// <typeparam name="T">Tipo de entidad actualizable.</typeparam>
+    public interface IUpdatableViewModel<T> : IEntityViewModel<T>
     {
         /// <summary>
         /// Edita la instancia de <typeparamref name="T"/> dentro de este
@@ -42,6 +42,6 @@ namespace TheXDS.MCART.ViewModel
         /// <param name="entity">
         /// Entidad desde la cual extraer información.
         /// </param>
-        void Edit(T entity);
+        void Update(T entity);
     }
 }

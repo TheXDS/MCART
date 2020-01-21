@@ -37,22 +37,31 @@ namespace TheXDS.MCART.ViewModel
     /// Tipo de entidad a utilizar como almacenamiento interno de este
     /// ViewModel.
     /// </typeparam>
-    public abstract class ViewModel<T> : ViewModelBase, IEntityViewModel<T>, ISetteableViewModel<T>
+    public abstract class ViewModel<T> : ViewModelBase, IEntityViewModel<T>, IUpdatableViewModel<T>
     {
         private static readonly HashSet<PropertyInfo> _modelProperties = new HashSet<PropertyInfo>(typeof(T).GetProperties(Public | Instance).Where(p => p.CanRead));
+        private T _entity = default!;
+
         private static IEnumerable<PropertyInfo> WrittableProperties => _modelProperties.Where(p => p.CanWrite);
 
         /// <summary>
         /// Instancia de la entidad controlada por este ViewModel.
         /// </summary>
-        public T Entity { get; protected set; } = default!;
+        public virtual T Entity
+        { 
+            get => _entity;
+            set => Change(ref _entity, value);
+        }
 
         /// <summary>
         /// Edita la instancia de <typeparamref name="T"/> dentro de este
         /// ViewModel.
         /// </summary>
-        /// <param name="entity"></param>
-        public void Edit(T entity)
+        /// <param name="entity">
+        /// Entidad conlos nuevos valores a establecer en la entidad
+        /// actualmente establecida en la propiedad <see cref="Entity"/>.
+        /// </param>
+        public virtual void Update(T entity)
         {
             foreach (var j in WrittableProperties)
             {
@@ -75,14 +84,11 @@ namespace TheXDS.MCART.ViewModel
         /// </summary>
         public override void Refresh()
         {
-#if PreferExceptions
-            lock (Entity ?? throw new InvalidOperationException())
-#else
             if (Entity is null) return;
             lock (Entity)
-#endif
             {
-                Notify(_modelProperties.Select(p => p.Name));
+                //Notify(_modelProperties.Select(p => p.Name));
+                Notify(nameof(Entity));
             }
         }
 

@@ -28,7 +28,7 @@ using System.Reflection;
 namespace TheXDS.MCART.Types.Base
 {
     /// <summary>
-    /// Define una serie de mirmbros a implementar por un tipo que permita
+    /// Define una serie de miembros a implementar por un tipo que permita
     /// notificar cambios en los valores de propiedades.
     /// </summary>
     public interface INotifyPropertyChangeBase : IRefreshable

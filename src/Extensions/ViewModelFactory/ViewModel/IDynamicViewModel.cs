@@ -22,9 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.ComponentModel;
-using TheXDS.MCART.Types.Base;
-
 namespace TheXDS.MCART.ViewModel
 {
     /// <summary>
@@ -32,7 +29,11 @@ namespace TheXDS.MCART.ViewModel
     /// permita establecer u obtener un modelo de datos a la cual poder
     /// manipular.
     /// </summary>
-    /// <typeparam name="T">
+    /// <typeparam name="TModel">
+    /// Tipo de entidad a administrar en este 
+    /// <see cref="IEntityViewModel{T}"/>.
+    /// </typeparam>
+    /// <typeparam name="TInterface">
     /// Tipo de interfaz de acceso a implementar.
     /// </typeparam>
     /// <remarks>
@@ -41,46 +42,16 @@ namespace TheXDS.MCART.ViewModel
     /// estos miembros, por lo que las implementaciones directas de estos
     /// miembros en la clase base se ignorarán por medio de Shadowing.
     /// </remarks>
-    public interface IDynamicViewModel<T> : IEntityViewModel<T>, ISetteableViewModel<T>, IDynamicViewModel, IRefreshable, INotifyPropertyChanged
+    public interface IDynamicViewModel<TModel, TInterface> : IEntityViewModel<TModel> where TModel : TInterface
     {
         /// <summary>
-        /// Entidad subyacente que funciona como campo de almacenamiento
-        /// para los datos de este ViewModel.
+        /// Expone a los campos auto generados para este ViewModel por
+        /// medio de la interfaz <typeparamref name="TInterface"/>.
         /// </summary>
         /// <remarks>
         /// La implementación de este campo debe ser abstracta para
         /// permitir al constructor de ViewModels invalidarla.
         /// </remarks>
-        new T Entity { get; set; }
-
-        object? IDynamicViewModel.Entity
-        {
-            get => Entity;
-            set => Entity = (T)value!;
-        }
-    }
-
-    /// <summary>
-    /// Define una serie de miembros a implementar por una clase que
-    /// permita establecer u obtener un modelo de datos a la cual poder
-    /// manipular.
-    /// </summary>
-    /// <remarks>
-    /// Se recomienda que esta interfaz sea implementada de forma
-    /// abstracta, ya que la clase <see cref="ViewModelFactory"/> invalidará
-    /// estos miembros, por lo que las implementaciones directas de estos
-    /// miembros en la clase base se ignorarán por medio de Shadowing.
-    /// </remarks>
-    public interface IDynamicViewModel : IRefreshable, INotifyPropertyChanged
-    {
-        /// <summary>
-        /// Entidad subyacente que funciona como campo de almacenamiento
-        /// para los datos de este ViewModel.
-        /// </summary>
-        /// <remarks>
-        /// La implementación de este campo debe ser abstracta para
-        /// permitir al constructor de ViewModels invalidarla.
-        /// </remarks>
-        object? Entity { get; set; }
+        TInterface Self { get; }
     }
 }
