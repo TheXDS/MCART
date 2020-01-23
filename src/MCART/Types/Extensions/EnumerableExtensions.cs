@@ -795,13 +795,26 @@ namespace TheXDS.MCART.Types.Extensions
         /// Función selectora de valor.
         /// </param>
         /// <returns>
-        /// <see langword="true"/> si el valor de la propiedad de todos los objetos de la colección es el mismo, <see langword="false"/> en caso contrario.
+        /// <see langword="true"/> si el valor de la propiedad de todos los
+        /// objetos de la colección es el mismo, <see langword="false"/> en 
+        /// caso contrario.
         /// </returns>
         public static bool IsPropertyEqual<T>(this IEnumerable<T> c, Func<T, object> selector)
         {
             return AreAllEqual(c.Select(selector));
         }
-        
+
+        /// <summary>
+        /// Comprueba si todos los objetos de la colección son iguales.
+        /// </summary>
+        /// <typeparam name="T">Tipo de objetos de la colección.</typeparam>
+        /// <param name="c">
+        /// Colección que contiene los objetos a comprobar.
+        /// </param>
+        /// <returns>
+        /// <see langword="true"/> si todos los objetos de la colección son
+        /// iguales, <see langword="false"/> en caso contrario.
+        /// </returns>
         public static bool AreAllEqual<T>(this IEnumerable<T> c)
         { 
             using var j = c.GetEnumerator();
@@ -814,6 +827,20 @@ namespace TheXDS.MCART.Types.Extensions
             return true;
         }
 
+        /// <summary>
+        /// Encuentra el índice de un objeto dentro de una colección.
+        /// </summary>
+        /// <typeparam name="T">Tipo de objetos de la colección.</typeparam>
+        /// <param name="e">
+        /// Colección que contiene los objetos a comprobar.
+        /// </param>
+        /// <param name="item">
+        /// Ítem del cual obtener el índice.
+        /// </param>
+        /// <returns>
+        /// El índice del objeto especificado, o <c>-1</c> si el objeto no
+        /// existe dentro de la colección.
+        /// </returns>
         public static int FindIndexOf<T>(this IEnumerable<T> e, T item)
         {
             return (e, item) switch
@@ -835,8 +862,8 @@ namespace TheXDS.MCART.Types.Extensions
             }
             (n as IDisposable)?.Dispose();
             return -1;
-
         }
+
         private static int CountEnumerable(IEnumerable e)
         {
             var n = e.GetEnumerator();
