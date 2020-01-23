@@ -29,6 +29,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Exceptions;
 
 namespace TheXDS.MCART.Types.Extensions
 {
@@ -780,6 +781,37 @@ namespace TheXDS.MCART.Types.Extensions
                 _ => CountEnumerable(e)
             };
 #endif
+        }
+
+        /// <summary>
+        /// Obtiene un valor que indica si el valor de la propiedad de todos
+        /// los objetos en la colección es igual.
+        /// </summary>
+        /// <typeparam name="T">Tipo de objetos de la colección.</typeparam>
+        /// <param name="c">
+        /// Colección que contiene los objetos a comprobar.
+        /// </param>
+        /// <param name="selector">
+        /// Función selectora de valor.
+        /// </param>
+        /// <returns>
+        /// <see langword="true"/> si el valor de la propiedad de todos los objetos de la colección es el mismo, <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool IsPropertyEqual<T>(this IEnumerable<T> c, Func<T, object> selector)
+        {
+            return AreAllEqual(c.Select(selector));
+        }
+        
+        public static bool AreAllEqual<T>(this IEnumerable<T> c)
+        { 
+            using var j = c.GetEnumerator();
+            if (!j.MoveNext())  throw new EmptyCollectionException(c);
+            var eq = j.Current;
+            while (j.MoveNext())
+            {
+                if (eq?.Equals(j.Current) ?? j.Current is { }) return false;
+            }
+            return true;
         }
 
         public static int FindIndexOf<T>(this IEnumerable<T> e, T item)
