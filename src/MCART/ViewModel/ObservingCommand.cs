@@ -42,9 +42,8 @@ namespace TheXDS.MCART.ViewModel
     /// para habilitar o deshabilitar automáticamente la ejecución del
     /// comando.
     /// </summary>
-    public class ObservingCommand : ICommand
+    public class ObservingCommand : CommandBase
     {
-        private readonly Action<object?> _action;
         private Func<object?, bool>? _canExecute;
         private readonly HashSet<string> _properties;
 
@@ -479,10 +478,9 @@ namespace TheXDS.MCART.ViewModel
         /// Lista de propiedades a escuchar. Si no se establece ningún
         /// valor, se escuchará el cambio de todas las propiedades.
         /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Action<object?> action, Func<object?, bool>? canExecute, IEnumerable<string>? propsToListen)
+        public ObservingCommand(INotifyPropertyChanged observedSource, Action<object?> action, Func<object?, bool>? canExecute, IEnumerable<string>? propsToListen) : base(action)
         {
             ObservedSource = observedSource ?? throw new ArgumentNullException(nameof(observedSource));
-            _action = action ?? throw new ArgumentNullException(nameof(action));
             _canExecute = canExecute;
 
             var toListen = propsToListen as string[] ?? propsToListen?.ToArray();
@@ -498,13 +496,6 @@ namespace TheXDS.MCART.ViewModel
             if (_canExecute is null) return;
             observedSource.PropertyChanged += RaiseCanExecuteChanged;
         }
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Se produce cuando hay cambios que influyen en si el comando
-        /// debería ejecutarse o no.
-        /// </summary>
-        public event EventHandler? CanExecuteChanged;
 
         /// <summary>
         /// Referencia al origen de datos observado por este <see cref="ObservingCommand"/>.
@@ -530,23 +521,9 @@ namespace TheXDS.MCART.ViewModel
         /// <see langword="true" /> si se puede ejecutar este comando; de
         /// lo contrario, <see langword="false" />.
         /// </returns>
-        public bool CanExecute(object? parameter)
+        public override bool CanExecute(object? parameter)
         {
             return _canExecute?.Invoke(parameter) ?? true;
-        }
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Define el método al que se llamará cuando se invoque el comando.
-        /// </summary>
-        /// <param name="parameter">
-        /// Datos que usa el comando. Si el comando no exige pasar los
-        /// datos, se puede establecer este objeto en
-        /// <see langword="null" />.
-        /// </param>
-        public void Execute(object? parameter)
-        {
-            _action(parameter);
         }
 
         /// <summary>
@@ -633,7 +610,7 @@ namespace TheXDS.MCART.ViewModel
 
         private void RaiseCanExecuteChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (_properties.Contains(e.PropertyName)) CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+            if (_properties.Contains(e.PropertyName)) RaiseCanExecuteChanged();
         }
 
         private static string ExpressionToString(object instance, Expression<Func<object?>> exp)

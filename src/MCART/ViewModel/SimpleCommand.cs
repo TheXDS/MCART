@@ -23,6 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.ComponentModel;
 using System.Windows.Input;
 using TheXDS.MCART.Types.Base;
 
@@ -33,9 +34,8 @@ namespace TheXDS.MCART.ViewModel
     /// Describe un comando simple que puede ser declarado dentro de un
     /// <see cref="ViewModelBase" />.
     /// </summary>
-    public class SimpleCommand : NotifyPropertyChanged, ICommand
+    public class SimpleCommand : CommandBase, ICommand
     {
-        private readonly Action<object> _action;
         private bool _canExecute;
 
         /// <inheritdoc />
@@ -57,9 +57,8 @@ namespace TheXDS.MCART.ViewModel
         /// Valor que indica si el comando puede ser ejecutado
         /// inmediatamente después de instanciar esta clase.
         /// </param>
-        public SimpleCommand(Action action, bool canExecute)
+        public SimpleCommand(Action action, bool canExecute) : this(_=> action())
         {
-            _action = _=> action();
             _canExecute = canExecute;
         }
 
@@ -69,7 +68,7 @@ namespace TheXDS.MCART.ViewModel
         /// <see cref="SimpleCommand" />.
         /// </summary>
         /// <param name="action">Acción a ejecutar.</param>
-        public SimpleCommand(Action<object> action) : this(action, true)
+        public SimpleCommand(Action<object?> action) : this(action, true)
         {
         }
 
@@ -82,9 +81,8 @@ namespace TheXDS.MCART.ViewModel
         /// Valor que indica si el comando puede ser ejecutado
         /// inmediatamente después de instanciar esta clase.
         /// </param>
-        public SimpleCommand(Action<object> action, bool canExecute)
+        public SimpleCommand(Action<object?> action, bool canExecute) : base(action)
         {
-            _action = action;
             _canExecute = canExecute;
         }
 
@@ -102,7 +100,7 @@ namespace TheXDS.MCART.ViewModel
         /// <see langword="true" /> si se puede ejecutar este comando; de
         /// lo contrario, <see langword="false" />.
         /// </returns>
-        public bool CanExecute(object parameter)
+        public override bool CanExecute(object? parameter)
         {
             return _canExecute;
         }
@@ -114,28 +112,7 @@ namespace TheXDS.MCART.ViewModel
         public void SetCanExecute(bool canExecute)
         {
             _canExecute = canExecute;
-            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-        }
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Se produce cuando hay cambios que influyen en si el comando
-        /// debería ejecutarse o no.
-        /// </summary>
-        public event EventHandler? CanExecuteChanged;
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Define el método al que se llamará cuando se invoque el comando.
-        /// </summary>
-        /// <param name="parameter">
-        /// Datos que usa el comando. Si el comando no exige pasar los
-        /// datos, se puede establecer este objeto en
-        /// <see langword="null" />.
-        /// </param>
-        public void Execute(object parameter)
-        {
-            _action(parameter);
+            RaiseCanExecuteChanged();
         }
     }
 }
