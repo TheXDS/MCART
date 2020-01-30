@@ -41,7 +41,7 @@ namespace TheXDS.MCART.Types.Base
     public abstract class NotifyPropertyChange : NotifyPropertyChangeBase, INotifyPropertyChanging, INotifyPropertyChanged
     {
         private readonly HashSet<WeakReference<PropertyChangeObserver>> _observeSubscriptions = new HashSet<WeakReference<PropertyChangeObserver>>();
-        
+
         /// <inheritdoc />
         /// <summary>
         /// Se produce cuando se cambiará el valor de una propiedad.
@@ -86,6 +86,7 @@ namespace TheXDS.MCART.Types.Base
         /// <param name="propertyName">
         /// Nombre de la propiedad. Por lo general, este valor debe
         /// omitirse.
+        /// </param>
         /// <returns>
         /// <see langword="true"/> si el valor de la propiedad ha
         /// cambiado, <see langword="false"/> en caso contrario.
@@ -95,7 +96,7 @@ namespace TheXDS.MCART.Types.Base
             if (field?.Equals(value) ?? Objects.AreAllNull(field, value)) return false;
 
             var m = ReflectionHelpers.GetCallingMethod() ?? throw new TamperException();
-            var p = GetType().GetProperties().SingleOrDefault(q => q.SetMethod == m) 
+            var p = GetType().GetProperties().SingleOrDefault(q => q.SetMethod == m)
                 ?? throw new InvalidOperationException();
             if (p.Name != propertyName) throw new TamperException();
 

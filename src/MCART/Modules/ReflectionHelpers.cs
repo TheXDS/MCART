@@ -235,74 +235,232 @@ namespace TheXDS.MCART
             return GetMemberInternal(memberSelector);
         }
 
-        private static MemberInfo GetMemberInternal(LambdaExpression memberSelector)
-        {
-            return memberSelector.Body switch
-            {
-                UnaryExpression { Operand: MethodCallExpression { Object: ConstantExpression { Value: MethodInfo m } } } => m,
-                UnaryExpression { Operand: MemberExpression m } => m.Member,
-                MemberExpression m => m.Member,
-                _ => throw new ArgumentException()
-            };
-        }
-
+        /// <summary>
+        /// Obtiene una referencia al miembro seleccionado por medio de una
+        /// expresión.
+        /// </summary>
+        /// <typeparam name="TMember">
+        /// Tipo del miembro a obtener.
+        /// </typeparam>
+        /// <typeparam name="TValue">
+        /// Tipo a partir del cual obtener al miembro.
+        /// </typeparam>
+        /// <param name="memberSelector">
+        /// Expresión que indica qué miembro de la clase debe devolverse.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="MemberInfo"/> que representa al miembro
+        /// seleccionado en la expresión.
+        /// </returns>
         public static TMember GetMember<TMember, TValue>(Expression<Func<TValue>> memberSelector) where TMember : MemberInfo
         {
             return GetMemberInternal(memberSelector) as TMember ?? throw new InvalidArgumentException(nameof(memberSelector));
         }
        
+        /// <summary>
+        /// Obtiene una referencia al miembro seleccionado por medio de una
+        /// expresión.
+        /// </summary>
+        /// <typeparam name="TMember">
+        /// Tipo del miembro a obtener.
+        /// </typeparam>
+        /// <typeparam name="TValue">
+        /// Tipo devuelto por el miembro a obtener.
+        /// </typeparam>
+        /// <typeparam name="T">
+        /// Tipo a partir del cual obtener al miembro.
+        /// </typeparam>
+        /// <param name="memberSelector">
+        /// Expresión que indica qué miembro de la clase debe devolverse.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="MemberInfo"/> que representa al miembro
+        /// seleccionado en la expresión.
+        /// </returns>
         public static TMember GetMember<TMember, T, TValue>(Expression<Func<T, TValue>> memberSelector) where TMember : MemberInfo
         {
             return GetMemberInternal(memberSelector) as TMember ?? throw new InvalidArgumentException(nameof(memberSelector));
         }
 
+        /// <summary>
+        /// Obtiene una referencia al método seleccionado por medio de una
+        /// expresión.
+        /// </summary>
+        /// <param name="methodSelector">
+        /// Expresión que indica qué método del tipo debe devolverse.
+        /// </param>
+        /// <typeparam name="TMethod">
+        /// Tipo delegado del método a obtener.
+        /// </typeparam>
+        /// <returns>
+        /// Un <see cref="MethodInfo"/> que representa al método
+        /// seleccionado en la expresión.
+        /// </returns>
         public static MethodInfo GetMethod<TMethod>(Expression<Func<TMethod>> methodSelector) where TMethod : Delegate
         {
             return GetMember<MethodInfo, TMethod>(methodSelector);
         }
 
+        /// <summary>
+        /// Obtiene una referencia al método seleccionado por medio de una
+        /// expresión.
+        /// </summary>
+        /// <param name="methodSelector">
+        /// Expresión que indica qué método del tipo debe devolverse.
+        /// </param>
+        /// <typeparam name="T">
+        /// Tipo desde el cual seleccionar al método a obtener.
+        /// </typeparam>
+        /// <typeparam name="TMethod">
+        /// Tipo delegado del método a obtener.
+        /// </typeparam>
+        /// <returns>
+        /// Un <see cref="MethodInfo"/> que representa al método
+        /// seleccionado en la expresión.
+        /// </returns>
         public static MethodInfo GetMethod<T, TMethod>(Expression<Func<T, TMethod>> methodSelector) where TMethod : Delegate
         {
             return GetMember<MethodInfo, T, TMethod>(methodSelector);
         }
 
+        /// <summary>
+        /// Obtiene una referencia al método seleccionado por medio de una
+        /// expresión.
+        /// </summary>
+        /// <param name="methodSelector">
+        /// Expresión que indica qué método del tipo debe devolverse.
+        /// </param>
+        /// <typeparam name="T">
+        /// Tipo desde el cual seleccionar al método a obtener.
+        /// </typeparam>
+        /// <returns>
+        /// Un <see cref="MethodInfo"/> que representa al método
+        /// seleccionado en la expresión.
+        /// </returns>
         public static MethodInfo GetMethod<T>(Expression<Func<T, Delegate>> methodSelector)
         {
             return GetMember<MethodInfo, T, Delegate>(methodSelector);
         }
 
+        /// <summary>
+        /// Obtiene una referencia a la propiedad seleccionada por medio de una
+        /// expresión.
+        /// </summary>
+        /// <param name="propertySelector">
+        /// Expresión que indica qué propiedad del tipo debe devolverse.
+        /// </param>
+        /// <typeparam name="T">
+        /// Tipo desde el cual seleccionar a la propiedad a obtener.
+        /// </typeparam>
+        /// <typeparam name="TValue">
+        /// Tipo devuelto por la propiedad a obtener.
+        /// </typeparam>
+        /// <returns>
+        /// Un <see cref="PropertyInfo"/> que representa a la propiedad
+        /// seleccionada en la expresión.
+        /// </returns>
         public static PropertyInfo GetProperty<T, TValue>(Expression<Func<T, TValue>> propertySelector)
         {
             return GetMember<PropertyInfo, T, TValue>(propertySelector);
         }
         
+        /// <summary>
+        /// Obtiene una referencia a la propiedad seleccionada por medio de una
+        /// expresión.
+        /// </summary>
+        /// <param name="propertySelector">
+        /// Expresión que indica qué propiedad del tipo debe devolverse.
+        /// </param>
+        /// <typeparam name="TValue">
+        /// Tipo devuelto por la propiedad a obtener.
+        /// </typeparam>
+        /// <returns>
+        /// Un <see cref="PropertyInfo"/> que representa a la propiedad
+        /// seleccionada en la expresión.
+        /// </returns>
         public static PropertyInfo GetProperty<TValue>(Expression<Func<TValue>> propertySelector)
         {
             return GetMember<PropertyInfo, TValue>(propertySelector);
         }
         
+        /// <summary>
+        /// Obtiene una referencia a la propiedad seleccionada por medio de una
+        /// expresión.
+        /// </summary>
+        /// <param name="propertySelector">
+        /// Expresión que indica qué propiedad del tipo debe devolverse.
+        /// </param>
+        /// <typeparam name="T">
+        /// Tipo desde el cual seleccionar a la propiedad a obtener.
+        /// </typeparam>
+        /// <returns>
+        /// Un <see cref="PropertyInfo"/> que representa a la propiedad
+        /// seleccionada en la expresión.
+        /// </returns>
         public static PropertyInfo GetProperty<T>(Expression<Func<T, object?>> propertySelector)
         {
             return GetMember<PropertyInfo, T, object?>(propertySelector);
         }
 
+        /// <summary>
+        /// Obtiene una referencia al campo seleccionado por medio de una
+        /// expresión.
+        /// </summary>
+        /// <param name="fieldSelector">
+        /// Expresión que indica qué campo del tipo debe devolverse.
+        /// </param>
+        /// <typeparam name="T">
+        /// Tipo desde el cual seleccionar al campo a obtener.
+        /// </typeparam>
+        /// <typeparam name="TValue">
+        /// Tipo devuelto por el campo a obtener.
+        /// </typeparam>
+        /// <returns>
+        /// Un <see cref="FieldInfo"/> que representa al campo seleccionado en
+        /// la expresión.
+        /// </returns>
         public static FieldInfo GetField<T, TValue>(Expression<Func<T, TValue>> fieldSelector)
         {
             return GetMember<FieldInfo, T, TValue>(fieldSelector);
         }
         
+        /// <summary>
+        /// Obtiene una referencia al campo seleccionado por medio de una
+        /// expresión.
+        /// </summary>
+        /// <param name="fieldSelector">
+        /// Expresión que indica qué campo del tipo debe devolverse.
+        /// </param>
+        /// <typeparam name="TValue">
+        /// Tipo devuelto por el campo a obtener.
+        /// </typeparam>
+        /// <returns>
+        /// Un <see cref="FieldInfo"/> que representa al campo seleccionado en
+        /// la expresión.
+        /// </returns>
         public static FieldInfo GetField<TValue>(Expression<Func<TValue>> fieldSelector)
         {
             return GetMember<FieldInfo, TValue>(fieldSelector);
         }
         
+        /// <summary>
+        /// Obtiene una referencia al campo seleccionado por medio de una
+        /// expresión.
+        /// </summary>
+        /// <param name="fieldSelector">
+        /// Expresión que indica qué campo del tipo debe devolverse.
+        /// </param>
+        /// <typeparam name="T">
+        /// Tipo desde el cual seleccionar al campo a obtener.
+        /// </typeparam>
+        /// <returns>
+        /// Un <see cref="FieldInfo"/> que representa al campo seleccionado en
+        /// la expresión.
+        /// </returns>
         public static FieldInfo GetField<T>(Expression<Func<T, object?>> fieldSelector)
         {
             return GetMember<FieldInfo, T, object?>(fieldSelector);
         }
-
-
-
 
         /// <summary>
         /// Infiere las <see cref="BindingFlags"/> utilizadas en la
@@ -339,6 +497,7 @@ namespace TheXDS.MCART
             return retVal;
         }
 
+
         private class TypeExpressionTree
         {
             public string TypeName;
@@ -358,6 +517,17 @@ namespace TheXDS.MCART
             {
                 return Objects.GetTypes<object>().NotNull().FirstOrDefault(p => p.FullName == name);
             }
+        }
+        
+        private static MemberInfo GetMemberInternal(LambdaExpression memberSelector)
+        {
+            return memberSelector.Body switch
+            {
+                UnaryExpression { Operand: MethodCallExpression { Object: ConstantExpression { Value: MethodInfo m } } } => m,
+                UnaryExpression { Operand: MemberExpression m } => m.Member,
+                MemberExpression m => m.Member,
+                _ => throw new ArgumentException()
+            };
         }
     }
 }
