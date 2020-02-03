@@ -920,21 +920,21 @@ namespace TheXDS.MCART.Types.Extensions
 
         /// <summary>
         /// Se asegura de devolver <see cref="string.Empty" /> si la cadena
-        /// está vacía.
+        /// está vacía o es nula.
         /// </summary>
         /// <param name="str">Cadena a devolver.</param>
         /// <returns>
         /// La cadena, o <see cref="string.Empty" /> si la cadena está
-        /// vacía.
+        /// vacía o es nula.
         /// </returns>
-        public static string OrEmpty(this string str)
+        public static string OrEmpty(this string? str)
         {
             return OrX(str, string.Empty) ?? string.Empty;
         }
 
         /// <summary>
         /// Se asegura de devolver <see cref="string.Empty" /> si la cadena
-        /// está vacía.
+        /// está vacía o es nula.
         /// </summary>
         /// <param name="str">Cadena a devolver.</param>
         /// <param name="notEmptyFormat">
@@ -943,9 +943,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         /// <returns>
         /// La cadena, o <see cref="string.Empty" /> si la cadena está
-        /// vacía.
+        /// vacía o es nula.
         /// </returns>
-        public static string OrEmpty(this string str, string notEmptyFormat)
+        public static string OrEmpty(this string? str, string notEmptyFormat)
         {
             return !str.IsEmpty() ? string.Format(notEmptyFormat, str) : string.Empty;
         }
