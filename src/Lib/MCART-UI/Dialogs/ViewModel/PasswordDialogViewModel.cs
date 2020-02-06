@@ -37,17 +37,17 @@ namespace TheXDS.MCART.Dialogs.ViewModel
     public abstract class PasswordDialogViewModelBase : ViewModelBase
     {
         private SecureString _confirm;
-        private IPasswordEvaluator _evaluator;
+        private IPasswordEvaluator? _evaluator;
         private string _generatedPassword;
-        private IPasswordGenerator _generator;
-        private string _hint;
+        private IPasswordGenerator? _generator;
+        private string? _hint;
         private PasswordDialogMode _mode;
         private SecureString _password;
         private PwEvalResult _result;
         private string _title;
-        private string _user;
+        private string? _user;
         private int _triesCount;
-        private LoginValidator _validator;
+        private LoginValidator? _validator;
         private int? _maxTries;
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// Obtiene o establece un <see cref="IPasswordEvaluator"/> a
         /// utilizar para comprobar la calidad de una contraseña.
         /// </summary>
-        public IPasswordEvaluator Evaluator
+        public IPasswordEvaluator? Evaluator
         {
             get => _evaluator;
             set
@@ -148,7 +148,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// Obtiene o establece un <see cref="IPasswordGenerator"/> a 
         /// utilizar para generar contraseñas.
         /// </summary>
-        public IPasswordGenerator Generator
+        public IPasswordGenerator? Generator
         {
             get => _generator;
             set
@@ -160,7 +160,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// <summary>
         /// Obtiene o establece un indicio de contraseña.
         /// </summary>
-        public string Hint
+        public string? Hint
         {
             get => _hint;
             set => Change(ref _hint, value);
@@ -243,7 +243,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// <summary>
         /// Obtiene o establece el nombre de usuario.
         /// </summary>
-        public string User
+        public string? User
         {
             get => _user;
             set => Change(ref _user, value);
@@ -253,7 +253,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// Obtiene o establece un validador de inicio de sesión a utilizar
         /// al presionar el botón de continuar.
         /// </summary>
-        public LoginValidator Validator
+        public LoginValidator? Validator
         {
             get => _validator;
             set => Change(ref _validator, value);
