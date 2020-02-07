@@ -79,7 +79,6 @@ namespace TheXDS.MCART.ViewModel
             if (Entity is null) return;
             lock (Entity)
             {
-                //Notify(_modelProperties.Select(p => p.Name));
                 Notify(nameof(Entity));
             }
         }

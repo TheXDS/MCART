@@ -32,7 +32,7 @@ namespace TheXDS.MCART.ViewModel
     /// <summary>
     /// Clase base para la creación de ViewModels.
     /// </summary>
-    public abstract class ViewModelBase : NotifyPropertyChanged
+    public abstract class ViewModelBase : NotifyPropertyChanged, IViewModel
     {
         /// <summary>
         /// Inicialica una nueva instancia de la clase 
