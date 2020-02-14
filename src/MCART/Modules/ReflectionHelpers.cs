@@ -82,7 +82,7 @@ namespace TheXDS.MCART
         {
             if (checked(nCaller++) < 1) throw new ArgumentOutOfRangeException(nameof(nCaller));
             var frames = new StackTrace().GetFrames();
-            return frames?.Length >= nCaller ? (MethodInfo?)frames![nCaller]?.GetMethod() : null;
+            return frames?.Length > nCaller ? (MethodInfo?)frames![nCaller]?.GetMethod() : null;
         }
 
         /// <summary>
