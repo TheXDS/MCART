@@ -34,18 +34,18 @@
     Name="PublishLocal"
     Condition="'$(PublishLocalSymbols)'=='true' And '$(GeneratePackageOnBuild)'=='true' And '$(IsPackable)'=='true'"
     AfterTargets="Pack">
-    <Exec Command="nuget add $(ActualPackageSymbols) -Source $(NuGetRoot)" />
+    <Exec Command="nuget add $(ActualPackageSymbols) -Source $(NuGetRoot) -SkipDuplicate" />
   </Target>
   <Target
     Name="PublishToNuGet"
     Condition="'$(PublishToNuGet)'=='true' And '$(GeneratePackageOnBuild)'=='true' And '$(IsPackable)'=='true'"
     AfterTargets="Pack">
-    <Exec Command="nuget push $(ActualPackageFile) -Source https://nuget.org" />
+    <Exec Command="nuget push $(ActualPackageFile) -Source https://nuget.org -SkipDuplicate" />
   </Target>
   <Target
     Name="PublishToGitHub"
     Condition="'$(PublishToNuGet)'=='true' And '$(GeneratePackageOnBuild)'=='true' And '$(IsPackable)'=='true'"
     AfterTargets="Pack">
-    <Exec Command="nuget push $(ActualPackageFile) -Source GitHub" />
+    <Exec Command="nuget push $(ActualPackageFile) -Source GitHub -SkipDuplicate" />
   </Target>
 </Project>

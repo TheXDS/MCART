@@ -16,10 +16,10 @@
     <PackageDescription>$(Description)</PackageDescription>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(VersionSuffix)'==''">
+  <PropertyGroup Condition="'$(VersionSuffix)'=='' OR '$(Configuration)'=='Release'">
     <ActualPkgVersion>$(VersionPrefix)</ActualPkgVersion>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(VersionSuffix)'!=''">
+  <PropertyGroup Condition="'$(VersionSuffix)'!='' AND '$(Configuration)'!='Release'">
     <ActualPkgVersion>$(VersionPrefix)-$(VersionSuffix)</ActualPkgVersion>
     <PackageReleaseNotes>Este paquete es una versión Pre-Release de $(Product), por lo que se recomienda que su uso se limite a pruebas y demostraciones de la API, ya que no se puede garantizar la estabilidad de la misma. Para más detalles, vea la documentación que acompaña a $(Product).</PackageReleaseNotes>
   </PropertyGroup>

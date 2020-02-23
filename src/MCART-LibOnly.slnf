@@ -1,0 +1,18 @@
+{
+  "solution": {
+    "path": "MCART.sln",
+    "projects": [
+      "Extensions\\ComplexTypes\\ComplexTypes.csproj",
+      "Extensions\\PrismLike\\PrismLike.csproj",
+      "Lib\\MCART-GUI\\MCART-GUI.csproj",
+      "Lib\\MCART-UI\\MCART-UI.csproj",
+      "Lib\\MCART-Windows\\MCART-Windows.csproj",
+      "MCART\\MCART.csproj",
+      "Platform\\Cmd\\Cmd.csproj",
+      "Platform\\WPF\\WPF.csproj",
+      "Shared\\AssemblyInfo\\AssemblyInfo.shproj",
+      "Shared\\Globals\\Globals.shproj",
+      "Shared\\Internals\\Internals.shproj"
+    ]
+  }
+}
