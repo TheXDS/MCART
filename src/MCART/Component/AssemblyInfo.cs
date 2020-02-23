@@ -111,7 +111,7 @@ namespace TheXDS.MCART.Component
         /// Obtiene un valor que determina si este <see cref="IExposeInfo" />
         /// contiene información de licencia.
         /// </summary>
-        public bool HasLicense => PrivateInternals.HasLicense(Assembly);
+        public bool HasLicense => Internals.HasLicense(Assembly);
 
         /// <inheritdoc />
         /// <summary>

@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -125,7 +126,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         /// <returns>
         /// El primer elemento de tipo <typeparamref name="T"/> que sea
-        /// encontrado en la colección, o <see langword="null"/> si no se
+        /// encontrado en la colección, o <see langword="default"/> si no se
         /// encuentra ningún elemento del tipo especificado.
         /// </returns>
         [Sugar]
@@ -200,7 +201,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static IEnumerable<T> NotNull<T>(this IEnumerable<T?>? collection) where T : struct
         {
-            return collection is null ? Array.Empty<T>() : collection.Where(p => !(p is null)).Select(p=>p!.Value);
+            return collection is null ? Array.Empty<T>() : collection.Where(p => !(p is null)).Select(p => p!.Value);
         }
 
         /// <summary>
@@ -846,7 +847,7 @@ namespace TheXDS.MCART.Types.Extensions
             return (e, item) switch
             {
                 (string s, char i) => s.ToCharArray().FindIndexOf(i),
-                (IList<T> l, T i)=> l.IndexOf(i),
+                (IList<T> l, T i) => l.IndexOf(i),
                 _ => IndexOfEnumerable(e, item)
             };
         }

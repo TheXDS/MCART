@@ -107,10 +107,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrpcTests", "Tests\Extensio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeFactoryTests", "Tests\TypeFactoryTests\TypeFactoryTests.csproj", "{A18977D4-6CF4-4D7E-B9AC-A2771D872991}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginSupport.Legacy", "Extensions\PluginSupport.Legacy\PluginSupport.Legacy.csproj", "{179146E4-5E1A-4B33-98C6-FB8BF74CBF76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wpf.PluginSupport.Legacy", "Extensions\Wpf.PluginSupport.Legacy\Wpf.PluginSupport.Legacy.csproj", "{7D5862D3-4DC8-495C-AE5F-46F62F467445}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared\Globals\Globals.projitems*{0aeb6508-6179-44e8-96e6-6535659ae85d}*SharedItemsImports = 13
-		Examples\LightChat\Common\Common.projitems*{1459cf01-8f9b-47b1-a3f2-57e1f84d9d0e}*SharedItemsImports = 13
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{77706828-80be-4bac-a97c-072e101d01de}*SharedItemsImports = 4
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{967afaa3-ded3-4ec0-9401-7193b318fce8}*SharedItemsImports = 13
 		Shared\Internals\Internals.projitems*{f7b14aea-6c0a-4343-81ae-fb06dcd9c69c}*SharedItemsImports = 13
@@ -351,6 +354,26 @@ Global
 		{A18977D4-6CF4-4D7E-B9AC-A2771D872991}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A18977D4-6CF4-4D7E-B9AC-A2771D872991}.Release-Windows|Any CPU.ActiveCfg = Release|Any CPU
 		{A18977D4-6CF4-4D7E-B9AC-A2771D872991}.Release-Windows|Any CPU.Build.0 = Release|Any CPU
+		{179146E4-5E1A-4B33-98C6-FB8BF74CBF76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{179146E4-5E1A-4B33-98C6-FB8BF74CBF76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{179146E4-5E1A-4B33-98C6-FB8BF74CBF76}.Debug-Publish|Any CPU.ActiveCfg = Debug-Publish|Any CPU
+		{179146E4-5E1A-4B33-98C6-FB8BF74CBF76}.Debug-Publish|Any CPU.Build.0 = Debug-Publish|Any CPU
+		{179146E4-5E1A-4B33-98C6-FB8BF74CBF76}.Debug-PublishLocal|Any CPU.ActiveCfg = Debug-PublishLocal|Any CPU
+		{179146E4-5E1A-4B33-98C6-FB8BF74CBF76}.Debug-PublishLocal|Any CPU.Build.0 = Debug-PublishLocal|Any CPU
+		{179146E4-5E1A-4B33-98C6-FB8BF74CBF76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{179146E4-5E1A-4B33-98C6-FB8BF74CBF76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{179146E4-5E1A-4B33-98C6-FB8BF74CBF76}.Release-Windows|Any CPU.ActiveCfg = Release|Any CPU
+		{179146E4-5E1A-4B33-98C6-FB8BF74CBF76}.Release-Windows|Any CPU.Build.0 = Release|Any CPU
+		{7D5862D3-4DC8-495C-AE5F-46F62F467445}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D5862D3-4DC8-495C-AE5F-46F62F467445}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D5862D3-4DC8-495C-AE5F-46F62F467445}.Debug-Publish|Any CPU.ActiveCfg = Debug-Publish|Any CPU
+		{7D5862D3-4DC8-495C-AE5F-46F62F467445}.Debug-Publish|Any CPU.Build.0 = Debug-Publish|Any CPU
+		{7D5862D3-4DC8-495C-AE5F-46F62F467445}.Debug-PublishLocal|Any CPU.ActiveCfg = Debug-PublishLocal|Any CPU
+		{7D5862D3-4DC8-495C-AE5F-46F62F467445}.Debug-PublishLocal|Any CPU.Build.0 = Debug-PublishLocal|Any CPU
+		{7D5862D3-4DC8-495C-AE5F-46F62F467445}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D5862D3-4DC8-495C-AE5F-46F62F467445}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D5862D3-4DC8-495C-AE5F-46F62F467445}.Release-Windows|Any CPU.ActiveCfg = Release|Any CPU
+		{7D5862D3-4DC8-495C-AE5F-46F62F467445}.Release-Windows|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -385,6 +408,8 @@ Global
 		{D71650ED-9516-4A3A-A0ED-10FD729F80F3} = {D62BF4A9-E484-4F39-B40F-7103D5AEABA8}
 		{55CDBE7D-D342-4ED8-AEFF-8F21CE2D46B2} = {19EC529F-C50D-4A09-8B2A-70E21B642109}
 		{A18977D4-6CF4-4D7E-B9AC-A2771D872991} = {19EC529F-C50D-4A09-8B2A-70E21B642109}
+		{179146E4-5E1A-4B33-98C6-FB8BF74CBF76} = {D62BF4A9-E484-4F39-B40F-7103D5AEABA8}
+		{7D5862D3-4DC8-495C-AE5F-46F62F467445} = {D62BF4A9-E484-4F39-B40F-7103D5AEABA8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A16C9D23-2B39-4202-8A15-4A3536784E27}

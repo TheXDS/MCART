@@ -23,7 +23,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Linq;
 using System.Reflection.Emit;
 using TheXDS.MCART.Exceptions;
 using static System.Reflection.Emit.OpCodes;
@@ -75,6 +74,21 @@ namespace TheXDS.MCART.Types.Extensions
             ilGen.Emit(Ldarg_0);
             ilGen.NewObject(instanceType, args);
             ilGen.Emit(Stfld, field);
+        }
+
+        /// <summary>
+        /// Inicializa un campo dentro del generador de código especificado.
+        /// </summary>
+        /// <typeparam name="T">Tipo de valor u objeto a instanciar.</typeparam>
+        /// <param name="field">Campo a inicializar.</param>
+        /// <param name="ilGen">
+        /// Generador de código a utilizar para inicializar el campo.
+        /// Generalmente, debe tratarse de un constructor de clase.
+        /// </param>
+        public static void InitField<T>(this FieldBuilder field, ILGenerator ilGen) where T : new()
+        {
+            if (typeof(T).IsValueType) InitField(field, ilGen, default(T)!);
+            else InitField(field, ilGen, typeof(T), Array.Empty<object>());
         }
     }
 }

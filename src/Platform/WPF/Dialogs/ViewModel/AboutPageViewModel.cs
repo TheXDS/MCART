@@ -71,10 +71,10 @@ namespace TheXDS.MCART.Dialogs.ViewModel
             }
         }
 
-        protected override void OnPluginInfo()
-        {
-            new PluginBrowser().ShowDialog();
-        }
+        //protected override void OnPluginInfo()
+        //{
+        //    new PluginBrowser().ShowDialog();
+        //}
 
         protected override void OnAboutMcart()
         {

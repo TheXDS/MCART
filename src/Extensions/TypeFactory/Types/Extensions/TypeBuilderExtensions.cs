@@ -242,9 +242,8 @@ namespace TheXDS.MCART.Types.Extensions
                 .This()
                 .LoadFieldAddress(field)
                 .LoadArg1()
-                .LoadConstant(name);
-            p.Setter!.Emit(Callvirt, tb.ActualBaseType.GetMethod("Change", BindingFlags.NonPublic | BindingFlags.Instance)!.MakeGenericMethod(new[] { type })!);
-            p.Setter!
+                .LoadConstant(name)
+                .Call(tb.ActualBaseType.GetMethod("Change", BindingFlags.NonPublic | BindingFlags.Instance)!.MakeGenericMethod(new[] { type })!)
                 .Pop()
                 .Return();
             return new PropertyBuildInfo(p.Property, field);
@@ -365,7 +364,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<INotifyPropertyChanged> tb, string name, Type type, MemberAccess access, bool @virtual, FieldInfo? evtHandler)
         {
             evtHandler ??= tb.SpecificBaseType.GetFields().FirstOrDefault(p => p.FieldType.Implements<PropertyChangedEventHandler>()) ?? throw new MissingFieldException();
-            return AddNpcSetter(tb.Builder, name, type, access,@virtual, (retLabel,setter) => setter
+            return BuildNpcProp(tb.Builder, name, type, access,@virtual, (retLabel, setter) => setter
                 .LoadField(evtHandler)
                 .Duplicate()
                 .BranchTrueNewLabel(out var notify)
@@ -410,7 +409,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<INotifyPropertyChanged> tb, string name, Type type, MemberAccess access, bool @virtual, MethodInfo? npcInvocator)
         {
             npcInvocator ??= tb.SpecificBaseType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).First(p => p.IsVoid() && p.GetParameters().Length == 1 && p.GetParameters()[0].ParameterType == typeof(string) && p.HasAttr<NotifyPropertyChangedInvocatorAttribute>());
-            return AddNpcSetter(tb.Builder, name, type, access, @virtual, (_, setter) => setter.This().LoadConstant(name), npcInvocator);
+            return BuildNpcProp(tb.Builder, name, type, access, @virtual, (_, setter) => setter.This().LoadConstant(name), npcInvocator);
         }
 
         /// <summary>
@@ -776,7 +775,7 @@ namespace TheXDS.MCART.Types.Extensions
             }
         }
 
-        private static PropertyBuildInfo AddNpcSetter(TypeBuilder tb, string name, Type t, MemberAccess access, bool @virtual, Action<Label,ILGenerator> evtHandler, MethodInfo method)
+        private static PropertyBuildInfo BuildNpcProp(TypeBuilder tb, string name, Type t, MemberAccess access, bool @virtual, Action<Label,ILGenerator> evtHandler, MethodInfo method)
         {
             CheckImplements<INotifyPropertyChanged>(tb.BaseType!);
 

@@ -45,9 +45,9 @@
                     <Button
                         Visibility="{Binding HasLicense, Converter={StaticResource B2VConv}}"
                         Command="{Binding LicenseCommand, Mode=OneWay}" Content="{x:Static resources:Strings.SeeLicense}"/>
-                    <Button
+                    <!--<Button
                         Visibility="{Binding ShowPluginInfo, Converter={StaticResource B2VConv}}"
-                        Command="{Binding PluginInfoCommand, Mode=OneWay}" Content="{x:Static resources:Strings.PluginDetails}"/>
+                        Command="{Binding PluginInfoCommand, Mode=OneWay}" Content="{x:Static resources:Strings.PluginDetails}"/>-->
                     <Button
                         Visibility="{Binding ShowAboutMcart, Converter={StaticResource B2VConv}}"
                         Command="{Binding AboutMcartCommand, Mode=OneWay}" Content="{x:Static resources:Strings.AboutMCART}"/>

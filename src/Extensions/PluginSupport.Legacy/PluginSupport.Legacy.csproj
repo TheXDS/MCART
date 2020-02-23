@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.1;netstandard2.1</TargetFrameworks>
+    <Description>MCART Legacy Plugin Support</Description>
+    <AssemblyName>MCART.PluginSupport.Legacy</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(SolutionDir)Lib\MCART-UI\MCART-UI.csproj" />
+  </ItemGroup>
+</Project>

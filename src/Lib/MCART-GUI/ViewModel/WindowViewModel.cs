@@ -31,7 +31,7 @@ namespace TheXDS.MCART.ViewModel
     /// </summary>
     public abstract class WindowViewModel : ViewModelBase
     {
-        private string _title;
+        private string _title = string.Empty;
         private Size _size;
 
         /// <summary>

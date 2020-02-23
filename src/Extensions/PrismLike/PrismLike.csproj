@@ -4,4 +4,7 @@
     <Description>Prism-Like syntax extensions for MCART ViewModels</Description>
     <AssemblyName>MCART.Ext.PrismLike</AssemblyName>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(SolutionDir)Lib\MCART-UI\MCART-UI.csproj" />
+  </ItemGroup>
 </Project>

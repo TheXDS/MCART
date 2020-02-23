@@ -50,9 +50,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// Valor constante a cargar. Debe ser de tipo 
         /// <typeparamref name="T"/>.
         /// </param>
-        public void Emit(ILGenerator il, object value)
+        public void Emit(ILGenerator il, object? value)
         {
-            Emit(il, (T)value);
+            Emit(il, (T)value!);
         }
 
         /// <summary>

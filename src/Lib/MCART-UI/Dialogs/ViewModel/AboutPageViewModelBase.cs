@@ -47,7 +47,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
     {
         private T _element = default!;
         private bool _showAboutMcart = true;
-        private bool _showPluginInfo;
+        //private bool _showPluginInfo;
 
         /// <summary>
         /// Obtiene o establece un valor que indica si el
@@ -61,11 +61,11 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// </summary>
         public SimpleCommand AboutMcartCommand { get; }
 
-        /// <summary>
-        /// Obtiene un comando a ejecutar cuando el usuario desea obtener
-        /// más información sobre los plugins de la aplicación.
-        /// </summary>
-        public SimpleCommand PluginInfoCommand { get; }
+        ///// <summary>
+        ///// Obtiene un comando a ejecutar cuando el usuario desea obtener
+        ///// más información sobre los plugins de la aplicación.
+        ///// </summary>
+        //public SimpleCommand PluginInfoCommand { get; }
 
         /// <summary>
         /// Obtiene un comando a ejecutar cuando el usuario desea obtener
@@ -87,7 +87,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         protected AboutPageViewModelBase()
         {
             AboutMcartCommand = new SimpleCommand(OnAboutMcart, false);
-            PluginInfoCommand = new SimpleCommand(OnPluginInfo, false);
+            //PluginInfoCommand = new SimpleCommand(OnPluginInfo, false);
             LicenseCommand = new SimpleCommand(OnLicense, false);
             ThidPartiLicensesCommand = new SimpleCommand(On3rdPartyLicenses, false);
             RegisterPropertyChangeBroadcast(nameof(Element), new[] {
@@ -101,7 +101,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
                     nameof(McartComponentKind),
                     nameof(Name),
                     nameof(ShowAboutMcart),
-                    nameof(ShowPluginInfo),
+                    //nameof(ShowPluginInfo),
                     nameof(Version),
                     nameof(InformationalVersion),
                     nameof(ThirdPartyLicenses),
@@ -163,7 +163,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         protected virtual void OnElementChanged()
         {
             AboutMcartCommand.SetCanExecute(!IsMcart);
-            PluginInfoCommand.SetCanExecute(ShowPluginInfo);
+            //PluginInfoCommand.SetCanExecute(ShowPluginInfo);
             LicenseCommand.SetCanExecute(HasLicense);
             ThidPartiLicensesCommand.SetCanExecute(Has3rdPartyLicense);
         }
@@ -190,15 +190,15 @@ namespace TheXDS.MCART.Dialogs.ViewModel
             set => Change(ref _showAboutMcart, value);
         }
 
-        /// <summary>
-        /// Obtiene o establece un valor que indica si debe mostrarse un
-        /// vínculo al explorador de plugins de MCART.
-        /// </summary>
-        public bool ShowPluginInfo
-        {
-            get => _showPluginInfo;
-            set => Change(ref _showPluginInfo, value);
-        }
+        ///// <summary>
+        ///// Obtiene o establece un valor que indica si debe mostrarse un
+        ///// vínculo al explorador de plugins de MCART.
+        ///// </summary>
+        //public bool ShowPluginInfo
+        //{
+        //    get => _showPluginInfo;
+        //    set => Change(ref _showPluginInfo, value);
+        //}
 
         /// <summary>
         /// Obtiene la versión del <see cref="IExposeInfo"/> para el cual
@@ -249,11 +249,11 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// </summary>
         protected abstract void OnLicense();
 
-        /// <summary>
-        /// Ejecuta la acción de mostrar información adicional sobre los
-        /// plugins de la aplicación.
-        /// </summary>
-        protected abstract void OnPluginInfo();
+        ///// <summary>
+        ///// Ejecuta la acción de mostrar información adicional sobre los
+        ///// plugins de la aplicación.
+        ///// </summary>
+        //protected abstract void OnPluginInfo();
 
         /// <summary>
         /// Ejecuta la acción de mostrar más información sobre MCART.

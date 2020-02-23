@@ -29,8 +29,8 @@ using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Component;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
-using static TheXDS.MCART.Misc.PrivateInternals;
 using St = TheXDS.MCART.Resources.Strings;
 using St2 = TheXDS.MCART.Resources.InternalStrings;
 
@@ -207,7 +207,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// Obtiene un valor que determina si este <see cref="IExposeInfo" />
         /// contiene información de licencia.
         /// </summary>
-        public bool HasLicense => HasLicense(this) || HasLicense(Assembly);
+        public bool HasLicense => Internals.HasLicense(this) || Internals.HasLicense(Assembly);
 
         /// <inheritdoc />
         /// <summary>
