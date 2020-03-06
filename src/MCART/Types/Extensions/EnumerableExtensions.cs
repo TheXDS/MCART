@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -40,33 +41,6 @@ namespace TheXDS.MCART.Types.Extensions
     /// </summary>
     public static class EnumerableExtensions
     {
-        /// <summary>
-        /// Obtiene un diccionario a partir de la enumeración especificada,
-        /// utilizando una función que ayuda a determinar la llave a utilizar
-        /// para cada elemento.
-        /// </summary>
-        /// <typeparam name="TKey">Tipo de llave del diccionario.</typeparam>
-        /// <typeparam name="TValue">
-        ///     Tipo de valores contenidos en el diccionario.
-        /// </typeparam>
-        /// <param name="enumeration">
-        ///     Colección de elementos a partir de los cuales crear un nuevo
-        ///     diccionario.
-        /// </param>
-        /// <param name="keySelector">
-        ///     Función de selección de llaves a utilizar para identificar a
-        ///     cada elemento del diccionario.
-        /// </param>
-        /// <returns>
-        ///     Un nunevo diccionario que contiene a todos los elementos de la
-        ///     colección, utilizando una llave determinada por
-        ///     <paramref name="keySelector"/>.
-        /// </returns>
-        public static IDictionary<TKey, TValue> ToDictionary<TKey, TValue>(this IEnumerable<TValue> enumeration, Func<TValue, TKey> keySelector) where TKey : notnull
-        {
-            return new Dictionary<TKey, TValue>(enumeration.Select(p => new KeyValuePair<TKey, TValue>(keySelector(p), p)));
-        }
-
         /// <summary>
         /// Ejecuta una operación sobre una secuencia en un contexto
         /// bloqueado.
