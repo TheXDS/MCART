@@ -324,6 +324,13 @@ namespace TheXDS.MCART.Component
         /// portátil.
         /// </summary>
         public bool PortableOperatingSystem => GetFromWmi<bool>();
+
+        /// <summary>
+        /// Obtiene el valor "Primary" desde la instrumentación de Windows.
+        /// </summary>
+        /// <returns>
+        /// El valor "Primary" desde la instrumentación de Windows.
+        /// </returns>
         public bool Primary => GetFromWmi<bool>();
 
         /// <summary>
@@ -425,6 +432,12 @@ namespace TheXDS.MCART.Component
 #endif
         public ulong TotalVisibleMemorySize => GetFromWmi<ulong>();
         
+        /// <summary>
+        /// Obtiene el valor "UBR" desde la instrumentación de Windows.
+        /// </summary>
+        /// <returns>
+        /// El valor "UBR" desde la instrumentación de Windows.
+        /// </returns>
         public int UBR => GetFromReg<int>();
 
         /// <summary>
@@ -450,19 +463,20 @@ namespace TheXDS.MCART.Component
         /// <summary>
         /// Obtiene el texto de licencia asociado a Windows.
         /// </summary>
-        public License License => new License("Microsoft Windows EULA", new Uri(@"C:\Windows\System32\license.rtf"));
+        public License License => new License("Microsoft Windows EULA", new Uri(GetWinLicencePath()));
 
         /// <summary>
         /// Obtiene un valor que determina si Windows incluye un CLUF
         /// </summary>
-        public bool HasLicense => System.IO.File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "license.rtf"));
+        public bool HasLicense => System.IO.File.Exists(GetWinLicencePath());
 
         /// <summary>
         /// Obtiene un valor que indica si Windows cumple con el CLS.
         /// </summary>
         /// <remarks>
         /// Esta función siempre devolverá <see langword="false"/>, debido
-        /// a que Windows fue escrito utilizando C/C++.
+        /// a que grandes porciones de Microsoft Windows fueron escritas
+        /// utilizando C/C++, y no C# u otros lenguajes CLR.
         /// </remarks>
         public bool ClsCompliant => false;
 
@@ -477,16 +491,25 @@ namespace TheXDS.MCART.Component
         /// </summary>
         public IEnumerable<License>? ThirdPartyLicenses => null;
 
+        /// <summary>
+        /// Obtiene un valor que indica si Microsoft Windows incluye licencias 
+        /// de terceros.
+        /// </summary>
         public bool Has3rdPartyLicense => false;
+
+        private string GetWinLicencePath()
+        {
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "license.rtf");
+        }
 
         private T GetFromWmi<T>([CallerMemberName]string property = "")
         {
-            return _managementObject[property] is T v ? v : default;
+            return _managementObject[property] is T v ? v : default!;
         }
 
         private T GetFromReg<T>([CallerMemberName] string value = "")
         {
-            return Registry.GetValue(_regInfo, value, default) is T v ? v : default;
+            return Registry.GetValue(_regInfo, value, default) is T v ? v : default!;
         }
 
         private DateTime DateFromWmi([CallerMemberName] string value = "")
