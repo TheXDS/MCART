@@ -30,7 +30,6 @@ using static System.AttributeTargets;
 
 namespace TheXDS.MCART.Annotations
 {
-    /// <inheritdoc />
     /// <summary>
     /// Indica que el valor del elemento marcado podría ser 
     /// <see langword="null"/> algunas veces, por lo que es necesario
@@ -59,7 +58,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Indica que el valor del elemento marcado nunca puede ser
     /// <see langword="null"/>.
@@ -86,7 +84,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Can be applied to symbols of types derived from IEnumerable as well as to symbols of Task
     /// and Lazy classes to indicate that the value of a collection item, of the Task.Result property
@@ -102,7 +99,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Can be applied to symbols of types derived from IEnumerable as well as to symbols of Task
     /// and Lazy classes to indicate that the value of a collection item, of the Task.Result property
@@ -118,7 +114,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Indica que el método marcado construye cadenas por medio del patrón
     /// de formateo junto con argumentos opcionales.
@@ -162,7 +157,6 @@ namespace TheXDS.MCART.Annotations
         }
     }
 
-    /// <inheritdoc cref="Attribute"/>
     /// <summary>
     /// For a parameter that is expected to be one of the limited set of values.
     /// Specify fields of which type should be used as values for this parameter.
@@ -191,7 +185,6 @@ namespace TheXDS.MCART.Annotations
         }
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Indicates that the function argument should be string literal and match one
     /// of the parameters of the caller function. For example, ReSharper annotates
@@ -297,7 +290,6 @@ namespace TheXDS.MCART.Annotations
         }
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Describes dependency between method input and output.
     /// </summary>
@@ -397,7 +389,6 @@ namespace TheXDS.MCART.Annotations
         }
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Indicates that marked element should be localized or not.
     /// </summary>
@@ -437,8 +428,7 @@ namespace TheXDS.MCART.Annotations
             Required = required;
         }
     }
-
-    /// <inheritdoc />
+    
     /// <summary>
     /// Indicates that the value of the marked type (or its derivatives)
     /// cannot be compared using '==' or '!=' operators and <c>Equals()</c>
@@ -465,7 +455,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// When applied to a target attribute, specifies a requirement for any type marked
     /// with the target attribute to implement or inherit specific type or types.
@@ -502,7 +491,6 @@ namespace TheXDS.MCART.Annotations
         }
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Indica que el símbolo marcado es usado implícitamente (p. ej. vía
     /// reflexión, en una librería externa), por lo que este símbolo no
@@ -579,7 +567,6 @@ namespace TheXDS.MCART.Annotations
         }
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Should be used on attributes and causes ReSharper to not mark symbols marked with such attributes
     /// as unused (as well as by other usage inspections)

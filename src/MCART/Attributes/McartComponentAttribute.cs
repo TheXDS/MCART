@@ -27,14 +27,12 @@ using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Attributes
 {
-    /// <inheritdoc cref="Attribute"/>
     /// <summary>
     /// Marca un ensamblado como un componente de MCART.
     /// </summary>
     [AttributeUsage(AttributeTargets.Assembly)]
     public sealed class McartComponentAttribute : Attribute, IValueAttribute<RtInfo.ComponentKind>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="McartComponentAttribute" />.
@@ -52,7 +50,6 @@ namespace TheXDS.MCART.Attributes
         /// </summary>
         public RtInfo.ComponentKind Kind { get; }
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene el valor de este atributo.
         /// </summary>

@@ -27,7 +27,6 @@ using static System.AttributeTargets;
 
 namespace TheXDS.MCART.Attributes
 {
-    /// <inheritdoc />
     /// <summary>
     /// Indica que un elemento proviene de orígenes de terceros.
     /// </summary>

@@ -103,6 +103,5 @@ namespace TheXDS.MCART.Types.Extensions
         {
             return C.Blend(g.GradientStops.Select(p => ToMcartColor(p.Color)));
         }
-
     }
 }

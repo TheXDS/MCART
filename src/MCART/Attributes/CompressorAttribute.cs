@@ -26,14 +26,12 @@ using System;
 
 namespace TheXDS.MCART.Attributes
 {
-    /// <inheritdoc />
     /// <summary>
     /// Atributo que indica el compresor utilizado para este elemento.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     public sealed class CompressorAttribute : TextAttribute
     {
-        /// <inheritdoc />
         /// <summary>
         /// Indica el compresor utilizado por este elemento.
         /// </summary>

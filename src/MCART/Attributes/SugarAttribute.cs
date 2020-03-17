@@ -27,7 +27,6 @@ using static System.AttributeTargets;
 
 namespace TheXDS.MCART.Attributes
 {
-    /// <inheritdoc />
     /// <summary>
     /// Indica que un elemento facilita la llamada a otros elementos o
     /// miembros.

@@ -5,14 +5,15 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:resources="clr-namespace:TheXDS.MCART.Resources;assembly=MCART"
-    xmlns:converters="clr-namespace:System.Windows.Converters"
+    xmlns:converters="clr-namespace:System.Windows.Converters;assembly=WindowsBase"
+    xmlns:vc="clr-namespace:TheXDS.MCART.ValueConverters"
     xmlns:viewModel="clr-namespace:TheXDS.MCART.Dialogs.ViewModel;assembly=MCART.UI"
     mc:Ignorable="d"
     d:DesignWidth="300" d:DesignHeight="300">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="Bool2Vis"/>
-        <converters:TypeVisibilityConverter x:Key="Conv"/>
-        <converters:BooleanInverter x:Key="Inv"/>
+        <vc:TypeVisibilityConverter x:Key="Conv"/>
+        <vc:BooleanInverter x:Key="Inv"/>
         <Thickness x:Key="Mrg">5</Thickness>
         <Style TargetType="Grid">
             <Setter Property="Margin" Value="{StaticResource Mrg}"/>

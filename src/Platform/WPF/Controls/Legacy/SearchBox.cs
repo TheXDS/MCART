@@ -32,6 +32,7 @@ using System.Windows.Data;
 using TheXDS.MCART.Resources;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using St = TheXDS.MCART.Resources.Strings;
+using TheXDS.MCART.ValueConverters;
 
 namespace TheXDS.MCART.Controls
 {

@@ -28,8 +28,6 @@ using static System.AttributeTargets;
 
 namespace TheXDS.MCART.Attributes
 {
-
-    /// <inheritdoc />
     /// <summary>
     /// Establece el texto de licencia a asociar con el elemento.
     /// </summary>
@@ -38,7 +36,6 @@ namespace TheXDS.MCART.Attributes
     {
         private readonly string _title;
         
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="LicenseTextAttribute" />.
@@ -51,7 +48,6 @@ namespace TheXDS.MCART.Attributes
             _title = title;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="LicenseTextAttribute" />.

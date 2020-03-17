@@ -1,5 +1,5 @@
 ﻿/*
-NotPluginAttribute.cs
+ValueConverters.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,20 +22,24 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using static System.AttributeTargets;
+using System.Windows.Controls;
+using System.Windows;
 
-namespace TheXDS.MCART.Attributes
+namespace TheXDS.MCART.ValueConverters
 {
     /// <inheritdoc />
     /// <summary>
-    /// Marca una clase para no ser cargada como
-    /// <see cref="PluginSupport.Legacy.IPlugin" />, a pesar de implementar
-    /// <see cref="PluginSupport.Legacy.IPlugin" />.
+    /// Inverso de <see cref="BooleanToVisibilityConverter" />
     /// </summary>
-    [AttributeUsage(Interface | Class)]
-    [Serializable]
-    public sealed class NotPluginAttribute : Attribute
+    public sealed class BooleanToInvVisibilityConverter : BooleanConverter<Visibility>
     {
+        /// <inheritdoc />
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="BooleanToInvVisibilityConverter" />.
+        /// </summary>
+        public BooleanToInvVisibilityConverter() : base(Visibility.Collapsed)
+        {
+        }
     }
 }

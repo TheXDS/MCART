@@ -39,7 +39,8 @@ namespace TheXDS.MCART.Pages
     /// </summary>
     public partial class AboutPage
     {
-        private AboutPageViewModel Vm => DataContext as AboutPageViewModel;
+        private AboutPageViewModel Vm => (AboutPageViewModel)DataContext;
+
         /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
@@ -50,6 +51,7 @@ namespace TheXDS.MCART.Pages
             InitializeComponent();
             DataContext = new AboutPageViewModel();
         }
+
         /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
@@ -61,6 +63,7 @@ namespace TheXDS.MCART.Pages
         public AboutPage(Assembly element) : this(new ApplicationInfo(element, true))
         {
         }
+
         /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase

@@ -23,17 +23,16 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #if !CLSCompliance
+
 using System;
 
 namespace TheXDS.MCART.Attributes
 {
-    /// <inheritdoc />
     /// <summary>
     /// Clase base para los atributos de cualquier tipo.
     /// </summary>
     public abstract class ValueAttribute : Attribute
     {
-        /// <inheritdoc />
         /// <summary>
         /// Crea una nueva isntancia de la clase
         /// <see cref="ObjectAttribute" />.

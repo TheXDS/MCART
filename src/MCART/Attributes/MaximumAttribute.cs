@@ -26,7 +26,6 @@ using System;
 
 namespace TheXDS.MCART.Attributes
 {
-    /// <inheritdoc />
     /// <summary>
     /// Establece un valor máximo al cual se deben limitar los campos y
     /// propiedades.
@@ -34,7 +33,6 @@ namespace TheXDS.MCART.Attributes
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     public sealed class MaximumAttribute : ObjectAttribute
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia del atributo
         /// <see cref="MinimumAttribute" /> 

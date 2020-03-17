@@ -26,7 +26,6 @@ using System;
 
 namespace TheXDS.MCART.Attributes
 {
-    /// <inheritdoc />
     /// <summary>
     /// Establece una descripción larga para este elemento.
     /// </summary>
@@ -34,7 +33,6 @@ namespace TheXDS.MCART.Attributes
     [Serializable]
     public sealed class DescriptionAttribute : TextAttribute
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="DescriptionAttribute" />.

@@ -29,15 +29,12 @@ using static System.AttributeTargets;
 
 namespace TheXDS.MCART.Attributes
 {
-
-    /// <inheritdoc />
     /// <summary>
     /// Establece un archivo de licencia externo a asociar con el elemento.
     /// </summary>
     [AttributeUsage(Class | Module | Assembly | Field)]
     public sealed class LicenseUriAttribute : LicenseAttributeBase
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="LicenseFileAttribute" />.

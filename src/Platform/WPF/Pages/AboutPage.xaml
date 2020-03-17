@@ -3,7 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:converters="clr-namespace:System.Windows.Converters"
+    xmlns:converters="clr-namespace:System.Windows.Converters;assembly=WindowsBase"
+    xmlns:vc="clr-namespace:TheXDS.MCART.ValueConverters"
       xmlns:viewModel="clr-namespace:TheXDS.MCART.Dialogs.ViewModel"
       xmlns:resources="clr-namespace:TheXDS.MCART.Resources;assembly=MCART"
       xmlns:controls="clr-namespace:TheXDS.MCART.Controls"
@@ -13,7 +14,7 @@
     <Page.Resources>
         <Thickness x:Key="M5">5</Thickness>
         <BooleanToVisibilityConverter x:Key="B2VConv"/>
-        <converters:NotNullToVisibilityConverter x:Key="Nn2V"/>
+        <vc:NotNullToVisibilityConverter x:Key="Nn2V"/>
     </Page.Resources>
     <Grid>
         <controls:StretchyWrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
@@ -45,9 +46,6 @@
                     <Button
                         Visibility="{Binding HasLicense, Converter={StaticResource B2VConv}}"
                         Command="{Binding LicenseCommand, Mode=OneWay}" Content="{x:Static resources:Strings.SeeLicense}"/>
-                    <!--<Button
-                        Visibility="{Binding ShowPluginInfo, Converter={StaticResource B2VConv}}"
-                        Command="{Binding PluginInfoCommand, Mode=OneWay}" Content="{x:Static resources:Strings.PluginDetails}"/>-->
                     <Button
                         Visibility="{Binding ShowAboutMcart, Converter={StaticResource B2VConv}}"
                         Command="{Binding AboutMcartCommand, Mode=OneWay}" Content="{x:Static resources:Strings.AboutMCART}"/>

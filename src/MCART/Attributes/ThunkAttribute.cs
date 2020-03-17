@@ -27,7 +27,6 @@ using static System.AttributeTargets;
 
 namespace TheXDS.MCART.Attributes
 {
-    /// <inheritdoc />
     /// <summary>
     /// Indica que un elemento es un proveedor de Thunking (facilita la
     /// llamada a otros entornos o Frameworks).

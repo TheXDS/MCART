@@ -32,13 +32,11 @@ namespace TheXDS.MCART.Attributes
      * base de valor que pueda ser necesaria.
      */
 
-    /// <inheritdoc cref="Attribute"/>
     /// <summary>
     /// Clase base para los atributos de cualquier tipo.
     /// </summary>
     public abstract class ObjectAttribute : Attribute, IValueAttribute<object?>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Crea una nueva isntancia de la clase
         /// <see cref="ObjectAttribute" />.
@@ -49,7 +47,6 @@ namespace TheXDS.MCART.Attributes
             Value = attributeValue;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene el valor asociado a este atributo.
         /// </summary>

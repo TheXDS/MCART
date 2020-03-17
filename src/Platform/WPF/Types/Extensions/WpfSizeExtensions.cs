@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using W = System.Windows;
+
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
@@ -31,33 +33,33 @@ namespace TheXDS.MCART.Types.Extensions
     {
         /// <summary>
         /// Convierte un <see cref="Size"/> en un
-        /// <see cref="System.Windows.Size"/>.
+        /// <see cref="W.Size"/>.
         /// </summary>
         /// <param name="size">
         /// <see cref="Size"/> a convertir.
         /// </param>
         /// <returns>
-        /// Un nuevo <see cref="System.Windows.Size"/> creado a partir del
+        /// Un nuevo <see cref="W.Size"/> creado a partir del
         /// <see cref="Size"/> especificado.
         /// </returns>
-        public static System.Windows.Size ToWinSize(this Size size)
+        public static W.Size ToWinSize(this Size size)
         {
-            return new System.Windows.Size(size.Width, size.Height);
+            return new W.Size(size.Width, size.Height);
         }
 
         /// <summary>
-        /// Convierte un <see cref="System.Windows.Size"/> en un
+        /// Convierte un <see cref="W.Size"/> en un
         /// <see cref="Size"/>.
         /// </summary>
         /// <param name="size">
-        /// <see cref="System.Windows.Size"/> a convertir.
+        /// <see cref="W.Size"/> a convertir.
         /// </param>
         /// <returns>
         /// Un nuevo <see cref="Size"/> creado a partir del
-        /// <see cref="System.Windows.Size"/> especificado.
+        /// <see cref="W.Size"/> especificado.
         /// </returns>
 
-        public static Size FromWinSize(this System.Windows.Size size)
+        public static Size FromWinSize(this W.Size size)
         {
             return new Size(size.Width, size.Height);
         }

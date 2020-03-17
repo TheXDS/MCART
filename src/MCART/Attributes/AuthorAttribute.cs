@@ -27,7 +27,6 @@ using static System.AttributeTargets;
 
 namespace TheXDS.MCART.Attributes
 {
-    /// <inheritdoc />
     /// <summary>
     /// Establece el autor del elemento.
     /// </summary>
@@ -35,7 +34,6 @@ namespace TheXDS.MCART.Attributes
     [Serializable]
     public sealed class AuthorAttribute : TextAttribute
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="DescriptionAttribute" />.

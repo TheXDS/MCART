@@ -26,13 +26,11 @@ using System;
 
 namespace TheXDS.MCART.Attributes
 {
-    /// <inheritdoc cref="Attribute"/>
     /// <summary>
     /// Clase base para los atributos basados en valores booleanos.
     /// </summary>
     public abstract class BoolAttribute : Attribute, IValueAttribute<bool>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Crea una nueva isntancia de la clase
         /// <see cref="BoolAttribute" />.

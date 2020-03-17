@@ -65,9 +65,9 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         public void OnGenerate()
         {
             if (!Mode.HasFlag(PasswordDialogMode.Generator)) return;
-            Password = Generator?.Generate();
+            Password = Generator!.Generate();
             Confirm = Password;
-            GeneratedPassword = Password?.Read();
+            GeneratedPassword = Password.Read();
             OnPropertyChanged(nameof(GeneratedPassword));
         }
 
@@ -105,7 +105,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// Obtiene mensajes adicionales sobre la evaluación de una
         /// contraseña.
         /// </summary>
-        public string MorInfo => Result.Details;
+        public string? MorInfo => Result.Details;
 
         /// <summary>
         /// Obtiene un porcentaje evaluado de calidad de contraseña.

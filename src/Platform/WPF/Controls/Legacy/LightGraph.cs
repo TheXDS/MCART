@@ -37,6 +37,7 @@ using MC = TheXDS.MCART.Resources.Colors;
 using ISt = TheXDS.MCART.Resources.InternalStrings;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Types;
+using TheXDS.MCART.ValueConverters;
 
 // ReSharper disable UnusedMember.Global
 

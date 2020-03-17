@@ -27,7 +27,6 @@ using static System.AttributeTargets;
 
 namespace TheXDS.MCART.Attributes
 {
-    /// <inheritdoc />
     /// <summary>
     /// Establece un nombre personalizado para describir este elemento.
     /// </summary>
@@ -35,7 +34,6 @@ namespace TheXDS.MCART.Attributes
     [Serializable]
     public sealed class NameAttribute : TextAttribute
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="NameAttribute" />.

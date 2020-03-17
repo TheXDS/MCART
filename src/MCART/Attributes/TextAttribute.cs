@@ -27,7 +27,6 @@ using static System.AttributeTargets;
 
 namespace TheXDS.MCART.Attributes
 {
-    /// <inheritdoc cref="Attribute"/>
     /// <summary>
     /// Agrega un elemento textual genérico a un elemento, además de ser la
     /// clase base para los atributos que describan un valor representable como
@@ -36,7 +35,6 @@ namespace TheXDS.MCART.Attributes
     [AttributeUsage(All), Serializable]
     public class TextAttribute : Attribute, IValueAttribute<string?>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="TextAttribute" />.
@@ -47,7 +45,6 @@ namespace TheXDS.MCART.Attributes
             Value = text;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene el valor asociado a este atributo.
         /// </summary>

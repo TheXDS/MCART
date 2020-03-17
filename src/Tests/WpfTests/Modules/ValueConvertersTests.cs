@@ -30,6 +30,7 @@ using System.Linq;
 using System.Windows;
 using Xunit;
 using System.Windows.Converters;
+using TheXDS.MCART.ValueConverters;
 
 namespace TheXDS.MCART.WpfTests.Modules
 {

@@ -27,7 +27,6 @@ using static System.AttributeTargets;
 
 namespace TheXDS.MCART.Attributes
 {
-    /// <inheritdoc />
     /// <summary>
     /// Especifica la versión de MCART recomendada para el elemento.
     /// </summary>
@@ -35,7 +34,6 @@ namespace TheXDS.MCART.Attributes
     [Serializable]
     public sealed class TargetMCARTVersionAttribute : VersionAttributeBase
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="TargetMCARTVersionAttribute" />.
@@ -46,7 +44,6 @@ namespace TheXDS.MCART.Attributes
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="TargetMCARTVersionAttribute" />.

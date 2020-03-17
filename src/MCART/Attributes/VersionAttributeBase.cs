@@ -26,7 +26,6 @@ using System;
 
 namespace TheXDS.MCART.Attributes
 {
-    /// <inheritdoc cref="Attribute"/>
     /// <summary>
     /// Especifica la versión de un elemento, además de ser la clase base para
     /// los atributos que describan un valor <see cref="Version" /> para un
@@ -34,7 +33,6 @@ namespace TheXDS.MCART.Attributes
     /// </summary>
     public abstract class VersionAttributeBase : Attribute, IValueAttribute<Version>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="VersionAttributeBase" />.
@@ -48,7 +46,6 @@ namespace TheXDS.MCART.Attributes
             Value = new Version(major, minor, build, rev);
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene el valor asociado a este atributo.
         /// </summary>

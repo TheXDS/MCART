@@ -40,7 +40,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>
         /// Un <see cref="P"/> equivalente al <see cref="M"/> especificado.
         /// </returns>
-        public static P Poindt(M x) => new P(x.X, x.Y);
+        public static P ToPoint(M x) => new P(x.X, x.Y);
         /// <summary>
         /// Convierte un <see cref="P"/> en un <see cref="M"/>.
         /// </summary>

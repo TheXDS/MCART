@@ -30,14 +30,12 @@ using Ist = TheXDS.MCART.Resources.InternalStrings;
 
 namespace TheXDS.MCART.Attributes
 {
-    /// <inheritdoc />
     /// <summary>
     /// Establece un archivo de licencia externo a asociar con el elemento.
     /// </summary>
     [AttributeUsage(Class | Module | Assembly), Obsolete(Ist.UseLicUriInstead)]
     public sealed class LicenseFileAttribute : TextAttribute
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="LicenseFileAttribute" />.

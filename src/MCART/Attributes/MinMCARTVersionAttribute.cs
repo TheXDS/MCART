@@ -27,14 +27,12 @@ using static System.AttributeTargets;
 
 namespace TheXDS.MCART.Attributes
 {
-    /// <inheritdoc />
     /// <summary>
     /// Especifica la versión mínima de MCART requerida por el elemento.
     /// </summary>
     [AttributeUsage(Method | Class | Module | Assembly)]
     public sealed class MinMcartVersionAttribute : VersionAttributeBase
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="MinMcartVersionAttribute" />.
@@ -45,7 +43,6 @@ namespace TheXDS.MCART.Attributes
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="MinMcartVersionAttribute" />.

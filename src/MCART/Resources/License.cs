@@ -53,7 +53,6 @@ namespace TheXDS.MCART.Resources
         /// </summary>
         public static License Unspecified => _unspec ?? (_unspec = new License(UnspecifiedLicense, null));
 
-
         /// <summary>
         /// Obtiene el nombre descriptivo de la licencia.
         /// </summary>

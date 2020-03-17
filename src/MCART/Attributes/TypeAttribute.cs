@@ -27,7 +27,6 @@ using static System.AttributeTargets;
 
 namespace TheXDS.MCART.Attributes
 {
-    /// <inheritdoc cref="Attribute"/>
     /// <summary>
     /// Agrega un elemento de tipo a un elemento, además de ser la
     /// clase base para los atributos que describan un valor representable como
@@ -37,7 +36,6 @@ namespace TheXDS.MCART.Attributes
     [Serializable]
     public class TypeAttribute : Attribute, IValueAttribute<Type>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="TypeAttribute" />.
@@ -48,7 +46,6 @@ namespace TheXDS.MCART.Attributes
             Value = type;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene el valor asociado a este atributo.
         /// </summary>

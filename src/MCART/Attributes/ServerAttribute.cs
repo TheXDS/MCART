@@ -28,7 +28,6 @@ using static System.AttributeTargets;
 
 namespace TheXDS.MCART.Attributes
 {
-    /// <inheritdoc cref="Attribute"/>
     /// <summary>
     /// Atributo que define la ruta de un servidor.
     /// </summary>
@@ -39,7 +38,6 @@ namespace TheXDS.MCART.Attributes
     [Serializable]
     public sealed class ServerAttribute : Attribute, IValueAttribute<string>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ServerAttribute" /> estableciendo el servidor y el puerto
@@ -92,7 +90,6 @@ namespace TheXDS.MCART.Attributes
             return $"{Server}:{Port}";
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene el valor de este atributo.
         /// </summary>

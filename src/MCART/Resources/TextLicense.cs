@@ -35,8 +35,8 @@ namespace TheXDS.MCART.Resources
         /// Inicializa una nueva instancia de la clase
         /// <see cref="TextLicense"/>.
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="content"></param>
+        /// <param name="name">Nombre descriptivo de la licencia.</param>
+        /// <param name="content">Contenido de la licencia.</param>
         public TextLicense(string name, string? content) : base(name, null)
         {
             _content = content;

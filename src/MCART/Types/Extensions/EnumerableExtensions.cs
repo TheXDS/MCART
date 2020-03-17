@@ -25,7 +25,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -34,13 +33,50 @@ using TheXDS.MCART.Exceptions;
 
 namespace TheXDS.MCART.Types.Extensions
 {
-
     /// <summary>
     /// Extensiones para todos los elementos de tipo
     /// <see cref="IEnumerable{T}" />.
     /// </summary>
     public static class EnumerableExtensions
     {
+        /// <summary>
+        /// Comprueba si la colección contiene al menos un elemento del tipo
+        /// especificado.
+        /// </summary>
+        /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
+        /// <param name="collection">
+        /// Colección de elementos a comprobar.
+        /// </param>
+        /// <returns>
+        /// <see langword="true"/> si existe un elemento del tipo especificado
+        /// en la colección, <see langword="false"/> en caso contrario.
+        /// </returns>
+        [Sugar] public static bool IsAnyOf<T>(this IEnumerable collection)
+        {
+            return collection.OfType<T>().Any();
+        }
+
+        /// <summary>
+        /// Comprueba si la colección contiene al menos un elemento del tipo
+        /// especificado.
+        /// </summary>
+        /// <param name="collection">
+        /// Colección de elementos a comprobar.
+        /// </param>
+        /// <param name="type">Tipo de objeto a buscar.</param>
+        /// <returns>
+        /// <see langword="true"/> si existe un elemento del tipo especificado
+        /// en la colección, <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool IsAnyOf(this IEnumerable collection, Type type)
+        {
+            foreach (var j in collection)
+            {
+                if (type.IsInstanceOfType(j)) return true;
+            }
+            return false;
+        }
+
         /// <summary>
         /// Ejecuta una operación sobre una secuencia en un contexto
         /// bloqueado.
@@ -148,7 +184,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// Una enumeración con los elementos de la colección, omitiendo
         /// las exclusiones especificadas.
         /// </returns>
-		public static IEnumerable<T> ExceptFor<T>(this IEnumerable<T> collection, params T[] exclusions)
+        public static IEnumerable<T> ExceptFor<T>(this IEnumerable<T> collection, params T[] exclusions)
         {
             bool Compare(T value)
             {

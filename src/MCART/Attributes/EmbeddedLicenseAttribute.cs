@@ -31,7 +31,6 @@ using static System.AttributeTargets;
 
 namespace TheXDS.MCART.Attributes
 {
-    /// <inheritdoc />
     /// <summary>
     /// Establece un archivo incrustado de licencia a asociar con el elemento.
     /// </summary>
@@ -48,7 +47,6 @@ namespace TheXDS.MCART.Attributes
         /// </summary>
         public Type CompressorType { get; }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="EmbeddedLicenseAttribute" />.
@@ -63,7 +61,6 @@ namespace TheXDS.MCART.Attributes
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="EmbeddedLicenseAttribute" />.

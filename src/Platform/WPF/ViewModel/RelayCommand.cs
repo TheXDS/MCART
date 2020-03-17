@@ -35,7 +35,7 @@ namespace TheXDS.MCART.ViewModel
     public class RelayCommand : ICommand
     {
         readonly Action<object> _action;
-        readonly Func<object, bool> _canExecute;
+        readonly Func<object, bool>? _canExecute;
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase
@@ -52,7 +52,7 @@ namespace TheXDS.MCART.ViewModel
         /// <param name="canExecute">
         /// Función que determina si el comando puede ser ejecutado.
         /// </param>
-        public RelayCommand(Action<object> action, Func<object, bool> canExecute)
+        public RelayCommand(Action<object> action, Func<object, bool>? canExecute)
         {
             _action = action ?? throw new ArgumentNullException(nameof(action));
             _canExecute = canExecute;
