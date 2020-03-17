@@ -1,5 +1,5 @@
 ﻿/*
-ValueConverters.cs
+AnyContentVisibilityConverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -30,16 +30,13 @@ using System.Windows;
 
 namespace TheXDS.MCART.ValueConverters
 {
-    /// <inheritdoc />
     /// <summary>
-    /// Para un <see cref="ContentControl" /> o un <see cref="Panel" />
-    /// , obtiene
-    /// un valor <see cref="F:System.Windows.Visibility.Visible" /> si al menos un control hijo
-    /// directo es visible.
+    /// Para un <see cref="ContentControl" /> o un <see cref="Panel" />,
+    /// obtiene un valor <see cref="Visibility.Visible" /> si al menos un
+    /// control hijo directo es visible.
     /// </summary>
     public sealed class AnyContentVisibilityConverter : IValueConverter
     {
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene un valor <see cref="Visibility.Visible" /> si al menos un
         /// control hijo directo es visible.
@@ -73,7 +70,6 @@ namespace TheXDS.MCART.ValueConverters
             }
         }
 
-        /// <inheritdoc />
         /// <summary>Convierte un valor.</summary>
         /// <param name="value">
         /// Valor generado por el destino de enlace.

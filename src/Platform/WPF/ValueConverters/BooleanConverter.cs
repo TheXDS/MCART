@@ -1,5 +1,5 @@
 ﻿/*
-ValueConverters.cs
+BooleanConverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,7 +28,6 @@ using System;
 
 namespace TheXDS.MCART.ValueConverters
 {
-    /// <inheritdoc />
     /// <summary>
     /// Clase base para crear convertidores de valores booleanos.
     /// </summary>
@@ -62,7 +61,6 @@ namespace TheXDS.MCART.ValueConverters
             False = falseValue;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Convierte un <see cref="bool" /> a un objeto.
         /// </summary>
@@ -86,7 +84,6 @@ namespace TheXDS.MCART.ValueConverters
             return null;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Convierte un objeto en un <see cref="bool" />.
         /// </summary>

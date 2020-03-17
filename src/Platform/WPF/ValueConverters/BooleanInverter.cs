@@ -1,5 +1,5 @@
 ﻿/*
-ValueConverters.cs
+BooleanInverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -26,13 +26,11 @@ using TheXDS.MCART.ValueConverters.Base;
 
 namespace TheXDS.MCART.ValueConverters
 {
-    /// <inheritdoc />
     /// <summary>
     /// Invierte un valor booleano
     /// </summary>
     public sealed class BooleanInverter : Inverter<bool>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="BooleanInverter" />.
         /// </summary>

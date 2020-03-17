@@ -1,5 +1,5 @@
 ﻿/*
-ValueConverters.cs
+BooleanToBlurEffectConverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -30,13 +30,11 @@ using System;
 
 namespace TheXDS.MCART.ValueConverters
 {
-    /// <inheritdoc />
     /// <summary>
     /// Genera un efecto de desenfoque basado en una condición booleana.
     /// </summary>
     public sealed class BooleanToBlurEffectConverter : IValueConverter
     {
-        /// <inheritdoc />
         /// <summary>
         /// Genera un efecto de desenfoque basado en una condición
         /// booleana.
@@ -103,7 +101,6 @@ namespace TheXDS.MCART.ValueConverters
             return null;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Implementa <see cref="IValueConverter.ConvertBack" />.
         /// </summary>
