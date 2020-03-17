@@ -41,10 +41,14 @@ namespace TheXDS.MCART.Security.Password
         /// <see cref="ICredential"/> a partir del cual crear el nuevo
         /// <see cref="Credential"/>.
         /// </param>
-        /// <returns></returns>
+        /// <returns>
+        /// Una nueva instancia de la clase <see cref="Credential"/> con los
+        /// datos de credencial obtenidos a partir de
+        /// <paramref name="origin"/>.
+        /// </returns>
         public static Credential From(ICredential origin)
         {
-            return new Credential(origin.Username,origin.Password);
+            return new Credential(origin.Username, origin.Password);
         }
 
         /// <summary>
@@ -58,7 +62,7 @@ namespace TheXDS.MCART.Security.Password
         /// </summary>
         /// <param name="username">Nombre de usuario.</param>
         /// <param name="password">Contraseña.</param>
-        public Credential(string username, SecureString password)
+        public Credential(string? username, SecureString password)
         {
             Username = username;
             Password = password;
@@ -68,7 +72,7 @@ namespace TheXDS.MCART.Security.Password
         /// <summary>
         /// Obtiene el nombre de usuario de este <see cref="T:TheXDS.MCART.Security.Password.ICredential" />
         /// </summary>
-        public string Username { get; }
+        public string? Username { get; }
 
         /// <inheritdoc />
         /// <summary>

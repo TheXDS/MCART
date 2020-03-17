@@ -29,6 +29,9 @@ using static System.Reflection.MethodAttributes;
 
 namespace TheXDS.MCART.Types
 {
+    /// <summary>
+    /// Contiene funciones auxiliares para la construcción de tipos en Runtime.
+    /// </summary>
     public static class TypeBuilderHelpers
     {
         internal static string UndName(string name)
@@ -68,6 +71,16 @@ namespace TheXDS.MCART.Types
             };
         }
 
+        /// <summary>
+        /// Infiere los atributos de tipo a utilizar de acuerdo al valor de
+        ///  banderas de acceso a miembro.
+        /// </summary>
+        /// <param name="access">
+        /// Banderas que indican el nivel ve acceso del tipo.
+        /// </param>
+        /// <returns>
+        /// Un valor de atributos de tipo que incluye información de acceso.
+        /// </returns>
         public static TypeAttributes TypeAccess(MemberAccess access)
         {
             return access switch
@@ -79,11 +92,29 @@ namespace TheXDS.MCART.Types
             };
         }
 
+        /// <summary>
+        /// Infiere el nivel de acceso para un tipo.
+        /// </summary>
+        /// <param name="type">
+        /// Tipo a partir del cual inferir el nivel de acceso.
+        /// </param>
+        /// <returns>
+        /// Banderas que indican el nivel ve acceso del tipo.
+        /// </returns>
         public static MemberAccess InferAccess(Type type)
         {
             return type.IsPublic ? MemberAccess.Public : MemberAccess.Internal;            
         }
 
+        /// <summary>
+        /// Infiere todos los atributos del tipo especificado.
+        /// </summary>
+        /// <param name="type">
+        /// Tipo para el cual inferir los atributos.
+        /// </param>
+        /// <returns>
+        /// Un valor con banderas que indican los atributos del tipo.
+        /// </returns>
         public static TypeAttributes InferAttributes(Type type)
         {
             var retVal = default(TypeAttributes);

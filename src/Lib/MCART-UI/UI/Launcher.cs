@@ -129,7 +129,7 @@ namespace TheXDS.MCART.UI
         /// Acción a ejecutar. El nombre de la interacción será inferido a
         /// partir de este objeto.
         /// </param>
-        public Launcher(Action<object> action) : this(action.NameOf(), action)
+        public Launcher(Action<object?> action) : this(action.NameOf(), action)
         {
         }
 
@@ -142,7 +142,7 @@ namespace TheXDS.MCART.UI
         /// Nombre amigable para la interacción.
         /// </param>
         /// <param name="action">Acción a ejecutar para el comando.</param>
-        public Launcher(string name, Action<object> action) : this(name, null, new SimpleCommand(action))
+        public Launcher(string name, Action<object?> action) : this(name, null, new SimpleCommand(action))
         {
         }
 
@@ -158,7 +158,7 @@ namespace TheXDS.MCART.UI
         /// Descripción de la interacción.
         /// </param>
         /// <param name="action">Acción a ejecutar para el comando.</param>
-        public Launcher(string name, string? description, Action<object> action) : this(name, description, new SimpleCommand(action))
+        public Launcher(string name, string? description, Action<object?> action) : this(name, description, new SimpleCommand(action))
         {
         }
     }

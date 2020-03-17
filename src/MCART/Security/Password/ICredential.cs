@@ -35,7 +35,7 @@ namespace TheXDS.MCART.Security.Password
         /// <summary>
         /// Obtiene el nombre de usuario de este <see cref="ICredential"/>.
         /// </summary>
-        string Username { get; }
+        string? Username { get; }
         /// <summary>
         /// Obtiene la contraseña asociada a este <see cref="ICredential"/>.
         /// </summary>

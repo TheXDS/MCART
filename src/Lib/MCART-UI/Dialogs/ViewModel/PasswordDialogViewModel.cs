@@ -36,15 +36,15 @@ namespace TheXDS.MCART.Dialogs.ViewModel
     /// </summary>
     public abstract class PasswordDialogViewModelBase : ViewModelBase
     {
-        private SecureString _confirm;
+        private SecureString? _confirm;
         private IPasswordEvaluator? _evaluator;
-        private string _generatedPassword;
+        private string? _generatedPassword;
         private IPasswordGenerator? _generator;
         private string? _hint;
         private PasswordDialogMode _mode;
-        private SecureString _password;
+        private SecureString _password = null!;
         private PwEvalResult _result;
-        private string _title;
+        private string? _title;
         private string? _user;
         private int _triesCount;
         private LoginValidator? _validator;
@@ -55,7 +55,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// </summary>
         public void OnEvaluate()
         {
-            if (!Mode.HasFlag(PasswordDialogMode.PwQuality)) return;
+            if (!Mode.HasFlag(PasswordDialogMode.PwQuality) || Password is null) return;
             Result = Password.Length == 0 ? PwEvalResult.Empty : Evaluator?.Evaluate(Password) ?? PwEvalResult.Null;
         }
 
@@ -116,7 +116,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// Obtiene o establece la contraseña introducida en el cuadro de
         /// confirmación.
         /// </summary>
-        public SecureString Confirm
+        public SecureString? Confirm
         {
             get => _confirm;
             set => Change(ref _confirm, value);
@@ -138,7 +138,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// <summary>
         /// Obtiene una contraseña generada por este ViewModel.
         /// </summary>
-        public string GeneratedPassword
+        public string? GeneratedPassword
         {
             get => _generatedPassword;
             private set => Change(ref _generatedPassword, value);
@@ -224,7 +224,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// <summary>
         /// Obtiene o establce el título de este ViewModel.
         /// </summary>
-        public string Title
+        public string? Title
         {
             get => _title;
             set => Change(ref _title, value);
