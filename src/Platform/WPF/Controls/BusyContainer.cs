@@ -7,7 +7,7 @@ Author(s):
      "Surfin Bird" (Original implementation) <https://stackoverflow.com/users/4267982/surfin-bird>
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2020 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -22,8 +22,6 @@ Public License for more details.
 You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
-
-#nullable enable
 
 using System.Windows;
 using System.Windows.Controls;
@@ -49,15 +47,6 @@ namespace TheXDS.MCART.Controls
         {
             var o = (BusyContainer)d;
             return o.IsBusy ? d.GetValue(BusyEffectProperty): null;
-        }
-
-        /// <summary>
-        /// Inicializa la clase <see cref="BusyContainer"/>.
-        /// </summary>
-        static BusyContainer()
-        {
-            var d = new ResourceDictionary { Source = WpfInternal.MkTemplateUri<BusyContainer>() };
-            Application.Current?.Resources.MergedDictionaries.Add(d);
         }
 
         /// <summary>
@@ -87,23 +76,12 @@ namespace TheXDS.MCART.Controls
         public static DependencyProperty CurrentBusyEffectProperty = _currentBusyEffectPropertyKey.DependencyProperty;
 
         /// <summary>
-        /// Obtiene o establece el efecto a aplicar al contenido cuando
-        /// este control se encuentre ocupado.
+        /// Inicializa la clase <see cref="BusyContainer"/>.
         /// </summary>
-        public Effect BusyEffect
+        static BusyContainer()
         {
-            get => (Effect)GetValue(BusyEffectProperty);
-            set => SetValue(BusyEffectProperty, value);
-        }
-
-        /// <summary>
-        /// Obtiene o establece el formato a utilizar para mostrar el
-        /// contenido ocupado de este control.
-        /// </summary>
-        public string BusyContentStringFormat
-        {
-            get => (string)GetValue(BusyContentStringFormatProperty);
-            set => SetValue(BusyContentStringFormatProperty, value);
+            var d = new ResourceDictionary { Source = WpfInternal.MkTemplateUri<BusyContainer>() };
+            Application.Current?.Resources.MergedDictionaries.Add(d);
         }
 
         /// <summary>
@@ -117,6 +95,31 @@ namespace TheXDS.MCART.Controls
         }
 
         /// <summary>
+        /// Obtiene o establece el formato a utilizar para mostrar el
+        /// contenido ocupado de este control.
+        /// </summary>
+        public string BusyContentStringFormat
+        {
+            get => (string)GetValue(BusyContentStringFormatProperty);
+            set => SetValue(BusyContentStringFormatProperty, value);
+        }
+
+        /// <summary>
+        /// Obtiene o establece el efecto a aplicar al contenido cuando
+        /// este control se encuentre ocupado.
+        /// </summary>
+        public Effect BusyEffect
+        {
+            get => (Effect)GetValue(BusyEffectProperty);
+            set => SetValue(BusyEffectProperty, value);
+        }
+
+        /// <summary>
+        /// Obtiene el efecto actualmente aplicado al estado de ocupado del control.
+        /// </summary>
+        public Effect CurrentBusyEffect => (Effect)GetValue(CurrentBusyEffectProperty);
+
+        /// <summary>
         /// Obtiene o establece un valor que coloca este contenedor en
         /// estado de ocupado.
         /// </summary>
@@ -125,11 +128,6 @@ namespace TheXDS.MCART.Controls
             get => (bool)GetValue(IsBusyProperty);
             set => SetValue(IsBusyProperty, value);
         }
-
-        /// <summary>
-        /// Obtiene el efecto actualmente aplicado al estado de ocupado del control.
-        /// </summary>
-        public Effect CurrentBusyEffect => (Effect)GetValue(CurrentBusyEffectProperty);
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase

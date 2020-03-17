@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2020 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -29,7 +29,6 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Converters;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -38,8 +37,6 @@ using ISt = TheXDS.MCART.Resources.InternalStrings;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.ValueConverters;
-
-// ReSharper disable UnusedMember.Global
 
 namespace TheXDS.MCART.Controls
 {

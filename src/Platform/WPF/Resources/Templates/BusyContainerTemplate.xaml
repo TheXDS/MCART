@@ -4,7 +4,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:controls="clr-namespace:TheXDS.MCART.Controls"
-    xmlns:converters="clr-namespace:System.Windows.Converters;assembly=WindowsBase"
     xmlns:vc="clr-namespace:TheXDS.MCART.ValueConverters"
     mc:Ignorable="d">
     <Style TargetType="{x:Type controls:BusyContainer}">
@@ -15,7 +14,6 @@
                         <Grid.Resources>
                             <BooleanToVisibilityConverter x:Key="BoolVis"/>
                             <vc:BooleanInverter x:Key="BoolInv"/>
-                            <vc:BooleanToBlurEffectConverter x:Key="BoolEff"/>
                         </Grid.Resources>
                         <ContentPresenter
                             IsEnabled="{TemplateBinding IsBusy, Converter={StaticResource BoolInv}}"
