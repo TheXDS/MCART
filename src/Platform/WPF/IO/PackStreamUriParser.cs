@@ -33,7 +33,7 @@ namespace TheXDS.MCART.IO
 {
     /// <summary>
     /// Traduce un URI de recursos incrustados (pack://) a un
-    /// <see cref="Stream"/> de lectura para el recurso.
+    /// <see cref="Stream"/> de lectura para un recurso incrustado.
     /// </summary>
     public class PackStreamUriParser : SimpleStreamUriParser
     {

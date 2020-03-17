@@ -3,6 +3,7 @@
     <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     <Description>MCART for Windows</Description>
     <AssemblyName>MCART.Windows</AssemblyName>
+    <RootNamespace>TheXDS.MCART.Windows</RootNamespace>
   </PropertyGroup>  
   <ItemGroup>
     <PackageReference Include="Microsoft.Win32.Registry" Version="4.7.0" />

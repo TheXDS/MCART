@@ -32,6 +32,11 @@ using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Component
 {
+
+
+
+
+
     /// <inheritdoc />
     /// <summary>
     /// Expone la información de ensamblado de una aplicación de WPF.

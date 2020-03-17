@@ -34,6 +34,8 @@ using System.IO;
 
 namespace TheXDS.MCART.Component
 {
+
+
     /// <summary>
     /// Expone información detallada sobre Windows.
     /// </summary>

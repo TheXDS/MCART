@@ -33,25 +33,32 @@ using static TheXDS.MCART.WpfUi;
 
 namespace TheXDS.MCART.Controls
 {
-    /// <inheritdoc />
     /// <summary>
     /// Control simple que indica al usuario que la aplicación está ocupada.
     /// </summary>
     public class BusyIndicator : UserControl
     {
-        private static readonly Type T = typeof(BusyIndicator);
-
         /// <summary>
         /// Identifica a la propiedad de dependencia <see cref="Radius" />.
         /// </summary>
-        public static readonly DependencyProperty RadiusProperty = DependencyProperty.Register(nameof(Radius),
-            typeof(double), T,
-            new FrameworkPropertyMetadata(24.0, FrameworkPropertyMetadataOptions.AffectsMeasure, SetControlSize));
+        public static readonly DependencyProperty RadiusProperty = DependencyProperty.Register(nameof(Radius), typeof(double), typeof(BusyIndicator), new FrameworkPropertyMetadata(24.0, FrameworkPropertyMetadataOptions.AffectsMeasure, SetControlSize));
+
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="Starting" />.
+        /// </summary>
+        public static readonly DependencyProperty StartingProperty = DependencyProperty.Register(nameof(Starting), typeof(bool), typeof(BusyIndicator), new PropertyMetadata(false, Colorize));
 
         private static void SetControlSize(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((BusyIndicator) d).Width =
-                (double) d.GetValue(RadiusProperty) * 2 + (double) d.GetValue(ThicknessProperty);
+            ((BusyIndicator)d).Width = (double)d.GetValue(RadiusProperty) * 2 + (double)d.GetValue(ThicknessProperty);
+        }
+
+        private static void Colorize(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var b = (BusyIndicator) d;
+            b._pth.Stroke = b.Starting ? b.Stroke2 : b.Stroke;
+            b._pth.RenderTransform.BeginAnimation(RotateTransform.AngleProperty, null);
+            b._pth.RenderTransform.BeginAnimation(RotateTransform.AngleProperty, b.Starting ? b._spin2 : b._spin);
         }
 
         /// <summary>
@@ -61,20 +68,6 @@ namespace TheXDS.MCART.Controls
         {
             get => (double) GetValue(RadiusProperty);
             set => SetValue(RadiusProperty, value);
-        }
-
-        /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="Starting" />.
-        /// </summary>
-        public static readonly DependencyProperty StartingProperty =
-            DependencyProperty.Register(nameof(Starting), typeof(bool), T, new PropertyMetadata(false, Colorize));
-
-        private static void Colorize(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var b = (BusyIndicator) d;
-            b._pth.Stroke = b.Starting ? b.Stroke2 : b.Stroke;
-            b._pth.RenderTransform.BeginAnimation(RotateTransform.AngleProperty, null);
-            b._pth.RenderTransform.BeginAnimation(RotateTransform.AngleProperty, b.Starting ? b._spin2 : b._spin);
         }
 
         /// <summary>
@@ -91,7 +84,7 @@ namespace TheXDS.MCART.Controls
         /// Identifica a la propiedad de dependencia <see cref="Stroke" />.
         /// </summary>
         public static readonly DependencyProperty StrokeProperty = DependencyProperty.Register(nameof(Stroke),
-            typeof(Brush), T, new PropertyMetadata(SystemColors.HighlightBrush, Colorize));
+            typeof(Brush), typeof(BusyIndicator), new PropertyMetadata(SystemColors.HighlightBrush, Colorize));
 
         /// <summary>
         /// Obtiene o establece el <see cref="Brush" /> a aplicar al control.
@@ -106,7 +99,7 @@ namespace TheXDS.MCART.Controls
         /// Identifica a la propiedad de dependencia <see cref="Stroke2" />.
         /// </summary>
         public static readonly DependencyProperty Stroke2Property = DependencyProperty.Register(nameof(Stroke2),
-            typeof(Brush), T, new PropertyMetadata(SystemColors.ControlDarkBrush, Colorize));
+            typeof(Brush), typeof(BusyIndicator), new PropertyMetadata(SystemColors.ControlDarkBrush, Colorize));
 
         /// <summary>
         /// Obtiene o establece el <see cref="Brush" /> a aplicar al estado
@@ -122,7 +115,7 @@ namespace TheXDS.MCART.Controls
         /// Identifica a la propiedad de dependencia <see cref="Thickness" />.
         /// </summary>
         public static readonly DependencyProperty ThicknessProperty = DependencyProperty.Register(nameof(Thickness),
-            typeof(double), T,
+            typeof(double), typeof(BusyIndicator),
             new FrameworkPropertyMetadata(4.0, FrameworkPropertyMetadataOptions.AffectsMeasure, SetControlSize));
 
         /// <summary>
@@ -164,7 +157,7 @@ namespace TheXDS.MCART.Controls
             SetBinding(HeightProperty, new Binding(nameof(Width)) {Source = this});
             Loaded += OnLoaded;
             SizeChanged += OnLoaded;
-            _pth.SetBinding(Shape.StrokeThicknessProperty, new Binding(nameof(Thickness)) {Source = this});
+            _pth.SetBinding(Shape.StrokeThicknessProperty, new Binding(nameof(Thickness)) { Source = this });
             SetControlSize(this, new DependencyPropertyChangedEventArgs());
             _spin.KeyFrames.Add(new EasingDoubleKeyFrame
             {

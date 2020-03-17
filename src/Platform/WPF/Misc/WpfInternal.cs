@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Reflection;
 
@@ -35,6 +33,7 @@ namespace TheXDS.MCART.Misc
         {
             return MakePackUri(path, ReflectionHelpers.GetCallingMethod()?.DeclaringType?.Assembly ?? throw new InvalidOperationException());
         }
+
         internal static Uri MkTemplateUri()
         {
             var t = ReflectionHelpers.GetCallingMethod()?.DeclaringType ?? throw new InvalidOperationException();
@@ -50,9 +49,10 @@ namespace TheXDS.MCART.Misc
         {
             return MakePackUri($"Resources/Templates/{template}Template.xaml", asm);
         }
+
         internal static Uri MkTemplateUri<T>()
         {
-            return MakePackUri($"Resources/Templates/{typeof(T).Name}Template.xaml", typeof(T).Assembly);
+            return MkTemplateUri(typeof(T).Name, typeof(T).Assembly);
         }
     }
 }

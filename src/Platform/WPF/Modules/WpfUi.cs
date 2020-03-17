@@ -1,5 +1,5 @@
 ﻿/*
-UITools.cs
+WpfUi.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,13 +22,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-#pragma warning disable CA1401 // P/Invokes should not be visible
+//#pragma warning disable CA1401 // P/Invokes should not be visible
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -47,12 +45,6 @@ using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 using static TheXDS.MCART.Types.Extensions.WpfColorExtensions;
 using TheXDS.MCART.Types.Base;
 
-// ReSharper disable MemberCanBePrivate.Global
-
-// ReSharper disable InconsistentNaming
-// ReSharper disable UnusedMember.Global
-
-// ReSharper disable once CheckNamespace
 namespace TheXDS.MCART
 {
     /// <summary>
@@ -61,21 +53,7 @@ namespace TheXDS.MCART
     /// </summary>
     public static class WpfUi
     {
-        private enum WindowCompositionAttribute
-        {
-            // ...
-            WCA_ACCENT_POLICY = 19
-            // ...
-        }
 
-        private enum AccentState
-        {
-            ACCENT_DISABLED = 0,
-            ACCENT_ENABLE_GRADIENT = 1,
-            ACCENT_ENABLE_TRANSPARENTGRADIENT = 2,
-            ACCENT_ENABLE_BLURBEHIND = 3,
-            ACCENT_ENABLE_ACRYLICBLURBEHIND = 4
-        }
 
         /// <summary>
         /// Estructura de control de colores originales.
@@ -103,118 +81,8 @@ namespace TheXDS.MCART
             internal ToolTip _ttip;
         }
 
-        [StructLayout(LayoutKind.Sequential)]
-        private struct WindowCompositionAttributeData
-        {
-            public WindowCompositionAttribute Attribute;
-            public IntPtr Data;
-            public int SizeOfData;
-        }
 
-        [StructLayout(LayoutKind.Sequential)]
-        private struct AccentPolicy
-        {
-            public AccentState AccentState;
-            public int AccentFlags;
-            public int GradientColor;
-            public int AnimationId;
-        }
 
-        [StructLayout(LayoutKind.Sequential)]
-        private struct Margins
-        {
-            public int Left;
-            public int Right;
-            public int Top;
-            public int Bottom;
-        }
-
-        private enum WindowData
-        {
-            GWL_WNDPROC = -4,
-            GWL_HINSTANCE = -6,
-            GWL_HWNDPARENT = -8,
-            GWL_ID = -12,
-            GWL_STYLE = -16,
-            GWL_EXSTYLE = -20,
-            GWL_USERDATA = -21
-        }
-
-        [Flags]
-        private enum WindowStyles : uint
-        {
-            WS_VSCROLL = 0x00200000u,
-            WS_VISIBLE = 0x10000000u,
-            WS_TILEDWINDOW = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX,
-            WS_TILED = 0x00000000u,
-            WS_TABSTOP = 0x00010000u,
-            WS_SYSMENU = 0x00080000u,
-            WS_SIZEBOX = 0x00040000u,
-            WS_THICKFRAME = 0x00040000u,
-            WS_POPUPWINDOW = WS_POPUP | WS_BORDER | WS_SYSMENU,
-
-            WS_OVERLAPPEDWINDOW =
-                WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX,
-            WS_POPUP = 0x80000000u,
-            WS_OVERLAPPED = 0x00000000u,
-            WS_MINIMIZE = 0x20000000u,
-            WS_MAXIMIZE = 0x01000000u,
-            WS_ICONIC = 0x20000000u,
-            WS_HSCROLL = 0x00100000u,
-            WS_GROUP = 0x00020000u,
-            WS_DLGFRAME = 0x00400000u,
-            WS_DISABLED = 0x08000000u,
-            WS_CLIPSIBLINGS = 0x04000000u,
-            WS_CLIPCHILDREN = 0x02000000u,
-            WS_CHILDWINDOW = 0x40000000u,
-            WS_CHILD = 0x40000000u,
-            WS_CAPTION = 0x00C00000u,
-            WS_BORDER = 0x00800000u,
-            WS_MINIMIZEBOX = 0x00020000u,
-            WS_MAXIMIZEBOX = 0x00010000u,
-
-            WS_EX_ACCEPTFILES = 0x00000010u,
-            WS_EX_APPWINDOW = 0x00040000u,
-            WS_EX_CLIENTEDGE = 0x00000200u,
-            WS_EX_COMPOSITED = 0x02000000u,
-            WS_EX_CONTEXTHELP = 0x00000400u,
-            WS_EX_CONTROLPARENT = 0x00010000u,
-            WS_EX_DLGMODALFRAME = 0x00000001u,
-            WS_EX_LAYERED = 0x00080000u,
-            WS_EX_LAYOUTRTL = 0x00400000u,
-            WS_EX_LEFT = 0x00000000u,
-            WS_EX_LEFTSCROLLBAR = 0x00004000u,
-            WS_EX_LTRREADING = 0x00000000u,
-            WS_EX_MDICHILD = 0x00000040,
-            WS_EX_NOACTIVATE = 0x08000000,
-            WS_EX_NOINHERITLAYOUT = 0x00100000u,
-            WS_EX_NOPARENTNOTIFY = 0x00000004u,
-            WS_EX_NOREDIRECTIONBITMAP = 0x00200000u,
-            WS_EX_OVERLAPPEDWINDOW = WS_EX_WINDOWEDGE | WS_EX_CLIENTEDGE,
-            WS_EX_PALETTEWINDOW = WS_EX_WINDOWEDGE | WS_EX_TOOLWINDOW | WS_EX_TOPMOST,
-            WS_EX_RIGHT = 0x00001000u,
-            WS_EX_RIGHTSCROLLBAR = 0x00000000u,
-            WS_EX_RTLREADING = 0x00002000u,
-            WS_EX_STATICEDGE = 0x00020000u,
-            WS_EX_TOOLWINDOW = 0x00000080u,
-            WS_EX_TOPMOST = 0x00000008u,
-            WS_EX_TRANSPARENT = 0x00000020u,
-            WS_EX_WINDOWEDGE = 0x00000100u
-        }
-
-        [Flags]
-        private enum WindowChanges : uint
-        {
-            SWP_NOSIZE = 0x0001,
-            SWP_NOMOVE = 0x0002,
-            SWP_NOZORDER = 0x0004,
-            SWP_FRAMECHANGED = 0x0020
-        }
-
-        private enum SysCommand
-        {
-            SC_CONTEXTHELP = 0xF180
-        }
 
         private static readonly List<OrigControlColor> _origctrls = new List<OrigControlColor>();
         private static readonly List<StreamUriParser> _uriParsers = Objects.FindAllObjects<StreamUriParser>().ToList();
@@ -396,18 +264,6 @@ namespace TheXDS.MCART
             CollapseControls(ctrls.ToArray());
         }
 
-        private static HwndSourceHook CreateHookDelegate(Window window, SysCommand syscommand,
-            HandledEventHandler handler)
-        {
-            return (IntPtr hwnd, int msg, IntPtr param, IntPtr lParam, ref bool handled) =>
-            {
-                if (msg != 0x0112 || ((int) param & 0xFFF0) != (int) syscommand) return IntPtr.Zero;
-                var e = new HandledEventArgs();
-                handler?.Invoke(window, e);
-                handled = e.Handled;
-                return IntPtr.Zero;
-            };
-        }
 
         /// <summary>
         /// Deshabilita una lista de controles.
@@ -432,79 +288,63 @@ namespace TheXDS.MCART
             DisableControls(ctrls.ToArray());
         }
 
-        /// <summary>
-        /// Deshabilita todos los efectos de la ventana de WPF.
-        /// </summary>
-        /// <param name="window">Instancia de ventana a difuminar.</param>
-        public static void DisableEffects(this Window window)
-        {
-            SetWindowEffect(window, new AccentPolicy {AccentState = AccentState.ACCENT_DISABLED});
-        }
 
         [DllImport("gdi32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool DeleteObject(IntPtr value);
 
-        [DllImport("dwmapi.dll")]
-        private static extern int DwmExtendFrameIntoClientArea(IntPtr hWnd, ref Margins pMargins);
 
         /// <summary>
-        /// Establece un valor de marco interno para el recuadro de una
-        /// ventana de WPF.
+        /// Habilita el botón de ayuda de las ventanas de Windows y conecta
+        /// un manejador de eventos al mismo.
         /// </summary>
         /// <param name="window">
-        /// Instancia de ventana para la cual configurar el marco interno.
+        /// Ventana en la cual habilitar el botón de ayuda.
         /// </param>
-        /// <param name="padding">
-        /// Grosor de los márgenes del marco interno de la ventana.
+        /// <param name="handler">
+        /// Delegado con la acción a ejecutar al hacer clic en el botón de
+        /// ayuda de la ventana.
         /// </param>
-        public static void SetFramePadding(this Window window, Thickness padding)
+        public static void HookHelp(this IWindow window, HandledEventHandler handler)
         {
-            window.Padding = padding;
-            if (DwmIsCompositionEnabled())
+            HideGwlStyle(window, WindowStyles.WS_MINIMIZEBOX | WindowStyles.WS_MAXIMIZEBOX);
+            SetWindowData(window, WindowData.GWL_EXSTYLE, p => p | WindowStyles.WS_EX_CONTEXTHELP);
+
+            // Actualizar ventana...
+            PInvoke.SetWindowPos(window.Handle, IntPtr.Zero, 0, 0, 0, 0,
+                (uint)(WindowChanges.SWP_NOMOVE |
+                        WindowChanges.SWP_NOSIZE |
+                        WindowChanges.SWP_NOZORDER |
+                        WindowChanges.SWP_FRAMECHANGED));
+
+            ((HwndSource)PresentationSource.FromVisual(window))?
+                .AddHook(CreateHookDelegate(window, SysCommand.SC_CONTEXTHELP, handler));
+        }
+        private static HwndSourceHook CreateHookDelegate(Window window, SysCommand syscommand,
+            HandledEventHandler handler)
+        {
+            return (IntPtr hwnd, int msg, IntPtr param, IntPtr lParam, ref bool handled) =>
             {
-                var margins = new Margins
-                {
-                    Top = (int)padding.Top,
-                    Left = (int)padding.Left,
-                    Bottom = (int)padding.Bottom,
-                    Right = (int)padding.Right
-                };
-                DwmExtendFrameIntoClientArea(window.GetHwnd(), ref margins);
-
-            }
+                if (msg != 0x0112 || ((int) param & 0xFFF0) != (int) syscommand) return IntPtr.Zero;
+                var e = new HandledEventArgs();
+                handler?.Invoke(window, e);
+                handled = e.Handled;
+                return IntPtr.Zero;
+            };
         }
 
-        /// <summary>
-        /// Obtiene el Handle de la ventana de WPF.
-        /// </summary>
-        /// <param name="window">
-        /// Ventana de la cual obtener el Handle.
-        /// </param>
-        /// <returns>
-        /// Un <see cref="IntPtr"/> que es el Handle de la ventana.
-        /// </returns>
-        public static IntPtr GetHwnd(this Window window) => new WindowInteropHelper(window).Handle;
 
-        /// <summary>
-        /// Comprueba si la composición de ventanas está disponible en el
-        /// sistema.
-        /// </summary>
-        /// <returns>
-        /// <see langword="true"/> si la composición de ventanas está
-        /// disponible, <see langword="false"/> en caso contrario.
-        /// </returns>
-        [DllImport("dwmapi.dll", PreserveSig = false)]
-        public static extern bool DwmIsCompositionEnabled();
 
-        /// <summary>
-        /// Habilita los efectos de difuminado de Windows 10 en la ventana de WPF.
-        /// </summary>
-        /// <param name="window">Instancia de ventana a difuminar.</param>
-        public static void EnableBlur(this Window window)
-        {
-            SetWindowEffect(window, new AccentPolicy {AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND});
-        }
+
+
+
+
+
+
+
+
+
+
 
         /// <summary>
         /// Habilita una lista de controles.
@@ -724,8 +564,6 @@ namespace TheXDS.MCART
             return outp;
         }
 
-        [DllImport("user32.dll")]
-        internal static extern uint GetWindowLong(IntPtr hwnd, int index);
 
         /// <summary>
         /// Establece la propiedad <see cref="UIElement.Visibility" /> a
@@ -752,51 +590,6 @@ namespace TheXDS.MCART
             HideControls(ctrls.ToArray());
         }
 
-        /// <summary>
-        /// Habilita el botón de ayuda de las ventanas de Windows y conecta
-        /// un manejador de eventos al mismo.
-        /// </summary>
-        /// <param name="window">
-        /// Ventana en la cual habilitar el botón de ayuda.
-        /// </param>
-        /// <param name="handler">
-        /// Delegado con la acción a ejecutar al hacer clic en el botón de
-        /// ayuda de la ventana.
-        /// </param>
-        public static void HookHelp(this Window window, HandledEventHandler handler)
-        {
-            var hwnd = new WindowInteropHelper(window).Handle;
-
-            // Ocultar maximizar y minimizar...
-            var styles = GetWindowLong(hwnd, (int) WindowData.GWL_STYLE);
-            styles &= 0xFFFFFFFF ^ (uint) (WindowStyles.WS_MINIMIZEBOX | WindowStyles.WS_MAXIMIZEBOX);
-            SetWindowLong(hwnd, (int) WindowData.GWL_STYLE, styles);
-
-            // Mostrar ayuda...
-            styles = GetWindowLong(hwnd, (int) WindowData.GWL_EXSTYLE);
-            styles |= (uint) WindowStyles.WS_EX_CONTEXTHELP;
-            SetWindowLong(hwnd, (int) WindowData.GWL_EXSTYLE, styles);
-
-            // Actualizar ventana...
-            SetWindowPos(hwnd, IntPtr.Zero, 0, 0, 0, 0,
-                (uint) (WindowChanges.SWP_NOMOVE |
-                        WindowChanges.SWP_NOSIZE |
-                        WindowChanges.SWP_NOZORDER |
-                        WindowChanges.SWP_FRAMECHANGED));
-
-            ((HwndSource) PresentationSource.FromVisual(window))?
-                .AddHook(CreateHookDelegate(window, SysCommand.SC_CONTEXTHELP, handler));
-        }
-
-        /// <summary>
-        /// Deshabilita y oculta el botón de cerrar de la ventana de Wpf.
-        /// </summary>
-        /// <param name="window"></param>
-        public static void HideClose(this Window window)
-        {
-            var hwnd = new WindowInteropHelper(window).Handle;
-            SetWindowLong(hwnd, (int) WindowData.GWL_STYLE, GetWindowLong(hwnd, (int) WindowData.GWL_STYLE) & (uint) ~WindowStyles.WS_SYSMENU);
-        }
 
         /// <summary>
         /// Obtiene un valor que determina si el control está advertido.
@@ -910,31 +703,8 @@ namespace TheXDS.MCART
             return bmp;
         }
 
-        [DllImport("user32.dll")]
-        private static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
 
-        private static void SetWindowEffect(Window window, AccentPolicy accent)
-        {
-            var windowHelper = new WindowInteropHelper(window);
-            var accentStructSize = Marshal.SizeOf(accent);
-            var accentPtr = Marshal.AllocHGlobal(accentStructSize);
-            Marshal.StructureToPtr(accent, accentPtr, false);
-            var data = new WindowCompositionAttributeData
-            {
-                Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY,
-                SizeOfData = accentStructSize,
-                Data = accentPtr
-            };
-            SetWindowCompositionAttribute(windowHelper.Handle, ref data);
-            Marshal.FreeHGlobal(accentPtr);
-        }
 
-        [DllImport("user32.dll")]
-        internal static extern int SetWindowLong(IntPtr hwnd, int index, uint newStyle);
-
-        [DllImport("user32.dll")]
-        internal static extern bool SetWindowPos(IntPtr hwnd, IntPtr hwndInsertAfter, int x, int y, int width,
-            int height, uint flags);
 
         /// <summary>
         /// Establece la propiedad <see cref="UIElement.Visibility" /> a
