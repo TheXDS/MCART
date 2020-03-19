@@ -1,5 +1,5 @@
 ﻿/*
-PInvoke.cs
+BooleanInverterTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,14 +22,28 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Windows.Dwm.Structs
+#pragma warning disable CS1591
+
+using System.Globalization;
+using TheXDS.MCART.ValueConverters;
+using Xunit;
+
+namespace TheXDS.MCART.WpfTests.ValueConverters
 {
-    internal enum AccentState
+    public class BooleanInverterTests
     {
-        ACCENT_DISABLED = 0,
-        ACCENT_ENABLE_GRADIENT = 1,
-        ACCENT_ENABLE_TRANSPARENTGRADIENT = 2,
-        ACCENT_ENABLE_BLURBEHIND = 3,
-        ACCENT_ENABLE_ACRYLICBLURBEHIND = 4
+        [Fact]
+        public void InversionTest()
+        {
+            var c = new BooleanInverter();
+            Assert.True((bool)c.Convert(false, typeof(bool), null, CultureInfo.CurrentCulture));
+            Assert.False((bool)c.Convert(true, typeof(bool), null, CultureInfo.CurrentCulture));
+
+#if PreferExceptions
+            Assert.Throws<InvalidCastException>(() => c.Convert("Test", typeof(bool), null, CultureInfo.CurrentCulture));
+#else
+            Assert.Null(c.Convert("Test", typeof(bool), null, CultureInfo.CurrentCulture));
+#endif
+        }
     }
 }

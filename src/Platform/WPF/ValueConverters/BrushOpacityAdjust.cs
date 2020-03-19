@@ -1,5 +1,5 @@
 ﻿/*
-ValueConverters.cs
+BrushOpacityAdjust.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,22 +22,19 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
-using System.Drawing;
-using System;
 
 namespace TheXDS.MCART.ValueConverters
 {
-    /// <inheritdoc />
     /// <summary>
     /// Permite compartir un recurso de <see cref="Brush" /> entre controles,
     /// ajustando la opacidad del enlace de datos.
     /// </summary>
     public sealed class BrushOpacityAdjust : IValueConverter
     {
-        /// <inheritdoc />
         /// <summary>
         /// Aplica la nueva opacidad al <see cref="Brush" />.
         /// </summary>
@@ -55,16 +52,14 @@ namespace TheXDS.MCART.ValueConverters
         /// </returns>
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!(value is System.Windows.Media.Brush brush)) return null;
-            if (!(parameter is double opacity || !double.TryParse(value.ToString(), out opacity)))
-                throw new ArgumentException(string.Empty, nameof(parameter));
+            if (!(value is Brush brush)) return null;
+            var opacity = (double)System.Convert.ChangeType(parameter, typeof(double));
             if (!opacity.IsBetween(0, 1)) throw new ArgumentOutOfRangeException(nameof(opacity));
             var b = brush.Clone();
             b.Opacity = opacity;
             return b;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Devuelve un <see cref="Brush" /> con 100% opacidad.
         /// </summary>
@@ -81,7 +76,7 @@ namespace TheXDS.MCART.ValueConverters
         /// </returns>
         public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!(value is System.Windows.Media.Brush brush)) return null;
+            if (!(value is Brush brush)) return null;
             var b = brush.Clone();
             b.Opacity = 1;
             return b;

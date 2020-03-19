@@ -53,9 +53,9 @@ namespace TheXDS.MCART.ValueConverters
         /// Referencia cultural que se va a usar en el convertidor.
         /// </param>
         /// <returns>
-        /// <see cref="F:System.Windows.Visibility.Visible" /> si al menos uno de los valores
-        /// es <see cref="F:System.Windows.Visibility.Visible" />,
-        /// <see cref="F:System.Windows.Visibility.Collapsed" /> en caso contrario.
+        /// <see cref="Visibility.Visible" /> si al menos uno de los valores
+        /// es <see cref="Visibility.Visible" />,
+        /// <see cref="Visibility.Collapsed" /> en caso contrario.
         /// </returns>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {

@@ -1,5 +1,5 @@
 ﻿/*
-ValueConverters.cs
+BoolFlagConverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,14 +22,13 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Globalization;
 using System.Windows.Data;
 using TheXDS.MCART.Types.Extensions;
-using System;
 
 namespace TheXDS.MCART.ValueConverters
 {
-    /// <inheritdoc />
     /// <summary>
     /// Clase base para crear convertidores de valores booleanos que analizan
     /// banderas de una enumeración.
@@ -45,7 +44,6 @@ namespace TheXDS.MCART.ValueConverters
         /// </summary>
         public T True { get; set; }
 
-#nullable disable
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="BoolFlagConverter{T}" />.
@@ -57,10 +55,8 @@ namespace TheXDS.MCART.ValueConverters
         public BoolFlagConverter()
         {
             if (!typeof(T).IsEnum) throw new InvalidOperationException();
-            True = (T)typeof(T).Default();
+            True = (T)typeof(T).Default()!;
         }
-#nullable enable
-
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase
@@ -78,7 +74,6 @@ namespace TheXDS.MCART.ValueConverters
             True = trueValue;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Convierte un valor a <see cref="bool" />.
         /// </summary>
@@ -105,7 +100,6 @@ namespace TheXDS.MCART.ValueConverters
             return null;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Convierte un <see cref="bool" /> al tipo establecido para este
         /// <see cref="BoolFlagConverter{T}" />.

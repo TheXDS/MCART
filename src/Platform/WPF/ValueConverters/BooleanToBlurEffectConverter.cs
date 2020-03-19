@@ -22,11 +22,10 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media.Effects;
-using TheXDS.MCART.Types.Extensions;
-using System;
 
 namespace TheXDS.MCART.ValueConverters
 {
@@ -54,51 +53,31 @@ namespace TheXDS.MCART.ValueConverters
         /// <returns></returns>
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            double radius;
-            switch (parameter)
+            double TryConvert()
             {
-                case string str:
-                    if (str.IsEmpty())
-                        radius = 5;
-                    else if (!double.TryParse(str, out radius))
-                        throw new ArgumentException(nameof(parameter));
-                    break;
-                case byte d:
-                    radius = d;
-                    break;
-                case short d:
-                    radius = d;
-                    break;
-                case int d:
-                    radius = d;
-                    break;
-                case long d:
-                    radius = d;
-                    break;
-                case float d:
-                    radius = d;
-                    break;
-                case double d:
-                    radius = d;
-                    break;
-                case decimal d:
-                    radius = (double) d;
-                    break;
-#if !CLSCompliance
-                case sbyte d: radius = d; break;
-                case ushort d: radius = d; break;
-                case uint d: radius = d; break;
-                case ulong d: radius = d; break;
-#endif
-                case null:
-                    radius = 5;
-                    break;
-                default:
+                try
+                {
+                    return (double)System.Convert.ChangeType(parameter, typeof(double));
+                }
+                catch
+                {
+#if PreferExceptions
                     throw new ArgumentException(nameof(parameter));
+#else
+                    return 5.0;
+#endif
+                }
             }
 
-            if (value is bool b && b) return new BlurEffect {Radius = radius};
-            return null;
+            return (value is bool b && b) ? new BlurEffect
+            {
+                Radius = parameter switch
+                {
+                    null => 5.0,
+                    string s => double.TryParse(s, out var r) ? r : throw new ArgumentException(nameof(parameter)),
+                    _ => TryConvert()
+                }
+            } : null;
         }
 
         /// <summary>

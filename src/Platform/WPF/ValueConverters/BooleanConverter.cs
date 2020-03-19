@@ -78,7 +78,7 @@ namespace TheXDS.MCART.ValueConverters
         /// valor es <see langword="true" />; en caso contrario, se devuelve
         /// <see cref="P:System.Windows.Converters.BooleanConverter`1.False" />.
         /// </returns>
-        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo? culture)
         {
             if (value is bool b) return b ? True : False;
             return null;
@@ -99,9 +99,11 @@ namespace TheXDS.MCART.ValueConverters
         /// <see langword="true" /> si el objeto es igual a <see cref="P:System.Windows.Converters.BooleanConverter`1.True" />;
         /// <see langword="false" /> en caso contrario.
         /// </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo? culture)
         {
-            return value is T variable && variable.Equals(True);
+            if (value?.Equals(True) ?? false) return true;
+            if (value?.Equals(False) ?? false) return false;
+            return null;
         }
     }
 }

@@ -50,9 +50,9 @@ namespace TheXDS.MCART.ValueConverters
         /// <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
-        /// Un nuevo <see cref="F:System.Windows.Visibility.Visible" /> si al
+        /// Un nuevo <see cref="Visibility.Visible" /> si al
         /// menos un hijo directo del control es visible,
-        /// <see cref="F:System.Windows.Visibility.Collapsed" /> en caso contrario.
+        /// <see cref="Visibility.Collapsed" /> en caso contrario.
         /// </returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

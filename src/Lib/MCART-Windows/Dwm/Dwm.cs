@@ -24,6 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Runtime.InteropServices;
+using TheXDS.MCART.Types;
 using TheXDS.MCART.Windows.Component;
 using TheXDS.MCART.Windows.Dwm.Structs;
 
@@ -53,7 +54,27 @@ namespace TheXDS.MCART.Windows.Dwm
         /// <param name="window">Instancia de ventana a difuminar.</param>
         public static void DisableEffects(this IWindow window)
         {
-            SetWindowEffect(window.Handle, new AccentPolicy { AccentState = AccentState.ACCENT_DISABLED });
+            SetWindowEffect(window, new AccentPolicy { AccentState = AccentState.ACCENT_DISABLED });
+        }
+
+        /// <summary>
+        /// Habilita los efectos de difuminado en la ventana.
+        /// </summary>
+        /// <param name="window">Instancia de ventana a difuminar.</param>
+        public static void EnableBlur(this IWindow window)
+        {
+            SetWindowEffect(window, new AccentPolicy { AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND });
+        }
+
+        /// <summary>
+        /// Habilita los efectos acrílicos en la ventana.
+        /// </summary>
+        /// <param name="window">
+        /// Instancia de ventana en la cual activar los efectos.
+        /// </param>
+        public static void EnableAcrylic(this IWindow window)
+        {
+            SetWindowEffect(window, new AccentPolicy { AccentState = AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND });
         }
 
         /// <summary>
@@ -88,15 +109,6 @@ namespace TheXDS.MCART.Windows.Dwm
             {
                 PInvoke.DwmExtendFrameIntoClientArea(window.Handle, ref padding);
             }
-        }
-
-        /// <summary>
-        /// Habilita los efectos de difuminado en la ventana.
-        /// </summary>
-        /// <param name="window">Instancia de ventana a difuminar.</param>
-        public static void EnableBlur(this IWindow window)
-        {
-            SetWindowEffect(window.Handle, new AccentPolicy { AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND });
         }
 
         /// <summary>
@@ -165,6 +177,43 @@ namespace TheXDS.MCART.Windows.Dwm
             ShowGwlStyle(window, WindowStyles.WS_MINIMIZEBOX);
         }
 
+        public static void HideCaption(this IWindow window)
+        {
+            HideGwlStyle(window, WindowStyles.WS_CAPTION);
+        }
+
+        public static void HideBorder(this IWindow window)
+        {
+            HideGwlStyle(window, WindowStyles.WS_BORDER);
+        }
+
+        public static void ShowCaption(this IWindow window)
+        {
+            ShowGwlStyle(window, WindowStyles.WS_CAPTION);
+        }
+
+        public static void ShowBorder(this IWindow window)
+        {
+            ShowGwlStyle(window, WindowStyles.WS_BORDER);
+        }
+
+        public static void Resize(this IWindow window, Size newSize)
+        {
+            PInvoke.SetWindowPos(window.Handle, IntPtr.Zero,
+                0, 0,
+                (int)newSize.Width, (int)newSize.Height,
+                (uint)(WindowChanges.IgnoreMove | WindowChanges.IgnoreZOrder));
+        }
+
+        public static void Move(this IWindow window, Point newPosition)
+        {
+            PInvoke.SetWindowPos(window.Handle, IntPtr.Zero,
+                (int)newPosition.X, (int)newPosition.Y,
+                0, 0,
+                (uint)(WindowChanges.IgnoreResize | WindowChanges.IgnoreZOrder));
+        }
+
+
         /// <summary>
         /// Envía una notificación a DWM sobre un cambio en el marco de la ventana.
         /// </summary>
@@ -174,13 +223,13 @@ namespace TheXDS.MCART.Windows.Dwm
         public static void NotifyWindowFrameChange(this IWindow window)
         {
             PInvoke.SetWindowPos(window.Handle, IntPtr.Zero, 0, 0, 0, 0,
-                (uint)(WindowChanges.SWP_NOMOVE |
-                WindowChanges.SWP_NOSIZE |
-                WindowChanges.SWP_NOZORDER |
-                WindowChanges.SWP_FRAMECHANGED));
+                (uint)(WindowChanges.IgnoreMove |
+                WindowChanges.IgnoreResize |
+                WindowChanges.IgnoreZOrder |
+                WindowChanges.FrameChanged));
         }
 
-        private static void SetWindowEffect(IntPtr window, AccentPolicy accent)
+        private static void SetWindowEffect(IWindow window, AccentPolicy accent)
         {
             var accentStructSize = Marshal.SizeOf(accent);
             var accentPtr = Marshal.AllocHGlobal(accentStructSize);
@@ -191,7 +240,7 @@ namespace TheXDS.MCART.Windows.Dwm
                 SizeOfData = accentStructSize,
                 Data = accentPtr
             };
-            PInvoke.SetWindowCompositionAttribute(window, ref data);
+            PInvoke.SetWindowCompositionAttribute(window.Handle, ref data);
             Marshal.FreeHGlobal(accentPtr);
         }
 

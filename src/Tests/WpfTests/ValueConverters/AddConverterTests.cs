@@ -25,11 +25,9 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #pragma warning disable CS1591
 
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
-using TheXDS.MCART.ValueConverters;
 using System.Globalization;
+using TheXDS.MCART.ValueConverters;
+using Xunit;
 
 namespace TheXDS.MCART.WpfTests.ValueConverters
 {

@@ -115,7 +115,6 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared\Globals\Globals.projitems*{0aeb6508-6179-44e8-96e6-6535659ae85d}*SharedItemsImports = 13
 		Examples\LightChat\Common\Common.projitems*{1459cf01-8f9b-47b1-a3f2-57e1f84d9d0e}*SharedItemsImports = 13
-		Shared\AssemblyInfo\AssemblyInfo.projitems*{77706828-80be-4bac-a97c-072e101d01de}*SharedItemsImports = 4
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{967afaa3-ded3-4ec0-9401-7193b318fce8}*SharedItemsImports = 13
 		Shared\Internals\Internals.projitems*{f7b14aea-6c0a-4343-81ae-fb06dcd9c69c}*SharedItemsImports = 13
 	EndGlobalSection

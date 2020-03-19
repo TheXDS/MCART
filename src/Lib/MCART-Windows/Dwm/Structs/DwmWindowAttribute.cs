@@ -24,12 +24,22 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 namespace TheXDS.MCART.Windows.Dwm.Structs
 {
-    internal enum AccentState
+    internal enum DwmWindowAttribute
     {
-        ACCENT_DISABLED = 0,
-        ACCENT_ENABLE_GRADIENT = 1,
-        ACCENT_ENABLE_TRANSPARENTGRADIENT = 2,
-        ACCENT_ENABLE_BLURBEHIND = 3,
-        ACCENT_ENABLE_ACRYLICBLURBEHIND = 4
+        NCRenderingEnabled = 1,
+        NCRenderingPolicy,
+        TransitionsForceDisabled,
+        AllowNCPaint,
+        CaptionButtonBounds,
+        NonClientRtlLayout,
+        ForceIconicRepresentation,
+        Flip3DPolicy,
+        ExtendedFrameBounds,
+        HasIconicBitmap,
+        DisallowPeek,
+        ExcludedFromPeek,
+        Cloak,
+        Cloaked,
+        FreezeRepresentation
     }
 }

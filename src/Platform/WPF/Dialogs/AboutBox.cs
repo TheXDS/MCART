@@ -29,7 +29,6 @@ using TheXDS.MCART.Pages;
 
 namespace TheXDS.MCART.Dialogs
 {
-    /// <inheritdoc />
     /// <summary>
     /// Diálogo que muestra información sobre un elemento.
     /// </summary>

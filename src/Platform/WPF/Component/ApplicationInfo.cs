@@ -32,12 +32,6 @@ using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Component
 {
-
-
-
-
-
-    /// <inheritdoc />
     /// <summary>
     /// Expone la información de ensamblado de una aplicación de WPF.
     /// </summary>
@@ -59,7 +53,6 @@ namespace TheXDS.MCART.Component
             };
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ApplicationInfo" />.
@@ -67,10 +60,8 @@ namespace TheXDS.MCART.Component
         /// <param name="application">
         /// Aplicación de la cual se mostrará la información.
         /// </param>
-        public ApplicationInfo(Application application) 
-            : this(application, null) { }
+        public ApplicationInfo(Application application) : this(application, null) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ApplicationInfo" />.
@@ -82,8 +73,7 @@ namespace TheXDS.MCART.Component
         /// <see langword="true"/> para intentar determinar el ícono de la
         /// aplicación, <see langword="false"/> para no mostrar un ícono.
         /// </param>
-        public ApplicationInfo(Application application, bool inferIcon)
-            : this(application,inferIcon ? InferIcon(application.GetType().Assembly) : null) { }
+        public ApplicationInfo(Application application, bool inferIcon) : this(application,inferIcon ? InferIcon(application.GetType().Assembly) : null) { }
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase
@@ -110,7 +100,6 @@ namespace TheXDS.MCART.Component
             Icon = icon;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ApplicationInfo" />.
@@ -122,17 +111,14 @@ namespace TheXDS.MCART.Component
         /// <see langword="true"/> para intentar determinar el ícono del
         /// ensamblado, <see langword="false"/> para no mostrar un ícono.
         /// </param>
-        public ApplicationInfo(Assembly assembly, bool inferIcon)
-            : this(assembly, inferIcon ? InferIcon(assembly) : null) { }
+        public ApplicationInfo(Assembly assembly, bool inferIcon) : this(assembly, inferIcon ? InferIcon(assembly) : null) { }
 
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene el nombre del elemento.
         /// </summary>
         public string Name => _infoExposer.Name;
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene la descripción del elemento.
         /// </summary>
@@ -143,38 +129,32 @@ namespace TheXDS.MCART.Component
         /// </summary>
         public UIElement? Icon { get; }
 
-        /// <inheritdoc />
         /// <summary>
         /// Devuelve el autor del <see cref="IExposeInfo" />
         /// </summary>
         public IEnumerable<string>? Authors => _infoExposer.Authors;
 
-        /// <inheritdoc />
         /// <summary>
         /// Devuelve el Copyright del <see cref="IExposeInfo" />
         /// </summary>
         public string? Copyright => _infoExposer.Copyright;
 
-        /// <inheritdoc />
         /// <summary>
         /// Devuelve la licencia del <see cref="IExposeInfo" />
         /// </summary>
         public License? License => _infoExposer.License;
 
-        /// <inheritdoc />
         /// <summary>
         /// Devuelve la versión del <see cref="IExposeInfo" />
         /// </summary>
         public Version? Version => _infoExposer.Version;
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene un valor que determina si este <see cref="IExposeInfo" />
         /// contiene información de licencia.
         /// </summary>
         public bool HasLicense => _infoExposer.HasLicense;
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene un valor que indica si este <see cref="IExposeInfo" />
         /// cumple con el Common Language Standard (CLS)

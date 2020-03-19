@@ -41,7 +41,7 @@ namespace TheXDS.MCART.ValueConverters
         /// <summary>
         /// Determina un valor de visibilidad basado en que todos los
         /// valores sean igual a
-        /// <see cref="F:System.Windows.Visibility.Visible" />.
+        /// <see cref="Visibility.Visible" />.
         /// </summary>
         /// <param name="values">
         /// Valores generados por los orígenes de enlace.
@@ -56,10 +56,10 @@ namespace TheXDS.MCART.ValueConverters
         /// Referencia cultural que se va a usar en el convertidor.
         /// </param>
         /// <returns>
-        /// <see cref="F:System.Windows.Visibility.Visible" /> si todos los
+        /// <see cref="Visibility.Visible" /> si todos los
         /// valores son igual a
-        /// <see cref="F:System.Windows.Visibility.Visible" />,
-        /// <see cref="F:System.Windows.Visibility.Collapsed" /> en caso contrario.
+        /// <see cref="Visibility.Visible" />,
+        /// <see cref="Visibility.Collapsed" /> en caso contrario.
         /// </returns>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {

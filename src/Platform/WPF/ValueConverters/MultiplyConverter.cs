@@ -1,5 +1,5 @@
 ﻿/*
-ValueConverters.cs
+MultiplyConverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,9 +22,11 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Globalization;
-using System.Windows.Data;
 using System;
+using System.Globalization;
+using System.Linq.Expressions;
+using System.Windows.Data;
+using TheXDS.MCART.ValueConverters.Base;
 
 namespace TheXDS.MCART.ValueConverters
 {
@@ -32,7 +34,7 @@ namespace TheXDS.MCART.ValueConverters
     /// <summary>
     /// Permite la multiplicación de propiedades numéricas.
     /// </summary>
-    public sealed class MultiplyConverter : IValueConverter
+    public sealed class MultiplyConverter : PrimitiveMathOpConverterBase, IValueConverter
     {
         /// <inheritdoc />
         /// <summary>
@@ -46,18 +48,9 @@ namespace TheXDS.MCART.ValueConverters
         /// <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>La multiplicación de <paramref name="value" /> y el operando especificado.</returns>
-        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object value, Type targetType, object? parameter, CultureInfo? culture)
         {
-            return (value, parameter) switch
-            {
-                (byte b1,   byte b2)    => b1 * b2,
-                (short b1,  short b2)   => b1 * b2,
-                (int b1,    int b2)     => b1 * b2,
-                (long b1,   long b2)    => b1 * b2,
-                (float b1,  float b2)   => b1 * b2,
-                (double b1, double b2)  => b1 * b2,
-                _ => double.NaN,
-            };
+            return Operate(value, targetType, parameter, culture, Expression.Multiply);
         }
 
         /// <inheritdoc />
@@ -75,18 +68,9 @@ namespace TheXDS.MCART.ValueConverters
         /// <returns>
         /// El valor de <paramref name="value" /> antes de la suma.
         /// </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object value, Type targetType, object? parameter, CultureInfo? culture)
         {
-            return (value, parameter) switch
-            {
-                (byte b1, byte b2) => b1 / b2,
-                (short b1, short b2) => b1 / b2,
-                (int b1, int b2) => b1 / b2,
-                (long b1, long b2) => b1 / b2,
-                (float b1, float b2) => b1 / b2,
-                (double b1, double b2) => b1 / b2,
-                _ => double.NaN,
-            };
+            return Operate(value, targetType, parameter, culture, Expression.Divide);
         }
     }
 }

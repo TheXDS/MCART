@@ -36,13 +36,7 @@ namespace TheXDS.MCART
     /// </summary>
     public static class WinUi
     {
-        [DllImport("kernel32.dll")] static extern IntPtr GetConsoleWindow();
 
-        /// <summary>
-        /// Obtiene un valor que indica si la aplicación tiene acceso a la
-        /// consola.
-        /// </summary>
-        public static bool HasConsole => GetConsoleWindow() != IntPtr.Zero;
 
         /// <summary>
         /// Abre una consola para la aplicación.
@@ -52,7 +46,6 @@ namespace TheXDS.MCART
         /// Esta función es exclusiva para sistemas operativos Microsoft
         /// Windows®.
         /// </remarks>
-        [DllImport("kernel32.dll")] public static extern bool AllocConsole();
 
         /// <summary>
         /// Libera la consola de la aplicación.
@@ -62,7 +55,6 @@ namespace TheXDS.MCART
         /// Esta función es exclusiva para sistemas operativos Microsoft
         /// Windows®.
         /// </remarks>
-        [DllImport("kernel32.dll")] public static extern bool FreeConsole();
 
         /// <summary>
         /// Obtiene la información física del contexto del dispositivo gráfico

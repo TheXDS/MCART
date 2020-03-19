@@ -69,11 +69,15 @@ namespace TheXDS.MCART.ValueConverters.Base
         /// Un <typeparamref name="T" /> cuyo valor es el inverso de
         /// <paramref name="value" />.
         /// </returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo? culture)
         {
             if (value is T v)
                 return v.Equals(_yay) ? _nay : _yay;
+#if PreferExceptions
             throw new InvalidCastException();
+#else
+            return null;
+#endif
         }
 
         /// <inheritdoc />
@@ -92,11 +96,15 @@ namespace TheXDS.MCART.ValueConverters.Base
         /// Un <typeparamref name="T" /> cuyo valor es el inverso de
         /// <paramref name="value" />.
         /// </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo? culture)
         {
             if (value is T v)
                 return v.Equals(_yay) ? _nay : _yay;
+#if PreferExceptions
             throw new InvalidCastException();
+#else
+            return null;
+#endif
         }
     }
 }
