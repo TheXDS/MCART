@@ -1,5 +1,5 @@
 ﻿/*
-Class1.cs
+TaskExtensionsTest.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,22 +22,28 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
+#pragma warning disable CS1591
 
-using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Xunit;
+using static TheXDS.MCART.Types.Extensions.TaskExtensions;
 
-namespace TheXDS.MCART
+namespace TheXDS.MCART.Tests.Types.Extensions
 {
-    /// <summary>
-    /// Aplicación de compresión de recursos "BinUtil"
-    /// </summary>
-    public static class Program
+    public class TaskExtensionsTest
     {
-        /// <summary>
-        /// Punto de entrada principal de la aplicación.
-        /// </summary>
-        public static void Main()
+        [Fact]
+        public async Task WithCancellationTest()
         {
+            var t = new System.Diagnostics.Stopwatch();
+            
+            t.Start();
+            await Assert.ThrowsAsync<TaskCanceledException>(() => Task.Delay(1000).WithCancellation(new CancellationTokenSource(500).Token));
+            t.Stop();
+
+            Assert.True(t.ElapsedMilliseconds < 1000);
         }
     }
 }

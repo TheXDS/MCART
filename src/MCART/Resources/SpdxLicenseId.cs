@@ -26,7 +26,6 @@ using TheXDS.MCART.Attributes;
 
 namespace TheXDS.MCART.Resources
 {
-
     /// <summary>
     /// Enumera todas las licencias registradas dentro de los estándares de
     /// Software Package Data Exchange (SPDX).

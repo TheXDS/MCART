@@ -88,7 +88,6 @@ namespace TheXDS.MCART.Dialogs
 
         private async void BtnOk_OnClick(object sender, RoutedEventArgs e)
         {
-            
             if (!(Vm.Validator is null))
             {
                 if (Vm.TriesCount >= Vm.MaxTries)

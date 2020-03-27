@@ -38,10 +38,13 @@ namespace TheXDS.MCART.Types.Extensions
     public static class PropertyInfoExtensions
     {
         /// <summary>
-        /// Establece el valor de la propiedad de un objeto a su valor predeterminado.
+        /// Establece el valor de la propiedad de un objeto a su valor
+        /// predeterminado.
         /// </summary>
         /// <param name="property">Propiedad a restablecer.</param>
-        /// <param name="instance">Instancia del objeto que contiene la propiedad.</param>
+        /// <param name="instance">
+        /// Instancia del objeto que contiene la propiedad.
+        /// </param>
         public static void Default(this PropertyInfo property, object? instance)
         {
             if (instance is null || instance.GetType().GetProperties().Any(p => Objects.Is(p, property)))
@@ -52,7 +55,6 @@ namespace TheXDS.MCART.Types.Extensions
                 }
                 property.SetMethod.Invoke(instance, new[] { property.GetAttr<DefaultValueAttribute>()?.Value ?? property.PropertyType.Default() });
             }
-
             else
             {
                 throw new MissingMemberException(instance.GetType().Name, property.Name);
@@ -60,7 +62,8 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        /// Establece el valor de una propiedad estática a su valor predeterminado.
+        /// Establece el valor de una propiedad estática a su valor
+        /// predeterminado.
         /// </summary>
         /// <param name="property">Propiedad a restablecer.</param>
         public static void Default(this PropertyInfo property)

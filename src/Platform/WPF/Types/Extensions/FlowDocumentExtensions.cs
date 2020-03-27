@@ -932,7 +932,6 @@ namespace TheXDS.MCART.Types.Extensions
                     cell.BorderThickness = style.BorderThickness.Value;
 
                 cell.TextAlignment = style.Alignment;
-
             }
             return cell;
         }
@@ -1216,7 +1215,7 @@ namespace TheXDS.MCART.Types.Extensions
                     new Run
                     {
                         Text = text,
-                        FontSize = 36 - 6 * level
+                        FontSize = 36 - (6 * level)
                     }
                 },
                 TextAlignment = alignment

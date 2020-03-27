@@ -394,7 +394,7 @@ namespace TheXDS.MCART
             }
             catch
             {
-                types = global::System.Array.Empty<global::System.Type>();
+                types = Array.Empty<Type>();
             }
             return types;
         }

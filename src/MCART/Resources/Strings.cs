@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#pragma warning disable CS1591 // Las cadenas generalmente no requieren de descripción.
+
 using System;
 using TheXDS.MCART.Types;
 
@@ -268,6 +270,7 @@ namespace TheXDS.MCART.Resources
         /// Una cadena con el texto "{<paramref name="text"/>} ya existe".
         /// </returns>
         public static string XAlreadyExists(string text) => $"{text} ya existe.";
+
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} ya se ha iniciado.".
         /// </summary>
@@ -276,6 +279,7 @@ namespace TheXDS.MCART.Resources
         /// Una cadena con el texto "{<paramref name="text"/>} ya se ha iniciado.".
         /// </returns>
         public static string XAlreadyStarted(string text) => $"{text} ya se ha iniciado.";
+
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="x"/>} no puede 
         /// ser {<paramref name="y"/>}".
@@ -287,6 +291,7 @@ namespace TheXDS.MCART.Resources
         /// {<paramref name="y"/>}".
         /// </returns>
         public static string XCannotBeY(string x, string y) => $"{x} no puede ser {y}";
+
         /// <summary>
         /// Devuelve una cadena con el texto "Operación cancelada por 
         /// {<paramref name="text"/>}".
@@ -297,6 +302,7 @@ namespace TheXDS.MCART.Resources
         /// {<paramref name="text"/>}".
         /// </returns>
         public static string XCncl(string text) => $"Operación cancelada por {text}.";
+
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} se ha 
         /// deshabilitado.".
@@ -307,6 +313,7 @@ namespace TheXDS.MCART.Resources
         /// deshabilitado.".
         /// </returns>
         public static string XDisabled(string text) => $"{text} se ha deshabilitado.";
+
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} se ha desconectado.".
         /// </summary>
@@ -315,6 +322,7 @@ namespace TheXDS.MCART.Resources
         /// Una cadena con el texto "{<paramref name="text"/>} se ha desconectado.".
         /// </returns>
         public static string XDisconnected(string text) => $"{text} se ha desconectado.";
+
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="x"/>} no
         /// contiene {<paramref name="y"/>}".
@@ -326,6 +334,7 @@ namespace TheXDS.MCART.Resources
         /// {<paramref name="y"/>}".
         /// </returns>
         public static string XDoesntContainY(string x, string y) => $"{x} no contiene {y}";
+
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} ha encontrado un error.".
         /// </summary>
@@ -334,12 +343,14 @@ namespace TheXDS.MCART.Resources
         /// Una cadena con el texto "{<paramref name="text"/>} ha encontrado un error.".
         /// </returns>
         public static string XFoundError(string text) => $"{text} ha encontrado un error.";
+
         /// <summary>
         /// Devuelve una cadena con el texto "Se ha producido un error cargando {<paramref name="text"/>}.".
         /// </summary>
         /// <param name="text">Texto a formatear.</param>
         /// <returns>Una cadena con el texto "Se ha producido un error cargando {<paramref name="text"/>}.".</returns>
         public static string ErrorLoadingX(string text) => $"Se ha producido un error cargando {text}.";
+
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} se encuentra en fase beta.".
         /// </summary>
@@ -348,6 +359,7 @@ namespace TheXDS.MCART.Resources
         /// Una cadena con el texto "{<paramref name="text"/>} se encuentra en fase beta.".
         /// </returns>
         public static string XIsBeta(string text) => $"{text} se encuentra en fase beta.";
+
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} no es válido.".
         /// </summary>
@@ -356,6 +368,7 @@ namespace TheXDS.MCART.Resources
         /// Una cadena con el texto "{<paramref name="text"/>} no es válido.".
         /// </returns>
         public static string XIsInvalid(string text) => $"{text} no es válido.";
+
         /// <summary>
         /// Devuelve una cadena con el texto "Falta {<paramref name="text"/>}".
         /// </summary>
@@ -364,6 +377,7 @@ namespace TheXDS.MCART.Resources
         /// Una cadena con el texto "Falta {<paramref name="text"/>}".
         /// </returns>
         public static string XMissing(string text) => $"Falta {text}";
+
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="x"/>} debe ser 
         /// {<paramref name="y"/>}".
@@ -375,6 +389,7 @@ namespace TheXDS.MCART.Resources
         /// {<paramref name="y"/>}".
         /// </returns>
         public static string XMustBeY(string x, string y) => $"{x} debe ser {y}";
+
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} no es cancelable".
         /// </summary>
@@ -383,6 +398,7 @@ namespace TheXDS.MCART.Resources
         /// Una cadena con el texto "{<paramref name="text"/>} no es cancelable".
         /// </returns>
         public static string XNotCancellable(string text) => $"{text} no es cancelable.";
+
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} no ha sido encontrado.".
         /// </summary>
@@ -391,6 +407,7 @@ namespace TheXDS.MCART.Resources
         /// Una cadena con el texto "{<paramref name="text"/>} no ha sido encontrado.".
         /// </returns>
         public static string XNotFound(string text) => $"{text} no ha sido encontrado.";
+
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} no se ha incluído.".
         /// </summary>
@@ -399,6 +416,7 @@ namespace TheXDS.MCART.Resources
         /// Una cadena con el texto "{<paramref name="text"/>} no se ha incluído.".
         /// </returns>
         public static string XNotIncluded(string text) => $"{text} no se ha incluído.";
+
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} no se ha inicializado aún.".
         /// </summary>
@@ -407,6 +425,7 @@ namespace TheXDS.MCART.Resources
         /// Una cadena con el texto "{<paramref name="text"/>} no se ha inicializado aún.".
         /// </returns>
         public static string XNotInit(string text) => $"{text} no se ha inicializado aún.";
+
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} no es instanciable.".
         /// </summary>
@@ -415,6 +434,7 @@ namespace TheXDS.MCART.Resources
         /// Una cadena con el texto "{<paramref name="text"/>} no es instanciable.".
         /// </returns>
         public static string XNotInstantiable(string text) => $"{text} no es instanciable";
+
         /// <summary>
         /// Devuelve una cadena con el texto "No se ha seleccionado {<paramref name="text"/>}".
         /// </summary>
@@ -423,6 +443,7 @@ namespace TheXDS.MCART.Resources
         /// Una cadena con el texto "No se ha seleccionado {<paramref name="text"/>}".
         /// </returns>
         public static string XNotSelected(string text) => $"No se ha seleccionado {text}.";
+
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>}, o".
         /// </summary>
@@ -431,6 +452,7 @@ namespace TheXDS.MCART.Resources
         /// Una cadena con el texto "{<paramref name="text"/>}, o".
         /// </returns>
         public static string XOr(string text) => $"{text}, o";
+
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} ha sido
         /// rechazado.".
@@ -441,6 +463,7 @@ namespace TheXDS.MCART.Resources
         /// rechazado.".
         /// </returns>
         public static string XRejected(string text) => $"{text} ha sido rechazado.";
+
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} ha
         /// devuelto valores inválidos.".
@@ -451,6 +474,7 @@ namespace TheXDS.MCART.Resources
         /// valores inválidos.".
         /// </returns>
         public static string XReturnedInvalid(string text) => $"{text} ha devuelto valores inválidos.";
+
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} se ha iniciado.".
         /// </summary>
@@ -459,6 +483,7 @@ namespace TheXDS.MCART.Resources
         /// Una cadena con el texto "{<paramref name="text"/>} se ha iniciado.".
         /// </returns>
         public static string XStarted(string text) => $"{text} se ha iniciado.";
+
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="text"/>} se ha detenido.".
         /// </summary>
@@ -467,6 +492,7 @@ namespace TheXDS.MCART.Resources
         /// Una cadena con el texto "{<paramref name="text"/>} se ha detenido.".
         /// </returns>
         public static string XStopped(string text) => $"{text} se ha detenido.";
+
         /// <summary>
         /// Devuelve una cadena con el texto "{<paramref name="unquoted"/>}
         /// '{<paramref name="quoted"/>}'".
@@ -497,7 +523,7 @@ namespace TheXDS.MCART.Resources
             return $"El valor se encuentra fuera del rango válido. Debe ser {(range.MinInclusive ? ">=" : ">")} {range.Minimum} y {(range.MaxInclusive ? "<=" : "<")} {range.Maximum}";
         }
         #endregion
-#pragma warning disable CS1591 // Las cadenas generalmente no requieren de descripción.
+
         public const string AboutMCART = "Acerca de MCART...";
         public const string Abort = "Abortar";
         public const string About = "Acerca de...";
@@ -630,8 +656,5 @@ namespace TheXDS.MCART.Resources
         public const string UsrCncl = "Operación cancelada por el usuario.";
         public const string Usr = "Usuario";
         public const string Ver = "Versión";
-
-#pragma warning restore CS1591
-
     }
 }

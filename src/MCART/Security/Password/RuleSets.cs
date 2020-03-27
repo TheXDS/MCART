@@ -38,7 +38,6 @@ namespace TheXDS.MCART.Security.Password
     /// </summary>
     public static class RuleSets
     {
-
         #region Fábrica de reglas de contención
 
         /// <summary>

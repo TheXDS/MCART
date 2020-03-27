@@ -465,7 +465,7 @@ namespace TheXDS.MCART.Controls
             {
                 if (j.IsValid())
                 {
-                    var p = new System.Windows.Point(k, (GrdGraph.ActualHeight - j * GrdGraph.ActualHeight));
+                    var p = new System.Windows.Point(k, GrdGraph.ActualHeight - (j * GrdGraph.ActualHeight));
                     grp.Points.Add(p);
                     if ((GraphDrawMode & EnumGraphDrawMode.Bars) != 0) grp.Points.Add(new System.Windows.Point(p.X + l, p.Y));
                 }

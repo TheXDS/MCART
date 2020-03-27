@@ -43,36 +43,6 @@ namespace TheXDS.MCART.Tests.Modules
     /// </summary>
     public class CommonTest
     {
-        [Fact]
-        public void ClampTest()
-        {
-            Assert.Equal(2,TheXDS.MCART.Math.Common.Clamp(1 + 1, 0, 3));
-            Assert.Equal(2,TheXDS.MCART.Math.Common.Clamp(1 + 3, 0, 2));
-            Assert.Equal(2,TheXDS.MCART.Math.Common.Clamp(1 + 0, 2, 4));
-        }
-
-        [Fact]
-        public void ClampTest_double()
-        {
-            Assert.Equal(2.0, TheXDS.MCART.Math.Common.Clamp(1.0+1.0,0.0,3.0));
-            Assert.Equal(2.0, TheXDS.MCART.Math.Common.Clamp(1.0+3.0,0.0,2.0));
-            Assert.Equal(2.0, TheXDS.MCART.Math.Common.Clamp(1.0-1.0,2.0,3.0));
-            Assert.Equal(double.NaN, TheXDS.MCART.Math.Common.Clamp(double.NaN, 0.0,1.0));
-            Assert.Equal(5.0, TheXDS.MCART.Math.Common.Clamp(double.PositiveInfinity, -5.0, 5.0));
-            Assert.Equal(-5.0, TheXDS.MCART.Math.Common.Clamp(double.NegativeInfinity, -5.0, 5.0));
-        }
-
-        [Fact]
-        public void ClampTest_float()
-        {
-            Assert.Equal(2.0f, TheXDS.MCART.Math.Common.Clamp(1.0f + 1.0f, 0.0f, 3.0f));
-            Assert.Equal(2.0f, TheXDS.MCART.Math.Common.Clamp(1.0f + 3.0f, 0.0f, 2.0f));
-            Assert.Equal(2.0f, TheXDS.MCART.Math.Common.Clamp(1.0f - 1.0f, 2.0f, 3.0f));
-            Assert.Equal(float.NaN, TheXDS.MCART.Math.Common.Clamp(float.NaN, 0.0f, 1.0f));
-            Assert.Equal(5.0f, TheXDS.MCART.Math.Common.Clamp(float.PositiveInfinity, -5.0f, 5.0f));
-            Assert.Equal(-5.0f, TheXDS.MCART.Math.Common.Clamp(float.NegativeInfinity, -5.0f, 5.0f));
-        }
-
 
         [Fact]
         public void ToPercentTestDouble()
@@ -99,7 +69,6 @@ namespace TheXDS.MCART.Tests.Modules
             Assert.Equal(new[] { 0.0f, 0.25f, 0.5f, 0.75f, 1.0f }, c.ToPercentSingle(1, 5));
             Assert.Throws<InvalidOperationException>(() => c.ToPercentSingle(1, 1).ToList());
         }
-
 
         [Fact]
         public void ReadCharsTest()
@@ -235,7 +204,6 @@ namespace TheXDS.MCART.Tests.Modules
             Assert.True(((double?) 0.5).IsBetween(new Range<double>(0.0, 1.0)));
         }
 
-
         [Fact]
         public void ReadBytesTest()
         {
@@ -243,7 +211,9 @@ namespace TheXDS.MCART.Tests.Modules
             s.AppendChar('@');
             s.MakeReadOnly();
             var r = s.ReadBytes();
-            Assert.True(64 == r[0] && 0 == r[1]);
+            Assert.Collection(r,
+                p => Assert.Equal(64, p),
+                p => Assert.Equal(0, p));
         }
 
         [Fact]
@@ -266,7 +236,6 @@ namespace TheXDS.MCART.Tests.Modules
             s.MakeReadOnly();
             Assert.Equal("Test", s.Read());
         }
-
 
         [Fact]
         public void SwapTest()
@@ -314,7 +283,6 @@ namespace TheXDS.MCART.Tests.Modules
 
             Assert.Throws<ArgumentException>(() => new[] { 1f }.ToPercent(float.NaN, float.NaN).ToList());
             Assert.Throws<ArgumentException>(() => new[] { 1f }.ToPercent(0f, float.NaN).ToList());
-
         }
 
         [Fact]
@@ -343,6 +311,7 @@ namespace TheXDS.MCART.Tests.Modules
             Assert.Throws<ArgumentException>(() => new[] { 1.0 }.ToPercent(double.NaN, double.NaN).ToList());
             Assert.Throws<ArgumentException>(() => new[] { 1.0 }.ToPercent(0.0, double.NaN).ToList());
         }
+
         [Theory]
         [CLSCompliant(false)]
         [InlineData(1000, ByteUnitType.Binary, "1000 Bytes")]
@@ -350,7 +319,7 @@ namespace TheXDS.MCART.Tests.Modules
         [InlineData(100000, (ByteUnitType) 2, "100000 Bytes")]
         public void ByteUnitsTest_Long_ByteUnitType(long bytes, ByteUnitType unit, string result)
         {
-            Assert.Equal(result,ByteUnits(bytes,unit));
+            Assert.Equal(result, ByteUnits(bytes, unit));
         }
         
         [Theory]
@@ -365,19 +334,19 @@ namespace TheXDS.MCART.Tests.Modules
         [InlineData(1152921504606846976L, "1.0 EiB")]
         public void ByteUnitsTest_Long(long bytes, string result)
         {
-            Assert.Equal(result,bytes.ByteUnits());
+            Assert.Equal(result, bytes.ByteUnits());
         }
 
         [Fact]
         public void AnyEmptyTest()
         {
             var array = new [] { "0", null, "2", "3", null, "5" };
-            Assert.False(new[]{ "0", "1", "2" }.AnyEmpty(out int i));
+            Assert.False(new[] { "0", "1", "2" }.AnyEmpty(out int i));
             Assert.Equal(-1, i);
             Assert.True(array.AnyEmpty(out int index));
             Assert.Equal(1, index);
             Assert.True(array.AnyEmpty(out IEnumerable<int> indexes));
-            Assert.Equal(new[]{ 1, 4 },indexes.ToArray());
+            Assert.Equal(new[] { 1, 4 }, indexes.ToArray());
         }
     }
 }

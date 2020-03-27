@@ -1,12 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Nullable>enable</Nullable>
     <OutputType>Exe</OutputType>
-    <Description>Utility to import and compress resources into MCART.</Description>
+    <Description>Utilidad de compresión de recursos incrustables.</Description>
     <NoPack>true</NoPack>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <RootNamespace>TheXDS.MCART.Utils</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.20158.1" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\MCART\MCART.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Resources\Strings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

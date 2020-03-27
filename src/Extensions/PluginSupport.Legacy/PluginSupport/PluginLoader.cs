@@ -1064,11 +1064,11 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         public T LoadWhatever<T>(string pluginsPath, SearchOption search) where T : class
         {
             if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
-            return LoadEverything<T>(pluginsPath, search).FirstOrDefault()
-#if !PreferExceptions
-                   ?? throw new PluginClassNotFoundException(typeof(T))
+#if PreferExceptions
+            return LoadEverything<T>(pluginsPath, search).FirstOrDefault() ?? throw new PluginClassNotFoundException(typeof(T));
+#else
+            return LoadEverything<T>(pluginsPath, search).FirstOrDefault();
 #endif
-                ;
         }
 
         /// <summary>

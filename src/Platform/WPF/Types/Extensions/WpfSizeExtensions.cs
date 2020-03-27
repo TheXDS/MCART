@@ -58,7 +58,6 @@ namespace TheXDS.MCART.Types.Extensions
         /// Un nuevo <see cref="Size"/> creado a partir del
         /// <see cref="W.Size"/> especificado.
         /// </returns>
-
         public static Size FromWinSize(this W.Size size)
         {
             return new Size(size.Width, size.Height);

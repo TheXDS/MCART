@@ -22,7 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using TheXDS.MCART.Events;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -32,15 +31,15 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Converters;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Shapes;
+using TheXDS.MCART.Events;
 using TheXDS.MCART.Resources;
-using static TheXDS.MCART.WpfUi;
-using static TheXDS.MCART.Types.Extensions.StringExtensions;
-using St = TheXDS.MCART.Resources.Strings;
 using TheXDS.MCART.ValueConverters;
+using static TheXDS.MCART.Types.Extensions.StringExtensions;
+using static TheXDS.MCART.WpfUi;
+using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Controls
 {
@@ -746,7 +745,7 @@ namespace TheXDS.MCART.Controls
         /// Si <see cref="HasSearch"/> es <see langword="true"/>, establece los campos
         /// necesarios para realizar búsquedas.
         /// </param>
-        public void AttachView(BindingListCollectionView cv, string[] searchFields = null)
+        public void AttachView(BindingListCollectionView cv, string[]? searchFields = null)
         {
             if (!(_view is null)) Filters.Clear();
             if (HasSearch && !(searchFields is null)) Filters.AddRange(searchFields);

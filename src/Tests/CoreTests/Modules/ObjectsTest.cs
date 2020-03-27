@@ -62,18 +62,17 @@ namespace TheXDS.MCART.Tests.Modules
 
             public static void TestMethod(int x)
             {
+                _ = x.ToString();
             }
 
             public void TestMethod2(float x)
             {
+                _ = x.ToString();
             }
         }
 #pragma warning disable xUnit1013
-        // ReSharper disable once MemberCanBePrivate.Global
-        // ReSharper disable once MemberCanBeMadeStatic.Global
         public void TestEventHandler(object sender, EventArgs e) { }
 #pragma warning restore xUnit1013
-
 
         [Theory]
         [CLSCompliant(false)]
