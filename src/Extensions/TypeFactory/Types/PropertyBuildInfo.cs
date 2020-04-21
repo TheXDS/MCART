@@ -31,20 +31,8 @@ namespace TheXDS.MCART.Types
     /// <summary>
     /// Contiene información acerca de la construcción de una propiedad.
     /// </summary>
-    public class PropertyBuildInfo
+    public class PropertyBuildInfo : MemberBuildInfo<PropertyBuilder>
     {
-        /// <summary>
-        /// Referencia al <see cref="System.Reflection.Emit.TypeBuilder"/> en
-        /// el cual se ha construido la propiedad.
-        /// </summary>
-        public TypeBuilder TypeBuilder { get; }
-
-        /// <summary>
-        /// Referencia al <see cref="PropertyBuilder"/> utilizado para
-        /// construir a la propiedad.
-        /// </summary>
-        public PropertyBuilder Property { get; }
-
         /// <summary>
         /// Referencia al <see cref="FieldBuilder"/> utilizado para
         /// construir el campo de almacenamiento de la propiedad en caso de
@@ -85,16 +73,6 @@ namespace TheXDS.MCART.Types
 
         /// <summary>
         /// Convierte implícitamente un valor <see cref="PropertyBuildInfo"/>
-        /// en un <see cref="PropertyInfo"/>.
-        /// </summary>
-        /// <param name="buildInfo">
-        /// <see cref="PropertyBuildInfo"/> desde el cual extraer el
-        /// <see cref="PropertyInfo"/>.
-        /// </param>
-        public static implicit operator PropertyInfo(PropertyBuildInfo buildInfo) => buildInfo.Property;
-
-        /// <summary>
-        /// Convierte implícitamente un valor <see cref="PropertyBuildInfo"/>
         /// en un <see cref="FieldInfo"/>.
         /// </summary>
         /// <param name="buildInfo">
@@ -115,10 +93,8 @@ namespace TheXDS.MCART.Types
             Getter = getter;
             Setter = setter;
         }
-        private PropertyBuildInfo(TypeBuilder typeBuilder, PropertyBuilder property)
+        private PropertyBuildInfo(TypeBuilder typeBuilder, PropertyBuilder property) : base(typeBuilder, property)
         {
-            TypeBuilder = typeBuilder;
-            Property = property ?? throw new ArgumentNullException(nameof(property));
         }
     }
 }

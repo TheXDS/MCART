@@ -25,13 +25,16 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Linq.Expressions;
 using TheXDS.MCART.Annotations;
 using TheXDS.MCART.Types.Base;
 using static System.Reflection.MethodAttributes;
 using static TheXDS.MCART.Types.TypeBuilderHelpers;
 using Errors = TheXDS.MCART.Resources.TypeFactoryErrors;
+using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Types.Extensions
 {
@@ -89,7 +92,7 @@ namespace TheXDS.MCART.Types.Extensions
                 .LoadArg1()
                 .StoreField(field)
                 .Return();
-            return new PropertyBuildInfo(tb, p.Property, field);
+            return new PropertyBuildInfo(tb, p.Member, field);
         }
 
         /// <summary>
@@ -240,7 +243,7 @@ namespace TheXDS.MCART.Types.Extensions
                 .Call(tb.ActualBaseType.GetMethod("Change", BindingFlags.NonPublic | BindingFlags.Instance, null, new[] { type.MakeByRefType(), type,typeof(string) }, null)!.MakeGenericMethod(new[] { type })!)
                 .Pop()
                 .Return();
-            return new PropertyBuildInfo(tb.Builder, p.Property, field);
+            return new PropertyBuildInfo(tb.Builder, p.Member, field);
         }
 
         /// <summary>
@@ -809,6 +812,27 @@ namespace TheXDS.MCART.Types.Extensions
             return tb.DefineConstructor(Public | SpecialName | HideBySig | RTSpecialName, CallingConventions.HasThis, arguments).GetILGenerator();
         }
 
+
+
+
+        public static MethodBuildInfo ExplicitImplementMethod(this TypeBuilder tb, MethodInfo method)
+        {
+            if (!method.DeclaringType?.IsInterface ?? true) throw Errors.IFaceMethodExpected();
+            if (!tb.GetInterfaces().Contains(method.DeclaringType!)) throw Errors.IfaceNotImpl(method.DeclaringType!);
+
+            var m = tb.DefineMethod($"{method.DeclaringType!.Name}.{method.Name}",
+                Private | HideBySig | NewSlot | Virtual | Final,
+                method.IsVoid() ? null : method.ReturnType,
+                method.GetParameters().Select(p => p.ParameterType).ToArray()));
+            tb.DefineMethodOverride(m, method);
+
+            return new MethodBuildInfo(tb, m);
+        }
+
+
+
+
+
         #region Helpers privados
 
         [System.Diagnostics.DebuggerNonUserCode]
@@ -854,7 +878,7 @@ namespace TheXDS.MCART.Types.Extensions
             p.Setter!
                 .Call(method)
                 .Return(setRet);
-            return new PropertyBuildInfo(tb, p.Property, field);
+            return new PropertyBuildInfo(tb, p.Member, field);
         }
 
         private static MethodInfo GetEqualsMethod(Type type)

@@ -31,6 +31,7 @@ using TheXDS.MCART;
 using System.Reflection.Emit;
 using System.Linq.Expressions;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TheXDS.MCART.Mockups
 {
@@ -47,8 +48,8 @@ namespace TheXDS.MCART.Mockups
 
         public T Build()
         {
+            AddMembers();
             _ctor.Return();
-
             return _builder.CreateType()!.New<T>();
         }
 
@@ -70,7 +71,24 @@ namespace TheXDS.MCART.Mockups
 
         private void BuildMethod(MethodInfo method)
         {
-            throw new NotImplementedException();
+            MethodBuilder m;
+            if (method.IsVoid())
+            {
+                m = _builder.DefineMethod(method.Name, MethodAttributes.Public,null,method.GetParameters().Select(p=>p.ParameterType).ToArray());
+
+
+
+            }
+            else
+            {
+                m = _builder.DefineMethod(method.Name, MethodAttributes.Public,method.ReturnType,);
+
+            }
+
+            if (!method.IsStatic)
+            {
+                
+            }
         }
 
         private void BuildProperty(PropertyInfo prop) => BuildProperty(prop, prop.PropertyType.Default());

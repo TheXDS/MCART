@@ -1532,7 +1532,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static ILGenerator LoadProperty(this ILGenerator ilGen, PropertyBuildInfo property)
         {
-            return LoadProperty(ilGen, property.Property);
+            return LoadProperty(ilGen, property.Member);
         }
 
         /// <summary>

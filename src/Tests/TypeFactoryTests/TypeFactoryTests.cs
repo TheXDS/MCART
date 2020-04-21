@@ -33,7 +33,7 @@ namespace TypeFactoryTests
             var nameProp = t.AddAutoProperty<string>("Name");            
             var grettingProp = t.AddComputedProperty<string>("Greeting", p => p
                 .LoadConstant("Hello, ")
-                .LoadProperty(nameProp.Property)
+                .LoadProperty(nameProp.Member)
                 .Call<Func<string?, string?, string>>(() => string.Concat)
                 .Return());
 

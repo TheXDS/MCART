@@ -56,7 +56,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             if (!(builder.Field is null)) throw Errors.PropFieldAlreadyDefined();
             if ((builder.Getter?.ILOffset ?? 0) != 0) throw Errors.PropGetterAlreadyDefined();
-            field = builder.TypeBuilder.DefineField(UndName(builder.Property.Name), builder.Property.PropertyType, FieldAttributes.Private | FieldAttributes.PrivateScope);
+            field = builder.TypeBuilder.DefineField(UndName(builder.Member.Name), builder.Member.PropertyType, FieldAttributes.Private | FieldAttributes.PrivateScope);
             builder.Getter?.LoadField(field).Return();
             return builder;
         }

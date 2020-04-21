@@ -61,6 +61,15 @@ namespace TheXDS.MCART.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Se esperaba una definición de método desde una interfaz..
+        /// </summary>
+        internal static string ErrIFaceMethodExpected {
+            get {
+                return ResourceManager.GetString("ErrIFaceMethodExpected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a El tipo no implementa la interfaz &apos;{0}&apos;..
         /// </summary>
         internal static string ErrIfaceNotImpl {

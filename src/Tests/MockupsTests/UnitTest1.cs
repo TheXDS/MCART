@@ -21,18 +21,19 @@ namespace TheXDS.MCART.Tests.Mockups
             Assert.NotNull(instance);
             Assert.IsAssignableFrom<ITest>(instance);
         }
-        public void BuildASimpleMockupTest()
-        {
-            var instance = MockupBuilder<ITest>.Build();
-            Assert.NotNull(instance);
-            Assert.IsAssignableFrom<ITest>(instance);
-        }
 
-        public void BuildUsefulMockupTest()
-        {
-            var builder = new MockupBuilder<ITest>();
-            builder.DefineProperty(p => p.ComputedIntValue, 5);
-            builder.DefineProperty(p => p.AutoIntValue, 3);
-        }
+        //public void BuildASimpleMockupStaticallyTest()
+        //{
+        //    var instance = MockupBuilder<ITest>.Build();
+        //    Assert.NotNull(instance);
+        //    Assert.IsAssignableFrom<ITest>(instance);
+        //}
+
+        //public void BuildUsefulMockupTest()
+        //{
+        //    var builder = new MockupBuilder<ITest>();
+        //    builder.DefineProperty(p => p.ComputedIntValue, 5);
+        //    builder.DefineProperty(p => p.AutoIntValue, 3);
+        //}
     }
 }
