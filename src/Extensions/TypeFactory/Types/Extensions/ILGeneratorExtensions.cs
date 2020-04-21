@@ -186,6 +186,39 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
+        /// Inserta una constante en la secuencia del lenguaje intermedio 
+        /// de Microsoft® (MSIL).
+        /// </summary>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la carga de la
+        /// constante.
+        /// </param>
+        /// <param name="value">
+        /// Valor constante a insertar.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
+        /// <exception cref="NotImplementedException">
+        /// Se produce al intentar cargar un valor constante desconocido.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce al intentar cargar un valor que no es constante, como
+        /// una instancia de objeto.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="value"/> es <see langword="null"/>.
+        /// Si necesita cargar un valor constante <see langword="null"/>,
+        /// utilice el método <see cref="LoadNull(ILGenerator)"/>.
+        /// </exception>
+        public static ILGenerator LoadConstant(this ILGenerator ilGen, object value)
+        {
+            if (value is null) throw new ArgumentNullException(nameof(value));
+            return LoadConstant(ilGen, value.GetType(), value);
+        }
+
+        /// <summary>
         /// Inserta la instanciación de un objeto en la secuencia del
         /// lenguaje intermedio de Microsoft® (MSIL).
         /// </summary>
@@ -338,6 +371,54 @@ namespace TheXDS.MCART.Types.Extensions
         {
             return Call(ilGen, ReflectionHelpers.GetMethod(methodSelector));
         }
+
+        /// <summary>
+        /// Inserta una llamada al constructor de instancia especificado del
+        /// tipo base en la secuencia del lenguaje intermedio de Microsoft®
+        /// (MSIL).
+        /// </summary>
+        /// <typeparam name="TClass">
+        /// Clase desde la cual se llamará al constructor de instancia del tipo
+        /// base.
+        /// </typeparam>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la llamada al método
+        /// de instancia.
+        /// </param>
+        /// <param name="baseCtorArgs">
+        /// Arreglo de tipos de argumentos del constructor a llamar.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
+        public static ILGenerator CallBaseCtor<TClass>(this ILGenerator ilGen, Type[] baseCtorArgs)
+        {
+            ilGen.This();
+            ilGen.Emit(Op.Call, typeof(TClass).BaseType?.GetConstructor(baseCtorArgs)
+                ?? typeof(TClass).BaseType?.GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance).FirstOrDefault(p => p.GetParameters().Select(p => p.ParameterType).ItemsEqual(baseCtorArgs))
+                ?? throw new MissingMemberException());
+            return ilGen;
+        }
+
+        /// <summary>
+        /// Inserta una llamada al constructor de instancia del tipo base sin
+        /// argumentos en la secuencia del lenguaje intermedio de Microsoft®
+        /// (MSIL).
+        /// </summary>
+        /// <typeparam name="TClass">
+        /// Clase desde la cual se llamará al constructor de instancia del tipo
+        /// base.
+        /// </typeparam>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la llamada al método
+        /// de instancia.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
+        public static ILGenerator CallBaseCtor<TClass>(this ILGenerator ilGen) =>CallBaseCtor<TClass>(ilGen, Type.EmptyTypes);
 
         /// <summary>
         /// Inserta una llamada al método estático especificado en la secuencia
@@ -1324,9 +1405,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static ILGenerator InitLocal(this ILGenerator ilGen, LocalBuilder local, object? value)
         {
-            ilGen.LoadConstant(value);
-            ilGen.Emit(Stloc, local);
-            return ilGen;
+            return ilGen.LoadConstant(local.LocalType, value).StoreLocal(local);
         }
 
         /// <summary>
@@ -1367,6 +1446,27 @@ namespace TheXDS.MCART.Types.Extensions
         {
             ilGen.Emit(Stfld, field);            
             return ilGen;
+        }
+
+        /// <summary>
+        /// Inserta el almacenamiento de un valor a una propiedad en la
+        /// secuencia del lenguaje intermedio de Microsoft® (MSIL).
+        /// </summary>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar el almacenamiento de
+        /// un valor.
+        /// </param>
+        /// <param name="prop">
+        /// Propiedad en la cual almacenar el valor.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
+        public static ILGenerator StoreProperty(this ILGenerator ilGen, PropertyInfo prop)
+        {
+            if (!prop.SetMethod?.IsStatic ?? throw new InvalidOperationException()) ilGen.This();            
+            return ilGen.Call(prop.SetMethod!);
         }
 
         /// <summary>

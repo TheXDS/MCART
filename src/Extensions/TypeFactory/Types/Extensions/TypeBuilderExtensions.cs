@@ -29,7 +29,6 @@ using System.Reflection;
 using System.Reflection.Emit;
 using TheXDS.MCART.Annotations;
 using TheXDS.MCART.Types.Base;
-using static System.Reflection.Emit.OpCodes;
 using static System.Reflection.MethodAttributes;
 using static TheXDS.MCART.Types.TypeBuilderHelpers;
 using Errors = TheXDS.MCART.Resources.TypeFactoryErrors;
@@ -84,18 +83,13 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static PropertyBuildInfo AddAutoProperty(this TypeBuilder tb, string name, Type type, MemberAccess access, bool @virtual)
         {
-            var p = AddProperty(tb, name, type, true, access, @virtual);
-            var field = tb.DefineField(UndName(name), type, FieldAttributes.Private | FieldAttributes.PrivateScope);
-
-            p.Getter!.LoadField(field).Return();
-
+            var p = AddProperty(tb, name, type, true, access, @virtual).WithBackingField(out var field);
             p.Setter!
                 .This()
                 .LoadArg1()
                 .StoreField(field)
                 .Return();
-
-            return new PropertyBuildInfo(p.Property, field);
+            return new PropertyBuildInfo(tb, p.Property, field);
         }
 
         /// <summary>
@@ -150,7 +144,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static PropertyBuildInfo AddAutoProperty<T>(this TypeBuilder tb, string name)
         {
-            return AddAutoProperty(tb, name, typeof(T), MemberAccess.Public);
+            return AddAutoProperty(tb, name, typeof(T));
         }
 
         /// <summary>
@@ -243,10 +237,10 @@ namespace TheXDS.MCART.Types.Extensions
                 .LoadFieldAddress(field)
                 .LoadArg1()
                 .LoadConstant(name)
-                .Call(tb.ActualBaseType.GetMethod("Change", BindingFlags.NonPublic | BindingFlags.Instance)!.MakeGenericMethod(new[] { type })!)
+                .Call(tb.ActualBaseType.GetMethod("Change", BindingFlags.NonPublic | BindingFlags.Instance, null, new[] { type.MakeByRefType(), type,typeof(string) }, null)!.MakeGenericMethod(new[] { type })!)
                 .Pop()
                 .Return();
-            return new PropertyBuildInfo(p.Property, field);
+            return new PropertyBuildInfo(tb.Builder, p.Property, field);
         }
 
         /// <summary>
@@ -625,7 +619,7 @@ namespace TheXDS.MCART.Types.Extensions
                 prop.SetSetMethod(setM);
             }
 
-            return new PropertyBuildInfo(prop, getIl, setIl);
+            return new PropertyBuildInfo(tb, prop, getIl, setIl);
         }
 
         /// <summary>
@@ -760,33 +754,77 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static PropertyBuildInfo AddComputedProperty<T>(this TypeBuilder tb, string name, Action<ILGenerator> getterDefinition)
         {
-            var prop = AddProperty(tb, name, typeof(T), false, MemberAccess.Public, false);
+            return AddComputedProperty(tb, name, typeof(T), getterDefinition);
+        }
+
+        /// <summary>
+        /// Agrega una propiedad computada al tipo.
+        /// </summary>
+        /// <param name="tb">
+        /// Constructor del tipo en el cual crear la nueva propiedad.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <param name="type">Tipo de la nueva propiedad.</param>
+        /// <param name="getterDefinition">
+        /// Acción que implementará las instrucciones a ejecutar dentro del
+        /// método asociado al accesor <see langword="get"/> de la propiedad 
+        /// computada.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+        /// la propiedad que ha sido construida.
+        /// </returns>
+        public static PropertyBuildInfo AddComputedProperty(this TypeBuilder tb, string name, Type type, Action<ILGenerator> getterDefinition)
+        {
+            var prop = AddProperty(tb, name, type, false, MemberAccess.Public, false);
             getterDefinition(prop.Getter!);
             return prop;
         }
 
+        public static PropertyBuildInfo AddWriteOnlyProperty(this TypeBuilder tb, string name, Type type)
+        {
+            return AddWriteOnlyProperty(tb, name, type, MemberAccess.Public, false);
+        }
+        public static PropertyBuildInfo AddWriteOnlyProperty(this TypeBuilder tb, string name, Type type, MemberAccess access)
+        {
+            return AddWriteOnlyProperty(tb, name, type, access, false);
+        }
+        public static PropertyBuildInfo AddWriteOnlyProperty(this TypeBuilder tb, string name, Type type, bool @virtual)
+        {
+            return AddWriteOnlyProperty(tb, name, type, MemberAccess.Public, @virtual);
+        }
+        public static PropertyBuildInfo AddWriteOnlyProperty(this TypeBuilder tb, string name, Type type, MemberAccess access, bool @virtual)
+        {
+            var prop = tb.DefineProperty(name, PropertyAttributes.HasDefault, type, null);
+            var setM = MkSet(tb, name, type, access, @virtual);
+            var setIl = setM.GetILGenerator();
+            prop.SetSetMethod(setM);
+            return new PropertyBuildInfo(tb, prop, null, setIl);
+        }
+
+        public static ILGenerator AddPublicConstructor(this TypeBuilder tb) => AddPublicConstructor(tb, Type.EmptyTypes);
+
+        public static ILGenerator AddPublicConstructor(this TypeBuilder tb, Type[] arguments)
+        {
+            return tb.DefineConstructor(Public | SpecialName | HideBySig | RTSpecialName, CallingConventions.HasThis, arguments).GetILGenerator();
+        }
+
         #region Helpers privados
 
+        [System.Diagnostics.DebuggerNonUserCode]
         private static void CheckImplements<T>(Type t)
         {
-            if (!t.Implements<T>())
-            {
-                throw Errors.ErrIfaceNotImpl<T>();
-            }
+            if (!t.Implements<T>()) throw Errors.IfaceNotImpl<T>();
         }
 
         private static PropertyBuildInfo BuildNpcProp(TypeBuilder tb, string name, Type t, MemberAccess access, bool @virtual, Action<Label,ILGenerator> evtHandler, MethodInfo method)
         {
             CheckImplements<INotifyPropertyChanged>(tb.BaseType!);
 
-            var p = AddProperty(tb, name, t, true, access, @virtual);
-            var field = tb.DefineField(UndName(name), t, FieldAttributes.Private | FieldAttributes.PrivateScope);
-            p.Getter!.LoadField(field).Return();
-
+            var p = AddProperty(tb, name, t, true, access, @virtual).WithBackingField(out var field);
             var setRet = p.Setter!.DefineLabel();
-            p.Setter!
-                .LoadField(field);
 
+            p.Setter!.LoadField(field);
             if (t.IsValueType)
             {
                 p.Setter!.LoadArg1()
@@ -816,7 +854,7 @@ namespace TheXDS.MCART.Types.Extensions
             p.Setter!
                 .Call(method)
                 .Return(setRet);
-            return new PropertyBuildInfo(p.Property, field);
+            return new PropertyBuildInfo(tb, p.Property, field);
         }
 
         private static MethodInfo GetEqualsMethod(Type type)

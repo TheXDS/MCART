@@ -1,5 +1,5 @@
 ﻿/*
-TypeFactory.cs
+PropertyBuildInfo.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -33,6 +33,12 @@ namespace TheXDS.MCART.Types
     /// </summary>
     public class PropertyBuildInfo
     {
+        /// <summary>
+        /// Referencia al <see cref="System.Reflection.Emit.TypeBuilder"/> en
+        /// el cual se ha construido la propiedad.
+        /// </summary>
+        public TypeBuilder TypeBuilder { get; }
+
         /// <summary>
         /// Referencia al <see cref="PropertyBuilder"/> utilizado para
         /// construir a la propiedad.
@@ -97,20 +103,21 @@ namespace TheXDS.MCART.Types
         /// </param>
         public static implicit operator FieldInfo?(PropertyBuildInfo buildInfo) => buildInfo.Field;
 
-        internal PropertyBuildInfo(PropertyBuilder property, FieldBuilder field) : this(property)
+        internal PropertyBuildInfo(TypeBuilder typeBuilder, PropertyBuilder property, FieldBuilder field) : this(typeBuilder, property)
         {
             Field = field;
         }
-        internal PropertyBuildInfo(PropertyBuilder property, ILGenerator getter) : this(property, getter, null)
+        internal PropertyBuildInfo(TypeBuilder typeBuilder, PropertyBuilder property, ILGenerator getter) : this(typeBuilder, property, getter, null)
         {
         }
-        internal PropertyBuildInfo(PropertyBuilder property, ILGenerator? getter, ILGenerator? setter) : this(property)
+        internal PropertyBuildInfo(TypeBuilder typeBuilder, PropertyBuilder property, ILGenerator? getter, ILGenerator? setter) : this(typeBuilder, property)
         {
             Getter = getter;
             Setter = setter;
         }
-        private PropertyBuildInfo(PropertyBuilder property)
+        private PropertyBuildInfo(TypeBuilder typeBuilder, PropertyBuilder property)
         {
+            TypeBuilder = typeBuilder;
             Property = property ?? throw new ArgumentNullException(nameof(property));
         }
     }

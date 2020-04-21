@@ -38,8 +38,8 @@ namespace TheXDS.MCART.Types
     /// </summary>
     public class TypeFactory : IExposeAssembly
     {
-        private static Dictionary<string, ModuleBuilder> _builtModules = new Dictionary<string, ModuleBuilder>();
-        private static Dictionary<string, AssemblyBuilder> _builtAssemblies = new Dictionary<string, AssemblyBuilder>();
+        private static readonly Dictionary<string, ModuleBuilder> _builtModules = new Dictionary<string, ModuleBuilder>();
+        private static readonly Dictionary<string, AssemblyBuilder> _builtAssemblies = new Dictionary<string, AssemblyBuilder>();
 
         private readonly string _namespace;
         private readonly bool _useGuid;
@@ -154,7 +154,7 @@ namespace TheXDS.MCART.Types
         /// Un <see cref="TypeBuilder"/> por medio del cual se podrá definir a
         /// los miembros de la nueva estructura.
         /// </returns>
-        public TypeBuilder NewStruct(string name, IEnumerable<Type> interfaces)
+        public TypeBuilder NewStruct(string name, IEnumerable<Type>? interfaces)
         {
             return _mBuilder.DefineType(GetName(name), TypeAttributes.Public, null, interfaces?.ToArray());
         }
@@ -169,7 +169,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public TypeBuilder NewStruct(string name)
         {
-            return _mBuilder.DefineType(GetName(name), TypeAttributes.Public, null, null);
+            return NewStruct(name, null);
         }
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace TheXDS.MCART.Types
         private string GetName(string name)
         {
             var nme = new StringBuilder();
-            nme.Append($"{_namespace}.{name}");
+            nme.Append($"{_namespace}.{name.OrNull() ?? throw new ArgumentNullException(nameof(name))}");
             if (_useGuid) nme.Append($"_{Guid.NewGuid().ToString().Replace("-", string.Empty)}");
             return nme.ToString();
         }

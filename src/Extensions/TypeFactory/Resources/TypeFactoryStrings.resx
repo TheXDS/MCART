@@ -120,4 +120,16 @@
   <data name="ErrIfaceNotImpl" xml:space="preserve">
     <value>El tipo no implementa la interfaz '{0}'.</value>
   </data>
+  <data name="ErrPropCannotBeRead" xml:space="preserve">
+    <value>La propiedad no contiene accesor de lectura.</value>
+  </data>
+  <data name="ErrPropFieldAlreadyDefined" xml:space="preserve">
+    <value>Ya se ha definido un campo de almacenamiento para la propiedad.</value>
+  </data>
+  <data name="ErrPropGetterAlreadyDefined" xml:space="preserve">
+    <value>Ya se ha definido un Getter para la propiedad.</value>
+  </data>
+  <data name="ErrPropSetterAlreadyDefined" xml:space="preserve">
+    <value>Ya se ha definido un Setter para la propiedad.</value>
+  </data>
 </root>

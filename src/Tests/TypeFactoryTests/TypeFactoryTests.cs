@@ -25,6 +25,7 @@ namespace TypeFactoryTests
         }
 
         private static readonly TypeFactory _factory = new TypeFactory("TheXDS.MCART.Tests._Generated");
+
         [Fact]
         public void BuildSimpleTypeTest()
         {
@@ -60,7 +61,7 @@ namespace TypeFactoryTests
                 () => npcInstance.Name = "Test");
 
             Assert.Equal("Name", evt.Arguments.PropertyName);
-            Assert.Equal("Test", npcInstance.Name);
+            Assert.Equal("Test", (string)npcInstance.Name);
         }
 
         [Fact]

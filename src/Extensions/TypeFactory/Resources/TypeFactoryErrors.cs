@@ -29,9 +29,21 @@ namespace TheXDS.MCART.Resources
 {
     internal static class TypeFactoryErrors
     {
-        internal static Exception ErrIfaceNotImpl<T>()
+        internal static Exception IfaceNotImpl<T>()
         {
             return new InvalidOperationException(string.Format(St.ErrIfaceNotImpl, typeof(T).Name));
+        }
+        internal static Exception PropGetterAlreadyDefined()
+        {
+            return new InvalidOperationException(St.ErrPropGetterAlreadyDefined);
+        }
+        internal static Exception PropFieldAlreadyDefined()
+        {
+            return new InvalidOperationException(St.ErrPropFieldAlreadyDefined);
+        }
+        internal static Exception PropCannotBeRead()
+        {
+            return new InvalidOperationException(St.ErrPropCannotBeRead);
         }
     }
 }

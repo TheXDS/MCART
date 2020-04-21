@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.1;netstandard2.1</TargetFrameworks>
+    <Description>Mock-up generation extension for MCART</Description>
+    <AssemblyName>MCART.Ext.Mockups</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TypeFactory\TypeFactory.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -68,5 +68,41 @@ namespace TheXDS.MCART.Resources {
                 return ResourceManager.GetString("ErrIfaceNotImpl", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a La propiedad no contiene accesor de lectura..
+        /// </summary>
+        internal static string ErrPropCannotBeRead {
+            get {
+                return ResourceManager.GetString("ErrPropCannotBeRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ya se ha definido un campo de almacenamiento para la propiedad..
+        /// </summary>
+        internal static string ErrPropFieldAlreadyDefined {
+            get {
+                return ResourceManager.GetString("ErrPropFieldAlreadyDefined", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ya se ha definido un Getter para la propiedad..
+        /// </summary>
+        internal static string ErrPropGetterAlreadyDefined {
+            get {
+                return ResourceManager.GetString("ErrPropGetterAlreadyDefined", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ya se ha definido un Setter para la propiedad..
+        /// </summary>
+        internal static string ErrPropSetterAlreadyDefined {
+            get {
+                return ResourceManager.GetString("ErrPropSetterAlreadyDefined", resourceCulture);
+            }
+        }
     }
 }

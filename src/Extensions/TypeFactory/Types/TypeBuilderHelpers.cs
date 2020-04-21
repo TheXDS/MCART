@@ -41,15 +41,12 @@ namespace TheXDS.MCART.Types
                 ? $"_{name.Substring(0, 1).ToLower()}{name.Substring(1)}"
                 : $"_{name.ToLower()}";
         }
+
         internal static string NoIfaceName(string name)
         {
             if (name.IsEmpty()) throw new ArgumentNullException(name);
             return name[0] != 'I' ? $"{name}Implementation" : name.Substring(1);
         }
-
-
-
-
 
         /// <summary>
         /// Obtiene un atributo de método a partir del valor de acceso
