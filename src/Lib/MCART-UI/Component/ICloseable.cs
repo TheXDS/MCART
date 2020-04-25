@@ -22,13 +22,16 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Windows.Component
+namespace TheXDS.MCART.Component
 {
     /// <summary>
     /// Define una serie de miembros a implementar por un tipo que represente a
     /// un elemento de UI que puede ser cerrado, como ser las ventanas de una
     /// aplicación.
     /// </summary>
+    /// <remarks>
+    /// Esta interfaz es candidata a ser migrada a <c>shape</c> en C# 9.0.
+    /// </remarks>
     public interface ICloseable
     {
         /// <summary>

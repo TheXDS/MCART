@@ -29,6 +29,7 @@ using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Misc;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TheXDS.MCART.Types
 {
@@ -554,6 +555,6 @@ namespace TheXDS.MCART.Types
         /// <see langword="true" /> si esta instancia y <paramref name="other" /> son iguales;
         /// de lo contrario, <see langword="false" />.
         /// </returns>
-        public bool Equals(I2DVector other) => X == other.X && Y == other.Y && !Z.IsValid();
+        public bool Equals([AllowNull] I2DVector other) => X == other?.X && Y == other.Y && !Z.IsValid();
     }
 }

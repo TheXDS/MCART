@@ -24,6 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using TheXDS.MCART.Windows.Dwm.Structs;
+using TheXDS.MCART.Component;
 
 namespace TheXDS.MCART.Windows.Component
 {
@@ -31,6 +32,9 @@ namespace TheXDS.MCART.Windows.Component
     /// Define una serie de miembros a implementar por un tipo que represente
     /// una ventana de Microsoft Windows.
     /// </summary>
+    /// <remarks>
+    /// Esta interfaz es candidata a ser migrada a <c>shape</c> en C# 9.0.
+    /// </remarks>
     public interface IWindow : ICloseable
     {
         /// <summary>

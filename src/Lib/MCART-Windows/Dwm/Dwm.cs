@@ -177,26 +177,57 @@ namespace TheXDS.MCART.Windows.Dwm
             ShowGwlStyle(window, WindowStyles.WS_MINIMIZEBOX);
         }
 
+        /// <summary>
+        /// Oculta el texto de título de la ventana.
+        /// </summary>
+        /// <param name="window">
+        /// Ventana sobre la cual realizar la operación.
+        /// </param>
         public static void HideCaption(this IWindow window)
         {
             HideGwlStyle(window, WindowStyles.WS_CAPTION);
         }
 
+        /// <summary>
+        /// Oculta el borde de la ventana.
+        /// </summary>
+        /// <param name="window">
+        /// Ventana sobre la cual realizar la operación.
+        /// </param>
         public static void HideBorder(this IWindow window)
         {
             HideGwlStyle(window, WindowStyles.WS_BORDER);
         }
 
+        /// <summary>
+        /// Muestra es texto de título de la ventana.
+        /// </summary>
+        /// <param name="window">
+        /// Ventana sobre la cual realizar la operación.
+        /// </param>
         public static void ShowCaption(this IWindow window)
         {
             ShowGwlStyle(window, WindowStyles.WS_CAPTION);
         }
 
+        /// <summary>
+        /// Muestra el borde de la ventana.
+        /// </summary>
+        /// <param name="window">
+        /// Ventana sobre la cual realizar la operación.
+        /// </param>
         public static void ShowBorder(this IWindow window)
         {
             ShowGwlStyle(window, WindowStyles.WS_BORDER);
         }
 
+        /// <summary>
+        /// Cambia el tamaño de una ventana por medio de la API de DWM.
+        /// </summary>
+        /// <param name="window">
+        /// Ventana sobre la cual realizar la operación.
+        /// </param>
+        /// <param name="newSize">Tamaño nuevo de la ventana.</param>
         public static void Resize(this IWindow window, Size newSize)
         {
             PInvoke.SetWindowPos(window.Handle, IntPtr.Zero,
@@ -205,6 +236,13 @@ namespace TheXDS.MCART.Windows.Dwm
                 (uint)(WindowChanges.IgnoreMove | WindowChanges.IgnoreZOrder));
         }
 
+        /// <summary>
+        /// Mueve una ventana por medio de la API de DWM.
+        /// </summary>
+        /// <param name="window">
+        /// Ventana sobre la cual realizar la operación.
+        /// </param>
+        /// <param name="newPosition">Nueva posición de la ventana.</param>
         public static void Move(this IWindow window, Point newPosition)
         {
             PInvoke.SetWindowPos(window.Handle, IntPtr.Zero,
@@ -212,7 +250,6 @@ namespace TheXDS.MCART.Windows.Dwm
                 0, 0,
                 (uint)(WindowChanges.IgnoreResize | WindowChanges.IgnoreZOrder));
         }
-
 
         /// <summary>
         /// Envía una notificación a DWM sobre un cambio en el marco de la ventana.

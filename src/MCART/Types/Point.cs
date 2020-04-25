@@ -23,6 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Types.Base;
 using static System.Math;
@@ -670,9 +671,9 @@ namespace TheXDS.MCART.Types
         /// <see langword="true" /> si todos los vectores de ambos objetos
         /// son iguales, <see langword="false" /> en caso contrario.
         /// </returns>
-        public bool Equals(I2DVector other)
+        public bool Equals([AllowNull] I2DVector other)
         {
-            return this == other;
+            return other is {} o && this == o;
         }
 
         /// <summary>

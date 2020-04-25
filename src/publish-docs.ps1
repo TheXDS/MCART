@@ -4,6 +4,7 @@ try {
 }
 catch {
     Write-Error "No se pudo generar la documentación de ayuda." -CategoryReason "Parece que DocFx no está instalado." -Category NotInstalled
+    return
 }
 SOURCE_DIR = $PWD
 TEMP_REPO_DIR = $env:TMP\mcart-gh-pages
