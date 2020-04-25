@@ -9,5 +9,8 @@
     <PackageReference Include="Microsoft.Win32.Registry" Version="4.7.0" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
     <PackageReference Include="System.Management" Version="4.7.0" />
+  </ItemGroup>  
+  <ItemGroup>
+    <ProjectReference Include="..\MCART-UI\MCART-UI.csproj" />
   </ItemGroup>
 </Project>

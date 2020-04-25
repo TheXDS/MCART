@@ -28,7 +28,7 @@ using TheXDS.MCART.Windows.Dwm.Structs;
 
 namespace TheXDS.MCART.Windows.Dwm
 {
-    internal class PInvoke
+    internal static class PInvoke
     {
         [DllImport("dwmapi.dll")]
         internal static extern int DwmExtendFrameIntoClientArea(IntPtr hWnd, ref Margins pMargins);

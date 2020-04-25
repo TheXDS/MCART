@@ -1,5 +1,5 @@
-﻿/*
-Api.cs
+/*
+PInvoke.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -23,27 +23,14 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Runtime.InteropServices;
 
 namespace TheXDS.MCART.Windows.Api
 {
-    /// <summary>
-    /// Contiene una serie de métodos auxiliares de la API de Microsoft
-    /// Windows.
-    /// </summary>
-    public static class Api
+    internal static class PInvoke
     {
-        /// <summary>
-        /// Obtiene un valor que indica si la aplicación tiene acceso a la
-        /// consola.
-        /// </summary>
-        public static bool HasConsole => PInvoke.GetConsoleWindow() != IntPtr.Zero;
-
-        /// <summary>
-        /// Obtiene un objeto que permite controlar la ventana de la consola.
-        /// </summary>
-        /// <returns>
-        /// Un objeto que permite controlar la ventana de la consola.
-        /// </returns>
-        public static ConsoleWindow GetConsoleWindow() => new ConsoleWindow();
+        [DllImport("kernel32.dll")] internal static extern IntPtr GetConsoleWindow();
+        [DllImport("kernel32.dll")] internal static extern bool AllocConsole();
+        [DllImport("kernel32.dll")] internal static extern bool FreeConsole();
     }
 }

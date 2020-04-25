@@ -823,7 +823,7 @@ namespace TheXDS.MCART.Types.Extensions
             var m = tb.DefineMethod($"{method.DeclaringType!.Name}.{method.Name}",
                 Private | HideBySig | NewSlot | Virtual | Final,
                 method.IsVoid() ? null : method.ReturnType,
-                method.GetParameters().Select(p => p.ParameterType).ToArray()));
+                method.GetParameters().Select(p => p.ParameterType).ToArray());
             tb.DefineMethodOverride(m, method);
 
             return new MethodBuildInfo(tb, m);

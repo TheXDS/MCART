@@ -34,11 +34,6 @@ namespace TheXDS.MCART.Types.Entity
     /// <summary>
     /// Tipo universal para un conjunto de coordenadas bidimensionales.
     /// </summary>
-    /// <remarks>
-    /// Esta estructura se declara como parcial, para permitir a cada
-    /// implementación de MCART definir métodos para convertir a la clase
-    /// correspondiente para los diferentes tipos de UI disponibles.
-    /// </remarks>
     [ComplexType]
     public class Point : I2DVector, IFormattable, IEquatable<Point>
     {
