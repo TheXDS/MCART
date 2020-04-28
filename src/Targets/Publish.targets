@@ -13,6 +13,7 @@
     <IncludeSymbols>true</IncludeSymbols>
     <PublishLocalSymbols>true</PublishLocalSymbols>
     <PublishToNuGet>true</PublishToNuGet>    
+    <PublishToGitHub>true</PublishToGitHub>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Debug-PublishLocal'">
     <IncludeSymbols>true</IncludeSymbols>
@@ -23,6 +24,7 @@
     <IncludeSymbols>false</IncludeSymbols>
     <PublishLocalSymbols>false</PublishLocalSymbols>
     <PublishToNuGet>true</PublishToNuGet>
+    <PublishToGitHub>true</PublishToGitHub>
   </PropertyGroup>
   <PropertyGroup Condition="'$(GeneratePackageOnBuild)'=='true'">
     <NuGetRoot>$(Root)Publish</NuGetRoot>
@@ -40,11 +42,11 @@
     Name="PublishToNuGet"
     Condition="'$(PublishToNuGet)'=='true' And '$(GeneratePackageOnBuild)'=='true' And '$(IsPackable)'=='true'"
     AfterTargets="Pack">
-    <Exec Command="nuget push $(ActualPackageFile) -Source https://nuget.org" />
+    <Exec Command="nuget push $(ActualPackageFile) -Source nuget.org" />
   </Target>
   <Target
     Name="PublishToGitHub"
-    Condition="'$(PublishToNuGet)'=='true' And '$(GeneratePackageOnBuild)'=='true' And '$(IsPackable)'=='true'"
+    Condition="'$(PublishToGitHub)'=='true' And '$(GeneratePackageOnBuild)'=='true' And '$(IsPackable)'=='true'"
     AfterTargets="Pack">
     <Exec Command="nuget push $(ActualPackageFile) -Source GitHub" />
   </Target>

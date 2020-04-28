@@ -460,7 +460,7 @@ namespace TheXDS.MCART.Types.Extensions
                 }
                 catch { }
             }
-            instance = default;
+            instance = default!;
             return false;
         }
 
