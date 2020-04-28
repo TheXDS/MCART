@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//#pragma warning disable CA1401 // P/Invokes should not be visible
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -39,11 +37,13 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using TheXDS.MCART.Attributes;
-using C = TheXDS.MCART.Math.Geometry;
+using TheXDS.MCART.Types.Base;
+using TheXDS.MCART.Windows.Dwm;
+using TheXDS.MCART.Wpf.Component;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 using static TheXDS.MCART.Types.Extensions.WpfColorExtensions;
-using TheXDS.MCART.Types.Base;
+using C = TheXDS.MCART.Math.Geometry;
 
 namespace TheXDS.MCART
 {
@@ -53,7 +53,9 @@ namespace TheXDS.MCART
     /// </summary>
     public static class WpfUi
     {
-
+        [DllImport("gdi32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool DeleteObject(IntPtr value);
 
         /// <summary>
         /// Estructura de control de colores originales.
@@ -80,9 +82,6 @@ namespace TheXDS.MCART
             /// </summary>
             internal ToolTip _ttip;
         }
-
-
-
 
         private static readonly List<OrigControlColor> _origctrls = new List<OrigControlColor>();
         private static readonly List<StreamUriParser> _uriParsers = Objects.FindAllObjects<StreamUriParser>().ToList();
@@ -288,11 +287,23 @@ namespace TheXDS.MCART
             DisableControls(ctrls.ToArray());
         }
 
-
-        [DllImport("gdi32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool DeleteObject(IntPtr value);
-
+        /// <summary>
+        /// Habilita el botón de ayuda de las ventanas de Windows y conecta
+        /// un manejador de eventos al mismo.
+        /// </summary>
+        /// <param name="window">
+        /// Ventana en la cual habilitar el botón de ayuda.
+        /// </param>
+        /// <param name="handler">
+        /// Delegado con la acción a ejecutar al hacer clic en el botón de
+        /// ayuda de la ventana.
+        /// </param>
+        public static void HookHelp(this IWpfWindow window, HandledEventHandler handler)
+        {
+            window.ShowHelp();
+            window.NotifyWindowFrameChange();
+            HwndSource.FromHwnd(window.Handle).AddHook(CreateHookDelegate(window.Itself, 0xF180, handler));
+        }
 
         /// <summary>
         /// Habilita el botón de ayuda de las ventanas de Windows y conecta
@@ -305,46 +316,10 @@ namespace TheXDS.MCART
         /// Delegado con la acción a ejecutar al hacer clic en el botón de
         /// ayuda de la ventana.
         /// </param>
-        public static void HookHelp(this IWindow window, HandledEventHandler handler)
+        public static void HookHelp(this Window window, HandledEventHandler handler)
         {
-            HideGwlStyle(window, WindowStyles.WS_MINIMIZEBOX | WindowStyles.WS_MAXIMIZEBOX);
-            SetWindowData(window, WindowData.GWL_EXSTYLE, p => p | WindowStyles.WS_EX_CONTEXTHELP);
-
-            // Actualizar ventana...
-            PInvoke.SetWindowPos(window.Handle, IntPtr.Zero, 0, 0, 0, 0,
-                (uint)(WindowChanges.SWP_NOMOVE |
-                        WindowChanges.SWP_NOSIZE |
-                        WindowChanges.SWP_NOZORDER |
-                        WindowChanges.SWP_FRAMECHANGED));
-
-            ((HwndSource)PresentationSource.FromVisual(window))?
-                .AddHook(CreateHookDelegate(window, SysCommand.SC_CONTEXTHELP, handler));
+            HookHelp(new WpfWindowWrap(window), handler);
         }
-        private static HwndSourceHook CreateHookDelegate(Window window, SysCommand syscommand,
-            HandledEventHandler handler)
-        {
-            return (IntPtr hwnd, int msg, IntPtr param, IntPtr lParam, ref bool handled) =>
-            {
-                if (msg != 0x0112 || ((int) param & 0xFFF0) != (int) syscommand) return IntPtr.Zero;
-                var e = new HandledEventArgs();
-                handler?.Invoke(window, e);
-                handled = e.Handled;
-                return IntPtr.Zero;
-            };
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         /// <summary>
         /// Habilita una lista de controles.
@@ -642,10 +617,10 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        /// Crea un mapa de bits de un <see cref="FrameworkElement" />.
+        /// Crea un mapa de bits de un <see cref="Visual" />.
         /// </summary>
-        /// <param name="f">
-        /// <see cref="FrameworkElement" /> a renderizar.
+        /// <param name="visual">
+        /// <see cref="Visual" /> a renderizar.
         /// </param>
         /// <param name="size">
         /// Tamaño del canvas en donde se renderizará el control.
@@ -655,19 +630,18 @@ namespace TheXDS.MCART
         /// </param>
         /// <returns>
         /// Un objeto <see cref="RenderTargetBitmap" /> que contiene una imagen
-        /// renderizada de <paramref name="f" />.
+        /// renderizada de <paramref name="visual" />.
         /// </returns>
-        public static RenderTargetBitmap Render(this Visual f, Size size, int dpi)
+        public static RenderTargetBitmap Render(this Visual visual, Size size, int dpi)
         {
             var bmp = new RenderTargetBitmap(
                 (int) size.Width,
                 (int) size.Height,
                 dpi, dpi,
                 PixelFormats.Pbgra32);
-            bmp.Render(f);
+            bmp.Render(visual);
             return bmp;
         }
-
 
         /// <summary>
         /// Crea un mapa de bits de un <see cref="FrameworkElement" />
@@ -694,17 +668,23 @@ namespace TheXDS.MCART
         {
             f.Measure(inSize);
             f.Arrange(new Rect(inSize));
-            var bmp = new RenderTargetBitmap(
-                (int) outSize.Width,
-                (int) outSize.Height,
-                dpi, dpi,
-                PixelFormats.Pbgra32);
-            bmp.Render(f);
-            return bmp;
+            return Render(f, outSize, dpi);
         }
 
-
-
+        /// <summary>
+        /// Crea un mapa de bits de un <see cref="UIElement" />.
+        /// </summary>
+        /// <param name="u">
+        /// <see cref="UIElement" /> a renderizar.
+        /// </param>
+        /// <returns>
+        /// Un objeto <see cref="RenderTargetBitmap" /> que contiene una imagen
+        /// renderizada de <paramref name="u" />.
+        /// </returns>
+        public static RenderTargetBitmap Render(this UIElement u)
+        {
+            return Render(u, new Size((int)u.RenderSize.Width, (int)u.RenderSize.Height), WinUi.GetDpi().X);
+        }
 
         /// <summary>
         /// Establece la propiedad <see cref="UIElement.Visibility" /> a
@@ -866,6 +846,18 @@ namespace TheXDS.MCART
             c.Background = brush;
             brush.Flash(Colors.Red);
             if (!ttip.IsEmpty()) c.ToolTip = new ToolTip {Content = ttip};
+        }
+
+        private static HwndSourceHook CreateHookDelegate(Window window, int syscommand, HandledEventHandler handler)
+        {
+            return (IntPtr hwnd, int msg, IntPtr param, IntPtr lParam, ref bool handled) =>
+            {
+                if (msg != 0x0112 || ((int)param & 0xFFF0) != syscommand) return IntPtr.Zero;
+                var e = new HandledEventArgs();
+                handler?.Invoke(window, e);
+                handled = e.Handled;
+                return IntPtr.Zero;
+            };
         }
     }
 }

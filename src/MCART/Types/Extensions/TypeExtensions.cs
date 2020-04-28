@@ -30,6 +30,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -230,7 +231,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static bool IsInstantiable(this Type type)
         {
-            return IsInstantiable(type, global::System.Array.Empty<global::System.Type>());
+            return IsInstantiable(type, Array.Empty<Type>());
         }
 
         /// <summary>
@@ -421,6 +422,46 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 return throwOnFail ? throw new TypeLoadException(InternalStrings.ErrorXClassNotInstantiableWithArgs(type.Name), e) : (T)default!;
             }
+        }
+
+        /// <summary>
+        /// Intenta instanciar el tipo con los argumentos de constructor
+        /// especificados, devolviéndolo como un objeto de tipo
+        /// <typeparamref name="T"/>.
+        /// </summary>
+        /// <typeparam name="T">Tipo de objeto a devolver.</typeparam>
+        /// <param name="t">Tipo que de intentará instanciar.</param>
+        /// <param name="instance">
+        /// Parámetro de salida. Instancia que ha sido creada, o 
+        /// <see langword="null"/> si no se ha podido crear una instancia del
+        /// tipo especificado.
+        /// </param>
+        /// <param name="args">
+        /// Argumentos a pasar al constructor. Puede omitirse o establecerse en
+        /// <see langword="null"/> para constructores sin argumentos.
+        /// </param>
+        /// <returns>
+        /// <see langword="true"/> si fue posible instanciar el tipo y si el
+        /// mismo se ha instanciado de forma correcta, <see langword="false"/>
+        /// en caso contrario.
+        /// </returns>
+        public static bool TryInstance<T>(this Type t, [NotNullWhen(true)] [MaybeNullWhen(false)] out T instance, params object[]? args)
+        {
+            if (t is null) throw new ArgumentNullException(nameof(t));
+            if (args?.IsAnyNull() ?? false) throw new NullItemException(args);
+            if (!t.IsAbstract && !t.IsInterface &&
+                typeof(T).IsAssignableFrom(t) &&
+                t.GetConstructor(args?.ToTypes().ToArray() ?? Type.EmptyTypes) is { } ctor)
+            {
+                try
+                {
+                    instance = (T)ctor.Invoke(args);
+                    return true;
+                }
+                catch { }
+            }
+            instance = default;
+            return false;
         }
 
         /// <summary>

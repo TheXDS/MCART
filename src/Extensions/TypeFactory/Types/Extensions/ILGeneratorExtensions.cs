@@ -337,7 +337,9 @@ namespace TheXDS.MCART.Types.Extensions
                 throw new ClassNotInstantiableException(type);
             foreach (var j in args)
             {
-                if (j?.GetType().IsClass ?? false)
+                if (j is null)
+                    ilGen.LoadNull();
+                else if (j.GetType().IsClass)
                     NewObject(ilGen, j.GetType());
                 else
                     LoadConstant(ilGen, j);

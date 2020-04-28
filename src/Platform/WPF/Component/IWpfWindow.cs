@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Windows;
 using System.Windows.Interop;
+using TheXDS.MCART.Component;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Windows.Component;
 using TheXDS.MCART.Windows.Dwm.Structs;
@@ -41,7 +42,10 @@ namespace TheXDS.MCART.Wpf.Component
     /// </remarks>
     public interface IWpfWindow : IWindow
     {
-        private Window Itself => this as Window ?? throw new InvalidTypeException(GetType());
+        /// <summary>
+        /// Obtiene una referencia directa a la ventana.
+        /// </summary>
+        Window Itself => this as Window ?? throw new InvalidTypeException(GetType());
         
         IntPtr IWindow.Handle => new WindowInteropHelper(Itself).Handle;
         
@@ -68,5 +72,7 @@ namespace TheXDS.MCART.Wpf.Component
                 };
             }
         }
+
+        void ICloseable.Close() => Itself.Close();
     }
 }

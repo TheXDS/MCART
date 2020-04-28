@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pluginSupport="clr-namespace:TheXDS.MCART.PluginSupport.Legacy;assembly=MCART.PluginSupport.Legacy"
     xmlns:pages="clr-namespace:TheXDS.MCART.Pages"
-    xmlns:converters="clr-namespace:System.Windows.Converters;assembly=MCART.WPF"
+    xmlns:converters="clr-namespace:TheXDS.MCART.ValueConverters;assembly=MCART.WPF"
     xmlns:viewModel="clr-namespace:TheXDS.MCART.Dialogs.ViewModel;assembly=MCART.PluginSupport.Legacy"
     xmlns:resources="clr-namespace:TheXDS.MCART.Resources;assembly=MCART"
     mc:Ignorable="d" d:DataContext="{d:DesignInstance viewModel:PluginBrowserViewModel}"

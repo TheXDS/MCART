@@ -178,6 +178,30 @@ namespace TheXDS.MCART.Windows.Dwm
         }
 
         /// <summary>
+        /// Deshabilita y oculta el botón de ayuda de la ventana.
+        /// </summary>
+        /// <param name="window">
+        /// Ventana sobre la cual realizar la operación.
+        /// </param>
+        public static void HideHelp(this IWindow window)
+        {
+            SetWindowData(window, WindowData.GWL_EXSTYLE, p => p & ~WindowStyles.WS_EX_CONTEXTHELP);
+        }
+
+        /// <summary>
+        /// Habilita y muestra el botón de ayuda de la ventana.
+        /// </summary>
+        /// <param name="window">
+        /// Ventana sobre la cual realizar la operación.
+        /// </param>
+        public static void ShowHelp(this IWindow window)
+        {
+            HideMinimize(window);
+            HideMaximize(window);
+            SetWindowData(window, WindowData.GWL_EXSTYLE, p => p | WindowStyles.WS_EX_CONTEXTHELP);
+        }
+
+        /// <summary>
         /// Oculta el texto de título de la ventana.
         /// </summary>
         /// <param name="window">
