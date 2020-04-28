@@ -8,6 +8,7 @@ MCART
 [![Versión estable](https://buildstats.info/nuget/TheXDS.MCART)](https://www.nuget.org/packages/TheXDS.MCART/)
 [![Versión de desarrollo](https://buildstats.info/nuget/TheXDS.MCART?includePreReleases=true)](https://www.nuget.org/packages/TheXDS.MCART/)
 [![CodeFactor](https://www.codefactor.io/repository/github/thexds/mcart/badge)](https://www.codefactor.io/repository/github/thexds/mcart)
+![.NET Core](https://github.com/TheXDS/MCART/workflows/.NET%20Core/badge.svg?branch=0.13-series)
 
 ## Introducción
 MCART es un conjunto de funciones, extensiones y módulos que he encontrado
