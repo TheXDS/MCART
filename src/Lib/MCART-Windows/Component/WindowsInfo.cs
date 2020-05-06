@@ -34,7 +34,28 @@ using System.IO;
 
 namespace TheXDS.MCART.Component
 {
-
+    /// <summary>
+    /// Enumera los posibles tipos de firmware que podría utilizar un equipo.
+    /// </summary>
+    public enum FirmwareType
+    {
+        /// <summary>
+        /// Tipo de firmware desconocido.
+        /// </summary>
+        FirmwareTypeUnknown,
+        /// <summary>
+        /// Firmware clásico BIOS
+        /// </summary>
+        FirmwareTypeBios,
+        /// <summary>
+        /// Firmware UEFI
+        /// </summary>
+        FirmwareTypeUefi,
+        /// <summary>
+        /// Valor máximo de la enumeración.
+        /// </summary>
+        FirmwareTypeMax
+    }
 
     /// <summary>
     /// Expone información detallada sobre Windows.
@@ -43,6 +64,9 @@ namespace TheXDS.MCART.Component
     {
         private const string _regInfo = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion";
         private readonly ManagementObject _managementObject = new ManagementClass(@"Win32_OperatingSystem").GetInstances().OfType<ManagementObject>().FirstOrDefault() ?? throw new PlatformNotSupportedException();
+        
+        [DllImport("kernel32.dll")]
+        private static extern bool GetFirmwareType(ref uint FirmwareType);
 
         /// <summary>
         /// Obtiene una cadena que representa el dispositivo de arranque
@@ -163,6 +187,21 @@ namespace TheXDS.MCART.Component
         [CLSCompliant(false)]
 #endif
         public uint EncryptionLevel => GetFromWmi<uint>();
+
+        /// <summary>
+        /// Obtiene el tipo de firmware con el cual el equipo ha sido arrancado.
+        /// </summary>
+        public FirmwareType FirmwareType
+        {
+            get
+            {
+                uint firmwaretype = 0;
+                if (GetFirmwareType(ref firmwaretype))
+                    return (FirmwareType)firmwaretype;
+                else
+                    return FirmwareType.FirmwareTypeUnknown;
+            }
+        }
 
         /// <summary>
         /// Obtiene un valor que indica la cantidad de "empuje" adicional
