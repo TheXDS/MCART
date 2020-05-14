@@ -78,6 +78,9 @@ namespace TheXDS.MCART.Resources
         /// Una cadena con el texto "Acerca de {<paramref name="text"/>}".
         /// </returns>
         public static string AboutX(string text) => $"Acerca de {text}";
+
+        public static string CantWriteObj(Type t) => $"No se puede escribir el objeto de tipo {t.Name}";
+
         /// <summary>
         /// Devuelve una cadena con el texto "No se pudo crear una nueva
         /// instancia del tipo {<paramref name="text"/>}".
