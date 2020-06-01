@@ -44,7 +44,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <summary>
         /// Define un delegado que describe un bloque <see langword="for"/>.
         /// </summary>
-        /// <param name="item">
+        /// <param name="accumulator">
         /// Referencia al acumulador del ciclo.
         /// </param>
         /// <param name="break">
@@ -53,7 +53,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="next">
         /// Etiqueta de continuación del bloque <see langword="for"/>.
         /// </param>
-        public delegate void ForBlock(LocalBuilder item, Label @break, Label next);
+        public delegate void ForBlock(LocalBuilder accumulator, Label @break, Label next);
 
         /// <summary>
         /// Define un delegado que describe un bloque <see langword="foreach"/>.
@@ -82,8 +82,13 @@ namespace TheXDS.MCART.Types.Extensions
         /// <summary>
         /// Define un delegado que describe un bloque <see langword="using"/>.
         /// </summary>
-        /// <param name="disposable"></param>
-        /// <param name="leaveTry"></param>
+        /// <param name="disposable">
+        /// Referencia al elemento desechable dentro del bloque <see langword="using"/>.
+        /// </param>
+        /// <param name="leaveTry">
+        /// Etiqueta de salida del bloque <see langword="using"/>. Debe ser
+        /// invocada por medio de <see cref="Leave(ILGenerator, Label)"/>.
+        /// </param>
         public delegate void UsingBlock(LocalBuilder disposable, Label leaveTry);
 
         private static readonly HashSet<IConstantLoader> _constantLoaders = new HashSet<IConstantLoader>(Objects.FindAllObjects<IConstantLoader>(), new ConstantLoaderComparer());
@@ -118,10 +123,10 @@ namespace TheXDS.MCART.Types.Extensions
         /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
         /// de sintáxis Fluent.
         /// </returns>
-        /// <exception cref="T:System.NotImplementedException">
+        /// <exception cref="NotImplementedException">
         /// Se produce al intentar cargar un valor constante desconocido.
         /// </exception>
-        /// <exception cref="T:System.InvalidOperationException">
+        /// <exception cref="InvalidOperationException">
         /// Se produce al intentar cargar un valor que no es constante, como
         /// una instancia de objeto.
         /// </exception>
@@ -443,6 +448,29 @@ namespace TheXDS.MCART.Types.Extensions
         public static ILGenerator Call<TMethod>(this ILGenerator ilGen, Expression<Func<TMethod>> methodSelector) where TMethod : Delegate
         {
             return Call(ilGen, ReflectionHelpers.GetMethod(methodSelector));
+        }
+
+        /// <summary>
+        /// Inserta una llamada al método estático especificado en la secuencia
+        /// del lenguaje intermedio de Microsoft® (MSIL).
+        /// </summary>
+        /// <typeparam name="TMethod">
+        /// Delegado que describe al método a llamar.
+        /// </typeparam>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la llamada al método
+        /// estático.
+        /// </param>
+        /// <param name="method">
+        /// Método estático a llamar.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
+        public static ILGenerator Call<TMethod>(this ILGenerator ilGen, TMethod method) where TMethod : Delegate
+        {
+            return Call(ilGen, method.Method);
         }
 
         /// <summary>

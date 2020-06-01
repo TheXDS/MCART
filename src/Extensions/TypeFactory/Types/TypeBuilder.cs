@@ -22,7 +22,11 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System.Diagnostics;
 using System.Reflection.Emit;
+using System.Runtime.CompilerServices;
+using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Types
 {
@@ -71,5 +75,16 @@ namespace TheXDS.MCART.Types
         /// </param>
         public static implicit operator TypeBuilder<T>(TypeBuilder builder) => new TypeBuilder<T>(builder);
 
+        /// <summary>
+        /// Inicializa una nueva instancia del tipo en runtime especificado.
+        /// </summary>
+        /// <returns>La nueva instancia del tipo especificado.</returns>
+        /// <param name="tb">
+        /// <see cref="TypeBuilder"/> desde el cual instanciar un nuevo objeto.
+        /// </param>
+        [DebuggerStepThrough]
+        [Sugar]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public object New() => Builder.New();
     }
 }

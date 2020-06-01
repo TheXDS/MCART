@@ -24,13 +24,13 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
-using St = TheXDS.MCART.Resources.Strings;
-using Ist = TheXDS.MCART.Resources.InternalStrings;
-using static TheXDS.MCART.Types.Extensions.DictionaryExtensions;
-using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
+using TheXDS.MCART.Annotations;
+using static TheXDS.MCART.Types.Extensions.DictionaryExtensions;
+using Ist = TheXDS.MCART.Resources.InternalStrings;
 
 namespace TheXDS.MCART.Types.Base
 {
@@ -230,6 +230,7 @@ namespace TheXDS.MCART.Types.Base
         /// <see langword="true"/> si el valor de la propiedad ha
         /// cambiado, <see langword="false"/> en caso contrario.
         /// </returns>
+        [NpcChangeInvocator]
         protected abstract bool Change<T>(ref T field, T value, [CallerMemberName] string propertyName = null!);
     }
 }

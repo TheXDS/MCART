@@ -24,17 +24,18 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
-using System.Linq.Expressions;
 using TheXDS.MCART.Annotations;
+using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Base;
 using static System.Reflection.MethodAttributes;
 using static TheXDS.MCART.Types.TypeBuilderHelpers;
 using Errors = TheXDS.MCART.Resources.TypeFactoryErrors;
-using TheXDS.MCART.Resources;
+
 
 namespace TheXDS.MCART.Types.Extensions
 {
@@ -44,6 +45,21 @@ namespace TheXDS.MCART.Types.Extensions
     /// </summary>
     public static class TypeBuilderExtensions
     {
+        /// <summary>
+        /// Inicializa una nueva instancia del tipo en runtime especificado.
+        /// </summary>
+        /// <returns>La nueva instancia del tipo especificado.</returns>
+        /// <param name="tb">
+        /// <see cref="TypeBuilder"/> desde el cual instanciar un nuevo objeto.
+        /// </param>
+        [DebuggerStepThrough]
+        [Sugar]
+        public static object New(this TypeBuilder tb)
+        {
+            if (!tb.IsCreated()) tb.CreateType();
+            return TypeExtensions.New(tb);
+        }
+
         /// <summary>
         /// Determina si el método es reemplazable.
         /// </summary>
@@ -234,13 +250,12 @@ namespace TheXDS.MCART.Types.Extensions
             var p = AddProperty(tb.Builder, name, type, true, access, @virtual);
             var field = tb.Builder.DefineField(UndName(name), type, FieldAttributes.Private | FieldAttributes.PrivateScope);
             p.Getter!.LoadField(field).Return();
-
             p.Setter!
                 .This()
                 .LoadFieldAddress(field)
                 .LoadArg1()
                 .LoadConstant(name)
-                .Call(tb.ActualBaseType.GetMethod("Change", BindingFlags.NonPublic | BindingFlags.Instance, null, new[] { type.MakeByRefType(), type,typeof(string) }, null)!.MakeGenericMethod(new[] { type })!)
+                .Call(GetNpcChangeMethod(tb, type))
                 .Pop()
                 .Return();
             return new PropertyBuildInfo(tb.Builder, p.Member, field);
@@ -784,18 +799,82 @@ namespace TheXDS.MCART.Types.Extensions
             return prop;
         }
 
+        /// <summary>
+        /// Agrega una propiedad pública de solo escritura al tipo.
+        /// </summary>
+        /// <param name="tb">
+        /// Constructor del tipo en el cual crear la nueva propiedad.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <param name="type">Tipo de la nueva propiedad.</param>
+        /// <returns>
+        /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+        /// la propiedad que ha sido construida.
+        /// </returns>
         public static PropertyBuildInfo AddWriteOnlyProperty(this TypeBuilder tb, string name, Type type)
         {
             return AddWriteOnlyProperty(tb, name, type, MemberAccess.Public, false);
         }
+
+
+        /// <summary>
+        /// Agrega una propiedad de solo escritura al tipo.
+        /// </summary>
+        /// <param name="tb">
+        /// Constructor del tipo en el cual crear la nueva propiedad.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <param name="type">Tipo de la nueva propiedad.</param>
+        /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+        /// <returns>
+        /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+        /// la propiedad que ha sido construida.
+        /// </returns>
         public static PropertyBuildInfo AddWriteOnlyProperty(this TypeBuilder tb, string name, Type type, MemberAccess access)
         {
             return AddWriteOnlyProperty(tb, name, type, access, false);
         }
+
+        /// <summary>
+        /// Agrega una propiedad pública de solo escritura al tipo.
+        /// </summary>
+        /// <param name="tb">
+        /// Constructor del tipo en el cual crear la nueva propiedad.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <param name="type">Tipo de la nueva propiedad.</param>
+        /// <param name="virtual">
+        /// Si se establece en <see langword="true"/>, la propiedad será
+        /// definida como virtual, por lo que podrá ser reemplazada en una
+        /// clase derivada. 
+        /// </param>
+        /// <returns>
+        /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+        /// la propiedad que ha sido construida.
+        /// </returns>
         public static PropertyBuildInfo AddWriteOnlyProperty(this TypeBuilder tb, string name, Type type, bool @virtual)
         {
             return AddWriteOnlyProperty(tb, name, type, MemberAccess.Public, @virtual);
         }
+
+        /// <summary>
+        /// Agrega una propiedad de solo escritura al tipo.
+        /// </summary>
+        /// <param name="tb">
+        /// Constructor del tipo en el cual crear la nueva propiedad.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <param name="type">Tipo de la nueva propiedad.</param>
+        /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+        /// <param name="virtual">
+        /// Si se establece en <see langword="true"/>, la propiedad será
+        /// definida como virtual, por lo que podrá ser reemplazada en una
+        /// clase derivada. 
+        /// </param>
+        /// <returns>
+        /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+        /// la propiedad que ha sido construida.
+        /// </returns>
         public static PropertyBuildInfo AddWriteOnlyProperty(this TypeBuilder tb, string name, Type type, MemberAccess access, bool @virtual)
         {
             var prop = tb.DefineProperty(name, PropertyAttributes.HasDefault, type, null);
@@ -805,16 +884,62 @@ namespace TheXDS.MCART.Types.Extensions
             return new PropertyBuildInfo(tb, prop, null, setIl);
         }
 
+        /// <summary>
+        /// Inserta explícitamente un constructor público sin argumentos al
+        /// tipo.
+        /// </summary>
+        /// <param name="tb">
+        /// <see cref="TypeBuilder"/> en el cual se definirá el nuevo constructor.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="ILGenerator"/> que permite definir las instrucciones
+        /// del constructor.
+        /// </returns>
         public static ILGenerator AddPublicConstructor(this TypeBuilder tb) => AddPublicConstructor(tb, Type.EmptyTypes);
 
+        /// <summary>
+        /// Inserta explícitamente un constructor público al tipo,
+        /// especificando los argumentos requeridos por el mismo.
+        /// </summary>
+        /// <param name="tb">
+        /// <see cref="TypeBuilder"/> en el cual se definirá el nuevo
+        /// constructor.
+        /// </param>
+        /// <param name="arguments">
+        /// Arreglo con los tipos de argumentos aceptados por el nuevo
+        /// constructor.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="ILGenerator"/> que permite definir las instrucciones
+        /// del constructor.
+        /// </returns>
         public static ILGenerator AddPublicConstructor(this TypeBuilder tb, Type[] arguments)
         {
             return tb.DefineConstructor(Public | SpecialName | HideBySig | RTSpecialName, CallingConventions.HasThis, arguments).GetILGenerator();
         }
 
-
-
-
+        /// <summary>
+        /// Implementa explícitamente un método abstracto.
+        /// </summary>
+        /// <param name="tb">
+        /// <see cref="TypeBuilder"/> en el cual se implementará de forma
+        /// explícita el método abstracto.
+        /// </param>
+        /// <param name="method">
+        /// Método abstracto a implementar. El <see cref="TypeBuilder"/>
+        /// especificado debe implementar la interfaz en la cual está definido
+        /// el método.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="MethodBuildInfo"/> que contiene información sobre
+        /// el método que ha sido implementado de forma explícita.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce si <paramref name="tb"/> no implementa o hereda la
+        /// interfaz en la cual se ha definido el método
+        /// <paramref name="method"/>, o si <paramref name="method"/> no es un
+        /// miembro definido en una interfaz.
+        /// </exception>
         public static MethodBuildInfo ExplicitImplementMethod(this TypeBuilder tb, MethodInfo method)
         {
             if (!method.DeclaringType?.IsInterface ?? true) throw Errors.IFaceMethodExpected();
@@ -829,13 +954,9 @@ namespace TheXDS.MCART.Types.Extensions
             return new MethodBuildInfo(tb, m);
         }
 
-
-
-
-
         #region Helpers privados
 
-        [System.Diagnostics.DebuggerNonUserCode]
+        [DebuggerNonUserCode]
         private static void CheckImplements<T>(Type t)
         {
             if (!t.Implements<T>()) throw Errors.IfaceNotImpl<T>();
@@ -885,6 +1006,11 @@ namespace TheXDS.MCART.Types.Extensions
         {
             return type.GetMethod(nameof(object.Equals), BindingFlags.Public | BindingFlags.Instance, null, new[] { type }, null)
                 ?? type.GetMethod(nameof(object.Equals), BindingFlags.Public | BindingFlags.Instance, null, new[] { typeof(object) }, null)!;
+        }
+
+        private static MethodInfo GetNpcChangeMethod(ITypeBuilder<NotifyPropertyChangeBase> tb, Type t)
+        {
+            return tb.ActualBaseType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).FirstOrDefault(Objects.HasAttr<NpcChangeInvocatorAttribute>)?.MakeGenericMethod(new[] { t }) ?? throw new MissingMethodException();
         }
 
         private static MethodBuilder MkGet(TypeBuilder tb, string name, Type t, MemberAccess a, bool v)

@@ -22,17 +22,12 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-#pragma warning disable IDE0068 // Usar el patrón Dispose recomendado
-
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using TheXDS.MCART.Types.Base;
-using System.Runtime.Loader;
 using System.Runtime.CompilerServices;
 
 namespace TheXDS.MCART.PluginSupport

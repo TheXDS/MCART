@@ -7,8 +7,6 @@ using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 using Xunit;
 
-#nullable enable
-
 namespace TypeFactoryTests
 {
     public class TypeFactoryTests
@@ -33,11 +31,10 @@ namespace TypeFactoryTests
             var nameProp = t.AddAutoProperty<string>("Name");            
             var grettingProp = t.AddComputedProperty<string>("Greeting", p => p
                 .LoadConstant("Hello, ")
-                .LoadProperty(nameProp.Member)
-                .Call<Func<string?, string?, string>>(() => string.Concat)
+                .LoadProperty(nameProp)
+                .Call<Func<string?, string?, string>>(string.Concat)
                 .Return());
 
-            var greeterClass = t.CreateType();
             var greeterInstance = t.New();
             ((dynamic)greeterInstance).Name = "Jhon";
             
@@ -51,8 +48,7 @@ namespace TypeFactoryTests
         {
             var t = _factory.NewType<NotifyPropertyChanged>("NpcTestClass");
             ((ITypeBuilder<NotifyPropertyChangeBase>)t).AddNpcProperty<string>("Name");
-            var npcTestClass = t.Builder.CreateType()!;
-            dynamic npcInstance = npcTestClass.New();
+            dynamic npcInstance = t.New();
             PropertyChangedEventHandler evth = null!;
 
             var evt = Assert.Raises<PropertyChangedEventArgs>(
@@ -70,8 +66,7 @@ namespace TypeFactoryTests
             var t = _factory.NewType<NpcBaseClass>("NpcBaseTestClass");
             t.AddNpcProperty<string>("Name");
             t.AddNpcProperty<int>("Age");
-            var npcTestClass = t.Builder.CreateType()!;
-            dynamic npcInstance = npcTestClass.New();
+            dynamic npcInstance = t.New();
             PropertyChangedEventHandler evth = null!;
 
             var evt = Assert.Raises<PropertyChangedEventArgs>(
@@ -80,7 +75,7 @@ namespace TypeFactoryTests
                 () => npcInstance.Name = "Test");
 
             Assert.Equal("Name", evt.Arguments.PropertyName);
-            Assert.Equal("Test", npcInstance.Name);
+            Assert.Equal("Test", (string)npcInstance.Name);
         }
     }
 }
