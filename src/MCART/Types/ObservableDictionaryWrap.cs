@@ -151,6 +151,6 @@ namespace TheXDS.MCART.Types
         /// no existía en el diccionario o si ocurre otro problema
         /// obteniendo el valor.
         /// </returns>
-        public bool TryGetValue(TKey key, out TValue value) => UnderlyingCollection.TryGetValue(key, out value);
+        public bool TryGetValue(TKey key, out TValue value) => UnderlyingCollection.TryGetValue(key, out value!);
     }
 }

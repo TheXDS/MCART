@@ -78,9 +78,9 @@ namespace TheXDS.MCART.Types.Entity
         /// <see langword="true" /> si todos los vectores de ambos objetos
         /// son iguales, <see langword="false" /> en caso contrario.
         /// </returns>
-        public bool Equals(I2DVector other)
+        public bool Equals(I2DVector? other)
         {
-            return this == other;
+            return other is {} o && this == o;
         }
 
         /// <inheritdoc />
@@ -94,9 +94,9 @@ namespace TheXDS.MCART.Types.Entity
         /// <see langword="true" /> si todos los vectores de ambos puntos son iguales;
         /// de lo contrario, <see langword="false" />.
         /// </returns>
-        public bool Equals(Point other)
+        public bool Equals(Point? other)
         {
-            return this == other;
+            return other is {} o && this == o;
         }
 
         /// <summary>

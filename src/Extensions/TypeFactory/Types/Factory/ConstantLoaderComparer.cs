@@ -46,9 +46,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// <see langword="true"/> si ambos objetos cargan constantes del
         /// mismo tipo, <see langword="false"/> en caso contrario.
         /// </returns>
-        public bool Equals(IConstantLoader x, IConstantLoader y)
+        public bool Equals(IConstantLoader? x, IConstantLoader? y)
         {
-            return x.ConstantType.Equals(y.ConstantType);
+            return x?.ConstantType.Equals(y?.ConstantType) ?? y is null;
         }
 
         /// <summary>

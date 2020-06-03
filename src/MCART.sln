@@ -113,12 +113,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wpf.PluginSupport.Legacy", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mockups", "Extensions\Mockups\Mockups.csproj", "{762A6D80-8C32-4376-833D-1E96CD21BFC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MockupsTests", "Tests\MockupsTests\MockupsTests.csproj", "{8B6DB24C-221A-4D94-AA70-F5FB896EED74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MockupsTests", "Tests\MockupsTests\MockupsTests.csproj", "{8B6DB24C-221A-4D94-AA70-F5FB896EED74}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Examples\LightChat\Common\Common.projitems*{0a814bf9-e7fb-4ba6-bc90-61b1aa78e638}*SharedItemsImports = 5
 		Shared\Globals\Globals.projitems*{0aeb6508-6179-44e8-96e6-6535659ae85d}*SharedItemsImports = 13
 		Examples\LightChat\Common\Common.projitems*{1459cf01-8f9b-47b1-a3f2-57e1f84d9d0e}*SharedItemsImports = 13
+		Examples\LightChat\Common\Common.projitems*{8f93307c-81d3-4308-a8f5-24940290572d}*SharedItemsImports = 5
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{967afaa3-ded3-4ec0-9401-7193b318fce8}*SharedItemsImports = 13
 		Shared\Internals\Internals.projitems*{f7b14aea-6c0a-4343-81ae-fb06dcd9c69c}*SharedItemsImports = 13
 	EndGlobalSection

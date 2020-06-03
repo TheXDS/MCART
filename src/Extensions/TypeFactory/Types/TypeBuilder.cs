@@ -79,9 +79,6 @@ namespace TheXDS.MCART.Types
         /// Inicializa una nueva instancia del tipo en runtime especificado.
         /// </summary>
         /// <returns>La nueva instancia del tipo especificado.</returns>
-        /// <param name="tb">
-        /// <see cref="TypeBuilder"/> desde el cual instanciar un nuevo objeto.
-        /// </param>
         [DebuggerStepThrough]
         [Sugar]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

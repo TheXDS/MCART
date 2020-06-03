@@ -80,9 +80,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// permiten cargar el mismo tipo de valores,
         /// <see langword="false"/> en caso contrario.
         /// </returns>
-        public bool Equals(IConstantLoader other)
+        public bool Equals(IConstantLoader? other)
         {
-            return ConstantType.Equals(other.ConstantType);
+            return other is {ConstantType: Type o} && ConstantType.Equals(o);
         }
     }
 }
