@@ -28,12 +28,29 @@ namespace TheXDS.MCART.Networking.Server
     /// Define una serie de métodos a implementar por una clase que deba
     /// exponer un <see cref="Server"/> asociado.
     /// </summary>
-    internal interface IServerProtocol
+    internal interface IServerProtocol : IServerProtocol<Client>
     {
         /// <summary>
         /// Obtiene o establece la instancia de servidor asociada a este
         /// objeto.
         /// </summary>
-        Server MyServer { get; set; }
+        new Server MyServer
+        { 
+            get => (Server)((IServerProtocol<Client>)this).MyServer;
+            set=> ((IServerProtocol<Client>)this).MyServer = value;
+        }
+    }
+
+    /// <summary>
+    /// Define una serie de métodos a implementar por una clase que deba
+    /// exponer un <see cref="Server"/> asociado.
+    /// </summary>
+    internal interface IServerProtocol<T> where T : Client
+    {
+        /// <summary>
+        /// Obtiene o establece la instancia de servidor asociada a este
+        /// objeto.
+        /// </summary>
+        Server<T> MyServer { get; set; }
     }
 }

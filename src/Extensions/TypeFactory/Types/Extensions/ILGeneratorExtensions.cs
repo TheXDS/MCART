@@ -217,7 +217,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// Si necesita cargar un valor constante <see langword="null"/>,
         /// utilice el método <see cref="LoadNull(ILGenerator)"/>.
         /// </exception>
-        public static ILGenerator LoadConstant(this ILGenerator ilGen, object value)
+        public static ILGenerator LoadConstant(this ILGenerator ilGen, object? value)
         {
             if (value is null) throw new ArgumentNullException(nameof(value));
             return LoadConstant(ilGen, value.GetType(), value);

@@ -25,11 +25,16 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System.IO;
 using System.Reflection;
 using System.Runtime.Loader;
+using TheXDS.MCART.Component;
 using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.PluginSupport
 {
-    public sealed class PluginContainer : Disposable
+    /// <summary>
+    /// Clase que contiene a un ensamblado cargado junto a todas sus
+    /// dependencias en un solo contexto individual.
+    /// </summary>
+    public sealed class PluginContainer : Disposable, IExposeAssembly
     {
         private class PluginAssemblyLoadContext : AssemblyLoadContext
         {
@@ -58,8 +63,10 @@ namespace TheXDS.MCART.PluginSupport
             _context = new PluginAssemblyLoadContext(assembly);
         }
 
-        internal Assembly Assembly => _context._loadedAssembly;
+        /// <inheritdoc/>
+        public Assembly Assembly => _context._loadedAssembly;
 
+        /// <inheritdoc/>
         protected override void OnDispose()
         {
             _context.Unload();            

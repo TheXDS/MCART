@@ -35,66 +35,8 @@ namespace TheXDS.MCART.Networking.Server
     /// Esta clase abstracta determina una serie de funciones a heredar por
     /// una clase que provea de protocolos a un servidor.
     /// </summary>
-    public abstract class ServerProtocol : IProtocol, IServerProtocol
+    public abstract class ServerProtocol : ServerProtocol<Client>
     {        
-        /// <inheritdoc />
-        /// <summary>
-        /// Protocolo de atención al cliente
-        /// </summary>
-        /// <param name="client">Cliente que será atendido.</param>
-        /// <param name="data">Datos recibidos desde el cliente.</param>
-        public abstract void ClientAttendant(Client client, byte[] data);
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Protocolo de desconexión del cliente.
-        /// </summary>
-        /// <param name="client">Cliente que será atendido.</param>
-        public virtual void ClientBye(Client client)
-        {
-        }
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Protocolo de desconexión inesperada del cliente.
-        /// </summary>
-        /// <param name="client">Cliente que se ha desconectado.</param>
-        public virtual void ClientDisconnect(Client client)
-        {
-        }
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Protocolo de bienvenida del cliente.
-        /// </summary>
-        /// <returns>
-        /// <see langword="true" /> si el cliente fue aceptado por el protocolo,
-        /// <see langword="false" /> en caso contrario.
-        /// </returns>
-        /// <param name="client">Cliente que será atendido.</param>
-        public virtual bool ClientWelcome(Client client)
-        {
-            return true;
-        }
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Inicializa un nuevo cliente manejado por este protocolo.
-        /// </summary>
-        /// <param name="tcpClient">
-        /// <see cref="TcpClient" /> de la conexión con el host remoto.
-        /// </param>
-        /// <returns>
-        /// Un nuevo <see cref="Client" />.
-        /// </returns>
-        public virtual Client CreateClient(TcpClient tcpClient) => new Client(tcpClient);
-
-        Server IServerProtocol.MyServer { get; set; } = default!;
-
-        /// <summary>
-        /// Obtiene una referencia al servidor activo de esta instancia.
-        /// </summary>
-        protected Server Server => ((IServerProtocol)this).MyServer;
     }
 
     /// <inheritdoc cref="IServerProtocol"/>
@@ -103,8 +45,13 @@ namespace TheXDS.MCART.Networking.Server
     /// una clase que provea de protocolos a un servidor.
     /// </summary>
     /// <typeparam name="T"> Tipo de cliente a atender.</typeparam>
-    public abstract class ServerProtocol<T> : IProtocol, IServerProtocol where T : Client
+    public abstract class ServerProtocol<T> : IProtocol<T>, IServerProtocol<T> where T : Client
     {
+        public Server<T> BuildServer(int port)
+        {
+            return new Server<T>(this, port);
+        }
+
         /// <summary>
         /// Inicializa la clase <see cref="ServerProtocol"/>
         /// </summary>
@@ -120,7 +67,7 @@ namespace TheXDS.MCART.Networking.Server
         /// <summary>
         /// Obtiene una referencia al servidor activo de esta instancia.
         /// </summary>
-        protected Server<T> Server => (Server<T>)((IServerProtocol)this).MyServer;
+        protected Server<T> Server => MyServer;
 
         /// <inheritdoc />
         /// <summary>
@@ -188,23 +135,11 @@ namespace TheXDS.MCART.Networking.Server
         /// <param name="data">Datos recibidos desde el cliente.</param>
         public abstract void ClientAttendant(T client, byte[] data);
 
-        Server IServerProtocol.MyServer { get; set; } = default!;
+        /// <inheritdoc/>
+        public Server<T> MyServer { get; set; } = default!;
 
         /// <inheritdoc />
-        /// <summary>
-        /// Inicializa un nuevo cliente manejado por este protocolo.
-        /// </summary>
-        /// <param name="tcpClient">
-        /// <see cref="TcpClient" /> de la conexión con el host remoto.
-        /// </param>
-        /// <returns>
-        /// Un nuevo <see cref="Client" />.
-        /// </returns>
-        /// <exception cref="InvalidTypeException">
-        /// Se produce si no es posible crear una nueva instancia del
-        /// cliente debido a una excepción del constructor.
-        /// </exception>
-        public virtual Client CreateClient(TcpClient tcpClient)
+        T IProtocol<T>.CreateClient(TcpClient tcpClient)
         {
             try
             {

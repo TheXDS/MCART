@@ -1231,4 +1231,16 @@ namespace TheXDS.MCART.Networking.Server
         /// </summary>
         public event EventHandler<ExceptionEventArgs>? ServerError;
     }
+
+    /// <summary>
+    /// Describe un protocolo de comandos administrado por MCART.
+    /// </summary>
+    /// <typeparam name="TCommand">
+    /// <see cref="Enum"/> con los comandos aceptados.
+    /// </typeparam>
+    /// <typeparam name="TResult">
+    /// <see cref="Enum"/> con las respuestas generadas.
+    /// </typeparam>
+    public abstract class ManagedCommandProtocol<TCommand, TResult> : ManagedCommandProtocol<Client, TCommand, TResult> where TCommand : struct, Enum where TResult : struct, Enum
+    { }
 }

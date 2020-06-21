@@ -30,36 +30,47 @@ namespace TheXDS.MCART.Networking.Server
     /// Determina una serie de funciones a implementar por una clase que provea
     /// de protocolos a un servidor.
     /// </summary>
-    public interface IProtocol
+    public interface IProtocol : IProtocol<Client>
+    {
+    }
+
+    /// <summary>
+    /// Determina una serie de funciones a implementar por una clase que provea
+    /// de protocolos a un servidor.
+    /// </summary>
+    /// <typeparam name="T">
+    /// Tipo de cliente atendido por el protocolo.
+    /// </typeparam>
+    public interface IProtocol<T> where T : Client
     {
         /// <summary>
         /// Atiende al cliente
         /// </summary>
         /// <param name="client">Cliente que será atendido.</param>
         /// <param name="data">Datos recibidos desde el cliente.</param>
-        void ClientAttendant(Client client, byte[] data);
+        void ClientAttendant(T client, byte[] data);
 
         /// <summary>
         /// Protocolo de desconexión del cliente.
         /// </summary>
         /// <param name="client">Cliente que será atendido.</param>
-        void ClientBye(Client client);
+        void ClientBye(T client);
 
         /// <summary>
         /// Protocolo de desconexión inesperada del cliente.
         /// </summary>
         /// <param name="client">Cliente que se ha desconectado.</param>
-        void ClientDisconnect(Client client);
+        void ClientDisconnect(T client);
 
         /// <summary>
         /// Protocolo de bienvenida del cliente.
         /// </summary>
         /// <returns>
-        /// <see langword="true" /> si el cliente fue aceptado por el protocolo, <see langword="false" /> en caso
-        /// contrario.
+        /// <see langword="true" /> si el cliente fue aceptado por el
+        /// protocolo, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="client">Cliente que será atendido.</param>
-        bool ClientWelcome(Client client);
+        bool ClientWelcome(T client);
 
         /// <summary>
         /// Inicializa un nuevo cliente manejado por este protocolo.
@@ -68,8 +79,8 @@ namespace TheXDS.MCART.Networking.Server
         /// <see cref="TcpClient" /> de la conexión con el host remoto.
         /// </param>
         /// <returns>
-        /// Un nuevo <see cref="Client" />.
+        /// Un nuevo <typeparamref name="T"/>.
         /// </returns>
-        Client CreateClient(TcpClient tcpClient);
+        T CreateClient(TcpClient tcpClient);
     }
 }

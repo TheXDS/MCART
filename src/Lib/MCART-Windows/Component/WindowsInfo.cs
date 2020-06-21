@@ -22,15 +22,16 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Management;
-using System.Linq;
 using Microsoft.Win32;
-using System.Runtime.CompilerServices;
-using TheXDS.MCART.Types.Base;
-using TheXDS.MCART.Resources;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Management;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using TheXDS.MCART.Resources;
+using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Component
 {

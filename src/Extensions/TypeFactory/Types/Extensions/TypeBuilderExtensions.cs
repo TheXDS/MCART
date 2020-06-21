@@ -23,6 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -30,7 +31,6 @@ using System.Reflection;
 using System.Reflection.Emit;
 using TheXDS.MCART.Annotations;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Base;
 using static System.Reflection.MethodAttributes;
 using static TheXDS.MCART.Types.TypeBuilderHelpers;
@@ -164,6 +164,20 @@ namespace TheXDS.MCART.Types.Extensions
         public static PropertyBuildInfo AddAutoProperty<T>(this TypeBuilder tb, string name)
         {
             return AddAutoProperty(tb, name, typeof(T));
+        }
+
+        public static MethodBuildInfo AddOverride(this TypeBuilder tb, MethodInfo method)
+        {
+            return new MethodBuildInfo(tb, tb.DefineMethod(method.Name, GetNonAbstract(method), method.IsVoid() ? null : method.ReturnType, method.GetParameters().Select(p => p.ParameterType).ToArray()));
+        }
+
+        private static MethodAttributes GetNonAbstract(MethodInfo m)
+        {
+            var a = (int)m.Attributes;
+            a &= ~(int)Abstract;
+            a |= (int)Virtual;
+
+            return (MethodAttributes)a;
         }
 
         /// <summary>

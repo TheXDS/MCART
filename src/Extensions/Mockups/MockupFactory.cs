@@ -71,24 +71,9 @@ namespace TheXDS.MCART.Mockups
 
         private void BuildMethod(MethodInfo method)
         {
-            MethodBuilder m;
-            if (method.IsVoid())
-            {
-                m = _builder.DefineMethod(method.Name, MethodAttributes.Public,null,method.GetParameters().Select(p=>p.ParameterType).ToArray());
-
-
-
-            }
-            else
-            {
-                m = _builder.DefineMethod(method.Name, MethodAttributes.Public,method.ReturnType,);
-
-            }
-
-            if (!method.IsStatic)
-            {
-                
-            }
+            var m = _builder.AddOverride(method);
+            if (m.ReturnType is { } t) m.Il.LoadConstant(t, t.Default());
+            m.Il.Return();
         }
 
         private void BuildProperty(PropertyInfo prop) => BuildProperty(prop, prop.PropertyType.Default());
@@ -113,6 +98,5 @@ namespace TheXDS.MCART.Mockups
                     throw new InvalidOperationException();
             };
         }
-
     }
 }
