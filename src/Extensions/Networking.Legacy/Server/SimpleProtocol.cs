@@ -24,7 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Net.Sockets;
 
-namespace TheXDS.MCART.Networking.Server
+namespace TheXDS.MCART.Networking.Legacy.Server
 {
     /// <inheritdoc />
     /// <summary>

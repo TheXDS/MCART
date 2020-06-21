@@ -31,7 +31,7 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
 
-namespace TheXDS.MCART.Networking.Server
+namespace TheXDS.MCART.Networking.Legacy.Server
 {
     /// <inheritdoc />
     /// <summary>

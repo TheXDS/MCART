@@ -33,10 +33,10 @@ using System.Reflection;
 using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Networking.Server;
+using TheXDS.MCART.Networking.Legacy.Server;
 using TheXDS.MCART.Types.Extensions;
 
-namespace TheXDS.MCART.Networking.Client
+namespace TheXDS.MCART.Networking.Legacy.Client
 {
     /// <inheritdoc />
     /// <summary>

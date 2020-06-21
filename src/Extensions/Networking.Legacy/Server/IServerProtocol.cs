@@ -1,5 +1,5 @@
 ﻿/*
-Echo.cs
+IServerProtocol.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,36 +22,35 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if ExtrasBuiltIn
-
-namespace TheXDS.MCART.Networking.Server.Protocols
+namespace TheXDS.MCART.Networking.Legacy.Server
 {
-    /// <inheritdoc />
     /// <summary>
-    /// Protocolo simple de eco definido según el estándar RFC 862.
+    /// Define una serie de métodos a implementar por una clase que deba
+    /// exponer un <see cref="Server"/> asociado.
     /// </summary>
-    /// <remarks>
-    /// Este protocolo utiliza TCP/IP, no IGMP.
-    /// </remarks>
-    [Port(7)]
-    public class Echo : SimpleProtocol
+    internal interface IServerProtocol : IServerProtocol<Client>
     {
-        /// <inheritdoc />
         /// <summary>
-        /// Protocolo de atención normal.
+        /// Obtiene o establece la instancia de servidor asociada a este
+        /// objeto.
         /// </summary>
-        /// <param name="client">
-        /// Cliente que está siendo atendido debido a una solicitud.
-        /// </param>
-        /// <param name="data">
-        /// Datos que <paramref name="client" /> ha enviado como parte de la
-        /// solicitud de atención.
-        /// </param>
-        public override void ClientAttendant(Client client, byte[] data)
-        {
-            client.Send(data);
+        new Server MyServer
+        { 
+            get => (Server)((IServerProtocol<Client>)this).MyServer;
+            set=> ((IServerProtocol<Client>)this).MyServer = value;
         }
     }
-}
 
-#endif
+    /// <summary>
+    /// Define una serie de métodos a implementar por una clase que deba
+    /// exponer un <see cref="Server"/> asociado.
+    /// </summary>
+    internal interface IServerProtocol<T> where T : Client
+    {
+        /// <summary>
+        /// Obtiene o establece la instancia de servidor asociada a este
+        /// objeto.
+        /// </summary>
+        Server<T> MyServer { get; set; }
+    }
+}

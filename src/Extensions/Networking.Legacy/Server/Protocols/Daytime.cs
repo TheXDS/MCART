@@ -26,7 +26,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 
-namespace TheXDS.MCART.Networking.Server.Protocols
+namespace TheXDS.MCART.Networking.Legacy.Server.Protocols
 {
     /// <inheritdoc />
     /// <summary>

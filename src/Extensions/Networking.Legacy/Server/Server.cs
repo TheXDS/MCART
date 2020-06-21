@@ -34,16 +34,17 @@ using System.Threading;
 using System.Threading.Tasks;
 using TheXDS.MCART.Events;
 using TheXDS.MCART.Exceptions;
-using static TheXDS.MCART.Networking.Common;
+using TheXDS.MCART.Types.Base;
+using static TheXDS.MCART.Networking.Legacy.Common;
 
-namespace TheXDS.MCART.Networking.Server
+namespace TheXDS.MCART.Networking.Legacy.Server
 {
     /// <inheritdoc />
     /// <summary>
     /// Controla conexiones entrantes y ejecuta protocolos sobre los clientes
     /// que se conecten al servidor.
     /// </summary>
-    public class Server<TClient> where TClient : Client
+    public class Server<TClient> : Disposable where TClient : Client
     {
         private readonly CancellationTokenSource _cancellation = new CancellationTokenSource();
         private readonly HashSet<TClient> _clients = new HashSet<TClient>();
@@ -60,119 +61,6 @@ namespace TheXDS.MCART.Networking.Server
                 throw new InvalidTypeException();
             }
         }
-
-        private void Kill()
-        {
-            _listener.Stop();
-            _aliveTask = null;
-            _cancellation.Cancel();
-            ServerStopped?.Invoke(this, DateTime.Now);
-        }
-
-        private void PurgeClients()
-        {
-            while (_clients.Count > 0)
-            {
-                try
-                {
-                    _clients.FirstOrDefault()?.Disconnect();
-                }
-                catch { /* Silenciar la excepción */ }
-            }
-        }
-
-        /// <summary>
-        /// Lista de objetos <typeparamref name="TClient"/> conectados a
-        /// este servidor.
-        /// </summary>
-        public IEnumerable<TClient> Clients => _clients;
-
-        /// <summary>
-        /// Obtiene o establece un valor que indica si este
-        /// <see cref="Server" /> está activo (vivo).
-        /// </summary>
-        /// <value><see langword="true" /> si está vivo; sino, <see langword="false" />.</value>
-        public bool IsAlive
-        {
-            get => _aliveTask is { };
-            set
-            {
-                if (_aliveTask is null && value) Start();
-                if (IsAlive && !value) Stop();
-            }
-        }
-
-        /// <summary>
-        /// Dirección IP a la cual este servidor escucha.
-        /// </summary>
-        public IPEndPoint ListeningEndPoint { get; }
-
-        /// <summary>
-        /// Instancia de protocolos a utilizar para dar servicio a los
-        /// clientes que se conecten a este servidor.
-        /// </summary>
-        public IProtocol<TClient> Protocol { get; }
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="Server{T}" />.
-        /// </summary>
-        /// <param name="protocol">
-        /// Conjunto de protocolos a utilizar para este servidor.
-        /// </param>
-        /// <exception cref="T:System.ArgumentNullException">
-        /// Se produce si <paramref name="protocol" /> es <see langword="null" />.
-        /// </exception>
-        public Server(IProtocol<TClient> protocol) : this(protocol, null)
-        {
-        }
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="Server{T}" />.
-        /// </summary>
-        /// <param name="protocol">
-        /// Conjunto de protocolos a utilizar para este servidor.
-        /// </param>
-        /// <param name="port">Puerto local a escuchar.</param>
-        /// <exception cref="T:System.ArgumentNullException">
-        /// Se produce si <paramref name="protocol" /> es <see langword="null" />.
-        /// </exception>
-        public Server(IProtocol<TClient> protocol, int port) : this(protocol, new IPEndPoint(IPAddress.Any, port))
-        {
-        }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="Server" />.
-        /// </summary>
-        /// <param name="protocol">
-        /// Conjunto de protocolos a utilizar para este servidor.
-        /// </param>
-        /// <param name="ep">
-        /// <see cref="IPEndPoint" /> local a escuchar. Si se establece en
-        /// <see langword="null" />, se escuchará al puerto predeterminado del
-        /// protocolo (indicado por el atributo <see cref="PortAttribute" />) o
-        /// <see cref="DefaultPort" /> de todas las direcciones IP del servidor.
-        /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="protocol" /> es <see langword="null" />.
-        /// </exception>
-        public Server(IProtocol<TClient> protocol, IPEndPoint? ep)
-        {
-            CheckProtocolType(protocol);
-
-            Protocol = protocol ?? throw new ArgumentNullException(nameof(protocol));
-            if (Protocol is IServerProtocol<TClient> p) p.MyServer = this;
-            ListeningEndPoint = ep ?? new IPEndPoint(IPAddress.Any, Protocol.GetAttr<PortAttribute>()?.Value ?? DefaultPort);
-            _listener = new TcpListener(ListeningEndPoint);
-        }
-
-        /// <summary>
-        /// Encapsula una tarea para devolver un arreglo de bytes vacío
-        /// cuando ocurra una excepción.
-        /// </summary>
-        /// <param name="task"></param>
-        /// <returns></returns>
         private static byte[] GetResponse(Task<byte[]> task)
         {
             try
@@ -234,7 +122,6 @@ namespace TheXDS.MCART.Networking.Server
 
             if (!(client is null) && _clients.Contains(client)) _clients.Remove(client);
         }
-
         private async Task BeAlive()
         {
             while (IsAlive)
@@ -243,6 +130,126 @@ namespace TheXDS.MCART.Networking.Server
                 if (c is null) continue;
                 _clientThreads.Add(Task.Run(() => AttendClient(Protocol.CreateClient(c))));
             }
+        }
+        private async Task<TcpClient?> GetClient()
+        {
+            try
+            {
+                return await _listener.AcceptTcpClientAsync();
+            }
+            catch
+            {
+                // Devolver null. BeAlive() se encarga de manejar correctamente esto
+                return null;
+            }
+        }
+        private void Kill()
+        {
+            _listener.Stop();
+            _aliveTask = null;
+            _cancellation.Cancel();
+            ServerStopped?.Invoke(this, DateTime.Now);
+        }
+        private void PurgeClients()
+        {
+            while (_clients.Count > 0)
+            {
+                try
+                {
+                    _clients.FirstOrDefault()?.Disconnect();
+                }
+                catch { /* Silenciar la excepción */ }
+            }
+        }
+
+        /// <inheritdoc/>
+        protected override void OnDispose()
+        {
+            if (IsAlive) Stop();
+        }
+
+        /// <summary>
+        /// Lista de objetos <typeparamref name="TClient"/> conectados a
+        /// este servidor.
+        /// </summary>
+        public IEnumerable<TClient> Clients => _clients;
+
+        /// <summary>
+        /// Obtiene o establece un valor que indica si este
+        /// <see cref="Server" /> está activo (vivo).
+        /// </summary>
+        /// <value><see langword="true" /> si está vivo; sino, <see langword="false" />.</value>
+        public bool IsAlive
+        {
+            get => _aliveTask is { };
+            set
+            {
+                if (_aliveTask is null && value) Start();
+                if (IsAlive && !value) Stop();
+            }
+        }
+
+        /// <summary>
+        /// Dirección IP a la cual este servidor escucha.
+        /// </summary>
+        public IPEndPoint ListeningEndPoint { get; }
+
+        /// <summary>
+        /// Instancia de protocolos a utilizar para dar servicio a los
+        /// clientes que se conecten a este servidor.
+        /// </summary>
+        public IProtocol<TClient> Protocol { get; }
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="Server{T}" />.
+        /// </summary>
+        /// <param name="protocol">
+        /// Conjunto de protocolos a utilizar para este servidor.
+        /// </param>
+        /// <exception cref="T:System.ArgumentNullException">
+        /// Se produce si <paramref name="protocol" /> es <see langword="null" />.
+        /// </exception>
+        public Server(IProtocol<TClient> protocol) : this(protocol, null)
+        {
+        }
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="Server{T}" />.
+        /// </summary>
+        /// <param name="protocol">
+        /// Conjunto de protocolos a utilizar para este servidor.
+        /// </param>
+        /// <param name="port">Puerto local a escuchar.</param>
+        /// <exception cref="T:System.ArgumentNullException">
+        /// Se produce si <paramref name="protocol" /> es <see langword="null" />.
+        /// </exception>
+        public Server(IProtocol<TClient> protocol, int port) : this(protocol, new IPEndPoint(IPAddress.Any, port))
+        {
+        }
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="Server{T}" />.
+        /// </summary>
+        /// <param name="protocol">
+        /// Conjunto de protocolos a utilizar para este servidor.
+        /// </param>
+        /// <param name="ep">
+        /// <see cref="IPEndPoint" /> local a escuchar. Si se establece en
+        /// <see langword="null" />, se escuchará al puerto predeterminado del
+        /// protocolo (indicado por el atributo <see cref="PortAttribute" />) o
+        /// <see cref="DefaultPort" /> de todas las direcciones IP del servidor.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="protocol" /> es <see langword="null" />.
+        /// </exception>
+        public Server(IProtocol<TClient> protocol, IPEndPoint? ep)
+        {
+            CheckProtocolType(protocol);
+
+            Protocol = protocol ?? throw new ArgumentNullException(nameof(protocol));
+            if (Protocol is IServerProtocol<TClient> p) p.MyServer = this;
+            ListeningEndPoint = ep ?? new IPEndPoint(IPAddress.Any, Protocol.GetAttr<PortAttribute>()?.Value ?? DefaultPort);
+            _listener = new TcpListener(ListeningEndPoint);
         }
 
         /// <summary>
@@ -274,27 +281,6 @@ namespace TheXDS.MCART.Networking.Server
         /// Ocurre cuando el protocolo rechaza al nuevo cliente.
         /// </summary>
         public event EventHandler<ValueEventArgs<Client?>>? ClientRejected;
-
-        /// <summary>
-        /// Encapsula <see cref="TcpListener.AcceptTcpClientAsync" /> para
-        /// permitir cancelar la tarea cuando el servidor se detenga.
-        /// </summary>
-        /// <returns>
-        /// El <see cref="TcpClient" /> conectado. Si el servidor se detiene, se
-        /// devuelve <see langword="null" />.
-        /// </returns>
-        private async Task<TcpClient?> GetClient()
-        {
-            try
-            {
-                return await _listener.AcceptTcpClientAsync();
-            }
-            catch
-            {
-                // Devolver null. BeAlive() se encarga de manejar correctamente esto
-                return null;
-            }
-        }
 
         /// <summary>
         /// Ocurre cuando el servidor es iniciado.
@@ -431,14 +417,49 @@ namespace TheXDS.MCART.Networking.Server
     /// </summary>
     public class Server : Server<Client>
     {
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="Server" />.
+        /// </summary>
+        /// <param name="protocol">
+        /// Conjunto de protocolos a utilizar para este servidor.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="protocol" /> es <see langword="null" />.
+        /// </exception>
         public Server(IProtocol<Client> protocol) : base(protocol)
         {
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="Server" />.
+        /// </summary>
+        /// <param name="protocol">
+        /// Conjunto de protocolos a utilizar para este servidor.
+        /// </param>
+        /// <param name="port">Puerto local a escuchar.</param>
+        /// <exception cref="T:System.ArgumentNullException">
+        /// Se produce si <paramref name="protocol" /> es <see langword="null" />.
+        /// </exception>
         public Server(IProtocol<Client> protocol, int port) : base(protocol, port)
         {
         }
 
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="Server" />.
+        /// </summary>
+        /// <param name="protocol">
+        /// Conjunto de protocolos a utilizar para este servidor.
+        /// </param>
+        /// <param name="ep">
+        /// <see cref="IPEndPoint" /> local a escuchar. Si se establece en
+        /// <see langword="null" />, se escuchará al puerto predeterminado del
+        /// protocolo (indicado por el atributo <see cref="PortAttribute" />) o
+        /// <see cref="DefaultPort" /> de todas las direcciones IP del servidor.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="protocol" /> es <see langword="null" />.
+        /// </exception>
         public Server(IProtocol<Client> protocol, IPEndPoint? ep) : base(protocol, ep)
         {
         }

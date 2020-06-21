@@ -37,7 +37,22 @@ namespace TheXDS.MCART.Types.Extensions
     /// </summary>
     public static class BinaryReaderExtensions
     {
-        internal static MethodInfo? GetBinaryReadMethod(Type t)
+        /// <summary>
+        /// Obtiene un método de lectura definido en la clase
+        /// <see cref="BinaryReader"/> que pueda ser utilizado para leer un
+        /// objeto del tipo especificado.
+        /// </summary>
+        /// <param name="t">
+        /// Tipo para el cual obtener un método de lectura definido en la clase
+        /// <see cref="BinaryReader"/>.
+        /// </param>
+        /// <returns>
+        /// Un método de lectura definido en la clase
+        /// <see cref="BinaryReader"/> que pueda ser utilizado para leer un
+        /// objeto del tipo especificado, o <see langword="null"/> si no existe
+        /// un método de lectura para el tipo especificado.
+        /// </returns>
+        public static MethodInfo? GetBinaryReadMethod(Type t)
         {
             return typeof(BinaryReader).GetMethods().FirstOrDefault(p =>
                p.Name.StartsWith("Read")

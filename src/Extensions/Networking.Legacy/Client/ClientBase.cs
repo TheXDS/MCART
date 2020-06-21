@@ -34,7 +34,7 @@ using System.Threading.Tasks;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
 
-namespace TheXDS.MCART.Networking.Client
+namespace TheXDS.MCART.Networking.Legacy.Client
 {
     /// <summary>
     /// Clase base para implementar protocolos del lado del cliente.

@@ -38,7 +38,7 @@ using TheXDS.MCART.Types.Extensions;
 using System.IO.Compression;
 using TheXDS.MCART.Security.Cryptography;
 
-namespace TheXDS.MCART.Networking.Client
+namespace TheXDS.MCART.Networking.Legacy.Client
 {
     /// <summary>
     /// Describe un cliente de comandos administrado por MCART.

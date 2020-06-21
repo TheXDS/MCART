@@ -25,7 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System.Threading.Tasks;
 using TheXDS.MCART.Exceptions;
 
-namespace TheXDS.MCART.Networking.Client
+namespace TheXDS.MCART.Networking.Legacy.Client
 {
     /// <inheritdoc />
     /// <summary>

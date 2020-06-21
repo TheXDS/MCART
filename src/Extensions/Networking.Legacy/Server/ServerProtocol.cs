@@ -28,7 +28,7 @@ using TheXDS.MCART.Exceptions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 using St=TheXDS.MCART.Resources.Strings;
 
-namespace TheXDS.MCART.Networking.Server
+namespace TheXDS.MCART.Networking.Legacy.Server
 {
     /// <inheritdoc cref="IProtocol"/>
     /// <summary>

@@ -32,7 +32,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using static TheXDS.MCART.Types.Extensions.TaskExtensions;
 
-namespace TheXDS.MCART.Networking.Server
+namespace TheXDS.MCART.Networking.Legacy.Server
 {
     /// <summary>
     /// Representa a un cliente que no requiere datos de estado que se ha

@@ -1,5 +1,5 @@
 ﻿/*
-Common.cs
+UnknownResponseAttribute.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -26,29 +26,25 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Networking.Server;
+using TheXDS.MCART.Networking.Legacy.Server;
 
-namespace TheXDS.MCART.Networking
+namespace TheXDS.MCART.Networking.Legacy
 {
-    /// <inheritdoc />
     /// <summary>
-    /// Atributo que establece un número de puerto que un
-    /// <see cref="Server{TClient}" /> debería utilizar al escuchar
-    /// conexiones entrantes.
+    /// Atributo que se establece en el miembro de una enumeración a ser
+    /// utilizado como la respuesta en caso de encontrar un comando
+    /// desconocido que enviará un protocolo derivado de la clase
+    /// <see cref="SelfWiredCommandProtocol{TClient, TCommand, TResponse}" />
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class)]
-    public sealed class PortAttribute : IntAttribute
+    /// <remarks>
+    /// Si ningún miembro de la enumeración se marca con este atributo, en
+    /// caso de no existir el comando de la solicitud, se devolverá el
+    /// valor que sea marcado con el atributo
+    /// <see cref="ErrorResponseAttribute" />, o en su defecto se lanzará
+    /// una excepción que el servidor deberá manejar.
+    /// </remarks>
+    [AttributeUsage(AttributeTargets.Field)]
+    public sealed class UnknownResponseAttribute : Attribute
     {
-        /// <inheritdoc />
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="PortAttribute" />.
-        /// </summary>
-        /// <param name="portNumber">Número de puerto a utilizar.</param>
-        public PortAttribute(int portNumber) : base(portNumber)
-        {
-            if (!portNumber.IsBetween(1, 65535)) throw new ArgumentOutOfRangeException(nameof(portNumber));
-        }
     }
 }

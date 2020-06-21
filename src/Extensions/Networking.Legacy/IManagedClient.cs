@@ -26,27 +26,35 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using TheXDS.MCART.Networking.Server;
 
-namespace TheXDS.MCART.Networking
+namespace TheXDS.MCART.Networking.Legacy
 {
-    /// <inheritdoc />
     /// <summary>
-    /// Atributo que se establece en el miembro de una enumeración a ser
-    /// utilizado como la respuesta en caso de encontrar un comando
-    /// que no ha sido mapeado a una función de un protocolo derivado de la
-    /// clase
-    /// <see cref="SelfWiredCommandProtocol{TClient, TCommand, TResponse}" />
+    /// Define una serie de miembros a implementar por un tipo que
+    /// represente a un cliente de red administrado. 
     /// </summary>
-    /// <remarks>
-    /// Si ningún miembro de la enumeración se marca con este atributo, en
-    /// caso de no existir una función que esté mapeada al comando de la
-    /// solicitud, se devolverá el valor que sea marcado con el atributo
-    /// <see cref="ErrorResponseAttribute" />, o en su defecto se lanzará
-    /// una excepción que el servidor deberá manejar.
-    /// </remarks>
-    [AttributeUsage(AttributeTargets.Field)]
-    public sealed class NotMappedResponseAttribute : Attribute
+    public interface IManagedClient
     {
+        /// <summary>
+        /// Obtiene un valor que indica que esta conexión está encriptada.
+        /// </summary>
+        bool Encrypted { get; }
+        
+        /// <summary>
+        /// Obtiene un valor que indica si la conexión utiliza compresión.
+        /// </summary>
+        bool Compressed { get; }
+
+        /// <summary>
+        /// Obtiene un valor que indica si el cliente espera la bandera de
+        /// presencia de Guid, y el Guid correspondiente.
+        /// </summary>
+        bool ExpectsGuid { get; }
+
+        /// <summary>
+        /// Obtiene un valor que indica si el cliente envía comandos junto
+        /// con un <see cref="Guid"/> de identificación.
+        /// </summary>
+        bool SendsGuid { get; }
     }
 }

@@ -28,7 +28,7 @@ using System.Threading.Tasks;
 using TheXDS.MCART.Types.Extensions;
 
 #if ExtrasBuiltIn
-namespace TheXDS.MCART.Networking.Client.Protocols
+namespace TheXDS.MCART.Networking.Legacy.Client.Protocols
 {
     /// <inheritdoc />
     /// <summary>

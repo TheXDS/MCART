@@ -24,26 +24,34 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 #if ExtrasBuiltIn
 
-namespace TheXDS.MCART.Networking.Server.Protocols
+namespace TheXDS.MCART.Networking.Legacy.Server.Protocols
 {
     /// <inheritdoc />
     /// <summary>
-    /// Protocolo simple de descarte de datos definido según el estándar
-    /// RFC 863.
+    /// Protocolo simple de eco definido según el estándar RFC 862.
     /// </summary>
-    [Port(9)]
-    public class Discard : SimpleProtocol
+    /// <remarks>
+    /// Este protocolo utiliza TCP/IP, no IGMP.
+    /// </remarks>
+    [Port(7)]
+    public class Echo : SimpleProtocol
     {
         /// <inheritdoc />
         /// <summary>
-        /// Atiende al cliente
+        /// Protocolo de atención normal.
         /// </summary>
-        /// <param name="client">Cliente que será atendido.</param>
-        /// <param name="data">Datos recibidos desde el cliente.</param>
+        /// <param name="client">
+        /// Cliente que está siendo atendido debido a una solicitud.
+        /// </param>
+        /// <param name="data">
+        /// Datos que <paramref name="client" /> ha enviado como parte de la
+        /// solicitud de atención.
+        /// </param>
         public override void ClientAttendant(Client client, byte[] data)
         {
-            /* No hacer nada. Descartar los datos. */
+            client.Send(data);
         }
     }
 }
+
 #endif

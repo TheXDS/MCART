@@ -1,5 +1,5 @@
 ﻿/*
-IServerProtocol.cs
+Echo.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,35 +22,28 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Networking.Server
+#if ExtrasBuiltIn
+
+namespace TheXDS.MCART.Networking.Legacy.Server.Protocols
 {
+    /// <inheritdoc />
     /// <summary>
-    /// Define una serie de métodos a implementar por una clase que deba
-    /// exponer un <see cref="Server"/> asociado.
+    /// Protocolo simple de descarte de datos definido según el estándar
+    /// RFC 863.
     /// </summary>
-    internal interface IServerProtocol : IServerProtocol<Client>
+    [Port(9)]
+    public class Discard : SimpleProtocol
     {
+        /// <inheritdoc />
         /// <summary>
-        /// Obtiene o establece la instancia de servidor asociada a este
-        /// objeto.
+        /// Atiende al cliente
         /// </summary>
-        new Server MyServer
-        { 
-            get => (Server)((IServerProtocol<Client>)this).MyServer;
-            set=> ((IServerProtocol<Client>)this).MyServer = value;
+        /// <param name="client">Cliente que será atendido.</param>
+        /// <param name="data">Datos recibidos desde el cliente.</param>
+        public override void ClientAttendant(Client client, byte[] data)
+        {
+            /* No hacer nada. Descartar los datos. */
         }
     }
-
-    /// <summary>
-    /// Define una serie de métodos a implementar por una clase que deba
-    /// exponer un <see cref="Server"/> asociado.
-    /// </summary>
-    internal interface IServerProtocol<T> where T : Client
-    {
-        /// <summary>
-        /// Obtiene o establece la instancia de servidor asociada a este
-        /// objeto.
-        /// </summary>
-        Server<T> MyServer { get; set; }
-    }
 }
+#endif

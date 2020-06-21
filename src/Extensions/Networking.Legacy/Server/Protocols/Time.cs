@@ -28,7 +28,7 @@ using System;
 using System.Net.Sockets;
 using TheXDS.MCART.Types.Extensions;
 
-namespace TheXDS.MCART.Networking.Server.Protocols
+namespace TheXDS.MCART.Networking.Legacy.Server.Protocols
 {
     /// <inheritdoc />
     /// <summary>

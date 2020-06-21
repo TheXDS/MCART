@@ -26,7 +26,7 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 
-namespace TheXDS.MCART.Networking.Client
+namespace TheXDS.MCART.Networking.Legacy.Client
 {
     /// <inheritdoc />
     /// <summary>

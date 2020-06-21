@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.1;netstandard2.1</TargetFrameworks>
+    <Description>MCART Legacy Networking Support</Description>
+    <AssemblyName>MCART.Networking.Legacy</AssemblyName>
+    <RootNamespace>TheXDS.MCART.Networking.Legacy</RootNamespace>
+  </PropertyGroup>
+</Project>
