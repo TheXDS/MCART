@@ -1,5 +1,5 @@
 ﻿/*
-Time.cs
+Qotd.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -25,29 +25,37 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #if ExtrasBuiltIn
 
 using System;
-using System.Net.Sockets;
 using System.Text;
-using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Networking.Legacy.Server.Protocols
 {
     /// <summary>
-    /// Protocolo de sincronización de hora basado en el estándar RFC 868.
+    /// Protocolo que envía una frase del día al cliente.
     /// </summary>
-    [Port(37)]
-    public class Time : RfcSimpleProtocol
+    [Port(17)]
+    public class Qotd : RfcSimpleProtocol
     {
+        private string quote = string.Empty;
+
         /// <summary>
-        /// Envía la hora actual al cliente.
+        /// Envía la frase del día al cliente.
         /// </summary>
-        /// <param name="client">Cliente al cual enviar la hora.</param>
+        /// <param name="client">Cliente al cual enviar la frase del día.</param>
         protected sealed override void Send(Client client)
+        {            
+            client.Send(Encoding.ASCII.GetBytes(Quote));
+        }
+
+        /// <summary>
+        /// Frase del día que será enviada a los clientes que se conecten.
+        /// </summary>
+        public string Quote
         {
-            unchecked
+            get => quote;
+            set
             {
-                var l = (int)DateTime.Now.ToTimestamp(DateTimeExtensions.CenturyEpoch);
-                if (BitConverter.IsLittleEndian) l = l.FlipEndianess();
-                client.Send(BitConverter.GetBytes(l));
+                if (value.Length >= 512) throw new Exception();
+                quote = value;
             }
         }
     }
