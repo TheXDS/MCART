@@ -25,6 +25,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -166,9 +168,54 @@ namespace TheXDS.MCART.Types.Extensions
         /// encuentra ningún elemento del tipo especificado.
         /// </returns>
         [Sugar]
+        [return: MaybeNull]
         public static T FirstOf<T>(this IEnumerable collection)
         {
             return collection.OfType<T>().FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Obtiene al primer elemento del tipo solicitado dentro de una
+        /// colección.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de elementos contenidos en la colección.
+        /// </typeparam>
+        /// <param name="collection">
+        /// Colección sobre la cual realizar la búsqueda.
+        /// </param>
+        /// <param name="type">Tipo de elemento a buscar.</param>
+        /// <returns>
+        /// El primer elemento de tipo <paramref name="type"/> que sea
+        /// encontrado en la colección, o <see langword="default"/> si no se
+        /// encuentra ningún elemento del tipo especificado.
+        /// </returns>
+        [return: MaybeNull]
+        public static T FirstOf<T>(this IEnumerable<T> collection, Type type)
+        {
+            ChkEnumerableType<T>(type);
+            return collection.FirstOrDefault(p => p?.GetType() == type);
+        }
+
+        /// <summary>
+        /// Enumera todos los elementos de la colección que sean del tipo
+        /// especificado.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de elementos contenidos en la colección.
+        /// </typeparam>
+        /// <param name="collection">
+        /// Colección sobre la cual realizar la búsqueda.
+        /// </param>
+        /// <param name="type">Tipo de elementos a devolver.</param>
+        /// <returns>
+        /// Una enumeración de todos los elementos de la colección que sean del
+        /// tipo eseocificado.
+        /// </returns>
+        public static IEnumerable<T> OfType<T>(this IEnumerable<T> collection, Type type)
+        {
+            ChkEnumerableType<T>(type);
+            return collection.Where(p => p?.GetType() == type);
         }
 
         /// <summary>
@@ -203,7 +250,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="collection">Colección a enumerar.</param>
         /// <returns>
         /// Una enumeración con los elementos de la colección, omitiendo
-        /// aquellos que sean <see langword="null"/>.
+        /// aquellos que sean <see langword="null"/>, o una colección vacía si
+        /// <paramref name="collection"/> es <see langword="null"/>.
         /// </returns>
         public static IEnumerable<T> NotNull<T>(this IEnumerable<T?>? collection) where T : class
         {
@@ -216,7 +264,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="collection">Colección a enumerar.</param>
         /// <returns>
         /// Una enumeración con los elementos de la colección, omitiendo
-        /// aquellos que sean <see langword="null"/>.
+        /// aquellos que sean <see langword="null"/>, o una colección vacía si
+        /// <paramref name="collection"/> es <see langword="null"/>.
         /// </returns>
         public static IEnumerable NotNull(this IEnumerable collection)
         {
@@ -908,6 +957,13 @@ namespace TheXDS.MCART.Types.Extensions
             while (n.MoveNext()) c++;
             (n as IDisposable)?.Dispose();
             return c;
+        }
+
+        [DebuggerNonUserCode]
+        private static void ChkEnumerableType<T>(Type? type)
+        {
+            if (!typeof(T).IsAssignableFrom(type ?? throw new ArgumentNullException(nameof(type))))
+                throw new InvalidTypeException(type);
         }
     }
 }
