@@ -25,12 +25,12 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Net.Sockets;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 using St=TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Networking.Legacy.Server
 {
-    /// <inheritdoc cref="IProtocol"/>
     /// <summary>
     /// Esta clase abstracta determina una serie de funciones a heredar por
     /// una clase que provea de protocolos a un servidor.
@@ -39,7 +39,6 @@ namespace TheXDS.MCART.Networking.Legacy.Server
     {        
     }
 
-    /// <inheritdoc cref="IServerProtocol"/>
     /// <summary>
     /// Esta clase abstracta determina una serie de funciones a heredar por
     /// una clase que provea de protocolos a un servidor.
@@ -47,9 +46,30 @@ namespace TheXDS.MCART.Networking.Legacy.Server
     /// <typeparam name="T"> Tipo de cliente a atender.</typeparam>
     public abstract class ServerProtocol<T> : IProtocol<T>, IServerProtocol<T> where T : Client
     {
+        /// <summary>
+        /// Construye un servidor a partir de este protocolo.
+        /// </summary>
+        /// <param name="port">Puerto de escucha del servidor a crear.</param>
+        /// <returns>
+        /// Un servidor que utiliza este protocolo y que escucha conexiones
+        /// entrantes en el puerto especificado.
+        /// </returns>
         public Server<T> BuildServer(int port)
         {
             return new Server<T>(this, port);
+        }
+
+        /// <summary>
+        /// Construye un servidor a partir de este protocolo.
+        /// </summary>
+        /// <returns>
+        /// Un servidor que utiliza este protocolo y que escucha conexiones
+        /// entrantes en el puerto definido para le protocolo, o un puerto para
+        /// uso privado que no está registrado en IANA.
+        /// </returns>
+        public Server<T> BuildServer()
+        {
+            return BuildServer(this.GetAttr<PortAttribute>()?.Value ?? RandomExtensions.Rnd.Next(49152, 65536));
         }
 
         /// <summary>
@@ -69,7 +89,6 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// </summary>
         protected Server<T> Server => MyServer;
 
-        /// <inheritdoc />
         /// <summary>
         /// Protocolo de desconexión del cliente.
         /// </summary>
@@ -82,7 +101,6 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// <param name="client">Cliente que será atendido.</param>
         public virtual void ClientBye(T client) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Protocolo de desconexión inesperada del cliente.
         /// </summary>
@@ -97,7 +115,6 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Protocolo de bienvenida del cliente.
         /// </summary>
@@ -120,7 +137,6 @@ namespace TheXDS.MCART.Networking.Legacy.Server
             return true;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Protocolo de atención al cliente
         /// </summary>
@@ -138,7 +154,6 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// <inheritdoc/>
         public Server<T> MyServer { get; set; } = default!;
 
-        /// <inheritdoc />
         T IProtocol<T>.CreateClient(TcpClient tcpClient)
         {
             try
