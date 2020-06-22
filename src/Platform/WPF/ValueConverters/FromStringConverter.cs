@@ -1,5 +1,5 @@
 ﻿/*
-ValueConverters.cs
+FromStringConverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,19 +22,17 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Globalization;
 using System.Windows.Data;
-using System;
 
 namespace TheXDS.MCART.ValueConverters
 {
-    /// <inheritdoc />
     /// <summary>
     /// Convierte un valor a su representación como un <see cref="string" />.
     /// </summary>
     public sealed class FromStringConverter : IValueConverter
     {
-        /// <inheritdoc />
         /// <summary>
         /// Intenta una conversión de <see cref="string" /> a un objeto del tipo
         /// de destino especificado.
@@ -65,7 +63,6 @@ namespace TheXDS.MCART.ValueConverters
             }
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Convierte cualquier objeto en un <see cref="string" />
         /// </summary>

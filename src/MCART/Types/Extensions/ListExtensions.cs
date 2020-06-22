@@ -149,7 +149,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </typeparam>
         /// <param name="c"><see cref="IList{T}" /> a desordenar.</param>
         /// <param name="deepness">
-        /// Profundidad del desorden. 1 es el valor m�s alto.
+        /// Profundidad del desorden. 1 es el valor más alto.
         /// </param>
         /// <exception cref="ArgumentNullException">
         /// Se produce si <paramref name="c" /> es <see langword="null" />.

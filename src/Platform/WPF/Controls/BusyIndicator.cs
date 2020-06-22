@@ -148,7 +148,6 @@ namespace TheXDS.MCART.Controls
             set => base.Content = value;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Controls.BusyIndicator" />.
         /// </summary>

@@ -26,14 +26,12 @@ using System;
 
 namespace TheXDS.MCART.Events
 {
-    /// <inheritdoc />
     /// <summary>
     /// Incluye información de evento para cualquier clase con eventos de
     /// excepción.
     /// </summary>
     public class ExceptionEventArgs : ValueEventArgs<Exception?>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de este objeto sin especificar
         /// una excepción producida.
@@ -42,7 +40,6 @@ namespace TheXDS.MCART.Events
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de este objeto con la excepción
         /// especificada.

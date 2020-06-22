@@ -28,7 +28,6 @@ using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Exceptions
 {
-    /// <inheritdoc />
     /// <summary>
     /// Excepción que se produce cuando un <see cref="Uri"/> no hace
     /// referencia a un recurso válido.
@@ -139,7 +138,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="InvalidUriException" />.

@@ -30,8 +30,6 @@ using System.Windows.Media;
 using TheXDS.MCART.Component;
 using TheXDS.MCART.Resources;
 
-#nullable enable
-
 namespace TheXDS.MCART.Dialogs.ViewModel
 {
     internal class AboutPageViewModel : AboutPageViewModelBase<ApplicationInfo>

@@ -263,7 +263,6 @@ namespace TheXDS.MCART
             CollapseControls(ctrls.ToArray());
         }
 
-
         /// <summary>
         /// Deshabilita una lista de controles.
         /// </summary>
@@ -539,7 +538,6 @@ namespace TheXDS.MCART
             return outp;
         }
 
-
         /// <summary>
         /// Establece la propiedad <see cref="UIElement.Visibility" /> a
         /// <see cref="Visibility.Hidden" /> a una lista de controles.
@@ -564,7 +562,6 @@ namespace TheXDS.MCART
         {
             HideControls(ctrls.ToArray());
         }
-
 
         /// <summary>
         /// Obtiene un valor que determina si el control está advertido.

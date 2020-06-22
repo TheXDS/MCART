@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -98,7 +96,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// Obtiene un valor que indica si el tipo es estático, es decir si
         /// es abstracto y sellado a la vez.
         /// </summary>
-        public bool IsStatic => Type is null ? false : Type.IsAbstract && Type.IsSealed;
+        public bool IsStatic => !(Type is null) && Type.IsAbstract && Type.IsSealed;
 
         /// <summary>
         /// Enumera de forma agrupara el árbol de miembros definidos dentro

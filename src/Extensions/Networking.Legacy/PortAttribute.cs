@@ -1,5 +1,5 @@
 ﻿/*
-Common.cs
+PortAttribute.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -31,7 +31,6 @@ using TheXDS.MCART.Networking.Legacy.Server;
 
 namespace TheXDS.MCART.Networking.Legacy
 {
-    /// <inheritdoc />
     /// <summary>
     /// Atributo que establece un número de puerto que un
     /// <see cref="Server{TClient}" /> debería utilizar al escuchar
@@ -40,7 +39,6 @@ namespace TheXDS.MCART.Networking.Legacy
     [AttributeUsage(AttributeTargets.Class)]
     public sealed class PortAttribute : IntAttribute
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="PortAttribute" />.

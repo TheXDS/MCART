@@ -28,7 +28,6 @@ using System.Net.Sockets;
 
 namespace TheXDS.MCART.Networking.Legacy.Client
 {
-    /// <inheritdoc />
     /// <summary>
     /// Contiene información de evento que describe un evento de conexión
     /// satisfactorio.
@@ -50,7 +49,6 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// </summary>
         public IPEndPoint RemoteEndpoint { get; }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="HostConnectionInfoEventArgs" />.
@@ -66,7 +64,6 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="HostConnectionInfoEventArgs" />.
@@ -85,7 +82,6 @@ namespace TheXDS.MCART.Networking.Legacy.Client
             LocalEndPoint = localEndPoint;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="HostConnectionInfoEventArgs" />.
@@ -98,7 +94,6 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="HostConnectionInfoEventArgs" />.

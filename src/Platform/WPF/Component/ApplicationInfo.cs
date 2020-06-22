@@ -113,7 +113,6 @@ namespace TheXDS.MCART.Component
         /// </param>
         public ApplicationInfo(Assembly assembly, bool inferIcon) : this(assembly, inferIcon ? InferIcon(assembly) : null) { }
 
-
         /// <summary>
         /// Obtiene el nombre del elemento.
         /// </summary>

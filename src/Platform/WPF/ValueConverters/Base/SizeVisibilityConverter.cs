@@ -22,14 +22,13 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Globalization;
-using System.Windows.Data;
 using System;
+using System.Globalization;
 using System.Windows;
+using System.Windows.Data;
 
 namespace TheXDS.MCART.ValueConverters
 {
-    /// <inheritdoc />
     /// <summary>
     /// Clase base para convertidores de valores que tomen un valor <see cref="Size" /> para determinar un
     /// valor de tipo <see cref="Visibility" /> basado en un umbral.
@@ -50,7 +49,6 @@ namespace TheXDS.MCART.ValueConverters
             _above = above;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Convierte un <see cref="Size" /> a un <see cref="Visibility" /> basado en un valor de umbral.
         /// </summary>
@@ -104,7 +102,6 @@ namespace TheXDS.MCART.ValueConverters
             };
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Infiere un valor basado en el <see cref="Visibility" /> provisto.
         /// </summary>

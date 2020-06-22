@@ -28,7 +28,6 @@ using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Exceptions
 {
-    /// <inheritdoc />
     /// <summary>
     /// Excepción  que se produce al no encontrar los datos solicitados.
     /// </summary>

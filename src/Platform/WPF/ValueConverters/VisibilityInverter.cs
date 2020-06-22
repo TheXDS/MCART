@@ -1,5 +1,5 @@
 ﻿/*
-ValueConverters.cs
+VisibilityInverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,18 +22,16 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using TheXDS.MCART.ValueConverters.Base;
 using System.Windows;
+using TheXDS.MCART.ValueConverters.Base;
 
 namespace TheXDS.MCART.ValueConverters
 {
-    /// <inheritdoc />
     /// <summary>
     /// Invierte un valor de <see cref="Visibility" />.
     /// </summary>
     public sealed class VisibilityInverter : Inverter<Visibility>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="VisibilityInverter" />.

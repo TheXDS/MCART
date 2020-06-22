@@ -31,7 +31,6 @@ using System.Globalization;
 
 namespace TheXDS.MCART.Types.Converters
 {
-    /// <inheritdoc />
     /// <summary>
     /// Clase base para un
     /// <see cref="TypeConverter" /> básico que
@@ -44,7 +43,6 @@ namespace TheXDS.MCART.Types.Converters
     /// </typeparam>
     public abstract class BasicParseConverter<T> : TypeConverter
     {
-        /// <inheritdoc />
         /// <summary>
         ///   Devuelve si este convertidor puede convertir un objeto del tipo especificado al tipo de este convertidor, mediante el contexto especificado.
         /// </summary>
@@ -62,7 +60,6 @@ namespace TheXDS.MCART.Types.Converters
             return sourceType == typeof(string);
         }
 
-        /// <inheritdoc />
         /// <summary>
         ///   Devuelve si este convertidor puede convertir el objeto al tipo especificado, con el contexto especificado.
         /// </summary>
@@ -80,7 +77,6 @@ namespace TheXDS.MCART.Types.Converters
             return destinationType == typeof(T);
         }
 
-        /// <inheritdoc />
         /// <summary>
         ///   Convierte el objeto determinado al tipo de este convertidor usando el contexto especificado y la información de referencia cultural.
         /// </summary>
@@ -113,7 +109,6 @@ namespace TheXDS.MCART.Types.Converters
         /// </returns>
         protected abstract T ConvertFrom(string? value);
 
-        /// <inheritdoc />
         /// <summary>
         ///   Convierte el objeto de valor determinado al tipo especificado usando el contexto y la información de referencia cultural especificados.
         /// </summary>

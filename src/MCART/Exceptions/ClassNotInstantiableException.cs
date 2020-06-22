@@ -39,7 +39,7 @@ namespace TheXDS.MCART.Exceptions
             if (offendingType is null) return Strings.XNotInstantiable(Strings.TheClass);
             return InternalStrings.ErrorXClassNotInstantiableWithArgs(offendingType.Name);
         }
-        /// <inheritdoc />
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ClassNotInstantiableException" />.
@@ -124,7 +124,6 @@ namespace TheXDS.MCART.Exceptions
         /// </param>
         public ClassNotInstantiableException(string message, Exception inner, Type? offendingType) : base(message,inner,offendingType) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ClassNotInstantiableException" /> con datos serializados.

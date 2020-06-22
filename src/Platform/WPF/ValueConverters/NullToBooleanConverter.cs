@@ -1,5 +1,5 @@
 ﻿/*
-ValueConverters.cs
+NullToBooleanConverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,21 +22,19 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 using TheXDS.MCART.Types.Extensions;
-using System;
-using System.Windows;
 
 namespace TheXDS.MCART.ValueConverters
 {
-    /// <inheritdoc />
     /// <summary>
     /// Devuelve <see langword="true" /> si el elemento a convertir es <see langword="null" />
     /// </summary>
     public sealed class NullToBooleanConverter : IValueConverter
     {
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene un <see cref="Visibility" /> a partir del valor.
         /// </summary>
@@ -58,7 +56,6 @@ namespace TheXDS.MCART.ValueConverters
             return value is null;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Implementa <see cref="IValueConverter.ConvertBack" />.
         /// </summary>

@@ -26,7 +26,6 @@ using System;
 
 namespace TheXDS.MCART.Events
 {
-    /// <inheritdoc />
     /// <summary>
     /// Incluye información de evento para cualquier clase con eventos que
     /// incluyan tipos de valor.
@@ -46,7 +45,6 @@ namespace TheXDS.MCART.Events
         /// </param>
         public static implicit operator ValueEventArgs<T>(T value) => new ValueEventArgs<T>(value);
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de este objeto con el valor provisto.
         /// </summary>
@@ -66,14 +64,12 @@ namespace TheXDS.MCART.Events
         public T Value { get; }
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Incluye información de evento para cualquier clase con eventos que
     /// incluyan tipos de valor.
     /// </summary>
     public class ValueEventArgs : ValueEventArgs<object?>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de este objeto con el valor provisto.
         /// </summary>

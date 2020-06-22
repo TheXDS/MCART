@@ -28,7 +28,6 @@ using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Exceptions
 {
-    /// <inheritdoc />
     /// <summary>
     /// Excepción que se produce al intentar crear nueva información dentro de
     /// una base de datos con un identificador que ya existe.

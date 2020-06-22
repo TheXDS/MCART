@@ -23,14 +23,12 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace TheXDS.MCART.Controls
 {
-    /// <inheritdoc />
     /// <summary>
     /// <see cref="Panel" /> que permite organizar los controles como una
     /// línea justificada con sobreflujo, opcionalmente aplicando una
@@ -177,7 +175,6 @@ namespace TheXDS.MCART.Controls
 
         private bool _stretchProportionally = true;
 
-        /// <inheritdoc />
         /// <summary>
         ///   Si se reemplaza en una clase derivada, coloca los elementos secundarios y determina un tamaño para una clase derivada <see cref="FrameworkElement" />.
         /// </summary>
@@ -254,7 +251,6 @@ namespace TheXDS.MCART.Controls
             return finalSize;
         }
 
-        /// <inheritdoc />
         /// <summary>
         ///   Si se reemplaza en una clase derivada, mide el tamaño del diseño necesario para los elementos secundarios y determina un tamaño para la clase derivada <see cref="FrameworkElement" />.
         /// </summary>
@@ -281,9 +277,9 @@ namespace TheXDS.MCART.Controls
 
             var children = InternalChildren;
 
-            foreach(UIElement child in children)
+            foreach(UIElement? child in children)
             {
-                if (child == null) continue;
+                if (child is null) continue;
 
                 // Flow passes its own constraint to children
                 child.Measure(childConstraint);
@@ -345,8 +341,8 @@ namespace TheXDS.MCART.Controls
             var u = 0d;
             var horizontal = Orientation == Orientation.Horizontal;
             var children = InternalChildren;
-
             var total = 0d;
+
             for (var i = start; i < end; i++)
                 total += horizontal ? children[i].DesiredSize.Width : children[i].DesiredSize.Height;
 

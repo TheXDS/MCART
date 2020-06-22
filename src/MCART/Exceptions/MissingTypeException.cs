@@ -27,14 +27,12 @@ using System.Runtime.Serialization;
 
 namespace TheXDS.MCART.Exceptions
 {
-    /// <inheritdoc />
     /// <summary>
     /// Excepción que se produce cuando un tipo requerido no ha sido encontrado.
     /// </summary>
     [Serializable]
     public class MissingTypeException : OffendingException<Type>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="MissingTypeException" />.
@@ -43,7 +41,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="MissingTypeException" />.
@@ -55,7 +52,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="MissingTypeException" />.
@@ -67,7 +63,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="MissingTypeException" />.
         /// </summary>
@@ -76,7 +71,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="MissingTypeException" />.
@@ -91,7 +85,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="MissingTypeException" />.
         /// </summary>
@@ -103,7 +96,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="MissingTypeException" />.
         /// </summary>
@@ -113,7 +105,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="MissingTypeException" />.
         /// </summary>
@@ -126,7 +117,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="MissingTypeException" />.
@@ -141,7 +131,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="MissingTypeException" />.

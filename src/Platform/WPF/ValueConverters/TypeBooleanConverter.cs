@@ -1,5 +1,5 @@
 ﻿/*
-ValueConverters.cs
+TypeBooleanConverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,21 +22,19 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Globalization;
-using System.Windows.Data;
 using System;
+using System.Globalization;
 using System.Windows;
+using System.Windows.Data;
 
 namespace TheXDS.MCART.ValueConverters
 {
-    /// <inheritdoc />
     /// <summary>
     /// Determina si un objeto es una instancia del tipo provisto o de una clase derivada, y devuelve
     /// <see langword="true" /> si lo es.
     /// </summary>
     public sealed class TypeBooleanConverter : IValueConverter
     {
-        /// <inheritdoc />
         /// <summary>
         /// Determina si un objeto es una instancia del tipo provisto o de una clase derivada.
         /// </summary>
@@ -62,7 +60,6 @@ namespace TheXDS.MCART.ValueConverters
             return t.IsAssignableFrom(value?.GetType());
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Implementa <see cref="IValueConverter.ConvertBack" />.
         /// </summary>

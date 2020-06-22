@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -40,7 +38,6 @@ namespace TheXDS.MCART.PluginSupport.Legacy
     /// </summary>
     public abstract class WpfPlugin : Plugin, IWpfPlugin, IExposeGuiInfo<UIElement?>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene un ícono opcional a mostrar que describe al elemento.
         /// </summary>

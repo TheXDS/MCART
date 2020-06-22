@@ -29,14 +29,12 @@ using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Exceptions
 {
-    /// <inheritdoc />
     /// <summary>
     /// Excepción que se produce cuando una colección está vacía.
     /// </summary>
     [Serializable]
     public class EmptyCollectionException : OffendingException<IEnumerable>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="EmptyCollectionException" />.
@@ -54,7 +52,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="EmptyCollectionException" />.
@@ -74,7 +71,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="EmptyCollectionException" />.
@@ -83,7 +79,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="EmptyCollectionException" />.
@@ -93,7 +88,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException" />.
         /// </summary>
@@ -104,7 +98,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException" />.
         /// </summary>
@@ -117,7 +110,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException" />.
         /// </summary>
@@ -128,7 +120,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException" />.
         /// </summary>
@@ -141,7 +132,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException" />.
         /// </summary>
@@ -155,7 +145,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException" />.
         /// </summary>

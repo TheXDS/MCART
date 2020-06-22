@@ -1,5 +1,5 @@
 ﻿/*
-ValueConverters.cs
+NumberToBooleanConverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,19 +22,17 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Globalization;
 using System.Windows.Data;
-using System;
 
 namespace TheXDS.MCART.ValueConverters
 {
-    /// <inheritdoc />
     /// <summary>
     /// Convierte directamente un número a <see cref="bool" />
     /// </summary>
     public sealed class NumberToBooleanConverter : IValueConverter
     {
-        /// <inheritdoc />
         /// <summary>
         /// Convierte un <see cref="int" /> en un <see cref="bool" />.
         /// </summary>
@@ -55,7 +53,6 @@ namespace TheXDS.MCART.ValueConverters
             return value is int i && i != 0;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Infiere un valor <see cref="int" />a partir de un <see cref="bool" />.
         /// </summary>

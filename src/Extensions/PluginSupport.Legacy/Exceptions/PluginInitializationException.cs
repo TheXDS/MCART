@@ -29,14 +29,12 @@ using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Exceptions
 {
-    /// <inheritdoc />
     /// <summary>
     /// Excepción que se produce cuando un plugin no pudo inicializarse.
     /// </summary>
     [Serializable]
     public class PluginInitializationException : OffendingException<IPlugin>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="PluginInitializationException" />.
@@ -54,7 +52,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="PluginInitializationException" />.
@@ -74,7 +71,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="PluginInitializationException" />.
@@ -83,7 +79,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="PluginInitializationException" />.
@@ -93,7 +88,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="PluginInitializationException" />.
         /// </summary>
@@ -104,7 +98,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="PluginInitializationException" />.
         /// </summary>
@@ -116,7 +109,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="PluginInitializationException" />.
         /// </summary>
@@ -127,7 +119,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="PluginInitializationException" />.
         /// </summary>
@@ -139,7 +130,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="PluginInitializationException" />.
         /// </summary>
@@ -153,7 +143,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="PluginInitializationException" />.
         /// </summary>

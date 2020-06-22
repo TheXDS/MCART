@@ -67,7 +67,6 @@ namespace TheXDS.MCART.Types.Entity
             Y = y;
         }
         
-        /// <inheritdoc />
         /// <summary>
         /// Compara la igualdad de los vectores.
         /// </summary>
@@ -83,7 +82,6 @@ namespace TheXDS.MCART.Types.Entity
             return other is {} o && this == o;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Compara la igualdad de los vectores de los puntos.
         /// </summary>
@@ -126,7 +124,6 @@ namespace TheXDS.MCART.Types.Entity
             return ToString(null);
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Convierte este objeto en su representación como una cadena.
         /// </summary>
@@ -143,17 +140,16 @@ namespace TheXDS.MCART.Types.Entity
         public string ToString(string? format, IFormatProvider? formatProvider)
         {
             if (format.IsEmpty()) format = "C";
-            switch (format.ToUpperInvariant()[0])
+            return (format.ToUpperInvariant()[0]) switch
             {
-                case 'C': return $"{X}, {Y}";
-                case 'B': return $"[{X}, {Y}]";
-                case 'V': return $"X: {X}, Y: {Y}";
-                case 'N': return $"X: {X}\nY: {Y}";
-                default: throw new FormatException(St.FormatNotSupported(format));
-            }
+                'C' => $"{X}, {Y}",
+                'B' => $"[{X}, {Y}]",
+                'V' => $"X: {X}, Y: {Y}",
+                'N' => $"X: {X}\nY: {Y}",
+                _ => throw new FormatException(St.FormatNotSupported(format)),
+            };
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Convierte este objeto en su representación como una cadena.
         /// </summary>

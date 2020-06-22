@@ -23,14 +23,10 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.ComponentModel;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.ViewModel
 {
-    /// <inheritdoc cref="ICommand"/>
     /// <summary>
     /// Describe un comando simple que puede ser declarado dentro de un
     /// <see cref="ViewModelBase" />.
@@ -39,7 +35,6 @@ namespace TheXDS.MCART.ViewModel
     {
         private bool _canExecute;
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="SimpleCommand" />.
@@ -63,7 +58,6 @@ namespace TheXDS.MCART.ViewModel
             _canExecute = canExecute;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="SimpleCommand" />.
@@ -87,7 +81,6 @@ namespace TheXDS.MCART.ViewModel
             _canExecute = canExecute;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Define el método que determina si el comando puede ejecutarse
         /// en su estado actual.

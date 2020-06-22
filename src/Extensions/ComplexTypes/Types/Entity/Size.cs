@@ -1,5 +1,5 @@
 ﻿/*
-Point.cs
+Size.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -57,7 +57,6 @@ namespace TheXDS.MCART.Types.Entity
         /// objetos son iguales, <see langword="false"/> en caso contrario.
         /// </returns>
         public bool Equals(Size? other) => other is {} o && this == o;
-
 
         /// <summary>
         /// Devuelve el código hash generado para esta instancia.

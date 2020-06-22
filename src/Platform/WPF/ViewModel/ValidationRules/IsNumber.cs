@@ -28,13 +28,11 @@ using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.ViewModel.ValidationRules
 {
-    /// <inheritdoc />
     /// <summary>
     /// Regla que verifica que un valor sea numérico.
     /// </summary>
     public class IsNumber : ValidationRule
     {
-        /// <inheritdoc />
         /// <summary>
         ///   Si se reemplaza en una clase derivada, realiza comprobaciones de validación en un valor.
         /// </summary>

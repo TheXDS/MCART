@@ -59,13 +59,11 @@ namespace TheXDS.MCART.Types
         /// </summary>
         public T Value { get; }
 
-        /// <inheritdoc />
         /// <summary>
         /// Etiqueta del objeto.
         /// </summary>
         public string Name { get; }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la estructura
         /// <see cref="NamedObject{T}" /> estableciendo un valor junto a una

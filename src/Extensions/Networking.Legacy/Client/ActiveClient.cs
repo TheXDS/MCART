@@ -30,7 +30,6 @@ using System.Threading.Tasks;
 
 namespace TheXDS.MCART.Networking.Legacy.Client
 {
-    /// <inheritdoc />
     /// <summary>
     /// Clase base para los protocolos cliente que pueden escuchar al servidor de forma activa.
     /// </summary>
@@ -88,7 +87,6 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// <param name="data">Datos recibidos desde el servidor.</param>
         public abstract void AttendServer(byte[] data);
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicia la escucha activa del servidor.
         /// </summary>
@@ -125,7 +123,6 @@ namespace TheXDS.MCART.Networking.Legacy.Client
                 return null;
             }
         }
-
 
         /// <summary>
         /// Genera el evento <see cref="ConnectionLost"/>.

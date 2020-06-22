@@ -24,29 +24,27 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Globalization;
 using System.Windows.Controls;
-using St = TheXDS.MCART.Resources.Strings;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
+using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.ViewModel.ValidationRules
 {
-    /// <inheritdoc />
     /// <summary>
     /// Regla que verifica que un valor de texto no se encuentre vacío.
     /// </summary>
     public class TextNotEmpty : ValidationRule
     {
-        /// <inheritdoc />
         /// <summary>
-        ///   Si se reemplaza en una clase derivada, realiza comprobaciones de validación en un valor.
+        /// Si se reemplaza en una clase derivada, realiza comprobaciones de validación en un valor.
         /// </summary>
         /// <param name="value">
-        ///   Valor del destino de enlace que se comprobará.
+        /// Valor del destino de enlace que se comprobará.
         /// </param>
         /// <param name="cultureInfo">
-        ///   Referencia cultural que usará en esta regla.
+        /// Referencia cultural que usará en esta regla.
         /// </param>
         /// <returns>
-        ///   Objeto <see cref="ValidationResult" />.
+        /// Objeto <see cref="ValidationResult" />.
         /// </returns>
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {

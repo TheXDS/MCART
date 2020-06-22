@@ -1,5 +1,5 @@
 ﻿/*
-ValueConverters.cs
+MaxSizeVisibilityConverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -26,13 +26,11 @@ using System.Windows;
 
 namespace TheXDS.MCART.ValueConverters
 {
-    /// <inheritdoc />
     /// <summary>
     /// Oculta un control si su tamaño es superior al umbral especificado.
     /// </summary>
     public sealed class MaxSizeVisibilityConverter : SizeVisibilityConverter
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="MaxSizeVisibilityConverter" />.

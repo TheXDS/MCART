@@ -36,7 +36,6 @@ using static System.Reflection.MethodAttributes;
 using static TheXDS.MCART.Types.TypeBuilderHelpers;
 using Errors = TheXDS.MCART.Resources.TypeFactoryErrors;
 
-
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
@@ -829,7 +828,6 @@ namespace TheXDS.MCART.Types.Extensions
         {
             return AddWriteOnlyProperty(tb, name, type, MemberAccess.Public, false);
         }
-
 
         /// <summary>
         /// Agrega una propiedad de solo escritura al tipo.

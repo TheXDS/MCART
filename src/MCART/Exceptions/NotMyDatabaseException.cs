@@ -28,7 +28,6 @@ using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Exceptions
 {
-    /// <inheritdoc />
     /// <summary>
     /// Excepción que se produce cuando una base de datos no corresponde a la
     /// aplicación.
@@ -36,7 +35,6 @@ namespace TheXDS.MCART.Exceptions
     [Serializable]
     public class NotMyDatabaseException : Exception
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="NotMyDatabaseException" />.
@@ -50,7 +48,7 @@ namespace TheXDS.MCART.Exceptions
         protected NotMyDatabaseException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
-        /// <inheritdoc />
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="NotMyDatabaseException" />.
@@ -58,7 +56,7 @@ namespace TheXDS.MCART.Exceptions
         public NotMyDatabaseException() : base(Strings.DBDoesntBelong)
         {
         }
-        /// <inheritdoc />
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="NotMyDatabaseException" />.
@@ -69,7 +67,7 @@ namespace TheXDS.MCART.Exceptions
         public NotMyDatabaseException(string message) : base(message)
         {
         }
-        /// <inheritdoc />
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="NotMyDatabaseException"/>.
@@ -84,7 +82,7 @@ namespace TheXDS.MCART.Exceptions
         public NotMyDatabaseException(string message, Exception inner) : base(message, inner)
         {
         }
-        /// <inheritdoc />
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="NotMyDatabaseException"/>.

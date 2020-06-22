@@ -31,7 +31,6 @@ using TheXDS.MCART.Component;
 
 namespace TheXDS.MCART.Resources
 {
-    /// <inheritdoc />
     /// <summary>
     /// Contiene métodos con funciones de identificación en información del
     /// ensamblado de MCART.
@@ -199,7 +198,6 @@ namespace TheXDS.MCART.Resources
         /// </summary>
         public ComponentKind Kind { get; }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="RtInfo" />.

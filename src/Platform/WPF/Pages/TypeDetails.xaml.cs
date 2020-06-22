@@ -27,27 +27,25 @@ using TheXDS.MCART.Dialogs.ViewModel;
 
 namespace TheXDS.MCART.Pages
 {
-    /// <inheritdoc cref="System.Windows.Controls.UserControl"/>
     /// <summary>
     /// Lógica de interacción para TypeDetails.xaml
     /// </summary>
     public partial class TypeDetails
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="T:TheXDS.MCART.Pages.TypeDetails" />.
         /// </summary>
-        public TypeDetails():this(null)
+        public TypeDetails() : this(null)
         {
         }
-        /// <inheritdoc />
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="T:TheXDS.MCART.Pages.TypeDetails" />.
         /// </summary>
         /// <param name="type">Tipo del cual mostrar información</param>
-        public TypeDetails(Type type)
+        public TypeDetails(Type? type)
         {
             InitializeComponent();
             DataContext = new TypeDetailsViewModel(type);

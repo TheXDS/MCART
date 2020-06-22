@@ -1,5 +1,5 @@
 ﻿/*
-Echo.cs
+Daytime.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,7 +28,6 @@ using System;
 
 namespace TheXDS.MCART.Networking.Legacy.Server.Protocols
 {
-    /// <inheritdoc />
     /// <summary>
     /// Protocolo de prueba definido en el estándar RFC 867 que devuelve
     /// una cadena ASCII con la fecha y hora actuales.
@@ -36,7 +35,6 @@ namespace TheXDS.MCART.Networking.Legacy.Server.Protocols
     [Port(13)]
     public class Daytime : SimpleProtocol
     {
-        /// <inheritdoc />
         /// <summary>
         /// Atiende al cliente devolviendo la fecha actual formateada según
         /// RFC 1123 como una cadena ASCII.

@@ -28,7 +28,6 @@ using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Exceptions
 {
-    /// <inheritdoc />
     /// <summary>
     /// Excepción que se produce cuando se detecta que una función ha devuelto
     /// un valor inválido sin generar una excepción.
@@ -36,7 +35,6 @@ namespace TheXDS.MCART.Exceptions
     [Serializable]
     public class InvalidReturnValueException : Exception
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="InvalidReturnValueException" />.
@@ -54,7 +52,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="InvalidReturnValueException" />.
@@ -63,7 +60,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="InvalidReturnValueException" /> especificando el delegado
@@ -79,7 +75,6 @@ namespace TheXDS.MCART.Exceptions
             OffendingFunctionName = OffendingFunction.Method.Name;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="InvalidReturnValueException" /> especificando el delegado
@@ -94,7 +89,6 @@ namespace TheXDS.MCART.Exceptions
             OffendingFunctionName = methodName;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="InvalidReturnValueException" /> especificando el delegado
@@ -114,7 +108,6 @@ namespace TheXDS.MCART.Exceptions
             OffendingReturnValue = returnValue;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="InvalidReturnValueException" /> especificando el delegado
@@ -133,7 +126,6 @@ namespace TheXDS.MCART.Exceptions
             OffendingReturnValue = returnValue;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="InvalidReturnValueException" />.
@@ -148,7 +140,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="InvalidReturnValueException" /> especificando el delegado
@@ -171,7 +162,6 @@ namespace TheXDS.MCART.Exceptions
             OffendingReturnValue = returnValue;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="InvalidReturnValueException" /> especificando el delegado

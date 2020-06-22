@@ -124,7 +124,6 @@ namespace TheXDS.MCART.Resources
         public static string LegacyComponentUseInstead(object alternative) => $"{LegacyComponent} Utilice en su lugar {alternative}";
         public static string LegacyComponentUseInstead<T>() => LegacyComponentUseInstead(typeof(T));
 
-
         public const string UseLicUriInstead = "Utilice LicenseUriAttribute en su lugar.";
     }
 }

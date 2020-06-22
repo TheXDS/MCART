@@ -1,5 +1,5 @@
 ﻿/*
-ValueConverters.cs
+DoubleMarginConverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,20 +22,18 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Globalization;
-using System.Windows.Data;
 using System;
+using System.Globalization;
 using System.Windows;
+using System.Windows.Data;
 
 namespace TheXDS.MCART.ValueConverters
 {
-    /// <inheritdoc />
     /// <summary>
     /// Convierte un <see cref="double" /> en un <see cref="Thickness" />.
     /// </summary>
     public sealed class DoubleMarginConverter : IValueConverter
     {
-        /// <inheritdoc />
         /// <summary>
         /// Convierte un <see cref="double" /> en un <see cref="Thickness" />.
         /// </summary>
@@ -59,7 +57,6 @@ namespace TheXDS.MCART.ValueConverters
             return value is double v ? (object) new Thickness(f?.Invoke(v) ?? v) : null;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Revierte la conversión realizada por este objeto.
         /// </summary>

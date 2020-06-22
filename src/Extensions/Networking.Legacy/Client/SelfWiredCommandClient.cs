@@ -38,7 +38,6 @@ using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Networking.Legacy.Client
 {
-    /// <inheritdoc />
     /// <summary>
     /// Clase base para clientes auto-cableados de atención a protocolos de
     /// comandos simples basados en la clase
@@ -264,7 +263,6 @@ namespace TheXDS.MCART.Networking.Legacy.Client
             return MakeCommand(command, ms.ToArray());
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Atiende una solicitud realizada por el servidor cuando no
         /// existe un método mapeado a la respuesta recibida.
@@ -281,7 +279,6 @@ namespace TheXDS.MCART.Networking.Legacy.Client
             /* No realizar ninguna acción. */
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicia la escucha activa del servidor.
         /// </summary>

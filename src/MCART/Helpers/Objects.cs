@@ -384,20 +384,6 @@ namespace TheXDS.MCART
         {
             return PublicTypes(AppDomain.CurrentDomain);
         }
-
-        private static IEnumerable<Type> SafeGetExportedTypes(Assembly arg)
-        {
-            Type[] types;
-            try
-            {
-                types = arg.GetExportedTypes();
-            }
-            catch
-            {
-                types = Array.Empty<Type>();
-            }
-            return types;
-        }
         
         /// <summary>
         /// Determina si todos los objetos son <see langword="null" />.
@@ -1605,8 +1591,7 @@ namespace TheXDS.MCART
         /// <see langword="true" /> si <paramref name="t" /> es un tipo numérico; de
         /// lo contrario, <see langword="false" />.
         /// </returns>
-        [Stub]
-        public static bool IsNumericType(Type t)
+        public static bool IsNumericType(Type? t)
         {
             return new[]
             {
@@ -2002,5 +1987,19 @@ namespace TheXDS.MCART
             return null;
         }
 #endif
+
+        private static IEnumerable<Type> SafeGetExportedTypes(Assembly arg)
+        {
+            Type[] types;
+            try
+            {
+                types = arg.GetExportedTypes();
+            }
+            catch
+            {
+                types = Array.Empty<Type>();
+            }
+            return types;
+        }
     }
 }

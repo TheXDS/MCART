@@ -24,14 +24,12 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 namespace TheXDS.MCART.Events
 {
-    /// <inheritdoc />
     /// <summary>
     /// Incluye información de evento para cualquier clase con eventos de
     /// recepción de datos.
     /// </summary>
     public class IncommingDataEventArgs : ValueEventArgs<byte[]>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de este objeto con los datos
         /// recibidos.

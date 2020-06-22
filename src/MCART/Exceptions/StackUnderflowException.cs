@@ -28,14 +28,12 @@ using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Exceptions
 {
-    /// <inheritdoc />
     /// <summary>
     /// Excepción que se produce al intentar remover un objeto de una pila vacía
     /// </summary>
     [Serializable]
     public class StackUnderflowException : Exception
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="StackUnderflowException" />.
@@ -50,7 +48,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="StackUnderflowException" />.
         /// </summary>
@@ -58,7 +55,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="StackUnderflowException" />.
         /// </summary>
@@ -67,7 +63,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="StackUnderflowException" />.
         /// </summary>
@@ -76,7 +71,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="StackUnderflowException" />.
         /// </summary>

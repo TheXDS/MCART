@@ -1,5 +1,5 @@
 ﻿/*
-Common.cs
+NotMappedResponseAttribute.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -30,7 +30,6 @@ using TheXDS.MCART.Networking.Legacy.Server;
 
 namespace TheXDS.MCART.Networking.Legacy
 {
-    /// <inheritdoc />
     /// <summary>
     /// Atributo que se establece en el miembro de una enumeración a ser
     /// utilizado como la respuesta en caso de encontrar un comando

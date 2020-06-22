@@ -1,5 +1,5 @@
 ﻿/*
-ValueConverters.cs
+StrictTypeVisibilityConverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,21 +22,19 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Globalization;
-using System.Windows.Data;
 using System;
+using System.Globalization;
 using System.Windows;
+using System.Windows.Data;
 
 namespace TheXDS.MCART.ValueConverters
 {
-    /// <inheritdoc />
     /// <summary>
     /// Determina si un objeto es una instancia del tipo provisto, y devuelve
-    /// <see cref="F:System.Windows.Visibility.Visible" /> si lo es.
+    /// <see cref="Visibility.Visible" /> si lo es.
     /// </summary>
     public sealed class StrictTypeVisibilityConverter : IValueConverter
     {
-        /// <inheritdoc />
         /// <summary>
         /// Determina si un objeto es una instancia del tipo provisto.
         /// </summary>
@@ -53,8 +51,8 @@ namespace TheXDS.MCART.ValueConverters
         /// Referencia cultural que se va a usar en el convertidor.
         /// </param>
         /// <returns>
-        /// <see cref="F:System.Windows.Visibility.Visible" /> si el objeto es una instancia del
-        /// tipo provisto, <see cref="F:System.Windows.Visibility.Collapsed" /> en caso contrario.
+        /// <see cref="Visibility.Visible" /> si el objeto es una instancia del
+        /// tipo provisto, <see cref="Visibility.Collapsed" /> en caso contrario.
         /// </returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -62,7 +60,6 @@ namespace TheXDS.MCART.ValueConverters
             return t.IsInstanceOfType(value) ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Implementa <see cref="IValueConverter.ConvertBack" />.
         /// </summary>

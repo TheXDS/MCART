@@ -30,7 +30,6 @@ using TheXDS.MCART.Types.Extensions;
 #if ExtrasBuiltIn
 namespace TheXDS.MCART.Networking.Legacy.Client.Protocols
 {
-    /// <inheritdoc />
     /// <summary>
     /// Implementa el cliente pasivo del protocolo de Echo.
     /// </summary>

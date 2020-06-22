@@ -1,5 +1,5 @@
 ﻿/*
-Echo.cs
+Discard.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -26,7 +26,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 namespace TheXDS.MCART.Networking.Legacy.Server.Protocols
 {
-    /// <inheritdoc />
     /// <summary>
     /// Protocolo simple de descarte de datos definido según el estándar
     /// RFC 863.
@@ -34,7 +33,6 @@ namespace TheXDS.MCART.Networking.Legacy.Server.Protocols
     [Port(9)]
     public class Discard : SimpleProtocol
     {
-        /// <inheritdoc />
         /// <summary>
         /// Atiende al cliente
         /// </summary>

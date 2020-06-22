@@ -30,13 +30,11 @@ using TheXDS.MCART.ValueConverters.Base;
 
 namespace TheXDS.MCART.ValueConverters
 {
-    /// <inheritdoc />
     /// <summary>
     /// Permite la multiplicación de propiedades numéricas.
     /// </summary>
     public sealed class MultiplyConverter : PrimitiveMathOpConverterBase, IValueConverter
     {
-        /// <inheritdoc />
         /// <summary>
         /// Devuelve la multiplicación entre <paramref name="value" /> y
         /// <paramref name="parameter" />.
@@ -53,7 +51,6 @@ namespace TheXDS.MCART.ValueConverters
             return Operate(value, targetType, parameter, culture, Expression.Multiply);
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Revierte la operación de suma aplicada a <paramref name="value" />.
         /// </summary>

@@ -497,7 +497,6 @@ namespace TheXDS.MCART
             return retVal;
         }
 
-
         private class TypeExpressionTree
         {
             public string TypeName;

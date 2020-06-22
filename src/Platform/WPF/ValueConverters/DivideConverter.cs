@@ -30,7 +30,6 @@ using TheXDS.MCART.ValueConverters.Base;
 
 namespace TheXDS.MCART.ValueConverters
 {
-    /// <inheritdoc />
     /// <summary>
     /// Permite la adición de propiedades numéricas.
     /// </summary>

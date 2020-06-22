@@ -250,7 +250,6 @@ namespace TheXDS.MCART.Types
             }
         }
 
-
         /// <summary>
         /// Quita el elemento en el íncide especificado de este
         /// <see cref="ObservableListWrap"/>.

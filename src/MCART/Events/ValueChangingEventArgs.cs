@@ -26,7 +26,6 @@ using System.ComponentModel;
 
 namespace TheXDS.MCART.Events
 {
-    /// <inheritdoc />
     /// <summary>
     /// Incluye información para cualquier evento que incluya tipos de valor y
     /// puedan ser cancelados.
@@ -36,7 +35,6 @@ namespace TheXDS.MCART.Events
     /// </typeparam>
     public class ValueChangingEventArgs<T> : CancelEventArgs
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ValueChangingEventArgs{T}" /> con el valor provisto.
@@ -87,14 +85,12 @@ namespace TheXDS.MCART.Events
         }
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Incluye información para cualquier evento que incluya tipos de valor y
     /// puedan ser cancelados.
     /// </summary>
     public class ValueChangingEventArgs : ValueChangingEventArgs<object?>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ValueChangingEventArgs{T}" /> con el valor provisto.

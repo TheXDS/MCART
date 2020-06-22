@@ -1,5 +1,5 @@
 ﻿/*
-ValueConverters.cs
+ThresholdConverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,18 +22,17 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Windows;
 using System.Windows.Data;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
-using System;
-using System.Windows;
 
 namespace TheXDS.MCART.ValueConverters
 {
-    /// <inheritdoc />
     /// <summary>
     /// Clase base para un convertidor de valores que digitalice un valor
     /// arbitrario de entrada.
@@ -61,7 +60,6 @@ namespace TheXDS.MCART.ValueConverters
         /// </summary>
         public TOut BelowValue { get; }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="ThresholdConverter{TIn, TOut}" />
         /// </summary>
@@ -95,7 +93,6 @@ namespace TheXDS.MCART.ValueConverters
             AtValue = atValue;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Realiza una comparación del valor de entrada contra un valor especificado como el umbral.
         /// </summary>
@@ -163,7 +160,6 @@ namespace TheXDS.MCART.ValueConverters
             };
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Implementa <see cref="IValueConverter.ConvertBack" />.
         /// </summary>

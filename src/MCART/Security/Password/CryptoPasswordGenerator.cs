@@ -28,27 +28,24 @@ using System.Security.Cryptography;
 
 namespace TheXDS.MCART.Security.Password
 {
-    /// <inheritdoc />
     /// <summary>
     /// Generador de contraseñas seguras que utiliza todos los caracteres
     /// de UTF-16, tanto caracteres definidos como no definidos.
     /// </summary>
     public sealed class CryptoPasswordGenerator : IPasswordGenerator
     {
-        /// <inheritdoc />
         /// <summary>
         /// Genera una contraseña utilizando este generador.
         /// </summary>
         /// <returns>
         /// Una contraseña generada por este
-        /// <see cref="T:TheXDS.MCART.Security.Password.IPasswordGenerator" />.
+        /// <see cref="IPasswordGenerator" />.
         /// </returns>
         public SecureString Generate()
         {
             return Generate(512);
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Genera una contraseña utilizando este generador.
         /// </summary>
@@ -57,7 +54,7 @@ namespace TheXDS.MCART.Security.Password
         /// </paramref>
         /// <returns>
         /// Una contraseña generada por este
-        /// <see cref="T:TheXDS.MCART.Security.Password.IPasswordGenerator" />.
+        /// <see cref="IPasswordGenerator" />.
         /// </returns>
         public SecureString Generate(int length)
         {

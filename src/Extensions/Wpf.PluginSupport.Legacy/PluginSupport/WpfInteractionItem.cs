@@ -30,12 +30,8 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Media.Imaging;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
-// ReSharper disable UnusedMember.Global
-// ReSharper disable MemberCanBePrivate.Global
-
 namespace TheXDS.MCART.PluginSupport.Legacy
 {
-    /// <inheritdoc />
     /// <summary>
     /// Esta clase define a un elemento de interacción.
     /// </summary>
@@ -49,7 +45,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// Si no se ha establecido un ícono, se devuelve <see langword="null"/>.
         /// </returns>
         public readonly BitmapSource Icon;
-        /// <inheritdoc />
+
         /// <summary>
         /// Crea una nueva entrada de interacción con el delegado
         /// <see cref="EventHandler" /> especificado.
@@ -66,11 +62,12 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// <see cref="BitmapSource" /> con el ícono para este 
         /// <see cref="InteractionItem" />.
         /// </param>
-        public WpfInteractionItem(EventHandler action, string text, string description, BitmapSource icon)
+        public WpfInteractionItem(EventHandler action, string text, string? description, BitmapSource icon)
             : base(action, text, description)
         {
             Icon = icon;
         }
+
         /// <summary>
         /// Crea una nueva entrada de interacción con el delegado 
         /// <see cref="EventHandler"/> especificado.
@@ -88,6 +85,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
             : this(action, text, action.GetAttr<DescriptionAttribute>()?.Value, icon)
         {
         }
+
         /// <summary>
         /// Crea una nueva entrada de interacción con el delegado 
         /// <see cref="EventHandler"/> especificado.

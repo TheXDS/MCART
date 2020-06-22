@@ -27,13 +27,11 @@ using TheXDS.MCART.Exceptions;
 
 namespace TheXDS.MCART.Networking.Legacy.Client
 {
-    /// <inheritdoc />
     /// <summary>
     /// Clase base para los protocolos cliente que pueden escuchar al servidor de forma pasiva.
     /// </summary>
     public abstract class PassiveClient : ClientBase
     {
-        /// <inheritdoc />
         /// <summary>
         /// Este método se invalida para implementar
         /// <see cref="ClientBase"/> correctamente.

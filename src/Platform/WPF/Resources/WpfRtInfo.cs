@@ -22,11 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System.Windows;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Component;
 using TheXDS.MCART.Dialogs;
 
 [assembly: McartComponent(TheXDS.MCART.Resources.RtInfo.ComponentKind.PlatformTarget)]
@@ -59,7 +56,6 @@ namespace TheXDS.MCART.Resources
             AboutBox.ShowDialog(new WpfRtInfo());
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="WpfRtInfo" />.

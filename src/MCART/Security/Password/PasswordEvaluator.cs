@@ -1,5 +1,5 @@
 ﻿/*
-PwEvaluator.cs
+PasswordEvaluator.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -34,13 +34,11 @@ using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Security.Password
 {
-    /// <inheritdoc />
     /// <summary>
     /// Define un evaluador de contraseñas. Esta clase no puede heredarse.
     /// </summary>
     public sealed class PasswordEvaluator : IPasswordEvaluator
     {
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene un <see cref="List{T}" /> con las reglas de
         /// evaluación activas en este objeto.
@@ -48,7 +46,6 @@ namespace TheXDS.MCART.Security.Password
         /// <value>Reglas de evaluación a incluir.</value>
         public HashSet<PasswordEvaluationRule> Rules { get; }
 
-        /// <inheritdoc />
         /// <summary>
         /// Evalúa la contraseña
         /// </summary>
@@ -84,7 +81,6 @@ namespace TheXDS.MCART.Security.Password
             Rules = new HashSet<PasswordEvaluationRule>(evalRules!.NotNull());
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="T:TheXDS.MCART.Security.Password.PasswordEvaluator" />.

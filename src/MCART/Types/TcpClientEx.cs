@@ -27,7 +27,6 @@ using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Types
 {
-    /// <inheritdoc cref="TcpClient" />
     /// <summary>
     /// Extensión de la clase <see cref="TcpClient" />
     /// que implementa observación del estado de deshecho del objeto.
@@ -40,7 +39,6 @@ namespace TheXDS.MCART.Types
         /// </summary>
         public bool IsDisposed { get; private set; }
 
-        /// <inheritdoc />
         /// <summary>
         /// Libera los recursos no administrados que usa
         /// <see cref="TcpClient" /> y libera los

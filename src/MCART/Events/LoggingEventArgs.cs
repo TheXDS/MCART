@@ -24,14 +24,12 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 namespace TheXDS.MCART.Events
 {
-    /// <inheritdoc />
     /// <summary>
     /// Incluye información de evento para cualquier clase con eventos de
     /// logging (bitácora).
     /// </summary>
     public class LoggingEventArgs : ValueEventArgs<string>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="LoggingEventArgs" />, sin definir un objeto relacionado.
@@ -41,7 +39,6 @@ namespace TheXDS.MCART.Events
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="LoggingEventArgs" />, definiendo un objeto relacionado.

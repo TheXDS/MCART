@@ -31,7 +31,6 @@ using TheXDS.MCART.PluginSupport.Legacy;
 
 namespace TheXDS.MCART.Dialogs
 {
-    /// <inheritdoc cref="Window"/>
     /// <summary>
     /// Diálogo que permite mostrar información acerca de los
     /// <see cref="Plugin" /> cargables por MCART.
@@ -40,7 +39,6 @@ namespace TheXDS.MCART.Dialogs
     {
         private PluginBrowserViewModel Vm => DataContext as PluginBrowserViewModel;
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="T:TheXDS.MCART.Dialogs.PluginBrowser" />.
@@ -51,7 +49,6 @@ namespace TheXDS.MCART.Dialogs
             DataContext = new PluginBrowserViewModel();
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="T:TheXDS.MCART.Dialogs.PluginBrowser" />.

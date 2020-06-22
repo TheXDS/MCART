@@ -24,7 +24,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 namespace TheXDS.MCART.Types.Converters
 {
-    /// <inheritdoc />
     /// <summary>
     /// Permite realizar la conversión entre tipos
     /// <see cref="string" /> y

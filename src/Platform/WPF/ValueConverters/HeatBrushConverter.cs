@@ -1,5 +1,5 @@
 ﻿/*
-ValueConverters.cs
+HeatBrushConverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,25 +22,23 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
+using System.Drawing;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 using TheXDS.MCART.Types.Extensions;
-using static TheXDS.MCART.Math.Common;
-using System.Drawing;
 using TheXDS.MCART.ValueConverters.Base;
-using System;
+using static TheXDS.MCART.Math.Common;
 
 namespace TheXDS.MCART.ValueConverters
 {
-    /// <inheritdoc cref="FloatConverterBase"/>
     /// <summary>
-    /// Obtiene un <see cref="Brush" /> correspondiente a la salud expresada
+    /// Obtiene un <see cref="System.Windows.Media.Brush" /> correspondiente a la salud expresada
     /// com porcentaje.
     /// </summary>
     public sealed class HeatBrushConverter : FloatConverterBase, IValueConverter
     {
-        /// <inheritdoc />
         /// <summary>Convierte un valor.</summary>
         /// <param name="value">
         ///   Valor generado por el origen de enlace.
@@ -60,10 +58,9 @@ namespace TheXDS.MCART.ValueConverters
         /// </returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return TheXDS.MCART.Types.Color.BlendHeat(GetFloat(value).Clamp(0f, 1f)).Brush();
+            return Types.Color.BlendHeat(GetFloat(value).Clamp(0f, 1f)).Brush();
         }
 
-        /// <inheritdoc />
         /// <summary>Convierte un valor.</summary>
         /// <param name="value">
         ///   Valor generado por el destino de enlace.

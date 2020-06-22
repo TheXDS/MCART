@@ -345,7 +345,6 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         }
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Representa un cliente que requiere datos de estado asociados que se ha
     /// conectado al servidor.
@@ -361,7 +360,6 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// </summary>
         public T ClientData { get; set; } = default!;
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="Client{T}" />.
         /// </summary>

@@ -29,14 +29,12 @@ using TheXDS.MCART.Annotations;
 
 namespace TheXDS.MCART.Types.Base
 {
-    /// <inheritdoc cref="INotifyPropertyChanged"/>
     /// <summary>
     /// Clase base para los objetos que puedan notificar sobre el cambio
     /// del valor de una de sus propiedades.
     /// </summary>
     public abstract class NotifyPropertyChanged : NotifyPropertyChangeBase, INotifyPropertyChanged
     {
-        /// <inheritdoc />
         /// <summary>
         /// Ocurre cuando el valor de una propiedad ha cambiado.
         /// </summary>

@@ -1,5 +1,5 @@
 ﻿/*
-AboutPageViewModel.cs
+PasswordDialogViewModel.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -26,7 +26,6 @@ using TheXDS.MCART.ViewModel;
 
 namespace TheXDS.MCART.Dialogs.ViewModel
 {
-    /// <inheritdoc />
     /// <summary>
     /// ViewModel para la gestión de contraseñas y credenciales.
     /// </summary>

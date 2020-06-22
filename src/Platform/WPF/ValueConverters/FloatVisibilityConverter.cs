@@ -1,5 +1,5 @@
 ﻿/*
-ValueConverters.cs
+FloatVisibilityConverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,14 +22,13 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Globalization;
-using System.Windows.Data;
 using System;
+using System.Globalization;
 using System.Windows;
+using System.Windows.Data;
 
 namespace TheXDS.MCART.ValueConverters
 {
-    /// <inheritdoc />
     /// <summary>
     /// Convierte un valor <see cref="float" /> a <see cref="Visibility" />.
     /// </summary>
@@ -47,7 +46,6 @@ namespace TheXDS.MCART.ValueConverters
         /// </summary>
         public Visibility ZeroOrNegatives { get; set; }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="FloatVisibilityConverter" />.
@@ -56,7 +54,6 @@ namespace TheXDS.MCART.ValueConverters
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="FloatVisibilityConverter" />.
@@ -84,7 +81,6 @@ namespace TheXDS.MCART.ValueConverters
             ZeroOrNegatives = zeroOrNegatives;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene un <see cref="Visibility" /> a partir del valor.
         /// </summary>
@@ -107,7 +103,6 @@ namespace TheXDS.MCART.ValueConverters
             throw new InvalidCastException();
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Infiere un valor basado en el <see cref="Visibility" /> provisto.
         /// </summary>

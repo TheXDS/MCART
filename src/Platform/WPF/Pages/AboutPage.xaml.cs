@@ -23,17 +23,11 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System.Reflection;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
 using TheXDS.MCART.Component;
-using TheXDS.MCART.Dialogs;
 using TheXDS.MCART.Dialogs.ViewModel;
-using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Pages
 {
-    /// <inheritdoc cref="Page"/>
     /// <summary>
     /// Lógica de interacción para AboutPage.xaml
     /// </summary>
@@ -41,10 +35,9 @@ namespace TheXDS.MCART.Pages
     {
         private AboutPageViewModel Vm => (AboutPageViewModel)DataContext;
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
-        /// <see cref="T:TheXDS.MCART.Pages.AboutPage" />.
+        /// <see cref="AboutPage" />.
         /// </summary>
         public AboutPage()
         {
@@ -52,10 +45,9 @@ namespace TheXDS.MCART.Pages
             DataContext = new AboutPageViewModel();
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
-        /// <see cref="T:TheXDS.MCART.Pages.AboutPage" />.
+        /// <see cref="AboutPage" />.
         /// </summary>
         /// <param name="element">Ensamblado del cual se desea mostrar la
         /// información.
@@ -64,7 +56,6 @@ namespace TheXDS.MCART.Pages
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="T:TheXDS.MCART.Pages.AboutPage" />.

@@ -127,7 +127,6 @@ namespace TheXDS.MCART.Resources
             return c.GetCompressor(_assembly?.GetManifestResourceStream($"{_path}.{id}{c.Extension}") ?? throw new InvalidDataException());
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene un recurso identificable.
         /// </summary>
@@ -135,7 +134,6 @@ namespace TheXDS.MCART.Resources
         /// <returns>Un recurso de tipo <typeparamref name="T" />.</returns>
         public abstract T Unpack(string id);
 
-        /// <inheritdoc />
         /// <summary>
         /// Extrae un recurso comprimido utilizando el compresor con el
         /// identificador especificado.
@@ -149,7 +147,6 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public abstract T Unpack(string id, string compressorId);
 
-        /// <inheritdoc />
         /// <summary>
         /// Extrae un recurso comprimido utilizando el compresor con el
         /// identificador especificado.

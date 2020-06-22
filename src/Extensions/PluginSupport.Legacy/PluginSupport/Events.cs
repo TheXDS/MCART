@@ -29,10 +29,9 @@ using System.ComponentModel;
 
 namespace TheXDS.MCART.PluginSupport.Legacy
 {
-    /// <inheritdoc />
     /// <summary>
     /// Incluye información adicional del evento 
-    /// <see cref="E:TheXDS.MCART.PluginSupport.IPlugin.PluginFinalizing" />.
+    /// <see cref="IPlugin.PluginFinalizing" />.
     /// </summary>
     [Serializable]
     public sealed class PluginFinalizingEventArgs : CancelEventArgs
@@ -46,31 +45,35 @@ namespace TheXDS.MCART.PluginSupport.Legacy
             /// Cierre normal.
             /// </summary>
             Shutdown,
+
             /// <summary>
             /// Cierre debido a un error.
             /// </summary>
             Error,
+
             /// <summary>
             /// Cierre por liberación de recursos.
             /// </summary>
             Disposal,
+
             /// <summary>
             /// La aplicación se está cerrando.
             /// </summary>
             AppClosing
         }
+
         /// <summary>
         /// Indica la razón por la cual se está finalizando el 
         /// <see cref="IPlugin"/>.
         /// </summary>
         public FinalizingReason Reason { get; }
-        /// <inheritdoc />
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="PluginFinalizingEventArgs" />.
         /// </summary>
         internal PluginFinalizingEventArgs() : this(FinalizingReason.Shutdown) { }
-        /// <inheritdoc />
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="PluginFinalizingEventArgs" />.
@@ -80,7 +83,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// </param>
         internal PluginFinalizingEventArgs(FinalizingReason reason) { Reason = reason; }
     }
-    /// <inheritdoc />
+
     /// <summary>
     /// Incluye información adicional del evento 
     /// <see cref="E:TheXDS.MCART.PluginSupport.IPlugin.UiChanged" />
@@ -92,7 +95,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// solicitado.
         /// </summary>
         public ReadOnlyCollection<InteractionItem> NewUi { get; }
-        /// <inheritdoc />
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="UiChangedEventArgs" />.

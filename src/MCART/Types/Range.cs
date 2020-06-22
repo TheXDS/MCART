@@ -79,14 +79,12 @@ namespace TheXDS.MCART.Types
         /// </summary>
         public bool MaxInclusive { get; set; }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la estructura <see cref="Range{T}" />
         /// </summary>
         /// <param name="maximum">Valor máximo del rango, inclusive.</param>
         public Range(T maximum) : this(default!, maximum, true, true) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la estructura <see cref="Range{T}" />
         /// </summary>
@@ -94,7 +92,6 @@ namespace TheXDS.MCART.Types
         /// <param name="maximum">Valor máximo del rango, inclusive.</param>
         public Range(T minimum, T maximum) : this(minimum, maximum, true, true) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la estructura
         /// <see cref="Range{T}" />
@@ -108,7 +105,6 @@ namespace TheXDS.MCART.Types
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la estructura
         /// <see cref="Range{T}" />

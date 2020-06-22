@@ -45,8 +45,6 @@ namespace TheXDS.MCART.Tests.Modules
         public void TestB() { }
     }
 
-
-
     public class ReflectionHelpersTests
     {
         [Fact]

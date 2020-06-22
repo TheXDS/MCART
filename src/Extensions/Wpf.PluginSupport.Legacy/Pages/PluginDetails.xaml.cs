@@ -29,13 +29,11 @@ using System.Windows.Input;
 
 namespace TheXDS.MCART.Pages
 {
-    /// <inheritdoc cref="Page"/>
     /// <summary>
     /// Página de detalles de plugins.
     /// </summary>
     public partial class PluginDetails
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="T:TheXDS.MCART.Pages.PluginDetails" />.

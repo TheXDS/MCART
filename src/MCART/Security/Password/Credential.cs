@@ -26,7 +26,6 @@ using System.Security;
 
 namespace TheXDS.MCART.Security.Password
 {
-    /// <inheritdoc cref="ICredential"/>
     /// <summary>
     /// Estructura básica que representa una credencial de inicio de
     /// sesión.
@@ -68,17 +67,14 @@ namespace TheXDS.MCART.Security.Password
             Password = password;
         }
 
-        /// <inheritdoc />
         /// <summary>
-        /// Obtiene el nombre de usuario de este <see cref="T:TheXDS.MCART.Security.Password.ICredential" />
+        /// Obtiene el nombre de usuario de este <see cref="ICredential" />
         /// </summary>
         public string? Username { get; }
 
-        /// <inheritdoc />
         /// <summary>
-        /// Obtiene la contraseña asociada a este <see cref="T:TheXDS.MCART.Security.Password.ICredential" />.
+        /// Obtiene la contraseña asociada a este <see cref="ICredential" />.
         /// </summary>
         public SecureString Password { get; }
-
     }
 }

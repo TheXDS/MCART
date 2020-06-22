@@ -79,7 +79,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
 		/// <see cref="EventHandler"/> que se utilizará para controlar la 
         /// activación de este <see cref="InteractionItem"/>.
 		/// </param>
-        public InteractionItem(EventHandler action, string text, string description)
+        public InteractionItem(EventHandler action, string text, string? description)
         {
             Action = action ?? throw new ArgumentNullException(nameof(action));
             Text = text ?? action.Method.Name;

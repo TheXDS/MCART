@@ -28,14 +28,12 @@ using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Exceptions
 {
-    /// <inheritdoc />
     /// <summary>
     /// Excepción que se produce cuando la conexión se encontraba cerrada al intentar enviar o recibir datos
     /// </summary>
     [Serializable]
     public class ConnectionClosedException : Exception
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ConnectionClosedException" />.
@@ -50,7 +48,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="ConnectionClosedException" />.
         /// </summary>
@@ -58,7 +55,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="ConnectionClosedException" />.
         /// </summary>
@@ -67,7 +63,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="ConnectionClosedException" />.
         /// </summary>
@@ -76,7 +71,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="ConnectionClosedException" />.
         /// </summary>

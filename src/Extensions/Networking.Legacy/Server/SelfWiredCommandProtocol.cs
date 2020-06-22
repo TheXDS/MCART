@@ -33,7 +33,6 @@ using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Networking.Legacy.Server
 {
-    /// <inheritdoc />
     /// <summary>
     /// Clase base para crear protocolos simples con bytes de comandos.
     /// </summary>
@@ -261,7 +260,6 @@ namespace TheXDS.MCART.Networking.Legacy.Server
             return (TCommand) Enum.ToObject(typeof(TCommand), _readCmd.Invoke(br, Array.Empty<object>())!);
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Protocolo de atención al cliente
         /// </summary>

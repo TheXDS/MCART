@@ -33,7 +33,6 @@ using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Types
 {
-    /// <inheritdoc cref="List{T}" />
     /// <summary>
     /// Extensión observable de la clase 
     /// <see cref="List{T}" />. Provee de toda la
@@ -112,14 +111,12 @@ namespace TheXDS.MCART.Types
         /// </summary>
         public event EventHandler<ListUpdatedEventArgs<T>>? ListUpdated;
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="ListEx{T}" />.
         /// </summary>
         public ListEx() { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ListEx{T}" />.

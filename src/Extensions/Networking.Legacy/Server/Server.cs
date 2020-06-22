@@ -39,7 +39,6 @@ using static TheXDS.MCART.Networking.Legacy.Common;
 
 namespace TheXDS.MCART.Networking.Legacy.Server
 {
-    /// <inheritdoc />
     /// <summary>
     /// Controla conexiones entrantes y ejecuta protocolos sobre los clientes
     /// que se conecten al servidor.
@@ -430,7 +429,6 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="Server" />.
         /// </summary>

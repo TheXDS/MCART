@@ -35,7 +35,6 @@ namespace TheXDS.MCART.ViewModel
     {
         private readonly Action<object?> _action;
 
-        /// <inheritdoc />
         /// <summary>
         /// Se produce cuando hay cambios que influyen en si el comando
         /// debería ejecutarse o no.
@@ -54,7 +53,6 @@ namespace TheXDS.MCART.ViewModel
             _action = action ?? throw new ArgumentNullException(nameof(action));
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Define el método que determina si el comando puede ejecutarse
         /// en su estado actual.
@@ -70,7 +68,6 @@ namespace TheXDS.MCART.ViewModel
         /// </returns>
         public abstract bool CanExecute(object? parameter);
 
-        /// <inheritdoc />
         /// <summary>
         /// Define el método que determina si el comando puede ejecutarse
         /// en su estado actual.

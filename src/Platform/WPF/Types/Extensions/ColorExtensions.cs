@@ -75,7 +75,6 @@ namespace TheXDS.MCART.Types.Extensions
                 c.Color.ScA.Clamp(0.0f, 1.0f));
         }
 
-
         /// <summary>
         /// Convierte una estructura <see cref="C"/> en un
         /// <see cref="B"/>.

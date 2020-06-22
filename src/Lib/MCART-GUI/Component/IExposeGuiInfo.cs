@@ -24,7 +24,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 namespace TheXDS.MCART.Component
 {
-    /// <inheritdoc />
     /// <summary>
     /// Extensión de la interfaz <see cref="IExposeInfo" /> que permite establecer un ícono.
     /// </summary>

@@ -1,5 +1,5 @@
 ﻿/*
-ValueConverters.cs
+HealthBrushConverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,24 +22,22 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 using TheXDS.MCART.Types.Extensions;
-using static TheXDS.MCART.Math.Common;
 using TheXDS.MCART.ValueConverters.Base;
-using System;
+using static TheXDS.MCART.Math.Common;
 
 namespace TheXDS.MCART.ValueConverters
 {
-    /// <inheritdoc cref="FloatConverterBase"/>
     /// <summary>
     /// Obtiene un <see cref="Brush" /> correspondiente a la salud expresada
     /// com porcentaje.
     /// </summary>
     public sealed class HealthBrushConverter : FloatConverterBase, IValueConverter
     {
-        /// <inheritdoc />
         /// <summary>Convierte un valor.</summary>
         /// <param name="value">
         ///   Valor generado por el origen de enlace.
@@ -62,7 +60,6 @@ namespace TheXDS.MCART.ValueConverters
             return Types.Color.BlendHealth(GetFloat(value).Clamp(0f, 1f)).Brush();
         }
 
-        /// <inheritdoc />
         /// <summary>Convierte un valor.</summary>
         /// <param name="value">
         ///   Valor generado por el destino de enlace.

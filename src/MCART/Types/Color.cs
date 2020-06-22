@@ -524,7 +524,6 @@ namespace TheXDS.MCART.Types
 #endif
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Determina si el <see cref="Color" /> especificado es igual al
         /// <see cref="Color" /> actual.
@@ -567,7 +566,6 @@ namespace TheXDS.MCART.Types
             };
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Compara este <see cref="Color" /> contra otro.
         /// </summary>
@@ -599,7 +597,7 @@ namespace TheXDS.MCART.Types
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return HashCode.Combine(_r, _g, _b, _a);
         }
 
         /// <summary>

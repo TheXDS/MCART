@@ -226,7 +226,7 @@ namespace TheXDS.MCART.Types.Extensions
                 }
                 else
                 {
-                    l[l.Count - 1] += l[l.Count - 1].IsEmpty() ? j : $" {j}";
+                    l[^1] += l[^1].IsEmpty() ? j : $" {j}";
                 }
             }
             return l.ToArray();
@@ -628,7 +628,6 @@ namespace TheXDS.MCART.Types.Extensions
                             lastCheckedTailIndex = i;
                             break;
                         }
-
 
                     //Create a reverse word and filter for searching in reverse. The reversed word and filter do not include already checked chars
                     reversedWord = new char[word.Length - lastCheckedHeadIndex - lastCheckedTailIndex];

@@ -23,13 +23,13 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
+using TheXDS.MCART.Math;
+using TheXDS.MCART.Misc;
+using TheXDS.MCART.Types.Base;
+using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using CI = System.Globalization.CultureInfo;
 using St = TheXDS.MCART.Resources.Strings;
-using static TheXDS.MCART.Types.Extensions.StringExtensions;
-using TheXDS.MCART.Math;
-using TheXDS.MCART.Types.Base;
-using TheXDS.MCART.Misc;
-using System.Diagnostics.CodeAnalysis;
 
 namespace TheXDS.MCART.Types
 {
@@ -470,7 +470,6 @@ namespace TheXDS.MCART.Types
             return System.Math.Sqrt(x * x + y * y + z * z);
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Convierte este objeto en su representación como una cadena.
         /// </summary>
@@ -519,7 +518,7 @@ namespace TheXDS.MCART.Types
         /// <returns>El código Hash de esta instancia.</returns>
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return HashCode.Combine(X, Y, Z);
         }
 
         /// <summary>

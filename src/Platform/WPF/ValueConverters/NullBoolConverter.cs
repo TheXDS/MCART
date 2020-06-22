@@ -1,5 +1,5 @@
 ﻿/*
-ValueConverters.cs
+NullBoolConverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,13 +22,12 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Globalization;
 using System.Windows.Data;
-using System;
 
 namespace TheXDS.MCART.ValueConverters
 {
-    /// <inheritdoc />
     /// <summary>
     /// Clase base para crear convertidores de valores booleanos que pueden ser
     /// <see langword="null" />.
@@ -83,7 +82,6 @@ namespace TheXDS.MCART.ValueConverters
             Null = nullValue;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Convierte un valor a <see cref="Nullable{T}" />.
         /// </summary>
@@ -96,11 +94,11 @@ namespace TheXDS.MCART.ValueConverters
         /// <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
-        /// <see cref="P:System.Windows.Converters.NullBoolConverter`1.True" /> si <paramref name="value" /> es
+        /// <see cref="NullBoolConverter{T}.True" /> si <paramref name="value" /> es
         /// <see langword="true" />,
-        /// <see cref="P:System.Windows.Converters.NullBoolConverter`1.False" /> si <paramref name="value" /> es
+        /// <see cref="NullBoolConverter{T}.False" /> si <paramref name="value" /> es
         /// <see langword="false" />,
-        /// <see cref="P:System.Windows.Converters.NullBoolConverter`1.Null" /> si <paramref name="value" /> es
+        /// <see cref="NullBoolConverter{T}.Null" /> si <paramref name="value" /> es
         /// <see langword="null" />.
         /// </returns>
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -113,7 +111,6 @@ namespace TheXDS.MCART.ValueConverters
             };
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Convierte un <see cref="bool" /> al tipo establecido para este
         /// <see cref="BooleanConverter{T}" />.
@@ -128,11 +125,11 @@ namespace TheXDS.MCART.ValueConverters
         /// </param>
         /// <returns>
         /// <see langword="true" /> si <paramref name="value" /> es
-        /// <see cref="P:System.Windows.Converters.NullBoolConverter`1.True" />,
+        /// <see cref="NullBoolConverter{T}.True" />,
         /// <see langword="false" /> si <paramref name="value" /> es
-        /// <see cref="P:System.Windows.Converters.NullBoolConverter`1.False" />,
+        /// <see cref="NullBoolConverter{T}.False" />,
         /// <see langword="null" /> si <paramref name="value" /> es
-        /// <see cref="P:System.Windows.Converters.NullBoolConverter`1.Null" />.
+        /// <see cref="NullBoolConverter{T}.Null" />.
         /// </returns>
         public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {

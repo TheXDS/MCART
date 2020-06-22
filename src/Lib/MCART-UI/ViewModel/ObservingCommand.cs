@@ -29,12 +29,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
 namespace TheXDS.MCART.ViewModel
 {
-    /// <inheritdoc />
     /// <summary>
     /// Describe un comando que observa a un objeto que implemente
     /// <see cref="INotifyPropertyChanged" /> y
@@ -47,7 +45,6 @@ namespace TheXDS.MCART.ViewModel
         private Func<object?, bool>? _canExecute;
         private readonly HashSet<string> _properties;
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ObservingCommand" />.
@@ -56,7 +53,6 @@ namespace TheXDS.MCART.ViewModel
         /// <param name="action">Acción a ejecutar.</param>
         public ObservingCommand(INotifyPropertyChanged observedSource, Action action) : this(observedSource, action, (Func<object?, bool>?)null, (IEnumerable<string>?)null) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ObservingCommand" />.
@@ -73,7 +69,6 @@ namespace TheXDS.MCART.ViewModel
         public ObservingCommand(INotifyPropertyChanged observedSource, Action action, Func<object?, bool>? canExecute, params string[] propsToListen)
             : this(observedSource, _ => action(), canExecute, propsToListen.AsEnumerable()) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ObservingCommand" />.
@@ -90,7 +85,6 @@ namespace TheXDS.MCART.ViewModel
         public ObservingCommand(INotifyPropertyChanged observedSource, Action action, Func<bool>? canExecute, params string[] propsToListen)
             : this(observedSource, _ => action(), canExecute, propsToListen.AsEnumerable()) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ObservingCommand" />.
@@ -107,7 +101,6 @@ namespace TheXDS.MCART.ViewModel
         public ObservingCommand(INotifyPropertyChanged observedSource, Action action, Func<bool>? canExecute, IEnumerable<string>? propsToListen)
             : this(observedSource, _ => action(), canExecute, propsToListen) { }
        
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ObservingCommand" />.
@@ -124,7 +117,6 @@ namespace TheXDS.MCART.ViewModel
         public ObservingCommand(INotifyPropertyChanged observedSource, Action action, Func<object?, bool>? canExecute, IEnumerable<string>? propsToListen)
             : this(observedSource, _ => action(), canExecute, propsToListen) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ObservingCommand" />.
@@ -141,7 +133,6 @@ namespace TheXDS.MCART.ViewModel
         public ObservingCommand(INotifyPropertyChanged observedSource, Action action, Func<object?, bool>? canExecute, params Expression<Func<object?>>[] propsToListen)
             : this(observedSource, _ => action(), canExecute, propsToListen.AsEnumerable()) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ObservingCommand" />.
@@ -158,7 +149,6 @@ namespace TheXDS.MCART.ViewModel
         public ObservingCommand(INotifyPropertyChanged observedSource, Action action, Func<bool> canExecute, params Expression<Func<object?>>[] propsToListen) 
             : this(observedSource, _ => action(), _=> canExecute(), propsToListen.AsEnumerable()) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ObservingCommand" />.
@@ -175,7 +165,6 @@ namespace TheXDS.MCART.ViewModel
         public ObservingCommand(INotifyPropertyChanged observedSource, Action action, Func<bool> canExecute, IEnumerable<Expression<Func<object?>>>? propsToListen)
             : this(observedSource, _ => action(), _ => canExecute(), propsToListen) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ObservingCommand" />.
@@ -192,7 +181,6 @@ namespace TheXDS.MCART.ViewModel
         public ObservingCommand(INotifyPropertyChanged observedSource, Action action, Func<object?, bool>? canExecute, IEnumerable<Expression<Func<object?>>>? propsToListen)
             : this(observedSource, _ => action(), canExecute, propsToListen) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ObservingCommand" />.
@@ -201,7 +189,6 @@ namespace TheXDS.MCART.ViewModel
         /// <param name="task">Tarea a ejecutar.</param>
         public ObservingCommand(INotifyPropertyChanged observedSource, Task task) : this(observedSource, _ => task.GetAwaiter().GetResult()) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ObservingCommand" />.
@@ -218,7 +205,6 @@ namespace TheXDS.MCART.ViewModel
         public ObservingCommand(INotifyPropertyChanged observedSource, Task task, Func<object?, bool>? canExecute, params string[] propsToListen)
             : this(observedSource, _ => task.GetAwaiter().GetResult(), canExecute, propsToListen.AsEnumerable()) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ObservingCommand" />.
@@ -235,7 +221,6 @@ namespace TheXDS.MCART.ViewModel
         public ObservingCommand(INotifyPropertyChanged observedSource, Task task, Func<bool>? canExecute, params string[] propsToListen)
             : this(observedSource, _ => task.GetAwaiter().GetResult(), canExecute, propsToListen.AsEnumerable()) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ObservingCommand" />.
@@ -252,7 +237,6 @@ namespace TheXDS.MCART.ViewModel
         public ObservingCommand(INotifyPropertyChanged observedSource, Task task, Func<bool>? canExecute, IEnumerable<string>? propsToListen)
             : this(observedSource, _ => task.GetAwaiter().GetResult(), canExecute, propsToListen) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ObservingCommand" />.
@@ -269,7 +253,6 @@ namespace TheXDS.MCART.ViewModel
         public ObservingCommand(INotifyPropertyChanged observedSource, Task task, Func<object?, bool>? canExecute, IEnumerable<string>? propsToListen)
             : this(observedSource, _ => task.GetAwaiter().GetResult(), canExecute, propsToListen) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ObservingCommand" />.
@@ -286,7 +269,6 @@ namespace TheXDS.MCART.ViewModel
         public ObservingCommand(INotifyPropertyChanged observedSource, Task task, Func<object?, bool>? canExecute, params Expression<Func<object?>>[] propsToListen)
             : this(observedSource, _ => task.GetAwaiter().GetResult(), canExecute, propsToListen.AsEnumerable()) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ObservingCommand" />.
@@ -303,7 +285,6 @@ namespace TheXDS.MCART.ViewModel
         public ObservingCommand(INotifyPropertyChanged observedSource, Task task, Func<bool> canExecute, params Expression<Func<object?>>[] propsToListen)
             : this(observedSource, _ => task.GetAwaiter().GetResult(), _ => canExecute(), propsToListen.AsEnumerable()) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ObservingCommand" />.
@@ -320,7 +301,6 @@ namespace TheXDS.MCART.ViewModel
         public ObservingCommand(INotifyPropertyChanged observedSource, Task task, Func<bool> canExecute, IEnumerable<Expression<Func<object?>>>? propsToListen)
             : this(observedSource, _ => task.GetAwaiter().GetResult(), _ => canExecute(), propsToListen) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ObservingCommand" />.
@@ -337,7 +317,6 @@ namespace TheXDS.MCART.ViewModel
         public ObservingCommand(INotifyPropertyChanged observedSource, Task task, Func<object?, bool>? canExecute, IEnumerable<Expression<Func<object?>>>? propsToListen)
             : this(observedSource, _ => task.GetAwaiter().GetResult(), canExecute, propsToListen) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ObservingCommand" />.
@@ -346,7 +325,6 @@ namespace TheXDS.MCART.ViewModel
         /// <param name="action">Acción a ejecutar.</param>
         public ObservingCommand(INotifyPropertyChanged observedSource, Action<object?> action) : this(observedSource, action, (Func<object?, bool>?)null, (IEnumerable<string>?)null) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ObservingCommand" />.
@@ -363,7 +341,6 @@ namespace TheXDS.MCART.ViewModel
         public ObservingCommand(INotifyPropertyChanged observedSource, Action<object?> action, Func<bool>? canExecute, params string[] propsToListen)
             : this(observedSource, action, _ => canExecute?.Invoke() ?? true, canExecute is null ? propsToListen?.AsEnumerable() : null) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ObservingCommand" />.
@@ -380,7 +357,6 @@ namespace TheXDS.MCART.ViewModel
         public ObservingCommand(INotifyPropertyChanged observedSource, Action<object?> action, Func<bool>? canExecute, IEnumerable<string>? propsToListen)
             : this(observedSource, action, _ => canExecute?.Invoke() ?? true, canExecute is null ? propsToListen : null) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ObservingCommand" />.
@@ -397,7 +373,6 @@ namespace TheXDS.MCART.ViewModel
         public ObservingCommand(INotifyPropertyChanged observedSource, Action<object?> action, Func<bool>? canExecute, params Expression<Func<object?>>[] propsToListen)
             : this(observedSource, action, _ => canExecute?.Invoke() ?? true, canExecute is null ? propsToListen?.AsEnumerable() : null) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ObservingCommand" />.
@@ -414,7 +389,6 @@ namespace TheXDS.MCART.ViewModel
         public ObservingCommand(INotifyPropertyChanged observedSource, Action<object?> action, Func<bool>? canExecute, IEnumerable<Expression<Func<object?>>>? propsToListen)
             : this(observedSource, action, _ => canExecute?.Invoke() ?? true, canExecute is null ? propsToListen : null) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ObservingCommand" />.
@@ -507,7 +481,6 @@ namespace TheXDS.MCART.ViewModel
         /// </summary>
         public IEnumerable<string> ObservedProperties => _properties;
 
-        /// <inheritdoc />
         /// <summary>
         /// Define el método que determina si el comando puede ejecutarse
         /// en su estado actual.

@@ -1,5 +1,5 @@
 ﻿/*
-ValueConverters.cs
+MinValueVisibilityConverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -26,13 +26,11 @@ using System.Windows;
 
 namespace TheXDS.MCART.ValueConverters
 {
-    /// <inheritdoc />
     /// <summary>
     /// Convierte un valor <see cref="double" /> en un <see cref="Visibility" />
     /// </summary>
     public sealed class MinValueVisibilityConverter : ThresholdConverter<double, Visibility>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="MinSizeVisibilityConverter" />.
         /// </summary>

@@ -27,7 +27,6 @@ using System.Windows.Controls.Primitives;
 
 namespace TheXDS.MCART.PluginSupport.Legacy
 {
-    /// <inheritdoc />
     /// <summary>
     /// Describe una serie de miembros a implementar por una clase que
     /// represente a un <see cref="IPlugin" /> con extensiones para Windows
@@ -44,6 +43,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// gráfica de la aplicación durante la ejecución.
         /// </returns>
         MenuItem UiMenu { get; }
+
         /// <summary>
         /// Convierte el <see cref="IPlugin.PluginInteractions"/> en un 
         /// <see cref="Panel"/>.

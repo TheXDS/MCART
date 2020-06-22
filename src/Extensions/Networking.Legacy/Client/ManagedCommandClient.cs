@@ -971,7 +971,6 @@ namespace TheXDS.MCART.Networking.Legacy.Client
             _responses.Add(command, action);
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Atiende una solicitud realizada por el servidor cuando no
         /// existe un método mapeado a la respuesta recibida.
@@ -988,7 +987,6 @@ namespace TheXDS.MCART.Networking.Legacy.Client
             /* No realizar ninguna acción. */
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicia la escucha activa del servidor.
         /// </summary>

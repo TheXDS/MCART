@@ -651,7 +651,6 @@ namespace TheXDS.MCART.Annotations
         WithMembers = Itself | Members
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// This attribute is intended to mark publicly available API
     /// which should not be removed and so is treated as used.
@@ -673,7 +672,6 @@ namespace TheXDS.MCART.Annotations
         }
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Tells code analysis engine if the parameter is completely handled when the invoked method is on stack.
     /// If the parameter is a delegate, indicates that delegate is executed while the method is executed.
@@ -684,7 +682,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Indicates that a method does not make any observable state changes.
     /// The same as <c>System.Diagnostics.Contracts.PureAttribute</c>.
@@ -702,7 +699,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Indicates that the return value of method invocation must be used.
     /// </summary>
@@ -723,7 +719,6 @@ namespace TheXDS.MCART.Annotations
         }
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Indicates the type member or parameter of some type, that should be used instead of all other ways
     /// to get the value that type. This annotation is useful when you have some "context" value evaluated
@@ -747,7 +742,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Indicates that a parameter is a path to a file or a folder within a web project.
     /// Path can be relative or absolute, starting from web root (~).
@@ -769,7 +763,6 @@ namespace TheXDS.MCART.Annotations
         }
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// An extension method marked with this attribute is processed by ReSharper code completion
     /// as a 'Source Template'. When extension method is completed over some expression, it's source code
@@ -798,7 +791,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Allows specifying a macro for a parameter of a
     /// <see cref="SourceTemplateAttribute">source template</see>.
@@ -923,7 +915,6 @@ namespace TheXDS.MCART.Annotations
         }
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// ASP.NET MVC attribute. If applied to a parameter, indicates that the parameter
     /// is an MVC action. If applied to a method, the MVC action name is calculated
@@ -947,7 +938,6 @@ namespace TheXDS.MCART.Annotations
         }
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// ASP.NET MVC attribute. Indicates that a parameter is an MVC area.
     /// Use this attribute for custom wrappers similar to
@@ -970,7 +960,6 @@ namespace TheXDS.MCART.Annotations
         }
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// ASP.NET MVC attribute. If applied to a parameter, indicates that the parameter is
     /// an MVC controller. If applied to a method, the MVC controller name is calculated
@@ -994,7 +983,6 @@ namespace TheXDS.MCART.Annotations
         }
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// ASP.NET MVC attribute. Indicates that a parameter is an MVC Master. Use this attribute
     /// for custom wrappers similar to <c>System.Web.Mvc.Controller.View(String, String)</c>.
@@ -1004,7 +992,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// ASP.NET MVC attribute. Indicates that a parameter is an MVC model type. Use this attribute
     /// for custom wrappers similar to <c>System.Web.Mvc.Controller.View(String, Object)</c>.
@@ -1014,7 +1001,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// ASP.NET MVC attribute. If applied to a parameter, indicates that the parameter is an MVC
     /// partial view. If applied to a method, the MVC partial view name is calculated implicitly
@@ -1026,7 +1012,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// ASP.NET MVC attribute. Allows disabling inspections for MVC views within a class or a method.
     /// </summary>
@@ -1035,7 +1020,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// ASP.NET MVC attribute. Indicates that a parameter is an MVC display template.
     /// Use this attribute for custom wrappers similar to
@@ -1046,7 +1030,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// ASP.NET MVC attribute. Indicates that a parameter is an MVC editor template.
     /// Use this attribute for custom wrappers similar to
@@ -1057,7 +1040,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// ASP.NET MVC attribute. Indicates that a parameter is an MVC template.
     /// Use this attribute for custom wrappers similar to
@@ -1068,7 +1050,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// ASP.NET MVC attribute. If applied to a parameter, indicates that the parameter
     /// is an MVC view component. If applied to a method, the MVC view name is calculated implicitly
@@ -1080,7 +1061,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// ASP.NET MVC attribute. If applied to a parameter, indicates that the parameter
     /// is an MVC view component name.
@@ -1090,7 +1070,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// ASP.NET MVC attribute. If applied to a parameter, indicates that the parameter
     /// is an MVC view component view. If applied to a method, the MVC view component view name is default.
@@ -1100,7 +1079,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// ASP.NET MVC attribute. When applied to a parameter of an attribute,
     /// indicates that this parameter is an MVC action name.
@@ -1169,7 +1147,6 @@ namespace TheXDS.MCART.Annotations
         }
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Razor attribute. Indicates that a parameter or a method is a Razor section.
     /// Use this attribute for custom wrappers similar to
@@ -1180,7 +1157,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Indicates how method, constructor invocation or property access
     /// over collection type affects content of the collection.
@@ -1225,7 +1201,6 @@ namespace TheXDS.MCART.Annotations
         UpdatedContent = ModifyExistingContent | 4
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Indicates that the marked method is assertion method, i.e. it halts control flow if
     /// one of the conditions is satisfied. To set the condition, mark one of the parameters with
@@ -1236,7 +1211,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Indicates the condition parameter of the assertion method. The method itself should be
     /// marked by <see cref="AssertionMethodAttribute" /> attribute. The mandatory argument of
@@ -1272,7 +1246,6 @@ namespace TheXDS.MCART.Annotations
         IS_NOT_NULL = 3
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Indicates that the marked method unconditionally terminates control flow execution.
     /// For example, it could unconditionally throw exception.
@@ -1283,7 +1256,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Indicates that method is pure LINQ method, with postponed enumeration (like Enumerable.Select,
     /// .Where). This annotation allows inference of [InstantHandle] annotation for parameters
@@ -1294,7 +1266,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Indicates that IEnumerable, passed as parameter, is not enumerated.
     /// </summary>
@@ -1303,7 +1274,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Indicates that parameter is regular expression pattern.
     /// </summary>
@@ -1312,7 +1282,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Prevents the Member Reordering feature from tossing members of the marked class.
     /// </summary>
@@ -1325,7 +1294,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// XAML attribute. Indicates the type that has <c>ItemsSource</c> property and should be treated
     /// as <c>ItemsControl</c>-derived type, to enable inner items <c>DataContext</c> type resolve.
@@ -1335,7 +1303,6 @@ namespace TheXDS.MCART.Annotations
     {
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// XAML attribute. Indicates the property of some <c>BindingBase</c>-derived type, that
     /// is used to bind some item of <c>ItemsControl</c>-derived type. This annotation will

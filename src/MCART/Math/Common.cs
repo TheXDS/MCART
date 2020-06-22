@@ -170,7 +170,6 @@ namespace TheXDS.MCART.Math
 
 #endif
 
-
 #if RatherDRY
         /// <summary>
         /// Establece puntos de sobreflujo intencional para evaluar una expresión.
@@ -244,7 +243,6 @@ namespace TheXDS.MCART.Math
             if (expression.CompareTo(min) < 0) return (expression + (1 + max - min)).Wrap(min, max);
             return expression;
         }
-
 
         /// <summary>
         /// Establece puntos de sobreflujo intencional para evaluar una expresión.

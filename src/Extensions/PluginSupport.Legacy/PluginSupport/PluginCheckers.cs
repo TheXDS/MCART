@@ -22,7 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Resources;
 using System;
@@ -36,7 +35,6 @@ namespace TheXDS.MCART.PluginSupport.Legacy
     /// </summary>
     public class StrictPluginChecker : PluginChecker
     {
-        /// <inheritdoc />
         /// <summary>
         /// Comprueba que el tipo cargado sea compatible con esta versión de
         /// MCART.
@@ -48,7 +46,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// posible comprobar la compatibilidad.
         /// </returns>
         public override bool? IsCompatible(Type type) => RtInfo.RtSupport(type);
-        /// <inheritdoc />
+
         /// <summary>
         /// Determina si un tipo es válido para ser cargado como un
         /// <see cref="IPlugin" />.
@@ -67,13 +65,12 @@ namespace TheXDS.MCART.PluginSupport.Legacy
                 || type.HasAttr<NotPluginAttribute>(out _));
         }
     }
-    /// <inheritdoc />
+
     /// <summary>
     /// <see cref="PluginChecker" /> con reglas de compatibilidad estándard.
     /// </summary>
     public class DefaultPluginChecker : StrictPluginChecker
     {
-        /// <inheritdoc />
         /// <summary>
         /// Comprueba que el tipo cargado sea compatible con esta versión de
         /// MCART.
@@ -86,13 +83,12 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// </returns>
         public override bool? IsCompatible(Type type) => base.IsCompatible(type) ?? true;
     }
-    /// <inheritdoc />
+
     /// <summary>
     /// <see cref="PluginChecker" /> con reglas de compatibilidad relajadas.
     /// </summary>
     public class RelaxedPluginChecker : PluginChecker
     {
-        /// <inheritdoc />
         /// <summary>
         /// Siempre devuelve <see langword="true" /> al comprobar la compatibilidad de un
         /// tipo con esta versión de MCART.
@@ -100,7 +96,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// <param name="type">Tipo a comprobar.</param>
         /// <returns>Esta función siempre devuelve <see langword="true" />.</returns>
         [Dangerous] public override bool? IsCompatible(Type type) => true;
-        /// <inheritdoc />
+
         /// <summary>
         /// Determina si un tipo es válido para ser cargado como un
         /// <see cref="IPlugin" />.
@@ -111,6 +107,5 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// </returns>
         /// <param name="type">Tipo a comprobar.</param>
         public override bool IsValid(Type type) => type.Implements<IPlugin>() && type.IsInstantiable((IEnumerable<Type>?)null);
-        //public override bool IsValid(Type type) => !(type.IsInterface || type.IsAbstract) && typeof(IPlugin).IsAssignableFrom(type);
     }
 }

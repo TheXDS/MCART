@@ -43,7 +43,6 @@ using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Controls
 {
-    /// <inheritdoc />
     /// <remarks>
     /// Este control es especialmente útil para controlar un objeto 
     /// <see cref="CollectionView" /> provisto por las conexiones de bases de 
@@ -54,6 +53,7 @@ namespace TheXDS.MCART.Controls
     public class NavigationBar : UserControl
     {
         #region ValueConverters privados para controles.
+
         class Editvalconv : IValueConverter
         {
             readonly NavigationBarEditMode _f;
@@ -80,9 +80,11 @@ namespace TheXDS.MCART.Controls
                 return (bool)value ? NavigationBarEditMode.All : NavigationBarEditMode.ReadOnly;
             }
         }
+
         #endregion
 
         #region Controles
+
         /// <summary>
         /// Anchura predeterminada de los botones.
         /// </summary>
@@ -187,7 +189,7 @@ namespace TheXDS.MCART.Controls
         /// <summary>
         /// Lista a ser controlada de manera opcional.
         /// </summary>
-        BindingListCollectionView _view = null;
+        BindingListCollectionView? _view = null;
 
         /// <summary>
         /// Lista de controles con Binding de datos a controlar.
@@ -349,8 +351,8 @@ namespace TheXDS.MCART.Controls
         /// <summary>
         /// Devuelve el <see cref="CollectionView"/> actualmente administrado por este control.
         /// </summary>
-        /// <returns>El <see cref="CollectionView"/> actualmente administrado por este control en caso de haberse establecido; de lo contrario, <c>Nothing</c></returns>
-        public CollectionView AttachedView => _view;
+        /// <returns>El <see cref="CollectionView"/> actualmente administrado por este control en caso de haberse establecido; de lo contrario, <see langword="null"/>.</returns>
+        public CollectionView? AttachedView => _view;
 
         /// <summary>
         /// Determina si este control administra el estado de otros controles
@@ -371,117 +373,117 @@ namespace TheXDS.MCART.Controls
         /// <summary>
         /// Se produce cuando se ha conectado a un <see cref="CollectionView"/>.
         /// </summary>
-        public event EventHandler<ValueEventArgs<CollectionView>> AttachedToView;
+        public event EventHandler<ValueEventArgs<CollectionView>>? AttachedToView;
 
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación al primer elemento.
         /// </summary>
-        public event EventHandler<DependencyPropertyChangingEventArgs> MovingToFirst;
+        public event EventHandler<DependencyPropertyChangingEventArgs>? MovingToFirst;
 
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación al elemento anterior.
         /// </summary>
-        public event EventHandler<DependencyPropertyChangingEventArgs> MovingToPrev;
+        public event EventHandler<DependencyPropertyChangingEventArgs>? MovingToPrev;
 
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación al elemento siguiente.
         /// </summary>
-        public event EventHandler<DependencyPropertyChangingEventArgs> MovingToNext;
+        public event EventHandler<DependencyPropertyChangingEventArgs>? MovingToNext;
 
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación al último elemento.
         /// </summary>
-        public event EventHandler<DependencyPropertyChangingEventArgs> MovingToLast;
+        public event EventHandler<DependencyPropertyChangingEventArgs>? MovingToLast;
 
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación a un elemento en particular.
         /// </summary>
-        public event EventHandler<DependencyPropertyChangingEventArgs> MovingToPosition;
+        public event EventHandler<DependencyPropertyChangingEventArgs>? MovingToPosition;
 
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación al primer elemento.
         /// </summary>
-        public event EventHandler<DependencyPropertyChangedEventArgs> MovedToFirst;
+        public event EventHandler<DependencyPropertyChangedEventArgs>? MovedToFirst;
 
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación al elemento anterior.
         /// </summary>
-        public event EventHandler<DependencyPropertyChangedEventArgs> MovedToPrev;
+        public event EventHandler<DependencyPropertyChangedEventArgs>? MovedToPrev;
 
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación al elemento siguiente.
         /// </summary>
-        public event EventHandler<DependencyPropertyChangedEventArgs> MovedToNext;
+        public event EventHandler<DependencyPropertyChangedEventArgs>? MovedToNext;
 
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación al último elemento.
         /// </summary>
-        public event EventHandler<DependencyPropertyChangedEventArgs> MovedToLast;
+        public event EventHandler<DependencyPropertyChangedEventArgs>? MovedToLast;
 
         /// <summary>
         /// Se produce cuando se ha solicitado la navegación a un elemento en particular.
         /// </summary>
-        public event EventHandler<DependencyPropertyChangedEventArgs> MovedToPosition;
+        public event EventHandler<DependencyPropertyChangedEventArgs>? MovedToPosition;
 
         /// <summary>
         /// Se produce cuando se ha introducido texto en el cuadro de búsqueda.
         /// </summary>
-        public event EventHandler<ValueEventArgs<string>> SearchEntered;
+        public event EventHandler<ValueEventArgs<string>>? SearchEntered;
 
         /// <summary>
         /// Se produce cuando se ha cerrado la búsqueda.
         /// </summary>
-        public event EventHandler SearchClosed;
+        public event EventHandler? SearchClosed;
 
         /// <summary>
         /// Se produce cuando se ha solicitado la creación de un elemento nuevo.
         /// </summary>
-        public event EventHandler<CancelEventArgs> CreatingNew;
+        public event EventHandler<CancelEventArgs>? CreatingNew;
 
         /// <summary>
         /// Se produce cuando se ha solicitado la edición del elemento actual.
         /// </summary>
-        public event EventHandler<CancelEventArgs> Editing;
+        public event EventHandler<CancelEventArgs>? Editing;
 
         /// <summary>
         /// Se produce cuando se ha solicitado la eliminación del elemento actual.
         /// </summary>
-        public event EventHandler<CancelEventArgs> Deleting;
+        public event EventHandler<CancelEventArgs>? Deleting;
 
         /// <summary>
         /// Se produce cuando se ha presionado el botón Guardar al editar o crear un nuevo elemento.
         /// </summary>
-        public event EventHandler<ItemCreatingEventArgs<object>> Saving;
+        public event EventHandler<ItemCreatingEventArgs<object>>? Saving;
 
         /// <summary>
         /// Se produce cuando se ha presionado el botón Cancelar al editar o crear un nuevo elemento.
         /// </summary>
-        public event EventHandler<CancelEventArgs> Cancelling;
+        public event EventHandler<CancelEventArgs>? Cancelling;
 
         /// <summary>
         /// Se produce cuando se ha creado un elemento nuevo.
         /// </summary>
-        public event EventHandler NewCreated;
+        public event EventHandler? NewCreated;
 
         /// <summary>
         /// Se produce cuando se ha entrado en modo de edición.
         /// </summary>
-        public event EventHandler EditEntered;
+        public event EventHandler? EditEntered;
 
         /// <summary>
         /// Se produce cuando se ha eliminado un elemento.
         /// </summary>
-        public event EventHandler ItemDeleted;
+        public event EventHandler? ItemDeleted;
 
         /// <summary>
         /// Se produce cuando se ha guardado un elemento
         /// </summary>
-        public event EventHandler<ItemCreatedEventArgs<object>> ItemSaved;
+        public event EventHandler<ItemCreatedEventArgs<object>>? ItemSaved;
 
         /// <summary>
         /// Se produce cuando se ha cancelado la creación/edición de un elemento
         /// </summary>
-        public event EventHandler Cancelled;
+        public event EventHandler? Cancelled;
 
         #endregion
 
@@ -554,8 +556,8 @@ namespace TheXDS.MCART.Controls
             Cancelling?.Invoke(this, ev);
             if (!ev.Cancel)
             {
-                if ((bool)_view?.IsAddingNew) _view.CancelNew();
-                else if ((bool)_view?.IsEditingItem) _view.CancelEdit();
+                if (_view?.IsAddingNew ?? false) _view.CancelNew();
+                else if (_view?.IsEditingItem ?? false) _view.CancelEdit();
                 GotoNormalMode();
                 Cancelled?.Invoke(this, EventArgs.Empty);
             }
@@ -706,7 +708,7 @@ namespace TheXDS.MCART.Controls
 
         void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            var ev = new ItemCreatingEventArgs<object>(_view.CurrentAddItem, _wasNewPressed);
+            var ev = new ItemCreatingEventArgs<object>(_view!.CurrentAddItem, _wasNewPressed);
             Saving?.Invoke(this, ev);
             if (!ev.Cancel)
             {

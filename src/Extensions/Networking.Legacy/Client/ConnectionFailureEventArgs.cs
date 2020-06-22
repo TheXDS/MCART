@@ -27,7 +27,6 @@ using System.Net;
 
 namespace TheXDS.MCART.Networking.Legacy.Client
 {
-    /// <inheritdoc />
     /// <summary>
     /// Contiene información de evento para las fallas de conexión
     /// producidas en un
@@ -59,7 +58,6 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// </summary>
         public int Port { get; }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ConnectionFailureEventArgs" />.
@@ -83,7 +81,6 @@ namespace TheXDS.MCART.Networking.Legacy.Client
             if (IPAddress.TryParse(host, out var ip)) Address = new IPEndPoint(ip, port);
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ConnectionFailureEventArgs" />.
@@ -103,7 +100,6 @@ namespace TheXDS.MCART.Networking.Legacy.Client
             Port = address.Port;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ConnectionFailureEventArgs" />.

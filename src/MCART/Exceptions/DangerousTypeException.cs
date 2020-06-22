@@ -29,7 +29,6 @@ using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Exceptions
 {
-    /// <inheritdoc />
     /// <summary>
     /// Excepción que se produce cuando se intenta utilizar una clase marcada con el atributo
     /// <see cref="DangerousAttribute" />.
@@ -37,7 +36,6 @@ namespace TheXDS.MCART.Exceptions
     [Serializable]
     public class DangerousTypeException : OffendingException<Type>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="DangerousTypeException" />.
@@ -55,7 +53,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="DangerousTypeException" />.
@@ -75,7 +72,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="DangerousTypeException" />.
@@ -84,7 +80,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="DangerousTypeException" />.
@@ -94,7 +89,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="DangerousTypeException" />.
         /// </summary>
@@ -105,7 +99,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="DangerousTypeException" />.
         /// </summary>
@@ -117,7 +110,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="DangerousTypeException" />.
         /// </summary>
@@ -128,7 +120,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="DangerousTypeException" />.
         /// </summary>
@@ -141,7 +132,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="DangerousTypeException" />.
         /// </summary>
@@ -155,7 +145,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="DangerousTypeException" />.
         /// </summary>

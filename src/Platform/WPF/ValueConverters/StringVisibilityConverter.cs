@@ -1,5 +1,5 @@
 ﻿/*
-ValueConverters.cs
+StringVisibilityConverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,15 +22,14 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 using TheXDS.MCART.Types.Extensions;
-using System;
-using System.Windows;
 
 namespace TheXDS.MCART.ValueConverters
 {
-    /// <inheritdoc />
     /// <summary>
     /// Convierte un <see cref="string" /> a un <see cref="Visibility" />.
     /// </summary>
@@ -48,7 +47,6 @@ namespace TheXDS.MCART.ValueConverters
         /// </summary>
         public Visibility NotEmpty { get; set; }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="StringVisibilityConverter" />.
@@ -107,7 +105,6 @@ namespace TheXDS.MCART.ValueConverters
             Empty = Visibility.Collapsed;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene un <see cref="Visibility" /> a partir del valor.
         /// </summary>
@@ -129,7 +126,6 @@ namespace TheXDS.MCART.ValueConverters
             return ((string) value)?.IsEmpty() ?? false ? Empty : NotEmpty;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Infiere un valor basado en el <see cref="Visibility" /> provisto.
         /// </summary>

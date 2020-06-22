@@ -26,7 +26,6 @@ namespace TheXDS.MCART.Types.Converters
 {
 #if CLSCompliance
 #endif
-    /// <inheritdoc />
     /// <summary>
     /// Permite realizar la conversión entre tipos
     /// <see cref="string" /> y

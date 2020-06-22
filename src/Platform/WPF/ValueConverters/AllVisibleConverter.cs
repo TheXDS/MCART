@@ -30,14 +30,12 @@ using System.Windows;
 
 namespace TheXDS.MCART.ValueConverters
 {
-    /// <inheritdoc />
     /// <summary>
     /// Determina un valor de visibilidad basado en que todos los valores
-    /// sean igual a <see cref="F:System.Windows.Visibility.Visible" />.
+    /// sean igual a <see cref="Visibility.Visible" />.
     /// </summary>
     public sealed class AllVisibleConverter : IMultiValueConverter
     {
-        /// <inheritdoc />
         /// <summary>
         /// Determina un valor de visibilidad basado en que todos los
         /// valores sean igual a
@@ -68,7 +66,6 @@ namespace TheXDS.MCART.ValueConverters
                 : Visibility.Collapsed;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Implementa <see cref="IValueConverter.ConvertBack" />.
         /// </summary>

@@ -26,13 +26,11 @@ using System.Net.Sockets;
 
 namespace TheXDS.MCART.Networking.Legacy.Server
 {
-    /// <inheritdoc />
     /// <summary>
     /// Define un protocolo sumamente simple.
     /// </summary>
     public abstract class SimpleProtocol : IProtocol
     {
-        /// <inheritdoc />
         /// <summary>
         /// Atiende al cliente
         /// </summary>
@@ -40,21 +38,18 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// <param name="data">Datos recibidos desde el cliente.</param>
         public abstract void ClientAttendant(Client client, byte[] data);
 
-        /// <inheritdoc />
         /// <summary>
         /// Protocolo de desconexión del cliente.
         /// </summary>
         /// <param name="client">Cliente que será atendido.</param>
         public void ClientBye(Client client) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Protocolo de desconexión inesperada del cliente.
         /// </summary>
         /// <param name="client">Cliente que se ha desconectado.</param>
         public void ClientDisconnect(Client client) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Protocolo de bienvenida del cliente.
         /// </summary>
@@ -65,7 +60,6 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// <param name="client">Cliente que será atendido.</param>
         public bool ClientWelcome(Client client) => true;
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa un nuevo cliente manejado por este protocolo.
         /// </summary>

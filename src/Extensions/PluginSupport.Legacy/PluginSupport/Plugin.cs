@@ -32,11 +32,9 @@ using TheXDS.MCART.Component;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
 using St = TheXDS.MCART.Resources.Strings;
-using St2 = TheXDS.MCART.Resources.InternalStrings;
 
 namespace TheXDS.MCART.PluginSupport.Legacy
 {
-    /// <inheritdoc />
     /// <summary>
     /// Clase base para todos los plugins que puedan ser construidos y
     /// administrador por MCART.
@@ -114,7 +112,6 @@ namespace TheXDS.MCART.PluginSupport.Legacy
 
         #region Propiedades de identificación
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene el nombre de este <see cref="Plugin" />.
         /// </summary>
@@ -125,7 +122,6 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// </value>
         public virtual string Name => GetType().GetAttrAlt<NameAttribute>()?.Value ?? GetType().Name;
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene la versión de este <see cref="Plugin" />.
         /// </summary>
@@ -142,7 +138,6 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// </summary>
         public string? InformationalVersion => GetType().GetAttrAlt<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? Version?.ToString();
         
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene la descripción de este <see cref="Plugin" />.
         /// </summary>
@@ -155,7 +150,6 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         public virtual string? Description => GetType().GetAttrAlt<DescriptionAttribute>()?.Value
             ?? (Attribute.GetCustomAttribute(Assembly, typeof(AssemblyDescriptionAttribute)) as AssemblyDescriptionAttribute)?.Description;
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene el autor de este <see cref="Plugin" />.
         /// </summary>
@@ -168,7 +162,6 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         public virtual IEnumerable<string>? Authors => GetType().GetAttrs<AuthorAttribute>()?.Select(p => p.Value!)
             ?? new[] { Assembly.GetAttr<AssemblyCompanyAttribute>()?.Company };
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene la cadena de Copyright de este <see cref="Plugin" />.
         /// </summary>
@@ -181,7 +174,6 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         public virtual string? Copyright => GetType().GetAttrAlt<CopyrightAttribute>()?.Value
             ?? (Attribute.GetCustomAttribute(Assembly, typeof(AssemblyCopyrightAttribute)) as AssemblyCopyrightAttribute)?.Copyright;
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene el texto de la licencia de este <see cref="Plugin" />.
         /// </summary>
@@ -202,14 +194,12 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// </value>
         public virtual License? License => this.GetAttr<LicenseAttributeBase>()?.GetLicense(this);
         
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene un valor que determina si este <see cref="IExposeInfo" />
         /// contiene información de licencia.
         /// </summary>
         public bool HasLicense => Internals.HasLicense(this) || Internals.HasLicense(Assembly);
 
-        /// <inheritdoc />
         /// <summary>
         /// Determina la versión mínima de MCART necesaria para este 
         /// <see cref="Plugin" />.
@@ -226,7 +216,6 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// </remarks>
         public virtual Version? MinMcartVersion => GetType().GetAttrAlt<MinMcartVersionAttribute>()?.Value ?? TargetMcartVersion;
 
-        /// <inheritdoc />
         /// <summary>
         /// Determina la versión objetivo de MCART para este 
         /// <see cref="Plugin" />.
@@ -256,27 +245,23 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// </summary>
         public bool? IsSupported => Resources.RtInfo.RtSupport(GetType());
 
-        /// <inheritdoc />
         /// <summary>
         /// Determina si este <see cref="Plugin" /> es una versión Beta.
         /// </summary>
         public bool IsBeta => GetType().HasAttrAlt<BetaAttribute>();
 
-        /// <inheritdoc />
         /// <summary>
         /// Determina si este <see cref="Plugin" /> contiene código no
         /// administrado.
         /// </summary>
         public bool IsUnmanaged => GetType().HasAttrAlt<UnmanagedAttribute>();
 
-        /// <inheritdoc />
         /// <summary>
         /// Determina si este <see cref="Plugin" /> es considerado como 
         /// inestable.
         /// </summary>
         public bool IsUnstable => GetType().HasAttrAlt<UnstableAttribute>();
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene un valor que indica si este <see cref="IExposeInfo" />
         /// cumple con el Common Language Standard (CLS)
@@ -287,7 +272,6 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         
         #region Propiedades
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene una colección de las interfaces implementadas por este
         /// <see cref="Plugin" />.
@@ -302,7 +286,6 @@ namespace TheXDS.MCART.PluginSupport.Legacy
             }
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene la referencia al ensamblado que contiene a este 
         /// <see cref="Plugin" />.
@@ -312,20 +295,17 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// </value>
         [Sugar] public Assembly Assembly => GetType().Assembly;
 
-        /// <inheritdoc />
         /// <summary>
         /// Contiene una lista de interacciones que este <see cref="Plugin" />.
         /// provee para incluir en una interfaz gráfica.
         /// </summary>
         public ReadOnlyCollection<InteractionItem> PluginInteractions => new ReadOnlyCollection<InteractionItem>(InteractionItems);
 
-        /// <inheritdoc />
         /// <summary>
         /// Indica si este <see cref="Plugin" /> contiene o no interacciones.
         /// </summary>        
         public bool HasInteractions => InteractionItems.Any();
 
-        /// <inheritdoc />
         /// <summary>
         /// Contiene un objeto de libre uso para almacenamiento de cualquier
         /// instancia que el usuario desee asociar a este <see cref="Plugin" />.
@@ -358,14 +338,12 @@ namespace TheXDS.MCART.PluginSupport.Legacy
 
         #region Eventos y señales
 
-        /// <inheritdoc />
         /// <summary>
         /// Se produce cuando un <see cref="Plugin" /> solicita que se actualice
         /// su interfaz gráfica, en caso de contenerla.
         /// </summary>
         public event EventHandler<UiChangedEventArgs>? UiChanged;
 
-        /// <inheritdoc />
         /// <summary>
         /// Se produce cuando un <see cref="Plugin" /> va a ser finalizado.
         /// </summary>

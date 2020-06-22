@@ -22,13 +22,12 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Globalization;
 using System.Windows.Data;
-using System;
 
 namespace TheXDS.MCART.ValueConverters.Base
 {
-    /// <inheritdoc />
     /// <summary>
     /// Clase base para crear convertidores de valores que inviertan el valor
     /// de una propiedad de dependencia.
@@ -53,7 +52,6 @@ namespace TheXDS.MCART.ValueConverters.Base
             _nay = nayValue;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Invierte el valor de  un <typeparamref name="T" />.
         /// </summary>
@@ -80,7 +78,6 @@ namespace TheXDS.MCART.ValueConverters.Base
 #endif
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Invierte el valor de  un <typeparamref name="T" />.
         /// </summary>

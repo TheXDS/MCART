@@ -436,7 +436,6 @@ namespace TheXDS.MCART.Types
             return ang;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Compara la igualdad de los vectores de los puntos.
         /// </summary>
@@ -584,7 +583,6 @@ namespace TheXDS.MCART.Types
             return Sqrt(x * x + y * y);
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Convierte este objeto en su representación como una cadena.
         /// </summary>
@@ -660,7 +658,6 @@ namespace TheXDS.MCART.Types
             return ToString(null);
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Compara la igualdad de los vectores.
         /// </summary>

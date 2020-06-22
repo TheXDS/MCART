@@ -86,7 +86,6 @@ namespace TheXDS.MCART.Types.Base
             return Infer(uri).GetStreamAsync(uri);
         }
 
-
         /// <summary>
         /// Obtiene el <see cref="StreamUriParser"/> apropiado para manejar
         /// al <see cref="Uri"/> especificado.

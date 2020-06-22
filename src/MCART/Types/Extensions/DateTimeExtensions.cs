@@ -4,13 +4,13 @@ DateTimeExtensions.cs
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Este archivo contiene numerosas extensiones para el tipo System.DateTime del
-CLR, supli�ndolo de nueva funcionalidad previamente no existente, o de
-invocaci�n compleja.
+CLR, supliéndolo de nueva funcionalidad previamente no existente, o de
+invocación compleja.
 
 Author(s):
-     C�sar Andr�s Morgan <xds_xps_ivx@hotmail.com>
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright � 2011 - 2019 C�sar Andr�s Morgan
+Copyright © 2011 - 2020 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -33,7 +33,7 @@ namespace TheXDS.MCART.Types.Extensions
 {
 
     /// <summary>
-    /// Contiene extensiones �tiles de la estructura <see cref="DateTime"/>.
+    /// Contiene extensiones útiles de la estructura <see cref="DateTime"/>.
     /// </summary>
     public static class DateTimeExtensions
     {
@@ -49,10 +49,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// </summary>
         /// <remarks>
         /// Se define el Century Epoch como el punto de inicio del tiempo
-        /// para muchos dispositivos de 32 bits que no siguen el est�ndar
-        /// de Unix, y se establece como el primero de enero del a�o 1900.
-        ///
-        /// El est�ndar se defin�a por medio del tiempo GMT, en su ausencia
+        /// para muchos dispositivos de 32 bits que no siguen el estándar
+        /// de Unix, y se establece como el primero de enero del año 1900.
+        /// El estándar se definía por medio del tiempo GMT, en su ausencia
         /// se utiliza UTC como un substituto suficientemente cercano.
         /// </remarks>
         public static readonly DateTime CenturyEpoch = Epoch(1900);
@@ -63,14 +62,14 @@ namespace TheXDS.MCART.Types.Extensions
         /// </summary>
         /// <remarks>
         /// Se define el Y2K Epoch como el punto de inicio del tiempo para
-        /// los dispositivos de 32 bits que no siguen el est�ndar de Unix,
-        /// y se establece como el primero de enero del a�o 2000.
+        /// los dispositivos de 32 bits que no siguen el estándar de Unix,
+        /// y se establece como el primero de enero del año 2000.
         /// </remarks>
         public static readonly DateTime Y2KEpoch = Epoch(2000);
 
         /// <summary>
         /// Crea un <see cref="DateTime"/> que representa el inicio del
-        /// tiempo para un a�o espec�fico.
+        /// tiempo para un año específico.
         /// </summary>
         public static DateTime Epoch(in int year) => new DateTime(year, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
@@ -91,7 +90,7 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        /// Convierte un <see cref="DateTime"/> a un Timestamp  en
+        /// Convierte un <see cref="DateTime"/> a un Timestamp en
         /// milisegundos de Unix de 64 bits.
         /// </summary>
         /// <param name="dateTime">
@@ -110,7 +109,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// Obtiene un <see cref="DateTime"/> a partir de un Timestamp de Unix.
         /// </summary>
         /// <param name="seconds">
-        /// N�mero de segundos transcurridos desde el Epoch de Unix.
+        /// Número de segundos transcurridos desde el Epoch de Unix.
         /// </param>
         /// <returns>
         /// Un <see cref="DateTime"/> construido a partir del Timestamp de
@@ -125,7 +124,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// Obtiene un <see cref="DateTime"/> a partir de un Timestamp de Unix.
         /// </summary>
         /// <param name="milliseconds">
-        /// N�mero de milisegundos transcurridos desde el Epoch de Unix.
+        /// Número de milisegundos transcurridos desde el Epoch de Unix.
         /// </param>
         /// <returns>
         /// Un <see cref="DateTime"/> construido a partir del Timestamp de
@@ -176,7 +175,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// Obtiene un <see cref="DateTime"/> a partir de un Timestamp.
         /// </summary>
         /// <param name="seconds">
-        /// N�mero de segundos transcurridos desde el Epoch especificado.
+        /// Número de segundos transcurridos desde el Epoch especificado.
         /// </param>
         /// <param name="epoch">
         /// Epoch inicial a utilizar.
@@ -194,7 +193,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// milisegundos.
         /// </summary>
         /// <param name="milliseconds">
-        /// N�mero de segundos transcurridos desde el Epoch especificado.
+        /// Número de segundos transcurridos desde el Epoch especificado.
         /// </param>
         /// <param name="epoch">
         /// Epoch inicial a utilizar.
@@ -210,11 +209,11 @@ namespace TheXDS.MCART.Types.Extensions
         /// <summary>
         /// Obtiene el nombre del mes especificado.
         /// </summary>
-        /// <param name="month">N�mero de mes del cual obtener el nombre.</param>
+        /// <param name="month">Número de mes del cual obtener el nombre.</param>
         /// <returns>El nombre del mes especificado.</returns>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// Se produce si <paramref name="month"/> no representa un n�mero
-        /// de mes v�lido.
+        /// Se produce si <paramref name="month"/> no representa un número
+        /// de mes válido.
         /// </exception>
         public static string MonthName(in int month)
         {
@@ -226,12 +225,12 @@ namespace TheXDS.MCART.Types.Extensions
         /// <summary>
         /// Obtiene el nombre del mes especificado.
         /// </summary>
-        /// <param name="month">N�mero de mes del cual obtener el nombre.</param>
+        /// <param name="month">Número de mes del cual obtener el nombre.</param>
         /// <param name="culture">Cultura a utilizar para obtener el nombre.</param>
         /// <returns>El nombre del mes especificado.</returns>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// Se produce si <paramref name="month"/> no representa un n�mero
-        /// de mes v�lido.
+        /// Se produce si <paramref name="month"/> no representa un número
+        /// de mes válido.
         /// </exception>
         public static string MonthName(in int month, in CultureInfo culture)
         {

@@ -42,13 +42,11 @@ namespace TheXDS.MCART.Types.Base
     {
         private readonly HashSet<WeakReference<PropertyChangeObserver>> _observeSubscriptions = new HashSet<WeakReference<PropertyChangeObserver>>();
 
-        /// <inheritdoc />
         /// <summary>
         /// Se produce cuando se cambiará el valor de una propiedad.
         /// </summary>
         public event PropertyChangingEventHandler? PropertyChanging;
 
-        /// <inheritdoc />
         /// <summary>
         /// Ocurre cuando el valor de una propiedad ha cambiado.
         /// </summary>

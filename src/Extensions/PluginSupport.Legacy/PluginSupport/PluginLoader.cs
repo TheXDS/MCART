@@ -36,7 +36,6 @@ using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.PluginSupport.Legacy
 {
-    /// <inheritdoc />
     /// <summary>
     /// Permite cargar clases que implementen la interfaz
     /// <see cref="IPlugin" />.
@@ -47,7 +46,6 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         private readonly IPluginChecker _checker;
         private readonly string _extension;
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="PluginLoader" /> utilizando el verificador
@@ -57,7 +55,6 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="PluginLoader" /> utilizando el verificador
@@ -71,7 +68,6 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="PluginLoader" /> utilizando el
@@ -87,7 +83,6 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="PluginLoader" /> utilizando el
@@ -107,7 +102,6 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="PluginLoader" /> utilizando el
@@ -128,17 +122,17 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// </exception>
         /// <exception cref="DangerousTypeException">
         /// Se produce si <paramref name="sanityChecks" /> no contiene la
-        /// bandera <see cref="F:TheXDS.MCART.SanityChecks.IgnoreDanger" /> y el
+        /// bandera <see cref="SanityChecks.IgnoreDanger" /> y el
         /// <paramref name="pluginChecker" /> a utilizar fue marcado en su
         /// declaración con el atributo <see cref="DangerousAttribute" />.
         /// </exception>
         /// <exception cref="UnusableObjectException">
         /// Se produce si <paramref name="sanityChecks" /> no contiene la
-        /// bandera <see cref="F:TheXDS.MCART.SanityChecks.IgnoreUnusable" /> y el
+        /// bandera <see cref="SanityChecks.IgnoreUnusable" /> y el
         /// <paramref name="pluginChecker" /> a utilizar fue marcado en su
         /// declaración con el atributo <see cref="UnusableAttribute" />.
         /// </exception>
-        /// <exception cref="T:System.ArgumentNullException">
+        /// <exception cref="ArgumentNullException">
         /// Se produce si <paramref name="pluginChecker" /> es <see langword="null" />.
         /// </exception>
         public PluginLoader(IPluginChecker pluginChecker, SanityChecks sanityChecks) : this(pluginChecker, sanityChecks,
@@ -196,7 +190,6 @@ namespace TheXDS.MCART.PluginSupport.Legacy
             _extension = pluginExtension;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Carga una clase de tipo <typeparamref name="T" /> contenida en el
         /// ensamblado especificado.
@@ -224,7 +217,6 @@ namespace TheXDS.MCART.PluginSupport.Legacy
                    )?.New<T>() ?? throw new PluginClassNotFoundException(typeof(T));
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Carga todos los <see cref="IPlugin" /> contenidos en el ensamblado.
         /// </summary>
@@ -246,7 +238,6 @@ namespace TheXDS.MCART.PluginSupport.Legacy
             return LoadAll<T>(assembly, null);
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Carga todos los <see cref="IPlugin" /> contenidos en el ensamblado.
         /// </summary>
@@ -575,7 +566,6 @@ namespace TheXDS.MCART.PluginSupport.Legacy
             return (await LoadAllAsync(assembly, predicate)).OfType<T>();
         }
 
-
         /// <summary>
         /// Carga todos los plugins de todos los ensamblados en el directorio.
         /// </summary>
@@ -631,7 +621,6 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         {
             return LoadEverything<IPlugin>(pluginsPath, search);
         }
-
 
         /// <summary>
         /// Carga todos los plugins de todos los ensamblados en el directorio.

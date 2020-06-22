@@ -28,7 +28,6 @@ using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Exceptions
 {
-    /// <inheritdoc />
     /// <summary>
     /// Excepción que se produce al hacer referencia a un tipo inválido.
     /// </summary>
@@ -38,7 +37,6 @@ namespace TheXDS.MCART.Exceptions
         private static string Msg() => Strings.XIsInvalid(Strings.TheType);
         private static string Msg(Type type) => Strings.XIsInvalid(Strings.XYQuotes(Strings.TheType, type.FullName) );
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
         /// </summary>
@@ -46,7 +44,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
         /// </summary>
@@ -55,7 +52,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
         /// </summary>
@@ -64,7 +60,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
         /// </summary>
@@ -74,7 +69,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
         /// </summary>
@@ -83,7 +77,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
         /// </summary>
@@ -93,7 +86,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
         /// </summary>
@@ -103,7 +95,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
         /// </summary>
@@ -114,7 +105,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="InvalidTypeException" />.

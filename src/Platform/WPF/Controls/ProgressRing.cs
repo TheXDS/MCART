@@ -394,7 +394,6 @@ namespace TheXDS.MCART.Controls
                         break;
                 }
 
-
                 _txtPercent.Text = string.Format(TextFormat, Value);
             }
             else if (!_amIAnimated)

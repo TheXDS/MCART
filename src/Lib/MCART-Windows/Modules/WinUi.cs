@@ -37,7 +37,6 @@ namespace TheXDS.MCART
     public static class WinUi
     {
 
-
         /// <summary>
         /// Abre una consola para la aplicación.
         /// </summary>

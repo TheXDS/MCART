@@ -22,7 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 using TheXDS.MCART.Resources;
 using System;
 using System.Linq;
@@ -30,13 +29,11 @@ using System.Reflection;
 
 namespace TheXDS.MCART.PluginSupport.Legacy
 {
-    /// <inheritdoc />
     /// <summary>
     /// Esta clase realiza diferentes verificaciones de compatibilidad de plugins.
     /// </summary>
     public abstract class PluginChecker : IPluginChecker
     {
-        /// <inheritdoc />
         /// <summary>
         /// Comprueba si un ensamblado contiene un plugin del tipo especificado.
         /// </summary>
@@ -48,7 +45,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// <param name="assembly"><see cref="Assembly" /> a comprobar.</param>
         /// <typeparam name="T">Tipo a buscar.</typeparam>
         public bool Has<T>(Assembly assembly) => assembly.IsNeither(RtInfo.CoreRtAssembly, null!) && assembly.GetTypes().Any((arg) => IsValid(arg) && typeof(T).IsAssignableFrom(arg));
-        /// <inheritdoc />
+
         /// <summary>
         /// Comprueba que el tipo cargado sea compatible con esta versión de
         /// MCART.
@@ -60,7 +57,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// posible comprobar la compatibilidad.
         /// </returns>
         public abstract bool? IsCompatible(Type type);
-        /// <inheritdoc />
+
         /// <summary>
         /// Comprueba si un <see cref="Assembly" /> contiene clases cargables 
         /// como <see cref="IPlugin" />.
@@ -85,7 +82,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
                 return false;
             }
         }
-        /// <inheritdoc />
+
         /// <summary>
         /// Determina si un tipo es válido para ser cargado como un
         /// <see cref="IPlugin" />.

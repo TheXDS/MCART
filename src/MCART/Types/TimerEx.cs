@@ -28,7 +28,6 @@ using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Types
 {
-    /// <inheritdoc cref="Timer" />
     /// <summary>
     /// Extensión de la clase <see cref="TimerEx" />. provee de toda
     /// la funcionalidad previamente disponible, e incluye algunas extensiones
@@ -113,7 +112,6 @@ namespace TheXDS.MCART.Types
             Start();
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="TimerEx" />.
         /// </summary>
@@ -123,7 +121,6 @@ namespace TheXDS.MCART.Types
             Disposed += TimerEx_Disposed;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="TimerEx" /> y 
         /// establece la propiedad <see cref="P:System.Timers.Timer.Interval" />

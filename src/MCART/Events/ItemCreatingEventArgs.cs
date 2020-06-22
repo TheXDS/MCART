@@ -26,14 +26,12 @@ using System.ComponentModel;
 
 namespace TheXDS.MCART.Events
 {
-    /// <inheritdoc />
     /// <summary>
     /// Contiene información de evento para cualquier clase con eventos donde
     /// se guardará información.
     /// </summary>
     public class ItemCreatingEventArgs<T> : CancelEventArgs
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de esta clase con la información de
         /// evento provista.
@@ -43,7 +41,6 @@ namespace TheXDS.MCART.Events
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de esta clase con la información de
         /// evento provista.

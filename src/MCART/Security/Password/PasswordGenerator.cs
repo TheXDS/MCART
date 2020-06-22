@@ -29,7 +29,6 @@ using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Security.Password
 {
-    /// <inheritdoc />
     /// <summary>
     /// Clase base para un generador de contraseña de caracteres aleatorios.
     /// </summary>
@@ -60,7 +59,6 @@ namespace TheXDS.MCART.Security.Password
             return retval;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Genera una contraseña utilizando este generador.
         /// </summary>
@@ -84,7 +82,6 @@ namespace TheXDS.MCART.Security.Password
             _length = length;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Genera una contraseña utilizando este generador.
         /// </summary>

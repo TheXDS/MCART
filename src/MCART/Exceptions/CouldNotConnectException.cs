@@ -29,14 +29,12 @@ using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Exceptions
 {
-    /// <inheritdoc />
     /// <summary>
     /// Excepción que se produce cuando no se puede realizar la conexión
     /// </summary>
     [Serializable]
     public class CouldNotConnectException : Exception
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
         /// </summary>
@@ -44,7 +42,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
         /// </summary>
@@ -55,7 +52,6 @@ namespace TheXDS.MCART.Exceptions
             OffendingEndPoint = offendingEndPoint;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
         /// </summary>
@@ -64,7 +60,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
         /// </summary>
@@ -74,7 +69,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
         /// </summary>
@@ -85,7 +79,6 @@ namespace TheXDS.MCART.Exceptions
             OffendingEndPoint = offendingEndPoint;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
         /// </summary>
@@ -97,7 +90,6 @@ namespace TheXDS.MCART.Exceptions
             OffendingEndPoint = offendingEndPoint;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="CouldNotConnectException" />.
         /// </summary>

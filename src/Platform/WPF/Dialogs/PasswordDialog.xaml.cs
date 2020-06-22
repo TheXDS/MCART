@@ -32,7 +32,6 @@ using static TheXDS.MCART.Types.Extensions.SecureStringExtensions;
 
 namespace TheXDS.MCART.Dialogs
 {
-    /// <inheritdoc cref="Window"/>
     /// <summary>
     /// Lógica de interacción para PasswordDialog.xaml
     /// </summary>

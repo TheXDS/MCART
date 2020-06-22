@@ -28,14 +28,12 @@ using TheXDS.MCART.Exceptions;
 
 namespace TheXDS.MCART.Resources
 {
-    /// <inheritdoc />
     /// <summary>
     /// <see cref="AssemblyUnpacker{T}" /> que
     /// extrae recursos de texto.
     /// </summary>
     public class TextUnpacker : AssemblyUnpacker<string>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="AssemblyUnpacker{T}" />.
@@ -52,7 +50,6 @@ namespace TheXDS.MCART.Resources
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene un recurso identificable.
         /// </summary>
@@ -66,7 +63,6 @@ namespace TheXDS.MCART.Resources
             return sr.ReadToEnd();
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Extrae un recurso comprimido utilizando el compresor con el
         /// identificador especificado.
@@ -84,7 +80,6 @@ namespace TheXDS.MCART.Resources
             return sr.ReadToEnd();
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Extrae un recurso comprimido utilizando el compresor con el
         /// identificador especificado.

@@ -26,7 +26,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 namespace TheXDS.MCART.Networking.Legacy.Server.Protocols
 {
-    /// <inheritdoc />
     /// <summary>
     /// Protocolo simple de eco definido según el estándar RFC 862.
     /// </summary>
@@ -36,7 +35,6 @@ namespace TheXDS.MCART.Networking.Legacy.Server.Protocols
     [Port(7)]
     public class Echo : SimpleProtocol
     {
-        /// <inheritdoc />
         /// <summary>
         /// Protocolo de atención normal.
         /// </summary>

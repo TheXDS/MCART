@@ -27,7 +27,6 @@ using System.Windows.Input;
 
 namespace TheXDS.MCART.ViewModel
 {
-    /// <inheritdoc cref="ICommand"/>
     /// <summary>
     /// Describe un comando estándar de implementación común bajo el
     /// esquema MVVM.
@@ -58,7 +57,6 @@ namespace TheXDS.MCART.ViewModel
             _canExecute = canExecute;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Define el método que determina si el comando puede ejecutarse
         /// en su estado actual.
@@ -77,7 +75,6 @@ namespace TheXDS.MCART.ViewModel
             return _canExecute?.Invoke(parameter) ?? true;
         }
         
-        /// <inheritdoc />
         /// <summary>
         /// Se produce cuando hay cambios que influyen en si el comando
         /// debería ejecutarse o no.
@@ -88,7 +85,6 @@ namespace TheXDS.MCART.ViewModel
             remove { CommandManager.RequerySuggested -= value; }
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Define el método al que se llamará cuando se invoque el comando.
         /// </summary>
