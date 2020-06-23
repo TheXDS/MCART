@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using TheXDS.MCART.Networking.Client;
+using TheXDS.MCART.Networking.Legacy.Client;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Examples.LightChat

@@ -5,4 +5,7 @@
     <ApplicationIcon />
     <OutputType>Exe</OutputType>    
   </PropertyGroup>  
+  <ItemGroup>
+    <ProjectReference Include="..\..\Extensions\Networking.Legacy\Networking.Legacy.csproj" />
+  </ItemGroup>  
 </Project>

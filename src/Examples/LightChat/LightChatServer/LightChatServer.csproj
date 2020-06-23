@@ -3,5 +3,8 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Extensions\Networking.Legacy\Networking.Legacy.csproj" />
+  </ItemGroup>
   <Import Project="..\Common\Common.projitems" Label="Shared" />
 </Project>
