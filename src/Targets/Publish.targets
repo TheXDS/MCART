@@ -27,16 +27,18 @@
     <PublishToGitHub>true</PublishToGitHub>
   </PropertyGroup>
   <PropertyGroup Condition="'$(GeneratePackageOnBuild)'=='true'">
-    <NuGetRoot>$(Root)Publish</NuGetRoot>
     <ActualPackage>$(PackageOutputPath)$(PackageId).$(ActualPkgVersion)</ActualPackage>
     <ActualPackageFile>$(ActualPackage).nupkg</ActualPackageFile>
     <ActualPackageSymbols>$(ActualPackage).symbols.nupkg</ActualPackageSymbols>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(NugetRoot)'==''">
+    <NugetRoot>$(Root)Publish</NugetRoot>
+  </PropertyGroup>  
   <Target 
     Name="PublishLocal"
     Condition="'$(PublishLocalSymbols)'=='true' And '$(GeneratePackageOnBuild)'=='true' And '$(IsPackable)'=='true'"
     AfterTargets="Pack">
-    <Exec Command="nuget add $(ActualPackageSymbols) -Source $(NuGetRoot)" />
+    <Exec Command="nuget add $(ActualPackageSymbols) -Source $(NugetRoot)" />
   </Target>
   <Target
     Name="PublishToNuGet"
