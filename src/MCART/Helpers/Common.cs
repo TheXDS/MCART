@@ -81,6 +81,7 @@ namespace TheXDS.MCART
         [Sugar]
         public static bool AllEmpty(this IEnumerable<string> stringArray)
         {
+            AllEmpty_Contract(stringArray);
             return stringArray.All(j => j.IsEmpty());
         }
 
@@ -109,6 +110,7 @@ namespace TheXDS.MCART
         [Sugar]
         public static bool AnyEmpty(this IEnumerable<string> stringArray)
         {
+            AllEmpty_Contract(stringArray);
             return stringArray.Any(j => j.IsEmpty());
         }
 
@@ -141,7 +143,8 @@ namespace TheXDS.MCART
         /// </param>
         public static bool AnyEmpty(this IEnumerable<string> stringArray, out IEnumerable<int> index)
         {
-            var idx = new System.Collections.Generic.List<int>();
+            AllEmpty_Contract(stringArray);
+            var idx = new List<int>();
             var c = 0;
             var found = false;
             foreach (var j in stringArray)
@@ -171,6 +174,7 @@ namespace TheXDS.MCART
         /// </param>
         public static bool AnyEmpty(this IEnumerable<string> stringArray, out int firstIndex)
         {
+            AllEmpty_Contract(stringArray);
             var r = AnyEmpty(stringArray, out IEnumerable<int> indexes);
             var a = indexes.ToArray();
             firstIndex = a.Any() ? a.First() : -1;
@@ -240,6 +244,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static TypeConverter? FindConverter(Type source, Type target)
         {
+            FindConverter_Contract(source, target);
             try
             {
                 return Objects.PublicTypes<TypeConverter>()
@@ -312,7 +317,7 @@ namespace TheXDS.MCART
 
         private static IEnumerable<bool> ToBits(this ulong value, in byte maxBits)
         {
-            var ret = new System.Collections.Generic.List<bool>();
+            var ret = new List<bool>();
             byte f = 0;
             while (value != 0 || f++ == maxBits)
             {
@@ -366,7 +371,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static IEnumerable<bool> ToBits(this in byte value) => ToBits(value, 8);
 
-        private static byte BitCount(this ulong value, in byte maxBits)
+        private static byte BitCount(ulong value, in byte maxBits)
         {
             byte c = 0;
             byte f = 0;
@@ -387,7 +392,7 @@ namespace TheXDS.MCART
         /// <returns>
         /// La cantidad de bits establecidos en 1 del valor.
         /// </returns>
-        public static byte BitCount(this in long value) => BitCount((ulong)value,64);
+        public static byte BitCount(this in long value) => BitCount((ulong)value, 64);
 
         /// <summary>
         /// Obtiene la cuenta de bits que conforman el valor.
@@ -398,7 +403,7 @@ namespace TheXDS.MCART
         /// <returns>
         /// La cantidad de bits establecidos en 1 del valor.
         /// </returns>
-        public static byte BitCount(this in int value) => BitCount((ulong)value,32);
+        public static byte BitCount(this in int value) => BitCount((ulong)value, 32);
 
         /// <summary>
         /// Obtiene la cuenta de bits que conforman el valor.
@@ -409,7 +414,7 @@ namespace TheXDS.MCART
         /// <returns>
         /// La cantidad de bits establecidos en 1 del valor.
         /// </returns>
-        public static byte BitCount(this in short value) => BitCount((ulong)value,16);
+        public static byte BitCount(this in short value) => BitCount((ulong)value, 16);
 
         /// <summary>
         /// Obtiene la cuenta de bits que conforman el valor.
