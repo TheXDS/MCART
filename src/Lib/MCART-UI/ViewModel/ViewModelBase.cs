@@ -23,9 +23,14 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Reflection;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
+using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Base;
+using St = TheXDS.MCART.Resources.UI.ErrorStrings;
 
 namespace TheXDS.MCART.ViewModel
 {
@@ -34,33 +39,82 @@ namespace TheXDS.MCART.ViewModel
     /// </summary>
     public abstract class ViewModelBase : NotifyPropertyChanged, IViewModel
     {
+        private bool _isBusy;
+        private readonly Dictionary<string, ICollection<Action>> _observeRegistry = new Dictionary<string, ICollection<Action>>();
+
+        private void OnInvokeObservedProps(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (_observeRegistry.TryGetValue(e.PropertyName, out var c))
+            {
+                foreach (var j in c)
+                {
+                    j.Invoke();
+                }
+            }
+        }
+
         /// <summary>
         /// Inicialica una nueva instancia de la clase 
         /// <see cref="ViewModelBase"/>.
         /// </summary>
-        protected ViewModelBase() { }
-
-        /// <summary>
-        /// Inicialica una nueva instancia de la clase 
-        /// <see cref="ViewModelBase"/>.
-        /// </summary>
-        /// <param name="observeSelf"></param>
-        protected ViewModelBase(bool observeSelf)
+        protected ViewModelBase()
         {
-            if (observeSelf) PropertyChanged += ViewModelBase_PropertyChanged;
-        }
-
-        private void ViewModelBase_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            SelfObserve(GetType().GetProperty(e.PropertyName)!);
+            PropertyChanged += OnInvokeObservedProps;
         }
 
         /// <summary>
-        /// Método invalidable que permite observar cambios en los valores de
-        /// las propiedades de esta instancia.
+        /// Registra una propiedad con notificación de cambio de valor para ser
+        /// observada y manejada por el delegado especificado.
         /// </summary>
-        /// <param name="property">Propiedad que ha cambiado de valor.</param>
-        protected virtual void SelfObserve(PropertyInfo property) { }
+        /// <typeparam name="T">Tipo de la propiedad.</typeparam>
+        /// <param name="propertySelector">
+        /// Función selectora de la propiedad a observar.
+        /// </param>
+        /// <param name="handler">
+        /// Delegado a invocar cuando la propiedad haya cambiado.
+        /// </param>
+        /// <exception cref="InvalidArgumentException">
+        /// Se produce si la función de selección de propiedad no ha
+        /// seleccionado un miembro válido de la instancia a configurar.
+        /// </exception>
+        /// 
+        protected void Observe<T>(Expression<Func<T>> propertySelector, Action handler)
+        {
+            Observe_Contract(propertySelector, handler);
+            try
+            {
+                Observe(ReflectionHelpers.GetProperty(propertySelector)!.Name, handler);
+            }
+            catch (ArgumentException ex)
+            {
+                throw new InvalidArgumentException(St.UnsupportedMember, ex, nameof(propertySelector));
+            }
+            catch { throw; }
+        }
+
+        /// <summary>
+        /// Registra una propiedad con notificación de cambio de valor para ser
+        /// observada y manejada por el delegado especificado.
+        /// </summary>
+        /// <param name="propertyName">
+        /// Nombre de la propiedad a observar.
+        /// </param>
+        /// <param name="handler">
+        /// Delegado a invocar cuando la propiedad haya cambiado.
+        /// </param>
+        /// <exception cref="MissingMemberException">
+        /// Se produce si la instancia a configurar no contiene una propiedad
+        /// con el nombre especificado.
+        /// </exception>
+        protected void Observe(string propertyName, Action handler)
+        {
+            Observe_Contract(propertyName, handler);
+            if (!_observeRegistry.ContainsKey(propertyName))
+            {
+                _observeRegistry.Add(propertyName, new HashSet<Action>());
+            }
+            _observeRegistry[propertyName].Add(handler);
+        }
 
         /// <summary>
         /// Ejecuta una acción controlando automáticamente el estado de
@@ -69,6 +123,7 @@ namespace TheXDS.MCART.ViewModel
         /// <param name="action">Acción a ejecutar.</param>
         protected void BusyOp(Action action)
         {
+            BusyOp_Contract(action);
             IsBusy = true;
             action.Invoke();
             IsBusy = false;
@@ -85,6 +140,7 @@ namespace TheXDS.MCART.ViewModel
         /// </returns>
         protected async Task BusyOp(Task task)
         {
+            BusyOp_Contract(task);
             IsBusy = true;
             await task;
             IsBusy = false;
@@ -101,6 +157,7 @@ namespace TheXDS.MCART.ViewModel
         /// </returns>
         protected T BusyOp<T>(Func<T> func)
         {
+            BusyOp_Contract(func);
             IsBusy = true;
             var result = func.Invoke();
             IsBusy = false;
@@ -121,13 +178,12 @@ namespace TheXDS.MCART.ViewModel
         /// </returns>
         protected async Task<T> BusyOp<T>(Task<T> task)
         {
+            BusyOp_Contract(task);
             IsBusy = true;
             var result = await task;
             IsBusy = false;
             return result;
         }
-
-        private bool _isBusy;
 
         /// <summary>
         /// Obtiene un valor que indica si este <see cref="ViewModelBase"/>
@@ -140,12 +196,82 @@ namespace TheXDS.MCART.ViewModel
         }
 
         /// <summary>
-        /// Destruye esta instancia de la clase 
-        /// <see cref="ViewModelBase"/>.
+        /// Destruye esta instancia de la clase <see cref="ViewModelBase"/>.
         /// </summary>
         ~ViewModelBase()
         {
-            PropertyChanged -= ViewModelBase_PropertyChanged;
+            PropertyChanged -= OnInvokeObservedProps;
+
         }
+
+        #region Contratos
+
+        [Conditional("EnforceContracts")]
+        private void Observe_Contract<T>(Expression<Func<T>> propertySelector, Action handler)
+        {
+            if (propertySelector is null)
+            {
+                throw new ArgumentNullException(nameof(propertySelector));
+            }
+            if (handler is null)
+            {
+                throw new ArgumentNullException(nameof(handler));
+            }
+        }
+
+        [Conditional("EnforceContracts")]
+        private void Observe_Contract(string propertyName, Action handler)
+        {
+            if (string.IsNullOrWhiteSpace(propertyName))
+            {
+                throw new InvalidArgumentException(nameof(propertyName));
+            }
+            if (GetType().GetProperty(propertyName) is null)
+            {
+                throw new MissingMemberException();
+            }
+            if (handler is null)
+            {
+                throw new ArgumentNullException(nameof(handler));
+            }
+        }
+
+        [Conditional("EnforceContracts")]
+        private void BusyOp_Contract(Action action)
+        {
+            if (action is null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+        }
+
+        [Conditional("EnforceContracts")]
+        private void BusyOp_Contract(Task task)
+        {
+            if (task is null)
+            {
+                throw new ArgumentNullException(nameof(task));
+            }
+        }
+
+        [Conditional("EnforceContracts")]
+        private void BusyOp_Contract<T>(Func<T> func)
+        {
+            if (func is null)
+            {
+                throw new ArgumentNullException(nameof(func));
+            }
+        }
+
+        [Conditional("EnforceContracts")]
+        private void BusyOp_Contract<T>(Task<T> task)
+        {
+            if (task is null)
+            {
+                throw new ArgumentNullException(nameof(task));
+            }
+        }
+
+        #endregion
     }
 }

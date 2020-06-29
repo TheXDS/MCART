@@ -29,7 +29,6 @@ using static System.AttributeTargets;
 
 namespace TheXDS.MCART.Annotations
 {
-
     /// <summary>
     /// Indica que el valor del elemento marcado podría ser 
     /// <see langword="null"/> algunas veces, por lo que es necesario

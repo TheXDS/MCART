@@ -520,10 +520,10 @@ namespace TheXDS.MCART.Controls
             if ((GraphDrawMode & EnumGraphDrawMode.Filled) != 0)
             {
                 if ((GraphDrawMode & EnumGraphDrawMode.Bars) != 0)
-                    grp.Points.Add(new System.Windows.Point(k, GrdGraph.ActualHeight + GraphThickness * 2));
+                    grp.Points.Add(new System.Windows.Point(k, GrdGraph.ActualHeight + (GraphThickness * 2)));
                 else
-                    grp.Points.Add(new System.Windows.Point(k - l, GrdGraph.ActualHeight + GraphThickness * 2));
-                grp.Points.Add(new System.Windows.Point(0, GrdGraph.ActualHeight + GraphThickness * 2));
+                    grp.Points.Add(new System.Windows.Point(k - l, GrdGraph.ActualHeight + (GraphThickness * 2)));
+                grp.Points.Add(new System.Windows.Point(0, GrdGraph.ActualHeight + (GraphThickness * 2)));
                 var _with2 = ((SolidColorBrush)grp.Stroke).Color;
                 var x = System.Windows.Media.Color.FromArgb((byte)(_with2.A / 2), _with2.R, _with2.G, _with2.B);
                 grp.Fill = new SolidColorBrush(x);

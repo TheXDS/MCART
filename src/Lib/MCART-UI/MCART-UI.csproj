@@ -4,4 +4,18 @@
     <Description>MCART interactive components</Description>
     <AssemblyName>MCART.UI</AssemblyName>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="Resources\ErrorStrings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ErrorStrings.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\ErrorStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ErrorStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>TheXDS.MCART.Resources.UI</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>
