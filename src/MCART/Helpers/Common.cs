@@ -42,6 +42,7 @@ using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
 using St = TheXDS.MCART.Resources.Strings;
 using St2 = TheXDS.MCART.Resources.InternalStrings;
+using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART
 {
@@ -81,7 +82,7 @@ namespace TheXDS.MCART
         [Sugar]
         public static bool AllEmpty(this IEnumerable<string> stringArray)
         {
-            AllEmpty_Contract(stringArray);
+            NullCheck(stringArray, nameof(stringArray));
             return stringArray.All(j => j.IsEmpty());
         }
 
@@ -110,7 +111,7 @@ namespace TheXDS.MCART
         [Sugar]
         public static bool AnyEmpty(this IEnumerable<string> stringArray)
         {
-            AllEmpty_Contract(stringArray);
+            NullCheck(stringArray, nameof(stringArray));
             return stringArray.Any(j => j.IsEmpty());
         }
 
@@ -143,7 +144,7 @@ namespace TheXDS.MCART
         /// </param>
         public static bool AnyEmpty(this IEnumerable<string> stringArray, out IEnumerable<int> index)
         {
-            AllEmpty_Contract(stringArray);
+            NullCheck(stringArray, nameof(stringArray));
             var idx = new List<int>();
             var c = 0;
             var found = false;
@@ -174,7 +175,7 @@ namespace TheXDS.MCART
         /// </param>
         public static bool AnyEmpty(this IEnumerable<string> stringArray, out int firstIndex)
         {
-            AllEmpty_Contract(stringArray);
+            NullCheck(stringArray, nameof(stringArray));
             var r = AnyEmpty(stringArray, out IEnumerable<int> indexes);
             var a = indexes.ToArray();
             firstIndex = a.Any() ? a.First() : -1;
@@ -244,7 +245,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static TypeConverter? FindConverter(Type source, Type target)
         {
-            FindConverter_Contract(source, target);
+            NullCheck(target, nameof(target));
             try
             {
                 return Objects.PublicTypes<TypeConverter>()
@@ -576,13 +577,8 @@ namespace TheXDS.MCART
         /// </param>
         public static string Listed(this IEnumerable<string> collection)
         {
-#if RatherDRY
+            NullCheck(collection, nameof(collection));
             return string.Join(Environment.NewLine, collection);
-#else
-            var a = new StringBuilder();
-            foreach (var j in collection) a.AppendLine(j);
-            return a.ToString();
-#endif
         }
 
         /// <summary>
@@ -652,9 +648,13 @@ namespace TheXDS.MCART
         /// La representación hexadecimal del arreglo de <see cref="byte" />.
         /// </returns>
         /// <param name="arr">Arreglo de bytes a convertir.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="arr"/> es <see langword="null"/>. 
+        /// </exception>
         [Sugar]
         public static string ToHex(this byte[] arr)
         {
+            NullCheck(arr, nameof(arr));
             return BitConverter.ToString(arr).Replace("-", "");
         }
 
@@ -683,6 +683,7 @@ namespace TheXDS.MCART
         [Sugar]
         public static IEnumerable<float> ToPercent(this IEnumerable<float> collection)
         {
+            NullCheck(collection, nameof(collection));
             var enumerable = collection.ToList();
             return ToPercent(enumerable, enumerable.Min(), enumerable.Max());
         }
@@ -704,6 +705,7 @@ namespace TheXDS.MCART
         [Sugar]
         public static IEnumerable<float> ToPercent(this IEnumerable<float> collection, in bool baseZero)
         {
+            NullCheck(collection, nameof(collection));
             var enumerable = collection.ToList();
             return ToPercent(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
         }
@@ -737,12 +739,7 @@ namespace TheXDS.MCART
         /// <param name="max">Valor que representará 100%.</param>
         public static IEnumerable<float> ToPercent(this IEnumerable<float> collection, float min, float max)
         {
-            if (!min.IsValid())
-                throw new ArgumentException(
-                    St.XIsInvalid(St.XYQuotes(St.TheValue, min.ToString(CultureInfo.CurrentCulture))), nameof(min));
-            if (!max.IsValid())
-                throw new ArgumentException(
-                    St.XIsInvalid(St.XYQuotes(St.TheValue, max.ToString(CultureInfo.CurrentCulture))), nameof(max));
+            ToPercent_Contract(collection, min, max);
             foreach (var j in collection)
                 if (j.IsValid())
                     yield return (j - min) / (max - min).Clamp(1, float.NaN);
@@ -816,12 +813,7 @@ namespace TheXDS.MCART
         /// <param name="max">Valor que representará 100%.</param>
         public static IEnumerable<double> ToPercent(this IEnumerable<double> collection, double min, double max)
         {
-            if (!min.IsValid())
-                throw new ArgumentException(
-                    St.XIsInvalid(St.XYQuotes(St.TheValue, min.ToString(CultureInfo.CurrentCulture))), nameof(min));
-            if (!max.IsValid())
-                throw new ArgumentException(
-                    St.XIsInvalid(St.XYQuotes(St.TheValue, max.ToString(CultureInfo.CurrentCulture))), nameof(max));
+            ToPercent_Contract(collection, min, max);
             foreach (var j in collection)
                 if (j.IsValid())
                     yield return (j - min) / (max - min).Clamp(1, double.NaN);
@@ -895,7 +887,7 @@ namespace TheXDS.MCART
         /// <param name="max">Valor que representará 100%.</param>
         public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, int min, int max)
         {
-            if (min == max) throw new InvalidOperationException();
+            ToPercentDouble_Contract(collection, min, max);
             foreach (var j in collection) yield return (j - min) / (double) (max - min);
         }
 
@@ -965,7 +957,7 @@ namespace TheXDS.MCART
         /// <param name="max">Valor que representará 100%.</param>
         public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, int min, int max)
         {
-            if (min == max) throw new InvalidOperationException();
+            ToPercentDouble_Contract(collection, min, max);
             foreach (var j in collection) yield return (j - min) / (float) (max - min);
         }
 

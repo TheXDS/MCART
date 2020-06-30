@@ -26,28 +26,41 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Globalization;
+using TheXDS.MCART.Math;
+using static TheXDS.MCART.Misc.Internals;
+using St = TheXDS.MCART.Resources.Strings;
+
 namespace TheXDS.MCART
 {
     public static partial class Common
     {
-        [Conditional("EnforceContracts")]
-        private static void AllEmpty_Contract(IEnumerable<string> stringArray)
+        private static void ToPercent_Contract(IEnumerable<float> collection, in float min, in float max)
         {
-            if (stringArray is null)
-            {
-                throw new ArgumentNullException(nameof(stringArray));
-            }
+            NullCheck(collection, nameof(collection));
+            if (!min.IsValid())
+                throw new ArgumentException(
+                    St.XIsInvalid(St.XYQuotes(St.TheValue, min.ToString(CultureInfo.CurrentCulture))), nameof(min));
+            if (!max.IsValid())
+                throw new ArgumentException(
+                    St.XIsInvalid(St.XYQuotes(St.TheValue, max.ToString(CultureInfo.CurrentCulture))), nameof(max));
         }
 
-        [Conditional("EnforceContracts")]
-        private static void FindConverter_Contract(Type source, Type target)
+        private static void ToPercent_Contract(IEnumerable<double> collection, in double min, in double max)
         {
-            if (target is null)
-            {
-                throw new ArgumentNullException(nameof(target));
-            }
+            NullCheck(collection, nameof(collection));
+            if (!min.IsValid())
+                throw new ArgumentException(
+                    St.XIsInvalid(St.XYQuotes(St.TheValue, min.ToString(CultureInfo.CurrentCulture))), nameof(min));
+            if (!max.IsValid())
+                throw new ArgumentException(
+                    St.XIsInvalid(St.XYQuotes(St.TheValue, max.ToString(CultureInfo.CurrentCulture))), nameof(max));
         }
 
+        private static void ToPercentDouble_Contract(IEnumerable<int> collection, in int min, in int max)
+        {
+            NullCheck(collection, nameof(collection));
+            if (min == max) throw new InvalidOperationException();
+        }
     }
 }

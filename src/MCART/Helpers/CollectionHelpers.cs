@@ -26,6 +26,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
 using System.Linq;
+using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART
 {
@@ -47,7 +48,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static bool Or(this IEnumerable<bool> collection)
         {
-            Or_Contract(collection);
+            NullCheck(collection, nameof(collection));
             return collection.Aggregate(false, (current, j) => current | j);
         }
 
@@ -64,7 +65,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static byte Or(this IEnumerable<byte> collection)
         {
-            Or_Contract(collection);
+            NullCheck(collection, nameof(collection));
             return collection.Aggregate(default(byte), (current, j) => (byte)(current | j));
         }
 
@@ -81,7 +82,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static short Or(this IEnumerable<short> collection)
         {
-            Or_Contract(collection);
+            NullCheck(collection, nameof(collection));
             return collection.Aggregate(default(short), (current, j) => (short)(current | j));
         }
 
@@ -98,7 +99,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static int Or(this IEnumerable<int> collection)
         {
-            Or_Contract(collection);
+            NullCheck(collection, nameof(collection));
             return collection.Aggregate(default(int), (current, j) => current | j);
         }
 
@@ -115,7 +116,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static long Or(this IEnumerable<long> collection)
         {
-            Or_Contract(collection);
+            NullCheck(collection, nameof(collection));
             return collection.Aggregate(default(long), (current, j) => current | j);
         }
 
@@ -132,7 +133,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static bool And(this IEnumerable<bool> collection)
         {
-            Or_Contract(collection);
+            NullCheck(collection, nameof(collection));
             return collection.Aggregate(false, (current, j) => current & j);
         }
 
@@ -149,7 +150,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static byte And(this IEnumerable<byte> collection)
         {
-            Or_Contract(collection);
+            NullCheck(collection, nameof(collection));
             return collection.Aggregate(default(byte), (current, j) => (byte)(current & j));
         }
 
@@ -166,7 +167,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static short And(this IEnumerable<short> collection)
         {
-            Or_Contract(collection);
+            NullCheck(collection, nameof(collection));
             return collection.Aggregate(default(short), (current, j) => (short)(current & j));
         }
 
@@ -183,7 +184,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static int And(this IEnumerable<int> collection)
         {
-            Or_Contract(collection);
+            NullCheck(collection, nameof(collection));
             return collection.Aggregate(default(int), (current, j) => current & j);
         }
 
@@ -200,7 +201,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static long And(this IEnumerable<long> collection)
         {
-            Or_Contract(collection);
+            NullCheck(collection, nameof(collection));
             return collection.Aggregate(default(long), (current, j) => current & j);
         }
 
@@ -217,7 +218,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static bool Xor(this IEnumerable<bool> collection)
         {
-            Or_Contract(collection);
+            NullCheck(collection, nameof(collection));
             return collection.Aggregate(false, (current, j) => current ^ j);
         }
 
@@ -234,7 +235,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static byte Xor(this IEnumerable<byte> collection)
         {
-            Or_Contract(collection);
+            NullCheck(collection, nameof(collection));
             return collection.Aggregate(default(byte), (current, j) => (byte)(current ^ j));
         }
 
@@ -251,7 +252,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static short Xor(this IEnumerable<short> collection)
         {
-            Or_Contract(collection);
+            NullCheck(collection, nameof(collection));
             return collection.Aggregate(default(short), (current, j) => (short)(current ^ j));
         }
 
@@ -268,7 +269,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static int Xor(this IEnumerable<int> collection)
         {
-            Or_Contract(collection);
+            NullCheck(collection, nameof(collection));
             return collection.Aggregate(default(int), (current, j) => current ^ j);
         }
 
@@ -285,7 +286,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static long Xor(this IEnumerable<long> collection)
         {
-            Or_Contract(collection);
+            NullCheck(collection, nameof(collection));
             return collection.Aggregate(default(long), (current, j) => current ^ j);
         }
     }

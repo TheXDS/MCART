@@ -1,5 +1,5 @@
 ﻿/*
-Internal.cs
+Internals.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,6 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System.Diagnostics;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 
@@ -51,6 +52,15 @@ namespace TheXDS.MCART.Misc
             } while (m!.DeclaringType!.Assembly.HasAttr<McartComponentAttribute>());
 
             return m;
+        }
+
+        [Conditional("EnforceContracts")]
+        internal static void NullCheck(object o, string name)
+        {
+            if (o is null)
+            {
+                throw new System.ArgumentNullException(name);
+            }
         }
     }
 }

@@ -402,8 +402,10 @@ namespace TheXDS.MCART.Types.Extensions
         /// <paramref name="throwOnFail"/> es <see langword="true"/>.
         /// </exception>
         [DebuggerStepThrough]
-        public static T New<T>(this Type type, bool throwOnFail, IEnumerable parameters)
+        public static T New<T>(this Type type, bool throwOnFail, IEnumerable? parameters)
         {
+            parameters ??= Array.Empty<object?>();
+
             if (type is null)
             {
                 return throwOnFail ? throw new ArgumentNullException(nameof(type)) : (T)default!;
