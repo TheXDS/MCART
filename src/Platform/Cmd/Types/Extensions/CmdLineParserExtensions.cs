@@ -24,6 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Linq;
+using TheXDS.MCART.Cmd.Base;
 using TheXDS.MCART.Component;
 using static TheXDS.MCART.Resources.CmdStrings;
 

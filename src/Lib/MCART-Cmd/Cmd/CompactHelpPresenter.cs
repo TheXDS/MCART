@@ -27,6 +27,24 @@ using TheXDS.MCART.Cmd.Base;
 
 namespace TheXDS.MCART.Cmd
 {
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public class CompactHelpPresenter : HelpPresenter
     {
         public CompactHelpPresenter(CmdLineParser parser) : base(parser)

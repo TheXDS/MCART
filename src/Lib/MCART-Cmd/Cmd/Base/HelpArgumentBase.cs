@@ -23,9 +23,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using TheXDS.MCART.Component;
-using TheXDS.MCART.Types.Extensions;
 
-namespace TheXDS.MCART.Cmd
+namespace TheXDS.MCART.Cmd.Base
 {
     /// <summary>
     /// Clase base para crear argumentos de ayuda.
@@ -61,7 +60,7 @@ namespace TheXDS.MCART.Cmd
         /// </param>
         public override void Run(CmdLineParser args)
         {
-            args.PrintHelp();
+            //args.PrintHelp();
         }
 
         /// <summary>

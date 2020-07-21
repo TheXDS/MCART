@@ -65,7 +65,7 @@ namespace TheXDS.MCART.Cmd.Base
         /// <returns>
         /// El nombre formateado de un argumento.
         /// </returns>
-        protected abstract string GetFormattedName(Argument argument);
+        protected abstract string GetFormattedName(IArgument argument);
         
         /// <summary>
         /// Obtiene el encabezado del texto de ayuda de la aplicación.
