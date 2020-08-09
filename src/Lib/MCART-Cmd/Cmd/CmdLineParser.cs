@@ -25,20 +25,34 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TheXDS.MCART.Cmd.Base;
 using TheXDS.MCART.Comparison;
+using TheXDS.MCART.Component;
 using TheXDS.MCART.Types.Extensions;
-using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
-namespace TheXDS.MCART.Component
+namespace TheXDS.MCART.Cmd
 {
     /// <summary>
     /// Clase que permite administrar y exponer de forma intuitiva las
     /// opciones de línea de comandos con las que se inicia una aplicación.
     /// </summary>
-    public sealed class CmdLineParser: ICmdLineParser
+    public sealed class CmdLineParser
     {
-        private static readonly List<Argument> _allArguments = Objects.FindAllObjects<Argument>().ToList();
-        private readonly HashSet<Argument> _args = new HashSet<Argument>(new TypeComparer());
+        private readonly HashSet<IArgument> _args = new HashSet<IArgument>(new TypeComparer<IArgument>());
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        private static readonly List<IArgument> _allArguments = Objects.FindAllObjects<IArgument>().ToList();
         private readonly List<string> _commands = new List<string>();
         private readonly List<string> _invalid = new List<string>();
 
@@ -67,7 +81,7 @@ namespace TheXDS.MCART.Component
             {
                 var tokens = j.Split(new[] { '=', ':' }, 2);
                 var arg = tokens[0].Substring(marker.Length).ToLower();
-                if (AvailableArguments.FirstOrDefault(p => p.LongName.ToLower() == arg) is Argument v)
+                if (AvailableArguments.FirstOrDefault(p => p.LongName.ToLower() == arg) is {} v)
                 {
                     return Append(v, tokens.Length == 2 ? tokens[1] : null);
                 }
@@ -237,13 +251,7 @@ namespace TheXDS.MCART.Component
         {
             get
             {
-                foreach (var j in AvailableArguments.Where(p => p.Kind == Argument.ValueKind.Required))
-                {
-                    if (!_args.Any(p => p.GetType() == j.GetType()))
-                    {
-                        yield return j;
-                    }
-                }
+                return AvailableArguments.Where(p => p.Kind == Argument.ValueKind.Required).Where(j => _args.All(p => p.GetType() != j.GetType()));
             }
         }
 

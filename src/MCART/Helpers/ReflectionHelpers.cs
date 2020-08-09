@@ -98,6 +98,20 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
+        /// Obtiene el ensamblado que contiene el punto de entrada de la
+        /// aplicación en ejecución.
+        /// </summary>
+        /// <returns>
+        /// El ensamblado donde se define el punto de entrada de la aplicación
+        /// actual.
+        /// </returns>
+        [Sugar]
+        public static Assembly? GetEntryAssembly()
+        {
+            return GetEntryPoint()?.DeclaringType?.Assembly;
+        }
+
+        /// <summary>
         /// Determina si el método invalida a una definición base.
         /// </summary>
         /// <param name="method"></param>
@@ -477,22 +491,22 @@ namespace TheXDS.MCART
         {
             var retVal = BindingFlags.Default;
 
-            if (method.Attributes.HasFlag(MethodAttributes.Public))
+            void Test(MethodAttributes inFlag, BindingFlags orFlag, BindingFlags notFlags = BindingFlags.Default)
             {
-                retVal |= BindingFlags.Public;
+                if (method.Attributes.HasFlag(inFlag))
+                {
+                    retVal |= orFlag;
+                }
+                else
+                {
+                    retVal |= notFlags;
+                }
             }
-            if (method.Attributes.HasFlag(MethodAttributes.Private) || method.Attributes.HasFlag(MethodAttributes.Family))
-            {
-                retVal |= BindingFlags.NonPublic;
-            }
-            if (method.Attributes.HasFlag(MethodAttributes.Static))
-            {
-                retVal |= BindingFlags.Static;
-            }
-            else
-            {
-                retVal |= BindingFlags.Instance;
-            }
+
+            Test(MethodAttributes.Public, BindingFlags.Public);
+            Test(MethodAttributes.Private, BindingFlags.NonPublic);
+            Test(MethodAttributes.Family, BindingFlags.NonPublic);
+            Test(MethodAttributes.Static, BindingFlags.Static, BindingFlags.Instance);
 
             return retVal;
         }

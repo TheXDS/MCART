@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFrameworks>netstandard2.1;netcoreapp3.1</TargetFrameworks>
+        <Description>MCART Gtk Library</Description>
+        <AssemblyName>MCART.Gtk</AssemblyName>
+        <OutputType>Library</OutputType>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="GtkSharp" Version="3.22.25.56" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="$(SolutionDir)Lib\MCART-GUI\MCART-GUI.csproj" />
+      <ProjectReference Include="$(SolutionDir)Lib\MCART-UI\MCART-UI.csproj" />
+    </ItemGroup>
+
+</Project>

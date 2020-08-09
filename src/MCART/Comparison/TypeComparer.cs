@@ -37,7 +37,7 @@ namespace TheXDS.MCART.Comparison
     /// <summary>
     /// Compara el tipo de dos objetos que comparten un tipo base común.
     /// </summary>
-    public class TypeComparer<T> : IEqualityComparer<T>
+    public class TypeComparer<T> : IEqualityComparer<T> where T : notnull
     {
         /// <summary>
         /// Determina si los objetos especificados son iguales.
