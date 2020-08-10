@@ -63,7 +63,7 @@ exhaustiva del sistema de Plugins y un análisis de confiabilidad de redes y
 comunicaciones, además que espero implementar Networking con *Peers* además de
 las implementaciones existentes de cliente/servidor.
 
-## MCART 0.12 Series
+## MCART 0.12 Series **(NO CUMPLIDO)**
 Finalmente integraré los nuevos proyectos de UI, además de cualquier librería
 que pueda ser de utilidad. Pretendo también que sea la última versión de MCART
 en fase Alpha. La API no debería sufrir cambios de ruptura de compatibilidad, a
@@ -72,6 +72,32 @@ menos que existan errores o problemas que obliguen a hacerlo.
 Cabe destacar que, de identificarse nuevos múltiples puntos de mejora y cambios
 que puedan producir ruptura de compatibilidad, este Roadmap será actualizado
 para reflejar dicho evento, y podría planificarse la creación de la serie 0.13.
+
+## MCART 0.13 Series
+Las últimas dos versiones de MCART vieron un significativo cambio en la
+dirección del proyecto, requiriendo al menos dos versiónes preeliminares
+adicionales. En la serie 0.13 se pretende re-encaminar el proyecto en la
+dirección apropiada, contando con cambios significativos en cuanto a limpieza y
+estabilidad se refiere.
+
+Han sido necesarias muchas reorganizaciones del código, y espero que en 0.13
+series por fin haya un árbol de archivos coherente y funcional.
+
+Uno de los grandes atascos existentes en MCART al día en que se creó 0.13, fue
+la enorme existencia de características en Backlog, componentes grandes que
+reemplazarían a otros que son legados, y otros cambios importantes en cuanto a
+recursos, especialmente de cadenas. Dichos componentes deben tener una
+arquitectura definida antes de cerrar el ciclo 0.13.
+
+## MCART 0.14 Series
+Al día de creación de 0.13 Series, se supuso que 0.14 sería la última versión
+preliminar de MCART. Mientras el plan se mantenga, en la serie 0.14 se pulirán
+los componentes nuevos que han sido arrastrados en Backlog desde 0.11 y 0.12.
+
+También existe la posibilidad de finalmente traer de vuelta los proyectos de
+Gtk# y Windows Forms, además de reconsiderar la integración de Cocoa y
+Eto.Forms, en cuyo caso posiblemente deba considerarse la creación del ciclo
+0.15 Series, para lo cual se actualizará este documento en el momento adecuado.
 
 ## MCART 1.0 y más allá
 Durante la fase de Beta de MCART, el número de versión disponible dentro de las
