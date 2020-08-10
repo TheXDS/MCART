@@ -24,6 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using TheXDS.MCART.Attributes;
 
 namespace TheXDS.MCART.Misc
@@ -55,12 +56,10 @@ namespace TheXDS.MCART.Misc
         }
 
         [Conditional("EnforceContracts")]
-        internal static void NullCheck(object o, string name)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static void NullCheck(object? o, string name)
         {
-            if (o is null)
-            {
-                throw new System.ArgumentNullException(name);
-            }
+            if (o is null) throw new System.ArgumentNullException(name);
         }
     }
 }

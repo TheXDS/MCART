@@ -32,6 +32,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
+using static TheXDS.MCART.Misc.Internals;
 using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 
@@ -40,7 +41,7 @@ namespace TheXDS.MCART
     /// <summary>
     /// Funciones de manipulación de objetos.
     /// </summary>
-    public static class Objects
+    public static partial class Objects
     {
         /// <summary>
         /// Instancia todos los objetos del tipo especificado,
@@ -53,7 +54,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static IEnumerable<T> FindAllObjects<T>() where T : class
         {
-            return FindAllObjects<T>(Array.Empty<object>());
+            return FindAllObjects<T>((IEnumerable?)null);
         }
 
         /// <summary>
@@ -68,7 +69,7 @@ namespace TheXDS.MCART
         /// Una enumeración de todas las instancias de objeto de tipo
         /// <typeparamref name="T"/> encontradas.
         /// </returns>
-        public static IEnumerable<T> FindAllObjects<T>(IEnumerable ctorArgs) where T : class
+        public static IEnumerable<T> FindAllObjects<T>(IEnumerable? ctorArgs) where T : class
         {
             return GetTypes<T>(true).NotNull().Select(p => p.New<T>(false, ctorArgs));
         }
@@ -85,9 +86,13 @@ namespace TheXDS.MCART
         /// Una enumeración de todas las instancias de objeto de tipo
         /// <typeparamref name="T"/> encontradas.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="typeFilter"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         public static IEnumerable<T> FindAllObjects<T>(Func<Type, bool> typeFilter) where T : class
         {
-            return FindAllObjects<T>(Array.Empty<object>(), typeFilter);
+            return FindAllObjects<T>(null, typeFilter);
         }
 
         /// <summary>
@@ -105,8 +110,13 @@ namespace TheXDS.MCART
         /// Una enumeración de todas las instancias de objeto de tipo
         /// <typeparamref name="T"/> encontradas.
         /// </returns>
-        public static IEnumerable<T> FindAllObjects<T>(IEnumerable ctorArgs, Func<Type, bool> typeFilter) where T : class
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="typeFilter"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        public static IEnumerable<T> FindAllObjects<T>(IEnumerable? ctorArgs, Func<Type, bool> typeFilter) where T : class
         {
+            NullCheck(typeFilter, nameof(typeFilter));
             return GetTypes<T>(true).NotNull().Where(typeFilter).Select(p => p.New<T>(false, ctorArgs));
         }
 
@@ -122,7 +132,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static T? FindSingleObject<T>() where T : class
         {
-            return FindSingleObject<T>(Array.Empty<object>());
+            return FindSingleObject<T>((IEnumerable?)null);
         }
 
         /// <summary>
@@ -138,7 +148,7 @@ namespace TheXDS.MCART
         /// <see langword="null"/> si no se encuentra ningún tipo
         /// coincidente.
         /// </returns>
-        public static T? FindSingleObject<T>(IEnumerable ctorArgs) where T : class
+        public static T? FindSingleObject<T>(IEnumerable? ctorArgs) where T : class
         {
             return GetTypes<T>(true).NotNull().SingleOrDefault()?.New<T>(false, ctorArgs);
         }
@@ -156,9 +166,13 @@ namespace TheXDS.MCART
         /// <see langword="null"/> si no se encuentra ningún tipo
         /// coincidente.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="typeFilter"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         public static T? FindSingleObject<T>(Func<Type,bool> typeFilter) where T : class
         {
-            return FindSingleObject<T>(Array.Empty<object>(), typeFilter);
+            return FindSingleObject<T>(null, typeFilter);
         }
 
         /// <summary>
@@ -177,8 +191,13 @@ namespace TheXDS.MCART
         /// <see langword="null"/> si no se encuentra ningún tipo
         /// coincidente.
         /// </returns>
-        public static T? FindSingleObject<T>(IEnumerable ctorArgs, Func<Type, bool> typeFilter) where T : class
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="typeFilter"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        public static T? FindSingleObject<T>(IEnumerable? ctorArgs, Func<Type, bool> typeFilter) where T : class
         {
+            NullCheck(typeFilter, nameof(typeFilter));
             return GetTypes<T>(true).NotNull().SingleOrDefault(typeFilter)?.New<T>(false, ctorArgs);
         }
 
@@ -194,7 +213,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static T? FindFirstObject<T>() where T : class
         {
-            return FindFirstObject<T>(Array.Empty<object>());
+            return FindFirstObject<T>((IEnumerable?)null);
         }
 
         /// <summary>
@@ -210,7 +229,7 @@ namespace TheXDS.MCART
         /// <see langword="null"/> si no se encuentra ningún tipo
         /// coincidente.
         /// </returns>
-        public static T? FindFirstObject<T>(IEnumerable ctorArgs) where T : class
+        public static T? FindFirstObject<T>(IEnumerable? ctorArgs) where T : class
         {
             return GetTypes<T>(true).NotNull().FirstOrDefault()?.New<T>(false, ctorArgs);
         }
@@ -228,9 +247,13 @@ namespace TheXDS.MCART
         /// <see langword="null"/> si no se encuentra ningún tipo
         /// coincidente.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="typeFilter"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         public static T? FindFirstObject<T>(Func<Type, bool> typeFilter) where T : class
         {
-            return FindFirstObject<T>(Array.Empty<object>(), typeFilter);
+            return FindFirstObject<T>(null, typeFilter);
         }
 
         /// <summary>
@@ -249,8 +272,13 @@ namespace TheXDS.MCART
         /// <see langword="null"/> si no se encuentra ningún tipo
         /// coincidente.
         /// </returns>
-        public static T? FindFirstObject<T>(IEnumerable ctorArgs, Func<Type, bool> typeFilter) where T : class
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="typeFilter"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        public static T? FindFirstObject<T>(IEnumerable? ctorArgs, Func<Type, bool> typeFilter) where T : class
         {
+            NullCheck(typeFilter, nameof(typeFilter));
             return GetTypes<T>(true).NotNull().FirstOrDefault(typeFilter)?.New<T>(false, ctorArgs);
         }
 
@@ -294,9 +322,13 @@ namespace TheXDS.MCART
         /// <see cref="System.Reflection.Emit"/>). Para obtener una lista
         /// indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
         /// </remarks>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="domain"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         public static IEnumerable<Type> PublicTypes<T>(AppDomain domain)
         {
-            return PublicTypes(typeof(T),domain);
+            return PublicTypes(typeof(T), domain);
         }
 
         /// <summary>
@@ -335,8 +367,13 @@ namespace TheXDS.MCART
         /// <see cref="System.Reflection.Emit"/>). Para obtener una lista
         /// indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
         /// </remarks>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="domain"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         public static IEnumerable<Type> PublicTypes(Type t, AppDomain domain)
         {
+            NullCheck(domain, nameof(domain));
             return PublicTypes(domain).Where(t.IsAssignableFrom);
         }
 
@@ -358,8 +395,13 @@ namespace TheXDS.MCART
         /// <see cref="System.Reflection.Emit"/>). Para obtener una lista
         /// indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
         /// </remarks>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="domain"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         public static IEnumerable<Type> PublicTypes(AppDomain domain)
         {
+            NullCheck(domain, nameof(domain));
             return domain.GetAssemblies()
                 .Where(p => !p.IsDynamic)
                 .SelectMany(SafeGetExportedTypes);
@@ -384,7 +426,7 @@ namespace TheXDS.MCART
         {
             return PublicTypes(AppDomain.CurrentDomain);
         }
-        
+
         /// <summary>
         /// Determina si todos los objetos son <see langword="null" />.
         /// </summary>
@@ -392,10 +434,15 @@ namespace TheXDS.MCART
         /// <see langword="true" />, si todos los objetos son <see langword="null" />; de lo contrario,
         /// <see langword="false" />.
         /// </returns>
-        /// <param name="x">Objetos a comprobar.</param>
-        public static bool AreAllNull(this IEnumerable<object?> x)
+        /// <param name="collection">Objetos a comprobar.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        public static bool AreAllNull(this IEnumerable<object?> collection)
         {
-            return x.All(p => p is null);
+            NullCheck(collection, nameof(collection));
+            return collection.All(p => p is null);
         }
 
         /// <summary>
@@ -405,10 +452,14 @@ namespace TheXDS.MCART
         /// <see langword="true" />, si todos los objetos son <see langword="null" />; de lo contrario,
         /// <see langword="false" />.
         /// </returns>
-        /// <param name="x">Objetos a comprobar.</param>
-        public static bool AreAllNull(params object?[] x)
+        /// <param name="collection">Objetos a comprobar.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        public static bool AreAllNull(params object?[] collection)
         {
-            return x.AreAllNull();
+            return collection.AreAllNull();
         }
 
         /// <summary>
@@ -426,8 +477,27 @@ namespace TheXDS.MCART
         /// Una enumeración de todos los valores de tipo
         /// <typeparamref name="T" /> de la instancia.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="fields"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="NullItemException">
+        /// Se produce si cualquier elemento de <paramref name="fields"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="MissingFieldException">
+        /// Cuando <paramref name="instance"/> no es <see langword="null"/>, se
+        /// produce si cualquier elemento de <paramref name="fields"/> no forma
+        /// parte del tipo de <paramref name="instance"/>.
+        /// </exception>
+        /// <exception cref="MemberAccessException">
+        /// Cuando <paramref name="instance"/> es <see langword="null"/>, se
+        /// produce si cualquier elemento de <paramref name="fields"/> no es un
+        /// campo estático.
+        /// </exception>
         public static IEnumerable<T> FieldsOf<T>(this IEnumerable<FieldInfo> fields, object? instance)
         {
+            FieldsOf_Contract(fields, instance);
             return
                 from j in fields.Where(p => p.IsPublic)
                 where j.FieldType == typeof(T)
@@ -446,14 +516,19 @@ namespace TheXDS.MCART
         /// Una enumeración de todos los valores de tipo
         /// <typeparamref name="T" /> del objeto.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="instance"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         public static IEnumerable<T> FieldsOf<T>(this object instance)
         {
+            NullCheck(instance, nameof(instance));
             return FieldsOf<T>(instance.GetType().GetFields(), instance);
         }
 
         /// <summary>
-        /// Enumera el valor de todas los campos que devuelvan valores de
-        /// tipo <typeparamref name="T" /> del objeto especificado.
+        /// Enumera el valor de todas los campos estáticos que devuelvan
+        /// valores de tipo <typeparamref name="T" /> en el tipo especificado.
         /// </summary>
         /// <typeparam name="T">Tipo de campos a obtener.</typeparam>
         /// <param name="type">
@@ -461,11 +536,16 @@ namespace TheXDS.MCART
         /// </param>
         /// <returns>
         /// Una enumeración de todos los valores de tipo
-        /// <typeparamref name="T" /> del objeto.
+        /// <typeparamref name="T" /> del tipo.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="type"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         public static IEnumerable<T> FieldsOf<T>(this Type type)
         {
-            return FieldsOf<T>(type.GetFields(), null);
+            NullCheck(type, nameof(type));
+            return FieldsOf<T>(type.GetFields(BindingFlags.Static | BindingFlags.Public), null);
         }
 
         /// <summary>
@@ -480,6 +560,10 @@ namespace TheXDS.MCART
         /// Una enumeración de todos los valores de tipo
         /// <typeparamref name="T" />.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="fields"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         public static IEnumerable<T> FieldsOf<T>(this IEnumerable<FieldInfo> fields)
         {
             return FieldsOf<T>(fields, null);
@@ -494,9 +578,14 @@ namespace TheXDS.MCART
         /// Un tipo que ha sido etiquetado con el identificador especificado,
         /// o <see langword="null" /> si ningún tipo contiene el identificador.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="identifier"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         [Sugar]
         public static Type FindType(string identifier)
         {
+            NullCheck(identifier, nameof(identifier));
             return FindType<object>(identifier);
         }
 
@@ -510,9 +599,14 @@ namespace TheXDS.MCART
         /// Un tipo que ha sido etiquetado con el identificador especificado,
         /// o <see langword="null" /> si ningún tipo contiene el identificador.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="identifier"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         [Sugar]
         public static Type FindType<T>(string identifier)
         {
+            NullCheck(identifier, nameof(identifier));
             return FindType<T>(identifier, AppDomain.CurrentDomain);
         }
 
@@ -526,6 +620,10 @@ namespace TheXDS.MCART
         /// Un tipo que ha sido etiquetado con el identificador especificado,
         /// o <see langword="null" /> si ningún tipo contiene el identificador.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="identifier"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         [Sugar]
         public static Type FindType(string identifier, AppDomain domain)
         {

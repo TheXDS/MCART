@@ -26,7 +26,9 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using TheXDS.MCART.Math;
 using static TheXDS.MCART.Misc.Internals;
 using St = TheXDS.MCART.Resources.Strings;
@@ -35,6 +37,18 @@ namespace TheXDS.MCART
 {
     public static partial class Common
     {
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void Sequence_Contract(in int stepping)
+        {
+            if (stepping == 0) throw new ArgumentOutOfRangeException(nameof(stepping));
+        }
+
+
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
         private static void ToPercent_Contract(IEnumerable<float> collection, in float min, in float max)
         {
             NullCheck(collection, nameof(collection));
@@ -44,8 +58,12 @@ namespace TheXDS.MCART
             if (!max.IsValid())
                 throw new ArgumentException(
                     St.XIsInvalid(St.XYQuotes(St.TheValue, max.ToString(CultureInfo.CurrentCulture))), nameof(max));
+            if (min == max) throw new InvalidOperationException();
         }
 
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
         private static void ToPercent_Contract(IEnumerable<double> collection, in double min, in double max)
         {
             NullCheck(collection, nameof(collection));
@@ -55,8 +73,12 @@ namespace TheXDS.MCART
             if (!max.IsValid())
                 throw new ArgumentException(
                     St.XIsInvalid(St.XYQuotes(St.TheValue, max.ToString(CultureInfo.CurrentCulture))), nameof(max));
+            if (min == max) throw new InvalidOperationException();
         }
 
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
         private static void ToPercentDouble_Contract(IEnumerable<int> collection, in int min, in int max)
         {
             NullCheck(collection, nameof(collection));

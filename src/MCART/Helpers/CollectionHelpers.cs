@@ -46,6 +46,10 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador OR a todos los bits de la 
         /// colección.
         /// </returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         public static bool Or(this IEnumerable<bool> collection)
         {
             NullCheck(collection, nameof(collection));
@@ -63,6 +67,10 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador OR a todos los bits de la 
         /// colección.
         /// </returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         public static byte Or(this IEnumerable<byte> collection)
         {
             NullCheck(collection, nameof(collection));
@@ -80,6 +88,10 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador OR a todos los bits de la 
         /// colección.
         /// </returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         public static short Or(this IEnumerable<short> collection)
         {
             NullCheck(collection, nameof(collection));
@@ -97,6 +109,10 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador OR a todos los bits de la 
         /// colección.
         /// </returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         public static int Or(this IEnumerable<int> collection)
         {
             NullCheck(collection, nameof(collection));
@@ -114,6 +130,10 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador OR a todos los bits de la 
         /// colección.
         /// </returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         public static long Or(this IEnumerable<long> collection)
         {
             NullCheck(collection, nameof(collection));
@@ -131,6 +151,10 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador AND a todos los bits de la 
         /// colección.
         /// </returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         public static bool And(this IEnumerable<bool> collection)
         {
             NullCheck(collection, nameof(collection));
@@ -148,6 +172,10 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador And a todos los bits de la 
         /// colección.
         /// </returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         public static byte And(this IEnumerable<byte> collection)
         {
             NullCheck(collection, nameof(collection));
@@ -165,6 +193,10 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador And a todos los bits de la 
         /// colección.
         /// </returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         public static short And(this IEnumerable<short> collection)
         {
             NullCheck(collection, nameof(collection));
@@ -182,6 +214,10 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador And a todos los bits de la 
         /// colección.
         /// </returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         public static int And(this IEnumerable<int> collection)
         {
             NullCheck(collection, nameof(collection));
@@ -199,6 +235,10 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador And a todos los bits de la 
         /// colección.
         /// </returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         public static long And(this IEnumerable<long> collection)
         {
             NullCheck(collection, nameof(collection));
@@ -216,6 +256,10 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador XOR a todos los bits de la 
         /// colección.
         /// </returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         public static bool Xor(this IEnumerable<bool> collection)
         {
             NullCheck(collection, nameof(collection));
@@ -233,6 +277,10 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador Xor a todos los bits de la 
         /// colección.
         /// </returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         public static byte Xor(this IEnumerable<byte> collection)
         {
             NullCheck(collection, nameof(collection));
@@ -250,6 +298,10 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador Xor a todos los bits de la 
         /// colección.
         /// </returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         public static short Xor(this IEnumerable<short> collection)
         {
             NullCheck(collection, nameof(collection));
@@ -267,6 +319,10 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador Xor a todos los bits de la 
         /// colección.
         /// </returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         public static int Xor(this IEnumerable<int> collection)
         {
             NullCheck(collection, nameof(collection));
@@ -284,6 +340,10 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador Xor a todos los bits de la 
         /// colección.
         /// </returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         public static long Xor(this IEnumerable<long> collection)
         {
             NullCheck(collection, nameof(collection));

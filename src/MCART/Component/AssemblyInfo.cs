@@ -30,6 +30,7 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
+using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Component
 {
@@ -45,8 +46,12 @@ namespace TheXDS.MCART.Component
         /// <param name="assembly">
         /// Ensamblado del cual se mostrará la información.
         /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="assembly"/> es <see langword="null"/>.
+        /// </exception>
         public AssemblyInfo(Assembly assembly)
         {
+            NullCheck(assembly, nameof(assembly));
             Assembly = assembly;
         }
 

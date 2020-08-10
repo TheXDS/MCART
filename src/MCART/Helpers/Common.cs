@@ -32,17 +32,13 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Linq;
-using System.Text;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
-using St = TheXDS.MCART.Resources.Strings;
-using St2 = TheXDS.MCART.Resources.InternalStrings;
 using static TheXDS.MCART.Misc.Internals;
+using St2 = TheXDS.MCART.Resources.InternalStrings;
 
 namespace TheXDS.MCART
 {
@@ -56,17 +52,21 @@ namespace TheXDS.MCART
     /// nombres <see cref="MCART" /> y utilizar sintaxis de instancia.
     /// </remarks>
     public static partial class Common
-    {        
+    {
         /// <summary>
         /// Determina si un conjunto de cadenas están vacías.
         /// </summary>
         /// <returns>
-        /// <see langword="true" /> si las cadenas están vacías o son <see langword="null" />; de lo
-        /// contrario, <see langword="false" />.
+        /// <see langword="true" /> si las cadenas están vacías o son 
+        /// <see langword="null" />; de lo contrario, <see langword="false" />.
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="stringArray"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         [Sugar]
-        public static bool AllEmpty(params string[] stringArray)
+        public static bool AllEmpty(params string?[] stringArray)
         {
             return stringArray.AsEnumerable().AllEmpty();
         }
@@ -75,12 +75,16 @@ namespace TheXDS.MCART
         /// Determina si un conjunto de cadenas están vacías.
         /// </summary>
         /// <returns>
-        /// <see langword="true" /> si las cadenas están vacías o son <see langword="null" />; de lo
-        /// contrario, <see langword="false" />.
+        /// <see langword="true" /> si las cadenas están vacías o son
+        /// <see langword="null" />; de lo contrario, <see langword="false" />.
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="stringArray"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         [Sugar]
-        public static bool AllEmpty(this IEnumerable<string> stringArray)
+        public static bool AllEmpty(this IEnumerable<string?> stringArray)
         {
             NullCheck(stringArray, nameof(stringArray));
             return stringArray.All(j => j.IsEmpty());
@@ -90,12 +94,16 @@ namespace TheXDS.MCART
         /// Determina si alguna cadena está vacía.
         /// </summary>
         /// <returns>
-        /// <see langword="true" /> si alguna cadena está vacía o es <see langword="null" />; de lo
-        /// contrario, <see langword="false" />.
+        /// <see langword="true" /> si alguna cadena está vacía o es
+        /// <see langword="null" />; de lo contrario, <see langword="false" />.
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="stringArray"/> es 
+        /// <see langword="null"/>.
+        /// </exception>
         [Sugar]
-        public static bool AnyEmpty(params string[] stringArray)
+        public static bool AnyEmpty(params string?[] stringArray)
         {
             return stringArray.AsEnumerable().AnyEmpty();
         }
@@ -104,12 +112,16 @@ namespace TheXDS.MCART
         /// Determina si alguna cadena está vacía.
         /// </summary>
         /// <returns>
-        /// <see langword="true" /> si alguna cadena está vacía o es <see langword="null" />; de lo
-        /// contrario, <see langword="false" />.
+        /// <see langword="true" /> si alguna cadena está vacía o es
+        /// <see langword="null" />; de lo contrario, <see langword="false" />.
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="stringArray"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         [Sugar]
-        public static bool AnyEmpty(this IEnumerable<string> stringArray)
+        public static bool AnyEmpty(this IEnumerable<string?> stringArray)
         {
             NullCheck(stringArray, nameof(stringArray));
             return stringArray.Any(j => j.IsEmpty());
@@ -119,14 +131,18 @@ namespace TheXDS.MCART
         /// Determina si alguna cadena está vacía.
         /// </summary>
         /// <returns>
-        /// <see langword="true" /> si alguna cadena está vacía o es <see langword="null" />; de lo
-        /// contrario, <see langword="false" />.
+        /// <see langword="true" /> si alguna cadena está vacía o es 
+        /// <see langword="null" />; de lo contrario, <see langword="false" />.
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
         /// <param name="index">
         /// Argumento de salida. Índices de las cadenas vacías encontradas.
         /// </param>
-        public static bool AnyEmpty(out IEnumerable<int> index, params string[] stringArray)
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="stringArray"/> es 
+        /// <see langword="null"/>.
+        /// </exception>
+        public static bool AnyEmpty(out IEnumerable<int> index, params string?[] stringArray)
         {
             return stringArray.AsEnumerable().AnyEmpty(out index);
         }
@@ -135,14 +151,18 @@ namespace TheXDS.MCART
         /// Determina si alguna cadena está vacía.
         /// </summary>
         /// <returns>
-        /// <see langword="true" /> si alguna cadena está vacía o es <see langword="null" />; de lo
-        /// contrario, <see langword="false" />.
+        /// <see langword="true" /> si alguna cadena está vacía o es 
+        /// <see langword="null" />; de lo contrario, <see langword="false" />.
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
         /// <param name="index">
         /// Argumento de salida. Índices de las cadenas vacías encontradas.
         /// </param>
-        public static bool AnyEmpty(this IEnumerable<string> stringArray, out IEnumerable<int> index)
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="stringArray"/> es 
+        /// <see langword="null"/>.
+        /// </exception>
+        public static bool AnyEmpty(this IEnumerable<string?> stringArray, out IEnumerable<int> index)
         {
             NullCheck(stringArray, nameof(stringArray));
             var idx = new List<int>();
@@ -150,14 +170,12 @@ namespace TheXDS.MCART
             var found = false;
             foreach (var j in stringArray)
             {
-                if (j.IsEmpty())
+                if (found = j.IsEmpty())
                 {
-                    found = true;
                     idx.Add(c);
                 }
                 c++;
             }
-
             index = idx.AsEnumerable();
             return found;
         }
@@ -166,14 +184,18 @@ namespace TheXDS.MCART
         /// Determina si alguna cadena está vacía.
         /// </summary>
         /// <returns>
-        /// <see langword="true" /> si alguna cadena está vacía o es <see langword="null" />; de lo
-        /// contrario, <see langword="false" />.
+        /// <see langword="true" /> si alguna cadena está vacía o es
+        /// <see langword="null" />; de lo contrario, <see langword="false" />.
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
         /// <param name="firstIndex">
         /// Argumento de salida. Índice de la primera cadena vacía encontrada.
         /// </param>
-        public static bool AnyEmpty(this IEnumerable<string> stringArray, out int firstIndex)
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="stringArray"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        public static bool AnyEmpty(this IEnumerable<string?> stringArray, out int firstIndex)
         {
             NullCheck(stringArray, nameof(stringArray));
             var r = AnyEmpty(stringArray, out IEnumerable<int> indexes);
@@ -194,8 +216,12 @@ namespace TheXDS.MCART
         /// <see langword="null" /> si no se ha encontrado un convertidor
         /// adecuado.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="target"/> es <see langword="null"/>.
+        /// </exception>
         public static TypeConverter? FindConverter(Type target)
         {
+            NullCheck(target, nameof(target));
             return FindConverter(typeof(string), target);
         }
 
@@ -243,6 +269,10 @@ namespace TheXDS.MCART
         /// entre los tipos requeridos, o <see langword="null" /> si no se
         /// ha encontrado un convertidor adecuado.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="source"/> o <paramref name="target"/>
+        /// son <see langword="null"/>.
+        /// </exception>
         public static TypeConverter? FindConverter(Type source, Type target)
         {
             NullCheck(target, nameof(target));
@@ -251,16 +281,20 @@ namespace TheXDS.MCART
                 return Objects.PublicTypes<TypeConverter>()
                     .Where(TypeExtensions.IsInstantiable)
                     .Select(j => j.New<TypeConverter>(false, Array.Empty<object>()))
-                    .FirstOrDefault(t => !(t is null) && t.CanConvertFrom(source) && t.CanConvertTo(target));
+                    .NotNull()
+                    .FirstOrDefault(t => t.CanConvertFrom(source) && t.CanConvertTo(target));
             }
+            catch { return null; }
             finally { GC.Collect(); }
         }
 
         /// <summary>
         /// Invierte el Endianess de un valor <see cref="short" />.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns>Un <see cref="short" /> cuyo Endianess ha sido invertido.</returns>
+        /// <param name="value">Valor cuyos bytes se invertirán.</param>
+        /// <returns>
+        /// Un <see cref="short" /> cuyo Endianess ha sido invertido.
+        /// </returns>
         public static short FlipEndianess(this in short value)
         {
             return BitConverter.ToInt16(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
@@ -269,8 +303,10 @@ namespace TheXDS.MCART
         /// <summary>
         /// Invierte el Endianess de un valor <see cref="int" />.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns>Un <see cref="int" /> cuyo Endianess ha sido invertido.</returns>
+        /// <param name="value">Valor cuyos bytes se invertirán.</param>
+        /// <returns>
+        /// Un <see cref="int" /> cuyo Endianess ha sido invertido.
+        /// </returns>
         public static int FlipEndianess(this in int value)
         {
             return BitConverter.ToInt32(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
@@ -279,8 +315,10 @@ namespace TheXDS.MCART
         /// <summary>
         /// Invierte el Endianess de un valor <see cref="long" />.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns>Un <see cref="long" /> cuyo Endianess ha sido invertido.</returns>
+        /// <param name="value">Valor cuyos bytes se invertirán.</param>
+        /// <returns>
+        /// Un <see cref="long" /> cuyo Endianess ha sido invertido.
+        /// </returns>
         public static long FlipEndianess(this in long value)
         {
             return BitConverter.ToInt64(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
@@ -289,8 +327,10 @@ namespace TheXDS.MCART
         /// <summary>
         /// Invierte el Endianess de un valor <see cref="char" />.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns>Un <see cref="char" /> cuyo Endianess ha sido invertido.</returns>
+        /// <param name="value">Valor cuyos bytes se invertirán.</param>
+        /// <returns>
+        /// Un <see cref="char" /> cuyo Endianess ha sido invertido.
+        /// </returns>
         public static char FlipEndianess(this in char value)
         {
             return BitConverter.ToChar(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
@@ -299,8 +339,10 @@ namespace TheXDS.MCART
         /// <summary>
         /// Invierte el Endianess de un valor <see cref="float" />.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns>Un <see cref="float" /> cuyo Endianess ha sido invertido.</returns>
+        /// <param name="value">Valor cuyos bytes se invertirán.</param>
+        /// <returns>
+        /// Un <see cref="float" /> cuyo Endianess ha sido invertido.
+        /// </returns>
         public static float FlipEndianess(this in float value)
         {
             return BitConverter.ToSingle(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
@@ -309,8 +351,10 @@ namespace TheXDS.MCART
         /// <summary>
         /// Invierte el Endianess de un valor <see cref="double" />.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns>Un <see cref="double" /> cuyo Endianess ha sido invertido.</returns>
+        /// <param name="value">Valor cuyos bytes se invertirán.</param>
+        /// <returns>
+        /// Un <see cref="double" /> cuyo Endianess ha sido invertido.
+        /// </returns>
         public static double FlipEndianess(this in double value)
         {
             return BitConverter.ToDouble(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
@@ -575,6 +619,10 @@ namespace TheXDS.MCART
         /// Lista a condensar. Sus elementos deben ser del
         /// tipo <see cref="string" />.
         /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         public static string Listed(this IEnumerable<string> collection)
         {
             NullCheck(collection, nameof(collection));
@@ -617,8 +665,12 @@ namespace TheXDS.MCART
         /// <param name="floor">Valor más bajo.</param>
         /// <param name="top">Valor más alto.</param>
         /// <param name="stepping">Saltos del secuenciador.</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Se produce si <paramref name="stepping"/> es igual a <c>0</c>.
+        /// </exception>
         public static IEnumerable<int> Sequence(int floor, int top, int stepping)
         {
+            Sequence_Contract(stepping);
             if (floor > top) stepping *= -1;
             for (var b = floor; stepping > 0 ? b <= top : b >= top; b += stepping)
                 yield return b;
@@ -649,7 +701,7 @@ namespace TheXDS.MCART
         /// </returns>
         /// <param name="arr">Arreglo de bytes a convertir.</param>
         /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="arr"/> es <see langword="null"/>. 
+        /// Se produce si <paramref name="arr"/> es <see langword="null"/>.
         /// </exception>
         [Sugar]
         public static string ToHex(this byte[] arr)
@@ -680,6 +732,13 @@ namespace TheXDS.MCART
         /// expresados en porcentaje.
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce si el valor mínimo y máximo de la colección son iguales.
+        /// </exception>
         [Sugar]
         public static IEnumerable<float> ToPercent(this IEnumerable<float> collection)
         {
@@ -702,6 +761,13 @@ namespace TheXDS.MCART
         /// porcentaje es cero; de lo contrario, se utilizará el valor mínimo
         /// dentro de la colección.
         /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce si el valor mínimo y máximo de la colección son iguales.
+        /// </exception>
         [Sugar]
         public static IEnumerable<float> ToPercent(this IEnumerable<float> collection, in bool baseZero)
         {
@@ -720,6 +786,14 @@ namespace TheXDS.MCART
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="max">Valor que representará 100%.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce si el valor mínimo de la colección y
+        /// <paramref name="max"/> son iguales.
+        /// </exception>
         [Sugar]
         public static IEnumerable<float> ToPercent(this IEnumerable<float> collection, in float max)
         {
@@ -737,6 +811,14 @@ namespace TheXDS.MCART
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="min">Valor que representará 0%.</param>
         /// <param name="max">Valor que representará 100%.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce si <paramref name="min"/> y <paramref name="max"/> son
+        /// iguales.
+        /// </exception>
         public static IEnumerable<float> ToPercent(this IEnumerable<float> collection, float min, float max)
         {
             ToPercent_Contract(collection, min, max);
@@ -756,9 +838,17 @@ namespace TheXDS.MCART
         /// expresados en porcentaje.
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce si el valor mínimo y máximo de la colección son iguales.
+        /// </exception>
         [Sugar]
         public static IEnumerable<double> ToPercent(this IEnumerable<double> collection)
         {
+            NullCheck(collection, nameof(collection));
             var enumerable = collection.ToList();
             return ToPercent(enumerable, enumerable.Min(), enumerable.Max());
         }
@@ -777,9 +867,17 @@ namespace TheXDS.MCART
         /// porcentaje es cero; de lo contrario, se utilizará el valor mínimo
         /// dentro de la colección.
         /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce si el valor mínimo y máximo de la colección son iguales.
+        /// </exception>
         [Sugar]
         public static IEnumerable<double> ToPercent(this IEnumerable<double> collection, in bool baseZero)
         {
+            NullCheck(collection, nameof(collection));
             var enumerable = collection.ToList();
             return ToPercent(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
         }
@@ -794,6 +892,14 @@ namespace TheXDS.MCART
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="max">Valor que representará 100%.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce si el valor mínimo de la colección y
+        /// <paramref name="max"/> son iguales.
+        /// </exception>
         [Sugar]
         public static IEnumerable<double> ToPercent(this IEnumerable<double> collection, in double max)
         {
@@ -811,6 +917,14 @@ namespace TheXDS.MCART
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="min">Valor que representará 0%.</param>
         /// <param name="max">Valor que representará 100%.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce si <paramref name="min"/> y <paramref name="max"/> son
+        /// iguales.
+        /// </exception>
         public static IEnumerable<double> ToPercent(this IEnumerable<double> collection, double min, double max)
         {
             ToPercent_Contract(collection, min, max);
@@ -830,9 +944,17 @@ namespace TheXDS.MCART
         /// expresados en porcentaje.
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce si el valor mínimo y máximo de la colección son iguales.
+        /// </exception>
         [Sugar]
         public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection)
         {
+            NullCheck(collection, nameof(collection));
             var enumerable = collection.ToList();
             return ToPercentDouble(enumerable, 0, enumerable.Max());
         }
@@ -851,9 +973,17 @@ namespace TheXDS.MCART
         /// porcentaje es cero; de lo contrario, se utilizará el valor mínimo
         /// dentro de la colección.
         /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce si el valor mínimo y máximo de la colección son iguales.
+        /// </exception>
         [Sugar]
         public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, in bool baseZero)
         {
+            NullCheck(collection, nameof(collection));
             var enumerable = collection.ToList();
             return ToPercentDouble(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
         }
@@ -868,6 +998,14 @@ namespace TheXDS.MCART
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="max">Valor que representará 100%.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce si el valor mínimo de la colección y
+        /// <paramref name="max"/> son iguales.
+        /// </exception>
         [Sugar]
         public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, in int max)
         {
@@ -885,6 +1023,14 @@ namespace TheXDS.MCART
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="min">Valor que representará 0%.</param>
         /// <param name="max">Valor que representará 100%.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce si <paramref name="min"/> y <paramref name="max"/> son
+        /// iguales.
+        /// </exception>
         public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, int min, int max)
         {
             ToPercentDouble_Contract(collection, min, max);
@@ -900,9 +1046,17 @@ namespace TheXDS.MCART
         /// expresados en porcentaje.
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce si el valor mínimo y máximo de la colección son iguales.
+        /// </exception>
         [Sugar]
         public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection)
         {
+            NullCheck(collection, nameof(collection));
             var enumerable = collection.ToList();
             return ToPercentSingle(enumerable, 0, enumerable.Max());
         }
@@ -921,9 +1075,17 @@ namespace TheXDS.MCART
         /// porcentaje es cero; de lo contrario, se utilizará el valor mínimo
         /// dentro de la colección.
         /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce si el valor mínimo y máximo de la colección son iguales.
+        /// </exception>
         [Sugar]
         public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, in bool baseZero)
         {
+            NullCheck(collection, nameof(collection));
             var enumerable = collection.ToList();
             return ToPercentSingle(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
         }
@@ -938,6 +1100,14 @@ namespace TheXDS.MCART
         /// </returns>
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="max">Valor que representará 100%.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce si el valor mínimo de la colección y
+        /// <paramref name="max"/> son iguales.
+        /// </exception>
         [Sugar]
         public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, in int max)
         {
@@ -955,6 +1125,14 @@ namespace TheXDS.MCART
         /// <param name="collection">Colección a procesar.</param>
         /// <param name="min">Valor que representará 0%.</param>
         /// <param name="max">Valor que representará 100%.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce si <paramref name="min"/> y <paramref name="max"/> son
+        /// iguales.
+        /// </exception>
         public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, int min, int max)
         {
             ToPercentDouble_Contract(collection, min, max);
@@ -976,37 +1154,27 @@ namespace TheXDS.MCART
             var c = 0;
             var f = 0.0f;
 
-            int mag;
-            string[] u;
-
-            switch (unit)
+            (int mag, string[] u) = unit switch
             {
-                case ByteUnitType.Binary:
-                    mag = 1024;
-                    u = new[] {St2.KiB, St2.MiB, St2.GiB, St2.TiB, St2.PiB, St2.EiB, St2.ZiB, St2.YiB};
-                    break;
-                case ByteUnitType.Decimal:
-                    mag = 1000;
-                    u = new[] {St2.KB, St2.MB, St2.GB, St2.TB, St2.PB, St2.EB, St2.ZB, St2.YB};
-                    break;
-                default:
-
+                ByteUnitType.Binary => (1024, new[] { St2.KiB, St2.MiB, St2.GiB, St2.TiB, St2.PiB, St2.EiB, St2.ZiB, St2.YiB }),
+                ByteUnitType.Decimal => (1000, new[] { St2.KB, St2.MB, St2.GB, St2.TB, St2.PB, St2.EB, St2.ZB, St2.YB }),
+                ByteUnitType.BinaryLong => (1024, new[] { St2.KiBl, St2.MiBl, St2.GiBl, St2.TiBl, St2.PiBl, St2.EiBl, St2.ZiBl, St2.YiBl }),
+                ByteUnitType.DecimalLong => (1000, new[] { St2.KBl, St2.MBl, St2.GBl, St2.TBl, St2.PBl, St2.EBl, St2.ZBl, St2.YBl }),                
 #if PreferExceptions
-                    throw new ArgumentOutOfRangeException(nameof(unit), unit, null);
+                _ => throw new ArgumentOutOfRangeException(nameof(unit), unit, null)
 #else
-                    return $"{bytes} {St2.Bytes}";
+                _ => (1024, Array.Empty<string>())
 #endif
-            }
-            
-            while (bytes > mag - 1)
+            };
+
+            while (bytes > mag - 1 || c == u.Length)
             {
                 c++;
-                f = (int)(bytes % mag);
                 bytes /= mag;
             }
-			f /= mag;
+            f = (float)bytes / mag;
 
-            return c > 0 ? $"{bytes + f:F1} {u[c.Clamp(7)-1]}" : $"{bytes} {St2.Bytes}";
+            return c > 0 ? $"{bytes + f:F1} {u[c.Clamp(u.Length) - 1]}" : $"{bytes} {St2.Bytes}";
         }
 
         /// <summary>
@@ -1036,7 +1204,15 @@ namespace TheXDS.MCART
             /// <summary>
             /// Numeración decimal. Cada orden de magnitud equivale a 1000 de su inferior. 
             /// </summary>
-            Decimal
+            Decimal,
+            /// <summary>
+            /// Numeración binaria con nombre largo. Cada orden de magnitud equivale a 1024 de su inferior.
+            /// </summary>
+            BinaryLong,
+            /// <summary>
+            /// Numeración decimal con nombre largo. Cada orden de magnitud equivale a 1000 de su inferior. 
+            /// </summary>
+            DecimalLong
         }
     }
 }
