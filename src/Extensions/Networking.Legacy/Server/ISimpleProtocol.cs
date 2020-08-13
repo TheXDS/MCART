@@ -30,7 +30,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
     /// Determina una serie de funciones a implementar por una clase que provea
     /// de protocolos a un servidor.
     /// </summary>
-    public interface IProtocol : IProtocol<Client>
+    public interface ISimpleProtocol : IProtocol<Client>
     {
     }
 
@@ -41,7 +41,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
     /// <typeparam name="T">
     /// Tipo de cliente atendido por el protocolo.
     /// </typeparam>
-    public interface IProtocol<T> where T : Client
+    public interface IProtocol<in T> : IProtocol where T : Client
     {
         /// <summary>
         /// Atiende al cliente
@@ -70,8 +70,15 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// protocolo, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="client">Cliente que será atendido.</param>
-        bool ClientWelcome(T client);
+        bool ClientWelcome(T client);        
+    }
 
+    /// <summary>
+    /// Define una serie de mirmbros a implementar por un tipo que permita
+    /// construir clientes como parte de las acciones de un protocolo.
+    /// </summary>
+    public interface IProtocol
+    {
         /// <summary>
         /// Inicializa un nuevo cliente manejado por este protocolo.
         /// </summary>
@@ -79,8 +86,8 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// <see cref="TcpClient" /> de la conexión con el host remoto.
         /// </param>
         /// <returns>
-        /// Un nuevo <typeparamref name="T"/>.
+        /// Un nuevo <see cref="Client"/>.
         /// </returns>
-        T CreateClient(TcpClient tcpClient);
+        Client CreateClient(TcpClient tcpClient);
     }
 }

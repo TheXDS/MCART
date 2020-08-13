@@ -27,6 +27,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -585,7 +586,6 @@ namespace TheXDS.MCART
         [Sugar]
         public static Type FindType(string identifier)
         {
-            NullCheck(identifier, nameof(identifier));
             return FindType<object>(identifier);
         }
 
@@ -606,7 +606,6 @@ namespace TheXDS.MCART
         [Sugar]
         public static Type FindType<T>(string identifier)
         {
-            NullCheck(identifier, nameof(identifier));
             return FindType<T>(identifier, AppDomain.CurrentDomain);
         }
 
@@ -621,8 +620,8 @@ namespace TheXDS.MCART
         /// o <see langword="null" /> si ningún tipo contiene el identificador.
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="identifier"/> es
-        /// <see langword="null"/>.
+        /// Se produce si <paramref name="identifier"/> o
+        /// <paramref name="domain"/> son <see langword="null"/>.
         /// </exception>
         [Sugar]
         public static Type FindType(string identifier, AppDomain domain)
@@ -641,8 +640,14 @@ namespace TheXDS.MCART
         /// Un tipo que ha sido etiquetado con el identificador especificado,
         /// o <see langword="null" /> si ningún tipo contiene el identificador.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="identifier"/> o
+        /// <paramref name="domain"/> son <see langword="null"/>.
+        /// </exception>
         public static Type FindType<T>(string identifier, AppDomain domain)
         {
+            NullCheck(identifier, nameof(identifier));
+            NullCheck(domain, nameof(domain));
             return domain.GetTypes<T>()
                 .FirstOrDefault(j => j.GetCustomAttributes(typeof(IdentifierAttribute), false)
                     .Cast<IdentifierAttribute>()
@@ -664,6 +669,10 @@ namespace TheXDS.MCART
         /// asociados en la declaración del ensamblado; o <see langword="null" /> en caso
         /// de no encontrarse el atributo especificado.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="assembly"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         [Sugar]
         public static T? GetAttr<T>(this Assembly assembly) where T : Attribute
         {
@@ -686,6 +695,10 @@ namespace TheXDS.MCART
         /// asociados en la declaración del ensamblado; o <see langword="null" /> en caso
         /// de no encontrarse el atributo especificado.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="assembly"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         [Sugar]
         public static IEnumerable<T> GetAttrs<T>(this Assembly assembly) where T : Attribute
         {
@@ -708,6 +721,10 @@ namespace TheXDS.MCART
         /// asociados en la declaración del miembro; o <see langword="null" /> en caso de
         /// no encontrarse el atributo especificado.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="member"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         [Sugar]
         public static T? GetAttr<T>(this MemberInfo member) where T : Attribute
         {
@@ -730,6 +747,10 @@ namespace TheXDS.MCART
         /// asociados en la declaración del ensamblado; o <see langword="null" /> en caso
         /// de no encontrarse el atributo especificado.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="member"/> es
+        /// <see langword="null"/>.
+        /// </exception>
         [Sugar]
         public static IEnumerable<T> GetAttrs<T>(this MemberInfo member) where T : Attribute
         {
@@ -1071,7 +1092,7 @@ namespace TheXDS.MCART
         /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
         /// en caso contrario.
         /// </returns>
-        public static bool HasAttr<T>(this Assembly assembly, out T? attribute) where T : Attribute
+        public static bool HasAttr<T>(this Assembly assembly, [NotNullWhen(true)] out T? attribute) where T : Attribute
         {
             var retVal = HasAttrs<T>(assembly, out var attrs);
             attribute = attrs.FirstOrDefault();
@@ -1135,7 +1156,7 @@ namespace TheXDS.MCART
         /// <typeparam name="T">
         /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
-        /// <param name="member">
+        /// <param name="assembly">
         /// Miembro del cual se extraerá el atributo.
         /// </param>
         /// <param name="attribute">
@@ -1148,9 +1169,10 @@ namespace TheXDS.MCART
         /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
         /// en caso contrario.
         /// </returns>
-        public static bool HasAttrs<T>(this Assembly member, out IEnumerable<T> attribute) where T : Attribute
+        public static bool HasAttrs<T>(this Assembly assembly, out IEnumerable<T> attribute) where T : Attribute
         {
-            attribute = Attribute.GetCustomAttributes(member, typeof(T)).OfType<T>();
+            NullCheck(assembly, nameof(assembly));
+            attribute = Attribute.GetCustomAttributes(assembly, typeof(T)).OfType<T>();
             return attribute.Any();
         }
 
@@ -1252,6 +1274,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static bool HasAttrs<T>(this MemberInfo member, out IEnumerable<T> attribute) where T : Attribute
         {
+            NullCheck(member, nameof(member));
             attribute = Attribute.GetCustomAttributes(member, typeof(T)).OfType<T>();
             return attribute.Any();
         }
@@ -1279,6 +1302,8 @@ namespace TheXDS.MCART
         {
             switch (obj)
             {
+                case null:
+                    throw new ArgumentNullException(nameof(obj));
                 case Assembly a:
                     return HasAttr(a, out attribute);
                 case MemberInfo m:
@@ -1371,7 +1396,7 @@ namespace TheXDS.MCART
         /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
         /// en caso contrario.
         /// </returns>
-        public static bool HasAttrs<T>(this object obj, out IEnumerable<T>? attribute) where T : Attribute
+        public static bool HasAttrs<T>(this object obj, [NotNullWhen(true)] out IEnumerable<T>? attribute) where T : Attribute
         {
             switch (obj)
             {
@@ -1507,7 +1532,7 @@ namespace TheXDS.MCART
 /// </exception>
         [CLSCompliant(false)]
 #endif
-        public static bool HasAttrs<T>(this Enum enumValue, out IEnumerable<T>? attribute) where T : Attribute
+        public static bool HasAttrs<T>(this Enum enumValue, [NotNullWhen(true)] out IEnumerable<T>? attribute) where T : Attribute
         {
             var type = enumValue.GetType();
             attribute = null;

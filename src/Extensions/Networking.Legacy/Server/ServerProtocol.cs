@@ -154,7 +154,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// <inheritdoc/>
         public Server<T> MyServer { get; set; } = default!;
 
-        T IProtocol<T>.CreateClient(TcpClient tcpClient)
+        public T CreateClient(TcpClient tcpClient)
         {
             try
             {
@@ -165,5 +165,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
                 throw new InvalidTypeException(St.CantCreateInstance(typeof(T).Name), e, typeof(T));
             }
         }
+
+        Client IProtocol.CreateClient(TcpClient tcpClient) => CreateClient(tcpClient);
     }
 }
