@@ -37,8 +37,12 @@ namespace TheXDS.MCART.Events
         /// <param name="data">
         /// Colección de <see cref="byte" /> con los datos recibidos.
         /// </param>
+        /// <exception cref="System.ArgumentNullException">
+        /// Se produce si <paramref name="data"/> es <see langword="null"/>.
+        /// </exception>
         public IncommingDataEventArgs(byte[] data) : base(data)
         {
+            Misc.Internals.NullCheck(data, nameof(data));
         }
     }
 }

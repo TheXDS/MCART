@@ -36,7 +36,7 @@ namespace TheXDS.MCART.Events
         /// Inicializa una nueva instancia de este objeto sin especificar
         /// una excepción producida.
         /// </summary>
-        public ExceptionEventArgs():base(null)
+        public ExceptionEventArgs() : base(null)
         {
         }
 

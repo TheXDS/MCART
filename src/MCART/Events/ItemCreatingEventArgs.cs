@@ -30,7 +30,7 @@ namespace TheXDS.MCART.Events
     /// Contiene información de evento para cualquier clase con eventos donde
     /// se guardará información.
     /// </summary>
-    public class ItemCreatingEventArgs<T> : CancelEventArgs
+    public class ItemCreatingEventArgs<T> : CancelEventArgs where T : notnull
     {
         /// <summary>
         /// Inicializa una nueva instancia de esta clase con la información de
@@ -49,8 +49,12 @@ namespace TheXDS.MCART.Events
         /// <param name="cancel">
         /// Determina si este evento se cancelará de forma predeterminada.
         /// </param>
+        /// <exception cref="System.ArgumentNullException">
+        /// Se produce si <paramref name="item"/> es <see langword="null"/>.
+        /// </exception>
         public ItemCreatingEventArgs(T item, bool cancel) : base(cancel)
         {
+            Misc.Internals.NullCheck(item, nameof(item));
             Item = item;
         }
 

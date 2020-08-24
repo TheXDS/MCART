@@ -35,6 +35,7 @@ using System.Threading.Tasks;
 using TheXDS.MCART.Events;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Base;
+using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Networking.Legacy.Common;
 
 namespace TheXDS.MCART.Networking.Legacy.Server
@@ -43,7 +44,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
     /// Controla conexiones entrantes y ejecuta protocolos sobre los clientes
     /// que se conecten al servidor.
     /// </summary>
-    public class Server<TClient> : Disposable where TClient : Client
+    public class Server<TClient> : Disposable, IServer where TClient : Client
     {
         private readonly CancellationTokenSource _cancellation = new CancellationTokenSource();
         private readonly HashSet<TClient> _clients = new HashSet<TClient>();
@@ -127,7 +128,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
             {
                 var c = await GetClient();
                 if (c is null) continue;
-                _clientThreads.Add(Task.Run(() => AttendClient(Protocol.CreateClient(c))));
+                _clientThreads.Add(Task.Run(() => AttendClient(Protocol.CreateClient(c) as TClient ?? throw new InvalidReturnValueException())));
             }
         }
         private async Task<TcpClient?> GetClient()
@@ -198,6 +199,8 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// clientes que se conecten a este servidor.
         /// </summary>
         public IProtocol<TClient> Protocol { get; }
+
+        IProtocol IServer.Protocol => Protocol;
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="Server{T}" />.
@@ -296,12 +299,12 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// </summary>
         public Task Start()
         {
-            if (IsAlive) return _aliveTask!;            
+            if (IsAlive) return _aliveTask!;
             _listener.Start();
             ServerStarted?.Invoke(this, DateTime.Now);
             return _aliveTask = BeAlive();
         }
-        
+
         /// <summary>
         /// Detiene al servidor.
         /// </summary>
@@ -408,6 +411,12 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         }
 
         #endregion
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return Protocol.GetType().NameOf();
+        }
     }
 
     /// <summary>

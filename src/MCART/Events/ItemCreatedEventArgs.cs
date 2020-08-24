@@ -28,15 +28,19 @@ namespace TheXDS.MCART.Events
     /// Contiene información de evento para cualquier clase con eventos donde
     /// se guardó información.
     /// </summary>
-    public class ItemCreatedEventArgs<T> : ValueEventArgs<T>
+    public class ItemCreatedEventArgs<T> : ValueEventArgs<T> where T : notnull
     {
         /// <summary>
         /// Inicializa una nueva instancia de esta clase con la información de
         /// evento provista.
         /// </summary>
         /// <param name="item">Objeto que ha sido guardado.</param>
+        /// <exception cref="System.ArgumentNullException">
+        /// Se produce si <paramref name="item"/> es <see langword="null"/>.
+        /// </exception>
         public ItemCreatedEventArgs(T item) : base(item)
         {
+            Misc.Internals.NullCheck(item, nameof(item));
         }
     }
 }

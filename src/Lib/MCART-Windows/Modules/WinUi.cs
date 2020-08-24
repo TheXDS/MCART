@@ -22,11 +22,12 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using TheXDS.MCART.Attributes;
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Windows;
 
 namespace TheXDS.MCART
 {
@@ -36,6 +37,10 @@ namespace TheXDS.MCART
     /// </summary>
     public static class WinUi
     {
+        /// <summary>
+        /// Obtiene un valor que indica si la aplicación tiene acceso a la consola.
+        /// </summary>
+        public static bool HasConsole => PInvoke.GetConsoleWindow() != IntPtr.Zero;
 
         /// <summary>
         /// Abre una consola para la aplicación.
@@ -45,6 +50,7 @@ namespace TheXDS.MCART
         /// Esta función es exclusiva para sistemas operativos Microsoft
         /// Windows®.
         /// </remarks>
+        public static bool TryAllocateConsole() => PInvoke.AllocConsole();
 
         /// <summary>
         /// Libera la consola de la aplicación.
@@ -54,6 +60,7 @@ namespace TheXDS.MCART
         /// Esta función es exclusiva para sistemas operativos Microsoft
         /// Windows®.
         /// </remarks>
+        public static bool TryFreeConsole() => PInvoke.FreeConsole();
 
         /// <summary>
         /// Obtiene la información física del contexto del dispositivo gráfico

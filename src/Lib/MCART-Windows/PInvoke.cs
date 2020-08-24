@@ -26,7 +26,7 @@ using System;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.Windows.Dwm.Structs;
 
-namespace TheXDS.MCART.Windows.Dwm
+namespace TheXDS.MCART.Windows
 {
     internal static class PInvoke
     {
@@ -54,5 +54,8 @@ namespace TheXDS.MCART.Windows.Dwm
         [DllImport("dwmapi.dll")]
         internal static extern int DwmSetWindowAttribute(IntPtr hwnd, DwmWindowAttribute dwAttribute, ref int pvAttribute, int cbAttribute);
 
+        [DllImport("kernel32.dll")] internal static extern bool AllocConsole();
+        [DllImport("kernel32.dll")] internal static extern bool FreeConsole();
+        [DllImport("kernel32.dll")] internal static extern IntPtr GetConsoleWindow();
     }
 }

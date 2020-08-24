@@ -33,7 +33,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server.Protocols
     /// estándares de internet que envían una respuesta a un cliente y cierran
     /// la conexión.
     /// </summary>
-    public abstract class RfcSimpleProtocol : IProtocol
+    public abstract class RfcSimpleProtocol : ISimpleProtocol
     {
         /// <summary>
         /// Atiende al cliente (en caso de una conexión UDP)

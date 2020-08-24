@@ -23,6 +23,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Reflection.Emit;
+using TheXDS.MCART.Exceptions;
 using St = TheXDS.MCART.Resources.TypeFactoryStrings;
 
 namespace TheXDS.MCART.Resources
@@ -51,6 +53,15 @@ namespace TheXDS.MCART.Resources
         internal static Exception IFaceMethodExpected()
         {
             return new InvalidOperationException(St.ErrIFaceMethodExpected);
+        }
+
+        internal static Exception TypeBuilderTypeMismatch<T>(TypeBuilder typebuilder)
+        {
+            return new ArgumentException(
+                string.Format(St.TypeBuilderTypeMismatch,
+                typebuilder.BaseType,
+                typeof(T)),
+                new InvalidTypeException(typebuilder));
         }
     }
 }
