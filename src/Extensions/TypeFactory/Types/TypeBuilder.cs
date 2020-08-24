@@ -26,6 +26,7 @@ using System.Diagnostics;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Types
@@ -54,6 +55,10 @@ namespace TheXDS.MCART.Types
         /// </param>
         public TypeBuilder(TypeBuilder builder)
         {
+            if (Builder.BaseType is { } t && !t.Implements<T>())
+            {
+                throw TypeFactoryErrors.TypeBuilderTypeMismatch<T>(builder);
+            }
             Builder = builder;
         }
 
@@ -82,6 +87,6 @@ namespace TheXDS.MCART.Types
         [DebuggerStepThrough]
         [Sugar]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public object New() => Builder.New();
+        public T New() => (T)Builder.New();
     }
 }

@@ -135,4 +135,7 @@
   <data name="ErrPropSetterAlreadyDefined" xml:space="preserve">
     <value>Ya se ha definido un Setter para la propiedad.</value>
   </data>
+  <data name="TypeBuilderTypeMismatch" xml:space="preserve">
+    <value>Los tipos del TypeBuilder especificado con tipo base {0} y el tipo base explícito '{1}' no coinciden. Se requiere un tipo que herede/implemente {1}.</value>
+  </data>
 </root>

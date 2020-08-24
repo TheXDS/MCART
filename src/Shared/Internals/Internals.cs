@@ -26,6 +26,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Misc
 {
@@ -60,6 +61,13 @@ namespace TheXDS.MCART.Misc
         internal static void NullCheck(object? o, string name)
         {
             if (o is null) throw new System.ArgumentNullException(name);
+        }
+
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static void NullCheck(string? o, string name)
+        {
+            if (o.IsEmpty()) throw new System.ArgumentNullException(name);
         }
     }
 }

@@ -26,6 +26,7 @@ using System;
 using System.Reflection;
 using TheXDS.MCART.Types.Extensions;
 using static System.Reflection.MethodAttributes;
+using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Types
 {
@@ -36,7 +37,7 @@ namespace TheXDS.MCART.Types
     {
         internal static string UndName(string name)
         {
-            if (name.IsEmpty()) throw new ArgumentNullException(name);
+            NullCheck(name, nameof(name));
             return name.Length > 1
                 ? $"_{name.Substring(0, 1).ToLower()}{name.Substring(1)}"
                 : $"_{name.ToLower()}";
@@ -44,7 +45,8 @@ namespace TheXDS.MCART.Types
 
         internal static string NoIfaceName(string name)
         {
-            if (name.IsEmpty()) throw new ArgumentNullException(name);
+
+            NullCheck(name, nameof(name));
             return name[0] != 'I' ? $"{name}Implementation" : name.Substring(1);
         }
 
@@ -100,6 +102,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public static MemberAccess InferAccess(Type type)
         {
+            NullCheck(type, nameof(type));            
             return type.IsPublic ? MemberAccess.Public : MemberAccess.Internal;            
         }
 
@@ -114,27 +117,19 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public static TypeAttributes InferAttributes(Type type)
         {
-            var retVal = default(TypeAttributes);
-            retVal |= type.IsClass ? TypeAttributes.Class : 0;
-            if (type.IsNested)
+            NullCheck(type, nameof(type));
+            var retVal = type.IsClass ? TypeAttributes.Class : default;
+
+            retVal |= (InferAccess(type), type.IsNested) switch
             {
-                retVal |= InferAccess(type) switch
-                {
-                    MemberAccess.Private => TypeAttributes.NestedPrivate,
-                    MemberAccess.Internal => TypeAttributes.NestedAssembly,
-                    MemberAccess.Public => TypeAttributes.NestedPublic,
-                    _ => throw new NotImplementedException()
-                };
-            }
-            else
-            {
-                retVal |= InferAccess(type) switch
-                {
-                    MemberAccess.Internal => TypeAttributes.NotPublic,
-                    MemberAccess.Public => TypeAttributes.Public,
-                    _ => throw new NotImplementedException()
-                };
-            }
+                (MemberAccess.Private, _ )=> TypeAttributes.NestedPrivate,
+                (MemberAccess.Internal, true) => TypeAttributes.NestedAssembly,
+                (MemberAccess.Internal, false) => TypeAttributes.NotPublic,
+                (MemberAccess.Protected, _) => TypeAttributes.NestedFamily,
+                (MemberAccess.Public, true) => TypeAttributes.NestedPublic,
+                (MemberAccess.Public, false) => TypeAttributes.Public,
+                _ => throw new NotImplementedException()
+            };
 
             return retVal;
         }

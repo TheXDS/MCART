@@ -113,5 +113,14 @@ namespace TheXDS.MCART.Resources {
                 return ResourceManager.GetString("ErrPropSetterAlreadyDefined", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Los tipos del TypeBuilder especificado con tipo base {0} y el tipo base explícito &apos;{1}&apos; no coinciden. Se requiere un tipo que herede/implemente {1}..
+        /// </summary>
+        internal static string TypeBuilderTypeMismatch {
+            get {
+                return ResourceManager.GetString("TypeBuilderTypeMismatch", resourceCulture);
+            }
+        }
     }
 }
