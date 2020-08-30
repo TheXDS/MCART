@@ -12,18 +12,20 @@ La siguiente tabla lista los directorios actualmente definidos:
 
 Directorio          | Contenido del directorio
 ---                 | ---
-./build             | Versiones compiladas y empaquetadas de las librerías distribuibles de MCART.
-./Examples          | Varios ejemplos sobre el uso de MCART.
-./src/Documentation | Toda la documentación pertinente de MCART.
+./Art               | Archivos de recursos de arte. Contiene íconos e imágenes de MCART.
+./Build             | Versiones compiladas y empaquetadas de las librerías distribuibles de MCART.
+./docs              | Documentación estándar, y proyecto de DocFX para generar documentación de API.
+./Publish           | Repositorio de paquetes de NuGet de MCART que permite configurar orígenes locales.
+./src/Examples      | Varios ejemplos sobre el uso de MCART.
 ./src/Extensions    | Extensiones especiales con funcionalidad muy específica y/o posibilidad de referencias externas.
 ./src/Lib           | Librerías auxiliares genéricas de MCART para la creación de ensamblados para distintas plataformas.
 ./src/MCART         | Proyecto principal.
 ./src/Platform      | Proyectos de plataforma de UI.
 ./src/Shared        | Proyectos de código compartido.
+./src/Targets       | Archivos de configuración de compilación.
 ./src/Tests         | Pruebas unitarias y de integración.
 ./src/Utils         | Utilerías de desarrollo varias.
 ./vs-snippets       | Snippets de código para instalar en Visual Studio.
-
 
 ### Números de versión
 MCART sigue los estándares de números de versión de NuGet, utilizando una
@@ -31,7 +33,7 @@ cadena de versión Major.Minor.Revision.Build, adjuntando para pas versiones
 pre-release un subfijo
 
 ### Constantes globales de compilación
-El archivo `CommonSettings.targets` contiene un conjunto de constantes de
+El archivo `./src/Targets/GlobalDirectives.targets` contiene un conjunto de constantes de
 compilación definidas para toda la solución. Esto, con el propósito de evitar
 los problemas que pueden surgir al configurar individualmente cada proyecto, y
 permitir compartir eficientemente dichas constantes.
@@ -52,6 +54,6 @@ FloatDoubleSpecial    | `float` y `double` son tipos numéricos que pueden conte
 McartAsPlugin         | Habilita la carga de plugins definidos dentro de MCART.
 NativeNumbers         | Permite utilizar implementaciones conscientes de la cultura nativa para algunas funciones que trabajan con símbolos numéricos, utilizando los dígitos numéricos locales.
 PreferExceptions      | Cuando ciertas funciones deban manejar información inválida, activar esta constante causa que se arrojen excepciones en lugar de continuar con código alternativo (activar esta bandera puede ser un dolor de cabeza, pero resulta en código más seguro).
-RatherDRY             | Indica que, a pesar de disminuir la optimización del código, se debe respetar el principio DRY (Don't Repeat Yourself) al implementar sobrecargas cuyo cuerpo sea exactamente igual.
+RatherDRY             | Indica que, a pesar de disminuir la optimización del código, se debe respetar el principio DRY (Don't Repeat Yourself) al implementar sobrecargas cuyo cuerpo sea exactamente igual salvo por los tipos de argumentos.
 SaferPasswords        | Permite que algunas funciones de seguridad requieran, comprueben o generen contraseñas más seguras, a expensas de compatibilidad con los métodos de entrada disponibles o con el equipo.
 StrictMCARTVersioning | Cuando se realicen comprobaciones de compatibilidad con MCART, activar esta constante causa que dichas comprobaciones sean más estrictas. Se recomienda mantener esta constante habilitada.

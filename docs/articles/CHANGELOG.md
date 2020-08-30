@@ -1,3 +1,10 @@
+# ChangeLog de MCART
+En este documento se describe un historial de cambios en general para distintas versiones secundarias de MCART. 
+
+Para las versiones *0.1 series* hasta *0.5 series*, se provee de un esquema relativamente completo de los cambios más importantes al momento de su liberación. Para las versiones desde *0.6 series* en adelante, se presenta una versión considerablemente más resumida de los cambios. Esto es debido a que *0.6 series* fue la primera versión alojada en un servicio de control de versiones, como lo es git; a lo cual se debe agregar que muchos de los commits realizados en el proyecto pueden ser fixes parciales a fallos, cambios de poca reelevancia o de documentación, reorganizaciones menores de archivos, y en algunos casos únicamente bumps de versión.
+
+Para las versiones *0.6 series* en adelante, para ver una lista mucho más completa y específica de los cambios, visite la [página de historial de commits](https://github.com/TheXDS/MCART/commits/master).
+
 ## Nürburgring 0.1.11.5
 - Versión inicial
 
@@ -245,9 +252,73 @@
 * Nuevo: Algunos controles adicionales.
 * Nuevo: Clases auxiliares para el manejo de argumentos de línea de comandos.
 * Mejorado: Reorganización total del directorio del proyecto.
+* Mejorado: Uso de tipos de referencia nulables.
 * Mejorado: Cambios de Versioning
 * Mejorado: Respeto estricto de SOLID/MVVM.
 * Mejorado: Limpieza y actualización de archivos de proyecto.
 * Mejorado: Cambios internos, mejoras y expansioens al Stack de redes.
 * Mejorado: Reducción de complejidad ciclomática en varias funciones de MCART.
 * Corregido: Múltiples problemas de confiabilidad misceláneos.
+* Quitado: Comentarios de ReSharper
+
+#### MCART 0.10.0.6
+* Nuevo: Tipos universales básicos adicionales: ```I2DVector```, ```I3DVector```, ```Size```.
+* Nuevo: App de ejemplo ```PictVGA```.
+
+#### MCART 0.10.0.7
+* Mejorado: Mejoras substanciales a ```TypeFactory```.
+
+#### MCART 0.10.0.11
+* Nuevo: Tipos de resolución de ```Uri```s.
+* Nuevo: Clientes mejorados de comunicación de red basados en comandos.
+* Mejorado: Cliente de ```LightChat``` (app de ejemplo).
+
+#### MCART 0.10.0.12
+* Nuevo: control ```BusyContainer``` para WPF.
+* Nuevo: Envolturas observables para colecciones y listas.
+* Nuevo: Proyecto de extensión para tipos complejos de Entity Framework.
+* Nuevo: Otros tipos misc.
+* Nuevo: Funciones de consola.
+* Cambiado: Reescritura parcial transitoria de ```ViewModelFactory```.
+
+#### MCART 0.10.0.13
+* Nuevo: Clase que expone información sobre Microsoft Windows.
+* Mejorado: Mejor segregación de métodos internos compartidos.
+* Mejorado: Expansiones de los tipos universales de MCART.
+
+#### MCART 0.10.0.14
+* Mejorado: Scripts de compilación.
+* Mejorado: Clases para trabajo con ViewModels
+* Cambiado: Reorganización de algunas extensiones.
+
+## MCART 0.11 Series
+*0.11 series* tuvo su primer versión generada el 23 de septiembre de 2019. Se trata de una versión con un ciclo de vida corto comparado a otros releases.
+### HightLigts
+- Varios de los componentes *Legacy* de MCART han sido reubicados y marcados como tal.
+- Ha ocurrido un cambio importante en la forma en la que se segregan y crean nuevos proyectos, esto en aras de reducir las dependencias y los tamaños de cada librería individual.
+- Se ha decidico crear nuevas versiones de ciertos componentes que han sido declarados como *Legacy*. El trabajo es árduo, y podría no finalizarse por completo para la versión *0.12 series* de MCART.
+- Se ha puesto fuerte énfasis en la limpieza de todo el código, quitando referencias residuales a ReSharper, y agregando toda la documentación faltante. Este también es un trabajo árduo, pero es desde esta versión que se inicia el compromiso.
+- Algunos de los trabajos realizados durante esta versión ha sido resultado directo de las necesidades crecientes de [```TheXDS.Triton```](https://github.com/TheXDS/Triton), el cual es otro proyecto activo de TheXDS non-Corp.
+
+### Cambios
+* Nuevo: Numerosos módulos de extensión de tipos.
+* Nuevo: Automatización de publicación de paquetes a [*NuGet*](https://www.nuget.org/packages?q=MCART) y a [*GitHub*](https://github.com/TheXDS/MCART/packages).
+* Nuevo: Tipo ```Disposable``` (facilita la implementación de clases desechables).
+* Nuevo: Clases y métodos de descripción de licencias SPDX comunes.
+* Nuevo: Módulo de funciones estadísticas.
+* Nuevo (WIP): MRPC (Morgan's Remote Procedure Call)
+* Nuevo: Múltiples clases de conversión de tipos.
+* Cambiado: Se ha deprecado por completo .Net Framework.  MCART ahora se construye exclusivamente para .Net Core 3.1 y .Net Standard 2.1 en los casos en donde sea posible.
+* Cambiado: ```PluginSupport``` => ```PluginSupport.Legacy```
+* Cambiado: SandCastle ha sido totalmente removido para reemplazarse por DocFX.
+
+## MCART 0.12 Series
+*0.12 series* tuvo su primer versión generada el 6 de diciembre de 2019. Se trata de una versión con un ciclo de vida corto comparado a otros releases.
+### HightLigts
+- Finalmente, MCART únicamente compila a objetivos .Net Core 3.1 y .NetStandard 2.1 donde sea aplicacble.
+- Mucho del trabajo en esta versión se centraría en tratar de finalizar algunos de los nuevos componentes.
+
+### Cambios
+Nuevo: Finalización de componente ```TypeFactory```.
+Corregido: Documentación con indentación innecesaria.
+Deshabilitado: ```ViewModelFactory``` (aún no se remueve totalmente considerando posibles usos futuros)

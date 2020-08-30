@@ -52,6 +52,3 @@ complejidad del código.
 
 MCART también requiere que [.Net SDK](https://www.microsoft.com/net/core) 3.1
 esté instalado en el sistema.
-
-#### Componentes adicionales
-[.Net SDK Getting Started (todas las plataformas)](https://www.microsoft.com/net/core)  

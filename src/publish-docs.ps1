@@ -6,8 +6,8 @@ catch {
     Write-Error "No se pudo generar la documentación de ayuda." -CategoryReason "Parece que DocFx no está instalado." -Category NotInstalled
     return
 }
-SOURCE_DIR = $PWD
-TEMP_REPO_DIR = $env:TMP\mcart-gh-pages
+$SOURCE_DIR = $PWD
+$TEMP_REPO_DIR = "$env:TMP\mcart-gh-pages"
 if (!(Test-Path $TEMP_REPO_DIR)) {
     New-Item -Path $TEMP_REPO_DIR -ItemType "directory"
     git clone https://github.com/TheXDS/MCART.git --branch gh-pages $TEMP_REPO_DIR

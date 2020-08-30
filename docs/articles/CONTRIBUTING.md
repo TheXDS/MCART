@@ -82,7 +82,7 @@ estas plataformas. Lee a continuación para conocer las razones.
 ### Notas adicionales
 #### Ruptura de compatibilidad Pre-Release
 Actualmente, MCART se encuentra en una temprana fase de desarrollo (pese al
-aparente múmero de versión actual, *0.11 Series*). Al tratarse de una librería
+aparente múmero de versión actual, *0.12 Series*). Al tratarse de una librería
 en fase Pre-Alpha, los espacios de nombres, clases, métodos, recursos y
 cualquier componente existente de MCART están sujetos a grandes cambios o a
 deprecarse.
@@ -100,11 +100,10 @@ convirtiéndose en una nueva rama independiente de MCART.
 Respecto a la decisión de utilizar una versión tan nueva del lenguaje, C# 8.0
 ofrece ciertas características de lenguaje sobre las cuales MCART depende.
 
-Es posible utilizar la aplicación *dotnet* incluída en el .Net SDK 3.0 para
+Es posible utilizar la aplicación *dotnet* incluída en el .Net SDK 3.1 para
 compilar código de C# 8.0 en cualquier plataforma soportada.
 
-[.Net SDK 2.0 (Windows)](https://www.microsoft.com/download/details.aspx?id=19988)  
-[.Net SDK Getting Started (todas las plataformas)](https://www.microsoft.com/net/core)
+[.Net Core SDK (todas las plataformas)](https://www.microsoft.com/net/core)
 
 #### Proyectos de ejemplos
 Se incluyen algunas aplicaciones sencillas de prueba en la solución, su
