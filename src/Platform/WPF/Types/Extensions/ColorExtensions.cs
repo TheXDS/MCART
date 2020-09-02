@@ -22,12 +22,12 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using TheXDS.MCART.Math;
-using System.Windows.Media;
-using B = System.Windows.Media.Brush;
-using D = System.Windows.Media.Color;
-using C = TheXDS.MCART.Types.Color;
 using System.Linq;
+using System.Windows.Media;
+using TheXDS.MCART.Math;
+using B = System.Windows.Media.Brush;
+using C = TheXDS.MCART.Types.Color;
+using D = System.Windows.Media.Color;
 
 namespace TheXDS.MCART.Types.Extensions
 {
