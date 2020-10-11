@@ -761,16 +761,16 @@ namespace TheXDS.MCART
         /// Convierte un <see cref="System.Drawing.Image" /> en un
         /// <see cref="BitmapImage" />.
         /// </summary>
-        /// <param name="bs"><see cref="BitmapSource" /> a convertir.</param>
+        /// <param name="image"><see cref="System.Drawing.Image" /> a convertir.</param>
         /// <returns>
         /// Un <see cref="BitmapImage" /> que contiene la imagen obtenida desde
         /// un <see cref="System.Drawing.Image" />.
         /// </returns>
-        public static BitmapImage ToImage(this System.Drawing.Image bs)
+        public static BitmapImage ToImage(this System.Drawing.Image image)
         {
             using var ms = new MemoryStream();
             var bi = new BitmapImage();
-            bs.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+            image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
             ms.Position = 0;
             bi.BeginInit();
             bi.CacheOption = BitmapCacheOption.OnLoad;
@@ -784,15 +784,15 @@ namespace TheXDS.MCART
         /// Convierte un <see cref="System.Drawing.Image" /> en un
         /// <see cref="BitmapSource" />.
         /// </summary>
-        /// <param name="bs"><see cref="BitmapSource" /> a convertir.</param>
+        /// <param name="image"><see cref="System.Drawing.Image" /> a convertir.</param>
         /// <returns>
         /// Un <see cref="BitmapImage" /> que contiene la imagen obtenida desde
         /// un <see cref="System.Drawing.Image" />.
         /// </returns>
-        public static BitmapSource ToSource(this System.Drawing.Image bs)
+        public static BitmapSource ToSource(this System.Drawing.Image image)
         {
             using var ms = new MemoryStream();
-            var bitmap = new System.Drawing.Bitmap(bs);
+            var bitmap = new System.Drawing.Bitmap(image);
             var bmpPt = bitmap.GetHbitmap();
             var bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(
                 bmpPt,
@@ -804,6 +804,23 @@ namespace TheXDS.MCART
             DeleteObject(bmpPt);
 
             return bitmapSource;
+        }
+
+        /// <summary>
+        /// Convierte un <see cref="System.Drawing.Image" /> en un
+        /// <see cref="Visual" />.
+        /// </summary>
+        /// <param name="image"><see cref="System.Drawing.Image" /> a convertir.</param>
+        /// <returns>
+        /// Un <see cref="Visual" /> que contiene la imagen obtenida desde
+        /// un <see cref="System.Drawing.Image" />.
+        /// </returns>
+        public static Visual ToVisual(this System.Drawing.Image image)
+        {
+            var v = new DrawingVisual();
+            using var dc = v.RenderOpen();
+            dc.DrawImage(image.ToSource(), new Rect { Width = image.Width, Height = image.Height });
+            return v;
         }
 
         /// <summary>

@@ -30,11 +30,14 @@ using static System.Reflection.BindingFlags;
 
 namespace TheXDS.MCART.Types.Base
 {
-
     /// <summary>
     /// Clase base que simplifica la implementación de la interfaz
     /// <see cref="IDisposable"/>.
     /// </summary>
+    /// <remarks>
+    /// Si la clase a implementar contendrá acciones asíncronas de limpieza,
+    /// utilice la clase <see cref="AsyncDisposable"/> como clase base.
+    /// </remarks>
     public abstract class Disposable : IDisposableEx
     {
         private bool ShouldFinalize() => GetType().GetMethod(nameof(OnFinalize), Instance | NonPublic)!.IsOverride();

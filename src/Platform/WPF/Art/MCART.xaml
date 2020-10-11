@@ -1,1 +1,63 @@
-<Grid xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Height="100" Width="100"><Rectangle RadiusX="5" RadiusY="5"><Rectangle.Fill><LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0"><LinearGradientBrush.RelativeTransform><TransformGroup><ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.4" ScaleY="1.4"/><SkewTransform CenterY="0.5" CenterX="0.5"/><RotateTransform Angle="-45" CenterY="0.5" CenterX="0.5"/><TranslateTransform/></TransformGroup></LinearGradientBrush.RelativeTransform><GradientStop Color="#FF252525" Offset="1"/><GradientStop Color="White" Offset="0.025"/><GradientStop Color="#FFBDBDBD" Offset="0.07"/><GradientStop Color="#FFB0B0B0" Offset="0.465"/><GradientStop Color="#FF858585" Offset="0.545"/><GradientStop Color="#FF7C7C7C" Offset="0.93"/></LinearGradientBrush></Rectangle.Fill></Rectangle><Rectangle Margin="2" RadiusY="5" RadiusX="5"><Rectangle.Fill><LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0"><LinearGradientBrush.RelativeTransform><TransformGroup><ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.4" ScaleY="1.4"/><SkewTransform CenterY="0.5" CenterX="0.5"/><RotateTransform Angle="135" CenterY="0.5" CenterX="0.5"/><TranslateTransform/></TransformGroup></LinearGradientBrush.RelativeTransform><GradientStop Color="#FF252525" Offset="1"/><GradientStop Color="#FFDEDEDE" Offset="0.449"/><GradientStop Color="Gray" Offset="0.551"/><GradientStop Color="#FFB0B0B0" Offset="0.917"/><GradientStop Color="White" Offset="0.025"/><GradientStop Color="#FFB9B9B9" Offset="0.067"/></LinearGradientBrush></Rectangle.Fill></Rectangle><Rectangle Margin="4" RadiusY="5" RadiusX="5"><Rectangle.Fill><LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0"><GradientStop Color="#FF3994D3" Offset="0.271"/><GradientStop Color="#FFBCDEFF"/><GradientStop Color="#FF000306" Offset="1"/></LinearGradientBrush></Rectangle.Fill></Rectangle><Viewbox Margin="5"><Path Data="M4.8905625,2.2080002 C5.4515619,2.2080002 5.8634996,2.3400002 6.1263752,2.6040001 C6.60075,2.3400002 7.1144371,2.2080002 7.6674376,2.2080002 C8.1643124,2.2080002 8.5803747,2.3160005 8.9156246,2.5320001 C9.3147497,2.7960005 9.4368124,3.1560001 9.2818127,3.612 L7.3080001,9.4200001 L5.6280003,9.4200001 L7.6139998,3.5760002 C7.7146249,3.2800002 7.5969372,3.132 7.2609377,3.132 C6.940937,3.132 6.7265625,3.2919998 6.6178126,3.612 L4.6440001,9.4200001 L2.964,9.4200001 L4.9704375,3.5159998 C5.0085626,3.4040003 4.9878435,3.3120003 4.9082813,3.2400002 C4.8287187,3.1680002 4.7329373,3.132 4.6209373,3.132 C4.2929373,3.132 4.0786247,3.2800002 3.9779999,3.5760002 L1.992,9.4200001 L0.31200001,9.4200001 L2.2858126,3.612 C2.4408123,3.1560001 2.8156247,2.7960005 3.4102499,2.5320001 C3.892375,2.3160005 4.3858128,2.2080002 4.8905625,2.2080002 z" Fill="White" Height="7.212" RenderTransformOrigin="0.5,0.5" Stretch="Fill" Width="9.035"><Path.RenderTransform><TransformGroup><ScaleTransform ScaleX="0.85" ScaleY="0.7"/><SkewTransform AngleX="-5"/></TransformGroup></Path.RenderTransform></Path></Viewbox></Grid>
+<Grid
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    Height="100" Width="100">
+    <Rectangle RadiusX="5" RadiusY="5">
+        <Rectangle.Fill>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <LinearGradientBrush.RelativeTransform>
+                    <TransformGroup>
+                        <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.4" ScaleY="1.4"/>
+                        <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                        <RotateTransform Angle="-45" CenterY="0.5" CenterX="0.5"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </LinearGradientBrush.RelativeTransform>
+                <GradientStop Color="#FF252525" Offset="1"/>
+                <GradientStop Color="White" Offset="0.025"/>
+                <GradientStop Color="#FFBDBDBD" Offset="0.07"/>
+                <GradientStop Color="#FFB0B0B0" Offset="0.465"/>
+                <GradientStop Color="#FF858585" Offset="0.545"/>
+                <GradientStop Color="#FF7C7C7C" Offset="0.93"/>
+            </LinearGradientBrush>
+        </Rectangle.Fill>
+    </Rectangle>
+    <Rectangle Margin="2" RadiusY="5" RadiusX="5">
+        <Rectangle.Fill>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <LinearGradientBrush.RelativeTransform>
+                    <TransformGroup>
+                        <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.4" ScaleY="1.4"/>
+                        <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                        <RotateTransform Angle="135" CenterY="0.5" CenterX="0.5"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </LinearGradientBrush.RelativeTransform>
+                <GradientStop Color="#FF252525" Offset="1"/>
+                <GradientStop Color="#FFDEDEDE" Offset="0.449"/>
+                <GradientStop Color="Gray" Offset="0.551"/>
+                <GradientStop Color="#FFB0B0B0" Offset="0.917"/>
+                <GradientStop Color="White" Offset="0.025"/>
+                <GradientStop Color="#FFB9B9B9" Offset="0.067"/>
+            </LinearGradientBrush>
+        </Rectangle.Fill>
+    </Rectangle>
+    <Rectangle Margin="4" RadiusY="5" RadiusX="5">
+        <Rectangle.Fill>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF3994D3" Offset="0.271"/>
+                <GradientStop Color="#FFBCDEFF"/>
+                <GradientStop Color="#FF000306" Offset="1"/>
+            </LinearGradientBrush>
+        </Rectangle.Fill>
+    </Rectangle>
+    <Viewbox Margin="5">
+        <Path Data="M4.8905625,2.2080002 C5.4515619,2.2080002 5.8634996,2.3400002 6.1263752,2.6040001 C6.60075,2.3400002 7.1144371,2.2080002 7.6674376,2.2080002 C8.1643124,2.2080002 8.5803747,2.3160005 8.9156246,2.5320001 C9.3147497,2.7960005 9.4368124,3.1560001 9.2818127,3.612 L7.3080001,9.4200001 L5.6280003,9.4200001 L7.6139998,3.5760002 C7.7146249,3.2800002 7.5969372,3.132 7.2609377,3.132 C6.940937,3.132 6.7265625,3.2919998 6.6178126,3.612 L4.6440001,9.4200001 L2.964,9.4200001 L4.9704375,3.5159998 C5.0085626,3.4040003 4.9878435,3.3120003 4.9082813,3.2400002 C4.8287187,3.1680002 4.7329373,3.132 4.6209373,3.132 C4.2929373,3.132 4.0786247,3.2800002 3.9779999,3.5760002 L1.992,9.4200001 L0.31200001,9.4200001 L2.2858126,3.612 C2.4408123,3.1560001 2.8156247,2.7960005 3.4102499,2.5320001 C3.892375,2.3160005 4.3858128,2.2080002 4.8905625,2.2080002 z" Fill="White" Height="7.212" RenderTransformOrigin="0.5,0.5" Stretch="Fill" Width="9.035">
+            <Path.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="0.85" ScaleY="0.7"/>
+                    <SkewTransform AngleX="-5"/>
+                </TransformGroup>
+            </Path.RenderTransform>
+        </Path>
+    </Viewbox>
+</Grid>
