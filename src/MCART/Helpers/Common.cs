@@ -33,6 +33,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Types;
@@ -53,6 +54,29 @@ namespace TheXDS.MCART
     /// </remarks>
     public static partial class Common
     {
+        private static IEnumerable<bool> ToBits(this ulong value, in byte maxBits)
+        {
+            var ret = new List<bool>();
+            byte f = 0;
+            while (value != 0 || f++ == maxBits)
+            {
+                ret.Insert(0, (value & 1) != 0);
+                value >>= 1;
+            }
+            return ret;
+        }
+        private static byte BitCount(ulong value, in byte maxBits)
+        {
+            byte c = 0;
+            byte f = 0;
+            while (value != 0 || f++ == maxBits)
+            {
+                c += (byte)(value & 1);
+                value >>= 1;
+            }
+            return c;
+        }
+
         /// <summary>
         /// Determina si un conjunto de cadenas están vacías.
         /// </summary>
@@ -65,29 +89,9 @@ namespace TheXDS.MCART
         /// Se produce si <paramref name="stringArray"/> es
         /// <see langword="null"/>.
         /// </exception>
-        [Sugar]
         public static bool AllEmpty(params string?[] stringArray)
         {
             return stringArray.AsEnumerable().AllEmpty();
-        }
-
-        /// <summary>
-        /// Determina si un conjunto de cadenas están vacías.
-        /// </summary>
-        /// <returns>
-        /// <see langword="true" /> si las cadenas están vacías o son
-        /// <see langword="null" />; de lo contrario, <see langword="false" />.
-        /// </returns>
-        /// <param name="stringArray">Cadenas a comprobar.</param>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="stringArray"/> es
-        /// <see langword="null"/>.
-        /// </exception>
-        [Sugar]
-        public static bool AllEmpty(this IEnumerable<string?> stringArray)
-        {
-            NullCheck(stringArray, nameof(stringArray));
-            return stringArray.All(j => j.IsEmpty());
         }
 
         /// <summary>
@@ -102,29 +106,9 @@ namespace TheXDS.MCART
         /// Se produce si <paramref name="stringArray"/> es 
         /// <see langword="null"/>.
         /// </exception>
-        [Sugar]
         public static bool AnyEmpty(params string?[] stringArray)
         {
             return stringArray.AsEnumerable().AnyEmpty();
-        }
-
-        /// <summary>
-        /// Determina si alguna cadena está vacía.
-        /// </summary>
-        /// <returns>
-        /// <see langword="true" /> si alguna cadena está vacía o es
-        /// <see langword="null" />; de lo contrario, <see langword="false" />.
-        /// </returns>
-        /// <param name="stringArray">Cadenas a comprobar.</param>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="stringArray"/> es
-        /// <see langword="null"/>.
-        /// </exception>
-        [Sugar]
-        public static bool AnyEmpty(this IEnumerable<string?> stringArray)
-        {
-            NullCheck(stringArray, nameof(stringArray));
-            return stringArray.Any(j => j.IsEmpty());
         }
 
         /// <summary>
@@ -155,53 +139,16 @@ namespace TheXDS.MCART
         /// <see langword="null" />; de lo contrario, <see langword="false" />.
         /// </returns>
         /// <param name="stringArray">Cadenas a comprobar.</param>
-        /// <param name="index">
-        /// Argumento de salida. Índices de las cadenas vacías encontradas.
+        /// <param name="firstIndex">
+        /// Argumento de salida. Índice de la primera cadena vacía encontrada.
         /// </param>
         /// <exception cref="ArgumentNullException">
         /// Se produce si <paramref name="stringArray"/> es 
         /// <see langword="null"/>.
         /// </exception>
-        public static bool AnyEmpty(this IEnumerable<string?> stringArray, out IEnumerable<int> index)
+        public static bool AnyEmpty(out int firstIndex, params string?[] stringArray)
         {
-            NullCheck(stringArray, nameof(stringArray));
-            var idx = new List<int>();
-            var c = 0;
-            var found = false;
-            foreach (var j in stringArray)
-            {
-                if (found = j.IsEmpty())
-                {
-                    idx.Add(c);
-                }
-                c++;
-            }
-            index = idx.AsEnumerable();
-            return found;
-        }
-
-        /// <summary>
-        /// Determina si alguna cadena está vacía.
-        /// </summary>
-        /// <returns>
-        /// <see langword="true" /> si alguna cadena está vacía o es
-        /// <see langword="null" />; de lo contrario, <see langword="false" />.
-        /// </returns>
-        /// <param name="stringArray">Cadenas a comprobar.</param>
-        /// <param name="firstIndex">
-        /// Argumento de salida. Índice de la primera cadena vacía encontrada.
-        /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="stringArray"/> es
-        /// <see langword="null"/>.
-        /// </exception>
-        public static bool AnyEmpty(this IEnumerable<string?> stringArray, out int firstIndex)
-        {
-            NullCheck(stringArray, nameof(stringArray));
-            var r = AnyEmpty(stringArray, out IEnumerable<int> indexes);
-            var a = indexes.ToArray();
-            firstIndex = a.Any() ? a.First() : -1;
-            return r;
+            return stringArray.AsEnumerable().AnyEmpty(out firstIndex);
         }
 
         /// <summary>
@@ -360,18 +307,6 @@ namespace TheXDS.MCART
             return BitConverter.ToDouble(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
         }
 
-        private static IEnumerable<bool> ToBits(this ulong value, in byte maxBits)
-        {
-            var ret = new List<bool>();
-            byte f = 0;
-            while (value != 0 || f++ == maxBits)
-            {
-                ret.Insert(0,(value & 1)!=0);
-                value >>= 1;
-            }
-            return ret;
-        }
-
         /// <summary>
         /// Convierte un <see cref="long"/> en una colección de bits.
         /// </summary>
@@ -415,18 +350,6 @@ namespace TheXDS.MCART
         /// Una colección de los bits que componen al valor.
         /// </returns>
         public static IEnumerable<bool> ToBits(this in byte value) => ToBits(value, 8);
-
-        private static byte BitCount(ulong value, in byte maxBits)
-        {
-            byte c = 0;
-            byte f = 0;
-            while (value != 0|| f++ == maxBits)
-            {
-                c += (byte)(value & 1);
-                value >>= 1;
-            }
-            return c;
-        }
 
         /// <summary>
         /// Obtiene la cuenta de bits que conforman el valor.
@@ -636,7 +559,6 @@ namespace TheXDS.MCART
         /// Una lista de enteros con la secuencia generada.
         /// </returns>
         /// <param name="top">Valor más alto.</param>
-        [Sugar]
         public static IEnumerable<int> Sequence(in int top)
         {
             return Sequence(0, top, 1);
@@ -650,7 +572,6 @@ namespace TheXDS.MCART
         /// </returns>
         /// <param name="floor">Valor más bajo.</param>
         /// <param name="top">Valor más alto.</param>
-        [Sugar]
         public static IEnumerable<int> Sequence(in int floor, in int top)
         {
             return Sequence(floor, top, 1);
@@ -724,422 +645,6 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
-        /// Convierte los valores de una colección de elementos
-        /// <see cref="float" /> a porcentajes.
-        /// </summary>
-        /// <returns>
-        /// Una colección de <see cref="float" /> con sus valores
-        /// expresados en porcentaje.
-        /// </returns>
-        /// <param name="collection">Colección a procesar.</param>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="collection"/> es
-        /// <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="InvalidOperationException">
-        /// Se produce si el valor mínimo y máximo de la colección son iguales.
-        /// </exception>
-        [Sugar]
-        public static IEnumerable<float> ToPercent(this IEnumerable<float> collection)
-        {
-            NullCheck(collection, nameof(collection));
-            var enumerable = collection.ToList();
-            return ToPercent(enumerable, enumerable.Min(), enumerable.Max());
-        }
-
-        /// <summary>
-        /// Convierte los valores de una colección de elementos
-        /// <see cref="float" /> a porcentajes.
-        /// </summary>
-        /// <returns>
-        /// Una colección de <see cref="float" /> con sus valores
-        /// expresados en porcentaje.
-        /// </returns>
-        /// <param name="collection">Colección a procesar.</param>
-        /// <param name="baseZero">
-        /// Si es <see langword="true" />, la base de
-        /// porcentaje es cero; de lo contrario, se utilizará el valor mínimo
-        /// dentro de la colección.
-        /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="collection"/> es
-        /// <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="InvalidOperationException">
-        /// Se produce si el valor mínimo y máximo de la colección son iguales.
-        /// </exception>
-        [Sugar]
-        public static IEnumerable<float> ToPercent(this IEnumerable<float> collection, in bool baseZero)
-        {
-            NullCheck(collection, nameof(collection));
-            var enumerable = collection.ToList();
-            return ToPercent(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
-        }
-
-        /// <summary>
-        /// Convierte los valores de una colección de elementos
-        /// <see cref="float" /> a porcentajes.
-        /// </summary>
-        /// <returns>
-        /// Una colección de <see cref="float" /> con sus valores
-        /// expresados en porcentaje.
-        /// </returns>
-        /// <param name="collection">Colección a procesar.</param>
-        /// <param name="max">Valor que representará 100%.</param>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="collection"/> es
-        /// <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="InvalidOperationException">
-        /// Se produce si el valor mínimo de la colección y
-        /// <paramref name="max"/> son iguales.
-        /// </exception>
-        [Sugar]
-        public static IEnumerable<float> ToPercent(this IEnumerable<float> collection, in float max)
-        {
-            return ToPercent(collection, 0, max);
-        }
-
-        /// <summary>
-        /// Convierte los valores de una colección de elementos
-        /// <see cref="float" /> a porcentajes.
-        /// </summary>
-        /// <returns>
-        /// Una colección de <see cref="float" /> con sus valores
-        /// expresados en porcentaje.
-        /// </returns>
-        /// <param name="collection">Colección a procesar.</param>
-        /// <param name="min">Valor que representará 0%.</param>
-        /// <param name="max">Valor que representará 100%.</param>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="collection"/> es
-        /// <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="InvalidOperationException">
-        /// Se produce si <paramref name="min"/> y <paramref name="max"/> son
-        /// iguales.
-        /// </exception>
-        public static IEnumerable<float> ToPercent(this IEnumerable<float> collection, float min, float max)
-        {
-            ToPercent_Contract(collection, min, max);
-            foreach (var j in collection)
-                if (j.IsValid())
-                    yield return (j - min) / (max - min).Clamp(1, float.NaN);
-                else
-                    yield return float.NaN;
-        }
-
-        /// <summary>
-        /// Convierte los valores de una colección de elementos
-        /// <see cref="double" /> a porcentajes.
-        /// </summary>
-        /// <returns>
-        /// Una colección de <see cref="double" /> con sus valores
-        /// expresados en porcentaje.
-        /// </returns>
-        /// <param name="collection">Colección a procesar.</param>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="collection"/> es
-        /// <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="InvalidOperationException">
-        /// Se produce si el valor mínimo y máximo de la colección son iguales.
-        /// </exception>
-        [Sugar]
-        public static IEnumerable<double> ToPercent(this IEnumerable<double> collection)
-        {
-            NullCheck(collection, nameof(collection));
-            var enumerable = collection.ToList();
-            return ToPercent(enumerable, enumerable.Min(), enumerable.Max());
-        }
-
-        /// <summary>
-        /// Convierte los valores de una colección de elementos
-        /// <see cref="double" /> a porcentajes.
-        /// </summary>
-        /// <returns>
-        /// Una colección de <see cref="double" /> con sus valores
-        /// expresados en porcentaje.
-        /// </returns>
-        /// <param name="collection">Colección a procesar.</param>
-        /// <param name="baseZero">
-        /// Si es <see langword="true" />, la base de
-        /// porcentaje es cero; de lo contrario, se utilizará el valor mínimo
-        /// dentro de la colección.
-        /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="collection"/> es
-        /// <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="InvalidOperationException">
-        /// Se produce si el valor mínimo y máximo de la colección son iguales.
-        /// </exception>
-        [Sugar]
-        public static IEnumerable<double> ToPercent(this IEnumerable<double> collection, in bool baseZero)
-        {
-            NullCheck(collection, nameof(collection));
-            var enumerable = collection.ToList();
-            return ToPercent(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
-        }
-
-        /// <summary>
-        /// Convierte los valores de una colección de elementos
-        /// <see cref="double" /> a porcentajes.
-        /// </summary>
-        /// <returns>
-        /// Una colección de <see cref="double" /> con sus valores
-        /// expresados en porcentaje.
-        /// </returns>
-        /// <param name="collection">Colección a procesar.</param>
-        /// <param name="max">Valor que representará 100%.</param>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="collection"/> es
-        /// <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="InvalidOperationException">
-        /// Se produce si el valor mínimo de la colección y
-        /// <paramref name="max"/> son iguales.
-        /// </exception>
-        [Sugar]
-        public static IEnumerable<double> ToPercent(this IEnumerable<double> collection, in double max)
-        {
-            return ToPercent(collection, 0, max);
-        }
-
-        /// <summary>
-        /// Convierte los valores de una colección de elementos
-        /// <see cref="double" /> a porcentajes.
-        /// </summary>
-        /// <returns>
-        /// Una colección de <see cref="double" /> con sus valores
-        /// expresados en porcentaje.
-        /// </returns>
-        /// <param name="collection">Colección a procesar.</param>
-        /// <param name="min">Valor que representará 0%.</param>
-        /// <param name="max">Valor que representará 100%.</param>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="collection"/> es
-        /// <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="InvalidOperationException">
-        /// Se produce si <paramref name="min"/> y <paramref name="max"/> son
-        /// iguales.
-        /// </exception>
-        public static IEnumerable<double> ToPercent(this IEnumerable<double> collection, double min, double max)
-        {
-            ToPercent_Contract(collection, min, max);
-            foreach (var j in collection)
-                if (j.IsValid())
-                    yield return (j - min) / (max - min).Clamp(1, double.NaN);
-                else
-                    yield return double.NaN;
-        }
-
-        /// <summary>
-        /// Convierte los valores de una colección de elementos
-        /// <see cref="int" /> a porcentajes.
-        /// </summary>
-        /// <returns>
-        /// Una colección de <see cref="double" /> con sus valores
-        /// expresados en porcentaje.
-        /// </returns>
-        /// <param name="collection">Colección a procesar.</param>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="collection"/> es
-        /// <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="InvalidOperationException">
-        /// Se produce si el valor mínimo y máximo de la colección son iguales.
-        /// </exception>
-        [Sugar]
-        public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection)
-        {
-            NullCheck(collection, nameof(collection));
-            var enumerable = collection.ToList();
-            return ToPercentDouble(enumerable, 0, enumerable.Max());
-        }
-
-        /// <summary>
-        /// Convierte los valores de una colección de elementos
-        /// <see cref="int" /> a porcentajes.
-        /// </summary>
-        /// <returns>
-        /// Una colección de <see cref="double" /> con sus valores
-        /// expresados en porcentaje.
-        /// </returns>
-        /// <param name="collection">Colección a procesar.</param>
-        /// <param name="baseZero">
-        /// Opcional. si es <see langword="true" />, la base de
-        /// porcentaje es cero; de lo contrario, se utilizará el valor mínimo
-        /// dentro de la colección.
-        /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="collection"/> es
-        /// <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="InvalidOperationException">
-        /// Se produce si el valor mínimo y máximo de la colección son iguales.
-        /// </exception>
-        [Sugar]
-        public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, in bool baseZero)
-        {
-            NullCheck(collection, nameof(collection));
-            var enumerable = collection.ToList();
-            return ToPercentDouble(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
-        }
-
-        /// <summary>
-        /// Convierte los valores de una colección de elementos
-        /// <see cref="int" /> a porcentajes.
-        /// </summary>
-        /// <returns>
-        /// Una colección de <see cref="double" /> con sus valores
-        /// expresados en porcentaje.
-        /// </returns>
-        /// <param name="collection">Colección a procesar.</param>
-        /// <param name="max">Valor que representará 100%.</param>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="collection"/> es
-        /// <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="InvalidOperationException">
-        /// Se produce si el valor mínimo de la colección y
-        /// <paramref name="max"/> son iguales.
-        /// </exception>
-        [Sugar]
-        public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, in int max)
-        {
-            return ToPercentDouble(collection, 0, max);
-        }
-
-        /// <summary>
-        /// Convierte los valores de una colección de elementos
-        /// <see cref="int" /> a porcentajes.
-        /// </summary>
-        /// <returns>
-        /// Una colección de <see cref="double" /> con sus valores
-        /// expresados en porcentaje.
-        /// </returns>
-        /// <param name="collection">Colección a procesar.</param>
-        /// <param name="min">Valor que representará 0%.</param>
-        /// <param name="max">Valor que representará 100%.</param>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="collection"/> es
-        /// <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="InvalidOperationException">
-        /// Se produce si <paramref name="min"/> y <paramref name="max"/> son
-        /// iguales.
-        /// </exception>
-        public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, int min, int max)
-        {
-            ToPercentDouble_Contract(collection, min, max);
-            foreach (var j in collection) yield return (j - min) / (double) (max - min);
-        }
-
-        /// <summary>
-        /// Convierte los valores de una colección de elementos
-        /// <see cref="int" /> a porcentajes de precisión simple.
-        /// </summary>
-        /// <returns>
-        /// Una colección de <see cref="float" /> con sus valores
-        /// expresados en porcentaje.
-        /// </returns>
-        /// <param name="collection">Colección a procesar.</param>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="collection"/> es
-        /// <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="InvalidOperationException">
-        /// Se produce si el valor mínimo y máximo de la colección son iguales.
-        /// </exception>
-        [Sugar]
-        public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection)
-        {
-            NullCheck(collection, nameof(collection));
-            var enumerable = collection.ToList();
-            return ToPercentSingle(enumerable, 0, enumerable.Max());
-        }
-
-        /// <summary>
-        /// Convierte los valores de una colección de elementos
-        /// <see cref="int" /> a porcentajes de precisión simple.
-        /// </summary>
-        /// <returns>
-        /// Una colección de <see cref="float" /> con sus valores
-        /// expresados en porcentaje.
-        /// </returns>
-        /// <param name="collection">Colección a procesar.</param>
-        /// <param name="baseZero">
-        /// Opcional. si es <see langword="true" />, la base de
-        /// porcentaje es cero; de lo contrario, se utilizará el valor mínimo
-        /// dentro de la colección.
-        /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="collection"/> es
-        /// <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="InvalidOperationException">
-        /// Se produce si el valor mínimo y máximo de la colección son iguales.
-        /// </exception>
-        [Sugar]
-        public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, in bool baseZero)
-        {
-            NullCheck(collection, nameof(collection));
-            var enumerable = collection.ToList();
-            return ToPercentSingle(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
-        }
-
-        /// <summary>
-        /// Convierte los valores de una colección de elementos
-        /// <see cref="int" /> a porcentajes de precisión simple.
-        /// </summary>
-        /// <returns>
-        /// Una colección de <see cref="float" /> con sus valores
-        /// expresados en porcentaje.
-        /// </returns>
-        /// <param name="collection">Colección a procesar.</param>
-        /// <param name="max">Valor que representará 100%.</param>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="collection"/> es
-        /// <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="InvalidOperationException">
-        /// Se produce si el valor mínimo de la colección y
-        /// <paramref name="max"/> son iguales.
-        /// </exception>
-        [Sugar]
-        public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, in int max)
-        {
-            return ToPercentSingle(collection, 0, max);
-        }
-
-        /// <summary>
-        /// Convierte los valores de una colección de elementos
-        /// <see cref="int" /> a porcentajes de precisión simple.
-        /// </summary>
-        /// <returns>
-        /// Una colección de <see cref="float" /> con sus valores
-        /// expresados en porcentaje.
-        /// </returns>
-        /// <param name="collection">Colección a procesar.</param>
-        /// <param name="min">Valor que representará 0%.</param>
-        /// <param name="max">Valor que representará 100%.</param>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="collection"/> es
-        /// <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="InvalidOperationException">
-        /// Se produce si <paramref name="min"/> y <paramref name="max"/> son
-        /// iguales.
-        /// </exception>
-        public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, int min, int max)
-        {
-            ToPercentDouble_Contract(collection, min, max);
-            foreach (var j in collection) yield return (j - min) / (float) (max - min);
-        }
-
-        /// <summary>
         /// Convierte un valor <see cref="long"/> que representa una cuenta de
         /// bytes en la unidad de magnitud más fácil de leer.
         /// </summary>
@@ -1152,7 +657,6 @@ namespace TheXDS.MCART
         public static string ByteUnits(long bytes, in ByteUnitType unit)
         {
             var c = 0;
-            var f = 0.0f;
 
             (int mag, string[] u) = unit switch
             {
@@ -1163,7 +667,7 @@ namespace TheXDS.MCART
 #if PreferExceptions
                 _ => throw new ArgumentOutOfRangeException(nameof(unit), unit, null)
 #else
-                _ => (1024, Array.Empty<string>())
+                _ => (1, Array.Empty<string>())
 #endif
             };
 
@@ -1172,9 +676,8 @@ namespace TheXDS.MCART
                 c++;
                 bytes /= mag;
             }
-            f = (float)bytes / mag;
 
-            return c > 0 ? $"{bytes + f:F1} {u[c.Clamp(u.Length) - 1]}" : $"{bytes} {St2.Bytes}";
+            return c > 0 ? $"{bytes + ((float)bytes / mag):F1} {u[c.Clamp(u.Length) - 1]}" : $"{bytes} {St2.Bytes}";
         }
 
         /// <summary>

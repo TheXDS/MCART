@@ -1,9 +1,7 @@
 ﻿/*
-Common_Contracts.cs
+ValueExposedInfo.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
-
-Este archivo contiene funciones de manipulación de objetos, 
 
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
@@ -25,22 +23,36 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
+using System.Collections.Generic;
+using TheXDS.MCART.Resources;
 
-namespace TheXDS.MCART
+namespace TheXDS.MCART.Component
 {
-    public static partial class Common
+    /// <summary>
+    /// Expone los vamores de información de la interfaz
+    /// <see cref="IExposeInfo"/> con valores especificados por el usuario.
+    /// </summary>
+    public struct ValueExposeInfo : IExposeInfo
     {
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void Sequence_Contract(in int stepping)
-        {
-            if (stepping == 0) throw new ArgumentOutOfRangeException(nameof(stepping));
-        }
+        /// <inheritdoc/>
+        public IEnumerable<string>? Authors { get; set; }
 
+        /// <inheritdoc/>
+        public string? Copyright { get; set; }
 
+        /// <inheritdoc/>
+        public License? License { get; set; }
 
+        /// <inheritdoc/>
+        public Version? Version { get; set; }
+
+        /// <inheritdoc/>
+        public IEnumerable<License>? ThirdPartyLicenses { get; set; }
+
+        /// <inheritdoc/>
+        public string Name { get; set; }
+
+        /// <inheritdoc/>
+        public string? Description { get; set; }
     }
 }
