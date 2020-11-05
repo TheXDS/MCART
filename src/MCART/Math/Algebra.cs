@@ -23,9 +23,12 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
 
 namespace TheXDS.MCART.Math
@@ -49,10 +52,11 @@ namespace TheXDS.MCART.Math
         };
 
         /// <summary>
-        /// Comprueba si un número es primo mediantSe prueba y error.
+        /// Comprueba si un número es primo mediante prueba y error.
         /// </summary>
         /// <returns>
-        /// <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
+        /// <see langword="true" />si el número es primo,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="number">Número a comprobar.</param>
         public static bool IsPrime(this in long number)
@@ -63,10 +67,54 @@ namespace TheXDS.MCART.Math
                 if (number % prime == 0) return false;         
             
             var l = (int)System.Math.Sqrt(number);
-            for (int k = 3; k <= l; k += 2)
+            for (int k = 547; k <= l; k += 2)
                 if (number % k == 0) return false; 
 
             return true;
+        }
+
+        /// <summary>
+        /// Comprueba si un número es primo mediante prueba y error, ejecutando
+        /// la operación en todos los procesadores del sistema.
+        /// </summary>
+        /// <param name="number">Número a comprobar.</param>
+        /// <returns>
+        /// <see langword="true" />si el número es primo,
+        /// <see langword="false" /> en caso contrario.
+        /// </returns>
+        public static bool IsPrimeMp(this long number)
+        {
+            if (number == 1) return false;
+            var options = new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount };
+            var part = Partitioner.Create(knownPrimes);
+            
+            bool prime = true;
+
+            void TestIfPrime(int j, ParallelLoopState loop)
+            {
+                if (number % j == 0)
+                {
+                    loop.Stop();                    
+                    prime = false;
+                }
+            }
+
+            void TestIfPrime2(int j, ParallelLoopState loop)
+            {
+                if (number % ((j * 2) + 1) == 0)
+                {
+                    loop.Stop();
+                    prime = false;
+                }
+            }
+
+            Parallel.ForEach(part, options, TestIfPrime);
+            if (prime)
+            {
+                var l = (int)System.Math.Sqrt(number);
+                Parallel.For(273, l, options, TestIfPrime2);
+            }            
+            return prime;
         }
 
         /// <summary>
