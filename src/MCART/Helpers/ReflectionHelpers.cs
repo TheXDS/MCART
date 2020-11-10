@@ -41,7 +41,7 @@ namespace TheXDS.MCART
     /// <summary>
     /// Funciones auxiliares de reflexión.
     /// </summary>
-    public static class ReflectionHelpers
+    public static partial class ReflectionHelpers
     {
         /// <summary>
         /// Obtiene una referencia al método que ha llamado al método
@@ -80,7 +80,7 @@ namespace TheXDS.MCART
         /// </exception>
         public static MethodInfo? GetCallingMethod(int nCaller)
         {
-            if (checked(nCaller++) < 1) throw new ArgumentOutOfRangeException(nameof(nCaller));
+            GetCallingMethod_Contract(nCaller);
             var frames = new StackTrace().GetFrames();
             return frames?.Length > nCaller ? (MethodInfo?)frames![nCaller]?.GetMethod() : null;
         }
@@ -142,11 +142,8 @@ namespace TheXDS.MCART
         /// </returns>
         public static bool IsOverriden(this MethodBase method, object thisInstance)
         {
-            if (method?.DeclaringType is null) throw new ArgumentNullException(nameof(method));
-            var t = thisInstance?.GetType() ?? throw new ArgumentNullException(nameof(thisInstance));
-            if (!t.Implements(method.DeclaringType)) throw new InvalidTypeException(t);
-
-            var m = t.GetMethod(method.Name, GetBindingFlags(method), null, method.GetParameters().Select(p => p.ParameterType).ToArray(), null) 
+            IsOverriden_Contract(method, thisInstance);
+            var m = thisInstance.GetType().GetMethod(method.Name, GetBindingFlags(method), null, method.GetParameters().Select(p => p.ParameterType).ToArray(), null) 
                 ?? throw new TamperException(new MissingMethodException(thisInstance.GetType().Name, method.Name));
 
             return method.DeclaringType != m.DeclaringType;

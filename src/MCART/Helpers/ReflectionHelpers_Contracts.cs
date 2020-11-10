@@ -1,5 +1,5 @@
 ﻿/*
-Common_Contracts.cs
+ReflectionHelpers_Contracts.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -26,18 +26,34 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Diagnostics;
+using System.Reflection;
 using System.Runtime.CompilerServices;
+using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Types.Extensions;
+using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 
 namespace TheXDS.MCART
 {
-    public static partial class Common
+    /// <summary>
+    /// Funciones auxiliares de reflexión.
+    /// </summary>
+    public static partial class ReflectionHelpers
     {
         [Conditional("EnforceContracts")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DebuggerNonUserCode]
-        private static void Sequence_Contract(in int stepping)
+        private static void GetCallingMethod_Contract(int nCaller)
         {
-            if (stepping == 0) throw new ArgumentOutOfRangeException(nameof(stepping));
+            if (checked(nCaller++) < 1) throw new ArgumentOutOfRangeException(nameof(nCaller));
+        }
+
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void IsOverriden_Contract(MethodBase method, object thisInstance)
+        {
+            if (method?.DeclaringType is null) throw new ArgumentNullException(nameof(method));
+            if (!(thisInstance?.GetType() ?? throw new ArgumentNullException(nameof(thisInstance))).Implements(method.DeclaringType)) throw new InvalidTypeException(thisInstance.GetType());
         }
     }
 }

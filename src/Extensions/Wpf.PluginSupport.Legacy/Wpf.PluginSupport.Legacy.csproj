@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <Description>MCART WPF Library</Description>
     <AssemblyName>MCART.WPF.PluginSupport.Legacy</AssemblyName>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFrameworks>net5.0-Windows</TargetFrameworks>
     <OutputType>Library</OutputType>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
