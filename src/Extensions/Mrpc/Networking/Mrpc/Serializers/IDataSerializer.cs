@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2020 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -81,7 +81,7 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
     /// serializar datos de un tipo específico en forma binaria dentro de
     /// un <see cref="Stream"/>.
     /// </summary>
-    public interface IDataSerializer<T> : IDataSerializer
+    public interface IDataSerializer<T> : IDataSerializer where T : notnull
     {
         /// <summary>
         /// Obtiene un objeto de tipo <typeparamref name="T"/> desde el

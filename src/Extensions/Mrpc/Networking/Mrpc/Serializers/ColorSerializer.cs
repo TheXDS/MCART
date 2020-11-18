@@ -1,12 +1,12 @@
 ﻿/*
-DateTimeSerializer.cs
+ColorSerializer.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2020 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -31,7 +31,7 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
     /// Serializador de datos que opera sobre objetos de tipo
     /// <see cref="Color"/>.
     /// </summary>
-    public sealed class ColorSerializer : DataSerializer<Color>
+    public sealed class ColorSerializer : IDataSerializer<Color>
     {
         /// <summary>
         /// Obtiene un <see cref="Color"/> desde el
@@ -46,7 +46,7 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
         /// información binaria leída desde el <see cref="BinaryReader"/>
         /// especificado.
         /// </returns>
-        protected override Color Read(BinaryReader reader)
+        public Color Read(BinaryReader reader)
         {
             return new Color(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
         }
@@ -62,7 +62,7 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
         /// <see cref="BinaryWriter"/> a utilizar para escribir los datos
         /// binarios serializados.
         /// </param>
-        protected override void Write(Color value, BinaryWriter writer)
+        public void Write(Color value, BinaryWriter writer)
         {
             writer.Write(value.ScR);
             writer.Write(value.ScG);

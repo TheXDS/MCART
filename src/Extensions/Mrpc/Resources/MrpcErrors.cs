@@ -1,5 +1,5 @@
 ﻿/*
-TypeExpressionTree.cs
+MrpcErrors.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -23,32 +23,16 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Collections.Generic;
 using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Types.Extensions;
-using System.Linq;
+using TheXDS.MCART.Resources;
 
-namespace TheXDS.MCART.Networking.Mrpc
+namespace TheXDS.MCART.Mrpc.Resources
 {
-    internal class TypeExpressionTree
+    internal static class MrpcErrors
     {
-        public string TypeName;
-        public readonly List<TypeExpressionTree> GenericArgs = new List<TypeExpressionTree>();
-        public TypeExpressionTree(string typeName)
+        public static Exception IFaceExpected<T>()
         {
-            TypeName = typeName;
-        }
-
-        public Type Resolve()
-        {
-            return (GenericArgs.Any()
-                ? SearchTypeByName($"{TypeName}`{GenericArgs.Count}")?.MakeGenericType(GenericArgs.Select(p => p.Resolve()).ToArray())
-                : SearchTypeByName(TypeName)) ?? throw new MissingTypeException();
-        }
-
-        private static Type? SearchTypeByName(string name)
-        {
-            return Objects.GetTypes<object>().NotNull().FirstOrDefault(p => p.FullName == name);
+            return new InvalidTypeException(string.Format(MrpcStrings.ErrInterfaceExpected, typeof(T).Name), typeof(T));
         }
     }
 }

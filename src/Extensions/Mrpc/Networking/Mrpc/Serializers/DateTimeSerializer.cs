@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2020 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -32,7 +32,7 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
     /// Serializador de datos que opera sobre objetos de tipo
     /// <see cref="DateTime"/>.
     /// </summary>
-    public sealed class DateTimeSerializer : DataSerializer<DateTime>
+    public sealed class DateTimeSerializer : IDataSerializer<DateTime>
     {
         /// <summary>
         /// Obtiene un <see cref="DateTime"/> desde el
@@ -47,7 +47,7 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
         /// información binaria leída desde el <see cref="BinaryReader"/>
         /// especificado.
         /// </returns>
-        protected override DateTime Read(BinaryReader reader) => reader.ReadDateTime();
+        public DateTime Read(BinaryReader reader) => reader.ReadDateTime();
 
         /// <summary>
         /// Serializa un <see cref="DateTime"/> en formato binario y lo
@@ -60,6 +60,6 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
         /// <see cref="BinaryWriter"/> a utilizar para escribir los datos
         /// binarios serializados.
         /// </param>
-        protected override void Write(DateTime value, BinaryWriter writer) => writer.Write(value);
+        public void Write(DateTime value, BinaryWriter writer) => writer.Write(value);
     }
 }

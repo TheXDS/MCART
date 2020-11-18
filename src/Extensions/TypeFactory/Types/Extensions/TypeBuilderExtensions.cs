@@ -23,7 +23,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -164,6 +163,17 @@ namespace TheXDS.MCART.Types.Extensions
             return AddAutoProperty(tb, name, typeof(T));
         }
 
+        /// <summary>
+        /// Agrega una sustitución para el método especificado.
+        /// </summary>
+        /// <param name="tb">
+        /// Constructor del tipo en el cual crear la nueva propiedad
+        /// automática.
+        /// </param>
+        /// <param name="method">
+        /// Método a sustituir. Debe existir en el tipo base.
+        /// </param>
+        /// <returns></returns>
         public static MethodBuildInfo AddOverride(this TypeBuilder tb, MethodInfo method)
         {
             return new MethodBuildInfo(tb, tb.DefineMethod(method.Name, GetNonAbstract(method), method.IsVoid() ? null : method.ReturnType, method.GetParameters().Select(p => p.ParameterType).ToArray()));
@@ -195,6 +205,26 @@ namespace TheXDS.MCART.Types.Extensions
         public static PropertyBuildInfo AddNpcProperty<T>(this ITypeBuilder<NotifyPropertyChangeBase> tb, string name)
         {
             return AddNpcProperty(tb, name, typeof(T));
+        }
+
+        /// <summary>
+        /// Agrega una propiedad pública con soporte para notificación de
+        /// cambios de valor.
+        /// </summary>
+        /// <typeparam name="T">Tipo de la nueva propiedad.</typeparam>
+        /// <param name="tb">
+        /// Constructor del tipo en el cual crear la nueva propiedad con
+        /// soporte para notificación de cambios de valor.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <returns>
+        /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+        /// la propiedad que ha sido construida.
+        /// </returns>
+        [Sugar]
+        public static PropertyBuildInfo AddNpcProperty<T>(this ITypeBuilder<NotifyPropertyChanged> tb, string name)
+        {
+            return AddNpcProperty((ITypeBuilder<NotifyPropertyChangeBase>)tb, name, typeof(T));
         }
 
         /// <summary>
@@ -432,7 +462,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<INotifyPropertyChanged> tb, string name, Type type, MemberAccess access, bool @virtual, MethodInfo? npcInvocator)
         {
-            npcInvocator ??= tb.SpecificBaseType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).First(p => p.IsVoid() && p.GetParameters().Length == 1 && p.GetParameters()[0].ParameterType == typeof(string) && p.HasAttr<NotifyPropertyChangedInvocatorAttribute>());
+            npcInvocator ??= tb.SpecificBaseType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).First(p => p.IsVoid() && p.GetParameters().Length == 1 && p.GetParameters()[0].ParameterType == typeof(string) && p.HasAttr<NpcChangeInvocatorAttribute>());
             return BuildNpcProp(tb.Builder, name, type, access, @virtual, (_, setter) => setter.This().LoadConstant(name), npcInvocator);
         }
 

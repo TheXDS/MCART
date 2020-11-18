@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2020 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -40,6 +40,7 @@ using System.Reflection;
 using TheXDS.MCART.Types.Base;
 using static TheXDS.MCART.Types.Extensions.PropertyInfoExtensions;
 using PIE = TheXDS.MCART.Types.Extensions.PropertyInfoExtensions;
+using TheXDS.MCART.Mrpc.Resources;
 
 namespace TheXDS.MCART.Networking.Mrpc
 {
@@ -365,12 +366,14 @@ namespace TheXDS.MCART.Networking.Mrpc
     /// </typeparam>
     public class MrpcClient<T>
     {
+        private readonly IMrpcChannel _channel;
+
         /// <summary>
         /// Inicializa la clase <see cref="MrpcClient{T}"/>
         /// </summary>
         static MrpcClient()
         {
-            if (!typeof(T).IsInterface) throw new InvalidTypeException(string.Format(MrpcStrings.ErrInterfaceExpected, typeof(T).Name), typeof(T));
+            if (!typeof(T).IsInterface) throw MrpcErrors.IFaceExpected<T>();
         }
 
         /// <summary>

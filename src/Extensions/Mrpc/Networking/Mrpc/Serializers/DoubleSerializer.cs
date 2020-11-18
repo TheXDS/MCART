@@ -1,12 +1,12 @@
 ﻿/*
-DateTimeSerializer.cs
+DoubleSerializer.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2020 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -30,7 +30,7 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
     /// Serializador de datos que opera sobre objetos de tipo
     /// <see cref="double"/>.
     /// </summary>
-    public sealed class DoubleSerializer : DataSerializer<double>
+    public sealed class DoubleSerializer : IDataSerializer<double>
     {
         /// <summary>
         /// Obtiene un <see cref="double"/> desde el
@@ -41,11 +41,11 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
         /// <see cref="double"/>.
         /// </param>
         /// <returns>
-        /// El <see cref="DatdoubleeTime"/> que se ha reconstruido con la
+        /// El <see cref="double"/> que se ha reconstruido con la
         /// información binaria leída desde el <see cref="BinaryReader"/>
         /// especificado.
         /// </returns>
-        protected override double Read(BinaryReader reader) => reader.ReadDouble();
+        public double Read(BinaryReader reader) => reader.ReadDouble();
 
         /// <summary>
         /// Serializa un <see cref="double"/> en formato binario y lo
@@ -58,6 +58,6 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
         /// <see cref="BinaryWriter"/> a utilizar para escribir los datos
         /// binarios serializados.
         /// </param>
-        protected override void Write(double value, BinaryWriter writer) => writer.Write(value);
+        public void Write(double value, BinaryWriter writer) => writer.Write(value);
     }
 }

@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#pragma warning disable CS1591
+
+using System;
 using System.IO;
-using System.Threading.Tasks;
 using TheXDS.MCART.Networking.Legacy.Client;
-using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Examples.LightChat
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
             var c = new LightChatClient();
             c.Connect("localhost", 51200);
@@ -19,6 +18,7 @@ namespace TheXDS.MCART.Examples.LightChat
             Console.ReadKey();
         }
     }
+
     public class LightChatClient : ManagedCommandClient<Command,RetVal>
     {
         private bool _logged;
@@ -30,6 +30,7 @@ namespace TheXDS.MCART.Examples.LightChat
         {
             ScanTypeOnCtor = false;
         }
+
         public LightChatClient()
         {
             WireUp(RetVal.Msg, DisplayMessage);
@@ -43,10 +44,10 @@ namespace TheXDS.MCART.Examples.LightChat
         public bool Login()
         {
             Console.Write("Login: ");
-            var user = Console.ReadLine();
+            var user = Console.ReadLine()!;
 
             Console.Write("Password: ");
-            var pw = Console.ReadLine();
+            var pw = Console.ReadLine()!;
 
             if (Send(Command.Login, new[] { user, pw }, GetResponse) == RetVal.Ok)
             {

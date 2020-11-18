@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2020 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -30,9 +30,8 @@ namespace TheXDS.MCART.Examples.EchoServer
 {
     internal static class Program
     {
-        private class EchoProt : IProtocol
+        private class EchoProt : IProtocol<Client>
         {
-            /// <inheritdoc />
             /// <summary>
             /// Protocolo de atención al cliente
             /// </summary>
@@ -45,7 +44,6 @@ namespace TheXDS.MCART.Examples.EchoServer
                 if (data[0]=='z') client.Bye();
             }
 
-            /// <inheritdoc />
             /// <summary>
             /// Protocolo de desconexión del cliente.
             /// </summary>
@@ -55,7 +53,6 @@ namespace TheXDS.MCART.Examples.EchoServer
                 Console.WriteLine("Cliente desconectado correctamente.");
             }
 
-            /// <inheritdoc />
             /// <summary>
             /// Protocolo de desconexión inesperada del cliente.
             /// </summary>
@@ -65,7 +62,6 @@ namespace TheXDS.MCART.Examples.EchoServer
                 Console.WriteLine("Cliente desconectado inesperadamente.");
             }
 
-            /// <inheritdoc />
             /// <summary>
             /// Protocolo de bienvenida del cliente.
             /// </summary>
@@ -80,7 +76,6 @@ namespace TheXDS.MCART.Examples.EchoServer
                 return true;
             }
 
-            /// <inheritdoc />
             /// <summary>
             /// Inicializa un nuevo cliente manejado por este protocolo.
             /// </summary>

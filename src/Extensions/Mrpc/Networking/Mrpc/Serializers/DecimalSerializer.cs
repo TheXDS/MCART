@@ -1,12 +1,12 @@
 ﻿/*
-DateTimeSerializer.cs
+DecimalSerializer.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2020 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -30,7 +30,7 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
     /// Serializador de datos que opera sobre objetos de tipo
     /// <see cref="decimal"/>.
     /// </summary>
-    public sealed class DecimalSerializer : DataSerializer<decimal>
+    public sealed class DecimalSerializer : IDataSerializer<decimal>
     {
         /// <summary>
         /// Obtiene un <see cref="decimal"/> desde el
@@ -45,7 +45,7 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
         /// información binaria leída desde el <see cref="BinaryReader"/>
         /// especificado.
         /// </returns>
-        protected override decimal Read(BinaryReader reader) => reader.ReadDecimal();
+        public decimal Read(BinaryReader reader) => reader.ReadDecimal();
 
         /// <summary>
         /// Serializa un <see cref="decimal"/> en formato binario y lo
@@ -58,7 +58,6 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
         /// <see cref="BinaryWriter"/> a utilizar para escribir los datos
         /// binarios serializados.
         /// </param>
-        protected override void Write(decimal value, BinaryWriter writer) => writer.Write(value);
+        public void Write(decimal value, BinaryWriter writer) => writer.Write(value);
     }
-
 }

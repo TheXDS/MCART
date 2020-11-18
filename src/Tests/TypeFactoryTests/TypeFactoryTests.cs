@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using TheXDS.MCART.Annotations;
+using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
@@ -15,7 +15,7 @@ namespace TypeFactoryTests
         {
             public event PropertyChangedEventHandler? PropertyChanged;
 
-            [NotifyPropertyChangedInvocator]
+            [NpcChangeInvocator]
             protected void OnPropertyChanged([CallerMemberName] string? propertyName = null!)
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -47,9 +47,9 @@ namespace TypeFactoryTests
         public void BuildNpcTypeTest()
         {
             var t = _factory.NewType<NotifyPropertyChanged>("NpcTestClass");
-            ((ITypeBuilder<NotifyPropertyChangeBase>)t).AddNpcProperty<string>("Name");
+            t.AddNpcProperty<string>("Name");
             dynamic npcInstance = t.New();
-            PropertyChangedEventHandler evth = null!;
+            PropertyChangedEventHandler? evth = null;
 
             var evt = Assert.Raises<PropertyChangedEventArgs>(
                 p => ((NotifyPropertyChanged)npcInstance).PropertyChanged += evth = (s, e) => p(s, e),
@@ -67,7 +67,7 @@ namespace TypeFactoryTests
             t.AddNpcProperty<string>("Name");
             t.AddNpcProperty<int>("Age");
             dynamic npcInstance = t.New();
-            PropertyChangedEventHandler evth = null!;
+            PropertyChangedEventHandler? evth = null;
 
             var evt = Assert.Raises<PropertyChangedEventArgs>(
                 p => ((NpcBaseClass)npcInstance).PropertyChanged += evth = (s, e) => p(s, e),

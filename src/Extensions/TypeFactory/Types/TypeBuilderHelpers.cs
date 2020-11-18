@@ -39,7 +39,7 @@ namespace TheXDS.MCART.Types
         {
             NullCheck(name, nameof(name));
             return name.Length > 1
-                ? $"_{name.Substring(0, 1).ToLower()}{name.Substring(1)}"
+                ? $"_{name.Substring(0, 1).ToLower()}{name[1..]}"
                 : $"_{name.ToLower()}";
         }
 
@@ -47,7 +47,7 @@ namespace TheXDS.MCART.Types
         {
 
             NullCheck(name, nameof(name));
-            return name[0] != 'I' ? $"{name}Implementation" : name.Substring(1);
+            return name[0] != 'I' ? $"{name}Implementation" : name[1..];
         }
 
         /// <summary>
