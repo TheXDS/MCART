@@ -29,6 +29,7 @@ using System;
 using System.Linq;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Types.Base;
+using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Types
 {
@@ -135,7 +136,7 @@ namespace TheXDS.MCART.Types
         /// </param>
         public Range(T minimum, T maximum, bool minInclusive, bool maxInclusive)
         {
-            if (minimum.CompareTo(maximum) > 0) throw new ArgumentOutOfRangeException();
+            if (minimum.CompareTo(maximum) > 0) throw new ArgumentException(St.ErrMinMax);
             _minimum = minimum;
             _maximum = maximum;
             MinInclusive = minInclusive;
@@ -228,7 +229,7 @@ namespace TheXDS.MCART.Types
         /// <returns></returns>
         public Range<T> Join(IRange<T> other)
         {
-            return new Range<T>(new[] { Minimum, other.Minimum }.Min(), new[] { Maximum, other.Maximum }.Max());
+            return new Range<T>(new[] { Minimum, other.Minimum }.Min()!, new[] { Maximum, other.Maximum }.Max()!);
         }
 
         /// <summary>
@@ -240,7 +241,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public Range<T> Intersect(IRange<T> other)
         {
-            return new Range<T>(new[] { Minimum, other.Minimum }.Max(), new[] { Maximum, other.Maximum }.Min());
+            return new Range<T>(new[] { Minimum, other.Minimum }.Max()!, new[] { Maximum, other.Maximum }.Min()!);
         }
 
         /// <summary>

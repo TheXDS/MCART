@@ -33,15 +33,15 @@ namespace TheXDS.MCART.ViewModel
     /// </summary>
     public class RelayCommand : ICommand
     {
-        readonly Action<object> _action;
-        readonly Func<object, bool>? _canExecute;
+        readonly Action<object?> _action;
+        readonly Func<object?, bool>? _canExecute;
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="RelayCommand"/>.
         /// </summary>
         /// <param name="action">Comando a ejecutar.</param>
-        public RelayCommand(Action<object> action) : this(action, null) { }
+        public RelayCommand(Action<object?> action) : this(action, null) { }
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase
@@ -51,7 +51,7 @@ namespace TheXDS.MCART.ViewModel
         /// <param name="canExecute">
         /// Función que determina si el comando puede ser ejecutado.
         /// </param>
-        public RelayCommand(Action<object> action, Func<object, bool>? canExecute)
+        public RelayCommand(Action<object?> action, Func<object?, bool>? canExecute)
         {
             _action = action ?? throw new ArgumentNullException(nameof(action));
             _canExecute = canExecute;
@@ -70,7 +70,7 @@ namespace TheXDS.MCART.ViewModel
         /// <see langword="true" /> si se puede ejecutar este comando; de
         /// lo contrario, <see langword="false" />.
         /// </returns>
-        public bool CanExecute(object parameter)
+        public bool CanExecute(object? parameter)
         {
             return _canExecute?.Invoke(parameter) ?? true;
         }
@@ -79,7 +79,7 @@ namespace TheXDS.MCART.ViewModel
         /// Se produce cuando hay cambios que influyen en si el comando
         /// debería ejecutarse o no.
         /// </summary>
-        public event EventHandler CanExecuteChanged
+        public event EventHandler? CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }
             remove { CommandManager.RequerySuggested -= value; }
@@ -93,12 +93,12 @@ namespace TheXDS.MCART.ViewModel
         /// datos, se puede establecer este objeto en
         /// <see langword="null" />.
         /// </param>
-        public void Execute(object parameter) { _action(parameter); }
+        public void Execute(object? parameter) { _action(parameter); }
 
         /// <summary>
         /// Obliga al comando a evaluar <see cref="CanExecute(object)"/>.
         /// </summary>
-        public void RaiseCanExecuteChanged()
+        public static void RaiseCanExecuteChanged()
         {
             CommandManager.InvalidateRequerySuggested();
         }

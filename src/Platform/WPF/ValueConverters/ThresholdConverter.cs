@@ -122,8 +122,7 @@ namespace TheXDS.MCART.ValueConverters
                     if (parameter.GetType().HasAttr(out TypeConverterAttribute? tc))
                     {
                         var converters = Objects.PublicTypes<TypeConverter>().Where(TypeExtensions.IsInstantiable);
-                        typeConverter = converters.FirstOrDefault(p => p.AssemblyQualifiedName == tc!.ConverterTypeName)
-                            .New<TypeConverter>();
+                        typeConverter = converters.FirstOrDefault(p => p.AssemblyQualifiedName == tc!.ConverterTypeName)?.New<TypeConverter>();
                     }
                     else { typeConverter = Common.FindConverter<string, TIn>(); }
 
@@ -156,7 +155,7 @@ namespace TheXDS.MCART.ValueConverters
                 },
                 null => throw new ArgumentNullException(nameof(value)),
 
-                _ => throw new ArgumentException(nameof(value)),
+                _ => throw new ArgumentException(null, nameof(value)),
             };
         }
 

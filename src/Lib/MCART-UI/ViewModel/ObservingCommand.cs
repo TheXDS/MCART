@@ -29,6 +29,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
+using TheXDS.MCART.Resources.UI;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
 namespace TheXDS.MCART.ViewModel
@@ -436,7 +437,7 @@ namespace TheXDS.MCART.ViewModel
         /// valor, se escuchará el cambio de todas las propiedades.
         /// </param>
         public ObservingCommand(INotifyPropertyChanged observedSource, Action<object?> action, Func<object?, bool>? canExecute, IEnumerable<Expression<Func<object?>>>? propsToListen)
-            : this(observedSource, action, canExecute, propsToListen.Select(p => ExpressionToString(observedSource, p)))
+            : this(observedSource, action, canExecute, propsToListen?.Select(p => ExpressionToString(observedSource, p)))
         { }
 
         /// <summary>
@@ -510,7 +511,7 @@ namespace TheXDS.MCART.ViewModel
         public ObservingCommand RegisterObservedProperty(string property)
         {
             if (property is null) throw new ArgumentNullException(nameof(property));
-            if (property.IsEmpty()) throw new ArgumentException();
+            if (property.IsEmpty()) throw new ArgumentException(null, nameof(property));
             _properties.Add(property);
             return this;
         }
@@ -525,7 +526,7 @@ namespace TheXDS.MCART.ViewModel
         /// </returns>
         public ObservingCommand RegisterObservedProperty(Expression<Func<object?>> property)
         {
-            var prop = (ReflectionHelpers.GetMember(property) as PropertyInfo) ?? throw new ArgumentException();
+            var prop = (ReflectionHelpers.GetMember(property) as PropertyInfo) ?? throw new ArgumentException(null, nameof(property));
             RegisterObservedProperty(prop.Name);
             return this;
         }
@@ -570,7 +571,7 @@ namespace TheXDS.MCART.ViewModel
         /// </returns>
         public ObservingCommand SetCanExecute(Func<bool> canExecute)
         {
-            if (canExecute is null) throw new ArgumentNullException();
+            if (canExecute is null) throw new ArgumentNullException(nameof(canExecute));
             SetCanExecute(_ => canExecute());
             return this;
         }
@@ -581,14 +582,14 @@ namespace TheXDS.MCART.ViewModel
         /// </summary>
         public void UnsetCanExecute() => SetCanExecute((Func<object?, bool>?)null);
 
-        private void RaiseCanExecuteChanged(object sender, PropertyChangedEventArgs e)
+        private void RaiseCanExecuteChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (_properties.Contains(e.PropertyName)) RaiseCanExecuteChanged();
+            if (_properties.Contains(e.PropertyName ?? throw Errors.NullValue("e.PropertyName"))) RaiseCanExecuteChanged();
         }
 
         private static string ExpressionToString(object instance, Expression<Func<object?>> exp)
         {
-            var prop = (ReflectionHelpers.GetMember(exp) as PropertyInfo) ?? throw new ArgumentException();
+            var prop = (ReflectionHelpers.GetMember(exp) as PropertyInfo) ?? throw new ArgumentException(null, nameof(exp));
             if (!instance.GetType().GetProperties().Contains(prop)) throw new MissingMemberException();
             return prop.Name;
         }

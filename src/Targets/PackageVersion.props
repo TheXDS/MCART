@@ -4,6 +4,6 @@
     <VersionPrefix>0.13.0</VersionPrefix>
   </PropertyGroup>
   <PropertyGroup Condition="'$(MSBuildProjectExtension)'=='.csproj' AND '$(Configuration)'!='Release'">
-    <VersionSuffix>a012</VersionSuffix>
+    <VersionSuffix>a013</VersionSuffix>
   </PropertyGroup>
 </Project>

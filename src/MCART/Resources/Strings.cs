@@ -552,6 +552,7 @@ namespace TheXDS.MCART.Resources
         public const string DirectoryIsFull = "El directorio está lleno";
         public const string EnumTypeExpected = "Se esperaba un tipo de enumeración.";
         public const string Err = "Error";
+        public const string ErrMinMax = "El argumento mínimi no sebe ser superior al máximo";
         public const string FeatNotAvailable = "Característica no disponible";
         public const string FrmIncorreclyOpened = "Este diálogo fue abierto de forma incorrecta. Refiérase a la documentación de MCART para resolver este problema. Si ve este mensaje de error, póngase en contacto con el desarrollador de la aplicación.";
         public const string GUITest = "Prueba de interfaz gráfica";

@@ -51,7 +51,7 @@ namespace TheXDS.MCART.Types.Base
         /// <see cref="StreamUriParser"/> capaz de manejar el 
         /// <see cref="Uri"/>.
         /// </returns>
-        public static StreamUriParser Infer(Uri uri)
+        public static StreamUriParser? Infer(Uri uri)
         {
             return Infer<StreamUriParser>(uri);
         }
@@ -68,7 +68,7 @@ namespace TheXDS.MCART.Types.Base
         [Sugar]
         public static Stream? Get(Uri uri)
         {
-            return Infer(uri).GetStream(uri);
+            return Infer(uri)?.GetStream(uri);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace TheXDS.MCART.Types.Base
         [Sugar]
         public static Task<Stream?> GetAsync(Uri uri)
         {
-            return Infer(uri).GetStreamAsync(uri);
+            return Infer(uri)?.GetStreamAsync(uri) ?? Task.FromResult<Stream?>(null);
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace TheXDS.MCART.Types.Base
         /// <see cref="StreamUriParser"/> capaz de manejar el 
         /// <see cref="Uri"/>.
         /// </returns>
-        public static T Infer<T>(Uri uri) where T : class, IStreamUriParser
+        public static T? Infer<T>(Uri uri) where T : class, IStreamUriParser
         {
             return Objects.FindAllObjects<T>().FirstOrDefault(p => p.Handles(uri));
         }

@@ -63,8 +63,8 @@ namespace TheXDS.MCART.ValueConverters
         public NullBoolConverter(T trueValue, T falseValue = default)
         {
             True = trueValue;
-            False = falseValue;
-            Null = False;
+            Null = False = falseValue!;
+            
         }
 
         /// <summary>

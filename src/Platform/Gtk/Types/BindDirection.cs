@@ -1,5 +1,5 @@
-/*
-ViewModelSupport.cs
+﻿/*
+BindDirection.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,15 +22,34 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.ViewModel
+using System;
+
+namespace TheXDS.MCART.Types
 {
-
     /// <summary>
-    /// Clase que ofrece servicios básicos de funcionalidad Mvvm para
-    /// aplicaciones Gtk#.
+    /// Describe el tipo de enlace a crear.
     /// </summary>
-    public static class ViewModelSupport
+    [Flags]
+    public enum BindDirection : byte
     {
+        /// <summary>
+        /// Inferir enlace basado en el tipo de objetos del enlace.
+        /// </summary>
+        Infer,
 
+        /// <summary>
+        /// Enlace de un sentido.
+        /// </summary>
+        OneWay,
+
+        /// <summary>
+        /// ENlace de un sentido apuntando al origen.
+        /// </summary>
+        OneWayToSource,
+
+        /// <summary>
+        /// Enlace de doble sentido.
+        /// </summary>
+        TwoWay
     }
 }

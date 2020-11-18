@@ -29,20 +29,40 @@ using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.ViewModel;
 using System.Reflection;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace TheXDS.MCART.Types
 {
+    /// <summary>
+    /// Clase base para un <see cref="Gtk.Widget"/> que incluye funcionalidad
+    /// base de MVVM. Esta clase base es útil para aplicarse a contenedores de
+    /// UI (páginas, ventanas, contenedores) y no directamente a widgets
+    /// indivisuales interactivos.
+    /// </summary>
+    [CLSCompliant(false)]
     [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
     public abstract class MvvmWidget : Gtk.Widget, IDataContext
     {
-        private List<GtkBinding> _bindings = new List<GtkBinding>();
+        private readonly List<GtkBinding> _bindings = new List<GtkBinding>();
         private INotifyPropertyChanged? _dataContext;
 
-
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="MvvmWidget"/>.
+        /// </summary>
+        /// <param name="raw">
+        /// Apuntador a una estructura que contiene los datos básicos de esta
+        /// instancia para Gtk#. Este valor generalmente es provisto por los
+        /// métodos de instanciación e inicialización de widgets de Gtk#.
+        /// </param>
         protected MvvmWidget(IntPtr raw) : base(raw)
         {
         }
 
+        /// <summary>
+        /// Obtiene o establece el contexto de datos a utilizar para este
+        /// Widget.
+        /// </summary>
         public INotifyPropertyChanged? DataContext
         {
             get => _dataContext;
@@ -58,22 +78,7 @@ namespace TheXDS.MCART.Types
 
         private string GetDebuggerDisplay()
         {
-            return $"{GetType().NameOf()} ({this.Handle})";
-        }
-    }
-
-    public class GtkBinding
-    {
-        public Type SourceType {get;}
-        public Type TargetType {get;}
-        public PropertyInfo SourceProperty {get;}
-        public PropertyInfo TargetProperty {get;}
-
-        public object Target {get;}
-
-        public void UpdateValue(object? source)
-        {
-            TargetProperty.SetValue(Target, source != null ? SourceProperty.GetValue(source) : SourceProperty.PropertyType.Default());
+            return $"{GetType().NameOf()} ({Handle})";
         }
     }
 }

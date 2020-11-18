@@ -97,7 +97,7 @@ namespace TheXDS.MCART.Component
         /// <summary>
         /// Devuelve la licencia del <see cref="IExposeInfo" />
         /// </summary>
-        public License? License => Assembly.GetAttrs<LicenseAttributeBase>()?.FirstOrDefault().GetLicense(Assembly);
+        public License? License => Assembly.GetAttrs<LicenseAttributeBase>()?.FirstOrDefault()?.GetLicense(Assembly);
 
         /// <summary>
         /// Devuelve la versión del <see cref="IExposeInfo" />

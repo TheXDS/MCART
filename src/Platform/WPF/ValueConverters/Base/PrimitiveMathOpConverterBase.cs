@@ -133,11 +133,11 @@ namespace TheXDS.MCART.ValueConverters.Base
 
                 return Convert.ChangeType(Expression.Lambda(func(Expression.Constant(firstOperand), Expression.Constant(secondOperand))).Compile().DynamicInvoke(), targetType);
             }
-            catch (Exception ex)
+            catch
             {
                 if (targetType == typeof(double)) return double.NaN;
                 if (targetType == typeof(float)) return float.NaN;
-                throw ex;                    
+                throw;                    
             }
         }
     }

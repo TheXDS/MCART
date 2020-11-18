@@ -584,7 +584,7 @@ namespace TheXDS.MCART
         /// <see langword="null"/>.
         /// </exception>
         [Sugar]
-        public static Type FindType(string identifier)
+        public static Type? FindType(string identifier)
         {
             return FindType<object>(identifier);
         }
@@ -604,7 +604,7 @@ namespace TheXDS.MCART
         /// <see langword="null"/>.
         /// </exception>
         [Sugar]
-        public static Type FindType<T>(string identifier)
+        public static Type? FindType<T>(string identifier)
         {
             return FindType<T>(identifier, AppDomain.CurrentDomain);
         }
@@ -624,7 +624,7 @@ namespace TheXDS.MCART
         /// <paramref name="domain"/> son <see langword="null"/>.
         /// </exception>
         [Sugar]
-        public static Type FindType(string identifier, AppDomain domain)
+        public static Type? FindType(string identifier, AppDomain domain)
         {
             return FindType<object>(identifier, domain);
         }
@@ -644,7 +644,7 @@ namespace TheXDS.MCART
         /// Se produce si <paramref name="identifier"/> o
         /// <paramref name="domain"/> son <see langword="null"/>.
         /// </exception>
-        public static Type FindType<T>(string identifier, AppDomain domain)
+        public static Type? FindType<T>(string identifier, AppDomain domain)
         {
             NullCheck(identifier, nameof(identifier));
             NullCheck(domain, nameof(domain));
@@ -1316,6 +1316,7 @@ namespace TheXDS.MCART
                     return retVal;
             }
         }
+
         /// <summary>
         /// Determina si un miembro posee un atributo definido.
         /// </summary>
@@ -1353,7 +1354,7 @@ namespace TheXDS.MCART
                     return HasAttrValue<TAttribute, TValue>(e, out value);
                 default:
                     var retVal = HasAttrs<TAttribute>(obj, out var attrs);
-                    var attr = attrs.FirstOrDefault();
+                    var attr = attrs?.FirstOrDefault();
                     value = !(attr is null) ? attr.Value : default!;
                     return retVal;
             }
@@ -1841,22 +1842,6 @@ namespace TheXDS.MCART
         public static IEnumerable<T> PropertiesOf<T>(this IEnumerable<PropertyInfo> properties)
         {
             return PropertiesOf<T>(properties, null);
-        }
-
-        /// <summary>
-        /// Libera un objeto COM.
-        /// </summary>
-        /// <param name="obj">Objeto COM a liberar.</param>
-        public static void ReleaseComObject(object obj)
-        {
-            try
-            {
-                Marshal.ReleaseComObject(obj);
-            }
-            finally
-            {
-                GC.Collect();
-            }
         }
 
         /// <summary>

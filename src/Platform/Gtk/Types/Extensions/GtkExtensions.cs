@@ -28,6 +28,10 @@ using Gtk;
 
 namespace TheXDS.MCART.Types.Extensions
 {
+    /// <summary>
+    /// Contiene una serie de extensiones básicas para simplificar el acceso a
+    /// la API de Gtk#.
+    /// </summary>
     public static class GtkExtensions
     {
         /// <summary>
@@ -36,6 +40,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="button">Botón a configurar.</param>
         /// <param name="command">Comando a conectar.</param>
         /// <param name="parameter">Parámetro del ICommand.</param>
+        [CLSCompliant(false)]
         public static void Bind(this Button button, ICommand command, object? parameter)
         {
             button.Clicked += (sender, args) =>
@@ -54,17 +59,19 @@ namespace TheXDS.MCART.Types.Extensions
         /// </summary>
         /// <param name="button">Botón a configurar.</param>
         /// <param name="command">Comando a conectar.</param>
+        [CLSCompliant(false)]
         public static void Bind(this Button button, ICommand command)
         {
             Bind(button,command, null);
         }
-        
+
         /// <summary>
         /// Conecta un botón con el <see cref="ICommand"/> especificado.
         /// </summary>
         /// <param name="button">Botón a configurar.</param>
         /// <param name="command">Comando a conectar.</param>
         /// <param name="parameter">Parámetro del ICommand.</param>
+        [CLSCompliant(false)]
         public static void Bind(this Button button, Func<ICommand?> command, object? parameter)
         {
             button.Clicked += (sender, args) =>
@@ -75,13 +82,14 @@ namespace TheXDS.MCART.Types.Extensions
                 }
             };
         }
-        
+
         /// <summary>
         /// Conecta un botón con el <see cref="ICommand"/> especificado.
         /// </summary>
         /// <param name="button">Botón a configurar.</param>
         /// <param name="command">Comando a conectar.</param>
-        public static void Bind(this Button button, Func<ICommand?> command)
+        [CLSCompliant(false)]
+        public static void Bind( this Button button, Func<ICommand?> command)
         {
             Bind(button,command, null);
         }

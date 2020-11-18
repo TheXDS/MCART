@@ -41,7 +41,7 @@ namespace TheXDS.MCART.Component
 
         private static UIElement InferIcon(Assembly asm)
         {
-            var uri = new UriBuilder(asm.CodeBase ?? string.Empty);
+            var uri = new UriBuilder(asm.Location ?? string.Empty);
             var path = Uri.UnescapeDataString(uri.Path);
             using var sysicon = System.Drawing.Icon.ExtractAssociatedIcon(path) ?? throw new Exception();
             return new Image

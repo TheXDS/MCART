@@ -1,5 +1,5 @@
-/*
-ViewModelSupport.cs
+﻿/*
+IDataContext.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,15 +22,20 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System.ComponentModel;
+
 namespace TheXDS.MCART.ViewModel
 {
-
     /// <summary>
-    /// Clase que ofrece servicios básicos de funcionalidad Mvvm para
-    /// aplicaciones Gtk#.
+    /// Define una serie de miembros a implementar por un tipo que exponga un
+    /// contexto de datos para participar en una aplicación Mvvm.
     /// </summary>
-    public static class ViewModelSupport
+    public interface IDataContext
     {
-
+        /// <summary>
+        /// Obtiene o establece el contexto de datos a utilizar por esta
+        /// instancia.
+        /// </summary>
+        INotifyPropertyChanged? DataContext { get; set; }
     }
 }

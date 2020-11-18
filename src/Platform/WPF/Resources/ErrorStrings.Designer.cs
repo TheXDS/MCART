@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TheXDS.MCART.Resources.UI {
+namespace TheXDS.MCART.Resources {
     using System;
     
     
@@ -61,20 +61,11 @@ namespace TheXDS.MCART.Resources.UI {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a El valor {0} no puede ser null..
+        ///   Busca una cadena traducida similar a No se ha encontrado el recurso {0}..
         /// </summary>
-        internal static string NullValueException {
+        internal static string ResourceNotFound {
             get {
-                return ResourceManager.GetString("NullValueException", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Miembro no soportado..
-        /// </summary>
-        internal static string UnsupportedMember {
-            get {
-                return ResourceManager.GetString("UnsupportedMember", resourceCulture);
+                return ResourceManager.GetString("ResourceNotFound", resourceCulture);
             }
         }
     }

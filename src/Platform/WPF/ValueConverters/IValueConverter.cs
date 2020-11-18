@@ -54,7 +54,7 @@ namespace TheXDS.MCART.ValueConverters
         /// se devuelve el valor predeterminado del tipo
         /// <typeparamref name="TIn"/>.
         /// </returns>
-        TIn ConvertBack(TOut value, object parameter, CultureInfo culture);
+        TIn ConvertBack(TOut value, object? parameter, CultureInfo culture);
 
         /// <inheritdoc/>
         object? IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

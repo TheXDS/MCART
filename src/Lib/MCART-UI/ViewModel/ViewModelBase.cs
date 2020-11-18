@@ -29,6 +29,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Resources.UI;
 using TheXDS.MCART.Types.Base;
 using St = TheXDS.MCART.Resources.UI.ErrorStrings;
 
@@ -42,9 +43,9 @@ namespace TheXDS.MCART.ViewModel
         private bool _isBusy;
         private readonly Dictionary<string, ICollection<Action>> _observeRegistry = new Dictionary<string, ICollection<Action>>();
 
-        private void OnInvokeObservedProps(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void OnInvokeObservedProps(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (_observeRegistry.TryGetValue(e.PropertyName, out var c))
+            if (_observeRegistry.TryGetValue(e.PropertyName ?? throw Errors.NullValue("e.PropertyName"), out var c))
             {
                 foreach (var j in c)
                 {
@@ -207,7 +208,7 @@ namespace TheXDS.MCART.ViewModel
         #region Contratos
 
         [Conditional("EnforceContracts")]
-        private void Observe_Contract<T>(Expression<Func<T>> propertySelector, Action handler)
+        private static void Observe_Contract<T>(Expression<Func<T>> propertySelector, Action handler)
         {
             if (propertySelector is null)
             {
@@ -237,7 +238,7 @@ namespace TheXDS.MCART.ViewModel
         }
 
         [Conditional("EnforceContracts")]
-        private void BusyOp_Contract(Action action)
+        private static void BusyOp_Contract(Action action)
         {
             if (action is null)
             {
@@ -246,7 +247,7 @@ namespace TheXDS.MCART.ViewModel
         }
 
         [Conditional("EnforceContracts")]
-        private void BusyOp_Contract(Task task)
+        private static void BusyOp_Contract(Task task)
         {
             if (task is null)
             {
@@ -255,7 +256,7 @@ namespace TheXDS.MCART.ViewModel
         }
 
         [Conditional("EnforceContracts")]
-        private void BusyOp_Contract<T>(Func<T> func)
+        private static void BusyOp_Contract<T>(Func<T> func)
         {
             if (func is null)
             {
@@ -264,7 +265,7 @@ namespace TheXDS.MCART.ViewModel
         }
 
         [Conditional("EnforceContracts")]
-        private void BusyOp_Contract<T>(Task<T> task)
+        private static void BusyOp_Contract<T>(Task<T> task)
         {
             if (task is null)
             {
