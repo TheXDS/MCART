@@ -28,7 +28,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using TheXDS.MCART.Annotations;
+using TheXDS.MCART.Attributes;
 using static TheXDS.MCART.Types.Extensions.DictionaryExtensions;
 using Ist = TheXDS.MCART.Resources.InternalStrings;
 
@@ -142,7 +142,7 @@ namespace TheXDS.MCART.Types.Base
         /// <param name="property">
         /// Propiedad a notificar.
         /// </param>
-        protected abstract void Notify(string property);
+        public abstract void Notify(string property);
 
         /// <summary>
         /// Ejecuta una propagación de notificación según el registro

@@ -25,7 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using TheXDS.MCART.Annotations;
+using TheXDS.MCART.Attributes;
 
 namespace TheXDS.MCART.Types.Base
 {
@@ -44,7 +44,7 @@ namespace TheXDS.MCART.Types.Base
         /// Notifica a los clientes que el valor de una propiedad ha
         /// cambiado.
         /// </summary>
-        [NotifyPropertyChangedInvocator]
+        [NpcChangeInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null!)
         {
             if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
@@ -68,7 +68,7 @@ namespace TheXDS.MCART.Types.Base
         /// <see langword="true"/> si el valor de la propiedad ha
         /// cambiado, <see langword="false"/> en caso contrario.
         /// </returns>
-        protected override sealed bool Change<T>(ref T field, T value, [CallerMemberName] string propertyName = null!)
+        protected override bool Change<T>(ref T field, T value, [CallerMemberName] string propertyName = null!)
         {
             if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
             if (field?.Equals(value) ?? Objects.AreAllNull(field, value)) return false;

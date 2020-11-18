@@ -68,6 +68,14 @@ namespace TheXDS.MCART.Types.Base
         void Notify(params string[] properties);
 
         /// <summary>
+        /// Notifica el cambio en el valor de una propiedad.
+        /// </summary>
+        /// <param name="property">
+        /// Propiedad a notificar.
+        /// </param>
+        void Notify(string property);
+
+        /// <summary>
         /// Quita un objeto de la lista de reenvíos de eventos de cambio de
         /// valor de propiedad.
         /// </summary>

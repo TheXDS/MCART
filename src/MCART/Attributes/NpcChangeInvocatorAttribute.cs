@@ -26,7 +26,7 @@ using System;
 using TheXDS.MCART.Types.Base;
 using static System.AttributeTargets;
 
-namespace TheXDS.MCART.Annotations
+namespace TheXDS.MCART.Attributes
 {
     /// <summary>
     /// Marca un método como la invocación de cambio de valor de propiedad en

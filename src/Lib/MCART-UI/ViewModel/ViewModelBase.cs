@@ -38,7 +38,7 @@ namespace TheXDS.MCART.ViewModel
     /// <summary>
     /// Clase base para la creación de ViewModels.
     /// </summary>
-    public abstract class ViewModelBase : NotifyPropertyChanged, IViewModel
+    public abstract partial class ViewModelBase : NotifyPropertyChanged, IViewModel
     {
         private bool _isBusy;
         private readonly Dictionary<string, ICollection<Action>> _observeRegistry = new Dictionary<string, ICollection<Action>>();
@@ -204,75 +204,5 @@ namespace TheXDS.MCART.ViewModel
             PropertyChanged -= OnInvokeObservedProps;
 
         }
-
-        #region Contratos
-
-        [Conditional("EnforceContracts")]
-        private static void Observe_Contract<T>(Expression<Func<T>> propertySelector, Action handler)
-        {
-            if (propertySelector is null)
-            {
-                throw new ArgumentNullException(nameof(propertySelector));
-            }
-            if (handler is null)
-            {
-                throw new ArgumentNullException(nameof(handler));
-            }
-        }
-
-        [Conditional("EnforceContracts")]
-        private void Observe_Contract(string propertyName, Action handler)
-        {
-            if (string.IsNullOrWhiteSpace(propertyName))
-            {
-                throw new InvalidArgumentException(nameof(propertyName));
-            }
-            if (GetType().GetProperty(propertyName) is null)
-            {
-                throw new MissingMemberException();
-            }
-            if (handler is null)
-            {
-                throw new ArgumentNullException(nameof(handler));
-            }
-        }
-
-        [Conditional("EnforceContracts")]
-        private static void BusyOp_Contract(Action action)
-        {
-            if (action is null)
-            {
-                throw new ArgumentNullException(nameof(action));
-            }
-        }
-
-        [Conditional("EnforceContracts")]
-        private static void BusyOp_Contract(Task task)
-        {
-            if (task is null)
-            {
-                throw new ArgumentNullException(nameof(task));
-            }
-        }
-
-        [Conditional("EnforceContracts")]
-        private static void BusyOp_Contract<T>(Func<T> func)
-        {
-            if (func is null)
-            {
-                throw new ArgumentNullException(nameof(func));
-            }
-        }
-
-        [Conditional("EnforceContracts")]
-        private static void BusyOp_Contract<T>(Task<T> task)
-        {
-            if (task is null)
-            {
-                throw new ArgumentNullException(nameof(task));
-            }
-        }
-
-        #endregion
     }
 }
