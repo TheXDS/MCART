@@ -44,12 +44,12 @@
     Name="PublishToNuGet"
     Condition="'$(PublishToNuGet)'=='true' And '$(GeneratePackageOnBuild)'=='true' And '$(IsPackable)'=='true'"
     AfterTargets="Pack">
-    <Exec Command="nuget push $(ActualPackageFile) -Source nuget.org" />
+    <Exec Command="nuget push $(ActualPackageFile) -Source nuget.org -SkipDuplicate" />
   </Target>
   <Target
     Name="PublishToGitHub"
     Condition="'$(PublishToGitHub)'=='true' And '$(GeneratePackageOnBuild)'=='true' And '$(IsPackable)'=='true'"
     AfterTargets="Pack">
-    <Exec Command="nuget push $(ActualPackageFile) -Source GitHub" />
+    <Exec Command="nuget push $(ActualPackageFile) -Source GitHub -SkipDuplicate" />
   </Target>
 </Project>
