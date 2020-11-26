@@ -28,7 +28,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using TheXDS.MCART.Annotations;
+using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 
 namespace TheXDS.MCART.Types.Base
@@ -65,7 +65,7 @@ namespace TheXDS.MCART.Types.Base
         /// Notifica a los clientes que el valor de una propiedad ha
         /// cambiado.
         /// </summary>
-        [NotifyPropertyChangedInvocator]
+        [NpcChangeInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null!)
         {
             if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
@@ -141,7 +141,7 @@ namespace TheXDS.MCART.Types.Base
         /// <param name="property">
         /// Propiedad a notificar.
         /// </param>
-        protected override void Notify(string property)
+        public override void Notify(string property)
         {
             OnPropertyChanged(property);
         }

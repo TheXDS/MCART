@@ -95,7 +95,7 @@ namespace TheXDS.MCART.ViewModel
         /// </summary>
         /// <param name="propertyName"></param>
         /// <returns></returns>
-        public IEnumerable<string> this[string propertyName] => _errors.TryGetValue(propertyName, out var l) ? l : Array.Empty<string>();
+        public IEnumerable<string> this[string propertyName] => _errors.TryGetValue(propertyName, out var l) ? l.ToArray() : Array.Empty<string>();
 
         private protected ValidationSource(IValidatingViewModel npcSource)
         {

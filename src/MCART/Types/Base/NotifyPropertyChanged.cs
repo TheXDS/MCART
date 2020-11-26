@@ -83,7 +83,7 @@ namespace TheXDS.MCART.Types.Base
         /// <param name="property">
         /// Propiedad a notificar.
         /// </param>
-        protected override void Notify(string property)
+        public override void Notify(string property)
         {
             OnPropertyChanged(property);
         }

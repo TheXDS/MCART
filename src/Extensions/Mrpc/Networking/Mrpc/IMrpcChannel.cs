@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
+
 namespace TheXDS.MCART.Networking.Mrpc
 {
     /// <summary>
@@ -48,5 +50,16 @@ namespace TheXDS.MCART.Networking.Mrpc
         /// espera de datos provenientes del servicio remoto.
         /// </summary>
         IMessageTarget MessageTarget { get; internal set; }
+    }
+
+    public class MrpcPayload
+    {
+
+    }
+
+    public class MrpcObject
+    {
+        public Type Type { get; set; }
+
     }
 }

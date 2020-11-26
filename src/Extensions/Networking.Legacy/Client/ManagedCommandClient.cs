@@ -36,7 +36,7 @@ using TheXDS.MCART.Events;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
 using System.IO.Compression;
-using TheXDS.MCART.Security.Cryptography;
+//using TheXDS.MCART.Security.Cryptography;
 
 namespace TheXDS.MCART.Networking.Legacy.Client
 {
@@ -1080,10 +1080,10 @@ namespace TheXDS.MCART.Networking.Legacy.Client
             }
             if (Encrypted)
             {
-                using var ms = new MemoryStream();
-                using var cs = RSACryptoTransform.ToStream(ms, _rsa ?? throw new TamperException());
-                cs.Write(d, 0, d.Length);
-                d = ms.ToArray();
+                //using var ms = new MemoryStream();
+                //using var cs = RSACryptoTransform.ToStream(ms, _rsa ?? throw new TamperException());
+                //cs.Write(d, 0, d.Length);
+                //d = ms.ToArray();
             }
             TalkToServer(d);
         }
@@ -1099,10 +1099,10 @@ namespace TheXDS.MCART.Networking.Legacy.Client
             }
             if (Encrypted)
             {
-                using var ms = new MemoryStream();
-                using var cs = RSACryptoTransform.ToStream(ms, _rsa ?? throw new TamperException());
-                await cs.WriteAsync(d, 0, d.Length);
-                d = ms.ToArray();
+                //using var ms = new MemoryStream();
+                //using var cs = RSACryptoTransform.ToStream(ms, _rsa ?? throw new TamperException());
+                //await cs.WriteAsync(d, 0, d.Length);
+                //d = ms.ToArray();
             }
             await TalkToServerAsync(d);
         }

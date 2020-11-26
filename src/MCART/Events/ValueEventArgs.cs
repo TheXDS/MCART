@@ -46,7 +46,8 @@ namespace TheXDS.MCART.Events
         public static implicit operator ValueEventArgs<T>(T value) => new ValueEventArgs<T>(value);
 
         /// <summary>
-        /// Inicializa una nueva instancia de este objeto con el valor provisto.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ValueEventArgs{T}"/> con el valor provisto.
         /// </summary>
         /// <param name="value">Valor asociado al evento generado.</param>
         public ValueEventArgs(T value)
@@ -77,5 +78,31 @@ namespace TheXDS.MCART.Events
         public ValueEventArgs(object? value) : base(value)
         {
         }
+    }
+
+    /// <summary>
+    /// Incluye información de evento para cualquier clase con eventos que
+    /// incluyan tipos de valor e información sobre si dicho evento debe ser
+    /// cancelado.
+    /// </summary>
+    /// <typeparam name="T">
+    /// Tipo del valor almacenado por esta instancia.
+    /// </typeparam>
+    public class CancelValueEventArgs<T> : ValueEventArgs<T>
+    {
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="CancelValueEventArgs{T}"/> con el valor provisto.
+        /// </summary>
+        /// <param name="value">Valor asociado al evento generado.</param>
+        public CancelValueEventArgs(T value) : base(value)
+        {
+        }
+
+        /// <summary>
+        /// Obtiene o establece un valor que indica si este evento debe ser
+        /// cancelado o no.
+        /// </summary>
+        public bool Cancel { get; set; }
     }
 }

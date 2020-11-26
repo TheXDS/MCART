@@ -1,5 +1,5 @@
 ﻿/*
-NameAttribute.cs
+MrpcService.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -24,23 +24,17 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Text;
-using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Types.Extensions;
-using TheXDS.MCART.Resources;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Linq;
-using System.Collections;
-using System.Threading;
-using System.Threading.Tasks;
-using TheXDS.MCART.Networking.Mrpc.Serializers;
+using System.Net;
 using System.Reflection;
-using TheXDS.MCART.Types.Base;
+using System.Threading.Tasks;
+using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Mrpc.Resources;
+using TheXDS.MCART.Networking.Mrpc.Serializers;
+using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Types.Extensions.PropertyInfoExtensions;
 using PIE = TheXDS.MCART.Types.Extensions.PropertyInfoExtensions;
-using TheXDS.MCART.Mrpc.Resources;
 
 namespace TheXDS.MCART.Networking.Mrpc
 {

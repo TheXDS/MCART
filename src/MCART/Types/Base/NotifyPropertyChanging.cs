@@ -1,5 +1,5 @@
 ﻿/*
-NotifyPropertyChanged.cs
+NotifyPropertyChanging.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -80,7 +80,7 @@ namespace TheXDS.MCART.Types.Base
         /// <param name="property">
         /// Propiedad a notificar.
         /// </param>
-        protected override void Notify(string property)
+        public override void Notify(string property)
         {
             OnPropertyChanging(property);
         }
