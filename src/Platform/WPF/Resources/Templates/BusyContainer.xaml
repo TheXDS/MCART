@@ -7,6 +7,13 @@
     xmlns:vc="clr-namespace:TheXDS.MCART.ValueConverters"
     mc:Ignorable="d">
     <Style TargetType="{x:Type controls:BusyContainer}">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="BusyContent">
+            <Setter.Value>
+                <controls:BusyIndicator/>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:BusyContainer}">
@@ -20,8 +27,13 @@
                             Content="{TemplateBinding ContentControl.Content}"
                             Effect="{TemplateBinding CurrentBusyEffect}"
                             ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"
-                            ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}" />
+                            ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}" 
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        <Border Background="{TemplateBinding BusyBackground}" Opacity="{TemplateBinding BusyOpacity}"/>
                         <ContentPresenter
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
                             ContentStringFormat="{TemplateBinding BusyContentStringFormat}"
                             Content="{TemplateBinding BusyContent}"
                             Visibility="{TemplateBinding IsBusy, Converter={StaticResource BoolVis}}"/>
