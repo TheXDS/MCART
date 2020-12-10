@@ -87,11 +87,10 @@ namespace TheXDS.MCART.Resources
         /// <see langword="null"/> si no es posible verificar la
         /// compatibilidad.
         /// </returns>
-        public static bool? RtSupport<T>(T obj)
+        public static bool? RtSupport<T>(T obj) where T : notnull
         {
-            TargetMCARTVersionAttribute? tt = null;
-            if (!obj?.HasAttr(out tt) ?? true) return null;
-            if (!obj!.HasAttr(out MinMcartVersionAttribute? mt))
+            if (!obj.HasAttr<TargetMCARTVersionAttribute>(out var tt)) return null;
+            if (!obj.HasAttr<MinMcartVersionAttribute>(out var mt))
 #if StrictMCARTVersioning
                 return null;
 #else
@@ -136,8 +135,8 @@ namespace TheXDS.MCART.Resources
              * la función HasAttr<T>(object, T) en lugar de HasAttr(Type, T),
              * lo cual no es la implementación intencionada.
              */
-            if (!type.HasAttr(out TargetMCARTVersionAttribute? tt)) return null;
-            if (!type.HasAttr(out MinMcartVersionAttribute? mt))
+            if (!type.HasAttr<TargetMCARTVersionAttribute>(out var tt)) return null;
+            if (!type.HasAttr<MinMcartVersionAttribute>(out var mt))
 #if StrictMCARTVersioning
                 return null;
 #else

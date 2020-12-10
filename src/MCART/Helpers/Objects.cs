@@ -676,7 +676,7 @@ namespace TheXDS.MCART
         [Sugar]
         public static T? GetAttr<T>(this Assembly assembly) where T : Attribute
         {
-            HasAttr(assembly, out T? attr);
+            HasAttr<T>(assembly, out var attr);
             return attr;
         }
 
@@ -728,7 +728,7 @@ namespace TheXDS.MCART
         [Sugar]
         public static T? GetAttr<T>(this MemberInfo member) where T : Attribute
         {
-            HasAttr(member, out T? attr);
+            HasAttr<T>(member, out var attr);
             return attr;
         }
 
@@ -773,7 +773,7 @@ namespace TheXDS.MCART
         [Sugar]
         public static T? GetAttr<T>(this object obj) where T : Attribute
         {
-            HasAttr(obj, out T? attr);
+            HasAttr<T>(obj, out var attr);
             return attr;
         }
 
@@ -811,13 +811,6 @@ namespace TheXDS.MCART
         /// Un atributo del tipo <typeparamref name="T" /> con los datos
         /// asociados en la declaración del valor de enumeración.
         /// </returns>
-#if !CLSCompliance && PreferExceptions
-/// <exception cref="ArgumentOutOfRangeException">
-/// Se produce si el tipo de enumeración no contiene un valor definido
-/// para <paramref name="enumValue"/>.
-/// </exception>
-        [CLSCompliant(false)]
-#endif
         public static T? GetAttr<T>(this Enum enumValue) where T : Attribute
         {
             HasAttr<T>(enumValue, out var retval);
@@ -864,7 +857,7 @@ namespace TheXDS.MCART
         [Sugar]
         public static T? GetAttr<T, TIt>() where T : Attribute
         {
-            HasAttr(typeof(TIt), out T? attr);
+            HasAttr<T>(typeof(TIt), out var attr);
             return attr;
         }
 
@@ -1092,7 +1085,7 @@ namespace TheXDS.MCART
         /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
         /// en caso contrario.
         /// </returns>
-        public static bool HasAttr<T>(this Assembly assembly, [NotNullWhen(true)] out T? attribute) where T : Attribute
+        public static bool HasAttr<T>(this Assembly assembly, [MaybeNullWhen(false)] out T attribute) where T : Attribute
         {
             var retVal = HasAttrs<T>(assembly, out var attrs);
             attribute = attrs.FirstOrDefault();
@@ -1195,7 +1188,7 @@ namespace TheXDS.MCART
         /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
         /// en caso contrario.
         /// </returns>
-        public static bool HasAttr<T>(this MemberInfo member, out T? attribute) where T : Attribute
+        public static bool HasAttr<T>(this MemberInfo member, [MaybeNullWhen(false)] out T attribute) where T : Attribute
         {
             var retVal = HasAttrs<T>(member, out var attrs);
             attribute = attrs.FirstOrDefault();
@@ -1298,7 +1291,7 @@ namespace TheXDS.MCART
         /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
         /// en caso contrario.
         /// </returns>
-        public static bool HasAttr<T>(this object obj, out T? attribute) where T : Attribute
+        public static bool HasAttr<T>(this object obj, [MaybeNullWhen(false)] out T attribute) where T : Attribute
         {
             switch (obj)
             {
@@ -1461,7 +1454,7 @@ namespace TheXDS.MCART
 /// </exception>
         [CLSCompliant(false)]
 #endif
-        public static bool HasAttr<T>(this Enum enumValue, out T? attribute) where T : Attribute
+        public static bool HasAttr<T>(this Enum enumValue, [MaybeNullWhen(false)] out T attribute) where T : Attribute
         {
             var type = enumValue.GetType();
             attribute = null;
@@ -1526,25 +1519,16 @@ namespace TheXDS.MCART
         /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
         /// en caso contrario.
         /// </returns>
-#if !CLSCompliance && PreferExceptions
-/// <exception cref="ArgumentOutOfRangeException">
-/// Se produce si el tipo de enumeración no contiene un valor definido
-/// para <paramref name="enumValue"/>.
-/// </exception>
-        [CLSCompliant(false)]
-#endif
-        public static bool HasAttrs<T>(this Enum enumValue, [NotNullWhen(true)] out IEnumerable<T>? attribute) where T : Attribute
+        public static bool HasAttrs<T>(this Enum enumValue, out IEnumerable<T> attribute) where T : Attribute
         {
+            string? n;
             var type = enumValue.GetType();
-            attribute = null;
-            if (!type.IsEnumDefined(enumValue))
-#if !CLSCompliance && PreferExceptions
-                throw new ArgumentOutOfRangeException(nameof(enumValue));
-#else
+            if (!type.IsEnumDefined(enumValue) || (n = type.GetEnumName(enumValue)) is null)
+            {
+                attribute = Array.Empty<T>();
                 return false;
-#endif
-            var n = type.GetEnumName(enumValue);
-            if (n is null) return false;
+            }
+
             attribute = type.GetMember(n)[0].GetCustomAttributes(typeof(T), false).OfType<T>();
             return attribute.Any();
         }
@@ -1568,7 +1552,7 @@ namespace TheXDS.MCART
         /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
         /// en caso contrario.
         /// </returns>
-        public static bool HasAttrAlt<T>(this Type type, out T? attribute) where T : Attribute
+        public static bool HasAttrAlt<T>(this Type type, [MaybeNullWhen(false)] out T attribute) where T : Attribute
         {
             attribute = (Attribute.GetCustomAttributes(type, typeof(T)).FirstOrDefault()
                          ?? Attribute.GetCustomAttributes(type.Assembly, typeof(T)).FirstOrDefault()) as T;
