@@ -8,6 +8,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
     <IncludeSymbols>true</IncludeSymbols>
+    <PublishLocalSymbols>false</PublishLocalSymbols>
+    <PublishToNuGet>false</PublishToNuGet>
+    <PublishToGitHub>false</PublishToGitHub>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Debug-Publish'">
     <IncludeSymbols>true</IncludeSymbols>
@@ -19,10 +22,17 @@
     <IncludeSymbols>true</IncludeSymbols>
     <PublishLocalSymbols>true</PublishLocalSymbols>
     <PublishToNuGet>false</PublishToNuGet>
+    <PublishToGitHub>false</PublishToGitHub>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <IncludeSymbols>false</IncludeSymbols>
     <PublishLocalSymbols>false</PublishLocalSymbols>
+    <PublishToNuGet>false</PublishToNuGet>
+    <PublishToGitHub>false</PublishToGitHub>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release-Publish'">
+    <IncludeSymbols>false</IncludeSymbols>
+    <PublishLocalSymbols>true</PublishLocalSymbols>
     <PublishToNuGet>true</PublishToNuGet>
     <PublishToGitHub>true</PublishToGitHub>
   </PropertyGroup>
