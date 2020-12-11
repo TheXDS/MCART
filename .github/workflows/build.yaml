@@ -38,15 +38,16 @@ jobs:
         dotnet-version: 5.0.101
 
     - name: Restore
-      run: dotnet restore
+      run: dotnet restore .\src\MCART.sln
 
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build .\src\MCART.sln --configuration Release --no-restore
 
     - name: Test
-      run: dotnet test
+      run: dotnet test .\src\MCART.sln
 
-    - uses: actions/upload-artifact@v2
-        with:
-          name: MCART nuget packages
-          path: ./Build/bin/**/*.nupkg
+    - name: Get artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: MCART nuget packages
+        path: ./Build/bin/**/*.nupkg
