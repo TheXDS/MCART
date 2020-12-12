@@ -653,11 +653,12 @@ namespace TheXDS.MCART
         /// Una cadena con la cantidad de bytes utilizando la unidad de
         /// magnitud adecuada.
         /// </returns>
-        public static string ByteUnits(long bytes, in ByteUnitType unit)
+        public static string ByteUnits(in long bytes, in ByteUnitType unit)
         {
             var c = 0;
+            var b = (double)bytes;
 
-            (int mag, string[] u) = unit switch
+            (double mag, string[] u) = unit switch
             {
                 ByteUnitType.Binary => (1024, new[] { St2.KiB, St2.MiB, St2.GiB, St2.TiB, St2.PiB, St2.EiB, St2.ZiB, St2.YiB }),
                 ByteUnitType.Decimal => (1000, new[] { St2.KB, St2.MB, St2.GB, St2.TB, St2.PB, St2.EB, St2.ZB, St2.YB }),
@@ -666,17 +667,17 @@ namespace TheXDS.MCART
 #if PreferExceptions
                 _ => throw new ArgumentOutOfRangeException(nameof(unit), unit, null)
 #else
-                _ => (1, Array.Empty<string>())
+                _ => (double.PositiveInfinity, Array.Empty<string>())
 #endif
             };
 
-            while (bytes > mag - 1 || c == u.Length)
+            while (b > mag - 1 && c < u.Length)
             {
                 c++;
-                bytes /= mag;
+                b /= mag;
             }
 
-            return c > 0 ? $"{bytes + ((float)bytes / mag):F1} {u[c.Clamp(u.Length) - 1]}" : $"{bytes} {St2.Bytes}";
+            return c > 0 ? $"{b + (b / mag):F1} {u[c.Clamp(u.Length) - 1]}" : $"{bytes} {St2.Bytes}";
         }
 
         /// <summary>

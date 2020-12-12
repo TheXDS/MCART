@@ -50,8 +50,7 @@ namespace TheXDS.MCART.Tests.Modules
         [Fact]
         public void GetCallingMethodTest()
         {
-            MethodBase TestMethod() => GetCallingMethod();
-
+            MethodBase TestMethod() => GetCallingMethod();            
             Assert.Equal(MethodBase.GetCurrentMethod(), TestMethod());
             Assert.Null(GetCallingMethod(int.MaxValue - 1));
             Assert.Throws<OverflowException>(() => GetCallingMethod(int.MaxValue));

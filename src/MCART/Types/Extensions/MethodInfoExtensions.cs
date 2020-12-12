@@ -30,7 +30,7 @@ namespace TheXDS.MCART.Types.Extensions
     /// <summary>
     /// Contiene extensiones para la clase <see cref="MethodInfo"/>.
     /// </summary>
-    public static class MethodInfoExtensions
+    public static partial class MethodInfoExtensions
     {
         /// <summary>
         /// Crea un delegado del tipo especificado a partir del método.
@@ -39,14 +39,18 @@ namespace TheXDS.MCART.Types.Extensions
         /// Tipo de delegado a obtener.
         /// </typeparam>
         /// <param name="m">Método del cual obtener un delegado.</param>
+        /// <param name="targetInstance">
+        /// Objetivo de instancia al cual enlazar el delegado generado, o
+        /// <see langword="null"/> para generar un delegado de método estático.
+        /// </param>
         /// <returns>
         /// Un delegado del tipo especificado a partir del método, o
         /// <see langword="null"/> si no es posible realizar la conversión.
         /// </returns>
-        public static T? ToDelegate<T>(this MethodInfo m) where T : Delegate
+        public static T? ToDelegate<T>(this MethodInfo m, object? targetInstance = null) where T : notnull, Delegate
         {
-            if (m is null) throw new ArgumentNullException(nameof(m));
-            return m.IsSignatureCompatible<T>() ? (T)Delegate.CreateDelegate(typeof(T), m) : null;
+            ToDelegate_Contract(m, targetInstance);
+            return (T?)Delegate.CreateDelegate(typeof(T), targetInstance, m, false);
         }
 
         /// <summary>

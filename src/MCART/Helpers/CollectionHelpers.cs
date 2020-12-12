@@ -457,8 +457,9 @@ namespace TheXDS.MCART
             var found = false;
             foreach (var j in stringArray)
             {
-                if (found = j.IsEmpty())
+                if (j.IsEmpty())
                 {
+                    found = true;
                     idx.Add(c);
                 }
                 c++;

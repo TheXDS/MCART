@@ -164,7 +164,7 @@ namespace TheXDS.MCART.Tests.Modules
                 "This", "is", "a", "test"
             }.Listed();
             Assert.Equal(
-                $"This{Environment.NewLine}is{Environment.NewLine}a{Environment.NewLine}test{Environment.NewLine}",
+                $"This{Environment.NewLine}is{Environment.NewLine}a{Environment.NewLine}test",
                 outp);
         }
 
@@ -174,13 +174,13 @@ namespace TheXDS.MCART.Tests.Modules
             Assert.True(AnyEmpty("Test", string.Empty, ""));
             Assert.False(AnyEmpty("T", "e", "s", "t"));
 
-            Assert.True(AnyEmpty(out var i1, "Test", string.Empty, ""));
+            Assert.True(AnyEmpty(out IEnumerable<int> i1, "Test", string.Empty, ""));
             Assert.Equal(new[] { 1, 2 }, i1);
 
-            Assert.True(AnyEmpty(out var i2, null, string.Empty, ""));
+            Assert.True(AnyEmpty(out IEnumerable<int> i2, null, string.Empty, ""));
             Assert.Equal(new[] { 0, 1, 2 }, i2);
 
-            Assert.False(AnyEmpty(out var i3, "T", "e", "s", "t"));
+            Assert.False(AnyEmpty(out IEnumerable<int> i3, "T", "e", "s", "t"));
             Assert.Equal(Array.Empty<int>(), i3);
         }
 
@@ -316,7 +316,7 @@ namespace TheXDS.MCART.Tests.Modules
         [CLSCompliant(false)]
         [InlineData(1000, ByteUnitType.Binary, "1000 Bytes")]
         [InlineData(1000, ByteUnitType.Decimal, "1.0 KB")]
-        [InlineData(100000, (ByteUnitType) 2, "100000 Bytes")]
+        [InlineData(100000, (ByteUnitType) 255, "100000 Bytes")]
         public void ByteUnitsTest_Long_ByteUnitType(long bytes, ByteUnitType unit, string result)
         {
             Assert.Equal(result, ByteUnits(bytes, unit));
@@ -327,7 +327,9 @@ namespace TheXDS.MCART.Tests.Modules
         [InlineData(1000, "1000 Bytes")]
         [InlineData(1024, "1.0 KiB")]
         [InlineData(1536, "1.5 KiB")]
+        [InlineData(1768, "1.7 KiB")]
         [InlineData(1048576, "1.0 MiB")]
+        [InlineData(1150976, "1.1 MiB")]
         [InlineData(1073741824, "1.0 GiB")]
         [InlineData(1099511627776L, "1.0 TiB")]
         [InlineData(1125899906842624L, "1.0 PiB")]

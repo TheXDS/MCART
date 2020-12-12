@@ -31,91 +31,91 @@ using Xunit;
 
 namespace TheXDS.MCART.Tests.Component
 {
-    public class CmdLineParserTests
-    {
-        private class Recursive : Argument
-        {
-            public override string LongName => "recursive";
-            public override char? ShortName => 'r';
-        }
-        private class Force : Argument
-        {
-            public override ValueKind Kind => ValueKind.Optional;
-            public override string LongName => "force";
-            public override char? ShortName => 'f';
-            public override string Default => "yes";
-        }
-        private class Verbose : Argument
-        {
-            public override string LongName => "Verbose";
-            public override char? ShortName => 'v';
-        }
-        private class FileSystem : Argument
-        {
-            public override ValueKind Kind => ValueKind.Required;
-            public override string LongName => "FileSystem";
-        }
+//    public class CmdLineParserTests
+//    {
+//        private class Recursive : Argument
+//        {
+//            public override string LongName => "recursive";
+//            public override char? ShortName => 'r';
+//        }
+//        private class Force : Argument
+//        {
+//            public override ValueKind Kind => ValueKind.Optional;
+//            public override string LongName => "force";
+//            public override char? ShortName => 'f';
+//            public override string Default => "yes";
+//        }
+//        private class Verbose : Argument
+//        {
+//            public override string LongName => "Verbose";
+//            public override char? ShortName => 'v';
+//        }
+//        private class FileSystem : Argument
+//        {
+//            public override ValueKind Kind => ValueKind.Required;
+//            public override string LongName => "FileSystem";
+//        }
 
-#if CLSCompliance
-        [CLSCompliant(false)]
-#endif
-        [InlineData("-rf")]
-        [InlineData("-r --Force")]
-        [InlineData("--recursive --Force")]
-        [InlineData("--recursive -f")]
-        [InlineData("-r -f")]
-        [InlineData("/r /Force")]
-        [InlineData("/r --Force")]
-        [InlineData("-r /Force")]
-        [InlineData("/recursive /Force")]
-        [InlineData("/r /f")]
-        [InlineData("/r -f")]
-        [Theory]
-        public void ReadFlagsTest(string cmdLine)
-        {
-            var parser = new CmdLineParser(cmdLine);
+//#if CLSCompliance
+//        [CLSCompliant(false)]
+//#endif
+//        [InlineData("-rf")]
+//        [InlineData("-r --Force")]
+//        [InlineData("--recursive --Force")]
+//        [InlineData("--recursive -f")]
+//        [InlineData("-r -f")]
+//        [InlineData("/r /Force")]
+//        [InlineData("/r --Force")]
+//        [InlineData("-r /Force")]
+//        [InlineData("/recursive /Force")]
+//        [InlineData("/r /f")]
+//        [InlineData("/r -f")]
+//        [Theory]
+//        public void ReadFlagsTest(string cmdLine)
+//        {
+//            var parser = new CmdLineParser(cmdLine);
 
-            Assert.True(parser.IsPresent<Recursive>());
-            Assert.True(parser.IsPresent<Force>());
-            Assert.False(parser.IsPresent<Verbose>());
-        }
+//            Assert.True(parser.IsPresent<Recursive>());
+//            Assert.True(parser.IsPresent<Force>());
+//            Assert.False(parser.IsPresent<Verbose>());
+//        }
 
-        [Fact]
-        public void InvalidFlagTest()
-        {
-            var parser = new CmdLineParser("-t");
-            Assert.True(parser.Invalid.Any());
-        }
+//        [Fact]
+//        public void InvalidFlagTest()
+//        {
+//            var parser = new CmdLineParser("-t");
+//            Assert.True(parser.Invalid.Any());
+//        }
 
-#if CLSCompliance
-        [CLSCompliant(false)]
-#endif
-        [InlineData('=')]
-        [InlineData(':')]
-        [Theory]
-        public void ReadValueTest(char separator)
-        {
-            var parser = new CmdLineParser($"--Filesystem{separator}FAT --force");
-            Assert.True(parser.IsPresent<FileSystem>());
-            Assert.Equal("FAT", parser.Value<FileSystem>());
-            Assert.Equal("yes", parser.Value<Force>());
+//#if CLSCompliance
+//        [CLSCompliant(false)]
+//#endif
+//        [InlineData('=')]
+//        [InlineData(':')]
+//        [Theory]
+//        public void ReadValueTest(char separator)
+//        {
+//            var parser = new CmdLineParser($"--Filesystem{separator}FAT --force");
+//            Assert.True(parser.IsPresent<FileSystem>());
+//            Assert.Equal("FAT", parser.Value<FileSystem>());
+//            Assert.Equal("yes", parser.Value<Force>());
 
-        }
+//        }
 
-        [Fact]
-        public void InvalidArgsTest()
-        {
-            var parser = new CmdLineParser("--Filesystem --verbose=yes");
-            Assert.Equal(2, parser.Invalid.Count());
-        }
+//        [Fact]
+//        public void InvalidArgsTest()
+//        {
+//            var parser = new CmdLineParser("--Filesystem --verbose=yes");
+//            Assert.Equal(2, parser.Invalid.Count());
+//        }
 
-        [Fact]
-        public void MissingArgsTest()
-        {
-            var parser = new CmdLineParser("--Filesystem=FAT");
-            Assert.Empty(parser.Missing);
-            parser = new CmdLineParser("-r -f");
-            Assert.NotEmpty(parser.Missing);
-        }
-    }
+//        [Fact]
+//        public void MissingArgsTest()
+//        {
+//            var parser = new CmdLineParser("--Filesystem=FAT");
+//            Assert.Empty(parser.Missing);
+//            parser = new CmdLineParser("-r -f");
+//            Assert.NotEmpty(parser.Missing);
+//        }
+//    }
 }

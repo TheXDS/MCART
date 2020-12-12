@@ -176,7 +176,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns></returns>
         public static MethodBuildInfo AddOverride(this TypeBuilder tb, MethodInfo method)
         {
-            return new MethodBuildInfo(tb, tb.DefineMethod(method.Name, GetNonAbstract(method), method.IsVoid() ? null : method.ReturnType, method.GetParameters().Select(p => p.ParameterType).ToArray()));
+            var newMethod = tb.DefineMethod(method.Name, GetNonAbstract(method), method.IsVoid() ? null : method.ReturnType, method.GetParameters().Select(p => p.ParameterType).ToArray());
+            tb.DefineMethodOverride(newMethod, method);
+            return new MethodBuildInfo(tb, newMethod);
         }
 
         private static MethodAttributes GetNonAbstract(MethodInfo m)

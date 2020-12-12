@@ -55,7 +55,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static MethodInfo? GetCallingMethod()
         {
-            return GetCallingMethod(2);
+            return GetCallingMethod(3);
         }
 
         /// <summary>

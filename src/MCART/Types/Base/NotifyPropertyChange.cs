@@ -65,7 +65,6 @@ namespace TheXDS.MCART.Types.Base
         /// Notifica a los clientes que el valor de una propiedad ha
         /// cambiado.
         /// </summary>
-        [NpcChangeInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null!)
         {
             if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
@@ -89,6 +88,7 @@ namespace TheXDS.MCART.Types.Base
         /// <see langword="true"/> si el valor de la propiedad ha
         /// cambiado, <see langword="false"/> en caso contrario.
         /// </returns>
+        [NpcChangeInvocator]
         protected override sealed bool Change<T>(ref T field, T value, [CallerMemberName] string propertyName = null!)
         {
             if (field?.Equals(value) ?? Objects.AreAllNull(field, value)) return false;

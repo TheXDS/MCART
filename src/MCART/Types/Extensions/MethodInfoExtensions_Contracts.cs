@@ -1,9 +1,7 @@
 ﻿/*
-Objects_Contracts.cs
+MethodInfoExtensions_Contracts.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
-
-Este archivo contiene funciones de manipulación de objetos, 
 
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
@@ -25,44 +23,25 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using TheXDS.MCART.Exceptions;
 using static TheXDS.MCART.Misc.Internals;
-using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
 
-namespace TheXDS.MCART
+namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    /// Funciones de manipulación de objetos.
+    /// Contiene extensiones para la clase <see cref="MethodInfo"/>.
     /// </summary>
-    public static partial class Objects
+    public static partial class MethodInfoExtensions
     {
         [Conditional("EnforceContracts")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DebuggerNonUserCode]
-        private static void FieldsOf_Contract(IEnumerable<FieldInfo> fields, object? instance)
+        private static void ToDelegate_Contract(MethodInfo m, object? targetInstance)
         {
-            NullCheck(fields, nameof(fields));
-            if (fields.IsAnyNull()) throw new NullItemException();
-            if (instance is { } obj)
-            {
-                var f = obj.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public);
-                foreach (var j in fields.Where(p => !p.IsStatic))
-                {
-                    if (!f.Contains(j)) throw new MissingFieldException(obj.GetType().Name, j.Name);
-                }
-            }
-            else
-            {
-                foreach (var j in fields.Where(p => p.IsStatic))
-                {
-                    if (!j.IsStatic) throw new MemberAccessException();
-                }
-            }
+            NullCheck(m, nameof(m));
+            if ((targetInstance is null && !m.IsStatic) || (!(targetInstance is null) && m.IsStatic)) throw new MemberAccessException();
         }
     }
 }

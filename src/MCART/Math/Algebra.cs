@@ -63,6 +63,8 @@ namespace TheXDS.MCART.Math
         {
             if (number == 1) return false;
 
+            if (number < 547 && knownPrimes.Contains((int)number)) return true;
+
             foreach (var prime in knownPrimes)
                 if (number % prime == 0) return false;         
             

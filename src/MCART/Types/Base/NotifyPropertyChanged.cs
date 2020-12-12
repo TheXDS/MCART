@@ -44,7 +44,6 @@ namespace TheXDS.MCART.Types.Base
         /// Notifica a los clientes que el valor de una propiedad ha
         /// cambiado.
         /// </summary>
-        [NpcChangeInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null!)
         {
             if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));

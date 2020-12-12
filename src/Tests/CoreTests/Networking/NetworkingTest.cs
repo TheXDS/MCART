@@ -31,7 +31,7 @@ namespace TheXDS.MCART.Tests.Networking
 {
     public class NetworkingTest
     {
-        [Fact]
+        //[Fact]
         public void DownloadTest()
         {
             /*
