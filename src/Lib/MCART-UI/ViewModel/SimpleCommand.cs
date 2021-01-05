@@ -23,6 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace TheXDS.MCART.ViewModel
@@ -77,6 +78,52 @@ namespace TheXDS.MCART.ViewModel
         /// inmediatamente después de instanciar esta clase.
         /// </param>
         public SimpleCommand(Action<object?> action, bool canExecute) : base(action)
+        {
+            _canExecute = canExecute;
+        }
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="SimpleCommand" />.
+        /// </summary>
+        /// <param name="task">Tarea a ejecutar.</param>
+        public SimpleCommand(Func<Task> task) : this((Action)(async () => await task()))
+        {
+        }
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="SimpleCommand" />.
+        /// </summary>
+        /// <param name="task">Tarea a ejecutar.</param>
+        public SimpleCommand (Func<object?, Task> task) : this((Action<object?>)(async o => await task(o)))
+        {
+        }
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="SimpleCommand"/>.
+        /// </summary>
+        /// <param name="task">Tarea a ejecutar.</param>
+        /// <param name="canExecute">
+        /// Valor que indica si el comando puede ser ejecutado
+        /// inmediatamente después de instanciar esta clase.
+        /// </param>
+        public SimpleCommand(Func<Task> task, bool canExecute) : this((Action)(async () => await task()))
+        {
+            _canExecute = canExecute;
+        }
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="SimpleCommand"/>.
+        /// </summary>
+        /// <param name="task">Tarea a ejecutar.</param>
+        /// <param name="canExecute">
+        /// Valor que indica si el comando puede ser ejecutado
+        /// inmediatamente después de instanciar esta clase.
+        /// </param>
+        public SimpleCommand(Func<object?, Task> task, bool canExecute) : this((Action<object?>)(async o => await task(o)))
         {
             _canExecute = canExecute;
         }
