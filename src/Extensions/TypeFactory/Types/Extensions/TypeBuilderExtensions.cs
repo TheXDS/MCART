@@ -844,6 +844,44 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
+        /// Agrega una propiedad con un valor constante.
+        /// </summary>
+        /// <typeparam name="T">Tipo de la nueva propiedad.</typeparam>
+        /// <param name="tb">
+        /// Constructor del tipo en el cual crear la nueva propiedad.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <param name="value">Valor constante a asignar.</param>
+        /// <returns>
+        /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+        /// la propiedad que ha sido construida.
+        /// </returns>
+        public static PropertyBuildInfo AddConstantProperty<T>(this TypeBuilder tb, string name, T value)
+        {
+            return AddConstantProperty(tb, name, typeof(T), value);
+        }
+
+        /// <summary>
+        /// Agrega una propiedad con un valor constante.
+        /// </summary>
+        /// <param name="tb">
+        /// Constructor del tipo en el cual crear la nueva propiedad.
+        /// </param>
+        /// <param name="name">Nombre de la nueva propiedad.</param>
+        /// <param name="type">Tipo de la nueva propiedad.</param>
+        /// <param name="value">Valor constante a asignar.</param>
+        /// <returns>
+        /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+        /// la propiedad que ha sido construida.
+        /// </returns>
+        public static PropertyBuildInfo AddConstantProperty(this TypeBuilder tb, string name, Type type, object? value)
+        {
+            var prop = AddProperty(tb, name, type, false, MemberAccess.Public, false);
+            prop.Getter!.LoadConstant(type, value).Return();
+            return prop;
+        }
+
+        /// <summary>
         /// Agrega una propiedad pública de solo escritura al tipo.
         /// </summary>
         /// <param name="tb">

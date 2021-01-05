@@ -54,7 +54,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static PropertyBuildInfo WithBackingField(this PropertyBuildInfo builder, out FieldBuilder field)
         {
-            if (!(builder.Field is null)) throw Errors.PropFieldAlreadyDefined();
+            if (builder.Field is not null) throw Errors.PropFieldAlreadyDefined();
             if ((builder.Getter?.ILOffset ?? 0) != 0) throw Errors.PropGetterAlreadyDefined();
             field = builder.TypeBuilder.DefineField(UndName(builder.Member.Name), builder.Member.PropertyType, FieldAttributes.Private | FieldAttributes.PrivateScope);
             builder.Getter?.LoadField(field).Return();
