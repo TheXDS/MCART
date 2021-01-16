@@ -30,7 +30,9 @@
                             ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}" 
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        <Border Background="{TemplateBinding BusyBackground}" Opacity="{TemplateBinding BusyOpacity}"/>
+                        <Border
+                            Visibility="{TemplateBinding IsBusy, Converter={StaticResource BoolVis}}"
+                            Background="{TemplateBinding BusyBackground}" Opacity="{TemplateBinding BusyOpacity}"/>
                         <ContentPresenter
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
