@@ -1,5 +1,5 @@
 ﻿/*
-MockupFactory.cs
+MockupBuilder.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -24,27 +24,40 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Reflection;
+using System.Reflection.Emit;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
-using TheXDS.MCART;
-using System.Reflection.Emit;
-using System.Linq.Expressions;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace TheXDS.MCART.Mockups
 {
+    /// <summary>
+    /// Permite construir mockups simples para un tipo abstracto o una
+    /// interfaz.
+    /// </summary>
+    /// <typeparam name="T">
+    /// Tipo base a implementar por el Mockup.
+    /// </typeparam>
     public class MockupBuilder<T>
     {
         private static readonly TypeFactory _factory = new TypeFactory("TheXDS.MCART.Mockups._Generated", true);
         private readonly TypeBuilder _builder = _factory.NewClass($"{typeof(T).Name}Mockup");
         private readonly ILGenerator _ctor;
 
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="MockupBuilder{T}"/>.
+        /// </summary>
         public MockupBuilder()
         {
             _ctor = _builder.AddPublicConstructor().CallBaseCtor<T>();
         }
 
+        /// <summary>
+        /// Construye un nuevo Mockup para el tipo especificado.
+        /// </summary>
+        /// <returns>
+        /// Una nueva instancia del tipo especificado.
+        /// </returns>
         public T Build()
         {
             AddMembers();

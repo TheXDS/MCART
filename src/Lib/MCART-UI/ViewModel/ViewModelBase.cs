@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2020 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -24,14 +24,13 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+using System.ComponentModel;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Resources.UI;
 using TheXDS.MCART.Types.Base;
-using St = TheXDS.MCART.Resources.UI.ErrorStrings;
 
 namespace TheXDS.MCART.ViewModel
 {
@@ -43,7 +42,7 @@ namespace TheXDS.MCART.ViewModel
         private bool _isBusy;
         private readonly Dictionary<string, ICollection<Action>> _observeRegistry = new Dictionary<string, ICollection<Action>>();
 
-        private void OnInvokeObservedProps(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void OnInvokeObservedProps(object? sender, PropertyChangedEventArgs e)
         {
             if (_observeRegistry.TryGetValue(e.PropertyName ?? throw Errors.NullValue("e.PropertyName"), out var c))
             {
@@ -78,19 +77,14 @@ namespace TheXDS.MCART.ViewModel
         /// Se produce si la función de selección de propiedad no ha
         /// seleccionado un miembro válido de la instancia a configurar.
         /// </exception>
-        /// 
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="propertySelector"/> o
+        /// <paramref name="handler"/> son <see langword="null"/>.
+        /// </exception>
         protected void Observe<T>(Expression<Func<T>> propertySelector, Action handler)
         {
-            Observe_Contract(propertySelector, handler);
-            try
-            {
-                Observe(ReflectionHelpers.GetProperty(propertySelector)!.Name, handler);
-            }
-            catch (ArgumentException ex)
-            {
-                throw new InvalidArgumentException(St.UnsupportedMember, ex, nameof(propertySelector));
-            }
-            catch { throw; }
+            Observe_Contract(propertySelector);
+            ObserveFrom(this, ReflectionHelpers.GetProperty(propertySelector), handler);
         }
 
         /// <summary>
@@ -103,9 +97,13 @@ namespace TheXDS.MCART.ViewModel
         /// <param name="handler">
         /// Delegado a invocar cuando la propiedad haya cambiado.
         /// </param>
-        /// <exception cref="MissingMemberException">
-        /// Se produce si la instancia a configurar no contiene una propiedad
-        /// con el nombre especificado.
+        /// <exception cref="InvalidArgumentException">
+        /// Se produce si <paramref name="propertyName"/> es una cadena vacía o
+        /// una cadena de espacios.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="propertyName"/> o 
+        /// <paramref name="handler"/> son  <see langword="null"/>.
         /// </exception>
         protected void Observe(string propertyName, Action handler)
         {
@@ -115,6 +113,57 @@ namespace TheXDS.MCART.ViewModel
                 _observeRegistry.Add(propertyName, new HashSet<Action>());
             }
             _observeRegistry[propertyName].Add(handler);
+        }
+
+        /// <summary>
+        /// Registra una propiedad con notificación de cambio de valor para ser
+        /// observada y manejada por el delegado especificado.
+        /// </summary>
+        /// <typeparam name="T">Tipo de la propiedad.</typeparam>
+        /// <param name="source">Origen observado.</param>
+        /// <param name="propertySelector">
+        /// Función selectora de la propiedad a observar.
+        /// </param>
+        /// <param name="handler">
+        /// Delegado a invocar cuando la propiedad haya cambiado.
+        /// </param>
+        /// <exception cref="InvalidArgumentException">
+        /// Se produce si la función de selección de propiedad no ha
+        /// seleccionado un miembro válido de la instancia a configurar.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="source"/>,
+        /// <paramref name="propertySelector"/> o <paramref name="handler"/>
+        /// son <see langword="null"/>.
+        /// </exception>
+        protected void ObserveFrom<T>(T source, Expression<Func<T, object?>> propertySelector, Action handler) where T : notnull, INotifyPropertyChanged
+        {
+            Observe_Contract(propertySelector);
+            ObserveFrom(source, ReflectionHelpers.GetProperty(propertySelector), handler);
+        }
+
+        /// <summary>
+        /// Registra una propiedad con notificación de cambio de valor para ser
+        /// observada y manejada por el delegado especificado.
+        /// </summary>
+        /// <param name="source">Origen observado.</param>
+        /// <param name="property">Propiedad a observar.</param>
+        /// <param name="handler">
+        /// Delegado a invocar cuando la propiedad haya cambiado.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="source"/>,
+        /// <paramref name="property"/> o <paramref name="handler"/> son 
+        /// <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="MissingMemberException">
+        /// Se produce si la propiedad no ha sido encontrada en la instancia a
+        /// configurar.
+        /// </exception>
+        protected void ObserveFrom(INotifyPropertyChanged source, PropertyInfo property, Action handler)
+        {
+            Observe_Contract(source, property);
+            Observe(property.Name, handler);
         }
 
         /// <summary>
