@@ -1,5 +1,5 @@
 ﻿/*
-Api.cs
+ConsoleWindow.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -64,9 +64,10 @@ namespace TheXDS.MCART.Windows.Api
             if (Handle != IntPtr.Zero) PInvoke.FreeConsole();
         }
 
-        ///// <summary>
-        ///// Destruye la instancia activa de la ventana de consola.
-        ///// </summary>
-        //~ConsoleWindow() => Close();
+        /// <inheridoc/>
+        public void Hide()
+        {
+            if (Handle != IntPtr.Zero) PInvoke.ShowWindowAsync(Handle, ShowWindowFlags.Hide);
+        }
     }
 }

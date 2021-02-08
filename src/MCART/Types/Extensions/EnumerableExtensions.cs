@@ -106,6 +106,35 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
+        /// Ejecuta una operación sobre una secuencia en un contexto
+        /// bloqueado.
+        /// </summary>
+        /// <typeparam name="TCollection">
+        /// Tipo de elementos de la secuencia.
+        /// </typeparam>
+        /// <typeparam name="TResult">
+        /// Tipo de resultado obtenido por la función.
+        /// </typeparam>
+        /// <param name="collection">
+        /// Secuencia sobre la cual ejecutar una operación bloqueada.
+        /// </param>
+        /// <param name="func">
+        /// Función a ejecutar sobre la secuencia.
+        /// </param>
+        public static TResult Locked<TCollection, TResult>(this TCollection collection, Func<TCollection, TResult> func) where TCollection : IEnumerable
+        {
+            if (collection is ICollection c)
+            {
+                if (c.IsSynchronized) return func(collection);
+                else lock (c.SyncRoot) return func(collection);
+            }
+            else
+            {
+                lock (collection) return func(collection);
+            }
+        }
+
+        /// <summary>
         /// Obtiene la cuenta de elementos nulos dentro de una secuencia.
         /// </summary>
         /// <param name="c">

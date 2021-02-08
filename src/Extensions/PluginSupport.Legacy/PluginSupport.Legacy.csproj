@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net5.0;netstandard2.1</TargetFrameworks>
+    <TargetFramework>net5.0</TargetFramework>
     <Description>MCART Legacy Plugin Support</Description>
     <AssemblyName>MCART.PluginSupport.Legacy</AssemblyName>
   </PropertyGroup>

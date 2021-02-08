@@ -119,10 +119,10 @@ namespace TheXDS.MCART.ValueConverters
                 case string str:
                     TypeConverter? typeConverter;
 
-                    if (parameter.GetType().HasAttr(out TypeConverterAttribute? tc))
+                    if (parameter.GetType().HasAttr<TypeConverterAttribute>(out var tc))
                     {
                         var converters = Objects.PublicTypes<TypeConverter>().Where(TypeExtensions.IsInstantiable);
-                        typeConverter = converters.FirstOrDefault(p => p.AssemblyQualifiedName == tc!.ConverterTypeName)?.New<TypeConverter>();
+                        typeConverter = converters.FirstOrDefault(p => p.AssemblyQualifiedName == tc.ConverterTypeName)?.New<TypeConverter>();
                     }
                     else { typeConverter = Common.FindConverter<string, TIn>(); }
 

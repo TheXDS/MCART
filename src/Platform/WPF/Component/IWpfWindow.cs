@@ -74,5 +74,7 @@ namespace TheXDS.MCART.Wpf.Component
         }
 
         void ICloseable.Close() => Itself.Close();
+
+        void IWindow.Hide() => Itself.Hide();
     }
 }

@@ -1,5 +1,5 @@
 ﻿/*
-ICloseable.cs
+EnumValueProvider_Contracts.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,18 +22,27 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Component
+using System;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using TheXDS.MCART.Exceptions;
+using static TheXDS.MCART.Misc.Internals;
+
+
+namespace TheXDS.MCART.Wpf.Component
 {
-    /// <summary>
-    /// Define una serie de miembros a implementar por un tipo que represente a
-    /// un elemento de UI que puede ser cerrado, como ser las ventanas de una
-    /// aplicación.
-    /// </summary>
-    public interface ICloseable
+    public partial class EnumValueProvider
     {
-        /// <summary>
-        /// Cierra esta instancia.
-        /// </summary>
-        void Close();
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void EnumValueProvider_Contract(Type enumType)
+        {
+            NullCheck(enumType, nameof(enumType));
+            if (!enumType.IsEnum)
+            {
+                throw new ArgumentException("A type that inherits from System.Enum was expected.", new InvalidTypeException(enumType));
+            }
+        }
     }
 }

@@ -32,9 +32,6 @@ namespace TheXDS.MCART.Windows.Component
     /// Define una serie de miembros a implementar por un tipo que represente
     /// una ventana de Microsoft Windows.
     /// </summary>
-    /// <remarks>
-    /// Esta interfaz es candidata a ser migrada a <c>shape</c> en C# 9.0.
-    /// </remarks>
     public interface IWindow : ICloseable
     {
         /// <summary>
@@ -48,5 +45,10 @@ namespace TheXDS.MCART.Windows.Component
         /// bordes de la ventana y su contenido.
         /// </summary>
         Margins Padding { get; set; }
+
+        /// <summary>
+        /// Oculta la ventana sin cerrarla.
+        /// </summary>
+        void Hide();
     }
 }

@@ -41,7 +41,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
     /// </summary>
     public abstract class ClientBase
     {
-        private Thread? _worker;
+        private Task? _worker;
 
         /// <summary>
         /// Obtiene un valor que indica si la conexión con el servidor se
@@ -102,14 +102,11 @@ namespace TheXDS.MCART.Networking.Legacy.Client
             if (!IsAlive && !force) return;
             try
             {
-                if (_worker?.IsAlive ?? false) _worker!.Abort();
+                if (_worker?.Status == TaskStatus.Running) _worker!.Dispose();
                 NwStream()?.Dispose();
                 Connection?.Close();
             }
-            catch
-            {
-                /* suprimir cualquier excepción */
-            }
+            catch { /* suprimir cualquier excepción */ }
         }
 
         /// <summary>
@@ -180,7 +177,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
                 Connection = new TcpClientEx();
                 connect(Connection);
                 Connected?.Invoke(this, connected());
-                _worker = new Thread(PostConnection);
+                _worker = Task.Run(PostConnection);
                 _worker.Start();
                 return true;
             }
@@ -268,7 +265,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
                 Connection = new TcpClientEx();
                 await connect(Connection);
                 Connected?.Invoke(this, connected());
-                _worker = new Thread(PostConnection);
+                _worker = Task.Run(PostConnection);
                 _worker.Start();
                 return true;
             }

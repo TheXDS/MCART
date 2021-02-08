@@ -152,6 +152,12 @@ namespace TheXDS.MCART.Security.Cryptography
         }
 
         /// <summary>
+        /// Obtiene una referencia al <see cref="Stream"/> en el cual esta 
+        /// instancia lee y escribe datos.
+        /// </summary>
+        public Stream BaseStream => _stream;
+
+        /// <summary>
         /// Obtiene un valor que indica si este <see cref="Stream"/> puede 
         /// ser leído.
         /// </summary>
@@ -214,7 +220,7 @@ namespace TheXDS.MCART.Security.Cryptography
         /// </returns>
         public byte[] ReadToEnd()
         {
-            if (!_stream.CanRead || _rsa.PublicOnly) throw new NotSupportedException();
+            if (!CanRead) throw new NotSupportedException();
 
             byte[] a;
             if (_stream.CanSeek)

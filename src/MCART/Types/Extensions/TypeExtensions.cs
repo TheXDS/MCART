@@ -44,7 +44,7 @@ namespace TheXDS.MCART.Types.Extensions
     /// <summary>
     /// Extensiones para todos los elementos de tipo <see cref="Type"/>.
     /// </summary>
-    public static class TypeExtensions
+    public static partial class TypeExtensions
     {
         /// <summary>
         /// Comprueba si todos los tipos son asignables a partir del tipo
@@ -267,7 +267,7 @@ namespace TheXDS.MCART.Types.Extensions
         [Sugar]
         public static bool IsStruct(this Type type)
         {
-            return type.IsValueType && !type.IsPrimitive && type.IsInstantiable();
+            return type.IsValueType && !type.IsPrimitive;
         }
 
         /// <summary>
@@ -449,11 +449,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static bool TryInstance<T>(this Type t, [NotNullWhen(true)] [MaybeNullWhen(false)] out T instance, params object[]? args)
         {
-            if (t is null) throw new ArgumentNullException(nameof(t));
-            if (args?.IsAnyNull() ?? false) throw new NullItemException(args);
-            if (!t.IsAbstract && !t.IsInterface &&
-                typeof(T).IsAssignableFrom(t) &&
-                t.GetConstructor(args?.ToTypes().ToArray() ?? Type.EmptyTypes) is { } ctor)
+            TryInstance_Contract(t, args);
+            if (!t.IsAbstract && !t.IsInterface && typeof(T).IsAssignableFrom(t) && t.GetConstructor(args?.ToTypes().ToArray() ?? Type.EmptyTypes) is { } ctor)
             {
                 try
                 {
@@ -606,7 +603,7 @@ namespace TheXDS.MCART.Types.Extensions
         [DebuggerStepThrough]
         public static Type NotNullable(this Type t)
         {
-            if (t == null) throw new ArgumentNullException(nameof(t));
+            NotNullable_Contract(t);
             return Nullable.GetUnderlyingType(t) ?? t;
         }
 
@@ -651,7 +648,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static Type GetCollectionType(this Type collectionType)
         {
-            if (!collectionType.IsCollectionType()) throw new InvalidTypeException(InternalStrings.ErrorEnumerableTypeExpected, collectionType);
+            GetCollectionType_Contract(collectionType);            
             return (collectionType.GenericTypeArguments?.Count()) switch
             {
                 0 => typeof(object),
@@ -706,7 +703,28 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static IEnumerable<Type> Derivates(this Type type, AppDomain domain)
         {
+            Derivates_Contract(domain);
             return Derivates(type, domain.GetAssemblies());
+        }
+
+        /// <summary>
+        /// Enumera a los tipos descendientes del tipo dentro de los
+        /// ensamblados especificados.
+        /// </summary>
+        /// <param name="type">
+        /// Tipo del cual buscar descendientes.
+        /// </param>
+        /// <param name="assemblies">
+        /// Secuencia que contiene un listado de los ensamblados en los
+        /// cuales realizar la búsqueda.
+        /// </param>
+        /// <returns>
+        /// Una secuencia con todos los tipos descendientes del tipo
+        /// especificado.
+        /// </returns>
+        public static IEnumerable<Type> Derivates(this Type type, params Assembly[] assemblies) 
+        {
+            return Derivates(type, assemblies.AsEnumerable());
         }
 
         /// <summary>
@@ -726,23 +744,47 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static IEnumerable<Type> Derivates(this Type type, IEnumerable<Assembly> assemblies)
         {
+            Derivates_Contract(assemblies);
             var retval = new List<Type>();
             foreach (var j in assemblies)
             {
+                IEnumerable<Type> types;
                 try
                 {
-                    foreach (var k in j.GetTypes())
-                    {
-                        try
-                        {
-                            if (type.IsAssignableFrom(k)) retval.Add(k);
-                        }
-                        catch { /* Ignorar, el tipo no puede ser cargado */ }
-                    }
+                    types = j.GetTypes();
                 }
-                catch { /* Ignorar, el ensamblado no puede ser cargado */ }
+                catch(ReflectionTypeLoadException rex)
+                {
+                    types = rex.Types.NotNull();
+                }
+                catch { throw; }
+                retval.AddRange(Derivates(type, types));
             }
             return retval;
+        }
+
+        /// <summary>
+        /// Enumera a los tipos descendientes del tipo dentro de la colección
+        /// de tipos especificada.
+        /// </summary>
+        /// <param name="type">
+        /// Tipo del cual buscar descendientes.
+        /// </param>
+        /// <param name="types">
+        /// Secuencia que contiene un listado de los tipos en los cuales se
+        /// debe realizar la búsqueda.
+        /// </param>
+        /// <returns>
+        /// Una secuencia con todos los tipos descendientes del tipo
+        /// especificado.
+        /// </returns>
+        public static IEnumerable<Type> Derivates(this Type type, IEnumerable<Type> types)
+        {
+            Derivates_Contract(type, types);
+            foreach (var k in types)
+            {
+                if (type.IsAssignableFrom(k ?? throw new NullItemException())) yield return k;
+            }
         }
 
         /// <summary>
@@ -779,6 +821,27 @@ namespace TheXDS.MCART.Types.Extensions
         {
             if (type.FullName is null) return type.Name;
             return type.FullName.Contains('`') ? type.FullName.Substring(0, type.FullName.IndexOf('`')) : type.FullName;
+        }
+
+        /// <summary>
+        /// convierte los valores de un tipo de enumeración en una colección de
+        /// <see cref="NamedObject{T}"/>.
+        /// </summary>
+        /// <param name="type">Tipo de enumeración a convertir.</param>
+        /// <returns>
+        /// Una enumeración de todos los <see cref="NamedObject{T}"/> creados a
+        /// partir de los valores del tipo de enumeración especificado.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="type"/> es <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="InvalidTypeException">
+        /// Se produce si <paramref name="type"/> no es un tipo de enumeración.
+        /// </exception>
+        public static IEnumerable<NamedObject<Enum>> ToNamedEnum(this Type type)
+        {
+            ToNamedEnum_Contract(type);
+            return type.GetEnumValues().Cast<Enum>().Select(j => new NamedObject<Enum>(j, j.NameOf()));
         }
     }
 }

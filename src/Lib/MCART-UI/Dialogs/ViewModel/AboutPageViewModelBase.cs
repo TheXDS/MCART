@@ -41,7 +41,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
     /// <typeparam name="T">
     /// Tipo de elemento para el cual mostrar detalles.
     /// </typeparam>
-    public abstract class AboutPageViewModelBase<T> : ViewModelBase, IExposeExtendedInfo, INameable, IDescriptible where T : IExposeExtendedInfo, IExposeAssembly
+    public abstract class AboutPageViewModelBase<T> : ViewModelBase, IExposeExtendedInfo, INameable, IDescriptible where T : notnull, IExposeExtendedInfo, IExposeAssembly
     {
         private T _element = default!;
         private bool _showAboutMcart = true;

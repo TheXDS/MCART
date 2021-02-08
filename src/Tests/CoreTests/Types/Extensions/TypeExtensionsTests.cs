@@ -23,7 +23,11 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Types;
+using TheXDS.MCART.Types.Extensions;
 using Xunit;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 
@@ -65,6 +69,59 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.True(typeof(Exception).IsInstantiable());
             Assert.True(typeof(Exception).IsInstantiable(typeof(string)));
             Assert.False(typeof(Exception).IsInstantiable(typeof(int)));
+        }
+
+        [Fact]
+        public void ToNamedEnumTest()
+        {
+            Assert.IsAssignableFrom<IEnumerable<NamedObject<Enum>>>(typeof(DayOfWeek).ToNamedEnum());
+            Assert.Throws<ArgumentNullException>(() => _ = TypeExtensions.ToNamedEnum(null));
+            Assert.Throws<InvalidTypeException>(() => _ = typeof(string).ToNamedEnum());
+        }
+
+        [Fact]
+        public void DefaultTest()
+        {
+            Assert.Equal(0, typeof(int).Default());
+            Assert.Equal(0L, typeof(long).Default());
+            Assert.Equal(0f, typeof(float).Default());
+            Assert.Equal(0.0, typeof(double).Default());
+            Assert.Equal(0m, typeof(decimal).Default());
+            Assert.Equal(Guid.Empty, typeof(Guid).Default());
+            Assert.Null(typeof(string).Default());
+            Assert.Null(typeof(object).Default());
+        }
+
+        [Fact]
+        public void IsStructTest()
+        {
+            Assert.True(typeof(Guid).IsStruct());
+            Assert.False(typeof(int).IsStruct());
+            Assert.False(typeof(string).IsStruct());
+        }
+
+        [Fact]
+        public void IsCollectionTypeTest()
+        {
+            Assert.False(typeof(int).IsCollectionType());
+            Assert.False(typeof(Exception).IsCollectionType());
+            Assert.True(typeof(string).IsCollectionType());
+            Assert.True(typeof(int[]).IsCollectionType());
+            Assert.True(typeof(List<bool>).IsCollectionType());
+        }
+
+        [Fact]
+        public void DerivatesTest()
+        {
+            var t = typeof(Exception).Derivates(typeof(Exception).Assembly).ToArray();
+            Assert.Contains(typeof(ArgumentNullException), t);
+            Assert.DoesNotContain(typeof(TamperException), t);
+            Assert.DoesNotContain(typeof(int), t);
+            Assert.DoesNotContain(typeof(Guid), t);
+            Assert.DoesNotContain(typeof(string), t);
+            Assert.DoesNotContain(typeof(Enum), t);
+            Assert.DoesNotContain(typeof(AppDomain), t);
+            Assert.DoesNotContain(typeof(object), t);
         }
     }
 }

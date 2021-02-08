@@ -57,6 +57,7 @@ namespace TheXDS.MCART.Controls
         /// </summary>
         DarkBg = 16
     }
+
     /// <summary>
     /// Determina el modo de dibujo del gráfico.
     /// </summary>

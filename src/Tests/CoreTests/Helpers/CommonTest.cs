@@ -25,8 +25,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma warning disable CS1591
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,14 +34,11 @@ using Xunit;
 using static TheXDS.MCART.Common;
 using static TheXDS.MCART.Types.Extensions.SecureStringExtensions;
 
-namespace TheXDS.MCART.Tests.Modules
+namespace TheXDS.MCART.Tests
 {
-    /// <summary>
-    /// Contiene pruebas para la clase estática <see cref="Common" />.
-    /// </summary>
+
     public class CommonTest
     {
-
         [Fact]
         public void ToPercentTestDouble()
         {

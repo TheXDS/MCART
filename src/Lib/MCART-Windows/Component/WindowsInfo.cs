@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#pragma warning disable CA1822
+
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -29,9 +31,9 @@ using System.IO;
 using System.Linq;
 using System.Management;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
+using TheXDS.MCART.Windows;
 
 namespace TheXDS.MCART.Component
 {
@@ -66,8 +68,6 @@ namespace TheXDS.MCART.Component
         private const string _regInfo = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion";
         private readonly ManagementObject _managementObject = new ManagementClass(@"Win32_OperatingSystem").GetInstances().OfType<ManagementObject>().FirstOrDefault() ?? throw new PlatformNotSupportedException();
         
-        [DllImport("kernel32.dll")]
-        private static extern bool GetFirmwareType(ref uint FirmwareType);
 
         /// <summary>
         /// Obtiene una cadena que representa el dispositivo de arranque
@@ -197,7 +197,7 @@ namespace TheXDS.MCART.Component
             get
             {
                 uint firmwaretype = 0;
-                if (GetFirmwareType(ref firmwaretype))
+                if (PInvoke.GetFirmwareType(ref firmwaretype))
                     return (FirmwareType)firmwaretype;
                 else
                     return FirmwareType.FirmwareTypeUnknown;
@@ -404,16 +404,18 @@ namespace TheXDS.MCART.Component
         /// Obtiene el número mayor de Service Pack de Windows.
         /// </summary>
 #if CLSCompliance
-        [CLSCompliant(false), Obsolete]
+        [CLSCompliant(false)]
 #endif
+        [Obsolete("Windows 10 ya no proporciona números de versión de Service Pack.")]
         public ushort ServicePackMajorVersion => GetFromWmi<ushort>();
 
         /// <summary>
         /// Obtiene el número menor de Service Pack de Windows.
         /// </summary>
 #if CLSCompliance
-        [CLSCompliant(false), Obsolete]
+        [CLSCompliant(false)]
 #endif
+        [Obsolete("Windows 10 ya no proporciona números de versión de Service Pack.")]
         public ushort ServicePackMinorVersion => GetFromWmi<ushort>();
 
         /// <summary>
@@ -525,7 +527,7 @@ namespace TheXDS.MCART.Component
         /// <summary>
         /// Obtiene la versión descriptiva informacional de Windows.
         /// </summary>
-        public string? InformationalVersion => $"{Version.ToString()}-{BuildLabEx}";
+        public string? InformationalVersion => $"{Version}-{BuildLabEx}";
 
         /// <summary>
         /// Enumera las liciencias de terceros incluidas con el sistema

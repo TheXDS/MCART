@@ -1,7 +1,10 @@
 ﻿/*
-ICloseable.cs
+McartColorConverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Este archivo define la estructura Range<T>, la cual permite representar rangos
+de valores.
 
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
@@ -22,18 +25,18 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Component
+namespace TheXDS.MCART.Types.Converters
 {
     /// <summary>
-    /// Define una serie de miembros a implementar por un tipo que represente a
-    /// un elemento de UI que puede ser cerrado, como ser las ventanas de una
-    /// aplicación.
+    /// Obtiene un <see cref="Color"/> a partir de un
+    /// <see cref="string"/>.
     /// </summary>
-    public interface ICloseable
+    public class McartColorConverter : BasicParseConverter<Color>
     {
-        /// <summary>
-        /// Cierra esta instancia.
-        /// </summary>
-        void Close();
+        /// <inheritdoc/>
+        protected override Color ConvertFrom(string? value)
+        {
+            return Color.Parse(value ?? "#00000000");
+        }
     }
 }

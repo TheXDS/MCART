@@ -1,5 +1,5 @@
-/*
-PInvoke.cs
+﻿/*
+ComparerDataGenerator.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,15 +22,24 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Runtime.InteropServices;
+using System.Collections;
+using System.Collections.Generic;
 
-namespace TheXDS.MCART.Windows.Api
+namespace TheXDS.MCART.Tests.Comparison
 {
-    internal static class PInvoke
+    public abstract class ComparerDataGenerator<T> : IEnumerable<object[]>
     {
-        [DllImport("kernel32.dll")] internal static extern IntPtr GetConsoleWindow();
-        [DllImport("kernel32.dll")] internal static extern bool AllocConsole();
-        [DllImport("kernel32.dll")] internal static extern bool FreeConsole();
+        protected abstract IEnumerable<(T a, T b, bool equal)> GetSequences();
+
+        private IEnumerable<object[]> Transform()
+        {
+            foreach (var j in GetSequences())
+            {
+                yield return new object[] { j.a, j.b, j.equal };
+            }
+        }
+
+        IEnumerator<object[]> IEnumerable<object[]>.GetEnumerator() => Transform().GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)Transform()).GetEnumerator();
     }
 }

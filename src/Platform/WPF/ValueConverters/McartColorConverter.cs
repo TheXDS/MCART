@@ -1,5 +1,5 @@
 ﻿/*
-ValueConverters.cs
+McartColorConverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -32,6 +32,7 @@ using System;
 
 namespace TheXDS.MCART.ValueConverters
 {
+
     /// <summary>
     /// Convierte valores desde y hacia objetos de tipo
     /// <see cref="MT.Color"/>.
@@ -58,7 +59,7 @@ namespace TheXDS.MCART.ValueConverters
         /// </returns>
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo? culture)
         {
-            if (!(value is MT.Color c)) return targetType.Default();
+            if (value is not MT.Color c) return targetType.Default();
             if (targetType.IsAssignableFrom(value?.GetType())) return value;
             return _converters.ContainsKey(targetType) ? _converters[targetType].Convert(c, targetType, parameter, culture) : targetType.Default();
         }

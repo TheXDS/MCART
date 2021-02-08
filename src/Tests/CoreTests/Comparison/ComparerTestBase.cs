@@ -1,5 +1,5 @@
 ﻿/*
-ICloseable.cs
+ComparerTestBase.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,18 +22,22 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Component
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using Xunit;
+
+namespace TheXDS.MCART.Tests.Comparison
 {
-    /// <summary>
-    /// Define una serie de miembros a implementar por un tipo que represente a
-    /// un elemento de UI que puede ser cerrado, como ser las ventanas de una
-    /// aplicación.
-    /// </summary>
-    public interface ICloseable
+    public abstract class ComparerTestBase<TValue, TEq> where TEq : IEqualityComparer<TValue>, new()
     {
-        /// <summary>
-        /// Cierra esta instancia.
-        /// </summary>
-        void Close();
+        protected void RunTest([AllowNull] TValue x, [AllowNull] TValue y, bool equal)
+        {
+            var eq = new TEq();
+            var xh = eq.GetHashCode(x);
+            var yh = eq.GetHashCode(y);
+
+            Assert.Equal(equal, eq.Equals(x, y));
+            Assert.Equal(equal, xh == yh);
+        }
     }
 }

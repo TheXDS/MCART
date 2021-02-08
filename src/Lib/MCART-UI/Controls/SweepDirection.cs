@@ -26,7 +26,7 @@ namespace TheXDS.MCART.Controls
 {
     /// <summary>
     /// Enumera los diferentes valores de enumeración que indican el
-    /// sentido en el que un objeto gráfico avanza.
+    /// sentido en el que un objeto gráfico giratorio avanza.
     /// </summary>
     public enum SweepDirection : short
     {

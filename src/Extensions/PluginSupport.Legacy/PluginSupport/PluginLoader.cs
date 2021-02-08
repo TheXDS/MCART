@@ -1000,7 +1000,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// <typeparam name="T">
         /// Tipo de <see cref="IPlugin" /> a cargar.
         /// </typeparam>
-        public T LoadWhatever<T>() where T : class
+        public T? LoadWhatever<T>() where T : class
         {
             return LoadWhatever<T>(Environment.CurrentDirectory, SearchOption.TopDirectoryOnly);
         }
@@ -1017,7 +1017,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// <typeparam name="T">
         /// Tipo de <see cref="IPlugin" /> a cargar.
         /// </typeparam>
-        public T LoadWhatever<T>(string pluginsPath) where T : class
+        public T? LoadWhatever<T>(string pluginsPath) where T : class
         {
             return LoadWhatever<T>(pluginsPath, SearchOption.TopDirectoryOnly);
         }
@@ -1032,7 +1032,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// <typeparam name="T">
         /// Tipo de <see cref="IPlugin" /> a cargar.
         /// </typeparam>
-        public T LoadWhatever<T>(SearchOption search) where T : class
+        public T? LoadWhatever<T>(SearchOption search) where T : class
         {
             return LoadWhatever<T>(Environment.CurrentDirectory, search);
         }
@@ -1050,7 +1050,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// <typeparam name="T">
         /// Tipo de <see cref="IPlugin" /> a cargar.
         /// </typeparam>
-        public T LoadWhatever<T>(string pluginsPath, SearchOption search) where T : class
+        public T? LoadWhatever<T>(string pluginsPath, SearchOption search) where T : class
         {
             if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
 #if PreferExceptions

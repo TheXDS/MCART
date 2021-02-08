@@ -37,7 +37,7 @@ namespace TheXDS.MCART.Dialogs
     /// </summary>
     public partial class PluginBrowser
     {
-        private PluginBrowserViewModel Vm => DataContext as PluginBrowserViewModel;
+        private PluginBrowserViewModel Vm => (PluginBrowserViewModel)DataContext;
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase

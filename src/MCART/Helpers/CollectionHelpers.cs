@@ -50,7 +50,7 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador OR a todos los bits de la 
         /// colección.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">
+        /// <exception cref="ArgumentNullException">
         /// Se produce si <paramref name="collection"/> es
         /// <see langword="null"/>.
         /// </exception>
@@ -71,7 +71,7 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador OR a todos los bits de la 
         /// colección.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">
+        /// <exception cref="ArgumentNullException">
         /// Se produce si <paramref name="collection"/> es
         /// <see langword="null"/>.
         /// </exception>
@@ -92,7 +92,7 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador OR a todos los bits de la 
         /// colección.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">
+        /// <exception cref="ArgumentNullException">
         /// Se produce si <paramref name="collection"/> es
         /// <see langword="null"/>.
         /// </exception>
@@ -100,6 +100,27 @@ namespace TheXDS.MCART
         {
             NullCheck(collection, nameof(collection));
             return collection.Aggregate(default(short), (current, j) => (short)(current | j));
+        }
+
+        /// <summary>
+        /// Aplica un operador OR a una colección de valores
+        /// <see cref="char"/>.
+        /// </summary>
+        /// <param name="collection">
+        /// Colección a procesar.
+        /// </param>
+        /// <returns>
+        /// El resultado de aplicar el operador OR a todos los bits de la 
+        /// colección.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        public static char Or(this IEnumerable<char> collection)
+        {
+            NullCheck(collection, nameof(collection));
+            return collection.Aggregate(default(char), (current, j) => (char)(current | j));
         }
 
         /// <summary>
@@ -113,7 +134,7 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador OR a todos los bits de la 
         /// colección.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">
+        /// <exception cref="ArgumentNullException">
         /// Se produce si <paramref name="collection"/> es
         /// <see langword="null"/>.
         /// </exception>
@@ -134,7 +155,7 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador OR a todos los bits de la 
         /// colección.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">
+        /// <exception cref="ArgumentNullException">
         /// Se produce si <paramref name="collection"/> es
         /// <see langword="null"/>.
         /// </exception>
@@ -155,7 +176,7 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador AND a todos los bits de la 
         /// colección.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">
+        /// <exception cref="ArgumentNullException">
         /// Se produce si <paramref name="collection"/> es
         /// <see langword="null"/>.
         /// </exception>
@@ -176,7 +197,7 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador And a todos los bits de la 
         /// colección.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">
+        /// <exception cref="ArgumentNullException">
         /// Se produce si <paramref name="collection"/> es
         /// <see langword="null"/>.
         /// </exception>
@@ -197,7 +218,7 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador And a todos los bits de la 
         /// colección.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">
+        /// <exception cref="ArgumentNullException">
         /// Se produce si <paramref name="collection"/> es
         /// <see langword="null"/>.
         /// </exception>
@@ -205,6 +226,27 @@ namespace TheXDS.MCART
         {
             NullCheck(collection, nameof(collection));
             return collection.Aggregate(default(short), (current, j) => (short)(current & j));
+        }
+
+        /// <summary>
+        /// Aplica un operador And a una colección de valores
+        /// <see cref="char"/>.
+        /// </summary>
+        /// <param name="collection">
+        /// Colección a procesar.
+        /// </param>
+        /// <returns>
+        /// El resultado de aplicar el operador And a todos los bits de la 
+        /// colección.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        public static char And(this IEnumerable<char> collection)
+        {
+            NullCheck(collection, nameof(collection));
+            return collection.Aggregate(default(char), (current, j) => (char)(current & j));
         }
 
         /// <summary>
@@ -218,7 +260,7 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador And a todos los bits de la 
         /// colección.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">
+        /// <exception cref="ArgumentNullException">
         /// Se produce si <paramref name="collection"/> es
         /// <see langword="null"/>.
         /// </exception>
@@ -239,7 +281,7 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador And a todos los bits de la 
         /// colección.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">
+        /// <exception cref="ArgumentNullException">
         /// Se produce si <paramref name="collection"/> es
         /// <see langword="null"/>.
         /// </exception>
@@ -260,7 +302,7 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador XOR a todos los bits de la 
         /// colección.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">
+        /// <exception cref="ArgumentNullException">
         /// Se produce si <paramref name="collection"/> es
         /// <see langword="null"/>.
         /// </exception>
@@ -281,7 +323,7 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador Xor a todos los bits de la 
         /// colección.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">
+        /// <exception cref="ArgumentNullException">
         /// Se produce si <paramref name="collection"/> es
         /// <see langword="null"/>.
         /// </exception>
@@ -302,7 +344,7 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador Xor a todos los bits de la 
         /// colección.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">
+        /// <exception cref="ArgumentNullException">
         /// Se produce si <paramref name="collection"/> es
         /// <see langword="null"/>.
         /// </exception>
@@ -310,6 +352,27 @@ namespace TheXDS.MCART
         {
             NullCheck(collection, nameof(collection));
             return collection.Aggregate(default(short), (current, j) => (short)(current ^ j));
+        }
+
+        /// <summary>
+        /// Aplica un operador Xor a una colección de valores
+        /// <see cref="char"/>.
+        /// </summary>
+        /// <param name="collection">
+        /// Colección a procesar.
+        /// </param>
+        /// <returns>
+        /// El resultado de aplicar el operador Xor a todos los bits de la 
+        /// colección.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        public static char Xor(this IEnumerable<char> collection)
+        {
+            NullCheck(collection, nameof(collection));
+            return collection.Aggregate(default(char), (current, j) => (char)(current ^ j));
         }
 
         /// <summary>
@@ -323,7 +386,7 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador Xor a todos los bits de la 
         /// colección.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">
+        /// <exception cref="ArgumentNullException">
         /// Se produce si <paramref name="collection"/> es
         /// <see langword="null"/>.
         /// </exception>
@@ -344,7 +407,7 @@ namespace TheXDS.MCART
         /// El resultado de aplicar el operador Xor a todos los bits de la 
         /// colección.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">
+        /// <exception cref="ArgumentNullException">
         /// Se produce si <paramref name="collection"/> es
         /// <see langword="null"/>.
         /// </exception>

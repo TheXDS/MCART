@@ -1,5 +1,5 @@
 ﻿/*
-ICloseable.cs
+NameComparerTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,18 +22,30 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Component
+using System.Diagnostics.CodeAnalysis;
+using TheXDS.MCART.Comparison;
+using TheXDS.MCART.Types.Base;
+using Xunit;
+
+namespace TheXDS.MCART.Tests.Comparison
 {
-    /// <summary>
-    /// Define una serie de miembros a implementar por un tipo que represente a
-    /// un elemento de UI que puede ser cerrado, como ser las ventanas de una
-    /// aplicación.
-    /// </summary>
-    public interface ICloseable
+
+    public class NameComparerTests : ComparerTestBase<INameable, NameComparer>
     {
-        /// <summary>
-        /// Cierra esta instancia.
-        /// </summary>
-        void Close();
+        [Theory]
+        [ClassData(typeof(NameComparerDataGenerator))]
+        public void NameComparerTest([AllowNull]INameable x, [AllowNull] INameable y, bool equal)
+        {
+            RunTest(x, y, equal);
+        }
+    }
+    public class TypeComparerTests : ComparerTestBase<object, TypeComparer>
+    {
+        [Theory]
+        [ClassData(typeof(TypeComparerDataGenerator))]
+        public void TypeComparerTest([AllowNull] object x, [AllowNull] object y, bool equal)
+        {
+            RunTest(x, y, equal);
+        }
     }
 }

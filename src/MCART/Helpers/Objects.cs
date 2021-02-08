@@ -1188,7 +1188,7 @@ namespace TheXDS.MCART
         /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
         /// en caso contrario.
         /// </returns>
-        public static bool HasAttr<T>(this MemberInfo member, [MaybeNullWhen(false)] out T attribute) where T : Attribute
+        public static bool HasAttr<T>(this MemberInfo member, [NotNullWhen(true)] [MaybeNullWhen(false)] out T attribute) where T : Attribute
         {
             var retVal = HasAttrs<T>(member, out var attrs);
             attribute = attrs.FirstOrDefault();

@@ -61,6 +61,15 @@ namespace TheXDS.MCART.Resources.UI {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Este campo es requerido..
+        /// </summary>
+        internal static string FieldRequired {
+            get {
+                return ResourceManager.GetString("FieldRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a El valor {0} no puede ser null..
         /// </summary>
         internal static string NullValueException {

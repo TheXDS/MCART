@@ -26,6 +26,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Misc
@@ -48,7 +49,7 @@ namespace TheXDS.MCART.Misc
                 m = ReflectionHelpers.GetCallingMethod(++c);
                 if (m is null)
                 {
-                    if (@throw) throw new Exceptions.StackUnderflowException();
+                    if (@throw) throw new StackUnderflowException();
                     else break;
                 }
             } while (m!.DeclaringType!.Assembly.HasAttr<McartComponentAttribute>());
@@ -68,6 +69,11 @@ namespace TheXDS.MCART.Misc
         internal static void NullCheck(string? o, string name)
         {
             if (o.IsEmpty()) throw new System.ArgumentNullException(name);
+        }
+
+        internal static T TamperCast<T>(object? value) where T : notnull
+        {
+            return value is T v ? v : throw new TamperException();
         }
     }
 }

@@ -162,22 +162,22 @@ namespace TheXDS.MCART.Types
         {
             if (from.IsFormattedAs("#FFFFFFFF"))
             {
-                color = new ABGR32().From(int.Parse($"0x{from.Substring(1)}"));
+                color = new ABGR32().From(int.Parse($"0x{from[1..]}"));
                 return true;
             }
             if (from.IsFormattedAs("#FFFFFF"))
             {
-                color = (new BGR24()).From(int.Parse($"0x{from.Substring(1)}"));
+                color = new BGR24().From(int.Parse($"0x{from[1..]}"));
                 return true;
             }
             if (from.IsFormattedAs("#FFFF"))
             {
-                color = (new ABGR4444()).From(short.Parse($"0x{from.Substring(1)}"));
+                color = new ABGR4444().From(short.Parse($"0x{from[1..]}"));
                 return true;
             }
             if (from.IsFormattedAs("#FFF"))
             {
-                color = (new BGR12()).From(short.Parse($"0x{from.Substring(1)}"));
+                color = new BGR12().From(short.Parse($"0x{from[1..]}"));
                 return true;
             }
             var cName = typeof(Resources.Colors).GetProperty(from, typeof(Color));
@@ -219,7 +219,7 @@ namespace TheXDS.MCART.Types
         /// <returns>
         /// Un <see cref="Color"/> creado a partir del valor especificado.
         /// </returns>
-        public static Color From<T, TParser>(in T from) where T : struct where TParser : IColorParser<T>, new() => (new TParser()).From(from);
+        public static Color From<T, TParser>(in T from) where T : struct where TParser : IColorParser<T>, new() => new TParser().From(from);
 
         /// <summary>
         /// Convierte un <see cref="Color"/> en un valor de tipo

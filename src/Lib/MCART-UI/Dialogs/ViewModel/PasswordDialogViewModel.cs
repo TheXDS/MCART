@@ -41,14 +41,14 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         private string? _generatedPassword;
         private IPasswordGenerator? _generator;
         private string? _hint;
+        private int? _maxTries;
         private PasswordDialogMode _mode;
         private SecureString _password = null!;
         private PwEvalResult _result;
         private string? _title;
-        private string? _user;
         private int _triesCount;
+        private string? _user;
         private LoginValidator? _validator;
-        private int? _maxTries;
 
         /// <summary>
         /// Ejecuta una acción de evaluación de la contraseña.
