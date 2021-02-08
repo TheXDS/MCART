@@ -85,6 +85,8 @@ namespace TheXDS.MCART.Wpf.Component
             All
         }
 
+        private static readonly DependencyPropertyKey IsMonitoringDependencyPropertyKey = DependencyProperty.RegisterAttachedReadOnly("IsMonitoring", typeof(bool), typeof(PasswordBoxMonitor), new PropertyMetadata(false));
+        
         /// <summary>
         /// Permite monitorear un <see cref="PasswordBox"/>.
         /// </summary>
@@ -107,8 +109,30 @@ namespace TheXDS.MCART.Wpf.Component
         public static readonly DependencyProperty SecurePasswordProperty = DependencyProperty.RegisterAttached("SecurePassword", typeof(SecureString), typeof(PasswordBoxMonitor), new UIPropertyMetadata(null));
 
         /// <summary>
+        /// Obtiene una propiedad que indica si el <see cref="PasswordBox"/>
+        /// está siendo monitoreado.
+        /// </summary>
+        public static readonly DependencyProperty IsMonitoringDependencyProperty = IsMonitoringDependencyPropertyKey.DependencyProperty;
+
+        /// <summary>
         /// Obtiene el valor de la propiedad de dependencia adjunta
         /// <see cref="MonitoringProperty"/>.
+        /// </summary>
+        /// <param name="obj">
+        /// Instancia para la cual obtener el valor de la propiedad de
+        /// dependencia adjunta.
+        /// </param>
+        /// <returns>
+        /// El valor de monitoreo activo para el <see cref="PasswordBox"/>.
+        /// </returns>
+        public static MonitorLevel GetMonitoring(DependencyObject obj)
+        {
+            return (MonitorLevel)obj.GetValue(MonitoringProperty);
+        }
+
+        /// <summary>
+        /// Obtiene un valor que indica si el <see cref="PasswordBox"/> está
+        /// siendo monitoreado.
         /// </summary>
         /// <param name="obj">
         /// Instancia para la cual obtener el valor de la propiedad de
@@ -119,9 +143,9 @@ namespace TheXDS.MCART.Wpf.Component
         /// <see cref="PasswordBox"/> especificado, <see langword="false"/> en
         /// caso contrario.
         /// </returns>
-        public static MonitorLevel GetMonitoring(DependencyObject obj)
+        public static bool GetIsMonitoring(DependencyObject obj)
         {
-            return (MonitorLevel)obj.GetValue(MonitoringProperty);
+            return (MonitorLevel)obj.GetValue(MonitoringProperty) != MonitorLevel.None;
         }
 
         /// <summary>
@@ -238,10 +262,12 @@ namespace TheXDS.MCART.Wpf.Component
                 var (nv, ov) = ((MonitorLevel)e.NewValue, (MonitorLevel)e.OldValue);
                 if (nv == MonitorLevel.None && ov != MonitorLevel.None)
                 {
+                    d.SetValue(IsMonitoringDependencyPropertyKey, false);
                     pb.PasswordChanged -= PasswordChanged;
                 }
                 else if (nv != MonitorLevel.None && ov == MonitorLevel.None)
                 {
+                    d.SetValue(IsMonitoringDependencyPropertyKey, true);
                     pb.PasswordChanged += PasswordChanged;
                 }
             }
