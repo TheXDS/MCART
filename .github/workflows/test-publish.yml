@@ -1,0 +1,71 @@
+name: "Test and Publish MCART"
+
+on:
+  workflow_run:
+    workflows: ["Build MCART"]
+    branches: [main]
+    types: 
+      - completed
+      
+jobs:
+  test:
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+    runs-on: windows-latest
+    env:
+      Solution_Name: src/MCART.sln
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@2008f912f56e61277eefaac6d1888b750582aa16
+
+    - name: Create NuGet Packages
+      run: dotnet test $env:Solution_Name -p:Version=$env:GITHUB_REF`;Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }}
+  publish:
+    needs: test
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+    runs-on: windows-latest
+    env:
+      Solution_Name: src/MCART.sln
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@2008f912f56e61277eefaac6d1888b750582aa16
+
+    - name: Create NuGet Packages
+      run: dotnet pack $env:Solution_Name -p:Version=$env:GITHUB_REF`;Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }}
+
+    #- name: Push Nupkg to GitHub Packages
+    #  uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
+    #  with:
+    #    nupkg-path: ./Build/bin/*/${{ matrix.configuration }}/*.nupkg
+    #    repo-owner: TheXDS
+    #    gh-user: TheXDS
+    #    token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Push packages to GitHub
+      run: dotnet nuget push "Build/**/*.nupkg" -k $env:GhToken --skip-duplicate --source "https://nuget.pkg.github.com/TheXDS/"
+      env:
+        GhToken: ${{ secrets.GITHUB_TOKEN }}
+        
+    #- name: Push packages to NuGet
+    #  run: dotnet nuget push "Build/**/*.nupkg" -k $env:NgToken --skip-duplicate
+    #  env:
+    #    NgToken: ${{ secrets.NUGET_TOKEN }}
