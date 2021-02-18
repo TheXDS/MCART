@@ -22,8 +22,6 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@2008f912f56e61277eefaac6d1888b750582aa16
 
     - name: Create NuGet Packages
       run: dotnet test $env:Solution_Name -p:Version=$env:GITHUB_REF`;Configuration=$env:Configuration
@@ -44,8 +42,6 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@2008f912f56e61277eefaac6d1888b750582aa16
 
     - name: Create NuGet Packages
       run: dotnet pack $env:Solution_Name -p:Version=$env:GITHUB_REF`;Configuration=$env:Configuration
