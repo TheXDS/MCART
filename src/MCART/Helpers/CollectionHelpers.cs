@@ -183,7 +183,7 @@ namespace TheXDS.MCART
         public static bool And(this IEnumerable<bool> collection)
         {
             NullCheck(collection, nameof(collection));
-            return collection.Aggregate(false, (current, j) => current & j);
+            return collection.Aggregate(true, (current, j) => current & j);
         }
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace TheXDS.MCART
         public static byte And(this IEnumerable<byte> collection)
         {
             NullCheck(collection, nameof(collection));
-            return collection.Aggregate(default(byte), (current, j) => (byte)(current & j));
+            return collection.Aggregate(byte.MaxValue, (current, j) => (byte)(current & j));
         }
 
         /// <summary>
@@ -225,7 +225,7 @@ namespace TheXDS.MCART
         public static short And(this IEnumerable<short> collection)
         {
             NullCheck(collection, nameof(collection));
-            return collection.Aggregate(default(short), (current, j) => (short)(current & j));
+            return collection.Aggregate((short)-1, (current, j) => (short)(current & j));
         }
 
         /// <summary>
@@ -246,7 +246,7 @@ namespace TheXDS.MCART
         public static char And(this IEnumerable<char> collection)
         {
             NullCheck(collection, nameof(collection));
-            return collection.Aggregate(default(char), (current, j) => (char)(current & j));
+            return collection.Aggregate(char.MaxValue, (current, j) => (char)(current & j));
         }
 
         /// <summary>
@@ -267,7 +267,7 @@ namespace TheXDS.MCART
         public static int And(this IEnumerable<int> collection)
         {
             NullCheck(collection, nameof(collection));
-            return collection.Aggregate(default(int), (current, j) => current & j);
+            return collection.Aggregate(-1, (current, j) => current & j);
         }
 
         /// <summary>
@@ -288,7 +288,7 @@ namespace TheXDS.MCART
         public static long And(this IEnumerable<long> collection)
         {
             NullCheck(collection, nameof(collection));
-            return collection.Aggregate(default(long), (current, j) => current & j);
+            return collection.Aggregate((long)-1, (current, j) => current & j);
         }
 
         /// <summary>

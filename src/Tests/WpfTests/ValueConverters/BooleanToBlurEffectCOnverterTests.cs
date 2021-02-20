@@ -22,9 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma warning disable CS1591
-
-using System;
 using System.Globalization;
 using System.Windows.Media.Effects;
 using TheXDS.MCART.ValueConverters;
@@ -58,9 +55,9 @@ namespace TheXDS.MCART.WpfTests.ValueConverters
             Assert.Equal(4.0, ((BlurEffect)c.Convert(true, typeof(Effect), 4, CultureInfo.CurrentCulture)).Radius);
             Assert.Equal(5.0, ((BlurEffect)c.Convert(true, typeof(Effect), 5L, CultureInfo.CurrentCulture)).Radius);
 #if PreferExceptions
-            Assert.Equal(5.0, ((BlurEffect)c.Convert(true, typeof(Effect), new object(), CultureInfo.CurrentCulture)).Radius);
-#else
             Assert.Throws<ArgumentException>(() => c.Convert(true, typeof(Effect), new object(), CultureInfo.CurrentCulture));
+#else
+            Assert.Equal(5.0, ((BlurEffect)c.Convert(true, typeof(Effect), new object(), CultureInfo.CurrentCulture)).Radius);
 #endif
         }
     }

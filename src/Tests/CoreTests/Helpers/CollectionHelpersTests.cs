@@ -72,7 +72,7 @@ namespace TheXDS.MCART.Tests
         [Theory]
         [CLSCompliant(false)]
         [InlineData(new int[] { 1, 2, 4 }, 7)]
-        [InlineData(new int[] { 128, 255, 131072 }, 131027)]
+        [InlineData(new int[] { 128, 255, 131072 }, 131327)]
         public void OrTest_Int32(int[] array, int orValue)
         {
             Assert.Equal(orValue, array.Or());
@@ -81,7 +81,7 @@ namespace TheXDS.MCART.Tests
         [Theory]
         [CLSCompliant(false)]
         [InlineData(new long[] { 1, 2, 4 }, 7)]
-        [InlineData(new long[] { 128, 255, 131072 }, 131027)]
+        [InlineData(new long[] { 128, 255, 131072 }, 131327)]
         public void OrTest_Int64(long[] array, long orValue)
         {
             Assert.Equal(orValue, array.Or());
@@ -110,7 +110,7 @@ namespace TheXDS.MCART.Tests
         [Theory]
         [CLSCompliant(false)]
         [InlineData(new short[] { 1, 2, 4 }, 0)]
-        [InlineData(new short[] { 128, 255, 16384 }, 128)]
+        [InlineData(new short[] { 0x10F0, 0x100F }, 0x1000)]
         public void AndTest_Int16(short[] array, short orValue)
         {
             Assert.Equal(orValue, array.And());
@@ -119,7 +119,7 @@ namespace TheXDS.MCART.Tests
         [Theory]
         [CLSCompliant(false)]
         [InlineData(new char[] { '\x0001', '\x0002', '\x0004' }, '\x0000')]
-        [InlineData(new char[] { '\x0080', '\x00FF', '\x1000' }, '\x0080')]
+        [InlineData(new char[] { '\x10F0', '\x100F' }, '\x1000')]
         public void AndTest_char(char[] array, char orValue)
         {
             Assert.Equal(orValue, array.And());
@@ -128,7 +128,7 @@ namespace TheXDS.MCART.Tests
         [Theory]
         [CLSCompliant(false)]
         [InlineData(new int[] { 1, 2, 4 }, 0)]
-        [InlineData(new int[] { 128, 255, 131072 }, 128)]
+        [InlineData(new int[] { 0x10F0, 0x100F }, 0x1000)]
         public void AndTest_Int32(int[] array, int orValue)
         {
             Assert.Equal(orValue, array.And());
@@ -137,7 +137,7 @@ namespace TheXDS.MCART.Tests
         [Theory]
         [CLSCompliant(false)]
         [InlineData(new long[] { 1, 2, 4 }, 0)]
-        [InlineData(new long[] { 128, 255, 131072 }, 128)]
+        [InlineData(new long[] { 0x10F0, 0x100F }, 0x1000)]
         public void AndTest_Int64(long[] array, long orValue)
         {
             Assert.Equal(orValue, array.And());
@@ -156,8 +156,7 @@ namespace TheXDS.MCART.Tests
 
         [Theory]
         [CLSCompliant(false)]
-        [InlineData(new byte[] { 1, 2, 4, 8, 16, 32, 64, 128 }, 0)]
-        [InlineData(new byte[] { 128, 255 }, 128)]
+        [InlineData(new byte[] { 131, 140 }, 15)]
         public void XorTest_byte(byte[] array, byte orValue)
         {
             Assert.Equal(orValue, array.Xor());
@@ -165,8 +164,8 @@ namespace TheXDS.MCART.Tests
 
         [Theory]
         [CLSCompliant(false)]
-        [InlineData(new short[] { 1, 2, 4 }, 0)]
-        [InlineData(new short[] { 128, 255, 16384 }, 128)]
+        [InlineData(new short[] { 131, 140 }, 15)]
+        [InlineData(new short[] { 0x10F0, 0x100F }, 0x00FF)]
         public void XorTest_Int16(short[] array, short orValue)
         {
             Assert.Equal(orValue, array.Xor());
@@ -174,8 +173,8 @@ namespace TheXDS.MCART.Tests
 
         [Theory]
         [CLSCompliant(false)]
-        [InlineData(new char[] { '\x0001', '\x0002', '\x0004' }, '\x0000')]
-        [InlineData(new char[] { '\x0080', '\x00FF', '\x1000' }, '\x0080')]
+        [InlineData(new char[] { (char)131,(char) 140 }, (char)15)]
+        [InlineData(new char[] { '\x10F0', '\x100F' }, '\x00FF')]
         public void XorTest_char(char[] array, char orValue)
         {
             Assert.Equal(orValue, array.Xor());
@@ -183,8 +182,8 @@ namespace TheXDS.MCART.Tests
 
         [Theory]
         [CLSCompliant(false)]
-        [InlineData(new int[] { 1, 2, 4 }, 0)]
-        [InlineData(new int[] { 128, 255, 131072 }, 128)]
+        [InlineData(new int[] { 131, 140 }, 15)]
+        [InlineData(new int[] { 0x10F0, 0x100F }, 0x00FF)]
         public void XorTest_Int32(int[] array, int orValue)
         {
             Assert.Equal(orValue, array.Xor());
@@ -192,8 +191,8 @@ namespace TheXDS.MCART.Tests
 
         [Theory]
         [CLSCompliant(false)]
-        [InlineData(new long[] { 1, 2, 4 }, 0)]
-        [InlineData(new long[] { 128, 255, 131072 }, 128)]
+        [InlineData(new long[] { 131, 140 }, 15)]
+        [InlineData(new long[] { 0x10F0, 0x100F }, 0x00FF)]
         public void XorTest_Int64(long[] array, long orValue)
         {
             Assert.Equal(orValue, array.Xor());
