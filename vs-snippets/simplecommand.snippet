@@ -27,18 +27,19 @@
           <Namespace>TheXDS.MCART.ViewModel</Namespace>
         </Import>
       </Imports>
-      <Code Language="csharp" Kind="method decl"><![CDATA[
+      <Code Language="csharp" Kind="method decl">
+        <![CDATA[
 /// <summary>
-///     Obtiene el comando relacionado a la acción $name$.
+/// Obtiene el comando relacionado a la acción $name$.
 /// </summary>
 /// <returns>El comando $name$.</returns>
 public SimpleCommand $name$Command { get; } = new SimpleCommand(On$name$);
 
 private static void On$name$()
 {
-$end$
-}
-      ]]></Code>
+    $end$
+}]]>
+      </Code>
     </Snippet>
   </CodeSnippet>
   <CodeSnippet Format="1.0.0">
@@ -70,12 +71,18 @@ $end$
       </Imports>
       <Code Language="csharp" Kind="method decl"><![CDATA[
 /// <summary>
-///     Obtiene el comando relacionado a la acción $name$.
+/// Obtiene el comando relacionado a la acción $name$.
 /// </summary>
 /// <returns>El comando $name$.</returns>
 public SimpleCommand $name$Command { get; }
-$end$
-      ]]></Code>
+// Inserte en el constructor del tipo:
+// $name$Command = new SimpleCommand(this, On$name$);
+
+private void On$name$()
+{
+    $end$
+}]]>
+      </Code>
     </Snippet>
   </CodeSnippet>
 </CodeSnippets>

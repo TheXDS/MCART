@@ -550,7 +550,6 @@ namespace TheXDS.MCART.Networking.Legacy.Server
             /// </returns>
             public Task RespondAsync(TResult response)
             {
-
                 return Client.SendAsync(MkResp(response));
             }
 

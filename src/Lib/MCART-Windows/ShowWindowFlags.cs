@@ -1,12 +1,12 @@
 ﻿/*
-CmdStrings.cs
+ShowWindowFlags.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2020 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -22,14 +22,20 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Resources
+namespace TheXDS.MCART.Windows
 {
-    internal static class CmdStrings
+    internal enum ShowWindowFlags : int
     {
-        public static string InvalidArg(string x) => $"Argumento inválido: {x}";
-        public static string MissingArg(string x) => $"Parámetro requerido {x} no especificado.";
-        public const string HelpArgSummary = "Muestra la ayuda sobre esta aplicación.";
-        public const string HelpArgTemplate = "  {0}  - ";
-        public static string NoArgHelp => Strings.Warn("No existe ayuda para este argumento.");
+        Hide = 0,
+        ShowNormal = 1,
+        ShowMinimized = 2,
+        ShowMaximized = 3,
+        ShowNoActivate = 4,
+        Show = 5,
+        Minimize = 6,
+        ShowMinNoActive = 7,
+        ShowNA = 8,
+        Restore = 9,
+        ShowDefault = 10
     }
 }

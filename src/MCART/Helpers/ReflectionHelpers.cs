@@ -131,7 +131,7 @@ namespace TheXDS.MCART
         /// <param name="method">
         /// Método a comprobar.
         /// </param>
-        /// <param name="thisInstance">
+        /// <param name="instance">
         /// Instancia en la cual se debe realizar la comprobación.
         /// Generalmente, este argumento debe ser <see langword="this"/>.
         /// </param>
@@ -140,11 +140,19 @@ namespace TheXDS.MCART
         /// instancia especificada, <see langword="false"/> en caso 
         /// contrario.
         /// </returns>
-        public static bool IsOverriden(this MethodBase method, object thisInstance)
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="method"/> o
+        /// <paramref name="instance"/> son <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="InvalidTypeException">
+        /// Se produce si la definición de <paramref name="method"/> no existe
+        /// en el tipo de <paramref name="instance"/>.
+        /// </exception>
+        public static bool IsOverriden(this MethodBase method, object instance)
         {
-            IsOverriden_Contract(method, thisInstance);
-            var m = thisInstance.GetType().GetMethod(method.Name, GetBindingFlags(method), null, method.GetParameters().Select(p => p.ParameterType).ToArray(), null) 
-                ?? throw new TamperException(new MissingMethodException(thisInstance.GetType().Name, method.Name));
+            IsOverriden_Contract(method, instance);
+            var m = instance.GetType().GetMethod(method.Name, GetBindingFlags(method), null, method.GetParameters().Select(p => p.ParameterType).ToArray(), null) 
+                ?? throw new TamperException(new MissingMethodException(instance.GetType().Name, method.Name));
 
             return method.DeclaringType != m.DeclaringType;
         }

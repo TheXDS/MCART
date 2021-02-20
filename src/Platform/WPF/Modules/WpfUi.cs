@@ -482,8 +482,8 @@ namespace TheXDS.MCART
             {
                 IsLargeArc = angle > 180.0,
                 Point = new Point(
-                    cp.X + System.Math.Sin(C.DegRad * angle) * radius,
-                    cp.Y - System.Math.Cos(C.DegRad * angle) * radius),
+                    cp.X + (System.Math.Sin(C.DegRad * angle) * radius),
+                    cp.Y - (System.Math.Cos(C.DegRad * angle) * radius)),
                 Size = new Size(radius, radius),
                 SweepDirection = SweepDirection.Clockwise
             };
@@ -515,21 +515,21 @@ namespace TheXDS.MCART
         /// </returns>
         public static PathGeometry GetCircleArc(double radius, double startAngle, double endAngle, double thickness)
         {
-            var cp = new Point(radius + thickness / 2, radius + thickness / 2);
+            var cp = new Point(radius + (thickness / 2), radius + (thickness / 2));
             var arc = new ArcSegment
             {
                 IsLargeArc = endAngle - startAngle > 180.0,
                 Point = new Point(
-                    cp.X + System.Math.Sin(C.DegRad * endAngle) * radius,
-                    cp.Y - System.Math.Cos(C.DegRad * endAngle) * radius),
+                    cp.X + (System.Math.Sin(C.DegRad * endAngle) * radius),
+                    cp.Y - (System.Math.Cos(C.DegRad * endAngle) * radius)),
                 Size = new Size(radius, radius),
                 SweepDirection = SweepDirection.Clockwise
             };
             var pth = new PathFigure
             {
                 StartPoint = new Point(
-                    cp.X + System.Math.Sin(C.DegRad * startAngle) * radius,
-                    cp.Y - System.Math.Cos(C.DegRad * startAngle) * radius),
+                    cp.X + (System.Math.Sin(C.DegRad * startAngle) * radius),
+                    cp.Y - (System.Math.Cos(C.DegRad * startAngle) * radius)),
                 IsClosed = false
             };
             pth.Segments.Add(arc);

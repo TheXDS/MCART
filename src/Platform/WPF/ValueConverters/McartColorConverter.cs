@@ -17,22 +17,21 @@ Morgan's CLR Advanced Runtime (MCART) is distributed in the hope that it will
 be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
 Public License for more details.
-
+h
 You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
 using TheXDS.MCART.Types.Extensions;
 using MT = TheXDS.MCART.Types;
-using System;
 
 namespace TheXDS.MCART.ValueConverters
 {
-
     /// <summary>
     /// Convierte valores desde y hacia objetos de tipo
     /// <see cref="MT.Color"/>.

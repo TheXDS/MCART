@@ -957,7 +957,6 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>
         /// La cadena, o <see langword="null" /> si la cadena está vacía.
         /// </returns>
-
         public static string? OrNull([NotNullIfNotNull("str")]this string? str)
         {
             return OrX(str, null);

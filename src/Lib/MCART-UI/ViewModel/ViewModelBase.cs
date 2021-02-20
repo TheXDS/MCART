@@ -257,7 +257,6 @@ namespace TheXDS.MCART.ViewModel
         ~ViewModelBase()
         {
             PropertyChanged -= OnInvokeObservedProps;
-
         }
     }
 

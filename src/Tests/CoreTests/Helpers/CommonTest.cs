@@ -36,7 +36,6 @@ using static TheXDS.MCART.Types.Extensions.SecureStringExtensions;
 
 namespace TheXDS.MCART.Tests
 {
-
     public class CommonTest
     {
         [Fact]

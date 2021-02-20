@@ -23,11 +23,12 @@
           <Default>MyProperty</Default>
         </Literal>
       </Declarations>
-      <Code Language="csharp"><![CDATA[
+      <Code Language="csharp">
+        <![CDATA[
 private $type$ _$property$;
 
 /// <summary>
-///     Obtiene o establece el valor $property$.
+/// Obtiene o establece el valor $property$.
 /// </summary>
 /// <value>El valor de $property$.</value>
 public $type$ $property$
@@ -35,13 +36,14 @@ public $type$ $property$
     get => _$property$;
     set => Change(ref _$property$, value);
 }
-$end$
-      ]]></Code>
-	    <Code Language="vb"><![CDATA[
+$end$]]>
+        </Code>
+      <Code Language="vb">
+        <![CDATA[
 Private _$property$ as $type$
 
 ''' <summary>
-'''     Obtiene o establece el valor $property$.
+''' Obtiene o establece el valor $property$.
 ''' </summary>
 ''' <value>El valor de $property$.</value>
 Public Property $property$() As $type$
@@ -52,8 +54,8 @@ Public Property $property$() As $type$
         Change(ByRef _$property$, value)
     End Set
 End Property
-$end$
-      ]]></Code>
+$end$]]>
+      </Code>
     </Snippet>
   </CodeSnippet>
 </CodeSnippets>

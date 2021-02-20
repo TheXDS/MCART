@@ -44,23 +44,6 @@ namespace TheXDS.MCART.Windows
         [DllImport("user32.dll")] internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
         [DllImport("user32.dll")] internal static extern int SetWindowLong(IntPtr hwnd, int index, uint newStyle);
         [DllImport("user32.dll")] internal static extern bool SetWindowPos(IntPtr hwnd, IntPtr hwndInsertAfter, int x, int y, int width, int height, uint flags);
-
         [DllImport("user32.dll")] internal static extern bool ShowWindowAsync(IntPtr hWnd, ShowWindowFlags nCmdShow);
-
-    }
-
-    internal enum ShowWindowFlags : int
-    {
-        Hide = 0,
-        ShowNormal = 1,
-        ShowMinimized = 2,
-        ShowMaximized = 3,
-        ShowNoActivate = 4,
-        Show = 5,
-        Minimize = 6,
-        ShowMinNoActive = 7,
-        ShowNA = 8,
-        Restore = 9,
-        ShowDefault = 10
     }
 }

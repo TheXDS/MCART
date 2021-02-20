@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(MSBuildProjectExtension)'=='.csproj'">
-    <Configurations>Debug;Debug-Publish;Debug-PublishLocal;Release;Release-Publish</Configurations>
+    <Configurations>Debug;Release</Configurations>
     <RootNamespace>TheXDS.MCART</RootNamespace>
     <Deterministic>true</Deterministic>
     <DocumentationFile>$(OutDir)$(AssemblyName).xml</DocumentationFile>
@@ -15,12 +15,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='Debug-Publish' OR '$(Configuration)'=='Debug-PublishLocal'">
-    <DebugType>portable</DebugType>
-    <DefineDebug>true</DefineDebug>
-    <DefineTrace>true</DefineTrace>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='Release' OR '$(Configuration)'=='Release-Publish'">
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <DebugSymbols>false</DebugSymbols>    
   </PropertyGroup>
 </Project>

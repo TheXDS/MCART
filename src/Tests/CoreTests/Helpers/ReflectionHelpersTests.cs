@@ -35,18 +35,19 @@ using TheXDS.MCART.Exceptions;
 
 namespace TheXDS.MCART.Tests.Modules
 {
-    public class Test1
-    {
-        public virtual void Test() { }
-    }
-    public class Test2 : Test1
-    {
-        public override void Test() { }
-        public void TestB() { }
-    }
-
     public class ReflectionHelpersTests
     {
+        public class Test1
+        {
+            public virtual void Test() { }
+        }
+
+        public class Test2 : Test1
+        {
+            public override void Test() { }
+            public void TestB() { }
+        }
+
         [Fact]
         public void GetCallingMethodTest()
         {
@@ -73,7 +74,6 @@ namespace TheXDS.MCART.Tests.Modules
             Assert.Throws<ArgumentNullException>(() => m1.IsOverriden(null));
             Assert.Throws<ArgumentNullException>(() => ReflectionHelpers.IsOverriden(null, null));
             Assert.Throws<InvalidTypeException>(() => m2.IsOverriden(t1));
-
         }
     }
 }

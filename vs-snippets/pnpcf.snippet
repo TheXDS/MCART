@@ -1,39 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
-    <CodeSnippet Format="1.0.0">
-        <Header>
-            <Title>Propiedad con notificación de cambio de MCART</Title>
-            <Shortcut>pnpcf</Shortcut>
-            <Description>Fragmento de código para una propiedad que implemente notificación de cambio de NotifyPropertyChanged de MCART o una clase derivada.</Description>
-            <Author>César Andrés Morgan</Author>
-            <SnippetTypes>
-                <SnippetType>Expansion</SnippetType>
-            </SnippetTypes>
-        </Header>
-        <Snippet>
-            <Declarations>
-                <Literal>
-                    <ID>type</ID>
-                    <ToolTip>Property Type</ToolTip>
-                    <Default>int</Default>
-                </Literal>
-                <Literal>
-                    <ID>property</ID>
-                    <ToolTip>Property Name</ToolTip>
-                    <Default>MyProperty</Default>
-                </Literal>
-                <Literal>
-                    <ID>defaultvalue</ID>
-                    <ToolTip>The default value for this property.</ToolTip>
-                    <Default>0</Default>
-                </Literal>
-            </Declarations>
-            <Code Language="csharp">
-                <![CDATA[
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Propiedad con notificación de cambio de MCART</Title>
+      <Shortcut>pnpcf</Shortcut>
+      <Description>Fragmento de código para una propiedad que implemente notificación de cambio de NotifyPropertyChanged de MCART o una clase derivada.</Description>
+      <Author>César Andrés Morgan</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>type</ID>
+          <ToolTip>Property Type</ToolTip>
+          <Default>int</Default>
+        </Literal>
+        <Literal>
+          <ID>property</ID>
+          <ToolTip>Property Name</ToolTip>
+          <Default>MyProperty</Default>
+        </Literal>
+        <Literal>
+          <ID>defaultvalue</ID>
+          <ToolTip>The default value for this property.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp">
+        <![CDATA[
 private $type$ _$property$ = $defaultvalue$;
 
 /// <summary>
-///     Obtiene o establece el valor $property$.
+/// Obtiene o establece el valor $property$.
 /// </summary>
 /// <returns>El valor de $property$.</returns>
 public $type$ $property$
@@ -48,12 +48,12 @@ public $type$ $property$
         }
     }
 }]]>
-            </Code>
-            <Code Language="vb">
-                <![CDATA[
+      </Code>
+      <Code Language="vb">
+        <![CDATA[
 Private _$property$ As $type$ = $defaultvalue$
 ''' <summary>
-'''     Obtiene o establece el valor $property$.
+''' Obtiene o establece el valor $property$.
 ''' </summary>
 ''' <returns>El valor de $property$.</returns>
 Public Property $property$() as $type$
@@ -66,9 +66,8 @@ Public Property $property$() as $type$
             $end$
         End If
     End Set
-End Property
-]]>
-            </Code>
-        </Snippet>
-    </CodeSnippet>
+End Property]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
 </CodeSnippets>

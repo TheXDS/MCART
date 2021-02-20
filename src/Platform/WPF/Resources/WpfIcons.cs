@@ -51,6 +51,5 @@ namespace TheXDS.MCART.Resources
         {
             return _xaml.Unpack($"{id}_Xml", new DeflateGetter()) as UIElement ?? new TextBlock { Text="?", FontSize = 256, Foreground = Brushes.DarkRed };
         }
-
     }
 }

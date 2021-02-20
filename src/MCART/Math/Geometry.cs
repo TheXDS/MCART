@@ -76,8 +76,8 @@ namespace TheXDS.MCART.Math
             var c = 2 * a * position;
             var d = position * position;
             return new Point(
-                b * startPoint.X + c * controlPoinr.X + d * endPoint.X,
-                b * startPoint.Y + c * controlPoinr.Y + d * endPoint.Y);
+                (b * startPoint.X) + (c * controlPoinr.X) + (d * endPoint.X),
+                (b * startPoint.Y) + (c * controlPoinr.Y) + (d * endPoint.Y));
         }
 
         /// <summary>

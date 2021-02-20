@@ -65,7 +65,7 @@ namespace TheXDS.MCART.Math
         public static double Quadratic(in double position)
         {
             var x2 = System.Math.Pow(position, 2);
-            return x2 / (2 * x2 - 2 * position + 1);
+            return x2 / ((2 * x2) - (2 * position) + 1);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace TheXDS.MCART.Math
         /// </param>
         public static double Cubic(in double position)
         {
-            return System.Math.Pow(position, 3) / (3 * System.Math.Pow(position, 2) - 3 * position + 1);
+            return System.Math.Pow(position, 3) / (3 * System.Math.Pow(position, 2) - (3 * position) + 1);
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace TheXDS.MCART.Math
         /// <param name="shakes">Cantidad de sacudidas a realizar.</param>
         public static double Shaky(in double position, in int shakes)
         {
-            return 1 - System.Math.Cos(shakes * System.Math.PI * position) * System.Math.Cos(System.Math.PI / 2 * position);
+            return 1 - (System.Math.Cos(shakes * System.Math.PI * position) * System.Math.Cos(System.Math.PI / 2 * position));
         }
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace TheXDS.MCART.Math
         /// <param name="damping">Amortiguación a calcular.</param>
         public static double Bouncy(in double position, in int bounces, in int damping)
         {
-            return 1 - System.Math.Cos(bounces * System.Math.PI * position) * (1 - System.Math.Pow(position, 1 / (double)damping));
+            return 1 - (System.Math.Cos(bounces * System.Math.PI * position) * (1 - System.Math.Pow(position, 1 / (double)damping)));
         }
     }
 }

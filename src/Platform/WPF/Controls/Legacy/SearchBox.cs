@@ -21,18 +21,17 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using TheXDS.MCART.Events;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Converters;
 using System.Windows.Data;
+using TheXDS.MCART.Events;
 using TheXDS.MCART.Resources;
+using TheXDS.MCART.ValueConverters;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using St = TheXDS.MCART.Resources.Strings;
-using TheXDS.MCART.ValueConverters;
 
 namespace TheXDS.MCART.Controls
 {

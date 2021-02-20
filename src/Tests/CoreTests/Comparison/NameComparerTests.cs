@@ -29,7 +29,6 @@ using Xunit;
 
 namespace TheXDS.MCART.Tests.Comparison
 {
-
     public class NameComparerTests : ComparerTestBase<INameable, NameComparer>
     {
         [Theory]

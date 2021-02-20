@@ -28,7 +28,6 @@ using System.Runtime.CompilerServices;
 using TheXDS.MCART.Exceptions;
 using static TheXDS.MCART.Misc.Internals;
 
-
 namespace TheXDS.MCART.Wpf.Component
 {
     public partial class EnumValueProvider

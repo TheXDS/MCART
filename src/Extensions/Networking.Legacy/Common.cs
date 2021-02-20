@@ -27,7 +27,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 namespace TheXDS.MCART.Networking.Legacy
 {
-
     /// <summary>
     /// Contiene definiciones y objetos predeterminados a utilizar en el
     /// espacio de nombres <see cref="Networking"/>.
