@@ -12,8 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{19EC529F
 		Tests\Directory.Build.targets = Tests\Directory.Build.targets
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{B75874BF-E600-41EF-B756-93A12CCCABA5}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART", "MCART\MCART.csproj", "{D39B543E-571D-4EA5-B8A2-9F6729C8E689}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{B80D3805-8722-4877-AF4E-C7763C850A9E}"
@@ -58,6 +56,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Targets", "Targets", "{75E1
 		Targets\CompileOptions.targets = Targets\CompileOptions.targets
 		Targets\GlobalDirectives.targets = Targets\GlobalDirectives.targets
 		Targets\PackageInfo.props = Targets\PackageInfo.props
+		Targets\PackageVersion.props = Targets\PackageVersion.props
 		Targets\Shared.targets = Targets\Shared.targets
 	EndProjectSection
 EndProject
@@ -76,6 +75,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Networking.Legacy", "Extensions\Networking.Legacy\Networking.Legacy.csproj", "{C37C0074-3464-4C7C-86D3-786B462C12EE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gtk", "Platform\Gtk\Gtk.csproj", "{DD13B478-E62E-454A-B914-B7F1B775E578}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflow", "Workflow", "{837EA48D-A64F-4FB9-81E7-06A5183CA0B0}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\build.yml = ..\.github\workflows\build.yml
+		..\.github\workflows\publish.yml = ..\.github\workflows\publish.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -255,6 +260,7 @@ Global
 		{7D5862D3-4DC8-495C-AE5F-46F62F467445} = {D62BF4A9-E484-4F39-B40F-7103D5AEABA8}
 		{C37C0074-3464-4C7C-86D3-786B462C12EE} = {D62BF4A9-E484-4F39-B40F-7103D5AEABA8}
 		{DD13B478-E62E-454A-B914-B7F1B775E578} = {DB2C9D58-DF3F-4361-ACE4-EF1219AD1810}
+		{837EA48D-A64F-4FB9-81E7-06A5183CA0B0} = {B80D3805-8722-4877-AF4E-C7763C850A9E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A16C9D23-2B39-4202-8A15-4A3536784E27}

@@ -1,25 +1,16 @@
 name: "Build MCART"
-
 on:
   push:
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'
       - '**/*.gitattributes'
-  workflow_dispatch:
-    paths-ignore:
-      - '**/*.md'
-      - '**/*.gitignore'
-      - '**/*.gitattributes'
-      
 jobs:
   build:
-    strategy:
-      matrix:
-        configuration: [Debug, Release]
     runs-on: windows-latest
     env:
       Solution_Name: src/MCART.sln
+      Configuration: Debug
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -27,8 +18,11 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-        
-    - name: Build MCART
-      run: dotnet build $env:Solution_Name -p:Version=$env:GITHUB_REF`;Configuration=$env:Configuration
-      env:
-        Configuration: ${{ matrix.configuration }}
+    - name: Build and test MCART
+      run: dotnet test $env:Solution_Name --configuration=$env:Configuration
+    - name: Create NuGet Packages
+      run: dotnet pack $env:Solution_Name --configuration=$env:Configuration --version-suffix=$env:GITHUB_SHA --include-source
+    - uses: actions/upload-artifact@v2
+      with:
+        name: MCART-nuget-packages
+        path: Build/Bin/**/*.nupkg
