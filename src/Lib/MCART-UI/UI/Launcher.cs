@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -22,11 +22,10 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Windows.Input;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.UI.Base;
 using TheXDS.MCART.ViewModel;
@@ -129,7 +128,7 @@ namespace TheXDS.MCART.UI
         /// Acción a ejecutar. El nombre de la interacción será inferido a
         /// partir de este objeto.
         /// </param>
-        public Launcher(Action<object> action) : this(action.NameOf(), action)
+        public Launcher(Action<object?> action) : this(action.NameOf(), action)
         {
         }
 
@@ -142,7 +141,7 @@ namespace TheXDS.MCART.UI
         /// Nombre amigable para la interacción.
         /// </param>
         /// <param name="action">Acción a ejecutar para el comando.</param>
-        public Launcher(string name, Action<object> action) : this(name, null, new SimpleCommand(action))
+        public Launcher(string name, Action<object?> action) : this(name, null, new SimpleCommand(action))
         {
         }
 
@@ -158,8 +157,17 @@ namespace TheXDS.MCART.UI
         /// Descripción de la interacción.
         /// </param>
         /// <param name="action">Acción a ejecutar para el comando.</param>
-        public Launcher(string name, string? description, Action<object> action) : this(name, description, new SimpleCommand(action))
+        public Launcher(string name, string? description, Action<object?> action) : this(name, description, new SimpleCommand(action))
         {
         }
+
+        /// <summary>
+        /// Convierte implícitamente un <see cref="Launcher"/> en un objeto de
+        /// tipo <see cref="NamedObject{T}"/>.
+        /// </summary>
+        /// <param name="launcher">
+        /// Objeto a convertir.
+        /// </param>
+        public static implicit operator NamedObject<Action>(Launcher launcher) => new NamedObject<Action>(() => launcher.Command.Execute(null));
     }
 }

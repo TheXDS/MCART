@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -28,14 +28,12 @@ using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Exceptions
 {
-    /// <inheritdoc />
     /// <summary>
     /// Excepción estándar producida al encontrarse un problema con un objeto.
     /// </summary>
     [Serializable]
     public class OffendingException<T> : Exception
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="OffendingException{T}" />.
@@ -44,7 +42,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="OffendingException{T}" />.
@@ -57,7 +54,6 @@ namespace TheXDS.MCART.Exceptions
             OffendingObject = offendingObject;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="OffendingException{T}" />.
@@ -69,7 +65,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="OffendingException{T}" />.
@@ -85,7 +80,6 @@ namespace TheXDS.MCART.Exceptions
             OffendingObject = offendingObject;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="OffendingException{T}" />.
@@ -97,7 +91,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="OffendingException{T}" />.
@@ -113,7 +106,6 @@ namespace TheXDS.MCART.Exceptions
             OffendingObject = offendingObject;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="OffendingException{T}" />.
@@ -128,7 +120,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="OffendingException{T}" />.
@@ -147,7 +138,6 @@ namespace TheXDS.MCART.Exceptions
             OffendingObject = offendingObject;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="OffendingException{T}" /> con datos serializados.
@@ -165,7 +155,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="OffendingException{T}" /> con datos serializados.
@@ -191,8 +180,6 @@ namespace TheXDS.MCART.Exceptions
         /// <summary>
         /// Objeto que ha causado la excepción.
         /// </summary>
-        // ReSharper disable once MemberCanBePrivate.Global
-        // ReSharper disable once UnusedAutoPropertyAccessor.Global
         public T OffendingObject { get; } = default!;
     }
 }

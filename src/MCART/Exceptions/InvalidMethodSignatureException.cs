@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -29,7 +29,6 @@ using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Exceptions
 {
-    /// <inheritdoc />
     /// <summary>
     /// Excepción que se produce cuando la firma de un método representado en un
     /// <see cref="MethodInfo" /> no es válida.
@@ -37,7 +36,6 @@ namespace TheXDS.MCART.Exceptions
     [Serializable]
     public class InvalidMethodSignatureException : OffendingException<MethodInfo>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="InvalidMethodSignatureException" />.
@@ -51,12 +49,10 @@ namespace TheXDS.MCART.Exceptions
         /// serializada del objeto acerca de la excepción que está siendo
         /// lanzada.
         /// </param>
-        protected InvalidMethodSignatureException(SerializationInfo info, StreamingContext context) : base(info,
-            context)
+        protected InvalidMethodSignatureException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="InvalidMethodSignatureException" />.
@@ -76,7 +72,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="InvalidMethodSignatureException" />.
@@ -85,7 +80,6 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="InvalidMethodSignatureException" />.
@@ -95,10 +89,9 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidMethodSignatureException" />
-        /// .
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="InvalidMethodSignatureException" />.
         /// </summary>
         /// <param name="message">
         /// Un <see cref="string" /> que describe a la excepción.
@@ -107,10 +100,9 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidMethodSignatureException" />
-        /// .
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidMethodSignatureException" />.
         /// </summary>
         /// <param name="message">
         /// Un <see cref="string" /> que describe a la excepción.
@@ -121,10 +113,9 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidMethodSignatureException" />
-        /// .
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidMethodSignatureException" />.
         /// </summary>
         /// <param name="inner">
         /// <see cref="Exception" /> que es la causa de esta excepción.
@@ -133,10 +124,9 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidMethodSignatureException" />
-        /// .
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidMethodSignatureException" />.
         /// </summary>
         /// <param name="inner">
         /// <see cref="Exception" /> que es la causa de esta excepción.
@@ -147,10 +137,9 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidMethodSignatureException" />
-        /// .
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidMethodSignatureException" />.
         /// </summary>
         /// <param name="message">
         /// Un <see cref="string" /> que describe a la excepción.
@@ -162,10 +151,9 @@ namespace TheXDS.MCART.Exceptions
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidMethodSignatureException" />
-        /// .
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="InvalidMethodSignatureException" />.
         /// </summary>
         /// <param name="message">
         /// Un <see cref="string" /> que describe a la excepción.

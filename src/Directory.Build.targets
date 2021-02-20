@@ -3,5 +3,4 @@
   <Import Project="$(SolutionDir)Targets\CompileOptions.targets"/>
   <Import Project="$(SolutionDir)Targets\GlobalDirectives.targets"/>
   <Import Project="$(SolutionDir)Targets\Shared.targets"/>
-  <Import Project="$(SolutionDir)Targets\Publish.targets"/>
 </Project>

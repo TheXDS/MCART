@@ -1,12 +1,12 @@
 ﻿/*
-DateTimeSerializer.cs
+StringSerializer.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2020 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -31,7 +31,7 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
     /// Serializador de datos que opera sobre objetos de tipo
     /// <see cref="string"/>.
     /// </summary>
-    public sealed class StringSerializer : IDataSerializer
+    public sealed class StringSerializer : IDataSerializer<string>
     {
         /// <summary>
         /// Obtiene un valor que indica si el
@@ -61,7 +61,7 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
         /// información binaria leída desde el <see cref="BinaryReader"/>
         /// especificado.
         /// </returns>
-        public object Read(BinaryReader reader) => reader.ReadString();
+        public string Read(BinaryReader reader) => reader.ReadString();
 
         /// <summary>
         /// Serializa un <see cref="string"/> en formato binario y lo
@@ -74,6 +74,6 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
         /// <see cref="BinaryWriter"/> a utilizar para escribir los datos
         /// binarios serializados.
         /// </param>
-        public void Write(object value, BinaryWriter writer) => writer.Write((string)value);
+        public void Write(string value, BinaryWriter writer) => writer.Write(value);
     }
 }

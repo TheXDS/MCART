@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -41,19 +41,57 @@ namespace TheXDS.MCART.Types.Extensions
     /// </summary>
     public static class ILGeneratorExtensions
     {
-        private static readonly HashSet<IConstantLoader> _constantLoaders;
+        /// <summary>
+        /// Define un delegado que describe un bloque <see langword="for"/>.
+        /// </summary>
+        /// <param name="accumulator">
+        /// Referencia al acumulador del ciclo.
+        /// </param>
+        /// <param name="break">
+        /// Etiqueta de salida del bloque <see langword="for"/>.
+        /// </param>
+        /// <param name="next">
+        /// Etiqueta de continuación del bloque <see langword="for"/>.
+        /// </param>
+        public delegate void ForBlock(LocalBuilder accumulator, Label @break, Label next);
 
         /// <summary>
-        /// Inicializa la clase <see cref="ILGeneratorExtensions"/>.
+        /// Define un delegado que describe un bloque <see langword="foreach"/>.
         /// </summary>
-        static ILGeneratorExtensions()
-        {
-            _constantLoaders = new HashSet<IConstantLoader>(new ConstantLoaderComparer());
-            foreach (var j in Objects.FindAllObjects<IConstantLoader>())
-            {
-                RegisterConstantLoader(j);
-            }
-        }
+        /// <param name="item">
+        /// Referencia al acumulador del ciclo.
+        /// </param>
+        /// <param name="break">
+        /// Etiqueta de salida del bloque <see langword="foreach"/>. Debe ser
+        /// invocada por medio de <see cref="Leave(ILGenerator, Label)"/>.
+        /// </param>
+        /// <param name="continue">
+        /// Etiqueta de continuación del bloque <see langword="foreach"/>.
+        /// </param>
+        public delegate void ForEachBlock(LocalBuilder item, Label @break, Label @continue);
+
+        /// <summary>
+        /// Define un delegado que describe un bloque <see langword="try"/>.
+        /// </summary>
+        /// <param name="leaveTry">
+        /// Etiqueta de salida del bloque <see langword="try"/>. Debe ser
+        /// invocada por medio de <see cref="Leave(ILGenerator, Label)"/>.
+        /// </param>
+        public delegate void TryBlock(Label leaveTry);
+
+        /// <summary>
+        /// Define un delegado que describe un bloque <see langword="using"/>.
+        /// </summary>
+        /// <param name="disposable">
+        /// Referencia al elemento desechable dentro del bloque <see langword="using"/>.
+        /// </param>
+        /// <param name="leaveTry">
+        /// Etiqueta de salida del bloque <see langword="using"/>. Debe ser
+        /// invocada por medio de <see cref="Leave(ILGenerator, Label)"/>.
+        /// </param>
+        public delegate void UsingBlock(LocalBuilder disposable, Label leaveTry);
+
+        private static readonly HashSet<IConstantLoader> _constantLoaders = new HashSet<IConstantLoader>(Objects.FindAllObjects<IConstantLoader>(), new ConstantLoaderComparer());
 
         /// <summary>
         /// Registra un <see cref="IConstantLoader"/> para el método
@@ -85,10 +123,10 @@ namespace TheXDS.MCART.Types.Extensions
         /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
         /// de sintáxis Fluent.
         /// </returns>
-        /// <exception cref="T:System.NotImplementedException">
+        /// <exception cref="NotImplementedException">
         /// Se produce al intentar cargar un valor constante desconocido.
         /// </exception>
-        /// <exception cref="T:System.InvalidOperationException">
+        /// <exception cref="InvalidOperationException">
         /// Se produce al intentar cargar un valor que no es constante, como
         /// una instancia de objeto.
         /// </exception>
@@ -150,6 +188,39 @@ namespace TheXDS.MCART.Types.Extensions
                 ilGen.Emit(Ldnull);
             }
             return ilGen;
+        }
+
+        /// <summary>
+        /// Inserta una constante en la secuencia del lenguaje intermedio 
+        /// de Microsoft® (MSIL).
+        /// </summary>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la carga de la
+        /// constante.
+        /// </param>
+        /// <param name="value">
+        /// Valor constante a insertar.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
+        /// <exception cref="NotImplementedException">
+        /// Se produce al intentar cargar un valor constante desconocido.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce al intentar cargar un valor que no es constante, como
+        /// una instancia de objeto.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="value"/> es <see langword="null"/>.
+        /// Si necesita cargar un valor constante <see langword="null"/>,
+        /// utilice el método <see cref="LoadNull(ILGenerator)"/>.
+        /// </exception>
+        public static ILGenerator LoadConstant(this ILGenerator ilGen, object? value)
+        {
+            if (value is null) throw new ArgumentNullException(nameof(value));
+            return LoadConstant(ilGen, value.GetType(), value);
         }
 
         /// <summary>
@@ -271,7 +342,9 @@ namespace TheXDS.MCART.Types.Extensions
                 throw new ClassNotInstantiableException(type);
             foreach (var j in args)
             {
-                if (j?.GetType().IsClass ?? false)
+                if (j is null)
+                    ilGen.LoadNull();
+                else if (j.GetType().IsClass)
                     NewObject(ilGen, j.GetType());
                 else
                     LoadConstant(ilGen, j);
@@ -307,6 +380,54 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
+        /// Inserta una llamada al constructor de instancia especificado del
+        /// tipo base en la secuencia del lenguaje intermedio de Microsoft®
+        /// (MSIL).
+        /// </summary>
+        /// <typeparam name="TClass">
+        /// Clase desde la cual se llamará al constructor de instancia del tipo
+        /// base.
+        /// </typeparam>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la llamada al método
+        /// de instancia.
+        /// </param>
+        /// <param name="baseCtorArgs">
+        /// Arreglo de tipos de argumentos del constructor a llamar.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
+        public static ILGenerator CallBaseCtor<TClass>(this ILGenerator ilGen, Type[] baseCtorArgs)
+        {
+            ilGen.This();
+            ilGen.Emit(Op.Call, typeof(TClass).BaseType?.GetConstructor(baseCtorArgs)
+                ?? typeof(TClass).BaseType?.GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance).FirstOrDefault(p => p.GetParameters().Select(p => p.ParameterType).ItemsEqual(baseCtorArgs))
+                ?? throw new MissingMemberException());
+            return ilGen;
+        }
+
+        /// <summary>
+        /// Inserta una llamada al constructor de instancia del tipo base sin
+        /// argumentos en la secuencia del lenguaje intermedio de Microsoft®
+        /// (MSIL).
+        /// </summary>
+        /// <typeparam name="TClass">
+        /// Clase desde la cual se llamará al constructor de instancia del tipo
+        /// base.
+        /// </typeparam>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la llamada al método
+        /// de instancia.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
+        public static ILGenerator CallBaseCtor<TClass>(this ILGenerator ilGen) =>CallBaseCtor<TClass>(ilGen, Type.EmptyTypes);
+
+        /// <summary>
         /// Inserta una llamada al método estático especificado en la secuencia
         /// del lenguaje intermedio de Microsoft® (MSIL).
         /// </summary>
@@ -327,6 +448,29 @@ namespace TheXDS.MCART.Types.Extensions
         public static ILGenerator Call<TMethod>(this ILGenerator ilGen, Expression<Func<TMethod>> methodSelector) where TMethod : Delegate
         {
             return Call(ilGen, ReflectionHelpers.GetMethod(methodSelector));
+        }
+
+        /// <summary>
+        /// Inserta una llamada al método estático especificado en la secuencia
+        /// del lenguaje intermedio de Microsoft® (MSIL).
+        /// </summary>
+        /// <typeparam name="TMethod">
+        /// Delegado que describe al método a llamar.
+        /// </typeparam>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la llamada al método
+        /// estático.
+        /// </param>
+        /// <param name="method">
+        /// Método estático a llamar.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
+        public static ILGenerator Call<TMethod>(this ILGenerator ilGen, TMethod method) where TMethod : Delegate
+        {
+            return Call(ilGen, method.Method);
         }
 
         /// <summary>
@@ -437,14 +581,16 @@ namespace TheXDS.MCART.Types.Extensions
         /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
         /// de sintáxis Fluent.
         /// </returns>
-        public static ILGenerator For(this ILGenerator ilGen, LocalBuilder accumulator, object? initialValue, Action condition, Action incrementor, Action<Label> forBlock)
+        public static ILGenerator For(this ILGenerator ilGen, LocalBuilder accumulator, object? initialValue, Action condition, Action incrementor, ForBlock forBlock)
         {
+            var next = ilGen.DefineLabel();
             ilGen
                 .InitLocal(accumulator, initialValue)
                 .InsertNewLabel(out var @for);            
             condition();
             ilGen.BranchFalseNewLabel(out var endFor);
-            forBlock(endFor);
+            forBlock(accumulator, endFor, next);
+            ilGen.PutLabel(next);
             incrementor();
             return ilGen
                 .Branch(@for)
@@ -485,14 +631,16 @@ namespace TheXDS.MCART.Types.Extensions
         /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
         /// de sintáxis Fluent.
         /// </returns>
-        public static ILGenerator For<T>(this ILGenerator ilGen, T initialValue, Action<LocalBuilder> condition, Action<LocalBuilder> incrementor, Action<LocalBuilder, Label> forBlock)
+        public static ILGenerator For<T>(this ILGenerator ilGen, T initialValue, Action<LocalBuilder> condition, Action<LocalBuilder> incrementor, ForBlock forBlock)
         {
+            var next = ilGen.DefineLabel();
             ilGen
                 .InitNewLocal(initialValue, out var acc)
                 .InsertNewLabel(out var @for);
             condition(acc);
             ilGen.BranchFalseNewLabel(out var endFor);
-            forBlock(acc, endFor);
+            forBlock(acc, endFor, next);
+            ilGen.PutLabel(next);
             incrementor(acc);
             return ilGen
                 .Branch(@for)
@@ -525,16 +673,18 @@ namespace TheXDS.MCART.Types.Extensions
         /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
         /// de sintáxis Fluent.
         /// </returns>
-        public static ILGenerator For(this ILGenerator ilGen, int startValue, int endValue, Action<LocalBuilder, Label> forBlock)
+        public static ILGenerator For(this ILGenerator ilGen, int startValue, int endValue, ForBlock forBlock)
         {
+            var next = ilGen.DefineLabel();
             ilGen
                 .InitNewLocal(startValue, out var acc)
                 .InsertNewLabel(out var @for)
                 .LoadLocal(acc)
                 .LoadConstant(endValue)
                 .BranchGreaterThanNewLabel(out var endFor);
-            forBlock(acc, endFor);
+            forBlock(acc, endFor, next);
             return ilGen
+                .PutLabel(next)
                 .LoadLocal(acc)
                 .OneLiner(Ldc_I4_1)
                 .Add()
@@ -566,8 +716,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
         /// de sintáxis Fluent.
         /// </returns>
-        public static ILGenerator For(this ILGenerator ilGen, Range<int> range, Action<LocalBuilder, Label> forBlock)
+        public static ILGenerator For(this ILGenerator ilGen, Range<int> range, ForBlock forBlock)
         {
+            var next = ilGen.DefineLabel();
             var endFor = ilGen.DefineLabel();
             ilGen
                 .InitNewLocal(range.MinInclusive ? range.Minimum : range.Minimum + 1, out var acc)
@@ -583,9 +734,10 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 ilGen.BranchGreaterThanOrEqual(endFor);
             }
-            forBlock(acc, endFor);
+            forBlock(acc, endFor, next);
 
             return ilGen
+                .PutLabel(next)
                 .LoadLocal(acc)
                 .OneLiner(Ldc_I4_1)
                 .Add()
@@ -603,9 +755,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// <see langword="for"/>.
         /// </param>
         /// <param name="foreachBlock">
-        /// Acción que permite definir las acciones a ejecutar dentro del
+        /// Delegado que permite definir las acciones a ejecutar dentro del
         /// bloque <see langword="foreach"/>. La acción incuye una referencia al 
-        /// <see cref="FieldBuilder"/> del elemento actual del bloque
+        /// <see cref="LocalBuilder"/> del elemento actual del bloque
         /// <see langword="foreach"/>.
         /// </param>
         /// <returns>
@@ -616,14 +768,13 @@ namespace TheXDS.MCART.Types.Extensions
         /// Esta instrucción espera que el valor en la parte superior de la
         /// pila implemente la interfaz <see cref="IEnumerable{T}"/>.
         /// </remarks>
-        public static ILGenerator ForEach<T>(this ILGenerator ilGen, Action<LocalBuilder> foreachBlock)
+        public static ILGenerator ForEach<T>(this ILGenerator ilGen, ForEachBlock foreachBlock)
         {
             var itm = ilGen.DeclareLocal(typeof(T));
-
-            ilGen
+            return ilGen
                 .Call<IEnumerable<T>, Func<IEnumerator<T>>>(p => p.GetEnumerator)
                 .StoreNewLocal<IEnumerator<T>>(out var enumerator)
-                .TryFinally(_ =>
+                .Using(enumerator, (_, @break) =>
                 {
                     ilGen
                         .BranchNewLabel(out var moveNext)
@@ -631,20 +782,82 @@ namespace TheXDS.MCART.Types.Extensions
                         .LoadLocalAddress(enumerator)
                         .Call(ReflectionHelpers.GetProperty<IEnumerator<T>>(p => p.Current).GetMethod!)
                         .StoreLocal(itm);
-                    foreachBlock(itm);
+                    foreachBlock(itm, @break, moveNext);
                     ilGen
                         .PutLabel(moveNext)
                         .LoadLocalAddress(enumerator)
-                        .Call<IEnumerator<T>, Func<bool>>(p=>p.MoveNext)
+                        .Call<IEnumerator<T>, Func<bool>>(p => p.MoveNext)
                         .BranchTrue(loopStart);
-                }, ()=>
-                {
-                    ilGen
-                        .LoadLocalAddress(enumerator);
-                    //ilGen.Emit(Constrained, typeof(IEnumerator<T>));
-                    ilGen.Call<IDisposable, Action>(p => p.Dispose);
                 });
-            return ilGen;
+        }
+
+        /// <summary>
+        /// Inserta un bloque <see langword="using"/> estructurado en la
+        /// secuencia del lenguaje intermedio de Microsoft® (MSIL).
+        /// </summary>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar el bloque
+        /// <see langword="using"/>.
+        /// </param>
+        /// <param name="disposable">
+        /// Referencia a un <see cref="LocalBuilder"/> que contiene la intancia
+        /// del objeto desechable a utilizar dentro del bloque 
+        /// <see langword="using"/>.
+        /// </param>
+        /// <param name="usingBlock">
+        /// Delegado que define las acciones a ejecutar dentro del bloque
+        /// <see langword="using"/>.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
+        public static ILGenerator Using(this ILGenerator ilGen, LocalBuilder disposable, UsingBlock usingBlock)
+        {
+            return ilGen.TryFinally(@break => usingBlock(disposable, @break), () => ilGen.Dispose(disposable));            
+        }
+
+        /// <summary>
+        /// Inserta un bloque <see langword="using"/> estructurado en la
+        /// secuencia del lenguaje intermedio de Microsoft® (MSIL).
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de objeto desechable a instanciar para utilizar dentro del
+        /// bloque <see langword="using"/>.
+        /// </typeparam>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar el bloque
+        /// <see langword="using"/>.
+        /// </param>
+        /// <param name="usingBlock">
+        /// Delegado que define las acciones a ejecutar dentro del bloque
+        /// <see langword="using"/>.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
+        public static ILGenerator Using<T>(this ILGenerator ilGen, UsingBlock usingBlock) where T : IDisposable, new()
+        {
+            ilGen.NewObject<T>().StoreNewLocal<T>(out var disposable);
+            return ilGen.TryFinally(@break => usingBlock(disposable, @break), () => ilGen.Dispose(disposable));
+        }
+
+        /// <summary>
+        /// Desecha un objeto <see cref="IDisposable"/> contenido en el
+        /// <see cref="LocalBuilder"/> especificado.
+        /// </summary>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar la llamada.
+        /// </param>
+        /// <param name="disposable">
+        /// Variable local que contiene el objeto <see cref="IDisposable"/> a
+        /// desechar.
+        /// </param>
+        /// <returns></returns>
+        public static ILGenerator Dispose(this ILGenerator ilGen, LocalBuilder disposable)
+        {
+            return ilGen.LoadLocalAddress(disposable).Call<IDisposable, Action>(p => p.Dispose);
         }
 
         /// <summary>
@@ -1222,9 +1435,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static ILGenerator InitLocal(this ILGenerator ilGen, LocalBuilder local, object? value)
         {
-            ilGen.LoadConstant(value);
-            ilGen.Emit(Stloc, local);
-            return ilGen;
+            return ilGen.LoadConstant(local.LocalType, value).StoreLocal(local);
         }
 
         /// <summary>
@@ -1265,6 +1476,27 @@ namespace TheXDS.MCART.Types.Extensions
         {
             ilGen.Emit(Stfld, field);            
             return ilGen;
+        }
+
+        /// <summary>
+        /// Inserta el almacenamiento de un valor a una propiedad en la
+        /// secuencia del lenguaje intermedio de Microsoft® (MSIL).
+        /// </summary>
+        /// <param name="ilGen">
+        /// Secuencia de instrucciones en la cual insertar el almacenamiento de
+        /// un valor.
+        /// </param>
+        /// <param name="prop">
+        /// Propiedad en la cual almacenar el valor.
+        /// </param>
+        /// <returns>
+        /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+        /// de sintáxis Fluent.
+        /// </returns>
+        public static ILGenerator StoreProperty(this ILGenerator ilGen, PropertyInfo prop)
+        {
+            if (!prop.SetMethod?.IsStatic ?? throw new InvalidOperationException()) ilGen.This();            
+            return ilGen.Call(prop.SetMethod!);
         }
 
         /// <summary>
@@ -1330,7 +1562,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static ILGenerator LoadProperty(this ILGenerator ilGen, PropertyBuildInfo property)
         {
-            return LoadProperty(ilGen, property.Property);
+            return LoadProperty(ilGen, property.Member);
         }
 
         /// <summary>
@@ -1357,10 +1589,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
         /// de sintáxis Fluent.
         /// </returns>
-        public static ILGenerator TryFinally(this ILGenerator ilGen, Action<Label> tryBlock, Action finallyBlock)
+        public static ILGenerator TryFinally(this ILGenerator ilGen, TryBlock tryBlock, Action finallyBlock)
         {
-            var endTry = ilGen.BeginExceptionBlock();
-            tryBlock(endTry);
+            tryBlock(ilGen.BeginExceptionBlock());
             ilGen.BeginFinallyBlock();
             finallyBlock();
             ilGen.EndExceptionBlock();
@@ -1393,17 +1624,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
         /// de sintáxis Fluent.
         /// </returns>
-        public static ILGenerator TryCatch(this ILGenerator ilGen, Action<Label> tryBlock, IEnumerable<KeyValuePair<Type,Action<Label>>> catchBlocks)
+        public static ILGenerator TryCatch(this ILGenerator ilGen, TryBlock tryBlock, IEnumerable<KeyValuePair<Type, TryBlock>> catchBlocks)
         {
-            var l = catchBlocks.ToList();
-            if (!l.Any()) throw new EmptyCollectionException(catchBlocks);
-            var endTry = ilGen.BeginExceptionBlock();
-            tryBlock(endTry);
-            foreach (var j in catchBlocks)
-            {
-                ilGen.BeginCatchBlock(j.Key);
-                j.Value(endTry);
-            }
+            InsertCatchBlocks(ilGen,tryBlock, catchBlocks);
             ilGen.EndExceptionBlock();
             return ilGen;
         }
@@ -1439,15 +1662,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
         /// de sintáxis Fluent.
         /// </returns>
-        public static ILGenerator TryCatchFinally(this ILGenerator ilGen, Action<Label> tryBlock, IEnumerable<KeyValuePair<Type, Action<Label>>> catchBlocks, Action finallyBlock)
+        public static ILGenerator TryCatchFinally(this ILGenerator ilGen, TryBlock tryBlock, IEnumerable<KeyValuePair<Type, TryBlock>> catchBlocks, Action finallyBlock)
         {
-            var endTry = ilGen.BeginExceptionBlock();
-            tryBlock(endTry);
-            foreach (var j in catchBlocks)
-            {
-                ilGen.BeginCatchBlock(j.Key);
-                j.Value(endTry);
-            }
+            InsertCatchBlocks(ilGen, tryBlock, catchBlocks);
             ilGen.BeginFinallyBlock();
             finallyBlock();
             ilGen.EndExceptionBlock();
@@ -1820,6 +2037,24 @@ namespace TheXDS.MCART.Types.Extensions
         {
             ilGen.Emit(op);
             return ilGen;
+        }
+
+        private static Label InsertTryBlock(ILGenerator ilGen, TryBlock block)
+        {
+            var endTry = ilGen.BeginExceptionBlock();
+            block(endTry);
+            return endTry;
+        }
+
+        private static void InsertCatchBlocks(ILGenerator ilGen, TryBlock tryBlock, IEnumerable<KeyValuePair<Type, TryBlock>> catchBlocks)
+        {
+            var endTry = InsertTryBlock(ilGen, tryBlock);
+            foreach (var j in catchBlocks)
+            {
+                if (!j.Key.Implements<Exception>()) throw new InvalidTypeException(j.Key);
+                ilGen.BeginCatchBlock(j.Key);
+                j.Value(endTry);
+            }
         }
 
         #endregion

@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -23,7 +23,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Linq;
 using System.Reflection.Emit;
 using TheXDS.MCART.Exceptions;
 using static System.Reflection.Emit.OpCodes;
@@ -75,6 +74,21 @@ namespace TheXDS.MCART.Types.Extensions
             ilGen.Emit(Ldarg_0);
             ilGen.NewObject(instanceType, args);
             ilGen.Emit(Stfld, field);
+        }
+
+        /// <summary>
+        /// Inicializa un campo dentro del generador de código especificado.
+        /// </summary>
+        /// <typeparam name="T">Tipo de valor u objeto a instanciar.</typeparam>
+        /// <param name="field">Campo a inicializar.</param>
+        /// <param name="ilGen">
+        /// Generador de código a utilizar para inicializar el campo.
+        /// Generalmente, debe tratarse de un constructor de clase.
+        /// </param>
+        public static void InitField<T>(this FieldBuilder field, ILGenerator ilGen) where T : new()
+        {
+            if (typeof(T).IsValueType) InitField(field, ilGen, default(T)!);
+            else InitField(field, ilGen, typeof(T), Array.Empty<object>());
         }
     }
 }

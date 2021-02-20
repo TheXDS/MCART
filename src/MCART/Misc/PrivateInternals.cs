@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -26,10 +26,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
-using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Misc
 {
@@ -45,13 +43,6 @@ namespace TheXDS.MCART.Misc
             {
                 return Type.EmptyTypes;
             }
-        }
-
-        public static bool HasLicense(object obj)
-        {
-            return obj.HasAttr<LicenseTextAttribute>()
-                   || obj.HasAttr<EmbeddedLicenseAttribute>()
-                   || obj.HasAttr<LicenseUriAttribute>();
         }
 
         public static IEnumerable<NamedObject<TField>> List<TField>(Type source, object instance)
@@ -111,6 +102,5 @@ namespace TheXDS.MCART.Misc
             result = default!;
             return false;
         }
-
     }
 }

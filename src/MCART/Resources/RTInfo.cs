@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -31,7 +31,6 @@ using TheXDS.MCART.Component;
 
 namespace TheXDS.MCART.Resources
 {
-    /// <inheritdoc />
     /// <summary>
     /// Contiene métodos con funciones de identificación en información del
     /// ensamblado de MCART.
@@ -88,11 +87,10 @@ namespace TheXDS.MCART.Resources
         /// <see langword="null"/> si no es posible verificar la
         /// compatibilidad.
         /// </returns>
-        public static bool? RtSupport<T>(T obj)
+        public static bool? RtSupport<T>(T obj) where T : notnull
         {
-            TargetMCARTVersionAttribute? tt = null;
-            if (!obj?.HasAttr(out tt) ?? true) return null;
-            if (!obj!.HasAttr(out MinMcartVersionAttribute? mt))
+            if (!obj.HasAttr<TargetMCARTVersionAttribute>(out var tt)) return null;
+            if (!obj.HasAttr<MinMcartVersionAttribute>(out var mt))
 #if StrictMCARTVersioning
                 return null;
 #else
@@ -137,8 +135,8 @@ namespace TheXDS.MCART.Resources
              * la función HasAttr<T>(object, T) en lugar de HasAttr(Type, T),
              * lo cual no es la implementación intencionada.
              */
-            if (!type.HasAttr(out TargetMCARTVersionAttribute? tt)) return null;
-            if (!type.HasAttr(out MinMcartVersionAttribute? mt))
+            if (!type.HasAttr<TargetMCARTVersionAttribute>(out var tt)) return null;
+            if (!type.HasAttr<MinMcartVersionAttribute>(out var mt))
 #if StrictMCARTVersioning
                 return null;
 #else
@@ -199,7 +197,6 @@ namespace TheXDS.MCART.Resources
         /// </summary>
         public ComponentKind Kind { get; }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="RtInfo" />.

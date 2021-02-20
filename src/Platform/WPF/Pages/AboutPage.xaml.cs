@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -23,37 +23,31 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System.Reflection;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
 using TheXDS.MCART.Component;
-using TheXDS.MCART.Dialogs;
 using TheXDS.MCART.Dialogs.ViewModel;
-using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Pages
 {
-    /// <inheritdoc cref="Page"/>
     /// <summary>
     /// Lógica de interacción para AboutPage.xaml
     /// </summary>
     public partial class AboutPage
     {
-        private AboutPageViewModel Vm => DataContext as AboutPageViewModel;
-        /// <inheritdoc />
+        private AboutPageViewModel Vm => (AboutPageViewModel)DataContext;
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase
-        /// <see cref="T:TheXDS.MCART.Pages.AboutPage" />.
+        /// <see cref="AboutPage" />.
         /// </summary>
         public AboutPage()
         {
             InitializeComponent();
             DataContext = new AboutPageViewModel();
         }
-        /// <inheritdoc />
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase
-        /// <see cref="T:TheXDS.MCART.Pages.AboutPage" />.
+        /// <see cref="AboutPage" />.
         /// </summary>
         /// <param name="element">Ensamblado del cual se desea mostrar la
         /// información.
@@ -61,7 +55,7 @@ namespace TheXDS.MCART.Pages
         public AboutPage(Assembly element) : this(new ApplicationInfo(element, true))
         {
         }
-        /// <inheritdoc />
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="T:TheXDS.MCART.Pages.AboutPage" />.

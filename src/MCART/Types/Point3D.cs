@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -23,12 +23,13 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
+using TheXDS.MCART.Math;
+using TheXDS.MCART.Misc;
+using TheXDS.MCART.Types.Base;
+using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using CI = System.Globalization.CultureInfo;
 using St = TheXDS.MCART.Resources.Strings;
-using static TheXDS.MCART.Types.Extensions.StringExtensions;
-using TheXDS.MCART.Math;
-using TheXDS.MCART.Types.Base;
-using TheXDS.MCART.Misc;
 
 namespace TheXDS.MCART.Types
 {
@@ -469,7 +470,6 @@ namespace TheXDS.MCART.Types
             return System.Math.Sqrt(x * x + y * y + z * z);
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Convierte este objeto en su representación como una cadena.
         /// </summary>
@@ -518,7 +518,7 @@ namespace TheXDS.MCART.Types
         /// <returns>El código Hash de esta instancia.</returns>
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return HashCode.Combine(X, Y, Z);
         }
 
         /// <summary>
@@ -554,6 +554,6 @@ namespace TheXDS.MCART.Types
         /// <see langword="true" /> si esta instancia y <paramref name="other" /> son iguales;
         /// de lo contrario, <see langword="false" />.
         /// </returns>
-        public bool Equals(I2DVector other) => X == other.X && Y == other.Y && !Z.IsValid();
+        public bool Equals([AllowNull] I2DVector other) => X == other?.X && Y == other.Y && !Z.IsValid();
     }
 }

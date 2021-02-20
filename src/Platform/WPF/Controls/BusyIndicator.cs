@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -22,37 +22,106 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using TheXDS.MCART.Math;
 using static TheXDS.MCART.WpfUi;
 
 namespace TheXDS.MCART.Controls
 {
-    /// <inheritdoc />
     /// <summary>
     /// Control simple que indica al usuario que la aplicación está ocupada.
     /// </summary>
-    public class BusyIndicator : UserControl
+    public class BusyIndicator : Control
     {
-        private static readonly Type T = typeof(BusyIndicator);
+        /// <summary>
+        /// Enumera los distintos estados en los que este control puede ser
+        /// presentado.
+        /// </summary>
+        public enum ControlState : byte
+        {
+            /// <summary>
+            /// Estado predeterminado del control.
+            /// </summary>
+            Default,
+
+            /// <summary>
+            /// Mostrar una animación de espera.
+            /// </summary>
+            Waiting
+        }
 
         /// <summary>
         /// Identifica a la propiedad de dependencia <see cref="Radius" />.
         /// </summary>
         public static readonly DependencyProperty RadiusProperty = DependencyProperty.Register(nameof(Radius),
-            typeof(double), T,
-            new FrameworkPropertyMetadata(24.0, FrameworkPropertyMetadataOptions.AffectsMeasure, SetControlSize));
+            typeof(double), typeof(BusyIndicator),
+            new FrameworkPropertyMetadata(24.0, FrameworkPropertyMetadataOptions.AffectsMeasure, SetControlSize, CoerceRadius), ChkDblValue);
+
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="State" />.
+        /// </summary>
+        public static readonly DependencyProperty StateProperty = DependencyProperty.Register(nameof(State),
+            typeof(ControlState), typeof(BusyIndicator), new PropertyMetadata(ControlState.Default));
+
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="Stroke" />.
+        /// </summary>
+        public static readonly DependencyProperty StrokeProperty = DependencyProperty.Register(nameof(Stroke),
+            typeof(Brush), typeof(BusyIndicator), new PropertyMetadata(SystemColors.HighlightBrush));
+
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="Stroke2" />.
+        /// </summary>
+        public static readonly DependencyProperty Stroke2Property = DependencyProperty.Register(nameof(Stroke2),
+            typeof(Brush), typeof(BusyIndicator), new PropertyMetadata(SystemColors.ControlDarkBrush));
+        
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="Thickness" />.
+        /// </summary>
+        public static readonly DependencyProperty ThicknessProperty = DependencyProperty.Register(nameof(Thickness),
+            typeof(double), typeof(BusyIndicator),
+            new FrameworkPropertyMetadata(4.0, FrameworkPropertyMetadataOptions.AffectsMeasure, SetControlSize, CoerceThickness), ChkDblValue);
+
+        /// <summary>
+        /// Inicializa la clase <see cref="BusyIndicator"/>
+        /// </summary>
+        static BusyIndicator()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(BusyIndicator), new FrameworkPropertyMetadata(typeof(BusyIndicator)));
+        }
 
         private static void SetControlSize(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((BusyIndicator) d).Width =
-                (double) d.GetValue(RadiusProperty) * 2 + (double) d.GetValue(ThicknessProperty);
+            if (d is not BusyIndicator { path: { } p }) return;
+
+            d.CoerceValue(ThicknessProperty);
+            d.CoerceValue(RadiusProperty);
+            var r = (double)d.GetValue(RadiusProperty);
+            var t = (double)d.GetValue(ThicknessProperty);
+            p.Data = GetCircleArc(r, 270, t);
         }
+
+        private static bool ChkDblValue(object value)
+        {
+            return ((double)value) >= 0;
+        }
+
+        private static object CoerceRadius(DependencyObject d, object baseValue)
+        {
+            if (d is not BusyIndicator) return baseValue;
+            return ((double)baseValue).Clamp(0, double.MaxValue);
+        }
+
+        private static object CoerceThickness(DependencyObject d, object baseValue)
+        {
+            if (d is not BusyIndicator b) return baseValue;
+            return ((double)baseValue).Clamp(0, b.Radius*2);
+        }
+
+        private Path path = null!;
 
         /// <summary>
         /// Obtiene o establece el radio de este control.
@@ -64,125 +133,49 @@ namespace TheXDS.MCART.Controls
         }
 
         /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="Starting" />.
-        /// </summary>
-        public static readonly DependencyProperty StartingProperty =
-            DependencyProperty.Register(nameof(Starting), typeof(bool), T, new PropertyMetadata(false, Colorize));
-
-        private static void Colorize(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var b = (BusyIndicator) d;
-            b._pth.Stroke = b.Starting ? b.Stroke2 : b.Stroke;
-            b._pth.RenderTransform.BeginAnimation(RotateTransform.AngleProperty, null);
-            b._pth.RenderTransform.BeginAnimation(RotateTransform.AngleProperty, b.Starting ? b._spin2 : b._spin);
-        }
-
-        /// <summary>
         /// Obtiene o establece un valor que indica si el control se dibujará
         /// en su estado secundario.
         /// </summary>
-        public bool Starting
+        public ControlState State
         {
-            get => (bool) GetValue(StartingProperty);
-            set => SetValue(StartingProperty, value);
+            get => (ControlState)GetValue(StateProperty);
+            set => SetValue(StateProperty, value);
         }
-
-        /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="Stroke" />.
-        /// </summary>
-        public static readonly DependencyProperty StrokeProperty = DependencyProperty.Register(nameof(Stroke),
-            typeof(Brush), T, new PropertyMetadata(SystemColors.HighlightBrush, Colorize));
 
         /// <summary>
         /// Obtiene o establece el <see cref="Brush" /> a aplicar al control.
         /// </summary>
-        public Brush Stroke
+        public Brush? Stroke
         {
-            get => (Brush) GetValue(StrokeProperty);
+            get => (Brush?) GetValue(StrokeProperty);
             set => SetValue(StrokeProperty, value);
         }
-
-        /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="Stroke2" />.
-        /// </summary>
-        public static readonly DependencyProperty Stroke2Property = DependencyProperty.Register(nameof(Stroke2),
-            typeof(Brush), T, new PropertyMetadata(SystemColors.ControlDarkBrush, Colorize));
 
         /// <summary>
         /// Obtiene o establece el <see cref="Brush" /> a aplicar al estado
         /// secundario de el control.
         /// </summary>
-        public Brush Stroke2
+        public Brush? Stroke2
         {
-            get => (Brush) GetValue(Stroke2Property);
+            get => (Brush?)GetValue(Stroke2Property);
             set => SetValue(Stroke2Property, value);
         }
-
-        /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="Thickness" />.
-        /// </summary>
-        public static readonly DependencyProperty ThicknessProperty = DependencyProperty.Register(nameof(Thickness),
-            typeof(double), T,
-            new FrameworkPropertyMetadata(4.0, FrameworkPropertyMetadataOptions.AffectsMeasure, SetControlSize));
 
         /// <summary>
         /// Obtiene o establece el grosor de los elementos de este control.
         /// </summary>
         public double Thickness
         {
-            get => (double) GetValue(ThicknessProperty);
+            get => (double)GetValue(ThicknessProperty);
             set => SetValue(ThicknessProperty, value);
         }
 
-        private readonly Path _pth = new Path
+        /// <inheritdoc/>
+        public override void OnApplyTemplate()
         {
-            RenderTransform = new RotateTransform(),
-            RenderTransformOrigin = new Point(0.5, 0.5)
-        };
-
-        private readonly DoubleAnimationUsingKeyFrames _spin = new DoubleAnimationUsingKeyFrames
-        {
-            RepeatBehavior = RepeatBehavior.Forever
-        };
-
-        private readonly DoubleAnimationUsingKeyFrames _spin2 = new DoubleAnimationUsingKeyFrames
-        {
-            RepeatBehavior = RepeatBehavior.Forever
-        };
-
-        private new object Content
-        {
-            set => base.Content = value;
-        }
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="T:TheXDS.MCART.Controls.BusyIndicator" />.
-        /// </summary>
-        public BusyIndicator()
-        {
-            SetBinding(HeightProperty, new Binding(nameof(Width)) {Source = this});
-            Loaded += OnLoaded;
-            SizeChanged += OnLoaded;
-            _pth.SetBinding(Shape.StrokeThicknessProperty, new Binding(nameof(Thickness)) {Source = this});
+            base.OnApplyTemplate();
+            path = (Path)GetTemplateChild($"PART_{nameof(path)}");
             SetControlSize(this, new DependencyPropertyChangedEventArgs());
-            _spin.KeyFrames.Add(new EasingDoubleKeyFrame
-            {
-                KeyTime = KeyTime.FromTimeSpan(new TimeSpan(0, 0, 1)),
-                Value = 360.0
-            });
-            _spin2.KeyFrames.Add(new EasingDoubleKeyFrame
-            {
-                KeyTime = KeyTime.FromTimeSpan(new TimeSpan(0, 0, 3)),
-                Value = -360.0
-            });
-            Colorize(this, new DependencyPropertyChangedEventArgs());
-            Content = _pth;
-        }
-
-        private void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            _pth.Data = GetCircleArc(Radius, 270, Thickness);
         }
     }
 }

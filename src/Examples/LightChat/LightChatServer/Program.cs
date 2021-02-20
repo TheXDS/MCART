@@ -1,16 +1,17 @@
-﻿using System;
+﻿#pragma warning disable CS1591
+
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
-using TheXDS.MCART.Networking.Server;
+using TheXDS.MCART.Networking.Legacy.Server;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Examples.LightChat
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
             var s = new Server<Client<string>>(new LightChatProtocol(), 51200);
             s.Start();

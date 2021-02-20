@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -22,16 +22,11 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System.Reflection;
 using System.Windows.Media.Imaging;
-using System.Windows.Markup;
-using System.Xml;
 
 namespace TheXDS.MCART.Resources
 {
-    /// <inheritdoc />
     /// <summary>
     /// <see cref="AssemblyUnpacker{T}" /> que
     /// extrae recursos de imagen como un
@@ -39,7 +34,6 @@ namespace TheXDS.MCART.Resources
     /// </summary>
     public class ImageUnpacker : AssemblyUnpacker<BitmapImage?>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ImageUnpacker" />.
@@ -53,7 +47,6 @@ namespace TheXDS.MCART.Resources
         /// </param>
         public ImageUnpacker(Assembly assembly, string path) : base(assembly, path) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene un <see cref="BitmapImage" /> desde los recursos incrustados
         /// del ensamblado.
@@ -65,7 +58,6 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public override BitmapImage? Unpack(string id) => WpfUi.GetBitmap(UnpackStream(id));
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene un <see cref="BitmapImage" /> desde los recursos incrustados
         /// comprimidos del ensamblado.
@@ -80,7 +72,6 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public override BitmapImage? Unpack(string id, string compressorId) => WpfUi.GetBitmap(UnpackStream(id, compressorId));
         
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene un <see cref="BitmapImage" /> desde los recursos incrustados
         /// comprimidos del ensamblado.

@@ -1,13 +1,11 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using TheXDS.MCART.Annotations;
+using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 using Xunit;
-
-#nullable enable
 
 namespace TypeFactoryTests
 {
@@ -17,7 +15,7 @@ namespace TypeFactoryTests
         {
             public event PropertyChangedEventHandler? PropertyChanged;
 
-            [NotifyPropertyChangedInvocator]
+            [NpcChangeInvocator]
             protected void OnPropertyChanged([CallerMemberName] string? propertyName = null!)
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -25,6 +23,7 @@ namespace TypeFactoryTests
         }
 
         private static readonly TypeFactory _factory = new TypeFactory("TheXDS.MCART.Tests._Generated");
+
         [Fact]
         public void BuildSimpleTypeTest()
         {
@@ -32,11 +31,10 @@ namespace TypeFactoryTests
             var nameProp = t.AddAutoProperty<string>("Name");            
             var grettingProp = t.AddComputedProperty<string>("Greeting", p => p
                 .LoadConstant("Hello, ")
-                .LoadProperty(nameProp.Property)
-                .Call<Func<string?, string?, string>>(() => string.Concat)
+                .LoadProperty(nameProp)
+                .Call<Func<string?, string?, string>>(string.Concat)
                 .Return());
 
-            var greeterClass = t.CreateType();
             var greeterInstance = t.New();
             ((dynamic)greeterInstance).Name = "Jhon";
             
@@ -49,10 +47,9 @@ namespace TypeFactoryTests
         public void BuildNpcTypeTest()
         {
             var t = _factory.NewType<NotifyPropertyChanged>("NpcTestClass");
-            ((ITypeBuilder<NotifyPropertyChangeBase>)t).AddNpcProperty<string>("Name");
-            var npcTestClass = t.Builder.CreateType()!;
-            dynamic npcInstance = npcTestClass.New();
-            PropertyChangedEventHandler evth = null!;
+            t.AddNpcProperty<string>("Name");
+            dynamic npcInstance = t.New();
+            PropertyChangedEventHandler? evth = null;
 
             var evt = Assert.Raises<PropertyChangedEventArgs>(
                 p => ((NotifyPropertyChanged)npcInstance).PropertyChanged += evth = (s, e) => p(s, e),
@@ -60,7 +57,7 @@ namespace TypeFactoryTests
                 () => npcInstance.Name = "Test");
 
             Assert.Equal("Name", evt.Arguments.PropertyName);
-            Assert.Equal("Test", npcInstance.Name);
+            Assert.Equal("Test", (string)npcInstance.Name);
         }
 
         [Fact]
@@ -69,9 +66,8 @@ namespace TypeFactoryTests
             var t = _factory.NewType<NpcBaseClass>("NpcBaseTestClass");
             t.AddNpcProperty<string>("Name");
             t.AddNpcProperty<int>("Age");
-            var npcTestClass = t.Builder.CreateType()!;
-            dynamic npcInstance = npcTestClass.New();
-            PropertyChangedEventHandler evth = null!;
+            dynamic npcInstance = t.New();
+            PropertyChangedEventHandler? evth = null;
 
             var evt = Assert.Raises<PropertyChangedEventArgs>(
                 p => ((NpcBaseClass)npcInstance).PropertyChanged += evth = (s, e) => p(s, e),
@@ -79,7 +75,7 @@ namespace TypeFactoryTests
                 () => npcInstance.Name = "Test");
 
             Assert.Equal("Name", evt.Arguments.PropertyName);
-            Assert.Equal("Test", npcInstance.Name);
+            Assert.Equal("Test", (string)npcInstance.Name);
         }
     }
 }

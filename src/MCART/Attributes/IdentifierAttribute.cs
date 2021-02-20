@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -26,14 +26,12 @@ using System;
 
 namespace TheXDS.MCART.Attributes
 {
-    /// <inheritdoc />
     /// <summary>
     /// Indica una cadena que puede utilizarse para identificar a este elemento.
     /// </summary>
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
     public sealed class IdentifierAttribute : TextAttribute
     {
-        /// <inheritdoc />
         /// <summary>
         /// Indica una cadena que puede utilizarse para identificar a este elemento.
         /// </summary>

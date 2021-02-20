@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -21,8 +21,6 @@ Public License for more details.
 You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
-
-#nullable enable
 
 using System;
 using System.Collections.Generic;
@@ -98,7 +96,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// Obtiene un valor que indica si el tipo es estático, es decir si
         /// es abstracto y sellado a la vez.
         /// </summary>
-        public bool IsStatic => Type is null ? false : Type.IsAbstract && Type.IsSealed;
+        public bool IsStatic => !(Type is null) && Type.IsAbstract && Type.IsSealed;
 
         /// <summary>
         /// Enumera de forma agrupara el árbol de miembros definidos dentro

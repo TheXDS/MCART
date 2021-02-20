@@ -1,12 +1,12 @@
 ﻿/*
-NotifyPropertyChanged.cs
+NotifyPropertyChanging.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -28,14 +28,12 @@ using System.Runtime.CompilerServices;
 
 namespace TheXDS.MCART.Types.Base
 {
-    /// <inheritdoc cref="INotifyPropertyChanging" />
     /// <summary>
     /// Clase base para los objetos que puedan notificar sobre el cambio
     /// del valor de una de sus propiedades.
     /// </summary>
     public abstract class NotifyPropertyChanging : NotifyPropertyChangeBase, INotifyPropertyChanging
     {
-        /// <inheritdoc />
         /// <summary>
         /// Se produce cuando cambia el valor de una propiedad.
         /// </summary>
@@ -82,7 +80,7 @@ namespace TheXDS.MCART.Types.Base
         /// <param name="property">
         /// Propiedad a notificar.
         /// </param>
-        protected override void Notify(string property)
+        public override void Notify(string property)
         {
             OnPropertyChanging(property);
         }

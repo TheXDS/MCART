@@ -9,7 +9,7 @@ de valores.
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -29,6 +29,7 @@ using System;
 using System.Linq;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Types.Base;
+using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Types
 {
@@ -79,14 +80,12 @@ namespace TheXDS.MCART.Types
         /// </summary>
         public bool MaxInclusive { get; set; }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la estructura <see cref="Range{T}" />
         /// </summary>
         /// <param name="maximum">Valor máximo del rango, inclusive.</param>
         public Range(T maximum) : this(default!, maximum, true, true) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la estructura <see cref="Range{T}" />
         /// </summary>
@@ -94,7 +93,6 @@ namespace TheXDS.MCART.Types
         /// <param name="maximum">Valor máximo del rango, inclusive.</param>
         public Range(T minimum, T maximum) : this(minimum, maximum, true, true) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la estructura
         /// <see cref="Range{T}" />
@@ -108,7 +106,6 @@ namespace TheXDS.MCART.Types
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la estructura
         /// <see cref="Range{T}" />
@@ -139,7 +136,7 @@ namespace TheXDS.MCART.Types
         /// </param>
         public Range(T minimum, T maximum, bool minInclusive, bool maxInclusive)
         {
-            if (minimum.CompareTo(maximum) > 0) throw new ArgumentOutOfRangeException();
+            if (minimum.CompareTo(maximum) > 0) throw new ArgumentException(St.ErrMinMax);
             _minimum = minimum;
             _maximum = maximum;
             MinInclusive = minInclusive;
@@ -232,7 +229,7 @@ namespace TheXDS.MCART.Types
         /// <returns></returns>
         public Range<T> Join(IRange<T> other)
         {
-            return new Range<T>(new[] { Minimum, other.Minimum }.Min(), new[] { Maximum, other.Maximum }.Max());
+            return new Range<T>(new[] { Minimum, other.Minimum }.Min()!, new[] { Maximum, other.Maximum }.Max()!);
         }
 
         /// <summary>
@@ -244,7 +241,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public Range<T> Intersect(IRange<T> other)
         {
-            return new Range<T>(new[] { Minimum, other.Minimum }.Max(), new[] { Maximum, other.Maximum }.Min());
+            return new Range<T>(new[] { Minimum, other.Minimum }.Max()!, new[] { Maximum, other.Maximum }.Min()!);
         }
 
         /// <summary>

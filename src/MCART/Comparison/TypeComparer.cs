@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -37,7 +37,7 @@ namespace TheXDS.MCART.Comparison
     /// <summary>
     /// Compara el tipo de dos objetos que comparten un tipo base común.
     /// </summary>
-    public class TypeComparer<T> : IEqualityComparer<T>
+    public class TypeComparer<T> : IEqualityComparer<T> where T : notnull
     {
         /// <summary>
         /// Determina si los objetos especificados son iguales.

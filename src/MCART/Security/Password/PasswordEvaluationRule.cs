@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -49,13 +49,11 @@ namespace TheXDS.MCART.Security.Password
         /// </summary>
         public bool IsExtraPoints { get; set; }
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene el nombre de esta regla de evaluación.
         /// </summary>
         public string Name { get; }
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene una descripción de esta regla de evaluación.
         /// </summary>
@@ -101,7 +99,6 @@ namespace TheXDS.MCART.Security.Password
             return k;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="T:TheXDS.MCART.Security.Password.PasswordEvaluationRule" />.
@@ -110,7 +107,6 @@ namespace TheXDS.MCART.Security.Password
         /// <param name="name">Nombre de la regla.</param>
         public PasswordEvaluationRule(PwEvalFunc evalFunc, string name) : this(evalFunc, name, null, PonderationLevel.Normal, true, false) { }
         
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="T:TheXDS.MCART.Security.Password.PasswordEvaluationRule" />.
@@ -120,7 +116,6 @@ namespace TheXDS.MCART.Security.Password
         /// <param name="description">Descripción de la regla.</param>
         public PasswordEvaluationRule(PwEvalFunc evalFunc, string name, string description) : this(evalFunc, name, description, PonderationLevel.Normal, true, false) { }
         
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="T:TheXDS.MCART.Security.Password.PasswordEvaluationRule" />.
@@ -131,7 +126,6 @@ namespace TheXDS.MCART.Security.Password
         /// <param name="description">Descripción de la regla.</param>
         public PasswordEvaluationRule(PwEvalFunc evalFunc, string name, string? description, in PonderationLevel ponderation) : this(evalFunc, name, description, ponderation, true, false) { }
         
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="T:TheXDS.MCART.Security.Password.PasswordEvaluationRule" />.
@@ -145,7 +139,6 @@ namespace TheXDS.MCART.Security.Password
         /// </param>
         public PasswordEvaluationRule(PwEvalFunc evalFunc, string name, string description, in bool defaultEnable) : this(evalFunc, name, description, PonderationLevel.Normal, defaultEnable, false) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="T:TheXDS.MCART.Security.Password.PasswordEvaluationRule" />.
@@ -163,7 +156,6 @@ namespace TheXDS.MCART.Security.Password
         /// </param>
         public PasswordEvaluationRule(PwEvalFunc evalFunc, string name, string description, in bool defaultEnable, in bool isExtra) : this(evalFunc, name, description, PonderationLevel.Normal, defaultEnable, isExtra) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="T:TheXDS.MCART.Security.Password.PasswordEvaluationRule" />.
@@ -173,7 +165,6 @@ namespace TheXDS.MCART.Security.Password
         /// <param name="ponderation">Ponderación a aplicar.</param>
         public PasswordEvaluationRule(PwEvalFunc evalFunc, string name, in PonderationLevel ponderation) : this(evalFunc, name, null, ponderation, true, false) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="T:TheXDS.MCART.Security.Password.PasswordEvaluationRule" />.
@@ -187,7 +178,6 @@ namespace TheXDS.MCART.Security.Password
         /// </param>
         public PasswordEvaluationRule(PwEvalFunc evalFunc, string name, in PonderationLevel ponderation, in bool defaultEnable) : this(evalFunc, name, null, ponderation, defaultEnable, false) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="T:TheXDS.MCART.Security.Password.PasswordEvaluationRule" />.
@@ -205,7 +195,6 @@ namespace TheXDS.MCART.Security.Password
         /// </param>
         public PasswordEvaluationRule(PwEvalFunc evalFunc, string name, in PonderationLevel ponderation, in bool defaultEnable, in bool isExtra) : this(evalFunc, name, null, ponderation, defaultEnable, isExtra) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="T:TheXDS.MCART.Security.Password.PasswordEvaluationRule" />.
@@ -218,7 +207,6 @@ namespace TheXDS.MCART.Security.Password
         /// </param>
         public PasswordEvaluationRule(PwEvalFunc evalFunc, string name, in bool defaultEnable) : this(evalFunc, name, null, PonderationLevel.Normal, defaultEnable, false) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="T:TheXDS.MCART.Security.Password.PasswordEvaluationRule" />.
@@ -265,7 +253,6 @@ namespace TheXDS.MCART.Security.Password
             IsExtraPoints = isExtra;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="T:TheXDS.MCART.Security.Password.PasswordEvaluationRule" />.
@@ -274,7 +261,6 @@ namespace TheXDS.MCART.Security.Password
         /// <param name="name">Nombre de la regla.</param>
         public PasswordEvaluationRule(PwEvalFunc evalFunc, in NameAttribute name) : this(evalFunc, name, null, null, null, null) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="T:TheXDS.MCART.Security.Password.PasswordEvaluationRule" />.
@@ -284,7 +270,6 @@ namespace TheXDS.MCART.Security.Password
         /// <param name="description">Descripción de la regla.</param>
         public PasswordEvaluationRule(PwEvalFunc evalFunc, in NameAttribute name, in DescriptionAttribute description) : this(evalFunc, name, description, null, null, null) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="T:TheXDS.MCART.Security.Password.PasswordEvaluationRule" />.
@@ -295,7 +280,6 @@ namespace TheXDS.MCART.Security.Password
         /// <param name="description">Descripción de la regla.</param>
         public PasswordEvaluationRule(PwEvalFunc evalFunc, in NameAttribute name, in DescriptionAttribute description, in PonderationAttribute ponderation) : this(evalFunc, name, description, ponderation, null, null) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="T:TheXDS.MCART.Security.Password.PasswordEvaluationRule" />.
@@ -309,7 +293,6 @@ namespace TheXDS.MCART.Security.Password
         /// </param>
         public PasswordEvaluationRule(PwEvalFunc evalFunc, in NameAttribute name, in DescriptionAttribute description, in DefaultEnableAttribute defaultEnable) : this(evalFunc, name, description, null, defaultEnable, null) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="T:TheXDS.MCART.Security.Password.PasswordEvaluationRule" />.
@@ -327,7 +310,6 @@ namespace TheXDS.MCART.Security.Password
         /// </param>
         public PasswordEvaluationRule(PwEvalFunc evalFunc, in NameAttribute name, in DescriptionAttribute description, in DefaultEnableAttribute defaultEnable, in ExtraPointsAttribute isExtra) : this(evalFunc, name, description, null, defaultEnable, isExtra) { }
         
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="T:TheXDS.MCART.Security.Password.PasswordEvaluationRule" />.
@@ -337,7 +319,6 @@ namespace TheXDS.MCART.Security.Password
         /// <param name="ponderation">Ponderación a aplicar.</param>
         public PasswordEvaluationRule(PwEvalFunc evalFunc, in NameAttribute name, in PonderationAttribute ponderation) : this(evalFunc, name, null, ponderation, null, null) { }
         
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="T:TheXDS.MCART.Security.Password.PasswordEvaluationRule" />.
@@ -351,7 +332,6 @@ namespace TheXDS.MCART.Security.Password
         /// </param>
         public PasswordEvaluationRule(PwEvalFunc evalFunc, in NameAttribute name, in PonderationAttribute ponderation, in DefaultEnableAttribute defaultEnable) : this(evalFunc, name, null, ponderation, defaultEnable, null) { }
         
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="T:TheXDS.MCART.Security.Password.PasswordEvaluationRule" />.
@@ -369,7 +349,6 @@ namespace TheXDS.MCART.Security.Password
         /// </param>
         public PasswordEvaluationRule(PwEvalFunc evalFunc, in NameAttribute name, in PonderationAttribute ponderation, in DefaultEnableAttribute defaultEnable, in ExtraPointsAttribute isExtra) : this(evalFunc, name, null, ponderation, defaultEnable, isExtra) { }
         
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="T:TheXDS.MCART.Security.Password.PasswordEvaluationRule" />.
@@ -382,7 +361,6 @@ namespace TheXDS.MCART.Security.Password
         /// </param>
         public PasswordEvaluationRule(PwEvalFunc evalFunc, in NameAttribute name, in DefaultEnableAttribute defaultEnable) : this(evalFunc, name, null, null, defaultEnable, null) { }
         
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="T:TheXDS.MCART.Security.Password.PasswordEvaluationRule" />.
@@ -429,7 +407,6 @@ namespace TheXDS.MCART.Security.Password
             IsExtraPoints = !(isExtra is null);
         }
        
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="T:TheXDS.MCART.Security.Password.PasswordEvaluationRule" />.

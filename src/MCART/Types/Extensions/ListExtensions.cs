@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -149,7 +149,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </typeparam>
         /// <param name="c"><see cref="IList{T}" /> a desordenar.</param>
         /// <param name="deepness">
-        /// Profundidad del desorden. 1 es el valor m�s alto.
+        /// Profundidad del desorden. 1 es el valor más alto.
         /// </param>
         /// <exception cref="ArgumentNullException">
         /// Se produce si <paramref name="c" /> es <see langword="null" />.

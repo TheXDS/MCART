@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -41,18 +41,17 @@ namespace TheXDS.MCART.Resources
         /// <summary>
         /// Obtiene una referencia a una licencia no encontrada.
         /// </summary>
-        public static License MissingLicense => _missing ?? (_missing = new License(LicenseNotFound, null));
+        public static License MissingLicense => _missing ??= new License(LicenseNotFound, null);
 
         /// <summary>
         /// Obtiene una referencia a un objeto sin licencia.
         /// </summary>
-        public static License NoLicense => _noLicense ?? (_noLicense = new License(Strings.NoLicense, null));
+        public static License NoLicense => _noLicense ??= new License(Strings.NoLicense, null);
         
         /// <summary>
         /// Obtiene una referencia a un objeto con licencia no definida.
         /// </summary>
-        public static License Unspecified => _unspec ?? (_unspec = new License(UnspecifiedLicense, null));
-
+        public static License Unspecified => _unspec ??= new License(UnspecifiedLicense, null);
 
         /// <summary>
         /// Obtiene el nombre descriptivo de la licencia.

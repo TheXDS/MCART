@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -24,13 +24,13 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
-using St = TheXDS.MCART.Resources.Strings;
-using Ist = TheXDS.MCART.Resources.InternalStrings;
-using static TheXDS.MCART.Types.Extensions.DictionaryExtensions;
-using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
+using TheXDS.MCART.Attributes;
+using static TheXDS.MCART.Types.Extensions.DictionaryExtensions;
+using Ist = TheXDS.MCART.Resources.InternalStrings;
 
 namespace TheXDS.MCART.Types.Base
 {
@@ -41,7 +41,7 @@ namespace TheXDS.MCART.Types.Base
     /// </summary>
     public abstract class NotifyPropertyChangeBase : INotifyPropertyChangeBase
     {
-        private readonly IDictionary<string, ICollection<string>> _observeRegistry
+        private readonly IDictionary<string, ICollection<string>> _observeTree
             = new Dictionary<string, ICollection<string>>();
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace TheXDS.MCART.Types.Base
         /// </summary>
         protected NotifyPropertyChangeBase()
         {
-            ObserveRegistry = new ReadOnlyDictionary<string, ICollection<string>>(_observeRegistry);
+            ObserveTree = new ReadOnlyDictionary<string, ICollection<string>>(_observeTree);
         }
 
         /// <summary>
@@ -65,16 +65,16 @@ namespace TheXDS.MCART.Types.Base
         /// </param>
         protected void RegisterPropertyChangeBroadcast(string property, params string[] affectedProperties)
         {
-            if (_observeRegistry.CheckCircularRef(property))
+            if (_observeTree.CheckCircularRef(property))
                 throw new InvalidOperationException(Ist.ErrorCircularOperationDetected);
 
-            if (_observeRegistry.ContainsKey(property))
+            if (_observeTree.ContainsKey(property))
             {
                 foreach (var j in affectedProperties)
-                    _observeRegistry[property].Add(j);
+                    _observeTree[property].Add(j);
             }
             else
-                _observeRegistry.Add(property, new HashSet<string>(affectedProperties));
+                _observeTree.Add(property, new HashSet<string>(affectedProperties));
         }
 
         /// <summary>
@@ -115,15 +115,14 @@ namespace TheXDS.MCART.Types.Base
         /// </param>
         protected void UnregisterPropertyChangeBroadcast(string property)
         {
-            if (_observeRegistry.ContainsKey(property))
-                _observeRegistry.Remove(property);
+            if (_observeTree.ContainsKey(property))
+                _observeTree.Remove(property);
         }
 
         /// <summary>
-        /// Obtiene el registro de broadcast de notificaciones de cambio de
-        /// propiedad.
+        /// Obtiene el árbol de notificaciones de cambio de propiedad.
         /// </summary>
-        protected IReadOnlyDictionary<string, ICollection<string>> ObserveRegistry { get; }
+        protected IReadOnlyDictionary<string, ICollection<string>> ObserveTree { get; }
 
         /// <summary>
         /// Notifica desde un punto externo el cambio en el valor de un
@@ -143,18 +142,18 @@ namespace TheXDS.MCART.Types.Base
         /// <param name="property">
         /// Propiedad a notificar.
         /// </param>
-        protected abstract void Notify(string property);
+        public abstract void Notify(string property);
 
         /// <summary>
         /// Ejecuta una propagación de notificación según el registro
         /// integrado de notificaciones suscritas.
         /// </summary>
-        /// <param name="property"></param>
+        /// <param name="property">Propiedad a notificar.</param>
         protected void NotifyRegistroir(string property)
         {
-            if (_observeRegistry.ContainsKey(property))
+            if (_observeTree.ContainsKey(property))
             {
-                foreach (var j in _observeRegistry[property])
+                foreach (var j in _observeTree[property])
                 {
                     Notify(j);
                 }
@@ -230,6 +229,7 @@ namespace TheXDS.MCART.Types.Base
         /// <see langword="true"/> si el valor de la propiedad ha
         /// cambiado, <see langword="false"/> en caso contrario.
         /// </returns>
+        [NpcChangeInvocator]
         protected abstract bool Change<T>(ref T field, T value, [CallerMemberName] string propertyName = null!);
     }
 }

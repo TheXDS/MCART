@@ -1,5 +1,6 @@
 ﻿using System;
 using TheXDS.MCART.Cmd;
+using TheXDS.MCART.Cmd.Base;
 using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.Component;
 

@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -22,14 +22,12 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Component;
 using TheXDS.MCART.Resources;
-using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.ViewModel;
@@ -43,11 +41,10 @@ namespace TheXDS.MCART.Dialogs.ViewModel
     /// <typeparam name="T">
     /// Tipo de elemento para el cual mostrar detalles.
     /// </typeparam>
-    public abstract class AboutPageViewModelBase<T> : ViewModelBase, IExposeExtendedInfo, INameable, IDescriptible where T : IExposeExtendedInfo, IExposeAssembly
+    public abstract class AboutPageViewModelBase<T> : ViewModelBase, IExposeExtendedInfo, INameable, IDescriptible where T : notnull, IExposeExtendedInfo, IExposeAssembly
     {
         private T _element = default!;
         private bool _showAboutMcart = true;
-        private bool _showPluginInfo;
 
         /// <summary>
         /// Obtiene o establece un valor que indica si el
@@ -60,12 +57,6 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// más información sobre MCART.
         /// </summary>
         public SimpleCommand AboutMcartCommand { get; }
-
-        /// <summary>
-        /// Obtiene un comando a ejecutar cuando el usuario desea obtener
-        /// más información sobre los plugins de la aplicación.
-        /// </summary>
-        public SimpleCommand PluginInfoCommand { get; }
 
         /// <summary>
         /// Obtiene un comando a ejecutar cuando el usuario desea obtener
@@ -87,7 +78,6 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         protected AboutPageViewModelBase()
         {
             AboutMcartCommand = new SimpleCommand(OnAboutMcart, false);
-            PluginInfoCommand = new SimpleCommand(OnPluginInfo, false);
             LicenseCommand = new SimpleCommand(OnLicense, false);
             ThidPartiLicensesCommand = new SimpleCommand(On3rdPartyLicenses, false);
             RegisterPropertyChangeBroadcast(nameof(Element), new[] {
@@ -101,7 +91,6 @@ namespace TheXDS.MCART.Dialogs.ViewModel
                     nameof(McartComponentKind),
                     nameof(Name),
                     nameof(ShowAboutMcart),
-                    nameof(ShowPluginInfo),
                     nameof(Version),
                     nameof(InformationalVersion),
                     nameof(ThirdPartyLicenses),
@@ -109,7 +98,6 @@ namespace TheXDS.MCART.Dialogs.ViewModel
                     nameof(Unmanaged)
                 });
         }
-
 
         /// <summary>
         /// Obtiene al autor del <see cref="IExposeInfo"/> para el cual se
@@ -163,7 +151,6 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         protected virtual void OnElementChanged()
         {
             AboutMcartCommand.SetCanExecute(!IsMcart);
-            PluginInfoCommand.SetCanExecute(ShowPluginInfo);
             LicenseCommand.SetCanExecute(HasLicense);
             ThidPartiLicensesCommand.SetCanExecute(Has3rdPartyLicense);
         }
@@ -191,16 +178,6 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         }
 
         /// <summary>
-        /// Obtiene o establece un valor que indica si debe mostrarse un
-        /// vínculo al explorador de plugins de MCART.
-        /// </summary>
-        public bool ShowPluginInfo
-        {
-            get => _showPluginInfo;
-            set => Change(ref _showPluginInfo, value);
-        }
-
-        /// <summary>
         /// Obtiene la versión del <see cref="IExposeInfo"/> para el cual
         /// se presentan los detalles.
         /// </summary>
@@ -210,7 +187,6 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// Obtiene una cadena que describe el tipo de componente que un ensamblado de MCART es.
         /// </summary>
         public string? McartComponentKind => Element?.Assembly?.GetAttr<McartComponentAttribute>()?.Kind.NameOf();
-
 
         /// <summary>
         /// Obtiene la versión informacional de este
@@ -247,13 +223,10 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// Ejecuta la acción de mostrar información adicional sobre la
         /// licencia del programa.
         /// </summary>
-        protected abstract void OnLicense();
-
-        /// <summary>
-        /// Ejecuta la acción de mostrar información adicional sobre los
-        /// plugins de la aplicación.
-        /// </summary>
-        protected abstract void OnPluginInfo();
+        protected virtual void OnLicense()
+        {
+            if (License is { LicenseUri: Uri uri }) Process.Start(uri.ToString());
+        }
 
         /// <summary>
         /// Ejecuta la acción de mostrar más información sobre MCART.

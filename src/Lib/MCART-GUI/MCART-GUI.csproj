@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">  
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;netstandard2.1</TargetFrameworks>
+    <TargetFramework>net5.0</TargetFramework>
     <Description>MCART GUI Core</Description>
     <AssemblyName>MCART.GUI</AssemblyName>
   </PropertyGroup>  
@@ -13,5 +13,8 @@
     <EmbeddedResource Include="Resources\Icons\MCARTPlugin.png" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
 
+  </ItemGroup>  
+  <ItemGroup>
+    <ProjectReference Include="..\MCART-UI\MCART-UI.csproj" />
   </ItemGroup>
 </Project>

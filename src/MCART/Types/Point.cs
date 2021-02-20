@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -23,6 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Types.Base;
 using static System.Math;
@@ -435,7 +436,6 @@ namespace TheXDS.MCART.Types
             return ang;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Compara la igualdad de los vectores de los puntos.
         /// </summary>
@@ -583,7 +583,6 @@ namespace TheXDS.MCART.Types
             return Sqrt(x * x + y * y);
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Convierte este objeto en su representación como una cadena.
         /// </summary>
@@ -659,7 +658,6 @@ namespace TheXDS.MCART.Types
             return ToString(null);
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Compara la igualdad de los vectores.
         /// </summary>
@@ -670,9 +668,9 @@ namespace TheXDS.MCART.Types
         /// <see langword="true" /> si todos los vectores de ambos objetos
         /// son iguales, <see langword="false" /> en caso contrario.
         /// </returns>
-        public bool Equals(I2DVector other)
+        public bool Equals([AllowNull] I2DVector other)
         {
-            return this == other;
+            return other is {} o && this == o;
         }
 
         /// <summary>

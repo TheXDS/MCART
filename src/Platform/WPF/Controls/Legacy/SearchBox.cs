@@ -6,7 +6,7 @@
 //  Author:
 //       César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
-//  Copyright © 2011 - 2019 César Andrés Morgan
+//  Copyright © 2011 - 2021 César Andrés Morgan
 //
 //  Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -32,6 +32,7 @@ using System.Windows.Data;
 using TheXDS.MCART.Resources;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using St = TheXDS.MCART.Resources.Strings;
+using TheXDS.MCART.ValueConverters;
 
 namespace TheXDS.MCART.Controls
 {
@@ -44,28 +45,33 @@ namespace TheXDS.MCART.Controls
         /// <summary>
         /// Se produce cuando se ha conectado a un <see cref="CollectionView"/>.
         /// </summary>
-        public event EventHandler<ValueEventArgs<CollectionView>> AttachedToView;
+        public event EventHandler<ValueEventArgs<CollectionView>>? AttachedToView;
+
         /// <summary>
         /// Se produce cuando se ha introducido texto en el cuadro de búsqueda.
         /// </summary>
-        public event EventHandler<ValueEventArgs<string>> SearchEntered;
+        public event EventHandler<ValueEventArgs<string>>? SearchEntered;
+
         /// <summary>
         /// Se produce cuando se ha cerrado la búsqueda.
         /// </summary>
-        public event EventHandler SearchClosed;
-        static Type T = typeof(SearchBox);
+        public event EventHandler? SearchClosed;
+
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="HasSearch"/>.
         /// </summary>
-        public static DependencyProperty HasSearchProperty = DependencyProperty.Register(nameof(HasSearch), typeof(bool), T, new PropertyMetadata(true));
+        public static readonly DependencyProperty HasSearchProperty = DependencyProperty.Register(nameof(HasSearch), typeof(bool), typeof(SearchBox), new PropertyMetadata(true));
+
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="Search"/>.
         /// </summary>
-        public static DependencyProperty SearchProperty = DependencyProperty.Register(nameof(Search), typeof(string), T, new PropertyMetadata(string.Empty));
+        public static readonly DependencyProperty SearchProperty = DependencyProperty.Register(nameof(Search), typeof(string), typeof(SearchBox), new PropertyMetadata(string.Empty));
+
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="SearchWatermark"/>.
         /// </summary>
-        public static DependencyProperty SearchWatermarkProperty = DependencyProperty.Register(nameof(SearchWatermark), typeof(string), T, new PropertyMetadata(St.Search));
+        public static readonly DependencyProperty SearchWatermarkProperty = DependencyProperty.Register(nameof(SearchWatermark), typeof(string), typeof(SearchBox), new PropertyMetadata(St.Search));
+
         /// <summary>
         /// Obtiene o establece si se mostrará el cuadro de búsqueda
         /// </summary>
@@ -74,34 +80,38 @@ namespace TheXDS.MCART.Controls
         {
             get => (bool)GetValue(HasSearchProperty); set => SetValue(HasSearchProperty, value);
         }
+
         /// <summary>
         /// Obtiene o establece el valor actual del cuadro de búsqueda.
-        /// </summary>        
+        /// </summary>
         public string Search
         {
             get => (string)GetValue(SearchProperty); set => txtSearch.Text = value;
         }
+
         /// <summary>
         /// Obtiene o establece la marca de agua a mostrar en el cuadro de búsqueda
-        /// </summary>        
+        /// </summary>
         public string SearchWatermark
         {
             get => (string)GetValue(SearchWatermarkProperty); set => SetValue(SearchWatermarkProperty, value);
         }
-        BindingListCollectionView view = null;
-        List<string> flts = new List<string>();
-        TextBox txtSearch = new TextBox()
+
+        BindingListCollectionView? view = null;
+        private readonly List<string> flts = new List<string>();
+        private readonly TextBox txtSearch = new TextBox()
         {
             // Este control es transparente
             // para poder mostrar el texto en
             // marca de agua.            
             Background = null
         };
-        Button btnClseSearch = new Button()
+        private readonly Button btnClseSearch = new Button()
         {
             Width = 24,
             Content = "X"
         };
+
         /// <summary>
         /// Inicializa la clase <see cref="SearchBox"/>.
         /// </summary>
@@ -109,6 +119,7 @@ namespace TheXDS.MCART.Controls
         {
             BackgroundProperty.OverrideMetadata(typeof(SearchBox), new FrameworkPropertyMetadata(SystemColors.WindowBrush));
         }
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="SearchBox"/>.
         /// </summary>
@@ -146,7 +157,9 @@ namespace TheXDS.MCART.Controls
             btnClseSearch.Click += CnclSrch;
             txtSearch.TextChanged += TxtSearch_TextChanged;
         }
+
         void CnclSrch(object sender, RoutedEventArgs e) => txtSearch.Clear();
+
         string GenFilters(string s)
         {
             var x = new StringBuilder();
@@ -157,6 +170,7 @@ namespace TheXDS.MCART.Controls
             }
             return x.ToString();
         }
+
         void TxtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (txtSearch.Text.IsEmpty())
@@ -180,6 +194,7 @@ namespace TheXDS.MCART.Controls
                 SearchEntered?.Invoke(this, new ValueEventArgs<string>(txtSearch.Text));
             }
         }
+
         /// <summary>
         /// Conecta un <see cref="BindingListCollectionView"/> para ser
         /// controlado automáticamente por este control.
@@ -191,7 +206,7 @@ namespace TheXDS.MCART.Controls
         /// Si <see cref="HasSearch"/> es <see langword="true"/>, establece los campos
         /// necesarios para realizar búsquedas.
         /// </param>
-        public void AttachView(BindingListCollectionView cv, string[] searchFields = null)
+        public void AttachView(BindingListCollectionView cv, string[]? searchFields = null)
         {
             if (!(view is null)) flts.Clear();
             if (HasSearch && !(searchFields is null)) flts.AddRange(searchFields);
@@ -200,6 +215,7 @@ namespace TheXDS.MCART.Controls
             txtSearch.Text = string.Empty;
             AttachedToView?.Invoke(this, new ValueEventArgs<CollectionView>(cv));
         }
+
         /// <summary>
         /// Libera la conexión de <see cref="BindingListCollectionView"/>
         /// </summary>

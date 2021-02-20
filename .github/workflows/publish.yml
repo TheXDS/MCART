@@ -1,0 +1,31 @@
+name: "Publish MCART"
+on:
+  release:
+    types:
+      - created
+jobs:
+  test:
+    runs-on: windows-latest
+    env:
+      Solution_Name: src/MCART.sln
+      Configuration: Release
+      Version: 
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Get tag name
+      uses: olegtarasov/get-tag@v2.1
+    - name: Create NuGet Packages
+      run: dotnet pack $env:Solution_Name --configuration=$env:Configuration --p:version=$env:GIT_TAG_NAME
+    - name: Push packages to GitHub
+      run: dotnet nuget push "Build/**/*.nupkg" -k $env:GhToken --skip-duplicate --source "https://nuget.pkg.github.com/TheXDS/"
+      env:
+        GhToken: ${{ secrets.GITHUB_TOKEN }}
+    - name: Push packages to NuGet
+      run: dotnet nuget push "Build/**/*.nupkg" -k $env:NgToken --skip-duplicate
+      env:
+        NgToken: ${{ secrets.NUGET_TOKEN }}

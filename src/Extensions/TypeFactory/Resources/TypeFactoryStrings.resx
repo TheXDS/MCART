@@ -117,7 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ErrIFaceMethodExpected" xml:space="preserve">
+    <value>Se esperaba una definición de método desde una interfaz.</value>
+  </data>
   <data name="ErrIfaceNotImpl" xml:space="preserve">
     <value>El tipo no implementa la interfaz '{0}'.</value>
+  </data>
+  <data name="ErrPropCannotBeRead" xml:space="preserve">
+    <value>La propiedad no contiene accesor de lectura.</value>
+  </data>
+  <data name="ErrPropFieldAlreadyDefined" xml:space="preserve">
+    <value>Ya se ha definido un campo de almacenamiento para la propiedad.</value>
+  </data>
+  <data name="ErrPropGetterAlreadyDefined" xml:space="preserve">
+    <value>Ya se ha definido un Getter para la propiedad.</value>
+  </data>
+  <data name="ErrPropSetterAlreadyDefined" xml:space="preserve">
+    <value>Ya se ha definido un Setter para la propiedad.</value>
+  </data>
+  <data name="TypeBuilderTypeMismatch" xml:space="preserve">
+    <value>Los tipos del TypeBuilder especificado con tipo base {0} y el tipo base explícito '{1}' no coinciden. Se requiere un tipo que herede/implemente {1}.</value>
   </data>
 </root>

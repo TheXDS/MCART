@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -51,7 +51,7 @@ namespace TheXDS.MCART.Types.Base
         /// <see cref="StreamUriParser"/> capaz de manejar el 
         /// <see cref="Uri"/>.
         /// </returns>
-        public static StreamUriParser Infer(Uri uri)
+        public static StreamUriParser? Infer(Uri uri)
         {
             return Infer<StreamUriParser>(uri);
         }
@@ -68,7 +68,7 @@ namespace TheXDS.MCART.Types.Base
         [Sugar]
         public static Stream? Get(Uri uri)
         {
-            return Infer(uri).GetStream(uri);
+            return Infer(uri)?.GetStream(uri);
         }
 
         /// <summary>
@@ -83,9 +83,8 @@ namespace TheXDS.MCART.Types.Base
         [Sugar]
         public static Task<Stream?> GetAsync(Uri uri)
         {
-            return Infer(uri).GetStreamAsync(uri);
+            return Infer(uri)?.GetStreamAsync(uri) ?? Task.FromResult<Stream?>(null);
         }
-
 
         /// <summary>
         /// Obtiene el <see cref="StreamUriParser"/> apropiado para manejar
@@ -105,7 +104,7 @@ namespace TheXDS.MCART.Types.Base
         /// <see cref="StreamUriParser"/> capaz de manejar el 
         /// <see cref="Uri"/>.
         /// </returns>
-        public static T Infer<T>(Uri uri) where T : class, IStreamUriParser
+        public static T? Infer<T>(Uri uri) where T : class, IStreamUriParser
         {
             return Objects.FindAllObjects<T>().FirstOrDefault(p => p.Handles(uri));
         }

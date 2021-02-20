@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -22,12 +22,12 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using TheXDS.MCART.Math;
-using System.Windows.Media;
-using B = System.Windows.Media.Brush;
-using D = System.Windows.Media.Color;
-using C = TheXDS.MCART.Types.Color;
 using System.Linq;
+using System.Windows.Media;
+using TheXDS.MCART.Math;
+using B = System.Windows.Media.Brush;
+using C = TheXDS.MCART.Types.Color;
+using D = System.Windows.Media.Color;
 
 namespace TheXDS.MCART.Types.Extensions
 {
@@ -75,7 +75,6 @@ namespace TheXDS.MCART.Types.Extensions
                 c.Color.ScA.Clamp(0.0f, 1.0f));
         }
 
-
         /// <summary>
         /// Convierte una estructura <see cref="C"/> en un
         /// <see cref="B"/>.
@@ -103,6 +102,5 @@ namespace TheXDS.MCART.Types.Extensions
         {
             return C.Blend(g.GradientStops.Select(p => ToMcartColor(p.Color)));
         }
-
     }
 }

@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -26,7 +26,6 @@ using System;
 
 namespace TheXDS.MCART.Types.Converters
 {
-    /// <inheritdoc />
     /// <summary>
     /// Clase base para los convertidores de valor que permitan obtener
     /// objetos de tipo <see cref="Range{T}" /> a partir de una cadena.
@@ -36,7 +35,6 @@ namespace TheXDS.MCART.Types.Converters
     /// </typeparam>
     public abstract class RangeConverter<T> : BasicParseConverter<Range<T>> where T : IComparable<T>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Ejecuta la conversión de la cadena al tipo de este
         /// <see cref="BasicParseConverter{T}" />.

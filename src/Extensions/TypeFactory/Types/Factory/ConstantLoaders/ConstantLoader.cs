@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -50,9 +50,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// Valor constante a cargar. Debe ser de tipo 
         /// <typeparamref name="T"/>.
         /// </param>
-        public void Emit(ILGenerator il, object value)
+        public void Emit(ILGenerator il, object? value)
         {
-            Emit(il, (T)value);
+            Emit(il, (T)value!);
         }
 
         /// <summary>
@@ -80,9 +80,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// permiten cargar el mismo tipo de valores,
         /// <see langword="false"/> en caso contrario.
         /// </returns>
-        public bool Equals(IConstantLoader other)
+        public bool Equals(IConstantLoader? other)
         {
-            return ConstantType.Equals(other.ConstantType);
+            return other is {ConstantType: Type o} && ConstantType.Equals(o);
         }
     }
 }

@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2020 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -31,7 +31,7 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
     /// Serializador de datos que opera sobre objetos de tipo
     /// <see cref="Point"/>.
     /// </summary>
-    public sealed class PointSerializer : DataSerializer<Point>
+    public sealed class PointSerializer : IDataSerializer<Point>
     {
         /// <summary>
         /// Obtiene un <see cref="Point"/> desde el
@@ -46,7 +46,7 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
         /// información binaria leída desde el <see cref="BinaryReader"/>
         /// especificado.
         /// </returns>
-        protected override Point Read(BinaryReader reader)
+        public Point Read(BinaryReader reader)
         {
             return new Point(reader.ReadDouble(), reader.ReadDouble());
         }
@@ -62,11 +62,10 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
         /// <see cref="BinaryWriter"/> a utilizar para escribir los datos
         /// binarios serializados.
         /// </param>
-        protected override void Write(Point value, BinaryWriter writer)
+        public void Write(Point value, BinaryWriter writer)
         {
             writer.Write(value.X);
             writer.Write(value.Y);
         }
     }
-
 }

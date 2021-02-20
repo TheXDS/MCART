@@ -1,12 +1,12 @@
 ﻿/*
-Point.cs
+Size.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -56,7 +56,7 @@ namespace TheXDS.MCART.Types.Entity
         /// <see langword="true"/> si los tamaños representados en ambos
         /// objetos son iguales, <see langword="false"/> en caso contrario.
         /// </returns>
-        public bool Equals(Size other) => this == other;
+        public bool Equals(Size? other) => other is {} o && this == o;
 
         /// <summary>
         /// Devuelve el código hash generado para esta instancia.

@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -22,10 +22,14 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System;
 using System.Reflection;
+using System.Windows;
+
+[assembly: ThemeInfo(
+    ResourceDictionaryLocation.None,
+    ResourceDictionaryLocation.SourceAssembly
+)]
 
 namespace TheXDS.MCART.Misc
 {
@@ -35,6 +39,7 @@ namespace TheXDS.MCART.Misc
         {
             return MakePackUri(path, ReflectionHelpers.GetCallingMethod()?.DeclaringType?.Assembly ?? throw new InvalidOperationException());
         }
+
         internal static Uri MkTemplateUri()
         {
             var t = ReflectionHelpers.GetCallingMethod()?.DeclaringType ?? throw new InvalidOperationException();
@@ -50,9 +55,10 @@ namespace TheXDS.MCART.Misc
         {
             return MakePackUri($"Resources/Templates/{template}Template.xaml", asm);
         }
+
         internal static Uri MkTemplateUri<T>()
         {
-            return MakePackUri($"Resources/Templates/{typeof(T).Name}Template.xaml", typeof(T).Assembly);
+            return MkTemplateUri(typeof(T).Name, typeof(T).Assembly);
         }
     }
 }

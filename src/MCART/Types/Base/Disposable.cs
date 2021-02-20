@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -30,11 +30,14 @@ using static System.Reflection.BindingFlags;
 
 namespace TheXDS.MCART.Types.Base
 {
-
     /// <summary>
     /// Clase base que simplifica la implementación de la interfaz
     /// <see cref="IDisposable"/>.
     /// </summary>
+    /// <remarks>
+    /// Si la clase a implementar contendrá acciones asíncronas de limpieza,
+    /// utilice la clase <see cref="AsyncDisposable"/> como clase base.
+    /// </remarks>
     public abstract class Disposable : IDisposableEx
     {
         private bool ShouldFinalize() => GetType().GetMethod(nameof(OnFinalize), Instance | NonPublic)!.IsOverride();

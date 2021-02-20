@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -30,14 +30,12 @@ using Ist = TheXDS.MCART.Resources.InternalStrings;
 
 namespace TheXDS.MCART.Attributes
 {
-    /// <inheritdoc />
     /// <summary>
     /// Establece un archivo de licencia externo a asociar con el elemento.
     /// </summary>
     [AttributeUsage(Class | Module | Assembly), Obsolete(Ist.UseLicUriInstead)]
     public sealed class LicenseFileAttribute : TextAttribute
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="LicenseFileAttribute" />.

@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -26,13 +26,11 @@ using System;
 
 namespace TheXDS.MCART.Attributes
 {
-    /// <inheritdoc cref="Attribute"/>
     /// <summary>
     /// Clase base para los atributos basados en valores booleanos.
     /// </summary>
     public abstract class BoolAttribute : Attribute, IValueAttribute<bool>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Crea una nueva isntancia de la clase
         /// <see cref="BoolAttribute" />.

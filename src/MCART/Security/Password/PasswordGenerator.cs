@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -29,7 +29,6 @@ using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Security.Password
 {
-    /// <inheritdoc />
     /// <summary>
     /// Clase base para un generador de contraseña de caracteres aleatorios.
     /// </summary>
@@ -60,7 +59,6 @@ namespace TheXDS.MCART.Security.Password
             return retval;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Genera una contraseña utilizando este generador.
         /// </summary>
@@ -84,7 +82,6 @@ namespace TheXDS.MCART.Security.Password
             _length = length;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Genera una contraseña utilizando este generador.
         /// </summary>

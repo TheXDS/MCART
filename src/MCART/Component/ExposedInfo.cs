@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using TheXDS.MCART.Resources;
+using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Component
 {
@@ -40,9 +41,15 @@ namespace TheXDS.MCART.Component
         /// Inicializa una nueva instancia de la clase
         /// <see cref="ExposedInfo"/>
         /// </summary>
-        /// <param name="source"></param>
+        /// <param name="source">
+        /// Objeto del cual se expondrá la información.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="source"/> es <see langword="null"/>.
+        /// </exception>
         public ExposedInfo(IExposeInfo source)
         {
+            NullCheck(source, nameof(source));
             _source = source;
         }
 

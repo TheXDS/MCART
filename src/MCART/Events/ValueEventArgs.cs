@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -26,7 +26,6 @@ using System;
 
 namespace TheXDS.MCART.Events
 {
-    /// <inheritdoc />
     /// <summary>
     /// Incluye información de evento para cualquier clase con eventos que
     /// incluyan tipos de valor.
@@ -46,9 +45,9 @@ namespace TheXDS.MCART.Events
         /// </param>
         public static implicit operator ValueEventArgs<T>(T value) => new ValueEventArgs<T>(value);
 
-        /// <inheritdoc />
         /// <summary>
-        /// Inicializa una nueva instancia de este objeto con el valor provisto.
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ValueEventArgs{T}"/> con el valor provisto.
         /// </summary>
         /// <param name="value">Valor asociado al evento generado.</param>
         public ValueEventArgs(T value)
@@ -66,14 +65,12 @@ namespace TheXDS.MCART.Events
         public T Value { get; }
     }
 
-    /// <inheritdoc />
     /// <summary>
     /// Incluye información de evento para cualquier clase con eventos que
     /// incluyan tipos de valor.
     /// </summary>
     public class ValueEventArgs : ValueEventArgs<object?>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de este objeto con el valor provisto.
         /// </summary>
@@ -81,5 +78,31 @@ namespace TheXDS.MCART.Events
         public ValueEventArgs(object? value) : base(value)
         {
         }
+    }
+
+    /// <summary>
+    /// Incluye información de evento para cualquier clase con eventos que
+    /// incluyan tipos de valor e información sobre si dicho evento debe ser
+    /// cancelado.
+    /// </summary>
+    /// <typeparam name="T">
+    /// Tipo del valor almacenado por esta instancia.
+    /// </typeparam>
+    public class CancelValueEventArgs<T> : ValueEventArgs<T>
+    {
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="CancelValueEventArgs{T}"/> con el valor provisto.
+        /// </summary>
+        /// <param name="value">Valor asociado al evento generado.</param>
+        public CancelValueEventArgs(T value) : base(value)
+        {
+        }
+
+        /// <summary>
+        /// Obtiene o establece un valor que indica si este evento debe ser
+        /// cancelado o no.
+        /// </summary>
+        public bool Cancel { get; set; }
     }
 }

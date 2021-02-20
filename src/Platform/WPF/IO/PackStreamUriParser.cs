@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -33,7 +33,7 @@ namespace TheXDS.MCART.IO
 {
     /// <summary>
     /// Traduce un URI de recursos incrustados (pack://) a un
-    /// <see cref="Stream"/> de lectura para el recurso.
+    /// <see cref="Stream"/> de lectura para un recurso incrustado.
     /// </summary>
     public class PackStreamUriParser : SimpleStreamUriParser
     {

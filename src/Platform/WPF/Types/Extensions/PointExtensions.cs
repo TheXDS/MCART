@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -40,7 +40,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>
         /// Un <see cref="P"/> equivalente al <see cref="M"/> especificado.
         /// </returns>
-        public static P Poindt(M x) => new P(x.X, x.Y);
+        public static P ToPoint(M x) => new P(x.X, x.Y);
         /// <summary>
         /// Convierte un <see cref="P"/> en un <see cref="M"/>.
         /// </summary>

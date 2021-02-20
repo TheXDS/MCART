@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -25,18 +25,16 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using TheXDS.MCART.Annotations;
+using TheXDS.MCART.Attributes;
 
 namespace TheXDS.MCART.Types.Base
 {
-    /// <inheritdoc cref="INotifyPropertyChanged"/>
     /// <summary>
     /// Clase base para los objetos que puedan notificar sobre el cambio
     /// del valor de una de sus propiedades.
     /// </summary>
     public abstract class NotifyPropertyChanged : NotifyPropertyChangeBase, INotifyPropertyChanged
     {
-        /// <inheritdoc />
         /// <summary>
         /// Ocurre cuando el valor de una propiedad ha cambiado.
         /// </summary>
@@ -46,7 +44,6 @@ namespace TheXDS.MCART.Types.Base
         /// Notifica a los clientes que el valor de una propiedad ha
         /// cambiado.
         /// </summary>
-        [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null!)
         {
             if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
@@ -70,7 +67,7 @@ namespace TheXDS.MCART.Types.Base
         /// <see langword="true"/> si el valor de la propiedad ha
         /// cambiado, <see langword="false"/> en caso contrario.
         /// </returns>
-        protected override sealed bool Change<T>(ref T field, T value, [CallerMemberName] string propertyName = null!)
+        protected override bool Change<T>(ref T field, T value, [CallerMemberName] string propertyName = null!)
         {
             if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
             if (field?.Equals(value) ?? Objects.AreAllNull(field, value)) return false;
@@ -85,7 +82,7 @@ namespace TheXDS.MCART.Types.Base
         /// <param name="property">
         /// Propiedad a notificar.
         /// </param>
-        protected override void Notify(string property)
+        public override void Notify(string property)
         {
             OnPropertyChanged(property);
         }

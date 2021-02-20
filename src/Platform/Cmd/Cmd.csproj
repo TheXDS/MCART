@@ -2,10 +2,16 @@
   <PropertyGroup>
     <Description>MCART for terminal applications Library</Description>
     <AssemblyName>MCART.Cmd</AssemblyName>
-    <TargetFrameworks>netcoreapp3.1;netstandard2.1</TargetFrameworks>
+    <TargetFramework>net5.0</TargetFramework>
     <OutputType>Library</OutputType>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MCART\MCART.csproj" />
+    <Compile Remove="Cmd\**" />
+    <EmbeddedResource Remove="Cmd\**" />
+    <None Remove="Cmd\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(SolutionDir)Lib\MCART-Cmd\MCART-Cmd.csproj" />
+    <ProjectReference Include="$(SolutionDir)MCART\MCART.csproj" />
   </ItemGroup>
 </Project>

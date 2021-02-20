@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -162,22 +162,22 @@ namespace TheXDS.MCART.Types
         {
             if (from.IsFormattedAs("#FFFFFFFF"))
             {
-                color = new ABGR32().From(int.Parse($"0x{from.Substring(1)}"));
+                color = new ABGR32().From(int.Parse($"0x{from[1..]}"));
                 return true;
             }
             if (from.IsFormattedAs("#FFFFFF"))
             {
-                color = (new BGR24()).From(int.Parse($"0x{from.Substring(1)}"));
+                color = new BGR24().From(int.Parse($"0x{from[1..]}"));
                 return true;
             }
             if (from.IsFormattedAs("#FFFF"))
             {
-                color = (new ABGR4444()).From(short.Parse($"0x{from.Substring(1)}"));
+                color = new ABGR4444().From(short.Parse($"0x{from[1..]}"));
                 return true;
             }
             if (from.IsFormattedAs("#FFF"))
             {
-                color = (new BGR12()).From(short.Parse($"0x{from.Substring(1)}"));
+                color = new BGR12().From(short.Parse($"0x{from[1..]}"));
                 return true;
             }
             var cName = typeof(Resources.Colors).GetProperty(from, typeof(Color));
@@ -219,7 +219,7 @@ namespace TheXDS.MCART.Types
         /// <returns>
         /// Un <see cref="Color"/> creado a partir del valor especificado.
         /// </returns>
-        public static Color From<T, TParser>(in T from) where T : struct where TParser : IColorParser<T>, new() => (new TParser()).From(from);
+        public static Color From<T, TParser>(in T from) where T : struct where TParser : IColorParser<T>, new() => new TParser().From(from);
 
         /// <summary>
         /// Convierte un <see cref="Color"/> en un valor de tipo
@@ -524,7 +524,6 @@ namespace TheXDS.MCART.Types
 #endif
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Determina si el <see cref="Color" /> especificado es igual al
         /// <see cref="Color" /> actual.
@@ -567,7 +566,6 @@ namespace TheXDS.MCART.Types
             };
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Compara este <see cref="Color" /> contra otro.
         /// </summary>
@@ -599,7 +597,7 @@ namespace TheXDS.MCART.Types
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return HashCode.Combine(_r, _g, _b, _a);
         }
 
         /// <summary>

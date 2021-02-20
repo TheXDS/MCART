@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -109,6 +109,23 @@ namespace TheXDS.MCART.Resources
         public const string EiB = "EiB";
         public const string ZiB = "ZiB";
         public const string YiB = "YiB";
+        public const string KBl = "Kilobytes";
+        public const string MBl = "Megabytes";
+        public const string GBl = "Gigabytes";
+        public const string TBl = "Terabytes";
+        public const string PBl = "Petabytes";
+        public const string EBl = "Exabytes";
+        public const string ZBl = "Zettabytes";
+        public const string YBl = "Yottabytes";
+        public const string KiBl = "Kibibytes";
+        public const string MiBl = "Mebibytes";
+        public const string GiBl = "Gibibytes";
+        public const string TiBl = "Tebibytes";
+        public const string PiBl = "Pebibytes";
+        public const string EiBl = "Ebibytes";
+        public const string ZiBl = "Zebibytes";
+        public const string YiBl = "Yobibtes";
+
 
         public const string ErrorShowingPluginInfo = "Error mostrando la información del plugin.";
         public const string LegacyComponent = "Este es un componente legado.";
@@ -123,7 +140,6 @@ namespace TheXDS.MCART.Resources
 
         public static string LegacyComponentUseInstead(object alternative) => $"{LegacyComponent} Utilice en su lugar {alternative}";
         public static string LegacyComponentUseInstead<T>() => LegacyComponentUseInstead(typeof(T));
-
 
         public const string UseLicUriInstead = "Utilice LicenseUriAttribute en su lugar.";
     }

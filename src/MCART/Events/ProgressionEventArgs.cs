@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -26,29 +26,27 @@ using System;
 
 namespace TheXDS.MCART.Events
 {
-    /// <inheritdoc />
     /// <summary>
     /// Incluye información de evento para cualquier clase con eventos que
     /// reporten el progreso de una operación.
     /// </summary>
     public class ProgressionEventArgs : ValueEventArgs<double>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de este objeto con los datos
         /// provistos.
         /// </summary>
         /// <param name="progress">
         /// Valor de progreso. Debe ser un <see cref="double" /> entre
-        /// <c>0.0</c> y <c>1.0</c>, o los valores <see cref="F:System.Double.NaN" />,
-        /// <see cref="F:System.Double.PositiveInfinity" /> o
-        /// <see cref="F:System.Double.NegativeInfinity" />.
+        /// <c>0.0</c> y <c>1.0</c>, o los valores <see cref="double.NaN" />,
+        /// <see cref="double.PositiveInfinity" /> o
+        /// <see cref="double.NegativeInfinity" />.
         /// </param>
         /// <param name="helpText">
         /// Parámetro opcional. Descripción del estado de progreso que generó el
         /// evento.
         /// </param>
-        /// <exception cref="T:System.ArgumentOutOfRangeException">
+        /// <exception cref="ArgumentOutOfRangeException">
         /// Se produce si <paramref name="progress" /> no en un valor entre <c>0.0</c>
         /// y <c>1.0</c>.
         /// </exception>
@@ -57,26 +55,24 @@ namespace TheXDS.MCART.Events
             if (progress > 1 || progress < 0) throw new ArgumentOutOfRangeException();
             HelpText = helpText;
         }
-        /// <inheritdoc />
+
         /// <summary>
         /// Inicializa una nueva instancia de este objeto con los datos
         /// provistos.
         /// </summary>
         /// <param name="progress">
         /// Valor de progreso. Debe ser un <see cref="double" /> entre
-        /// <c>0.0</c> y <c>1.0</c>, o los valores <see cref="F:System.Double.NaN" />,
-        /// <see cref="F:System.Double.PositiveInfinity" /> o
-        /// <see cref="F:System.Double.NegativeInfinity" />.
+        /// <c>0.0</c> y <c>1.0</c>, o los valores <see cref="double.NaN" />,
+        /// <see cref="double.PositiveInfinity" /> o
+        /// <see cref="double.NegativeInfinity" />.
         /// </param>
-        /// <exception cref="T:System.ArgumentOutOfRangeException">
+        /// <exception cref="ArgumentOutOfRangeException">
         /// Se produce si <paramref name="progress" /> no en un valor entre <c>0.0</c>
         /// y <c>1.0</c>.
         /// </exception>
         public ProgressionEventArgs(double progress) : this(progress, null)
         {
-
         }
-
 
         /// <summary>
         /// Devuelve una descripción rápida del estado de progreso.

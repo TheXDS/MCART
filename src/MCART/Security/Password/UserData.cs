@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -27,7 +27,6 @@ using System.Security;
 
 namespace TheXDS.MCART.Security.Password
 {
-    /// <inheritdoc cref="ICredential"/>
     /// <summary>
     /// Contiene información de creación de una credencial de seguridad,
     /// junto con datos sobre un indicio de contraseña y calidad evaluada
@@ -40,7 +39,6 @@ namespace TheXDS.MCART.Security.Password
         /// </summary>
         public static readonly UserData Null = new UserData();
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la estructura
         /// <see cref="UserData" />.
@@ -51,7 +49,6 @@ namespace TheXDS.MCART.Security.Password
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la estructura
         /// <see cref="UserData" />.
@@ -63,7 +60,6 @@ namespace TheXDS.MCART.Security.Password
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la estructura
         /// <see cref="UserData"/>.
@@ -100,13 +96,11 @@ namespace TheXDS.MCART.Security.Password
             Quality = quality;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene el nombre de usuario de este <see cref="ICredential" />.
         /// </summary>
         public string Username { get; }
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene la contraseña asociada a este <see cref="ICredential" />.
         /// </summary>

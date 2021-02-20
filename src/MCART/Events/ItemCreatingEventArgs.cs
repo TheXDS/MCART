@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -26,14 +26,12 @@ using System.ComponentModel;
 
 namespace TheXDS.MCART.Events
 {
-    /// <inheritdoc />
     /// <summary>
     /// Contiene información de evento para cualquier clase con eventos donde
     /// se guardará información.
     /// </summary>
-    public class ItemCreatingEventArgs<T> : CancelEventArgs
+    public class ItemCreatingEventArgs<T> : CancelEventArgs where T : notnull
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de esta clase con la información de
         /// evento provista.
@@ -43,7 +41,6 @@ namespace TheXDS.MCART.Events
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de esta clase con la información de
         /// evento provista.
@@ -52,8 +49,12 @@ namespace TheXDS.MCART.Events
         /// <param name="cancel">
         /// Determina si este evento se cancelará de forma predeterminada.
         /// </param>
+        /// <exception cref="System.ArgumentNullException">
+        /// Se produce si <paramref name="item"/> es <see langword="null"/>.
+        /// </exception>
         public ItemCreatingEventArgs(T item, bool cancel) : base(cancel)
         {
+            Misc.Internals.NullCheck(item, nameof(item));
             Item = item;
         }
 

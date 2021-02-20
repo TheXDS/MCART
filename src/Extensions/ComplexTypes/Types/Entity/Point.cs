@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -34,11 +34,6 @@ namespace TheXDS.MCART.Types.Entity
     /// <summary>
     /// Tipo universal para un conjunto de coordenadas bidimensionales.
     /// </summary>
-    /// <remarks>
-    /// Esta estructura se declara como parcial, para permitir a cada
-    /// implementación de MCART definir métodos para convertir a la clase
-    /// correspondiente para los diferentes tipos de UI disponibles.
-    /// </remarks>
     [ComplexType]
     public class Point : I2DVector, IFormattable, IEquatable<Point>
     {
@@ -72,7 +67,6 @@ namespace TheXDS.MCART.Types.Entity
             Y = y;
         }
         
-        /// <inheritdoc />
         /// <summary>
         /// Compara la igualdad de los vectores.
         /// </summary>
@@ -83,12 +77,11 @@ namespace TheXDS.MCART.Types.Entity
         /// <see langword="true" /> si todos los vectores de ambos objetos
         /// son iguales, <see langword="false" /> en caso contrario.
         /// </returns>
-        public bool Equals(I2DVector other)
+        public bool Equals(I2DVector? other)
         {
-            return this == other;
+            return other is {} o && this == o;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Compara la igualdad de los vectores de los puntos.
         /// </summary>
@@ -99,9 +92,9 @@ namespace TheXDS.MCART.Types.Entity
         /// <see langword="true" /> si todos los vectores de ambos puntos son iguales;
         /// de lo contrario, <see langword="false" />.
         /// </returns>
-        public bool Equals(Point other)
+        public bool Equals(Point? other)
         {
-            return this == other;
+            return other is {} o && this == o;
         }
 
         /// <summary>
@@ -114,7 +107,7 @@ namespace TheXDS.MCART.Types.Entity
         /// <see langword="true" /> si esta instancia y <paramref name="obj" /> son iguales;
         /// de lo contrario, <see langword="false" />.
         /// </returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (!(obj is I2DVector p)) return false;
             return this == p;
@@ -131,7 +124,6 @@ namespace TheXDS.MCART.Types.Entity
             return ToString(null);
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Convierte este objeto en su representación como una cadena.
         /// </summary>
@@ -145,20 +137,19 @@ namespace TheXDS.MCART.Types.Entity
         /// <returns>
         /// Una representación en forma de <see cref="string" /> de este objeto.
         /// </returns>
-        public string ToString(string format, IFormatProvider formatProvider)
+        public string ToString(string? format, IFormatProvider? formatProvider)
         {
             if (format.IsEmpty()) format = "C";
-            switch (format.ToUpperInvariant()[0])
+            return (format.ToUpperInvariant()[0]) switch
             {
-                case 'C': return $"{X}, {Y}";
-                case 'B': return $"[{X}, {Y}]";
-                case 'V': return $"X: {X}, Y: {Y}";
-                case 'N': return $"X: {X}\nY: {Y}";
-                default: throw new FormatException(St.FormatNotSupported(format));
-            }
+                'C' => $"{X}, {Y}",
+                'B' => $"[{X}, {Y}]",
+                'V' => $"X: {X}, Y: {Y}",
+                'N' => $"X: {X}\nY: {Y}",
+                _ => throw new FormatException(St.FormatNotSupported(format)),
+            };
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Convierte este objeto en su representación como una cadena.
         /// </summary>
@@ -166,7 +157,7 @@ namespace TheXDS.MCART.Types.Entity
         /// <returns>
         /// Una representación en forma de <see cref="string" /> de este objeto.
         /// </returns>
-        public string ToString(string format)
+        public string ToString(string? format)
         {
             return ToString(format, CI.CurrentCulture);
         }

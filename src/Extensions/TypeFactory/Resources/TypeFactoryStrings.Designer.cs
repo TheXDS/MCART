@@ -61,11 +61,65 @@ namespace TheXDS.MCART.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Se esperaba una definición de método desde una interfaz..
+        /// </summary>
+        internal static string ErrIFaceMethodExpected {
+            get {
+                return ResourceManager.GetString("ErrIFaceMethodExpected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a El tipo no implementa la interfaz &apos;{0}&apos;..
         /// </summary>
         internal static string ErrIfaceNotImpl {
             get {
                 return ResourceManager.GetString("ErrIfaceNotImpl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a La propiedad no contiene accesor de lectura..
+        /// </summary>
+        internal static string ErrPropCannotBeRead {
+            get {
+                return ResourceManager.GetString("ErrPropCannotBeRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ya se ha definido un campo de almacenamiento para la propiedad..
+        /// </summary>
+        internal static string ErrPropFieldAlreadyDefined {
+            get {
+                return ResourceManager.GetString("ErrPropFieldAlreadyDefined", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ya se ha definido un Getter para la propiedad..
+        /// </summary>
+        internal static string ErrPropGetterAlreadyDefined {
+            get {
+                return ResourceManager.GetString("ErrPropGetterAlreadyDefined", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ya se ha definido un Setter para la propiedad..
+        /// </summary>
+        internal static string ErrPropSetterAlreadyDefined {
+            get {
+                return ResourceManager.GetString("ErrPropSetterAlreadyDefined", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Los tipos del TypeBuilder especificado con tipo base {0} y el tipo base explícito &apos;{1}&apos; no coinciden. Se requiere un tipo que herede/implemente {1}..
+        /// </summary>
+        internal static string TypeBuilderTypeMismatch {
+            get {
+                return ResourceManager.GetString("TypeBuilderTypeMismatch", resourceCulture);
             }
         }
     }

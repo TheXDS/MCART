@@ -7,7 +7,7 @@ Author(s):
      "Surfin Bird" (Original implementation) <https://stackoverflow.com/users/4267982/surfin-bird>
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -23,12 +23,11 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#nullable enable
-
 using System.Windows;
 using System.Windows.Controls;
-using TheXDS.MCART.Misc;
+using System.Windows.Media;
 using System.Windows.Media.Effects;
+using TheXDS.MCART.Math;
 
 namespace TheXDS.MCART.Controls
 {
@@ -38,72 +37,87 @@ namespace TheXDS.MCART.Controls
     /// </summary>
     public class BusyContainer : ContentControl
     {
-        private static readonly DependencyPropertyKey _currentBusyEffectPropertyKey = DependencyProperty.RegisterReadOnly(nameof(CurrentBusyEffect), typeof(Effect), typeof(BusyContainer), new PropertyMetadata(null, null, OnBusyEffectChanged));
+        private static readonly DependencyPropertyKey _currentBusyEffectPropertyKey = DependencyProperty.RegisterReadOnly(nameof(CurrentBusyEffect), typeof(Effect), typeof(BusyContainer), new PropertyMetadata(null, null, CoerceBusyEffect));
+        private static readonly DependencyPropertyKey _currentBusyBackgroundPropertyKey = DependencyProperty.RegisterReadOnly(nameof(CurrentBusyBackground), typeof(Brush), typeof(BusyContainer), new PropertyMetadata(null, null, CoerceBusyBackground));
 
-        private static void OnChangeCurrentBusyEffect(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="BusyBackground"/>.
+        /// </summary>
+        public static readonly DependencyProperty BusyBackgroundProperty = DependencyProperty.Register(nameof(BusyBackground), typeof(Brush), typeof(BusyContainer), new PropertyMetadata(SystemColors.AppWorkspaceBrush, OnChangeCurrentBusyBackground));
+
+        /// <summary>
+        /// Identifica a la propiedad de dependencia
+        /// <see cref="BusyContent"/>.
+        /// </summary>
+        public static readonly DependencyProperty BusyContentProperty = DependencyProperty.Register(nameof(BusyContent), typeof(object), typeof(BusyContainer), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="BusyContentStringFormat"/>.
+        /// </summary>
+        public static readonly DependencyProperty BusyContentStringFormatProperty = DependencyProperty.Register(nameof(BusyContentStringFormat), typeof(string), typeof(BusyContainer), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="BusyEffect"/>.
+        /// </summary>
+        public static readonly DependencyProperty BusyEffectProperty = DependencyProperty.Register(nameof(BusyEffect), typeof(Effect), typeof(BusyContainer), new PropertyMetadata(new BlurEffect() { Radius = 5.0 }, OnChangeCurrentBusyEffect));
+
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="BusyOpacity"/>.
+        /// </summary>
+        public static readonly DependencyProperty BusyOpacityProperty = DependencyProperty.Register(nameof(BusyOpacity), typeof(double), typeof(BusyContainer), new PropertyMetadata(0.5, OnChangedBusyOpacity,CoerceBusyOpacity), ChkBusyOpacity);
+
+        /// <summary>
+        /// Identifica a la propiedad de dependencia <see cref="IsBusy"/>.
+        /// </summary>
+        public static readonly DependencyProperty IsBusyProperty = DependencyProperty.Register(nameof(IsBusy), typeof(bool), typeof(BusyContainer), new PropertyMetadata(false, OnChangeCurrentBusyEffect));
+
+        private static bool ChkBusyOpacity(object value)
         {
-            d.CoerceValue(CurrentBusyEffectProperty);
+            return ((double)value).IsBetween(0, 1);
         }
-
-        private static object? OnBusyEffectChanged(DependencyObject d, object baseValue)
+        private static object CoerceBusyOpacity(DependencyObject d, object baseValue)
+        {
+            return ((double)baseValue).Clamp(0, 1);
+        }
+        private static object? CoerceBusyEffect(DependencyObject d, object baseValue)
         {
             var o = (BusyContainer)d;
             return o.IsBusy ? d.GetValue(BusyEffectProperty): null;
         }
+        private static object? CoerceBusyBackground(DependencyObject d, object baseValue)
+        {
+            var o = (BusyContainer)d;
+            return o.IsBusy ? d.GetValue(BusyBackgroundProperty) : null;
+        }
+        private static void OnChangedBusyOpacity(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            d.CoerceValue(BusyOpacityProperty);
+        }
+        private static void OnChangeCurrentBusyEffect(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            d.CoerceValue(CurrentBusyEffectProperty);
+        }
+        private static void OnChangeCurrentBusyBackground(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            d.CoerceValue(CurrentBusyBackgroundProperty);
+        }
+
+        /// <summary>
+        /// Identifica a la propiedad de dependencia de solo lectura <see cref="CurrentBusyEffect"/>.
+        /// </summary>
+        public static readonly DependencyProperty CurrentBusyEffectProperty = _currentBusyEffectPropertyKey.DependencyProperty;
+
+        /// <summary>
+        /// Identifica a la propiedad de dependencia de solo lectura <see cref="CurrentBusyBackground"/>.
+        /// </summary>
+        public static readonly DependencyProperty CurrentBusyBackgroundProperty = _currentBusyBackgroundPropertyKey.DependencyProperty;
 
         /// <summary>
         /// Inicializa la clase <see cref="BusyContainer"/>.
         /// </summary>
         static BusyContainer()
         {
-            var d = new ResourceDictionary { Source = WpfInternal.MkTemplateUri<BusyContainer>() };
-            Application.Current?.Resources.MergedDictionaries.Add(d);
-        }
-
-        /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="IsBusy"/>.
-        /// </summary>
-        public static DependencyProperty IsBusyProperty = DependencyProperty.Register(nameof(IsBusy), typeof(bool), typeof(BusyContainer), new PropertyMetadata(false, OnChangeCurrentBusyEffect));
-
-        /// <summary>
-        /// Identifica a la propiedad de dependencia
-        /// <see cref="BusyContent"/>.
-        /// </summary>
-        public static DependencyProperty BusyContentProperty = DependencyProperty.Register(nameof(BusyContent), typeof(object), typeof(BusyContainer), new PropertyMetadata(null));
-
-        /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="BusyContentStringFormat"/>.
-        /// </summary>
-        public static DependencyProperty BusyContentStringFormatProperty = DependencyProperty.Register(nameof(BusyContentStringFormat), typeof(string), typeof(BusyContainer), new PropertyMetadata(null));
-
-        /// <summary>
-        /// Identifica a la propiedad de dependencia <see cref="BusyEffect"/>.
-        /// </summary>
-        public static DependencyProperty BusyEffectProperty = DependencyProperty.Register(nameof(BusyEffect), typeof(Effect), typeof(BusyContainer), new PropertyMetadata(new BlurEffect() { Radius = 5.0 }, OnChangeCurrentBusyEffect));
-        
-        /// <summary>
-        /// Identifica a la propiedad de dependencia de solo lectura <see cref="CurrentBusyEffect"/>.
-        /// </summary>
-        public static DependencyProperty CurrentBusyEffectProperty = _currentBusyEffectPropertyKey.DependencyProperty;
-
-        /// <summary>
-        /// Obtiene o establece el efecto a aplicar al contenido cuando
-        /// este control se encuentre ocupado.
-        /// </summary>
-        public Effect BusyEffect
-        {
-            get => (Effect)GetValue(BusyEffectProperty);
-            set => SetValue(BusyEffectProperty, value);
-        }
-
-        /// <summary>
-        /// Obtiene o establece el formato a utilizar para mostrar el
-        /// contenido ocupado de este control.
-        /// </summary>
-        public string BusyContentStringFormat
-        {
-            get => (string)GetValue(BusyContentStringFormatProperty);
-            set => SetValue(BusyContentStringFormatProperty, value);
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(BusyContainer), new FrameworkPropertyMetadata(typeof(BusyContainer)));
         }
 
         /// <summary>
@@ -117,13 +131,45 @@ namespace TheXDS.MCART.Controls
         }
 
         /// <summary>
-        /// Obtiene o establece un valor que coloca este contenedor en
-        /// estado de ocupado.
+        /// Obtiene o establece el formato a utilizar para mostrar el
+        /// contenido ocupado de este control.
         /// </summary>
-        public bool IsBusy
+        public string BusyContentStringFormat
         {
-            get => (bool)GetValue(IsBusyProperty);
-            set => SetValue(IsBusyProperty, value);
+            get => (string)GetValue(BusyContentStringFormatProperty);
+            set => SetValue(BusyContentStringFormatProperty, value);
+        }
+
+        /// <summary>
+        /// Obtiene o establece el efecto a aplicar al contenido cuando
+        /// este control se encuentre ocupado.
+        /// </summary>
+        public Effect BusyEffect
+        {
+            get => (Effect)GetValue(BusyEffectProperty);
+            set => SetValue(BusyEffectProperty, value);
+        }
+
+        /// <summary>
+        /// Obtiene o establece un valor que indica la opacidad de la capa de
+        /// fondo a mostrar cuando la propiedad <see cref="IsBusy"/> se haya
+        /// establecido en <see langword="true"/>.
+        /// </summary>
+        public double BusyOpacity
+        {
+            get => (double)GetValue(BusyOpacityProperty);
+            set => SetValue(BusyOpacityProperty, value);
+        }
+
+        /// <summary>
+        /// Obtiene o establece un valor que indica el <see cref="Brush"/> a
+        /// mostrar en la capa de fondo cuando la propiedad 
+        /// <see cref="IsBusy"/> se haya establecido en <see langword="true"/>.
+        /// </summary>
+        public Brush BusyBackground
+        {
+            get => (Brush)GetValue(BusyBackgroundProperty);
+            set => SetValue(BusyBackgroundProperty, value);
         }
 
         /// <summary>
@@ -132,12 +178,19 @@ namespace TheXDS.MCART.Controls
         public Effect CurrentBusyEffect => (Effect)GetValue(CurrentBusyEffectProperty);
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="BusyContainer"/>.
+        /// Obtiene el <see cref="Brush"/> actualmente aplicado al estado de
+        /// ocupado del control.
         /// </summary>
-        public BusyContainer()
+        public Brush CurrentBusyBackground => (Brush)GetValue(CurrentBusyBackgroundProperty);
+
+        /// <summary>
+        /// Obtiene o establece un valor que coloca este contenedor en
+        /// estado de ocupado.
+        /// </summary>
+        public bool IsBusy
         {
-            BusyContent = new BusyIndicator();
+            get => (bool)GetValue(IsBusyProperty);
+            set => SetValue(IsBusyProperty, value);
         }
     }
 }

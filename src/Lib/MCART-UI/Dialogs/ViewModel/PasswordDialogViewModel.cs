@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -36,26 +36,26 @@ namespace TheXDS.MCART.Dialogs.ViewModel
     /// </summary>
     public abstract class PasswordDialogViewModelBase : ViewModelBase
     {
-        private SecureString _confirm;
+        private SecureString? _confirm;
         private IPasswordEvaluator? _evaluator;
-        private string _generatedPassword;
+        private string? _generatedPassword;
         private IPasswordGenerator? _generator;
         private string? _hint;
-        private PasswordDialogMode _mode;
-        private SecureString _password;
-        private PwEvalResult _result;
-        private string _title;
-        private string? _user;
-        private int _triesCount;
-        private LoginValidator? _validator;
         private int? _maxTries;
+        private PasswordDialogMode _mode;
+        private SecureString _password = null!;
+        private PwEvalResult _result;
+        private string? _title;
+        private int _triesCount;
+        private string? _user;
+        private LoginValidator? _validator;
 
         /// <summary>
         /// Ejecuta una acción de evaluación de la contraseña.
         /// </summary>
         public void OnEvaluate()
         {
-            if (!Mode.HasFlag(PasswordDialogMode.PwQuality)) return;
+            if (!Mode.HasFlag(PasswordDialogMode.PwQuality) || Password is null) return;
             Result = Password.Length == 0 ? PwEvalResult.Empty : Evaluator?.Evaluate(Password) ?? PwEvalResult.Null;
         }
 
@@ -65,9 +65,9 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         public void OnGenerate()
         {
             if (!Mode.HasFlag(PasswordDialogMode.Generator)) return;
-            Password = Generator?.Generate();
+            Password = Generator!.Generate();
             Confirm = Password;
-            GeneratedPassword = Password?.Read();
+            GeneratedPassword = Password.Read();
             OnPropertyChanged(nameof(GeneratedPassword));
         }
 
@@ -105,7 +105,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// Obtiene mensajes adicionales sobre la evaluación de una
         /// contraseña.
         /// </summary>
-        public string MorInfo => Result.Details;
+        public string? MorInfo => Result.Details;
 
         /// <summary>
         /// Obtiene un porcentaje evaluado de calidad de contraseña.
@@ -116,7 +116,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// Obtiene o establece la contraseña introducida en el cuadro de
         /// confirmación.
         /// </summary>
-        public SecureString Confirm
+        public SecureString? Confirm
         {
             get => _confirm;
             set => Change(ref _confirm, value);
@@ -138,7 +138,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// <summary>
         /// Obtiene una contraseña generada por este ViewModel.
         /// </summary>
-        public string GeneratedPassword
+        public string? GeneratedPassword
         {
             get => _generatedPassword;
             private set => Change(ref _generatedPassword, value);
@@ -224,7 +224,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// <summary>
         /// Obtiene o establce el título de este ViewModel.
         /// </summary>
-        public string Title
+        public string? Title
         {
             get => _title;
             set => Change(ref _title, value);

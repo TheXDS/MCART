@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -22,11 +22,12 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using TheXDS.MCART.Attributes;
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Windows;
 
 namespace TheXDS.MCART
 {
@@ -36,13 +37,10 @@ namespace TheXDS.MCART
     /// </summary>
     public static class WinUi
     {
-        [DllImport("kernel32.dll")] static extern IntPtr GetConsoleWindow();
-
         /// <summary>
-        /// Obtiene un valor que indica si la aplicación tiene acceso a la
-        /// consola.
+        /// Obtiene un valor que indica si la aplicación tiene acceso a la consola.
         /// </summary>
-        public static bool HasConsole => GetConsoleWindow() != IntPtr.Zero;
+        public static bool HasConsole => PInvoke.GetConsoleWindow() != IntPtr.Zero;
 
         /// <summary>
         /// Abre una consola para la aplicación.
@@ -52,7 +50,7 @@ namespace TheXDS.MCART
         /// Esta función es exclusiva para sistemas operativos Microsoft
         /// Windows®.
         /// </remarks>
-        [DllImport("kernel32.dll")] public static extern bool AllocConsole();
+        public static bool TryAllocateConsole() => PInvoke.AllocConsole();
 
         /// <summary>
         /// Libera la consola de la aplicación.
@@ -62,7 +60,7 @@ namespace TheXDS.MCART
         /// Esta función es exclusiva para sistemas operativos Microsoft
         /// Windows®.
         /// </remarks>
-        [DllImport("kernel32.dll")] public static extern bool FreeConsole();
+        public static bool TryFreeConsole() => PInvoke.FreeConsole();
 
         /// <summary>
         /// Obtiene la información física del contexto del dispositivo gráfico

@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -22,18 +22,44 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Management;
-using System.Linq;
+#pragma warning disable CA1822
+
 using Microsoft.Win32;
-using System.Runtime.CompilerServices;
-using TheXDS.MCART.Types.Base;
-using TheXDS.MCART.Resources;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Management;
+using System.Runtime.CompilerServices;
+using TheXDS.MCART.Resources;
+using TheXDS.MCART.Types.Base;
+using TheXDS.MCART.Windows;
 
 namespace TheXDS.MCART.Component
 {
+    /// <summary>
+    /// Enumera los posibles tipos de firmware que podría utilizar un equipo.
+    /// </summary>
+    public enum FirmwareType
+    {
+        /// <summary>
+        /// Tipo de firmware desconocido.
+        /// </summary>
+        FirmwareTypeUnknown,
+        /// <summary>
+        /// Firmware clásico BIOS
+        /// </summary>
+        FirmwareTypeBios,
+        /// <summary>
+        /// Firmware UEFI
+        /// </summary>
+        FirmwareTypeUefi,
+        /// <summary>
+        /// Valor máximo de la enumeración.
+        /// </summary>
+        FirmwareTypeMax
+    }
+
     /// <summary>
     /// Expone información detallada sobre Windows.
     /// </summary>
@@ -41,6 +67,7 @@ namespace TheXDS.MCART.Component
     {
         private const string _regInfo = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion";
         private readonly ManagementObject _managementObject = new ManagementClass(@"Win32_OperatingSystem").GetInstances().OfType<ManagementObject>().FirstOrDefault() ?? throw new PlatformNotSupportedException();
+        
 
         /// <summary>
         /// Obtiene una cadena que representa el dispositivo de arranque
@@ -161,6 +188,21 @@ namespace TheXDS.MCART.Component
         [CLSCompliant(false)]
 #endif
         public uint EncryptionLevel => GetFromWmi<uint>();
+
+        /// <summary>
+        /// Obtiene el tipo de firmware con el cual el equipo ha sido arrancado.
+        /// </summary>
+        public FirmwareType FirmwareType
+        {
+            get
+            {
+                uint firmwaretype = 0;
+                if (PInvoke.GetFirmwareType(ref firmwaretype))
+                    return (FirmwareType)firmwaretype;
+                else
+                    return FirmwareType.FirmwareTypeUnknown;
+            }
+        }
 
         /// <summary>
         /// Obtiene un valor que indica la cantidad de "empuje" adicional
@@ -324,6 +366,13 @@ namespace TheXDS.MCART.Component
         /// portátil.
         /// </summary>
         public bool PortableOperatingSystem => GetFromWmi<bool>();
+
+        /// <summary>
+        /// Obtiene el valor "Primary" desde la instrumentación de Windows.
+        /// </summary>
+        /// <returns>
+        /// El valor "Primary" desde la instrumentación de Windows.
+        /// </returns>
         public bool Primary => GetFromWmi<bool>();
 
         /// <summary>
@@ -355,16 +404,18 @@ namespace TheXDS.MCART.Component
         /// Obtiene el número mayor de Service Pack de Windows.
         /// </summary>
 #if CLSCompliance
-        [CLSCompliant(false), Obsolete]
+        [CLSCompliant(false)]
 #endif
+        [Obsolete("Windows 10 ya no proporciona números de versión de Service Pack.")]
         public ushort ServicePackMajorVersion => GetFromWmi<ushort>();
 
         /// <summary>
         /// Obtiene el número menor de Service Pack de Windows.
         /// </summary>
 #if CLSCompliance
-        [CLSCompliant(false), Obsolete]
+        [CLSCompliant(false)]
 #endif
+        [Obsolete("Windows 10 ya no proporciona números de versión de Service Pack.")]
         public ushort ServicePackMinorVersion => GetFromWmi<ushort>();
 
         /// <summary>
@@ -425,6 +476,12 @@ namespace TheXDS.MCART.Component
 #endif
         public ulong TotalVisibleMemorySize => GetFromWmi<ulong>();
         
+        /// <summary>
+        /// Obtiene el valor "UBR" desde la instrumentación de Windows.
+        /// </summary>
+        /// <returns>
+        /// El valor "UBR" desde la instrumentación de Windows.
+        /// </returns>
         public int UBR => GetFromReg<int>();
 
         /// <summary>
@@ -450,26 +507,27 @@ namespace TheXDS.MCART.Component
         /// <summary>
         /// Obtiene el texto de licencia asociado a Windows.
         /// </summary>
-        public License License => new License("Microsoft Windows EULA", new Uri(@"C:\Windows\System32\license.rtf"));
+        public License License => new License("Microsoft Windows EULA", new Uri(GetWinLicencePath()));
 
         /// <summary>
         /// Obtiene un valor que determina si Windows incluye un CLUF
         /// </summary>
-        public bool HasLicense => System.IO.File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "license.rtf"));
+        public bool HasLicense => System.IO.File.Exists(GetWinLicencePath());
 
         /// <summary>
         /// Obtiene un valor que indica si Windows cumple con el CLS.
         /// </summary>
         /// <remarks>
         /// Esta función siempre devolverá <see langword="false"/>, debido
-        /// a que Windows fue escrito utilizando C/C++.
+        /// a que grandes porciones de Microsoft Windows fueron escritas
+        /// utilizando C/C++, y no C# u otros lenguajes CLR.
         /// </remarks>
         public bool ClsCompliant => false;
 
         /// <summary>
         /// Obtiene la versión descriptiva informacional de Windows.
         /// </summary>
-        public string? InformationalVersion => $"{Version.ToString()}-{BuildLabEx}";
+        public string? InformationalVersion => $"{Version}-{BuildLabEx}";
 
         /// <summary>
         /// Enumera las liciencias de terceros incluidas con el sistema
@@ -477,16 +535,25 @@ namespace TheXDS.MCART.Component
         /// </summary>
         public IEnumerable<License>? ThirdPartyLicenses => null;
 
+        /// <summary>
+        /// Obtiene un valor que indica si Microsoft Windows incluye licencias 
+        /// de terceros.
+        /// </summary>
         public bool Has3rdPartyLicense => false;
+
+        private string GetWinLicencePath()
+        {
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "license.rtf");
+        }
 
         private T GetFromWmi<T>([CallerMemberName]string property = "")
         {
-            return _managementObject[property] is T v ? v : default;
+            return _managementObject[property] is T v ? v : default!;
         }
 
         private T GetFromReg<T>([CallerMemberName] string value = "")
         {
-            return Registry.GetValue(_regInfo, value, default) is T v ? v : default;
+            return Registry.GetValue(_regInfo, value, default) is T v ? v : default!;
         }
 
         private DateTime DateFromWmi([CallerMemberName] string value = "")

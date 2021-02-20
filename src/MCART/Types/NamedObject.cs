@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -59,13 +59,11 @@ namespace TheXDS.MCART.Types
         /// </summary>
         public T Value { get; }
 
-        /// <inheritdoc />
         /// <summary>
         /// Etiqueta del objeto.
         /// </summary>
         public string Name { get; }
 
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la estructura
         /// <see cref="NamedObject{T}" /> estableciendo un valor junto a una

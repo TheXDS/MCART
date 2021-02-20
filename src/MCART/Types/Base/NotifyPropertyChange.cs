@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -28,7 +28,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using TheXDS.MCART.Annotations;
+using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 
 namespace TheXDS.MCART.Types.Base
@@ -42,13 +42,11 @@ namespace TheXDS.MCART.Types.Base
     {
         private readonly HashSet<WeakReference<PropertyChangeObserver>> _observeSubscriptions = new HashSet<WeakReference<PropertyChangeObserver>>();
 
-        /// <inheritdoc />
         /// <summary>
         /// Se produce cuando se cambiará el valor de una propiedad.
         /// </summary>
         public event PropertyChangingEventHandler? PropertyChanging;
 
-        /// <inheritdoc />
         /// <summary>
         /// Ocurre cuando el valor de una propiedad ha cambiado.
         /// </summary>
@@ -67,7 +65,6 @@ namespace TheXDS.MCART.Types.Base
         /// Notifica a los clientes que el valor de una propiedad ha
         /// cambiado.
         /// </summary>
-        [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null!)
         {
             if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
@@ -91,6 +88,7 @@ namespace TheXDS.MCART.Types.Base
         /// <see langword="true"/> si el valor de la propiedad ha
         /// cambiado, <see langword="false"/> en caso contrario.
         /// </returns>
+        [NpcChangeInvocator]
         protected override sealed bool Change<T>(ref T field, T value, [CallerMemberName] string propertyName = null!)
         {
             if (field?.Equals(value) ?? Objects.AreAllNull(field, value)) return false;
@@ -143,7 +141,7 @@ namespace TheXDS.MCART.Types.Base
         /// <param name="property">
         /// Propiedad a notificar.
         /// </param>
-        protected override void Notify(string property)
+        public override void Notify(string property)
         {
             OnPropertyChanged(property);
         }

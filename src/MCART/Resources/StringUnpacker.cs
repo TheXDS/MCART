@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -32,7 +32,6 @@ using St2 = TheXDS.MCART.Resources.InternalStrings;
 
 namespace TheXDS.MCART.Resources
 {
-    /// <inheritdoc cref="AssemblyUnpacker{T}"/>
     /// <summary>
     /// <see cref="AssemblyUnpacker{T}" /> que permite extraer archivos de
     /// texto incrustados en un ensamblado como una cadena.
@@ -222,7 +221,6 @@ namespace TheXDS.MCART.Resources
         /// </param>
         public StringUnpacker(Assembly assembly, string path) : base(assembly, path) { }
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene un recurso identificable.
         /// </summary>
@@ -233,7 +231,6 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public override string Unpack(string id) => Read(GetStream(id));
 
-        /// <inheritdoc />
         /// <summary>
         /// Extrae un recurso comprimido utilizando el compresor con el
         /// identificador especificado.
@@ -248,7 +245,6 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public override string Unpack(string id, string compressorId) => Read(GetStream(id, compressorId));
 
-        /// <inheritdoc />
         /// <summary>
         /// Extrae un recurso comprimido utilizando el compresor con el
         /// identificador especificado.
@@ -264,7 +260,6 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public override string Unpack(string id, ICompressorGetter compressor) => Read(GetStream(id, compressor));
 
-        /// <inheritdoc />
         /// <summary>
         /// Intenta obtener un recurso identificable.
         /// </summary>
@@ -284,7 +279,6 @@ namespace TheXDS.MCART.Resources
             return r;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Extrae un recurso comprimido utilizando el compresor con el
         /// identificador especificado.
@@ -308,7 +302,6 @@ namespace TheXDS.MCART.Resources
             return r;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Extrae un recurso comprimido utilizando el compresor con el
         /// identificador especificado.
@@ -333,7 +326,6 @@ namespace TheXDS.MCART.Resources
             return r;
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene un recurso identificable de forma asíncrona.
         /// </summary>
@@ -344,7 +336,6 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public Task<string> UnpackAsync(string id) => ReadAsync(new StreamReader(UnpackStream(id) ?? throw new InvalidDataException()));
 
-        /// <inheritdoc />
         /// <summary>
         /// Extrae un recurso comprimido utilizando el compresor con el
         /// identificador especificado de forma asíncrona.
@@ -359,7 +350,6 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public Task<string> UnpackAsync(string id, string compressorId) => ReadAsync(GetStream(id, compressorId));
 
-        /// <inheritdoc />
         /// <summary>
         /// Extrae un recurso comprimido utilizando el compresor con el
         /// identificador especificado de forma asíncrona.

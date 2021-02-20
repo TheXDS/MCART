@@ -48,6 +48,7 @@ BufferedIO            | Algunas funciones de entrada/salida incluyen una impleme
 CheckDanger           | Obliga a las funciones que lo permitan a limitar el uso de clases o funciones peligrosas (marcadas con el atributo `DangerousAttribute`)
 CLSCompliance         | Obliga a utilizar implementaciones que cumplen con CLS (Common Language Standard). Se recomienda encarecidamente activar esta constante.
 DynamicLoading        | Habilita la carga de clases y/o miembros de clases por medio de ```System.Reflection``` de elementos contenidos dentro de MCART.
+EnforceContracts      | Incluye funciones de comprobación de contratos (sanidad de argumentos) en los métodos que lo soporten.
 ExtrasBuiltIn         | Incluir en el ensamblado de MCART ejemplos e implementaciones estándar básicas de las interfaces o clases abstractas para las cuales se pueda proveer.
 FloatDoubleSpecial    | `float` y `double` son tipos numéricos que pueden contener valores especiales, como ser NaN o infinito. Al activar esta constante, se habilitan métodos especiales que pueden trabajar con estos valores.
 McartAsPlugin         | Habilita la carga de plugins definidos dentro de MCART.

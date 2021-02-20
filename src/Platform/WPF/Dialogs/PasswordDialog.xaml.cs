@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -32,7 +32,6 @@ using static TheXDS.MCART.Types.Extensions.SecureStringExtensions;
 
 namespace TheXDS.MCART.Dialogs
 {
-    /// <inheritdoc cref="Window"/>
     /// <summary>
     /// Lógica de interacción para PasswordDialog.xaml
     /// </summary>
@@ -80,7 +79,7 @@ namespace TheXDS.MCART.Dialogs
             var r = d.ShowDialog() ?? false;
 
             userData = r
-                ? new UserData(d.Vm.User, d.Vm.Password, d.Vm.Hint, d.Vm.PasswordQuality)
+                ? new UserData(d.Vm.User ?? string.Empty, d.Vm.Password, d.Vm.Hint, d.Vm.PasswordQuality)
                 : UserData.Null;
 
             return r;
@@ -88,7 +87,6 @@ namespace TheXDS.MCART.Dialogs
 
         private async void BtnOk_OnClick(object sender, RoutedEventArgs e)
         {
-            
             if (!(Vm.Validator is null))
             {
                 if (Vm.TriesCount >= Vm.MaxTries)
@@ -120,12 +118,12 @@ namespace TheXDS.MCART.Dialogs
 
         private void TxtConfirm_OnPasswordChanged(object sender, RoutedEventArgs e)
         {
-            Vm.Confirm = (sender as PasswordBox)?.SecurePassword;
+            Vm.Confirm = ((PasswordBox)sender).SecurePassword;
         }
 
         private void TxtPassword_OnPasswordChanged(object sender, RoutedEventArgs e)
         {
-            Vm.Password = (sender as PasswordBox)?.SecurePassword;
+            Vm.Password = ((PasswordBox)sender).SecurePassword;
         }
 
 #region GetUserData
@@ -223,8 +221,8 @@ namespace TheXDS.MCART.Dialogs
         /// usuario correctamente, <see langword="false" /> en caso
         /// contrario.
         /// </returns>
-        public static bool GetUserData(string knownUser, string knownPassword, string knownHint,
-            IPasswordEvaluator evaluator, out UserData userData)
+        public static bool GetUserData(string? knownUser, string? knownPassword, string? knownHint,
+            IPasswordEvaluator? evaluator, out UserData userData)
         {
             return GetUserData(knownUser, knownPassword, knownHint, evaluator, null, out userData);
         }
@@ -266,8 +264,8 @@ namespace TheXDS.MCART.Dialogs
         /// usuario correctamente, <see langword="false" /> en caso
         /// contrario.
         /// </returns>
-        public static bool GetUserData(string knownUser, string knownPassword, string knownHint,
-            IPasswordEvaluator evaluator, LoginValidator validator, out UserData userData)
+        public static bool GetUserData(string? knownUser, string? knownPassword, string? knownHint,
+            IPasswordEvaluator? evaluator, LoginValidator? validator, out UserData userData)
         {
             return GetUserData(knownUser, knownPassword, knownHint, evaluator, validator, null, out userData);
         }
@@ -309,8 +307,8 @@ namespace TheXDS.MCART.Dialogs
         /// usuario correctamente, <see langword="false" /> en caso
         /// contrario.
         /// </returns>
-        public static bool GetUserData(string knownUser, string knownPassword, string knownHint,
-            LoginValidator validator, int? maxTries, out UserData userData)
+        public static bool GetUserData(string? knownUser, string? knownPassword, string? knownHint,
+            LoginValidator? validator, int? maxTries, out UserData userData)
         {
             return GetUserData(knownUser, knownPassword, knownHint, null, validator, maxTries, out userData);
         }
@@ -331,8 +329,8 @@ namespace TheXDS.MCART.Dialogs
         /// usuario correctamente, <see langword="false" /> en caso
         /// contrario.
         /// </returns>
-        public static bool GetUserData(string knownUser, string knownPassword, IPasswordEvaluator evaluator,
-            LoginValidator validator, int? maxTries, out UserData userData)
+        public static bool GetUserData(string? knownUser, string? knownPassword, IPasswordEvaluator? evaluator,
+            LoginValidator? validator, int? maxTries, out UserData userData)
         {
             return GetUserData(knownUser, knownPassword, null, evaluator, validator, maxTries, out userData);
         }
@@ -358,8 +356,8 @@ namespace TheXDS.MCART.Dialogs
         /// usuario correctamente, <see langword="false" /> en caso
         /// contrario.
         /// </returns>
-        public static bool GetUserData(string knownUser, string knownPassword, string knownHint,
-            IPasswordEvaluator evaluator, LoginValidator validator, int? maxTries, out UserData userData, bool generator=false)
+        public static bool GetUserData(string? knownUser, string? knownPassword, string? knownHint,
+            IPasswordEvaluator? evaluator, LoginValidator? validator, int? maxTries, out UserData userData, bool generator = false)
         {
             return InternalGetUserData(PasswordDialogMode.User | PasswordDialogMode.Confirm | (generator ? PasswordDialogMode.Generator : 0), knownUser, knownPassword, knownHint, evaluator,
                 validator, maxTries, out userData);
@@ -424,7 +422,7 @@ namespace TheXDS.MCART.Dialogs
         /// usuario correctamente, <see langword="false" /> en caso
         /// contrario.
         /// </returns>
-        public static bool GetUserData(ICredential credential, string knownHint, IPasswordEvaluator evaluator,
+        public static bool GetUserData(ICredential credential, string? knownHint, IPasswordEvaluator? evaluator,
             out UserData userData)
         {
             return GetUserData(credential, knownHint, evaluator, null, out userData);
@@ -465,8 +463,8 @@ namespace TheXDS.MCART.Dialogs
         /// usuario correctamente, <see langword="false" /> en caso
         /// contrario.
         /// </returns>
-        public static bool GetUserData(ICredential credential, string knownHint, IPasswordEvaluator evaluator,
-            LoginValidator validator, out UserData userData)
+        public static bool GetUserData(ICredential credential, string? knownHint, IPasswordEvaluator? evaluator,
+            LoginValidator? validator, out UserData userData)
         {
             return GetUserData(credential, knownHint, evaluator, validator, null, out userData);
         }
@@ -549,8 +547,8 @@ namespace TheXDS.MCART.Dialogs
         /// usuario correctamente, <see langword="false" /> en caso
         /// contrario.
         /// </returns>
-        public static bool GetUserData(ICredential credential, string knownHint, IPasswordEvaluator evaluator,
-            LoginValidator validator, int? maxTries, out UserData userData)
+        public static bool GetUserData(ICredential credential, string? knownHint, IPasswordEvaluator? evaluator,
+            LoginValidator? validator, int? maxTries, out UserData userData)
         {
             return InternalGetUserData(PasswordDialogMode.User | PasswordDialogMode.Confirm, credential.Username, credential.Password.Read(),
                 knownHint, evaluator,
@@ -601,7 +599,7 @@ namespace TheXDS.MCART.Dialogs
         /// usuario correctamente, <see langword="false" /> en caso
         /// contrario.
         /// </returns>
-        public static bool ConfirmPassword(string? knownPassword, string knownHint, out UserData userData)
+        public static bool ConfirmPassword(string? knownPassword, string? knownHint, out UserData userData)
         {
             return ConfirmPassword(knownPassword, knownHint, null, null, null, out userData);
         }
@@ -617,7 +615,7 @@ namespace TheXDS.MCART.Dialogs
         /// usuario correctamente, <see langword="false" /> en caso
         /// contrario.
         /// </returns>
-        public static bool ConfirmPassword(string? knownPassword, IPasswordEvaluator evaluator, out UserData userData)
+        public static bool ConfirmPassword(string? knownPassword, IPasswordEvaluator? evaluator, out UserData userData)
         {
             return ConfirmPassword(knownPassword, null, evaluator, out userData);
         }
@@ -634,7 +632,7 @@ namespace TheXDS.MCART.Dialogs
         /// usuario correctamente, <see langword="false" /> en caso
         /// contrario.
         /// </returns>
-        public static bool ConfirmPassword(string? knownPassword, string knownHint, IPasswordEvaluator evaluator,
+        public static bool ConfirmPassword(string? knownPassword, string? knownHint, IPasswordEvaluator? evaluator,
             out UserData userData)
         {
             return ConfirmPassword(knownPassword, knownHint, evaluator, null, null, out userData);
@@ -654,7 +652,7 @@ namespace TheXDS.MCART.Dialogs
         /// usuario correctamente, <see langword="false" /> en caso
         /// contrario.
         /// </returns>
-        public static bool ConfirmPassword(string? knownPassword, IPasswordEvaluator evaluator, LoginValidator validator,
+        public static bool ConfirmPassword(string? knownPassword, IPasswordEvaluator? evaluator, LoginValidator validator,
             out UserData userData)
         {
             return ConfirmPassword(knownPassword, null, evaluator, validator, out userData);
@@ -675,8 +673,8 @@ namespace TheXDS.MCART.Dialogs
         /// usuario correctamente, <see langword="false" /> en caso
         /// contrario.
         /// </returns>
-        public static bool ConfirmPassword(string? knownPassword, string knownHint, IPasswordEvaluator evaluator,
-            LoginValidator validator, out UserData userData)
+        public static bool ConfirmPassword(string? knownPassword, string? knownHint, IPasswordEvaluator? evaluator,
+            LoginValidator? validator, out UserData userData)
         {
             return ConfirmPassword(knownPassword, knownHint, evaluator, validator, null, out userData);
         }
@@ -696,7 +694,7 @@ namespace TheXDS.MCART.Dialogs
         /// usuario correctamente, <see langword="false" /> en caso
         /// contrario.
         /// </returns>
-        public static bool ConfirmPassword(string? knownPassword, IPasswordEvaluator evaluator, LoginValidator validator,
+        public static bool ConfirmPassword(string? knownPassword, IPasswordEvaluator? evaluator, LoginValidator validator,
             int? maxTries, out UserData userData)
         {
             return ConfirmPassword(knownPassword, null, evaluator, validator, maxTries, out userData);
@@ -761,7 +759,7 @@ namespace TheXDS.MCART.Dialogs
         /// credenciales y pulsado 'continuar',
         /// <see langword="false" /> en caso contrario.
         /// </returns>
-        public static bool Login(string knownUser, out ICredential loginData)
+        public static bool Login(string? knownUser, out ICredential loginData)
         {
             var r = InternalGetUserData(PasswordDialogMode.User, knownUser, null, null, null, null, null, out var l);
             loginData = r ? Credential.From(l) : Credential.Null;
@@ -833,7 +831,7 @@ namespace TheXDS.MCART.Dialogs
         /// <see langword="false" /> en caso contrario o si se excede la
         /// cantidad máxima de intentos.
         /// </returns>
-        public static bool Login(string knownUser, LoginValidator validator, int? maxTries)
+        public static bool Login(string? knownUser, LoginValidator validator, int? maxTries)
         {
             return InternalGetUserData(PasswordDialogMode.User, knownUser, null, null, null, validator, maxTries,
                 out _);
@@ -853,7 +851,7 @@ namespace TheXDS.MCART.Dialogs
         /// <see langword="true" /> si el usuario ha escrito su contraseña y
         /// pulsado 'continuar', <see langword="false" /> en caso contrario.
         /// </returns>
-        public static bool CheckPassword(out SecureString password)
+        public static bool CheckPassword(out SecureString? password)
         {
             var r = InternalGetUserData(PasswordDialogMode.PasswordOnly, null, null, null, null, null, null, out var l);
             password = r ? l.Password : null;

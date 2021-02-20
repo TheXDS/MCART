@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -66,6 +66,14 @@ namespace TheXDS.MCART.Types.Base
         /// Colección con los nombres de las propiedades a notificar.
         /// </param>
         void Notify(params string[] properties);
+
+        /// <summary>
+        /// Notifica el cambio en el valor de una propiedad.
+        /// </summary>
+        /// <param name="property">
+        /// Propiedad a notificar.
+        /// </param>
+        void Notify(string property);
 
         /// <summary>
         /// Quita un objeto de la lista de reenvíos de eventos de cambio de

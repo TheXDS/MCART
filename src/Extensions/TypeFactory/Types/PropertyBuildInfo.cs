@@ -1,12 +1,12 @@
 ﻿/*
-TypeFactory.cs
+PropertyBuildInfo.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -31,14 +31,8 @@ namespace TheXDS.MCART.Types
     /// <summary>
     /// Contiene información acerca de la construcción de una propiedad.
     /// </summary>
-    public class PropertyBuildInfo
+    public class PropertyBuildInfo : MemberBuildInfo<PropertyBuilder>
     {
-        /// <summary>
-        /// Referencia al <see cref="PropertyBuilder"/> utilizado para
-        /// construir a la propiedad.
-        /// </summary>
-        public PropertyBuilder Property { get; }
-
         /// <summary>
         /// Referencia al <see cref="FieldBuilder"/> utilizado para
         /// construir el campo de almacenamiento de la propiedad en caso de
@@ -79,16 +73,6 @@ namespace TheXDS.MCART.Types
 
         /// <summary>
         /// Convierte implícitamente un valor <see cref="PropertyBuildInfo"/>
-        /// en un <see cref="PropertyInfo"/>.
-        /// </summary>
-        /// <param name="buildInfo">
-        /// <see cref="PropertyBuildInfo"/> desde el cual extraer el
-        /// <see cref="PropertyInfo"/>.
-        /// </param>
-        public static implicit operator PropertyInfo(PropertyBuildInfo buildInfo) => buildInfo.Property;
-
-        /// <summary>
-        /// Convierte implícitamente un valor <see cref="PropertyBuildInfo"/>
         /// en un <see cref="FieldInfo"/>.
         /// </summary>
         /// <param name="buildInfo">
@@ -97,21 +81,20 @@ namespace TheXDS.MCART.Types
         /// </param>
         public static implicit operator FieldInfo?(PropertyBuildInfo buildInfo) => buildInfo.Field;
 
-        internal PropertyBuildInfo(PropertyBuilder property, FieldBuilder field) : this(property)
+        internal PropertyBuildInfo(TypeBuilder typeBuilder, PropertyBuilder property, FieldBuilder field) : this(typeBuilder, property)
         {
             Field = field;
         }
-        internal PropertyBuildInfo(PropertyBuilder property, ILGenerator getter) : this(property, getter, null)
+        internal PropertyBuildInfo(TypeBuilder typeBuilder, PropertyBuilder property, ILGenerator getter) : this(typeBuilder, property, getter, null)
         {
         }
-        internal PropertyBuildInfo(PropertyBuilder property, ILGenerator? getter, ILGenerator? setter) : this(property)
+        internal PropertyBuildInfo(TypeBuilder typeBuilder, PropertyBuilder property, ILGenerator? getter, ILGenerator? setter) : this(typeBuilder, property)
         {
             Getter = getter;
             Setter = setter;
         }
-        private PropertyBuildInfo(PropertyBuilder property)
+        private PropertyBuildInfo(TypeBuilder typeBuilder, PropertyBuilder property) : base(typeBuilder, property)
         {
-            Property = property ?? throw new ArgumentNullException(nameof(property));
         }
     }
 }

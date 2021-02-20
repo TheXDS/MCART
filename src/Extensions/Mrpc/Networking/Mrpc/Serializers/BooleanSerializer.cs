@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2020 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -22,7 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
 using System.IO;
 
 namespace TheXDS.MCART.Networking.Mrpc.Serializers
@@ -31,7 +30,7 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
     /// Serializador de datos que opera sobre objetos de tipo
     /// <see cref="bool"/>.
     /// </summary>
-    public sealed class BooleanSerializer : DataSerializer<bool>
+    public sealed class BooleanSerializer : IDataSerializer<bool>
     {
         /// <summary>
         /// Obtiene un <see cref="bool"/> desde el
@@ -45,7 +44,7 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
         /// El <see cref="bool"/> que se ha reconstruido con la información
         /// binaria leída desde el <see cref="BinaryReader"/> especificado.
         /// </returns>
-        protected override bool Read(BinaryReader reader) => reader.ReadBoolean();
+        public bool Read(BinaryReader reader) => reader.ReadBoolean();
 
         /// <summary>
         /// Serializa un <see cref="bool"/> en formato binario y lo escribe
@@ -58,6 +57,6 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
         /// <see cref="BinaryWriter"/> a utilizar para escribir los datos
         /// binarios serializados.
         /// </param>
-        protected override void Write(bool value, BinaryWriter writer) => writer.Write(value);
+        public void Write(bool value, BinaryWriter writer) => writer.Write(value);
     }
 }

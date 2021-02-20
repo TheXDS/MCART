@@ -1,12 +1,12 @@
 ﻿/*
-DateTimeSerializer.cs
+TimeSpanSerializer.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2020 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -32,7 +32,7 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
     /// Serializador de datos que opera sobre objetos de tipo
     /// <see cref="TimeSpan"/>.
     /// </summary>
-    public sealed class TimeSpanSerializer : DataSerializer<TimeSpan>
+    public sealed class TimeSpanSerializer : IDataSerializer<TimeSpan>
     {
         /// <summary>
         /// Obtiene un <see cref="TimeSpan"/> desde el
@@ -47,7 +47,7 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
         /// información binaria leída desde el <see cref="BinaryReader"/>
         /// especificado.
         /// </returns>
-        protected override TimeSpan Read(BinaryReader reader) => reader.ReadTimeSpan();
+        public TimeSpan Read(BinaryReader reader) => reader.ReadTimeSpan();
 
         /// <summary>
         /// Serializa un <see cref="TimeSpan"/> en formato binario y lo
@@ -60,7 +60,6 @@ namespace TheXDS.MCART.Networking.Mrpc.Serializers
         /// <see cref="BinaryWriter"/> a utilizar para escribir los datos
         /// binarios serializados.
         /// </param>
-        protected override void Write(TimeSpan value, BinaryWriter writer) => writer.Write(value);
+        public void Write(TimeSpan value, BinaryWriter writer) => writer.Write(value);
     }
-
 }

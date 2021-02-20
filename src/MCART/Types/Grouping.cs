@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -98,6 +98,39 @@ namespace TheXDS.MCART.Types
         public static implicit operator KeyValuePair<TKey, IEnumerable<TElement>>(Grouping<TKey, TElement> grouping)
         {
             return new KeyValuePair<TKey, IEnumerable<TElement>>(grouping.Key, grouping);
+        }
+
+        /// <summary>
+        /// Convierte implícitamente un
+        /// <see cref="KeyValuePair{TKey, TValue}"/> en un
+        /// <see cref="Grouping{TKey, TElement}"/>.
+        /// </summary>
+        /// <param name="grouping">Objeto a convertir.</param>
+        public static implicit operator Grouping<TKey, TElement>(KeyValuePair<TKey, IEnumerable<TElement>> grouping)
+        {
+            return new Grouping<TKey, TElement>(grouping.Key, grouping.Value);
+        }
+
+        /// <summary>
+        /// Convierte implícitamente un
+        /// <see cref="System.Tuple{T1, T2}"/> en un
+        /// <see cref="Grouping{TKey, TElement}"/>.
+        /// </summary>
+        /// <param name="grouping">Objeto a convertir.</param>
+        public static implicit operator Grouping<TKey, TElement>((TKey Key, IEnumerable<TElement> Value) grouping)
+        {
+            return new Grouping<TKey, TElement>(grouping.Key, grouping.Value);
+        }
+
+        /// <summary>
+        /// Convierte implícitamente un
+        /// <see cref="Grouping{TKey, TElement}"/> en un
+        /// <see cref="System.Tuple{T1, T2}"/>.
+        /// </summary>
+        /// <param name="grouping">Objeto a convertir.</param>
+        public static implicit operator (TKey, IEnumerable<TElement>)(Grouping<TKey, TElement> grouping)
+        {
+            return (grouping.Key, grouping);
         }
     }
 }

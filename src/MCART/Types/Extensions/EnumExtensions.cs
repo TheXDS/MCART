@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -41,7 +41,7 @@ namespace TheXDS.MCART.Types.Extensions
 
         /// <summary>
         /// Obtiene un <see cref="MethodInfo" /> para un método que permita
-        /// realizar la conversi�n de <typeparamref name="T" /> a un arreglo
+        /// realizar la conversión de <typeparamref name="T" /> a un arreglo
         /// de bytes.
         /// </summary>
         /// <typeparam name="T">Tipo de la enumeración a convertir.</typeparam>
@@ -88,12 +88,12 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        /// Convierte un valor de enumeraci�n a su representaci�n en bytes.
+        /// Convierte un valor de enumeración a su representación en bytes.
         /// </summary>
-        /// <param name="value">Valor de enumeraci�n a convertir.</param>
+        /// <param name="value">Valor de enumeración a convertir.</param>
         /// <returns>
-        /// Un arreglo de bytes con la representaci�n del valor de
-        /// enumeraci�n.
+        /// Un arreglo de bytes con la representación del valor de
+        /// enumeración.
         /// </returns>
         /// <exception cref="PlatformNotSupportedException">
         /// Se produce en caso que la plataforma no sea soportada, y que el

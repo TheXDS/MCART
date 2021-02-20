@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -46,9 +46,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// <see langword="true"/> si ambos objetos cargan constantes del
         /// mismo tipo, <see langword="false"/> en caso contrario.
         /// </returns>
-        public bool Equals(IConstantLoader x, IConstantLoader y)
+        public bool Equals(IConstantLoader? x, IConstantLoader? y)
         {
-            return x.ConstantType.Equals(y.ConstantType);
+            return x?.ConstantType.Equals(y?.ConstantType) ?? y is null;
         }
 
         /// <summary>

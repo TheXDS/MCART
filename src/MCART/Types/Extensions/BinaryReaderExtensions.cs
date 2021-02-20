@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -37,7 +37,22 @@ namespace TheXDS.MCART.Types.Extensions
     /// </summary>
     public static class BinaryReaderExtensions
     {
-        internal static MethodInfo? GetBinaryReadMethod(Type t)
+        /// <summary>
+        /// Obtiene un método de lectura definido en la clase
+        /// <see cref="BinaryReader"/> que pueda ser utilizado para leer un
+        /// objeto del tipo especificado.
+        /// </summary>
+        /// <param name="t">
+        /// Tipo para el cual obtener un método de lectura definido en la clase
+        /// <see cref="BinaryReader"/>.
+        /// </param>
+        /// <returns>
+        /// Un método de lectura definido en la clase
+        /// <see cref="BinaryReader"/> que pueda ser utilizado para leer un
+        /// objeto del tipo especificado, o <see langword="null"/> si no existe
+        /// un método de lectura para el tipo especificado.
+        /// </returns>
+        public static MethodInfo? GetBinaryReadMethod(Type t)
         {
             return typeof(BinaryReader).GetMethods().FirstOrDefault(p =>
                p.Name.StartsWith("Read")
@@ -146,11 +161,11 @@ namespace TheXDS.MCART.Types.Extensions
         /// </exception>
         public static T Read<T>(this BinaryReader reader)
         {
-            if (typeof(T).IsEnum) return (T)Enum.ToObject(typeof(T),ReadEnum(reader, typeof(T)));
+            if (typeof(T).IsEnum) return (T)Enum.ToObject(typeof(T), ReadEnum(reader, typeof(T)));
             if (typeof(T).Implements<ISerializable>())
             {
                 var d = new DataContractSerializer(typeof(T));
-                return (T)d.ReadObject(reader.ReadString().ToStream());
+                return (T)d.ReadObject(reader.ReadString().ToStream())!;
             }
 
             return (T)(GetBinaryReadMethod(typeof(T))?.Invoke(reader, Array.Empty<object>())
@@ -158,7 +173,7 @@ namespace TheXDS.MCART.Types.Extensions
                 ?? throw new InvalidOperationException());
         }
 
-        private static MethodInfo LookupExMethod(Type t)
+        private static MethodInfo? LookupExMethod(Type t)
         {
             return typeof(BinaryReaderExtensions).GetMethods().FirstOrDefault(p =>
                p.Name.StartsWith("Read")

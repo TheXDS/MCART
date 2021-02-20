@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -28,14 +28,12 @@ using TheXDS.MCART.Exceptions;
 
 namespace TheXDS.MCART.Resources
 {
-    /// <inheritdoc />
     /// <summary>
     /// <see cref="AssemblyUnpacker{T}" /> que
     /// extrae recursos de texto.
     /// </summary>
     public class TextUnpacker : AssemblyUnpacker<string>
     {
-        /// <inheritdoc />
         /// <summary>
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="AssemblyUnpacker{T}" />.
@@ -52,7 +50,6 @@ namespace TheXDS.MCART.Resources
         {
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Obtiene un recurso identificable.
         /// </summary>
@@ -66,7 +63,6 @@ namespace TheXDS.MCART.Resources
             return sr.ReadToEnd();
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Extrae un recurso comprimido utilizando el compresor con el
         /// identificador especificado.
@@ -84,7 +80,6 @@ namespace TheXDS.MCART.Resources
             return sr.ReadToEnd();
         }
 
-        /// <inheritdoc />
         /// <summary>
         /// Extrae un recurso comprimido utilizando el compresor con el
         /// identificador especificado.

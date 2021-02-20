@@ -6,7 +6,7 @@ This file is part of Morgan's CLR Advanced Runtime (MCART)
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2019 César Andrés Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -23,9 +23,12 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
 
 namespace TheXDS.MCART.Math
@@ -35,20 +38,85 @@ namespace TheXDS.MCART.Math
     /// </summary>
     public static partial class Algebra
     {
+        private static readonly int[] knownPrimes = {
+            2,   3,   5,   7,   11,  13,  17,  19,  23,  29,
+            31,  37,  41,  43,  47,  53,  59,  61,  67,  71,
+            73,  79,  83,  89,  97,  101, 103, 107, 109, 113,
+            127, 131, 137, 139, 149, 151, 157, 163, 167, 173,
+            179, 181, 191, 193, 197, 199, 211, 223, 227, 229,
+            233, 239, 241, 251, 257, 263, 269, 271, 277, 281,
+            283, 293, 307, 311, 313, 317, 331, 337, 347, 349,
+            353, 359, 367, 373, 379, 383, 389, 397, 401, 409,
+            419, 421, 431, 433, 439, 443, 449, 457, 461, 463,
+            467, 479, 487, 491, 499, 503, 509, 521, 523, 541
+        };
+
         /// <summary>
         /// Comprueba si un número es primo mediante prueba y error.
         /// </summary>
         /// <returns>
-        /// <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
+        /// <see langword="true" />si el número es primo,
+        /// <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="number">Número a comprobar.</param>
         public static bool IsPrime(this in long number)
         {
+            if (number == 1) return false;
+
+            if (number < 547 && knownPrimes.Contains((int)number)) return true;
+
+            foreach (var prime in knownPrimes)
+                if (number % prime == 0) return false;         
+            
             var l = (int)System.Math.Sqrt(number);
-            if (number == 2) return true;
-            if (number == 1 || number % 2 == 0) return false;
-            for (int k = 3; k <= l; k += 2) if (number % k == 0) return false; 
+            for (int k = 547; k <= l; k += 2)
+                if (number % k == 0) return false; 
+
             return true;
+        }
+
+        /// <summary>
+        /// Comprueba si un número es primo mediante prueba y error, ejecutando
+        /// la operación en todos los procesadores del sistema.
+        /// </summary>
+        /// <param name="number">Número a comprobar.</param>
+        /// <returns>
+        /// <see langword="true" />si el número es primo,
+        /// <see langword="false" /> en caso contrario.
+        /// </returns>
+        public static bool IsPrimeMp(this long number)
+        {
+            if (number == 1) return false;
+            var options = new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount };
+            var part = Partitioner.Create(knownPrimes);
+            
+            bool prime = true;
+
+            void TestIfPrime(int j, ParallelLoopState loop)
+            {
+                if (number % j == 0)
+                {
+                    loop.Stop();                    
+                    prime = false;
+                }
+            }
+
+            void TestIfPrime2(int j, ParallelLoopState loop)
+            {
+                if (number % ((j * 2) + 1) == 0)
+                {
+                    loop.Stop();
+                    prime = false;
+                }
+            }
+
+            Parallel.ForEach(part, options, TestIfPrime);
+            if (prime)
+            {
+                var l = (int)System.Math.Sqrt(number);
+                Parallel.For(273, l, options, TestIfPrime2);
+            }            
+            return prime;
         }
 
         /// <summary>
