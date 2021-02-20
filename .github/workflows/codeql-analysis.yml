@@ -23,7 +23,11 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
+
+    env:
+      Solution_Name: src/MCART.sln
+      Configuration: Debug
 
     strategy:
       fail-fast: false
