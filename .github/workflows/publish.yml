@@ -4,7 +4,7 @@ on:
     types:
       - created
 jobs:
-  test:
+  test-publish:
     runs-on: windows-latest
     env:
       Solution_Name: src/MCART.sln
@@ -19,7 +19,7 @@ jobs:
     - name: Get tag name
       uses: olegtarasov/get-tag@v2.1
     - name: Create NuGet Packages
-      run: dotnet pack $env:Solution_Name --configuration=$env:Configuration --p:version=$env:GIT_TAG_NAME
+      run: dotnet pack $env:Solution_Name --configuration=$env:Configuration -p:Version=$env:GIT_TAG_NAME
     - name: Push packages to GitHub
       run: dotnet nuget push "Build/**/*.nupkg" -k $env:GhToken --skip-duplicate --source "https://nuget.pkg.github.com/TheXDS/"
       env:
