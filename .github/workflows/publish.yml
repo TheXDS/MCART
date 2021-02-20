@@ -25,6 +25,6 @@ jobs:
       env:
         GhToken: ${{ secrets.GITHUB_TOKEN }}
     - name: Push packages to NuGet
-      run: dotnet nuget push "Build/**/*.nupkg" -k $env:NgToken --skip-duplicate
+      run: dotnet nuget push "Build/**/*.nupkg" -k $env:NgToken --skip-duplicate --source Nuget
       env:
         NgToken: ${{ secrets.NUGET_TOKEN }}
