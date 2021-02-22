@@ -57,6 +57,26 @@ namespace TheXDS.MCART.Types.Base
         }
 
         /// <summary>
+        /// Obtiene el <see cref="StreamUriParser"/> apropiado para manejar
+        /// al <see cref="Uri"/> especificado.
+        /// </summary>
+        /// <param name="uri">
+        /// <see cref="Uri"/> a partir del cual crear un
+        /// <see cref="Stream"/>.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="StreamUriParser"/> que puede crear un
+        /// <see cref="Stream"/> a partir del <see cref="Uri"/>
+        /// especificado, o <see langword="null"/> si no existe un
+        /// <see cref="StreamUriParser"/> capaz de manejar el 
+        /// <see cref="Uri"/>.
+        /// </returns>
+        public static StreamUriParser? Infer(string uri)
+        {
+            return Infer(new Uri(uri));
+        }
+
+        /// <summary>
         /// Abre directamente un <see cref="Stream"/> desde el cual leer el
         /// contenido del <paramref name="uri"/>.
         /// </summary>
@@ -107,6 +127,29 @@ namespace TheXDS.MCART.Types.Base
         public static T? Infer<T>(Uri uri) where T : class, IStreamUriParser
         {
             return Objects.FindAllObjects<T>().FirstOrDefault(p => p.Handles(uri));
+        }
+
+        /// <summary>
+        /// Obtiene el <see cref="StreamUriParser"/> apropiado para manejar
+        /// al <see cref="Uri"/> especificado.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de <see cref="StreamUriParser"/> especializado a obtener.
+        /// </typeparam>
+        /// <param name="uri">
+        /// <see cref="Uri"/> a partir del cual crear un
+        /// <see cref="Stream"/>.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="StreamUriParser"/> que puede crear un
+        /// <see cref="Stream"/> a partir del <see cref="Uri"/>
+        /// especificado, o <see langword="null"/> si no existe un
+        /// <see cref="StreamUriParser"/> capaz de manejar el 
+        /// <see cref="Uri"/>.
+        /// </returns>
+        public static T? Infer<T>(string uri) where T:class, IStreamUriParser
+        {
+            return Infer<T>(new Uri(uri));
         }
 
         /// <summary>

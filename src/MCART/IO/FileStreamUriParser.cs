@@ -112,7 +112,7 @@ namespace TheXDS.MCART.IO
             {
                 try
                 {
-                    return WebRequest.Create(uri).GetResponse().GetResponseStream();
+                    return GetResponse(uri).GetResponseStream();
                 }
                 catch
                 {

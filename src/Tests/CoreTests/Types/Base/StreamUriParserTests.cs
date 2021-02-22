@@ -1,5 +1,5 @@
 ﻿/*
-FtpStreamUriParser.cs
+DisposableTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,29 +22,21 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
+using TheXDS.MCART.Types.Base;
+using Xunit;
+using TheXDS.MCART.IO;
 
-namespace TheXDS.MCART.IO
+namespace TheXDS.MCART.Tests.Types.Base
 {
-    /// <summary>
-    /// Obtiene un <see cref="Stream"/> a partir de un <see cref="Uri"/>
-    /// que apunta a un recurso web.
-    /// </summary>
-    public class FtpStreamUriParser : WebStreamUriParser<FtpWebResponse>
+    public class StreamUriParserTests
     {
-        /// <summary>
-        /// Enumera los protocolos soportados por este
-        /// <see cref="FtpStreamUriParser"/>.
-        /// </summary>
-        protected override IEnumerable<string> SchemeList
+        [Fact]
+        public void InferTest()
         {
-            get
-            {
-                yield return "ftp";
-            }
+            Assert.IsType<FileStreamUriParser>(StreamUriParser.Infer("file://test.txt"));
+            Assert.IsType<HttpStreamUriParser>(StreamUriParser.Infer("http://www.test.com/test.txt"));
+            Assert.IsType<HttpStreamUriParser>(StreamUriParser.Infer("https://www.test.com/test.txt"));
+            Assert.IsType<FtpStreamUriParser>(StreamUriParser.Infer("ftp://test.com/test.txt"));
         }
     }
 }
