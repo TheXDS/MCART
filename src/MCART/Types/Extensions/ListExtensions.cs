@@ -33,7 +33,7 @@ namespace TheXDS.MCART.Types.Extensions
     /// <summary>
     /// Extensiones para todos los elementos de tipo <see cref="IList{T}" />.
     /// </summary>
-    public static class ListExtensions
+    public static partial class ListExtensions
     {
         /// <summary>
         /// Quita todos los elementos del tipo especificado de la
@@ -66,7 +66,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// Pasos de rotación. Un valor positivo rotará los elementos hacia la
         /// izquierda, y uno negativo los rotará hacia la derecha.
         /// </param>
-        public static void ApplyRotate<T>(this IList<T> c, int steps)
+        public static void ApplyRotate<T>(this IList<T> c, in int steps)
         {
             if (steps > 0)
                 for (var j = 0; j < steps; j++)
@@ -88,7 +88,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// en ambos casos rellenando con valores predeterminados cada posición
         /// vacía resultante.
         /// </param>
-        public static void ApplyShift<T>(this IList<T> c, int steps)
+        public static void ApplyShift<T>(this IList<T> c, in int steps)
         {
             if (steps > 0)
                 for (var j = 0; j < steps; j++)
@@ -211,16 +211,10 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="firstIdx">Índice inicial del intervalo.</param>
         /// <param name="lastIdx">Índice inicial del intervalo.</param>
         /// <param name="random">Generador de números aleatorios a utilizar.</param>
-        public static void Shuffle<T>(this IList<T> toShuffle, int firstIdx, int lastIdx, int deepness, Random random)
+        public static void Shuffle<T>(this IList<T> toShuffle, int firstIdx, int lastIdx, in int deepness, Random random)
         {
-            if (toShuffle is null) throw new ArgumentNullException(nameof(toShuffle));
-            if (random is null) random = RandomExtensions.Rnd;
-            if (!toShuffle.Any()) throw new EmptyCollectionException(toShuffle);
-            if (!firstIdx.IsBetween(0, toShuffle.Count)) throw new IndexOutOfRangeException();
-            if (!lastIdx.IsBetween(0, toShuffle.Count - 1)) throw new IndexOutOfRangeException();
-            if (!deepness.IsBetween(1, lastIdx - firstIdx)) throw new ArgumentOutOfRangeException(nameof(deepness));
+            Shuffle_Contract(toShuffle, firstIdx, lastIdx, deepness, random);
             if (firstIdx > lastIdx) Common.Swap(ref firstIdx, ref lastIdx);
-
             lastIdx++;
             for (var j = firstIdx; j < lastIdx; j += deepness)
             {
@@ -235,7 +229,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="collection">colección sobre la cual intercambiar la posición de dos elementos.</param>
         /// <param name="indexA">Índice del primer elemento.</param>
         /// <param name="indexB">Índice del segundo elemento.</param>
-        public static void Swap<T>(this IList<T> collection, int indexA, int indexB)
+        public static void Swap<T>(this IList<T> collection, in int indexA, in int indexB)
         {
             if (indexA == indexB) return;
             var tmp = collection[indexB];
@@ -248,8 +242,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="collection">colección sobre la cual intercambiar la posición de dos elementos.</param>
-        /// <param name="a">Índice del primer elemento.</param>
-        /// <param name="b">Índice del segundo elemento.</param>
+        /// <param name="a">Primer elemento.</param>
+        /// <param name="b">Segundo elemento.</param>
         public static void Swap<T>(this IList<T> collection, T a, T b)
         {            
             if (!collection.ContainsAll(a, b)) throw new Exception();

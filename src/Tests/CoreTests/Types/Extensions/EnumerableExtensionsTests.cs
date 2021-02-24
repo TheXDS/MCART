@@ -22,10 +22,13 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma warning disable CS1591
-
 using System;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Collections;
+using System.Collections.Generic;
+using TheXDS.MCART.Exceptions;
 using Xunit;
 using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
 
@@ -34,9 +37,58 @@ namespace TheXDS.MCART.Tests.Types.Extensions
     public class EnumerableExtensionsTests
     {
         [Fact]
+        public void IsAnyOfTest()
+        {
+            object?[] objset = { "Test", 1, new Exception(), Guid.NewGuid(), new bool[2] };
+            Assert.True(objset.IsAnyOf<string>());
+            Assert.False(objset.IsAnyOf<DayOfWeek>());
+            Assert.True(objset.IsAnyOf(typeof(int)));
+            Assert.False(objset.IsAnyOf(typeof(System.IO.Stream)));
+        }
+
+        [Fact]
+        public Task LockedTest()
+        {
+            int[] l = { 1, 2, 3, 4 };
+            bool f1 = false;
+
+            var t1 = Task.Run(() => l.Locked(i =>
+            {
+                Thread.Sleep(500);
+                f1 = true;
+                return Assert.IsType<int[]>(i);
+            }));
+            var t2 = Task.Run(() => l.Locked(i =>
+            {
+                Assert.True(f1);
+            }));
+            return Task.WhenAll(t1, t2);
+        }
+
+        [Fact]
+        public async Task SelectAsyncTest()
+        {
+            await foreach (var j in new string[] { "a", "B", "c" }.SelectAsync(p => Task.FromResult(p.Length)))
+            {
+                Assert.Equal(1, j);
+            }
+        }
+
+        [Theory]
+        [CLSCompliant(false)]
+        [InlineData(new string?[] { "A", "b", "c", ""}, 0)]
+        [InlineData(new string?[] { "", null, "a", null}, 2)]
+        [InlineData(new string?[] { null, null, null }, 3)]
+        public void NullCountTest(string?[] input, int count)
+        {
+            Assert.Equal(count, input.NullCount());
+            Assert.Throws<ArgumentNullException>(() => ((object?[])null!).NullCount());
+        }
+
+        [Fact]
         public void GroupByTypeTest()
         {
-            var c = new object[]
+            var c = new object?[]
             {
                 1, 2,
                 "Test", "Test2",
@@ -56,6 +108,92 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         }
 
         [Fact]
+        public void ToGenericTest()
+        {
+            IEnumerable e = new string[] { "test", "test2" };
+            Assert.IsAssignableFrom<IEnumerable<object?>>(e.ToGeneric());
+        }
+
+        [Fact]
+        public void FirstOfTest()
+        {
+            object?[] c = {
+                "test",
+                1.0,
+                DayOfWeek.Monday,
+                new Exception(),
+                Guid.NewGuid()
+            };
+            Assert.Equal(1.0, c.FirstOf<double>());
+            Assert.Null(c.FirstOf<System.IO.Stream>());
+        }
+
+        [Fact]
+        public void FirstOf_WithType_Test()
+        {
+            Exception[] c =
+            {
+                new IndexOutOfRangeException(),                
+                new ArgumentNullException(),
+                new StackOverflowException()
+            };
+            Assert.NotNull(Assert.IsAssignableFrom<ArgumentException>(c.FirstOf(typeof(ArgumentException))));
+            Assert.Throws<ArgumentNullException>(() => c.FirstOf(null!));
+            Assert.Throws<InvalidTypeException>(() => c.FirstOf(typeof(int)));
+        }
+
+        [Fact]
+        public void OfType_Test()
+        {
+            object?[] c = {
+                "test",
+                1.0,
+                DayOfWeek.Monday,
+                2.0
+            };
+            Assert.Equal(new object[] { 1.0, 2.0 }, c.OfType(typeof(double)).ToArray());
+        }
+
+        [Fact]
+        public void NotNullTest()
+        {
+            Assert.NotNull(((IEnumerable?)null).NotNull().ToGeneric().ToArray());
+            Assert.NotNull(((IEnumerable<int?>?)null).NotNull().ToGeneric().ToArray());
+            Assert.NotNull(((IEnumerable<Exception?>?)null).NotNull().ToGeneric().ToArray());
+            Assert.Equal(new int[] { 1, 2, 4 }, new int?[] { 1, 2, null, 4 }.NotNull());
+        }
+
+        [Fact]
+        public void OrNullTest()
+        {
+            Assert.NotNull(new[] { "test" }.OrNull());
+            Assert.Null(Array.Empty<string>().OrNull());
+        }
+
+        [Fact]
+        public void NonDefaults()
+        {
+            Assert.Equal(new[] { 1, 2, 3 }, new[] { 1, 2, 3 }.NonDefaults());
+            Assert.Equal(new[] { 1, 2, 3 }, new[] { 0, 1, 0, 2, 3 }.NonDefaults());
+            Assert.Equal(new[] { "test" }, new[] { "test", null }.NonDefaults());
+        }
+
+        [Fact]
+        public void CopyTest()
+        {
+            var o1 = new object();
+            var o2 = new object();
+            Assert.NotSame(o1, o2);
+
+            var a = new[] { o1, o2 };
+            var b = a.Copy();
+            Assert.NotSame(a, b);
+
+            Assert.Same(a[0], b.First());
+            Assert.Same(a[1], b.Last());
+        }
+
+        [Fact]
         public void RangeTest()
         {
             var c = new [] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
@@ -70,7 +208,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         {
             var c = new[] {1, 2, 3}.ToExtendedList();
 
-            Assert.IsType<TheXDS.MCART.Types.ListEx<int>>(c);
+            Assert.IsType<MCART.Types.ListEx<int>>(c);
             Assert.Equal(3, c.Count);
         }
 

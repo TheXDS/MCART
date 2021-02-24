@@ -1,5 +1,5 @@
 ﻿/*
-NameComparerTests.cs
+EnumerableExtensions_Contracts.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,20 +22,23 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Diagnostics.CodeAnalysis;
-using TheXDS.MCART.Comparison;
-using TheXDS.MCART.Types.Base;
-using Xunit;
+using System;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using TheXDS.MCART.Exceptions;
+using static TheXDS.MCART.Misc.Internals;
 
-namespace TheXDS.MCART.Tests.Comparison
+namespace TheXDS.MCART.Types.Extensions
 {
-    public class NameComparerTests : ComparerTestBase<INameable, NameComparer>
+    public static partial class EnumerableExtensions
     {
-        [Theory]
-        [ClassData(typeof(NameComparerDataGenerator))]
-        public void NameComparerTest([AllowNull]INameable x, [AllowNull] INameable y, bool equal)
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void FirstOf_OfType_Contract<T>(Type? type)
         {
-            RunTest(x, y, equal);
+            NullCheck(type, nameof(type));
+            if (!typeof(T).IsAssignableFrom(type)) throw new InvalidTypeException(type!);
         }
     }
 }

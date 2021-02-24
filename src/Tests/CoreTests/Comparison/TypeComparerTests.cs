@@ -1,5 +1,5 @@
 ﻿/*
-NameComparerTests.cs
+TypeComparerTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -24,16 +24,15 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Comparison;
-using TheXDS.MCART.Types.Base;
 using Xunit;
 
 namespace TheXDS.MCART.Tests.Comparison
 {
-    public class NameComparerTests : ComparerTestBase<INameable, NameComparer>
+    public class TypeComparerTests : ComparerTestBase<object, TypeComparer>
     {
         [Theory]
-        [ClassData(typeof(NameComparerDataGenerator))]
-        public void NameComparerTest([AllowNull]INameable x, [AllowNull] INameable y, bool equal)
+        [ClassData(typeof(TypeComparerDataGenerator))]
+        public void TypeComparerTest([AllowNull] object x, [AllowNull] object y, bool equal)
         {
             RunTest(x, y, equal);
         }

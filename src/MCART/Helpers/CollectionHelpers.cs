@@ -447,7 +447,7 @@ namespace TheXDS.MCART
         /// Se produce si <paramref name="stringArray"/> es
         /// <see langword="null"/>.
         /// </exception>
-        public static async Task<bool> AllEmpty(this IAsyncEnumerable<string?> stringArray)
+        public static async Task<bool> AllEmptyAsync(this IAsyncEnumerable<string?> stringArray)
         {
             NullCheck(stringArray, nameof(stringArray));
             await foreach (var j in stringArray.ConfigureAwait(false))
@@ -487,7 +487,7 @@ namespace TheXDS.MCART
         /// Se produce si <paramref name="stringArray"/> es
         /// <see langword="null"/>.
         /// </exception>
-        public static async Task<bool> AnyEmpty(this IAsyncEnumerable<string?> stringArray)
+        public static async Task<bool> AnyEmptyAsync(this IAsyncEnumerable<string?> stringArray)
         {
             NullCheck(stringArray, nameof(stringArray));
             await foreach (var j in stringArray.ConfigureAwait(false))
@@ -676,9 +676,9 @@ namespace TheXDS.MCART
         /// Se produce si el valor mínimo de la colección y
         /// <paramref name="max"/> son iguales.
         /// </exception>
-        public static IAsyncEnumerable<float> ToPercent(this IAsyncEnumerable<float> collection, in float max)
+        public static IAsyncEnumerable<float> ToPercentAsync(this IAsyncEnumerable<float> collection, in float max)
         {
-            return ToPercent(collection, 0, max);
+            return ToPercentAsync(collection, 0, max);
         }
 
         /// <summary>
@@ -700,7 +700,7 @@ namespace TheXDS.MCART
         /// Se produce si <paramref name="min"/> y <paramref name="max"/> son
         /// iguales.
         /// </exception>
-        public static async IAsyncEnumerable<float> ToPercent(this IAsyncEnumerable<float> collection, float min, float max)
+        public static async IAsyncEnumerable<float> ToPercentAsync(this IAsyncEnumerable<float> collection, float min, float max)
         {
             ToPercent_Contract(collection, min, max);
             await foreach (var j in collection)
@@ -1125,9 +1125,9 @@ namespace TheXDS.MCART
         /// Se produce si el valor mínimo de la colección y
         /// <paramref name="max"/> son iguales.
         /// </exception>
-        public static IAsyncEnumerable<double> ToPercent(this IAsyncEnumerable<double> collection, in double max)
+        public static IAsyncEnumerable<double> ToPercentAsync(this IAsyncEnumerable<double> collection, in double max)
         {
-            return ToPercent(collection, 0, max);
+            return ToPercentAsync(collection, 0, max);
         }
 
         /// <summary>
@@ -1149,7 +1149,7 @@ namespace TheXDS.MCART
         /// Se produce si <paramref name="min"/> y <paramref name="max"/> son
         /// iguales.
         /// </exception>
-        public static async IAsyncEnumerable<double> ToPercent(this IAsyncEnumerable<double> collection, double min, double max)
+        public static async IAsyncEnumerable<double> ToPercentAsync(this IAsyncEnumerable<double> collection, double min, double max)
         {
             ToPercent_Contract(collection, min, max);
             await foreach (var j in collection)

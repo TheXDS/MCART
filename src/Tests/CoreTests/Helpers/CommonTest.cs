@@ -39,32 +39,6 @@ namespace TheXDS.MCART.Tests
     public class CommonTest
     {
         [Fact]
-        public void ToPercentTestDouble()
-        {
-            var c = new[] { 1, 2, 3, 4, 5 };
-
-            Assert.Equal(new[] { 0.2, 0.4, 0.6, 0.8, 1.0 }, c.ToPercentDouble());
-            Assert.Equal(new[] { 0.2, 0.4, 0.6, 0.8, 1.0 }, c.ToPercentDouble(true));
-            Assert.Equal(new[] { 0.0, 0.25, 0.5, 0.75, 1.0 }, c.ToPercentDouble(false));
-            Assert.Equal(new[] { 0.1, 0.2, 0.3, 0.4, 0.5 }, c.ToPercentDouble(10));
-            Assert.Equal(new[] { 0.0, 0.25, 0.5, 0.75, 1.0 }, c.ToPercentDouble(1, 5));
-            Assert.Throws<InvalidOperationException>(() => c.ToPercentDouble(1, 1).ToList());
-        }
-
-        [Fact]
-        public void ToPercentTestSingle()
-        {
-            var c = new[] { 1, 2, 3, 4, 5 };
-
-            Assert.Equal(new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f }, c.ToPercentSingle());
-            Assert.Equal(new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f }, c.ToPercentSingle(true));
-            Assert.Equal(new[] { 0.0f, 0.25f, 0.5f, 0.75f, 1.0f }, c.ToPercentSingle(false));
-            Assert.Equal(new[] { 0.1f, 0.2f, 0.3f, 0.4f, 0.5f }, c.ToPercentSingle(10));
-            Assert.Equal(new[] { 0.0f, 0.25f, 0.5f, 0.75f, 1.0f }, c.ToPercentSingle(1, 5));
-            Assert.Throws<InvalidOperationException>(() => c.ToPercentSingle(1, 1).ToList());
-        }
-
-        [Fact]
         public void ReadCharsTest()
         {
             var s = new SecureString();

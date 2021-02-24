@@ -26,6 +26,10 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using TheXDS.MCART.Types.Extensions;
 using Xunit;
 
 namespace TheXDS.MCART.Tests
@@ -39,6 +43,7 @@ namespace TheXDS.MCART.Tests
             Assert.False(data.Or());
             data[5] = true;
             Assert.True(data.Or());
+            Assert.Throws<ArgumentNullException>(() => CollectionHelpers.Or((IEnumerable<bool>)null!));
         }
 
         [Theory]
@@ -49,6 +54,7 @@ namespace TheXDS.MCART.Tests
         public void OrTest_byte(byte[] array, byte orValue)
         {
             Assert.Equal(orValue, array.Or());
+            Assert.Throws<ArgumentNullException>(() => CollectionHelpers.Or((IEnumerable<byte>)null!));
         }
 
         [Theory]
@@ -58,6 +64,7 @@ namespace TheXDS.MCART.Tests
         public void OrTest_Int16(short[] array, short orValue)
         {
             Assert.Equal(orValue, array.Or());
+            Assert.Throws<ArgumentNullException>(() => CollectionHelpers.Or((IEnumerable<short>)null!));
         }
 
         [Theory]
@@ -67,6 +74,7 @@ namespace TheXDS.MCART.Tests
         public void OrTest_char(char[] array, char orValue)
         {
             Assert.Equal(orValue, array.Or());
+            Assert.Throws<ArgumentNullException>(() => CollectionHelpers.Or((IEnumerable<char>)null!));
         }
 
         [Theory]
@@ -76,6 +84,7 @@ namespace TheXDS.MCART.Tests
         public void OrTest_Int32(int[] array, int orValue)
         {
             Assert.Equal(orValue, array.Or());
+            Assert.Throws<ArgumentNullException>(() => CollectionHelpers.Or((IEnumerable<int>)null!));
         }
 
         [Theory]
@@ -85,6 +94,7 @@ namespace TheXDS.MCART.Tests
         public void OrTest_Int64(long[] array, long orValue)
         {
             Assert.Equal(orValue, array.Or());
+            Assert.Throws<ArgumentNullException>(() => CollectionHelpers.Or((IEnumerable<long>)null!));
         }
 
         [Fact]
@@ -96,6 +106,7 @@ namespace TheXDS.MCART.Tests
             Assert.False(data.And());
             for (int j = 0; j < 10; j++) data[j] = true;
             Assert.True(data.And());
+            Assert.Throws<ArgumentNullException>(() => CollectionHelpers.And((IEnumerable<bool>)null!));
         }
 
         [Theory]
@@ -105,6 +116,7 @@ namespace TheXDS.MCART.Tests
         public void AndTest_byte(byte[] array, byte orValue)
         {
             Assert.Equal(orValue, array.And());
+            Assert.Throws<ArgumentNullException>(() => CollectionHelpers.And((IEnumerable<byte>)null!));
         }
 
         [Theory]
@@ -114,6 +126,7 @@ namespace TheXDS.MCART.Tests
         public void AndTest_Int16(short[] array, short orValue)
         {
             Assert.Equal(orValue, array.And());
+            Assert.Throws<ArgumentNullException>(() => CollectionHelpers.And((IEnumerable<short>)null!));
         }
 
         [Theory]
@@ -123,6 +136,7 @@ namespace TheXDS.MCART.Tests
         public void AndTest_char(char[] array, char orValue)
         {
             Assert.Equal(orValue, array.And());
+            Assert.Throws<ArgumentNullException>(() => CollectionHelpers.And((IEnumerable<char>)null!));
         }
 
         [Theory]
@@ -132,6 +146,7 @@ namespace TheXDS.MCART.Tests
         public void AndTest_Int32(int[] array, int orValue)
         {
             Assert.Equal(orValue, array.And());
+            Assert.Throws<ArgumentNullException>(() => CollectionHelpers.And((IEnumerable<int>)null!));
         }
 
         [Theory]
@@ -141,6 +156,7 @@ namespace TheXDS.MCART.Tests
         public void AndTest_Int64(long[] array, long orValue)
         {
             Assert.Equal(orValue, array.And());
+            Assert.Throws<ArgumentNullException>(() => CollectionHelpers.And((IEnumerable<long>)null!));
         }
 
         [Fact]
@@ -152,6 +168,7 @@ namespace TheXDS.MCART.Tests
             Assert.True(data.Xor());
             data[6] = true;
             Assert.False(data.Xor());
+            Assert.Throws<ArgumentNullException>(() => CollectionHelpers.Xor((IEnumerable<bool>)null!));
         }
 
         [Theory]
@@ -160,6 +177,7 @@ namespace TheXDS.MCART.Tests
         public void XorTest_byte(byte[] array, byte orValue)
         {
             Assert.Equal(orValue, array.Xor());
+            Assert.Throws<ArgumentNullException>(() => CollectionHelpers.Xor((IEnumerable<byte>)null!));
         }
 
         [Theory]
@@ -169,6 +187,7 @@ namespace TheXDS.MCART.Tests
         public void XorTest_Int16(short[] array, short orValue)
         {
             Assert.Equal(orValue, array.Xor());
+            Assert.Throws<ArgumentNullException>(() => CollectionHelpers.Xor((IEnumerable<short>)null!));
         }
 
         [Theory]
@@ -178,6 +197,7 @@ namespace TheXDS.MCART.Tests
         public void XorTest_char(char[] array, char orValue)
         {
             Assert.Equal(orValue, array.Xor());
+            Assert.Throws<ArgumentNullException>(() => CollectionHelpers.Xor((IEnumerable<char>)null!));
         }
 
         [Theory]
@@ -187,6 +207,7 @@ namespace TheXDS.MCART.Tests
         public void XorTest_Int32(int[] array, int orValue)
         {
             Assert.Equal(orValue, array.Xor());
+            Assert.Throws<ArgumentNullException>(() => CollectionHelpers.Xor((IEnumerable<int>)null!));
         }
 
         [Theory]
@@ -196,6 +217,71 @@ namespace TheXDS.MCART.Tests
         public void XorTest_Int64(long[] array, long orValue)
         {
             Assert.Equal(orValue, array.Xor());
+            Assert.Throws<ArgumentNullException>(() => CollectionHelpers.Xor((IEnumerable<long>)null!));
+        }
+
+        [Fact]
+        public void AllEmptyTest()
+        {
+            Assert.False(new[] { "A", "", null }.AllEmpty());
+            Assert.True(new[] { "", null }.AllEmpty());
+            Assert.Throws<ArgumentNullException>(() => CollectionHelpers.AllEmpty(null!));
+        }
+
+        [Fact]
+        public async Task AllEmptyAsyncTest()
+        {
+            Assert.False(await new[] { "A", "", null }.YieldAsync(_ => Task.CompletedTask).AllEmptyAsync());
+            Assert.True(await new[] { "", null }.YieldAsync(_ => Task.CompletedTask).AllEmptyAsync());
+            await Assert.ThrowsAsync<ArgumentNullException>(() => CollectionHelpers.AllEmptyAsync(null!));
+        }
+
+        [Fact]
+        public void AnyEmptyTest()
+        {
+            Assert.False(new[] { "A", "B", "C" }.AnyEmpty());
+            Assert.True(new[] { "A", "" }.AnyEmpty());
+            Assert.True(new[] { "A", null }.AnyEmpty());
+            Assert.True(new[] { "", null }.AnyEmpty());
+            Assert.True(new[] { "A", "", null }.AnyEmpty());
+            Assert.Throws<ArgumentNullException>(() => CollectionHelpers.AnyEmpty(null!));
+        }
+
+        [Fact]
+        public async Task AnyEmptyAsyncTest()
+        {
+            Assert.False(await new[] { "A", "B", "C" }.YieldAsync(_ => Task.CompletedTask).AnyEmptyAsync());
+            Assert.True(await new[] { "A", "" }.YieldAsync(_ => Task.CompletedTask).AnyEmptyAsync());
+            Assert.True(await new[] { "A", null }.YieldAsync(_ => Task.CompletedTask).AnyEmptyAsync());
+            Assert.True(await new[] { "", null }.YieldAsync(_ => Task.CompletedTask).AnyEmptyAsync());
+            Assert.True(await new[] { "A", "", null }.YieldAsync(_ => Task.CompletedTask).AnyEmptyAsync());
+            await Assert.ThrowsAsync<ArgumentNullException>(() => CollectionHelpers.AnyEmptyAsync(null!));
+        }
+
+        [Fact]
+        public void ToPercentTestDouble()
+        {
+            var c = new[] { 1, 2, 3, 4, 5 };
+
+            Assert.Equal(new[] { 0.2, 0.4, 0.6, 0.8, 1.0 }, c.ToPercentDouble());
+            Assert.Equal(new[] { 0.2, 0.4, 0.6, 0.8, 1.0 }, c.ToPercentDouble(true));
+            Assert.Equal(new[] { 0.0, 0.25, 0.5, 0.75, 1.0 }, c.ToPercentDouble(false));
+            Assert.Equal(new[] { 0.1, 0.2, 0.3, 0.4, 0.5 }, c.ToPercentDouble(10));
+            Assert.Equal(new[] { 0.0, 0.25, 0.5, 0.75, 1.0 }, c.ToPercentDouble(1, 5));
+            Assert.Throws<InvalidOperationException>(() => c.ToPercentDouble(1, 1).ToList());
+        }
+
+        [Fact]
+        public void ToPercentTestSingle()
+        {
+            var c = new[] { 1, 2, 3, 4, 5 };
+
+            Assert.Equal(new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f }, c.ToPercentSingle());
+            Assert.Equal(new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f }, c.ToPercentSingle(true));
+            Assert.Equal(new[] { 0.0f, 0.25f, 0.5f, 0.75f, 1.0f }, c.ToPercentSingle(false));
+            Assert.Equal(new[] { 0.1f, 0.2f, 0.3f, 0.4f, 0.5f }, c.ToPercentSingle(10));
+            Assert.Equal(new[] { 0.0f, 0.25f, 0.5f, 0.75f, 1.0f }, c.ToPercentSingle(1, 5));
+            Assert.Throws<InvalidOperationException>(() => c.ToPercentSingle(1, 1).ToList());
         }
     }
 }

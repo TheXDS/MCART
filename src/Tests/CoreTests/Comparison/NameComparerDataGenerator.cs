@@ -22,7 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
 using System.Collections.Generic;
 using TheXDS.MCART.Types.Base;
 
@@ -36,17 +35,6 @@ namespace TheXDS.MCART.Tests.Comparison
         {
             yield return (new Nameable("test"), new Nameable("test"), true);
             yield return (new Nameable("test1"), new Nameable("test2"), false);
-        }
-    }
-
-    public class TypeComparerDataGenerator : ComparerDataGenerator<object>
-    {
-        protected override IEnumerable<(object a, object b, bool equal)> GetSequences()
-        {
-            yield return (new Exception("test 1"), new Exception("test 2"), true);
-            yield return (1.0, 2.0, true);
-            yield return (new Exception("test 1"), new Uri("about:blank"), false);
-            yield return (1.0, 2f, false);
         }
     }
 }

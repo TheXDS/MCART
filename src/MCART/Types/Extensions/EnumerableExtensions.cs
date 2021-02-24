@@ -32,6 +32,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
+using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Types.Extensions
 {
@@ -39,7 +40,7 @@ namespace TheXDS.MCART.Types.Extensions
     /// Extensiones para todos los elementos de tipo
     /// <see cref="IEnumerable{T}" />.
     /// </summary>
-    public static class EnumerableExtensions
+    public static partial class EnumerableExtensions
     {
         /// <summary>
         /// Comprueba si la colección contiene al menos un elemento del tipo
@@ -135,18 +136,71 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
+        /// Ejecuta una tarea de forma asíncrona sobre cada ítem a enumerar.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de elementos de la enumeración.
+        /// </typeparam>
+        /// <param name="input">Enumeración de entrada.</param>
+        /// <param name="processor">
+        /// Tarea asíncrona que se ejecutará sobre cada ítem antes de ser
+        /// enumerado.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="IAsyncEnumerable{T}"/> que puede utilizarse para
+        /// esperar la enumeración de cada elemento.
+        /// </returns>
+        public static async IAsyncEnumerable<T> YieldAsync<T>(this IEnumerable<T> input, Func<T, Task> processor)
+        {
+            NullCheck(input, nameof(input));
+            foreach (var j in input)
+            {
+                await processor(j);
+                yield return j;
+            }
+        }
+
+        /// <summary>
+        /// Transforma una enumeración de entrada al tipo de salida requerido
+        /// de forma asíncrona.
+        /// </summary>
+        /// <typeparam name="TIn">
+        /// Tipo de elementos de la enumeración de entrada.
+        /// </typeparam>
+        /// <typeparam name="TOut">
+        /// Tipo de elementos de la enumeración de salida.
+        /// </typeparam>
+        /// <param name="input">Enumeración de entrada.</param>
+        /// <param name="selector">
+        /// Tarea asíncrona que transformará los datos de entrada.
+        /// </param>
+        /// <returns>
+        /// Un <see cref="IAsyncEnumerable{T}"/> que puede utilizarse para
+        /// esperar la enumeración de cada elemento.
+        /// </returns>
+        public static async IAsyncEnumerable<TOut> SelectAsync<TIn, TOut>(this IEnumerable<TIn> input, Func<TIn, Task<TOut>> selector)
+        {
+            NullCheck(input, nameof(input));
+            foreach (var j in input)
+            {
+                yield return await selector(j);
+            }
+        }
+
+        /// <summary>
         /// Obtiene la cuenta de elementos nulos dentro de una secuencia.
         /// </summary>
-        /// <param name="c">
+        /// <param name="collection">
         /// Secuencia desde la cual obtener la cuenta de elementos nulos.
         /// </param>
         /// <returns>
         /// La cuenta de elementos nulos dentro de la colección.
         /// </returns>
-        public static int NullCount(this IEnumerable c)
+        public static int NullCount(this IEnumerable collection)
         {
+            NullCheck(collection, nameof(collection));
             var count = 0;
-            foreach (var j in c)
+            foreach (var j in collection)
             {
                 if (j is null) count++;
             }
@@ -222,8 +276,8 @@ namespace TheXDS.MCART.Types.Extensions
         [return: MaybeNull]
         public static T FirstOf<T>(this IEnumerable<T> collection, Type type)
         {
-            ChkEnumerableType<T>(type);
-            return collection.FirstOrDefault(p => p?.GetType() == type);
+            FirstOf_OfType_Contract<T>(type);
+            return collection.FirstOrDefault(p => p?.GetType().Implements(type) ?? false);
         }
 
         /// <summary>
@@ -243,7 +297,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static IEnumerable<T> OfType<T>(this IEnumerable<T> collection, Type type)
         {
-            ChkEnumerableType<T>(type);
+            FirstOf_OfType_Contract<T>(type);
             return collection.Where(p => p?.GetType() == type);
         }
 
@@ -296,8 +350,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// aquellos que sean <see langword="null"/>, o una colección vacía si
         /// <paramref name="collection"/> es <see langword="null"/>.
         /// </returns>
-        public static IEnumerable NotNull(this IEnumerable collection)
+        public static IEnumerable NotNull(this IEnumerable? collection)
         {
+            if (collection is null) yield break;
             foreach (var j in collection)
             {
                 if (!(j is null)) yield return j;
@@ -311,7 +366,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="collection">Colección a enumerar.</param>
         /// <returns>
         /// Una enumeración con los elementos de la colección, omitiendo
-        /// aquellos que sean <see langword="null"/>.
+        /// aquellos que sean <see langword="null"/>, o una colección vacía si
+        /// <paramref name="collection"/> es <see langword="null"/>.
         /// </returns>
         public static IEnumerable<T> NotNull<T>(this IEnumerable<T?>? collection) where T : struct
         {
@@ -343,11 +399,12 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>
         /// Una enumeración con los elementos de la colección, omitiendo
         /// aquellos que sean iguales a su valor predeterminado, o en el
-        /// caso de tipos de referencia, <see langword="null"/>.
+        /// caso de tipos de referencia, omitiendo aquellos que sean 
+        /// <see langword="null"/>.
         /// </returns>
-        public static IEnumerable<T> NonDefaults<T>(this IEnumerable<T> collection)
+        public static IEnumerable<T> NonDefaults<T>(this IEnumerable<T?> collection) where T : notnull 
         {
-            return collection.Where(p => !Equals(p, default(T)!));
+            return collection.Where(p => !Equals(p, default(T)!)).Cast<T>();
         }
 
         /// <summary>
@@ -986,13 +1043,6 @@ namespace TheXDS.MCART.Types.Extensions
             while (n.MoveNext()) c++;
             (n as IDisposable)?.Dispose();
             return c;
-        }
-
-        [DebuggerNonUserCode]
-        private static void ChkEnumerableType<T>(Type? type)
-        {
-            if (!typeof(T).IsAssignableFrom(type ?? throw new ArgumentNullException(nameof(type))))
-                throw new InvalidTypeException(type);
         }
     }
 }

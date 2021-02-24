@@ -1,5 +1,5 @@
 ﻿/*
-NameComparerTests.cs
+TypeComparerDataGenerator.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,20 +22,19 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Diagnostics.CodeAnalysis;
-using TheXDS.MCART.Comparison;
-using TheXDS.MCART.Types.Base;
-using Xunit;
+using System;
+using System.Collections.Generic;
 
 namespace TheXDS.MCART.Tests.Comparison
 {
-    public class NameComparerTests : ComparerTestBase<INameable, NameComparer>
+    public class TypeComparerDataGenerator : ComparerDataGenerator<object>
     {
-        [Theory]
-        [ClassData(typeof(NameComparerDataGenerator))]
-        public void NameComparerTest([AllowNull]INameable x, [AllowNull] INameable y, bool equal)
+        protected override IEnumerable<(object a, object b, bool equal)> GetSequences()
         {
-            RunTest(x, y, equal);
+            yield return (new Exception("test 1"), new Exception("test 2"), true);
+            yield return (1.0, 2.0, true);
+            yield return (new Exception("test 1"), new Uri("about:blank"), false);
+            yield return (1.0, 2f, false);
         }
     }
 }
