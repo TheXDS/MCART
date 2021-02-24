@@ -181,15 +181,6 @@ namespace TheXDS.MCART.Types.Extensions
             return new MethodBuildInfo(tb, newMethod);
         }
 
-        private static MethodAttributes GetNonAbstract(MethodInfo m)
-        {
-            var a = (int)m.Attributes;
-            a &= ~(int)Abstract;
-            a |= (int)Virtual;
-
-            return (MethodAttributes)a;
-        }
-
         /// <summary>
         /// Agrega una propiedad pública con soporte para notificación de
         /// cambios de valor.
@@ -1036,6 +1027,14 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         #region Helpers privados
+
+        private static MethodAttributes GetNonAbstract(MethodInfo m)
+        {
+            var a = (int)m.Attributes;
+            a &= ~(int)Abstract;
+            a |= (int)Virtual;
+            return (MethodAttributes)a;
+        }
 
         [DebuggerNonUserCode]
         private static void CheckImplements<T>(Type t)
