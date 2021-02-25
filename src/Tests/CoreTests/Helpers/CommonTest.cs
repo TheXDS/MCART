@@ -79,6 +79,10 @@ namespace TheXDS.MCART.Tests
         {
             Assert.NotNull(FindConverter<int>());
             Assert.Null(FindConverter<Exception, Enum>());
+            Assert.Null(FindConverter<Exception>());
+            Assert.NotNull(FindConverter(typeof(int)));
+            Assert.Null(FindConverter(typeof(Exception)));
+            Assert.Null(FindConverter(typeof(Exception), typeof(Enum)));
         }
 
         [Fact]
@@ -215,6 +219,102 @@ namespace TheXDS.MCART.Tests
         }
 
         [Fact]
+        public void ToBits_WithInt64_Test()
+        {
+            var c = new bool[sizeof(long) * 8];
+            Assert.Equal(c, 0L.ToBits());
+
+            c[1] = true; c[3] = true;
+            Assert.Equal(c, 10L.ToBits());
+        }
+
+        [Fact]
+        public void ToBits_WithInt32_Test()
+        {
+            var c = new bool[sizeof(int) * 8];
+            Assert.Equal(c, 0.ToBits());
+
+            c[1] = true; c[3] = true;
+            Assert.Equal(c, 10.ToBits());
+        }
+
+        [Fact]
+        public void ToBits_WithInt16_Test()
+        {
+            var c = new bool[sizeof(short) * 8];
+            Assert.Equal(c, ((short)0).ToBits());
+
+            c[1] = true; c[3] = true;
+            Assert.Equal(c, ((short)10).ToBits());
+        }
+
+        [Fact]
+        public void ToBits_WithInt8_Test()
+        {
+            var c = new bool[sizeof(byte) * 8];
+            Assert.Equal(c, ((byte)0).ToBits());
+
+            c[1] = true; c[3] = true;
+            Assert.Equal(c, ((byte)10).ToBits());
+        }
+
+        [Theory]
+        [CLSCompliant(false)]
+        [InlineData(0, 0)]
+        [InlineData(2, 10)]
+        [InlineData(3, 11)]
+        [InlineData(2, 12)]
+        [InlineData(7, 127)]
+        [InlineData(1, 128)]
+        [InlineData(8, 255)]
+        public void BitCount_Int64_Test(byte bitCount, long value)
+        {
+            Assert.Equal(bitCount, value.BitCount());
+        }
+
+        [Theory]
+        [CLSCompliant(false)]
+        [InlineData(0, 0)]
+        [InlineData(2, 10)]
+        [InlineData(3, 11)]
+        [InlineData(2, 12)]
+        [InlineData(7, 127)]
+        [InlineData(1, 128)]
+        [InlineData(8, 255)]
+        public void BitCount_Int32_Test(byte bitCount, int value)
+        {
+            Assert.Equal(bitCount, value.BitCount());
+        }
+
+        [Theory]
+        [CLSCompliant(false)]
+        [InlineData(0, 0)]
+        [InlineData(2, 10)]
+        [InlineData(3, 11)]
+        [InlineData(2, 12)]
+        [InlineData(7, 127)]
+        [InlineData(1, 128)]
+        [InlineData(8, 255)]
+        public void BitCount_Int16_Test(byte bitCount, short value)
+        {
+            Assert.Equal(bitCount, value.BitCount());
+        }
+
+        [Theory]
+        [CLSCompliant(false)]
+        [InlineData(0, 0)]
+        [InlineData(2, 10)]
+        [InlineData(3, 11)]
+        [InlineData(2, 12)]
+        [InlineData(7, 127)]
+        [InlineData(1, 128)]
+        [InlineData(8, 255)]
+        public void BitCount_Int8_Test(byte bitCount, byte value)
+        {
+            Assert.Equal(bitCount, value.BitCount());
+        }
+
+        [Fact]
         public void ToHexTest1()
         {
             Assert.Equal("F0", ((byte)240).ToHex());
@@ -317,6 +417,9 @@ namespace TheXDS.MCART.Tests
             Assert.Equal(1, index);
             Assert.True(array.AnyEmpty(out IEnumerable<int> indexes));
             Assert.Equal(new[] { 1, 4 }, indexes.ToArray());
+
+            Assert.True(AnyEmpty(out int idx, array));
+            Assert.Equal(1, idx);
         }
     }
 }

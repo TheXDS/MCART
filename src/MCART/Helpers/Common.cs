@@ -53,16 +53,14 @@ namespace TheXDS.MCART
     /// </remarks>
     public static partial class Common
     {
-        private static IEnumerable<bool> ToBits(this ulong value, in byte maxBits)
+        private static IEnumerable<bool> ToBits(this in ulong value, in byte maxBits)
         {
-            var ret = new List<bool>();
-            byte f = 0;
-            while (value != 0 || f++ == maxBits)
+            var a = new bool[maxBits];
+            for (var j = 0; j < maxBits; j++)
             {
-                ret.Insert(0, (value & 1) != 0);
-                value >>= 1;
+                a[j] = (value & (ulong)System.Math.Pow(2, j)) != 0;
             }
-            return ret;
+            return a;
         }
         private static byte BitCount(ulong value, in byte maxBits)
         {
