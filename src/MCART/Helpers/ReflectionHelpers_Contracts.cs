@@ -31,6 +31,7 @@ using System.Runtime.CompilerServices;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
+using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART
 {
@@ -54,6 +55,14 @@ namespace TheXDS.MCART
         {
             if (method?.DeclaringType is null) throw new ArgumentNullException(nameof(method));
             if (!(thisInstance?.GetType() ?? throw new ArgumentNullException(nameof(thisInstance))).Implements(method.DeclaringType)) throw new InvalidTypeException(thisInstance.GetType());
+        }
+
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void IsOverride_Contract(MethodInfo method)
+        {
+            NullCheck(method, nameof(method));
         }
     }
 }

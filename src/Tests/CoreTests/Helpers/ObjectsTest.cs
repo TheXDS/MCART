@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma warning disable CS1591
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -65,7 +63,9 @@ namespace TheXDS.MCART.Tests.Modules
                 _ = x.ToString();
             }
 
+#pragma warning disable CA1822
             public void TestMethod2(float x)
+#pragma warning restore CA1822
             {
                 _ = x.ToString();
             }
@@ -123,7 +123,7 @@ namespace TheXDS.MCART.Tests.Modules
         public void GetAttrTest()
         {
             Assert.NotNull(RtInfo.CoreRtAssembly.GetAttr<AssemblyTitleAttribute>());
-            Assert.NotNull(MethodBase.GetCurrentMethod().GetAttr<FactAttribute>());
+            Assert.NotNull(MethodBase.GetCurrentMethod()?.GetAttr<FactAttribute>());
             Assert.NotNull(GetAttr<AttrTestAttribute, ObjectsTest>());
             Assert.NotNull(typeof(ObjectsTest).GetAttr<AttrTestAttribute>());
         }
@@ -134,7 +134,6 @@ namespace TheXDS.MCART.Tests.Modules
             Assert.True(GetTypes<IComparable>().Count() > 2);
             Assert.True(GetTypes<Stream>(true).Count() > 2);
             Assert.True(GetTypes<Stream>(true).Count() < GetTypes<Stream>(false).Count());
-
             Assert.Contains(typeof(Enum), GetTypes<Enum>());
             Assert.Contains(typeof(Enum), GetTypes<Enum>(false));
             Assert.DoesNotContain(typeof(Enum), GetTypes<Enum>(true));
@@ -183,9 +182,9 @@ namespace TheXDS.MCART.Tests.Modules
         [Fact]
         public void IsSignatureCompatibleTest()
         {
-            Assert.True(typeof(TestClass).GetMethod(nameof(TestClass.TestMethod)).IsSignatureCompatible<Action<int>>());
-            Assert.False(typeof(TestClass).GetMethod(nameof(TestClass.TestMethod))
-                .IsSignatureCompatible<Action<float>>());
+            var m = ReflectionHelpers.GetMethod<Action<int>>(() => TestClass.TestMethod)!;            
+            Assert.True(m.IsSignatureCompatible<Action<int>>());
+            Assert.False(m.IsSignatureCompatible<Action<float>>());
         }
 
         [Fact]
@@ -231,9 +230,11 @@ namespace TheXDS.MCART.Tests.Modules
         [Fact]
         public void WhichAreNullTest()
         {
+            Assert.NotNull(Array.Empty<object>().WhichAreNull());
             Assert.Equal(Array.Empty<int>(), WhichAreNull(new object(), new object()).ToArray());
             Assert.Equal(new[] {1}, WhichAreNull(new object(), null, new object(), new object()).ToArray());
             Assert.Equal(new[] {2, 3}, WhichAreNull(new object(), new object(), null, null).ToArray());
+            Assert.Throws<ArgumentNullException>(((IEnumerable<object?>)null!).WhichAreNull().ToArray);
         }
 
         [Fact]
@@ -249,7 +250,7 @@ namespace TheXDS.MCART.Tests.Modules
         public void WithSignatureTest()
         {
             Assert.Null(typeof(TestClass).GetMethods().WithSignature<Action<short>>().FirstOrDefault());
-            var m = typeof(TestClass).GetMethods().WithSignature<Action<int>>().FirstOrDefault();
+            var m = typeof(TestClass).GetMethods().WithSignature<Action<int>>().FirstOrDefault()!;
             Assert.NotNull(m);
             m(1);
         }
@@ -259,7 +260,7 @@ namespace TheXDS.MCART.Tests.Modules
         {
             var tc = new TestClass();
             Assert.Null(typeof(TestClass).GetMethods().WithSignature<Action<double>>(tc).FirstOrDefault());
-            var m = typeof(TestClass).GetMethods().WithSignature<Action<float>>(tc).FirstOrDefault();
+            var m = typeof(TestClass).GetMethods().WithSignature<Action<float>>(tc).FirstOrDefault()!;
             Assert.NotNull(m);
             m(1.0f);
         }
@@ -279,15 +280,13 @@ namespace TheXDS.MCART.Tests.Modules
         [Fact]
         public void TryCreateDelegateTest()
         {
-            var m = GetType().GetMethod(nameof(TestEventHandler));
+            var m = GetType().GetMethod(nameof(TestEventHandler))!;
 
             Assert.True(TryCreateDelegate<EventHandler>(m, this, out _));
-
-            Assert.False(TryCreateDelegate<EventHandler>(m, null, out _));
+            Assert.False(TryCreateDelegate<EventHandler>(m, null!, out _));
             Assert.False(TryCreateDelegate<Action>(m, this, out _));
             Assert.False(TryCreateDelegate<Action<int>>(m, this, out _));
-
-            Assert.False(TryCreateDelegate<EventHandler>(null, out _));
+            Assert.False(TryCreateDelegate<EventHandler>(null!, out _));
             Assert.False(TryCreateDelegate<Action>(m, out _));
             Assert.False(TryCreateDelegate<Action<int>>(m, out _));
         }

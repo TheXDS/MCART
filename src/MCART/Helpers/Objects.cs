@@ -1897,8 +1897,9 @@ namespace TheXDS.MCART
         /// Un enumerador con los índices de los objetos que son <see langword="null" />.
         /// </returns>
         /// <param name="collection">Colección de objetos a comprobar.</param>
-        public static IEnumerable<int> WhichAreNull(this IEnumerable<object> collection)
+        public static IEnumerable<int> WhichAreNull(this IEnumerable<object?> collection)
         {
+            WhichAreNull_Contract(collection);
             var c = 0;
             foreach (var j in collection)
             {
@@ -1914,7 +1915,7 @@ namespace TheXDS.MCART
         /// Un enumerador con los índices de los objetos que son <see langword="null" />.
         /// </returns>
         /// <param name="collection">Colección de objetos a comprobar.</param>
-        public static IEnumerable<int> WhichAreNull(params object[] collection)
+        public static IEnumerable<int> WhichAreNull(params object?[] collection)
         {
             return collection.WhichAreNull();
         }

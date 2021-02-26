@@ -47,9 +47,25 @@ namespace TheXDS.MCART.Tests.Modules
         }
 
         [Fact]
+        public void GetMethodTest()
+        {
+            var m1 = GetMethod<Test1, Action>(t => t.Test);
+            var b1 = typeof(Test1).GetMethod("Test")!;
+            var m2 = GetMethod<Test2, Action>(t => t.Test);
+            var b2 = typeof(Test2).GetMethod("Test")!;
+
+            Assert.NotNull(m1);
+            Assert.NotNull(m2);
+            Assert.Same(m1, b1);
+            Assert.Same(m2, b2);
+            Assert.NotSame(m1, m2);
+            Assert.NotSame(b1, b2);
+        }
+
+        [Fact]
         public void GetCallingMethodTest()
         {
-            MethodBase TestMethod() => GetCallingMethod();            
+            MethodBase TestMethod() => GetCallingMethod()!;            
             Assert.Equal(MethodBase.GetCurrentMethod(), TestMethod());
             Assert.Null(GetCallingMethod(int.MaxValue - 1));
             Assert.Throws<OverflowException>(() => GetCallingMethod(int.MaxValue));
@@ -61,17 +77,28 @@ namespace TheXDS.MCART.Tests.Modules
         {
             var t1 = new Test1();
             var t2 = new Test2();
-            var m1 = t1.GetType().GetMethod("Test");
-            var m2 = t2.GetType().GetMethod("Test");
-            var m3 = t2.GetType().GetMethod("TestB");
+            var m1 = GetMethod<Test1, Action>(t => t.Test);
+            var m2 = GetMethod<Test2, Action>(t => t.Test);
+            var m3 = GetMethod<Test2, Action>(t => t.TestB);
 
             Assert.False(m1.IsOverriden(t1));
             Assert.True(m1.IsOverriden(t2));
             Assert.False(m2.IsOverriden(t2));
 
-            Assert.Throws<ArgumentNullException>(() => m1.IsOverriden(null));
-            Assert.Throws<ArgumentNullException>(() => ReflectionHelpers.IsOverriden(null, null));
+            Assert.Throws<ArgumentNullException>(() => m1.IsOverriden(null!));
+            Assert.Throws<ArgumentNullException>(() => ReflectionHelpers.IsOverriden(null!, null!));
             Assert.Throws<InvalidTypeException>(() => m2.IsOverriden(t1));
+        }
+
+        [Fact]
+        public void IsOverrideTest()
+        {
+            var m1 = GetMethod<Test1, Action>(t => t.Test);
+            var m2 = GetMethod<Test2, Action>(t => t.Test);
+
+            Assert.True(m2.IsOverride());
+            Assert.False(m1.IsOverride());
+            Assert.Throws<ArgumentNullException>(() => ReflectionHelpers.IsOverride(null!));
         }
     }
 }

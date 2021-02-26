@@ -64,5 +64,13 @@ namespace TheXDS.MCART
                 }
             }
         }
+
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void WhichAreNull_Contract(IEnumerable<object?> collection)
+        {
+            NullCheck(collection, nameof(collection));
+        }
     }
 }

@@ -121,6 +121,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static bool IsOverride(this MethodInfo method)
         {
+            IsOverride_Contract(method);
             return method.GetBaseDefinition().DeclaringType != method.DeclaringType;
         }
 
@@ -339,7 +340,15 @@ namespace TheXDS.MCART
         /// </returns>
         public static MethodInfo GetMethod<T, TMethod>(Expression<Func<T, TMethod>> methodSelector) where TMethod : Delegate
         {
-            return GetMember<MethodInfo, T, TMethod>(methodSelector);
+            var m = GetMember<MethodInfo, T, TMethod>(methodSelector);
+
+            /* HACK
+             * Las expresiones de Linq podrían no detectar correctamente el
+             * tipo de origen de un método que es una sobrecarga en una clase
+             * derivada.
+             */
+            return m.DeclaringType == typeof(T) ? m
+                : typeof(T).GetMethod(m.Name, m.GetBindingFlags(), null, m.GetParameters().Select(p => p.ParameterType).ToArray(), null) ?? throw new TamperException();
         }
 
         /// <summary>
