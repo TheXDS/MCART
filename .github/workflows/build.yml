@@ -20,6 +20,10 @@ jobs:
         dotnet-version: 5.0.x
     - name: Build and test MCART
       run: dotnet test $env:Solution_Name --configuration=$env:Configuration
+    - name: Coveralls GitHub Action
+      uses: coverallsapp/github-action@v1.1.2
+      with:
+        github-token: ${{ secrets.COVERALLS_TOKEN }}
     - name: Create NuGet Packages
       run: dotnet pack $env:Solution_Name --configuration=$env:Configuration --version-suffix=$env:GITHUB_SHA --include-source
     - uses: actions/upload-artifact@v2
