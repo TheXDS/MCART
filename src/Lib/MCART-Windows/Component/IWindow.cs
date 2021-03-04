@@ -52,14 +52,14 @@ namespace TheXDS.MCART.Windows.Component
         void Hide();
 
         /// <summary>
-        /// Minimiza la ventana.
-        /// </summary>
-        void Minimize();
-
-        /// <summary>
         /// Maximiza la ventana.
         /// </summary>
         void Maximize();
+
+        /// <summary>
+        /// Minimiza la ventana.
+        /// </summary>
+        void Minimize();
 
         /// <summary>
         /// Restaura el tamaño de la ventana.

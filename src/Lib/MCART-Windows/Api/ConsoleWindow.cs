@@ -64,10 +64,41 @@ namespace TheXDS.MCART.Windows.Api
             if (Handle != IntPtr.Zero) PInvoke.FreeConsole();
         }
 
-        /// <inheridoc/>
+        /// <summary>
+        /// Oculta la ventana sin cerrarla.
+        /// </summary>
         public void Hide()
         {
-            if (Handle != IntPtr.Zero) PInvoke.ShowWindowAsync(Handle, ShowWindowFlags.Hide);
+            CallShowWindow(ShowWindowFlags.Hide);
+        }
+
+        /// <summary>
+        /// Maximiza la ventana.
+        /// </summary>
+        public void Maximize()
+        {
+            CallShowWindow(ShowWindowFlags.ShowMaximized);
+        }
+
+        /// <summary>
+        /// Minimiza la ventana.
+        /// </summary>
+        public void Minimize()
+        {
+            CallShowWindow(ShowWindowFlags.Minimize);
+        }
+
+        /// <summary>
+        /// Restaura el tamaño de la ventana.
+        /// </summary>
+        public void Restore()
+        {
+            CallShowWindow(ShowWindowFlags.Restore);
+        }
+
+        private void CallShowWindow(ShowWindowFlags flags)
+        {
+            if (Handle != IntPtr.Zero) PInvoke.ShowWindowAsync(Handle, flags);
         }
     }
 }
