@@ -76,5 +76,11 @@ namespace TheXDS.MCART.Wpf.Component
         void ICloseable.Close() => Itself.Close();
 
         void IWindow.Hide() => Itself.Hide();
+
+        void IWindow.Minimize() => Itself.WindowState = WindowState.Minimized;
+
+        void IWindow.Maximize() => Itself.WindowState = WindowState.Maximized;
+
+        void IWindow.Restore() => Itself.WindowState = WindowState.Normal;
     }
 }
