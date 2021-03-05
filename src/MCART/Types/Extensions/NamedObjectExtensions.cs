@@ -54,6 +54,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             return NamedObject<T>.FromEnum();
         }
+
         /// <summary>
         /// Enumera todos los valores de enumeración del tipo especificado
         /// como <see cref="NamedObject{T}"/>.
