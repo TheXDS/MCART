@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Types.Converters
@@ -38,17 +39,17 @@ namespace TheXDS.MCART.Types.Converters
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="EnumDescriptionConverter"/>.
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="type">Tipo de enumeración a describir</param>
         public EnumDescriptionConverter(Type type) : base(type)
         {
-
         }
 
         /// <inheritdoc/>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             return destinationType == typeof(string) && value is Enum e
-                ? e.GetAttr<DescriptionAttribute>()?.Description
+                ? e.GetAttr<LocalizedDescriptionAttribute>()?.Description
+                    ?? e.GetAttr<System.ComponentModel.DescriptionAttribute>()?.Description
                     ?? e.GetAttr<Attributes.DescriptionAttribute>()?.Value
                     ?? e.NameOf()
                 : base.ConvertTo(context, culture, value, destinationType);
