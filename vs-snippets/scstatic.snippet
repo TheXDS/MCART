@@ -3,7 +3,7 @@
   <CodeSnippet Format="1.0.0">
     <Header>
       <Title>Comando simple de MCART</Title>
-      <Shortcut>simplecommand</Shortcut>
+      <Shortcut>scstatic</Shortcut>
       <Description>Fragmento de código para agregar un nuevo comando simple para un ViewModel de MCART.</Description>
       <Author>César Andrés Morgan</Author>
       <SnippetTypes>
@@ -27,16 +27,15 @@
           <Namespace>TheXDS.MCART.ViewModel</Namespace>
         </Import>
       </Imports>
-      <Code Language="csharp" Kind="method decl"><![CDATA[
+      <Code Language="csharp" Kind="method decl">
+        <![CDATA[
 /// <summary>
 /// Obtiene el comando relacionado a la acción $name$.
 /// </summary>
 /// <returns>El comando $name$.</returns>
-public SimpleCommand $name$Command { get; }
-// Inserte en el constructor del tipo:
-// $name$Command = new SimpleCommand(this, On$name$);
+public SimpleCommand $name$Command { get; } = new SimpleCommand(On$name$);
 
-private void On$name$()
+private static void On$name$()
 {
     $end$
 }]]>
