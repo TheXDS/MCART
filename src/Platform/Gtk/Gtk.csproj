@@ -11,8 +11,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="$(SolutionDir)Lib\MCART-GUI\MCART-GUI.csproj" />
-      <ProjectReference Include="$(SolutionDir)Lib\MCART-UI\MCART-UI.csproj" />
+      <ProjectReference Include="..\..\Lib\MCART-GUI\MCART.GUI.csproj" />
+      <ProjectReference Include="..\..\Lib\MCART-UI\MCART.UI.csproj" />
     </ItemGroup>
 
 </Project>

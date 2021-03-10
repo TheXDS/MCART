@@ -556,6 +556,20 @@ namespace TheXDS.MCART
         }
 
         /// <summary>
+        /// Enumera todas las cadenas no nulas de una colección.
+        /// </summary>
+        /// <param name="stringArray"></param>
+        /// <returns></returns>
+        public static IEnumerable<string> NotEmpty(this IEnumerable<string?> stringArray)
+        {
+            NullCheck(stringArray, nameof(stringArray));
+            foreach(var j in stringArray)
+            {
+                if (!j.IsEmpty()) yield return j;
+            }
+        }
+
+        /// <summary>
         /// Convierte los valores de una colección de elementos
         /// <see cref="float" /> a porcentajes.
         /// </summary>

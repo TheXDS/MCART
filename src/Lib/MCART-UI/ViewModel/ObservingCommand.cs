@@ -29,7 +29,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
+using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Resources.UI;
+using TheXDS.MCART.Types.Extensions;
+using static TheXDS.MCART.Misc.Internals;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
 namespace TheXDS.MCART.ViewModel
@@ -43,8 +46,8 @@ namespace TheXDS.MCART.ViewModel
     /// </summary>
     public class ObservingCommand : CommandBase
     {
-        private Func<object?, bool>? _canExecute;
-        private readonly HashSet<string> _properties;
+        private Func<INotifyPropertyChanged, object?, bool>? _canExecute;
+        private readonly HashSet<string> _properties = new();
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase
@@ -52,7 +55,23 @@ namespace TheXDS.MCART.ViewModel
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="action">Acción a ejecutar.</param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Action action) : this(observedSource, action, (Func<object?, bool>?)null, (IEnumerable<string>?)null) { }
+        public ObservingCommand(INotifyPropertyChanged observedSource, Action action) : this(observedSource, (_) => action()) { }
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ObservingCommand" />.
+        /// </summary>
+        /// <param name="observedSource">Origen de datos observado.</param>
+        /// <param name="task">Tarea a ejecutar.</param>
+        public ObservingCommand(INotifyPropertyChanged observedSource, Func<Task> task) : this(observedSource, (Action<object?>)(async (_) => await task())) { }
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ObservingCommand" />.
+        /// </summary>
+        /// <param name="observedSource">Origen de datos observado.</param>
+        /// <param name="task">Tarea a ejecutar.</param>
+        public ObservingCommand(INotifyPropertyChanged observedSource, Func<object?, Task> task) : this(observedSource, (Action<object?>)(async (object? o) => await task(o))) { }
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase
@@ -60,552 +79,9 @@ namespace TheXDS.MCART.ViewModel
         /// </summary>
         /// <param name="observedSource">Origen de datos observado.</param>
         /// <param name="action">Acción a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Action action, Func<object?, bool>? canExecute, params string[] propsToListen)
-            : this(observedSource, _ => action(), canExecute, propsToListen.AsEnumerable()) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="action">Acción a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Action action, Func<bool>? canExecute, params string[] propsToListen)
-            : this(observedSource, _ => action(), canExecute, propsToListen.AsEnumerable()) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="action">Acción a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Action action, Func<bool>? canExecute, IEnumerable<string>? propsToListen)
-            : this(observedSource, _ => action(), canExecute, propsToListen) { }
-       
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="action">Acción a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Action action, Func<object?, bool>? canExecute, IEnumerable<string>? propsToListen)
-            : this(observedSource, _ => action(), canExecute, propsToListen) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="action">Acción a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Action action, Func<object?, bool>? canExecute, params Expression<Func<object?>>[] propsToListen)
-            : this(observedSource, _ => action(), canExecute, propsToListen.AsEnumerable()) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="action">Acción a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Action action, Func<bool> canExecute, params Expression<Func<object?>>[] propsToListen) 
-            : this(observedSource, _ => action(), _=> canExecute(), propsToListen.AsEnumerable()) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="action">Acción a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Action action, Func<bool> canExecute, IEnumerable<Expression<Func<object?>>>? propsToListen)
-            : this(observedSource, _ => action(), _ => canExecute(), propsToListen) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="action">Acción a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Action action, Func<object?, bool>? canExecute, IEnumerable<Expression<Func<object?>>>? propsToListen)
-            : this(observedSource, _ => action(), canExecute, propsToListen) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="task">Tarea a ejecutar.</param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Func<Task> task) : this(observedSource, (Action)(async () => await task())) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="task">Tarea a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Func<Task> task, Func<object?, bool>? canExecute, params string[] propsToListen)
-            : this(observedSource, (Action)(async () => await task()), canExecute, propsToListen.AsEnumerable()) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="task">Tarea a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Func<Task> task, Func<bool>? canExecute, params string[] propsToListen)
-            : this(observedSource, (Action)(async () => await task()), canExecute, propsToListen.AsEnumerable()) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="task">Tarea a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Func<Task> task, Func<bool>? canExecute, IEnumerable<string>? propsToListen)
-            : this(observedSource, (Action)(async () => await task()), canExecute, propsToListen) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="task">Tarea a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Func<Task> task, Func<object?, bool>? canExecute, IEnumerable<string>? propsToListen)
-            : this(observedSource, (Action)(async () => await task()), canExecute, propsToListen) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="task">Tarea a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Func<Task> task, Func<object?, bool>? canExecute, params Expression<Func<object?>>[] propsToListen)
-            : this(observedSource, (Action)(async () => await task()), canExecute, propsToListen.AsEnumerable()) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="task">Tarea a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Func<Task> task, Func<bool> canExecute, params Expression<Func<object?>>[] propsToListen)
-            : this(observedSource, (Action)(async () => await task()), _ => canExecute(), propsToListen.AsEnumerable()) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="task">Tarea a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Func<Task> task, Func<bool> canExecute, IEnumerable<Expression<Func<object?>>>? propsToListen)
-            : this(observedSource, (Action)(async () => await task()), _ => canExecute(), propsToListen) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="task">Tarea a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Func<Task> task, Func<object?, bool>? canExecute, IEnumerable<Expression<Func<object?>>>? propsToListen)
-            : this(observedSource, (Action)(async () => await task()), canExecute, propsToListen) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="task">Tarea a ejecutar.</param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Func<object?, Task> task) : this(observedSource, (Action<object?>)(async o => await task(o))) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="task">Tarea a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Func<object?, Task> task, Func<object?, bool>? canExecute, params string[] propsToListen)
-            : this(observedSource, (Action<object?>)(async o => await task(o)), canExecute, propsToListen.AsEnumerable()) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="task">Tarea a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Func<object?, Task> task, Func<bool>? canExecute, params string[] propsToListen)
-            : this(observedSource, (Action<object?>)(async o => await task(o)), canExecute, propsToListen.AsEnumerable()) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="task">Tarea a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Func<object?, Task> task, Func<bool>? canExecute, IEnumerable<string>? propsToListen)
-            : this(observedSource, (Action<object?>)(async o => await task(o)), canExecute, propsToListen) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="task">Tarea a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Func<object?, Task> task, Func<object?, bool>? canExecute, IEnumerable<string>? propsToListen)
-            : this(observedSource, (Action<object?>)(async o => await task(o)), canExecute, propsToListen) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="task">Tarea a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Func<object?, Task> task, Func<object?, bool>? canExecute, params Expression<Func<object?>>[] propsToListen)
-            : this(observedSource, (Action<object?>)(async o => await task(o)), canExecute, propsToListen.AsEnumerable()) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="task">Tarea a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Func<object?, Task> task, Func<bool> canExecute, params Expression<Func<object?>>[] propsToListen)
-            : this(observedSource, (Action<object?>)(async o => await task(o)), _ => canExecute(), propsToListen.AsEnumerable()) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="task">Tarea a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Func<object?, Task> task, Func<bool> canExecute, IEnumerable<Expression<Func<object?>>>? propsToListen)
-            : this(observedSource, (Action<object?>)(async o => await task(o)), _ => canExecute(), propsToListen) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="task">Tarea a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Func<object?, Task> task, Func<object?, bool>? canExecute, IEnumerable<Expression<Func<object?>>>? propsToListen)
-            : this(observedSource, (Action<object?>)(async o => await task(o)), canExecute, propsToListen) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="action">Acción a ejecutar.</param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Action<object?> action) : this(observedSource, action, (Func<object?, bool>?)null, (IEnumerable<string>?)null) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="action">Acción a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Action<object?> action, Func<bool>? canExecute, params string[] propsToListen)
-            : this(observedSource, action, _ => canExecute?.Invoke() ?? true, canExecute is null ? propsToListen?.AsEnumerable() : null) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="action">Acción a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Action<object?> action, Func<bool>? canExecute, IEnumerable<string>? propsToListen)
-            : this(observedSource, action, _ => canExecute?.Invoke() ?? true, canExecute is null ? propsToListen : null) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="action">Acción a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Action<object?> action, Func<bool>? canExecute, params Expression<Func<object?>>[] propsToListen)
-            : this(observedSource, action, _ => canExecute?.Invoke() ?? true, canExecute is null ? propsToListen?.AsEnumerable() : null) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="action">Acción a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Action<object?> action, Func<bool>? canExecute, IEnumerable<Expression<Func<object?>>>? propsToListen)
-            : this(observedSource, action, _ => canExecute?.Invoke() ?? true, canExecute is null ? propsToListen : null) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand" />.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="action">Acción a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Action<object?> action, Func<object?, bool>? canExecute, params string[] propsToListen)
-            : this(observedSource, action, canExecute, propsToListen.AsEnumerable()) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand"/>.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="action">Acción a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Action<object?> action, Func<object?, bool>? canExecute, params Expression<Func<object?>>[] propsToListen)
-            : this(observedSource, action, canExecute, propsToListen.AsEnumerable())
-        { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand"/>.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="action">Acción a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Action<object?> action, Func<object?, bool>? canExecute, IEnumerable<Expression<Func<object?>>>? propsToListen)
-            : this(observedSource, action, canExecute, propsToListen?.Select(p => ExpressionToString(observedSource, p)))
-        { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservingCommand"/>.
-        /// </summary>
-        /// <param name="observedSource">Origen de datos observado.</param>
-        /// <param name="action">Acción a ejecutar.</param>
-        /// <param name="canExecute">
-        /// Función que determina si el comando puede ejecutarse o no.
-        /// </param>
-        /// <param name="propsToListen">
-        /// Lista de propiedades a escuchar. Si no se establece ningún
-        /// valor, se escuchará el cambio de todas las propiedades.
-        /// </param>
-        public ObservingCommand(INotifyPropertyChanged observedSource, Action<object?> action, Func<object?, bool>? canExecute, IEnumerable<string>? propsToListen) : base(action)
+        public ObservingCommand(INotifyPropertyChanged observedSource, Action<object?> action) : base(action)
         {
-            ObservedSource = observedSource ?? throw new ArgumentNullException(nameof(observedSource));
-            _canExecute = canExecute;
-
-            var toListen = propsToListen as string[] ?? propsToListen?.ToArray();
-#if PreferExceptions
-            if (_canExecute is null)
-            {
-                if (toListen?.Any() ?? false) throw new InvalidArgumentException(nameof(propsToListen));
-                return;
-            }
-            if (toListen.AnyEmpty(out int index)) throw new InvalidEnumArgumentException(nameof(propsToListen),index,typeof(string));
-#endif
-            _properties = toListen?.Any() ?? false ? new HashSet<string>(toListen!) : new HashSet<string>();
-            if (_canExecute is null) return;
-            observedSource.PropertyChanged += RaiseCanExecuteChanged;
+            ObservedSource = NullChecked(observedSource, nameof(observedSource));
         }
 
         /// <summary>
@@ -616,7 +92,7 @@ namespace TheXDS.MCART.ViewModel
         /// <summary>
         /// Enumera las propiedades que están siendo observadas por este <see cref="ObservingCommand"/>.
         /// </summary>
-        public IEnumerable<string> ObservedProperties => _properties;
+        public IEnumerable<string> ObservedProperties => _properties.ToArray();
 
         /// <summary>
         /// Define el método que determina si el comando puede ejecutarse
@@ -633,22 +109,25 @@ namespace TheXDS.MCART.ViewModel
         /// </returns>
         public override bool CanExecute(object? parameter)
         {
-            return _canExecute?.Invoke(parameter) ?? true;
+            return _canExecute?.Invoke(ObservedSource, parameter) ?? true;
         }
 
         /// <summary>
         /// Registra una nueva propiedad a observar en este comando.
         /// </summary>
-        /// <param name="property">Nombre de la propiedad a observar.</param>
+        /// <param name="properties">
+        /// Nombre(s) de la(s) propiedad(es) a observar.
+        /// </param>
         /// <returns>
         /// Esta misma instancia, lo que permite usar esta función con
         /// sintaxis fluent.
         /// </returns>
-        public ObservingCommand RegisterObservedProperty(string property)
+        public ObservingCommand RegisterObservedProperty(params string[] properties)
         {
-            if (property is null) throw new ArgumentNullException(nameof(property));
-            if (property.IsEmpty()) throw new ArgumentException(null, nameof(property));
-            _properties.Add(property);
+            foreach (var j in properties.NotEmpty())
+            {
+                _properties.Add(j);
+            }
             return this;
         }
 
@@ -679,18 +158,10 @@ namespace TheXDS.MCART.ViewModel
         /// Esta misma instancia, lo que permite usar esta función con
         /// sintaxis fluent.
         /// </returns>
-        public ObservingCommand SetCanExecute(Func<object?, bool>? canExecute)
+        public ObservingCommand SetCanExecute(Func<bool> canExecute)
         {
-            if (canExecute is null)
-            {
-                ObservedSource.PropertyChanged -= RaiseCanExecuteChanged;
-            }
-            else if (_canExecute is null)
-            {
-                ObservedSource.PropertyChanged += RaiseCanExecuteChanged;
-            }
-            _canExecute = canExecute;
-            return this;
+            NullCheck(canExecute, nameof(canExecute));
+            return SetCanExecute(_ => canExecute());
         }
 
         /// <summary>
@@ -705,10 +176,35 @@ namespace TheXDS.MCART.ViewModel
         /// Esta misma instancia, lo que permite usar esta función con
         /// sintaxis fluent.
         /// </returns>
-        public ObservingCommand SetCanExecute(Func<bool> canExecute)
+        public ObservingCommand SetCanExecute(Func<object?, bool> canExecute)
         {
-            if (canExecute is null) throw new ArgumentNullException(nameof(canExecute));
-            SetCanExecute(_ => canExecute());
+            NullCheck(canExecute, nameof(canExecute));
+            return SetCanExecute((_, o) => canExecute(o));
+        }
+
+        /// <summary>
+        /// Establece la función de comprobación a ejecutar cuando se desee
+        /// saber si es posible ejecutar el comando.
+        /// </summary>
+        /// <param name="canExecute">
+        /// Función a ejecutar para determinar la posibilidad de ejecutar
+        /// el comando.
+        /// </param>
+        /// <returns>
+        /// Esta misma instancia, lo que permite usar esta función con
+        /// sintaxis fluent.
+        /// </returns>
+        public ObservingCommand SetCanExecute(Func<INotifyPropertyChanged, object?, bool>? canExecute)
+        {
+            if (canExecute is null)
+            {
+                ObservedSource.PropertyChanged -= RaiseCanExecuteChanged;
+            }
+            else if (_canExecute is null)
+            {
+                ObservedSource.PropertyChanged += RaiseCanExecuteChanged;
+            }
+            _canExecute = canExecute;
             return this;
         }
 
@@ -716,18 +212,11 @@ namespace TheXDS.MCART.ViewModel
         /// Desconecta la función establecida para comprobar la posibilidad
         /// de ejecutar este comando.
         /// </summary>
-        public void UnsetCanExecute() => SetCanExecute((Func<object?, bool>?)null);
+        public void UnsetCanExecute() => SetCanExecute((Func<INotifyPropertyChanged, object?, bool>?)null);
 
         private void RaiseCanExecuteChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (_properties.Contains(e.PropertyName ?? throw Errors.NullValue("e.PropertyName"))) RaiseCanExecuteChanged();
-        }
-
-        private static string ExpressionToString(object instance, Expression<Func<object?>> exp)
-        {
-            var prop = (ReflectionHelpers.GetMember(exp) as PropertyInfo) ?? throw new ArgumentException(null, nameof(exp));
-            if (!instance.GetType().GetProperties().Contains(prop)) throw new MissingMemberException();
-            return prop.Name;
         }
     }
 }

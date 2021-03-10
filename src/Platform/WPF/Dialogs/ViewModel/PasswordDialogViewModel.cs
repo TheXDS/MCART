@@ -46,8 +46,12 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// </summary>
         public PasswordDialogViewModel()
         {
-            EvaluateCommand = new ObservingCommand(this, OnEvaluate, CanEvaluate, nameof(IsGeneratorVisible), nameof(Generator));
-            GenerateCommand = new ObservingCommand(this, OnGenerate, CanGenerate, nameof(IsQualityVisible), nameof(Evaluator));
+            EvaluateCommand = new ObservingCommand(this, OnEvaluate)
+                .SetCanExecute(CanEvaluate)
+                .RegisterObservedProperty(nameof(IsGeneratorVisible), nameof(Generator));
+            GenerateCommand = new ObservingCommand(this, OnGenerate)
+                .SetCanExecute(CanGenerate)
+                .RegisterObservedProperty(nameof(IsQualityVisible), nameof(Evaluator));
         }
 
         private bool CanGenerate(object? arg)

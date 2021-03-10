@@ -19,8 +19,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(SolutionDir)Lib\MCART-Windows\MCART-Windows.csproj" />
-    <ProjectReference Include="$(SolutionDir)Lib\MCART-GUI\MCART-GUI.csproj" />
-    <ProjectReference Include="$(SolutionDir)Lib\MCART-UI\MCART-UI.csproj" />
+    <ProjectReference Include="..\..\Lib\MCART-GUI\MCART.GUI.csproj" />
+    <ProjectReference Include="..\..\Lib\MCART-UI\MCART.UI.csproj" />
     <ProjectReference Include="$(SolutionDir)MCART\MCART.csproj">
       <Project>{d39b543e-571d-4ea5-b8a2-9f6729c8e689}</Project>
       <Name>MCART</Name>

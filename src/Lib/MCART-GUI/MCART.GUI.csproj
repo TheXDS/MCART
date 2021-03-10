@@ -15,6 +15,6 @@
 
   </ItemGroup>  
   <ItemGroup>
-    <ProjectReference Include="..\MCART-UI\MCART-UI.csproj" />
+    <ProjectReference Include="..\MCART-UI\MCART.UI.csproj" />
   </ItemGroup>
 </Project>

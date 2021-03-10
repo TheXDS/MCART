@@ -64,6 +64,13 @@ namespace TheXDS.MCART.Misc
             if (o is null) throw new System.ArgumentNullException(name);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static T NullChecked<T>(T o, string name)
+        {
+            NullCheck(o, name);
+            return o;
+        }
+
         [Conditional("EnforceContracts")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void NullCheck(string? o, string name)
