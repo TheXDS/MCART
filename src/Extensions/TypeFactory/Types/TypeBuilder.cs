@@ -78,7 +78,7 @@ namespace TheXDS.MCART.Types
         /// <param name="builder">
         /// <see cref="TypeBuilder"/> a convertir.
         /// </param>
-        public static implicit operator TypeBuilder<T>(TypeBuilder builder) => new TypeBuilder<T>(builder);
+        public static implicit operator TypeBuilder<T>(TypeBuilder builder) => new(builder);
 
         /// <summary>
         /// Inicializa una nueva instancia del tipo en runtime especificado.

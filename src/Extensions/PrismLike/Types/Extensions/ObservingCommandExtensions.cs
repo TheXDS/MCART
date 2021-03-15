@@ -157,9 +157,9 @@ namespace TheXDS.MCART.Types.Extensions
                     command.RegisterObservedProperty(m.Name);
                     break;
                 case MethodInfo mi:
-                    if (mi.ToDelegate<Func<object?, bool>>() is var oFunc)
+                    if (mi.ToDelegate<Func<object?, bool>>() is { } oFunc)
                         command.SetCanExecute(oFunc);
-                    else if (mi.ToDelegate<Func<bool>>() is var func)
+                    else if (mi.ToDelegate<Func<bool>>() is { } func)
                         command.SetCanExecute(func);
                     else
                         throw new InvalidArgumentException(@"selector");

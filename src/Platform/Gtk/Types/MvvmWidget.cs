@@ -43,7 +43,7 @@ namespace TheXDS.MCART.Types
     [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
     public abstract class MvvmWidget : Gtk.Widget, IDataContext
     {
-        private readonly List<GtkBinding> _bindings = new List<GtkBinding>();
+        private readonly List<GtkBinding> _bindings = new();
         private INotifyPropertyChanged? _dataContext;
 
         /// <summary>

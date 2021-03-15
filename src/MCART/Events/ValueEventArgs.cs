@@ -43,7 +43,7 @@ namespace TheXDS.MCART.Events
         /// Valor a partir del cual crear el nuevo
         /// <see cref="ValueEventArgs{T}"/>.
         /// </param>
-        public static implicit operator ValueEventArgs<T>(T value) => new ValueEventArgs<T>(value);
+        public static implicit operator ValueEventArgs<T>(T value) => new(value);
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase

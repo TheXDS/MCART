@@ -22,7 +22,7 @@ namespace TypeFactoryTests
             }
         }
 
-        private static readonly TypeFactory _factory = new TypeFactory("TheXDS.MCART.Tests._Generated");
+        private static readonly TypeFactory _factory = new("TheXDS.MCART.Tests._Generated");
 
         [Fact]
         public void BuildSimpleTypeTest()

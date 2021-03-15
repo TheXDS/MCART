@@ -53,7 +53,7 @@ namespace TheXDS.MCART.Security.Password
         /// <summary>
         /// Obtiene una credencial vacía. Este campo es de solo lectura.
         /// </summary>
-        public static readonly Credential Null = new Credential();
+        public static readonly Credential Null = new();
 
         /// <summary>
         /// Inicializa una nueva instancia de la estructura

@@ -38,8 +38,8 @@ namespace TheXDS.MCART.Types
     /// </summary>
     public class TypeFactory : IExposeAssembly
     {
-        private static readonly Dictionary<string, ModuleBuilder> _builtModules = new Dictionary<string, ModuleBuilder>();
-        private static readonly Dictionary<string, AssemblyBuilder> _builtAssemblies = new Dictionary<string, AssemblyBuilder>();
+        private static readonly Dictionary<string, ModuleBuilder> _builtModules = new();
+        private static readonly Dictionary<string, AssemblyBuilder> _builtAssemblies = new();
 
         private readonly string _namespace;
         private readonly bool _useGuid;

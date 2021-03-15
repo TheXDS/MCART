@@ -41,7 +41,7 @@ namespace TheXDS.MCART.Types
         /// <param name="from">
         /// <see cref="InsertingItemEventArgs{T}"/> a convertir.
         /// </param>
-        public static implicit operator InsertedItemEventArgs<T>(InsertingItemEventArgs<T> from) => new InsertedItemEventArgs<T>(from.Index, from.InsertedItem);
+        public static implicit operator InsertedItemEventArgs<T>(InsertingItemEventArgs<T> from) => new(from.Index, from.InsertedItem);
         
         /// <summary>
         /// Elemento que fue insertado en el <see cref="ListEx{T}"/> que

@@ -168,6 +168,6 @@ namespace TheXDS.MCART.UI
         /// <param name="launcher">
         /// Objeto a convertir.
         /// </param>
-        public static implicit operator NamedObject<Action>(Launcher launcher) => new NamedObject<Action>(() => launcher.Command.Execute(null));
+        public static implicit operator NamedObject<Action>(Launcher launcher) => new(() => launcher.Command.Execute(null));
     }
 }

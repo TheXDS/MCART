@@ -39,7 +39,7 @@ namespace TheXDS.MCART.Types
         /// <param name="from">
         /// <see cref="AddingItemEventArgs{T}"/> a convertir.
         /// </param>
-        public static implicit operator AddedItemEventArgs<T>(AddingItemEventArgs<T> from) => new AddedItemEventArgs<T>(from.NewItem);
+        public static implicit operator AddedItemEventArgs<T>(AddingItemEventArgs<T> from) => new(from.NewItem);
         
         /// <summary>
         /// Elemento que fue agregado al <see cref="ListEx{T}"/> que generó el

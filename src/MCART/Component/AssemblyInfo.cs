@@ -144,17 +144,22 @@ namespace TheXDS.MCART.Component
         /// Obtiene una colección con el contenido de licencias de terceros
         /// para el objeto.
         /// </summary>
-        public IEnumerable<License>? ThirdPartyLicenses
+        public IEnumerable<License> ThirdPartyLicenses
         {
             get
             {
-                foreach (var j in Assembly.SafeGetTypes())
+                foreach (var j in ThirdPartyComponents)
                 {
-                    if (!j.HasAttr<ThirdPartyAttribute>()) continue;
                     if (j.HasAttr<LicenseAttributeBase>(out var lic)) yield return lic!.GetLicense(j);
                 }
             }
         }
+
+        /// <summary>
+        /// Obtiene una colección con todos los comnponentes marcados como de
+        /// terceros en el ensamblado.
+        /// </summary>
+        public IEnumerable<Type> ThirdPartyComponents => Assembly.SafeGetTypes().Where(Objects.HasAttr<ThirdPartyAttribute>);
 
         /// <summary>
         /// Obtiene un valor que indica si este <see cref="IExposeInfo"/>

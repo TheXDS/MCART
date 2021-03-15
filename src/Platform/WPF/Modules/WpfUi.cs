@@ -83,7 +83,7 @@ namespace TheXDS.MCART
             internal ToolTip _ttip;
         }
 
-        private static readonly List<OrigControlColor> _origctrls = new List<OrigControlColor>();
+        private static readonly List<OrigControlColor> _origctrls = new();
         private static readonly List<StreamUriParser> _uriParsers = Objects.FindAllObjects<StreamUriParser>().ToList();
 
         /// <summary>

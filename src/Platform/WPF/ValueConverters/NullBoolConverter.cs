@@ -60,7 +60,7 @@ namespace TheXDS.MCART.ValueConverters
         /// </summary>
         /// <param name="trueValue">Valor equivalente a <see langword="true" />.</param>
         /// <param name="falseValue">Valor equivalente a <see langword="false" />.</param>
-        public NullBoolConverter(T trueValue, T falseValue = default)
+        public NullBoolConverter(T trueValue, T falseValue = default!)
         {
             True = trueValue;
             Null = False = falseValue!;

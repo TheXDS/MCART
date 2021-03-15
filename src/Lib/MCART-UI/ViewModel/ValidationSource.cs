@@ -58,7 +58,7 @@ namespace TheXDS.MCART.ViewModel
                 }
             }
 
-            private readonly List<ValidationRule> _rules = new List<ValidationRule>();
+            private readonly List<ValidationRule> _rules = new();
 
             public PropertyInfo Property { get; }
 
@@ -81,7 +81,7 @@ namespace TheXDS.MCART.ViewModel
 
         private readonly IValidatingViewModel _npcSource;
         private readonly IDictionary<string, List<string>> _errors = new Dictionary<string, List<string>>();
-        private protected readonly List<IValidationEntry> _validationRules = new List<IValidationEntry>();
+        private protected readonly List<IValidationEntry> _validationRules = new();
 
         /// <inheritdoc/>
         public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;

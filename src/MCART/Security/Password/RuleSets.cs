@@ -303,7 +303,7 @@ namespace TheXDS.MCART.Security.Password
         /// </summary>
         /// <returns>Regla de evaluación que devuelve valores constantes.</returns>
         /// <param name="ponderation">Ponderation.</param>
-        public static PasswordEvaluationRule NullEvalRule(PonderationLevel ponderation) => new PasswordEvaluationRule(p => new PwEvalResult(1), St2.NullPwEvalRule, St2.NullPwEvalRule2, ponderation);
+        public static PasswordEvaluationRule NullEvalRule(PonderationLevel ponderation) => new(p => new PwEvalResult(1), St2.NullPwEvalRule, St2.NullPwEvalRule2, ponderation);
         
         /// <summary>
         /// Crea una regla de longitud de contraseña.

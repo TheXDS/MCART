@@ -182,18 +182,18 @@ namespace TheXDS.MCART.Controls
 
         #region Campos privados
         private bool _amIAnimated = false;
-        private readonly Path _ellBg = new Path();
-        private readonly Path _redlinePath = new Path() { Stroke = new Types.Color(255, 0, 0, 192).Brush() };
-        private readonly Path _pth = new Path()
+        private readonly Path _ellBg = new();
+        private readonly Path _redlinePath = new() { Stroke = new Types.Color(255, 0, 0, 192).Brush() };
+        private readonly Path _pth = new()
         {
             RenderTransform = new RotateTransform(),
             RenderTransformOrigin = new Point(0.5, 0.5)
         };
-        private readonly DoubleAnimationUsingKeyFrames _spin = new DoubleAnimationUsingKeyFrames()
+        private readonly DoubleAnimationUsingKeyFrames _spin = new()
         {
             RepeatBehavior = RepeatBehavior.Forever
         };
-        private readonly TextBlock _txtPercent = new TextBlock()
+        private readonly TextBlock _txtPercent = new()
         {
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center

@@ -283,5 +283,14 @@ namespace TheXDS.MCART.Tests
             Assert.Equal(new[] { 0.0f, 0.25f, 0.5f, 0.75f, 1.0f }, c.ToPercentSingle(1, 5));
             Assert.Throws<InvalidOperationException>(() => c.ToPercentSingle(1, 1).ToList());
         }
+
+        [Fact]
+        public void NotEmpty_string_Test()
+        {
+            var i = new[] { "1", "2", null, "", "3" };
+            var o = new[] { "1", "2", "3" };
+
+            Assert.Equal(o, i.NotEmpty());
+        }
     }
 }

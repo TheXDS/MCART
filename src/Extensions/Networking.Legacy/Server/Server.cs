@@ -46,9 +46,9 @@ namespace TheXDS.MCART.Networking.Legacy.Server
     /// </summary>
     public class Server<TClient> : Disposable, IServer where TClient : Client
     {
-        private readonly CancellationTokenSource _cancellation = new CancellationTokenSource();
-        private readonly HashSet<TClient> _clients = new HashSet<TClient>();
-        private readonly HashSet<Task> _clientThreads = new HashSet<Task>();
+        private readonly CancellationTokenSource _cancellation = new();
+        private readonly HashSet<TClient> _clients = new();
+        private readonly HashSet<Task> _clientThreads = new();
         private readonly TcpListener _listener;
         private Task? _aliveTask;
 

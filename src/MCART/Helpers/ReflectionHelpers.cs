@@ -528,7 +528,7 @@ namespace TheXDS.MCART
         private class TypeExpressionTree
         {
             public string TypeName;
-            public readonly List<TypeExpressionTree> GenericArgs = new List<TypeExpressionTree>();
+            public readonly List<TypeExpressionTree> GenericArgs = new();
             public TypeExpressionTree(string typeName)
             {
                 TypeName = typeName;

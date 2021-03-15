@@ -59,7 +59,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// Crea una nueva instancia de la clase
         /// <see cref="TypeDetailsViewModel"/>.
         /// </summary>
-        public static TypeDetailsViewModel Create => new TypeDetailsViewModel();
+        public static TypeDetailsViewModel Create => new();
 
         /// <summary>
         /// Obtiene una representación como cadena del valor predeterminado

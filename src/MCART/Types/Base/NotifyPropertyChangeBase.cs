@@ -187,7 +187,7 @@ namespace TheXDS.MCART.Types.Base
             Notify(GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanRead));
         }
 
-        private protected HashSet<INotifyPropertyChangeBase> _forwardings = new HashSet<INotifyPropertyChangeBase>();
+        private protected HashSet<INotifyPropertyChangeBase> _forwardings = new();
 
         /// <summary>
         /// Agrega un objeto al cual reenviar los eventos de cambio de

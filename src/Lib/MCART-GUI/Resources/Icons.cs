@@ -32,7 +32,7 @@ namespace TheXDS.MCART.Resources
     /// </summary>
     public sealed class Icons : McartIconLibrary<Bitmap>
     {
-        private static readonly BitmapUnpacker _imgs = new BitmapUnpacker(typeof(Icons).Assembly, typeof(Icons).FullName!);
+        private static readonly BitmapUnpacker _imgs = new(typeof(Icons).Assembly, typeof(Icons).FullName!);
 
         /// <summary>
         /// Implementa el método de obtención del ícono basado en el nombre

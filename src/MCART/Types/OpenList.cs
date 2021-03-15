@@ -37,8 +37,8 @@ namespace TheXDS.MCART.Types
     /// </typeparam>
     public class OpenList<T> : IList<T>
     {
-        private readonly List<T> _head = new List<T>();
-        private readonly List<T> _tail = new List<T>();
+        private readonly List<T> _head = new();
+        private readonly List<T> _tail = new();
         
         /// <summary>
         /// Obtiene el número de elementos incluidos en este

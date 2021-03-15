@@ -1058,7 +1058,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
             return (TCommand)Enum.ToObject(typeof(TCommand), _readCmd.Invoke(br, Array.Empty<object>())!);
         }
 
-        private readonly Dictionary<TCommand, CommandCallback> _commands = new Dictionary<TCommand, CommandCallback>();
+        private readonly Dictionary<TCommand, CommandCallback> _commands = new();
 
         /// <summary>
         /// Obtiene o establece un valor que indica si el protocolo

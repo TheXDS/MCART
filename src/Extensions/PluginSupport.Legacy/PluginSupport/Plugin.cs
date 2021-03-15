@@ -300,7 +300,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// Contiene una lista de interacciones que este <see cref="Plugin" />.
         /// provee para incluir en una interfaz gráfica.
         /// </summary>
-        public ReadOnlyCollection<InteractionItem> PluginInteractions => new ReadOnlyCollection<InteractionItem>(InteractionItems);
+        public ReadOnlyCollection<InteractionItem> PluginInteractions => new(InteractionItems);
 
         /// <summary>
         /// Indica si este <see cref="Plugin" /> contiene o no interacciones.

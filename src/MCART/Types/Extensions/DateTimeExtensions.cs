@@ -71,7 +71,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// Crea un <see cref="DateTime"/> que representa el inicio del
         /// tiempo para un año específico.
         /// </summary>
-        public static DateTime Epoch(in int year) => new DateTime(year, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        public static DateTime Epoch(in int year) => new(year, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
         /// <summary>
         /// Convierte un <see cref="DateTime"/> a un Timestamp de Unix de

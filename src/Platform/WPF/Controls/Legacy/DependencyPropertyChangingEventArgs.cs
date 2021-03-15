@@ -74,6 +74,6 @@ namespace TheXDS.MCART.Events
         /// información de evento del
         /// <see cref="DependencyPropertyChangingEventArgs"/> especificado.
         /// </returns>
-        public static implicit operator DependencyPropertyChangedEventArgs(DependencyPropertyChangingEventArgs x) => new DependencyPropertyChangedEventArgs(x.Property, x.OldValue, x.NewValue);
+        public static implicit operator DependencyPropertyChangedEventArgs(DependencyPropertyChangingEventArgs x) => new(x.Property, x.OldValue, x.NewValue);
     }
 }

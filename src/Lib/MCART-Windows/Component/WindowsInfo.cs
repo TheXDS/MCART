@@ -507,7 +507,7 @@ namespace TheXDS.MCART.Component
         /// <summary>
         /// Obtiene el texto de licencia asociado a Windows.
         /// </summary>
-        public License License => new License("Microsoft Windows EULA", new Uri(GetWinLicencePath()));
+        public License License => new("Microsoft Windows EULA", new Uri(GetWinLicencePath()));
 
         /// <summary>
         /// Obtiene un valor que determina si Windows incluye un CLUF

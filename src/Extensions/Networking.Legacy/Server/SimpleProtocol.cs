@@ -70,6 +70,6 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// <returns>
         /// Un nuevo <see cref="Client" />.
         /// </returns>
-        public Client CreateClient(TcpClient tcpClient) => new Client(tcpClient);
+        public Client CreateClient(TcpClient tcpClient) => new(tcpClient);
     }
 }

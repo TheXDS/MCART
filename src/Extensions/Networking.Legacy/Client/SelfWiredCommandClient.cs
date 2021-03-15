@@ -81,10 +81,10 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         private static readonly TResponse? _unkResponse;
 
         private readonly ConcurrentQueue<ResponseCallBack> _interrupts =
-            new ConcurrentQueue<ResponseCallBack>();
+            new();
 
         private readonly Dictionary<TResponse, ResponseCallBack> _responses =
-            new Dictionary<TResponse, ResponseCallBack>();
+            new();
 
         /// <summary>
         /// Genera un arreglo de bytes de comando al servidor a partir del

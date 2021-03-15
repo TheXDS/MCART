@@ -55,9 +55,11 @@ namespace TheXDS.MCART.Security.Password
         */
 
         #region Constantes
+
         private const short _saltBytes = 24;
         private const short _hashBytes = 18;
         private const int _pbkdf2Iterations = 64000;
+
         #endregion
 
         private static byte[] Pbkdf2(SecureString password, byte[] salt, int iterations, int outputBytes)
@@ -66,6 +68,7 @@ namespace TheXDS.MCART.Security.Password
             using (var pbkdf2 = new Rfc2898DeriveBytes(password.ReadBytes(), salt, iterations))
                 return pbkdf2.GetBytes(outputBytes);
         }
+
         private static bool CheckEquals(IReadOnlyList<byte> a, IReadOnlyList<byte> b)
         {
 #if SaferPasswords
@@ -102,6 +105,7 @@ namespace TheXDS.MCART.Security.Password
             bw.Write(hash);
             return ms.ToArray();
         }
+
         /// <summary>
         /// Verifica una contraseña.
         /// </summary>
@@ -137,6 +141,7 @@ namespace TheXDS.MCART.Security.Password
             catch { throw; }
 #endif
         }
+
         /// <summary>
         /// Verifica una contraseña de forma asíncrona.
         /// </summary>
@@ -152,6 +157,6 @@ namespace TheXDS.MCART.Security.Password
         /// <see langword="null"/> si hay un problema al verificar la
         /// contraseña, como ser, debido a tampering.
         /// </returns>
-        public static async Task<bool?> VerifyPasswordAsync(SecureString password, byte[] goodHash) => await Task.Run(()=>VerifyPassword(password, goodHash));
+        public static async Task<bool?> VerifyPasswordAsync(SecureString password, byte[] goodHash) => await Task.Run(() => VerifyPassword(password, goodHash));
     }
 }

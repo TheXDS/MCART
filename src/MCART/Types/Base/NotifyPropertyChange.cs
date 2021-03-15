@@ -40,7 +40,7 @@ namespace TheXDS.MCART.Types.Base
     /// </summary>
     public abstract class NotifyPropertyChange : NotifyPropertyChangeBase, INotifyPropertyChanging, INotifyPropertyChanged
     {
-        private readonly HashSet<WeakReference<PropertyChangeObserver>> _observeSubscriptions = new HashSet<WeakReference<PropertyChangeObserver>>();
+        private readonly HashSet<WeakReference<PropertyChangeObserver>> _observeSubscriptions = new();
 
         /// <summary>
         /// Se produce cuando se cambiará el valor de una propiedad.

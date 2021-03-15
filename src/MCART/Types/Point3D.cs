@@ -51,7 +51,7 @@ namespace TheXDS.MCART.Types
         /// Un <see cref="Point3D" /> con sus coordenadas establecidas en
         /// <see cref="double.NaN"/>.
         /// </value>
-        public static readonly Point3D Nowhere = new Point3D(double.NaN, double.NaN, double.NaN);
+        public static readonly Point3D Nowhere = new(double.NaN, double.NaN, double.NaN);
 
         /// <summary>
         /// Obtiene un punto en el orígen. Este campo es de solo lectura.
@@ -59,7 +59,7 @@ namespace TheXDS.MCART.Types
         /// <value>
         /// Un <see cref="Point3D" /> con sus coordenadas en el orígen.
         /// </value>
-        public static readonly Point3D Origin = new Point3D(0, 0, 0);
+        public static readonly Point3D Origin = new(0, 0, 0);
 
         /// <summary>
         /// Obtiene un punto en el orígen bidimensional. Este campo es de
@@ -69,7 +69,7 @@ namespace TheXDS.MCART.Types
         /// Un <see cref="Point3D" /> con sus coordenadas en el orígen 
         /// bidimensional.
         /// </value>
-        public static readonly Point3D Origin2D = new Point3D(0, 0, double.NaN);
+        public static readonly Point3D Origin2D = new(0, 0, double.NaN);
 
         /// <summary>
         /// Intenta crear un <see cref="Point3D"/> a partir de una cadena.

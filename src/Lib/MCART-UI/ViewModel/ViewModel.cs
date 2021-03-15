@@ -39,7 +39,7 @@ namespace TheXDS.MCART.ViewModel
     /// </typeparam>
     public class ViewModel<T> : ViewModelBase, IEntityViewModel<T>, IUpdatableViewModel<T>
     {
-        private static readonly HashSet<PropertyInfo> _modelProperties = new HashSet<PropertyInfo>(typeof(T).GetProperties(Public | Instance).Where(p => p.CanRead));
+        private static readonly HashSet<PropertyInfo> _modelProperties = new(typeof(T).GetProperties(Public | Instance).Where(p => p.CanRead));
         private static IEnumerable<PropertyInfo> WrittableProperties => _modelProperties.Where(p => p.CanWrite);
 
         private T _entity = default!;

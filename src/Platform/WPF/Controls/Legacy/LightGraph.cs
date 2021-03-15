@@ -189,14 +189,14 @@ namespace TheXDS.MCART.Controls
         #endregion
 
         #region Miembros privados
-        private readonly TextBlock LblTitle = new TextBlock
+        private readonly TextBlock LblTitle = new()
         {
             FontSize = 16,
             HorizontalAlignment = HorizontalAlignment.Center
         };
-        private readonly Grid GrdXLbls = new Grid();
-        private readonly TextBlock XLbl = new TextBlock { HorizontalAlignment = HorizontalAlignment.Center };
-        private readonly CheckBox YLbl = new CheckBox
+        private readonly Grid GrdXLbls = new();
+        private readonly TextBlock XLbl = new() { HorizontalAlignment = HorizontalAlignment.Center };
+        private readonly CheckBox YLbl = new()
         {
             Visibility = Visibility.Collapsed,
             VerticalAlignment = VerticalAlignment.Center,
@@ -204,17 +204,17 @@ namespace TheXDS.MCART.Controls
             IsThreeState = true,
             IsChecked = true
         };
-        private readonly TextBlock YMx = new TextBlock
+        private readonly TextBlock YMx = new()
         {
             VerticalAlignment = VerticalAlignment.Bottom,
             HorizontalAlignment = HorizontalAlignment.Right
         };
-        private readonly TextBlock YMn = new TextBlock
+        private readonly TextBlock YMn = new()
         {
             VerticalAlignment = VerticalAlignment.Bottom,
             HorizontalAlignment = HorizontalAlignment.Left
         };
-        private readonly CheckBox Y2Lbl = new CheckBox
+        private readonly CheckBox Y2Lbl = new()
         {
             Visibility = Visibility.Collapsed,
             VerticalAlignment = VerticalAlignment.Center,
@@ -222,14 +222,14 @@ namespace TheXDS.MCART.Controls
             IsThreeState = true,
             IsChecked = true
         };
-        private readonly TextBlock Y2Mx = new TextBlock { HorizontalAlignment = HorizontalAlignment.Right };
-        private readonly TextBlock Y2Mn = new TextBlock { HorizontalAlignment = HorizontalAlignment.Left };
-        private readonly Grid GrdGraphBG = new Grid();
-        private readonly Grid GrdGraph = new Grid();
-        private readonly Polyline Grp1 = new Polyline { Stroke = SystemColors.HighlightBrush };
-        private readonly Polyline Grp2 = new Polyline { Stroke = G2Default };
-        private readonly Grid GrdGraphFG = new Grid();
-        private readonly Grid GrdGraphFG2 = new Grid();
+        private readonly TextBlock Y2Mx = new() { HorizontalAlignment = HorizontalAlignment.Right };
+        private readonly TextBlock Y2Mn = new() { HorizontalAlignment = HorizontalAlignment.Left };
+        private readonly Grid GrdGraphBG = new();
+        private readonly Grid GrdGraph = new();
+        private readonly Polyline Grp1 = new() { Stroke = SystemColors.HighlightBrush };
+        private readonly Polyline Grp2 = new() { Stroke = G2Default };
+        private readonly Grid GrdGraphFG = new();
+        private readonly Grid GrdGraphFG2 = new();
         #endregion
 
         #region Propiedades

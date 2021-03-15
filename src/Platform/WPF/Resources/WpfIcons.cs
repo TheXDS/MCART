@@ -35,7 +35,7 @@ namespace TheXDS.MCART.Resources
     /// </summary>
     public sealed class WpfIcons : McartIconLibrary<UIElement>
     {
-        private static readonly XamlUnpacker _xaml = new XamlUnpacker(typeof(WpfIcons).Assembly, typeof(Icons).FullName!);
+        private static readonly XamlUnpacker _xaml = new(typeof(WpfIcons).Assembly, typeof(Icons).FullName!);
         
         /// <summary>
         /// Implementa el método de obtención del ícono basado en el nombre

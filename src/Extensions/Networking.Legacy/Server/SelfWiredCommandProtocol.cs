@@ -61,7 +61,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         private static readonly TResponse? _unkResponse;
 
         private readonly Dictionary<TCommand, CommandCallback> _commands =
-            new Dictionary<TCommand, CommandCallback>();
+            new();
 
         private static Func<TResponse, byte[]> ToResponse { get; }
 

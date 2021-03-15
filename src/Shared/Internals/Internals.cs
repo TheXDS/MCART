@@ -35,9 +35,7 @@ namespace TheXDS.MCART.Misc
     {
         internal static bool HasLicense(object obj)
         {
-            return obj.HasAttr<LicenseTextAttribute>()
-                   || obj.HasAttr<EmbeddedLicenseAttribute>()
-                   || obj.HasAttr<LicenseUriAttribute>();
+            return obj.HasAttr<LicenseAttributeBase>();
         }
 
         internal static MethodBase? GetCallOutsideMcart(bool @throw = true)

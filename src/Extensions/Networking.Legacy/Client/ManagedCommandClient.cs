@@ -93,9 +93,9 @@ namespace TheXDS.MCART.Networking.Legacy.Client
             _notMappedResponse = (TResult?)vals.FirstOrDefault(p => p.HasAttr<NotMappedResponseAttribute>()) ?? _unkResponse;
         }
 
-        private readonly HashSet<ManualResetEventSlim> _cmdWaiters = new HashSet<ManualResetEventSlim>();
-        private readonly Dictionary<Guid, ResponseCallback> _requests = new Dictionary<Guid, ResponseCallback>();
-        private readonly Dictionary<TResult, ResponseCallback> _responses = new Dictionary<TResult, ResponseCallback>();
+        private readonly HashSet<ManualResetEventSlim> _cmdWaiters = new();
+        private readonly Dictionary<Guid, ResponseCallback> _requests = new();
+        private readonly Dictionary<TResult, ResponseCallback> _responses = new();
         private RSACryptoServiceProvider? _rsa = null;
 
         private static IEnumerable<ResponseCallback> ScanType(ManagedCommandClient<TCommand, TResult> instance)

@@ -40,19 +40,19 @@ namespace TheXDS.MCART.Types
         /// Obtiene un valor que no representa ningún tamaño. Este campo es
         /// de solo lectura.
         /// </summary>
-        public static readonly Size Nothing = new Size(double.NaN, double.NaN);
+        public static readonly Size Nothing = new(double.NaN, double.NaN);
 
         /// <summary>
         /// Obtiene un valor que representa un tamaño nulo. Este campo es
         /// de solo lectura.
         /// </summary>
-        public static readonly Size Zero = new Size(0, 0);
+        public static readonly Size Zero = new(0, 0);
 
         /// <summary>
         /// Obtiene un valor que representa un tamaño infinito. Este campo
         /// es de solo lectura.
         /// </summary>
-        public static readonly Size Infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
+        public static readonly Size Infinity = new(double.PositiveInfinity, double.PositiveInfinity);
 
         /// <summary>
         /// Intenta crear un <see cref="Size"/> a partir de una cadena.

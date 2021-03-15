@@ -41,7 +41,7 @@ namespace TheXDS.MCART.Types
         /// <param name="from">
         /// <see cref="ModifyingItemEventArgs{T}"/> a convertir.
         /// </param>
-        public static implicit operator ItemModifiedEventArgs<T>(ModifyingItemEventArgs<T> from) => new ItemModifiedEventArgs<T>(from.Index, from.NewValue);
+        public static implicit operator ItemModifiedEventArgs<T>(ModifyingItemEventArgs<T> from) => new(from.Index, from.NewValue);
 
         /// <summary>
         /// Objeto que ha sido modificado dentro del

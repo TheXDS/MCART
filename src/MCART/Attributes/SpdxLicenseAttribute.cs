@@ -36,7 +36,7 @@ namespace TheXDS.MCART.Attributes
     [AttributeUsage(Class | Module | Assembly)]
     public sealed class SpdxLicenseAttribute : LicenseAttributeBase
     {
-        private static readonly Dictionary<string, SpdxLicense> _licenses = new Dictionary<string, SpdxLicense>();
+        private static readonly Dictionary<string, SpdxLicense> _licenses = new();
 
         /// <summary>
         /// Obtiene el nombre corto de la licencia.

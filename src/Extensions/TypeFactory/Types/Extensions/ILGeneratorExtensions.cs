@@ -91,7 +91,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         public delegate void UsingBlock(LocalBuilder disposable, Label leaveTry);
 
-        private static readonly HashSet<IConstantLoader> _constantLoaders = new HashSet<IConstantLoader>(Objects.FindAllObjects<IConstantLoader>(), new ConstantLoaderComparer());
+        private static readonly HashSet<IConstantLoader> _constantLoaders = new(Objects.FindAllObjects<IConstantLoader>(), new ConstantLoaderComparer());
 
         /// <summary>
         /// Registra un <see cref="IConstantLoader"/> para el método

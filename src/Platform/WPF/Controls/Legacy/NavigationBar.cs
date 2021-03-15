@@ -93,39 +93,39 @@ namespace TheXDS.MCART.Controls
         /// <summary>
         /// <see cref="Thickness"/> predeterminado para algunos controles.
         /// </summary>
-        static Thickness _thk1 = new Thickness(5, 5, 5, 0);
+        static Thickness _thk1 = new(5, 5, 5, 0);
 
-        readonly DockPanel _pnlNav = new DockPanel()
+        readonly DockPanel _pnlNav = new()
         {
             VerticalAlignment = VerticalAlignment.Center
         };
-        readonly TextBlock _lblInfo = new TextBlock()
+        readonly TextBlock _lblInfo = new()
         {
             Text = St.Of,
             Margin = new Thickness(5, 0, 5, 0)
         };
-        readonly Button _btnFirst = new Button()
+        readonly Button _btnFirst = new()
         {
             Width = _btnW,
             Content = (char)9198
         };
-        readonly Button _btnPrev = new Button()
+        readonly Button _btnPrev = new()
         {
             Width = _btnW,
             Content = (char)9664
         };
-        readonly Button _btnNext = new Button()
+        readonly Button _btnNext = new()
         {
             Width = _btnW,
             Content = (char)9654
         };
-        readonly Button _btnLast = new Button()
+        readonly Button _btnLast = new()
         {
             Width = _btnW,
             Content = (char)9197
         };
         // TODO: Reemplazar por un posible nuevo control compatible con marca de agua.
-        readonly TextBox _txtSearch = new TextBox()
+        readonly TextBox _txtSearch = new()
         {
             Width = 100,
 
@@ -134,33 +134,33 @@ namespace TheXDS.MCART.Controls
             // marca de agua.            
             Background = null
         };
-        readonly Button _btnClseSearch = new Button()
+        readonly Button _btnClseSearch = new()
         {
             Width = _btnW,
             Content = "X"
         };
-        readonly Button _btnNew = new Button()
+        readonly Button _btnNew = new()
         {
             Height = 20,
             Content = St.BtnNew,
             HorizontalAlignment = HorizontalAlignment.Center,
             Margin = _thk1
         };
-        readonly Button _btnEdit = new Button()
+        readonly Button _btnEdit = new()
         {
             Height = 20,
             Content = St.BtnEdit,
             HorizontalAlignment = HorizontalAlignment.Center,
             Margin = _thk1
         };
-        readonly Button _btnDel = new Button()
+        readonly Button _btnDel = new()
         {
             Height = 20,
             Content = St.BtnDel,
             HorizontalAlignment = HorizontalAlignment.Center,
             Margin = _thk1
         };
-        readonly Button _btnSave = new Button()
+        readonly Button _btnSave = new()
         {
             Height = 20,
             Content = St.BtnSave,
@@ -168,7 +168,7 @@ namespace TheXDS.MCART.Controls
             Margin = _thk1,
             Visibility = Visibility.Collapsed
         };
-        readonly Button _btnCncl = new Button()
+        readonly Button _btnCncl = new()
         {
             Height = 20,
             Content = St.Cancel,
@@ -176,11 +176,11 @@ namespace TheXDS.MCART.Controls
             Margin = _thk1,
             Visibility = Visibility.Collapsed
         };
-        readonly TextBox _txtPos = new TextBox()
+        readonly TextBox _txtPos = new()
         {
             Width = 40
         };
-        readonly TextBlock _lblTot = new TextBlock();
+        readonly TextBlock _lblTot = new();
 
         #endregion
 
@@ -194,7 +194,7 @@ namespace TheXDS.MCART.Controls
         /// <summary>
         /// Lista de controles con Binding de datos a controlar.
         /// </summary>
-        readonly List<UIElement> _ctrls = new List<UIElement>();
+        readonly List<UIElement> _ctrls = new();
 
         bool _wasNewPressed;
 

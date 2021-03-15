@@ -46,7 +46,7 @@ namespace TheXDS.MCART.ViewModel
     public abstract partial class ViewModelBase : NotifyPropertyChanged, IViewModel
     {
         private bool _isBusy;
-        private readonly Dictionary<string, ICollection<Action>> _observeRegistry = new Dictionary<string, ICollection<Action>>();
+        private readonly Dictionary<string, ICollection<Action>> _observeRegistry = new();
 
         private void OnInvokeObservedProps(object? sender, PropertyChangedEventArgs e)
         {
@@ -313,7 +313,7 @@ namespace TheXDS.MCART.ViewModel
         {
             private record ValidationRule(Func<T, bool> Rule, string Error);
 
-            private readonly List<ValidationRule> _rules = new List<ValidationRule>();
+            private readonly List<ValidationRule> _rules = new();
 
             public PropertyInfo Property { get; }
 
@@ -340,7 +340,7 @@ namespace TheXDS.MCART.ViewModel
         }
 
         private readonly IDictionary<string, List<string>> _errors = new Dictionary<string, List<string>>();
-        private readonly List<IValidationEntry> _validationRules = new List<IValidationEntry>();
+        private readonly List<IValidationEntry> _validationRules = new();
         private SimpleCommand[]? _validationAffectedCommands;
 
         /// <summary>

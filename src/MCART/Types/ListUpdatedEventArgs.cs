@@ -43,7 +43,7 @@ namespace TheXDS.MCART.Types
         /// <param name="from">
         /// <see cref="ListUpdatingEventArgs{T}"/> a convertir.
         /// </param>
-        public static implicit operator ListUpdatedEventArgs<T>(ListUpdatingEventArgs<T> from)=> new ListUpdatedEventArgs<T>(from.UpdateType,from.AffectedItems);
+        public static implicit operator ListUpdatedEventArgs<T>(ListUpdatingEventArgs<T> from)=> new(from.UpdateType,from.AffectedItems);
 
         /// <summary>
         /// Elementos que fueron afectados por la actualización del 

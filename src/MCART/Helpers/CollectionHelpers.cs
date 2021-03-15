@@ -424,15 +424,15 @@ namespace TheXDS.MCART
         /// <see langword="true" /> si las cadenas están vacías o son
         /// <see langword="null" />; de lo contrario, <see langword="false" />.
         /// </returns>
-        /// <param name="stringArray">Cadenas a comprobar.</param>
+        /// <param name="stringCollection">Cadenas a comprobar.</param>
         /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="stringArray"/> es
+        /// Se produce si <paramref name="stringCollection"/> es
         /// <see langword="null"/>.
         /// </exception>
-        public static bool AllEmpty(this IEnumerable<string?> stringArray)
+        public static bool AllEmpty(this IEnumerable<string?> stringCollection)
         {
-            NullCheck(stringArray, nameof(stringArray));
-            return stringArray.All(j => j.IsEmpty());
+            NullCheck(stringCollection, nameof(stringCollection));
+            return stringCollection.All(j => j.IsEmpty());
         }
 
         /// <summary>
@@ -442,15 +442,15 @@ namespace TheXDS.MCART
         /// <see langword="true" /> si las cadenas están vacías o son
         /// <see langword="null" />; de lo contrario, <see langword="false" />.
         /// </returns>
-        /// <param name="stringArray">Cadenas a comprobar.</param>
+        /// <param name="stringCollection">Cadenas a comprobar.</param>
         /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="stringArray"/> es
+        /// Se produce si <paramref name="stringCollection"/> es
         /// <see langword="null"/>.
         /// </exception>
-        public static async Task<bool> AllEmptyAsync(this IAsyncEnumerable<string?> stringArray)
+        public static async Task<bool> AllEmptyAsync(this IAsyncEnumerable<string?> stringCollection)
         {
-            NullCheck(stringArray, nameof(stringArray));
-            await foreach (var j in stringArray.ConfigureAwait(false))
+            NullCheck(stringCollection, nameof(stringCollection));
+            await foreach (var j in stringCollection.ConfigureAwait(false))
             {
                 if (!j.IsEmpty()) return false;
             }
@@ -464,15 +464,15 @@ namespace TheXDS.MCART
         /// <see langword="true" /> si alguna cadena está vacía o es
         /// <see langword="null" />; de lo contrario, <see langword="false" />.
         /// </returns>
-        /// <param name="stringArray">Cadenas a comprobar.</param>
+        /// <param name="stringCollection">Cadenas a comprobar.</param>
         /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="stringArray"/> es
+        /// Se produce si <paramref name="stringCollection"/> es
         /// <see langword="null"/>.
         /// </exception>
-        public static bool AnyEmpty(this IEnumerable<string?> stringArray)
+        public static bool AnyEmpty(this IEnumerable<string?> stringCollection)
         {
-            NullCheck(stringArray, nameof(stringArray));
-            return stringArray.Any(j => j.IsEmpty());
+            NullCheck(stringCollection, nameof(stringCollection));
+            return stringCollection.Any(j => j.IsEmpty());
         }
 
         /// <summary>
@@ -482,15 +482,15 @@ namespace TheXDS.MCART
         /// <see langword="true" /> si alguna cadena está vacía o es
         /// <see langword="null" />; de lo contrario, <see langword="false" />.
         /// </returns>
-        /// <param name="stringArray">Cadenas a comprobar.</param>
+        /// <param name="stringCollection">Cadenas a comprobar.</param>
         /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="stringArray"/> es
+        /// Se produce si <paramref name="stringCollection"/> es
         /// <see langword="null"/>.
         /// </exception>
-        public static async Task<bool> AnyEmptyAsync(this IAsyncEnumerable<string?> stringArray)
+        public static async Task<bool> AnyEmptyAsync(this IAsyncEnumerable<string?> stringCollection)
         {
-            NullCheck(stringArray, nameof(stringArray));
-            await foreach (var j in stringArray.ConfigureAwait(false))
+            NullCheck(stringCollection, nameof(stringCollection));
+            await foreach (var j in stringCollection.ConfigureAwait(false))
             {
                 if (j.IsEmpty()) return true;
             }
@@ -504,21 +504,21 @@ namespace TheXDS.MCART
         /// <see langword="true" /> si alguna cadena está vacía o es 
         /// <see langword="null" />; de lo contrario, <see langword="false" />.
         /// </returns>
-        /// <param name="stringArray">Cadenas a comprobar.</param>
+        /// <param name="stringCollection">Cadenas a comprobar.</param>
         /// <param name="index">
         /// Argumento de salida. Índices de las cadenas vacías encontradas.
         /// </param>
         /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="stringArray"/> es 
+        /// Se produce si <paramref name="stringCollection"/> es 
         /// <see langword="null"/>.
         /// </exception>
-        public static bool AnyEmpty(this IEnumerable<string?> stringArray, out IEnumerable<int> index)
+        public static bool AnyEmpty(this IEnumerable<string?> stringCollection, out IEnumerable<int> index)
         {
-            NullCheck(stringArray, nameof(stringArray));
+            NullCheck(stringCollection, nameof(stringCollection));
             var idx = new List<int>();
             var c = 0;
             var found = false;
-            foreach (var j in stringArray)
+            foreach (var j in stringCollection)
             {
                 if (j.IsEmpty())
                 {
@@ -538,32 +538,36 @@ namespace TheXDS.MCART
         /// <see langword="true" /> si alguna cadena está vacía o es
         /// <see langword="null" />; de lo contrario, <see langword="false" />.
         /// </returns>
-        /// <param name="stringArray">Cadenas a comprobar.</param>
+        /// <param name="stringCollection">Cadenas a comprobar.</param>
         /// <param name="firstIndex">
         /// Argumento de salida. Índice de la primera cadena vacía encontrada.
         /// </param>
         /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="stringArray"/> es
+        /// Se produce si <paramref name="stringCollection"/> es
         /// <see langword="null"/>.
         /// </exception>
-        public static bool AnyEmpty(this IEnumerable<string?> stringArray, out int firstIndex)
+        public static bool AnyEmpty(this IEnumerable<string?> stringCollection, out int firstIndex)
         {
-            NullCheck(stringArray, nameof(stringArray));
-            var r = AnyEmpty(stringArray, out IEnumerable<int> indexes);
+            NullCheck(stringCollection, nameof(stringCollection));
+            var r = AnyEmpty(stringCollection, out IEnumerable<int> indexes);
             var a = indexes.ToArray();
             firstIndex = a.Any() ? a.First() : -1;
             return r;
         }
 
         /// <summary>
-        /// Enumera todas las cadenas no nulas de una colección.
+        /// Enumera todas las cadenas no nulas ni vacías de una colección.
         /// </summary>
-        /// <param name="stringArray"></param>
-        /// <returns></returns>
-        public static IEnumerable<string> NotEmpty(this IEnumerable<string?> stringArray)
+        /// <param name="stringCollection">
+        /// Colección desde la cual obtener las cadenas.
+        /// </param>
+        /// <returns>
+        /// Una enumeración de las cadenas no nulas ni vacías de la colección.
+        /// </returns>
+        public static IEnumerable<string> NotEmpty(this IEnumerable<string?> stringCollection)
         {
-            NullCheck(stringArray, nameof(stringArray));
-            foreach(var j in stringArray)
+            NullCheck(stringCollection, nameof(stringCollection));
+            foreach(var j in stringCollection)
             {
                 if (!j.IsEmpty()) yield return j;
             }

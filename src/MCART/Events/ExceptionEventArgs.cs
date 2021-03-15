@@ -59,6 +59,6 @@ namespace TheXDS.MCART.Events
         /// <see cref="Exception"/> a partir de la cual crear el nuevo
         /// <see cref="ExceptionEventArgs"/>.
         /// </param>
-        public static implicit operator ExceptionEventArgs(Exception ex) => new ExceptionEventArgs(ex);
+        public static implicit operator ExceptionEventArgs(Exception ex) => new(ex);
     }
 }

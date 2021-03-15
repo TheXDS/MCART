@@ -168,12 +168,50 @@ namespace TheXDS.MCART.Tests
             Assert.False("d".IsBetween("a", "c"));
             Assert.True('b'.IsBetween(new Range<char>('a', 'c')));
             Assert.False('d'.IsBetween(new Range<char>('a', 'c')));
-
             Assert.True(((double?) 0.5).IsBetween(0.0, 1.0));
             Assert.True(((double?) 0.0).IsBetween(0.0, 1.0,true));
             Assert.False(((double?) 0.0).IsBetween(0.0, 1.0,false));
             Assert.False(((double?) null).IsBetween(0.0, 1.0));
             Assert.True(((double?) 0.5).IsBetween(new Range<double>(0.0, 1.0)));
+        }
+
+        [Fact]
+        public void IsBetween_WithInclusionFlags_Test()
+        {
+            Assert.True(0.0.IsBetween(0.0, 1.0, true));
+            Assert.False(0.0.IsBetween(0.0, 1.0, false));
+            Assert.True(1.0.IsBetween(0.0, 1.0, true));
+            Assert.False(1.0.IsBetween(0.0, 1.0, false));
+            Assert.True(double.Epsilon.IsBetween(0.0, 1.0, false));
+
+            Assert.False(0.0.IsBetween(0.0, 1.0, false, false));
+            Assert.False(0.0.IsBetween(0.0, 1.0, false, true));
+            Assert.True(0.0.IsBetween(0.0, 1.0, true, false));
+            Assert.True(0.0.IsBetween(0.0, 1.0, true, true));
+
+            Assert.False(1.0.IsBetween(0.0, 1.0, false, false));
+            Assert.True(1.0.IsBetween(0.0, 1.0, false, true));
+            Assert.False(1.0.IsBetween(0.0, 1.0, true, false));
+            Assert.True(1.0.IsBetween(0.0, 1.0, true, true));
+
+            double? zero = 0.0;
+            double? one = 1.0;
+
+            Assert.True(zero.IsBetween(0.0, 1.0, true));
+            Assert.False(zero.IsBetween(0.0, 1.0, false));
+            Assert.True(one.IsBetween(0.0, 1.0, true));
+            Assert.False(one.IsBetween(0.0, 1.0, false));
+            Assert.True(((double?)double.Epsilon).IsBetween(0.0, 1.0, false));
+
+            Assert.False(zero.IsBetween(0.0, 1.0, false, false));
+            Assert.False(zero.IsBetween(0.0, 1.0, false, true));
+            Assert.True(zero.IsBetween(0.0, 1.0, true, false));
+            Assert.True(zero.IsBetween(0.0, 1.0, true, true));
+
+            Assert.False(one.IsBetween(0.0, 1.0, false, false));
+            Assert.True(one.IsBetween(0.0, 1.0, false, true));
+            Assert.False(one.IsBetween(0.0, 1.0, true, false));
+            Assert.True(one.IsBetween(0.0, 1.0, true, true));
         }
 
         [Fact]

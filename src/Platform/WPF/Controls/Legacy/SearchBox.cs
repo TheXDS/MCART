@@ -97,15 +97,15 @@ namespace TheXDS.MCART.Controls
         }
 
         BindingListCollectionView? view = null;
-        private readonly List<string> flts = new List<string>();
-        private readonly TextBox txtSearch = new TextBox()
+        private readonly List<string> flts = new();
+        private readonly TextBox txtSearch = new()
         {
             // Este control es transparente
             // para poder mostrar el texto en
             // marca de agua.            
             Background = null
         };
-        private readonly Button btnClseSearch = new Button()
+        private readonly Button btnClseSearch = new()
         {
             Width = 24,
             Content = "X"

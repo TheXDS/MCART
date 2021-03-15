@@ -51,7 +51,7 @@ namespace TheXDS.MCART.Types
         /// Un <see cref="Point" /> con sus coordenadas establecidas en
         /// <see cref="double.NaN"/>.
         /// </value>
-        public static readonly Point Nowhere = new Point(double.NaN, double.NaN);
+        public static readonly Point Nowhere = new(double.NaN, double.NaN);
 
         /// <summary>
         /// Obtiene un punto en el orígen. Este campo es de solo lectura.
@@ -59,7 +59,7 @@ namespace TheXDS.MCART.Types
         /// <value>
         /// Un <see cref="Point" /> con sus coordenadas en el orígen.
         /// </value>
-        public static readonly Point Origin = new Point(0, 0);
+        public static readonly Point Origin = new(0, 0);
 
         /// <summary>
         /// Intenta crear un <see cref="Point"/> a partir de una cadena.
@@ -680,7 +680,7 @@ namespace TheXDS.MCART.Types
         /// <returns>
         /// Un <see cref="System.Drawing.Point"/> equivalente al <see cref="Point"/> especificado.
         /// </returns>
-        public static implicit operator System.Drawing.Point(Point x) => new System.Drawing.Point((int)x.X, (int)x.Y);
+        public static implicit operator System.Drawing.Point(Point x) => new((int)x.X, (int)x.Y);
 
         /// <summary>
         /// Convierte un <see cref="System.Drawing.Point"/> en un <see cref="Point"/>.
@@ -689,6 +689,6 @@ namespace TheXDS.MCART.Types
         /// <returns>
         /// Un <see cref="Point"/> equivalente al <see cref="System.Drawing.Point"/> especificado.
         /// </returns>
-        public static implicit operator Point(System.Drawing.Point x) => new Point(x.X, x.Y);
+        public static implicit operator Point(System.Drawing.Point x) => new(x.X, x.Y);
     }
 }

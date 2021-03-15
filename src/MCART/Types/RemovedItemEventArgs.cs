@@ -41,7 +41,7 @@ namespace TheXDS.MCART.Types
         /// <param name="from">
         /// <see cref="RemovingItemEventArgs{T}"/> a convertir.
         /// </param>
-        public static implicit operator RemovedItemEventArgs<T>(RemovingItemEventArgs<T> from)=> new RemovedItemEventArgs<T>(from.RemovedItem);
+        public static implicit operator RemovedItemEventArgs<T>(RemovingItemEventArgs<T> from)=> new(from.RemovedItem);
 
         /// <summary>
         /// Objeto que fue quitado del <see cref="ListEx{T}"/> que generó

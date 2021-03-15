@@ -44,6 +44,6 @@ namespace TheXDS.MCART.Windows.Api
         /// <returns>
         /// Un objeto que permite controlar la ventana de la consola.
         /// </returns>
-        public static ConsoleWindow GetConsoleWindow() => new ConsoleWindow();
+        public static ConsoleWindow GetConsoleWindow() => new();
     }
 }
