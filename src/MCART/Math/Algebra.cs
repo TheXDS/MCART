@@ -26,10 +26,12 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Math
 {
@@ -38,18 +40,26 @@ namespace TheXDS.MCART.Math
     /// </summary>
     public static partial class Algebra
     {
-        private static readonly int[] knownPrimes = {
-            2,   3,   5,   7,   11,  13,  17,  19,  23,  29,
-            31,  37,  41,  43,  47,  53,  59,  61,  67,  71,
-            73,  79,  83,  89,  97,  101, 103, 107, 109, 113,
-            127, 131, 137, 139, 149, 151, 157, 163, 167, 173,
-            179, 181, 191, 193, 197, 199, 211, 223, 227, 229,
-            233, 239, 241, 251, 257, 263, 269, 271, 277, 281,
-            283, 293, 307, 311, 313, 317, 331, 337, 347, 349,
-            353, 359, 367, 373, 379, 383, 389, 397, 401, 409,
-            419, 421, 431, 433, 439, 443, 449, 457, 461, 463,
-            467, 479, 487, 491, 499, 503, 509, 521, 523, 541
-        };
+        /// <summary>
+        /// Inicializa la clase <see cref="Algebra"/>
+        /// </summary>
+        static Algebra()
+        {
+            var l = new List<int>();
+            var a = new Unpacker(typeof(Algebra).Assembly, @"TheXDS.MCART.Resources.Data");
+            using var s = a.Unpack("primes", new DeflateGetter());
+            using var b = new BinaryReader(s);
+            var c = b.ReadInt32();
+            while (l.Count < c)
+            {
+                l.Add(b.ReadInt32());
+            }
+            knownPrimes = l.ToArray();
+            maxKnownPrime = l.Last();
+        }
+
+        private static readonly int[] knownPrimes;
+        private static readonly int maxKnownPrime;
 
         /// <summary>
         /// Comprueba si un número es primo mediante prueba y error.
@@ -63,13 +73,13 @@ namespace TheXDS.MCART.Math
         {
             if (number == 1) return false;
 
-            if (number < 547 && knownPrimes.Contains((int)number)) return true;
+            if (number < maxKnownPrime && knownPrimes.Contains((int)number)) return true;
 
             foreach (var prime in knownPrimes)
                 if (number % prime == 0) return false;         
             
             var l = (int)System.Math.Sqrt(number);
-            for (int k = 547; k <= l; k += 2)
+            for (int k = maxKnownPrime + 2; k <= l; k += 2)
                 if (number % k == 0) return false; 
 
             return true;

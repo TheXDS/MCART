@@ -22,6 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.IO;
 using System.Reflection;
 using TheXDS.MCART.Exceptions;
@@ -46,6 +47,14 @@ namespace TheXDS.MCART.Resources
         /// recursos incrustados.
         /// </param>
         public Unpacker(Assembly assembly, string path) : base(assembly, path) { }
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="Unpacker"/>.
+        /// </summary>
+        /// <param name="resReference">
+        /// Tipo a tomar como referencia de la ubicación de los recursos.
+        /// </param>
+        public Unpacker(Type resReference) : this(resReference.Assembly, resReference.FullName ?? resReference.ToString()) { }
 
         /// <summary>
         /// Obtiene un recurso identificable.
@@ -83,6 +92,6 @@ namespace TheXDS.MCART.Resources
         /// Un <see cref="Stream"/> desde donde se podrá leer el recurso
         /// incrustado sin comprimir.
         /// </returns>
-        public override Stream Unpack(string id, ICompressorGetter compressor) => UnpackStream(id, compressor);
+        public override Stream Unpack(string id, ICompressorGetter? compressor) => UnpackStream(id, compressor);
     }
 }

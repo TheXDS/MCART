@@ -28,6 +28,7 @@ using System.Reflection;
 using TheXDS.MCART.Attributes;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
+using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Resources
 {
@@ -36,7 +37,7 @@ namespace TheXDS.MCART.Resources
     /// recursos incrustados desde un <see cref="Assembly"/>.
     /// </summary>
     /// <typeparam name="T">Tipo de recursos a extraer.</typeparam>
-    public abstract class AssemblyUnpacker<T> : IUnpacker<T>
+    public abstract partial class AssemblyUnpacker<T> : IUnpacker<T>
     {
         readonly string _path;
         readonly Assembly _assembly;
@@ -75,7 +76,13 @@ namespace TheXDS.MCART.Resources
         /// </exception>
         protected Stream? UnpackStream(string id)
         {
-            if (id.IsEmpty()) throw new ArgumentNullException(nameof(id));
+            UnpackStream_Contract(id);
+            var p = id.Split('.');
+            if (p.Length > 1)
+            {
+                var c = p[^1];
+                return UnpackStream(id.ChopEnd(c), c);
+            }
             return _assembly.GetManifestResourceStream($"{_path}.{id}");
         }
 
@@ -120,7 +127,7 @@ namespace TheXDS.MCART.Resources
         /// <see langword="null"/>, o si <paramref name="compressor"/> es
         /// <see langword="null"/>.
         /// </exception>
-        [Sugar] protected Stream UnpackStream(string id, ICompressorGetter compressor)
+        [Sugar] protected Stream UnpackStream(string id, ICompressorGetter? compressor)
         {
             var c = compressor ?? new NullGetter();
             if (id.IsEmpty()) throw new ArgumentNullException(nameof(id));
