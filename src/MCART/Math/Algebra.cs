@@ -40,26 +40,9 @@ namespace TheXDS.MCART.Math
     /// </summary>
     public static partial class Algebra
     {
-        /// <summary>
-        /// Inicializa la clase <see cref="Algebra"/>
-        /// </summary>
-        static Algebra()
-        {
-            var l = new List<int>();
-            var a = new Unpacker(typeof(Algebra).Assembly, @"TheXDS.MCART.Resources.Data");
-            using var s = a.Unpack("primes", new DeflateGetter());
-            using var b = new BinaryReader(s);
-            var c = b.ReadInt32();
-            while (l.Count < c)
-            {
-                l.Add(b.ReadInt32());
-            }
-            knownPrimes = l.ToArray();
-            maxKnownPrime = l.Last();
-        }
+        private static int[]? _primes;
 
-        private static readonly int[] knownPrimes;
-        private static readonly int maxKnownPrime;
+        private static int[] KnownPrimes => _primes ??= ReadKnownPrimes();
 
         /// <summary>
         /// Comprueba si un número es primo mediante prueba y error.
@@ -72,15 +55,18 @@ namespace TheXDS.MCART.Math
         public static bool IsPrime(this in long number)
         {
             if (number == 1) return false;
+            if (number < KnownPrimes[^1] && KnownPrimes.Contains((int)number)) return true;
 
-            if (number < maxKnownPrime && knownPrimes.Contains((int)number)) return true;
-
-            foreach (var prime in knownPrimes)
-                if (number % prime == 0) return false;         
+            foreach (var prime in KnownPrimes)
+            {
+                if (number % prime == 0) return false;
+            }
             
             var l = (int)System.Math.Sqrt(number);
-            for (int k = maxKnownPrime + 2; k <= l; k += 2)
-                if (number % k == 0) return false; 
+            for (int k = KnownPrimes[^1] + 2; k <= l; k += 2)
+            {
+                if (number % k == 0) return false;
+            }
 
             return true;
         }
@@ -97,16 +83,16 @@ namespace TheXDS.MCART.Math
         public static bool IsPrimeMp(this long number)
         {
             if (number == 1) return false;
-            var options = new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount };
-            var part = Partitioner.Create(knownPrimes);
-            
+            if (number < KnownPrimes[^1] && KnownPrimes.Contains((int)number)) return true;
+
+            var part = Partitioner.Create(KnownPrimes);            
             bool prime = true;
 
             void TestIfPrime(int j, ParallelLoopState loop)
             {
                 if (number % j == 0)
                 {
-                    loop.Stop();                    
+                    loop.Break();
                     prime = false;
                 }
             }
@@ -115,16 +101,16 @@ namespace TheXDS.MCART.Math
             {
                 if (number % ((j * 2) + 1) == 0)
                 {
-                    loop.Stop();
+                    loop.Break();
                     prime = false;
                 }
             }
 
-            Parallel.ForEach(part, options, TestIfPrime);
+            Parallel.ForEach(part, TestIfPrime);
             if (prime)
             {
                 var l = (int)System.Math.Sqrt(number);
-                Parallel.For(273, l, options, TestIfPrime2);
+                Parallel.For(KnownPrimes[^1] / 2, l, TestIfPrime2);
             }            
             return prime;
         }
@@ -469,6 +455,20 @@ namespace TheXDS.MCART.Math
         public static bool AreNotZero<T>(IEnumerable<T> x) where T : struct, IComparable<T>
         {
             return x.All(j => j.CompareTo(default) != 0);
+        }
+
+        private static int[] ReadKnownPrimes()
+        {
+            var l = new List<int>();
+            var a = new Unpacker(typeof(Algebra).Assembly, @"TheXDS.MCART.Resources.Data");
+            using var s = a.Unpack("primes", new DeflateGetter());
+            using var b = new BinaryReader(s);
+            var c = b.ReadInt32();
+            while (l.Count < c)
+            {
+                l.Add(b.ReadInt32());
+            }
+            return l.ToArray();
         }
     }
 }
