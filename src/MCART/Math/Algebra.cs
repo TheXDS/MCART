@@ -122,7 +122,6 @@ namespace TheXDS.MCART.Math
         /// <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="number">Número a comprobar.</param>
-        [Sugar]
         public static bool IsPrime(this in int number)
         {
             return ((long) number).IsPrime();
@@ -135,7 +134,6 @@ namespace TheXDS.MCART.Math
         /// <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="number">Número a comprobar.</param>
-        [Sugar]
         public static bool IsPrime(this in short number)
         {
             return ((long) number).IsPrime();
@@ -148,10 +146,45 @@ namespace TheXDS.MCART.Math
         /// <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="number">Número a comprobar.</param>
-        [Sugar]
         public static bool IsPrime(this in byte number)
         {
             return ((long) number).IsPrime();
+        }
+
+        /// <summary>
+        /// Comprueba si un número es primo.
+        /// </summary>
+        /// <returns>
+        /// <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
+        /// </returns>
+        /// <param name="number">Número a comprobar.</param>
+        public static bool IsPrimeMp(this in int number)
+        {
+            return ((long)number).IsPrimeMp();
+        }
+
+        /// <summary>
+        /// Comprueba si un número es primo.
+        /// </summary>
+        /// <returns>
+        /// <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
+        /// </returns>
+        /// <param name="number">Número a comprobar.</param>
+        public static bool IsPrimeMp(this in short number)
+        {
+            return ((long)number).IsPrimeMp();
+        }
+
+        /// <summary>
+        /// Comprueba si un número es primo.
+        /// </summary>
+        /// <returns>
+        /// <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
+        /// </returns>
+        /// <param name="number">Número a comprobar.</param>
+        public static bool IsPrimeMp(this in byte number)
+        {
+            return ((long)number).IsPrimeMp();
         }
 
         /// <summary>
@@ -174,7 +207,7 @@ namespace TheXDS.MCART.Math
         /// <see langword="true"/> si el valor es una potencia de 2,
         /// <see langword="false"/> en caso contrario.
         /// </returns>
-        public static bool IsTwoPow(in byte value) => (value & ~1).BitCount() == 1;
+        public static bool IsTwoPow(in byte value) => value.BitCount() == 1;
 
         /// <summary>
         /// Determina si el valor es una potencia de 2.
@@ -184,7 +217,7 @@ namespace TheXDS.MCART.Math
         /// <see langword="true"/> si el valor es una potencia de 2,
         /// <see langword="false"/> en caso contrario.
         /// </returns>
-        public static bool IsTwoPow(in short value) => (value & ~1).BitCount() == 1;
+        public static bool IsTwoPow(in short value) => value.BitCount() == 1;
 
         /// <summary>
         /// Determina si el valor es una potencia de 2.
@@ -194,7 +227,7 @@ namespace TheXDS.MCART.Math
         /// <see langword="true"/> si el valor es una potencia de 2,
         /// <see langword="false"/> en caso contrario.
         /// </returns>
-        public static bool IsTwoPow(in int value) => (value & ~1).BitCount() == 1;
+        public static bool IsTwoPow(in int value) => value.BitCount() == 1;
 
         /// <summary>
         /// Determina si el valor es una potencia de 2.
@@ -204,7 +237,7 @@ namespace TheXDS.MCART.Math
         /// <see langword="true"/> si el valor es una potencia de 2,
         /// <see langword="false"/> en caso contrario.
         /// </returns>
-        public static bool IsTwoPow(in long value) => (value & ~1).BitCount() == 1;
+        public static bool IsTwoPow(in long value) => value.BitCount() == 1;
 
         /// <summary>
         /// Devuelve el primer múltiplo de <paramref name="multiplier" /> que es mayor que <paramref name="value" />
@@ -365,10 +398,9 @@ namespace TheXDS.MCART.Math
         /// números operables, en otras palabras, si no son NaN o Infinito; en
         /// caso contrario, se devuelve <see langword="false" />.
         /// </returns>
-        [Sugar]
         public static bool AreValid(params double[] values)
         {
-            return values.All(p=>IsValid(p));
+            return AreValid(values.AsEnumerable());
         }
 
         /// <summary>
@@ -383,10 +415,9 @@ namespace TheXDS.MCART.Math
         /// números operables, en otras palabras, si no son NaN o Infinito; en
         /// caso contrario, se devuelve <see langword="false" />.
         /// </returns>
-        [Sugar]
         public static bool AreValid(params float[] values)
         {
-            return values.All(p=>IsValid(p));
+            return AreValid(values.AsEnumerable());
         }
 
         /// <summary>
@@ -401,10 +432,9 @@ namespace TheXDS.MCART.Math
         /// números operables, en otras palabras, si no son NaN o Infinito; en
         /// caso contrario, se devuelve <see langword="false" />.
         /// </returns>
-        [Sugar]
         public static bool AreValid(IEnumerable<float> values)
         {
-            return values.All(p=>IsValid(p));
+            return values.All(p => IsValid(p));
         }
 
         /// <summary>
@@ -419,10 +449,9 @@ namespace TheXDS.MCART.Math
         /// números operables, en otras palabras, si no son NaN o Infinito; en
         /// caso contrario, se devuelve <see langword="false" />.
         /// </returns>
-        [Sugar]
         public static bool AreValid(IEnumerable<double> values)
         {
-            return values.All(p=>IsValid(p));
+            return values.All(p => IsValid(p));
         }
 
         /// <summary>
@@ -438,7 +467,7 @@ namespace TheXDS.MCART.Math
         /// </returns>
         public static bool AreNotZero<T>(params T[] x) where T : struct, IComparable<T>
         {
-            return x.All(j => j.CompareTo(default) != 0);
+            return AreNotZero(x.AsEnumerable());
         }
 
         /// <summary>

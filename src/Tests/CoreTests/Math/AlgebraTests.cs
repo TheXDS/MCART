@@ -33,29 +33,46 @@ namespace TheXDS.MCART.Tests.Math
 {
     public class AlgebraTests
     {
-        public static IEnumerable<object[]> GetKnownPrimes()
+        private static IEnumerable<object[]> ObjArray(Type valType, IEnumerable<long> data)
         {
-            return new long[]
-            { 
-                2, 3, 5, 7, 11, 13, 17, 19, 23, 29,
-                8191, 131071, 524287, 6700417 
-            }.Select(p => new object[] { p });
+            return data.Select(p => new object[] { Convert.ChangeType(p, valType) });
         }
 
-        public static IEnumerable<object[]> GetKnownNotPrimes()
+        public static IEnumerable<object[]> GetKnownPrimes(Type valType, long max)
         {
-            return new long[]
-            {
+            return ObjArray(valType, new long[] {
+                2, 3, 5, 7, 11, 13, 17, 19, 23, 29,
+                8191, 131071, 524287, 6700417
+            }.Where(p => p <= max));
+        }
+
+        public static IEnumerable<object[]> GetKnownNotPrimes(Type valType, long max)
+        {
+            return ObjArray(valType, new long[] {
                 1, 4, 6, 8, 9, 10, 12, 14, 15, 16,
                 18, 20, 21, 22, 24, 25, 26, 27, 28, 39
-            }.Select(p => new object[] { p });
+            }.Where(p => p <= max));
         }
 
+        public static IEnumerable<object[]> Get2Pows(Type valType, long max, int dev)
+        {
+            static IEnumerable<long> EnumeratePows(long m, int d)
+            {
+                var c = 2L;
+                while (c < m)
+                {
+                    yield return c + d;
+                    c *= 2;
+                }
+            }
+
+            return ObjArray(valType, EnumeratePows(max, dev));
+        }
 
         [Theory]
         [CLSCompliant(false)]
-        [MemberData(nameof(GetKnownPrimes))]
-        public void AssertPrimes_Test(long number)
+        [MemberData(nameof(GetKnownPrimes), typeof(long), long.MaxValue)]
+        public void AssertPrimes_long_Test(long number)
         {
             Assert.True(number.IsPrime());
             Assert.True(number.IsPrimeMp());
@@ -63,8 +80,62 @@ namespace TheXDS.MCART.Tests.Math
 
         [Theory]
         [CLSCompliant(false)]
-        [MemberData(nameof(GetKnownNotPrimes))]
-        public void AssertNotPrimes_Test(long number)
+        [MemberData(nameof(GetKnownNotPrimes), typeof(long), long.MaxValue)]
+        public void AssertNotPrimes_long_Test(long number)
+        {
+            Assert.False(number.IsPrime());
+            Assert.False(number.IsPrimeMp());
+        }
+
+        [Theory]
+        [CLSCompliant(false)]
+        [MemberData(nameof(GetKnownPrimes), typeof(int), (long)int.MaxValue)]
+        public void AssertPrimes_int_Test(int number)
+        {
+            Assert.True(number.IsPrime());
+            Assert.True(number.IsPrimeMp());
+        }
+
+        [Theory]
+        [CLSCompliant(false)]
+        [MemberData(nameof(GetKnownNotPrimes), typeof(int), (long)int.MaxValue)]
+        public void AssertNotPrimes_int_Test(int number)
+        {
+            Assert.False(number.IsPrime());
+            Assert.False(number.IsPrimeMp());
+        }
+
+        [Theory]
+        [CLSCompliant(false)]
+        [MemberData(nameof(GetKnownPrimes), typeof(short), (long)short.MaxValue)]
+        public void AssertPrimes_short_Test(short number)
+        {
+            Assert.True(number.IsPrime());
+            Assert.True(number.IsPrimeMp());
+        }
+
+        [Theory]
+        [CLSCompliant(false)]
+        [MemberData(nameof(GetKnownNotPrimes), typeof(short), (long)short.MaxValue)]
+        public void AssertNotPrimes_short_Test(short number)
+        {
+            Assert.False(number.IsPrime());
+            Assert.False(number.IsPrimeMp());
+        }
+
+        [Theory]
+        [CLSCompliant(false)]
+        [MemberData(nameof(GetKnownPrimes), typeof(byte), (long)byte.MaxValue)]
+        public void AssertPrimes_byte_Test(byte number)
+        {
+            Assert.True(number.IsPrime());
+            Assert.True(number.IsPrimeMp());
+        }
+
+        [Theory]
+        [CLSCompliant(false)]
+        [MemberData(nameof(GetKnownNotPrimes), typeof(byte), (long)byte.MaxValue)]
+        public void AssertNotPrimes_byte_Test(byte number)
         {
             Assert.False(number.IsPrime());
             Assert.False(number.IsPrimeMp());
@@ -88,7 +159,7 @@ namespace TheXDS.MCART.Tests.Math
         [Fact]
         public void Nearest2PowTest()
         {
-            Assert.Equal(512,Nearest2Pow(456));
+            Assert.Equal(512, Nearest2Pow(456));
         }
 
         [Fact]
@@ -135,21 +206,69 @@ namespace TheXDS.MCART.Tests.Math
             Assert.False(14.9.IsWhole());
         }
 
-        [Fact]
-        public void IsTwoPowTest()
+        [Theory]
+        [CLSCompliant(false)]
+        [MemberData(nameof(Get2Pows), typeof(byte), 128L, 1)]
+        public void IsTwoPow_byte_YieldsFalse_Test(byte value)
         {
-            Assert.True(IsTwoPow(2));
-            Assert.True(IsTwoPow(16));
-            Assert.True(IsTwoPow(64));
-            Assert.True(IsTwoPow(256));
-            Assert.True(IsTwoPow(65536));
-            Assert.True(IsTwoPow(16777216));
-            Assert.False(IsTwoPow(1));
-            Assert.False(IsTwoPow(15));
-            Assert.False(IsTwoPow(63));
-            Assert.False(IsTwoPow(255));
-            Assert.False(IsTwoPow(65535));
-            Assert.False(IsTwoPow(16777215));
+            Assert.False(IsTwoPow(value));
         }
+
+        [Theory]
+        [CLSCompliant(false)]
+        [MemberData(nameof(Get2Pows), typeof(byte), 128L, 0)]
+        public void IsTwoPow_byte_YieldsTrue_Test(byte value)
+        {
+            Assert.True(IsTwoPow(value));
+        }
+
+        [Theory]
+        [CLSCompliant(false)]
+        [MemberData(nameof(Get2Pows), typeof(short), 32768L, 1)]
+        public void IsTwoPow_short_YieldsFalse_Test(short value)
+        {
+            Assert.False(IsTwoPow(value));
+        }
+
+        [Theory]
+        [CLSCompliant(false)]
+        [MemberData(nameof(Get2Pows), typeof(short), 32768L, 0)]
+        public void IsTwoPow_short_YieldsTrue_Test(short value)
+        {
+            Assert.True(IsTwoPow(value));
+        }
+
+        [Theory]
+        [CLSCompliant(false)]
+        [MemberData(nameof(Get2Pows), typeof(int), 131072L, 1)]
+        public void IsTwoPow_int_YieldsFalse_Test(int value)
+        {
+            Assert.False(IsTwoPow(value));
+        }
+
+        [Theory]
+        [CLSCompliant(false)]
+        [MemberData(nameof(Get2Pows), typeof(int), 131072L, 0)]
+        public void IsTwoPow_int_YieldsTrue_Test(int value)
+        {
+            Assert.True(IsTwoPow(value));
+        }
+
+        [Theory]
+        [CLSCompliant(false)]
+        [MemberData(nameof(Get2Pows), typeof(long), 131072L, 1)]
+        public void IsTwoPow_long_YieldsFalse_Test(long value)
+        {
+            Assert.False(IsTwoPow(value));
+        }
+
+        [Theory]
+        [CLSCompliant(false)]
+        [MemberData(nameof(Get2Pows), typeof(long), 131072L, 0)]
+        public void IsTwoPow_long_YieldsTrue_Test(long value)
+        {
+            Assert.True(IsTwoPow(value));
+        }
+
     }
 }
