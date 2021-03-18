@@ -26,6 +26,7 @@ using System;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Component;
+using TheXDS.MCART.Helpers;
 
 [assembly: McartComponent(TheXDS.MCART.Resources.RtInfo.ComponentKind.Core)]
 

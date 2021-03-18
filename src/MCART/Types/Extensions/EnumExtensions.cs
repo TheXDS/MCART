@@ -28,6 +28,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Helpers;
 using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Types.Extensions

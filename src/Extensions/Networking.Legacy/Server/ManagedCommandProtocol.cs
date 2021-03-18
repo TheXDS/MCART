@@ -31,6 +31,7 @@ using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Events;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Networking.Legacy.Server

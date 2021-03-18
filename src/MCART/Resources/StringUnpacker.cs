@@ -26,6 +26,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
 using St = TheXDS.MCART.Resources.Strings;
 using St2 = TheXDS.MCART.Resources.InternalStrings;

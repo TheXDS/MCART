@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Security;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Base;
 using St = TheXDS.MCART.Resources.Strings;
 

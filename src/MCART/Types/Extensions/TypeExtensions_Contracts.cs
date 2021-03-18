@@ -32,6 +32,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
 using static TheXDS.MCART.Misc.Internals;
 

@@ -88,7 +88,7 @@ namespace TheXDS.MCART.Tests.Types
                     handler = new NotifyCollectionChangedEventHandler(h);
                     c.CollectionChanged += handler;
                 },
-                h => c.CollectionChanged -= handler,
+                _ => c.CollectionChanged -= handler,
                 action);
 
             Assert.NotNull(evt);

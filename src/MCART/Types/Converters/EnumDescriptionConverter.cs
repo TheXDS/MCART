@@ -26,6 +26,7 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Types.Converters

@@ -32,9 +32,8 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Exceptions;
 using static TheXDS.MCART.Misc.Internals;
-using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
 
-namespace TheXDS.MCART
+namespace TheXDS.MCART.Helpers
 {
     /// <summary>
     /// Funciones de manipulación de objetos.
@@ -43,7 +42,7 @@ namespace TheXDS.MCART
     {
         [Conditional("EnforceContracts")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
+        //[DebuggerNonUserCode]
         private static void FieldsOf_Contract(IEnumerable<FieldInfo> fields, object? instance)
         {
             NullCheck(fields, nameof(fields));
@@ -54,13 +53,6 @@ namespace TheXDS.MCART
                 foreach (var j in fields.Where(p => !p.IsStatic))
                 {
                     if (!f.Contains(j)) throw new MissingFieldException(obj.GetType().Name, j.Name);
-                }
-            }
-            else
-            {
-                foreach (var j in fields.Where(p => p.IsStatic))
-                {
-                    if (!j.IsStatic) throw new MemberAccessException();
                 }
             }
         }

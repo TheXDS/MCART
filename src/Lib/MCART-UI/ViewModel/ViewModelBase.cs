@@ -34,6 +34,7 @@ using TheXDS.MCART.Resources.UI;
 using TheXDS.MCART.Types.Base;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
 using St = TheXDS.MCART.Resources.UI.ErrorStrings;
 

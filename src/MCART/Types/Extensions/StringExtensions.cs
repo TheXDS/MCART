@@ -34,6 +34,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Helpers;
 using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Types.Extensions

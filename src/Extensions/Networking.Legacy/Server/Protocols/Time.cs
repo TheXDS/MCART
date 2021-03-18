@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #if ExtrasBuiltIn
 
 using System;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Networking.Legacy.Server.Protocols

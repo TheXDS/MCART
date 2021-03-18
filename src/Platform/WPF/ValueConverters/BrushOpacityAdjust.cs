@@ -26,6 +26,7 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
+using TheXDS.MCART.Helpers;
 
 namespace TheXDS.MCART.ValueConverters
 {

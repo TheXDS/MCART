@@ -35,6 +35,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Shapes;
 using TheXDS.MCART.Events;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.ValueConverters;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;

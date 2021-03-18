@@ -30,10 +30,9 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
-using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 using static TheXDS.MCART.Misc.Internals;
 
-namespace TheXDS.MCART
+namespace TheXDS.MCART.Helpers
 {
     /// <summary>
     /// Funciones auxiliares de reflexión.

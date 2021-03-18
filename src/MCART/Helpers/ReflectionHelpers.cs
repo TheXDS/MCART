@@ -34,9 +34,8 @@ using System.Text;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
-using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 
-namespace TheXDS.MCART
+namespace TheXDS.MCART.Helpers
 {
     /// <summary>
     /// Funciones auxiliares de reflexión.
@@ -82,7 +81,7 @@ namespace TheXDS.MCART
         {
             GetCallingMethod_Contract(nCaller);
             var frames = new StackTrace().GetFrames();
-            return frames?.Length > nCaller ? (MethodInfo?)frames![nCaller]?.GetMethod() : null;
+            return frames.Length > nCaller ? (MethodInfo?)frames[nCaller]?.GetMethod() : null;
         }
 
         /// <summary>

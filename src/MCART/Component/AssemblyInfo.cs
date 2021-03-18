@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
@@ -82,7 +83,7 @@ namespace TheXDS.MCART.Component
         /// <summary>
         /// Devuelve el autor del <see cref="IExposeInfo" />
         /// </summary>
-        public IEnumerable<string>? Authors => Assembly.GetAttrs<AuthorAttribute>()?.Select(p=>p.Value!) ?? new[] { Assembly.GetAttr<AssemblyCompanyAttribute>()?.Company };
+        public IEnumerable<string>? Authors => Assembly.GetAttrs<AuthorAttribute>().Select(p=>p.Value!).OrNull() ?? (Assembly.GetAttr<AssemblyCompanyAttribute>()?.Company.OrNull() is { } company ? new[] { company } : null);
 
         /// <summary>
         /// Devuelve la marca comercial del <see cref="Assembly" />
@@ -97,7 +98,7 @@ namespace TheXDS.MCART.Component
         /// <summary>
         /// Devuelve la licencia del <see cref="IExposeInfo" />
         /// </summary>
-        public License? License => Assembly.GetAttrs<LicenseAttributeBase>()?.FirstOrDefault()?.GetLicense(Assembly);
+        public License? License => Assembly.GetAttrs<LicenseAttributeBase>().FirstOrDefault()?.GetLicense(Assembly);
 
         /// <summary>
         /// Devuelve la versión del <see cref="IExposeInfo" />
@@ -165,6 +166,6 @@ namespace TheXDS.MCART.Component
         /// Obtiene un valor que indica si este <see cref="IExposeInfo"/>
         /// contiene información de licencias de terceros.
         /// </summary>
-        public bool Has3rdPartyLicense => ThirdPartyLicenses?.Any() ?? false;
+        public bool Has3rdPartyLicense => ThirdPartyLicenses.Any();
     }
 }

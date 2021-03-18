@@ -34,7 +34,7 @@ namespace TheXDS.MCART.Component
     /// Define una serie de miembros a implementar para un tipo que exponga
     /// diversa información de identificación.
     /// </summary>
-    public partial interface IExposeInfo : INameable, IDescriptible
+    public interface IExposeInfo : INameable, IDescriptible
     {
         /// <summary>
         /// Obtiene el autor del <see cref="IExposeInfo"/>.

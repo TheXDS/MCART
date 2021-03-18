@@ -32,7 +32,7 @@ using TheXDS.MCART.Math;
 using static TheXDS.MCART.Misc.Internals;
 using St = TheXDS.MCART.Resources.Strings;
 
-namespace TheXDS.MCART
+namespace TheXDS.MCART.Helpers
 {
     public static partial class CollectionHelpers
     {

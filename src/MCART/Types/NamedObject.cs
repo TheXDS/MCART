@@ -28,6 +28,7 @@ using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Types.Extensions.MemberInfoExtensions;

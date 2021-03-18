@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Component;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;

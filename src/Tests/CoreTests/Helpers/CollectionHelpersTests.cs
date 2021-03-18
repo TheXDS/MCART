@@ -29,6 +29,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
 using Xunit;
 

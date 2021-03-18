@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Helpers;
 
 namespace TheXDS.MCART.Types.Base
 {

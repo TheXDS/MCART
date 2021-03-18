@@ -25,6 +25,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Helpers;
+
 namespace TheXDS.MCART.Resources
 {
     /// <summary>

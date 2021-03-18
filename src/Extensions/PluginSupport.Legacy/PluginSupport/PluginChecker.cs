@@ -26,6 +26,7 @@ using TheXDS.MCART.Resources;
 using System;
 using System.Linq;
 using System.Reflection;
+using TheXDS.MCART.Helpers;
 
 namespace TheXDS.MCART.PluginSupport.Legacy
 {

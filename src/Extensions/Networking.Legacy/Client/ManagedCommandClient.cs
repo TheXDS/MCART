@@ -36,6 +36,8 @@ using TheXDS.MCART.Events;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
 using System.IO.Compression;
+using TheXDS.MCART.Helpers;
+
 //using TheXDS.MCART.Security.Cryptography;
 
 namespace TheXDS.MCART.Networking.Legacy.Client

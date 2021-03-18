@@ -3,13 +3,13 @@ ReflectionHelpersTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
-Este archivo contiene todas las pruebas pertenecientes a la clase estática
+Este archivo contiene todas las pruebas pertenecientes a la clase estÃ¡tica
 TheXDS.MCART.Common.
 
 Author(s):
-     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+     CÃ©sar AndrÃ©s Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2021 César Andrés Morgan
+Copyright Â© 2011 - 2021 CÃ©sar AndrÃ©s Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -28,8 +28,9 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using Xunit;
 using System.Reflection;
-using static TheXDS.MCART.ReflectionHelpers;
+using static TheXDS.MCART.Helpers.ReflectionHelpers;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Helpers;
 
 namespace TheXDS.MCART.Tests.Modules
 {

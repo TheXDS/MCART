@@ -29,9 +29,10 @@ using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Events;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
 using Xunit;
-using static TheXDS.MCART.Objects;
+using static TheXDS.MCART.Helpers.Objects;
 
 namespace TheXDS.MCART.Tests.Modules
 {

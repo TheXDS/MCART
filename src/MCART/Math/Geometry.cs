@@ -24,6 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types;
 
 namespace TheXDS.MCART.Math

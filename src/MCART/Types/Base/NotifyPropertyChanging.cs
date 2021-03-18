@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using TheXDS.MCART.Helpers;
 
 namespace TheXDS.MCART.Types.Base
 {

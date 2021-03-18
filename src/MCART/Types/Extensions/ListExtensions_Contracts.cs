@@ -28,6 +28,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Helpers;
 using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Types.Extensions

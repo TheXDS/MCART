@@ -29,9 +29,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types;
 using Xunit;
-using static TheXDS.MCART.Common;
+using static TheXDS.MCART.Helpers.Common;
 using static TheXDS.MCART.Types.Extensions.SecureStringExtensions;
 
 namespace TheXDS.MCART.Tests

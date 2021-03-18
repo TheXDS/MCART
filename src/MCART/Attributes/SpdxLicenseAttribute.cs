@@ -24,6 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
 using static System.AttributeTargets;
 using static TheXDS.MCART.Types.Extensions.DictionaryExtensions;

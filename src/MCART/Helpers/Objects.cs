@@ -36,7 +36,7 @@ using static TheXDS.MCART.Misc.Internals;
 using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 
-namespace TheXDS.MCART
+namespace TheXDS.MCART.Helpers
 {
     /// <summary>
     /// Funciones de manipulación de objetos.
@@ -501,6 +501,7 @@ namespace TheXDS.MCART
             return
                 from j in fields.Where(p => p.IsPublic)
                 where j.FieldType == typeof(T)
+                where j.IsStatic == instance is null
                 select (T)j.GetValue(instance)!;
         }
 

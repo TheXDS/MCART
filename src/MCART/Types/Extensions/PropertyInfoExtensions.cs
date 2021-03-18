@@ -27,6 +27,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Helpers;
 using static TheXDS.MCART.Resources.InternalStrings;
 using static TheXDS.MCART.Resources.Strings;
 

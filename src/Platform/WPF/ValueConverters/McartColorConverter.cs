@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
 using MT = TheXDS.MCART.Types;
 

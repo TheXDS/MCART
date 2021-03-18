@@ -24,6 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Security;
+using TheXDS.MCART.Helpers;
 
 namespace TheXDS.MCART.Security.Password
 {

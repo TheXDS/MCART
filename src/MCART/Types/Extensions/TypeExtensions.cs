@@ -39,6 +39,7 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Resources;
 using System.Linq.Expressions;
+using TheXDS.MCART.Helpers;
 
 namespace TheXDS.MCART.Types.Extensions
 {

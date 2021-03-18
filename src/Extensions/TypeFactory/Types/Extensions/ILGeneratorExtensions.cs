@@ -30,6 +30,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Helpers;
 using static System.Reflection.Emit.OpCodes;
 using Op = System.Reflection.Emit.OpCodes;
 

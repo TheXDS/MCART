@@ -37,6 +37,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Windows.Dwm;
 using TheXDS.MCART.Wpf.Component;

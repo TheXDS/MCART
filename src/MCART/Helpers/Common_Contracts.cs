@@ -28,7 +28,7 @@ using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-namespace TheXDS.MCART
+namespace TheXDS.MCART.Helpers
 {
     public static partial class Common
     {

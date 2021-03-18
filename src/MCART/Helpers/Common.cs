@@ -40,7 +40,7 @@ using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Misc.Internals;
 using St2 = TheXDS.MCART.Resources.InternalStrings;
 
-namespace TheXDS.MCART
+namespace TheXDS.MCART.Helpers
 {
     /// <summary>
     /// Contiene operaciones comunes de transformación de datos en los

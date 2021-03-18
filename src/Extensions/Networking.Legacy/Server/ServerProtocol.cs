@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Net.Sockets;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 using St=TheXDS.MCART.Resources.Strings;

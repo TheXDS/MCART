@@ -29,6 +29,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.ValueConverters

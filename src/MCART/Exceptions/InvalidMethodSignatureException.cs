@@ -175,7 +175,7 @@ namespace TheXDS.MCART.Exceptions
         private static string Msg(MemberInfo offendingMethod)
         {
             return Strings.InvalidSignature(Strings.XYQuotes(Strings.TheMethod,
-                $"{offendingMethod?.DeclaringType?.FullName}.{offendingMethod?.Name}"));
+                $"{offendingMethod.DeclaringType?.FullName}.{offendingMethod.Name}"));
         }
     }
 }

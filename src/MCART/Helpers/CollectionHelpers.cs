@@ -32,7 +32,7 @@ using TheXDS.MCART.Math;
 using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Misc.Internals;
 
-namespace TheXDS.MCART
+namespace TheXDS.MCART.Helpers
 {
     /// <summary>
     /// Funciones auxiliares para trabajar con colecciones y enumeraciones.
