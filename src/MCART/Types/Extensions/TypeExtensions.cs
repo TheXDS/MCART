@@ -38,6 +38,7 @@ using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Resources;
+using System.Linq.Expressions;
 
 namespace TheXDS.MCART.Types.Extensions
 {
@@ -188,6 +189,30 @@ namespace TheXDS.MCART.Types.Extensions
         public static bool Implements(this Type type, IEnumerable<Type> baseTypes)
         {
             return baseTypes.Select(type.Implements).And();
+        }
+
+        /// <summary>
+        /// Comprueba si un tipo implementa un operador especificado por la
+        /// expresión.
+        /// </summary>
+        /// <param name="type">Tipo a comprobar</param>
+        /// <param name="operator">Operador a buscar en el tipo.</param>
+        /// <returns>
+        /// <see langword="true"/> si el operador existe en el tipo,
+        /// <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool ImplementsOperator(this Type type, Func<Expression, Expression, BinaryExpression> @operator)
+        {
+            var c = Expression.Constant(type.Default(), type);
+            try
+            {
+                @operator(c, c);
+                return true;
+            }
+            catch (InvalidOperationException)
+            {
+                return false;
+            }
         }
 
         /// <summary>

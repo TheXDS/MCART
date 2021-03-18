@@ -154,6 +154,12 @@ namespace TheXDS.MCART.Tests.Math
         {
             Assert.True(AreValid(1f, 2f, 3f, 4f, 5f));
             Assert.False(AreValid(1f, 2f, float.NaN, 4f, 5f));
+            Assert.True(new[] { 1f, 2f, 3f, 4f, 5f }.AreValid());
+            Assert.False(new[] { 1f, 2f, float.NaN, 4f, 5f }.AreValid());
+            Assert.True(AreValid(1.0, 2.0, 3.0, 4.0, 5.0));
+            Assert.False(AreValid(1.0, 2.0, double.NaN, 4.0, 5.0));
+            Assert.True(new[] { 1.0, 2.0, 3.0, 4.0, 5.0 }.AreValid());
+            Assert.False(new[] { 1.0, 2.0, double.NaN, 4.0, 5.0 }.AreValid());
         }
 
         [Fact]
@@ -174,6 +180,9 @@ namespace TheXDS.MCART.Tests.Math
             Assert.True(ArePositive(1, 2, 3, 4, 5));
             Assert.False(ArePositive(1, 2, 3, 0));
             Assert.False(ArePositive(1, 2, 3, -1));
+            Assert.True(new[] { 1, 2, 3, 4, 5 }.ArePositive());
+            Assert.False(new[] { 1, 2, 3, 0 }.ArePositive());
+            Assert.False(new[] { 1, 2, 3, -1 }.ArePositive());
         }
 
         [Fact]
@@ -182,6 +191,9 @@ namespace TheXDS.MCART.Tests.Math
             Assert.True(AreNegative(-1, -2, -3, -4, -5));
             Assert.False(AreNegative(-1, -2, -3, 0));
             Assert.False(AreNegative(-1, -2, -3, 1));
+            Assert.True(new[] { -1, -2, -3, -4, -5 }.AreNegative());
+            Assert.False(new[] { -1, -2, -3, 0 }.AreNegative());
+            Assert.False(new[] { -1, -2, -3, 1 }.AreNegative());
         }
 
         [Fact]
@@ -189,6 +201,8 @@ namespace TheXDS.MCART.Tests.Math
         {
             Assert.True(AreZero(0, 0, 0));
             Assert.False(AreZero(0, 1, 0));
+            Assert.True(new[] { 0, 0, 0 }.AreZero());
+            Assert.False(new[] { 0, 1, 0 }.AreZero());
         }
 
         [Fact]
@@ -196,6 +210,8 @@ namespace TheXDS.MCART.Tests.Math
         {
             Assert.True(AreNotZero(1, 2, 3));
             Assert.False(AreNotZero(1, 2, 0));
+            Assert.True(new[] { 1, 2, 3 }.AreNotZero());
+            Assert.False(new[] { 1, 2, 0 }.AreNotZero());
         }
 
         [Fact]

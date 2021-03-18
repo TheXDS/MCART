@@ -23,6 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Math
 {
@@ -123,50 +124,31 @@ namespace TheXDS.MCART.Math
             return Clamp(expression, float.NegativeInfinity, max);
         }
 
+        /// <summary>
+        /// Establece límites de sobreflujo para evaluar una expresión.
+        /// </summary>
+        /// <param name="expression">Expresión a evaluar.</param>
+        /// <param name="min">Límite inferior de salida, inclusive.</param>
+        /// <param name="max">Límite superior de salida, inclusive.</param>
+        /// <returns>
+        /// El valor evaluado que se encuentra dentro del rango especificado.
+        /// </returns>
+        /// <remarks>
+        /// Esta implementación se incluye para permitir parámetros de tipo
+        /// <see cref="float.NaN" />, <see cref="float.NegativeInfinity" /> y
+        /// <see cref="float.PositiveInfinity" />.
+        /// </remarks>
+        public static float Clamp(this in float expression, in float min, in float max)
+        {
 #if RatherDRY
-
-        /// <summary>
-        /// Establece límites de sobreflujo para evaluar una expresión.
-        /// </summary>
-        /// <param name="expression">Expresión a evaluar.</param>
-        /// <param name="min">Límite inferior de salida, inclusive.</param>
-        /// <param name="max">Límite superior de salida, inclusive.</param>
-        /// <returns>
-        /// El valor evaluado que se encuentra dentro del rango especificado.
-        /// </returns>
-        /// <remarks>
-        /// Esta implementación se incluye para permitir parámetros de tipo
-        /// <see cref="float.NaN" />, <see cref="float.NegativeInfinity" /> y
-        /// <see cref="float.PositiveInfinity" />.
-        /// </remarks>
-        public static float Clamp(this in float expression, in float min, in float max)
-        {
             return (float) Clamp((double) expression, min, max);
-        }
 #else
-        /// <summary>
-        /// Establece límites de sobreflujo para evaluar una expresión.
-        /// </summary>
-        /// <param name="expression">Expresión a evaluar.</param>
-        /// <param name="min">Límite inferior de salida, inclusive.</param>
-        /// <param name="max">Límite superior de salida, inclusive.</param>
-        /// <returns>
-        /// El valor evaluado que se encuentra dentro del rango especificado.
-        /// </returns>
-        /// <remarks>
-        /// Esta implementación se incluye para permitir parámetros de tipo
-        /// <see cref="float.NaN" />, <see cref="float.NegativeInfinity" /> y
-        /// <see cref="float.PositiveInfinity" />.
-        /// </remarks>
-        public static float Clamp(this in float expression, in float min, in float max)
-        {
             if (float.IsNaN(expression)) return float.NaN;
             if (expression > max) return max;
             if (expression < min) return min;
             return expression;
-        }
-
 #endif
+        }
 
 #endif
 

@@ -4,12 +4,6 @@
     <UseWpf>true</UseWpf>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Fluent\**" />
-    <EmbeddedResource Remove="Fluent\**" />
-    <None Remove="Fluent\**" />
-    <Page Remove="Fluent\**" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\Platform\WPF\WPF.csproj" />
   </ItemGroup>
 </Project>

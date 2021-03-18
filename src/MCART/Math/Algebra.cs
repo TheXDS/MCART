@@ -432,7 +432,7 @@ namespace TheXDS.MCART.Math
         /// números operables, en otras palabras, si no son NaN o Infinito; en
         /// caso contrario, se devuelve <see langword="false" />.
         /// </returns>
-        public static bool AreValid(IEnumerable<float> values)
+        public static bool AreValid(this IEnumerable<float> values)
         {
             return values.All(p => IsValid(p));
         }
@@ -449,7 +449,7 @@ namespace TheXDS.MCART.Math
         /// números operables, en otras palabras, si no son NaN o Infinito; en
         /// caso contrario, se devuelve <see langword="false" />.
         /// </returns>
-        public static bool AreValid(IEnumerable<double> values)
+        public static bool AreValid(this IEnumerable<double> values)
         {
             return values.All(p => IsValid(p));
         }
@@ -481,7 +481,7 @@ namespace TheXDS.MCART.Math
         /// <see langword="true" /> si todos los números de la colección son distintos de
         /// cero, <see langword="false" /> en caso contrario.
         /// </returns>
-        public static bool AreNotZero<T>(IEnumerable<T> x) where T : struct, IComparable<T>
+        public static bool AreNotZero<T>(this IEnumerable<T> x) where T : struct, IComparable<T>
         {
             return x.All(j => j.CompareTo(default) != 0);
         }
