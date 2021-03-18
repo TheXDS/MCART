@@ -36,7 +36,9 @@ namespace TheXDS.MCART.Tests.Types.Base
             {
                 DidOnDisposeRun = true;
             }
-            public bool ShouldFinalize => GetType().GetMethod(nameof(OnFinalize), Instance | NonPublic).IsOverride();
+
+            public bool ShouldFinalize => GetType().GetMethod(nameof(OnFinalize), Instance | NonPublic)!.IsOverride();
+
             public bool DidOnDisposeRun { get; private set; }
         }
 
@@ -51,8 +53,8 @@ namespace TheXDS.MCART.Tests.Types.Base
             {
                 /* No hacer nada. */
             }
-            public bool ShouldFinalize => GetType().GetMethod(nameof(OnFinalize), Instance | NonPublic).IsOverride();
 
+            public bool ShouldFinalize => GetType().GetMethod(nameof(OnFinalize), Instance | NonPublic)!.IsOverride();
         }
 
         [Fact]
@@ -65,7 +67,6 @@ namespace TheXDS.MCART.Tests.Types.Base
             }
             Assert.True(m1.IsDisposed);
             Assert.True(m1.DidOnDisposeRun);
-
         }
 
         [Fact]

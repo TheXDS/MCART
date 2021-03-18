@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma warning disable CS1591
-
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -48,8 +46,8 @@ namespace TheXDS.MCART.Tests.Types
         public void AddTest()
         {
             var c = new ObservableCollectionWrap<string>(new List<string> { "1", "2", "3" });
-            EventTest(c, () => c.Add("4"), Add, out var evt);
-            Assert.Equal("4", (string)evt.Arguments.NewItems[0]);
+            EventTest(c, () => c.Add("4"), Add, out Assert.RaisedEvent<NotifyCollectionChangedEventArgs> evt);
+            Assert.Equal("4", (string)evt.Arguments.NewItems![0]!);
             Assert.Contains("4", c);
         }
 
@@ -65,8 +63,8 @@ namespace TheXDS.MCART.Tests.Types
         public void RemoveTest()
         {
             var c = new ObservableCollectionWrap<string>(new List<string> { "1", "2", "3" });
-            EventTest(c, () => c.Remove("2"), Remove, out var evt);
-            Assert.Equal("2", (string)evt.Arguments.OldItems[0]);
+            EventTest(c, () => c.Remove("2"), Remove, out Assert.RaisedEvent<NotifyCollectionChangedEventArgs> evt);
+            Assert.Equal("2", (string)evt.Arguments.OldItems![0]!);
             Assert.DoesNotContain("2", c);
         }
 
@@ -80,9 +78,9 @@ namespace TheXDS.MCART.Tests.Types
             EventTest(c, c.Refresh, Add, out _);
         }
 
-        private void EventTest<T>(ObservableCollectionWrap<T> c, Action action, NotifyCollectionChangedAction nAction, out Assert.RaisedEvent<NotifyCollectionChangedEventArgs> evt)
+        private static void EventTest<T>(ObservableCollectionWrap<T> c, Action action, NotifyCollectionChangedAction nAction, out Assert.RaisedEvent<NotifyCollectionChangedEventArgs> evt)
         {
-            NotifyCollectionChangedEventHandler handler = null;
+            NotifyCollectionChangedEventHandler? handler = null;
 
             evt = Assert.Raises<NotifyCollectionChangedEventArgs>(
                 h =>

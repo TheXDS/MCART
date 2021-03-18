@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma warning disable CS1591
-
 using System.ComponentModel;
 using TheXDS.MCART.Types.Base;
 using Xunit;
@@ -52,7 +50,7 @@ namespace TheXDS.MCART.Tests.Types.Base
         public void OnPropertyChangingTest()
         {
             var x = new TestClass();
-            PropertyChangingEventHandler handler = null;
+            PropertyChangingEventHandler? handler = null;
 
             var evt = Assert.Raises<PropertyChangingEventArgs>(
                 h =>

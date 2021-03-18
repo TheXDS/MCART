@@ -42,8 +42,9 @@ namespace TheXDS.MCART.Tests.IO
             File.WriteAllText(f, "test");
 
             var fp = new FileStreamUriParser();
+            var fu = fp.Open(new Uri(furi))!;
 
-            var fu = fp.Open(new Uri(furi));
+            Assert.NotNull(fu);
             Assert.IsAssignableFrom<Stream>(fu);
             using var r = new StreamReader(fu);
             Assert.Equal("test", r.ReadToEnd());
@@ -59,8 +60,9 @@ namespace TheXDS.MCART.Tests.IO
             File.WriteAllText(f, "test");
 
             var fp = new FileStreamUriParser();
+            var fu = fp.Open(new Uri(f))!;
 
-            var fu = fp.Open(new Uri(f));
+            Assert.NotNull(fu);
             Assert.IsType<FileStream>(fu);
             using var r = new StreamReader(fu);
             Assert.Equal("test", r.ReadToEnd());

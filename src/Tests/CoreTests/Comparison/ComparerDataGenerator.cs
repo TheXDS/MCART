@@ -27,15 +27,15 @@ using System.Collections.Generic;
 
 namespace TheXDS.MCART.Tests.Comparison
 {
-    public abstract class ComparerDataGenerator<T> : IEnumerable<object[]>
+    public abstract class ComparerDataGenerator<T> : IEnumerable<object[]> where T : notnull
     {
         protected abstract IEnumerable<(T a, T b, bool equal)> GetSequences();
 
         private IEnumerable<object[]> Transform()
         {
-            foreach (var j in GetSequences())
+            foreach (var (a, b, equal) in GetSequences())
             {
-                yield return new object[] { j.a, j.b, j.equal };
+                yield return new object[] { a, b, equal };
             }
         }
 

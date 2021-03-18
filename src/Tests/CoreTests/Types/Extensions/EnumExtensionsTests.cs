@@ -29,15 +29,17 @@ using Xunit;
 using static TheXDS.MCART.Types.Extensions.EnumExtensions;
 using static TheXDS.MCART.Types.Extensions.NamedObjectExtensions;
 
-namespace Common.Types.Extensions
+namespace TheXDS.MCART.Tests.Types.Extensions
 {
     public class EnumExtensionsTests
     {
         [Fact]
         public void ToBytesTest()
         {
-            Assert.Equal(new byte[]{1,0,0,0}, DayOfWeek.Monday.ToBytes());
+            Assert.Equal(new byte[] { 1, 0, 0, 0 }, DayOfWeek.Monday.ToBytes());
+            Assert.Equal(new byte[] { 0 }, TestByteEnum.Zero.ToBytes());
             Assert.Equal(new byte[] { 1 }, TestByteEnum.One.ToBytes());
+            Assert.Equal(new byte[] { 2 }, TestByteEnum.Two.ToBytes());
         }
 
         [Fact]
@@ -47,7 +49,7 @@ namespace Common.Types.Extensions
             Assert.NotNull(a);
 
             var b = BitConverter.GetBytes((int)DayOfWeek.Monday);
-            var c = (byte[]) a.Invoke(null, new object[] {DayOfWeek.Monday});
+            var c = (byte[]) a.Invoke(null, new object[] { DayOfWeek.Monday })!;
             Assert.Equal(b, c);
 
             Assert.Throws<ArgumentException>(() => ByteConversionMethod(typeof(bool)));

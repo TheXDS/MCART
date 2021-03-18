@@ -25,20 +25,13 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma warning disable CS1591
-
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using Xunit;
-using System.Globalization;
-using System.Linq;
-using System.Security;
-using System.Threading.Tasks;
-using TheXDS.MCART;
-using TheXDS.MCART.Types;
-using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using static TheXDS.MCART.Types.Extensions.SecureStringExtensions;
+using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
 namespace Common.Types.Extensions
 {
@@ -262,14 +255,14 @@ namespace Common.Types.Extensions
         public void OrNullTest()
         {
             Assert.Null(string.Empty.OrNull());
-            Assert.Null(((string)null).OrNull());
+            Assert.Null(((string?)null).OrNull());
             Assert.NotNull("Test".OrNull());
         }
         [Fact]
         public void OrEmptyTest()
         {
             Assert.Equal(string.Empty,string.Empty.OrEmpty());
-            Assert.Equal(string.Empty,((string)null).OrEmpty());
+            Assert.Equal(string.Empty,((string?)null).OrEmpty());
             Assert.NotEqual(string.Empty, "Test".OrEmpty());
         }
         [Fact]

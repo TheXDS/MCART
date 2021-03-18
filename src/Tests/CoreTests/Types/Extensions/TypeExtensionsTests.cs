@@ -60,7 +60,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         {
             Assert.Equal(typeof(int), typeof(int).NotNullable());
             Assert.Equal(typeof(int), typeof(int?).NotNullable());
-            Assert.Throws<ArgumentNullException>(() => ((Type)null).NotNullable());
+            Assert.Throws<ArgumentNullException>(() => ((Type)null!).NotNullable());
         }
 
         [Fact]
@@ -75,7 +75,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         public void ToNamedEnumTest()
         {
             Assert.IsAssignableFrom<IEnumerable<NamedObject<Enum>>>(typeof(DayOfWeek).ToNamedEnum());
-            Assert.Throws<ArgumentNullException>(() => _ = TypeExtensions.ToNamedEnum(null));
+            Assert.Throws<ArgumentNullException>(() => _ = TypeExtensions.ToNamedEnum(null!));
             Assert.Throws<InvalidTypeException>(() => _ = typeof(string).ToNamedEnum());
         }
 

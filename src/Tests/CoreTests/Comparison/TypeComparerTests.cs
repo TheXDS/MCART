@@ -32,7 +32,7 @@ namespace TheXDS.MCART.Tests.Comparison
     {
         [Theory]
         [ClassData(typeof(TypeComparerDataGenerator))]
-        public void TypeComparerTest([AllowNull] object x, [AllowNull] object y, bool equal)
+        public void TypeComparerTest(object x, object y, bool equal)
         {
             RunTest(x, y, equal);
         }

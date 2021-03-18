@@ -28,9 +28,9 @@ using Xunit;
 
 namespace TheXDS.MCART.Tests.Comparison
 {
-    public abstract class ComparerTestBase<TValue, TEq> where TEq : IEqualityComparer<TValue>, new()
+    public abstract class ComparerTestBase<TValue, TEq> where TValue : notnull where TEq : IEqualityComparer<TValue>, new()
     {
-        protected void RunTest([AllowNull] TValue x, [AllowNull] TValue y, bool equal)
+        protected void RunTest(TValue x, TValue y, bool equal)
         {
             var eq = new TEq();
             var xh = eq.GetHashCode(x);

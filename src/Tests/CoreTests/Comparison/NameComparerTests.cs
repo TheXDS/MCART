@@ -33,7 +33,7 @@ namespace TheXDS.MCART.Tests.Comparison
     {
         [Theory]
         [ClassData(typeof(NameComparerDataGenerator))]
-        public void NameComparerTest([AllowNull]INameable x, [AllowNull] INameable y, bool equal)
+        public void NameComparerTest(INameable x, INameable y, bool equal)
         {
             RunTest(x, y, equal);
         }

@@ -154,6 +154,13 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// <inheritdoc/>
         public Server<T> MyServer { get; set; } = default!;
 
+        /// <summary>
+        /// Crea un nuevo cliente a partir de la conexión entrante.
+        /// </summary>
+        /// <param name="tcpClient">
+        /// Cliente TCP para el cual crear un cliente.
+        /// </param>
+        /// <returns>Un nuevo cliente.</returns>
         public T CreateClient(TcpClient tcpClient)
         {
             try
