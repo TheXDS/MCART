@@ -35,7 +35,6 @@ using TheXDS.MCART.Types.Base;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Types.Extensions;
-using static TheXDS.MCART.Misc.Internals;
 using St = TheXDS.MCART.Resources.UI.ErrorStrings;
 
 namespace TheXDS.MCART.ViewModel

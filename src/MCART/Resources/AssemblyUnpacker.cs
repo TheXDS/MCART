@@ -28,7 +28,6 @@ using System.Reflection;
 using TheXDS.MCART.Attributes;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
-using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Resources
 {

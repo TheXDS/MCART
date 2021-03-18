@@ -23,13 +23,10 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using St = TheXDS.MCART.Resources.Strings;
-using Ist= TheXDS.MCART.Resources.InternalStrings;
+using Ist = TheXDS.MCART.Resources.InternalStrings;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types;
-using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Security.Password
 {

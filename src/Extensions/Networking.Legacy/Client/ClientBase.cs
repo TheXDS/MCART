@@ -29,7 +29,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading;
 using System.Threading.Tasks;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;

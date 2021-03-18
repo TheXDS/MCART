@@ -23,10 +23,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Drawing;
 using System.Globalization;
 using System.Windows.Data;
-using System.Windows.Media;
 using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.ValueConverters.Base;
 using static TheXDS.MCART.Math.Common;

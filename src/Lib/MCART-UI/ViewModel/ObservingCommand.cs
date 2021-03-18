@@ -29,11 +29,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
-using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Resources.UI;
-using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Misc.Internals;
-using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
 namespace TheXDS.MCART.ViewModel
 {

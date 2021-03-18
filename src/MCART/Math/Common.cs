@@ -23,7 +23,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Math
 {

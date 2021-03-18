@@ -23,9 +23,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using NcchEa = System.Collections.Specialized.NotifyCollectionChangedEventArgs;
-using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Types
 {

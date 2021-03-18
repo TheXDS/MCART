@@ -24,7 +24,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types;
 using St2 = TheXDS.MCART.Resources.InternalStrings;
 
