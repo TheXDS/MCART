@@ -31,14 +31,22 @@ namespace TheXDS.MCART.Tests.Types.Extensions
 {
     public class MethodInfoExtensionsTests
     {
-        private static string TestStatic() => string.Empty;
-        private string TestInstance() => string.Empty;
+        private static string TestStatic() => "TestStatic";
+        private string TestInstance() => "TestInstance";
 
         [Fact]
         public void ToDelegateTest()
         {
-            Assert.IsType<Func<string>>(ReflectionHelpers.GetMethod<Func<string>>(() => TestStatic).ToDelegate<Func<string>>());
-            Assert.IsType<Func<string>>(ReflectionHelpers.GetMethod<Func<string>>(() => TestInstance).ToDelegate<Func<string>>(this));
+            var ts = ReflectionHelpers.GetMethod<Func<string>>(() => TestStatic).ToDelegate<Func<string>>();
+            var ti = ReflectionHelpers.GetMethod<Func<string>>(() => TestInstance).ToDelegate<Func<string>>(this);
+            
+            Assert.NotNull(ts);
+            Assert.IsType<Func<string>>(ts);
+            Assert.Equal("TestStatic", ts!.Invoke());
+            
+            Assert.NotNull(ti);
+            Assert.IsType<Func<string>>(ti);
+            Assert.Equal("TestInstance", ti!.Invoke());
         }
 
         [Fact]

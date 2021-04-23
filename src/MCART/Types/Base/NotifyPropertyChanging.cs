@@ -66,7 +66,7 @@ namespace TheXDS.MCART.Types.Base
         /// <see langword="true"/> si el valor de la propiedad ha
         /// cambiado, <see langword="false"/> en caso contrario.
         /// </returns>
-        protected override sealed bool Change<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
+        protected sealed override bool Change<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
         {
             if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
             if (field?.Equals(value) ?? Objects.AreAllNull(field, value)) return false;

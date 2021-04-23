@@ -61,6 +61,7 @@ namespace TheXDS.MCART.Tests.Types.Base
             Assert.NotNull(evt);
             Assert.True(ReferenceEquals(x, evt.Sender));
             Assert.Equal(nameof(TestClass.Value), evt.Arguments.PropertyName);
+            Assert.Equal(1, x.Value);
         }
     }
 }

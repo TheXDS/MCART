@@ -24,6 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Helpers;
@@ -74,9 +75,7 @@ namespace TheXDS.MCART.Misc
             if (items > 2)
                 throw new ArgumentOutOfRangeException(nameof(items));
 #endif
-
-            var t = Common.FindConverter<TValue>();
-            if (!(t is null))
+            foreach (TypeConverter t in Common.FindConverters(typeof(string), typeof(TValue)))
             {
                 foreach (var j in separators)
                 {
@@ -84,13 +83,8 @@ namespace TheXDS.MCART.Misc
                     if (l.Length != items) continue;
                     try
                     {
-                        var n = new List<TValue>();
                         var c = 0;
-                        foreach (var k in l)
-                        {
-                            n.Add((TValue)t.ConvertTo(l[c++].Trim(), typeof(TValue)));
-                        }
-                        result = instancer(n.ToArray());
+                        result = instancer(l.Select(k => (TValue) t.ConvertTo(l[c++].Trim(), typeof(TValue))!).ToArray());
                         return true;
                     }
                     catch
@@ -99,7 +93,6 @@ namespace TheXDS.MCART.Misc
                     }
                 }
             }
-
             result = default!;
             return false;
         }

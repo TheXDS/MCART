@@ -1464,8 +1464,7 @@ namespace TheXDS.MCART.Helpers
 #else
                 return false;
 #endif
-            var n = type.GetEnumName(enumValue);
-            if (n is null) return false;
+            var n = type.GetEnumName(enumValue)!;
             attribute = type.GetMember(n)[0].GetCustomAttributes(typeof(T), false).FirstOrDefault() as T;
             return !(attribute is null);
         }

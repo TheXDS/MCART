@@ -37,12 +37,7 @@ namespace TheXDS.MCART.Tests.Types.Base
             public int Value
             {
                 get => _value;
-                set
-                {
-                    if (value == _value) return;
-                    OnPropertyChanging();
-                    _value = value;
-                }
+                set => Change(ref _value, value);
             }
         }
 
@@ -64,6 +59,7 @@ namespace TheXDS.MCART.Tests.Types.Base
             Assert.NotNull(evt);
             Assert.True(ReferenceEquals(x, evt.Sender));
             Assert.Equal(nameof(TestClass.Value), evt.Arguments.PropertyName);
+            Assert.Equal(1,x.Value);
         }
     }
 }

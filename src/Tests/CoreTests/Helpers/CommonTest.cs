@@ -73,6 +73,8 @@ namespace TheXDS.MCART.Tests
             Assert.Equal(
                 new[] { 10, 8, 6, 4, 2 },
                 Sequence(10, 1, 2));
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => Sequence(1, 10, 0).ToList());
         }
 
         [Fact]
@@ -390,6 +392,7 @@ namespace TheXDS.MCART.Tests
 
             Assert.Throws<ArgumentException>(() => new[] { 1f }.ToPercent(float.NaN, float.NaN).ToList());
             Assert.Throws<ArgumentException>(() => new[] { 1f }.ToPercent(0f, float.NaN).ToList());
+            Assert.Throws<InvalidOperationException>(() => new[] {1f, 1f}.ToPercent(1f, 1f).ToList());
         }
 
         [Fact]
@@ -417,6 +420,7 @@ namespace TheXDS.MCART.Tests
 
             Assert.Throws<ArgumentException>(() => new[] { 1.0 }.ToPercent(double.NaN, double.NaN).ToList());
             Assert.Throws<ArgumentException>(() => new[] { 1.0 }.ToPercent(0.0, double.NaN).ToList());
+            Assert.Throws<InvalidOperationException>(() => new[] {1.0, 1.0}.ToPercent(1.0, 1.0).ToList());
         }
 
         [Theory]
@@ -424,6 +428,8 @@ namespace TheXDS.MCART.Tests
         [InlineData(1000, ByteUnitType.Binary, "1000 Bytes")]
         [InlineData(1000, ByteUnitType.Decimal, "1.0 KB")]
         [InlineData(100000, (ByteUnitType) 255, "100000 Bytes")]
+        [InlineData(1100000, ByteUnitType.BinaryLong, "1.1 Mebibytes")]
+        [InlineData(1048576, ByteUnitType.DecimalLong, "1.0 Megabytes")]
         public void ByteUnitsTest_Long_ByteUnitType(long bytes, ByteUnitType unit, string result)
         {
             Assert.Equal(result, ByteUnits(bytes, unit));

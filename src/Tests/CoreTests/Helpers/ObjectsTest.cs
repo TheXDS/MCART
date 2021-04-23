@@ -29,6 +29,7 @@ using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Events;
+using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
 using Xunit;
@@ -58,7 +59,7 @@ namespace TheXDS.MCART.Tests.Modules
             public static byte ByteProperty { get; } = 2;
 
             public int TestProperty { get; } = 1;
-
+            
             public static void TestMethod(int x)
             {
                 _ = x.ToString();
@@ -71,6 +72,19 @@ namespace TheXDS.MCART.Tests.Modules
                 _ = x.ToString();
             }
         }
+        
+        private class TestClass2
+        {
+            public int TestField = 2;
+        }
+
+        private enum TestEnum : byte
+        {
+            Zero,
+            [Description("One")]One,
+            Two
+        }
+        
 #pragma warning disable xUnit1013
         public void TestEventHandler(object sender, EventArgs e) { }
 #pragma warning restore xUnit1013
@@ -106,6 +120,11 @@ namespace TheXDS.MCART.Tests.Modules
         public void FieldsOfTest()
         {
             var tc = new TestClass();
+
+            Assert.Throws<NullItemException>(()=> new FieldInfo[]{ null! }.FieldsOf<int>());
+            Assert.Throws<ArgumentNullException>(() => ((FieldInfo[]) null!).FieldsOf<int>());
+            Assert.Throws<MissingFieldException>(() => typeof(TestClass2).GetFields().FieldsOf<int>(tc));
+            
             Assert.Equal(tc.TestField, tc.FieldsOf<float>().FirstOrDefault());
             Assert.Equal(tc.TestField, tc.GetType().GetFields().FieldsOf<float>(tc).FirstOrDefault());
             Assert.Equal(TestClass.StaticField, tc.GetType().FieldsOf<double>().FirstOrDefault());
@@ -120,6 +139,27 @@ namespace TheXDS.MCART.Tests.Modules
             Assert.Null(FindType<ITestInterface>("FindTypeTest2"));
         }
 
+        [Fact]
+        public void HasAttrTest_Enum()
+        {
+            Assert.False(TestEnum.Zero.HasAttr<DescriptionAttribute>());
+            Assert.True(TestEnum.One.HasAttr<DescriptionAttribute>());
+            
+            Assert.False(TestEnum.Zero.HasAttr<DescriptionAttribute>(out var z));
+            Assert.True(TestEnum.One.HasAttr<DescriptionAttribute>(out var o));
+
+            Assert.Null(z);
+            Assert.IsType<DescriptionAttribute>(o);
+            Assert.Equal("One",o!.Value);
+            
+#if !CLSCompliance && PreferExceptions
+            Assert.Throws<ArgumentOutOfRangeException>(() => ((TestEnum) 255).HasAttr<DescriptionAttribute>(out _));
+#else
+            Assert.False(((TestEnum) 255).HasAttr<DescriptionAttribute>(out _));
+#endif
+
+        }
+        
         [Fact]
         public void GetAttrTest()
         {
@@ -146,6 +186,35 @@ namespace TheXDS.MCART.Tests.Modules
             Assert.True(RtInfo.CoreRtAssembly.HasAttr<AssemblyCopyrightAttribute>());
         }
 
+        [Fact]
+        public void HasAttrTest_Object()
+        {
+            Assert.False(((object)TestEnum.Zero).HasAttr<DescriptionAttribute>(out var z));
+            Assert.True(((object)TestEnum.One).HasAttr<DescriptionAttribute>(out var o));
+            Assert.Null(z);
+            Assert.IsType<DescriptionAttribute>(o);
+            Assert.Equal("One",o!.Value);
+            Assert.True(((object)RtInfo.CoreRtAssembly).HasAttr<AssemblyCopyrightAttribute>());
+
+            Assert.True(((object)MethodBase.GetCurrentMethod()!).HasAttr<FactAttribute>(out _));
+            
+            Assert.True(new TestClass().HasAttr<IdentifierAttribute>(out var id));
+            Assert.IsType<IdentifierAttribute>(id);
+            Assert.Equal("FindTypeTest",id!.Value);
+
+            Assert.Throws<ArgumentNullException>(() => ((object) null!).HasAttr<DescriptionAttribute>(out _));
+        }
+
+        [Fact]
+        public void HasAttrValueTest_Object()
+        {
+            Assert.True(((object)TestEnum.One).HasAttrValue<DescriptionAttribute, string?>(out var o));
+            Assert.Equal("One", o);
+
+            Assert.True(new TestClass().HasAttrValue<IdentifierAttribute, string?>(out var id));
+            Assert.Equal("FindTypeTest",id);
+        }
+        
         [Fact]
         public void IsAnyNullTest()
         {
@@ -269,13 +338,9 @@ namespace TheXDS.MCART.Tests.Modules
         [Fact]
         public void PublicTypesTest()
         {
-            //var d = AppDomain.CreateDomain("test");
-            var cd = PublicTypes<Enum>(AppDomain.CurrentDomain).ToArray();
-            //var nd = PublicTypes<Exception>(d).ToArray();
-
-            Assert.True(cd.Any());
-            //Assert.True(nd.Any());
-            //Assert.True(cd.Length > nd.Length);
+            var t = PublicTypes().ToArray();
+            Assert.DoesNotContain(typeof(TestClass),t);
+            Assert.Contains(typeof(Exception), t);
         }
 
         [Fact]

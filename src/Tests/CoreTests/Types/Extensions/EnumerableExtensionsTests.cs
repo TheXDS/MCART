@@ -47,7 +47,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         }
 
         [Fact]
-        public Task LockedTest()
+        public async Task LockedTest()
         {
             int[] l = { 1, 2, 3, 4 };
             bool f1 = false;
@@ -58,11 +58,15 @@ namespace TheXDS.MCART.Tests.Types.Extensions
                 f1 = true;
                 return Assert.IsType<int[]>(i);
             }));
+            
+            // Este debe ser tiempo suficiente para que la tarea t1 inicie ejecución.
+            await Task.Delay(250);
+            
             var t2 = Task.Run(() => l.Locked(i =>
             {
                 Assert.True(f1);
             }));
-            return Task.WhenAll(t1, t2);
+            await Task.WhenAll(t1, t2);
         }
 
         [Fact]

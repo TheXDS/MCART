@@ -219,6 +219,27 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static TypeConverter? FindConverter(Type source, Type target)
         {
+            return FindConverters(source, target).FirstOrDefault();
+        }
+        
+        /// <summary>
+        /// Busca y obtiene un <see cref="TypeConverter" /> apropiado para
+        /// realizar la conversión entre tipos solicitada.
+        /// </summary>
+        /// <param name="source">Tipo de datos de origen.</param>
+        /// <param name="target">Tipo de datos de destino.</param>
+        /// <returns>
+        /// Un <see cref="TypeConverter" /> capaz de realizar la conversión
+        /// entre los tipos requeridos, o <see langword="null" /> si no se
+        /// ha encontrado un convertidor adecuado.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="source"/> o <paramref name="target"/>
+        /// son <see langword="null"/>.
+        /// </exception>
+        public static IEnumerable<TypeConverter> FindConverters(Type source, Type target)
+        {
+            NullCheck(source, nameof(source));
             NullCheck(target, nameof(target));
             try
             {
@@ -226,9 +247,8 @@ namespace TheXDS.MCART.Helpers
                     .Where(TypeExtensions.IsInstantiable)
                     .Select(j => j.New<TypeConverter>(false, Array.Empty<object>()))
                     .NotNull()
-                    .FirstOrDefault(t => t.CanConvertFrom(source) && t.CanConvertTo(target));
+                    .Where(t => t.CanConvertFrom(source) && t.CanConvertTo(target));
             }
-            catch { return null; }
             finally { GC.Collect(); }
         }
 
