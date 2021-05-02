@@ -34,42 +34,32 @@ namespace TheXDS.MCART.Math
     /// </summary>
     public static class Geometry
     {
-        
-        #region Constantes
-
         /// <summary>
         /// Representa la proporción de 1 grado DEG sobre PI
         /// </summary>
         public const double DegRad = 0.0174532925199433D;
-
+        
         /// <summary>
-        /// Representa la proporción de la circunferencia entre el diámetro de un círculo.
-        /// </summary>
-        public const double Thau = 6.28318530717959D;
-
-        #endregion
-
-        /// <summary>
-        /// Obtiene las cooerdenadas X,Y de una posición específica dentro de un
-        /// bézier cuadrático
+        /// Obtiene las coordenadas X,Y de una posición específica dentro de un
+        /// bezier cuadrático
         /// </summary>
         /// <param name="position">
         /// Posición a obtener. Debe ser un <see cref="double" /> entre 0.0 y
         /// 1.0.
         /// </param>
         /// <param name="startPoint">
-        /// Punto inicial del bézier cuadrático.
+        /// Punto inicial del bezier cuadrático.
         /// </param>
-        /// <param name="controlPoinr">
-        /// Punto de control del bézier cuadrático.
+        /// <param name="controlPoint">
+        /// Punto de control del bezier cuadrático.
         /// </param>
-        /// <param name="endPoint">Punto final del bézier cuadrático.</param>
+        /// <param name="endPoint">Punto final del bezier cuadrático.</param>
         /// <returns>
         /// Un <see cref="Point" /> con las coordenadas correspondientes a la
-        /// posición dentro del bézier cuadrático dado por
+        /// posición dentro del bezier cuadrático dado por
         /// <paramref name="position" />.
         /// </returns>
-        public static Point GetQuadBezierPoint(in double position, in Point startPoint, in Point controlPoinr, in Point endPoint)
+        public static Point GetQuadBezierPoint(in double position, in Point startPoint, in Point controlPoint, in Point endPoint)
         {
             if (!position.IsBetween(0, 1)) throw new ArgumentOutOfRangeException(nameof(position));
             var a = 1 - position;
@@ -77,8 +67,8 @@ namespace TheXDS.MCART.Math
             var c = 2 * a * position;
             var d = position * position;
             return new Point(
-                (b * startPoint.X) + (c * controlPoinr.X) + (d * endPoint.X),
-                (b * startPoint.Y) + (c * controlPoinr.Y) + (d * endPoint.Y));
+                (b * startPoint.X) + (c * controlPoint.X) + (d * endPoint.X),
+                (b * startPoint.Y) + (c * controlPoint.Y) + (d * endPoint.Y));
         }
 
         /// <summary>

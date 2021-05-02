@@ -81,7 +81,7 @@ namespace TheXDS.MCART.Helpers
         {
             GetCallingMethod_Contract(nCaller);
             var frames = new StackTrace().GetFrames();
-            return frames.Length > nCaller ? (MethodInfo?)frames[nCaller]?.GetMethod() : null;
+            return frames.Length > nCaller ? (MethodInfo?)frames[nCaller].GetMethod() : null;
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace TheXDS.MCART.Helpers
         [Sugar]
         public static MethodInfo? GetEntryPoint()
         {
-            return new StackTrace().GetFrames()?.Last()?.GetMethod() as MethodInfo;
+            return new StackTrace().GetFrames().Last().GetMethod() as MethodInfo;
         }
 
         /// <summary>

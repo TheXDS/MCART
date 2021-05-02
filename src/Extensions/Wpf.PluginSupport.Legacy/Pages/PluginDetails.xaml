@@ -3,8 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:pluginSupport="clr-namespace:TheXDS.MCART.PluginSupport.Legacy;assembly=MCART"
-      d:DataContext="{d:DesignInstance pluginSupport:Plugin}"
+      xmlns:legacy="clr-namespace:TheXDS.MCART.PluginSupport.Legacy;assembly=MCART.PluginSupport.Legacy"
+      d:DataContext="{d:DesignInstance legacy:Plugin}"
       mc:Ignorable="d">
     <UserControl.Resources>
         <Thickness x:Key="Mrg">5</Thickness>

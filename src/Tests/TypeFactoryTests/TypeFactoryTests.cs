@@ -29,7 +29,7 @@ namespace TypeFactoryTests
         {
             var t = _factory.NewClass("GreeterClass");
             var nameProp = t.AddAutoProperty<string>("Name");            
-            var grettingProp = t.AddComputedProperty<string>("Greeting", p => p
+            t.AddComputedProperty<string>("Greeting", p => p
                 .LoadConstant("Hello, ")
                 .LoadProperty(nameProp)
                 .Call<Func<string?, string?, string>>(string.Concat)

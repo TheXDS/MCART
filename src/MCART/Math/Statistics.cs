@@ -64,11 +64,7 @@ namespace TheXDS.MCART.Math
         /// </returns>
         public static IEnumerable<Range<double>> Normalize(this IEnumerable<double> data, double errorMargin)
         {
-            foreach (var j in data)
-            {
-                var v = j * errorMargin;
-                yield return new Range<double>(j - v, j + v);
-            }
+            return from j in data let v = j * errorMargin select new Range<double>(j - v, j + v);
         }
 
         /// <summary>
@@ -116,12 +112,12 @@ namespace TheXDS.MCART.Math
         }
 
         /// <summary>
-        /// Calcula la tendencia harmómica de un set de datos.
+        /// Calcula la tendencia harmónica de un set de datos.
         /// </summary>
         /// <param name="data">
-        /// Set de datos para el cual calcular la tendencia harmómica.
+        /// Set de datos para el cual calcular la tendencia harmónica.
         /// </param>
-        /// <returns>La tendencia harmómica de un set de datos.</returns>
+        /// <returns>La tendencia harmónica de un set de datos.</returns>
         public static double HarmonicMean(this IEnumerable<double> data)
         {
             var c = 0.0;
@@ -148,7 +144,7 @@ namespace TheXDS.MCART.Math
             
             d.Sort();
 
-            int p = d.Count / 2;
+            var p = d.Count / 2;
 
             return d.Count % 2 == 1 ? d[p] : (d[p - 1] + d[p]) / 2;
 
@@ -248,7 +244,6 @@ namespace TheXDS.MCART.Math
             var avgb = db.Average();
             using var ea = da.GetEnumerator();
             using var eb = db.GetEnumerator();
-
             double sigmaXY = 0.0, sigmaX = 0.0, sigmaY = 0.0;
             while (ea.MoveNext() && eb.MoveNext())
             {
@@ -256,11 +251,8 @@ namespace TheXDS.MCART.Math
                 sigmaX += System.Math.Pow(ea.Current - avga, 2);
                 sigmaY += System.Math.Pow(eb.Current - avgb, 2);
             }
-
             if (ea.MoveNext() || eb.MoveNext()) throw new IndexOutOfRangeException();
-
             return sigmaXY / System.Math.Sqrt(sigmaX * sigmaY);
-
         }
 
         /// <summary>
@@ -285,7 +277,7 @@ namespace TheXDS.MCART.Math
             using var ea = da.GetEnumerator();
             using var eb = db.GetEnumerator();
 
-            double sigmaXY = 0.0;
+            var sigmaXY = 0.0;
             while (ea.MoveNext() && eb.MoveNext())
             {
                 sigmaXY += (ea.Current - avga) * (eb.Current - avgb);
@@ -379,7 +371,6 @@ namespace TheXDS.MCART.Math
         {
             var d = data.ToList();
             var avg = d.Average();
-
             return System.Math.Sqrt(d.Sum(p => System.Math.Pow(p - avg, 2)) / d.Count);
         }
     }

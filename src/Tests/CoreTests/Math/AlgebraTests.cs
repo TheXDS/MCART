@@ -35,14 +35,14 @@ namespace TheXDS.MCART.Tests.Math
     {
         private static IEnumerable<object[]> ObjArray(Type valType, IEnumerable<long> data)
         {
-            return data.Select(p => new object[] { Convert.ChangeType(p, valType) });
+            return data.Select(p => new [] { Convert.ChangeType(p, valType) });
         }
 
         public static IEnumerable<object[]> GetKnownPrimes(Type valType, long max)
         {
             return ObjArray(valType, new long[] {
                 2, 3, 5, 7, 11, 13, 17, 19, 23, 29,
-                8191, 131071, 524287, 6700417
+                8191, 131071, 524287, 6700417, 2147483647
             }.Where(p => p <= max));
         }
 
@@ -50,7 +50,7 @@ namespace TheXDS.MCART.Tests.Math
         {
             return ObjArray(valType, new long[] {
                 1, 4, 6, 8, 9, 10, 12, 14, 15, 16,
-                18, 20, 21, 22, 24, 25, 26, 27, 28, 39
+                18, 20, 21, 22, 24, 25, 26, 27, 28, 39, 2147483646
             }.Where(p => p <= max));
         }
 

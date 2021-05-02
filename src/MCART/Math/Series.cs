@@ -85,7 +85,17 @@ namespace TheXDS.MCART.Math
         /// <seealso cref="System.Linq.Enumerable.Take{TSource}(IEnumerable{TSource}, int)"/>
         public static IEnumerable<long> Lucas() => MakeSeriesAdditive(2, 1);
 
-        private static IEnumerable<long> MakeSeriesAdditive(long a, long b)
+        /// <summary>
+        /// Crea un enumerador que genera una serie numérica aditiva
+        /// proporcionando los dos elementos iniciales de la serie.
+        /// </summary>
+        /// <param name="a">Primer elemento inicial.</param>
+        /// <param name="b">Segundo elemento inicial.</param>
+        /// <returns>
+        /// Un enumerador que generará una serie numérica aditiva para cada
+        /// iteración.
+        /// </returns>
+        public static IEnumerable<long> MakeSeriesAdditive(long a, long b)
         {
 #if AntiFreeze
             unchecked

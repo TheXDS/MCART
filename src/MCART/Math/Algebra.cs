@@ -37,7 +37,7 @@ namespace TheXDS.MCART.Math
     /// <summary>
     /// Contiene series, operaciones, ecuaciones y constantes matemáticas adicionales.
     /// </summary>
-    public static partial class Algebra
+    public static class Algebra
     {
         private static int[]? _primes;
 
@@ -62,7 +62,7 @@ namespace TheXDS.MCART.Math
             }
             
             var l = (int)System.Math.Sqrt(number);
-            for (int k = KnownPrimes[^1] + 2; k <= l; k += 2)
+            for (var k = KnownPrimes[^1] + 2; k <= l; k += 2)
             {
                 if (number % k == 0) return false;
             }
@@ -85,32 +85,26 @@ namespace TheXDS.MCART.Math
             if (number < KnownPrimes[^1] && KnownPrimes.Contains((int)number)) return true;
 
             var part = Partitioner.Create(KnownPrimes);            
-            bool prime = true;
+            var prime = true;
 
             void TestIfPrime(int j, ParallelLoopState loop)
             {
-                if (number % j == 0)
-                {
-                    loop.Break();
-                    prime = false;
-                }
+                if (number % j != 0) return;
+                loop.Break();
+                prime = false;
             }
 
             void TestIfPrime2(int j, ParallelLoopState loop)
             {
-                if (number % ((j * 2) + 1) == 0)
-                {
-                    loop.Break();
-                    prime = false;
-                }
+                if (number % ((j * 2) + 1) != 0) return;
+                loop.Break();
+                prime = false;
             }
 
             Parallel.ForEach(part, TestIfPrime);
-            if (prime)
-            {
-                var l = (int)System.Math.Sqrt(number);
-                Parallel.For(KnownPrimes[^1] / 2, l, TestIfPrime2);
-            }            
+            if (!prime) return prime;
+            var l = (int)System.Math.Sqrt(number);
+            Parallel.For(KnownPrimes[^1] / 2, l, TestIfPrime2);
             return prime;
         }
 

@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #pragma warning disable CS1591
 
 using System;
+using TheXDS.MCART.Math;
 using Xunit;
 using M = TheXDS.MCART.Math.Common;
 
@@ -89,6 +90,13 @@ namespace TheXDS.MCART.Tests.Math
                 Assert.Equal((byte)wrapped, M.Wrap((byte)expression, (byte)1, (byte)15));
                 Assert.Equal((char)wrapped, M.Wrap((char)expression, (char)1, (char)15));
             }
+        }
+
+        [Fact]
+        public void Wrap_WithFPNaNValues_Test()
+        {
+            Assert.Equal(float.NaN, float.NaN.Wrap(1, 2));
+            Assert.Equal(double.NaN, double.NaN.Wrap(1, 2));
         }
     }
 }

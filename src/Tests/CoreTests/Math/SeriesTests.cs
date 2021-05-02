@@ -45,5 +45,42 @@ namespace TheXDS.MCART.Tests.Math
             };
             Assert.Equal(b, a);
         }
+
+        [Fact]
+        public void LucasTest()
+        {
+            var a = Lucas().Take(16).ToArray();
+            var b = new long[]
+            {
+                2,   1,   3,   4,
+                7,   11,  18,  29,
+                47,  76,  123, 199,
+                322, 521, 843, 1364
+            };
+            Assert.Equal(b, a);
+        }
+        
+        [Fact]
+        public void MakeSeriesAdditiveTest()
+        {
+            var a = MakeSeriesAdditive(0, 1).Take(16).ToArray();
+            var b = new long[]
+            {
+                0,   1,   1,   2,
+                3,   5,   8,   13,
+                21,  34,  55,  89,
+                144, 233, 377, 610
+            };
+            Assert.Equal(b, a);
+        }
+        
+        [Fact]
+        public void MakeSeriesAdditive_BreaksOnOverFlow_Test()
+        {
+            var a = MakeSeriesAdditive(1, long.MaxValue).Take(4).ToArray();
+            Assert.Equal(1,a[0]);
+            Assert.Equal(long.MaxValue,a[1]);
+            Assert.Equal(2,a.Length);
+        }
     }
 }

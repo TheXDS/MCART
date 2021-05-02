@@ -131,7 +131,7 @@ namespace TheXDS.MCART.Math
         /// <param name="position">
         /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
         /// </param>
-        public static double Bouncy(in double position) => Bouncy(position, 10, 8);
+        public static double Bouncy(in double position) => Bouncy(position, 10);
 
         /// <summary>
         /// Realiza un suavizado con rebote de un valor.

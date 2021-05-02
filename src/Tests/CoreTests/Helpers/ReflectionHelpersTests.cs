@@ -32,19 +32,22 @@ using static TheXDS.MCART.Helpers.ReflectionHelpers;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
 
-namespace TheXDS.MCART.Tests.Modules
+namespace TheXDS.MCART.Tests.Helpers
 {
     public class ReflectionHelpersTests
     {
         public class Test1
         {
             public virtual void Test() { }
+
+            public virtual void TestC<T>() { }
         }
 
         public class Test2 : Test1
         {
             public override void Test() { }
             public void TestB() { }
+            public override void TestC<T>() { }
         }
 
         [Fact]
@@ -80,11 +83,13 @@ namespace TheXDS.MCART.Tests.Modules
             var t2 = new Test2();
             var m1 = GetMethod<Test1, Action>(t => t.Test);
             var m2 = GetMethod<Test2, Action>(t => t.Test);
-            var m3 = GetMethod<Test2, Action>(t => t.TestB);
+            var m3 = GetMethod<Test1, Action>(t => t.TestC<int>);
 
             Assert.False(m1.IsOverriden(t1));
             Assert.True(m1.IsOverriden(t2));
             Assert.False(m2.IsOverriden(t2));
+            Assert.True(m3.IsOverriden(t2));
+            Assert.False(m3.IsOverriden(t1));
 
             Assert.Throws<ArgumentNullException>(() => m1.IsOverriden(null!));
             Assert.Throws<ArgumentNullException>(() => ReflectionHelpers.IsOverriden(null!, null!));
@@ -100,6 +105,18 @@ namespace TheXDS.MCART.Tests.Modules
             Assert.True(m2.IsOverride());
             Assert.False(m1.IsOverride());
             Assert.Throws<ArgumentNullException>(() => ReflectionHelpers.IsOverride(null!));
+        }
+
+        [Fact]
+        public void GetEntryPointTest()
+        {
+            Assert.NotNull(GetEntryPoint());
+        }
+
+        [Fact]
+        public void GetEntryAssemblyTest()
+        {
+            Assert.NotNull(GetEntryAssembly());
         }
     }
 }
