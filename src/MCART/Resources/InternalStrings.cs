@@ -22,11 +22,12 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#pragma warning disable CS1591
+
 using System;
 
 namespace TheXDS.MCART.Resources
 {
-#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible públicamente
     /// <summary>
     /// Contiene cadenas específicas para uso interno de MCART.
     /// </summary>
@@ -46,7 +47,6 @@ namespace TheXDS.MCART.Resources
         public const string PwSymbolsEvalRule = "Símbolos";
         public const string PwUcaseEvalRule = "Mayúsculas";
         public const string xBuilder = "Esta regla evalúa que la contraseña contenga {0}";
-
         public const string SafePw = "Contraseña segura";
         public const string ComplexPw = "Contraseña compleja";
         public const string PinNumber = "Número PIN";
@@ -62,7 +62,6 @@ namespace TheXDS.MCART.Resources
         public const string AvoidYears = "Evite utilizar el año actual en la contraseña.";
         public const string ExtendedEvaluator = "Evaluador extendido de contraseñas";
         public const string ComplexEvaluator = "Evaluador complejo de contraseñas";
-
         public const string TypeName = "Nombre del tipo";
         public const string Namespace = "Espacio de nombres";
         public const string DeclaringAssembly = "Ensamblado de declaración";
@@ -75,7 +74,6 @@ namespace TheXDS.MCART.Resources
         public const string BaseTypes = "Tipos base";
         public const string DynamicType = "Tipo definido en tiempo de ejecución";
         public const string DefaultValue = "Valor predeterminado";
-
         public const string Instantiable = "Tipo instanciable";
         public const string IsStatic = "Clase estática";
         public const string Serializable = "Tipo serializable";
@@ -91,7 +89,6 @@ namespace TheXDS.MCART.Resources
         public const string IsEnum = "Es una enumeración";
         public const string NewInstance = "Valor de nueva instancia";
         public const string NoInfoExposed = "La aplicación actual no expone información de identificación.";
-
         public const string Bytes = "Bytes";
         public const string KB = "KB";
         public const string MB = "MB";
@@ -125,22 +122,17 @@ namespace TheXDS.MCART.Resources
         public const string EiBl = "Ebibytes";
         public const string ZiBl = "Zebibytes";
         public const string YiBl = "Yobibtes";
-
-
         public const string ErrorShowingPluginInfo = "Error mostrando la información del plugin.";
         public const string LegacyComponent = "Este es un componente legado.";
         public const string ErrorCircularOperationDetected = "Operación circular detectada.";
         public const string ErrorEnumerableTypeExpected = "Se esperaba un tipo de colección enumerable.";
-
         public static string ErrorXAlreadyRegistered(string x) => $"{x} ya ha sido registrado(a).";
         public static string ErrorXIsReadOnly(string x) => $"{x} es de sólo lectura.";
         public static string ErrorXClassNotInstantiableWithArgs(string x) => $"La clase '{x}' no pudo ser instanciada con los parámetros de constructor especificados.";
         public static string UnkErrLoadingRes(string res, string ex) => $"Error desconocido al cargar recurso {res}\n{ex}";
         public static string ErrorDeclMustHaveGuidAttr(Type o) => $"La declaración del tipo {o.Name} requiere un atributo de Guid.";
-
         public static string LegacyComponentUseInstead(object alternative) => $"{LegacyComponent} Utilice en su lugar {alternative}";
         public static string LegacyComponentUseInstead<T>() => LegacyComponentUseInstead(typeof(T));
-
         public const string UseLicUriInstead = "Utilice LicenseUriAttribute en su lugar.";
     }
 }

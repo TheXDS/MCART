@@ -29,6 +29,5 @@ namespace TheXDS.MCART.Math
     /// </summary>
     public static class Physics
     {
-        
     }
 }

@@ -22,6 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using TheXDS.MCART.Types.Base;
 
@@ -32,7 +33,7 @@ namespace TheXDS.MCART.Types.Entity
     /// rojo, verde y azul.
     /// </summary>
     [ComplexType]
-    public class Color : IColor
+    public class Color : IColor, IEquatable<Color>
     {
         /// <summary>
         /// Componente Alfa del color.
@@ -55,7 +56,7 @@ namespace TheXDS.MCART.Types.Entity
         public byte R { get; set; }
 
         /// <summary>
-        /// Convierte implcitamente un <see cref="Types.Color"/> en un
+        /// Convierte implícitamente un <see cref="Types.Color"/> en un
         /// <see cref="Color"/>.
         /// </summary>
         /// <param name="color">
@@ -73,7 +74,7 @@ namespace TheXDS.MCART.Types.Entity
         }
 
         /// <summary>
-        /// Convierte implcitamente un <see cref="Color"/> en un
+        /// Convierte implícitamente un <see cref="Color"/> en un
         /// <see cref="Types.Color"/>.
         /// </summary>
         /// <param name="color">
@@ -82,6 +83,28 @@ namespace TheXDS.MCART.Types.Entity
         public static implicit operator Types.Color(Color color)
         {
             return new Types.Color(color.R, color.G, color.B, color.A);
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(Color? other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return A == other.A && B == other.B && G == other.G && R == other.R;
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object? obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == this.GetType() && Equals((Color) obj);
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(A, B, G, R);
         }
     }
 }

@@ -157,7 +157,6 @@ namespace TheXDS.MCART.Tests.Modules
 #else
             Assert.False(((TestEnum) 255).HasAttr<DescriptionAttribute>(out _));
 #endif
-
         }
         
         [Fact]

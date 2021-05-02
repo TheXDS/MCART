@@ -28,7 +28,6 @@ using System.Windows.Media;
 
 namespace TheXDS.MCART.Types
 {
-
     /// <summary>
     /// Estilo de elementos de WPF orientado a objetos
     /// <see cref="System.Windows.Documents.TableCell"/>.

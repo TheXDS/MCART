@@ -22,14 +22,12 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma warning disable CS1591
-
 using System.Linq;
+using TheXDS.MCART.Attributes;
 using Xunit;
 using static TheXDS.MCART.Types.Extensions.NamedObjectExtensions;
-using TheXDS.MCART.Attributes;
 
-namespace TheXDS.MCART.Types
+namespace TheXDS.MCART.Tests.Types
 {
     public class NamedObjectTests
     {

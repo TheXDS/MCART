@@ -3,6 +3,7 @@
   <PropertyGroup>
     <IsPackable>false</IsPackable>
     <NoInternals>true</NoInternals>
+    <RootNamespace>TheXDS.MCART.Tests</RootNamespace>
   </PropertyGroup>
   <Import Project="$(SolutionDir)Targets\GlobalDirectives.targets"/>
   <Import Project="$(SolutionDir)Targets\Shared.targets"/>

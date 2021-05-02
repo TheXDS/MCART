@@ -26,30 +26,16 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using Xunit;
 using System.Reflection;
-using static TheXDS.MCART.Helpers.ReflectionHelpers;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
+using Xunit;
+using static TheXDS.MCART.Helpers.ReflectionHelpers;
 
 namespace TheXDS.MCART.Tests.Helpers
 {
     public class ReflectionHelpersTests
     {
-        public class Test1
-        {
-            public virtual void Test() { }
-
-            public virtual void TestC<T>() { }
-        }
-
-        public class Test2 : Test1
-        {
-            public override void Test() { }
-            public void TestB() { }
-            public override void TestC<T>() { }
-        }
-
         [Fact]
         public void GetMethodTest()
         {
@@ -69,7 +55,11 @@ namespace TheXDS.MCART.Tests.Helpers
         [Fact]
         public void GetCallingMethodTest()
         {
-            MethodBase TestMethod() => GetCallingMethod()!;            
+            MethodBase TestMethod()
+            {
+                return GetCallingMethod()!;
+            }
+
             Assert.Equal(MethodBase.GetCurrentMethod(), TestMethod());
             Assert.Null(GetCallingMethod(int.MaxValue - 1));
             Assert.Throws<OverflowException>(() => GetCallingMethod(int.MaxValue));
@@ -117,6 +107,22 @@ namespace TheXDS.MCART.Tests.Helpers
         public void GetEntryAssemblyTest()
         {
             Assert.NotNull(GetEntryAssembly());
+        }
+
+        public class Test1
+        {
+            public virtual void Test() { }
+
+            public virtual void TestC<T>() { }
+        }
+
+        public class Test2 : Test1
+        {
+            public override void Test() { }
+
+            public void TestB() { }
+
+            public override void TestC<T>() { }
         }
     }
 }

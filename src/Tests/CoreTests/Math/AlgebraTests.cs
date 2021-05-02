@@ -285,6 +285,5 @@ namespace TheXDS.MCART.Tests.Math
         {
             Assert.True(IsTwoPow(value));
         }
-
     }
 }

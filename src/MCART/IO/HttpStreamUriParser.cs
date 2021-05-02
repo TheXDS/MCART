@@ -29,7 +29,6 @@ using System.Net;
 
 namespace TheXDS.MCART.IO
 {
-
     /// <summary>
     /// Obtiene un <see cref="Stream"/> a partir de un <see cref="Uri"/>
     /// que apunta a un recurso web.

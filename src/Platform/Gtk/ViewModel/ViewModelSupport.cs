@@ -24,13 +24,11 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 namespace TheXDS.MCART.ViewModel
 {
-
     /// <summary>
     /// Clase que ofrece servicios básicos de funcionalidad Mvvm para
     /// aplicaciones Gtk#.
     /// </summary>
     public static class ViewModelSupport
     {
-
     }
 }

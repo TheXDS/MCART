@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using TheXDS.MCART.Types;
 using Xunit;
+using Xunit.Sdk;
 using static System.Collections.Specialized.NotifyCollectionChangedAction;
 
 namespace TheXDS.MCART.Tests.Types
@@ -73,7 +74,7 @@ namespace TheXDS.MCART.Tests.Types
         {
             var l = new List<string> { "1", "2", "3" };
             var c = new ObservableCollectionWrap<string>(l);
-            Assert.ThrowsAny<Xunit.Sdk.RaisesException>(() => EventTest(c, () => l.Add("4"), Add, out _));
+            Assert.ThrowsAny<RaisesException>(() => EventTest(c, () => l.Add("4"), Add, out _));
             Assert.Contains("4", c);
             EventTest(c, c.Refresh, Add, out _);
         }

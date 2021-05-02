@@ -22,12 +22,10 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma warning disable CS1591
-
-using Xunit;
 using System;
-using static TheXDS.MCART.Math.Statistics;
 using TheXDS.MCART.Math;
+using Xunit;
+using static TheXDS.MCART.Math.Statistics;
 
 namespace TheXDS.MCART.Tests.Math
 {

@@ -56,7 +56,6 @@ namespace TheXDS.MCART.Tests.Types.Extensions
 
             var d = ByteConversionMethod(typeof(DayOfWeek));
             Assert.Same(a,d);
-
         }
 
         [Fact]

@@ -55,6 +55,7 @@ namespace TheXDS.MCART.Tests.Math
             Assert.Equal(1.0, double.NegativeInfinity.Clamp(1, 10));
 #endif
         }
+        
         [Fact]
         public void WrapTest()
         {
@@ -69,7 +70,6 @@ namespace TheXDS.MCART.Tests.Math
             Assert.Equal(15, 4.Wrap(5, 15));
             Assert.Equal(14, 3.Wrap(5, 15));
             Assert.Equal(8, 8.Wrap(5, 15));
-
         }
     }
 }
