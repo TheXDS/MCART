@@ -36,7 +36,7 @@ namespace TheXDS.MCART.Resources
     {
         private static License? _missing;
         private static License? _noLicense;
-        private static License? _unspec;
+        private static License? _unspecified;
 
         /// <summary>
         /// Obtiene una referencia a una licencia no encontrada.
@@ -51,7 +51,7 @@ namespace TheXDS.MCART.Resources
         /// <summary>
         /// Obtiene una referencia a un objeto con licencia no definida.
         /// </summary>
-        public static License Unspecified => _unspec ??= new License(UnspecifiedLicense, null);
+        public static License Unspecified => _unspecified ??= new License(UnspecifiedLicense, null);
 
         /// <summary>
         /// Obtiene el nombre descriptivo de la licencia.

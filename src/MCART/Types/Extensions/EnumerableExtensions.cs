@@ -617,7 +617,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static ListEx<T> ToExtendedList<T>(this IEnumerable<T> collection)
         {
-            return new ListEx<T>(collection);
+            return new(collection);
         }
 
         /// <summary>

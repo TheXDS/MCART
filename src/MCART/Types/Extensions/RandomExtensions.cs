@@ -38,7 +38,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// aleatorios generen objetos <see cref="Random" /> con el mismo
         /// número de semilla basada en tiempo.
         /// </summary>
-        public static Random Rnd { get; } = new Random();
+        public static Random Rnd { get; } = new();
 
         /// <summary>
         /// Obtiene una cadena de texto aleatorio.

@@ -217,7 +217,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static ObservableCollectionWrap<T> ToObservable<T>(this ICollection<T> collection)
         {
-            return new ObservableCollectionWrap<T>(collection);
+            return new(collection);
         }
 
         /// <summary>

@@ -45,6 +45,8 @@ namespace TheXDS.MCART.Attributes
         /// </param>
         public LicenseFileAttribute(string licenseFile) : base(licenseFile)
         {
+            // HACK: forma simple y efectiva de validad una ruta de archivo.
+            _ = new FileInfo(licenseFile);
         }
 
         /// <summary>
@@ -57,8 +59,7 @@ namespace TheXDS.MCART.Attributes
         {
             try
             {
-                if (Value is null) return Warn(UnspecifiedLicense);
-                using var fs = new FileStream(Value, FileMode.Open);
+                using var fs = new FileStream(Value!, FileMode.Open);
                 using var sr = new StreamReader(fs);
                 return sr.ReadToEnd();
             }

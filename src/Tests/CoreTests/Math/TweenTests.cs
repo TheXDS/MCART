@@ -22,11 +22,13 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using Xunit;
 using static TheXDS.MCART.Math.Tween;
 
 namespace TheXDS.MCART.Tests.Math
 {
+    [CLSCompliant(false)]
     public class TweenTests
     {
         [Theory]

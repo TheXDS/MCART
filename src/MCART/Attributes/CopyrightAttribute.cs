@@ -39,8 +39,24 @@ namespace TheXDS.MCART.Attributes
         /// <see cref="DescriptionAttribute" />.
         /// </summary>
         /// <param name="copyright">Valor del atributo.</param>
-        public CopyrightAttribute(string copyright) : base(copyright)
+        public CopyrightAttribute(string copyright) : base(GetCopyrightString(copyright))
         {
+        }
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="DescriptionAttribute" />.
+        /// </summary>
+        /// <param name="year">Año de registro del Copyright.</param>
+        /// <param name="holder">Poseedor del Copyright.</param>
+        public CopyrightAttribute(ushort year, string holder) : this($"{year:0000} {holder}")
+        {
+        }
+        
+        private static string GetCopyrightString(string input)
+        {
+            return input.StartsWith("copyright ", true, null) ? input
+                : $"Copyright © {input}";
         }
     }
 }

@@ -47,7 +47,7 @@ namespace TheXDS.MCART.Security.Password
         }
     }
     /// <summary>
-    /// Indica si un elemento se acitva o no de forma predeterminada.
+    /// Indica si un elemento se activa o no de forma predeterminada.
     /// </summary>
     [AttributeUsage((AttributeTargets)71)]
     public sealed class DefaultEnableAttribute : BoolAttribute

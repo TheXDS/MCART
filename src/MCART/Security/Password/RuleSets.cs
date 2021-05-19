@@ -402,7 +402,7 @@ namespace TheXDS.MCART.Security.Password
         /// <returns>Un <see cref="PasswordEvaluationRule"/> que comprueba si la contraseña contiene otros caracteres Unicode.</returns>
         public static PasswordEvaluationRule PwOtherUtfEvalRule()
         {
-            return new PasswordEvaluationRule(p =>
+            return new(p =>
             {
                 var charArr = St.MoreChars.ToCharArray();
                 return p.ReadInt16().Any(j => !charArr.Contains((char)j)) 
@@ -417,7 +417,7 @@ namespace TheXDS.MCART.Security.Password
         /// <returns>Un <see cref="PasswordEvaluationRule"/> que evita el uso de contraseñas comunes conocidas.</returns>
         public static PasswordEvaluationRule AvoidCommonPasswords()
         {
-            return new PasswordEvaluationRule(p =>
+            return new(p =>
             {
                 return new []
                 {
@@ -437,7 +437,7 @@ namespace TheXDS.MCART.Security.Password
         /// <returns>Un <see cref="PasswordEvaluationRule"/> que evita el uso del año actual como parte de la contraseña.</returns>
         public static PasswordEvaluationRule AvoidYears()
         {
-            return new PasswordEvaluationRule(p =>
+            return new(p =>
             {
                 var t = p.Read();
                 return t.EndsWith(DateTime.Today.Year.ToString()) 

@@ -145,7 +145,7 @@ namespace TheXDS.MCART.Types
         /// <returns>La suma de los vectores de los puntos.</returns>
         public static Point3D operator +(Point3D l, Point3D r)
         {
-            return new Point3D(l.X + r.X, l.Y + r.Y, l.Z + r.Z);
+            return new(l.X + r.X, l.Y + r.Y, l.Z + r.Z);
         }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public static Point3D operator +(Point3D l, double r)
         {
-            return new Point3D(l.X + r, l.Y + r, l.Z + r);
+            return new(l.X + r, l.Y + r, l.Z + r);
         }
 
         /// <summary>
@@ -170,7 +170,7 @@ namespace TheXDS.MCART.Types
         /// <returns>La resta de los vectores de los puntos.</returns>
         public static Point3D operator -(Point3D l, I3DVector r)
         {
-            return new Point3D(l.X - r.X, l.Y - r.Y, l.Z - r.Z);
+            return new(l.X - r.X, l.Y - r.Y, l.Z - r.Z);
         }
 
         /// <summary>
@@ -184,7 +184,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public static Point3D operator -(Point3D l, double r)
         {
-            return new Point3D(l.X - r, l.Y - r, l.Z - r);
+            return new(l.X - r, l.Y - r, l.Z - r);
         }
 
         /// <summary>
@@ -195,7 +195,7 @@ namespace TheXDS.MCART.Types
         /// <returns>La multiplicación de los vectores de los puntos.</returns>
         public static Point3D operator *(Point3D l, I3DVector r)
         {
-            return new Point3D(l.X * r.X, l.Y * r.Y, l.Z * r.Z);
+            return new(l.X * r.X, l.Y * r.Y, l.Z * r.Z);
         }
 
         /// <summary>
@@ -209,7 +209,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public static Point3D operator *(Point3D l, double r)
         {
-            return new Point3D(l.X * r, l.Y * r, l.Z * r);
+            return new(l.X * r, l.Y * r, l.Z * r);
         }
 
         /// <summary>
@@ -220,7 +220,7 @@ namespace TheXDS.MCART.Types
         /// <returns>La división de los vectores de los puntos.</returns>
         public static Point3D operator /(Point3D l, I3DVector r)
         {
-            return new Point3D(l.X / r.X, l.Y / r.Y, l.Z / r.Z);
+            return new(l.X / r.X, l.Y / r.Y, l.Z / r.Z);
         }
 
         /// <summary>
@@ -234,7 +234,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public static Point3D operator /(Point3D l, double r)
         {
-            return new Point3D(l.X / r, l.Y / r, l.Z / r);
+            return new(l.X / r, l.Y / r, l.Z / r);
         }
 
         /// <summary>
@@ -245,7 +245,7 @@ namespace TheXDS.MCART.Types
         /// <returns>El resíduo de los vectores de los puntos.</returns>
         public static Point3D operator %(Point3D l, I3DVector r)
         {
-            return new Point3D(l.X % r.X, l.Y % r.Y, l.Z % r.Z);
+            return new(l.X % r.X, l.Y % r.Y, l.Z % r.Z);
         }
 
         /// <summary>
@@ -259,7 +259,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public static Point3D operator %(Point3D l, double r)
         {
-            return new Point3D(l.X % r, l.Y % r, l.Z % r);
+            return new(l.X % r, l.Y % r, l.Z % r);
         }
 
         /// <summary>
@@ -295,7 +295,7 @@ namespace TheXDS.MCART.Types
         /// <returns>Un punto con sus vectores positivos.</returns>
         public static Point3D operator +(Point3D p)
         {
-            return new Point3D(+p.X, +p.Y, +p.Z);
+            return new(+p.X, +p.Y, +p.Z);
         }
 
         /// <summary>
@@ -305,7 +305,7 @@ namespace TheXDS.MCART.Types
         /// <returns>Un punto con el signo de sus vectores invertido.</returns>
         public static Point3D operator -(Point3D p)
         {
-            return new Point3D(-p.X, -p.Y, -p.Z);
+            return new(-p.X, -p.Y, -p.Z);
         }
         
         /// <summary>

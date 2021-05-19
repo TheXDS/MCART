@@ -117,7 +117,7 @@ namespace TheXDS.MCART.Types
         /// <param name="obj">Objeto a convertir.</param>
         public static implicit operator NamedObject<T>(T obj)
         {
-            return new NamedObject<T>(obj);
+            return new(obj);
         }
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace TheXDS.MCART.Types
         /// <param name="namedObj">Objeto a convertir.</param>
         public static implicit operator KeyValuePair<string, T>(NamedObject<T> namedObj)
         {
-            return new KeyValuePair<string, T>(namedObj.Name, namedObj.Value);
+            return new(namedObj.Name, namedObj.Value);
         }
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace TheXDS.MCART.Types
         /// <param name="keyValuePair">Objeto a convertir.</param>
         public static implicit operator NamedObject<T>(KeyValuePair<string, T> keyValuePair)
         {
-            return new NamedObject<T>(keyValuePair.Value, keyValuePair.Key);
+            return new(keyValuePair.Value, keyValuePair.Key);
         }
 
         /// <summary>

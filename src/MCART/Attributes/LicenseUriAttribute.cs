@@ -62,7 +62,17 @@ namespace TheXDS.MCART.Attributes
         /// </returns>
         public override License GetLicense(object _)
         {
-            return new License(Path.GetFileNameWithoutExtension(Uri.LocalPath), Uri);
+            return new(Path.GetFileNameWithoutExtension(Uri.LocalPath), Uri);
         }
+
+        /// <summary>
+        /// Obtiene una licencia a partir del <see cref="Uri"/>
+        /// especificado para este atributo.
+        /// </summary>
+        /// <returns>
+        /// Una licencia a partir del <see cref="Uri"/> especificado para
+        /// este atributo.
+        /// </returns>
+        public License GetLicense() => GetLicense(null!);
     }
 }

@@ -32,7 +32,7 @@ namespace TheXDS.MCART.Attributes
     public abstract class IntAttribute : Attribute, IValueAttribute<int>
     {
         /// <summary>
-        /// Crea una nueva isntancia de la clase
+        /// Crea una nueva instancia de la clase
         /// <see cref="IntAttribute" />.
         /// </summary>
         /// <param name="attributeValue">Valor de este atributo.</param>

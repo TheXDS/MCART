@@ -163,7 +163,7 @@ namespace TheXDS.MCART.Types
         /// <see langword="true"/> si el valor se encuentra dentro de este <see cref="Range{T}"/>,
         /// <see langword="false"/> en caso contrario.
         /// </returns>
-        public readonly bool IsWithin(T value)
+        public bool IsWithin(T value)
         {
             return value.IsBetween(Minimum, Maximum, MinInclusive, MaxInclusive);
         }
@@ -230,7 +230,7 @@ namespace TheXDS.MCART.Types
         /// <returns></returns>
         public Range<T> Join(IRange<T> other)
         {
-            return new Range<T>(new[] { Minimum, other.Minimum }.Min()!, new[] { Maximum, other.Maximum }.Max()!);
+            return new(new[] { Minimum, other.Minimum }.Min()!, new[] { Maximum, other.Maximum }.Max()!);
         }
 
         /// <summary>
@@ -242,7 +242,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public Range<T> Intersect(IRange<T> other)
         {
-            return new Range<T>(new[] { Minimum, other.Minimum }.Max()!, new[] { Maximum, other.Maximum }.Min()!);
+            return new(new[] { Minimum, other.Minimum }.Max()!, new[] { Maximum, other.Maximum }.Min()!);
         }
 
         /// <summary>

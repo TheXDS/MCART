@@ -51,7 +51,7 @@ namespace TheXDS.MCART.Resources
 
         private StreamReader GetFailure(string id, Exception ex)
         {
-            return new StreamReader(St.Warn(St2.UnkErrLoadingRes(id, ex.Message)).ToStream());
+            return new(St.Warn(St2.UnkErrLoadingRes(id, ex.Message)).ToStream());
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         protected StreamReader GetStream(string id, ICompressorGetter compressor)
         {
-            return new StreamReader(UnpackStream(id, compressor));
+            return new(UnpackStream(id, compressor));
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         protected StreamReader GetStream(string id)
         {
-            return new StreamReader(UnpackStream(id) ?? throw new InvalidDataException());
+            return new(UnpackStream(id) ?? throw new InvalidDataException());
         }
 
         /// <summary>

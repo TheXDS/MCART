@@ -77,7 +77,7 @@ namespace TheXDS.MCART.Events
         /// </returns>
         public static implicit operator ItemCreatedEventArgs<T>(ItemCreatingEventArgs<T> fromValue)
         {
-            return new ItemCreatedEventArgs<T>(fromValue.Item);
+            return new(fromValue.Item);
         }
     }
 }

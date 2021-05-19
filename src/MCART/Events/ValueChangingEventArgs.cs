@@ -81,7 +81,7 @@ namespace TheXDS.MCART.Events
         /// </returns>
         public static explicit operator ValueEventArgs<T>(ValueChangingEventArgs<T> fromValue)
         {
-            return new ValueEventArgs<T>(fromValue.NewValue);
+            return new(fromValue.NewValue);
         }
     }
 

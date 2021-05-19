@@ -263,7 +263,7 @@ namespace TheXDS.MCART.Types
         /// </param>
         public static implicit operator System.Drawing.Size(Size size)
         {
-            return new System.Drawing.Size((int)size.Width, (int)size.Height);
+            return new((int)size.Width, (int)size.Height);
         }
 
         /// <summary>
@@ -275,7 +275,7 @@ namespace TheXDS.MCART.Types
         /// </param>
         public static implicit operator System.Drawing.SizeF(Size size)
         {
-            return new System.Drawing.SizeF((float)size.Width, (float)size.Height);
+            return new((float)size.Width, (float)size.Height);
         }
 
         /// <summary>
@@ -287,7 +287,7 @@ namespace TheXDS.MCART.Types
         /// </param>
         public static implicit operator Size(System.Drawing.Size size)
         {
-            return new Size(size.Width, size.Height);
+            return new(size.Width, size.Height);
         }
 
         /// <summary>
@@ -299,7 +299,7 @@ namespace TheXDS.MCART.Types
         /// </param>
         public static implicit operator Size(System.Drawing.SizeF size)
         {
-            return new Size(size.Width, size.Height);
+            return new(size.Width, size.Height);
         }
     }
 }

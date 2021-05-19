@@ -1,5 +1,5 @@
 ﻿/*
-ProtocolFormatAttribute.cs
+PriorityAttributeTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,25 +22,18 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using static System.AttributeTargets;
+using TheXDS.MCART.Attributes;
+using Xunit;
 
-namespace TheXDS.MCART.Attributes
+namespace TheXDS.MCART.Tests.Attributes
 {
-    /// <summary>
-    /// Marca un elemento con un valor de prioridad.
-    /// </summary>
-    [AttributeUsage(Assembly | Class | Module | Event | GenericParameter | Interface | Method | Module | Parameter | Property | Struct)]
-    [Serializable]
-    public sealed class PriorityAttribute : IntAttribute
+    public class PriorityAttributeTests
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="PriorityAttribute"/>.
-        /// </summary>
-        /// <param name="priority">Valor de prioridad a asociar.</param>
-        public PriorityAttribute(int priority) : base(priority)
+        [Fact]
+        public void BasicInstancingTest()
         {
+            var a = new PriorityAttribute(1);
+            Assert.Equal(1, a.Value);
         }
     }
 }

@@ -50,7 +50,7 @@ namespace TheXDS.MCART.ValueConverters
         /// </returns>
         public int Convert(MT.Color value, object? parameter, CultureInfo? culture)
         {
-            return new ABGR32().To(value);
+            return new Abgr32ColorParser().To(value);
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace TheXDS.MCART.ValueConverters
         /// </returns>
         public MT.Color ConvertBack(int value, object? parameter, CultureInfo culture)
         {
-            return new ABGR32().From(value);
+            return new Abgr32ColorParser().From(value);
         }
     }
 }

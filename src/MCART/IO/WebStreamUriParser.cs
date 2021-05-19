@@ -47,7 +47,7 @@ namespace TheXDS.MCART.IO
         /// Un <see cref="Stream"/> que permite obtener el recurso apuntado
         /// por el <see cref="Uri"/> especificado.
         /// </returns>
-        public override sealed Stream? Open(Uri uri)
+        public sealed override Stream Open(Uri uri)
         {
             return GetResponse(uri).GetResponseStream();
         }

@@ -110,7 +110,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static Guid ReadGuid(this BinaryReader br)
         {
-            return new Guid(br.ReadBytes(16));
+            return new(br.ReadBytes(16));
         }
 
         /// <summary>

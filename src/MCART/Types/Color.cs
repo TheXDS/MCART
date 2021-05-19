@@ -36,13 +36,13 @@ namespace TheXDS.MCART.Types
     /// Estructura universal que describe un color en sus componentes alfa,
     /// rojo, verde y azul.
     /// </summary>
-    public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color>, IColor, IScColor
+    public struct Color : IEquatable<Color>, IFormattable, IComparable<Color>, IColor, IScColor
     {
         /// <summary>
         /// Mezcla un color de temperatura basado en el porcentaje.
         /// </summary>
         /// <returns>
-        /// El color qaue representa la temperatura del porcentaje.
+        /// El color que representa la temperatura del porcentaje.
         /// </returns>
         /// <param name="x">
         /// Valor porcentual utilizado para calcular la temperatura.
@@ -58,7 +58,7 @@ namespace TheXDS.MCART.Types
         /// <summary>
         /// Mezcla un color de salud basado en el porcentaje.
         /// </summary>
-        /// <returns>El color qaue representa la salud del porcentaje.</returns>
+        /// <returns>El color que representa la salud del porcentaje.</returns>
         /// <param name="x">The x coordinate.</param>
         public static Color BlendHealth(in float x)
         {
@@ -163,22 +163,22 @@ namespace TheXDS.MCART.Types
         {
             if (from.IsFormattedAs("#FFFFFFFF"))
             {
-                color = new ABGR32().From(int.Parse($"0x{from[1..]}"));
+                color = new Abgr32ColorParser().From(int.Parse($"0x{from[1..]}"));
                 return true;
             }
             if (from.IsFormattedAs("#FFFFFF"))
             {
-                color = new BGR24().From(int.Parse($"0x{from[1..]}"));
+                color = new Bgr24ColorParser().From(int.Parse($"0x{from[1..]}"));
                 return true;
             }
             if (from.IsFormattedAs("#FFFF"))
             {
-                color = new ABGR4444().From(short.Parse($"0x{from[1..]}"));
+                color = new Abgr4444ColorParser().From(short.Parse($"0x{from[1..]}"));
                 return true;
             }
             if (from.IsFormattedAs("#FFF"))
             {
-                color = new BGR12().From(short.Parse($"0x{from[1..]}"));
+                color = new Bgr12ColorParser().From(short.Parse($"0x{from[1..]}"));
                 return true;
             }
             var cName = typeof(Resources.Colors).GetProperty(from, typeof(Color));
@@ -248,7 +248,7 @@ namespace TheXDS.MCART.Types
         /// <paramref name="left"/> and <paramref name="right"/>.</returns>
         public static Color operator +(in Color left, in Color right)
         {
-            return new Color(
+            return new(
 #if PreferExceptions
 				(left.r + right.r).Clamp(0.0f, 1.0f),
 				(left.g + right.g).Clamp(0.0f, 1.0f),
@@ -279,7 +279,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public static Color operator -(in Color left, in Color right)
         {
-            return new Color(
+            return new(
 #if PreferExceptions
 				(left.r - right.r).Clamp(0.0f, 1.0f),
 				(left.g - right.g).Clamp(0.0f, 1.0f),
@@ -306,7 +306,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public static Color operator *(in Color left, in float right)
         {
-            return new Color(
+            return new(
 #if PreferExceptions
 				(left.r * right).Clamp(0.0f, 1.0f),
 				(left.g * right).Clamp(0.0f, 1.0f),
@@ -332,7 +332,7 @@ namespace TheXDS.MCART.Types
         /// <paramref name="right"/>.</returns>
         public static Color operator /(in Color left, in Color right)
         {
-            return new Color(
+            return new(
 #if PreferExceptions
 				((left.r + right.r) / 2).Clamp(0.0f, 1.0f),
 				((left.g + right.g) / 2).Clamp(0.0f, 1.0f),
@@ -469,7 +469,7 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        /// Inicializa una nueva instancia de la esctructura 
+        /// Inicializa una nueva instancia de la estructura 
         /// <see cref="Color"/>.
         /// </summary>
         /// <param name="r">Canal rojo.</param>
@@ -478,7 +478,7 @@ namespace TheXDS.MCART.Types
         public Color(in byte r, in byte g, in byte b) : this(r, g, b, 255) { }
 
         /// <summary>
-        /// Inicializa una nueva instancia de la esctructura 
+        /// Inicializa una nueva instancia de la estructura 
         /// <see cref="Color"/>.
         /// </summary>
         /// <param name="r">Canal rojo.</param>
@@ -494,7 +494,7 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        /// Inicializa una nueva instancia de la esctructura 
+        /// Inicializa una nueva instancia de la estructura 
         /// <see cref="Color"/>.
         /// </summary>
         /// <param name="r">Canal rojo.</param>
@@ -503,7 +503,7 @@ namespace TheXDS.MCART.Types
         public Color(in float r, in float g, in float b) : this(r, g, b, 1.0f) { }
 
         /// <summary>
-        /// Inicializa una nueva instancia de la esctructura 
+        /// Inicializa una nueva instancia de la estructura 
         /// <see cref="Color"/>.
         /// </summary>
         /// <param name="r">Canal rojo.</param>
@@ -554,11 +554,11 @@ namespace TheXDS.MCART.Types
         public string ToString(string? format, IFormatProvider? formatProvider)
         {
             if (format.IsEmpty()) format = "#AARRGGBB";
-            if (formatProvider is null) formatProvider = CI.CurrentCulture;
+            formatProvider ??= CI.CurrentCulture;
             return (format!) switch
             {
-                "H" => $"#{(new byte[] { A, R, G, B }).ToHex()}",
-                "h" => $"#{(new byte[] { A, R, G, B }).ToHex().ToLower((CI)formatProvider)}",
+                "H" => $"#{new [] { A, R, G, B }.ToHex()}",
+                "h" => $"#{new [] { A, R, G, B }.ToHex().ToLower((CI)formatProvider)}",
                 "B" => $"A:{A} R:{R} G:{G} B:{B}",
                 "b" => $"a:{A} r:{R} g:{G} b:{B}",
                 "F" => $"A:{_a} R:{_r} G:{_g} B:{_b}",
@@ -577,8 +577,8 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public int CompareTo(Color other)
         {
-            var first = new ABGR32().To(this);
-            var second = new ABGR32().To(other);
+            var first = new Abgr32ColorParser().To(this);
+            var second = new Abgr32ColorParser().To(other);
             return first.CompareTo(second);
         }
 
@@ -631,7 +631,7 @@ namespace TheXDS.MCART.Types
         /// <param name="color"></param>
         public static implicit operator Color(in System.Drawing.Color color)
         {
-            return new Color(color.R, color.G, color.B, color.A);
+            return new(color.R, color.G, color.B, color.A);
         }
 
         private string CustomFormat(string format, CI formatProvider)

@@ -132,7 +132,7 @@ namespace TheXDS.MCART.Types
         /// <returns>La suma de los vectores de los puntos.</returns>
         public static Point operator +(Point l, Point r)
         {
-            return new Point(l.X + r.X, l.Y + r.Y);
+            return new(l.X + r.X, l.Y + r.Y);
         }
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace TheXDS.MCART.Types
         /// <returns>La suma de los vectores de los puntos.</returns>
         public static Point operator +(Point l, I2DVector r)
         {
-            return new Point(l.X + r.X, l.Y + r.Y);
+            return new(l.X + r.X, l.Y + r.Y);
         }
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public static Point operator +(Point l, double r)
         {
-            return new Point(l.X + r, l.Y + r);
+            return new(l.X + r, l.Y + r);
         }
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace TheXDS.MCART.Types
         /// <returns>La resta de los vectores de los puntos.</returns>
         public static Point operator -(Point l, Point r)
         {
-            return new Point(l.X - r.X, l.Y - r.Y);
+            return new(l.X - r.X, l.Y - r.Y);
         }
 
         /// <summary>
@@ -179,7 +179,7 @@ namespace TheXDS.MCART.Types
         /// <returns>La resta de los vectores de los puntos.</returns>
         public static Point operator -(Point l, I2DVector r)
         {
-            return new Point(l.X - r.X, l.Y - r.Y);
+            return new(l.X - r.X, l.Y - r.Y);
         }
 
         /// <summary>
@@ -193,7 +193,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public static Point operator -(Point l, double r)
         {
-            return new Point(l.X - r, l.Y - r);
+            return new(l.X - r, l.Y - r);
         }
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace TheXDS.MCART.Types
         /// <returns>La multiplicación de los vectores de los puntos.</returns>
         public static Point operator *(Point l, Point r)
         {
-            return new Point(l.X * r.X, l.Y * r.Y);
+            return new(l.X * r.X, l.Y * r.Y);
         }
 
         /// <summary>
@@ -215,7 +215,7 @@ namespace TheXDS.MCART.Types
         /// <returns>La multiplicación de los vectores de los puntos.</returns>
         public static Point operator *(Point l, I2DVector r)
         {
-            return new Point(l.X * r.X, l.Y * r.Y);
+            return new(l.X * r.X, l.Y * r.Y);
         }
 
         /// <summary>
@@ -229,7 +229,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public static Point operator *(Point l, double r)
         {
-            return new Point(l.X * r, l.Y * r);
+            return new(l.X * r, l.Y * r);
         }
 
         /// <summary>
@@ -240,7 +240,7 @@ namespace TheXDS.MCART.Types
         /// <returns>La división de los vectores de los puntos.</returns>
         public static Point operator /(Point l, Point r)
         {
-            return new Point(l.X / r.X, l.Y / r.Y);
+            return new(l.X / r.X, l.Y / r.Y);
         }
 
         /// <summary>
@@ -251,7 +251,7 @@ namespace TheXDS.MCART.Types
         /// <returns>La división de los vectores de los puntos.</returns>
         public static Point operator /(Point l, I2DVector r)
         {
-            return new Point(l.X / r.X, l.Y / r.Y);
+            return new(l.X / r.X, l.Y / r.Y);
         }
 
         /// <summary>
@@ -265,7 +265,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public static Point operator /(Point l, double r)
         {
-            return new Point(l.X / r, l.Y / r);
+            return new(l.X / r, l.Y / r);
         }
 
         /// <summary>
@@ -276,7 +276,7 @@ namespace TheXDS.MCART.Types
         /// <returns>El resíduo de los vectores de los puntos.</returns>
         public static Point operator %(Point l, Point r)
         {
-            return new Point(l.X % r.X, l.Y % r.Y);
+            return new(l.X % r.X, l.Y % r.Y);
         }
 
         /// <summary>
@@ -287,7 +287,7 @@ namespace TheXDS.MCART.Types
         /// <returns>El resíduo de los vectores de los puntos.</returns>
         public static Point operator %(Point l, I2DVector r)
         {
-            return new Point(l.X % r.X, l.Y % r.Y);
+            return new(l.X % r.X, l.Y % r.Y);
         }
 
         /// <summary>
@@ -301,7 +301,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public static Point operator %(Point l, double r)
         {
-            return new Point(l.X % r, l.Y % r);
+            return new(l.X % r, l.Y % r);
         }
 
         /// <summary>
@@ -335,7 +335,7 @@ namespace TheXDS.MCART.Types
         /// <returns>Un punto con sus vectores positivos.</returns>
         public static Point operator +(Point p)
         {
-            return new Point(+p.X, +p.Y);
+            return new(+p.X, +p.Y);
         }
 
         /// <summary>
@@ -345,7 +345,7 @@ namespace TheXDS.MCART.Types
         /// <returns>Un punto con el signo de sus vectores invertido.</returns>
         public static Point operator -(Point p)
         {
-            return new Point(-p.X, -p.Y);
+            return new(-p.X, -p.Y);
         }
 
         /// <summary>

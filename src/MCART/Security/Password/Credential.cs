@@ -47,7 +47,7 @@ namespace TheXDS.MCART.Security.Password
         /// </returns>
         public static Credential From(ICredential origin)
         {
-            return new Credential(origin.Username, origin.Password);
+            return new(origin.Username, origin.Password);
         }
 
         /// <summary>

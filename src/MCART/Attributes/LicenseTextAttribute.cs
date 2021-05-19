@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using TheXDS.MCART.Resources;
 using static System.AttributeTargets;
+using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Attributes
 {
@@ -44,8 +45,8 @@ namespace TheXDS.MCART.Attributes
         /// <param name="licenseText">Texto de la licencia.</param>
         public LicenseTextAttribute(string title, string licenseText) : base(licenseText)
         {
-            if (licenseText is null) throw new ArgumentNullException(nameof(licenseText));
-            _title = title;
+            _title = NullChecked(title, nameof(title));
+            NullCheck(licenseText, nameof(licenseText));
         }
 
         /// <summary>
@@ -53,7 +54,7 @@ namespace TheXDS.MCART.Attributes
         /// <see cref="LicenseTextAttribute" />.
         /// </summary>
         /// <param name="licenseText">Texto de la licencia.</param>
-        public LicenseTextAttribute(string licenseText): this(licenseText.Split('\n')[0].Trim(), licenseText)
+        public LicenseTextAttribute(string licenseText): this(NullChecked(licenseText, nameof(licenseText)).Split('\n', 2)[0].Trim(), licenseText)
         {
         }
 
