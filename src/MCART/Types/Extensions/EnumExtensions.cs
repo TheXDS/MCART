@@ -138,7 +138,10 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static string NameOf(this Enum value)
         {
-            return value.GetAttr<NameAttribute>()?.Value ?? value.ToString();
+            return value.GetAttr<NameAttribute>()?.Value ??
+                   value.GetAttr<DescriptionAttribute>()?.Value ??
+                   value.GetAttr<System.ComponentModel.DescriptionAttribute>()?.Description ??
+                   value.ToString();
         }
 
         /// <summary>
@@ -157,7 +160,7 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        /// Conveirte un valor de enumeración a su tipo base.
+        /// Convierte un valor de enumeración a su tipo base.
         /// </summary>
         /// <typeparam name="T">Tipo de la enumeración.</typeparam>
         /// <param name="value">Valor de enumeración a convertir.</param>
@@ -170,7 +173,7 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        /// Conveirte un valor de enumeración a su tipo base.
+        /// Convierte un valor de enumeración a su tipo base.
         /// </summary>
         /// <param name="value">Valor de enumeración a convertir.</param>
         /// <returns>

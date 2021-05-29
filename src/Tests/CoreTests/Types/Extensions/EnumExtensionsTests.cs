@@ -25,6 +25,9 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #pragma warning disable CS1591
 
 using System;
+using System.Linq;
+using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Types;
 using Xunit;
 using static TheXDS.MCART.Types.Extensions.EnumExtensions;
 using static TheXDS.MCART.Types.Extensions.NamedObjectExtensions;
@@ -67,11 +70,43 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.Equal(a, b(DayOfWeek.Monday));
         }
 
+        [Fact]
+        public void NamedEnumsTest()
+        {
+            void TestValue(NamedObject<TestByteEnum> p, string name, TestByteEnum value)
+            {
+                Assert.Equal(name, p.Name);
+                Assert.Equal(value, p.Value);
+            }
+            
+            var l = NamedEnums<TestByteEnum>().ToArray();
+            Assert.Collection(l, 
+                p => TestValue(p,"Number Zero",TestByteEnum.Zero),
+                p => TestValue(p,"Number One",TestByteEnum.One),
+                p => TestValue(p,"Number Two",TestByteEnum.Two));
+        }
+
+        [Fact]
+        public void ToUnderlyingTypeTest()
+        {
+            Assert.Equal((byte)0, TestByteEnum.Zero.ToUnderlyingType());
+            Assert.IsType<byte>(TestByteEnum.Zero.ToUnderlyingType());
+            
+            Assert.Equal(1, DayOfWeek.Monday.ToUnderlyingType());
+            Assert.IsType<int>(DayOfWeek.Monday.ToUnderlyingType());
+
+            Assert.Equal((byte)0, ((Enum)TestByteEnum.Zero).ToUnderlyingType());
+            Assert.IsType<byte>(((Enum)TestByteEnum.Zero).ToUnderlyingType());
+            
+            Assert.Equal(1, ((Enum)DayOfWeek.Monday).ToUnderlyingType());
+            Assert.IsType<int>(((Enum)DayOfWeek.Monday).ToUnderlyingType());
+        }
+        
         private enum TestByteEnum : byte
         {
-            Zero,
-            One,
-            Two
+            [Name("Number Zero")]Zero,
+            [Description("Number One")]One,
+            [System.ComponentModel.Description("Number Two")]Two
         }
     }
     public class NamedObjectExtensionsTests

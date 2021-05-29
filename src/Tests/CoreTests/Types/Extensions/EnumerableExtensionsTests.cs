@@ -28,6 +28,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using TheXDS.MCART.Exceptions;
 using Xunit;
 using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
@@ -64,6 +65,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             
             var t2 = Task.Run(() => l.Locked(i =>
             {
+                Assert.Same(l, i);
                 Assert.True(f1);
             }));
             await Task.WhenAll(t1, t2);
@@ -72,16 +74,30 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Fact]
         public async Task SelectAsyncTest()
         {
-            await foreach (var j in new string[] { "a", "B", "c" }.SelectAsync(p => Task.FromResult(p.Length)))
+            await foreach (var j in new[] { "a", "B", "c" }.SelectAsync(p => Task.FromResult(p.Length)))
             {
                 Assert.Equal(1, j);
             }
         }
 
+        [Fact]
+        public void ShuffledTest()
+        {
+            var a = TheXDS.MCART.Helpers.Common.Sequence(1, 100).ToArray();
+            var b = a.Shuffled().ToArray();
+            Assert.Equal(a.Length, b.Length);
+            foreach (var j in b)
+            {
+                Assert.Contains(j, a);
+            }
+            Assert.NotEqual(a, b);
+            Assert.False(a.All(p => a.FindIndexOf(p) == b.FindIndexOf(p)));
+        }
+
         [Theory]
         [CLSCompliant(false)]
-        [InlineData(new string?[] { "A", "b", "c", ""}, 0)]
-        [InlineData(new string?[] { "", null, "a", null}, 2)]
+        [InlineData(new[] { "A", "b", "c", ""}, 0)]
+        [InlineData(new[] { "", null, "a", null}, 2)]
         [InlineData(new string?[] { null, null, null }, 3)]
         public void NullCountTest(string?[] input, int count)
         {
@@ -114,7 +130,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Fact]
         public void ToGenericTest()
         {
-            IEnumerable e = new string[] { "test", "test2" };
+            IEnumerable e = new[] { "test", "test2" };
             Assert.IsAssignableFrom<IEnumerable<object?>>(e.ToGeneric());
         }
 
@@ -132,6 +148,25 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.Null(c.FirstOf<System.IO.Stream>());
         }
 
+        [Fact]
+        public void ContainsAllTest()
+        {
+            var a = TheXDS.MCART.Helpers.Common.Sequence(1, 100);
+            var b = TheXDS.MCART.Helpers.Common.Sequence(50, 60).ToArray();
+            Assert.True(a.ContainsAll(b));
+            Assert.False(new[] {101, 102, 103}.ContainsAll(b));
+        }
+        
+        [Fact]
+        public void ContainsAnyTest()
+        {
+            var a = TheXDS.MCART.Helpers.Common.Sequence(1, 100);
+            var b = TheXDS.MCART.Helpers.Common.Sequence(95, 110).ToArray();
+            Assert.True(a.ContainsAny(b));
+            Assert.True(new[] {101, 102, 103}.ContainsAny(b));
+            Assert.False(new[] {121, 122, 123}.ContainsAny(b));
+        }
+        
         [Fact]
         public void FirstOf_WithType_Test()
         {
@@ -164,7 +199,8 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.NotNull(((IEnumerable?)null).NotNull().ToGeneric().ToArray());
             Assert.NotNull(((IEnumerable<int?>?)null).NotNull().ToGeneric().ToArray());
             Assert.NotNull(((IEnumerable<Exception?>?)null).NotNull().ToGeneric().ToArray());
-            Assert.Equal(new int[] { 1, 2, 4 }, new int?[] { 1, 2, null, 4 }.NotNull());
+            Assert.Equal(new[] { 1, 2, 4 }, new int?[] { 1, 2, null, 4 }.NotNull());
+            Assert.Equal(new[] { 1, 2, 4 }, ((IEnumerable)new int?[] { 1, 2, null, 4 }).NotNull());
         }
 
         [Fact]
@@ -190,7 +226,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.NotSame(o1, o2);
 
             var a = new[] { o1, o2 };
-            var b = a.Copy();
+            var b = a.Copy().ToArray();
             Assert.NotSame(a, b);
 
             Assert.Same(a[0], b.First());
@@ -205,6 +241,8 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.Equal(new[] { 1, 2, 3 }, c.Range(0, 3));
             Assert.Equal(new[] { 4, 5, 6 }, c.Range(3, 3));
             Assert.Equal(new[] { 7, 8, 9 }, c.Range(6, 3));
+            Assert.Equal(new[] { 9, 10 }, c.Range(8, 3));
+            Assert.Throws<IndexOutOfRangeException>(() => c.Range(99, 5).ToArray());
         }
 
         [Fact]
@@ -214,6 +252,23 @@ namespace TheXDS.MCART.Tests.Types.Extensions
 
             Assert.IsType<MCART.Types.ListEx<int>>(c);
             Assert.Equal(3, c.Count);
+        }
+
+        [Fact]
+        public void FindIndexOfTest()
+        {
+            static IEnumerable<char> EnumerateChars()
+            {
+                yield return 'A';
+                yield return 'B';
+                yield return 'C';
+            }
+            
+            Assert.Equal(1, "ABC".FindIndexOf('B'));
+            Assert.Equal(2, new List<char>("ABC".ToCharArray()).FindIndexOf('C'));
+            Assert.Equal(1, EnumerateChars().FindIndexOf('B'));
+            Assert.Equal(2, EnumerateChars().FindIndexOf('C'));
+            Assert.Equal(-1, EnumerateChars().FindIndexOf('D'));
         }
 
         [Fact]
@@ -228,6 +283,47 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.Equal(new[] { 0, 0, 1, 2, 3 }, c.Shift(-2).ToArray());
         }
 
+        [Theory]
+        [InlineData(3)]
+        [InlineData(5)]
+        [InlineData(7)]
+        [InlineData(9)]
+        public void CountTest(int arrSize)
+        {
+            IEnumerable<int> Enumerate()
+            {
+                for (var j = 0; j < arrSize; j++) yield return j;
+            }
+            
+            var a = new int[arrSize];
+            Assert.Equal(arrSize, ((IEnumerable)a).Count());
+
+            var s = new string('x', arrSize);
+            Assert.Equal(arrSize, ((IEnumerable)s).Count());
+
+            var l = new List<int>(a);
+            Assert.Equal(arrSize, ((IEnumerable)l).Count());
+            
+            var c = new Collection<int>(a);
+            Assert.Equal(arrSize, ((IEnumerable)c).Count());
+            
+            Assert.Equal(arrSize, ((IEnumerable)Enumerate()).Count());
+
+            Assert.Throws<ArgumentNullException>(() => ((IEnumerable)null!).Count());
+        }
+
+        [Fact]
+        public void AreAllEqualTest()
+        {
+            var a = new int[10];
+            Assert.True(a.AreAllEqual());
+            a[4] = 1;
+            Assert.False(a.AreAllEqual());
+
+            a = Array.Empty<int>();
+            Assert.Same(a, Assert.Throws<EmptyCollectionException>(() => a.AreAllEqual()).OffendingObject);
+        }
+        
         [Fact]
         public void RotateTest()
         {

@@ -64,7 +64,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static bool IsVoid(this MethodInfo m)
         {
-            if (m is null) throw new ArgumentNullException(nameof(m));
+            IsVoid_Contract(m);
             return m.ReturnType == typeof(void);
         }
     }

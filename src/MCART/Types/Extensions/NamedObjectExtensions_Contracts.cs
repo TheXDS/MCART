@@ -1,5 +1,5 @@
 ﻿/*
-EnumerableExtensions_Contracts.cs
+NamedObjectExtensions_Contracts.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -23,30 +23,19 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using TheXDS.MCART.Exceptions;
-using static TheXDS.MCART.Misc.Internals;
+using TheXDS.MCART.Misc;
 
 namespace TheXDS.MCART.Types.Extensions
 {
-    public static partial class EnumerableExtensions
+    public static partial class NamedObjectExtensions
     {
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void FirstOf_OfType_Contract<T>(Type? type)
+        private static Type AsNamedEnum_Contract(Type t)
         {
-            NullCheck(type, nameof(type));
-            if (!typeof(T).IsAssignableFrom(type)) throw new InvalidTypeException(type!);
-        }
-
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void Count_Contract(System.Collections.IEnumerable e)
-        {
-            NullCheck(e, nameof(e));
+            Internals.NullCheck(t, nameof(t));
+            var q = t.IsEnum ? t : Nullable.GetUnderlyingType(t)!;
+            if (q is null || !q.IsEnum) throw new InvalidTypeException(t);
+            return q;
         }
     }
 }

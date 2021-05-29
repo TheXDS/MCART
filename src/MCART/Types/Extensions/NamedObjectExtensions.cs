@@ -30,15 +30,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Exceptions;
 
 namespace TheXDS.MCART.Types.Extensions
 {
+
+
     /// <summary>
     /// Funciones misceláneas y extensiones para todos los elementos de
     /// tipo <see cref="NamedObject{T}"/>.
     /// </summary>
-    public static class NamedObjectExtensions
+    public static partial class NamedObjectExtensions
     {
         /// <summary>
         /// Enumera todos los valores de enumeración del tipo especificado
@@ -66,9 +67,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static IEnumerable<NamedObject<Enum>> AsNamedEnum(this Type t)
         {
-            if (t == null) throw new ArgumentNullException(nameof(t));
-            var q = t.IsEnum ? t : Nullable.GetUnderlyingType(t)!;
-            if (!q.IsEnum) throw new InvalidTypeException(t);
+            var q = AsNamedEnum_Contract(t);
             return q.GetEnumValues().OfType<Enum>().Select(p => new NamedObject<Enum>(p, p.NameOf()));
         }
     }

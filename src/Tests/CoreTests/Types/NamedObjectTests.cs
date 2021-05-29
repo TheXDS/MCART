@@ -22,8 +22,12 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Linq;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Types;
+using TheXDS.MCART.Types.Extensions;
 using Xunit;
 using static TheXDS.MCART.Types.Extensions.NamedObjectExtensions;
 
@@ -31,16 +35,37 @@ namespace TheXDS.MCART.Tests.Types
 {
     public class NamedObjectTests
     {
-        enum TestEnum
+        private enum TestEnum
         {
             [Name("Elemento A")] A,
             [Name("Elemento B")] B,
             [Name("Elemento C")] C
         }
+        
+        [Fact]
+        public void AsNamedEnumTest()
+        {
+            var x = typeof(TestEnum).AsNamedEnum();
+            Assert.Equal("Elemento A", x.First());
+
+            Assert.Throws<ArgumentNullException>(() => ((Type) null!).AsNamedEnum());
+            Assert.Throws<InvalidTypeException>(() => typeof(string).AsNamedEnum());
+            Assert.Throws<InvalidTypeException>(() => typeof(int?).AsNamedEnum());
+        }
+
         [Fact]
         public void FromEnumTest()
         {
-            var x = typeof(TestEnum).AsNamedEnum();
+            var x = NamedObject<TestEnum>.FromEnum();
+            Assert.Equal("Elemento A", x.First());
+
+            Assert.Throws<InvalidTypeException>(NamedObject<string>.FromEnum);
+        }
+
+        [Fact]
+        public void AsNamedObjectTest()
+        {
+            var x = AsNamedObject<TestEnum>();
             Assert.Equal("Elemento A", x.First());
         }
     }

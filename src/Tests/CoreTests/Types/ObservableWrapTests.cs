@@ -41,6 +41,9 @@ namespace TheXDS.MCART.Tests.Types
             var o = new ObservableCollectionWrap<string>(c);
             Assert.Equal(c, o.UnderlyingCollection);
             Assert.Equal(3, o.Count);
+
+            o = new ObservableCollectionWrap<string>();
+            Assert.Empty(o);
         }
 
         [Fact]
