@@ -51,7 +51,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         public async Task LockedTest()
         {
             int[] l = { 1, 2, 3, 4 };
-            bool f1 = false;
+            var f1 = false;
 
             var t1 = Task.Run(() => l.Locked(i =>
             {
@@ -71,6 +71,27 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             await Task.WhenAll(t1, t2);
         }
 
+        [Fact]
+        public void LockedTest2()
+        {
+            static IEnumerable Enumerate()
+            {
+                yield return 1;
+                yield return 2;
+                yield return 3;
+            }
+
+            Enumerate().Locked(p =>
+            {
+                foreach (var j in p)
+                {
+                    Assert.IsType<int>(j);
+                }
+            });
+            Assert.Equal(3,Enumerate().Locked(p => p.Count()));
+        }
+        
+        
         [Fact]
         public async Task SelectAsyncTest()
         {
@@ -151,20 +172,26 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Fact]
         public void ContainsAllTest()
         {
-            var a = TheXDS.MCART.Helpers.Common.Sequence(1, 100);
+            var a = TheXDS.MCART.Helpers.Common.Sequence(1, 100).ToArray();
             var b = TheXDS.MCART.Helpers.Common.Sequence(50, 60).ToArray();
             Assert.True(a.ContainsAll(b));
             Assert.False(new[] {101, 102, 103}.ContainsAll(b));
+            
+            Assert.True(a.ContainsAll(50, 51, 52));
+            Assert.False(new[] {101, 102, 103}.ContainsAll(50, 51, 52));
         }
         
         [Fact]
         public void ContainsAnyTest()
         {
-            var a = TheXDS.MCART.Helpers.Common.Sequence(1, 100);
+            var a = TheXDS.MCART.Helpers.Common.Sequence(1, 100).ToArray();
             var b = TheXDS.MCART.Helpers.Common.Sequence(95, 110).ToArray();
             Assert.True(a.ContainsAny(b));
             Assert.True(new[] {101, 102, 103}.ContainsAny(b));
             Assert.False(new[] {121, 122, 123}.ContainsAny(b));
+            
+            Assert.True(new[] {101, 102, 103}.ContainsAny(95, 101, 110));
+            Assert.False(new[] {121, 122, 123}.ContainsAny(95, 96, 110));
         }
         
         [Fact]
@@ -335,6 +362,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.Equal(new[] { 5, 1, 2, 3, 4 }, c.Rotate(-1).ToArray());
             Assert.Equal(new[] { 4, 5, 1, 2, 3 }, c.Rotate(-2).ToArray());
         }
+        
         [Fact]
         public void ExceptForTest_WithValues()
         {
@@ -344,6 +372,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
 
             Assert.Equal(result, array.ExceptFor(exclusions));
         }
+        
         [Fact]
         public void ExceptForTest_WithObjects()
         {

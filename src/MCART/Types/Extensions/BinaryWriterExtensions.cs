@@ -35,7 +35,7 @@ namespace TheXDS.MCART.Types.Extensions
     /// Contiene extensiones útiles para la clase
     /// <see cref="BinaryWriter"/>.
     /// </summary>
-    public static class BinaryWriterExtensions
+    public static partial class BinaryWriterExtensions
     {
         /// <summary>
         /// Escribe un <see cref="Guid"/> en el <see cref="BinaryWriter"/>
@@ -125,13 +125,17 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="value">
         /// Objeto a escribir.
         /// </param>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce si no ha sido posible encontrar un método que pueda
+        /// escribir el valor especificado. 
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="bw"/> o <paramref name="value"/> son
+        /// <see langword="null"/>.
+        /// </exception>
         public static void DynamicWrite(this BinaryWriter bw, object value)
         {
-            if (value is null)
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
-
+            DynamicWrite_Contract(bw, value);
             var t = value.GetType();
 
             if (typeof(BinaryWriter).GetMethods().FirstOrDefault(p => CanWrite(p, t)) is { } m)

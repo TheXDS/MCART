@@ -430,25 +430,16 @@ namespace TheXDS.MCART.Types.Extensions
         [DebuggerStepThrough]
         public static T New<T>(this Type type, bool throwOnFail, IEnumerable? parameters)
         {
-            parameters ??= Array.Empty<object?>();
-
-            if (type is null)
-            {
-                return throwOnFail ? throw new ArgumentNullException(nameof(type)) : (T)default!;
-            }
-
-            if (!type.IsInstantiable(parameters.ToTypes()))
-            {
-                return throwOnFail ? throw new ClassNotInstantiableException(type) : (T)default!;
-            }
-
+            var p = parameters?.ToGeneric().ToArray() ?? Array.Empty<object?>();
             try
             {
-                return (T)type.GetConstructor(parameters.ToTypes().ToArray())?.Invoke(parameters.ToGeneric().ToArray())!;
+                New_Contract(type, p);
+                return (T)type.GetConstructor(p.ToTypes().ToArray())!.Invoke(p);
             }
-            catch (Exception e)
+            catch
             {
-                return throwOnFail ? throw new TypeLoadException(InternalStrings.ErrorXClassNotInstantiableWithArgs(type.Name), e) : (T)default!;
+                if (throwOnFail) throw;
+                return default!;
             }
         }
 
@@ -473,7 +464,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// mismo se ha instanciado de forma correcta, <see langword="false"/>
         /// en caso contrario.
         /// </returns>
-        public static bool TryInstance<T>(this Type t, [NotNullWhen(true)] [MaybeNullWhen(false)] out T instance, params object[]? args)
+        public static bool TryInstance<T>(this Type t, [MaybeNullWhen(false)] out T instance, params object[]? args)
         {
             TryInstance_Contract(t, args);
             if (!t.IsAbstract && !t.IsInterface && typeof(T).IsAssignableFrom(t) && t.GetConstructor(args?.ToTypes().ToArray() ?? Type.EmptyTypes) is { } ctor)
@@ -537,23 +528,12 @@ namespace TheXDS.MCART.Types.Extensions
         [DebuggerStepThrough]
         public static async Task<object?> NewAsync(this Type type, bool throwOnFail, bool @async, IEnumerable parameters)
         {
-            if (type is null)
-            {
-                return throwOnFail ? throw new ArgumentNullException(nameof(type)) : (object?)null;
-            }
-
-            var pTypes = await Task.Run(parameters.ToTypes().ToArray);
-
-            if (!type.IsInstantiable(pTypes))
-            {
-                return throwOnFail ? throw new ClassNotInstantiableException(type) : (object?)null;
-            }
-
+            var p = parameters?.ToGeneric().ToArray() ?? Array.Empty<object?>();
+            New_Contract(type, p);
             try
             {
-                var @params = await Task.Run(parameters.ToGeneric().ToArray);
-                var ctor = type.GetConstructor(pTypes);
-                return @async ? (await Task.Run(() => ctor?.Invoke(@params))) : ctor?.Invoke(@params);
+                var ctor = type.GetConstructor(p.ToTypes().ToArray());
+                return @async ? await Task.Run(() => ctor?.Invoke(p)) : ctor?.Invoke(p);
             }
             catch (Exception e)
             {
@@ -672,14 +652,20 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>
         /// El tipo de elementos contenidos por la colección.
         /// </returns>
+        /// <remarks>
+        /// Por convención, se asume que el tipo de elementos de una colección
+        /// está basado en los argumentos de tipo genéricos utilizados en la
+        /// definición del tipo, utilizando una concención común de colocar el
+        /// tipo de elementos al final de los argumentos de tipo.
+        /// </remarks>
         public static Type GetCollectionType(this Type collectionType)
         {
             GetCollectionType_Contract(collectionType);            
-            return (collectionType.GenericTypeArguments?.Count()) switch
+            return collectionType.GenericTypeArguments?.Count() switch
             {
                 0 => typeof(object),
                 1 => collectionType.GenericTypeArguments.Single(),
-                2 => collectionType.GenericTypeArguments.Last(),
+                { } => collectionType.GenericTypeArguments.Last(),
                 _ => typeof(object)
             };
         }

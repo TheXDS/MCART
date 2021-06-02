@@ -24,12 +24,16 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Text;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
 using Xunit;
-using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 
 namespace TheXDS.MCART.Tests.Types.Extensions
 {
@@ -53,6 +57,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         public void NewTest()
         {
             Assert.NotNull(typeof(ResolveEventArgs).New("Test"));
+            Assert.Equal(typeof(string), Assert.Throws<ClassNotInstantiableException>(() => typeof(string).New(new Exception())).OffendingObject);
         }
 
         [Fact]
@@ -67,6 +72,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         public void IsInstantiableTest()
         {
             Assert.True(typeof(Exception).IsInstantiable());
+            Assert.True(typeof(Exception).IsInstantiable((IEnumerable<Type>?)null));
             Assert.True(typeof(Exception).IsInstantiable(typeof(string)));
             Assert.False(typeof(Exception).IsInstantiable(typeof(int)));
         }
@@ -122,6 +128,133 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.DoesNotContain(typeof(Enum), t);
             Assert.DoesNotContain(typeof(AppDomain), t);
             Assert.DoesNotContain(typeof(object), t);
+        }
+        
+        
+    }
+
+    public class TimeSpanExtensionsTests
+    {
+        [Fact]
+        public void VerboseTest()
+        {
+            Assert.Equal(Strings.Seconds(15),TimeSpan.FromSeconds(15).Verbose());
+            Assert.Equal(Strings.Minutes(3),TimeSpan.FromSeconds(180).Verbose());
+            Assert.Equal(Strings.Hours(2),TimeSpan.FromSeconds(7200).Verbose());
+            Assert.Equal(Strings.Days(5),TimeSpan.FromDays(5).Verbose());
+
+            Assert.Equal(
+                $"{Strings.Minutes(1)}, {Strings.Seconds(5)}",
+                TimeSpan.FromSeconds(65).Verbose());
+            
+            Assert.Equal(
+                $"{Strings.Days(2)}, {Strings.Hours(5)}, {Strings.Minutes(45)}, {Strings.Seconds(23)}",
+                (TimeSpan.FromDays(2) + TimeSpan.FromHours(5) + TimeSpan.FromMinutes(45) + TimeSpan.FromSeconds(23)).Verbose());
+        }
+
+        [Fact]
+        public void AsTimeTest()
+        {
+            var t = TimeSpan.FromSeconds(60015);
+            var c = CultureInfo.GetCultureInfo("en-UK");
+            var r = t.AsTime(c);
+            Assert.Equal("4:40 p.\u00A0m.", r);
+            Assert.Equal(
+                string.Format($"{{0:{CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern}}}",
+                    DateTime.MinValue.Add(t)), t.AsTime());
+        }
+    }
+
+    public class BinaryReaderExtensionstests
+    {
+        [Fact]
+        public void GetBinaryReadMethod_Test()
+        {
+            var e = ReflectionHelpers.GetMethod<BinaryReader, Func<int>>(o => o.Read);
+            Assert.Equal(e, BinaryReaderExtensions.GetBinaryReadMethod(typeof(int)));
+        }
+
+        [Fact]
+        public void ReadEnum_Test()
+        {
+            using var ms = new MemoryStream();
+            using (var bw = new BinaryWriter(ms, Encoding.Default, true))
+            {
+                bw.Write(DayOfWeek.Tuesday);
+            }
+            ms.Seek(0,SeekOrigin.Begin);
+            using (var br = new BinaryReader(ms))
+            {
+                Assert.Equal(DayOfWeek.Tuesday,br.ReadEnum<DayOfWeek>());
+            }
+        }
+
+        [Fact]
+        public void ReadGuid_Test()
+        {
+            var g = Guid.NewGuid();
+            
+            using var ms = new MemoryStream();
+            using (var bw = new BinaryWriter(ms, Encoding.Default, true))
+            {
+                bw.Write(g);
+            }
+            ms.Seek(0,SeekOrigin.Begin);
+            using (var br = new BinaryReader(ms))
+            {
+                Assert.Equal(g,br.ReadGuid());
+            }
+        }
+        
+        [Fact]
+        public void ReadDateTime_Test()
+        {
+            var g = DateTime.Now;
+            
+            using var ms = new MemoryStream();
+            using (var bw = new BinaryWriter(ms, Encoding.Default, true))
+            {
+                bw.Write(g);
+            }
+            ms.Seek(0,SeekOrigin.Begin);
+            using (var br = new BinaryReader(ms))
+            {
+                Assert.Equal(g,br.ReadDateTime());
+            }
+        }
+        
+        [Fact]
+        public void ReadTimeSpan_Test()
+        {
+            var g = TimeSpan.FromSeconds(130015);
+            
+            using var ms = new MemoryStream();
+            using (var bw = new BinaryWriter(ms, Encoding.Default, true))
+            {
+                bw.Write(g);
+            }
+            ms.Seek(0,SeekOrigin.Begin);
+            using (var br = new BinaryReader(ms))
+            {
+                Assert.Equal(g,br.ReadTimeSpan());
+            }
+        }
+        
+        [Fact]
+        public void Read_Generic_Test()
+        {
+            var g = TimeSpan.FromSeconds(130015);
+            
+            using var ms = new MemoryStream();
+            using (var bw = new BinaryWriter(ms, Encoding.Default, true))
+            {
+                bw.Write(g);
+            }
+            ms.Seek(0,SeekOrigin.Begin);
+            using (var br = new BinaryReader(ms))
+            {
+                Assert.Equal(g,br.Read<TimeSpan>());
+            }
         }
     }
 }

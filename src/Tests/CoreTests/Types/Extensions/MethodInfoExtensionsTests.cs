@@ -50,6 +50,15 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         }
 
         [Fact]
+        public void ToDelegate_Contract_Test()
+        {
+            Assert.Throws<MemberAccessException>(() =>
+                ReflectionHelpers.GetMethod<Func<string>>(() => TestStatic).ToDelegate<Func<string>>(this));
+            Assert.Throws<MemberAccessException>(() =>
+                ReflectionHelpers.GetMethod<Func<string>>(() => TestInstance).ToDelegate<Func<string>>());
+        }
+
+        [Fact]
         public void IsVoidTest()
         {
             Assert.True(ReflectionHelpers.GetMethod<Action>(() => IsVoidTest).IsVoid());

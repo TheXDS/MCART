@@ -28,6 +28,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
@@ -843,7 +844,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// cualquiera de los elementos de <paramref name="items"/>,
         /// <see langword="false"/> en caso contrario.
         /// </returns>
-        public static bool ContainsAny(this IEnumerable collection, params object[] items)
+        public static bool ContainsAny(this IEnumerable collection, params object?[] items)
         {
             return ContainsAny(collection, items.AsEnumerable());
         }
@@ -957,6 +958,56 @@ namespace TheXDS.MCART.Types.Extensions
             };
 #endif
         }
+
+        /// <summary>
+        /// Obtiene la cuenta de elementos de un
+        /// <see cref="IAsyncEnumerable{T}"/>, enumerándolo de forma asíncrona.
+        /// </summary>
+        /// <param name="e">
+        /// <see cref="IAsyncEnumerable{T}"/> para el cual obtener la cuenta de
+        /// elementos.
+        /// </param>
+        /// <param name="ct">Token que permite cancelar la operación.</param>
+        /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
+        /// <returns>
+        /// La cantidad de elementos contenidos en la colección.
+        /// </returns>
+        /// <exception cref="TaskCanceledException">
+        /// Ocurre cuando la tarea es cancelada.
+        /// </exception>
+        public static async ValueTask<int> CountAsync<T>(this IAsyncEnumerable<T> e, CancellationToken ct)
+        {
+            var n = e.GetAsyncEnumerator(ct);
+            if (ct.IsCancellationRequested) throw new TaskCanceledException();
+            var c = 0;
+            while (await n.MoveNextAsync())
+            {
+                c++;
+                if (ct.IsCancellationRequested) throw new TaskCanceledException();
+            }
+            return c;
+        }
+
+        /// <summary>
+        /// Obtiene la cuenta de elementos de un
+        /// <see cref="IAsyncEnumerable{T}"/>, enumerándolo de forma asíncrona.
+        /// </summary>
+        /// <param name="e">
+        /// <see cref="IAsyncEnumerable{T}"/> para el cual obtener la cuenta de
+        /// elementos.
+        /// </param>
+        /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
+        /// <returns>
+        /// La cantidad de elementos contenidos en la colección.
+        /// </returns>
+        /// <exception cref="TaskCanceledException">
+        /// Ocurre cuando la tarea es cancelada.
+        /// </exception>
+        public static ValueTask<int> CountAsync<T>(this IAsyncEnumerable<T> e)
+        {
+            return CountAsync(e, default);
+        }
+        
 
         /// <summary>
         /// Obtiene un valor que indica si el valor de la propiedad de todos

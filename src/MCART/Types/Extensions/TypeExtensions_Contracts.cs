@@ -101,5 +101,14 @@ namespace TheXDS.MCART.Types.Extensions
         {
             NullCheck(domain, nameof(domain));
         }
+
+        private static void New_Contract(Type type, IEnumerable<object?> parameters)
+        {
+            NullCheck(type, nameof(type));
+            if (!type.IsInstantiable(parameters.ToTypes()))
+            {
+                throw new ClassNotInstantiableException(type);
+            }
+        }
     }
 }
