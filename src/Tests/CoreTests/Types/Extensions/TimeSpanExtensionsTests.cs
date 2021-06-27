@@ -53,9 +53,9 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         public void AsTimeTest()
         {
             var t = TimeSpan.FromSeconds(60015);
-            var c = CultureInfo.GetCultureInfo("en-UK");
+            var c = CultureInfo.InvariantCulture;
             var r = t.AsTime(c);
-            Assert.Equal("4:40 p.\u00A0m.", r);
+            Assert.Equal("16:40", r);
             Assert.Equal(
                 string.Format($"{{0:{CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern}}}",
                     DateTime.MinValue.Add(t)), t.AsTime());
