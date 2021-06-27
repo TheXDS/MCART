@@ -29,10 +29,10 @@ estado actual.
 ## Composición del proyecto
 MCART se compone de varios proyectos, y distintos proyectos de código
 compartido entre las plataformas. En ellos reside la raíz de la mayoría de
-características que pueden funcionar en diferentes entornos CIL. Hasta el
-momento, la funcionalidad está comprobada con .Net Framework y Mono; lo que
-debería ser suficiente para crear aplicaciones basadas en Win32, WPF, Gtk#,
-consola e incluso sitios web desarrollados en ASP .Net.
+características que pueden funcionar en diferentes entornos CIL. La
+funcionalidad está comprobada con .Net 5.0 y Mono; lo que debería ser suficiente
+para crear aplicaciones basadas en Win32, WPF, Gtk#, consola e incluso sitios
+web desarrollados en ASP .Net.
 
 ## Releases
 MCART se encuentra disponible en NuGet.
@@ -47,9 +47,9 @@ MCART se encuentra disponible en NuGet.
 `> paket add TheXDS.MCART`
 
 ## Compilación
-MCART requiere de un compilador compatible con C# 8.0, debido a ciertas
+MCART requiere de un compilador compatible con C# 9.0, debido a ciertas
 características especiales del lenguaje que ayudan a disminuir la
 complejidad del código.
 
-MCART también requiere que [.Net SDK](https://www.microsoft.com/net/core) 3.1
+MCART también requiere que [.Net SDK](https://dotnet.microsoft.com/) 5.0
 esté instalado en el sistema.

@@ -29,6 +29,7 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Helpers;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
+using TheXDS.MCART.Exceptions;
 
 namespace TheXDS.MCART.Resources
 {
@@ -116,7 +117,9 @@ namespace TheXDS.MCART.Resources
         /// </summary>
         /// <param name="id">Identificador del recurso incrustado.</param>
         /// <param name="compressor">
-        /// <see cref="ICompressorGetter"/> a utilizar para extraer al recurso.
+        /// <see cref="ICompressorGetter"/> a utilizar para extraer al recurso,
+        /// o <see langword="null"/> para no utilizar un extractor de 
+        /// descompresión.
         /// </param>
         /// <returns>
         /// Un <see cref="Stream"/> desde el cual leer un recurso incrustado
@@ -124,14 +127,17 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// Se produce si <paramref name="id"/> es una cadena vacía o
-        /// <see langword="null"/>, o si <paramref name="compressor"/> es
         /// <see langword="null"/>.
         /// </exception>
-        [Sugar] protected Stream UnpackStream(string id, ICompressorGetter? compressor)
+        /// <exception cref="MissingResourceException">
+        /// Se produce si no se ha encontrado un recurso incrustado con el ID
+        /// especificado en la ruta definida para este extractor de recursos.
+        /// </exception>
+        protected Stream UnpackStream(string id, ICompressorGetter? compressor)
         {
             var c = compressor ?? new NullGetter();
             if (id.IsEmpty()) throw new ArgumentNullException(nameof(id));
-            return c.GetCompressor(_assembly?.GetManifestResourceStream($"{_path}.{id}{c.Extension}") ?? throw new InvalidDataException());
+            return c.GetCompressor(_assembly?.GetManifestResourceStream($"{_path}.{id}{c.Extension}") ?? throw new MissingResourceException(id));
         }
 
         /// <summary>
@@ -168,7 +174,7 @@ namespace TheXDS.MCART.Resources
         public abstract T Unpack(string id, ICompressorGetter compressor);
 
 #if !RatherDRY
-        private bool InternalTryUnpack(Func<T> function, out T result)
+        private static bool InternalTryUnpack(Func<T> function, out T result)
         {
             try
             {
@@ -196,7 +202,7 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public virtual bool TryUnpack(string id, out T result)
         {
-            return InternalTryUnpack(() => Unpack(id), out result);
+            return AssemblyUnpacker<T>.InternalTryUnpack(() => Unpack(id), out result);
         }
 
         /// <summary>
@@ -216,7 +222,7 @@ namespace TheXDS.MCART.Resources
         /// </param>
         public virtual bool TryUnpack(string id, string compressorId, out T result)
         {
-            return InternalTryUnpack(() => Unpack(id, compressorId), out result);
+            return AssemblyUnpacker<T>.InternalTryUnpack(() => Unpack(id, compressorId), out result);
         }
 
         /// <summary>
@@ -237,7 +243,7 @@ namespace TheXDS.MCART.Resources
         /// </param>        
         public virtual bool TryUnpack(string id, ICompressorGetter compressor, out T result)
         {
-            return InternalTryUnpack(() => Unpack(id, compressor), out result);
+            return AssemblyUnpacker<T>.InternalTryUnpack(() => Unpack(id, compressor), out result);
         }
 #else
         public virtual bool TryUnpack(string id, out T result)

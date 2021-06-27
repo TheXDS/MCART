@@ -49,13 +49,16 @@ namespace TheXDS.MCART.Attributes
         /// </summary>
         /// <param name="year">Año de registro del Copyright.</param>
         /// <param name="holder">Poseedor del Copyright.</param>
+#if CLSCompliance
+        [CLSCompliant(false)]
+#endif
         public CopyrightAttribute(ushort year, string holder) : this($"{year:0000} {holder}")
         {
         }
         
         private static string GetCopyrightString(string input)
         {
-            return input.StartsWith("copyright ", true, null) ? input
+            return input.ToLowerInvariant().StartsWith("copyright ", true, null) ? input
                 : $"Copyright © {input}";
         }
     }

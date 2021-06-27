@@ -29,7 +29,7 @@ Directorio          | Contenido del directorio
 
 ### Números de versión
 MCART sigue los estándares de números de versión de NuGet, utilizando una
-cadena de versión Major.Minor.Revision.Build, adjuntando para pas versiones
+cadena de versión Major.Minor.Revision.Build, adjuntando para las versiones
 pre-release un subfijo
 
 ### Constantes globales de compilación
@@ -48,12 +48,12 @@ BufferedIO            | Algunas funciones de entrada/salida incluyen una impleme
 CheckDanger           | Obliga a las funciones que lo permitan a limitar el uso de clases o funciones peligrosas (marcadas con el atributo `DangerousAttribute`)
 CLSCompliance         | Obliga a utilizar implementaciones que cumplen con CLS (Common Language Standard). Se recomienda encarecidamente activar esta constante.
 DynamicLoading        | Habilita la carga de clases y/o miembros de clases por medio de ```System.Reflection``` de elementos contenidos dentro de MCART.
-EnforceContracts      | Incluye funciones de comprobación de contratos (sanidad de argumentos) en los métodos que lo soporten.
+EnforceContracts      | Incluye funciones de comprobación de contratos (sanidad de argumentos) en los métodos que lo soporten. Se recomienda encarecidamente habilitar esta constante, a opción de ser deshabilitada para un mejor rendimiento si la implementación de usuario asegura sanidad de argumentos.
 ExtrasBuiltIn         | Incluir en el ensamblado de MCART ejemplos e implementaciones estándar básicas de las interfaces o clases abstractas para las cuales se pueda proveer.
 FloatDoubleSpecial    | `float` y `double` son tipos numéricos que pueden contener valores especiales, como ser NaN o infinito. Al activar esta constante, se habilitan métodos especiales que pueden trabajar con estos valores.
 McartAsPlugin         | Habilita la carga de plugins definidos dentro de MCART.
 NativeNumbers         | Permite utilizar implementaciones conscientes de la cultura nativa para algunas funciones que trabajan con símbolos numéricos, utilizando los dígitos numéricos locales.
 PreferExceptions      | Cuando ciertas funciones deban manejar información inválida, activar esta constante causa que se arrojen excepciones en lugar de continuar con código alternativo (activar esta bandera puede ser un dolor de cabeza, pero resulta en código más seguro).
-RatherDRY             | Indica que, a pesar de disminuir la optimización del código, se debe respetar el principio DRY (Don't Repeat Yourself) al implementar sobrecargas cuyo cuerpo sea exactamente igual salvo por los tipos de argumentos.
+RatherDRY             | Indica que, a pesar de disminuir la optimización del código, se debe respetar estrictamente el principio DRY (Don't Repeat Yourself) al implementar sobrecargas cuyo cuerpo sea exactamente igual salvo por los tipos de argumentos.
 SaferPasswords        | Permite que algunas funciones de seguridad requieran, comprueben o generen contraseñas más seguras, a expensas de compatibilidad con los métodos de entrada disponibles o con el equipo.
 StrictMCARTVersioning | Cuando se realicen comprobaciones de compatibilidad con MCART, activar esta constante causa que dichas comprobaciones sean más estrictas. Se recomienda mantener esta constante habilitada.

@@ -49,7 +49,7 @@ namespace TheXDS.MCART.Resources
             using (r) return r.ReadToEnd();
         }
 
-        private StreamReader GetFailure(string id, Exception ex)
+        private static StreamReader GetFailure(string id, Exception ex)
         {
             return new(St.Warn(St2.UnkErrLoadingRes(id, ex.Message)).ToStream());
         }
