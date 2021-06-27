@@ -300,4 +300,4 @@ __pycache__/
 **/.vscode
 
 # MCART specific files
-**/netcoreapp3.0
+**/.AssemblyAttributes

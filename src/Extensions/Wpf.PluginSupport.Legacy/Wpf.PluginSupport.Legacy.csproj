@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
   <PropertyGroup>
     <Description>MCART WPF Library</Description>
     <AssemblyName>MCART.WPF.PluginSupport.Legacy</AssemblyName>
@@ -7,10 +6,8 @@
     <OutputType>Library</OutputType>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\..\Platform\WPF\WPF.csproj" />
-    <ProjectReference Include="..\PluginSupport.Legacy\PluginSupport.Legacy.csproj" />
+    <ProjectReference Include="$(SolutionDir)Platform\WPF\WPF.csproj" />
+    <ProjectReference Include="$(SolutionDir)Extensions\PluginSupport.Legacy\PluginSupport.Legacy.csproj" />
   </ItemGroup>
-
 </Project>

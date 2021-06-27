@@ -1,42 +1,44 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <Description>MCART WPF Library</Description>
-    <AssemblyName>MCART.WPF</AssemblyName>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <ProjectGuid>{77706828-80BE-4BAC-A97C-072E101D01DE}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <TargetFramework>net5.0-Windows</TargetFramework>
-    <UseWPF>true</UseWPF>
-  </PropertyGroup>
-  <ItemGroup>
-    <None Include="Art\**" />
-    <Page Remove="Art\**" />
-    <Compile Remove="Art\**" />
-    <EmbeddedResource Remove="Art\**" />
-    <None Remove="Art\netcoreapp3.0\**" />
-    <None Remove="Resources\Icons\**" />
-    <EmbeddedResource Include="Resources\Icons\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="$(SolutionDir)Lib\MCART-Windows\MCART-Windows.csproj" />
-    <ProjectReference Include="..\..\Lib\MCART-GUI\MCART.GUI.csproj" />
-    <ProjectReference Include="..\..\Lib\MCART-UI\MCART.UI.csproj" />
-    <ProjectReference Include="$(SolutionDir)MCART\MCART.csproj">
-      <Project>{d39b543e-571d-4ea5-b8a2-9f6729c8e689}</Project>
-      <Name>MCART</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Resources\ErrorStrings.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ErrorStrings.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Update="Resources\ErrorStrings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ErrorStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
+	<PropertyGroup>
+		<Description>MCART WPF Library</Description>
+		<AssemblyName>MCART.WPF</AssemblyName>
+		<ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+		<ProjectGuid>{77706828-80BE-4BAC-A97C-072E101D01DE}</ProjectGuid>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net5.0-Windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="Art\**" />
+		<Page Remove="Art\**" />
+		<Compile Remove="Art\**" />
+		<EmbeddedResource Remove="Art\**" />
+		<None Remove="Art\netcoreapp3.0\**" />
+		<None Remove="Resources\Icons\**" />
+		<EmbeddedResource Include="Resources\Icons\**" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="$(SolutionDir)Lib\MCART-Windows\MCART-Windows.csproj" />
+		<ProjectReference Include="$(SolutionDir)Lib\MCART-GUI\MCART.GUI.csproj" />
+		<ProjectReference Include="$(SolutionDir)Lib\MCART-UI\MCART.UI.csproj" />
+		<ProjectReference Include="$(SolutionDir)MCART\MCART.csproj">
+			<Project>{d39b543e-571d-4ea5-b8a2-9f6729c8e689}</Project>
+			<Name>MCART</Name>
+		</ProjectReference>
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Update="Resources\ErrorStrings.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>ErrorStrings.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Resources\ErrorStrings.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>ErrorStrings.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedFiles Include="Dialogs/*"/>
+		<EmbeddedFiles Include="Pages/*"/>
+	</ItemGroup>
 </Project>
