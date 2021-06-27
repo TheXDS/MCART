@@ -32,7 +32,7 @@ namespace TheXDS.MCART.Math
     /// <summary>
     /// Contiene funciones de trigonometría y geometría.
     /// </summary>
-    public static class Geometry
+    public static partial class Geometry
     {
         /// <summary>
         /// Representa la proporción de 1 grado DEG sobre PI
@@ -61,7 +61,7 @@ namespace TheXDS.MCART.Math
         /// </returns>
         public static Point GetQuadBezierPoint(in double position, in Point startPoint, in Point controlPoint, in Point endPoint)
         {
-            if (!position.IsBetween(0, 1)) throw new ArgumentOutOfRangeException(nameof(position));
+            GetQuadBezierPoint_Contract(position, startPoint, controlPoint, endPoint);            
             var a = 1 - position;
             var b = a * a;
             var c = 2 * a * position;

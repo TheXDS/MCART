@@ -116,7 +116,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// Un <see cref="DateTime"/> construido a partir del Timestamp de
         /// Unix.
         /// </returns>
-        public static DateTime FromUnixTimestamp(in long seconds)
+        public static DateTime FromUnixTimestamp(this in long seconds)
         {
             return FromTimestamp(seconds, UnixEpoch);
         }
@@ -131,7 +131,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// Un <see cref="DateTime"/> construido a partir del Timestamp de
         /// Unix.
         /// </returns>
-        public static DateTime FromUnixTimestampMs(in long milliseconds)
+        public static DateTime FromUnixTimestampMs(this in long milliseconds)
         {
             return FromTimestampMs(milliseconds, UnixEpoch);
         }
@@ -218,9 +218,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </exception>
         public static string MonthName(in int month)
         {
-            if (!month.IsBetween(1,12)) throw new ArgumentOutOfRangeException(nameof(month));
-            var t = DateTime.Now;
-            return new DateTime(t.Year,month,t.Day).ToString("MMMM");
+            return MonthName(month, CultureInfo.CurrentCulture);
         }
 
         /// <summary>
@@ -236,8 +234,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static string MonthName(in int month, in CultureInfo culture)
         {
             if (!month.IsBetween(1, 12)) throw new ArgumentOutOfRangeException(nameof(month));
-            var t = DateTime.Now;
-            return new DateTime(t.Year, month, t.Day).ToString("MMMM",culture);
+            return new DateTime(2001, month, 1).ToString("MMMM",culture);
         }
     }
 }

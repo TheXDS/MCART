@@ -25,9 +25,12 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Math;
+using TheXDS.MCART.Types;
 using Xunit;
 using static TheXDS.MCART.Math.Algebra;
+using static TheXDS.MCART.Math.Geometry;
 
 namespace TheXDS.MCART.Tests.Math
 {
@@ -42,7 +45,7 @@ namespace TheXDS.MCART.Tests.Math
         {
             return ObjArray(valType, new long[] {
                 2, 3, 5, 7, 11, 13, 17, 19, 23, 29,
-                8191, 131071, 524287, 6700417, 2147483647
+                8191, 131071, 524287, 6700417, 1000003, 2000003
             }.Where(p => p <= max));
         }
 
@@ -50,7 +53,7 @@ namespace TheXDS.MCART.Tests.Math
         {
             return ObjArray(valType, new long[] {
                 1, 4, 6, 8, 9, 10, 12, 14, 15, 16,
-                18, 20, 21, 22, 24, 25, 26, 27, 28, 39, 2147483646
+                18, 20, 21, 22, 24, 25, 26, 27, 28, 39, 1000001, 2000001, 4000064000087
             }.Where(p => p <= max));
         }
 
@@ -284,6 +287,74 @@ namespace TheXDS.MCART.Tests.Math
         public void IsTwoPow_long_YieldsTrue_Test(long value)
         {
             Assert.True(IsTwoPow(value));
+        }
+
+        [Theory]
+        [CLSCompliant(false)]
+        [InlineData(0, 0.5, 0, 1, 0, 0.5)]
+        [InlineData(1, 0, 1, 1, 0.75, 0.25)]
+        public void GetQuadBezierPoint_Test(double cx, double cy, double ex, double ey, double rx, double ry)
+        {
+            var p1 = Point.Origin;
+            var p2 = new Point(cx, cy);
+            var p3 = new Point(ex, ey);
+
+            var pr = GetQuadBezierPoint(0.5, p1, p2, p3);
+            
+            Assert.Equal(rx, pr.X);
+            Assert.Equal(ry, pr.Y);
+        }
+
+        [Fact]
+        public void GetQuadBezierPoint_Contract_Test()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                GetQuadBezierPoint(1.2, Point.Origin, Point.Origin, Point.Origin));
+
+            Assert.Throws<ArgumentException>(() =>
+                GetQuadBezierPoint(0.5, Point.Nowhere, Point.Origin, Point.Origin));
+            Assert.Throws<ArgumentException>(() =>
+                GetQuadBezierPoint(0.5, Point.Origin, Point.Nowhere, Point.Origin));
+            Assert.Throws<ArgumentException>(() =>
+                GetQuadBezierPoint(0.5, Point.Origin, Point.Origin, Point.Nowhere));
+        }
+        
+        [Theory]
+        [CLSCompliant(false)]
+        [InlineData(0, 0, 100)]
+        [InlineData(0.125, -70.710678118654, 70.710678118654)]
+        [InlineData(0.25, -100, 0)]
+        [InlineData(0.375, -70.710678118654, -70.710678118654)]
+        [InlineData(0.5, 0, -100)]
+        [InlineData(0.625, 70.710678118654, -70.710678118654)]
+        [InlineData(0.75, 100, 0)]
+        [InlineData(0.875, 70.710678118654, 70.710678118654)]
+        public void GetArcPoint_Test(double pos, double px, double py)
+        {
+            const double epsilon = 1E-12;
+            
+            var pr = GetArcPoint(100, 0, 360, pos);
+            Assert.True(pr.X.IsBetween(px - epsilon, px + epsilon));
+            Assert.True(pr.Y.IsBetween(py - epsilon, py + epsilon));
+        }
+
+        [Theory]
+        [CLSCompliant(false)]
+        [InlineData(0, 0, 100)]
+        [InlineData(0.125, -70.710678118654, 70.710678118654)]
+        [InlineData(0.25, -100, 0)]
+        [InlineData(0.375, -70.710678118654, -70.710678118654)]
+        [InlineData(0.5, 0, -100)]
+        [InlineData(0.625, 70.710678118654, -70.710678118654)]
+        [InlineData(0.75, 100, 0)]
+        [InlineData(0.875, 70.710678118654, 70.710678118654)]
+        public void GetCirclePoint_Test(double pos, double px, double py)
+        {
+            const double epsilon = 1E-12;
+            
+            var pr = GetCirclePoint(100, pos);
+            Assert.True(pr.X.IsBetween(px - epsilon, px + epsilon));
+            Assert.True(pr.Y.IsBetween(py - epsilon, py + epsilon));
         }
     }
 }

@@ -25,12 +25,9 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
 using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Helpers;
-using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
 using Xunit;
@@ -129,132 +126,95 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.DoesNotContain(typeof(AppDomain), t);
             Assert.DoesNotContain(typeof(object), t);
         }
-        
-        
-    }
 
-    public class TimeSpanExtensionsTests
-    {
         [Fact]
-        public void VerboseTest()
+        public void GetCollectionType_Test()
         {
-            Assert.Equal(Strings.Seconds(15),TimeSpan.FromSeconds(15).Verbose());
-            Assert.Equal(Strings.Minutes(3),TimeSpan.FromSeconds(180).Verbose());
-            Assert.Equal(Strings.Hours(2),TimeSpan.FromSeconds(7200).Verbose());
-            Assert.Equal(Strings.Days(5),TimeSpan.FromDays(5).Verbose());
-
-            Assert.Equal(
-                $"{Strings.Minutes(1)}, {Strings.Seconds(5)}",
-                TimeSpan.FromSeconds(65).Verbose());
-            
-            Assert.Equal(
-                $"{Strings.Days(2)}, {Strings.Hours(5)}, {Strings.Minutes(45)}, {Strings.Seconds(23)}",
-                (TimeSpan.FromDays(2) + TimeSpan.FromHours(5) + TimeSpan.FromMinutes(45) + TimeSpan.FromSeconds(23)).Verbose());
+            Assert.Equal(typeof(int), typeof(int[]).GetCollectionType());
+            Assert.Equal(typeof(int), typeof(IEnumerable<int>).GetCollectionType());
+            Assert.Equal(typeof(object), typeof(System.Collections.IEnumerable).GetCollectionType());
+            Assert.Equal(typeof(string), typeof(Dictionary<int, string>).GetCollectionType());
         }
 
         [Fact]
-        public void AsTimeTest()
+        public void IsAnyAssignable_Test()
         {
-            var t = TimeSpan.FromSeconds(60015);
-            var c = CultureInfo.GetCultureInfo("en-UK");
-            var r = t.AsTime(c);
-            Assert.Equal("4:40 p.\u00A0m.", r);
-            Assert.Equal(
-                string.Format($"{{0:{CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern}}}",
-                    DateTime.MinValue.Add(t)), t.AsTime());
+            Assert.True(typeof(Exception).IsAnyAssignable(typeof(int), typeof(DayOfWeek), typeof(ArgumentNullException)));
+            Assert.False(typeof(Exception).IsAnyAssignable(typeof(int), typeof(DayOfWeek), typeof(System.IO.Stream)));
+        }
+
+        [Fact]
+        public void Implements_Test()
+        {
+            Assert.True(typeof(int[]).Implements(typeof(IEnumerable<>),typeof(int)));
+            Assert.True(typeof(int[]).Implements(typeof(IEnumerable<>)));
+            Assert.True(typeof(string).Implements(typeof(IEnumerable<char>)));
+            Assert.True(typeof(int[]).Implements(typeof(IEnumerable<int>)));
+            Assert.True(typeof(IEnumerable<float>).Implements(typeof(IEnumerable<>)));
+            
+            Assert.False(typeof(float[]).Implements(typeof(IEnumerable<>),typeof(int)));
+            Assert.False(typeof(Exception).Implements(typeof(IEnumerable<>)));
+            Assert.False(typeof(ValueTask<string>).Implements(typeof(IEnumerable<>)));
         }
     }
 
-    public class BinaryReaderExtensionstests
+    public class DateTimeExtensionsTests
     {
         [Fact]
-        public void GetBinaryReadMethod_Test()
+        public void EpochTest()
         {
-            var e = ReflectionHelpers.GetMethod<BinaryReader, Func<int>>(o => o.Read);
-            Assert.Equal(e, BinaryReaderExtensions.GetBinaryReadMethod(typeof(int)));
+            var e = DateTimeExtensions.Epoch(1970);
+            
+            Assert.Equal(1,e.Day);
+            Assert.Equal(1,e.Month);
+            Assert.Equal(1970,e.Year);
         }
 
         [Fact]
-        public void ReadEnum_Test()
+        public void Epochs_Test()
         {
-            using var ms = new MemoryStream();
-            using (var bw = new BinaryWriter(ms, Encoding.Default, true))
-            {
-                bw.Write(DayOfWeek.Tuesday);
-            }
-            ms.Seek(0,SeekOrigin.Begin);
-            using (var br = new BinaryReader(ms))
-            {
-                Assert.Equal(DayOfWeek.Tuesday,br.ReadEnum<DayOfWeek>());
-            }
+            Assert.Equal(1900,DateTimeExtensions.CenturyEpoch.Year);
+            Assert.Equal(2000,DateTimeExtensions.Y2KEpoch.Year);
+            Assert.Equal(1970,DateTimeExtensions.UnixEpoch.Year);
         }
 
         [Fact]
-        public void ReadGuid_Test()
+        public void ToUnixTimestamp_Test()
         {
-            var g = Guid.NewGuid();
-            
-            using var ms = new MemoryStream();
-            using (var bw = new BinaryWriter(ms, Encoding.Default, true))
-            {
-                bw.Write(g);
-            }
-            ms.Seek(0,SeekOrigin.Begin);
-            using (var br = new BinaryReader(ms))
-            {
-                Assert.Equal(g,br.ReadGuid());
-            }
+            var t = new DateTime(2038, 1, 19, 3, 14, 7);
+            Assert.Equal(int.MaxValue,t.ToUnixTimestamp());
         }
         
         [Fact]
-        public void ReadDateTime_Test()
+        public void ToUnixTimestampMs_Test()
         {
-            var g = DateTime.Now;
-            
-            using var ms = new MemoryStream();
-            using (var bw = new BinaryWriter(ms, Encoding.Default, true))
-            {
-                bw.Write(g);
-            }
-            ms.Seek(0,SeekOrigin.Begin);
-            using (var br = new BinaryReader(ms))
-            {
-                Assert.Equal(g,br.ReadDateTime());
-            }
+            var t = new DateTime(2012, 5, 19, 19, 35, 0);
+            Assert.Equal(1337456100000,t.ToUnixTimestampMs());
         }
         
         [Fact]
-        public void ReadTimeSpan_Test()
+        public void FromUnixTimestamp_Test()
         {
-            var g = TimeSpan.FromSeconds(130015);
-            
-            using var ms = new MemoryStream();
-            using (var bw = new BinaryWriter(ms, Encoding.Default, true))
-            {
-                bw.Write(g);
-            }
-            ms.Seek(0,SeekOrigin.Begin);
-            using (var br = new BinaryReader(ms))
-            {
-                Assert.Equal(g,br.ReadTimeSpan());
-            }
+            var t = new DateTime(2038, 1, 19, 3, 14, 7);
+            Assert.Equal(t,DateTimeExtensions.FromUnixTimestamp(int.MaxValue));
         }
         
         [Fact]
-        public void Read_Generic_Test()
+        public void FromUnixTimestampMs_Test()
         {
-            var g = TimeSpan.FromSeconds(130015);
+            var t = new DateTime(2012, 5, 19, 19, 35, 0);
+            Assert.Equal(t,1337456100000.FromUnixTimestampMs());
+        }
+ 
+        [Fact]
+        public void MonthName_Test()
+        {
+            Assert.Equal("August",DateTimeExtensions.MonthName(8, CultureInfo.CreateSpecificCulture("en-us")));
+            Assert.Throws <ArgumentOutOfRangeException>(() => DateTimeExtensions.MonthName(0, CultureInfo.CurrentCulture));
+            Assert.Throws <ArgumentOutOfRangeException>(() => DateTimeExtensions.MonthName(13, CultureInfo.CurrentCulture));
             
-            using var ms = new MemoryStream();
-            using (var bw = new BinaryWriter(ms, Encoding.Default, true))
-            {
-                bw.Write(g);
-            }
-            ms.Seek(0,SeekOrigin.Begin);
-            using (var br = new BinaryReader(ms))
-            {
-                Assert.Equal(g,br.Read<TimeSpan>());
-            }
+            var t = DateTime.Today;
+            Assert.Equal(t.ToString("MMMM"), DateTimeExtensions.MonthName(t.Month));
         }
     }
 }

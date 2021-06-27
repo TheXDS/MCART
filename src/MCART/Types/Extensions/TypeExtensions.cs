@@ -137,7 +137,7 @@ namespace TheXDS.MCART.Types.Extensions
             if (!baseType.ContainsGenericParameters) return baseType.IsAssignableFrom(type);
 
             if (!baseType.GenericTypeArguments.Any())            
-                return type.IsConstructedGenericType && type.GetGenericTypeDefinition() == baseType;            
+                return (type.IsConstructedGenericType && type.GetGenericTypeDefinition() == baseType) || type.GetInterfaces().Any(p=> p.Implements(baseType));            
 
             var gt = baseType.MakeGenericType(type);
             return !gt.ContainsGenericParameters && gt.IsAssignableFrom(type);
@@ -228,7 +228,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static bool IsAnyAssignable(this Type source, IEnumerable<Type> types)
         {
-            return types.Any(p => p.IsAssignableFrom(source));
+            return types.Any(source.IsAssignableFrom);
         }
 
         /// <summary>
@@ -660,7 +660,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// </remarks>
         public static Type GetCollectionType(this Type collectionType)
         {
-            GetCollectionType_Contract(collectionType);            
+            GetCollectionType_Contract(collectionType);
+            if (collectionType.IsArray) return collectionType.GetElementType()!;
             return collectionType.GenericTypeArguments?.Count() switch
             {
                 0 => typeof(object),

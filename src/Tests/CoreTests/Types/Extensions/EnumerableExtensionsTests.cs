@@ -38,6 +38,28 @@ namespace TheXDS.MCART.Tests.Types.Extensions
     public class EnumerableExtensionsTests
     {
         [Fact]
+        public void PickTest()
+        {
+            var c = new[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+            var l = new List<int>();
+            do
+            {
+                l.Add(c.Pick());
+            } while (l.Count > 10);
+            Assert.NotEqual(c,l.ToArray());
+        }
+
+        [Fact]
+        public void ItemsEqualTest()
+        {
+            var c1 = new[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+            var c2 = new[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+            var c3 = new[] {1, 2, 3, 11, 5, 6, 7, 8, 9, 10};
+            Assert.True(c1.ItemsEqual(c2));
+            Assert.False(c1.ItemsEqual(c3));
+        }
+        
+        [Fact]
         public void IsAnyOfTest()
         {
             object?[] objset = { "Test", 1, new Exception(), Guid.NewGuid(), new bool[2] };
@@ -45,6 +67,25 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.False(objset.IsAnyOf<DayOfWeek>());
             Assert.True(objset.IsAnyOf(typeof(int)));
             Assert.False(objset.IsAnyOf(typeof(System.IO.Stream)));
+        }
+
+        [Fact]
+        public async Task CountAsync_Test()
+        {
+            static async IAsyncEnumerable<int> GetValues()
+            {
+                yield return 1;
+                await Task.CompletedTask;
+                yield return 2;
+                await Task.CompletedTask;
+                yield return 3;
+                await Task.CompletedTask;
+                yield return 4;
+                await Task.CompletedTask;
+                yield return 5;
+            }
+            
+            Assert.Equal(5, await GetValues().CountAsync());
         }
 
         [Fact]

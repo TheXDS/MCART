@@ -25,7 +25,7 @@ jobs:
     - name: Build and test MCART
       run: dotnet test $env:Solution_Name --configuration=$env:Configuration
     - name: Create NuGet Packages
-      run: dotnet pack $env:Solution_Name --configuration=$env:Configuration --version-suffix=$env:GITHUB_SHA --include-source
+      run: dotnet pack $env:Solution_Name --configuration=$env:Configuration --version-suffix=$env:GITHUB_SHA --include-source -p:RepositoryBranch=${{ github.ref }} -p:RepositoryCommit=${{ github.sha }} -p:ContinuousIntegrationBuild=true
     - uses: actions/upload-artifact@v2
       with:
         name: MCART-nuget-packages

@@ -60,9 +60,9 @@ namespace TheXDS.MCART.Math
             {
                 if (number % prime == 0) return false;
             }
-            
-            var l = (int)System.Math.Sqrt(number);
-            for (var k = KnownPrimes[^1] + 2; k <= l; k += 2)
+
+            var l = number / 2;
+            for (long k = KnownPrimes[^1] + 2; k <= l; k += 2)
             {
                 if (number % k == 0) return false;
             }

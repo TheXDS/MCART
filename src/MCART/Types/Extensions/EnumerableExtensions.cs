@@ -762,7 +762,7 @@ namespace TheXDS.MCART.Types.Extensions
             var eb = items.GetEnumerator();
             while (ea.MoveNext())
             {
-                if (!eb.MoveNext() || (ea.Current?.Equals(eb.Current) ?? false)) return false;
+                if (!eb.MoveNext() || (!ea.Current?.Equals(eb.Current) ?? false)) return false;
             }
             return !eb.MoveNext();
         }
@@ -1005,9 +1005,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// </exception>
         public static ValueTask<int> CountAsync<T>(this IAsyncEnumerable<T> e)
         {
-            return CountAsync(e, default);
+            return CountAsync(e, CancellationToken.None);
         }
-        
 
         /// <summary>
         /// Obtiene un valor que indica si el valor de la propiedad de todos
