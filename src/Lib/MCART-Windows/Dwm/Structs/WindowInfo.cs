@@ -1,5 +1,5 @@
 ﻿/*
-WindowCompositionAttributeData.cs
+WindowInfo.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,16 +22,22 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
 using System.Runtime.InteropServices;
 
 namespace TheXDS.MCART.Windows.Dwm.Structs
 {
     [StructLayout(LayoutKind.Sequential)]
-    internal struct WindowCompositionAttributeData
+    internal struct WindowInfo
     {
-        public WindowCompositionAttribute Attribute;
-        public IntPtr Data;
-        public int SizeOfData;
+        public int CbSize;
+        public Rect RcWindow;
+        public Rect RcClient;
+        public WindowStyles DwStyle;
+        public WindowStyles DwExtendedStyle;
+        public int DwWindowStatus;
+        public uint CxWindowBorders;
+        public uint CyWindowBorders;
+        public short AtomWindowType;
+        public short WCreatorVersion;
     }
 }

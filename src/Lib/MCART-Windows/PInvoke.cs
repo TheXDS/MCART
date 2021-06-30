@@ -40,10 +40,12 @@ namespace TheXDS.MCART.Windows
         [DllImport("kernel32.dll")] internal static extern IntPtr GetConsoleWindow();
         [DllImport("kernel32.dll")] internal static extern bool GetFirmwareType(ref uint FirmwareType);
 
-        [DllImport("user32.dll")] internal static extern uint GetWindowLong(IntPtr hwnd, int index);
+        [DllImport("user32.dll")] internal static extern bool GetWindowInfo(IntPtr hWnd, ref WindowInfo nCmdShow);
+        [DllImport("user32.dll")] internal static extern long GetWindowLong(IntPtr hwnd, WindowData index);
         [DllImport("user32.dll")] internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
         [DllImport("user32.dll")] internal static extern int SetWindowLong(IntPtr hwnd, int index, uint newStyle);
         [DllImport("user32.dll")] internal static extern bool SetWindowPos(IntPtr hwnd, IntPtr hwndInsertAfter, int x, int y, int width, int height, uint flags);
+        [DllImport("user32.dll")] internal static extern bool ShowWindow(IntPtr hWnd, ShowWindowFlags nCmdShow);
         [DllImport("user32.dll")] internal static extern bool ShowWindowAsync(IntPtr hWnd, ShowWindowFlags nCmdShow);
     }
 }

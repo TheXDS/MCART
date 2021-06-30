@@ -82,5 +82,21 @@ namespace TheXDS.MCART.Wpf.Component
         void IWindow.Maximize() => Itself.WindowState = WindowState.Maximized;
 
         void IWindow.Restore() => Itself.WindowState = WindowState.Normal;
+
+        void IWindow.ToggleMaximize()
+        {
+            if (Itself.WindowState == WindowState.Normal) Maximize();
+            else Restore();
+        }
+
+        /// <summary>
+        /// Obtiene un valor que indica el estado de la ventana.
+        /// </summary>
+        WindowState WindowState { get; }
+
+        /// <summary>
+        /// Inicia una operación de arrastre de la ventana.
+        /// </summary>
+        void DragMove() => Itself.DragMove();
     }
 }

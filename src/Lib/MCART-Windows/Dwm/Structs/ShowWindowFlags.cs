@@ -1,5 +1,5 @@
 ﻿/*
-WindowCompositionAttributeData.cs
+ShowWindowFlags.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,16 +22,20 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Runtime.InteropServices;
-
 namespace TheXDS.MCART.Windows.Dwm.Structs
 {
-    [StructLayout(LayoutKind.Sequential)]
-    internal struct WindowCompositionAttributeData
+    internal enum ShowWindowFlags : int
     {
-        public WindowCompositionAttribute Attribute;
-        public IntPtr Data;
-        public int SizeOfData;
+        Hide = 0,
+        ShowNormal = 1,
+        ShowMinimized = 2,
+        ShowMaximized = 3,
+        ShowNoActivate = 4,
+        Show = 5,
+        Minimize = 6,
+        ShowMinNoActive = 7,
+        ShowNA = 8,
+        Restore = 9,
+        ShowDefault = 10
     }
 }

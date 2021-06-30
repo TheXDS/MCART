@@ -49,21 +49,48 @@ namespace TheXDS.MCART.Windows.Component
         /// <summary>
         /// Oculta la ventana sin cerrarla.
         /// </summary>
-        void Hide();
+        void Hide()
+        {
+            CallShowWindow(ShowWindowFlags.Hide);
+        }
 
         /// <summary>
         /// Maximiza la ventana.
         /// </summary>
-        void Maximize();
+        void Maximize()
+        {
+            CallShowWindow(ShowWindowFlags.ShowMaximized);
+        }
 
         /// <summary>
         /// Minimiza la ventana.
         /// </summary>
-        void Minimize();
+        void Minimize()
+        {
+            CallShowWindow(ShowWindowFlags.Minimize);
+        }
 
         /// <summary>
         /// Restaura el tamaño de la ventana.
         /// </summary>
-        void Restore();
+        void Restore()
+        {
+            CallShowWindow(ShowWindowFlags.Restore);
+        }
+
+        /// <summary>
+        /// Cambia el estado de la ventana entre Maximizar y Restaurar.
+        /// </summary>
+        void ToggleMaximize()
+        {
+            var s = (WindowStyles)PInvoke.GetWindowLong(Handle, WindowData.GWL_STYLE);
+            if (s.HasFlag(WindowStyles.WS_MAXIMIZE)) Restore();
+            else Maximize();
+        }
+
+        private void CallShowWindow(ShowWindowFlags flags)
+        {
+            if (Handle != IntPtr.Zero) PInvoke.ShowWindowAsync(Handle, flags);
+        }
     }
 }
