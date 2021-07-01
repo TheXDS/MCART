@@ -107,7 +107,7 @@ namespace TheXDS.MCART.Windows.Dwm
         {
             if (IsCompositionEnabled())
             {
-                PInvoke.DwmExtendFrameIntoClientArea(window.Handle, ref padding);
+                if (Marshal.GetExceptionForHR(PInvoke.DwmExtendFrameIntoClientArea(window.Handle, ref padding)) is  { } ex) throw ex;
             }
         }
 
@@ -301,8 +301,9 @@ namespace TheXDS.MCART.Windows.Dwm
                 SizeOfData = accentStructSize,
                 Data = accentPtr
             };
-            PInvoke.SetWindowCompositionAttribute(window.Handle, ref data);
+            var v = PInvoke.SetWindowCompositionAttribute(window.Handle, ref data);
             Marshal.FreeHGlobal(accentPtr);
+            if (Marshal.GetExceptionForHR(v) is { } ex) throw ex;
         }
 
         private static void ShowGwlStyle(this IWindow window, WindowStyles bit)
@@ -317,10 +318,14 @@ namespace TheXDS.MCART.Windows.Dwm
 
         private static void SetWindowData(this IWindow window, WindowData data, Func<WindowStyles, WindowStyles> transform)
         {
-            PInvoke.SetWindowLong(
+            if (PInvoke.SetWindowLong(
                 window.Handle,
                 (int)data,
-                (uint)transform((WindowStyles)PInvoke.GetWindowLong(window.Handle, (int)data)));
+                (uint)transform((WindowStyles)PInvoke.GetWindowLong(window.Handle, data))) == 0)
+            {
+                var v = Marshal.GetHRForLastWin32Error();
+                throw Marshal.GetExceptionForHR(v) ?? new Exception { HResult = v };
+            }
         }
     }
 }
