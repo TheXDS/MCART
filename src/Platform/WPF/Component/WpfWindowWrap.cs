@@ -35,6 +35,8 @@ namespace TheXDS.MCART.Wpf.Component
             _window = window;
         }
 
+        public WindowState WindowState => _window.WindowState;
+
         Window IWpfWindow.Itself => _window;
     }
 }
