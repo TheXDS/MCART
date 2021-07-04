@@ -30,15 +30,31 @@ namespace TheXDS.MCART.Windows
 {
     internal static class PInvoke
     {
+        #region dwmapi.dll
+
         [DllImport("dwmapi.dll")] internal static extern int DwmExtendFrameIntoClientArea(IntPtr hWnd, ref Margins pMargins);
         [DllImport("dwmapi.dll", PreserveSig = false)] internal static extern bool DwmIsCompositionEnabled();
         [DllImport("dwmapi.dll")] internal static extern int DwmGetWindowAttribute(IntPtr hwnd, DwmWindowAttribute dwAttribute, out bool pvAttribute, int cbAttribute);
         [DllImport("dwmapi.dll")] internal static extern int DwmSetWindowAttribute(IntPtr hwnd, DwmWindowAttribute dwAttribute, ref int pvAttribute, int cbAttribute);
 
+        #endregion
+
+        #region gdi32.dll
+
+        [DllImport("gdi32.dll")] internal static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
+
+        #endregion
+
+        #region kernel32.dll
+
         [DllImport("kernel32.dll")] internal static extern bool AllocConsole();
         [DllImport("kernel32.dll")] internal static extern bool FreeConsole();
         [DllImport("kernel32.dll")] internal static extern IntPtr GetConsoleWindow();
         [DllImport("kernel32.dll")] internal static extern bool GetFirmwareType(ref uint FirmwareType);
+
+        #endregion
+
+        #region user32.dll
 
         [return: MarshalAs(UnmanagedType.Bool)]
         [DllImport("user32.dll", SetLastError = true)] 
@@ -50,5 +66,7 @@ namespace TheXDS.MCART.Windows
         [DllImport("user32.dll")] internal static extern bool SetWindowPos(IntPtr hwnd, IntPtr hwndInsertAfter, int x, int y, int width, int height, uint flags);
         [DllImport("user32.dll")] internal static extern bool ShowWindow(IntPtr hWnd, ShowWindowFlags nCmdShow);
         [DllImport("user32.dll")] internal static extern bool ShowWindowAsync(IntPtr hWnd, ShowWindowFlags nCmdShow);
+        
+        #endregion
     }
 }

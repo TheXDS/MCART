@@ -33,7 +33,7 @@ namespace TheXDS.MCART.Windows.Dwm
     /// <summary>
     /// Contiene funciones de gestión de ventanas por medio de Desktop Window Manager (DWM).
     /// </summary>
-    public static class Dwm
+    public static class DwmApi
     {
         /// <summary>
         /// Comprueba si la composición de ventanas está disponible en el

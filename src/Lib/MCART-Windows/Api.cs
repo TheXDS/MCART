@@ -23,8 +23,10 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Runtime.InteropServices;
+using System.Security.Principal;
 
-namespace TheXDS.MCART.Windows.Api
+namespace TheXDS.MCART.Windows
 {
     /// <summary>
     /// Contiene una serie de métodos auxiliares de la API de Microsoft
@@ -32,11 +34,6 @@ namespace TheXDS.MCART.Windows.Api
     /// </summary>
     public static class Api
     {
-        /// <summary>
-        /// Obtiene un valor que indica si la aplicación tiene acceso a la
-        /// consola.
-        /// </summary>
-        public static bool HasConsole => PInvoke.GetConsoleWindow() != IntPtr.Zero;
 
         /// <summary>
         /// Obtiene un objeto que permite controlar la ventana de la consola.
@@ -45,5 +42,38 @@ namespace TheXDS.MCART.Windows.Api
         /// Un objeto que permite controlar la ventana de la consola.
         /// </returns>
         public static ConsoleWindow GetConsoleWindow() => new();
+
+        /// <summary>
+        /// Comprueba si el contexto de ejecución actual de la aplicación
+        /// contiene permisos administrativos.
+        /// </summary>
+        /// <returns>
+        /// <see langword="true"/> si la aplicación está siendo ejecutada con
+        /// permisos administrativos, <see langword="false"/> en caso
+        /// contrario.
+        /// </returns>
+        public static bool IsAdministrator()
+        {
+            using WindowsIdentity identity = WindowsIdentity.GetCurrent();
+            WindowsPrincipal principal = new(identity);
+            return principal.IsInRole(WindowsBuiltInRole.Administrator);
+        }
+
+        /// <summary>
+        /// Libera un objeto COM.
+        /// </summary>
+        /// <param name="obj">Objeto COM a liberar.</param>
+        public static void ReleaseComObject(object obj)
+        {
+            try
+            {
+                Marshal.ReleaseComObject(obj);
+            }
+            finally
+            {
+                GC.Collect();
+            }
+        }
+
     }
 }

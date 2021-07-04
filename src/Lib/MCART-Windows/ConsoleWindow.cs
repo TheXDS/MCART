@@ -27,7 +27,7 @@ using TheXDS.MCART.Windows.Component;
 using TheXDS.MCART.Windows.Dwm.Structs;
 using TheXDS.MCART.Windows.Dwm;
 
-namespace TheXDS.MCART.Windows.Api
+namespace TheXDS.MCART.Windows
 {
     /// <summary>
     /// Clase auxiliar envolvente que permite realizar llamadas de gestión de
@@ -37,7 +37,13 @@ namespace TheXDS.MCART.Windows.Api
     {
         private Margins _margins;
 
-        internal  ConsoleWindow()
+        /// <summary>
+        /// Obtiene un valor que indica si la aplicación tiene acceso a la
+        /// consola.
+        /// </summary>
+        public static bool HasConsole => PInvoke.GetConsoleWindow() != IntPtr.Zero;
+
+        internal ConsoleWindow()
         {
             if (Handle == IntPtr.Zero) PInvoke.AllocConsole();
         }

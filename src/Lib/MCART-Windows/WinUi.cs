@@ -28,6 +28,7 @@ using System.Runtime.InteropServices;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.Windows;
+using TheXDS.MCART.Windows.Component;
 
 namespace TheXDS.MCART
 {
@@ -37,11 +38,6 @@ namespace TheXDS.MCART
     /// </summary>
     public static class WinUi
     {
-        /// <summary>
-        /// Obtiene un valor que indica si la aplicación tiene acceso a la consola.
-        /// </summary>
-        public static bool HasConsole => PInvoke.GetConsoleWindow() != IntPtr.Zero;
-
         /// <summary>
         /// Abre una consola para la aplicación.
         /// </summary>
@@ -63,21 +59,6 @@ namespace TheXDS.MCART
         public static bool TryFreeConsole() => PInvoke.FreeConsole();
 
         /// <summary>
-        /// Obtiene la información física del contexto del dispositivo gráfico
-        /// especificado.
-        /// </summary>
-        /// <param name="hdc">Identificador de contexto a verificar.</param>
-        /// <param name="nIndex">Propiedad a obtener.</param>
-        /// <returns>
-        /// Un <see cref="int"/> que representa el valor obtenido.
-        /// </returns>
-        /// <remarks>
-        /// Esta función es exclusiva para sistemas operativos Microsoft
-        /// Windows®.
-        /// </remarks>
-        [DllImport("gdi32.dll")] public static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
-
-        /// <summary>
         /// Obtiene el factor de escala de la interfaz gráfica.
         /// </summary>
         /// <returns>
@@ -87,19 +68,16 @@ namespace TheXDS.MCART
         [Sugar] public static float GetScalingFactor() => GetScalingFactor(IntPtr.Zero);
 
         /// <summary>
-        /// Obtiene el factor de escala de la ventana especificada por
-        /// el <see cref="IntPtr"/> <paramref name="hwnd"/>.
+        /// Obtiene el factor de escala de la ventana especificada.
         /// </summary>
-        /// <param name="hwnd">Identificador de ventana a verificar.</param>
+        /// <param name="window">Ventana a verificar.</param>
         /// <returns>
         /// Un valor <see cref="float"/> que representa el factor de escala
-        /// utilizado para dibujar la ventana especificada por 
-        /// <paramref name="hwnd"/>.
+        /// utilizado para dibujar la ventana especificada.
         /// </returns>
-        public static float GetScalingFactor(IntPtr hwnd)
+        public static float GetScalingFactor(this IWindow window)
         {
-            var h = Graphics.FromHwnd(hwnd).GetHdc();
-            return (float)GetDeviceCaps(h, 10) / GetDeviceCaps(h, 117);
+            return GetScalingFactor(window.Handle);            
         }
 
         /// <summary>
@@ -128,7 +106,7 @@ namespace TheXDS.MCART
         /// Un valor entero que indica la resolución horizontal de la
         /// ventana  en Puntos Por Pulgada (DPI).
         /// </returns>
-        public static int GetXDpi(IntPtr hwnd) => GetDeviceCaps(Graphics.FromHwnd(hwnd).GetHdc(), 88);
+        public static int GetXDpi(IntPtr hwnd) => PInvoke.GetDeviceCaps(Graphics.FromHwnd(hwnd).GetHdc(), 88);
 
         /// <summary>
         /// Obtiene la resolución vertical de la ventana en DPI.
@@ -138,7 +116,7 @@ namespace TheXDS.MCART
         /// Un valor entero que indica la resolución vertical de la ventana
         /// en Puntos Por Pulgada (DPI).
         /// </returns>
-        public static int GetYDpi(IntPtr hwnd) => GetDeviceCaps(Graphics.FromHwnd(hwnd).GetHdc(), 90);
+        public static int GetYDpi(IntPtr hwnd) => PInvoke.GetDeviceCaps(Graphics.FromHwnd(hwnd).GetHdc(), 90);
 
         /// <summary>
         /// Obtiene las resolución horizontal y vertical de la ventana en 
@@ -152,7 +130,7 @@ namespace TheXDS.MCART
         public static Point GetDpi(IntPtr hwnd)
         {
             var h = Graphics.FromHwnd(hwnd).GetHdc();
-            return new Point(GetDeviceCaps(h, 88), GetDeviceCaps(h, 90));
+            return new Point(PInvoke.GetDeviceCaps(h, 88), PInvoke.GetDeviceCaps(h, 90));
         }
 
         /// <summary>
@@ -174,6 +152,12 @@ namespace TheXDS.MCART
         public static Brush PickDrawingBrush()
         {
             return (Brush)typeof(Brushes).GetProperties().Pick().GetValue(null)!;
+        }
+
+        private static float GetScalingFactor(IntPtr handle)
+        {
+            var h = Graphics.FromHwnd(handle).GetHdc();
+            return (float)PInvoke.GetDeviceCaps(h, 10) / PInvoke.GetDeviceCaps(h, 117);
         }
     }
 }

@@ -67,7 +67,6 @@ namespace TheXDS.MCART.Component
     {
         private const string _regInfo = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion";
         private readonly ManagementObject _managementObject = new ManagementClass(@"Win32_OperatingSystem").GetInstances().OfType<ManagementObject>().FirstOrDefault() ?? throw new PlatformNotSupportedException();
-        
 
         /// <summary>
         /// Obtiene una cadena que representa el dispositivo de arranque
