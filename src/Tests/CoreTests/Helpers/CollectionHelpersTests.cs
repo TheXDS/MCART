@@ -226,15 +226,15 @@ namespace TheXDS.MCART.Tests.Helpers
         {
             Assert.False(new[] { "A", "", null }.AllEmpty());
             Assert.True(new[] { "", null }.AllEmpty());
-            Assert.Throws<ArgumentNullException>(() => CollectionHelpers.AllEmpty(null!));
+            Assert.Throws<ArgumentNullException>(() => CollectionHelpers.AllEmpty((IEnumerable<string?>)(null!)));
         }
 
         [Fact]
         public async Task AllEmptyAsyncTest()
         {
-            Assert.False(await new[] { "A", "", null }.YieldAsync(_ => Task.CompletedTask).AllEmptyAsync());
-            Assert.True(await new[] { "", null }.YieldAsync(_ => Task.CompletedTask).AllEmptyAsync());
-            await Assert.ThrowsAsync<ArgumentNullException>(() => CollectionHelpers.AllEmptyAsync(null!));
+            Assert.False(await new[] { "A", "", null }.YieldAsync(_ => Task.CompletedTask).AllEmpty());
+            Assert.True(await new[] { "", null }.YieldAsync(_ => Task.CompletedTask).AllEmpty());
+            await Assert.ThrowsAsync<ArgumentNullException>(() => CollectionHelpers.AllEmpty((IAsyncEnumerable<string?>)(null!)));
         }
 
         [Fact]
@@ -245,18 +245,18 @@ namespace TheXDS.MCART.Tests.Helpers
             Assert.True(new[] { "A", null }.AnyEmpty());
             Assert.True(new[] { "", null }.AnyEmpty());
             Assert.True(new[] { "A", "", null }.AnyEmpty());
-            Assert.Throws<ArgumentNullException>(() => CollectionHelpers.AnyEmpty(null!));
+            Assert.Throws<ArgumentNullException>(() => CollectionHelpers.AnyEmpty((IEnumerable<string?>)(null!)));
         }
 
         [Fact]
         public async Task AnyEmptyAsyncTest()
         {
-            Assert.False(await new[] { "A", "B", "C" }.YieldAsync(_ => Task.CompletedTask).AnyEmptyAsync());
-            Assert.True(await new[] { "A", "" }.YieldAsync(_ => Task.CompletedTask).AnyEmptyAsync());
-            Assert.True(await new[] { "A", null }.YieldAsync(_ => Task.CompletedTask).AnyEmptyAsync());
-            Assert.True(await new[] { "", null }.YieldAsync(_ => Task.CompletedTask).AnyEmptyAsync());
-            Assert.True(await new[] { "A", "", null }.YieldAsync(_ => Task.CompletedTask).AnyEmptyAsync());
-            await Assert.ThrowsAsync<ArgumentNullException>(() => CollectionHelpers.AnyEmptyAsync(null!));
+            Assert.False(await new[] { "A", "B", "C" }.YieldAsync(_ => Task.CompletedTask).AnyEmpty());
+            Assert.True(await new[] { "A", "" }.YieldAsync(_ => Task.CompletedTask).AnyEmpty());
+            Assert.True(await new[] { "A", null }.YieldAsync(_ => Task.CompletedTask).AnyEmpty());
+            Assert.True(await new[] { "", null }.YieldAsync(_ => Task.CompletedTask).AnyEmpty());
+            Assert.True(await new[] { "A", "", null }.YieldAsync(_ => Task.CompletedTask).AnyEmpty());
+            await Assert.ThrowsAsync<ArgumentNullException>(() => CollectionHelpers.AnyEmpty((IAsyncEnumerable<string?>)(null!)));
         }
 
         [Fact]
@@ -276,9 +276,9 @@ namespace TheXDS.MCART.Tests.Helpers
         public async Task ToPercentAsync_Test_Double()
         {
             Assert.Equal(new[] { 0.2, 0.4, 0.6, 0.8, 1.0 }, await Read(GetValuesAsync<int>().ToPercentDouble(5)));
-            Assert.Equal(new[] { 0.2, 0.4, 0.6, 0.8, 1.0 }, await Read(GetValuesAsync<double>().ToPercentAsync(5)));
-            Assert.Equal(new[] { 0.2, 0.4, 0.6, 0.8, 1.0 }, await Read(GetValuesAsync<double>().ToPercentAsync(0, 5)));
-            Assert.Equal(new[] { 0.2, 0.4, 0.6, 0.8, 1.0, double.NaN }, await Read(GetValuesAsync<double>(double.NaN).ToPercentAsync(0, 5)));
+            Assert.Equal(new[] { 0.2, 0.4, 0.6, 0.8, 1.0 }, await Read(GetValuesAsync<double>().ToPercent(5)));
+            Assert.Equal(new[] { 0.2, 0.4, 0.6, 0.8, 1.0 }, await Read(GetValuesAsync<double>().ToPercent(0, 5)));
+            Assert.Equal(new[] { 0.2, 0.4, 0.6, 0.8, 1.0, double.NaN }, await Read(GetValuesAsync<double>(double.NaN).ToPercent(0, 5)));
         }
         
         private static async IAsyncEnumerable<T> GetValuesAsync<T>(T? tail = null) where T : struct
@@ -307,9 +307,9 @@ namespace TheXDS.MCART.Tests.Helpers
         public async Task ToPercentAsync_Test_Single()
         {
             Assert.Equal(new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f }, await Read(GetValuesAsync<int>().ToPercentSingle(5)));
-            Assert.Equal(new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f }, await Read(GetValuesAsync<float>().ToPercentAsync(5)));
-            Assert.Equal(new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f }, await Read(GetValuesAsync<float>().ToPercentAsync(0, 5)));
-            Assert.Equal(new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f, float.NaN }, await Read(GetValuesAsync<float>(float.NaN).ToPercentAsync(0, 5)));
+            Assert.Equal(new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f }, await Read(GetValuesAsync<float>().ToPercent(5)));
+            Assert.Equal(new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f }, await Read(GetValuesAsync<float>().ToPercent(0, 5)));
+            Assert.Equal(new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f, float.NaN }, await Read(GetValuesAsync<float>(float.NaN).ToPercent(0, 5)));
         }
 
         [Fact]

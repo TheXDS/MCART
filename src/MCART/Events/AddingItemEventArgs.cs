@@ -1,5 +1,5 @@
 ﻿/*
-IDisposableEx.cs
+AddingItemEventArgs.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,42 +22,30 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
+using System.ComponentModel;
+using TheXDS.MCART.Types;
 
-namespace TheXDS.MCART.Types.Base
+namespace TheXDS.MCART.Events
 {
     /// <summary>
-    /// Extensión de la interfaz <see cref="IDisposable"/>. Provee de toda
-    /// la funcionalidad previamente disponible, e incluye algunas
-    /// extensiones útiles.
+    /// Contiene información para el evento <see cref="ListEx{T}.AddingItem"/>.
     /// </summary>
-    public interface IDisposableEx : IDisposable
+    /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
+    public class AddingItemEventArgs<T> : CancelEventArgs
     {
         /// <summary>
-        /// Obtiene un valor que indica si este objeto ha sido desechado.
+        /// Obtiene el objeto que se agregará al <see cref="ListEx{T}"/>.
         /// </summary>
-        bool IsDisposed { get; }
+        public T NewItem { get; }
 
         /// <summary>
-        /// Intenta liberar los recursos de esta instancia.
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="AddingItemEventArgs{T}"/>.
         /// </summary>
-        /// <returns>
-        /// <see langword="true"/> si la instancia se ha desechado
-        /// correctamente, <see langword="false"/> si esta instancia ya ha sido
-        /// desechada o si ha ocurrido un error al desecharla.
-        /// </returns>
-        bool TryDispose()
-        {
-            if (!IsDisposed)
-            {
-                try
-                {
-                    Dispose();
-                    return true;
-                }
-                catch { }
-            }
-            return false;
-        }
+        /// <param name="newItem">
+        /// Objeto a ser agregado al <see cref="ListEx{T}"/> que generó el 
+        /// evento.
+        /// </param>
+        internal AddingItemEventArgs(T newItem) { NewItem = newItem; }
     }
 }

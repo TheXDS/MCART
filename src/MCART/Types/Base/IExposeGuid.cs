@@ -1,5 +1,5 @@
 ﻿/*
-InsertingItemEventArgs.cs
+IExposeGuid.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,32 +22,30 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.ComponentModel;
+using System;
+using System.Runtime.InteropServices;
+using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Helpers;
 
-namespace TheXDS.MCART.Types
+namespace TheXDS.MCART.Types.Base
 {
     /// <summary>
-    /// Contiene información para el evento
-    /// <see cref="ListEx{T}.InsertingItem"/>.
+    /// Define una serie de métodos a implementar por un tipo que exponga
+    /// un <see cref="Guid"/> como una propiedad de instancia.
     /// </summary>
-    /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
-    public class InsertingItemEventArgs<T> : CancelEventArgs
+    public interface IExposeGuid
     {
         /// <summary>
-        /// Obtiene el objeto que se insertará en el
-        /// <see cref="ListEx{T}"/>.
+        /// Obtiene el <see cref="Guid"/> asociado a este objeto.
         /// </summary>
-        public T InsertedItem { get; }
-
-        /// <summary>
-        /// Obtiene el índice en el cual el objeto será insertado.
-        /// </summary>
-        public int Index { get; }
-
-        internal InsertingItemEventArgs(int index, T insertedItem)
+        Guid Guid
         {
-            Index = index;
-            InsertedItem = insertedItem;
+            get
+            {
+                var t = GetType();
+                var g = t.GetAttr<GuidAttribute>() ?? throw new IncompleteTypeException(Resources.InternalStrings.ErrorDeclMustHaveGuidAttr(t),t);
+                return new Guid(g.Value);
+            }
         }
     }
 }

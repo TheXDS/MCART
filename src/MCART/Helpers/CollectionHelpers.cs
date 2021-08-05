@@ -30,7 +30,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Types.Extensions;
-using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Helpers
 {
@@ -56,7 +55,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static bool Or(this IEnumerable<bool> collection)
         {
-            NullCheck(collection, nameof(collection));
+            Or_Contract(collection);
             return collection.Aggregate(false, (current, j) => current | j);
         }
 
@@ -77,7 +76,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static byte Or(this IEnumerable<byte> collection)
         {
-            NullCheck(collection, nameof(collection));
+            Or_Contract(collection);
             return collection.Aggregate(default(byte), (current, j) => (byte)(current | j));
         }
 
@@ -98,7 +97,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static short Or(this IEnumerable<short> collection)
         {
-            NullCheck(collection, nameof(collection));
+            Or_Contract(collection);
             return collection.Aggregate(default(short), (current, j) => (short)(current | j));
         }
 
@@ -119,7 +118,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static char Or(this IEnumerable<char> collection)
         {
-            NullCheck(collection, nameof(collection));
+            Or_Contract(collection);
             return collection.Aggregate(default(char), (current, j) => (char)(current | j));
         }
 
@@ -140,7 +139,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static int Or(this IEnumerable<int> collection)
         {
-            NullCheck(collection, nameof(collection));
+            Or_Contract(collection);
             return collection.Aggregate(default(int), (current, j) => current | j);
         }
 
@@ -161,7 +160,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static long Or(this IEnumerable<long> collection)
         {
-            NullCheck(collection, nameof(collection));
+            Or_Contract(collection);
             return collection.Aggregate(default(long), (current, j) => current | j);
         }
 
@@ -182,7 +181,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static bool And(this IEnumerable<bool> collection)
         {
-            NullCheck(collection, nameof(collection));
+            And_Contract(collection);
             return collection.Aggregate(true, (current, j) => current & j);
         }
 
@@ -203,7 +202,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static byte And(this IEnumerable<byte> collection)
         {
-            NullCheck(collection, nameof(collection));
+            And_Contract(collection);
             return collection.Aggregate(byte.MaxValue, (current, j) => (byte)(current & j));
         }
 
@@ -224,7 +223,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static short And(this IEnumerable<short> collection)
         {
-            NullCheck(collection, nameof(collection));
+            And_Contract(collection);
             return collection.Aggregate((short)-1, (current, j) => (short)(current & j));
         }
 
@@ -245,7 +244,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static char And(this IEnumerable<char> collection)
         {
-            NullCheck(collection, nameof(collection));
+            And_Contract(collection);
             return collection.Aggregate(char.MaxValue, (current, j) => (char)(current & j));
         }
 
@@ -266,7 +265,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static int And(this IEnumerable<int> collection)
         {
-            NullCheck(collection, nameof(collection));
+            And_Contract(collection);
             return collection.Aggregate(-1, (current, j) => current & j);
         }
 
@@ -287,7 +286,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static long And(this IEnumerable<long> collection)
         {
-            NullCheck(collection, nameof(collection));
+            And_Contract(collection);
             return collection.Aggregate((long)-1, (current, j) => current & j);
         }
 
@@ -308,7 +307,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static bool Xor(this IEnumerable<bool> collection)
         {
-            NullCheck(collection, nameof(collection));
+            Xor_Contract(collection);
             return collection.Aggregate(false, (current, j) => current ^ j);
         }
 
@@ -329,7 +328,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static byte Xor(this IEnumerable<byte> collection)
         {
-            NullCheck(collection, nameof(collection));
+            Xor_Contract(collection);
             return collection.Aggregate(default(byte), (current, j) => (byte)(current ^ j));
         }
 
@@ -350,7 +349,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static short Xor(this IEnumerable<short> collection)
         {
-            NullCheck(collection, nameof(collection));
+            Xor_Contract(collection);
             return collection.Aggregate(default(short), (current, j) => (short)(current ^ j));
         }
 
@@ -371,7 +370,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static char Xor(this IEnumerable<char> collection)
         {
-            NullCheck(collection, nameof(collection));
+            Xor_Contract(collection);
             return collection.Aggregate(default(char), (current, j) => (char)(current ^ j));
         }
 
@@ -392,7 +391,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static int Xor(this IEnumerable<int> collection)
         {
-            NullCheck(collection, nameof(collection));
+            Xor_Contract(collection);
             return collection.Aggregate(default(int), (current, j) => current ^ j);
         }
 
@@ -413,7 +412,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static long Xor(this IEnumerable<long> collection)
         {
-            NullCheck(collection, nameof(collection));
+            Xor_Contract(collection);
             return collection.Aggregate(default(long), (current, j) => current ^ j);
         }
 
@@ -431,7 +430,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static bool AllEmpty(this IEnumerable<string?> stringCollection)
         {
-            NullCheck(stringCollection, nameof(stringCollection));
+            AllEmpty_Contract(stringCollection);
             return stringCollection.All(j => j.IsEmpty());
         }
 
@@ -447,9 +446,9 @@ namespace TheXDS.MCART.Helpers
         /// Se produce si <paramref name="stringCollection"/> es
         /// <see langword="null"/>.
         /// </exception>
-        public static async Task<bool> AllEmptyAsync(this IAsyncEnumerable<string?> stringCollection)
+        public static async Task<bool> AllEmpty(this IAsyncEnumerable<string?> stringCollection)
         {
-            NullCheck(stringCollection, nameof(stringCollection));
+            AllEmpty_Contract(stringCollection);
             await foreach (var j in stringCollection.ConfigureAwait(false))
             {
                 if (!j.IsEmpty()) return false;
@@ -471,7 +470,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static bool AnyEmpty(this IEnumerable<string?> stringCollection)
         {
-            NullCheck(stringCollection, nameof(stringCollection));
+            AnyEmpty_Contract(stringCollection);
             return stringCollection.Any(j => j.IsEmpty());
         }
 
@@ -487,9 +486,9 @@ namespace TheXDS.MCART.Helpers
         /// Se produce si <paramref name="stringCollection"/> es
         /// <see langword="null"/>.
         /// </exception>
-        public static async Task<bool> AnyEmptyAsync(this IAsyncEnumerable<string?> stringCollection)
+        public static async Task<bool> AnyEmpty(this IAsyncEnumerable<string?> stringCollection)
         {
-            NullCheck(stringCollection, nameof(stringCollection));
+            AnyEmpty_Contract(stringCollection);
             await foreach (var j in stringCollection.ConfigureAwait(false))
             {
                 if (j.IsEmpty()) return true;
@@ -514,21 +513,16 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static bool AnyEmpty(this IEnumerable<string?> stringCollection, out IEnumerable<int> index)
         {
-            NullCheck(stringCollection, nameof(stringCollection));
+            AnyEmpty_Contract(stringCollection);
             var idx = new List<int>();
             var c = 0;
-            var found = false;
             foreach (var j in stringCollection)
             {
-                if (j.IsEmpty())
-                {
-                    found = true;
-                    idx.Add(c);
-                }
+                if (j.IsEmpty()) idx.Add(c);
                 c++;
             }
             index = idx.AsEnumerable();
-            return found;
+            return idx.Any();
         }
 
         /// <summary>
@@ -548,7 +542,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static bool AnyEmpty(this IEnumerable<string?> stringCollection, out int firstIndex)
         {
-            NullCheck(stringCollection, nameof(stringCollection));
+            AnyEmpty_Contract(stringCollection);
             var r = AnyEmpty(stringCollection, out IEnumerable<int> indexes);
             var a = indexes.ToArray();
             firstIndex = a.Any() ? a.First() : -1;
@@ -566,8 +560,8 @@ namespace TheXDS.MCART.Helpers
         /// </returns>
         public static IEnumerable<string> NotEmpty(this IEnumerable<string?> stringCollection)
         {
-            NullCheck(stringCollection, nameof(stringCollection));
-            foreach(var j in stringCollection)
+            NotEmpty_Contract(stringCollection);
+            foreach (var j in stringCollection)
             {
                 if (!j.IsEmpty()) yield return j;
             }
@@ -591,7 +585,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static IEnumerable<float> ToPercent(this IEnumerable<float> collection)
         {
-            NullCheck(collection, nameof(collection));
+            ToPercent_Contract(collection);
             var enumerable = collection.ToList();
             return ToPercent(enumerable, enumerable.Min(), enumerable.Max());
         }
@@ -619,7 +613,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static IEnumerable<float> ToPercent(this IEnumerable<float> collection, in bool baseZero)
         {
-            NullCheck(collection, nameof(collection));
+            ToPercent_Contract(collection);
             var enumerable = collection.ToList();
             return ToPercent(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
         }
@@ -694,9 +688,9 @@ namespace TheXDS.MCART.Helpers
         /// Se produce si el valor mínimo de la colección y
         /// <paramref name="max"/> son iguales.
         /// </exception>
-        public static IAsyncEnumerable<float> ToPercentAsync(this IAsyncEnumerable<float> collection, in float max)
+        public static IAsyncEnumerable<float> ToPercent(this IAsyncEnumerable<float> collection, in float max)
         {
-            return ToPercentAsync(collection, 0, max);
+            return ToPercent(collection, 0, max);
         }
 
         /// <summary>
@@ -718,7 +712,7 @@ namespace TheXDS.MCART.Helpers
         /// Se produce si <paramref name="min"/> y <paramref name="max"/> son
         /// iguales.
         /// </exception>
-        public static async IAsyncEnumerable<float> ToPercentAsync(this IAsyncEnumerable<float> collection, float min, float max)
+        public static async IAsyncEnumerable<float> ToPercent(this IAsyncEnumerable<float> collection, float min, float max)
         {
             ToPercent_Contract(collection, min, max);
             await foreach (var j in collection)
@@ -746,7 +740,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection)
         {
-            NullCheck(collection, nameof(collection));
+            ToPercentDouble_Contract(collection);
             var enumerable = collection.ToList();
             return ToPercentDouble(enumerable, 0, enumerable.Max());
         }
@@ -774,7 +768,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, in bool baseZero)
         {
-            NullCheck(collection, nameof(collection));
+            ToPercentDouble_Contract(collection);
             var enumerable = collection.ToList();
             return ToPercentDouble(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
         }
@@ -893,7 +887,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection)
         {
-            NullCheck(collection, nameof(collection));
+            ToPercentSingle_Contract(collection);
             var enumerable = collection.ToList();
             return ToPercentSingle(enumerable, 0, enumerable.Max());
         }
@@ -921,7 +915,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, in bool baseZero)
         {
-            NullCheck(collection, nameof(collection));
+            ToPercentSingle_Contract(collection);
             var enumerable = collection.ToList();
             return ToPercentSingle(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
         }
@@ -1040,7 +1034,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static IEnumerable<double> ToPercent(this IEnumerable<double> collection)
         {
-            NullCheck(collection, nameof(collection));
+            ToPercent_Contract(collection);
             var enumerable = collection.ToList();
             return ToPercent(enumerable, enumerable.Min(), enumerable.Max());
         }
@@ -1068,7 +1062,7 @@ namespace TheXDS.MCART.Helpers
         /// </exception>
         public static IEnumerable<double> ToPercent(this IEnumerable<double> collection, in bool baseZero)
         {
-            NullCheck(collection, nameof(collection));
+            ToPercent_Contract(collection);
             var enumerable = collection.ToList();
             return ToPercent(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
         }
@@ -1143,9 +1137,9 @@ namespace TheXDS.MCART.Helpers
         /// Se produce si el valor mínimo de la colección y
         /// <paramref name="max"/> son iguales.
         /// </exception>
-        public static IAsyncEnumerable<double> ToPercentAsync(this IAsyncEnumerable<double> collection, in double max)
+        public static IAsyncEnumerable<double> ToPercent(this IAsyncEnumerable<double> collection, in double max)
         {
-            return ToPercentAsync(collection, 0, max);
+            return ToPercent(collection, 0, max);
         }
 
         /// <summary>
@@ -1167,7 +1161,7 @@ namespace TheXDS.MCART.Helpers
         /// Se produce si <paramref name="min"/> y <paramref name="max"/> son
         /// iguales.
         /// </exception>
-        public static async IAsyncEnumerable<double> ToPercentAsync(this IAsyncEnumerable<double> collection, double min, double max)
+        public static async IAsyncEnumerable<double> ToPercent(this IAsyncEnumerable<double> collection, double min, double max)
         {
             ToPercent_Contract(collection, min, max);
             await foreach (var j in collection)

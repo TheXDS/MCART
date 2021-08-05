@@ -25,9 +25,12 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Math;
 using static TheXDS.MCART.Misc.Internals;
 using St = TheXDS.MCART.Resources.Strings;
@@ -73,6 +76,98 @@ namespace TheXDS.MCART.Helpers
         {
             NullCheck(collection, nameof(collection));
             if (min.Equals(max)) throw new InvalidOperationException();
+        }
+
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void Or_Contract<T>(IEnumerable<T> collection)
+        {
+            NullCheck(collection, nameof(collection));
+        }
+
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void And_Contract<T>(IEnumerable<T> collection)
+        {
+            NullCheck(collection, nameof(collection));
+            if (!collection.Any()) throw new EmptyCollectionException(collection);
+        }
+
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void Xor_Contract<T>(IEnumerable<T> collection)
+        {
+            NullCheck(collection, nameof(collection));
+        }
+
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void AllEmpty_Contract(IEnumerable<string?> stringCollection)
+        {
+            NullCheck(stringCollection, nameof(stringCollection));
+        }
+
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void AllEmpty_Contract(IAsyncEnumerable<string?> stringCollection)
+        {
+            NullCheck(stringCollection, nameof(stringCollection));
+        }
+
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void AnyEmpty_Contract(IEnumerable<string?> stringCollection)
+        {
+            NullCheck(stringCollection, nameof(stringCollection));
+        }
+
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void AnyEmpty_Contract(IAsyncEnumerable<string?> stringCollection)
+        {
+            NullCheck(stringCollection, nameof(stringCollection));
+        }
+
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void NotEmpty_Contract(IEnumerable<string?> stringCollection)
+        {
+            NullCheck(stringCollection, nameof(stringCollection));
+        }
+
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void ToPercent_Contract<T>(IEnumerable<T> collection)
+        {
+            NullCheck(collection, nameof(collection));
+            if (!collection.Any()) throw new EmptyCollectionException(collection);
+        }
+
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void ToPercentDouble_Contract<T>(IEnumerable<T> collection)
+        {
+            NullCheck(collection, nameof(collection));
+            if (!collection.Any()) throw new EmptyCollectionException(collection);
+        }
+
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void ToPercentSingle_Contract<T>(IEnumerable<T> collection)
+        {
+            NullCheck(collection, nameof(collection));
+            if (!collection.Any()) throw new EmptyCollectionException(collection);
         }
     }
 }

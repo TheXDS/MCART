@@ -1,5 +1,5 @@
 ﻿/*
-ListUpdatingEventArgs.cs
+RemovedItemEventArgs.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,33 +22,37 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+using System;
+using TheXDS.MCART.Types;
 
-namespace TheXDS.MCART.Types
+namespace TheXDS.MCART.Events
 {
     /// <summary>
-    /// Contiene información para el evento 
-    /// <see cref="ListEx{T}.ListUpdating"/>.
+    /// Contiene información para el evento
+    /// <see cref="ListEx{T}.RemovedItem"/>.
     /// </summary>
     /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
-    public class ListUpdatingEventArgs<T> : CancelEventArgs
+    public class RemovedItemEventArgs<T> : EventArgs
     {
         /// <summary>
-        /// Elementos afectados por la actualización.
+        /// Convierte implícitamente un
+        /// <see cref="RemovingItemEventArgs{T}"/> en un
+        /// <see cref="RemovedItemEventArgs{T}"/>.
         /// </summary>
-        public IReadOnlyCollection<T>? AffectedItems { get; }
-        /// <summary>
-        /// Tipo de actualización a realizar en el
-        /// <see cref="ListEx{T}"/> que generó el evento.
-        /// </summary>
-        public ListUpdateType UpdateType { get; }
+        /// <param name="from">
+        /// <see cref="RemovingItemEventArgs{T}"/> a convertir.
+        /// </param>
+        public static implicit operator RemovedItemEventArgs<T>(RemovingItemEventArgs<T> from) => new(from.RemovedItem);
 
-        internal ListUpdatingEventArgs(ListUpdateType updateType, IEnumerable<T>? affectedItems)
+        /// <summary>
+        /// Objeto que fue quitado del <see cref="ListEx{T}"/> que generó
+        /// el evento.
+        /// </summary>
+        public T RemovedItem { get; }
+
+        internal RemovedItemEventArgs(T removedItem)
         {
-            UpdateType = updateType;
-            AffectedItems = affectedItems?.ToList().AsReadOnly();
+            RemovedItem = removedItem;
         }
     }
 }

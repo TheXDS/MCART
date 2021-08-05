@@ -1,5 +1,5 @@
 ﻿/*
-AddedItemEventArgs.cs
+RemovingItemEventArgs.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,34 +22,34 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
+using System.ComponentModel;
+using TheXDS.MCART.Types;
 
-namespace TheXDS.MCART.Types
+namespace TheXDS.MCART.Events
 {
     /// <summary>
-    /// Contiene información para el evento <see cref="ListEx{T}.AddedItem"/>.
+    /// Contiene información para el evento 
+    /// <see cref="ListEx{T}.RemovingItem"/>.
     /// </summary>
     /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
-    public class AddedItemEventArgs<T> : EventArgs
+    public class RemovingItemEventArgs<T> : CancelEventArgs
     {
         /// <summary>
-        /// Convierte implícitamente un <see cref="AddingItemEventArgs{T}"/> en
-        /// un <see cref="AddedItemEventArgs{T}"/>.
+        /// Objeto que será removido del <see cref="ListEx{T}"/> que generó
+        /// el evento.
         /// </summary>
-        /// <param name="from">
-        /// <see cref="AddingItemEventArgs{T}"/> a convertir.
-        /// </param>
-        public static implicit operator AddedItemEventArgs<T>(AddingItemEventArgs<T> from) => new(from.NewItem);
-        
+        public T RemovedItem { get; }
+
         /// <summary>
-        /// Elemento que fue agregado al <see cref="ListEx{T}"/> que generó el
-        /// evento.
+        /// Índice del elemento que será removido del
+        /// <see cref="ListEx{T}"/> que generó el evento.
         /// </summary>
-        public T NewItem { get; }
-        
-        internal AddedItemEventArgs(T newItem)
+        public int Index { get; }
+
+        internal RemovingItemEventArgs(int index, T removedItem)
         {
-            NewItem = newItem;
+            RemovedItem = removedItem;
+            Index = index;
         }
     }
 }

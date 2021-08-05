@@ -26,7 +26,9 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
+using TheXDS.MCART.Helpers;
 using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Types.Extensions
@@ -145,6 +147,16 @@ namespace TheXDS.MCART.Types.Extensions
             else if (typeof(BinaryWriterExtensions).GetMethods().FirstOrDefault(p => CanExWrite(p, t)) is { } e)
             {
                 e.Invoke(null, new[] { bw, value });
+            }
+            else if (value.GetType().IsStruct())
+            {
+                var sze = Marshal.SizeOf(value);
+                var arr = new byte[sze];
+                var ptr = Marshal.AllocHGlobal(sze);
+                Marshal.StructureToPtr(value, ptr, true);
+                Marshal.Copy(ptr, arr, 0, sze);
+                Marshal.FreeHGlobal(ptr);
+                bw.Write(arr);
             }
             else
             {

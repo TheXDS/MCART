@@ -1,5 +1,5 @@
 ﻿/*
-AddingItemEventArgs.cs
+AddedItemEventArgs.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,29 +22,35 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.ComponentModel;
+using System;
+using TheXDS.MCART.Types;
 
-namespace TheXDS.MCART.Types
+namespace TheXDS.MCART.Events
 {
     /// <summary>
-    /// Contiene información para el evento <see cref="ListEx{T}.AddingItem"/>.
+    /// Contiene información para el evento <see cref="ListEx{T}.AddedItem"/>.
     /// </summary>
     /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
-    public class AddingItemEventArgs<T> : CancelEventArgs
+    public class AddedItemEventArgs<T> : EventArgs
     {
         /// <summary>
-        /// Obtiene el objeto que se agregará al <see cref="ListEx{T}"/>.
+        /// Convierte implícitamente un <see cref="AddingItemEventArgs{T}"/> en
+        /// un <see cref="AddedItemEventArgs{T}"/>.
+        /// </summary>
+        /// <param name="from">
+        /// <see cref="AddingItemEventArgs{T}"/> a convertir.
+        /// </param>
+        public static implicit operator AddedItemEventArgs<T>(AddingItemEventArgs<T> from) => new(from.NewItem);
+
+        /// <summary>
+        /// Elemento que fue agregado al <see cref="ListEx{T}"/> que generó el
+        /// evento.
         /// </summary>
         public T NewItem { get; }
-        
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="AddingItemEventArgs{T}"/>.
-        /// </summary>
-        /// <param name="newItem">
-        /// Objeto a ser agregado al <see cref="ListEx{T}"/> que generó el 
-        /// evento.
-        /// </param>
-        internal AddingItemEventArgs(T newItem) { NewItem = newItem; }
+
+        internal AddedItemEventArgs(T newItem)
+        {
+            NewItem = newItem;
+        }
     }
 }

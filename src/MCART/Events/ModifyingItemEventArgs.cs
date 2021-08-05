@@ -1,5 +1,5 @@
 ﻿/*
-InsertedItemEventArgs.cs
+ModifyingItemEventArgs.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,43 +22,49 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
+using System.ComponentModel;
+using TheXDS.MCART.Types;
 
-namespace TheXDS.MCART.Types
+namespace TheXDS.MCART.Events
 {
     /// <summary>
-    /// Contiene información para el evento 
-    /// <see cref="ListEx{T}.InsertedItem"/>.
+    /// Contiene información para el evento
+    /// <see cref="ListEx{T}.ModifyingItem"/>.
     /// </summary>
     /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
-    public class InsertedItemEventArgs<T> : EventArgs
+    public class ModifyingItemEventArgs<T> : CancelEventArgs
     {
         /// <summary>
-        /// Convierte implícitamente un 
-        /// <see cref="InsertingItemEventArgs{T}"/> en un
-        /// <see cref="InsertedItemEventArgs{T}"/>.
+        /// Obtiene el nuevo valor del objeto.
         /// </summary>
-        /// <param name="from">
-        /// <see cref="InsertingItemEventArgs{T}"/> a convertir.
-        /// </param>
-        public static implicit operator InsertedItemEventArgs<T>(InsertingItemEventArgs<T> from) => new(from.Index, from.InsertedItem);
-        
+        public T NewValue { get; }
+
         /// <summary>
-        /// Elemento que fue insertado en el <see cref="ListEx{T}"/> que
-        /// generó el evento.
+        /// Obtiene el valor actual del objeto.
         /// </summary>
-        public T InsertedItem { get; }
-        
+        public T OldValue { get; }
+
         /// <summary>
-        /// Índice del objeto dentro del <see cref="ListEx{T}"/> que generó
-        /// el evento.
+        /// Obtiene el índice del objeto dentro del <see cref="ListEx{T}"/>
+        /// que generó el evento.
         /// </summary>
         public int Index { get; }
 
-        internal InsertedItemEventArgs(int index, T insertedItem)
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase 
+        /// <see cref="ModifyingItemEventArgs{T}"/>.
+        /// </summary>
+        /// <param name="index">
+        /// Índice del objeto en el <see cref="ListEx{T}"/> que generó el
+        /// evento.
+        /// </param>
+        /// <param name="oldValue">Valor original del objeto.</param>
+        /// <param name="newValue">Nuevo valor del objeto.</param>
+        internal ModifyingItemEventArgs(int index, T oldValue, T newValue)
         {
+            OldValue = oldValue;
+            NewValue = newValue;
             Index = index;
-            InsertedItem = insertedItem;
         }
     }
 }

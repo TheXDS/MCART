@@ -30,6 +30,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using static TheXDS.MCART.Misc.Internals;
@@ -2043,6 +2044,82 @@ namespace TheXDS.MCART.Helpers
             {
                 @delegate = null;
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Obtiene un arreglo de bytes a partir de un valor de tipo
+        /// <typeparamref name="T"/> utilizando Marshaling.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de valor desde el cual obtener el arreglo de bytes.
+        /// </typeparam>
+        /// <param name="value">Valor desde el cual obtener los bytes.</param>
+        /// <returns>
+        /// Un arreglo de bytes con el cual es posible reconstruir el valor.
+        /// </returns>
+        /// <remarks>
+        /// Será necesario decorar los campos de tipo <see cref="string"/> de
+        /// la estructura con el siguiente snippet de código:
+        /// <code>
+        /// [MarshalAs(UnmanagedType.ByValTStr, SizeConst = &lt;tamaño máximo&gt;)]
+        /// </code>
+        /// </remarks>
+        /// <seealso cref="FromBytes{T}(byte[])"/>
+        public static byte[] GetBytes<T>(T value) where T : struct
+        {
+            var sze = Marshal.SizeOf(value);
+            IntPtr ptr = IntPtr.Zero;
+            try
+            {
+                var arr = new byte[sze];
+                ptr = Marshal.AllocHGlobal(sze);
+                Marshal.StructureToPtr(value, ptr, true);
+                Marshal.Copy(ptr, arr, 0, sze);
+                return arr;
+            }
+            finally
+            {
+                if (ptr != IntPtr.Zero) Marshal.FreeHGlobal(ptr);
+            }
+        }
+
+        /// <summary>
+        /// Obtiene un valor de tipo <typeparamref name="T"/> a partir de un
+        /// arreglo de bytes utilizando Marshaling.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de valor a obtener. Debe ser una estructura.
+        /// </typeparam>
+        /// <param name="rawBytes">
+        /// Bytes desde los cuales obtener el valor.
+        /// </param>
+        /// <returns>
+        /// Un valor de tipo <typeparamref name="T"/> creado a partir del
+        /// arreglo de bytes.
+        /// </returns>
+        /// <remarks>
+        /// Será necesario decorar los campos de tipo <see cref="string"/> de
+        /// la estructura con el siguiente snippet de código:
+        /// <code>
+        /// [MarshalAs(UnmanagedType.ByValTStr, SizeConst = &lt;tamaño máximo&gt;)]
+        /// </code>
+        /// </remarks>
+        /// <seealso cref="GetBytes{T}(T)"/>
+        public static T FromBytes<T>(byte[] rawBytes) where T : struct
+        {
+            FromBytes_Contract(rawBytes);
+            var sze = rawBytes.Length;
+            IntPtr ptr = IntPtr.Zero;
+            try
+            {
+                ptr = Marshal.AllocHGlobal(sze);
+                Marshal.Copy(rawBytes, 0, ptr, sze);
+                return Marshal.PtrToStructure<T>(ptr);
+            }
+            finally
+            {
+                if (ptr != IntPtr.Zero) Marshal.FreeHGlobal(ptr);
             }
         }
 

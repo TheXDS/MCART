@@ -42,7 +42,7 @@ namespace TheXDS.MCART.Helpers
     {
         [Conditional("EnforceContracts")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //[DebuggerNonUserCode]
+        [DebuggerNonUserCode]
         private static void FieldsOf_Contract(IEnumerable<FieldInfo> fields, object? instance)
         {
             NullCheck(fields, nameof(fields));
@@ -63,6 +63,14 @@ namespace TheXDS.MCART.Helpers
         private static void WhichAreNull_Contract(IEnumerable<object?> collection)
         {
             NullCheck(collection, nameof(collection));
+        }
+
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void FromBytes_Contract(byte[] rawBytes)
+        {
+            NullCheck(rawBytes, nameof(rawBytes));
         }
     }
 }

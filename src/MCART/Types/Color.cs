@@ -29,6 +29,7 @@ using TheXDS.MCART.Math;
 using TheXDS.MCART.Types.Base;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using CI = System.Globalization.CultureInfo;
+using DR = System.Drawing;
 
 namespace TheXDS.MCART.Types
 {
@@ -36,7 +37,7 @@ namespace TheXDS.MCART.Types
     /// Estructura universal que describe un color en sus componentes alfa,
     /// rojo, verde y azul.
     /// </summary>
-    public struct Color : IEquatable<Color>, IFormattable, IComparable<Color>, IColor, IScColor
+    public struct Color : IEquatable<Color>, IFormattable, IComparable<Color>, IColor, IScColor, ICasteable<DR.Color>
     {
         /// <summary>
         /// Mezcla un color de temperatura basado en el porcentaje.
@@ -553,7 +554,7 @@ namespace TheXDS.MCART.Types
         /// <param name="formatProvider">Format provider.</param>
         public string ToString(string? format, IFormatProvider? formatProvider)
         {
-            if (format.IsEmpty()) format = "#AARRGGBB";
+            if (format.IsEmpty()) format = "H";
             formatProvider ??= CI.CurrentCulture;
             return (format!) switch
             {
@@ -619,7 +620,7 @@ namespace TheXDS.MCART.Types
         /// <see cref="System.Drawing.Color"/>.
         /// </summary>
         /// <param name="color"></param>
-        public static implicit operator System.Drawing.Color(in Color color)
+        public static implicit operator DR.Color(in Color color)
         {
             return System.Drawing.Color.FromArgb(color.A, color.R, color.G, color.B);
         }
@@ -629,7 +630,7 @@ namespace TheXDS.MCART.Types
         /// <see cref="Color"/>.
         /// </summary>
         /// <param name="color"></param>
-        public static implicit operator Color(in System.Drawing.Color color)
+        public static implicit operator Color(in DR.Color color)
         {
             return new(color.R, color.G, color.B, color.A);
         }
@@ -646,5 +647,7 @@ namespace TheXDS.MCART.Types
             format = format.Replace("bb", B.ToHex().ToLower(formatProvider));
             return format;
         }
+
+        DR.Color ICasteable<DR.Color>.Cast() => this;
     }
 }

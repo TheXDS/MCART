@@ -1,5 +1,5 @@
 ﻿/*
-IGuidExposer.cs
+ListUpdatingEventArgs.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,30 +22,34 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Runtime.InteropServices;
-using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Helpers;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using TheXDS.MCART.Types;
 
-namespace TheXDS.MCART.Types.Base
+namespace TheXDS.MCART.Events
 {
     /// <summary>
-    /// Define una serie de métodos a implementar por un tipo que exponga
-    /// un <see cref="Guid"/>.
+    /// Contiene información para el evento 
+    /// <see cref="ListEx{T}.ListUpdating"/>.
     /// </summary>
-    public interface IExposeGuid
+    /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
+    public class ListUpdatingEventArgs<T> : CancelEventArgs
     {
         /// <summary>
-        /// Obtiene el <see cref="Guid"/> asociado a este objeto.
+        /// Elementos afectados por la actualización.
         /// </summary>
-        Guid Guid
+        public IReadOnlyCollection<T>? AffectedItems { get; }
+        /// <summary>
+        /// Tipo de actualización a realizar en el
+        /// <see cref="ListEx{T}"/> que generó el evento.
+        /// </summary>
+        public ListUpdateType UpdateType { get; }
+
+        internal ListUpdatingEventArgs(ListUpdateType updateType, IEnumerable<T>? affectedItems)
         {
-            get
-            {
-                var t = GetType();
-                var g = t.GetAttr<GuidAttribute>() ?? throw new IncompleteTypeException(Resources.InternalStrings.ErrorDeclMustHaveGuidAttr(t),t);
-                return new Guid(g.Value);
-            }
+            UpdateType = updateType;
+            AffectedItems = affectedItems?.ToList().AsReadOnly();
         }
     }
 }

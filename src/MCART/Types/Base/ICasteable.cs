@@ -23,6 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TheXDS.MCART.Types.Base
 {
@@ -68,6 +69,18 @@ namespace TheXDS.MCART.Types.Base
         /// <see langword="true"/> si la conversión ha sido exitosa,
         /// <see langword="false"/> en caso contrario.
         /// </returns>
-        bool TryCast(out T result);
+        bool TryCast([MaybeNullWhen(false)]out T result)
+        {
+            try
+            {
+                result = Cast();
+                return true;
+            }
+            catch
+            {
+                result = default;
+                return false;
+            }
+        }
     }
 }

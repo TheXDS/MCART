@@ -157,6 +157,6 @@ namespace TheXDS.MCART.Security.Password
         /// <see langword="null"/> si hay un problema al verificar la
         /// contraseña, como ser, debido a tampering.
         /// </returns>
-        public static async Task<bool?> VerifyPasswordAsync(SecureString password, byte[] goodHash) => await Task.Run(() => VerifyPassword(password, goodHash));
+        [Sugar] public static Task<bool?> VerifyPasswordAsync(SecureString password, byte[] goodHash) => Task.Run(() => VerifyPassword(password, goodHash));
     }
 }

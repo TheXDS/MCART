@@ -16,4 +16,15 @@ namespace TheXDS.MCART.Types.Extensions
             Internals.NullCheck(value, nameof(value));
         }
     }
+
+    public static partial class BinaryReaderExtensions
+    {
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void ReadStruct_Contract(this BinaryReader reader)
+        {
+            Internals.NullCheck(reader, nameof(reader));
+        }
+    }
 }

@@ -28,7 +28,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TheXDS.MCART
+namespace TheXDS.MCART.Helpers
 {
     /// <summary>
     /// Funciones auxiliares para trabajar con colecciones y enumeraciones.
@@ -52,7 +52,7 @@ namespace TheXDS.MCART
         /// </exception>
         public static sbyte Or(this IEnumerable<sbyte> collection)
         {
-            NullCheck(collection, nameof(collection));
+            Or_Contract(collection);
             return collection.Aggregate(default(sbyte), (current, j) => (sbyte)(current | j));
         }
 
@@ -73,7 +73,7 @@ namespace TheXDS.MCART
         /// </exception>
         public static ushort Or(this IEnumerable<ushort> collection)
         {
-            NullCheck(collection, nameof(collection));
+            Or_Contract(collection);
             return collection.Aggregate(default(ushort), (current, j) => (ushort)(current | j));
         }
 
@@ -94,7 +94,7 @@ namespace TheXDS.MCART
         /// </exception>
         public static uint Or(this IEnumerable<uint> collection)
         {
-            NullCheck(collection, nameof(collection));
+            Or_Contract(collection);
             return collection.Aggregate(default(uint), (current, j) => current | j);
         }
 
@@ -115,7 +115,7 @@ namespace TheXDS.MCART
         /// </exception>
         public static ulong Or(this IEnumerable<ulong> collection)
         {
-            NullCheck(collection, nameof(collection));
+            Or_Contract(collection);
             return collection.Aggregate(default(ulong), (current, j) => current | j);
         }
         
@@ -136,7 +136,7 @@ namespace TheXDS.MCART
         /// </exception>
         public static sbyte And(this IEnumerable<sbyte> collection)
         {
-            NullCheck(collection, nameof(collection));
+            And_Contract(collection);
             return collection.Aggregate(default(sbyte), (current, j) => (sbyte)(current & j));
         }
 
@@ -157,7 +157,7 @@ namespace TheXDS.MCART
         /// </exception>
         public static ushort And(this IEnumerable<ushort> collection)
         {
-            NullCheck(collection, nameof(collection));
+            And_Contract(collection);
             return collection.Aggregate(default(ushort), (current, j) => (ushort)(current & j));
         }
 
@@ -178,7 +178,7 @@ namespace TheXDS.MCART
         /// </exception>
         public static uint And(this IEnumerable<uint> collection)
         {
-            NullCheck(collection, nameof(collection));
+            And_Contract(collection);
             return collection.Aggregate(default(uint), (current, j) => current & j);
         }
 
@@ -199,7 +199,7 @@ namespace TheXDS.MCART
         /// </exception>
         public static ulong And(this IEnumerable<ulong> collection)
         {
-            NullCheck(collection, nameof(collection));
+            And_Contract(collection);
             return collection.Aggregate(default(ulong), (current, j) => current & j);
         }
 
@@ -220,7 +220,7 @@ namespace TheXDS.MCART
         /// </exception>
         public static sbyte Xor(this IEnumerable<sbyte> collection)
         {
-            NullCheck(collection, nameof(collection));
+            Xor_Contract(collection);
             return collection.Aggregate(default(sbyte), (current, j) => (sbyte)(current ^ j));
         }
 
@@ -241,7 +241,7 @@ namespace TheXDS.MCART
         /// </exception>
         public static ushort Xor(this IEnumerable<ushort> collection)
         {
-            NullCheck(collection, nameof(collection));
+            Xor_Contract(collection);
             return collection.Aggregate(default(ushort), (current, j) => (ushort)(current ^ j));
         }
 
@@ -262,7 +262,7 @@ namespace TheXDS.MCART
         /// </exception>
         public static uint Xor(this IEnumerable<uint> collection)
         {
-            NullCheck(collection, nameof(collection));
+            Xor_Contract(collection);
             return collection.Aggregate(default(uint), (current, j) => current ^ j);
         }
 
@@ -283,7 +283,7 @@ namespace TheXDS.MCART
         /// </exception>
         public static ulong Xor(this IEnumerable<ulong> collection)
         {
-            NullCheck(collection, nameof(collection));
+            Xor_Contract(collection);
             return collection.Aggregate(default(ulong), (current, j) => current ^ j);
         }
     }

@@ -1,5 +1,5 @@
 ﻿/*
-ItemModifiedEventArgs.cs
+ListUpdatedEventArgs.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -23,42 +23,45 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using TheXDS.MCART.Types;
 
-namespace TheXDS.MCART.Types
+namespace TheXDS.MCART.Events
 {
     /// <summary>
     /// Contiene información para el evento
-    /// <see cref="ListEx{T}.ModifiedItem"/>.
+    /// <see cref="ListEx{T}.ListUpdated"/>.
     /// </summary>
     /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
-    public class ItemModifiedEventArgs<T> : EventArgs
+    public class ListUpdatedEventArgs<T> : EventArgs
     {
         /// <summary>
-        /// Convierte implícitamente un 
-        /// <see cref="ModifyingItemEventArgs{T}"/> en un
-        /// <see cref="ItemModifiedEventArgs{T}"/>.
+        /// Convierte implícitamente un
+        /// <see cref="ListUpdatingEventArgs{T}"/> en un
+        /// <see cref="ListUpdatedEventArgs{T}"/>
         /// </summary>
         /// <param name="from">
-        /// <see cref="ModifyingItemEventArgs{T}"/> a convertir.
+        /// <see cref="ListUpdatingEventArgs{T}"/> a convertir.
         /// </param>
-        public static implicit operator ItemModifiedEventArgs<T>(ModifyingItemEventArgs<T> from) => new(from.Index, from.NewValue);
+        public static implicit operator ListUpdatedEventArgs<T>(ListUpdatingEventArgs<T> from) => new(from.UpdateType, from.AffectedItems);
 
         /// <summary>
-        /// Objeto que ha sido modificado dentro del
+        /// Elementos que fueron afectados por la actualización del 
         /// <see cref="ListEx{T}"/> que generó el evento.
         /// </summary>
-        public T Item { get; }
+        public IReadOnlyCollection<T>? AffectedItems { get; }
 
         /// <summary>
-        /// Índice del objeto modificado dentro del <see cref="ListEx{T}"/>
+        /// Tipo de actualización ocurrida en el <see cref="ListEx{T}"/>
         /// que generó el evento.
         /// </summary>
-        public int Index { get; }
+        public readonly ListUpdateType UpdateType;
 
-        internal ItemModifiedEventArgs(int index, T item)
+        internal ListUpdatedEventArgs(ListUpdateType updateType, IEnumerable<T>? affectedItems)
         {
-            Item = item;
-            Index = index;
+            UpdateType = updateType;
+            AffectedItems = affectedItems?.ToList().AsReadOnly();
         }
     }
 }
