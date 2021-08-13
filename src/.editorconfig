@@ -1,0 +1,13 @@
+﻿[*.cs]
+
+# IDE0011: Agregar llaves
+csharp_prefer_braces = when_multiline
+
+# IDE0022: Usar cuerpo del bloque para los métodos
+csharp_style_expression_bodied_methods = when_on_single_line
+
+# CA1305: Especificar IFormatProvider
+dotnet_diagnostic.CA1305.severity = none
+
+# IDE0022: Usar cuerpo de expresiones para los métodos
+dotnet_diagnostic.IDE0022.severity = none

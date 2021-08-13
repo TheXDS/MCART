@@ -24,8 +24,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Resources;
 using Xunit;
+using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Tests.Attributes
 {
@@ -63,7 +63,7 @@ namespace TheXDS.MCART.Tests.Attributes
                 Guid.NewGuid().ToString(),
                 $"{Guid.NewGuid()}.txt"));
             var l = new LicenseFileAttribute(f);
-            Assert.Equal(Strings.Warn(Strings.UnspecifiedLicense), l.ReadLicense());
+            Assert.Equal(St.Composition.Warn(St.Common.UnspecifiedLicense), l.ReadLicense());
         }
     }
 }

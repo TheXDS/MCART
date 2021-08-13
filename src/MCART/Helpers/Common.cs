@@ -38,7 +38,7 @@ using TheXDS.MCART.Math;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Misc.Internals;
-using St2 = TheXDS.MCART.Resources.InternalStrings;
+using St = TheXDS.MCART.Resources.Strings.Common;
 
 namespace TheXDS.MCART.Helpers
 {
@@ -678,10 +678,10 @@ namespace TheXDS.MCART.Helpers
 
             (double mag, string[] u) = unit switch
             {
-                ByteUnitType.Binary => (1024, new[] { St2.KiB, St2.MiB, St2.GiB, St2.TiB, St2.PiB, St2.EiB, St2.ZiB, St2.YiB }),
-                ByteUnitType.Decimal => (1000, new[] { St2.KB, St2.MB, St2.GB, St2.TB, St2.PB, St2.EB, St2.ZB, St2.YB }),
-                ByteUnitType.BinaryLong => (1024, new[] { St2.KiBl, St2.MiBl, St2.GiBl, St2.TiBl, St2.PiBl, St2.EiBl, St2.ZiBl, St2.YiBl }),
-                ByteUnitType.DecimalLong => (1000, new[] { St2.KBl, St2.MBl, St2.GBl, St2.TBl, St2.PBl, St2.EBl, St2.ZBl, St2.YBl }),                
+                ByteUnitType.Binary => (1024, new[] { St.KiB, St.MiB, St.GiB, St.TiB, St.PiB, St.EiB, St.ZiB, St.YiB }),
+                ByteUnitType.Decimal => (1000, new[] { St.KB, St.MB, St.GB, St.TB, St.PB, St.EB, St.ZB, St.YB }),
+                ByteUnitType.BinaryLong => (1024, new[] { St.KiBl, St.MiBl, St.GiBl, St.TiBl, St.PiBl, St.EiBl, St.ZiBl, St.YiBl }),
+                ByteUnitType.DecimalLong => (1000, new[] { St.KBl, St.MBl, St.GBl, St.TBl, St.PBl, St.EBl, St.ZBl, St.YBl }),                
 #if PreferExceptions
                 _ => throw new ArgumentOutOfRangeException(nameof(unit), unit, null)
 #else
@@ -695,7 +695,7 @@ namespace TheXDS.MCART.Helpers
                 b /= mag;
             }
 
-            return c > 0 ? $"{b + (b / mag):F1} {u[c.Clamp(u.Length) - 1]}" : $"{bytes} {St2.Bytes}";
+            return c > 0 ? $"{b + (b / mag):F1} {u[c.Clamp(u.Length) - 1]}" : $"{bytes} {St.Bytes}";
         }
 
         /// <summary>

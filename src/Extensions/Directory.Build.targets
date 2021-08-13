@@ -1,9 +1,18 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\Directory.Build.targets"/>
-  <PropertyGroup>
-    <OutputType>Library</OutputType>
-  </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="$(SolutionDir)\MCART\MCART.csproj" />
-  </ItemGroup>
+	<Import Project="..\Directory.Build.targets"/>
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(AssemblyName.EndsWith(Legacy))'=='true'">
+		<AssemblyName>MCART.$(MSBuildProjectName)</AssemblyName>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(AssemblyName)'=='' OR '$(AssemblyName)'=='$(MSBuildProjectName)'">
+		<AssemblyName>MCART.Ext.$(MSBuildProjectName)</AssemblyName>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(RootNamespace)'=='TheXDS.MCART'">
+		<RootNamespace>TheXDS.MCART.$(MSBuildProjectName)</RootNamespace>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="$(SolutionDir)\MCART\MCART.csproj" />
+	</ItemGroup>
 </Project>

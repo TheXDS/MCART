@@ -22,14 +22,12 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Helpers;
-using static TheXDS.MCART.Resources.InternalStrings;
-using static TheXDS.MCART.Resources.Strings;
+using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Types.Extensions
 {
@@ -52,13 +50,13 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 if (property.SetMethod is null)
                 {
-                    throw new InvalidOperationException(ErrorXIsReadOnly(XYQuotes(TheProperty, property.Name)));
+                    throw Errors.PropIsReadOnly(property);
                 }
                 property.SetMethod.Invoke(instance, new[] { property.GetAttr<DefaultValueAttribute>()?.Value ?? property.PropertyType.Default() });
             }
             else
             {
-                throw new MissingMemberException(instance.GetType().Name, property.Name);
+                throw Errors.MissingMember(instance.GetType(), property);
             }
         }
 

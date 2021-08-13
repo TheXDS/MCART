@@ -25,7 +25,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.IO;
 using TheXDS.MCART.Types.Base;
-using static TheXDS.MCART.Resources.Strings;
+using St = TheXDS.MCART.Resources.Strings;
+
 
 namespace TheXDS.MCART.Resources
 {
@@ -41,17 +42,17 @@ namespace TheXDS.MCART.Resources
         /// <summary>
         /// Obtiene una referencia a una licencia no encontrada.
         /// </summary>
-        public static License MissingLicense => _missing ??= new License(LicenseNotFound, null);
+        public static License MissingLicense => _missing ??= new License(St.Common.LicenseNotFound, null);
 
         /// <summary>
         /// Obtiene una referencia a un objeto sin licencia.
         /// </summary>
-        public static License NoLicense => _noLicense ??= new License(Strings.NoLicense, null);
+        public static License NoLicense => _noLicense ??= new License(St.Common.NoLicense, null);
         
         /// <summary>
         /// Obtiene una referencia a un objeto con licencia no definida.
         /// </summary>
-        public static License Unspecified => _unspecified ??= new License(UnspecifiedLicense, null);
+        public static License Unspecified => _unspecified ??= new License(St.Common.UnspecifiedLicense, null);
 
         /// <summary>
         /// Obtiene el nombre descriptivo de la licencia.
@@ -70,15 +71,15 @@ namespace TheXDS.MCART.Resources
         {
             get
             {
-                if (LicenseUri is null) return Warn(NoContent);
+                if (LicenseUri is null) return St.Composition.Warn(St.Common.NoContent);
                 try
                 {
-                    using var sr = new StreamReader(StreamUriParser.Get(LicenseUri)!);
+                    using StreamReader sr = new(StreamUriParser.Get(LicenseUri)!);
                     return sr.ReadToEnd();
                 }
                 catch
                 {
-                    return Warn(ErrorLoadingX(TheLicense.ToLower()));
+                    return St.Composition.Warn(St.Errors.ErrorLoadingLicense);
                 }
             }
         }

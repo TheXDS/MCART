@@ -24,10 +24,10 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using CI = System.Globalization.CultureInfo;
-using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Types.Entity
 {
@@ -66,7 +66,7 @@ namespace TheXDS.MCART.Types.Entity
             X = x;
             Y = y;
         }
-        
+
         /// <summary>
         /// Compara la igualdad de los vectores.
         /// </summary>
@@ -79,7 +79,7 @@ namespace TheXDS.MCART.Types.Entity
         /// </returns>
         public bool Equals(I2DVector? other)
         {
-            return other is {} o && this == o;
+            return other is { } o && this == o;
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace TheXDS.MCART.Types.Entity
         /// </returns>
         public bool Equals(Point? other)
         {
-            return other is {} o && this == o;
+            return other is { } o && this == o;
         }
 
         /// <summary>
@@ -109,8 +109,7 @@ namespace TheXDS.MCART.Types.Entity
         /// </returns>
         public override bool Equals(object? obj)
         {
-            if (!(obj is I2DVector p)) return false;
-            return this == p;
+            return obj is I2DVector p && this == p;
         }
 
         /// <summary>
@@ -132,7 +131,7 @@ namespace TheXDS.MCART.Types.Entity
         /// Parámetro opcional.
         /// Proveedor de formato de la cultura a utilizar para dar formato a
         /// la representación como una cadena de este objeto. Si se omite,
-        /// se utilizará <see cref="P:System.Globalization.CultureInfo.CurrentCulture" />.
+        /// se utilizará <see cref="CI.CurrentCulture" />.
         /// </param>
         /// <returns>
         /// Una representación en forma de <see cref="string" /> de este objeto.
@@ -140,13 +139,13 @@ namespace TheXDS.MCART.Types.Entity
         public string ToString(string? format, IFormatProvider? formatProvider)
         {
             if (format.IsEmpty()) format = "C";
-            return (format.ToUpperInvariant()[0]) switch
+            return format.ToUpperInvariant()[0] switch
             {
                 'C' => $"{X}, {Y}",
                 'B' => $"[{X}, {Y}]",
                 'V' => $"X: {X}, Y: {Y}",
                 'N' => $"X: {X}\nY: {Y}",
-                _ => throw new FormatException(St.FormatNotSupported(format)),
+                _ => throw Errors.FormatNotSupported(format),
             };
         }
 

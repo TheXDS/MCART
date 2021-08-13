@@ -22,15 +22,14 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Resources;
 using static TheXDS.MCART.Types.Extensions.DictionaryExtensions;
-using Ist = TheXDS.MCART.Resources.InternalStrings;
 
 namespace TheXDS.MCART.Types.Base
 {
@@ -66,7 +65,7 @@ namespace TheXDS.MCART.Types.Base
         protected void RegisterPropertyChangeBroadcast(string property, params string[] affectedProperties)
         {
             if (_observeTree.CheckCircularRef(property))
-                throw new InvalidOperationException(Ist.ErrorCircularOperationDetected);
+                throw Errors.CircularOpDetected();
 
             if (_observeTree.ContainsKey(property))
             {

@@ -29,7 +29,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using TheXDS.MCART.Resources;
+using TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Types.Extensions
 {
@@ -50,13 +50,13 @@ namespace TheXDS.MCART.Types.Extensions
         {
             var msjs = new HashSet<string>();
             if (timeSpan.Days > 0)
-                msjs.Add(Strings.Days(timeSpan.Days));
+                msjs.Add(Composition.Days(timeSpan.Days));
             if (timeSpan.Hours > 0)
-                msjs.Add(Strings.Hours(timeSpan.Hours));
+                msjs.Add(Composition.Hours(timeSpan.Hours));
             if (timeSpan.Minutes > 0)
-                msjs.Add(Strings.Minutes(timeSpan.Minutes));
+                msjs.Add(Composition.Minutes(timeSpan.Minutes));
             if (timeSpan.Seconds > 0)
-                msjs.Add(Strings.Seconds(timeSpan.Seconds));
+                msjs.Add(Composition.Seconds(timeSpan.Seconds));
             return string.Join(", ", msjs);
         }
 

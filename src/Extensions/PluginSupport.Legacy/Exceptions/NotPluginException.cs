@@ -26,7 +26,7 @@ using System;
 using System.Reflection;
 using System.Runtime.Serialization;
 using TheXDS.MCART.PluginSupport.Legacy;
-using TheXDS.MCART.Resources;
+using TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Exceptions
 {

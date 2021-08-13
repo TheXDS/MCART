@@ -24,7 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Runtime.Serialization;
-using TheXDS.MCART.Resources;
+using TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Exceptions
 {
@@ -63,7 +63,7 @@ namespace TheXDS.MCART.Exceptions
         /// Inicializa una nueva instancia de la clase
         /// <see cref="TamperException" />.
         /// </summary>
-        public TamperException():base(Strings.TamperDetected)
+        public TamperException():base(Errors.TamperDetected)
         {
         }
 
@@ -85,7 +85,7 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="inner">
         /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
-        public TamperException(Exception inner) : this(Strings.TamperDetected, inner)
+        public TamperException(Exception inner) : this(Errors.TamperDetected, inner)
         {
         }
 

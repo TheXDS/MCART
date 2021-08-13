@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutMCART" xml:space="preserve">
+    <value>Acerca de MCART...</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>Bytes</value>
+  </data>
+  <data name="EB" xml:space="preserve">
+    <value>EB</value>
+  </data>
+  <data name="EBl" xml:space="preserve">
+    <value>Exabytes</value>
+  </data>
+  <data name="EiB" xml:space="preserve">
+    <value>EiB</value>
+  </data>
+  <data name="EiBl" xml:space="preserve">
+    <value>Ebibytes</value>
+  </data>
+  <data name="GB" xml:space="preserve">
+    <value>GB</value>
+  </data>
+  <data name="GBl" xml:space="preserve">
+    <value>Gigabytes</value>
+  </data>
+  <data name="GiB" xml:space="preserve">
+    <value>GiB</value>
+  </data>
+  <data name="GiBl" xml:space="preserve">
+    <value>Gibibytes</value>
+  </data>
+  <data name="KB" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="KBl" xml:space="preserve">
+    <value>Kilobytes</value>
+  </data>
+  <data name="KiB" xml:space="preserve">
+    <value>KiB</value>
+  </data>
+  <data name="KiBl" xml:space="preserve">
+    <value>Kibibytes</value>
+  </data>
+  <data name="LicenseNotFound" xml:space="preserve">
+    <value>La licencia no ha sido encontrada.</value>
+  </data>
+  <data name="MB" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="MBl" xml:space="preserve">
+    <value>Megabytes</value>
+  </data>
+  <data name="MiB" xml:space="preserve">
+    <value>MiB</value>
+  </data>
+  <data name="MiBl" xml:space="preserve">
+    <value>Mebibytes</value>
+  </data>
+  <data name="NoContent" xml:space="preserve">
+    <value>Sin contenido.</value>
+  </data>
+  <data name="NoLicense" xml:space="preserve">
+    <value>Sin licencia.</value>
+  </data>
+  <data name="Null" xml:space="preserve">
+    <value>&lt;nulo&gt;</value>
+  </data>
+  <data name="PB" xml:space="preserve">
+    <value>PB</value>
+  </data>
+  <data name="PBl" xml:space="preserve">
+    <value>Petabytes</value>
+  </data>
+  <data name="PiB" xml:space="preserve">
+    <value>PiB</value>
+  </data>
+  <data name="PiBl" xml:space="preserve">
+    <value>Pebibytes</value>
+  </data>
+  <data name="TB" xml:space="preserve">
+    <value>TB</value>
+  </data>
+  <data name="TBl" xml:space="preserve">
+    <value>Terabytes</value>
+  </data>
+  <data name="TiB" xml:space="preserve">
+    <value>TiB</value>
+  </data>
+  <data name="TiBl" xml:space="preserve">
+    <value>Tebibytes</value>
+  </data>
+  <data name="UnspecifiedLicense" xml:space="preserve">
+    <value>No se ha especificado una licencia, o la misma no ha sido incluída.</value>
+  </data>
+  <data name="XDays" xml:space="preserve">
+    <value>{0} días</value>
+  </data>
+  <data name="XHours" xml:space="preserve">
+    <value>{0} horas</value>
+  </data>
+  <data name="XMinutes" xml:space="preserve">
+    <value>{0} minutos</value>
+  </data>
+  <data name="XSeconds" xml:space="preserve">
+    <value>{0} segundos</value>
+  </data>
+  <data name="YB" xml:space="preserve">
+    <value>YB</value>
+  </data>
+  <data name="YBl" xml:space="preserve">
+    <value>Yottabytes</value>
+  </data>
+  <data name="YiB" xml:space="preserve">
+    <value>YiB</value>
+  </data>
+  <data name="YiBl" xml:space="preserve">
+    <value>Yobibytes</value>
+  </data>
+  <data name="ZB" xml:space="preserve">
+    <value>ZB</value>
+  </data>
+  <data name="ZBl" xml:space="preserve">
+    <value>Zettabytes</value>
+  </data>
+  <data name="ZiB" xml:space="preserve">
+    <value>ZiB</value>
+  </data>
+  <data name="ZiBl" xml:space="preserve">
+    <value>Zebibytes</value>
+  </data>
+</root>

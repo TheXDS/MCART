@@ -24,7 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Runtime.Serialization;
-using TheXDS.MCART.Resources;
+using TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Exceptions
 {
@@ -35,8 +35,8 @@ namespace TheXDS.MCART.Exceptions
     [Serializable]
     public class InvalidUriException : OffendingException<Uri>
     {
-        private static string Msg() => Strings.XIsInvalid(Strings.TheUri);
-        private static string Msg(Uri uri) => Strings.XIsInvalid(Strings.XYQuotes(Strings.TheUri, uri.ToString()));
+        private static string Msg() => Errors.InvalidUri;
+        private static string Msg(Uri uri) => string.Format(Errors.InvalidXUri, uri.ToString());
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase 

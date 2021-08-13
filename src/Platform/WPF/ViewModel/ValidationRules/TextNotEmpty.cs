@@ -25,7 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System.Globalization;
 using System.Windows.Controls;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
-using St = TheXDS.MCART.Resources.Strings;
+using St = TheXDS.MCART.Resources.Strings.Strings;
 
 namespace TheXDS.MCART.ViewModel.ValidationRules
 {

@@ -27,13 +27,12 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Math;
+using TheXDS.MCART.Resources;
 using static TheXDS.MCART.Misc.Internals;
-using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Helpers
 {
@@ -45,12 +44,8 @@ namespace TheXDS.MCART.Helpers
         private static void ToPercent_Contract(object? collection, in float min, in float max)
         {
             NullCheck(collection, nameof(collection));
-            if (!min.IsValid())
-                throw new ArgumentException(
-                    St.XIsInvalid(St.XYQuotes(St.TheValue, min.ToString(CultureInfo.CurrentCulture))), nameof(min));
-            if (!max.IsValid())
-                throw new ArgumentException(
-                    St.XIsInvalid(St.XYQuotes(St.TheValue, max.ToString(CultureInfo.CurrentCulture))), nameof(max));
+            if (!min.IsValid()) throw Errors.InvalidValue(nameof(min), min);
+            if (!max.IsValid()) throw Errors.InvalidValue(nameof(max), max);
             if (min == max) throw new InvalidOperationException();
         }
 
@@ -60,12 +55,8 @@ namespace TheXDS.MCART.Helpers
         private static void ToPercent_Contract(object? collection, in double min, in double max)
         {
             NullCheck(collection, nameof(collection));
-            if (!min.IsValid())
-                throw new ArgumentException(
-                    St.XIsInvalid(St.XYQuotes(St.TheValue, min.ToString(CultureInfo.CurrentCulture))), nameof(min));
-            if (!max.IsValid())
-                throw new ArgumentException(
-                    St.XIsInvalid(St.XYQuotes(St.TheValue, max.ToString(CultureInfo.CurrentCulture))), nameof(max));
+            if (!min.IsValid()) throw Errors.InvalidValue(nameof(min), min);
+            if (!max.IsValid()) throw Errors.InvalidValue(nameof(max), max);
             if (min == max) throw new InvalidOperationException();
         }
 

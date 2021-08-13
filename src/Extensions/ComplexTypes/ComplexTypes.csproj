@@ -2,7 +2,6 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Description>Complex Type Definitions for common MCART Types</Description>
-    <AssemblyName>MCART.Ext.ComplexTypes</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />

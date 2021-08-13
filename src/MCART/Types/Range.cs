@@ -30,7 +30,7 @@ using System.Linq;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Types.Base;
-using St = TheXDS.MCART.Resources.Strings;
+using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Types
 {
@@ -137,7 +137,7 @@ namespace TheXDS.MCART.Types
         /// </param>
         public Range(T minimum, T maximum, bool minInclusive, bool maxInclusive)
         {
-            if (minimum.CompareTo(maximum) > 0) throw new ArgumentException(St.ErrMinMax);
+            if (minimum.CompareTo(maximum) > 0) throw Errors.MinGtMax();
             _minimum = minimum;
             _maximum = maximum;
             MinInclusive = minInclusive;
@@ -215,9 +215,9 @@ namespace TheXDS.MCART.Types
                 " .. ",
                 "..",
                 " => ",
+                " -> ",
                 "=>",
-                " a ",
-                " to ",
+                "->",
             };
 
             return PrivateInternals.TryParseValues<T, Range<T>>(separators, value, 2, l => new Range<T>(l[0], l[1]), out range);

@@ -26,7 +26,7 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Controls;
-using TheXDS.MCART.Resources;
+using TheXDS.MCART.Resources.Strings;
 using TheXDS.MCART.Types;
 
 namespace TheXDS.MCART.ViewModel.ValidationRules

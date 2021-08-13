@@ -32,7 +32,7 @@ using TheXDS.MCART.Component;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
-using St = TheXDS.MCART.Resources.Strings;
+using St = TheXDS.MCART.Resources.Strings.Strings;
 using St2 = TheXDS.MCART.Resources.InternalStrings;
 
 namespace TheXDS.MCART.PluginSupport.Legacy

@@ -92,7 +92,7 @@ namespace TheXDS.MCART.Types.Converters
         /// <returns>
         ///   Un <see cref="object" /> que representa el valor convertido.
         /// </returns>
-        /// <exception cref="T:System.NotSupportedException">
+        /// <exception cref="System.NotSupportedException">
         ///   No se puede realizar la conversión.
         /// </exception>
         public override object? ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
@@ -128,10 +128,10 @@ namespace TheXDS.MCART.Types.Converters
         /// <returns>
         ///   Un <see cref="object" /> que representa el valor convertido.
         /// </returns>
-        /// <exception cref="T:System.ArgumentNullException">
+        /// <exception cref="System.ArgumentNullException">
         ///   El parámetro <paramref name="destinationType" /> es <see langword="null" />.
         /// </exception>
-        /// <exception cref="T:System.NotSupportedException">
+        /// <exception cref="System.NotSupportedException">
         ///   No se puede realizar la conversión.
         /// </exception>
         public override object? ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)

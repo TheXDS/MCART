@@ -31,7 +31,7 @@ using TheXDS.MCART.Events;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.ValueConverters;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
-using St = TheXDS.MCART.Resources.Strings;
+using St = TheXDS.MCART.Resources.Strings.Strings;
 
 namespace TheXDS.MCART.Controls
 {

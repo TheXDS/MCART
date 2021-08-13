@@ -123,7 +123,7 @@ namespace TheXDS.MCART.Types
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="TimerEx" /> y 
-        /// establece la propiedad <see cref="P:System.Timers.Timer.Interval" />
+        /// establece la propiedad <see cref="System.Timers.Timer.Interval" />
         /// en el número de milisegundos especificado.
         /// </summary>
         /// <param name="interval">

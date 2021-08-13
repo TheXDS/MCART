@@ -28,7 +28,7 @@ using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
-using St=TheXDS.MCART.Resources.Strings;
+using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Networking.Legacy.Server
 {

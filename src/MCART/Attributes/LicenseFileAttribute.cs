@@ -25,15 +25,14 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.IO;
 using static System.AttributeTargets;
-using static TheXDS.MCART.Resources.Strings;
-using Ist = TheXDS.MCART.Resources.InternalStrings;
+using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Attributes
 {
     /// <summary>
     /// Establece un archivo de licencia externo a asociar con el elemento.
     /// </summary>
-    [AttributeUsage(Class | Module | Assembly), Obsolete(Ist.UseLicUriInstead)]
+    [AttributeUsage(Class | Module | Assembly), Obsolete("Utilice LicenseUriAttribute en su lugar.")]
     public sealed class LicenseFileAttribute : TextAttribute
     {
         /// <summary>
@@ -65,7 +64,7 @@ namespace TheXDS.MCART.Attributes
             }
             catch
             {
-                return Warn(UnspecifiedLicense);
+                return St.Composition.Warn(St.Common.UnspecifiedLicense);
             }
         }
     }

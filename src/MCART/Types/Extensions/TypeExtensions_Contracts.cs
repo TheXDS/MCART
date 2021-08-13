@@ -49,7 +49,7 @@ namespace TheXDS.MCART.Types.Extensions
         private static void ToNamedEnum_Contract(Type type)
         {
             NullCheck(type, nameof(type));
-            if (!type.IsEnum) throw new InvalidTypeException();
+            if (!type.IsEnum) throw Errors.EnumExpected(nameof(type), type);
         }
 
         [Conditional("EnforceContracts")]
@@ -75,7 +75,7 @@ namespace TheXDS.MCART.Types.Extensions
         private static void GetCollectionType_Contract(Type collectionType)
         {
             NullCheck(collectionType, nameof(collectionType));
-            if (!collectionType.IsCollectionType()) throw new InvalidTypeException(InternalStrings.ErrorEnumerableTypeExpected, collectionType);
+            if (!collectionType.IsCollectionType()) throw Errors.EnumerableTypeExpected(collectionType);
         }
 
         [Conditional("EnforceContracts")]
@@ -94,6 +94,7 @@ namespace TheXDS.MCART.Types.Extensions
             NullCheck(type, nameof(type));
             NullCheck(types, nameof(types));
         }
+
         [Conditional("EnforceContracts")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DebuggerNonUserCode]
@@ -102,12 +103,15 @@ namespace TheXDS.MCART.Types.Extensions
             NullCheck(domain, nameof(domain));
         }
 
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
         private static void New_Contract(Type type, IEnumerable<object?> parameters)
         {
             NullCheck(type, nameof(type));
             if (!type.IsInstantiable(parameters.ToTypes()))
             {
-                throw new ClassNotInstantiableException(type);
+                throw Errors.ClassNotInstantiable(type);
             }
         }
     }

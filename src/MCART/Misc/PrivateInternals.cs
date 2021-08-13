@@ -65,7 +65,7 @@ namespace TheXDS.MCART.Misc
 
         public static bool TryParseValues<TValue, TResult>(string[] separators, string value, in byte items, Func<TValue[], TResult> instancer, out TResult result)
         {
-#if DEBUG
+#if EnforceContracts && DEBUG
             if (separators is null || !separators.Any())
                 throw new ArgumentNullException(nameof(separators));
             if (string.IsNullOrEmpty(value))

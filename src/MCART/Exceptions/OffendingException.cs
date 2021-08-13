@@ -24,7 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Runtime.Serialization;
-using TheXDS.MCART.Resources;
+using TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Exceptions
 {
@@ -38,7 +38,7 @@ namespace TheXDS.MCART.Exceptions
         /// Inicializa una nueva instancia de la clase
         /// <see cref="OffendingException{T}" />.
         /// </summary>
-        public OffendingException() : base(Strings.XIsInvalid(Strings.TheObj))
+        public OffendingException() : base(Errors.InvalidValue)
         {
         }
 
@@ -87,7 +87,7 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="inner">
         /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
-        public OffendingException(Exception inner) : base(Strings.XIsInvalid(Strings.TheType), inner)
+        public OffendingException(Exception inner) : base(Errors.InvalidValue, inner)
         {
         }
 

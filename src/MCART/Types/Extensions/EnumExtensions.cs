@@ -29,7 +29,7 @@ using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Helpers;
-using St = TheXDS.MCART.Resources.Strings;
+using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Types.Extensions
 {
@@ -69,7 +69,7 @@ namespace TheXDS.MCART.Types.Extensions
         [DebuggerStepThrough]
         public static MethodInfo ByteConversionMethod(in Type enumType)
         {
-            if (!enumType.IsEnum) throw new ArgumentException(St.EnumTypeExpected, nameof(enumType));
+            if (!enumType.IsEnum) throw Errors.EnumExpected(nameof(enumType), enumType);
             return ByteConversionMethodInternal(enumType);
         }
 

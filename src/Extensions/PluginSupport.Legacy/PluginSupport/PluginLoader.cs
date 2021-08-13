@@ -33,7 +33,7 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
-using St = TheXDS.MCART.Resources.Strings;
+using St = TheXDS.MCART.Resources.Strings.Strings;
 
 namespace TheXDS.MCART.PluginSupport.Legacy
 {

@@ -24,8 +24,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Runtime.InteropServices;
-using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Types
@@ -57,7 +57,7 @@ namespace TheXDS.MCART.Types
         {
             get
             {
-                var g = _t.GetAttr<GuidAttribute>() ?? throw new IncompleteTypeException(Resources.InternalStrings.ErrorDeclMustHaveGuidAttr(_t), _t);
+                var g = _t.GetAttr<GuidAttribute>() ?? throw Errors.MissingGuidAttr(_t);
                 return new Guid(g.Value);
             }
         }
