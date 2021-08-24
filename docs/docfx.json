@@ -1,23 +1,20 @@
 {
   "metadata": [
     {
-      "src": [
-        {
+      "src":
+		{
           "files": [
-            "src/Extensions/**.csproj",
-            "src/Lib/**.csproj",
-            "src/Platform/**.csproj",
-            "src/MCART/**.csproj",
-			"src/Legacy/**.csproj"
-          ]
-        }
-      ],
+            "Extensions/**.csproj",
+			"Legacy/**.csproj",
+			"Lib/**.csproj",
+			"MCART/**.csproj",
+			"Platform/**.csproj"			
+          ],
+		  "src": "../src"
+        },
       "dest": "api",
       "disableGitFeatures": false,
-      "disableDefaultFilter": false,
-        "properties": {
-          "TargetFramework": "net5.0"
-      }
+      "disableDefaultFilter": false
     }
   ],
   "build": {
@@ -40,7 +37,7 @@
     "resource": [
       {
         "files": [
-          "**/Art/**"
+          "images/**"
         ]
       }
     ],
@@ -51,9 +48,6 @@
         ],
         "exclude": [
           "obj/**",
-          "src/Examples/**",
-          "src/Tests/**",
-          "src/Utils/**",
           "_site/**"
         ]
       }
